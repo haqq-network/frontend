@@ -1,0 +1,23 @@
+{
+  "name": "@haqq/frontend",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "author": "Oleg Shilov <og@haqq.network>",
+  "scripts": {
+    "format": "yarn prettier --write 'packages/**/*.{css,scss,json,md,html,yaml,yml,ts,js,tsx,jsx,cjs,mjs}'"
+  },
+  "devDependencies": {
+    "@nrwl/cli": "14.4.3",
+    "@nrwl/cypress": "14.4.3",
+    "@nrwl/jest": "14.4.3",
+    "@nrwl/linter": "14.4.3",
+    "@nrwl/react": "14.4.3",
+    "@nrwl/storybook": "14.4.3",
+    "@nrwl/workspace": "14.4.3",
+    "nx": "14.4.3",
+    "prettier": "2.7.1",
+    "typescript": "4.7.4"
+  },
+  "packageManager": "yarn@3.2.2"
+}
