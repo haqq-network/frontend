@@ -2,7 +2,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "@haqq",
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "dev"
   },
   "implicitDependencies": {
     "package.json": {
