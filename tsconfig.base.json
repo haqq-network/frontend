@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

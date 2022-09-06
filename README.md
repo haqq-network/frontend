@@ -20,25 +20,25 @@
 - Jest
 - Cypress
 - Web3
-- Tailwind
+- Tailwind CSS
 
 ## Development guide
 
 ### Usable commands
 
-`@haqq/faucet-app`
+`@haqq/staking-app`
 
 ```bash
 # start app
-yarn nx faucet:serve
+yarn nx staking:serve
 # build app
-yarn nx faucet:build
+yarn nx staking:build
 # run tests
-yarn nx faucet:test
+yarn nx staking:test
 # run e2e tests
-yarn nx faucet-e2e:e2e
+yarn nx staking-e2e:e2e
 # start storybook
-yarn nx faucet:storybook
+yarn nx staking:storybook
 ```
 
 `@haqq/ui-kit`

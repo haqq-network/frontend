@@ -1,5 +1,11 @@
 {
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
-  "projects": {}
+  "projects": {
+    "shell": "apps/shell",
+    "shell-e2e": "apps/shell-e2e",
+    "staking": "apps/staking",
+    "staking-e2e": "apps/staking-e2e",
+    "ui-kit": "libs/ui-kit"
+  }
 }
