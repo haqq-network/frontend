@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "governance": "apps/governance",
+    "governance-e2e": "apps/governance-e2e",
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e",
     "staking": "apps/staking",

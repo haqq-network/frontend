@@ -4,6 +4,7 @@
   "affected": {
     "defaultBase": "dev"
   },
+  "packageManager": "yarn",
   "implicitDependencies": {
     "package.json": {
       "dependencies": "*",

@@ -6,7 +6,7 @@
   "author": "Oleg Shilov <og@haqq.network>",
   "packageManager": "yarn@3.2.3",
   "scripts": {
-    "start": "yarn nx run shell:serve",
+    "start": "yarn nx run shell:serve --devRemotes=staking,governance",
     "format": "yarn prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml,svg}'",
     "prepare": "is-ci || husky install"
   },
@@ -67,6 +67,7 @@
     "jest-environment-jsdom": "29.0.2",
     "lint-staged": "13.0.3",
     "nx": "14.6.4",
+    "nx-ignore": "14.6.0",
     "postcss": "8.4.16",
     "prettier": "2.7.1",
     "react-test-renderer": "18.2.0",

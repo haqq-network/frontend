@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import { App } from './app';
+import App from './app';
 
 describe('App', () => {
   it('should render successfully', () => {
@@ -12,6 +12,6 @@ describe('App', () => {
   it('should have a greeting as the title', () => {
     const { getByText } = render(<App />);
 
-    expect(getByText(/Staking app/gi)).toBeTruthy();
+    expect(getByText(/Governance app/gi)).toBeTruthy();
   });
 });

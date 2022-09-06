@@ -6,7 +6,7 @@ const baseModuleFederationConfig = require('../../module-federation.config');
 const moduleFederationConfig = {
   ...baseModuleFederationConfig,
   name: 'shell',
-  remotes: ['staking'],
+  remotes: ['staking', 'governance'],
 };
 
 module.exports = moduleFederationConfig;

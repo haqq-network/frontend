@@ -2122,6 +2122,7 @@ __metadata:
     jest-environment-jsdom: 29.0.2
     lint-staged: 13.0.3
     nx: 14.6.4
+    nx-ignore: 14.6.0
     postcss: 8.4.16
     prettier: 2.7.1
     react: 18.2.0
@@ -4898,6 +4899,15 @@ __metadata:
   bin:
     swcx: run_swcx.js
   checksum: fda7fe0f3d4c3f38e14ccad2299a2dbb0107e7a1eb17437caa6dbe7e99a3bf9fc4a3a4ae0e8c7aa9da4f4da278b9b2015a607b70504379c54bf8b9107b2522bf
+  languageName: node
+  linkType: hard
+
+"@swc/helpers@npm:^0.3.16":
+  version: 0.3.17
+  resolution: "@swc/helpers@npm:0.3.17"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: ce3a5146d738b707f0608bba731aa1fd0a8e3f75f140ff7281225d775a769f085f085e0293b570a9d201c76e09951af178c9222d8c706d4ed0d1c85b25f55cb6
   languageName: node
   linkType: hard
 
@@ -16048,7 +16058,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:14.6.4":
+"nx-ignore@npm:14.6.0":
+  version: 14.6.0
+  resolution: "nx-ignore@npm:14.6.0"
+  dependencies:
+    "@swc/helpers": ^0.3.16
+    nx: ^14.6.0
+    typescript: ^4.6.2
+  bin:
+    nx-ignore: src/index.js
+  checksum: 889b01819e321ca25e8513d675ba719c90ce3667669e1c9234f58004b1954eae8ed470b4893629b7c3a954a394a2d7aada3d69426586cd1b14d3da702dfadf68
+  languageName: node
+  linkType: hard
+
+"nx@npm:14.6.4, nx@npm:^14.6.0":
   version: 14.6.4
   resolution: "nx@npm:14.6.4"
   dependencies:
@@ -20726,7 +20749,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.0, tslib@npm:^2, tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1":
+"tslib@npm:2.4.0, tslib@npm:^2, tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
@@ -20867,7 +20890,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.8.2, typescript@npm:^4.6.4":
+"typescript@npm:4.8.2, typescript@npm:^4.6.2, typescript@npm:^4.6.4":
   version: 4.8.2
   resolution: "typescript@npm:4.8.2"
   bin:
@@ -20877,7 +20900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.8.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.8.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>":
   version: 4.8.2
   resolution: "typescript@patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=a1c5e5"
   bin:

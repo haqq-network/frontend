@@ -4,7 +4,7 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
+    "maybe-build": {
       "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
