@@ -1,4 +1,6 @@
+import React from 'react';
 import styled from '@emotion/styled';
+import { Container, Card } from '@haqq/ui-kit';
 
 const StyledApp = styled.div`
   // Your style here
@@ -7,18 +9,11 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <StyledApp>
-      <div className="wrapper">
-        <div className="container">
-          <div id="welcome">
-            <h1>
-              <span> Hello there, </span>
-              Welcome staking app 👋
-            </h1>
-          </div>
-        </div>
-      </div>
+      <Container className="py-10">
+        <Card>
+          <h1 className="font-medium text-4xl leading-relaxed">Staking app</h1>
+        </Card>
+      </Container>
     </StyledApp>
   );
 }
-
-export default App;

@@ -16,10 +16,9 @@
         "polyfills": "apps/shell/src/polyfills.ts",
         "tsConfig": "apps/shell/tsconfig.app.json",
         "assets": ["apps/shell/src/favicon.ico", "apps/shell/src/assets"],
-        "styles": ["apps/shell/src/index.css"],
+        "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/shell/webpack.config.js",
-        "postcssConfig": "apps/shell/postcss.config.js"
+        "webpackConfig": "apps/shell/webpack.config.js"
       },
       "configurations": {
         "development": {

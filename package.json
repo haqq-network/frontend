@@ -6,23 +6,23 @@
   "author": "Oleg Shilov <og@haqq.network>",
   "packageManager": "yarn@3.2.3",
   "scripts": {
-    "start": "yarn nx faucet:serve",
+    "start": "yarn nx run shell:serve",
     "format": "yarn prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml,svg}'",
     "prepare": "is-ci || husky install"
   },
   "dependencies": {
     "@emotion/react": "11.10.4",
     "@emotion/styled": "11.10.4",
+    "clsx": "1.2.1",
     "core-js": "3.25.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.3.0",
     "regenerator-runtime": "0.13.9",
+    "ress": "5.0.2",
     "tslib": "2.4.0"
   },
   "devDependencies": {
-    "@babel/core": "7.12.13",
-    "@babel/preset-typescript": "7.12.13",
     "@commitlint/cli": "17.1.2",
     "@commitlint/config-conventional": "17.1.0",
     "@emotion/babel-plugin": "11.10.2",
@@ -52,8 +52,6 @@
     "@typescript-eslint/eslint-plugin": "5.36.2",
     "@typescript-eslint/parser": "5.36.2",
     "autoprefixer": "10.4.8",
-    "babel-jest": "29.0.2",
-    "babel-loader": "8.1.0",
     "cypress": "10.7.0",
     "eslint": "8.23.0",
     "eslint-config-prettier": "8.5.0",

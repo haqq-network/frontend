@@ -1,34 +1,28 @@
 import * as React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { Card, Container, Header } from '@haqq/ui-kit';
+import '../index.css';
 
 const Staking = React.lazy(() => import('staking/Module'));
 
 export function App() {
   return (
     <React.Suspense fallback={null}>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-
-        <li>
-          <Link to="/staking">Staking</Link>
-        </li>
-      </ul>
+      <Header />
       <Routes>
         <Route
           path="/"
           element={
-            <div className="wrapper">
-              <div className="container">
-                <div id="welcome">
-                  <h1>
-                    <span> Hello there, </span>
-                    Welcome shell app 👋
-                  </h1>
-                </div>
-              </div>
-            </div>
+            <Container className="py-10">
+              <Card>
+                <h1 className="font-medium text-4xl leading-relaxed">
+                  Hello there{' '}
+                  <span role="img" aria-label="waves">
+                    👋
+                  </span>
+                </h1>
+              </Card>
+            </Container>
           }
         />
 
