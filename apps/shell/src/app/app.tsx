@@ -53,7 +53,7 @@ export function App() {
             element={
               <Container className="py-10">
                 <Card>
-                  <h1 className="font-medium text-4xl leading-relaxed">
+                  <h1 className="font-medium text-4xl leading-relaxed text-center">
                     Hello there{' '}
                     <span role="img" aria-label="waves">
                       👋
