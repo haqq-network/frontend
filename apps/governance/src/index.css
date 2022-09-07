@@ -3,3 +3,14 @@
 @tailwind components;
 @tailwind base;
 @tailwind utilities;
+
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
