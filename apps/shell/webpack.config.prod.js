@@ -26,8 +26,8 @@ const prodConfig = {
    * ]
    */
   remotes: [
-    ['staking', '//localhost:4201/'],
-    ['governance', '//localhost:4202/'],
+    ['staking', 'https://staking-app-haqq-network.vercel.app'],
+    ['governance', 'https://governance-app-haqq-network.vercel.app'],
   ],
 };
 

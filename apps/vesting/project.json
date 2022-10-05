@@ -1,4 +1,5 @@
 {
+  "name": "vesting",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/vesting/src",
   "projectType": "application",

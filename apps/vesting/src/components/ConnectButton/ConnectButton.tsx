@@ -8,7 +8,7 @@ import { AccountButton } from '../AccountButton/AccountButton';
 export function ConnectButton() {
   const { isConnected, address } = useAccount();
   const { data: balance } = useBalance({
-    addressOrName: address,
+    address: address,
     watch: true,
   });
   const { disconnect } = useDisconnect();

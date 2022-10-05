@@ -11,7 +11,9 @@
     "shell-e2e": "apps/shell-e2e",
     "staking": "apps/staking",
     "staking-e2e": "apps/staking-e2e",
+    "theme": "libs/theme",
     "ui-kit": "libs/ui-kit",
+    "utils": "libs/utils",
     "vesting": "apps/vesting",
     "vesting-e2e": "apps/vesting-e2e"
   }

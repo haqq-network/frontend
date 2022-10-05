@@ -1,6 +1,8 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// When building for production, this file is replaced with `environment.prod.ts`.
+const commitSha = process.env['NX_COMMIT_SHA'];
 
 export const environment = {
-  production: false,
+  isProduction: false,
+  chain: process.env['NX_STAKING_NETWORK'] ?? 'local',
+  sentryDsn: process.env['NX_STAKING_SENTRY_DSN'],
+  version: commitSha && commitSha !== '' ? commitSha.slice(0, 7) : 'dev',
 };

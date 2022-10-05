@@ -15,7 +15,7 @@ export function AccountPage() {
     // status,
     // error,
   } = useBalance({
-    addressOrName: address,
+    address: address,
     watch: true,
   });
   const chain = getChainParams(environment.chain);

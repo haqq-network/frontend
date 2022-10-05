@@ -45,6 +45,10 @@ Thumbs.db
 /dist
 .env
 .log
+<<<<<<< HEAD
 
 migrations.json
 package-lock.json
+=======
+.vercel
+>>>>>>> 61c5e10 (wip)
