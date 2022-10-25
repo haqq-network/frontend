@@ -9,6 +9,8 @@
     "shell-e2e": "apps/shell-e2e",
     "staking": "apps/staking",
     "staking-e2e": "apps/staking-e2e",
-    "ui-kit": "libs/ui-kit"
+    "ui-kit": "libs/ui-kit",
+    "vesting": "apps/vesting",
+    "vesting-e2e": "apps/vesting-e2e"
   }
 }
