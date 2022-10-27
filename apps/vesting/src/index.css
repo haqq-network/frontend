@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=El+Messiri|Open+Sans&display=swap');
+@import 'ress';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-apple: -apple-system, 'BlinkMacSystemFont';
+  --font-fallback: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family-base: var(--font-apple), var(--font-fallback), var(--font-emoji);
+
+  /* Colors from figma */
+  --color-black: #0c0c0c;
+  --color-green: #04d484;
+  --color-light-green: #eef9f5;
+  --color-light-gray: #e6e6e6;
+  --color-dark-gray: #545d59;
+  --color-red: #f50000;
+
+  --ui-kit-font-sans: 'Open Sans', var(--font-family-base);
+  --ui-kit-font-serif: 'El Messiri', var(--font-family-base);
+  --ui-kit-text-color: var(--color-black);
+  --ui-kit-color-primary: var(--color-green);
+  --ui-kit-color-stroke: var(--color-light-gray);
+  --ui-kit-color-danger: var(--color-red);
+  --ui-kit-transition-duration: 125ms;
+}
+
+body {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  font-family: var(--ui-kit-font-sans);
+  color: var(--ui-kit-text-color);
+  background-color: var(--color-white);
+}

@@ -15,7 +15,7 @@
         "main": "apps/vesting/src/main.tsx",
         "polyfills": "apps/vesting/src/polyfills.ts",
         "tsConfig": "apps/vesting/tsconfig.app.json",
-        "assets": ["apps/vesting/src/favicon.ico", "apps/vesting/src/assets"],
+        "assets": ["apps/vesting/src/assets"],
         "styles": [],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
