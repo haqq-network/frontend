@@ -10,7 +10,9 @@
     "url": "https://github.com/haqq-network/frontend.git"
   },
   "scripts": {
-    "start": "yarn nx run shell:serve --devRemotes=staking,governance",
+    "start": "yarn start:shell",
+    "start:shell": "yarn nx run shell:serve --devRemotes=staking,governance",
+    "start:vesting": "yarn nx run vesting:serve",
     "format": "yarn prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml,svg}'",
     "prepare": "is-ci || husky install"
   },
