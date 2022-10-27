@@ -5,6 +5,10 @@
   "private": true,
   "author": "Oleg Shilov <og@haqq.network>",
   "packageManager": "yarn@3.2.4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haqq-network/frontend.git"
+  },
   "scripts": {
     "start": "yarn nx run shell:serve --devRemotes=staking,governance",
     "format": "yarn prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml,svg}'",
@@ -13,16 +17,22 @@
   "dependencies": {
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
+    "@headlessui/react": "1.7.3",
+    "@metamask/jazzicon": "2.0.0",
+    "@metamask/onboarding": "1.0.1",
     "@sentry/react": "7.17.0",
     "@sentry/tracing": "7.17.0",
     "clsx": "1.2.1",
     "core-js": "3.26.0",
+    "ethers": "5.7.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.4.2",
     "regenerator-runtime": "0.13.10",
     "ress": "5.0.2",
-    "tslib": "2.4.0"
+    "tslib": "2.4.0",
+    "wagmi": "0.7.7",
+    "web3": "1.8.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.1.2",
@@ -47,6 +57,7 @@
     "@swc/core": "1.3.11",
     "@swc/jest": "0.2.23",
     "@testing-library/react": "13.4.0",
+    "@testing-library/user-event": "14.4.3",
     "@types/jest": "29.2.0",
     "@types/node": "18.11.7",
     "@types/react": "18.0.24",

@@ -47,3 +47,4 @@ Thumbs.db
 .log
 
 migrations.json
+package-lock.json
