@@ -106,7 +106,7 @@ export function DepositStatsWidget({
   const { address, isConnected } = useAccount();
   const provider = useProvider();
   const contract = useContract({
-    address: environment.contractAddress,
+    address: contractAddress,
     abi: HaqqVestingContract.abi,
     signerOrProvider: provider,
   });
