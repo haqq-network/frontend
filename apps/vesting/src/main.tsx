@@ -9,7 +9,7 @@ if (process.env['NODE_ENV'] === 'production') {
   const sentryDsn = environment.sentryDsn;
   if (sentryDsn && sentryDsn !== '') {
     import('@haqq/sentry').then(({ initSentry }) => {
-      initSentry(sentryDsn, true);
+      initSentry(sentryDsn);
     });
   } else {
     console.warn(
