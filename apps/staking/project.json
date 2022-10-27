@@ -4,7 +4,7 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -71,7 +71,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/staking"],
+      "outputs": ["{workspaceRoot}/coverage/apps/staking"],
       "options": {
         "jestConfig": "apps/staking/jest.config.ts",
         "passWithNoTests": true

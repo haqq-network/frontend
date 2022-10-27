@@ -45,3 +45,5 @@ Thumbs.db
 /dist
 .env
 .log
+
+migrations.json
