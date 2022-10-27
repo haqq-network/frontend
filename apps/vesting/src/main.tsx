@@ -1,16 +1,20 @@
 import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import { App } from './app/app';
+import { AppContainer } from './app/app-container';
+import './index.css';
 
-import App from './app/app';
+function startApp() {
+  const rootElement = document.getElementById('root');
+  const root = createRoot(rootElement as HTMLElement);
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
-root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
-);
+  root.render(
+    <StrictMode>
+      <AppContainer>
+        <App />
+      </AppContainer>
+    </StrictMode>,
+  );
+}
+
+startApp();

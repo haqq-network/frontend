@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { Card, Container, Logo, LogoSmall, Page, Spinner } from '@haqq/ui-kit';
 
-const StakingApp = React.lazy(() => import('staking/Module'));
-const GovernanceApp = React.lazy(() => import('governance/Module'));
+const StakingApp = lazy(() => import('staking/Module'));
+const GovernanceApp = lazy(() => import('governance/Module'));
 
 export function Header(): React.ReactElement {
   function getLinkClassName({ isActive }: { isActive: boolean }) {
