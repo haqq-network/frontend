@@ -4,6 +4,7 @@
   "projects": {
     "governance": "apps/governance",
     "governance-e2e": "apps/governance-e2e",
+    "sentry": "libs/sentry",
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e",
     "staking": "apps/staking",
