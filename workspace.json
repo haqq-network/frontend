@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "faucet": "apps/faucet",
+    "faucet-e2e": "apps/faucet-e2e",
     "governance": "apps/governance",
     "governance-e2e": "apps/governance-e2e",
     "sentry": "libs/sentry",
