@@ -15,6 +15,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@auth0/auth0-react@npm:1.12.0":
+  version: 1.12.0
+  resolution: "@auth0/auth0-react@npm:1.12.0"
+  dependencies:
+    "@auth0/auth0-spa-js": ^1.22.4
+  peerDependencies:
+    react: ^16.11.0 || ^17 || ^18
+    react-dom: ^16.11.0 || ^17 || ^18
+  checksum: f80bc5e1734e20828601aa8ba5ccc251e032329cbbaaf1c4feac81773e30ce835a953879e5b7196bf4bd37bd82902fe731b87aa63f772c4f8e981dbcdd8af5b6
+  languageName: node
+  linkType: hard
+
+"@auth0/auth0-spa-js@npm:^1.22.4":
+  version: 1.22.5
+  resolution: "@auth0/auth0-spa-js@npm:1.22.5"
+  dependencies:
+    abortcontroller-polyfill: ^1.7.3
+    browser-tabs-lock: ^1.2.15
+    core-js: ^3.25.1
+    es-cookie: ~1.3.2
+    fast-text-encoding: ^1.0.6
+    promise-polyfill: ^8.2.3
+    unfetch: ^4.2.0
+  checksum: 54d9a8abaddff073e28dba6a89c1fe43762f06e53f40ad5c293786a1f76df94fa63642b97b94a612166ea8571414fd38de9f5b356d7a5e41e76180708ebc5936
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.16.7, @babel/code-frame@npm:^7.18.6, @babel/code-frame@npm:^7.5.5, @babel/code-frame@npm:^7.8.3":
   version: 7.18.6
   resolution: "@babel/code-frame@npm:7.18.6"
@@ -2522,6 +2549,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@haqq/frontend@workspace:."
   dependencies:
+    "@auth0/auth0-react": 1.12.0
     "@commitlint/cli": 17.1.2
     "@commitlint/config-conventional": 17.1.0
     "@emotion/babel-plugin": 11.10.5
@@ -2581,9 +2609,13 @@ __metadata:
     postcss: 8.4.18
     prettier: 2.7.1
     react: 18.2.0
+    react-countdown: 2.3.3
     react-dom: 18.2.0
     react-router-dom: 6.4.2
+    react-spinners: 0.13.6
+    react-success-indicator: 1.1.0
     react-test-renderer: 18.2.0
+    reaptcha: 1.12.1
     regenerator-runtime: 0.13.10
     ress: 5.0.2
     storybook-addon-swc: 1.1.9
@@ -8952,6 +8984,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"browser-tabs-lock@npm:^1.2.15":
+  version: 1.2.15
+  resolution: "browser-tabs-lock@npm:1.2.15"
+  dependencies:
+    lodash: ">=4.17.21"
+  checksum: 79194361d5dbd0bf83f1e7e56fdbc209161d1c86f8211214512388df126d69b152512f073392e9415dec8d5e3b427045f9a9a3cb089ae7e7f6ed48dd6022ae74
+  languageName: node
+  linkType: hard
+
 "browserify-aes@npm:^1.0.0, browserify-aes@npm:^1.0.4, browserify-aes@npm:^1.2.0":
   version: 1.2.0
   resolution: "browserify-aes@npm:1.2.0"
@@ -10310,7 +10351,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:3.26.0, core-js@npm:^3.0.4, core-js@npm:^3.6.5, core-js@npm:^3.8.2":
+"core-js@npm:3.26.0, core-js@npm:^3.0.4, core-js@npm:^3.25.1, core-js@npm:^3.6.5, core-js@npm:^3.8.2":
   version: 3.26.0
   resolution: "core-js@npm:3.26.0"
   checksum: 0149eb9d3909fde9c17626af3a6e625c326e8598d0bb5e6c5b48a18e5fcd4eaf48d4964d873667d8148542ff590fb98eb3f93618da114ca54999d6bc0349734b
@@ -11739,6 +11780,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"es-cookie@npm:~1.3.2":
+  version: 1.3.2
+  resolution: "es-cookie@npm:1.3.2"
+  checksum: 8509355a7d00bd2e3fcab4a76a90e0da35b40c1e76f114f8ffe805ab3fdfff51e8fc0e7cdccd9bf1536066150b6b9861e37d78ae14f80680513901902ac4f0df
+  languageName: node
+  linkType: hard
+
 "es-get-iterator@npm:^1.0.2, es-get-iterator@npm:^1.1.1":
   version: 1.1.2
   resolution: "es-get-iterator@npm:1.1.2"
@@ -12872,6 +12920,13 @@ __metadata:
   version: 1.0.0
   resolution: "fast-stable-stringify@npm:1.0.0"
   checksum: ef1203d246a7e8ac15e2bfbda0a89fa375947bccf9f7910be0ea759856dbe8ea5024a0d8cc2cceabe18a9cb67e95927b78bb6173a3ae37ec55a518cf36e5244b
+  languageName: node
+  linkType: hard
+
+"fast-text-encoding@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "fast-text-encoding@npm:1.0.6"
+  checksum: 9d58f694314b3283e785bf61954902536da228607ad246905e30256f9ab8331f780ac987e7222c9f5eafd04168d07e12b8054c85cedb76a2c05af0e82387a903
   languageName: node
   linkType: hard
 
@@ -17333,7 +17388,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:>=4.17.21, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -20280,6 +20335,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"promise-polyfill@npm:^8.2.3":
+  version: 8.2.3
+  resolution: "promise-polyfill@npm:8.2.3"
+  checksum: f320278bab8b8ce32f0e2f377d75aabe35c90a79f92b3e001db084d635da1fb8740ba8a26b5c1c2b4cdca5a4c988f9b6b3eb30f0b151d0362d3d9c1675024a8f
+  languageName: node
+  linkType: hard
+
 "promise-retry@npm:^2.0.1":
   version: 2.0.1
   resolution: "promise-retry@npm:2.0.1"
@@ -20624,6 +20686,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-countdown@npm:2.3.3":
+  version: 2.3.3
+  resolution: "react-countdown@npm:2.3.3"
+  dependencies:
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ">= 15"
+    react-dom: ">= 15"
+  checksum: 3c97b392766c7b226453d152d17f9586b1a4ef5df1f0e6576bc85a782bda3b237e36386c5005b65af885d241bf1710a73e37ad6da17395c8cc8393ac6a99281b
+  languageName: node
+  linkType: hard
+
 "react-docgen-typescript@npm:^2.1.1":
   version: 2.2.2
   resolution: "react-docgen-typescript@npm:2.2.2"
@@ -20774,6 +20848,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-spinners@npm:0.13.6":
+  version: 0.13.6
+  resolution: "react-spinners@npm:0.13.6"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 0e557190b5811e62774de0000f91fdcc3afe845872084abd5620d16335eb8292ed3fb3fdb94527fe2802a8366ac4e5d42c8e5bffda9e8ed0d85d3c34b3829d8e
+  languageName: node
+  linkType: hard
+
+"react-success-indicator@npm:1.1.0":
+  version: 1.1.0
+  resolution: "react-success-indicator@npm:1.1.0"
+  peerDependencies:
+    react: ">=16"
+  checksum: b7b5ae093db39f58590bc430c4e96c72f9bd96d8c3afce085c1a46a5941a6a97a3d32e663c44707c6572b1e9aa6353b489bf518cd7a9ffa468cf50939b01e899
+  languageName: node
+  linkType: hard
+
 "react-test-renderer@npm:18.2.0":
   version: 18.2.0
   resolution: "react-test-renderer@npm:18.2.0"
@@ -20892,6 +20985,15 @@ __metadata:
   dependencies:
     picomatch: ^2.2.1
   checksum: 1ced032e6e45670b6d7352d71d21ce7edf7b9b928494dcaba6f11fba63180d9da6cd7061ebc34175ffda6ff529f481818c962952004d273178acd70f7059b320
+  languageName: node
+  linkType: hard
+
+"reaptcha@npm:1.12.1":
+  version: 1.12.1
+  resolution: "reaptcha@npm:1.12.1"
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+  checksum: 65541fea9e646ae67245025393fba3e11d177982161bc703416008e8e922d1c2a1a037ba567a540bb487a7b4d0be57f6b94a6901533f8de2006a16a52c70b148
   languageName: node
   linkType: hard
 
