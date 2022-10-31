@@ -1,3 +1,4 @@
+// TODO: DRY this config
 const currency: Chain['nativeCurrency'] = {
   name: 'Islamic Coin',
   symbol: 'ISLM',

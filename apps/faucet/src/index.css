@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+Mono&display=swap');
+@import 'ress';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-apple: -apple-system, 'BlinkMacSystemFont';
+  --font-fallback: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family: 'Noto Sans Mono', var(--font-apple), var(--font-fallback),
+    var(--font-emoji);
+
+  --primary-color: #5baacd;
+
+  --app-background-color: #fff;
+  --app-dark-background-color: rgb(12, 12, 12);
+}
+
+body {
+  font-family: var(--font-family);
+}
