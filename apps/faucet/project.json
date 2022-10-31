@@ -16,7 +16,7 @@
         "main": "apps/faucet/src/main.tsx",
         "polyfills": "apps/faucet/src/polyfills.ts",
         "tsConfig": "apps/faucet/tsconfig.app.json",
-        "assets": ["apps/faucet/src/favicon.ico", "apps/faucet/src/assets"],
+        "assets": ["apps/faucet/src/assets"],
         "styles": [],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
