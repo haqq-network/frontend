@@ -19,7 +19,7 @@
         "assets": ["apps/faucet/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "apps/faucet/webpack.config.js"
       },
       "configurations": {
         "development": {
@@ -40,7 +40,8 @@
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
-          "vendorChunk": false
+          "vendorChunk": false,
+          "webpackConfig": "apps/faucet/webpack.config.prod.js"
         }
       }
     },
