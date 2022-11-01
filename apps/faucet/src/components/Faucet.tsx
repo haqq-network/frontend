@@ -19,7 +19,7 @@ interface ClaimInfo {
   next_claim_sec: number;
 }
 
-const { serviceConfig, recaptchaConfig } = environment;
+const { serviceConfig, reCaptchaConfig } = environment;
 
 export function Faucet(): ReactElement {
   const chain = getChainParams(environment.chain);
@@ -285,7 +285,7 @@ export function Faucet(): ReactElement {
                   ) : (
                     <div className="flex flex-row space-x-4 items-center">
                       <Reaptcha
-                        sitekey={recaptchaConfig.siteKey}
+                        sitekey={reCaptchaConfig.siteKey}
                         onVerify={handleRecapthcaVerify}
                         theme={isDark ? 'dark' : 'light'}
                       />
