@@ -1,4 +1,4 @@
-import  { ChangeEvent, ReactNode, useCallback } from 'react';
+import { ChangeEvent, ReactNode, useCallback } from 'react';
 import clsx from 'clsx';
 import { Text } from '../Typography/Typography';
 import styled from '@emotion/styled';

@@ -1,11 +1,15 @@
-# sentry
+# @haqq/sentry
 
-This library was generated with [Nx](https://nx.dev).
+## Usage
 
-## Building
+Just add following lines to your code:
 
-Run `nx build sentry` to build the library.
+```ts
+const sentryDsn = 'PASTE_YOUR_SENTRY_DSN_HERE';
 
-## Running unit tests
-
-Run `nx test sentry` to execute the unit tests via [Jest](https://jestjs.io).
+if (sentryDsn) {
+  import('@haqq/sentry').then(({ initSentry }) => {
+    initSentry(sentryDsn);
+  });
+}
+```

@@ -16,7 +16,10 @@
           "e2e",
           "build-storybook"
         ],
-        "accessToken": "ZWQ5MDY2NGEtNDY5NS00ZjcxLThkNzMtYjQ1MzVhZWVlZGI2fHJlYWQtd3JpdGU="
+        "accessToken": "ZWQ5MDY2NGEtNDY5NS00ZjcxLThkNzMtYjQ1MzVhZWVlZGI2fHJlYWQtd3JpdGU=",
+        "options": {
+          "cacheDirectory": "/tmp/nx-cache"
+        }
       }
     }
   },

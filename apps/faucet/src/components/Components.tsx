@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactElement, ReactNode } from 'react';
+import { MouseEventHandler, ReactElement, ReactNode } from 'react';
 import clsx from 'clsx';
 
 interface ContainerProps {

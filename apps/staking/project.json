@@ -1,4 +1,5 @@
 {
+  "name": "staking",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/staking/src",
   "projectType": "application",
@@ -15,10 +16,10 @@
         "main": "apps/staking/src/main.ts",
         "polyfills": "apps/staking/src/polyfills.ts",
         "tsConfig": "apps/staking/tsconfig.app.json",
-        "assets": ["apps/staking/src/favicon.ico", "apps/staking/src/assets"],
+        "assets": ["apps/staking/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/staking/webpack.config.js"
+        "webpackConfig": "apps/staking/webpack.config.ts"
       },
       "configurations": {
         "development": {
@@ -40,7 +41,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/staking/webpack.config.prod.js"
+          "webpackConfig": "apps/staking/webpack.config.prod.ts"
         }
       }
     },

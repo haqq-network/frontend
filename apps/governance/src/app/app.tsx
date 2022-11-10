@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Card, Container } from '@haqq/ui-kit';
+import { Card, Container, Page } from '@haqq/ui-kit';
 import { ReactNode } from 'react';
 
 const StyledApp = styled.div`
@@ -7,7 +7,7 @@ const StyledApp = styled.div`
 `;
 
 export function AppWrapper({ children }: { children: ReactNode }) {
-  return <div className="flex flex-col min-h-screen">{children}</div>;
+  return <Page>{children}</Page>;
 }
 
 export function App() {

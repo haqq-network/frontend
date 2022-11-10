@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useAccount, useBalance } from 'wagmi';
 import { getChainParams } from '../config';
 import { environment } from '../environments/environment';
@@ -6,10 +6,10 @@ import { getFormattedAddress } from '../utils/getFormattedAddress';
 import { IdentIcon } from './IdentIcon';
 
 export function AccountInfo() {
-  const chain = getChainParams(environment.chain);
+  const { nativeCurrency } = getChainParams(environment.chain);
   const { address } = useAccount();
   const { data: balance } = useBalance({
-    addressOrName: address,
+    address,
     watch: true,
   });
 
@@ -18,10 +18,7 @@ export function AccountInfo() {
       return undefined;
     }
 
-    return {
-      value: Number.parseFloat(balance.formatted),
-      symbol: chain.nativeCurrency.symbol,
-    };
+    return Number.parseFloat(balance.formatted);
   }, [balance]);
 
   return (
@@ -39,8 +36,8 @@ export function AccountInfo() {
 
       {accBalance && (
         <div className="flex-1 flex flex-row space-x-4 items-center justify-end h-[40px] font-bold">
-          {accBalance.value.toLocaleString()}{' '}
-          {accBalance.symbol.toLocaleUpperCase()}
+          {accBalance.toLocaleString()}{' '}
+          {nativeCurrency.symbol.toLocaleUpperCase()}
         </div>
       )}
     </div>

@@ -279,7 +279,7 @@ function Withdraw({
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const contract = useContract({
-    addressOrName: contractAddress,
+    address: contractAddress,
     contractInterface: HaqqVestingContract.abi,
     signerOrProvider: signer,
   });
@@ -356,7 +356,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const contract = useContract({
-    addressOrName: contractAddress,
+    address: contractAddress,
     contractInterface: HaqqVestingContract.abi,
     signerOrProvider: signer,
   });

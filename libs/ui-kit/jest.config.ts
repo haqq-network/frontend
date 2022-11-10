@@ -10,4 +10,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/libs/ui-kit',
+  setupFilesAfterEnv: ['./src/setupTests.ts'],
 };

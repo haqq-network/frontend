@@ -104,7 +104,7 @@ function AccountCard() {
   //   status,
   //   error,
   // } = useBalance({
-  //   addressOrName: address,
+  //   address: address,
   //   watch: true,
   // });
 
