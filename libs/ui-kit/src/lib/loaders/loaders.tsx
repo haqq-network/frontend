@@ -6,7 +6,7 @@ export function PulseLoader({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       className={clsx(
-        'leading-none w-[32px] h-[32px] text-islamic-green-500 opacity-70',
+        'leading-none w-[32px] h-[32px] text-haqq-primary-500 opacity-70',
         className,
       )}
     >

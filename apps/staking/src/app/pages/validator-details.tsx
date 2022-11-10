@@ -8,7 +8,7 @@ export function ValidatorDetailsPage() {
   const { address } = useParams();
 
   if (!address) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/not-found" replace />;
   }
 
   return (

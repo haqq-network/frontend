@@ -1,3 +1,4 @@
+export * from './lib/pending-page/pending-page';
 export * from './lib/modal/modal';
 export * from './lib/header/header';
 export * from './lib/tooltip/tooltip';
@@ -14,3 +15,4 @@ export * from './lib/button/button';
 export * from './lib/logo/logo';
 export * from './lib/input/input';
 export * from './lib/alert/alert';
+export * from './lib/not-found-page/not-found-page';

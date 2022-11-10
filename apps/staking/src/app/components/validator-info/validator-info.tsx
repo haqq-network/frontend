@@ -414,6 +414,7 @@ export function ValidatorInfo({
   }, [rewardsInfo, validatorAddress]);
 
   const handleGetRewardsClick = useCallback(() => {
+    // TODO: Handle claim rewards from current validator
     console.log('GET MY REWARDS');
   }, []);
 

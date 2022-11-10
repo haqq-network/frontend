@@ -1,11 +1,13 @@
-import { createContext, ReactNode, useCallback, useMemo } from 'react';
-import { Tendermint34Client, WebsocketClient } from '@cosmjs/tendermint-rpc';
+import { createContext, ReactNode, useMemo } from 'react';
+import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import {
   QueryClient,
   setupStakingExtension,
   StakingExtension,
   setupDistributionExtension,
   DistributionExtension,
+  setupGovExtension,
+  GovExtension,
 } from '@cosmjs/stargate';
 import { useCosmosClient } from '../hooks/useCosomsClient';
 import {
@@ -22,25 +24,20 @@ import {
   generateEndpointGetValidators,
   generateEndpointGetUndelegations,
   generateEndpointDistributionRewardsByAddress,
+  generateEndpointProposals,
+  Proposal,
 } from '@evmos/provider';
 import { signatureToPubkey } from '@hanchon/signature-to-pubkey';
 import { BondStatusString } from '@cosmjs/stargate/build/modules/staking/queries';
 import { useSigner } from 'wagmi';
 import store from 'store2';
-
-// TODO: Move to config/environment
-const cosmosRestEndpoint = 'https://rest.cosmos.testedge2.haqq.network';
-const tmRpcWsEndpoint = 'wss://rpc.tm.testedge2.haqq.network';
-const tmRpcEndpoint = 'https://rpc.tm.testedge2.haqq.network';
-
-// const cosmosRestEndpoint = 'http://192.168.1.86:1317';
-// const tmRpcWsEndpoint = 'wss://rpc.tm.testedge2.haqq.network';
-// const tmRpcEndpoint = 'http://192.168.1.86:26657';
+import { cosmosRestEndpoint, tmRpcEndpoint } from '../chains';
 
 interface ComsosClient
   extends QueryClient,
     StakingExtension,
-    DistributionExtension {}
+    DistributionExtension,
+    GovExtension {}
 
 type Signer = {
   signMessage: (message: string) => Promise<string>;
@@ -63,6 +60,9 @@ interface ComsosService {
   getRewardsInfo: any;
   getAllValidators: any;
   getUndelegations: any;
+
+  getProposals: () => Promise<Proposal[]>;
+  getProposalDetails: (id: string) => Promise<Proposal>;
 }
 
 export const TendermintClientContext = createContext<
@@ -95,6 +95,7 @@ export function CosmosProvider({
       tendermintClient,
       setupStakingExtension,
       setupDistributionExtension,
+      setupGovExtension,
     );
   }, [tendermintClient]);
 
@@ -134,8 +135,6 @@ function createCosmosService(
       pageParam,
     );
 
-    // console.log({ validatorsResponse });
-
     return {
       pages: validatorsResponse.validators,
       pageParam: validatorsResponse.pagination?.nextKey,
@@ -143,17 +142,13 @@ function createCosmosService(
   }
 
   async function getValidatorInfo(address: string) {
-    // console.log('getValidatorInfo', { address });
     const validatorInfoResponse = await cosmosClient.staking.validator(address);
-    // console.log({ validatorInfoResponse });
 
     return validatorInfoResponse.validator;
   }
 
   async function getStakingParams() {
-    // console.log('getStakingParams');
     const { params: stakingParams } = await cosmosClient.staking.params();
-    // console.log({ stakingParams });
 
     return stakingParams;
   }
@@ -201,17 +196,22 @@ function createCosmosService(
     //   txToBroadcast,
     //   foo: txToBroadcast.message.serializeBinary(),
     // });
+    try {
+      const broadcastResponse = await fetch(
+        `${cosmosRestEndpoint}${generateEndpointBroadcast()}`,
+        {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: generatePostBodyBroadcast(txToBroadcast),
+        },
+      );
+      const { tx_response } = await broadcastResponse.json();
 
-    const broadcastResponse = await fetch(
-      `${cosmosRestEndpoint}${generateEndpointBroadcast()}`,
-      {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: generatePostBodyBroadcast(txToBroadcast),
-      },
-    );
-
-    return await broadcastResponse.json();
+      return tx_response;
+    } catch (error) {
+      console.error((error as any).message);
+      throw new Error((error as any).message);
+    }
   }
 
   async function getAccountDelegations(address: string) {
@@ -256,8 +256,29 @@ function createCosmosService(
       }
     }
 
-    console.log('return saved pubkey');
     return savedPubKey;
+  }
+
+  async function getProposals() {
+    const proposalsUrl = new URL(
+      `${cosmosRestEndpoint}/${generateEndpointProposals()}`,
+    );
+
+    proposalsUrl.searchParams.append('pagination.reverse', 'true');
+
+    const proposalsResponse = await fetch(proposalsUrl);
+    const { proposals } = await proposalsResponse.json();
+
+    return proposals as Proposal[];
+  }
+
+  async function getProposalDetails(id: string) {
+    const proposalDetailsResponse = await fetch(
+      `${cosmosRestEndpoint}/${generateEndpointProposals()}/${id}`,
+    );
+    const { proposal } = await proposalDetailsResponse.json();
+
+    return proposal as Proposal;
   }
 
   return {
@@ -272,6 +293,8 @@ function createCosmosService(
     getAllValidators,
     getUndelegations,
     getPubkey,
+    getProposals,
+    getProposalDetails,
   };
 }
 

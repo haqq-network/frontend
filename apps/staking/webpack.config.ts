@@ -1,5 +1,3 @@
-// @ts-check
-
 import { withModuleFederation } from '@nrwl/react/module-federation';
 import baseConfig from './module-federation.config';
 import { ProvidePlugin } from 'webpack';

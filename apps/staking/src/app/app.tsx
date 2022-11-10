@@ -1,11 +1,4 @@
-import {
-  ComponentType,
-  Fragment,
-  lazy,
-  ReactElement,
-  ReactNode,
-  Suspense,
-} from 'react';
+import { Fragment, ReactNode, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Container, Header, Page, PulseLoader } from '@haqq/ui-kit';
 import { ValidatorsPage } from './pages/validators';

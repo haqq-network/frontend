@@ -88,13 +88,12 @@ export function Button2({
   className,
 }: Button2Props) {
   const classNames = clsx(
-    'text-base font-semibold font-sans leading-[24px]',
-    'rounded-[8px] py-[8px] px-[16px] appearance-none box-border',
-    'transition-all duration-150',
-    // 'focus:outline-none focus:ring-2 dark:focus:ring-slate-200 focus:ring-slate-700',
+    'font-sans text-base font-medium leading-[24px]',
+    'box-border appearance-none rounded-[6px] py-2 px-5',
+    'bg-slate-500 text-white outline-none ring-slate-600/40 hover:bg-slate-500/90 focus:ring-2 dark:ring-slate-100/80 active:bg-slate-600/90',
+    'disabled:cursor-not-allowed disabled:!bg-slate-500 disabled:!opacity-60 disabled:!shadow-sm',
+    'transition-all duration-150 ease-in',
     fill ? 'w-full' : 'inline-block',
-    'disabled:!bg-slate-500 disabled:!opacity-60 disabled:!shadow-sm disabled:cursor-not-allowed',
-    'bg-slate-500 text-white hover:bg-slate-500/90 ring-slate-500/40 focus:ring-4 outline-none dark:ring-slate-100/80',
     className,
   );
 

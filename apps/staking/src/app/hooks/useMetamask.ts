@@ -2,10 +2,11 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { getChainParams } from '../chains';
 import { environment } from '../../environments/environment';
-import { useConnect, useNetwork } from 'wagmi';
+import { useConnect, useDisconnect, useNetwork } from 'wagmi';
 
 interface MetamaskHook {
   connect: () => void;
+  disconnect: () => void;
   selectNetwork: () => Promise<void>;
   isNetworkSupported: boolean;
 }
@@ -15,6 +16,7 @@ export function useMetamask(): MetamaskHook {
   const chainProperties = getChainParams(environment.chain);
   const { chain: currentChain } = useNetwork();
   const { connect, connectors } = useConnect();
+  const { disconnect } = useDisconnect();
 
   useEffect(() => {
     if (onboardingRef.current !== undefined) {
@@ -78,6 +80,7 @@ export function useMetamask(): MetamaskHook {
 
   return {
     connect: handleWalletConnect,
+    disconnect,
     selectNetwork: handleNetworkChange,
     isNetworkSupported,
   };

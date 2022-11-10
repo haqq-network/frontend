@@ -5,14 +5,11 @@ import {
   createTxRawEIP712,
   signatureToWeb3Extension,
 } from '@evmos/transactions';
-import { useCallback, useEffect, useState } from 'react';
-// import { useAccount, useSigner } from 'wagmi';
+import { useCallback } from 'react';
 import { haqqChain } from '../chains';
-// import { ethToHaqq } from '../utils/convertAddress';
 import { useAddress } from '../hooks/useWallet';
 import { useCosmosService } from './useCosmosService';
 import type { Fee } from '@evmos/transactions';
-// import {signTypedData} from '@metamask/eth-sig-util';
 
 const fee: Fee = {
   amount: '5000',

@@ -6,6 +6,8 @@
     "faucet-e2e": "apps/faucet-e2e",
     "governance": "apps/governance",
     "governance-e2e": "apps/governance-e2e",
+    "governance-proposal-details": "libs/governance/proposal-details",
+    "governance-proposal-list": "libs/governance/proposal-list",
     "sentry": "libs/sentry",
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e",

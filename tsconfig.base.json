@@ -15,6 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@haqq/governance/proposal-details": [
+        "libs/governance/proposal-details/src/index.ts"
+      ],
+      "@haqq/governance/proposal-list": [
+        "libs/governance/proposal-list/src/index.ts"
+      ],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/theme": ["libs/theme/src/index.ts"],
       "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],
