@@ -252,7 +252,7 @@ export function DelegateModalInput({
     return () => {
       onChange(0);
     };
-  }, []);
+  }, [onChange]);
 
   return (
     <div>

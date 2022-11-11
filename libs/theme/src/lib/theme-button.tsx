@@ -13,7 +13,7 @@ export function ThemeButton() {
     <button
       type="button"
       onClick={handleThemeChange}
-      className="rounded-md p-[6px] hover:bg-gray-900/10 dark:hover:bg-gray-100/10"
+      className="rounded-md p-[8px] hover:bg-gray-900/10 dark:hover:bg-gray-100/10"
     >
       <span className="sr-only">Change theme</span>
 

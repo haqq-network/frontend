@@ -1,12 +1,9 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button2, Card } from '@haqq/ui-kit';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
-// import { useAccountInfo } from '../../hooks/useAccountInfo';
 import { useCosmosService } from '../../hooks/useCosmosService';
-// import { ethToHaqq } from '../../utils/convertAddress';
 import { useDelegation } from '../../hooks/useDelegation';
-// import { formatUnits } from 'ethers/lib/utils';
 import { useMetamask } from '../../hooks/useMetamask';
 import { useAddress } from '../../hooks/useWallet';
 

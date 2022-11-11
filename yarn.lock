@@ -2801,7 +2801,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evmos/proto@npm:^0.1.24":
+"@evmos/proto@npm:0.1.24, @evmos/proto@npm:^0.1.24":
   version: 0.1.24
   resolution: "@evmos/proto@npm:0.1.24"
   dependencies:
@@ -2869,11 +2869,11 @@ __metadata:
     "@emotion/babel-plugin": 11.10.5
     "@emotion/react": 11.10.5
     "@emotion/styled": 11.10.5
+    "@evmos/proto": 0.1.24
     "@evmos/provider": 0.2.6
     "@evmos/transactions": 0.2.10
     "@hanchon/signature-to-pubkey": 1.0.1
     "@headlessui/react": 1.7.4
-    "@metamask/eth-sig-util": 5.0.1
     "@metamask/jazzicon": 2.0.0
     "@metamask/onboarding": 1.0.1
     "@nrwl/cli": 15.0.13
@@ -2890,6 +2890,7 @@ __metadata:
     "@sentry/tracing": 7.18.0
     "@storybook/addon-essentials": 6.5.13
     "@storybook/builder-webpack5": 6.5.13
+    "@storybook/core-common": 6.5.13
     "@storybook/core-server": 6.5.13
     "@storybook/manager-webpack5": 6.5.13
     "@storybook/react": 6.5.13
@@ -2898,12 +2899,13 @@ __metadata:
     "@swc/core": 1.3.14
     "@swc/helpers": 0.4.12
     "@swc/jest": 0.2.23
+    "@tailwindcss/typography": 0.5.8
     "@tanstack/react-query": 4.14.5
     "@tanstack/react-query-devtools": 4.14.5
-    "@tanstack/react-virtual": 3.0.0-beta.18
     "@testing-library/react": 13.4.0
     "@testing-library/user-event": 14.4.3
     "@types/jest": 29.2.2
+    "@types/marked": 4.0.7
     "@types/node": 18.11.9
     "@types/react": 18.0.25
     "@types/react-dom": 18.0.8
@@ -2915,6 +2917,7 @@ __metadata:
     bech32-converting: 1.0.9
     clsx: 1.2.1
     core-js: 3.26.0
+    cosmjs-types: 0.5.2
     crypto-browserify: 3.12.0
     cypress: 11.0.1
     eslint: 8.27.0
@@ -2931,6 +2934,8 @@ __metadata:
     jest-environment-jsdom: 29.3.1
     lint-staged: 13.0.3
     long: 5.2.1
+    marked: 4.2.2
+    marked-react: 1.3.1
     nx: 15.0.13
     nx-ignore: 15.0.2
     postcss: 8.4.18
@@ -2939,6 +2944,7 @@ __metadata:
     react-countdown: 2.3.3
     react-dom: 18.2.0
     react-hot-toast: 2.4.0
+    react-json-pretty: 2.2.0
     react-router-dom: 6.4.3
     react-spinners: 0.13.6
     react-success-indicator: 1.1.0
@@ -2957,6 +2963,7 @@ __metadata:
     url-loader: 4.1.1
     wagmi: 0.8.1
     web3: 1.8.0
+    webpack-merge: 5.8.0
   languageName: unknown
   linkType: soft
 
@@ -3659,20 +3666,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/eth-sig-util@npm:5.0.1":
-  version: 5.0.1
-  resolution: "@metamask/eth-sig-util@npm:5.0.1"
-  dependencies:
-    "@ethereumjs/util": ^8.0.0
-    bn.js: 4.11.8
-    ethereum-cryptography: ^1.1.2
-    ethjs-util: ^0.1.6
-    tweetnacl: ^1.0.3
-    tweetnacl-util: ^0.15.1
-  checksum: 0af6b7861686fafa0da311afbbfae49eb944a7e8b63bdc0ee4b5a98921dabe05674055e9548ce6e1fc48e7ebfd5bc9f77cb2e12cae105f58a36db648f2ba89dd
-  languageName: node
-  linkType: hard
-
 "@metamask/eth-sig-util@npm:^4.0.1":
   version: 4.0.1
   resolution: "@metamask/eth-sig-util@npm:4.0.1"
@@ -4322,8 +4315,8 @@ __metadata:
   linkType: hard
 
 "@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.3, @pmmmwh/react-refresh-webpack-plugin@npm:^0.5.7":
-  version: 0.5.8
-  resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.8"
+  version: 0.5.9
+  resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.9"
   dependencies:
     ansi-html-community: ^0.0.8
     common-path-prefix: ^3.0.0
@@ -4331,7 +4324,7 @@ __metadata:
     error-stack-parser: ^2.0.6
     find-up: ^5.0.0
     html-entities: ^2.1.0
-    loader-utils: ^2.0.0
+    loader-utils: ^2.0.3
     schema-utils: ^3.0.0
     source-map: ^0.7.3
   peerDependencies:
@@ -4356,7 +4349,7 @@ __metadata:
       optional: true
     webpack-plugin-serve:
       optional: true
-  checksum: 48d8b2813dfba7d482e58a2b0161b79e3a5d608603f1a3c34d709ecc2e6e08f8b14f79934c57849d06f153eb327f18e3d8e1539f978e40ca91539c342f27b8ae
+  checksum: 446c0add9ecf17ed9911bf310bf22ab64f4b3d0ce334e68a3fcac5efee782ef4d7b6260997efaf720c7a2ea39086db89629e4aa07fb18558387d8dc8f0f31da2
   languageName: node
   linkType: hard
 
@@ -6209,6 +6202,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tailwindcss/typography@npm:0.5.8":
+  version: 0.5.8
+  resolution: "@tailwindcss/typography@npm:0.5.8"
+  dependencies:
+    lodash.castarray: ^4.4.0
+    lodash.isplainobject: ^4.0.6
+    lodash.merge: ^4.6.2
+    postcss-selector-parser: 6.0.10
+  peerDependencies:
+    tailwindcss: "*"
+  checksum: afe172c75ddf086f840b10f95e562bb210dde5612fccfcfd3c4cee688c57ca5b79569b3c2cb75687b34b1b7f9ad194b14e9fbb09a741cd69198bb92b5ac3838f
+  languageName: node
+  linkType: hard
+
 "@tanstack/match-sorter-utils@npm:^8.1.1":
   version: 8.5.14
   resolution: "@tanstack/match-sorter-utils@npm:8.5.14"
@@ -6285,24 +6292,6 @@ __metadata:
     react-native:
       optional: true
   checksum: fe98c7900c989512c5818b7aa3c81d81ce2c1149a25e9279f8efcf462a00a156c78c398b5e01c50e5da23788709ed36f8dae4236a51fde459a427a5ece474b0f
-  languageName: node
-  linkType: hard
-
-"@tanstack/react-virtual@npm:3.0.0-beta.18":
-  version: 3.0.0-beta.18
-  resolution: "@tanstack/react-virtual@npm:3.0.0-beta.18"
-  dependencies:
-    "@tanstack/virtual-core": 3.0.0-beta.18
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: e6d948b54179069776051434f021297d717d8cc911d8a9f71a6deac6ea9cb5f6438964049a5552265f0d97d2be584be4a68f95e60bcd859eb8c7ed07d277a155
-  languageName: node
-  linkType: hard
-
-"@tanstack/virtual-core@npm:3.0.0-beta.18":
-  version: 3.0.0-beta.18
-  resolution: "@tanstack/virtual-core@npm:3.0.0-beta.18"
-  checksum: fbf73de3c9cc296a14b262258e6c8da4826c744fc7ce98669b1c2692341313ffa4e34a13d20c3980f23b340720d7c771136b7f2673aa91d14558ddc086b92d1c
   languageName: node
   linkType: hard
 
@@ -6745,6 +6734,13 @@ __metadata:
   version: 4.0.2
   resolution: "@types/long@npm:4.0.2"
   checksum: d16cde7240d834cf44ba1eaec49e78ae3180e724cd667052b194a372f350d024cba8dd3f37b0864931683dab09ca935d52f0c4c1687178af5ada9fc85b0635f4
+  languageName: node
+  linkType: hard
+
+"@types/marked@npm:4.0.7, @types/marked@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "@types/marked@npm:4.0.7"
+  checksum: 4907b6a606578cd864bad429aca3c234591e6ed56bd141c575140487269b825a480ace9a85e4d003d1de1f007004c9d9b2fe600038ded5bba75aef59118e58d5
   languageName: node
   linkType: hard
 
@@ -10939,6 +10935,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cosmjs-types@npm:0.5.2, cosmjs-types@npm:^0.5.1, cosmjs-types@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "cosmjs-types@npm:0.5.2"
+  dependencies:
+    long: ^4.0.0
+    protobufjs: ~6.11.2
+  checksum: 0362cb2136a17c0f91f0727a55a1f49058bb56665136cf88e4502febf6da59fa2d4ce91ed75bc55907571b9f1cd99546d594002509781b69fe71fe972dbfe4c1
+  languageName: node
+  linkType: hard
+
 "cosmjs-types@npm:^0.4.0":
   version: 0.4.1
   resolution: "cosmjs-types@npm:0.4.1"
@@ -10946,16 +10952,6 @@ __metadata:
     long: ^4.0.0
     protobufjs: ~6.11.2
   checksum: 7921026bb7f1fef70a6d3c3cbfc71d6af21616d532e5cd9f2af15b94c53f98f8d76da65a8fd60f930df2a9ff4eebed1bb3f49baa3eac7117981fbc8f45259005
-  languageName: node
-  linkType: hard
-
-"cosmjs-types@npm:^0.5.1, cosmjs-types@npm:^0.5.2":
-  version: 0.5.2
-  resolution: "cosmjs-types@npm:0.5.2"
-  dependencies:
-    long: ^4.0.0
-    protobufjs: ~6.11.2
-  checksum: 0362cb2136a17c0f91f0727a55a1f49058bb56665136cf88e4502febf6da59fa2d4ce91ed75bc55907571b9f1cd99546d594002509781b69fe71fe972dbfe4c1
   languageName: node
   linkType: hard
 
@@ -17970,10 +17966,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.castarray@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "lodash.castarray@npm:4.4.0"
+  checksum: fca8c7047e0ae2738b0b2503fb00157ae0ff6d8a1b716f87ed715b22560e09de438c75b65e01a7e44ceb41c5b31dce2eb576e46db04beb9c699c498e03cbd00f
+  languageName: node
+  linkType: hard
+
 "lodash.debounce@npm:^4.0.8":
   version: 4.0.8
   resolution: "lodash.debounce@npm:4.0.8"
   checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
+  languageName: node
+  linkType: hard
+
+"lodash.isplainobject@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "lodash.isplainobject@npm:4.0.6"
+  checksum: 29c6351f281e0d9a1d58f1a4c8f4400924b4c79f18dfc4613624d7d54784df07efaff97c1ff2659f3e085ecf4fff493300adc4837553104cef2634110b0d5337
   languageName: node
   linkType: hard
 
@@ -18244,6 +18254,27 @@ __metadata:
   version: 1.0.4
   resolution: "markdown-escapes@npm:1.0.4"
   checksum: 6833a93d72d3f70a500658872312c6fa8015c20cc835a85ae6901fa232683fbc6ed7118ebe920fea7c80039a560f339c026597d96eee0e9de602a36921804997
+  languageName: node
+  linkType: hard
+
+"marked-react@npm:1.3.1":
+  version: 1.3.1
+  resolution: "marked-react@npm:1.3.1"
+  dependencies:
+    "@types/marked": ^4.0.7
+    marked: ^4.1.1
+  peerDependencies:
+    react: ^16.8.0 || >=17.0.0
+  checksum: 2197345a60f97497647752cf8b24263d84e34d41d9326dd3dc58ee81593a839a76464f6a6df46c8966447b4d4490bb30c0903d1038bebf167d535fa05710f308
+  languageName: node
+  linkType: hard
+
+"marked@npm:4.2.2, marked@npm:^4.1.1":
+  version: 4.2.2
+  resolution: "marked@npm:4.2.2"
+  bin:
+    marked: bin/marked.js
+  checksum: 1593e0632ff8dee1b9c8b669f26c8ce41e675bcb08ef75052845d4943db2c4d887edacd5b2120cf99a2cc06e9fbffc346ebaf98a7555273fda6a935adbfacf50
   languageName: node
   linkType: hard
 
@@ -20830,7 +20861,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:^6.0.0, postcss-selector-parser@npm:^6.0.10, postcss-selector-parser@npm:^6.0.2, postcss-selector-parser@npm:^6.0.4, postcss-selector-parser@npm:^6.0.5, postcss-selector-parser@npm:^6.0.9":
+"postcss-selector-parser@npm:6.0.10, postcss-selector-parser@npm:^6.0.0, postcss-selector-parser@npm:^6.0.10, postcss-selector-parser@npm:^6.0.2, postcss-selector-parser@npm:^6.0.4, postcss-selector-parser@npm:^6.0.5, postcss-selector-parser@npm:^6.0.9":
   version: 6.0.10
   resolution: "postcss-selector-parser@npm:6.0.10"
   dependencies:
@@ -21085,7 +21116,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.0.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -21511,6 +21542,18 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+  languageName: node
+  linkType: hard
+
+"react-json-pretty@npm:2.2.0":
+  version: 2.2.0
+  resolution: "react-json-pretty@npm:2.2.0"
+  dependencies:
+    prop-types: ^15.6.2
+  peerDependencies:
+    react: ">=15.0"
+    react-dom: ">=15.0"
+  checksum: 9a3a316d46c7333f650cb37b0e71b121405c863ff5007d1bd0f4af0254d89560c49b153ffeedf7c2ffd5ad7d0adcccb7180b7ce23486d2df51bb1f98e543214c
   languageName: node
   linkType: hard
 
@@ -25951,7 +25994,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-merge@npm:^5.8.0":
+"webpack-merge@npm:5.8.0, webpack-merge@npm:^5.8.0":
   version: 5.8.0
   resolution: "webpack-merge@npm:5.8.0"
   dependencies:

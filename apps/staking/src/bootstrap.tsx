@@ -32,5 +32,5 @@ async function startApp() {
   );
 }
 
-console.info(`start staking app version: ${environment.version}`);
+// console.info(`start staking app version: ${environment.version}`);
 startApp();

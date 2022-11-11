@@ -27,7 +27,6 @@ export const chains: Record<string, Chain> = {
     network: 'haqq-localnet',
     rpcUrls: {
       default: 'http://127.0.0.1:7545',
-      ws: 'ws://127.0.0.1:7545',
     },
     nativeCurrency: currency,
     testnet: true,
@@ -37,7 +36,7 @@ export const chains: Record<string, Chain> = {
     name: 'Haqq Devnet',
     network: 'haqq-devnet',
     rpcUrls: {
-      default: 'http://192.168.1.86:8545',
+      default: 'http://159.69.6.222:8545',
     },
     testnet: true,
     nativeCurrency: currency,
@@ -74,15 +73,24 @@ export const chains: Record<string, Chain> = {
   },
 };
 
+// export const haqqChain = {
+//   chainId: 54211,
+//   cosmosChainId: 'haqq_54211-3',
+// };
+
 export const haqqChain = {
-  chainId: 54211,
-  cosmosChainId: 'haqq_54211-3',
+  chainId: 121799,
+  cosmosChainId: 'haqq_121799-1',
 };
 
-// export const haqqChain = {
-//   chainId: 121799,
-//   cosmosChainId: 'haqq_121799-1',
-// };
+// TODO: Move to config/environment
+// export const cosmosRestEndpoint = 'https://rest.cosmos.testedge2.haqq.network';
+// export const tmRpcEndpoint = 'https://rpc.tm.testedge2.haqq.network';
+// export const tmRpcWsEndpoint = 'wss://rpc.tm.testedge2.haqq.network';
+
+export const cosmosRestEndpoint = 'http://159.69.6.222:1317';
+export const tmRpcEndpoint = 'http://159.69.6.222:26657';
+// export const tmRpcWsEndpoint = 'wss://rpc.tm.testedge2.haqq.network';
 
 export function getChainParams(chainName: string) {
   const currentChain = chains[chainName];

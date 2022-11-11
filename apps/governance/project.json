@@ -16,13 +16,10 @@
         "main": "apps/governance/src/main.ts",
         "polyfills": "apps/governance/src/polyfills.ts",
         "tsConfig": "apps/governance/tsconfig.app.json",
-        "assets": [
-          "apps/governance/src/favicon.ico",
-          "apps/governance/src/assets"
-        ],
+        "assets": ["apps/governance/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/governance/webpack.config.js"
+        "webpackConfig": "apps/governance/webpack.config.ts"
       },
       "configurations": {
         "development": {
@@ -44,7 +41,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/governance/webpack.config.prod.js"
+          "webpackConfig": "apps/governance/webpack.config.prod.ts"
         }
       }
     },

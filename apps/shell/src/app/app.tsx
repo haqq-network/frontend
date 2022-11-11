@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import { Card, Container, Logo, LogoSmall, Page, Spinner } from '@haqq/ui-kit';
+import { Card, Container, HaqqLogo, Page, SpinnerLoader } from '@haqq/ui-kit';
 
 const StakingApp = lazy(() => import('staking/Module'));
 const GovernanceApp = lazy(() => import('governance/Module'));
@@ -16,8 +16,7 @@ export function Header(): React.ReactElement {
         <div className="relative flex items-center justify-between h-[64px]">
           <div className="flex-1 flex items-center justify-start space-x-12">
             <NavLink to="/" className="text-[#04d484]">
-              <Logo className="h-8 w-auto hidden sm:block" />
-              <LogoSmall className="h-10 w-auto block sm:hidden" />
+              <HaqqLogo className="h-8 w-auto" />
             </NavLink>
           </div>
 
@@ -38,7 +37,7 @@ export function Header(): React.ReactElement {
 function PendingPage() {
   return (
     <Container className="min-h-[400px] py-20 flex items-center justify-center content-center">
-      <Spinner />
+      <SpinnerLoader />
     </Container>
   );
 }

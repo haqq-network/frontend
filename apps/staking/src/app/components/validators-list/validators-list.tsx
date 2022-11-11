@@ -1,11 +1,4 @@
-import {
-  Fragment,
-  useEffect,
-  useRef,
-  useMemo,
-  useState,
-  useCallback,
-} from 'react';
+import { Fragment, useMemo, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { useCosmosService } from '../../hooks/useCosmosService';
