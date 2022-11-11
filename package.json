@@ -51,6 +51,7 @@
     "react-hot-toast": "2.4.0",
     "react-json-pretty": "2.2.0",
     "react-router-dom": "6.4.4",
+    "react-select": "5.6.1",
     "react-spinners": "0.13.7",
     "react-success-indicator": "1.1.0",
     "reaptcha": "1.12.1",

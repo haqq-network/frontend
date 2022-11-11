@@ -9,14 +9,14 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "swc",
+        "compiler": "babel",
         "outputPath": "dist/apps/bridge",
         "index": "apps/bridge/src/index.html",
         "baseHref": "/",
         "main": "apps/bridge/src/main.tsx",
         "polyfills": "apps/bridge/src/polyfills.ts",
         "tsConfig": "apps/bridge/tsconfig.app.json",
-        "assets": ["apps/bridge/src/favicon.ico", "apps/bridge/src/assets"],
+        "assets": ["apps/bridge/src/assets"],
         "styles": [],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
