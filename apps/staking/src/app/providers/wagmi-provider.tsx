@@ -3,13 +3,14 @@ import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 // import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { getChainParams } from '../chains';
+import { getChainParams, mapToWagmiChain } from '../chains';
 import { environment } from '../../environments/environment';
 
 export function WagmiProvider({ children }: { children: ReactNode }) {
   const { provider, chains } = useMemo(() => {
-    const chain = getChainParams(environment.chain) as Chain;
-    console.log({ chain });
+    const chainParams = getChainParams(environment.chain);
+    const chain = mapToWagmiChain(chainParams);
+
     return configureChains(
       [chain as Chain],
       [

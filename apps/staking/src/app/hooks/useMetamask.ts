@@ -57,7 +57,7 @@ export function useMetamask(): MetamaskHook {
                     symbol: chainProperties.nativeCurrency.symbol,
                     decimals: chainProperties.nativeCurrency.decimals,
                   },
-                  rpcUrls: [chainProperties.rpcUrls.default],
+                  rpcUrls: [chainProperties.ethRpcEndpoint],
                 },
               ],
             });

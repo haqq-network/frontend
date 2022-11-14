@@ -31,7 +31,10 @@ import { signatureToPubkey } from '@hanchon/signature-to-pubkey';
 import { BondStatusString } from '@cosmjs/stargate/build/modules/staking/queries';
 import { useSigner } from 'wagmi';
 import store from 'store2';
-import { cosmosRestEndpoint, tmRpcEndpoint } from '../chains';
+import { environment } from '../../environments/environment';
+import { getChainParams } from '../chains';
+
+const { tmRpcEndpoint, cosmosRestEndpoint } = getChainParams(environment.chain);
 
 interface ComsosClient
   extends QueryClient,

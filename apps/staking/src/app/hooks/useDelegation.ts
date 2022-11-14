@@ -5,11 +5,12 @@ import {
   createTxRawEIP712,
   signatureToWeb3Extension,
 } from '@evmos/transactions';
-import { useCallback } from 'react';
-import { haqqChain } from '../chains';
+import { useCallback, useMemo } from 'react';
 import { useAddress } from '../hooks/useWallet';
 import { useCosmosService } from './useCosmosService';
 import type { Fee } from '@evmos/transactions';
+import { getChainParams, mapToCosmosChain } from '../chains';
+import { environment } from '../../environments/environment';
 
 const fee: Fee = {
   amount: '5000',
@@ -22,6 +23,11 @@ export function useDelegation() {
     useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
   const memo = '';
+
+  const haqqChain = useMemo(() => {
+    const chainParams = getChainParams(environment.chain);
+    return mapToCosmosChain(chainParams);
+  }, []);
 
   const getSender = useCallback(
     async (address: string, pubkey: string) => {
