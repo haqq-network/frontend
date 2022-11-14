@@ -2786,22 +2786,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evmos/eip712@npm:^0.2.8":
-  version: 0.2.8
-  resolution: "@evmos/eip712@npm:0.2.8"
+"@evmos/eip712@npm:^0.2.9":
+  version: 0.2.9
+  resolution: "@evmos/eip712@npm:0.2.9"
   dependencies:
     "@cosmjs/proto-signing": ^0.28.13
-    "@evmos/proto": ^0.1.24
+    "@evmos/proto": ^0.1.25
     "@metamask/eth-sig-util": ^4.0.1
     cosmjs-types: ^0.5.1
     link-module-alias: ^1.2.0
     long: ^5.2.0
     shx: ^0.3.4
-  checksum: cabfbad88620afc54f61473c3ee23d5c700e2cb2731a773ae731ed4f035adf2a7d506d4e4876d0d1c95198c0f2ed9e7457dc49065a7e3b359d51e9f4b7d48e1e
+  checksum: 7f8988428c9140a71a3de96dcd79799a9f6a8ca5484d94a178f6652af4c450f873f201c7284a847a5fc74cfe2aedb85351dc9cf5e40c1c4c7ba0aef11a674fe6
   languageName: node
   linkType: hard
 
-"@evmos/proto@npm:0.1.24, @evmos/proto@npm:^0.1.24":
+"@evmos/proto@npm:0.1.24":
   version: 0.1.24
   resolution: "@evmos/proto@npm:0.1.24"
   dependencies:
@@ -2812,6 +2812,16 @@ __metadata:
     sha3: ^2.1.4
     shx: ^0.3.4
   checksum: eba36d6b04d16e7db7dfc96e3dc424796ffcb9ce118dcc0d6c322e011c5e4b6f65f9118f7764f60b95f554d66fef28bc746cbf471a0e4f8ce3335afae495777e
+  languageName: node
+  linkType: hard
+
+"@evmos/proto@npm:^0.1.25":
+  version: 0.1.25
+  resolution: "@evmos/proto@npm:0.1.25"
+  dependencies:
+    google-protobuf: ^3.19.4
+    sha3: ^2.1.4
+  checksum: 1c7e74b688b7177688f50c48e8312d6f2fbe107eeddb63efe238a124c7e8fa698aa107c398eb0593052abcbe5c27a9aea21e3b9dddfa7f5ab6834474741d2788
   languageName: node
   linkType: hard
 
@@ -2826,16 +2836,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evmos/transactions@npm:0.2.10":
-  version: 0.2.10
-  resolution: "@evmos/transactions@npm:0.2.10"
+"@evmos/transactions@npm:0.2.11":
+  version: 0.2.11
+  resolution: "@evmos/transactions@npm:0.2.11"
   dependencies:
-    "@evmos/eip712": ^0.2.8
-    "@evmos/proto": ^0.1.24
-    "@types/node": ^17.0.21
-    link-module-alias: ^1.2.0
-    shx: ^0.3.4
-  checksum: 84601d8b5bbca930debff0d59d6128bab2e3ca95d18c96da52358e116c2df947eb11d6ed4cce88d5e70b9b2b400c033c9e2f78413624506f206464207151f8ee
+    "@evmos/eip712": ^0.2.9
+    "@evmos/proto": ^0.1.25
+  checksum: c895e84d8ed7cce828bcc24a9987d5c6b07fdc2238540b1f51a463a9ed7b5bebc5a23bbe9c4b821b141c108d9c57b161d94905540f712ee1ab43d7c488c1afc5
   languageName: node
   linkType: hard
 
@@ -2871,7 +2878,7 @@ __metadata:
     "@emotion/styled": 11.10.5
     "@evmos/proto": 0.1.24
     "@evmos/provider": 0.2.6
-    "@evmos/transactions": 0.2.10
+    "@evmos/transactions": 0.2.11
     "@hanchon/signature-to-pubkey": 1.0.1
     "@headlessui/react": 1.7.4
     "@metamask/jazzicon": 2.0.0
