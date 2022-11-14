@@ -19,24 +19,24 @@ jobs:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.9
     with:
-      number-of-agents: ${{ env.AGENTS_COUNT }}
+      number-of-agents: $AGENTS_COUNT
       init-commands: |
-        yarn nx-cloud start-ci-run --stop-agents-after="build" --agent-count=${{ env.AGENTS_COUNT }}
+        yarn nx-cloud start-ci-run --stop-agents-after="build" --agent-count=$AGENTS_COUNT
       parallel-commands: |
         yarn nx-cloud record -- yarn nx workspace-lint
         yarn nx-cloud record -- yarn nx format:check
       parallel-commands-on-agents: |
-        yarn nx affected --target=lint --parallel=${{ env.AGENTS_COUNT }}
-        yarn nx affected --target=test --parallel=${{ env.AGENTS_COUNT }} --ci --code-coverage
-        yarn nx affected --target=build --parallel=${{ env.AGENTS_COUNT }}
+        yarn nx affected --target=lint --parallel=$AGENTS_COUNT
+        yarn nx affected --target=test --parallel=$AGENTS_COUNT --ci --code-coverage
+        yarn nx affected --target=build --parallel=$AGENTS_COUNT
       main-branch-name: dev
-      node-version: ${{ env.NODE_VERSION }}
+      node-version: $NODE_VERSION
       install-commands: yarn install --immutable
 
   agents:
     name: Nx Cloud - Agents
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.9
     with:
-      number-of-agents: ${{ env.AGENTS_COUNT }}
-      node-version: ${{ env.NODE_VERSION }}
+      number-of-agents: $AGENTS_COUNT
+      node-version: $NODE_VERSION
       install-commands: yarn install --immutable
