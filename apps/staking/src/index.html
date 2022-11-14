@@ -7,10 +7,49 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="assets/favicon.svg" />
+
+    <style>
+      .app-loader {
+        --app-loader-size: 96px;
+
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 5000;
+        transition: 150ms ease-out;
+        transform: scale(1.7);
+        opacity: 0;
+        display: flex;
+        user-select: none;
+        pointer-events: none;
+        visibility: hidden;
+      }
+
+      .app-loader img {
+        width: var(--app-loader-size);
+        height: var(--app-loader-size);
+      }
+
+      #root:empty + .app-loader {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
     <div id="root"></div>
+
+    <div class="app-loader">
+      <img src="assets/favicon.svg" alt="HAQQ Network" />
+    </div>
+
     <!-- <script>
       // Set app theme
       const storedTheme = localStorage.getItem('theme');
