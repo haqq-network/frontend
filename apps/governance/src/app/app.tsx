@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeButton } from '@haqq/theme';
 import { Toaster } from 'react-hot-toast';
 import { useMetamask } from 'apps/governance/src/hooks/useMetamask';
-import { useAddress } from 'apps/governance/src/hooks/useWallet';
+import { useAddress } from '@haqq/hooks';
 import { getFormattedAddress } from '@haqq/utils';
 import { useBalance } from 'wagmi';
 import { Menu, Transition } from '@headlessui/react';

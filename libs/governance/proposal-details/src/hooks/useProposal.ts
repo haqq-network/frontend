@@ -5,7 +5,7 @@ import {
   signatureToWeb3Extension,
 } from '@evmos/transactions';
 import { useCallback, useMemo } from 'react';
-import { useAddress } from 'apps/governance/src/hooks/useWallet';
+import { useAddress } from '@haqq/hooks';
 import { useCosmosService } from 'apps/governance/src/hooks/useCosmosService';
 import type { Fee } from '@evmos/transactions';
 import { getChainParams, mapToCosmosChain } from 'apps/governance/src/chains';
@@ -94,7 +94,14 @@ export function useProposal(): ProposalHook {
         return tx.txhash;
       }
     },
-    [broadcastTransaction, ethAddress, getPubkey, getSender, haqqAddress],
+    [
+      broadcastTransaction,
+      ethAddress,
+      getPubkey,
+      getSender,
+      haqqAddress,
+      haqqChain,
+    ],
   );
 
   return {

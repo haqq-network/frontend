@@ -6,7 +6,7 @@ import { ValidatorListItem } from '../validator-list-item/validator-list-item';
 import { Card, SpinnerLoader, Text } from '@haqq/ui-kit';
 import { splitValidators } from '../../utils/splitValidators';
 import { sortValidatorsByToken } from '../../utils/sortValidators';
-import { useAddress } from '../../hooks/useWallet';
+import { useAddress } from '@haqq/hooks';
 
 export function ValidatorsList() {
   const { getAccountDelegations, getAllValidators, getRewardsInfo } =

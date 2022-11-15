@@ -17,7 +17,7 @@ import {
 import clsx from 'clsx';
 import { VoteModal } from '../vote-modal/vote-modal';
 import { Proposal } from '@evmos/provider';
-import { useAddress } from 'apps/governance/src/hooks/useWallet';
+import { useAddress } from '@haqq/hooks';
 
 const DENOM = 10 ** 18;
 

@@ -209,6 +209,7 @@ function createCosmosService(
         },
       );
       const { tx_response } = await broadcastResponse.json();
+      console.log('broadcastTransaction', { tx_response });
 
       return tx_response;
     } catch (error) {

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
-import { ethToHaqq } from '../utils/convertAddress';
+import { ethToHaqq } from '@haqq/utils';
 
 export function useAddress() {
   const { address: ethAddress } = useAccount();

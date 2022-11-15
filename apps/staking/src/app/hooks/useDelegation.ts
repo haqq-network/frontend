@@ -6,7 +6,7 @@ import {
   signatureToWeb3Extension,
 } from '@evmos/transactions';
 import { useCallback, useMemo } from 'react';
-import { useAddress } from '../hooks/useWallet';
+import { useAddress } from '@haqq/hooks';
 import { useCosmosService } from './useCosmosService';
 import type { Fee } from '@evmos/transactions';
 import { getChainParams, mapToCosmosChain } from '../chains';
@@ -75,12 +75,20 @@ export function useDelegation() {
           extension,
         );
 
-        const { tx_response } = await broadcastTransaction(rawTx);
+        const txResponse = await broadcastTransaction(rawTx);
+        // console.log('handleDelegate', { txResponse });
 
-        return tx_response.txhash;
+        return txResponse.txhash;
       }
     },
-    [getPubkey, ethAddress, getSender, haqqAddress, broadcastTransaction],
+    [
+      getPubkey,
+      ethAddress,
+      getSender,
+      haqqAddress,
+      haqqChain,
+      broadcastTransaction,
+    ],
   );
 
   const handleUndelegate = useCallback(
@@ -118,13 +126,19 @@ export function useDelegation() {
         //   rawTx,
         // });
 
-        const { tx_response } = await broadcastTransaction(rawTx);
-        // console.log({ tx_response });
+        const txResponse = await broadcastTransaction(rawTx);
 
-        return tx_response.txhash;
+        return txResponse.txhash;
       }
     },
-    [getPubkey, ethAddress, getSender, haqqAddress, broadcastTransaction],
+    [
+      getPubkey,
+      ethAddress,
+      getSender,
+      haqqAddress,
+      haqqChain,
+      broadcastTransaction,
+    ],
   );
 
   const handleClaimAllRewards = useCallback(
@@ -162,20 +176,28 @@ export function useDelegation() {
           extension,
         );
 
-        // console.debug({
-        //   params,
-        //   msg,
-        //   signature,
-        //   extension,
-        //   rawTx,
-        // });
+        console.debug({
+          params,
+          msg,
+          signature,
+          extension,
+          rawTx,
+        });
 
         const tx = await broadcastTransaction(rawTx);
+        console.log({ tx });
 
         return tx.txhash;
       }
     },
-    [broadcastTransaction, ethAddress, getPubkey, getSender, haqqAddress],
+    [
+      broadcastTransaction,
+      ethAddress,
+      getPubkey,
+      getSender,
+      haqqAddress,
+      haqqChain,
+    ],
   );
 
   return {

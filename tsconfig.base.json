@@ -21,6 +21,7 @@
       "@haqq/governance/proposal-list": [
         "libs/governance/proposal-list/src/index.ts"
       ],
+      "@haqq/hooks": ["libs/hooks/src/index.ts"],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/theme": ["libs/theme/src/index.ts"],
       "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],

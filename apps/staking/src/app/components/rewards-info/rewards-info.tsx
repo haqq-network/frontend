@@ -5,7 +5,7 @@ import { useBalance } from 'wagmi';
 import { useCosmosService } from '../../hooks/useCosmosService';
 import { useDelegation } from '../../hooks/useDelegation';
 import { useMetamask } from '../../hooks/useMetamask';
-import { useAddress } from '../../hooks/useWallet';
+import { useAddress } from '@haqq/hooks';
 
 export interface RewardsInfoProps {
   balance: number;
