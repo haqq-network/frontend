@@ -5,29 +5,34 @@ import { DepositStatsWidget } from '../components/DepositStatsWidget/DepositStat
 import { Container } from '../components/Layout/Layout';
 import { getChainParams } from '../config';
 import { environment } from '../environments/environment';
+import { useAddress } from '@haqq/hooks';
 
 export function AccountPage() {
-  const { address, isConnected } = useAccount();
-  const {
-    data: balance,
-    // isError,
-    // isLoading,
-    // status,
-    // error,
-  } = useBalance({
-    address: address,
+  const { isConnected } = useAccount();
+  const { ethAddress, haqqAddress } = useAddress();
+  const { data: balance } = useBalance({
+    address: ethAddress,
     watch: true,
   });
-  const chain = getChainParams(environment.chain);
+  const chain = useMemo(() => {
+    return getChainParams(environment.chain);
+  }, []);
 
   const accountWidgetProps = useMemo(() => {
     return {
       isConnected,
-      address: address ?? '',
+      ethAddress: ethAddress ?? '',
+      haqqAddress: haqqAddress ?? '',
       balance: balance ? Number.parseFloat(balance.formatted) : 0,
       symbol: chain.nativeCurrency.symbol,
     };
-  }, [address, balance, chain.nativeCurrency.symbol, isConnected]);
+  }, [
+    balance,
+    chain.nativeCurrency.symbol,
+    ethAddress,
+    haqqAddress,
+    isConnected,
+  ]);
 
   return (
     <Container className="flex flex-col space-y-12 py-8 sm:py-20">

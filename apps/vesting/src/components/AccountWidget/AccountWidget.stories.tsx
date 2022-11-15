@@ -13,7 +13,8 @@ const Template: ComponentStory<typeof AccountWidgetComponent> = (args: any) => {
 export const Connected = Template.bind({});
 Connected.args = {
   isConnected: true,
-  address: '0x664B07EA8969d643B0aCc4829c113F6C20514F65',
+  ethAddress: '0x664B07EA8969d643B0aCc4829c113F6C20514F65',
+  haqqAddress: 'ajksdaksjdkasjdaksjdkasjdkasjdkasjkdaksjd',
   balance: 536531.712545123,
   symbol: 'islm',
 };

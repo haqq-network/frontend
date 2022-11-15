@@ -1,8 +1,10 @@
-export function CopyIcon() {
+import clsx from 'clsx';
+
+export function CopyIcon({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-[24px] w-[24px]"
+      className={clsx('h-[16px] w-[16px]', className)}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -36,13 +38,13 @@ export function DisconnectIcon() {
   );
 }
 
-export function ScanIcon() {
+export function ScanIcon({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      className="h-[24px] w-[24px]"
+      className="h-[16px] w-[16px]"
       stroke="currentColor"
       strokeWidth={2}
     >
