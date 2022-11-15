@@ -18,11 +18,7 @@ export function Header({ rightSlot }: HeaderProps) {
         <div className="relative flex items-center justify-between h-[64px]">
           <div className="flex-1 flex items-center justify-start space-x-12">
             <NavLink to="/">
-              {/* <IslamicLogo className="h-10 w-auto hidden sm:block" />
-              <IslamicLogoSign className="h-10 w-auto block sm:hidden" /> */}
-
-              <HaqqLogo className="block lg:hidden h-9 w-auto" />
-              <HaqqLogo className="hidden lg:block h-9 w-auto" />
+              <HaqqLogo className="h-8 w-auto" />
             </NavLink>
 
             {/* Links must be here */}
