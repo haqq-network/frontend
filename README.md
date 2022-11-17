@@ -28,30 +28,30 @@
 
 `@haqq/staking-app`
 
-```bash
+```shell
 # start app
-yarn nx staking:serve
+yarn nx serve staking
 # build app
-yarn nx staking:build
+yarn nx build staking
 # run tests
-yarn nx staking:test
+yarn nx test staking
 # run e2e tests
-yarn nx staking-e2e:e2e
+yarn nx e2e staking-e2e
 # start storybook
-yarn nx staking:storybook
+yarn nx storybook staking
 ```
 
 `@haqq/ui-kit`
 
-```bash
+```shell
 # run tests
-yarn nx ui-kit:test
+yarn nx test ui-kit
 # start storybook
-yarn nx ui-kit:storybook
+yarn nx storybook ui-kit
 ```
 
 To create new `Button` component `ui-kit` package
 
 ```shell
-yarn nx generate @nrwl/react:component Button --project=ui-kit --directory=components --export --pascalCaseDirectory --pascalCaseFiles --no-interactive
+yarn nx generate @nrwl/react:component Button --project=ui-kit --directory=components --export --no-interactive
 ```
