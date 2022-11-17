@@ -1,7 +1,7 @@
 const baseModuleFederationConfig = require('../../module-federation.config');
 
 /**
- * @type {import('@nrwl/react/module-federation').ModuleFederationConfig}
+ * @type {import('@nrwl/devkit').ModuleFederationConfig}
  **/
 const moduleFederationConfig = {
   ...baseModuleFederationConfig,
