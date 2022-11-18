@@ -6,7 +6,6 @@
   "author": "Oleg Shilov <og@haqq.network>",
   "packageManager": "yarn@3.3.0",
   "engines": {
-    "node": ">=18.12",
     "yarn": ">=3.3"
   },
   "repository": {

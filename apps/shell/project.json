@@ -9,14 +9,14 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "swc",
+        "compiler": "babel",
         "outputPath": "dist/apps/shell",
         "index": "apps/shell/src/index.html",
         "baseHref": "/",
         "main": "apps/shell/src/main.ts",
         "polyfills": "apps/shell/src/polyfills.ts",
         "tsConfig": "apps/shell/tsconfig.app.json",
-        "assets": ["apps/shell/src/favicon.ico", "apps/shell/src/assets"],
+        "assets": ["apps/shell/src/assets"],
         "styles": [],
         "scripts": [],
         "webpackConfig": "apps/shell/webpack.config.js"

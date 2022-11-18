@@ -4,7 +4,7 @@ import { ProvidePlugin } from 'webpack';
 import { merge } from 'webpack-merge';
 
 /**
- * @type {import('@nrwl/react/module-federation').ModuleFederationConfig}
+ * @type {import('@nrwl/devkit').ModuleFederationConfig}
  **/
 const defaultConfig = {
   ...baseConfig,
