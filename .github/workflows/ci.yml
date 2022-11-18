@@ -7,13 +7,13 @@ on:
   pull_request:
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   main:
     name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.9
+    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.10
     with:
       number-of-agents: 3
       init-commands: |
@@ -27,12 +27,14 @@ jobs:
         yarn nx affected --target=build --parallel=3
       main-branch-name: dev
       node-version: 18.12.0
+      yarn-version: 3.3.0
       install-commands: yarn install --immutable
 
   agents:
     name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.9
+    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.10
     with:
       number-of-agents: 3
       node-version: 18.12.0
+      yarn-version: 3.3.0
       install-commands: yarn install --immutable
