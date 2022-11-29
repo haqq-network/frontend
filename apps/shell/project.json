@@ -93,7 +93,22 @@
           "buildTarget": "shell:build:production"
         }
       }
+    },
+    "build-mf": {
+      "executor": "nx:run-commands",
+      "dependsOn": [{ "projects": "self", "target": "build" }],
+      "options": {
+        "commands": [
+          "rm -rf production",
+          "mkdir production",
+          "cp -r dist/apps/shell/* production",
+          "cp -r dist/apps/{staking,governance} production",
+          "http-server -p 3000 -a localhost production"
+        ],
+        "parallel": false
+      }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["staking", "governance"]
 }

@@ -1,10 +1,17 @@
 import { render } from '@testing-library/react';
 
-import Loaders from './loaders';
+import { PulseLoader, SpinnerLoader } from './loaders';
 
-describe('Loaders', () => {
+describe('PulseLoader', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Loaders />);
+    const { baseElement } = render(<PulseLoader />);
+    expect(baseElement).toBeTruthy();
+  });
+});
+
+describe('SpinnerLoader', () => {
+  it('should render successfully', () => {
+    const { baseElement } = render(<SpinnerLoader />);
     expect(baseElement).toBeTruthy();
   });
 });

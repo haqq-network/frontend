@@ -2,7 +2,7 @@
 const { merge } = require('webpack-merge');
 const { ProvidePlugin } = require('webpack');
 
-module.exports = (config, context) => {
+module.exports = (config) => {
   return merge(config, {
     plugins: [
       new ProvidePlugin({

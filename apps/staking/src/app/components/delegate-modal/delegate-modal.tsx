@@ -2,9 +2,9 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Alert, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
-import { useDelegation } from '../../hooks/useDelegation';
 import { useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useDelegation } from '@haqq/hooks';
 
 export interface DelegateModalProps {
   isOpen: boolean;

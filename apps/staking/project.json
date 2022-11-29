@@ -19,7 +19,7 @@
         "assets": ["apps/staking/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/staking/webpack.config.ts"
+        "webpackConfig": "apps/staking/webpack.config.js"
       },
       "configurations": {
         "development": {
@@ -41,7 +41,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/staking/webpack.config.prod.ts"
+          "webpackConfig": "apps/staking/webpack.config.prod.js"
         }
       }
     },

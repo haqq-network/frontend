@@ -1,18 +1,19 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import { Button } from './Components';
 import Reaptcha from 'reaptcha';
 import Countdown from 'react-countdown';
 import SuccessIndicator from 'react-success-indicator';
 import { useAuth0 } from '@auth0/auth0-react';
 import { AccountInfo } from './AccountInfo';
-import { useTheme } from './ThemeContainer';
 import { PulseLoader } from 'react-spinners';
 import { useAccount, useConnect, useNetwork } from 'wagmi';
-import { getChainParams } from '../config';
 import { hexValue } from 'ethers/lib/utils';
 import { environment } from '../environments/environment';
+import { useConfig } from '@haqq/providers';
+import { getChainParams } from '@haqq/shared';
+import { useTheme } from '@haqq/theme';
+import { Button2 } from '@haqq/ui-kit';
 
 interface ClaimInfo {
   available: boolean;
@@ -22,7 +23,8 @@ interface ClaimInfo {
 const { serviceConfig, reCaptchaConfig } = environment;
 
 export function Faucet(): ReactElement {
-  const chain = getChainParams(environment.chain);
+  const { chainName } = useConfig();
+  const chain = getChainParams(chainName);
   const {
     user,
     isAuthenticated,
@@ -140,7 +142,7 @@ export function Faucet(): ReactElement {
                 {
                   chainId: targetNetworkIdHex,
                   chainName: chain.name,
-                  rpcUrls: [chain.rpcUrls.default],
+                  rpcUrls: [chain.ethRpcEndpoint],
                   nativeCurrency: chain.nativeCurrency,
                 },
               ],
@@ -153,7 +155,7 @@ export function Faucet(): ReactElement {
         }
       }
     }
-  }, []);
+  }, [chain.ethRpcEndpoint, chain.id, chain.name, chain.nativeCurrency]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -189,12 +191,12 @@ export function Faucet(): ReactElement {
 
               {currentChain?.unsupported && (
                 <div className="flex items-center">
-                  <a
+                  <span
                     className="text-sm text-[#5baacd] hover:text-[#5baacd]/80 cursor-pointer leading-snug"
                     onClick={handleNetworkSwitch}
                   >
                     Switch to {chain.name}
-                  </a>
+                  </span>
                 </div>
               )}
             </div>
@@ -207,8 +209,8 @@ export function Faucet(): ReactElement {
                   }
 
                   return (
-                    <Button
-                      block
+                    <Button2
+                      fill
                       key={connector.id}
                       onClick={() => {
                         connect({ connector });
@@ -218,7 +220,7 @@ export function Faucet(): ReactElement {
                       {isLoading &&
                         connector.id === pendingConnector?.id &&
                         ' (connecting)'}
-                    </Button>
+                    </Button2>
                   );
                 })}
 
@@ -250,9 +252,9 @@ export function Faucet(): ReactElement {
                 )}
               </div>
             ) : (
-              <Button block onClick={handleLogin} disabled={isAuth0Loading}>
+              <Button2 fill onClick={handleLogin} disabled={isAuth0Loading}>
                 Login with github
-              </Button>
+              </Button2>
             )}
           </div>
 
@@ -278,9 +280,9 @@ export function Faucet(): ReactElement {
                 <div>
                   {isRecaptchaVerified ? (
                     <div>
-                      <Button block onClick={handleRequestTokens}>
+                      <Button2 fill onClick={handleRequestTokens}>
                         Request tokens
-                      </Button>
+                      </Button2>
                     </div>
                   ) : (
                     <div className="flex flex-row space-x-4 items-center">

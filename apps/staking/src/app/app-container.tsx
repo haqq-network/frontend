@@ -1,10 +1,14 @@
 import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ReactQueryProvider } from './providers/react-query-provider';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
-import { CosmosProvider } from './providers/cosmos-provider';
-import { WagmiProvider } from './providers/wagmi-provider';
 import { ThemeProvider } from '@haqq/theme';
+import {
+  CosmosProvider,
+  ConfigProvider,
+  ReactQueryProvider,
+  WagmiProvider,
+} from '@haqq/providers';
+import { environment } from '../environments/environment';
 
 export function AppContainer({
   children,
@@ -14,14 +18,16 @@ export function AppContainer({
   tendermintClient: Tendermint34Client;
 }) {
   return (
-    <BrowserRouter>
-      <WagmiProvider>
-        <ReactQueryProvider>
-          <CosmosProvider tendermintClient={tendermintClient}>
-            <ThemeProvider>{children}</ThemeProvider>
-          </CosmosProvider>
-        </ReactQueryProvider>
-      </WagmiProvider>
-    </BrowserRouter>
+    <ConfigProvider chainName={environment.chainName}>
+      <BrowserRouter>
+        <WagmiProvider>
+          <ReactQueryProvider>
+            <CosmosProvider tendermintClient={tendermintClient}>
+              <ThemeProvider>{children}</ThemeProvider>
+            </CosmosProvider>
+          </ReactQueryProvider>
+        </WagmiProvider>
+      </BrowserRouter>
+    </ConfigProvider>
   );
 }

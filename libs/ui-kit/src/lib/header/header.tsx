@@ -13,7 +13,7 @@ export function Header({ rightSlot }: HeaderProps) {
   // }
 
   return (
-    <header className="backdrop-filter backdrop-blur transform-gpu bg-white/30 dark:bg-slate-700/10 border-slate-400/10 border-b">
+    <header className="backdrop-filter backdrop-blur transform-gpu bg-white/30 dark:bg-[#0c0c0c66] border-slate-400/10 border-b">
       <Container>
         <div className="relative flex items-center justify-between h-[64px]">
           <div className="flex-1 flex items-center justify-start space-x-12">
@@ -25,7 +25,9 @@ export function Header({ rightSlot }: HeaderProps) {
           </div>
 
           {rightSlot && (
-            <div className="flex flex-row space-x-2">{rightSlot}</div>
+            <div className="flex flex-row space-x-2 items-center">
+              {rightSlot}
+            </div>
           )}
         </div>
       </Container>

@@ -1,9 +1,9 @@
 import { Container, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
 import { useQuery } from '@tanstack/react-query';
-import { useCosmosService } from 'apps/governance/src/hooks/useCosmosService';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
+import { useCosmosService } from '@haqq/providers';
 
 export function ProposalList() {
   const { getProposals } = useCosmosService();
