@@ -1,12 +1,13 @@
+import { useConfig } from '@haqq/providers';
+import { getChainParams } from '@haqq/shared';
 import { useMemo } from 'react';
 import { useAccount, useBalance } from 'wagmi';
-import { getChainParams } from '../config';
-import { environment } from '../environments/environment';
 import { getFormattedAddress } from '../utils/getFormattedAddress';
 import { IdentIcon } from './IdentIcon';
 
 export function AccountInfo() {
-  const { nativeCurrency } = getChainParams(environment.chain);
+  const { chainName } = useConfig();
+  const { nativeCurrency } = getChainParams(chainName);
   const { address } = useAccount();
   const { data: balance } = useBalance({
     address,

@@ -19,7 +19,7 @@
         "assets": ["apps/vesting/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/vesting/webpack.config.ts"
+        "webpackConfig": "apps/vesting/webpack.config.js"
       },
       "configurations": {
         "development": {
@@ -41,7 +41,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/vesting/webpack.config.prod.ts"
+          "webpackConfig": "apps/vesting/webpack.config.prod.js"
         }
       }
     },

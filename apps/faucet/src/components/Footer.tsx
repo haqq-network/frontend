@@ -1,5 +1,5 @@
+import { Container } from '@haqq/ui-kit';
 import { ReactElement } from 'react';
-import { Container } from './Components';
 
 export function Footer(): ReactElement {
   return (

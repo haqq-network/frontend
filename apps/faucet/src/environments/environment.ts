@@ -3,7 +3,7 @@
 
 export const environment = {
   isProduction: false,
-  chain: process.env['NX_FAUCET_NETWORK'] ?? 'test2',
+  chainName: process.env['NX_NETWORK'] ?? 'testedge2',
   sentryDsn: process.env['NX_FAUCET_SENTRY_DSN'],
   reCaptchaConfig: {
     siteKey: process.env['NX_FAUCET_RECAPTCHA_SITE_KEY'],

@@ -5,6 +5,12 @@ const coreLibraries = new Set([
   '@emotion/styled',
   '@emotion/react',
   '@haqq/ui-kit',
+  '@haqq/sentry',
+  '@haqq/shared',
+  '@haqq/hooks',
+  '@haqq/utils',
+  '@haqq/providers',
+  'wagmi',
   'ress',
 ]);
 

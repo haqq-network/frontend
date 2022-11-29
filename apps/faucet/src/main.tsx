@@ -5,7 +5,7 @@ import { App } from './app/app';
 import { AppContainer } from './app/app-container';
 import './index.css';
 
-if (process.env['NODE_ENV'] === 'production') {
+if (environment.isProduction) {
   const sentryDsn = environment.sentryDsn;
   if (sentryDsn && sentryDsn !== '') {
     import('@haqq/sentry').then(({ initSentry }) => {

@@ -1,22 +1,16 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useAccount } from 'wagmi';
+import { PendingPage } from '@haqq/ui-kit';
 import { Footer } from '../components/Footer/Footer';
 import { Header } from '../components/Header/Header';
-import { Container, Page } from '../components/Layout/Layout';
-import { Spinner } from '../components/Playground/Playground';
 import { MainPage } from '../pages/MainPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
+import { Page } from '../components/Layout/Layout';
 
-const AccountPage = lazy(() => import('../pages/AccountPage'));
-
-export function PendingPage() {
-  return (
-    <Container className="min-h-[400px] py-20 flex items-center justify-center content-center">
-      <Spinner />
-    </Container>
-  );
-}
+const AccountPage = lazy(() => {
+  return import('../pages/AccountPage');
+});
 
 function RequireConnectedWallet({ children }: { children: JSX.Element }) {
   const { isConnected } = useAccount();
@@ -46,33 +40,6 @@ export function App() {
               </RequireConnectedWallet>
             }
           />
-
-          {/* <Route path="deposit">
-            <Route
-              index
-              element={
-                <RequireConnectedWallet>
-                  <DepositPage />
-                </RequireConnectedWallet>
-              }
-            />
-            <Route
-              path="withdraw"
-              element={
-                <RequireConnectedWallet>
-                  <WithdrawPage />
-                </RequireConnectedWallet>
-              }
-            />
-            <Route
-              path="transfer"
-              element={
-                <RequireConnectedWallet>
-                  <TransferPage />
-                </RequireConnectedWallet>
-              }
-            />
-          </Route> */}
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

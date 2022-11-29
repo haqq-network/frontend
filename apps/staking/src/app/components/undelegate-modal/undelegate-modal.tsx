@@ -6,8 +6,8 @@ import {
 } from '../delegate-modal/delegate-modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useDelegation } from '../../hooks/useDelegation';
 import { useQueryClient } from '@tanstack/react-query';
+import { useDelegation } from '@haqq/hooks';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
