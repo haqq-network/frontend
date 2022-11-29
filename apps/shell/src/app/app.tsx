@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { Fragment, lazy, Suspense, useCallback, useMemo } from 'react';
+import { Fragment, lazy, Suspense, useMemo } from 'react';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import {
   Button2,
@@ -113,8 +113,8 @@ function HeaderButtons() {
 
   function getLinkClassName({ isActive }: { isActive: boolean }) {
     return clsx(
-      'text-slate-500 hover:text-slate-300 font-semibold',
-      isActive && 'text-slate-300 dark:text-white',
+      'text-slate-500 hover:text-slate-400 font-semibold',
+      isActive && 'text-haqq-primary-500',
     );
   }
 
