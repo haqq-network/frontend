@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "swc",
+        "compiler": "babel",
         "outputPath": "dist/apps/governance",
         "index": "apps/governance/src/index.html",
         "baseHref": "/",
@@ -19,7 +19,7 @@
         "assets": ["apps/governance/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/governance/webpack.config.ts"
+        "webpackConfig": "apps/governance/webpack.config.js"
       },
       "configurations": {
         "development": {
@@ -41,7 +41,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/governance/webpack.config.prod.ts"
+          "webpackConfig": "apps/governance/webpack.config.prod.js"
         }
       }
     },

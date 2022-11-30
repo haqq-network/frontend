@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { Button2, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
 import toast from 'react-hot-toast';
-import { useProposal } from '../../hooks/useProposal';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
+import { useProposal } from '@haqq/hooks';
 
 export interface VoteModalProps {
   proposalId: number;

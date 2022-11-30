@@ -3,12 +3,8 @@ export default {
   displayName: 'ui-kit',
   preset: '../../jest.preset.js',
   transform: {
-    '^.+\\.[tj]sx?$': [
-      '@swc/jest',
-      { jsc: { transform: { react: { runtime: 'automatic' } } } },
-    ],
+    '^.+\\.[tj]sx?$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/libs/ui-kit',
-  setupFilesAfterEnv: ['./src/setupTests.ts'],
 };

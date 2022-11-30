@@ -21,17 +21,6 @@ export interface Chain {
 }
 
 export const chains: Record<string, Chain> = {
-  local: {
-    id: 5777,
-    name: 'Haqq Localnet',
-    network: 'haqq-localnet',
-    rpcUrls: {
-      default: 'http://127.0.0.1:7545',
-      ws: 'ws://127.0.0.1:7545',
-    },
-    nativeCurrency: currency,
-    testnet: true,
-  },
   dev: {
     id: 121799,
     name: 'Haqq Devnet',
@@ -42,17 +31,7 @@ export const chains: Record<string, Chain> = {
     testnet: true,
     nativeCurrency: currency,
   },
-  test: {
-    id: 53211,
-    name: 'Haqq Testedge',
-    network: 'haqq-testedge',
-    rpcUrls: {
-      default: 'https://rpc.eth.testedge.haqq.network',
-    },
-    testnet: true,
-    nativeCurrency: currency,
-  },
-  test2: {
+  testedge2: {
     id: 54211,
     name: 'Haqq Testedge 2',
     network: 'haqq-testedge2',

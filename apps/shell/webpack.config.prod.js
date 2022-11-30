@@ -1,34 +1,37 @@
-// @ts-check
-
 const { withModuleFederation } = require('@nrwl/react/module-federation');
 const baseConfig = require('./module-federation.config');
+const { ProvidePlugin } = require('webpack');
+const { merge } = require('webpack-merge');
 
 /**
  * @type {import('@nrwl/devkit').ModuleFederationConfig}
  **/
 const prodConfig = {
   ...baseConfig,
-  /*
-   * Remote overrides for production.
-   * Each entry is a pair of an unique name and the URL where it is deployed.
-   *
-   * e.g.
-   * remotes: [
-   *   ['app1', '//app1.example.com'],
-   *   ['app2', '//app2.example.com'],
-   * ]
-   *
-   * You can also use a full path to the remoteEntry.js file if desired.
-   *
-   * remotes: [
-   *   ['app1', '//example.com/path/to/app1/remoteEntry.js'],
-   *   ['app2', '//example.com/path/to/app2/remoteEntry.js'],
-   * ]
-   */
   remotes: [
-    ['staking', 'https://staking-app-haqq-network.vercel.app'],
-    ['governance', 'https://governance-app-haqq-network.vercel.app'],
+    ['staking', '//haqq-staking.vercel.app'],
+    ['governance', '//haqq-governance.vercel.app'],
   ],
 };
 
-module.exports = withModuleFederation(prodConfig);
+module.exports = async (config) => {
+  const federatedModules = await withModuleFederation(prodConfig);
+
+  return merge(federatedModules(config), {
+    plugins: [
+      new ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+      }),
+    ],
+    resolve: {
+      fallback: {
+        buffer: false,
+        crypto: false,
+        events: false,
+        path: false,
+        stream: false,
+        string_decoder: false,
+      },
+    },
+  });
+};

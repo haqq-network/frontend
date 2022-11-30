@@ -2,10 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button2, Card } from '@haqq/ui-kit';
 import { useQuery } from '@tanstack/react-query';
 import { useBalance } from 'wagmi';
-import { useCosmosService } from '../../hooks/useCosmosService';
-import { useDelegation } from '../../hooks/useDelegation';
-import { useMetamask } from '../../hooks/useMetamask';
-import { useAddress } from '@haqq/hooks';
+import { useAddress, useDelegation, useMetamask } from '@haqq/hooks';
+import { useCosmosService } from '@haqq/providers';
 
 export interface RewardsInfoProps {
   balance: number;
@@ -117,9 +115,9 @@ export function StakingInfo() {
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState(Array<string>);
   const { connect, isNetworkSupported, selectNetwork } = useMetamask();
   const { ethAddress, haqqAddress } = useAddress();
-  const { claimAllRewards } = useDelegation();
   const { getAccountDelegations, getRewardsInfo, getUndelegations } =
     useCosmosService();
+  const { claimAllRewards } = useDelegation();
   const { data: delegationInfo } = useQuery(['delegation', haqqAddress], () => {
     if (!haqqAddress) {
       return null;

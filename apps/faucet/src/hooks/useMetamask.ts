@@ -1,16 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-
-import {
-  useCallback,
-  useEffect,
-  // useLayoutEffect,
-  // useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import MetaMaskOnboarding from '@metamask/onboarding';
-import { config } from '../config';
+import { getChainParams } from '@haqq/shared';
+import { useConfig } from '@haqq/providers';
 
 interface MetamaskHook {
   account: {
@@ -26,7 +19,8 @@ export function useMetamask(): MetamaskHook {
   const [address, setAddress] = useState<string>();
   // const [balance, setBalance] = useState<string>();
   const onboardingRef = useRef<MetaMaskOnboarding>();
-  const { chainProperties } = config;
+  const { chainName } = useConfig();
+  const chainProperties = getChainParams(chainName);
 
   useEffect(() => {
     if (onboardingRef.current !== undefined) {
@@ -152,7 +146,7 @@ export function useMetamask(): MetamaskHook {
       params: [],
     });
 
-    return chainId != chainProperties?.chainId;
+    return chainId !== chainProperties?.chainId;
   }, [chainProperties]);
 
   return {

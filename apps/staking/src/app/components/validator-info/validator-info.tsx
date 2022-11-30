@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { Fragment, ReactNode, useCallback, useMemo } from 'react';
 import { useBalance } from 'wagmi';
-import { useCosmosService } from '../../hooks/useCosmosService';
 import { Button2, Text, Card, SpinnerLoader } from '@haqq/ui-kit';
 import { formatUnits } from 'ethers/lib/utils';
 import { ValidatorStatus } from '../validator-status/validator-status';
-import clsx from 'clsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAddress } from '@haqq/hooks';
 import { DelegateModal } from '../delegate-modal/delegate-modal';
 import UndelegateModal from '../undelegate-modal/undelegate-modal';
+import { useCosmosService } from '@haqq/providers';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: any;

@@ -1,12 +1,12 @@
 import { Fragment, useMemo, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { useCosmosService } from '../../hooks/useCosmosService';
 import { ValidatorListItem } from '../validator-list-item/validator-list-item';
 import { Card, SpinnerLoader, Text } from '@haqq/ui-kit';
 import { splitValidators } from '../../utils/splitValidators';
 import { sortValidatorsByToken } from '../../utils/sortValidators';
 import { useAddress } from '@haqq/hooks';
+import { useCosmosService } from '@haqq/providers';
 
 export function ValidatorsList() {
   const { getAccountDelegations, getAllValidators, getRewardsInfo } =

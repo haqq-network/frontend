@@ -7,7 +7,6 @@ import {
   useParams,
 } from 'react-router-dom';
 import Markdown from 'marked-react';
-import { useCosmosService } from 'apps/governance/src/hooks/useCosmosService';
 import { Button2, Card, Container, SpinnerLoader, Text } from '@haqq/ui-kit';
 import {
   CardHeading,
@@ -18,6 +17,7 @@ import clsx from 'clsx';
 import { VoteModal } from '../vote-modal/vote-modal';
 import { Proposal } from '@evmos/provider';
 import { useAddress } from '@haqq/hooks';
+import { useCosmosService } from '@haqq/providers';
 
 const DENOM = 10 ** 18;
 
@@ -77,7 +77,7 @@ export function ProposalDetailsComponent({
   symbol: string;
   isWalletConnected: boolean;
 }) {
-  console.log({ proposalDetails });
+  // console.log({ proposalDetails });
   const navigate = useNavigate();
 
   const isVotingAvailable = useMemo(() => {

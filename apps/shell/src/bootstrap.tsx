@@ -1,17 +1,35 @@
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-
+import { createRoot } from 'react-dom/client';
+import { AppContainer } from './app/app-container';
 import { App } from './app/app';
+import { environment } from './environments/environment';
+import { createTendermintClient } from '@haqq/providers';
 import './index.css';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
-root.render(
-  <StrictMode>
-    <BrowserRouter>
+if (environment.isProduction) {
+  const sentryDsn = environment.sentryDsn;
+  if (sentryDsn && sentryDsn !== '') {
+    import('@haqq/sentry').then(({ initSentry }) => {
+      initSentry(sentryDsn);
+    });
+  } else {
+    console.warn(
+      'NX_SHELL_SENTRY_DSN is undefined. Sentry is not initialized. Check environments variables',
+    );
+  }
+}
+
+async function startApp() {
+  const rootElement = document.getElementById('root');
+  const root = createRoot(rootElement as HTMLElement);
+  const tendermintClient = await createTendermintClient({
+    chainName: environment.chainName,
+  });
+
+  root.render(
+    <AppContainer tendermintClient={tendermintClient}>
       <App />
-    </BrowserRouter>
-  </StrictMode>,
-);
+    </AppContainer>,
+  );
+}
+
+startApp();

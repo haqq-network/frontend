@@ -14,7 +14,7 @@ const config: StorybookConfig = {
   addons: [
     ...(rootMain.addons || []),
     '@nrwl/react/plugins/storybook',
-    'storybook-addon-swc',
+    // 'storybook-addon-swc',
   ],
   webpackFinal: async (config, { configType }: Options) => {
     // apply any global webpack configs that might have been specified in .storybook/main.ts
