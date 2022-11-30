@@ -1,0 +1,13 @@
+@tailwind components;
+@tailwind base;
+@tailwind utilities;
+
+body {
+  @apply font-sans text-white bg-haqq-black;
+}
+
+.bg-404-page {
+  background-image: url('/not-found-glow.png');
+  background-size: cover;
+  background-position: center;
+}

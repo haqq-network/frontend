@@ -27,7 +27,8 @@
       "@haqq/shared": ["libs/shared/src/index.ts"],
       "@haqq/theme": ["libs/theme/src/index.ts"],
       "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],
-      "@haqq/utils": ["libs/utils/src/index.ts"]
+      "@haqq/utils": ["libs/utils/src/index.ts"],
+      "@haqq/website/ui-kit": ["libs/website/ui-kit/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
