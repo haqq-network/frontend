@@ -14,7 +14,7 @@ function FooterNavLink({
   return (
     <Link
       href={href}
-      className="text-[12px] leading-[20px] md:text-[13px] md:leading-[24px] lg:text-[16px] lg:leading-[26px] text-white/50 hover:text-white transition-colors duration-100"
+      className="text-[12px] leading-[20px] sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px] text-white/50 hover:text-white transition-colors duration-100"
     >
       {children}
     </Link>
@@ -135,7 +135,7 @@ function FooterNavSocialLink({
   return (
     <Link
       href={href}
-      className="text-[12px] leading-[20px] md:text-[13px] md:leading-[24px] lg:text-[16px] lg:leading-[26px] text-white/50 hover:text-white transition-colors duration-100 group inline-flex flex-row flex-initial space-x-2 items-center"
+      className="text-[12px] leading-[20px] sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px] text-white/50 hover:text-white transition-colors duration-100 group inline-flex flex-row flex-initial space-x-2 items-center"
     >
       <div>{icon}</div>
       <div>{children}</div>
@@ -147,7 +147,7 @@ function FooterNavSocialLink({
 function FooterNavSocialLinkArrow() {
   return (
     <svg
-      className="hidden md:block md:invisible group-hover:visible h-[24px] w-[24px]"
+      className="hidden sm:block sm:invisible group-hover:visible h-[24px] w-[24px]"
       viewBox="0 0 25 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -169,21 +169,21 @@ export function Footer() {
         'border-t border-b border-haqq-border flex flex-col bg-haqq-black',
       )}
     >
-      <div className="lg:container lg:mx-auto w-full flex flex-row items-center h-[63px] md:h-[72px] border-b border-haqq-border">
-        <div className="w-[48px] md:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-haqq-border">
-          <div className="relative w-[26px] h-[26px] md:w-[32px] md:h-[32px]">
+      <div className="lg:mx-auto w-full flex flex-row items-center h-[63px] sm:h-[72px] border-b border-haqq-border">
+        <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-haqq-border">
+          <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
             <Image src="/logo.svg" alt="HAQQ" fill />
           </div>
         </div>
-        <div className="ml-[12px] md:ml-[20px] lg:ml-[32px] font-serif font-medium text-[20px] md:text-[24px] leading-none">
+        <div className="ml-[12px] sm:ml-[20px] lg:ml-[32px] font-serif font-medium text-[20px] sm:text-[24px] leading-none">
           HAQQ
         </div>
       </div>
-      <div className="lg:container lg:mx-auto w-full flex flex-col lg:flex-row lg:h-[346px]">
-        <div className="flex flex-row md:h-[230px] lg:h-auto">
-          <div className="w-[48px] md:w-[64px] lg:w-[80px] h-full border-r border-haqq-border flex-initial" />
+      <div className="lg:mx-auto w-full flex flex-col lg:flex-row lg:h-[346px]">
+        <div className="flex flex-row sm:h-[230px] lg:h-auto">
+          <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full border-r border-haqq-border flex-initial" />
           <div className="h-full border-r border-haqq-border py-[56px] px-[34px] flex-1 lg:w-[212px]">
-            <nav className="flex flex-col space-y-[8px] md:space-y-[12px]">
+            <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
               <FooterNavLink href="#about">About</FooterNavLink>
               <FooterNavLink href="#technology">Technology</FooterNavLink>
               <FooterNavLink href="#builders">Builders</FooterNavLink>
@@ -191,11 +191,11 @@ export function Footer() {
             </nav>
           </div>
           <div className="h-full lg:border-r border-haqq-border py-[56px] px-[34px] flex-1 lg:w-[383px]">
-            <nav className="grid grid-cols-1 md:grid-cols-2 gap-[8px] md:gap-[12px] lg:grid-cols-1">
+            <nav className="grid grid-cols-1 sm:grid-cols-2 gap-[8px] sm:gap-[12px] lg:grid-cols-1">
               <FooterNavSocialLink
                 href="#Discord"
                 icon={
-                  <DiscordIcon className="w-[20px] h-[20px] md:w-[24px] md:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <DiscordIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
               >
                 Discord
@@ -203,7 +203,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#Twitter"
                 icon={
-                  <TwitterIcon className="w-[20px] h-[20px] md:w-[24px] md:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <TwitterIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
               >
                 Twitter
@@ -211,7 +211,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#Telegram"
                 icon={
-                  <TelegramIcon className="w-[20px] h-[20px] md:w-[24px] md:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <TelegramIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
               >
                 Telegram
@@ -219,7 +219,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#YouTube"
                 icon={
-                  <YoutubeIcon className="w-[20px] h-[20px] md:w-[24px] md:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <YoutubeIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
               >
                 YouTube
@@ -227,7 +227,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#Medium"
                 icon={
-                  <MediumIcon className="w-[20px] h-[20px] md:w-[24px] md:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <MediumIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
               >
                 Medium
@@ -235,7 +235,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#LinkedIn"
                 icon={
-                  <LinkedinIcon className="w-[20px] h-[20px] md:w-[24px] md:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <LinkedinIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
               >
                 LinkedIn
@@ -243,8 +243,8 @@ export function Footer() {
             </nav>
           </div>
         </div>
-        <div className="flex flex-row md:h-[210px] lg:h-auto">
-          <div className="w-[48px] md:w-[64px] lg:w-[80px] h-full border-r border-t border-haqq-border flex-initial block lg:hidden" />
+        <div className="flex flex-row sm:h-[210px] lg:h-auto">
+          <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full border-r border-t border-haqq-border flex-initial block lg:hidden" />
           <div className="py-[56px] px-[34px] border-t lg:border-t-0 border-haqq-border flex-1">
             <div className="font-serif font-[500] leading-[24px]">
               Sign up for HAQQ updates

@@ -12,11 +12,6 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    screens: {
-      sm: '375px',
-      md: '774px',
-      lg: '1440px',
-    },
     extend: {
       colors: {
         'haqq-border': '#FFFFFF3D',
