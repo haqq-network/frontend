@@ -23,7 +23,7 @@ export function Button({
     variant === 1 &&
       'text-white border-white border hover:bg-white hover:text-haqq-black',
     variant === 2 &&
-      'text-white border-white border hover:bg-white hover:text-haqq-black',
+      'text-haqq-black bg-white border-white border hover:bg-transparent hover:text-white',
     variant === 3 && 'text-white bg-haqq-black hover:bg-haqq-orange',
     variant === 4 && 'text-haqq-black bg-haqq-black',
     className,
