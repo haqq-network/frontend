@@ -56,7 +56,7 @@ export function useDelegation() {
       if (sender && validatorAddress) {
         const params = {
           validatorAddress,
-          amount: ((amount ?? 0) * 10 ** 18).toLocaleString().replace(/,/g, ''),
+          amount: ((amount ?? 0) * 10 ** 18).toString().replace(/,/g, ''),
           denom: 'aISLM',
         };
         const msg = createTxMsgDelegate(haqqChain, sender, fee, memo, params);
