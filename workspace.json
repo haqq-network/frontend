@@ -23,6 +23,7 @@
     "vesting-e2e": "apps/vesting-e2e",
     "website": "apps/website",
     "website-e2e": "apps/website-e2e",
+    "website-index-page": "libs/website/index-page",
     "website-ui-kit": "libs/website/ui-kit"
   }
 }
