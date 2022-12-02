@@ -8,7 +8,7 @@ export function Heading({
 }: {
   children: ReactNode;
   className?: string;
-  level: 2 | 3;
+  level?: 2 | 3;
 }) {
   if (level === 2) {
     return (
