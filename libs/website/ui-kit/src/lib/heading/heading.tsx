@@ -34,5 +34,3 @@ export function Heading({
     </h3>
   );
 }
-
-export default Heading;
