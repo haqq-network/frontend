@@ -1,3 +1,4 @@
+export * from './lib/textarea/textarea';
 export * from './lib/text/text';
 export * from './lib/heading/heading';
 export * from './lib/hero-heading/hero-heading';
