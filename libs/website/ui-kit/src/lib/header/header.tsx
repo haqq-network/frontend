@@ -42,7 +42,7 @@ export function Header() {
           <HeaderNavLink href="/#technology">Technology</HeaderNavLink>
           <HeaderNavLink href="/#developers">Developers</HeaderNavLink>
           <HeaderNavLink href="/#community">Community</HeaderNavLink>
-          <HeaderNavLink href="/404">404</HeaderNavLink>
+          {/* <HeaderNavLink href="/404">404</HeaderNavLink> */}
         </nav>
         <div className="flex flex-row items-center">
           <Button className="hidden sm:block">Haqq wallet</Button>
