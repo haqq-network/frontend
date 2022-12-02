@@ -1,7 +1,7 @@
 import { Text, Button, HeroHeading } from '@haqq/website/ui-kit';
 import Image from 'next/image';
 import sunriseImageData from '../../assets/sunrise.png';
-import eclipseImageData from '../../assets/dark-eclipse.png';
+import halfEclipseImageData from '../../assets/half-eclipse.png';
 
 function SunriseBackground() {
   return (
@@ -15,9 +15,9 @@ function SunriseBackground() {
       />
       <Image
         alt=""
-        src={eclipseImageData.src}
-        height={eclipseImageData.height}
-        width={eclipseImageData.width}
+        src={halfEclipseImageData.src}
+        height={halfEclipseImageData.height}
+        width={halfEclipseImageData.width}
         className="z-[-1] absolute bottom-[-2px] left-0 w-full"
       />
     </div>
