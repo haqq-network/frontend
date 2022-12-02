@@ -1,4 +1,5 @@
 import { AboutBlock } from '../about-block/about-block';
+import { ContactBlock } from '../contact-block/contact-block';
 import { HeroBlock } from '../hero-block/hero-block';
 
 export function WebsiteIndexPage() {
@@ -6,8 +7,7 @@ export function WebsiteIndexPage() {
     <section>
       <HeroBlock />
       <AboutBlock />
+      <ContactBlock />
     </section>
   );
 }
-
-export default WebsiteIndexPage;
