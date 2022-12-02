@@ -181,10 +181,9 @@ export function Footer() {
           HAQQ
         </div>
       </div>
-      <div className="lg:mx-auto w-full flex flex-col lg:flex-row lg:h-[346px]">
-        <div className="flex flex-row sm:h-[230px] lg:h-auto">
-          <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full border-r border-haqq-border flex-initial" />
-          <div className="h-full border-r border-haqq-border py-[56px] px-[34px] flex-1 lg:w-[212px]">
+      <div className="lg:mx-auto w-full flex flex-col lg:flex-row">
+        <div className="flex flex-row lg:h-auto border-haqq-border border-b lg:border-b-0">
+          <div className="ml-[16px] sm:ml-[63px] lg:ml-[79px] border-l border-r border-haqq-border py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[212px]">
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
               <FooterNavLink href="#about">About</FooterNavLink>
               <FooterNavLink href="#technology">Technology</FooterNavLink>
@@ -192,7 +191,7 @@ export function Footer() {
               <FooterNavLink href="#community">Community</FooterNavLink>
             </nav>
           </div>
-          <div className="h-full lg:border-r border-haqq-border py-[56px] px-[34px] flex-1 lg:w-[383px]">
+          <div className="h-full py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[383px]">
             <nav className="grid grid-cols-1 sm:grid-cols-2 gap-[8px] sm:gap-[12px] lg:grid-cols-1">
               <FooterNavSocialLink
                 href="#Discord"
