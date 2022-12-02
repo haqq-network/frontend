@@ -1,9 +1,33 @@
 import { Text, Button, HeroHeading } from '@haqq/website/ui-kit';
+import Image from 'next/image';
+import sunriseImageData from '../../assets/sunrise.png';
+import eclipseImageData from '../../assets/dark-eclipse.png';
+
+function SunriseBackground() {
+  return (
+    <div className="absolute inset-0 lg:translate-y-[100px] z-[-1]">
+      <Image
+        alt=""
+        src={sunriseImageData.src}
+        height={sunriseImageData.height}
+        width={sunriseImageData.width}
+        className="z-[-1] absolute bottom-0 w-full scale-125 origin-bottom"
+      />
+      <Image
+        alt=""
+        src={eclipseImageData.src}
+        height={eclipseImageData.height}
+        width={eclipseImageData.width}
+        className="z-[-1] absolute bottom-[-2px] left-0 w-full"
+      />
+    </div>
+  );
+}
 
 export function HeroBlock() {
   return (
     <div className="border-b border-haqq-border relative">
-      <div className="sm:ml-[63px] lg:ml-[79px] px-[16px] sm:pl-[20px] lg:pl-[32px] sm:border-l border-haqq-border h-[440px] sm:h-[610px] lg:h-[748px] flex flex-col justify-center items-start sm:pr-[64px] lg:pr-[58px]">
+      <div className="sm:ml-[63px] lg:ml-[79px] px-[16px] sm:pl-[20px] lg:pl-[32px] sm:border-l border-haqq-border h-[440px] sm:h-[610px] lg:h-[748px] flex flex-col justify-center items-start sm:pr-[64px] lg:pr-[58px] z-10">
         <HeroHeading>
           Home of <br /> ethical web3
         </HeroHeading>
@@ -29,6 +53,8 @@ export function HeroBlock() {
           />
         </svg>
       </div>
+
+      <SunriseBackground />
     </div>
   );
 }
