@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../button/button';
+import { Input } from '../input/input';
+import { Heading } from '../heading/heading';
 
 function FooterNavLink({
   href,
@@ -243,13 +245,23 @@ export function Footer() {
             </nav>
           </div>
         </div>
-        <div className="flex flex-row sm:h-[210px] lg:h-auto">
-          <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full border-r border-t border-haqq-border flex-initial block lg:hidden" />
-          <div className="py-[56px] px-[34px] border-t lg:border-t-0 border-haqq-border flex-1">
-            <div className="font-serif font-[500] leading-[24px]">
+        <div className="flex flex-row flex-1 sm:h-[210px] lg:h-auto">
+          <div className="ml-[16px] sm:ml-[63px] lg:ml-0 py-[32px] px-[16px] sm:py-[56px] sm:px-[34px] border-l border-haqq-border flex-1">
+            <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
+            </Heading>
+
+            <div className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0">
+              <div className="sm:flex-1 max-w-[314px] lg:max-w-[415px]">
+                <Input
+                  placeholder="Enter your e-mail"
+                  className="w-full pt-[10px] pb-[8px] lg:pt-[14px] lg:pb-[12px]"
+                />
+              </div>
+              <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
+                <Button variant={1}>Subscribe</Button>
+              </div>
             </div>
-            <Button variant={1}>Subscribe</Button>
           </div>
         </div>
       </div>
