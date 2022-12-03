@@ -28,6 +28,7 @@ export function ContactBlock() {
                 placeholder="Email"
                 type="email"
                 required
+                error="error"
               />
             </div>
           </div>
