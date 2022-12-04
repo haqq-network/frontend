@@ -33,7 +33,7 @@ export default function NotFoundPage() {
 
 NotFoundPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <div
+    <main
       className={clsx(
         ClashDisplayFont.variable,
         HKGuiseFont.variable,
@@ -42,6 +42,6 @@ NotFoundPage.getLayout = function getLayout(page: ReactElement) {
     >
       <Header />
       {page}
-    </div>
+    </main>
   );
 };
