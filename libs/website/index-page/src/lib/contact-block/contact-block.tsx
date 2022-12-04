@@ -1,6 +1,6 @@
 import { Button, Heading, Input, Textarea } from '@haqq/website/ui-kit';
 import Image from 'next/image';
-import eclipseImageData from '../../assets/eclipse.png';
+import eclipseImageData from '../../assets/images/eclipse.png';
 
 export function ContactBlock() {
   return (
