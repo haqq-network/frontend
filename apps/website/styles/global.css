@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  @apply snap-y snap-proximity;
+  @apply snap-y snap-proximity scroll-pt-[63px] sm:scroll-pt-[72px];
 }
 
 body {
