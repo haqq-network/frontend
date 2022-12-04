@@ -181,7 +181,7 @@ export function Faucet(): ReactElement {
 
   return (
     <div className="container px-2 sm:px-6 lg:px-8 mx-auto">
-      <div className="mx-auto max-w-md rounded-xl shadow-lg my-20 backdrop-filter backdrop-blur transform-gpu bg-white/50 dark:bg-slate-700/40">
+      <div className="mx-auto max-w-md rounded-xl shadow-lg my-20 backdrop-blur transform-gpu bg-white/50 dark:bg-slate-700/40">
         <div className="flex flex-col space-y-5 py-6">
           <div className="px-5">
             <div className="flex flex-row space-x-4  mb-4">

@@ -24,7 +24,7 @@ export function Header() {
     <header
       className={clsx(
         'border-t border-b border-haqq-border top-0 sticky h-[63px] sm:h-[72px] bg-haqq-black/90 z-50',
-        'backdrop-filter backdrop-blur transform-gpu',
+        'backdrop-blur transform-gpu',
       )}
     >
       <div className="w-full flex flex-row items-center h-full pr-[16px] sm:pr-[64px] lg:pr-[58px] mx-auto">

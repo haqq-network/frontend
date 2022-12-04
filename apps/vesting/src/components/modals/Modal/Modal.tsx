@@ -31,7 +31,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
         >
           <ModalOverlay
             role="none"
-            className="fixed inset-0 backdrop-filter backdrop-blur transform-gpu"
+            className="fixed inset-0 backdrop-blur transform-gpu"
             onClick={onClose}
             onKeyDown={(
               event: SyntheticEvent<HTMLDivElement, KeyboardEvent>,
