@@ -34,7 +34,7 @@ function PartnershipBlockCard({
           <path
             d="M1 21.5L21 1.5M21 1.5V21.5M21 1.5H1"
             stroke="currentColor"
-            stroke-width="2"
+            strokeWidth="2"
           />
         </svg>
       </div>
@@ -48,7 +48,7 @@ function PartnershipBlockCard({
 export function PartnershipBlock() {
   return (
     <div
-      className="px-[16px] ml-[16px] sm:pl-[20px] sm:pr-[64px] sm:ml-[63px] lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] border-l border-haqq-border"
+      className="px-[16px] ml-[16px] sm:pl-[20px] sm:pr-[64px] sm:ml-[63px] lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] border-l border-haqq-border snap-start"
       id="partnership"
     >
       <div className="py-[60px] sm:py-[100px] flex flex-col space-y-[32px] lg:space-y-0 lg:flex-row">
