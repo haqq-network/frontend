@@ -124,8 +124,9 @@ export function MissionBlock() {
         Mission
       </AboveTitle>
       <div className="text-center mx-[44px] sm:max-w-xs lg:max-w-3xl">
-        <Heading level={2} className="">
-          Crypto has lost its path – <nobr>grid-driven</nobr> practices in
+        <Heading level={2}>
+          Crypto has lost its path –{' '}
+          <span className="whitespace-nowrap">grid-driven</span> practices in
           crypto prevent mass adoption. HAQQ's mission is to make Web3 projects
           accessible to everyone.
         </Heading>
