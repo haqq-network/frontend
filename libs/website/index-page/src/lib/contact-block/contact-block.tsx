@@ -18,17 +18,16 @@ export function ContactBlock() {
         </div>
 
         <div className="flex flex-col space-y-[12px] lg:space-y-[16px]">
-          <div className="flex flex-col space-y-[12px] sm:space-y-0 sm:flex-row sm:space-x-[12px] lg:space-x-[16px]">
+          <div className="flex flex-col space-y-[12px] sm:space-y-0 sm:flex-row sm:space-x-[12px] lg:space-x-[16px] leading-none">
             <div className="flex-1">
-              <Input className="w-full" placeholder="Name" required />
+              <Input wrapperClassName="w-full" placeholder="Name" required />
             </div>
             <div className="flex-1">
               <Input
-                className="w-full"
+                wrapperClassName="w-full"
                 placeholder="Email"
                 type="email"
                 required
-                error="error"
               />
             </div>
           </div>

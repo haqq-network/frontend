@@ -14,7 +14,8 @@ export function Textarea({
   disabled,
 }: TextareaProps) {
   const classNames = clsx(
-    'inline-block pt-[14px] pb-[12px] px-[16px] text-[14px] text-white placeholder-white rounded-[6px] bg-[#252528] leading-[20px] outline-none border border-[#252528]',
+    'inline-block pt-[14px] pb-[12px] px-[16px] text-[14px] text-white placeholder-white leading-[20px]',
+    'rounded-[6px] bg-[#252528] outline-none border border-[#252528] resize-none',
     'focus:bg-transparent focus:border-white/50',
     'transition-color duration-150 ease-in',
     className,
