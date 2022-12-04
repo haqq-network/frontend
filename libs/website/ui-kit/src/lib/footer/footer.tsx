@@ -254,7 +254,8 @@ export function Footer() {
               <div className="sm:flex-1 max-w-[314px] lg:max-w-[415px]">
                 <Input
                   placeholder="Enter your e-mail"
-                  className="w-full pt-[10px] pb-[8px] lg:pt-[14px] lg:pb-[12px]"
+                  inputClassName="pt-[10px] pb-[8px] lg:pt-[14px] lg:pb-[12px]"
+                  wrapperClassName="w-full"
                 />
               </div>
               <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
