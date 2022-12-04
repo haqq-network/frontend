@@ -38,7 +38,7 @@ function PartnershipBlockCard({
           />
         </svg>
       </div>
-      <div className="lg:max-w-[65%]">
+      <div className="sm:max-w-[65%]">
         <Text size="medium">{description}</Text>
       </div>
     </div>
@@ -48,14 +48,14 @@ function PartnershipBlockCard({
 export function PartnershipBlock() {
   return (
     <div
-      className="px-[16px] ml-[16px] sm:pl-[20px] md:pr-[64px] sm:ml-[63px] lg:ml-[79px] lg:pl-[32px] lg:pr-[58px] border-l border-haqq-border"
+      className="px-[16px] ml-[16px] sm:pl-[20px] sm:pr-[64px] sm:ml-[63px] lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] border-l border-haqq-border"
       id="partnership"
     >
       <div className="py-[60px] sm:py-[100px] flex flex-col space-y-[32px] lg:space-y-0 lg:flex-row">
-        <div className="flex flex-col space-y-[16px] lg:flex-1 lg:w-[595px]">
+        <div className="flex flex-col space-y-[16px] lg:flex-1 lg:w-[595px] pr-[32px]">
           <Heading>Become a builder</Heading>
           <div className="hidden lg:block flex-1" />
-          <Text className="text-white/80 lg:max-w-[450px]">
+          <Text className="text-white/80 sm:max-w-[450px]">
             Work and build on HAQQ, and be part of tomorrow’s future - today.
             Bring your vision to life and develop solutions that benefit users
             and the world as a whole. Support the network and Haqq’s
