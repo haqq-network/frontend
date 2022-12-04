@@ -1,10 +1,11 @@
-import type { ReactElement } from 'react';
+import { Fragment, ReactElement } from 'react';
 import { Button, Header } from '@haqq/website/ui-kit';
 import Link from 'next/link';
 import { ClashDisplayFont, HKGuiseFont } from '../lib/fonts';
 import clsx from 'clsx';
 import notFoundGlowImageData from '../assets/images/not-found-glow.png';
 import Image from 'next/image';
+import Head from 'next/head';
 
 export default function NotFoundPage() {
   return (
@@ -33,15 +34,21 @@ export default function NotFoundPage() {
 
 NotFoundPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <main
-      className={clsx(
-        ClashDisplayFont.variable,
-        HKGuiseFont.variable,
-        'min-h-screen flex flex-col',
-      )}
-    >
-      <Header />
-      {page}
-    </main>
+    <Fragment>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+
+      <main
+        className={clsx(
+          ClashDisplayFont.variable,
+          HKGuiseFont.variable,
+          'min-h-screen flex flex-col',
+        )}
+      >
+        <Header />
+        {page}
+      </main>
+    </Fragment>
   );
 };
