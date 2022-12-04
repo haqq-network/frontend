@@ -3,7 +3,7 @@ import { Heading, Text } from '@haqq/website/ui-kit';
 export function AboutBlock() {
   return (
     <div
-      className="px-[16px] mx-[16px] sm:pl-0 sm:ml-[63px] lg:ml-[79px] border-l border-haqq-border flex flex-col sm:flex-row sm:h-[450px] lg:h-[500px] pb-[60px] sm:pb-0"
+      className="px-[16px] mx-[16px] sm:pl-0 sm:ml-[63px] sm:mr-0 sm:pr-0 lg:ml-[79px] border-l border-haqq-border flex flex-col sm:flex-row sm:h-[450px] lg:h-[500px] pb-[60px] sm:pb-0"
       id="about"
     >
       <div className="pt-[60px] sm:pt-[60px] lg:pt-[140px] sm:pl-[20px] lg:pl-[32px] sm:w-[284px] lg:w-[595px]">
