@@ -3,10 +3,19 @@ import { Button, Header } from '@haqq/website/ui-kit';
 import Link from 'next/link';
 import { ClashDisplayFont, HKGuiseFont } from '../lib/fonts';
 import clsx from 'clsx';
+import notFoundGlowImageData from '../assets/images/not-found-glow.png';
+import Image from 'next/image';
 
 export default function NotFoundPage() {
   return (
-    <div className="flex flex-col items-center justify-center relative flex-1 bg-404-page py-20">
+    <div className="flex flex-col items-center justify-center relative flex-1 py-20">
+      <Image
+        alt=""
+        src={notFoundGlowImageData.src}
+        fill
+        className="z-[-1] object-cover bg-center"
+      />
+
       <div className="text-[140px] sm:text-[180px] lg:text-[200px] leading-none font-serif text-haqq-black">
         404
       </div>

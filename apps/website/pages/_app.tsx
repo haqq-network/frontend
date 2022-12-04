@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }
 
   return (
-    <div
+    <main
       className={clsx(
         ClashDisplayFont.variable,
         HKGuiseFont.variable,
@@ -29,10 +29,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       )}
     >
       <Header />
-      <main className="flex-1">
+      <div className="flex-1">
         <Component {...pageProps} />
-      </main>
+      </div>
       <Footer />
-    </div>
+    </main>
   );
 }
