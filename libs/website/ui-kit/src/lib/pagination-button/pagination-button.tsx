@@ -1,4 +1,3 @@
-import { Text } from '../text/text';
 import clsx from 'clsx';
 
 interface PaginationButtonProps {
@@ -6,10 +5,6 @@ interface PaginationButtonProps {
   onClick?: () => void;
   active?: boolean;
   page?: number;
-}
-
-function pageNumber(page: number): string {
-  return page < 10 ? `0${page}`.toString() : page.toString();
 }
 
 export function PaginationButton({
@@ -25,7 +20,7 @@ export function PaginationButton({
   );
   return (
     <div className={classNames} onClick={onClick}>
-      <Text>{pageNumber(page)}</Text>
+      {page < 10 ? `0${page}` : page}
     </div>
   );
 }
