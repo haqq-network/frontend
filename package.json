@@ -57,7 +57,7 @@
     "ress": "5.0.2",
     "store2": "2.14.2",
     "tslib": "2.4.1",
-    "wagmi": "0.8.7",
+    "wagmi": "0.8.10",
     "web3": "1.8.1"
   },
   "devDependencies": {
