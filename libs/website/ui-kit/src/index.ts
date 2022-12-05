@@ -1,3 +1,4 @@
+export * from './lib/success-message-modal/success-message-modal';
 export * from './lib/page-title/page-title';
 export * from './lib/pagination-button/pagination-button';
 export * from './lib/scroll-button/scroll-button';
