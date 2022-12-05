@@ -1,23 +1,23 @@
 import clsx from 'clsx';
 
-export interface ScrollButtonProps {
-  scrollClassName?: string;
+export interface ArrowButtonProps {
+  className?: string;
   selected?: boolean;
   directionLeft?: boolean;
 }
 
-export function ScrollButton({
-  scrollClassName,
+export function ArrowButton({
+  className,
   selected,
   directionLeft,
-}: ScrollButtonProps) {
+}: ArrowButtonProps) {
   const classNames = clsx(
     'py-2 px-5 w-[68.5px] h-6',
     'border rounded-[40px]',
     'bg-white flex items-center justify-center cursor-pointer',
     selected ? 'text-black border-black' : 'text-black/30 border-black/30',
     directionLeft && 'rotate-180',
-    scrollClassName,
+    className,
   );
 
   return (
@@ -37,5 +37,3 @@ export function ScrollButton({
     </div>
   );
 }
-
-export default ScrollButton;
