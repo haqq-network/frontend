@@ -1,3 +1,6 @@
+export * from './lib/page-title/page-title';
+export * from './lib/pagination-button/pagination-button';
+export * from './lib/scroll-button/scroll-button';
 export * from './lib/above-title/above-title';
 export * from './lib/textarea/textarea';
 export * from './lib/text/text';
