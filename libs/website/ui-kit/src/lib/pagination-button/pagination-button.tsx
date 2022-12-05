@@ -10,7 +10,7 @@ interface PaginationButtonProps {
 export function PaginationButton({
   className,
   onClick,
-  active = true,
+  active,
   page = 1,
 }: PaginationButtonProps) {
   const classNames = clsx(
