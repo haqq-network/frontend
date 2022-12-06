@@ -132,13 +132,19 @@ export function StakingInfo() {
 
     return getRewardsInfo(haqqAddress);
   });
-  const { data: undelegations } = useQuery(['unboundings', haqqAddress], () => {
-    if (!haqqAddress) {
-      return null;
-    }
+  const { data: undelegations } = useQuery(
+    ['unboundings', haqqAddress],
+    () => {
+      if (!haqqAddress) {
+        return null;
+      }
 
-    return getUndelegations(haqqAddress);
-  });
+      return getUndelegations(haqqAddress);
+    },
+    {
+      refetchInterval: 2500,
+    },
+  );
   const { data: balance } = useBalance({
     address: ethAddress,
     watch: true,

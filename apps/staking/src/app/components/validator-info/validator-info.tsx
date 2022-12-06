@@ -367,13 +367,19 @@ export function ValidatorInfo({
 
     return getRewardsInfo(haqqAddress);
   });
-  const { data: delegationInfo } = useQuery(['delegation', haqqAddress], () => {
-    if (!haqqAddress) {
-      return null;
-    }
+  const { data: delegationInfo } = useQuery(
+    ['delegation', haqqAddress],
+    () => {
+      if (!haqqAddress) {
+        return null;
+      }
 
-    return getAccountDelegations(haqqAddress);
-  });
+      return getAccountDelegations(haqqAddress);
+    },
+    {
+      refetchInterval: 2500,
+    },
+  );
   const unboundingTime = useMemo(() => {
     if (stakingParams?.unbondingTime) {
       return secondsToDays(stakingParams.unbondingTime.seconds.toNumber());
