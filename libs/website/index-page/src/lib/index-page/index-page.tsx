@@ -5,6 +5,7 @@ import { PartnershipBlock } from '../partnership-block/partnership-block';
 import { MissionBlock } from '../mission-block/mission-block';
 import { Fragment } from 'react';
 import Head from 'next/head';
+import { VisionBlock } from '../vision-block/vision-block';
 
 export function WebsiteIndexPage() {
   return (
@@ -20,6 +21,7 @@ export function WebsiteIndexPage() {
         <HeroBlock />
         <AboutBlock />
         <MissionBlock />
+        <VisionBlock />
         <PartnershipBlock />
         <ContactBlock />
       </section>
