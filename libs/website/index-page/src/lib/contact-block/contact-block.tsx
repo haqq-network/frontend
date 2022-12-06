@@ -4,7 +4,7 @@ import eclipseImageData from '../../assets/images/eclipse.png';
 
 export function ContactBlock() {
   return (
-    <div className="pt-[120px] pb-[148px] sm:py-[120px] lg:py-[136px] lg:min-h-[600px] relative px-[16px] snap-start">
+    <div className="pt-[120px] pb-[148px] sm:py-[120px] lg:py-[136px] lg:min-h-[600px] relative px-[16px]">
       <Image
         alt=""
         src={eclipseImageData.src}
