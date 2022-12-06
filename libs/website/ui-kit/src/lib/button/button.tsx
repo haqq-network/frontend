@@ -15,12 +15,12 @@ export function Button({
   onClick,
   className,
   variant = 1,
-  disabled = true,
+  disabled = false,
   children,
   type = 'button',
 }: ButtonProps) {
   const classNames = clsx(
-    'p-2 text-[14px] font-serif leading-[14px] font-[500] tracking-[0.01em] rounded-[6px] h-[40px] uppercase px-[32px] py-[13px] cursor-pointer',
+    'p-2 text-[14px] font-serif leading-[14px] font-[500] tracking-[0.01em] rounded-[6px] h-[40px] uppercase px-[32px] py-[13px] cursor-pointer user-select-none',
     variant === 1 &&
       'text-white border-white border hover:bg-white hover:text-haqq-black',
     variant === 2 &&
