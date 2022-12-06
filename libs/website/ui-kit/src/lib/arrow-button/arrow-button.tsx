@@ -14,7 +14,7 @@ export function ArrowButton({
   onClick,
 }: ArrowButtonProps) {
   const classNames = clsx(
-    'py-[8px] px-[20px] w-[68.5px] h-[24px]',
+    'py-[8px] px-[20px]',
     'border rounded-[40px]',
     'bg-white flex items-center justify-center cursor-pointer',
     disabled ? 'text-black/30 border-black/30' : 'text-black border-black',
@@ -30,7 +30,6 @@ export function ArrowButton({
         viewBox="0 0 30 10"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-"
       >
         <path
           d="M0.183105 5L28.6831 5M28.6831 5L24.6831 8.99975M28.6831 5L24.6831 0.999997"
