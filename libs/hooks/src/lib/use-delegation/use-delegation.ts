@@ -75,6 +75,14 @@ export function useDelegation() {
           extension,
         );
 
+        // console.debug({
+        //   params,
+        //   msg,
+        //   signature,
+        //   extension,
+        //   rawTx,
+        // });
+
         const txResponse = await broadcastTransaction(rawTx);
         // console.log('handleDelegate', { txResponse });
 
@@ -176,13 +184,13 @@ export function useDelegation() {
           extension,
         );
 
-        console.debug({
-          params,
-          msg,
-          signature,
-          extension,
-          rawTx,
-        });
+        // console.debug({
+        //   params,
+        //   msg,
+        //   signature,
+        //   extension,
+        //   rawTx,
+        // });
 
         const txResponse = await broadcastTransaction(rawTx);
 
