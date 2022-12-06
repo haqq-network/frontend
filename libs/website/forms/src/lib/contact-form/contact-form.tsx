@@ -1,15 +1,19 @@
-import {
-  Fragment,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { Button, Input, InputProps, Textarea } from '@haqq/website/ui-kit';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Button, InputProps, TextareaProps } from '@haqq/website/ui-kit';
 import { Path, useForm, UseFormRegister } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { Modal, ModalCloseButton } from '@haqq/ui-kit';
+import { HookedFormInput } from '../hooked-form-input/hooked-form-input';
+import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
+
+export interface HookedFormProps
+  extends Omit<InputProps, 'error' | 'onChange'>,
+    Omit<TextareaProps, 'onChange'> {
+  id: Path<ContactFormFields>;
+  error?: FormError;
+  register: UseFormRegister<ContactFormFields>;
+}
 
 const schema = yup
   .object({
@@ -23,7 +27,6 @@ const schema = yup
   .required();
 
 function submitForm(form: ContactFormFields) {
-  console.log('submitForm', { form });
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ status: 200 });
@@ -50,7 +53,7 @@ export function ContactForm() {
   const [contactFormState, setContactFormState] = useState<FormState>(
     FormState.idle,
   );
-  const [isMessageSent, setMessageSent] = useState(false);
+  const [isMessageSent, setMessageSent] = useState<boolean>(false);
 
   const { register, handleSubmit, formState } = useForm<ContactFormFields>({
     resolver: yupResolver(schema),
@@ -78,6 +81,10 @@ export function ContactForm() {
     }
   }, [contactFormState]);
 
+  const handleModalClose = useCallback(() => {
+    setMessageSent(false);
+  }, [setMessageSent]);
+
   const isFormDisabled = useMemo(() => {
     return (
       contactFormState === FormState.pending ||
@@ -86,7 +93,7 @@ export function ContactForm() {
   }, [contactFormState]);
 
   return (
-    <Fragment>
+    <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
@@ -96,6 +103,7 @@ export function ContactForm() {
           <div className="flex flex-col space-y-[12px] sm:space-y-0 sm:flex-row sm:space-x-[12px] lg:space-x-[16px] leading-none">
             <div className="flex-1">
               <HookedFormInput
+                inputClassName={isFormDisabled ? 'cursor-not-allowed' : ''}
                 wrapperClassName="w-full"
                 placeholder="Name"
                 id="name"
@@ -107,6 +115,7 @@ export function ContactForm() {
             </div>
             <div className="flex-1">
               <HookedFormInput
+                inputClassName={isFormDisabled ? 'cursor-not-allowed' : ''}
                 wrapperClassName="w-full"
                 placeholder="Email"
                 type="email"
@@ -119,14 +128,17 @@ export function ContactForm() {
             </div>
           </div>
           <div>
-            <Textarea
-              className="w-full h-[120px]"
+            <HookedFormTextarea
+              id="message"
+              register={register}
+              className={`${
+                isFormDisabled ? 'cursor-not-allowed' : ''
+              } ${'w-full h-[120px]'}`}
               placeholder="Send us a message"
               disabled={isFormDisabled}
             />
           </div>
         </div>
-
         <div className="text-center">
           <Button
             className="w-[200px]"
@@ -138,42 +150,15 @@ export function ContactForm() {
           </Button>
         </div>
       </form>
-
-      {/* Message sent modal */}
-      {/* TODO: Render success message modal */}
-      {isMessageSent && 'SHOW SUCCESS MODAL'}
-    </Fragment>
-  );
-}
-
-// TODO: Move code below to separate component
-interface HookedFormInputProps extends Omit<InputProps, 'error' | 'onChange'> {
-  id: Path<ContactFormFields>;
-  error?: FormError;
-  register: UseFormRegister<ContactFormFields>;
-}
-
-export function HookedFormInput({
-  id,
-  register,
-  inputClassName,
-  wrapperClassName,
-  placeholder,
-  type,
-  error,
-  disabled,
-  required,
-}: HookedFormInputProps): ReactElement {
-  return (
-    <Input
-      inputClassName={inputClassName}
-      wrapperClassName={wrapperClassName}
-      placeholder={placeholder}
-      type={type}
-      disabled={disabled}
-      required={required}
-      error={error && error.message}
-      {...register(id)}
-    />
+      {isMessageSent && (
+        <div>
+          <Modal onClose={handleModalClose} isOpen={isMessageSent}>
+            {/* TODO: REBASE feat/haqq-website branch and add modal children */}
+            SUCCESS MODAL
+          </Modal>
+          <ModalCloseButton onClick={handleModalClose} />
+        </div>
+      )}
+    </div>
   );
 }
