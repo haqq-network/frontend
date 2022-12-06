@@ -2,7 +2,6 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Alert, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
-import { useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useDelegation } from '@haqq/hooks';
 
@@ -93,44 +92,33 @@ export function DelegateModal({
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
+
   const handleMaxButtonClick = useCallback(() => {
     setDelegateAmount(balance);
   }, [balance]);
-  const queryClient = useQueryClient();
 
   const handleInputChange = useCallback((value: number) => {
     setDelegateAmount(value);
   }, []);
 
-  const handleModalClose = useCallback(() => {
-    onClose();
-  }, [onClose]);
-
-  const handleUpdateQueries = useCallback(() => {
-    queryClient.invalidateQueries(['rewards']);
-    queryClient.invalidateQueries(['delegation']);
-    queryClient.invalidateQueries(['unboundings']);
-  }, [queryClient]);
-
   const handleSubmitDelegate = useCallback(async () => {
-    try {
-      const txHash = await delegate(validatorAddress, delegateAmount);
-      console.log('handleSubmitDelegate', { txHash });
-      handleUpdateQueries();
-      handleModalClose();
-      // toast.success(`Delegation successful: ${txHash}`);
-      toast.success(`Delegation successful`);
-    } catch (error) {
-      console.error((error as any).message);
-      toast.error((error as any).message);
-    }
-  }, [
-    delegate,
-    validatorAddress,
-    delegateAmount,
-    handleUpdateQueries,
-    handleModalClose,
-  ]);
+    const delegationPromise = delegate(validatorAddress, delegateAmount);
+
+    toast
+      .promise(delegationPromise, {
+        loading: 'Delegate in progress',
+        success: (txHash) => {
+          console.log('Delegation successful', { txHash });
+          return `Delegation successful`;
+        },
+        error: (error) => {
+          return error.message;
+        },
+      })
+      .then(() => {
+        onClose();
+      });
+  }, [delegate, validatorAddress, delegateAmount, onClose]);
 
   useEffect(() => {
     if (delegateAmount <= 0) {
@@ -156,12 +144,12 @@ export function DelegateModal({
   }, [amountError]);
 
   return (
-    <Modal isOpen={isOpen} onClose={handleModalClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <Card className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
         <div className="flex flex-col space-y-8">
           <div className="flex flex-row justify-between items-center">
             <Heading level={3}>Delegate</Heading>
-            <ModalCloseButton onClick={handleModalClose} />
+            <ModalCloseButton onClick={onClose} />
           </div>
 
           <Alert

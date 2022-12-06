@@ -34,7 +34,6 @@ export function UndelegateModal({
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
-  const queryClient = useQueryClient();
 
   const handleMaxButtonClick = useCallback(() => {
     setUndelegateAmount(delegation);
@@ -44,31 +43,24 @@ export function UndelegateModal({
     setUndelegateAmount(value);
   }, []);
 
-  const handleUpdateQueries = useCallback(() => {
-    queryClient.invalidateQueries(['rewards']);
-    queryClient.invalidateQueries(['delegation']);
-    queryClient.invalidateQueries(['unboundings']);
-  }, [queryClient]);
-
   const handleSubmitUndelegate = useCallback(async () => {
-    try {
-      const txHash = await undelegate(validatorAddress, undelegateAmount);
-      console.log('handleSubmitUndelegate', { txHash });
-      handleUpdateQueries();
-      onClose();
-      // toast.success(`Undlegation successful ${txHash}`);
-      toast.success(`Undlegation successful`);
-    } catch (error) {
-      console.error((error as any).message);
-      toast.error((error as any).message);
-    }
-  }, [
-    handleUpdateQueries,
-    onClose,
-    undelegate,
-    undelegateAmount,
-    validatorAddress,
-  ]);
+    const undelegationPromise = undelegate(validatorAddress, undelegateAmount);
+
+    toast
+      .promise(undelegationPromise, {
+        loading: 'Undlegation in progress',
+        success: (txHash) => {
+          console.log('Undlegation successful', { txHash });
+          return `Undlegation successful`;
+        },
+        error: (error) => {
+          return error.message;
+        },
+      })
+      .then(() => {
+        onClose();
+      });
+  }, [onClose, undelegate, undelegateAmount, validatorAddress]);
 
   useEffect(() => {
     if (undelegateAmount <= 0) {

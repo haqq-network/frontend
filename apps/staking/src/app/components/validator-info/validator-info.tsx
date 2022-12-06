@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Fragment, ReactNode, useCallback, useMemo } from 'react';
 import { useBalance } from 'wagmi';
 import { Button2, Text, Card, SpinnerLoader } from '@haqq/ui-kit';
@@ -316,6 +316,7 @@ export function ValidatorInfo({
 }: {
   validatorAddress: string;
 }) {
+  const queryClient = useQueryClient();
   const {
     getValidatorInfo,
     getStakingParams,
@@ -345,9 +346,15 @@ export function ValidatorInfo({
       isUndelegateModalOpen: hash === '#undelegate',
     };
   }, [hash]);
+  const handleUpdateQueries = useCallback(() => {
+    queryClient.invalidateQueries(['rewards']);
+    queryClient.invalidateQueries(['delegation']);
+    queryClient.invalidateQueries(['unboundings']);
+  }, [queryClient]);
   const handleModalClose = useCallback(() => {
     navigate('');
-  }, [navigate]);
+    handleUpdateQueries();
+  }, [handleUpdateQueries, navigate]);
 
   const { data: stakingParams } = useQuery(
     ['staking-params'],
@@ -408,7 +415,7 @@ export function ValidatorInfo({
     console.log('GET MY REWARDS');
   }, []);
 
-  // console.log({ stakingParams, rewardsInfo, delegationInfo });
+  // console.log({ validatorInfo, stakingParams, rewardsInfo, delegationInfo });
 
   if (isFetching || !validatorInfo) {
     return (
