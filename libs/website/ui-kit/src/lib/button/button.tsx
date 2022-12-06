@@ -8,6 +8,7 @@ export interface ButtonProps {
   onClick?: () => void;
   variant?: 1 | 2 | 3 | 4;
   disabled?: boolean;
+  type?: 'submit' | 'button' | 'reset';
 }
 
 export function Button({
@@ -16,6 +17,7 @@ export function Button({
   variant = 1,
   disabled = true,
   children,
+  type = 'button',
 }: ButtonProps) {
   const classNames = clsx(
     'p-2 text-[14px] font-serif leading-[14px] font-[500] tracking-[0.01em] rounded-[6px] h-[40px] uppercase px-[32px] py-[13px] cursor-pointer',
@@ -30,7 +32,12 @@ export function Button({
   );
 
   return (
-    <button className={classNames} onClick={onClick} disabled={disabled}>
+    <button
+      className={classNames}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+    >
       {children}
     </button>
   );

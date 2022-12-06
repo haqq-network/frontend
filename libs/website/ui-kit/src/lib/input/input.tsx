@@ -8,6 +8,8 @@ export interface InputProps {
   required?: boolean;
   disabled?: boolean;
   error?: string;
+  name?: string;
+  id?: string;
 }
 
 export function Input({
@@ -18,6 +20,8 @@ export function Input({
   error,
   inputClassName,
   wrapperClassName,
+  id,
+  name,
 }: InputProps) {
   const inputClassNames = clsx(
     'inline-block w-full pt-[14px] pb-[12px] px-[16px] text-[14px] text-white placeholder-white rounded-[6px] bg-[#252528] leading-[20px]',
@@ -42,6 +46,8 @@ export function Input({
           placeholder={placeholder}
           required={required}
           disabled={disabled}
+          id={id}
+          name={name}
         />
         {required && <span className={requiredClassNames}>*</span>}
       </div>
