@@ -107,7 +107,7 @@ export function SuccessMessageModal() {
     <div className="flex items-center justify-between bg-white rounded-[10px] max-w-[343px] sm:max-w-[473px] lg:max-w-[623px] px-[16px] sm:px-[32px] py-[12px] sm:py-[20px]">
       <Ruler className="h-full w-auto" />
       <div className="flex flex-col items-center justify-center">
-        <div className="text-center text-haqq-black mb-[24px] sm:mb-[32px]">
+        <div className="text-center mb-[24px] sm:mb-[32px]">
           <Heading>Your application has been accepted</Heading>
         </div>
         <Button variant={3}>Go back</Button>
