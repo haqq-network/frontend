@@ -1,19 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, InputProps, TextareaProps } from '@haqq/website/ui-kit';
-import { Path, useForm, UseFormRegister } from 'react-hook-form';
+import { Button } from '@haqq/website/ui-kit';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Modal, ModalCloseButton } from '@haqq/ui-kit';
-import { HookedFormInput } from '../hooked-form-input/hooked-form-input';
+import {
+  FormError,
+  FormFields,
+  HookedFormInput,
+} from '../hooked-form-input/hooked-form-input';
 import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
-
-export interface HookedFormProps
-  extends Omit<InputProps, 'error' | 'onChange'>,
-    Omit<TextareaProps, 'onChange'> {
-  id: Path<ContactFormFields>;
-  error?: FormError;
-  register: UseFormRegister<ContactFormFields>;
-}
 
 const schema = yup
   .object({
@@ -26,15 +22,13 @@ const schema = yup
   })
   .required();
 
-function submitForm(form: ContactFormFields) {
+function submitForm(form: FormFields) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ status: 200 });
     }, 2500);
   });
 }
-
-type FormError = { message: string } | undefined;
 
 export enum FormState {
   idle,
@@ -43,23 +37,17 @@ export enum FormState {
   error,
 }
 
-interface ContactFormFields {
-  name: string;
-  email: string;
-  message: string;
-}
-
 export function ContactForm() {
   const [contactFormState, setContactFormState] = useState<FormState>(
     FormState.idle,
   );
   const [isMessageSent, setMessageSent] = useState<boolean>(false);
 
-  const { register, handleSubmit, formState } = useForm<ContactFormFields>({
+  const { register, handleSubmit, formState } = useForm<FormFields>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async (data: ContactFormFields) => {
+  const onSubmit = useCallback(async (data: FormFields) => {
     try {
       setContactFormState(FormState.pending);
       const response = await submitForm(data);
