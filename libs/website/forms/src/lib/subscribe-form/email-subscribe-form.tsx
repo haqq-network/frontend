@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { Modal, ModalCloseButton } from '@haqq/ui-kit';
 import { FormState } from '../contact-form/contact-form';
 import {
+  FormError,
   FormFields,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
@@ -20,16 +21,12 @@ const schema = yup
   .required();
 
 function submitForm(form: FormFields) {
-  console.log('kek', { form });
-
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ status: 200 });
     }, 2500);
   });
 }
-
-type FormError = { message: string } | undefined;
 
 export function EmailSubscribeForm() {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
@@ -42,7 +39,6 @@ export function EmailSubscribeForm() {
   });
 
   const onSubmit = useCallback(async (data: FormFields) => {
-    console.log({ data });
     try {
       setSubscribeFormState(FormState.pending);
       const response = await submitForm(data);
@@ -107,7 +103,6 @@ export function EmailSubscribeForm() {
             {/* TODO: REBASE feat/haqq-website branch and add modal children */}
             SUCCESS MODAL
           </Modal>
-          <ModalCloseButton onClick={handleModalClose} />
         </div>
       )}
     </div>

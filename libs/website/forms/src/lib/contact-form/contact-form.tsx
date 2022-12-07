@@ -144,7 +144,6 @@ export function ContactForm() {
             {/* TODO: REBASE feat/haqq-website branch and add modal children */}
             SUCCESS MODAL
           </Modal>
-          <ModalCloseButton onClick={handleModalClose} />
         </div>
       )}
     </div>
