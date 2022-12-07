@@ -1,6 +1,6 @@
 import { Textarea } from '@haqq/website/ui-kit';
 import { ReactElement } from 'react';
-import { HookedFormProps } from '../contact-form/contact-form';
+import { HookedFormProps } from '../hooked-form-input/hooked-form-input';
 
 export function HookedFormTextarea({
   id,
