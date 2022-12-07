@@ -1,4 +1,4 @@
-import { Textarea } from '@haqq/website/ui-kit';
+import { Textarea } from '../../../../ui-kit/src/lib/textarea/textarea';
 import { ReactElement } from 'react';
 import { HookedFormProps } from '../hooked-form-input/hooked-form-input';
 

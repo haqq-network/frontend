@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
-import { Input, InputProps, TextareaProps } from '@haqq/website/ui-kit';
+import { Input, InputProps } from '../../../../ui-kit/src/lib/input/input';
+import { TextareaProps } from '../../../../ui-kit/src/lib/textarea/textarea';
 import { Path, UseFormRegister } from 'react-hook-form';
 
 export enum FormState {
