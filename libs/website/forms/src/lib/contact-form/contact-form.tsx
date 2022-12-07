@@ -3,10 +3,11 @@ import { Button } from '@haqq/website/ui-kit';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Modal, ModalCloseButton } from '@haqq/ui-kit';
+import { Modal } from '@haqq/ui-kit';
 import {
   FormError,
   FormFields,
+  FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
@@ -28,13 +29,6 @@ function submitForm(form: FormFields) {
       resolve({ status: 200 });
     }, 2500);
   });
-}
-
-export enum FormState {
-  idle,
-  pending,
-  success,
-  error,
 }
 
 export function ContactForm() {

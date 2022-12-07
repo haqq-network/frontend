@@ -2,6 +2,13 @@ import { ReactElement } from 'react';
 import { Input, InputProps, TextareaProps } from '@haqq/website/ui-kit';
 import { Path, UseFormRegister } from 'react-hook-form';
 
+export enum FormState {
+  idle,
+  pending,
+  success,
+  error,
+}
+
 export interface FormError {
   message: string | undefined;
 }

@@ -3,11 +3,11 @@ import { Button } from '@haqq/website/ui-kit';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Modal, ModalCloseButton } from '@haqq/ui-kit';
-import { FormState } from '../contact-form/contact-form';
+import { Modal } from '@haqq/ui-kit';
 import {
   FormError,
   FormFields,
+  FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 
