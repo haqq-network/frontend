@@ -93,7 +93,6 @@ export function EmailSubscribeForm() {
             register={register}
             error={formState.errors.email as FormError}
             disabled={isFormDisabled}
-            required
           />
         </div>
         <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
