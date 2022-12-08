@@ -1,15 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button } from '../../../../ui-kit/src/lib/button/button';
+import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Modal } from '@haqq/ui-kit';
 import {
   FormError,
   FormFields,
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
+import { Button } from '@haqq/website/ui-kit';
 
 const schema = yup
   .object({
@@ -28,11 +27,10 @@ function submitForm(form: FormFields): Promise<any> {
   });
 }
 
-export function EmailSubscribeForm() {
+export function SubscribeForm() {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
   );
-  const [isMessageSent, setMessageSent] = useState<boolean>(false);
 
   const { register, handleSubmit, formState } = useForm<FormFields>({
     resolver: yupResolver(schema),
@@ -53,16 +51,6 @@ export function EmailSubscribeForm() {
       setSubscribeFormState(FormState.error);
     }
   }, []);
-
-  useEffect(() => {
-    if (subscribeFormState === FormState.success) {
-      setMessageSent(true);
-    }
-  }, [subscribeFormState]);
-
-  const handleModalClose = useCallback(() => {
-    setMessageSent(false);
-  }, [setMessageSent]);
 
   const isFormDisabled = useMemo(() => {
     return (
@@ -96,14 +84,6 @@ export function EmailSubscribeForm() {
           </Button>
         </div>
       </form>
-      {isMessageSent && (
-        <div>
-          <Modal onClose={handleModalClose} isOpen={isMessageSent}>
-            {/* TODO: REBASE feat/haqq-website branch and add modal children */}
-            SUCCESS MODAL
-          </Modal>
-        </div>
-      )}
     </div>
   );
 }

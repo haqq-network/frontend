@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import logoImageData from '../../assets/images/logo.svg';
-import { EmailSubscribeForm } from '@haqq/website/forms';
+import { SubscribeForm } from '@haqq/website/forms';
 import { Heading } from '@haqq/website/ui-kit';
 
 function FooterNavLink({
@@ -249,7 +249,7 @@ export function Footer() {
             <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
             </Heading>
-            <EmailSubscribeForm />
+            <SubscribeForm />
           </div>
         </div>
       </div>
