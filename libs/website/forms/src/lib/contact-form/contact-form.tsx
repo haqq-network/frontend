@@ -24,7 +24,7 @@ const schema = yup
   })
   .required();
 
-function submitForm(form: FormFields) {
+function submitForm(form: FormFields): Promise<any> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ status: 200 });
