@@ -80,8 +80,7 @@ export function EmailSubscribeForm() {
       >
         <div className="sm:flex-1 max-w-[314px] lg:max-w-[415px]">
           <HookedFormInput
-            inputClassName={`pt-[11px] pb-[10px] md:pt-[10px] md:pb-[9px] lg:pt-[14px] lg:pb-[12px]
-              ${isFormDisabled ? 'cursor-not-allowed' : ''}`}
+            inputClassName="pt-[11px] pb-[10px] md:pt-[10px] md:pb-[9px] lg:pt-[14px] lg:pb-[12px]"
             wrapperClassName="w-full"
             placeholder="Enter your e-mail"
             type="email"

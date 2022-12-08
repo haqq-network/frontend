@@ -11,6 +11,7 @@ import {
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
+import { SuccessMessageModal } from '@haqq/website/ui-kit';
 
 const schema = yup
   .object({
@@ -85,7 +86,6 @@ export function ContactForm() {
           <div className="flex flex-col space-y-[12px] sm:space-y-0 sm:flex-row sm:space-x-[12px] lg:space-x-[16px] leading-none">
             <div className="flex-1">
               <HookedFormInput
-                inputClassName={isFormDisabled ? 'cursor-not-allowed' : ''}
                 wrapperClassName="w-full"
                 placeholder="Name"
                 id="name"
@@ -97,7 +97,6 @@ export function ContactForm() {
             </div>
             <div className="flex-1">
               <HookedFormInput
-                inputClassName={isFormDisabled ? 'cursor-not-allowed' : ''}
                 wrapperClassName="w-full"
                 placeholder="Email"
                 type="email"
@@ -113,9 +112,7 @@ export function ContactForm() {
             <HookedFormTextarea
               id="message"
               register={register}
-              className={`${
-                isFormDisabled ? 'cursor-not-allowed' : ''
-              } ${'w-full h-[120px]'}`}
+              className="w-full h-[120px]"
               placeholder="Send us a message"
               disabled={isFormDisabled}
             />
@@ -136,7 +133,8 @@ export function ContactForm() {
         <div>
           <Modal onClose={handleModalClose} isOpen={isMessageSent}>
             {/* TODO: REBASE feat/haqq-website branch and add modal children */}
-            SUCCESS MODAL
+            {/* SUCCESS MODAL */}
+            <SuccessMessageModal />
           </Modal>
         </div>
       )}

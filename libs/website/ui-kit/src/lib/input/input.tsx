@@ -37,6 +37,7 @@ export const Input = forwardRef(function Input(
     'focus:bg-transparent focus:border-white/50 focus:text-white',
     'transition-color duration-150 ease-in',
     error && 'text-[#FF5454] bg-[#360C0E] border-[#360C0E]',
+    disabled && 'cursor-not-allowed',
     inputClassName,
   );
   const wrapperClassNames = clsx('inline-block', wrapperClassName);
