@@ -1,0 +1,38 @@
+import { Fragment } from 'react';
+import { PageTitle } from '@haqq/website/ui-kit';
+
+export const meta = {
+  title: 'Hello world',
+};
+
+# Hello world
+
+Lorem ipsum dolor sit amet **consectetur** adipisicing elit. Eos doloremque assumenda, alias odit consequuntur quae unde quia deserunt nobis, expedita, sed natus voluptatum. Molestias ex molestiae ad accusantium, rerum nesciunt.
+
+Iusto fugit necessitatibus nemo velit dolorem fugiat. Itaque sint accusantium error sit? Assumenda culpa sunt aperiam ex nam magnam quis quas. Repellat, est impedit assumenda quibusdam quae tenetur quas velit?
+
+Fuga voluptas, nulla libero voluptate, tempore perferendis voluptates amet qui dicta sapiente ad illum doloribus delectus debitis molestias! Explicabo hic amet dolorem voluptatum odio placeat ab delectus distinctio quia nostrum?
+
+- list 1
+- list 2
+- list 3
+
+Dicta doloribus ipsam minima, _pariatur_ facilis adipisci expedita ea necessitatibus inventore cum cupiditate ad eligendi. Ratione aspernatur nobis officiis similique quod voluptatem natus vel accusantium. Quaerat neque nulla veritatis tempore?
+
+Sapiente cupiditate ipsum pariatur possimus cumque quidem aliquid nihil voluptatibus quod harum, saepe perferendis, praesentium ratione ab! Neque blanditiis alias, ducimus eveniet tenetur recusandae nostrum, dignissimos quos voluptate maxime incidunt?
+
+Optio aliquam, dolores dolor facilis, suscipit veritatis adipisci consectetur ullam perspiciatis odio dolorem odit similique officiis. Eius beatae, illo facere iusto doloremque quasi magnam aspernatur blanditiis nemo neque deleniti at.
+
+export default function({ children }) {
+ return (
+    <Fragment>
+      <PageTitle>{meta.title}</PageTitle>
+      <section className="bg-white text-haqq-black px-[16px] sm:px-[63px] lg:px-[80px] py-[60px] sm:py-[80px] lg:py-[100px]">
+        <article className="prose mx-auto">
+          {children}
+        </article>
+      </section>
+    </Fragment>
+
+);
+}
