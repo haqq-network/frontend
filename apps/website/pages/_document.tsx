@@ -4,7 +4,7 @@ import { ClashDisplayFont, HKGuiseFont } from '../lib/fonts';
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" className="ltr">
       <Head>
         <meta charSet="utf-8" />
         <base href="/" />
