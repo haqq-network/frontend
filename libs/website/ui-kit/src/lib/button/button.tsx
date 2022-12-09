@@ -29,8 +29,7 @@ export function Button({
       `text-haqq-black bg-white border-white border ${
         !disabled ? 'hover:bg-transparent hover:text-white' : ''
       }`,
-    variant === 3 &&
-      `text-white bg-haqq-black ${!disabled ? 'hover:bg-haqq-orange' : ''}`,
+    variant === 3 && 'text-white bg-haqq-black disabled:!bg-haqq-orange',
     variant === 4 && 'text-haqq-black bg-haqq-black',
     'transition-color duration-150 ease-in',
     disabled && 'cursor-not-allowed',

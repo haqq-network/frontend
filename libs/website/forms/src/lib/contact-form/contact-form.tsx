@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button } from '../../../../ui-kit/src/lib/button/button';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -11,7 +10,7 @@ import {
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
-import { SuccessMessageModal } from '@haqq/website/ui-kit';
+import { Button, SuccessMessageModal } from '@haqq/website/ui-kit';
 
 const schema = yup
   .object({
@@ -81,6 +80,7 @@ export function ContactForm() {
         onSubmit={handleSubmit(onSubmit)}
         noValidate
         className="leading-none flex flex-col space-y-[24px] sm:space-y-[32px]"
+        autoComplete="off"
       >
         <div className="flex flex-col space-y-[12px] lg:space-y-[16px]">
           <div className="flex flex-col space-y-[12px] sm:space-y-0 sm:flex-row sm:space-x-[12px] lg:space-x-[16px] leading-none">
@@ -132,8 +132,6 @@ export function ContactForm() {
       {isMessageSent && (
         <div>
           <Modal onClose={handleModalClose} isOpen={isMessageSent}>
-            {/* TODO: REBASE feat/haqq-website branch and add modal children */}
-            {/* SUCCESS MODAL */}
             <SuccessMessageModal />
           </Modal>
         </div>

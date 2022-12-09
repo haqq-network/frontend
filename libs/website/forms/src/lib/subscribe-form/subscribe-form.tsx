@@ -65,6 +65,7 @@ export function SubscribeForm() {
         onSubmit={handleSubmit(onSubmit)}
         noValidate
         className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0"
+        autoComplete="off"
       >
         <div className="sm:flex-1 max-w-[314px] lg:max-w-[415px]">
           <HookedFormInput
