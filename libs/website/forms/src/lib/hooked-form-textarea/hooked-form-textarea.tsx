@@ -1,6 +1,13 @@
 import { ReactElement } from 'react';
-import { HookedTextareaProps } from '../hooked-form-input/hooked-form-input';
-import { Textarea } from '@haqq/website/ui-kit';
+import { FormError, FormFields } from '../hooked-form-input/hooked-form-input';
+import { Textarea, TextareaProps } from '@haqq/website/ui-kit';
+import { Path, UseFormRegister } from 'react-hook-form';
+
+export interface HookedTextareaProps extends Omit<TextareaProps, 'onChange'> {
+  id: Path<FormFields>;
+  error?: FormError;
+  register: UseFormRegister<FormFields>;
+}
 
 export function HookedFormTextarea({
   id,

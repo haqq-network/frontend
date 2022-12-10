@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Input, InputProps, TextareaProps } from '@haqq/website/ui-kit';
+import { Input, InputProps } from '@haqq/website/ui-kit';
 import { Path, UseFormRegister } from 'react-hook-form';
 
 export enum FormState {
@@ -21,12 +21,6 @@ export interface FormFields {
 
 export interface HookedInputProps
   extends Omit<InputProps, 'error' | 'onChange'> {
-  id: Path<FormFields>;
-  error?: FormError;
-  register: UseFormRegister<FormFields>;
-}
-
-export interface HookedTextareaProps extends Omit<TextareaProps, 'onChange'> {
   id: Path<FormFields>;
   error?: FormError;
   register: UseFormRegister<FormFields>;
