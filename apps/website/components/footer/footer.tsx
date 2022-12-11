@@ -2,10 +2,9 @@ import { ReactNode } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '../button/button';
-import { Input } from '../input/input';
-import { Heading } from '../heading/heading';
 import logoImageData from '../../assets/images/logo.svg';
+import { SubscribeForm } from '@haqq/website/forms';
+import { Heading } from '@haqq/website/ui-kit';
 
 function FooterNavLink({
   href,
@@ -250,19 +249,7 @@ export function Footer() {
             <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
             </Heading>
-
-            <div className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0">
-              <div className="sm:flex-1 max-w-[314px] lg:max-w-[415px]">
-                <Input
-                  placeholder="Enter your e-mail"
-                  inputClassName="pt-[10px] pb-[8px] lg:pt-[14px] lg:pb-[12px]"
-                  wrapperClassName="w-full"
-                />
-              </div>
-              <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
-                <Button variant={1}>Subscribe</Button>
-              </div>
-            </div>
+            <SubscribeForm />
           </div>
         </div>
       </div>
