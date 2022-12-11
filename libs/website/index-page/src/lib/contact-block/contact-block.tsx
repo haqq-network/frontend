@@ -1,6 +1,7 @@
-import { Button, Heading, Input, Textarea } from '@haqq/website/ui-kit';
 import Image from 'next/image';
 import eclipseImageData from '../../assets/images/eclipse.png';
+import { ContactForm } from '@haqq/website/forms';
+import { Heading } from '@haqq/website/ui-kit';
 
 export function ContactBlock() {
   return (
@@ -12,38 +13,12 @@ export function ContactBlock() {
         className="z-[-1] object-cover"
       />
 
-      <div className="max-w-full sm:max-w-[474px] lg:max-w-[556px] flex flex-col space-y-[24px] sm:space-y-[32px] mx-auto">
-        <div className="text-center">
+      <div className="max-w-full sm:max-w-[474px] lg:max-w-[556px] mx-auto">
+        <div className="text-center mb-[24px] sm:mb-[32px]">
           <Heading level={2}>Develop your vision on HAQQ</Heading>
         </div>
 
-        <div className="flex flex-col space-y-[12px] lg:space-y-[16px]">
-          <div className="flex flex-col space-y-[12px] sm:space-y-0 sm:flex-row sm:space-x-[12px] lg:space-x-[16px] leading-none">
-            <div className="flex-1">
-              <Input wrapperClassName="w-full" placeholder="Name" required />
-            </div>
-            <div className="flex-1">
-              <Input
-                wrapperClassName="w-full"
-                placeholder="Email"
-                type="email"
-                required
-              />
-            </div>
-          </div>
-          <div>
-            <Textarea
-              className="w-full h-[120px]"
-              placeholder="Send us a message"
-            />
-          </div>
-        </div>
-
-        <div className="text-center">
-          <Button className="w-[200px]" variant={2}>
-            Submit
-          </Button>
-        </div>
+        <ContactForm />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { ChangeEvent, forwardRef, useCallback } from 'react';
 
 export interface InputProps {
   inputClassName?: string;
@@ -8,29 +9,48 @@ export interface InputProps {
   required?: boolean;
   disabled?: boolean;
   error?: string;
+  name?: string;
+  id?: string;
+  value?: string | number;
+  onChange: (event: ChangeEvent<HTMLInputElement>, value?: string) => void;
 }
 
-export function Input({
-  placeholder,
-  type = 'text',
-  required = false,
-  disabled = false,
-  error,
-  inputClassName,
-  wrapperClassName,
-}: InputProps) {
+export const Input = forwardRef(function Input(
+  {
+    placeholder,
+    type = 'text',
+    required = false,
+    disabled = false,
+    error,
+    inputClassName,
+    wrapperClassName,
+    id,
+    name,
+    onChange,
+    value,
+  }: InputProps,
+  ref: any,
+) {
   const inputClassNames = clsx(
     'inline-block w-full pt-[14px] pb-[12px] px-[16px] text-[14px] text-white placeholder-white rounded-[6px] bg-[#252528] leading-[20px]',
     'outline-none border border-[#252528]',
     'focus:bg-transparent focus:border-white/50 focus:text-white',
     'transition-color duration-150 ease-in',
     error && 'text-[#FF5454] bg-[#360C0E] border-[#360C0E]',
+    disabled && 'cursor-not-allowed',
     inputClassName,
   );
   const wrapperClassNames = clsx('inline-block', wrapperClassName);
   const requiredClassNames = clsx(
     'absolute right-[16px] top-[22px] select-none pointer-events-none',
     error ? 'text-[#FF5454]' : 'text-haqq-orange',
+  );
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChange(event, event.target.value);
+    },
+    [onChange],
   );
 
   return (
@@ -42,6 +62,11 @@ export function Input({
           placeholder={placeholder}
           required={required}
           disabled={disabled}
+          id={id}
+          name={name}
+          onChange={handleChange}
+          value={value}
+          ref={ref}
         />
         {required && <span className={requiredClassNames}>*</span>}
       </div>
@@ -52,4 +77,4 @@ export function Input({
       )}
     </div>
   );
-}
+});
