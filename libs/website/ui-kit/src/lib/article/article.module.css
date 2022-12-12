@@ -28,3 +28,7 @@
 .container ol li p {
   @apply my-0;
 }
+
+.container p {
+  @apply my-[20px] md:my-[24px] first:mt-0 last:mb-0 [&:nth-child(3)]:mb-0;
+}
