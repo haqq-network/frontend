@@ -4,7 +4,7 @@
 }
 
 .container ol {
-  @apply p-0;
+  @apply p-0 my-0;
   counter-reset: subsection;
 }
 
@@ -13,7 +13,7 @@
 }
 
 .container ol li {
-  @apply p-0;
+  @apply p-0 my-[20px] md:my-[24px] first:mt-0 last:mb-0;
   list-style-type: none;
   display: table;
 }
@@ -23,4 +23,8 @@
   display: table-cell;
   counter-increment: subsection;
   content: counter(section) '.' counter(subsection) '.';
+}
+
+.container ol li p {
+  @apply my-0;
 }
