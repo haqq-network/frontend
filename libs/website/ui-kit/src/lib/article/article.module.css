@@ -1,0 +1,26 @@
+.container {
+  @apply px-[16px] md:pl-[16px] md:pr-[64px] lg:p-0;
+  counter-reset: section;
+}
+
+.container ol {
+  @apply p-0;
+  counter-reset: subsection;
+}
+
+.container h1 {
+  counter-increment: section;
+}
+
+.container ol li {
+  @apply p-0;
+  list-style-type: none;
+  display: table;
+}
+
+.container ol li::before {
+  @apply pr-[16px];
+  display: table-cell;
+  counter-increment: subsection;
+  content: counter(section) '.' counter(subsection) '.';
+}
