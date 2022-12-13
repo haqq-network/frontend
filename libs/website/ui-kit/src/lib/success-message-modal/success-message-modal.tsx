@@ -1,7 +1,7 @@
 import { Button } from '../button/button';
 import { Heading } from '../heading/heading';
 
-function Ruler({ className }: { className?: string }) {
+export function Ruler({ className }: { className?: string }) {
   return (
     <svg
       width="40"
