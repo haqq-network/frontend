@@ -1,7 +1,7 @@
 import { Button } from '../button/button';
 import { Heading } from '../heading/heading';
 
-function Ruler({ className }: { className?: string }) {
+export function Ruler({ className }: { className?: string }) {
   return (
     <svg
       width="40"
@@ -104,15 +104,16 @@ function Ruler({ className }: { className?: string }) {
 
 export function SuccessMessageModal() {
   return (
-    <div className="flex items-center justify-between bg-white rounded-[10px] max-w-[343px] sm:max-w-[473px] lg:max-w-[623px] px-[16px] sm:px-[32px] py-[12px] sm:py-[20px]">
-      <Ruler className="h-full w-auto" />
-      <div className="flex flex-col items-center justify-center">
-        <div className="text-center mb-[24px] sm:mb-[32px]">
-          <Heading>Your application has been accepted</Heading>
-        </div>
+    <div className="relative flex items-center justify-between bg-white text-haqq-black rounded-[10px] max-w-[343px] sm:max-w-[473px] lg:max-w-[623px] px-[16px] sm:px-[32px] lg:px-[62px]">
+      <div className="text-center mx-[70px] my-[45px]">
+        <Heading className="mb-[24px] sm:mb-[32px]">
+          Your application has been accepted
+        </Heading>
         <Button variant={3}>Go back</Button>
       </div>
-      <Ruler className="h-full w-auto scale-x-[-1]" />
+
+      <Ruler className="absolute h-full w-auto top-0 left-[16px] sm:left-[32px] sm:h-[96%] sm:top-[2%]" />
+      <Ruler className="absolute h-full w-auto top-0 right-[16px] sm:right-[32px] sm:h-[96%] sm:top-[2%] scale-x-[-1]" />
     </div>
   );
 }

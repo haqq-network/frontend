@@ -2,9 +2,8 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { Button } from '../button/button';
-import { BurgerButton } from '../burger-button/burger-button';
 import logoImageData from '../../assets/images/logo.svg';
+import { Button, BurgerButton } from '@haqq/website/ui-kit';
 
 function HeaderNavLink({
   href,

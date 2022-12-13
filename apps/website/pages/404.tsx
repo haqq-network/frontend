@@ -1,11 +1,12 @@
 import { Fragment, ReactElement } from 'react';
-import { Button, Header } from '@haqq/website/ui-kit';
+import { Button } from '@haqq/website/ui-kit';
 import Link from 'next/link';
 import { ClashDisplayFont, HKGuiseFont } from '../lib/fonts';
 import clsx from 'clsx';
 import notFoundGlowImageData from '../assets/images/not-found-glow.png';
 import Image from 'next/image';
 import Head from 'next/head';
+import { Header } from '../components/header/header';
 
 export default function NotFoundPage() {
   return (
