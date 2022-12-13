@@ -1,34 +1,60 @@
 .container {
-  @apply px-[16px] md:pl-[16px] md:pr-[64px] lg:p-0;
   counter-reset: section;
-}
+  @apply px-[16px] lg:p-0 font-[500];
 
-.container ol {
-  @apply p-0 my-0;
-  counter-reset: subsection;
-}
+  & p {
+    @apply my-[20px] sm:my-[24px] first:mt-0 last:mb-0 [&:nth-child(3)]:mb-0;
+    @apply text-[13px];
 
-.container h1 {
-  counter-increment: section;
-}
+    @media screen(sm) {
+      @apply text-[15px];
+    }
 
-.container ol li {
-  @apply p-0 my-[20px] md:my-[24px] first:mt-0 last:mb-0;
-  list-style-type: none;
-  display: table;
-}
+    @media screen(lg) {
+      @apply text-[16px];
+    }
+  }
 
-.container ol li::before {
-  @apply pr-[16px];
-  display: table-cell;
-  counter-increment: subsection;
-  content: counter(section) '.' counter(subsection) '.';
-}
+  & a {
+    @apply text-haqq-orange no-underline hover:underline;
+  }
 
-.container ol li p {
-  @apply my-0;
-}
+  & h1 {
+    counter-increment: section;
+    @apply font-serif font-[500] leading-[1.3em] text-[18px] mb-[20px] mt-[48px] first:mt-0;
 
-.container p {
-  @apply my-[20px] md:my-[24px] first:mt-0 last:mb-0 [&:nth-child(3)]:mb-0;
+    @media screen(sm) {
+      @apply text-[24px] mb-[24px] mt-[64px];
+    }
+
+    @media screen(lg) {
+      @apply text-[32px];
+    }
+  }
+
+  & ol {
+    @apply p-0 my-0;
+    counter-reset: subsection;
+
+    & li {
+      @apply p-0 my-[20px] sm:my-[24px] first:mt-0 last:mb-0;
+      list-style-type: none;
+      display: table;
+
+      & p {
+        @apply my-0;
+      }
+
+      &::before {
+        @apply pr-[16px];
+        display: table-cell;
+        counter-increment: subsection;
+        content: counter(section) '.' counter(subsection) '.';
+      }
+    }
+  }
+
+  & mark {
+    @apply text-haqq-orange bg-transparent;
+  }
 }
