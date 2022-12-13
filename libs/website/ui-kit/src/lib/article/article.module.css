@@ -1,18 +1,9 @@
 .container {
   counter-reset: section;
-  @apply px-[16px] lg:p-0 font-[500];
+  @apply px-[16px] font-[500] text-[13px] sm:text-[15px] lg:text-[16px];
 
   & p {
-    @apply my-[20px] sm:my-[24px] first:mt-0 last:mb-0 [&:nth-child(3)]:mb-0;
-    @apply text-[13px];
-
-    @media screen(sm) {
-      @apply text-[15px];
-    }
-
-    @media screen(lg) {
-      @apply text-[16px];
-    }
+    @apply my-[20px] sm:my-[24px] first:mt-0 last:mb-0;
   }
 
   & a {
@@ -21,20 +12,19 @@
 
   & h1 {
     counter-increment: section;
-    @apply font-serif font-[500] leading-[1.3em] text-[18px] mb-[20px] mt-[48px] first:mt-0;
+    @apply font-serif font-[500] leading-[1.3em] text-[18px] sm:text-[24px] lg:text-[32px];
+    @apply mb-[20px] mt-[48px] sm:mb-[24px] sm:mt-[64px];
+  }
 
-    @media screen(sm) {
-      @apply text-[24px] mb-[24px] mt-[64px];
-    }
-
-    @media screen(lg) {
-      @apply text-[32px];
-    }
+  & h2 {
+    counter-increment: section;
+    @apply font-serif font-[500] leading-[1.2em] text-[16px] sm:text-[18px] lg:text-[22px];
+    @apply mb-[18px] mt-[32px] sm:mb-[20px] sm:mt-[36px];
   }
 
   & ol {
-    @apply p-0 my-0;
     counter-reset: subsection;
+    @apply p-0 my-0;
 
     & li {
       @apply p-0 my-[20px] sm:my-[24px] first:mt-0 last:mb-0;
