@@ -1,4 +1,3 @@
-export * from './lib/article-select/article-select';
 export * from './lib/article/article';
 export * from './lib/success-message-modal/success-message-modal';
 export * from './lib/page-title/page-title';

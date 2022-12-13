@@ -190,6 +190,9 @@ export function Footer() {
               <FooterNavLink href="#technology">Technology</FooterNavLink>
               <FooterNavLink href="#builders">Builders</FooterNavLink>
               <FooterNavLink href="#community">Community</FooterNavLink>
+              <FooterNavLink href="/privacy-policy">
+                Privacy Policy
+              </FooterNavLink>
             </nav>
           </div>
           <div className="h-full py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[383px]">
