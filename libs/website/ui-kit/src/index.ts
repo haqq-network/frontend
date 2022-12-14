@@ -1,3 +1,4 @@
+export * from './lib/loader/loader';
 export * from './lib/failure-message-modal/failure-message-modal';
 export * from './lib/success-message-modal/success-message-modal';
 export * from './lib/page-title/page-title';
