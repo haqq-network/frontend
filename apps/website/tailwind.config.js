@@ -1,12 +1,13 @@
 const { createGlobPatternsForDependencies } = require('@nrwl/react/tailwind');
 const { join } = require('path');
+const typographyPlugin = require('@tailwindcss/typography');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     join(
       __dirname,
-      '{lib,app,pages,components}/**/*!(*.stories|*.spec).{ts,tsx,js,jsx,html}',
+      '{lib,app,pages,components}/**/*!(*.stories|*.spec).{ts,tsx,js,jsx,html,mdx}',
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
@@ -24,5 +25,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [typographyPlugin],
 };
