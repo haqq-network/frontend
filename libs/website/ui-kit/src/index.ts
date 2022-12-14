@@ -1,3 +1,4 @@
+export * from './lib/burger-menu/burger-menu';
 export * from './lib/cookies-banner/cookies-banner';
 export * from './lib/article/article';
 export * from './lib/loader/loader';
