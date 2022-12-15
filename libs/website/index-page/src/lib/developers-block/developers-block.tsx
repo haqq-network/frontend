@@ -1,7 +1,8 @@
 import { Heading, Text } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
+import Link from 'next/link';
 
-function PartnershipBlockCard({
+function DevelopersBlockCard({
   title,
   description,
   className,
@@ -45,11 +46,11 @@ function PartnershipBlockCard({
   );
 }
 
-export function PartnershipBlock() {
+export function DevelopersBlock() {
   return (
     <div
       className="px-[16px] ml-[16px] sm:pl-[20px] sm:pr-[64px] sm:ml-[63px] lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] border-l border-haqq-border snap-start"
-      id="partnership"
+      id="developers"
     >
       <div className="py-[60px] sm:py-[100px] flex flex-col space-y-[32px] lg:space-y-0 lg:flex-row">
         <div className="flex flex-col space-y-[16px] lg:flex-1 lg:w-[595px] pr-[32px]">
@@ -63,14 +64,21 @@ export function PartnershipBlock() {
           </Text>
         </div>
         <div className="flex flex-col space-y-[16px] flex-1 lg:space-y-[32px]">
-          <PartnershipBlockCard
-            title="Become a Developer"
-            description="Build standalone Shariah-compliant applications, create your own DeFI or issue NFTs, on a foundation of fair and sustainable principles"
-          />
-          <PartnershipBlockCard
-            title="Become a Validator"
-            description="Help to secure the network and earn rewards by running a validator"
-          />
+          <Link href="https://docs.haqq.network/" target="_blank">
+            <DevelopersBlockCard
+              title="Become a Developer"
+              description="Build standalone Shariah-compliant applications, create your own DeFI or issue NFTs, on a foundation of fair and sustainable principles"
+            />
+          </Link>
+          <Link
+            href="https://docs.haqq.network/guides/validators/setup.html"
+            target="_blank"
+          >
+            <DevelopersBlockCard
+              title="Become a Validator"
+              description="Help to secure the network and earn rewards by running a validator"
+            />
+          </Link>
         </div>
       </div>
     </div>

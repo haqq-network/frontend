@@ -1,7 +1,7 @@
 import { HeroBlock } from '../hero-block/hero-block';
 import { AboutBlock } from '../about-block/about-block';
 import { ContactBlock } from '../contact-block/contact-block';
-import { PartnershipBlock } from '../partnership-block/partnership-block';
+import { DevelopersBlock } from '../developers-block/developers-block';
 import { MissionBlock } from '../mission-block/mission-block';
 import { Fragment } from 'react';
 import Head from 'next/head';
@@ -22,7 +22,7 @@ export function WebsiteIndexPage() {
         <AboutBlock />
         <MissionBlock />
         <VisionBlock />
-        <PartnershipBlock />
+        <DevelopersBlock />
         <ContactBlock />
       </section>
     </Fragment>
