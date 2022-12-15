@@ -9,6 +9,16 @@ import {
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 import { Button } from '@haqq/website/ui-kit';
+import clsx from 'clsx';
+
+function isMatch(media: 'sm' | 'lg') {
+  const sizes = {
+    sm: '640px',
+    lg: '1024px',
+  };
+  const query = `(min-width: ${sizes[media]})`;
+  return window?.matchMedia(query).matches;
+}
 
 const schema = yup
   .object({
@@ -27,7 +37,7 @@ function submitForm(form: FormFields): Promise<any> {
   });
 }
 
-export function SubscribeForm() {
+export function SubscribeForm({ className }: { className?: string }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
   );
@@ -59,17 +69,20 @@ export function SubscribeForm() {
     );
   }, [subscribeFormState]);
 
+  // useEffect(() => {
+  //   console.log(isMatch('lg'));
+  // }, []);
+
   return (
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
-        className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0"
+        className={clsx(className)}
         autoComplete="off"
       >
-        <div className="sm:flex-1 max-w-[314px] lg:max-w-[415px]">
+        <div className="sm:flex-1 max-w-[400px]">
           <HookedFormInput
-            inputClassName="pt-[11px] pb-[10px] sm:pt-[10px] sm:pb-[9px] lg:pt-[14px] lg:pb-[12px]"
             wrapperClassName="w-full"
             placeholder="Enter your e-mail"
             type="email"
@@ -77,6 +90,8 @@ export function SubscribeForm() {
             register={register}
             error={formState.errors.email as FormError}
             disabled={isFormDisabled}
+            required
+            size={isMatch('lg') ? 'normal' : 'small'}
           />
         </div>
         <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
