@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Button } from '../button/button';
 import {
   DiscordIcon,
+  Heading,
+  LinkArrowIcon,
   LinkedinIcon,
   MediumIcon,
   TelegramIcon,
@@ -29,25 +31,7 @@ function BurgerMenuNavLink({
   );
 }
 
-function FooterNavSocialLinkArrow() {
-  return (
-    <svg
-      className="hidden sm:block sm:invisible group-hover:visible h-[24px] w-[24px]"
-      viewBox="0 0 25 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M14.9028 8.5H7.71344V7H17.4634V16.75H15.9634V9.56066L8.24377 17.2803L7.18311 16.2197L14.9028 8.5Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-function FooterNavSocialLink({
+function BurgerMenuSocialLink({
   href,
   children,
   icon,
@@ -63,7 +47,7 @@ function FooterNavSocialLink({
     >
       <div>{icon}</div>
       <div>{children}</div>
-      <FooterNavSocialLinkArrow />
+      <LinkArrowIcon />
     </Link>
   );
 }
@@ -73,7 +57,7 @@ export function BurgerMenu({ className }: { className?: string }) {
     <div
       className={clsx(
         'bg-haqq-black z-50 px-[20px] py-[32px] sm:py-[40px] sm:pl-[40px] sm:pr-[64px]',
-        'sm:border-l border-haqq-border',
+        'sm:border-l border-haqq-border overflow-y-auto',
         // 'backdrop-blur transform-gpu',
         className,
       )}
@@ -83,59 +67,66 @@ export function BurgerMenu({ className }: { className?: string }) {
         <BurgerMenuNavLink href="/#technology">Technology</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/#developers">Developers</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/#community">Community</BurgerMenuNavLink>
-        <Button className="block sm:hidden">Haqq wallet</Button>
+        <Button variant={2} className="block sm:hidden">
+          Haqq wallet
+        </Button>
       </div>
       <div className="grid grid-cols-2 gap-[14px] sm:gap-[18px] mb-[60px] sm:mb-[80px]">
-        <FooterNavSocialLink
+        <BurgerMenuSocialLink
           href="#Discord"
           icon={
             <DiscordIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
           }
         >
           Discord
-        </FooterNavSocialLink>
-        <FooterNavSocialLink
+        </BurgerMenuSocialLink>
+        <BurgerMenuSocialLink
           href="#Twitter"
           icon={
             <TwitterIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
           }
         >
           Twitter
-        </FooterNavSocialLink>
-        <FooterNavSocialLink
+        </BurgerMenuSocialLink>
+        <BurgerMenuSocialLink
           href="#Telegram"
           icon={
             <TelegramIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
           }
         >
           Telegram
-        </FooterNavSocialLink>
-        <FooterNavSocialLink
+        </BurgerMenuSocialLink>
+        <BurgerMenuSocialLink
           href="#YouTube"
           icon={
             <YoutubeIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
           }
         >
           YouTube
-        </FooterNavSocialLink>
-        <FooterNavSocialLink
+        </BurgerMenuSocialLink>
+        <BurgerMenuSocialLink
           href="#Medium"
           icon={
             <MediumIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
           }
         >
           Medium
-        </FooterNavSocialLink>
-        <FooterNavSocialLink
+        </BurgerMenuSocialLink>
+        <BurgerMenuSocialLink
           href="#LinkedIn"
           icon={
             <LinkedinIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
           }
         >
           LinkedIn
-        </FooterNavSocialLink>
+        </BurgerMenuSocialLink>
       </div>
-      <SubscribeForm />
+      <div>
+        <Heading level={3} className="mb-[16px] sm:mb-[24px]">
+          Sign up for HAQQ updates
+        </Heading>
+        <SubscribeForm className="flex flex-col space-y-[40px]" />
+      </div>
     </div>
   );
 }

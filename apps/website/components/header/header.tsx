@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useState } from 'react';
+import { Fragment, ReactNode, useCallback, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -24,6 +24,12 @@ function HeaderNavLink({
 
 export function Header() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
+
+  const handleMenuOpen = useCallback(() => {
+    setBurgerMenuOpen((isBurgerMenuOpen: boolean) => {
+      return !isBurgerMenuOpen;
+    });
+  }, []);
 
   return (
     <header
@@ -55,19 +61,18 @@ export function Header() {
           <BurgerButton
             className="ml-[24px] block lg:hidden"
             isOpen={isBurgerMenuOpen}
-            onClick={() => {
-              setBurgerMenuOpen((isBurgerMenuOpen: boolean) => {
-                return !isBurgerMenuOpen;
-              });
-            }}
+            onClick={handleMenuOpen}
           />
         </div>
       </div>
 
       {isBurgerMenuOpen && (
         <Fragment>
-          <BurgerMenu className="fixed w-full sm:w-[468px] top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)] right-0 z-40 " />
-          <div className="hidden sm:block lg:hidden absolute w-full right-0 -z-0 bg-black/50 top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)]" />
+          <BurgerMenu className="fixed lg:hidden w-full sm:w-[468px] top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)] right-0 z-40" />
+          <div
+            onClick={handleMenuOpen}
+            className="hidden sm:block lg:hidden absolute w-full right-0 -z-0 bg-black/50 top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)]"
+          />
         </Fragment>
       )}
     </header>

@@ -93,6 +93,7 @@ export function ContactForm() {
                 error={formState.errors.name as FormError}
                 disabled={isFormDisabled}
                 required
+                size="normal"
               />
             </div>
             <div className="flex-1">
@@ -105,6 +106,7 @@ export function ContactForm() {
                 error={formState.errors.email as FormError}
                 disabled={isFormDisabled}
                 required
+                size="normal"
               />
             </div>
           </div>

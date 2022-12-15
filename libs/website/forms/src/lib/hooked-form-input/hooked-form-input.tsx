@@ -36,6 +36,7 @@ export function HookedFormInput({
   error,
   disabled,
   required,
+  size = 'normal',
 }: HookedInputProps): ReactElement {
   return (
     <Input
@@ -47,6 +48,7 @@ export function HookedFormInput({
       required={required}
       error={error && error.message}
       {...register(id)}
+      size={size}
     />
   );
 }
