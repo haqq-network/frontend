@@ -3134,6 +3134,7 @@ __metadata:
     react-json-pretty: 2.2.0
     react-refresh: 0.14.0
     react-router-dom: 6.4.4
+    react-scrolllock: 5.0.1
     react-spinners: 0.13.7
     react-success-indicator: 1.1.0
     react-test-renderer: 18.2.0
@@ -13623,6 +13624,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"exenv@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "exenv@npm:1.2.2"
+  checksum: a894f3b60ab8419e0b6eec99c690a009c8276b4c90655ccaf7d28faba2de3a6b93b3d92210f9dc5efd36058d44f04098f6bbccef99859151104bfd49939904dc
+  languageName: node
+  linkType: hard
+
 "exit@npm:^0.1.2":
   version: 0.1.2
   resolution: "exit@npm:0.1.2"
@@ -22848,6 +22856,17 @@ __metadata:
   peerDependencies:
     react: ">=16.8"
   checksum: d82cc8b8bdf10e02e07d089f9d82987fa161c2f07583c973126f5f8a052c02b3d2339891ddbda1738f877755a407e2c35f0dc1ac52aaa1d2c853774d19753ea7
+  languageName: node
+  linkType: hard
+
+"react-scrolllock@npm:5.0.1":
+  version: 5.0.1
+  resolution: "react-scrolllock@npm:5.0.1"
+  dependencies:
+    exenv: ^1.2.2
+  peerDependencies:
+    react: ^16.3.0
+  checksum: 61833bdb1f48cf7dbf54e7483f1e7b4b18617b2c356d1388f60d5c32b5befeea407601f8e4980ba43f910d6b08dc89b8f2e67cfee4c7a99d03073e72b43dec92
   languageName: node
   linkType: hard
 

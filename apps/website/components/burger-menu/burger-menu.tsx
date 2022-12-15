@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { Button } from '../button/button';
+import { Button } from '../../../../libs/website/ui-kit/src/lib/button/button';
 import {
   DiscordIcon,
   Heading,
@@ -71,6 +71,7 @@ export function BurgerMenu({ className }: { className?: string }) {
           Haqq wallet
         </Button>
       </div>
+
       <div className="grid grid-cols-2 gap-[14px] sm:gap-[18px] mb-[60px] sm:mb-[80px]">
         <BurgerMenuSocialLink
           href="#Discord"
@@ -121,11 +122,15 @@ export function BurgerMenu({ className }: { className?: string }) {
           LinkedIn
         </BurgerMenuSocialLink>
       </div>
+
       <div>
         <Heading level={3} className="mb-[16px] sm:mb-[24px]">
           Sign up for HAQQ updates
         </Heading>
-        <SubscribeForm className="flex flex-col space-y-[40px]" />
+        <SubscribeForm
+          className="flex flex-col space-y-[40px]"
+          inputSize="small"
+        />
       </div>
     </div>
   );

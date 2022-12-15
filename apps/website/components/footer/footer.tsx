@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -54,6 +54,16 @@ function FooterNavSocialLink({
 }
 
 export function Footer() {
+  const [inputSize, setInputSize] = useState<'normal' | 'small'>('normal');
+
+  useEffect(() => {
+    const sizes = { sm: '640px', lg: '1024px' };
+    const query = `(min-width: ${sizes['lg']})`;
+    const { matches } = window.matchMedia(query);
+
+    setInputSize(matches ? 'normal' : 'small');
+  }, []);
+
   return (
     <footer
       className={clsx(
@@ -141,7 +151,10 @@ export function Footer() {
             <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
             </Heading>
-            <SubscribeForm className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0" />
+            <SubscribeForm
+              className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0"
+              inputSize={inputSize}
+            />
           </div>
         </div>
       </div>

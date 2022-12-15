@@ -5,7 +5,6 @@ export * from './lib/icons/linkedin-icon';
 export * from './lib/icons/discord-icon';
 export * from './lib/icons/youtube-icon';
 export * from './lib/icons/medium-icon';
-export * from './lib/burger-menu/burger-menu';
 export * from './lib/cookies-banner/cookies-banner';
 export * from './lib/article/article';
 export * from './lib/loader/loader';

@@ -3,7 +3,9 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import Link from 'next/link';
 import logoImageData from '../../assets/images/logo.svg';
-import { Button, BurgerButton, BurgerMenu } from '@haqq/website/ui-kit';
+import { Button, BurgerButton } from '@haqq/website/ui-kit';
+import ScrollLock from 'react-scrolllock';
+import { BurgerMenu } from '../burger-menu/burger-menu';
 
 function HeaderNavLink({
   href,
@@ -68,6 +70,7 @@ export function Header() {
 
       {isBurgerMenuOpen && (
         <Fragment>
+          <ScrollLock isActive />
           <BurgerMenu className="fixed lg:hidden w-full sm:w-[468px] top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)] right-0 z-40" />
           <div
             onClick={handleMenuOpen}
