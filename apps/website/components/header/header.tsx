@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import { Fragment, ReactNode, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import Link from 'next/link';
 import logoImageData from '../../assets/images/logo.svg';
-import { Button, BurgerButton } from '@haqq/website/ui-kit';
+import { Button, BurgerButton, BurgerMenu } from '@haqq/website/ui-kit';
 
 function HeaderNavLink({
   href,
@@ -13,22 +13,28 @@ function HeaderNavLink({
   children: ReactNode;
 }) {
   return (
-    <Link href={href} className="text-[16px] leading-[26px]">
+    <Link
+      href={href}
+      className="text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
+    >
       {children}
     </Link>
   );
 }
 
 export function Header() {
+  const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
+
   return (
     <header
       className={clsx(
-        'border-t border-b border-haqq-border top-0 sticky h-[63px] sm:h-[72px] bg-haqq-black/90 z-50',
+        'border-t border-b border-[#464647] w-full h-[63px] sm:h-[72px] bg-haqq-black',
         'backdrop-blur transform-gpu',
+        'top-0 sticky z-50',
       )}
     >
       <div className="w-full flex flex-row items-center h-full pr-[16px] sm:pr-[64px] lg:pr-[80px] mx-auto">
-        <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-haqq-border">
+        <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-[#464647]">
           <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
             <Image src={logoImageData.src} alt="HAQQ" fill />
           </div>
@@ -46,9 +52,24 @@ export function Header() {
         </nav>
         <div className="flex flex-row items-center">
           <Button className="hidden sm:block">Haqq wallet</Button>
-          <BurgerButton className="ml-[24px] block lg:hidden" />
+          <BurgerButton
+            className="ml-[24px] block lg:hidden"
+            isOpen={isBurgerMenuOpen}
+            onClick={() => {
+              setBurgerMenuOpen((isBurgerMenuOpen: boolean) => {
+                return !isBurgerMenuOpen;
+              });
+            }}
+          />
         </div>
       </div>
+
+      {isBurgerMenuOpen && (
+        <Fragment>
+          <BurgerMenu className="fixed w-full sm:w-[468px] top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)] right-0 z-40 " />
+          <div className="hidden sm:block lg:hidden absolute w-full right-0 -z-0 bg-black/50 top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)]" />
+        </Fragment>
+      )}
     </header>
   );
 }
