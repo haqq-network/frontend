@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -10,15 +10,6 @@ import {
 } from '../hooked-form-input/hooked-form-input';
 import { Button } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
-
-function isMatch(media: 'sm' | 'lg') {
-  const sizes = {
-    sm: '640px',
-    lg: '1024px',
-  };
-  const query = `(min-width: ${sizes[media]})`;
-  return window?.matchMedia(query).matches;
-}
 
 const schema = yup
   .object({
@@ -37,7 +28,13 @@ function submitForm(form: FormFields): Promise<any> {
   });
 }
 
-export function SubscribeForm({ className }: { className?: string }) {
+export function SubscribeForm({
+  className,
+  inputSize = 'normal',
+}: {
+  className?: string;
+  inputSize?: 'normal' | 'small';
+}) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
   );
@@ -69,10 +66,6 @@ export function SubscribeForm({ className }: { className?: string }) {
     );
   }, [subscribeFormState]);
 
-  // useEffect(() => {
-  //   console.log(isMatch('lg'));
-  // }, []);
-
   return (
     <div>
       <form
@@ -91,7 +84,7 @@ export function SubscribeForm({ className }: { className?: string }) {
             error={formState.errors.email as FormError}
             disabled={isFormDisabled}
             required
-            size={isMatch('lg') ? 'normal' : 'small'}
+            size={inputSize}
           />
         </div>
         <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
