@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import PartnershipBlock from './partnership-block';
+import { DevelopersBlock } from './developers-block';
 
 describe('PartnershipBlock', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<PartnershipBlock />);
+    const { baseElement } = render(<DevelopersBlock />);
     expect(baseElement).toBeTruthy();
   });
 });
