@@ -12,7 +12,7 @@ import {
 } from '@haqq/website/ui-kit';
 import { SubscribeForm } from '@haqq/website/forms';
 
-function HeaderNavLink({
+function BurgerMenuNavLink({
   href,
   children,
 }: {
@@ -20,7 +20,10 @@ function HeaderNavLink({
   children: ReactNode;
 }) {
   return (
-    <Link href={href} className="text-[16px] leading-[26px]">
+    <Link
+      href={href}
+      className="text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
+    >
       {children}
     </Link>
   );
@@ -69,15 +72,17 @@ export function BurgerMenu({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        'fixed h-full w-full top-0 right-0 bg-haqq-black z-50 px-[20px] pt-[32px] sm:pt-[40px] sm:pl-[40px] sm:pr-[64px]',
+        'bg-haqq-black z-50 px-[20px] py-[32px] sm:py-[40px] sm:pl-[40px] sm:pr-[64px]',
+        'sm:border-l border-haqq-border',
+        // 'backdrop-blur transform-gpu',
         className,
       )}
     >
       <div className="flex flex-col items-start space-y-[16px] mb-[60px] sm:mb-[80px]">
-        <HeaderNavLink href="/#about">About</HeaderNavLink>
-        <HeaderNavLink href="/#technology">Technology</HeaderNavLink>
-        <HeaderNavLink href="/#developers">Developers</HeaderNavLink>
-        <HeaderNavLink href="/#community">Community</HeaderNavLink>
+        <BurgerMenuNavLink href="/#about">About</BurgerMenuNavLink>
+        <BurgerMenuNavLink href="/#technology">Technology</BurgerMenuNavLink>
+        <BurgerMenuNavLink href="/#developers">Developers</BurgerMenuNavLink>
+        <BurgerMenuNavLink href="/#community">Community</BurgerMenuNavLink>
         <Button className="block sm:hidden">Haqq wallet</Button>
       </div>
       <div className="grid grid-cols-2 gap-[14px] sm:gap-[18px] mb-[60px] sm:mb-[80px]">

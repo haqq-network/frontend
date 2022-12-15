@@ -2,13 +2,18 @@ import clsx from 'clsx';
 
 export interface BurgerButtonProps {
   className?: string;
+  onClick?: () => void;
+  isOpen?: boolean;
 }
 
-export function BurgerButton({ className }: BurgerButtonProps) {
-  const isMenuOpen = false;
+export function BurgerButton({
+  className,
+  onClick,
+  isOpen = false,
+}: BurgerButtonProps) {
   return (
-    <button className={clsx('cursor-pointer', className)}>
-      {isMenuOpen ? (
+    <button className={clsx('cursor-pointer', className)} onClick={onClick}>
+      {isOpen ? (
         <svg
           width="30"
           height="30"
