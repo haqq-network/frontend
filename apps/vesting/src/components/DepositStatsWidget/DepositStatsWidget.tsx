@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { getChainParams } from '../../config';
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAccount, useContract, useProvider, useSigner } from 'wagmi';
 import { Card } from '../Card/Card';
@@ -15,15 +14,11 @@ import { Modal, ModalCloseButton } from '../modals/Modal/Modal';
 import { Alert } from '../modals/Alert/Alert';
 import { Confirm } from '../modals/Confirm/Confirm';
 import { Input } from '../Input/Input';
-import { BigNumber } from 'ethers';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
-import { environment } from '../../environments/environment';
+import { useConfig } from '@haqq/providers';
+import { getChainParams } from '@haqq/shared';
 
-interface Contract {
-  sumInWeiDeposited: BigNumber;
-  sumPaidAlready: BigNumber;
-  timestamp: BigNumber;
-}
+export { HaqqVestingContract };
 
 interface DepositInfoArgs {
   deposit: Deposit;
@@ -36,7 +31,7 @@ interface TransferAndWithdrawArgs {
   symbol: string;
 }
 
-interface Deposit {
+export interface Deposit {
   locked: BigNumber;
   unlocked: BigNumber;
   available: BigNumber;
@@ -44,27 +39,6 @@ interface Deposit {
   withdrawn: BigNumber;
   createdAt: string;
   unlockPeriod: number;
-}
-
-function mapSCResponseToJson(
-  contract: Contract,
-  available: BigNumber,
-  period: BigNumber,
-) {
-  const deposited = contract.sumInWeiDeposited;
-  const withdrawn = contract.sumPaidAlready;
-  const unlocked = contract.sumPaidAlready.add(available);
-  const locked = deposited.sub(unlocked);
-
-  return {
-    locked,
-    unlocked,
-    available,
-    deposited,
-    withdrawn,
-    createdAt: new Date(contract.timestamp.toNumber() * 1000).toISOString(),
-    unlockPeriod: period.toNumber(),
-  };
 }
 
 function NextDepositUnlock({
@@ -77,14 +51,20 @@ function NextDepositUnlock({
   const nextUnlockDate = useNextUnlockDate(new Date(createdAt), period);
 
   return (
-    <StatsRow
+    <DepositInfoStatsRow
       label="Next unlock date"
       value={`${nextUnlockDate.toLocaleString()}`}
     />
   );
 }
 
-function StatsRow({ label, value }: { label: string; value: string }) {
+export function DepositInfoStatsRow({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
   return (
     <div className="flex flex-row justify-between">
       <div>
@@ -102,7 +82,8 @@ export function DepositStatsWidget({
 }: {
   contractAddress: string;
 }) {
-  const chain = getChainParams(environment.chain);
+  const { chainName } = useConfig();
+  const chain = getChainParams(chainName);
   const { address, isConnected } = useAccount();
   const provider = useProvider();
   const contract = useContract({
@@ -229,37 +210,37 @@ export function DepositStatsWidget({
   );
 }
 
-function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
+export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
   return (
     <div className="flex flex-col space-y-2 px-6">
-      <StatsRow
+      <DepositInfoStatsRow
         label="Deposit creation date"
         value={new Date(deposit.createdAt).toLocaleString()}
       />
-      <StatsRow
+      <DepositInfoStatsRow
         label="My timezone"
         value={Intl.DateTimeFormat().resolvedOptions().timeZone}
       />
-      <StatsRow
+      <DepositInfoStatsRow
         label="Deposited"
         value={`${formatEther(deposit.deposited)} ${symbol}`}
       />
-      <StatsRow
+      <DepositInfoStatsRow
         label="Locked"
         value={`${Number.parseInt(
           formatEther(deposit.locked),
           10,
         ).toLocaleString()} ${symbol}`}
       />
-      <StatsRow
+      <DepositInfoStatsRow
         label="Unlocked"
         value={`${Number(formatEther(deposit.unlocked)).toFixed(3)} ${symbol}`}
       />
-      <StatsRow
+      <DepositInfoStatsRow
         label="Withdrawn"
         value={`${Number(formatEther(deposit.withdrawn)).toFixed(3)} ${symbol}`}
       />
-      <StatsRow
+      <DepositInfoStatsRow
         label="Available"
         value={`${Number(formatEther(deposit.available)).toFixed(3)} ${symbol}`}
       />

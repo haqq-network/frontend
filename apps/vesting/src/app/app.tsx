@@ -8,6 +8,9 @@ import { MainPage } from '../pages/MainPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { Page } from '../components/Layout/Layout';
 
+const MyAccountPage = lazy(() => {
+  return import('../pages/MyAccountPage');
+});
 const AccountPage = lazy(() => {
   return import('../pages/AccountPage');
 });
@@ -36,12 +39,15 @@ export function App() {
             path="account"
             element={
               <RequireConnectedWallet>
-                <AccountPage />
+                <MyAccountPage />
               </RequireConnectedWallet>
             }
           />
 
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="account/:address" element={<AccountPage />} />
+
+          <Route path="not-found" element={<NotFoundPage />} />
+          <Route path="*" element={<Navigate to="/not-found" replace />} />
         </Routes>
       </Suspense>
     </Page>
