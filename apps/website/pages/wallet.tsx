@@ -322,7 +322,7 @@ export default function WalletPage() {
               </Link>
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex flex-1 justify-center">
             <Image
               src={iphoneWalletScreenshotData.src}
               alt="HaqqWallet"
