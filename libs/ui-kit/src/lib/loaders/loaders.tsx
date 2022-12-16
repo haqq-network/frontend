@@ -125,7 +125,7 @@ export function SpinnerLoader({ className }: { className?: string }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={clsx(
-          'mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-haqq-primary-500',
+          'w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-haqq-primary-500',
           className,
         )}
       >
