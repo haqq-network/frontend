@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { Button } from '../../../../libs/website/ui-kit/src/lib/button/button';
 import {
   DiscordIcon,
   Heading,
@@ -11,6 +10,7 @@ import {
   TelegramIcon,
   TwitterIcon,
   YoutubeIcon,
+  Button,
 } from '@haqq/website/ui-kit';
 import { SubscribeForm } from '@haqq/website/forms';
 
