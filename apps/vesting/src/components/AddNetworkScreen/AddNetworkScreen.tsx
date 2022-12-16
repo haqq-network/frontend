@@ -1,10 +1,10 @@
 import { ReactElement, ReactNode } from 'react';
-import { getChainParams } from '../../config';
 import { Button } from '../Button/Button';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { Heading, Text } from '../Typography/Typography';
 import { useOnboarding } from '../../OnboardingContainer';
-import { environment } from '../../environments/environment';
+import { useConfig } from '@haqq/providers';
+import { getChainParams } from '@haqq/shared';
 
 function AddNetworkDetailsItem({
   title,
@@ -22,7 +22,8 @@ function AddNetworkDetailsItem({
 }
 
 export function AddNetworkScreen(): ReactElement {
-  const chain = getChainParams(environment.chain);
+  const { chainName } = useConfig();
+  const chain = getChainParams(chainName);
   const {
     errors: { addNetworkError },
     clearError,
@@ -44,7 +45,7 @@ export function AddNetworkScreen(): ReactElement {
         <AddNetworkDetailsItem title="Network name" value={chain.name} />
         <AddNetworkDetailsItem
           title="Network url"
-          value={chain.rpcUrls.default}
+          value={chain.ethRpcEndpoint}
         />
         <AddNetworkDetailsItem title="Chain ID" value={chain.id} />
       </div>

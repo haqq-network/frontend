@@ -1,45 +1,22 @@
-import { useMemo } from 'react';
-import { useAccount, useBalance } from 'wagmi';
-import { AccountWidget } from '../components/AccountWidget/AccountWidget';
-import { DepositStatsWidget } from '../components/DepositStatsWidget/DepositStatsWidget';
 import { Container } from '../components/Layout/Layout';
-import { getChainParams } from '../config';
 import { environment } from '../environments/environment';
-import { useAddress } from '@haqq/hooks';
+import { Navigate, useParams } from 'react-router-dom';
+import { AccountDepositStatsWidget } from '../components/AccountDepositStatsWidget/AccountDepositStatsWidget';
 
 export function AccountPage() {
-  const { isConnected } = useAccount();
-  const { ethAddress, haqqAddress } = useAddress();
-  const { data: balance } = useBalance({
-    address: ethAddress,
-    watch: true,
-  });
-  const chain = useMemo(() => {
-    return getChainParams(environment.chain);
-  }, []);
+  const { address } = useParams();
 
-  const accountWidgetProps = useMemo(() => {
-    return {
-      isConnected,
-      ethAddress: ethAddress ?? '',
-      haqqAddress: haqqAddress ?? '',
-      balance: balance ? Number.parseFloat(balance.formatted) : 0,
-      symbol: chain.nativeCurrency.symbol,
-    };
-  }, [
-    balance,
-    chain.nativeCurrency.symbol,
-    ethAddress,
-    haqqAddress,
-    isConnected,
-  ]);
+  if (!address) {
+    return <Navigate to="/not-found" replace />;
+  }
 
   return (
     <Container className="flex flex-col space-y-12 py-8 sm:py-20">
-      <AccountWidget {...accountWidgetProps} />
-
       {environment.contractAddress && (
-        <DepositStatsWidget contractAddress={environment.contractAddress} />
+        <AccountDepositStatsWidget
+          contractAddress={environment.contractAddress}
+          address={address}
+        />
       )}
     </Container>
   );
