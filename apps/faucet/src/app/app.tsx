@@ -1,6 +1,6 @@
 import { lazy, ReactElement, Suspense } from 'react';
 import { Footer } from '../components/Footer';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Header, NotFoundPage, Page, PendingPage } from '@haqq/ui-kit';
 import { ThemeButton } from '@haqq/theme';
 
@@ -15,7 +15,9 @@ export function App(): ReactElement {
         <Suspense fallback={<PendingPage />}>
           <Routes>
             <Route index element={<Faucet />} />
-            <Route path="*" element={<NotFoundPage />} />
+
+            <Route path="not-found" element={<NotFoundPage />} />
+            <Route path="*" element={<Navigate to="/not-found" replace />} />
           </Routes>
         </Suspense>
       </div>
