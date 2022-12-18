@@ -67,9 +67,11 @@ export function BurgerMenu({ className }: { className?: string }) {
         <BurgerMenuNavLink href="/#technology">Technology</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/#developers">Developers</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/#community">Community</BurgerMenuNavLink>
-        <Button variant={2} className="block sm:hidden">
-          Haqq wallet
-        </Button>
+        <Link href="/wallet">
+          <Button variant={2} className="block sm:hidden">
+            Haqq wallet
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 gap-[14px] sm:gap-[18px] mb-[60px] sm:mb-[80px]">

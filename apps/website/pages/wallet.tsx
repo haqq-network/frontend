@@ -256,7 +256,7 @@ export default function WalletPage() {
         className="z-[-1] object-cover bg-center"
       />
       <header className="header h-[70px] w-full py-[20px] sm:py-[22px]">
-        <div className="container mx-auto px-[20px] sm:px-[40px]">
+        <div className="container mx-auto px-[20px] sm:px-[40px] flex justify-between">
           <HeaderLogo />
         </div>
       </header>

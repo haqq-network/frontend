@@ -59,7 +59,9 @@ export function Header() {
           {/* <HeaderNavLink href="/404">404</HeaderNavLink> */}
         </nav>
         <div className="flex flex-row items-center">
-          <Button className="hidden sm:block">Haqq wallet</Button>
+          <Link href="/wallet">
+            <Button className="hidden sm:block">Haqq wallet</Button>
+          </Link>
           <BurgerButton
             className="ml-[24px] block lg:hidden"
             isOpen={isBurgerMenuOpen}
