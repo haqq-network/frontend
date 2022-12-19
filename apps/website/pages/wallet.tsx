@@ -255,8 +255,8 @@ export default function WalletPage() {
         fill
         className="z-[-1] object-cover bg-center"
       />
-      <header className="header h-[70px] w-full py-[20px] sm:py-[22px]">
-        <div className="container mx-auto px-[20px] sm:px-[40px] flex justify-between">
+      <header className="h-[70px] w-full py-[20px] sm:py-[22px]">
+        <div className="container mx-auto px-[20px] sm:px-[40px] flex">
           <HeaderLogo />
         </div>
       </header>
@@ -332,7 +332,7 @@ export default function WalletPage() {
           </div>
         </div>
       </div>
-      <footer className="footer h-[96px] w-full">
+      <footer className="h-[96px] w-full">
         <div className="container mx-auto pb-[20px] px-[20px] sm:px-[40px]">
           <div className="flex space-x-[20px] text-white items-center justify-center mb-[12px]">
             <Link href="https://discord.com/invite/qzakpcwJ" target="_blank">
