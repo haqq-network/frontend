@@ -6,6 +6,7 @@ import logoImageData from '../../assets/images/logo.svg';
 import { SubscribeForm } from '@haqq/website/forms';
 import {
   DiscordIcon,
+  GithubIcon,
   Heading,
   LinkArrowIcon,
   LinkedinIcon,
@@ -142,6 +143,14 @@ export function Footer() {
                 }
               >
                 LinkedIn
+              </FooterNavSocialLink>
+              <FooterNavSocialLink
+                href="#Github"
+                icon={
+                  <GithubIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                }
+              >
+                Github
               </FooterNavSocialLink>
             </nav>
           </div>
