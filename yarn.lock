@@ -1583,7 +1583,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.14.8, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.14.8, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7":
   version: 7.20.1
   resolution: "@babel/runtime@npm:7.20.1"
   dependencies:
@@ -2200,7 +2200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/cache@npm:^11.10.5":
+"@emotion/cache@npm:^11.10.5, @emotion/cache@npm:^11.4.0":
   version: 11.10.5
   resolution: "@emotion/cache@npm:11.10.5"
   dependencies:
@@ -2236,7 +2236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:11.10.5":
+"@emotion/react@npm:11.10.5, @emotion/react@npm:^11.8.1":
   version: 11.10.5
   resolution: "@emotion/react@npm:11.10.5"
   dependencies:
@@ -2851,6 +2851,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/core@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@floating-ui/core@npm:1.0.2"
+  checksum: a6c93c15c4408dfa5acff31c275f36d85f4107a9d7562da2d6c014c810559843a71e38622046195856966929d20a37793e7ed0905e54ddc8edd91cd10500ce8d
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.0.1":
+  version: 1.0.6
+  resolution: "@floating-ui/dom@npm:1.0.6"
+  dependencies:
+    "@floating-ui/core": ^1.0.2
+  checksum: 72536ec07901b3e899510e7a206373fe380a971dd03305436ef248b59585a4da595cb27d525a44d3eba8cc965b1b8903a6e93e3b2333b3426da03b25ede48caa
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1, @gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -2953,6 +2969,7 @@ __metadata:
     react-json-pretty: 2.2.0
     react-refresh: 0.14.0
     react-router-dom: 6.4.4
+    react-select: 5.6.1
     react-spinners: 0.13.7
     react-success-indicator: 1.1.0
     react-test-renderer: 18.2.0
@@ -6588,6 +6605,15 @@ __metadata:
     "@types/history": ^4.7.11
     "@types/react": "*"
   checksum: 3536c3dec7af1f12fed2bea246eb143bd893ee66d4e58c1d3fe734cbd67d8a0aedac0bba9255c58fc69dbd32ae17ad280d6866916aee32653a705178e4a544dc
+  languageName: node
+  linkType: hard
+
+"@types/react-transition-group@npm:^4.4.0":
+  version: 4.4.5
+  resolution: "@types/react-transition-group@npm:4.4.5"
+  dependencies:
+    "@types/react": "*"
+  checksum: 265f1c74061556708ffe8d15559e35c60d6c11478c9950d3735575d2c116ca69f461d85effa06d73a613eb8b73c84fd32682feb57cf7c5f9e4284021dbca25b0
   languageName: node
   linkType: hard
 
@@ -11617,6 +11643,16 @@ __metadata:
   dependencies:
     utila: ~0.4
   checksum: ea52fe303f5392e48dea563abef0e6fb3a478b8dbe3c599e99bb5d53981c6c38fc4944e56bb92a8ead6bb989d10b7914722ae11febbd2fd0910e33b9fc4aaa77
+  languageName: node
+  linkType: hard
+
+"dom-helpers@npm:^5.0.1":
+  version: 5.2.1
+  resolution: "dom-helpers@npm:5.2.1"
+  dependencies:
+    "@babel/runtime": ^7.8.7
+    csstype: ^3.0.2
+  checksum: 863ba9e086f7093df3376b43e74ce4422571d404fc9828bf2c56140963d5edf0e56160f9b2f3bb61b282c07f8fc8134f023c98fd684bddcb12daf7b0f14d951c
   languageName: node
   linkType: hard
 
@@ -17845,6 +17881,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"memoize-one@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "memoize-one@npm:6.0.0"
+  checksum: f185ea69f7cceae5d1cb596266dcffccf545e8e7b4106ec6aa93b71ab9d16460dd118ac8b12982c55f6d6322fcc1485de139df07eacffaae94888b9b3ad7675f
+  languageName: node
+  linkType: hard
+
 "memoizerific@npm:^1.11.3":
   version: 1.11.3
   resolution: "memoizerific@npm:1.11.3"
@@ -20504,7 +20547,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.0.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -20994,6 +21037,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-select@npm:5.6.1":
+  version: 5.6.1
+  resolution: "react-select@npm:5.6.1"
+  dependencies:
+    "@babel/runtime": ^7.12.0
+    "@emotion/cache": ^11.4.0
+    "@emotion/react": ^11.8.1
+    "@floating-ui/dom": ^1.0.1
+    "@types/react-transition-group": ^4.4.0
+    memoize-one: ^6.0.0
+    prop-types: ^15.6.0
+    react-transition-group: ^4.3.0
+    use-isomorphic-layout-effect: ^1.1.2
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 89daa3c121beea1ae1e003018c38b57c7a63571def105678d1aa0d9ad36d9fb8c2697bdac941778b9662a0cb605f7e1f3b8490c6a9a6ce83032ab0945f8e0f91
+  languageName: node
+  linkType: hard
+
 "react-shallow-renderer@npm:^16.15.0":
   version: 16.15.0
   resolution: "react-shallow-renderer@npm:16.15.0"
@@ -21035,6 +21098,21 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 6b6980ced93fa2b72662d5e4ab3b4896833586940047ce52ca9aca801e5432adf05fcbe28289b0af3ce6a2a7c590974e25dcc8aa43d0de658bfe8bbcd686f958
+  languageName: node
+  linkType: hard
+
+"react-transition-group@npm:^4.3.0":
+  version: 4.4.5
+  resolution: "react-transition-group@npm:4.4.5"
+  dependencies:
+    "@babel/runtime": ^7.5.5
+    dom-helpers: ^5.0.1
+    loose-envify: ^1.4.0
+    prop-types: ^15.6.2
+  peerDependencies:
+    react: ">=16.6.0"
+    react-dom: ">=16.6.0"
+  checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
   languageName: node
   linkType: hard
 
@@ -24612,6 +24690,18 @@ __metadata:
     punycode: 1.3.2
     querystring: 0.2.0
   checksum: 50d100d3dd2d98b9fe3ada48cadb0b08aa6be6d3ac64112b867b56b19be4bfcba03c2a9a0d7922bfd7ac17d4834e88537749fe182430dfd9b68e520175900d90
+  languageName: node
+  linkType: hard
+
+"use-isomorphic-layout-effect@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "use-isomorphic-layout-effect@npm:1.1.2"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: a6532f7fc9ae222c3725ff0308aaf1f1ddbd3c00d685ef9eee6714fd0684de5cb9741b432fbf51e61a784e2955424864f7ea9f99734a02f237b17ad3e18ea5cb
   languageName: node
   linkType: hard
 

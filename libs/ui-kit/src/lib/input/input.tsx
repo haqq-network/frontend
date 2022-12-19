@@ -15,6 +15,7 @@ export interface InputProps {
   type?: 'text' | 'number';
   required?: boolean;
   disabled?: boolean;
+  className?: string;
 }
 
 export function Input({
@@ -28,6 +29,7 @@ export function Input({
   type = 'text',
   required,
   disabled = false,
+  className,
 }: InputProps) {
   const inputId = useMemo<string | undefined>(() => {
     if (id) {
@@ -53,6 +55,7 @@ export function Input({
     'text-black dark:text-white text-sm',
     'w-full px-4 py-3 rounded-md',
     disabled ? 'cursor-not-allowed' : '',
+    className,
   );
 
   const handleInputChange = useCallback(
