@@ -8,7 +8,7 @@ export function mapToWagmiChain(currentChain: ChainProperties): WagmiChain {
     network: currentChain.network,
     nativeCurrency: currentChain.nativeCurrency,
     rpcUrls: {
-      default: currentChain.ethRpcEndpoint,
+      default: { http: [currentChain.ethRpcEndpoint] },
     },
     testnet: currentChain.testnet,
   };

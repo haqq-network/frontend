@@ -18,7 +18,7 @@ export function WagmiProvider({ children }: { children: ReactNode }) {
         jsonRpcProvider({
           rpc: (chain: Chain) => {
             return {
-              http: chain.rpcUrls.default,
+              http: chain.rpcUrls.default.http[0],
               // webSocket: chain.rpcUrls.ws,
             };
           },
