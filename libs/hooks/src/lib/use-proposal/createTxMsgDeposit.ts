@@ -35,6 +35,7 @@ export function createTxMsgDeposit(
     sender.accountAddress,
   );
   const types = generateTypes(MSG_DEPOSIT_TYPES);
+  debugger;
   const msg = createMsgDeposit(
     params.proposalId,
     sender.accountAddress,
@@ -48,6 +49,12 @@ export function createTxMsgDeposit(
     feeObject,
     msg,
   );
+  console.log({
+    sender,
+    chain,
+    messages,
+  });
+
   const eipToSign = createEIP712(types, chain.chainId, messages);
 
   // Cosmos

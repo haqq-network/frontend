@@ -79,7 +79,7 @@ export function ProposalDetailsComponent({
 }) {
   // console.log({ proposalDetails });
   const navigate = useNavigate();
-  const { deposit } = useProposal();
+  const { deposit, createProposal } = useProposal();
 
   const isVotingAvailable = useMemo(() => {
     const now = Date.now();
@@ -188,12 +188,20 @@ export function ProposalDetailsComponent({
             <Card className="flex flex-col space-y-6">
               <Button2
                 onClick={() => {
-                  deposit(Number.parseInt(proposalDetails.proposal_id), 100);
+                  createProposal();
+                }}
+                fill
+              >
+                Create proposal
+              </Button2>
+              <Button2
+                onClick={() => {
+                  deposit(Number.parseInt(proposalDetails.proposal_id), 0.15);
                 }}
                 fill
                 // disabled={!isDepositAvailable}
               >
-                Deposit 100
+                Deposit
               </Button2>
               <Button2
                 onClick={() => {
