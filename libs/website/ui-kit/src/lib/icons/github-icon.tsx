@@ -4,7 +4,7 @@ export function GithubIcon({ className }: { className?: string }) {
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="currentColor"
+      fill="none"
       className={className}
     >
       <path

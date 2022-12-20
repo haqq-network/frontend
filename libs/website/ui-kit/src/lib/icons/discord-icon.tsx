@@ -4,7 +4,7 @@ export function DiscordIcon({ className }: { className?: string }) {
       width="26"
       height="26"
       viewBox="0 0 27 26"
-      fill="currentColor"
+      fill="none"
       className={className}
     >
       <path

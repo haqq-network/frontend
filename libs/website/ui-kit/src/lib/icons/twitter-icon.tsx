@@ -4,7 +4,7 @@ export function TwitterIcon({ className }: { className?: string }) {
       width="26"
       height="26"
       viewBox="0 0 26 26"
-      fill="currentColor"
+      fill="none"
       className={className}
     >
       <path

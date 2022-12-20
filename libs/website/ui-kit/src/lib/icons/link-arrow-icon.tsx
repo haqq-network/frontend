@@ -3,7 +3,7 @@ export function LinkArrowIcon() {
     <svg
       className="hidden sm:block sm:invisible group-hover:visible h-[24px] w-[24px]"
       viewBox="0 0 25 24"
-      fill="currentColor"
+      fill="none"
     >
       <path
         fillRule="evenodd"
