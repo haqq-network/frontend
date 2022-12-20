@@ -10,12 +10,22 @@ import type { Fee } from '@evmos/transactions';
 import { useCosmosService, useConfig } from '@haqq/providers';
 import { getChainParams, mapToCosmosChain } from '@haqq/shared';
 import { useAddress } from '../use-address/use-address';
+import Decimal from 'decimal.js-light';
 
 const fee: Fee = {
   amount: '5000',
   gas: '600000',
   denom: 'aISLM',
 };
+
+const WEI = 10 ** 18;
+
+function getAmountAndDenom(amount: number) {
+  return {
+    amount: new Decimal(amount).mul(WEI).toFixed(),
+    denom: 'aISLM',
+  };
+}
 
 export function useDelegation() {
   const { chainName } = useConfig();
@@ -54,10 +64,10 @@ export function useDelegation() {
       const sender = await getSender(haqqAddress as string, pubkey);
 
       if (sender && validatorAddress) {
+        const amountAndDenom = getAmountAndDenom(amount ?? 0);
         const params = {
           validatorAddress,
-          amount: ((amount ?? 0) * 10 ** 18).toString().replace(/,/g, ''),
-          denom: 'aISLM',
+          ...amountAndDenom,
         };
         const msg = createTxMsgDelegate(haqqChain, sender, fee, memo, params);
         const signature = await (window as any).ethereum.request({
@@ -105,10 +115,10 @@ export function useDelegation() {
       const sender = await getSender(haqqAddress as string, pubkey);
 
       if (sender && validatorAddress) {
+        const amountAndDenom = getAmountAndDenom(amount ?? 0);
         const params = {
           validatorAddress,
-          amount: ((amount ?? 0) * 10 ** 18).toLocaleString().replace(/,/g, ''),
-          denom: 'aISLM',
+          ...amountAndDenom,
         };
         const msg = createTxMsgUndelegate(haqqChain, sender, fee, memo, params);
         const signature = await (window as any).ethereum.request({
