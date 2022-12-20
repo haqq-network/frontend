@@ -3,12 +3,15 @@ import {
   createTxRawEIP712,
   MessageMsgVote,
   signatureToWeb3Extension,
+  MessageMsgDepositParams,
 } from '@evmos/transactions';
 import { useCallback, useMemo } from 'react';
 import type { Fee } from '@evmos/transactions';
 import { useCosmosService, useConfig } from '@haqq/providers';
 import { getChainParams, mapToCosmosChain } from '@haqq/shared';
 import { useAddress } from '../use-address/use-address';
+import Decimal from 'decimal.js-light';
+import { createTxMsgDeposit } from './createTxMsgDeposit';
 
 const fee: Fee = {
   amount: '5000',
@@ -18,6 +21,7 @@ const fee: Fee = {
 
 interface ProposalHook {
   vote: (proposalId: number, option: number) => Promise<string>;
+  deposit: (proposalId: number, amount: number) => Promise<string>;
 }
 
 export function useProposal(): ProposalHook {
@@ -64,13 +68,12 @@ export function useProposal(): ProposalHook {
         };
 
         const msg = createTxMsgVote(haqqChain, sender, fee, memo, voteParams);
-        // console.log({ msg });
 
         const signature = await (window as any).ethereum.request({
           method: 'eth_signTypedData_v4',
           params: [ethAddress, JSON.stringify(msg.eipToSign)],
         });
-        // console.log({ signature });
+
         const extension = signatureToWeb3Extension(
           haqqChain,
           sender,
@@ -105,7 +108,72 @@ export function useProposal(): ProposalHook {
     ],
   );
 
+  const handleDeposit = useCallback(
+    async (proposalId: number, amount: number) => {
+      console.log('handleDeposit', { proposalId, amount });
+      const pubkey = await getPubkey(ethAddress as string);
+      const sender = await getSender(haqqAddress as string, pubkey);
+
+      if (sender) {
+        const depositParams: MessageMsgDepositParams = {
+          proposalId,
+          deposit: {
+            amount: new Decimal(amount).mul(10 ** 18).toFixed(),
+            denom: 'aISLM',
+          },
+        };
+
+        const msg = createTxMsgDeposit(
+          haqqChain,
+          sender,
+          fee,
+          memo,
+          depositParams,
+        );
+
+        const signature = await (window as any).ethereum.request({
+          method: 'eth_signTypedData_v4',
+          params: [ethAddress, JSON.stringify(msg.eipToSign)],
+        });
+
+        const extension = signatureToWeb3Extension(
+          haqqChain,
+          sender,
+          signature,
+        );
+        const rawTx = createTxRawEIP712(
+          msg.legacyAmino.body,
+          msg.legacyAmino.authInfo,
+          extension,
+        );
+
+        console.debug({
+          depositParams,
+          msg,
+          signature,
+          extension,
+          rawTx,
+        });
+
+        const tx = await broadcastTransaction(rawTx);
+        console.log({ tx });
+
+        return tx.txhash;
+      }
+      return '';
+    },
+    [
+      broadcastTransaction,
+      ethAddress,
+      getPubkey,
+      getSender,
+      haqqAddress,
+      haqqChain,
+    ],
+  );
+
   return {
     vote: handleVote,
+    deposit: handleDeposit,
   };
 }

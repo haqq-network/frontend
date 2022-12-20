@@ -16,7 +16,7 @@ import {
 import clsx from 'clsx';
 import { VoteModal } from '../vote-modal/vote-modal';
 import { Proposal } from '@evmos/provider';
-import { useAddress } from '@haqq/hooks';
+import { useAddress, useProposal } from '@haqq/hooks';
 import { useCosmosService } from '@haqq/providers';
 
 const DENOM = 10 ** 18;
@@ -79,6 +79,7 @@ export function ProposalDetailsComponent({
 }) {
   // console.log({ proposalDetails });
   const navigate = useNavigate();
+  const { deposit } = useProposal();
 
   const isVotingAvailable = useMemo(() => {
     const now = Date.now();
@@ -185,6 +186,15 @@ export function ProposalDetailsComponent({
 
           <div className="flex flex-col space-y-6">
             <Card className="flex flex-col space-y-6">
+              <Button2
+                onClick={() => {
+                  deposit(Number.parseInt(proposalDetails.proposal_id), 100);
+                }}
+                fill
+                // disabled={!isDepositAvailable}
+              >
+                Deposit 100
+              </Button2>
               <Button2
                 onClick={() => {
                   navigate(`#vote`);
