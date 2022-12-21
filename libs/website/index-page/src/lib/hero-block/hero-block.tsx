@@ -39,11 +39,11 @@ export function HeroBlock() {
             Muslim innovators in sustainable Finance
           </Text>
         </div>
-        <div className="mt-[48px] sm:mt-[62px] lg:mt-[64px]">
+        {/* <div className="mt-[48px] sm:mt-[62px] lg:mt-[64px]">
           <Button variant={2} className="w-[200px]">
             Default
           </Button>
-        </div>
+        </div> */}
       </div>
 
       <div className="hidden sm:block sm:absolute sm:bottom-[26px] sm:left-[28px] lg:bottom-[58px] lg:left-[34px]">
