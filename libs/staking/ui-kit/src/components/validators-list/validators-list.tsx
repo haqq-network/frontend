@@ -1,7 +1,7 @@
 import { Fragment, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { ValidatorListItem } from '@haqq/staking/validator-list';
+import { ValidatorListItem } from '@haqq/staking/ui-kit';
 import { Card, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
 import { useAddress } from '@haqq/hooks';
 import { useCosmosService } from '@haqq/providers';
