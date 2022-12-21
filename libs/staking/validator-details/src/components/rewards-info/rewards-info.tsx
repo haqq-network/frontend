@@ -52,7 +52,7 @@ export function StakingInfoComponent({
   onChangeNetwork,
 }: RewardsInfoProps) {
   return (
-    <Card className="mx-auto w-full max-w-6xl">
+    <Card className="mx-auto w-full">
       <div className="flex flex-row items-center space-x-4 h-[80px]">
         <div className=" flex-1 flex flex-row items-center space-x-4">
           <div className="flex-1">

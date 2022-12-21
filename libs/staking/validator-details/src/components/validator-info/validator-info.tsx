@@ -125,7 +125,7 @@ export function ValidatorInfoComponent({
   // }, []);
 
   return (
-    <div className="mx-auto w-full max-w-6xl flex">
+    <div className="mx-auto w-full flex">
       <div className="grid w-full grid-cols-3 grid-rows-1 gap-6">
         <div className="col-span-2 flex flex-col space-y-6">
           <Card>
@@ -390,7 +390,7 @@ export function ValidatorInfo({
 
   if (isFetching || !validatorInfo) {
     return (
-      <div className="mx-auto w-full max-w-6xl flex">
+      <div className="mx-auto w-full flex">
         <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-[200px]">
           <SpinnerLoader />
           <Text block>Fetching validator information</Text>
