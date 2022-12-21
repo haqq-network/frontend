@@ -61,7 +61,10 @@ function VisionBlockFact({
 
 export function VisionBlock() {
   return (
-    <div className="bg-white text-haqq-black px-[16px] sm:px-[63px] lg:px-[79px] snap-start overflow-clip border-t border-[#C2C2C2]">
+    <div
+      className="bg-white text-haqq-black px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip border-t border-[#C2C2C2]"
+      id="vision"
+    >
       <div className="pl-[44px] sm:pl-[120px] lg:pl-[212px] border-l border-[#C2C2C2] lg:h-[770px] flex flex-col relative z-10 pt-[65px] pb-[72px] sm:pt-[96px] sm:pb-[100px] lg:pt-[135px] lg:pb-[140px] overflow-hidden">
         <div className="mb-[24px] lg:mb-[96px] lg:max-w-[832px]">
           <AboveTitle

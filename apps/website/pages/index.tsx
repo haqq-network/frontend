@@ -1,1 +1,1 @@
-export { default } from '@haqq/website/index-page';
+export { WebsiteIndexPage as default } from '@haqq/website/index-page';

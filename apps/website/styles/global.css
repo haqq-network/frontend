@@ -2,10 +2,6 @@
 @tailwind base;
 @tailwind utilities;
 
-html {
-  @apply snap-y snap-proximity scroll-pt-[63px] sm:scroll-pt-[72px];
-}
-
 body {
   @apply font-sans text-white bg-haqq-black;
 }

@@ -49,7 +49,7 @@ function DevelopersBlockCard({
 export function DevelopersBlock() {
   return (
     <div
-      className="px-[16px] ml-[16px] sm:pl-[20px] sm:pr-[64px] sm:ml-[63px] lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] border-l border-haqq-border snap-start"
+      className="px-[16px] ml-[16px] sm:pl-[20px] sm:pr-[64px] sm:ml-[63px] lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] border-l border-haqq-border"
       id="developers"
     >
       <div className="py-[60px] sm:py-[100px] flex flex-col space-y-[32px] lg:space-y-0 lg:flex-row">

@@ -119,7 +119,10 @@ function SideLines({ className }: { className?: string }) {
 
 export function MissionBlock() {
   return (
-    <div className="bg-white text-haqq-black px-[16px] sm:px-[63px] lg:pl-[79px] lg:pr-[80px] h-[326px] sm:h-[464px] lg:h-[600px] flex flex-col items-center justify-center relative snap-start">
+    <div
+      className="bg-white text-haqq-black px-[16px] sm:px-[63px] lg:pl-[79px] lg:pr-[80px] h-[326px] sm:h-[464px] lg:h-[600px] flex flex-col items-center justify-center relative"
+      id="mission"
+    >
       <AboveTitle className="text-[#A4A4A4] mb-[16px] sm:mb-[24px]">
         Mission
       </AboveTitle>

@@ -5,7 +5,10 @@ import { Heading } from '@haqq/website/ui-kit';
 
 export function ContactBlock() {
   return (
-    <div className="pt-[120px] pb-[148px] sm:py-[120px] lg:py-[136px] lg:min-h-[600px] relative px-[16px]">
+    <div
+      className="pt-[120px] pb-[148px] sm:py-[120px] lg:py-[136px] lg:min-h-[600px] relative px-[16px]"
+      id="contact"
+    >
       <Image
         alt=""
         src={eclipseImageData.src}
