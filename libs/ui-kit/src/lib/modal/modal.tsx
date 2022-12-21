@@ -28,7 +28,7 @@ function ModalOverlay({ onClose }: { onClose: () => void }) {
     >
       <div
         role="none"
-        className="fixed inset-0 backdrop-filter backdrop-blur transform-gpu bg-islamic-modal-overlay"
+        className="fixed inset-0 backdrop-blur transform-gpu bg-islamic-modal-overlay"
         onClick={onClose}
         onKeyDown={handleKeydown}
       />

@@ -49,3 +49,6 @@ Thumbs.db
 migrations.json
 package-lock.json
 .vercel
+
+# Next.js
+.next

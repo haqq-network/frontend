@@ -1,0 +1,7 @@
+@tailwind components;
+@tailwind base;
+@tailwind utilities;
+
+body {
+  @apply font-sans text-white bg-haqq-black will-change-auto;
+}

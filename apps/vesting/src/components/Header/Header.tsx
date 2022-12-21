@@ -8,7 +8,7 @@ const NetworkStatus = lazy(() => import('../NetworkStatus/NetworkStatus'));
 
 export function Header(): ReactElement {
   return (
-    <header className="backdrop-filter backdrop-blur transform-gpu bg-white/70 border-light-gray border-b">
+    <header className="backdrop-blur transform-gpu bg-white/70 border-light-gray border-b">
       <Container>
         <div className="relative flex items-center justify-between h-[64px]">
           <div className="flex-1 flex items-center justify-start">
