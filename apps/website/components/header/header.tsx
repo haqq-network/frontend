@@ -10,14 +10,23 @@ import { BurgerMenu } from '../burger-menu/burger-menu';
 function HeaderNavLink({
   href,
   children,
+  isOutLink = false,
 }: {
   href: string;
   children: ReactNode;
+  isOutLink?: boolean;
 }) {
+  const additionalProps = isOutLink
+    ? {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      }
+    : {};
   return (
     <Link
       href={href}
       className="text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
+      {...additionalProps}
     >
       {children}
     </Link>
@@ -53,9 +62,12 @@ export function Header() {
         <div className="flex-1" />
         <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex">
           <HeaderNavLink href="/#about">About</HeaderNavLink>
-          <HeaderNavLink href="/#technology">Technology</HeaderNavLink>
+          {/* <HeaderNavLink href="/#technology">Technology</HeaderNavLink> */}
           <HeaderNavLink href="/#developers">Developers</HeaderNavLink>
-          <HeaderNavLink href="/#community">Community</HeaderNavLink>
+          <HeaderNavLink href="https://docs.haqq.network" isOutLink>
+            Documentation
+          </HeaderNavLink>
+          {/* <HeaderNavLink href="/#community">Community</HeaderNavLink> */}
           {/* <HeaderNavLink href="/404">404</HeaderNavLink> */}
         </nav>
         <div className="flex flex-row items-center">

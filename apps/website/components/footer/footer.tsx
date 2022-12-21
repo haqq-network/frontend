@@ -9,24 +9,33 @@ import {
   GithubIcon,
   Heading,
   LinkArrowIcon,
-  LinkedinIcon,
-  MediumIcon,
+  // LinkedinIcon,
+  // MediumIcon,
   TelegramIcon,
   TwitterIcon,
-  YoutubeIcon,
+  // YoutubeIcon,
 } from '@haqq/website/ui-kit';
 
 function FooterNavLink({
   href,
   children,
+  isOutLink = false,
 }: {
   href: string;
   children: ReactNode;
+  isOutLink?: boolean;
 }) {
+  const additionalProps = isOutLink
+    ? {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      }
+    : {};
   return (
     <Link
       href={href}
       className="text-[12px] leading-[20px] sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px] text-white/50 hover:text-white transition-colors duration-100"
+      {...additionalProps}
     >
       {children}
     </Link>
@@ -45,6 +54,8 @@ function FooterNavSocialLink({
   return (
     <Link
       href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       className="text-[12px] leading-[20px] sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px] text-white/50 hover:text-white transition-colors duration-100 group inline-flex flex-row flex-initial space-x-2 items-center"
     >
       <div>{icon}</div>
@@ -86,9 +97,11 @@ export function Footer() {
           <div className="ml-[16px] sm:ml-[63px] lg:ml-[79px] border-l border-r border-haqq-border py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[212px]">
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
               <FooterNavLink href="#about">About</FooterNavLink>
-              <FooterNavLink href="#technology">Technology</FooterNavLink>
-              <FooterNavLink href="#builders">Builders</FooterNavLink>
-              <FooterNavLink href="#community">Community</FooterNavLink>
+              {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
+              <FooterNavLink href="#developers">Developers</FooterNavLink>
+              <FooterNavLink href="https://docs.haqq.network" isOutLink>
+                Documentation
+              </FooterNavLink>
               <FooterNavLink href="/privacy-policy">
                 Privacy Policy
               </FooterNavLink>
@@ -97,7 +110,7 @@ export function Footer() {
           <div className="h-full py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[383px]">
             <nav className="grid grid-cols-1 sm:grid-cols-2 gap-[8px] sm:gap-[12px] lg:grid-cols-1">
               <FooterNavSocialLink
-                href="#Discord"
+                href="https://discord.gg/4quqkD6Y8c"
                 icon={
                   <DiscordIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
@@ -105,7 +118,15 @@ export function Footer() {
                 Discord
               </FooterNavSocialLink>
               <FooterNavSocialLink
-                href="#Twitter"
+                href="https://github.com/haqq-network"
+                icon={
+                  <GithubIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                }
+              >
+                Github
+              </FooterNavSocialLink>
+              <FooterNavSocialLink
+                href="https://twitter.com/The_HaqqNetwork"
                 icon={
                   <TwitterIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
@@ -113,14 +134,14 @@ export function Footer() {
                 Twitter
               </FooterNavSocialLink>
               <FooterNavSocialLink
-                href="#Telegram"
+                href="https://t.me/islamiccoin_int"
                 icon={
                   <TelegramIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
                 }
               >
                 Telegram
               </FooterNavSocialLink>
-              <FooterNavSocialLink
+              {/* <FooterNavSocialLink
                 href="#YouTube"
                 icon={
                   <YoutubeIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
@@ -143,15 +164,7 @@ export function Footer() {
                 }
               >
                 LinkedIn
-              </FooterNavSocialLink>
-              <FooterNavSocialLink
-                href="#Github"
-                icon={
-                  <GithubIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
-                }
-              >
-                Github
-              </FooterNavSocialLink>
+              </FooterNavSocialLink> */}
             </nav>
           </div>
         </div>

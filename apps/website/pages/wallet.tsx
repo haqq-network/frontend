@@ -335,18 +335,24 @@ export default function WalletPage() {
       <footer className="h-[96px] w-full">
         <div className="container mx-auto pb-[20px] px-[20px] sm:px-[40px]">
           <div className="flex space-x-[20px] text-white items-center justify-center mb-[12px]">
-            <Link href="https://discord.com/invite/qzakpcwJ" target="_blank">
+            <Link
+              href="https://discord.gg/4quqkD6Y8c"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <DiscordIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
             </Link>
             <Link
-              href="https://twitter.com/intent/user?screen_name=Islamic_Coin"
+              href="https://twitter.com/Islamic_coin"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <TwitterIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
             </Link>
             <Link
               href="https://github.com/haqq-network/haqq-wallet"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <GithubIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
             </Link>
@@ -357,7 +363,7 @@ export default function WalletPage() {
             )}
           >
             <div className="mb-[8px]">
-              ©2022 Haqq wallet. All rights reserved
+              © 2022 HAQQ wallet. All rights reserved
             </div>
             <Link href="mailto:hello@islamiccoin.net">
               <div className="transition-colors duration-150 hover:text-[#01B36E]">
@@ -376,6 +382,7 @@ WalletPage.getLayout = function getLayout(page: ReactElement) {
     <Fragment>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>HAQQ | Wallet</title>
       </Head>
 
       <main className={clsx('min-h-screen flex flex-col')}>{page}</main>
