@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import {
   DiscordIcon,
+  GithubIcon,
   Heading,
   LinkArrowIcon,
   LinkedinIcon,
@@ -67,9 +68,11 @@ export function BurgerMenu({ className }: { className?: string }) {
         <BurgerMenuNavLink href="/#technology">Technology</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/#developers">Developers</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/#community">Community</BurgerMenuNavLink>
-        <Button variant={2} className="block sm:hidden">
-          Haqq wallet
-        </Button>
+        <Link href="/wallet">
+          <Button variant={2} className="block sm:hidden">
+            Haqq wallet
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 gap-[14px] sm:gap-[18px] mb-[60px] sm:mb-[80px]">
@@ -120,6 +123,14 @@ export function BurgerMenu({ className }: { className?: string }) {
           }
         >
           LinkedIn
+        </BurgerMenuSocialLink>
+        <BurgerMenuSocialLink
+          href="#Github"
+          icon={
+            <GithubIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+          }
+        >
+          Github
         </BurgerMenuSocialLink>
       </div>
 

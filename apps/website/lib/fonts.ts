@@ -1,4 +1,5 @@
 import localFont from '@next/font/local';
+import { El_Messiri, Manrope } from '@next/font/google';
 
 export const ClashDisplayFont = localFont({
   src: '../assets/fonts/ClashDisplay Variable.ttf',
@@ -18,4 +19,12 @@ export const HKGuiseFont = localFont({
     },
   ],
   variable: '--font-guise',
+});
+
+export const ElMessiriFont = El_Messiri({
+  subsets: ['latin'],
+});
+
+export const ManropeFont = Manrope({
+  subsets: ['latin'],
 });

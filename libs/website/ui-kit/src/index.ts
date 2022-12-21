@@ -1,3 +1,4 @@
+export * from './lib/icons/github-icon';
 export * from './lib/icons/link-arrow-icon';
 export * from './lib/icons/telegram-icon';
 export * from './lib/icons/twitter-icon';
