@@ -6,7 +6,6 @@ import {
 } from '../delegate-modal/delegate-modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useQueryClient } from '@tanstack/react-query';
 import { useDelegation } from '@haqq/hooks';
 
 export interface UndelegateModalProps {
@@ -148,5 +147,3 @@ export function UndelegateModal({
     </Modal>
   );
 }
-
-export default UndelegateModal;
