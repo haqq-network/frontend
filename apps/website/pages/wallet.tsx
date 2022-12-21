@@ -5,7 +5,7 @@ import Head from 'next/head';
 import clsx from 'clsx';
 import { DiscordIcon, GithubIcon, TwitterIcon } from '@haqq/website/ui-kit';
 import { ElMessiriFont, ManropeFont } from '../lib/fonts';
-import walletImageData from '../assets/images/wallet-bg.svg';
+import walletImageData from '../assets/images/wallet-bg.jpg';
 import iphoneWalletScreenshotData from '../assets/images/wallet-iphone-screenshot.png';
 
 function FeatureText({ children }: { children: ReactNode }) {
