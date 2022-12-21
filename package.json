@@ -6,6 +6,7 @@
   "author": "Oleg Shilov <og@haqq.network>",
   "packageManager": "yarn@3.3.0",
   "engines": {
+    "node": ">=18.12",
     "yarn": ">=3.3"
   },
   "repository": {
@@ -82,7 +83,7 @@
     "@nrwl/eslint-plugin-nx": "15.3.0",
     "@nrwl/jest": "15.3.0",
     "@nrwl/linter": "15.3.0",
-    "@nrwl/next": "15.2.4",
+    "@nrwl/next": "15.3.0",
     "@nrwl/nx-cloud": "15.0.2",
     "@nrwl/react": "15.3.0",
     "@nrwl/storybook": "15.3.0",
