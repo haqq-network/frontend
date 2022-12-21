@@ -67,7 +67,7 @@ export function ValidatorsList() {
   }, [validatorsList]);
 
   return (
-    <div className="mx-auto w-full max-w-6xl flex">
+    <div className="mx-auto w-full flex flex-1">
       <Card className="!p-0 flex flex-col flex-1">
         {status === 'loading' && (
           <div className="flex-1 flex flex-col space-y-8 items-center justify-center">

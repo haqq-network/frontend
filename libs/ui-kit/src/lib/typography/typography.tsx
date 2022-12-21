@@ -17,7 +17,7 @@ export function Heading({
 }: // color,
 HeadingProps): ReactElement {
   const headingClassName = clsx(
-    'font-serif font-bold tracking-normal leading-none',
+    'font-serif font-medium tracking-normal leading-none',
     // {
     //   'text-black': color === 'default',
     //   'text-dark-gray': color === 'light',
