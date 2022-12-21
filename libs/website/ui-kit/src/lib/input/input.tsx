@@ -37,7 +37,7 @@ export const Input = forwardRef(function Input(
     'inline-block w-full text-white placeholder-white/25 rounded-[6px] bg-[#252528] leading-[20px]',
     'outline-none border border-[#252528]',
     'focus:bg-transparent focus:border-white/50 focus:text-white',
-    'transition-colors duration-150 ease-in',
+    'transition-colors duration-150 ease-in will-change-[color,background]',
     error && 'text-[#FF5454] bg-[#360C0E] border-[#360C0E]',
     disabled && 'cursor-not-allowed',
     size === 'normal' && 'text-[14px] pt-[14px] pb-[12px] px-[16px]',

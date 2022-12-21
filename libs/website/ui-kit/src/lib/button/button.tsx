@@ -39,7 +39,7 @@ export function Button({
       (isLoading
         ? 'border border-haqq-black bg-transparent'
         : 'text-haqq-black border border-haqq-black bg-transparent'),
-    'transition-color duration-150 ease-in',
+    'transition-color duration-150 ease-in will-change-[color,background]',
     disabled && 'cursor-not-allowed',
     isLoading && 'text-transparent cursor-wait',
     className,
