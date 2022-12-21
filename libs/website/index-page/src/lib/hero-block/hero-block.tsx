@@ -27,7 +27,7 @@ function SunriseBackground() {
 export function HeroBlock() {
   return (
     <div className="border-b border-haqq-border relative">
-      <div className="sm:ml-[63px] lg:ml-[79px] px-[16px] sm:pl-[20px] lg:pl-[32px] sm:border-l border-haqq-border h-[440px] sm:h-[610px] lg:h-[748px] flex flex-col justify-center items-start sm:pr-[64px] lg:pr-[80px] z-10">
+      <div className="sm:ml-[63px] lg:ml-[79px] px-[16px] sm:pl-[20px] lg:pl-[32px] sm:border-l border-haqq-border h-[500px] sm:h-[calc(100vh-(72px))] min-h-[440px] sm:min-h-[610px] lg:min-h-[748px] flex flex-col justify-center items-start sm:pr-[64px] lg:pr-[80px] z-10">
         <HeroHeading>
           Home of <br />
           ethical web3
