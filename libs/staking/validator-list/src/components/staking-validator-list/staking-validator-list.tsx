@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import { Container } from '@haqq/ui-kit';
-import { ValidatorsList } from '../components/validators-list/validators-list';
-import { StakingInfo } from '../components/rewards-info/rewards-info';
+import { ValidatorsList } from '../validators-list/validators-list';
+import { StakingInfo } from '@haqq/staking/validator-details';
 
-export function ValidatorsPage() {
+export function StakingValidatorList() {
   return (
     <Fragment>
       <Container>

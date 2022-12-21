@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { formatUnits } from 'ethers/lib/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
-import { ValidatorStatus } from '../validator-status/validator-status';
+import { ValidatorStatus } from '@haqq/staking/ui-kit';
 
 export interface ValidatorListItemProps {
   // index: number;
