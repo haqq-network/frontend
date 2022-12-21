@@ -1,11 +1,11 @@
 import { Fragment, useCallback, useMemo } from 'react';
 import { Container, Heading } from '@haqq/ui-kit';
-import { ValidatorsList } from '@haqq/staking/ui-kit';
 import { StakingInfo } from '@haqq/staking/validator-details';
 import { useQuery } from 'wagmi';
 import { useCosmosService } from '@haqq/providers';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { useAddress } from '@haqq/hooks';
+import { ValidatorsList } from '@haqq/staking/ui-kit';
 
 export function StakingValidatorList() {
   const { getAllValidators, getRewardsInfo, getAccountDelegations } =
@@ -32,7 +32,7 @@ export function StakingValidatorList() {
     if (!haqqAddress) {
       return null;
     }
-    console.log({ rewardsInfo });
+
     return getRewardsInfo(haqqAddress);
   });
 
