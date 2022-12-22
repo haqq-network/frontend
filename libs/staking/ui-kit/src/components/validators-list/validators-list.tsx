@@ -1,10 +1,7 @@
 import { Fragment, useCallback } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { ValidatorListItem } from '@haqq/staking/ui-kit';
 import { Card, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
-import { useAddress } from '@haqq/hooks';
-import { useCosmosService } from '@haqq/providers';
 
 type Validator = {
   operator_address: string;
@@ -14,33 +11,17 @@ interface ValidatorListProps {
   validators?: Validator[];
   error?: any;
   status?: 'loading' | 'success' | 'error' | 'idle';
-  title?: string;
+  rewardsInfo?: any;
+  delegationInfo?: any;
 }
 
 export function ValidatorsList({
   validators,
   error,
   status,
-  title,
+  rewardsInfo,
+  delegationInfo,
 }: ValidatorListProps) {
-  const { getAccountDelegations, getRewardsInfo } = useCosmosService();
-  const { haqqAddress } = useAddress();
-  const { data: delegationInfo } = useQuery(['delegation', haqqAddress], () => {
-    if (!haqqAddress) {
-      return null;
-    }
-
-    return getAccountDelegations(haqqAddress);
-  });
-
-  const { data: rewardsInfo } = useQuery(['rewards', haqqAddress], () => {
-    if (!haqqAddress) {
-      return null;
-    }
-    console.log({ rewardsInfo });
-    return getRewardsInfo(haqqAddress);
-  });
-
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem: any) => {
@@ -67,9 +48,6 @@ export function ValidatorsList({
 
   return (
     <div className="mx-auto w-full flex flex-col flex-1">
-      <Heading level={3} className="mb-4">
-        {title}
-      </Heading>
       <Card className="!p-0 flex flex-col flex-1">
         {status === 'loading' && (
           <div className="flex-1 flex flex-col space-y-8 items-center justify-center">
@@ -95,33 +73,39 @@ export function ValidatorsList({
 
             <div className="flex-1 flex">
               <div className="w-full inset-0">
-                {(validators as any).map((validator: any, index: number) => {
-                  const delegationInfo = getDelegationInfo(
-                    validator.operator_address,
-                  );
-                  const rewardsInfo = getValidatorRewards(
-                    validator.operator_address,
-                  );
+                {validators?.length ? (
+                  (validators as any).map((validator: any, index: number) => {
+                    const delegationInfo = getDelegationInfo(
+                      validator.operator_address,
+                    );
+                    const rewardsInfo = getValidatorRewards(
+                      validator.operator_address,
+                    );
 
-                  return (
-                    <Link
-                      to={`validator/${validator.operator_address}`}
-                      key={`validator-${index}`}
-                    >
-                      <ValidatorListItem
-                        validator={validator}
-                        delegation={delegationInfo}
-                        reward={rewardsInfo}
-                        // index={pageIndex * 100 + index + 1}
-                        // symbol="islm"
-                        // onClick={() => {
-                        //   setCurrentValidatorAddress(validator.operator_address);
-                        //   setValidatorInfoModalOpen(true);
-                        // }}
-                      />
-                    </Link>
-                  );
-                })}
+                    return (
+                      <Link
+                        to={`validator/${validator.operator_address}`}
+                        key={`validator-${index}`}
+                      >
+                        <ValidatorListItem
+                          validator={validator}
+                          delegation={delegationInfo}
+                          reward={rewardsInfo}
+                          // index={pageIndex * 100 + index + 1}
+                          // symbol="islm"
+                          // onClick={() => {
+                          //   setCurrentValidatorAddress(validator.operator_address);
+                          //   setValidatorInfoModalOpen(true);
+                          // }}
+                        />
+                      </Link>
+                    );
+                  })
+                ) : (
+                  <div className="p-[20px]">
+                    <Heading>There's no data</Heading>
+                  </div>
+                )}
               </div>
             </div>
           </Fragment>

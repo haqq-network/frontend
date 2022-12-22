@@ -1,13 +1,21 @@
-import { Fragment, useCallback, useMemo } from 'react';
-import { Container, Heading } from '@haqq/ui-kit';
-import { StakingInfo } from '@haqq/staking/validator-details';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 import { useQuery } from 'wagmi';
 import { useCosmosService } from '@haqq/providers';
-import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { useAddress } from '@haqq/hooks';
+import { Checkbox, Container, Heading } from '@haqq/ui-kit';
 import { ValidatorsList } from '@haqq/staking/ui-kit';
+import { StakingInfo } from '@haqq/staking/validator-details';
+import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 
 export function StakingValidatorList() {
+  const [checked, setChecked] = useState<boolean>(false);
+
+  const { haqqAddress } = useAddress();
+
+  const handleChange = (value: boolean) => {
+    setChecked(value);
+  };
+
   const { getAllValidators, getRewardsInfo, getAccountDelegations } =
     useCosmosService();
 
@@ -19,21 +27,20 @@ export function StakingValidatorList() {
     return getAllValidators(1000);
   });
 
-  const { haqqAddress } = useAddress();
-  const { data: delegationInfo } = useQuery(['delegation', haqqAddress], () => {
-    if (!haqqAddress) {
-      return null;
-    }
-
-    return getAccountDelegations(haqqAddress);
-  });
-
   const { data: rewardsInfo } = useQuery(['rewards', haqqAddress], () => {
     if (!haqqAddress) {
       return null;
     }
 
     return getRewardsInfo(haqqAddress);
+  });
+
+  const { data: delegationInfo } = useQuery(['delegation', haqqAddress], () => {
+    if (!haqqAddress) {
+      return null;
+    }
+
+    return getAccountDelegations(haqqAddress);
   });
 
   const getValidatorRewards = useCallback(
@@ -65,14 +72,13 @@ export function StakingValidatorList() {
       ...sortValidatorsByToken(inactive),
       ...sortValidatorsByToken(jailed),
     ];
-    const filteredVals = sortedVals.filter((el) => {
-      const rewardsInfo = getValidatorRewards(el.operator_address);
+    const filteredVals = sortedVals.filter((validator) => {
+      const rewardsInfo = getValidatorRewards(validator.operator_address);
       return rewardsInfo;
     });
-    console.log({ filteredVals });
 
     return filteredVals;
-  }, [validatorsList]);
+  }, [getValidatorRewards, validatorsList]);
 
   return (
     <Fragment>
@@ -84,17 +90,21 @@ export function StakingValidatorList() {
       </Container>
 
       <Container className="flex flex-1 flex-col space-y-4">
+        <div className="flex space-x-4">
+          <Heading level={3} className="mb-4">
+            Validators
+          </Heading>
+          <Checkbox className="" onChange={handleChange}>
+            Show active delegations
+          </Checkbox>
+        </div>
         <ValidatorsList
-          validators={sortedDelegatedValidators}
+          validators={
+            !checked ? sortedAllValidators : sortedDelegatedValidators
+          }
           error={error}
           status={status}
-          title="Active Delegation"
-        />
-        <ValidatorsList
-          validators={sortedAllValidators}
-          error={error}
-          status={status}
-          title="Validators"
+          delegationInfo={delegationInfo}
         />
       </Container>
     </Fragment>
