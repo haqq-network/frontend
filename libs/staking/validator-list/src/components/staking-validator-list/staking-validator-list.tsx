@@ -90,10 +90,8 @@ export function StakingValidatorList() {
       </Container>
 
       <Container className="flex flex-1 flex-col space-y-4">
-        <div className="flex space-x-4">
-          <Heading level={3} className="mb-4">
-            Validators
-          </Heading>
+        <div className="flex space-x-4 justify-between">
+          <Heading level={3}>Validators</Heading>
           <Checkbox className="" onChange={handleChange}>
             Show active delegations
           </Checkbox>
