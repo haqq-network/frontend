@@ -10,12 +10,7 @@ import iphoneWalletScreenshotData from '../assets/images/wallet-iphone-screensho
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (
-    <div
-      className={clsx(
-        ManropeFont.className,
-        'text-white text-[14px] space-x-[6px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 inline-flex items-center',
-      )}
-    >
+    <div className="text-white text-[14px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 text-left inline-block">
       {children}
     </div>
   );
@@ -279,37 +274,39 @@ export default function WalletPage() {
               The best way to hold Islamic Coin and remain Shariah-compliant
               along the way!
             </div>
-            <div className="mb-[38px]">
+            <div className="mb-[38px] text-left sm:text-center lg:text-left">
               <FeatureText>
-                <div className="flex-initial">
+                <div className="mr-[6px] mb-[-6px] inline-block">
                   <ShieldIcon />
                 </div>
-                <div>Non-custodial wallet for the Haqq Ecosystem</div>
+                Non-custodial wallet for the Haqq Ecosystem
               </FeatureText>
               <FeatureText>
-                <div className="flex-initial">
+                <div className="mr-[6px] mb-[-6px] inline-block">
                   <StakingIcon />
                 </div>
-                <div>Staking</div>
+                <span>Staking</span>
               </FeatureText>
               <br className="hidden sm:block lg:hidden" />
               <FeatureText>
-                <div className="flex-initial">
+                <div className="mr-[6px] mb-[-6px] inline-block">
                   <GovernanceIcon />
                 </div>
-                <div>Governance</div>
+                <span>Governance</span>
               </FeatureText>
               <FeatureText>
-                <div className="flex-initial">
+                <div className="mr-[6px] mb-[-6px] inline-block">
                   <LedgerIcon />
                 </div>
-                <div>Ledger integration</div>
+                <span>Ledger integration</span>
               </FeatureText>
               <FeatureText>
-                <div className="flex-initial">
+                <div className="mr-[6px] mb-[-6px] inline-block">
                   <MpcIcon />
                 </div>
-                <div>Mnemonic-free private key security (is comming soon)</div>
+                <span>
+                  Mnemonic-free private key security (is comming soon)
+                </span>
               </FeatureText>
             </div>
             <div className="flex flex-col items-center sm:flex-row space-y-[16px] justify-center sm:justify-center lg:justify-start sm:space-y-0 sm:space-x-[16px] mb-[60px]">
