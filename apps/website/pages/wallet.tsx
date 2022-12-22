@@ -284,7 +284,7 @@ export default function WalletPage() {
                 <div className="flex-initial">
                   <ShieldIcon />
                 </div>
-                <div>Special non-custodial wallet for Islamic Coin</div>
+                <div>Non-custodial wallet for the Haqq Ecosystem</div>
               </FeatureText>
               <FeatureText>
                 <div className="flex-initial">
@@ -309,7 +309,7 @@ export default function WalletPage() {
                 <div className="flex-initial">
                   <MpcIcon />
                 </div>
-                <div>MPC (is comming soon)</div>
+                <div>Mnemonic-free private key security (is comming soon)</div>
               </FeatureText>
             </div>
             <div className="flex flex-col items-center sm:flex-row space-y-[16px] justify-center sm:justify-center lg:justify-start sm:space-y-0 sm:space-x-[16px] mb-[60px]">
