@@ -103,6 +103,7 @@ export function StakingValidatorList() {
           error={error}
           status={status}
           delegationInfo={delegationInfo}
+          rewardsInfo={rewardsInfo}
         />
       </Container>
     </Fragment>
