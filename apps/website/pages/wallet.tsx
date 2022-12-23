@@ -304,9 +304,7 @@ export default function WalletPage() {
                 <div className="mr-[6px] mb-[-6px] inline-block">
                   <MpcIcon />
                 </div>
-                <span>
-                  Mnemonic-free private key security (is comming soon)
-                </span>
+                <span>Mnemonic-free private key security (is coming soon)</span>
               </FeatureText>
             </div>
             <div className="flex flex-col items-center sm:flex-row space-y-[16px] justify-center sm:justify-center lg:justify-start sm:space-y-0 sm:space-x-[16px] mb-[60px]">
