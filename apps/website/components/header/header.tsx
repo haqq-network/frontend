@@ -72,7 +72,7 @@ export function Header() {
         </nav>
         <div className="flex flex-row items-center">
           <Link href="/wallet">
-            <Button className="hidden sm:block">Haqq wallet</Button>
+            <Button className="hidden sm:block">HAQQ Wallet</Button>
           </Link>
           <BurgerButton
             className="ml-[24px] block lg:hidden"

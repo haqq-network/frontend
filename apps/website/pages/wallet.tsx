@@ -279,7 +279,7 @@ export default function WalletPage() {
                 <div className="mr-[6px] mb-[-6px] inline-block">
                   <ShieldIcon />
                 </div>
-                Non-custodial wallet for the Haqq Ecosystem
+                Non-custodial wallet for the HAQQ Ecosystem
               </FeatureText>
               <FeatureText>
                 <div className="mr-[6px] mb-[-6px] inline-block">
@@ -320,7 +320,7 @@ export default function WalletPage() {
           <div className="flex flex-1 justify-center">
             <Image
               src={iphoneWalletScreenshotData.src}
-              alt="HaqqWallet"
+              alt="HAQQWallet"
               width={iphoneWalletScreenshotData.width}
               height={iphoneWalletScreenshotData.height}
             />
@@ -358,7 +358,7 @@ export default function WalletPage() {
             )}
           >
             <div className="mb-[8px]">
-              © 2022 HAQQ wallet. All rights reserved
+              © 2022 HAQQ Wallet. All rights reserved
             </div>
             <Link href="mailto:hello@islamiccoin.net">
               <div className="transition-colors duration-150 hover:text-[#01B36E]">
