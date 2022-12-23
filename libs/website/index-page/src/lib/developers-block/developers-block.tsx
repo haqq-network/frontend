@@ -64,7 +64,11 @@ export function DevelopersBlock() {
           </Text>
         </div>
         <div className="flex flex-col space-y-[16px] flex-1 lg:space-y-[32px]">
-          <Link href="https://docs.haqq.network/" target="_blank">
+          <Link
+            href="https://docs.haqq.network/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <DevelopersBlockCard
               title="Become a Developer"
               description="Build standalone Shariah-compliant applications, create your own DeFI or issue NFTs, on a foundation of fair and sustainable principles"
@@ -73,6 +77,7 @@ export function DevelopersBlock() {
           <Link
             href="https://docs.haqq.network/guides/validators/setup.html"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <DevelopersBlockCard
               title="Become a Validator"

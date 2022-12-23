@@ -312,6 +312,7 @@ export default function WalletPage() {
               <Link
                 href="https://play.google.com/store/apps/details?id=com.haqq.wallet"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <LandingButton store="google" isAvailable />
               </Link>
@@ -320,7 +321,7 @@ export default function WalletPage() {
           <div className="flex flex-1 justify-center">
             <Image
               src={iphoneWalletScreenshotData.src}
-              alt="HAQQWallet"
+              alt="HAQQ Wallet"
               width={iphoneWalletScreenshotData.width}
               height={iphoneWalletScreenshotData.height}
             />
