@@ -102,8 +102,8 @@ export function ValidatorsList({
                     );
                   })
                 ) : (
-                  <div className="p-[20px]">
-                    <Heading>There's no data</Heading>
+                  <div className="text-center pt-[64px]">
+                    <Heading level={3}>There's no data</Heading>
                   </div>
                 )}
               </div>
