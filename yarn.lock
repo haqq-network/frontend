@@ -3135,7 +3135,6 @@ __metadata:
     react-test-renderer: 18.2.0
     reaptcha: 1.12.1
     regenerator-runtime: 0.13.11
-    ress: 5.0.2
     store2: 2.14.2
     style-loader: 3.3.1
     tailwindcss: 3.2.4
@@ -24031,13 +24030,6 @@ __metadata:
   dependencies:
     lowercase-keys: ^2.0.0
   checksum: b122535466e9c97b55e69c7f18e2be0ce3823c5d47ee8de0d9c0b114aa55741c6db8bfbfce3766a94d1272e61bfb1ebf0a15e9310ac5629fbb7446a861b4fd3a
-  languageName: node
-  linkType: hard
-
-"ress@npm:5.0.2":
-  version: 5.0.2
-  resolution: "ress@npm:5.0.2"
-  checksum: 8f13801393c72e74cae5b25c63f98ffe9f77f0420c7681ee7bc829a90adcf80ed46101eca150f3068324a3c585ab59f5a36ba9fb8bac8a5bab3e5343bd95c1db
   languageName: node
   linkType: hard
 
