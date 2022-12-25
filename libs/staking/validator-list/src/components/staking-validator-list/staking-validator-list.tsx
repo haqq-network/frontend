@@ -13,7 +13,6 @@ import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 export function StakingValidatorList() {
   const [checked, setChecked] = useState<boolean>(false);
   const { haqqAddress } = useAddress();
-
   const {
     data: validatorsList,
     error,
@@ -34,7 +33,7 @@ export function StakingValidatorList() {
   );
 
   const sortedAllValidators = useMemo(() => {
-    const { active, inactive, jailed } = splitValidators(validatorsList);
+    const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
 
     return [
       ...sortValidatorsByToken(active),

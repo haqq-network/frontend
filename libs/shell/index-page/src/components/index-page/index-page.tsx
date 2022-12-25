@@ -1,5 +1,6 @@
 import { Card, CardHeading, Container, Heading } from '@haqq/ui-kit';
 import { ShellIndexPageAccountInfo } from '../account-info/account-info';
+import { ShellIndexPageDelegationList } from '../delegation-list/delegation-list';
 import { ShellIndexPageProposalList } from '../proposal-list/proposal-list';
 
 export function ShellIndexPage() {
@@ -9,16 +10,22 @@ export function ShellIndexPage() {
         <div className="col-span-2 flex flex-col space-y-6">
           <div>
             <Heading level={3} className="mb-4">
-              Staking
+              My delegations
             </Heading>
-            <Card>Validators table</Card>
+            <ShellIndexPageDelegationList />
           </div>
           <div>
+            <Heading level={3} className="mb-4">
+              Latest proposals
+            </Heading>
             <ShellIndexPageProposalList />
           </div>
         </div>
         <div className="flex flex-col space-y-6">
           <div>
+            <Heading level={3} className="mb-4">
+              My account
+            </Heading>
             <ShellIndexPageAccountInfo />
           </div>
           <div>

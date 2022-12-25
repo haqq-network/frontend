@@ -12,7 +12,7 @@ import {
 import {
   bondStatusToJSON,
   BondStatus,
-  Validator,
+  Validator as CosmjsValidator,
   Params as StakingParams,
 } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import {
@@ -25,6 +25,9 @@ import {
   generateEndpointDistributionRewardsByAddress,
   generateEndpointProposals,
   Proposal,
+  Validator,
+  GetDelegationsResponse,
+  DistributionRewardsResponse,
 } from '@evmos/provider';
 import { signatureToPubkey } from '@hanchon/signature-to-pubkey';
 import { BondStatusString } from '@cosmjs/stargate/build/modules/staking/queries';
@@ -47,23 +50,22 @@ type Signer = {
 // TODO: typings
 interface ComsosService {
   getPaginatedValidators: (params: { pageParam?: Uint8Array }) => Promise<{
-    pages: Validator[];
+    pages: CosmjsValidator[];
     pageParam?: Uint8Array;
   }>;
-  getValidatorInfo: (address: string) => Promise<Validator | undefined>;
+  getValidatorInfo: (address: string) => Promise<CosmjsValidator | undefined>;
   getStakingParams: () => Promise<StakingParams | undefined>;
   generatePubkey: () => Promise<string>;
   getPubkey: (address: string) => Promise<string>;
+  getAllValidators: (limit?: number) => Promise<Validator[]>;
+  getProposals: () => Promise<Proposal[]>;
+  getProposalDetails: (id: string) => Promise<Proposal>;
+  getAccountDelegations: (address: string) => Promise<GetDelegationsResponse>;
+  getRewardsInfo: (address: string) => Promise<DistributionRewardsResponse>;
 
   getAccountInfo: any;
   broadcastTransaction: any;
-  getAccountDelegations: any;
-  getRewardsInfo: any;
-  getAllValidators: any;
   getUndelegations: any;
-
-  getProposals: () => Promise<Proposal[]>;
-  getProposalDetails: (id: string) => Promise<Proposal>;
 }
 
 export const CosmosClientContext = createContext<ComsosClient | undefined>(
@@ -113,7 +115,7 @@ function createCosmosService(
     );
     const data = await response.json();
 
-    return data.validators;
+    return data.validators as Validator[];
   }
 
   async function getPaginatedValidators({
@@ -210,7 +212,7 @@ function createCosmosService(
       `${cosmosRestEndpoint}/${generateEndpointGetDelegations(address)}`,
     );
 
-    return await delegations.json();
+    return (await delegations.json()) as GetDelegationsResponse;
   }
 
   async function generatePubkey() {
