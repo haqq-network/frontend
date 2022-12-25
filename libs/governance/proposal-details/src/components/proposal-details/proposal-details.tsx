@@ -1,5 +1,4 @@
 import { Fragment, ReactNode, useCallback, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import {
   Navigate,
   useLocation,
@@ -7,17 +6,22 @@ import {
   useParams,
 } from 'react-router-dom';
 import Markdown from 'marked-react';
-import { Button2, Card, Container, SpinnerLoader, Text } from '@haqq/ui-kit';
 import {
+  Button2,
+  Card,
   CardHeading,
+  Container,
+  SpinnerLoader,
+  Text,
+} from '@haqq/ui-kit';
+import {
   ProposalStatusComponent,
   ProposalVoteResults,
 } from '@haqq/governance/proposal-list';
 import clsx from 'clsx';
 import { VoteModal } from '../vote-modal/vote-modal';
 import { Proposal } from '@evmos/provider';
-import { useAddress } from '@haqq/hooks';
-import { useCosmosService } from '@haqq/providers';
+import { useAddress, useProposalDetailsQuery, isNumber } from '@haqq/shared';
 
 const DENOM = 10 ** 18;
 
@@ -228,34 +232,10 @@ export function ProposalDetailsComponent({
   );
 }
 
-function isNumber(str: string): boolean {
-  if (typeof str !== 'string') {
-    return false;
-  }
-
-  if (str.trim() === '') {
-    return false;
-  }
-
-  return !Number.isNaN(Number(str));
-}
-
 export function ProposalDetails() {
-  const { getProposalDetails } = useCosmosService();
   const { id: proposalId } = useParams();
-  const { data: proposalDetails, isFetching } = useQuery(
-    ['proposal', proposalId],
-    () => {
-      if (!proposalId) {
-        return null;
-      }
-
-      return getProposalDetails(proposalId);
-    },
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  const { data: proposalDetails, isFetching } =
+    useProposalDetailsQuery(proposalId);
   const { ethAddress, haqqAddress } = useAddress();
   const { hash } = useLocation();
   const navigate = useNavigate();

@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 import { Button2, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
-import toast from 'react-hot-toast';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
-import { useProposal } from '@haqq/hooks';
+import { useProposalVote, useToast } from '@haqq/shared';
 
 export interface VoteModalProps {
   proposalId: number;
@@ -11,16 +10,14 @@ export interface VoteModalProps {
 }
 
 export function VoteModal({ proposalId, isOpen, onClose }: VoteModalProps) {
-  const handleModalClose = useCallback(() => {
-    onClose();
-  }, [onClose]);
-  const { vote } = useProposal();
+  const vote = useProposalVote();
+  const toast = useToast();
   const handleVote = useCallback(
     async (option: number) => {
       try {
         const txHash = await vote(proposalId, option);
         console.log('vote succesfull', { option, txHash });
-        handleModalClose();
+        onClose();
         toast.success(`Your vote will be counted!!!`);
       } catch (error) {
         console.error((error as any).message);
@@ -28,16 +25,16 @@ export function VoteModal({ proposalId, isOpen, onClose }: VoteModalProps) {
         toast.error(`For some reason your vote failed.`);
       }
     },
-    [handleModalClose, proposalId, vote],
+    [onClose, proposalId, toast, vote],
   );
 
   return (
-    <Modal isOpen={isOpen} onClose={handleModalClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <Card className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
         <div className="flex flex-col space-y-8">
           <div className="flex flex-row justify-between items-center">
             <Heading level={3}>Vote for #{proposalId}</Heading>
-            <ModalCloseButton onClick={handleModalClose} />
+            <ModalCloseButton onClick={onClose} />
           </div>
 
           <div className="flex flex-row space-x-2">

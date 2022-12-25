@@ -1,11 +1,16 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Fragment, ReactNode, useCallback, useMemo } from 'react';
 import { useBalance } from 'wagmi';
 import { Button2, Text, Card, SpinnerLoader } from '@haqq/ui-kit';
 import { formatUnits } from 'ethers/lib/utils';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAddress } from '@haqq/hooks';
-import { useCosmosService } from '@haqq/providers';
+import {
+  useAddress,
+  useStakingValidatorInfoQuery,
+  useStakingParamsQuery,
+  useStakingRewardsQuery,
+  useStakingDelegationQuery,
+  useQueryInvalidate,
+} from '@haqq/shared';
 import { ValidatorStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
 import { DelegateModal } from '../delegate-modal/delegate-modal';
@@ -281,25 +286,17 @@ export function ValidatorInfo({
 }: {
   validatorAddress: string;
 }) {
-  const queryClient = useQueryClient();
-  const {
-    getValidatorInfo,
-    getStakingParams,
-    getRewardsInfo,
-    getAccountDelegations,
-  } = useCosmosService();
-  const { data: validatorInfo, isFetching } = useQuery(
-    ['validator', validatorAddress],
-    () => getValidatorInfo(validatorAddress),
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
   const { ethAddress, haqqAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
     watch: true,
   });
+  const invalidateQueries = useQueryInvalidate();
+  const { data: validatorInfo, isFetching } =
+    useStakingValidatorInfoQuery(validatorAddress);
+  const { data: stakingParams } = useStakingParamsQuery();
+  const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
+  const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const balance = useMemo(() => {
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
   }, [balanceData]);
@@ -311,40 +308,12 @@ export function ValidatorInfo({
       isUndelegateModalOpen: hash === '#undelegate',
     };
   }, [hash]);
-  const handleUpdateQueries = useCallback(() => {
-    queryClient.invalidateQueries(['rewards']);
-    queryClient.invalidateQueries(['delegation']);
-    queryClient.invalidateQueries(['unboundings']);
-  }, [queryClient]);
+
   const handleModalClose = useCallback(() => {
     navigate('');
-    handleUpdateQueries();
-  }, [handleUpdateQueries, navigate]);
+    invalidateQueries([['rewards'], ['delegation'], ['unboundings']]);
+  }, [invalidateQueries, navigate]);
 
-  const { data: stakingParams } = useQuery(
-    ['staking-params'],
-    getStakingParams,
-  );
-  const { data: rewardsInfo } = useQuery(['rewards', haqqAddress], () => {
-    if (!haqqAddress) {
-      return null;
-    }
-
-    return getRewardsInfo(haqqAddress);
-  });
-  const { data: delegationInfo } = useQuery(
-    ['delegation', haqqAddress],
-    () => {
-      if (!haqqAddress) {
-        return null;
-      }
-
-      return getAccountDelegations(haqqAddress);
-    },
-    {
-      refetchInterval: 2500,
-    },
-  );
   const unboundingTime = useMemo(() => {
     if (stakingParams?.unbondingTime) {
       return secondsToDays(stakingParams.unbondingTime.seconds.toNumber());

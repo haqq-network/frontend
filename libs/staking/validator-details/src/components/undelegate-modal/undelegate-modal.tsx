@@ -5,8 +5,7 @@ import {
   DelegateModalSubmitButton,
 } from '../delegate-modal/delegate-modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useDelegation } from '@haqq/hooks';
+import { useStakingActions, useToast } from '@haqq/shared';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
@@ -27,12 +26,13 @@ export function UndelegateModal({
   unboundingTime,
   validatorAddress,
 }: UndelegateModalProps) {
-  const { undelegate } = useDelegation();
+  const { undelegate } = useStakingActions();
   const [undelegateAmount, setUndelegateAmount] = useState(0);
   const [isUndelegateEnabled, setUndelegateEnabled] = useState(true);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
+  const toast = useToast();
 
   const handleMaxButtonClick = useCallback(() => {
     setUndelegateAmount(delegation);
@@ -59,7 +59,7 @@ export function UndelegateModal({
       .then(() => {
         onClose();
       });
-  }, [onClose, undelegate, undelegateAmount, validatorAddress]);
+  }, [undelegate, validatorAddress, undelegateAmount, toast, onClose]);
 
   useEffect(() => {
     if (undelegateAmount <= 0) {
