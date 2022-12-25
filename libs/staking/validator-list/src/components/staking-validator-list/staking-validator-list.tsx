@@ -98,7 +98,7 @@ export function StakingValidatorList() {
         </div>
         <ValidatorsList
           validators={
-            !checked ? sortedAllValidators : sortedDelegatedValidators
+            checked ? sortedDelegatedValidators : sortedAllValidators
           }
           error={error}
           status={status}
