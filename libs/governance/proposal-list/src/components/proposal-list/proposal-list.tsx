@@ -24,19 +24,19 @@ export function ProposalList() {
 
   return (
     <Container>
-      <div className="mx-auto w-full max-w-6xl flex flex-col space-y-6">
+      <div className="mx-auto w-full flex flex-col space-y-6">
         <div>
           <Heading level={2}>Governance</Heading>
         </div>
         {isFetching ? (
-          <div className="mx-auto w-full max-w-6xl flex">
+          <div className="mx-auto w-full flex">
             <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-[200px]">
               <SpinnerLoader />
               <Text block>Fetching proposals</Text>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
             {proposals.map((proposal: any) => {
               return (
                 <Link
