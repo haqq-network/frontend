@@ -21,35 +21,30 @@ export function ShellIndexPageAccountInfo() {
   }, [balanceData]);
 
   return (
-    <div>
-      <Heading level={3} className="mb-4">
-        Account
-      </Heading>
-      <Card className="flex flex-col space-y-4 min-h-[200px] items-start justify-between">
-        {!(ethAddress && haqqAddress && balance) && (
-          <div className="flex flex-1 items-center w-full">
-            <div className="w-full flex-auto text-center">
-              You should connect wallet first
-            </div>
+    <Card className="flex flex-col space-y-4 min-h-[200px] items-start justify-between">
+      {!(ethAddress && haqqAddress && balance) && (
+        <div className="flex flex-1 items-center w-full">
+          <div className="w-full flex-auto text-center">
+            You should connect wallet first
           </div>
-        )}
+        </div>
+      )}
 
-        {ethAddress && haqqAddress && (
-          <div>
-            <CardHeading>Address</CardHeading>
-            <div>{ethAddress}</div>
-            <div>{haqqAddress}</div>
+      {ethAddress && haqqAddress && (
+        <div>
+          <CardHeading>Address</CardHeading>
+          <div>{ethAddress}</div>
+          <div>{haqqAddress}</div>
+        </div>
+      )}
+      {balance && (
+        <div>
+          <CardHeading>Balance</CardHeading>
+          <div className="font-serif font-[500] text-[32px] leading-[36px]">
+            {balance.value.toLocaleString()} {balance.symbol.toUpperCase()}
           </div>
-        )}
-        {balance && (
-          <div>
-            <CardHeading>Balance</CardHeading>
-            <div className="font-serif font-[500] text-[32px] leading-[36px]">
-              {balance.value.toLocaleString()} {balance.symbol.toUpperCase()}
-            </div>
-          </div>
-        )}
-      </Card>
-    </div>
+        </div>
+      )}
+    </Card>
   );
 }

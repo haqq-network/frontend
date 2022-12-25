@@ -2,10 +2,7 @@ import { Fragment, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ValidatorListItem } from '@haqq/staking/ui-kit';
 import { Card, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
-
-type Validator = {
-  operator_address: string;
-};
+import type { Validator } from '@evmos/provider';
 
 interface ValidatorListProps {
   validators?: Validator[];
