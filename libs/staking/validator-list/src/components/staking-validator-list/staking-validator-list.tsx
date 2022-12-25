@@ -83,7 +83,7 @@ export function StakingValidatorList() {
   return (
     <Fragment>
       <Container>
-        <Heading level={2} className="mb-4">
+        <Heading level={2} className="mb-6">
           Staking
         </Heading>
         <StakingInfo />
