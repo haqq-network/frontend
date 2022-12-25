@@ -74,7 +74,7 @@ export function ValidatorsList({
             <div className="flex-1 flex relative">
               <div className="overflow-y-scroll absolute inset-0">
                 {validators?.length ? (
-                  (validators as any).map((validator: any, index: number) => {
+                  validators.map((validator, index) => {
                     const delegationInfo = getDelegationInfo(
                       validator.operator_address,
                     );

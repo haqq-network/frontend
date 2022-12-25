@@ -37,7 +37,7 @@ export function ProposalList() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
-            {proposals.map((proposal: any) => {
+            {proposals.map((proposal) => {
               return (
                 <Link
                   to={`proposal/${proposal.proposal_id}`}
