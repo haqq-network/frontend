@@ -58,16 +58,19 @@ body {
   min-height: 100vh;
 }
 
+body {
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
 body:not(.dark) {
   color: var(--app-text-color);
   background-color: var(--app-background-color);
   background-image: var(--app-background-gradient);
-  background-attachment: scroll;
 }
 
 body.dark {
   color: var(--app-dark-text-color);
   background-color: var(--app-dark-background-color);
   background-image: var(--app-dark-background-gradient);
-  background-attachment: scroll;
 }
