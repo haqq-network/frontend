@@ -208,7 +208,9 @@ export function ProposalListCard({ proposal }: ProposalListCardProps) {
         <ProposalStatusComponent status={proposal.status as string} />
       </div>
 
-      <div className="font-semibold text-xl">{proposal.content.title}</div>
+      <div className="font-semibold text-xl min-h-[48px] leading-[24px]">
+        {proposal.content.title}
+      </div>
 
       <div className="flex flex-row">
         <div className="flex-1 text-sm">
