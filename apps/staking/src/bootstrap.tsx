@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
-import { AppContainer } from './app/app-container';
+
 import { App } from './app/app';
 import { environment } from './environments/environment';
-import { createTendermintClient } from '@haqq/providers';
+import { AppProviders, createTendermintClient } from '@haqq/shared';
 import { AppWrapper } from './app/app-wrapper';
 import './index.css';
 
@@ -27,11 +27,14 @@ async function startApp() {
   });
 
   root.render(
-    <AppContainer tendermintClient={tendermintClient}>
+    <AppProviders
+      tendermintClient={tendermintClient}
+      chainName={environment.chainName}
+    >
       <AppWrapper>
         <App />
       </AppWrapper>
-    </AppContainer>,
+    </AppProviders>,
   );
 }
 

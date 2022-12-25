@@ -1,19 +1,11 @@
-import { Container, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
-import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
+import { useProposalListQuery } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
-import { useCosmosService } from '@haqq/providers';
 
 export function ProposalList() {
-  const { getProposals } = useCosmosService();
-  const { data: proposalsData, isFetching } = useQuery(
-    ['proposals'],
-    getProposals,
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  const { data: proposalsData, isFetching } = useProposalListQuery();
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
       return [];

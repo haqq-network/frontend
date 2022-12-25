@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button2, Card } from '@haqq/ui-kit';
-import { useQuery } from '@tanstack/react-query';
 import { useBalance } from 'wagmi';
-import { useAddress, useDelegation, useMetamask } from '@haqq/hooks';
-import { useCosmosService } from '@haqq/providers';
+import {
+  useAddress,
+  useMetamask,
+  useStakingDelegationQuery,
+  useStakingUnbondingsQuery,
+  useStakingRewardsQuery,
+  useStakingActions,
+} from '@haqq/shared';
 
 export interface RewardsInfoProps {
   balance: number;
@@ -117,36 +122,10 @@ export function StakingInfo() {
   );
   const { connect, isNetworkSupported, selectNetwork } = useMetamask();
   const { ethAddress, haqqAddress } = useAddress();
-  const { getAccountDelegations, getRewardsInfo, getUndelegations } =
-    useCosmosService();
-  const { claimAllRewards } = useDelegation();
-  const { data: delegationInfo } = useQuery(['delegation', haqqAddress], () => {
-    if (!haqqAddress) {
-      return null;
-    }
-
-    return getAccountDelegations(haqqAddress);
-  });
-  const { data: rewardsInfo } = useQuery(['rewards', haqqAddress], () => {
-    if (!haqqAddress) {
-      return null;
-    }
-
-    return getRewardsInfo(haqqAddress);
-  });
-  const { data: undelegations } = useQuery(
-    ['unboundings', haqqAddress],
-    () => {
-      if (!haqqAddress) {
-        return null;
-      }
-
-      return getUndelegations(haqqAddress);
-    },
-    {
-      refetchInterval: 2500,
-    },
-  );
+  const { claimAllRewards } = useStakingActions();
+  const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
+  const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
   const { data: balance } = useBalance({
     address: ethAddress,
     watch: true,

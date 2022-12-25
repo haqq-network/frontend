@@ -1,18 +1,10 @@
+import { useMemo } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
-import { Card } from '@haqq/ui-kit';
+import { Card, CardHeading } from '@haqq/ui-kit';
 import clsx from 'clsx';
-import { ReactNode, useMemo } from 'react';
 
 export interface ProposalListCardProps {
   proposal: Proposal;
-}
-
-export function CardHeading({ children }: { children: ReactNode }) {
-  return (
-    <div className="text-sm font-medium leading-relaxed text-gray-400 uppercase">
-      {children}
-    </div>
-  );
 }
 
 export function ProposalStatusComponent({ status }: { status: string }) {

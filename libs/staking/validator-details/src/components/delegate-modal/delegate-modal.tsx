@@ -2,8 +2,7 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { Alert, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
-import toast from 'react-hot-toast';
-import { useDelegation } from '@haqq/hooks';
+import { useStakingActions, useToast } from '@haqq/shared';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -86,12 +85,13 @@ export function DelegateModal({
   balance,
   unboundingTime,
 }: DelegateModalProps) {
-  const { delegate } = useDelegation();
+  const { delegate } = useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number>(0);
   const [isDelegateEnabled, setDelegateEnabled] = useState(true);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
+  const toast = useToast();
 
   const handleMaxButtonClick = useCallback(() => {
     setDelegateAmount(balance);
@@ -118,7 +118,7 @@ export function DelegateModal({
       .then(() => {
         onClose();
       });
-  }, [delegate, validatorAddress, delegateAmount, onClose]);
+  }, [delegate, validatorAddress, delegateAmount, toast, onClose]);
 
   useEffect(() => {
     if (delegateAmount <= 0) {
