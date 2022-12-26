@@ -244,7 +244,7 @@ function HeaderLogo() {
 
 function NonCustodialWalletBlock() {
   return (
-    <div className="px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group">
+    <div className="col-span-1 sm:col-span-2  lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group">
       <div className="absolute w-[1024px] h-[988px] left-[-525px] top-[10%] sm:top-[-15%] sm:left-[-395px] lg:left-[-545px] lg:top-[20%] group-hover:animate-[spin2_10s_ease-in-out_infinite]">
         <Image fill alt="" src={maskData.src} />
       </div>
@@ -267,7 +267,7 @@ function NonCustodialWalletBlock() {
 
 function StakingBlock() {
   return (
-    <div className="relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden">
+    <div className="col-span-1 sm:col-span-2 sm:row-start-2 lg:row-span-1 relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden">
       <div className="absolute w-[378px] h-[378px] top-[100%]">
         <Image
           alt=""
@@ -295,7 +295,7 @@ function StakingBlock() {
 
 function SocialLoginBlock() {
   return (
-    <div className="flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px]">
+    <div className="col-span-1 sm:col-start-1 sm:col-end-1 sm:row-start- lg:row-start-2 lg:row-end-3 lg:col-start-3 lg:col-end-3 flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px]">
       <div className="mb-[12px]">
         <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
           Social Login
@@ -324,7 +324,7 @@ function SocialLoginBlock() {
 
 function GovernanceBlock() {
   return (
-    <div className=" flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px]">
+    <div className="col-span-1 sm:col-start-2 sm:col-end-2 sm:row-end-4 lg:row-start-2 lg:row-end-3 flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px]">
       <div className="flex flex-col w-2/3">
         <div className="mb-[12px]">
           <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
@@ -353,7 +353,7 @@ function GovernanceBlock() {
 
 function LedgerBlock() {
   return (
-    <div className="sm:w-full flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] pt-[24px] overflow-hidden">
+    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-4 lg:col-end-4 flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] pt-[24px] overflow-hidden">
       <div className="absolute inset-0 h-[945px] w-[627px] sm:rotate-90 sm:top-[-200px]">
         <Image fill src={landingLedgerBgData.src} alt="" />
       </div>
@@ -471,6 +471,19 @@ export default function WalletPage() {
         <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start">
           HAQQ Wallet Features
         </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
+          <NonCustodialWalletBlock />
+          <StakingBlock />
+          <GovernanceBlock />
+          <SocialLoginBlock />
+          <LedgerBlock />
+        </div>
+      </div>
+
+      {/* <div className="flex flex-col px-[20px] sm:px-[40px]">
+        <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start">
+          HAQQ Wallet Features
+        </div>
         <div className="container items-center flex flex-col space-y-7 sm:space-y-8 lg:flex-row lg:space-y-0 lg:space-x-7">
           <NonCustodialWalletBlock />
           <div className="flex flex-col space-y-7">
@@ -482,7 +495,7 @@ export default function WalletPage() {
           </div>
           <LedgerBlock />
         </div>
-      </div>
+      </div> */}
 
       <footer className="h-[96px] w-full">
         <div className="container mx-auto pb-[20px] px-[20px] sm:px-[40px]">
