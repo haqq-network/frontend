@@ -23,6 +23,12 @@ module.exports = {
         serif: ['var(--font-clash)'],
         sans: ['var(--font-guise)'],
       },
+      keyframes: {
+        spin2: {
+          '0%, 100%': { transform: 'rotate(-45deg)' },
+          '50%': { transform: 'rotate(45deg)' },
+        },
+      },
     },
   },
   plugins: [typographyPlugin],
