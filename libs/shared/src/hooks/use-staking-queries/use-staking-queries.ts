@@ -76,3 +76,9 @@ export function useStakingParamsQuery() {
 
   return useQuery(['staking-params'], getStakingParams);
 }
+
+export function useStakingPoolQuery() {
+  const { getStakingPool } = useCosmosService();
+
+  return useQuery(['staking-pool'], getStakingPool);
+}

@@ -144,7 +144,7 @@ export function StakingInfo() {
   }, [balance]);
 
   useEffect(() => {
-    if (delegationInfo?.delegation_responses?.length > 0) {
+    if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
       let del = 0;
       const vecDelegatedValsAddrs: string[] = [];
 
@@ -157,7 +157,7 @@ export function StakingInfo() {
       setStakedValue(del / 10 ** 18);
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }
-  }, [delegationInfo?.delegation_responses]);
+  }, [delegationInfo]);
 
   const rewards = useMemo(() => {
     if (rewardsInfo?.total?.length) {
