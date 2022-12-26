@@ -3064,8 +3064,8 @@ __metadata:
     "@nrwl/web": 15.3.0
     "@nrwl/workspace": 15.3.0
     "@pmmmwh/react-refresh-webpack-plugin": 0.5.10
-    "@sentry/react": 7.28.0
-    "@sentry/tracing": 7.28.0
+    "@sentry/react": 7.28.1
+    "@sentry/tracing": 7.28.1
     "@storybook/addon-essentials": 6.5.15
     "@storybook/builder-webpack5": 6.5.15
     "@storybook/core-common": 6.5.15
@@ -3085,7 +3085,7 @@ __metadata:
     "@types/marked": 4.0.8
     "@types/node": 18.11.17
     "@types/react": 18.0.26
-    "@types/react-dom": 18.0.9
+    "@types/react-dom": 18.0.10
     "@types/react-router-dom": 5.3.3
     "@typescript-eslint/eslint-plugin": 5.47.0
     "@typescript-eslint/parser": 5.47.0
@@ -3093,13 +3093,13 @@ __metadata:
     babel-jest: 29.3.1
     bech32-converting: 1.0.9
     clsx: 1.2.1
-    core-js: 3.26.1
-    cosmjs-types: 0.6.0
+    core-js: 3.27.0
+    cosmjs-types: 0.6.1
     css-loader: 6.7.3
     cypress: 12.2.0
     decimal.js-light: 2.5.1
     eslint: 8.30.0
-    eslint-config-next: 13.0.7
+    eslint-config-next: 13.1.1
     eslint-config-prettier: 8.5.0
     eslint-plugin-cypress: 2.12.1
     eslint-plugin-import: 2.26.0
@@ -3112,7 +3112,7 @@ __metadata:
     jest: 29.3.1
     jest-environment-jsdom: 29.3.1
     lint-staged: 13.1.0
-    marked: 4.2.4
+    marked: 4.2.5
     marked-react: 1.3.1
     next: 13.0.7
     next-compose-plugins: 2.2.1
@@ -3124,11 +3124,11 @@ __metadata:
     react: 18.2.0
     react-countdown: 2.3.5
     react-dom: 18.2.0
-    react-hook-form: 7.41.0
+    react-hook-form: 7.41.1
     react-hot-toast: 2.4.0
     react-json-pretty: 2.2.0
     react-refresh: 0.14.0
-    react-router-dom: 6.5.0
+    react-router-dom: 6.6.1
     react-scrolllock: 5.0.1
     react-spinners: 0.13.7
     react-success-indicator: 1.1.0
@@ -3972,12 +3972,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:13.0.7":
-  version: 13.0.7
-  resolution: "@next/eslint-plugin-next@npm:13.0.7"
+"@next/eslint-plugin-next@npm:13.1.1":
+  version: 13.1.1
+  resolution: "@next/eslint-plugin-next@npm:13.1.1"
   dependencies:
     glob: 7.1.7
-  checksum: 16b911e322d8a1f65cb7d4e734d77bab94eb1d746325f3605aec8916de6c30678b83cc3f496a6fbe1ded74347a91fbca83aab458ca60e7e0b5fb56b3a5cdfb08
+  checksum: 27e49ef988db3203d494930ad1fcdc270761a61a41e6925c0eadf1e2b1ebd6648722a3aaec7f0c0266eea8771797e06d52f041d33c93d21ba3b361ffe696c36c
   languageName: node
   linkType: hard
 
@@ -4722,10 +4722,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/router@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@remix-run/router@npm:1.1.0"
-  checksum: 18e28668c3cbb848ed5a82ce598d55304edecd737ee3c573f0d4f391f3ceca5818702c5078b613f5d98ce25aef5273a2aa6c26395b7790800e03d8ab7cf808ea
+"@remix-run/router@npm:1.2.1":
+  version: 1.2.1
+  resolution: "@remix-run/router@npm:1.2.1"
+  checksum: 71c947f83e130bf006226332aca395f626ad599b6d35dfe936f6a8f139cf37278bc1b36bce38c30f6062724402358296329f31c385b11ae59b13b76a2716d701
   languageName: node
   linkType: hard
 
@@ -4860,84 +4860,84 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/browser@npm:7.28.0":
-  version: 7.28.0
-  resolution: "@sentry/browser@npm:7.28.0"
+"@sentry/browser@npm:7.28.1":
+  version: 7.28.1
+  resolution: "@sentry/browser@npm:7.28.1"
   dependencies:
-    "@sentry/core": 7.28.0
-    "@sentry/replay": 7.28.0
-    "@sentry/types": 7.28.0
-    "@sentry/utils": 7.28.0
+    "@sentry/core": 7.28.1
+    "@sentry/replay": 7.28.1
+    "@sentry/types": 7.28.1
+    "@sentry/utils": 7.28.1
     tslib: ^1.9.3
-  checksum: 2d974ec4f052a89232928d929cb78b0505fb3f4aefa14a55ffbbe9801bf6e14e42267db35056e46e6fed8038bfb4417c350e70ec882f7feec623675ea33e4795
+  checksum: 6cbafc58a08a47db078a56b41544cb483f3898a980db37449cf81553776ac2e1716d9006a9bdc08027ce1666a88eddf20e54ee65870cfcb16f22f61905af000a
   languageName: node
   linkType: hard
 
-"@sentry/core@npm:7.28.0":
-  version: 7.28.0
-  resolution: "@sentry/core@npm:7.28.0"
+"@sentry/core@npm:7.28.1":
+  version: 7.28.1
+  resolution: "@sentry/core@npm:7.28.1"
   dependencies:
-    "@sentry/types": 7.28.0
-    "@sentry/utils": 7.28.0
+    "@sentry/types": 7.28.1
+    "@sentry/utils": 7.28.1
     tslib: ^1.9.3
-  checksum: 46316388b60b212caf9ceffd5d5c09c67082c2d0b48edfc6c70d7045cabd0f2c9669a7e3e609c042ff029d41edeea07121934202bdff6b1ec370285b293c48e3
+  checksum: 8c9e89f8a4efe84a925b5e626828dd90a714b7c017503b04d7bf754fd7e402f0ed6449250d3c03a40493b6fc2323f804f172c6b792fe2003531afdc578f1587a
   languageName: node
   linkType: hard
 
-"@sentry/react@npm:7.28.0":
-  version: 7.28.0
-  resolution: "@sentry/react@npm:7.28.0"
+"@sentry/react@npm:7.28.1":
+  version: 7.28.1
+  resolution: "@sentry/react@npm:7.28.1"
   dependencies:
-    "@sentry/browser": 7.28.0
-    "@sentry/types": 7.28.0
-    "@sentry/utils": 7.28.0
+    "@sentry/browser": 7.28.1
+    "@sentry/types": 7.28.1
+    "@sentry/utils": 7.28.1
     hoist-non-react-statics: ^3.3.2
     tslib: ^1.9.3
   peerDependencies:
     react: 15.x || 16.x || 17.x || 18.x
-  checksum: 6dafa921e8312621b57eb4955d8ecb0eb8e1494b112db76ec97956693ea6a1ab88509e55db9bc8948a85796681e0451e6d239c1e16da826a4e4afdaeb9c2f065
+  checksum: 7eb875be84e64a5f5dfb3f2cf82188f076406fd6cbfa472f5524ae00ee4b1f749a8a0435dcad8f7ed13dc02553ba56040043a0a4e45d676329b91553396d2226
   languageName: node
   linkType: hard
 
-"@sentry/replay@npm:7.28.0":
-  version: 7.28.0
-  resolution: "@sentry/replay@npm:7.28.0"
+"@sentry/replay@npm:7.28.1":
+  version: 7.28.1
+  resolution: "@sentry/replay@npm:7.28.1"
   dependencies:
-    "@sentry/core": 7.28.0
-    "@sentry/types": 7.28.0
-    "@sentry/utils": 7.28.0
+    "@sentry/core": 7.28.1
+    "@sentry/types": 7.28.1
+    "@sentry/utils": 7.28.1
   peerDependencies:
     "@sentry/browser": ">=7.24.0"
-  checksum: 4a0a58850f382b095d9f34d438900729723f703a30e0d0401cddf123376f32266df54b0a77305f0bf4468417c26f570ecbc826ef7d08e270b6a9b7d83e19724b
+  checksum: e47d40d5e6044b78aba3d0612dcf03240bb0d507106bb9e111c1beae60a1c972112c6ff442393cc2c47aed77079f645bd4614069315c4f44a1bb7514bb09b0dc
   languageName: node
   linkType: hard
 
-"@sentry/tracing@npm:7.28.0":
-  version: 7.28.0
-  resolution: "@sentry/tracing@npm:7.28.0"
+"@sentry/tracing@npm:7.28.1":
+  version: 7.28.1
+  resolution: "@sentry/tracing@npm:7.28.1"
   dependencies:
-    "@sentry/core": 7.28.0
-    "@sentry/types": 7.28.0
-    "@sentry/utils": 7.28.0
+    "@sentry/core": 7.28.1
+    "@sentry/types": 7.28.1
+    "@sentry/utils": 7.28.1
     tslib: ^1.9.3
-  checksum: 4851b719ccc3cc85c347857961f7933acec0abe085952b392efddcdba0a6f2ff314deab48b18a3722779cfac3ea0a023aa88c99f700e7c0ac7d523c11d88509c
+  checksum: 74a0a7d64dc7aaa6cd85ad171cf44f299e7823634263594c1a7d7826ff4153442ae00b7099b5b36ec1b3d3a31b119c92ac190c9a59345007d4e0cd33a4e5a3c1
   languageName: node
   linkType: hard
 
-"@sentry/types@npm:7.28.0":
-  version: 7.28.0
-  resolution: "@sentry/types@npm:7.28.0"
-  checksum: 722d31939c4e7d29108b5bccdb7b277c57e5f839cd14bdf0d0efe5a70d31bf629ad28f43fcef16d44d648e9d5b4ac0a6b3c386f698153a40cb2667f8e80a1ce9
+"@sentry/types@npm:7.28.1":
+  version: 7.28.1
+  resolution: "@sentry/types@npm:7.28.1"
+  checksum: 57dcd5737e29990b15c1d723c47b125d325ead0766e2729c3bd0f499f6e034a9ff81b9474546ea6ecd2216b4956dbdcf342ecc13ef5a202468fd732ffb687cbf
   languageName: node
   linkType: hard
 
-"@sentry/utils@npm:7.28.0":
-  version: 7.28.0
-  resolution: "@sentry/utils@npm:7.28.0"
+"@sentry/utils@npm:7.28.1":
+  version: 7.28.1
+  resolution: "@sentry/utils@npm:7.28.1"
   dependencies:
-    "@sentry/types": 7.28.0
+    "@sentry/types": 7.28.1
     tslib: ^1.9.3
-  checksum: fdb0eac647b91a6c204a3e592aeb100996b13eaf30be4f36cb70c26dfe222957ccf56f695b41bd2abe270679aa5db3080df8d68f8d0e59628b5519fbbf824802
+  checksum: 83a6b66b879a827f5656db02cdd23362f3158746a8da42c1683d8d5d0e5ff8ba8e74058ff8d3dea8924a9f307b74c3e021e26167b9296707f7afe08971c7f4ae
   languageName: node
   linkType: hard
 
@@ -7213,7 +7213,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.9, @types/react-dom@npm:^18.0.0":
+"@types/react-dom@npm:18.0.10":
+  version: 18.0.10
+  resolution: "@types/react-dom@npm:18.0.10"
+  dependencies:
+    "@types/react": "*"
+  checksum: ff8282d5005a0b1cd95fb65bf79d3d8485e4cfe2aaf052129033a178684b940014a3f4536bc20d573f8a01cf4c6f4770c74988cef7c2b5cac3041d9f172647e3
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:^18.0.0":
   version: 18.0.9
   resolution: "@types/react-dom@npm:18.0.9"
   dependencies:
@@ -11307,7 +11316,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:3.26.1, core-js@npm:^3.0.4, core-js@npm:^3.25.1, core-js@npm:^3.6.5, core-js@npm:^3.8.2":
+"core-js@npm:3.27.0":
+  version: 3.27.0
+  resolution: "core-js@npm:3.27.0"
+  checksum: 14bf6772e1c73a1cb3848ff63cae8d8f28354195e95ff550f2c4a7ae04650987691e37d6c9fe73789ffd97055b024fc7df825c203965f9a9b9aa6fb9f26f8571
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.0.4, core-js@npm:^3.25.1, core-js@npm:^3.6.5, core-js@npm:^3.8.2":
   version: 3.26.1
   resolution: "core-js@npm:3.26.1"
   checksum: 0a01149f51ff1e9f41d1ea49cc4c9222047949ea597189ede7c4cf8cde3b097766b9c7615acc77c86fe65b4002f20b638a133dfba7b41dba830d707aeeed45ad
@@ -11383,13 +11399,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmjs-types@npm:0.6.0":
-  version: 0.6.0
-  resolution: "cosmjs-types@npm:0.6.0"
+"cosmjs-types@npm:0.6.1":
+  version: 0.6.1
+  resolution: "cosmjs-types@npm:0.6.1"
   dependencies:
     long: ^4.0.0
     protobufjs: ~6.11.2
-  checksum: 06000f10d931bbd23381a2303337f6c203add988d2e4e63307a0b920b2c317197d3e17d4fc535e55e7fdc211e472ee3dff18847bb7f42704d194370a1c6ed581
+  checksum: 479ca1b307db35c612a420b6b5d556e58c463478bf733a8328d83455e25dadfe0bc41623bb057040aabc532c4f0afb5475328179e9315419dd77439cb4431588
   languageName: node
   linkType: hard
 
@@ -13015,11 +13031,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:13.0.7":
-  version: 13.0.7
-  resolution: "eslint-config-next@npm:13.0.7"
+"eslint-config-next@npm:13.1.1":
+  version: 13.1.1
+  resolution: "eslint-config-next@npm:13.1.1"
   dependencies:
-    "@next/eslint-plugin-next": 13.0.7
+    "@next/eslint-plugin-next": 13.1.1
     "@rushstack/eslint-patch": ^1.1.3
     "@typescript-eslint/parser": ^5.42.0
     eslint-import-resolver-node: ^0.3.6
@@ -13034,7 +13050,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 127143c08d4ad4c842f31c380a7f8f6ee6f5cda0bff71b64884127b497dfc0cd1f5b8690391347f9722432f4754f7e213ce7bbb4c7d48fe2beb2f9a9398dc526
+  checksum: 098465b42e277433e4f815465b49ab655fc35a62ac016a47f60d7e44248f1b87a70b2dfd2ef090ffbb4cb1a694d409ff0811d2eb64028ce61f535403c7a0f27a
   languageName: node
   linkType: hard
 
@@ -19094,7 +19110,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:4.2.4, marked@npm:^4.1.1":
+"marked@npm:4.2.5":
+  version: 4.2.5
+  resolution: "marked@npm:4.2.5"
+  bin:
+    marked: bin/marked.js
+  checksum: dd7da20a3983c66b516463fad5dc8d15dc70e137d20b6dc491e134f671e84bd2ed5f859e2c35f21e56830a122e4356b9e574bcde49b72b7ad6bc121a215a1a98
+  languageName: node
+  linkType: hard
+
+"marked@npm:^4.1.1":
   version: 4.2.4
   resolution: "marked@npm:4.2.4"
   bin:
@@ -23242,12 +23267,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.41.0":
-  version: 7.41.0
-  resolution: "react-hook-form@npm:7.41.0"
+"react-hook-form@npm:7.41.1":
+  version: 7.41.1
+  resolution: "react-hook-form@npm:7.41.1"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: 72107a7f2f1d9981c323b93046e6495a910d7a0db93004a207a455d3166ca5b76d245b02a67e96a4d436b7a821c16c0a645e01afd876d6f35b0db750ed2e7ae6
+  checksum: 30f7ea67e29c3527d25f87b9ea8789f6722780759adf0718a0dadc6160227ae763c68ddedf63d8311f0902e4ce27225eff37b93a82eac868fc5e0a0d00dbbd14
   languageName: node
   linkType: hard
 
@@ -23323,27 +23348,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:6.5.0":
-  version: 6.5.0
-  resolution: "react-router-dom@npm:6.5.0"
+"react-router-dom@npm:6.6.1":
+  version: 6.6.1
+  resolution: "react-router-dom@npm:6.6.1"
   dependencies:
-    "@remix-run/router": 1.1.0
-    react-router: 6.5.0
+    "@remix-run/router": 1.2.1
+    react-router: 6.6.1
   peerDependencies:
     react: ">=16.8"
     react-dom: ">=16.8"
-  checksum: b428d3cfd5d7c95caac6130f6814a619c82b26c2c1de49a7bcf6062f5d3fe873eb405cca0732440b961f34d87633951a65f682bece7f55096775e6a456dc7671
+  checksum: 68a4419c203add0df0203ac2a58e5832949105e0c0561a0850f74cac8e3108507fd8d9c62baeb10ea5ce4cb8eaddea9475bcb3787bdabb3ede23b55564b835ae
   languageName: node
   linkType: hard
 
-"react-router@npm:6.5.0":
-  version: 6.5.0
-  resolution: "react-router@npm:6.5.0"
+"react-router@npm:6.6.1":
+  version: 6.6.1
+  resolution: "react-router@npm:6.6.1"
   dependencies:
-    "@remix-run/router": 1.1.0
+    "@remix-run/router": 1.2.1
   peerDependencies:
     react: ">=16.8"
-  checksum: f1f43361e3c7cfc04c92812362f36fb42609cc93ee6625afc18aff76a92534d1066261c0714d75b8f98b673933247eb743129c90babe684d6ad844574024ad07
+  checksum: 58f0ad29123e2854d547915a1ae1cc2687504e396d71db50fe8f36ad733d7940a2914d45868a8478b6138536e119fa5e3303212b7c7b1d81d80cd5b0bbefdfa2
   languageName: node
   linkType: hard
 
