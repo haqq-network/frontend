@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode, useMemo } from 'react';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { environment } from '../environments/environment';
-import { ConfigProvider, ThemeProvider, WagmiProvider } from '@haqq/providers';
+import { ConfigProvider, ThemeProvider, WagmiProvider } from '@haqq/shared';
 import { BrowserRouter } from 'react-router-dom';
 
 function AuthContainer({ children }: { children: ReactElement }) {

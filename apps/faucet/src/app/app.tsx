@@ -2,7 +2,7 @@ import { lazy, ReactElement, Suspense } from 'react';
 import { Footer } from '../components/Footer';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Header, NotFoundPage, Page, PendingPage } from '@haqq/ui-kit';
-import { ThemeButton } from '@haqq/theme';
+import { ThemeButton } from '@haqq/shared';
 
 const Faucet = lazy(() => {
   return import('../components/Faucet');

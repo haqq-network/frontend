@@ -1,7 +1,6 @@
-import { useConfig } from '@haqq/providers';
-import { getChainParams } from '@haqq/shared';
-import { hexValue } from 'ethers/lib/utils';
 import { ReactElement } from 'react';
+import { getChainParams, useConfig } from '@haqq/shared';
+import { hexValue } from 'ethers/lib/utils';
 import { useNetwork } from 'wagmi';
 import { useOnboarding } from '../../OnboardingContainer';
 import { Button } from '../Button/Button';

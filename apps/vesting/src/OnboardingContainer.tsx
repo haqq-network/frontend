@@ -12,9 +12,7 @@ import { hexValue } from 'ethers/lib/utils';
 import { useAccount, useConnect, useNetwork } from 'wagmi';
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { NoMetamaskAlert } from './components/modals/NoMetamaskAlert/NoMetamaskAlert';
-import { environment } from './environments/environment';
-import { getChainParams } from '@haqq/shared';
-import { useConfig } from '@haqq/providers';
+import { getChainParams, useConfig } from '@haqq/shared';
 
 export type OnboardingSteps =
   | 'start'

@@ -3,8 +3,7 @@ import { Button } from '../Button/Button';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { Heading, Text } from '../Typography/Typography';
 import { useOnboarding } from '../../OnboardingContainer';
-import { useConfig } from '@haqq/providers';
-import { getChainParams } from '@haqq/shared';
+import { getChainParams, useConfig } from '@haqq/shared';
 
 function AddNetworkDetailsItem({
   title,

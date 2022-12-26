@@ -1,6 +1,5 @@
-import { useConfig } from '@haqq/providers';
-import { getChainParams } from '@haqq/shared';
 import { useMemo } from 'react';
+import { getChainParams, useConfig } from '@haqq/shared';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { useOnboarding } from '../../OnboardingContainer';
 import { AccountButton } from '../AccountButton/AccountButton';

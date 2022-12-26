@@ -15,8 +15,7 @@ import { Alert } from '../modals/Alert/Alert';
 import { Confirm } from '../modals/Confirm/Confirm';
 import { Input } from '../Input/Input';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
-import { useConfig } from '@haqq/providers';
-import { getChainParams } from '@haqq/shared';
+import { useConfig, getChainParams } from '@haqq/shared';
 import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
 
 export { HaqqVestingContract };

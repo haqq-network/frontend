@@ -1,7 +1,6 @@
 import { useCallback, useState, Fragment, useEffect } from 'react';
-import { getChainParams } from '@haqq/shared';
+import { getChainParams, useConfig } from '@haqq/shared';
 import { useContract, useProvider } from 'wagmi';
-import { useConfig } from '@haqq/providers';
 import {
   Deposit,
   DepositInfo,
