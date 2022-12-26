@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client';
-
 import { App } from './app/app';
 import { environment } from './environments/environment';
 import { AppProviders, createTendermintClient } from '@haqq/shared';

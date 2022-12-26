@@ -1,15 +1,19 @@
 import { Fragment, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ValidatorListItem } from '@haqq/staking/ui-kit';
 import { Card, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
-import type { Validator } from '@evmos/provider';
+import { ValidatorListItem } from '../validator-list-item/validator-list-item';
+import type {
+  DistributionRewardsResponse,
+  GetDelegationsResponse,
+  Validator,
+} from '@evmos/provider';
 
 interface ValidatorListProps {
   validators?: Validator[];
   error?: any;
   status?: 'loading' | 'success' | 'error' | 'idle';
-  rewardsInfo?: any;
-  delegationInfo?: any;
+  rewardsInfo: DistributionRewardsResponse | null | undefined;
+  delegationInfo: GetDelegationsResponse | null | undefined;
 }
 
 export function ValidatorsList({
@@ -21,7 +25,7 @@ export function ValidatorsList({
 }: ValidatorListProps) {
   const getValidatorRewards = useCallback(
     (address: string) => {
-      const rewards = rewardsInfo?.rewards?.find((rewardsItem: any) => {
+      const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
         return rewardsItem.validator_address === address;
       });
 
@@ -33,7 +37,7 @@ export function ValidatorsList({
   const getDelegationInfo = useCallback(
     (address: string) => {
       const delegationAmount = delegationInfo?.delegation_responses?.find(
-        (delegation: any) => {
+        (delegation) => {
           return delegation.delegation.validator_address === address;
         },
       );
@@ -52,7 +56,7 @@ export function ValidatorsList({
             <Text block>Fetching validators list</Text>
           </div>
         )}
-        {status === 'error' && <p>Error: {(error as any).message}</p>}
+        {status === 'error' && <p>Error: {error.message}</p>}
         {status === 'success' && (
           <Fragment>
             <div className="px-6 py-3 border-b border-islamic-black-100/20">
@@ -88,12 +92,6 @@ export function ValidatorsList({
                           validator={validator}
                           delegation={delegationInfo}
                           reward={rewardsInfo}
-                          // index={pageIndex * 100 + index + 1}
-                          // symbol="islm"
-                          // onClick={() => {
-                          //   setCurrentValidatorAddress(validator.operator_address);
-                          //   setValidatorInfoModalOpen(true);
-                          // }}
                         />
                       </Link>
                     );
