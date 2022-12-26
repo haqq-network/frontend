@@ -3,10 +3,8 @@ import { useAccount, useBalance } from 'wagmi';
 import { AccountWidget } from '../components/AccountWidget/AccountWidget';
 import { DepositStatsWidget } from '../components/DepositStatsWidget/DepositStatsWidget';
 import { Container } from '../components/Layout/Layout';
-import { useAddress } from '@haqq/hooks';
-import { useConfig } from '@haqq/providers';
 import { environment } from '../environments/environment';
-import { getChainParams } from '@haqq/shared';
+import { getChainParams, useAddress, useConfig } from '@haqq/shared';
 
 export function AccountPage() {
   const { isConnected } = useAccount();

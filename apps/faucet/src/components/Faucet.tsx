@@ -10,9 +10,7 @@ import { PulseLoader } from 'react-spinners';
 import { useAccount, useConnect, useNetwork } from 'wagmi';
 import { hexValue } from 'ethers/lib/utils';
 import { environment } from '../environments/environment';
-import { useConfig } from '@haqq/providers';
-import { getChainParams } from '@haqq/shared';
-import { useTheme } from '@haqq/theme';
+import { getChainParams, useConfig, useTheme } from '@haqq/shared';
 import { Button2 } from '@haqq/ui-kit';
 
 interface ClaimInfo {

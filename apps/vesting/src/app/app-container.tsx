@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { environment } from '../environments/environment';
 import { OnboardingContainer } from '../OnboardingContainer';
-import { ConfigProvider, WagmiProvider } from '@haqq/providers';
+import { ConfigProvider, WagmiProvider } from '@haqq/shared';
 
 export function AppContainer({ children }: { children: ReactElement }) {
   return (
