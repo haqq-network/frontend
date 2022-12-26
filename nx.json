@@ -7,13 +7,16 @@
   "packageManager": "yarn",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["lint", "test", "e2e", "build-storybook"],
-        "accessToken": "ZWQ5MDY2NGEtNDY5NS00ZjcxLThkNzMtYjQ1MzVhZWVlZGI2fHJlYWQtd3JpdGU=",
-        "options": {
-          "cacheDirectory": "/tmp/nx-cache"
-        }
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "build-storybook"
+        ],
+        "cacheDirectory": "/tmp/nx-cache"
       }
     }
   },
@@ -42,15 +45,15 @@
   "generators": {
     "@nrwl/react": {
       "application": {
-        "style": "@emotion/styled",
+        "style": "css",
         "linter": "eslint",
         "babel": true
       },
       "component": {
-        "style": "@emotion/styled"
+        "style": "css"
       },
       "library": {
-        "style": "@emotion/styled",
+        "style": "css",
         "linter": "eslint"
       }
     },
