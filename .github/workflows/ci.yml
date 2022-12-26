@@ -11,34 +11,46 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  main:
-    name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.10
-    with:
-      number-of-agents: 3
-      node-version: 18.12.1
-      yarn-version: 3.3.0
-      main-branch-name: dev
-      install-commands: yarn install --immutable
-      init-commands: |
-        yarn nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
-      parallel-commands: |
-        yarn nx-cloud record -- yarn nx workspace-lint
-        yarn nx-cloud record -- yarn nx format:check
-      parallel-commands-on-agents: |
-        yarn nx run-many --target=lint --parallel=3
-        yarn nx run-many --target=test --parallel=3 --ci --code-coverage
-        yarn nx run-many --target=build --parallel=3
-      artifacts-path: |
-        coverage
-        dist
-      artifacts-name: artifact
+  test-and-lint:
+    name: Test and Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+          cache: yarn
+      - name: Setup dependencies
+        run: yarn install --immutable
+      - name: Run lint
+        run: yarn nx run-many --target=lint --parallel=3
+      - name: Run tests
+        run: yarn nx run-many --target=test --parallel=3 --ci --code-coverage
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage/
 
-  agents:
-    name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.10
-    with:
-      number-of-agents: 3
-      node-version: 18.12.1
-      yarn-version: 3.3.0
-      install-commands: yarn install --immutable
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+          cache: yarn
+      - name: Setup dependencies
+        run: yarn install --immutable
+      - name: Build
+        run: yarn nx run-many --target=build --parallel=3
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
