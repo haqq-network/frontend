@@ -3059,7 +3059,6 @@ __metadata:
     "@nrwl/jest": 15.3.0
     "@nrwl/linter": 15.3.0
     "@nrwl/next": 15.3.0
-    "@nrwl/nx-cloud": 15.0.2
     "@nrwl/react": 15.3.0
     "@nrwl/storybook": 15.3.0
     "@nrwl/web": 15.3.0
@@ -4355,24 +4354,6 @@ __metadata:
   peerDependencies:
     next: ^13.0.0
   checksum: 67c894c35fab34f2a72d1c037494cadd84f5bac9381e57a1a408242fca8f0aece4dadbbce0138987f030e22738e47a59e5ba5b4f831e7d1710bddc88758061ad
-  languageName: node
-  linkType: hard
-
-"@nrwl/nx-cloud@npm:15.0.2":
-  version: 15.0.2
-  resolution: "@nrwl/nx-cloud@npm:15.0.2"
-  dependencies:
-    axios: ^0.21.2
-    chalk: 4.1.0
-    dotenv: ~10.0.0
-    fs-extra: ^10.1.0
-    node-machine-id: ^1.1.12
-    strip-json-comments: ^3.1.1
-    tar: 6.1.11
-    yargs-parser: ">=21.0.1"
-  bin:
-    nx-cloud: bin/nx-cloud.js
-  checksum: eae0c7f881af0213251afd10e9ce968d1578177fad60a5cc769951eaeb67cfd38d9860bf4d9399d763051a3e9e417d35540d4c260d005247a9a3a16e264cc1d3
   languageName: node
   linkType: hard
 
@@ -20595,13 +20576,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-machine-id@npm:^1.1.12":
-  version: 1.1.12
-  resolution: "node-machine-id@npm:1.1.12"
-  checksum: e23088a0fb4a77a1d6484b7f09a22992fd3e0054d4f2e427692b4c7081e6cf30118ba07b6113b6c89f1ce46fd26ec5ab1d76dcaf6c10317717889124511283a5
-  languageName: node
-  linkType: hard
-
 "node-releases@npm:^2.0.6":
   version: 2.0.8
   resolution: "node-releases@npm:2.0.8"
@@ -25991,20 +25965,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:6.1.11":
-  version: 6.1.11
-  resolution: "tar@npm:6.1.11"
-  dependencies:
-    chownr: ^2.0.0
-    fs-minipass: ^2.0.0
-    minipass: ^3.0.0
-    minizlib: ^2.1.1
-    mkdirp: ^1.0.3
-    yallist: ^4.0.0
-  checksum: a04c07bb9e2d8f46776517d4618f2406fb977a74d914ad98b264fc3db0fe8224da5bec11e5f8902c5b9bcb8ace22d95fbe3c7b36b8593b7dfc8391a25898f32f
-  languageName: node
-  linkType: hard
-
 "tar@npm:^4.0.2":
   version: 4.4.19
   resolution: "tar@npm:4.4.19"
@@ -28582,7 +28542,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:21.1.1, yargs-parser@npm:>=21.0.1, yargs-parser@npm:^21.0.1, yargs-parser@npm:^21.1.1":
+"yargs-parser@npm:21.1.1, yargs-parser@npm:^21.0.1, yargs-parser@npm:^21.1.1":
   version: 21.1.1
   resolution: "yargs-parser@npm:21.1.1"
   checksum: ed2d96a616a9e3e1cc7d204c62ecc61f7aaab633dcbfab2c6df50f7f87b393993fe6640d017759fe112d0cb1e0119f2b4150a87305cc873fd90831c6a58ccf1c
