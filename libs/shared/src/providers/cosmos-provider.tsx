@@ -36,8 +36,9 @@ import store from 'store2';
 import { TendermintClientContext } from './tendermint-provider';
 import { useConfig } from './config-provider';
 import { getChainParams } from '../chains/get-chain-params';
+import { Coin } from '@evmos/transactions';
 
-interface ComsosClient
+interface CosmosClient
   extends QueryClient,
     StakingExtension,
     DistributionExtension,
@@ -62,13 +63,17 @@ interface ComsosService {
   getProposalDetails: (id: string) => Promise<Proposal>;
   getAccountDelegations: (address: string) => Promise<GetDelegationsResponse>;
   getRewardsInfo: (address: string) => Promise<DistributionRewardsResponse>;
+  getStakingPool: () => Promise<GetStakingPoolResponse>;
+  getAuthAccounts: () => Promise<GetAuthAccountsResponse>;
+  getDistributionPool: () => Promise<GetDistributionPoolResponse>;
+  getBankSupply: () => Promise<GetBankSupplyResponse>;
 
   getAccountInfo: any;
   broadcastTransaction: any;
   getUndelegations: any;
 }
 
-export const CosmosClientContext = createContext<ComsosClient | undefined>(
+export const CosmosClientContext = createContext<CosmosClient | undefined>(
   undefined,
 );
 
@@ -100,19 +105,69 @@ export function useCosmosService() {
   return cosmosService;
 }
 
+function generateEndpointStakingPool() {
+  return '/cosmos/staking/v1beta1/pool';
+}
+
+function generateEndpointAuthAccounts() {
+  return '/cosmos/auth/v1beta1/accounts';
+}
+
+function generateEndpointDistributionPool() {
+  return '/cosmos/distribution/v1beta1/community_pool';
+}
+
+function generateEndpointBankSupply() {
+  return '/cosmos/bank/v1beta1/supply';
+}
+
+interface GetStakingPoolResponse {
+  pool: {
+    not_bonded_tokens: string;
+    bonded_tokens: string;
+  };
+}
+
+interface Pagination {
+  next_key: 'string';
+  total: 'string';
+}
+
+interface GetAuthAccountsResponse {
+  accounts: Array<{
+    base_account: {
+      address: string;
+      account_number: string;
+      sequence: string;
+      [key: string]: unknown;
+    };
+    code_hash: string;
+  }>;
+  pagination: Pagination;
+}
+
+interface GetDistributionPoolResponse {
+  pool: Coin[];
+}
+
+interface GetBankSupplyResponse {
+  supply: Coin[];
+  pagination: Pagination;
+}
+
 function createCosmosService(
-  cosmosClient: ComsosClient,
+  cosmosClient: CosmosClient,
   cosmosRestEndpoint: string,
   signer?: Signer,
 ): ComsosService {
   async function getAllValidators(limit = 1000) {
-    const response = await fetch(
-      `${cosmosRestEndpoint}${generateEndpointGetValidators()}?pagination.limit=${limit}`,
-      {
-        method: 'get',
-        headers: { 'Content-Type': 'application/json' },
-      },
+    const getValidatorsUrl = new URL(
+      `${cosmosRestEndpoint}/${generateEndpointGetValidators()}`,
     );
+
+    getValidatorsUrl.searchParams.append('pagination.limit', limit.toString());
+
+    const response = await fetch(getValidatorsUrl);
     const data = await response.json();
 
     return data.validators as Validator[];
@@ -147,18 +202,13 @@ function createCosmosService(
   }
 
   async function getRewardsInfo(address: string) {
-    // console.log('getRewardsInfo');
-    // const info = await cosmosClient.distribution.delegationTotalRewards(
-    //   address,
-    // );
-
     const info = await fetch(
       `${cosmosRestEndpoint}/${generateEndpointDistributionRewardsByAddress(
         address,
       )}`,
     );
 
-    return await info.json();
+    return (await info.json()) as DistributionRewardsResponse;
   }
 
   async function getUndelegations(address: string) {
@@ -274,6 +324,42 @@ function createCosmosService(
     return proposal as Proposal;
   }
 
+  async function getStakingPool() {
+    const stakingPoolResponse = await fetch(
+      `${cosmosRestEndpoint}/${generateEndpointStakingPool()}`,
+    );
+
+    return (await stakingPoolResponse.json()) as GetStakingPoolResponse;
+  }
+
+  async function getAuthAccounts() {
+    const authAccountsUrl = new URL(
+      `${cosmosRestEndpoint}/${generateEndpointAuthAccounts()}`,
+    );
+
+    // authAccountsUrl.searchParams.append('pagination.limit', '0');
+
+    const authAccountsResponse = await fetch(authAccountsUrl);
+
+    return (await authAccountsResponse.json()) as GetAuthAccountsResponse;
+  }
+
+  async function getDistributionPool() {
+    const distributionPoolResponse = await fetch(
+      `${cosmosRestEndpoint}/${generateEndpointDistributionPool()}`,
+    );
+
+    return (await distributionPoolResponse.json()) as GetDistributionPoolResponse;
+  }
+
+  async function getBankSupply() {
+    const bankSupplyResponse = await fetch(
+      `${cosmosRestEndpoint}/${generateEndpointBankSupply()}`,
+    );
+
+    return (await bankSupplyResponse.json()) as GetBankSupplyResponse;
+  }
+
   return {
     getPaginatedValidators,
     getValidatorInfo,
@@ -288,6 +374,10 @@ function createCosmosService(
     getPubkey,
     getProposals,
     getProposalDetails,
+    getStakingPool,
+    getAuthAccounts,
+    getDistributionPool,
+    getBankSupply,
   };
 }
 

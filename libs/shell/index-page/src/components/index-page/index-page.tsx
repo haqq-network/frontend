@@ -1,5 +1,6 @@
-import { Card, CardHeading, Container, Heading } from '@haqq/ui-kit';
+import { Container, Heading } from '@haqq/ui-kit';
 import { ShellIndexPageAccountInfo } from '../account-info/account-info';
+import { ShellIndexPageChainStats } from '../chain-stats/chain-stats';
 import { ShellIndexPageDelegationList } from '../delegation-list/delegation-list';
 import { ShellIndexPageProposalList } from '../proposal-list/proposal-list';
 
@@ -30,26 +31,9 @@ export function ShellIndexPage() {
           </div>
           <div>
             <Heading level={3} className="mb-4">
-              Statistics
+              Chain stats
             </Heading>
-            <Card className="grid grid-cols-2 gap-4">
-              <div>
-                <CardHeading>Total Staked</CardHeading>
-                <div>123</div>
-              </div>
-              <div className="text-right">
-                <CardHeading>Validators</CardHeading>
-                <div>123</div>
-              </div>
-              <div>
-                <CardHeading>Peers</CardHeading>
-                <div>123</div>
-              </div>
-              <div className="text-right">
-                <CardHeading>Nodes</CardHeading>
-                <div>123</div>
-              </div>
-            </Card>
+            <ShellIndexPageChainStats />
           </div>
         </div>
       </div>

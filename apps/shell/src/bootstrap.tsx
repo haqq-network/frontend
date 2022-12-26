@@ -28,6 +28,7 @@ async function startApp() {
     <AppProviders
       tendermintClient={tendermintClient}
       chainName={environment.chainName}
+      withReactQueryDevtools={!environment.isProduction}
     >
       <App />
     </AppProviders>,

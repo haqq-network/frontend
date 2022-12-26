@@ -91,6 +91,14 @@ export function ShellIndexPageDelegationList() {
     return mapAndSortValidators(validatorsList, delegationInfo, rewardsInfo);
   }, [delegationInfo, rewardsInfo, validatorsList]);
 
+  if (!haqqAddress) {
+    return (
+      <Card className="!p-0 flex flex-row items-center justify-center min-h-[293px]">
+        <div>You should connect wallet first</div>
+      </Card>
+    );
+  }
+
   return (
     <div>
       <Card className="!p-0 flex flex-col flex-1">
@@ -119,12 +127,10 @@ export function ShellIndexPageDelegationList() {
             {validatorsWithDelegation?.length ? (
               validatorsWithDelegation.map((validator, index) => {
                 return (
-                  <Link
-                    to={`staking/validator/${validator.address}`}
+                  <ValidatorWithDelegationListItem
+                    validator={validator}
                     key={`validator-${index}`}
-                  >
-                    <ValidatorWithDelegationListItem validator={validator} />
-                  </Link>
+                  />
                 );
               })
             ) : (
@@ -158,7 +164,10 @@ export function ValidatorWithDelegationListItem({
   }, [validator.rewards]);
 
   return (
-    <div className="px-6 py-4 hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/20 border-b border-islamic-black-100/20 cursor-pointer transition-[background] duration-75">
+    <Link
+      to={`staking/validator/${validator.address}`}
+      className="block px-6 py-4 hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/10 border-b border-islamic-black-100/20 cursor-pointer transition-[background] duration-75 last:border-b-0"
+    >
       <div className="flex items-center justify-between space-x-6">
         <div className="w-1/3">
           <div>{validator.name}</div>
@@ -177,6 +186,6 @@ export function ValidatorWithDelegationListItem({
         <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
         <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>
       </div>
-    </div>
+    </Link>
   );
 }
