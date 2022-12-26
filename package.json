@@ -47,7 +47,7 @@
     "bech32-converting": "1.0.9",
     "clsx": "1.2.1",
     "core-js": "3.26.1",
-    "cosmjs-types": "0.6.0",
+    "cosmjs-types": "0.6.1",
     "decimal.js-light": "2.5.1",
     "ethers": "5.7.2",
     "marked": "4.2.4",
