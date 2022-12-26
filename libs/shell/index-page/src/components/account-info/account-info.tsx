@@ -15,7 +15,7 @@ export function ShellIndexPageAccountInfo() {
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-  console.log({ delegationInfo, rewardsInfo });
+
   const balance = useMemo(() => {
     if (!balanceData) {
       return undefined;
