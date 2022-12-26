@@ -121,19 +121,19 @@ function generateEndpointBankSupply() {
   return '/cosmos/bank/v1beta1/supply';
 }
 
-interface GetStakingPoolResponse {
+export interface GetStakingPoolResponse {
   pool: {
     not_bonded_tokens: string;
     bonded_tokens: string;
   };
 }
 
-interface Pagination {
+export interface Pagination {
   next_key: 'string';
   total: 'string';
 }
 
-interface GetAuthAccountsResponse {
+export interface GetAuthAccountsResponse {
   accounts: Array<{
     base_account: {
       address: string;
@@ -146,11 +146,11 @@ interface GetAuthAccountsResponse {
   pagination: Pagination;
 }
 
-interface GetDistributionPoolResponse {
+export interface GetDistributionPoolResponse {
   pool: Coin[];
 }
 
-interface GetBankSupplyResponse {
+export interface GetBankSupplyResponse {
   supply: Coin[];
   pagination: Pagination;
 }

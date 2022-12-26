@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 import { formatUnits } from 'ethers/lib/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
-import { ValidatorStatus } from '@haqq/staking/ui-kit';
-import type { Validator } from '@evmos/provider';
+import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
+import { ValidatorStatus } from '../validator-status/validator-status';
 
 export interface ValidatorListItemProps {
   validator: Validator;
-  delegation?: any;
-  reward?: any;
+  delegation?: DelegationResponse;
+  reward?: Reward;
 }
 
 export function ValidatorListItem({
