@@ -22,7 +22,7 @@ import landingLedgerItemData from '../assets/images/landing-ledger-item.svg';
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (
-    <div className="text-white text-[14px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 text-left inline-block">
+    <div className="text-white text-[14px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 text-left inline-block mb-[6px]">
       {children}
     </div>
   );
@@ -523,7 +523,7 @@ export default function WalletPage() {
               The best way to hold Islamic Coin and remain Shariah-compliant
               along the way!
             </div>
-            <div className="mb-[38px] text-left sm:text-center lg:text-left">
+            <div className="mb-[38px] text-center lg:text-left">
               <FeatureText>
                 <div className="mr-[6px] mb-[-6px] inline-block">
                   <ShieldIcon />
