@@ -16,7 +16,7 @@ import iphoneWalletScreenshotData from '../assets/images/wallet-iphone-screensho
 import maskData from '../assets/images/mask.png';
 import stakingEllipseData from '../assets/images/staking-ellipse.png';
 import landingStakingShieldData from '../assets/images/landing-staking-shield.svg';
-import landingGovernancethumbupData from '../assets/images/landing-governance-thumbup.svg';
+import landingGovernanceThumbUpData from '../assets/images/landing-governance-thumbup.svg';
 import landingLedgerBgData from '../assets/images/landing-ledger-bg.svg';
 import landingLedgerItemData from '../assets/images/landing-ledger-item.svg';
 
@@ -301,7 +301,7 @@ function StakingBlock() {
 
 function SocialLoginBlock() {
   return (
-    <div className="col-span-1 sm:col-start-1 sm:col-end-1 sm:row-start- lg:row-start-2 lg:row-end-3 lg:col-start-3 lg:col-end-3 flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px] select-none">
+    <div className="col-span-1 sm:col-start-2 sm:col-end-2 sm:row-end-4 lg:row-start-2 lg:row-end-3 lg:col-start-3 lg:col-end-3 flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px] select-none">
       <div className="mb-[12px]">
         <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
           Social Login
@@ -330,8 +330,8 @@ function SocialLoginBlock() {
 
 function GovernanceBlock() {
   return (
-    <div className="col-span-1 sm:col-start-2 sm:col-end-2 sm:row-end-4 lg:row-start-2 lg:row-end-3 flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px] select-none">
-      <div className="flex flex-col w-2/3">
+    <div className="col-span-1 sm:col-start-1 sm:col-end-1 sm:row-start-3 lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-2 flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px] select-none">
+      <div className="flex flex-col">
         <div className="mb-[12px]">
           <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
             Governance
@@ -339,8 +339,10 @@ function GovernanceBlock() {
         </div>
         <div className="">
           <span className="text-white/60">
-            Cast your votes on proposals to
-            <br /> participate in network decision making
+            Cast your votes on <br className="block sm:hidden" />
+            proposals to
+            <br className="block sm:hidden" /> participate in network decision
+            making
           </span>
         </div>
       </div>
@@ -348,9 +350,9 @@ function GovernanceBlock() {
       <div className="self-center w-[192px] h-[158px] group-hover:animate-bounce">
         <Image
           alt=""
-          src={landingGovernancethumbupData.src}
-          width={landingGovernancethumbupData.width}
-          height={landingGovernancethumbupData.height}
+          src={landingGovernanceThumbUpData.src}
+          width={landingGovernanceThumbUpData.width}
+          height={landingGovernanceThumbUpData.height}
         />
       </div>
     </div>
