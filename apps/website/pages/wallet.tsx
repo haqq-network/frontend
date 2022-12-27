@@ -247,15 +247,13 @@ function NonCustodialWalletBlock() {
       </div>
 
       <div className="relative text-black flex flex-col">
-        <div className="max-w-[300px] sm:max-w-full">
-          <div className="font-extrabold text-[28px] leading-[36px] text-start mb-[12px]">
-            Non-custodial wallet
-          </div>
-          <div className="text-[16px] leading-[22px] font-medium mb-[212px] sm:mb-[278px]">
+        <div className="max-w-[300px] sm:max-w-full mb-[212px] sm:mb-[278px]">
+          <CardHeading className="mb-[12px]">Non-custodial wallet</CardHeading>
+          <CardText>
             With a non-custodial wallet, you have sole control of your private
             keys, which in turn control your cryptocurrency and prove the funds
             are yours.
-          </div>
+          </CardText>
         </div>
       </div>
     </div>
@@ -272,7 +270,7 @@ function StakingBlock() {
       </div>
 
       <div className="font-extrabold text-[28px] leading-[36px] text-start mb-[12px]">
-        <span>Staking</span>
+        Staking
       </div>
       <div className="mb-6">
         <span className="text-white/60">
@@ -293,48 +291,62 @@ function StakingBlock() {
   );
 }
 
+function CardText({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={clsx('text-[16px] leading-[22px] font-[500]', className)}>
+      {children}
+    </div>
+  );
+}
+
+function CardHeading({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <h3 className={clsx('font-[800] text-[28px] leading-[36px]', className)}>
+      {children}
+    </h3>
+  );
+}
+
 function SocialLoginBlock() {
   return (
     <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
       <div className="mb-[12px]">
-        <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
-          Social Login
-        </span>
+        <CardHeading>Social Login</CardHeading>
+
+        <div className="rounded-[6px] bg-white/10 px-[12px] py-[4px] font-[800] inline-block mt-[4px]">
+          Coming soon
+        </div>
       </div>
-      <div className="rounded-xl w-fit bg-white/10 px-[12px] py-[4px] mb-[12px]">
-        <span className="font-extrabold">Coming soon</span>
-      </div>
-      <span className="text-white/60 text-base leading-[22px]">
+      <CardText className="text-white/60">
         Hassle-free private key management without mnemonic
-      </span>
-      <div className="w-[222px] h-[137px] self-center">
-        <Image
-          alt=""
-          src={landingStakingShieldData.src}
-          width={landingStakingShieldData.width}
-          height={landingStakingShieldData.height}
-        />
-      </div>
+      </CardText>
+      <SocialLoginShieldIcon className="w-[133px] h-auto absolute left-[50%] translate-x-[-50%] bottom-[-40px] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
     </div>
   );
 }
 
 function GovernanceBlock() {
   return (
-    <div className="h-full flex flex-col relative group rounded-2xl bg-gradient-to-b from-[#0DBC7A] to-[#02945D] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
-      <div className="flex flex-col">
-        <div className="mb-[12px]">
-          <span className="font-extrabold text-[28px] leading-[36px]">
-            Governance
-          </span>
-        </div>
-        <div className="text-white/60">
-          Cast your votes on <br className="block sm:hidden" />
-          proposals to
-          <br className="block sm:hidden" /> participate in network decision
-          making
-        </div>
-      </div>
+    <div className="h-full relative group rounded-2xl bg-gradient-to-b from-[#0DBC7A] to-[#02945D] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
+      <CardHeading className="mb-[12px]">Governance</CardHeading>
+      <CardText className="text-white/60">
+        Cast your votes on <br className="block sm:hidden" />
+        proposals to
+        <br className="block sm:hidden" /> participate in network decision
+        making
+      </CardText>
 
       <LikeIcon className="w-[120px] lg:w-[130px] h-auto absolute bottom-[16px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
 
@@ -352,15 +364,12 @@ function GovernanceBlock() {
 function LedgerBlock() {
   return (
     <div className="h-full flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] py-[24px] overflow-hidden select-none ledger-block ledger-block-background">
-      <div className="mb-[12px]">
-        <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
-          Ledger
-        </span>
-      </div>
+      <CardHeading className="mb-[12px]">Ledger</CardHeading>
+
       <div className="mb-[74px]">
-        <span className="text-white/60">
+        <CardText className="text-white/60">
           Secure your assets with industry-standard hardware wallet
-        </span>
+        </CardText>
       </div>
       <div className="self-center pb-[24px]">
         <Image
@@ -449,6 +458,67 @@ function LikeIcon({ className }: { className?: string }) {
         >
           <stop stop-color="#EFEFEF" />
           <stop offset="1" stop-color="#01A567" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+function SocialLoginShieldIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 134 188"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M67.1914 181.773C30.0797 163.606 6.1713 125.311 6.1713 83.8404V35.2634L67.1914 6.31824L128.212 35.2738V83.8508C128.212 125.308 104.303 163.604 67.1914 181.77V181.773Z"
+        fill="url(#paint0_linear_90_150)"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M123.148 131.844C125.646 126.429 127.717 120.826 129.341 115.087L130.7 109.78C132.672 101.278 133.667 92.5774 133.666 83.8485V33.5383C133.665 32.4805 133.057 31.5165 132.102 31.0625L68.3607 0.810352C67.6204 0.459456 66.7617 0.459456 66.0214 0.810352L2.26671 31.0625C1.31301 31.5165 0.705406 32.4805 0.704107 33.5383V83.8385C0.701504 92.5678 1.69685 101.268 3.66928 109.77L5.03963 115.07C6.66339 120.81 8.73482 126.412 11.2329 131.827L13.6839 136.835C15.1411 139.63 16.7193 142.37 18.4199 145.056C20.5264 148.388 22.8019 151.608 25.2364 154.705L28.8834 159.128C39.1998 170.975 51.8412 180.56 66.0217 187.284C66.7621 187.635 67.6208 187.635 68.3611 187.284C82.5402 180.56 95.1816 170.975 105.499 159.128L109.161 154.705C111.596 151.609 113.871 148.388 115.977 145.056C117.672 142.373 119.246 139.633 120.699 136.835L123.148 131.844ZM6.1713 83.8404C6.1713 125.311 30.0797 163.606 67.1914 181.773V181.77C104.303 163.604 128.212 125.308 128.212 83.8508V35.2738L67.1914 6.31824L6.1713 35.2634V83.8404Z"
+        fill="url(#paint1_linear_90_150)"
+      />
+      <path
+        d="M122.013 35.4381L68.4594 10.0795C67.6533 9.69526 66.7183 9.69526 65.9122 10.0795L12.3587 35.4468C11.3202 35.9388 10.6586 36.9851 10.6572 38.1349V82.7567C10.6601 101.968 15.7602 120.834 25.4336 137.429C35.1085 154.024 49.0108 167.751 65.7202 177.209C66.6283 177.722 67.739 177.722 68.6471 177.209C85.3617 167.749 99.2668 154.017 108.941 137.418C118.616 120.818 123.712 101.945 123.71 82.7277V38.1277C123.709 36.9778 123.047 35.9315 122.009 35.4396L122.013 35.4381Z"
+        fill="url(#paint2_linear_90_150)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_90_150"
+          x1="67.1851"
+          y1="0.54718"
+          x2="67.1851"
+          y2="187.547"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#6CE9F0" />
+          <stop offset="1" stop-color="#66C5CA" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_90_150"
+          x1="67.1851"
+          y1="0.54718"
+          x2="67.1851"
+          y2="187.547"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#6CE9F0" />
+          <stop offset="1" stop-color="#66C5CA" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient
+          id="paint2_linear_90_150"
+          x1="67.1838"
+          y1="9.79132"
+          x2="67.1838"
+          y2="177.594"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#47B4BA" />
+          <stop offset="1" stop-color="#346A6D" />
         </linearGradient>
       </defs>
     </svg>
