@@ -13,7 +13,7 @@ import ledgerImageData from '../assets/images/landing-ledger-item.svg';
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (
-    <div className="text-white text-[14px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 text-left inline-block mb-[6px]">
+    <div className="text-white text-[14px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 text-left inline-block mb-[8px]">
       {children}
     </div>
   );
@@ -332,7 +332,7 @@ function SocialLoginBlock() {
       <CardText className="text-white/60">
         Hassle-free private key management without mnemonic
       </CardText>
-      <SocialLoginShieldIcon className="w-[133px] h-auto absolute left-[50%] translate-x-[-50%] bottom-[-40px] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
+      <SocialLoginShieldIcon className="w-[133px] h-auto absolute left-[50%] translate-x-[-50%] bottom-[-60px] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
     </div>
   );
 }
@@ -348,7 +348,7 @@ function GovernanceBlock() {
         making
       </CardText>
 
-      <LikeIcon className="w-[120px] lg:w-[130px] h-auto absolute bottom-[16px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
+      <LikeIcon className="w-[120px] h-auto absolute bottom-[4px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
 
       <LikeIcon className="w-[34px] h-auto absolute bottom-[106px] left-[28px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]" />
       <LikeIcon className="w-[44px] h-auto absolute bottom-[119px] right-[30px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[250ms]" />
@@ -456,8 +456,8 @@ function LikeIcon({ className }: { className?: string }) {
           y2="123"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFEFEF" />
-          <stop offset="1" stop-color="#01A567" stop-opacity="0" />
+          <stop stopColor="#EFEFEF" />
+          <stop offset="1" stopColor="#01A567" stopOpacity="0" />
         </linearGradient>
       </defs>
     </svg>
@@ -477,8 +477,8 @@ function SocialLoginShieldIcon({ className }: { className?: string }) {
         fill="url(#paint0_linear_90_150)"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M123.148 131.844C125.646 126.429 127.717 120.826 129.341 115.087L130.7 109.78C132.672 101.278 133.667 92.5774 133.666 83.8485V33.5383C133.665 32.4805 133.057 31.5165 132.102 31.0625L68.3607 0.810352C67.6204 0.459456 66.7617 0.459456 66.0214 0.810352L2.26671 31.0625C1.31301 31.5165 0.705406 32.4805 0.704107 33.5383V83.8385C0.701504 92.5678 1.69685 101.268 3.66928 109.77L5.03963 115.07C6.66339 120.81 8.73482 126.412 11.2329 131.827L13.6839 136.835C15.1411 139.63 16.7193 142.37 18.4199 145.056C20.5264 148.388 22.8019 151.608 25.2364 154.705L28.8834 159.128C39.1998 170.975 51.8412 180.56 66.0217 187.284C66.7621 187.635 67.6208 187.635 68.3611 187.284C82.5402 180.56 95.1816 170.975 105.499 159.128L109.161 154.705C111.596 151.609 113.871 148.388 115.977 145.056C117.672 142.373 119.246 139.633 120.699 136.835L123.148 131.844ZM6.1713 83.8404C6.1713 125.311 30.0797 163.606 67.1914 181.773V181.77C104.303 163.604 128.212 125.308 128.212 83.8508V35.2738L67.1914 6.31824L6.1713 35.2634V83.8404Z"
         fill="url(#paint1_linear_90_150)"
       />
@@ -495,8 +495,8 @@ function SocialLoginShieldIcon({ className }: { className?: string }) {
           y2="187.547"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#6CE9F0" />
-          <stop offset="1" stop-color="#66C5CA" stop-opacity="0" />
+          <stop stopColor="#6CE9F0" />
+          <stop offset="1" stopColor="#66C5CA" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_90_150"
@@ -506,8 +506,8 @@ function SocialLoginShieldIcon({ className }: { className?: string }) {
           y2="187.547"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#6CE9F0" />
-          <stop offset="1" stop-color="#66C5CA" stop-opacity="0" />
+          <stop stopColor="#6CE9F0" />
+          <stop offset="1" stopColor="#66C5CA" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_90_150"
@@ -517,8 +517,8 @@ function SocialLoginShieldIcon({ className }: { className?: string }) {
           y2="177.594"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#47B4BA" />
-          <stop offset="1" stop-color="#346A6D" />
+          <stop stopColor="#47B4BA" />
+          <stop offset="1" stopColor="#346A6D" />
         </linearGradient>
       </defs>
     </svg>
@@ -559,14 +559,10 @@ export default function WalletPage() {
             >
               HAQQ Wallet
             </h1>
-            <div
-              className={clsx(
-                'font-medium text-white/50 text-[14px] leading-[22px] mb-[30px]',
-              )}
-            >
+            <CardText className="mb-[30px] text-white/50">
               The best way to hold Islamic Coin and remain Shariah-compliant
               along the way!
-            </div>
+            </CardText>
             <div className="mb-[38px] text-center lg:text-left">
               <FeatureText>
                 <div className="mr-[6px] mb-[-6px] inline-block">
@@ -613,8 +609,8 @@ export default function WalletPage() {
           </div>
           <div className="flex flex-1 justify-center">
             <Image
-              src={iphoneWalletScreenshotData.src}
               alt="HAQQ Wallet"
+              src={iphoneWalletScreenshotData.src}
               width={iphoneWalletScreenshotData.width}
               height={iphoneWalletScreenshotData.height}
             />
