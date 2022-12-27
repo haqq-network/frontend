@@ -421,7 +421,7 @@ function FAQArticle({
       className="items-start sm:items-center mb-[32px] cursor-pointer duration-[400ms]"
       onClick={onClick}
     >
-      <div className="w-full flex justify-between text-base font-bold text-white ">
+      <div className="w-full flex justify-between text-base font-bold text-white">
         <span className="">{question}</span>
         {isOpen ? <Minus /> : <Plus />}
       </div>
@@ -507,9 +507,10 @@ export default function WalletPage() {
           <HeaderLogo />
         </div>
       </header>
+
       <div className="flex-1 w-full flex items-center">
         <div className="container mx-auto pt-[40px] sm:pt-[60px] px-[20px] sm:px-[40px] items-center flex flex-col lg:flex-row">
-          <div className=" text-center lg:text-start lg:w-3/5 lg:flex-row">
+          <div className="text-center lg:text-start lg:w-3/5 lg:flex-row">
             <div
               className={clsx(
                 ElMessiriFont.className,
@@ -581,7 +582,7 @@ export default function WalletPage() {
         </div>
       </div>
 
-      <div className="container flex flex-col px-[20px] sm:px-[40px] ">
+      <div className="container flex flex-col px-[20px] sm:px-[40px]">
         <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
           HAQQ Wallet Features
         </div>
@@ -620,7 +621,7 @@ export default function WalletPage() {
               <GithubIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
             </Link>
           </div>
-          <div className="flex flex-col sm:flex-row sm:justify-center sm:space-x-[20px] text-center font-normal text-[14px] leading-[24px] ">
+          <div className="flex flex-col sm:flex-row sm:justify-center sm:space-x-[20px] text-center font-normal text-[14px] leading-[24px]">
             <div className="mb-[8px]">
               © 2022 HAQQ Wallet. All rights reserved
             </div>
