@@ -1,4 +1,10 @@
-import { Fragment, ReactElement, ReactNode } from 'react';
+import {
+  Fragment,
+  ReactElement,
+  ReactNode,
+  useCallback,
+  useState,
+} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -244,7 +250,7 @@ function HeaderLogo() {
 
 function NonCustodialWalletBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2  lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group">
+    <div className="col-span-1 sm:col-span-2  lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group select-none">
       <div className="absolute w-[1024px] h-[988px] left-[-525px] top-[10%] sm:top-[-15%] sm:left-[-395px] lg:left-[-545px] lg:top-[20%] group-hover:animate-[spin2_10s_ease-in-out_infinite]">
         <Image fill alt="" src={maskData.src} />
       </div>
@@ -267,7 +273,7 @@ function NonCustodialWalletBlock() {
 
 function StakingBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2 sm:row-start-2 lg:row-span-1 relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden">
+    <div className="col-span-1 sm:col-span-2 sm:row-start-2 lg:row-span-1 relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden select-none">
       <div className="absolute w-[378px] h-[378px] top-[100%]">
         <Image
           alt=""
@@ -295,7 +301,7 @@ function StakingBlock() {
 
 function SocialLoginBlock() {
   return (
-    <div className="col-span-1 sm:col-start-1 sm:col-end-1 sm:row-start- lg:row-start-2 lg:row-end-3 lg:col-start-3 lg:col-end-3 flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px]">
+    <div className="col-span-1 sm:col-start-1 sm:col-end-1 sm:row-start- lg:row-start-2 lg:row-end-3 lg:col-start-3 lg:col-end-3 flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px] select-none">
       <div className="mb-[12px]">
         <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
           Social Login
@@ -324,7 +330,7 @@ function SocialLoginBlock() {
 
 function GovernanceBlock() {
   return (
-    <div className="col-span-1 sm:col-start-2 sm:col-end-2 sm:row-end-4 lg:row-start-2 lg:row-end-3 flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px]">
+    <div className="col-span-1 sm:col-start-2 sm:col-end-2 sm:row-end-4 lg:row-start-2 lg:row-end-3 flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px] select-none">
       <div className="flex flex-col w-2/3">
         <div className="mb-[12px]">
           <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
@@ -353,7 +359,7 @@ function GovernanceBlock() {
 
 function LedgerBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-4 lg:col-end-4 flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] pt-[24px] overflow-hidden">
+    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-4 lg:col-end-4 flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] pt-[24px] overflow-hidden select-none">
       <div className="absolute inset-0 h-[945px] w-[627px] sm:rotate-90 sm:top-[-200px]">
         <Image fill src={landingLedgerBgData.src} alt="" />
       </div>
@@ -370,6 +376,112 @@ function LedgerBlock() {
       <div className="self-center mb-[54px]">
         <Image src={landingLedgerItemData.src} alt="" width={66} height={310} />
       </div>
+    </div>
+  );
+}
+
+function Plus() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path
+        d="M6 12H18M12 6L12 18"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  );
+}
+
+function Minus() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path
+        d="M6 12H18"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  );
+}
+
+function FAQArticle({
+  question,
+  answer,
+  onClick,
+  isOpen,
+}: {
+  question: string;
+  answer: string;
+  onClick: () => void;
+  isOpen: boolean;
+}) {
+  return (
+    <div
+      className="items-start sm:items-center mb-[32px] cursor-pointer duration-[400ms]"
+      onClick={onClick}
+    >
+      <div className="w-full flex justify-between text-base font-bold text-white ">
+        <span className="">{question}</span>
+        {isOpen ? <Minus /> : <Plus />}
+      </div>
+      {isOpen && (
+        <div className="mt-[16px]">
+          <span>{answer}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FAQBlock() {
+  const [isFirstQuestionOpen, setFirstQuestionOpen] = useState<boolean>(false);
+  const [isSecondQuestionOpen, setSecondQuestionOpen] =
+    useState<boolean>(false);
+  const [isThirdQuestionOpen, setThirdQuestionOpen] = useState<boolean>(false);
+
+  const firstQuestionHandler = useCallback(() => {
+    isFirstQuestionOpen
+      ? setFirstQuestionOpen(false)
+      : setFirstQuestionOpen(true);
+  }, [isFirstQuestionOpen]);
+
+  const secondQuestionOpenHandler = useCallback(() => {
+    isSecondQuestionOpen
+      ? setSecondQuestionOpen(false)
+      : setSecondQuestionOpen(true);
+  }, [isSecondQuestionOpen]);
+
+  const thirdQuestionOpenHandler = useCallback(() => {
+    isThirdQuestionOpen
+      ? setThirdQuestionOpen(false)
+      : setThirdQuestionOpen(true);
+  }, [isThirdQuestionOpen]);
+
+  return (
+    <div className="mb-[70px] sm:mb-[140px]">
+      <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center mb-[50px] sm:mb-[64px]">
+        FAQ
+      </div>
+      <FAQArticle
+        question="What coins does HAQQ wallet support?"
+        answer="Currently HAQQ wallet only supports ISLM coin"
+        onClick={firstQuestionHandler}
+        isOpen={isFirstQuestionOpen}
+      />
+      <FAQArticle
+        question="Which ledgers does the wallet support?"
+        answer="Lorem"
+        onClick={secondQuestionOpenHandler}
+        isOpen={isSecondQuestionOpen}
+      />
+      <FAQArticle
+        question="How much coins can I participate in staking?"
+        answer="Ipsum"
+        onClick={thirdQuestionOpenHandler}
+        isOpen={isThirdQuestionOpen}
+      />
     </div>
   );
 }
@@ -467,35 +579,19 @@ export default function WalletPage() {
         </div>
       </div>
 
-      <div className="flex flex-col px-[20px] sm:px-[40px]">
-        <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start">
+      <div className="container flex flex-col px-[20px] sm:px-[40px] ">
+        <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
           HAQQ Wallet Features
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 mb-[90px] sm:mb-[120px] lg:mb-[140px]">
           <NonCustodialWalletBlock />
           <StakingBlock />
           <GovernanceBlock />
           <SocialLoginBlock />
           <LedgerBlock />
         </div>
+        <FAQBlock />
       </div>
-
-      {/* <div className="flex flex-col px-[20px] sm:px-[40px]">
-        <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start">
-          HAQQ Wallet Features
-        </div>
-        <div className="container items-center flex flex-col space-y-7 sm:space-y-8 lg:flex-row lg:space-y-0 lg:space-x-7">
-          <NonCustodialWalletBlock />
-          <div className="flex flex-col space-y-7">
-            <StakingBlock />
-            <div className="flex flex-col sm:flex-row space-y-7 sm:space-x-7 sm:space-y-0">
-              <GovernanceBlock />
-              <SocialLoginBlock />
-            </div>
-          </div>
-          <LedgerBlock />
-        </div>
-      </div> */}
 
       <footer className="h-[96px] w-full">
         <div className="container mx-auto pb-[20px] px-[20px] sm:px-[40px]">
@@ -522,11 +618,7 @@ export default function WalletPage() {
               <GithubIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
             </Link>
           </div>
-          <div
-            className={clsx(
-              'flex flex-col sm:flex-row sm:justify-center sm:space-x-[20px] text-center font-normal text-[14px] leading-[24px]',
-            )}
-          >
+          <div className="flex flex-col sm:flex-row sm:justify-center sm:space-x-[20px] text-center font-normal text-[14px] leading-[24px] ">
             <div className="mb-[8px]">
               © 2022 HAQQ Wallet. All rights reserved
             </div>
