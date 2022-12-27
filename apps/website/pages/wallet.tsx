@@ -243,7 +243,7 @@ function HeaderLogo() {
 
 function NonCustodialWalletBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group select-none non-custodial-wallet">
+    <div className="h-full px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group select-none non-custodial-wallet">
       <div className="absolute w-[1024px] h-[988px] left-[-525px] top-[10%] sm:top-[-15%] sm:left-[-395px] lg:left-[-545px] lg:top-[20%] non-custodial-wallet-animation">
         <Image fill alt="" src={maskData.src} />
       </div>
@@ -266,7 +266,7 @@ function NonCustodialWalletBlock() {
 
 function StakingBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2 sm:row-start-2 lg:row-span-1 relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden select-none">
+    <div className="h-full relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden select-none">
       <div className="absolute w-[378px] h-[378px] top-[100%]">
         <Image
           alt=""
@@ -280,12 +280,12 @@ function StakingBlock() {
       </div>
       <div className="text-white/60">Delegate your coins and make a profit</div>
       <div className="flex items-center space-x-[22px] text-transparent bg-clip-text bg-gradient-to-t from-[#05F08D] to-[#05f08eef]">
-        <span className="text-[72px] font-extrabold">12%</span>
+        <span className="text-[72px] font-extrabold">+12%</span>
         <div className="flex flex-col text-[28px] font-extrabold max-h-[72px]">
-          <span>5%</span>
-          <span>7%</span>
-          <span>10%</span>
-          <span>15%</span>
+          <span>+5%</span>
+          <span>+7%</span>
+          <span>+10%</span>
+          <span>+15%</span>
         </div>
       </div>
     </div>
@@ -294,7 +294,7 @@ function StakingBlock() {
 
 function SocialLoginBlock() {
   return (
-    <div className="col-span-1 sm:col-start-2 sm:col-end-2 sm:row-end-4 lg:row-start-2 lg:row-end-3 lg:col-start-3 lg:col-end-3 flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px] select-none">
+    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px] select-none">
       <div className="mb-[12px]">
         <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
           Social Login
@@ -320,7 +320,7 @@ function SocialLoginBlock() {
 
 function GovernanceBlock() {
   return (
-    <div className="col-span-1 sm:col-start-1 sm:col-end-1 sm:row-start-3 lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-2 flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px] select-none">
+    <div className="h-full flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px] select-none">
       <div className="flex flex-col">
         <div className="mb-[12px]">
           <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
@@ -351,7 +351,7 @@ function GovernanceBlock() {
 
 function LedgerBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-4 lg:col-end-4 flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] py-[24px] overflow-hidden select-none ledger-block ledger-block-background">
+    <div className="h-full flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] py-[24px] overflow-hidden select-none ledger-block ledger-block-background">
       <div className="mb-[12px]">
         <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
           Ledger
@@ -528,12 +528,54 @@ export default function WalletPage() {
           <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
             HAQQ Wallet Features
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
-            <NonCustodialWalletBlock />
-            <StakingBlock />
-            <GovernanceBlock />
-            <SocialLoginBlock />
-            <LedgerBlock />
+          {/* <div className="grid lg:grid-cols-4 gap-7">
+            <div>
+              <NonCustodialWalletBlock />
+            </div>
+            <div className="col-span-1 sm:col-span-3">
+              <div className="flex flex-col lg:col-span-2 space-y-7">
+                <div>
+                  <StakingBlock />
+                </div>
+                <div className="grid col-span-1 sm:grid-cols-2 sm:col-span-3 lg:grid-cols-11 gap-7">
+                  <div>
+                    <GovernanceBlock />
+                  </div>
+                  <div>
+                    <SocialLoginBlock />
+                  </div>
+                </div>
+                <div>
+                  <LedgerBlock />
+                </div>
+              </div>
+            </div>
+          </div> */}
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-3 gap-[28px]">
+            <div>
+              <NonCustodialWalletBlock />
+            </div>
+            <div className="lg:col-span-3 xl:col-span-2">
+              <div className="grid lg:grid-cols-3 gap-[28px]">
+                <div className="lg:col-span-2 flex flex-col space-y-[28px]">
+                  <div>
+                    <StakingBlock />
+                  </div>
+                  <div className="h-full grid sm:grid-cols-2 lg:grid-cols-11 gap-[28px]">
+                    <div className="lg:col-span-6">
+                      <GovernanceBlock />
+                    </div>
+                    <div className="lg:col-span-5">
+                      <SocialLoginBlock />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <LedgerBlock />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
