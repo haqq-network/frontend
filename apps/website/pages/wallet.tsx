@@ -412,12 +412,12 @@ function FAQArticle({
 
   return (
     <div
-      className="flex flex-col space-y-[16px]"
+      className="flex flex-col space-y-[16px] py-[16px]"
       onClick={() => {
         setOpen(!isOpen);
       }}
     >
-      <div className="w-full flex justify-between text-base font-bold text-white cursor-pointer">
+      <div className="w-full flex justify-between items-center text-[24px] font-bold text-white cursor-pointer">
         <span>{question}</span>
         {isOpen ? <MinusIcon /> : <PlusIcon />}
       </div>
@@ -591,7 +591,7 @@ export default function WalletPage() {
             FAQ
           </h2>
 
-          <div className="flex flex-col space-y-[32px]">
+          <div className="flex flex-col divide-y divide-gray-200/10">
             <FAQArticle
               question="What coins does HAQQ wallet support?"
               answer="Currently HAQQ wallet only supports ISLM coin"
