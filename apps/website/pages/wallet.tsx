@@ -379,7 +379,7 @@ function LedgerBlock() {
   );
 }
 
-function Plus() {
+function PlusIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
       <path
@@ -392,7 +392,7 @@ function Plus() {
   );
 }
 
-function Minus() {
+function MinusIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
       <path
@@ -408,79 +408,24 @@ function Minus() {
 function FAQArticle({
   question,
   answer,
-  onClick,
-  isOpen,
 }: {
   question: string;
   answer: string;
-  onClick: () => void;
-  isOpen: boolean;
 }) {
+  const [isOpen, setOpen] = useState(false);
+
   return (
     <div
-      className="items-start sm:items-center mb-[32px] cursor-pointer duration-[400ms]"
-      onClick={onClick}
+      className="flex flex-col space-y-[16px]"
+      onClick={() => {
+        setOpen(!isOpen);
+      }}
     >
-      <div className="w-full flex justify-between text-base font-bold text-white">
-        <span className="">{question}</span>
-        {isOpen ? <Minus /> : <Plus />}
+      <div className="w-full flex justify-between text-base font-bold text-white cursor-pointer">
+        <span>{question}</span>
+        {isOpen ? <MinusIcon /> : <PlusIcon />}
       </div>
-      {isOpen && (
-        <div className="mt-[16px]">
-          <span>{answer}</span>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function FAQBlock() {
-  const [isFirstQuestionOpen, setFirstQuestionOpen] = useState<boolean>(false);
-  const [isSecondQuestionOpen, setSecondQuestionOpen] =
-    useState<boolean>(false);
-  const [isThirdQuestionOpen, setThirdQuestionOpen] = useState<boolean>(false);
-
-  const firstQuestionHandler = useCallback(() => {
-    isFirstQuestionOpen
-      ? setFirstQuestionOpen(false)
-      : setFirstQuestionOpen(true);
-  }, [isFirstQuestionOpen]);
-
-  const secondQuestionOpenHandler = useCallback(() => {
-    isSecondQuestionOpen
-      ? setSecondQuestionOpen(false)
-      : setSecondQuestionOpen(true);
-  }, [isSecondQuestionOpen]);
-
-  const thirdQuestionOpenHandler = useCallback(() => {
-    isThirdQuestionOpen
-      ? setThirdQuestionOpen(false)
-      : setThirdQuestionOpen(true);
-  }, [isThirdQuestionOpen]);
-
-  return (
-    <div className="mb-[70px] sm:mb-[140px]">
-      <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center mb-[50px] sm:mb-[64px]">
-        FAQ
-      </div>
-      <FAQArticle
-        question="What coins does HAQQ wallet support?"
-        answer="Currently HAQQ wallet only supports ISLM coin"
-        onClick={firstQuestionHandler}
-        isOpen={isFirstQuestionOpen}
-      />
-      <FAQArticle
-        question="Which ledgers does the wallet support?"
-        answer="Lorem"
-        onClick={secondQuestionOpenHandler}
-        isOpen={isSecondQuestionOpen}
-      />
-      <FAQArticle
-        question="How much coins can I participate in staking?"
-        answer="Ipsum"
-        onClick={thirdQuestionOpenHandler}
-        isOpen={isThirdQuestionOpen}
-      />
+      {isOpen && <div>{answer}</div>}
     </div>
   );
 }
@@ -508,17 +453,17 @@ export default function WalletPage() {
         </div>
       </header>
 
-      <div className="flex-1 w-full flex items-center">
-        <div className="container mx-auto pt-[40px] sm:pt-[60px] px-[20px] sm:px-[40px] items-center flex flex-col lg:flex-row">
+      <section className="py-[40px] sm:py-[60px] w-full">
+        <div className="container mx-auto px-[20px] sm:px-[40px] items-center flex flex-col lg:flex-row">
           <div className="text-center lg:text-start lg:w-3/5 lg:flex-row">
-            <div
+            <h1
               className={clsx(
                 ElMessiriFont.className,
                 'text-[48px] sm:text-[84px] font-bold leading-[62px] lg:leading-[100px] sm:mb-[16px]',
               )}
             >
               HAQQ Wallet
-            </div>
+            </h1>
             <div
               className={clsx(
                 'font-medium text-white/50 text-[14px] leading-[22px] mb-[30px]',
@@ -580,21 +525,45 @@ export default function WalletPage() {
             />
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="container flex flex-col px-[20px] sm:px-[40px]">
-        <div className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
-          HAQQ Wallet Features
+      <section className="w-full mb-[90px] sm:mb-[120px] lg:mb-[140px]">
+        <div className="container mx-auto flex flex-col px-[20px] sm:px-[40px]">
+          <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
+            HAQQ Wallet Features
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
+            <NonCustodialWalletBlock />
+            <StakingBlock />
+            <GovernanceBlock />
+            <SocialLoginBlock />
+            <LedgerBlock />
+          </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 mb-[90px] sm:mb-[120px] lg:mb-[140px]">
-          <NonCustodialWalletBlock />
-          <StakingBlock />
-          <GovernanceBlock />
-          <SocialLoginBlock />
-          <LedgerBlock />
+      </section>
+
+      <section className="w-full mb-[70px] sm:mb-[140px]">
+        <div className="container mx-auto max-w-[980px] px-[20px] sm:px-[40px]">
+          <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center mb-[50px] sm:mb-[64px]">
+            FAQ
+          </h2>
+
+          <div className="flex flex-col space-y-[32px]">
+            <FAQArticle
+              question="What coins does HAQQ wallet support?"
+              answer="Currently HAQQ wallet only supports ISLM coin"
+            />
+            <FAQArticle
+              question="Which ledgers does the wallet support?"
+              answer="Lorem"
+            />
+            <FAQArticle
+              question="How much coins can I participate in staking?"
+              answer="Ipsum"
+            />
+          </div>
         </div>
-        <FAQBlock />
-      </div>
+      </section>
 
       <footer className="h-[96px] w-full">
         <div className="container mx-auto pb-[20px] px-[20px] sm:px-[40px]">
