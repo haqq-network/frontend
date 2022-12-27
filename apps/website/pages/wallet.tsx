@@ -381,12 +381,12 @@ function LedgerBlock() {
 
 function PlusIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <svg width="24" height="24" viewBox="0 0 24 24">
       <path
-        d="M6 12H18M12 6L12 18"
-        stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
+        d="M6 12H18 M12 6L12 18"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -394,12 +394,12 @@ function PlusIcon() {
 
 function MinusIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <svg width="24" height="24" viewBox="0 0 24 24">
       <path
         d="M6 12H18"
-        stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
     </svg>
   );
