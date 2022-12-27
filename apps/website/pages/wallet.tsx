@@ -310,13 +310,10 @@ function SocialLoginBlock() {
       <div className="rounded-xl w-fit bg-white/10 px-[12px] py-[4px] mb-[12px]">
         <span className="font-extrabold">Coming soon</span>
       </div>
-      <div className="">
-        <span className="text-white/60 text-base leading-[22px]">
-          Hassle-free private key management without mnemonic
-        </span>
-      </div>
-
-      <div className="w-[222px] h-[137px] self-center group-hover:animate-[bounce_2s_ease-in-out_infinite]">
+      <span className="text-white/60 text-base leading-[22px]">
+        Hassle-free private key management without mnemonic
+      </span>
+      <div className="w-[222px] h-[137px] self-center">
         <Image
           alt=""
           src={landingStakingShieldData.src}
@@ -361,7 +358,7 @@ function GovernanceBlock() {
 
 function LedgerBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-4 lg:col-end-4 flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] pt-[24px] overflow-hidden select-none">
+    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-4 lg:col-end-4 flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] pt-[24px] overflow-hidden select-none group">
       <div className="absolute inset-0 h-[945px] w-[627px] sm:rotate-90 sm:top-[-200px]">
         <Image fill src={landingLedgerBgData.src} alt="" />
       </div>
@@ -375,7 +372,7 @@ function LedgerBlock() {
           Secure your assets with industry-standard hardware wallet
         </span>
       </div>
-      <div className="self-center mb-[54px]">
+      <div className="self-center mb-[54px] group-hover:animate-[bounce_2s_ease-in-out_infinite]">
         <Image src={landingLedgerItemData.src} alt="" width={66} height={310} />
       </div>
     </div>
