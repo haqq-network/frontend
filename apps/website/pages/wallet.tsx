@@ -9,8 +9,7 @@ import walletImageData from '../assets/images/wallet-bg.jpg';
 import iphoneWalletScreenshotData from '../assets/images/wallet-iphone-screenshot.png';
 import maskData from '../assets/images/mask.png';
 import landingStakingShieldData from '../assets/images/landing-staking-shield.svg';
-import landingGovernanceThumbUpData from '../assets/images/landing-governance-thumbup.svg';
-import landingLedgerItemData from '../assets/images/landing-ledger-item.svg';
+import ledgerImageData from '../assets/images/landing-ledger-item.svg';
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (
@@ -296,7 +295,7 @@ function StakingBlock() {
 
 function SocialLoginBlock() {
   return (
-    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] pt-[24px] select-none">
+    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
       <div className="mb-[12px]">
         <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
           Social Login
@@ -322,31 +321,30 @@ function SocialLoginBlock() {
 
 function GovernanceBlock() {
   return (
-    <div className="h-full flex flex-col relative group rounded-2xl bg-gradient-to-t from-[#0DBC7A] to-[#02945D] px-[32px] pt-[24px] select-none">
+    <div className="h-full flex flex-col relative group rounded-2xl bg-gradient-to-b from-[#0DBC7A] to-[#02945D] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
       <div className="flex flex-col">
         <div className="mb-[12px]">
-          <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
+          <span className="font-extrabold text-[28px] leading-[36px]">
             Governance
           </span>
         </div>
-        <div className="">
-          <span className="text-white/60">
-            Cast your votes on <br className="block sm:hidden" />
-            proposals to
-            <br className="block sm:hidden" /> participate in network decision
-            making
-          </span>
+        <div className="text-white/60">
+          Cast your votes on <br className="block sm:hidden" />
+          proposals to
+          <br className="block sm:hidden" /> participate in network decision
+          making
         </div>
       </div>
 
-      <div className="self-center w-[192px] h-[158px] group-hover:animate-bounce">
-        <Image
-          alt=""
-          src={landingGovernanceThumbUpData.src}
-          width={landingGovernanceThumbUpData.width}
-          height={landingGovernanceThumbUpData.height}
-        />
-      </div>
+      <LikeIcon className="w-[120px] lg:w-[130px] h-auto absolute bottom-[16px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
+
+      <LikeIcon className="w-[34px] h-auto absolute bottom-[106px] left-[28px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]" />
+      <LikeIcon className="w-[44px] h-auto absolute bottom-[119px] right-[30px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[250ms]" />
+      <LikeIcon className="w-[24px] h-auto absolute bottom-[72px] left-[10px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[50ms]" />
+      <LikeIcon className="w-[34px] h-auto absolute bottom-[82px] right-[10px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[350ms]" />
+      <LikeIcon className="w-[22px] h-auto absolute bottom-[148px] right-[84px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]" />
+      <LikeIcon className="w-[24px] h-auto absolute bottom-[138px] left-[78px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[275ms]" />
+      <LikeIcon className="w-[24px] h-auto absolute bottom-[147px] left-[18px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[125ms]" />
     </div>
   );
 }
@@ -366,7 +364,7 @@ function LedgerBlock() {
       </div>
       <div className="self-center pb-[24px]">
         <Image
-          src={landingLedgerItemData.src}
+          src={ledgerImageData.src}
           alt=""
           width={66}
           height={310}
@@ -425,6 +423,35 @@ function FAQArticle({
       </div>
       {isOpen && <div>{answer}</div>}
     </div>
+  );
+}
+
+function LikeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 113 123"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M112.224 54.5617C112.959 44.8993 105.18 42.0792 102.097 42.0792C90.1354 42.0747 78.1635 42.0792 66.2015 42.0679C67.9232 37.7255 70.023 26.2163 67.3807 10.358C66.3367 4.08721 63.142 -0.0826983 59.0717 0.00124443C55.7967 0.0670374 52.6647 2.99369 52.3356 6.64633C51.9771 10.662 51.1251 16.3746 50.32 20.2859C47.7423 32.782 33.9587 49.2779 25.2442 55.0336V116.076C31.1577 119.944 37.5686 121.301 44.4164 121.149C55.2345 120.908 86.1356 121.117 91.7357 121.076C95.6982 121.044 99.6509 118.855 101.553 113.313C104.15 105.749 97.4552 101.967 97.4552 101.967C97.4552 101.967 104.785 102.386 106.458 94.7703C108.175 86.9568 101.435 83.8623 101.435 83.8623C105.995 83.286 108.914 81.9112 110.017 77.1514C111.317 71.5431 108.203 67.3346 103.273 64.898C104.017 64.8164 111.546 63.4075 112.224 54.5617ZM17.6541 45.3348H3.71573C1.66297 45.3348 0 47.2633 0 49.6386V118.696C0 121.076 1.66493 123 3.71573 123H17.6541C19.7069 123 21.3699 121.074 21.3699 118.696V49.6386C21.3699 47.2633 19.7088 45.3348 17.6541 45.3348Z"
+        fill="url(#gradient-fill)"
+      />
+      <defs>
+        <linearGradient
+          id="gradient-fill"
+          x1="56.1364"
+          y1="0"
+          x2="56.1364"
+          y2="123"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#EFEFEF" />
+          <stop offset="1" stop-color="#01A567" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
   );
 }
 
