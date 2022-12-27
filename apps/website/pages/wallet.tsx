@@ -241,7 +241,7 @@ function HeaderLogo() {
 
 function NonCustodialWalletBlock() {
   return (
-    <div className="h-full px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group select-none non-custodial-wallet">
+    <div className="h-full px-[24px] py-[32px] relative bg-white rounded-2xl overflow-hidden group select-none non-custodial-wallet">
       <div className="absolute w-[1024px] h-[988px] left-[-525px] top-[10%] sm:top-[-15%] sm:left-[-395px] lg:left-[-545px] lg:top-[20%] non-custodial-wallet-animation">
         <Image fill alt="" src={maskData.src} />
       </div>
@@ -262,23 +262,21 @@ function NonCustodialWalletBlock() {
 
 function StakingBlock() {
   return (
-    <div className="h-full relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden select-none">
-      <div className="absolute left-0 top-[50%] translate-y-[-50%] opacity-20 w-[378px] h-[558px] bg-[#016256]/20 blur-[67px]">
-        <div className="h-[378px] w-[378px] rounded-full bg-[#23DC65]/40" />
-        <div className="h-[378px] w-[378px] translate-y-[50px] rounded-full bg-[#137ADA]/20" />
-        <div className="h-[378px] w-[378px] translate-y-[180px] rounded-full bg-[#6B13DA]/10" />
+    <div className="h-full relative px-[24px] py-[32px] border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden select-none">
+      <div className="absolute left-0 top-[50%] translate-y-[-50%] opacity-20 w-[378px] h-[558px] bg-[#016256]/20 blur-[67px] z-[-1]">
+        <div className="top-0 absolute h-[378px] w-[378px] rounded-full bg-[#23DC65]/40" />
+        <div className="top-0 absolute h-[378px] w-[378px] translate-y-[50px] rounded-full bg-[#137ADA]/20" />
+        <div className="top-0 absolute h-[378px] w-[378px] translate-y-[180px] rounded-full bg-[#6B13DA]/10" />
       </div>
 
-      <div className="font-extrabold text-[28px] leading-[36px] text-start mb-[12px]">
-        Staking
-      </div>
+      <CardHeading className="mb-[12px]">Staking</CardHeading>
       <div className="mb-6">
         <span className="text-white/60">
           Delegate your coins and make a profit
         </span>
       </div>
 
-      <div className="flex leading-none mb-[38px] w-full text-[#05F08D] min-[375px]:tracking-[2px]">
+      <div className="flex leading-none w-full text-[#05F08D] min-[375px]:tracking-[2px]">
         <span className="min-[320px]:text-[52px] sm:text-[72px] mr-[22px] font-extrabold">
           +12%
         </span>
@@ -321,7 +319,7 @@ function CardHeading({
 
 function SocialLoginBlock() {
   return (
-    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
+    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[24px] py-[32px] select-none overflow-hidden min-h-[298px]">
       <div className="mb-[12px]">
         <CardHeading>Social Login</CardHeading>
 
@@ -332,14 +330,14 @@ function SocialLoginBlock() {
       <CardText className="text-white/60">
         Hassle-free private key management without mnemonic
       </CardText>
-      <SocialLoginShieldIcon className="w-[133px] h-auto absolute left-[50%] translate-x-[-50%] bottom-[-60px] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
+      <SocialLoginShieldIcon className="w-[133px] h-auto absolute left-[50%] translate-x-[-50%] bottom-[-76px] lg:bottom-[-60px] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
     </div>
   );
 }
 
 function GovernanceBlock() {
   return (
-    <div className="h-full relative group rounded-2xl bg-gradient-to-b from-[#0DBC7A] to-[#02945D] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
+    <div className="h-full relative group rounded-2xl bg-gradient-to-b from-[#0DBC7A] to-[#02945D] px-[24px] py-[32px] select-none overflow-hidden min-h-[298px]">
       <CardHeading className="mb-[12px]">Governance</CardHeading>
       <CardText className="text-white/60">
         Cast your votes on <br className="block sm:hidden" />
@@ -363,7 +361,7 @@ function GovernanceBlock() {
 
 function LedgerBlock() {
   return (
-    <div className="h-full flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] py-[24px] overflow-hidden select-none ledger-block ledger-block-background">
+    <div className="h-full flex flex-col relative border border-[#cdcdcd] group rounded-2xl px-[24px] py-[32px] overflow-hidden select-none ledger-block ledger-block-background">
       <CardHeading className="mb-[12px]">Ledger</CardHeading>
 
       <div className="mb-[74px]">
@@ -548,7 +546,7 @@ export default function WalletPage() {
         </div>
       </header>
 
-      <section className="py-[40px] sm:py-[60px] w-full">
+      <section className="py-[40px] sm:py-[70px] w-full">
         <div className="container mx-auto px-[20px] sm:px-[40px] items-center flex flex-col lg:flex-row">
           <div className="text-center lg:text-start lg:w-3/5 lg:flex-row">
             <h1
@@ -618,7 +616,7 @@ export default function WalletPage() {
         </div>
       </section>
 
-      <section className="w-full mb-[90px] sm:mb-[120px] lg:mb-[140px]">
+      <section className="w-full py-[40px] sm:py-[70px] sm:mb-[120px] lg:mb-[140px]">
         <div className="container mx-auto flex flex-col px-[20px] sm:px-[40px]">
           <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
             HAQQ Wallet Features
@@ -628,7 +626,7 @@ export default function WalletPage() {
               <NonCustodialWalletBlock />
             </div>
             <div className="lg:col-span-3 xl:col-span-2">
-              <div className="grid lg:grid-cols-3 gap-[28px]">
+              <div className="grid lg:grid-cols-3 gap-[28px] h-full">
                 <div className="lg:col-span-2 flex flex-col space-y-[28px]">
                   <div>
                     <StakingBlock />
@@ -642,7 +640,7 @@ export default function WalletPage() {
                     </div>
                   </div>
                 </div>
-                <div className="">
+                <div>
                   <LedgerBlock />
                 </div>
               </div>
@@ -651,7 +649,7 @@ export default function WalletPage() {
         </div>
       </section>
 
-      <section className="w-full mb-[70px] sm:mb-[140px]">
+      <section className="w-full py-[40px] sm:py-[70px] sm:pb-[140px]">
         <div className="container mx-auto max-w-[980px] px-[20px] sm:px-[40px]">
           <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center mb-[50px] sm:mb-[64px]">
             FAQ
