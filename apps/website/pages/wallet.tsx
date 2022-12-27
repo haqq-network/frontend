@@ -8,7 +8,6 @@ import { ElMessiriFont, ManropeFont } from '../lib/fonts';
 import walletImageData from '../assets/images/wallet-bg.jpg';
 import iphoneWalletScreenshotData from '../assets/images/wallet-iphone-screenshot.png';
 import maskData from '../assets/images/mask.png';
-import stakingEllipseData from '../assets/images/staking-ellipse.png';
 import landingStakingShieldData from '../assets/images/landing-staking-shield.svg';
 import landingGovernanceThumbUpData from '../assets/images/landing-governance-thumbup.svg';
 import landingLedgerItemData from '../assets/images/landing-ledger-item.svg';
@@ -267,25 +266,28 @@ function NonCustodialWalletBlock() {
 function StakingBlock() {
   return (
     <div className="h-full relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden select-none">
-      <div className="absolute w-[378px] h-[378px] top-[100%]">
-        <Image
-          alt=""
-          src={stakingEllipseData.src}
-          width={stakingEllipseData.width}
-          height={stakingEllipseData.height}
-        />
+      <div className="absolute left-0 top-[50%] translate-y-[-50%] opacity-20 w-[378px] h-[558px] bg-[#016256]/20 blur-[67px]">
+        <div className="h-[378px] w-[378px] rounded-full bg-[#23DC65]/40" />
+        <div className="h-[378px] w-[378px] translate-y-[50px] rounded-full bg-[#137ADA]/20" />
+        <div className="h-[378px] w-[378px] translate-y-[180px] rounded-full bg-[#6B13DA]/10" />
       </div>
+
       <div className="font-extrabold text-[28px] leading-[36px] text-start mb-[12px]">
         <span>Staking</span>
       </div>
-      <div className="text-white/60">Delegate your coins and make a profit</div>
-      <div className="flex items-center space-x-[22px] text-transparent bg-clip-text bg-gradient-to-t from-[#05F08D] to-[#05f08eef]">
-        <span className="text-[72px] font-extrabold">+12%</span>
-        <div className="flex flex-col text-[28px] font-extrabold max-h-[72px]">
-          <span>+5%</span>
-          <span>+7%</span>
-          <span>+10%</span>
-          <span>+15%</span>
+      <div className="mb-6">
+        <span className="text-white/60">
+          Delegate your coins and make a profit
+        </span>
+      </div>
+
+      <div className="flex leading-none mb-[38px] w-full text-[#05F08D] min-[375px]:tracking-[2px]">
+        <span className="min-[320px]:text-[52px] sm:text-[72px] mr-[22px] font-extrabold">
+          +12%
+        </span>
+        <div className="flex flex-col justify-center min-[320px]:text-[24px] sm:text-[28px] space-y-1 font-extrabold min-[320px]:max-h-[52px] sm:max-h-[72px]">
+          <span className="opacity-50">+10%</span>
+          <span className="opacity-20">+5%</span>
         </div>
       </div>
     </div>
@@ -528,30 +530,6 @@ export default function WalletPage() {
           <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
             HAQQ Wallet Features
           </h2>
-          {/* <div className="grid lg:grid-cols-4 gap-7">
-            <div>
-              <NonCustodialWalletBlock />
-            </div>
-            <div className="col-span-1 sm:col-span-3">
-              <div className="flex flex-col lg:col-span-2 space-y-7">
-                <div>
-                  <StakingBlock />
-                </div>
-                <div className="grid col-span-1 sm:grid-cols-2 sm:col-span-3 lg:grid-cols-11 gap-7">
-                  <div>
-                    <GovernanceBlock />
-                  </div>
-                  <div>
-                    <SocialLoginBlock />
-                  </div>
-                </div>
-                <div>
-                  <LedgerBlock />
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-3 gap-[28px]">
             <div>
               <NonCustodialWalletBlock />
@@ -571,7 +549,7 @@ export default function WalletPage() {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="">
                   <LedgerBlock />
                 </div>
               </div>
