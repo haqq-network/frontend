@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, ReactNode } from 'react';
+import { Fragment, ReactElement, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -7,10 +7,13 @@ import { DiscordIcon, GithubIcon, TwitterIcon } from '@haqq/website/ui-kit';
 import { ElMessiriFont, ManropeFont } from '../lib/fonts';
 import walletImageData from '../assets/images/wallet-bg.jpg';
 import iphoneWalletScreenshotData from '../assets/images/wallet-iphone-screenshot.png';
+import maskData from '../assets/images/mask.png';
+import landingStakingShieldData from '../assets/images/landing-staking-shield.svg';
+import ledgerImageData from '../assets/images/landing-ledger-item.svg';
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (
-    <div className="text-white text-[14px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 text-left inline-block">
+    <div className="text-white text-[14px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 text-left inline-block mb-[8px]">
       {children}
     </div>
   );
@@ -236,6 +239,292 @@ function HeaderLogo() {
   );
 }
 
+function NonCustodialWalletBlock() {
+  return (
+    <div className="h-full px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group select-none non-custodial-wallet">
+      <div className="absolute w-[1024px] h-[988px] left-[-525px] top-[10%] sm:top-[-15%] sm:left-[-395px] lg:left-[-545px] lg:top-[20%] non-custodial-wallet-animation">
+        <Image fill alt="" src={maskData.src} />
+      </div>
+
+      <div className="relative text-black flex flex-col">
+        <div className="max-w-[300px] sm:max-w-full mb-[212px] sm:mb-[278px]">
+          <CardHeading className="mb-[12px]">Non-custodial wallet</CardHeading>
+          <CardText>
+            With a non-custodial wallet, you have sole control of your private
+            keys, which in turn control your cryptocurrency and prove the funds
+            are yours.
+          </CardText>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StakingBlock() {
+  return (
+    <div className="h-full relative px-[32px] pt-[24px] box-border border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden select-none">
+      <div className="absolute left-0 top-[50%] translate-y-[-50%] opacity-20 w-[378px] h-[558px] bg-[#016256]/20 blur-[67px]">
+        <div className="h-[378px] w-[378px] rounded-full bg-[#23DC65]/40" />
+        <div className="h-[378px] w-[378px] translate-y-[50px] rounded-full bg-[#137ADA]/20" />
+        <div className="h-[378px] w-[378px] translate-y-[180px] rounded-full bg-[#6B13DA]/10" />
+      </div>
+
+      <div className="font-extrabold text-[28px] leading-[36px] text-start mb-[12px]">
+        Staking
+      </div>
+      <div className="mb-6">
+        <span className="text-white/60">
+          Delegate your coins and make a profit
+        </span>
+      </div>
+
+      <div className="flex leading-none mb-[38px] w-full text-[#05F08D] min-[375px]:tracking-[2px]">
+        <span className="min-[320px]:text-[52px] sm:text-[72px] mr-[22px] font-extrabold">
+          +12%
+        </span>
+        <div className="flex flex-col justify-center min-[320px]:text-[24px] sm:text-[28px] space-y-1 font-extrabold min-[320px]:max-h-[52px] sm:max-h-[72px]">
+          <span className="opacity-50">+10%</span>
+          <span className="opacity-20">+5%</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CardText({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={clsx('text-[16px] leading-[22px] font-[500]', className)}>
+      {children}
+    </div>
+  );
+}
+
+function CardHeading({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <h3 className={clsx('font-[800] text-[28px] leading-[36px]', className)}>
+      {children}
+    </h3>
+  );
+}
+
+function SocialLoginBlock() {
+  return (
+    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
+      <div className="mb-[12px]">
+        <CardHeading>Social Login</CardHeading>
+
+        <div className="rounded-[6px] bg-white/10 px-[12px] py-[4px] font-[800] inline-block mt-[4px]">
+          Coming soon
+        </div>
+      </div>
+      <CardText className="text-white/60">
+        Hassle-free private key management without mnemonic
+      </CardText>
+      <SocialLoginShieldIcon className="w-[133px] h-auto absolute left-[50%] translate-x-[-50%] bottom-[-60px] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
+    </div>
+  );
+}
+
+function GovernanceBlock() {
+  return (
+    <div className="h-full relative group rounded-2xl bg-gradient-to-b from-[#0DBC7A] to-[#02945D] px-[32px] py-[24px] select-none overflow-hidden min-h-[298px]">
+      <CardHeading className="mb-[12px]">Governance</CardHeading>
+      <CardText className="text-white/60">
+        Cast your votes on <br className="block sm:hidden" />
+        proposals to
+        <br className="block sm:hidden" /> participate in network decision
+        making
+      </CardText>
+
+      <LikeIcon className="w-[120px] h-auto absolute bottom-[4px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
+
+      <LikeIcon className="w-[34px] h-auto absolute bottom-[106px] left-[28px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]" />
+      <LikeIcon className="w-[44px] h-auto absolute bottom-[119px] right-[30px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[250ms]" />
+      <LikeIcon className="w-[24px] h-auto absolute bottom-[72px] left-[10px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[50ms]" />
+      <LikeIcon className="w-[34px] h-auto absolute bottom-[82px] right-[10px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[350ms]" />
+      <LikeIcon className="w-[22px] h-auto absolute bottom-[148px] right-[84px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]" />
+      <LikeIcon className="w-[24px] h-auto absolute bottom-[138px] left-[78px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[275ms]" />
+      <LikeIcon className="w-[24px] h-auto absolute bottom-[147px] left-[18px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[125ms]" />
+    </div>
+  );
+}
+
+function LedgerBlock() {
+  return (
+    <div className="h-full flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] py-[24px] overflow-hidden select-none ledger-block ledger-block-background">
+      <CardHeading className="mb-[12px]">Ledger</CardHeading>
+
+      <div className="mb-[74px]">
+        <CardText className="text-white/60">
+          Secure your assets with industry-standard hardware wallet
+        </CardText>
+      </div>
+      <div className="self-center pb-[24px]">
+        <Image
+          src={ledgerImageData.src}
+          alt=""
+          width={66}
+          height={310}
+          className="ledger-bounce-animation"
+        />
+      </div>
+    </div>
+  );
+}
+
+function PlusIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24">
+      <path
+        d="M6 12H18 M12 6L12 18"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function MinusIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24">
+      <path
+        d="M6 12H18"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function FAQArticle({
+  question,
+  answer,
+}: {
+  question: string;
+  answer: string;
+}) {
+  const [isOpen, setOpen] = useState(false);
+
+  return (
+    <div
+      className="flex flex-col space-y-[16px] py-[16px]"
+      onClick={() => {
+        setOpen(!isOpen);
+      }}
+    >
+      <div className="w-full flex justify-between items-center text-[24px] font-bold text-white cursor-pointer">
+        <span>{question}</span>
+        {isOpen ? <MinusIcon /> : <PlusIcon />}
+      </div>
+      {isOpen && <div>{answer}</div>}
+    </div>
+  );
+}
+
+function LikeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 113 123"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M112.224 54.5617C112.959 44.8993 105.18 42.0792 102.097 42.0792C90.1354 42.0747 78.1635 42.0792 66.2015 42.0679C67.9232 37.7255 70.023 26.2163 67.3807 10.358C66.3367 4.08721 63.142 -0.0826983 59.0717 0.00124443C55.7967 0.0670374 52.6647 2.99369 52.3356 6.64633C51.9771 10.662 51.1251 16.3746 50.32 20.2859C47.7423 32.782 33.9587 49.2779 25.2442 55.0336V116.076C31.1577 119.944 37.5686 121.301 44.4164 121.149C55.2345 120.908 86.1356 121.117 91.7357 121.076C95.6982 121.044 99.6509 118.855 101.553 113.313C104.15 105.749 97.4552 101.967 97.4552 101.967C97.4552 101.967 104.785 102.386 106.458 94.7703C108.175 86.9568 101.435 83.8623 101.435 83.8623C105.995 83.286 108.914 81.9112 110.017 77.1514C111.317 71.5431 108.203 67.3346 103.273 64.898C104.017 64.8164 111.546 63.4075 112.224 54.5617ZM17.6541 45.3348H3.71573C1.66297 45.3348 0 47.2633 0 49.6386V118.696C0 121.076 1.66493 123 3.71573 123H17.6541C19.7069 123 21.3699 121.074 21.3699 118.696V49.6386C21.3699 47.2633 19.7088 45.3348 17.6541 45.3348Z"
+        fill="url(#gradient-fill)"
+      />
+      <defs>
+        <linearGradient
+          id="gradient-fill"
+          x1="56.1364"
+          y1="0"
+          x2="56.1364"
+          y2="123"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#EFEFEF" />
+          <stop offset="1" stopColor="#01A567" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+function SocialLoginShieldIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 134 188"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M67.1914 181.773C30.0797 163.606 6.1713 125.311 6.1713 83.8404V35.2634L67.1914 6.31824L128.212 35.2738V83.8508C128.212 125.308 104.303 163.604 67.1914 181.77V181.773Z"
+        fill="url(#paint0_linear_90_150)"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M123.148 131.844C125.646 126.429 127.717 120.826 129.341 115.087L130.7 109.78C132.672 101.278 133.667 92.5774 133.666 83.8485V33.5383C133.665 32.4805 133.057 31.5165 132.102 31.0625L68.3607 0.810352C67.6204 0.459456 66.7617 0.459456 66.0214 0.810352L2.26671 31.0625C1.31301 31.5165 0.705406 32.4805 0.704107 33.5383V83.8385C0.701504 92.5678 1.69685 101.268 3.66928 109.77L5.03963 115.07C6.66339 120.81 8.73482 126.412 11.2329 131.827L13.6839 136.835C15.1411 139.63 16.7193 142.37 18.4199 145.056C20.5264 148.388 22.8019 151.608 25.2364 154.705L28.8834 159.128C39.1998 170.975 51.8412 180.56 66.0217 187.284C66.7621 187.635 67.6208 187.635 68.3611 187.284C82.5402 180.56 95.1816 170.975 105.499 159.128L109.161 154.705C111.596 151.609 113.871 148.388 115.977 145.056C117.672 142.373 119.246 139.633 120.699 136.835L123.148 131.844ZM6.1713 83.8404C6.1713 125.311 30.0797 163.606 67.1914 181.773V181.77C104.303 163.604 128.212 125.308 128.212 83.8508V35.2738L67.1914 6.31824L6.1713 35.2634V83.8404Z"
+        fill="url(#paint1_linear_90_150)"
+      />
+      <path
+        d="M122.013 35.4381L68.4594 10.0795C67.6533 9.69526 66.7183 9.69526 65.9122 10.0795L12.3587 35.4468C11.3202 35.9388 10.6586 36.9851 10.6572 38.1349V82.7567C10.6601 101.968 15.7602 120.834 25.4336 137.429C35.1085 154.024 49.0108 167.751 65.7202 177.209C66.6283 177.722 67.739 177.722 68.6471 177.209C85.3617 167.749 99.2668 154.017 108.941 137.418C118.616 120.818 123.712 101.945 123.71 82.7277V38.1277C123.709 36.9778 123.047 35.9315 122.009 35.4396L122.013 35.4381Z"
+        fill="url(#paint2_linear_90_150)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_90_150"
+          x1="67.1851"
+          y1="0.54718"
+          x2="67.1851"
+          y2="187.547"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#6CE9F0" />
+          <stop offset="1" stopColor="#66C5CA" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_90_150"
+          x1="67.1851"
+          y1="0.54718"
+          x2="67.1851"
+          y2="187.547"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#6CE9F0" />
+          <stop offset="1" stopColor="#66C5CA" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient
+          id="paint2_linear_90_150"
+          x1="67.1838"
+          y1="9.79132"
+          x2="67.1838"
+          y2="177.594"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#47B4BA" />
+          <stop offset="1" stopColor="#346A6D" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
 export default function WalletPage() {
   return (
     <div
@@ -244,37 +533,37 @@ export default function WalletPage() {
         'flex flex-col items-center justify-start relative flex-1',
       )}
     >
-      <Image
-        alt=""
-        src={walletImageData.src}
-        fill
-        className="z-[-1] object-cover bg-center"
-      />
+      <div className="absolute z-[-1] left-[50%] translate-x-[-50%] w-[120%] min-w-[1600px]">
+        <Image
+          alt=""
+          src={walletImageData.src}
+          width={walletImageData.width}
+          height={walletImageData.height}
+        />
+      </div>
+
       <header className="h-[70px] w-full py-[20px] sm:py-[22px]">
         <div className="container mx-auto px-[20px] sm:px-[40px] flex">
           <HeaderLogo />
         </div>
       </header>
-      <div className="flex-1 w-full flex items-center">
-        <div className="container mx-auto pt-[40px] sm:pt-[60px] px-[20px] sm:px-[40px] items-center flex flex-col lg:flex-row">
-          <div className=" text-center lg:text-start lg:w-3/5 lg:flex-row">
-            <div
+
+      <section className="py-[40px] sm:py-[60px] w-full">
+        <div className="container mx-auto px-[20px] sm:px-[40px] items-center flex flex-col lg:flex-row">
+          <div className="text-center lg:text-start lg:w-3/5 lg:flex-row">
+            <h1
               className={clsx(
                 ElMessiriFont.className,
                 'text-[48px] sm:text-[84px] font-bold leading-[62px] lg:leading-[100px] sm:mb-[16px]',
               )}
             >
               HAQQ Wallet
-            </div>
-            <div
-              className={clsx(
-                'font-medium text-white/50 text-[14px] leading-[22px] mb-[30px]',
-              )}
-            >
+            </h1>
+            <CardText className="mb-[30px] text-white/50">
               The best way to hold Islamic Coin and remain Shariah-compliant
               along the way!
-            </div>
-            <div className="mb-[38px] text-left sm:text-center lg:text-left">
+            </CardText>
+            <div className="mb-[38px] text-center lg:text-left">
               <FeatureText>
                 <div className="mr-[6px] mb-[-6px] inline-block">
                   <ShieldIcon />
@@ -320,14 +609,71 @@ export default function WalletPage() {
           </div>
           <div className="flex flex-1 justify-center">
             <Image
-              src={iphoneWalletScreenshotData.src}
               alt="HAQQ Wallet"
+              src={iphoneWalletScreenshotData.src}
               width={iphoneWalletScreenshotData.width}
               height={iphoneWalletScreenshotData.height}
             />
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="w-full mb-[90px] sm:mb-[120px] lg:mb-[140px]">
+        <div className="container mx-auto flex flex-col px-[20px] sm:px-[40px]">
+          <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
+            HAQQ Wallet Features
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-3 gap-[28px]">
+            <div>
+              <NonCustodialWalletBlock />
+            </div>
+            <div className="lg:col-span-3 xl:col-span-2">
+              <div className="grid lg:grid-cols-3 gap-[28px]">
+                <div className="lg:col-span-2 flex flex-col space-y-[28px]">
+                  <div>
+                    <StakingBlock />
+                  </div>
+                  <div className="h-full grid sm:grid-cols-2 lg:grid-cols-11 gap-[28px]">
+                    <div className="lg:col-span-6">
+                      <GovernanceBlock />
+                    </div>
+                    <div className="lg:col-span-5">
+                      <SocialLoginBlock />
+                    </div>
+                  </div>
+                </div>
+                <div className="">
+                  <LedgerBlock />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full mb-[70px] sm:mb-[140px]">
+        <div className="container mx-auto max-w-[980px] px-[20px] sm:px-[40px]">
+          <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center mb-[50px] sm:mb-[64px]">
+            FAQ
+          </h2>
+
+          <div className="flex flex-col divide-y divide-gray-200/10">
+            <FAQArticle
+              question="What coins does HAQQ wallet support?"
+              answer="Currently HAQQ wallet only supports ISLM coin"
+            />
+            <FAQArticle
+              question="Which ledgers does the wallet support?"
+              answer="Lorem"
+            />
+            <FAQArticle
+              question="How much coins can I participate in staking?"
+              answer="Ipsum"
+            />
+          </div>
+        </div>
+      </section>
+
       <footer className="h-[96px] w-full">
         <div className="container mx-auto pb-[20px] px-[20px] sm:px-[40px]">
           <div className="flex space-x-[20px] text-white items-center justify-center mb-[12px]">
@@ -353,11 +699,7 @@ export default function WalletPage() {
               <GithubIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
             </Link>
           </div>
-          <div
-            className={clsx(
-              'flex flex-col sm:flex-row sm:justify-center sm:space-x-[20px] text-center font-normal text-[14px] leading-[24px]',
-            )}
-          >
+          <div className="flex flex-col sm:flex-row sm:justify-center sm:space-x-[20px] text-center font-normal text-[14px] leading-[24px]">
             <div className="mb-[8px]">
               © 2022 HAQQ Wallet. All rights reserved
             </div>
@@ -381,7 +723,7 @@ WalletPage.getLayout = function getLayout(page: ReactElement) {
         <title>HAQQ | Wallet</title>
       </Head>
 
-      <main className={clsx('min-h-screen flex flex-col')}>{page}</main>
+      <main className="min-h-screen flex flex-col overflow-x-clip">{page}</main>
     </Fragment>
   );
 };
