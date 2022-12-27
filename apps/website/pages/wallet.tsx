@@ -493,12 +493,15 @@ export default function WalletPage() {
         'flex flex-col items-center justify-start relative flex-1',
       )}
     >
-      {/* <Image
-        alt=""
-        src={walletImageData.src}
-        fill
-        className="z-[-1] object-cover bg-center"
-      /> */}
+      <div className="absolute z-[-1] left-[50%] translate-x-[-50%] w-[120%] min-w-[1600px]">
+        <Image
+          alt=""
+          src={walletImageData.src}
+          width={walletImageData.width}
+          height={walletImageData.height}
+        />
+      </div>
+
       <header className="h-[70px] w-full py-[20px] sm:py-[22px]">
         <div className="container mx-auto px-[20px] sm:px-[40px] flex">
           <HeaderLogo />
