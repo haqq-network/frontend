@@ -5,3 +5,50 @@
 body {
   @apply font-sans text-white bg-haqq-black will-change-auto;
 }
+
+.ledger-block-background {
+  background-image: url('../assets/images/ledger-block-bg.svg');
+  background-repeat: repeat;
+}
+
+@keyframes rotate-30 {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+}
+
+@keyframes ledger-bounce {
+  0%,
+  20%,
+  40% {
+    transform: translateY(0px);
+    animation-timing-function: ease-out;
+  }
+  10%,
+  30% {
+    transform: translateY(-25px);
+    animation-timing-function: ease-in;
+  }
+}
+
+.ledger-bounce-animation {
+  animation-name: ledger-bounce;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+.non-custodial-wallet-animation {
+  animation-name: rotate-30;
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  animation-timing-function: ease-in-out;
+}
+
+.non-custodial-wallet:hover .non-custodial-wallet-animation {
+  animation-play-state: running;
+}

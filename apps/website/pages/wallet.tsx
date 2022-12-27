@@ -1,10 +1,4 @@
-import {
-  Fragment,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useState,
-} from 'react';
+import { Fragment, ReactElement, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -17,7 +11,6 @@ import maskData from '../assets/images/mask.png';
 import stakingEllipseData from '../assets/images/staking-ellipse.png';
 import landingStakingShieldData from '../assets/images/landing-staking-shield.svg';
 import landingGovernanceThumbUpData from '../assets/images/landing-governance-thumbup.svg';
-import landingLedgerBgData from '../assets/images/landing-ledger-bg.svg';
 import landingLedgerItemData from '../assets/images/landing-ledger-item.svg';
 
 function FeatureText({ children }: { children: ReactNode }) {
@@ -250,8 +243,8 @@ function HeaderLogo() {
 
 function NonCustodialWalletBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2  lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group select-none">
-      <div className="absolute w-[1024px] h-[988px] left-[-525px] top-[10%] sm:top-[-15%] sm:left-[-395px] lg:left-[-545px] lg:top-[20%] group-hover:animate-[spin2_10s_ease-in-out_infinite]">
+    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 px-[32px] pt-[24px] relative bg-white rounded-2xl overflow-hidden group select-none non-custodial-wallet">
+      <div className="absolute w-[1024px] h-[988px] left-[-525px] top-[10%] sm:top-[-15%] sm:left-[-395px] lg:left-[-545px] lg:top-[20%] non-custodial-wallet-animation">
         <Image fill alt="" src={maskData.src} />
       </div>
 
@@ -358,10 +351,7 @@ function GovernanceBlock() {
 
 function LedgerBlock() {
   return (
-    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-4 lg:col-end-4 flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] pt-[24px] overflow-hidden select-none group">
-      <div className="absolute inset-0 h-[945px] w-[627px] sm:rotate-90 sm:top-[-200px]">
-        <Image fill src={landingLedgerBgData.src} alt="" />
-      </div>
+    <div className="col-span-1 sm:col-span-2 lg:row-start-1 lg:row-end-3 lg:col-start-4 lg:col-end-4 flex flex-col relative box-border border border-[#cdcdcd] group rounded-2xl px-[32px] py-[24px] overflow-hidden select-none ledger-block ledger-block-background">
       <div className="mb-[12px]">
         <span className="font-extrabold text-[28px] leading-[36px] mb-[4px]">
           Ledger
@@ -372,8 +362,14 @@ function LedgerBlock() {
           Secure your assets with industry-standard hardware wallet
         </span>
       </div>
-      <div className="self-center mb-[54px] group-hover:animate-[bounce_2s_ease-in-out_infinite]">
-        <Image src={landingLedgerItemData.src} alt="" width={66} height={310} />
+      <div className="self-center pb-[24px]">
+        <Image
+          src={landingLedgerItemData.src}
+          alt=""
+          width={66}
+          height={310}
+          className="ledger-bounce-animation"
+        />
       </div>
     </div>
   );
