@@ -614,7 +614,7 @@ WalletPage.getLayout = function getLayout(page: ReactElement) {
         <title>HAQQ | Wallet</title>
       </Head>
 
-      <main className={clsx('min-h-screen flex flex-col')}>{page}</main>
+      <main className="min-h-screen flex flex-col overflow-x-clip">{page}</main>
     </Fragment>
   );
 };
