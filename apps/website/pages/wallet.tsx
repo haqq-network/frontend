@@ -8,7 +8,6 @@ import { ElMessiriFont, ManropeFont } from '../lib/fonts';
 import walletImageData from '../assets/images/wallet-bg.jpg';
 import iphoneWalletScreenshotData from '../assets/images/wallet-iphone-screenshot.png';
 import maskData from '../assets/images/mask.png';
-import landingStakingShieldData from '../assets/images/landing-staking-shield.svg';
 import ledgerImageData from '../assets/images/landing-ledger-item.svg';
 
 function FeatureText({ children }: { children: ReactNode }) {
