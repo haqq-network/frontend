@@ -319,7 +319,7 @@ function CardHeading({
 
 function SocialLoginBlock() {
   return (
-    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[24px] py-[32px] select-none overflow-hidden min-h-[298px]">
+    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[24px] py-[32px] select-none overflow-hidden min-h-[298px] social-login">
       <div className="mb-[12px]">
         <CardHeading>Social Login</CardHeading>
 
@@ -330,7 +330,14 @@ function SocialLoginBlock() {
       <CardText className="text-white/60">
         Hassle-free private key management without mnemonic
       </CardText>
-      <SocialLoginShieldIcon className="w-[133px] h-auto absolute left-[50%] translate-x-[-50%] bottom-[-76px] lg:bottom-[-60px] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
+
+      <div className="absolute w-[130px] h-[183px] bottom-[-76px] lg:bottom-[-60px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105">
+        <SocialLoginShieldBorderImage className="w-[130px] absolute top-[2px] social-login-animation stroke-[#499599]" />
+        <SocialLoginShieldBorderImage className="w-[130px] absolute top-[2px] social-login-animation stroke-[#499599]" />
+        <SocialLoginShieldBorderImage className="w-[130px] absolute top-[2px] social-login-animation stroke-[#499599]" />
+        <SocialLoginShieldBorderImage className="w-[130px] absolute top-[2px] social-login-animation stroke-[#499599]" />
+        <SocialLoginShieldIcon className="w-[130px] h-auto absolute z-1" />
+      </div>
     </div>
   );
 }
@@ -348,13 +355,48 @@ function GovernanceBlock() {
 
       <LikeIcon className="w-[120px] h-auto absolute bottom-[4px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
 
-      <LikeIcon className="w-[34px] h-auto absolute bottom-[106px] left-[28px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]" />
-      <LikeIcon className="w-[44px] h-auto absolute bottom-[119px] right-[30px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[250ms]" />
-      <LikeIcon className="w-[24px] h-auto absolute bottom-[72px] left-[10px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[50ms]" />
-      <LikeIcon className="w-[34px] h-auto absolute bottom-[82px] right-[10px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[350ms]" />
-      <LikeIcon className="w-[22px] h-auto absolute bottom-[148px] right-[84px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]" />
-      <LikeIcon className="w-[24px] h-auto absolute bottom-[138px] left-[78px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[275ms]" />
-      <LikeIcon className="w-[24px] h-auto absolute bottom-[147px] left-[18px] duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[125ms]" />
+      <LikeIcon
+        className={clsx(
+          'w-[24px] h-auto absolute bottom-[72px] left-[10px] lg:left-[30px] lg:bottom-[30px]',
+          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[50ms]',
+        )}
+      />
+      <LikeIcon
+        className={clsx(
+          'w-[34px] h-auto absolute bottom-[106px] left-[28px] lg:left-[50px] lg:bottom-[75px]',
+          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]',
+        )}
+      />
+      <LikeIcon
+        className={clsx(
+          'w-[24px] h-auto absolute bottom-[138px] left-[78px] lg:left-[100px] lg:bottom-[130px]',
+          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[275ms]',
+        )}
+      />
+      <LikeIcon
+        className={clsx(
+          'w-[24px] h-auto absolute bottom-[147px] left-[18px] lg:left-[20px] lg:bottom-[120px]',
+          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[125ms]',
+        )}
+      />
+      <LikeIcon
+        className={clsx(
+          'w-[44px] h-auto absolute bottom-[119px] right-[30px] lg:right-[30px] lg:bottom-[90px]',
+          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[250ms]',
+        )}
+      />
+      <LikeIcon
+        className={clsx(
+          'w-[34px] h-auto absolute bottom-[82px] right-[10px] lg:right-[20px] lg:bottom-[30px]',
+          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[350ms]',
+        )}
+      />
+      <LikeIcon
+        className={clsx(
+          'w-[22px] h-auto absolute bottom-[148px] right-[84px] lg:right-[90px] lg:bottom-[140px]',
+          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]',
+        )}
+      />
     </div>
   );
 }
@@ -428,7 +470,7 @@ function FAQArticle({
         <span>{question}</span>
         {isOpen ? <MinusIcon /> : <PlusIcon />}
       </div>
-      {isOpen && <div style={{whiteSpace: 'pre-wrap'}}>{answer}</div>}
+      {isOpen && <div className="whitespace-pre-wrap">{answer}</div>}
     </div>
   );
 }
@@ -519,6 +561,22 @@ function SocialLoginShieldIcon({ className }: { className?: string }) {
           <stop offset="1" stopColor="#346A6D" />
         </linearGradient>
       </defs>
+    </svg>
+  );
+}
+
+function SocialLoginShieldBorderImage({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 164 218"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M143.004 167.443C140.643 171.177 138.092 174.789 135.359 178.264L135.251 178.401L131.367 183.094L131.251 183.227C119.67 196.524 105.477 207.286 89.5543 214.837L89.5526 214.838L89.5517 214.839C85.0161 216.988 79.7552 216.988 75.2199 214.839L75.2194 214.838H75.2177C59.2932 207.287 45.1002 196.524 33.5197 183.226L33.396 183.084L29.5253 178.39L29.4243 178.261C26.6969 174.792 24.1471 171.183 21.7863 167.45L21.7855 167.449L21.7834 167.445C19.8753 164.431 18.1019 161.352 16.4637 158.21M143.005 167.441L143.007 167.439C144.913 164.422 146.682 161.339 148.317 158.192L148.391 158.05L150.985 152.764L151.055 152.612C153.858 146.535 156.184 140.246 158.007 133.802L158.055 133.632L159.496 128.002L159.532 127.848C161.745 118.308 162.862 108.546 162.86 98.7524V98.7501V48.4347V48.4331V48.4251C162.853 41.9928 159.157 36.1033 153.307 33.3225L89.5512 3.0634C85.0159 0.913802 79.7549 0.913687 75.2194 3.0635L11.4523 33.3215L11.4511 33.3221L11.4441 33.3254C5.59886 36.1077 1.90635 41.9955 1.89845 48.4251L1.89844 48.4337V98.7382V98.7416V98.7427C1.89586 108.537 3.01287 118.299 5.22579 127.838L5.26546 128.009L6.71947 133.632L6.76268 133.785C8.58584 140.229 10.9112 146.518 13.7149 152.595L13.782 152.741L16.3816 158.052L16.4637 158.21M16.4637 158.21L15.577 158.672"
+        strokeWidth="2"
+      />
     </svg>
   );
 }
@@ -658,7 +716,9 @@ export default function WalletPage() {
           <div className="flex flex-col divide-y divide-gray-200/10">
             <FAQArticle
               question="What coins does wallet support?"
-              answer={'Wallet directly development for HAQQ Netowrk and now supports only native network coin, Islamic Coin(ISLM). \n\nBut right now we working on IBC integrations our network with bridges (Gravity, Axelar) to get access to work with another coins like USDC, ETH and etc.'}
+              answer={
+                'Wallet directly development for HAQQ Network and now supports only native network coin, Islamic Coin(ISLM). \n\nBut right now we working on IBC integrations our network with bridges (Gravity, Axelar) to get access to work with another coins like USDC, ETH and etc.'
+              }
             />
             <FAQArticle
               question="Can i use a hardware wallet with wallet?"
