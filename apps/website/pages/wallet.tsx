@@ -278,11 +278,11 @@ function StakingBlock() {
 
       <div className="flex leading-none w-full text-[#05F08D] min-[375px]:tracking-[2px]">
         <span className="min-[320px]:text-[52px] sm:text-[72px] mr-[22px] font-extrabold">
-          +12%
+          +21%
         </span>
         <div className="flex flex-col justify-center min-[320px]:text-[24px] sm:text-[28px] space-y-1 font-extrabold min-[320px]:max-h-[52px] sm:max-h-[72px]">
-          <span className="opacity-50">+10%</span>
-          <span className="opacity-20">+5%</span>
+          <span className="opacity-50">+16%</span>
+          <span className="opacity-20">+13%</span>
         </div>
       </div>
     </div>
