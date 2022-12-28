@@ -428,7 +428,7 @@ function FAQArticle({
         <span>{question}</span>
         {isOpen ? <MinusIcon /> : <PlusIcon />}
       </div>
-      {isOpen && <div>{answer}</div>}
+      {isOpen && <div style={{whiteSpace: 'pre-wrap'}}>{answer}</div>}
     </div>
   );
 }
@@ -658,7 +658,7 @@ export default function WalletPage() {
           <div className="flex flex-col divide-y divide-gray-200/10">
             <FAQArticle
               question="What coins does HAQQ wallet support?"
-              answer="Wallet directly development for HAQQ Netowrk and now supports only native network coin, Islamic Coin(ISLM). But right now we working on IBC integrations our network with bridges (Gravity, Axelar) to get access to work with another coins like USDC, ETH and etc."
+              answer={'Wallet directly development for HAQQ Netowrk and now supports only native network coin, Islamic Coin(ISLM). \n\nBut right now we working on IBC integrations our network with bridges (Gravity, Axelar) to get access to work with another coins like USDC, ETH and etc.'}
             />
             <FAQArticle
               question="Can i use a hardware wallet with Wallet?"
