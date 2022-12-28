@@ -60,8 +60,8 @@ function mapAndSortValidators(
         fee: val.commission.commission_rates.rate,
         power: val.tokens,
         jailed: val.jailed,
-        staked: staked?.balance.amount ?? '0',
-        rewards: rewardAmount?.reward[0].amount ?? '0',
+        staked: staked?.balance?.amount ?? '0',
+        rewards: rewardAmount?.reward[0]?.amount ?? '0',
       };
     })
     .sort((valA, valB) => {
