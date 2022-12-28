@@ -657,11 +657,11 @@ export default function WalletPage() {
 
           <div className="flex flex-col divide-y divide-gray-200/10">
             <FAQArticle
-              question="What coins does HAQQ wallet support?"
+              question="What coins does wallet support?"
               answer={'Wallet directly development for HAQQ Netowrk and now supports only native network coin, Islamic Coin(ISLM). \n\nBut right now we working on IBC integrations our network with bridges (Gravity, Axelar) to get access to work with another coins like USDC, ETH and etc.'}
             />
             <FAQArticle
-              question="Can i use a hardware wallet with Wallet?"
+              question="Can i use a hardware wallet with wallet?"
               answer="Yes, now we supports Ledger Nano X"
             />
             <FAQArticle
