@@ -666,8 +666,8 @@ export default function WalletPage() {
             <Image
               alt="HAQQ Wallet"
               src={iphoneWalletScreenshotData.src}
-              width={iphoneWalletScreenshotData.width}
-              height={iphoneWalletScreenshotData.height}
+              width={383}
+              height={718}
             />
           </div>
         </div>
