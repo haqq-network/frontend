@@ -5,6 +5,7 @@ export const ClashDisplayFont = localFont({
   src: '../assets/fonts/ClashDisplay Variable.ttf',
   weight: '100 700',
   variable: '--font-clash',
+  preload: true,
 });
 
 export const HKGuiseFont = localFont({
@@ -19,12 +20,15 @@ export const HKGuiseFont = localFont({
     },
   ],
   variable: '--font-guise',
+  preload: true,
 });
 
 export const ElMessiriFont = El_Messiri({
   subsets: ['latin'],
+  preload: true,
 });
 
 export const ManropeFont = Manrope({
   subsets: ['latin'],
+  preload: true,
 });
