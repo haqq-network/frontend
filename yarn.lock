@@ -3088,7 +3088,7 @@ __metadata:
     jest-environment-jsdom: 29.3.1
     lint-staged: 13.1.0
     marked: 4.2.5
-    marked-react: 1.3.1
+    marked-react: 1.3.2
     next: 13.1.1
     next-compose-plugins: 2.2.1
     nx: 15.4.2
@@ -3119,7 +3119,7 @@ __metadata:
     tslib: 2.4.1
     typescript: 4.9.4
     url-loader: 4.1.1
-    wagmi: 0.10.0
+    wagmi: 0.10.1
     web3: 1.8.1
     webpack: 5.75.0
     webpack-merge: 5.8.0
@@ -7864,9 +7864,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wagmi/core@npm:0.8.7":
-  version: 0.8.7
-  resolution: "@wagmi/core@npm:0.8.7"
+"@wagmi/core@npm:0.8.8":
+  version: 0.8.8
+  resolution: "@wagmi/core@npm:0.8.8"
   dependencies:
     "@wagmi/chains": 0.1.7
     "@wagmi/connectors": 0.1.3
@@ -7882,7 +7882,7 @@ __metadata:
       optional: true
     "@walletconnect/ethereum-provider":
       optional: true
-  checksum: 2a306b47a55054581080de596e949bf6ebdde8d1c5f178d952eec3d4fc099929cf54792a9b1e3e8151ad77498d30cbc84d3d43c798c2a44b294fc2e58c6d2d57
+  checksum: c7ab826a78eed104918c50670729a4b81a56ea71987d4075442f66056c7b6cad1c9149e988fad72f2f07e5378f6775710f910b7ff2b4382885b3897932fd2439
   languageName: node
   linkType: hard
 
@@ -19545,15 +19545,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked-react@npm:1.3.1":
-  version: 1.3.1
-  resolution: "marked-react@npm:1.3.1"
+"marked-react@npm:1.3.2":
+  version: 1.3.2
+  resolution: "marked-react@npm:1.3.2"
   dependencies:
     "@types/marked": ^4.0.7
     marked: ^4.1.1
   peerDependencies:
     react: ^16.8.0 || >=17.0.0
-  checksum: 2197345a60f97497647752cf8b24263d84e34d41d9326dd3dc58ee81593a839a76464f6a6df46c8966447b4d4490bb30c0903d1038bebf167d535fa05710f308
+  checksum: 8864ba1318d7c07049f152e299601b8400ada3c1c7df63c3f55bc888d6673cc469c91a1bd05371f65c525876286f022c4726be30785447c8814769b6e21b721d
   languageName: node
   linkType: hard
 
@@ -28025,22 +28025,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wagmi@npm:0.10.0":
-  version: 0.10.0
-  resolution: "wagmi@npm:0.10.0"
+"wagmi@npm:0.10.1":
+  version: 0.10.1
+  resolution: "wagmi@npm:0.10.1"
   dependencies:
     "@coinbase/wallet-sdk": ^3.6.0
     "@tanstack/query-sync-storage-persister": ^4.14.5
     "@tanstack/react-query": ^4.14.5
     "@tanstack/react-query-persist-client": ^4.14.5
-    "@wagmi/core": 0.8.7
+    "@wagmi/core": 0.8.8
     "@walletconnect/ethereum-provider": ^1.8.0
     abitype: ^0.2.5
     use-sync-external-store: ^1.2.0
   peerDependencies:
     ethers: ">=5.5.1"
     react: ">=17.0.0"
-  checksum: 7b60d55fa2ccc668b445ef08bf95f1de88ac0db762a04eda061062bedfa2bdcac41d5d63b9fba3d55c85cb382f7cc96648def26feec4232e9f7d5e9eb958e3de
+  checksum: ac33fef941e0b3b5e60be5033d7e0671e87bfefc80659c9ae20d8672971e59f4bec5bc32bbd6cf89c4835c0eec037a6ddf559ef1a88de37e95a5d6ffa5ea8194
   languageName: node
   linkType: hard
 
