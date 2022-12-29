@@ -67,12 +67,14 @@ export function ShellIndexPageAccountInfo() {
   return (
     <Card className="flex flex-col space-y-4 min-h-[200px] items-start justify-between">
       {ethAddress && haqqAddress && (
-        <div>
+        <div className="w-full">
           <CardHeading>Address</CardHeading>
-          <div>{ethAddress}</div>
-          <div>{haqqAddress}</div>
+
+          <div className="text-ellipsis overflow-hidden">{ethAddress}</div>
+          <div className="text-ellipsis overflow-hidden">{haqqAddress}</div>
         </div>
       )}
+
       {balance && (
         <div>
           <CardHeading>Balance</CardHeading>
@@ -82,24 +84,19 @@ export function ShellIndexPageAccountInfo() {
         </div>
       )}
 
-      {delegation && (
-        <div>
-          <CardHeading>Staked</CardHeading>
-          <div className="text-2xl font-semibold leading-normal">
-            {delegation.toLocaleString()}{' '}
-            <span className="text-base">ISLM</span>
-          </div>
+      <div>
+        <CardHeading>Staked</CardHeading>
+        <div className="text-2xl font-semibold leading-normal">
+          {delegation.toLocaleString()} <span className="text-base">ISLM</span>
         </div>
-      )}
+      </div>
 
-      {rewards && (
-        <div>
-          <CardHeading>Unclaimed rewards</CardHeading>
-          <div className="text-2xl font-semibold leading-normal">
-            {rewards.toLocaleString()} <span className="text-base">ISLM</span>
-          </div>
+      <div>
+        <CardHeading>Unclaimed rewards</CardHeading>
+        <div className="text-2xl font-semibold leading-normal">
+          {rewards.toLocaleString()} <span className="text-base">ISLM</span>
         </div>
-      )}
+      </div>
     </Card>
   );
 }
