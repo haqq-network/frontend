@@ -98,7 +98,16 @@ export function ProposalStatusComponent({ status }: { status: string }) {
   }
 }
 
-export function ProposalVoteResults({ results }: { results: any }) {
+export function ProposalVoteResults({
+  results,
+}: {
+  results: {
+    yes: string;
+    abstain: string;
+    no: string;
+    no_with_veto: string;
+  };
+}) {
   const { yes, abstain, no, veto, total } = useMemo(() => {
     const yes = Number.parseInt(results.yes) / 10 ** 18;
     const abstain = Number.parseInt(results.abstain) / 10 ** 18;

@@ -16,7 +16,7 @@ import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 
 const fee: Fee = {
   amount: '5000',
-  gas: '600000',
+  gas: '1400000',
   denom: 'aISLM',
 };
 
