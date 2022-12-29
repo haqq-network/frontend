@@ -580,12 +580,7 @@ function SocialLoginShieldBorderImage({ className }: { className?: string }) {
 
 export default function WalletPage() {
   return (
-    <div
-      className={clsx(
-        ManropeFont.className,
-        'flex flex-col items-center justify-start relative flex-1',
-      )}
-    >
+    <div className="flex flex-col items-center justify-start relative flex-1">
       <div className="absolute z-[-1] left-[50%] translate-x-[-50%] w-[120%] min-w-[1600px]">
         <Image
           alt=""
@@ -784,11 +779,29 @@ WalletPage.getLayout = function getLayout(page: ReactElement) {
   return (
     <Fragment>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>HAQQ | Wallet</title>
+        <meta
+          name="description"
+          content="The best way to hold Islamic Coin and remain Shariah-compliant along the way!"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="icon"
+          type="image/png"
+          href="/favicon-islamic.png"
+          sizes="32x32"
+        />
+        <meta name="apple-itunes-app" content="app-id=6443843352" />
       </Head>
 
-      <main className="min-h-screen flex flex-col overflow-x-clip">{page}</main>
+      <main
+        className={clsx(
+          ManropeFont.className,
+          'min-h-screen flex flex-col overflow-x-clip',
+        )}
+      >
+        {page}
+      </main>
     </Fragment>
   );
 };
