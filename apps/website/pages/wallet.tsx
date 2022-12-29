@@ -652,7 +652,13 @@ export default function WalletPage() {
               </FeatureText>
             </div>
             <div className="flex flex-col items-center sm:flex-row space-y-[16px] justify-center sm:justify-center lg:justify-start sm:space-y-0 sm:space-x-[16px] mb-[60px]">
-              <LandingButton store="apple" />
+              <Link
+                href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LandingButton store="apple" isAvailable />
+              </Link>
               <Link
                 href="https://play.google.com/store/apps/details?id=com.haqq.wallet"
                 target="_blank"
