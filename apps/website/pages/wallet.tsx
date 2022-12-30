@@ -713,22 +713,22 @@ export default function WalletPage() {
 
           <div className="flex flex-col divide-y divide-gray-200/10">
             <FAQArticle
-              question="What coins does wallet support?"
+              question="What coins does HAQQ Wallet support?"
               answer={
-                'Wallet directly development for HAQQ Network and now supports only native network coin, Islamic Coin(ISLM). \n\nBut right now we working on IBC integrations our network with bridges (Gravity, Axelar) to get access to work with another coins like USDC, ETH and etc.'
+                'The Wallet has been developed for the HAQQ Network and currently only supports Islamic Coin (ISLM), HAQQ’s native currency.'
               }
             />
             <FAQArticle
-              question="Can i use a hardware wallet with wallet?"
-              answer="Yes, now we supports Ledger Nano X"
+              question="Can i connect a hardware wallet?"
+              answer="Yes, we support Ledger Nano X"
             />
             <FAQArticle
               question="Does wallet support NFTs?"
               answer="No, but we plan to add support NFTs soon."
             />
             <FAQArticle
-              question="Why hasn't my balance updated?"
-              answer="This is typically caused by a bad mobile network connection. We recommend trying a different network."
+              question="Why hasn’t my balance updated?"
+              answer="This is typically caused by a bad network connection. We recommend trying a different network."
             />
           </div>
         </div>
