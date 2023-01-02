@@ -3099,7 +3099,7 @@ __metadata:
     react: 18.2.0
     react-countdown: 2.3.5
     react-dom: 18.2.0
-    react-hook-form: 7.41.2
+    react-hook-form: 7.41.3
     react-hot-toast: 2.4.0
     react-json-pretty: 2.2.0
     react-refresh: 0.14.0
@@ -23763,12 +23763,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.41.2":
-  version: 7.41.2
-  resolution: "react-hook-form@npm:7.41.2"
+"react-hook-form@npm:7.41.3":
+  version: 7.41.3
+  resolution: "react-hook-form@npm:7.41.3"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: bc923b74018d55289838f820d49e32043dbc683d97ea2f93a6f3b75ff58fea9ee4536d6487adcb02912b4bc90a09ea07a63c4c24f930ec59f598bdafd5e8c8d3
+  checksum: 25223f3001cbd1b4e04e20144b1f71b090925feaf2f1996f268c2beb17b190562c8d80ad2a786c7feafb45eae7e1284fc42f5f886eaf7034a9532457cc9adacd
   languageName: node
   linkType: hard
 
