@@ -46,7 +46,7 @@
     "@tanstack/react-query-devtools": "4.20.4",
     "bech32-converting": "1.0.9",
     "clsx": "1.2.1",
-    "core-js": "3.27.0",
+    "core-js": "3.27.1",
     "cosmjs-types": "0.6.1",
     "decimal.js-light": "2.5.1",
     "ethers": "5.7.2",
