@@ -54,7 +54,7 @@ export function ShellIndexPageAccountInfo() {
 
   if (!ethAddress) {
     return (
-      <Card className="flex flex-col space-y-4 min-h-[200px] items-start justify-between">
+      <Card className="flex flex-col space-y-4 min-h-[350px] items-start justify-between flex-1">
         <div className="flex flex-1 items-center w-full">
           <div className="w-full flex-auto text-center">
             You should connect wallet first
@@ -65,7 +65,7 @@ export function ShellIndexPageAccountInfo() {
   }
 
   return (
-    <Card className="flex flex-col space-y-4 min-h-[200px] items-start justify-between">
+    <Card className="flex flex-col space-y-4 min-h-[350px] items-start justify-between flex-1">
       {ethAddress && haqqAddress && (
         <div className="w-full">
           <CardHeading>Address</CardHeading>
