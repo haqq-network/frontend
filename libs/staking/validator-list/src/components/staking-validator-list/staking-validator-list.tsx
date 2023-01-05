@@ -63,7 +63,9 @@ export function StakingValidatorList() {
       <Container className="flex flex-1 flex-col space-y-4">
         <div className="flex space-x-4 justify-between">
           <Heading level={3}>Validators</Heading>
-          <Checkbox onChange={setChecked}>Show active delegations</Checkbox>
+          <Checkbox onChange={setChecked} disabled={!haqqAddress}>
+            Show active delegations
+          </Checkbox>
         </div>
         <ValidatorsList
           validators={checked ? sortedDelegatedValidators : sortedAllValidators}

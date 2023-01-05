@@ -79,8 +79,8 @@ export function Checkbox({
       <label
         htmlFor={id}
         className={clsx(
-          'relative select-none inline-flex flex-row items-center cursor-pointer',
-          'disabled:opacity-60 disabled:cursor-not-allowed',
+          'relative select-none inline-flex flex-row items-center',
+          disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
         )}
       >
         <CheckboxInputElement
