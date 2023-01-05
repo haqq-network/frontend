@@ -21,7 +21,7 @@ export function Tooltip({
           'left-1/2 -translate-x-1/2 -translate-y-2 bottom-full',
           'transition ease-out duration-100 delay-75',
           'group-hover:visible group-hover:z-50 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100',
-          'py-[4px] px-[8px] rounded-[4px] shadow-lg leading-snug text-sm font-medium',
+          'py-[4px] px-[8px] rounded-[4px] shadow-lg leading-snug text-xs font-medium',
           'text-white bg-slate-500',
           className,
         )}

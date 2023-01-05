@@ -1,13 +1,37 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
 import {
   useAddress,
+  useClipboard,
   useStakingDelegationQuery,
   useStakingRewardsQuery,
 } from '@haqq/shared';
-import { Card, CardHeading } from '@haqq/ui-kit';
+import { Card, CardHeading, Tooltip } from '@haqq/ui-kit';
+import clsx from 'clsx';
+
+export function CopyIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className={clsx('h-[20px] w-[20px]', className)}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+      />
+    </svg>
+  );
+}
 
 export function ShellIndexPageAccountInfo() {
+  const [isEthAddressCopy, setEthAddressCopy] = useState(false);
+  const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
+  const { copyText } = useClipboard();
   const { ethAddress, haqqAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
@@ -52,6 +76,22 @@ export function ShellIndexPageAccountInfo() {
     return 0;
   }, [rewardsInfo]);
 
+  const handleEthAddressCopy = useCallback(async () => {
+    if (ethAddress) {
+      await copyText(ethAddress);
+      setHaqqAddressCopy(false);
+      setEthAddressCopy(true);
+    }
+  }, [copyText, ethAddress]);
+
+  const handleHaqqAddressCopy = useCallback(async () => {
+    if (haqqAddress) {
+      await copyText(haqqAddress);
+      setEthAddressCopy(false);
+      setHaqqAddressCopy(true);
+    }
+  }, [copyText, haqqAddress]);
+
   if (!ethAddress) {
     return (
       <Card className="flex flex-col space-y-4 min-h-[350px] items-start justify-between flex-1">
@@ -67,11 +107,43 @@ export function ShellIndexPageAccountInfo() {
   return (
     <Card className="flex flex-col space-y-4 min-h-[350px] items-start justify-between flex-1">
       {ethAddress && haqqAddress && (
-        <div className="w-full">
+        <div className="max-w-full">
           <CardHeading>Address</CardHeading>
 
-          <div className="text-ellipsis overflow-hidden">{ethAddress}</div>
-          <div className="text-ellipsis overflow-hidden">{haqqAddress}</div>
+          <div className="mb-2">
+            <Tooltip text={isEthAddressCopy ? 'Copied' : 'Click to copy'}>
+              <div
+                className="cursor-pointer flex flex-row space-x-[8px] items-center justify-center group"
+                onClick={handleEthAddressCopy}
+              >
+                <div className="overflow-hidden">
+                  <div className="text-[18px] leading-[22px] text-ellipsis w-full overflow-hidden">
+                    {ethAddress}
+                  </div>
+                </div>
+                <div>
+                  <CopyIcon className="text-white/20 group-hover:text-gray-400 transition-colors duration-100 ease-in-out" />
+                </div>
+              </div>
+            </Tooltip>
+          </div>
+          <div>
+            <Tooltip text={isHaqqAddressCopy ? 'Copied' : 'Click to copy'}>
+              <div
+                className="cursor-pointer flex flex-row space-x-[8px] items-center justify-center group"
+                onClick={handleHaqqAddressCopy}
+              >
+                <div className="overflow-hidden">
+                  <div className="text-[18px] leading-[22px] text-ellipsis w-full overflow-hidden">
+                    {haqqAddress}
+                  </div>
+                </div>
+                <div>
+                  <CopyIcon className="text-white/20 group-hover:text-gray-400 transition-colors duration-100 ease-in-out" />
+                </div>
+              </div>
+            </Tooltip>
+          </div>
         </div>
       )}
 
