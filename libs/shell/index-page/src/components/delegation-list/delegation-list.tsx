@@ -104,10 +104,10 @@ export function ShellIndexPageDelegationList() {
       <Card className="!p-0 flex flex-col flex-1">
         <div className="px-6 py-3 border-b border-islamic-black-100/20">
           <div className="flex items-center justify-between space-x-6 font-semibold">
-            <div className="w-1/3">
+            <div className="w-1/4">
               <div className="font-semibold">Name</div>
             </div>
-            <div className="w-[100px] text-center">Status</div>
+            <div className="w-[80px] text-center">Status</div>
             <div className="w-[50px] text-center">Fee</div>
             <div className="flex-1 text-right">Voting power</div>
             <div className="flex-1 text-right">Staked</div>
@@ -169,11 +169,11 @@ export function ValidatorWithDelegationListItem({
       className="block px-6 py-4 hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/10 border-b border-islamic-black-100/20 cursor-pointer transition-[background] duration-75 last:border-b-0"
     >
       <div className="flex items-center justify-between space-x-6">
-        <div className="w-1/3">
+        <div className="w-1/4">
           <div>{validator.name}</div>
         </div>
 
-        <div className="w-[100px] text-center">
+        <div className="w-[80px] text-center">
           <ValidatorStatus
             jailed={validator.jailed}
             status={bondStatusFromJSON(validator.status)}

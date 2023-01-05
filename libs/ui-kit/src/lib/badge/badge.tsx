@@ -13,7 +13,7 @@ export function Badge({ children, className, intent = 'success' }: BadgeProps) {
     <span
       className={clsx(
         'inline-block py-1 px-2.5 leading-tight text-center whitespace-nowrap align-baseline font-medium rounded-md',
-        'text-white dark:bg-opacity-30 uppercase text-sm',
+        'text-white dark:bg-opacity-30 uppercase text-xs',
         {
           'bg-islamic-green-500': intent === 'success',
           'bg-yellow-400': intent === 'warning',
