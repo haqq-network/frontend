@@ -59,8 +59,8 @@ export function ValidatorListItem({
           />
         </div>
         <div className="w-[50px] text-center">{validatorCommission}%</div>
-        <div className="flex-1 text-right">
-          <span className="font-semibold">{votingPower.toLocaleString()}</span>{' '}
+        <div className="flex-1 font-semibold text-right">
+          <div>{votingPower.toLocaleString()}</div>
           <div className="text-gray-400 text-sm">{votingPowerInPercents}%</div>
         </div>
         <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
