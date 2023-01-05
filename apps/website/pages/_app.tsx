@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         className={clsx(
           ClashDisplayFont.variable,
           HKGuiseFont.variable,
-          'min-h-screen flex flex-col overflow-x-clip',
+          'min-h-screen flex flex-col overflow-x-clip font-sans',
         )}
       >
         <Header />
