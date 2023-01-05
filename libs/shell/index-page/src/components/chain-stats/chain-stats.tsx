@@ -17,8 +17,6 @@ export function ShellIndexPageChainStats() {
   const { data: accounts } = useAuthAccountsQuery();
   const { data: bankSupply } = useBankSupplyQuery();
 
-  console.log({ accounts, bankSupply });
-
   const totalStaked = useMemo(() => {
     return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
   }, [stakingPool?.pool.bonded_tokens]);
