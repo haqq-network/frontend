@@ -6,6 +6,7 @@ import {
   useStakingDelegationQuery,
   useStakingRewardsQuery,
   useStakingValidatorListQuery,
+  useStakingPoolQuery,
 } from '@haqq/shared';
 import {
   GetDelegationsResponse,
@@ -82,6 +83,7 @@ export function ShellIndexPageDelegationList() {
   } = useStakingValidatorListQuery(1000);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const { data: stakingPool } = useStakingPoolQuery();
 
   const validatorsWithDelegation = useMemo(() => {
     if (!(validatorsList?.length && delegationInfo && rewardsInfo)) {
@@ -90,6 +92,10 @@ export function ShellIndexPageDelegationList() {
 
     return mapAndSortValidators(validatorsList, delegationInfo, rewardsInfo);
   }, [delegationInfo, rewardsInfo, validatorsList]);
+
+  const totalStaked = useMemo(() => {
+    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.pool.bonded_tokens]);
 
   if (!haqqAddress) {
     return (
@@ -104,10 +110,10 @@ export function ShellIndexPageDelegationList() {
       <Card className="!p-0 flex flex-col flex-1">
         <div className="px-6 py-3 border-b border-islamic-black-100/20">
           <div className="flex items-center justify-between space-x-6 font-semibold">
-            <div className="w-1/3">
+            <div className="w-1/4">
               <div className="font-semibold">Name</div>
             </div>
-            <div className="w-[100px] text-center">Status</div>
+            <div className="w-[80px] text-center">Status</div>
             <div className="w-[50px] text-center">Fee</div>
             <div className="flex-1 text-right">Voting power</div>
             <div className="flex-1 text-right">Staked</div>
@@ -130,6 +136,7 @@ export function ShellIndexPageDelegationList() {
                   <ValidatorWithDelegationListItem
                     validator={validator}
                     key={`validator-${index}`}
+                    stakingPool={totalStaked}
                   />
                 );
               })
@@ -147,8 +154,10 @@ export function ShellIndexPageDelegationList() {
 
 export function ValidatorWithDelegationListItem({
   validator,
+  stakingPool,
 }: {
   validator: DelegationListValidator;
+  stakingPool: number;
 }) {
   const validatorCommission = useMemo(() => {
     return (Number.parseFloat(validator.fee ?? '0') * 100).toFixed(0);
@@ -156,6 +165,9 @@ export function ValidatorWithDelegationListItem({
   const votingPower = useMemo(() => {
     return Number.parseInt(validator.power ?? '0') / 10 ** 18;
   }, [validator.power]);
+  const votingPowerInPercents = useMemo(() => {
+    return ((votingPower / stakingPool) * 100).toFixed(2);
+  }, [votingPower, stakingPool]);
   const userDelegate = useMemo(() => {
     return Number.parseFloat(formatUnits(validator.staked));
   }, [validator.staked]);
@@ -169,19 +181,20 @@ export function ValidatorWithDelegationListItem({
       className="block px-6 py-4 hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/10 border-b border-islamic-black-100/20 cursor-pointer transition-[background] duration-75 last:border-b-0"
     >
       <div className="flex items-center justify-between space-x-6">
-        <div className="w-1/3">
+        <div className="w-1/4">
           <div>{validator.name}</div>
         </div>
 
-        <div className="w-[100px] text-center">
+        <div className="w-[80px] text-center">
           <ValidatorStatus
             jailed={validator.jailed}
             status={bondStatusFromJSON(validator.status)}
           />
         </div>
         <div className="w-[50px] text-center">{validatorCommission}%</div>
-        <div className="flex-1 text-right font-semibold">
-          {votingPower.toLocaleString()}
+        <div className="flex-1 font-semibold text-right">
+          <div>{votingPower.toLocaleString()}</div>
+          <div className="text-gray-400 text-sm">{votingPowerInPercents}%</div>
         </div>
         <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
         <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>

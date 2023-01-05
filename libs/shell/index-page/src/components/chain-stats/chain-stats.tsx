@@ -17,8 +17,6 @@ export function ShellIndexPageChainStats() {
   const { data: accounts } = useAuthAccountsQuery();
   const { data: bankSupply } = useBankSupplyQuery();
 
-  console.log({ accounts, bankSupply });
-
   const totalStaked = useMemo(() => {
     return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
   }, [stakingPool?.pool.bonded_tokens]);
@@ -42,31 +40,35 @@ export function ShellIndexPageChainStats() {
   }, [validators]);
 
   return (
-    <Card className="grid grid-cols-1 gap-4">
-      <div>
-        <CardHeading>Total supply</CardHeading>
-        <div className="text-2xl font-semibold leading-normal">
-          {totalSupply.toLocaleString()} <span className="text-base">ISLM</span>
+    <Card className="md:flex-1">
+      <div className="flex flex-col space-y-4 justify-between h-full">
+        <div>
+          <CardHeading>Total supply</CardHeading>
+          <div className="text-2xl font-semibold leading-normal">
+            {totalSupply.toLocaleString()}{' '}
+            <span className="text-base">ISLM</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <CardHeading>
-          Total staked ({((totalStaked / totalSupply) * 100).toFixed(2)}%)
-        </CardHeading>
-        <div className="text-2xl font-semibold leading-normal">
-          {totalStaked.toLocaleString()} <span className="text-base">ISLM</span>
+        <div>
+          <CardHeading>
+            Total staked ({((totalStaked / totalSupply) * 100).toFixed(2)}%)
+          </CardHeading>
+          <div className="text-2xl font-semibold leading-normal">
+            {totalStaked.toLocaleString()}{' '}
+            <span className="text-base">ISLM</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <CardHeading>Peers</CardHeading>
-        <div className="text-2xl font-semibold leading-normal">
-          {totalAccounts}
+        <div>
+          <CardHeading>Peers</CardHeading>
+          <div className="text-2xl font-semibold leading-normal">
+            {totalAccounts}
+          </div>
         </div>
-      </div>
-      <div>
-        <CardHeading>Active validators</CardHeading>
-        <div className="text-2xl font-semibold leading-normal">
-          {valsActive} <span className="text-base">out of {valsTotal}</span>
+        <div>
+          <CardHeading>Active validators</CardHeading>
+          <div className="text-2xl font-semibold leading-normal">
+            {valsActive} <span className="text-base">out of {valsTotal}</span>
+          </div>
         </div>
       </div>
     </Card>

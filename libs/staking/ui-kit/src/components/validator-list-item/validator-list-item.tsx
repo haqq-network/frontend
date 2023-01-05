@@ -8,12 +8,14 @@ export interface ValidatorListItemProps {
   validator: Validator;
   delegation?: DelegationResponse;
   reward?: Reward;
+  stakingPool: number;
 }
 
 export function ValidatorListItem({
   validator,
   reward,
   delegation,
+  stakingPool,
 }: ValidatorListItemProps) {
   const validatorCommission = useMemo(() => {
     return (
@@ -39,6 +41,10 @@ export function ValidatorListItem({
     return 0;
   }, [reward]);
 
+  const votingPowerInPercents = useMemo(() => {
+    return ((votingPower / stakingPool) * 100).toFixed(2);
+  }, [votingPower, stakingPool]);
+
   return (
     <div className="px-6 py-4 hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/20 border-b border-islamic-black-100/20 cursor-pointer transition-[background] duration-75">
       <div className="flex items-center justify-between space-x-6">
@@ -53,8 +59,9 @@ export function ValidatorListItem({
           />
         </div>
         <div className="w-[50px] text-center">{validatorCommission}%</div>
-        <div className="flex-1 text-right">
-          <span className="font-semibold">{votingPower.toLocaleString()}</span>{' '}
+        <div className="flex-1 font-semibold text-right">
+          <div>{votingPower.toLocaleString()}</div>
+          <div className="text-gray-400 text-sm">{votingPowerInPercents}%</div>
         </div>
         <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
         <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>

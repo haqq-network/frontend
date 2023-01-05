@@ -7,8 +7,22 @@ import { ShellIndexPageProposalList } from '../proposal-list/proposal-list';
 export function ShellIndexPage() {
   return (
     <Container className="py-10">
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-2 flex flex-col space-y-6">
+      <div className="flex flex-col space-y-6">
+        <div className="flex flex-col md:flex-row md:space-x-6 md:space-y-0 space-y-6">
+          <div className="md:flex-1 flex flex-col">
+            <Heading level={3} className="mb-4">
+              My account
+            </Heading>
+            <ShellIndexPageAccountInfo />
+          </div>
+          <div className="md:flex-1 flex flex-col">
+            <Heading level={3} className="mb-4">
+              Chain stats
+            </Heading>
+            <ShellIndexPageChainStats />
+          </div>
+        </div>
+        <div className="xl:col-span-2 flex flex-col space-y-6">
           <div>
             <Heading level={3} className="mb-4">
               My delegations
@@ -20,20 +34,6 @@ export function ShellIndexPage() {
               Latest proposals
             </Heading>
             <ShellIndexPageProposalList />
-          </div>
-        </div>
-        <div className="flex flex-col space-y-6">
-          <div>
-            <Heading level={3} className="mb-4">
-              My account
-            </Heading>
-            <ShellIndexPageAccountInfo />
-          </div>
-          <div>
-            <Heading level={3} className="mb-4">
-              Chain stats
-            </Heading>
-            <ShellIndexPageChainStats />
           </div>
         </div>
       </div>
