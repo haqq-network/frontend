@@ -66,7 +66,7 @@ export function ValidatorsList({
                 </div>
                 <div className="w-[100px] text-center">Status</div>
                 <div className="w-[50px] text-center">Fee</div>
-                <div className="flex-1 text-right">Power</div>
+                <div className="flex-1 text-right">Voting power</div>
                 <div className="flex-1 text-right">Staked</div>
                 <div className="flex-1 text-right">Rewards</div>
               </div>
@@ -98,7 +98,9 @@ export function ValidatorsList({
                   })
                 ) : (
                   <div className="text-center pt-[64px]">
-                    <Heading level={3}>There's no data</Heading>
+                    <Heading level={3}>
+                      You don't have active delegations
+                    </Heading>
                   </div>
                 )}
               </div>
