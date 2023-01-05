@@ -1,4 +1,4 @@
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
 import { ValidatorListItem } from '../validator-list-item/validator-list-item';
@@ -7,6 +7,7 @@ import type {
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
+import { useStakingPoolQuery } from '@haqq/shared';
 
 interface ValidatorListProps {
   validators?: Validator[];
@@ -23,6 +24,7 @@ export function ValidatorsList({
   rewardsInfo,
   delegationInfo,
 }: ValidatorListProps) {
+  const { data: stakingPool } = useStakingPoolQuery();
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -47,6 +49,9 @@ export function ValidatorsList({
     [delegationInfo],
   );
 
+  const totalStaked = useMemo(() => {
+    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.pool.bonded_tokens]);
   return (
     <div className="mx-auto w-full flex flex-col flex-1">
       <Card className="!p-0 flex flex-col flex-1">
@@ -92,6 +97,7 @@ export function ValidatorsList({
                           validator={validator}
                           delegation={delegationInfo}
                           reward={rewardsInfo}
+                          stakingPool={totalStaked}
                         />
                       </Link>
                     );
