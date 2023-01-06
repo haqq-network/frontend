@@ -256,6 +256,7 @@ export function DelegateModalInput({
             'transition-all duration-100',
             'focus:ring-4 dark:ring-slate-100/50 ring-slate-500/40',
             'focus:border-slate-500 dark:focus:border-slate-50',
+            'bg-transparent',
           )}
           placeholder="Please enter the amount"
           onChange={handleInputChange}
