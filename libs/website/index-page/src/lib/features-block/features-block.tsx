@@ -110,7 +110,7 @@ export function FeaturesBlock() {
                 </div>
               ))}
             </div>
-            <div className="flex">
+            <div className="flex sm:ml-[-100px] lg:ml-[-178px]">
               {FeaturesData.map((el, index) => (
                 <PaginationButton
                   key={el.id}
