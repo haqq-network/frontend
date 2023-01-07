@@ -15,3 +15,4 @@ export * from './lib/hero-heading/hero-heading';
 export * from './lib/input/input';
 export * from './lib/button/button';
 export * from './lib/burger-button/burger-button';
+export * from './lib/feature-card/feature-card';
