@@ -1,14 +1,13 @@
 import {
   FeatureCard,
-  // FeatureCardProps,
   Heading,
-  // PaginationButton,
+  PaginationButton,
   Text,
 } from '@haqq/website/ui-kit';
 
 import firstFeatureData from '../../assets/images/features/1.svg';
 import secondFeatureData from '../../assets/images/features/2.svg';
-// import { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 const FeaturesData = [
   {
@@ -20,7 +19,7 @@ const FeaturesData = [
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     feature: 'EVM-compatible',
-    page: 1,
+    id: 1,
   },
   {
     img: {
@@ -31,7 +30,7 @@ const FeaturesData = [
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     feature: 'EVM-compatible',
-    page: 2,
+    id: 2,
   },
   {
     img: {
@@ -42,7 +41,7 @@ const FeaturesData = [
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     feature: 'EVM-compatible',
-    page: 3,
+    id: 3,
   },
   {
     img: {
@@ -53,17 +52,25 @@ const FeaturesData = [
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     feature: 'EVM-compatible',
-    page: 4,
+    id: 4,
   },
 ];
 
 export function FeaturesBlock() {
-  // const [isActive, setIsActive] = useState<boolean>(true);
-  // const itemRefs = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isActive, setIsActive] = useState<number>(0);
 
-  // const handleClick = () => {
-  //   itemRefs?.current?.scrollIntoView({ behavior: 'smooth' });
-  // };
+  const handleClick = (index: number) => {
+    if (isActive === index) {
+      return;
+    }
+    setIsActive(index);
+    const items = itemRefs?.current[index];
+    const container = containerRef?.current;
+    const left = items.offsetLeft - container.offsetLeft;
+    containerRef.current?.scrollTo({ left: left, behavior: 'smooth' });
+  };
 
   return (
     <div className="bg-white flex flex-col">
@@ -86,9 +93,15 @@ export function FeaturesBlock() {
             </div>
           </div>
           <div className="sm:ml-[120px] lg:ml-[211px]">
-            <div className="flex flex-row items-center overflow-x-scroll snap-mandatory snap-x space-x-[12px] sm:space-x-[20px] lg:space-x-[28px]">
-              {FeaturesData.map((el) => (
-                <div className="flex flex-col">
+            <div
+              className="flex flex-row items-center overflow-x-hidden snap-mandatory snap-x space-x-[12px] sm:space-x-[20px] lg:space-x-[28px]"
+              ref={(el: HTMLDivElement) => (containerRef.current = el)}
+            >
+              {FeaturesData.map((el, index) => (
+                <div
+                  key={el.id}
+                  ref={(el: HTMLDivElement) => (itemRefs.current[index] = el)}
+                >
                   <FeatureCard
                     description={el.description}
                     feature={el.feature}
@@ -97,15 +110,16 @@ export function FeaturesBlock() {
                 </div>
               ))}
             </div>
-            {/* <div className="flex" ref={itemRefs}>
+            <div className="flex">
               {FeaturesData.map((el, index) => (
                 <PaginationButton
-                  page={el.page}
-                  onClick={handleClick}
-                  active={isActive}
+                  key={el.id}
+                  page={index + 1}
+                  onClick={() => handleClick(index)}
+                  active={isActive === index}
                 />
               ))}
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
