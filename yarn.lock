@@ -3056,7 +3056,7 @@ __metadata:
     "@swc/jest": 0.2.24
     "@tailwindcss/typography": 0.5.8
     "@tanstack/react-query": 4.20.9
-    "@tanstack/react-query-devtools": 4.20.9
+    "@tanstack/react-query-devtools": 4.22.0
     "@testing-library/react": 13.4.0
     "@testing-library/user-event": 14.4.3
     "@types/jest": 29.2.5
@@ -6687,18 +6687,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query-devtools@npm:4.20.9":
-  version: 4.20.9
-  resolution: "@tanstack/react-query-devtools@npm:4.20.9"
+"@tanstack/react-query-devtools@npm:4.22.0":
+  version: 4.22.0
+  resolution: "@tanstack/react-query-devtools@npm:4.22.0"
   dependencies:
     "@tanstack/match-sorter-utils": ^8.7.0
     superjson: ^1.10.0
     use-sync-external-store: ^1.2.0
   peerDependencies:
-    "@tanstack/react-query": 4.20.9
+    "@tanstack/react-query": 4.22.0
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: e9878ba52ed33ba1800f7e459b07450f67d586db459d0b9e04a76f0b580e5ccd81f6644d7c1bedfd5bac79abc9c1e3174f8a68bbca38a3560aacc4c58cd56bfb
+  checksum: 458cbc23e00f8e798022bb22d42fcb833f8b3ffd69d7d99d78d050b77dbe34cde264f18d41e6372c72264de4550fbf3e2947ee2581cb10fb5b3aa90d9f92f6e4
   languageName: node
   linkType: hard
 
