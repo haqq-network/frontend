@@ -247,9 +247,8 @@ function NonCustodialWalletBlock() {
         <div className="max-w-[300px] sm:max-w-full mb-[212px] sm:mb-[278px]">
           <CardHeading className="mb-[12px]">Non-custodial wallet</CardHeading>
           <CardText>
-            With a non-custodial wallet, you have sole control of your private
-            keys, which in turn control your cryptocurrency and prove the funds
-            are yours.
+            With a non-custodial wallet, you have sole authority of your private
+            keys making your crypto safe, secure and always under your control.
           </CardText>
         </div>
       </div>
@@ -325,7 +324,7 @@ function SocialLoginBlock() {
         </div>
       </div>
       <CardText className="text-white/60">
-        Hassle-free private key management without mnemonic
+        Hassle-free private key management without a mnemonic phrase
       </CardText>
 
       <div className="absolute w-[130px] h-[183px] bottom-[-76px] lg:bottom-[-60px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105">
@@ -405,7 +404,7 @@ function LedgerBlock() {
 
       <div className="mb-[74px]">
         <CardText className="text-white/60">
-          Secure your assets with industry-standard hardware wallet
+          Secure your assets with an industry-standard hardware wallet
         </CardText>
       </div>
       <div className="self-center pb-[24px]">
@@ -719,12 +718,12 @@ export default function WalletPage() {
               }
             />
             <FAQArticle
-              question="Can i connect a hardware wallet?"
+              question="Can I connect a hardware wallet?"
               answer="Yes, we support Ledger Nano X"
             />
             <FAQArticle
               question="Does wallet support NFTs?"
-              answer="No, but we plan to add support NFTs soon."
+              answer="No, but we plan to add support for NFTs soon."
             />
             <FAQArticle
               question="Why hasn’t my balance updated?"
