@@ -1,30 +1,28 @@
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FeatureCard, Heading, Text } from '@haqq/website/ui-kit';
-import firstFeatureData from '../../assets/images/features/1.svg';
-import secondFeatureData from '../../assets/images/features/2.svg';
 
 const FeaturesData = [
   {
-    img: firstFeatureData,
+    img: './feature-img-1.svg',
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     title: 'EVM-compatible',
   },
   {
-    img: secondFeatureData,
+    img: './feature-img-2.svg',
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     title: 'EVM-compatible',
   },
   {
-    img: secondFeatureData,
+    img: './feature-img-2.svg',
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     title: 'EVM-compatible',
   },
   {
-    img: secondFeatureData,
+    img: './feature-img-2.svg',
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     title: 'EVM-compatible',
