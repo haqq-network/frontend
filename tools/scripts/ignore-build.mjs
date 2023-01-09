@@ -7,8 +7,10 @@ const FORCE_BUILD_BRANCH = 'dev';
 const GIT_BRANCH = execSync('git branch --show-current')
   .toString('utf-8')
   .replace('\n', '');
+const GIT_BRANCH_VERCEL = process.env['VERCEL_GIT_COMMIT_REF'];
 
-console.log(`current branch: ${GIT_BRANCH}`);
+console.log(`current branch by git: ${GIT_BRANCH}`);
+console.log(`current branch by vercel: ${GIT_BRANCH_VERCEL}`);
 console.log(`check build need for ${APP}`);
 if (FORCE_BUILD_BRANCH === GIT_BRANCH) {
   console.log('current branch is dev, force build');
