@@ -1,79 +1,46 @@
-import {
-  FeatureCard,
-  Heading,
-  PaginationButton,
-  Text,
-} from '@haqq/website/ui-kit';
-
+import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FeatureCard, Heading, Text } from '@haqq/website/ui-kit';
 import firstFeatureData from '../../assets/images/features/1.svg';
 import secondFeatureData from '../../assets/images/features/2.svg';
-import { useRef, useState } from 'react';
 
 const FeaturesData = [
   {
-    img: {
-      src: firstFeatureData,
-      width: firstFeatureData.width,
-      height: firstFeatureData.height,
-    },
+    img: firstFeatureData,
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
-    feature: 'EVM-compatible',
-    id: 1,
+    title: 'EVM-compatible',
   },
   {
-    img: {
-      src: secondFeatureData,
-      width: secondFeatureData.width,
-      height: secondFeatureData.height,
-    },
+    img: secondFeatureData,
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
-    feature: 'EVM-compatible',
-    id: 2,
+    title: 'EVM-compatible',
   },
   {
-    img: {
-      src: secondFeatureData,
-      width: secondFeatureData.width,
-      height: secondFeatureData.height,
-    },
+    img: secondFeatureData,
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
-    feature: 'EVM-compatible',
-    id: 3,
+    title: 'EVM-compatible',
   },
   {
-    img: {
-      src: secondFeatureData,
-      width: secondFeatureData.width,
-      height: secondFeatureData.height,
-    },
+    img: secondFeatureData,
     description:
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
-    feature: 'EVM-compatible',
-    id: 4,
+    title: 'EVM-compatible',
   },
 ];
 
 export function FeaturesBlock() {
-  const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isActive, setIsActive] = useState<number>(0);
-
-  const handleClick = (index: number) => {
-    if (isActive === index) {
-      return;
-    }
-    setIsActive(index);
-    const items = itemRefs?.current[index];
-    const container = containerRef?.current;
-    const left = items.offsetLeft - container.offsetLeft;
-    containerRef.current?.scrollTo({ left: left, behavior: 'smooth' });
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index: number, className: string) {
+      return `<div class=${className}>0${index + 1}</div>`;
+    },
   };
 
   return (
-    <div className="bg-white flex flex-col border-b">
+    <div className="text-black border-t-black bg-white flex flex-col border-b">
       <div
         className="text-black pl-[16px] pr-[32px] ml-[16px] sm:pl-0 sm:ml-[63px] sm:mr-0 sm:pr-0 lg:ml-[79px] border-l border-[#0D0D0E/24] pb-[60px] sm:pb-0"
         id="features"
@@ -84,7 +51,7 @@ export function FeaturesBlock() {
               <Heading level={2}>Features for ethical builders</Heading>
             </div>
             <div className="pt-[16px] sm:pt-[100px] lg:pt-[132px] sm:pr-[64px] xl:pr-[199px]  flex-1 ">
-              <Text className="block sm:ml-[20px] lg:ml-[32px]">
+              <Text className="sm:ml-[20px] lg:ml-[32px]">
                 HAQQ is a fast Proof-of-stake network built with the Tendering
                 consensus engine, with fast finality. It means that transaction
                 effects become irreversible and can't be altered immediately
@@ -92,35 +59,23 @@ export function FeaturesBlock() {
               </Text>
             </div>
           </div>
-          <div className="sm:ml-[120px] lg:ml-[211px]">
-            <div
-              className="flex flex-row items-center overflow-x-hidden snap-mandatory snap-x space-x-[12px] sm:space-x-[20px] lg:space-x-[28px]"
-              ref={(el: HTMLDivElement) => (containerRef.current = el)}
-            >
-              {FeaturesData.map((el, index) => (
-                <div
-                  key={el.id}
-                  ref={(el: HTMLDivElement) => (itemRefs.current[index] = el)}
-                >
-                  <FeatureCard
-                    description={el.description}
-                    feature={el.feature}
-                    img={el.img}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="flex sm:ml-[-100px] lg:ml-[-178px] mb-[60px] sm:mb-[80px] lg:mb-[100px]">
-              {FeaturesData.map((el, index) => (
-                <PaginationButton
-                  key={el.id}
-                  page={index + 1}
-                  onClick={() => handleClick(index)}
-                  active={isActive === index}
+          <Swiper
+            pagination={pagination}
+            modules={[Pagination]}
+            className={'mySwiper'}
+            slidesPerView={'auto'}
+            centeredSlides={true}
+          >
+            {FeaturesData.map((el, index) => (
+              <SwiperSlide key={index}>
+                <FeatureCard
+                  description={el.description}
+                  title={el.title}
+                  img={el.img}
                 />
-              ))}
-            </div>
-          </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </div>

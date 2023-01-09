@@ -87,3 +87,30 @@ body {
 .social-login-animation:nth-child(3) {
   animation-delay: 900ms;
 }
+
+.swiper {
+  @apply w-full h-full;
+}
+
+.swiper-wrapper {
+  @apply sm:absolute sm:left-[30px] xl:left-[-180px] space-x-[12px] sm:space-x-[20px] lg:space-x-[28px];
+}
+
+.swiper-slide:nth-child(odd) {
+  @apply w-full sm:w-[55%] lg:w-[75%] xl:w-[55%] 2xl:w-[50%];
+}
+.swiper-slide:nth-child(even) {
+  @apply w-full sm:w-[55%] lg:w-[75%] xl:w-[55%] 2xl:w-[50%];
+}
+
+.swiper-pagination {
+  @apply flex sm:ml-[20px] lg:ml-[32px] mb-[60px] lg:mb-[100px];
+}
+
+.swiper-pagination-bullet {
+  @apply font-serif text-center align-text-bottom w-[140px] h-[30px] pt-[8px] pb-[0.75px] tracking-tighter border-t-[2px] bg-white;
+}
+
+.swiper-pagination-bullet-active {
+  @apply text-black border-t-black;
+}
