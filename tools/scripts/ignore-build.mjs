@@ -8,6 +8,7 @@ const GIT_BRANCH = execSync('git branch --show-current')
   .toString('utf-8')
   .replace('\n', '');
 
+console.log(`current branch: ${GIT_BRANCH}`);
 console.log(`check build need for ${APP}`);
 if (FORCE_BUILD_BRANCH === GIT_BRANCH) {
   console.log('current branch is dev, force build');

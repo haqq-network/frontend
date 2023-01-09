@@ -2,7 +2,10 @@ import { Fragment, ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import clsx from 'clsx';
-import { ClashDisplayFont, HKGuiseFont } from '../lib/fonts';
+import {
+  ClashDisplayFont,
+  HKGuiseFont,
+} from '../../../libs/website/shared/src/lib/fonts';
 import '../styles/global.css';
 import Head from 'next/head';
 import { Header } from '../components/header/header';
