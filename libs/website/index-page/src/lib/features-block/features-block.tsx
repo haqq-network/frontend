@@ -27,6 +27,12 @@ const FeaturesData = [
       'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
     title: 'EVM-compatible',
   },
+  {
+    img: './feature-img-1.svg',
+    description:
+      'Solidity developers can build smart contracts with familiar, time-proven stack and migrate any smart contracts, deployed on other EVM networks like Ethereum, on HAQQ without rewriting a single line of code',
+    title: 'EVM-compatible',
+  },
 ];
 
 export function FeaturesBlock() {
