@@ -108,7 +108,7 @@ body {
 }
 
 .swiper-pagination-bullet {
-  @apply font-serif text-center align-text-bottom w-[140px] h-[30px] pt-[8px] pb-[0.75px] tracking-tighter border-t-[2px] bg-white cursor-pointer select-none;
+  @apply font-serif text-center align-text-bottom w-[140px] h-[30px] pt-[8px] pb-[0.75px] tracking-tighter border-t-[2px] text-black/30 border-t-black/30 bg-white cursor-pointer select-none;
 }
 
 .swiper-pagination-bullet-active {
