@@ -6,3 +6,6 @@ export * from './linkedin-icon';
 export * from './discord-icon';
 export * from './youtube-icon';
 export * from './medium-icon';
+export * from './google-play-icon';
+export * from './app-store-icon';
+export * from './android-icon';
