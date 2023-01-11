@@ -53,7 +53,7 @@ function NextDepositUnlock({
   return (
     <DepositInfoStatsRow
       label="Next unlock date"
-      value={`${nextUnlockDate.toLocaleString()}`}
+      value={formatDate(nextUnlockDate)}
     />
   );
 }
@@ -210,12 +210,22 @@ export function DepositStatsWidget({
   );
 }
 
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  }).format(date);
+}
+
 export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
   return (
     <div className="flex flex-col space-y-2 px-6">
       <DepositInfoStatsRow
         label="Deposit creation date"
-        value={new Date(deposit.createdAt).toLocaleString()}
+        value={formatDate(new Date(deposit.createdAt))}
       />
       <DepositInfoStatsRow
         label="My timezone"
@@ -223,7 +233,10 @@ export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
       />
       <DepositInfoStatsRow
         label="Deposited"
-        value={`${formatEther(deposit.deposited)} ${symbol}`}
+        value={`${Number.parseInt(
+          formatEther(deposit.deposited),
+          10,
+        ).toLocaleString()} ${symbol}`}
       />
       <DepositInfoStatsRow
         label="Locked"
@@ -234,15 +247,24 @@ export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
       />
       <DepositInfoStatsRow
         label="Unlocked"
-        value={`${Number(formatEther(deposit.unlocked)).toFixed(3)} ${symbol}`}
+        value={`${Number.parseInt(
+          formatEther(deposit.unlocked),
+          10,
+        ).toLocaleString()} ${symbol}`}
       />
       <DepositInfoStatsRow
         label="Withdrawn"
-        value={`${Number(formatEther(deposit.withdrawn)).toFixed(3)} ${symbol}`}
+        value={`${Number.parseInt(
+          formatEther(deposit.withdrawn),
+          10,
+        ).toLocaleString()} ${symbol}`}
       />
       <DepositInfoStatsRow
         label="Available"
-        value={`${Number(formatEther(deposit.available)).toFixed(3)} ${symbol}`}
+        value={`${Number.parseInt(
+          formatEther(deposit.available),
+          10,
+        ).toLocaleString()} ${symbol}`}
       />
       <NextDepositUnlock
         createdAt={deposit.createdAt}
