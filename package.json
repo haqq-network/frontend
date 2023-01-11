@@ -68,6 +68,7 @@
     "reaptcha": "1.12.1",
     "regenerator-runtime": "0.13.11",
     "store2": "2.14.2",
+    "swiper": "8.4.5",
     "tslib": "2.4.1",
     "wagmi": "0.10.4",
     "web3": "1.8.1",
