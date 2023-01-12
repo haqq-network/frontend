@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Swiper as SwiperType, Navigation, Pagination } from 'swiper';
+import { Swiper as SwiperType, Navigation } from 'swiper';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 import {
   Heading,
   Text,
@@ -8,7 +9,6 @@ import {
   EcosystemCard,
 } from '@haqq/website/ui-kit';
 import styles from './ecosystem-block.module.css';
-import clsx from 'clsx';
 
 const EcosystemData = [
   {
@@ -47,17 +47,20 @@ export function EcosystemBlock() {
   const handlePrev = useCallback(() => {
     if (!swiperRef.current) return;
     swiperRef.current.slidePrev();
+    console.log({ swiperRef });
   }, []);
 
   const handleNext = useCallback(() => {
     if (!swiperRef.current) return;
     swiperRef.current.slideNext();
+    console.log({ swiperRef });
   }, []);
 
   const onSlideChange = () => {
-    if (swiperRef.current) {
-      setIsPrevButtonDisabled(swiperRef?.current?.isBeginning);
-      setIsNextButtonDisabled(swiperRef?.current?.isEnd);
+    const swiper = swiperRef.current;
+    if (swiper) {
+      setIsPrevButtonDisabled(swiper?.isBeginning);
+      setIsNextButtonDisabled(swiper?.isEnd);
     }
   };
 

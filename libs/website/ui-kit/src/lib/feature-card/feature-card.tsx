@@ -16,11 +16,11 @@ export function FeatureCard({
   imgClassName,
 }: FeatureCardProps) {
   return (
-    <div className="flex flex-col">
-      <div className="relative bg-[#262629] h-[140px] sm:h-[155px] lg:h-[200px] w-full overflow-hidden">
+    <div className="flex flex-col w-[283px] sm:w-[332px] lg:w-[684px]">
+      <div className="relative bg-[#262629] h-[140px] sm:h-[155px] lg:h-[200px]  overflow-hidden">
         <Image src={img} alt="img" fill className={imgClassName} />
       </div>
-      <div className="bg-black text-white items-start flex flex-col lg:flex-row min-h-[213px] sm:min-h-[245px] lg:min-h-[174px] p-[24px] sm:pr-[43px] lg:pt-[16px] lg:pr-[40px] lg:pb-[40px] lg:pl-[16px]">
+      <div className="bg-black text-white items-start flex flex-col lg:flex-row h-[213px] sm:h-[245px] lg:h-[174px] p-[24px] sm:pr-[43px] lg:pt-[16px] lg:pr-[40px] lg:pb-[40px] lg:pl-[16px]">
         <div className="lg:w-2/5">
           <Heading
             level={3}
@@ -38,5 +38,3 @@ export function FeatureCard({
     </div>
   );
 }
-
-export default FeatureCard;

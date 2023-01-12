@@ -17,18 +17,22 @@ const FeaturesData = [
     description:
       'Immutable on-chain ethical audit and verification based on disruptive soulbond tokens technology',
     title: 'On-chain ethical audit',
+    imgClassName:
+      '!top-[5px] scale-[1.6] sm:scale-[1.5] lg:!inset-0 lg:scale-[1.15]',
   },
   {
     img: './feature-img-3.svg',
     description:
       'HAQQ is interoperable with other networks via IBC protocol – feature of the Cosmos SDK which Haqq Network is built on',
     title: 'IBC protocol',
+    imgClassName: 'scale-[1.5] lg:!top-0 lg:!left-0 lg:scale-100',
   },
   {
     img: './feature-img-4.svg',
     description:
       'Halal Defi Marketplace targeting the audience of 1.1+ billion Muslim people online. HAQQ Wallet assures ethical Web3 builders will reach out to non crypto-savvy people concerned about sustainable finance.',
     title: 'Haqq Wallet',
+    imgClassName: '!top-[60px] scale-[2]  lg:!top-[90px]',
   },
 ];
 

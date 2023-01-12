@@ -97,7 +97,7 @@ body {
 }
 
 .featuresSwiper .swiper-wrapper .swiper-slide {
-  @apply w-[283px] sm:w-[332px] lg:w-[684px];
+  /* @apply w-[90%]; */
 }
 
 .featuresSwiper .swiper-pagination {
@@ -117,6 +117,12 @@ body {
   display: none;
 }
 
+.ecosystemSwiper .swiper-wrapper {
+  /* @apply w-[253px] sm:w-[403px] lg:w-[566px]; */
+  /* @apply w-full; */
+}
+
 .ecosystemSwiper .swiper-wrapper .swiper-slide {
-  @apply w-[253px] sm:w-[403px] lg:w-[566px];
+  /* @apply w-[253px] sm:w-[403px] lg:w-[566px]; */
+  @apply w-[90%];
 }
