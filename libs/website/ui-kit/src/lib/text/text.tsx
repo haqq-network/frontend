@@ -16,5 +16,5 @@ export function Text({ className, children, size = 'medium' }: TextProps) {
     className,
   );
 
-  return <span className={classNames}> {children}</span>;
+  return <div className={classNames}> {children}</div>;
 }

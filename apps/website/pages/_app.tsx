@@ -8,6 +8,8 @@ import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
 import '../styles/global.css';
 import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;

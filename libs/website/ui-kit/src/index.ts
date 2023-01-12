@@ -1,3 +1,4 @@
+export * from './lib/ecosystem-card/ecosystem-card';
 export * from './lib/icons';
 export * from './lib/cookies-banner/cookies-banner';
 export * from './lib/article/article';

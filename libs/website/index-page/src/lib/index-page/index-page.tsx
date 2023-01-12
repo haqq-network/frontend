@@ -7,6 +7,7 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 import { VisionBlock } from '../vision-block/vision-block';
 import { FeaturesBlock } from '../features-block/features-block';
+import { EcosystemBlock } from '../ecosystem-block/ecosystem-block';
 
 export function WebsiteIndexPage() {
   return (
@@ -25,6 +26,7 @@ export function WebsiteIndexPage() {
         <MissionBlock />
         <VisionBlock />
         <DevelopersBlock />
+        <EcosystemBlock />
         <ContactBlock />
       </section>
     </Fragment>
