@@ -122,5 +122,5 @@ body {
 }
 
 .ecosystemSwiper .swiper-wrapper {
-  @apply before:!mr-[-20px] before:min-[375px]:!mr-[-52px] before:min-[425px]:!mr-[-60px] before:sm:!mr-[-164px] before:lg:!mr-[-232px] before:xl:!mr-[-348px] before:min-[1440px]:!mr-[-392px];
+  @apply before:!mr-[-20px] before:min-[375px]:!mr-[-52px] before:min-[425px]:!mr-[-60px] before:sm:!mr-[-164px] before:lg:!mr-[-222px] before:xl:!mr-[-348px] before:min-[1440px]:!mr-[-392px];
 }
