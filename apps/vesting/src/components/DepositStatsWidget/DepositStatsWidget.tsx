@@ -17,6 +17,7 @@ import { Input } from '../Input/Input';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { useConfig, getChainParams } from '@haqq/shared';
 import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
+import { formatDate } from '../../utils/format-date';
 
 export { HaqqVestingContract };
 
@@ -208,16 +209,6 @@ export function DepositStatsWidget({
       </div>
     </Card>
   );
-}
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  }).format(date);
 }
 
 export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {

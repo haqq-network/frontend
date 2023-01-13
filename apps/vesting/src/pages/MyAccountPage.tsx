@@ -1,10 +1,11 @@
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useAccount, useBalance } from 'wagmi';
 import { AccountWidget } from '../components/AccountWidget/AccountWidget';
 import { DepositStatsWidget } from '../components/DepositStatsWidget/DepositStatsWidget';
 import { Container } from '../components/Layout/Layout';
 import { environment } from '../environments/environment';
 import { getChainParams, useAddress, useConfig } from '@haqq/shared';
+import { DepositWithdrawalList } from '../components/DepositWithdrawalList/DepositWithdrawalList';
 
 export function AccountPage() {
   const { isConnected } = useAccount();
@@ -36,8 +37,14 @@ export function AccountPage() {
     <Container className="flex flex-col space-y-12 py-8 sm:py-20">
       <AccountWidget {...accountWidgetProps} />
 
-      {environment.contractAddress && (
-        <DepositStatsWidget contractAddress={environment.contractAddress} />
+      {environment.contractAddress && ethAddress && (
+        <Fragment>
+          <DepositStatsWidget contractAddress={environment.contractAddress} />
+          <DepositWithdrawalList
+            contractAddress={environment.contractAddress}
+            address={ethAddress}
+          />
+        </Fragment>
       )}
     </Container>
   );

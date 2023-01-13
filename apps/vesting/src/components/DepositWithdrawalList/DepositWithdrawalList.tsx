@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import {
   hexZeroPad,
   Interface,
@@ -8,10 +8,9 @@ import {
 import { useState } from 'react';
 import { Card } from '../Card/Card';
 import { Heading } from '../Typography/Typography';
-import { useTransaction } from 'wagmi';
-import { getFormattedAddress } from '@haqq/shared';
+import { formatDate } from '../../utils/format-date';
 
-const abi = [
+const withdrawABI = [
   {
     name: 'WithdrawalMade',
     type: 'event',
@@ -38,7 +37,47 @@ const abi = [
     ],
   },
 ];
-const iface = new Interface(abi);
+const depositABI = [
+  {
+    name: 'DepositMade',
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'beneficiaryAddress',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'depositId',
+        type: 'uint256',
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'sumInWeiDeposited',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'depositedBy',
+        type: 'address',
+      },
+    ],
+  },
+];
+const withdrawIface = new Interface(withdrawABI);
+const depositIface = new Interface(depositABI);
 
 type RawLogEntry = {
   address: string;
@@ -77,7 +116,27 @@ function getLogFetchUrl(contractAddress: string, address: string) {
   return getLogsUrl;
 }
 
-async function fetchLogs({
+function getDepositLogsFetchUrl(contractAddress: string, address: string) {
+  const getLogsUrl = new URL('https://explorer.haqq.network/api');
+  getLogsUrl.searchParams.append('module', 'logs');
+  getLogsUrl.searchParams.append('action', 'getLogs');
+  getLogsUrl.searchParams.append('fromBlock', '14');
+  getLogsUrl.searchParams.append('toBlock', 'latest');
+  getLogsUrl.searchParams.append('address', contractAddress.toLowerCase());
+  getLogsUrl.searchParams.append(
+    'topic0',
+    '0x7a96fe6dfcc54565c447f8c7708e3eadc4fc71f36ae29781f6617d3da8551c4b',
+  );
+  getLogsUrl.searchParams.append(
+    'topic1',
+    hexZeroPad(address, 32).toLowerCase(),
+  );
+  getLogsUrl.searchParams.append('topic0_1_opr', 'and');
+
+  return getLogsUrl;
+}
+
+async function fetchWithdrawLogs({
   contractAddress,
   address,
 }: {
@@ -98,9 +157,43 @@ async function fetchLogs({
     .map((logEntry) => {
       return {
         ...logEntry,
-        parsedLog: iface.parseLog(logEntry),
+        parsedLog: withdrawIface.parseLog(logEntry),
+        type: 'withdraw',
       };
     });
+}
+
+async function fetchDepositLogs({
+  contractAddress,
+  address,
+}: {
+  contractAddress: string;
+  address: string;
+}) {
+  const logsFetchUrl = getDepositLogsFetchUrl(contractAddress, address);
+  const response = await fetch(logsFetchUrl);
+  const logs = await response.json();
+
+  return (logs.result as RawLogEntry[])
+    .map((entry) => {
+      return {
+        ...entry,
+        topics: entry.topics.filter(Boolean),
+      };
+    })
+    .map((logEntry) => {
+      return {
+        ...logEntry,
+        parsedLog: depositIface.parseLog(logEntry),
+        type: 'deposit',
+      };
+    });
+}
+
+function sortTxByBlock(array: any[]) {
+  return array.sort((txA, txB) => {
+    return Number(txA.blockNumber) - Number(txB.blockNumber);
+  });
 }
 
 export function DepositWithdrawalList({
@@ -110,24 +203,33 @@ export function DepositWithdrawalList({
   contractAddress: string;
   address: string;
 }) {
-  const [withdrawalLogsList, setWithdrawalLogsList] = useState<
+  const [withdrawLogsList, setWithdrawLogsList] = useState<
     WithdrawalLogEntry[]
   >([]);
-  const [isFetching, setFetching] = useState(false);
+  // const [isFetching, setFetching] = useState(false);
 
-  const handleGetWithdrawalList = useCallback(
+  const handleGetTransactionList = useCallback(
     async (contractAddress: string, address: string) => {
-      setFetching(true);
-      const logs = await fetchLogs({ contractAddress, address });
-      console.log({ logs });
-      setWithdrawalLogsList(logs);
-      setFetching(false);
+      // setFetching(true);
+      const [withdrawLogs, depositLogs] = await Promise.all([
+        fetchWithdrawLogs({ contractAddress, address }),
+        fetchDepositLogs({ contractAddress, address }),
+      ]);
+
+      const sortedTransactions = sortTxByBlock([
+        ...withdrawLogs,
+        ...depositLogs,
+      ]);
+
+      console.log({ withdrawLogs, depositLogs, sortedTransactions });
+      setWithdrawLogsList(sortedTransactions);
+      // setFetching(false);
     },
     [],
   );
 
   useEffect(() => {
-    handleGetWithdrawalList(contractAddress, address);
+    handleGetTransactionList(contractAddress, address);
   }, [address]);
 
   return (
@@ -135,14 +237,14 @@ export function DepositWithdrawalList({
       <div className="flex flex-col space-y-4">
         <div className="px-6 pt-6">
           <Heading level={3} className="uppercase">
-            Withdrawals
+            Transactions
           </Heading>
         </div>
 
         {/* <div>isFetching: {isFetching ? 'yes' : 'no'}</div> */}
 
         <div>
-          {withdrawalLogsList.map((withdrawal, index) => {
+          {withdrawLogsList.map((withdrawal, index) => {
             return (
               <DepositWithdrawalListItem
                 key={`w_${index}`}
@@ -156,24 +258,82 @@ export function DepositWithdrawalList({
   );
 }
 
-function DepositWithdrawalListItem({ withdrawal }: any) {
-  console.log({ withdrawal });
-  const tx = useTransaction({
-    hash: withdrawal.transactionHash,
-  });
+const EXPLORER_LINK = 'https://explorer.haqq.network';
 
-  console.log({ tx });
+function DepositWithdrawalListItem({ withdrawal }: any) {
+  const transactionTimestamp = useMemo(() => {
+    return formatDate(new Date(Number(withdrawal.timeStamp) * 1000));
+  }, [withdrawal.timeStamp]);
+
   return (
-    <div className="border-t px-6 py-2">
-      <div className="text-sm text-gray-600">
-        {getFormattedAddress(withdrawal.transactionHash, 12, 12)}
+    <div className="border-t border-gray-100 px-6 py-2 relative hover:bg-gray-100/40 transition-colors duration-100 ease-linear flex flex-col space-y-1.5 h-[110px] justify-between">
+      <div className="flex flex-row justify-between items-center">
+        <div>
+          {withdrawal.type === 'withdraw' && (
+            <div className="bg-[#04d484cc] py-[4px] px-[6px] text-white text-xs rounded-[2px] select-none">
+              Withdraw
+            </div>
+          )}
+          {withdrawal.type === 'deposit' && (
+            <div className="bg-yellow-400/90 py-[4px] px-[6px] text-white text-xs rounded-[2px] select-none">
+              Deposit created
+            </div>
+          )}
+        </div>
+        <div>
+          <div className="text-sm">{transactionTimestamp}</div>
+        </div>
       </div>
-      <div className="font-bold text-base">
-        {`${Number.parseInt(
-          formatEther(withdrawal.parsedLog.args.sumInWei),
-          10,
-        ).toLocaleString()}`}{' '}
-        ISLM
+
+      <div>
+        <a
+          href={`${EXPLORER_LINK}/tx/${withdrawal.transactionHash}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="text-base text-gray-600 overflow-hidden text-ellipsis hover:text-primary leading-normal">
+            {withdrawal.transactionHash}
+          </div>
+        </a>
+      </div>
+
+      <div className="flex flex-row justify-between items-center">
+        <div>
+          <div className="text-sm">
+            Block:{' '}
+            <a
+              href={`${EXPLORER_LINK}/block/${Number(withdrawal.blockNumber)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-400"
+            >
+              {Number(withdrawal.blockNumber)}
+            </a>
+          </div>
+        </div>
+
+        {withdrawal.type === 'withdraw' && (
+          <div>
+            <div className="font-medium text-lg">
+              {`${Number.parseInt(
+                formatEther(withdrawal.parsedLog.args.sumInWei),
+                10,
+              ).toLocaleString()}`}{' '}
+              ISLM
+            </div>
+          </div>
+        )}
+        {withdrawal.type === 'deposit' && (
+          <div>
+            <div className="font-medium text-lg">
+              {`${Number.parseInt(
+                formatEther(withdrawal.parsedLog.args.sumInWeiDeposited),
+                10,
+              ).toLocaleString()}`}{' '}
+              ISLM
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
