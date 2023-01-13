@@ -1,11 +1,11 @@
 .title::before {
   content: '';
   position: absolute;
-  top: calc(50% - 2px);
-  right: calc(100% + 10px);
-  width: 200px;
+  top: 21px;
+  left: 0;
+  width: 1200px;
   height: 1px;
-  background: #c2c2c2;
+  background: black;
   transform: translatey(-50%);
 }
 
@@ -13,7 +13,7 @@
   content: '';
   position: absolute;
   top: calc(50% - 7px);
-  right: calc(100% + 10px);
+  left: 0;
   width: 10px;
   height: 10px;
   background-color: black;

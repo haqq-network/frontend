@@ -94,25 +94,29 @@ export function EcosystemBlock() {
   return (
     <div className="flex flex-col text-black bg-white">
       <div
-        className="text-black ml-[16px] border-l border-[#0D0D0E/24] pt-[60px] pb-[72px]"
+        className="text-black ml-[16px] lg:ml-[79px] border-l border-[#0D0D0E/24] pt-[60px] pb-[72px]"
         id="ecosystem"
       >
-        <div className="ml-[16px] mr-[32px] sm:ml-[141px]">
-          <Heading
-            level={2}
-            className={clsx(' mb-[16px] relative title', styles['title'])}
-          >
-            HAQQ ecosystem
-          </Heading>
+        <div
+          className={clsx(
+            'ml-[16px] mr-[32px] sm:ml-[121px] lg:ml-[568px]',
+            styles['title'],
+          )}
+        >
+          <div className="pl-[11px] sm:pl-[20px] lg:pl-[27px]">
+            <Heading level={2} className={clsx('mb-[16px] relative title')}>
+              HAQQ ecosystem
+            </Heading>
 
-          <Text
-            size="small"
-            className="mb-[24px] mr-[32px] sm:mr-[65px] lg:mr-[318px]"
-          >
-            HAQQ provides an ethics-driven, Ethereum compatible, fast finality
-            tech stack to build your next unicorn. Robust, versatile and
-            socially responsible solutions ready for the Digital Age.
-          </Text>
+            <Text
+              size="small"
+              className="mb-[24px] mr-[32px] sm:mr-[65px] lg:mr-[318px]"
+            >
+              HAQQ provides an ethics-driven, Ethereum compatible, fast finality
+              tech stack to build your next unicorn. Robust, versatile and
+              socially responsible solutions ready for the Digital Age.
+            </Text>
+          </div>
         </div>
         <div className="flex space-x-[8px] mb-[16px] mr-[17px] sm:mb-[24px] sm:mr-[65px] lg:mr-[81px] justify-end">
           <ArrowButton
