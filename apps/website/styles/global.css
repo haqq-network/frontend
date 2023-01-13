@@ -117,12 +117,10 @@ body {
   display: none;
 }
 
-.ecosystemSwiper .swiper-wrapper {
-  /* @apply w-[253px] sm:w-[403px] lg:w-[566px]; */
-  /* @apply w-full; */
+.ecosystemSwiper .swiper-wrapper .swiper-slide {
+  @apply w-[88%] min-[375px]:w-[71%] sm:w-[56.2%] xl:w-[45%];
 }
 
-.ecosystemSwiper .swiper-wrapper .swiper-slide {
-  /* @apply w-[253px] sm:w-[403px] lg:w-[566px]; */
-  @apply w-[90%];
+.ecosystemSwiper .swiper-wrapper {
+  @apply before:!mr-[-20px] before:min-[375px]:!mr-[-52px] before:min-[425px]:!mr-[-60px] before:sm:!mr-[-164px] before:lg:!mr-[-232px] before:xl:!mr-[-348px] before:min-[1440px]:!mr-[-392px];
 }

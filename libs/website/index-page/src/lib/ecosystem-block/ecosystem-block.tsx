@@ -124,6 +124,7 @@ export function EcosystemBlock() {
         </div>
         <Swiper
           slidesPerView={'auto'}
+          centeredSlides={true}
           navigation={true}
           modules={[Navigation]}
           className="ecosystemSwiper"
