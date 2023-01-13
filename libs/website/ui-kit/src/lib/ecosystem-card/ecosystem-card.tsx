@@ -25,12 +25,13 @@ export function EcosystemCard({
           alt="bg-image"
           className="absolute object-cover bg-center"
           fill
+          priority
         />
       )}
       <div className="flex flex-col justify-between z-[1]">
         <div className="flex flex-col sm:flex-row sm:space-x-[12px]">
           <div className="relative w-[26px] h-[24px] sm:w-[26px] sm:h-[24px] mb-[12px]">
-            {logo && <Image src={logo} alt="img" fill sizes="" />}
+            {logo && <Image src={logo} alt="img" fill />}
           </div>
           <Heading level={3}>{title}</Heading>
         </div>
