@@ -83,12 +83,15 @@ export function FeaturesBlock() {
               </Text>
             </div>
           </div>
+        </div>
+        <div className="ml-[17px] sm:ml-0">
           <Swiper
-            pagination={pagination}
-            modules={[Pagination]}
             slidesPerView={'auto'}
-            spaceBetween={gap}
+            centeredSlides={true}
+            modules={[Pagination]}
+            pagination={pagination}
             className="featuresSwiper"
+            spaceBetween={gap}
           >
             {FeaturesData.map((el, index) => (
               <SwiperSlide key={index}>

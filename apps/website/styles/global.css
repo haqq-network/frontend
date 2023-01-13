@@ -92,12 +92,12 @@ body {
   @apply w-full h-full;
 }
 
-.featuresSwiper .swiper-wrapper {
-  @apply sm:ml-[120px] lg:ml-[211px];
+.featuresSwiper .swiper-wrapper .swiper-slide {
+  @apply w-[90%] min-[425px]:w-[79%] sm:w-[47.2%] lg:w-[72.5%] xl:w-[57%] min-[1440px]:w-[50.4%];
 }
 
-.featuresSwiper .swiper-wrapper .swiper-slide {
-  /* @apply w-[90%]; */
+.featuresSwiper .swiper-wrapper {
+  @apply before:!mr-[-17px] before:min-[425px]:!mr-[-38px] before:sm:!mr-[-56px] before:lg:!mr-[83px] before:xl:!mr-[-43px] before:min-[1440px]:!mr-[-122px];
 }
 
 .featuresSwiper .swiper-pagination {
