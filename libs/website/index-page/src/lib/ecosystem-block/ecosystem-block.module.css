@@ -1,20 +1,23 @@
 .title::before {
   content: '';
   position: absolute;
-  top: 21px;
-  left: 0;
+  display: block;
+  top: 50%;
+  right: 100%;
   width: 1200px;
   height: 1px;
-  background: black;
-  transform: translatey(-50%);
+  background: #e5e7eb;
+  transform: translateY(-50%);
 }
 
 .title::after {
   content: '';
   position: absolute;
-  top: calc(50% - 7px);
-  left: 0;
+  display: block;
+  top: 50%;
+  right: calc(100% - 5px);
   width: 10px;
   height: 10px;
   background-color: black;
+  transform: translateY(-50%);
 }

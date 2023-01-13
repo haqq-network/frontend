@@ -111,16 +111,3 @@ body {
 .featuresSwiper .swiper-pagination .swiper-pagination-bullet-active {
   @apply text-black border-t-black;
 }
-
-.ecosystemSwiper .swiper-button-prev,
-.ecosystemSwiper .swiper-button-next {
-  display: none;
-}
-
-.ecosystemSwiper .swiper-wrapper .swiper-slide {
-  @apply w-[88%] min-[375px]:w-[71%] sm:w-[56.2%] xl:w-[45%];
-}
-
-.ecosystemSwiper .swiper-wrapper {
-  @apply before:!mr-[-20px] before:min-[375px]:!mr-[-52px] before:min-[425px]:!mr-[-60px] before:sm:!mr-[-164px] before:lg:!mr-[-222px] before:xl:!mr-[-348px] before:min-[1440px]:!mr-[-392px];
-}

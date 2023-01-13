@@ -7,8 +7,6 @@ export interface EcosystemCardProps {
   logo?: string;
   title?: string;
   description: string;
-  imgClassName?: string;
-  width?: number;
 }
 
 export function EcosystemCard({
@@ -18,7 +16,7 @@ export function EcosystemCard({
   description,
 }: EcosystemCardProps) {
   return (
-    <div className="relative bg-black flex text-white p-[16px] h-[260px] w-[253px] sm:w-[403px] lg:w-[566px]">
+    <div className="relative bg-black flex text-white p-[16px] h-[260px] lg:p-[26px] select-none cursor-grab active:cursor-grabbing">
       {backgroundImg && (
         <Image
           src={backgroundImg}
@@ -35,7 +33,7 @@ export function EcosystemCard({
           </div>
           <Heading level={3}>{title}</Heading>
         </div>
-        <div className="">
+        <div className="lg:w-1/2">
           <Text size="small">{description}</Text>
         </div>
       </div>

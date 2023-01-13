@@ -39,6 +39,7 @@ const FeaturesData = [
 export function FeaturesBlock() {
   const [gap, setGap] = useState<number>(12);
 
+  // TODO: Render pagination inside swiper slot
   const pagination = {
     clickable: true,
     renderBullet: function (index: number, className: string) {
@@ -46,6 +47,7 @@ export function FeaturesBlock() {
     },
   };
 
+  // TODO: Use swiper breakpoints prop
   const handleResize = useCallback(() => {
     if (window.innerWidth >= 1024) {
       setGap(28);

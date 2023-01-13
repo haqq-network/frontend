@@ -1,6 +1,5 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Swiper as SwiperType, Navigation } from 'swiper';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import {
   Heading,
@@ -28,7 +27,6 @@ const EcosystemData = [
   {
     backgroundImg: '',
     logo: '',
-    logoWidth: 0,
     title: '',
     description:
       'Stay tuned to our official channels and get exclusive updates on more platforms joining HAQQ! ',
@@ -36,106 +34,48 @@ const EcosystemData = [
 ];
 
 export function EcosystemBlock() {
-  const swiperRef = useRef<SwiperType>();
-  const [gap, setGap] = useState<number>(12);
-
-  const [isPrevButtonDisabled, setIsPrevButtonDisabled] =
-    useState<boolean>(true);
-  const [isNextButtonDisabled, setIsNextButtonDisabled] =
-    useState<boolean>(false);
-
-  const handlePrev = useCallback(() => {
-    if (!swiperRef.current) return;
-    swiperRef.current.slidePrev();
-    console.log({ swiperRef });
-  }, []);
-
-  const handleNext = useCallback(() => {
-    if (!swiperRef.current) return;
-    swiperRef.current.slideNext();
-    console.log({ swiperRef });
-  }, []);
-
-  const onSlideChange = () => {
-    const swiper = swiperRef.current;
-    if (swiper) {
-      setIsPrevButtonDisabled(swiper?.isBeginning);
-      setIsNextButtonDisabled(swiper?.isEnd);
-    }
-  };
-
-  useEffect(() => {
-    const swiper = swiperRef.current;
-    if (swiper) {
-      setIsPrevButtonDisabled(swiper?.isBeginning);
-      setIsNextButtonDisabled(swiper?.isEnd);
-    }
-    swiper?.on('slideChange', onSlideChange);
-    return () => swiper?.off('slideChange', onSlideChange);
-  }, [swiperRef]);
-
-  const handleResize = useCallback(() => {
-    if (window.innerWidth >= 1024) {
-      setGap(28);
-    } else if (window.innerWidth >= 640) {
-      setGap(20);
-    } else {
-      setGap(12);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [handleResize]);
-
   return (
     <div className="flex flex-col text-black bg-white">
       <div
-        className="text-black ml-[16px] lg:ml-[79px] border-l border-[#0D0D0E/24] pt-[60px] pb-[72px]"
+        className="text-black ml-[16px] sm:ml-[63px] lg:ml-[79px] border-l border-[#0D0D0E/24] pt-[60px] pb-[72px]"
         id="ecosystem"
       >
-        <div
-          className={clsx(
-            'ml-[16px] mr-[32px] sm:ml-[121px] lg:ml-[568px]',
-            styles['title'],
-          )}
-        >
+        <div className={clsx('mr-[32px] sm:ml-[121px] lg:ml-[45%] relative')}>
+          <Heading
+            level={2}
+            className={clsx(
+              'mb-[16px] relative pl-[11px] sm:pl-[20px] lg:pl-[27px]',
+              styles['title'],
+            )}
+          >
+            HAQQ ecosystem
+          </Heading>
           <div className="pl-[11px] sm:pl-[20px] lg:pl-[27px]">
-            <Heading level={2} className={clsx('mb-[16px] relative title')}>
-              HAQQ ecosystem
-            </Heading>
-
-            <Text
-              size="small"
-              className="mb-[24px] mr-[32px] sm:mr-[65px] lg:mr-[318px]"
-            >
+            <Text size="small" className="mb-[24px] mr-[32px]">
               HAQQ provides an ethics-driven, Ethereum compatible, fast finality
               tech stack to build your next unicorn. Robust, versatile and
               socially responsible solutions ready for the Digital Age.
             </Text>
           </div>
         </div>
-        <div className="flex space-x-[8px] mb-[16px] mr-[17px] sm:mb-[24px] sm:mr-[65px] lg:mr-[81px] justify-end">
-          <ArrowButton
-            directionLeft
-            onClick={handlePrev}
-            disabled={isPrevButtonDisabled}
-          />
-          <ArrowButton onClick={handleNext} disabled={isNextButtonDisabled} />
-        </div>
+
         <Swiper
-          slidesPerView={'auto'}
-          centeredSlides={true}
-          navigation={true}
-          modules={[Navigation]}
           className="ecosystemSwiper"
-          onBeforeInit={(swiper) => {
-            swiperRef.current = swiper;
+          breakpoints={{
+            0: {
+              slidesPerView: 1.25,
+              spaceBetween: 12,
+            },
+            640: {
+              slidesPerView: 1.5,
+              spaceBetween: 20,
+            },
+
+            1024: {
+              slidesPerView: 2.5,
+              spaceBetween: 28,
+            },
           }}
-          spaceBetween={gap}
         >
           {EcosystemData.map((el, index) => (
             <SwiperSlide key={index}>
@@ -147,8 +87,42 @@ export function EcosystemBlock() {
               />
             </SwiperSlide>
           ))}
+
+          <span slot="container-start">
+            <div className="flex space-x-[8px] mb-[16px] mr-[17px] sm:mb-[24px] sm:mr-[65px] lg:mr-[81px] justify-end">
+              <SliderNavButton direction="prev" />
+              <SliderNavButton direction="next" />
+            </div>
+          </span>
         </Swiper>
       </div>
     </div>
+  );
+}
+
+function SliderNavButton({ direction }: { direction: 'prev' | 'next' }) {
+  const swiper = useSwiper();
+  const [disabled, setDisabled] = useState(direction === 'prev' ? true : false);
+
+  useEffect(() => {
+    swiper.on('slideChange', (swiper) => {
+      if (direction === 'prev' && swiper.isBeginning) {
+        setDisabled(true);
+      } else if (direction === 'next' && swiper.isEnd) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    });
+  }, [direction, swiper]);
+
+  return (
+    <ArrowButton
+      directionLeft={direction === 'prev'}
+      onClick={() => {
+        direction === 'prev' ? swiper.slidePrev() : swiper.slideNext();
+      }}
+      disabled={disabled}
+    />
   );
 }
