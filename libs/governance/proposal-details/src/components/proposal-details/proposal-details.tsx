@@ -15,6 +15,7 @@ import {
   Text,
 } from '@haqq/ui-kit';
 import {
+  NewProposalStatusComponent,
   ProposalStatusComponent,
   ProposalVoteResults,
 } from '@haqq/governance/proposal-list';
@@ -76,10 +77,12 @@ export function ProposalDetailsComponent({
   proposalDetails,
   symbol,
   isWalletConnected,
+  proposal,
 }: {
   proposalDetails: Proposal;
   symbol: string;
   isWalletConnected: boolean;
+  proposal: Proposal;
 }) {
   // console.log({ proposalDetails });
   const navigate = useNavigate();
@@ -105,6 +108,10 @@ export function ProposalDetailsComponent({
                 </div>
                 <div className="pt-[2px]">
                   <ProposalStatusComponent status={proposalDetails.status} />
+                  <NewProposalStatusComponent
+                    status={proposalDetails.status}
+                    results={proposal.final_tally_result}
+                  />
                 </div>
               </div>
               <div>
@@ -271,6 +278,7 @@ export function ProposalDetails() {
         proposalDetails={proposalDetails}
         symbol="ISLM"
         isWalletConnected={Boolean(ethAddress && haqqAddress)}
+        proposal={proposalDetails}
       />
 
       <VoteModal
