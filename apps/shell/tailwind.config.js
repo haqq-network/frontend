@@ -18,6 +18,8 @@ module.exports = {
       fontFamily: {
         sans: ['var(--islamic-font-sans)'],
         serif: ['var(--islamic-font-serif)'],
+        guise: ['var(--guise-font)'],
+        clash: ['var(--clash-font)'],
       },
       colors: {
         ...tailwindThemeExtend.colors,

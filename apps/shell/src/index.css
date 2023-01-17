@@ -4,6 +4,16 @@
 @tailwind base;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'HKGuiseRegular';
+  src: url('fonts/HK-Guise-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Clash';
+  src: url('fonts/ClashDisplay.ttf');
+}
+
 :root {
   /* Base fonts with fallbacks */
   --font-apple: -apple-system, 'BlinkMacSystemFont';
@@ -14,6 +24,8 @@
 
   --islamic-font-sans: 'Open Sans', var(--font-family-base);
   --islamic-font-serif: 'El Messiri', var(--font-family-base);
+  --guise-font: 'HKGuiseRegular', var(--font-family-base);
+  --clash-font: 'Clash', var(--font-family-base);
 
   --app-text-color: rgb(12, 12, 12);
   --app-background-color: #fff;
