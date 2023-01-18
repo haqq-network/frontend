@@ -15,7 +15,6 @@ import {
   Text,
 } from '@haqq/ui-kit';
 import {
-  NewProposalStatusComponent,
   ProposalStatusComponent,
   ProposalVoteResults,
 } from '@haqq/governance/proposal-list';
@@ -108,10 +107,6 @@ export function ProposalDetailsComponent({
                 </div>
                 <div className="pt-[2px]">
                   <ProposalStatusComponent status={proposalDetails.status} />
-                  <NewProposalStatusComponent
-                    status={proposalDetails.status}
-                    results={proposal.final_tally_result}
-                  />
                 </div>
               </div>
               <div>
