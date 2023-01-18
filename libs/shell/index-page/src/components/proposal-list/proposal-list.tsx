@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { SpinnerLoader, Text } from '@haqq/ui-kit';
-import { ProposalListCard } from '@haqq/governance/proposal-list';
+import { NewProposalListCard } from '@haqq/governance/proposal-list';
 import { useProposalListQuery } from '@haqq/shared';
 
 export function ShellIndexPageProposalList() {
@@ -11,7 +11,7 @@ export function ShellIndexPageProposalList() {
       return [];
     }
 
-    return proposalsData.slice(0, 4);
+    return proposalsData.slice(0, 10);
   }, [proposalsData]);
 
   if (isFetching) {
@@ -26,14 +26,14 @@ export function ShellIndexPageProposalList() {
   }
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 gap-6">
       {proposals.map((proposal) => {
         return (
           <Link
             to={`governance/proposal/${proposal.proposal_id}`}
             key={proposal.proposal_id}
           >
-            <ProposalListCard proposal={proposal} />
+            <NewProposalListCard proposal={proposal} />
           </Link>
         );
       })}
