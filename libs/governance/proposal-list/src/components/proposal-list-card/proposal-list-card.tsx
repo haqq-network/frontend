@@ -249,7 +249,9 @@ export function NewProposalStatusComponent({
 
 export function NewProposalVoteResults({
   results,
-  voteOption = 'YES',
+  voteOption,
+  status,
+  sumDeposited,
 }: {
   results: {
     yes: string;
@@ -258,6 +260,8 @@ export function NewProposalVoteResults({
     no_with_veto: string;
   };
   voteOption?: string;
+  status?: string;
+  sumDeposited?: number;
 }): ReactElement {
   const { yes, abstain, no, veto, total } = useMemo(() => {
     const yes = Number.parseInt(results.yes) / 10 ** 18;
@@ -282,114 +286,139 @@ export function NewProposalVoteResults({
         (veto / total) * 100,
       ];
     }, [yes, abstain, no, veto, total]);
+
   return (
     <div className="flex flex-col space-y-2 w-full">
-      <div className="flex space-x-[12px] items-center">
-        <NewCardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
-          Vote results
-        </NewCardText>
-        <div className="inline-flex space-x-[6px]">
-          <NewCardSubText className="text-white/50">You Voted:</NewCardSubText>
-          <NewCardSubText
-            className={clsx(
-              voteOption === 'YES' && 'text-[#01B26E]',
-              voteOption === 'NO' && 'text-white/50',
-            )}
-          >
-            {voteOption}
-          </NewCardSubText>
-        </div>
-      </div>
-
-      <div className="space-x-[4px] text-xs w-full h-2 relative flex flex-row overflow-hidden justify-between">
-        <div
-          className={clsx(
-            'h-full bg-[#01B26E] rounded-xl',
-            yesPercents === 0 && 'hidden',
-          )}
-          style={{
-            width: `${yesPercents}%`,
-          }}
-        />
-        <div
-          className={clsx(
-            'h-full bg-[#FF5454] rounded-xl',
-            noPercents === 0 && 'hidden',
-          )}
-          style={{ width: `${noPercents}%` }}
-        />
-        <div
-          className={clsx(
-            'h-full bg-[#AAABB2] rounded-xl',
-            abstainPercents === 0 && 'hidden',
-          )}
-          style={{ width: `${abstainPercents}%` }}
-        />
-        <div
-          className={clsx(
-            'h-full bg-[#E3A13F] rounded-xl',
-            vetoPercents === 0 && 'hidden',
-          )}
-          style={{ width: `${vetoPercents}%` }}
-        />
-      </div>
-      <div className="flex items-center space-x-[12px]">
-        <div className="flex items-center">
-          <div className="flex items-center">
-            <div className="h-2 w-2 rounded-full bg-[#01B26E] mr-1" />
-            <div className="mr-[2px]">
-              <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                Yes
-              </NewCardText>
-            </div>
-            <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-              {yesPercents ? yesPercents.toFixed(0) : 0}%
-            </NewCardText>
-          </div>
-        </div>
-
-        <div className="flex items-center">
-          <div className="flex items-center">
-            <div className="h-2 w-2 rounded-full bg-[#FF5454] mr-1" />
-            <div className="mr-[2px]">
-              <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                No
-              </NewCardText>
-            </div>
-          </div>
-          <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-            {noPercents ? noPercents.toFixed(0) : 0}%
+      {status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD' ? (
+        <div className="flex space-x-[12px] items-center">
+          <NewCardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
+            Total deposit
           </NewCardText>
+          {sumDeposited && (
+            <div className="inline-flex space-x-[6px]">
+              <NewCardSubText className="text-white/50">
+                You Deposited:
+              </NewCardSubText>
+              <NewCardSubText className="text-white">
+                {sumDeposited.toFixed(0)}
+              </NewCardSubText>
+            </div>
+          )}
         </div>
+      ) : (
+        <div className="space-y-[8px]">
+          <div className="flex space-x-[12px] items-center">
+            <NewCardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
+              Vote results
+            </NewCardText>
+            {voteOption && (
+              <div className="inline-flex space-x-[6px]">
+                <NewCardSubText className="text-white/50">
+                  You Voted:
+                </NewCardSubText>
+                <NewCardSubText
+                  className={clsx(
+                    voteOption === 'YES' && 'text-[#01B26E]',
+                    voteOption === 'NO' && 'text-[#FF5454]',
+                  )}
+                >
+                  {voteOption}
+                </NewCardSubText>
+              </div>
+            )}
+          </div>
 
-        <div className="flex items-center">
-          <div className="flex items-center">
-            <div className="h-2 w-2 rounded-full bg-[#AAABB2] mr-1" />
-            <div className="mr-[2px]">
+          <div className="space-x-[4px] text-xs w-full h-2 relative flex flex-row overflow-hidden justify-between">
+            <div
+              className={clsx(
+                'h-full bg-[#01B26E] rounded-xl',
+                yesPercents === 0 && 'hidden',
+              )}
+              style={{
+                width: `${yesPercents}%`,
+              }}
+            />
+            <div
+              className={clsx(
+                'h-full bg-[#FF5454] rounded-xl',
+                noPercents === 0 && 'hidden',
+              )}
+              style={{ width: `${noPercents}%` }}
+            />
+            <div
+              className={clsx(
+                'h-full bg-[#AAABB2] rounded-xl',
+                abstainPercents === 0 && 'hidden',
+              )}
+              style={{ width: `${abstainPercents}%` }}
+            />
+            <div
+              className={clsx(
+                'h-full bg-[#E3A13F] rounded-xl',
+                vetoPercents === 0 && 'hidden',
+              )}
+              style={{ width: `${vetoPercents}%` }}
+            />
+          </div>
+          <div className="flex items-center space-x-[12px]">
+            <div className="flex items-center">
+              <div className="flex items-center">
+                <div className="h-2 w-2 rounded-full bg-[#01B26E] mr-1" />
+                <div className="mr-[2px]">
+                  <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                    Yes
+                  </NewCardText>
+                </div>
+                <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                  {yesPercents ? yesPercents.toFixed(0) : 0}%
+                </NewCardText>
+              </div>
+            </div>
+
+            <div className="flex items-center">
+              <div className="flex items-center">
+                <div className="h-2 w-2 rounded-full bg-[#FF5454] mr-1" />
+                <div className="mr-[2px]">
+                  <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                    No
+                  </NewCardText>
+                </div>
+              </div>
               <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                Abstain
+                {noPercents ? noPercents.toFixed(0) : 0}%
               </NewCardText>
             </div>
-            <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-              {abstainPercents ? abstainPercents.toFixed(0) : 0}%
-            </NewCardText>
-          </div>
-        </div>
 
-        <div className="flex items-center">
-          <div className="flex flex-row items-center">
-            <div className="h-2 w-2 rounded-full bg-yellow-500 mr-1" />
-            <div className="mr-[2px]">
-              <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                Veto
-              </NewCardText>
+            <div className="flex items-center">
+              <div className="flex items-center">
+                <div className="h-2 w-2 rounded-full bg-[#AAABB2] mr-1" />
+                <div className="mr-[2px]">
+                  <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                    Abstain
+                  </NewCardText>
+                </div>
+                <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                  {abstainPercents ? abstainPercents.toFixed(0) : 0}%
+                </NewCardText>
+              </div>
             </div>
-            <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-              {vetoPercents ? vetoPercents.toFixed(0) : 0}%
-            </NewCardText>
+
+            <div className="flex items-center">
+              <div className="flex flex-row items-center">
+                <div className="h-2 w-2 rounded-full bg-yellow-500 mr-1" />
+                <div className="mr-[2px]">
+                  <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                    Veto
+                  </NewCardText>
+                </div>
+                <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                  {vetoPercents ? vetoPercents.toFixed(0) : 0}%
+                </NewCardText>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -652,7 +681,10 @@ export function NewProposalListCard({
             </div>
           )}
         </div>
-        <NewProposalVoteResults results={proposal.final_tally_result} />
+        <NewProposalVoteResults
+          results={proposal.final_tally_result}
+          status={proposal.status}
+        />
       </div>
     </NewCard>
   );
