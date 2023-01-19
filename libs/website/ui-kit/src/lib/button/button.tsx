@@ -22,7 +22,7 @@ export function Button({
   isLoading,
 }: ButtonProps) {
   const classNames = clsx(
-    'relative p-2 text-[14px] font-serif leading-[14px] font-[500] tracking-[0.01em] rounded-[6px] h-[40px] uppercase px-[32px] py-[13px] cursor-pointer user-select-none',
+    'relative text-[14px] font-serif leading-[14px] font-[500] tracking-[0.01em] rounded-[6px] h-[40px] uppercase px-[32px] py-[13px] cursor-pointer user-select-none',
     variant === 1 &&
       (isLoading
         ? 'border border-white'
