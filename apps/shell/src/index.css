@@ -12,6 +12,7 @@
 @font-face {
   font-family: 'Clash';
   src: url('fonts/ClashDisplay.ttf');
+  font-weight: 500;
 }
 
 :root {
