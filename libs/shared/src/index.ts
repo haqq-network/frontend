@@ -1,3 +1,4 @@
+export * from './hooks/use-window-width/use-window-width';
 export * from './chains/chains';
 export * from './chains/get-chain-params';
 export * from './chains/map-to-wagmi-chain';
