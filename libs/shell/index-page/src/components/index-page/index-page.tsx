@@ -3,7 +3,7 @@ import { ShellIndexPageAccountInfo } from '../account-info/account-info';
 import { ShellIndexPageChainStats } from '../chain-stats/chain-stats';
 import { ShellIndexPageDelegationList } from '../delegation-list/delegation-list';
 import { ShellIndexPageProposalList } from '../proposal-list/proposal-list';
-import { StatisticsBlock } from '../../lib/statistics-block/statistics-block';
+import { StatisticsBlock } from '@haqq/shell/index-page';
 
 export function ShellIndexPage() {
   return (
