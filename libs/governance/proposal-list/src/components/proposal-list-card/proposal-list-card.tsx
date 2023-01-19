@@ -360,7 +360,7 @@ export function NewProposalVoteResults({
               style={{ width: `${vetoPercents}%` }}
             />
           </div>
-          <div className="flex items-center space-x-[12px]">
+          <div className="flex items-center gap-x-3 flex-wrap">
             <div className="flex items-center">
               <div className="flex items-center">
                 <div className="h-2 w-2 rounded-full bg-[#01B26E] mr-1" />
