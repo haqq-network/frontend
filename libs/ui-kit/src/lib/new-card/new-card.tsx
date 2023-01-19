@@ -8,7 +8,7 @@ export interface NewCardProps {
 
 export function NewCard({ children, className }: NewCardProps) {
   return (
-    <div className="min-w-[343px] min-h-[285px] lg:min-w-[624px] lg:min-h-[364px] border border-[#ffffff3d] hover:border-[#EC5728] hover:cursor-pointer duration-300 rounded-lg p-4 lg:p-7 bg-transparent">
+    <div className="border border-[#ffffff3d] hover:border-[#EC5728] hover:cursor-pointer duration-300 rounded-lg p-4 lg:p-7 bg-transparent">
       {children}
     </div>
   );
@@ -16,7 +16,7 @@ export function NewCard({ children, className }: NewCardProps) {
 
 export function NewCardHeading({ children }: { children: ReactNode }) {
   return (
-    <div className="whitespace-pre-wrap text-[14px] leading-[22px] lg:text-[18px] lg:leading-[28px] font-guise text-white">
+    <div className="whitespace-pre-wrap text-[14px] leading-[22px] lg:text-[18px] lg:leading-[28px] font-guise text-white min-h-[44px] sm:text-[17px] sm:leading-[26px] sm:min-h-[52px] lg:min-h-[56px]">
       {children}
     </div>
   );
