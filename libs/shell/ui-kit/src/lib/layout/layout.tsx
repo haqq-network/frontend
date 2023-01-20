@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import clsx from 'clsx';
+import styles from './layout.module.css';
 
 export function Layout({
   children,
@@ -10,7 +11,13 @@ export function Layout({
 }) {
   return (
     <div className={clsx('min-h-screen relative flex flex-col', className)}>
-      <div className=''>{children}</div>
+      <div
+        className={clsx(
+          'bg-center object-cover bg-no-repeat absolute inset-0 z-[-1] -translate-y-3/4 w-full',
+          styles['bg-image'],
+        )}
+      />
+      <div className="">{children}</div>
     </div>
   );
 }
