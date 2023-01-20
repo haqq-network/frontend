@@ -13,6 +13,7 @@
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e",
     "shell-index-page": "libs/shell/index-page",
+    "shell-ui-kit": "libs/shell/ui-kit",
     "staking": "apps/staking",
     "staking-e2e": "apps/staking-e2e",
     "staking-ui-kit": "libs/staking/ui-kit",
