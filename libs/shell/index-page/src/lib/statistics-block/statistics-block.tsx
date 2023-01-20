@@ -4,7 +4,7 @@ import {
   useStakingPoolQuery,
   useStakingValidatorListQuery,
 } from '@haqq/shared';
-import { ShellText } from '@haqq/ui-kit';
+import { Text } from '@haqq/shell/ui-kit';
 import {
   BondStatus,
   bondStatusFromJSON,
@@ -51,38 +51,38 @@ export function StatisticsBlock() {
         </div>
         <div className="flex flex-col lg:flex-wrap lg:flex-row space-y-[10px] lg:space-y-0 lg:gap-x-6 lg:gap-y-2">
           <div className="flex space-x-[9px]">
-            <ShellText className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
+            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
               total supply
-            </ShellText>
+            </Text>
             <div className="inline-flex space-x-[5px] font-guise text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
-              <ShellText color="white">{formatNumber(totalSupply)}</ShellText>
-              <ShellText>ISLM</ShellText>
+              <Text color="white">{formatNumber(totalSupply)}</Text>
+              <Text>ISLM</Text>
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <ShellText className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
+            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
               total staked ({((totalStaked / totalSupply) * 100).toFixed(2)}%)
-            </ShellText>
+            </Text>
             <div className="inline-flex space-x-[5px] font-guise text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
-              <ShellText color="white">{formatNumber(totalStaked)}</ShellText>
-              <ShellText>ISLM</ShellText>
+              <Text color="white">{formatNumber(totalStaked)}</Text>
+              <Text>ISLM</Text>
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <ShellText className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
+            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
               peers
-            </ShellText>
+            </Text>
             <div className="inline-flex space-x-[5px] font-guise text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
-              <ShellText color="white">{totalAccounts}</ShellText>
+              <Text color="white">{totalAccounts}</Text>
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <ShellText className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
+            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
               Active validators
-            </ShellText>
+            </Text>
             <div className="inline-flex space-x-[5px] font-guise text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
-              <ShellText color="white">{valsActive}</ShellText>
-              <ShellText>out of {valsTotal}</ShellText>
+              <Text color="white">{valsActive}</Text>
+              <Text>out of {valsTotal}</Text>
             </div>
           </div>
         </div>

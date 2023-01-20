@@ -7,7 +7,7 @@ import {
   useWindowWidth,
   getFormattedAddress,
 } from '@haqq/shared';
-import { ShellText, ShellTooltip } from '@haqq/ui-kit';
+import { Text, Tooltip } from '@haqq/shell/ui-kit';
 import { Button } from '@haqq/website/ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
@@ -120,40 +120,40 @@ export function MyAccountBlock() {
 
           <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:space-y-0 lg:gap-6">
             <div className="flex flex-col items-start">
-              <ShellText className={grayTextClassName}>My balance</ShellText>
-              <ShellText
+              <Text className={grayTextClassName}>My balance</Text>
+              <Text
                 className="font-clash text-[16px] leading-[1.25em] text-white sm:text-[18px] sm:leading[1.33em] lg:text-[24px] lg:leading-[1.25em]"
                 color="white"
               >
                 {balance?.value.toLocaleString()} ISLM
-              </ShellText>
+              </Text>
             </div>
 
             <div className="flex flex-col items-start">
-              <ShellText className={grayTextClassName}>Staked</ShellText>
-              <ShellText
+              <Text className={grayTextClassName}>Staked</Text>
+              <Text
                 className="text-[16px] leading-[1.25em] text-white sm:text-[18px] sm:leading[1.33em] lg:text-[24px] lg:leading-[1.25em]"
                 color="white"
               >
                 {delegation.toLocaleString()} ISLM
-              </ShellText>
+              </Text>
             </div>
 
             <div className="flex flex-col items-start">
-              <ShellText className={grayTextClassName}>Rewards</ShellText>
-              <ShellText
+              <Text className={grayTextClassName}>Rewards</Text>
+              <Text
                 className="text-[16px] leading-[1.25em] text-white sm:text-[18px] sm:leading[1.33em] lg:text-[24px] lg:leading-[1.25em]"
                 color="white"
               >
                 {rewards.toLocaleString()} ISLM
-              </ShellText>
+              </Text>
             </div>
 
             <div className="flex flex-col items-start">
-              <ShellText className={grayTextClassName}>Address</ShellText>
+              <Text className={grayTextClassName}>Address</Text>
 
               <div className="flex flex-col space-y-2 lg:flex-row items-start font-guise lg:space-y-0 lg:space-x-4">
-                <ShellTooltip
+                <Tooltip
                   text={isEthAddressCopy ? 'Copied' : 'Click to copy'}
                   address={ethAddress}
                   className="font-guise"
@@ -169,9 +169,9 @@ export function MyAccountBlock() {
 
                     <CopyIcon className="text-white group-hover:text-gray-400 transition-colors duration-100 ease-in-out" />
                   </div>
-                </ShellTooltip>
+                </Tooltip>
 
-                <ShellTooltip
+                <Tooltip
                   text={isHaqqAddressCopy ? 'Copied' : 'Click to copy'}
                   address={haqqAddress}
                   className="font-guise"
@@ -187,7 +187,7 @@ export function MyAccountBlock() {
 
                     <CopyIcon className="text-white group-hover:text-gray-400 transition-colors duration-100 ease-in-out" />
                   </div>
-                </ShellTooltip>
+                </Tooltip>
               </div>
             </div>
           </div>
