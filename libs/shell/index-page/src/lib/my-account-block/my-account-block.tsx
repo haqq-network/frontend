@@ -89,7 +89,7 @@ export function MyAccountBlock() {
   };
 
   return (
-    <div className="w-full border-y border-dashed border-y-[#ffffff26] px-4 py-8 sm:py-8 sm:px-16 lg:py-8 lg:px-20">
+    <section className="w-full border-y border-dashed border-y-[#ffffff26] px-4 py-8 sm:py-8 sm:px-16 lg:py-8 lg:px-20">
       {!ethAddress ? (
         <div className="flex flex-col items-center space-y-3">
           <div className="font-guise">You should connect wallet first</div>
@@ -193,6 +193,6 @@ export function MyAccountBlock() {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }

@@ -44,7 +44,7 @@ export function StatisticsBlock() {
   }
 
   return (
-    <div className="flex w-full px-4 py-8 sm:px-16 sm:py-12 lg:px-20 lg:py-[68px]">
+    <section className="flex w-full px-4 py-8 sm:px-16 sm:py-12 lg:px-20 lg:py-[68px]">
       <div className="flex flex-col space-y-[12px]">
         <div className="font-clash text-[28px] sm:text-[48px] lg:text-[70px] uppercase">
           Shell
@@ -87,6 +87,6 @@ export function StatisticsBlock() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
