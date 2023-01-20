@@ -25,7 +25,7 @@ export function BurgerMenu({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        'bg-haqq-black z-50 px-[20px] py-[32px] sm:py-[40px] sm:pl-[40px] sm:pr-[64px]',
+        'bg-black z-50 px-[20px] py-[32px] sm:py-[40px] sm:pl-[40px] sm:pr-[64px]',
         'sm:border-l border-haqq-border overflow-y-auto',
         className,
       )}
