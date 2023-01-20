@@ -1,6 +1,7 @@
 import { Fragment, lazy, Suspense, useMemo } from 'react';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
-import { Button2, Header, NotFoundPage, Page, PendingPage } from '@haqq/ui-kit';
+import { Button2, NotFoundPage, PendingPage } from '@haqq/ui-kit';
+import { Page, Header } from '@haqq/shell/ui-kit';
 import { useBalance } from 'wagmi';
 import clsx from 'clsx';
 import {
@@ -76,7 +77,7 @@ function HeaderButtons() {
 
 export function App() {
   return (
-    <Page header={<Header rightSlot={<HeaderButtons />} />}>
+    <Page header={<Header />}>
       <Suspense fallback={<PendingPage />}>
         <Routes>
           <Route path="/" element={<ShellIndexPage />} />
