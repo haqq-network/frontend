@@ -1,3 +1,4 @@
+export * from './lib/account-button/account-button';
 export * from './lib/page/page';
 export * from './lib/tooltip/tooltip';
 export * from './lib/typography/typography';
