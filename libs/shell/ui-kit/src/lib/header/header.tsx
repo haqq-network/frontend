@@ -9,7 +9,7 @@ import {
 import clsx from 'clsx';
 import { Button, BurgerButton } from '@haqq/website/ui-kit';
 import ScrollLock from 'react-scrolllock';
-import { AccountButton, BurgerMenu } from '@haqq/shell/ui-kit';
+import { AccountButton, BurgerMenu, HaqqLogo } from '@haqq/shell/ui-kit';
 import { getFormattedAddress, useAddress, useMetamask } from '@haqq/shared';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -111,8 +111,8 @@ export function Header() {
       <div className="w-full flex flex-row items-center h-full pr-[16px] sm:pr-[64px] lg:pr-[80px] mx-auto">
         <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-[#464647]">
           <HeaderNavLink href="/">
-            <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
-              <img src="./assets/logo.svg" alt="HAQQ" />
+            <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px] flex items-center">
+              <HaqqLogo />
             </div>
           </HeaderNavLink>
         </div>
