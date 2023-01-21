@@ -49,8 +49,8 @@ export function AccountButton({
             <div className={clsx({ 'rotate-180': isDropdownOpen })}>
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
                   fill="#0D0D0E"
                 />
