@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { Button } from '@haqq/website/ui-kit';
 
 function BurgerMenuNavLink({
   href,
@@ -9,7 +8,6 @@ function BurgerMenuNavLink({
 }: {
   href: string;
   children: ReactNode;
-  isOutLink?: boolean;
 }) {
   return (
     <Link
@@ -21,18 +19,26 @@ function BurgerMenuNavLink({
   );
 }
 
-export function BurgerMenu({ className }: { className?: string }) {
+export function BurgerMenu({
+  className,
+  connectButton,
+  disconnectButton,
+}: {
+  className?: string;
+  connectButton: ReactNode;
+  disconnectButton: ReactNode;
+}) {
   return (
-    <div
-      className={clsx(
-        'bg-black z-50 px-[20px] py-[32px] sm:py-[40px] sm:pl-[40px] sm:pr-[64px]',
-        'sm:border-l border-haqq-border overflow-y-auto',
-        className,
-      )}
-    >
-      <div className="flex flex-col items-start space-y-[16px] mb-[60px] sm:mb-[80px]">
-        <BurgerMenuNavLink href="/staking">Staking</BurgerMenuNavLink>
-        <BurgerMenuNavLink href="/governance">Governance</BurgerMenuNavLink>
+    <div className={clsx('bg-black z-50 px-5 py-8 sm:p-10', className)}>
+      <div className="flex flex-col items-start">
+        <div className="flex flex-col space-y-3 mb-6 sm:mb-20">
+          <BurgerMenuNavLink href="/staking">Staking</BurgerMenuNavLink>
+          <BurgerMenuNavLink href="/governance">Governance</BurgerMenuNavLink>
+        </div>
+        <div className="space-y-6">
+          {connectButton && <div>{connectButton}</div>}
+          {disconnectButton && <div>{disconnectButton}</div>}
+        </div>
       </div>
     </div>
   );
