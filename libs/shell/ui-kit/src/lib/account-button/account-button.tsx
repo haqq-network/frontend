@@ -68,11 +68,11 @@ export function AccountButton({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-1 w-[160px] origin-top-right rounded-md bg-white focus:outline-none shadow-lg py-1 text-slate-800">
+          <Menu.Items className="absolute right-0 mt-1 w-[160px] border border-[#ffffff26] origin-top-right rounded-md bg-black focus:outline-none shadow-lg py-2 text-white">
             {onDisconnectClick && (
               <Menu.Item
                 as="button"
-                className="py-[6px] px-[16px] leading-[24px] hover:bg-slate-500 hover:text-white transition-colors duration-150 ease-out block w-full text-left"
+                className="py-2 px-[16px] leading-[22px] hover:bg-[#ffffff14] transition-colors duration-150 ease-out block w-full text-left"
                 onClick={onDisconnectClick}
               >
                 Disconnect
