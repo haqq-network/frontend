@@ -7,7 +7,7 @@ import { MyAccountBlock, StatisticsBlock } from '@haqq/shell/index-page';
 
 export function ShellIndexPage() {
   return (
-    <Container className="py-10">
+    <Container>
       <div className="flex flex-col space-y-6">
         <StatisticsBlock />
         <MyAccountBlock />
