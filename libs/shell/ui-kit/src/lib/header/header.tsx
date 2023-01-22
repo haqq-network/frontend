@@ -7,11 +7,12 @@ import {
   useState,
 } from 'react';
 import clsx from 'clsx';
-import { Button, BurgerButton } from '@haqq/website/ui-kit';
 import ScrollLock from 'react-scrolllock';
+import { useAccount, useBalance } from 'wagmi';
+import { Link } from 'react-router-dom';
 import { AccountButton, BurgerMenu, HaqqLogo } from '@haqq/shell/ui-kit';
 import { getFormattedAddress, useAddress, useMetamask } from '@haqq/shared';
-import { useAccount, useBalance } from 'wagmi';
+import { Button, BurgerButton } from '@haqq/website/ui-kit';
 
 function HeaderNavLink({
   href,
@@ -29,13 +30,13 @@ function HeaderNavLink({
       }
     : {};
   return (
-    <a
-      href={href}
+    <Link
+      to={href}
       className="text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
       {...additionalProps}
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
