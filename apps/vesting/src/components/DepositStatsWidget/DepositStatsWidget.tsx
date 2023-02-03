@@ -257,7 +257,6 @@ export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
           10,
         ).toLocaleString()} ${symbol}`}
       /> */}
-
       <NextDepositUnlock
         createdAt={deposit.createdAt}
         period={deposit.unlockPeriod}
