@@ -6,6 +6,8 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { useConfig } from './config-provider';
 import { getChainParams } from '../chains/get-chain-params';
 import { mapToWagmiChain } from '../chains/map-to-wagmi-chain';
+import { SuperInjectedConnector } from '../connectors/new-injected-connector';
+import { BlockWalletConnector } from '../connectors/block-wallet-connector';
 
 export function WagmiProvider({ children }: { children: ReactNode }) {
   const { chainName } = useConfig();
@@ -36,6 +38,19 @@ export function WagmiProvider({ children }: { children: ReactNode }) {
       // new WalletConnectConnector({
       //   chains,
       //   options: {},
+      // }),
+      // new SuperInjectedConnector({
+      //   chains,
+      //   options: {
+      //     name: 'Injected',
+      //     shimDisconnect: true,
+      //   },
+      // }),
+      new BlockWalletConnector({
+        chains,
+      }),
+      // new SuperInjectedConnector({
+      //   chains,
       // }),
     ];
   }, [chains]);
