@@ -47,14 +47,10 @@ export class BlockWalletConnector extends InjectedConnector {
       getProvider() {
         function getReady(ethereum?: ExtendedEth) {
           const isBlockWallet = ethereum?.isBlockWallet;
-          const isMetaMask = ethereum?.isMetaMask;
 
           if (!isBlockWallet) {
             return;
           }
-          // if (!isMetaMask) {
-          //   return;
-          // }
 
           // Brave tries to make itself look like MetaMask
           // Could also try RPC `web3_clientVersion` if following is unreliable

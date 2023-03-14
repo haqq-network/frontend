@@ -34,9 +34,9 @@ export function WagmiProvider({ children }: { children: ReactNode }) {
     return [
       // new InjectedConnector({
       //   chains,
-      //   options: {
-      //     name: 'Injected',
-      //   },
+      //   // options: {
+      //   //   name: 'Injected',
+      //   // },
       // }),
       new BlockWalletConnector({
         chains,
@@ -46,6 +46,9 @@ export function WagmiProvider({ children }: { children: ReactNode }) {
       }),
       new MetaMaskConnector({
         chains,
+        options: {
+          UNSTABLE_shimOnConnectSelectAccount: true,
+        },
       }),
       // new WalletConnectConnector({
       //   chains,
