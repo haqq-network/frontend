@@ -7,7 +7,6 @@ import { getChainParams } from '../chains/get-chain-params';
 import { mapToWagmiChain } from '../chains/map-to-wagmi-chain';
 import { BlockWalletConnector } from '../connectors/block-wallet-connector';
 import { MetaMaskConnector } from '@wagmi/connectors/metaMask';
-import { InjectedConnector } from '@wagmi/connectors/injected';
 
 export function WagmiProvider({ children }: { children: ReactNode }) {
   const { chainName } = useConfig();
@@ -21,7 +20,7 @@ export function WagmiProvider({ children }: { children: ReactNode }) {
         jsonRpcProvider({
           rpc: (chain: Chain) => {
             return {
-              http: chain.rpcUrls.default.http[0],
+              http: chain.rpcUrls.default.http[0] ?? '',
               // webSocket: chain.rpcUrls.ws,
             };
           },
@@ -32,28 +31,22 @@ export function WagmiProvider({ children }: { children: ReactNode }) {
 
   const connectors = useMemo(() => {
     return [
-      // new InjectedConnector({
-      //   chains,
-      //   // options: {
-      //   //   name: 'Injected',
-      //   // },
-      // }),
+      new MetaMaskConnector({
+        chains,
+        options: {
+          shimDisconnect: true,
+          shimChainChangedDisconnect: true,
+          UNSTABLE_shimOnConnectSelectAccount: true,
+        },
+      }),
       new BlockWalletConnector({
         chains,
         options: {
           shimDisconnect: true,
-        },
-      }),
-      new MetaMaskConnector({
-        chains,
-        options: {
+          shimChainChangedDisconnect: true,
           UNSTABLE_shimOnConnectSelectAccount: true,
         },
       }),
-      // new WalletConnectConnector({
-      //   chains,
-      //   options: { projectId: '' },
-      // }),
     ];
   }, [chains]);
 

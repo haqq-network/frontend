@@ -1,19 +1,16 @@
+import { Chain } from 'wagmi';
+
 export interface Currency {
   name: string;
   symbol: string;
   decimals: number;
 }
 
-export interface ChainProperties {
-  id: number;
+export interface ChainProperties extends Chain {
   cosmosChainId: string;
-  name: string;
-  network: string;
   tmRpcEndpoint: string;
   cosmosRestEndpoint: string;
   ethRpcEndpoint: string;
-  nativeCurrency: Currency;
-  testnet: boolean;
 }
 
 const currency: Currency = {
@@ -33,6 +30,24 @@ export const chains: Record<string, ChainProperties> = {
     ethRpcEndpoint: 'http://159.69.6.222:8545',
     testnet: true,
     nativeCurrency: currency,
+    rpcUrls: {
+      default: {
+        http: ['https://explorer.haqq.network'],
+      },
+      public: {
+        http: ['https://explorer.haqq.network'],
+      },
+    },
+    blockExplorers: {
+      etherscan: {
+        name: 'HAQQ Explorer',
+        url: 'https://explorer.haqq.network',
+      },
+      default: {
+        name: 'HAQQ Explorer',
+        url: 'https://explorer.haqq.network',
+      },
+    },
   },
   testedge2: {
     id: 54211,
@@ -44,6 +59,24 @@ export const chains: Record<string, ChainProperties> = {
     ethRpcEndpoint: 'https://rpc.eth.testedge2.haqq.network',
     testnet: true,
     nativeCurrency: currency,
+    rpcUrls: {
+      default: {
+        http: ['https://explorer.haqq.network'],
+      },
+      public: {
+        http: ['https://explorer.haqq.network'],
+      },
+    },
+    blockExplorers: {
+      etherscan: {
+        name: 'HAQQ Explorer',
+        url: 'https://explorer.haqq.network',
+      },
+      default: {
+        name: 'HAQQ Explorer',
+        url: 'https://explorer.haqq.network',
+      },
+    },
   },
   mainnet: {
     id: 11235,
@@ -55,5 +88,23 @@ export const chains: Record<string, ChainProperties> = {
     ethRpcEndpoint: 'https://rpc.eth.haqq.network',
     testnet: false,
     nativeCurrency: currency,
+    rpcUrls: {
+      default: {
+        http: ['https://explorer.haqq.network'],
+      },
+      public: {
+        http: ['https://explorer.haqq.network'],
+      },
+    },
+    blockExplorers: {
+      etherscan: {
+        name: 'HAQQ Explorer',
+        url: 'https://explorer.haqq.network',
+      },
+      default: {
+        name: 'HAQQ Explorer',
+        url: 'https://explorer.haqq.network',
+      },
+    },
   },
 };
