@@ -18,7 +18,10 @@ const fee: Fee = {
   denom: 'aISLM',
 };
 
-type ProposalVoteHook = (proposalId: number, option: number) => Promise<string>;
+type ProposalVoteHook = (
+  proposalId: number,
+  option: number,
+) => Promise<string | undefined>;
 
 export function useProposalVote(): ProposalVoteHook {
   const { chainName } = useConfig();
@@ -93,6 +96,8 @@ export function useProposalVote(): ProposalVoteHook {
         const tx = await broadcastTransaction(rawTx);
 
         return tx.txhash;
+      } else {
+        throw new Error('No sender');
       }
     },
     [

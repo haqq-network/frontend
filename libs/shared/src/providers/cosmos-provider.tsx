@@ -238,12 +238,14 @@ function createCosmosService(
 
   async function broadcastTransaction(txToBroadcast: TxToSend) {
     try {
-      const broadcastResponse = await axios.post<BroadcastTxResponse>(
+      const broadcastResponse = await axios.post<{
+        tx_response: BroadcastTxResponse;
+      }>(
         `${cosmosRestEndpoint}${generateEndpointBroadcast()}`,
         generatePostBodyBroadcast(txToBroadcast),
       );
 
-      return broadcastResponse.data;
+      return broadcastResponse.data.tx_response;
     } catch (error) {
       console.error((error as any).message);
       throw new Error((error as any).message);
@@ -424,17 +426,6 @@ interface BroadcastTxResponse {
   code: number;
   data: string;
   raw_log: string;
-  logs: {
-    msg_index: number;
-    log: string;
-    events: {
-      type: string;
-      attributes: {
-        key: string;
-        value: string;
-      }[];
-    }[];
-  }[];
   info: string;
   gas_wanted: string;
   gas_used: string;
@@ -449,6 +440,17 @@ interface BroadcastTxResponse {
       key: string;
       value: string;
       index: true;
+    }[];
+  }[];
+  logs: {
+    msg_index: number;
+    log: string;
+    events: {
+      type: string;
+      attributes: {
+        key: string;
+        value: string;
+      }[];
     }[];
   }[];
 }
