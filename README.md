@@ -23,7 +23,7 @@
 | Web3 Dashboard       | https://app.haqq.network        | [Open](apps/shell)      |
 | Web3 Staking app     | https://staking.haqq.network    | [Open](apps/staking)    |
 | Web3 Governance app  | https://governance.haqq.network | [Open](apps/governance) |
-| Testedge2 Faucet app | https://testedge2.haqq.network  | [Open](apps/faucet)     |
+| TestEdge2 Faucet app | https://testedge2.haqq.network  | [Open](apps/faucet)     |
 | Web3 Vesting app     | https://vesting.haqq.network    | [Open](apps/vesting)    |
 
 ## Development guide
