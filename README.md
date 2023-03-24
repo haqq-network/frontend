@@ -1,28 +1,49 @@
-# @haqq/frontend
+<div align="center">
+  <img src="apps/website/assets/images/logo.svg" alt="Logo" width="80" height="80">
 
-## MUST READ DOCS
+  <h2 align="center">HAQQ Frontend Monorepo</h2>
 
-- [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
-- [React](https://reactjs.org/)
-- [Jest](https://jestjs.io/)
-- [Testing library](https://testing-library.com/)
-- [Cypress](https://docs.cypress.io/)
-- [Storybook](https://storybook.js.org/)
-- [PostCSS](https://postcss.org/)
-- [Emotion](https://emotion.sh/)
-- [Tailwind](https://tailwindcss.com/docs/)
-- [NX](https://nx.dev)
+  <p align="center">
+    Home of all HAQQ frontend apps
+    <br />
+    ⭐ Star us on GitHub — it motivates us a lot!
+    <br />
+    <br />
+    <a href="https://github.com/haqq-network/frontend/issues/new">Report Bug</a>
+    ·
+    <a href="https://github.com/haqq-network/frontend/issues/new">Request Feature</a>
+  </p>
+</div>
 
-## Stack
+## Applications and websites
 
-- React
-- @emotion
-- Jest
-- Cypress
-- Web3
-- Tailwind CSS
+| Description          | Domain                          | Source code             |
+| -------------------- | ------------------------------- | ----------------------- |
+| Homepage             | https://haqq.hetwork            | [Open](apps/website)    |
+| Web3 Dashboard       | https://app.haqq.network        | [Open](apps/shell)      |
+| Web3 Staking app     | https://staking.haqq.network    | [Open](apps/staking)    |
+| Web3 Governance app  | https://governance.haqq.network | [Open](apps/governance) |
+| Testedge2 Faucet app | https://testedge2.haqq.network  | [Open](apps/faucet)     |
+| Web3 Vesting app     | https://vesting.haqq.network    | [Open](apps/vesting)    |
 
 ## Development guide
+
+<details>
+  <summary>Must read docs</summary>
+  <ol>
+    <li>
+      <a href="https://www.conventionalcommits.org/en/v1.0.0">Conventional commits</a>
+    </li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://reactjs.org">React</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://jestjs.io">Jest</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://testing-library.com">Testing library</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://docs.cypress.io">Cypress</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://storybook.js.org">Storybook</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://postcss.org">PostCSS</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://tailwindcss.com/docs">Tailwind</a></li>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://nx.dev">NX</a></li>
+  </ol>
+</details>
 
 ### Usable commands
 
