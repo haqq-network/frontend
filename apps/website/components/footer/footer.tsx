@@ -106,7 +106,7 @@ export function Footer() {
                 Privacy Policy
               </FooterNavLink>
               <FooterNavLink href="/terms-and-conditions">
-                Terms and conditions
+                Terms and Conditions
               </FooterNavLink>
             </nav>
           </div>
