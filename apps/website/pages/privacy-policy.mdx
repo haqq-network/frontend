@@ -108,18 +108,17 @@ and magnitude of the concept. It is also to be noted that this document has not 
 the legality of providing services to jurisdictions outside the UAE.
 
 export default function ({ children }) {
-
-return (
-
-<Fragment>
-  <Head>
-    <title>HAQQ | Privacy Policy</title>
-  </Head>
-  <PageTitle>{meta.title}</PageTitle>
-  <section className="flex bg-white">
-    <Article className="py-[60px] sm:py-[80px] lg:py-[100px]">
-      {children}
-    </Article>
-  </section>
-</Fragment>
-); }
+  return (
+    <Fragment>
+      <Head>
+        <title>HAQQ | Privacy Policy</title>
+      </Head>
+      <PageTitle>{meta.title}</PageTitle>
+      <section className="flex bg-white">
+        <Article className="py-[60px] sm:py-[80px] lg:py-[100px]">
+          {children}
+        </Article>
+      </section>
+    </Fragment>
+  );
+}
