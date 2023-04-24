@@ -3186,7 +3186,7 @@ __metadata:
     "@mdx-js/react": 2.3.0
     "@metamask/jazzicon": 2.0.0
     "@metamask/onboarding": 1.0.1
-    "@next/font": 13.1.1
+    "@next/font": 13.3.1
     "@next/mdx": 13.1.1
     "@nrwl/cli": 15.4.4
     "@nrwl/cypress": 15.4.4
@@ -4221,10 +4221,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/font@npm:13.1.1":
-  version: 13.1.1
-  resolution: "@next/font@npm:13.1.1"
-  checksum: 468a77d3a6db4a95ece3cc99c28dcaaf6135354ad81c3954a08a6c7d977693d7b7f07ff835b972a80d25794b711d6cb6545ea55fe6bed4c624346f3524061d19
+"@next/font@npm:13.3.1":
+  version: 13.3.1
+  resolution: "@next/font@npm:13.3.1"
+  checksum: c248bb0b84d522a9ebb3d6da7638127cc7978b72106de068f29ca5288ebb75e0b8330f9591bf0b0f195c9343d5bbc4f2903196bbc3a235a36ed849e78ee99957
   languageName: node
   linkType: hard
 
