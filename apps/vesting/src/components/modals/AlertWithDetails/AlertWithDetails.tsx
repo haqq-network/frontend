@@ -41,7 +41,7 @@ export function AlertWithDetails({
             </div>
           )}
 
-          {(onClose || details) && (
+          {details && (
             <div className="flex flex-row items-center justify-between">
               {details && (
                 <div>
