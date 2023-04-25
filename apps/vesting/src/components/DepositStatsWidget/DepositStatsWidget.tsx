@@ -6,7 +6,7 @@ import { Card } from '../Card/Card';
 import { Heading, Text } from '../Typography/Typography';
 import HaqqVestingContract from '../../../HaqqVesting.json';
 import { Spinner } from '../Playground/Playground';
-import { formatEther, isAddress } from 'ethers/lib/utils';
+import { BigNumber, formatEther, isAddress } from 'ethers';
 import { Button, DangerButton } from '../Button/Button';
 import { DepositNavigation } from '../DepositNavigation/DepositNavigation';
 import { useNextUnlockDate } from '../../hooks/useNextUnlockDate';
