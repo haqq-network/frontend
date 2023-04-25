@@ -13,6 +13,11 @@ import { useAccount, useConnect, useNetwork } from 'wagmi';
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { NoMetamaskAlert } from './components/modals/NoMetamaskAlert/NoMetamaskAlert';
 import { getChainParams, useConfig } from '@haqq/shared';
+import type { Ethereum } from '@wagmi/core/';
+
+type ExtendedEth = Ethereum & {
+  isBlockWallet: boolean;
+};
 
 export type OnboardingSteps =
   | 'start'
@@ -58,7 +63,10 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   }, []);
 
   const handleConnectWallet = useCallback(async () => {
+    const { ethereum } = window as any;
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      handleConnectWagmi();
+    } else if (ethereum?.isBlockWallet) {
       handleConnectWagmi();
     } else {
       setNoMetamaskModalOpen(true);
@@ -72,9 +80,7 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   }, []);
 
   const handleNetworkSwitch = useCallback(async () => {
-    // console.log('handleNetworkSwitch');
     const { ethereum } = window;
-
     if (ethereum) {
       try {
         await ethereum?.request({
@@ -83,6 +89,10 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
         });
         setOnboardingStep('finish');
       } catch (error: any) {
+        // added check because enabled blockwallet won't skip this error automatically like metamask
+        if (error?.code === -32603) {
+          setOnboardingStep('add-network');
+        }
         if (error?.code === 4902) {
           setOnboardingStep('add-network');
         } else {

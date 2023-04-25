@@ -12,6 +12,8 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { useConfig } from './config-provider';
 import { getChainParams } from '../chains/get-chain-params';
 import { mapToWagmiChain } from '../chains/map-to-wagmi-chain';
+import { BlockWalletConnector } from '../connectors/block-wallet-connector';
+import { MetaMaskConnector } from '@wagmi/connectors/metaMask';
 
 export function WagmiProvider({
   children,
@@ -31,7 +33,7 @@ export function WagmiProvider({
         jsonRpcProvider({
           rpc: (chain: Chain) => {
             return {
-              http: chain.rpcUrls.default.http[0],
+              http: chain.rpcUrls.default.http[0] ?? '',
               // webSocket: chain.rpcUrls.ws,
             };
           },
@@ -41,9 +43,22 @@ export function WagmiProvider({
   }, [chainName]);
 
   const connectors = useMemo(() => {
-    const connectors: Array<Connector> = [
-      new InjectedConnector({
+    const connectors: Connector[] = [
+      new MetaMaskConnector({
         chains,
+        options: {
+          shimDisconnect: true,
+          shimChainChangedDisconnect: true,
+          UNSTABLE_shimOnConnectSelectAccount: true,
+        },
+      }),
+      new BlockWalletConnector({
+        chains,
+        options: {
+          shimDisconnect: true,
+          shimChainChangedDisconnect: true,
+          UNSTABLE_shimOnConnectSelectAccount: true,
+        },
       }),
     ];
 

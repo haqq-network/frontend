@@ -132,7 +132,8 @@ export function Faucet(): ReactElement {
           params: [{ chainId: targetNetworkIdHex }],
         });
       } catch (error: any) {
-        if (error.code === 4902) {
+        // added check because enabled blockwallet won't skip this error automatically like metamask
+        if ((error.code === 4902) | (error.code === -32603)) {
           try {
             await ethereum.request({
               method: 'wallet_addEthereumChain',
