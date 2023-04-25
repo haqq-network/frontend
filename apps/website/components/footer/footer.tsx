@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import logoImageData from '../../assets/images/logo.svg';
-import { SubscribeForm } from '@haqq/website/forms';
 import {
   DiscordIcon,
   GithubIcon,
@@ -176,10 +175,10 @@ export function Footer() {
             <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
             </Heading>
-            <SubscribeForm
+            {/* <SubscribeForm
               className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0"
               inputSize={inputSize}
-            />
+            /> */}
           </div>
         </div>
       </div>

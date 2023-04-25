@@ -5,7 +5,7 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/webpack:webpack",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -19,7 +19,9 @@
         "assets": ["apps/staking/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/staking/webpack.config.js"
+        "webpackConfig": "apps/staking/webpack.config.js",
+        "isolatedConfig": true,
+        "babelUpwardRootMode": true
       },
       "configurations": {
         "development": {
@@ -43,10 +45,26 @@
           "vendorChunk": false,
           "webpackConfig": "apps/staking/webpack.config.prod.js"
         }
+      },
+      "production": {
+        "fileReplacements": [
+          {
+            "replace": "apps/staking/src/environments/environment.ts",
+            "with": "apps/staking/src/environments/environment.prod.ts"
+          }
+        ],
+        "optimization": true,
+        "outputHashing": "all",
+        "sourceMap": false,
+        "namedChunks": false,
+        "extractLicenses": true,
+        "vendorChunk": false,
+        "webpackConfig": "apps/staking/webpack.config.prod.js",
+        "isolatedConfig": true
       }
     },
     "serve": {
-      "executor": "@nrwl/react:module-federation-dev-server",
+      "executor": "@nx/react:module-federation-dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "staking:build",
@@ -64,14 +82,14 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/staking/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/staking"],
       "options": {
         "jestConfig": "apps/staking/jest.config.ts",
@@ -79,7 +97,7 @@
       }
     },
     "serve-static": {
-      "executor": "@nrwl/web:file-server",
+      "executor": "@nx/web:file-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "staking:build",
@@ -95,13 +113,10 @@
       }
     },
     "storybook": {
-      "executor": "@nrwl/storybook:storybook",
+      "executor": "@nx/storybook:storybook",
       "options": {
-        "uiFramework": "@storybook/react",
         "port": 4400,
-        "config": {
-          "configFolder": "apps/staking/.storybook"
-        }
+        "configDir": "apps/staking/.storybook"
       },
       "configurations": {
         "ci": {
@@ -110,14 +125,11 @@
       }
     },
     "build-storybook": {
-      "executor": "@nrwl/storybook:build",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
       "options": {
-        "uiFramework": "@storybook/react",
-        "outputPath": "dist/storybook/staking",
-        "config": {
-          "configFolder": "apps/staking/.storybook"
-        }
+        "configDir": "apps/staking/.storybook",
+        "outputDir": "dist/storybook/staking"
       },
       "configurations": {
         "ci": {

@@ -74,5 +74,5 @@ yarn nx storybook ui-kit
 To create new `Button` component `ui-kit` package
 
 ```shell
-yarn nx generate @nrwl/react:component Button --project=ui-kit --directory=components --export --no-interactive
+yarn nx generate @nx/react:component Button --project=ui-kit --directory=components --export --no-interactive
 ```
