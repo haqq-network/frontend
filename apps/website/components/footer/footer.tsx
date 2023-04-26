@@ -84,7 +84,7 @@ export function Footer() {
       <div className="lg:mx-auto w-full flex flex-row items-center h-[63px] sm:h-[72px] border-b border-haqq-border">
         <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-haqq-border">
           <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
-            <Image src={logoImageData.src} alt="HAQQ" fill />
+            <Image src={logoImageData} alt="HAQQ" fill />
           </div>
         </div>
         <div className="ml-[12px] sm:ml-[20px] lg:ml-[32px] font-serif font-medium text-[20px] sm:text-[24px] leading-none">
