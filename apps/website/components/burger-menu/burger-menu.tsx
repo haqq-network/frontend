@@ -13,7 +13,7 @@ import {
   // YoutubeIcon,
   Button,
 } from '@haqq/website/ui-kit';
-import { SubscribeForm } from '@haqq/website/shared';
+import { SubscribeForm } from '@haqq/website/forms';
 
 function BurgerMenuNavLink({
   href,

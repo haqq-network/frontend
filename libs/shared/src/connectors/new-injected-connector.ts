@@ -14,8 +14,8 @@ import type { Chain } from '@wagmi/core/chains';
 import { Connector } from '@wagmi/connectors';
 import type { Ethereum } from '@wagmi/core';
 import { getInjectedName } from './get-injected-name';
-import { JsonRpcSigner, getAddress } from 'ethers';
-import { hexValue } from 'ethers/lib/utils';
+import { providers } from 'ethers';
+import { hexValue, getAddress } from 'ethers/lib/utils';
 
 type ExtendedEth = Ethereum & {
   isBlockWallet: boolean;
@@ -50,7 +50,7 @@ type ConnectorOptions = SuperInjectedConnectorOptions &
 export class SuperInjectedConnector extends Connector<
   ExtendedEth | undefined,
   ConnectorOptions,
-  JsonRpcSigner
+  providers.JsonRpcSigner
 > {
   readonly id: string = 'injected';
   readonly name: string;
