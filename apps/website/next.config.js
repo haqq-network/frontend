@@ -14,6 +14,20 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  async redirects() {
+    return [
+      {
+        source: '/privacy-policy',
+        destination: 'https://www.boredgen.net/wallet/privacy-policy',
+        permanent: true,
+      },
+      {
+        source: '/terms-and-conditions',
+        destination: 'https://www.boredgen.net/wallet/terms-and-conditions',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 const mdxConfig = {
