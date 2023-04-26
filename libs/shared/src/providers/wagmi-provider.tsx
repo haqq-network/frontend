@@ -68,6 +68,7 @@ export function WagmiProvider({
           chains,
           options: {
             projectId: walletConnectProjectId,
+            showQrModal: true,
           },
         }),
       );
