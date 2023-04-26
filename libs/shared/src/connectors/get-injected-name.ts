@@ -5,38 +5,85 @@ type ExtendedEth = Ethereum & {
 };
 
 export function getInjectedName(ethereum?: Ethereum) {
-  if (!ethereum) return 'Injected';
+  if (!ethereum) {
+    return 'Injected';
+  }
 
   const getName = (provider: ExtendedEth) => {
-    if (provider.isApexWallet) return 'Apex Wallet';
-    if (provider.isAvalanche) return 'Core Wallet';
+    if (provider.isApexWallet) {
+      return 'Apex Wallet';
+    }
+    if (provider.isAvalanche) {
+      return 'Core Wallet';
+    }
     // if (provider.isBifrost) return 'Bifrost Wallet'
     if (provider.isBlockWallet) {
       return 'BlockWallet';
     }
-    if (provider.isBitKeep) return 'BitKeep';
-    if (provider.isBitski) return 'Bitski';
-    if (provider.isBraveWallet) return 'Brave Wallet';
-    if (provider.isCoinbaseWallet) return 'Coinbase Wallet';
-    if (provider.isExodus) return 'Exodus';
-    if (provider.isFrame) return 'Frame';
-    if (provider.isFrontier) return 'Frontier Wallet';
-    if (provider.isKuCoinWallet) return 'KuCoin Wallet';
-    if (provider.isMathWallet) return 'MathWallet';
-    if (provider.isOneInchIOSWallet || provider.isOneInchAndroidWallet)
+    if (provider.isBitKeep) {
+      return 'BitKeep';
+    }
+    if (provider.isBitski) {
+      return 'Bitski';
+    }
+    if (provider.isBraveWallet) {
+      return 'Brave Wallet';
+    }
+    if (provider.isCoinbaseWallet) {
+      return 'Coinbase Wallet';
+    }
+    if (provider.isExodus) {
+      return 'Exodus';
+    }
+    if (provider.isFrame) {
+      return 'Frame';
+    }
+    if (provider.isFrontier) {
+      return 'Frontier Wallet';
+    }
+    if (provider.isKuCoinWallet) {
+      return 'KuCoin Wallet';
+    }
+    if (provider.isMathWallet) {
+      return 'MathWallet';
+    }
+    if (provider.isOneInchIOSWallet || provider.isOneInchAndroidWallet) {
       return '1inch Wallet';
-    if (provider.isOpera) return 'Opera';
-    if (provider.isPhantom) return 'Phantom';
-    if (provider.isPortal) return 'Ripio Portal';
-    if (provider.isRainbow) return 'Rainbow';
+    }
+    if (provider.isOpera) {
+      return 'Opera';
+    }
+    if (provider.isPhantom) {
+      return 'Phantom';
+    }
+    if (provider.isPortal) {
+      return 'Ripio Portal';
+    }
+    if (provider.isRainbow) {
+      return 'Rainbow';
+    }
     // if (provider.isStatus) return 'Status'
-    if (provider.isTally) return 'Tally';
-    if (provider.isTokenPocket) return 'TokenPocket';
-    if (provider.isTokenary) return 'Tokenary';
-    if (provider.isTrust || provider.isTrustWallet) return 'Trust Wallet';
-    if (provider.isHyperPay) return 'HyperPay Wallet';
-    if (provider.isMetaMask) return 'MetaMask';
-    if (provider.isXDEFI) return 'XDEFI Wallet';
+    if (provider.isTally) {
+      return 'Tally';
+    }
+    if (provider.isTokenPocket) {
+      return 'TokenPocket';
+    }
+    if (provider.isTokenary) {
+      return 'Tokenary';
+    }
+    if (provider.isTrust || provider.isTrustWallet) {
+      return 'Trust Wallet';
+    }
+    if (provider.isHyperPay) {
+      return 'HyperPay Wallet';
+    }
+    if (provider.isMetaMask) {
+      return 'MetaMask';
+    }
+    if (provider.isXDEFI) {
+      return 'XDEFI Wallet';
+    }
     return;
   };
 
@@ -55,7 +102,9 @@ export function getInjectedName(ethereum?: Ethereum) {
       nameSet.add(name);
     }
     const names = [...nameSet];
-    if (names.length) return names;
+    if (names.length) {
+      return names;
+    }
     return names[0] ?? 'Injected';
   }
 

@@ -4,18 +4,25 @@ const config: StorybookConfig = {
   ...rootMain,
   core: {
     ...rootMain.core,
-    builder: 'webpack5'
+    builder: 'webpack5',
   },
-  stories: [...(rootMain.addons || []), '../src/lib/**/*.stories.mdx', '../src/lib/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-essentials', ...(rootMain.addons || []), '@nx/react/plugins/storybook', '@storybook/addon-mdx-gfm'],
-  webpackFinal: async (config, {
-    configType
-  }: Options) => {
+  stories: [
+    ...(rootMain.addons || []),
+    '../src/lib/**/*.stories.mdx',
+    '../src/lib/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
+  addons: [
+    '@storybook/addon-essentials',
+    ...(rootMain.addons || []),
+    '@nx/react/plugins/storybook',
+    '@storybook/addon-mdx-gfm',
+  ],
+  webpackFinal: async (config, { configType }: Options) => {
     // apply any global webpack configs that might have been specified in .storybook/main.ts
     if (rootMain.webpackFinal) {
-      config = await rootMain.webpackFinal(config, ({
-        configType
-      } as Options));
+      config = await rootMain.webpackFinal(config, {
+        configType,
+      } as Options);
     }
 
     // add your own webpack tweaks if needed
@@ -23,7 +30,7 @@ const config: StorybookConfig = {
     return config;
   },
   docs: {
-    autodocs: true
-  }
+    autodocs: true,
+  },
 };
 module.exports = config;

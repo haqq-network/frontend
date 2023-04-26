@@ -80,15 +80,22 @@ export class SuperInjectedConnector extends Connector<
     super({ chains, options });
 
     const provider = options.getProvider();
-    if (typeof options.name === 'string') this.name = options.name;
-    else if (provider) {
+    if (typeof options.name === 'string') {
+      this.name = options.name;
+    } else if (provider) {
       const detectedName = getInjectedName(provider);
-      if (options.name) this.name = options.name(detectedName);
-      else {
-        if (typeof detectedName === 'string') this.name = detectedName;
-        else this.name = detectedName[0] as string;
+      if (options.name) {
+        this.name = options.name(detectedName);
+      } else {
+        if (typeof detectedName === 'string') {
+          this.name = detectedName;
+        } else {
+          this.name = detectedName[0] as string;
+        }
       }
-    } else this.name = 'Injected';
+    } else {
+      this.name = 'Injected';
+    }
 
     this.ready = !!provider;
   }
@@ -96,7 +103,9 @@ export class SuperInjectedConnector extends Connector<
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
       const provider = await this.getProvider();
-      if (!provider) throw new ConnectorNotFoundError();
+      if (!provider) {
+        throw new ConnectorNotFoundError();
+      }
 
       if (provider.on) {
         provider.on('accountsChanged', this.onAccountsChanged);
@@ -120,35 +129,43 @@ export class SuperInjectedConnector extends Connector<
       }
 
       // Add shim to storage signalling wallet is connected
-      if (this.options.shimDisconnect)
+      if (this.options.shimDisconnect) {
         getClient().storage?.setItem(this.shimDisconnectKey, true);
+      }
 
       return { account, chain: { id, unsupported }, provider };
     } catch (error) {
-      if (this.isUserRejectedRequestError(error))
+      if (this.isUserRejectedRequestError(error)) {
         throw new UserRejectedRequestError(error);
-      if ((error as RpcError).code === -32002)
+      }
+      if ((error as RpcError).code === -32002) {
         throw new ResourceUnavailableError(error);
+      }
       throw error;
     }
   }
 
   async disconnect() {
     const provider = await this.getProvider();
-    if (!provider?.removeListener) return;
+    if (!provider?.removeListener) {
+      return;
+    }
 
     provider.removeListener('accountsChanged', this.onAccountsChanged);
     provider.removeListener('chainChanged', this.onChainChanged);
     provider.removeListener('disconnect', this.onDisconnect);
 
     // Remove shim signalling wallet is disconnected
-    if (this.options.shimDisconnect)
+    if (this.options.shimDisconnect) {
       getClient().storage?.removeItem(this.shimDisconnectKey);
+    }
   }
 
   async getAccount() {
     const provider = await this.getProvider();
-    if (!provider) throw new ConnectorNotFoundError();
+    if (!provider) {
+      throw new ConnectorNotFoundError();
+    }
     const accounts = await provider.request({
       method: 'eth_accounts',
     });
@@ -158,13 +175,17 @@ export class SuperInjectedConnector extends Connector<
 
   async getChainId() {
     const provider = await this.getProvider();
-    if (!provider) throw new ConnectorNotFoundError();
+    if (!provider) {
+      throw new ConnectorNotFoundError();
+    }
     return provider.request({ method: 'eth_chainId' }).then(normalizeChainId);
   }
 
   async getProvider() {
     const provider = this.options.getProvider();
-    if (provider) this.#provider = provider;
+    if (provider) {
+      this.#provider = provider;
+    }
     return this.#provider;
   }
 
@@ -185,11 +206,14 @@ export class SuperInjectedConnector extends Connector<
         this.options.shimDisconnect &&
         // If shim does not exist in storage, wallet is disconnected
         !getClient().storage?.getItem(this.shimDisconnectKey)
-      )
+      ) {
         return false;
+      }
 
       const provider = await this.getProvider();
-      if (!provider) throw new ConnectorNotFoundError();
+      if (!provider) {
+        throw new ConnectorNotFoundError();
+      }
       const account = await this.getAccount();
       return !!account;
     } catch {
@@ -198,10 +222,14 @@ export class SuperInjectedConnector extends Connector<
   }
 
   override async switchChain(chainId: number) {
-    if (this.options.shimChainChangedDisconnect) this.#switchingChains = true;
+    if (this.options.shimChainChangedDisconnect) {
+      this.#switchingChains = true;
+    }
 
     const provider = await this.getProvider();
-    if (!provider) throw new ConnectorNotFoundError();
+    if (!provider) {
+      throw new ConnectorNotFoundError();
+    }
     const id = hexValue(chainId);
 
     try {
@@ -212,7 +240,9 @@ export class SuperInjectedConnector extends Connector<
         }),
         new Promise<void>((res) =>
           this.on('change', ({ chain }) => {
-            if (chain?.id === chainId) res();
+            if (chain?.id === chainId) {
+              res();
+            }
           }),
         ),
       ]);
@@ -227,8 +257,9 @@ export class SuperInjectedConnector extends Connector<
       );
     } catch (error) {
       const chain = this.chains.find((x) => x.id === chainId);
-      if (!chain)
+      if (!chain) {
         throw new ChainNotConfiguredError({ chainId, connectorId: this.id });
+      }
 
       // Indicates chain is not added to provider
       if (
@@ -253,14 +284,16 @@ export class SuperInjectedConnector extends Connector<
           });
           return chain;
         } catch (addError) {
-          if (this.isUserRejectedRequestError(addError))
+          if (this.isUserRejectedRequestError(addError)) {
             throw new UserRejectedRequestError(error);
+          }
           throw new AddChainError();
         }
       }
 
-      if (this.isUserRejectedRequestError(error))
+      if (this.isUserRejectedRequestError(error)) {
         throw new UserRejectedRequestError(error);
+      }
       throw new SwitchChainError(error);
     }
   }
@@ -277,7 +310,9 @@ export class SuperInjectedConnector extends Connector<
     symbol: string;
   }) {
     const provider = await this.getProvider();
-    if (!provider) throw new ConnectorNotFoundError();
+    if (!provider) {
+      throw new ConnectorNotFoundError();
+    }
     return provider.request({
       method: 'wallet_watchAsset',
       params: {
@@ -293,11 +328,13 @@ export class SuperInjectedConnector extends Connector<
   }
 
   protected onAccountsChanged = (accounts: string[]) => {
-    if (accounts.length === 0) this.emit('disconnect');
-    else
+    if (accounts.length === 0) {
+      this.emit('disconnect');
+    } else {
       this.emit('change', {
         account: getAddress(accounts[0] as string),
       });
+    }
   };
 
   protected onChainChanged = (chainId: number | string) => {
@@ -317,8 +354,9 @@ export class SuperInjectedConnector extends Connector<
 
     this.emit('disconnect');
     // Remove shim signalling wallet is disconnected
-    if (this.options.shimDisconnect)
+    if (this.options.shimDisconnect) {
       getClient().storage?.removeItem(this.shimDisconnectKey);
+    }
   };
 
   protected isUserRejectedRequestError(error: unknown) {
