@@ -101,12 +101,12 @@ export function Footer() {
               <FooterNavLink href="https://docs.haqq.network" isOutLink>
                 Documentation
               </FooterNavLink>
-              <FooterNavLink href="/privacy-policy">
+              {/* <FooterNavLink href="/privacy-policy">
                 Privacy Policy
               </FooterNavLink>
               <FooterNavLink href="/terms-and-conditions">
                 Terms and Conditions
-              </FooterNavLink>
+              </FooterNavLink> */}
             </nav>
           </div>
           <div className="h-full py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[383px]">

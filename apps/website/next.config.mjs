@@ -15,5 +15,19 @@ export default withNx(
   withMDX({
     webpack5: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+    async redirects() {
+      return [
+        {
+          source: '/privacy-policy',
+          destination: 'https://www.boredgen.net/wallet/privacy-policy',
+          permanent: true,
+        },
+        {
+          source: '/terms-and-conditions',
+          destination: 'https://www.boredgen.net/wallet/terms-and-conditions',
+          permanent: true,
+        },
+      ];
+    },
   }),
 );
