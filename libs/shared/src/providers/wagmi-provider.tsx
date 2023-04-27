@@ -7,13 +7,11 @@ import {
   WagmiConfig,
 } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { InjectedConnector } from '@wagmi/connectors/injected';
+import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
 import { useConfig } from './config-provider';
 import { getChainParams } from '../chains/get-chain-params';
 import { mapToWagmiChain } from '../chains/map-to-wagmi-chain';
-// import { BlockWalletConnector } from '../connectors/block-wallet-connector';
-// import { MetaMaskConnector } from '@wagmi/connectors/metaMask';
 
 export function WagmiProvider({
   children,
@@ -43,23 +41,13 @@ export function WagmiProvider({
   }, [chainName]);
 
   const connectors = useMemo(() => {
-    const connectors: Connector[] = [
+    const connectors: Array<any> = [
       new InjectedConnector({
         chains,
         options: {
           shimDisconnect: true,
-          // shimChainChangedDisconnect: true,
-          // UNSTABLE_shimOnConnectSelectAccount: true,
         },
       }),
-      // new BlockWalletConnector({
-      //   chains,
-      //   // options: {
-      //   //   shimDisconnect: true,
-      //   //   shimChainChangedDisconnect: true,
-      //   //   UNSTABLE_shimOnConnectSelectAccount: true,
-      //   // },
-      // }),
     ];
 
     if (walletConnectProjectId) {
