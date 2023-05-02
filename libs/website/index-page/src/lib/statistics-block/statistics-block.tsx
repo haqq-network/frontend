@@ -27,8 +27,7 @@ export function StatisticsBlockStatCard({
   const { number } = useSpring({
     from: { number: 0 },
     number: startAnimation ? value : 0,
-    delay: 200,
-    config: { mass: 1, tension: 20, friction: 10, duration: 2500 },
+    config: { mass: 1, tension: 20, friction: 10, duration: 4000 },
   });
 
   return (
