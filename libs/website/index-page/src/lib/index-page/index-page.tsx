@@ -1,11 +1,12 @@
+import { Fragment } from 'react';
 import { HeroBlock } from '../hero-block/hero-block';
 import { AboutBlock } from '../about-block/about-block';
 import { ContactBlock } from '../contact-block/contact-block';
 import { DevelopersBlock } from '../developers-block/developers-block';
 import { MissionBlock } from '../mission-block/mission-block';
-import { Fragment } from 'react';
 import Head from 'next/head';
 import { VisionBlock } from '../vision-block/vision-block';
+import { StatisticsBlock } from '../statistics-block/statistics-block';
 
 export function WebsiteIndexPage() {
   return (
@@ -20,6 +21,7 @@ export function WebsiteIndexPage() {
       <section>
         <HeroBlock />
         <AboutBlock />
+        <StatisticsBlock />
         <MissionBlock />
         <VisionBlock />
         <DevelopersBlock />
