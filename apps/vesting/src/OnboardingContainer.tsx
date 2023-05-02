@@ -13,11 +13,6 @@ import { useAccount, useConnect, useNetwork } from 'wagmi';
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { NoMetamaskAlert } from './components/modals/NoMetamaskAlert/NoMetamaskAlert';
 import { getChainParams, useConfig } from '@haqq/shared';
-import type { Ethereum } from '@wagmi/core/';
-
-type ExtendedEth = Ethereum & {
-  isBlockWallet: boolean;
-};
 
 export type OnboardingSteps =
   | 'start'

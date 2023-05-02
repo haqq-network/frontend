@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
-import { getChainParams, useConfig } from '@haqq/shared';
+import { getChainParams, getFormattedAddress, useConfig } from '@haqq/shared';
 import { useAccount, useBalance } from 'wagmi';
-import { getFormattedAddress } from '../utils/getFormattedAddress';
 import { IdentIcon } from './IdentIcon';
 
 export function AccountInfo() {

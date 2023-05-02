@@ -1,11 +1,5 @@
 import { ReactNode, useMemo } from 'react';
-import {
-  Chain,
-  configureChains,
-  Connector,
-  createClient,
-  WagmiConfig,
-} from 'wagmi';
+import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { InjectedConnector } from '@wagmi/connectors/injected';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';

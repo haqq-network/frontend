@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { Button } from '../Button/Button';
 import { IdentIcon } from '../IdentIcon/IdentIcon';
 import { Menu, Transition } from '@headlessui/react';
-import { getFormattedAddress } from '../../utils/getFormattedAddress';
+import { getFormattedAddress } from '@haqq/shared';
 
 function AddressButton({
   children,
