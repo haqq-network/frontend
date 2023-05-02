@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { VisionBlock } from '../vision-block/vision-block';
 import { StatisticsBlock } from '../statistics-block/statistics-block';
 
-interface WebsiteIndexPageProps {
+export interface WebsiteIndexPageProps {
   stats: {
     mainnetAccountsCreated: number;
     transactionsInLast24Hours: number;
@@ -21,14 +21,14 @@ interface WebsiteIndexPageProps {
   };
 }
 
-export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
+function ScrollAnimationStart(threshold = 1000) {
   const [startAnimation, setStartAnimation] = useState(false);
 
   const handleScroll = useCallback(() => {
-    if (window.scrollY > 1000) {
+    if (window.scrollY > threshold) {
       setStartAnimation(true);
     }
-  }, []);
+  }, [threshold]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -36,6 +36,12 @@ export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
+
+  return startAnimation;
+}
+
+export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
+  const startAnimation = ScrollAnimationStart();
 
   return (
     <Fragment>

@@ -1,29 +1,21 @@
-// import AnimatedNumber from 'react-animated-number';
-import { config, useSpring, animated } from 'react-spring';
+import { useSpring, animated } from 'react-spring';
+import { WebsiteIndexPageProps } from '../index-page/index-page';
 
-interface StaticsBlockProps {
-  stats: {
-    mainnetAccountsCreated: number;
-    transactionsInLast24Hours: number;
-    secondsToConsensusFinality: number;
-    averageCostPerTransaction: number;
-    era: number;
-    emissionRate: number;
-    emittedAlready: number;
-    willBeEmitted: number;
-  };
+interface StaticsBlockProps extends WebsiteIndexPageProps {
   startAnimation?: boolean;
 }
+
+type BlockStatCardProps = {
+  title: string;
+  value: number;
+  startAnimation?: boolean;
+};
 
 export function StatisticsBlockStatCard({
   title,
   value,
   startAnimation,
-}: {
-  title: string;
-  value: number;
-  startAnimation?: boolean;
-}) {
+}: BlockStatCardProps) {
   const { number } = useSpring({
     from: { number: 0 },
     number: startAnimation ? value : 0,
@@ -31,7 +23,7 @@ export function StatisticsBlockStatCard({
   });
 
   return (
-    <div className="">
+    <div>
       <animated.div className="font-serif text-[32px] leading-[42px] font-[500]">
         {number.to((n: number) => n.toFixed(0))}
       </animated.div>
