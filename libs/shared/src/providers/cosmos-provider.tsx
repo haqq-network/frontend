@@ -311,11 +311,12 @@ function createCosmosService(
   }
 
   async function getProposalDetails(id: string) {
-    const proposalDetailsResponse = await axios.get<Proposal>(
+    const proposalDetailsResponse = await axios.get<{ proposal: Proposal }>(
       `${cosmosRestEndpoint}/${generateEndpointProposals()}/${id}`,
     );
+    console.log({ proposalDetailsResponse });
 
-    return proposalDetailsResponse.data;
+    return proposalDetailsResponse.data.proposal;
   }
 
   async function getStakingPool() {
