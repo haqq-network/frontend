@@ -32,7 +32,9 @@ export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [handleScroll]);
 
   return (

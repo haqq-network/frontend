@@ -66,6 +66,7 @@
     "react-router-dom": "6.9.0",
     "react-scrolllock": "5.0.1",
     "react-spinners": "0.13.8",
+    "react-spring": "9.7.1",
     "react-success-indicator": "1.1.0",
     "reaptcha": "1.12.1",
     "regenerator-runtime": "0.13.11",
