@@ -8,7 +8,20 @@ import Head from 'next/head';
 import { VisionBlock } from '../vision-block/vision-block';
 import { StatisticsBlock } from '../statistics-block/statistics-block';
 
-export function WebsiteIndexPage() {
+interface WebsiteIndexPageProps {
+  stats: {
+    mainnetAccountsCreated: number;
+    transactionsInLast24Hours: number;
+    secondsToConsensusFinality: number;
+    averageCostPerTransaction: number;
+    era: number;
+    emissionRate: number;
+    emittedAlready: number;
+    willBeEmitted: number;
+  };
+}
+
+export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
   return (
     <Fragment>
       <Head>
@@ -21,7 +34,7 @@ export function WebsiteIndexPage() {
       <section>
         <HeroBlock />
         <AboutBlock />
-        <StatisticsBlock />
+        <StatisticsBlock stats={stats} />
         <MissionBlock />
         <VisionBlock />
         <DevelopersBlock />

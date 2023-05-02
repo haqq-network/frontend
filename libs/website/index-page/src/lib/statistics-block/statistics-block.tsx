@@ -1,5 +1,19 @@
 import AnimatedNumber from 'react-animated-number';
 
+interface StaticsBlockProps {
+  stats: {
+    mainnetAccountsCreated: number;
+    transactionsInLast24Hours: number;
+    secondsToConsensusFinality: number;
+    averageCostPerTransaction: number;
+    era: number;
+    emissionRate: number;
+    emittedAlready: number;
+    willBeEmitted: number;
+  };
+  startAnimation?: boolean;
+}
+
 export function StatisticsBlockStatCard({
   title,
   value,
@@ -30,7 +44,7 @@ export function StatisticsBlockStatCard({
   );
 }
 
-export function StatisticsBlock() {
+export function StatisticsBlock({ stats, startAnimation }: StaticsBlockProps) {
   return (
     <div className="border-t border-haqq-border">
       <div
@@ -39,25 +53,34 @@ export function StatisticsBlock() {
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[24px] px-[32px] py-[60px]">
           <StatisticsBlockStatCard
-            value={2000}
+            value={stats?.mainnetAccountsCreated}
             title="mainnet accounts created"
           />
           <StatisticsBlockStatCard
-            value={2000}
+            value={stats?.transactionsInLast24Hours}
             title="transactions in the last 24 hours"
           />
           <StatisticsBlockStatCard
-            value={2000}
+            value={stats?.secondsToConsensusFinality}
             title="seconds to consensus finality"
           />
           <StatisticsBlockStatCard
-            value={2000}
+            value={stats?.averageCostPerTransaction}
             title="average cost per transaction"
           />
-          <StatisticsBlockStatCard value={2000} title="era" />
-          <StatisticsBlockStatCard value={2000} title="emission rate" />
-          <StatisticsBlockStatCard value={2000} title="emitted already" />
-          <StatisticsBlockStatCard value={2000} title="will be emitted" />
+          <StatisticsBlockStatCard value={stats?.era} title="era" />
+          <StatisticsBlockStatCard
+            value={stats?.emissionRate}
+            title="emission rate"
+          />
+          <StatisticsBlockStatCard
+            value={stats?.emittedAlready}
+            title="emitted already"
+          />
+          <StatisticsBlockStatCard
+            value={stats?.willBeEmitted}
+            title="will be emitted"
+          />
         </div>
       </div>
     </div>
