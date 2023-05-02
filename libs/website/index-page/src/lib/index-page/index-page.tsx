@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { HeroBlock } from '../hero-block/hero-block';
 import { AboutBlock } from '../about-block/about-block';
 import { ContactBlock } from '../contact-block/contact-block';
@@ -22,6 +22,19 @@ interface WebsiteIndexPageProps {
 }
 
 export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
+  const [startAnimation, setStartAnimation] = useState(false);
+
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > 1000) {
+      setStartAnimation(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
   return (
     <Fragment>
       <Head>
@@ -34,7 +47,7 @@ export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
       <section>
         <HeroBlock />
         <AboutBlock />
-        <StatisticsBlock stats={stats} />
+        <StatisticsBlock stats={stats} startAnimation={startAnimation} />
         <MissionBlock />
         <VisionBlock />
         <DevelopersBlock />

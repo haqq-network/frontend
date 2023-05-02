@@ -45,6 +45,8 @@ export function StatisticsBlockStatCard({
 }
 
 export function StatisticsBlock({ stats, startAnimation }: StaticsBlockProps) {
+  console.log({ startAnimation });
+
   return (
     <div className="border-t border-haqq-border">
       <div
