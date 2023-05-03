@@ -23,6 +23,7 @@
     "vesting": "apps/vesting",
     "vesting-e2e": "apps/vesting-e2e",
     "website": "apps/website",
+    "website-brand-assets-page": "libs/website/brand-assets-page",
     "website-e2e": "apps/website-e2e",
     "website-forms": "libs/website/forms",
     "website-index-page": "libs/website/index-page",
