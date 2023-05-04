@@ -1,7 +1,11 @@
+import { HaqqBlock } from '../haqq-block/haqq-block';
+import { TitleBlock } from '../title-block/title-block';
+
 export function BrandAssetsPage() {
   return (
     <div className="">
-      <h1>Welcome to BrandAssetsPage!</h1>
+      <TitleBlock />
+      <HaqqBlock />
     </div>
   );
 }
