@@ -28,3 +28,5 @@ export * from './utils/convert-address';
 export * from './utils/get-formatted-address';
 export * from './utils/is-number';
 export * from './hooks/use-clipboard/use-clipboard';
+export * from './components/select-wallet-modal';
+export * from './providers/wallet-provider';

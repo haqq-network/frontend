@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import { hexValue } from 'ethers/lib/utils';
-import { useAccount, useConnect, useNetwork } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import MetaMaskOnboarding from '@metamask/onboarding';
 // import { NoMetamaskAlert } from './components/modals/NoMetamaskAlert/NoMetamaskAlert';
 import { getChainParams, useConfig } from '@haqq/shared';
@@ -41,10 +41,8 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   const targetNetworkIdHex = hexValue(chain.id);
   const onboarding = useRef<MetaMaskOnboarding>();
   const [step, setOnboardingStep] = useState<OnboardingSteps>('start');
-  const [isNoMetamaskModalOpen, setNoMetamaskModalOpen] = useState(false);
   const [isOnboarded, setOnboarded] = useState(false);
   const { isConnected, address } = useAccount();
-  const { connect, connectors } = useConnect();
   const [errors, setErrors] = useState<Record<string, Error | undefined>>({});
   const { chain: currentChain } = useNetwork();
   const [isWalletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
@@ -70,7 +68,6 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
 
   const handleStartOnboarding = useCallback(() => {
     onboarding.current?.startOnboarding();
-    setNoMetamaskModalOpen(false);
     setOnboardingStep('switch-network');
   }, []);
 

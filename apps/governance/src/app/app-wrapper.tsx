@@ -1,15 +1,21 @@
 import { Fragment, ReactNode, useMemo } from 'react';
 import {
   useAddress,
-  useMetamask,
   AccountButton,
   ThemeButton,
+  SelectWalletModal,
+  useWallet,
 } from '@haqq/shared';
 import { Button2, Header, Page } from '@haqq/ui-kit';
 import { useBalance } from 'wagmi';
 
 function HeaderButtons() {
-  const { connect, disconnect } = useMetamask();
+  const {
+    disconnect,
+    isSelectWalletOpen,
+    openSelectWallet,
+    closeSelectWallet,
+  } = useWallet();
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
@@ -35,12 +41,17 @@ function HeaderButtons() {
           onDisconnectClick={disconnect}
         />
       ) : (
-        <Button2 onClick={connect}>Connect wallet</Button2>
+        <Button2 onClick={openSelectWallet}>Connect wallet</Button2>
       )}
 
       <div className="inline-block">
         <ThemeButton />
       </div>
+
+      <SelectWalletModal
+        isOpen={isSelectWalletOpen}
+        onClose={closeSelectWallet}
+      />
     </Fragment>
   );
 }

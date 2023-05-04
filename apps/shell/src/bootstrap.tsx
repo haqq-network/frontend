@@ -29,6 +29,7 @@ async function startApp() {
       tendermintClient={tendermintClient}
       chainName={environment.chainName}
       withReactQueryDevtools={!environment.isProduction}
+      walletConnectProjectId={environment.walletConnectProjectId}
     >
       <App />
     </AppProviders>,

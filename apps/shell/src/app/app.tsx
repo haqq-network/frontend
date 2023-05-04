@@ -5,9 +5,10 @@ import { useBalance } from 'wagmi';
 import clsx from 'clsx';
 import {
   AccountButton,
+  SelectWalletModal,
   ThemeButton,
   useAddress,
-  useMetamask,
+  useWallet,
 } from '@haqq/shared';
 
 const ShellIndexPage = lazy(async () => {
@@ -22,7 +23,12 @@ const GovernanceApp = lazy(async () => {
 });
 
 function HeaderButtons() {
-  const { connect, disconnect } = useMetamask();
+  const {
+    disconnect,
+    openSelectWallet,
+    isSelectWalletOpen,
+    closeSelectWallet,
+  } = useWallet();
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
@@ -64,12 +70,17 @@ function HeaderButtons() {
           onDisconnectClick={disconnect}
         />
       ) : (
-        <Button2 onClick={connect}>Connect wallet</Button2>
+        <Button2 onClick={openSelectWallet}>Connect wallet</Button2>
       )}
 
       <div className="inline-block">
         <ThemeButton />
       </div>
+
+      <SelectWalletModal
+        isOpen={isSelectWalletOpen}
+        onClose={closeSelectWallet}
+      />
     </Fragment>
   );
 }

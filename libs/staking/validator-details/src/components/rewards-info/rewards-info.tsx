@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { Button2, Card } from '@haqq/ui-kit';
 import { useBalance } from 'wagmi';
 import {
@@ -8,6 +8,7 @@ import {
   useStakingUnbondingsQuery,
   useStakingRewardsQuery,
   useStakingActions,
+  useWallet,
 } from '@haqq/shared';
 
 export interface RewardsInfoProps {
@@ -120,7 +121,7 @@ export function StakingInfo() {
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
-  const { connect, isNetworkSupported, selectNetwork } = useMetamask();
+  const { isNetworkSupported, selectNetwork, openSelectWallet } = useWallet();
   const { ethAddress, haqqAddress } = useAddress();
   const { claimAllRewards } = useStakingActions();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
@@ -197,7 +198,7 @@ export function StakingInfo() {
       symbol={balance?.symbol ?? ''}
       isWalletConnected={Boolean(ethAddress && haqqAddress)}
       onRewardsClaim={handleRewardsClaim}
-      onWalletConnect={connect}
+      onWalletConnect={openSelectWallet}
       isNetworkSupported={isNetworkSupported}
       onChangeNetwork={selectNetwork}
     />

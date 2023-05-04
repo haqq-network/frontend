@@ -25,7 +25,7 @@ export function WagmiProvider({
         jsonRpcProvider({
           rpc: (chain: Chain) => {
             return {
-              http: chain.rpcUrls.default.http[0] ?? '',
+              http: chain.rpcUrls.default.http[0],
               // webSocket: chain.rpcUrls.ws,
             };
           },
