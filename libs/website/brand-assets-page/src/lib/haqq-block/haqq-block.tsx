@@ -1,12 +1,16 @@
 import { Heading, Text } from '@haqq/ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { CustomImage, haqqLogos } from '../../utils/brand-assets';
+import {
+  CustomImage,
+  haqqLogos,
+  haqqWhiteLogos,
+} from '../../utils/brand-assets';
 import { DownloadButton } from '@haqq/website/ui-kit';
 import { PropsWithChildren } from 'react';
 
 type DownloadCardProps = {
-  isWhiteBackground?: boolean;
+  isWhiteBackground: boolean;
   logoType: 'full' | 'sign' | 'text';
   asset: CustomImage;
 };
@@ -93,7 +97,7 @@ function BlockContainer({
   return (
     <div
       className={clsx(
-        'pt-[60px] md:pt-[100px] lg:pt-[120px] pb-[40px] md:pb-[60px] lg:pb-[80px] px-[16px] md:px-[48px] lg:px-[60px]',
+        'pt-[60px] md:pt-[100px] lg:pt-[120px] pb-[40px] md:pb-[60px] lg:pb-[80px] px-[16px] md:px-[48px] lg:pl-[60px] lg:pr-[80px]',
         className,
       )}
     >
@@ -101,33 +105,57 @@ function BlockContainer({
     </div>
   );
 }
-
+//  px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]
 export function HaqqBlock() {
   return (
-    <section className="lg:flex border-t border-white/20 grid grid-flow-row grid-cols-1 lg:grid-cols-2 mt-[50px] md:mt-[70px]">
-      <BlockContainer className="lg:border-r border-white/20 lg:max-w-[404px]">
+    <section className="flex flex-col lg:flex-row border-t border-white/20 mt-[50px] md:mt-[70px] ">
+      {/* left side */}
+      <div className="pt-[60px] md:pt-[100px] lg:pt-[120px] lg:border-r border-white/20 lg:max-w-[404px] px-[16px] md:px-[48px] lg:pl-[80px] lg:pr-[60px]">
         <Heading level={2} className="mb-[24px]">
           Haqq Logo
         </Heading>
         <DontBlock />
-      </BlockContainer>
-      <BlockContainer className="border-b border-dashed border-b-white/20">
-        <Heading>White background</Heading>
-        <Text className="mt-[10px]">
-          Please use this version on white background. Only use the badge
-          together with the full logo
-        </Text>
-        <AssetCardsContainer className="mt-[24px] md:mt-[28px] lg:mt-[32px]">
-          {haqqLogos.map((logo, i) => (
-            <DownloadCard
-              key={`logo-${i}`}
-              isWhiteBackground={true}
-              logoType={logo.logoType}
-              asset={logo}
-            />
-          ))}
-        </AssetCardsContainer>
-      </BlockContainer>
+      </div>
+      {/* white bg */}
+      <div className="w-full">
+        <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[120px border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+          <Heading>White background</Heading>
+          <Text className="mt-[10px]">
+            Please use this version on white background. Only use the badge
+            together with the full logo
+          </Text>
+          <AssetCardsContainer className="pb-[40px] md:pb-[60px] lg:pb-[80px] mt-[24px] md:mt-[28px] lg:mt-[32px]">
+            {haqqLogos.map((logo, i) => (
+              <DownloadCard
+                key={`logo-${i}`}
+                isWhiteBackground
+                logoType={logo.logoType}
+                asset={logo}
+              />
+            ))}
+          </AssetCardsContainer>
+        </div>
+        {/* dark bg */}
+        <div className="w-full">
+          <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[120px border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+            <Heading>Dark background</Heading>
+            <Text className="mt-[10px]">
+              Please use this version on black or dark background. Only use the
+              badge together with the full logo
+            </Text>
+            <AssetCardsContainer className="mt-[24px] md:mt-[28px] lg:mt-[32px]">
+              {haqqWhiteLogos.map((logo, i) => (
+                <DownloadCard
+                  key={`logo-${i}`}
+                  logoType={logo.logoType}
+                  asset={logo}
+                  isWhiteBackground={false}
+                />
+              ))}
+            </AssetCardsContainer>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

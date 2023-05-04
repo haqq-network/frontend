@@ -6,6 +6,7 @@ export function BrandAssetsPage() {
     <div className="">
       <TitleBlock />
       <HaqqBlock />
+
     </div>
   );
 }
