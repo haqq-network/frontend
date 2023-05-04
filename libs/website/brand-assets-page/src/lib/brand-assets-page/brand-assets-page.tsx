@@ -1,12 +1,12 @@
-import { HaqqBlock } from '../haqq-block/haqq-block';
+import { HaqqBlock, IslamicBlock } from '../haqq-block/haqq-block';
 import { TitleBlock } from '../title-block/title-block';
 
 export function BrandAssetsPage() {
   return (
-    <div className="">
+    <div>
       <TitleBlock />
       <HaqqBlock />
-
+      <IslamicBlock />
     </div>
   );
 }

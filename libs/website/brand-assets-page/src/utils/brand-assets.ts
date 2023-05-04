@@ -12,7 +12,8 @@ export type BrandColorsNames =
   | 'haqq-blue'
   | 'haqq-seaweed'
   | 'haqq-big-foot-feet'
-  | 'haqq-azure';
+  | 'haqq-azure'
+  | 'islamic-primary';
 
 export type BrandColorsType = 'main' | 'gradient';
 
@@ -22,8 +23,10 @@ export interface BrandColorAsset {
   hex: string;
 }
 
+export type LogoType = 'full' | 'sign' | 'text' | 'mark';
+
 export interface BrandAsset extends CustomImage {
-  logoType: 'full' | 'sign' | 'text';
+  logoType: LogoType;
 }
 
 export const haqqLogos: BrandAsset[] = [
@@ -107,7 +110,6 @@ export const haqqWhiteLogos: BrandAsset[] = [
 export const islamicLogos: BrandAsset[] = [
   {
     logoType: 'full',
-
     size: {
       width: 215,
       height: 34,
@@ -117,7 +119,6 @@ export const islamicLogos: BrandAsset[] = [
   },
   {
     logoType: 'sign',
-
     size: {
       width: 52,
       height: 52,
@@ -126,13 +127,12 @@ export const islamicLogos: BrandAsset[] = [
     svgPath: '../assets/islamic-sign.svg',
   },
   {
-    logoType: 'text',
-
+    logoType: 'mark',
     size: {
       width: 58,
       height: 58,
     },
-    svgPath: '../assets/islamic-mark.png',
+    svgPath: '../assets/islamic-mark.svg',
     pngPath: '../assets/islamic-mark.png',
   },
 ];
@@ -162,5 +162,13 @@ export const haqqBrandColors: BrandColorAsset[] = [
     color: 'haqq-azure',
     colorType: 'gradient',
     hex: '#ECFEFE',
+  },
+];
+
+export const islamicBrandColors: BrandColorAsset[] = [
+  {
+    color: 'islamic-primary',
+    colorType: 'main',
+    hex: '#04D484',
   },
 ];
