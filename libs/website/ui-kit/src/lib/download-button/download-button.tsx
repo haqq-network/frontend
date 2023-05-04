@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Button } from '../button/button';
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';

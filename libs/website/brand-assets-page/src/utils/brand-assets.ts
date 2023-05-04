@@ -7,6 +7,21 @@ export type CustomImage = {
   pngPath: string;
 };
 
+export type BrandColorsNames =
+  | 'haqq-orange'
+  | 'haqq-blue'
+  | 'haqq-seaweed'
+  | 'haqq-big-foot-feet'
+  | 'haqq-azure';
+
+export type BrandColorsType = 'main' | 'gradient';
+
+export interface BrandColorAsset {
+  color: BrandColorsNames;
+  colorType: BrandColorsType;
+  hex: string;
+}
+
 export interface BrandAsset extends CustomImage {
   logoType: 'full' | 'sign' | 'text';
 }
@@ -119,5 +134,33 @@ export const islamicLogos: BrandAsset[] = [
     },
     svgPath: '../assets/islamic-mark.png',
     pngPath: '../assets/islamic-mark.png',
+  },
+];
+
+export const haqqBrandColors: BrandColorAsset[] = [
+  {
+    color: 'haqq-orange',
+    colorType: 'main',
+    hex: '#EC5728',
+  },
+  {
+    color: 'haqq-blue',
+    colorType: 'gradient',
+    hex: '#091D53',
+  },
+  {
+    color: 'haqq-seaweed',
+    colorType: 'gradient',
+    hex: '#157C83',
+  },
+  {
+    color: 'haqq-big-foot-feet',
+    colorType: 'gradient',
+    hex: '#E98C50',
+  },
+  {
+    color: 'haqq-azure',
+    colorType: 'gradient',
+    hex: '#ECFEFE',
   },
 ];

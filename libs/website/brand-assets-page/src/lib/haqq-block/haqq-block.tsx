@@ -2,12 +2,14 @@ import { Heading, Text } from '@haqq/ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import {
+  BrandColorAsset,
   CustomImage,
+  haqqBrandColors,
   haqqLogos,
   haqqWhiteLogos,
 } from '../../utils/brand-assets';
-import { DownloadButton } from '@haqq/website/ui-kit';
-import { PropsWithChildren } from 'react';
+import { Button, DownloadButton } from '@haqq/website/ui-kit';
+import { PropsWithChildren, useCallback, useState } from 'react';
 
 type DownloadCardProps = {
   isWhiteBackground: boolean;
@@ -74,6 +76,43 @@ function DownloadCard({
   );
 }
 
+function BrandColorCard({ color, colorType, hex }: BrandColorAsset) {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyClick = useCallback(() => {
+    navigator.clipboard.writeText(hex);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+  }, [hex]);
+
+  return (
+    <div className="flex flex-col gap-y-[16px]">
+      <div
+        className={clsx(
+          'rounded-xl text-center text-[14px] leading-[22px] py-[60px] font-semibold',
+          color === 'haqq-orange' && 'bg-haqq-orange',
+          color === 'haqq-blue' && `bg-[#091D53]`,
+          color === 'haqq-seaweed' && 'bg-[#157C83]',
+          color === 'haqq-big-foot-feet' && 'bg-[#E98C50]',
+          color === 'haqq-azure' && 'bg-[#ECFEFE]',
+          color === 'haqq-azure' ? 'text-haqq-black' : 'text-white',
+        )}
+      >
+        <div>{hex}</div>
+      </div>
+      <div className="flex items-center justify-between text-[12px] leading-[1.5em] text-white/50">
+        {colorType === 'gradient' && 'Gradient color'}
+        {colorType === 'main' && 'Main color'}
+        <Button onClick={handleCopyClick}>
+          {isCopied ? 'Copied!' : 'Copy'}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 function AssetCardsContainer({
   children,
   className,
@@ -90,22 +129,6 @@ function AssetCardsContainer({
   );
 }
 
-function BlockContainer({
-  className,
-  children,
-}: PropsWithChildren<{ className?: string }>) {
-  return (
-    <div
-      className={clsx(
-        'pt-[60px] md:pt-[100px] lg:pt-[120px] pb-[40px] md:pb-[60px] lg:pb-[80px] px-[16px] md:px-[48px] lg:pl-[60px] lg:pr-[80px]',
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-//  px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]
 export function HaqqBlock() {
   return (
     <section className="flex flex-col lg:flex-row border-t border-white/20 mt-[50px] md:mt-[70px] ">
@@ -118,7 +141,7 @@ export function HaqqBlock() {
       </div>
       {/* white bg */}
       <div className="w-full">
-        <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[120px border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+        <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[120px] border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
           <Heading>White background</Heading>
           <Text className="mt-[10px]">
             Please use this version on white background. Only use the badge
@@ -137,19 +160,35 @@ export function HaqqBlock() {
         </div>
         {/* dark bg */}
         <div className="w-full">
-          <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[120px border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+          <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[80px] border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
             <Heading>Dark background</Heading>
             <Text className="mt-[10px]">
               Please use this version on black or dark background. Only use the
               badge together with the full logo
             </Text>
-            <AssetCardsContainer className="mt-[24px] md:mt-[28px] lg:mt-[32px]">
+            <AssetCardsContainer className="pb-[40px] md:pb-[60px] lg:pb-[80px] mt-[24px] md:mt-[28px] lg:mt-[32px]">
               {haqqWhiteLogos.map((logo, i) => (
                 <DownloadCard
                   key={`logo-${i}`}
                   logoType={logo.logoType}
                   asset={logo}
                   isWhiteBackground={false}
+                />
+              ))}
+            </AssetCardsContainer>
+          </div>
+        </div>
+        {/* colors */}
+        <div className="w-full">
+          <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[80px] border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+            <Heading>Brand colors</Heading>
+            <AssetCardsContainer className="pb-[40px] md:pb-[60px] lg:pb-[80px] mt-[24px] md:mt-[28px] lg:mt-[32px]">
+              {haqqBrandColors.map((asset) => (
+                <BrandColorCard
+                  // key={`color-${asset.color}`}
+                  color={asset.color}
+                  colorType={asset.colorType}
+                  hex={asset.hex}
                 />
               ))}
             </AssetCardsContainer>
