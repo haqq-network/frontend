@@ -1,7 +1,7 @@
 import { Heading, Text, DownloadButton } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
-import bgImageData from '../../assets/title-block-bg-pattern.svg';
+import bgImageData from '../../assets/title-block-bg.svg';
 
 export function TitleBlock() {
   return (
