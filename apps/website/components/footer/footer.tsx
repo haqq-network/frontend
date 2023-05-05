@@ -101,6 +101,7 @@ export function Footer() {
               <FooterNavLink href="https://docs.haqq.network" isOutLink>
                 Documentation
               </FooterNavLink>
+              <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
               {/* <FooterNavLink href="/privacy-policy">
                 Privacy Policy
               </FooterNavLink>
