@@ -3260,11 +3260,12 @@ __metadata:
     postcss-preset-env: 8.0.1
     prettier: 2.8.4
     react: 18.2.0
-    react-animated-number: 0.4.4
+    react-animated-numbers: 0.16.0
     react-countdown: 2.3.5
     react-dom: 18.2.0
     react-hook-form: 7.43.6
     react-hot-toast: 2.4.0
+    react-in-viewport: 1.0.0-alpha.30
     react-json-pretty: 2.2.0
     react-refresh: 0.14.0
     react-router-dom: 6.9.0
@@ -5050,7 +5051,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-spring/web@npm:~9.7.1":
+"@react-spring/web@npm:^9.4.5, @react-spring/web@npm:~9.7.1":
   version: 9.7.2
   resolution: "@react-spring/web@npm:9.7.2"
   dependencies:
@@ -16505,7 +16506,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
+"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -24060,7 +24061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.0.0, prop-types@npm:^15.5.8, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -24398,15 +24399,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raf@npm:^3.2.0":
-  version: 3.4.1
-  resolution: "raf@npm:3.4.1"
-  dependencies:
-    performance-now: ^2.1.0
-  checksum: 50ba284e481c8185dbcf45fc4618ba3aec580bb50c9121385d5698cb6012fe516d2015b1df6dd407a7b7c58d44be8086108236affbce1861edd6b44637c8cd52
-  languageName: node
-  linkType: hard
-
 "ramda@npm:^0.28.0":
   version: 0.28.0
   resolution: "ramda@npm:0.28.0"
@@ -24490,15 +24482,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-animated-number@npm:0.4.4":
-  version: 0.4.4
-  resolution: "react-animated-number@npm:0.4.4"
+"react-animated-numbers@npm:0.16.0":
+  version: 0.16.0
+  resolution: "react-animated-numbers@npm:0.16.0"
   dependencies:
-    prop-types: ^15.5.8
-    raf: ^3.2.0
+    "@react-spring/web": ^9.4.5
+    react-intersection-observer: ^8.33.1
   peerDependencies:
-    react: ^0.14.0 || ^15.0.1 || ^16.0.0
-  checksum: 20b1696831c5c4f852e453604adb5a23e6bbb2f964533c1248522409f62ee8b8c43fa9f231f2165cb3806e528da5e5ec197f162b0e83b42fa037029b3d0d11e9
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: a82938363bc628af74553708634fc909d2b545e96f417971fe4bd2bc694f0032eed29ee299f6e7225b18879cd941d71a53962777d6f4ba5294c0abb573a48367
   languageName: node
   linkType: hard
 
@@ -24590,6 +24583,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-in-viewport@npm:1.0.0-alpha.30":
+  version: 1.0.0-alpha.30
+  resolution: "react-in-viewport@npm:1.0.0-alpha.30"
+  dependencies:
+    hoist-non-react-statics: ^3.0.0
+  peerDependencies:
+    react: ^16.8.3 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.3 || ^17.0.0 || ^18.0.0
+  checksum: 1098ccdab9a10b8aadabf1a53f5809507e26db687a4243bd2dde2bdbecd1a8df66f4e9d00ee2a04bfd1542f937e758ef256d5fb6d637b4de5496e6252f84ce9e
+  languageName: node
+  linkType: hard
+
 "react-inspector@npm:^5.1.0":
   version: 5.1.1
   resolution: "react-inspector@npm:5.1.1"
@@ -24600,6 +24605,15 @@ __metadata:
   peerDependencies:
     react: ^16.8.4 || ^17.0.0
   checksum: ca9e4c1fedb94e4e956dd3142838c5a25a9d61375aee5e8a74dd623bae09a263098a93f220e8d84c7fd39e569e1fa4297d363ddbc91b15bca91baeb7281d7f4f
+  languageName: node
+  linkType: hard
+
+"react-intersection-observer@npm:^8.33.1":
+  version: 8.34.0
+  resolution: "react-intersection-observer@npm:8.34.0"
+  peerDependencies:
+    react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
+  checksum: 7713fecfd1512c7f5a60f9f0bf15403b8f8bbd4110bcafaeaea6de36a0e0eb60368c3638f99e9c97b75ad8fc787ea48c241dcb5c694f821d7f2976f709082cc5
   languageName: node
   linkType: hard
 
