@@ -6,7 +6,7 @@ import { Card } from '../Card/Card';
 import { Heading, Text } from '../Typography/Typography';
 import HaqqVestingContract from '../../../HaqqVesting.json';
 import { Spinner } from '../Playground/Playground';
-import { BigNumber, formatEther, isAddress } from 'ethers';
+import { BigNumber } from 'ethers';
 import { Button, DangerButton } from '../Button/Button';
 import { DepositNavigation } from '../DepositNavigation/DepositNavigation';
 import { useNextUnlockDate } from '../../hooks/useNextUnlockDate';
@@ -18,6 +18,7 @@ import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { useConfig, getChainParams } from '@haqq/shared';
 import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
 import { formatDate } from '../../utils/format-date';
+import { formatEther, isAddress } from 'ethers/lib/utils';
 
 export { HaqqVestingContract };
 
