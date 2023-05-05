@@ -14,11 +14,11 @@ import {
 import { Button, DownloadButton } from '@haqq/website/ui-kit';
 import { PropsWithChildren, useCallback, useState } from 'react';
 
-type DownloadCardProps = {
+interface DownloadCardProps {
   isWhiteBackground: boolean;
   logoType: LogoType;
   asset: CustomImage;
-};
+}
 
 function DontBlock() {
   return (
