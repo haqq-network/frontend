@@ -301,7 +301,7 @@ function SoftwareUpgradeProposalCard({
       time: new Date(plan.time).toUTCString(),
       height: Number.parseInt(plan.height),
       upgraded_client_state: plan.upgraded_client_state,
-      info: JSON.parse(plan.info),
+      info: plan.info && plan.info !== '' ? JSON.parse(plan.info) : undefined,
     };
   }, [plan]);
   console.debug('SoftwareUpgradePlan:', formattedPlan);
