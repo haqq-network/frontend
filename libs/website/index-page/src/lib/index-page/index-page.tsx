@@ -6,43 +6,16 @@ import { DevelopersBlock } from '../developers-block/developers-block';
 import { MissionBlock } from '../mission-block/mission-block';
 import Head from 'next/head';
 import { VisionBlock } from '../vision-block/vision-block';
-import { StatisticsBlock } from '../statistics-block/statistics-block';
+import {
+  ChainStats,
+  StatisticsBlock,
+} from '../statistics-block/statistics-block';
 
 export interface WebsiteIndexPageProps {
-  stats: {
-    mainnetAccountsCreated: number;
-    transactionsInLast24Hours: number;
-    secondsToConsensusFinality: number;
-    averageCostPerTransaction: number;
-    era: number;
-    emissionRate: number;
-    emittedAlready: number;
-    willBeEmitted: number;
-  };
-}
-
-function ScrollAnimationStart(threshold = 1000) {
-  const [startAnimation, setStartAnimation] = useState(false);
-
-  const handleScroll = useCallback(() => {
-    if (window.scrollY > threshold) {
-      setStartAnimation(true);
-    }
-  }, [threshold]);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [handleScroll]);
-
-  return startAnimation;
+  stats: ChainStats;
 }
 
 export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
-  const startAnimation = ScrollAnimationStart();
-
   return (
     <Fragment>
       <Head>
@@ -55,7 +28,7 @@ export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
       <section>
         <HeroBlock />
         <AboutBlock />
-        <StatisticsBlock stats={stats} startAnimation={startAnimation} />
+        <StatisticsBlock stats={stats} />
         <MissionBlock />
         <VisionBlock />
         <DevelopersBlock />
