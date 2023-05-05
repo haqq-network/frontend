@@ -1,11 +1,4 @@
-export type CustomImage = {
-  size: {
-    width: number;
-    height: number;
-  };
-  svgPath: string;
-  pngPath: string;
-};
+export type LogoType = 'full' | 'sign' | 'text' | 'mark';
 
 export type BrandColorsNames =
   | 'haqq-orange'
@@ -16,14 +9,20 @@ export type BrandColorsNames =
   | 'islamic-primary';
 
 export type BrandColorsType = 'main' | 'gradient';
+export interface CustomImage {
+  size: {
+    width: number;
+    height: number;
+  };
+  svgPath: string;
+  pngPath: string;
+}
 
 export interface BrandColorAsset {
   color: BrandColorsNames;
   colorType: BrandColorsType;
   hex: string;
 }
-
-export type LogoType = 'full' | 'sign' | 'text' | 'mark';
 
 export interface BrandAsset extends CustomImage {
   logoType: LogoType;
