@@ -5,12 +5,23 @@ const { ProvidePlugin } = require('webpack');
 const { merge } = require('webpack-merge');
 const baseConfig = require('./module-federation.config');
 
+/**
+ * @type {import('@nrwl/devkit').ModuleFederationConfig}
+ **/
+const prodConfig = {
+  ...baseConfig,
+  remotes: [
+    ['staking', '//haqq-staking.vercel.app'],
+    ['governance', '//haqq-governance.vercel.app'],
+  ],
+};
+
 // Nx plugins for webpack.
 module.exports = composePlugins(
   withNx(),
   withReact(),
   async (config, { options, context }) => {
-    const federatedModules = await withModuleFederation(baseConfig);
+    const federatedModules = await withModuleFederation(prodConfig);
 
     return merge(federatedModules(config), {
       plugins: [
