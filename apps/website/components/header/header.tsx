@@ -62,6 +62,7 @@ export function Header() {
         <div className="flex-1" />
         <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex">
           <HeaderNavLink href="/#about">About</HeaderNavLink>
+          <HeaderNavLink href="/ecosystem-fund">Fund</HeaderNavLink>
           {/* <HeaderNavLink href="/#technology">Technology</HeaderNavLink> */}
           <HeaderNavLink href="/#developers">Developers</HeaderNavLink>
           <HeaderNavLink href="https://docs.haqq.network" isOutLink>

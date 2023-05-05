@@ -36,6 +36,9 @@
       "@haqq/website/brand-assets-page": [
         "libs/website/brand-assets-page/src/index.ts"
       ],
+      "@haqq/website/ecosystem-fund-page": [
+        "libs/website/ecosystem-fund-page/src/index.ts"
+      ],
       "@haqq/website/forms": ["libs/website/forms/src/index.ts"],
       "@haqq/website/index-page": ["libs/website/index-page/src/index.ts"],
       "@haqq/website/shared": ["libs/website/shared/src/index.ts"],

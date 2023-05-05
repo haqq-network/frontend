@@ -25,6 +25,7 @@
     "website": "apps/website",
     "website-brand-assets-page": "libs/website/brand-assets-page",
     "website-e2e": "apps/website-e2e",
+    "website-ecosystem-fund-page": "libs/website/ecosystem-fund-page",
     "website-forms": "libs/website/forms",
     "website-index-page": "libs/website/index-page",
     "website-shared": "libs/website/shared",
