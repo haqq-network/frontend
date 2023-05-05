@@ -2,8 +2,8 @@ import { Button } from '@haqq/website/ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
 import sunshineBgData from '../../assets/sunshine.svg';
-import titleBlockLinesBgData from '../../assets/title-block-lines.svg';
-import titleBlockLinesSmallBgData from '../../assets/title-block-lines-small.svg';
+import LinesBgData from '../../assets/title-block-lines.svg';
+import LinesSmallBgData from '../../assets/title-block-lines-small.svg';
 
 export function TitleBlock() {
   return (
@@ -30,17 +30,17 @@ export function TitleBlock() {
         className="absolute bottom-0 left-1/2 z-[0] transform -translate-x-1/2"
       />
       <Image
-        src={titleBlockLinesBgData.src}
+        src={LinesBgData.src}
         alt=""
-        height={titleBlockLinesBgData.height}
-        width={titleBlockLinesBgData.width}
+        height={LinesBgData.height}
+        width={LinesBgData.width}
         className="hidden md:block absolute top-0 right-[-130px] md:right-[-210px] lg:right-[-370px] xl:right-[50px] z-[-1]"
       />
       <Image
-        src={titleBlockLinesSmallBgData.src}
+        src={LinesSmallBgData.src}
         alt=""
-        height={titleBlockLinesSmallBgData.height}
-        width={titleBlockLinesSmallBgData.width}
+        height={LinesSmallBgData.height}
+        width={LinesSmallBgData.width}
         className="block md:hidden absolute top-0 right-0 z-[-1]"
       />
     </section>
