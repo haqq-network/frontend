@@ -1,6 +1,13 @@
-import { Fragment, lazy, Suspense, useMemo } from 'react';
+import { Fragment, lazy, Suspense, useMemo, useState } from 'react';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
-import { Button2, Header, NotFoundPage, Page, PendingPage } from '@haqq/ui-kit';
+import {
+  Button2,
+  Header,
+  NotFoundPage,
+  Page,
+  PendingPage,
+  BurgerButton,
+} from '@haqq/ui-kit';
 import { useBalance } from 'wagmi';
 import clsx from 'clsx';
 import {
@@ -10,6 +17,7 @@ import {
   useAddress,
   useWallet,
 } from '@haqq/shared';
+import ScrollLock from 'react-scrolllock';
 
 const ShellIndexPage = lazy(async () => {
   const { ShellIndexPage } = await import('@haqq/shell/index-page');
@@ -23,6 +31,7 @@ const GovernanceApp = lazy(async () => {
 });
 
 function HeaderButtons() {
+  const [isOpen, setOpen] = useState(false);
   const {
     disconnect,
     openSelectWallet,
@@ -54,33 +63,73 @@ function HeaderButtons() {
 
   return (
     <Fragment>
-      <div className="flex flex-row space-x-5 mr-5">
+      <div className="lg:block hidden flex flex-row space-x-5">
         <NavLink to="/staking" className={getLinkClassName}>
           Staking
         </NavLink>
         <NavLink to="/governance" className={getLinkClassName}>
           Governance
         </NavLink>
-      </div>
 
-      {ethAddress ? (
-        <AccountButton
-          balance={balance}
-          address={ethAddress}
-          onDisconnectClick={disconnect}
-        />
-      ) : (
-        <Button2 onClick={openSelectWallet}>Connect wallet</Button2>
-      )}
+        {ethAddress ? (
+          <AccountButton
+            balance={balance}
+            address={ethAddress}
+            onDisconnectClick={disconnect}
+          />
+        ) : (
+          <Button2 onClick={openSelectWallet}>Connect wallet</Button2>
+        )}
+      </div>
 
       <div className="inline-block">
         <ThemeButton />
       </div>
 
+      <BurgerButton
+        className="block lg:hidden"
+        isOpen={isOpen}
+        onClick={() => {
+          setOpen(!isOpen);
+        }}
+      />
+
       <SelectWalletModal
         isOpen={isSelectWalletOpen}
         onClose={closeSelectWallet}
       />
+
+      {isOpen && (
+        <Fragment>
+          <ScrollLock isActive />
+          <div className="backdrop-blur transform-gpu fixed lg:hidden w-full top-[64px] h-[calc(100vh-64px)] right-0 z-50 px-[24px] py-[32px] overflow-y-auto bg-white dark:bg-[#0c0c0c]">
+            <div className="flex flex-col gap-5">
+              <div>
+                <NavLink to="/staking" className={getLinkClassName}>
+                  Staking
+                </NavLink>
+              </div>
+              <div>
+                <NavLink to="/governance" className={getLinkClassName}>
+                  Governance
+                </NavLink>
+              </div>
+
+              <div>
+                {ethAddress ? (
+                  <AccountButton
+                    balance={balance}
+                    address={ethAddress}
+                    onDisconnectClick={disconnect}
+                  />
+                ) : (
+                  <Button2 onClick={openSelectWallet}>Connect wallet</Button2>
+                )}
+              </div>
+            </div>
+          </div>
+        </Fragment>
+      )}
     </Fragment>
   );
 }

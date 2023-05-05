@@ -8,13 +8,19 @@ import {
 } from '@haqq/ui-kit';
 import { useConnect } from 'wagmi';
 
-export function SelectWalletModal({ isOpen, onClose }: any) {
+export function SelectWalletModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Card className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
+      <Card className="mx-auto min-w-[320px] max-w-[420px] !bg-white dark:!bg-slate-700">
         <div className="flex flex-col space-y-6">
           <div className="flex justify-between items-center">
             <Heading level={3} className="mt-[3px]">

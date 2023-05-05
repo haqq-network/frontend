@@ -59,8 +59,9 @@ export function StakingInfoComponent({
 }: RewardsInfoProps) {
   return (
     <Card className="mx-auto w-full">
-      <div className="flex flex-row items-center space-x-4 h-[80px]">
-        <div className=" flex-1 flex flex-row items-center space-x-4">
+      <div className="flex flex-col lg:flex-row items-center gap-4 lg:h-[80px]">
+        {/* <div className="flex-1 flex flex-col lg:flex-row lg:items-center gap-4 w-full"> */}
+        <div className="flex-1 grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           <div className="flex-1">
             <StakingInfoAmountBlock
               title="Available"
