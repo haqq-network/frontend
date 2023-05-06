@@ -1,24 +1,36 @@
-<svg width="1440" height="104" viewBox="0 0 1440 104" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="-27.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="186.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="79.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="293.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="400.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="507.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="614.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="721.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="828.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="935.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="1042.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="1149.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="1256.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="1363.5" y="31.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
-<rect x="-27.5" y="0.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
-<rect x="186.5" y="0.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
-<rect x="79.5" y="0.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
-<rect x="293.5" y="0.5" width="428" height="31" rx="15.5" stroke="#2A2A2B"/>
-<rect x="721.5" y="0.5" width="428" height="31" rx="15.5" stroke="#2A2A2B"/>
-<rect x="1149.5" y="0.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
-<rect x="1256.5" y="0.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
-<rect x="1363.5" y="0.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
+<svg width="1440" height="446" viewBox="0 0 1440 446" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="-28.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="185.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="78.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="292.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="399.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="506.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="613.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="720.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="827.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="934.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="1041.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="1148.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="1255.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="1362.5" y="373.5" width="107" height="118" rx="12.5" stroke="#2A2A2B"/>
+<rect x="-28.5" y="342.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
+<rect x="185.5" y="342.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
+<rect x="78.5" y="342.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
+<rect x="292.5" y="342.5" width="428" height="31" rx="15.5" stroke="#2A2A2B"/>
+<rect x="720.5" y="342.5" width="428" height="31" rx="15.5" stroke="#2A2A2B"/>
+<rect x="1148.5" y="342.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
+<rect x="1255.5" y="342.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
+<rect x="1362.5" y="342.5" width="107" height="31" rx="15.5" stroke="#2A2A2B"/>
+<path d="M63.5 342.5C68.5 342.667 78.5 340.6 78.5 331" stroke="#2A2A2B"/>
+<path d="M93.5 342.5C88.5 342.667 78.5 340.6 78.5 331" stroke="#2A2A2B"/>
+<path d="M78.5 331L78.5 0" stroke="#2A2A2B"/>
+<path d="M170.5 342.5C175.5 342.667 185.5 340.6 185.5 331" stroke="#2A2A2B"/>
+<path d="M200.5 342.5C195.5 342.667 185.5 340.6 185.5 331" stroke="#2A2A2B"/>
+<path d="M185.5 331L185.5 0" stroke="#2A2A2B"/>
+<path d="M1240.5 342.5C1245.5 342.667 1255.5 340.6 1255.5 331" stroke="#2A2A2B"/>
+<path d="M1270.5 342.5C1265.5 342.667 1255.5 340.6 1255.5 331" stroke="#2A2A2B"/>
+<path d="M1255.5 331L1255.5 0" stroke="#2A2A2B"/>
+<path d="M1347.5 342.5C1352.5 342.667 1362.5 340.6 1362.5 331" stroke="#2A2A2B"/>
+<path d="M1377.5 342.5C1372.5 342.667 1362.5 340.6 1362.5 331" stroke="#2A2A2B"/>
+<path d="M1362.5 331L1362.5 0" stroke="#2A2A2B"/>
 </svg>
