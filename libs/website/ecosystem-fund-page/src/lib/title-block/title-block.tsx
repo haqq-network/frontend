@@ -8,19 +8,21 @@ import LinesSmallBgData from '../../assets/title-block-lines-small.svg';
 export function TitleBlock() {
   return (
     <section className="overflow-hidden relative pt-[80px] sm:pt-[120px] px-[16px] sm:px-[48px] lg:px-[80px]">
-      <div className="uppercase font-serif text-[46px] sm:text-[80px] lg:text-[140px] leading-none font-medium">
-        Haqq <br /> Ecosys
-        <br className="hidden lg:block xl:hidden" />
-        tem <br className="block lg:hidden xl:block" /> Fund
+      <div className="relative z-10">
+        <div className="uppercase font-serif text-[46px] sm:text-[80px] lg:text-[140px] leading-none font-medium">
+          Haqq <br /> Ecosys
+          <br className="hidden lg:block xl:hidden" />
+          tem <br className="block lg:hidden xl:block" /> Fund
+        </div>
+        <Link href={'#apply'} className="scroll-smooth" scroll={false}>
+          <Button
+            variant={2}
+            className="mb-[80px] sm:mb-[120px] mt-[32px] sm:mt-[48px] lg:mt-[64px]"
+          >
+            Apply
+          </Button>
+        </Link>
       </div>
-      <Link href={'#apply'} className="scroll-smooth" scroll={false}>
-        <Button
-          variant={2}
-          className="z-10 mb-[80px] sm:mb-[120px] mt-[32px] sm:mt-[48px] lg:mt-[64px]"
-        >
-          Apply
-        </Button>
-      </Link>
 
       <Image
         src={sunshineBgData.src}
