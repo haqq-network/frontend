@@ -4,7 +4,7 @@ import { TitleBlock } from '../title-block/title-block';
 
 export function EcosystemFundPage() {
   return (
-    <div>
+    <div className="relative">
       <TitleBlock />
       <TextBlock />
       <ApplyBlock />

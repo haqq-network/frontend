@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 export function TextBlock() {
   return (
-    <section className="z-50 flex flex-col gap-y-[20px] sm:gap-y-[24px] py-[60px] sm:py-[80px] lg:py-[100px] px-[16px] sm:px-[48px] lg:px-[110px] xl:px-[320px] border-b border-t border-white/20">
-      <div className="z-10">
+    <section className="py-[60px] sm:py-[80px] lg:py-[100px] px-[16px] sm:px-[48px] lg:px-[110px] xl:px-[320px] border-b border-t border-white/20">
+      <div className="flex flex-col gap-y-[20px] sm:gap-y-[24px]">
         <Heading>
           Introducing the Haqq Ecosystem Fund: An Opportunity to Grow with Haqq
           Blockchain
