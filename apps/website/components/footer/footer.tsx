@@ -97,6 +97,7 @@ export function Footer() {
           <div className="ml-[16px] sm:ml-[63px] lg:ml-[79px] border-l border-r border-haqq-border py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[212px]">
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
               <FooterNavLink href="#about">About</FooterNavLink>
+              <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
               {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
               <FooterNavLink href="#developers">Developers</FooterNavLink>
               <FooterNavLink href="https://docs.haqq.network" isOutLink>
