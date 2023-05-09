@@ -10,7 +10,9 @@ import clsx from 'clsx';
 import ScrollLock from 'react-scrolllock';
 import { useAccount, useBalance } from 'wagmi';
 import { Link } from 'react-router-dom';
-import { AccountButton, BurgerMenu, HaqqLogo } from '@haqq/shell/ui-kit';
+import { AccountButton } from '../account-button/account-buttonx';
+import { BurgerMenu } from '../burger-menu/burger-menux';
+import { HaqqLogo } from '../haqq-logo/haqq-logox';
 import { getFormattedAddress, useAddress, useMetamask } from '@haqq/shared';
 import { Button, BurgerButton } from '@haqq/website/ui-kit';
 
