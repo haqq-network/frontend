@@ -15,7 +15,7 @@ export function ApplyBlock() {
         Grants and Investment Program
       </Text>
       <Heading className="mt-[8px]">
-        Apply now for the Haqq Ecosystem Fund, and let's{' '}
+        Apply now for the HAQQ Ecosystem Fund, and let's{' '}
         <br className="hidden absolute top-0 lg:block" />
         make a difference together!
       </Heading>

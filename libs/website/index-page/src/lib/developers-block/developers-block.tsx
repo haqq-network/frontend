@@ -59,7 +59,7 @@ export function DevelopersBlock() {
           <Text className="text-white/80 sm:max-w-[450px]">
             Work and build on HAQQ, and be part of tomorrow’s future - today.
             Bring your vision to life and develop solutions that benefit users
-            and the world as a whole. Support the network and Haqq’s
+            and the world as a whole. Support the network and HAQQ’s
             ethics-first and Shariah-compliant innovation.
           </Text>
         </div>

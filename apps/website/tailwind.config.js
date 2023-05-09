@@ -26,6 +26,8 @@ module.exports = {
       fontFamily: {
         serif: ['var(--font-clash)'],
         sans: ['var(--font-guise)'],
+        messiri: ['var(--font-messiri)'],
+        manrope: ['var(--font-manrope)'],
       },
     },
   },

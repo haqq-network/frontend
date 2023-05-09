@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { DownloadButton } from '../download-button/download-button';
 import { CardText } from '../features-block/features-block';
 import iphoneWalletScreenshotData from '../../assets/images/wallet-iphone-screenshot.png';
-import { ElMessiriFont } from '@haqq/website/shared';
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (
@@ -111,7 +110,7 @@ export function HeroBlock() {
         <div className="text-center lg:text-start lg:w-3/5 lg:flex-row">
           <h1
             className={clsx(
-              ElMessiriFont.className,
+              'font-messiri',
               'text-[48px] sm:text-[84px] font-bold leading-[62px] lg:leading-[100px] sm:mb-[16px]',
             )}
           >
