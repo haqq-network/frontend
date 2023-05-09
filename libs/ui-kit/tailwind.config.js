@@ -1,6 +1,6 @@
-const { createGlobPatternsForDependencies } = require('@nrwl/react/tailwind');
+const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
-const { tailwindExtend } = require('../../tailwind-theme-shared');
+const { tailwindThemeExtend } = require('../../shared-tailwind-theme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -17,10 +17,10 @@ module.exports = {
         serif: ['var(--islamic-font-serif)'],
       },
       colors: {
-        ...tailwindExtend.colors,
+        ...tailwindThemeExtend.colors,
       },
       boxShadow: {
-        ...tailwindExtend.boxShadow,
+        ...tailwindThemeExtend.boxShadow,
       },
     },
   },

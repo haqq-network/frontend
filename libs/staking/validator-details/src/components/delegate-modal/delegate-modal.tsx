@@ -107,7 +107,9 @@ export function DelegateModal({
     toast
       .promise(delegationPromise, {
         loading: 'Delegate in progress',
-        success: (txHash) => {
+        success: (tx) => {
+          console.log('Delegation successful', { tx }); // maybe successful
+          const txHash = tx?.txhash;
           console.log('Delegation successful', { txHash });
           return `Delegation successful`;
         },

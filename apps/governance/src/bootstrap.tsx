@@ -29,6 +29,7 @@ async function startApp() {
     <AppProviders
       tendermintClient={tendermintClient}
       chainName={environment.chainName}
+      walletConnectProjectId={environment.walletConnectProjectId}
     >
       <AppWrapper>
         <App />

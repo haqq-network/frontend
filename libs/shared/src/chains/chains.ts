@@ -9,11 +9,12 @@ export interface ChainProperties {
   cosmosChainId: string;
   name: string;
   network: string;
+  nativeCurrency: Currency;
+  testnet: boolean;
   tmRpcEndpoint: string;
   cosmosRestEndpoint: string;
   ethRpcEndpoint: string;
-  nativeCurrency: Currency;
-  testnet: boolean;
+  blockExplorer?: string;
 }
 
 const currency: Currency = {
@@ -44,6 +45,7 @@ export const chains: Record<string, ChainProperties> = {
     ethRpcEndpoint: 'https://rpc.eth.testedge2.haqq.network',
     testnet: true,
     nativeCurrency: currency,
+    blockExplorer: 'https://explorer.testedge2.haqq.network/',
   },
   mainnet: {
     id: 11235,
@@ -55,5 +57,6 @@ export const chains: Record<string, ChainProperties> = {
     ethRpcEndpoint: 'https://rpc.eth.haqq.network',
     testnet: false,
     nativeCurrency: currency,
+    blockExplorer: 'https://explorer.haqq.network',
   },
 };

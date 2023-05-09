@@ -8,8 +8,21 @@ export function Heading({
 }: {
   children: ReactNode;
   className?: string;
-  level?: 2 | 3;
+  level?: 1 | 2 | 3;
 }) {
+  if (level === 1) {
+    return (
+      <h1
+        className={clsx(
+          'font-serif font-[500] leading-none text-[18px] sm:text-[28px] lg:text-[48px] xl:text-[70px]',
+          className,
+        )}
+      >
+        {children}
+      </h1>
+    );
+  }
+
   if (level === 2) {
     return (
       <h2

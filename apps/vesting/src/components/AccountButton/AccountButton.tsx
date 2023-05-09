@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { Button } from '../Button/Button';
 import { IdentIcon } from '../IdentIcon/IdentIcon';
 import { Menu, Transition } from '@headlessui/react';
-import { getFormattedAddress } from '../../utils/getFormattedAddress';
+import { getFormattedAddress } from '@haqq/shared';
 
 function AddressButton({
   children,
@@ -47,7 +47,7 @@ function BalanceButton({
     'px-[12px] py-[8px] rounded-none',
     'text-white bg-primary hover:bg-[#20d775]',
     'transition-colors duration-150 ease-linear',
-    'rounded-[8px]',
+    'rounded-l-[8px]',
     className,
   );
 

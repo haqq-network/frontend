@@ -1,13 +1,19 @@
 import { ReactNode, useMemo } from 'react';
 import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-// import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { InjectedConnector } from '@wagmi/connectors/injected';
+import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
 import { useConfig } from './config-provider';
 import { getChainParams } from '../chains/get-chain-params';
 import { mapToWagmiChain } from '../chains/map-to-wagmi-chain';
 
-export function WagmiProvider({ children }: { children: ReactNode }) {
+export function WagmiProvider({
+  children,
+  walletConnectProjectId,
+}: {
+  children: ReactNode;
+  walletConnectProjectId?: string;
+}) {
   const { chainName } = useConfig();
   const { provider, chains } = useMemo(() => {
     const chainParams = getChainParams(chainName);
@@ -29,16 +35,29 @@ export function WagmiProvider({ children }: { children: ReactNode }) {
   }, [chainName]);
 
   const connectors = useMemo(() => {
-    return [
+    const connectors: Array<any> = [
       new InjectedConnector({
         chains,
+        options: {
+          shimDisconnect: true,
+        },
       }),
-      // new WalletConnectConnector({
-      //   chains,
-      //   options: {},
-      // }),
     ];
-  }, [chains]);
+
+    if (walletConnectProjectId) {
+      connectors.push(
+        new WalletConnectConnector({
+          chains,
+          options: {
+            projectId: walletConnectProjectId,
+            showQrModal: true,
+          },
+        }),
+      );
+    }
+
+    return connectors;
+  }, [chains, walletConnectProjectId]);
 
   const client = useMemo(() => {
     return createClient({

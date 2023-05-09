@@ -14,12 +14,12 @@ export function useProposalDetailsQuery(proposalId: string | undefined) {
 
   return useQuery(
     ['proposal', proposalId],
-    () => {
+    async () => {
       if (!proposalId) {
         return null;
       }
 
-      return getProposalDetails(proposalId);
+      return await getProposalDetails(proposalId);
     },
     {
       refetchOnWindowFocus: false,

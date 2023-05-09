@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import logoImageData from '../../assets/images/logo.svg';
-import { SubscribeForm } from '@haqq/website/forms';
 import {
   DiscordIcon,
   GithubIcon,
@@ -85,7 +84,7 @@ export function Footer() {
       <div className="lg:mx-auto w-full flex flex-row items-center h-[63px] sm:h-[72px] border-b border-haqq-border">
         <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-haqq-border">
           <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
-            <Image src={logoImageData.src} alt="HAQQ" fill />
+            <Image src={logoImageData} alt="HAQQ" fill />
           </div>
         </div>
         <div className="ml-[12px] sm:ml-[20px] lg:ml-[32px] font-serif font-medium text-[20px] sm:text-[24px] leading-none">
@@ -102,9 +101,13 @@ export function Footer() {
               <FooterNavLink href="https://docs.haqq.network" isOutLink>
                 Documentation
               </FooterNavLink>
-              <FooterNavLink href="/privacy-policy">
+              <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
+              {/* <FooterNavLink href="/privacy-policy">
                 Privacy Policy
               </FooterNavLink>
+              <FooterNavLink href="/terms-and-conditions">
+                Terms and Conditions
+              </FooterNavLink> */}
             </nav>
           </div>
           <div className="h-full py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[383px]">
@@ -173,10 +176,10 @@ export function Footer() {
             <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
             </Heading>
-            <SubscribeForm
+            {/* <SubscribeForm
               className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0"
               inputSize={inputSize}
-            />
+            /> */}
           </div>
         </div>
       </div>

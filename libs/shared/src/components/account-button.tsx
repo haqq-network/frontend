@@ -18,7 +18,7 @@ export function AccountButton({
   onDisconnectClick: () => void;
 }) {
   return (
-    <div className="flex flex-row items-center rounded-[6px] text-white bg-slate-500">
+    <div className="inline-flex flex-row items-center rounded-[6px] text-white bg-slate-500">
       {balance && (
         <div className="font-medium leading-[24px] pl-[12px] py-[8px] pr-[8px]">
           {`${balance.value.toLocaleString()} ${balance.symbol.toLocaleUpperCase()}`}

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import {
+  formatEther,
   hexZeroPad,
   Interface,
   LogDescription,
-  formatEther,
 } from 'ethers/lib/utils';
 import { useState } from 'react';
 import { Card } from '../Card/Card';

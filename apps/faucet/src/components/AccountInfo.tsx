@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
-import { getChainParams, useConfig } from '@haqq/shared';
+import { getChainParams, getFormattedAddress, useConfig } from '@haqq/shared';
 import { useAccount, useBalance } from 'wagmi';
-import { getFormattedAddress } from '../utils/getFormattedAddress';
 import { IdentIcon } from './IdentIcon';
 
 export function AccountInfo() {
@@ -34,7 +33,7 @@ export function AccountInfo() {
         </div>
       )}
 
-      {accBalance && (
+      {accBalance !== undefined && (
         <div className="flex-1 flex flex-row space-x-4 items-center justify-end h-[40px] font-bold">
           {accBalance.toLocaleString()}{' '}
           {nativeCurrency.symbol.toLocaleUpperCase()}

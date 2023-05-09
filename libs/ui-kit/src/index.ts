@@ -18,3 +18,4 @@ export * from './lib/logo/logo';
 export * from './lib/input/input';
 export * from './lib/alert/alert';
 export * from './lib/not-found-page/not-found-page';
+export * from './lib/burger-button/burger-button';

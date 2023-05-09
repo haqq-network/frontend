@@ -10,6 +10,7 @@ import {
   useStakingRewardsQuery,
   useStakingDelegationQuery,
   useQueryInvalidate,
+  useStakingActions,
 } from '@haqq/shared';
 import { ValidatorStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
@@ -131,8 +132,8 @@ export function ValidatorInfoComponent({
 
   return (
     <div className="mx-auto w-full flex">
-      <div className="grid w-full grid-cols-3 grid-rows-1 gap-6">
-        <div className="col-span-2 flex flex-col space-y-6">
+      <div className="grid w-full lg:grid-cols-3 grid-rows-1 gap-6">
+        <div className="lg:col-span-2 flex flex-col space-y-6">
           <Card>
             <div className="flex flex-col space-y-6">
               <div className="flex flex-row space-x-6 items-start">
@@ -297,6 +298,8 @@ export function ValidatorInfo({
   const { data: stakingParams } = useStakingParamsQuery();
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const { claimReward } = useStakingActions();
+
   const balance = useMemo(() => {
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
   }, [balanceData]);
@@ -351,11 +354,8 @@ export function ValidatorInfo({
   }, [rewardsInfo, validatorAddress]);
 
   const handleGetRewardsClick = useCallback(() => {
-    // TODO: Handle claim rewards from current validator
-    console.log('GET MY REWARDS');
-  }, []);
-
-  // console.log({ validatorInfo, stakingParams, rewardsInfo, delegationInfo });
+    claimReward(validatorAddress);
+  }, [claimReward, validatorAddress]);
 
   if (isFetching || !validatorInfo) {
     return (
@@ -371,7 +371,6 @@ export function ValidatorInfo({
   return (
     <Fragment>
       <ValidatorInfoComponent
-        // balanceFormatted={balanceFormatted}
         balance={balance}
         delegation={myDelegation}
         rewards={myRewards}
@@ -389,6 +388,7 @@ export function ValidatorInfo({
         symbol="ISLM"
         unboundingTime={unboundingTime}
       />
+
       <UndelegateModal
         validatorAddress={validatorAddress}
         isOpen={isUndelegateModalOpen}

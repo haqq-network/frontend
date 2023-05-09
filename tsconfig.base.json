@@ -34,6 +34,9 @@
         "libs/staking/validator-list/src/index.ts"
       ],
       "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],
+      "@haqq/website/brand-assets-page": [
+        "libs/website/brand-assets-page/src/index.ts"
+      ],
       "@haqq/website/forms": ["libs/website/forms/src/index.ts"],
       "@haqq/website/index-page": ["libs/website/index-page/src/index.ts"],
       "@haqq/website/shared": ["libs/website/shared/src/index.ts"],

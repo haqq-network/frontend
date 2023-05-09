@@ -8,7 +8,9 @@ export function AppContainer({ children }: { children: ReactElement }) {
   return (
     <ConfigProvider chainName={environment.chainName}>
       <BrowserRouter>
-        <WagmiProvider>
+        <WagmiProvider
+          walletConnectProjectId={environment.walletConnectProjectId}
+        >
           <OnboardingContainer>{children}</OnboardingContainer>
         </WagmiProvider>
       </BrowserRouter>

@@ -9,10 +9,11 @@ import {
   useState,
 } from 'react';
 import { hexValue } from 'ethers/lib/utils';
-import { useAccount, useConnect, useNetwork } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import MetaMaskOnboarding from '@metamask/onboarding';
-import { NoMetamaskAlert } from './components/modals/NoMetamaskAlert/NoMetamaskAlert';
+// import { NoMetamaskAlert } from './components/modals/NoMetamaskAlert/NoMetamaskAlert';
 import { getChainParams, useConfig } from '@haqq/shared';
+import { SelectWalletModal } from './components/modals/SelectWalletModal';
 
 export type OnboardingSteps =
   | 'start'
@@ -40,16 +41,15 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   const targetNetworkIdHex = hexValue(chain.id);
   const onboarding = useRef<MetaMaskOnboarding>();
   const [step, setOnboardingStep] = useState<OnboardingSteps>('start');
-  const [isNoMetamaskModalOpen, setNoMetamaskModalOpen] = useState(false);
   const [isOnboarded, setOnboarded] = useState(false);
   const { isConnected, address } = useAccount();
-  const { connect, connectors } = useConnect();
   const [errors, setErrors] = useState<Record<string, Error | undefined>>({});
   const { chain: currentChain } = useNetwork();
+  const [isWalletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
 
-  const handleConnectWagmi = useCallback(() => {
-    connect({ connector: connectors[0] });
-  }, [connect, connectors]);
+  // const handleConnectWagmi = useCallback(() => {
+  //   connect({ connector: connectors[0] });
+  // }, [connect, connectors]);
 
   useEffect(() => {
     if (!onboarding.current) {
@@ -58,23 +58,21 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   }, []);
 
   const handleConnectWallet = useCallback(async () => {
-    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-      handleConnectWagmi();
-    } else {
-      setNoMetamaskModalOpen(true);
-    }
-  }, [handleConnectWagmi]);
+    setWalletSelectModalOpen(true);
+    // if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+    //   handleConnectWagmi();
+    // } else {
+    //   setNoMetamaskModalOpen(true);
+    // }
+  }, []);
 
   const handleStartOnboarding = useCallback(() => {
     onboarding.current?.startOnboarding();
-    setNoMetamaskModalOpen(false);
     setOnboardingStep('switch-network');
   }, []);
 
   const handleNetworkSwitch = useCallback(async () => {
-    // console.log('handleNetworkSwitch');
     const { ethereum } = window;
-
     if (ethereum) {
       try {
         await ethereum?.request({
@@ -83,6 +81,10 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
         });
         setOnboardingStep('finish');
       } catch (error: any) {
+        // added check because enabled blockwallet won't skip this error automatically like metamask
+        if (error?.code === -32603) {
+          setOnboardingStep('add-network');
+        }
         if (error?.code === 4902) {
           setOnboardingStep('add-network');
         } else {
@@ -173,10 +175,14 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
     <OnboardingContext.Provider value={memoizedHook}>
       {children}
 
-      <NoMetamaskAlert
+      {/* <NoMetamaskAlert
         isOpen={isNoMetamaskModalOpen}
         onStartOnboarding={handleStartOnboarding}
         onClose={() => setNoMetamaskModalOpen(false)}
+      /> */}
+      <SelectWalletModal
+        isOpen={isWalletSelectModalOpen}
+        onClose={() => setWalletSelectModalOpen(false)}
       />
     </OnboardingContext.Provider>
   );

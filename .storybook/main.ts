@@ -1,8 +1,5 @@
 import type { StorybookConfig } from '@storybook/core-common';
-
 export const rootMain: StorybookConfig = {
-  stories: [],
-  addons: ['@storybook/addon-essentials'],
   core: {
     builder: 'webpack5',
   },
@@ -26,4 +23,12 @@ export const rootMain: StorybookConfig = {
     // Return the altered config
     return config;
   },
+};
+export const framework = {
+  name: '@storybook/react-webpack5',
+  options: {},
+};
+export const addons = ['@storybook/addon-mdx-gfm'];
+export const docs = {
+  autodocs: true,
 };

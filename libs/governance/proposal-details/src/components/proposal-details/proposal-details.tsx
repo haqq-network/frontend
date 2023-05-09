@@ -97,8 +97,8 @@ export function ProposalDetailsComponent({
   return (
     <Container>
       <div className="mx-auto w-full flex flex-col space-y-6">
-        <div className="grid w-full grid-cols-3 grid-rows-1 gap-6">
-          <div className="col-span-2 flex flex-col space-y-6">
+        <div className="grid w-full lg:grid-cols-3 grid-rows-1 gap-6">
+          <div className="lg:col-span-2 flex flex-col space-y-6">
             <Card className="flex flex-col space-y-6">
               <div className="flex flex-row space-x-2">
                 <div className="text-2xl font-semibold leading-normal flex-1">
@@ -304,7 +304,7 @@ function SoftwareUpgradeProposalCard({
       time: new Date(plan.time).toUTCString(),
       height: Number.parseInt(plan.height),
       upgraded_client_state: plan.upgraded_client_state,
-      info: JSON.parse(plan.info),
+      info: plan.info && plan.info !== '' ? JSON.parse(plan.info) : undefined,
     };
   }, [plan]);
   console.debug('SoftwareUpgradePlan:', formattedPlan);

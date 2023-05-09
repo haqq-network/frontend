@@ -5,7 +5,7 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -19,7 +19,9 @@
         "assets": ["apps/vesting/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/vesting/webpack.config.js"
+        "webpackConfig": "apps/vesting/webpack.config.js",
+        "babelUpwardRootMode": true,
+        "isolatedConfig": true
       },
       "configurations": {
         "development": {
@@ -43,10 +45,26 @@
           "vendorChunk": false,
           "webpackConfig": "apps/vesting/webpack.config.prod.js"
         }
+      },
+      "production": {
+        "fileReplacements": [
+          {
+            "replace": "apps/vesting/src/environments/environment.ts",
+            "with": "apps/vesting/src/environments/environment.prod.ts"
+          }
+        ],
+        "optimization": true,
+        "outputHashing": "all",
+        "sourceMap": false,
+        "namedChunks": false,
+        "extractLicenses": true,
+        "vendorChunk": false,
+        "webpackConfig": "apps/vesting/webpack.config.prod.js",
+        "isolatedConfig": true
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nx/webpack:dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "vesting:build",
@@ -63,14 +81,14 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/vesting/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["coverage/apps/vesting"],
       "options": {
         "jestConfig": "apps/vesting/jest.config.ts",

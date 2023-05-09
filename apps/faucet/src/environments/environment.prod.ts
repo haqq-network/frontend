@@ -12,4 +12,7 @@ export const environment = {
   serviceConfig: {
     endpoint: process.env['NX_FAUCET_SERVICE_ENDPOINT'],
   },
+  walletConnectConfig: {
+    projectId: process.env['NX_WALLETCONNECT_PROJECT_ID'],
+  },
 };

@@ -33,7 +33,9 @@ export function AppContainer({
     <BrowserRouter>
       <ConfigProvider chainName={environment.chainName}>
         <AuthContainer>
-          <WagmiProvider>
+          <WagmiProvider
+            walletConnectProjectId={environment.walletConnectConfig.projectId}
+          >
             <ThemeProvider>{children}</ThemeProvider>
           </WagmiProvider>
         </AuthContainer>

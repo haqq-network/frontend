@@ -6,7 +6,7 @@ import { Card } from '../Card/Card';
 import { Heading, Text } from '../Typography/Typography';
 import HaqqVestingContract from '../../../HaqqVesting.json';
 import { Spinner } from '../Playground/Playground';
-import { formatEther, isAddress } from 'ethers/lib/utils';
+import { BigNumber } from 'ethers';
 import { Button, DangerButton } from '../Button/Button';
 import { DepositNavigation } from '../DepositNavigation/DepositNavigation';
 import { useNextUnlockDate } from '../../hooks/useNextUnlockDate';
@@ -18,6 +18,7 @@ import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { useConfig, getChainParams } from '@haqq/shared';
 import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
 import { formatDate } from '../../utils/format-date';
+import { formatEther, isAddress } from 'ethers/lib/utils';
 
 export { HaqqVestingContract };
 
@@ -250,13 +251,13 @@ export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
           10,
         ).toLocaleString()} ${symbol}`}
       />
-      <DepositInfoStatsRow
+      {/* <DepositInfoStatsRow
         label="Available"
         value={`${Number.parseInt(
           formatEther(deposit.available),
           10,
         ).toLocaleString()} ${symbol}`}
-      />
+      /> */}
       <NextDepositUnlock
         createdAt={deposit.createdAt}
         period={deposit.unlockPeriod}
