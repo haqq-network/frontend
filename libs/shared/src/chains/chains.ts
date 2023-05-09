@@ -27,7 +27,7 @@ export const chains: Record<string, ChainProperties> = {
   dev: {
     id: 121799,
     cosmosChainId: 'haqq_121799-1',
-    name: 'Haqq Devnet',
+    name: 'HAQQ Devnet',
     network: 'haqq-devnet',
     tmRpcEndpoint: 'http://159.69.6.222:26657',
     cosmosRestEndpoint: 'http://159.69.6.222:1317',
@@ -38,7 +38,7 @@ export const chains: Record<string, ChainProperties> = {
   testedge2: {
     id: 54211,
     cosmosChainId: 'haqq_54211-3',
-    name: 'Haqq Testedge 2',
+    name: 'HAQQ Testedge 2',
     network: 'haqq-testedge-2',
     cosmosRestEndpoint: 'https://rest.cosmos.testedge2.haqq.network',
     tmRpcEndpoint: 'https://rpc.tm.testedge2.haqq.network',
@@ -50,7 +50,7 @@ export const chains: Record<string, ChainProperties> = {
   mainnet: {
     id: 11235,
     cosmosChainId: 'haqq_11235-1',
-    name: 'Haqq Mainnet',
+    name: 'HAQQ Mainnet',
     network: 'haqq-mainnet',
     cosmosRestEndpoint: 'https://rest.cosmos.haqq.network',
     tmRpcEndpoint: 'https://rpc.tm.haqq.network',

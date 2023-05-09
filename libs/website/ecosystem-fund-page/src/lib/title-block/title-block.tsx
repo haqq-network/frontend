@@ -10,9 +10,7 @@ export function TitleBlock() {
     <section className="overflow-hidden relative pt-[80px] sm:pt-[120px] px-[16px] sm:px-[48px] lg:px-[80px]">
       <div className="relative z-10">
         <div className="uppercase font-serif text-[46px] sm:text-[80px] lg:text-[140px] leading-none font-medium">
-          Haqq <br /> Ecosys
-          <br className="hidden lg:block xl:hidden" />
-          tem <br className="block lg:hidden xl:block" /> Fund
+          HAQQ <br /> Ecosystem <br className="block lg:hidden xl:block" /> Fund
         </div>
         <Link href={'#apply'} className="scroll-smooth" scroll={false}>
           <Button
