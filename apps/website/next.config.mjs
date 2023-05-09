@@ -15,6 +15,9 @@ export default withNx(
   withMDX({
     webpack5: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+    nx: {
+      svgr: false,
+    },
     async redirects() {
       return [
         {

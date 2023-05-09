@@ -8,12 +8,10 @@ import {
   GithubIcon,
   Heading,
   LinkArrowIcon,
-  // LinkedinIcon,
-  // MediumIcon,
   TelegramIcon,
   TwitterIcon,
-  // YoutubeIcon,
 } from '@haqq/website/ui-kit';
+import { SubscribeForm } from '@haqq/website/forms';
 
 function FooterNavLink({
   href,
@@ -95,18 +93,18 @@ export function Footer() {
         <div className="flex flex-row lg:h-auto border-haqq-border border-b lg:border-b-0">
           <div className="ml-[16px] sm:ml-[63px] lg:ml-[79px] border-l border-r border-haqq-border py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[212px]">
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
-              <FooterNavLink href="#about">About</FooterNavLink>
+              <FooterNavLink href="/#about">About</FooterNavLink>
               <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
               {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
-              <FooterNavLink href="#developers">Developers</FooterNavLink>
+              <FooterNavLink href="/#developers">Developers</FooterNavLink>
               <FooterNavLink href="https://docs.haqq.network" isOutLink>
                 Documentation
               </FooterNavLink>
               <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
               {/* <FooterNavLink href="/privacy-policy">
                 Privacy Policy
-              </FooterNavLink>
-              <FooterNavLink href="/terms-and-conditions">
+              </FooterNavLink> */}
+              {/* <FooterNavLink href="/terms-and-conditions">
                 Terms and Conditions
               </FooterNavLink> */}
             </nav>
@@ -177,10 +175,10 @@ export function Footer() {
             <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
             </Heading>
-            {/* <SubscribeForm
+            <SubscribeForm
               className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0"
               inputSize={inputSize}
-            /> */}
+            />
           </div>
         </div>
       </div>

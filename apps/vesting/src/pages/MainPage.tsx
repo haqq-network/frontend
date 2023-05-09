@@ -24,7 +24,7 @@ export function WelcomeScreen() {
 
       <div>
         <Text color="light" className="leading-8 text-2xl">
-          The currency of the Haqq ecosystem.
+          The currency of the HAQQ ecosystem.
           <br />
           Serves The Muslim Community.
           <br />

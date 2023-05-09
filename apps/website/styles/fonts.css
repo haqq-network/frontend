@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&family=Open+Sans:wght@300;500;700&family=Manrope:wght@200;400;500&display=swap');
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/assets/fonts/ClashDisplay-Medium.woff2') format('woff2'),
+    url('/assets/fonts/ClashDisplay-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HK Guise';
+  src: url('/assets/fonts/hk_guise_medium-webfont.woff2') format('woff2'),
+    url('/assets/fonts/hk_guise_medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HK Guise';
+  src: url('/assets/fonts/hk_guise_regular-webfont.woff2') format('woff2'),
+    url('/assets/fonts/hk_guise_regular-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}

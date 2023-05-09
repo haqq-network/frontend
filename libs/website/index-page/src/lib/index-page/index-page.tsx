@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { HeroBlock } from '../hero-block/hero-block';
 import { AboutBlock } from '../about-block/about-block';
 import { ContactBlock } from '../contact-block/contact-block';

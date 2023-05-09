@@ -31,8 +31,8 @@ export interface BrandAsset extends CustomImage {
 export const haqqLogos: BrandAsset[] = [
   {
     logoType: 'full',
-    svgPath: '../assets/haqq-logo.svg',
-    pngPath: '../assets/haqq-logo.png',
+    svgPath: '../assets/media-kit/haqq-logo.svg',
+    pngPath: '../assets/media-kit/haqq-logo.png',
     size: {
       width: 147,
       height: 38,
@@ -40,8 +40,8 @@ export const haqqLogos: BrandAsset[] = [
   },
   {
     logoType: 'full',
-    svgPath: '../assets/haqq-logo-vertical.svg',
-    pngPath: '../assets/haqq-logo-vertical.png',
+    svgPath: '../assets/media-kit/haqq-logo-vertical.svg',
+    pngPath: '../assets/media-kit/haqq-logo-vertical.png',
     size: {
       width: 96,
       height: 81,
@@ -49,8 +49,8 @@ export const haqqLogos: BrandAsset[] = [
   },
   {
     logoType: 'sign',
-    svgPath: '../assets/haqq-sign.svg',
-    pngPath: '../assets/haqq-sign.png',
+    svgPath: '../assets/media-kit/haqq-sign.svg',
+    pngPath: '../assets/media-kit/haqq-sign.png',
     size: {
       width: 52,
       height: 52,
@@ -58,8 +58,8 @@ export const haqqLogos: BrandAsset[] = [
   },
   {
     logoType: 'text',
-    svgPath: '../assets/haqq-logo-text.svg',
-    pngPath: '../assets/haqq-logo-text.png',
+    svgPath: '../assets/media-kit/haqq-logo-text.svg',
+    pngPath: '../assets/media-kit/haqq-logo-text.png',
     size: {
       width: 120,
       height: 40,
@@ -70,8 +70,8 @@ export const haqqLogos: BrandAsset[] = [
 export const haqqWhiteLogos: BrandAsset[] = [
   {
     logoType: 'full',
-    svgPath: '../assets/haqq-logo-white.svg',
-    pngPath: '../assets/haqq-logo-white.png',
+    svgPath: '../assets/media-kit/haqq-logo-white.svg',
+    pngPath: '../assets/media-kit/haqq-logo-white.png',
     size: {
       width: 147,
       height: 38,
@@ -79,8 +79,8 @@ export const haqqWhiteLogos: BrandAsset[] = [
   },
   {
     logoType: 'full',
-    svgPath: '../assets/haqq-logo-vertical-white.svg',
-    pngPath: '../assets/haqq-logo-vertical-white.png',
+    svgPath: '../assets/media-kit/haqq-logo-vertical-white.svg',
+    pngPath: '../assets/media-kit/haqq-logo-vertical-white.png',
     size: {
       width: 96,
       height: 81,
@@ -88,8 +88,8 @@ export const haqqWhiteLogos: BrandAsset[] = [
   },
   {
     logoType: 'sign',
-    svgPath: '../assets/haqq-sign.svg',
-    pngPath: '../assets/haqq-sign.png',
+    svgPath: '../assets/media-kit/haqq-sign.svg',
+    pngPath: '../assets/media-kit/haqq-sign.png',
     size: {
       width: 52,
       height: 52,
@@ -97,8 +97,8 @@ export const haqqWhiteLogos: BrandAsset[] = [
   },
   {
     logoType: 'text',
-    svgPath: '../assets/haqq-logo-text-white.svg',
-    pngPath: '../assets/haqq-logo-text-white.png',
+    svgPath: '../assets/media-kit/haqq-logo-text-white.svg',
+    pngPath: '../assets/media-kit/haqq-logo-text-white.png',
     size: {
       width: 120,
       height: 40,
@@ -113,8 +113,8 @@ export const islamicLogos: BrandAsset[] = [
       width: 215,
       height: 34,
     },
-    svgPath: '../assets/islamic-logo.svg',
-    pngPath: '../assets/islamic-logo.png',
+    svgPath: '../assets/media-kit/islamic-logo.svg',
+    pngPath: '../assets/media-kit/islamic-logo.png',
   },
   {
     logoType: 'sign',
@@ -122,8 +122,8 @@ export const islamicLogos: BrandAsset[] = [
       width: 52,
       height: 52,
     },
-    pngPath: '../assets/islamic-sign.png',
-    svgPath: '../assets/islamic-sign.svg',
+    pngPath: '../assets/media-kit/islamic-sign.png',
+    svgPath: '../assets/media-kit/islamic-sign.svg',
   },
   {
     logoType: 'mark',
@@ -131,8 +131,8 @@ export const islamicLogos: BrandAsset[] = [
       width: 58,
       height: 58,
     },
-    svgPath: '../assets/islamic-mark.svg',
-    pngPath: '../assets/islamic-mark.png',
+    svgPath: '../assets/media-kit/islamic-mark.svg',
+    pngPath: '../assets/media-kit/islamic-mark.png',
   },
 ];
 

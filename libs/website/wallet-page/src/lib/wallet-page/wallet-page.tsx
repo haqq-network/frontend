@@ -8,7 +8,6 @@ import walletImageData from '../../assets/images/wallet-bg.jpg';
 import { FAQBlock } from '../faq-block/faq-block';
 import { FeaturesBlock } from '../features-block/features-block';
 import { HeroBlock } from '../hero-block/hero-block';
-import { ManropeFont } from '@haqq/website/shared';
 
 function HeaderLogo() {
   return (
@@ -144,7 +143,7 @@ WebsiteWalletPage.getLayout = function getLayout(page: ReactElement) {
 
       <main
         className={clsx(
-          ManropeFont.className,
+          'font-manrope',
           'min-h-screen flex flex-col overflow-x-clip',
         )}
       >
