@@ -1,7 +1,6 @@
 import { Heading, Text, DownloadButton } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
-import bgImageData from '../../assets/title-block-bg.svg';
 
 export function TitleBlock() {
   return (
@@ -11,10 +10,10 @@ export function TitleBlock() {
       )}
     >
       <Image
-        src={bgImageData.src}
+        src={'../assets/brand-assets-title-block-bg.svg'}
         alt=""
-        width={bgImageData.width}
-        height={bgImageData.height}
+        width={1023}
+        height={300}
         priority
         className="absolute top-0 left-1/2 sm:left-0 z-[-1] bg-contain bg-no-repeat scale-[2] sm:scale-100"
       />

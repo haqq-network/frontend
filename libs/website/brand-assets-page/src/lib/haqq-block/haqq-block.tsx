@@ -140,7 +140,7 @@ export function HaqqBlock() {
       {/* left side */}
       <div className="pt-[60px] md:pt-[100px] lg:pt-[120px] lg:border-r border-white/20 lg:max-w-[404px] px-[16px] md:px-[48px] lg:pl-[80px] lg:pr-[60px]">
         <Heading level={2} className="mb-[24px]">
-          Haqq Logo
+          HAQQ Logo
         </Heading>
         <DontBlock />
       </div>

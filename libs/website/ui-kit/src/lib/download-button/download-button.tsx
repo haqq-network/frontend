@@ -1,6 +1,5 @@
 import { Button } from '../button/button';
 import { PropsWithChildren } from 'react';
-import clsx from 'clsx';
 
 type DownloadButtonProps = {
   onClick?: () => void;
@@ -19,14 +18,11 @@ export function DownloadButton({
   variant = 1,
 }: PropsWithChildren<DownloadButtonProps>) {
   return (
-    <a download href={link}>
-      <Button
-        className={clsx(
-          'flex items-center gap-x-[8px] justify-center',
-          className,
-        )}
-        variant={variant}
-        onClick={onClick}
+    <Button className={className} variant={variant} onClick={onClick}>
+      <a
+        download
+        href={link}
+        className="flex items-center gap-x-[8px] justify-center"
       >
         {withIcon && (
           <div className="hover:text-white">
@@ -47,7 +43,7 @@ export function DownloadButton({
           </div>
         )}
         <span>{children}</span>
-      </Button>
-    </a>
+      </a>
+    </Button>
   );
 }
