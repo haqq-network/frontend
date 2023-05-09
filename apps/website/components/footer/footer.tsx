@@ -79,7 +79,7 @@ export function Footer() {
   return (
     <footer
       className={clsx(
-        'border-t border-b border-haqq-border flex flex-col bg-haqq-black',
+        'z-10 border-t border-b border-haqq-border flex flex-col bg-haqq-black',
       )}
     >
       <div className="lg:mx-auto w-full flex flex-row items-center h-[63px] sm:h-[72px] border-b border-haqq-border">

@@ -5,7 +5,7 @@ import bgImgData from '../../assets/lines.svg';
 export function ApplyBlock() {
   return (
     <section
-      className="relative z-[-1] flex flex-col items-center text-center font-light h-[362px] sm:h-[380px] lg:h-[446px] pt-[48px] px-[16px] sm:pt-[60px] sm:px-[48px] bg-center bg-cover bg-no-repeat mb-[-46px] 2xl:mb-[-26px]"
+      className="relative flex flex-col items-center text-center font-light h-[362px] sm:h-[380px] lg:h-[446px] pt-[48px] px-[16px] sm:pt-[60px] sm:px-[48px] bg-center bg-cover bg-no-repeat mb-[-46px] 2xl:mb-[-26px]"
       id="apply"
       style={{
         backgroundImage: `url(${bgImgData.src})`,
