@@ -8,12 +8,10 @@ import {
   GithubIcon,
   Heading,
   LinkArrowIcon,
-  // LinkedinIcon,
-  // MediumIcon,
   TelegramIcon,
   TwitterIcon,
-  // YoutubeIcon,
 } from '@haqq/website/ui-kit';
+import { SubscribeForm } from '@haqq/website/forms';
 
 function FooterNavLink({
   href,
@@ -105,8 +103,8 @@ export function Footer() {
               <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
               {/* <FooterNavLink href="/privacy-policy">
                 Privacy Policy
-              </FooterNavLink>
-              <FooterNavLink href="/terms-and-conditions">
+              </FooterNavLink> */}
+              {/* <FooterNavLink href="/terms-and-conditions">
                 Terms and Conditions
               </FooterNavLink> */}
             </nav>
@@ -177,10 +175,10 @@ export function Footer() {
             <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
             </Heading>
-            {/* <SubscribeForm
+            <SubscribeForm
               className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0"
               inputSize={inputSize}
-            /> */}
+            />
           </div>
         </div>
       </div>
