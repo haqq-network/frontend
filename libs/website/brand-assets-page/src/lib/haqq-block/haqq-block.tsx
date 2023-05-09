@@ -68,10 +68,10 @@ function DownloadCard({
         {logoType === 'text' && 'Text logo'}
         {logoType === 'mark' && 'ISLM mark'}
         <div className="flex gap-x-[12px]">
-          <DownloadButton className="w-[70px]" link={asset.svgPath}>
+          <DownloadButton className="!px-[12px]" link={asset.svgPath}>
             SVG
           </DownloadButton>
-          <DownloadButton className="w-[70px]" link={asset.pngPath}>
+          <DownloadButton className="!px-[12px]" link={asset.pngPath}>
             PNG
           </DownloadButton>
         </div>
