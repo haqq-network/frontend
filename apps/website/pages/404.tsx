@@ -6,7 +6,6 @@ import notFoundGlowImageData from '../assets/images/not-found-glow.png';
 import Image from 'next/image';
 import Head from 'next/head';
 import { Header } from '../components/header/header';
-import { ClashDisplayFont, HKGuiseFont } from '@haqq/website/shared';
 
 export default function NotFoundPage() {
   return (
@@ -40,13 +39,7 @@ NotFoundPage.getLayout = function getLayout(page: ReactElement) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <main
-        className={clsx(
-          ClashDisplayFont.variable,
-          HKGuiseFont.variable,
-          'min-h-screen flex flex-col',
-        )}
-      >
+      <main className={clsx('min-h-screen flex flex-col font-sans')}>
         <Header />
         {page}
       </main>
