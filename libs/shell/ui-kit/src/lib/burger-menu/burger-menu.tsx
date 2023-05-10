@@ -1,44 +1,45 @@
 import clsx from 'clsx';
 import { ReactNode } from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 function BurgerMenuNavLink({
   href,
   children,
+  isOutLink = false,
 }: {
   href: string;
   children: ReactNode;
+  isOutLink?: boolean;
 }) {
+  const additionalProps = isOutLink
+    ? {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      }
+    : {};
   return (
     <Link
-      href={href}
+      to={href}
       className="text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
+      {...additionalProps}
     >
       {children}
     </Link>
   );
 }
 
-export function BurgerMenu({
-  className,
-  connectButton,
-  disconnectButton,
-}: {
-  className?: string;
-  connectButton: ReactNode;
-  disconnectButton: ReactNode;
-}) {
+export function BurgerMenu({ className }: { className?: string }) {
   return (
-    <div className={clsx('bg-black z-50 px-5 py-8 sm:p-10', className)}>
-      <div className="flex flex-col items-start">
-        <div className="flex flex-col space-y-3 mb-6 sm:mb-20">
-          <BurgerMenuNavLink href="/staking">Staking</BurgerMenuNavLink>
-          <BurgerMenuNavLink href="/governance">Governance</BurgerMenuNavLink>
-        </div>
-        <div className="space-y-6">
-          {connectButton && <div>{connectButton}</div>}
-          {disconnectButton && <div>{disconnectButton}</div>}
-        </div>
+    <div
+      className={clsx(
+        'bg-[#0D0D0E] z-50 px-[20px] py-[32px] sm:py-[40px] sm:pl-[40px] sm:pr-[64px]',
+        'overflow-y-auto',
+        className,
+      )}
+    >
+      <div className="flex flex-col items-start space-y-[16px] mb-[60px] sm:mb-[80px]">
+        <BurgerMenuNavLink href="/staking">Staking</BurgerMenuNavLink>
+        <BurgerMenuNavLink href="/governance">Governance</BurgerMenuNavLink>
       </div>
     </div>
   );
