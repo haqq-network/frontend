@@ -28,7 +28,7 @@ export function AccountButton({
       )}
     >
       {balance && (
-        <div className="font-clash tracking-[.01em] leading-[24px] pl-[12px] py-[8px] pr-[8px]">
+        <div className="font-serif tracking-[.01em] leading-[24px] pl-[12px] py-[8px] pr-[8px]">
           {`${balance.value.toLocaleString()} ${balance.symbol.toLocaleUpperCase()}`}
         </div>
       )}
@@ -43,7 +43,7 @@ export function AccountButton({
             )}
             onClick={() => setDropdownOpen(!isDropdownOpen)}
           >
-            <div className="font-guise text-sm leading-[24px]">
+            <div className="font-sans text-sm leading-[24px]">
               {getFormattedAddress(address, 3, 2)}
             </div>
             <div className={clsx({ 'rotate-180': isDropdownOpen })}>

@@ -597,7 +597,7 @@ export function NewProposalListCard({
     <NewCard>
       <div className="flex flex-col items-start">
         <div className="space-y-[16px]">
-          <div className="flex space-x-[18px] font-clash items-center">
+          <div className="flex space-x-[18px] font-serif items-center">
             <ProposalNumber>#{proposal.proposal_id}</ProposalNumber>
             <NewProposalStatusComponent
               status={proposal.status as string}

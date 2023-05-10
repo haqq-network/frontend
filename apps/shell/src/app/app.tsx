@@ -63,7 +63,7 @@ function HeaderButtons() {
 
   return (
     <Fragment>
-      <div className="lg:block hidden flex flex-row space-x-5">
+      <div className="lg:flex hidden flex-row items-center space-x-5">
         <NavLink to="/staking" className={getLinkClassName}>
           Staking
         </NavLink>
@@ -80,10 +80,6 @@ function HeaderButtons() {
         ) : (
           <Button2 onClick={openSelectWallet}>Connect wallet</Button2>
         )}
-      </div>
-
-      <div className="inline-block">
-        <ThemeButton />
       </div>
 
       <BurgerButton
@@ -136,7 +132,7 @@ function HeaderButtons() {
 
 export function App() {
   return (
-    <Page header={<Header />}>
+    <Page header={<Header rightSlot={<HeaderButtons />} />}>
       <Suspense fallback={<PendingPage />}>
         <Routes>
           <Route path="/" element={<ShellIndexPage />} />

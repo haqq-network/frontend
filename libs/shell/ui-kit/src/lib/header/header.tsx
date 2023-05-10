@@ -55,7 +55,7 @@ const BurgerMenuBalanceButton = ({
   return (
     <div className="flex flex-row rounded-[6px] max-w-fit outline outline-white">
       {balance && (
-        <div className="font-clash tracking-[.01em] leading-[24px] pl-[12px] py-[8px] pr-[8px]">
+        <div className="font-serif tracking-[.01em] leading-[24px] pl-[12px] py-[8px] pr-[8px]">
           {`${balance.value.toLocaleString()} ${balance.symbol.toLocaleUpperCase()}`}
         </div>
       )}
@@ -119,11 +119,11 @@ export function Header() {
             </div>
           </HeaderNavLink>
         </div>
-        <div className="ml-[12px] sm:ml-[20px] lg:ml-[32px] font-clash text-[20px] sm:text-[24px] leading-none">
+        <div className="ml-[12px] sm:ml-[20px] lg:ml-[32px] font-serif text-[20px] sm:text-[24px] leading-none">
           HAQQ
         </div>
         <div className="flex-1" />
-        <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex font-guise">
+        <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex font-sans">
           <HeaderNavLink href="/staking">Staking</HeaderNavLink>
           <HeaderNavLink href="/governance">Governance</HeaderNavLink>
         </nav>
@@ -137,7 +137,7 @@ export function Header() {
             />
           ) : (
             <Button
-              className={clsx('hidden lg:block !font-clash hover:text-black')}
+              className={clsx('hidden lg:block !font-serif hover:text-black')}
               onClick={connect}
             >
               Connect wallet
@@ -166,7 +166,7 @@ export function Header() {
             }
             disconnectButton={
               <Button
-                className="!font-clash hover:text-black"
+                className="!font-serif hover:text-black"
                 onClick={isConnected ? disconnect : connect}
               >
                 {isConnected ? 'Disconnect' : 'Connect wallet'}

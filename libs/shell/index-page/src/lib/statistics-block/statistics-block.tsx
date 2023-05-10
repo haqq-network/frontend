@@ -46,41 +46,41 @@ export function StatisticsBlock() {
   return (
     <section className="flex w-full px-4 py-8 sm:px-16 sm:py-12 lg:px-20 lg:py-[68px]">
       <div className="flex flex-col space-y-[12px]">
-        <div className="font-clash text-[28px] sm:text-[48px] lg:text-[70px] uppercase">
+        <div className="font-serif text-[28px] sm:text-[48px] lg:text-[70px] uppercase">
           Shell
         </div>
         <div className="flex flex-col lg:flex-wrap lg:flex-row space-y-[10px] lg:space-y-0 lg:gap-x-6 lg:gap-y-2">
           <div className="flex space-x-[9px]">
-            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
+            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-serif">
               total supply
             </Text>
-            <div className="inline-flex space-x-[5px] font-guise text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
+            <div className="inline-flex space-x-[5px] font-sans text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
               <Text color="white">{formatNumber(totalSupply)}</Text>
               <Text>ISLM</Text>
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
+            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-serif">
               total staked ({((totalStaked / totalSupply) * 100).toFixed(2)}%)
             </Text>
-            <div className="inline-flex space-x-[5px] font-guise text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
+            <div className="inline-flex space-x-[5px] font-sans text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
               <Text color="white">{formatNumber(totalStaked)}</Text>
               <Text>ISLM</Text>
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
+            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-serif">
               peers
             </Text>
-            <div className="inline-flex space-x-[5px] font-guise text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
+            <div className="inline-flex space-x-[5px] font-sans text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
               <Text color="white">{totalAccounts}</Text>
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-clash">
+            <Text className="text-[12px] sm:text-[14px] tracking-[.01em] font-serif">
               Active validators
             </Text>
-            <div className="inline-flex space-x-[5px] font-guise text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
+            <div className="inline-flex space-x-[5px] font-sans text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
               <Text color="white">{valsActive}</Text>
               <Text>out of {valsTotal}</Text>
             </div>

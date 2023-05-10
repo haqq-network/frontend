@@ -49,6 +49,13 @@ const tailwindThemeExtend = {
       900: '#2d5364',
     },
     'islamic-modal-overlay': 'rgba(12, 12, 12, 0.4)',
+    'haqq-border': '#FFFFFF3D',
+    'haqq-black': '#0D0D0E',
+    'haqq-orange': '#EC5728',
+    'haqq-blue': '#091D53',
+    'haqq-seaweed': '#157C83',
+    'haqq-bigfoot-feet': '#E98C50',
+    'haqq-azure': '#ECFEFE',
   },
   boxShadow: {
     'islamic-dropdown': '0px 0px 20px rgb(0 0 0 / 20%)',

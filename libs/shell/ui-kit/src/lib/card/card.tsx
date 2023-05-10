@@ -16,7 +16,7 @@ export function NewCard({ children, className }: NewCardProps) {
 
 export function NewCardHeading({ children }: { children: ReactNode }) {
   return (
-    <div className="whitespace-pre-wrap text-[14px] leading-[22px] lg:text-[18px] lg:leading-[28px] font-guise text-white min-h-[44px] sm:text-[17px] sm:leading-[26px] sm:min-h-[52px] lg:min-h-[56px]">
+    <div className="whitespace-pre-wrap text-[14px] leading-[22px] lg:text-[18px] lg:leading-[28px] font-sans text-white min-h-[44px] sm:text-[17px] sm:leading-[26px] sm:min-h-[52px] lg:min-h-[56px]">
       {children}
     </div>
   );
@@ -29,7 +29,7 @@ export function NewCardText({
   children: ReactNode;
   className?: string;
 }) {
-  return <div className={clsx('font-guise', className)}>{children}</div>;
+  return <div className={clsx('font-sans', className)}>{children}</div>;
 }
 
 export function NewCardSubText({
@@ -61,7 +61,7 @@ export function TimerText({
   return (
     <div
       className={clsx(
-        'font-clash text-[14px] leading-[18px] lg:text-[20px] lg:leading-[26px]',
+        'font-serif text-[14px] leading-[18px] lg:text-[20px] lg:leading-[26px]',
         color === 'grey' && 'text-[#8E8E8E]',
         color === 'white' && 'text-white',
       )}

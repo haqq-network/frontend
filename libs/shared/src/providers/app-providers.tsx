@@ -29,10 +29,10 @@ export function AppProviders({
           <WalletProvider>
             <ReactQueryProvider withDevtools={withReactQueryDevtools}>
               <CosmosProvider tendermintClient={tendermintClient}>
-                <ThemeProvider>
-                  {children}
-                  <Toaster />
-                </ThemeProvider>
+                {/* <ThemeProvider> */}
+                {children}
+                <Toaster />
+                {/* </ThemeProvider> */}
               </CosmosProvider>
             </ReactQueryProvider>
           </WalletProvider>

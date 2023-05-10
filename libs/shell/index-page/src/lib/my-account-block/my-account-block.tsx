@@ -91,18 +91,18 @@ export function MyAccountBlock() {
   return (
     <section className="w-full border-y border-dashed border-y-[#ffffff26] px-4 py-8 sm:py-8 sm:px-16 lg:py-8 lg:px-20">
       {!ethAddress ? (
-        <div className="flex flex-col items-center space-y-3">
-          <div className="font-guise">You should connect wallet first</div>
+        <div className="flex flex-col items-center space-y-3 py-[62px]">
+          <div className="font-sans">You should connect wallet first</div>
           <Button
             onClick={connect}
             variant={2}
-            className="!font-clash text-black hover:text-white hover:bg-transparent"
+            className="!font-serif text-black hover:text-white hover:bg-transparent"
           >
             Connect wallet
           </Button>
         </div>
       ) : (
-        <div className="flex flex-col font-guise">
+        <div className="flex flex-col font-sans">
           <div className="flex items-center space-x-4 mb-6">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
@@ -112,7 +112,7 @@ export function MyAccountBlock() {
                 fill="white"
               />
             </svg>
-            <div className="text-white font-clash">My account</div>
+            <div className="text-white font-serif">My account</div>
             <div className="text-[#EC5728] text-[12px] leading-[1.2em] uppercase">
               Go to staking
             </div>
@@ -122,7 +122,7 @@ export function MyAccountBlock() {
             <div className="flex flex-col items-start">
               <Text className={grayTextClassName}>My balance</Text>
               <Text
-                className="font-clash text-[16px] leading-[1.25em] text-white sm:text-[18px] sm:leading[1.33em] lg:text-[24px] lg:leading-[1.25em]"
+                className="font-serif text-[16px] leading-[1.25em] text-white sm:text-[18px] sm:leading[1.33em] lg:text-[24px] lg:leading-[1.25em]"
                 color="white"
               >
                 {balance?.value.toLocaleString()} ISLM
@@ -152,11 +152,11 @@ export function MyAccountBlock() {
             <div className="flex flex-col items-start">
               <Text className={grayTextClassName}>Address</Text>
 
-              <div className="flex flex-col space-y-2 lg:flex-row items-start font-guise lg:space-y-0 lg:space-x-4">
+              <div className="flex flex-col space-y-2 lg:flex-row items-start font-sans lg:space-y-0 lg:space-x-4">
                 <Tooltip
                   text={isEthAddressCopy ? 'Copied' : 'Click to copy'}
                   address={ethAddress}
-                  className="font-guise"
+                  className="font-sans"
                   isCopied={isEthAddressCopy}
                 >
                   <div
@@ -174,7 +174,7 @@ export function MyAccountBlock() {
                 <Tooltip
                   text={isHaqqAddressCopy ? 'Copied' : 'Click to copy'}
                   address={haqqAddress}
-                  className="font-guise"
+                  className="font-sans"
                   isCopied={isHaqqAddressCopy}
                 >
                   <div
