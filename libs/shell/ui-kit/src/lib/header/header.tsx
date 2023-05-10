@@ -136,6 +136,7 @@ export function Header() {
           <SelectWalletModal
             isOpen={isSelectWalletOpen}
             onClose={closeSelectWallet}
+            className="text-haqq-black"
           />
         </div>
       </div>
