@@ -6,21 +6,29 @@ import {
   ModalCloseButton,
   SpinnerLoader,
 } from '@haqq/ui-kit';
+import clsx from 'clsx';
 import { useConnect } from 'wagmi';
 
 export function SelectWalletModal({
   isOpen,
   onClose,
+  className,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  className?: string;
 }) {
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Card className="mx-auto min-w-[320px] max-w-[420px] !bg-white dark:!bg-slate-700">
+      <Card
+        className={clsx(
+          'mx-auto min-w-[320px] max-w-[420px] !bg-white dark:!bg-slate-700',
+          className,
+        )}
+      >
         <div className="flex flex-col space-y-6">
           <div className="flex justify-between items-center">
             <Heading level={3} className="mt-[3px]">

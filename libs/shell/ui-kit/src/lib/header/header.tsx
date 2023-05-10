@@ -1,11 +1,25 @@
-import { Fragment, ReactNode, useCallback, useEffect, useState } from 'react';
+import {
+  Fragment,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import clsx from 'clsx';
 import logoImageData from '../../assets/images/logo.svg';
-import { BurgerButton } from '@haqq/website/ui-kit';
+import { BurgerButton, Button } from '@haqq/website/ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { Link } from 'react-router-dom';
-import { useWindowWidth } from '@haqq/shared';
+import {
+  SelectWalletModal,
+  useAddress,
+  useWallet,
+  useWindowWidth,
+} from '@haqq/shared';
+import { useAccount, useBalance } from 'wagmi';
+import { AccountButton } from '../account-button/account-button';
 
 function HeaderNavLink({
   href,
@@ -37,6 +51,29 @@ export function Header() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const { width } = useWindowWidth();
+  const { ethAddress } = useAddress();
+  const { isConnected } = useAccount();
+  const { data: balanceData } = useBalance({
+    address: ethAddress,
+    watch: true,
+  });
+  const {
+    disconnect,
+    openSelectWallet,
+    isSelectWalletOpen,
+    closeSelectWallet,
+  } = useWallet();
+
+  const balance = useMemo(() => {
+    if (!balanceData) {
+      return undefined;
+    }
+
+    return {
+      symbol: balanceData.symbol,
+      value: Number.parseFloat(balanceData.formatted),
+    };
+  }, [balanceData]);
 
   const handleMenuOpen = useCallback(() => {
     setBurgerMenuOpen((isBurgerMenuOpen: boolean) => {
@@ -73,13 +110,32 @@ export function Header() {
           <HeaderNavLink href="/staking">Staking</HeaderNavLink>
           <HeaderNavLink href="/governance">Governance</HeaderNavLink>
         </nav>
-        <div className="flex flex-row items-center">
-          <BurgerButton
-            className="ml-[24px] block lg:hidden"
-            isOpen={isBurgerMenuOpen}
-            onClick={handleMenuOpen}
+
+        {isConnected ? (
+          <AccountButton
+            balance={balance}
+            address={ethAddress}
+            onDisconnectClick={disconnect}
+            className="hidden"
           />
-        </div>
+        ) : (
+          <Button
+            className={clsx('hidden lg:block !font-serif hover:text-black')}
+            onClick={openSelectWallet}
+          >
+            Connect wallet
+          </Button>
+        )}
+        <BurgerButton
+          className="ml-[24px] block lg:hidden"
+          isOpen={isBurgerMenuOpen}
+          onClick={handleMenuOpen}
+        />
+        <SelectWalletModal
+          isOpen={isSelectWalletOpen}
+          onClose={closeSelectWallet}
+          className="text-haqq-black"
+        />
       </div>
 
       {isBurgerMenuOpen && (

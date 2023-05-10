@@ -1,6 +1,10 @@
 import clsx from 'clsx';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { AccountButton } from '../account-button/account-button';
+import { useAddress, useWallet } from '@haqq/shared';
+import { useAccount, useBalance } from 'wagmi';
+import { Button } from '@haqq/website/ui-kit';
 
 function BurgerMenuNavLink({
   href,
@@ -29,6 +33,30 @@ function BurgerMenuNavLink({
 }
 
 export function BurgerMenu({ className }: { className?: string }) {
+  const { ethAddress } = useAddress();
+  const { isConnected } = useAccount();
+  const { data: balanceData } = useBalance({
+    address: ethAddress,
+    watch: true,
+  });
+  const {
+    disconnect,
+    openSelectWallet,
+    isSelectWalletOpen,
+    closeSelectWallet,
+  } = useWallet();
+
+  const balance = useMemo(() => {
+    if (!balanceData) {
+      return undefined;
+    }
+
+    return {
+      symbol: balanceData.symbol,
+      value: Number.parseFloat(balanceData.formatted),
+    };
+  }, [balanceData]);
+
   return (
     <div
       className={clsx(
@@ -41,6 +69,22 @@ export function BurgerMenu({ className }: { className?: string }) {
         <BurgerMenuNavLink href="/staking">Staking</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/governance">Governance</BurgerMenuNavLink>
       </div>
+      {isConnected && (
+        <AccountButton
+          balance={balance}
+          address={ethAddress}
+          onDisconnectClick={disconnect}
+          isInBurger
+        />
+      )}
+      <Button
+        className={clsx(
+          'block lg:hidden !font-serif hover:text-black mt-[24px]',
+        )}
+        onClick={isConnected ? disconnect : openSelectWallet}
+      >
+        {isConnected ? 'Disconnect' : 'Connect wallet'}
+      </Button>
     </div>
   );
 }
