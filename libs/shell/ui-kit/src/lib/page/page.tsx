@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { Layout } from '../layout/layoutx';
+import { Layout } from '../layout/layout';
 
 export interface PageProps {
   children?: ReactNode;
