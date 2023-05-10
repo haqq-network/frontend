@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useCallback, useState } from 'react';
+import { Fragment, ReactNode, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import logoImageData from '../../assets/images/logo.svg';
 import { BurgerButton } from '@haqq/website/ui-kit';
@@ -34,6 +34,7 @@ function HeaderNavLink({
 
 export function Header() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
 
   const handleMenuOpen = useCallback(() => {
     setBurgerMenuOpen((isBurgerMenuOpen: boolean) => {
@@ -41,12 +42,21 @@ export function Header() {
     });
   }, []);
 
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 1024);
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <header
       className={clsx(
-        'border-t border-b border-[#464647] w-full h-[63px] sm:h-[72px] bg-haqq-black',
+        'border-t border-b border-[#464647] w-full h-[63px] sm:h-[72px]',
         'backdrop-blur transform-gpu',
         'top-0 sticky z-50',
+        isBurgerMenuOpen && isMobile ? 'bg-[#0D0D0E]' : 'bg-transparent',
       )}
     >
       <div className="w-full flex flex-row items-center h-full pr-[16px] sm:pr-[64px] lg:pr-[80px] mx-auto">
