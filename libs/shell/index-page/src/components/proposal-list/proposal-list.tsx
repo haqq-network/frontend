@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { SpinnerLoader, Text } from '@haqq/ui-kit';
-import { NewProposalListCard } from '@haqq/governance/proposal-list';
+import { ProposalListCard } from '@haqq/governance/proposal-list';
 import { useProposalListQuery } from '@haqq/shared';
 
 export function ShellIndexPageProposalList() {
@@ -33,7 +33,7 @@ export function ShellIndexPageProposalList() {
             to={`governance/proposal/${proposal.proposal_id}`}
             key={proposal.proposal_id}
           >
-            <NewProposalListCard proposal={proposal} />
+            <ProposalListCard proposal={proposal} />
           </Link>
         );
       })}

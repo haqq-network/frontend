@@ -36,9 +36,6 @@
 
   --guise-font: 'HK Guise', var(--font-family-base);
   --clash-font: 'Clash Display', var(--font-family-base);
-
-  /* --app-text-color: #fff;
-  --app-background-color: #0d0d0e; */
 }
 
 html,
@@ -53,9 +50,5 @@ body {
 }
 
 body {
-  /* background-attachment: fixed; */
-  /* background-size: 100% 100%; */
-  /* color: var(--app-text-color);
-  background-color: var(--app-background-color); */
   @apply font-sans text-white bg-haqq-black will-change-auto;
 }

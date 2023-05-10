@@ -12,6 +12,7 @@ import { Button } from '@haqq/website/ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
 import { CopyIcon } from '../../components/account-info/account-info';
+import { Heading } from '@haqq/ui-kit';
 
 export function MyAccountBlock() {
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
@@ -103,7 +104,7 @@ export function MyAccountBlock() {
         </div>
       ) : (
         <div className="flex flex-col font-sans">
-          <div className="flex items-center space-x-4 mb-6">
+          <div className="mb-[24px] flex flex-row items-center">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
                 fillRule="evenodd"
@@ -112,15 +113,19 @@ export function MyAccountBlock() {
                 fill="white"
               />
             </svg>
-            <div className="text-white font-serif">My account</div>
-            <div className="text-[#EC5728] text-[12px] leading-[1.2em] uppercase">
+            <Heading level={3} className="ml-[8px]">
+              My account
+            </Heading>
+            <div className="text-[#EC5728] text-[12px] leading-[1.2em] uppercase font-serif font-[600] ml-[16px]">
               Go to staking
             </div>
           </div>
 
           <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:space-y-0 lg:gap-6">
             <div className="flex flex-col items-start">
-              <Text className={grayTextClassName}>My balance</Text>
+              <div className="mb-[6px]">
+                <Text className={grayTextClassName}>My balance</Text>
+              </div>
               <Text
                 className="font-serif text-[16px] leading-[1.25em] text-white sm:text-[18px] sm:leading[1.33em] lg:text-[24px] lg:leading-[1.25em]"
                 color="white"
@@ -130,7 +135,9 @@ export function MyAccountBlock() {
             </div>
 
             <div className="flex flex-col items-start">
-              <Text className={grayTextClassName}>Staked</Text>
+              <div className="mb-[6px]">
+                <Text className={grayTextClassName}>Staked</Text>
+              </div>
               <Text
                 className="text-[16px] leading-[1.25em] text-white sm:text-[18px] sm:leading[1.33em] lg:text-[24px] lg:leading-[1.25em]"
                 color="white"
@@ -140,7 +147,9 @@ export function MyAccountBlock() {
             </div>
 
             <div className="flex flex-col items-start">
-              <Text className={grayTextClassName}>Rewards</Text>
+              <div className="mb-[6px]">
+                <Text className={grayTextClassName}>Rewards</Text>
+              </div>
               <Text
                 className="text-[16px] leading-[1.25em] text-white sm:text-[18px] sm:leading[1.33em] lg:text-[24px] lg:leading-[1.25em]"
                 color="white"
@@ -150,7 +159,9 @@ export function MyAccountBlock() {
             </div>
 
             <div className="flex flex-col items-start">
-              <Text className={grayTextClassName}>Address</Text>
+              <div className="mb-[6px]">
+                <Text className={grayTextClassName}>Address</Text>
+              </div>
 
               <div className="flex flex-col space-y-2 lg:flex-row items-start font-sans lg:space-y-0 lg:space-x-4">
                 <Tooltip

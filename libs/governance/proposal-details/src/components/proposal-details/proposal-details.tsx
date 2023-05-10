@@ -106,7 +106,10 @@ export function ProposalDetailsComponent({
                   <span>{proposalDetails.content.title}</span>
                 </div>
                 <div className="pt-[2px]">
-                  <ProposalStatusComponent status={proposalDetails.status} />
+                  <ProposalStatusComponent
+                    status={proposalDetails.status}
+                    results={proposalDetails.final_tally_result}
+                  />
                 </div>
               </div>
               <div>

@@ -24,7 +24,7 @@ function HeaderNavLink({
   return (
     <Link
       to={href}
-      className="font-guise text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
+      className="font-sans text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
       {...additionalProps}
     >
       {children}
@@ -65,7 +65,7 @@ export function Header() {
             <img src={logoImageData} alt="HAQQ" />
           </div>
         </div>
-        <div className="font-clash ml-[20px] lg:ml-[32px] font-medium text-[24px] leading-none">
+        <div className="font-serif ml-[20px] lg:ml-[32px] font-medium text-[24px] leading-none">
           <Link to="/">HAQQ</Link>
         </div>
         <div className="flex-1" />

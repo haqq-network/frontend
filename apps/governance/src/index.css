@@ -1,8 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
-
 @tailwind components;
 @tailwind base;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/assets/fonts/ClashDisplay-Medium.woff2') format('woff2'),
+    url('/assets/fonts/ClashDisplay-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HK Guise';
+  src: url('/assets/fonts/hk_guise_medium-webfont.woff2') format('woff2'),
+    url('/assets/fonts/hk_guise_medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HK Guise';
+  src: url('/assets/fonts/hk_guise_regular-webfont.woff2') format('woff2'),
+    url('/assets/fonts/hk_guise_regular-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
 
 :root {
   /* Base fonts with fallbacks */
@@ -12,43 +34,8 @@
   --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --font-family-base: var(--font-apple), var(--font-fallback), var(--font-emoji);
 
-  --islamic-font-sans: 'Open Sans', var(--font-family-base);
-  --islamic-font-serif: 'El Messiri', var(--font-family-base);
-
-  --app-text-color: rgb(12, 12, 12);
-  --app-background-color: #fff;
-  --app-background-gradient: radial-gradient(
-      120% 120% at 5% 5%,
-      rgba(91, 171, 205, 0.45) 0%,
-      rgba(91, 171, 205, 0.5) 0.01%,
-      rgba(54, 54, 54, 0) 70%
-    ),
-    radial-gradient(
-      120% 90% at 95% 90%,
-      rgba(91, 171, 205, 0.45) 0%,
-      rgba(91, 171, 205, 0.5) 0.01%,
-      rgba(54, 54, 54, 0) 80%
-    );
-
-  --app-dark-text-color: #fff;
-  --app-dark-background-color: rgb(12, 12, 12);
-  --app-dark-background-gradient: radial-gradient(
-      120% 120% at 5% 5%,
-      rgba(91, 171, 205, 0.45) 0%,
-      rgba(91, 171, 205, 0.2) 0.01%,
-      rgba(54, 54, 54, 0) 60%
-    ),
-    radial-gradient(
-      120% 90% at 95% 90%,
-      rgba(91, 171, 205, 0.45) 0%,
-      rgba(91, 171, 205, 0.2) 0.01%,
-      rgba(54, 54, 54, 0) 80%
-    );
-
-  --haqq-color-stroke: rgb(71 85 105 / 0.4);
-  --haqq-color-green: rgb(100, 116, 139);
-  --haqq-color-black: rgb(100, 116, 139);
-  --haqq-transition-duration: 125ms;
+  --guise-font: 'HK Guise', var(--font-family-base);
+  --clash-font: 'Clash Display', var(--font-family-base);
 }
 
 html,
@@ -63,18 +50,5 @@ body {
 }
 
 body {
-  background-attachment: fixed;
-  background-size: 100% 100%;
-}
-
-body:not(.dark) {
-  color: var(--app-text-color);
-  background-color: var(--app-background-color);
-  background-image: var(--app-background-gradient);
-}
-
-body.dark {
-  color: var(--app-dark-text-color);
-  background-color: var(--app-dark-background-color);
-  background-image: var(--app-dark-background-gradient);
+  @apply font-sans text-white bg-haqq-black will-change-auto;
 }
