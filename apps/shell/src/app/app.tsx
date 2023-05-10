@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { NotFoundPage, Page, PendingPage } from '@haqq/ui-kit';
-import { Header } from '@haqq/shell/ui-kit';
+import { NotFoundPage, PendingPage } from '@haqq/ui-kit';
+import { Page, Header } from '@haqq/shell/ui-kit';
 
 const ShellIndexPage = lazy(async () => {
   const { ShellIndexPage } = await import('@haqq/shell/index-page');
