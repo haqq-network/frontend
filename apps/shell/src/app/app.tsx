@@ -2,7 +2,6 @@ import { Fragment, lazy, Suspense, useMemo, useState } from 'react';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import {
   Button2,
-  Header,
   NotFoundPage,
   Page,
   PendingPage,
@@ -18,6 +17,7 @@ import {
   useWallet,
 } from '@haqq/shared';
 import ScrollLock from 'react-scrolllock';
+import { Header } from '@haqq/shell/ui-kit';
 
 const ShellIndexPage = lazy(async () => {
   const { ShellIndexPage } = await import('@haqq/shell/index-page');
