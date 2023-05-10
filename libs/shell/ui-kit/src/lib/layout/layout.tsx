@@ -10,8 +10,14 @@ export function Layout({
   className?: string;
 }) {
   return (
-    <div className={clsx('min-h-screen relative flex flex-col', className)}>
-      <div className={styles['bg-image']}>{children}</div>
+    <div
+      className={clsx(
+        'min-h-screen relative flex flex-col',
+        styles['bg-image'],
+        className,
+      )}
+    >
+      {children}
     </div>
   );
 }
