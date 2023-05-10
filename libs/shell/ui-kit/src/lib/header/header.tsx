@@ -112,7 +112,7 @@ export function Header() {
             balance={balance}
             address={ethAddress}
             onDisconnectClick={disconnect}
-            className="hidden"
+            className="hidden lg:flex"
           />
         ) : (
           <Button
