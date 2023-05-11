@@ -50,6 +50,27 @@ interface ValidatorInfoComponentProps {
   onRewardsClaim: () => void;
 }
 
+function ValidatorAvatar() {
+  return (
+    <div className="flex h-20 w-20 flex-none items-center justify-center rounded-full bg-slate-200/60 text-slate-500 dark:bg-slate-500/10 dark:text-slate-400 border border-slate-500/30">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="1.25"
+        stroke="currentColor"
+        className="h-10 w-10"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"
+        />
+      </svg>
+    </div>
+  );
+}
+
 function CardHeader({ children }: { children: ReactNode }) {
   return (
     <div className="text-sm font-medium leading-relaxed text-gray-400 uppercase">
@@ -167,6 +188,7 @@ export function ValidatorInfoComponent({
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
 
+
   const handleHaqqAddressCopy = useCallback(async () => {
     if (validatorInfo.operatorAddress) {
       await copyText(validatorInfo.operatorAddress);
@@ -179,6 +201,10 @@ export function ValidatorInfoComponent({
   };
 
   const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
+
+
+
+  console.log({ balance });
 
   return (
     <div className="flex flex-col items-start w-full">
@@ -515,6 +541,227 @@ export function ValidatorInfoComponent({
           </div>
         </div>
       </div>
+      {/* second column */}
+      <div className="flex flex-col gap-y-[20px]">
+        {/* my account block */}
+        <div className="hidden lg:flex lg:flex-col px-[28px] py-[32px] border border-white/20 rounded-lg items-start">
+          <div className="flex items-center gap-x-[16px]">
+            <div className="flex gap-x-[8px] font-serif text-[24px] leading-[30px]">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M2 3C2 2.44772 2.44772 2 3 2H17C17.5523 2 18 2.44772 18 3V4.6C18 4.82091 18.1791 5 18.4 5H21C21.5523 5 22 5.44772 22 6V21C22 21.5523 21.5523 22 21 22H3C2.44772 22 2 21.5523 2 21V6V5V3ZM15.6 4C15.8209 4 16 4.17909 16 4.4V4.6C16 4.82091 15.8209 5 15.6 5H4.4C4.17909 5 4 4.82091 4 4.6V4.4C4 4.17909 4.17909 4 4.4 4H15.6ZM4.4 7C4.17909 7 4 7.17909 4 7.4V19.6C4 19.8209 4.17909 20 4.4 20H19.6C19.8209 20 20 19.8209 20 19.6V17.4C20 17.1791 19.8209 17 19.6 17H15C14.4477 17 14 16.5523 14 16V12C14 11.4477 14.4477 11 15 11H19.6C19.8209 11 20 10.8209 20 10.6V7.4C20 7.17909 19.8209 7 19.6 7H4.4ZM20 13.4C20 13.1791 19.8209 13 19.6 13H16.4C16.1791 13 16 13.1791 16 13.4V14.6C16 14.8209 16.1791 15 16.4 15H19.6C19.8209 15 20 14.8209 20 14.6V13.4Z"
+                  fill="white"
+                />
+              </svg>
+              My account
+            </div>
+            <div
+              className="flex items-center gap-x-[2px] text-[#EC5728] cursor-pointer"
+              onClick={() => setInfoShown(!isInfoShown)}
+            >
+              Hide Info
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={clsx(isInfoShown && 'rotate-180')}
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4.85205 12.8333L6.14841 14.1296L11.0002 9.27782L15.8521 14.1296L17.1484 12.8333L11.0002 6.68509L4.85205 12.8333Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </div>
+          {isInfoShown && (
+            <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
+              <div className="flex flex-col gap-y-[6px] items-start">
+                <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+                  Available
+                </span>
+                <span className="text-[16px] leading-[26px] uppercase">
+                  {Math.round(balance)} Islm
+                </span>
+              </div>
+              <div className="flex flex-col gap-y-[6px] items-start">
+                <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+                  Unbounded
+                </span>
+                <span className="text-[16px] leading-[26px] uppercase">
+                  {unbounded.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{' '}
+                  Islm
+                </span>
+              </div>
+              <div className="flex flex-col gap-y-[6px] items-start">
+                <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+                  Staked
+                </span>
+                <span className="text-[16px] leading-[26px] uppercase">
+                  {stakingPool.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{' '}
+                  Islm
+                </span>
+              </div>
+              <div className="flex flex-col gap-y-[6px] items-start">
+                <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+                  Rewards
+                </span>
+                <span className="text-[16px] leading-[26px] uppercase">
+                  {totalRewards.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{' '}
+                  Islm
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* validator block */}
+        <div className="px-[28px] py-[32px] rounded-lg items-start bg-[#202021]">
+          <div className="flex gap-x-[8px] font-serif text-[24px] leading-[30px]">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M3 4C3 2.89543 3.89543 2 5 2H19C20.1046 2 21 2.89543 21 4V9C21 10.1046 20.1046 11 19 11H5C3.89543 11 3 10.1046 3 9V4ZM19 4.4C19 4.17909 18.8209 4 18.6 4H5.4C5.17909 4 5 4.17909 5 4.4V8.6C5 8.82091 5.17909 9 5.4 9H18.6C18.8209 9 19 8.82091 19 8.6V4.4ZM7 7.1C7 7.32091 7.17909 7.5 7.4 7.5H8.6C8.82091 7.5 9 7.32091 9 7.1V5.9C9 5.67909 8.82091 5.5 8.6 5.5H7.4C7.17909 5.5 7 5.67909 7 5.9V7.1ZM10 7.1C10 7.32091 10.1791 7.5 10.4 7.5H11.6C11.8209 7.5 12 7.32091 12 7.1V5.9C12 5.67909 11.8209 5.5 11.6 5.5H10.4C10.1791 5.5 10 5.67909 10 5.9V7.1ZM3 15C3 13.8954 3.89543 13 5 13H19C20.1046 13 21 13.8954 21 15V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V15ZM18.6 20C18.8209 20 19 19.8209 19 19.6V15.4C19 15.1791 18.8209 15 18.6 15H5.4C5.17909 15 5 15.1791 5 15.4V19.6C5 19.8209 5.17909 20 5.4 20H18.6ZM7 18.1C7 18.3209 7.17909 18.5 7.4 18.5H8.6C8.82091 18.5 9 18.3209 9 18.1V16.9C9 16.6791 8.82091 16.5 8.6 16.5H7.4C7.17909 16.5 7 16.6791 7 16.9V18.1ZM10 18.1C10 18.3209 10.1791 18.5 10.4 18.5H11.6C11.8209 18.5 12 18.3209 12 18.1V16.9C12 16.6791 11.8209 16.5 11.6 16.5H10.4C10.1791 16.5 10 16.6791 10 16.9V18.1Z"
+                fill="white"
+              />
+            </svg>
+            Validator
+          </div>
+          <div className="flex flex-col gap-y-[6px]">
+            <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+              My delegation
+            </span>
+            <span className="text-[24px] leading-[30px] font-serif uppercase text-white">
+              {delegation.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}{' '}
+              Islm
+            </span>
+          </div>
+          <div className="flex gap-x-[12px]">
+            <Button
+              variant={2}
+              disabled={balance < 1}
+              onClick={() => {
+                navigate(`#delegate`);
+              }}
+            >
+              Delegate
+            </Button>
+            <Button
+              variant={2}
+              disabled={delegation === 0}
+              onClick={() => {
+                navigate(`#undelegate`);
+              }}
+            >
+              Undelegate
+            </Button>
+          </div>
+          <div className="flex flex-col gap-y-[6px]">
+            <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+              My rewards
+            </span>
+            <span className="text-[24px] leading-[30px] font-serif uppercase text-[#01B26E]">
+              {rewards.toLocaleString(undefined, {
+                minimumFractionDigits: 3,
+                maximumFractionDigits: 3,
+              })}{' '}
+              Islm
+            </span>
+          </div>
+          <Button variant={5} disabled onClick={onGetRewardsClick}>
+            Get my rewards
+          </Button>
+        </div>
+      </div>
+      <div className="flex flex-col space-y-6">
+        <Card>
+          <div className="flex flex-col space-y-4">
+            <div>
+              <div className="text-sm font-medium leading-relaxed text-gray-400 uppercase">
+                My delegation
+              </div>
+              <div className="text-2xl font-semibold leading-normal">
+                {delegation.toLocaleString()}{' '}
+                <span className="text-base">{symbol.toUpperCase()}</span>
+              </div>
+            </div>
+
+            <div className="flex flex-row space-x-3">
+              <Button2
+                onClick={() => {
+                  navigate(`#delegate`);
+                }}
+                className="flex-1"
+                disabled={balance < 1}
+              >
+                Delegate
+              </Button2>
+              <Button2
+                onClick={() => {
+                  navigate(`#undelegate`);
+                }}
+                className="flex-1"
+                disabled={delegation === 0}
+              >
+                Undelegate
+              </Button2>
+            </div>
+          </div>
+        </Card>
+        <Card>
+          <div className="flex flex-col space-y-4">
+            <div>
+              <div className="text-sm font-medium leading-relaxed text-gray-400 uppercase">
+                My rewards
+              </div>
+              <div className="text-2xl font-semibold leading-normal">
+                {rewards.toLocaleString()}{' '}
+                <span className="text-base">{symbol.toUpperCase()}</span>
+              </div>
+            </div>
+
+            <div className="flex">
+              <Button2
+                className="button flex-1"
+                disabled={rewards < 1}
+                onClick={onGetRewardsClick}
+              >
+                Get my rewards
+              </Button2>
+            </div>
+          </div>
+        </Card>
+      </div>
+      {/* </div> */}
     </div>
   );
 }
