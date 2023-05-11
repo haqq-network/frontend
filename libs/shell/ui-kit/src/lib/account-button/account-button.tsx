@@ -41,7 +41,9 @@ export function AccountButton({
               'transition-all duration-150 ease-in',
               'box-border appearance-none outline-none',
             )}
-            onClick={() => setDropdownOpen(!isDropdownOpen)}
+            onClick={() => {
+              setDropdownOpen(!isDropdownOpen);
+            }}
           >
             <div className="font-sans text-sm leading-[24px]">
               {getFormattedAddress(address, 3, 2)}

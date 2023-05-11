@@ -16,10 +16,10 @@ export function ShellIndexPageProposalList() {
 
   if (isFetching) {
     return (
-      <div className="mx-auto w-full flex">
-        <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-[200px]">
-          <SpinnerLoader />
-          <Text block>Fetching proposals</Text>
+      <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-full select-none pointer-events-none py-[48px]">
+        <SpinnerLoader className="text-white/10 !fill-haqq-orange w-10 h-10" />
+        <div className="font-sans text-[10px] leading-[1.2em] uppercase">
+          Fetching proposals
         </div>
       </div>
     );
