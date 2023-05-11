@@ -166,6 +166,8 @@ export function ValidatorInfoComponent({
   delegated,
   onRewardsClaim,
 }: ValidatorInfoComponentProps) {
+  console.log({ validatorInfo });
+
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const [isInfoShown, setInfoShown] = useState(false);
   const { copyText } = useClipboard();
@@ -188,7 +190,6 @@ export function ValidatorInfoComponent({
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
 
-
   const handleHaqqAddressCopy = useCallback(async () => {
     if (validatorInfo.operatorAddress) {
       await copyText(validatorInfo.operatorAddress);
@@ -201,10 +202,6 @@ export function ValidatorInfoComponent({
   };
 
   const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
-
-
-
-  console.log({ balance });
 
   return (
     <div className="flex flex-col items-start w-full">
@@ -564,7 +561,7 @@ export function ValidatorInfoComponent({
               My account
             </div>
             <div
-              className="flex items-center gap-x-[2px] text-[#EC5728] cursor-pointer"
+              className="flex items-center gap-x-[2px] text-[#EC5728] hover:text-[#FF8D69] cursor-pointer"
               onClick={() => setInfoShown(!isInfoShown)}
             >
               Hide Info
@@ -586,7 +583,7 @@ export function ValidatorInfoComponent({
             </div>
           </div>
           {isInfoShown && (
-            <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
+            <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px] mt-[24px]">
               <div className="flex flex-col gap-y-[6px] items-start">
                 <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
                   Available
