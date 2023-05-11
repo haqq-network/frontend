@@ -47,6 +47,7 @@ interface ValidatorInfoComponentProps {
   stakingPool: number;
   totalRewards: number;
   delegated: number;
+  onRewardsClaim: () => void;
 }
 
 function ValidatorAvatar() {
@@ -136,9 +137,8 @@ export function ValidatorInfoComponent({
   stakingPool,
   totalRewards,
   delegated,
+  onRewardsClaim,
 }: ValidatorInfoComponentProps) {
-  console.log({ validatorInfo });
-
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const [isInfoShown, setInfoShown] = useState(false);
   const { copyText } = useClipboard();
@@ -498,6 +498,12 @@ export function ValidatorInfoComponent({
               Get my rewards
             </Button>
           </div>
+          <div
+            className="text-[14px] leading-[22px] text-[#01B26E] hover:text-[#2CE69E] transition-color duration-150 ease-in will-change-[color] cursor-pointer"
+            onClick={onRewardsClaim}
+          >
+            Claim all reward
+          </div>
         </div>
       </div>
     </div>
@@ -524,7 +530,7 @@ export function ValidatorInfo({
   const { data: stakingParams } = useStakingParamsQuery();
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
-  const { claimReward } = useStakingActions();
+  const { claimReward, claimAllRewards } = useStakingActions();
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
   const [staked, setStakedValue] = useState(0);
@@ -638,6 +644,10 @@ export function ValidatorInfo({
     }
   }, [delegationInfo]);
 
+  const handleRewardsClaim = useCallback(() => {
+    claimAllRewards(delegatedValsAddrs);
+  }, [claimAllRewards, delegatedValsAddrs]);
+
   if (isFetching || !validatorInfo) {
     return (
       <div className="mx-auto w-full flex">
@@ -662,6 +672,7 @@ export function ValidatorInfo({
         stakingPool={totalStaked}
         totalRewards={myTotalRewards}
         delegated={staked}
+        onRewardsClaim={handleRewardsClaim}
       />
 
       <DelegateModal
