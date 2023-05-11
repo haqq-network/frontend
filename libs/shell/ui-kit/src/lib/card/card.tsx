@@ -42,7 +42,7 @@ export function NewCardSubText({
   return (
     <div
       className={clsx(
-        'text-[11px] lg:text-[12px] leading-[1.5] lg:leading-[17px]',
+        'text-[11px] lg:text-[12px] leading-[18px] lg:leading-[17px]',
         className,
       )}
     >

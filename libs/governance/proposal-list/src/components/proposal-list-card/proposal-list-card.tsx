@@ -1,8 +1,6 @@
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
 import {
-  Card,
-  CardHeading,
   NewCard,
   NewCardHeading,
   NewCardSubText,
@@ -96,7 +94,7 @@ export function ProposalStatusComponent({
             />
           </svg>
 
-          <div>Reject</div>
+          <div>Rejected</div>
         </div>
       );
     case ProposalStatus.Passed:
@@ -131,7 +129,7 @@ export function ProposalStatusComponent({
               fillRule="evenodd"
               clipRule="evenodd"
               d="M10 16.6667C13.6819 16.6667 16.6667 13.6819 16.6667 10C16.6667 6.31811 13.6819 3.33334 10 3.33334C6.31812 3.33334 3.33335 6.31811 3.33335 10C3.33335 13.6819 6.31812 16.6667 10 16.6667ZM10 18.3333C14.6024 18.3333 18.3334 14.6024 18.3334 10C18.3334 5.39763 14.6024 1.66667 10 1.66667C5.39765 1.66667 1.66669 5.39763 1.66669 10C1.66669 14.6024 5.39765 18.3333 10 18.3333ZM10.8334 10.4289V4.58334H9.16669V9.57116L6.59899 11.4052L7.56772 12.7614L10.8334 10.4289Z"
-              fill="white"
+              fill="currentColor"
             />
           </svg>
           <div>Voting</div>
@@ -198,7 +196,7 @@ export function ProposalVoteResults({
 
   return (
     <div className="flex flex-col space-y-2 w-full">
-      {status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD' ? (
+      {status === ProposalStatus.Deposit ? (
         <div className="flex space-x-[12px] items-center">
           <NewCardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
             Total deposit
@@ -272,7 +270,7 @@ export function ProposalVoteResults({
           <div className="flex items-center gap-x-3 flex-wrap">
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#01B26E] mr-1" />
+                <div className="h-2 w-2 rounded-full bg-[#01B26E] mr-[4px] mb-[-5px]" />
                 <div className="mr-[2px]">
                   <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Yes
@@ -286,7 +284,7 @@ export function ProposalVoteResults({
 
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#FF5454] mr-1" />
+                <div className="h-2 w-2 rounded-full bg-[#FF5454] mr-[4px] mb-[-5px]" />
                 <div className="mr-[2px]">
                   <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     No
@@ -300,7 +298,7 @@ export function ProposalVoteResults({
 
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#AAABB2] mr-1" />
+                <div className="h-2 w-2 rounded-full bg-[#AAABB2] mr-[4px] mb-[-5px]" />
                 <div className="mr-[2px]">
                   <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Abstain
@@ -314,7 +312,7 @@ export function ProposalVoteResults({
 
             <div className="flex items-center">
               <div className="flex flex-row items-center">
-                <div className="h-2 w-2 rounded-full bg-yellow-500 mr-1" />
+                <div className="h-2 w-2 rounded-full bg-yellow-500 mr-[4px] mb-[-5px]" />
                 <div className="mr-[2px]">
                   <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Veto
@@ -389,10 +387,10 @@ export function ProposalListCard({
           {currentTime <= new Date(proposal.deposit_end_time).getTime() ? (
             <div className="flex space-x-[12px]">
               <div
-                className={clsx(
-                  ProposalStatus.Deposit && 'text-[#0489D4]',
-                  ProposalStatus.Voting && 'text-[#01B26E]',
-                )}
+                className={clsx({
+                  'text-[#0489D4]': proposal.status === ProposalStatus.Deposit,
+                  'text-[#01B26E]': proposal.status === ProposalStatus.Voting,
+                })}
               >
                 <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
                   <g clip-path="url(#clip0_140_2817)">
