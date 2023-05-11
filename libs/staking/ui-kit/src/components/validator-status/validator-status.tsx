@@ -1,5 +1,3 @@
-import { Badge } from '@haqq/ui-kit';
-
 export function ValidatorStatus({
   jailed,
   status,
@@ -8,12 +6,18 @@ export function ValidatorStatus({
   status: number;
 }) {
   if (jailed) {
-    return <Badge intent="danger">Jailed</Badge>;
+    return (
+      <div className="text-[16px] leading-[26px] text-[#FF5454]">Jailed</div>
+    );
   }
 
   if (status === 3) {
-    return <Badge intent="success">Active</Badge>;
+    return (
+      <div className="text-[16px] leading-[26px] text-[#01B26E]">Active</div>
+    );
   }
 
-  return <Badge intent="warning">Inactive</Badge>;
+  return (
+    <div className="text-[16px] leading-[26px] text-[#E3A13F]">Inactive</div>
+  );
 }
