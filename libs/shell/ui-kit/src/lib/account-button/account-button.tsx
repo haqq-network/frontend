@@ -45,7 +45,9 @@ export function AccountButton({
               'transition-all duration-150 ease-in',
               'box-border appearance-none outline-none',
             )}
-            onClick={() => setDropdownOpen(!isDropdownOpen)}
+            onClick={() => {
+              setDropdownOpen(!isDropdownOpen);
+            }}
           >
             <div className="font-sans text-sm leading-[24px]">
               {getFormattedAddress(address, 3, 2)}
@@ -74,7 +76,7 @@ export function AccountButton({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 mt-1 w-[160px] border border-[#ffffff26] origin-top-right rounded-md bg-black focus:outline-none shadow-lg py-2 text-white">
+            <Menu.Items className="absolute right-[-2px] mt-1 w-[160px] border border-[#ffffff26] origin-top-right rounded-md bg-black focus:outline-none shadow-lg py-2 text-white">
               {onDisconnectClick && (
                 <Menu.Item
                   as="button"
