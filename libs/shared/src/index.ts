@@ -1,4 +1,3 @@
-export * from './hooks/use-window-width/use-window-width';
 export * from './chains/chains';
 export * from './chains/get-chain-params';
 export * from './chains/map-to-wagmi-chain';
@@ -31,3 +30,4 @@ export * from './utils/is-number';
 export * from './hooks/use-clipboard/use-clipboard';
 export * from './components/select-wallet-modal';
 export * from './providers/wallet-provider';
+export * from './hooks/use-window-width/use-window-width';

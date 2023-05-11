@@ -4,8 +4,12 @@ export const useWindowWidth = () => {
   const [width, setWidth] = useState<number>(window.innerWidth);
 
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize, { passive: true });
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };

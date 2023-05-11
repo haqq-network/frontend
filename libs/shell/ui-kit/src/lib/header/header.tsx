@@ -101,7 +101,7 @@ export function Header() {
           <Link to="/">HAQQ</Link>
         </div>
         <div className="flex-1" />
-        <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex">
+        <nav className="flex-row space-x-6 items-center hidden lg:flex">
           <HeaderNavLink href="/staking">Staking</HeaderNavLink>
           <HeaderNavLink href="/governance">Governance</HeaderNavLink>
         </nav>
