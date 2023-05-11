@@ -2,6 +2,7 @@
 // @ts-nocheck
 import { Fragment, ReactNode, SyntheticEvent, useCallback } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import clsx from 'clsx';
 
 function ModalOverlay({ onClose }: { onClose: () => void }) {
   const handleKeydown = useCallback(
@@ -36,13 +37,27 @@ function ModalOverlay({ onClose }: { onClose: () => void }) {
   );
 }
 
-export function ModalCloseButton({ onClick }: { onClick: () => void }) {
+export function ModalCloseButton({
+  onClick,
+  className,
+}: {
+  onClick: () => void;
+  className?: string;
+}) {
   return (
     <button
-      className="cursor-pointer w-[24px] h-[24px] hover:text-slate-500 transition-colors duration-100 ease-in-out"
+      className={clsx(
+        'cursor-pointer w-[24px] h-[24px] hover:text-slate-500 transition-colors duration-100 ease-in-out',
+        className,
+      )}
       onClick={onClick}
     >
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full"
+      >
         <path
           d="M6 6L18.7742 18.7742"
           stroke="currentColor"
