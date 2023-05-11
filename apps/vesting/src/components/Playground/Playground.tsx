@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 export function JSONPre({ object }: { object: Record<string, unknown> }) {
   return (
-    <pre className="p-2 rounded-md bg-slate-100 border border-slate-200">
+    <pre className="rounded-md border border-slate-200 bg-slate-100 p-2">
       {JSON.stringify(object, null, 2)}
     </pre>
   );
@@ -14,7 +14,7 @@ export function Spinner({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       className={clsx(
-        'leading-none w-[48px] h-[48px] text-primary opacity-50',
+        'text-primary h-[48px] w-[48px] leading-none opacity-50',
         className,
       )}
     >

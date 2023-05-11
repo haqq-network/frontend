@@ -178,19 +178,19 @@ export function Faucet(): ReactElement {
   }, [claimInfo, isAuthenticated]);
 
   return (
-    <div className="container px-2 sm:px-6 lg:px-8 mx-auto">
-      <div className="mx-auto max-w-md rounded-xl shadow-lg my-20 backdrop-blur transform-gpu bg-white/50 dark:bg-slate-700/40">
+    <div className="container mx-auto px-2 sm:px-6 lg:px-8">
+      <div className="mx-auto my-20 max-w-md transform-gpu rounded-xl bg-white/50 shadow-lg backdrop-blur dark:bg-slate-700/40">
         <div className="flex flex-col space-y-5 py-6">
           <div className="px-5">
-            <div className="flex flex-row space-x-4  mb-4">
-              <h2 className="flex-1 text-md font-semibold uppercase text-[#0c0c0c] dark:text-gray-100 inline-flex">
+            <div className="mb-4 flex flex-row  space-x-4">
+              <h2 className="text-md inline-flex flex-1 font-semibold uppercase text-[#0c0c0c] dark:text-gray-100">
                 Connect wallet
               </h2>
 
               {currentChain?.unsupported && (
                 <div className="flex items-center">
                   <span
-                    className="text-sm text-[#5baacd] hover:text-[#5baacd]/80 cursor-pointer leading-snug"
+                    className="cursor-pointer text-sm leading-snug text-[#5baacd] hover:text-[#5baacd]/80"
                     onClick={handleNetworkSwitch}
                   >
                     Switch to {chain.name}
@@ -230,19 +230,19 @@ export function Faucet(): ReactElement {
           </div>
 
           <div className="px-5">
-            <h2 className="text-md font-semibold uppercase text-[#0c0c0c] dark:text-gray-100 mb-4">
+            <h2 className="text-md mb-4 font-semibold uppercase text-[#0c0c0c] dark:text-gray-100">
               Github Auth
             </h2>
 
             {isAuthenticated ? (
               <div className="flex flex-row space-x-4">
                 {user && (
-                  <div className="flex flex-row space-x-4 items-center flex-1">
+                  <div className="flex flex-1 flex-row items-center space-x-4">
                     {user.picture && (
                       <img
                         src={user.picture}
                         alt={user.nickname}
-                        className="rounded-full h-10 w-10"
+                        className="h-10 w-10 rounded-full"
                       />
                     )}
                     <p>{user.nickname}</p>
@@ -258,14 +258,14 @@ export function Faucet(): ReactElement {
 
           {isAuthenticated && address && (
             <div className="px-5">
-              <h2 className="text-md font-semibold uppercase text-[#0c0c0c] dark:text-gray-100 mb-5">
+              <h2 className="text-md mb-5 font-semibold uppercase text-[#0c0c0c] dark:text-gray-100">
                 {isCountDownVisible
                   ? 'Next request tokens available after'
                   : 'Claim tokens'}
               </h2>
 
               {claimIsLoading && (
-                <div className="flex flex-row space-x-4 items-center my-2">
+                <div className="my-2 flex flex-row items-center space-x-4">
                   <PulseLoader
                     color="#5baacd"
                     speedMultiplier={0.7}
@@ -283,7 +283,7 @@ export function Faucet(): ReactElement {
                       </Button2>
                     </div>
                   ) : (
-                    <div className="flex flex-row space-x-4 items-center">
+                    <div className="flex flex-row items-center space-x-4">
                       <Reaptcha
                         sitekey={reCaptchaConfig.siteKey}
                         onVerify={handleRecapthcaVerify}
@@ -295,14 +295,14 @@ export function Faucet(): ReactElement {
               )}
 
               {isTokensClaimed && (
-                <div className="flex flex-row space-x-4 items-center">
+                <div className="flex flex-row items-center space-x-4">
                   <SuccessIndicator size="36px" color="green" />
                   <p>Tokens claimed!</p>
                 </div>
               )}
 
               {isCountDownVisible && (
-                <div className="flex flex-row space-x-4 items-center">
+                <div className="flex flex-row items-center space-x-4">
                   <Countdown
                     date={Date.now() + claimInfo.next_claim_sec * 1000}
                     onComplete={requestClaimInfo}

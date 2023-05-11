@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 
 export function WarningMessage({ children }: PropsWithChildren) {
   return (
-    <div className="rounded-[6px] bg-[#48361B] flex flex-row gap-[14px] px-[16px] py-[12px] text-[#E3A13F]">
+    <div className="flex flex-row gap-[14px] rounded-[6px] bg-[#48361B] px-[16px] py-[12px] text-[#E3A13F]">
       <svg
         width="24"
         height="24"

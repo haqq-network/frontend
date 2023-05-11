@@ -18,8 +18,8 @@ export function OrangeLink({
     <Link
       to={href}
       className={clsx(
-        'text-[#EC5728] text-[14px] leading-[1.2em] font-[600] hover:text-[#FF8D69]',
-        'transition-colors duration-100 ease-out cursor-pointer',
+        'text-[14px] font-[600] leading-[1.2em] text-[#EC5728] hover:text-[#FF8D69]',
+        'cursor-pointer transition-colors duration-100 ease-out',
         className,
       )}
       target={target}

@@ -22,22 +22,22 @@ export function AccountButton({
   withoutDropdown?: boolean;
 }) {
   return (
-    <div className={clsx('flex flex-row max-w-fit items-center', className)}>
+    <div className={clsx('flex max-w-fit flex-row items-center', className)}>
       {balance && (
-        <div className="font-serif tracking-[.01em] leading-[24px] pl-[12px] pt-[9px] pb-[7px] pr-[20px] rounded-l-[6px] border border-white border-r-0 mr-[-8px]">
+        <div className="mr-[-8px] rounded-l-[6px] border border-r-0 border-white pb-[7px] pl-[12px] pr-[20px] pt-[9px] font-serif leading-[24px] tracking-[.01em]">
           {`${balance.value.toLocaleString()} ${balance.symbol.toLocaleUpperCase()}`}
         </div>
       )}
 
       {!withoutDropdown && onDisconnectClick ? (
-        <Menu as="div" className="relative inline-block z-10">
+        <Menu as="div" className="relative z-10 inline-block">
           <Menu.Button
             className={clsx(
-              'h-full flex flex-row items-center space-x-[2px] pl-[12px] py-[9px] pr-[8px]',
-              'cursor-pointer bg-white hover:bg-[#cecfce] active:bg-white text-black',
+              'flex h-full flex-row items-center space-x-[2px] py-[9px] pl-[12px] pr-[8px]',
+              'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
               'transition-all duration-150 ease-in',
               'box-border appearance-none outline-none',
-              'font-sans font-[500] text-sm leading-[24px] rounded-[6px] appearance-none',
+              'appearance-none rounded-[6px] font-sans text-sm font-[500] leading-[24px]',
             )}
           >
             <span>{getFormattedAddress(address, 3, 2)}</span>
@@ -60,10 +60,10 @@ export function AccountButton({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-[-1px] mt-1 w-[160px] border border-[#ffffff26] origin-top-right rounded-md bg-black focus:outline-none shadow-lg py-2 text-white z-10">
+            <Menu.Items className="absolute right-[-1px] z-10 mt-1 w-[160px] origin-top-right rounded-md border border-[#ffffff26] bg-black py-2 text-white shadow-lg focus:outline-none">
               <Menu.Item
                 as="button"
-                className="py-[10px] px-[16px] leading-[22px] hover:bg-[#ffffff14] transition-colors duration-150 ease-out block w-full text-left text-[14px]"
+                className="block w-full px-[16px] py-[10px] text-left text-[14px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
                 onClick={onDisconnectClick}
               >
                 Disconnect
@@ -74,8 +74,8 @@ export function AccountButton({
       ) : (
         <div
           className={clsx(
-            'h-full flex flex-row items-center space-x-2 rounded-[6px] px-3 py-[9px]',
-            'bg-white text-black font-sans text-sm leading-[24px]',
+            'flex h-full flex-row items-center space-x-2 rounded-[6px] px-3 py-[9px]',
+            'bg-white font-sans text-sm leading-[24px] text-black',
           )}
         >
           {getFormattedAddress(address, 3, 2)}

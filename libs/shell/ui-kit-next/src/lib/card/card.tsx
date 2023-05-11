@@ -8,7 +8,7 @@ export function Card({
   return (
     <div
       className={clsx(
-        'border-[1.5px] border-[#ffffff3d] hover:border-[#EC5728] cursor-pointer duration-300 rounded-lg p-4 lg:p-7 bg-transparent',
+        'cursor-pointer rounded-lg border-[1.5px] border-[#ffffff3d] bg-transparent p-4 duration-300 hover:border-[#EC5728] lg:p-7',
         className,
       )}
     >
@@ -19,7 +19,7 @@ export function Card({
 
 export function CardHeading({ children }: PropsWithChildren) {
   return (
-    <div className="whitespace-pre-wrap text-[14px] leading-[22px] lg:text-[18px] lg:leading-[28px] font-sans text-white min-h-[44px] sm:text-[17px] sm:leading-[26px] sm:min-h-[52px] lg:min-h-[56px]">
+    <div className="min-h-[44px] whitespace-pre-wrap font-sans text-[14px] leading-[22px] text-white sm:min-h-[52px] sm:text-[17px] sm:leading-[26px] lg:min-h-[56px] lg:text-[18px] lg:leading-[28px]">
       {children}
     </div>
   );
@@ -44,7 +44,7 @@ export function CardSubText({
   return (
     <div
       className={clsx(
-        'text-[11px] lg:text-[12px] leading-[1.5] lg:leading-[17px]',
+        'text-[11px] leading-[1.5] lg:text-[12px] lg:leading-[17px]',
         className,
       )}
     >
@@ -75,7 +75,7 @@ export function TimerText({
 
 export function ProposalNumber({ children }: { children: ReactNode }) {
   return (
-    <div className="text-[14px] leading-[18px] lg:text-[20px] leading-[26px] text-white">
+    <div className="text-[14px] leading-[18px] leading-[26px] text-white lg:text-[20px]">
       {children}
     </div>
   );

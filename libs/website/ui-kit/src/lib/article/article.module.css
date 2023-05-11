@@ -1,9 +1,9 @@
 .container {
   counter-reset: section;
-  @apply px-[16px] font-[500] text-[13px] sm:text-[15px] lg:text-[16px];
+  @apply px-[16px] text-[13px] font-[500] sm:text-[15px] lg:text-[16px];
 
   & p {
-    @apply my-[20px] sm:my-[24px] first:mt-0 last:mb-0;
+    @apply my-[20px] first:mt-0 last:mb-0 sm:my-[24px];
   }
 
   & a {
@@ -12,22 +12,22 @@
 
   & h1 {
     counter-increment: section;
-    @apply font-serif font-[500] leading-[1.3em] text-[18px] sm:text-[24px] lg:text-[32px];
+    @apply font-serif text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px];
     @apply mb-[20px] mt-[48px] sm:mb-[24px] sm:mt-[64px];
   }
 
   & h2 {
     counter-increment: section;
-    @apply font-serif font-[500] leading-[1.2em] text-[16px] sm:text-[18px] lg:text-[22px];
+    @apply font-serif text-[16px] font-[500] leading-[1.2em] sm:text-[18px] lg:text-[22px];
     @apply mb-[18px] mt-[32px] sm:mb-[20px] sm:mt-[36px];
   }
 
   & ol {
     counter-reset: subsection;
-    @apply p-0 my-0;
+    @apply my-0 p-0;
 
     & li {
-      @apply p-0 my-[20px] sm:my-[24px] first:mt-0 last:mb-0;
+      @apply my-[20px] p-0 first:mt-0 last:mb-0 sm:my-[24px];
       list-style-type: none;
       display: table;
 

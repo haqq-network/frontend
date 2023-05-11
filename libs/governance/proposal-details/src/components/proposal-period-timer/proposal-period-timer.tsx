@@ -150,7 +150,7 @@ function ProposalCountdown({
       </div>
 
       <div className="flex flex-col items-start">
-        <div className="text-[12px] leading-[18px] font-[500] text-white/50">
+        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
           {title}
         </div>
         <div className="inline-flex space-x-[8px]">
@@ -176,7 +176,7 @@ function ShowDateToggleButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="text-[#EC5728] text-[14px] leading-[22px] hover:text-[#FF8D69] transition-colors duration-100 ease-out"
+      className="text-[14px] leading-[22px] text-[#EC5728] transition-colors duration-100 ease-out hover:text-[#FF8D69]"
     >
       Show all dates
       <svg
@@ -185,7 +185,7 @@ function ShowDateToggleButton({ onClick }: { onClick: () => void }) {
         viewBox="0 0 22 22"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="inline-block ml-[2px]"
+        className="ml-[2px] inline-block"
       >
         <path
           fillRule="evenodd"

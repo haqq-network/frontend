@@ -43,7 +43,7 @@ export function StatisticsBlockStatCard({
     <div>
       <div
         className={clsx(
-          'font-serif text-[32px] leading-[42px] font-[500] h-[42px]',
+          'h-[42px] font-serif text-[32px] font-[500] leading-[42px]',
           styles.statsBlock,
         )}
       >
@@ -88,12 +88,12 @@ export function StatisticsBlock({ stats }: StaticsBlockProps) {
   }, [inViewport, startAnimation]);
 
   return (
-    <div className="border-t border-haqq-border" ref={blockRef}>
+    <div className="border-haqq-border border-t" ref={blockRef}>
       <div
-        className="px-[16px] mx-[16px] sm:pl-0 sm:ml-[63px] sm:mr-0 sm:pr-0 lg:ml-[79px] border-l border-haqq-border"
+        className="border-haqq-border mx-[16px] border-l px-[16px] sm:ml-[63px] sm:mr-0 sm:pl-0 sm:pr-0 lg:ml-[79px]"
         id="stats"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[24px] px-[32px] py-[60px]">
+        <div className="grid grid-cols-1 gap-[24px] px-[32px] py-[60px] sm:grid-cols-2 lg:grid-cols-4">
           <StatisticsBlockStatCard
             value={stats.mainnetAccountsCreated}
             title="mainnet accounts created"

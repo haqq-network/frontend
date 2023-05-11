@@ -148,9 +148,9 @@ export function DepositStatsWidget({
   }, [address, currentDeposit, depositsCount, requestDepStats]);
 
   return (
-    <Card className="overflow-hidden max-w-lg mx-auto w-full">
+    <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="flex flex-col space-y-6">
-        <div className="pt-6 px-6 flex flex-row space-x-6 justify-between">
+        <div className="flex flex-row justify-between space-x-6 px-6 pt-6">
           <Heading level={3} className="uppercase">
             Deposit
           </Heading>
@@ -166,13 +166,13 @@ export function DepositStatsWidget({
 
         <div className="flex flex-col space-y-4">
           {!isConnected && (
-            <div className="p-10 flex items-center justify-center min-h-[200px]">
+            <div className="flex min-h-[200px] items-center justify-center p-10">
               <Spinner />
             </div>
           )}
 
           {isConnected && depositsCount === 0 && (
-            <div className="text-center px-6 py-12">
+            <div className="px-6 py-12 text-center">
               <Heading level={3}>You have no deposits</Heading>
             </div>
           )}
@@ -418,7 +418,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
           Transfer ownership
         </DangerButton>
       ) : (
-        <div className="flex flex-col space-y-4 mt-4">
+        <div className="mt-4 flex flex-col space-y-4">
           <Heading level={4}>Transfer deposit ownership</Heading>
           <Input
             required
@@ -448,9 +448,9 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
           setWarningModalOpen(false);
         }}
       >
-        <div className="bg-white rounded-2xl p-6 max-w-xl mx-auto">
+        <div className="mx-auto max-w-xl rounded-2xl bg-white p-6">
           <div className="flex flex-col space-y-6">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <Heading level={3}>Transfer deposit ownership</Heading>
               <ModalCloseButton
                 onClick={() => {

@@ -30,13 +30,13 @@ export function DelegateModalDetails({
     <div className={clsx('flex flex-row justify-between', className)}>
       <div
         className={clsx(
-          'text-slate-700 dark:text-slate-200 leading-8 text-base',
+          'text-base leading-8 text-slate-700 dark:text-slate-200',
           titleClassName,
         )}
       >
         {title}
       </div>
-      <div className={clsx('font-medium leading-8 text-lg', valueClassName)}>
+      <div className={clsx('text-lg font-medium leading-8', valueClassName)}>
         {value}
       </div>
     </div>
@@ -61,11 +61,11 @@ export function DelegateModalSubmitButton({
       onClick={onClick}
       disabled={disabled}
       className={clsx(
-        'bg-slate-500 text-white hover:bg-slate-500/90 ring-slate-500/40 focus:ring-4 outline-none dark:ring-slate-100/80',
+        'bg-slate-500 text-white outline-none ring-slate-500/40 hover:bg-slate-500/90 focus:ring-4 dark:ring-slate-100/80',
         isSmall
-          ? 'text-sm font-semibold px-2 py-1 rounded h-[30px]'
-          : 'font-medium text-lg leading-8 px-4 py-2 rounded-md',
-        'disabled:!bg-slate-500 disabled:!opacity-60 disabled:cursor-not-allowed',
+          ? 'h-[30px] rounded px-2 py-1 text-sm font-semibold'
+          : 'rounded-md px-4 py-2 text-lg font-medium leading-8',
+        'disabled:cursor-not-allowed disabled:!bg-slate-500 disabled:!opacity-60',
         'transition-all duration-100',
         className,
       )}
@@ -148,7 +148,7 @@ export function DelegateModal({
     <Modal isOpen={isOpen} onClose={onClose}>
       <Card className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
         <div className="flex flex-col space-y-8">
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row items-center justify-between">
             <Heading level={3}>Delegate</Heading>
             <ModalCloseButton onClick={onClose} />
           </div>
@@ -171,7 +171,7 @@ export function DelegateModal({
           </div>
 
           <div>
-            <div className="mb-1 text-slate-700 dark:text-slate-200 text-base leading-6 flex flex-row justify-between">
+            <div className="mb-1 flex flex-row justify-between text-base leading-6 text-slate-700 dark:text-slate-200">
               <label htmlFor="amount" className="cursor-pointer">
                 Amount
               </label>
@@ -242,11 +242,11 @@ export function DelegateModalInput({
           id="amount"
           value={value}
           className={clsx(
-            'border-2 border-slate-300 dark:border-slate-500 border-solid',
-            'rounded-md outline-none px-4 py-2 w-full',
-            'text-gray-700 dark:text-gray-100 leading-8 text-lg font-medium',
+            'border-2 border-solid border-slate-300 dark:border-slate-500',
+            'w-full rounded-md px-4 py-2 outline-none',
+            'text-lg font-medium leading-8 text-gray-700 dark:text-gray-100',
             'transition-all duration-100',
-            'focus:ring-4 dark:ring-slate-100/50 ring-slate-500/40',
+            'ring-slate-500/40 focus:ring-4 dark:ring-slate-100/50',
             'focus:border-slate-500 dark:focus:border-slate-50',
             'bg-transparent',
           )}
@@ -254,8 +254,8 @@ export function DelegateModalInput({
           onChange={handleInputChange}
           step={step}
         />
-        <div className="absolute top-1/2 right-3 -translate-y-1/2">
-          <div className="inline-block text-base uppercase font-medium mr-2 text-slate-400 select-none">
+        <div className="absolute right-3 top-1/2 -translate-y-1/2">
+          <div className="mr-2 inline-block select-none text-base font-medium uppercase text-slate-400">
             {symbol}
           </div>
           <DelegateModalSubmitButton isSmall onClick={onMaxButtonClick}>
@@ -264,7 +264,7 @@ export function DelegateModalInput({
         </div>
       </div>
 
-      <div className="mt-1 leading-[20px] h-[20px] text-xs">{hint}</div>
+      <div className="mt-1 h-[20px] text-xs leading-[20px]">{hint}</div>
     </div>
   );
 }

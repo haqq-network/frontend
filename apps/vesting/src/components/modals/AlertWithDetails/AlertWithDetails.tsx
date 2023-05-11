@@ -22,9 +22,9 @@ export function AlertWithDetails({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-2xl p-6 max-w-md mx-auto">
+      <div className="mx-auto max-w-md rounded-2xl bg-white p-6">
         <div className="flex flex-col space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <Heading level={3}>{title}</Heading>
             {onClose && <ModalCloseButton onClick={onClose} />}
           </div>
@@ -34,8 +34,8 @@ export function AlertWithDetails({
           </div>
 
           {details && isDetailsOpen && (
-            <div className="bg-white rounded-lg shadow-lg p-4">
-              <code className="overflow-auto max-w-full block text-xs text-gray-500">
+            <div className="rounded-lg bg-white p-4 shadow-lg">
+              <code className="block max-w-full overflow-auto text-xs text-gray-500">
                 {details}
               </code>
             </div>
@@ -47,7 +47,7 @@ export function AlertWithDetails({
                 <div>
                   <button
                     onClick={toggleDetailsOpen}
-                    className="text-sm leading-6 text-gray-700 underline hover:text-primary transition-colors duration-150 underline-offset-2"
+                    className="hover:text-primary text-sm leading-6 text-gray-700 underline underline-offset-2 transition-colors duration-150"
                   >
                     {isDetailsOpen ? 'Hide details' : 'Show details'}
                   </button>

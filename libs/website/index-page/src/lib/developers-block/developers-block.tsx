@@ -20,14 +20,14 @@ function DevelopersBlockCard({
   );
   return (
     <div className={classNames}>
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row items-center justify-between">
         <div>
           <Heading level={2} className="lg:text-[24px] lg:leading-none">
             {title}
           </Heading>
         </div>
         <svg
-          className="h-[12px] w-[12px] sm:h-[20px] sm:w-[20px] text-haqq-border group-hover:text-haqq-orange transition-color duration-150 ease-in"
+          className="text-haqq-border group-hover:text-haqq-orange transition-color h-[12px] w-[12px] duration-150 ease-in sm:h-[20px] sm:w-[20px]"
           viewBox="0 0 22 23"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -49,13 +49,13 @@ function DevelopersBlockCard({
 export function DevelopersBlock() {
   return (
     <div
-      className="px-[16px] ml-[16px] sm:pl-[20px] sm:pr-[64px] sm:ml-[63px] lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] border-l border-haqq-border"
+      className="border-haqq-border ml-[16px] border-l px-[16px] sm:ml-[63px] sm:pl-[20px] sm:pr-[64px] lg:ml-[79px] lg:pl-[32px] lg:pr-[80px]"
       id="developers"
     >
-      <div className="py-[60px] sm:py-[100px] flex flex-col space-y-[32px] lg:space-y-0 lg:flex-row">
-        <div className="flex flex-col space-y-[16px] lg:flex-1 lg:w-[595px] pr-[32px]">
+      <div className="flex flex-col space-y-[32px] py-[60px] sm:py-[100px] lg:flex-row lg:space-y-0">
+        <div className="flex flex-col space-y-[16px] pr-[32px] lg:w-[595px] lg:flex-1">
           <Heading>Become a builder</Heading>
-          <div className="hidden lg:block flex-1" />
+          <div className="hidden flex-1 lg:block" />
           <Text className="text-white/80 sm:max-w-[450px]">
             Work and build on HAQQ, and be part of tomorrow’s future - today.
             Bring your vision to life and develop solutions that benefit users
@@ -63,7 +63,7 @@ export function DevelopersBlock() {
             ethics-first and Shariah-compliant innovation.
           </Text>
         </div>
-        <div className="flex flex-col space-y-[16px] flex-1 lg:space-y-[32px]">
+        <div className="flex flex-1 flex-col space-y-[16px] lg:space-y-[32px]">
           <Link
             href="https://docs.haqq.network/"
             target="_blank"

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 export function Logo({ className }: { className: string }): ReactElement {
   return (
-    <div className={clsx('leading-[0px] text-primary', className)}>
+    <div className={clsx('text-primary leading-[0px]', className)}>
       <svg
         className="h-full"
         viewBox="0 0 202 34"
@@ -67,7 +67,7 @@ export function Logo({ className }: { className: string }): ReactElement {
 
 export function LogoSmall({ className }: { className: string }): ReactElement {
   return (
-    <div className={clsx('leading-[0px] text-primary', className)}>
+    <div className={clsx('text-primary leading-[0px]', className)}>
       <svg
         className="h-full"
         viewBox="0 0 34 34"

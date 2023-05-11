@@ -79,11 +79,11 @@ export function ContactForm() {
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
-        className="leading-none flex flex-col space-y-[24px] sm:space-y-[32px]"
+        className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]"
         autoComplete="off"
       >
         <div className="flex flex-col space-y-[12px] lg:space-y-[16px]">
-          <div className="flex flex-col space-y-[12px] sm:space-y-0 sm:flex-row sm:space-x-[12px] lg:space-x-[16px] leading-none">
+          <div className="flex flex-col space-y-[12px] leading-none sm:flex-row sm:space-x-[12px] sm:space-y-0 lg:space-x-[16px]">
             <div className="flex-1">
               <HookedFormInput
                 wrapperClassName="w-full"
@@ -114,7 +114,7 @@ export function ContactForm() {
             <HookedFormTextarea
               id="message"
               register={register}
-              className="w-full h-[120px]"
+              className="h-[120px] w-full"
               placeholder="Send us a message"
               disabled={isFormDisabled}
             />

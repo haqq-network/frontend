@@ -44,9 +44,9 @@ export function Alert({
   return (
     <div
       className={clsx(
-        'flex p-4 rounded-lg flex-row space-x-4 border',
+        'flex flex-row space-x-4 rounded-lg border p-4',
         {
-          'bg-slate-100 dark:bg-slate-800/60 border-slate-300 dark:border-slate-900/80':
+          'border-slate-300 bg-slate-100 dark:border-slate-900/80 dark:bg-slate-800/60':
             intent === 'default',
         },
         className,

@@ -7,7 +7,7 @@ export function BackButton({
   return (
     <button
       onClick={onClick}
-      className="inline-flex flex-row items-center hover:text-white/50 transition-colors duration-100 ease-out"
+      className="inline-flex flex-row items-center transition-colors duration-100 ease-out hover:text-white/50"
     >
       <svg
         width="24"
@@ -23,7 +23,7 @@ export function BackButton({
           fill="currentColor"
         />
       </svg>
-      <span className="ml-[8px] font-sans text-[10px] leading-[1.2em] uppercase cursor-pointer font-[600]">
+      <span className="ml-[8px] cursor-pointer font-sans text-[10px] font-[600] uppercase leading-[1.2em]">
         {children}
       </span>
     </button>

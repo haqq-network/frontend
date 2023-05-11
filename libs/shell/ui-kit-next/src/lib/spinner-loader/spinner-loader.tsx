@@ -9,7 +9,7 @@ export function SpinnerLoader({ className }: { className?: string }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={clsx(
-          'text-white/10 fill-haqq-orange w-10 h-10 animate-spin',
+          'fill-haqq-orange h-10 w-10 animate-spin text-white/10',
           className,
         )}
       >

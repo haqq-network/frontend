@@ -12,7 +12,7 @@ export function Layout({
   return (
     <div
       className={clsx(
-        'min-h-screen relative flex flex-col',
+        'relative flex min-h-screen flex-col',
         styles['bg-image'],
         className,
       )}

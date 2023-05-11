@@ -41,7 +41,7 @@ export function ShellIndexPageChainStats() {
 
   return (
     <Card className="md:flex-1">
-      <div className="flex flex-col space-y-4 justify-between h-full">
+      <div className="flex h-full flex-col justify-between space-y-4">
         <div>
           <CardHeading>Total supply</CardHeading>
           <div className="text-2xl font-semibold leading-normal">

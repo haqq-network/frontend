@@ -57,7 +57,7 @@ interface ValidatorInfoComponentProps {
 
 function ValidatorAvatar() {
   return (
-    <div className="flex h-20 w-20 flex-none items-center justify-center rounded-full bg-slate-200/60 text-slate-500 dark:bg-slate-500/10 dark:text-slate-400 border border-slate-500/30">
+    <div className="flex h-20 w-20 flex-none items-center justify-center rounded-full border border-slate-500/30 bg-slate-200/60 text-slate-500 dark:bg-slate-500/10 dark:text-slate-400">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -78,7 +78,7 @@ function ValidatorAvatar() {
 
 function CardHeader({ children }: { children: ReactNode }) {
   return (
-    <div className="text-sm font-medium leading-relaxed text-gray-400 uppercase">
+    <div className="text-sm font-medium uppercase leading-relaxed text-gray-400">
       {children}
     </div>
   );
@@ -105,7 +105,7 @@ function CommissionCardInnerBlock({
 }) {
   return (
     <div className="flex flex-col gap-y-[6px]  px-[24px] md:px-[32px]">
-      <div className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+      <div className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
         {title}
       </div>
       <div
@@ -130,7 +130,7 @@ function CommissionCard({ commission }: CommissionCardProps) {
         </Heading>
       </div>
 
-      <div className="rounded-lg border border-haqq-border flex flex-row max-w-fit divide-x divide-haqq-border py-[16px] md:py-[24px]">
+      <div className="border-haqq-border divide-haqq-border flex max-w-fit flex-row divide-x rounded-lg border py-[16px] md:py-[24px]">
         <CommissionCardInnerBlock
           title="Current"
           value={commission.current}
@@ -207,8 +207,8 @@ export function ValidatorInfoComponent({
     <Fragment>
       <div className="flex flex-row gap-[48px]">
         <div className="flex-1">
-          <div className="divide-y divide-dashed divide-haqq-border">
-            <div className="pb-[40px] flex flex-row gap-[16px] items-center">
+          <div className="divide-haqq-border divide-y divide-dashed">
+            <div className="flex flex-row items-center gap-[16px] pb-[40px]">
               <div>
                 {/* TODO: RENDER NEW STATUS FROM UI-KIT-NEXT */}
                 <ValidatorStatus
@@ -217,7 +217,7 @@ export function ValidatorInfoComponent({
                 />
               </div>
               <div>
-                <h1 className="font-serif text-[18px] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px] font-[500]">
+                <h1 className="font-serif text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
                   {validatorInfo.description?.moniker}
                 </h1>
               </div>
@@ -304,7 +304,7 @@ export function ValidatorInfoComponent({
                 <div>
                   <div>
                     <InfoBlock title="Address">
-                      <div className="flex flex-row w-fit space-x-[8px] items-center hover:text-white/50 cursor-pointer transition-colors ease-out duration-100">
+                      <div className="flex w-fit cursor-pointer flex-row items-center space-x-[8px] transition-colors duration-100 ease-out hover:text-white/50">
                         <div>{validatorInfo.operatorAddress}</div>
                         <CopyIcon />
                       </div>
@@ -318,7 +318,7 @@ export function ValidatorInfoComponent({
             </div>
           </div>
         </div>
-        <div className="hidden md:block flex-1 md:w-1/2 xl:w-1/3 md:flex-none">
+        <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
           <div className="flex flex-col gap-[20px]">
             <MyAccountBlockDesktop />
             <ValidatorBlockDesktop validatorInfo={validatorInfo} />
@@ -330,7 +330,7 @@ export function ValidatorInfoComponent({
         </div>
       </div>
 
-      <div className="flex flex-col items-start w-full">
+      <div className="flex w-full flex-col items-start">
         {/* <div className="mx-auto w-full flex gap-x-[48px] mt-[28px]">
           <div className="flex flex-col gap-y-[20px] sm:w-1/2 xl:w-1/3">
             <div className="hidden lg:flex lg:flex-col px-[28px] py-[32px] border border-white/20 rounded-lg items-start">
@@ -869,9 +869,9 @@ export function ValidatorInfo({
 
   if (isFetching || !validatorInfo) {
     return (
-      <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-full select-none pointer-events-none">
+      <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8">
         <SpinnerLoader />
-        <div className="font-sans text-[10px] leading-[1.2em] uppercase">
+        <div className="font-sans text-[10px] uppercase leading-[1.2em]">
           Fetching validator information
         </div>
       </div>
@@ -927,8 +927,8 @@ function MyAccountBlockDesktop({
   const [isInfoShown, setInfoShown] = useState(false);
 
   return (
-    <div className="rounded-[8px] overflow-hidden border border-haqq-border">
-      <div className="px-[28px] py-[32px] flex flex-col gap-[24px]">
+    <div className="border-haqq-border overflow-hidden rounded-[8px] border">
+      <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
         <div className="flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="ml-[8px]">
@@ -936,8 +936,8 @@ function MyAccountBlockDesktop({
           </Heading>
           <button
             className={clsx(
-              'text-[#EC5728] text-[14px] leading-[20px] font-[600] hover:text-[#FF8D69]',
-              'transition-colors duration-100 ease-out cursor-pointer inline-flex flex-row items-center justify-center gap-[4px] mt-[-4px]',
+              'text-[14px] font-[600] leading-[20px] text-[#EC5728] hover:text-[#FF8D69]',
+              'mt-[-4px] inline-flex cursor-pointer flex-row items-center justify-center gap-[4px] transition-colors duration-100 ease-out',
               'ml-[16px]',
             )}
             onClick={() => {
@@ -988,7 +988,7 @@ function MyAccountBlockDesktop({
               </div>
             </div>
             <div>
-              <button className="text-[14px] leading-[22px] text-[#01B26E] hover:text-[#01b26e80] transition-color duration-150 ease-in will-change-[color] cursor-pointer">
+              <button className="transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80]">
                 Claim all reward
               </button>
             </div>
@@ -1010,7 +1010,7 @@ export function ValidatorBlockDesktop({
   const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
 
   return (
-    <div className="bg-white bg-opacity-[8%] backdrop-blur transform-gpu overflow-hidden px-[28px] py-[32px] flex flex-col gap-[24px] rounded-[8px]">
+    <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-white bg-opacity-[8%] px-[28px] py-[32px] backdrop-blur">
       <div className="flex flex-row items-center">
         <ValidatorIcon />
         <Heading level={3} className="ml-[8px]">
@@ -1027,10 +1027,10 @@ export function ValidatorBlockDesktop({
       )}
       <div className="flex flex-col gap-y-[12px]">
         <div className="flex flex-col gap-y-[6px]">
-          <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+          <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
             My delegation
           </span>
-          <span className="text-[24px] leading-[30px] font-serif uppercase text-white">
+          <span className="font-serif text-[24px] uppercase leading-[30px] text-white">
             {delegation.toLocaleString()} ISLM
           </span>
         </div>
@@ -1063,10 +1063,10 @@ export function ValidatorBlockDesktop({
       </div>
       <div className="flex flex-col gap-y-[12px]">
         <div className="flex flex-col gap-y-[6px]">
-          <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+          <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
             My rewards
           </span>
-          <span className="text-[24px] leading-[30px] font-serif uppercase text-[#01B26E]">
+          <span className="font-serif text-[24px] uppercase leading-[30px] text-[#01B26E]">
             {rewards.toLocaleString()} ISLM
           </span>
         </div>
@@ -1083,13 +1083,13 @@ function MyAccountCardBlock({
   children,
 }: PropsWithChildren<{ title?: string }>) {
   return (
-    <div className="flex flex-col gap-y-[6px] items-start">
+    <div className="flex flex-col items-start gap-y-[6px]">
       {title && (
-        <div className="text-[10px] leading-[12px] font-[500] lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
+        <div className="text-[10px] font-[500] uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
           {title}
         </div>
       )}
-      <div className="text-[16px] leading-[26px] uppercase">{children}</div>
+      <div className="text-[16px] uppercase leading-[26px]">{children}</div>
     </div>
   );
 }

@@ -14,7 +14,7 @@ function HeaderLogo() {
     <div className="flex flex-row items-center space-x-[15px]">
       <Link
         href="/"
-        className="text-white transition-colors duration-150 hover:text-haqq-orange"
+        className="hover:text-haqq-orange text-white transition-colors duration-150"
       >
         <svg width="89" height="26" viewBox="0 0 89 26" fill="none">
           <path
@@ -61,8 +61,8 @@ function HeaderLogo() {
 
 export function WebsiteWalletPage() {
   return (
-    <div className="flex flex-col items-center justify-start relative flex-1">
-      <div className="absolute z-[-1] left-[50%] translate-x-[-50%] w-[120%] min-w-[1600px]">
+    <div className="relative flex flex-1 flex-col items-center justify-start">
+      <div className="absolute left-[50%] z-[-1] w-[120%] min-w-[1600px] translate-x-[-50%]">
         <Image
           alt=""
           src={walletImageData.src}
@@ -72,7 +72,7 @@ export function WebsiteWalletPage() {
       </div>
 
       <header className="h-[70px] w-full py-[20px] sm:py-[22px]">
-        <div className="container mx-auto px-[20px] sm:px-[40px] flex">
+        <div className="container mx-auto flex px-[20px] sm:px-[40px]">
           <HeaderLogo />
         </div>
       </header>
@@ -82,31 +82,31 @@ export function WebsiteWalletPage() {
       <FAQBlock />
 
       <footer className="h-[96px] w-full">
-        <div className="container mx-auto pb-[20px] px-[20px] sm:px-[40px]">
-          <div className="flex space-x-[20px] text-white items-center justify-center mb-[12px]">
+        <div className="container mx-auto px-[20px] pb-[20px] sm:px-[40px]">
+          <div className="mb-[12px] flex items-center justify-center space-x-[20px] text-white">
             <Link
               href="https://discord.gg/4quqkD6Y8c"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <DiscordIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
+              <DiscordIcon className="cursor-pointer transition-colors duration-150 hover:text-[#01B36E]" />
             </Link>
             <Link
               href="https://twitter.com/Islamic_coin"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <TwitterIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
+              <TwitterIcon className="cursor-pointer transition-colors duration-150 hover:text-[#01B36E]" />
             </Link>
             <Link
               href="https://github.com/haqq-network/haqq-wallet"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <GithubIcon className="transition-colors duration-150 hover:text-[#01B36E] cursor-pointer" />
+              <GithubIcon className="cursor-pointer transition-colors duration-150 hover:text-[#01B36E]" />
             </Link>
           </div>
-          <div className="flex flex-col sm:flex-row sm:justify-center sm:space-x-[20px] text-center font-normal text-[14px] leading-[24px]">
+          <div className="flex flex-col text-center text-[14px] font-normal leading-[24px] sm:flex-row sm:justify-center sm:space-x-[20px]">
             <div className="mb-[8px]">
               © 2022 HAQQ Wallet. All rights reserved
             </div>
@@ -144,7 +144,7 @@ WebsiteWalletPage.getLayout = function getLayout(page: ReactElement) {
       <main
         className={clsx(
           'font-manrope',
-          'min-h-screen flex flex-col overflow-x-clip',
+          'flex min-h-screen flex-col overflow-x-clip',
         )}
       >
         {page}

@@ -90,7 +90,7 @@ export function UndelegateModal({
     <Modal isOpen={isOpen} onClose={onClose}>
       <Card className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
         <div className="flex flex-col space-y-8">
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row items-center justify-between">
             <Heading level={3}>Undelegate</Heading>
             <ModalCloseButton onClick={onClose} />
           </div>

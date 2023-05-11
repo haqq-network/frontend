@@ -20,9 +20,9 @@ export function Alert({
 }: AlertProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-2xl p-6 max-w-max mx-auto">
+      <div className="mx-auto max-w-max rounded-2xl bg-white p-6">
         <div className="flex flex-col space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <Heading level={3}>{title}</Heading>
             <ModalCloseButton onClick={onClose} />
           </div>

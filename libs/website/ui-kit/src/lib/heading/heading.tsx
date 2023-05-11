@@ -14,7 +14,7 @@ export function Heading({
     return (
       <h1
         className={clsx(
-          'font-serif font-[500] leading-none text-[18px] sm:text-[28px] lg:text-[48px] xl:text-[70px]',
+          'font-serif text-[18px] font-[500] leading-none sm:text-[28px] lg:text-[48px] xl:text-[70px]',
           className,
         )}
       >
@@ -27,7 +27,7 @@ export function Heading({
     return (
       <h2
         className={clsx(
-          'font-serif font-[500] leading-[1.3em] text-[18px] sm:text-[24px] lg:text-[32px]',
+          'font-serif text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px]',
           className,
         )}
       >
@@ -39,7 +39,7 @@ export function Heading({
   return (
     <h3
       className={clsx(
-        'font-serif font-[500] leading-[1.2em] text-[16px] sm:text-[18px] lg:text-[22px]',
+        'font-serif text-[16px] font-[500] leading-[1.2em] sm:text-[18px] lg:text-[22px]',
         className,
       )}
     >

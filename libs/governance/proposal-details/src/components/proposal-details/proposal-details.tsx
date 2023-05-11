@@ -104,12 +104,12 @@ export function ProposalDetailsComponent({
   return (
     <div className="flex flex-row gap-[48px]">
       <div className="flex-1">
-        <div className="divide-y divide-dashed divide-haqq-border">
+        <div className="divide-haqq-border divide-y divide-dashed">
           <div className="pb-[40px]">
-            <div className="text-[16px] leading-[22px] sm:text-[20px] sm:leading-[26px] font-[500] font-serif">
+            <div className="font-serif text-[16px] font-[500] leading-[22px] sm:text-[20px] sm:leading-[26px]">
               #{proposalDetails.proposal_id}
             </div>
-            <h1 className="text-[24px] leading-[30px] sm:text-[32px] sm:leading-[42px] font-[500] font-serif">
+            <h1 className="font-serif text-[24px] font-[500] leading-[30px] sm:text-[32px] sm:leading-[42px]">
               {proposalDetails.content.title}
             </h1>
           </div>
@@ -165,9 +165,9 @@ export function ProposalDetailsComponent({
           )}
         </div>
       </div>
-      <div className="hidden md:block flex-1 md:w-1/2 xl:w-1/3 md:flex-none">
-        <div className="rounded-[8px] bg-white bg-opacity-[8%] backdrop-blur transform-gpu overflow-hidden">
-          <div className="px-[28px] py-[32px] flex flex-col gap-[24px]">
+      <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
+        <div className="transform-gpu overflow-hidden rounded-[8px] bg-white bg-opacity-[8%] backdrop-blur">
+          <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
             <div>
               <ProposalStatusComponent
                 status={proposalDetails.status}
@@ -228,7 +228,7 @@ export function ProposalDetails() {
   }
 
   return (
-    <div className="w-full mx-auto px-[16px] sm:px-[48px] lg:px-[79px] lg:py-[34px] flex flex-col flex-1">
+    <div className="mx-auto flex w-full flex-1 flex-col px-[16px] sm:px-[48px] lg:px-[79px] lg:py-[34px]">
       <div className="mb-[34px]">
         <BackButton
           onClick={() => {
@@ -239,9 +239,9 @@ export function ProposalDetails() {
         </BackButton>
       </div>
       {isFetching || !proposalDetails || !govParams ? (
-        <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-full select-none pointer-events-none">
+        <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8">
           <SpinnerLoader />
-          <div className="font-sans text-[10px] leading-[1.2em] uppercase">
+          <div className="font-sans text-[10px] uppercase leading-[1.2em]">
             Fetching proposal details
           </div>
         </div>
@@ -280,11 +280,11 @@ export function VoteActions({ proposalId }: { proposalId: number }) {
     <div className="bg-white bg-opacity-[15%] px-[28px] py-[32px]">
       <div className="mb-[16px]">
         <CardHeading className="mb-[2px]">Choose what to vote for</CardHeading>
-        <div className="text-[12px] leading-[18px] font-[500] text-white/50">
+        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
           You can change your vote while the voting is in progress
         </div>
       </div>
-      <div className="flex flex-row gap-[12px] flex-wrap">
+      <div className="flex flex-row flex-wrap gap-[12px]">
         <VoteButton
           onClick={() => {
             handleVote(VoteOption.VOTE_OPTION_YES);
@@ -329,12 +329,12 @@ export function DepositActions({ balance }: { balance: number }) {
     undefined,
   );
   return (
-    <div className="bg-white bg-opacity-[15%] px-[28px] py-[32px] flex flex-col gap-[16px]">
+    <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
       <div>
         <CardHeading className="mb-[2px]">
           Enter the amount you want to deposit
         </CardHeading>
-        <div className="text-[12px] leading-[18px] font-[500] text-white/50">
+        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
           You balance: {balance.toLocaleString()} ISLM
         </div>
       </div>
@@ -371,11 +371,11 @@ export function DepositInput({
   value: number | undefined;
 }) {
   return (
-    <div className={clsx('bg-[#252528] rounded-[6px] relative', className)}>
+    <div className={clsx('relative rounded-[6px] bg-[#252528]', className)}>
       <input
         type="number"
         placeholder="Enter Amount"
-        className="bg-transparent w-full text-white px-[16px] pt-[14px] pb-[12px] leading-[22px] text-[14px] font-[500] placeholder:text-[#FFFFFF3D] outline-none"
+        className="w-full bg-transparent px-[16px] pb-[12px] pt-[14px] text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]"
         value={value}
         onChange={(event: any) => {
           onChange(Number.parseFloat(event.currentTarget.value));
@@ -383,7 +383,7 @@ export function DepositInput({
       />
       <div
         className={clsx(
-          'absolute top-[13px] right-[16px] uppercase leading-[22px] select-none pointer-events-none',
+          'pointer-events-none absolute right-[16px] top-[13px] select-none uppercase leading-[22px]',
           value ? 'text-white' : 'text-[#FFFFFF3D]',
         )}
       >
@@ -406,11 +406,11 @@ export function DepositButton({
   return (
     <button
       className={clsx(
-        'text-haqq-black text-[14px] leading-[1em] font-serif  py-[12px] px-[24px] rounded-[6px] uppercase',
+        'text-haqq-black rounded-[6px] px-[24px] py-[12px]  font-serif text-[14px] uppercase leading-[1em]',
         'transition-colors duration-100 ease-linear',
         !disabled
-          ? 'bg-white cursor-pointer'
-          : 'bg-white/50 hover:bg-white/50 cursor-not-allowed',
+          ? 'cursor-pointer bg-white'
+          : 'cursor-not-allowed bg-white/50 hover:bg-white/50',
         className,
       )}
       onClick={!disabled ? onClick : undefined}
@@ -438,8 +438,8 @@ export function VoteButton({
   return (
     <button
       className={clsx(
-        'text-white text-[14px] leading-[1em] font-serif bg-[#FFFFFF26] py-[12px] px-[24px] rounded-[6px]',
-        'transition-colors duration-100 ease-linear uppercase',
+        'rounded-[6px] bg-[#FFFFFF26] px-[24px] py-[12px] font-serif text-[14px] leading-[1em] text-white',
+        'uppercase transition-colors duration-100 ease-linear',
         !disabled
           ? {
               'hover:bg-[#01B26E]': color === 'green' && !isActive,
@@ -453,7 +453,7 @@ export function VoteButton({
               'cursor-not-allowed': isActive,
               'cursor-pointer': !isActive,
             }
-          : 'bg-[#FFFFFF26] hover:bg-[#FFFFFF26] cursor-not-allowed',
+          : 'cursor-not-allowed bg-[#FFFFFF26] hover:bg-[#FFFFFF26]',
         className,
       )}
       onClick={!isActive || !disabled ? onClick : undefined}
@@ -471,7 +471,7 @@ function CardHeading({
   return (
     <h3
       className={clsx(
-        'text-[20px] font-[500] leading-[26px] text-white font-serif',
+        'font-serif text-[20px] font-[500] leading-[26px] text-white',
         className,
       )}
     >
@@ -482,7 +482,7 @@ function CardHeading({
 
 function DepositAlert() {
   return (
-    <div className="rounded-[6px] bg-[#48361B] flex flex-row gap-[14px] px-[16px] py-[12px] text-[#E3A13F]">
+    <div className="flex flex-row gap-[14px] rounded-[6px] bg-[#48361B] px-[16px] py-[12px] text-[#E3A13F]">
       <svg
         width="24"
         height="24"

@@ -5,7 +5,7 @@ import bgImgData from '../../assets/lines.svg';
 export function ApplyBlock() {
   return (
     <section
-      className="relative flex flex-col items-center text-center font-light h-[362px] sm:h-[380px] lg:h-[446px] pt-[48px] px-[16px] sm:pt-[60px] sm:px-[48px] bg-center bg-cover bg-no-repeat mb-[-46px] 2xl:mb-[-26px]"
+      className="relative mb-[-46px] flex h-[362px] flex-col items-center bg-cover bg-center bg-no-repeat px-[16px] pt-[48px] text-center font-light sm:h-[380px] sm:px-[48px] sm:pt-[60px] lg:h-[446px] 2xl:mb-[-26px]"
       id="apply"
       style={{
         backgroundImage: `url(${bgImgData.src})`,
@@ -16,7 +16,7 @@ export function ApplyBlock() {
       </Text>
       <Heading className="mt-[8px]">
         Apply now for the HAQQ Ecosystem Fund, and let's{' '}
-        <br className="hidden absolute top-0 lg:block" />
+        <br className="absolute top-0 hidden lg:block" />
         make a difference together!
       </Heading>
       <Link
@@ -24,7 +24,7 @@ export function ApplyBlock() {
         target="_blank"
         rel={'noopener noreferrer'}
       >
-        <Button variant={2} className="uppercase mt-[24px]">
+        <Button variant={2} className="mt-[24px] uppercase">
           Apply now
         </Button>
       </Link>

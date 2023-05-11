@@ -43,17 +43,17 @@ function SelectWalletModal({
     <Modal isOpen={isOpen} onClose={onClose}>
       <div
         className={clsx(
-          'mx-auto bg-white text-haqq-black rounded-[12px] p-[36px]',
+          'text-haqq-black mx-auto rounded-[12px] bg-white p-[36px]',
           className,
         )}
       >
         <ModalCloseButton
           onClick={onClose}
-          className="absolute top-[16px] right-[16px]"
+          className="absolute right-[16px] top-[16px]"
         />
 
-        <div className="flex flex-col space-y-6 min-w-[360px] w-full">
-          <div className="mt-[4x] text-[24px] leading-[30px] font-[500] font-serif">
+        <div className="flex w-full min-w-[360px] flex-col space-y-6">
+          <div className="mt-[4x] font-serif text-[24px] font-[500] leading-[30px]">
             Select wallet
           </div>
 
@@ -86,7 +86,7 @@ function SelectWalletModal({
               );
             })}
 
-            {error && <div className="text-red-500 pt-4">{error.message}</div>}
+            {error && <div className="pt-4 text-red-500">{error.message}</div>}
           </div>
         </div>
       </div>
@@ -120,12 +120,12 @@ function HeaderButtons() {
 
   return (
     <Fragment>
-      <nav className="flex-row space-x-6 items-center hidden lg:flex">
+      <nav className="hidden flex-row items-center space-x-6 lg:flex">
         <HeaderNavLink href="/staking">Staking</HeaderNavLink>
         <HeaderNavLink href="/governance">Governance</HeaderNavLink>
       </nav>
 
-      <div className="hidden lg:block pl-[80px]">
+      <div className="hidden pl-[80px] lg:block">
         {ethAddress ? (
           <AccountButton
             balance={balance}
@@ -155,9 +155,9 @@ function HeaderButtons() {
         <Fragment>
           <ScrollLock isActive />
 
-          <div className="backdrop-blur transform-gpu fixed lg:hidden top-[64px] w-full h-[calc(100vh-64px)] right-0 z-40  bg-[#0D0D0E]">
-            <div className="px-[24px] py-[32px] overflow-y-auto">
-              <div className="flex flex-col items-start space-y-[16px] mb-[24px] sm:mb-[80px]">
+          <div className="fixed right-0 top-[64px] z-40 h-[calc(100vh-64px)] w-full transform-gpu bg-[#0D0D0E] backdrop-blur  lg:hidden">
+            <div className="overflow-y-auto px-[24px] py-[32px]">
+              <div className="mb-[24px] flex flex-col items-start space-y-[16px] sm:mb-[80px]">
                 <HeaderNavLink href="/staking">Staking</HeaderNavLink>
                 <HeaderNavLink href="/governance">Governance</HeaderNavLink>
               </div>

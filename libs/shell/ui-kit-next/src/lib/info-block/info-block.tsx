@@ -11,7 +11,7 @@ export function InfoBlock({
           {title}
         </div>
       )}
-      <div className="text-[14px] leading-[22px] text-white font-[500]">
+      <div className="text-[14px] font-[500] leading-[22px] text-white">
         {children}
       </div>
     </div>

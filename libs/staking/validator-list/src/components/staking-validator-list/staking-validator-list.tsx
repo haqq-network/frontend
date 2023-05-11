@@ -63,15 +63,15 @@ export function StakingValidatorList() {
 
   return (
     <Fragment>
-      <section className="flex flex-col w-full px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[68px]">
-        <div className="font-serif text-[28px] sm:text-[48px] lg:text-[70px] uppercase leading-none">
+      <section className="flex w-full flex-col px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[68px]">
+        <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
           Staking
         </div>
       </section>
 
       <StakingInfo />
 
-      <section className="flex flex-col w-full px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[68px]">
+      <section className="flex w-full flex-col px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[68px]">
         <div className="mb-[32px] flex flex-row items-center">
           <ValidatorIcon />
           <Heading level={3} className="ml-[8px]">
@@ -81,10 +81,10 @@ export function StakingValidatorList() {
 
         <div>
           {status === 'loading' && (
-            <div className="mx-auto w-full max-w-6xl flex-1 flex select-none pointer-events-none py-20">
-              <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-full">
+            <div className="pointer-events-none mx-auto flex w-full max-w-6xl flex-1 select-none py-20">
+              <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
                 <SpinnerLoader />
-                <div className="font-sans text-[10px] leading-[1.2em] uppercase">
+                <div className="font-sans text-[10px] uppercase leading-[1.2em]">
                   Fetching validators list
                 </div>
               </div>
@@ -95,7 +95,7 @@ export function StakingValidatorList() {
             <div className="flex flex-col gap-[24px]">
               {delegatedValidators.length && (
                 <div>
-                  <div className="text-[20px] leading-[26px] text-white/50 font-serif mb-[8px]">
+                  <div className="mb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
                     My delegations
                   </div>
                   <ValidatorsList
@@ -106,7 +106,7 @@ export function StakingValidatorList() {
                 </div>
               )}
               <div>
-                <div className="text-[20px] leading-[26px] text-white/50 font-serif mb-[8px]">
+                <div className="mb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
                   Other validators
                 </div>
                 <ValidatorsList

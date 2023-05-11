@@ -188,9 +188,9 @@ export function ProposalVoteResults({
     }, [yes, abstain, no, veto, total]);
 
   return (
-    <div className="flex flex-col space-y-2 w-full">
+    <div className="flex w-full flex-col space-y-2">
       {status === ProposalStatus.Deposit ? (
-        <div className="flex space-x-[12px] items-center">
+        <div className="flex items-center space-x-[12px]">
           <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
             Total deposit
           </CardText>
@@ -208,7 +208,7 @@ export function ProposalVoteResults({
       ) : (
         // TODO: Заменить компонентом из кита
         <div className="space-y-[8px]">
-          <div className="flex space-x-[12px] items-center">
+          <div className="flex items-center space-x-[12px]">
             <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
               Vote results
             </CardText>
@@ -227,10 +227,10 @@ export function ProposalVoteResults({
             )}
           </div>
 
-          <div className="space-x-[4px] text-xs w-full h-2 relative flex flex-row overflow-hidden justify-between">
+          <div className="relative flex h-2 w-full flex-row justify-between space-x-[4px] overflow-hidden text-xs">
             <div
               className={clsx(
-                'h-full bg-[#01B26E] rounded-xl',
+                'h-full rounded-xl bg-[#01B26E]',
                 yesPercents === 0 && 'hidden',
               )}
               style={{
@@ -239,30 +239,30 @@ export function ProposalVoteResults({
             />
             <div
               className={clsx(
-                'h-full bg-[#FF5454] rounded-xl',
+                'h-full rounded-xl bg-[#FF5454]',
                 noPercents === 0 && 'hidden',
               )}
               style={{ width: `${noPercents}%` }}
             />
             <div
               className={clsx(
-                'h-full bg-[#AAABB2] rounded-xl',
+                'h-full rounded-xl bg-[#AAABB2]',
                 abstainPercents === 0 && 'hidden',
               )}
               style={{ width: `${abstainPercents}%` }}
             />
             <div
               className={clsx(
-                'h-full bg-[#E3A13F] rounded-xl',
+                'h-full rounded-xl bg-[#E3A13F]',
                 vetoPercents === 0 && 'hidden',
               )}
               style={{ width: `${vetoPercents}%` }}
             />
           </div>
-          <div className="flex items-center gap-x-3 flex-wrap">
+          <div className="flex flex-wrap items-center gap-x-3">
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#01B26E] mr-[4px] mb-[-5px]" />
+                <div className="mb-[-5px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E]" />
                 <div className="mr-[2px]">
                   <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Yes
@@ -276,7 +276,7 @@ export function ProposalVoteResults({
 
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#FF5454] mr-[4px] mb-[-5px]" />
+                <div className="mb-[-5px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454]" />
                 <div className="mr-[2px]">
                   <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     No
@@ -290,7 +290,7 @@ export function ProposalVoteResults({
 
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#AAABB2] mr-[4px] mb-[-5px]" />
+                <div className="mb-[-5px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2]" />
                 <div className="mr-[2px]">
                   <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Abstain
@@ -304,7 +304,7 @@ export function ProposalVoteResults({
 
             <div className="flex items-center">
               <div className="flex flex-row items-center">
-                <div className="h-2 w-2 rounded-full bg-yellow-500 mr-[4px] mb-[-5px]" />
+                <div className="mb-[-5px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500" />
                 <div className="mr-[2px]">
                   <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Veto
@@ -359,7 +359,7 @@ export function ProposalListCard({
     <Card>
       <div className="flex flex-col items-start">
         <div className="space-y-[16px]">
-          <div className="flex space-x-[18px] font-serif items-center">
+          <div className="flex items-center space-x-[18px] font-serif">
             <ProposalNumber>#{proposal.proposal_id}</ProposalNumber>
             <ProposalStatusComponent
               status={proposal.status as string}
@@ -369,7 +369,7 @@ export function ProposalListCard({
           <CardHeading>{proposal.content.title}</CardHeading>
         </div>
 
-        <div className="my-3 lg:my-5 border-dashed border-y border-y-[#ffffff26] py-[13px] lg:py-[22px] w-full">
+        <div className="my-3 w-full border-y border-dashed border-y-[#ffffff26] py-[13px] lg:my-5 lg:py-[22px]">
           {currentTime <= new Date(proposal.deposit_end_time).getTime() ? (
             <div className="flex space-x-[12px]">
               <div

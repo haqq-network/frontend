@@ -14,8 +14,8 @@ export function Badge({
   return (
     <span
       className={clsx(
-        'inline-block text-center p-[12px] whitespace-nowrap rounded-lg',
-        'text-white uppercase text-[14px] leading-none font-serif font-medium tracking-[.01em]',
+        'inline-block whitespace-nowrap rounded-lg p-[12px] text-center',
+        'font-serif text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
         {
           'bg-[#01B26E]': intent === 'success',
           'bg-[#E3A13F]': intent === 'warning',

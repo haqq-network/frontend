@@ -30,8 +30,8 @@ export function TransferWidget() {
   }, []);
 
   return (
-    <Card className="overflow-hidden max-w-lg mx-auto w-full">
-      <div className="p-6 flex flex-col space-y-4">
+    <Card className="mx-auto w-full max-w-lg overflow-hidden">
+      <div className="flex flex-col space-y-4 p-6">
         {!isWarned ? (
           <Fragment>
             <Heading level={3} className="uppercase">

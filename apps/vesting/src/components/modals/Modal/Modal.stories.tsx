@@ -14,7 +14,7 @@ export const Modal = (args: ModalProps) => <ModalComponent {...args} />;
 Modal.args = {
   isOpen: true,
   children: (
-    <Card className="p-6 mx-auto max-w-md">
+    <Card className="mx-auto max-w-md p-6">
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat
         error, qui odit adipisci quibusdam vero quam repellendus maiores,

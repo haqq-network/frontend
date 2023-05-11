@@ -40,7 +40,7 @@ export function AddNetworkScreen(): ReactElement {
         </Text>
       </div>
 
-      <div className="bg-white rounded-[12px] p-[20px] shadow-lg flex flex-col space-y-6">
+      <div className="flex flex-col space-y-6 rounded-[12px] bg-white p-[20px] shadow-lg">
         <AddNetworkDetailsItem title="Network name" value={chain.name} />
         <AddNetworkDetailsItem
           title="Network url"
