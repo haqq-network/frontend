@@ -28,7 +28,7 @@ import {
   InfoIcon,
   SpinnerLoader,
   Heading,
-} from '@haqq/shell/ui-kit-next';
+} from '@haqq/shell/ui-kit';
 
 const enum ProposalTypes {
   Text = '/cosmos.gov.v1beta1.TextProposal',

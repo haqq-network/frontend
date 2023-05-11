@@ -23,7 +23,6 @@ export * from './hooks/use-auth-queries/use-auth-queries';
 export * from './hooks/use-distribution-queries/use-distribution-queries';
 export * from './hooks/use-bank-queries/use-bank-queries';
 export * from './components/theme-button';
-export * from './components/account-button';
 export * from './utils/convert-address';
 export * from './utils/get-formatted-address';
 export * from './utils/is-number';

@@ -1,20 +1,23 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 
-export interface NewCardProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function NewCard({ children, className }: NewCardProps) {
+export function Card({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className="rounded-lg border border-[#ffffff3d] bg-transparent p-4 duration-300 hover:cursor-pointer hover:border-[#EC5728] lg:p-7">
+    <div
+      className={clsx(
+        'cursor-pointer rounded-lg border-[1.5px] border-[#ffffff3d] bg-transparent p-4 duration-300 hover:border-[#EC5728] lg:p-7',
+        className,
+      )}
+    >
       {children}
     </div>
   );
 }
 
-export function NewCardHeading({ children }: { children: ReactNode }) {
+export function CardHeading({ children }: PropsWithChildren) {
   return (
     <div className="min-h-[44px] whitespace-pre-wrap font-sans text-[14px] leading-[22px] text-white sm:min-h-[52px] sm:text-[17px] sm:leading-[26px] lg:min-h-[56px] lg:text-[18px] lg:leading-[28px]">
       {children}
@@ -22,17 +25,16 @@ export function NewCardHeading({ children }: { children: ReactNode }) {
   );
 }
 
-export function NewCardText({
+export function CardText({
   children,
   className,
-}: {
-  children: ReactNode;
+}: PropsWithChildren<{
   className?: string;
-}) {
+}>) {
   return <div className={clsx('font-sans', className)}>{children}</div>;
 }
 
-export function NewCardSubText({
+export function CardSubText({
   children,
   className,
 }: {
@@ -42,7 +44,7 @@ export function NewCardSubText({
   return (
     <div
       className={clsx(
-        'text-[11px] leading-[18px] lg:text-[12px] lg:leading-[17px]',
+        'text-[11px] leading-[1.5] lg:text-[12px] lg:leading-[17px]',
         className,
       )}
     >
@@ -73,7 +75,7 @@ export function TimerText({
 
 export function ProposalNumber({ children }: { children: ReactNode }) {
   return (
-    <div className="text-[14px] leading-[18px] text-white lg:text-[20px] lg:leading-[26px]">
+    <div className="text-[14px] leading-[18px] leading-[26px] text-white lg:text-[20px]">
       {children}
     </div>
   );

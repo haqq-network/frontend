@@ -8,7 +8,7 @@ import {
   BurgerButton,
   Button,
   AccountButton,
-} from '@haqq/shell/ui-kit-next';
+} from '@haqq/shell/ui-kit';
 import { Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
 

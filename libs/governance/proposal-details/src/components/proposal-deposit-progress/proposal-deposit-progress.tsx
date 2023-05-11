@@ -1,4 +1,4 @@
-import { CardSubText, CardText } from '@haqq/shell/ui-kit-next';
+import { CardSubText, CardText } from '@haqq/shell/ui-kit';
 import { useMemo } from 'react';
 
 export function ProposalDepositProgress({

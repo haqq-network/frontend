@@ -38,7 +38,7 @@ import {
   Button,
   Heading,
   PercentIcon,
-} from '@haqq/shell/ui-kit-next';
+} from '@haqq/shell/ui-kit';
 import Markdown from 'marked-react';
 
 interface ValidatorInfoComponentProps {

@@ -1,18 +1,16 @@
 import {
   useAddress,
   useClipboard,
-  useMetamask,
   useStakingDelegationQuery,
   useStakingRewardsQuery,
   useWindowWidth,
   getFormattedAddress,
   useWallet,
 } from '@haqq/shared';
-import { Text, Tooltip } from '@haqq/shell/ui-kit';
 import { Button, Heading } from '@haqq/website/ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
-import { OrangeLink, CopyIcon } from '@haqq/shell/ui-kit-next';
+import { OrangeLink, CopyIcon } from '@haqq/shell/ui-kit';
 
 export function MyAccountBlock() {
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
@@ -92,8 +90,10 @@ export function MyAccountBlock() {
   return (
     <section className="w-full border-y border-dashed border-y-[#ffffff26] px-4 py-8 sm:px-16 sm:py-8 lg:px-20 lg:py-8">
       {!ethAddress ? (
-        <div className="flex flex-col items-center space-y-3 py-[62px]">
-          <div className="font-sans">You should connect wallet first</div>
+        <div className="flex flex-col items-center space-y-3 py-[58px]">
+          <div className="font-sans text-[18px] leading-[28px]">
+            You should connect wallet first
+          </div>
           <Button
             onClick={openSelectWallet}
             variant={2}
@@ -127,81 +127,75 @@ export function MyAccountBlock() {
           <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
             <div className="flex flex-col items-start">
               <div className="mb-[6px]">
-                <Text className={grayTextClassName}>My balance</Text>
+                <div className={grayTextClassName}>My balance</div>
               </div>
-              <Text
-                className="sm:leading[1.33em] font-serif text-[16px] leading-[1.25em] text-white sm:text-[18px] lg:text-[24px] lg:leading-[1.25em]"
-                color="white"
-              >
+              <div className="sm:leading[1.33em] font-serif text-[16px] leading-[1.25em] text-white sm:text-[18px] lg:text-[24px] lg:leading-[1.25em]">
                 {balance?.value.toLocaleString()} ISLM
-              </Text>
+              </div>
             </div>
 
             <div className="flex flex-col items-start">
               <div className="mb-[6px]">
-                <Text className={grayTextClassName}>Staked</Text>
+                <div className={grayTextClassName}>Staked</div>
               </div>
-              <Text
-                className="sm:leading[1.33em] text-[16px] leading-[1.25em] text-white sm:text-[18px] lg:text-[24px] lg:leading-[1.25em]"
-                color="white"
-              >
+              <div className="sm:leading[1.33em] text-[16px] leading-[1.25em] text-white sm:text-[18px] lg:text-[24px] lg:leading-[1.25em]">
                 {delegation.toLocaleString()} ISLM
-              </Text>
+              </div>
             </div>
 
             <div className="flex flex-col items-start">
               <div className="mb-[6px]">
-                <Text className={grayTextClassName}>Rewards</Text>
+                <div className={grayTextClassName}>Rewards</div>
               </div>
-              <Text
+              <div
                 className="sm:leading[1.33em] text-[16px] leading-[1.25em] text-white sm:text-[18px] lg:text-[24px] lg:leading-[1.25em]"
                 color="white"
               >
                 {rewards.toLocaleString()} ISLM
-              </Text>
+              </div>
             </div>
 
             <div className="flex flex-col items-start">
               <div className="mb-[6px]">
-                <Text className={grayTextClassName}>Address</Text>
+                <div className={grayTextClassName}>Address</div>
               </div>
 
               <div className="flex flex-col items-start space-y-2 font-sans lg:flex-row lg:space-x-4 lg:space-y-0">
-                <Tooltip
+                <div
+                  className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px] text-white transition-colors duration-100 ease-in-out hover:text-gray-400"
+                  onClick={handleEthAddressCopy}
+                >
+                  <div className="text-[18px] leading-[28px]">
+                    {formattedAddress(ethAddress, width)}
+                  </div>
+
+                  <CopyIcon />
+                </div>
+                <div
+                  className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px] text-white transition-colors duration-100 ease-in-out hover:text-gray-400"
+                  onClick={handleHaqqAddressCopy}
+                >
+                  <div className="text-[18px] leading-[28px]">
+                    {formattedAddress(haqqAddress, width)}
+                  </div>
+
+                  <CopyIcon />
+                </div>
+                {/* <Tooltip
                   text={isEthAddressCopy ? 'Copied' : 'Click to copy'}
                   address={ethAddress}
                   className="font-sans"
                   isCopied={isEthAddressCopy}
                 >
-                  <div
-                    className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px]"
-                    onClick={handleEthAddressCopy}
-                  >
-                    <div className="w-full overflow-hidden text-ellipsis text-[18px] leading-[28px] group-hover:text-gray-400">
-                      {formattedAddress(ethAddress, width)}
-                    </div>
+                </Tooltip> */}
 
-                    <CopyIcon className="text-white transition-colors duration-100 ease-in-out group-hover:text-gray-400" />
-                  </div>
-                </Tooltip>
-
-                <Tooltip
+                {/* <Tooltip
                   text={isHaqqAddressCopy ? 'Copied' : 'Click to copy'}
                   address={haqqAddress}
                   className="font-sans"
                   isCopied={isHaqqAddressCopy}
                 >
-                  <div
-                    className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px]"
-                    onClick={handleHaqqAddressCopy}
-                  >
-                    <div className="w-full overflow-hidden text-ellipsis text-[18px] leading-[28px] group-hover:text-gray-400">
-                      {formattedAddress(haqqAddress, width)}
-                    </div>
-
-                    <CopyIcon className="text-white transition-colors duration-100 ease-in-out group-hover:text-gray-400" />
-                  </div>
-                </Tooltip>
+                </Tooltip> */}
               </div>
             </div>
           </div>

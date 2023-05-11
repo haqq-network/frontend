@@ -8,7 +8,7 @@ import {
 import { StakingInfo, ValidatorsList } from '@haqq/staking/ui-kit';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { Validator } from '@evmos/provider';
-import { ValidatorIcon, Heading, SpinnerLoader } from '@haqq/shell/ui-kit-next';
+import { ValidatorIcon, Heading, SpinnerLoader } from '@haqq/shell/ui-kit';
 
 export function StakingValidatorList() {
   const { haqqAddress } = useAddress();

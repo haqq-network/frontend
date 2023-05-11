@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useProposalListQuery } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
-import { Heading, SpinnerLoader } from '@haqq/shell/ui-kit-next';
+import { Heading, SpinnerLoader } from '@haqq/shell/ui-kit';
 
 export function ProposalList() {
   const { data: proposalsData, isFetching } = useProposalListQuery();

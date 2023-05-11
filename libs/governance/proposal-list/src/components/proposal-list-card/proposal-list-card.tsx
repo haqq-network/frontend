@@ -8,7 +8,7 @@ import {
   InfoBlock,
   ProposalNumber,
   TimerText,
-} from '@haqq/shell/ui-kit-next';
+} from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
 
 export interface ProposalListCardProps {

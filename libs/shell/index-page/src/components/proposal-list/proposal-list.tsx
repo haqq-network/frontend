@@ -4,7 +4,7 @@ import { SpinnerLoader } from '@haqq/ui-kit';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
 import { useProposalListQuery } from '@haqq/shared';
 import { Heading } from '@haqq/website/ui-kit';
-import { OrangeLink } from '@haqq/shell/ui-kit-next';
+import { OrangeLink } from '@haqq/shell/ui-kit';
 
 export function ShellIndexPageProposalList() {
   const { data: proposalsData, isFetching } = useProposalListQuery();

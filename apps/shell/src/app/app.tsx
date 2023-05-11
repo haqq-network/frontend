@@ -9,7 +9,7 @@ import {
   HeaderNavLink,
   Button,
   BurgerButton,
-} from '@haqq/shell/ui-kit-next';
+} from '@haqq/shell/ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useBalance, useConnect } from 'wagmi';
 import { Modal, ModalCloseButton } from '@haqq/ui-kit';

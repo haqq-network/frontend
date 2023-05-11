@@ -4,7 +4,6 @@ import {
   useStakingPoolQuery,
   useStakingValidatorListQuery,
 } from '@haqq/shared';
-import { Text } from '@haqq/shell/ui-kit';
 import {
   BondStatus,
   bondStatusFromJSON,
@@ -51,42 +50,42 @@ export function StatisticsBlock() {
         </div>
         <div className="flex flex-col space-y-[10px] lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-2 lg:space-y-0">
           <div className="flex space-x-[9px]">
-            <Text className="font-serif text-[12px] tracking-[.01em] sm:text-[14px]">
+            <div className="font-serif text-[12px] tracking-[.01em] sm:text-[14px]">
               total supply
-            </Text>
+            </div>
             <div className="inline-flex space-x-[5px] font-sans text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
-              <Text color="white">{formatNumber(totalSupply)}</Text>
-              <Text>ISLM</Text>
+              <span className="text-white">{formatNumber(totalSupply)}</span>
+              ISLM
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <Text className="font-serif text-[12px] tracking-[.01em] sm:text-[14px]">
+            <div className="font-serif text-[12px] tracking-[.01em] sm:text-[14px]">
               total staked ({((totalStaked / totalSupply) * 100).toFixed(2)}%)
-            </Text>
+            </div>
             <div className="inline-flex space-x-[5px] font-sans text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
-              <Text>
+              <div>
                 <span className="text-white">{formatNumber(totalStaked)}</span>{' '}
                 ISLM
-              </Text>
+              </div>
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <Text className="font-serif text-[12px] tracking-[.01em] sm:text-[14px]">
+            <div className="font-serif text-[12px] tracking-[.01em] sm:text-[14px]">
               peers
-            </Text>
+            </div>
             <div className="inline-flex space-x-[5px] font-sans text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
-              <Text color="white">{totalAccounts}</Text>
+              <span className="text-white">{totalAccounts}</span>
             </div>
           </div>
           <div className="flex space-x-[9px]">
-            <Text className="font-serif text-[12px] tracking-[.01em] sm:text-[14px]">
+            <div className="font-serif text-[12px] tracking-[.01em] sm:text-[14px]">
               Active validators
-            </Text>
+            </div>
             <div className="inline-flex space-x-[5px] font-sans text-[12px] leading-[1.5em] sm:text-[13px] sm:leading-[22px]">
-              <Text>
+              <div>
                 <span className="text-white">{valsActive}</span> out of{' '}
                 {valsTotal}
-              </Text>
+              </div>
             </div>
           </div>
         </div>

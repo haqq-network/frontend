@@ -1,6 +1,6 @@
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ValidatorInfo } from '../validator-info/validator-info';
-import { BackButton } from '@haqq/shell/ui-kit-next';
+import { BackButton } from '@haqq/shell/ui-kit';
 
 export function StakingValidatorDetails() {
   const { address } = useParams();

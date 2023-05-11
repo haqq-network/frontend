@@ -25,7 +25,6 @@
       "@haqq/shared": ["libs/shared/src/index.ts"],
       "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],
       "@haqq/shell/ui-kit": ["libs/shell/ui-kit/src/index.ts"],
-      "@haqq/shell/ui-kit-next": ["libs/shell/ui-kit-next/src/index.ts"],
       "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
       "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
       "@haqq/staking/validator-details": [
