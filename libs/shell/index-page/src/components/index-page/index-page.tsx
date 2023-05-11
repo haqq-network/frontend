@@ -5,6 +5,9 @@ import { ShellIndexPageDelegationList } from '../delegation-list/delegation-list
 import { ShellIndexPageProposalList } from '../proposal-list/proposal-list';
 import { MyAccountBlock } from '../../lib/my-account-block/my-account-block';
 import { StatisticsBlock } from '../../lib/statistics-block/statistics-block';
+import { PropsWithChildren } from 'react';
+import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 export function ShellIndexPage() {
   return (
@@ -25,14 +28,32 @@ export function ShellIndexPage() {
             <Heading level={3} className="ml-[8px]">
               Latest proposals
             </Heading>
-            <div className="text-[#EC5728] text-[12px] leading-[1.2em] uppercase font-serif font-[600] ml-[16px]">
+            <HeaderLink href="/governance" className="ml-[16px]">
               Go to Governance
-            </div>
+            </HeaderLink>
           </div>
           <ShellIndexPageProposalList />
         </section>
       </div>
     </div>
+  );
+}
+
+function HeaderLink({
+  children,
+  className,
+  href,
+}: PropsWithChildren<{ className?: string; href: string }>) {
+  return (
+    <Link
+      to={href}
+      className={clsx(
+        'text-[#EC5728] text-[12px] leading-[1.2em] uppercase font-serif font-[600] hover:text-[#FF8D69] transition-colors duration-100 ease-out cursor-pointer',
+        className,
+      )}
+    >
+      {children}
+    </Link>
   );
 }
 
