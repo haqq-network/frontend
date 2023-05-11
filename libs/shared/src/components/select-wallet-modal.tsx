@@ -1,11 +1,11 @@
 import {
-  Button2,
   Card,
   Heading,
   Modal,
   ModalCloseButton,
   SpinnerLoader,
 } from '@haqq/ui-kit';
+import { Button } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
 import { useConnect } from 'wagmi';
 
@@ -46,18 +46,19 @@ export function SelectWalletModal({
                 }
 
                 return (
-                  <Button2
+                  <Button
                     key={connector.id}
                     onClick={async () => {
                       await connectAsync({ connector });
                       onClose();
                     }}
+                    variant={4}
                   >
                     {connector.name}
                     {isLoading &&
                       connector.id === pendingConnector?.id &&
                       ' (connecting)'}
-                  </Button2>
+                  </Button>
                 );
               })}
 
