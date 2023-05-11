@@ -9,7 +9,7 @@ import {
 import { useBalance } from 'wagmi';
 import { Button2, Text, Card, SpinnerLoader } from '@haqq/ui-kit';
 import { formatUnits } from 'ethers/lib/utils';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   useAddress,
   useStakingValidatorInfoQuery,
@@ -173,12 +173,11 @@ export function ValidatorInfoComponent({
     return power.toLocaleString().replace(/,/g, ' ');
   };
 
-  console.log({ balance });
 
   return (
-    <div className="mx-auto w-full flex">
+    <div className="mx-auto w-full flex gap-x-[48px]">
       {/* first column */}
-      <div className="flex flex-col gap-y-[24px] md:gap-y-[40px] lg:gap-y-[42px]">
+      <div className="flex flex-col gap-y-[24px] md:gap-y-[40px] lg:gap-y-[42px] w-2/3">
         <div className="flex flex-row items-center space-x-[16px]">
           <ValidatorStatus
             jailed={validatorInfo.jailed}
@@ -215,35 +214,25 @@ export function ValidatorInfoComponent({
           </div>
           {/* email, website */}
           <div className="flex gap-x-[28px]">
-            <div className="flex flex-col items-start space-y-2">
-              <span className="text-[12px] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px] text-[#EC5728]">
+            {validatorInfo.description?.website && (
+              <Link
+                className="text-[12px] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px] text-[#EC5728] hover:text-[#FF8D69] cursor-pointer transition-colors duration-100 ease-in"
+                to={validatorInfo.description?.website}
+                target="_blank"
+                rel="noreferrer"
+              >
                 Website
-              </span>
-              {validatorInfo.description?.website && (
-                <a
-                  className="cursor-pointer transition-colors duration-100 ease-in hover:text-slate-500"
-                  href={validatorInfo.description?.website}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {validatorInfo.description?.website}
-                </a>
-              )}
-            </div>
+              </Link>
+            )}
 
-            <div className="flex flex-col items-start space-y-2">
-              <span className="text-[12px] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px] text-[#EC5728]">
+            {validatorInfo.description?.securityContact && (
+              <Link
+                className="text-[12px] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px] text-[#EC5728] hover:text-[#FF8D69] cursor-pointer transition-colors duration-100 ease-in"
+                to={`mailto:${validatorInfo.description?.securityContact}`}
+              >
                 E-mail
-              </span>
-              {validatorInfo.description?.securityContact && (
-                <a
-                  className="cursor-pointer transition-colors duration-100 ease-in hover:text-slate-500"
-                  href={`mailto:${validatorInfo.description?.securityContact}`}
-                >
-                  {validatorInfo.description?.securityContact}
-                </a>
-              )}
-            </div>
+              </Link>
+            )}
           </div>
           <div className="flex gap-x-[28px]">
             <div className="flex flex-col items-start">
@@ -307,7 +296,7 @@ export function ValidatorInfoComponent({
           </svg>
           Commission
         </div>
-        <div className="rounded-lg border border-white/20 p-[16px] md:p-[24px] flex gap-x-[32px]">
+        <div className="rounded-lg border border-white/20 p-[16px] md:p-[24px] flex gap-x-[32px] max-w-fit">
           <div className="flex flex-col gap-y-[6px]">
             <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
               Current
@@ -337,7 +326,7 @@ export function ValidatorInfoComponent({
         </div>
       </div>
       {/* second column */}
-      <div className="flex flex-col gap-y-[20px]">
+      <div className="flex flex-col gap-y-[20px] w-1/3">
         {/* my account block */}
         <div className="hidden lg:flex lg:flex-col px-[28px] py-[32px] border border-white/20 rounded-lg items-start">
           <div className="flex items-center gap-x-[16px]">
@@ -430,7 +419,7 @@ export function ValidatorInfoComponent({
           )}
         </div>
         {/* validator block */}
-        <div className="px-[28px] py-[32px] rounded-lg items-start bg-[#202021]">
+        <div className="px-[28px] py-[32px] rounded-lg items-start bg-[#202021] flex flex-col gap-y-[28px]">
           <div className="flex gap-x-[8px] font-serif text-[24px] leading-[30px]">
             <svg
               width="24"
@@ -448,115 +437,63 @@ export function ValidatorInfoComponent({
             </svg>
             Validator
           </div>
-          <div className="flex flex-col gap-y-[6px]">
-            <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
-              My delegation
-            </span>
-            <span className="text-[24px] leading-[30px] font-serif uppercase text-white">
-              {delegation.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}{' '}
-              Islm
-            </span>
-          </div>
-          <div className="flex gap-x-[12px]">
-            <Button
-              variant={2}
-              disabled={balance < 1}
-              onClick={() => {
-                navigate(`#delegate`);
-              }}
-            >
-              Delegate
-            </Button>
-            <Button
-              variant={2}
-              disabled={delegation === 0}
-              onClick={() => {
-                navigate(`#undelegate`);
-              }}
-            >
-              Undelegate
-            </Button>
-          </div>
-          <div className="flex flex-col gap-y-[6px]">
-            <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
-              My rewards
-            </span>
-            <span className="text-[24px] leading-[30px] font-serif uppercase text-[#01B26E]">
-              {rewards.toLocaleString(undefined, {
-                minimumFractionDigits: 3,
-                maximumFractionDigits: 3,
-              })}{' '}
-              Islm
-            </span>
-          </div>
-          <Button variant={5} disabled onClick={onGetRewardsClick}>
-            Get my rewards
-          </Button>
-        </div>
-      </div>
-      <div className="flex flex-col space-y-6">
-        <Card>
-          <div className="flex flex-col space-y-4">
-            <div>
-              <div className="text-sm font-medium leading-relaxed text-gray-400 uppercase">
+          <div className="flex flex-col gap-y-[12px]">
+            <div className="flex flex-col gap-y-[6px]">
+              <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
                 My delegation
-              </div>
-              <div className="text-2xl font-semibold leading-normal">
-                {delegation.toLocaleString()}{' '}
-                <span className="text-base">{symbol.toUpperCase()}</span>
-              </div>
+              </span>
+              <span className="text-[24px] leading-[30px] font-serif uppercase text-white">
+                {delegation.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{' '}
+                Islm
+              </span>
             </div>
-
-            <div className="flex flex-row space-x-3">
-              <Button2
+            <div className="flex gap-x-[12px]">
+              <Button
+                variant={2}
+                disabled={balance < 1}
                 onClick={() => {
                   navigate(`#delegate`);
                 }}
-                className="flex-1"
-                disabled={balance < 1}
               >
                 Delegate
-              </Button2>
-              <Button2
+              </Button>
+              <Button
+                variant={2}
+                disabled={delegation === 0}
                 onClick={() => {
                   navigate(`#undelegate`);
                 }}
-                className="flex-1"
-                disabled={delegation === 0}
               >
                 Undelegate
-              </Button2>
+              </Button>
             </div>
           </div>
-        </Card>
-        <Card>
-          <div className="flex flex-col space-y-4">
-            <div>
-              <div className="text-sm font-medium leading-relaxed text-gray-400 uppercase">
+          <div className="flex flex-col gap-y-[12px]">
+            <div className="flex flex-col gap-y-[6px]">
+              <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
                 My rewards
-              </div>
-              <div className="text-2xl font-semibold leading-normal">
-                {rewards.toLocaleString()}{' '}
-                <span className="text-base">{symbol.toUpperCase()}</span>
-              </div>
+              </span>
+              <span className="text-[24px] leading-[30px] font-serif uppercase text-[#01B26E]">
+                {rewards.toLocaleString(undefined, {
+                  minimumFractionDigits: 3,
+                  maximumFractionDigits: 3,
+                })}{' '}
+                Islm
+              </span>
             </div>
-
-            <div className="flex">
-              <Button2
-                className="button flex-1"
-                disabled={rewards < 1}
-                onClick={onGetRewardsClick}
-              >
-                Get my rewards
-              </Button2>
-            </div>
+            <Button
+              variant={5}
+              disabled={rewards < 1}
+              onClick={onGetRewardsClick}
+            >
+              Get my rewards
+            </Button>
           </div>
-        </Card>
+        </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }
