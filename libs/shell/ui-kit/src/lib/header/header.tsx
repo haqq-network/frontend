@@ -5,6 +5,7 @@ import { BurgerButton } from '@haqq/website/ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { Link } from 'react-router-dom';
+import { useWindowWidth } from '@haqq/shared';
 
 function HeaderNavLink({
   href,
@@ -35,6 +36,7 @@ function HeaderNavLink({
 export function Header() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+  const { width } = useWindowWidth();
 
   const handleMenuOpen = useCallback(() => {
     setBurgerMenuOpen((isBurgerMenuOpen: boolean) => {
@@ -43,16 +45,8 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 1024);
-    }
-
-    window.addEventListener('resize', handleResize, { passive: true });
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    setIsMobile(width <= 1024);
+  }, [width]);
 
   return (
     <header
@@ -75,7 +69,7 @@ export function Header() {
           <Link to="/">HAQQ</Link>
         </div>
         <div className="flex-1" />
-        <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex">
+        <nav className="flex-row space-x-6 items-center hidden lg:flex">
           <HeaderNavLink href="/staking">Staking</HeaderNavLink>
           <HeaderNavLink href="/governance">Governance</HeaderNavLink>
         </nav>

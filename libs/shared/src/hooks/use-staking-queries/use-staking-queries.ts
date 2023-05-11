@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useCosmosService } from '../../providers/cosmos-provider';
+import { Validator } from '@evmos/provider';
 
 export function useStakingValidatorListQuery(limit = 1000) {
   const { getAllValidators } = useCosmosService();
 
-  return useQuery(['validators'], () => {
+  return useQuery<Validator[], Error>(['validators'], () => {
     return getAllValidators(limit);
   });
 }
