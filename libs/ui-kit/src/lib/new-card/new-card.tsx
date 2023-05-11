@@ -8,7 +8,12 @@ export interface NewCardProps {
 
 export function NewCard({ children, className }: NewCardProps) {
   return (
-    <div className="border border-[#ffffff3d] hover:border-[#EC5728] hover:cursor-pointer duration-300 rounded-lg p-4 lg:p-7 bg-transparent">
+    <div
+      className={clsx(
+        'border-[1.5px] border-[#ffffff3d] hover:border-[#EC5728] cursor-pointer duration-300 rounded-lg p-4 lg:p-7 bg-transparent',
+        className,
+      )}
+    >
       {children}
     </div>
   );

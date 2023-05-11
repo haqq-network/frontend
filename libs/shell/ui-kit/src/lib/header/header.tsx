@@ -92,7 +92,9 @@ export function Header() {
       <div className="w-full flex flex-row items-center h-full pr-[16px] sm:pr-[64px] lg:pr-[80px] mx-auto">
         <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-[#464647]">
           <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
-            <img src={logoImageData} alt="HAQQ" />
+            <Link to="/">
+              <img src={logoImageData} alt="HAQQ" />
+            </Link>
           </div>
         </div>
         <div className="font-serif ml-[20px] lg:ml-[32px] font-medium text-[24px] leading-none">

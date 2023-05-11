@@ -2,6 +2,17 @@
 @tailwind base;
 @tailwind utilities;
 
+@layer base {
+  input[type='number'] {
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+  }
+}
+
 @font-face {
   font-family: 'Clash Display';
   src: url('/assets/fonts/ClashDisplay-Medium.woff2') format('woff2'),
