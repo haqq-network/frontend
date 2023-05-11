@@ -4,7 +4,7 @@ import { SpinnerLoader } from '@haqq/ui-kit';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
 import { useProposalListQuery } from '@haqq/shared';
 import { Heading } from '@haqq/website/ui-kit';
-import { OrangeLink } from '../index-page/index-page';
+import { OrangeLink } from '@haqq/shell/ui-kit-next';
 
 export function ShellIndexPageProposalList() {
   const { data: proposalsData, isFetching } = useProposalListQuery();
@@ -23,12 +23,15 @@ export function ShellIndexPageProposalList() {
         <Heading level={3} className="ml-[8px]">
           Latest proposals
         </Heading>
-        <OrangeLink href="/governance" className="ml-[16px] uppercase">
+        <OrangeLink
+          href="/governance"
+          className="ml-[16px] font-serif !text-[12px] uppercase"
+        >
           Go to Governance
         </OrangeLink>
       </div>
       {!isFetching ? (
-        <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2 2xl:grid-cols-2">
           {proposals.map((proposal) => {
             return (
               <Link
@@ -41,9 +44,9 @@ export function ShellIndexPageProposalList() {
           })}
         </div>
       ) : (
-        <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-full select-none pointer-events-none py-[48px]">
-          <SpinnerLoader className="text-white/10 !fill-haqq-orange w-10 h-10" />
-          <div className="font-sans text-[10px] leading-[1.2em] uppercase">
+        <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8 py-[48px]">
+          <SpinnerLoader className="!fill-haqq-orange h-10 w-10 text-white/10" />
+          <div className="font-sans text-[10px] uppercase leading-[1.2em]">
             Fetching proposals
           </div>
         </div>

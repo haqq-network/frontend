@@ -1,23 +1,25 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
-/* eslint-disable-next-line */
 export interface BadgeProps {
-  children: ReactNode;
   className?: string;
   intent: 'success' | 'warning' | 'danger';
 }
 
-export function Badge({ children, className, intent = 'success' }: BadgeProps) {
+export function Badge({
+  children,
+  className,
+  intent = 'success',
+}: PropsWithChildren<BadgeProps>) {
   return (
     <span
       className={clsx(
-        'inline-block py-1 px-2.5 leading-tight text-center whitespace-nowrap align-baseline font-medium rounded-md',
-        'text-white dark:bg-opacity-30 uppercase text-xs',
+        'inline-block whitespace-nowrap rounded-lg p-[12px] text-center',
+        'font-serif text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
         {
-          'bg-islamic-green-500': intent === 'success',
-          'bg-yellow-400': intent === 'warning',
-          'bg-islamic-red-500': intent === 'danger',
+          'bg-[#01B26E]': intent === 'success',
+          'bg-[#E3A13F]': intent === 'warning',
+          'bg-[#FF5454]': intent === 'danger',
         },
         className,
       )}

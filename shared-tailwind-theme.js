@@ -56,6 +56,7 @@ const tailwindThemeExtend = {
     'haqq-seaweed': '#157C83',
     'haqq-bigfoot-feet': '#E98C50',
     'haqq-azure': '#ECFEFE',
+    'haqq-modal-overlay': '#0D0D0ECC',
   },
   boxShadow: {
     'islamic-dropdown': '0px 0px 20px rgb(0 0 0 / 20%)',

@@ -1,7 +1,7 @@
 export function LinkArrowIcon() {
   return (
     <svg
-      className="hidden sm:block sm:invisible group-hover:visible h-[24px] w-[24px]"
+      className="hidden h-[24px] w-[24px] group-hover:visible sm:invisible sm:block"
       viewBox="0 0 25 24"
       fill="none"
     >

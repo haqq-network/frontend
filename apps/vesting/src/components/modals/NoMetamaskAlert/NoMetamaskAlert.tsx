@@ -15,16 +15,16 @@ export function NoMetamaskAlert({
 }: NoMetamaskAlertProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-[24px] max-w-[640px] mx-auto p-8">
+      <div className="mx-auto max-w-[640px] rounded-[24px] bg-white p-8">
         <div className="flex flex-col space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <Heading level={3}>Install MetaMask</Heading>
             <ModalCloseButton onClick={onClose} />
           </div>
 
-          <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-8 items-center space-y-reverse">
+          <div className="flex flex-col items-center space-y-6 space-y-reverse md:flex-row md:space-x-8 md:space-y-0">
             <div>
-              <Text className="block mb-2">
+              <Text className="mb-2 block">
                 It seems like you do not have the MetaMask wallet.
               </Text>
               <Text className="block">

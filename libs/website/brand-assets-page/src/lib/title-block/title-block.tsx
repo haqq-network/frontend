@@ -7,7 +7,7 @@ export function TitleBlock() {
   return (
     <section
       className={clsx(
-        'relative flex flex-col pt-[48px] px-[16px] sm:pt-[68px] sm:px-[48px] lg:px-[80px]',
+        'relative flex flex-col px-[16px] pt-[48px] sm:px-[48px] sm:pt-[68px] lg:px-[80px]',
       )}
     >
       <Image
@@ -16,7 +16,7 @@ export function TitleBlock() {
         width={bgImageData.width}
         height={bgImageData.height}
         priority
-        className="absolute top-0 left-1/2 sm:left-0 z-[-1] bg-contain bg-no-repeat scale-[2] sm:scale-100"
+        className="absolute left-1/2 top-0 z-[-1] scale-[2] bg-contain bg-no-repeat sm:left-0 sm:scale-100"
       />
 
       <Heading level={1}>Brand Assets</Heading>

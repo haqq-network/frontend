@@ -233,7 +233,7 @@ export function DepositWithdrawalList({
   }, [address]);
 
   return (
-    <Card className="overflow-hidden max-w-lg mx-auto w-full">
+    <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="flex flex-col space-y-4">
         <div className="px-6 pt-6">
           <Heading level={3} className="uppercase">
@@ -266,16 +266,16 @@ function DepositWithdrawalListItem({ withdrawal }: any) {
   }, [withdrawal.timeStamp]);
 
   return (
-    <div className="border-t border-gray-100 px-6 py-2 relative hover:bg-gray-100/40 transition-colors duration-100 ease-linear flex flex-col space-y-1.5 h-[110px] justify-between">
-      <div className="flex flex-row justify-between items-center">
+    <div className="relative flex h-[110px] flex-col justify-between space-y-1.5 border-t border-gray-100 px-6 py-2 transition-colors duration-100 ease-linear hover:bg-gray-100/40">
+      <div className="flex flex-row items-center justify-between">
         <div>
           {withdrawal.type === 'withdraw' && (
-            <div className="bg-[#04d484cc] py-[4px] px-[6px] text-white text-xs rounded-[2px] select-none">
+            <div className="select-none rounded-[2px] bg-[#04d484cc] px-[6px] py-[4px] text-xs text-white">
               Withdraw
             </div>
           )}
           {withdrawal.type === 'deposit' && (
-            <div className="bg-yellow-400/90 py-[4px] px-[6px] text-white text-xs rounded-[2px] select-none">
+            <div className="select-none rounded-[2px] bg-yellow-400/90 px-[6px] py-[4px] text-xs text-white">
               Deposit created
             </div>
           )}
@@ -291,13 +291,13 @@ function DepositWithdrawalListItem({ withdrawal }: any) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <div className="text-base text-gray-600 overflow-hidden text-ellipsis hover:text-primary leading-normal">
+          <div className="hover:text-primary overflow-hidden text-ellipsis text-base leading-normal text-gray-600">
             {withdrawal.transactionHash}
           </div>
         </a>
       </div>
 
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row items-center justify-between">
         <div>
           <div className="text-sm">
             Block:{' '}
@@ -314,7 +314,7 @@ function DepositWithdrawalListItem({ withdrawal }: any) {
 
         {withdrawal.type === 'withdraw' && (
           <div>
-            <div className="font-medium text-lg">
+            <div className="text-lg font-medium">
               {`${Number.parseInt(
                 formatEther(withdrawal.parsedLog.args.sumInWei),
                 10,
@@ -325,7 +325,7 @@ function DepositWithdrawalListItem({ withdrawal }: any) {
         )}
         {withdrawal.type === 'deposit' && (
           <div>
-            <div className="font-medium text-lg">
+            <div className="text-lg font-medium">
               {`${Number.parseInt(
                 formatEther(withdrawal.parsedLog.args.sumInWeiDeposited),
                 10,

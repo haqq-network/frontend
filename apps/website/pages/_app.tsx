@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
 
       <main
-        className={clsx('min-h-screen flex flex-col overflow-x-clip font-sans')}
+        className={clsx('flex min-h-screen flex-col overflow-x-clip font-sans')}
       >
         <Header />
         <div className="flex-1">

@@ -18,9 +18,9 @@ export function AccountButton({
   onDisconnectClick: () => void;
 }) {
   return (
-    <div className="inline-flex flex-row items-center rounded-[6px] text-white bg-slate-500">
+    <div className="inline-flex flex-row items-center rounded-[6px] bg-slate-500 text-white">
       {balance && (
-        <div className="font-medium leading-[24px] pl-[12px] py-[8px] pr-[8px]">
+        <div className="py-[8px] pl-[12px] pr-[8px] font-medium leading-[24px]">
           {`${balance.value.toLocaleString()} ${balance.symbol.toLocaleUpperCase()}`}
         </div>
       )}
@@ -28,8 +28,8 @@ export function AccountButton({
         <Menu.Button as="div" className="rounded-[8px] p-[2px]">
           <button
             className={clsx(
-              'flex flex-row items-center space-x-2 rounded-[4px] h-[36px] px-[8px] py-[6px]',
-              'cursor-pointer bg-slate-100 hover:bg-slate-200/90 active:bg-slate-100 text-slate-800',
+              'flex h-[36px] flex-row items-center space-x-2 rounded-[4px] px-[8px] py-[6px]',
+              'cursor-pointer bg-slate-100 text-slate-800 hover:bg-slate-200/90 active:bg-slate-100',
               'transition-all duration-150 ease-in',
               'box-border appearance-none outline-none',
               // 'ring-slate-100/80 focus:ring-2',
@@ -57,11 +57,11 @@ export function AccountButton({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-1 w-[160px] origin-top-right rounded-md bg-white focus:outline-none shadow-lg py-1 text-slate-800">
+          <Menu.Items className="absolute right-0 mt-1 w-[160px] origin-top-right rounded-md bg-white py-1 text-slate-800 shadow-lg focus:outline-none">
             {onDisconnectClick && (
               <Menu.Item
                 as="button"
-                className="py-[6px] px-[16px] leading-[24px] hover:bg-slate-500 hover:text-white transition-colors duration-150 ease-out block w-full text-left"
+                className="block w-full px-[16px] py-[6px] text-left leading-[24px] transition-colors duration-150 ease-out hover:bg-slate-500 hover:text-white"
                 onClick={onDisconnectClick}
               >
                 Disconnect

@@ -5,20 +5,20 @@ import halfEclipseImageData from '../../assets/images/half-eclipse.png';
 
 function SunriseBackground() {
   return (
-    <div className="absolute inset-0 lg:translate-y-[100px] z-[-1]">
+    <div className="absolute inset-0 z-[-1] lg:translate-y-[100px]">
       <Image
         alt=""
         src={sunriseImageData.src}
         height={sunriseImageData.height}
         width={sunriseImageData.width}
-        className="z-[-1] absolute bottom-0 w-full scale-125 origin-bottom"
+        className="absolute bottom-0 z-[-1] w-full origin-bottom scale-125"
       />
       <Image
         alt=""
         src={halfEclipseImageData.src}
         height={halfEclipseImageData.height}
         width={halfEclipseImageData.width}
-        className="z-[-1] absolute bottom-[-2px] left-0 w-full"
+        className="absolute bottom-[-2px] left-0 z-[-1] w-full"
       />
     </div>
   );
@@ -26,8 +26,8 @@ function SunriseBackground() {
 
 export function HeroBlock() {
   return (
-    <div className="border-b border-haqq-border relative">
-      <div className="sm:ml-[63px] lg:ml-[79px] px-[16px] sm:pl-[20px] lg:pl-[32px] sm:border-l border-haqq-border h-[500px] sm:h-[calc(100vh-(72px))] min-h-[440px] sm:min-h-[610px] lg:min-h-[748px] flex flex-col justify-center items-start sm:pr-[64px] lg:pr-[80px] z-10">
+    <div className="border-haqq-border relative border-b">
+      <div className="border-haqq-border z-10 flex h-[500px] min-h-[440px] flex-col items-start justify-center px-[16px] sm:ml-[63px] sm:h-[calc(100vh-(72px))] sm:min-h-[610px] sm:border-l sm:pl-[20px] sm:pr-[64px] lg:ml-[79px] lg:min-h-[748px] lg:pl-[32px] lg:pr-[80px]">
         <HeroHeading>
           Home of <br />
           ethical web3
@@ -46,7 +46,7 @@ export function HeroBlock() {
         </div> */}
       </div>
 
-      <div className="hidden sm:block sm:absolute sm:bottom-[26px] sm:left-[28px] lg:bottom-[58px] lg:left-[34px]">
+      <div className="hidden sm:absolute sm:bottom-[26px] sm:left-[28px] sm:block lg:bottom-[58px] lg:left-[34px]">
         <svg width="10" height="39" viewBox="0 0 10 39" fill="none">
           <path
             d="M5 0L5 38.0977M5 38.0977L9.18359 34.0977M5 38.0977L1 34.0977"

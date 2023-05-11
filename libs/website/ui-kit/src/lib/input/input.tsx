@@ -77,7 +77,7 @@ export const Input = forwardRef(function Input(
         {required && <span className={requiredClassNames}>*</span>}
       </div>
       {error && (
-        <div className="block mt-[8px] text-[#FF5454] text-[12px] leading-[16px]">
+        <div className="mt-[8px] block text-[12px] leading-[16px] text-[#FF5454]">
           {error}
         </div>
       )}

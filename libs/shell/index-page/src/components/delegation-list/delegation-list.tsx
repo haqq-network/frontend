@@ -99,7 +99,7 @@ export function ShellIndexPageDelegationList() {
 
   if (!haqqAddress) {
     return (
-      <Card className="!p-0 flex flex-row items-center justify-center min-h-[293px]">
+      <Card className="flex min-h-[293px] flex-row items-center justify-center !p-0">
         <div>You should connect wallet first</div>
       </Card>
     );
@@ -107,8 +107,8 @@ export function ShellIndexPageDelegationList() {
 
   return (
     <div>
-      <Card className="!p-0 flex flex-col flex-1">
-        <div className="px-6 py-3 border-b border-islamic-black-100/20">
+      <Card className="flex flex-1 flex-col !p-0">
+        <div className="border-islamic-black-100/20 border-b px-6 py-3">
           <div className="flex items-center justify-between space-x-6 font-semibold">
             <div className="w-1/4">
               <div className="font-semibold">Name</div>
@@ -122,14 +122,14 @@ export function ShellIndexPageDelegationList() {
         </div>
 
         {status === 'loading' && (
-          <div className="flex flex-col space-y-8 items-center justify-center p-20">
+          <div className="flex flex-col items-center justify-center space-y-8 p-20">
             <SpinnerLoader />
             <Text block>Fetching validators list</Text>
           </div>
         )}
         {status === 'error' && <p>Error: {(error as any).message}</p>}
         {status === 'success' && (
-          <div className="overflow-y-scroll w-full min-h-[120px] max-h-[300px]">
+          <div className="max-h-[300px] min-h-[120px] w-full overflow-y-scroll">
             {validatorsWithDelegation?.length ? (
               validatorsWithDelegation.map((validator, index) => {
                 return (
@@ -141,7 +141,7 @@ export function ShellIndexPageDelegationList() {
                 );
               })
             ) : (
-              <div className="text-center pt-[64px]">
+              <div className="pt-[64px] text-center">
                 <Heading level={3}>You don't have active delegations</Heading>
               </div>
             )}
@@ -165,6 +165,7 @@ export function ValidatorWithDelegationListItem({
   const votingPower = useMemo(() => {
     return Number.parseInt(validator.power ?? '0') / 10 ** 18;
   }, [validator.power]);
+
   const votingPowerInPercents = useMemo(() => {
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
@@ -178,7 +179,7 @@ export function ValidatorWithDelegationListItem({
   return (
     <Link
       to={`staking/validator/${validator.address}`}
-      className="block px-6 py-4 hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/10 border-b border-islamic-black-100/20 cursor-pointer transition-[background] duration-75 last:border-b-0"
+      className="hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/10 border-islamic-black-100/20 block cursor-pointer border-b px-6 py-4 transition-[background] duration-75 last:border-b-0"
     >
       <div className="flex items-center justify-between space-x-6">
         <div className="w-1/4">
@@ -192,9 +193,9 @@ export function ValidatorWithDelegationListItem({
           />
         </div>
         <div className="w-[50px] text-center">{validatorCommission}%</div>
-        <div className="flex-1 font-semibold text-right">
+        <div className="flex-1 text-right font-semibold">
           <div>{votingPower.toLocaleString()}</div>
-          <div className="text-gray-400 text-sm">{votingPowerInPercents}%</div>
+          <div className="text-sm text-gray-400">{votingPowerInPercents}%</div>
         </div>
         <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
         <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>

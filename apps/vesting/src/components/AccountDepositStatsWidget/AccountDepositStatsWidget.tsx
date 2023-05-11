@@ -82,9 +82,9 @@ export function AccountDepositStatsWidget({
   }, [address, currentDeposit, depositsCount, requestDepStats]);
 
   return (
-    <Card className="overflow-hidden max-w-lg mx-auto w-full">
+    <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="flex flex-col space-y-6">
-        <div className="pt-6 px-6 flex flex-row space-x-6 justify-between">
+        <div className="flex flex-row justify-between space-x-6 px-6 pt-6">
           <Heading level={3} className="uppercase">
             Deposit
           </Heading>
@@ -100,13 +100,13 @@ export function AccountDepositStatsWidget({
 
         <div className="flex flex-col space-y-4">
           {depositsCount === 0 && (
-            <div className="text-center px-6 py-12">
+            <div className="px-6 py-12 text-center">
               <Heading level={3}>You have no deposits</Heading>
             </div>
           )}
 
           {depositsCount > 0 && deposit == null && (
-            <div className="p-10 flex items-center justify-center min-h-[200px]">
+            <div className="flex min-h-[200px] items-center justify-center p-10">
               <SpinnerLoader className="!fill-[#04d484] !text-[#04d48470]" />
             </div>
           )}

@@ -1,13 +1,14 @@
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
 import {
-  NewCard,
-  NewCardHeading,
-  NewCardSubText,
-  NewCardText,
+  Card,
+  CardHeading,
+  CardSubText,
+  CardText,
+  InfoBlock,
   ProposalNumber,
   TimerText,
-} from '@haqq/ui-kit';
+} from '@haqq/shell/ui-kit-next';
 import clsx from 'clsx';
 
 export interface ProposalListCardProps {
@@ -20,24 +21,16 @@ interface RemainingTime {
   minutes: number;
 }
 
-interface DateTimeFormatOptions {
-  year?: 'numeric' | undefined;
-  month?: 'short' | undefined;
-  day?: '2-digit' | undefined;
-  hour?: '2-digit' | undefined;
-  minute?: '2-digit' | undefined;
-  hour12?: boolean | undefined;
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'GMT',
+  }).format(date);
 }
-
-const dateOptions: DateTimeFormatOptions = {
-  year: 'numeric',
-  month: 'short',
-  day: '2-digit',
-  hour: '2-digit',
-  minute: '2-digit',
-  hour12: false,
-};
-
 export function ProposalStatusComponent({
   status,
   results,
@@ -195,50 +188,49 @@ export function ProposalVoteResults({
     }, [yes, abstain, no, veto, total]);
 
   return (
-    <div className="flex flex-col space-y-2 w-full">
+    <div className="flex w-full flex-col space-y-2">
       {status === ProposalStatus.Deposit ? (
-        <div className="flex space-x-[12px] items-center">
-          <NewCardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
+        <div className="flex items-center space-x-[12px]">
+          <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
             Total deposit
-          </NewCardText>
+          </CardText>
           {sumDeposited && (
             <div className="inline-flex space-x-[6px]">
-              <NewCardSubText className="text-white/50">
+              <CardSubText className="text-white/50">
                 You Deposited:
-              </NewCardSubText>
-              <NewCardSubText className="text-white">
+              </CardSubText>
+              <CardSubText className="text-white">
                 {sumDeposited.toFixed(0)}
-              </NewCardSubText>
+              </CardSubText>
             </div>
           )}
         </div>
       ) : (
+        // TODO: Заменить компонентом из кита
         <div className="space-y-[8px]">
-          <div className="flex space-x-[12px] items-center">
-            <NewCardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
+          <div className="flex items-center space-x-[12px]">
+            <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
               Vote results
-            </NewCardText>
+            </CardText>
             {voteOption && (
               <div className="inline-flex space-x-[6px]">
-                <NewCardSubText className="text-white/50">
-                  You Voted:
-                </NewCardSubText>
-                <NewCardSubText
+                <CardSubText className="text-white/50">You Voted:</CardSubText>
+                <CardSubText
                   className={clsx(
                     voteOption === 'YES' && 'text-[#01B26E]',
                     voteOption === 'NO' && 'text-[#FF5454]',
                   )}
                 >
                   {voteOption}
-                </NewCardSubText>
+                </CardSubText>
               </div>
             )}
           </div>
 
-          <div className="space-x-[4px] text-xs w-full h-2 relative flex flex-row overflow-hidden justify-between">
+          <div className="relative flex h-2 w-full flex-row justify-between space-x-[4px] overflow-hidden text-xs">
             <div
               className={clsx(
-                'h-full bg-[#01B26E] rounded-xl',
+                'h-full rounded-xl bg-[#01B26E]',
                 yesPercents === 0 && 'hidden',
               )}
               style={{
@@ -247,80 +239,80 @@ export function ProposalVoteResults({
             />
             <div
               className={clsx(
-                'h-full bg-[#FF5454] rounded-xl',
+                'h-full rounded-xl bg-[#FF5454]',
                 noPercents === 0 && 'hidden',
               )}
               style={{ width: `${noPercents}%` }}
             />
             <div
               className={clsx(
-                'h-full bg-[#AAABB2] rounded-xl',
+                'h-full rounded-xl bg-[#AAABB2]',
                 abstainPercents === 0 && 'hidden',
               )}
               style={{ width: `${abstainPercents}%` }}
             />
             <div
               className={clsx(
-                'h-full bg-[#E3A13F] rounded-xl',
+                'h-full rounded-xl bg-[#E3A13F]',
                 vetoPercents === 0 && 'hidden',
               )}
               style={{ width: `${vetoPercents}%` }}
             />
           </div>
-          <div className="flex items-center gap-x-3 flex-wrap">
+          <div className="flex flex-wrap items-center gap-x-3">
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#01B26E] mr-[4px] mb-[-5px]" />
+                <div className="mb-[-5px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E]" />
                 <div className="mr-[2px]">
-                  <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                  <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Yes
-                  </NewCardText>
+                  </CardText>
                 </div>
-                <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                   {yesPercents ? yesPercents.toFixed(0) : 0}%
-                </NewCardText>
+                </CardText>
               </div>
             </div>
 
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#FF5454] mr-[4px] mb-[-5px]" />
+                <div className="mb-[-5px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454]" />
                 <div className="mr-[2px]">
-                  <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                  <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     No
-                  </NewCardText>
+                  </CardText>
                 </div>
               </div>
-              <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+              <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                 {noPercents ? noPercents.toFixed(0) : 0}%
-              </NewCardText>
+              </CardText>
             </div>
 
             <div className="flex items-center">
               <div className="flex items-center">
-                <div className="h-2 w-2 rounded-full bg-[#AAABB2] mr-[4px] mb-[-5px]" />
+                <div className="mb-[-5px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2]" />
                 <div className="mr-[2px]">
-                  <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                  <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Abstain
-                  </NewCardText>
+                  </CardText>
                 </div>
-                <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                   {abstainPercents ? abstainPercents.toFixed(0) : 0}%
-                </NewCardText>
+                </CardText>
               </div>
             </div>
 
             <div className="flex items-center">
               <div className="flex flex-row items-center">
-                <div className="h-2 w-2 rounded-full bg-yellow-500 mr-[4px] mb-[-5px]" />
+                <div className="mb-[-5px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500" />
                 <div className="mr-[2px]">
-                  <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                  <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                     Veto
-                  </NewCardText>
+                  </CardText>
                 </div>
-                <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                   {vetoPercents ? vetoPercents.toFixed(0) : 0}%
-                </NewCardText>
+                </CardText>
               </div>
             </div>
           </div>
@@ -334,16 +326,10 @@ export function ProposalListCard({
   proposal,
 }: ProposalListCardProps): ReactElement {
   const startDate = useMemo(() => {
-    return new Date(proposal.voting_start_time).toLocaleString(
-      'en-US',
-      dateOptions,
-    );
+    return formatDate(new Date(proposal.voting_start_time));
   }, [proposal]);
   const endDate = useMemo(() => {
-    return new Date(proposal.voting_end_time).toLocaleString(
-      'en-US',
-      dateOptions,
-    );
+    return formatDate(new Date(proposal.voting_end_time));
   }, [proposal]);
 
   const [remainingTime, setRemainingTime] = useState<RemainingTime>({
@@ -370,20 +356,20 @@ export function ProposalListCard({
   }, [endDate]);
 
   return (
-    <NewCard>
+    <Card>
       <div className="flex flex-col items-start">
         <div className="space-y-[16px]">
-          <div className="flex space-x-[18px] font-serif items-center">
+          <div className="flex items-center space-x-[18px] font-serif">
             <ProposalNumber>#{proposal.proposal_id}</ProposalNumber>
             <ProposalStatusComponent
               status={proposal.status as string}
               results={proposal.final_tally_result}
             />
           </div>
-          <NewCardHeading>{proposal.content.title}</NewCardHeading>
+          <CardHeading>{proposal.content.title}</CardHeading>
         </div>
 
-        <div className="my-3 lg:my-5 border-dashed border-y border-y-[#ffffff26] py-[13px] lg:py-[22px] w-full">
+        <div className="my-3 w-full border-y border-dashed border-y-[#ffffff26] py-[13px] lg:my-5 lg:py-[22px]">
           {currentTime <= new Date(proposal.deposit_end_time).getTime() ? (
             <div className="flex space-x-[12px]">
               <div
@@ -423,7 +409,7 @@ export function ProposalListCard({
               </div>
 
               <div className="flex flex-col items-start">
-                <NewCardSubText>Voting End</NewCardSubText>
+                <CardSubText>Voting End</CardSubText>
                 <div className="inline-flex space-x-[8px]">
                   <div className="inline-flex space-x-[4px]">
                     <TimerText color="white">{remainingTime.days}</TimerText>
@@ -442,26 +428,17 @@ export function ProposalListCard({
             </div>
           ) : (
             <div className="flex space-x-[32px]">
-              <div className="flex flex-col items-start">
-                <NewCardSubText>Voting start</NewCardSubText>
-                <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  {startDate}
-                </NewCardText>
-              </div>
-              <div className="flex flex-col items-start">
-                <NewCardSubText>Voting end</NewCardSubText>
-                <NewCardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  {endDate}
-                </NewCardText>
-              </div>
+              <InfoBlock title="Voting start">{startDate}</InfoBlock>
+              <InfoBlock title="Voting end">{endDate}</InfoBlock>
             </div>
           )}
         </div>
+
         <ProposalVoteResults
           results={proposal.final_tally_result}
           status={proposal.status}
         />
       </div>
-    </NewCard>
+    </Card>
   );
 }

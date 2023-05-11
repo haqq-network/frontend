@@ -1,5 +1,4 @@
 export * from './lib/shell-tooltip/shell-tooltip';
-export * from './lib/new-card/new-card';
 export * from './lib/pending-page/pending-page';
 export * from './lib/modal/modal';
 export * from './lib/header/header';

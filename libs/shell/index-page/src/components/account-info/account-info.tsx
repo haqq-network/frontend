@@ -6,27 +6,8 @@ import {
   useStakingDelegationQuery,
   useStakingRewardsQuery,
 } from '@haqq/shared';
-import { Card, CardHeading, Tooltip } from '@haqq/ui-kit';
-import clsx from 'clsx';
-
-export function CopyIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className={clsx('h-[20px] w-[20px]', className)}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-      />
-    </svg>
-  );
-}
+import { Card, CardHeading } from '@haqq/ui-kit';
+import { CopyIcon } from '@haqq/shell/ui-kit';
 
 export function ShellIndexPageAccountInfo() {
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);
@@ -94,8 +75,8 @@ export function ShellIndexPageAccountInfo() {
 
   if (!ethAddress) {
     return (
-      <Card className="flex flex-col space-y-4 min-h-[350px] items-start justify-between flex-1">
-        <div className="flex flex-1 items-center w-full">
+      <Card className="flex min-h-[350px] flex-1 flex-col items-start justify-between space-y-4">
+        <div className="flex w-full flex-1 items-center">
           <div className="w-full flex-auto text-center">
             You should connect wallet first
           </div>
@@ -105,7 +86,7 @@ export function ShellIndexPageAccountInfo() {
   }
 
   return (
-    <Card className="flex flex-col space-y-4 min-h-[350px] items-start justify-between flex-1">
+    <Card className="flex min-h-[350px] flex-1 flex-col items-start justify-between space-y-4">
       {ethAddress && haqqAddress && (
         <div className="max-w-full">
           <CardHeading>Address</CardHeading>
@@ -113,14 +94,14 @@ export function ShellIndexPageAccountInfo() {
           <div className="mb-2">
             {/* <Tooltip text={isEthAddressCopy ? 'Copied' : 'Click to copy'}> */}
             <div
-              className="cursor-pointer flex flex-row space-x-[8px] items-center justify-center group"
+              className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px]"
               onClick={handleEthAddressCopy}
             >
-              <div className="text-[18px] leading-[22px] text-ellipsis w-full overflow-hidden">
+              <div className="w-full overflow-hidden text-ellipsis text-[18px] leading-[22px]">
                 {ethAddress}
               </div>
               <div>
-                <CopyIcon className="text-white/20 group-hover:text-gray-400 transition-colors duration-100 ease-in-out" />
+                <CopyIcon className="text-white/20 transition-colors duration-100 ease-in-out group-hover:text-gray-400" />
               </div>
             </div>
             {/* </Tooltip> */}
@@ -128,14 +109,14 @@ export function ShellIndexPageAccountInfo() {
           <div>
             {/* <Tooltip text={isHaqqAddressCopy ? 'Copied' : 'Click to copy'}> */}
             <div
-              className="cursor-pointer flex flex-row space-x-[8px] items-center justify-center group"
+              className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px]"
               onClick={handleHaqqAddressCopy}
             >
-              <div className="text-[18px] leading-[22px] text-ellipsis w-full overflow-hidden">
+              <div className="w-full overflow-hidden text-ellipsis text-[18px] leading-[22px]">
                 {haqqAddress}
               </div>
               <div>
-                <CopyIcon className="text-white/20 group-hover:text-gray-400 transition-colors duration-100 ease-in-out" />
+                <CopyIcon className="text-white/20 transition-colors duration-100 ease-in-out group-hover:text-gray-400" />
               </div>
             </div>
             {/* </Tooltip> */}
@@ -146,7 +127,7 @@ export function ShellIndexPageAccountInfo() {
       {balance && (
         <div>
           <CardHeading>Balance</CardHeading>
-          <div className="font-serif font-[500] text-[42px] leading-[1.25] mb-[-10px]">
+          <div className="mb-[-10px] font-serif text-[42px] font-[500] leading-[1.25]">
             {balance.value.toLocaleString()} ISLM
           </div>
         </div>

@@ -10,7 +10,7 @@ export default {
 
 export const Tabs: ComponentStory<typeof TabsComponent> = () => {
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="mx-auto max-w-xl">
       <Tabs>
         <Tab isActive>Stats</Tab>
         <Tab>Withdraw</Tab>

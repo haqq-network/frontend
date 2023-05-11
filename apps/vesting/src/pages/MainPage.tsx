@@ -23,7 +23,7 @@ export function WelcomeScreen() {
       </Heading>
 
       <div>
-        <Text color="light" className="leading-8 text-2xl">
+        <Text color="light" className="text-2xl leading-8">
           The currency of the HAQQ ecosystem.
           <br />
           Serves The Muslim Community.
@@ -54,19 +54,19 @@ export function MainPage() {
     <section className="flex-1">
       <Container>
         {(step === 'start' || step == 'finish') && (
-          <div className="py-20 mx-auto max-w-5xl">
+          <div className="mx-auto max-w-5xl py-20">
             <WelcomeScreen />
           </div>
         )}
 
         {step === 'switch-network' && (
-          <div className="py-20 mx-auto max-w-[600px]">
+          <div className="mx-auto max-w-[600px] py-20">
             <SwitchNetworkScreen />
           </div>
         )}
 
         {step === 'add-network' && (
-          <div className="py-20 mx-auto max-w-[600px]">
+          <div className="mx-auto max-w-[600px] py-20">
             <AddNetworkScreen />
           </div>
         )}

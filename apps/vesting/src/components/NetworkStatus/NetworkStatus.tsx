@@ -39,7 +39,7 @@ export function SupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
+          className="h-full w-full"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -56,11 +56,11 @@ export function SupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
       </button>
       <div
         className={clsx(
-          'invisible absolute w-max mt-1 opacity-0 cursor-default',
-          'left-1/2 -translate-x-1/2 translate-y-2 top-full',
-          'transition ease-out duration-100',
-          'group-hover:visible group-hover:z-50 group-hover:opacity-100 group-hover:translate-y-0',
-          'py-[6px] px-[12px] rounded-md bg-primary shadow-xl text-white text-xs leading-snug',
+          'invisible absolute mt-1 w-max cursor-default opacity-0',
+          'left-1/2 top-full -translate-x-1/2 translate-y-2',
+          'transition duration-100 ease-out',
+          'group-hover:visible group-hover:z-50 group-hover:translate-y-0 group-hover:opacity-100',
+          'bg-primary rounded-md px-[12px] py-[6px] text-xs leading-snug text-white shadow-xl',
         )}
       >
         <div>
@@ -89,7 +89,7 @@ export function UnsupportedNetworkStatus({
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
+          className="h-full w-full"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -105,11 +105,11 @@ export function UnsupportedNetworkStatus({
 
       <div
         className={clsx(
-          'invisible absolute w-max mt-1 opacity-0 cursor-default',
-          'left-1/2 -translate-x-1/2 translate-y-2 top-full',
-          'transition ease-out duration-100',
-          'group-hover:visible group-hover:z-50 group-hover:opacity-100 group-hover:translate-y-0',
-          'py-[6px] px-[12px] rounded-md bg-danger shadow-xl text-white text-xs leading-snug',
+          'invisible absolute mt-1 w-max cursor-default opacity-0',
+          'left-1/2 top-full -translate-x-1/2 translate-y-2',
+          'transition duration-100 ease-out',
+          'group-hover:visible group-hover:z-50 group-hover:translate-y-0 group-hover:opacity-100',
+          'bg-danger rounded-md px-[12px] py-[6px] text-xs leading-snug text-white shadow-xl',
         )}
       >
         <div>

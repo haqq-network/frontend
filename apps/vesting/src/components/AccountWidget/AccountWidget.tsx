@@ -12,7 +12,7 @@ function AccountWidgetBgImage() {
       viewBox="0 0 271 272"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="absolute top-[50%] left-[80%] translate-x-[-50%] translate-y-[-50%]"
+      className="absolute left-[80%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
     >
       <g opacity="0.5">
         <path
@@ -392,7 +392,7 @@ function CopyButton({ text }: { text: string }) {
 
   return (
     <CardIconButton onClick={handleTextCopy}>
-      <CopyIcon className="text-white/60 hover:text-white cursor-pointer transition-colors duration-150" />
+      <CopyIcon className="cursor-pointer text-white/60 transition-colors duration-150 hover:text-white" />
     </CardIconButton>
   );
 }
@@ -409,21 +409,21 @@ function AccountAddress({
   }, [ethAddress, haqqAddress]);
 
   return (
-    <div className="flex flex-row space-x-2 items-center">
-      <div className="flex flex-row space-x-2 items-center h-[48px] flex-1">
+    <div className="flex flex-row items-center space-x-2">
+      <div className="flex h-[48px] flex-1 flex-row items-center space-x-2">
         <IdentIcon
           address={ethAddress}
           size={48}
-          className="rounded-full leading-none flex-none"
+          className="flex-none rounded-full leading-none"
         />
-        <div className="flex flex-col space-1-2">
-          <div className="flex flex-row space-x-1 items-center">
+        <div className="space-1-2 flex flex-col">
+          <div className="flex flex-row items-center space-x-1">
             <div className="text-sm font-medium text-white">
               {getFormattedAddress(ethAddress, 6)}
             </div>
             <CopyButton text={ethAddress} />
           </div>
-          <div className="flex flex-row space-x-1 items-center">
+          <div className="flex flex-row items-center space-x-1">
             <div className="text-sm font-medium text-white">
               {getFormattedAddress(haqqAddress, 6)}
             </div>
@@ -438,10 +438,10 @@ function AccountAddress({
 function AccountSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="h-[14px] bg-[#0eb471] rounded-[4px] w-[60px] mb-2 mt-1"></div>
-      <div className="flex space-x-2 flex-row items-center h-[32px] flex-1">
-        <div className="rounded-full bg-[#0eb471] h-[32px] w-[32px] flex-none"></div>
-        <div className="h-[16px] bg-[#0eb471] rounded-[4px] flex-1 max-w-[110px]"></div>
+      <div className="mb-2 mt-1 h-[14px] w-[60px] rounded-[4px] bg-[#0eb471]"></div>
+      <div className="flex h-[32px] flex-1 flex-row items-center space-x-2">
+        <div className="h-[32px] w-[32px] flex-none rounded-full bg-[#0eb471]"></div>
+        <div className="h-[16px] max-w-[110px] flex-1 rounded-[4px] bg-[#0eb471]"></div>
       </div>
     </div>
   );
@@ -450,10 +450,10 @@ function AccountSkeleton() {
 function BalanceSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="h-[16px] bg-[#0eb471] rounded-[4px] w-[110px] mb-2"></div>
-      <div className="flex flex-row space-x-4 items-center mb-2">
-        <div className="h-[40px] bg-[#0eb471] rounded-[4px] w-[140px] "></div>
-        <div className="h-[40px] bg-[#0eb471] rounded-[4px] w-[80px] "></div>
+      <div className="mb-2 h-[16px] w-[110px] rounded-[4px] bg-[#0eb471]"></div>
+      <div className="mb-2 flex flex-row items-center space-x-4">
+        <div className="h-[40px] w-[140px] rounded-[4px] bg-[#0eb471] "></div>
+        <div className="h-[40px] w-[80px] rounded-[4px] bg-[#0eb471] "></div>
       </div>
     </div>
   );
@@ -475,13 +475,13 @@ export function AccountWidget({
   symbol,
 }: AccountWidgetProps) {
   return (
-    <div className="max-w-lg mx-auto bg-[#06BE77] rounded-[16px] relative overflow-clip h-[240px] w-full">
+    <div className="relative mx-auto h-[240px] w-full max-w-lg overflow-clip rounded-[16px] bg-[#06BE77]">
       <AccountWidgetBgImage />
-      <div className="p-6 flex h-full flex-col relative z-10 justify-between">
+      <div className="relative z-10 flex h-full flex-col justify-between p-6">
         {isConnected ? (
           <Fragment>
             <div>
-              <div className="leading-normal text-sm md:text-base text-white/80 mb-1">
+              <div className="mb-1 text-sm leading-normal text-white/80 md:text-base">
                 Account
               </div>
               <AccountAddress
@@ -490,10 +490,10 @@ export function AccountWidget({
               />
             </div>
             <div>
-              <div className="leading-normal text-sm md:text-base text-white/80">
+              <div className="text-sm leading-normal text-white/80 md:text-base">
                 Current balance
               </div>
-              <div className="leading-light text-4xl md:text-5xl font-serif font-medium md:mt-1 text-white">
+              <div className="leading-light font-serif text-4xl font-medium text-white md:mt-1 md:text-5xl">
                 {balance.toLocaleString()} {symbol.toLocaleUpperCase()}
               </div>
             </div>

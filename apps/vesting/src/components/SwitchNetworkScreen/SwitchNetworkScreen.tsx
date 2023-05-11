@@ -22,12 +22,12 @@ function SwitchNetworkNetworkContainer({
   networkName?: string;
 }) {
   return (
-    <div className="bg-white rounded-md md:max-w-[200px] flex-1 flex flex-col space-y-3 justify-center items-center shadow-lg px-6 py-8 md:py-6 w-full">
+    <div className="flex w-full flex-1 flex-col items-center justify-center space-y-3 rounded-md bg-white px-6 py-8 shadow-lg md:max-w-[200px] md:py-6">
       <svg
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-8 h-8 text-primary"
+        className="text-primary h-8 w-8"
       >
         <path
           fillRule="evenodd"
@@ -65,13 +65,13 @@ export function SwitchNetworkScreen(): ReactElement {
         </Text>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center justify-between mt-[24px]">
+      <div className="mt-[24px] flex flex-col items-center justify-between md:flex-row">
         <SwitchNetworkNetworkContainer
           networkName={currentChain ? hexValue(currentChain.id) : 'unknown'}
         />
         <div className="flex-1">
           <svg
-            className="w-[120%] text-gray-400 ml-[-10%]"
+            className="ml-[-10%] w-[120%] text-gray-400"
             width="191"
             height="32"
             viewBox="0 0 191 32"
@@ -104,12 +104,12 @@ export function SwitchNetworkScreen(): ReactElement {
         <SwitchNetworkNetworkContainer networkName={chain.name} />
       </div>
 
-      <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+      <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
         <div className="flex flex-row space-x-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
-            className="text-primary w-[20px] h-[20px] flex-none mt-[2px]"
+            className="text-primary mt-[2px] h-[20px] w-[20px] flex-none"
             viewBox="0 0 16 16"
           >
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />

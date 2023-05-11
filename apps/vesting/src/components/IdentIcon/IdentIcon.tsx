@@ -24,7 +24,7 @@ export function IdentIcon({ address, size = 16, className }: IdentIconProps) {
     <div
       ref={iconElementRef}
       className={clsx(
-        'inline-block leading-[0px] rounded-full overflow-hidden',
+        'inline-block overflow-hidden rounded-full leading-[0px]',
         className,
       )}
     />

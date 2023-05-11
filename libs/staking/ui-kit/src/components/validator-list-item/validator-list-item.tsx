@@ -46,36 +46,27 @@ export function ValidatorListItem({
   const votingPowerInPercents = useMemo(() => {
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
+  console.log({ votingPower });
 
   return (
     <tr
-      className="border-[#FFFFFF26] border-t text-[16px] leading-[26px] hover:bg-white/5 cursor-pointer transition-[background] duration-75"
+      className="cursor-pointer border-t border-[#FFFFFF26] text-[16px] leading-[26px] transition-[background] duration-75 hover:bg-white/5"
       onClick={() => {
         navigate(`validator/${validator.operator_address}`);
       }}
     >
-      <td className="p-[12px]">
-        <div>{validator.description?.moniker}</div>
-      </td>
-      <td className="text-left p-[12px]">
+      <td className="p-[12px]">{validator.description?.moniker}</td>
+      <td className="p-[12px] text-left">
         <ValidatorStatus
           jailed={validator.jailed}
           status={bondStatusFromJSON(validator.status)}
         />
       </td>
-      <td className="text-left p-[12px]">
-        <div>{validatorCommission}%</div>
-      </td>
-      <td className="text-right p-[12px]">
-        <div>{votingPower.toLocaleString()}</div>
-      </td>
-      <td className="text-right p-[12px]">
-        <div className="text-gray-400 text-sm">{votingPowerInPercents}%</div>
-      </td>
-      <td className="text-right p-[12px]">
-        <div>{userDelegate.toLocaleString()}</div>
-      </td>
-      <td className="text-right p-[12px]">{userRewards.toLocaleString()}</td>
+      <td className="p-[12px] text-left">{validatorCommission}%</td>
+      <td className="p-[12px] text-right">{votingPower.toLocaleString()}</td>
+      <td className="p-[12px] text-right">{votingPowerInPercents}%</td>
+      <td className="p-[12px] text-right">{userDelegate.toLocaleString()}</td>
+      <td className="p-[12px] text-right">{userRewards.toLocaleString()}</td>
     </tr>
   );
 }

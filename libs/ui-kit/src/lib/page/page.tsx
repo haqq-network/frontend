@@ -17,8 +17,8 @@ export function Page({
   return (
     <Layout className={className}>
       {/* TODO: BANNER COMPONENT MUST BE PLACED HERE */}
-      {header && <div className="sticky top-0 flex-0 z-50">{header}</div>}
-      <div className="flex-1 flex flex-col overflow-x-hidden">{children}</div>
+      {header && <div className="flex-0 sticky top-0 z-50">{header}</div>}
+      <div className="flex flex-1 flex-col overflow-x-hidden">{children}</div>
       {footer ? footer : null}
     </Layout>
   );

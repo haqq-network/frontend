@@ -37,15 +37,15 @@ function StakingInfoAmountBlock({
 }) {
   return (
     <div>
-      <div className="text-[12px] leading-[1.2em] font-[500] text-white/50 uppercase mb-[6px]">
+      <div className="mb-[6px] text-[12px] font-[500] uppercase leading-[1.2em] text-white/50">
         {title}
       </div>
       <div
         className={clsx(
           'font-[500] leading-[20px]',
           isGreen
-            ? 'text-[#01B26E] font-serif text-[20px] leading-[26px]'
-            : 'text-white text-[18px] leading-[28px] font-sans',
+            ? 'font-serif text-[20px] leading-[26px] text-[#01B26E]'
+            : 'font-sans text-[18px] leading-[28px] text-white',
         )}
       >
         {value} <span>{symbol.toUpperCase()}</span>
@@ -67,7 +67,7 @@ export function StakingInfoComponent({
   onChangeNetwork,
 }: RewardsInfoProps) {
   return (
-    <section className="w-full border-y border-dashed border-[#ffffff26] px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[32px] sticky top-[70px] z-[49] backdrop-blur transform-gpu bg-transparent">
+    <section className="sticky top-[70px] z-[49] w-full transform-gpu border-y border-dashed border-[#ffffff26] bg-transparent px-[16px] backdrop-blur sm:px-[63px] lg:px-[79px] lg:py-[32px]">
       <div className="mb-[24px] flex flex-row items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path
@@ -82,8 +82,8 @@ export function StakingInfoComponent({
         </Heading>
       </div>
 
-      <div className="flex flex-col lg:flex-row items-center gap-4 lg:h-[80px]">
-        <div className="flex-1 grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+      <div className="flex flex-col items-center gap-4 lg:h-[80px] lg:flex-row">
+        <div className="grid-col-1 grid w-full flex-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="flex-1">
             <StakingInfoAmountBlock
               title="Available"

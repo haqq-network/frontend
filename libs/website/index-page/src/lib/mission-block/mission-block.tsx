@@ -120,13 +120,13 @@ function SideLines({ className }: { className?: string }) {
 export function MissionBlock() {
   return (
     <div
-      className="bg-white text-haqq-black px-[16px] sm:px-[63px] lg:pl-[79px] lg:pr-[80px] h-[326px] sm:h-[464px] lg:h-[600px] flex flex-col items-center justify-center relative"
+      className="text-haqq-black relative flex h-[326px] flex-col items-center justify-center bg-white px-[16px] sm:h-[464px] sm:px-[63px] lg:h-[600px] lg:pl-[79px] lg:pr-[80px]"
       id="mission"
     >
-      <AboveTitle className="text-[#A4A4A4] mb-[16px] sm:mb-[24px]">
+      <AboveTitle className="mb-[16px] text-[#A4A4A4] sm:mb-[24px]">
         Mission
       </AboveTitle>
-      <div className="text-center mx-[44px] sm:max-w-xs lg:max-w-3xl">
+      <div className="mx-[44px] text-center sm:max-w-xs lg:max-w-3xl">
         <Heading level={2}>
           Crypto has lost its path –{' '}
           <span className="whitespace-nowrap">grid-driven</span> practices in
@@ -135,8 +135,8 @@ export function MissionBlock() {
         </Heading>
       </div>
 
-      <SideLines className="absolute top-0 left-[16px] sm:left-[63px] lg:left-[80px] h-full w-auto" />
-      <SideLines className="absolute top-0 right-[16px] sm:right-[63px] lg:right-[80px] h-full w-auto scale-x-[-1]" />
+      <SideLines className="absolute left-[16px] top-0 h-full w-auto sm:left-[63px] lg:left-[80px]" />
+      <SideLines className="absolute right-[16px] top-0 h-full w-auto scale-x-[-1] sm:right-[63px] lg:right-[80px]" />
     </div>
   );
 }

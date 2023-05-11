@@ -49,16 +49,16 @@ export function ValidatorsList({
   }, [stakingPool?.pool.bonded_tokens]);
 
   return (
-    <table className="table-fixed w-full">
-      <thead className="uppercase text-white/50 text-[12px] leading-[1.2em] border-dashed border-haqq-border border-t">
+    <table className="w-full table-fixed">
+      <thead className="border-haqq-border border-t border-dashed text-[12px] uppercase leading-[1.2em] text-white/50">
         <tr>
-          <th className="p-[12px] text-left max-w-[220px]">Name</th>
-          <th className="p-[12px] text-left max-w-[180px]">Status</th>
+          <th className="max-w-[220px] p-[12px] text-left">Name</th>
+          <th className="max-w-[180px] p-[12px] text-left">Status</th>
           <th className="p-[12px] text-left">Fee</th>
-          <th className="p-[12px] text-right max-w-[220px]">Voting power</th>
-          <th className="p-[12px] text-right max-w-[220px]">Voting power %</th>
-          <th className="p-[12px] text-right max-w-[180px]">Staked</th>
-          <th className="p-[12px] text-right max-w-[180px]">Reward</th>
+          <th className="max-w-[220px] p-[12px] text-right">Voting power</th>
+          <th className="max-w-[220px] p-[12px] text-right">Voting power %</th>
+          <th className="max-w-[180px] p-[12px] text-right">Staked</th>
+          <th className="max-w-[180px] p-[12px] text-right">Reward</th>
         </tr>
       </thead>
       <tbody>

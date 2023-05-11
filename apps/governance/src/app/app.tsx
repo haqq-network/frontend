@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { NotFoundPage, PendingPage } from '@haqq/ui-kit';
+import { NotFoundPage, PendingPage } from '@haqq/shell/ui-kit-next';
 
 const ProposalListPage = lazy(async () => {
   const { ProposalList } = await import('@haqq/governance/proposal-list');

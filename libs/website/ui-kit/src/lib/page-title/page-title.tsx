@@ -13,7 +13,7 @@ export function PageTitle({ className, children }: PageTitleProps) {
     <div
       className={clsx(
         styles['container'],
-        'bg-haqq-black px-[16px] sm:px-[63px] lg:px-[79px] pt-[50px] pb-[44px] sm:pt-[146px] sm:pb-[50px] lg:pt-[160px] lg:pb-[80px]',
+        'bg-haqq-black px-[16px] pb-[44px] pt-[50px] sm:px-[63px] sm:pb-[50px] sm:pt-[146px] lg:px-[79px] lg:pb-[80px] lg:pt-[160px]',
         className,
       )}
     >

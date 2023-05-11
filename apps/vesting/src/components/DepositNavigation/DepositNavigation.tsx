@@ -29,11 +29,11 @@ export function DepositNavigation({
       <button
         onClick={handlePrevClick}
         disabled={current <= 1}
-        className="h-6 w-6 hover:text-primary cursor-pointer p-1 disabled:cursor-not-allowed disabled:text-gray-300"
+        className="hover:text-primary h-6 w-6 cursor-pointer p-1 disabled:cursor-not-allowed disabled:text-gray-300"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
+          className="h-full w-full"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -54,11 +54,11 @@ export function DepositNavigation({
       <button
         onClick={handleNextClick}
         disabled={current >= total}
-        className="h-6 w-6 hover:text-primary cursor-pointer p-1 disabled:cursor-not-allowed disabled:text-gray-300"
+        className="hover:text-primary h-6 w-6 cursor-pointer p-1 disabled:cursor-not-allowed disabled:text-gray-300"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
+          className="h-full w-full"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

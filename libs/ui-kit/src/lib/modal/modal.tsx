@@ -29,7 +29,7 @@ function ModalOverlay({ onClose }: { onClose: () => void }) {
     >
       <div
         role="none"
-        className="fixed inset-0 backdrop-blur transform-gpu bg-islamic-modal-overlay"
+        className="bg-islamic-modal-overlay fixed inset-0 transform-gpu backdrop-blur"
         onClick={onClose}
         onKeyDown={handleKeydown}
       />
@@ -47,7 +47,7 @@ export function ModalCloseButton({
   return (
     <button
       className={clsx(
-        'cursor-pointer w-[24px] h-[24px] hover:text-slate-500 transition-colors duration-100 ease-in-out',
+        'h-[24px] w-[24px] cursor-pointer transition-colors duration-100 ease-in-out hover:text-slate-500',
         className,
       )}
       onClick={onClick}
@@ -56,7 +56,7 @@ export function ModalCloseButton({
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full"
+        className="h-full w-full"
       >
         <path
           d="M6 6L18.7742 18.7742"
@@ -89,8 +89,8 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
       <Dialog as="div" className="relative z-50" onClose={onClose}>
         <ModalOverlay onClose={onClose} />
 
-        <div className="fixed inset-0 overflow-y-auto pointer-events-none">
-          <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
+        <div className="pointer-events-none fixed inset-0 overflow-y-auto">
+          <div className="pointer-events-none flex min-h-full items-center justify-center p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-200"
@@ -100,7 +100,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="transform transition-all pointer-events-auto">
+              <div className="pointer-events-auto transform transition-all">
                 {children}
               </div>
             </Transition.Child>

@@ -1,4 +1,4 @@
-import { NewCardSubText, NewCardText } from '@haqq/ui-kit';
+import { CardSubText, CardText } from '@haqq/shell/ui-kit-next';
 import { useMemo } from 'react';
 
 export function ProposalDepositProgress({
@@ -15,29 +15,29 @@ export function ProposalDepositProgress({
   }, [minDeposit, totalDeposit]);
 
   return (
-    <div className="flex flex-col w-full space-y-[8px]">
-      <div className="flex space-x-[12px] items-center">
-        <NewCardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
+    <div className="flex w-full flex-col space-y-[8px]">
+      <div className="flex items-center space-x-[12px]">
+        <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
           Total deposit
-        </NewCardText>
+        </CardText>
         {userDeposit && (
           <div className="inline-flex space-x-[6px]">
-            <NewCardSubText className="text-white/50">
+            <CardSubText className="text-white/50">
               You Deposited:{' '}
               <span className="text-white">{userDeposit.toFixed(0)}</span>
-            </NewCardSubText>
+            </CardSubText>
           </div>
         )}
       </div>
 
-      <div className="w-full rounded-[4px] h-[8px] bg-[#FFFFFF26] relative overflow-hidden">
+      <div className="relative h-[8px] w-full overflow-hidden rounded-[4px] bg-[#FFFFFF26]">
         <div
-          className="rounded-[4px] h-[8px] bg-[#0489D4] absolute left-0 top-0"
+          className="absolute left-0 top-0 h-[8px] rounded-[4px] bg-[#0489D4]"
           style={{ width: `${percent}%` }}
         />
       </div>
 
-      <div className="text-[14px] leading-[22px] font-[500] text-white font-sans">
+      <div className="font-sans text-[14px] font-[500] leading-[22px] text-white">
         {totalDeposit?.toLocaleString()} ISLM from {minDeposit.toLocaleString()}{' '}
         ISLM
       </div>

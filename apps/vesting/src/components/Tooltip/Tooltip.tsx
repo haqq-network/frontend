@@ -8,16 +8,16 @@ export interface TooltipProps {
 
 export function Tooltip({ text, children }: TooltipProps): ReactElement {
   return (
-    <span className="relative leading-none group inline-block">
+    <span className="group relative inline-block leading-none">
       {children}
       <div
         className={clsx(
-          'invisible absolute w-max mb-1 opacity-0',
-          'left-1/2 -translate-x-1/2 -translate-y-2 bottom-full',
-          'transition ease-out duration-100',
-          'group-hover:visible group-hover:z-50 group-hover:opacity-100 group-hover:translate-y-0',
-          'py-[6px] px-[12px] rounded-md shadow-lg leading-snug text-xs font-medium',
-          'text-white bg-primary',
+          'invisible absolute mb-1 w-max opacity-0',
+          'bottom-full left-1/2 -translate-x-1/2 -translate-y-2',
+          'transition duration-100 ease-out',
+          'group-hover:visible group-hover:z-50 group-hover:translate-y-0 group-hover:opacity-100',
+          'rounded-md px-[12px] py-[6px] text-xs font-medium leading-snug shadow-lg',
+          'bg-primary text-white',
         )}
       >
         {text}

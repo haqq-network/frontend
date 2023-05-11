@@ -118,7 +118,7 @@ export function CardText({
   className?: string;
 }) {
   return (
-    <div className={clsx('text-[16px] leading-[22px] font-[500]', className)}>
+    <div className={clsx('text-[16px] font-[500] leading-[22px]', className)}>
       {children}
     </div>
   );
@@ -132,7 +132,7 @@ export function CardHeading({
   className?: string;
 }) {
   return (
-    <h3 className={clsx('font-[800] text-[28px] leading-[36px]', className)}>
+    <h3 className={clsx('text-[28px] font-[800] leading-[36px]', className)}>
       {children}
     </h3>
   );
@@ -140,11 +140,11 @@ export function CardHeading({
 
 function StakingBlock() {
   return (
-    <div className="h-full relative px-[24px] py-[32px] border border-[#37A37A] rounded-2xl flex flex-col overflow-hidden select-none">
-      <div className="absolute left-0 top-[50%] translate-y-[-50%] opacity-20 w-[378px] h-[558px] bg-[#016256]/20 blur-[67px] z-[-1]">
-        <div className="top-0 absolute h-[378px] w-[378px] rounded-full bg-[#23DC65]/40" />
-        <div className="top-0 absolute h-[378px] w-[378px] translate-y-[50px] rounded-full bg-[#137ADA]/20" />
-        <div className="top-0 absolute h-[378px] w-[378px] translate-y-[180px] rounded-full bg-[#6B13DA]/10" />
+    <div className="relative flex h-full select-none flex-col overflow-hidden rounded-2xl border border-[#37A37A] px-[24px] py-[32px]">
+      <div className="absolute left-0 top-[50%] z-[-1] h-[558px] w-[378px] translate-y-[-50%] bg-[#016256]/20 opacity-20 blur-[67px]">
+        <div className="absolute top-0 h-[378px] w-[378px] rounded-full bg-[#23DC65]/40" />
+        <div className="absolute top-0 h-[378px] w-[378px] translate-y-[50px] rounded-full bg-[#137ADA]/20" />
+        <div className="absolute top-0 h-[378px] w-[378px] translate-y-[180px] rounded-full bg-[#6B13DA]/10" />
       </div>
 
       <CardHeading className="mb-[12px]">Staking</CardHeading>
@@ -154,11 +154,11 @@ function StakingBlock() {
         </span>
       </div>
 
-      <div className="flex leading-none w-full text-[#05F08D] min-[375px]:tracking-[2px]">
-        <span className="min-[320px]:text-[52px] sm:text-[72px] mr-[22px] font-extrabold">
+      <div className="flex w-full leading-none text-[#05F08D] min-[375px]:tracking-[2px]">
+        <span className="mr-[22px] font-extrabold min-[320px]:text-[52px] sm:text-[72px]">
           +21%
         </span>
-        <div className="flex flex-col justify-center min-[320px]:text-[24px] sm:text-[28px] space-y-1 font-extrabold min-[320px]:max-h-[52px] sm:max-h-[72px]">
+        <div className="flex flex-col justify-center space-y-1 font-extrabold min-[320px]:max-h-[52px] min-[320px]:text-[24px] sm:max-h-[72px] sm:text-[28px]">
           <span className="opacity-50">+16%</span>
           <span className="opacity-20">+13%</span>
         </div>
@@ -169,11 +169,11 @@ function StakingBlock() {
 
 function SocialLoginBlock() {
   return (
-    <div className="h-full flex flex-col relative group rounded-2xl bg-[#2E7579] px-[24px] py-[32px] select-none overflow-hidden min-h-[298px] social-login">
+    <div className="social-login group relative flex h-full min-h-[298px] select-none flex-col overflow-hidden rounded-2xl bg-[#2E7579] px-[24px] py-[32px]">
       <div className="mb-[12px]">
         <CardHeading>Social Login</CardHeading>
 
-        <div className="rounded-[6px] bg-white/10 px-[12px] py-[4px] font-[800] inline-block mt-[4px]">
+        <div className="mt-[4px] inline-block rounded-[6px] bg-white/10 px-[12px] py-[4px] font-[800]">
           Coming soon
         </div>
       </div>
@@ -181,12 +181,12 @@ function SocialLoginBlock() {
         Hassle-free private key management without a mnemonic phrase
       </CardText>
 
-      <div className="absolute w-[130px] h-[183px] bottom-[-76px] lg:bottom-[-60px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105">
-        <SocialLoginShieldBorderImage className="w-[130px] absolute top-[2px] social-login-animation stroke-[#499599]" />
-        <SocialLoginShieldBorderImage className="w-[130px] absolute top-[2px] social-login-animation stroke-[#499599]" />
-        <SocialLoginShieldBorderImage className="w-[130px] absolute top-[2px] social-login-animation stroke-[#499599]" />
-        <SocialLoginShieldBorderImage className="w-[130px] absolute top-[2px] social-login-animation stroke-[#499599]" />
-        <SocialLoginShieldIcon className="w-[130px] h-auto absolute z-1" />
+      <div className="absolute bottom-[-76px] left-[50%] h-[183px] w-[130px] translate-x-[-50%] duration-[600ms] ease-in-out group-hover:translate-y-[-10px] group-hover:scale-105 lg:bottom-[-60px]">
+        <SocialLoginShieldBorderImage className="social-login-animation absolute top-[2px] w-[130px] stroke-[#499599]" />
+        <SocialLoginShieldBorderImage className="social-login-animation absolute top-[2px] w-[130px] stroke-[#499599]" />
+        <SocialLoginShieldBorderImage className="social-login-animation absolute top-[2px] w-[130px] stroke-[#499599]" />
+        <SocialLoginShieldBorderImage className="social-login-animation absolute top-[2px] w-[130px] stroke-[#499599]" />
+        <SocialLoginShieldIcon className="z-1 absolute h-auto w-[130px]" />
       </div>
     </div>
   );
@@ -194,7 +194,7 @@ function SocialLoginBlock() {
 
 function GovernanceBlock() {
   return (
-    <div className="h-full relative group rounded-2xl bg-gradient-to-b from-[#0DBC7A] to-[#02945D] px-[24px] py-[32px] select-none overflow-hidden min-h-[298px]">
+    <div className="group relative h-full min-h-[298px] select-none overflow-hidden rounded-2xl bg-gradient-to-b from-[#0DBC7A] to-[#02945D] px-[24px] py-[32px]">
       <CardHeading className="mb-[12px]">Governance</CardHeading>
       <CardText className="text-white/60">
         Cast your votes on <br className="block sm:hidden" />
@@ -203,48 +203,48 @@ function GovernanceBlock() {
         making
       </CardText>
 
-      <LikeIcon className="w-[120px] h-auto absolute bottom-[4px] left-[50%] translate-x-[-50%] group-hover:translate-y-[-10px] duration-[600ms] ease-in-out group-hover:scale-105" />
+      <LikeIcon className="absolute bottom-[4px] left-[50%] h-auto w-[120px] translate-x-[-50%] duration-[600ms] ease-in-out group-hover:translate-y-[-10px] group-hover:scale-105" />
 
       <LikeIcon
         className={clsx(
-          'w-[24px] h-auto absolute bottom-[72px] left-[10px] lg:left-[30px] lg:bottom-[30px]',
-          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[50ms]',
+          'absolute bottom-[72px] left-[10px] h-auto w-[24px] lg:bottom-[30px] lg:left-[30px]',
+          'translate-y-[25px] scale-50 opacity-0 delay-[0ms] duration-[600ms] ease-in-out group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:delay-[50ms]',
         )}
       />
       <LikeIcon
         className={clsx(
-          'w-[34px] h-auto absolute bottom-[106px] left-[28px] lg:left-[50px] lg:bottom-[75px]',
-          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]',
+          'absolute bottom-[106px] left-[28px] h-auto w-[34px] lg:bottom-[75px] lg:left-[50px]',
+          'translate-y-[25px] scale-50 opacity-0 delay-[0ms] duration-[600ms] ease-in-out group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:delay-[150ms]',
         )}
       />
       <LikeIcon
         className={clsx(
-          'w-[24px] h-auto absolute bottom-[138px] left-[78px] lg:left-[100px] lg:bottom-[130px]',
-          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[275ms]',
+          'absolute bottom-[138px] left-[78px] h-auto w-[24px] lg:bottom-[130px] lg:left-[100px]',
+          'translate-y-[25px] scale-50 opacity-0 delay-[0ms] duration-[600ms] ease-in-out group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:delay-[275ms]',
         )}
       />
       <LikeIcon
         className={clsx(
-          'w-[24px] h-auto absolute bottom-[147px] left-[18px] lg:left-[20px] lg:bottom-[120px]',
-          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[125ms]',
+          'absolute bottom-[147px] left-[18px] h-auto w-[24px] lg:bottom-[120px] lg:left-[20px]',
+          'translate-y-[25px] scale-50 opacity-0 delay-[0ms] duration-[600ms] ease-in-out group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:delay-[125ms]',
         )}
       />
       <LikeIcon
         className={clsx(
-          'w-[44px] h-auto absolute bottom-[119px] right-[30px] lg:right-[30px] lg:bottom-[90px]',
-          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[250ms]',
+          'absolute bottom-[119px] right-[30px] h-auto w-[44px] lg:bottom-[90px] lg:right-[30px]',
+          'translate-y-[25px] scale-50 opacity-0 delay-[0ms] duration-[600ms] ease-in-out group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:delay-[250ms]',
         )}
       />
       <LikeIcon
         className={clsx(
-          'w-[34px] h-auto absolute bottom-[82px] right-[10px] lg:right-[20px] lg:bottom-[30px]',
-          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[350ms]',
+          'absolute bottom-[82px] right-[10px] h-auto w-[34px] lg:bottom-[30px] lg:right-[20px]',
+          'translate-y-[25px] scale-50 opacity-0 delay-[0ms] duration-[600ms] ease-in-out group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:delay-[350ms]',
         )}
       />
       <LikeIcon
         className={clsx(
-          'w-[22px] h-auto absolute bottom-[148px] right-[84px] lg:right-[90px] lg:bottom-[140px]',
-          'duration-[600ms] ease-in-out opacity-0 translate-y-[25px] scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 delay-[0ms] group-hover:delay-[150ms]',
+          'absolute bottom-[148px] right-[84px] h-auto w-[22px] lg:bottom-[140px] lg:right-[90px]',
+          'translate-y-[25px] scale-50 opacity-0 delay-[0ms] duration-[600ms] ease-in-out group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:delay-[150ms]',
         )}
       />
     </div>
@@ -253,7 +253,7 @@ function GovernanceBlock() {
 
 function LedgerBlock() {
   return (
-    <div className="h-full flex flex-col relative border border-[#cdcdcd] group rounded-2xl px-[24px] py-[32px] overflow-hidden select-none ledger-block ledger-block-background">
+    <div className="ledger-block ledger-block-background group relative flex h-full select-none flex-col overflow-hidden rounded-2xl border border-[#cdcdcd] px-[24px] py-[32px]">
       <CardHeading className="mb-[12px]">Ledger</CardHeading>
 
       <div className="mb-[74px]">
@@ -276,13 +276,13 @@ function LedgerBlock() {
 
 function NonCustodialWalletBlock() {
   return (
-    <div className="h-full px-[24px] py-[32px] relative bg-white rounded-2xl overflow-hidden group select-none non-custodial-wallet">
-      <div className="absolute w-[1024px] h-[988px] left-[-525px] top-[10%] sm:top-[-15%] sm:left-[-395px] lg:left-[-545px] lg:top-[20%] non-custodial-wallet-animation">
+    <div className="non-custodial-wallet group relative h-full select-none overflow-hidden rounded-2xl bg-white px-[24px] py-[32px]">
+      <div className="non-custodial-wallet-animation absolute left-[-525px] top-[10%] h-[988px] w-[1024px] sm:left-[-395px] sm:top-[-15%] lg:left-[-545px] lg:top-[20%]">
         <Image fill alt="" src={maskData.src} />
       </div>
 
-      <div className="relative text-black flex flex-col">
-        <div className="max-w-[300px] sm:max-w-full mb-[212px] sm:mb-[278px]">
+      <div className="relative flex flex-col text-black">
+        <div className="mb-[212px] max-w-[300px] sm:mb-[278px] sm:max-w-full">
           <CardHeading className="mb-[12px]">Non-custodial wallet</CardHeading>
           <CardText>
             With a non-custodial wallet, you have sole authority of your private
@@ -296,22 +296,22 @@ function NonCustodialWalletBlock() {
 
 export function FeaturesBlock() {
   return (
-    <section className="w-full py-[40px] sm:py-[70px] sm:mb-[120px] lg:mb-[140px]">
+    <section className="w-full py-[40px] sm:mb-[120px] sm:py-[70px] lg:mb-[140px]">
       <div className="container mx-auto flex flex-col px-[20px] sm:px-[40px]">
-        <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center lg:text-start mb-[32px] sm:mb-[48px]">
+        <h2 className="mb-[32px] text-center text-[38px] font-extrabold leading-[52px] sm:mb-[48px] sm:text-[48px] sm:leading-[64px] lg:text-start">
           HAQQ Wallet Features
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-3 gap-[28px]">
+        <div className="grid grid-cols-1 gap-[28px] lg:grid-cols-4 xl:grid-cols-3">
           <div>
             <NonCustodialWalletBlock />
           </div>
           <div className="lg:col-span-3 xl:col-span-2">
-            <div className="grid lg:grid-cols-3 gap-[28px] h-full">
-              <div className="lg:col-span-2 flex flex-col space-y-[28px]">
+            <div className="grid h-full gap-[28px] lg:grid-cols-3">
+              <div className="flex flex-col space-y-[28px] lg:col-span-2">
                 <div>
                   <StakingBlock />
                 </div>
-                <div className="h-full grid sm:grid-cols-2 lg:grid-cols-11 gap-[28px]">
+                <div className="grid h-full gap-[28px] sm:grid-cols-2 lg:grid-cols-11">
                   <div className="lg:col-span-6">
                     <GovernanceBlock />
                   </div>

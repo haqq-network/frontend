@@ -10,9 +10,9 @@ export function SelectWalletModal({ isOpen, onClose }: any) {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-[24px] max-w-[400px] mx-auto p-8">
+      <div className="mx-auto max-w-[400px] rounded-[24px] bg-white p-8">
         <div className="flex flex-col space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <Heading level={3}>Select wallet</Heading>
             <ModalCloseButton onClick={onClose} />
           </div>
@@ -43,7 +43,7 @@ export function SelectWalletModal({ isOpen, onClose }: any) {
               })}
 
               {error && (
-                <div className="text-red-500 pt-4">{error.message}</div>
+                <div className="pt-4 text-red-500">{error.message}</div>
               )}
             </div>
           )}
