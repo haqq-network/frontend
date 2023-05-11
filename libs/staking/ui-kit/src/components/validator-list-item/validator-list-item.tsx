@@ -44,6 +44,7 @@ export function ValidatorListItem({
   const votingPowerInPercents = useMemo(() => {
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
+  console.log({ votingPower });
 
   return (
     <div className="px-6 py-4 hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/20 border-b border-islamic-black-100/20 cursor-pointer transition-[background] duration-75">

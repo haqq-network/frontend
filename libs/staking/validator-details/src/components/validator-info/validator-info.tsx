@@ -7,7 +7,13 @@ import {
   useState,
 } from 'react';
 import { useBalance } from 'wagmi';
-import { Button2, Text, Card, SpinnerLoader } from '@haqq/ui-kit';
+import {
+  Button2,
+  Text,
+  Card,
+  SpinnerLoader,
+  WarningMessage,
+} from '@haqq/ui-kit';
 import { formatUnits } from 'ethers/lib/utils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -38,8 +44,9 @@ interface ValidatorInfoComponentProps {
   symbol: string;
   onGetRewardsClick: () => void;
   unbounded: number;
-  totalStaked: number;
+  stakingPool: number;
   totalRewards: number;
+  delegated: number;
 }
 
 function ValidatorAvatar() {
@@ -126,9 +133,12 @@ export function ValidatorInfoComponent({
   symbol,
   onGetRewardsClick,
   unbounded,
-  totalStaked,
+  stakingPool,
   totalRewards,
+  delegated,
 }: ValidatorInfoComponentProps) {
+  console.log({ validatorInfo });
+
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const [isInfoShown, setInfoShown] = useState(false);
   const { copyText } = useClipboard();
@@ -142,25 +152,14 @@ export function ValidatorInfoComponent({
       ),
     };
   }, [validatorInfo.commission]);
-  const { data: stakingPool } = useStakingPoolQuery();
 
   const votingPower = useMemo(() => {
     return Number.parseInt(validatorInfo.tokens ?? '0') / 10 ** 18;
   }, [validatorInfo.tokens]);
 
   const votingPowerInPercents = useMemo(() => {
-    return ((votingPower / totalStaked) * 100).toFixed(2);
-  }, [votingPower, totalStaked]);
-
-  // const handleChange = useCallback((value: string) => {
-  //   const numberValue = Number(value);
-
-  //   if (numberValue < 0) {
-  //     return setValue(0);
-  //   }
-
-  //   return setValue(numberValue);
-  // }, []);
+    return ((votingPower / stakingPool) * 100).toFixed(2);
+  }, [votingPower, stakingPool]);
 
   const handleHaqqAddressCopy = useCallback(async () => {
     if (validatorInfo.operatorAddress) {
@@ -173,6 +172,7 @@ export function ValidatorInfoComponent({
     return power.toLocaleString().replace(/,/g, ' ');
   };
 
+  const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
 
   return (
     <div className="mx-auto w-full flex gap-x-[48px]">
@@ -348,7 +348,7 @@ export function ValidatorInfoComponent({
               My account
             </div>
             <div
-              className="flex items-center gap-x-[2px] text-[#EC5728] cursor-pointer"
+              className="flex items-center gap-x-[2px] text-[#EC5728] hover:text-[#FF8D69] cursor-pointer"
               onClick={() => setInfoShown(!isInfoShown)}
             >
               Hide Info
@@ -370,7 +370,7 @@ export function ValidatorInfoComponent({
             </div>
           </div>
           {isInfoShown && (
-            <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
+            <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px] mt-[24px]">
               <div className="flex flex-col gap-y-[6px] items-start">
                 <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
                   Available
@@ -396,7 +396,7 @@ export function ValidatorInfoComponent({
                   Staked
                 </span>
                 <span className="text-[16px] leading-[26px] uppercase">
-                  {totalStaked.toLocaleString(undefined, {
+                  {delegated.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}{' '}
@@ -437,6 +437,12 @@ export function ValidatorInfoComponent({
             </svg>
             Validator
           </div>
+          {isWarningShown && (
+            <WarningMessage>
+              While the validator is inactive, you will not be able to receive a
+              reward.
+            </WarningMessage>
+          )}
           <div className="flex flex-col gap-y-[12px]">
             <div className="flex flex-col gap-y-[6px]">
               <span className="text-[10px] leading-[12px] font-semibold lg:text-[12px] lg:leading-[14px] uppercase text-white/50">
@@ -520,8 +526,8 @@ export function ValidatorInfo({
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { claimReward } = useStakingActions();
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
-
-  const [totalStaked, setTotalStakedValue] = useState(0);
+  const { data: stakingPool } = useStakingPoolQuery();
+  const [staked, setStakedValue] = useState(0);
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
@@ -612,6 +618,10 @@ export function ValidatorInfo({
     return result / 10 ** 18;
   }, [undelegations]);
 
+  const totalStaked = useMemo(() => {
+    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.pool.bonded_tokens]);
+
   useEffect(() => {
     if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
       let del = 0;
@@ -623,7 +633,7 @@ export function ValidatorInfo({
       });
 
       // TODO: use formatter from utils
-      setTotalStakedValue(del / 10 ** 18);
+      setStakedValue(del / 10 ** 18);
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }
   }, [delegationInfo]);
@@ -649,8 +659,9 @@ export function ValidatorInfo({
         symbol="ISLM"
         onGetRewardsClick={handleGetRewardsClick}
         unbounded={unbounded}
-        totalStaked={totalStaked}
+        stakingPool={totalStaked}
         totalRewards={myTotalRewards}
+        delegated={staked}
       />
 
       <DelegateModal

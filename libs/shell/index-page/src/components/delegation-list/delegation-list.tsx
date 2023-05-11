@@ -105,6 +105,7 @@ export function ShellIndexPageDelegationList() {
     );
   }
 
+
   return (
     <div>
       <Card className="!p-0 flex flex-col flex-1">
@@ -165,6 +166,7 @@ export function ValidatorWithDelegationListItem({
   const votingPower = useMemo(() => {
     return Number.parseInt(validator.power ?? '0') / 10 ** 18;
   }, [validator.power]);
+
   const votingPowerInPercents = useMemo(() => {
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
