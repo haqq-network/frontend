@@ -12,6 +12,7 @@ import { Button } from '@haqq/website/ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
 import { Heading } from '@haqq/ui-kit';
+import { OrangeLink } from '../../components/index-page/index-page';
 
 export function MyAccountBlock() {
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
@@ -115,9 +116,9 @@ export function MyAccountBlock() {
             <Heading level={3} className="ml-[8px]">
               My account
             </Heading>
-            <div className="text-[#EC5728] text-[12px] leading-[1.2em] uppercase font-serif font-[600] ml-[16px]">
+            <OrangeLink href="/staking" className="ml-[16px] uppercase">
               Go to staking
-            </div>
+            </OrangeLink>
           </div>
 
           <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:space-y-0 lg:gap-6">

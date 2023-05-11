@@ -6,11 +6,16 @@
     <base href="/" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="assets/favicon.svg" />
+    <link rel="shortcut icon" href="assets/favicon.png" />
 
     <style>
+      body,
+      html {
+        background-color: #0d0d0e;
+      }
+
       .app-loader {
-        --app-loader-size: 96px;
+        --app-loader-size: 90px;
 
         width: 100%;
         height: 100vh;
@@ -20,13 +25,14 @@
         top: 0;
         left: 0;
         z-index: 5000;
-        transition: 150ms ease-out;
+        transition: opacity 300ms 250ms ease-out, transform 750ms ease;
         transform: scale(1.7);
-        opacity: 0;
         display: flex;
         user-select: none;
         pointer-events: none;
-        visibility: hidden;
+        /* visibility: hidden; */
+        opacity: 0;
+        background-color: #0d0d0e;
       }
 
       .app-loader img {
@@ -35,9 +41,10 @@
       }
 
       #root:empty + .app-loader {
-        visibility: visible;
-        opacity: 1;
+        /* visibility: visible; */
+        background-color: #0d0d0e;
         transform: scale(1);
+        opacity: 1;
       }
     </style>
   </head>
@@ -47,7 +54,7 @@
     <div id="root"></div>
 
     <div class="app-loader">
-      <img src="assets/favicon.svg" alt="HAQQ Network" />
+      <img src="assets/logo.svg" alt="HAQQ Network" />
     </div>
   </body>
 </html>

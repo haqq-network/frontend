@@ -3,6 +3,7 @@ import { formatUnits } from 'ethers/lib/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { ValidatorStatus } from '../validator-status/validator-status';
+import { useNavigate } from 'react-router-dom';
 
 export interface ValidatorListItemProps {
   validator: Validator;
@@ -17,6 +18,7 @@ export function ValidatorListItem({
   delegation,
   stakingPool,
 }: ValidatorListItemProps) {
+  const navigate = useNavigate();
   const validatorCommission = useMemo(() => {
     return (
       Number.parseFloat(validator.commission?.commission_rates?.rate ?? '0') *
@@ -47,26 +49,34 @@ export function ValidatorListItem({
   console.log({ votingPower });
 
   return (
-    <div className="px-6 py-4 hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/20 border-b border-islamic-black-100/20 cursor-pointer transition-[background] duration-75">
-      <div className="flex items-center justify-between space-x-6">
-        <div className="w-1/3">
-          <div>{validator.description?.moniker}</div>
-        </div>
-
-        <div className="w-[100px] text-center">
-          <ValidatorStatus
-            jailed={validator.jailed}
-            status={bondStatusFromJSON(validator.status)}
-          />
-        </div>
-        <div className="w-[50px] text-center">{validatorCommission}%</div>
-        <div className="flex-1 font-semibold text-right">
-          <div>{votingPower.toLocaleString()}</div>
-          <div className="text-gray-400 text-sm">{votingPowerInPercents}%</div>
-        </div>
-        <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
-        <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>
-      </div>
-    </div>
+    <tr
+      className="border-[#FFFFFF26] border-t text-[16px] leading-[26px] hover:bg-white/5 cursor-pointer transition-[background] duration-75"
+      onClick={() => {
+        navigate(`validator/${validator.operator_address}`);
+      }}
+    >
+      <td className="p-[12px]">
+        <div>{validator.description?.moniker}</div>
+      </td>
+      <td className="text-left p-[12px]">
+        <ValidatorStatus
+          jailed={validator.jailed}
+          status={bondStatusFromJSON(validator.status)}
+        />
+      </td>
+      <td className="text-left p-[12px]">
+        <div>{validatorCommission}%</div>
+      </td>
+      <td className="text-right p-[12px]">
+        <div>{votingPower.toLocaleString()}</div>
+      </td>
+      <td className="text-right p-[12px]">
+        <div className="text-gray-400 text-sm">{votingPowerInPercents}%</div>
+      </td>
+      <td className="text-right p-[12px]">
+        <div>{userDelegate.toLocaleString()}</div>
+      </td>
+      <td className="text-right p-[12px]">{userRewards.toLocaleString()}</td>
+    </tr>
   );
 }

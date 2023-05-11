@@ -67,7 +67,7 @@ export function StakingInfoComponent({
   onChangeNetwork,
 }: RewardsInfoProps) {
   return (
-    <section className="w-full border-y border-dashed border-[#ffffff26] px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[32px]">
+    <section className="w-full border-y border-dashed border-[#ffffff26] px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[32px] sticky top-[70px] z-[49] backdrop-blur transform-gpu bg-transparent">
       <div className="mb-[24px] flex flex-row items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path
