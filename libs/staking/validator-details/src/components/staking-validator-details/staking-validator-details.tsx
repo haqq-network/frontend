@@ -12,14 +12,8 @@ export function StakingValidatorDetails() {
   }
 
   return (
-    <Fragment>
-      <Container>
-        <StakingInfo />
-      </Container>
-
-      <Container className="flex flex-1">
-        <ValidatorInfo validatorAddress={address} />
-      </Container>
-    </Fragment>
+    <Container className="flex flex-1">
+      <ValidatorInfo validatorAddress={address} />
+    </Container>
   );
 }
