@@ -92,16 +92,14 @@ export function Header() {
       <div className="w-full flex flex-row items-center h-full pr-[16px] sm:pr-[64px] lg:pr-[80px] mx-auto">
         <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-[#464647]">
           <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
-            <Link to="/">
-              <img src={logoImageData} alt="HAQQ" />
-            </Link>
+            <img src={logoImageData} alt="HAQQ" />
           </div>
         </div>
         <div className="font-serif ml-[20px] lg:ml-[32px] font-medium text-[24px] leading-none">
           <Link to="/">HAQQ</Link>
         </div>
         <div className="flex-1" />
-        <nav className="flex-row space-x-6 items-center hidden lg:flex">
+        <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex">
           <HeaderNavLink href="/staking">Staking</HeaderNavLink>
           <HeaderNavLink href="/governance">Governance</HeaderNavLink>
         </nav>
