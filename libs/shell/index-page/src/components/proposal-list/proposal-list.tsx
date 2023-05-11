@@ -4,7 +4,7 @@ import { SpinnerLoader } from '@haqq/ui-kit';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
 import { useProposalListQuery } from '@haqq/shared';
 import { Heading } from '@haqq/website/ui-kit';
-import { OrangeLink } from '../index-page/index-page';
+import { OrangeLink } from '@haqq/shell/ui-kit-next';
 
 export function ShellIndexPageProposalList() {
   const { data: proposalsData, isFetching } = useProposalListQuery();
@@ -23,7 +23,10 @@ export function ShellIndexPageProposalList() {
         <Heading level={3} className="ml-[8px]">
           Latest proposals
         </Heading>
-        <OrangeLink href="/governance" className="ml-[16px] uppercase">
+        <OrangeLink
+          href="/governance"
+          className="ml-[16px] uppercase font-serif !text-[12px]"
+        >
           Go to Governance
         </OrangeLink>
       </div>

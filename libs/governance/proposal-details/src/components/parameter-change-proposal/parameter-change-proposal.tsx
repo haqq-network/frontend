@@ -1,4 +1,4 @@
-import { Heading } from '@haqq/ui-kit';
+import { Heading } from '@haqq/shell/ui-kit-next';
 import { Metadata } from '../metadata/metadata';
 import { ParameterChangeProposalContent } from '@evmos/provider';
 

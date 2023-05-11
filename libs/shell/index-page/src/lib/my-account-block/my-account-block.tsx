@@ -6,20 +6,20 @@ import {
   useStakingRewardsQuery,
   useWindowWidth,
   getFormattedAddress,
+  useWallet,
 } from '@haqq/shared';
-import { Text, Tooltip, CopyIcon } from '@haqq/shell/ui-kit';
-import { Button } from '@haqq/website/ui-kit';
+import { Text, Tooltip } from '@haqq/shell/ui-kit';
+import { Button, Heading } from '@haqq/website/ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
-import { Heading } from '@haqq/ui-kit';
-import { OrangeLink } from '../../components/index-page/index-page';
+import { OrangeLink, CopyIcon } from '@haqq/shell/ui-kit-next';
 
 export function MyAccountBlock() {
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
   const { copyText } = useClipboard();
   const { ethAddress, haqqAddress } = useAddress();
-  const { connect } = useMetamask();
+  const { openSelectWallet } = useWallet();
   const { data: balanceData } = useBalance({
     address: ethAddress,
     watch: true,
@@ -95,7 +95,7 @@ export function MyAccountBlock() {
         <div className="flex flex-col items-center space-y-3 py-[62px]">
           <div className="font-sans">You should connect wallet first</div>
           <Button
-            onClick={connect}
+            onClick={openSelectWallet}
             variant={2}
             className="!font-serif text-black hover:text-white hover:bg-transparent"
           >
@@ -116,8 +116,11 @@ export function MyAccountBlock() {
             <Heading level={3} className="ml-[8px]">
               My account
             </Heading>
-            <OrangeLink href="/staking" className="ml-[16px] uppercase">
-              Go to staking
+            <OrangeLink
+              href="/staking"
+              className="ml-[16px] uppercase font-serif !text-[12px]"
+            >
+              Go to Staking
             </OrangeLink>
           </div>
 

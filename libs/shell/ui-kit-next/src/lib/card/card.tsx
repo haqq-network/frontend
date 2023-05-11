@@ -1,12 +1,10 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 
-export interface NewCardProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function NewCard({ children, className }: NewCardProps) {
+export function Card({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) {
   return (
     <div
       className={clsx(
@@ -19,7 +17,7 @@ export function NewCard({ children, className }: NewCardProps) {
   );
 }
 
-export function NewCardHeading({ children }: { children: ReactNode }) {
+export function CardHeading({ children }: PropsWithChildren) {
   return (
     <div className="whitespace-pre-wrap text-[14px] leading-[22px] lg:text-[18px] lg:leading-[28px] font-sans text-white min-h-[44px] sm:text-[17px] sm:leading-[26px] sm:min-h-[52px] lg:min-h-[56px]">
       {children}
@@ -27,17 +25,16 @@ export function NewCardHeading({ children }: { children: ReactNode }) {
   );
 }
 
-export function NewCardText({
+export function CardText({
   children,
   className,
-}: {
-  children: ReactNode;
+}: PropsWithChildren<{
   className?: string;
-}) {
+}>) {
   return <div className={clsx('font-sans', className)}>{children}</div>;
 }
 
-export function NewCardSubText({
+export function CardSubText({
   children,
   className,
 }: {

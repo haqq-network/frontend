@@ -55,27 +55,17 @@ export function ValidatorListItem({
         navigate(`validator/${validator.operator_address}`);
       }}
     >
-      <td className="p-[12px]">
-        <div>{validator.description?.moniker}</div>
-      </td>
+      <td className="p-[12px]">{validator.description?.moniker}</td>
       <td className="text-left p-[12px]">
         <ValidatorStatus
           jailed={validator.jailed}
           status={bondStatusFromJSON(validator.status)}
         />
       </td>
-      <td className="text-left p-[12px]">
-        <div>{validatorCommission}%</div>
-      </td>
-      <td className="text-right p-[12px]">
-        <div>{votingPower.toLocaleString()}</div>
-      </td>
-      <td className="text-right p-[12px]">
-        <div className="text-gray-400 text-sm">{votingPowerInPercents}%</div>
-      </td>
-      <td className="text-right p-[12px]">
-        <div>{userDelegate.toLocaleString()}</div>
-      </td>
+      <td className="text-left p-[12px]">{validatorCommission}%</td>
+      <td className="text-right p-[12px]">{votingPower.toLocaleString()}</td>
+      <td className="text-right p-[12px]">{votingPowerInPercents}%</td>
+      <td className="text-right p-[12px]">{userDelegate.toLocaleString()}</td>
       <td className="text-right p-[12px]">{userRewards.toLocaleString()}</td>
     </tr>
   );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AboveTitle } from '@haqq/website/ui-kit';
 import { Proposal, ProposalStatus } from '@evmos/provider';
-import { NewCardSubText, TimerText } from '@haqq/shell/ui-kit';
+import { TimerText } from '@haqq/shell/ui-kit-next';
 import clsx from 'clsx';
 
 function formatDate(date: Date) {

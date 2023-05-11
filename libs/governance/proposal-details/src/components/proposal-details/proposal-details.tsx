@@ -1,12 +1,6 @@
-import { PropsWithChildren, useMemo, useState } from 'react';
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'marked-react';
-import { SpinnerLoader, Heading } from '@haqq/ui-kit';
 import {
   ProposalStatusComponent,
   ProposalVoteResults,
@@ -18,6 +12,8 @@ import {
   isNumber,
   useGovernanceParamsQuery,
   GovernanceParamsResponse,
+  useToast,
+  useProposalVote,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -26,6 +22,13 @@ import { ProposalPeriodTimer } from '../proposal-period-timer/proposal-period-ti
 import clsx from 'clsx';
 import { ProposalDepositProgress } from '../proposal-deposit-progress/proposal-deposit-progress';
 import { formatUnits } from 'ethers/lib/utils';
+import {
+  BackButton,
+  InfoBlock,
+  InfoIcon,
+  SpinnerLoader,
+  Heading,
+} from '@haqq/shell/ui-kit-next';
 
 const enum ProposalTypes {
   Text = '/cosmos.gov.v1beta1.TextProposal',
@@ -112,26 +115,7 @@ export function ProposalDetailsComponent({
           </div>
           <div className="py-[40px]">
             <div className="mb-[16px] flex flex-row items-center">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M13 6.5V8.5H11V6.5H13ZM11 11.5H9V9.5H12H13V10.5V15.5H15V17.5H9V15.5H11V11.5Z"
-                  fill="currentColor"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M4.5 4.5V19.5H19.5V4.5H4.5ZM3.5 2.5C2.94772 2.5 2.5 2.94771 2.5 3.5V20.5C2.5 21.0523 2.94771 21.5 3.5 21.5H20.5C21.0523 21.5 21.5 21.0523 21.5 20.5V3.5C21.5 2.94772 21.0523 2.5 20.5 2.5H3.5Z"
-                  fill="currentColor"
-                />
-              </svg>
+              <InfoIcon />
               <Heading level={3} className="ml-[8px]">
                 Info
               </Heading>
@@ -139,22 +123,16 @@ export function ProposalDetailsComponent({
             <div className="flex flex-col gap-[28px]">
               <div className="flex flex-row gap-[28px]">
                 <div>
-                  <div className="font-sans text-[12px] leading-[18px] text-white/50">
-                    Type
-                  </div>
-                  <div className="text-[14px] leading-[22px] text-white font-[500]">
+                  <InfoBlock title="Type">
                     <ProposalTypeComponent
                       type={proposalDetails.content['@type']}
                     />
-                  </div>
+                  </InfoBlock>
                 </div>
                 <div>
-                  <div className="font-sans text-[12px] leading-[18px] text-white/50">
-                    Total deposit
-                  </div>
-                  <div className="text-[14px] leading-[22px] text-white font-[500]">
+                  <InfoBlock title="Total deposit">
                     {totalDeposit.toLocaleString()} {symbol.toLocaleUpperCase()}
-                  </div>
+                  </InfoBlock>
                 </div>
               </div>
               <div>
@@ -224,10 +202,13 @@ export function ProposalDetailsComponent({
             )}
           </div>
 
+          {/* TODO: Add actual balance */}
           {isDepositAvailable && <DepositActions balance={12332} />}
-          {isVotingAvailable && <VoteActions />}
-          {/* <DepositActions balance={12332} />
-          <VoteActions /> */}
+          {isVotingAvailable && (
+            <VoteActions
+              proposalId={Number.parseInt(proposalDetails.proposal_id, 10)}
+            />
+          )}
         </div>
       </div>
     </div>
@@ -247,7 +228,7 @@ export function ProposalDetails() {
   }
 
   return (
-    <div className="w-full mx-auto px-[16px] sm:px-[48px] lg:px-[79px] lg:my-[34px] flex flex-col flex-1">
+    <div className="w-full mx-auto px-[16px] sm:px-[48px] lg:px-[79px] lg:py-[34px] flex flex-col flex-1">
       <div className="mb-[34px]">
         <BackButton
           onClick={() => {
@@ -259,7 +240,7 @@ export function ProposalDetails() {
       </div>
       {isFetching || !proposalDetails || !govParams ? (
         <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-full select-none pointer-events-none">
-          <SpinnerLoader className="text-white/10 !fill-haqq-orange w-10 h-10" />
+          <SpinnerLoader />
           <div className="font-sans text-[10px] leading-[1.2em] uppercase">
             Fetching proposal details
           </div>
@@ -277,37 +258,24 @@ export function ProposalDetails() {
   );
 }
 
-function BackButton({
-  children,
-  onClick,
-}: PropsWithChildren<{ onClick: () => void }>) {
-  return (
-    <button
-      onClick={onClick}
-      className="inline-flex flex-row items-center hover:text-white/50 transition-colors duration-100 ease-out"
-    >
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M7.41436 11L11.7073 6.70712L10.293 5.29291L3.58594 12L10.293 18.7071L11.7073 17.2929L7.41437 13H19.0002V11H7.41436Z"
-          fill="currentColor"
-        />
-      </svg>
-      <span className="ml-[8px] font-serif text-[10px] leading-[1.2em] uppercase cursor-pointer font-[600] mb-[-2px]">
-        {children}
-      </span>
-    </button>
-  );
-}
+export function VoteActions({ proposalId }: { proposalId: number }) {
+  const vote = useProposalVote();
+  const toast = useToast();
+  const handleVote = useCallback(
+    async (option: number) => {
+      try {
+        const txHash = await vote(proposalId, option);
+        console.log('vote succesfull', { option, txHash });
+        toast.success(`Your vote will be counted!!!`);
+      } catch (error) {
+        console.error((error as any).message);
 
-export function VoteActions() {
+        toast.error(`For some reason your vote failed.`);
+      }
+    },
+    [proposalId, toast, vote],
+  );
+
   return (
     <div className="bg-white bg-opacity-[15%] px-[28px] py-[32px]">
       <div className="mb-[16px]">
@@ -319,37 +287,37 @@ export function VoteActions() {
       <div className="flex flex-row gap-[12px] flex-wrap">
         <VoteButton
           onClick={() => {
-            console.log(VoteOption.VOTE_OPTION_YES);
+            handleVote(VoteOption.VOTE_OPTION_YES);
           }}
           color="green"
         >
-          YES
+          Yes
         </VoteButton>
         <VoteButton
           onClick={() => {
-            console.log(VoteOption.VOTE_OPTION_NO);
+            handleVote(VoteOption.VOTE_OPTION_NO);
           }}
           color="red"
           isActive
         >
-          NO
+          No
         </VoteButton>
         <VoteButton
           onClick={() => {
-            console.log(VoteOption.VOTE_OPTION_ABSTAIN);
+            handleVote(VoteOption.VOTE_OPTION_ABSTAIN);
           }}
           color="gray"
           disabled
         >
-          ABSTAIN
+          Abstain
         </VoteButton>
         <VoteButton
           onClick={() => {
-            console.log(VoteOption.VOTE_OPTION_NO_WITH_VETO);
+            handleVote(VoteOption.VOTE_OPTION_NO_WITH_VETO);
           }}
           color="yellow"
         >
-          VETO
+          Veto
         </VoteButton>
       </div>
     </div>
@@ -471,7 +439,7 @@ export function VoteButton({
     <button
       className={clsx(
         'text-white text-[14px] leading-[1em] font-serif bg-[#FFFFFF26] py-[12px] px-[24px] rounded-[6px]',
-        'transition-colors duration-100 ease-linear',
+        'transition-colors duration-100 ease-linear uppercase',
         !disabled
           ? {
               'hover:bg-[#01B26E]': color === 'green' && !isActive,

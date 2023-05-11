@@ -1,4 +1,4 @@
-import { NewCardSubText, NewCardText } from '@haqq/ui-kit';
+import { CardSubText, CardText } from '@haqq/shell/ui-kit-next';
 import { useMemo } from 'react';
 
 export function ProposalDepositProgress({
@@ -17,15 +17,15 @@ export function ProposalDepositProgress({
   return (
     <div className="flex flex-col w-full space-y-[8px]">
       <div className="flex space-x-[12px] items-center">
-        <NewCardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
+        <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
           Total deposit
-        </NewCardText>
+        </CardText>
         {userDeposit && (
           <div className="inline-flex space-x-[6px]">
-            <NewCardSubText className="text-white/50">
+            <CardSubText className="text-white/50">
               You Deposited:{' '}
               <span className="text-white">{userDeposit.toFixed(0)}</span>
-            </NewCardSubText>
+            </CardSubText>
           </div>
         )}
       </div>

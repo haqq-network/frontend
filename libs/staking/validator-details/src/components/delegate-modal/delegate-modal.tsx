@@ -1,5 +1,4 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
-import styled from '@emotion/styled';
 import { Alert, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
 import { useStakingActions, useToast } from '@haqq/shared';
@@ -207,15 +206,6 @@ export function DelegateModal({
   );
 }
 
-const DelegateModalInputComponent = styled('input')`
-  appearance: textfield;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    appearance: none;
-  }
-`;
-
 export function DelegateModalInput({
   symbol,
   value,
@@ -247,7 +237,7 @@ export function DelegateModalInput({
   return (
     <div>
       <div className="relative">
-        <DelegateModalInputComponent
+        <input
           type="number"
           id="amount"
           value={value}
