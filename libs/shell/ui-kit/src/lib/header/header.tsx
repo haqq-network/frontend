@@ -12,7 +12,7 @@ import { BurgerButton, Button } from '@haqq/website/ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { Link } from 'react-router-dom';
-import { SelectWalletModal, useAddress, useWallet } from '@haqq/shared';
+import { SelectWalletModal, useAddress, useWallet, useWindowWidth } from '@haqq/shared';
 import { useAccount, useBalance } from 'wagmi';
 import { AccountButton } from '../account-button/account-button';
 
@@ -44,7 +44,8 @@ function HeaderNavLink({
 
 export function Header() {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+  const { width } = useWindowWidth();
+  const [isMobile, setIsMobile] = useState(width <= 1024);
   const { ethAddress } = useAddress();
   const { isConnected } = useAccount();
   const { data: balanceData } = useBalance({
@@ -76,12 +77,8 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 1024);
-    }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    setIsMobile(width <= 1024);
+  }, [width]);
 
   return (
     <header
