@@ -7,11 +7,10 @@ import {
   useWindowWidth,
   getFormattedAddress,
 } from '@haqq/shared';
-import { Text, Tooltip } from '@haqq/shell/ui-kit';
+import { Text, Tooltip, CopyIcon } from '@haqq/shell/ui-kit';
 import { Button } from '@haqq/website/ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
-import { CopyIcon } from '../../components/account-info/account-info';
 import { Heading } from '@haqq/ui-kit';
 
 export function MyAccountBlock() {

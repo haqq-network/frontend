@@ -6,7 +6,7 @@ export interface ButtonProps {
   className?: string;
   children: ReactNode;
   onClick?: () => void;
-  variant?: 1 | 2 | 3 | 4;
+  variant?: 1 | 2 | 3 | 4 | 5;
   disabled?: boolean;
   type?: 'submit' | 'button' | 'reset';
   isLoading?: boolean;
@@ -39,6 +39,10 @@ export function Button({
       (isLoading
         ? 'border border-haqq-black bg-transparent'
         : 'text-haqq-black border border-haqq-black bg-transparent'),
+    variant === 5 &&
+      (isLoading
+        ? 'border border-haqq-black bg-transparent'
+        : 'text-haqq-black bg-[#01B26E] disabled:bg-[#01B26E80]'),
     'transition-color duration-150 ease-in will-change-[color,background]',
     disabled && 'cursor-not-allowed',
     isLoading && 'text-transparent cursor-wait',

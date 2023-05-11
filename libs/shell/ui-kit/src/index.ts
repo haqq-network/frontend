@@ -7,3 +7,4 @@ export * from './lib/card/card';
 export * from './lib/burger-menu/burger-menu';
 export * from './lib/header/header';
 export * from './lib/layout/layout';
+export * from './lib/copy-icon/copy-icon';
