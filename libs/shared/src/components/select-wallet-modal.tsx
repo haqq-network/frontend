@@ -1,10 +1,4 @@
-import {
-  Card,
-  Heading,
-  Modal,
-  ModalCloseButton,
-  SpinnerLoader,
-} from '@haqq/ui-kit';
+import { Modal, ModalCloseButton, SpinnerLoader } from '@haqq/ui-kit';
 import { Button } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
 import { useConnect } from 'wagmi';
@@ -23,23 +17,26 @@ export function SelectWalletModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Card
+      <div
         className={clsx(
-          'mx-auto min-w-[320px] max-w-[420px] !bg-white dark:!bg-slate-700',
+          'mx-auto bg-white text-haqq-black rounded-[12px] p-[36px]',
           className,
         )}
       >
-        <div className="flex flex-col space-y-6">
-          <div className="flex justify-between items-center">
-            <Heading level={3} className="mt-[3px]">
-              Select wallet
-            </Heading>
-            <ModalCloseButton onClick={onClose} />
+        <ModalCloseButton
+          onClick={onClose}
+          className="absolute top-[16px] right-[16px]"
+        />
+
+        <div className="flex flex-col space-y-6 min-w-[360px] w-full">
+          <div className="mt-[4x] text-[24px] leading-[30px] font-[500] font-serif">
+            Select wallet
           </div>
+
           {isLoading ? (
-            <SpinnerLoader className="!fill-primary mx-auto my-6" />
+            <SpinnerLoader className="!fill-haqq-orange mx-auto my-6" />
           ) : (
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-[12px]">
               {connectors.map((connector) => {
                 if (!connector.ready) {
                   return null;
@@ -53,6 +50,7 @@ export function SelectWalletModal({
                       onClose();
                     }}
                     variant={4}
+                    className="hover:!border-haqq-orange hover:!text-haqq-orange"
                   >
                     {connector.name}
                     {isLoading &&
@@ -68,7 +66,7 @@ export function SelectWalletModal({
             </div>
           )}
         </div>
-      </Card>
+      </div>
     </Modal>
   );
 }

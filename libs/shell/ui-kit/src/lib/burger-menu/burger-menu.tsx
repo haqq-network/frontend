@@ -39,12 +39,7 @@ export function BurgerMenu({ className }: { className?: string }) {
     address: ethAddress,
     watch: true,
   });
-  const {
-    disconnect,
-    openSelectWallet,
-    isSelectWalletOpen,
-    closeSelectWallet,
-  } = useWallet();
+  const { disconnect, openSelectWallet } = useWallet();
 
   const balance = useMemo(() => {
     if (!balanceData) {
@@ -65,26 +60,25 @@ export function BurgerMenu({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="flex flex-col items-start space-y-[16px] mb-[60px] sm:mb-[80px]">
+      <div className="flex flex-col items-start space-y-[16px] mb-[24px] sm:mb-[80px]">
         <BurgerMenuNavLink href="/staking">Staking</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/governance">Governance</BurgerMenuNavLink>
       </div>
+
       {isConnected && (
         <AccountButton
           balance={balance}
           address={ethAddress}
           onDisconnectClick={disconnect}
-          isInBurger
+          withoutDropdown
         />
       )}
-      <Button
-        className={clsx(
-          'block lg:hidden !font-serif hover:text-black mt-[24px]',
-        )}
-        onClick={isConnected ? disconnect : openSelectWallet}
-      >
-        {isConnected ? 'Disconnect' : 'Connect wallet'}
-      </Button>
+
+      <div className="block lg:hidden mt-[24px]">
+        <Button onClick={isConnected ? disconnect : openSelectWallet}>
+          {isConnected ? 'Disconnect' : 'Connect wallet'}
+        </Button>
+      </div>
     </div>
   );
 }

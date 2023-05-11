@@ -12,7 +12,12 @@ import { BurgerButton, Button } from '@haqq/website/ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { Link } from 'react-router-dom';
-import { SelectWalletModal, useAddress, useWallet, useWindowWidth } from '@haqq/shared';
+import {
+  SelectWalletModal,
+  useAddress,
+  useWallet,
+  useWindowWidth,
+} from '@haqq/shared';
 import { useAccount, useBalance } from 'wagmi';
 import { AccountButton } from '../account-button/account-button';
 
@@ -71,10 +76,8 @@ export function Header() {
   }, [balanceData]);
 
   const handleMenuOpen = useCallback(() => {
-    setBurgerMenuOpen((isBurgerMenuOpen: boolean) => {
-      return !isBurgerMenuOpen;
-    });
-  }, []);
+    setBurgerMenuOpen(!isBurgerMenuOpen);
+  }, [isBurgerMenuOpen]);
 
   useEffect(() => {
     setIsMobile(width <= 1024);
@@ -92,42 +95,46 @@ export function Header() {
       <div className="w-full flex flex-row items-center h-full pr-[16px] sm:pr-[64px] lg:pr-[80px] mx-auto">
         <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-[#464647]">
           <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
-            <img src={logoImageData} alt="HAQQ" />
+            <Link to="/">
+              <img src={logoImageData} alt="HAQQ" />
+            </Link>
           </div>
         </div>
         <div className="font-serif ml-[20px] lg:ml-[32px] font-medium text-[24px] leading-none">
           <Link to="/">HAQQ</Link>
         </div>
         <div className="flex-1" />
-        <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex">
+        <nav className="flex-row space-x-6 items-center hidden lg:flex">
           <HeaderNavLink href="/staking">Staking</HeaderNavLink>
           <HeaderNavLink href="/governance">Governance</HeaderNavLink>
         </nav>
 
-        {isConnected ? (
-          <AccountButton
-            balance={balance}
-            address={ethAddress}
-            onDisconnectClick={disconnect}
-            className="hidden lg:flex"
-          />
-        ) : (
-          <Button
-            className={clsx('hidden lg:block !font-serif hover:text-black')}
-            onClick={openSelectWallet}
-          >
-            Connect wallet
-          </Button>
-        )}
+        <div className="ml-[80px] hidden lg:block">
+          {isConnected ? (
+            <AccountButton
+              balance={balance}
+              address={ethAddress}
+              onDisconnectClick={disconnect}
+            />
+          ) : (
+            <Button
+              className={clsx('hidden lg:block !font-serif hover:text-black')}
+              onClick={openSelectWallet}
+            >
+              Connect wallet
+            </Button>
+          )}
+        </div>
+
         <BurgerButton
           className="ml-[24px] block lg:hidden"
           isOpen={isBurgerMenuOpen}
           onClick={handleMenuOpen}
         />
+
         <SelectWalletModal
           isOpen={isSelectWalletOpen}
           onClose={closeSelectWallet}
-          className="text-haqq-black"
         />
       </div>
 
