@@ -8,6 +8,7 @@ import {
   DistributionExtension,
   setupGovExtension,
   GovExtension,
+  GovParamsType,
 } from '@cosmjs/stargate';
 import {
   bondStatusToJSON,
@@ -47,9 +48,24 @@ interface CosmosClient
     DistributionExtension,
     GovExtension {}
 
-type Signer = {
+interface Signer {
   signMessage: (message: string) => Promise<string>;
-};
+}
+
+export interface GovernanceParamsResponse {
+  voting_params: {
+    voting_period: string;
+  };
+  deposit_params: {
+    min_deposit: Coin[];
+    max_deposit_period: string;
+  };
+  tally_params: {
+    quorum: string;
+    threshold: string;
+    veto_threshold: string;
+  };
+}
 
 // TODO: typings
 interface CosmosService {
@@ -75,6 +91,9 @@ interface CosmosService {
 
   getAccountInfo: any;
   getUndelegations: any;
+  getGovernanceParams: (
+    type: GovParamsType,
+  ) => Promise<GovernanceParamsResponse>;
 }
 
 export const CosmosClientContext = createContext<CosmosClient | undefined>(
@@ -123,6 +142,10 @@ function generateEndpointDistributionPool() {
 
 function generateEndpointBankSupply() {
   return '/cosmos/bank/v1beta1/supply';
+}
+
+function generateEndpointGovParams(type: GovParamsType) {
+  return `/cosmos/gov/v1beta1/params/${type}`;
 }
 
 export interface GetStakingPoolResponse {
@@ -358,6 +381,14 @@ function createCosmosService(
     return bankSupplyResponse.data;
   }
 
+  async function getGovernanceParams(type: GovParamsType) {
+    const governanceParamsResponse = await axios.get<GovernanceParamsResponse>(
+      `${cosmosRestEndpoint}/${generateEndpointGovParams(type)}`,
+    );
+
+    return governanceParamsResponse.data;
+  }
+
   async function simulateTransaction(
     txToBroadcast: TxToSend,
     mode: BroadcastMode = BroadcastMode.Sync,
@@ -394,6 +425,7 @@ function createCosmosService(
     getDistributionPool,
     getBankSupply,
     simulateTransaction,
+    getGovernanceParams,
   };
 }
 
