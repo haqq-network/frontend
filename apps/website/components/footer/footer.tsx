@@ -53,11 +53,11 @@ function FooterNavSocialLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex flex-initial flex-row items-center space-x-2 text-[12px] leading-[20px] text-white/50 transition-colors duration-100 hover:text-white sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px]"
+      className="group inline-flex flex-initial flex-row items-center text-[12px] leading-[20px] text-white/50 transition-colors duration-100 hover:text-white sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px]"
     >
       <div>{icon}</div>
-      <div>{children}</div>
-      <LinkArrowIcon />
+      <div className="ml-[12px]">{children}</div>
+      <LinkArrowIcon className="mb-[-5px] ml-[6px]" />
     </Link>
   );
 }
@@ -93,60 +93,73 @@ export function Footer() {
         <div className="border-haqq-border flex flex-row border-b lg:h-auto lg:border-b-0">
           <div className="border-haqq-border ml-[16px] flex-1 border-l border-r py-[24px] pl-[16px] sm:ml-[63px] sm:px-[34px] sm:py-[56px] lg:ml-[79px] lg:w-[212px]">
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
-              <FooterNavLink href="/#about">About</FooterNavLink>
-              <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
-              {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
-              <FooterNavLink href="/#developers">Developers</FooterNavLink>
-              <FooterNavLink href="https://docs.haqq.network" isOutLink>
-                Documentation
-              </FooterNavLink>
-              <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
-              {/* <FooterNavLink href="/privacy-policy">
-                Privacy Policy
-              </FooterNavLink> */}
-              {/* <FooterNavLink href="/terms-and-conditions">
-                Terms and Conditions
-              </FooterNavLink> */}
+              <div className="leading-[0]">
+                <FooterNavLink href="/#about">About</FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
+                <FooterNavLink href="/#developers">Developers</FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="https://docs.haqq.network" isOutLink>
+                  Documentation
+                </FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
+              </div>
             </nav>
           </div>
           <div className="h-full flex-1 py-[24px] pl-[16px] sm:px-[34px] sm:py-[56px] lg:w-[383px]">
             <nav className="grid grid-cols-1 gap-[8px] sm:grid-cols-2 sm:gap-[12px] lg:grid-cols-1">
-              <FooterNavSocialLink
-                href="https://discord.gg/4quqkD6Y8c"
-                icon={
-                  <DiscordIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
-                }
-              >
-                Discord
-              </FooterNavSocialLink>
-              <FooterNavSocialLink
-                href="https://github.com/haqq-network"
-                icon={
-                  <GithubIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
-                }
-              >
-                Github
-              </FooterNavSocialLink>
-              <FooterNavSocialLink
-                href="https://twitter.com/The_HaqqNetwork"
-                icon={
-                  <TwitterIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
-                }
-              >
-                Twitter
-              </FooterNavSocialLink>
-              <FooterNavSocialLink
-                href="https://t.me/islamiccoin_int"
-                icon={
-                  <TelegramIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
-                }
-              >
-                Telegram
-              </FooterNavSocialLink>
+              <div className="leading-[0]">
+                <FooterNavSocialLink
+                  href="https://discord.gg/4quqkD6Y8c"
+                  icon={
+                    <DiscordIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                  }
+                >
+                  Discord
+                </FooterNavSocialLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavSocialLink
+                  href="https://github.com/haqq-network"
+                  icon={
+                    <GithubIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                  }
+                >
+                  Github
+                </FooterNavSocialLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavSocialLink
+                  href="https://twitter.com/The_HaqqNetwork"
+                  icon={
+                    <TwitterIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                  }
+                >
+                  Twitter
+                </FooterNavSocialLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavSocialLink
+                  href="https://t.me/islamiccoin_int"
+                  icon={
+                    <TelegramIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                  }
+                >
+                  Telegram
+                </FooterNavSocialLink>
+              </div>
+
               {/* <FooterNavSocialLink
                 href="#YouTube"
                 icon={
-                  <YoutubeIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <YoutubeIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] " />
                 }
               >
                 YouTube
@@ -154,7 +167,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#Medium"
                 icon={
-                  <MediumIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <MediumIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] " />
                 }
               >
                 Medium
@@ -162,7 +175,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#LinkedIn"
                 icon={
-                  <LinkedinIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <LinkedinIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] " />
                 }
               >
                 LinkedIn
