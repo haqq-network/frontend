@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Heading, SpinnerLoader } from '@haqq/ui-kit';
+import { SpinnerLoader } from '@haqq/ui-kit';
+import { Heading } from '@haqq/website/ui-kit';
 import { useProposalListQuery } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
 
