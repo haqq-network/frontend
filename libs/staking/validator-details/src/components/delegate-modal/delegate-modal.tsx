@@ -1,7 +1,12 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
-import { Alert, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
 import { useStakingActions, useToast } from '@haqq/shared';
+import {
+  WarningMessage,
+  Heading,
+  Modal,
+  ModalCloseButton,
+} from '@haqq/shell/ui-kit';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -146,18 +151,14 @@ export function DelegateModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Card className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
+      <div className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
         <div className="flex flex-col space-y-8">
           <div className="flex flex-row items-center justify-between">
             <Heading level={3}>Delegate</Heading>
             <ModalCloseButton onClick={onClose} />
           </div>
 
-          <Alert
-            title={`Staking will lock up your funds for ${unboundingTime} days`}
-            text={`Once you undelegate your staked ISLM, you will need to wait ${unboundingTime}
-              days for your tokens to be liquid`}
-          />
+          <WarningMessage>{`The funds will be undelegate within ${unboundingTime} day `}</WarningMessage>
 
           <div className="flex flex-col">
             <DelegateModalDetails
@@ -201,7 +202,7 @@ export function DelegateModal({
             </DelegateModalSubmitButton>
           </div>
         </div>
-      </Card>
+      </div>
     </Modal>
   );
 }

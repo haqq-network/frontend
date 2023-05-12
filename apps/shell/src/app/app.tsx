@@ -9,10 +9,11 @@ import {
   HeaderNavLink,
   Button,
   BurgerButton,
+  Modal,
+  ModalCloseButton,
 } from '@haqq/shell/ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useBalance, useConnect } from 'wagmi';
-import { Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
 import { useAddress, useWallet } from '@haqq/shared';
 

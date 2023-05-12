@@ -1,4 +1,3 @@
-import { Alert, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
 import {
   DelegateModalDetails,
   DelegateModalInput,
@@ -6,6 +5,13 @@ import {
 } from '../delegate-modal/delegate-modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStakingActions, useToast } from '@haqq/shared';
+import {
+  WarningMessage,
+  Card,
+  Heading,
+  Modal,
+  ModalCloseButton,
+} from '@haqq/shell/ui-kit';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
@@ -95,11 +101,7 @@ export function UndelegateModal({
             <ModalCloseButton onClick={onClose} />
           </div>
 
-          <Alert
-            title={`Staking will lock up your funds for ${unboundingTime} days`}
-            text={`Once you undelegate your staked ISLM, you will need to wait ${unboundingTime}
-              days for your tokens to be liquid`}
-          />
+          <WarningMessage>{`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}</WarningMessage>
 
           <div className="flex flex-col space-y-1">
             <DelegateModalDetails

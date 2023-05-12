@@ -15,3 +15,4 @@ export * from './lib/burger-button/burger-button';
 export * from './lib/account-button/account-button';
 export * from './lib/card/card';
 export * from './lib/header-nav-link/header-nav-link';
+export * from './lib/modal/modal';

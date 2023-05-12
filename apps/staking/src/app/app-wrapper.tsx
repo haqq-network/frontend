@@ -8,8 +8,9 @@ import {
   BurgerButton,
   Button,
   AccountButton,
+  Modal,
+  ModalCloseButton,
 } from '@haqq/shell/ui-kit';
-import { Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
 
 function SelectWalletModal({

@@ -58,15 +58,16 @@ export function Button({
     >
       {children}
       {isLoading && (
-        <SpinnerLoader
-          className={clsx(
-            'absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] leading-none',
-            (variant === 1 || variant === 3) && 'fill-white text-white/25',
-            (variant === 2 || variant === 4) &&
-              'fill-haqq-black text-haqq-black/25',
-            '!h-6 !w-6',
-          )}
-        />
+        <div className="absolute left-1/2 top-1/2 !h-6 !w-6 translate-x-[-50%] translate-y-[-50%] leading-none">
+          <SpinnerLoader
+            className={clsx(
+              '!h-6 !w-6',
+              (variant === 1 || variant === 3) && '!fill-white !text-white/25',
+              (variant === 2 || variant === 4) &&
+                '!fill-haqq-black !text-haqq-black/25',
+            )}
+          />
+        </div>
       )}
     </button>
   );
