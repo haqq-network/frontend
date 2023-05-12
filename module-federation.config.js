@@ -6,6 +6,7 @@ const coreLibraries = new Set([
   '@haqq/sentry',
   '@haqq/shared',
   '@haqq/ui-kit',
+  '@haqq/shell/ui-kit',
   '@cosmjs/stargate',
   '@cosmjs/tendermint-rpc',
   '@emotion/react',

@@ -5,10 +5,7 @@ const { tailwindThemeExtend } = require('../../../shared-tailwind-theme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    join(
-      __dirname,
-      '{src,pages,components}/**/*!(*.stories|*.spec).{ts,tsx,html}',
-    ),
+    join(__dirname, '{src,pages,components}/**/*!(*..spec).{ts,tsx,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   darkMode: 'class',
