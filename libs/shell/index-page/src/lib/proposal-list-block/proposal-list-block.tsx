@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { SpinnerLoader } from '@haqq/ui-kit';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
 import { useProposalListQuery } from '@haqq/shared';
 import { Heading } from '@haqq/website/ui-kit';
-import { OrangeLink, ProposalsIcon } from '@haqq/shell/ui-kit';
+import { OrangeLink, ProposalsIcon, SpinnerLoader } from '@haqq/shell/ui-kit';
 
 export function ProposalListBlock() {
   const { data: proposalsData, isFetching } = useProposalListQuery();
