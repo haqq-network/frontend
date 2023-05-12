@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 interface ValidatorListItemProps {
   name: string;
-  status: string;
+  status?: string;
   fee: number;
   votingPower: number;
   votingPowerPercent: number;
@@ -42,7 +42,7 @@ export function ValidatorListItemMobile({
 
   return (
     <div
-      className="flex flex-col"
+      className="flex w-full flex-col px-[8px] py-[12px]"
       onClick={() => navigate(`validator/${address}`)}
     >
       <ColumnLine columnName="Name">
@@ -57,8 +57,11 @@ export function ValidatorListItemMobile({
               : 'text-[#E3A13F]',
           )}
         >
-          {jailed && 'Jailed'}
-          {bondStatusFromJSON(status) === 3 ? 'Active' : 'Inactive'}
+          {bondStatusFromJSON(status) === 3
+            ? 'Active'
+            : jailed
+            ? 'Jailed'
+            : 'Inactive'}
         </span>
       </ColumnLine>
       <ColumnLine columnName="Fee">
