@@ -3,7 +3,7 @@ import { ValidatorListItemMobile } from './validator-list-item-mobile';
 export default {
   title: 'shell/ui-kit/validator-list-item-mobile',
   parameters: {
-    layout: 'centered',
+    // layout: 'centered',
   },
 };
 
