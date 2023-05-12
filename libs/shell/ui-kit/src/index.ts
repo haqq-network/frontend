@@ -16,3 +16,4 @@ export * from './lib/account-button/account-button';
 export * from './lib/card/card';
 export * from './lib/header-nav-link/header-nav-link';
 export * from './lib/modal/modal';
+export * from './lib/validator-list-item-mobile/validator-list-item-mobile';
