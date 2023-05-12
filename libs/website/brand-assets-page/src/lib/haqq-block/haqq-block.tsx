@@ -136,7 +136,7 @@ function AssetCardsContainer({
 
 export function HaqqBlock() {
   return (
-    <section className="mt-[50px] flex flex-col border-t border-white/20 md:mt-[70px] lg:flex-row ">
+    <section className="flex flex-col border-t border-white/20 lg:flex-row">
       {/* left side */}
       <div className="border-white/20 px-[16px] pt-[60px] md:px-[48px] md:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
         <Heading level={2} className="mb-[24px]">

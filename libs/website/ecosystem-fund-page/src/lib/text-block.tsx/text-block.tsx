@@ -34,12 +34,12 @@ export function TextBlock() {
             HAQQ Wallet
           </Link>
           ,{' '}
-          <Link href={'#'} className="text-haqq-orange">
+          <Link href={'https://docs.haqq.network'} className="text-haqq-orange">
             HAQQ Node
           </Link>
           ,{' '}
           <Link
-            href={'https://app.haqq.network/'}
+            href={'https://app.haqq.network'}
             target="_blank"
             rel={'noopener noreferrer'}
             className="text-haqq-orange"

@@ -1,24 +1,15 @@
 import { Heading, Text, DownloadButton } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
-import Image from 'next/image';
-import bgImageData from '../../assets/title-block-bg.svg';
+import styles from './title-block.module.css';
 
 export function TitleBlock() {
   return (
     <section
       className={clsx(
-        'relative flex flex-col px-[16px] pt-[48px] sm:px-[48px] sm:pt-[68px] lg:px-[80px]',
+        'relative flex flex-col bg-cover bg-left bg-no-repeat px-[16px] py-[48px] sm:px-[48px] sm:py-[68px] lg:px-[80px]',
+        styles.bgImage,
       )}
     >
-      <Image
-        src={bgImageData.src}
-        alt=""
-        width={bgImageData.width}
-        height={bgImageData.height}
-        priority
-        className="absolute left-1/2 top-0 z-[-1] scale-[2] bg-contain bg-no-repeat sm:left-0 sm:scale-100"
-      />
-
       <Heading level={1}>Brand Assets</Heading>
       <Text className="mt-[8px]" size="large">
         Here you can find more Islamic Coin and HAQQ logos
