@@ -137,14 +137,13 @@ function AssetCardsContainer({
 export function HaqqBlock() {
   return (
     <section className="flex flex-col border-t border-white/20 lg:flex-row">
-      {/* left side */}
       <div className="border-white/20 px-[16px] pt-[60px] md:px-[48px] md:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
         <Heading level={2} className="mb-[24px]">
           HAQQ Logo
         </Heading>
         <DontBlock />
       </div>
-      {/* white bg */}
+
       <div className="w-full">
         <div className="border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[120px] xl:pr-[320px]">
           <Heading>White background</Heading>
@@ -163,7 +162,7 @@ export function HaqqBlock() {
             ))}
           </AssetCardsContainer>
         </div>
-        {/* dark bg */}
+
         <div className="w-full border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
           <Heading>Dark background</Heading>
           <Text className="mt-[10px]">
@@ -181,7 +180,7 @@ export function HaqqBlock() {
             ))}
           </AssetCardsContainer>
         </div>
-        {/* colors */}
+
         <div className="w-full px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
           <Heading>Brand colors</Heading>
           <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
@@ -203,14 +202,13 @@ export function HaqqBlock() {
 export function IslamicBlock() {
   return (
     <section className="flex flex-col border-t border-white/20 lg:flex-row">
-      {/* left side */}
       <div className="border-white/20 px-[16px] pt-[60px] md:px-[48px] md:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
         <Heading level={2} className="mb-[24px]">
           Islamic Coin
         </Heading>
         <DontBlock />
       </div>
-      {/* islamic */}
+
       <div className="w-full">
         <div className="border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[120px] xl:pr-[320px]">
           <Heading>White background</Heading>
@@ -229,7 +227,7 @@ export function IslamicBlock() {
             ))}
           </AssetCardsContainer>
         </div>
-        {/* colors */}
+
         <div className="w-full px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
           <Heading>Brand colors</Heading>
           <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
