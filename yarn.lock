@@ -1486,7 +1486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.14.8, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.7, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.14.8, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.7, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4":
   version: 7.21.5
   resolution: "@babel/runtime@npm:7.21.5"
   dependencies:
@@ -3407,6 +3407,7 @@ __metadata:
     sharp: 0.32.1
     store2: 2.14.2
     storybook: 7.0.11
+    storybook-addon-react-router-v6: 1.0.0
     style-loader: 3.3.2
     swc-loader: 0.2.3
     tailwindcss: 3.3.2
@@ -16015,6 +16016,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-dom@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "is-dom@npm:1.1.0"
+  dependencies:
+    is-object: ^1.0.1
+    is-window: ^1.0.2
+  checksum: 72aff0a7366b801c9d598d49452ec06544b52c3da92a0c6c3cacace33bb0c3df5ba1b4e422ac39224773316a553699d5920a1eb136919319f57d00e6384eb41b
+  languageName: node
+  linkType: hard
+
 "is-extglob@npm:^2.1.1":
   version: 2.1.1
   resolution: "is-extglob@npm:2.1.1"
@@ -16168,6 +16179,13 @@ __metadata:
   version: 2.0.0
   resolution: "is-obj@npm:2.0.0"
   checksum: c9916ac8f4621962a42f5e80e7ffdb1d79a3fab7456ceaeea394cd9e0858d04f985a9ace45be44433bf605673c8be8810540fe4cc7f4266fc7526ced95af5a08
+  languageName: node
+  linkType: hard
+
+"is-object@npm:^1.0.1":
+  version: 1.0.2
+  resolution: "is-object@npm:1.0.2"
+  checksum: 971219c4b1985b9751f65e4c8296d3104f0457b0e8a70849e848a4a2208bc47317d73b3b85d4a369619cb2df8284dc22584cb2695a7d99aca5e8d0aa64fc075a
   languageName: node
   linkType: hard
 
@@ -16392,6 +16410,13 @@ __metadata:
   version: 4.1.9
   resolution: "is-what@npm:4.1.9"
   checksum: 0ba25db3aa4d3b9911f490153e479308072e4d0f9dbf306612db0e475dfb236c5ba05926d8283efa9c0789c9bf1552d4142c993af81ce9b4ad18af9b7371c65d
+  languageName: node
+  linkType: hard
+
+"is-window@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "is-window@npm:1.0.2"
+  checksum: aeaacd2ca816d38d4e2fba4670158fba2190061f28a61c5d84df7c479abf8897b8cb634d22cb76cdf7805035e95bebd430faaab6231ac2ebc814eae02d2c8fd4
   languageName: node
   linkType: hard
 
@@ -21664,7 +21689,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.8, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.5.8, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -22162,6 +22187,19 @@ __metadata:
     react: ^16.8.3 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.3 || ^17.0.0 || ^18.0.0
   checksum: 1098ccdab9a10b8aadabf1a53f5809507e26db687a4243bd2dde2bdbecd1a8df66f4e9d00ee2a04bfd1542f937e758ef256d5fb6d637b4de5496e6252f84ce9e
+  languageName: node
+  linkType: hard
+
+"react-inspector@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "react-inspector@npm:5.1.1"
+  dependencies:
+    "@babel/runtime": ^7.0.0
+    is-dom: ^1.0.0
+    prop-types: ^15.0.0
+  peerDependencies:
+    react: ^16.8.4 || ^17.0.0
+  checksum: ca9e4c1fedb94e4e956dd3142838c5a25a9d61375aee5e8a74dd623bae09a263098a93f220e8d84c7fd39e569e1fa4297d363ddbc91b15bca91baeb7281d7f4f
   languageName: node
   linkType: hard
 
@@ -24024,6 +24062,32 @@ __metadata:
   version: 2.14.2
   resolution: "store2@npm:2.14.2"
   checksum: 6f270fc5bab99b63f45fcc7bd8b99c2714b4adf880f557ed7ffb5ed3987131251165bccde425a00928aaf044870aee79ddeef548576d093c68703ed2edec45d7
+  languageName: node
+  linkType: hard
+
+"storybook-addon-react-router-v6@npm:1.0.0":
+  version: 1.0.0
+  resolution: "storybook-addon-react-router-v6@npm:1.0.0"
+  dependencies:
+    react-inspector: ^5.1.1
+  peerDependencies:
+    "@storybook/blocks": ^7.0.0-rc.3
+    "@storybook/components": ^7.0.0-rc.3
+    "@storybook/core-events": ^7.0.0-rc.3
+    "@storybook/manager-api": ^7.0.0-rc.3
+    "@storybook/preview-api": ^7.0.0-rc.3
+    "@storybook/theming": ^7.0.0-rc.3
+    "@storybook/types": ^7.0.0-rc.3
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-router: ^6.3.0
+    react-router-dom: ^6.3.0
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: fc3274fb9690f4a3726b46cf7c5277e54d506dbea8263c504ccd1dd0384bad9abaeef0e8819f1d18360b0894c63b4c811cd040328c63319c56380a441fd9b189
   languageName: node
   linkType: hard
 
