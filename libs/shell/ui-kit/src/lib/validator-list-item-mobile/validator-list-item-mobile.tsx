@@ -5,7 +5,7 @@ function ColumnLine({
   columnName,
 }: PropsWithChildren<{ columnName: string }>) {
   return (
-    <div className="flex items-center justify-between px-[8px] pt-[12px] text-[13px] leading-[20px]">
+    <div className="flex items-center justify-between px-[8px] text-[13px] leading-[20px]">
       <span className="text-white/50">{columnName}</span>
       {children}
     </div>
@@ -30,7 +30,7 @@ export function ValidatorListItemMobile({
   reward: string | number;
 }) {
   return (
-    <div className="flex flex-col border-t border-[#FFFFFF26]">
+    <div className="flex min-w-[288px] flex-col gap-y-[12px] py-[12px]">
       <ColumnLine columnName="Name">
         <span className="text-white">{name}</span>
       </ColumnLine>

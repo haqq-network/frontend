@@ -15,7 +15,7 @@ export const Active = () => {
       reward={100}
       staked={1000}
       status="active"
-      votingPower={120000000}
+      votingPower={12000000000000000}
       votingPowerPercent={25}
     />
   );
@@ -29,7 +29,7 @@ export const Jailed = () => {
       reward={100}
       staked={1000}
       status="jailed"
-      votingPower={120000000}
+      votingPower={12000000000000000}
       votingPowerPercent={25}
     />
   );
@@ -43,7 +43,7 @@ export const Inactive = () => {
       reward={100}
       staked={1000}
       status="inactive"
-      votingPower={120000000}
+      votingPower={12000000000000000}
       votingPowerPercent={25}
     />
   );
