@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { AboveTitle } from '@haqq/website/ui-kit';
+import { PropsWithChildren, useState } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
 import { TimerText } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
@@ -45,50 +44,50 @@ export function ProposalPeriodTimer({ proposal }: { proposal: Proposal }) {
           <tbody>
             <tr>
               <td className="py-[4px] pr-[20px]">
-                <AboveTitle className="text-white/50">
+                <ProposalDatesText className="text-white/50">
                   Created at (gmt)
-                </AboveTitle>
+                </ProposalDatesText>
               </td>
               <td>
-                <AboveTitle className="text-white">
+                <ProposalDatesText className="text-white">
                   {formatDate(new Date(proposal.submit_time))}
-                </AboveTitle>
+                </ProposalDatesText>
               </td>
             </tr>
             <tr>
               <td className="py-[4px] pr-[20px]">
-                <AboveTitle className="text-white/50">
+                <ProposalDatesText className="text-white/50">
                   Deposit end (gmt)
-                </AboveTitle>
+                </ProposalDatesText>
               </td>
               <td>
-                <AboveTitle className="text-white">
+                <ProposalDatesText className="text-white">
                   {formatDate(new Date(proposal.deposit_end_time))}
-                </AboveTitle>
+                </ProposalDatesText>
               </td>
             </tr>
             <tr>
               <td className="py-[4px] pr-[20px]">
-                <AboveTitle className="text-white/50">
+                <ProposalDatesText className="text-white/50">
                   Vote start (gmt)
-                </AboveTitle>
+                </ProposalDatesText>
               </td>
               <td>
-                <AboveTitle className="text-white">
+                <ProposalDatesText className="text-white">
                   {formatDate(new Date(proposal.voting_start_time))}
-                </AboveTitle>
+                </ProposalDatesText>
               </td>
             </tr>
             <tr>
               <td className="py-[4px] pr-[20px]">
-                <AboveTitle className="text-white/50">
+                <ProposalDatesText className="text-white/50">
                   Vote end (gmt)
-                </AboveTitle>
+                </ProposalDatesText>
               </td>
               <td>
-                <AboveTitle className="text-white">
+                <ProposalDatesText className="text-white">
                   {formatDate(new Date(proposal.voting_end_time))}
-                </AboveTitle>
+                </ProposalDatesText>
               </td>
             </tr>
           </tbody>
@@ -195,5 +194,21 @@ function ShowDateToggleButton({ onClick }: { onClick: () => void }) {
         />
       </svg>
     </button>
+  );
+}
+
+function ProposalDatesText({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) {
+  return (
+    <div
+      className={clsx(
+        'font-sans text-[10px] font-[600] uppercase leading-[1.2em] sm:text-[12px]',
+        className,
+      )}
+    >
+      {children}
+    </div>
   );
 }

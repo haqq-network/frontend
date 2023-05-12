@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { formatUnits } from 'ethers/lib/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
-import { ValidatorStatus } from '../validator-status/validator-status';
+import { ValidatorListStatus } from '../validator-status/validator-status';
 import { useNavigate } from 'react-router-dom';
 
 export interface ValidatorListItemProps {
@@ -46,18 +46,18 @@ export function ValidatorListItem({
   const votingPowerInPercents = useMemo(() => {
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
-  console.log({ votingPower });
 
   return (
     <tr
-      className="cursor-pointer border-t border-[#FFFFFF26] text-[16px] leading-[26px] transition-[background] duration-75 hover:bg-white/5"
+      className="cursor-pointer border-t border-[#FFFFFF26] text-[16px] leading-[26px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] "
       onClick={() => {
+        // console.log(`validator/${validator.operator_address}`);
         navigate(`validator/${validator.operator_address}`);
       }}
     >
       <td className="p-[12px]">{validator.description?.moniker}</td>
       <td className="p-[12px] text-left">
-        <ValidatorStatus
+        <ValidatorListStatus
           jailed={validator.jailed}
           status={bondStatusFromJSON(validator.status)}
         />

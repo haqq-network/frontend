@@ -23,7 +23,7 @@ import {
   useClipboard,
   useStakingUnbondingsQuery,
 } from '@haqq/shared';
-import { ValidatorStatus } from '@haqq/staking/ui-kit';
+import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 // import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
 // import { DelegateModal } from '../delegate-modal/delegate-modal';
 import clsx from 'clsx';
@@ -53,35 +53,6 @@ interface ValidatorInfoComponentProps {
   totalRewards: number;
   delegated: number;
   onRewardsClaim: () => void;
-}
-
-function ValidatorAvatar() {
-  return (
-    <div className="flex h-20 w-20 flex-none items-center justify-center rounded-full border border-slate-500/30 bg-slate-200/60 text-slate-500 dark:bg-slate-500/10 dark:text-slate-400">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.25"
-        stroke="currentColor"
-        className="h-10 w-10"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"
-        />
-      </svg>
-    </div>
-  );
-}
-
-function CardHeader({ children }: { children: ReactNode }) {
-  return (
-    <div className="text-sm font-medium uppercase leading-relaxed text-gray-400">
-      {children}
-    </div>
-  );
 }
 
 interface Commission {
@@ -173,7 +144,6 @@ export function ValidatorInfoComponent({
   console.log({ validatorInfo });
 
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
-  const [isInfoShown, setInfoShown] = useState(false);
   const { copyText } = useClipboard();
   const navigate = useNavigate();
   const commission = useMemo<Commission>(() => {
@@ -201,8 +171,6 @@ export function ValidatorInfoComponent({
     }
   }, [copyText, validatorInfo.operatorAddress]);
 
-  const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
-
   return (
     <Fragment>
       <div className="flex flex-row gap-[48px]">
@@ -210,8 +178,7 @@ export function ValidatorInfoComponent({
           <div className="divide-haqq-border divide-y divide-dashed">
             <div className="flex flex-row items-center gap-[16px] pb-[40px]">
               <div>
-                {/* TODO: RENDER NEW STATUS FROM UI-KIT-NEXT */}
-                <ValidatorStatus
+                <ValidatorDetailsStatus
                   jailed={validatorInfo.jailed}
                   status={validatorInfo.status}
                 />
@@ -318,14 +285,24 @@ export function ValidatorInfoComponent({
             </div>
           </div>
         </div>
+
         <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
           <div className="flex flex-col gap-[20px]">
-            <MyAccountBlockDesktop />
-            <ValidatorBlockDesktop validatorInfo={validatorInfo} />
-
-            {/* <div className="rounded-[8px] bg-white bg-opacity-[8%] backdrop-blur transform-gpu overflow-hidden">
-              <div className="px-[28px] py-[32px] flex flex-col gap-[24px]"></div>
-            </div> */}
+            <MyAccountBlockDesktop
+              balance={balance}
+              delegated={delegated}
+              totalRewards={totalRewards}
+              unbounded={unbounded}
+              onRewardsClaim={() => {
+                console.log('calm reward');
+              }}
+            />
+            <ValidatorBlockDesktop
+              validatorInfo={validatorInfo}
+              delegation={delegation}
+              rewards={rewards}
+              balance={balance}
+            />
           </div>
         </div>
       </div>
@@ -919,11 +896,17 @@ export function ValidatorInfo({
 
 function MyAccountBlockDesktop({
   onRewardsClaim,
-  balance = 0,
-  unbounded = 0,
-  totalRewards = 0,
-  delegated = 0,
-}: any) {
+  balance,
+  unbounded,
+  totalRewards,
+  delegated,
+}: {
+  onRewardsClaim: () => void;
+  balance: number;
+  unbounded: number;
+  totalRewards: number;
+  delegated: number;
+}) {
   const [isInfoShown, setInfoShown] = useState(false);
 
   return (
@@ -988,7 +971,13 @@ function MyAccountBlockDesktop({
               </div>
             </div>
             <div>
-              <button className="transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80]">
+              <button
+                className={clsx(
+                  'transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80] disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
+                )}
+                onClick={onRewardsClaim}
+                disabled={totalRewards < 1}
+              >
                 Claim all reward
               </button>
             </div>
@@ -1001,9 +990,9 @@ function MyAccountBlockDesktop({
 
 export function ValidatorBlockDesktop({
   validatorInfo,
-  delegation = 0,
-  rewards = 0,
-  balance = 0,
+  delegation,
+  rewards,
+  balance,
   onGetRewardsClick,
 }: any) {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import {
   useAddress,
   useStakingValidatorListQuery,
@@ -7,8 +7,26 @@ import {
 } from '@haqq/shared';
 import { StakingInfo, ValidatorsList } from '@haqq/staking/ui-kit';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
-import { Validator } from '@evmos/provider';
+import { Validator, DelegationResponse } from '@evmos/provider';
 import { ValidatorIcon, Heading, SpinnerLoader } from '@haqq/shell/ui-kit';
+
+function getDelegatedValidatorsAddresses(
+  delegations: DelegationResponse[] | null | undefined,
+) {
+  if (!delegations) {
+    return [];
+  }
+
+  return delegations
+    .map((del) => {
+      if (Number.parseInt(del.balance.amount, 10) > 0) {
+        return del.delegation.validator_address;
+      }
+
+      return null;
+    })
+    .filter(Boolean);
+}
 
 export function StakingValidatorList() {
   const { haqqAddress } = useAddress();
@@ -20,17 +38,6 @@ export function StakingValidatorList() {
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
 
-  const getValidatorRewards = useCallback(
-    (address: string) => {
-      const rewards = rewardsInfo?.rewards?.find((rewardsItem: any) => {
-        return rewardsItem.validator_address === address;
-      });
-
-      return rewards;
-    },
-    [rewardsInfo?.rewards],
-  );
-
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
 
@@ -41,6 +48,16 @@ export function StakingValidatorList() {
     ];
   }, [validatorsList]);
 
+  const valWithDelegationAddr = useMemo(() => {
+    if (!delegationInfo || !haqqAddress) {
+      return [];
+    }
+    const delegatedVals = getDelegatedValidatorsAddresses(
+      delegationInfo.delegation_responses,
+    );
+    return delegatedVals;
+  }, [delegationInfo, haqqAddress]);
+
   const [delegatedValidators, otherValidators] = useMemo(() => {
     if (sortedValidators.length === 0) {
       return [[], []] as [Validator[], Validator[]];
@@ -50,8 +67,11 @@ export function StakingValidatorList() {
     const others: Validator[] = [];
 
     for (const validator of sortedValidators) {
-      const rewardsInfo = getValidatorRewards(validator.operator_address);
-      if (rewardsInfo) {
+      const hasDelegation = valWithDelegationAddr.includes(
+        validator.operator_address,
+      );
+
+      if (hasDelegation) {
         delegated.push(validator);
       } else {
         others.push(validator);
@@ -59,7 +79,7 @@ export function StakingValidatorList() {
     }
 
     return [delegated, others];
-  }, [getValidatorRewards, sortedValidators]);
+  }, [sortedValidators, valWithDelegationAddr]);
 
   return (
     <Fragment>
@@ -93,9 +113,9 @@ export function StakingValidatorList() {
           {status === 'error' && <p>Error: {error.message}</p>}
           {status === 'success' && (
             <div className="flex flex-col gap-[24px]">
-              {delegatedValidators.length && (
+              {delegatedValidators.length !== 0 && (
                 <div>
-                  <div className="mb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
+                  <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
                     My delegations
                   </div>
                   <ValidatorsList
@@ -106,9 +126,11 @@ export function StakingValidatorList() {
                 </div>
               )}
               <div>
-                <div className="mb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
-                  Other validators
-                </div>
+                {delegatedValidators.length !== 0 && (
+                  <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
+                    Other validators
+                  </div>
+                )}
                 <ValidatorsList
                   validators={otherValidators}
                   delegationInfo={delegationInfo}

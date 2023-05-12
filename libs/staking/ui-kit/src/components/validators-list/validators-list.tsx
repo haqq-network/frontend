@@ -15,7 +15,6 @@ interface ValidatorListProps {
 
 export function ValidatorsList({
   validators,
-
   rewardsInfo,
   delegationInfo,
 }: ValidatorListProps) {
@@ -50,11 +49,11 @@ export function ValidatorsList({
 
   return (
     <table className="w-full table-fixed">
-      <thead className="border-haqq-border border-t border-dashed text-[12px] uppercase leading-[1.2em] text-white/50">
+      <thead className="text-[12px] uppercase leading-[1.2em] text-white/50">
         <tr>
-          <th className="max-w-[220px] p-[12px] text-left">Name</th>
+          <th className="max-w-[300px] p-[12px] text-left">Name</th>
           <th className="max-w-[180px] p-[12px] text-left">Status</th>
-          <th className="p-[12px] text-left">Fee</th>
+          <th className="max-w-[100px] p-[12px] text-left">Fee</th>
           <th className="max-w-[220px] p-[12px] text-right">Voting power</th>
           <th className="max-w-[220px] p-[12px] text-right">Voting power %</th>
           <th className="max-w-[180px] p-[12px] text-right">Staked</th>

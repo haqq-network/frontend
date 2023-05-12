@@ -98,7 +98,47 @@ export function PercentIcon({ className }: { className?: string }) {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M5.5 4.5V7.5H8.5V4.5H5.5ZM4.5 2.5C3.94772 2.5 3.5 2.94772 3.5 3.5V8.5C3.5 9.05228 3.94772 9.5 4.5 9.5H9.5C10.0523 9.5 10.5 9.05228 10.5 8.5V3.5C10.5 2.94772 10.0523 2.5 9.5 2.5H4.5ZM19.8585 4.66436L5.74741 20.5394L4.25259 19.2106L18.3637 3.33564L19.8585 4.66436ZM15.5 19.5V16.5H18.5V19.5H15.5ZM13.5 15.5C13.5 14.9477 13.9477 14.5 14.5 14.5H19.5C20.0523 14.5 20.5 14.9477 20.5 15.5V20.5C20.5 21.0523 20.0523 21.5 19.5 21.5H14.5C13.9477 21.5 13.5 21.0523 13.5 20.5V15.5Z"
-        fill="white"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export function ListIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2.5 7H15V5H2.5V7ZM17 7H21V5H17V7ZM15 13H2.5V11H15V13ZM17 13H21V11H17V13ZM15 19H2.5V17H15V19ZM17 19H21V17H17V19Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export function ProposalsIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M5 2.5C5 1.94772 5.44772 1.5 6 1.5H18C18.5523 1.5 19 1.94772 19 2.5V11.5H21C21.5523 11.5 22 11.9477 22 12.5V21.5C22 22.0523 21.5523 22.5 21 22.5H3C2.44772 22.5 2 22.0523 2 21.5V12.5C2 11.9477 2.44772 11.5 3 11.5H5V2.5ZM5 17.5H19V13.5H20V20.5H4V13.5H5V17.5ZM7 3.5V15.5H17V3.5H7ZM10.9544 12.3686L15.6585 8.25258L14.3415 6.74742L11.0456 9.63136L9.70711 8.29289L8.29289 9.70711L10.9544 12.3686Z"
+        fill="currentColor"
       />
     </svg>
   );

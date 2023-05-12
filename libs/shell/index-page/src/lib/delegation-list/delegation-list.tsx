@@ -14,7 +14,7 @@ import {
   DistributionRewardsResponse,
 } from '@evmos/provider';
 import { formatUnits } from 'ethers/lib/utils';
-import { ValidatorStatus } from '@haqq/staking/ui-kit';
+import { ValidatorListStatus } from '@haqq/staking/ui-kit';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 
 interface DelegationListValidator {
@@ -26,6 +26,58 @@ interface DelegationListValidator {
   power: string;
   staked: string;
   rewards: string;
+}
+
+export function ValidatorWithDelegationListItem({
+  validator,
+  stakingPool,
+}: {
+  validator: DelegationListValidator;
+  stakingPool: number;
+}) {
+  const validatorCommission = useMemo(() => {
+    return (Number.parseFloat(validator.fee ?? '0') * 100).toFixed(0);
+  }, [validator.fee]);
+  const votingPower = useMemo(() => {
+    return Number.parseInt(validator.power ?? '0') / 10 ** 18;
+  }, [validator.power]);
+
+  const votingPowerInPercents = useMemo(() => {
+    return ((votingPower / stakingPool) * 100).toFixed(2);
+  }, [votingPower, stakingPool]);
+  const userDelegate = useMemo(() => {
+    return Number.parseFloat(formatUnits(validator.staked));
+  }, [validator.staked]);
+  const userRewards = useMemo(() => {
+    return Number.parseFloat(validator.rewards) / 10 ** 18;
+  }, [validator.rewards]);
+
+  return (
+    <Link
+      to={`staking/validator/${validator.address}`}
+      className="hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/10 border-islamic-black-100/20 block cursor-pointer border-b px-6 py-4 transition-[background] duration-75 last:border-b-0"
+    >
+      <div className="flex items-center justify-between space-x-6">
+        <div className="w-1/4">
+          <div>{validator.name}</div>
+        </div>
+
+        <div className="w-[80px] text-center">
+          <ValidatorListStatus
+            jailed={validator.jailed}
+            status={bondStatusFromJSON(validator.status)}
+          />
+        </div>
+        <div className="w-[50px] text-center">{validatorCommission}%</div>
+        <div className="flex-1 text-right font-semibold">
+          <div>{votingPower.toLocaleString()}</div>
+          <div className="text-sm text-gray-400">{votingPowerInPercents}%</div>
+        </div>
+        <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
+        <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>
+      </div>
+    </Link>
+  );
 }
 
 function mapAndSortValidators(
@@ -149,57 +201,5 @@ export function ShellIndexPageDelegationList() {
         )}
       </Card>
     </div>
-  );
-}
-
-export function ValidatorWithDelegationListItem({
-  validator,
-  stakingPool,
-}: {
-  validator: DelegationListValidator;
-  stakingPool: number;
-}) {
-  const validatorCommission = useMemo(() => {
-    return (Number.parseFloat(validator.fee ?? '0') * 100).toFixed(0);
-  }, [validator.fee]);
-  const votingPower = useMemo(() => {
-    return Number.parseInt(validator.power ?? '0') / 10 ** 18;
-  }, [validator.power]);
-
-  const votingPowerInPercents = useMemo(() => {
-    return ((votingPower / stakingPool) * 100).toFixed(2);
-  }, [votingPower, stakingPool]);
-  const userDelegate = useMemo(() => {
-    return Number.parseFloat(formatUnits(validator.staked));
-  }, [validator.staked]);
-  const userRewards = useMemo(() => {
-    return Number.parseFloat(validator.rewards) / 10 ** 18;
-  }, [validator.rewards]);
-
-  return (
-    <Link
-      to={`staking/validator/${validator.address}`}
-      className="hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/10 border-islamic-black-100/20 block cursor-pointer border-b px-6 py-4 transition-[background] duration-75 last:border-b-0"
-    >
-      <div className="flex items-center justify-between space-x-6">
-        <div className="w-1/4">
-          <div>{validator.name}</div>
-        </div>
-
-        <div className="w-[80px] text-center">
-          <ValidatorStatus
-            jailed={validator.jailed}
-            status={bondStatusFromJSON(validator.status)}
-          />
-        </div>
-        <div className="w-[50px] text-center">{validatorCommission}%</div>
-        <div className="flex-1 text-right font-semibold">
-          <div>{votingPower.toLocaleString()}</div>
-          <div className="text-sm text-gray-400">{votingPowerInPercents}%</div>
-        </div>
-        <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
-        <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>
-      </div>
-    </Link>
   );
 }
