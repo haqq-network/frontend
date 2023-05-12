@@ -44,7 +44,7 @@ export function Button({
         ? 'bg-[#01B26E]'
         : 'text-haqq-black bg-[#01B26E] disabled:bg-[#01B26E80] disabled:cursor-not-allowed hover:bg-[#2CE69E]'),
     'transition-color duration-150 ease-in will-change-[color,background]',
-    disabled && 'cursor-not-allowed',
+    disabled && '!cursor-not-allowed opacity-60',
     isLoading && 'text-transparent cursor-wait',
     className,
   );

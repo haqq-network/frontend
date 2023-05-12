@@ -24,8 +24,8 @@ import {
   useStakingUnbondingsQuery,
 } from '@haqq/shared';
 import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
-// import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
-// import { DelegateModal } from '../delegate-modal/delegate-modal';
+import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
+import { DelegateModal } from '../delegate-modal/delegate-modal';
 import clsx from 'clsx';
 import {
   InfoBlock,
@@ -871,7 +871,7 @@ export function ValidatorInfo({
         onRewardsClaim={handleRewardsClaim}
       />
 
-      {/* <DelegateModal
+      <DelegateModal
         validatorAddress={validatorAddress}
         isOpen={isDelegateModalOpen}
         onClose={handleModalClose}
@@ -889,7 +889,7 @@ export function ValidatorInfo({
         balance={balance}
         unboundingTime={unboundingTime}
         symbol="ISLM"
-      /> */}
+      />
     </Fragment>
   );
 }

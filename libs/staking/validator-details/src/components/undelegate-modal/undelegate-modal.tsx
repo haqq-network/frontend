@@ -1,17 +1,16 @@
 import {
   DelegateModalDetails,
   DelegateModalInput,
-  DelegateModalSubmitButton,
 } from '../delegate-modal/delegate-modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStakingActions, useToast } from '@haqq/shared';
 import {
   WarningMessage,
-  Card,
-  Heading,
   Modal,
   ModalCloseButton,
+  Button,
 } from '@haqq/shell/ui-kit';
+import clsx from 'clsx';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
@@ -33,7 +32,9 @@ export function UndelegateModal({
   validatorAddress,
 }: UndelegateModalProps) {
   const { undelegate } = useStakingActions();
-  const [undelegateAmount, setUndelegateAmount] = useState(0);
+  const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
+    undefined,
+  );
   const [isUndelegateEnabled, setUndelegateEnabled] = useState(true);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -68,10 +69,10 @@ export function UndelegateModal({
   }, [undelegate, validatorAddress, undelegateAmount, toast, onClose]);
 
   useEffect(() => {
-    if (undelegateAmount <= 0) {
+    if (undelegateAmount && undelegateAmount <= 0) {
       setUndelegateEnabled(false);
       setAmountError('min');
-    } else if (undelegateAmount > delegation) {
+    } else if (undelegateAmount && undelegateAmount > delegation) {
       setUndelegateEnabled(false);
       setAmountError('max');
     } else {
@@ -94,58 +95,65 @@ export function UndelegateModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Card className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
-        <div className="flex flex-col space-y-8">
-          <div className="flex flex-row items-center justify-between">
-            <Heading level={3}>Undelegate</Heading>
-            <ModalCloseButton onClick={onClose} />
+      <div
+        className={clsx(
+          'text-haqq-black mx-auto max-w-[430px] rounded-[12px] bg-white p-[36px]',
+        )}
+      >
+        <ModalCloseButton
+          onClick={onClose}
+          className="absolute right-[16px] top-[16px]"
+        />
+
+        <div className="flex w-full min-w-[360px] flex-col space-y-6">
+          <div className="mt-[4px] font-serif text-[24px] font-[500] leading-[30px]">
+            Undelegate
           </div>
 
-          <WarningMessage>{`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}</WarningMessage>
+          <WarningMessage light className="mt-[2px]">
+            {`The funds will be undelegate within ${unboundingTime} day`}
+          </WarningMessage>
 
-          <div className="flex flex-col space-y-1">
-            <DelegateModalDetails
-              title="My balance"
-              value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
-            />
-            <DelegateModalDetails
-              title="My delegation"
-              value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
-            />
-          </div>
-
-          <div>
-            {/* <div className="mb-1 text-slate-400 text-base leading-6 flex flex-row justify-between">
-              <label htmlFor="amount" className="cursor-pointer">
-                Amount
-              </label>
-              <div>
-                Available:{' '}
-                <span className="text-slate-700 dark:text-slate-100 font-medium">
-                  {delegation.toLocaleString()} {symbol.toUpperCase()}
-                </span>
+          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
+            <div className="pb-[24px]">
+              <div className="flex flex-col gap-[8px]">
+                <DelegateModalDetails
+                  title="My balance"
+                  value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
+                />
+                <DelegateModalDetails
+                  title="My delegation"
+                  value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
+                />
               </div>
-            </div> */}
-            <DelegateModalInput
-              symbol="ISLM"
-              value={undelegateAmount}
-              onChange={handleInputChange}
-              onMaxButtonClick={handleMaxButtonClick}
-              hint={amountHint}
-            />
-          </div>
+            </div>
+            <div className="pt-[24px]">
+              <div className="flex flex-col gap-[16px]">
+                <div>
+                  <DelegateModalInput
+                    symbol="ISLM"
+                    value={undelegateAmount}
+                    onChange={handleInputChange}
+                    onMaxButtonClick={handleMaxButtonClick}
+                    hint={amountHint}
+                  />
+                </div>
 
-          <div>
-            <DelegateModalSubmitButton
-              onClick={handleSubmitUndelegate}
-              className="w-full"
-              disabled={!isUndelegateEnabled}
-            >
-              Proceed undelegation
-            </DelegateModalSubmitButton>
+                <div>
+                  <Button
+                    variant={3}
+                    onClick={handleSubmitUndelegate}
+                    className="w-full"
+                    disabled={!isUndelegateEnabled || !undelegateAmount}
+                  >
+                    Confirm undelegation
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </Card>
+      </div>
     </Modal>
   );
 }

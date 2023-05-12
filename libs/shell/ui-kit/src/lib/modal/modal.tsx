@@ -47,7 +47,7 @@ export function ModalCloseButton({
   return (
     <button
       className={clsx(
-        'h-[24px] w-[24px] cursor-pointer transition-colors duration-100 ease-in-out hover:text-slate-500',
+        'h-[24px] w-[24px] cursor-pointer transition-opacity duration-100 ease-in-out hover:opacity-60',
         className,
       )}
       onClick={onClick}

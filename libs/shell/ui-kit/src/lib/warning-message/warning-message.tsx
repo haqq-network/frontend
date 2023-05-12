@@ -1,14 +1,25 @@
+import clsx from 'clsx';
 import { PropsWithChildren } from 'react';
 
-export function WarningMessage({ children }: PropsWithChildren) {
+export function WarningMessage({
+  children,
+  light = false,
+  className,
+}: PropsWithChildren<{ light?: boolean; className?: string }>) {
   return (
-    <div className="flex flex-row gap-[14px] rounded-[6px] bg-[#48361B] px-[16px] py-[12px] text-[#E3A13F]">
+    <div
+      className={clsx(
+        'flex flex-row items-start gap-[14px] rounded-[6px] bg-[#48361B] px-[16px] py-[12px] text-[#E3A13F]',
+        light && 'bg-[#FFF2DE]',
+      )}
+    >
       <svg
         width="24"
         height="24"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="flex-none"
       >
         <path
           fillRule="evenodd"
@@ -17,7 +28,9 @@ export function WarningMessage({ children }: PropsWithChildren) {
           fill="currentColor"
         />
       </svg>
-      <div className="text-[12px] leading-[18px]">{children}</div>
+      <div className={clsx('text-[12px] leading-[18px]', className)}>
+        {children}
+      </div>
     </div>
   );
 }

@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import { useStakingActions, useToast } from '@haqq/shared';
 import {
   WarningMessage,
-  Heading,
   Modal,
   ModalCloseButton,
+  Button,
 } from '@haqq/shell/ui-kit';
 
 export interface DelegateModalProps {
@@ -32,16 +32,24 @@ export function DelegateModalDetails({
   valueClassName?: string;
 }) {
   return (
-    <div className={clsx('flex flex-row justify-between', className)}>
+    <div
+      className={clsx('flex flex-row items-center justify-between', className)}
+    >
       <div
         className={clsx(
-          'text-base leading-8 text-slate-700 dark:text-slate-200',
+          'font-sans text-[10px] leading-[1.2em] text-[#0D0D0E80]',
+          'uppercase',
           titleClassName,
         )}
       >
         {title}
       </div>
-      <div className={clsx('text-lg font-medium leading-8', valueClassName)}>
+      <div
+        className={clsx(
+          'text-haqq-black font-serif text-[20px] font-[500] leading-[26px]',
+          valueClassName,
+        )}
+      >
         {value}
       </div>
     </div>
@@ -90,7 +98,9 @@ export function DelegateModal({
   unboundingTime,
 }: DelegateModalProps) {
   const { delegate } = useStakingActions();
-  const [delegateAmount, setDelegateAmount] = useState<number>(0);
+  const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
+    undefined,
+  );
   const [isDelegateEnabled, setDelegateEnabled] = useState(true);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -127,10 +137,10 @@ export function DelegateModal({
   }, [delegate, validatorAddress, delegateAmount, toast, onClose]);
 
   useEffect(() => {
-    if (delegateAmount <= 0) {
+    if (delegateAmount && delegateAmount <= 0) {
       setDelegateEnabled(false);
       setAmountError('min');
-    } else if (delegateAmount > balance) {
+    } else if (delegateAmount && delegateAmount > balance) {
       setDelegateEnabled(false);
       setAmountError('max');
     } else {
@@ -151,55 +161,63 @@ export function DelegateModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
-        <div className="flex flex-col space-y-8">
-          <div className="flex flex-row items-center justify-between">
-            <Heading level={3}>Delegate</Heading>
-            <ModalCloseButton onClick={onClose} />
+      <div
+        className={clsx(
+          'text-haqq-black mx-auto max-w-[430px] rounded-[12px] bg-white p-[36px]',
+        )}
+      >
+        <ModalCloseButton
+          onClick={onClose}
+          className="absolute right-[16px] top-[16px]"
+        />
+
+        <div className="flex w-full min-w-[360px] flex-col space-y-6">
+          <div className="mt-[4px] font-serif text-[24px] font-[500] leading-[30px]">
+            Delegate
           </div>
 
-          <WarningMessage>{`The funds will be undelegate within ${unboundingTime} day `}</WarningMessage>
-
-          <div className="flex flex-col">
-            <DelegateModalDetails
-              title="My balance"
-              value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
-            />
-            <DelegateModalDetails
-              title="My delegation"
-              value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
-            />
-          </div>
-
-          <div>
-            <div className="mb-1 flex flex-row justify-between text-base leading-6 text-slate-700 dark:text-slate-200">
-              <label htmlFor="amount" className="cursor-pointer">
-                Amount
-              </label>
-              {/* <div>
-                Available:{' '}
-                <span className="text-slate-700 dark:text-slate-100 font-medium">
-                  {balance.toLocaleString()} {symbol.toUpperCase()}
-                </span>
-              </div> */}
+          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
+            <div className="pb-[24px]">
+              <WarningMessage light>
+                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
+              </WarningMessage>
             </div>
-            <DelegateModalInput
-              symbol="ISLM"
-              value={delegateAmount}
-              onChange={handleInputChange}
-              onMaxButtonClick={handleMaxButtonClick}
-              hint={amountHint}
-            />
-          </div>
-
-          <div>
-            <DelegateModalSubmitButton
-              onClick={handleSubmitDelegate}
-              className="w-full"
-              disabled={!isDelegateEnabled}
-            >
-              Confirm delegation
-            </DelegateModalSubmitButton>
+            <div className="py-[24px]">
+              <div className="flex flex-col gap-[8px]">
+                <DelegateModalDetails
+                  title="My balance"
+                  value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
+                />
+                <DelegateModalDetails
+                  title="My delegation"
+                  value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
+                />
+                <DelegateModalDetails title="Comission" value={`10%`} />
+              </div>
+            </div>
+            <div className="pt-[24px]">
+              <div className="flex flex-col gap-[16px]">
+                <div>
+                  <DelegateModalInput
+                    symbol="ISLM"
+                    value={delegateAmount}
+                    onChange={handleInputChange}
+                    onMaxButtonClick={handleMaxButtonClick}
+                    hint={amountHint}
+                  />
+                </div>
+                <div>
+                  <Button
+                    variant={3}
+                    onClick={handleSubmitDelegate}
+                    className="w-full"
+                    disabled={!isDelegateEnabled || !delegateAmount}
+                  >
+                    Confirm delegation
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -243,29 +261,37 @@ export function DelegateModalInput({
           id="amount"
           value={value}
           className={clsx(
-            'border-2 border-solid border-slate-300 dark:border-slate-500',
             'w-full rounded-md px-4 py-2 outline-none',
-            'text-lg font-medium leading-8 text-gray-700 dark:text-gray-100',
-            'transition-all duration-100',
-            'ring-slate-500/40 focus:ring-4 dark:ring-slate-100/50',
-            'focus:border-slate-500 dark:focus:border-slate-50',
-            'bg-transparent',
+            'transition-colors duration-100 ease-in',
+            'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
+            'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+            'bg-[#E7E7E7]',
           )}
-          placeholder="Please enter the amount"
+          placeholder="Enter amount"
           onChange={handleInputChange}
           step={step}
         />
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
-          <div className="mr-2 inline-block select-none text-base font-medium uppercase text-slate-400">
+          <button
+            className="text-[14px] font-[500] leading-[22px] text-[#EC5728]"
+            onClick={onMaxButtonClick}
+          >
+            Max
+          </button>
+          <div
+            className={clsx(
+              'ml-[10px] inline-block select-none text-[14px] font-[500] uppercase leading-[22px]',
+              !value ? 'text-[#0D0D0E80]' : 'text-[#0D0D0E]',
+            )}
+          >
             {symbol}
           </div>
-          <DelegateModalSubmitButton isSmall onClick={onMaxButtonClick}>
-            MAX
-          </DelegateModalSubmitButton>
         </div>
       </div>
 
-      <div className="mt-1 h-[20px] text-xs leading-[20px]">{hint}</div>
+      {hint && (
+        <div className="mt-1 h-[20px] text-xs leading-[20px]">{hint}</div>
+      )}
     </div>
   );
 }
