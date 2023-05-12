@@ -50,6 +50,7 @@
       {
         "ignore": ["@nx/react/plugins/storybook"]
       }
-    ]
+    ],
+    "arrow-body-style": ["error", "always"]
   }
 }
