@@ -36,7 +36,7 @@ function StakingInfoAmountBlock({
   isGreen?: boolean;
 }) {
   return (
-    <div className="flex flex-row items-center justify-between">
+    <div className="flex flex-row items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:space-y-[6px]">
       <div className="text-[12px] font-[500] uppercase leading-[1.2em] text-white/50">
         {title}
       </div>
@@ -93,8 +93,8 @@ export function StakingInfoComponent({
           </Heading>
         </div>
 
-        <div className="flex flex-col items-center space-y-[16px] lg:flex-row">
-          <div className="flex flex-col space-y-[8px]">
+        <div className="flex w-full flex-col items-center space-y-[16px] lg:flex-row lg:space-y-0">
+          <div className="flex w-full flex-1 flex-col space-y-[8px] sm:flex-1 sm:flex-row sm:space-x-[8px] sm:space-y-0">
             <div className="flex-1">
               <StakingInfoAmountBlock
                 title="Available"
@@ -137,7 +137,7 @@ export function StakingInfoComponent({
             </div>
           </div>
 
-          <div className="flex-1 text-start">
+          <div className="w-full text-start lg:w-auto lg:flex-none">
             {isWalletConnected ? (
               isNetworkSupported ? (
                 <Button
