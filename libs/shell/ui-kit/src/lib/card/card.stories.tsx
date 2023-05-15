@@ -15,13 +15,14 @@ export default {
 export const Default = () => {
   return (
     <Card>
-      <CardHeading>Card Heading</CardHeading>
+      <CardHeading >Card Heading</CardHeading>
       <CardSubText>Card Sub Text</CardSubText>
       <CardText>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure sunt,
-        impedit distinctio, architecto quidem quo provident sapiente itaque,
-        optio labore fugiat officia unde. Iusto voluptatibus vero, accusantium
-        odit in esse.
+        CARD TEXT.
+        <br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure
+        sunt, impedit distinctio, architecto quidem quo provident sapiente
+        itaque, optio labore fugiat officia unde. Iusto voluptatibus vero,
+        accusantium odit in esse.
       </CardText>
       <ProposalNumber>1234567890</ProposalNumber>
       <div className="inline-flex space-x-[4px]">
