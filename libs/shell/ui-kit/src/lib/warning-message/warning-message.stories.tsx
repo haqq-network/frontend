@@ -7,7 +7,7 @@ export default {
   },
 };
 
-export const FirstVariant = () => {
+export const Default = () => {
   return (
     <WarningMessageComponent>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi magnam
