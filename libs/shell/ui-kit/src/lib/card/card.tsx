@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
 export function Card({
@@ -55,10 +55,9 @@ export function CardSubText({
 export function TimerText({
   children,
   color = 'grey',
-}: {
-  children: ReactNode;
+}: PropsWithChildren<{
   color?: 'white' | 'grey';
-}) {
+}>) {
   return (
     <div
       className={clsx(
@@ -72,7 +71,7 @@ export function TimerText({
   );
 }
 
-export function ProposalNumber({ children }: { children: ReactNode }) {
+export function ProposalNumber({ children }: PropsWithChildren) {
   return (
     <div className="text-[14px] leading-[18px] text-white lg:text-[20px] lg:leading-[26px]">
       {children}
