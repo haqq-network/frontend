@@ -286,7 +286,7 @@ export function ValidatorInfoComponent({
           </div>
         </div>
 
-        <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
+        <div className="hidden flex-1 lg:block lg:w-1/2 xl:w-1/3 xl:flex-none">
           <div className="flex flex-col gap-[20px]">
             <MyAccountBlockDesktop
               balance={balance}

@@ -49,28 +49,38 @@ export function ValidatorListItem({
 
   return (
     <tr
-      className="cursor-pointer border-t border-[#FFFFFF26] text-[16px] leading-[26px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] "
+      className="cursor-pointer border-t border-[#FFFFFF26] text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] md:text-[16px] md:leading-[26px]"
       onClick={() => {
         // console.log(`validator/${validator.operator_address}`);
         navigate(`validator/${validator.operator_address}`);
       }}
     >
-      <td className="p-[12px]">
+      <td className="p-[8px] md:p-[12px]">
         <div className="w-full overflow-hidden">
           <p className="overflow-ellipsis">{validator.description?.moniker}</p>
         </div>
       </td>
-      <td className="p-[12px] text-left">
+      <td className="p-[8px] text-left md:p-[12px]">
         <ValidatorListStatus
           jailed={validator.jailed}
           status={bondStatusFromJSON(validator.status)}
         />
       </td>
-      <td className="p-[12px] text-left">{validatorCommission}%</td>
-      <td className="p-[12px] text-right">{votingPower.toLocaleString()}</td>
-      <td className="p-[12px] text-right">{votingPowerInPercents}%</td>
-      <td className="p-[12px] text-right">{userDelegate.toLocaleString()}</td>
-      <td className="p-[12px] text-right">{userRewards.toLocaleString()}</td>
+      <td className="max-w-[80px] p-[8px] text-left md:p-[12px]">
+        {validatorCommission}%
+      </td>
+      <td className="p-[8px] text-right md:p-[12px]">
+        {votingPower.toLocaleString()}
+      </td>
+      <td className="p-[8px] text-right md:p-[12px]">
+        {votingPowerInPercents}%
+      </td>
+      <td className="p-[8px] text-right md:p-[12px]">
+        {userDelegate.toLocaleString()}
+      </td>
+      <td className="p-[8px] text-right md:p-[12px]">
+        {userRewards.toLocaleString()}
+      </td>
     </tr>
   );
 }

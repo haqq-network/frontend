@@ -13,9 +13,10 @@ import {
   OrangeLink,
   SpinnerLoader,
 } from '@haqq/shell/ui-kit';
-import { ValidatorsList } from '@haqq/staking/ui-kit';
+import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
 import { DelegationResponse } from '@evmos/provider';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
+import { useMediaQuery } from 'react-responsive';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,
@@ -44,6 +45,9 @@ export function DelegationsBlock() {
   } = useStakingValidatorListQuery(1000);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const isMobile = useMediaQuery({
+    query: `(max-width: 639px)`,
+  });
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -93,11 +97,23 @@ export function DelegationsBlock() {
       {status === 'success' && (
         <div>
           {valToRender.length ? (
-            <ValidatorsList
-              validators={valToRender}
-              delegationInfo={delegationInfo}
-              rewardsInfo={rewardsInfo}
-            />
+            <div>
+              {isMobile ? (
+                <div className="border-haqq-border flex flex-col gap-[24px] border-t">
+                  <ValidatorsListMobile
+                    validators={valToRender}
+                    delegationInfo={delegationInfo}
+                    rewardsInfo={rewardsInfo}
+                  />
+                </div>
+              ) : (
+                <ValidatorsList
+                  validators={valToRender}
+                  delegationInfo={delegationInfo}
+                  rewardsInfo={rewardsInfo}
+                />
+              )}
+            </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-[20px]">
               <div className="mb-[4px] text-[14px] leading-[22px] text-white/50">

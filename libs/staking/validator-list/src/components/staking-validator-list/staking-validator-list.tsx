@@ -5,7 +5,11 @@ import {
   useStakingRewardsQuery,
   useStakingDelegationQuery,
 } from '@haqq/shared';
-import { StakingInfo, ValidatorsList } from '@haqq/staking/ui-kit';
+import {
+  StakingInfo,
+  ValidatorsList,
+  ValidatorsListMobile,
+} from '@haqq/staking/ui-kit';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { Validator, DelegationResponse } from '@evmos/provider';
 import {
@@ -14,6 +18,7 @@ import {
   SpinnerLoader,
   Container,
 } from '@haqq/shell/ui-kit';
+import { useMediaQuery } from 'react-responsive';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,
@@ -42,6 +47,9 @@ export function StakingValidatorList() {
   } = useStakingValidatorListQuery(1000);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const isMobile = useMediaQuery({
+    query: `(max-width: 639px)`,
+  });
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -119,31 +127,43 @@ export function StakingValidatorList() {
           )}
           {status === 'error' && <p>Error: {error.message}</p>}
           {status === 'success' && (
-            <div className="flex flex-col gap-[24px]">
-              {delegatedValidators.length !== 0 && (
-                <div>
-                  <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
-                    My delegations
-                  </div>
-                  <ValidatorsList
+            <div>
+              {isMobile ? (
+                <div className="border-top border-haqq-border flex flex-col gap-[24px]">
+                  <ValidatorsListMobile
                     validators={delegatedValidators}
                     delegationInfo={delegationInfo}
                     rewardsInfo={rewardsInfo}
                   />
                 </div>
-              )}
-              <div>
-                {delegatedValidators.length !== 0 && (
-                  <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
-                    Other validators
+              ) : (
+                <div className="flex flex-col gap-[24px]">
+                  {delegatedValidators.length !== 0 && (
+                    <div>
+                      <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
+                        My delegations
+                      </div>
+                      <ValidatorsList
+                        validators={delegatedValidators}
+                        delegationInfo={delegationInfo}
+                        rewardsInfo={rewardsInfo}
+                      />
+                    </div>
+                  )}
+                  <div>
+                    {delegatedValidators.length !== 0 && (
+                      <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
+                        Other validators
+                      </div>
+                    )}
+                    <ValidatorsList
+                      validators={otherValidators}
+                      delegationInfo={delegationInfo}
+                      rewardsInfo={rewardsInfo}
+                    />
                   </div>
-                )}
-                <ValidatorsList
-                  validators={otherValidators}
-                  delegationInfo={delegationInfo}
-                  rewardsInfo={rewardsInfo}
-                />
-              </div>
+                </div>
+              )}
             </div>
           )}
         </div>
