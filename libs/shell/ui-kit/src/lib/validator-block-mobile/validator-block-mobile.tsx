@@ -75,10 +75,10 @@ export function ValidatorBlockMobile({
         While the validator is inactive, you will not be able to receive a
         reward.
       </WarningMessage>
-      <div className="flex w-full flex-col md:flex-row ">
+      <div className="flex w-full flex-col md:flex-row">
         {/* 1 */}
         <div className="flex w-full flex-col md:w-2/3 md:flex-row md:gap-x-[12px]">
-          <div className="flex items-center justify-between md:w-1/2 md:flex-col md:items-start mt-[12px] md:mt-0">
+          <div className="mt-[12px] flex items-center justify-between md:mt-0 md:w-1/2 md:flex-col md:items-start">
             <GrayDescription>My delegation</GrayDescription>
             <DescriptionAmount className="md:mt-[6px]">
               {delegation} ISLM
@@ -94,7 +94,7 @@ export function ValidatorBlockMobile({
           </div>
           {/* 2 */}
           {undelegate && (
-            <div className="flex items-center justify-between md:w-1/2 md:flex-col md:items-start mt-[12px] md:mt-0">
+            <div className="mt-[12px] flex items-center justify-between md:mt-0 md:w-1/2 md:flex-col md:items-start">
               <GrayDescription>Undelegate in process</GrayDescription>
               <DescriptionAmount className="md:mt-[6px]">
                 {undelegate} ISLM
@@ -111,7 +111,7 @@ export function ValidatorBlockMobile({
           )}
         </div>
         {/* 3 */}
-        <div className="flex items-center justify-between md:ml-[28px] md:w-1/3 md:flex-col md:items-start mt-[12px] md:mt-0">
+        <div className="mt-[12px] flex items-center justify-between md:ml-[28px] md:mt-0 md:w-1/3 md:flex-col md:items-start">
           <GrayDescription>My rewards</GrayDescription>
           <DescriptionAmount isGreen className="md:mt-[6px]">
             {rewards} ISLM
