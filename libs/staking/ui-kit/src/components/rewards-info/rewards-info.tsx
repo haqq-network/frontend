@@ -9,7 +9,7 @@ import {
   useWallet,
 } from '@haqq/shared';
 import clsx from 'clsx';
-import { WalletIcon, Button, Heading } from '@haqq/shell/ui-kit';
+import { WalletIcon, Button, Heading, Container } from '@haqq/shell/ui-kit';
 
 export interface RewardsInfoProps {
   balance: number;
@@ -36,8 +36,8 @@ function StakingInfoAmountBlock({
   isGreen?: boolean;
 }) {
   return (
-    <div>
-      <div className="mb-[6px] text-[12px] font-[500] uppercase leading-[1.2em] text-white/50">
+    <div className="flex flex-row items-center justify-between">
+      <div className="text-[12px] font-[500] uppercase leading-[1.2em] text-white/50">
         {title}
       </div>
       <div
@@ -67,88 +67,99 @@ export function StakingInfoComponent({
   onChangeNetwork,
 }: RewardsInfoProps) {
   return !isWalletConnected ? (
-    <div className="flex flex-col items-center space-y-[12px] border-y border-dashed border-[#ffffff26] py-[58px]">
-      <div className="font-sans text-[18px] leading-[28px]">
-        You should connect wallet first
-      </div>
-      <Button
-        onClick={onWalletConnect}
-        variant={2}
-        className="text-black hover:bg-transparent hover:text-white"
-      >
-        Connect wallet
-      </Button>
+    <div className="border-y border-dashed border-[#ffffff26] py-[55px] sm:py-[90px] lg:py-[62px]">
+      <Container>
+        <div className="flex flex-col items-center space-y-[12px]">
+          <div className="font-sans text-[18px] leading-[28px]">
+            You should connect wallet first
+          </div>
+          <Button
+            onClick={onWalletConnect}
+            variant={2}
+            className="text-black hover:bg-transparent hover:text-white"
+          >
+            Connect wallet
+          </Button>
+        </div>
+      </Container>
     </div>
   ) : (
-    <section className="sticky top-[70px] z-[49] w-full transform-gpu border-y border-dashed border-[#ffffff26] bg-transparent px-[16px] backdrop-blur sm:px-[63px] lg:px-[79px] lg:py-[32px]">
-      <div className="mb-[24px] flex flex-row items-center">
-        <WalletIcon />
-        <Heading level={3} className="ml-[8px]">
-          My account
-        </Heading>
-      </div>
-      <div className="flex flex-col items-center gap-4 lg:h-[80px] lg:flex-row">
-        <div className="grid-col-1 grid w-full flex-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="flex-1">
-            <StakingInfoAmountBlock
-              title="Available"
-              value={isWalletConnected ? `${balance.toLocaleString()}` : '---'}
-              symbol={symbol}
-            />
-          </div>
-
-          <div className="flex-1">
-            <StakingInfoAmountBlock
-              title="Staked"
-              value={
-                isWalletConnected ? `${delegated.toLocaleString()}` : '---'
-              }
-              symbol={symbol}
-            />
-          </div>
-
-          <div className="flex-1">
-            <StakingInfoAmountBlock
-              title="Unbounded"
-              value={
-                isWalletConnected ? `${unbounded.toLocaleString()}` : '---'
-              }
-              symbol={symbol}
-            />
-          </div>
-
-          <div className="flex-1">
-            <StakingInfoAmountBlock
-              title="Rewards"
-              value={isWalletConnected ? `${rewards.toLocaleString()}` : '---'}
-              symbol={symbol}
-              isGreen
-            />
-          </div>
+    <section className="sticky top-[62px] z-[49] w-full transform-gpu border-y border-dashed border-[#ffffff26] bg-transparent py-[32px] backdrop-blur sm:top-[70px]">
+      <Container>
+        <div className="mb-[24px] flex flex-row items-center">
+          <WalletIcon />
+          <Heading level={3} className="ml-[8px]">
+            My account
+          </Heading>
         </div>
 
-        <div className="flex-initial">
-          {isWalletConnected ? (
-            isNetworkSupported ? (
-              <Button
-                disabled={rewards < 1}
-                onClick={onRewardsClaim}
-                variant={2}
-              >
-                Claim all rewards
-              </Button>
+        <div className="flex flex-col items-center space-y-[16px] lg:flex-row">
+          <div className="flex flex-col space-y-[8px]">
+            <div className="flex-1">
+              <StakingInfoAmountBlock
+                title="Available"
+                value={
+                  isWalletConnected ? `${balance.toLocaleString()}` : '---'
+                }
+                symbol={symbol}
+              />
+            </div>
+
+            <div className="flex-1">
+              <StakingInfoAmountBlock
+                title="Staked"
+                value={
+                  isWalletConnected ? `${delegated.toLocaleString()}` : '---'
+                }
+                symbol={symbol}
+              />
+            </div>
+
+            <div className="flex-1">
+              <StakingInfoAmountBlock
+                title="Unbounded"
+                value={
+                  isWalletConnected ? `${unbounded.toLocaleString()}` : '---'
+                }
+                symbol={symbol}
+              />
+            </div>
+
+            <div className="flex-1">
+              <StakingInfoAmountBlock
+                title="Rewards"
+                value={
+                  isWalletConnected ? `${rewards.toLocaleString()}` : '---'
+                }
+                symbol={symbol}
+                isGreen
+              />
+            </div>
+          </div>
+
+          <div className="flex-1 text-start">
+            {isWalletConnected ? (
+              isNetworkSupported ? (
+                <Button
+                  disabled={rewards < 1}
+                  onClick={onRewardsClaim}
+                  variant={2}
+                >
+                  Claim all rewards
+                </Button>
+              ) : (
+                <Button onClick={onChangeNetwork} variant={2}>
+                  Change network
+                </Button>
+              )
             ) : (
-              <Button onClick={onChangeNetwork} variant={2}>
-                Change network
+              <Button onClick={onWalletConnect} variant={2}>
+                Connect wallet
               </Button>
-            )
-          ) : (
-            <Button onClick={onWalletConnect} variant={2}>
-              Connect wallet
-            </Button>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

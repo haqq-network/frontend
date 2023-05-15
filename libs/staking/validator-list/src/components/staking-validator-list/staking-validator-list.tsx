@@ -8,7 +8,12 @@ import {
 import { StakingInfo, ValidatorsList } from '@haqq/staking/ui-kit';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { Validator, DelegationResponse } from '@evmos/provider';
-import { ValidatorIcon, Heading, SpinnerLoader } from '@haqq/shell/ui-kit';
+import {
+  ValidatorIcon,
+  Heading,
+  SpinnerLoader,
+  Container,
+} from '@haqq/shell/ui-kit';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,
@@ -83,10 +88,12 @@ export function StakingValidatorList() {
 
   return (
     <Fragment>
-      <section className="flex w-full flex-col px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[68px]">
-        <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-          Staking
-        </div>
+      <section className="py-[32px]">
+        <Container>
+          <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+            Staking
+          </div>
+        </Container>
       </section>
 
       <StakingInfo />
