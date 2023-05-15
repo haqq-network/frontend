@@ -1,50 +1,22 @@
-import { ValidatorListItemMobile } from './validator-list-item-mobile';
+import { Meta, StoryObj } from '@storybook/react';
+import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from './validator-list-item-mobile';
 
-export default {
-  title: 'shell/ui-kit/validator-list-item-mobile',
-  parameters: {
-    // layout: 'centered',
+const meta: Meta<typeof ValidatorListItemMobileComponent> = {
+  component: ValidatorListItemMobileComponent,
+  title: 'shell/ui-kit',
+};
+
+export default meta;
+type Story = StoryObj<typeof ValidatorListItemMobileComponent>;
+
+export const ValidatorListItemMobile: Story = {
+  args: {
+    validatorName: 'Active Validator',
+    fee: '10%',
+    reward: (100).toLocaleString(),
+    staked: '1000',
+    votingPower: `${(12000000000000000).toLocaleString()} ISLM`,
+    votingPowerPercent: '25%',
+    status: 'active',
   },
-};
-
-export const Active = () => {
-  return (
-    <ValidatorListItemMobile
-      fee={'10%'}
-      name="ActiveVal"
-      reward={100}
-      staked={1000}
-      status="active"
-      votingPower={12000000000000000}
-      votingPowerPercent={25}
-    />
-  );
-};
-
-export const Jailed = () => {
-  return (
-    <ValidatorListItemMobile
-      fee={'12%'}
-      name="JailedVal"
-      reward={100}
-      staked={1000}
-      status="jailed"
-      votingPower={12000000000000000}
-      votingPowerPercent={25}
-    />
-  );
-};
-
-export const Inactive = () => {
-  return (
-    <ValidatorListItemMobile
-      fee={'11%'}
-      name="InactiveVal"
-      reward={100}
-      staked={1000}
-      status="inactive"
-      votingPower={12000000000000000}
-      votingPowerPercent={25}
-    />
-  );
 };

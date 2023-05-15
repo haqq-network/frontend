@@ -7,15 +7,17 @@ import {
 import { Fragment, useState } from 'react';
 import { Button } from '../button/button';
 
-export default {
-  title: 'shell/ui-kit/modal',
+const meta: Meta<typeof ModalComponent> = {
   component: ModalComponent,
+  title: 'shell/ui-kit',
   parameters: {
     layout: 'centered',
   },
-} as Meta<typeof ModalComponent>;
+};
 
-export const Default = () => {
+export default meta;
+
+export const Modal = () => {
   const [opened, setOpened] = useState(true);
 
   return (

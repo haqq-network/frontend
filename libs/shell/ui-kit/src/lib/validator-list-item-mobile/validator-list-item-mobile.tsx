@@ -12,27 +12,29 @@ function ColumnLine({
   );
 }
 
-export function ValidatorListItemMobile({
-  fee,
-  name,
-  reward,
-  staked,
-  status,
-  votingPower,
-  votingPowerPercent,
-}: {
-  name: string;
+export interface ValidatorListItemMobileProps {
+  validatorName: string;
   status: 'jailed' | 'active' | 'inactive';
   fee: string | number;
   votingPower: string | number;
   votingPowerPercent: string | number;
   staked: string | number;
   reward: string | number;
-}) {
+}
+
+export function ValidatorListItemMobile({
+  fee,
+  validatorName,
+  reward,
+  staked,
+  status,
+  votingPower,
+  votingPowerPercent,
+}: ValidatorListItemMobileProps) {
   return (
     <div className="flex flex-col py-[6px]">
       <ColumnLine columnName="Name">
-        <span className="text-white">{name}</span>
+        <span className="text-white">{validatorName}</span>
       </ColumnLine>
       <ColumnLine columnName="Status">
         {status === 'jailed' && <span className="text-[#FF5454]">Jailed</span>}

@@ -1,12 +1,15 @@
+import { Meta, StoryObj } from '@storybook/react';
 import { SpinnerLoader as SpinnerLoaderComponent } from './spinner-loader';
 
-export default {
-  title: 'shell/ui-kit/spinner-loader',
+const meta: Meta<typeof SpinnerLoaderComponent> = {
+  component: SpinnerLoaderComponent,
+  title: 'shell/ui-kit',
   parameters: {
     layout: 'centered',
   },
 };
 
-export const Default = () => {
-  return <SpinnerLoaderComponent />;
-};
+export default meta;
+type Story = StoryObj<typeof SpinnerLoaderComponent>;
+
+export const SpinnerLoader: Story = {};
