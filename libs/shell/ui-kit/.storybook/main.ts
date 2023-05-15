@@ -11,26 +11,6 @@ const config: StorybookConfig = {
     name: '@storybook/react-webpack5',
     options: {},
   },
-  webpackFinal: async (config, { configType }) => {
-    // Make whatever fine-grained changes you need
-    config.resolve = {
-      ...config.resolve,
-      fallback: {
-        buffer: false,
-        crypto: false,
-        events: false,
-        path: false,
-        stream: false,
-        string_decoder: false,
-        http: false,
-        zlib: false,
-        https: false,
-        url: false,
-      },
-    };
-    // Return the altered config
-    return config;
-  },
 };
 
 export default config;
