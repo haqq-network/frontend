@@ -88,17 +88,17 @@ export function StakingValidatorList() {
 
   return (
     <Fragment>
-      <section className="py-[32px]">
+      <div className="py-[32px] lg:py-[68px]">
         <Container>
           <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
             Staking
           </div>
         </Container>
-      </section>
+      </div>
 
       <StakingInfo />
 
-      <section className="flex w-full flex-col px-[16px] sm:px-[63px] lg:px-[79px] lg:py-[68px]">
+      <Container className="pb-[32px] pt-[52px] sm:pt-[60px] lg:pt-[80px]">
         <div className="mb-[32px] flex flex-row items-center">
           <ValidatorIcon />
           <Heading level={3} className="ml-[8px]">
@@ -108,7 +108,7 @@ export function StakingValidatorList() {
 
         <div>
           {status === 'loading' && (
-            <div className="pointer-events-none mx-auto flex w-full max-w-6xl flex-1 select-none py-20">
+            <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
               <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
                 <SpinnerLoader />
                 <div className="font-sans text-[10px] uppercase leading-[1.2em]">
@@ -147,7 +147,7 @@ export function StakingValidatorList() {
             </div>
           )}
         </div>
-      </section>
+      </Container>
     </Fragment>
   );
 }

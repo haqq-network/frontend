@@ -846,7 +846,7 @@ export function ValidatorInfo({
 
   if (isFetching || !validatorInfo) {
     return (
-      <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8">
+      <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
         <SpinnerLoader />
         <div className="font-sans text-[10px] uppercase leading-[1.2em]">
           Fetching validator information

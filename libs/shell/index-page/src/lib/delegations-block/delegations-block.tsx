@@ -7,6 +7,7 @@ import {
   useStakingValidatorListQuery,
 } from '@haqq/shared';
 import {
+  Container,
   Heading,
   ListIcon,
   OrangeLink,
@@ -66,7 +67,7 @@ export function DelegationsBlock() {
   }, [sortedValidators, valWithDelegationAddr]);
 
   return (
-    <section className="w-full px-[16px] sm:px-[63px] lg:px-[79px]">
+    <Container>
       <div className="mb-[24px] flex flex-row items-center">
         <ListIcon />
         <Heading level={3} className="ml-[8px]">
@@ -76,7 +77,7 @@ export function DelegationsBlock() {
 
       <div>
         {status === 'loading' && (
-          <div className="pointer-events-none mx-auto flex w-full max-w-6xl flex-1 select-none py-20">
+          <div className="pointer-events-none mx-auto flex min-h-[220px] w-full flex-1 select-none">
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
               <SpinnerLoader />
               <div className="font-sans text-[10px] uppercase leading-[1.2em]">
@@ -107,6 +108,6 @@ export function DelegationsBlock() {
           )}
         </div>
       )}
-    </section>
+    </Container>
   );
 }

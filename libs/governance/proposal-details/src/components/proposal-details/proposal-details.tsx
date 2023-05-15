@@ -28,6 +28,7 @@ import {
   InfoIcon,
   SpinnerLoader,
   Heading,
+  Container,
 } from '@haqq/shell/ui-kit';
 
 const enum ProposalTypes {
@@ -228,33 +229,36 @@ export function ProposalDetails() {
   }
 
   return (
-    <div className="mx-auto flex w-full flex-1 flex-col px-[16px] sm:px-[48px] lg:px-[79px] lg:py-[34px]">
-      <div className="mb-[34px]">
-        <BackButton
-          onClick={() => {
-            navigate('/');
-          }}
-        >
-          Governance
-        </BackButton>
-      </div>
-      {isFetching || !proposalDetails || !govParams ? (
-        <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8">
-          <SpinnerLoader />
-          <div className="font-sans text-[10px] uppercase leading-[1.2em]">
-            Fetching proposal details
-          </div>
+    <Container>
+      <div className="sm:py-[26px py-[18px] lg:py-[34px]">
+        <div className="mb-[18px] sm:mb-[26px] lg:mb-[34px]">
+          <BackButton
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            Governance
+          </BackButton>
         </div>
-      ) : (
-        <ProposalDetailsComponent
-          proposalDetails={proposalDetails}
-          symbol="ISLM"
-          isWalletConnected={Boolean(ethAddress && haqqAddress)}
-          proposal={proposalDetails}
-          govParams={govParams}
-        />
-      )}
-    </div>
+
+        {isFetching || !proposalDetails || !govParams ? (
+          <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
+            <SpinnerLoader />
+            <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+              Fetching proposal details
+            </div>
+          </div>
+        ) : (
+          <ProposalDetailsComponent
+            proposalDetails={proposalDetails}
+            symbol="ISLM"
+            isWalletConnected={Boolean(ethAddress && haqqAddress)}
+            proposal={proposalDetails}
+            govParams={govParams}
+          />
+        )}
+      </div>
+    </Container>
   );
 }
 

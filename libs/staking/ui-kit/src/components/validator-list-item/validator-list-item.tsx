@@ -55,7 +55,11 @@ export function ValidatorListItem({
         navigate(`validator/${validator.operator_address}`);
       }}
     >
-      <td className="p-[12px]">{validator.description?.moniker}</td>
+      <td className="p-[12px]">
+        <div className="w-full overflow-hidden">
+          <p className="overflow-ellipsis">{validator.description?.moniker}</p>
+        </div>
+      </td>
       <td className="p-[12px] text-left">
         <ValidatorListStatus
           jailed={validator.jailed}
