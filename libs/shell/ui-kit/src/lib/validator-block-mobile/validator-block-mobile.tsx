@@ -1,3 +1,4 @@
+import { useWindowWidth } from '@haqq/shared';
 import { Button } from '../button/button';
 import { WarningMessage } from '../warning-message/warning-message';
 
@@ -25,7 +26,7 @@ export function ValidatorBlockMobile({
   undelegate,
 }: ValidatorBlockMobile) {
   return (
-    <div className="flex w-full flex-col items-start gap-y-[16px] bg-[#252528] px-[16px] py-[24px]">
+    <div className="flex w-full flex-col items-start gap-y-[16px] bg-[#252528] px-[16px] py-[24px] md:h-[296px] md:px-[48px] md:py-[40px] lg:hidden">
       <div className="inline-flex items-center gap-x-[8px] font-serif text-[16px] leading-[20px] text-white">
         <svg
           width="24"
@@ -47,32 +48,61 @@ export function ValidatorBlockMobile({
         While the validator is inactive, you will not be able to receive a
         reward.
       </WarningMessage>
-      <div className="flex w-full flex-col gap-y-[12px]">
-        <div className="flex items-center justify-between">
+      <div className="flex w-full flex-col gap-y-[12px] md:flex-row ">
+        {/* 1 */}
+
+        <div className="flex items-center justify-between md:w-[30%] md:flex-col md:items-start">
           <div className="font-sans text-[12px] font-semibold uppercase leading-[1.2em] text-white/50">
             My delegation
           </div>
-          <div className="font-serif uppercase text-white">
+          <div className="mt-[6px] font-serif uppercase text-white">
             {delegation} ISLM
           </div>
+          <Button
+            variant={2}
+            onClick={onDelegateClick}
+            disabled={isDelegateDisabled}
+            className="mt-[12px] hidden w-full md:block "
+          >
+            Delegate
+          </Button>
         </div>
+        {/* 2 */}
         {undelegate && (
-          <div className="flex items-center justify-between">
+          <div className="sm flex items-center justify-between md:ml-[12px] md:w-[30%] md:flex-col md:items-start">
             <div className="font-sans text-[12px] font-semibold uppercase leading-[1.2em] text-white/50">
               Undelegate in process
             </div>
-            <div className="font-serif uppercase text-white">
+            <div className="mt-[6px] font-serif uppercase text-white">
               {undelegate} ISLM
             </div>
+            <Button
+              variant={2}
+              onClick={onUndelegateClick}
+              disabled={isUndelegateDisabled}
+              className="mt-[12px] hidden w-full md:block "
+            >
+              Undelegate
+            </Button>
           </div>
         )}
-        <div className="inline-flex items-center justify-between">
+
+        {/* 3 */}
+        <div className="flex items-center justify-between md:ml-[28px] md:w-1/3 md:flex-col md:items-start">
           <div className="font-sans text-[12px] font-semibold uppercase leading-[1.2em] text-white/50">
             My rewards
           </div>
-          <div className="font-serif uppercase text-[#01B26E]">
+          <div className="mt-[6px] font-serif uppercase text-[#01B26E]">
             {rewards} ISLM
           </div>
+          <Button
+            variant={5}
+            onClick={onGetRewardClick}
+            disabled={isGetRewardDisabled}
+            className="mt-[12px] hidden w-full md:block"
+          >
+            Get my rewards
+          </Button>
         </div>
       </div>
       <div className="inline-flex w-full gap-x-[12px]">
@@ -80,7 +110,7 @@ export function ValidatorBlockMobile({
           variant={2}
           onClick={onDelegateClick}
           disabled={isDelegateDisabled}
-          className="w-1/2"
+          className="w-1/2 md:hidden"
         >
           Delegate
         </Button>
@@ -88,7 +118,7 @@ export function ValidatorBlockMobile({
           variant={2}
           onClick={onUndelegateClick}
           disabled={isUndelegateDisabled}
-          className="w-1/2"
+          className="w-1/2 md:hidden"
         >
           Undelegate
         </Button>
@@ -97,7 +127,7 @@ export function ValidatorBlockMobile({
         variant={5}
         onClick={onGetRewardClick}
         disabled={isGetRewardDisabled}
-        className="w-full"
+        className="w-full md:hidden"
       >
         Get my rewards
       </Button>
