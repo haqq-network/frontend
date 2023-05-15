@@ -1,5 +1,7 @@
+import { PropsWithChildren } from 'react';
 import { Button } from '../button/button';
 import { WarningMessage } from '../warning-message/warning-message';
+import clsx from 'clsx';
 
 interface ValidatorBlockMobile {
   delegation: string;
@@ -11,6 +13,32 @@ interface ValidatorBlockMobile {
   onDelegateClick: () => void;
   onGetRewardClick: () => void;
   onUndelegateClick: () => void;
+}
+
+function GrayDescription({ children }: PropsWithChildren) {
+  return (
+    <div className="font-sans text-[12px] uppercase leading-[1.2em] text-white/50">
+      {children}
+    </div>
+  );
+}
+
+function DescriptionAmount({
+  children,
+  isGreen = false,
+  className,
+}: PropsWithChildren<{ isGreen?: boolean; className?: string }>) {
+  return (
+    <div
+      className={clsx(
+        'font-serif text-[16px] uppercase leading-[1.25em]',
+        isGreen ? '#01B26E' : 'text-white',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 }
 
 export function ValidatorBlockMobile({
@@ -43,56 +71,51 @@ export function ValidatorBlockMobile({
         </svg>
         Validator
       </div>
-      <WarningMessage wrapperClassName="md:w-full">
+      <WarningMessage wrapperClassName="w-full">
         While the validator is inactive, you will not be able to receive a
         reward.
       </WarningMessage>
-      <div className="flex w-full flex-col gap-y-[12px] md:flex-row ">
+      <div className="flex w-full flex-col md:flex-row ">
         {/* 1 */}
-        <div className="flex items-center justify-between md:w-[30%] md:flex-col md:items-start">
-          <div className="font-sans text-[12px] font-semibold uppercase leading-[1.2em] text-white/50">
-            My delegation
-          </div>
-          <div className="mt-[6px] font-serif uppercase text-white">
-            {delegation} ISLM
-          </div>
-          <Button
-            variant={2}
-            onClick={onDelegateClick}
-            disabled={isDelegateDisabled}
-            className="mt-[12px] hidden w-full md:block "
-          >
-            Delegate
-          </Button>
-        </div>
-        {/* 2 */}
-        {undelegate && (
-          <div className="sm flex items-center justify-between md:ml-[12px] md:w-[30%] md:flex-col md:items-start">
-            <div className="font-sans text-[12px] font-semibold uppercase leading-[1.2em] text-white/50">
-              Undelegate in process
-            </div>
-            <div className="mt-[6px] font-serif uppercase text-white">
-              {undelegate} ISLM
-            </div>
+        <div className="flex w-full flex-col md:w-2/3 md:flex-row md:gap-x-[12px]">
+          <div className="flex items-center justify-between md:w-1/2 md:flex-col md:items-start mt-[12px] md:mt-0">
+            <GrayDescription>My delegation</GrayDescription>
+            <DescriptionAmount className="md:mt-[6px]">
+              {delegation} ISLM
+            </DescriptionAmount>
             <Button
               variant={2}
-              onClick={onUndelegateClick}
-              disabled={isUndelegateDisabled}
-              className="mt-[12px] hidden w-full md:block "
+              onClick={onDelegateClick}
+              disabled={isDelegateDisabled}
+              className="mt-[12px] hidden w-full md:block"
             >
-              Undelegate
+              Delegate
             </Button>
           </div>
-        )}
-
+          {/* 2 */}
+          {undelegate && (
+            <div className="flex items-center justify-between md:w-1/2 md:flex-col md:items-start mt-[12px] md:mt-0">
+              <GrayDescription>Undelegate in process</GrayDescription>
+              <DescriptionAmount className="md:mt-[6px]">
+                {undelegate} ISLM
+              </DescriptionAmount>
+              <Button
+                variant={2}
+                onClick={onUndelegateClick}
+                disabled={isUndelegateDisabled}
+                className="mt-[12px] hidden w-full md:block"
+              >
+                Undelegate
+              </Button>
+            </div>
+          )}
+        </div>
         {/* 3 */}
-        <div className="flex items-center justify-between md:ml-[28px] md:w-1/3 md:flex-col md:items-start">
-          <div className="font-sans text-[12px] font-semibold uppercase leading-[1.2em] text-white/50">
-            My rewards
-          </div>
-          <div className="mt-[6px] font-serif uppercase text-[#01B26E]">
+        <div className="flex items-center justify-between md:ml-[28px] md:w-1/3 md:flex-col md:items-start mt-[12px] md:mt-0">
+          <GrayDescription>My rewards</GrayDescription>
+          <DescriptionAmount isGreen className="md:mt-[6px]">
             {rewards} ISLM
-          </div>
+          </DescriptionAmount>
           <Button
             variant={5}
             onClick={onGetRewardClick}
