@@ -92,7 +92,7 @@
     "@nx/react": "16.0.0-beta.6",
     "@nx/rollup": "16.0.0-beta.6",
     "@nx/storybook": "16.0.0-beta.6",
-    "@nx/web": "16.0.0-beta.6",
+    "@nx/web": "16.1.4",
     "@nx/webpack": "16.0.0-beta.6",
     "@nx/workspace": "16.0.0-beta.6",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.10",
