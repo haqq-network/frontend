@@ -6,6 +6,7 @@ export function BackButton({
 }: PropsWithChildren<{ onClick: () => void }>) {
   return (
     <button
+      type="button"
       onClick={onClick}
       className="inline-flex flex-row items-center transition-colors duration-100 ease-out hover:text-white/50"
     >
