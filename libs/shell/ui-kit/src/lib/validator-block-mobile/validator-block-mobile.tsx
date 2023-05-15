@@ -1,4 +1,3 @@
-import { useWindowWidth } from '@haqq/shared';
 import { Button } from '../button/button';
 import { WarningMessage } from '../warning-message/warning-message';
 
@@ -44,13 +43,12 @@ export function ValidatorBlockMobile({
         </svg>
         Validator
       </div>
-      <WarningMessage>
+      <WarningMessage wrapperClassName="md:w-full">
         While the validator is inactive, you will not be able to receive a
         reward.
       </WarningMessage>
       <div className="flex w-full flex-col gap-y-[12px] md:flex-row ">
         {/* 1 */}
-
         <div className="flex items-center justify-between md:w-[30%] md:flex-col md:items-start">
           <div className="font-sans text-[12px] font-semibold uppercase leading-[1.2em] text-white/50">
             My delegation

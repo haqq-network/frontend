@@ -5,12 +5,18 @@ export function WarningMessage({
   children,
   light = false,
   className,
-}: PropsWithChildren<{ light?: boolean; className?: string }>) {
+  wrapperClassName,
+}: PropsWithChildren<{
+  light?: boolean;
+  className?: string;
+  wrapperClassName?: string;
+}>) {
   return (
     <div
       className={clsx(
         'flex flex-row items-start gap-[14px] rounded-[6px] bg-[#48361B] px-[16px] py-[12px] text-[#E3A13F]',
         light && 'bg-[#FFF2DE]',
+        wrapperClassName,
       )}
     >
       <svg
