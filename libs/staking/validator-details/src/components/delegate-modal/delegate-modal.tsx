@@ -6,6 +6,7 @@ import {
   Modal,
   ModalCloseButton,
   Button,
+  MobileHeading,
 } from '@haqq/shell/ui-kit';
 
 export interface DelegateModalProps {
@@ -46,7 +47,7 @@ export function DelegateModalDetails({
       </div>
       <div
         className={clsx(
-          'text-haqq-black font-serif text-[20px] font-[500] leading-[26px]',
+          'text-haqq-black font-serif text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
           valueClassName,
         )}
       >
@@ -161,20 +162,16 @@ export function DelegateModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div
-        className={clsx(
-          'text-haqq-black mx-auto max-w-[430px] rounded-[12px] bg-white p-[36px]',
-        )}
-      >
+      <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
         <ModalCloseButton
           onClick={onClose}
           className="absolute right-[16px] top-[16px]"
         />
 
-        <div className="flex w-full min-w-[360px] flex-col space-y-6">
-          <div className="mt-[4px] font-serif text-[24px] font-[500] leading-[30px]">
+        <div className="flex w-full flex-col space-y-6">
+          <MobileHeading className="mt-[24px] sm:mt-[4px]">
             Delegate
-          </div>
+          </MobileHeading>
 
           <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
             <div className="pb-[24px]">

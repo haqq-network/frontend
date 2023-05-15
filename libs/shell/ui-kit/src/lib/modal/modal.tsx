@@ -1,6 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { Fragment, ReactNode, SyntheticEvent, useCallback } from 'react';
+import {
+  Fragment,
+  PropsWithChildren,
+  ReactNode,
+  SyntheticEvent,
+  useCallback,
+} from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 
@@ -70,20 +76,21 @@ export function ModalCloseButton({
   );
 }
 
-export interface ModalProps {
+export function Modal({
+  children,
+  onClose,
+  isOpen = false,
+}: PropsWithChildren<{
   isOpen?: boolean;
-  onClose: () => void;
-  children: ReactNode;
-}
-
-export function Modal({ children, onClose, isOpen = false }: ModalProps) {
+  onClose?: () => void;
+}>) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
         <ModalOverlay onClose={onClose} />
 
         <div className="pointer-events-none fixed inset-0 overflow-y-auto">
-          <div className="pointer-events-none flex min-h-full items-center justify-center p-4">
+          <div className="pointer-events-none flex min-h-full items-center justify-center sm:p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-200"
@@ -101,5 +108,21 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
         </div>
       </Dialog>
     </Transition>
+  );
+}
+
+export function MobileHeading({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) {
+  return (
+    <h3
+      className={clsx(
+        'font-serif text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px]',
+        className,
+      )}
+    >
+      {children}
+    </h3>
   );
 }
