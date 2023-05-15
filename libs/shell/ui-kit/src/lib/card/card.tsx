@@ -37,10 +37,9 @@ export function CardText({
 export function CardSubText({
   children,
   className,
-}: {
-  children: ReactNode;
+}: PropsWithChildren<{
   className?: string;
-}) {
+}>) {
   return (
     <div
       className={clsx(
@@ -75,7 +74,7 @@ export function TimerText({
 
 export function ProposalNumber({ children }: { children: ReactNode }) {
   return (
-    <div className="text-[14px] leading-[18px] leading-[26px] text-white lg:text-[20px]">
+    <div className="text-[14px] leading-[18px] text-white lg:text-[20px] lg:leading-[26px]">
       {children}
     </div>
   );
