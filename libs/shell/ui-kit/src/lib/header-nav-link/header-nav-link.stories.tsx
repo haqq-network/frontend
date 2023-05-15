@@ -3,7 +3,9 @@ import { HeaderNavLink as HeaderNavLinkComponent } from './header-nav-link';
 
 export default {
   title: 'shell/ui-kit/header-nav-link',
-  layout: 'centered',
+  parameters: {
+    layout: 'centered',
+  },
   decorators: [withRouter],
 };
 

@@ -23,3 +23,7 @@
   --guise-font: 'HK Guise', var(--font-family-base);
   --clash-font: 'Clash Display', var(--font-family-base);
 }
+
+body {
+  @apply bg-haqq-black !p-0 font-sans text-white will-change-auto;
+}

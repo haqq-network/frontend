@@ -3,7 +3,9 @@ import { BurgerButton as BurgerButtonComponent } from './burger-button';
 
 export default {
   title: 'shell/ui-kit/burger-button',
-  layout: 'centered',
+  parameters: {
+    layout: 'centered',
+  },
 };
 
 export const Default = () => {

@@ -3,7 +3,6 @@ import { Header as HeaderComponent } from './header';
 
 export default {
   title: 'shell/ui-kit/header',
-  layout: 'centered',
   decorators: [withRouter],
 };
 

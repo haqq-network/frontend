@@ -2,7 +2,9 @@ import { Heading as HeadingComponent } from './heading';
 
 export default {
   title: 'shell/ui-kit/heading',
-  layout: 'centered',
+  parameters: {
+    layout: 'centered',
+  },
 };
 
 export const H1 = () => {

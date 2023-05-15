@@ -4,6 +4,9 @@ import { OrangeLink as OrangeLinkComponent } from './orange-link';
 export default {
   title: 'shell/ui-kit/orange-link',
   decorators: [withRouter],
+  parameters: {
+    layout: 'centered',
+  },
 };
 
 export const Default = () => {

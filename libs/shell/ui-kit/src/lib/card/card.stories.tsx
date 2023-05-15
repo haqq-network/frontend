@@ -9,13 +9,15 @@ import {
 
 export default {
   title: 'shell/ui-kit/card',
-  layout: 'centered',
+  parameters: {
+    layout: 'centered',
+  },
 };
 
 export const Default = () => {
   return (
     <Card>
-      <CardHeading >Card Heading</CardHeading>
+      <CardHeading>Card Heading</CardHeading>
       <CardSubText>Card Sub Text</CardSubText>
       <CardText>
         CARD TEXT.

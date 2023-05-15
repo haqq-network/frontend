@@ -3,8 +3,10 @@ import { withRouter } from 'storybook-addon-react-router-v6';
 
 export default {
   title: 'shell/ui-kit/back-button',
-  layout: 'centered',
   decorators: [withRouter],
+  parameters: {
+    layout: 'centered',
+  },
 };
 
 export const Default = () => {
