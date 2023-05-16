@@ -1,26 +1,32 @@
 import { withRouter } from 'storybook-addon-react-router-v6';
 import { OrangeLink as OrangeLinkComponent } from './orange-link';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'shell/ui-kit/orange-link',
+const meta: Meta<typeof OrangeLinkComponent> = {
+  component: OrangeLinkComponent,
+  title: 'shell/ui-kit',
   decorators: [withRouter],
   parameters: {
     layout: 'centered',
   },
 };
 
-export const Default = () => {
-  return <OrangeLinkComponent href="/">Orange link</OrangeLinkComponent>;
+export default meta;
+
+type Story = StoryObj<typeof OrangeLinkComponent>;
+
+export const OrangeLinkDefault: Story = {
+  args: {
+    href: '/',
+    children: 'Orange link default',
+  },
 };
 
-export const WithTarget = () => {
-  return (
-    <OrangeLinkComponent
-      href="https://haqq.network/"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Orange link
-    </OrangeLinkComponent>
-  );
+export const OrangeLinkWithTarget: Story = {
+  args: {
+    href: 'https://haqq.network/',
+    rel: 'noopener noreferrer',
+    target: '_blank',
+    children: 'Orange link with target',
+  },
 };
