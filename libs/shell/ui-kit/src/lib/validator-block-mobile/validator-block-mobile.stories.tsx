@@ -1,9 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ValidatorBlockMobile as ValidatorBlockMobileComponent } from './validator-block-mobile';
+import {
+  withoutPadding,
+  withStickyEmulation,
+} from '../../../.storybook/decorators';
 
 const meta: Meta<typeof ValidatorBlockMobileComponent> = {
   component: ValidatorBlockMobileComponent,
   title: 'shell/ui-kit',
+  decorators: [withoutPadding, withStickyEmulation],
 };
 
 export default meta;

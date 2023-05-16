@@ -4,7 +4,7 @@ import { WarningMessage } from '../warning-message/warning-message';
 import clsx from 'clsx';
 import { ValidatorIcon } from '../icons/icons';
 import { Heading } from '../heading/heading';
-import { Container } from '../conatainer/conatainer';
+import { Container } from '../container/container';
 import { useMediaQuery } from 'react-responsive';
 
 interface ValidatorBlockMobileProps {
@@ -76,7 +76,7 @@ export function ValidatorBlockMobile({
   if (!isConnected) {
     return (
       <div className="flex transform-gpu flex-col items-center space-y-[12px] bg-[#252528] bg-opacity-75 py-[58px] backdrop-blur">
-        <div className="font-sans text-[18px] leading-[28px]">
+        <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
           You should connect wallet first
         </div>
         <Button
@@ -103,8 +103,8 @@ export function ValidatorBlockMobile({
             </div>
 
             {isWarningShown && (
-              <div>
-                <WarningMessage>
+              <div className="w-full">
+                <WarningMessage wrapperClassName="w-full">
                   While the validator is inactive, you will not be able to
                   receive a reward.
                 </WarningMessage>
@@ -135,7 +135,7 @@ export function ValidatorBlockMobile({
                 <div className="flex-1">
                   <Button
                     variant={2}
-                    className="w-full"
+                    className="w-full !px-[16px]"
                     onClick={onDelegateClick}
                     disabled={isDelegateDisabled}
                   >
@@ -145,7 +145,7 @@ export function ValidatorBlockMobile({
                 <div className="flex-1">
                   <Button
                     variant={2}
-                    className="w-full"
+                    className="w-full !px-[16px]"
                     onClick={onUndelegateClick}
                     disabled={isUndelegateDisabled}
                   >
@@ -195,7 +195,7 @@ export function ValidatorBlockMobile({
                   <div>
                     <Button
                       variant={2}
-                      className="w-full"
+                      className="w-full !px-[16px]"
                       onClick={onDelegateClick}
                       disabled={isDelegateDisabled}
                     >
@@ -213,7 +213,7 @@ export function ValidatorBlockMobile({
                   <div>
                     <Button
                       variant={2}
-                      className="w-full"
+                      className="w-full !px-[16px]"
                       onClick={onUndelegateClick}
                       disabled={isUndelegateDisabled}
                     >

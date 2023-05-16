@@ -19,7 +19,7 @@ export function Card({
 
 export function CardHeading({ children }: PropsWithChildren) {
   return (
-    <div className="min-h-[44px] whitespace-pre-wrap font-sans text-[14px] leading-[22px] text-white sm:min-h-[52px] sm:text-[17px] sm:leading-[26px] lg:min-h-[56px] lg:text-[18px] lg:leading-[28px]">
+    <div className="font-sans text-[14px] font-[500] leading-[22px] text-white sm:text-[17px] sm:leading-[26px] lg:text-[18px] lg:leading-[28px]">
       {children}
     </div>
   );
@@ -66,14 +66,6 @@ export function TimerText({
         color === 'white' && 'text-white',
       )}
     >
-      {children}
-    </div>
-  );
-}
-
-export function ProposalNumber({ children }: PropsWithChildren) {
-  return (
-    <div className="text-[14px] leading-[18px] text-white lg:text-[20px] lg:leading-[26px]">
       {children}
     </div>
   );
