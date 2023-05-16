@@ -45,7 +45,7 @@ function StakingInfoAmountBlock({
           'font-[500] leading-[20px]',
           isGreen
             ? 'font-serif text-[16px] leading-[20px] text-[#01B26E] sm:text-[16px] sm:leading-[22px] lg:text-[20px] lg:leading-[26px]'
-            : 'sm:leading-[24px]lg:text-[18px] font-sans text-[14px] leading-[22px] text-white sm:text-[15px] lg:leading-[28px]',
+            : 'font-sans text-[14px] leading-[22px] text-white sm:text-[15px] sm:leading-[24px] lg:text-[18px] lg:leading-[28px]',
         )}
       >
         {value} <span>{symbol.toUpperCase()}</span>
