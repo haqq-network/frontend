@@ -1,18 +1,22 @@
 import { WarningMessage as WarningMessageComponent } from './warning-message';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'shell/ui-kit/warning-message',
+const meta: Meta<typeof WarningMessageComponent> = {
+  component: WarningMessageComponent,
+  title: 'shell/ui-kit',
+
   parameters: {
     layout: 'centered',
   },
 };
 
-export const Default = () => {
-  return (
-    <WarningMessageComponent>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi magnam
-      aliquam repudiandae in optio et voluptas explicabo magni? Labore,
-      distinctio quo repellat ipsum amet iure neque natus et fuga rerum.
-    </WarningMessageComponent>
-  );
+export default meta;
+
+type Story = StoryObj<typeof WarningMessageComponent>;
+
+export const WarningMessage: Story = {
+  args: {
+    children:
+      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi magnam aliquam repudiandae in optio et voluptas explicabo magni? Labore, distinctio quo repellat ipsum amet iure neque natus et fuga rerum.',
+  },
 };
