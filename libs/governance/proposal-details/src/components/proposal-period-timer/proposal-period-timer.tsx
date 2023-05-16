@@ -3,7 +3,7 @@ import { Proposal, ProposalStatus } from '@evmos/provider';
 import { TimerText } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
 
-function formatDate(date: Date) {
+export function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
     month: 'short',

@@ -18,7 +18,10 @@ import {
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from '../software-upgrade-proposal/software-upgrade-proposal';
-import { ProposalPeriodTimer } from '../proposal-period-timer/proposal-period-timer';
+import {
+  ProposalPeriodTimer,
+  formatDate,
+} from '../proposal-period-timer/proposal-period-timer';
 import clsx from 'clsx';
 import { ProposalDepositProgress } from '../proposal-deposit-progress/proposal-deposit-progress';
 import { formatUnits } from 'ethers/lib/utils';
@@ -29,7 +32,9 @@ import {
   SpinnerLoader,
   Heading,
   Container,
+  CalendarIcon,
 } from '@haqq/shell/ui-kit';
+import { useMediaQuery } from 'react-responsive';
 
 const enum ProposalTypes {
   Text = '/cosmos.gov.v1beta1.TextProposal',
@@ -101,6 +106,9 @@ export function ProposalDetailsComponent({
       10,
     );
   }, [govParams]);
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
 
   return (
     <div className="flex flex-row gap-[48px]">
@@ -137,10 +145,10 @@ export function ProposalDetailsComponent({
                 </div>
               </div>
               <div>
-                <div className="font-sans text-[12px] leading-[18px] text-white/50">
+                <div className="font-sans text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                   Description
                 </div>
-                <div className="prose prose-sm max-w-none text-[14px] leading-[22px] text-white">
+                <div className="prose prose-sm max-w-none text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
                   <Markdown gfm>{proposalDetails.content.description}</Markdown>
                 </div>
               </div>
@@ -164,54 +172,82 @@ export function ProposalDetailsComponent({
               />
             </div>
           )}
-        </div>
-      </div>
-      <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
-        <div className="transform-gpu overflow-hidden rounded-[8px] bg-white bg-opacity-[8%] backdrop-blur">
-          <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
-            <div>
-              <ProposalStatusComponent
-                status={proposalDetails.status}
-                results={proposalDetails.final_tally_result}
-              />
-            </div>
-            {(proposalDetails.status === ProposalStatus.Voting ||
-              proposalDetails.status === ProposalStatus.Passed ||
-              proposalDetails.status === ProposalStatus.Rejected) && (
-              <div>
-                <ProposalVoteResults
-                  results={proposal.final_tally_result}
-                  status={proposal.status}
-                />
-              </div>
-            )}
-            {proposalDetails.status === ProposalStatus.Deposit && (
-              <div>
-                <ProposalDepositProgress
-                  totalDeposit={totalDeposit}
-                  minDeposit={minDeposit}
-                />
-              </div>
-            )}
-            <div>
-              <ProposalPeriodTimer proposal={proposalDetails} />
-            </div>
-            {proposalDetails.status === ProposalStatus.Deposit && (
-              <div>
-                <DepositAlert />
-              </div>
-            )}
-          </div>
 
-          {/* TODO: Add actual balance */}
-          {isDepositAvailable && <DepositActions balance={12332} />}
-          {isVotingAvailable && (
-            <VoteActions
-              proposalId={Number.parseInt(proposalDetails.proposal_id, 10)}
-            />
+          {isTablet && (
+            <div className="py-[40px]">
+              <div className="mb-[16px] flex flex-row items-center">
+                <CalendarIcon />
+                <Heading level={3} className="ml-[8px]">
+                  Dates
+                </Heading>
+              </div>
+
+              <div className="grid grid-flow-row grid-cols-2 gap-[8px] md:grid-cols-4">
+                <InfoBlock title="Created at (GMT)">
+                  {formatDate(new Date(proposal.submit_time))}
+                </InfoBlock>
+                <InfoBlock title="Deposit end (GMT)">
+                  {formatDate(new Date(proposal.deposit_end_time))}
+                </InfoBlock>
+                <InfoBlock title="Vote start (GMT)">
+                  {formatDate(new Date(proposal.voting_start_time))}
+                </InfoBlock>
+                <InfoBlock title="Vote end (GMT)">
+                  {formatDate(new Date(proposal.voting_end_time))}
+                </InfoBlock>
+              </div>
+            </div>
           )}
         </div>
       </div>
+      {!isTablet && (
+        <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
+          <div className="transform-gpu overflow-hidden rounded-[8px] bg-[#252528] bg-opacity-75 backdrop-blur">
+            <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
+              <div>
+                <ProposalStatusComponent
+                  status={proposalDetails.status}
+                  results={proposalDetails.final_tally_result}
+                />
+              </div>
+              {(proposalDetails.status === ProposalStatus.Voting ||
+                proposalDetails.status === ProposalStatus.Passed ||
+                proposalDetails.status === ProposalStatus.Rejected) && (
+                <div>
+                  <ProposalVoteResults
+                    results={proposal.final_tally_result}
+                    status={proposal.status}
+                  />
+                </div>
+              )}
+              {proposalDetails.status === ProposalStatus.Deposit && (
+                <div>
+                  <ProposalDepositProgress
+                    totalDeposit={totalDeposit}
+                    minDeposit={minDeposit}
+                  />
+                </div>
+              )}
+              <div>
+                <ProposalPeriodTimer proposal={proposalDetails} />
+              </div>
+              {proposalDetails.status === ProposalStatus.Deposit && (
+                <div>
+                  <DepositAlert />
+                </div>
+              )}
+            </div>
+
+            {/* TODO: Add actual balance */}
+            {isDepositAvailable && <DepositActions balance={12332} />}
+            {isVotingAvailable && (
+              <VoteActions
+                proposalId={Number.parseInt(proposalDetails.proposal_id, 10)}
+              />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

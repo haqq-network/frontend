@@ -143,3 +143,23 @@ export function ProposalsIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function CalendarIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8 3.5V5.5H16V3.5H18V5.5H20C20.5523 5.5 21 5.94772 21 6.5V9.5V11.5V19.5C21 20.0523 20.5523 20.5 20 20.5H4C3.44772 20.5 3 20.0523 3 19.5V11.5V9.5V6.5C3 5.94772 3.44772 5.5 4 5.5H6V3.5H8ZM5 7.5V9.5H19V7.5H5ZM19 18.5V11.5H5V18.5H19ZM7 16H9V14H7V16ZM13 16H11V14H13V16ZM15 16H17V14H15V16Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
