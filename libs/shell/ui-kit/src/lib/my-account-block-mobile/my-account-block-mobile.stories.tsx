@@ -3,7 +3,7 @@ import { MyAccountBlockMobile as MyAccountBlockMobileComponent } from './my-acco
 
 const meta: Meta<typeof MyAccountBlockMobileComponent> = {
   component: MyAccountBlockMobileComponent,
-  title: 'shell/ui-kit',
+  title: 'shell/ui-kit/my-account-block-mobile',
 };
 
 export default meta;
