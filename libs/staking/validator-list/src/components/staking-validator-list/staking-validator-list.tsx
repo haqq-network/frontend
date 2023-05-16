@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import {
   useAddress,
   useStakingValidatorListQuery,
@@ -11,12 +11,19 @@ import {
   ValidatorsListMobile,
 } from '@haqq/staking/ui-kit';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
-import { Validator, DelegationResponse } from '@evmos/provider';
+import {
+  Validator,
+  DelegationResponse,
+  DistributionRewardsResponse,
+  GetDelegationsResponse,
+} from '@evmos/provider';
 import {
   ValidatorIcon,
   Heading,
   SpinnerLoader,
   Container,
+  Tabs,
+  Tab,
 } from '@haqq/shell/ui-kit';
 import { useMediaQuery } from 'react-responsive';
 
@@ -129,13 +136,12 @@ export function StakingValidatorList() {
           {status === 'success' && (
             <div>
               {isMobile ? (
-                <div className="border-top border-haqq-border flex flex-col gap-[24px]">
-                  <ValidatorsListMobile
-                    validators={delegatedValidators}
-                    delegationInfo={delegationInfo}
-                    rewardsInfo={rewardsInfo}
-                  />
-                </div>
+                <ValidatorsListMobileTabs
+                  delegatedValidators={delegatedValidators}
+                  otherValidators={otherValidators}
+                  delegationInfo={delegationInfo}
+                  rewardsInfo={rewardsInfo}
+                />
               ) : (
                 <div className="flex flex-col gap-[24px]">
                   {delegatedValidators.length !== 0 && (
@@ -169,5 +175,63 @@ export function StakingValidatorList() {
         </div>
       </Container>
     </Fragment>
+  );
+}
+
+function ValidatorsListMobileTabs({
+  delegatedValidators,
+  otherValidators,
+  rewardsInfo,
+  delegationInfo,
+}: {
+  delegatedValidators: Validator[];
+  otherValidators: Validator[];
+  rewardsInfo: DistributionRewardsResponse | null | undefined;
+  delegationInfo: GetDelegationsResponse | null | undefined;
+}) {
+  const [tab, setTab] = useState('my-delegations');
+
+  if (delegatedValidators.length === 0) {
+    return (
+      <div className="border-top border-haqq-border flex flex-col gap-[24px]">
+        <ValidatorsListMobile
+          validators={otherValidators}
+          delegationInfo={delegationInfo}
+          rewardsInfo={rewardsInfo}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <Tabs>
+        <Tab
+          isActive={tab === 'my-delegations'}
+          onClick={() => {
+            setTab('my-delegations');
+          }}
+        >
+          My delegations
+        </Tab>
+        <Tab
+          isActive={tab === 'other-validators'}
+          onClick={() => {
+            setTab('other-validators');
+          }}
+        >
+          Other validators
+        </Tab>
+      </Tabs>
+      <div className="border-top border-haqq-border flex flex-col gap-[24px]">
+        <ValidatorsListMobile
+          validators={
+            tab === 'my-delegations' ? delegatedValidators : otherValidators
+          }
+          delegationInfo={delegationInfo}
+          rewardsInfo={rewardsInfo}
+        />
+      </div>
+    </div>
   );
 }

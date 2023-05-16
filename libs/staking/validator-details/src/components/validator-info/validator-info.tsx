@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useBalance } from 'wagmi';
+import { useAccount, useBalance } from 'wagmi';
 import { formatUnits } from 'ethers/lib/utils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -22,6 +22,7 @@ import {
   useStakingPoolQuery,
   useClipboard,
   useStakingUnbondingsQuery,
+  useWallet,
 } from '@haqq/shared';
 import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
@@ -38,13 +39,18 @@ import {
   Button,
   Heading,
   PercentIcon,
+  ValidatorBlockMobile as ValidatorBlockMobileComponent,
+  Container,
+  InfoIcon,
 } from '@haqq/shell/ui-kit';
 import Markdown from 'marked-react';
+import { useMediaQuery } from 'react-responsive';
+import { Validator } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 
 interface ValidatorInfoComponentProps {
-  validatorInfo: any;
+  validatorInfo: Validator;
   delegation: number;
-  rewards?: any;
+  rewards?: number;
   balance: number;
   symbol: string;
   onGetRewardsClick: () => void;
@@ -75,7 +81,7 @@ function CommissionCardInnerBlock({
   valueClassName?: string;
 }) {
   return (
-    <div className="flex flex-col gap-y-[6px]  px-[24px] md:px-[32px]">
+    <div className="flex flex-col gap-y-[6px] px-[24px] lg:px-[32px]">
       <div className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
         {title}
       </div>
@@ -101,7 +107,7 @@ function CommissionCard({ commission }: CommissionCardProps) {
         </Heading>
       </div>
 
-      <div className="border-haqq-border divide-haqq-border flex max-w-fit flex-row divide-x rounded-lg border py-[16px] md:py-[24px]">
+      <div className="border-haqq-border divide-haqq-border flex max-w-fit flex-row divide-x rounded-lg border py-[16px] lg:py-[24px]">
         <CommissionCardInnerBlock
           title="Current"
           value={commission.current}
@@ -146,12 +152,20 @@ export function ValidatorInfoComponent({
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const { copyText } = useClipboard();
   const navigate = useNavigate();
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
+
   const commission = useMemo<Commission>(() => {
     return {
-      current: formatPercents(validatorInfo.commission.commissionRates.rate),
-      max: formatPercents(validatorInfo.commission.commissionRates.maxRate),
+      current: formatPercents(
+        validatorInfo.commission?.commissionRates?.rate ?? '0',
+      ),
+      max: formatPercents(
+        validatorInfo.commission?.commissionRates?.maxRate ?? '0',
+      ),
       maxChange: formatPercents(
-        validatorInfo.commission.commissionRates.maxChangeRate,
+        validatorInfo.commission?.commissionRates?.maxChangeRate ?? '0',
       ),
     };
   }, [validatorInfo.commission]);
@@ -173,140 +187,127 @@ export function ValidatorInfoComponent({
 
   return (
     <Fragment>
-      <div className="flex flex-row gap-[48px]">
-        <div className="flex-1">
-          <div className="divide-haqq-border divide-y divide-dashed">
-            <div className="flex flex-row items-center gap-[16px] pb-[40px]">
-              <div>
-                <ValidatorDetailsStatus
-                  jailed={validatorInfo.jailed}
-                  status={validatorInfo.status}
+      <Container>
+        <div className="flex flex-row gap-[48px]">
+          <div className="flex-1">
+            <div className="divide-haqq-border divide-y divide-dashed">
+              <div className="flex flex-row items-center gap-[16px] pb-[40px]">
+                <div>
+                  <ValidatorDetailsStatus
+                    jailed={validatorInfo.jailed}
+                    status={validatorInfo.status}
+                  />
+                </div>
+                <div>
+                  <h1 className="font-serif text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
+                    {validatorInfo.description?.moniker}
+                  </h1>
+                </div>
+              </div>
+              <div className="py-[40px]">
+                <div className="mb-[16px] flex flex-row items-center">
+                  <InfoIcon />
+                  <Heading level={3} className="ml-[8px]">
+                    Info
+                  </Heading>
+                </div>
+
+                <div className="flex flex-col gap-[16px]">
+                  {(validatorInfo.description?.website ||
+                    validatorInfo.description?.securityContact) && (
+                    <div className="flex flex-row gap-[28px]">
+                      {validatorInfo.description?.website && (
+                        <div>
+                          <OrangeLink
+                            href={validatorInfo.description?.website}
+                            target="_blank"
+                            rel="noreferrer noreferrer"
+                          >
+                            Website
+                          </OrangeLink>
+                        </div>
+                      )}
+
+                      {validatorInfo.description?.securityContact && (
+                        <div>
+                          <OrangeLink
+                            href={`mailto:${validatorInfo.description?.securityContact}`}
+                          >
+                            E-mail
+                          </OrangeLink>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="flex flex-row gap-[28px]">
+                    <div>
+                      <InfoBlock title="Voting power">
+                        {votingPower.toLocaleString()}
+                      </InfoBlock>
+                    </div>
+                    <div>
+                      <InfoBlock title="Voting power %">
+                        {votingPowerInPercents}
+                      </InfoBlock>
+                    </div>
+                  </div>
+                  {validatorInfo.description?.details && (
+                    <div>
+                      <div className="font-sans text-[12px] leading-[18px] text-white/50">
+                        Description
+                      </div>
+                      <div className="prose prose-sm max-w-none text-[14px] leading-[22px] text-white">
+                        <Markdown gfm>
+                          {validatorInfo.description?.details}
+                        </Markdown>
+                      </div>
+                    </div>
+                  )}
+                  <div>
+                    <div>
+                      <InfoBlock title="Address">
+                        <div className="flex w-fit cursor-pointer flex-row items-center space-x-[8px] transition-colors duration-100 ease-out hover:text-white/50">
+                          <div>{validatorInfo.operatorAddress}</div>
+                          <CopyIcon />
+                        </div>
+                      </InfoBlock>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="py-[40px]">
+                <CommissionCard commission={commission} />
+              </div>
+            </div>
+          </div>
+
+          {!isTablet && (
+            <div className="hidden flex-1 lg:block lg:w-1/2 xl:w-1/3 xl:flex-none">
+              <div className="flex flex-col gap-[20px]">
+                <MyAccountBlockDesktop
+                  balance={balance}
+                  delegated={delegated}
+                  totalRewards={totalRewards}
+                  unbounded={unbounded}
+                  onRewardsClaim={() => {
+                    console.log('calm reward');
+                  }}
+                />
+                <ValidatorBlockDesktop
+                  validatorInfo={validatorInfo}
+                  delegation={delegation}
+                  rewards={rewards ?? 0}
+                  balance={balance}
+                  onGetRewardsClick={() => {
+                    console.log('get rewards');
+                  }}
                 />
               </div>
-              <div>
-                <h1 className="font-serif text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
-                  {validatorInfo.description?.moniker}
-                </h1>
-              </div>
             </div>
-            <div className="py-[40px]">
-              <div className="mb-[16px] flex flex-row items-center">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M13 6.5V8.5H11V6.5H13ZM11 11.5H9V9.5H12H13V10.5V15.5H15V17.5H9V15.5H11V11.5Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M4.5 4.5V19.5H19.5V4.5H4.5ZM3.5 2.5C2.94772 2.5 2.5 2.94771 2.5 3.5V20.5C2.5 21.0523 2.94771 21.5 3.5 21.5H20.5C21.0523 21.5 21.5 21.0523 21.5 20.5V3.5C21.5 2.94772 21.0523 2.5 20.5 2.5H3.5Z"
-                    fill="currentColor"
-                  />
-                </svg>
-                <Heading level={3} className="ml-[8px]">
-                  Info
-                </Heading>
-              </div>
-
-              <div className="flex flex-col gap-[16px]">
-                {(validatorInfo.description?.website ||
-                  validatorInfo.description?.securityContact) && (
-                  <div className="flex flex-row gap-[28px]">
-                    {validatorInfo.description?.website && (
-                      <div>
-                        <OrangeLink
-                          href={validatorInfo.description?.website}
-                          target="_blank"
-                          rel="noreferrer noreferrer"
-                        >
-                          Website
-                        </OrangeLink>
-                      </div>
-                    )}
-
-                    {validatorInfo.description?.securityContact && (
-                      <div>
-                        <OrangeLink
-                          href={`mailto:${validatorInfo.description?.securityContact}`}
-                        >
-                          E-mail
-                        </OrangeLink>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                <div className="flex flex-row gap-[28px]">
-                  <div>
-                    <InfoBlock title="Voting power">
-                      {votingPower.toLocaleString()}
-                    </InfoBlock>
-                  </div>
-                  <div>
-                    <InfoBlock title="Voting power %">
-                      {votingPowerInPercents}
-                    </InfoBlock>
-                  </div>
-                </div>
-                {validatorInfo.description?.details && (
-                  <div>
-                    <div className="font-sans text-[12px] leading-[18px] text-white/50">
-                      Description
-                    </div>
-                    <div className="prose prose-sm max-w-none text-[14px] leading-[22px] text-white">
-                      <Markdown gfm>
-                        {validatorInfo.description?.details}
-                      </Markdown>
-                    </div>
-                  </div>
-                )}
-                <div>
-                  <div>
-                    <InfoBlock title="Address">
-                      <div className="flex w-fit cursor-pointer flex-row items-center space-x-[8px] transition-colors duration-100 ease-out hover:text-white/50">
-                        <div>{validatorInfo.operatorAddress}</div>
-                        <CopyIcon />
-                      </div>
-                    </InfoBlock>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="py-[40px]">
-              <CommissionCard commission={commission} />
-            </div>
-          </div>
+          )}
         </div>
-
-        <div className="hidden flex-1 lg:block lg:w-1/2 xl:w-1/3 xl:flex-none">
-          <div className="flex flex-col gap-[20px]">
-            <MyAccountBlockDesktop
-              balance={balance}
-              delegated={delegated}
-              totalRewards={totalRewards}
-              unbounded={unbounded}
-              onRewardsClaim={() => {
-                console.log('calm reward');
-              }}
-            />
-            <ValidatorBlockDesktop
-              validatorInfo={validatorInfo}
-              delegation={delegation}
-              rewards={rewards}
-              balance={balance}
-            />
-          </div>
-        </div>
-      </div>
-
+      </Container>
       <div className="flex w-full flex-col items-start">
         {/* <div className="mx-auto w-full flex gap-x-[48px] mt-[28px]">
           <div className="flex flex-col gap-y-[20px] sm:w-1/2 xl:w-1/3">
@@ -702,6 +703,20 @@ export function ValidatorInfoComponent({
         </Card>
       </div> */}
       </div>
+
+      {isTablet && (
+        <div className="sticky bottom-0 left-0 right-0 z-30">
+          <ValidatorBlockMobile
+            validatorInfo={validatorInfo}
+            delegation={delegation}
+            rewards={rewards ?? 0}
+            balance={balance}
+            onGetRewardsClick={() => {
+              console.log('get rewards');
+            }}
+          />
+        </div>
+      )}
     </Fragment>
   );
 }
@@ -779,9 +794,7 @@ export function ValidatorInfo({
     });
 
     if (rewards?.reward.length) {
-      return Number(
-        Number.parseFloat(rewards.reward[0].amount) / 10 ** 18,
-      ).toLocaleString();
+      return Number.parseFloat(rewards.reward[0].amount) / 10 ** 18;
     }
 
     return 0;
@@ -900,12 +913,18 @@ export function ValidatorBlockDesktop({
   rewards,
   balance,
   onGetRewardsClick,
-}: any) {
+}: {
+  validatorInfo: Validator;
+  onGetRewardsClick: () => void;
+  delegation: number;
+  rewards: number;
+  balance: number;
+}) {
   const navigate = useNavigate();
   const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
 
   return (
-    <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-white bg-opacity-[8%] px-[28px] py-[32px] backdrop-blur">
+    <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#252528] bg-opacity-75 px-[28px] py-[32px] backdrop-blur">
       <div className="flex flex-row items-center">
         <ValidatorIcon />
         <Heading level={3} className="ml-[8px]">
@@ -972,5 +991,44 @@ export function ValidatorBlockDesktop({
         </Button>
       </div>
     </div>
+  );
+}
+
+function ValidatorBlockMobile({
+  validatorInfo,
+  delegation,
+  rewards,
+  balance,
+  onGetRewardsClick,
+}: {
+  validatorInfo: Validator;
+  onGetRewardsClick: () => void;
+  delegation: number;
+  rewards: number;
+  balance: number;
+}) {
+  const navigate = useNavigate();
+  const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
+  const { isConnected } = useAccount();
+  const { openSelectWallet } = useWallet();
+
+  return (
+    <ValidatorBlockMobileComponent
+      onGetRewardClick={onGetRewardsClick}
+      onDelegateClick={() => {
+        navigate(`#delegate`);
+      }}
+      onUndelegateClick={() => {
+        navigate(`#undelegate`);
+      }}
+      isDelegateDisabled={balance < 1}
+      isUndelegateDisabled={delegation === 0}
+      isGetRewardDisabled={rewards < 1}
+      delegation={delegation}
+      rewards={rewards}
+      isWarningShown={isWarningShown}
+      isConnected={isConnected}
+      onConnectWalletClick={openSelectWallet}
+    />
   );
 }

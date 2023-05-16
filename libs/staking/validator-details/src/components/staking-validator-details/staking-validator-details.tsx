@@ -1,6 +1,7 @@
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ValidatorInfo } from '../validator-info/validator-info';
 import { BackButton, Container } from '@haqq/shell/ui-kit';
+import { Fragment } from 'react';
 
 export function StakingValidatorDetails() {
   const { address } = useParams();
@@ -11,9 +12,9 @@ export function StakingValidatorDetails() {
   }
 
   return (
-    <Container>
-      <div className="sm:py-[26px py-[18px] lg:py-[34px]">
-        <div className="mb-[18px] sm:mb-[26px] lg:mb-[34px]">
+    <Fragment>
+      <Container>
+        <div className="py-[18px] sm:py-[26px] lg:py-[34px]">
           <BackButton
             onClick={() => {
               navigate('/');
@@ -22,9 +23,9 @@ export function StakingValidatorDetails() {
             Staking
           </BackButton>
         </div>
+      </Container>
 
-        <ValidatorInfo validatorAddress={address} />
-      </div>
-    </Container>
+      <ValidatorInfo validatorAddress={address} />
+    </Fragment>
   );
 }

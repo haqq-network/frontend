@@ -16,15 +16,6 @@ export const ValidatorBlockMobile: Story = {
     isDelegateDisabled: false,
     isGetRewardDisabled: false,
     isUndelegateDisabled: false,
-    onDelegateClick: () => {
-      console.log('delegate');
-    },
-    onGetRewardClick: () => {
-      console.log('get reward');
-    },
-    onUndelegateClick: () => {
-      console.log('undelegate');
-    },
     rewards: '100',
   },
 };

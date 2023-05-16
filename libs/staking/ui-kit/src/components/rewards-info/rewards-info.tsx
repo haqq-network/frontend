@@ -37,15 +37,15 @@ function StakingInfoAmountBlock({
 }) {
   return (
     <div className="flex flex-row items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:space-y-[6px]">
-      <div className="text-[12px] font-[500] uppercase leading-[1.2em] text-white/50">
+      <div className="font-sans text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
         {title}
       </div>
       <div
         className={clsx(
           'font-[500] leading-[20px]',
           isGreen
-            ? 'font-serif text-[20px] leading-[26px] text-[#01B26E]'
-            : 'font-sans text-[18px] leading-[28px] text-white',
+            ? 'font-serif text-[16px] leading-[20px] text-[#01B26E] sm:text-[16px] sm:leading-[22px] lg:text-[20px] lg:leading-[26px]'
+            : 'sm:leading-[24px]lg:text-[18px] font-sans text-[14px] leading-[22px] text-white sm:text-[15px] lg:leading-[28px]',
         )}
       >
         {value} <span>{symbol.toUpperCase()}</span>
