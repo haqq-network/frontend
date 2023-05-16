@@ -1,20 +1,34 @@
 import { Heading as HeadingComponent } from './heading';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof HeadingComponent> = {
+  component: HeadingComponent,
   title: 'shell/ui-kit/heading',
   parameters: {
     layout: 'centered',
   },
 };
 
-export const H1 = () => {
-  return <HeadingComponent level={1}>Level 1</HeadingComponent>;
+export default meta;
+
+type Story = StoryObj<typeof HeadingComponent>;
+
+export const Heading1: Story = {
+  args: {
+    level: 1,
+    children: 'Level 1',
+  },
 };
 
-export const H2 = () => {
-  return <HeadingComponent>Level 2</HeadingComponent>;
+export const Heading2: Story = {
+  args: {
+    level: 2,
+    children: 'Level 2',
+  },
 };
-
-export const H3 = () => {
-  return <HeadingComponent level={3}>Level 3</HeadingComponent>;
+export const Heading3: Story = {
+  args: {
+    level: 3,
+    children: 'Level 3',
+  },
 };
