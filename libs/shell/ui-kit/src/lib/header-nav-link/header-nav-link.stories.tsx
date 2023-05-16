@@ -1,22 +1,31 @@
 import { withRouter } from 'storybook-addon-react-router-v6';
 import { HeaderNavLink as HeaderNavLinkComponent } from './header-nav-link';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof HeaderNavLinkComponent> = {
+  component: HeaderNavLinkComponent,
   title: 'shell/ui-kit/header-nav-link',
+  decorators: [withRouter],
   parameters: {
     layout: 'centered',
   },
-  decorators: [withRouter],
 };
 
-export const Default = () => {
-  return <HeaderNavLinkComponent href="/">Default</HeaderNavLinkComponent>;
+export default meta;
+
+type Story = StoryObj<typeof HeaderNavLinkComponent>;
+
+export const Default: Story = {
+  args: {
+    children: 'Default',
+    href: '/',
+  },
 };
 
-export const IsOut = () => {
-  return (
-    <HeaderNavLinkComponent href="https://haqq.network" isOutLink>
-      IsOut
-    </HeaderNavLinkComponent>
-  );
+export const IsOut: Story = {
+  args: {
+    children: 'Is out',
+    href: 'https://haqq.network/',
+    isOutLink: true,
+  },
 };
