@@ -1,9 +1,21 @@
 import { PendingPage as PendingPageComponent } from './pending-page';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof PendingPageComponent> = {
+  component: PendingPageComponent,
   title: 'shell/ui-kit',
+  parameters: {
+    layout: 'centered',
+  },
 };
 
-export const PendingPage = () => {
-  return <PendingPageComponent />;
+export default meta;
+
+type Story = StoryObj<typeof PendingPageComponent>;
+
+export const PendingPage: Story = {
+  args: {
+    className: 'text-white',
+    children: "I'm a page component",
+  },
 };
