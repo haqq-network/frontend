@@ -20,3 +20,4 @@ export * from './lib/validator-list-item-mobile/validator-list-item-mobile';
 export * from './lib/conatainer/conatainer';
 export * from './lib/my-account-block-mobile/my-account-block-mobile';
 export * from './lib/my-account-block-desktop/my-account-block-desktop';
+export * from './lib/tabs/tabs';
