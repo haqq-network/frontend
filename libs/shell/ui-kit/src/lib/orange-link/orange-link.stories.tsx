@@ -4,7 +4,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof OrangeLinkComponent> = {
   component: OrangeLinkComponent,
-  title: 'shell/ui-kit',
+  title: 'shell/ui-kit/orange-link',
   decorators: [withRouter],
   parameters: {
     layout: 'centered',
@@ -15,14 +15,14 @@ export default meta;
 
 type Story = StoryObj<typeof OrangeLinkComponent>;
 
-export const OrangeLinkDefault: Story = {
+export const Default: Story = {
   args: {
     href: '/',
     children: 'Orange link default',
   },
 };
 
-export const OrangeLinkWithTarget: Story = {
+export const WithTarget: Story = {
   args: {
     href: 'https://haqq.network/',
     rel: 'noopener noreferrer',
