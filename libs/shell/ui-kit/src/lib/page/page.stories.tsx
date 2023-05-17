@@ -2,24 +2,20 @@ import { Container } from '../container/container';
 import { Heading } from '../heading/heading';
 import { Page as PageComponent } from './page';
 import { withRouter } from 'storybook-addon-react-router-v6';
-import { Meta, StoryObj } from '@storybook/react';
+import { withoutPadding } from '../../../.storybook/decorators';
+import { StoryFn } from '@storybook/react';
 
-const meta: Meta<typeof PageComponent> = {
-  component: PageComponent,
+export default {
   title: 'shell/ui-kit',
-  decorators: [withRouter],
-  parameters: {
-    layout: 'centered',
-  },
+  decorators: [withRouter, withoutPadding],
 };
 
-export default meta;
-
-type Story = StoryObj<typeof PageComponent>;
-
-export const Default: Story = {
-  args: {
-    className: 'text-white',
-    children: "I'm a page component",
-  },
+export const Page: StoryFn = () => {
+  return (
+    <PageComponent>
+      <Container className="py-12 text-center">
+        <Heading level={2}>I'm a page component</Heading>
+      </Container>
+    </PageComponent>
+  );
 };
