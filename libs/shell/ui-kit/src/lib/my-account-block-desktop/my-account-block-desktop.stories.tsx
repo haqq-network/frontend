@@ -3,7 +3,7 @@ import { MyAccountBlockDesktop as MyAccountBlockDesktopComponent } from './my-ac
 
 const meta: Meta<typeof MyAccountBlockDesktopComponent> = {
   component: MyAccountBlockDesktopComponent,
-  title: 'shell/ui-kit/my-account-blocks',
+  title: 'shell/ui-kit',
 };
 
 export default meta;
@@ -15,8 +15,5 @@ export const MyAccountBlockDesktop: Story = {
     totalRewards: 987765,
     delegated: 99999999999,
     unbounded: 1298373,
-    onRewardsClaim: () => {
-      console.log('onRewardsClaim');
-    },
   },
 };

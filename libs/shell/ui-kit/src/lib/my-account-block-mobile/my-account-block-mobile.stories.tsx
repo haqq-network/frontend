@@ -3,7 +3,7 @@ import { MyAccountBlockMobileNew as MyAccountBlockMobileNewComponent } from './m
 
 const meta: Meta<typeof MyAccountBlockMobileNewComponent> = {
   component: MyAccountBlockMobileNewComponent,
-  title: 'shell/ui-kit/my-account-blocks',
+  title: 'shell/ui-kit',
 };
 
 export default meta;
@@ -15,8 +15,5 @@ export const MyAccountBlockMobile: Story = {
     totalRewards: 987765,
     delegated: 99999999999,
     unbounded: 1298373,
-    onRewardsClaim: () => {
-      console.log('onRewardsClaim');
-    },
   },
 };

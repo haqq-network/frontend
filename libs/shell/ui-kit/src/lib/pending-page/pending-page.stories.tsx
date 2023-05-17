@@ -13,9 +13,4 @@ export default meta;
 
 type Story = StoryObj<typeof PendingPageComponent>;
 
-export const PendingPage: Story = {
-  args: {
-    className: 'text-white',
-    children: "I'm a page component",
-  },
-};
+export const PendingPage: Story = {};
