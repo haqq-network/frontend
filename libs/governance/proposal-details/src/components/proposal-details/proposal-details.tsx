@@ -20,8 +20,8 @@ import {
   useGovernanceParamsQuery,
   GovernanceParamsResponse,
   useToast,
-  useProposalVote,
   useWallet,
+  useProposalActions,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -204,7 +204,7 @@ export function ProposalDetailsComponent({
   // console.log({ proposalDetails });
   const { isConnected } = useAccount();
   const { openSelectWallet } = useWallet();
-  // const { deposit  } = useProposalActions();
+  const { deposit } = useProposalActions();
   const toast = useToast();
   const navigate = useNavigate();
   const { hash } = useLocation();
@@ -226,13 +226,6 @@ export function ProposalDetailsComponent({
 
     return now < voteStart && isWalletConnected;
   }, [isWalletConnected, proposalDetails]);
-  // const isVotingAvailable = useMemo(() => {
-  //   const now = Date.now();
-  //   const start = new Date(proposalDetails.voting_start_time).getTime();
-  //   const end = new Date(proposalDetails.voting_end_time).getTime();
-
-  //   return now > start && now < end && isWalletConnected;
-  // }, [isWalletConnected, proposalDetails]);
   const totalDeposit = useMemo(() => {
     if (proposalDetails.total_deposit.length === 0) {
       return 0;
@@ -263,34 +256,36 @@ export function ProposalDetailsComponent({
     return hash === '#deposit';
   }, [hash]);
 
-  const handleDepositSubmit = useCallback((depositAmount: number) => {
-    console.log('handleDepositSubmit', { depositAmount });
-    // const delegationPromise = deposit(
-    //   Number.parseInt(proposalDetails.proposal_id, 10),
-    //   depositAmount,
-    // );
-    // toast
-    //   .promise(delegationPromise, {
-    //     loading: 'Delegate in progress',
-    //     success: (tx) => {
-    //       console.log('Delegation successful', { tx }); // maybe successful
-    //       const txHash = tx?.txhash;
-    //       console.log('Delegation successful', { txHash });
-    //       return `Delegation successful`;
-    //     },
-    //     error: (error) => {
-    //       return error.message;
-    //     },
-    //   })
-    //   .then(() => {
-    //     onClose();
-    //   });
-  }, []);
+  const handleDepositSubmit = useCallback(
+    (depositAmount: number) => {
+      console.log('handleDepositSubmit', { depositAmount });
+      const depositPromise = deposit(
+        Number.parseInt(proposalDetails.proposal_id, 10),
+        depositAmount,
+      );
+
+      toast
+        .promise(depositPromise, {
+          loading: 'Deposit in progress',
+          success: (tx) => {
+            console.log('Deposit successful', { tx }); // maybe successful
+            return `Deposit successful`;
+          },
+          error: (error) => {
+            return error.message;
+          },
+        })
+        .then(() => {
+          navigate('');
+        });
+    },
+    [deposit, navigate, proposalDetails.proposal_id, toast],
+  );
 
   return (
     <Fragment>
       <Container>
-        <div className="flex flex-row gap-[48px]">
+        <div className="flex flex-row gap-[48px] lg:mb-[48px]">
           <div className="flex-1">
             <div className="divide-haqq-border divide-y divide-dashed">
               <div className="pb-[24px] md:pb-[40px]">
@@ -722,19 +717,25 @@ export function VoteActions({
   proposalId: number;
   userVote?: VoteOption;
 }) {
-  const vote = useProposalVote();
+  const { vote } = useProposalActions();
   const toast = useToast();
+
   const handleVote = useCallback(
     async (option: number) => {
-      try {
-        const txHash = await vote(proposalId, option);
-        console.log('vote succesfull', { option, txHash });
-        toast.success(`Your vote will be counted!!!`);
-      } catch (error) {
-        console.error((error as any).message);
+      console.log('handleVote', { option });
+      const votePromise = vote(proposalId, option);
 
-        toast.error(`For some reason your vote failed.`);
-      }
+      toast.promise(votePromise, {
+        loading: 'Vote in progress',
+        success: (txHash) => {
+          console.log('Vote successful', { txHash }); // maybe successful
+          return `Your vote will be counted!!!`;
+        },
+        error: (error) => {
+          console.error(error);
+          return 'For some reason your vote failed.';
+        },
+      });
     },
     [proposalId, toast, vote],
   );
@@ -811,6 +812,11 @@ export function DepositActionsDesktop({
   const [depositAmount, setDepositAmount] = useState<number | undefined>(
     undefined,
   );
+  const handleDeposit = useCallback(async () => {
+    if (depositAmount && depositAmount > 0) {
+      onDepositSubmit(depositAmount);
+    }
+  }, [depositAmount]);
 
   return (
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
@@ -832,11 +838,7 @@ export function DepositActionsDesktop({
       </div>
       <div>
         <DepositButton
-          onClick={() => {
-            if (depositAmount && depositAmount > 0) {
-              onDepositSubmit(depositAmount);
-            }
-          }}
+          onClick={handleDeposit}
           className="w-full"
           disabled={Boolean(depositAmount && depositAmount === 0)}
         >
