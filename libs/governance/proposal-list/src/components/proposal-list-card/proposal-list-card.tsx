@@ -11,13 +11,12 @@ export function ProposalListCard({
   proposal: Proposal;
   govParams: GovernanceParamsResponse;
 }): ReactElement {
-  // console.log({ proposal, govParams });
   const totalDeposit = useMemo(() => {
-    if (proposal.total_deposit.length === 0) {
+    if (!proposal.total_deposit[0]) {
       return 0;
     }
 
-    return Number.parseInt(formatUnits(proposal.total_deposit[0]?.amount), 10);
+    return Number.parseFloat(formatUnits(proposal.total_deposit[0].amount));
   }, [proposal]);
   const minDeposit = useMemo(() => {
     if (!govParams.deposit_params.min_deposit[0]) {
@@ -25,8 +24,7 @@ export function ProposalListCard({
     }
 
     return Number.parseFloat(
-      formatUnits(govParams.deposit_params.min_deposit[0].amount, 18),
-      // 10,
+      formatUnits(govParams.deposit_params.min_deposit[0].amount),
     );
   }, [govParams]);
 
@@ -40,12 +38,7 @@ export function ProposalListCard({
       votingEndDate={new Date(proposal.voting_end_time)}
       totalDeposit={totalDeposit}
       minDeposit={minDeposit}
-      results={{
-        abstain: '100',
-        yes: '1000',
-        no: '300',
-        no_with_veto: '20',
-      }}
+      results={proposal.final_tally_result}
     />
   );
 }

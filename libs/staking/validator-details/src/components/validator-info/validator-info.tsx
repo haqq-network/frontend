@@ -188,7 +188,7 @@ export function ValidatorInfoComponent({
   return (
     <Fragment>
       <Container>
-        <div className="flex flex-row gap-[48px]">
+        <div className="flex flex-row gap-[48px] lg:mb-[48px]">
           <div className="flex-1">
             <div className="divide-haqq-border divide-y divide-dashed">
               <div className="flex flex-row items-center gap-[16px] pb-[40px]">
