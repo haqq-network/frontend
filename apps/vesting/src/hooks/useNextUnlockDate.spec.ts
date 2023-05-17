@@ -19,7 +19,9 @@ describe('useNextUnlockDate()', () => {
     'should return correct next date with period',
     (period, expectedDate) => {
       const startDate = new Date('2022-01-01T00:00:00.000Z');
-      const { result } = renderHook(() => useNextUnlockDate(startDate, period));
+      const { result } = renderHook(() => {
+        return useNextUnlockDate(startDate, period);
+      });
 
       expect(result.current.toISOString()).toEqual(expectedDate.toISOString());
       expect(result.current.getTime()).toEqual(expectedDate.getTime());

@@ -9,9 +9,9 @@ export default {
   },
 } as ComponentMeta<typeof HeaderComponent>;
 
-const Template: ComponentStory<typeof HeaderComponent> = (args: any) => (
-  <HeaderComponent {...args} />
-);
+const Template: ComponentStory<typeof HeaderComponent> = (args: any) => {
+  return <HeaderComponent {...args} />;
+};
 
 export const Header = Template.bind({});
 Header.args = {};

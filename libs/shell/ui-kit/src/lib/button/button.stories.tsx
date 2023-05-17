@@ -1,28 +1,44 @@
 import { Button as ButtonComponent } from './button';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ButtonComponent> = {
+  component: ButtonComponent,
   title: 'shell/ui-kit/button',
   parameters: {
     layout: 'centered',
   },
 };
 
-export const FirstVariant = () => {
-  return <ButtonComponent>First variant</ButtonComponent>;
+export default meta;
+type Story = StoryObj<typeof ButtonComponent>;
+
+export const FirstVariant: Story = {
+  args: {
+    children: 'First variant',
+  },
 };
 
-export const SecondVariant = () => {
-  return <ButtonComponent variant={2}>Second variant</ButtonComponent>;
+export const SecondVariant: Story = {
+  args: {
+    children: 'First variant',
+    variant: 2,
+  },
 };
-
-export const ThirdVariant = () => {
-  return <ButtonComponent variant={3}>Third variant</ButtonComponent>;
+export const ThirdVariant: Story = {
+  args: {
+    children: 'First variant',
+    variant: 3,
+  },
 };
-
-export const FourthVariant = () => {
-  return <ButtonComponent variant={4}>Fourth variant</ButtonComponent>;
+export const FourthVariant: Story = {
+  args: {
+    children: 'First variant',
+    variant: 4,
+  },
 };
-
-export const FifthVariant = () => {
-  return <ButtonComponent variant={5}>Fifth variant</ButtonComponent>;
+export const FifthVariant: Story = {
+  args: {
+    children: 'First variant',
+    variant: 5,
+  },
 };

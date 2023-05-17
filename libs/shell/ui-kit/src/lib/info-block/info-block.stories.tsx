@@ -9,8 +9,8 @@ export default {
 
 export const Default = () => {
   return (
-    <InfoBlockComponent title="I'm a title">
-      I'm an infoblock
+    <InfoBlockComponent title="Reward">
+      {`${(123030299).toLocaleString()} ISLM`}
     </InfoBlockComponent>
   );
 };

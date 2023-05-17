@@ -5,9 +5,6 @@ import { ProposalStatus } from '@evmos/provider';
 const meta: Meta<typeof ProposalCardComponent> = {
   component: ProposalCardComponent,
   title: 'shell/ui-kit',
-  // parameters: {
-  //   layout: 'centered',
-  // },
 };
 
 export default meta;

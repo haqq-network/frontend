@@ -1,21 +1,22 @@
-import { useState } from 'react';
 import { BurgerButton as BurgerButtonComponent } from './burger-button';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'shell/ui-kit/burger-button',
+const meta: Meta<typeof BurgerButtonComponent> = {
+  component: BurgerButtonComponent,
+  title: 'shell/ui-kit',
   parameters: {
     layout: 'centered',
   },
 };
 
-export const Default = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <BurgerButtonComponent
-      onClick={() => {
-        return setIsOpen(!isOpen);
-      }}
-      isOpen={isOpen}
-    />
-  );
+export default meta;
+type Story = StoryObj<typeof BurgerButtonComponent>;
+
+export const BurgerButton: Story = {
+  args: {
+    onClick: () => {
+      console.log('Toggle burger menu');
+    },
+    isOpen: false,
+  },
 };

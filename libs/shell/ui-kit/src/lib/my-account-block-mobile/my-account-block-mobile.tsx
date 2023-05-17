@@ -3,6 +3,14 @@ import { WalletIcon } from '../icons/icons';
 import { Heading } from '../heading/heading';
 import clsx from 'clsx';
 
+interface MyAccountBlockProps {
+  balance: number;
+  unbounded: number;
+  totalRewards: number;
+  delegated: number;
+  onRewardsClaim: () => void;
+}
+
 export function MyAccountCardBlock({
   title,
   children,
@@ -25,13 +33,7 @@ export function MyAccountBlockMobile({
   unbounded,
   totalRewards,
   delegated,
-}: {
-  onRewardsClaim: () => void;
-  balance: number;
-  unbounded: number;
-  totalRewards: number;
-  delegated: number;
-}) {
+}: MyAccountBlockProps) {
   const [isInfoShown, setInfoShown] = useState(false);
 
   return (
@@ -97,6 +99,7 @@ export function MyAccountBlockMobile({
             </div>
             <div>
               <button
+                type="button"
                 className={clsx(
                   'transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80] disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
                 )}
@@ -109,6 +112,52 @@ export function MyAccountBlockMobile({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+export function MyAccountBlockMobileNew({
+  onRewardsClaim,
+  balance,
+  unbounded,
+  totalRewards,
+  delegated,
+}: MyAccountBlockProps) {
+  return (
+    <div className="bg-[#252528] px-[16px] py-[24px] md:px-[48px] md:py-[40px] lg:hidden">
+      <div className="flex items-center">
+        <WalletIcon />
+        <Heading level={3} className="ml-[8px]">
+          My account
+        </Heading>
+      </div>
+      <div className="mt-[16px] grid grid-cols-2 gap-x-[24px] gap-y-[12px] md:mt-[20px] md:grid-cols-4">
+        <MyAccountCardBlock title="Available">
+          {Math.round(balance)} ISLM
+        </MyAccountCardBlock>
+
+        <MyAccountCardBlock title="Unbounded">
+          {unbounded.toLocaleString()} ISLM
+        </MyAccountCardBlock>
+
+        <MyAccountCardBlock title="Staked">
+          {delegated.toLocaleString()} ISLM
+        </MyAccountCardBlock>
+
+        <MyAccountCardBlock title="Rewards">
+          {totalRewards.toLocaleString()} ISLM
+        </MyAccountCardBlock>
+      </div>
+      <button
+        type="button"
+        className={clsx(
+          'transition-color mt-[12px] cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80] disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80 md:mt-[16px]',
+        )}
+        onClick={onRewardsClaim}
+        disabled={totalRewards < 1}
+      >
+        Claim all reward
+      </button>
     </div>
   );
 }

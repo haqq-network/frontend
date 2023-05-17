@@ -35,9 +35,15 @@ export function useGovernanceParamsQuery() {
     ['governance-params'],
     async () => {
       const [deposit_params, voting_params, tally_params] = await Promise.all([
-        getGovernanceParams('deposit').then((res) => res.deposit_params),
-        getGovernanceParams('voting').then((res) => res.voting_params),
-        getGovernanceParams('tallying').then((res) => res.tally_params),
+        getGovernanceParams('deposit').then((res) => {
+          return res.deposit_params;
+        }),
+        getGovernanceParams('voting').then((res) => {
+          return res.voting_params;
+        }),
+        getGovernanceParams('tallying').then((res) => {
+          return res.tally_params;
+        }),
       ]);
 
       return {

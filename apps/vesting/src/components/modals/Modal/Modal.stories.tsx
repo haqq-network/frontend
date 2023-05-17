@@ -10,7 +10,9 @@ export default {
   },
 } as ComponentMeta<typeof ModalComponent>;
 
-export const Modal = (args: ModalProps) => <ModalComponent {...args} />;
+export const Modal = (args: ModalProps) => {
+  return <ModalComponent {...args} />;
+};
 Modal.args = {
   isOpen: true,
   children: (

@@ -182,7 +182,9 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
       /> */}
       <SelectWalletModal
         isOpen={isWalletSelectModalOpen}
-        onClose={() => setWalletSelectModalOpen(false)}
+        onClose={() => {
+          return setWalletSelectModalOpen(false);
+        }}
       />
     </OnboardingContext.Provider>
   );

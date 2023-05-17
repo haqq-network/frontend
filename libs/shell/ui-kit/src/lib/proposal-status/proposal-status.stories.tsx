@@ -4,7 +4,7 @@ import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
 
 const meta: Meta<typeof ProposalStatusComponent> = {
   component: ProposalStatusComponent,
-  title: 'shell/ui-kit/ProposalStatus',
+  title: 'shell/ui-kit',
   parameters: {
     layout: 'centered',
   },

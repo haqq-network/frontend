@@ -1,22 +1,25 @@
 import { BackButton as BackButtonComponent } from './back-button';
 import { withRouter } from 'storybook-addon-react-router-v6';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
-  title: 'shell/ui-kit/back-button',
+const meta: Meta<typeof BackButtonComponent> = {
+  component: BackButtonComponent,
+  title: 'shell/ui-kit',
   decorators: [withRouter],
   parameters: {
     layout: 'centered',
   },
 };
 
-export const Default = () => {
-  return (
-    <BackButtonComponent
-      onClick={() => {
-        console.log('Go back');
-      }}
-    >
-      Go back
-    </BackButtonComponent>
-  );
+export default meta;
+
+type Story = StoryObj<typeof BackButtonComponent>;
+
+export const BackButton: Story = {
+  args: {
+    children: 'Default',
+    onClick: () => {
+      console.log('Go back');
+    },
+  },
 };
