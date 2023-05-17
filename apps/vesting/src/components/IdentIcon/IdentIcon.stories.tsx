@@ -9,9 +9,9 @@ export default {
   },
 } as ComponentMeta<typeof IdentIcon>;
 
-const Template: ComponentStory<typeof IdentIcon> = (args: IdentIconProps) => (
-  <IdentIcon {...args} />
-);
+const Template: ComponentStory<typeof IdentIcon> = (args: IdentIconProps) => {
+  return <IdentIcon {...args} />;
+};
 
 export const Default = Template.bind({});
 Default.args = {

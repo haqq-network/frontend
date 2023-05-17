@@ -11,13 +11,15 @@ export default {
   },
 } as ComponentMeta<typeof AlertComponent>;
 
-const Template: ComponentStory<typeof AlertComponent> = (args: AlertProps) => (
-  <AlertComponent {...args} />
-);
+const Template: ComponentStory<typeof AlertComponent> = (args: AlertProps) => {
+  return <AlertComponent {...args} />;
+};
 
 const ConfirmTemplate: ComponentStory<typeof ConfirmComponent> = (
   args: ConfirmProps,
-) => <ConfirmComponent {...args} />;
+) => {
+  return <ConfirmComponent {...args} />;
+};
 
 export const Alert = Template.bind({});
 Alert.args = {

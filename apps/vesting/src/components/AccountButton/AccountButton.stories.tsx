@@ -11,7 +11,9 @@ export default {
 
 const Template: ComponentStory<typeof AccountButton> = (
   args: AccountButtonProps,
-) => <AccountButton {...args} />;
+) => {
+  return <AccountButton {...args} />;
+};
 
 export const Default = Template.bind({});
 

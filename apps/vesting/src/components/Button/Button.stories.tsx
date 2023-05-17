@@ -10,10 +10,12 @@ export default {
   },
 } as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
-const DangerTemplate: ComponentStory<typeof DangerButton> = (args) => (
-  <DangerButton {...args} />
-);
+const Template: ComponentStory<typeof Button> = (args) => {
+  return <Button {...args} />;
+};
+const DangerTemplate: ComponentStory<typeof DangerButton> = (args) => {
+  return <DangerButton {...args} />;
+};
 
 export const Primary = Template.bind({});
 Primary.args = {

@@ -60,7 +60,9 @@ export function AddNetworkScreen(): ReactElement {
         title="Add new network error"
         message="Something went wrong and we can't add new network to your wallet"
         details={addNetworkError?.message}
-        onClose={() => clearError('addNetworkError')}
+        onClose={() => {
+          return clearError('addNetworkError');
+        }}
       />
     </div>
   );

@@ -3,8 +3,12 @@ import { NavLink } from 'react-router-dom';
 import { Container } from '../Layout/Layout';
 import { Logo, LogoSmall } from '../Logo/Logo';
 
-const ConnectButton = lazy(() => import('../ConnectButton/ConnectButton'));
-const NetworkStatus = lazy(() => import('../NetworkStatus/NetworkStatus'));
+const ConnectButton = lazy(() => {
+  return import('../ConnectButton/ConnectButton');
+});
+const NetworkStatus = lazy(() => {
+  return import('../NetworkStatus/NetworkStatus');
+});
 
 export function Header(): ReactElement {
   return (
