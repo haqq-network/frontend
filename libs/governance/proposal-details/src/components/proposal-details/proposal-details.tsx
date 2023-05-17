@@ -163,22 +163,25 @@ function ProposalDetailsMobile({
               </div>
             )}
           </div>
-          <div>
-            {proposalDetails.status === ProposalStatus.Deposit && (
-              <ProposalPeriodTimer
-                color="blue"
-                date={new Date(proposalDetails.deposit_end_time)}
-                title="Deposit end"
-              />
-            )}
-            {proposalDetails.status === ProposalStatus.Voting && (
-              <ProposalPeriodTimer
-                color="green"
-                date={new Date(proposalDetails.voting_end_time)}
-                title="Voting end"
-              />
-            )}
-          </div>
+          {(proposalDetails.status === ProposalStatus.Deposit ||
+            proposalDetails.status === ProposalStatus.Voting) && (
+            <div>
+              {proposalDetails.status === ProposalStatus.Deposit && (
+                <ProposalPeriodTimer
+                  color="blue"
+                  date={new Date(proposalDetails.deposit_end_time)}
+                  title="Deposit end"
+                />
+              )}
+              {proposalDetails.status === ProposalStatus.Voting && (
+                <ProposalPeriodTimer
+                  color="green"
+                  date={new Date(proposalDetails.voting_end_time)}
+                  title="Voting end"
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
       {proposalDetails.status === ProposalStatus.Deposit && (
@@ -419,87 +422,87 @@ export function ProposalDetailsComponent({
                           status={proposalDetails.status}
                         />
                       </div>
-                      {proposalDetails.status === ProposalStatus.Passed ||
-                        (proposalDetails.status === ProposalStatus.Rejected && (
-                          <div>
-                            {showDates ? (
-                              <table>
-                                <tbody>
-                                  <tr>
-                                    <td className="py-[4px] pr-[20px]">
-                                      <ProposalDatesText className="text-white/50">
-                                        Created at (gmt)
-                                      </ProposalDatesText>
-                                    </td>
-                                    <td>
-                                      <ProposalDatesText className="text-white">
-                                        {formatDate(
-                                          new Date(proposalDetails.submit_time),
-                                        )}
-                                      </ProposalDatesText>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td className="py-[4px] pr-[20px]">
-                                      <ProposalDatesText className="text-white/50">
-                                        Deposit end (gmt)
-                                      </ProposalDatesText>
-                                    </td>
-                                    <td>
-                                      <ProposalDatesText className="text-white">
-                                        {formatDate(
-                                          new Date(
-                                            proposalDetails.deposit_end_time,
-                                          ),
-                                        )}
-                                      </ProposalDatesText>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td className="py-[4px] pr-[20px]">
-                                      <ProposalDatesText className="text-white/50">
-                                        Vote start (gmt)
-                                      </ProposalDatesText>
-                                    </td>
-                                    <td>
-                                      <ProposalDatesText className="text-white">
-                                        {formatDate(
-                                          new Date(
-                                            proposalDetails.voting_start_time,
-                                          ),
-                                        )}
-                                      </ProposalDatesText>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td className="py-[4px] pr-[20px]">
-                                      <ProposalDatesText className="text-white/50">
-                                        Vote end (gmt)
-                                      </ProposalDatesText>
-                                    </td>
-                                    <td>
-                                      <ProposalDatesText className="text-white">
-                                        {formatDate(
-                                          new Date(
-                                            proposalDetails.voting_end_time,
-                                          ),
-                                        )}
-                                      </ProposalDatesText>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            ) : (
-                              <div>
-                                <ShowDateToggleButton
-                                  onClick={() => {
-                                    setShowDates(true);
-                                  }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                      {(proposalDetails.status === ProposalStatus.Passed ||
+                        proposalDetails.status === ProposalStatus.Rejected) && (
+                        <div>
+                          {showDates ? (
+                            <table>
+                              <tbody>
+                                <tr>
+                                  <td className="py-[4px] pr-[20px]">
+                                    <ProposalDatesText className="text-white/50">
+                                      Created at (gmt)
+                                    </ProposalDatesText>
+                                  </td>
+                                  <td>
+                                    <ProposalDatesText className="text-white">
+                                      {formatDate(
+                                        new Date(proposalDetails.submit_time),
+                                      )}
+                                    </ProposalDatesText>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="py-[4px] pr-[20px]">
+                                    <ProposalDatesText className="text-white/50">
+                                      Deposit end (gmt)
+                                    </ProposalDatesText>
+                                  </td>
+                                  <td>
+                                    <ProposalDatesText className="text-white">
+                                      {formatDate(
+                                        new Date(
+                                          proposalDetails.deposit_end_time,
+                                        ),
+                                      )}
+                                    </ProposalDatesText>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="py-[4px] pr-[20px]">
+                                    <ProposalDatesText className="text-white/50">
+                                      Vote start (gmt)
+                                    </ProposalDatesText>
+                                  </td>
+                                  <td>
+                                    <ProposalDatesText className="text-white">
+                                      {formatDate(
+                                        new Date(
+                                          proposalDetails.voting_start_time,
+                                        ),
+                                      )}
+                                    </ProposalDatesText>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="py-[4px] pr-[20px]">
+                                    <ProposalDatesText className="text-white/50">
+                                      Vote end (gmt)
+                                    </ProposalDatesText>
+                                  </td>
+                                  <td>
+                                    <ProposalDatesText className="text-white">
+                                      {formatDate(
+                                        new Date(
+                                          proposalDetails.voting_end_time,
+                                        ),
+                                      )}
+                                    </ProposalDatesText>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          ) : (
+                            <div>
+                              <ShowDateToggleButton
+                                onClick={() => {
+                                  setShowDates(true);
+                                }}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                   {proposalDetails.status === ProposalStatus.Deposit && (
