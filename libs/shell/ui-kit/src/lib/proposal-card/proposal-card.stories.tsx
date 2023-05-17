@@ -24,5 +24,8 @@ export const ProposalCard: Story = {
       no: '3000',
       no_with_veto: '50',
     },
+    depositEndDate: new Date('10-01-2023'),
+    votingStartDate: new Date('10-01-2023'),
+    votingEndDate: new Date('11-01-2023'),
   },
 };

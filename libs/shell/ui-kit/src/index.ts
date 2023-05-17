@@ -25,4 +25,7 @@ export * from './lib/tabs/tabs';
 export * from './lib/proposal-card/proposal-card';
 export * from './lib/proposal-deposit-progress/proposal-deposit-progress';
 export * from './lib/proposal-status/proposal-status';
-export * from './lib/proposal-status/proposal-status';
+export * from './lib/proposal-period-timer/proposal-period-timer';
+export * from './lib/proposal-vote-progress/proposal-vote-progress';
+export * from './lib/proposal-deposit-modal/proposal-deposit-modal';
+export * from './lib/modal-input/modal-input';

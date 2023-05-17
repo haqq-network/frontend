@@ -1,7 +1,4 @@
-import {
-  DelegateModalDetails,
-  DelegateModalInput,
-} from '../delegate-modal/delegate-modal';
+import { DelegateModalDetails } from '../delegate-modal/delegate-modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStakingActions, useToast } from '@haqq/shared';
 import {
@@ -10,8 +7,8 @@ import {
   ModalCloseButton,
   Button,
   MobileHeading,
+  ModalInput,
 } from '@haqq/shell/ui-kit';
-import clsx from 'clsx';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
@@ -46,7 +43,7 @@ export function UndelegateModal({
     setUndelegateAmount(delegation);
   }, [delegation]);
 
-  const handleInputChange = useCallback((value: number) => {
+  const handleInputChange = useCallback((value: number | undefined) => {
     setUndelegateAmount(value);
   }, []);
 
@@ -103,16 +100,17 @@ export function UndelegateModal({
         />
 
         <div className="flex w-full flex-col space-y-6">
-          <MobileHeading className="mt-[24px] sm:mt-[4px]">
-            Undelegate
-          </MobileHeading>
-
-          <WarningMessage light className="mt-[2px]">
-            {`The funds will be undelegate within ${unboundingTime} day`}
-          </WarningMessage>
-
           <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
             <div className="pb-[24px]">
+              <MobileHeading className="mb-[24px] mt-[24px] sm:mt-[4px]">
+                Undelegate
+              </MobileHeading>
+
+              <WarningMessage light className="mt-[2px]">
+                {`The funds will be undelegate within ${unboundingTime} day`}
+              </WarningMessage>
+            </div>
+            <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
                   title="My balance"
@@ -127,7 +125,7 @@ export function UndelegateModal({
             <div className="pt-[24px]">
               <div className="flex flex-col gap-[16px]">
                 <div>
-                  <DelegateModalInput
+                  <ModalInput
                     symbol="ISLM"
                     value={undelegateAmount}
                     onChange={handleInputChange}

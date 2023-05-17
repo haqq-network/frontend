@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useProposalListQuery } from '@haqq/shared';
+import { useGovernanceParamsQuery, useProposalListQuery } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
 import { Container, SpinnerLoader } from '@haqq/shell/ui-kit';
 
 export function ProposalList() {
+  const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
@@ -26,7 +27,7 @@ export function ProposalList() {
 
       <div>
         <Container>
-          {isFetching ? (
+          {!govParams || isFetching ? (
             <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
               <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
                 <SpinnerLoader />
@@ -36,14 +37,17 @@ export function ProposalList() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
+            <div className="mb-[68px] grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
               {proposals.map((proposal) => {
                 return (
                   <Link
                     to={`proposal/${proposal.proposal_id}`}
                     key={proposal.proposal_id}
                   >
-                    <ProposalListCard proposal={proposal} />
+                    <ProposalListCard
+                      proposal={proposal}
+                      govParams={govParams}
+                    />
                   </Link>
                 );
               })}

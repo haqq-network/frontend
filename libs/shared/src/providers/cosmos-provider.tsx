@@ -337,7 +337,6 @@ function createCosmosService(
     const proposalDetailsResponse = await axios.get<{ proposal: Proposal }>(
       `${cosmosRestEndpoint}/${generateEndpointProposals()}/${id}`,
     );
-    console.log({ proposalDetailsResponse });
 
     return proposalDetailsResponse.data.proposal;
   }

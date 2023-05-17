@@ -7,6 +7,7 @@ import {
   ModalCloseButton,
   Button,
   MobileHeading,
+  ModalInput,
 } from '@haqq/shell/ui-kit';
 
 export interface DelegateModalProps {
@@ -112,7 +113,7 @@ export function DelegateModal({
     setDelegateAmount(balance);
   }, [balance]);
 
-  const handleInputChange = useCallback((value: number) => {
+  const handleInputChange = useCallback((value: number | undefined) => {
     setDelegateAmount(value);
   }, []);
 
@@ -169,16 +170,16 @@ export function DelegateModal({
         />
 
         <div className="flex w-full flex-col space-y-6">
-          <MobileHeading className="mt-[24px] sm:mt-[4px]">
-            Delegate
-          </MobileHeading>
-
           <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
             <div className="pb-[24px]">
+              <MobileHeading className="mb-[24px] mt-[24px] sm:mt-[4px]">
+                Delegate
+              </MobileHeading>
               <WarningMessage light>
                 {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
               </WarningMessage>
             </div>
+
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
@@ -195,7 +196,7 @@ export function DelegateModal({
             <div className="pt-[24px]">
               <div className="flex flex-col gap-[16px]">
                 <div>
-                  <DelegateModalInput
+                  <ModalInput
                     symbol="ISLM"
                     value={delegateAmount}
                     onChange={handleInputChange}
@@ -219,76 +220,5 @@ export function DelegateModal({
         </div>
       </div>
     </Modal>
-  );
-}
-
-export function DelegateModalInput({
-  symbol,
-  value,
-  onChange,
-  onMaxButtonClick,
-  hint,
-  step = 0.001,
-}: {
-  symbol: string;
-  value: number | undefined;
-  onChange: (value: number) => void;
-  onMaxButtonClick: () => void;
-  hint?: ReactNode;
-  step?: number;
-}) {
-  const handleInputChange = useCallback(
-    (event: any) => {
-      onChange(Number.parseFloat(event.target.value));
-    },
-    [onChange],
-  );
-
-  useEffect(() => {
-    return () => {
-      onChange(0);
-    };
-  }, [onChange]);
-
-  return (
-    <div>
-      <div className="relative">
-        <input
-          type="number"
-          id="amount"
-          value={value}
-          className={clsx(
-            'w-full rounded-md px-4 py-2 outline-none',
-            'transition-colors duration-100 ease-in',
-            'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
-            'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
-            'bg-[#E7E7E7]',
-          )}
-          placeholder="Enter amount"
-          onChange={handleInputChange}
-          step={step}
-        />
-        <div className="absolute right-3 top-1/2 -translate-y-1/2">
-          <button
-            className="text-[14px] font-[500] leading-[22px] text-[#EC5728]"
-            onClick={onMaxButtonClick}
-          >
-            Max
-          </button>
-          <div
-            className={clsx(
-              'ml-[10px] inline-block select-none text-[14px] font-[500] uppercase leading-[22px]',
-              !value ? 'text-[#0D0D0E80]' : 'text-[#0D0D0E]',
-            )}
-          >
-            {symbol}
-          </div>
-        </div>
-      </div>
-
-      {hint && (
-        <div className="mt-1 h-[20px] text-xs leading-[20px]">{hint}</div>
-      )}
-    </div>
   );
 }

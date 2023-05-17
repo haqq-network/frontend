@@ -1,11 +1,17 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
-import { useProposalListQuery } from '@haqq/shared';
+import { useGovernanceParamsQuery, useProposalListQuery } from '@haqq/shared';
 import { Heading } from '@haqq/website/ui-kit';
-import { OrangeLink, ProposalsIcon, SpinnerLoader } from '@haqq/shell/ui-kit';
+import {
+  Container,
+  OrangeLink,
+  ProposalsIcon,
+  SpinnerLoader,
+} from '@haqq/shell/ui-kit';
 
 export function ProposalListBlock() {
+  const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
@@ -16,7 +22,7 @@ export function ProposalListBlock() {
   }, [proposalsData]);
 
   return (
-    <section className="w-full px-[16px] sm:px-[63px] lg:px-[79px]">
+    <Container>
       <div className="mb-[24px] flex flex-row items-center">
         <ProposalsIcon />
         <Heading level={3} className="ml-[8px]">
@@ -30,7 +36,7 @@ export function ProposalListBlock() {
         </OrangeLink>
       </div>
 
-      {isFetching ? (
+      {isFetching || !govParams ? (
         <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8 py-[48px]">
           <SpinnerLoader />
           <div className="font-sans text-[10px] uppercase leading-[1.2em]">
@@ -38,19 +44,19 @@ export function ProposalListBlock() {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2 2xl:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
           {proposals.map((proposal) => {
             return (
               <Link
                 to={`governance/proposal/${proposal.proposal_id}`}
                 key={proposal.proposal_id}
               >
-                <ProposalListCard proposal={proposal} />
+                <ProposalListCard proposal={proposal} govParams={govParams} />
               </Link>
             );
           })}
         </div>
       )}
-    </section>
+    </Container>
   );
 }

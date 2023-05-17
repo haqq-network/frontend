@@ -10,7 +10,7 @@ import {
 import { Button, Heading } from '@haqq/website/ui-kit';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
-import { OrangeLink, CopyIcon } from '@haqq/shell/ui-kit';
+import { OrangeLink, CopyIcon, Container } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
 
 function MyAccountAmountBlock({
@@ -31,10 +31,10 @@ function MyAccountAmountBlock({
       </div>
       <div
         className={clsx(
-          'font-[500] leading-[20px]',
+          'font-[500]',
           isGreen
-            ? 'text-[20px] leading-[26px] text-[#01B26E]'
-            : 'text-[18px] leading-[28px] text-white',
+            ? 'font-serif text-[20px] leading-[26px] text-[#01B26E]'
+            : 'font-sans text-[18px] leading-[28px] text-white',
           valueClassName,
         )}
       >
@@ -119,7 +119,7 @@ export function MyAccountBlock() {
 
   return !ethAddress ? (
     <div className="flex flex-col items-center space-y-[12px] border-y border-dashed border-[#ffffff26] py-[58px]">
-      <div className="font-sans text-[18px] leading-[28px]">
+      <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
         You should connect wallet first
       </div>
       <Button
@@ -131,8 +131,8 @@ export function MyAccountBlock() {
       </Button>
     </div>
   ) : (
-    <section className="w-full border-y border-dashed border-y-[#ffffff26] px-4 py-8 sm:px-16 sm:py-8 lg:px-20 lg:py-8">
-      <div className="flex flex-col font-sans">
+    <Container className="border-y border-dashed border-y-[#ffffff26]">
+      <div className="flex flex-col pt-[32px] font-sans sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
@@ -157,7 +157,8 @@ export function MyAccountBlock() {
           <MyAccountAmountBlock
             title="Balance"
             value={`${balance?.value.toLocaleString()} ISLM`}
-            valueClassName="font-serif"
+            valueClassName="!text-white"
+            isGreen
           />
           <MyAccountAmountBlock
             title="Staked"
@@ -256,6 +257,6 @@ export function MyAccountBlock() {
           </div> */}
         </div>
       </div>
-    </section>
+    </Container>
   );
 }

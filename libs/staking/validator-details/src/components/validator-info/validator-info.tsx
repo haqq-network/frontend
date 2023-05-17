@@ -748,12 +748,12 @@ export function ValidatorInfo({
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
+  const { hash } = useLocation();
+  const navigate = useNavigate();
 
   const balance = useMemo(() => {
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
   }, [balanceData]);
-  const { hash } = useLocation();
-  const navigate = useNavigate();
   const { isDelegateModalOpen, isUndelegateModalOpen } = useMemo(() => {
     return {
       isDelegateModalOpen: hash === '#delegate',

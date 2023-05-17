@@ -156,18 +156,20 @@ export function StakingValidatorList() {
                       />
                     </div>
                   )}
-                  <div>
-                    {delegatedValidators.length !== 0 && (
-                      <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
-                        Other validators
-                      </div>
-                    )}
-                    <ValidatorsList
-                      validators={otherValidators}
-                      delegationInfo={delegationInfo}
-                      rewardsInfo={rewardsInfo}
-                    />
-                  </div>
+                  {otherValidators.length !== 0 && (
+                    <div>
+                      {delegatedValidators.length !== 0 && (
+                        <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
+                          Other validators
+                        </div>
+                      )}
+                      <ValidatorsList
+                        validators={otherValidators}
+                        delegationInfo={delegationInfo}
+                        rewardsInfo={rewardsInfo}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
             </div>

@@ -1,30 +1,26 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import clsx from 'clsx';
 
-export function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'GMT',
-  }).format(date);
-}
-
 export function ProposalPeriodTimer({
-  hours,
-  minutes,
-  days,
+  date,
   title,
   color,
 }: {
-  days: number;
-  hours: number;
-  minutes: number;
+  date: Date;
   color: 'green' | 'gray' | 'red' | 'yellow' | 'blue';
   title: string;
 }) {
+  const { days, hours, minutes } = useMemo(() => {
+    const now = new Date();
+    const diff = date.getTime() - now.getTime();
+
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / (1000 * 60)) % 60),
+    };
+  }, [date]);
+
   return (
     <div className="flex flex-row items-center gap-[12px]">
       <div
@@ -61,16 +57,16 @@ export function ProposalPeriodTimer({
 
       <div className="flex flex-col items-start">
         {title && (
-          <div className="text-[11px] font-[500] leading-[17px] text-white/50 sm:leading-[18px] lg:text-[12px]">
+          <div className="text-[11px] font-[500] leading-[17px] text-white/50 md:leading-[18px] lg:text-[12px]">
             {title}
           </div>
         )}
-        <div className="flex flex-row gap-[8px] font-serif text-[14px] font-[500] leading-[18px] text-white/50 sm:text-[16px] sm:leading-[22px] md:text-[20px] md:leading-[26px]">
+        <div className="flex flex-row gap-[8px] font-serif text-[14px] font-[500] leading-[18px] text-white/50 md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
           <div>
             <span className="text-white">{days}</span> Days
           </div>
           <div>
-            <span className="text-white">{minutes}</span> Hours
+            <span className="text-white">{hours}</span> Hours
           </div>
           <div>
             <span className="text-white">{minutes}</span> Min

@@ -70,7 +70,7 @@ export function StakingInfoComponent({
     <div className="border-y border-dashed border-[#ffffff26] py-[55px] sm:py-[90px] lg:py-[62px]">
       <Container>
         <div className="flex flex-col items-center space-y-[12px]">
-          <div className="font-sans text-[18px] leading-[28px]">
+          <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             You should connect wallet first
           </div>
           <Button

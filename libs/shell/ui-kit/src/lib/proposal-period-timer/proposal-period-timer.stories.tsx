@@ -14,8 +14,6 @@ type Story = StoryObj<typeof ProposalPeriodTimerComponent>;
 
 export const ProposalPeriodTimer: Story = {
   args: {
-    minutes: 49,
-    hours: 10,
-    days: 10,
+    date: new Date('10-11-2023'),
   },
 };

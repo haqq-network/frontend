@@ -1,4 +1,4 @@
-import { ProposalStatus } from '@evmos/provider';
+// import { ProposalStatus } from '@evmos/provider';
 import { ReactElement, useMemo } from 'react';
 import { CardSubText, CardText } from '../card/card';
 import clsx from 'clsx';
@@ -20,10 +20,10 @@ export function ProposalVoteProgress({
   status?: string;
 }): ReactElement {
   const { yes, abstain, no, veto, total } = useMemo(() => {
-    const yes = Number.parseInt(results.yes) / 10 ** 18;
-    const abstain = Number.parseInt(results.abstain) / 10 ** 18;
-    const no = Number.parseInt(results.no) / 10 ** 18;
-    const veto = Number.parseInt(results.no_with_veto) / 10 ** 18;
+    const yes = Number.parseInt(results.yes);
+    const abstain = Number.parseInt(results.abstain);
+    const no = Number.parseInt(results.no);
+    const veto = Number.parseInt(results.no_with_veto);
 
     return {
       yes,
@@ -35,6 +35,10 @@ export function ProposalVoteProgress({
   }, [results]);
   const [yesPercents, abstainPercents, noPercents, vetoPercents] =
     useMemo(() => {
+      if (total === 0) {
+        return [0, 0, 0, 0];
+      }
+
       return [
         (yes / total) * 100,
         (no / total) * 100,
@@ -65,42 +69,54 @@ export function ProposalVoteProgress({
           )}
         </div>
 
-        <div className="relative flex h-2 w-full flex-row justify-between space-x-[4px] overflow-hidden text-xs">
-          <div
-            className={clsx(
-              'h-full rounded-xl bg-[#01B26E]',
-              'duration-250 transition-[width] ease-out',
-              yesPercents === 0 && 'hidden',
+        {total === 0 ? (
+          <div className="relative h-[8px] overflow-hidden rounded-[4px] bg-[#FFFFFF26]"></div>
+        ) : (
+          <div className="relative flex h-[8px] w-full flex-row space-x-[4px] overflow-hidden">
+            {yesPercents !== 0 && (
+              <div
+                className={clsx(
+                  'h-full rounded-xl bg-[#01B26E]',
+                  'duration-250 transition-[width] ease-out',
+                  yesPercents === 0 && 'hidden',
+                )}
+                style={{
+                  width: `${yesPercents}%`,
+                }}
+              />
             )}
-            style={{
-              width: `${yesPercents}%`,
-            }}
-          />
-          <div
-            className={clsx(
-              'h-full rounded-xl bg-[#FF5454]',
-              'duration-250 transition-[width] ease-out',
-              noPercents === 0 && 'hidden',
+            {noPercents !== 0 && (
+              <div
+                className={clsx(
+                  'h-full rounded-xl bg-[#FF5454]',
+                  'duration-250 transition-[width] ease-out',
+                  noPercents === 0 && 'hidden',
+                )}
+                style={{ width: `${noPercents}%` }}
+              />
             )}
-            style={{ width: `${noPercents}%` }}
-          />
-          <div
-            className={clsx(
-              'h-full rounded-xl bg-[#AAABB2]',
-              'duration-250 transition-[width] ease-out',
-              abstainPercents === 0 && 'hidden',
+            {abstainPercents !== 0 && (
+              <div
+                className={clsx(
+                  'h-full rounded-xl bg-[#AAABB2]',
+                  'duration-250 transition-[width] ease-out',
+                  abstainPercents === 0 && 'hidden',
+                )}
+                style={{ width: `${abstainPercents}%` }}
+              />
             )}
-            style={{ width: `${abstainPercents}%` }}
-          />
-          <div
-            className={clsx(
-              'h-full rounded-xl bg-[#E3A13F]',
-              'duration-250 transition-[width] ease-out',
-              vetoPercents === 0 && 'hidden',
+            {vetoPercents !== 0 && (
+              <div
+                className={clsx(
+                  'h-full rounded-xl bg-[#E3A13F]',
+                  'duration-250 transition-[width] ease-out',
+                  vetoPercents === 0 && 'hidden',
+                )}
+                style={{ width: `${vetoPercents}%` }}
+              />
             )}
-            style={{ width: `${vetoPercents}%` }}
-          />
-        </div>
+          </div>
+        )}
 
         <div className="flex flex-wrap items-center gap-x-3">
           <div className="flex items-center">
