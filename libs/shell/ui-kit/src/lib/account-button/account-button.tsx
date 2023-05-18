@@ -14,7 +14,7 @@ export function AccountButton({
 }: {
   balance?: {
     symbol: string;
-    value: number;
+    value: string | number;
   };
   address: string | undefined;
   onDisconnectClick?: () => void;
