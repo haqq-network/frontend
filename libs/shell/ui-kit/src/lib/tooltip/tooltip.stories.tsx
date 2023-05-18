@@ -14,7 +14,11 @@ type Story = StoryObj<typeof TooltipComponent>;
 
 export const Tooltip: Story = {
   args: {
-    children: "I'm a tooltip children!",
-    text: 'Click to copy 0x5D62DB16Ee4DA021f2644017380E1D4Cb02Bc78D',
+    children: 'Hover me!',
+    text: (
+      <div className="min-w-[260px]">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+      </div>
+    ),
   },
 };

@@ -30,3 +30,4 @@ export * from './lib/proposal-vote-progress/proposal-vote-progress';
 export * from './lib/proposal-deposit-modal/proposal-deposit-modal';
 export * from './lib/modal-input/modal-input';
 export * from './lib/proposal-status/proposal-status';
+export * from './lib/tooltip/tooltip';
