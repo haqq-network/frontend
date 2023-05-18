@@ -31,3 +31,4 @@ export * from './lib/proposal-deposit-modal/proposal-deposit-modal';
 export * from './lib/modal-input/modal-input';
 export * from './lib/proposal-status/proposal-status';
 export * from './lib/tooltip/tooltip';
+export * from './lib/unsupported-browser-modal/unsupported-browser-modal';
