@@ -150,8 +150,7 @@ function HeaderButtons({
       {isMobileMenuOpen && (
         <Fragment>
           <ScrollLock isActive />
-
-          <div className="fixed right-0 top-[64px] z-40 h-[calc(100vh-64px)] w-full transform-gpu bg-[#0D0D0E] backdrop-blur  lg:hidden">
+          <div className="fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full transform-gpu bg-[#0D0D0E] backdrop-blur sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
             <div className="overflow-y-auto px-[24px] py-[32px]">
               {ethAddress && (
                 <AccountButton
