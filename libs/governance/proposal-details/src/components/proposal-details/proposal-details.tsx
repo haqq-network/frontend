@@ -549,6 +549,7 @@ export function ProposalDetailsComponent({
                   <DepositActionsDesktop
                     balance={balance}
                     onDepositSubmit={handleDepositSubmit}
+                    isConnected={isConnected}
                   />
                 )}
                 {proposalDetails.status === ProposalStatus.Voting && (
@@ -607,7 +608,7 @@ function ProposalActionsMobile({
 }) {
   if (!isConnected) {
     return (
-      <div className="flex transform-gpu flex-col items-center space-y-[12px] bg-[#252528] bg-opacity-75 py-[58px] backdrop-blur">
+      <div className="flex transform-gpu flex-col items-center space-y-[12px] bg-[#252528] bg-opacity-75 py-[36px] backdrop-blur">
         <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
           You should connect wallet first
         </div>
@@ -804,9 +805,11 @@ export function VoteActions({
 export function DepositActionsDesktop({
   balance,
   onDepositSubmit,
+  isConnected,
 }: {
   balance: number;
   onDepositSubmit: (depositAmount: number) => void;
+  isConnected: boolean;
 }) {
   const [depositAmount, setDepositAmount] = useState<number | undefined>(
     undefined,
@@ -815,7 +818,7 @@ export function DepositActionsDesktop({
     if (depositAmount && depositAmount > 0) {
       onDepositSubmit(depositAmount);
     }
-  }, [depositAmount]);
+  }, [depositAmount, onDepositSubmit]);
 
   return (
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
@@ -829,17 +832,18 @@ export function DepositActionsDesktop({
       </div>
       <div>
         <DepositInput
-          onChange={(depositAmount) => {
-            setDepositAmount(depositAmount);
-          }}
+          onChange={setDepositAmount}
           value={depositAmount}
+          disabled={!isConnected}
         />
       </div>
       <div>
         <DepositButton
           onClick={handleDeposit}
           className="w-full"
-          disabled={Boolean(depositAmount && depositAmount === 0)}
+          disabled={Boolean(
+            !isConnected || (depositAmount && depositAmount === 0),
+          )}
         >
           Deposit
         </DepositButton>
@@ -852,21 +856,28 @@ export function DepositInput({
   className,
   onChange,
   value,
+  disabled = false,
 }: {
   className?: string;
   onChange: (value: number) => void;
   value: number | undefined;
+  disabled?: boolean;
 }) {
   return (
     <div className={clsx('relative rounded-[6px] bg-[#252528]', className)}>
       <input
         type="number"
         placeholder="Enter Amount"
-        className="w-full bg-transparent px-[16px] pb-[12px] pt-[14px] text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]"
+        className={clsx(
+          'px-[16px] pb-[12px] pt-[14px]',
+          'disabled:cursor-not-allowed',
+          'w-full bg-transparent text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
+        )}
         value={value}
         onChange={(event: any) => {
           onChange(Number.parseFloat(event.currentTarget.value));
         }}
+        disabled={disabled}
       />
       <div
         className={clsx(
