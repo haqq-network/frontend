@@ -1,4 +1,10 @@
-import { Fragment, ReactNode, useMemo, useState } from 'react';
+import {
+  Fragment,
+  PropsWithChildren,
+  ReactNode,
+  useMemo,
+  useState,
+} from 'react';
 import { useAddress, useWallet } from '@haqq/shared';
 import { useBalance, useConnect } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
@@ -12,6 +18,13 @@ import {
   ModalCloseButton,
 } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
+
+type ToggleMobileMenu = (isDark: boolean) => void;
+
+interface HeaderButtonProps {
+  isMobileMenuOpen: boolean;
+  onMobileMenuOpenChange: ToggleMobileMenu;
+}
 
 function SelectWalletModal({
   isOpen,
@@ -80,8 +93,10 @@ function SelectWalletModal({
   );
 }
 
-function HeaderButtons() {
-  const [isOpen, setOpen] = useState(false);
+function HeaderButtons({
+  isMobileMenuOpen,
+  onMobileMenuOpenChange,
+}: HeaderButtonProps) {
   const {
     disconnect,
     isSelectWalletOpen,
@@ -120,9 +135,9 @@ function HeaderButtons() {
 
       <div className="block lg:hidden">
         <BurgerButton
-          isOpen={isOpen}
+          isOpen={isMobileMenuOpen}
           onClick={() => {
-            setOpen(!isOpen);
+            onMobileMenuOpenChange(!isMobileMenuOpen);
           }}
         />
       </div>
@@ -132,7 +147,7 @@ function HeaderButtons() {
         onClose={closeSelectWallet}
       />
 
-      {isOpen && (
+      {isMobileMenuOpen && (
         <Fragment>
           <ScrollLock isActive />
 
@@ -162,8 +177,23 @@ function HeaderButtons() {
   );
 }
 
-export function AppWrapper({ children }: { children: ReactNode }) {
+export function AppWrapper({ children }: PropsWithChildren) {
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
-    <Page header={<Header rightSlot={<HeaderButtons />} />}>{children}</Page>
+    <Page
+      header={
+        <Header
+          darkBackground={isMobileMenuOpen}
+          rightSlot={
+            <HeaderButtons
+              isMobileMenuOpen={isMobileMenuOpen}
+              onMobileMenuOpenChange={setMobileMenuOpen}
+            />
+          }
+        />
+      }
+    >
+      {children}
+    </Page>
   );
 }
