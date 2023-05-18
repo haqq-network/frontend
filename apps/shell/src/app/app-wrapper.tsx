@@ -154,8 +154,22 @@ function HeaderButtons({
           <div className="'transform-gpu fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full bg-[#0D0D0E] backdrop-blur sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
             <div className="overflow-y-auto px-[24px] py-[32px]">
               <div className="mb-[24px] flex flex-col items-start space-y-[16px] sm:mb-[80px]">
-                <HeaderNavLink href="/staking">Staking</HeaderNavLink>
-                <HeaderNavLink href="/governance">Governance</HeaderNavLink>
+                <HeaderNavLink
+                  href="/staking"
+                  onClick={() => {
+                    onMobileMenuOpenChange(false);
+                  }}
+                >
+                  Staking
+                </HeaderNavLink>
+                <HeaderNavLink
+                  href="/governance"
+                  onClick={() => {
+                    onMobileMenuOpenChange(false);
+                  }}
+                >
+                  Governance
+                </HeaderNavLink>
               </div>
 
               {ethAddress && (
