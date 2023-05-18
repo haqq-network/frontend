@@ -75,6 +75,7 @@
     "regenerator-runtime": "0.13.11",
     "sharp": "0.32.1",
     "store2": "2.14.2",
+    "swiper": "9.3.2",
     "tslib": "2.5.0",
     "wagmi": "0.12.13",
     "web3": "1.10.0",

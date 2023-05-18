@@ -3411,6 +3411,7 @@ __metadata:
     storybook-addon-react-router-v6: 1.0.0
     style-loader: 3.3.2
     swc-loader: 0.2.3
+    swiper: 9.3.2
     tailwindcss: 3.3.2
     ts-jest: 29.1.0
     ts-node: 10.9.1
@@ -24365,6 +24366,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ssr-window@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "ssr-window@npm:4.0.2"
+  checksum: df182600927f4f3225224cf8c02338ea637c9750519505bbfb9a9236741a2a7ec088386fb948bca7b447b8303d9109e7dc7672e3de041c79ac2a0e03665af7d2
+  languageName: node
+  linkType: hard
+
 "ssri@npm:^9.0.0":
   version: 9.0.1
   resolution: "ssri@npm:9.0.1"
@@ -24967,6 +24975,15 @@ __metadata:
     "@swc/core": ^1.2.147
     webpack: ">=2"
   checksum: 010d84d399525c0185d36d62c86c55ae017e7a90046bc8a39be4b7e07526924037868049f6037bc966da98151cb2600934b96a66279b742d3c413a718b427251
+  languageName: node
+  linkType: hard
+
+"swiper@npm:9.3.2":
+  version: 9.3.2
+  resolution: "swiper@npm:9.3.2"
+  dependencies:
+    ssr-window: ^4.0.2
+  checksum: 9ccb6a0ef67d71ac780d7d1f3b2c2daf6f1846d3df8810aff6dcb8501c87b7769540a869cdd83eb902e5278396e5379cb32d9ed397234f7700ef55f0209f4592
   languageName: node
   linkType: hard
 
