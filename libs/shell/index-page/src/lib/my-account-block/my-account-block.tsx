@@ -132,7 +132,7 @@ export function MyAccountBlock() {
     </div>
   ) : (
     <Container className="border-y border-dashed border-y-[#ffffff26]">
-      <div className="flex flex-col pt-[32px] font-sans sm:py-[22px] lg:py-[32px]">
+      <div className="flex flex-col py-[32px] font-sans sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path

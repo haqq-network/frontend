@@ -93,9 +93,9 @@ export function StakingInfoComponent({
           </Heading>
         </div>
 
-        <div className="flex w-full flex-col items-center space-y-[16px] lg:flex-row lg:space-y-0">
-          <div className="flex w-full flex-1 flex-col space-y-[8px] sm:flex-1 sm:flex-row sm:space-x-[8px] sm:space-y-0">
-            <div className="flex-1">
+        <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
+          <div className="flex w-full flex-1 flex-col space-y-[8px] sm:flex-1 sm:flex-row sm:space-x-[24px] sm:space-y-0 lg:w-auto lg:flex-none xl:flex-1">
+            <div className="flex-1 lg:flex-none xl:flex-1">
               <StakingInfoAmountBlock
                 title="Available"
                 value={
@@ -105,7 +105,7 @@ export function StakingInfoComponent({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="flex-1 lg:flex-none xl:flex-1">
               <StakingInfoAmountBlock
                 title="Staked"
                 value={
@@ -115,7 +115,7 @@ export function StakingInfoComponent({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="flex-1 lg:flex-none xl:flex-1">
               <StakingInfoAmountBlock
                 title="Unbounded"
                 value={
@@ -125,7 +125,7 @@ export function StakingInfoComponent({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="flex-1 lg:flex-none xl:flex-1">
               <StakingInfoAmountBlock
                 title="Rewards"
                 value={

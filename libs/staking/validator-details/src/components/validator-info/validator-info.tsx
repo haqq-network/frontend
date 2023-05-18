@@ -374,8 +374,8 @@ export function ValidatorInfoComponent({
                     </span>
                     <span className="text-[16px] leading-[26px] uppercase">
                       {unbounded.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 3,
                       })}{' '}
                       Islm
                     </span>
@@ -386,8 +386,8 @@ export function ValidatorInfoComponent({
                     </span>
                     <span className="text-[16px] leading-[26px] uppercase">
                       {delegated.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 3,
                       })}{' '}
                       Islm
                     </span>
@@ -398,8 +398,8 @@ export function ValidatorInfoComponent({
                     </span>
                     <span className="text-[16px] leading-[26px] uppercase">
                       {totalRewards.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 3,
                       })}{' '}
                       Islm
                     </span>
@@ -548,8 +548,8 @@ export function ValidatorInfoComponent({
                 </span>
                 <span className="text-[16px] leading-[26px] uppercase">
                   {unbounded.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
                   })}{' '}
                   Islm
                 </span>
@@ -560,8 +560,8 @@ export function ValidatorInfoComponent({
                 </span>
                 <span className="text-[16px] leading-[26px] uppercase">
                   {stakingPool.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
                   })}{' '}
                   Islm
                 </span>
@@ -572,8 +572,8 @@ export function ValidatorInfoComponent({
                 </span>
                 <span className="text-[16px] leading-[26px] uppercase">
                   {totalRewards.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
                   })}{' '}
                   Islm
                 </span>
@@ -606,8 +606,8 @@ export function ValidatorInfoComponent({
             </span>
             <span className="text-[24px] leading-[30px] font-serif uppercase text-white">
               {delegation.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 3,
               })}{' '}
               Islm
             </span>
@@ -976,7 +976,11 @@ export function ValidatorBlockDesktop({
             My delegation
           </span>
           <span className="font-serif text-[24px] uppercase leading-[30px] text-white">
-            {delegation.toLocaleString()} ISLM
+            {delegation.toLocaleString('en-US', {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 3,
+            })}{' '}
+            ISLM
           </span>
         </div>
         <div className="flex gap-x-[12px]">
@@ -1012,7 +1016,11 @@ export function ValidatorBlockDesktop({
             My rewards
           </span>
           <span className="font-serif text-[24px] uppercase leading-[30px] text-[#01B26E]">
-            {rewards.toLocaleString()} ISLM
+            {rewards.toLocaleString('en-US', {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 3,
+            })}{' '}
+            ISLM
           </span>
         </div>
         <Button variant={5} disabled={rewards < 1} onClick={onGetRewardsClick}>

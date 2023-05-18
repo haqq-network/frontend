@@ -47,32 +47,32 @@ export function MyAccountBlockMobile({
       <div className="mt-[18px] grid grid-cols-2 gap-x-[24px] gap-y-[12px] md:mt-[20px] md:grid-cols-4">
         <MyAccountCardBlock title="Available">
           {balance.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3,
           })}{' '}
           ISLM
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Unbounded">
           {unbounded.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3,
           })}{' '}
           ISLM
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Staked">
           {delegated.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3,
           })}{' '}
           ISLM
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Rewards">
           {totalRewards.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3,
           })}{' '}
           ISLM
         </MyAccountCardBlock>

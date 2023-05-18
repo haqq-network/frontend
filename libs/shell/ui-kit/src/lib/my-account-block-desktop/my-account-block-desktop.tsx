@@ -61,22 +61,38 @@ export function MyAccountBlockDesktop({
             <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
               <div>
                 <MyAccountCardBlock title="Available">
-                  {Math.round(balance)} ISLM
+                  {balance.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
+                  })}{' '}
+                  ISLM
                 </MyAccountCardBlock>
               </div>
               <div>
                 <MyAccountCardBlock title="Unbounded">
-                  {unbounded.toLocaleString()} ISLM
+                  {unbounded.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
+                  })}{' '}
+                  ISLM
                 </MyAccountCardBlock>
               </div>
               <div>
                 <MyAccountCardBlock title="Staked">
-                  {delegated.toLocaleString()} ISLM
+                  {delegated.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
+                  })}{' '}
+                  ISLM
                 </MyAccountCardBlock>
               </div>
               <div>
                 <MyAccountCardBlock title="Rewards">
-                  {totalRewards.toLocaleString()} ISLM
+                  {totalRewards.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
+                  })}{' '}
+                  ISLM
                 </MyAccountCardBlock>
               </div>
             </div>

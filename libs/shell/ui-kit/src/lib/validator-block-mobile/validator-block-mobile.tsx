@@ -1,4 +1,4 @@
-import { Fragment, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { Button } from '../button/button';
 import { WarningMessage } from '../warning-message/warning-message';
 import clsx from 'clsx';
@@ -8,9 +8,9 @@ import { Container } from '../container/container';
 import { useMediaQuery } from 'react-responsive';
 
 interface ValidatorBlockMobileProps {
-  delegation: string | number;
-  rewards: string | number;
-  undelegate?: string | number;
+  delegation: number;
+  rewards: number;
+  undelegate?: number;
   isDelegateDisabled: boolean;
   isGetRewardDisabled: boolean;
   isUndelegateDisabled: boolean;
@@ -127,8 +127,8 @@ export function ValidatorBlockMobile({
               <GrayDescription>My delegation</GrayDescription>
               <DescriptionAmount>
                 {delegation.toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 3,
                 })}{' '}
                 ISLM
               </DescriptionAmount>
@@ -138,8 +138,8 @@ export function ValidatorBlockMobile({
                 <GrayDescription>Undelegate in process</GrayDescription>
                 <DescriptionAmount>
                   {undelegate.toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
                   })}{' '}
                   ISLM
                 </DescriptionAmount>
@@ -149,8 +149,8 @@ export function ValidatorBlockMobile({
               <GrayDescription>My rewards</GrayDescription>
               <DescriptionAmount className="!text-[#01B26E]">
                 {rewards.toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 3,
                 })}{' '}
                 ISLM
               </DescriptionAmount>
@@ -215,7 +215,13 @@ export function ValidatorBlockMobile({
               <div className="flex flex-1 flex-col justify-end gap-[12px]">
                 <div className="flex flex-1 flex-col items-start gap-[6px]">
                   <GrayDescription>My delegation</GrayDescription>
-                  <DescriptionAmount>{delegation} ISLM</DescriptionAmount>
+                  <DescriptionAmount>
+                    {delegation.toLocaleString('en-US', {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 3,
+                    })}{' '}
+                    ISLM
+                  </DescriptionAmount>
                 </div>
                 <div>
                   <Button
@@ -232,7 +238,13 @@ export function ValidatorBlockMobile({
                 {undelegate && (
                   <div className="flex flex-1 flex-col items-start gap-[6px]">
                     <GrayDescription>Undelegate in process</GrayDescription>
-                    <DescriptionAmount>{undelegate} ISLM</DescriptionAmount>
+                    <DescriptionAmount>
+                      {undelegate.toLocaleString('en-US', {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 3,
+                      })}{' '}
+                      ISLM
+                    </DescriptionAmount>
                   </div>
                 )}
                 <div>
@@ -252,7 +264,11 @@ export function ValidatorBlockMobile({
               <div className="flex flex-1 flex-col items-start gap-[6px]">
                 <GrayDescription>My rewards</GrayDescription>
                 <DescriptionAmount className="!text-[#01B26E]">
-                  {rewards} ISLM
+                  {rewards.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3,
+                  })}{' '}
+                  ISLM
                 </DescriptionAmount>
               </div>
               <div>

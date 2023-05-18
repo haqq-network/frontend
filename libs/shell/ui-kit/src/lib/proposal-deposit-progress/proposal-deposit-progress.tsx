@@ -25,7 +25,12 @@ export function ProposalDepositProgress({
           <div className="inline-flex space-x-[6px]">
             <CardSubText className="text-white/50">
               You Deposited:{' '}
-              <span className="text-white">{userDeposit.toFixed(0)}</span>
+              <span className="text-white">
+                {userDeposit.toLocaleString('en-US', {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 3,
+                })}
+              </span>
             </CardSubText>
           </div>
         )}
@@ -42,7 +47,15 @@ export function ProposalDepositProgress({
       </div>
 
       <div className="font-sans text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-        {totalDeposit?.toLocaleString()} ISLM from {minDeposit.toLocaleString()}{' '}
+        {totalDeposit.toLocaleString('en-US', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 3,
+        })}{' '}
+        ISLM from{' '}
+        {minDeposit.toLocaleString('en-US', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 3,
+        })}{' '}
         ISLM
       </div>
     </div>

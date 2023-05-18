@@ -106,7 +106,7 @@ export function UndelegateModal({
                 Undelegate
               </MobileHeading>
 
-              <WarningMessage light className="mt-[2px]">
+              <WarningMessage light className="mt-[3px]">
                 {`The funds will be undelegate within ${unboundingTime} day`}
               </WarningMessage>
             </div>

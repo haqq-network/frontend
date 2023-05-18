@@ -12,6 +12,13 @@ export interface ValidatorListItemProps {
   stakingPool: number;
 }
 
+function formatNumber(num: number) {
+  return num.toLocaleString('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 3,
+  });
+}
+
 export function ValidatorListItem({
   validator,
   reward,
@@ -20,10 +27,10 @@ export function ValidatorListItem({
 }: ValidatorListItemProps) {
   const navigate = useNavigate();
   const validatorCommission = useMemo(() => {
-    return (
+    return formatNumber(
       Number.parseFloat(validator.commission?.commission_rates?.rate ?? '0') *
-      100
-    ).toFixed(0);
+        100,
+    );
   }, [validator.commission?.commission_rates]);
   const votingPower = useMemo(() => {
     return Number.parseInt(validator.tokens ?? '0') / 10 ** 18;
@@ -44,7 +51,7 @@ export function ValidatorListItem({
   }, [reward]);
 
   const votingPowerInPercents = useMemo(() => {
-    return ((votingPower / stakingPool) * 100).toFixed(2);
+    return formatNumber((votingPower / stakingPool) * 100);
   }, [votingPower, stakingPool]);
 
   return (
@@ -71,16 +78,16 @@ export function ValidatorListItem({
         {validatorCommission}%
       </td>
       <td className="p-[8px] text-right md:p-[12px]">
-        {votingPower.toLocaleString()}
+        {formatNumber(votingPower)}
       </td>
       <td className="p-[8px] text-right md:p-[12px]">
         {votingPowerInPercents}%
       </td>
       <td className="p-[8px] text-right md:p-[12px]">
-        {userDelegate.toLocaleString()}
+        {formatNumber(userDelegate)}
       </td>
       <td className="p-[8px] text-right md:p-[12px]">
-        {userRewards.toLocaleString()}
+        {formatNumber(userRewards)}
       </td>
     </tr>
   );

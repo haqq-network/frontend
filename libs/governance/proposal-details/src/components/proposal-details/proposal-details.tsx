@@ -334,7 +334,10 @@ export function ProposalDetailsComponent({
                     </div>
                     <div>
                       <InfoBlock title="Total deposit">
-                        {totalDeposit.toLocaleString()}{' '}
+                        {totalDeposit.toLocaleString('en-US', {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 3,
+                        })}{' '}
                         {symbol.toLocaleUpperCase()}
                       </InfoBlock>
                     </div>
