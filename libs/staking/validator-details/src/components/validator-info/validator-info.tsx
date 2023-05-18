@@ -42,10 +42,16 @@ import {
   ValidatorBlockMobile as ValidatorBlockMobileComponent,
   Container,
   InfoIcon,
+  MyAccountBlockMobile,
 } from '@haqq/shell/ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
 import { Validator } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import styles from './validator-info.module.css';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
@@ -706,15 +712,38 @@ export function ValidatorInfoComponent({
 
       {isTablet && (
         <div className="sticky bottom-0 left-0 right-0 z-30">
-          <ValidatorBlockMobile
-            validatorInfo={validatorInfo}
-            delegation={delegation}
-            rewards={rewards ?? 0}
-            balance={balance}
-            onGetRewardsClick={() => {
-              console.log('get rewards');
-            }}
-          />
+          <div className="transform-gpu bg-[#252528] bg-opacity-75 backdrop-blur">
+            <Swiper
+              slidesPerView={1}
+              modules={[Pagination]}
+              autoHeight={true}
+              pagination={true}
+              className={clsx(styles['slider'], '!pb-[20px]')}
+            >
+              <SwiperSlide>
+                <ValidatorBlockMobile
+                  validatorInfo={validatorInfo}
+                  delegation={delegation}
+                  rewards={rewards ?? 0}
+                  balance={balance}
+                  onGetRewardsClick={() => {
+                    console.log('get rewards');
+                  }}
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <MyAccountBlockMobile
+                  balance={balance}
+                  delegated={delegation}
+                  totalRewards={rewards ?? 0}
+                  onRewardsClaim={() => {
+                    console.log('get rewards');
+                  }}
+                  unbounded={0}
+                />
+              </SwiperSlide>
+            </Swiper>
+          </div>
         </div>
       )}
     </Fragment>

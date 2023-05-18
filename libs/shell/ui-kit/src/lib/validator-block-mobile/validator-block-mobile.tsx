@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { Fragment, PropsWithChildren } from 'react';
 import { Button } from '../button/button';
 import { WarningMessage } from '../warning-message/warning-message';
 import clsx from 'clsx';
@@ -55,6 +55,27 @@ function DescriptionAmount({
   );
 }
 
+function ConnectWallet({
+  onConnectWalletClick,
+}: {
+  onConnectWalletClick: () => void;
+}) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-[12px]">
+      <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+        You should connect wallet first
+      </div>
+      <Button
+        onClick={onConnectWalletClick}
+        variant={2}
+        className="text-black hover:bg-transparent hover:text-white"
+      >
+        Connect wallet
+      </Button>
+    </div>
+  );
+}
+
 export function ValidatorBlockMobile({
   delegation,
   isDelegateDisabled,
@@ -75,64 +96,128 @@ export function ValidatorBlockMobile({
 
   if (!isConnected) {
     return (
-      <div className="flex transform-gpu flex-col items-center space-y-[12px] bg-[#252528] bg-opacity-75 py-[58px] backdrop-blur">
-        <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-          You should connect wallet first
-        </div>
-        <Button
-          onClick={onConnectWalletClick}
-          variant={2}
-          className="text-black hover:bg-transparent hover:text-white"
-        >
-          Connect wallet
-        </Button>
-      </div>
+      <Container className="py-[24px] md:py-[40px]">
+        <ConnectWallet onConnectWalletClick={onConnectWalletClick} />
+      </Container>
     );
   }
 
   return (
-    <div className="transform-gpu bg-[#252528] bg-opacity-75 py-[24px] backdrop-blur md:py-[40px]">
+    <Container className="py-[24px] md:py-[40px]">
       {isMobile ? (
-        <Container>
-          <div className="flex flex-col items-start gap-y-[24px] md:gap-y-[12px]">
-            <div className="flex flex-row items-center">
-              <ValidatorIcon />
-              <Heading level={3} className="ml-[8px]">
-                Validator
-              </Heading>
+        <div className="flex flex-col items-start gap-y-[24px] md:gap-y-[12px]">
+          <div className="flex flex-row items-center">
+            <ValidatorIcon />
+            <Heading level={3} className="ml-[8px]">
+              Validator
+            </Heading>
+          </div>
+
+          {isWarningShown && (
+            <div className="w-full">
+              <WarningMessage wrapperClassName="w-full">
+                While the validator is inactive, you will not be able to receive
+                a reward.
+              </WarningMessage>
             </div>
+          )}
 
-            {isWarningShown && (
-              <div className="w-full">
-                <WarningMessage wrapperClassName="w-full">
-                  While the validator is inactive, you will not be able to
-                  receive a reward.
-                </WarningMessage>
-              </div>
-            )}
-
-            <div className="flex w-full flex-col gap-[12px]">
+          <div className="flex w-full flex-col gap-[12px]">
+            <div className="flex flex-1 flex-row items-center justify-between">
+              <GrayDescription>My delegation</GrayDescription>
+              <DescriptionAmount>
+                {delegation.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{' '}
+                ISLM
+              </DescriptionAmount>
+            </div>
+            {undelegate && (
               <div className="flex flex-1 flex-row items-center justify-between">
-                <GrayDescription>My delegation</GrayDescription>
-                <DescriptionAmount>{delegation} ISLM</DescriptionAmount>
-              </div>
-              {undelegate && (
-                <div className="flex flex-1 flex-row items-center justify-between">
-                  <GrayDescription>Undelegate in process</GrayDescription>
-                  <DescriptionAmount>{undelegate} ISLM</DescriptionAmount>
-                </div>
-              )}
-              <div className="flex flex-1 flex-row items-center justify-between">
-                <GrayDescription>My rewards</GrayDescription>
-                <DescriptionAmount className="!text-[#01B26E]">
-                  {rewards} ISLM
+                <GrayDescription>Undelegate in process</GrayDescription>
+                <DescriptionAmount>
+                  {undelegate.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{' '}
+                  ISLM
                 </DescriptionAmount>
               </div>
+            )}
+            <div className="flex flex-1 flex-row items-center justify-between">
+              <GrayDescription>My rewards</GrayDescription>
+              <DescriptionAmount className="!text-[#01B26E]">
+                {rewards.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{' '}
+                ISLM
+              </DescriptionAmount>
             </div>
+          </div>
 
-            <div className="flex w-full flex-col gap-[12px]">
-              <div className="flex gap-[12px]">
-                <div className="flex-1">
+          <div className="flex w-full flex-col gap-[12px]">
+            <div className="flex gap-[12px]">
+              <div className="flex-1">
+                <Button
+                  variant={2}
+                  className="w-full !px-[16px]"
+                  onClick={onDelegateClick}
+                  disabled={isDelegateDisabled}
+                >
+                  Delegate
+                </Button>
+              </div>
+              <div className="flex-1">
+                <Button
+                  variant={2}
+                  className="w-full !px-[16px]"
+                  onClick={onUndelegateClick}
+                  disabled={isUndelegateDisabled}
+                >
+                  Undelegate
+                </Button>
+              </div>
+            </div>
+            <div>
+              <Button
+                variant={5}
+                onClick={onGetRewardClick}
+                disabled={isGetRewardDisabled}
+                className="w-full"
+              >
+                Get my rewards
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-start gap-[24px]">
+          <div className="flex flex-row items-center">
+            <ValidatorIcon />
+            <Heading level={3} className="ml-[8px]">
+              Validator
+            </Heading>
+          </div>
+
+          {isWarningShown && (
+            <div className="w-full">
+              <WarningMessage wrapperClassName="w-full">
+                While the validator is inactive, you will not be able to receive
+                a reward.
+              </WarningMessage>
+            </div>
+          )}
+
+          <div className="flex w-full flex-row gap-[28px]">
+            <div className="flex min-w-[56%] flex-1 flex-row gap-[12px]">
+              <div className="flex flex-1 flex-col justify-end gap-[12px]">
+                <div className="flex flex-1 flex-col items-start gap-[6px]">
+                  <GrayDescription>My delegation</GrayDescription>
+                  <DescriptionAmount>{delegation} ISLM</DescriptionAmount>
+                </div>
+                <div>
                   <Button
                     variant={2}
                     className="w-full !px-[16px]"
@@ -142,7 +227,15 @@ export function ValidatorBlockMobile({
                     Delegate
                   </Button>
                 </div>
-                <div className="flex-1">
+              </div>
+              <div className="flex flex-1 flex-col justify-end gap-[12px]">
+                {undelegate && (
+                  <div className="flex flex-1 flex-col items-start gap-[6px]">
+                    <GrayDescription>Undelegate in process</GrayDescription>
+                    <DescriptionAmount>{undelegate} ISLM</DescriptionAmount>
+                  </div>
+                )}
+                <div>
                   <Button
                     variant={2}
                     className="w-full !px-[16px]"
@@ -152,6 +245,15 @@ export function ValidatorBlockMobile({
                     Undelegate
                   </Button>
                 </div>
+              </div>
+            </div>
+
+            <div className="flex flex-1 flex-col justify-end gap-[12px]">
+              <div className="flex flex-1 flex-col items-start gap-[6px]">
+                <GrayDescription>My rewards</GrayDescription>
+                <DescriptionAmount className="!text-[#01B26E]">
+                  {rewards} ISLM
+                </DescriptionAmount>
               </div>
               <div>
                 <Button
@@ -165,86 +267,8 @@ export function ValidatorBlockMobile({
               </div>
             </div>
           </div>
-        </Container>
-      ) : (
-        <Container>
-          <div className="flex flex-col items-start gap-[24px]">
-            <div className="flex flex-row items-center">
-              <ValidatorIcon />
-              <Heading level={3} className="ml-[8px]">
-                Validator
-              </Heading>
-            </div>
-
-            {isWarningShown && (
-              <div className="w-full">
-                <WarningMessage wrapperClassName="w-full">
-                  While the validator is inactive, you will not be able to
-                  receive a reward.
-                </WarningMessage>
-              </div>
-            )}
-
-            <div className="flex w-full flex-row gap-[28px]">
-              <div className="flex min-w-[56%] flex-1 flex-row gap-[12px]">
-                <div className="flex flex-1 flex-col justify-end gap-[12px]">
-                  <div className="flex flex-1 flex-col items-start gap-[6px]">
-                    <GrayDescription>My delegation</GrayDescription>
-                    <DescriptionAmount>{delegation} ISLM</DescriptionAmount>
-                  </div>
-                  <div>
-                    <Button
-                      variant={2}
-                      className="w-full !px-[16px]"
-                      onClick={onDelegateClick}
-                      disabled={isDelegateDisabled}
-                    >
-                      Delegate
-                    </Button>
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col justify-end gap-[12px]">
-                  {undelegate && (
-                    <div className="flex flex-1 flex-col items-start gap-[6px]">
-                      <GrayDescription>Undelegate in process</GrayDescription>
-                      <DescriptionAmount>{undelegate} ISLM</DescriptionAmount>
-                    </div>
-                  )}
-                  <div>
-                    <Button
-                      variant={2}
-                      className="w-full !px-[16px]"
-                      onClick={onUndelegateClick}
-                      disabled={isUndelegateDisabled}
-                    >
-                      Undelegate
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-1 flex-col justify-end gap-[12px]">
-                <div className="flex flex-1 flex-col items-start gap-[6px]">
-                  <GrayDescription>My rewards</GrayDescription>
-                  <DescriptionAmount className="!text-[#01B26E]">
-                    {rewards} ISLM
-                  </DescriptionAmount>
-                </div>
-                <div>
-                  <Button
-                    variant={5}
-                    onClick={onGetRewardClick}
-                    disabled={isGetRewardDisabled}
-                    className="w-full"
-                  >
-                    Get my rewards
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
+        </div>
       )}
-    </div>
+    </Container>
   );
 }

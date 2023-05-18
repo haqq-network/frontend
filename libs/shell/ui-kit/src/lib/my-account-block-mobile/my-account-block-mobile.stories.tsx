@@ -1,13 +1,18 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { MyAccountBlockMobileNew as MyAccountBlockMobileNewComponent } from './my-account-block-mobile';
+import { MyAccountBlockMobile as MyAccountBlockMobileComponent } from './my-account-block-mobile';
+import {
+  withoutPadding,
+  withStickyEmulation,
+} from '../../../.storybook/decorators';
 
-const meta: Meta<typeof MyAccountBlockMobileNewComponent> = {
-  component: MyAccountBlockMobileNewComponent,
+const meta: Meta<typeof MyAccountBlockMobileComponent> = {
+  component: MyAccountBlockMobileComponent,
   title: 'shell/ui-kit',
+  decorators: [withoutPadding, withStickyEmulation],
 };
 
 export default meta;
-type Story = StoryObj<typeof MyAccountBlockMobileNewComponent>;
+type Story = StoryObj<typeof MyAccountBlockMobileComponent>;
 
 export const MyAccountBlockMobile: Story = {
   args: {
