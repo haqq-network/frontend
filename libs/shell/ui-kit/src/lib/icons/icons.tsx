@@ -165,3 +165,23 @@ export function CalendarIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function LogoutIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4.7 2C4.03726 2 3.5 2.53726 3.5 3.2V20.8C3.5 21.4627 4.03725 22 4.7 22H19.3C19.9627 22 20.5 21.4627 20.5 20.8V18H18.5V20H5.5V4H18.5V7H20.5V3.2C20.5 2.53726 19.9627 2 19.3 2H4.7ZM14.7929 9.70711L16.0858 11L9.5 11L9.5 13H16.0858L14.7929 14.2929L16.2071 15.7071L19.9142 12L16.2071 8.29289L14.7929 9.70711Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}

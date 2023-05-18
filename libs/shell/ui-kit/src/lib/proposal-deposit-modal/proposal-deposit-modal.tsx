@@ -119,13 +119,8 @@ export function ProposalDepositModal({
 
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
-            <div className="pb-[24px]">
-              <MobileHeading className="mt-[24px] sm:mt-[4px]">
-                Deposit
-              </MobileHeading>
-              {/* <WarningMessage light>
-                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
-              </WarningMessage> */}
+            <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+              <MobileHeading>Deposit</MobileHeading>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">

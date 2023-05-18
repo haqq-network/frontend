@@ -43,7 +43,7 @@ import {
   ProposalStatus as ProposalStatusComponent,
   ProposalPeriodTimer,
   ProposalVoteProgress,
-  ProposalDepositModal,
+  // ProposalDepositModal,
 } from '@haqq/shell/ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { useAccount, useBalance } from 'wagmi';
@@ -253,38 +253,38 @@ export function ProposalDetailsComponent({
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
-  const balance = useMemo(() => {
-    return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
-  }, [balanceData]);
-  const isDepositModalOpen = useMemo(() => {
-    return hash === '#deposit';
-  }, [hash]);
+  // const balance = useMemo(() => {
+  //   return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
+  // }, [balanceData]);
+  // const isDepositModalOpen = useMemo(() => {
+  //   return hash === '#deposit';
+  // }, [hash]);
 
-  const handleDepositSubmit = useCallback(
-    (depositAmount: number) => {
-      console.log('handleDepositSubmit', { depositAmount });
-      const depositPromise = deposit(
-        Number.parseInt(proposalDetails.proposal_id, 10),
-        depositAmount,
-      );
+  // const handleDepositSubmit = useCallback(
+  //   (depositAmount: number) => {
+  //     console.log('handleDepositSubmit', { depositAmount });
+  //     const depositPromise = deposit(
+  //       Number.parseInt(proposalDetails.proposal_id, 10),
+  //       depositAmount,
+  //     );
 
-      toast
-        .promise(depositPromise, {
-          loading: 'Deposit in progress',
-          success: (tx) => {
-            console.log('Deposit successful', { tx }); // maybe successful
-            return `Deposit successful`;
-          },
-          error: (error) => {
-            return error.message;
-          },
-        })
-        .then(() => {
-          navigate('');
-        });
-    },
-    [deposit, navigate, proposalDetails.proposal_id, toast],
-  );
+  //     toast
+  //       .promise(depositPromise, {
+  //         loading: 'Deposit in progress',
+  //         success: (tx) => {
+  //           console.log('Deposit successful', { tx }); // maybe successful
+  //           return `Deposit successful`;
+  //         },
+  //         error: (error) => {
+  //           return error.message;
+  //         },
+  //       })
+  //       .then(() => {
+  //         navigate('');
+  //       });
+  //   },
+  //   [deposit, navigate, proposalDetails.proposal_id, toast],
+  // );
 
   return (
     <Fragment>
@@ -395,12 +395,20 @@ export function ProposalDetailsComponent({
                     <InfoBlock title="Deposit end (GMT)">
                       {formatDate(new Date(proposalDetails.deposit_end_time))}
                     </InfoBlock>
-                    <InfoBlock title="Vote start (GMT)">
-                      {formatDate(new Date(proposalDetails.voting_start_time))}
-                    </InfoBlock>
-                    <InfoBlock title="Vote end (GMT)">
-                      {formatDate(new Date(proposalDetails.voting_end_time))}
-                    </InfoBlock>
+                    {proposalDetails.status !== ProposalStatus.Deposit && (
+                      <Fragment>
+                        <InfoBlock title="Vote start (GMT)">
+                          {formatDate(
+                            new Date(proposalDetails.voting_start_time),
+                          )}
+                        </InfoBlock>
+                        <InfoBlock title="Vote end (GMT)">
+                          {formatDate(
+                            new Date(proposalDetails.voting_end_time),
+                          )}
+                        </InfoBlock>
+                      </Fragment>
+                    )}
                   </div>
                 </div>
               )}
@@ -545,13 +553,13 @@ export function ProposalDetailsComponent({
                   )}
                 </div>
 
-                {proposalDetails.status === ProposalStatus.Deposit && (
+                {/* {proposalDetails.status === ProposalStatus.Deposit && (
                   <DepositActionsDesktop
                     balance={balance}
                     onDepositSubmit={handleDepositSubmit}
                     isConnected={isConnected}
                   />
-                )}
+                )} */}
                 {proposalDetails.status === ProposalStatus.Voting && (
                   <div className="bg-white bg-opacity-[15%] px-[28px] py-[32px]">
                     <VoteActions
@@ -579,14 +587,14 @@ export function ProposalDetailsComponent({
               navigate(`#deposit`);
             }}
           />
-          <ProposalDepositModal
+          {/* <ProposalDepositModal
             isOpen={isDepositModalOpen}
             onClose={() => {
               navigate('');
             }}
             balance={balance}
             onSubmit={handleDepositSubmit}
-          />
+          /> */}
         </div>
       )}
     </Fragment>
@@ -608,37 +616,39 @@ function ProposalActionsMobile({
 }) {
   if (!isConnected) {
     return (
-      <div className="flex transform-gpu flex-col items-center space-y-[12px] bg-[#252528] bg-opacity-75 py-[36px] backdrop-blur">
-        <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-          You should connect wallet first
+      <div className="transform-gpu bg-[#252528] bg-opacity-75 py-[24px] backdrop-blur md:py-[40px]">
+        <div className="flex flex-col items-center gap-[12px]">
+          <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+            You should connect wallet first
+          </div>
+          <Button
+            onClick={onConnectWalletClick}
+            variant={2}
+            className="text-black hover:bg-transparent hover:text-white"
+          >
+            Connect wallet
+          </Button>
         </div>
-        <Button
-          onClick={onConnectWalletClick}
-          variant={2}
-          className="text-black hover:bg-transparent hover:text-white"
-        >
-          Connect wallet
-        </Button>
       </div>
     );
   }
 
-  if (proposalDetails.status === ProposalStatus.Deposit) {
-    return (
-      <div className="transform-gpu bg-[#252528] bg-opacity-75 py-[24px] backdrop-blur md:py-[40px]">
-        <Container>
-          <Button
-            className="w-full"
-            variant={2}
-            onClick={onDepositWalletClick}
-            disabled={isDepositAvailable}
-          >
-            Deposit
-          </Button>
-        </Container>
-      </div>
-    );
-  }
+  // if (proposalDetails.status === ProposalStatus.Deposit) {
+  //   return (
+  //     <div className="transform-gpu bg-[#252528] bg-opacity-75 py-[24px] backdrop-blur md:py-[40px]">
+  //       <Container>
+  //         <Button
+  //           className="w-full"
+  //           variant={2}
+  //           onClick={onDepositWalletClick}
+  //           disabled={isDepositAvailable}
+  //         >
+  //           Deposit
+  //         </Button>
+  //       </Container>
+  //     </div>
+  //   );
+  // }
 
   if (proposalDetails.status === ProposalStatus.Voting) {
     return (
