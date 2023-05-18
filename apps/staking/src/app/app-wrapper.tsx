@@ -10,6 +10,7 @@ import {
   AccountButton,
   Modal,
   ModalCloseButton,
+  MobileHeading,
 } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
 
@@ -29,7 +30,7 @@ function SelectWalletModal({
     <Modal isOpen={isOpen} onClose={onClose}>
       <div
         className={clsx(
-          'text-haqq-black mx-auto rounded-[12px] bg-white p-[36px]',
+          'text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-[430px] sm:rounded-[12px] sm:p-[36px]',
           className,
         )}
       >
@@ -38,41 +39,45 @@ function SelectWalletModal({
           className="absolute right-[16px] top-[16px]"
         />
 
-        <div className="flex w-full min-w-[360px] flex-col space-y-6">
-          <div className="mt-[4x] font-serif text-[24px] font-[500] leading-[30px]">
-            Select wallet
-          </div>
+        <div className="flex w-full flex-col space-y-6">
+          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
+            <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+              <MobileHeading>Select wallet</MobileHeading>
+            </div>
 
-          <div className="flex flex-col space-y-[12px]">
-            {connectors.map((connector) => {
-              if (!connector.ready) {
-                return null;
-              }
+            <div className="flex flex-col space-y-[12px]">
+              {connectors.map((connector) => {
+                if (!connector.ready) {
+                  return null;
+                }
 
-              const isPending =
-                isLoading && connector.id === pendingConnector?.id;
+                const isPending =
+                  isLoading && connector.id === pendingConnector?.id;
 
-              return (
-                <Button
-                  key={connector.id}
-                  onClick={async () => {
-                    await connectAsync({ connector });
-                    onClose();
-                  }}
-                  variant={4}
-                  isLoading={isPending}
-                  className={clsx(
-                    isPending
-                      ? '!text-white'
-                      : 'hover:!text-haqq-orange hover:!border-haqq-orange',
-                  )}
-                >
-                  {connector.name}
-                </Button>
-              );
-            })}
+                return (
+                  <Button
+                    key={connector.id}
+                    onClick={async () => {
+                      await connectAsync({ connector });
+                      onClose();
+                    }}
+                    variant={4}
+                    isLoading={isPending}
+                    className={clsx(
+                      isPending
+                        ? '!text-white'
+                        : 'hover:!text-haqq-orange hover:!border-haqq-orange',
+                    )}
+                  >
+                    {connector.name}
+                  </Button>
+                );
+              })}
 
-            {error && <div className="pt-4 text-red-500">{error.message}</div>}
+              {error && (
+                <div className="pt-4 text-red-500">{error.message}</div>
+              )}
+            </div>
           </div>
         </div>
       </div>

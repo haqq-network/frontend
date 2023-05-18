@@ -667,12 +667,14 @@ function ValidatorBlockMobile({
   rewards,
   balance,
   onGetRewardsClick,
+  undelegate,
 }: {
   validatorInfo: Validator;
   onGetRewardsClick: () => void;
   delegation: number;
   rewards: number;
   balance: number;
+  undelegate?: number;
 }) {
   const navigate = useNavigate();
   const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
@@ -692,6 +694,7 @@ function ValidatorBlockMobile({
       delegation={delegation}
       rewards={rewards}
       isWarningShown={isWarningShown}
+      undelegate={undelegate}
     />
   );
 }

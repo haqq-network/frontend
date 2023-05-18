@@ -18,8 +18,6 @@ interface ValidatorBlockMobileProps {
   onGetRewardClick: () => void;
   onUndelegateClick: () => void;
   isWarningShown?: boolean;
-  // isConnected?: boolean;
-  // onConnectWalletClick: () => void;
 }
 
 function GrayDescription({
@@ -102,7 +100,7 @@ export function ValidatorBlockMobile({
                 ISLM
               </DescriptionAmount>
             </div>
-            {undelegate && (
+            {undelegate && undelegate > 0 && (
               <div className="flex flex-1 flex-row items-center justify-between">
                 <GrayDescription>Undelegate in process</GrayDescription>
                 <DescriptionAmount>

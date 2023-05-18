@@ -41,7 +41,7 @@ export function StatisticsBlock() {
   return (
     <div className="flex flex-col gap-y-[10px] lg:flex-row lg:flex-wrap lg:gap-x-[24px]">
       <div className="flex flex-row items-center space-x-[9px]">
-        <div className="mb-[-4px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
+        <div className="mb-[-3px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           Total supply
         </div>
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
@@ -50,7 +50,7 @@ export function StatisticsBlock() {
         </div>
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
-        <div className="mb-[-4px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
+        <div className="mb-[-3px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           Total staked ({((totalStaked / totalSupply) * 100).toFixed(2)}%)
         </div>
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
@@ -61,7 +61,7 @@ export function StatisticsBlock() {
         </div>
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
-        <div className="mb-[-4px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
+        <div className="mb-[-3px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           Peers
         </div>
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
@@ -69,7 +69,7 @@ export function StatisticsBlock() {
         </div>
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
-        <div className="mb-[-4px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
+        <div className="mb-[-3px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           Active validators
         </div>
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">

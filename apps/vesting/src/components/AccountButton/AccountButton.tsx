@@ -87,7 +87,7 @@ export function AccountButton({
     <div className="bg-primary flex flex-row rounded-[8px]">
       {account.balance && (
         <BalanceButton onClick={onBalanceClick} className="hidden sm:block">
-          <div className="mb-[-4px] font-bold">
+          <div className="mb-[-3px] font-bold">
             {account.balance.value.toLocaleString()}{' '}
             {account.balance.symbol.toLocaleUpperCase()}
           </div>

@@ -121,7 +121,7 @@ export function ProposalVoteProgress({
         <div className="flex flex-wrap items-center gap-x-3">
           <div className="flex items-center">
             <div className="flex items-center">
-              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-4px]" />
+              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
               <div className="mr-[2px]">
                 <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                   Yes
@@ -135,7 +135,7 @@ export function ProposalVoteProgress({
 
           <div className="flex items-center">
             <div className="flex items-center">
-              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-4px]" />
+              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
               <div className="mr-[2px]">
                 <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                   No
@@ -149,7 +149,7 @@ export function ProposalVoteProgress({
 
           <div className="flex items-center">
             <div className="flex items-center">
-              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-4px]" />
+              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
               <div className="mr-[2px]">
                 <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                   Abstain
@@ -163,7 +163,7 @@ export function ProposalVoteProgress({
 
           <div className="flex items-center">
             <div className="flex flex-row items-center">
-              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-4px]" />
+              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
               <div className="mr-[2px]">
                 <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
                   Veto
