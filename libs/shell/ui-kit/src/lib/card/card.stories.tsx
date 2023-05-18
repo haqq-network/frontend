@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardHeading,
-  CardSubText,
-  CardText,
-  ProposalNumber,
-  TimerText,
-} from './card';
+import { Card, CardHeading, CardSubText, CardText, TimerText } from './card';
 
 export default {
   title: 'shell/ui-kit/card',
@@ -26,7 +19,6 @@ export const Default = () => {
         itaque, optio labore fugiat officia unde. Iusto voluptatibus vero,
         accusantium odit in esse.
       </CardText>
-      <ProposalNumber>1234567890</ProposalNumber>
       <div className="inline-flex space-x-[4px]">
         <div className="inline-flex space-x-[4px]">
           <TimerText>999</TimerText>
