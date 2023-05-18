@@ -3,13 +3,19 @@ import clsx from 'clsx';
 import logoImageData from '../../assets/images/logo.svg';
 import { NavLink } from 'react-router-dom';
 
-export function Header({ rightSlot }: { rightSlot?: ReactNode }) {
+export function Header({
+  rightSlot,
+  darkBackground,
+}: {
+  rightSlot?: ReactNode;
+  darkBackground?: boolean;
+}) {
   return (
     <header
       className={clsx(
-        'h-[63px] w-full border-b border-t border-[#464647] sm:h-[72px]',
+        'h-[62px] w-full border-b border-t border-[#464647] sm:h-[72px]',
         'transform-gpu backdrop-blur',
-        'sticky top-0 z-50',
+        darkBackground ? 'bg-[#0D0D0E]' : 'bg-transparent',
       )}
     >
       <div className="mx-auto flex h-full w-full flex-row items-center pr-[16px] sm:pr-[64px] lg:pr-[80px]">

@@ -80,8 +80,13 @@ function SelectWalletModal({
   );
 }
 
-function HeaderButtons() {
-  const [isOpen, setOpen] = useState(false);
+function HeaderButtons({
+  isMobileMenuOpen,
+  onMobileMenuOpenChange,
+}: {
+  isMobileMenuOpen: boolean;
+  onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
+}) {
   const {
     disconnect,
     isSelectWalletOpen,
@@ -120,9 +125,9 @@ function HeaderButtons() {
 
       <div className="block lg:hidden">
         <BurgerButton
-          isOpen={isOpen}
+          isOpen={isMobileMenuOpen}
           onClick={() => {
-            setOpen(!isOpen);
+            onMobileMenuOpenChange(!isMobileMenuOpen);
           }}
         />
       </div>
@@ -132,11 +137,11 @@ function HeaderButtons() {
         onClose={closeSelectWallet}
       />
 
-      {isOpen && (
+      {isMobileMenuOpen && (
         <Fragment>
           <ScrollLock isActive />
 
-          <div className="fixed right-0 top-[64px] z-40 h-[calc(100vh-64px)] w-full transform-gpu bg-[#0D0D0E] backdrop-blur  lg:hidden">
+          <div className="'transform-gpu fixed right-0 top-[61px] z-40 h-[calc(100vh-61px)] w-full bg-[#0D0D0E] backdrop-blur sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
             <div className="overflow-y-auto px-[24px] py-[32px]">
               {ethAddress && (
                 <AccountButton
@@ -163,7 +168,23 @@ function HeaderButtons() {
 }
 
 export function AppWrapper({ children }: { children: ReactNode }) {
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <Page header={<Header rightSlot={<HeaderButtons />} />}>{children}</Page>
+    <Page
+      header={
+        <Header
+          darkBackground={isMobileMenuOpen}
+          rightSlot={
+            <HeaderButtons
+              isMobileMenuOpen={isMobileMenuOpen}
+              onMobileMenuOpenChange={setMobileMenuOpen}
+            />
+          }
+        />
+      }
+    >
+      {children}
+    </Page>
   );
 }
