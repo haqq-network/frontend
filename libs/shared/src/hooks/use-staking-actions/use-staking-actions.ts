@@ -212,6 +212,7 @@ export function useStakingActions() {
 
   const handleClaimAllRewards = useCallback(
     async (validatorAddresses: string[]) => {
+      console.log('handleClaimAllRewards', { validatorAddresses });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
 

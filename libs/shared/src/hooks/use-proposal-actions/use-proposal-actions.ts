@@ -38,6 +38,21 @@ interface ProposalActionsHook {
   // createProposal: () => Promise<string>;
 }
 
+const WEI = 10 ** 18;
+
+function getAmountAndDenom(amount: number, fee?: Fee) {
+  let decAmount = new Decimal(amount).mul(WEI);
+
+  if (fee) {
+    decAmount = decAmount.sub(new Decimal(fee.amount));
+  }
+
+  return {
+    amount: decAmount.toFixed(),
+    denom: 'aISLM',
+  };
+}
+
 export function useProposalActions(): ProposalActionsHook {
   const { chainName } = useConfig();
   const { broadcastTransaction, getAccountInfo, getPubkey } =
@@ -129,15 +144,11 @@ export function useProposalActions(): ProposalActionsHook {
       console.log('handleDeposit', { proposalId, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      console.log({ pubkey });
 
       if (sender) {
         const depositParams: MessageMsgDepositParams = {
           proposalId,
-          deposit: {
-            amount: new Decimal(amount).mul(10 ** 18).toFixed(),
-            denom: 'aISLM',
-          },
+          deposit: getAmountAndDenom(amount, fee),
         };
 
         const msg = createTxMsgDeposit(

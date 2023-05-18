@@ -24,11 +24,11 @@ export function useConfig() {
 export function ConfigProvider({
   children,
   chainName,
-  isStandalone,
+  isStandalone = false,
 }: {
   children: ReactNode;
   chainName: string;
-  isStandalone: boolean;
+  isStandalone?: boolean;
 }) {
   const memoizedEnvironment = useMemo(() => {
     return { chainName, isStandalone };
