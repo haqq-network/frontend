@@ -1,5 +1,5 @@
-import { Fragment, ReactNode, useMemo, useState } from 'react';
-import { useAddress, useWallet } from '@haqq/shared';
+import { Fragment, ReactNode, useEffect, useMemo, useState } from 'react';
+import { useAddress, useWallet, useWindowWidth } from '@haqq/shared';
 import { useBalance, useConnect } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
 import {
@@ -111,6 +111,13 @@ function HeaderButtons({
       }),
     };
   }, [balanceData]);
+  const { width } = useWindowWidth();
+
+  useEffect(() => {
+    if (width >= 1024) {
+      onMobileMenuOpenChange(false);
+    }
+  }, [onMobileMenuOpenChange, width]);
 
   return (
     <Fragment>

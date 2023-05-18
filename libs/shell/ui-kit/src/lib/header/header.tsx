@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import clsx from 'clsx';
 import logoImageData from '../../assets/images/logo.svg';
 import { NavLink } from 'react-router-dom';
-import { useWindowWidth } from '@haqq/shared';
 
 interface HeaderProps {
   rightSlot?: ReactNode;
@@ -10,14 +9,13 @@ interface HeaderProps {
 }
 
 export function Header({ rightSlot, darkBackground = false }: HeaderProps) {
-  const { width } = useWindowWidth();
   return (
     <header
       className={clsx(
         'h-[63px] w-full border-y border-[#464647] sm:h-[72px]',
         'transform-gpu backdrop-blur',
         'sticky top-0 z-50',
-        darkBackground && width < 1024 ? 'bg-haqq-black' : 'bg-transparent',
+        darkBackground ? 'bg-haqq-black' : 'bg-transparent',
       )}
     >
       <div className="mx-auto flex h-full w-full flex-row items-center pr-[16px] sm:pr-[64px] lg:pr-[80px]">

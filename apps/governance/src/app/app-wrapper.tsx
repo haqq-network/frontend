@@ -1,5 +1,11 @@
-import { Fragment, PropsWithChildren, useMemo, useState } from 'react';
-import { useAddress, useWallet } from '@haqq/shared';
+import {
+  Fragment,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { useAddress, useWallet, useWindowWidth } from '@haqq/shared';
 import { useBalance, useConnect } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
 import {
@@ -13,11 +19,9 @@ import {
 } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
 
-type ToggleMobileMenu = (isDark: boolean) => void;
-
 interface HeaderButtonProps {
   isMobileMenuOpen: boolean;
-  onMobileMenuOpenChange: ToggleMobileMenu;
+  onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
 }
 
 function SelectWalletModal({
@@ -115,6 +119,13 @@ function HeaderButtons({
       }),
     };
   }, [balanceData]);
+  const { width } = useWindowWidth();
+
+  useEffect(() => {
+    if (width >= 1024) {
+      onMobileMenuOpenChange(false);
+    }
+  }, [onMobileMenuOpenChange, width]);
 
   return (
     <Fragment>
