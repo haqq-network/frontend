@@ -1,15 +1,18 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
+
+interface HeaderNavLinkProps {
+  href: string;
+  isOutLink?: boolean;
+  onClick?: () => void;
+}
 
 export function HeaderNavLink({
   href,
   children,
   isOutLink = false,
-}: {
-  href: string;
-  children: ReactNode;
-  isOutLink?: boolean;
-}) {
+  onClick,
+}: PropsWithChildren<HeaderNavLinkProps>) {
   const additionalProps = isOutLink
     ? {
         target: '_blank',
@@ -20,6 +23,7 @@ export function HeaderNavLink({
     <NavLink
       to={href}
       className="font-sans text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
+      onClick={onClick}
       {...additionalProps}
     >
       {children}
