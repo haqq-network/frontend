@@ -251,7 +251,11 @@ export function ValidatorInfoComponent({
                   <div className="flex flex-row gap-[28px]">
                     <div>
                       <InfoBlock title="Voting power">
-                        {votingPower.toLocaleString()}
+                        {votingPower.toLocaleString('en-US', {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 3,
+                        })}{' '}
+                        ISLM
                       </InfoBlock>
                     </div>
                     <div>
@@ -298,18 +302,14 @@ export function ValidatorInfoComponent({
                   delegated={delegated}
                   totalRewards={totalRewards}
                   unbounded={unbounded}
-                  onRewardsClaim={() => {
-                    console.log('calm reward');
-                  }}
+                  onRewardsClaim={onRewardsClaim}
                 />
                 <ValidatorBlockDesktop
                   validatorInfo={validatorInfo}
                   delegation={delegation}
                   rewards={rewards ?? 0}
                   balance={balance}
-                  onGetRewardsClick={() => {
-                    console.log('get rewards');
-                  }}
+                  onGetRewardsClick={onGetRewardsClick}
                 />
               </div>
             </div>
@@ -334,9 +334,7 @@ export function ValidatorInfoComponent({
                     delegation={delegation}
                     rewards={rewards ?? 0}
                     balance={balance}
-                    onGetRewardsClick={() => {
-                      console.log('get rewards');
-                    }}
+                    onGetRewardsClick={onGetRewardsClick}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -344,10 +342,8 @@ export function ValidatorInfoComponent({
                     balance={balance}
                     delegated={delegation}
                     totalRewards={rewards ?? 0}
-                    onRewardsClaim={() => {
-                      console.log('get rewards');
-                    }}
-                    unbounded={0}
+                    onRewardsClaim={onRewardsClaim}
+                    unbounded={unbounded}
                   />
                 </SwiperSlide>
               </Swiper>
@@ -680,8 +676,6 @@ function ValidatorBlockMobile({
 }) {
   const navigate = useNavigate();
   const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
-  const { isConnected } = useAccount();
-  const { openSelectWallet } = useWallet();
 
   return (
     <ValidatorBlockMobileComponent
@@ -698,8 +692,6 @@ function ValidatorBlockMobile({
       delegation={delegation}
       rewards={rewards}
       isWarningShown={isWarningShown}
-      // isConnected={isConnected}
-      // onConnectWalletClick={openSelectWallet}
     />
   );
 }
