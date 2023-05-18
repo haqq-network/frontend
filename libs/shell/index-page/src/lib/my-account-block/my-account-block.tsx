@@ -10,8 +10,9 @@ import {
 import { Button, Heading } from '@haqq/website/ui-kit';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
-import { OrangeLink, CopyIcon, Container } from '@haqq/shell/ui-kit';
+import { OrangeLink, CopyIcon, Container, Tooltip } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
 
 function MyAccountAmountBlock({
   title,
@@ -54,9 +55,14 @@ export function MyAccountBlock() {
     address: ethAddress,
     watch: true,
   });
-  const { width } = useWindowWidth();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
+  const isMobile = useMediaQuery({
+    query: `(max-width: 639px)`,
+  });
+  const isDesktop = useMediaQuery({
+    query: `(min-width: 1024px)`,
+  });
 
   const balance = useMemo(() => {
     if (!balanceData) {
@@ -100,25 +106,24 @@ export function MyAccountBlock() {
   const handleEthAddressCopy = useCallback(async () => {
     if (ethAddress) {
       await copyText(ethAddress);
-      setHaqqAddressCopy(false);
       setEthAddressCopy(true);
+
+      setTimeout(() => {
+        setEthAddressCopy(false);
+      }, 2500);
     }
   }, [copyText, ethAddress]);
 
   const handleHaqqAddressCopy = useCallback(async () => {
     if (haqqAddress) {
       await copyText(haqqAddress);
-      setEthAddressCopy(false);
       setHaqqAddressCopy(true);
+
+      setTimeout(() => {
+        setHaqqAddressCopy(false);
+      }, 2500);
     }
   }, [copyText, haqqAddress]);
-
-  const formattedAddress = (address: string | undefined, width: number) => {
-    while (address && width >= 1024) {
-      return getFormattedAddress(address);
-    }
-    return address;
-  };
 
   return !ethAddress ? (
     <div className="flex flex-col items-center space-y-[12px] border-y border-dashed border-[#ffffff26] py-[58px]">
@@ -181,89 +186,52 @@ export function MyAccountBlock() {
             title="Address"
             value={
               <div className="flex flex-col items-start space-y-2 font-sans lg:flex-row lg:space-x-4 lg:space-y-0">
-                <div
-                  className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px] text-white transition-colors duration-100 ease-in-out hover:text-gray-400"
-                  onClick={handleEthAddressCopy}
-                >
-                  <div className="text-[18px] leading-[28px]">
-                    {formattedAddress(ethAddress, width)}
-                  </div>
+                <div className="flex-1">
+                  <Tooltip
+                    text={
+                      isEthAddressCopy
+                        ? 'Copied!'
+                        : `Click to copy ${ethAddress}`
+                    }
+                  >
+                    <div
+                      className="flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                      onClick={handleEthAddressCopy}
+                    >
+                      <div>
+                        {isMobile || isDesktop
+                          ? getFormattedAddress(ethAddress, 6, 6, '...')
+                          : ethAddress}
+                      </div>
 
-                  <CopyIcon className="mb-[-3px]" />
+                      <CopyIcon className="mb-[-2px]" />
+                    </div>
+                  </Tooltip>
                 </div>
-                <div
-                  className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px] text-white transition-colors duration-100 ease-in-out hover:text-gray-400"
-                  onClick={handleHaqqAddressCopy}
-                >
-                  <div className="text-[18px] leading-[28px]">
-                    {formattedAddress(haqqAddress, width)}
-                  </div>
-
-                  <CopyIcon className="mb-[-3px]" />
+                <div className="flex-1">
+                  <Tooltip
+                    text={
+                      isHaqqAddressCopy
+                        ? 'Copied!'
+                        : `Click to copy ${haqqAddress}`
+                    }
+                  >
+                    <div
+                      className="flex cursor-pointer flex-row items-center gap-[8px] text-[18px] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                      onClick={handleHaqqAddressCopy}
+                    >
+                      <div>
+                        {isMobile || isDesktop
+                          ? getFormattedAddress(haqqAddress, 6, 6, '...')
+                          : haqqAddress}
+                      </div>
+                      <CopyIcon className="mb-[-2px]" />
+                    </div>
+                  </Tooltip>
                 </div>
               </div>
             }
           />
-
-          {/* <div className="flex flex-col items-start">
-            <div className="mb-[6px]">
-              <div className={grayTextClassName}>My balance</div>
-            </div>
-            <div className="sm:leading[1.33em] font-serif text-[16px] leading-[1.25em] text-white sm:text-[18px] lg:text-[24px] lg:leading-[1.25em]">
-              {balance?.value.toLocaleString()} ISLM
-            </div>
-          </div> */}
-
-          {/* <div className="flex flex-col items-start">
-            <div className="mb-[6px]">
-              <div className={grayTextClassName}>Staked</div>
-            </div>
-            <div className="sm:leading[1.33em] text-[16px] leading-[1.25em] text-white sm:text-[18px] lg:text-[24px] lg:leading-[1.25em]">
-              {delegation.toLocaleString()} ISLM
-            </div>
-          </div> */}
-
-          {/* <div className="flex flex-col items-start">
-            <div className="mb-[6px]">
-              <div className={grayTextClassName}>Rewards</div>
-            </div>
-            <div
-              className="sm:leading[1.33em] text-[16px] leading-[1.25em] text-white sm:text-[18px] lg:text-[24px] lg:leading-[1.25em]"
-              color="white"
-            >
-              {rewards.toLocaleString()} ISLM
-            </div>
-          </div> */}
-
-          {/* <div className="flex flex-col items-start">
-            <div className="mb-[6px]">
-              <div className={grayTextClassName}>Address</div>
-            </div>
-
-            <div className="flex flex-col items-start space-y-2 font-sans lg:flex-row lg:space-x-4 lg:space-y-0">
-              <div
-                className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px] text-white transition-colors duration-100 ease-in-out hover:text-gray-400"
-                onClick={handleEthAddressCopy}
-              >
-                <div className="text-[18px] leading-[28px]">
-                  {formattedAddress(ethAddress, width)}
-                </div>
-
-                <CopyIcon />
-              </div>
-              <div
-                className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px] text-white transition-colors duration-100 ease-in-out hover:text-gray-400"
-                onClick={handleHaqqAddressCopy}
-              >
-                <div className="text-[18px] leading-[28px]">
-                  {formattedAddress(haqqAddress, width)}
-                </div>
-
-                <CopyIcon />
-              </div>
-
-            </div>
-          </div> */}
         </div>
       </div>
     </Container>
