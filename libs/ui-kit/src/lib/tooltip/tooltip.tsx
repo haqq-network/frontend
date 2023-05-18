@@ -1,9 +1,8 @@
-import { ReactElement, ReactNode } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 import clsx from 'clsx';
 
 export interface TooltipProps {
   text: string;
-  children: ReactNode;
   className?: string;
 }
 
@@ -11,7 +10,7 @@ export function Tooltip({
   text,
   children,
   className,
-}: TooltipProps): ReactElement {
+}: PropsWithChildren<TooltipProps>): ReactElement {
   return (
     <span className="group relative inline-block leading-none">
       {children}
