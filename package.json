@@ -76,7 +76,7 @@
     "sharp": "0.32.1",
     "store2": "2.14.2",
     "swiper": "9.3.2",
-    "tslib": "2.5.0",
+    "tslib": "2.5.1",
     "wagmi": "0.12.13",
     "web3": "1.10.0",
     "yup": "1.1.1"
@@ -162,7 +162,7 @@
     "ts-node": "10.9.1",
     "typescript": "5.0.4",
     "url-loader": "4.1.1",
-    "webpack": "5.82.1",
+    "webpack": "5.83.1",
     "webpack-merge": "5.8.0"
   },
   "resolutions": {
