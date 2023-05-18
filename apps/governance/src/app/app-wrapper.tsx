@@ -1,10 +1,4 @@
-import {
-  Fragment,
-  PropsWithChildren,
-  ReactNode,
-  useMemo,
-  useState,
-} from 'react';
+import { Fragment, PropsWithChildren, useMemo, useState } from 'react';
 import { useAddress, useWallet } from '@haqq/shared';
 import { useBalance, useConnect } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
