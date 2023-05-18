@@ -105,7 +105,10 @@ function HeaderButtons({
 
     return {
       symbol: balanceData.symbol,
-      value: Number.parseFloat(balanceData.formatted),
+      value: Number.parseFloat(balanceData.formatted).toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 3,
+      }),
     };
   }, [balanceData]);
 

@@ -18,8 +18,8 @@ interface ValidatorBlockMobileProps {
   onGetRewardClick: () => void;
   onUndelegateClick: () => void;
   isWarningShown?: boolean;
-  isConnected?: boolean;
-  onConnectWalletClick: () => void;
+  // isConnected?: boolean;
+  // onConnectWalletClick: () => void;
 }
 
 function GrayDescription({
@@ -55,27 +55,6 @@ function DescriptionAmount({
   );
 }
 
-function ConnectWallet({
-  onConnectWalletClick,
-}: {
-  onConnectWalletClick: () => void;
-}) {
-  return (
-    <div className="flex flex-col items-center justify-center gap-[12px]">
-      <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-        You should connect wallet first
-      </div>
-      <Button
-        onClick={onConnectWalletClick}
-        variant={2}
-        className="text-black hover:bg-transparent hover:text-white"
-      >
-        Connect wallet
-      </Button>
-    </div>
-  );
-}
-
 export function ValidatorBlockMobile({
   delegation,
   isDelegateDisabled,
@@ -84,8 +63,6 @@ export function ValidatorBlockMobile({
   onDelegateClick,
   onGetRewardClick,
   onUndelegateClick,
-  isConnected = false,
-  onConnectWalletClick,
   rewards,
   undelegate,
   isWarningShown = false,
@@ -93,14 +70,6 @@ export function ValidatorBlockMobile({
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
   });
-
-  if (!isConnected) {
-    return (
-      <Container className="py-[24px] md:py-[40px]">
-        <ConnectWallet onConnectWalletClick={onConnectWalletClick} />
-      </Container>
-    );
-  }
 
   return (
     <Container className="py-[24px] md:py-[40px]">

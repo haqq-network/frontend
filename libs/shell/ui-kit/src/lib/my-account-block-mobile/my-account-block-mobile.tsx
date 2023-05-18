@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren } from 'react';
 import { WalletIcon } from '../icons/icons';
 import { Heading } from '../heading/heading';
 import clsx from 'clsx';

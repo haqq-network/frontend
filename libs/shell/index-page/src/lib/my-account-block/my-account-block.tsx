@@ -65,7 +65,10 @@ export function MyAccountBlock() {
 
     return {
       symbol: balanceData.symbol,
-      value: Number.parseFloat(balanceData.formatted),
+      value: Number.parseFloat(balanceData.formatted).toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 3,
+      }),
     };
   }, [balanceData]);
 
@@ -156,17 +159,23 @@ export function MyAccountBlock() {
         <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
           <MyAccountAmountBlock
             title="Balance"
-            value={`${balance?.value.toLocaleString()} ISLM`}
+            value={`${balance?.value} ISLM`}
             valueClassName="!text-white"
             isGreen
           />
           <MyAccountAmountBlock
             title="Staked"
-            value={`${delegation.toLocaleString()} ISLM`}
+            value={`${delegation.toLocaleString('en-US', {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 3,
+            })} ISLM`}
           />
           <MyAccountAmountBlock
             title="Rewards"
-            value={`${rewards.toLocaleString()} ISLM`}
+            value={`${rewards.toLocaleString('en-US', {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 3,
+            })} ISLM`}
           />
           <MyAccountAmountBlock
             title="Address"
