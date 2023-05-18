@@ -1,4 +1,4 @@
-import { Tooltip as TooltipComponent } from '@haqq/ui-kit';
+import { Tooltip as TooltipComponent } from './tooltip';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof TooltipComponent> = {
