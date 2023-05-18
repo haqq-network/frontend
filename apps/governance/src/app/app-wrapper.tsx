@@ -1,5 +1,11 @@
-import { Fragment, ReactNode, useMemo, useState } from 'react';
-import { useAddress, useWallet } from '@haqq/shared';
+import {
+  Fragment,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { useAddress, useWallet, useWindowWidth } from '@haqq/shared';
 import { useBalance, useConnect } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
 import {
@@ -12,6 +18,11 @@ import {
   ModalCloseButton,
 } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
+
+interface HeaderButtonProps {
+  isMobileMenuOpen: boolean;
+  onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
+}
 
 function SelectWalletModal({
   isOpen,
@@ -80,8 +91,10 @@ function SelectWalletModal({
   );
 }
 
-function HeaderButtons() {
-  const [isOpen, setOpen] = useState(false);
+function HeaderButtons({
+  isMobileMenuOpen,
+  onMobileMenuOpenChange,
+}: HeaderButtonProps) {
   const {
     disconnect,
     isSelectWalletOpen,
@@ -106,6 +119,13 @@ function HeaderButtons() {
       }),
     };
   }, [balanceData]);
+  const { width } = useWindowWidth();
+
+  useEffect(() => {
+    if (width >= 1024) {
+      onMobileMenuOpenChange(false);
+    }
+  }, [onMobileMenuOpenChange, width]);
 
   return (
     <Fragment>
@@ -123,9 +143,9 @@ function HeaderButtons() {
 
       <div className="block lg:hidden">
         <BurgerButton
-          isOpen={isOpen}
+          isOpen={isMobileMenuOpen}
           onClick={() => {
-            setOpen(!isOpen);
+            onMobileMenuOpenChange(!isMobileMenuOpen);
           }}
         />
       </div>
@@ -135,11 +155,10 @@ function HeaderButtons() {
         onClose={closeSelectWallet}
       />
 
-      {isOpen && (
+      {isMobileMenuOpen && (
         <Fragment>
           <ScrollLock isActive />
-
-          <div className="fixed right-0 top-[64px] z-40 h-[calc(100vh-64px)] w-full transform-gpu bg-[#0D0D0E] backdrop-blur  lg:hidden">
+          <div className="fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full transform-gpu bg-[#0D0D0E] backdrop-blur sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
             <div className="overflow-y-auto px-[24px] py-[32px]">
               {ethAddress && (
                 <AccountButton
@@ -165,8 +184,23 @@ function HeaderButtons() {
   );
 }
 
-export function AppWrapper({ children }: { children: ReactNode }) {
+export function AppWrapper({ children }: PropsWithChildren) {
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
-    <Page header={<Header rightSlot={<HeaderButtons />} />}>{children}</Page>
+    <Page
+      header={
+        <Header
+          darkBackground={isMobileMenuOpen}
+          rightSlot={
+            <HeaderButtons
+              isMobileMenuOpen={isMobileMenuOpen}
+              onMobileMenuOpenChange={setMobileMenuOpen}
+            />
+          }
+        />
+      }
+    >
+      {children}
+    </Page>
   );
 }

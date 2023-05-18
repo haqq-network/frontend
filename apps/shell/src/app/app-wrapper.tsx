@@ -1,17 +1,29 @@
-import { Fragment, ReactNode, useEffect, useMemo, useState } from 'react';
-import { useAddress, useWallet, useWindowWidth } from '@haqq/shared';
-import { useBalance, useConnect } from 'wagmi';
-import ScrollLock from 'react-scrolllock';
 import {
-  Header,
+  Fragment,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import {
   Page,
-  BurgerButton,
-  Button,
+  Header,
   AccountButton,
+  HeaderNavLink,
+  Button,
+  BurgerButton,
   Modal,
   ModalCloseButton,
 } from '@haqq/shell/ui-kit';
+import ScrollLock from 'react-scrolllock';
+import { useBalance, useConnect } from 'wagmi';
 import clsx from 'clsx';
+import { useAddress, useWallet, useWindowWidth } from '@haqq/shared';
+
+interface HeaderButtonProps {
+  isMobileMenuOpen: boolean;
+  onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
+}
 
 function SelectWalletModal({
   isOpen,
@@ -83,10 +95,7 @@ function SelectWalletModal({
 function HeaderButtons({
   isMobileMenuOpen,
   onMobileMenuOpenChange,
-}: {
-  isMobileMenuOpen: boolean;
-  onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
-}) {
+}: HeaderButtonProps) {
   const {
     disconnect,
     isSelectWalletOpen,
@@ -105,10 +114,7 @@ function HeaderButtons({
 
     return {
       symbol: balanceData.symbol,
-      value: Number.parseFloat(balanceData.formatted).toLocaleString('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 3,
-      }),
+      value: Number.parseFloat(balanceData.formatted),
     };
   }, [balanceData]);
   const { width } = useWindowWidth();
@@ -121,6 +127,11 @@ function HeaderButtons({
 
   return (
     <Fragment>
+      <nav className="hidden flex-row items-center space-x-6 lg:flex">
+        <HeaderNavLink href="/staking">Staking</HeaderNavLink>
+        <HeaderNavLink href="/governance">Governance</HeaderNavLink>
+      </nav>
+
       <div className="hidden pl-[80px] lg:block">
         {ethAddress ? (
           <AccountButton
@@ -151,8 +162,27 @@ function HeaderButtons({
         <Fragment>
           <ScrollLock isActive />
 
-          <div className="fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full transform-gpu bg-[#0D0D0E] backdrop-blur sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
+          <div className="'transform-gpu fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full bg-[#0D0D0E] backdrop-blur sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
             <div className="overflow-y-auto px-[24px] py-[32px]">
+              <div className="mb-[24px] flex flex-col items-start space-y-[16px] sm:mb-[80px]">
+                <HeaderNavLink
+                  href="/staking"
+                  onClick={() => {
+                    onMobileMenuOpenChange(false);
+                  }}
+                >
+                  Staking
+                </HeaderNavLink>
+                <HeaderNavLink
+                  href="/governance"
+                  onClick={() => {
+                    onMobileMenuOpenChange(false);
+                  }}
+                >
+                  Governance
+                </HeaderNavLink>
+              </div>
+
               {ethAddress && (
                 <AccountButton
                   balance={balance}
@@ -177,7 +207,7 @@ function HeaderButtons({
   );
 }
 
-export function AppWrapper({ children }: { children: ReactNode }) {
+export function AppWrapper({ children }: PropsWithChildren) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
