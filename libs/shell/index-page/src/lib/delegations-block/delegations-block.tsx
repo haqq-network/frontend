@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import {
   useAddress,
   useStakingDelegationQuery,
-  useStakingPoolQuery,
+  // useStakingPoolQuery,
   useStakingRewardsQuery,
   useStakingValidatorListQuery,
 } from '@haqq/shared';
@@ -17,6 +17,7 @@ import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
 import { DelegationResponse } from '@evmos/provider';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,
@@ -48,6 +49,7 @@ export function DelegationsBlock() {
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
   });
+  const navigate = useNavigate();
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -104,6 +106,9 @@ export function DelegationsBlock() {
                     validators={valToRender}
                     delegationInfo={delegationInfo}
                     rewardsInfo={rewardsInfo}
+                    onValidatorClick={(validatorAddress: string) => {
+                      navigate(`/staking/validator/${validatorAddress}`);
+                    }}
                   />
                 </div>
               ) : (
@@ -111,6 +116,9 @@ export function DelegationsBlock() {
                   validators={valToRender}
                   delegationInfo={delegationInfo}
                   rewardsInfo={rewardsInfo}
+                  onValidatorClick={(validatorAddress: string) => {
+                    navigate(`/staking/validator/${validatorAddress}`);
+                  }}
                 />
               )}
             </div>

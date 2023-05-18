@@ -22,6 +22,7 @@ import {
   useToast,
   useWallet,
   useProposalActions,
+  useConfig,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -573,9 +574,6 @@ export function ProposalDetailsComponent({
             isConnected={isConnected}
             onConnectWalletClick={openSelectWallet}
             isDepositAvailable={isDepositAvailable}
-            // isVotingAvailable={isVotingAvailable}
-            totalDeposit={totalDeposit}
-            minDeposit={minDeposit}
             onDepositWalletClick={() => {
               navigate(`#deposit`);
             }}
@@ -598,25 +596,15 @@ function ProposalActionsMobile({
   proposalDetails,
   isConnected,
   onConnectWalletClick,
-  isDepositAvailable,
-  // isVotingAvailable,
-  totalDeposit,
-  minDeposit,
   onDepositWalletClick,
+  isDepositAvailable,
 }: {
   proposalDetails: Proposal;
   isConnected?: boolean;
   onConnectWalletClick: () => void;
   onDepositWalletClick: () => void;
   isDepositAvailable: boolean;
-  // isVotingAvailable: boolean;
-  totalDeposit: number;
-  minDeposit: number;
 }) {
-  const isMobile = useMediaQuery({
-    query: `(max-width: 639px)`,
-  });
-
   if (!isConnected) {
     return (
       <div className="flex transform-gpu flex-col items-center space-y-[12px] bg-[#252528] bg-opacity-75 py-[58px] backdrop-blur">
@@ -692,6 +680,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
 export function ProposalDetails() {
   const { id: proposalId } = useParams();
   const navigate = useNavigate();
+  const { isStandalone } = useConfig();
 
   if (!proposalId || !isNumber(proposalId)) {
     return <Navigate to="/not-found" replace />;
@@ -703,7 +692,11 @@ export function ProposalDetails() {
         <div className="py-[18px] sm:py-[26px] lg:py-[34px]">
           <BackButton
             onClick={() => {
-              navigate('/');
+              if (isStandalone) {
+                navigate('/');
+              } else {
+                navigate('/governance');
+              }
             }}
           >
             Governance

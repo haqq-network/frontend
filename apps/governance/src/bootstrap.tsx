@@ -31,6 +31,7 @@ async function startApp() {
       chainName={environment.chainName}
       walletConnectProjectId={environment.walletConnectProjectId}
       withReactQueryDevtools={!environment.isProduction}
+      isStandalone
     >
       <AppWrapper>
         <App />

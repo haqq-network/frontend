@@ -26,6 +26,7 @@ import {
   Tab,
 } from '@haqq/shell/ui-kit';
 import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,
@@ -57,6 +58,7 @@ export function StakingValidatorList() {
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
   });
+  const navigate = useNavigate();
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -153,6 +155,9 @@ export function StakingValidatorList() {
                         validators={delegatedValidators}
                         delegationInfo={delegationInfo}
                         rewardsInfo={rewardsInfo}
+                        onValidatorClick={(validatorAddress: string) => {
+                          navigate(`validator/${validatorAddress}`);
+                        }}
                       />
                     </div>
                   )}
@@ -167,6 +172,9 @@ export function StakingValidatorList() {
                         validators={otherValidators}
                         delegationInfo={delegationInfo}
                         rewardsInfo={rewardsInfo}
+                        onValidatorClick={(validatorAddress: string) => {
+                          navigate(`validator/${validatorAddress}`);
+                        }}
                       />
                     </div>
                   )}
@@ -192,6 +200,7 @@ function ValidatorsListMobileTabs({
   delegationInfo: GetDelegationsResponse | null | undefined;
 }) {
   const [tab, setTab] = useState('my-delegations');
+  const navigate = useNavigate();
 
   if (delegatedValidators.length === 0) {
     return (
@@ -200,6 +209,9 @@ function ValidatorsListMobileTabs({
           validators={otherValidators}
           delegationInfo={delegationInfo}
           rewardsInfo={rewardsInfo}
+          onValidatorClick={(validatorAddress: string) => {
+            navigate(`validator/${validatorAddress}`);
+          }}
         />
       </div>
     );
@@ -232,6 +244,9 @@ function ValidatorsListMobileTabs({
           }
           delegationInfo={delegationInfo}
           rewardsInfo={rewardsInfo}
+          onValidatorClick={(validatorAddress: string) => {
+            navigate(`validator/${validatorAddress}`);
+          }}
         />
       </div>
     </div>

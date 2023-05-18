@@ -3,13 +3,13 @@ import { formatUnits } from 'ethers/lib/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { ValidatorListStatus } from '../validator-status/validator-status';
-import { useNavigate } from 'react-router-dom';
 
 export interface ValidatorListItemProps {
   validator: Validator;
   delegation?: DelegationResponse;
   reward?: Reward;
   stakingPool: number;
+  onClick: (validatorAddress: string) => void;
 }
 
 function formatNumber(num: number) {
@@ -24,8 +24,8 @@ export function ValidatorListItem({
   reward,
   delegation,
   stakingPool,
+  onClick,
 }: ValidatorListItemProps) {
-  const navigate = useNavigate();
   const validatorCommission = useMemo(() => {
     return formatNumber(
       Number.parseFloat(validator.commission?.commission_rates?.rate ?? '0') *
@@ -59,7 +59,7 @@ export function ValidatorListItem({
       className="cursor-pointer border-t border-[#FFFFFF26] text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] md:text-[16px] md:leading-[26px]"
       onClick={() => {
         // console.log(`validator/${validator.operator_address}`);
-        navigate(`validator/${validator.operator_address}`);
+        onClick(validator.operator_address);
       }}
     >
       <td className="p-[8px] md:p-[12px]">

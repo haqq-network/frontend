@@ -8,7 +8,6 @@ import type {
 import { useStakingPoolQuery } from '@haqq/shared';
 import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell/ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
-import { useNavigate } from 'react-router-dom';
 import { formatUnits } from 'ethers/lib/utils';
 
 export function ValidatorListItemMobile({
@@ -16,8 +15,8 @@ export function ValidatorListItemMobile({
   reward,
   delegation,
   stakingPool,
+  onClick,
 }: ValidatorListItemProps) {
-  const navigate = useNavigate();
   const validatorCommission = useMemo(() => {
     return (
       Number.parseFloat(validator.commission?.commission_rates?.rate ?? '0') *
@@ -49,8 +48,7 @@ export function ValidatorListItemMobile({
   return (
     <div
       onClick={() => {
-        // console.log(`validator/${validator.operator_address}`);
-        navigate(`validator/${validator.operator_address}`);
+        onClick(validator.operator_address);
       }}
     >
       <ValidatorListItemMobileComponent
@@ -70,12 +68,14 @@ interface ValidatorListProps {
   validators: Validator[];
   rewardsInfo: DistributionRewardsResponse | null | undefined;
   delegationInfo: GetDelegationsResponse | null | undefined;
+  onValidatorClick: (validatorAddress: string) => void;
 }
 
 export function ValidatorsListMobile({
   validators,
   rewardsInfo,
   delegationInfo,
+  onValidatorClick,
 }: ValidatorListProps) {
   const { data: stakingPool } = useStakingPoolQuery();
   const getValidatorRewards = useCallback(
@@ -119,6 +119,7 @@ export function ValidatorsListMobile({
             delegation={delegationInfo}
             reward={rewardsInfo}
             stakingPool={totalStaked}
+            onClick={onValidatorClick}
           />
         );
       })}
@@ -130,6 +131,7 @@ export function ValidatorsList({
   validators,
   rewardsInfo,
   delegationInfo,
+  onValidatorClick,
 }: ValidatorListProps) {
   const { data: stakingPool } = useStakingPoolQuery();
   const getValidatorRewards = useCallback(
@@ -185,6 +187,7 @@ export function ValidatorsList({
               delegation={delegationInfo}
               reward={rewardsInfo}
               stakingPool={totalStaked}
+              onClick={onValidatorClick}
             />
           );
         })}
