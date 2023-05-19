@@ -67,7 +67,7 @@ export function StakingInfoComponent({
   onChangeNetwork,
 }: RewardsInfoProps) {
   return !isWalletConnected ? (
-    <div className="border-y border-dashed border-[#ffffff26] py-[55px] sm:py-[90px] lg:py-[62px]">
+    <div className="border-y border-[#ffffff26] py-[55px] sm:py-[90px] lg:py-[62px]">
       <Container>
         <div className="flex flex-col items-center space-y-[12px]">
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
@@ -84,7 +84,7 @@ export function StakingInfoComponent({
       </Container>
     </div>
   ) : (
-    <section className="sticky top-[62px] z-[49] w-full transform-gpu border-y border-dashed border-[#ffffff26] bg-transparent py-[32px] backdrop-blur sm:top-[70px]">
+    <section className="sticky top-[62px] z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent py-[32px] backdrop-blur sm:top-[70px]">
       <Container>
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
