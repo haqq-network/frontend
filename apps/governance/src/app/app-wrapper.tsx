@@ -19,6 +19,7 @@ import {
   MobileHeading,
 } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
 
 interface HeaderButtonProps {
   isMobileMenuOpen: boolean;
@@ -191,11 +192,34 @@ function HeaderButtons({
 
 export function AppWrapper({ children }: PropsWithChildren) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isBlurred, setBlured] = useState(false);
+  const isDesktop = useMediaQuery({
+    query: `(min-width: 1024px)`,
+  });
+
+  useEffect(() => {
+    function handleScroll() {
+      const offset = isDesktop ? 60 : 30;
+      if (window.scrollY > offset) {
+        setBlured(true);
+      } else {
+        setBlured(false);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isDesktop]);
+
   return (
     <Page
       header={
         <Header
           darkBackground={isMobileMenuOpen}
+          isBlurred={isBlurred}
           rightSlot={
             <HeaderButtons
               isMobileMenuOpen={isMobileMenuOpen}
