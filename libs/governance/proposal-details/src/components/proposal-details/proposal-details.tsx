@@ -290,7 +290,7 @@ export function ProposalDetailsComponent({
     <Fragment>
       <Container>
         <div className="flex flex-row gap-[48px] lg:mb-[48px]">
-          <div className="lg:w-1/2 xl:flex-1">
+          <div className="flex-1">
             <div className="divide-haqq-border divide-y divide-dashed">
               <div className="pb-[24px] md:pb-[40px]">
                 {isTablet && (
