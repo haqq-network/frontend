@@ -417,7 +417,7 @@ export function ProposalDetailsComponent({
 
           {!isTablet && (
             <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
-              <div className="transform-gpu overflow-hidden rounded-[8px] bg-[#252528] bg-opacity-75 backdrop-blur">
+              <div className="transform-gpu overflow-hidden rounded-[8px] bg-[#ffffff14] ">
                 <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
                   <div>
                     <ProposalStatusComponent
