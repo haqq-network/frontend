@@ -126,7 +126,7 @@ export function MyAccountBlock() {
   }, [copyText, haqqAddress]);
 
   return !ethAddress ? (
-    <div className="flex flex-col items-center space-y-[12px] border-y border-dashed border-[#ffffff26] py-[58px]">
+    <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px]">
       <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
         You should connect wallet first
       </div>
@@ -139,7 +139,7 @@ export function MyAccountBlock() {
       </Button>
     </div>
   ) : (
-    <Container className="border-y border-dashed border-y-[#ffffff26]">
+    <Container className="border-y border-y-[#ffffff26]">
       <div className="flex flex-col py-[32px] font-sans sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
