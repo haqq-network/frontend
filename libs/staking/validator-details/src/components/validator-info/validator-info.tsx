@@ -319,7 +319,7 @@ export function ValidatorInfoComponent({
 
       {isTablet && (
         <div className="sticky bottom-0 left-0 right-0 z-30">
-          <div className="transform-gpu bg-[#252528] bg-opacity-75 backdrop-blur">
+          <div className="transform-gpu bg-[#FFFFFF14]">
             {isConnected ? (
               <Swiper
                 slidesPerView={1}
@@ -583,7 +583,7 @@ export function ValidatorBlockDesktop({
   const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
 
   return (
-    <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#252528] bg-opacity-75 px-[28px] py-[32px] backdrop-blur">
+    <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[28px] py-[32px]">
       <div className="flex flex-row items-center">
         <ValidatorIcon />
         <Heading level={3} className="ml-[8px]">

@@ -19,6 +19,7 @@ import {
   MobileHeading,
 } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
 
 interface HeaderButtonProps {
   isMobileMenuOpen: boolean;
@@ -163,7 +164,7 @@ function HeaderButtons({
       {isMobileMenuOpen && (
         <Fragment>
           <ScrollLock isActive />
-          <div className="fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full transform-gpu bg-[#0D0D0E] backdrop-blur sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
+          <div className="bg-haqq-black fixed right-0 top-[61px] z-40 h-[calc(100vh-61px)] w-full transform-gpu sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
             <div className="overflow-y-auto px-[24px] py-[32px]">
               {ethAddress && (
                 <AccountButton
@@ -191,11 +192,34 @@ function HeaderButtons({
 
 export function AppWrapper({ children }: PropsWithChildren) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isBlurred, setBlured] = useState(false);
+  const isDesktop = useMediaQuery({
+    query: `(min-width: 1024px)`,
+  });
+
+  useEffect(() => {
+    function handleScroll() {
+      const offset = isDesktop ? 60 : 30;
+      if (window.scrollY > offset) {
+        setBlured(true);
+      } else {
+        setBlured(false);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isDesktop]);
+
   return (
     <Page
       header={
         <Header
           darkBackground={isMobileMenuOpen}
+          isBlurred={isBlurred}
           rightSlot={
             <HeaderButtons
               isMobileMenuOpen={isMobileMenuOpen}
