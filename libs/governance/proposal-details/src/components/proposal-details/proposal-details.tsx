@@ -142,7 +142,7 @@ function ProposalDetailsMobile({
 }) {
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
-      <div className="transform-gpu rounded-[8px] bg-[#252528] bg-opacity-75 p-[16px] backdrop-blur">
+      <div className="rounded-[8px] bg-[#FFFFFF14] p-[16px]">
         <div className="flex flex-col gap-[12px]">
           <div>
             {(proposalDetails.status === ProposalStatus.Voting ||
@@ -417,7 +417,7 @@ export function ProposalDetailsComponent({
 
           {!isTablet && (
             <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
-              <div className="transform-gpu overflow-hidden rounded-[8px] bg-[#252528] bg-opacity-75 backdrop-blur">
+              <div className="transform-gpu overflow-hidden rounded-[8px] bg-[#FFFFFF14]">
                 <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
                   <div>
                     <ProposalStatusComponent
@@ -616,7 +616,7 @@ function ProposalActionsMobile({
 }) {
   if (!isConnected) {
     return (
-      <div className="transform-gpu bg-[#252528] bg-opacity-75 py-[24px] backdrop-blur md:py-[40px]">
+      <div className="transform-gpu bg-[#FFFFFF14] py-[24px] backdrop-blur md:py-[40px]">
         <div className="flex flex-col items-center gap-[12px]">
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             You should connect wallet first
@@ -635,7 +635,7 @@ function ProposalActionsMobile({
 
   // if (proposalDetails.status === ProposalStatus.Deposit) {
   //   return (
-  //     <div className="transform-gpu bg-[#252528] bg-opacity-75 py-[24px] backdrop-blur md:py-[40px]">
+  //     <div className="transform-gpu bg-[#FFFFFF14] py-[24px] backdrop-blur md:py-[40px]">
   //       <Container>
   //         <Button
   //           className="w-full"
@@ -652,7 +652,7 @@ function ProposalActionsMobile({
 
   if (proposalDetails.status === ProposalStatus.Voting) {
     return (
-      <div className="transform-gpu bg-[#252528] bg-opacity-75 py-[24px] backdrop-blur md:py-[40px]">
+      <div className="transform-gpu bg-[#FFFFFF14] py-[24px] backdrop-blur md:py-[40px]">
         <Container>
           <VoteActions
             proposalId={Number.parseInt(proposalDetails.proposal_id, 10)}

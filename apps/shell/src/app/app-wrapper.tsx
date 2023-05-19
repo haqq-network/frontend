@@ -167,7 +167,7 @@ function HeaderButtons({
         <Fragment>
           <ScrollLock isActive />
 
-          <div className="'transform-gpu fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full bg-[#0D0D0E] backdrop-blur sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
+          <div className="bg-haqq-black fixed right-0 top-[61px] z-40 h-[calc(100vh-61px)] w-full transform-gpu sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
             <div className="overflow-y-auto px-[24px] py-[32px]">
               <div className="mb-[24px] flex flex-col items-start space-y-[16px] sm:mb-[80px]">
                 <HeaderNavLink
