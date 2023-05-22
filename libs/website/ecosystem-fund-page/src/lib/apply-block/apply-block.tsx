@@ -22,9 +22,9 @@ export function ApplyBlock() {
         target="_blank"
         rel={'noopener noreferrer'}
       >
-        <Button variant={2} className="mt-[24px]">
-          Apply now
-        </Button>
+        <div className="mt-[24px]">
+          <Button variant={2}>Apply now</Button>
+        </div>
       </Link>
     </section>
   );
