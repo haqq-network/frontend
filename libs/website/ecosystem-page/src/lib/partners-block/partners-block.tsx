@@ -1,20 +1,25 @@
 import { Heading, OrangeLink, Tabs, Tab } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
-import { ReactElement, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Partners } from '../partners/partners';
+import Link from 'next/link';
 
-type PartnerType =
-  | 'infrastructure'
-  | 'wallet'
-  | 'defi'
-  | 'bridge'
-  | 'payments'
-  | 'service';
+enum PartnerType {
+  Infrastructure = 'infrastructure',
+  Wallet = 'wallet',
+  DeFi = 'defi',
+  Bridge = 'bridge',
+  Payments = 'payments',
+  Service = 'service',
+}
 
-type PartnerStatus = 'live' | 'planned';
+enum PartnerStatus {
+  Live = 'live',
+  Planned = 'planned',
+}
 
 export interface ParterCardProps {
-  logo: ReactElement;
+  logo: ReactNode;
   name: string;
   description: string;
   type: PartnerType;
@@ -30,20 +35,51 @@ function PartnerTypeOrStatus({
   status?: PartnerStatus;
   type?: PartnerType;
 }) {
+  let text = '';
+
+  switch (status) {
+    case PartnerStatus.Live:
+      text = 'Live';
+      break;
+    case PartnerStatus.Planned:
+      text = 'Planned';
+      break;
+    default:
+      break;
+  }
+
+  if (!text) {
+    switch (type) {
+      case PartnerType.Infrastructure:
+        text = 'Infrastructure';
+        break;
+      case PartnerType.Wallet:
+        text = 'Wallet';
+        break;
+      case PartnerType.DeFi:
+        text = 'DeFi';
+        break;
+      case PartnerType.Bridge:
+        text = 'Bridge';
+        break;
+      case PartnerType.Payments:
+        text = 'Payments';
+        break;
+      case PartnerType.Service:
+        text = 'Service';
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <div
       className={clsx(
         'text-[12px] leading-[1.5em] rounded-[2px] py-[6px] px-[10px] text-center border border-[#ffffff26]',
       )}
     >
-      {status === 'live' && 'Live'}
-      {status === 'planned' && 'Planned'}
-      {type === 'infrastructure' && 'Infrastructure'}
-      {type === 'wallet' && 'Wallet'}
-      {type === 'defi' && 'DeFi'}
-      {type === 'bridge' && 'Bridge'}
-      {type === 'payments' && 'Payments'}
-      {type === 'service' && 'Service'}
+      {text}
     </div>
   );
 }
@@ -76,14 +112,32 @@ function ParterCard({
           <PartnerTypeOrStatus status={status} />
           <PartnerTypeOrStatus type={type} />
         </div>
-        <OrangeLink
+        <Link
           href={link}
-          withArrow
+          className={clsx(
+            'text-[14px] font-[600] leading-[1.2em] text-haqq-orange hover:text-haqq-light-orange',
+            'cursor-pointer transition-colors duration-100 ease-out',
+            'inline-flex items-center gap-x-[4px]',
+          )}
           rel="noopener noreferrer"
           target="_blank"
         >
           Website
-        </OrangeLink>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M12.2874 8.30374L12.2874 13.363L13.954 13.363L13.954 5.45857H6.04965V7.12523L11.1089 7.12523L4.28188 13.9522L5.46039 15.1307L12.2874 8.30374Z"
+              fill="currentColor"
+            />
+          </svg>
+        </Link>
       </div>
     </div>
   );
@@ -97,7 +151,7 @@ export function PartnersBlock() {
     type: PartnerType | 'all-partners',
   ) => {
     if (type === 'all-partners') {
-      return partners; // Return all partners if the type is 'all-partners'
+      return partners;
     }
 
     return partners.filter((partner) => partner.type === type);
@@ -115,32 +169,61 @@ export function PartnersBlock() {
         </div>
       </div>
 
-      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px] overflow-x-auto md:overflow-x-hidden">
+      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px] overflow-x-scroll md:overflow-x-visible">
         <Tab
           isActive={tab === 'all-partners'}
-          onClick={() => setTab('all-partners')}
+          onClick={() => {
+            setTab('all-partners');
+          }}
         >
           All
         </Tab>
         <Tab
           isActive={tab === 'infrastructure'}
-          onClick={() => setTab('infrastructure')}
+          onClick={() => {
+            setTab(PartnerType.Infrastructure);
+          }}
         >
           Infrastructure
         </Tab>
-        <Tab isActive={tab === 'wallet'} onClick={() => setTab('wallet')}>
+        <Tab
+          isActive={tab === 'wallet'}
+          onClick={() => {
+            setTab(PartnerType.Wallet);
+          }}
+        >
           Wallet
         </Tab>
-        <Tab isActive={tab === 'defi'} onClick={() => setTab('defi')}>
+        <Tab
+          isActive={tab === 'defi'}
+          onClick={() => {
+            setTab(PartnerType.DeFi);
+          }}
+        >
           DeFi
         </Tab>
-        <Tab isActive={tab === 'bridge'} onClick={() => setTab('bridge')}>
+        <Tab
+          isActive={tab === 'bridge'}
+          onClick={() => {
+            setTab(PartnerType.Bridge);
+          }}
+        >
           Bridge
         </Tab>
-        <Tab isActive={tab === 'payments'} onClick={() => setTab('payments')}>
+        <Tab
+          isActive={tab === 'payments'}
+          onClick={() => {
+            setTab(PartnerType.Payments);
+          }}
+        >
           Payments
         </Tab>
-        <Tab isActive={tab === 'service'} onClick={() => setTab('service')}>
+        <Tab
+          isActive={tab === 'service'}
+          onClick={() => {
+            setTab(PartnerType.Service);
+          }}
+        >
           Service
         </Tab>
       </Tabs>
