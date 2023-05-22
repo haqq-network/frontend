@@ -60,7 +60,7 @@ function ParterCard({
   return (
     <div
       className={clsx(
-        'p-[20px] flex flex-col justify-between bg-haqq-black h-[330px]',
+        'p-[20px] flex flex-col justify-between bg-haqq-black h-[280px] md:h-[300px] lg:h-[330px]',
         className,
       )}
     >
@@ -106,18 +106,16 @@ export function PartnersBlock() {
   const filteredPartners = filterPartnersByType(Partners, tab);
 
   return (
-    <section className="bg-white px-[80px] py-[140px] flex flex-col">
-      <div className="flex  items-center relative">
-        <Heading className={clsx('text-haqq-black')}>
-          Haqq ecosystem partners
-        </Heading>
+    <section className="bg-white px-[16px] py-[68px] md:px-[48px] md:pt-[100px] md:pb-[130px] lg:px-[80px] lg:py-[140px] flex flex-col">
+      <div className="flex items-center relative">
+        <Heading className="text-haqq-black">Haqq ecosystem partners</Heading>
         <div className="flex items-center ml-[48px]">
           <div className="bg-haqq-black w-[16px] h-[16px]" />
           <div className="h-[1px] bg-[#0d0d0e3d] w-[1200px] absolute" />
         </div>
       </div>
 
-      <Tabs className="mt-[80px] ">
+      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px]">
         <Tab
           isActive={tab === 'all-partners'}
           onClick={() => setTab('all-partners')}
@@ -147,7 +145,7 @@ export function PartnersBlock() {
         </Tab>
       </Tabs>
 
-      <div className="flex gap-[28px] flex-wrap mt-[36px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[28px] mt-[36px]">
         {filteredPartners.map((partner, i) => (
           <ParterCard
             key={`partner-${i + 1}`}
@@ -157,7 +155,6 @@ export function PartnersBlock() {
             logo={partner.logo}
             link={partner.link}
             description={partner.description}
-            className="w-1/5"
           />
         ))}
       </div>
