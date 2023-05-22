@@ -115,12 +115,12 @@ export function PartnersBlock() {
         </div>
       </div>
 
-      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px]">
+      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px] overflow-x-auto">
         <Tab
           isActive={tab === 'all-partners'}
           onClick={() => setTab('all-partners')}
         >
-          All partners
+          All
         </Tab>
         <Tab
           isActive={tab === 'infrastructure'}
