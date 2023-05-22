@@ -18,6 +18,7 @@ module.exports = {
         'haqq-border': '#FFFFFF3D',
         'haqq-black': '#0D0D0E',
         'haqq-orange': '#EC5728',
+        'haqq-light-orange': '#FF8D69',
         'haqq-blue': '#091D53',
         'haqq-seaweed': '#157C83',
         'haqq-bigfoot-feet': '#E98C50',
