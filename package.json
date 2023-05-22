@@ -87,6 +87,7 @@
     "@nx/cypress": "16.0.0-beta.6",
     "@nx/eslint-plugin": "16.0.0-beta.6",
     "@nx/jest": "16.0.0-beta.6",
+    "@nx/js": "16.0.0-beta.6",
     "@nx/linter": "16.0.0-beta.6",
     "@nx/next": "16.0.0-beta.6",
     "@nx/react": "16.0.0-beta.6",

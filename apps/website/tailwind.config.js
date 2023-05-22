@@ -22,6 +22,7 @@ module.exports = {
         'haqq-seaweed': '#157C83',
         'haqq-bigfoot-feet': '#E98C50',
         'haqq-azure': '#ECFEFE',
+        'haqq-gold': '#E3A13F',
       },
       fontFamily: {
         serif: ['var(--font-clash)'],
