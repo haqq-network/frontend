@@ -1,4 +1,4 @@
-import { Heading, OrangeLink, Tabs, Tab } from '@haqq/website/ui-kit';
+import { Heading, Tabs, Tab } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
 import { ReactNode, useState } from 'react';
 import { Partners } from '../partners/partners';
