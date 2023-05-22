@@ -4,7 +4,7 @@ import { ReactNode, useState } from 'react';
 import { Partners } from '../partners/partners';
 import Link from 'next/link';
 
-enum PartnerType {
+export enum PartnerType {
   Infrastructure = 'infrastructure',
   Wallet = 'wallet',
   DeFi = 'defi',
@@ -13,7 +13,7 @@ enum PartnerType {
   Service = 'service',
 }
 
-enum PartnerStatus {
+export enum PartnerStatus {
   Live = 'live',
   Planned = 'planned',
 }

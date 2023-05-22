@@ -3,7 +3,11 @@ import Back9LogoImgData from '../../assets/back9-logo.png';
 import DDCapGroupLogoImgData from '../../assets/ddcapgroup-logo.png';
 import FambrasHalalLogoImgData from '../../assets/fambrashalal-logo.png';
 import NeftaLogoImgData from '../../assets/nefta-logo.png';
-import { ParterCardProps } from '../partners-block/partners-block';
+import {
+  ParterCardProps,
+  PartnerStatus,
+  PartnerType,
+} from '../partners-block/partners-block';
 
 function AxelarLogo() {
   return (
@@ -457,8 +461,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Axelar',
     description:
       'Axelar Virtual Machine supports logic to automate complex interchain tasks, such as connecting new chains or managing interchain dApp deployments',
-    type: 'bridge',
-    status: 'live',
+    type: PartnerType.Bridge,
+    status: PartnerStatus.Live,
     link: 'https://axelar.network/',
   },
   {
@@ -466,8 +470,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Gravity Bridge',
     description:
       'An open, decentralized bridge that unlocks the power of interoperability & liquidity between blockchain ecosystems',
-    type: 'bridge',
-    status: 'live',
+    type: PartnerType.Bridge,
+    status: PartnerStatus.Live,
     link: 'https://gravitybridge.net/',
   },
   {
@@ -475,8 +479,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Sushi',
     description:
       'Swap, earn, stack yields, lend, borrow & leverage, all on one decentralized, community driven platform',
-    type: 'defi',
-    status: 'planned',
+    type: PartnerType.DeFi,
+    status: PartnerStatus.Planned,
     link: 'https://sushi.com/',
   },
   {
@@ -484,8 +488,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Pyypl',
     description:
       'Pyypl is a non-bank digital app that gives everyone access to the financial system through a smartphone',
-    type: 'payments',
-    status: 'planned',
+    type: PartnerType.Payments,
+    status: PartnerStatus.Planned,
     link: 'https://pyypl.com/',
   },
   {
@@ -493,8 +497,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Back9',
     description:
       'We make it easy for leisure facilities to sell online, manage inventory and control rates through a modern, intuitive web-based dashboard',
-    type: 'infrastructure',
-    status: 'planned',
+    type: PartnerType.Infrastructure,
+    status: PartnerStatus.Planned,
     link: 'https://back9solutions.com/',
   },
   {
@@ -502,8 +506,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Holiday Swap',
     description:
       'Holiday Swap is the most affordable travel platform that allows you to book, host or swap homes anywhere in the world',
-    type: 'service',
-    status: 'planned',
+    type: PartnerType.Service,
+    status: PartnerStatus.Planned,
     link: 'https://holidayswap.com/',
   },
   {
@@ -511,8 +515,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Tatum',
     description:
       'Tatum is the fastest way to build, test and run blockchain apps',
-    type: 'infrastructure',
-    status: 'live',
+    type: PartnerType.Infrastructure,
+    status: PartnerStatus.Live,
     link: 'https://holidayswap.com/',
   },
   {
@@ -520,8 +524,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'DDCAP Group',
     description:
       'DDCAP Group is a market intermediary and financial technology solutions provider connecting the global Islamic financial market',
-    type: 'infrastructure',
-    status: 'planned',
+    type: PartnerType.Infrastructure,
+    status: PartnerStatus.Planned,
     link: 'https://ddcap.com/',
   },
   {
@@ -529,8 +533,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'FAMBRAS HALAL',
     description:
       'Сertifies Halal products in Latin America, following international standards and contributing to social and charity projects',
-    type: 'infrastructure',
-    status: 'planned',
+    type: PartnerType.Infrastructure,
+    status: PartnerStatus.Planned,
     link: 'https://fambrashalal.com.br/',
   },
   {
@@ -538,8 +542,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'P2P',
     description:
       'P2P helps investors compound their cryptocurrency investments through non-custodial Staking with insurance and high-performance PoS Nodes with top-of-the-line infrastructure',
-    type: 'infrastructure',
-    status: 'live',
+    type: PartnerType.Infrastructure,
+    status: PartnerStatus.Live,
     link: 'https://p2p.org/',
   },
   {
@@ -547,16 +551,16 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Nefta',
     description:
       'Access market leading tools for game development, publishing, and scaling',
-    type: 'infrastructure',
-    status: 'live',
+    type: PartnerType.Infrastructure,
+    status: PartnerStatus.Live,
     link: 'https://nefta.io/',
   },
   {
     logo: <ImmunefiLogo />,
     name: 'Immunefi',
     description: 'Review code. Prevent hacks. Build rep. Get paid.',
-    type: 'infrastructure',
-    status: 'planned',
+    type: PartnerType.Infrastructure,
+    status: PartnerStatus.Planned,
     link: 'https://immunefi.com/',
   },
   {
@@ -564,8 +568,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Safe',
     description:
       'Safe – Previously Gnosis Safe – Crypto wallet, web3 account abstraction developer stack. Safe is the most trusted platform to manage digital assets on Ethereum',
-    type: 'wallet',
-    status: 'live',
+    type: PartnerType.Wallet,
+    status: PartnerStatus.Live,
     link: 'https://safe.global/',
   },
   {
@@ -573,8 +577,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Ledger',
     description:
       'Secure your crypto assets such as Bitcoin, Ethereum, XRP, Monero and more. Give yourself peace of mind by knowing that your cryptocurrencies are safe',
-    type: 'wallet',
-    status: 'live',
+    type: PartnerType.Wallet,
+    status: PartnerStatus.Live,
     link: 'https://ledger.com/',
   },
   {
@@ -582,8 +586,8 @@ export const Partners: Array<ParterCardProps> = [
     name: 'Keystone',
     description:
       'The only hardware wallet integrated with MetaMask mobile. Official partner with MetaMask. 100% Air-gapped QR code communication hardware wallet for Bitcoin, Ethereum, and 1000+ crypto.',
-    type: 'wallet',
-    status: 'planned',
+    type: PartnerType.Wallet,
+    status: PartnerStatus.Planned,
     link: 'https://keyst.one/',
   },
 ];
