@@ -1,11 +1,6 @@
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
-export interface TabProps {
-  className?: string;
-  isActive?: boolean;
-}
-
 export function Tabs({
   children,
   className,
@@ -13,7 +8,7 @@ export function Tabs({
   return (
     <div
       className={clsx(
-        'bg-primary flex w-full flex-row space-x-[4px] rounded-[16px] p-[4px]',
+        'border-[#C5C5C5] flex w-full items-start border-b-[2px]',
         className,
       )}
     >
@@ -22,18 +17,30 @@ export function Tabs({
   );
 }
 
+export interface TabProps {
+  className?: string;
+  isActive?: boolean;
+  onClick: () => void;
+}
+
 export function Tab({
   children,
   isActive = false,
+  onClick,
 }: PropsWithChildren<TabProps>) {
   return (
     <div
       className={clsx(
-        'text-center text-base leading-[22px]',
-        'min-w-[120px] flex-1 rounded-[12px] p-[12px]',
+        'px-[16px] py-[12px]',
+        'font-sans text-[14px] leading-[22px] font-[500] leading-[18px]',
         'cursor-pointer transition-colors duration-150',
-        isActive ? 'bg-white text-black' : 'text-white hover:text-black',
+        'border-b-[2px]',
+        'mb-[-2px]',
+        isActive
+          ? 'border-haqq-black text-haqq-black'
+          : 'text-[#868686] border-[#C5C5C5]',
       )}
+      onClick={onClick}
     >
       {children}
     </div>

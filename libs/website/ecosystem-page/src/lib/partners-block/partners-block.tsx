@@ -1,6 +1,6 @@
-import { Heading, OrangeLink, Text } from '@haqq/website/ui-kit';
+import { Heading, OrangeLink, Tabs, Tab } from '@haqq/website/ui-kit';
 import clsx from 'clsx';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { Partners } from '../partners/partners';
 
 type PartnerType =
@@ -20,6 +20,7 @@ export interface ParterCardProps {
   type: PartnerType;
   status: PartnerStatus;
   link: string;
+  className?: string;
 }
 
 function PartnerTypeOrStatus({
@@ -53,9 +54,15 @@ function ParterCard({
   link,
   status,
   type,
+  className,
 }: ParterCardProps) {
   return (
-    <div className="p-[20px] flex flex-col justify-between bg-haqq-black w-[300px] h-[330px]">
+    <div
+      className={clsx(
+        'p-[20px] flex flex-col justify-between bg-haqq-black h-[330px]',
+        className,
+      )}
+    >
       <div className="flex flex-col">
         {logo}
         <div className="text-[16px] leading-[1.2em] mt-[12px] font-serif">
@@ -82,6 +89,7 @@ function ParterCard({
 }
 
 export function PartnersBlock() {
+  const [tab, setTab] = useState('all-partners');
   return (
     <section className="bg-white px-[80px] py-[140px] flex flex-col">
       <div className="flex  items-center relative">
@@ -93,15 +101,48 @@ export function PartnersBlock() {
           <div className="h-[1px] bg-[#0d0d0e3d] w-[1200px] absolute" />
         </div>
       </div>
+
+      <Tabs className="mt-[80px] ">
+        <Tab
+          isActive={tab === 'all-partners'}
+          onClick={() => setTab('all-partners')}
+        >
+          All partners
+        </Tab>
+        <Tab
+          isActive={tab === 'infrastructure'}
+          onClick={() => setTab('infrastructure')}
+        >
+          Infrastructure
+        </Tab>
+        <Tab isActive={tab === 'wallet'} onClick={() => setTab('wallet')}>
+          Wallet
+        </Tab>
+        <Tab isActive={tab === 'defi'} onClick={() => setTab('defi')}>
+          DeFi
+        </Tab>
+        <Tab isActive={tab === 'bridge'} onClick={() => setTab('bridge')}>
+          Bridge
+        </Tab>
+        <Tab isActive={tab === 'payments'} onClick={() => setTab('payments')}>
+          Payments
+        </Tab>
+        <Tab isActive={tab === 'service'} onClick={() => setTab('service')}>
+          Service
+        </Tab>
+      </Tabs>
+
       <div className="flex gap-[28px] flex-wrap mt-[36px]">
-        {Partners.map((partner) => (
+        {Partners.map((partner, i) => (
           <ParterCard
+            key={`partner-${i + 1}`}
             type={partner.type}
             status={partner.status}
             name={partner.name}
             logo={partner.logo}
             link={partner.link}
             description={partner.description}
+            className="w-1/5"
           />
         ))}
       </div>
