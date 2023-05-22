@@ -115,7 +115,7 @@ export function PartnersBlock() {
         </div>
       </div>
 
-      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px] overflow-x-auto">
+      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px] overflow-x-auto md:overflow-x-hidden">
         <Tab
           isActive={tab === 'all-partners'}
           onClick={() => setTab('all-partners')}
