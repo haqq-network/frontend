@@ -36,7 +36,8 @@ function PartnerTypeOrStatus({
         'text-[12px] leading-[1.5em] rounded-[2px] py-[6px] px-[10px] text-center border border-[#ffffff26]',
       )}
     >
-      {status === 'live' ? 'Live' : 'Planned'}
+      {status === 'live' && 'Live'}
+      {status === 'planned' && 'Planned'}
       {type === 'infrastructure' && 'Infrastructure'}
       {type === 'wallet' && 'Wallet'}
       {type === 'defi' && 'DeFi'}
@@ -89,7 +90,21 @@ function ParterCard({
 }
 
 export function PartnersBlock() {
-  const [tab, setTab] = useState('all-partners');
+  const [tab, setTab] = useState<PartnerType | 'all-partners'>('all-partners');
+
+  const filterPartnersByType = (
+    partners: ParterCardProps[],
+    type: PartnerType | 'all-partners',
+  ) => {
+    if (type === 'all-partners') {
+      return partners; // Return all partners if the type is 'all-partners'
+    }
+
+    return partners.filter((partner) => partner.type === type);
+  };
+
+  const filteredPartners = filterPartnersByType(Partners, tab);
+
   return (
     <section className="bg-white px-[80px] py-[140px] flex flex-col">
       <div className="flex  items-center relative">
@@ -133,7 +148,7 @@ export function PartnersBlock() {
       </Tabs>
 
       <div className="flex gap-[28px] flex-wrap mt-[36px]">
-        {Partners.map((partner, i) => (
+        {filteredPartners.map((partner, i) => (
           <ParterCard
             key={`partner-${i + 1}`}
             type={partner.type}
