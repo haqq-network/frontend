@@ -21,6 +21,6 @@ export async function getStaticProps() {
       story: data?.story ?? false,
       key: data?.story?.id ?? false,
     },
-    revalidate: 1800,
+    revalidate: 1,
   };
 }
