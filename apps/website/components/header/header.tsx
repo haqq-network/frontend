@@ -86,7 +86,10 @@ export function Header() {
       {isBurgerMenuOpen && (
         <Fragment>
           <ScrollLock isActive />
-          <BurgerMenu className="fixed lg:hidden w-full sm:w-[468px] top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)] right-0 z-40" />
+          <BurgerMenu
+            onClick={handleMenuOpen}
+            className="fixed lg:hidden w-full sm:w-[468px] top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)] right-0 z-40"
+          />
           <div
             onClick={handleMenuOpen}
             className="hidden sm:block lg:hidden absolute w-full right-0 -z-0 bg-black/50 top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)]"
