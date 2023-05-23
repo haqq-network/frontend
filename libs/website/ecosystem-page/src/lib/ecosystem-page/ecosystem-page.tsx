@@ -4,7 +4,9 @@ import { TitleBlock } from '../title-block/title-block';
 import { ApplyBlock } from '../apply-block/apply-block';
 import { PartnersBlock } from '../partners-block/partners-block';
 
-export function EcosystemPage() {
+export function EcosystemPage({ story }) {
+  const partners = story?.content?.body?.[0]?.columns ?? [];
+
   return (
     <Fragment>
       <Head>
@@ -12,7 +14,7 @@ export function EcosystemPage() {
       </Head>
       <TitleBlock />
       <ApplyBlock />
-      <PartnersBlock />
+      <PartnersBlock partners={partners} />
     </Fragment>
   );
 }
