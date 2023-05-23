@@ -5,17 +5,17 @@ import clsx from 'clsx';
 import { Heading, Tabs, Tab } from '@haqq/website/ui-kit';
 
 enum PartnerType {
-  INFRASTRUCTURE,
-  WALLET,
-  DEFI,
-  BRIDGE,
-  PAYMENTS,
-  SERVICE,
+  INFRASTRUCTURE = 'infrastructure',
+  WALLET = 'wallet',
+  DEFI = 'defi',
+  BRIDGE = 'bridge',
+  PAYMENTS = 'payments',
+  SERVICE = 'service',
 }
 
 enum PartnerStatus {
-  LIVE,
-  PLANNED,
+  LIVE = 'live',
+  PLANNED = 'planned',
 }
 
 export interface Partner {
@@ -114,9 +114,7 @@ function PartnerCard({
           width={logoWidth}
           height={logoHeight}
         />
-        <div className="text-[16px] leading-[1.2em] mt-[12px] font-serif">
-          {name}
-        </div>
+        <div className="text-[16px] leading-[1.2em] mt-[12px]">{name}</div>
       </div>
       <div className="flex flex-col gap-y-[12px]">
         <p className="text-[12px] leading-[1.5em] ">{description}</p>
@@ -177,6 +175,8 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
       height: Number(url.split('/')[5].split('x')[1]),
     };
   };
+
+  console.log({ filteredPartners });
 
   return (
     <section className="bg-white px-[16px] py-[68px] md:px-[48px] md:pt-[100px] md:pb-[130px] lg:px-[80px] lg:py-[140px] flex flex-col">
