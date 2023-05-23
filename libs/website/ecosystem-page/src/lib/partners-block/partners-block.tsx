@@ -1,31 +1,36 @@
-import { Heading, Tabs, Tab } from '@haqq/website/ui-kit';
-import clsx from 'clsx';
-import { ReactNode, useState } from 'react';
-import { Partners } from '../partners/partners';
+import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import clsx from 'clsx';
+import { Heading, Tabs, Tab } from '@haqq/website/ui-kit';
 
-export enum PartnerType {
-  Infrastructure = 'infrastructure',
-  Wallet = 'wallet',
-  DeFi = 'defi',
-  Bridge = 'bridge',
-  Payments = 'payments',
-  Service = 'service',
+enum PartnerType {
+  INFRASTRUCTURE,
+  WALLET,
+  DEFI,
+  BRIDGE,
+  PAYMENTS,
+  SERVICE,
 }
 
-export enum PartnerStatus {
-  Live = 'live',
-  Planned = 'planned',
+enum PartnerStatus {
+  LIVE,
+  PLANNED,
 }
 
-export interface ParterCardProps {
-  logo: ReactNode;
+export interface Partner {
+  logo: {
+    filename: string;
+  };
+  logoWidth?: number;
+  logoHeight?: number;
   name: string;
   description: string;
   type: PartnerType;
   status: PartnerStatus;
   link: string;
   className?: string;
+  _uid?: string;
 }
 
 function PartnerTypeOrStatus({
@@ -38,10 +43,10 @@ function PartnerTypeOrStatus({
   let text = '';
 
   switch (status) {
-    case PartnerStatus.Live:
+    case PartnerStatus.LIVE:
       text = 'Live';
       break;
-    case PartnerStatus.Planned:
+    case PartnerStatus.PLANNED:
       text = 'Planned';
       break;
     default:
@@ -50,22 +55,22 @@ function PartnerTypeOrStatus({
 
   if (!text) {
     switch (type) {
-      case PartnerType.Infrastructure:
+      case PartnerType.INFRASTRUCTURE:
         text = 'Infrastructure';
         break;
-      case PartnerType.Wallet:
+      case PartnerType.WALLET:
         text = 'Wallet';
         break;
-      case PartnerType.DeFi:
+      case PartnerType.DEFI:
         text = 'DeFi';
         break;
-      case PartnerType.Bridge:
+      case PartnerType.BRIDGE:
         text = 'Bridge';
         break;
-      case PartnerType.Payments:
+      case PartnerType.PAYMENTS:
         text = 'Payments';
         break;
-      case PartnerType.Service:
+      case PartnerType.SERVICE:
         text = 'Service';
         break;
       default:
@@ -84,7 +89,7 @@ function PartnerTypeOrStatus({
   );
 }
 
-function ParterCard({
+function PartnerCard({
   logo,
   name,
   description,
@@ -92,7 +97,9 @@ function ParterCard({
   status,
   type,
   className,
-}: ParterCardProps) {
+  logoHeight,
+  logoWidth,
+}: Partner) {
   return (
     <div
       className={clsx(
@@ -100,8 +107,13 @@ function ParterCard({
         className,
       )}
     >
-      <div className="flex flex-col">
-        {logo}
+      <div className="flex flex-col relative">
+        <Image
+          src={logo.filename}
+          alt={name}
+          width={logoWidth}
+          height={logoHeight}
+        />
         <div className="text-[16px] leading-[1.2em] mt-[12px] font-serif">
           {name}
         </div>
@@ -143,11 +155,11 @@ function ParterCard({
   );
 }
 
-export function PartnersBlock() {
+export function PartnersBlock({ partners }: { partners: Partner[] }) {
   const [tab, setTab] = useState<PartnerType | 'all-partners'>('all-partners');
 
   const filterPartnersByType = (
-    partners: ParterCardProps[],
+    partners: Partner[],
     type: PartnerType | 'all-partners',
   ) => {
     if (type === 'all-partners') {
@@ -157,7 +169,14 @@ export function PartnersBlock() {
     return partners.filter((partner) => partner.type === type);
   };
 
-  const filteredPartners = filterPartnersByType(Partners, tab);
+  const filteredPartners = filterPartnersByType(partners, tab);
+
+  const dimensions = (url: string) => {
+    return {
+      width: Number(url.split('/')[5].split('x')[0]),
+      height: Number(url.split('/')[5].split('x')[1]),
+    };
+  };
 
   return (
     <section className="bg-white px-[16px] py-[68px] md:px-[48px] md:pt-[100px] md:pb-[130px] lg:px-[80px] lg:py-[140px] flex flex-col">
@@ -179,49 +198,49 @@ export function PartnersBlock() {
           All
         </Tab>
         <Tab
-          isActive={tab === 'infrastructure'}
+          isActive={tab === PartnerType.INFRASTRUCTURE}
           onClick={() => {
-            setTab(PartnerType.Infrastructure);
+            setTab(PartnerType.INFRASTRUCTURE);
           }}
         >
           Infrastructure
         </Tab>
         <Tab
-          isActive={tab === 'wallet'}
+          isActive={tab === PartnerType.WALLET}
           onClick={() => {
-            setTab(PartnerType.Wallet);
+            setTab(PartnerType.WALLET);
           }}
         >
           Wallet
         </Tab>
         <Tab
-          isActive={tab === 'defi'}
+          isActive={tab === PartnerType.DEFI}
           onClick={() => {
-            setTab(PartnerType.DeFi);
+            setTab(PartnerType.DEFI);
           }}
         >
           DeFi
         </Tab>
         <Tab
-          isActive={tab === 'bridge'}
+          isActive={tab === PartnerType.BRIDGE}
           onClick={() => {
-            setTab(PartnerType.Bridge);
+            setTab(PartnerType.BRIDGE);
           }}
         >
           Bridge
         </Tab>
         <Tab
-          isActive={tab === 'payments'}
+          isActive={tab === PartnerType.PAYMENTS}
           onClick={() => {
-            setTab(PartnerType.Payments);
+            setTab(PartnerType.PAYMENTS);
           }}
         >
           Payments
         </Tab>
         <Tab
-          isActive={tab === 'service'}
+          isActive={tab === PartnerType.SERVICE}
           onClick={() => {
-            setTab(PartnerType.Service);
+            setTab(PartnerType.SERVICE);
           }}
         >
           Service
@@ -229,15 +248,17 @@ export function PartnersBlock() {
       </Tabs>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[28px] mt-[36px]">
-        {filteredPartners.map((partner, i) => (
-          <ParterCard
-            key={`partner-${i + 1}`}
+        {filteredPartners.map((partner) => (
+          <PartnerCard
+            key={partner._uid}
             type={partner.type}
             status={partner.status}
             name={partner.name}
             logo={partner.logo}
             link={partner.link}
             description={partner.description}
+            logoHeight={dimensions(partner.logo.filename).height}
+            logoWidth={dimensions(partner.logo.filename).width}
           />
         ))}
       </div>
