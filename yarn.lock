@@ -3321,6 +3321,7 @@ __metadata:
     "@pmmmwh/react-refresh-webpack-plugin": 0.5.10
     "@sentry/react": 7.51.0
     "@sentry/tracing": 7.51.0
+    "@storyblok/react": 2.1.0
     "@storybook/addon-essentials": 7.0.9
     "@storybook/addon-mdx-gfm": 7.0.9
     "@storybook/core-common": 7.0.9
@@ -5588,6 +5589,27 @@ __metadata:
     "@stablelib/random": ^1.0.2
     "@stablelib/wipe": ^1.0.1
   checksum: f8537066b542b6770c1b5b2ae5ad0688d1b986e4bf818067c152c123a5471531987bbf024224f75f387f481ccc5b628e391e49e92102b8b1a3e2d449d6105402
+  languageName: node
+  linkType: hard
+
+"@storyblok/js@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "@storyblok/js@npm:2.1.4"
+  dependencies:
+    storyblok-js-client: ^5.10.5
+  checksum: 4db46f8579a8d995650303878a4f90b3341a986e5bacee9fa05c177c2ab7fb06d5c7efe14eb282dc64b5f0ac7ff01acf76e85e32ca5d5618a27e9b45072cfb44
+  languageName: node
+  linkType: hard
+
+"@storyblok/react@npm:2.1.0":
+  version: 2.1.0
+  resolution: "@storyblok/react@npm:2.1.0"
+  dependencies:
+    "@storyblok/js": ^2.1.4
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: ef26d791e767ebd152920ce3da599e526d1e039a6e4439a56f5b854b858d410cd9b3bf6be2c0545080531a96747f0a9d8a3b93d77d33f1e43ff42e6780f830c2
   languageName: node
   linkType: hard
 
@@ -23919,6 +23941,13 @@ __metadata:
   version: 2.14.2
   resolution: "store2@npm:2.14.2"
   checksum: 6f270fc5bab99b63f45fcc7bd8b99c2714b4adf880f557ed7ffb5ed3987131251165bccde425a00928aaf044870aee79ddeef548576d093c68703ed2edec45d7
+  languageName: node
+  linkType: hard
+
+"storyblok-js-client@npm:^5.10.5":
+  version: 5.10.6
+  resolution: "storyblok-js-client@npm:5.10.6"
+  checksum: a89ae01f060b04850648de200659be8681a35304bc77b5fba89f22adc5c2a9286135e8f68921906223f2c2b654108b555d5aa761916ab2a56b934bacbfb86f92
   languageName: node
   linkType: hard
 
