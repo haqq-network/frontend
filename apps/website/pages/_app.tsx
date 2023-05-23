@@ -6,6 +6,7 @@ import '../styles/global.css';
 import Head from 'next/head';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
+import { storyblokInit, apiPlugin } from '@storyblok/react';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -14,6 +15,11 @@ export type NextPageWithLayout = NextPage & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+storyblokInit({
+  accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
+  use: [apiPlugin],
+});
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
