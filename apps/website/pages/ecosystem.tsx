@@ -1,10 +1,16 @@
 import { getStoryblokApi } from '@storyblok/react';
+import { storyblokInit, apiPlugin } from '@storyblok/react';
 
 export { EcosystemPage as default } from '@haqq/website/ecosystem-page';
 
 export async function getStaticProps() {
   let data;
   const slug = 'partners';
+
+  storyblokInit({
+    accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
+    use: [apiPlugin],
+  });
 
   try {
     const storyblokApi = getStoryblokApi();
