@@ -9,8 +9,8 @@ export function ApplyBlock() {
       <div className="relative z-10 flex flex-col">
         <Text className="text-haqq-gold"> Grants and Investment Program</Text>
         <Heading className="mt-[8px]">
-          Apply now for the Haqq Ecosystem Fund, and let's <br className='hidden md:block'/> make a
-          difference together!
+          Apply now for the Haqq Ecosystem Fund, and let's{' '}
+          <br className="hidden md:block" /> make a difference together!
         </Heading>
         <div className="flex gap-x-[24px] mt-[24px]">
           <Link

@@ -169,14 +169,12 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
 
   const filteredPartners = filterPartnersByType(partners, tab);
 
-  const dimensions = (url: string) => {
+  const imageDimensions = (imageUrl: string) => {
     return {
-      width: Number(url.split('/')[5].split('x')[0]),
-      height: Number(url.split('/')[5].split('x')[1]),
+      width: Number(imageUrl.split('/')[5].split('x')[0]),
+      height: Number(imageUrl.split('/')[5].split('x')[1]),
     };
   };
-
-  console.log({ filteredPartners });
 
   return (
     <section className="bg-white px-[16px] py-[68px] md:px-[48px] md:pt-[100px] md:pb-[130px] lg:px-[80px] lg:py-[140px] flex flex-col">
@@ -257,8 +255,8 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
             logo={partner.logo}
             link={partner.link}
             description={partner.description}
-            logoHeight={dimensions(partner.logo.filename).height}
-            logoWidth={dimensions(partner.logo.filename).width}
+            logoHeight={imageDimensions(partner.logo.filename).height}
+            logoWidth={imageDimensions(partner.logo.filename).width}
           />
         ))}
       </div>
