@@ -20,6 +20,7 @@ export function TitleBlock() {
         alt=""
         height={LinesBgData.height}
         width={LinesBgData.width}
+        priority
         className="absolute top-1/2 translate-y-[8.5rem] right-0 scale-[2.5] min-[475px]:scale-[2] min-[475px]:translate-y-[6.5rem] sm:scale-[1.5] sm:translate-y-0 md:top-0 md:scale-[1] md:right-[-50px] z-[-1]"
       />
     </section>
