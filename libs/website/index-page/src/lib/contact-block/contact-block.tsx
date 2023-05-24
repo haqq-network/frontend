@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import eclipseImageData from '../../assets/images/eclipse.png';
+import eclipseImageData from '../../assets/images/ecliplse-new.png';
 import { ContactForm } from '@haqq/website/forms';
 import { Heading } from '@haqq/website/ui-kit';
 
@@ -13,6 +13,7 @@ export function ContactBlock() {
         alt=""
         src={eclipseImageData.src}
         fill
+        priority
         className="z-[-1] object-cover"
       />
 
