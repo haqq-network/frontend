@@ -88,6 +88,7 @@ export function BurgerMenu({
       <div className="flex flex-col items-start space-y-[16px] mb-[60px] sm:mb-[80px]">
         <BurgerMenuNavLink href="/#about">About</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/ecosystem-fund">Fund</BurgerMenuNavLink>
+        <BurgerMenuNavLink href="/ecosystem">Ecosystem</BurgerMenuNavLink>
         {/* <BurgerMenuNavLink href="/#technology">Technology</BurgerMenuNavLink> */}
         <BurgerMenuNavLink href="/#developers">Developers</BurgerMenuNavLink>
         <BurgerMenuNavLink href="https://docs.haqq.network" isOutLink>
