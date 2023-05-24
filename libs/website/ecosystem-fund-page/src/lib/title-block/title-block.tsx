@@ -1,7 +1,7 @@
 import { Button } from '@haqq/website/ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
-import sunshineBgData from '../../assets/sunshine.svg';
+import sunshineBgData from '../../assets/sunshine.png';
 import LinesBgData from '../../assets/title-block-lines.svg';
 import LinesSmallBgData from '../../assets/title-block-lines-small.svg';
 
@@ -27,7 +27,7 @@ export function TitleBlock() {
         alt=""
         height={sunshineBgData.height}
         width={sunshineBgData.width}
-        className="absolute bottom-0 left-1/2 z-[0] transform -translate-x-1/2"
+        className="absolute bottom-0 left-1/2 z-[0] transform -translate-x-1/2 w-full"
       />
       <Image
         src={LinesBgData.src}
