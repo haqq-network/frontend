@@ -38,6 +38,12 @@
       "options": {
         "jestConfig": "libs/website/ui-kit/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     },
     "storybook": {
