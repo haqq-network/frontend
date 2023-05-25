@@ -7,9 +7,9 @@ export function ApplyBlock() {
   return (
     <section className="border-t border-t-[#2A2A2B] overflow-hidden relative pt-[68px] pb-[80px] px-[16px] sm:px-[48px] lg:px-[80px]">
       <div className="relative z-10 flex flex-col">
-        <Text className="text-haqq-gold"> Grants and Investment Program</Text>
+        <Text className="text-haqq-gold">Grants and Investment Program</Text>
         <Heading className="mt-[8px]">
-          Apply now for the Haqq Ecosystem Fund, and let's{' '}
+          Apply now for the Haqq Ecosystem Fund, and let's
           <br className="hidden md:block" /> make a difference together!
         </Heading>
         <div className="flex flex-col min-[375px]:flex-row gap-[24px] mt-[24px]">

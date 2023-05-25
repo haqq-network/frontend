@@ -1,5 +1,4 @@
-import { getStoryblokApi } from '@storyblok/react';
-import { storyblokInit, apiPlugin } from '@storyblok/react';
+import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
 export { EcosystemPage as default } from '@haqq/website/ecosystem-page';
 

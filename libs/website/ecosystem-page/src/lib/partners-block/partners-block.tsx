@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
@@ -40,43 +40,35 @@ function PartnerTypeOrStatus({
   status?: PartnerStatus;
   type?: PartnerType;
 }) {
-  let text = '';
-
-  switch (status) {
-    case PartnerStatus.LIVE:
-      text = 'Live';
-      break;
-    case PartnerStatus.PLANNED:
-      text = 'Planned';
-      break;
-    default:
-      break;
-  }
-
-  if (!text) {
-    switch (type) {
-      case PartnerType.INFRASTRUCTURE:
-        text = 'Infrastructure';
-        break;
-      case PartnerType.WALLET:
-        text = 'Wallet';
-        break;
-      case PartnerType.DEFI:
-        text = 'DeFi';
-        break;
-      case PartnerType.BRIDGE:
-        text = 'Bridge';
-        break;
-      case PartnerType.PAYMENTS:
-        text = 'Payments';
-        break;
-      case PartnerType.SERVICE:
-        text = 'Service';
-        break;
-      default:
-        break;
+  const text = useMemo(() => {
+    if (status) {
+      switch (status) {
+        case PartnerStatus.LIVE:
+          return 'Live';
+        case PartnerStatus.PLANNED:
+          return 'Planned';
+        default:
+          break;
+      }
+    } else if (type) {
+      switch (type) {
+        case PartnerType.INFRASTRUCTURE:
+          return 'Infrastructure';
+        case PartnerType.WALLET:
+          return 'Wallet';
+        case PartnerType.DEFI:
+          return 'DeFi';
+        case PartnerType.BRIDGE:
+          return 'Bridge';
+        case PartnerType.PAYMENTS:
+          return 'Payments';
+        case PartnerType.SERVICE:
+          return 'Service';
+      }
+    } else {
+      return undefined;
     }
-  }
+  }, [status, type]);
 
   return (
     <div
@@ -170,14 +162,16 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
     return partners.filter((partner) => partner.type === type);
   };
 
-  const filteredPartners = filterPartnersByType(partners, tab);
+  const filteredPartners = useMemo(() => {
+    return filterPartnersByType(partners, tab);
+  }, [partners, tab]);
 
-  const imageDimensions = (imageUrl: string) => {
+  const imageDimensions = useCallback((imageUrl: string) => {
     return {
       width: Number(imageUrl.split('/')[5].split('x')[0]),
       height: Number(imageUrl.split('/')[5].split('x')[1]),
     };
-  };
+  }, []);
 
   return (
     <section className="bg-white px-[16px] py-[68px] md:px-[48px] md:pt-[100px] md:pb-[130px] lg:px-[80px] lg:py-[140px] flex flex-col">
