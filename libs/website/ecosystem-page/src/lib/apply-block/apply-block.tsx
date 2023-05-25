@@ -12,16 +12,18 @@ export function ApplyBlock() {
           Apply now for the Haqq Ecosystem Fund, and let's{' '}
           <br className="hidden md:block" /> make a difference together!
         </Heading>
-        <div className="flex gap-x-[24px] mt-[24px]">
+        <div className="flex flex-col min-[375px]:flex-row gap-[24px] mt-[24px]">
           <Link
             href={'https://forms.gle/cf38bWNKRSEGV2b48'}
             target="_blank"
             rel={'noopener noreferrer'}
           >
-            <Button variant={2}>Apply now</Button>
+            <Button variant={2} className="w-full min-[375px]:w-auto">
+              Apply now
+            </Button>
           </Link>
           <Link href={'/ecosystem-fund'}>
-            <Button>Learn more</Button>
+            <Button className="w-full min-[375px]:w-auto">Learn more</Button>
           </Link>
         </div>
       </div>
