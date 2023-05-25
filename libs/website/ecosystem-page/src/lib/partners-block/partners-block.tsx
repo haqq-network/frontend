@@ -189,7 +189,7 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
         </div>
       </div>
 
-      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px] overflow-x-scroll md:overflow-x-visible">
+      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px] overflow-x-scroll overflow-y-clip md:overflow-visible">
         <Tab
           isActive={tab === 'all-partners'}
           onClick={() => {

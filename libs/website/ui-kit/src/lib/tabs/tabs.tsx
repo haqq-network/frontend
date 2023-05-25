@@ -8,7 +8,7 @@ export function Tabs({
   return (
     <div
       className={clsx(
-        'border-[#C5C5C5] flex w-full items-start border-b-[2px]',
+        'md:border-[#C5C5C5] flex w-full items-start md:border-b-[2px]',
         className,
       )}
     >
@@ -35,7 +35,7 @@ export function Tab({
         'font-sans text-[12px] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px] font-[500] ',
         'cursor-pointer transition-colors duration-150',
         'border-b-[2px]',
-        'mb-[-2px]',
+        'md:mb-[-2px]',
         isActive
           ? 'border-haqq-black text-haqq-black'
           : 'text-[#868686] border-[#C5C5C5]',
