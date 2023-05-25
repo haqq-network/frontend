@@ -15,7 +15,7 @@ export async function getStaticProps() {
   try {
     const storyblokApi = getStoryblokApi();
     const response = await storyblokApi.get(`cdn/stories/${slug}`, {
-      version: 'draft',
+      version: process.env.NODE_ENV !== 'development' ? 'published' : 'draft',
     });
     data = response?.data;
   } catch (error) {
