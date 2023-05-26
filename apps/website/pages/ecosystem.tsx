@@ -1,15 +1,15 @@
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
+storyblokInit({
+  accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
+  use: [apiPlugin],
+});
+
 export { EcosystemPage as default } from '@haqq/website/ecosystem-page';
 
 export async function getStaticProps() {
   let data;
   const slug = 'partners';
-
-  storyblokInit({
-    accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
-    use: [apiPlugin],
-  });
 
   try {
     const storyblokApi = getStoryblokApi();
@@ -21,11 +21,27 @@ export async function getStaticProps() {
     console.error(error);
   }
 
+  const mapStoryblockDataToPartners = async (data) => {
+    return data.story.content.body[0].columns.map((el) => {
+      return {
+        _uid: el._uid,
+        name: el.name,
+        logoUrl: el.logo.filename,
+        link: el.link,
+        description: el.description,
+        type: el.type,
+        status: el.status,
+      };
+    });
+  };
+
+  const partners = await mapStoryblockDataToPartners(data);
+
   return {
     props: {
-      story: data?.story ?? false,
+      partners: partners ?? false,
       key: data?.story?.id ?? false,
     },
-    revalidate: 60,
+    revalidate: 1800,
   };
 }

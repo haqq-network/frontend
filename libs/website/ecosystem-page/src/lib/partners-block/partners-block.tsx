@@ -4,7 +4,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { Heading, Tabs, Tab } from '@haqq/website/ui-kit';
 
-enum PartnerType {
+export enum PartnerType {
   INFRASTRUCTURE = 'infrastructure',
   WALLET = 'wallet',
   DEFI = 'defi',
@@ -13,15 +13,13 @@ enum PartnerType {
   SERVICE = 'service',
 }
 
-enum PartnerStatus {
+export enum PartnerStatus {
   LIVE = 'live',
   PLANNED = 'planned',
 }
 
 export interface Partner {
-  logo: {
-    filename: string;
-  };
+  logoUrl: string;
   logoWidth?: number;
   logoHeight?: number;
   name: string;
@@ -82,7 +80,7 @@ function PartnerTypeOrStatus({
 }
 
 function PartnerCard({
-  logo,
+  logoUrl,
   name,
   description,
   link,
@@ -101,7 +99,7 @@ function PartnerCard({
     >
       <div className="flex flex-col relative">
         <Image
-          src={logo.filename}
+          src={logoUrl}
           alt={name}
           width={logoWidth}
           height={logoHeight}
@@ -151,25 +149,17 @@ function PartnerCard({
 export function PartnersBlock({ partners }: { partners: Partner[] }) {
   const [tab, setTab] = useState<PartnerType | 'all-partners'>('all-partners');
 
-  const filterPartnersByType = (
-    partners: Partner[],
-    type: PartnerType | 'all-partners',
-  ) => {
-    if (type === 'all-partners') {
+  const filteredPartners = useMemo(() => {
+    if (tab === 'all-partners') {
       return partners;
     }
-
-    return partners.filter((partner) => partner.type === type);
-  };
-
-  const filteredPartners = useMemo(() => {
-    return filterPartnersByType(partners, tab);
+    return partners.filter((partner) => partner.type === tab);
   }, [partners, tab]);
 
-  const imageDimensions = useCallback((imageUrl: string) => {
+  const imageDimensions = useCallback((logoUrl: string) => {
     return {
-      width: Number(imageUrl.split('/')[5].split('x')[0]),
-      height: Number(imageUrl.split('/')[5].split('x')[1]),
+      width: Number(logoUrl.split('/')[5].split('x')[0]),
+      height: Number(logoUrl.split('/')[5].split('x')[1]),
     };
   }, []);
 
@@ -243,17 +233,17 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
       </Tabs>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[28px] mt-[36px]">
-        {filteredPartners.map((partner) => (
+        {filteredPartners?.map((partner: Partner) => (
           <PartnerCard
             key={partner._uid}
             type={partner.type}
             status={partner.status}
             name={partner.name}
-            logo={partner.logo}
+            logoUrl={partner.logoUrl}
             link={partner.link}
             description={partner.description}
-            logoHeight={imageDimensions(partner.logo.filename).height}
-            logoWidth={imageDimensions(partner.logo.filename).width}
+            logoHeight={imageDimensions(partner.logoUrl).height}
+            logoWidth={imageDimensions(partner.logoUrl).width}
           />
         ))}
       </div>

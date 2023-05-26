@@ -2,11 +2,9 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 import { TitleBlock } from '../title-block/title-block';
 import { ApplyBlock } from '../apply-block/apply-block';
-import { PartnersBlock } from '../partners-block/partners-block';
+import { Partner, PartnersBlock } from '../partners-block/partners-block';
 
-export function EcosystemPage({ story }) {
-  const partners = story?.content?.body?.[0]?.columns ?? [];
-
+export function EcosystemPage({ partners }: { partners: Partner[] }) {
   return (
     <Fragment>
       <Head>
