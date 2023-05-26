@@ -1,28 +1,26 @@
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
-const { tailwindExtend } = require('../../tailwind-theme-shared');
+const { tailwindThemeExtend } = require('../../../shared-tailwind-theme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    // join(__dirname, 'src/**/*!(*.stories|*.spec).{ts,tsx,html}'),
-    join(__dirname, 'src/**/*!(*.spec).{ts,tsx,html}'),
+    join(__dirname, '{src,pages,components}/**/*!(*..spec).{ts,tsx,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--islamic-font-sans)'],
-        serif: ['var(--islamic-font-serif)'],
+        sans: ['var(--guise-font)'],
+        serif: ['var(--clash-font)'],
       },
       colors: {
-        ...tailwindExtend.colors,
+        ...tailwindThemeExtend.colors,
       },
       boxShadow: {
-        ...tailwindExtend.boxShadow,
+        ...tailwindThemeExtend.boxShadow,
       },
     },
   },
-  plugins: [],
 };
