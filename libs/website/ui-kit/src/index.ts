@@ -16,3 +16,5 @@ export * from './lib/input/input';
 export * from './lib/button/button';
 export * from './lib/burger-button/burger-button';
 export * from './lib/download-button/download-button';
+export * from './lib/tabs/tabs';
+export * from './lib/news-card/news-card';
