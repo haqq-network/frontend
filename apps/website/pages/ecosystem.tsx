@@ -5,6 +5,20 @@ storyblokInit({
   use: [apiPlugin],
 });
 
+function mapStoryblockDataToPartners(data) {
+  return data.story.content.body[0].columns.map((el) => {
+    return {
+      _uid: el._uid,
+      name: el.name,
+      logoUrl: el.logo.filename,
+      link: el.link,
+      description: el.description,
+      type: el.type,
+      status: el.status,
+    };
+  });
+}
+
 export { EcosystemPage as default } from '@haqq/website/ecosystem-page';
 
 export async function getStaticProps() {
@@ -21,25 +35,11 @@ export async function getStaticProps() {
     console.error(error);
   }
 
-  const mapStoryblockDataToPartners = async (data) => {
-    return data.story.content.body[0].columns.map((el) => {
-      return {
-        _uid: el._uid,
-        name: el.name,
-        logoUrl: el.logo.filename,
-        link: el.link,
-        description: el.description,
-        type: el.type,
-        status: el.status,
-      };
-    });
-  };
-
   const partners = await mapStoryblockDataToPartners(data);
 
   return {
     props: {
-      partners: partners ?? false,
+      partners: partners ?? [],
       key: data?.story?.id ?? false,
     },
     revalidate: 1800,
