@@ -1,7 +1,7 @@
 import { Tab as TabComponent } from './tabs';
 import { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof TabComponent & typeof TabComponent> = {
+const meta: Meta<typeof TabComponent> = {
   component: TabComponent,
   title: 'shell/ui-kit/tabs',
   parameters: {
@@ -15,14 +15,14 @@ type Story = StoryObj<typeof TabComponent>;
 
 export const ActiveTab: Story = {
   args: {
-    children: 'Tab 1',
+    children: 'Active',
     isActive: true,
   },
 };
 
 export const NonActiveTab: Story = {
   args: {
-    children: 'Tab 2',
+    children: 'NonActive',
     isActive: false,
   },
 };
