@@ -8,7 +8,7 @@ import {
 import clsx from 'clsx';
 import { useState } from 'react';
 
-export function PostsBlock() {
+export function PostsBlock({ posts }: { posts: any[] }) {
   const [tab, setTab] = useState<NewsCategory | 'all-news'>('all-news');
 
   return (
@@ -62,14 +62,55 @@ export function PostsBlock() {
         </Tab>
       </Tabs>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[28px] md:gap-[38px] mt-[28px] md:mt-[36px]">
+        {/* {posts &&
+          posts?.map((post) => (
+            <NewsCard
+              key={post.id}
+              category={post.category}
+              date={post.date}
+              description={post.description}
+              imageUrl={post.imageUrl}
+              title={post.title}
+              id={post.id}
+            />
+          ))} */}
+          {posts &&
+          posts?.map((post) => (
+            <NewsCard
+              key={post.id}
+              category={post.category}
+              date={post.date}
+              description={post.body}
+              imageUrl={post.imageUrl}
+              title={post.title}
+              id={post.id}
+            />
+          ))}
+        {/* <NewsCard
+          category="news"
+          date="May 26 2023"
+          description="Lorem ipsum dolor sit amet, consecteturpiscing elit. Apiscing elit. Apiscing elit. A adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."
+          imageUrl="/assets/test.png"
+          title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          id={1}
+        />
+        <NewsCard
+          category="news"
+          date="May 26 2023"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."
+          imageUrl="/assets/test.png"
+          title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          id={2}
+        />
         <NewsCard
           category="news"
           date="May 26 2023"
           description="Lorem ipsum dolor sit amet, consecteturpiscing elit. Apiscing elit. Apiscing elit. A adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."
           imageUrl="/assets/test.png"
           title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
-        <NewsCard
+          id={3}
+        /> */}
+        {/* <NewsCard
           category="news"
           date="May 26 2023"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."
@@ -96,21 +137,7 @@ export function PostsBlock() {
           description="Lorem ipsum dolor sit amet, consecteturpiscing elit. Apiscing elit. Apiscing elit. A adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."
           imageUrl="/assets/test.png"
           title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
-        <NewsCard
-          category="news"
-          date="May 26 2023"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."
-          imageUrl="/assets/test.png"
-          title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
-        <NewsCard
-          category="news"
-          date="May 26 2023"
-          description="Lorem ipsum dolor sit amet, consecteturpiscing elit. Apiscing elit. Apiscing elit. A adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."
-          imageUrl="/assets/test.png"
-          title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
+        /> */}
       </div>
     </section>
   );

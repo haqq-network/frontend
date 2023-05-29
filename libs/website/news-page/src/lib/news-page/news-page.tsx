@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 import { PostsBlock } from '../posts-block/posts-block';
 
-export function NewsPage() {
+export function NewsPage({ posts }) {
   return (
     <Fragment>
       <Head>
@@ -13,7 +13,7 @@ export function NewsPage() {
       </Head>
       <TitleBlock />
       <FeaturedPostBlock />
-      <PostsBlock />
+      <PostsBlock posts={posts} />
     </Fragment>
   );
 }

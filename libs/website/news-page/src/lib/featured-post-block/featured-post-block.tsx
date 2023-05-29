@@ -18,6 +18,7 @@ export function FeaturedPostBlock() {
         title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         isFeatured
         className="mt-[56px]"
+        id={1}
       />
     </section>
   );
