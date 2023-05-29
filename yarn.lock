@@ -3259,13 +3259,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evmos/provider@npm:0.2.8":
-  version: 0.2.8
-  resolution: "@evmos/provider@npm:0.2.8"
+"@evmos/provider@npm:0.3.1":
+  version: 0.3.1
+  resolution: "@evmos/provider@npm:0.3.1"
   dependencies:
     link-module-alias: ^1.2.0
     shx: ^0.3.4
-  checksum: 2c3969f53fba9231bb3d52dcf2d8339716c495be794866d4b46acc4f084bc3e5accd6f02ee383d062b8ca23ac6c5e4ff8fc09dc05067b59e4095a80e5cb85711
+  checksum: c00094c215efb4fff26e11e696f547d37ff8b5e6f66a007a0a30ef039c1742e60785a859277486d1f6ce2c42c2159a5bdf5f1b2feb1e37134b2d11b7c0e9d472
   languageName: node
   linkType: hard
 
@@ -3318,7 +3318,7 @@ __metadata:
     "@emotion/react": 11.11.0
     "@emotion/styled": 11.11.0
     "@evmos/proto": 0.1.27
-    "@evmos/provider": 0.2.8
+    "@evmos/provider": 0.3.1
     "@evmos/transactions": 0.2.13
     "@hanchon/signature-to-pubkey": 1.0.1
     "@headlessui/react": 1.7.14

@@ -30,7 +30,7 @@
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.0",
     "@evmos/proto": "0.1.27",
-    "@evmos/provider": "0.2.8",
+    "@evmos/provider": "0.3.1",
     "@evmos/transactions": "0.2.13",
     "@hanchon/signature-to-pubkey": "1.0.1",
     "@headlessui/react": "1.7.14",
