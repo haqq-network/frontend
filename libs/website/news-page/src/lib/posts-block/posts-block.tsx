@@ -1,86 +1,54 @@
-import {
-  Heading,
-  NewsCard,
-  NewsCategory,
-  Tab,
-  Tabs,
-} from '@haqq/website/ui-kit';
-import clsx from 'clsx';
+import { Heading, NewsCard, BlogTabs } from '@haqq/website/ui-kit';
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
-export function PostsBlock({ posts }: { posts: any[] }) {
-  const [tab, setTab] = useState<NewsCategory | 'all-news'>('all-news');
+export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
+  const [tab, setTab] = useState<string>('All posts');
 
   const filteredPosts = useMemo(() => {
-    if (tab === 'all-news') {
+    if (tab === 'All posts') {
       return posts;
     }
-    return posts.filter((post) => post.type === tab);
+
+    return posts.filter((post) => {
+      return post.tags.includes(tab);
+    });
   }, [posts, tab]);
 
   return (
-    <section className="flex flex-col  px-[16px] pb-[48px] md:pb-[78px] md:px-[48px] lg:px-[80px] lg:pb-[120px]">
-      <div className="flex gap-x-[38px] md:gap-x-[48px]">
-        <Heading>Recent posts</Heading>
-        <div className="flex items-center relative">
-          <div className="bg-white w-[16px] h-[16px]" />
-          <div className="h-[1px] w-[3000px] bg-haqq-border absolute" />
+    <section className="flex flex-col py-[60px]">
+      <div className="px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip">
+        <div className="flex flex-row items-center gap-x-[38px] md:gap-x-[48px] mb-[28px] md:mb-[42px] lg:mb-[56px]">
+          <Heading>Recent posts</Heading>
+          <div className="flex items-center relative">
+            <div className="bg-white w-[16px] h-[16px]" />
+            <div className="h-[1px] w-[3000px] bg-haqq-border absolute" />
+          </div>
         </div>
-      </div>
-      <Tabs className="mt-[28px] md:mt-[42px] lg:mt-[56px] overflow-x-scroll overflow-y-clip md:overflow-visible md:!border-[#252526]">
-        <Tab
-          isActive={tab === 'all-news'}
-          onClick={() => {
-            setTab('all-news');
-          }}
-          className={clsx(
-            tab === 'all-news'
-              ? '!text-white border-white'
-              : '!text-white/50 border-none',
+
+        <BlogTabs
+          tabs={['All posts', ...tags]}
+          current={tab}
+          onChange={setTab}
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[28px] md:gap-[38px] mt-[28px] md:mt-[36px]">
+          {filteredPosts.length > 0 ? (
+            filteredPosts?.map((post) => (
+              <Link key={post.id} href={`/blog/${post.slug}`}>
+                <NewsCard
+                  date={new Date(post.date)}
+                  description={post.description}
+                  image={post.image}
+                  title={post.title}
+                  tags={post.tags}
+                />
+              </Link>
+            ))
+          ) : (
+            <div>no posts</div>
           )}
-        >
-          All posts
-        </Tab>
-        <Tab
-          isActive={tab === 'technology'}
-          onClick={() => {
-            setTab('technology');
-          }}
-          className={clsx(
-            tab === 'technology'
-              ? '!text-white border-white'
-              : '!text-white/50 border-none',
-          )}
-        >
-          Technology
-        </Tab>
-        <Tab
-          isActive={tab === 'news'}
-          onClick={() => {
-            setTab('news');
-          }}
-          className={clsx(
-            tab === 'news'
-              ? '!text-white border-white'
-              : '!text-white/50 border-none',
-          )}
-        >
-          News
-        </Tab>
-      </Tabs>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[28px] md:gap-[38px] mt-[28px] md:mt-[36px]">
-        {posts &&
-          filteredPosts?.map((post) => (
-            <NewsCard
-              key={post.id}
-              category={post.category}
-              date={post.date}
-              description={post.body}
-              imageUrl={post.imageUrl}
-              title={post.title}
-              id={post.id}
-            />
-          ))}
+        </div>
       </div>
     </section>
   );

@@ -17,6 +17,7 @@ export function MarkdownText({ children, className }: MarkdownTextProps) {
         'prose-headings:text-white',
         'prose-strong:text-white',
         'marker:prose-li:text-white',
+        'prose-headings:font-serif prose-headings:font-[500] font-sans',
         className,
       )}
     >

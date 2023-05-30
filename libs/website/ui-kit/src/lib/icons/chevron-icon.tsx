@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 export function ChevronIcon({ className }: { className?: string }) {
   return (
     <svg

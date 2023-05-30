@@ -1,30 +1,16 @@
-import {
-  NewsArticle,
-  NewsBreadcrumb,
-  NewsCardProps,
-} from '@haqq/website/ui-kit';
+import { NewsArticle, Breadcrumb } from '@haqq/website/ui-kit';
 import Head from 'next/head';
 import { Fragment, useCallback } from 'react';
-import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';
-import { useRouter } from 'next/router';
-
-export type Post = Omit<NewsCardProps, 'isFeatured' | 'className'>;
 
 type PostPageProps = {
-  post: Post;
-  recentPosts: Post[];
+  post: any;
+  recentPosts: any[];
 };
 
 export function PostPage({ post, recentPosts }: PostPageProps) {
-  const router = useRouter();
-
-  const BASE_URL = 'https://haqq.network';
-
-  const link = `${BASE_URL}${router.asPath}`;
-
   const copyLink = useCallback((): void => {
-    navigator.clipboard.writeText(link);
-  }, [link]);
+    console.log('copyLink');
+  }, []);
 
   return (
     <Fragment>
@@ -35,20 +21,24 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
           <title>HAQQ | News</title>
         )}
       </Head>
-      <NewsBreadcrumb
-        title={post.title}
-        onBackClick={() => console.log('backclick')}
-      />
+
+      <div className="border-b border-[#2A2A2B] px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip">
+        <Breadcrumb
+          title={post.title}
+          onBackClick={() => console.log('backclick')}
+        />
+      </div>
+
       <NewsArticle
-        id={post.id}
-        category={post.category}
+        tags={post.tags}
         date={post.date}
         content={post.content}
         title={post.title}
-        imageUrl={post.imageUrl}
+        image={post.image}
         onLinkCopy={copyLink}
       />
-      <RecentPostsBlock recentPosts={recentPosts} />
+
+      {/* <RecentPostsBlock recentPosts={recentPosts} /> */}
     </Fragment>
   );
 }
