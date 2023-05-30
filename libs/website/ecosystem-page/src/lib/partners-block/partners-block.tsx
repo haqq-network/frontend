@@ -11,6 +11,7 @@ export enum PartnerType {
   BRIDGE = 'bridge',
   PAYMENTS = 'payments',
   SERVICE = 'service',
+  INSTITUTIONAL = 'institutional',
 }
 
 export enum PartnerStatus {
@@ -60,6 +61,8 @@ function PartnerTypeOrStatus({
           return 'Bridge';
         case PartnerType.PAYMENTS:
           return 'Payments';
+        case PartnerType.INSTITUTIONAL:
+          return 'Institutional';
         case PartnerType.SERVICE:
           return 'Service';
       }
@@ -229,6 +232,14 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
           }}
         >
           Service
+        </Tab>
+        <Tab
+          isActive={tab === PartnerType.INSTITUTIONAL}
+          onClick={() => {
+            setTab(PartnerType.INSTITUTIONAL);
+          }}
+        >
+          Institutional
         </Tab>
       </Tabs>
 
