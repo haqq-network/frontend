@@ -16,9 +16,9 @@ type Story = StoryObj<typeof NewsCardComponent>;
 export const NewsCardRegular: Story = {
   args: {
     category: 'news',
-    date: 'May 26 2023',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    imageUrl: '/assets/test.png',
+    date: new Date('2021-05-01T00:00:00.000Z'),
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    imageUrl: 'https://picsum.photos/200/300',
     title: 'Post 1',
     id: '1',
   },
@@ -27,9 +27,9 @@ export const NewsCardRegular: Story = {
 export const NewsCardFeatured: Story = {
   args: {
     category: 'news',
-    date: 'May 26 2023',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    imageUrl: '/assets/test.png',
+    date: new Date('2021-05-01T00:00:00.000Z'),
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    imageUrl: 'https://picsum.photos/200/300',
     title: 'Post 1',
     id: '1',
     isFeatured: true,

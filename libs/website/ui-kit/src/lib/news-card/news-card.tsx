@@ -8,8 +8,8 @@ export type NewsCategory = 'news' | 'technology';
 export interface NewsCardProps {
   imageUrl: string;
   title: string;
-  description: string;
-  date: string;
+  content: string;
+  date: Date;
   category: NewsCategory;
   className?: string;
   isFeatured?: boolean;
@@ -19,7 +19,7 @@ export interface NewsCardProps {
 export function NewsCard({
   category,
   date,
-  description,
+  content,
   imageUrl,
   title,
   className,
@@ -77,7 +77,7 @@ export function NewsCard({
                   : 'md:text-[13px] md:leading-[22px] lg:text-[14px]',
               )}
             >
-              {description}
+              {content}
             </div>
           </div>
 
@@ -99,7 +99,13 @@ export function NewsCard({
                   : 'md:leading-[18px] lg:text-[12px]',
               )}
             >
-              {date}
+              {new Intl.DateTimeFormat('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+              }).format(date)}
             </span>
           </div>
         </div>
