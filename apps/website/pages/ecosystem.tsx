@@ -1,10 +1,5 @@
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
-storyblokInit({
-  accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
-  use: [apiPlugin],
-});
-
 function mapStoryblockDataToPartners(data) {
   return data.story.content.body[0].columns.map((el) => {
     return {
@@ -24,6 +19,11 @@ export { EcosystemPage as default } from '@haqq/website/ecosystem-page';
 export async function getStaticProps() {
   let data;
   const slug = 'partners';
+
+  storyblokInit({
+    accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
+    use: [apiPlugin],
+  });
 
   try {
     const storyblokApi = getStoryblokApi();
