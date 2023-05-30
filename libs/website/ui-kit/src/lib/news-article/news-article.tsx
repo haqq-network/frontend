@@ -7,9 +7,6 @@ import { CopyIcon } from '../icons/copy-icon';
 
 type NewsArticleProps = Omit<NewsCardProps, 'isFeatured' | 'className'>;
 
-const iconClassNames =
-  'hover:text-white cursor-pointer transiton-colors duration-100 ease-out';
-
 export function NewsArticle({
   imageUrl,
   description,
@@ -36,9 +33,9 @@ export function NewsArticle({
           Share the article
         </span>
         <div className="flex items-center gap-x-[16px] text-white/50">
-          <TwitterIcon className={iconClassNames} />
-          <TelegramIcon className={iconClassNames} />
-          <CopyIcon className={iconClassNames} />
+          <TwitterIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
+          <TelegramIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
+          <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
         </div>
       </div>
     </section>
