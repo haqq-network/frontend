@@ -156,7 +156,7 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
     if (tab === 'all-partners') {
       return partners;
     }
-    
+
     return partners.filter((partner) => {
       return partner.type === tab;
     });
@@ -247,7 +247,7 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
       </Tabs>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[28px] mt-[36px]">
-        {filteredPartners?.map((partner: Partner) => {
+        {filteredPartners.map((partner: Partner) => {
           return (
             <PartnerCard
               key={partner._uid}

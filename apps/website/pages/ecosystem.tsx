@@ -11,6 +11,7 @@ interface PartnerData {
   type: string;
   status: string;
 }
+
 interface StoryblokData {
   story: {
     content: {
