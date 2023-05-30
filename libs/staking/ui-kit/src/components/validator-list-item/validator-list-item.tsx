@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { formatUnits } from 'ethers/lib/utils';
+import { formatUnits } from 'viem';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { ValidatorListStatus } from '../validator-status/validator-status';
@@ -37,7 +37,10 @@ export function ValidatorListItem({
   }, [validator.tokens]);
   const userDelegate = useMemo(() => {
     if (delegation?.balance) {
-      return Number.parseFloat(formatUnits(delegation.balance.amount));
+      return Number.parseInt(
+        formatUnits(BigInt(delegation.balance.amount), 18),
+        10,
+      );
     }
 
     return 0;

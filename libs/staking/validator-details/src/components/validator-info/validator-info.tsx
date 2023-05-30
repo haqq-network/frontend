@@ -1,15 +1,6 @@
-import {
-  Fragment,
-  PropsWithChildren,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAccount, useBalance } from 'wagmi';
-import { formatUnits } from 'ethers/lib/utils';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   useAddress,
   useStakingValidatorInfoQuery,
@@ -46,12 +37,13 @@ import {
 } from '@haqq/shell/ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
-import { Validator } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import styles from './validator-info.module.css';
+import { Validator } from '@evmos/provider';
+import { formatEther, formatUnits } from 'viem';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
@@ -135,9 +127,7 @@ function CommissionCard({ commission }: CommissionCardProps) {
 }
 
 function formatPercents(value: string): number {
-  return Number.parseFloat(
-    (Number.parseFloat(formatUnits(value)) * 100).toLocaleString(),
-  );
+  return Number.parseFloat((Number.parseFloat(value) * 100).toLocaleString());
 }
 
 export function ValidatorInfoComponent({
@@ -155,9 +145,9 @@ export function ValidatorInfoComponent({
 }: ValidatorInfoComponentProps) {
   console.log({ validatorInfo });
 
-  const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
-  const { copyText } = useClipboard();
-  const navigate = useNavigate();
+  // const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
+  // const { copyText } = useClipboard();
+  // const navigate = useNavigate();
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
@@ -167,13 +157,13 @@ export function ValidatorInfoComponent({
   const commission = useMemo<Commission>(() => {
     return {
       current: formatPercents(
-        validatorInfo.commission?.commissionRates?.rate ?? '0',
+        validatorInfo.commission?.commission_rates?.rate ?? '0',
       ),
       max: formatPercents(
-        validatorInfo.commission?.commissionRates?.maxRate ?? '0',
+        validatorInfo.commission?.commission_rates?.max_rate ?? '0',
       ),
       maxChange: formatPercents(
-        validatorInfo.commission?.commissionRates?.maxChangeRate ?? '0',
+        validatorInfo.commission?.commission_rates?.max_change_rate ?? '0',
       ),
     };
   }, [validatorInfo.commission]);
@@ -186,12 +176,12 @@ export function ValidatorInfoComponent({
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
 
-  const handleHaqqAddressCopy = useCallback(async () => {
-    if (validatorInfo.operatorAddress) {
-      await copyText(validatorInfo.operatorAddress);
-      setHaqqAddressCopy(true);
-    }
-  }, [copyText, validatorInfo.operatorAddress]);
+  // const handleHaqqAddressCopy = useCallback(async () => {
+  //   if (validatorInfo.operator_address) {
+  //     await copyText(validatorInfo.operator_address);
+  //     setHaqqAddressCopy(true);
+  //   }
+  // }, [copyText, validatorInfo.operator_address]);
 
   return (
     <Fragment>
@@ -222,7 +212,7 @@ export function ValidatorInfoComponent({
 
                 <div className="flex flex-col gap-[16px]">
                   {(validatorInfo.description?.website ||
-                    validatorInfo.description?.securityContact) && (
+                    validatorInfo.description?.security_contact) && (
                     <div className="flex flex-row gap-[28px]">
                       {validatorInfo.description?.website && (
                         <div>
@@ -236,10 +226,10 @@ export function ValidatorInfoComponent({
                         </div>
                       )}
 
-                      {validatorInfo.description?.securityContact && (
+                      {validatorInfo.description?.security_contact && (
                         <div>
                           <OrangeLink
-                            href={`mailto:${validatorInfo.description?.securityContact}`}
+                            href={`mailto:${validatorInfo.description?.security_contact}`}
                           >
                             E-mail
                           </OrangeLink>
@@ -280,7 +270,7 @@ export function ValidatorInfoComponent({
                     <div>
                       <InfoBlock title="Address">
                         <div className="flex w-fit cursor-pointer flex-row items-center space-x-[8px] transition-colors duration-100 ease-out hover:text-white/50">
-                          <div>{validatorInfo.operatorAddress}</div>
+                          <div>{validatorInfo.operator_address}</div>
                           <CopyIcon />
                         </div>
                       </InfoBlock>
@@ -380,7 +370,8 @@ function ConnectWallet({
   );
 }
 
-function secondsToDays(seconds: number): number {
+function secondsToDays(secondsFrom: string): number {
+  const seconds = Number.parseInt(secondsFrom.slice(0, -1), 10);
   return seconds / 60 / 60 / 24;
 }
 
@@ -426,8 +417,8 @@ export function ValidatorInfo({
   }, [invalidateQueries, navigate]);
 
   const unboundingTime = useMemo(() => {
-    if (stakingParams?.unbondingTime) {
-      return secondsToDays(stakingParams.unbondingTime.seconds.toNumber());
+    if (stakingParams?.unbonding_time) {
+      return secondsToDays(stakingParams.unbonding_time);
     }
 
     return 0;
@@ -441,7 +432,9 @@ export function ValidatorInfo({
     );
 
     if (delegation) {
-      return Number.parseFloat(formatUnits(delegation.balance.amount));
+      return Number.parseFloat(
+        formatUnits(BigInt(delegation.balance.amount), 18),
+      );
     }
 
     return 0;
@@ -493,8 +486,8 @@ export function ValidatorInfo({
   }, [undelegations]);
 
   const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.pool.bonded_tokens]);
+    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.bonded_tokens]);
 
   useEffect(() => {
     if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
@@ -580,7 +573,8 @@ export function ValidatorBlockDesktop({
   balance: number;
 }) {
   const navigate = useNavigate();
-  const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
+  const isWarningShown =
+    validatorInfo.jailed || validatorInfo.status === 'BOND_STATUS_UNBONDED';
 
   return (
     <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[28px] py-[32px]">
@@ -677,7 +671,8 @@ function ValidatorBlockMobile({
   undelegate?: number;
 }) {
   const navigate = useNavigate();
-  const isWarningShown = validatorInfo.jailed || validatorInfo.status === 1;
+  const isWarningShown =
+    validatorInfo.jailed || validatorInfo.status === 'BOND_STATUS_UNBONDED';
 
   return (
     <ValidatorBlockMobileComponent

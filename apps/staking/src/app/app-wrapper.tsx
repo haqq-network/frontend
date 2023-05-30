@@ -1,11 +1,13 @@
-import { Fragment, ReactNode, useEffect, useMemo, useState } from 'react';
 import {
-  getFormattedAddress,
-  useAddress,
-  useWallet,
-  useWindowWidth,
-} from '@haqq/shared';
-import { useBalance, useConnect } from 'wagmi';
+  Fragment,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { getFormattedAddress, useAddress, useWallet } from '@haqq/shared';
+import { useBalance, useNetwork, useSwitchNetwork } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
 import {
   Header,
@@ -13,83 +15,9 @@ import {
   BurgerButton,
   Button,
   AccountButton,
-  Modal,
-  ModalCloseButton,
-  MobileHeading,
+  SelectChainButton,
 } from '@haqq/shell/ui-kit';
-import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
-
-function SelectWalletModal({
-  isOpen,
-  onClose,
-  className,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  className?: string;
-}) {
-  const { connectAsync, connectors, error, isLoading, pendingConnector } =
-    useConnect();
-
-  return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div
-        className={clsx(
-          'text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-[430px] sm:rounded-[12px] sm:p-[36px]',
-          className,
-        )}
-      >
-        <ModalCloseButton
-          onClick={onClose}
-          className="absolute right-[16px] top-[16px]"
-        />
-
-        <div className="flex w-full flex-col space-y-6">
-          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
-            <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-              <MobileHeading>Select wallet</MobileHeading>
-            </div>
-
-            <div className="flex flex-col space-y-[12px]">
-              {connectors.map((connector) => {
-                if (!connector.ready) {
-                  return null;
-                }
-
-                const isPending =
-                  isLoading && connector.id === pendingConnector?.id;
-
-                return (
-                  <Button
-                    key={connector.id}
-                    onClick={async () => {
-                      await connectAsync({ connector });
-                      onClose();
-                    }}
-                    variant={4}
-                    isLoading={isPending}
-                    className={clsx(
-                      isPending
-                        ? '!text-white'
-                        : 'hover:!text-haqq-orange hover:!border-haqq-orange',
-                    )}
-                  >
-                    {connector.name}
-                  </Button>
-                );
-              })}
-
-              {error && (
-                <div className="pt-4 text-red-500">{error.message}</div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </Modal>
-  );
-}
 
 function HeaderButtons({
   isMobileMenuOpen,
@@ -98,17 +26,27 @@ function HeaderButtons({
   isMobileMenuOpen: boolean;
   onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
 }) {
-  const {
-    disconnect,
-    isSelectWalletOpen,
-    openSelectWallet,
-    closeSelectWallet,
-  } = useWallet();
+  const { disconnect, openSelectWallet } = useWallet();
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
     watch: true,
   });
+  const { chain } = useNetwork();
+  const { chains, switchNetwork } = useSwitchNetwork();
+  const isDesktop = useMediaQuery({
+    query: `(min-width: 1024px)`,
+  });
+
+  const handleChainSelectClick = useCallback(
+    (chainId: number) => {
+      if (switchNetwork) {
+        switchNetwork(chainId);
+      }
+    },
+    [switchNetwork],
+  );
+
   const balance = useMemo(() => {
     if (!balanceData) {
       return undefined;
@@ -122,23 +60,44 @@ function HeaderButtons({
       }),
     };
   }, [balanceData]);
-  const { width } = useWindowWidth();
+
+  const selectChainButtonProps = useMemo(() => {
+    return {
+      isSupported: Boolean(!chain?.unsupported),
+      currentChain: {
+        name: chain?.name.replace('HAQQ', '').trim() ?? '',
+        id: chain?.id ?? 0,
+      },
+      chains: chains.map((chain) => {
+        return {
+          name: chain.name.replace('HAQQ', '').trim(),
+          id: chain.id,
+        };
+      }),
+    };
+  }, [chain, chains]);
 
   useEffect(() => {
-    if (width >= 1024) {
+    if (isDesktop) {
       onMobileMenuOpenChange(false);
     }
-  }, [onMobileMenuOpenChange, width]);
+  }, [isDesktop, onMobileMenuOpenChange]);
 
   return (
     <Fragment>
       <div className="hidden pl-[80px] lg:block">
         {ethAddress ? (
-          <AccountButton
-            balance={balance}
-            address={getFormattedAddress(ethAddress, 3, 2)}
-            onDisconnectClick={disconnect}
-          />
+          <div className="flex flex-row gap-[24px]">
+            <SelectChainButton
+              {...selectChainButtonProps}
+              onChainSelect={handleChainSelectClick}
+            />
+            <AccountButton
+              balance={balance}
+              address={getFormattedAddress(ethAddress, 3, 2)}
+              onDisconnectClick={disconnect}
+            />
+          </div>
         ) : (
           <Button onClick={openSelectWallet}>Connect wallet</Button>
         )}
@@ -153,27 +112,33 @@ function HeaderButtons({
         />
       </div>
 
-      <SelectWalletModal
-        isOpen={isSelectWalletOpen}
-        onClose={closeSelectWallet}
-      />
-
       {isMobileMenuOpen && (
         <Fragment>
           <ScrollLock isActive />
 
           <div className="bg-haqq-black fixed right-0 top-[61px] z-40 h-[calc(100vh-61px)] w-full transform-gpu sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
-            <div className="overflow-y-auto px-[24px] py-[32px]">
+            <div className="flex flex-col gap-[24px] overflow-y-auto px-[24px] py-[32px]">
               {ethAddress && (
-                <AccountButton
-                  balance={balance}
-                  address={ethAddress}
-                  onDisconnectClick={disconnect}
-                  withoutDropdown
-                />
+                <Fragment>
+                  <div>
+                    <SelectChainButton
+                      {...selectChainButtonProps}
+                      onChainSelect={handleChainSelectClick}
+                    />
+                  </div>
+
+                  <div>
+                    <AccountButton
+                      balance={balance}
+                      address={getFormattedAddress(ethAddress, 3, 2)}
+                      onDisconnectClick={disconnect}
+                      withoutDropdown
+                    />
+                  </div>
+                </Fragment>
               )}
 
-              <div className="mt-[24px]">
+              <div>
                 {ethAddress ? (
                   <Button onClick={disconnect}>Disconnect</Button>
                 ) : (

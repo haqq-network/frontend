@@ -1,21 +1,20 @@
 import {
   createTxMsgDelegate,
   createTxMsgUndelegate,
-  createTxMsgMultipleWithdrawDelegatorReward,
-  createTxRawEIP712,
-  signatureToWeb3Extension,
   Sender,
-  TxGenerated,
   createTxMsgWithdrawDelegatorReward,
+  TxPayload,
+  createTxMultipleMsgWithdrawDelegatorReward,
 } from '@evmos/transactions';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import type { Fee } from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
 import Decimal from 'decimal.js-light';
-import { useConfig } from '../../providers/config-provider';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
+import { useNetwork, useWalletClient } from 'wagmi';
+import { createTxRaw } from '@evmos/proto';
 
 const FEE: Fee = {
   amount: '5000',
@@ -39,7 +38,6 @@ function getAmountAndDenom(amount: number, fee?: Fee) {
 }
 
 export function useStakingActions() {
-  const { chainName } = useConfig();
   const {
     broadcastTransaction,
     getAccountInfo,
@@ -47,12 +45,17 @@ export function useStakingActions() {
     simulateTransaction,
   } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
-  const memo = '';
+  const { data: walletClient } = useWalletClient();
+  const { chain } = useNetwork();
 
-  const haqqChain = useMemo(() => {
-    const chainParams = getChainParams(chainName);
+  const getHaqqChain = useCallback(async () => {
+    if (!chain) {
+      return undefined;
+    }
+
+    const chainParams = getChainParams(chain.id);
     return mapToCosmosChain(chainParams);
-  }, [chainName]);
+  }, [chain]);
 
   const getSender = useCallback(
     async (address: string, pubkey: string) => {
@@ -84,21 +87,30 @@ export function useStakingActions() {
   }, []);
 
   const signTransaction = useCallback(
-    async (msg: TxGenerated, sender: Sender) => {
-      const signature = await (window as any).ethereum.request({
-        method: 'eth_signTypedData_v4',
-        params: [ethAddress, JSON.stringify(msg.eipToSign)],
-      });
-      const extension = signatureToWeb3Extension(haqqChain, sender, signature);
-      const rawTx = createTxRawEIP712(
-        msg.legacyAmino.body,
-        msg.legacyAmino.authInfo,
-        extension,
-      );
+    async (msg: TxPayload, sender: Sender) => {
+      const haqqChain = await getHaqqChain();
 
-      return rawTx;
+      if (haqqChain && walletClient) {
+        const { signDirect, eipToSign } = msg;
+        const signature: string = await walletClient.request({
+          method: 'eth_signTypedData_v4',
+          params: [sender, JSON.stringify(eipToSign)],
+        } as any);
+        const signatureBytes = Buffer.from(signature.replace('0x', ''), 'hex');
+
+        const bodyBytes = signDirect.body.toBinary();
+        const authInfoBytes = signDirect.authInfo.toBinary();
+
+        const signedTx = createTxRaw(bodyBytes, authInfoBytes, [
+          signatureBytes,
+        ]);
+
+        return signedTx;
+      } else {
+        throw new Error('No haqqChain');
+      }
     },
-    [ethAddress, haqqChain],
+    [getHaqqChain, walletClient],
   );
 
   const getDelegationParams = useCallback(
@@ -116,8 +128,10 @@ export function useStakingActions() {
       console.log('handleDelegate', { validatorAddress, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
+      const haqqChain = await getHaqqChain();
+      const memo = 'Delegate';
 
-      if (sender && validatorAddress) {
+      if (sender && validatorAddress && haqqChain) {
         // Simulate
         const simFee = getFee();
         const simParams = getDelegationParams(
@@ -126,10 +140,7 @@ export function useStakingActions() {
           simFee,
         );
         const simMsg = createTxMsgDelegate(
-          haqqChain,
-          sender,
-          simFee,
-          memo,
+          { chain: haqqChain, fee: simFee, memo, sender },
           simParams,
         );
         const simTx = await signTransaction(simMsg, sender);
@@ -138,7 +149,11 @@ export function useStakingActions() {
         // Broadcast real transaction
         const fee = getFee(simulateTxResponse.gas_info.gas_used);
         const params = getDelegationParams(validatorAddress, amount ?? 0, fee);
-        const msg = createTxMsgDelegate(haqqChain, sender, fee, memo, params);
+        const msg = createTxMsgDelegate(
+          { chain: haqqChain, fee, memo, sender },
+          params,
+        );
+
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -152,9 +167,9 @@ export function useStakingActions() {
       ethAddress,
       getSender,
       haqqAddress,
+      getHaqqChain,
       getFee,
       getDelegationParams,
-      haqqChain,
       signTransaction,
       simulateTransaction,
       broadcastTransaction,
@@ -165,8 +180,10 @@ export function useStakingActions() {
     async (validatorAddress?: string, amount?: number) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
+      const haqqChain = await getHaqqChain();
+      const memo = 'Undelegate';
 
-      if (sender && validatorAddress) {
+      if (sender && validatorAddress && haqqChain) {
         // Simulate
         const simFee = getFee();
         const simParams = getDelegationParams(
@@ -175,10 +192,8 @@ export function useStakingActions() {
           simFee,
         );
         const simMsg = createTxMsgUndelegate(
-          haqqChain,
-          sender,
-          simFee,
-          memo,
+          { chain: haqqChain, fee: simFee, memo, sender },
+
           simParams,
         );
         const simTx = await signTransaction(simMsg, sender);
@@ -187,7 +202,10 @@ export function useStakingActions() {
         // Broadcast real transaction
         const fee = getFee(simulateTxResponse.gas_info.gas_used);
         const params = getDelegationParams(validatorAddress, amount ?? 0, fee);
-        const msg = createTxMsgUndelegate(haqqChain, sender, fee, memo, params);
+        const msg = createTxMsgUndelegate(
+          { chain: haqqChain, fee, memo, sender },
+          params,
+        );
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -201,9 +219,9 @@ export function useStakingActions() {
       ethAddress,
       getSender,
       haqqAddress,
+      getHaqqChain,
       getFee,
       getDelegationParams,
-      haqqChain,
       signTransaction,
       simulateTransaction,
       broadcastTransaction,
@@ -215,18 +233,17 @@ export function useStakingActions() {
       console.log('handleClaimAllRewards', { validatorAddresses });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
+      const haqqChain = await getHaqqChain();
+      const memo = 'Claim all rewards';
 
-      if (sender) {
+      if (sender && haqqChain) {
         // Simulate
         const simFee = getFee();
         const simParams = {
           validatorAddresses,
         };
-        const simMsg = createTxMsgMultipleWithdrawDelegatorReward(
-          haqqChain,
-          sender,
-          simFee,
-          memo,
+        const simMsg = createTxMultipleMsgWithdrawDelegatorReward(
+          { chain: haqqChain, sender, fee: simFee, memo },
           simParams,
         );
         const simTx = await signTransaction(simMsg, sender);
@@ -237,11 +254,8 @@ export function useStakingActions() {
         const params = {
           validatorAddresses,
         };
-        const msg = createTxMsgMultipleWithdrawDelegatorReward(
-          haqqChain,
-          sender,
-          fee,
-          memo,
+        const msg = createTxMultipleMsgWithdrawDelegatorReward(
+          { chain: haqqChain, sender, fee, memo },
           params,
         );
         const rawTx = await signTransaction(msg, sender);
@@ -256,10 +270,10 @@ export function useStakingActions() {
       broadcastTransaction,
       ethAddress,
       getFee,
+      getHaqqChain,
       getPubkey,
       getSender,
       haqqAddress,
-      haqqChain,
       signTransaction,
       simulateTransaction,
     ],
@@ -270,18 +284,17 @@ export function useStakingActions() {
       console.log('handleClaimReward', { validatorAddress });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
+      const haqqChain = await getHaqqChain();
+      const memo = 'Claim reward';
 
-      if (sender) {
+      if (sender && haqqChain) {
         // Simulate
         const simFee = getFee();
         const simParams = {
           validatorAddress,
         };
         const simMsg = createTxMsgWithdrawDelegatorReward(
-          haqqChain,
-          sender,
-          simFee,
-          memo,
+          { chain: haqqChain, fee: simFee, memo, sender },
           simParams,
         );
         const simTx = await signTransaction(simMsg, sender);
@@ -293,10 +306,7 @@ export function useStakingActions() {
           validatorAddress,
         };
         const msg = createTxMsgWithdrawDelegatorReward(
-          haqqChain,
-          sender,
-          fee,
-          memo,
+          { chain: haqqChain, fee, memo, sender },
           params,
         );
         const rawTx = await signTransaction(msg, sender);
@@ -311,10 +321,10 @@ export function useStakingActions() {
       broadcastTransaction,
       ethAddress,
       getFee,
+      getHaqqChain,
       getPubkey,
       getSender,
       haqqAddress,
-      haqqChain,
       signTransaction,
       simulateTransaction,
     ],
