@@ -6,7 +6,7 @@ import { withoutPadding } from '../../../.storybook/decorators';
 import { StoryFn } from '@storybook/react';
 
 export default {
-  title: 'shell/ui-kit',
+  title: 'shell/ui-kit/layout',
   decorators: [withRouter, withoutPadding],
 };
 

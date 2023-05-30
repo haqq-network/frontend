@@ -21,9 +21,14 @@ export function AccountButton({
   withoutDropdown?: boolean;
 }) {
   return (
-    <div className={clsx('flex max-w-fit flex-row items-center', className)}>
+    <div
+      className={clsx(
+        'flex h-[40px] max-w-fit flex-row items-center',
+        className,
+      )}
+    >
       {balance && (
-        <div className="mr-[-8px] rounded-l-[6px] border border-r-0 border-white pb-[7px] pl-[12px] pr-[20px] pt-[9px] font-serif leading-[24px] tracking-[.01em]">
+        <div className="mr-[-8px] rounded-l-[6px] border border-r-0 border-white pb-[6px] pl-[12px] pr-[20px] pt-[8px] font-serif leading-[24px] tracking-[.01em]">
           {`${balance.value.toLocaleString()} ${balance.symbol.toLocaleUpperCase()}`}
         </div>
       )}
@@ -32,7 +37,7 @@ export function AccountButton({
         <Menu as="div" className="relative z-10 inline-block">
           <Menu.Button
             className={clsx(
-              'flex h-full flex-row items-center space-x-[2px] py-[9px] pl-[12px] pr-[8px]',
+              'flex h-full flex-row items-center space-x-[2px] py-[8px] pl-[12px] pr-[8px]',
               'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
               'transition-all duration-150 ease-in',
               'box-border appearance-none outline-none',
@@ -62,7 +67,7 @@ export function AccountButton({
             <Menu.Items className="absolute right-[-1px] z-10 mt-1 w-[160px] origin-top-right rounded-md border border-[#ffffff26] bg-black py-2 text-white shadow-lg focus:outline-none">
               <Menu.Item
                 as="button"
-                className="block w-full px-[16px] py-[10px] text-left text-[14px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
+                className="block w-full px-[16px] py-[10px] text-left text-[13px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
                 onClick={onDisconnectClick}
               >
                 Disconnect
@@ -74,7 +79,7 @@ export function AccountButton({
         <div
           className={clsx(
             'flex h-full flex-row items-center space-x-2 rounded-[6px] px-3 py-[9px]',
-            'bg-white font-sans text-sm leading-[24px] text-black',
+            'bg-white font-sans text-[14px] leading-[24px] text-black',
           )}
         >
           {address}
