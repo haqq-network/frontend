@@ -24,12 +24,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<{
   post: Post;
+  recentPosts: Post[];
 }> = async (ctx) => {
-  const id = ctx.params.post;
+  try {
+    const id = ctx.params.post;
 
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    const [postsResponse, postResponse] = await Promise.all([
+      fetch('https://jsonplaceholder.typicode.com/posts'),
+      fetch(`https://jsonplaceholder.typicode.com/posts/${id}`),
+    ]);
 
-  const post: Post = await res.json();
+    if (!postsResponse.ok || !postResponse.ok) {
+      throw new Error('Failed to fetch data');
+    }
 
-  return { props: { post } };
+    const allPosts: Post[] = await postsResponse.json();
+
+    const recentPosts: Post[] = allPosts.slice(-2);
+
+    const post: Post = await postResponse.json();
+
+    return { props: { post, recentPosts } };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+
+    return { props: { post: null, recentPosts: [] }, notFound: true };
+  }
 };
