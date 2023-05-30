@@ -39,6 +39,9 @@
       "@haqq/website/ecosystem-fund-page": [
         "libs/website/ecosystem-fund-page/src/index.ts"
       ],
+      "@haqq/website/ecosystem-page": [
+        "libs/website/ecosystem-page/src/index.ts"
+      ],
       "@haqq/website/forms": ["libs/website/forms/src/index.ts"],
       "@haqq/website/index-page": ["libs/website/index-page/src/index.ts"],
       "@haqq/website/news-page": ["libs/website/news-page/src/index.ts"],

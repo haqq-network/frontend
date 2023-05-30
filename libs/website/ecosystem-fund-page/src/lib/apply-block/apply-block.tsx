@@ -11,9 +11,7 @@ export function ApplyBlock() {
         backgroundImage: `url(${bgImgData.src})`,
       }}
     >
-      <Text className="text-haqq-bigfoot-feet">
-        Grants and Investment Program
-      </Text>
+      <Text className="text-haqq-gold">Grants and Investment Program</Text>
       <Heading className="mt-[8px]">
         Apply now for the HAQQ Ecosystem Fund, and let's{' '}
         <br className="hidden absolute top-0 lg:block" />
@@ -24,9 +22,9 @@ export function ApplyBlock() {
         target="_blank"
         rel={'noopener noreferrer'}
       >
-        <Button variant={2} className="uppercase mt-[24px]">
-          Apply now
-        </Button>
+        <div className="mt-[24px]">
+          <Button variant={2}>Apply now</Button>
+        </div>
       </Link>
     </section>
   );

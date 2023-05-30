@@ -43,6 +43,7 @@
     "@next/mdx": "13.1.1",
     "@sentry/react": "7.53.1",
     "@sentry/tracing": "7.53.1",
+    "@storyblok/react": "2.1.0",
     "@tanstack/react-query": "4.29.7",
     "@tanstack/react-query-devtools": "4.29.7",
     "@web3modal/standalone": "2.4.1",

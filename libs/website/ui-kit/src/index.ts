@@ -19,3 +19,4 @@ export * from './lib/download-button/download-button';
 export * from './lib/tabs/tabs';
 export * from './lib/news-card/news-card';
 export * from './lib/news-article/news-article';
+export * from './lib/orange-link/orange-link';

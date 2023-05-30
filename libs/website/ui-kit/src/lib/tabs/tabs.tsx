@@ -37,10 +37,10 @@ export function Tab({
         'cursor-pointer transition-colors duration-150',
         'border-b-[2px]',
         'md:mb-[-2px]',
-        className,
         isActive
           ? 'border-haqq-black text-haqq-black'
           : 'text-[#868686] border-[#C5C5C5]',
+        className,
       )}
       onClick={onClick}
     >

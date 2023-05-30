@@ -32,5 +32,8 @@ export default withNx(
         },
       ];
     },
+    images: {
+      domains: ['a.storyblok.com'],
+    },
   }),
 );

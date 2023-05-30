@@ -95,6 +95,7 @@ export function Footer() {
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
               <FooterNavLink href="/#about">About</FooterNavLink>
               <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
+              <FooterNavLink href="/ecosystem">Ecosystem</FooterNavLink>
               {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
               <FooterNavLink href="/#developers">Developers</FooterNavLink>
               <FooterNavLink href="https://docs.haqq.network" isOutLink>

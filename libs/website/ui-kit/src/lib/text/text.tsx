@@ -1,13 +1,16 @@
 import clsx from 'clsx';
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
 export interface TextProps {
-  children: ReactNode;
   className?: string;
   size?: 'small' | 'medium' | 'large';
 }
 
-export function Text({ className, children, size = 'medium' }: TextProps) {
+export function Text({
+  className,
+  children,
+  size = 'medium',
+}: PropsWithChildren<TextProps>) {
   const classNames = clsx(
     'font-sans font-[500] leading-[1.6em]',
     size === 'small' && 'text-[12px] sm:text-[13px] lg:text-[14px]',
@@ -16,5 +19,5 @@ export function Text({ className, children, size = 'medium' }: TextProps) {
     className,
   );
 
-  return <span className={classNames}> {children}</span>;
+  return <span className={classNames}>{children}</span>;
 }
