@@ -106,7 +106,7 @@ function PartnerCard({
           alt={name}
           width={logoWidth}
           height={logoHeight}
-          className="h-[36px]"
+          className="h-[36px] w-fit"
         />
         <div className="text-[16px] leading-[1.2em] mt-[12px]">{name}</div>
       </div>
