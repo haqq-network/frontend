@@ -1,7 +1,28 @@
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
-function mapStoryblockDataToPartners(data) {
-  return data.story.content.body[0].columns.map((el) => {
+interface PartnerData {
+  _uid: string;
+  name: string;
+  logo: {
+    filename: string;
+  };
+  link: string;
+  description: string;
+  type: string;
+  status: string;
+}
+interface StoryblokData {
+  story: {
+    content: {
+      body: {
+        columns: PartnerData;
+      };
+    };
+  };
+}
+
+function mapStoryblockDataToPartners(data: StoryblokData) {
+  return data.story.content.body[0].columns.map((el: PartnerData) => {
     return {
       _uid: el._uid,
       name: el.name,
