@@ -3328,7 +3328,7 @@ __metadata:
     "@metamask/jazzicon": 2.0.0
     "@metamask/onboarding": 1.0.1
     "@next/font": 13.1.1
-    "@next/mdx": 13.1.1
+    "@next/mdx": 13.4.4
     "@nx/cypress": 16.2.2
     "@nx/eslint-plugin": 16.2.2
     "@nx/jest": 16.2.2
@@ -4140,15 +4140,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/mdx@npm:13.1.1":
-  version: 13.1.1
-  resolution: "@next/mdx@npm:13.1.1"
+"@next/mdx@npm:13.4.4":
+  version: 13.4.4
+  resolution: "@next/mdx@npm:13.4.4"
   dependencies:
     source-map: ^0.7.0
   peerDependencies:
     "@mdx-js/loader": ">=0.15.0"
-    "@mdx-js/react": "*"
-  checksum: 99ba46b9cdee97816db96919788917fe6776eb00d128a1f9b48c6ef380c92057b1beb639ff998467260f5d8826c20a0bbb785fd703dee2fd376e06d2ba5d86fd
+    "@mdx-js/react": ">=0.15.0"
+  peerDependenciesMeta:
+    "@mdx-js/loader":
+      optional: true
+    "@mdx-js/react":
+      optional: true
+  checksum: b381b0971c4a764faccbe178150d38d14a8960451b8292aa8ddcfd7f21316872c0d25e4130ac647219775e9a668a1e0265b3775ff9bc9a1d33b94fff3a2f9b40
   languageName: node
   linkType: hard
 
