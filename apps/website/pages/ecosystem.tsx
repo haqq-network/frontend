@@ -35,7 +35,7 @@ export async function getStaticProps() {
     console.error(error);
   }
 
-  const partners = await mapStoryblockDataToPartners(data);
+  const partners = mapStoryblockDataToPartners(data);
 
   return {
     props: {
