@@ -1,6 +1,6 @@
-import { Heading, NewsCard } from '@haqq/website/ui-kit';
+import { Heading, NewsCard, NewsCardProps } from '@haqq/website/ui-kit';
 
-export function FeaturedPostBlock() {
+export function FeaturedPostBlock(post: NewsCardProps) {
   return (
     <section className="flex flex-col pt-[68px] px-[16px] pb-[48px] md:pb-[78px] md:pt-[100px] md:px-[48px] lg:pt-[140px] lg:px-[80px] lg:pb-[120px]">
       <div className="flex gap-x-[38px] md:gap-x-[48px]">
@@ -11,14 +11,14 @@ export function FeaturedPostBlock() {
         </div>
       </div>
       <NewsCard
-        category="technology"
-        date="May 26 2023"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. AenLorem ipsum dolor sit amet, consectetur adipiscing elit. AenLorem ipsum dolor sit amet, consectetur adipiscing elit. AenLorem ipsum dolor sit amet, consectetur adipiscing elit. AenLorem ipsum dolor sit amet, consectetur adipiscing elit. AenLorem ipsum dolor sit amet, consectetur adipiscing elit. AenLorem ipsum dolor sit amet, consectetur adipiscing elit. AenLorem ipsum dolor sit amet, consectetur adipiscing elit. AenLorem ipsum dolor sit amet, consectetur adipiscing elit. Aen"
-        imageUrl="/assets/test.png"
-        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        isFeatured
+        category={post.category}
+        date={post.date}
+        content={post.content}
+        imageUrl={post.imageUrl}
+        title={post.title}
+        isFeatured={post.isFeatured}
+        id={post.id}
         className="mt-[56px]"
-        id={1}
       />
     </section>
   );
