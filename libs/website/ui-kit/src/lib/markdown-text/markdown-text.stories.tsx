@@ -3,11 +3,10 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof MarkdownTextComponent> = {
   component: MarkdownTextComponent,
-  title: 'shell/ui-kit',
+  title: 'website/ui-kit',
   parameters: {
     layout: 'centered',
   },
-  
 };
 
 export default meta;

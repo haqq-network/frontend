@@ -4,7 +4,7 @@ import { ActiveTab, NonActiveTab } from './tab.stories';
 
 const meta: Meta<typeof TabsComponent> = {
   component: TabsComponent,
-  title: 'shell/ui-kit/tabs',
+  title: 'website/ui-kit/tabs',
   parameters: {
     layout: 'centered',
   },

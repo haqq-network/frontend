@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof TabComponent> = {
   component: TabComponent,
-  title: 'shell/ui-kit/tabs',
+  title: 'website/ui-kit/tabs',
   parameters: {
     layout: 'centered',
   },

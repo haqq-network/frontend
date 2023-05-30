@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof NewsArticleComponent> = {
   component: NewsArticleComponent,
-  title: 'shell/ui-kit',
+  title: 'website/ui-kit',
   parameters: {
     layout: 'centered',
   },
