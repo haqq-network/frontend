@@ -3,18 +3,22 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
-import { useConfig } from './config-provider';
-import { getChainParams } from '../chains/get-chain-params';
-import { useConnect, useDisconnect, useNetwork } from 'wagmi';
-import MetaMaskOnboarding from '@metamask/onboarding';
+// import { useConfig } from './config-provider';
+// import { getChainParams } from '../chains/get-chain-params';
+import {
+  useConnect,
+  useDisconnect,
+  useNetwork,
+  useSwitchNetwork,
+  useWalletClient,
+} from 'wagmi';
+import { SelectWalletModal } from '@haqq/shell/ui-kit';
+import '@wagmi/core/window';
 
-interface WalletProviderInterface {
-  connect: () => void;
+export interface WalletProviderInterface {
   disconnect: () => void;
   selectNetwork: () => Promise<void>;
   isNetworkSupported: boolean;
@@ -28,53 +32,32 @@ const WalletContext = createContext<WalletProviderInterface | undefined>(
 );
 
 export function WalletProvider({ children }: { children: ReactNode }) {
-  const { chainName } = useConfig();
-  const onboardingRef = useRef<MetaMaskOnboarding>();
-  const chainProperties = getChainParams(chainName);
-  const { chain: currentChain } = useNetwork();
-  const { connect, connectors } = useConnect();
+  const { chain } = useNetwork();
+  const { data: walletClient } = useWalletClient();
+  const { switchNetworkAsync } = useSwitchNetwork();
+  const { connectAsync, connectors, error, isLoading, pendingConnector } =
+    useConnect();
   const { disconnect } = useDisconnect();
   const [isWalletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
 
-  useEffect(() => {
-    if (onboardingRef.current !== undefined) {
-      onboardingRef.current = new MetaMaskOnboarding();
-    }
-  }, []);
-
-  const handleWalletConnect = useCallback(() => {
-    if (!MetaMaskOnboarding.isMetaMaskInstalled()) {
-      onboardingRef.current?.startOnboarding();
-    } else {
-      connect({ connector: connectors[0] });
-    }
-  }, [connect, connectors]);
+  const handleWalletConnect = useCallback(
+    async (connectorIdx: number) => {
+      await connectAsync({ connector: connectors[connectorIdx] });
+    },
+    [connectAsync, connectors],
+  );
 
   const handleNetworkChange = useCallback(async () => {
-    const { ethereum } = window;
-
-    if (ethereum && chainProperties) {
-      const chainId = `0x${chainProperties.id.toString(16)}`;
-
+    if (chain && switchNetworkAsync && walletClient) {
       try {
-        await ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId }],
-        });
+        await switchNetworkAsync(chain.id);
       } catch (error: any) {
         if (error.code === 4902) {
           try {
-            await ethereum.request({
+            await walletClient.request({
               method: 'wallet_addEthereumChain',
-              params: [
-                {
-                  chainId,
-                  chainName: chainProperties.name,
-                  nativeCurrency: chainProperties.nativeCurrency,
-                  rpcUrls: [chainProperties.ethRpcEndpoint],
-                },
-              ],
-            });
+              params: [chain],
+            } as any);
           } catch (addNetworkError) {
             console.error(addNetworkError);
           }
@@ -82,19 +65,26 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         console.error(error);
       }
     } else {
-      console.warn(
-        'useWallet(): handleNetworkChange window.ethereum is undefined',
-      );
+      console.warn('useWallet(): handleNetworkChange error');
     }
-  }, [chainProperties]);
+  }, [chain, switchNetworkAsync, walletClient]);
 
   const isNetworkSupported = useMemo(() => {
-    return currentChain ? !currentChain.unsupported : false;
-  }, [currentChain]);
+    return chain ? !chain.unsupported : false;
+  }, [chain]);
+
+  const selectWalletModalConnectors = useMemo(() => {
+    return connectors.map((connector, index) => {
+      return {
+        id: index,
+        name: connector.name,
+        isPending: isLoading && pendingConnector?.id === connector.id,
+      };
+    });
+  }, [connectors, isLoading, pendingConnector?.id]);
 
   const memoizedContext = useMemo(() => {
     return {
-      connect: handleWalletConnect,
       disconnect,
       selectNetwork: handleNetworkChange,
       isNetworkSupported,
@@ -109,7 +99,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   }, [
     disconnect,
     handleNetworkChange,
-    handleWalletConnect,
     isNetworkSupported,
     setWalletSelectModalOpen,
     isWalletSelectModalOpen,
@@ -118,6 +107,16 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   return (
     <WalletContext.Provider value={memoizedContext}>
       {children}
+
+      <SelectWalletModal
+        isOpen={isWalletSelectModalOpen}
+        connectors={selectWalletModalConnectors}
+        error={error ? error.message : undefined}
+        onConnectClick={handleWalletConnect}
+        onClose={() => {
+          setWalletSelectModalOpen(false);
+        }}
+      />
     </WalletContext.Provider>
   );
 }
