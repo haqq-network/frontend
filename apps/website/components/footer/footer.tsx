@@ -98,8 +98,9 @@ export function Footer() {
               <FooterNavLink href="/ecosystem">Ecosystem</FooterNavLink>
               {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
               <FooterNavLink href="/#developers">Developers</FooterNavLink>
+              <FooterNavLink href="/blog">Blog</FooterNavLink>
               <FooterNavLink href="https://docs.haqq.network" isOutLink>
-                Documentation
+                Docs
               </FooterNavLink>
               <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
               {/* <FooterNavLink href="/privacy-policy">

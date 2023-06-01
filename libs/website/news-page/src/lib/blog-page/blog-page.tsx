@@ -48,7 +48,9 @@ export function BlogPage({ posts }: { posts: Post[] }) {
 
         <div className="flex flex-col py-[80px]">
           {featuredPost && <FeaturedPostBlock post={featuredPost} />}
-          <PostsBlock posts={postsToRender} tags={tags} />
+          {postsToRender.length > 0 && (
+            <PostsBlock posts={postsToRender} tags={tags} />
+          )}
         </div>
       </section>
     </Fragment>

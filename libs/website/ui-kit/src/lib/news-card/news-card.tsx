@@ -78,9 +78,9 @@ export function NewsCard({
           </div>
           <div
             className={clsx(
-              'leading-[1.5em] text-[12px] line-clamp-4 whitespace-pre',
+              'leading-[1.5em] text-[12px] line-clamp-4',
               isFeatured
-                ? 'md:line-clamp-6 md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]'
+                ? 'md:line-clamp-5 md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]'
                 : 'md:text-[13px] md:leading-[22px] lg:text-[14px]',
             )}
           >
