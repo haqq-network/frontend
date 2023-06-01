@@ -91,8 +91,9 @@ export function BurgerMenu({
         <BurgerMenuNavLink href="/ecosystem">Ecosystem</BurgerMenuNavLink>
         {/* <BurgerMenuNavLink href="/#technology">Technology</BurgerMenuNavLink> */}
         <BurgerMenuNavLink href="/#developers">Developers</BurgerMenuNavLink>
+        <BurgerMenuNavLink href="/blog">Blog</BurgerMenuNavLink>
         <BurgerMenuNavLink href="https://docs.haqq.network" isOutLink>
-          Documentation
+          Docs
         </BurgerMenuNavLink>
         <Link href="/wallet">
           <Button variant={2} className="block sm:hidden">
