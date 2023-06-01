@@ -78,7 +78,7 @@ export function NewsArticle({
               <div className="flex items-center gap-x-[16px] text-white/50">
                 {/* <TwitterIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
                 {/* <TelegramIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
-                <div>
+                <div className="leading-[0]">
                   <button aria-label="Copy" onClick={onLinkCopy}>
                     <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
                   </button>
