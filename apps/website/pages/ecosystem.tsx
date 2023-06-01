@@ -1,5 +1,7 @@
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
+export { EcosystemPage as default } from '@haqq/website/ecosystem-page';
+
 interface PartnerData {
   _uid: string;
   name: string;
@@ -35,8 +37,6 @@ function mapStoryblockDataToPartners(data: StoryblokData) {
     };
   });
 }
-
-export { EcosystemPage as default } from '@haqq/website/ecosystem-page';
 
 export async function getStaticProps() {
   let data;

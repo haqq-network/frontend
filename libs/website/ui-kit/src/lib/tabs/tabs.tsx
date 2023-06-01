@@ -27,6 +27,7 @@ export function Tab({
   children,
   isActive = false,
   onClick,
+  className,
 }: PropsWithChildren<TabProps>) {
   return (
     <div
@@ -39,6 +40,7 @@ export function Tab({
         isActive
           ? 'border-haqq-black text-haqq-black'
           : 'text-[#868686] border-[#C5C5C5]',
+        className,
       )}
       onClick={onClick}
     >

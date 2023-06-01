@@ -66,8 +66,9 @@ export function Header() {
           <HeaderNavLink href="/ecosystem-fund">Fund</HeaderNavLink>
           {/* <HeaderNavLink href="/#technology">Technology</HeaderNavLink> */}
           <HeaderNavLink href="/#developers">Developers</HeaderNavLink>
+          <HeaderNavLink href="/blog">Blog</HeaderNavLink>
           <HeaderNavLink href="https://docs.haqq.network" isOutLink>
-            Documentation
+            Docs
           </HeaderNavLink>
           {/* <HeaderNavLink href="/#community">Community</HeaderNavLink> */}
           {/* <HeaderNavLink href="/404">404</HeaderNavLink> */}

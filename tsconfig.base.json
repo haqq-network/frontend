@@ -44,6 +44,7 @@
       ],
       "@haqq/website/forms": ["libs/website/forms/src/index.ts"],
       "@haqq/website/index-page": ["libs/website/index-page/src/index.ts"],
+      "@haqq/website/news-page": ["libs/website/news-page/src/index.ts"],
       "@haqq/website/shared": ["libs/website/shared/src/index.ts"],
       "@haqq/website/ui-kit": ["libs/website/ui-kit/src/index.ts"],
       "@haqq/website/wallet-page": ["libs/website/wallet-page/src/index.ts"]
