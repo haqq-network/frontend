@@ -1,6 +1,8 @@
 import { NewsArticle, Breadcrumb } from '@haqq/website/ui-kit';
 import Head from 'next/head';
 import { Fragment, useCallback } from 'react';
+// import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';
+import { useRouter } from 'next/router';
 
 type PostPageProps = {
   post: any;
@@ -8,24 +10,23 @@ type PostPageProps = {
 };
 
 export function PostPage({ post, recentPosts }: PostPageProps) {
+  const { push } = useRouter();
   const copyLink = useCallback((): void => {
-    console.log('copyLink');
+    navigator.clipboard.writeText(window.location.href);
   }, []);
 
   return (
     <Fragment>
       <Head>
-        {post?.title ? (
-          <title>HAQQ | {post.title}</title>
-        ) : (
-          <title>HAQQ | News</title>
-        )}
+        <title>HAQQ | Blog | {post.title}</title>
       </Head>
 
       <div className="border-b border-[#2A2A2B] px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip">
         <Breadcrumb
           title={post.title}
-          onBackClick={() => console.log('backclick')}
+          onBackClick={() => {
+            push('/blog');
+          }}
         />
       </div>
 

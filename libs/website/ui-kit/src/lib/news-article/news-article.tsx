@@ -1,5 +1,4 @@
 import Image from 'next/image';
-// import { NewsCardProps } from '../news-card/news-card';
 import { Heading } from '../heading/heading';
 import { MarkdownText } from '../markdown-text/markdown-text';
 // import { TelegramIcon, TwitterIcon } from '../icons';
@@ -17,7 +16,7 @@ export function NewsArticle({
     src: string;
     width: number;
     height: number;
-  };
+  } | null;
   title: string;
   content: string;
   date: string;
@@ -25,15 +24,16 @@ export function NewsArticle({
   className?: string;
   onLinkCopy?: () => void;
 }) {
-  console.log({ image, content, title, date, tags });
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
       <div className="px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip w-full">
         <div className="max-w-4xl mx-auto">
           <article>
-            <div className="relative w-full h-[193px] md:h-[400px] lg:h-[460px] mb-[28px] md:mb-[32px] lg:mb-[36px]">
-              <Image src={image.src} alt="" fill role="img" />
-            </div>
+            {image && (
+              <div className="relative w-full h-[193px] md:h-[400px] lg:h-[460px] mb-[28px] md:mb-[32px] lg:mb-[36px]">
+                <Image src={image.src} alt="" fill role="img" />
+              </div>
+            )}
 
             <div className="text-white/50 text-[12px] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px] mb-[8px]">
               {new Intl.DateTimeFormat('en-US', {
@@ -63,17 +63,19 @@ export function NewsArticle({
             })}
           </div>
 
-          <div className="mt-[20px] md:mt-[24px] lg:mt-[32px] items-center w-full border-y border-[#ffffff26] border-dashed flex gap-x-[26px] py-[17px] px-[10px]">
-            <span className="text-white uppercase font-serif text-[14px] tracking-[0.01em] leading-none">
-              Share the article
-            </span>
-            <div className="flex items-center gap-x-[16px] text-white/50">
-              {/* <TwitterIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
-              {/* <TelegramIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
-              <div>
-                <button aria-label="Copy" onClick={onLinkCopy}>
-                  <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
-                </button>
+          <div className="mt-[20px] md:mt-[24px] lg:mt-[32px]">
+            <div className="flex-row items-center w-full border-y border-[#ffffff26] border-dashed flex gap-x-[26px] py-[17px] px-[10px]">
+              <span className="text-white uppercase font-serif text-[14px] tracking-[0.01em] leading-none">
+                Share the article
+              </span>
+              <div className="flex items-center gap-x-[16px] text-white/50">
+                {/* <TwitterIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
+                {/* <TelegramIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
+                <div>
+                  <button aria-label="Copy" onClick={onLinkCopy}>
+                    <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

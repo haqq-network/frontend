@@ -1,6 +1,6 @@
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
-export { NewsPage as default } from '@haqq/website/news-page';
+export { BlogPage as default } from '@haqq/website/news-page';
 
 interface StorybookPost {
   _uid: string;

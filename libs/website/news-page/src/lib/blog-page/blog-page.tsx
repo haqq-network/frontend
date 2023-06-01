@@ -14,7 +14,7 @@ interface Post {
   tags: string[];
 }
 
-export function NewsPage({ posts }: { posts: Post[] }) {
+export function BlogPage({ posts }: { posts: Post[] }) {
   const { featuredPost, postsToRender, tags } = useMemo(() => {
     let featuredPost = undefined;
     const postsToRender = [];
@@ -40,11 +40,12 @@ export function NewsPage({ posts }: { posts: Post[] }) {
   return (
     <Fragment>
       <Head>
-        <title>HAQQ | News</title>
+        <title>HAQQ | Blog</title>
       </Head>
 
       <section>
         <TitleBlock />
+
         <div className="flex flex-col py-[80px]">
           {featuredPost && <FeaturedPostBlock post={featuredPost} />}
           <PostsBlock posts={postsToRender} tags={tags} />

@@ -9,28 +9,32 @@ export const getStaticPaths: GetStaticPaths = async () => {
     use: [apiPlugin],
   });
 
-  let paths;
-
   try {
     const storyblokApi = getStoryblokApi();
     const response = await storyblokApi.get('cdn/stories/blog', {
       version:
         process.env['VERCEL_ENV'] === 'production' ? 'published' : 'draft',
     });
-    paths = response.data.story.content.posts.map((post) => {
+
+    const paths = response.data.story.content.posts.map((post) => {
       return {
         params: {
           slug: post.slug,
         },
       };
     });
+
+    return {
+      paths: paths,
+      fallback: false,
+    };
   } catch (error) {
     console.error(error);
   }
 
   return {
-    paths,
-    fallback: true,
+    paths: [],
+    fallback: 'blocking',
   };
 };
 
