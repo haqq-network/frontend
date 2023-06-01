@@ -30,8 +30,15 @@ export function NewsArticle({
         <div className="max-w-4xl mx-auto">
           <article>
             {image && (
-              <div className="relative w-full h-[193px] md:h-[400px] lg:h-[460px] mb-[28px] md:mb-[32px] lg:mb-[36px]">
-                <Image src={image.src} alt="" fill role="img" />
+              <div className="relative w-full mb-[28px] md:mb-[32px] lg:mb-[36px]">
+                <Image
+                  src={image.src}
+                  alt=""
+                  width={image.width}
+                  height={image.height}
+                  role="img"
+                  className="object-cover"
+                />
               </div>
             )}
 
