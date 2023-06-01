@@ -53,7 +53,7 @@ function mapStorybookToPosts(data: { posts: StorybookPost[] }): Post[] {
     });
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let posts;
 
   storyblokInit({

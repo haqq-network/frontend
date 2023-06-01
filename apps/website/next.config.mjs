@@ -15,6 +15,14 @@ export default withNx(
   withMDX({
     webpack5: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+    compress: true,
+    swcMinify: true,
+    reactStrictMode: true,
+    experimental: {
+      optimisticClientCache: false,
+      fetchCache: false,
+      isrMemoryCacheSize: 0,
+    },
     nx: {
       svgr: false,
     },
