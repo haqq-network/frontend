@@ -9,3 +9,5 @@ export * from './medium-icon';
 export * from './google-play-icon';
 export * from './app-store-icon';
 export * from './android-icon';
+export * from './copy-icon';
+export * from './chevron-icon';

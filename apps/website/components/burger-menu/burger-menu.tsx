@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ReactNode } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import Link from 'next/link';
 import {
   DiscordIcon,
@@ -15,15 +15,22 @@ import {
 } from '@haqq/website/ui-kit';
 import { SubscribeForm } from '@haqq/website/forms';
 
+interface NavLinkProps {
+  href: string;
+  isOutLink?: boolean;
+  onClick?: () => void;
+}
+
+type SocialLinkProps = Pick<NavLinkProps, 'href'> & {
+  icon: ReactNode;
+};
+
 function BurgerMenuNavLink({
   href,
   children,
   isOutLink = false,
-}: {
-  href: string;
-  children: ReactNode;
-  isOutLink?: boolean;
-}) {
+  onClick,
+}: PropsWithChildren<NavLinkProps>) {
   const additionalProps = isOutLink
     ? {
         target: '_blank',
@@ -34,6 +41,7 @@ function BurgerMenuNavLink({
     <Link
       href={href}
       className="text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
+      onClick={onClick}
       {...additionalProps}
     >
       {children}
@@ -45,11 +53,7 @@ function BurgerMenuSocialLink({
   href,
   children,
   icon,
-}: {
-  href: string;
-  children: ReactNode;
-  icon: ReactNode;
-}) {
+}: PropsWithChildren<SocialLinkProps>) {
   return (
     <Link
       href={href}
@@ -64,7 +68,13 @@ function BurgerMenuSocialLink({
   );
 }
 
-export function BurgerMenu({ className }: { className?: string }) {
+export function BurgerMenu({
+  className,
+  onClick,
+}: {
+  className?: string;
+  onClick?: () => void;
+}) {
   return (
     <div
       className={clsx(
@@ -73,14 +83,17 @@ export function BurgerMenu({ className }: { className?: string }) {
         // 'backdrop-blur transform-gpu',
         className,
       )}
+      onClick={onClick}
     >
       <div className="mb-[60px] flex flex-col items-start space-y-[16px] sm:mb-[80px]">
         <BurgerMenuNavLink href="/#about">About</BurgerMenuNavLink>
         <BurgerMenuNavLink href="/ecosystem-fund">Fund</BurgerMenuNavLink>
+        <BurgerMenuNavLink href="/ecosystem">Ecosystem</BurgerMenuNavLink>
         {/* <BurgerMenuNavLink href="/#technology">Technology</BurgerMenuNavLink> */}
         <BurgerMenuNavLink href="/#developers">Developers</BurgerMenuNavLink>
+        <BurgerMenuNavLink href="/blog">Blog</BurgerMenuNavLink>
         <BurgerMenuNavLink href="https://docs.haqq.network" isOutLink>
-          Documentation
+          Docs
         </BurgerMenuNavLink>
         <Link href="/wallet">
           <Button variant={2} className="block sm:hidden">

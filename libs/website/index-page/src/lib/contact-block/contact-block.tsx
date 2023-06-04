@@ -13,6 +13,7 @@ export function ContactBlock() {
         alt=""
         src={eclipseImageData.src}
         fill
+        priority
         className="z-[-1] object-cover"
       />
 

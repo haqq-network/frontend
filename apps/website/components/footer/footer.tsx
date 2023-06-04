@@ -97,20 +97,32 @@ export function Footer() {
                 <FooterNavLink href="/#about">About</FooterNavLink>
               </div>
               <div className="leading-[0]">
-                <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
+                <FooterNavLink href="/ecosystem">Ecosystem</FooterNavLink>
               </div>
               <div className="leading-[0]">
-                {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
+                <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
+              </div>
+              {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
+              <div className="leading-[0]">
                 <FooterNavLink href="/#developers">Developers</FooterNavLink>
               </div>
               <div className="leading-[0]">
+                <FooterNavLink href="/blog">Blog</FooterNavLink>
+              </div>
+              <div className="leading-[0]">
                 <FooterNavLink href="https://docs.haqq.network" isOutLink>
-                  Documentation
+                  Docs
                 </FooterNavLink>
               </div>
               <div className="leading-[0]">
                 <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
               </div>
+              {/* <FooterNavLink href="/privacy-policy">
+                Privacy Policy
+              </FooterNavLink> */}
+              {/* <FooterNavLink href="/terms-and-conditions">
+                Terms and Conditions
+              </FooterNavLink> */}
             </nav>
           </div>
           <div className="h-full flex-1 py-[24px] pl-[16px] sm:px-[34px] sm:py-[56px] lg:w-[383px]">

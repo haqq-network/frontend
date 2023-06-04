@@ -62,11 +62,13 @@ export function Header() {
         <div className="flex-1" />
         <nav className="mr-[80px] hidden flex-row items-center space-x-6 lg:flex">
           <HeaderNavLink href="/#about">About</HeaderNavLink>
+          <HeaderNavLink href="/ecosystem">Ecosystem</HeaderNavLink>
           <HeaderNavLink href="/ecosystem-fund">Fund</HeaderNavLink>
           {/* <HeaderNavLink href="/#technology">Technology</HeaderNavLink> */}
           <HeaderNavLink href="/#developers">Developers</HeaderNavLink>
+          <HeaderNavLink href="/blog">Blog</HeaderNavLink>
           <HeaderNavLink href="https://docs.haqq.network" isOutLink>
-            Documentation
+            Docs
           </HeaderNavLink>
           {/* <HeaderNavLink href="/#community">Community</HeaderNavLink> */}
           {/* <HeaderNavLink href="/404">404</HeaderNavLink> */}
@@ -86,7 +88,10 @@ export function Header() {
       {isBurgerMenuOpen && (
         <Fragment>
           <ScrollLock isActive />
-          <BurgerMenu className="fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full sm:top-[71px] sm:h-[calc(100vh-71px)] sm:w-[468px] lg:hidden" />
+          <BurgerMenu
+            onClick={handleMenuOpen}
+            className="fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full sm:top-[71px] sm:h-[calc(100vh-71px)] sm:w-[468px] lg:hidden"
+          />
           <div
             onClick={handleMenuOpen}
             className="absolute right-0 top-[62px] -z-0 hidden h-[calc(100vh-62px)] w-full bg-black/50 sm:top-[71px] sm:block sm:h-[calc(100vh-71px)] lg:hidden"
