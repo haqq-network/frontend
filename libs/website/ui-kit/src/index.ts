@@ -22,3 +22,4 @@ export * from './lib/news-article/news-article';
 export * from './lib/orange-link/orange-link';
 export * from './lib/breadcrumb/breadcrumb';
 export * from './lib/blog-tabs/blog-tabs';
+export * from './lib/tooltip/tooltip';
