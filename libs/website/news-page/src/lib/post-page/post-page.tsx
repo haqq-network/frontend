@@ -1,6 +1,6 @@
 import { NewsArticle, Breadcrumb } from '@haqq/website/ui-kit';
 import Head from 'next/head';
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 // import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';
 import { useRouter } from 'next/router';
 
@@ -11,9 +11,18 @@ type PostPageProps = {
 
 export function PostPage({ post, recentPosts }: PostPageProps) {
   const { push } = useRouter();
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+
   const copyLink = useCallback((): void => {
-    navigator.clipboard.writeText(window.location.href);
-  }, []);
+    if (!isLinkCopied) {
+      navigator.clipboard.writeText(window.location.href);
+      setIsLinkCopied(true);
+      
+      setTimeout(() => {
+        setIsLinkCopied(false);
+      }, 2500);
+    }
+  }, [isLinkCopied]);
 
   return (
     <Fragment>
@@ -37,6 +46,7 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
         title={post.title}
         image={post.image}
         onLinkCopy={copyLink}
+        tooltipText={isLinkCopied ? 'Copied!' : 'Copy article link'}
       />
 
       {/* <RecentPostsBlock recentPosts={recentPosts} /> */}
