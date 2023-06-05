@@ -3,6 +3,7 @@ import { Heading } from '../heading/heading';
 import { MarkdownText } from '../markdown-text/markdown-text';
 // import { TelegramIcon, TwitterIcon } from '../icons';
 import { CopyIcon } from '../icons/copy-icon';
+import { Tooltip } from '../tooltip/tooltip';
 
 export function NewsArticle({
   image,
@@ -11,6 +12,7 @@ export function NewsArticle({
   date,
   tags,
   onLinkCopy,
+  tooltipText,
 }: {
   image: {
     src: string;
@@ -23,6 +25,7 @@ export function NewsArticle({
   tags: string[];
   className?: string;
   onLinkCopy?: () => void;
+  tooltipText?: string;
 }) {
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
@@ -80,7 +83,9 @@ export function NewsArticle({
                 {/* <TelegramIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
                 <div className="leading-[0]">
                   <button aria-label="Copy" onClick={onLinkCopy}>
-                    <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
+                    <Tooltip text={tooltipText}>
+                      <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
+                    </Tooltip>
                   </button>
                 </div>
               </div>
