@@ -3,8 +3,8 @@ import titleBlockBgData from '../../assets/title-block-bg.svg';
 
 export function TitleBlock() {
   return (
-    <section className="relative py-[80px] sm:py-[120px] px-[16px] sm:px-[48px] lg:px-[80px] border-b-[1px] border-[#2A2A2B]">
-      <div className="uppercase font-serif text-[46px] sm:text-[80px] lg:text-[140px] leading-none font-[500] w-full lg:w-2/3 xl:w-full">
+    <section className="relative border-b-[1px] border-[#2A2A2B] px-[16px] py-[80px] sm:px-[48px] sm:py-[120px] lg:px-[80px]">
+      <div className="w-full font-serif text-[46px] font-[500] uppercase leading-none sm:text-[80px] lg:w-2/3 lg:text-[140px] xl:w-full">
         HAQQ Blog
       </div>
 
@@ -12,7 +12,7 @@ export function TitleBlock() {
         alt=""
         src={titleBlockBgData.src}
         fill
-        className="absolute top-0 left-0 z-[-1] h-full w-full object-cover"
+        className="absolute left-0 top-0 z-[-1] h-full w-full object-cover"
       />
     </section>
   );

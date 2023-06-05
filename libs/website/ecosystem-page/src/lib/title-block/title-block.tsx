@@ -6,10 +6,10 @@ export function TitleBlock() {
   return (
     <section
       className={clsx(
-        'overflow-hidden relative py-[80px] md:py-[120px] px-[16px] md:px-[48px] lg:px-[80px]',
+        'relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]',
       )}
     >
-      <div className="uppercase font-serif text-[46px] sm:text-[80px] lg:text-[140px] leading-none font-medium">
+      <div className="font-serif text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
         HAQQ <br /> Ecosys
         <br className="hidden lg:block xl:hidden" />
         tem
@@ -21,7 +21,7 @@ export function TitleBlock() {
         height={LinesBgData.height}
         width={LinesBgData.width}
         priority
-        className="absolute top-1/2 translate-y-[8.5rem] right-0 scale-[2.5] min-[475px]:scale-[2] min-[475px]:translate-y-[6.5rem] sm:scale-[1.5] sm:translate-y-0 md:top-0 md:scale-[1] md:right-[-50px] z-[-1]"
+        className="absolute right-0 top-1/2 z-[-1] translate-y-[8.5rem] scale-[2.5] min-[475px]:translate-y-[6.5rem] min-[475px]:scale-[2] sm:translate-y-0 sm:scale-[1.5] md:right-[-50px] md:top-0 md:scale-[1]"
       />
     </section>
   );

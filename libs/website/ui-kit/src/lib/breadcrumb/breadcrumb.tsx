@@ -8,7 +8,7 @@ export function Breadcrumb({
   onBackClick: () => void;
 }) {
   return (
-    <div className="py-[10px] flex items-center text-[12px] leading-[1.5em] gap-x-[6px]">
+    <div className="flex items-center gap-x-[6px] py-[10px] text-[12px] leading-[1.5em]">
       <div className="cursor-pointer" onClick={onBackClick}>
         Posts
       </div>

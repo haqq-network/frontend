@@ -21,7 +21,7 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
         <title>HAQQ | Blog | {post.title}</title>
       </Head>
 
-      <div className="border-b border-[#2A2A2B] px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip">
+      <div className="overflow-clip border-b border-[#2A2A2B] px-[16px] sm:px-[63px] lg:px-[79px]">
         <Breadcrumb
           title={post.title}
           onBackClick={() => {
