@@ -16,7 +16,7 @@ export function Tooltip({
       {children}
       <div
         className={clsx(
-          'invisible absolute w-max max-w-[400px] scale-90 opacity-0 text-center',
+          'invisible absolute w-max max-w-[400px] scale-90 text-center opacity-0',
           'bottom-full left-1/2 -translate-x-1/2 -translate-y-2',
           'pointer-events-none select-none transition delay-75 duration-100 ease-out',
           'z-50 group-hover:visible group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100',

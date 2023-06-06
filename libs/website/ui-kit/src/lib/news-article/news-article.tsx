@@ -82,7 +82,7 @@ export function NewsArticle({
                 <div className="leading-[0]">
                   <button aria-label="Copy link" onClick={onLinkCopy}>
                     <Tooltip text="Copy link">
-                      <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
+                      <CopyIcon className="cursor-pointer transition-colors duration-100 ease-out hover:text-white" />
                     </Tooltip>
                   </button>
                 </div>
