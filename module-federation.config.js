@@ -24,8 +24,7 @@ const coreLibraries = new Set([
   '@headlessui/react',
   'react-hot-toast',
   'store2',
-  '@wagmi/core',
-  '@wagmi/connectors',
+  'lodash',
 ]);
 
 module.exports = {
