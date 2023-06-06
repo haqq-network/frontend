@@ -227,7 +227,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
 
   useEffect(() => {
     function handleScroll() {
-      const offset = isDesktop ? 60 : 30;
+      const offset = 30;
       if (window.scrollY > offset) {
         setBlured(true);
       } else {
