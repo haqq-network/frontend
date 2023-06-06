@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
 import { useGovernanceParamsQuery, useProposalListQuery } from '@haqq/shared';
-import { Heading } from '@haqq/website/ui-kit';
 import {
+  Heading,
   Container,
   OrangeLink,
   ProposalsIcon,

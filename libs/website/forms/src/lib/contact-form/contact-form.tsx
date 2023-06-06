@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Modal } from '@haqq/ui-kit';
 import {
   FormError,
   FormFields,
@@ -10,7 +9,7 @@ import {
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
-import { Button, SuccessMessageModal } from '@haqq/website/ui-kit';
+import { Button, SuccessMessageModal, Modal } from '@haqq/website/ui-kit';
 
 const schema = yup
   .object({

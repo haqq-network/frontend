@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
+import { Card, Heading, SpinnerLoader } from '@haqq/shell/ui-kit';
 import {
   useAddress,
   useStakingDelegationQuery,
@@ -176,7 +176,7 @@ export function ShellIndexPageDelegationList() {
         {status === 'loading' && (
           <div className="flex flex-col items-center justify-center space-y-8 p-20">
             <SpinnerLoader />
-            <Text block>Fetching validators list</Text>
+            <div className="block text-base">Fetching validators list</div>
           </div>
         )}
         {status === 'error' && <p>Error: {(error as any).message}</p>}

@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { Card, CardHeading } from '@haqq/ui-kit';
 import {
   useAuthAccountsQuery,
   useStakingPoolQuery,
@@ -10,6 +9,7 @@ import {
   BondStatus,
   bondStatusFromJSON,
 } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
+import { Card, CardHeading } from '@haqq/shell/ui-kit';
 
 export function ShellIndexPageChainStats() {
   const { data: stakingPool } = useStakingPoolQuery();

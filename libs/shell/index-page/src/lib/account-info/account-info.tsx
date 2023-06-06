@@ -6,8 +6,7 @@ import {
   useStakingDelegationQuery,
   useStakingRewardsQuery,
 } from '@haqq/shared';
-import { Card, CardHeading } from '@haqq/ui-kit';
-import { CopyIcon } from '@haqq/shell/ui-kit';
+import { CopyIcon, Card, CardHeading } from '@haqq/shell/ui-kit';
 
 export function ShellIndexPageAccountInfo() {
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);

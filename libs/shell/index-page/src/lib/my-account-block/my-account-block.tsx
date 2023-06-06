@@ -3,14 +3,19 @@ import {
   useClipboard,
   useStakingDelegationQuery,
   useStakingRewardsQuery,
-  useWindowWidth,
   getFormattedAddress,
   useWallet,
 } from '@haqq/shared';
-import { Button, Heading } from '@haqq/website/ui-kit';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useBalance } from 'wagmi';
-import { OrangeLink, CopyIcon, Container, Tooltip } from '@haqq/shell/ui-kit';
+import {
+  OrangeLink,
+  CopyIcon,
+  Container,
+  Tooltip,
+  Button,
+  Heading,
+} from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
 

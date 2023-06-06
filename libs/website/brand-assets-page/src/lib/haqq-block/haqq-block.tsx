@@ -1,4 +1,3 @@
-import { Heading, Text } from '@haqq/ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import {
@@ -11,7 +10,7 @@ import {
   islamicBrandColors,
   islamicLogos,
 } from '../../utils/brand-assets';
-import { Button, DownloadButton } from '@haqq/website/ui-kit';
+import { Button, DownloadButton, Heading, Text } from '@haqq/website/ui-kit';
 import { PropsWithChildren, useCallback, useState } from 'react';
 
 interface DownloadCardProps {
