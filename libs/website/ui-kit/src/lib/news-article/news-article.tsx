@@ -12,7 +12,6 @@ export function NewsArticle({
   date,
   tags,
   onLinkCopy,
-  tooltipText,
 }: {
   image: {
     src: string;
@@ -25,7 +24,6 @@ export function NewsArticle({
   tags: string[];
   className?: string;
   onLinkCopy?: () => void;
-  tooltipText?: string;
 }) {
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
@@ -82,8 +80,8 @@ export function NewsArticle({
                 {/* <TwitterIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
                 {/* <TelegramIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
                 <div className="leading-[0]">
-                  <button aria-label="Copy" onClick={onLinkCopy}>
-                    <Tooltip text={tooltipText}>
+                  <button aria-label="Copy link" onClick={onLinkCopy}>
+                    <Tooltip text="Copy link">
                       <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
                     </Tooltip>
                   </button>
