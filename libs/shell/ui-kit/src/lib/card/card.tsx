@@ -17,9 +17,17 @@ export function Card({
   );
 }
 
-export function CardHeading({ children }: PropsWithChildren) {
+export function CardHeading({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
+    <div
+      className={clsx(
+        'font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]',
+        className,
+      )}
+    >
       {children}
     </div>
   );

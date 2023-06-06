@@ -290,7 +290,7 @@ export function ProposalDetailsComponent({
     <Fragment>
       <Container>
         <div className="flex flex-row gap-[48px] lg:mb-[48px]">
-          <div className="flex-1">
+          <div className="w-auto flex-1 md:w-1/2">
             <div className="divide-haqq-border divide-y divide-dashed">
               <div className="pb-[24px] md:pb-[40px]">
                 {isTablet && (
@@ -347,6 +347,7 @@ export function ProposalDetailsComponent({
                     <div className="mb-[4px] font-sans text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                       Description
                     </div>
+
                     <div
                       className={clsx(
                         'prose prose-sm max-w-none text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
@@ -416,7 +417,7 @@ export function ProposalDetailsComponent({
           </div>
 
           {!isTablet && (
-            <div className="hidden flex-1 md:block md:w-1/2 md:flex-none xl:w-1/3">
+            <div className="hidden flex-1 md:block md:w-1/2 xl:w-1/3 xl:flex-none">
               <div className="transform-gpu overflow-hidden rounded-[8px] bg-[#ffffff14]">
                 <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
                   <div>

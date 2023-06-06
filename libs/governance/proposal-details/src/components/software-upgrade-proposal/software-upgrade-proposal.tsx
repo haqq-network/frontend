@@ -26,8 +26,8 @@ export function SoftwareUpgradeProposalDetails({
   }, [plan]);
 
   return (
-    <div>
-      <div className="mb-[16px] flex flex-row items-center">
+    <div className="flex flex-col gap-[16px]">
+      <div className="flex flex-row items-center">
         <svg
           width="24"
           height="24"

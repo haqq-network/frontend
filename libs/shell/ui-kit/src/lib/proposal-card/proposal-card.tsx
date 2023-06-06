@@ -64,7 +64,7 @@ export function ProposalCard({
             </div>
           </div>
           <div>
-            <CardHeading>{title}</CardHeading>
+            <CardHeading className="line-clamp-2 h-[56px]">{title}</CardHeading>
           </div>
         </div>
         <div className="py-[12px] md:py-[22px]">
