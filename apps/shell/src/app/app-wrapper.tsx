@@ -19,7 +19,12 @@ import {
 import ScrollLock from 'react-scrolllock';
 import { useBalance, useConnect } from 'wagmi';
 import clsx from 'clsx';
-import { useAddress, useWallet, useWindowWidth } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  useAddress,
+  useWallet,
+  useWindowWidth,
+} from '@haqq/shared';
 import { useMediaQuery } from 'react-responsive';
 
 interface HeaderButtonProps {
@@ -142,7 +147,7 @@ function HeaderButtons({
         {ethAddress ? (
           <AccountButton
             balance={balance}
-            address={ethAddress}
+            address={getFormattedAddress(ethAddress, 3, 2)}
             onDisconnectClick={disconnect}
           />
         ) : (

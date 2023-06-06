@@ -5,7 +5,12 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useAddress, useWallet, useWindowWidth } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  useAddress,
+  useWallet,
+  useWindowWidth,
+} from '@haqq/shared';
 import { useBalance, useConnect } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
 import {
@@ -139,7 +144,7 @@ function HeaderButtons({
         {ethAddress ? (
           <AccountButton
             balance={balance}
-            address={ethAddress}
+            address={getFormattedAddress(ethAddress, 3, 2)}
             onDisconnectClick={disconnect}
           />
         ) : (

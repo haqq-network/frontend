@@ -3,7 +3,6 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
-import { getFormattedAddress } from '@haqq/shared';
 
 export function AccountButton({
   balance,
@@ -40,7 +39,7 @@ export function AccountButton({
               'appearance-none rounded-[6px] font-sans text-sm font-[500] leading-[24px]',
             )}
           >
-            <span>{getFormattedAddress(address, 3, 2)}</span>
+            <span>{address}</span>
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <path
                 fillRule="evenodd"
@@ -78,7 +77,7 @@ export function AccountButton({
             'bg-white font-sans text-sm leading-[24px] text-black',
           )}
         >
-          {getFormattedAddress(address, 3, 2)}
+          {address}
         </div>
       )}
     </div>
