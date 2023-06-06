@@ -29,7 +29,7 @@ function mapStorybookToPosts(data: { posts: StorybookPost[] }): Post[] {
   return data.posts
     .map((post) => {
       const image =
-        post.image.filename !== ''
+        post.image.filename && post.image.filename !== ''
           ? {
               src: post.image.filename,
               width: Number(post.image.filename.split('/')[5].split('x')[0]),
