@@ -36,9 +36,9 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
 
       <div
         className={clsx(
-          'border-b border-[#2A2A2B] px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip',
-          'bg-haqq-black backdrop-blur transform-gpu',
-          'sticky z-50 top-[63px] sm:top-[72px]',
+          'overflow-clip border-b border-[#2A2A2B] px-[16px] sm:px-[63px] lg:px-[79px]',
+          'bg-haqq-black transform-gpu backdrop-blur',
+          'sticky top-[63px] z-50 sm:top-[72px]',
         )}
       >
         <Breadcrumb

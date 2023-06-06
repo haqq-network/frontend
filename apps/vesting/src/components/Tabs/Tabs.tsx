@@ -10,7 +10,7 @@ export function Tabs({ children, className }: TabsProps) {
   return (
     <div
       className={clsx(
-        'w-full flex flex-row p-[4px] space-x-[4px] rounded-[16px] bg-primary',
+        'bg-primary flex w-full flex-row space-x-[4px] rounded-[16px] p-[4px]',
         className,
       )}
     >
@@ -29,8 +29,8 @@ export function Tab({ children, isActive = false }: TabProps) {
   return (
     <div
       className={clsx(
-        'text-base leading-[22px] text-center',
-        'p-[12px] rounded-[12px] flex-1 min-w-[120px]',
+        'text-center text-base leading-[22px]',
+        'min-w-[120px] flex-1 rounded-[12px] p-[12px]',
         'cursor-pointer transition-colors duration-150',
         isActive ? 'bg-white text-black' : 'text-white hover:text-black',
       )}

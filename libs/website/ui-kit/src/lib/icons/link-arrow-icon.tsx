@@ -1,7 +1,12 @@
-export function LinkArrowIcon() {
+import clsx from 'clsx';
+
+export function LinkArrowIcon({ className }: { className?: string }) {
   return (
     <svg
-      className="hidden sm:block sm:invisible group-hover:visible h-[24px] w-[24px]"
+      className={clsx(
+        'hidden h-[24px] w-[24px] group-hover:visible sm:invisible sm:block',
+        className,
+      )}
       viewBox="0 0 25 24"
       fill="none"
     >

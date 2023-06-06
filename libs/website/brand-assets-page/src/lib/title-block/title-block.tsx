@@ -6,7 +6,7 @@ export function TitleBlock() {
   return (
     <section
       className={clsx(
-        'relative flex flex-col py-[48px] px-[16px] sm:py-[68px] sm:px-[48px] lg:px-[80px] bg-cover bg-no-repeat bg-left',
+        'relative flex flex-col bg-cover bg-left bg-no-repeat px-[16px] py-[48px] sm:px-[48px] sm:py-[68px] lg:px-[80px]',
         styles.bgImage,
       )}
     >

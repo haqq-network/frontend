@@ -12,7 +12,7 @@
 }
 
 body {
-  @apply font-sans text-white bg-haqq-black will-change-auto;
+  @apply bg-haqq-black font-sans text-white will-change-auto;
 }
 
 .ledger-block-background {

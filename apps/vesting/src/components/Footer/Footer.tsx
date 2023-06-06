@@ -7,26 +7,26 @@ import { Text } from '../Typography/Typography';
 export function Footer(): ReactElement {
   return (
     <footer className="bg-light-green">
-      <Container className="border-t border-light-gray py-4">
-        <nav className="flex flex-col justify-between items-center sm:flex-row space-y-2 sm:space-y-0">
-          <div className="flex flex-col sm:flex-row sm:justify-center space-y-2 sm:space-y-0">
+      <Container className="border-light-gray border-t py-4">
+        <nav className="flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-y-0">
+          <div className="flex flex-col space-y-2 sm:flex-row sm:justify-center sm:space-y-0">
             <Text color="light" className="text-sm sm:mb-0">
               ©️ {new Date().getFullYear()}{' '}
               <a
                 href="https://haqq.network/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-primary transition-colors duration-200 ease-out"
+                className="hover:text-primary underline underline-offset-2 transition-colors duration-200 ease-out"
               >
                 HAQQ Network.
               </a>
               &nbsp;
             </Text>
-            <Text color="light" className="text-sm self-center sm:mb-0">
+            <Text color="light" className="self-center text-sm sm:mb-0">
               All rights reserved
             </Text>
           </div>
-          <div className="flex flex-row sm:space-x-4 items-center">
+          <div className="flex flex-row items-center sm:space-x-4">
             {/* <a
               href={repository.url}
               target="_blank"

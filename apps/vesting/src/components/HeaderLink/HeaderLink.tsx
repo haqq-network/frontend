@@ -20,7 +20,7 @@ export function HeaderLink({
         return clsx(
           'text-base font-normal leading-[20px]',
           'hover:text-primary active:text-primary',
-          'hover:underline underline-offset-2',
+          'underline-offset-2 hover:underline',
           isActive ? 'text-primary' : 'text-black',
           className,
         );

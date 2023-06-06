@@ -11,7 +11,7 @@ export function Container({
   return (
     <div
       className={clsx(
-        'w-full lg:container px-4 sm:px-6 lg:px-8 mx-auto',
+        'mx-auto w-full px-4 lg:container sm:px-6 lg:px-8',
         className,
       )}
     >

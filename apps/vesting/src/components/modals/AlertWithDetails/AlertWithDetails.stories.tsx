@@ -14,7 +14,9 @@ export default {
 
 const Template: ComponentStory<typeof AlertWithDetailsComponent> = (
   args: AlertWithDetailsProps,
-) => <AlertWithDetailsComponent {...args} />;
+) => {
+  return <AlertWithDetailsComponent {...args} />;
+};
 
 export const AlertWithDetails = Template.bind({});
 AlertWithDetails.args = {

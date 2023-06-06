@@ -74,7 +74,7 @@ export function SubscribeForm({
         className={clsx(className)}
         autoComplete="off"
       >
-        <div className="sm:flex-1 max-w-[400px]">
+        <div className="max-w-[400px] sm:flex-1">
           <HookedFormInput
             wrapperClassName="w-full"
             placeholder="Enter your e-mail"

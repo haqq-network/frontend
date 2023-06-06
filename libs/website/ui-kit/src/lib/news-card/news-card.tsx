@@ -27,8 +27,8 @@ export function NewsCard({
   return (
     <div
       className={clsx(
-        'flex flex-col w-full',
-        'bg-[#ffffff14] hover:bg-[#FFFFFF26] group',
+        'flex w-full flex-col',
+        'group bg-[#ffffff14] hover:bg-[#FFFFFF26]',
         'transition-color duration-150 ease-out will-change-[color,background]',
         isFeatured && 'md:flex-row',
         className,
@@ -38,8 +38,8 @@ export function NewsCard({
         className={clsx(
           'relative h-[192px] overflow-hidden',
           isFeatured
-            ? 'md:h-[380px] lg:h-[420px] md:w-1/2 lg:w-2/5 xl:w-3/5'
-            : 'md:h-[200px] lg:h-[240px] w-full',
+            ? 'md:h-[380px] md:w-1/2 lg:h-[420px] lg:w-2/5 xl:w-3/5'
+            : 'w-full md:h-[200px] lg:h-[240px]',
         )}
       >
         {image && (
@@ -48,16 +48,16 @@ export function NewsCard({
             width={image.width}
             height={image.height}
             alt=""
-            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-[2s] ease-out"
+            className="h-full w-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
           />
         )}
       </div>
       <div
         className={clsx(
-          'flex flex-col p-[16px] gap-y-[12px] justify-between',
+          'flex flex-col justify-between gap-y-[12px] p-[16px]',
           isFeatured
-            ? 'md:w-1/2 lg:w-3/5 xl:w-2/5 md:py-[30px] md:px-[28px] lg:p-[40px]'
-            : 'lg:px-[20px] lg:py-[24px] h-[200px] md:h-[243px] lg:h-[274px]',
+            ? 'md:w-1/2 md:px-[28px] md:py-[30px] lg:w-3/5 lg:p-[40px] xl:w-2/5'
+            : 'h-[200px] md:h-[243px] lg:h-[274px] lg:px-[20px] lg:py-[24px]',
         )}
       >
         <div
@@ -68,17 +68,17 @@ export function NewsCard({
         >
           <div
             className={clsx(
-              'font-serif font-[500] leading-[1.25em] text-[16px] text-haqq-orange',
+              'text-haqq-orange font-serif text-[16px] font-[500] leading-[1.25em]',
               isFeatured
-                ? 'md:text-[24px] md:leading-[42px] lg:text-[30px] line-clamp-2'
-                : 'md:text-[18px] lg:text-[24px] line-clamp-1',
+                ? 'line-clamp-2 md:text-[24px] md:leading-[42px] lg:text-[30px]'
+                : 'line-clamp-1 md:text-[18px] lg:text-[24px]',
             )}
           >
             {title}
           </div>
           <div
             className={clsx(
-              'leading-[1.5em] text-[12px] line-clamp-4',
+              'line-clamp-4 text-[12px] leading-[1.5em]',
               isFeatured
                 ? 'md:line-clamp-5 md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]'
                 : 'md:text-[13px] md:leading-[22px] lg:text-[14px]',
@@ -99,7 +99,7 @@ export function NewsCard({
               return (
                 <div
                   key={tag}
-                  className="px-[10px] py-[6px] rounded-[2px] border border-haqq-border text-[11px] leading-[1.55em] md:leading-[18px] lg:text-[12px] text-center max-w-fit"
+                  className="border-haqq-border max-w-fit rounded-[2px] border px-[10px] py-[6px] text-center text-[11px] leading-[1.55em] md:leading-[18px] lg:text-[12px]"
                 >
                   {tag}
                 </div>
@@ -109,7 +109,7 @@ export function NewsCard({
 
           <div
             className={clsx(
-              'text-white/50 text-[11px] leading-[1.55em]',
+              'text-[11px] leading-[1.55em] text-white/50',
               isFeatured
                 ? 'md:text-[13px] md:leading-[22px] lg:text-[14px]'
                 : 'md:leading-[18px] lg:text-[12px]',

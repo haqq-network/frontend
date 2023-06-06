@@ -9,7 +9,7 @@ export function Layout({
   className?: string;
 }) {
   return (
-    <div className={clsx('min-h-screen flex flex-col', className)}>
+    <div className={clsx('flex min-h-screen flex-col', className)}>
       {children}
     </div>
   );
@@ -23,7 +23,7 @@ export function Container({
   className?: string;
 }) {
   return (
-    <div className={clsx('container px-4 sm:px-6 lg:px-8 mx-auto', className)}>
+    <div className={clsx('container mx-auto px-4 sm:px-6 lg:px-8', className)}>
       {children}
     </div>
   );
@@ -39,8 +39,8 @@ export function Page({ children, header, footer }: PageProps): ReactElement {
   return (
     <Layout>
       {/* TODO: BANNER COMPONENT MUST BE PLACED HERE */}
-      {header && <div className="sticky top-0 flex-0 z-40">{header}</div>}
-      <div className="flex-1 flex flex-col overflow-x-hidden relative bg-light-green">
+      {header && <div className="flex-0 sticky top-0 z-40">{header}</div>}
+      <div className="bg-light-green relative flex flex-1 flex-col overflow-x-hidden">
         {children}
       </div>
       {footer ? footer : null}

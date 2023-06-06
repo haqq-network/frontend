@@ -6,7 +6,7 @@ export function PulseLoader({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       className={clsx(
-        'leading-none w-[32px] h-[32px] text-haqq-primary-500 opacity-70',
+        'text-haqq-primary-500 h-[32px] w-[32px] leading-none opacity-70',
         className,
       )}
     >
@@ -125,7 +125,7 @@ export function SpinnerLoader({ className }: { className?: string }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={clsx(
-          'w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-haqq-primary-500',
+          'fill-haqq-primary-500 h-8 w-8 animate-spin text-gray-200 dark:text-gray-600',
           className,
         )}
       >

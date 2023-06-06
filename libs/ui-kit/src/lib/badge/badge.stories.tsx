@@ -10,7 +10,9 @@ const Story: ComponentMeta<typeof Badge> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof Badge> = (args) => <Badge {...args} />;
+const Template: ComponentStory<typeof Badge> = (args) => {
+  return <Badge {...args} />;
+};
 
 export const Primary = Template.bind({});
 Primary.args = {

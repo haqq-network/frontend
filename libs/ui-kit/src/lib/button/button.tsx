@@ -18,10 +18,10 @@ export function Button({
       disabled={disabled}
       onClick={onClick}
       className={clsx(
-        'px-4 py-2.5 font-medium text-xs leading-tight uppercase rounded-md shadow',
+        'rounded-md px-4 py-2.5 text-xs font-medium uppercase leading-tight shadow',
         'bg-islamic-green-500 text-white',
         'hover:bg-islamic-green-600 hover:shadow-md',
-        'focus:bg-islamic-green-600 focus:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-islamic-green-500',
+        'focus:bg-islamic-green-600 focus:ring-islamic-green-500 focus:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2',
         'active:bg-islamic-green-700 active:shadow-sm',
         'disabled:!bg-islamic-green-500 disabled:!opacity-60 disabled:!shadow-sm',
         'transition duration-150 ease-out',

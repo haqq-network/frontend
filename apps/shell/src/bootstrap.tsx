@@ -3,6 +3,7 @@ import { AppProviders, createTendermintClient } from '@haqq/shared';
 import { App } from './app/app';
 import { environment } from './environments/environment';
 import './index.css';
+import { AppWrapper } from './app/app-wrapper';
 
 if (environment.isProduction) {
   const sentryDsn = environment.sentryDsn;
@@ -31,7 +32,9 @@ async function startApp() {
       withReactQueryDevtools={!environment.isProduction}
       walletConnectProjectId={environment.walletConnectProjectId}
     >
-      <App />
+      <AppWrapper>
+        <App />
+      </AppWrapper>
     </AppProviders>,
   );
 }

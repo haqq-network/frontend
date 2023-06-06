@@ -7,7 +7,7 @@ export function IslamicLogo({
   className?: string;
 }): ReactElement {
   return (
-    <div className={clsx('leading-[0px] text-islamic-green-500', className)}>
+    <div className={clsx('text-islamic-green-500 leading-[0px]', className)}>
       <svg
         className="h-full"
         viewBox="0 0 202 34"
@@ -75,7 +75,7 @@ export function IslamicLogoSign({
   className?: string;
 }): ReactElement {
   return (
-    <div className={clsx('leading-[0px] text-islamic-green-500', className)}>
+    <div className={clsx('text-islamic-green-500 leading-[0px]', className)}>
       <svg
         className="h-full"
         viewBox="0 0 34 34"

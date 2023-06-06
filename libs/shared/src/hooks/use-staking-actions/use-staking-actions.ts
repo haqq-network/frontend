@@ -212,25 +212,42 @@ export function useStakingActions() {
 
   const handleClaimAllRewards = useCallback(
     async (validatorAddresses: string[]) => {
+      console.log('handleClaimAllRewards', { validatorAddresses });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
 
       if (sender) {
+        // Simulate
+        const simFee = getFee();
+        const simParams = {
+          validatorAddresses,
+        };
+        const simMsg = createTxMsgMultipleWithdrawDelegatorReward(
+          haqqChain,
+          sender,
+          simFee,
+          memo,
+          simParams,
+        );
+        const simTx = await signTransaction(simMsg, sender);
+        const simulateTxResponse = await simulateTransaction(simTx);
+
+        // Broadcast real transaction
+        const fee = getFee(simulateTxResponse.gas_info.gas_used);
         const params = {
           validatorAddresses,
         };
-
         const msg = createTxMsgMultipleWithdrawDelegatorReward(
           haqqChain,
           sender,
-          FEE,
+          fee,
           memo,
           params,
         );
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        return txResponse.txhash;
+        return txResponse;
       } else {
         throw new Error('No sender');
       }
@@ -238,11 +255,13 @@ export function useStakingActions() {
     [
       broadcastTransaction,
       ethAddress,
+      getFee,
       getPubkey,
       getSender,
       haqqAddress,
       haqqChain,
       signTransaction,
+      simulateTransaction,
     ],
   );
 
@@ -253,20 +272,37 @@ export function useStakingActions() {
       const sender = await getSender(haqqAddress as string, pubkey);
 
       if (sender) {
+        // Simulate
+        const simFee = getFee();
+        const simParams = {
+          validatorAddress,
+        };
+        const simMsg = createTxMsgWithdrawDelegatorReward(
+          haqqChain,
+          sender,
+          simFee,
+          memo,
+          simParams,
+        );
+        const simTx = await signTransaction(simMsg, sender);
+        const simulateTxResponse = await simulateTransaction(simTx);
+
+        // Broadcast real transaction
+        const fee = getFee(simulateTxResponse.gas_info.gas_used);
+        const params = {
+          validatorAddress,
+        };
         const msg = createTxMsgWithdrawDelegatorReward(
           haqqChain,
           sender,
-          FEE,
+          fee,
           memo,
-          {
-            validatorAddress,
-          },
+          params,
         );
-
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        return txResponse.txhash;
+        return txResponse;
       } else {
         throw new Error('No sender');
       }
@@ -274,11 +310,13 @@ export function useStakingActions() {
     [
       broadcastTransaction,
       ethAddress,
+      getFee,
       getPubkey,
       getSender,
       haqqAddress,
       haqqChain,
       signTransaction,
+      simulateTransaction,
     ],
   );
 

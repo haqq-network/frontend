@@ -1,0 +1,13 @@
+.slider :global(.swiper-pagination-bullet) {
+  background-color: #fff;
+}
+
+.slider :global(.swiper-pagination) {
+  bottom: 12px;
+}
+
+@media (min-width: 768px) {
+  .slider :global(.swiper-pagination) {
+    bottom: 18px;
+  }
+}

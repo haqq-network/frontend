@@ -11,8 +11,8 @@ const baseConfig = require('./module-federation.config');
 const prodConfig = {
   ...baseConfig,
   remotes: [
-    ['staking', '//haqq-staking.vercel.app'],
-    ['governance', '//haqq-governance.vercel.app'],
+    ['staking', '//staking.haqq.network'],
+    ['governance', '//governance.haqq.network'],
   ],
 };
 

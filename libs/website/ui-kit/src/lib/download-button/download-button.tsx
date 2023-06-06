@@ -20,7 +20,7 @@ export function DownloadButton({
   return (
     <a download href={link}>
       <Button className={className} variant={variant} onClick={onClick}>
-        <div className="flex items-center gap-x-[8px] justify-center">
+        <div className="flex items-center justify-center gap-x-[8px]">
           {withIcon && (
             <div className="hover:text-white">
               <svg

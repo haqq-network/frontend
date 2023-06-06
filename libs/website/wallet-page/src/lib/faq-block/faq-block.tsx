@@ -42,7 +42,7 @@ function FAQArticle({
         setOpen(!isOpen);
       }}
     >
-      <div className="w-full flex justify-between items-center text-[24px] font-bold text-white cursor-pointer">
+      <div className="flex w-full cursor-pointer items-center justify-between text-[24px] font-bold text-white">
         <span>{question}</span>
         {isOpen ? <MinusIcon /> : <PlusIcon />}
       </div>
@@ -55,7 +55,7 @@ export function FAQBlock() {
   return (
     <section className="w-full py-[40px] sm:py-[70px] sm:pb-[140px]">
       <div className="container mx-auto max-w-[980px] px-[20px] sm:px-[40px]">
-        <h2 className="font-extrabold text-[38px] leading-[52px] sm:text-[48px] sm:leading-[64px] text-center mb-[50px] sm:mb-[64px]">
+        <h2 className="mb-[50px] text-center text-[38px] font-extrabold leading-[52px] sm:mb-[64px] sm:text-[48px] sm:leading-[64px]">
           FAQ
         </h2>
 

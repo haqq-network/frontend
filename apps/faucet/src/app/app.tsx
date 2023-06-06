@@ -11,7 +11,7 @@ const Faucet = lazy(() => {
 export function App(): ReactElement {
   return (
     <Page header={<Header rightSlot={<ThemeButton />} />} footer={<Footer />}>
-      <div className="flex-1 flex flex-col space-y-10 py-10">
+      <div className="flex flex-1 flex-col space-y-10 py-10">
         <Suspense fallback={<PendingPage />}>
           <Routes>
             <Route index element={<Faucet />} />

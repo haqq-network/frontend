@@ -17,7 +17,7 @@ export function BlogTabs({
   return (
     <div
       className={clsx(
-        'border-[#FFFFFF26] flex w-full items-start border-b-[1px]',
+        'flex w-full items-start border-b-[1px] border-[#FFFFFF26]',
         className,
       )}
     >
@@ -52,12 +52,12 @@ function BlogTab({
     <div
       className={clsx(
         'px-[16px] py-[12px]',
-        'font-sans text-[12px] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px] font-[500]',
+        'font-sans text-[12px] font-[500] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px]',
         'cursor-pointer transition-colors duration-150',
         'md:mb-[-1px]',
         isActive
-          ? 'border-white text-white border-b-[2px] font-[600]'
-          : 'text-[#868686] border-[transparent] border-b-[1px]',
+          ? 'border-b-[2px] border-white font-[600] text-white'
+          : 'border-b-[1px] border-[transparent] text-[#868686]',
         className,
       )}
       onClick={onClick}

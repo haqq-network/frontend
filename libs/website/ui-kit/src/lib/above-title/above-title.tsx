@@ -10,7 +10,7 @@ export function AboveTitle({ children, className }: AboveTitleProps) {
   return (
     <div
       className={clsx(
-        'font-sans font-[600] uppercase text-[10px] leading-[1.2em] sm:text-[12px]',
+        'font-sans text-[10px] font-[600] uppercase leading-[1.2em] sm:text-[12px]',
         className,
       )}
     >

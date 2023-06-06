@@ -74,7 +74,7 @@ function PartnerTypeOrStatus({
   return (
     <div
       className={clsx(
-        'text-[12px] leading-[1.5em] rounded-[2px] py-[6px] px-[10px] text-center border border-[#ffffff26]',
+        'rounded-[2px] border border-[#ffffff26] px-[10px] py-[6px] text-center text-[12px] leading-[1.5em]',
       )}
     >
       {text}
@@ -96,11 +96,11 @@ function PartnerCard({
   return (
     <div
       className={clsx(
-        'p-[20px] flex flex-col justify-between bg-haqq-black h-[280px] md:h-[300px] lg:h-[330px]',
+        'bg-haqq-black flex h-[280px] flex-col justify-between p-[20px] md:h-[300px] lg:h-[330px]',
         className,
       )}
     >
-      <div className="flex flex-col relative">
+      <div className="relative flex flex-col">
         <Image
           src={logoUrl}
           alt={name}
@@ -108,7 +108,7 @@ function PartnerCard({
           height={logoHeight}
           className="h-[36px] w-fit"
         />
-        <div className="text-[16px] leading-[1.2em] mt-[12px]">{name}</div>
+        <div className="mt-[12px] text-[16px] leading-[1.2em]">{name}</div>
       </div>
       <div className="flex flex-col gap-y-[12px]">
         <p className="text-[12px] leading-[1.5em] ">{description}</p>
@@ -120,7 +120,7 @@ function PartnerCard({
           <Link
             href={link}
             className={clsx(
-              'text-[14px] font-[600] leading-[1.2em] text-haqq-orange hover:text-haqq-light-orange',
+              'text-haqq-orange hover:text-haqq-light-orange text-[14px] font-[600] leading-[1.2em]',
               'cursor-pointer transition-colors duration-100 ease-out',
               'inline-flex items-center gap-x-[4px]',
             )}
@@ -171,16 +171,16 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
   }, []);
 
   return (
-    <section className="bg-white px-[16px] py-[68px] md:px-[48px] md:pt-[100px] md:pb-[130px] lg:px-[80px] lg:py-[140px] flex flex-col">
-      <div className="flex items-center relative">
+    <section className="flex flex-col bg-white px-[16px] py-[68px] md:px-[48px] md:pb-[130px] md:pt-[100px] lg:px-[80px] lg:py-[140px]">
+      <div className="relative flex items-center">
         <Heading className="text-haqq-black">Haqq ecosystem partners</Heading>
-        <div className="flex items-center ml-[48px]">
-          <div className="bg-haqq-black w-[16px] h-[16px]" />
-          <div className="h-[1px] bg-[#0d0d0e3d] w-[1200px] absolute" />
+        <div className="ml-[48px] flex items-center">
+          <div className="bg-haqq-black h-[16px] w-[16px]" />
+          <div className="absolute h-[1px] w-[1200px] bg-[#0d0d0e3d]" />
         </div>
       </div>
 
-      <Tabs className="mt-[28px] md:mt-[40px] lg:mt-[80px] overflow-x-scroll overflow-y-clip md:overflow-visible">
+      <Tabs className="mt-[28px] overflow-y-clip overflow-x-scroll md:mt-[40px] md:overflow-visible lg:mt-[80px]">
         <Tab
           isActive={tab === 'all-partners'}
           onClick={() => {
@@ -247,7 +247,7 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
         </Tab>
       </Tabs>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[28px] mt-[36px]">
+      <div className="mt-[36px] grid grid-cols-1 gap-[28px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredPartners.map((partner: Partner) => {
           return (
             <PartnerCard

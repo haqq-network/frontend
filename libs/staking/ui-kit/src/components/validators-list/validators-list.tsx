@@ -1,6 +1,4 @@
-import { Fragment, useCallback, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
+import { useCallback, useMemo } from 'react';
 import { ValidatorListItem } from '../validator-list-item/validator-list-item';
 import type {
   DistributionRewardsResponse,
@@ -8,21 +6,76 @@ import type {
   Validator,
 } from '@evmos/provider';
 import { useStakingPoolQuery } from '@haqq/shared';
+import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell/ui-kit';
+import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
+import { formatUnits } from 'ethers/lib/utils';
 
-interface ValidatorListProps {
-  validators?: Validator[];
-  error?: any;
-  status?: 'loading' | 'success' | 'error' | 'idle';
-  rewardsInfo: DistributionRewardsResponse | null | undefined;
-  delegationInfo: GetDelegationsResponse | null | undefined;
+export function ValidatorListItemMobile({
+  validator,
+  reward,
+  delegation,
+  stakingPool,
+  onClick,
+}: ValidatorListItemProps) {
+  const validatorCommission = useMemo(() => {
+    return (
+      Number.parseFloat(validator.commission?.commission_rates?.rate ?? '0') *
+      100
+    ).toFixed(0);
+  }, [validator.commission?.commission_rates]);
+  const votingPower = useMemo(() => {
+    return Number.parseInt(validator.tokens ?? '0') / 10 ** 18;
+  }, [validator.tokens]);
+  const userDelegate = useMemo(() => {
+    if (delegation?.balance) {
+      return Number.parseFloat(formatUnits(delegation.balance.amount));
+    }
+
+    return 0;
+  }, [delegation]);
+  const userRewards = useMemo(() => {
+    if (reward?.reward.length) {
+      return Number.parseFloat(reward?.reward[0].amount) / 10 ** 18;
+    }
+
+    return 0;
+  }, [reward]);
+
+  const votingPowerInPercents = useMemo(() => {
+    return ((votingPower / stakingPool) * 100).toFixed(2);
+  }, [votingPower, stakingPool]);
+
+  return (
+    <div
+      onClick={() => {
+        onClick(validator.operator_address);
+      }}
+    >
+      <ValidatorListItemMobileComponent
+        validatorName={validator.description.moniker}
+        fee={`${validatorCommission}%`}
+        reward={userRewards}
+        staked={userDelegate}
+        votingPowerPercent={votingPowerInPercents}
+        votingPower={votingPower}
+        status="active"
+      />
+    </div>
+  );
 }
 
-export function ValidatorsList({
+interface ValidatorListProps {
+  validators: Validator[];
+  rewardsInfo: DistributionRewardsResponse | null | undefined;
+  delegationInfo: GetDelegationsResponse | null | undefined;
+  onValidatorClick: (validatorAddress: string) => void;
+}
+
+export function ValidatorsListMobile({
   validators,
-  error,
-  status,
   rewardsInfo,
   delegationInfo,
+  onValidatorClick,
 }: ValidatorListProps) {
   const { data: stakingPool } = useStakingPoolQuery();
   const getValidatorRewards = useCallback(
@@ -52,68 +105,93 @@ export function ValidatorsList({
   const totalStaked = useMemo(() => {
     return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
   }, [stakingPool?.pool.bonded_tokens]);
+
   return (
-    <div className="mx-auto w-full flex flex-col flex-1">
-      <Card className="!p-0 flex flex-col flex-1">
-        {status === 'loading' && (
-          <div className="flex-1 flex flex-col space-y-8 items-center justify-center">
-            <SpinnerLoader />
-            <Text block>Fetching validators list</Text>
-          </div>
-        )}
-        {status === 'error' && <p>Error: {error.message}</p>}
-        {status === 'success' && (
-          <Fragment>
-            <div className="px-6 py-3 border-b border-islamic-black-100/20">
-              <div className="flex items-center justify-between space-x-6 font-semibold">
-                <div className="w-1/3">
-                  <div className="font-semibold">Name</div>
-                </div>
-                <div className="w-[100px] text-center">Status</div>
-                <div className="w-[50px] text-center">Fee</div>
-                <div className="flex-1 text-right">Voting power</div>
-                <div className="flex-1 text-right">Staked</div>
-                <div className="flex-1 text-right">Rewards</div>
-              </div>
-            </div>
+    <div className="divide-haqq-border flex flex-col divide-y divide-solid">
+      {validators.map((validator, index) => {
+        const delegationInfo = getDelegationInfo(validator.operator_address);
+        const rewardsInfo = getValidatorRewards(validator.operator_address);
 
-            <div className="flex-1 flex relative">
-              <div className="overflow-y-scroll absolute inset-0">
-                {validators?.length ? (
-                  validators.map((validator, index) => {
-                    const delegationInfo = getDelegationInfo(
-                      validator.operator_address,
-                    );
-                    const rewardsInfo = getValidatorRewards(
-                      validator.operator_address,
-                    );
-
-                    return (
-                      <Link
-                        to={`validator/${validator.operator_address}`}
-                        key={`validator-${index}`}
-                      >
-                        <ValidatorListItem
-                          validator={validator}
-                          delegation={delegationInfo}
-                          reward={rewardsInfo}
-                          stakingPool={totalStaked}
-                        />
-                      </Link>
-                    );
-                  })
-                ) : (
-                  <div className="text-center pt-[64px]">
-                    <Heading level={3}>
-                      You don't have active delegations
-                    </Heading>
-                  </div>
-                )}
-              </div>
-            </div>
-          </Fragment>
-        )}
-      </Card>
+        return (
+          <ValidatorListItemMobile
+            key={`validator-${index}`}
+            validator={validator}
+            delegation={delegationInfo}
+            reward={rewardsInfo}
+            stakingPool={totalStaked}
+            onClick={onValidatorClick}
+          />
+        );
+      })}
     </div>
+  );
+}
+
+export function ValidatorsList({
+  validators,
+  rewardsInfo,
+  delegationInfo,
+  onValidatorClick,
+}: ValidatorListProps) {
+  const { data: stakingPool } = useStakingPoolQuery();
+  const getValidatorRewards = useCallback(
+    (address: string) => {
+      const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
+        return rewardsItem.validator_address === address;
+      });
+
+      return rewards;
+    },
+    [rewardsInfo?.rewards],
+  );
+
+  const getDelegationInfo = useCallback(
+    (address: string) => {
+      const delegationAmount = delegationInfo?.delegation_responses?.find(
+        (delegation) => {
+          return delegation.delegation.validator_address === address;
+        },
+      );
+
+      return delegationAmount;
+    },
+    [delegationInfo],
+  );
+
+  const totalStaked = useMemo(() => {
+    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.pool.bonded_tokens]);
+
+  return (
+    <table className="w-full table-auto lg:table-fixed">
+      <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
+        <tr>
+          <th className="p-[8px] text-left lg:p-[12px]">Name</th>
+          <th className="p-[8px] text-left lg:p-[12px]">Status</th>
+          <th className=" p-[8px] text-left lg:p-[12px]">Fee</th>
+          <th className="p-[8px] text-right lg:p-[12px]">Voting power</th>
+          <th className="p-[8px] text-right lg:p-[12px]">Voting power %</th>
+          <th className="p-[8px] text-right lg:p-[12px]">Staked</th>
+          <th className="p-[8px] text-right lg:p-[12px]">Reward</th>
+        </tr>
+      </thead>
+      <tbody>
+        {validators.map((validator, index) => {
+          const delegationInfo = getDelegationInfo(validator.operator_address);
+          const rewardsInfo = getValidatorRewards(validator.operator_address);
+
+          return (
+            <ValidatorListItem
+              key={`validator-${index}`}
+              validator={validator}
+              delegation={delegationInfo}
+              reward={rewardsInfo}
+              stakingPool={totalStaked}
+              onClick={onValidatorClick}
+            />
+          );
+        })}
+      </tbody>
+    </table>
   );
 }

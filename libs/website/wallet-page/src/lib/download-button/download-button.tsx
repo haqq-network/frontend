@@ -17,10 +17,10 @@ export function DownloadButton({
   return (
     <div
       className={clsx(
-        'px-[24px] py-[12px] flex space-x-[8px] rounded-xl flex-initial min-w-[188px] select-none transition duration-150',
+        'flex min-w-[188px] flex-initial select-none space-x-[8px] rounded-xl px-[24px] py-[12px] transition duration-150',
         isAvailable &&
-          'bg-white hover:text-[#01B36E] hover:shadow-xl text-haqq-black cursor-pointer',
-        !isAvailable && 'cursor-default text-white/60 border border-white/60',
+          'text-haqq-black cursor-pointer bg-white hover:text-[#01B36E] hover:shadow-xl',
+        !isAvailable && 'cursor-default border border-white/60 text-white/60',
       )}
     >
       {type === 'apple' && <AppStoreLogoIcon />}

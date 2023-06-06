@@ -1,4 +1,3 @@
-import { Heading, Text } from '@haqq/ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import {
@@ -11,7 +10,7 @@ import {
   islamicBrandColors,
   islamicLogos,
 } from '../../utils/brand-assets';
-import { Button, DownloadButton } from '@haqq/website/ui-kit';
+import { Button, DownloadButton, Heading, Text } from '@haqq/website/ui-kit';
 import { PropsWithChildren, useCallback, useState } from 'react';
 
 interface DownloadCardProps {
@@ -22,9 +21,9 @@ interface DownloadCardProps {
 
 function DontBlock() {
   return (
-    <div className="bg-haqq-orange px-[16px] py-[20px] rounded-lg text-[11px] leading-[17px] md:leading-[1.5em] lg:text-[12px]">
+    <div className="bg-haqq-orange rounded-lg px-[16px] py-[20px] text-[11px] leading-[17px] md:leading-[1.5em] lg:text-[12px]">
       Please don’t
-      <ul className="list-disc ml-[16px]">
+      <ul className="ml-[16px] list-disc">
         <li className="">Alter these files in any way.</li>
         <li>
           Use these graphics as part of your own product, business, or service’s
@@ -45,15 +44,15 @@ function DownloadCard({
   asset,
 }: DownloadCardProps) {
   return (
-    <div className="flex flex-col gap-y-[16px] max-w-full ">
+    <div className="flex max-w-full flex-col gap-y-[16px] ">
       <div
         className={clsx(
-          'flex items-center justify-center rounded-xl h-[140px]',
+          'flex h-[140px] items-center justify-center rounded-xl',
           isWhiteBackground ? 'bg-white' : 'bg-black',
         )}
       >
         <Image
-          className="max-w-fit pointer-events-none select-none"
+          className="pointer-events-none max-w-fit select-none"
           src={asset.svgPath}
           width={asset.size.width}
           height={asset.size.height}
@@ -95,7 +94,7 @@ function BrandColorCard({ color, colorType, hex }: BrandColorAsset) {
     <div className="flex flex-col gap-y-[16px]">
       <div
         className={clsx(
-          'rounded-xl text-center text-[14px] leading-[22px] py-[60px] font-semibold',
+          'rounded-xl py-[60px] text-center text-[14px] font-semibold leading-[22px]',
           color === 'haqq-orange' && 'bg-haqq-orange',
           color === 'haqq-blue' && `bg-[#091D53]`,
           color === 'haqq-seaweed' && 'bg-[#157C83]',
@@ -125,7 +124,7 @@ function AssetCardsContainer({
   return (
     <div
       className={clsx(
-        'grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-y-[24px] md:gap-[36px] lg:gap-y-[36px] xl:gap-x-[58px] border-white/20',
+        'grid grid-flow-row grid-cols-1 gap-y-[24px] border-white/20 md:grid-cols-2 md:gap-[36px] lg:gap-y-[36px] xl:gap-x-[58px]',
         className,
       )}
     >
@@ -136,63 +135,68 @@ function AssetCardsContainer({
 
 export function HaqqBlock() {
   return (
-    <section className="flex flex-col lg:flex-row border-t border-white/20">
-      {/* left side */}
-      <div className="pt-[60px] md:pt-[100px] lg:pt-[120px] lg:border-r border-white/20 lg:max-w-[404px] px-[16px] md:px-[48px] lg:pl-[80px] lg:pr-[60px]">
+    <section className="flex flex-col border-t border-white/20 lg:flex-row">
+      <div className="border-white/20 px-[16px] pt-[60px] md:px-[48px] md:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
         <Heading level={2} className="mb-[24px]">
           HAQQ Logo
         </Heading>
         <DontBlock />
       </div>
-      {/* white bg */}
+
       <div className="w-full">
-        <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[120px] border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+        <div className="border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[120px] xl:pr-[320px]">
           <Heading>White background</Heading>
           <Text className="mt-[10px]">
             Please use this version on white background. Only use the badge
             together with the full logo
           </Text>
-          <AssetCardsContainer className="pb-[40px] md:pb-[60px] lg:pb-[80px] mt-[24px] md:mt-[28px] lg:mt-[32px]">
-            {haqqLogos.map((logo, i) => (
-              <DownloadCard
-                key={`logo-${i}`}
-                isWhiteBackground
-                logoType={logo.logoType}
-                asset={logo}
-              />
-            ))}
+          <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
+            {haqqLogos.map((logo, i) => {
+              return (
+                <DownloadCard
+                  key={`logo-${i}`}
+                  isWhiteBackground
+                  logoType={logo.logoType}
+                  asset={logo}
+                />
+              );
+            })}
           </AssetCardsContainer>
         </div>
-        {/* dark bg */}
-        <div className="w-full lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[80px] border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+
+        <div className="w-full border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
           <Heading>Dark background</Heading>
           <Text className="mt-[10px]">
             Please use this version on black or dark background. Only use the
             badge together with the full logo
           </Text>
-          <AssetCardsContainer className="pb-[40px] md:pb-[60px] lg:pb-[80px] mt-[24px] md:mt-[28px] lg:mt-[32px]">
-            {haqqWhiteLogos.map((logo, i) => (
-              <DownloadCard
-                key={`logo-${i}`}
-                logoType={logo.logoType}
-                asset={logo}
-                isWhiteBackground={false}
-              />
-            ))}
+          <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
+            {haqqWhiteLogos.map((logo, i) => {
+              return (
+                <DownloadCard
+                  key={`logo-${i}`}
+                  logoType={logo.logoType}
+                  asset={logo}
+                  isWhiteBackground={false}
+                />
+              );
+            })}
           </AssetCardsContainer>
         </div>
-        {/* colors */}
-        <div className="w-full lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[80px] px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+
+        <div className="w-full px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
           <Heading>Brand colors</Heading>
-          <AssetCardsContainer className="pb-[40px] md:pb-[60px] lg:pb-[80px] mt-[24px] md:mt-[28px] lg:mt-[32px]">
-            {haqqBrandColors.map((asset) => (
-              <BrandColorCard
-                key={`color-${asset.color}`}
-                color={asset.color}
-                colorType={asset.colorType}
-                hex={asset.hex}
-              />
-            ))}
+          <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
+            {haqqBrandColors.map((asset) => {
+              return (
+                <BrandColorCard
+                  key={`color-${asset.color}`}
+                  color={asset.color}
+                  colorType={asset.colorType}
+                  hex={asset.hex}
+                />
+              );
+            })}
           </AssetCardsContainer>
         </div>
       </div>
@@ -202,45 +206,48 @@ export function HaqqBlock() {
 
 export function IslamicBlock() {
   return (
-    <section className="flex flex-col lg:flex-row border-t border-white/20">
-      {/* left side */}
-      <div className="pt-[60px] md:pt-[100px] lg:pt-[120px] lg:border-r border-white/20 lg:max-w-[404px] px-[16px] md:px-[48px] lg:pl-[80px] lg:pr-[60px]">
+    <section className="flex flex-col border-t border-white/20 lg:flex-row">
+      <div className="border-white/20 px-[16px] pt-[60px] md:px-[48px] md:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
         <Heading level={2} className="mb-[24px]">
           Islamic Coin
         </Heading>
         <DontBlock />
       </div>
-      {/* islamic */}
+
       <div className="w-full">
-        <div className="lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[120px] border-b border-dashed border-b-white/20 px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+        <div className="border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[120px] xl:pr-[320px]">
           <Heading>White background</Heading>
           <Text className="mt-[10px]">
             Although the official brand name contains a space in text, we use no
             spacing in the logo. Please follow the rules
           </Text>
-          <AssetCardsContainer className="pb-[40px] md:pb-[60px] lg:pb-[80px] mt-[24px] md:mt-[28px] lg:mt-[32px]">
-            {islamicLogos.map((logo, i) => (
-              <DownloadCard
-                key={`logo-${i}`}
-                isWhiteBackground
-                logoType={logo.logoType}
-                asset={logo}
-              />
-            ))}
+          <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
+            {islamicLogos.map((logo, i) => {
+              return (
+                <DownloadCard
+                  key={`logo-${i}`}
+                  isWhiteBackground
+                  logoType={logo.logoType}
+                  asset={logo}
+                />
+              );
+            })}
           </AssetCardsContainer>
         </div>
-        {/* colors */}
-        <div className="w-full lg:pl-[60px] pt-[40px] md:pt-[60px] lg:pt-[80px] px-[16px] md:px-[48px] lg:px-[80px] xl:pr-[320px]">
+
+        <div className="w-full px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
           <Heading>Brand colors</Heading>
-          <AssetCardsContainer className="pb-[40px] md:pb-[60px] lg:pb-[80px] mt-[24px] md:mt-[28px] lg:mt-[32px]">
-            {islamicBrandColors.map((asset) => (
-              <BrandColorCard
-                key={`color-${asset.color}`}
-                color={asset.color}
-                colorType={asset.colorType}
-                hex={asset.hex}
-              />
-            ))}
+          <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
+            {islamicBrandColors.map((asset) => {
+              return (
+                <BrandColorCard
+                  key={`color-${asset.color}`}
+                  color={asset.color}
+                  colorType={asset.colorType}
+                  hex={asset.hex}
+                />
+              );
+            })}
           </AssetCardsContainer>
         </div>
       </div>

@@ -3,20 +3,24 @@ import { NavLink } from 'react-router-dom';
 import { Container } from '../Layout/Layout';
 import { Logo, LogoSmall } from '../Logo/Logo';
 
-const ConnectButton = lazy(() => import('../ConnectButton/ConnectButton'));
-const NetworkStatus = lazy(() => import('../NetworkStatus/NetworkStatus'));
+const ConnectButton = lazy(() => {
+  return import('../ConnectButton/ConnectButton');
+});
+const NetworkStatus = lazy(() => {
+  return import('../NetworkStatus/NetworkStatus');
+});
 
 export function Header(): ReactElement {
   return (
-    <header className="backdrop-blur transform-gpu bg-white/70 border-light-gray border-b">
+    <header className="border-light-gray transform-gpu border-b bg-white/70 backdrop-blur">
       <Container>
-        <div className="relative flex items-center justify-between h-[64px]">
-          <div className="flex-1 flex items-center justify-start">
+        <div className="relative flex h-[64px] items-center justify-between">
+          <div className="flex flex-1 items-center justify-start">
             <NavLink to="/">
-              <Logo className="h-8 w-auto hidden sm:block" />
-              <LogoSmall className="h-10 w-auto block sm:hidden" />
+              <Logo className="hidden h-8 w-auto sm:block" />
+              <LogoSmall className="block h-10 w-auto sm:hidden" />
             </NavLink>
-            <div className="flex-shrink-0 flex items-center"></div>
+            <div className="flex flex-shrink-0 items-center"></div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="flex flex-row space-x-2">

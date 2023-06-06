@@ -45,22 +45,22 @@ export function Header() {
   return (
     <header
       className={clsx(
-        'border-t border-b border-[#464647] w-full h-[63px] sm:h-[72px] bg-haqq-black',
-        'backdrop-blur transform-gpu',
-        'top-0 sticky z-50',
+        'bg-haqq-black h-[63px] w-full border-b border-t border-[#464647] sm:h-[72px]',
+        'transform-gpu backdrop-blur',
+        'sticky top-0 z-50',
       )}
     >
-      <div className="w-full flex flex-row items-center h-full pr-[16px] sm:pr-[64px] lg:pr-[80px] mx-auto">
-        <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-[#464647]">
-          <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
+      <div className="mx-auto flex h-full w-full flex-row items-center pr-[16px] sm:pr-[64px] lg:pr-[80px]">
+        <div className="flex h-full w-[48px] items-center justify-center border-r border-[#464647] sm:w-[64px] lg:w-[80px]">
+          <div className="relative h-[26px] w-[26px] sm:h-[32px] sm:w-[32px]">
             <Image src={logoImageData} alt="HAQQ" fill />
           </div>
         </div>
-        <div className="ml-[12px] sm:ml-[20px] lg:ml-[32px] font-serif font-medium text-[20px] sm:text-[24px] leading-none">
+        <div className="ml-[12px] font-serif text-[20px] font-medium leading-none sm:ml-[20px] sm:text-[24px] lg:ml-[32px]">
           HAQQ
         </div>
         <div className="flex-1" />
-        <nav className="flex-row space-x-6 items-center mr-[80px] hidden lg:flex">
+        <nav className="mr-[80px] hidden flex-row items-center space-x-6 lg:flex">
           <HeaderNavLink href="/#about">About</HeaderNavLink>
           <HeaderNavLink href="/ecosystem">Ecosystem</HeaderNavLink>
           <HeaderNavLink href="/ecosystem-fund">Fund</HeaderNavLink>
@@ -90,11 +90,11 @@ export function Header() {
           <ScrollLock isActive />
           <BurgerMenu
             onClick={handleMenuOpen}
-            className="fixed lg:hidden w-full sm:w-[468px] top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)] right-0 z-40"
+            className="fixed right-0 top-[62px] z-40 h-[calc(100vh-62px)] w-full sm:top-[71px] sm:h-[calc(100vh-71px)] sm:w-[468px] lg:hidden"
           />
           <div
             onClick={handleMenuOpen}
-            className="hidden sm:block lg:hidden absolute w-full right-0 -z-0 bg-black/50 top-[62px] sm:top-[71px] h-[calc(100vh-62px)] sm:h-[calc(100vh-71px)]"
+            className="absolute right-0 top-[62px] -z-0 hidden h-[calc(100vh-62px)] w-full bg-black/50 sm:top-[71px] sm:block sm:h-[calc(100vh-71px)] lg:hidden"
           />
         </Fragment>
       )}

@@ -31,7 +31,7 @@ function FooterNavLink({
   return (
     <Link
       href={href}
-      className="text-[12px] leading-[20px] sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px] text-white/50 hover:text-white transition-colors duration-100"
+      className="text-[12px] leading-[20px] text-white/50 transition-colors duration-100 hover:text-white sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px]"
       {...additionalProps}
     >
       {children}
@@ -53,11 +53,11 @@ function FooterNavSocialLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-[12px] leading-[20px] sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px] text-white/50 hover:text-white transition-colors duration-100 group inline-flex flex-row flex-initial space-x-2 items-center"
+      className="group inline-flex flex-initial flex-row items-center text-[12px] leading-[20px] text-white/50 transition-colors duration-100 hover:text-white sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px]"
     >
       <div>{icon}</div>
-      <div>{children}</div>
-      <LinkArrowIcon />
+      <div className="ml-[12px]">{children}</div>
+      <LinkArrowIcon className="mb-[-5px] ml-[6px]" />
     </Link>
   );
 }
@@ -76,33 +76,47 @@ export function Footer() {
   return (
     <footer
       className={clsx(
-        'z-10 border-t border-b border-haqq-border flex flex-col bg-haqq-black',
+        'border-haqq-border bg-haqq-black z-10 flex flex-col border-b border-t',
       )}
     >
-      <div className="lg:mx-auto w-full flex flex-row items-center h-[63px] sm:h-[72px] border-b border-haqq-border">
-        <div className="w-[48px] sm:w-[64px] lg:w-[80px] h-full flex items-center justify-center border-r border-haqq-border">
-          <div className="relative w-[26px] h-[26px] sm:w-[32px] sm:h-[32px]">
+      <div className="border-haqq-border flex h-[63px] w-full flex-row items-center border-b sm:h-[72px] lg:mx-auto">
+        <div className="border-haqq-border flex h-full w-[48px] items-center justify-center border-r sm:w-[64px] lg:w-[80px]">
+          <div className="relative h-[26px] w-[26px] sm:h-[32px] sm:w-[32px]">
             <Image src={logoImageData} alt="HAQQ" fill />
           </div>
         </div>
-        <div className="ml-[12px] sm:ml-[20px] lg:ml-[32px] font-serif font-medium text-[20px] sm:text-[24px] leading-none">
+        <div className="ml-[12px] font-serif text-[20px] font-medium leading-none sm:ml-[20px] sm:text-[24px] lg:ml-[32px]">
           HAQQ
         </div>
       </div>
-      <div className="lg:mx-auto w-full flex flex-col lg:flex-row">
-        <div className="flex flex-row lg:h-auto border-haqq-border border-b lg:border-b-0">
-          <div className="ml-[16px] sm:ml-[63px] lg:ml-[79px] border-l border-r border-haqq-border py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[212px]">
+      <div className="flex w-full flex-col lg:mx-auto lg:flex-row">
+        <div className="border-haqq-border flex flex-row border-b lg:h-auto lg:border-b-0">
+          <div className="border-haqq-border ml-[16px] flex-1 border-l border-r py-[24px] pl-[16px] sm:ml-[63px] sm:px-[34px] sm:py-[56px] lg:ml-[79px] lg:w-[212px]">
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
-              <FooterNavLink href="/#about">About</FooterNavLink>
-              <FooterNavLink href="/ecosystem">Ecosystem</FooterNavLink>
-              <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
+              <div className="leading-[0]">
+                <FooterNavLink href="/#about">About</FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="/ecosystem">Ecosystem</FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
+              </div>
               {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
-              <FooterNavLink href="/#developers">Developers</FooterNavLink>
-              <FooterNavLink href="/blog">Blog</FooterNavLink>
-              <FooterNavLink href="https://docs.haqq.network" isOutLink>
-                Docs
-              </FooterNavLink>
-              <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
+              <div className="leading-[0]">
+                <FooterNavLink href="/#developers">Developers</FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="/blog">Blog</FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="https://docs.haqq.network" isOutLink>
+                  Docs
+                </FooterNavLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
+              </div>
               {/* <FooterNavLink href="/privacy-policy">
                 Privacy Policy
               </FooterNavLink> */}
@@ -111,44 +125,53 @@ export function Footer() {
               </FooterNavLink> */}
             </nav>
           </div>
-          <div className="h-full py-[24px] sm:py-[56px] pl-[16px] sm:px-[34px] flex-1 lg:w-[383px]">
-            <nav className="grid grid-cols-1 sm:grid-cols-2 gap-[8px] sm:gap-[12px] lg:grid-cols-1">
-              <FooterNavSocialLink
-                href="https://discord.gg/4quqkD6Y8c"
-                icon={
-                  <DiscordIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
-                }
-              >
-                Discord
-              </FooterNavSocialLink>
-              <FooterNavSocialLink
-                href="https://github.com/haqq-network"
-                icon={
-                  <GithubIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
-                }
-              >
-                Github
-              </FooterNavSocialLink>
-              <FooterNavSocialLink
-                href="https://twitter.com/The_HaqqNetwork"
-                icon={
-                  <TwitterIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
-                }
-              >
-                Twitter
-              </FooterNavSocialLink>
-              <FooterNavSocialLink
-                href="https://t.me/islamiccoin_int"
-                icon={
-                  <TelegramIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
-                }
-              >
-                Telegram
-              </FooterNavSocialLink>
+          <div className="h-full flex-1 py-[24px] pl-[16px] sm:px-[34px] sm:py-[56px] lg:w-[383px]">
+            <nav className="grid grid-cols-1 gap-[8px] sm:grid-cols-2 sm:gap-[12px] lg:grid-cols-1">
+              <div className="leading-[0]">
+                <FooterNavSocialLink
+                  href="https://discord.gg/4quqkD6Y8c"
+                  icon={
+                    <DiscordIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                  }
+                >
+                  Discord
+                </FooterNavSocialLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavSocialLink
+                  href="https://github.com/haqq-network"
+                  icon={
+                    <GithubIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                  }
+                >
+                  Github
+                </FooterNavSocialLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavSocialLink
+                  href="https://twitter.com/The_HaqqNetwork"
+                  icon={
+                    <TwitterIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                  }
+                >
+                  Twitter
+                </FooterNavSocialLink>
+              </div>
+              <div className="leading-[0]">
+                <FooterNavSocialLink
+                  href="https://t.me/islamiccoin_int"
+                  icon={
+                    <TelegramIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                  }
+                >
+                  Telegram
+                </FooterNavSocialLink>
+              </div>
+
               {/* <FooterNavSocialLink
                 href="#YouTube"
                 icon={
-                  <YoutubeIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <YoutubeIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] " />
                 }
               >
                 YouTube
@@ -156,7 +179,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#Medium"
                 icon={
-                  <MediumIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <MediumIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] " />
                 }
               >
                 Medium
@@ -164,7 +187,7 @@ export function Footer() {
               <FooterNavSocialLink
                 href="#LinkedIn"
                 icon={
-                  <LinkedinIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] mt-[-2px]" />
+                  <LinkedinIcon className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] lg:w-[26px] lg:h-[26px] " />
                 }
               >
                 LinkedIn
@@ -172,13 +195,13 @@ export function Footer() {
             </nav>
           </div>
         </div>
-        <div className="flex flex-row flex-1 sm:h-[210px] lg:h-auto">
-          <div className="ml-[16px] sm:ml-[63px] lg:ml-0 py-[32px] px-[16px] sm:py-[56px] sm:px-[34px] border-l border-haqq-border flex-1">
+        <div className="flex flex-1 flex-row sm:h-[210px] lg:h-auto">
+          <div className="border-haqq-border ml-[16px] flex-1 border-l px-[16px] py-[32px] sm:ml-[63px] sm:px-[34px] sm:py-[56px] lg:ml-0">
             <Heading level={3} className="mb-[16px] sm:mb-[24px]">
               Sign up for HAQQ updates
             </Heading>
             <SubscribeForm
-              className="flex flex-col sm:flex-row lg:flex-col sm:space-x-[24px] lg:space-x-0"
+              className="flex flex-col sm:flex-row sm:space-x-[24px] lg:flex-col lg:space-x-0"
               inputSize={inputSize}
             />
           </div>

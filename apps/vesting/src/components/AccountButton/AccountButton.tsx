@@ -84,10 +84,10 @@ export function AccountButton({
   }
 
   return (
-    <div className="flex flex-row bg-primary rounded-[8px]">
+    <div className="bg-primary flex flex-row rounded-[8px]">
       {account.balance && (
         <BalanceButton onClick={onBalanceClick} className="hidden sm:block">
-          <div className="mb-[-4px] font-bold">
+          <div className="mb-[-3px] font-bold">
             {account.balance.value.toLocaleString()}{' '}
             {account.balance.symbol.toLocaleUpperCase()}
           </div>
@@ -95,9 +95,9 @@ export function AccountButton({
       )}
 
       <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button as="div" className="rounded-[8px] bg-primary p-[2px]">
+        <Menu.Button as="div" className="bg-primary rounded-[8px] p-[2px]">
           <AddressButton>
-            <div className="text-[14px] font-medium flex-1">
+            <div className="flex-1 text-[14px] font-medium">
               {getFormattedAddress(account.address, 3, 2)}
             </div>
             <IdentIcon
@@ -117,11 +117,11 @@ export function AccountButton({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right rounded-md bg-white focus:outline-none shadow-lg py-1">
+          <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg focus:outline-none">
             {onDisconnectClick && (
               <Menu.Item
                 as="button"
-                className="py-[6px] px-[16px] leading-[24px] hover:bg-light-green hover:text-primary transition-colors duration-150 ease-out block w-full text-left"
+                className="hover:bg-light-green hover:text-primary block w-full px-[16px] py-[6px] text-left leading-[24px] transition-colors duration-150 ease-out"
                 onClick={onDisconnectClick}
               >
                 Disconnect

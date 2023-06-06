@@ -8,7 +8,7 @@ import iphoneWalletScreenshotData from '../../assets/images/wallet-iphone-screen
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (
-    <div className="text-white text-[14px] font-[500] leading-[22px] mx-[8px] sm:mr-[16px] sm:ml-0 text-center sm:text-left inline-block mb-[8px]">
+    <div className="mx-[8px] mb-[8px] inline-block text-center text-[14px] font-[500] leading-[22px] text-white sm:ml-0 sm:mr-[16px] sm:text-left">
       {children}
     </div>
   );
@@ -105,13 +105,13 @@ function MpcIcon() {
 
 export function HeroBlock() {
   return (
-    <section className="py-[40px] sm:py-[70px] w-full">
-      <div className="container mx-auto px-[20px] sm:px-[40px] items-center flex flex-col lg:flex-row">
-        <div className="text-center lg:text-start lg:w-3/5 lg:flex-row">
+    <section className="w-full py-[40px] sm:py-[70px]">
+      <div className="container mx-auto flex flex-col items-center px-[20px] sm:px-[40px] lg:flex-row">
+        <div className="text-center lg:w-3/5 lg:flex-row lg:text-start">
           <h1
             className={clsx(
               'font-messiri',
-              'text-[48px] sm:text-[84px] font-bold leading-[62px] lg:leading-[100px] sm:mb-[16px]',
+              'text-[48px] font-bold leading-[62px] sm:mb-[16px] sm:text-[84px] lg:leading-[100px]',
             )}
           >
             HAQQ Wallet
@@ -122,39 +122,39 @@ export function HeroBlock() {
           </CardText>
           <div className="mb-[38px] text-center lg:text-left">
             <FeatureText>
-              <div className="mr-[6px] mb-[-6px] inline-block">
+              <div className="mb-[-6px] mr-[6px] inline-block">
                 <ShieldIcon />
               </div>
               Non-custodial wallet for the HAQQ Ecosystem
             </FeatureText>
             <FeatureText>
-              <div className="mr-[6px] mb-[-6px] inline-block">
+              <div className="mb-[-6px] mr-[6px] inline-block">
                 <StakingIcon />
               </div>
               <span>Staking</span>
             </FeatureText>
             <br className="hidden sm:block lg:hidden" />
             <FeatureText>
-              <div className="mr-[6px] mb-[-6px] inline-block">
+              <div className="mb-[-6px] mr-[6px] inline-block">
                 <GovernanceIcon />
               </div>
               <span>Governance</span>
             </FeatureText>
             <FeatureText>
-              <div className="mr-[6px] mb-[-6px] inline-block">
+              <div className="mb-[-6px] mr-[6px] inline-block">
                 <LedgerIcon />
               </div>
               <span>Ledger integration</span>
             </FeatureText>
             <FeatureText>
-              <div className="mr-[6px] mb-[-6px] inline-block">
+              <div className="mb-[-6px] mr-[6px] inline-block">
                 <MpcIcon />
               </div>
               <span>Mnemonic-free private key security (is coming soon)</span>
             </FeatureText>
           </div>
           <div className="mb-[60px] flex flex-col space-y-[16px]">
-            <div className="flex flex-col flex-wrap items-center sm:flex-row space-y-[16px] justify-center sm:justify-center lg:justify-start sm:space-y-0 sm:space-x-[16px]">
+            <div className="flex flex-col flex-wrap items-center justify-center space-y-[16px] sm:flex-row sm:justify-center sm:space-x-[16px] sm:space-y-0 lg:justify-start">
               <Link
                 href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
                 target="_blank"

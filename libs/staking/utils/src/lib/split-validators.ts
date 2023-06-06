@@ -1,10 +1,10 @@
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
+import { Validator } from '@evmos/provider';
 
-// TODO: add correct typings
-export function splitValidators(validatorsList: any[]) {
-  const active: any[] = [];
-  const inactive: any[] = [];
-  const jailed: any[] = [];
+export function splitValidators(validatorsList: Validator[]) {
+  const active: Validator[] = [];
+  const inactive: Validator[] = [];
+  const jailed: Validator[] = [];
 
   if (validatorsList?.length) {
     for (const validator of validatorsList) {

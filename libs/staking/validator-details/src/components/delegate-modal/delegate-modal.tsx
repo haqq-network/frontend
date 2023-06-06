@@ -1,8 +1,14 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
-import styled from '@emotion/styled';
-import { Alert, Card, Heading, Modal, ModalCloseButton } from '@haqq/ui-kit';
 import clsx from 'clsx';
 import { useStakingActions, useToast } from '@haqq/shared';
+import {
+  WarningMessage,
+  Modal,
+  ModalCloseButton,
+  Button,
+  MobileHeading,
+  ModalInput,
+} from '@haqq/shell/ui-kit';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -28,16 +34,24 @@ export function DelegateModalDetails({
   valueClassName?: string;
 }) {
   return (
-    <div className={clsx('flex flex-row justify-between', className)}>
+    <div
+      className={clsx('flex flex-row items-center justify-between', className)}
+    >
       <div
         className={clsx(
-          'text-slate-700 dark:text-slate-200 leading-8 text-base',
+          'font-sans text-[10px] leading-[1.2em] text-[#0D0D0E80]',
+          'uppercase',
           titleClassName,
         )}
       >
         {title}
       </div>
-      <div className={clsx('font-medium leading-8 text-lg', valueClassName)}>
+      <div
+        className={clsx(
+          'text-haqq-black font-serif text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
+          valueClassName,
+        )}
+      >
         {value}
       </div>
     </div>
@@ -62,11 +76,11 @@ export function DelegateModalSubmitButton({
       onClick={onClick}
       disabled={disabled}
       className={clsx(
-        'bg-slate-500 text-white hover:bg-slate-500/90 ring-slate-500/40 focus:ring-4 outline-none dark:ring-slate-100/80',
+        'bg-slate-500 text-white outline-none ring-slate-500/40 hover:bg-slate-500/90 focus:ring-4 dark:ring-slate-100/80',
         isSmall
-          ? 'text-sm font-semibold px-2 py-1 rounded h-[30px]'
-          : 'font-medium text-lg leading-8 px-4 py-2 rounded-md',
-        'disabled:!bg-slate-500 disabled:!opacity-60 disabled:cursor-not-allowed',
+          ? 'h-[30px] rounded px-2 py-1 text-sm font-semibold'
+          : 'rounded-md px-4 py-2 text-lg font-medium leading-8',
+        'disabled:cursor-not-allowed disabled:!bg-slate-500 disabled:!opacity-60',
         'transition-all duration-100',
         className,
       )}
@@ -86,7 +100,9 @@ export function DelegateModal({
   unboundingTime,
 }: DelegateModalProps) {
   const { delegate } = useStakingActions();
-  const [delegateAmount, setDelegateAmount] = useState<number>(0);
+  const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
+    undefined,
+  );
   const [isDelegateEnabled, setDelegateEnabled] = useState(true);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -97,7 +113,7 @@ export function DelegateModal({
     setDelegateAmount(balance);
   }, [balance]);
 
-  const handleInputChange = useCallback((value: number) => {
+  const handleInputChange = useCallback((value: number | undefined) => {
     setDelegateAmount(value);
   }, []);
 
@@ -123,10 +139,10 @@ export function DelegateModal({
   }, [delegate, validatorAddress, delegateAmount, toast, onClose]);
 
   useEffect(() => {
-    if (delegateAmount <= 0) {
+    if (delegateAmount && delegateAmount <= 0) {
       setDelegateEnabled(false);
       setAmountError('min');
-    } else if (delegateAmount > balance) {
+    } else if (delegateAmount && delegateAmount > balance) {
       setDelegateEnabled(false);
       setAmountError('max');
     } else {
@@ -147,134 +163,62 @@ export function DelegateModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Card className="mx-auto w-[420px] !bg-white dark:!bg-slate-700">
-        <div className="flex flex-col space-y-8">
-          <div className="flex flex-row justify-between items-center">
-            <Heading level={3}>Delegate</Heading>
-            <ModalCloseButton onClick={onClose} />
-          </div>
-
-          <Alert
-            title={`Staking will lock up your funds for ${unboundingTime} days`}
-            text={`Once you undelegate your staked ISLM, you will need to wait ${unboundingTime}
-              days for your tokens to be liquid`}
-          />
-
-          <div className="flex flex-col">
-            <DelegateModalDetails
-              title="My balance"
-              value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
-            />
-            <DelegateModalDetails
-              title="My delegation"
-              value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
-            />
-          </div>
-
-          <div>
-            <div className="mb-1 text-slate-700 dark:text-slate-200 text-base leading-6 flex flex-row justify-between">
-              <label htmlFor="amount" className="cursor-pointer">
-                Amount
-              </label>
-              {/* <div>
-                Available:{' '}
-                <span className="text-slate-700 dark:text-slate-100 font-medium">
-                  {balance.toLocaleString()} {symbol.toUpperCase()}
-                </span>
-              </div> */}
-            </div>
-            <DelegateModalInput
-              symbol="ISLM"
-              value={delegateAmount}
-              onChange={handleInputChange}
-              onMaxButtonClick={handleMaxButtonClick}
-              hint={amountHint}
-            />
-          </div>
-
-          <div>
-            <DelegateModalSubmitButton
-              onClick={handleSubmitDelegate}
-              className="w-full"
-              disabled={!isDelegateEnabled}
-            >
-              Confirm delegation
-            </DelegateModalSubmitButton>
-          </div>
-        </div>
-      </Card>
-    </Modal>
-  );
-}
-
-const DelegateModalInputComponent = styled('input')`
-  appearance: textfield;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    appearance: none;
-  }
-`;
-
-export function DelegateModalInput({
-  symbol,
-  value,
-  onChange,
-  onMaxButtonClick,
-  hint,
-  step = 0.001,
-}: {
-  symbol: string;
-  value: number | undefined;
-  onChange: (value: number) => void;
-  onMaxButtonClick: () => void;
-  hint?: ReactNode;
-  step?: number;
-}) {
-  const handleInputChange = useCallback(
-    (event: any) => {
-      onChange(Number.parseFloat(event.target.value));
-    },
-    [onChange],
-  );
-
-  useEffect(() => {
-    return () => {
-      onChange(0);
-    };
-  }, [onChange]);
-
-  return (
-    <div>
-      <div className="relative">
-        <DelegateModalInputComponent
-          type="number"
-          id="amount"
-          value={value}
-          className={clsx(
-            'border-2 border-slate-300 dark:border-slate-500 border-solid',
-            'rounded-md outline-none px-4 py-2 w-full',
-            'text-gray-700 dark:text-gray-100 leading-8 text-lg font-medium',
-            'transition-all duration-100',
-            'focus:ring-4 dark:ring-slate-100/50 ring-slate-500/40',
-            'focus:border-slate-500 dark:focus:border-slate-50',
-            'bg-transparent',
-          )}
-          placeholder="Please enter the amount"
-          onChange={handleInputChange}
-          step={step}
+      <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
+        <ModalCloseButton
+          onClick={onClose}
+          className="absolute right-[16px] top-[16px]"
         />
-        <div className="absolute top-1/2 right-3 -translate-y-1/2">
-          <div className="inline-block text-base uppercase font-medium mr-2 text-slate-400 select-none">
-            {symbol}
+
+        <div className="flex w-full flex-col space-y-6">
+          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
+            <div className="pb-[24px]">
+              <MobileHeading className="mb-[24px] mt-[24px] sm:mt-[4px]">
+                Delegate
+              </MobileHeading>
+              <WarningMessage light>
+                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
+              </WarningMessage>
+            </div>
+
+            <div className="py-[24px]">
+              <div className="flex flex-col gap-[8px]">
+                <DelegateModalDetails
+                  title="My balance"
+                  value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
+                />
+                <DelegateModalDetails
+                  title="My delegation"
+                  value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
+                />
+                <DelegateModalDetails title="Comission" value={`10%`} />
+              </div>
+            </div>
+            <div className="pt-[24px]">
+              <div className="flex flex-col gap-[16px]">
+                <div>
+                  <ModalInput
+                    symbol="ISLM"
+                    value={delegateAmount}
+                    onChange={handleInputChange}
+                    onMaxButtonClick={handleMaxButtonClick}
+                    hint={amountHint}
+                  />
+                </div>
+                <div>
+                  <Button
+                    variant={3}
+                    onClick={handleSubmitDelegate}
+                    className="w-full"
+                    disabled={!isDelegateEnabled || !delegateAmount}
+                  >
+                    Confirm delegation
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-          <DelegateModalSubmitButton isSmall onClick={onMaxButtonClick}>
-            MAX
-          </DelegateModalSubmitButton>
         </div>
       </div>
-
-      <div className="mt-1 leading-[20px] h-[20px] text-xs">{hint}</div>
-    </div>
+    </Modal>
   );
 }

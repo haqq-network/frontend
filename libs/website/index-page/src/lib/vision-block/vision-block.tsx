@@ -62,14 +62,14 @@ function VisionBlockFact({
 export function VisionBlock() {
   return (
     <div
-      className="bg-white text-haqq-black px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip border-t border-[#C2C2C2]"
+      className="text-haqq-black overflow-clip border-t border-[#C2C2C2] bg-white px-[16px] sm:px-[63px] lg:px-[79px]"
       id="vision"
     >
-      <div className="pl-[44px] sm:pl-[120px] lg:pl-[212px] border-l border-[#C2C2C2] lg:h-[770px] flex flex-col relative z-10 pt-[65px] pb-[72px] sm:pt-[96px] sm:pb-[100px] lg:pt-[135px] lg:pb-[140px] overflow-hidden">
+      <div className="relative z-10 flex flex-col overflow-hidden border-l border-[#C2C2C2] pb-[72px] pl-[44px] pt-[65px] sm:pb-[100px] sm:pl-[120px] sm:pt-[96px] lg:h-[770px] lg:pb-[140px] lg:pl-[212px] lg:pt-[135px]">
         <div className="mb-[24px] lg:mb-[96px] lg:max-w-[832px]">
           <AboveTitle
             className={clsx(
-              'text-[#A4A4A4] mb-[16px] sm:mb-[18px]',
+              'mb-[16px] text-[#A4A4A4] sm:mb-[18px]',
               styles['aboveTitle'],
             )}
           >
@@ -86,7 +86,7 @@ export function VisionBlock() {
           </Heading>
         </div>
 
-        <div className="flex flex-col space-y-[12px] sm:space-y-[20px] lg:space-y-0 lg:flex-row lg:space-x-[32px]">
+        <div className="flex flex-col space-y-[12px] sm:space-y-[20px] lg:flex-row lg:space-x-[32px] lg:space-y-0">
           <VisionBlockFact
             title="1.9 Billion Muslims"
             description="worldwide and ESG change"
@@ -97,7 +97,7 @@ export function VisionBlock() {
           />
         </div>
 
-        <BorderRuler className="absolute top-[-11px] sm:top-[1px] lg:top-0 left-0 text-[#C2C2C2]" />
+        <BorderRuler className="absolute left-0 top-[-11px] text-[#C2C2C2] sm:top-[1px] lg:top-0" />
       </div>
     </div>
   );

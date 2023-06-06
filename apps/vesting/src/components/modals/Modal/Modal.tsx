@@ -31,7 +31,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
         >
           <ModalOverlay
             role="none"
-            className="fixed inset-0 backdrop-blur transform-gpu"
+            className="fixed inset-0 transform-gpu backdrop-blur"
             onClick={onClose}
             onKeyDown={(
               event: SyntheticEvent<HTMLDivElement, KeyboardEvent>,
@@ -46,8 +46,8 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
           />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto pointer-events-none">
-          <div className="flex min-h-full items-center justify-center p-4 pointer-events-none">
+        <div className="pointer-events-none fixed inset-0 overflow-y-auto">
+          <div className="pointer-events-none flex min-h-full items-center justify-center p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -57,7 +57,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="w-full transform transition-all pointer-events-auto">
+              <div className="pointer-events-auto w-full transform transition-all">
                 {children}
               </div>
             </Transition.Child>
@@ -71,7 +71,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
 export function ModalCloseButton({ onClick }: { onClick: () => void }) {
   return (
     <button
-      className="cursor-pointer w-[24px] h-[24px] text-dark-gray hover:text-primary"
+      className="text-dark-gray hover:text-primary h-[24px] w-[24px] cursor-pointer"
       onClick={onClick}
     >
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

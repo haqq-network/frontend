@@ -10,7 +10,9 @@ export default {
   },
 } as ComponentMeta<typeof Footer>;
 
-const Template: ComponentStory<typeof Footer> = () => <Footer />;
+const Template: ComponentStory<typeof Footer> = () => {
+  return <Footer />;
+};
 
 export const Primary = Template.bind({});
 Primary.args = {};

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export function TextBlock() {
   return (
-    <section className="py-[60px] sm:py-[80px] lg:py-[100px] px-[16px] sm:px-[48px] lg:px-[110px] xl:px-[320px] border-b border-t border-white/20">
+    <section className="border-b border-t border-white/20 px-[16px] py-[60px] sm:px-[48px] sm:py-[80px] lg:px-[110px] lg:py-[100px] xl:px-[320px]">
       <div className="flex flex-col gap-y-[20px] sm:gap-y-[24px]">
         <Heading>
           Introducing the HAQQ Ecosystem Fund: An Opportunity to Grow with HAQQ

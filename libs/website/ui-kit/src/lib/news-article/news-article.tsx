@@ -27,11 +27,11 @@ export function NewsArticle({
 }) {
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
-      <div className="px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip w-full">
-        <div className="max-w-4xl mx-auto">
+      <div className="w-full overflow-clip px-[16px] sm:px-[63px] lg:px-[79px]">
+        <div className="mx-auto max-w-4xl">
           <article>
             {image && (
-              <div className="relative w-full mb-[28px] md:mb-[32px] lg:mb-[36px]">
+              <div className="relative mb-[28px] w-full md:mb-[32px] lg:mb-[36px]">
                 <Image
                   src={image.src}
                   alt=""
@@ -43,7 +43,7 @@ export function NewsArticle({
               </div>
             )}
 
-            <div className="text-white/50 text-[12px] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px] mb-[8px]">
+            <div className="mb-[8px] text-[12px] leading-[1.5em] text-white/50 md:text-[13px] md:leading-[22px] lg:text-[14px]">
               {new Intl.DateTimeFormat('en-US', {
                 day: 'numeric',
                 month: 'long',
@@ -58,12 +58,12 @@ export function NewsArticle({
             <MarkdownText>{content}</MarkdownText>
           </article>
 
-          <div className="flex flex-row flex-wrap gap-[6px] mt-[20px] md:mt-[24px] lg:mt-[32px]">
+          <div className="mt-[20px] flex flex-row flex-wrap gap-[6px] md:mt-[24px] lg:mt-[32px]">
             {tags.map((tag) => {
               return (
                 <div
                   key={tag}
-                  className="px-[10px] py-[6px] rounded-[2px] border border-haqq-border text-[11px] leading-[1.55em] md:leading-[18px] lg:text-[12px] text-center max-w-fit"
+                  className="border-haqq-border max-w-fit rounded-[2px] border px-[10px] py-[6px] text-center text-[11px] leading-[1.55em] md:leading-[18px] lg:text-[12px]"
                 >
                   {tag}
                 </div>
@@ -72,8 +72,8 @@ export function NewsArticle({
           </div>
 
           <div className="mt-[20px] md:mt-[24px] lg:mt-[32px]">
-            <div className="flex-row items-center w-full border-y border-[#ffffff26] border-dashed flex gap-x-[26px] py-[17px] px-[10px]">
-              <span className="text-white uppercase font-serif text-[14px] tracking-[0.01em] leading-none">
+            <div className="flex w-full flex-row items-center gap-x-[26px] border-y border-dashed border-[#ffffff26] px-[10px] py-[17px]">
+              <span className="font-serif text-[14px] uppercase leading-none tracking-[0.01em] text-white">
                 Share the article
               </span>
               <div className="flex items-center gap-x-[16px] text-white/50">
@@ -82,7 +82,7 @@ export function NewsArticle({
                 <div className="leading-[0]">
                   <button aria-label="Copy link" onClick={onLinkCopy}>
                     <Tooltip text="Copy link">
-                      <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
+                      <CopyIcon className="cursor-pointer transition-colors duration-100 ease-out hover:text-white" />
                     </Tooltip>
                   </button>
                 </div>

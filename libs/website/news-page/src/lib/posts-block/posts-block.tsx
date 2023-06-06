@@ -17,12 +17,12 @@ export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
 
   return (
     <section className="flex flex-col py-[60px]">
-      <div className="px-[16px] sm:px-[63px] lg:px-[79px] overflow-clip">
-        <div className="flex flex-row items-center gap-x-[38px] md:gap-x-[48px] mb-[28px] md:mb-[42px] lg:mb-[56px]">
+      <div className="overflow-clip px-[16px] sm:px-[63px] lg:px-[79px]">
+        <div className="mb-[28px] flex flex-row items-center gap-x-[38px] md:mb-[42px] md:gap-x-[48px] lg:mb-[56px]">
           <Heading>Recent posts</Heading>
-          <div className="flex items-center relative">
-            <div className="bg-white w-[16px] h-[16px]" />
-            <div className="h-[1px] w-[3000px] bg-haqq-border absolute" />
+          <div className="relative flex items-center">
+            <div className="h-[16px] w-[16px] bg-white" />
+            <div className="bg-haqq-border absolute h-[1px] w-[3000px]" />
           </div>
         </div>
 
@@ -32,19 +32,21 @@ export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
           onChange={setTab}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[28px] md:gap-[38px] mt-[28px] md:mt-[36px]">
+        <div className="mt-[28px] grid grid-cols-1 gap-[28px] md:mt-[36px] md:grid-cols-2 md:gap-[38px] xl:grid-cols-3">
           {filteredPosts.length > 0 ? (
-            filteredPosts?.map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`}>
-                <NewsCard
-                  date={new Date(post.date)}
-                  description={post.description}
-                  image={post.image}
-                  title={post.title}
-                  tags={post.tags}
-                />
-              </Link>
-            ))
+            filteredPosts?.map((post) => {
+              return (
+                <Link key={post.id} href={`/blog/${post.slug}`}>
+                  <NewsCard
+                    date={new Date(post.date)}
+                    description={post.description}
+                    image={post.image}
+                    title={post.title}
+                    tags={post.tags}
+                  />
+                </Link>
+              );
+            })
           ) : (
             <div>no posts</div>
           )}

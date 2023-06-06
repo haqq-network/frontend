@@ -22,9 +22,9 @@ export function Confirm({
 }: ConfirmProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-2xl p-6 max-w-lg mx-auto">
+      <div className="mx-auto max-w-lg rounded-2xl bg-white p-6">
         <div className="flex flex-col space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <Heading level={3}>{title}</Heading>
             {onClose && <ModalCloseButton onClick={onClose} />}
           </div>

@@ -14,7 +14,9 @@ export default {
 
 const Template: ComponentStory<typeof NoMetamaskAlertComponent> = (
   args: NoMetamaskAlertProps,
-) => <NoMetamaskAlertComponent {...args} />;
+) => {
+  return <NoMetamaskAlertComponent {...args} />;
+};
 
 export const NoMetamaskAlert = Template.bind({});
 NoMetamaskAlert.args = {

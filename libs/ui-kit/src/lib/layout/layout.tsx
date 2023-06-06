@@ -9,7 +9,7 @@ export function Layout({
   className?: string;
 }) {
   return (
-    <div className={clsx('min-h-screen flex flex-col', className)}>
+    <div className={clsx('flex min-h-screen flex-col', className)}>
       {children}
     </div>
   );

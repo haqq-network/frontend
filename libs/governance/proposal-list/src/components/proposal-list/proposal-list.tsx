@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Heading, SpinnerLoader, Text } from '@haqq/ui-kit';
-import { useProposalListQuery } from '@haqq/shared';
+import { useGovernanceParamsQuery, useProposalListQuery } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
+import { Container, SpinnerLoader } from '@haqq/shell/ui-kit';
 
 export function ProposalList() {
+  const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
@@ -15,33 +16,45 @@ export function ProposalList() {
   }, [proposalsData]);
 
   return (
-    <Container>
-      <div className="mx-auto w-full flex flex-col space-y-6">
-        <div>
-          <Heading level={2}>Governance</Heading>
-        </div>
-        {isFetching ? (
-          <div className="mx-auto w-full flex">
-            <div className="flex-1 flex flex-col space-y-8 items-center justify-center min-h-[200px]">
-              <SpinnerLoader />
-              <Text block>Fetching proposals</Text>
-            </div>
+    <div>
+      <div className="py-[32px] lg:py-[68px]">
+        <Container>
+          <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+            Governance
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
-            {proposals.map((proposal) => {
-              return (
-                <Link
-                  to={`proposal/${proposal.proposal_id}`}
-                  key={proposal.proposal_id}
-                >
-                  <ProposalListCard proposal={proposal} />
-                </Link>
-              );
-            })}
-          </div>
-        )}
+        </Container>
       </div>
-    </Container>
+
+      <div>
+        <Container>
+          {!govParams || isFetching ? (
+            <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
+              <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
+                <SpinnerLoader />
+                <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+                  Fetching proposals
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="mb-[68px] grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
+              {proposals.map((proposal) => {
+                return (
+                  <Link
+                    to={`proposal/${proposal.proposal_id}`}
+                    key={proposal.proposal_id}
+                  >
+                    <ProposalListCard
+                      proposal={proposal}
+                      govParams={govParams}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </Container>
+      </div>
+    </div>
   );
 }
