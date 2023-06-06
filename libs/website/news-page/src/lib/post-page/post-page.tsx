@@ -1,8 +1,9 @@
 import { NewsArticle, Breadcrumb } from '@haqq/website/ui-kit';
 import Head from 'next/head';
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 // import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 type PostPageProps = {
   post: any;
@@ -11,8 +12,20 @@ type PostPageProps = {
 
 export function PostPage({ post, recentPosts }: PostPageProps) {
   const { push } = useRouter();
-  const copyLink = useCallback((): void => {
-    navigator.clipboard.writeText(window.location.href);
+  // const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+  const copyLink = useCallback(async () => {
+    const copyPromise = navigator.clipboard.writeText(window.location.href);
+
+    toast.promise(copyPromise, {
+      loading: 'Copy link in progress',
+      success: () => {
+        return `The link was copied!`;
+      },
+      error: (error) => {
+        return error.message;
+      },
+    });
   }, []);
 
   return (
