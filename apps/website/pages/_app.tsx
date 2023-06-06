@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import clsx from 'clsx';
 import '../styles/global.css';
 import Head from 'next/head';
+import { Toaster } from 'react-hot-toast';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
 
@@ -32,11 +33,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         className={clsx('flex min-h-screen flex-col overflow-x-clip font-sans')}
       >
         <Header />
+
         <div className="flex-1">
           <Component {...pageProps} />
         </div>
+
         <Footer />
       </main>
+
+      <Toaster />
     </Fragment>
   );
 }

@@ -3,6 +3,7 @@ import { Heading } from '../heading/heading';
 import { MarkdownText } from '../markdown-text/markdown-text';
 // import { TelegramIcon, TwitterIcon } from '../icons';
 import { CopyIcon } from '../icons/copy-icon';
+import { Tooltip } from '../tooltip/tooltip';
 
 export function NewsArticle({
   image,
@@ -79,8 +80,10 @@ export function NewsArticle({
                 {/* <TwitterIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
                 {/* <TelegramIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
                 <div className="leading-[0]">
-                  <button aria-label="Copy" onClick={onLinkCopy}>
-                    <CopyIcon className="cursor-pointer transition-colors duration-100 ease-out hover:text-white" />
+                  <button aria-label="Copy link" onClick={onLinkCopy}>
+                    <Tooltip text="Copy link">
+                      <CopyIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" />
+                    </Tooltip>
                   </button>
                 </div>
               </div>
