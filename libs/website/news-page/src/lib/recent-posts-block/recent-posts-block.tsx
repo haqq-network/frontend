@@ -11,7 +11,7 @@ export function RecentPostsBlock({ recentPosts }: { recentPosts: any[] }) {
           </div>
 
           <div className="grid w-full grid-cols-1 gap-[28px] md:grid-cols-2 md:gap-[38px]">
-            {recentPosts?.map((post) => {
+            {recentPosts.map((post) => {
               return (
                 <Link key={post.id} href={`/blog/${post.slug}`}>
                   <NewsCard

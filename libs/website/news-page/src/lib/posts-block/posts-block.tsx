@@ -1,6 +1,9 @@
 import { Heading, NewsCard, BlogTabs } from '@haqq/website/ui-kit';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import blogPlaceholderImage1 from '../../assets/blog-placeholder-1.png';
+import blogPlaceholderImage2 from '../../assets/blog-placeholder-2.png';
+import blogPlaceholderImage3 from '../../assets/blog-placeholder-3.png';
 
 export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
   const [tab, setTab] = useState<string>('All posts');
@@ -14,6 +17,26 @@ export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
       return post.tags.includes(tab);
     });
   }, [posts, tab]);
+
+  const getPostImage = useCallback((post: any) => {
+    if (post.image) {
+      return post.image;
+    }
+
+    const imagesArray = [
+      blogPlaceholderImage1,
+      blogPlaceholderImage2,
+      blogPlaceholderImage3,
+    ];
+    const index = new Date(post.date).getTime() % 3;
+    const placeholderImage = imagesArray[index];
+
+    return {
+      src: placeholderImage.src,
+      width: placeholderImage.width,
+      height: placeholderImage.height,
+    };
+  }, []);
 
   return (
     <section className="flex flex-col py-[60px]">
@@ -40,7 +63,7 @@ export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
                   <NewsCard
                     date={new Date(post.date)}
                     description={post.description}
-                    image={post.image}
+                    image={getPostImage(post)}
                     title={post.title}
                     tags={post.tags}
                   />
