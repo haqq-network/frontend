@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps<{
     }
 
     const image =
-      post.image.filename !== ''
+      post.image.filename && post.image.filename !== ''
         ? {
             src: post.image.filename,
             width: Number(post.image.filename.split('/')[5].split('x')[0]),

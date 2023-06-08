@@ -1,10 +1,13 @@
 import { NewsArticle, Breadcrumb } from '@haqq/website/ui-kit';
 import Head from 'next/head';
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useMemo } from 'react';
 // import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
+import blogPlaceholderImage1 from '../../assets/blog-placeholder-1.png';
+import blogPlaceholderImage2 from '../../assets/blog-placeholder-2.png';
+import blogPlaceholderImage3 from '../../assets/blog-placeholder-3.png';
 
 type PostPageProps = {
   post: any;
@@ -14,7 +17,7 @@ type PostPageProps = {
 export function PostPage({ post, recentPosts }: PostPageProps) {
   const { push } = useRouter();
 
-  const copyLink = useCallback(async () => {
+  const copyLink = useCallback(() => {
     const copyPromise = navigator.clipboard.writeText(window.location.href);
 
     toast.promise(copyPromise, {
@@ -28,6 +31,26 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
     });
   }, []);
 
+  const postImage = useMemo(() => {
+    if (post.image) {
+      return post.image;
+    }
+
+    const imagesArray = [
+      blogPlaceholderImage1,
+      blogPlaceholderImage2,
+      blogPlaceholderImage3,
+    ];
+    const index = new Date(post.date).getTime() % 3;
+    const placeholderImage = imagesArray[index];
+
+    return {
+      src: placeholderImage.src,
+      width: placeholderImage.width,
+      height: placeholderImage.height,
+    };
+  }, [post.date, post.image]);
+
   return (
     <Fragment>
       <Head>
@@ -38,7 +61,7 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
         className={clsx(
           'overflow-clip border-b border-[#2A2A2B] px-[16px] sm:px-[63px] lg:px-[79px]',
           'bg-haqq-black transform-gpu backdrop-blur',
-          'sticky top-[63px] z-50 sm:top-[72px]',
+          'sticky top-[63px] z-40 sm:top-[72px]',
         )}
       >
         <Breadcrumb
@@ -54,7 +77,7 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
         date={post.date}
         content={post.content}
         title={post.title}
-        image={post.image}
+        image={postImage}
         onLinkCopy={copyLink}
       />
 

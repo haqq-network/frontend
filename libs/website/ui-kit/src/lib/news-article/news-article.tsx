@@ -34,11 +34,11 @@ export function NewsArticle({
               <div className="relative mb-[28px] w-full md:mb-[32px] lg:mb-[36px]">
                 <Image
                   src={image.src}
-                  alt=""
                   width={image.width}
                   height={image.height}
+                  alt={title}
                   role="img"
-                  className="object-cover"
+                  className="object-cover w-full h-full"
                 />
               </div>
             )}
