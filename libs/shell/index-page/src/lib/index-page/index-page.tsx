@@ -10,7 +10,7 @@ import {
   LogoutIcon,
 } from '@haqq/shell/ui-kit';
 import { useMediaQuery } from 'react-responsive';
-import { useAddress, useWallet } from '@haqq/shared';
+import { getFormattedAddress, useAddress, useWallet } from '@haqq/shared';
 import { useMemo } from 'react';
 
 export function ShellIndexPage() {
@@ -72,11 +72,11 @@ function AccountFooterMobile() {
     <div className="bg-haqq-black transform-gpu bg-opacity-75 backdrop-blur">
       <Container className="py-[16px]">
         {isConnected ? (
-          <div className="flex flex-row flex-wrap gap-[16px]">
+          <div className="flex flex-row flex-wrap gap-[12px] min-[375px]:gap-[16px]">
             <div>
               <AccountButton
                 balance={balance}
-                address={ethAddress}
+                address={getFormattedAddress(ethAddress, 3, 2)}
                 withoutDropdown
               />
             </div>
