@@ -4,7 +4,7 @@ import { AccountWidget } from '../components/AccountWidget/AccountWidget';
 import { DepositStatsWidget } from '../components/DepositStatsWidget/DepositStatsWidget';
 import { Container } from '../components/Layout/Layout';
 import { environment } from '../environments/environment';
-import { getChainParams, useAddress, useConfig } from '@haqq/shared';
+import { useAddress } from '@haqq/shared';
 import { DepositWithdrawalList } from '../components/DepositWithdrawalList/DepositWithdrawalList';
 
 export function AccountPage() {
@@ -14,8 +14,6 @@ export function AccountPage() {
     address: ethAddress,
     watch: true,
   });
-  const { chainName } = useConfig();
-  const chain = getChainParams(chainName);
 
   const accountWidgetProps = useMemo(() => {
     return {
@@ -23,15 +21,9 @@ export function AccountPage() {
       ethAddress: ethAddress ?? '',
       haqqAddress: haqqAddress ?? '',
       balance: balance ? Number.parseFloat(balance.formatted) : 0,
-      symbol: chain.nativeCurrency.symbol,
+      symbol: 'ISLM',
     };
-  }, [
-    balance,
-    chain.nativeCurrency.symbol,
-    ethAddress,
-    haqqAddress,
-    isConnected,
-  ]);
+  }, [balance, ethAddress, haqqAddress, isConnected]);
 
   return (
     <Container className="flex flex-col space-y-12 py-8 sm:py-20">

@@ -3,7 +3,7 @@ import { Button } from '../Button/Button';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { Heading, Text } from '../Typography/Typography';
 import { useOnboarding } from '../../OnboardingContainer';
-import { getChainParams, useConfig } from '@haqq/shared';
+import { useNetwork } from 'wagmi';
 
 function AddNetworkDetailsItem({
   title,
@@ -21,12 +21,12 @@ function AddNetworkDetailsItem({
 }
 
 export function AddNetworkScreen(): ReactElement {
-  const { chainName } = useConfig();
-  const chain = getChainParams(chainName);
+  const { chain } = useNetwork();
+
   const {
     errors: { addNetworkError },
     clearError,
-    addNetwork,
+    switchNetwork,
   } = useOnboarding();
 
   return (
@@ -41,16 +41,16 @@ export function AddNetworkScreen(): ReactElement {
       </div>
 
       <div className="flex flex-col space-y-6 rounded-[12px] bg-white p-[20px] shadow-lg">
-        <AddNetworkDetailsItem title="Network name" value={chain.name} />
+        <AddNetworkDetailsItem title="Network name" value={chain?.name} />
         <AddNetworkDetailsItem
           title="Network url"
-          value={chain.ethRpcEndpoint}
+          value={chain?.rpcUrls.default.http[0]}
         />
-        <AddNetworkDetailsItem title="Chain ID" value={chain.id} />
+        <AddNetworkDetailsItem title="Chain ID" value={chain?.id} />
       </div>
 
       <div className="md:text-right">
-        <Button onClick={addNetwork} className="min-w-[180px]">
+        <Button onClick={switchNetwork} className="min-w-[180px]">
           Add network
         </Button>
       </div>
@@ -61,7 +61,7 @@ export function AddNetworkScreen(): ReactElement {
         message="Something went wrong and we can't add new network to your wallet"
         details={addNetworkError?.message}
         onClose={() => {
-          return clearError('addNetworkError');
+          clearError('addNetworkError');
         }}
       />
     </div>

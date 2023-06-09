@@ -1,4 +1,4 @@
-import { SpinnerLoader } from '@haqq/ui-kit';
+import { SpinnerLoader } from '../../pages/PendingPage';
 import { Button } from '../Button/Button';
 import { Heading } from '../Typography/Typography';
 import { Modal, ModalCloseButton } from './Modal/Modal';
@@ -10,7 +10,7 @@ export function SelectWalletModal({ isOpen, onClose }: any) {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="mx-auto max-w-[400px] rounded-[24px] bg-white p-8">
+      <div className="mx-auto max-w-[400px] rounded-[24px] bg-white p-8 shadow-md">
         <div className="flex flex-col space-y-6">
           <div className="flex items-center justify-between">
             <Heading level={3}>Select wallet</Heading>

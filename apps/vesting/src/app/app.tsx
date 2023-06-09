@@ -1,11 +1,11 @@
 import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { useAccount } from 'wagmi';
-import { PendingPage } from '@haqq/ui-kit';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useAccount, useNetwork } from 'wagmi';
 import { Footer } from '../components/Footer/Footer';
 import { Header } from '../components/Header/Header';
 import { MainPage } from '../pages/MainPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
+import { PendingPage } from '../pages/PendingPage';
 import { Page } from '../components/Layout/Layout';
 
 const MyAccountPage = lazy(() => {
@@ -15,14 +15,27 @@ const AccountPage = lazy(() => {
   return import('../pages/AccountPage');
 });
 
-function RequireConnectedWallet({ children }: { children: JSX.Element }) {
+function GoToMainPageWhenDisconnect({ children }: { children: JSX.Element }) {
   const { isConnected } = useAccount();
-  const location = useLocation();
+  const { chain } = useNetwork();
 
   if (!isConnected) {
-    // Redirect them to the /login page, but save the current location they were
-    // trying to go to when they were redirected.
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/" />;
+  }
+
+  if (!chain || (chain && chain.unsupported)) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
+}
+
+function GoToMyAccountWhenConnected({ children }: { children: JSX.Element }) {
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
+
+  if (isConnected && !(chain && chain.unsupported)) {
+    return <Navigate to="/account" />;
   }
 
   return children;
@@ -33,14 +46,21 @@ export function App() {
     <Page header={<Header />} footer={<Footer />}>
       <Suspense fallback={<PendingPage />}>
         <Routes>
-          <Route index element={<MainPage />} />
+          <Route
+            index
+            element={
+              <GoToMyAccountWhenConnected>
+                <MainPage />
+              </GoToMyAccountWhenConnected>
+            }
+          />
 
           <Route
             path="account"
             element={
-              <RequireConnectedWallet>
+              <GoToMainPageWhenDisconnect>
                 <MyAccountPage />
-              </RequireConnectedWallet>
+              </GoToMainPageWhenDisconnect>
             }
           />
 

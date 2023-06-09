@@ -2,19 +2,12 @@
 // @ts-nocheck
 import { Fragment, ReactNode, SyntheticEvent } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import styled from '@emotion/styled';
 
 export interface ModalProps {
   isOpen?: boolean;
   onClose: () => void;
   children: ReactNode;
 }
-
-const ModalOverlay = styled.div`
-  --modal-overlay-bg-color: rgba(12, 12, 12, 0.4);
-
-  background-color: var(--modal-overlay-bg-color);
-`;
 
 export function Modal({ children, onClose, isOpen = false }: ModalProps) {
   return (
@@ -29,9 +22,9 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <ModalOverlay
+          <div
             role="none"
-            className="fixed inset-0 transform-gpu backdrop-blur"
+            className="bg-[rgba(12, 12, 12, 0.4)] fixed inset-0 transform-gpu backdrop-blur"
             onClick={onClose}
             onKeyDown={(
               event: SyntheticEvent<HTMLDivElement, KeyboardEvent>,

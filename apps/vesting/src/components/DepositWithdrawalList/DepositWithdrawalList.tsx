@@ -230,9 +230,9 @@ export function DepositWithdrawalList({
 
   useEffect(() => {
     handleGetTransactionList(contractAddress, address);
-  }, [address]);
+  }, [address, contractAddress, handleGetTransactionList]);
 
-  return (
+  return withdrawLogsList.length > 0 ? (
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="flex flex-col space-y-4">
         <div className="px-6 pt-6">
@@ -255,7 +255,7 @@ export function DepositWithdrawalList({
         </div>
       </div>
     </Card>
-  );
+  ) : null;
 }
 
 const EXPLORER_LINK = 'https://explorer.haqq.network';
