@@ -28,7 +28,7 @@ function CardHeading({
   return (
     <h3
       className={clsx(
-        'font-serif text-[20px] font-[500] uppercase leading-[26px] text-white',
+        'font-serif text-[20px] font-[500] leading-[26px] text-white',
         className,
       )}
     >
