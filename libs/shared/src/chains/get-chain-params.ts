@@ -5,7 +5,7 @@ export function getChainParams(chainId: number) {
   // console.log('getChainParams', { chainName, currentChain });
 
   if (!currentChain) {
-    throw new Error(`No configuration for ${chainId}`);
+    throw new Error(`No configuration for chain with id ${chainId}`);
   }
 
   return currentChain;
