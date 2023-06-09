@@ -225,25 +225,21 @@ export function ValidatorInfoComponent({
                     validatorInfo.description?.securityContact) && (
                     <div className="flex flex-row gap-[28px]">
                       {validatorInfo.description?.website && (
-                        <div>
-                          <OrangeLink
-                            href={validatorInfo.description?.website}
-                            target="_blank"
-                            rel="noreferrer noreferrer"
-                          >
-                            Website
-                          </OrangeLink>
-                        </div>
+                        <Link
+                          to={validatorInfo.description?.website}
+                          target="_blank"
+                          rel="noreferrer noreferrer"
+                        >
+                          <OrangeLink>Website</OrangeLink>
+                        </Link>
                       )}
 
                       {validatorInfo.description?.securityContact && (
-                        <div>
-                          <OrangeLink
-                            href={`mailto:${validatorInfo.description?.securityContact}`}
-                          >
-                            E-mail
-                          </OrangeLink>
-                        </div>
+                        <Link
+                          to={`mailto:${validatorInfo.description?.securityContact}`}
+                        >
+                          <OrangeLink>E-mail</OrangeLink>
+                        </Link>
                       )}
                     </div>
                   )}

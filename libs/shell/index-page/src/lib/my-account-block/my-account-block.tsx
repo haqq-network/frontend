@@ -18,6 +18,7 @@ import {
 } from '@haqq/shell/ui-kit';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router-dom';
 
 function MyAccountAmountBlock({
   title,
@@ -158,12 +159,11 @@ export function MyAccountBlock() {
           <Heading level={3} className="ml-[8px]">
             My account
           </Heading>
-          <OrangeLink
-            href="/staking"
-            className="ml-[16px] font-serif !text-[12px] uppercase"
-          >
-            Go to Staking
-          </OrangeLink>
+          <Link to="/staking">
+            <OrangeLink className="ml-[16px] font-serif !text-[12px] uppercase">
+              Go to Staking
+            </OrangeLink>
+          </Link>
         </div>
 
         <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
