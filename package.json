@@ -21,7 +21,9 @@
     "start:website": "yarn nx run website:serve",
     "format": "yarn prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
     "prepare": "is-ci || husky install",
-    "check-ignore-build": "yarn node ./tools/scripts/ignore-build.mjs"
+    "check-ignore-build": "yarn node ./tools/scripts/ignore-build.mjs",
+    "patch:viem": "yarn node ./tools/scripts/viem-module-federation-patch.mjs",
+    "postinstall": "yarn patch:viem"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.1.0",
