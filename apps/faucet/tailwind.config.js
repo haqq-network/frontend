@@ -1,6 +1,5 @@
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
-const typographyPlugin = require('@tailwindcss/typography');
 const { tailwindThemeExtend } = require('../../shared-tailwind-theme');
 
 /** @type {import('tailwindcss').Config} */
@@ -28,5 +27,4 @@ module.exports = {
       },
     },
   },
-  plugins: [typographyPlugin],
 };
