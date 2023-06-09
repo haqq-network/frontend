@@ -9,7 +9,6 @@ export * from './providers/theme-provider';
 export * from './providers/app-providers';
 export * from './hooks/use-account-info/use-account-info';
 export * from './hooks/use-address/use-address';
-export * from './hooks/use-metamask/use-metamask';
 export * from './hooks/use-staking-actions/use-staking-actions';
 export * from './hooks/use-staking-queries/use-staking-queries';
 export * from './hooks/use-proposal-actions/use-proposal-actions';
