@@ -29,18 +29,20 @@ export function WagmiProvider({
   children,
   walletConnectProjectId,
   isProduction = true,
+  supportedChains = [haqqMainnet, haqqTestedge2],
 }: PropsWithChildren<{
   walletConnectProjectId?: string;
   isProduction?: boolean;
+  supportedChains?: Chain[];
 }>) {
   const { publicClient, webSocketPublicClient, chains } = useMemo(() => {
-    const supportedChains: Chain[] = [haqqMainnet, haqqTestedge2];
+    const configuredChains: Chain[] = [...supportedChains];
 
     if (!isProduction) {
-      supportedChains.push(haqqLocalnet);
+      configuredChains.push(haqqLocalnet);
     }
 
-    return configureChains(supportedChains, [
+    return configureChains(configuredChains, [
       jsonRpcProvider({
         rpc: (chain) => {
           return {
@@ -49,7 +51,7 @@ export function WagmiProvider({
         },
       }),
     ]);
-  }, [isProduction]);
+  }, [isProduction, supportedChains]);
 
   const connectors = useMemo(() => {
     const connectors: Connector[] = [
