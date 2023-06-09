@@ -34,7 +34,7 @@ export function AccountInfo() {
       )}
 
       {accBalance !== undefined && (
-        <div className="flex h-[40px] flex-1 flex-row items-center justify-end space-x-4 font-bold">
+        <div className="flex h-[40px] flex-1 flex-row items-center justify-end gap-x-4 font-serif font-bold">
           {accBalance.toLocaleString()}{' '}
           {nativeCurrency.symbol.toLocaleUpperCase()}
         </div>
