@@ -17,16 +17,6 @@ type Story = StoryObj<typeof OrangeLinkComponent>;
 
 export const Default: Story = {
   args: {
-    href: '/',
     children: 'Orange link default',
-  },
-};
-
-export const WithTarget: Story = {
-  args: {
-    href: 'https://haqq.network/',
-    rel: 'noopener noreferrer',
-    target: '_blank',
-    children: 'Orange link with target',
   },
 };

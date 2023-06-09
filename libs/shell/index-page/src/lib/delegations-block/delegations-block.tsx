@@ -17,7 +17,7 @@ import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
 import { DelegationResponse } from '@evmos/provider';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { useMediaQuery } from 'react-responsive';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,
@@ -127,7 +127,9 @@ export function DelegationsBlock() {
               <div className="mb-[4px] text-[14px] leading-[22px] text-white/50">
                 You don't have any active delegations
               </div>
-              <OrangeLink href="/staking">Go to Staking</OrangeLink>
+              <Link to="/staking">
+                <OrangeLink>Go to Staking</OrangeLink>
+              </Link>
             </div>
           )}
         </div>
