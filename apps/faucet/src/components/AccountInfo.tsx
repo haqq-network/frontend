@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
-import { getChainParams, getFormattedAddress, useConfig } from '@haqq/shared';
-import { useAccount, useBalance } from 'wagmi';
+import { getFormattedAddress } from '@haqq/shared';
+import { useAccount, useBalance, useNetwork } from 'wagmi';
 import { IdentIcon } from './IdentIcon';
 
 export function AccountInfo() {
-  const { chainName } = useConfig();
-  const { nativeCurrency } = getChainParams(chainName);
+  const { chain } = useNetwork();
   const { address } = useAccount();
   const { data: balance } = useBalance({
     address,
@@ -36,7 +35,7 @@ export function AccountInfo() {
       {accBalance !== undefined && (
         <div className="flex h-[40px] flex-1 flex-row items-center justify-end space-x-4 font-bold">
           {accBalance.toLocaleString()}{' '}
-          {nativeCurrency.symbol.toLocaleUpperCase()}
+          {chain?.nativeCurrency.symbol.toLocaleUpperCase()}
         </div>
       )}
     </div>

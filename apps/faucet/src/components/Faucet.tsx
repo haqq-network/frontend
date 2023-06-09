@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import Reaptcha from 'reaptcha';
 import Countdown from 'react-countdown';
@@ -7,10 +5,9 @@ import SuccessIndicator from 'react-success-indicator';
 import { useAuth0 } from '@auth0/auth0-react';
 import { AccountInfo } from './AccountInfo';
 import { PulseLoader } from 'react-spinners';
-import { useAccount, useConnect, useNetwork } from 'wagmi';
-import { hexValue } from 'ethers/lib/utils';
+import { useAccount, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import { environment } from '../environments/environment';
-import { getChainParams, useConfig, useTheme } from '@haqq/shared';
+import { useTheme } from '@haqq/shared';
 import { Button2 } from '@haqq/ui-kit';
 
 interface ClaimInfo {
@@ -21,8 +18,8 @@ interface ClaimInfo {
 const { serviceConfig, reCaptchaConfig } = environment;
 
 export function Faucet(): ReactElement {
-  const { chainName } = useConfig();
-  const chain = getChainParams(chainName);
+  const { chain, chains } = useNetwork();
+  const { switchNetworkAsync } = useSwitchNetwork();
   const {
     user,
     isAuthenticated,
@@ -34,13 +31,12 @@ export function Faucet(): ReactElement {
   const [isRecaptchaVerified, setIsRecaptchaVerified] =
     useState<boolean>(false);
   const [isTokensClaimed, setTokensClaimed] = useState<boolean>(false);
-  const [claimInfo, setClaimInfo] = useState<ClaimInfo>();
+  const [claimInfo, setClaimInfo] = useState<ClaimInfo | undefined>(undefined);
   const [claimIsLoading, setClaimIsLoading] = useState<boolean>(false);
   const { isDark } = useTheme();
   const { isConnected, address } = useAccount();
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect();
-  const { chain: currentChain } = useNetwork();
 
   const handleServiceRequest = useCallback(
     async (
@@ -121,39 +117,14 @@ export function Faucet(): ReactElement {
   }, [address, getAccessTokenSilently, handleServiceRequest, recaptchaToken]);
 
   const handleNetworkSwitch = useCallback(async () => {
-    const { ethereum } = window;
-
-    if (ethereum) {
-      const targetNetworkIdHex = hexValue(chain.id);
-
+    if (switchNetworkAsync) {
       try {
-        await ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: targetNetworkIdHex }],
-        });
+        await switchNetworkAsync(chains[0].id);
       } catch (error: any) {
-        if (error.code === 4902) {
-          try {
-            await ethereum.request({
-              method: 'wallet_addEthereumChain',
-              params: [
-                {
-                  chainId: targetNetworkIdHex,
-                  chainName: chain.name,
-                  rpcUrls: [chain.ethRpcEndpoint],
-                  nativeCurrency: chain.nativeCurrency,
-                },
-              ],
-            });
-          } catch (error) {
-            console.error(error);
-          }
-        } else {
-          console.error(error);
-        }
+        console.error(error);
       }
     }
-  }, [chain.ethRpcEndpoint, chain.id, chain.name, chain.nativeCurrency]);
+  }, [chains, switchNetworkAsync]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -187,13 +158,13 @@ export function Faucet(): ReactElement {
                 Connect wallet
               </h2>
 
-              {currentChain?.unsupported && (
+              {chain?.unsupported && (
                 <div className="flex items-center">
                   <span
                     className="cursor-pointer text-sm leading-snug text-[#5baacd] hover:text-[#5baacd]/80"
                     onClick={handleNetworkSwitch}
                   >
-                    Switch to {chain.name}
+                    Switch to {chains[0].name}
                   </span>
                 </div>
               )}
@@ -301,7 +272,7 @@ export function Faucet(): ReactElement {
                 </div>
               )}
 
-              {isCountDownVisible && (
+              {isCountDownVisible && claimInfo && (
                 <div className="flex flex-row items-center space-x-4">
                   <Countdown
                     date={Date.now() + claimInfo.next_claim_sec * 1000}
