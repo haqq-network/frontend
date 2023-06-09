@@ -1,8 +1,7 @@
 import { lazy, ReactElement, Suspense } from 'react';
-import { Footer } from '../components/Footer';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Header, NotFoundPage, Page, PendingPage } from '@haqq/ui-kit';
-import { ThemeButton } from '@haqq/shared';
+import { NotFoundPage, PendingPage } from '@haqq/ui-kit';
+import { Header, Page } from '@haqq/shell/ui-kit';
 
 const Faucet = lazy(() => {
   return import('../components/Faucet');
@@ -10,7 +9,7 @@ const Faucet = lazy(() => {
 
 export function App(): ReactElement {
   return (
-    <Page header={<Header rightSlot={<ThemeButton />} />} footer={<Footer />}>
+    <Page header={<Header />}>
       <div className="flex flex-1 flex-col space-y-10 py-10">
         <Suspense fallback={<PendingPage />}>
           <Routes>
