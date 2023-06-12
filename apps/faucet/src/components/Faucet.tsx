@@ -267,7 +267,7 @@ export function Faucet(): ReactElement {
                       {connector.name}
                       {isLoading &&
                         connector.id === pendingConnector?.id &&
-                        '(connecting)'}
+                        ' (connecting)'}
                     </Button>
                   );
                 })}
