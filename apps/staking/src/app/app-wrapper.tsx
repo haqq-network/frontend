@@ -26,13 +26,13 @@ function HeaderButtons({
   isMobileMenuOpen: boolean;
   onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
 }) {
+  const { chain } = useNetwork();
   const { disconnect, openSelectWallet } = useWallet();
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
     watch: true,
   });
-  const { chain } = useNetwork();
   const { chains, switchNetwork } = useSwitchNetwork();
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
@@ -48,7 +48,7 @@ function HeaderButtons({
   );
 
   const balance = useMemo(() => {
-    if (!balanceData) {
+    if (!balanceData || (chain?.unsupported && chain.unsupported === true)) {
       return undefined;
     }
 
@@ -59,7 +59,7 @@ function HeaderButtons({
         maximumFractionDigits: 3,
       }),
     };
-  }, [balanceData]);
+  }, [balanceData, chain?.unsupported]);
 
   const selectChainButtonProps = useMemo(() => {
     return {

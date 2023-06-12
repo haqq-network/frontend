@@ -1,10 +1,10 @@
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ValidatorInfo } from '../validator-info/validator-info';
-import { BackButton, Container } from '@haqq/shell/ui-kit';
+import { BackButton, Container } from '@haqq/shell-ui-kit';
 import { Fragment } from 'react';
 import { useConfig } from '@haqq/shared';
 
-export function StakingValidatorDetails() {
+export function ValidatorDetailsPage() {
   const { address } = useParams();
   const navigate = useNavigate();
   const { isStandalone } = useConfig();

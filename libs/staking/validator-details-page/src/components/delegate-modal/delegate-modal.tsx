@@ -8,7 +8,7 @@ import {
   Button,
   MobileHeading,
   ModalInput,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 
 export interface DelegateModalProps {
   isOpen: boolean;

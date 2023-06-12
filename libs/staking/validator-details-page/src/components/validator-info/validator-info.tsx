@@ -34,7 +34,7 @@ import {
   Container,
   InfoIcon,
   MyAccountBlockMobile,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -43,7 +43,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import styles from './validator-info.module.css';
 import { Validator } from '@evmos/provider';
-import { formatEther, formatUnits } from 'viem';
+import { formatUnits } from 'viem/utils';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;

@@ -27,11 +27,11 @@
       "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
       "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
       "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
-      "@haqq/staking/validator-details": [
-        "libs/staking/validator-details/src/index.ts"
+      "@haqq/staking/validator-details-page": [
+        "libs/staking/validator-details-page/src/index.ts"
       ],
-      "@haqq/staking/validator-list": [
-        "libs/staking/validator-list/src/index.ts"
+      "@haqq/staking/validator-list-page": [
+        "libs/staking/validator-list-page/src/index.ts"
       ],
       "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],
       "@haqq/website/brand-assets-page": [
