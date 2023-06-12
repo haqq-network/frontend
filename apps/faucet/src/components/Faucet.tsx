@@ -210,7 +210,7 @@ export function Faucet(): ReactElement {
 
               {currentChain?.unsupported && (
                 <OrangeLink
-                  className="mb-[-2px] font-serif !text-[12px] uppercase"
+                  className="mb-[-2px] font-serif !text-[12px] uppercase text-end"
                   onClick={handleNetworkSwitch}
                 >
                   Switch to {chain.name}
