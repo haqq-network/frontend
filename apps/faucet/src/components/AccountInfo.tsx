@@ -69,7 +69,7 @@ export function AccountInfo() {
           </div> */}
 
           <MyAccountCardBlock title="Address">
-            <div className="flex gap-[16px] font-sans">
+            <div className="flex flex-col gap-[16px] font-sans sm:flex-row">
               <div className="flex-1">
                 <Tooltip
                   text={
