@@ -15,7 +15,7 @@ import {
   useSwitchNetwork,
   useWalletClient,
 } from 'wagmi';
-import { SelectWalletModal } from '@haqq/shell/ui-kit';
+import { SelectWalletModal } from '@haqq/shell-ui-kit';
 import '@wagmi/core/window';
 
 export interface WalletProviderInterface {

@@ -8,7 +8,7 @@ import {
   OrangeLink,
   ProposalsIcon,
   SpinnerLoader,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 
 export function ProposalListBlock() {
   const { data: govParams } = useGovernanceParamsQuery();

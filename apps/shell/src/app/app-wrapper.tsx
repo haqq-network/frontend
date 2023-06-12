@@ -15,7 +15,7 @@ import {
   Modal,
   ModalCloseButton,
   MobileHeading,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useBalance, useConnect } from 'wagmi';
 import clsx from 'clsx';

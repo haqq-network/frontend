@@ -24,7 +24,7 @@
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/shared": ["libs/shared/src/index.ts"],
       "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],
-      "@haqq/shell/ui-kit": ["libs/shell/ui-kit/src/index.ts"],
+      "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
       "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
       "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
       "@haqq/staking/validator-details": [
@@ -47,7 +47,7 @@
       "@haqq/website/index-page": ["libs/website/index-page/src/index.ts"],
       "@haqq/website/news-page": ["libs/website/news-page/src/index.ts"],
       "@haqq/website/shared": ["libs/website/shared/src/index.ts"],
-      "@haqq/website/ui-kit": ["libs/website/ui-kit/src/index.ts"],
+      "@haqq/website-ui-kit": ["libs/website/ui-kit/src/index.ts"],
       "@haqq/website/wallet-page": ["libs/website/wallet-page/src/index.ts"]
     }
   },

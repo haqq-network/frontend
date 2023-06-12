@@ -6,9 +6,9 @@ import type {
   Validator,
 } from '@evmos/provider';
 import { useStakingPoolQuery } from '@haqq/shared';
-import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell/ui-kit';
+import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell-ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
-import { formatUnits } from 'viem';
+import { formatUnits } from 'viem/utils';
 
 export function ValidatorListItemMobile({
   validator,

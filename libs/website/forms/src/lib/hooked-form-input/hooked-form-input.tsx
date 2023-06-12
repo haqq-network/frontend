@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Input, InputProps } from '@haqq/website/ui-kit';
+import { Input, InputProps } from '@haqq/website-ui-kit';
 import { Path, UseFormRegister } from 'react-hook-form';
 
 export enum FormState {

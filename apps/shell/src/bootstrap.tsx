@@ -2,8 +2,8 @@ import { createRoot } from 'react-dom/client';
 import { AppProviders, createTendermintClient } from '@haqq/shared';
 import { App } from './app/app';
 import { environment } from './environments/environment';
-import './index.css';
 import { AppWrapper } from './app/app-wrapper';
+import './index.css';
 
 if (environment.isProduction) {
   const sentryDsn = environment.sentryDsn;

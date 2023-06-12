@@ -8,7 +8,7 @@ import {
   Button,
   Container,
   LogoutIcon,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { useAddress, useWallet } from '@haqq/shared';
 import { useMemo } from 'react';

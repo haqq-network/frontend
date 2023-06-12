@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useGovernanceParamsQuery, useProposalListQuery } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
-import { Container, SpinnerLoader } from '@haqq/shell/ui-kit';
+import { Container, SpinnerLoader } from '@haqq/shell-ui-kit';
 
 export function ProposalList() {
   const { data: govParams } = useGovernanceParamsQuery();

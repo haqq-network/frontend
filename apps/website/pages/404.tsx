@@ -1,5 +1,5 @@
 import { Fragment, ReactElement } from 'react';
-import { Button } from '@haqq/website/ui-kit';
+import { Button } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 import clsx from 'clsx';
 import notFoundGlowImageData from '../assets/images/not-found-glow.png';

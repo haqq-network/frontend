@@ -1,4 +1,4 @@
-import { Heading, Text } from '@haqq/website/ui-kit';
+import { Heading, Text } from '@haqq/website-ui-kit';
 import clsx from 'clsx';
 import Link from 'next/link';
 

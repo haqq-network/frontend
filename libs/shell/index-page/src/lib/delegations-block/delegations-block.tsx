@@ -12,7 +12,7 @@ import {
   ListIcon,
   OrangeLink,
   SpinnerLoader,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
 import { DelegationResponse } from '@evmos/provider';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';

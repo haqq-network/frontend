@@ -28,7 +28,6 @@ import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from '../software-upgrade-proposal/software-upgrade-proposal';
 import clsx from 'clsx';
-import { formatUnits } from 'ethers/lib/utils';
 import {
   BackButton,
   InfoBlock,
@@ -44,9 +43,10 @@ import {
   ProposalPeriodTimer,
   ProposalVoteProgress,
   // ProposalDepositModal,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { useAccount, useBalance } from 'wagmi';
+import { formatUnits } from 'viem/utils';
 
 const enum ProposalTypes {
   Text = '/cosmos.gov.v1beta1.TextProposal',

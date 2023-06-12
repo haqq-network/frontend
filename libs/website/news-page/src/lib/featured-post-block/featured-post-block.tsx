@@ -1,4 +1,4 @@
-import { Heading, NewsCard } from '@haqq/website/ui-kit';
+import { Heading, NewsCard } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import blogPlaceholderImage1 from '../../assets/blog-placeholder-1.png';

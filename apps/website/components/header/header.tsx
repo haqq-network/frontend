@@ -3,7 +3,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import Link from 'next/link';
 import logoImageData from '../../assets/images/logo.svg';
-import { Button, BurgerButton } from '@haqq/website/ui-kit';
+import { Button, BurgerButton } from '@haqq/website-ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 

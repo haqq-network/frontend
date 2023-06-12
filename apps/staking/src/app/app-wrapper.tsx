@@ -16,7 +16,7 @@ import {
   Button,
   AccountButton,
   SelectChainButton,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 
 function HeaderButtons({

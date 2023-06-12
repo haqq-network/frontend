@@ -8,7 +8,7 @@ import {
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button } from '@haqq/website/ui-kit';
+import { Button } from '@haqq/website-ui-kit';
 import clsx from 'clsx';
 
 const schema = yup

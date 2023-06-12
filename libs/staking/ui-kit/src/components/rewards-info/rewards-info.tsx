@@ -9,7 +9,7 @@ import {
   useWallet,
 } from '@haqq/shared';
 import clsx from 'clsx';
-import { WalletIcon, Button, Heading, Container } from '@haqq/shell/ui-kit';
+import { Button } from '@haqq/shell-ui-kit';
 
 export interface RewardsInfoProps {
   balance: number;

@@ -1,4 +1,4 @@
-import { NewsArticle, Breadcrumb } from '@haqq/website/ui-kit';
+import { NewsArticle, Breadcrumb } from '@haqq/website-ui-kit';
 import Head from 'next/head';
 import { Fragment, useCallback, useMemo } from 'react';
 // import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';

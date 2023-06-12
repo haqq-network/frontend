@@ -3,7 +3,7 @@ import {
   AndroidLogoIcon,
   AppStoreLogoIcon,
   GooglePlayLogoIcon,
-} from '@haqq/website/ui-kit';
+} from '@haqq/website-ui-kit';
 
 export function DownloadButton({
   className,

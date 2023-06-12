@@ -10,7 +10,7 @@ import {
   islamicBrandColors,
   islamicLogos,
 } from '../../utils/brand-assets';
-import { Button, DownloadButton, Heading, Text } from '@haqq/website/ui-kit';
+import { Button, DownloadButton, Heading, Text } from '@haqq/website-ui-kit';
 import { PropsWithChildren, useCallback, useState } from 'react';
 
 interface DownloadCardProps {

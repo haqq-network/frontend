@@ -1,4 +1,4 @@
-import { Heading, NewsCard } from '@haqq/website/ui-kit';
+import { Heading, NewsCard } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 
 export function RecentPostsBlock({ recentPosts }: { recentPosts: any[] }) {

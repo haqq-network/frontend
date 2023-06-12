@@ -12,7 +12,7 @@ import {
   TwitterIcon,
   // YoutubeIcon,
   Button,
-} from '@haqq/website/ui-kit';
+} from '@haqq/website-ui-kit';
 import { SubscribeForm } from '@haqq/website/forms';
 
 interface NavLinkProps {

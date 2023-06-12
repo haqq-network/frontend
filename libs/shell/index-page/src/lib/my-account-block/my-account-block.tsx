@@ -15,7 +15,7 @@ import {
   Tooltip,
   Button,
   Heading,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';

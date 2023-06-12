@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { NotFoundPage, PendingPage } from '@haqq/shell/ui-kit';
+import { NotFoundPage, PendingPage } from '@haqq/shell-ui-kit';
 
 const StakingValidatorList = lazy(async () => {
   const { StakingValidatorList } = await import('@haqq/staking/validator-list');
