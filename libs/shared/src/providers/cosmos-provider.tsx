@@ -42,26 +42,53 @@ export interface CosmosService {
   getProposals: () => Promise<Proposal[]>;
   getProposalDetails: (id: string) => Promise<Proposal>;
   getUndelegations: (haqqAddress: string) => Promise<UndelegationResponse[]>;
+  getGovernanceParams: (
+    type: GovParamsType,
+  ) => Promise<GetGovernanceParamsResponse>;
   generatePubkey: (address: string) => Promise<string>;
   getPubkey: (address: string) => Promise<string>;
   simulateTransaction: (tx: TxToSend) => Promise<SimulateTxResponse>;
   broadcastTransaction: (tx: TxToSend) => Promise<BroadcastTxResponse>;
 }
 
-export const CosmosServiceContext = createContext<
-  CosmosService | null | undefined
->(undefined);
+type CosmosServiceContextProviderValue =
+  | {
+      isReady: false;
+      service: undefined;
+      error: string | undefined;
+    }
+  | {
+      isReady: true;
+      service: CosmosService;
+      error: string | undefined;
+    };
+export const CosmosServiceContext =
+  createContext<CosmosServiceContextProviderValue>({
+    isReady: false,
+    service: undefined,
+    error: undefined,
+  });
 
-export function useCosmosService() {
+export function useCosmosProvider() {
   const cosmosService = useContext(CosmosServiceContext);
 
   if (!cosmosService) {
     throw new Error(
-      'useCosmosService should be used only from child of CosmosServiceContext',
+      'useCosmosProvider should be used only from child of CosmosServiceContext',
     );
   }
 
   return cosmosService;
+}
+
+export function useCosmosService() {
+  const cosmosService = useCosmosProvider();
+
+  if (!cosmosService.isReady) {
+    throw new Error('Cosmos service is not ready');
+  }
+
+  return cosmosService.service;
 }
 
 function generateEndpointValidatorInfo(address: string) {
@@ -90,6 +117,10 @@ function generateEndpointBankSupply() {
 
 function generateSimulateEndpoint() {
   return '/cosmos/tx/v1beta1/simulate';
+}
+
+function generateEndpointGovParams(type: GovParamsType) {
+  return `/cosmos/gov/v1beta1/params/${type}`;
 }
 
 export interface StakingParams {
@@ -197,6 +228,23 @@ export interface BroadcastTxResponse {
     }[];
   }[];
 }
+
+export interface GetGovernanceParamsResponse {
+  voting_params: {
+    voting_period: string;
+  };
+  deposit_params: {
+    min_deposit: Coin[];
+    max_deposit_period: string;
+  };
+  tally_params: {
+    quorum: string;
+    threshold: string;
+    veto_threshold: string;
+  };
+}
+
+export type GovParamsType = 'voting' | 'tallying' | 'deposit';
 
 function createCosmosService(
   cosmosRestEndpoint: string,
@@ -339,6 +387,15 @@ function createCosmosService(
     return response.data;
   }
 
+  async function getGovernanceParams(type: GovParamsType) {
+    const governanceParamsResponse =
+      await axios.get<GetGovernanceParamsResponse>(
+        `${cosmosRestEndpoint}/${generateEndpointGovParams(type)}`,
+      );
+
+    return governanceParamsResponse.data;
+  }
+
   async function generatePubkey(address: string) {
     if (walletClient) {
       const message = 'Verify Public Key';
@@ -347,13 +404,22 @@ function createCosmosService(
         params: [message, address, ''],
       } as any);
 
-      const uncompressedPk = recoverPublicKey(hashMessage(message), signature);
-      const hexPk = computePublicKey(uncompressedPk, true);
-      const pk = Buffer.from(hexPk.replace('0x', ''), 'hex').toString('base64');
+      if (signature) {
+        const uncompressedPk = recoverPublicKey(
+          hashMessage(message),
+          signature as any,
+        );
+        const hexPk = computePublicKey(uncompressedPk, true);
+        const pk = Buffer.from(hexPk.replace('0x', ''), 'hex').toString(
+          'base64',
+        );
 
-      return pk;
+        return pk;
+      } else {
+        throw new Error('No signature');
+      }
     } else {
-      throw new Error('No signer');
+      throw new Error('No walletClient');
     }
   }
 
@@ -423,6 +489,7 @@ function createCosmosService(
     getProposals,
     getProposalDetails,
     getUndelegations,
+    getGovernanceParams,
     generatePubkey,
     getPubkey,
     broadcastTransaction,
@@ -437,16 +504,25 @@ export function CosmosServiceContainer({
   chainId: number | undefined;
 }>) {
   const { data: walletClient } = useWalletClient({ chainId });
-  const cosmosService = useMemo(() => {
+  const cosmosService = useMemo<CosmosServiceContextProviderValue>(() => {
     try {
       if (!chainId) {
-        return null;
+        return {
+          isReady: false,
+          service: undefined,
+          error: undefined,
+        };
       }
+
       const { cosmosRestEndpoint } = getChainParams(chainId);
-      return createCosmosService(cosmosRestEndpoint, walletClient);
+      return {
+        isReady: true,
+        service: createCosmosService(cosmosRestEndpoint, walletClient),
+        error: undefined,
+      };
     } catch (error: any) {
       console.error(error.message);
-      return null;
+      return { isReady: false, service: undefined, error: error.message };
     }
   }, [chainId, walletClient]);
 
