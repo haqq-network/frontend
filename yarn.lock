@@ -3819,7 +3819,6 @@ __metadata:
     react-responsive: 9.0.2
     react-router-dom: 6.11.2
     react-scrolllock: 5.0.1
-    react-spinners: 0.13.8
     react-spring: 9.7.1
     react-success-indicator: 1.1.0
     reaptcha: 1.12.1
@@ -22882,16 +22881,6 @@ __metadata:
   peerDependencies:
     react: ^16.3.0
   checksum: 61833bdb1f48cf7dbf54e7483f1e7b4b18617b2c356d1388f60d5c32b5befeea407601f8e4980ba43f910d6b08dc89b8f2e67cfee4c7a99d03073e72b43dec92
-  languageName: node
-  linkType: hard
-
-"react-spinners@npm:0.13.8":
-  version: 0.13.8
-  resolution: "react-spinners@npm:0.13.8"
-  peerDependencies:
-    react: ^16.0.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: cb58f916bbf00c4f7fc33c1a75a8c0f91a98a42af26944340a0e29e4b3a97937a03f0292bc444eb5f5f0bea099344b580f9c04a81524246dadbf0571bdb57e62
   languageName: node
   linkType: hard
 
