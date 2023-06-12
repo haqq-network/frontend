@@ -34,22 +34,6 @@ interface ClaimInfo {
 
 const { serviceConfig, reCaptchaConfig } = environment;
 
-// function CardHeading({
-//   children,
-//   className,
-// }: PropsWithChildren<{ className?: string }>) {
-//   return (
-//     <h3
-//       className={clsx(
-//         'font-serif text-[20px] font-[500] leading-[26px] text-white',
-//         className,
-//       )}
-//     >
-//       {children}
-//     </h3>
-//   );
-// }
-
 export function Faucet(): ReactElement {
   const { chainName } = useConfig();
   const chain = getChainParams(chainName);
@@ -233,21 +217,6 @@ export function Faucet(): ReactElement {
                 </OrangeLink>
               )}
             </div>
-
-            {/* <div className="flex flex-row justify-between">
-              <CardHeading>Connect wallet</CardHeading>
-
-              {currentChain?.unsupported && (
-                <div className="flex items-center">
-                  <span
-                    className="text-haqq-orange hover:text-haqq-light-orange cursor-pointer text-sm leading-snug transition-colors duration-300"
-                    onClick={handleNetworkSwitch}
-                  >
-                    Switch to {chain.name}
-                  </span>
-                </div>
-              )}
-            </div> */}
 
             {!isConnected && (
               <div className="flex flex-col space-y-2">
