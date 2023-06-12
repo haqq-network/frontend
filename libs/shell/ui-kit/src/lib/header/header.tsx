@@ -17,7 +17,7 @@ export function Header({
       className={clsx(
         'h-[62px] w-full transform-gpu border-y border-[#464647] sm:h-[72px]',
         'sticky top-0 z-50',
-        darkBackground ? 'bg-haqq-black ' : 'bg-transparent',
+        darkBackground ? 'bg-haqq-black' : 'bg-transparent',
         isBlurred && !darkBackground && 'backdrop-blur',
       )}
     >
