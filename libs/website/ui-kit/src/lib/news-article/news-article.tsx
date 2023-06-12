@@ -38,7 +38,7 @@ export function NewsArticle({
                   height={image.height}
                   alt={title}
                   role="img"
-                  className="object-cover w-full h-full"
+                  className="h-full w-full object-cover"
                 />
               </div>
             )}
