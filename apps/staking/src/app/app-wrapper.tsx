@@ -26,14 +26,15 @@ function HeaderButtons({
   isMobileMenuOpen: boolean;
   onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
 }) {
-  const { chain } = useNetwork();
+  const { chain, chains } = useNetwork();
   const { disconnect, openSelectWallet } = useWallet();
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
     watch: true,
+    chainId: chain?.id ?? chains[0].id,
   });
-  const { chains, switchNetwork } = useSwitchNetwork();
+  const { switchNetwork } = useSwitchNetwork();
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
@@ -48,7 +49,7 @@ function HeaderButtons({
   );
 
   const balance = useMemo(() => {
-    if (!balanceData || (chain?.unsupported && chain.unsupported === true)) {
+    if (!balanceData) {
       return undefined;
     }
 
@@ -59,11 +60,13 @@ function HeaderButtons({
         maximumFractionDigits: 3,
       }),
     };
-  }, [balanceData, chain?.unsupported]);
+  }, [balanceData]);
 
   const selectChainButtonProps = useMemo(() => {
     return {
-      isSupported: Boolean(!chain?.unsupported),
+      isSupported: Boolean(
+        chain && chain?.unsupported !== undefined && !chain.unsupported,
+      ),
       currentChain: {
         name: chain?.name.replace('HAQQ', '').trim() ?? '',
         id: chain?.id ?? 0,

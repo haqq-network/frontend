@@ -17,8 +17,8 @@ export function StatisticsBlock() {
   const { data: bankSupply } = useBankSupplyQuery();
 
   const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.pool.bonded_tokens]);
+    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.bonded_tokens]);
 
   const totalSupply = useMemo(() => {
     return Number.parseInt(bankSupply?.supply[0].amount ?? '0') / 10 ** 18;

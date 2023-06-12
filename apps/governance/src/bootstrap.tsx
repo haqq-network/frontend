@@ -1,15 +1,16 @@
 import { createRoot } from 'react-dom/client';
 import { App } from './app/app';
 import { environment } from './environments/environment';
-import { AppProviders, createTendermintClient } from '@haqq/shared';
+import { AppProviders } from '@haqq/shared';
 import { AppWrapper } from './app/app-wrapper';
 import './index.css';
 
-if (process.env['NODE_ENV'] === 'production') {
-  const sentryDsn = environment.sentryDsn;
-  if (sentryDsn && sentryDsn !== '') {
+if (process.env['VERCEL_ENV'] === 'production') {
+  if (environment.sentryDsn && environment.sentryDsn !== '') {
+    const dsn = environment.sentryDsn;
+
     import('@haqq/sentry').then(({ initSentry }) => {
-      initSentry(sentryDsn);
+      initSentry(dsn);
     });
   } else {
     console.warn(
@@ -18,26 +19,17 @@ if (process.env['NODE_ENV'] === 'production') {
   }
 }
 
-async function startApp() {
-  const rootElement = document.getElementById('root');
-  const root = createRoot(rootElement as HTMLElement);
-  const tendermintClient = await createTendermintClient({
-    chainName: environment.chainName,
-  });
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement as HTMLElement);
 
-  root.render(
-    <AppProviders
-      tendermintClient={tendermintClient}
-      chainName={environment.chainName}
-      walletConnectProjectId={environment.walletConnectProjectId}
-      withReactQueryDevtools={!environment.isProduction}
-      isStandalone
-    >
-      <AppWrapper>
-        <App />
-      </AppWrapper>
-    </AppProviders>,
-  );
-}
-
-startApp();
+root.render(
+  <AppProviders
+    walletConnectProjectId={environment.walletConnectProjectId}
+    withReactQueryDevtools={!environment.isProduction}
+    isStandalone
+  >
+    <AppWrapper>
+      <App />
+    </AppWrapper>
+  </AppProviders>,
+);

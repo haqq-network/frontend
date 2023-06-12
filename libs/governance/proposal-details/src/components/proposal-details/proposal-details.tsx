@@ -18,11 +18,11 @@ import {
   useProposalDetailsQuery,
   isNumber,
   useGovernanceParamsQuery,
-  GovernanceParamsResponse,
   useToast,
   useWallet,
   useProposalActions,
   useConfig,
+  GetGovernanceParamsResponse,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -203,20 +203,19 @@ export function ProposalDetailsComponent({
   proposalDetails: Proposal;
   symbol: string;
   isWalletConnected: boolean;
-  govParams: GovernanceParamsResponse;
+  govParams: GetGovernanceParamsResponse;
 }) {
-  // console.log({ proposalDetails });
   const { isConnected } = useAccount();
   const { openSelectWallet } = useWallet();
-  const { deposit } = useProposalActions();
-  const toast = useToast();
+  // const { deposit } = useProposalActions();
+  // const toast = useToast();
   const navigate = useNavigate();
-  const { hash } = useLocation();
-  const { ethAddress } = useAddress();
-  const { data: balanceData } = useBalance({
-    address: ethAddress,
-    watch: true,
-  });
+  // const { hash } = useLocation();
+  // const { ethAddress } = useAddress();
+  // const { data: balanceData } = useBalance({
+  //   address: ethAddress,
+  //   watch: true,
+  // });
   const [showDates, setShowDates] = useState(
     Boolean(
       proposalDetails.status === ProposalStatus.Passed ||
@@ -236,7 +235,7 @@ export function ProposalDetailsComponent({
     }
 
     return Number.parseInt(
-      formatUnits(proposalDetails.total_deposit[0]?.amount),
+      formatUnits(BigInt(proposalDetails.total_deposit[0]?.amount), 18),
       10,
     );
   }, [proposalDetails]);
@@ -246,7 +245,7 @@ export function ProposalDetailsComponent({
     }
 
     return Number.parseInt(
-      formatUnits(govParams.deposit_params.min_deposit[0]?.amount),
+      formatUnits(BigInt(govParams.deposit_params.min_deposit[0]?.amount), 18),
       10,
     );
   }, [govParams]);
@@ -671,6 +670,10 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     useProposalDetailsQuery(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
+
+  if (!proposalDetails && !isFetching) {
+    return <Navigate to="/not-found" replace />;
+  }
 
   return isFetching || !proposalDetails || !govParams ? (
     <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">

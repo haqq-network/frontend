@@ -5,10 +5,7 @@ import {
   useStakingValidatorListQuery,
   useBankSupplyQuery,
 } from '@haqq/shared';
-import {
-  BondStatus,
-  bondStatusFromJSON,
-} from 'cosmjs-types/cosmos/staking/v1beta1/staking';
+import { BondStatus } from '@evmos/proto/dist/proto/cosmos/staking/staking';
 import { Card, CardHeading } from '@haqq/shell-ui-kit';
 
 export function ShellIndexPageChainStats() {
@@ -18,8 +15,8 @@ export function ShellIndexPageChainStats() {
   const { data: bankSupply } = useBankSupplyQuery();
 
   const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.pool.bonded_tokens]);
+    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.bonded_tokens]);
 
   const totalSupply = useMemo(() => {
     return Number.parseInt(bankSupply?.supply[0].amount ?? '0') / 10 ** 18;
@@ -31,8 +28,9 @@ export function ShellIndexPageChainStats() {
 
   const { valsTotal, valsActive } = useMemo(() => {
     const activeVals = validators?.filter((val) => {
-      return bondStatusFromJSON(val.status) === BondStatus.BOND_STATUS_BONDED;
+      return val.status === 'BondStatus.BONDED';
     });
+
     return {
       valsTotal: validators?.length ?? 0,
       valsActive: activeVals?.length ?? 0,

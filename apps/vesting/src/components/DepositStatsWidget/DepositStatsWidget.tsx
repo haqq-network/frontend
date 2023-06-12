@@ -15,7 +15,6 @@ import { Card } from '../Card/Card';
 import { Heading, Text } from '../Typography/Typography';
 import HaqqVestingContract from '../../../HaqqVesting.json';
 import { Spinner } from '../Playground/Playground';
-import { BigNumber } from 'ethers';
 import { Button, DangerButton } from '../Button/Button';
 import { DepositNavigation } from '../DepositNavigation/DepositNavigation';
 import { useNextUnlockDate } from '../../hooks/useNextUnlockDate';
@@ -37,11 +36,11 @@ interface TransferAndWithdrawArgs {
 }
 
 export interface Deposit {
-  locked: BigNumber;
-  unlocked: BigNumber;
-  available: BigNumber;
-  deposited: BigNumber;
-  withdrawn: BigNumber;
+  locked: bigint;
+  unlocked: bigint;
+  available: bigint;
+  deposited: bigint;
+  withdrawn: bigint;
   createdAt: string;
   unlockPeriod: number;
 }

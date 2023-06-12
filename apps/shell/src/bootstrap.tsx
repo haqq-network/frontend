@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { AppProviders, createTendermintClient } from '@haqq/shared';
+import { AppProviders } from '@haqq/shared';
 import { App } from './app/app';
 import { environment } from './environments/environment';
 import { AppWrapper } from './app/app-wrapper';
@@ -21,16 +21,12 @@ if (environment.isProduction) {
 async function startApp() {
   const rootElement = document.getElementById('root');
   const root = createRoot(rootElement as HTMLElement);
-  const tendermintClient = await createTendermintClient({
-    chainName: environment.chainName,
-  });
 
   root.render(
     <AppProviders
-      tendermintClient={tendermintClient}
-      chainName={environment.chainName}
       withReactQueryDevtools={!environment.isProduction}
       walletConnectProjectId={environment.walletConnectProjectId}
+      isProduction={environment.isProduction}
     >
       <AppWrapper>
         <App />
