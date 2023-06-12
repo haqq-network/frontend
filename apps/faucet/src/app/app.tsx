@@ -1,26 +1,41 @@
-import { lazy, ReactElement, Suspense } from 'react';
-import { Footer } from '../components/Footer';
+import { lazy, ReactElement, Suspense, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Header, NotFoundPage, Page, PendingPage } from '@haqq/ui-kit';
-import { ThemeButton } from '@haqq/shared';
+import { Header, Page, NotFoundPage, PendingPage } from '@haqq/shell/ui-kit';
 
 const Faucet = lazy(() => {
   return import('../components/Faucet');
 });
 
 export function App(): ReactElement {
-  return (
-    <Page header={<Header rightSlot={<ThemeButton />} />} footer={<Footer />}>
-      <div className="flex flex-1 flex-col space-y-10 py-10">
-        <Suspense fallback={<PendingPage />}>
-          <Routes>
-            <Route index element={<Faucet />} />
+  const [isBlurred, setBlured] = useState(false);
 
-            <Route path="not-found" element={<NotFoundPage />} />
-            <Route path="*" element={<Navigate to="/not-found" replace />} />
-          </Routes>
-        </Suspense>
-      </div>
+  useEffect(() => {
+    function handleScroll() {
+      const offset = 30;
+      if (window.scrollY > offset) {
+        setBlured(true);
+      } else {
+        setBlured(false);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <Page header={<Header isBlurred={isBlurred} />}>
+      <Suspense fallback={<PendingPage />}>
+        <Routes>
+          <Route index element={<Faucet />} />
+
+          <Route path="not-found" element={<NotFoundPage />} />
+          <Route path="*" element={<Navigate to="/not-found" replace />} />
+        </Routes>
+      </Suspense>
     </Page>
   );
 }

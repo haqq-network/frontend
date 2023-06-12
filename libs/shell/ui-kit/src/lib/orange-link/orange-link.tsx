@@ -4,8 +4,10 @@ import { PropsWithChildren } from 'react';
 export function OrangeLink({
   children,
   className,
+  onClick,
 }: PropsWithChildren<{
   className?: string;
+  onClick?: () => void;
 }>) {
   return (
     <span
@@ -14,6 +16,7 @@ export function OrangeLink({
         'cursor-pointer transition-colors duration-100 ease-out',
         className,
       )}
+      onClick={onClick}
     >
       {children}
     </span>
