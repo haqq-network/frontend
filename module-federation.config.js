@@ -5,7 +5,6 @@ const coreLibraries = new Set([
   'wagmi',
   '@haqq/sentry',
   '@haqq/shared',
-  '@haqq/ui-kit',
   '@haqq/shell/ui-kit',
   '@cosmjs/stargate',
   '@cosmjs/tendermint-rpc',
