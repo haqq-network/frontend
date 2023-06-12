@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAccount, useBalance } from 'wagmi';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   useAddress,
   useStakingValidatorInfoQuery,
@@ -215,25 +215,21 @@ export function ValidatorInfoComponent({
                     validatorInfo.description?.security_contact) && (
                     <div className="flex flex-row gap-[28px]">
                       {validatorInfo.description?.website && (
-                        <div>
-                          <OrangeLink
-                            href={validatorInfo.description?.website}
-                            target="_blank"
-                            rel="noreferrer noreferrer"
-                          >
-                            Website
-                          </OrangeLink>
-                        </div>
+                        <Link
+                          to={validatorInfo.description?.website}
+                          target="_blank"
+                          rel="noreferrer noreferrer"
+                        >
+                          <OrangeLink>Website</OrangeLink>
+                        </Link>
                       )}
 
                       {validatorInfo.description?.security_contact && (
-                        <div>
-                          <OrangeLink
-                            href={`mailto:${validatorInfo.description?.security_contact}`}
-                          >
-                            E-mail
-                          </OrangeLink>
-                        </div>
+                        <Link
+                          to={`mailto:${validatorInfo.description?.security_contact}`}
+                        >
+                          <OrangeLink>E-mail</OrangeLink>
+                        </Link>
                       )}
                     </div>
                   )}

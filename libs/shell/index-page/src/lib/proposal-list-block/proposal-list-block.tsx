@@ -28,12 +28,11 @@ export function ProposalListBlock() {
         <Heading level={3} className="ml-[8px]">
           Latest proposals
         </Heading>
-        <OrangeLink
-          href="/governance"
-          className="ml-[16px] font-serif !text-[12px] uppercase"
-        >
-          Go to Governance
-        </OrangeLink>
+        <Link to="/governance">
+          <OrangeLink className="ml-[16px] font-serif !text-[12px] uppercase">
+            Go to Governance
+          </OrangeLink>
+        </Link>
       </div>
 
       {isFetching || !govParams ? (

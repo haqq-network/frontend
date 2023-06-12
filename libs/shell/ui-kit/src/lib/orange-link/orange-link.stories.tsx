@@ -16,7 +16,6 @@ type Story = StoryObj<typeof OrangeLinkComponent>;
 
 export const OrangeLink: Story = {
   args: {
-    href: '/',
-    children: 'Go to homepage',
+    children: 'Orange link default',
   },
 };
