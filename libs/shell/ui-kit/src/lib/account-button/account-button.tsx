@@ -34,25 +34,41 @@ export function AccountButton({
       )}
 
       {!withoutDropdown && onDisconnectClick ? (
-        <Menu as="div" className="relative z-10 inline-block">
-          <Menu.Button
-            className={clsx(
-              'flex h-full flex-row items-center space-x-[2px] py-[8px] pl-[12px] pr-[8px]',
-              'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
-              'transition-all duration-150 ease-in',
-              'box-border appearance-none outline-none',
-              'appearance-none rounded-[6px] font-sans text-sm font-[500] leading-[24px]',
-            )}
-          >
-            <span>{address}</span>
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
-                fill="currentColor"
-              />
-            </svg>
+        <Menu as="div" className="relative z-10 inline-block h-[40px]">
+          <Menu.Button as={Fragment}>
+            {({ open }) => {
+              return (
+                <button
+                  className={clsx(
+                    'flex h-full flex-row items-center space-x-[2px] py-[8px] pl-[12px] pr-[8px]',
+                    'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
+                    'transition-colors duration-150 ease-in',
+                    'box-border appearance-none outline-none',
+                    'appearance-none rounded-[6px] font-sans text-sm font-[500] leading-[24px]',
+                  )}
+                >
+                  <div className="mt-[-1px]">{address}</div>
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    className={clsx(
+                      'mb-[-2px] ml-[4px] mr-[-6px]',
+                      'transition-[transform] duration-150 ease-in',
+                      open && 'scale-y-[-1]',
+                    )}
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+              );
+            }}
           </Menu.Button>
 
           <Transition

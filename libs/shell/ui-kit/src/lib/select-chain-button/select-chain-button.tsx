@@ -31,7 +31,7 @@ export function SelectChainButton({
                   open && '!text-haqq-black !bg-white',
                 )}
               >
-                <div>{currentChain.name}</div>
+                <div className="mt-[-1px]">{currentChain.name}</div>
                 <svg
                   width="22"
                   height="22"
