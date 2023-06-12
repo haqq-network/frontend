@@ -211,7 +211,7 @@ export function Faucet(): ReactElement {
       <div className="mx-auto my-[58px] max-w-lg">
         <div
           className={clsx(
-            'flex transform-gpu flex-col space-y-[24px] rounded-t-[8px] bg-[#ffffff14] px-[28px] py-[32px]',
+            'flex transform-gpu flex-col gap-y-[32px] rounded-t-[8px] bg-[#ffffff14] p-[32px]',
             !(isAuthenticated && address) && 'rounded-b-[8px]',
           )}
         >

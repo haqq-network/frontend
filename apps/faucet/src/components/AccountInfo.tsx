@@ -61,7 +61,7 @@ export function AccountInfo() {
   }, [copyText, haqqAddress]);
 
   return (
-    <div className="flex flex-row justify-between gap-[16px]">
+    <div className="flex flex-col justify-between gap-[16px]">
       {ethAddress && (
         <div className="flex flex-1 flex-row items-center gap-x-4">
           {/* <div className="h-[40px] w-[40px] leading-[0]">
@@ -69,7 +69,7 @@ export function AccountInfo() {
           </div> */}
 
           <MyAccountCardBlock title="Address">
-            <div className="flex flex-col space-y-[6px] font-sans">
+            <div className="flex gap-[16px] font-sans">
               <div className="flex-1">
                 <Tooltip
                   text={
