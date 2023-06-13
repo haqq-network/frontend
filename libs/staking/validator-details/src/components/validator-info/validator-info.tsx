@@ -52,6 +52,7 @@ import { Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import styles from './validator-info.module.css';
+import { getFormattedAddress } from '@haqq/shared';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
@@ -267,7 +268,7 @@ export function ValidatorInfoComponent({
                       </div>
                       <div
                         className={clsx(
-                          'prose prose-sm max-w-none text-[14px] leading-[22px] text-white',
+                          'prose prose-sm max-w-none text-[12px] leading-[22px] text-white',
                           'prose-a:text-haqq-orange prose-a:hover:text-[#FF8D69] prose-a:transition-colors prose-a:duration-100 prose-a:ease-out',
                           'prose-strong:text-white',
                         )}
@@ -282,7 +283,7 @@ export function ValidatorInfoComponent({
                     <div>
                       <InfoBlock title="Address">
                         <div className="flex w-fit cursor-pointer flex-row items-center space-x-[8px] transition-colors duration-100 ease-out hover:text-white/50">
-                          <div>{validatorInfo.operatorAddress}</div>
+                          <div>{getFormattedAddress(validatorInfo.operatorAddress)}</div>
                           <CopyIcon />
                         </div>
                       </InfoBlock>
@@ -321,7 +322,7 @@ export function ValidatorInfoComponent({
 
       {isTablet && (
         <div className="sticky bottom-0 left-0 right-0 z-30">
-          <div className="transform-gpu bg-[#FFFFFF14]">
+          <div className="transform-gpu bg-[#FFFFFF07] backdrop-blur">
             {isConnected ? (
               <Swiper
                 slidesPerView={1}
