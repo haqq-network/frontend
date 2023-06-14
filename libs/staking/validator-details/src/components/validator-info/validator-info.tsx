@@ -43,6 +43,7 @@ import {
   Container,
   InfoIcon,
   MyAccountBlockMobile,
+  Tooltip,
 } from '@haqq/shell/ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
@@ -279,16 +280,27 @@ export function ValidatorInfoComponent({
                       </div>
                     </div>
                   )}
-                  <div>
-                    <div>
-                      <InfoBlock title="Address">
-                        <div className="flex w-fit cursor-pointer flex-row items-center space-x-[8px] transition-colors duration-100 ease-out hover:text-white/50">
-                          <div>{getFormattedAddress(validatorInfo.operatorAddress)}</div>
-                          <CopyIcon />
-                        </div>
-                      </InfoBlock>
-                    </div>
-                  </div>
+
+                  <InfoBlock title="Address">
+                    <Tooltip
+                      text={
+                        isHaqqAddressCopy
+                          ? 'Copied!'
+                          : `Click to copy ${getFormattedAddress(
+                              validatorInfo.operatorAddress,
+                            )}`
+                      }
+                      className="!-translate-x-[17%]"
+                    >
+                      <div
+                        className="flex w-fit cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50"
+                        onClick={handleHaqqAddressCopy}
+                      >
+                        {getFormattedAddress(validatorInfo.operatorAddress)}
+                        <CopyIcon />
+                      </div>
+                    </Tooltip>
+                  </InfoBlock>
                 </div>
               </div>
               <div className="py-[40px]">

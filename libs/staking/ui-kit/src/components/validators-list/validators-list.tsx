@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ValidatorListItem } from '../validator-list-item/validator-list-item';
 import type {
   DistributionRewardsResponse,
@@ -9,6 +9,8 @@ import { useStakingPoolQuery } from '@haqq/shared';
 import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell/ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
 import { formatUnits } from 'ethers/lib/utils';
+import { randomSort } from '@haqq/staking/utils';
+import clsx from 'clsx';
 
 export function ValidatorListItemMobile({
   validator,
@@ -71,6 +73,13 @@ interface ValidatorListProps {
   onValidatorClick: (validatorAddress: string) => void;
 }
 
+type SortDirection = 'asc' | 'desc' | undefined;
+
+interface SortState {
+  key: string | undefined;
+  direction: SortDirection;
+}
+
 export function ValidatorsListMobile({
   validators,
   rewardsInfo,
@@ -127,13 +136,27 @@ export function ValidatorsListMobile({
   );
 }
 
+function SortDirection({ direction }: { direction: SortDirection }) {
+  if (!direction) {
+    return null;
+  }
+
+  return direction === 'asc' ? <span> ▲</span> : <span> ▼</span>;
+}
+
 export function ValidatorsList({
   validators,
   rewardsInfo,
   delegationInfo,
   onValidatorClick,
 }: ValidatorListProps) {
+  const [sortStates, setSortStates] = useState<SortState>({
+    key: undefined,
+    direction: undefined,
+  });
+
   const { data: stakingPool } = useStakingPoolQuery();
+
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -162,23 +185,249 @@ export function ValidatorsList({
     return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
   }, [stakingPool?.pool.bonded_tokens]);
 
+  const getSortedValidators = useCallback(
+    (state: SortState) => {
+      const sortedValidators: Validator[] = [...validators];
+
+      switch (sortStates.key) {
+        case 'name':
+          sortedValidators.sort((a, b) => {
+            return a.description.moniker.localeCompare(b.description.moniker);
+          });
+          break;
+
+        case 'status':
+          sortedValidators.sort((a, b) => {
+            return a.jailed === b.jailed ? 0 : a.jailed ? 1 : -1;
+          });
+          break;
+
+        case 'fee':
+          sortedValidators.sort((a, b) => {
+            return (
+              parseFloat(a.commission.commission_rates.rate) -
+              parseFloat(b.commission.commission_rates.rate)
+            );
+          });
+          break;
+
+        case 'votingPower':
+          sortedValidators.sort((a, b) => {
+            return parseFloat(b.tokens) - parseFloat(a.tokens);
+          });
+          break;
+
+        case 'votingPowerPercent':
+          sortedValidators.sort((a, b) => {
+            return (
+              (parseFloat(b.tokens) / totalStaked) * 100 -
+              (parseFloat(a.tokens) / totalStaked) * 100
+            );
+          });
+          break;
+
+        case 'staked':
+          sortedValidators.sort((a, b) => {
+            const aDelegation = getDelegationInfo(a.operator_address);
+            const bDelegation = getDelegationInfo(b.operator_address);
+
+            const aAmount = parseFloat(aDelegation?.balance.amount || '0');
+            const bAmount = parseFloat(bDelegation?.balance.amount || '0');
+
+            return bAmount - aAmount;
+          });
+          break;
+
+        case 'reward':
+          sortedValidators.sort((a, b) => {
+            const aRewards = getValidatorRewards(a.operator_address);
+            const bRewards = getValidatorRewards(b.operator_address);
+
+            const aReward = aRewards?.reward[0]?.amount ?? 0;
+            const bReward = bRewards?.reward[0]?.amount ?? 0;
+
+            return Number(bReward) - Number(aReward);
+          });
+          break;
+
+        default:
+          break;
+      }
+
+      if (state.direction === 'desc') {
+        sortedValidators.reverse();
+      }
+
+      return sortedValidators;
+    },
+    [
+      validators,
+      sortStates.key,
+      totalStaked,
+      getDelegationInfo,
+      getValidatorRewards,
+    ],
+  );
+
+  const handleSortClick = useCallback(
+    (key: string) => {
+      setSortStates({
+        key,
+        direction:
+          sortStates.direction === 'asc'
+            ? 'desc'
+            : sortStates.direction === 'desc'
+            ? undefined
+            : 'asc',
+      });
+    },
+
+    [sortStates.direction],
+  );
+
+  const valsToRender = useMemo(() => {
+    const sortedArray =
+      sortStates.key === undefined
+        ? randomSort(validators)
+        : getSortedValidators(sortStates);
+
+    if (sortStates.key !== undefined) {
+      return sortedArray;
+    }
+
+    return [
+      ...sortedArray.filter((val) => {
+        return !val.jailed;
+      }),
+      ...sortedArray.filter((val) => {
+        return val.jailed;
+      }),
+    ];
+  }, [getSortedValidators, sortStates, validators]);
+
   return (
     <table className="w-full table-auto lg:table-fixed">
       <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
         <tr>
-          <th className="p-[8px] text-left lg:p-[12px]">Name</th>
-          <th className="p-[8px] text-left lg:p-[12px]">Status</th>
-          <th className=" p-[8px] text-left lg:p-[12px]">Fee</th>
-          <th className="p-[8px] text-right lg:p-[12px]">Voting power</th>
-          <th className="p-[8px] text-right lg:p-[12px]">Voting power %</th>
-          <th className="p-[8px] text-right lg:p-[12px]">Staked</th>
-          <th className="p-[8px] text-right lg:p-[12px]">Reward</th>
+          <th
+            className={clsx(
+              'cursor-pointer select-none p-[8px] text-left lg:p-[12px]',
+              sortStates.direction !== undefined &&
+                sortStates.key === 'name' &&
+                'text-white',
+            )}
+            onClick={() => {
+              handleSortClick('name');
+            }}
+          >
+            Name
+            {sortStates.key === 'name' && (
+              <SortDirection direction={sortStates.direction} />
+            )}
+          </th>
+          <th
+            className={clsx(
+              'cursor-pointer select-none p-[8px] text-left lg:p-[12px]',
+              sortStates.direction !== undefined &&
+                sortStates.key === 'status' &&
+                'text-white',
+            )}
+            onClick={() => {
+              handleSortClick('status');
+            }}
+          >
+            Status
+            {sortStates.key === 'status' && (
+              <SortDirection direction={sortStates.direction} />
+            )}
+          </th>
+          <th
+            className={clsx(
+              'cursor-pointer select-none p-[8px] text-left lg:p-[12px]',
+              sortStates.direction !== undefined &&
+                sortStates.key === 'fee' &&
+                'text-white',
+            )}
+            onClick={() => {
+              handleSortClick('fee');
+            }}
+          >
+            Fee
+            {sortStates.key === 'fee' && (
+              <SortDirection direction={sortStates.direction} />
+            )}
+          </th>
+          <th
+            className={clsx(
+              'cursor-pointer select-none p-[8px] text-right lg:p-[12px]',
+              sortStates.direction !== undefined &&
+                sortStates.key === 'votingPower' &&
+                'text-white',
+            )}
+            onClick={() => {
+              handleSortClick('votingPower');
+            }}
+          >
+            Voting power
+            {sortStates.key === 'votingPower' && (
+              <SortDirection direction={sortStates.direction} />
+            )}
+          </th>
+          <th
+            className={clsx(
+              'cursor-pointer select-none p-[8px] text-right lg:p-[12px]',
+              sortStates.direction !== undefined &&
+                sortStates.key === 'votingPowerPercent' &&
+                'text-white',
+            )}
+            onClick={() => {
+              handleSortClick('votingPowerPercent');
+            }}
+          >
+            Voting power %
+            {sortStates.key === 'votingPowerPercent' && (
+              <SortDirection direction={sortStates.direction} />
+            )}
+          </th>
+          <th
+            className={clsx(
+              'cursor-pointer select-none p-[8px] text-right lg:p-[12px]',
+              sortStates.direction !== undefined &&
+                sortStates.key === 'staked' &&
+                'text-white',
+            )}
+            onClick={() => {
+              handleSortClick('staked');
+            }}
+          >
+            Staked
+            {sortStates.key === 'staked' && (
+              <SortDirection direction={sortStates.direction} />
+            )}
+          </th>
+          <th
+            className={clsx(
+              'cursor-pointer select-none p-[8px] text-right lg:p-[12px]',
+              sortStates.direction !== undefined &&
+                sortStates.key === 'reward' &&
+                'text-white',
+            )}
+            onClick={() => {
+              handleSortClick('reward');
+            }}
+          >
+            Reward
+            {sortStates.key === 'reward' && (
+              <SortDirection direction={sortStates.direction} />
+            )}
+          </th>
         </tr>
       </thead>
       <tbody>
-        {validators.map((validator, index) => {
+        {valsToRender.map((validator, index) => {
           const delegationInfo = getDelegationInfo(validator.operator_address);
           const rewardsInfo = getValidatorRewards(validator.operator_address);
+          console.log({ rewardsInfo });
 
           return (
             <ValidatorListItem
