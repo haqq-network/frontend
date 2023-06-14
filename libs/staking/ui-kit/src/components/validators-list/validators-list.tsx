@@ -303,7 +303,7 @@ export function ValidatorsList({
         return val.jailed;
       }),
     ];
-  }, [getSortedValidators, sortStates, validators]);
+  }, [sortStates, validators]);
 
   return (
     <table className="w-full table-auto lg:table-fixed">
