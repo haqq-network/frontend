@@ -186,7 +186,7 @@ export function ValidatorsList({
   }, [stakingPool?.pool.bonded_tokens]);
 
   const getSortedValidators = useCallback(
-    (state: SortState) => {
+    (validators: Validator[], state: SortState) => {
       const sortedValidators: Validator[] = [...validators];
 
       switch (sortStates.key) {
@@ -260,13 +260,7 @@ export function ValidatorsList({
 
       return sortedValidators;
     },
-    [
-      validators,
-      sortStates.key,
-      totalStaked,
-      getDelegationInfo,
-      getValidatorRewards,
-    ],
+    [sortStates.key, totalStaked, getDelegationInfo, getValidatorRewards],
   );
 
   const handleSortClick = useCallback(
@@ -289,7 +283,7 @@ export function ValidatorsList({
     const sortedArray =
       sortStates.key === undefined
         ? randomSort(validators)
-        : getSortedValidators(sortStates);
+        : getSortedValidators(validators, sortStates);
 
     if (sortStates.key !== undefined) {
       return sortedArray;
