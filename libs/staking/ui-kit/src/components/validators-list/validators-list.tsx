@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ValidatorListItem } from '../validator-list-item/validator-list-item';
 import type {
   DistributionRewardsResponse,
@@ -155,6 +155,12 @@ export function ValidatorsList({
     direction: undefined,
   });
 
+  const [vals, setVals] = useState<Validator[]>(validators);
+
+  useEffect(() => {
+    setVals(randomSort(validators));
+  }, [validators]);
+
   const { data: stakingPool } = useStakingPoolQuery();
 
   const getValidatorRewards = useCallback(
@@ -280,24 +286,31 @@ export function ValidatorsList({
   );
 
   const valsToRender = useMemo(() => {
-    const sortedArray =
-      sortStates.key === undefined
-        ? randomSort(validators)
-        : getSortedValidators(validators, sortStates);
+    console.log('VALSTOReNDER', vals);
 
-    if (sortStates.key !== undefined) {
-      return sortedArray;
+    const arrString = JSON.stringify(vals);
+    console.log(vals[0]);
+
+    console.log({ arrString });
+
+    if (sortStates.key === undefined) {
+      return vals;
     }
 
-    return [
-      ...sortedArray.filter((val) => {
-        return !val.jailed;
-      }),
-      ...sortedArray.filter((val) => {
-        return val.jailed;
-      }),
-    ];
-  }, [sortStates, validators]);
+    console.log('KKEKKEKEKEKEKEKKEKEKEKEK');
+
+    const sortedArray = getSortedValidators(vals, sortStates);
+    return sortedArray;
+
+    // return [
+    //   ...sortedArray.filter((val) => {
+    //     return !val.jailed;
+    //   }),
+    //   ...sortedArray.filter((val) => {
+    //     return val.jailed;
+    //   }),
+    // ];
+  }, [getSortedValidators, sortStates, vals]);
 
   return (
     <table className="w-full table-auto lg:table-fixed">
@@ -421,7 +434,6 @@ export function ValidatorsList({
         {valsToRender.map((validator, index) => {
           const delegationInfo = getDelegationInfo(validator.operator_address);
           const rewardsInfo = getValidatorRewards(validator.operator_address);
-          console.log({ rewardsInfo });
 
           return (
             <ValidatorListItem

@@ -32,6 +32,8 @@ function SelectWalletModal({
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
 
+  console.log({ connectors });
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div

@@ -53,8 +53,10 @@ export function StakingValidatorList() {
     error,
     status,
   } = useStakingValidatorListQuery(1000);
-  const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-  const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const { data: rewardsInfo, isLoading: isRewardsInfoLoading } =
+    useStakingRewardsQuery(haqqAddress);
+  const { data: delegationInfo, isLoading: isDelegationsInfoLoading } =
+    useStakingDelegationQuery(haqqAddress);
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
   });
@@ -124,16 +126,18 @@ export function StakingValidatorList() {
         </div>
 
         <div>
-          {status === 'loading' && (
-            <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
-              <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
-                <SpinnerLoader />
-                <div className="font-sans text-[10px] uppercase leading-[1.2em]">
-                  Fetching validators list
+          {status === 'loading' &&
+            isRewardsInfoLoading &&
+            isDelegationsInfoLoading && (
+              <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
+                <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
+                  <SpinnerLoader />
+                  <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+                    Fetching validators list
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
           {status === 'error' && <p>Error: {error.message}</p>}
           {status === 'success' && (
             <div>
