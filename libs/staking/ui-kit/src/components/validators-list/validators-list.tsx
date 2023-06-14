@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ValidatorListItem } from '../validator-list-item/validator-list-item';
 import type {
   DistributionRewardsResponse,
@@ -9,6 +9,7 @@ import { useStakingPoolQuery } from '@haqq/shared';
 import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell/ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
 import { formatUnits } from 'ethers/lib/utils';
+import { randomSort } from '@haqq/staking/utils';
 
 export function ValidatorListItemMobile({
   validator,
@@ -69,6 +70,43 @@ interface ValidatorListProps {
   rewardsInfo: DistributionRewardsResponse | null | undefined;
   delegationInfo: GetDelegationsResponse | null | undefined;
   onValidatorClick: (validatorAddress: string) => void;
+}
+
+type SortDirection = 'asc' | 'desc' | 'default';
+
+type SortType =
+  | 'name'
+  | 'status'
+  | 'fee'
+  | 'votingPower'
+  | 'votingPowerPercent'
+  | 'staked'
+  | 'reward';
+
+type SortStates = {
+  [key in SortType]: SortDirection;
+};
+
+function shuffleValidators(arr: Validator[]): Validator[] {
+  const shuffledArray = [...arr];
+  const activeItems = shuffledArray.filter((item) => {
+    return !item.jailed;
+  });
+  const jailedItems = shuffledArray.filter((item) => {
+    return item.jailed;
+  });
+
+  const sortedArray = [...activeItems, ...jailedItems];
+
+  for (let i = sortedArray.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [sortedArray[i], sortedArray[randomIndex]] = [
+      sortedArray[randomIndex],
+      sortedArray[i],
+    ];
+  }
+
+  return sortedArray;
 }
 
 export function ValidatorsListMobile({
@@ -133,6 +171,19 @@ export function ValidatorsList({
   delegationInfo,
   onValidatorClick,
 }: ValidatorListProps) {
+  const [valsState, setValidators] = useState(validators);
+  const [sortStates, setSortStates] = useState<{
+    [key in SortType]: SortDirection;
+  }>({
+    name: 'default',
+    status: 'default',
+    fee: 'default',
+    votingPower: 'default',
+    votingPowerPercent: 'default',
+    staked: 'default',
+    reward: 'default',
+  });
+
   const { data: stakingPool } = useStakingPoolQuery();
   const getValidatorRewards = useCallback(
     (address: string) => {
@@ -162,23 +213,195 @@ export function ValidatorsList({
     return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
   }, [stakingPool?.pool.bonded_tokens]);
 
+  const handleSortClick = useCallback(
+    (sortBy: SortType) => {
+      const newSortStates: SortStates = { ...sortStates };
+
+      Object.keys(newSortStates).forEach((key) => {
+        if (key !== sortBy) {
+          newSortStates[key as SortType] = 'default';
+        }
+      });
+
+      if (newSortStates[sortBy as SortType] === 'asc') {
+        newSortStates[sortBy as SortType] = 'desc';
+      } else if (newSortStates[sortBy as SortType] === 'desc') {
+        newSortStates[sortBy as SortType] = 'default';
+      } else {
+        newSortStates[sortBy as SortType] = 'asc';
+      }
+
+      const sortedValidators: Validator[] = [...validators];
+
+      if (newSortStates[sortBy as SortType] !== 'default') {
+        switch (sortBy) {
+          case 'name':
+            sortedValidators.sort((a, b) => {
+              return a.description.moniker.localeCompare(b.description.moniker);
+            });
+            break;
+
+          case 'status':
+            sortedValidators.sort((a, b) => {
+              return a.jailed === b.jailed ? 0 : a.jailed ? 1 : -1;
+            });
+            break;
+
+          case 'fee':
+            sortedValidators.sort((a, b) => {
+              return (
+                parseFloat(a.commission.commission_rates.rate) -
+                parseFloat(b.commission.commission_rates.rate)
+              );
+            });
+            break;
+
+          case 'votingPower':
+            sortedValidators.sort((a, b) => {
+              return parseFloat(b.tokens) - parseFloat(a.tokens);
+            });
+            break;
+
+          case 'votingPowerPercent':
+            sortedValidators.sort((a, b) => {
+              return (
+                (parseFloat(b.tokens) / totalStaked) * 100 -
+                (parseFloat(a.tokens) / totalStaked) * 100
+              );
+            });
+            break;
+
+          case 'staked':
+            sortedValidators.sort((a, b) => {
+              const aDelegation = getDelegationInfo(a.operator_address);
+              const bDelegation = getDelegationInfo(b.operator_address);
+
+              const aAmount = parseFloat(aDelegation?.balance.amount || '0');
+              const bAmount = parseFloat(bDelegation?.balance.amount || '0');
+
+              return bAmount - aAmount;
+            });
+            break;
+
+          case 'reward':
+            sortedValidators.sort((a, b) => {
+              const aRewards = getValidatorRewards(a.operator_address);
+              const bRewards = getValidatorRewards(b.operator_address);
+
+              const aReward = aRewards?.reward[0]?.amount ?? 0;
+              const bReward = bRewards?.reward[0]?.amount ?? 0;
+
+              return Number(bReward) - Number(aReward);
+            });
+            break;
+
+          default:
+            break;
+        }
+
+        if (newSortStates[sortBy as SortType] === 'desc') {
+          sortedValidators.reverse();
+        }
+      }
+
+      setSortStates(newSortStates);
+      setValidators(sortedValidators);
+    },
+    [
+      sortStates,
+      validators,
+      totalStaked,
+      getDelegationInfo,
+      getValidatorRewards,
+    ],
+  );
+
+  useEffect(() => {
+    const shuffledValidators = randomSort(validators);
+    setValidators(shuffledValidators);
+  }, [validators]);
+
   return (
     <table className="w-full table-auto lg:table-fixed">
       <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
         <tr>
-          <th className="p-[8px] text-left lg:p-[12px]">Name</th>
-          <th className="p-[8px] text-left lg:p-[12px]">Status</th>
-          <th className=" p-[8px] text-left lg:p-[12px]">Fee</th>
-          <th className="p-[8px] text-right lg:p-[12px]">Voting power</th>
-          <th className="p-[8px] text-right lg:p-[12px]">Voting power %</th>
-          <th className="p-[8px] text-right lg:p-[12px]">Staked</th>
-          <th className="p-[8px] text-right lg:p-[12px]">Reward</th>
+          <th
+            className="p-[8px] text-left lg:p-[12px]"
+            onClick={() => {
+              return handleSortClick('name');
+            }}
+          >
+            Name
+            {sortStates['name'] === 'asc' && ' ▲'}
+            {sortStates['name'] === 'desc' && ' ▼'}
+          </th>
+          <th
+            className="p-[8px] text-left lg:p-[12px]"
+            onClick={() => {
+              return handleSortClick('status');
+            }}
+          >
+            Status
+            {sortStates['status'] === 'asc' && ' ▲'}
+            {sortStates['status'] === 'desc' && ' ▼'}
+          </th>
+          <th
+            className="p-[8px] text-left lg:p-[12px]"
+            onClick={() => {
+              return handleSortClick('fee');
+            }}
+          >
+            Fee
+            {sortStates['fee'] === 'asc' && ' ▲'}
+            {sortStates['fee'] === 'desc' && ' ▼'}
+          </th>
+          <th
+            className="p-[8px] text-right lg:p-[12px]"
+            onClick={() => {
+              return handleSortClick('votingPower');
+            }}
+          >
+            {sortStates['votingPower'] === 'asc' && ' ▲'}
+            {sortStates['votingPower'] === 'desc' && ' ▼'}
+            Voting power
+          </th>
+          <th
+            className="p-[8px] text-right lg:p-[12px]"
+            onClick={() => {
+              return handleSortClick('votingPowerPercent');
+            }}
+          >
+            {sortStates['votingPowerPercent'] === 'asc' && ' ▲'}
+            {sortStates['votingPowerPercent'] === 'desc' && ' ▼'}
+            Voting power %
+          </th>
+          <th
+            className="p-[8px] text-right lg:p-[12px]"
+            onClick={() => {
+              return handleSortClick('staked');
+            }}
+          >
+            {sortStates['staked'] === 'asc' && ' ▲'}
+            {sortStates['staked'] === 'desc' && ' ▼'}
+            Staked
+          </th>
+          <th
+            className="p-[8px] text-right lg:p-[12px]"
+            onClick={() => {
+              return handleSortClick('reward');
+            }}
+          >
+            {sortStates['reward'] === 'asc' && ' ▲'}
+            {sortStates['reward'] === 'desc' && ' ▼'}
+            Reward
+          </th>
         </tr>
       </thead>
       <tbody>
-        {validators.map((validator, index) => {
+        {valsState.map((validator, index) => {
           const delegationInfo = getDelegationInfo(validator.operator_address);
           const rewardsInfo = getValidatorRewards(validator.operator_address);
+          console.log({ rewardsInfo });
 
           return (
             <ValidatorListItem
