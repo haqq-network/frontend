@@ -286,17 +286,26 @@ export function ValidatorInfoComponent({
                       text={
                         isHaqqAddressCopy
                           ? 'Copied!'
-                          : `Click to copy ${getFormattedAddress(
-                              validatorInfo.operatorAddress,
-                            )}`
+                          : `Click to copy ${
+                              isTablet
+                                ? getFormattedAddress(
+                                    validatorInfo.operatorAddress,
+                                    12,
+                                  )
+                                : validatorInfo.operatorAddress
+                            }`
                       }
-                      className="!-translate-x-[17%]"
                     >
                       <div
                         className="flex w-fit cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50"
                         onClick={handleHaqqAddressCopy}
                       >
-                        {getFormattedAddress(validatorInfo.operatorAddress)}
+                        {isTablet
+                          ? getFormattedAddress(
+                              validatorInfo.operatorAddress,
+                              12,
+                            )
+                          : validatorInfo.operatorAddress}
                         <CopyIcon />
                       </div>
                     </Tooltip>
