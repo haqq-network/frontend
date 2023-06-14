@@ -155,7 +155,7 @@ export function ValidatorsList({
     direction: undefined,
   });
 
-  const [vals, setVals] = useState<Validator[]>(validators);
+  const [vals, setVals] = useState<Validator[]>([]);
 
   useEffect(() => {
     setVals(randomSort(validators));
@@ -286,30 +286,19 @@ export function ValidatorsList({
   );
 
   const valsToRender = useMemo(() => {
-    console.log('VALSTOReNDER', vals);
+    const resultVals =
+      sortStates.key === undefined
+        ? vals
+        : getSortedValidators(vals, sortStates);
 
-    const arrString = JSON.stringify(vals);
-    console.log(vals[0]);
-
-    console.log({ arrString });
-
-    if (sortStates.key === undefined) {
-      return vals;
-    }
-
-    console.log('KKEKKEKEKEKEKEKKEKEKEKEK');
-
-    const sortedArray = getSortedValidators(vals, sortStates);
-    return sortedArray;
-
-    // return [
-    //   ...sortedArray.filter((val) => {
-    //     return !val.jailed;
-    //   }),
-    //   ...sortedArray.filter((val) => {
-    //     return val.jailed;
-    //   }),
-    // ];
+    return [
+      ...resultVals.filter((val) => {
+        return !val.jailed;
+      }),
+      ...resultVals.filter((val) => {
+        return val.jailed;
+      }),
+    ];
   }, [getSortedValidators, sortStates, vals]);
 
   return (
@@ -335,12 +324,12 @@ export function ValidatorsList({
           <th
             className={clsx(
               'cursor-pointer select-none p-[8px] text-left lg:p-[12px]',
-              sortStates.direction !== undefined &&
-                sortStates.key === 'status' &&
-                'text-white',
+              // sortStates.direction !== undefined &&
+              //   sortStates.key === 'status' &&
+              //   'text-white',
             )}
             onClick={() => {
-              handleSortClick('status');
+              // handleSortClick('status');
             }}
           >
             Status
