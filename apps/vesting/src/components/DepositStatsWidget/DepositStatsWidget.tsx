@@ -91,7 +91,7 @@ function useDepositContract({
   address: `0x${string}`;
   contractAddress: `0x${string}`;
   depositId: bigint;
-}) {
+}): Deposit | undefined {
   const publicClient = usePublicClient();
   const { data: depositContract, isLoading: isLoadingDepositContract } =
     useContractRead({
@@ -251,7 +251,9 @@ function DepositHooked({
     contractAddress,
     depositId: currentDeposit,
   });
-  console.log({ deposit });
+  if (!deposit) {
+    return null;
+  }
 
   return (
     <Fragment>
@@ -307,36 +309,29 @@ export function DepositInfo({
         value={`${Number.parseInt(
           formatEther(deposit.deposited),
           10,
-        ).toLocaleString()} ${symbol}`}
+        ).toLocaleString()} ${symbol.toLocaleUpperCase()}`}
       />
       <DepositInfoStatsRow
         label="Locked"
         value={`${Number.parseInt(
           formatEther(deposit.locked),
           10,
-        ).toLocaleString()} ${symbol}`}
+        ).toLocaleString()} ${symbol.toLocaleUpperCase()}`}
       />
       <DepositInfoStatsRow
         label="Unlocked"
         value={`${Number.parseInt(
           formatEther(deposit.unlocked),
           10,
-        ).toLocaleString()} ${symbol}`}
+        ).toLocaleString()} ${symbol.toLocaleUpperCase()}`}
       />
       <DepositInfoStatsRow
         label="Withdrawn"
         value={`${Number.parseInt(
           formatEther(deposit.withdrawn),
           10,
-        ).toLocaleString()} ${symbol}`}
+        ).toLocaleString()} ${symbol.toLocaleUpperCase()}`}
       />
-      {/* <DepositInfoStatsRow
-        label="Available"
-        value={`${Number.parseInt(
-          formatEther(deposit.available),
-          10,
-        ).toLocaleString()} ${symbol}`}
-      /> */}
       <NextDepositUnlock
         createdAt={deposit.createdAt}
         period={Number(deposit.unlockPeriod)}
@@ -416,7 +411,7 @@ function Withdraw({
         <div className="flex flex-col">
           <div>
             <Text bold>
-              {formatEther(deposit.unlocked)} {symbol}
+              {formatEther(deposit.unlocked)} {symbol.toLocaleUpperCase()}
             </Text>
             have been withdrawn on your account
           </div>
@@ -546,7 +541,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
               </Text>
               <Text>
                 Once it&apos;s done, <Text bold>{address}</Text> won&apos;t be
-                able to withdraw {symbol} from this deposit.
+                able to withdraw {symbol.toLocaleUpperCase()} from this deposit.
               </Text>
               <Text>Are you sure you want to do this?</Text>
             </div>
