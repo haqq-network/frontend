@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ValidatorListItem } from '../validator-list-item/validator-list-item';
 import type {
   DistributionRewardsResponse,
@@ -156,6 +156,7 @@ export function ValidatorsList({
   });
 
   const { data: stakingPool } = useStakingPoolQuery();
+
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -285,11 +286,23 @@ export function ValidatorsList({
   );
 
   const valsToRender = useMemo(() => {
-    if (sortStates.key === undefined) {
-      return randomSort(validators);
+    const sortedArray =
+      sortStates.key === undefined
+        ? randomSort(validators)
+        : getSortedValidators(sortStates);
+
+    if (sortStates.key !== undefined) {
+      return sortedArray;
     }
 
-    return getSortedValidators(sortStates);
+    return [
+      ...sortedArray.filter((val) => {
+        return !val.jailed;
+      }),
+      ...sortedArray.filter((val) => {
+        return val.jailed;
+      }),
+    ];
   }, [getSortedValidators, sortStates, validators]);
 
   return (
