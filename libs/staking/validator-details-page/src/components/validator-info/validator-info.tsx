@@ -181,7 +181,7 @@ export function ValidatorInfoComponent({
       await copyText(validatorInfo.operator_address);
       setHaqqAddressCopy(true);
     }
-  }, [validatorInfo.operator_address]);
+  }, [copyText, validatorInfo.operator_address]);
 
   return (
     <Fragment>

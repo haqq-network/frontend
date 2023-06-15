@@ -153,7 +153,7 @@ function HeaderButtons({
               {ethAddress && (
                 <AccountButton
                   balance={balance}
-                  address={ethAddress}
+                  address={getFormattedAddress(ethAddress, 3, 2)}
                   onDisconnectClick={disconnect}
                   withoutDropdown
                 />
