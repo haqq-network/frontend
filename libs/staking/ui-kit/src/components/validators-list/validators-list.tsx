@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ValidatorListItem } from '../validator-list-item/validator-list-item';
 import type {
   DistributionRewardsResponse,
@@ -141,7 +141,7 @@ function SortDirection({ direction }: { direction: SortDirection }) {
     return null;
   }
 
-  return direction === 'asc' ? <span> ▲</span> : <span> ▼</span>;
+  return direction === 'asc' ? <span> ▼</span> : <span> ▲</span>;
 }
 
 export function ValidatorsList({
@@ -154,6 +154,12 @@ export function ValidatorsList({
     key: undefined,
     direction: undefined,
   });
+
+  const [vals, setVals] = useState<Validator[]>([]);
+
+  useEffect(() => {
+    setVals(randomSort(validators));
+  }, [validators]);
 
   const { data: stakingPool } = useStakingPoolQuery();
 
@@ -186,7 +192,7 @@ export function ValidatorsList({
   }, [stakingPool?.pool.bonded_tokens]);
 
   const getSortedValidators = useCallback(
-    (state: SortState) => {
+    (validators: Validator[], state: SortState) => {
       const sortedValidators: Validator[] = [...validators];
 
       switch (sortStates.key) {
@@ -260,50 +266,48 @@ export function ValidatorsList({
 
       return sortedValidators;
     },
-    [
-      validators,
-      sortStates.key,
-      totalStaked,
-      getDelegationInfo,
-      getValidatorRewards,
-    ],
+    [sortStates.key, totalStaked, getDelegationInfo, getValidatorRewards],
   );
+  const handleSortClick = useCallback((key: string) => {
+    setSortStates((prev) => {
+      let newDirection: SortDirection;
 
-  const handleSortClick = useCallback(
-    (key: string) => {
-      setSortStates({
-        key,
-        direction:
-          sortStates.direction === 'asc'
+      if (prev.key === key) {
+        newDirection =
+          prev.direction === 'asc'
             ? 'desc'
-            : sortStates.direction === 'desc'
+            : prev.direction === 'desc'
             ? undefined
-            : 'asc',
-      });
-    },
+            : 'asc';
+      } else {
+        newDirection = 'asc';
+      }
 
-    [sortStates.direction],
-  );
+      return {
+        key: newDirection === undefined ? undefined : key,
+        direction: newDirection,
+      };
+    });
+  }, []);
 
   const valsToRender = useMemo(() => {
-    const sortedArray =
-      sortStates.key === undefined
-        ? randomSort(validators)
-        : getSortedValidators(sortStates);
+    let resultVals: Validator[];
 
-    if (sortStates.key !== undefined) {
-      return sortedArray;
+    if (sortStates.key === undefined) {
+      resultVals = vals;
+    } else {
+      resultVals = getSortedValidators(vals, sortStates);
     }
 
     return [
-      ...sortedArray.filter((val) => {
+      ...resultVals.filter((val) => {
         return !val.jailed;
       }),
-      ...sortedArray.filter((val) => {
+      ...resultVals.filter((val) => {
         return val.jailed;
       }),
     ];
-  }, [getSortedValidators, sortStates, validators]);
+  }, [getSortedValidators, sortStates, vals]);
 
   return (
     <table className="w-full table-auto lg:table-fixed">
@@ -325,17 +329,7 @@ export function ValidatorsList({
               <SortDirection direction={sortStates.direction} />
             )}
           </th>
-          <th
-            className={clsx(
-              'cursor-pointer select-none p-[8px] text-left lg:p-[12px]',
-              sortStates.direction !== undefined &&
-                sortStates.key === 'status' &&
-                'text-white',
-            )}
-            onClick={() => {
-              handleSortClick('status');
-            }}
-          >
+          <th className="cursor-pointer select-none p-[8px] text-left lg:p-[12px]">
             Status
             {sortStates.key === 'status' && (
               <SortDirection direction={sortStates.direction} />
@@ -427,7 +421,6 @@ export function ValidatorsList({
         {valsToRender.map((validator, index) => {
           const delegationInfo = getDelegationInfo(validator.operator_address);
           const rewardsInfo = getValidatorRewards(validator.operator_address);
-          console.log({ rewardsInfo });
 
           return (
             <ValidatorListItem
