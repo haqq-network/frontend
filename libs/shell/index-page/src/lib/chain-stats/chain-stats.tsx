@@ -7,12 +7,16 @@ import {
 } from '@haqq/shared';
 import { BondStatus } from '@evmos/proto/dist/proto/cosmos/staking/staking';
 import { Card, CardHeading } from '@haqq/shell-ui-kit';
+import { useNetwork } from 'wagmi';
 
 export function ShellIndexPageChainStats() {
   const { data: stakingPool } = useStakingPoolQuery();
   const { data: validators } = useStakingValidatorListQuery();
   const { data: accounts } = useAuthAccountsQuery();
   const { data: bankSupply } = useBankSupplyQuery();
+  const { chain, chains } = useNetwork();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   const totalStaked = useMemo(() => {
     return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
@@ -44,7 +48,7 @@ export function ShellIndexPageChainStats() {
           <CardHeading>Total supply</CardHeading>
           <div className="text-2xl font-semibold leading-normal">
             {totalSupply.toLocaleString()}{' '}
-            <span className="text-base">ISLM</span>
+            <span className="text-base">{symbol.toLocaleUpperCase()}</span>
           </div>
         </div>
         <div>
@@ -53,7 +57,7 @@ export function ShellIndexPageChainStats() {
           </CardHeading>
           <div className="text-2xl font-semibold leading-normal">
             {totalStaked.toLocaleString()}{' '}
-            <span className="text-base">ISLM</span>
+            <span className="text-base">{symbol.toLocaleUpperCase()}</span>
           </div>
         </div>
         <div>

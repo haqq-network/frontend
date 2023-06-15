@@ -21,21 +21,21 @@ export function AppProviders({
 }>) {
   return (
     <ConfigProvider isStandalone={isStandalone}>
-      <BrowserRouter>
-        <WagmiProvider
-          walletConnectProjectId={walletConnectProjectId}
-          isProduction={isProduction}
-        >
-          <WalletProvider>
-            <CosmosProvider>
-              <ReactQueryProvider withDevtools={withReactQueryDevtools}>
+      <ReactQueryProvider withDevtools={withReactQueryDevtools}>
+        <BrowserRouter>
+          <WagmiProvider
+            walletConnectProjectId={walletConnectProjectId}
+            isProduction={isProduction}
+          >
+            <WalletProvider>
+              <CosmosProvider>
                 {children}
                 <Toaster />
-              </ReactQueryProvider>
-            </CosmosProvider>
-          </WalletProvider>
-        </WagmiProvider>
-      </BrowserRouter>
+              </CosmosProvider>
+            </WalletProvider>
+          </WagmiProvider>
+        </BrowserRouter>
+      </ReactQueryProvider>
     </ConfigProvider>
   );
 }

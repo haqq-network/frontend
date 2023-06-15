@@ -9,10 +9,14 @@ import {
   ProposalsIcon,
   SpinnerLoader,
 } from '@haqq/shell-ui-kit';
+import { useNetwork } from 'wagmi';
 
 export function ProposalListBlock() {
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
+  const { chain, chains } = useNetwork();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
       return [];
@@ -50,7 +54,11 @@ export function ProposalListBlock() {
                 to={`governance/proposal/${proposal.proposal_id}`}
                 key={proposal.proposal_id}
               >
-                <ProposalListCard proposal={proposal} govParams={govParams} />
+                <ProposalListCard
+                  proposal={proposal}
+                  govParams={govParams}
+                  symbol={symbol}
+                />
               </Link>
             );
           })}

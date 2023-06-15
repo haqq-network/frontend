@@ -1,5 +1,5 @@
 import { Fragment, useMemo } from 'react';
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount, useBalance, useNetwork } from 'wagmi';
 import { AccountWidget } from '../components/AccountWidget/AccountWidget';
 import { DepositStatsWidget } from '../components/DepositStatsWidget/DepositStatsWidget';
 import { Container } from '../components/Layout/Layout';
@@ -10,6 +10,7 @@ import { DepositWithdrawalList } from '../components/DepositWithdrawalList/Depos
 export function AccountPage() {
   const { isConnected } = useAccount();
   const { ethAddress, haqqAddress } = useAddress();
+  const { chain, chains } = useNetwork();
   const { data: balance } = useBalance({
     address: ethAddress,
     watch: true,
@@ -21,9 +22,16 @@ export function AccountPage() {
       ethAddress: ethAddress ?? '',
       haqqAddress: haqqAddress ?? '',
       balance: balance ? Number.parseFloat(balance.formatted) : 0,
-      symbol: 'ISLM',
+      symbol: chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol,
     };
-  }, [balance, ethAddress, haqqAddress, isConnected]);
+  }, [
+    balance,
+    chain?.nativeCurrency.symbol,
+    chains,
+    ethAddress,
+    haqqAddress,
+    isConnected,
+  ]);
 
   return (
     <Container className="flex flex-col space-y-12 py-8 sm:py-20">

@@ -7,9 +7,11 @@ import { GetGovernanceParamsResponse } from '@haqq/shared';
 export function ProposalListCard({
   proposal,
   govParams,
+  symbol,
 }: {
   proposal: Proposal;
   govParams: GetGovernanceParamsResponse;
+  symbol: string;
 }): ReactElement {
   const totalDeposit = useMemo(() => {
     if (!proposal.total_deposit[0]) {
@@ -41,6 +43,7 @@ export function ProposalListCard({
       totalDeposit={totalDeposit}
       minDeposit={minDeposit}
       results={proposal.final_tally_result}
+      symbol={symbol}
     />
   );
 }

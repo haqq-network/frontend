@@ -45,7 +45,7 @@ import {
   // ProposalDepositModal,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount, useBalance, useNetwork } from 'wagmi';
 import { formatUnits } from 'viem/utils';
 
 const enum ProposalTypes {
@@ -135,10 +135,12 @@ function ProposalDetailsMobile({
   proposalDetails,
   totalDeposit,
   minDeposit,
+  symbol,
 }: {
   proposalDetails: Proposal;
   totalDeposit: number;
   minDeposit: number;
+  symbol: string;
 }) {
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
@@ -160,6 +162,7 @@ function ProposalDetailsMobile({
                 <ProposalDepositProgress
                   totalDeposit={totalDeposit}
                   minDeposit={minDeposit}
+                  symbol={symbol}
                 />
               </div>
             )}
@@ -312,6 +315,7 @@ export function ProposalDetailsComponent({
                       proposalDetails={proposalDetails}
                       totalDeposit={totalDeposit}
                       minDeposit={minDeposit}
+                      symbol={symbol}
                     />
                   </div>
                 )}
@@ -522,6 +526,7 @@ export function ProposalDetailsComponent({
                       <ProposalDepositProgress
                         totalDeposit={totalDeposit}
                         minDeposit={minDeposit}
+                        symbol={symbol}
                       />
                     </div>
                   )}
@@ -670,6 +675,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     useProposalDetailsQuery(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
+  const { chain, chains } = useNetwork();
 
   if (!proposalDetails && !isFetching) {
     return <Navigate to="/not-found" replace />;
@@ -684,7 +690,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     </div>
   ) : (
     <ProposalDetailsComponent
-      symbol="ISLM"
+      symbol={chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol}
       isWalletConnected={Boolean(ethAddress && haqqAddress)}
       proposalDetails={proposalDetails}
       govParams={govParams}
@@ -833,6 +839,9 @@ export function DepositActionsDesktop({
       onDepositSubmit(depositAmount);
     }
   }, [depositAmount, onDepositSubmit]);
+  const { chain, chains } = useNetwork();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   return (
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
@@ -841,7 +850,7 @@ export function DepositActionsDesktop({
           Enter the amount you want to deposit
         </CardHeading>
         <div className="text-[12px] font-[500] leading-[18px] text-white/50">
-          You balance: {balance.toLocaleString()} ISLM
+          You balance: {balance.toLocaleString()} {symbol.toLocaleUpperCase()}
         </div>
       </div>
       <div>

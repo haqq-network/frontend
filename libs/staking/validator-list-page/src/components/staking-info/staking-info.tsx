@@ -8,7 +8,7 @@ import {
 } from '@haqq/shared';
 import { RewardsInfo, StakingInfoAmountBlock } from '@haqq/staking/ui-kit';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useBalance } from 'wagmi';
+import { useBalance, useNetwork } from 'wagmi';
 import { useCosmosProvider } from '@haqq/shared';
 import { Button, Container, Heading, WalletIcon } from '@haqq/shell-ui-kit';
 
@@ -101,6 +101,9 @@ export function StakingInfo() {
   const { openSelectWallet } = useWallet();
   const { isReady } = useCosmosProvider();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
+  const { chain, chains } = useNetwork();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   if (!isWalletConnected) {
     return (
@@ -143,7 +146,7 @@ export function StakingInfo() {
                   <StakingInfoAmountBlock
                     title="Available"
                     value="---"
-                    symbol="ISLM"
+                    symbol={symbol}
                   />
                 </div>
 
@@ -151,7 +154,7 @@ export function StakingInfo() {
                   <StakingInfoAmountBlock
                     title="Staked"
                     value="---"
-                    symbol="ISLM"
+                    symbol={symbol}
                   />
                 </div>
 
@@ -159,7 +162,7 @@ export function StakingInfo() {
                   <StakingInfoAmountBlock
                     title="Unbounded"
                     value="---"
-                    symbol="ISLM"
+                    symbol={symbol}
                   />
                 </div>
 
@@ -167,7 +170,7 @@ export function StakingInfo() {
                   <StakingInfoAmountBlock
                     title="Rewards"
                     value="---"
-                    symbol="ISLM"
+                    symbol={symbol}
                     isGreen
                   />
                 </div>

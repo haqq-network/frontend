@@ -536,14 +536,13 @@ export function CosmosServiceContainer({
 export function CosmosProvider({ children }: PropsWithChildren) {
   const { chain, chains } = useNetwork();
 
+  const chainId =
+    chain && chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0]?.id;
+
   return (
-    <CosmosServiceContainer
-      chainId={
-        chain && Boolean(chain?.unsupported !== undefined && !chain.unsupported)
-          ? chain.id
-          : chains[0].id
-      }
-    >
+    <CosmosServiceContainer chainId={chainId}>
       {children}
     </CosmosServiceContainer>
   );

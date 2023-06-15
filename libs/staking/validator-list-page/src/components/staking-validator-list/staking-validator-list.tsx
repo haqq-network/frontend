@@ -237,9 +237,7 @@ function ValidatorsListMobileTabs({
 }
 
 export function ValidatorList() {
-  const { ethAddress, haqqAddress } = useAddress();
   const { isReady } = useCosmosProvider();
-  const isWalletConnected = Boolean(ethAddress && haqqAddress);
 
   return (
     <Container className="py-[52px] sm:py-[60px] lg:py-[80px]">
@@ -250,11 +248,7 @@ export function ValidatorList() {
             Validators
           </Heading>
         </div>
-        {isWalletConnected && isReady ? (
-          <StakingValidatorList />
-        ) : (
-          <ValidatorListSkeleton />
-        )}
+        {isReady ? <StakingValidatorList /> : <ValidatorListSkeleton />}
       </div>
     </Container>
   );

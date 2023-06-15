@@ -10,12 +10,14 @@ export function MyAccountBlockDesktop({
   unbounded,
   totalRewards,
   delegated,
+  symbol,
 }: {
   onRewardsClaim: () => void;
   balance: number;
   unbounded: number;
   totalRewards: number;
   delegated: number;
+  symbol: string;
 }) {
   const [isInfoShown, setInfoShown] = useState(false);
 
@@ -65,7 +67,7 @@ export function MyAccountBlockDesktop({
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 3,
                   })}{' '}
-                  ISLM
+                  {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
               <div>
@@ -74,7 +76,7 @@ export function MyAccountBlockDesktop({
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 3,
                   })}{' '}
-                  ISLM
+                  {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
               <div>
@@ -83,7 +85,7 @@ export function MyAccountBlockDesktop({
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 3,
                   })}{' '}
-                  ISLM
+                  {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
               <div>
@@ -92,7 +94,7 @@ export function MyAccountBlockDesktop({
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 3,
                   })}{' '}
-                  ISLM
+                  {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
             </div>

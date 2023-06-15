@@ -126,7 +126,7 @@ export function UndelegateModal({
               <div className="flex flex-col gap-[16px]">
                 <div>
                   <ModalInput
-                    symbol="ISLM"
+                    symbol={symbol}
                     value={undelegateAmount}
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}

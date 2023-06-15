@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useBalance } from 'wagmi';
+import { useBalance, useNetwork } from 'wagmi';
 import {
   useAddress,
   useClipboard,
@@ -19,6 +19,9 @@ export function ShellIndexPageAccountInfo() {
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
+  const { chain, chains } = useNetwork();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   const balance = useMemo(() => {
     if (!balanceData) {
@@ -127,7 +130,7 @@ export function ShellIndexPageAccountInfo() {
         <div>
           <CardHeading>Balance</CardHeading>
           <div className="mb-[-10px] font-serif text-[42px] font-[500] leading-[1.25]">
-            {balance.value.toLocaleString()} ISLM
+            {balance.value.toLocaleString()} {symbol.toLocaleUpperCase()}
           </div>
         </div>
       )}
@@ -135,14 +138,16 @@ export function ShellIndexPageAccountInfo() {
       <div>
         <CardHeading>Staked</CardHeading>
         <div className="text-2xl font-semibold leading-normal">
-          {delegation.toLocaleString()} <span className="text-base">ISLM</span>
+          {delegation.toLocaleString()}{' '}
+          <span className="text-base">{symbol.toLocaleUpperCase()}</span>
         </div>
       </div>
 
       <div>
         <CardHeading>Unclaimed rewards</CardHeading>
         <div className="text-2xl font-semibold leading-normal">
-          {rewards.toLocaleString()} <span className="text-base">ISLM</span>
+          {rewards.toLocaleString()}{' '}
+          <span className="text-base">{symbol.toLocaleUpperCase()}</span>
         </div>
       </div>
     </Card>

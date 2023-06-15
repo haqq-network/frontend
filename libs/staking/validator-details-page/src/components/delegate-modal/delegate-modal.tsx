@@ -9,6 +9,7 @@ import {
   MobileHeading,
   ModalInput,
 } from '@haqq/shell-ui-kit';
+import { useNetwork } from 'wagmi';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -197,7 +198,7 @@ export function DelegateModal({
               <div className="flex flex-col gap-[16px]">
                 <div>
                   <ModalInput
-                    symbol="ISLM"
+                    symbol={symbol}
                     value={delegateAmount}
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}

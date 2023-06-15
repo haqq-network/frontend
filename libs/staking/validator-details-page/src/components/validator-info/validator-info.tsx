@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount, useBalance, useNetwork } from 'wagmi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   useAddress,
@@ -241,7 +241,7 @@ export function ValidatorInfoComponent({
                           minimumFractionDigits: 0,
                           maximumFractionDigits: 3,
                         })}{' '}
-                        ISLM
+                        {symbol.toLocaleUpperCase()}
                       </InfoBlock>
                     </div>
                     <div>
@@ -306,6 +306,7 @@ export function ValidatorInfoComponent({
                   totalRewards={totalRewards}
                   unbounded={unbounded}
                   onRewardsClaim={onRewardsClaim}
+                  symbol={symbol}
                 />
                 <ValidatorBlockDesktop
                   validatorInfo={validatorInfo}
@@ -313,6 +314,7 @@ export function ValidatorInfoComponent({
                   rewards={rewards ?? 0}
                   balance={balance}
                   onGetRewardsClick={onGetRewardsClick}
+                  symbol={symbol}
                 />
               </div>
             </div>
@@ -338,6 +340,7 @@ export function ValidatorInfoComponent({
                     rewards={rewards ?? 0}
                     balance={balance}
                     onGetRewardsClick={onGetRewardsClick}
+                    symbol={symbol}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -347,6 +350,7 @@ export function ValidatorInfoComponent({
                     totalRewards={rewards ?? 0}
                     onRewardsClaim={onRewardsClaim}
                     unbounded={unbounded}
+                    symbol={symbol}
                   />
                 </SwiperSlide>
               </Swiper>
@@ -413,6 +417,9 @@ export function ValidatorInfo({
   );
   const { hash } = useLocation();
   const navigate = useNavigate();
+  const { chain, chains } = useNetwork();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   const balance = useMemo(() => {
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
@@ -540,7 +547,7 @@ export function ValidatorInfo({
         delegation={myDelegation}
         rewards={myRewards}
         validatorInfo={validatorInfo}
-        symbol="ISLM"
+        symbol={symbol}
         onGetRewardsClick={handleGetRewardsClick}
         unbounded={unbounded}
         stakingPool={totalStaked}
@@ -555,7 +562,7 @@ export function ValidatorInfo({
         onClose={handleModalClose}
         delegation={myDelegation}
         balance={balance}
-        symbol="ISLM"
+        symbol={symbol}
         unboundingTime={unboundingTime}
       />
 
@@ -566,7 +573,7 @@ export function ValidatorInfo({
         delegation={myDelegation}
         balance={balance}
         unboundingTime={unboundingTime}
-        symbol="ISLM"
+        symbol={symbol}
       />
     </Fragment>
   );
@@ -578,12 +585,14 @@ export function ValidatorBlockDesktop({
   rewards,
   balance,
   onGetRewardsClick,
+  symbol,
 }: {
   validatorInfo: Validator;
   onGetRewardsClick: () => void;
   delegation: number;
   rewards: number;
   balance: number;
+  symbol: string;
 }) {
   const navigate = useNavigate();
   const isWarningShown =
@@ -617,7 +626,7 @@ export function ValidatorBlockDesktop({
               minimumFractionDigits: 0,
               maximumFractionDigits: 3,
             })}{' '}
-            ISLM
+            {symbol.toLocaleUpperCase()}
           </span>
         </div>
         <div className="flex gap-x-[12px]">
@@ -657,7 +666,7 @@ export function ValidatorBlockDesktop({
               minimumFractionDigits: 0,
               maximumFractionDigits: 3,
             })}{' '}
-            ISLM
+            {symbol.toLocaleUpperCase()}
           </span>
         </div>
         <Button variant={5} disabled={rewards < 1} onClick={onGetRewardsClick}>
@@ -675,6 +684,7 @@ function ValidatorBlockMobile({
   balance,
   onGetRewardsClick,
   undelegate,
+  symbol,
 }: {
   validatorInfo: Validator;
   onGetRewardsClick: () => void;
@@ -682,6 +692,7 @@ function ValidatorBlockMobile({
   rewards: number;
   balance: number;
   undelegate?: number;
+  symbol: string;
 }) {
   const navigate = useNavigate();
   const isWarningShown =
@@ -703,6 +714,7 @@ function ValidatorBlockMobile({
       rewards={rewards}
       isWarningShown={isWarningShown}
       undelegate={undelegate}
+      symbol={symbol}
     />
   );
 }

@@ -33,7 +33,6 @@ const WalletContext = createContext<WalletProviderInterface | undefined>(
 
 export function WalletProvider({ children }: { children: ReactNode }) {
   const { chain } = useNetwork();
-  const { data: walletClient } = useWalletClient();
   const { switchNetworkAsync } = useSwitchNetwork();
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
@@ -48,26 +47,12 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   );
 
   const handleNetworkChange = useCallback(async () => {
-    if (chain && switchNetworkAsync && walletClient) {
-      try {
-        await switchNetworkAsync(chain.id);
-      } catch (error: any) {
-        if (error.code === 4902) {
-          try {
-            await walletClient.request({
-              method: 'wallet_addEthereumChain',
-              params: [chain],
-            } as any);
-          } catch (addNetworkError) {
-            console.error(addNetworkError);
-          }
-        }
-        console.error(error);
-      }
+    if (chain && switchNetworkAsync) {
+      await switchNetworkAsync(chain.id);
     } else {
       console.warn('useWallet(): handleNetworkChange error');
     }
-  }, [chain, switchNetworkAsync, walletClient]);
+  }, [chain, switchNetworkAsync]);
 
   const isNetworkSupported = useMemo(() => {
     return chain ? !chain.unsupported : false;
