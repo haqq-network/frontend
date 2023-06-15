@@ -329,17 +329,7 @@ export function ValidatorsList({
               <SortDirection direction={sortStates.direction} />
             )}
           </th>
-          <th
-            className={clsx(
-              'cursor-pointer select-none p-[8px] text-left lg:p-[12px]',
-              // sortStates.direction !== undefined &&
-              //   sortStates.key === 'status' &&
-              //   'text-white',
-            )}
-            onClick={() => {
-              // handleSortClick('status');
-            }}
-          >
+          <th className="cursor-pointer select-none p-[8px] text-left lg:p-[12px]">
             Status
             {sortStates.key === 'status' && (
               <SortDirection direction={sortStates.direction} />
