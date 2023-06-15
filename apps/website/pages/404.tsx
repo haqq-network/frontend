@@ -24,7 +24,7 @@ export default function NotFoundPage() {
         Sorry, this page doesn’t seem to exist
       </div>
       <div className="pt-[40px] sm:pt-[48px] lg:pt-[64px]">
-        <Link href="/">
+        <Link href="/" className="leading-[0]">
           <Button variant={3}>Go to main page</Button>
         </Link>
       </div>

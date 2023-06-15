@@ -127,7 +127,7 @@ export function DelegationsBlock() {
               <div className="mb-[4px] text-[14px] leading-[22px] text-white/50">
                 You don't have any active delegations
               </div>
-              <Link to="/staking">
+              <Link to="/staking" className="leading-[0]">
                 <OrangeLink>Go to Staking</OrangeLink>
               </Link>
             </div>

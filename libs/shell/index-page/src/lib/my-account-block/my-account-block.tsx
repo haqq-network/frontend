@@ -164,7 +164,7 @@ export function MyAccountBlock() {
           <Heading level={3} className="ml-[8px]">
             My account
           </Heading>
-          <Link to="/staking">
+          <Link to="/staking" className="leading-[0]">
             <OrangeLink className="ml-[16px] font-serif !text-[12px] uppercase">
               Go to Staking
             </OrangeLink>

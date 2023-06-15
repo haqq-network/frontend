@@ -37,7 +37,7 @@ export function ProposalListBlock() {
         <Heading level={3} className="ml-[8px]">
           Latest proposals
         </Heading>
-        <Link to="/governance">
+        <Link to="/governance" className="leading-[0]">
           <OrangeLink className="ml-[16px] font-serif !text-[12px] uppercase">
             Go to Governance
           </OrangeLink>
