@@ -141,7 +141,7 @@ function SortDirection({ direction }: { direction: SortDirection }) {
     return null;
   }
 
-  return direction === 'asc' ? <span> ▲</span> : <span> ▼</span>;
+  return direction === 'asc' ? <span> ▼</span> : <span> ▲</span>;
 }
 
 export function ValidatorsList({
@@ -268,28 +268,36 @@ export function ValidatorsList({
     },
     [sortStates.key, totalStaked, getDelegationInfo, getValidatorRewards],
   );
+  const handleSortClick = useCallback((key: string) => {
+    setSortStates((prev) => {
+      let newDirection: SortDirection;
 
-  const handleSortClick = useCallback(
-    (key: string) => {
-      setSortStates({
-        key,
-        direction:
-          sortStates.direction === 'asc'
+      if (prev.key === key) {
+        newDirection =
+          prev.direction === 'asc'
             ? 'desc'
-            : sortStates.direction === 'desc'
+            : prev.direction === 'desc'
             ? undefined
-            : 'asc',
-      });
-    },
+            : 'asc';
+      } else {
+        newDirection = 'asc';
+      }
 
-    [sortStates.direction],
-  );
+      return {
+        key: newDirection === undefined ? undefined : key,
+        direction: newDirection,
+      };
+    });
+  }, []);
 
   const valsToRender = useMemo(() => {
-    const resultVals =
-      sortStates.key === undefined
-        ? vals
-        : getSortedValidators(vals, sortStates);
+    let resultVals: Validator[];
+
+    if (sortStates.key === undefined) {
+      resultVals = vals;
+    } else {
+      resultVals = getSortedValidators(vals, sortStates);
+    }
 
     return [
       ...resultVals.filter((val) => {
