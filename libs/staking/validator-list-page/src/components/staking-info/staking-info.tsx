@@ -44,7 +44,7 @@ export function StakingInfoHooked() {
       let del = 0;
       const vecDelegatedValsAddrs: string[] = [];
 
-      delegationInfo.delegation_responses.forEach((delegation: any) => {
+      delegationInfo.delegation_responses.forEach((delegation) => {
         vecDelegatedValsAddrs.push(delegation.delegation.validator_address);
         del = del + Number.parseInt(delegation.balance.amount, 10);
       });
@@ -67,10 +67,10 @@ export function StakingInfoHooked() {
   }, [rewardsInfo]);
 
   const unbounded = useMemo(() => {
-    const allUnbound: number[] = (undelegations ?? []).map((validator: any) => {
+    const allUnbound: number[] = (undelegations ?? []).map((validator) => {
       let sum = 0;
 
-      validator.entries.forEach((unbondingValue: any) => {
+      validator.entries.forEach((unbondingValue) => {
         sum += Number.parseFloat(unbondingValue.balance);
       });
 

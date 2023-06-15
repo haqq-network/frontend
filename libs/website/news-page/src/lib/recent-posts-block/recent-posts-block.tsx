@@ -1,7 +1,8 @@
 import { Heading, NewsCard } from '@haqq/website-ui-kit';
 import Link from 'next/link';
+import { Post } from '../blog-page/blog-page';
 
-export function RecentPostsBlock({ recentPosts }: { recentPosts: any[] }) {
+export function RecentPostsBlock({ recentPosts }: { recentPosts: Post[] }) {
   return (
     <section className="flex flex-col items-start pb-[48px] md:pb-[68px] lg:pb-[100px]">
       <div className="w-full overflow-clip px-[16px] sm:px-[63px] lg:px-[79px]">
@@ -16,7 +17,7 @@ export function RecentPostsBlock({ recentPosts }: { recentPosts: any[] }) {
                 <Link key={post.id} href={`/blog/${post.slug}`}>
                   <NewsCard
                     date={new Date(post.date)}
-                    description={post.description}
+                    description={post.description ?? ''}
                     image={post.image}
                     title={post.title}
                     tags={post.tags}

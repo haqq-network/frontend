@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import {
   Fragment,
   ReactElement,
@@ -12,7 +10,7 @@ import Reaptcha from 'reaptcha';
 import SuccessIndicator from 'react-success-indicator';
 import { useAuth0 } from '@auth0/auth0-react';
 import { AccountInfo } from './AccountInfo';
-import { useAccount, useConnect, useNetwork } from 'wagmi';
+import { useAccount, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import { environment } from '../environments/environment';
 import {
   Button,
@@ -134,7 +132,7 @@ export function Faucet(): ReactElement {
   const handleNetworkSwitch = useCallback(async () => {
     if (switchNetworkAsync) {
       try {
-        await switchNetworkAsync(chains[0].id);
+        await switchNetworkAsync(chains[0]?.id);
       } catch (error: any) {
         console.error(error);
       }
@@ -191,7 +189,7 @@ export function Faucet(): ReactElement {
                     </Heading>
                   </div>
 
-                  {currentChain?.unsupported && (
+                  {chain?.unsupported && (
                     <OrangeLink
                       className="mb-[-2px] text-end font-serif !text-[12px] uppercase"
                       onClick={handleNetworkSwitch}
@@ -330,7 +328,7 @@ export function Faucet(): ReactElement {
                       </div>
                     )}
 
-                    {isCountDownVisible && (
+                    {isCountDownVisible && claimInfo && (
                       <ProposalPeriodTimer
                         color="blue"
                         date={

@@ -274,17 +274,26 @@ export function ValidatorInfoComponent({
                       text={
                         isHaqqAddressCopy
                           ? 'Copied!'
-                          : `Click to copy ${getFormattedAddress(
-                              validatorInfo.operator_address,
-                            )}`
+                          : `Click to copy ${
+                              isTablet
+                                ? getFormattedAddress(
+                                    validatorInfo.operator_address,
+                                    12,
+                                  )
+                                : validatorInfo.operator_address
+                            }`
                       }
-                      className="!-translate-x-[17%]"
                     >
                       <div
                         className="flex w-fit cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50"
                         onClick={handleHaqqAddressCopy}
                       >
-                        {getFormattedAddress(validatorInfo.operator_address)}
+                        {isTablet
+                          ? getFormattedAddress(
+                              validatorInfo.operator_address,
+                              12,
+                            )
+                          : validatorInfo.operator_address}
                         <CopyIcon />
                       </div>
                     </Tooltip>
@@ -446,7 +455,7 @@ export function ValidatorInfo({
 
   const myDelegation = useMemo(() => {
     const delegation = delegationInfo?.delegation_responses?.find(
-      (delegation: any) => {
+      (delegation) => {
         return delegation.delegation.validator_address === validatorAddress;
       },
     );
@@ -461,7 +470,7 @@ export function ValidatorInfo({
   }, [delegationInfo, validatorAddress]);
 
   const myRewards = useMemo(() => {
-    const rewards = rewardsInfo?.rewards?.find((rewardsItem: any) => {
+    const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
       return rewardsItem.validator_address === validatorAddress;
     });
 
@@ -488,10 +497,10 @@ export function ValidatorInfo({
   }, [claimReward, validatorAddress]);
 
   const unbounded = useMemo(() => {
-    const allUnbound: number[] = (undelegations ?? []).map((validator: any) => {
+    const allUnbound: number[] = (undelegations ?? []).map((validator) => {
       let sum = 0;
 
-      validator.entries.forEach((unbondingValue: any) => {
+      validator.entries.forEach((unbondingValue) => {
         sum += Number.parseFloat(unbondingValue.balance);
       });
 
@@ -514,12 +523,12 @@ export function ValidatorInfo({
       let del = 0;
       const vecDelegatedValsAddrs: string[] = [];
 
-      delegationInfo.delegation_responses.forEach((delegation: any) => {
+      delegationInfo.delegation_responses.forEach((delegation) => {
         vecDelegatedValsAddrs.push(delegation.delegation.validator_address);
         del = del + Number.parseInt(delegation.balance.amount, 10);
       });
 
-      // TODO: use formatter from utils
+      // TODO: use formatter from viem utils
       setStakedValue(del / 10 ** 18);
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }

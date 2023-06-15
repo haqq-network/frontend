@@ -4,8 +4,9 @@ import { useCallback, useMemo, useState } from 'react';
 import blogPlaceholderImage1 from '../../assets/blog-placeholder-1.png';
 import blogPlaceholderImage2 from '../../assets/blog-placeholder-2.png';
 import blogPlaceholderImage3 from '../../assets/blog-placeholder-3.png';
+import type { Post } from '../blog-page/blog-page';
 
-export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
+export function PostsBlock({ posts, tags }: { posts: Post[]; tags: string[] }) {
   const [tab, setTab] = useState<string>('All posts');
 
   const filteredPosts = useMemo(() => {
@@ -18,7 +19,7 @@ export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
     });
   }, [posts, tab]);
 
-  const getPostImage = useCallback((post: any) => {
+  const getPostImage = useCallback((post: Post) => {
     if (post.image) {
       return post.image;
     }
@@ -62,7 +63,7 @@ export function PostsBlock({ posts, tags }: { posts: any[]; tags: string[] }) {
                 <Link key={post.id} href={`/blog/${post.slug}`}>
                   <NewsCard
                     date={new Date(post.date)}
-                    description={post.description}
+                    description={post.description ?? ''}
                     image={getPostImage(post)}
                     title={post.title}
                     tags={post.tags}

@@ -1,3 +1,4 @@
+import { Post } from '@haqq/website/news-page';
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 
@@ -39,8 +40,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<{
-  post: any;
-  recentPosts: any[];
+  post: Post;
+  recentPosts: Post[];
 }> = async (ctx) => {
   storyblokInit({
     accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],

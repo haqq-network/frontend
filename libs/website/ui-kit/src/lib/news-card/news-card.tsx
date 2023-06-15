@@ -6,13 +6,13 @@ export interface NewsCardProps {
     src: string;
     width: number;
     height: number;
-  };
+  } | null;
   title: string;
   description: string;
   date: Date;
   tags: string[];
-  className?: string;
   isFeatured?: boolean;
+  className?: string;
 }
 
 export function NewsCard({

@@ -4,7 +4,13 @@ import { Heading } from '../Typography/Typography';
 import { Modal, ModalCloseButton } from './Modal/Modal';
 import { useConnect } from 'wagmi';
 
-export function SelectWalletModal({ isOpen, onClose }: any) {
+export function SelectWalletModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
 
