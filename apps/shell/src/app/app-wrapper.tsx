@@ -20,7 +20,13 @@ import {
 import ScrollLock from 'react-scrolllock';
 import { useMediaQuery } from 'react-responsive';
 import { useBalance, useNetwork, useSwitchNetwork } from 'wagmi';
-import { useAddress, useWallet, getFormattedAddress } from '@haqq/shared';
+import {
+  useAddress,
+  useWallet,
+  getFormattedAddress,
+  useSupportedChains,
+} from '@haqq/shared';
+import { haqqTestedge2 } from '@wagmi/chains';
 
 function HeaderButtons({
   isMobileMenuOpen,
@@ -179,6 +185,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
+  const { chain } = useNetwork();
 
   useEffect(() => {
     function handleScroll() {
@@ -197,6 +204,10 @@ export function AppWrapper({ children }: PropsWithChildren) {
     };
   }, [isDesktop]);
 
+  const isTestedge = useMemo(() => {
+    return chain?.id === haqqTestedge2.id;
+  }, [chain?.id]);
+
   return (
     <Page
       header={
@@ -211,8 +222,17 @@ export function AppWrapper({ children }: PropsWithChildren) {
           }
         />
       }
+      banner={isTestedge && <TestedgeBanner />}
     >
       {children}
     </Page>
+  );
+}
+
+function TestedgeBanner() {
+  return (
+    <div className="bg-haqq-orange sticky bottom-0 z-50 select-none p-[8px] text-center font-serif text-[18px] leading-[24px] text-white">
+      You are on test network
+    </div>
   );
 }

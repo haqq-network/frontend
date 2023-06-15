@@ -1,6 +1,6 @@
 import {
   Fragment,
-  ReactNode,
+  PropsWithChildren,
   useCallback,
   useEffect,
   useMemo,
@@ -23,6 +23,7 @@ import {
   SelectChainButton,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
+import { haqqTestedge2 } from 'viem/chains';
 
 function HeaderButtons({
   isMobileMenuOpen,
@@ -161,13 +162,13 @@ function HeaderButtons({
     </Fragment>
   );
 }
-
-export function AppWrapper({ children }: { children: ReactNode }) {
+export function AppWrapper({ children }: PropsWithChildren) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isBlurred, setBlured] = useState(false);
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
+  const { chain } = useNetwork();
 
   useEffect(() => {
     function handleScroll() {
@@ -186,6 +187,10 @@ export function AppWrapper({ children }: { children: ReactNode }) {
     };
   }, [isDesktop]);
 
+  const isTestedge = useMemo(() => {
+    return chain?.id === haqqTestedge2.id;
+  }, [chain?.id]);
+
   return (
     <Page
       header={
@@ -200,8 +205,17 @@ export function AppWrapper({ children }: { children: ReactNode }) {
           }
         />
       }
+      banner={isTestedge && <TestedgeBanner />}
     >
       {children}
     </Page>
+  );
+}
+
+function TestedgeBanner() {
+  return (
+    <div className="bg-haqq-orange sticky bottom-0 z-50 select-none p-[8px] text-center font-serif text-[18px] leading-[24px] text-white">
+      You are on test network
+    </div>
   );
 }
