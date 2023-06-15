@@ -23,6 +23,7 @@ import {
   useProposalActions,
   useConfig,
   GetGovernanceParamsResponse,
+  useSupportedChains,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -675,7 +676,8 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     useProposalDetailsQuery(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
 
   if (!proposalDetails && !isFetching) {
     return <Navigate to="/not-found" replace />;
@@ -690,7 +692,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     </div>
   ) : (
     <ProposalDetailsComponent
-      symbol={chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol}
+      symbol={chain?.nativeCurrency.symbol ?? chains[0].nativeCurrency.symbol}
       isWalletConnected={Boolean(ethAddress && haqqAddress)}
       proposalDetails={proposalDetails}
       govParams={govParams}
@@ -839,7 +841,8 @@ export function DepositActionsDesktop({
       onDepositSubmit(depositAmount);
     }
   }, [depositAmount, onDepositSubmit]);
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 

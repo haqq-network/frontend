@@ -5,6 +5,7 @@ import {
   useClipboard,
   useStakingDelegationQuery,
   useStakingRewardsQuery,
+  useSupportedChains,
 } from '@haqq/shared';
 import { CopyIcon, Card, CardHeading } from '@haqq/shell-ui-kit';
 
@@ -19,7 +20,8 @@ export function ShellIndexPageAccountInfo() {
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 

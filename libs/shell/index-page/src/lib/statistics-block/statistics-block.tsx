@@ -3,6 +3,7 @@ import {
   useBankSupplyQuery,
   useStakingPoolQuery,
   useStakingValidatorListQuery,
+  useSupportedChains,
 } from '@haqq/shared';
 import {
   BondStatus,
@@ -16,7 +17,8 @@ export function StatisticsBlock() {
   const { data: validators } = useStakingValidatorListQuery();
   const { data: accounts } = useAuthAccountsQuery();
   const { data: bankSupply } = useBankSupplyQuery();
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 

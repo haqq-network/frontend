@@ -1,4 +1,4 @@
-import { PropsWithChildren, useMemo } from 'react';
+import { PropsWithChildren, useMemo, createContext, useContext } from 'react';
 import { Connector, WagmiConfig, configureChains, createConfig } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -24,6 +24,23 @@ export const haqqLocalnet: Chain = {
   },
   testnet: true,
 };
+
+const SupportedChainsContext = createContext<Chain[]>([
+  haqqMainnet,
+  haqqLocalnet,
+]);
+
+export function useSupportedChains() {
+  const supportedChains = useContext(SupportedChainsContext);
+
+  if (!supportedChains) {
+    throw new Error(
+      'useSupportedChains should be used only from child of SupportedChainsContext',
+    );
+  }
+
+  return supportedChains;
+}
 
 export function WagmiProvider({
   children,
@@ -87,5 +104,9 @@ export function WagmiProvider({
     });
   }, [connectors, publicClient, webSocketPublicClient]);
 
-  return <WagmiConfig config={config}>{children}</WagmiConfig>;
+  return (
+    <SupportedChainsContext.Provider value={chains}>
+      <WagmiConfig config={config}>{children}</WagmiConfig>;
+    </SupportedChainsContext.Provider>
+  );
 }

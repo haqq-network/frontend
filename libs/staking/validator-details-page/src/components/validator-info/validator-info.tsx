@@ -14,6 +14,7 @@ import {
   useClipboard,
   useStakingUnbondingsQuery,
   useWallet,
+  useSupportedChains,
 } from '@haqq/shared';
 import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
@@ -426,7 +427,8 @@ export function ValidatorInfo({
   );
   const { hash } = useLocation();
   const navigate = useNavigate();
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 

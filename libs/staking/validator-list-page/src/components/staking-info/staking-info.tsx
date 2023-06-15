@@ -4,6 +4,7 @@ import {
   useStakingDelegationQuery,
   useStakingRewardsQuery,
   useStakingUnbondingsQuery,
+  useSupportedChains,
   useWallet,
 } from '@haqq/shared';
 import { RewardsInfo, StakingInfoAmountBlock } from '@haqq/staking/ui-kit';
@@ -101,7 +102,8 @@ export function StakingInfo() {
   const { openSelectWallet } = useWallet();
   const { isReady } = useCosmosProvider();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 

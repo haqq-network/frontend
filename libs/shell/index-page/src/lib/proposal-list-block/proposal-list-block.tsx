@@ -1,7 +1,11 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
-import { useGovernanceParamsQuery, useProposalListQuery } from '@haqq/shared';
+import {
+  useGovernanceParamsQuery,
+  useProposalListQuery,
+  useSupportedChains,
+} from '@haqq/shared';
 import {
   Heading,
   Container,
@@ -14,7 +18,8 @@ import { useNetwork } from 'wagmi';
 export function ProposalListBlock() {
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
   const proposals = useMemo(() => {

@@ -23,6 +23,7 @@ import {
   Container,
 } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
+import { useSupportedChains } from '@haqq/shared';
 
 interface ClaimInfo {
   available: boolean;
@@ -32,7 +33,8 @@ interface ClaimInfo {
 const { serviceConfig, reCaptchaConfig } = environment;
 
 export function Faucet(): ReactElement {
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { switchNetworkAsync } = useSwitchNetwork();
   const {
     user,

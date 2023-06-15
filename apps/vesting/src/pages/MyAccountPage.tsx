@@ -4,13 +4,14 @@ import { AccountWidget } from '../components/AccountWidget/AccountWidget';
 import { DepositStatsWidget } from '../components/DepositStatsWidget/DepositStatsWidget';
 import { Container } from '../components/Layout/Layout';
 import { environment } from '../environments/environment';
-import { useAddress } from '@haqq/shared';
+import { useAddress, useSupportedChains } from '@haqq/shared';
 import { DepositWithdrawalList } from '../components/DepositWithdrawalList/DepositWithdrawalList';
 
 export function AccountPage() {
   const { isConnected } = useAccount();
   const { ethAddress, haqqAddress } = useAddress();
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { data: balance } = useBalance({
     address: ethAddress,
     watch: true,

@@ -6,15 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-// import { useConfig } from './config-provider';
-// import { getChainParams } from '../chains/get-chain-params';
-import {
-  useConnect,
-  useDisconnect,
-  useNetwork,
-  useSwitchNetwork,
-  useWalletClient,
-} from 'wagmi';
+import { useConnect, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import { SelectWalletModal } from '@haqq/shell-ui-kit';
 import '@wagmi/core/window';
 
@@ -55,7 +47,9 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   }, [chain, switchNetworkAsync]);
 
   const isNetworkSupported = useMemo(() => {
-    return chain ? !chain.unsupported : false;
+    return chain && chain.unsupported !== undefined
+      ? !chain.unsupported
+      : false;
   }, [chain]);
 
   const selectWalletModalConnectors = useMemo(() => {
@@ -70,6 +64,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const memoizedContext = useMemo(() => {
     return {
+      chains: [],
       disconnect,
       selectNetwork: handleNetworkChange,
       isNetworkSupported,

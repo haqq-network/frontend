@@ -22,16 +22,15 @@ import { useMediaQuery } from 'react-responsive';
 import { useBalance, useNetwork, useSwitchNetwork } from 'wagmi';
 import { useAddress, useWallet, getFormattedAddress } from '@haqq/shared';
 
-interface HeaderButtonProps {
-  isMobileMenuOpen: boolean;
-  onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
-}
-
 function HeaderButtons({
   isMobileMenuOpen,
   onMobileMenuOpenChange,
-}: HeaderButtonProps) {
-  const { chain, chains } = useNetwork();
+}: {
+  isMobileMenuOpen: boolean;
+  onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
+}) {
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { disconnect, openSelectWallet } = useWallet();
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({

@@ -5,6 +5,7 @@ import {
   useStakingRewardsQuery,
   getFormattedAddress,
   useWallet,
+  useSupportedChains,
 } from '@haqq/shared';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useBalance, useNetwork } from 'wagmi';
@@ -69,7 +70,8 @@ export function MyAccountBlock() {
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 

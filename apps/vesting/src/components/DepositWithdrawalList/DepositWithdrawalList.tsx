@@ -10,6 +10,7 @@ import { Card } from '../Card/Card';
 import { Heading } from '../Typography/Typography';
 import { formatDate } from '../../utils/format-date';
 import { useNetwork } from 'wagmi';
+import { useSupportedChains } from '@haqq/shared';
 
 const withdrawABI = [
   {
@@ -209,7 +210,8 @@ export function DepositWithdrawalList({
     WithdrawalLogEntry[]
   >([]);
   const [isFetching, setFetching] = useState(false);
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 

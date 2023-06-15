@@ -6,7 +6,12 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { getFormattedAddress, useAddress, useWallet } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  useAddress,
+  useSupportedChains,
+  useWallet,
+} from '@haqq/shared';
 import { useBalance, useNetwork, useSwitchNetwork } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
 import {
@@ -26,7 +31,8 @@ function HeaderButtons({
   isMobileMenuOpen: boolean;
   onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
 }) {
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { disconnect, openSelectWallet } = useWallet();
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({

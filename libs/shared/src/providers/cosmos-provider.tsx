@@ -21,10 +21,17 @@ import {
 import store from 'store2';
 import { Coin } from '@evmos/transactions';
 import axios from 'axios';
-import { WalletClient, useNetwork, useWalletClient } from 'wagmi';
+import {
+  WalletClient,
+  useNetwork,
+  useSwitchNetwork,
+  useWalletClient,
+} from 'wagmi';
 import { computePublicKey, recoverPublicKey } from '@ethersproject/signing-key';
 import { hashMessage } from '@ethersproject/hash';
 import { getChainParams } from '../chains/get-chain-params';
+import { useWallet } from './wallet-provider';
+import { useSupportedChains } from './wagmi-provider';
 
 export interface CosmosService {
   getValidators: (limit?: number) => Promise<Validator[]>;
@@ -534,12 +541,15 @@ export function CosmosServiceContainer({
 }
 
 export function CosmosProvider({ children }: PropsWithChildren) {
-  const { chain, chains } = useNetwork();
+  const chains = useSupportedChains();
+  const { chain } = useNetwork();
+
+  console.log('CosmosProvider', { chain, chains });
 
   const chainId =
     chain && chain.unsupported !== undefined && !chain.unsupported
       ? chain.id
-      : chains[0]?.id;
+      : chains[0].id;
 
   return (
     <CosmosServiceContainer chainId={chainId}>

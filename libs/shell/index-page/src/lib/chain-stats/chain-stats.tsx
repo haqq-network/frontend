@@ -4,6 +4,7 @@ import {
   useStakingPoolQuery,
   useStakingValidatorListQuery,
   useBankSupplyQuery,
+  useSupportedChains,
 } from '@haqq/shared';
 import { BondStatus } from '@evmos/proto/dist/proto/cosmos/staking/staking';
 import { Card, CardHeading } from '@haqq/shell-ui-kit';
@@ -14,7 +15,8 @@ export function ShellIndexPageChainStats() {
   const { data: validators } = useStakingValidatorListQuery();
   const { data: accounts } = useAuthAccountsQuery();
   const { data: bankSupply } = useBankSupplyQuery();
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
