@@ -73,15 +73,16 @@ export function Header() {
           {/* <HeaderNavLink href="/#community">Community</HeaderNavLink> */}
           {/* <HeaderNavLink href="/404">404</HeaderNavLink> */}
         </nav>
-        <div className="flex flex-row items-center">
-          <Link href="/wallet">
-            <Button className="hidden sm:block">HAQQ Wallet</Button>
+        <div className="flex flex-row items-center gap-[16px]">
+          <Link href="https://app.haqq.network">
+            <Button className="hidden sm:block">App</Button>
           </Link>
-          <BurgerButton
-            className="ml-[24px] block lg:hidden"
-            isOpen={isBurgerMenuOpen}
-            onClick={handleMenuOpen}
-          />
+          <Link href="/wallet">
+            <Button className="hidden sm:block">Wallet</Button>
+          </Link>
+          <div className="block pl-[8px] lg:hidden">
+            <BurgerButton isOpen={isBurgerMenuOpen} onClick={handleMenuOpen} />
+          </div>
         </div>
       </div>
 

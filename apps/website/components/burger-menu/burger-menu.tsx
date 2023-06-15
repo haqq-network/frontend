@@ -96,9 +96,15 @@ export function BurgerMenu({
           Docs
         </BurgerMenuNavLink>
         <BurgerMenuNavLink href="/brand-assets">Brand Assets</BurgerMenuNavLink>
+
+        <Link href="https://app.haqq.network">
+          <Button variant={2} className="block sm:hidden">
+            App
+          </Button>
+        </Link>
         <Link href="/wallet">
           <Button variant={2} className="block sm:hidden">
-            HAQQ Wallet
+            Wallet
           </Button>
         </Link>
       </div>
