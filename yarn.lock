@@ -3740,7 +3740,7 @@ __metadata:
     "@sentry/tracing": 7.54.0
     "@storyblok/react": 2.1.4
     "@storybook/addon-essentials": 7.0.18
-    "@storybook/addon-mdx-gfm": 7.0.18
+    "@storybook/addon-mdx-gfm": 7.0.22
     "@storybook/addon-storysource": 7.0.18
     "@storybook/core-common": 7.0.18
     "@storybook/core-server": 7.0.18
@@ -6208,14 +6208,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-mdx-gfm@npm:7.0.18":
-  version: 7.0.18
-  resolution: "@storybook/addon-mdx-gfm@npm:7.0.18"
+"@storybook/addon-mdx-gfm@npm:7.0.22":
+  version: 7.0.22
+  resolution: "@storybook/addon-mdx-gfm@npm:7.0.22"
   dependencies:
-    "@storybook/node-logger": 7.0.18
+    "@storybook/node-logger": 7.0.22
     remark-gfm: ^3.0.1
     ts-dedent: ^2.0.0
-  checksum: db284f0d567255afc77acec74913434857ab614b64561380f885dcb01deb03189a008c066338405d334931125a41869855b4065d502238a76bea4113c875d617
+  checksum: c85bf0a8cd82e634f74e8aacfb6799f6894997a7c491e1c9c1a78474831a973c19eeaabd84c2853f934fba99bde8b109746124fa34eb3cfe52f5257772c0039b
   languageName: node
   linkType: hard
 
@@ -6856,6 +6856,18 @@ __metadata:
     npmlog: ^5.0.1
     pretty-hrtime: ^1.0.3
   checksum: aefaf1ef87728665f894c10c51bdb832f7721a9ecd46440f4d0bcb8ec94b52318183d85b4c9c03e2a3e3e1a122d3940221428a556d1f35e393d3b53252bb4337
+  languageName: node
+  linkType: hard
+
+"@storybook/node-logger@npm:7.0.22":
+  version: 7.0.22
+  resolution: "@storybook/node-logger@npm:7.0.22"
+  dependencies:
+    "@types/npmlog": ^4.1.2
+    chalk: ^4.1.0
+    npmlog: ^5.0.1
+    pretty-hrtime: ^1.0.3
+  checksum: 93ca73db32d0d3acf81c27c0509a20957f0481a7e11fe1f46afc74a68aea9282ee99a29069e712ecf4a470df25ad829928cf51700e155d43a198748da46009dd
   languageName: node
   linkType: hard
 

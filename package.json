@@ -101,7 +101,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.10",
     "@rollup/plugin-url": "8.0.1",
     "@storybook/addon-essentials": "7.0.18",
-    "@storybook/addon-mdx-gfm": "7.0.18",
+    "@storybook/addon-mdx-gfm": "7.0.22",
     "@storybook/addon-storysource": "7.0.18",
     "@storybook/core-common": "7.0.18",
     "@storybook/core-server": "7.0.18",
