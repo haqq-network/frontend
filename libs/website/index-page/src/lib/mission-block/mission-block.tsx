@@ -1,4 +1,4 @@
-import { Heading, AboveTitle } from '@haqq/website/ui-kit';
+import { Heading, AboveTitle } from '@haqq/website-ui-kit';
 
 function SideLines({ className }: { className?: string }) {
   return (

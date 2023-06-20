@@ -1,45 +1,41 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import { ConfigProvider } from './config-provider';
 import { WagmiProvider } from './wagmi-provider';
 import { CosmosProvider } from './cosmos-provider';
-// import { ThemeProvider } from './theme-provider';
 import { ReactQueryProvider } from './react-query-provider';
 import { Toaster } from 'react-hot-toast';
 import { WalletProvider } from './wallet-provider';
 
 export function AppProviders({
   children,
-  tendermintClient,
-  chainName,
   withReactQueryDevtools = false,
   walletConnectProjectId,
   isStandalone = false,
-}: {
-  children: ReactNode;
-  tendermintClient: Tendermint34Client;
-  chainName: string;
+  isProduction = false,
+}: PropsWithChildren<{
   withReactQueryDevtools?: boolean;
   walletConnectProjectId?: string;
   isStandalone?: boolean;
-}) {
+  isProduction?: boolean;
+}>) {
   return (
-    <ConfigProvider chainName={chainName} isStandalone={isStandalone}>
-      <BrowserRouter>
-        <WagmiProvider walletConnectProjectId={walletConnectProjectId}>
-          <WalletProvider>
-            <ReactQueryProvider withDevtools={withReactQueryDevtools}>
-              <CosmosProvider tendermintClient={tendermintClient}>
-                {/* <ThemeProvider> */}
+    <ConfigProvider isStandalone={isStandalone}>
+      <ReactQueryProvider withDevtools={withReactQueryDevtools}>
+        <BrowserRouter>
+          <WagmiProvider
+            walletConnectProjectId={walletConnectProjectId}
+            isProduction={isProduction}
+          >
+            <WalletProvider>
+              <CosmosProvider>
                 {children}
                 <Toaster />
-                {/* </ThemeProvider> */}
               </CosmosProvider>
-            </ReactQueryProvider>
-          </WalletProvider>
-        </WagmiProvider>
-      </BrowserRouter>
+            </WalletProvider>
+          </WagmiProvider>
+        </BrowserRouter>
+      </ReactQueryProvider>
     </ConfigProvider>
   );
 }

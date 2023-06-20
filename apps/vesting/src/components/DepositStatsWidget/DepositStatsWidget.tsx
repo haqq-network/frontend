@@ -1,12 +1,20 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import { useAccount, useContract, useProvider, useSigner } from 'wagmi';
+import {
+  useAccount,
+  // useContract,
+  useContractRead,
+  useContractWrite,
+  useNetwork,
+  usePublicClient,
+  useWalletClient,
+  // useSigner,
+} from 'wagmi';
 import { Card } from '../Card/Card';
 import { Heading, Text } from '../Typography/Typography';
 import HaqqVestingContract from '../../../HaqqVesting.json';
 import { Spinner } from '../Playground/Playground';
-import { BigNumber } from 'ethers';
 import { Button, DangerButton } from '../Button/Button';
 import { DepositNavigation } from '../DepositNavigation/DepositNavigation';
 import { useNextUnlockDate } from '../../hooks/useNextUnlockDate';
@@ -15,17 +23,11 @@ import { Alert } from '../modals/Alert/Alert';
 import { Confirm } from '../modals/Confirm/Confirm';
 import { Input } from '../Input/Input';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
-import { useConfig, getChainParams } from '@haqq/shared';
-import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
+// import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
 import { formatDate } from '../../utils/format-date';
-import { formatEther, isAddress } from 'ethers/lib/utils';
+import { formatEther, isAddress } from 'viem/utils';
 
 export { HaqqVestingContract };
-
-interface DepositInfoArgs {
-  deposit: Deposit;
-  symbol: string;
-}
 
 interface TransferAndWithdrawArgs {
   deposit: Deposit;
@@ -34,11 +36,11 @@ interface TransferAndWithdrawArgs {
 }
 
 export interface Deposit {
-  locked: BigNumber;
-  unlocked: BigNumber;
-  available: BigNumber;
-  deposited: BigNumber;
-  withdrawn: BigNumber;
+  locked: bigint;
+  unlocked: bigint;
+  available: bigint;
+  deposited: bigint;
+  withdrawn: bigint;
   createdAt: string;
   unlockPeriod: number;
 }
@@ -79,73 +81,107 @@ export function DepositInfoStatsRow({
   );
 }
 
+function useDepositContract({
+  depositsCount,
+  address,
+  depositId,
+  contractAddress,
+}: {
+  depositsCount: undefined | bigint;
+  address: `0x${string}`;
+  contractAddress: `0x${string}`;
+  depositId: bigint;
+}): Deposit | undefined {
+  const publicClient = usePublicClient();
+  const { data: depositContract, isLoading: isLoadingDepositContract } =
+    useContractRead({
+      address: contractAddress,
+      abi: HaqqVestingContract.abi,
+      publicClient,
+      functionName: 'deposits',
+      args: [address, depositId],
+      watch: true,
+    });
+  const { data: amountToWithdrawNow, isLoading: isLoadingAmountToWithdrawNow } =
+    useContractRead({
+      address: contractAddress,
+      abi: HaqqVestingContract.abi,
+      publicClient,
+      functionName: 'amountToWithdrawNow',
+      args: [address, depositId],
+      watch: true,
+    });
+  const { data: timeBetweenPayments, isLoading: isLoadingTimeBetweenPayments } =
+    useContractRead({
+      address: contractAddress,
+      abi: HaqqVestingContract.abi,
+      publicClient,
+      functionName: 'TIME_BETWEEN_PAYMENTS',
+      watch: true,
+    });
+
+  return useMemo(() => {
+    if (
+      depositsCount === 0 ||
+      isLoadingDepositContract ||
+      isLoadingAmountToWithdrawNow ||
+      isLoadingTimeBetweenPayments ||
+      depositContract === undefined ||
+      amountToWithdrawNow === undefined ||
+      timeBetweenPayments === undefined
+    ) {
+      return undefined;
+    }
+
+    const available = amountToWithdrawNow;
+    const [timestamp, sumInWeiDeposited, sumPaidAlready] = depositContract;
+    const deposited = sumInWeiDeposited;
+    const withdrawn = sumPaidAlready;
+    const unlocked = BigInt(sumPaidAlready) + BigInt(available);
+    const locked = deposited - unlocked;
+
+    return {
+      locked,
+      unlocked,
+      available,
+      deposited,
+      withdrawn,
+      createdAt: new Date(Number(timestamp) * 1000).toISOString(),
+      unlockPeriod: timeBetweenPayments,
+    };
+  }, [
+    amountToWithdrawNow,
+    depositContract,
+    depositsCount,
+    isLoadingAmountToWithdrawNow,
+    isLoadingDepositContract,
+    isLoadingTimeBetweenPayments,
+    timeBetweenPayments,
+  ]);
+}
+
 export function DepositStatsWidget({
   contractAddress,
 }: {
   contractAddress: string;
 }) {
-  const { chainName } = useConfig();
-  const chain = getChainParams(chainName);
   const { address, isConnected } = useAccount();
-  const provider = useProvider();
-  const contract = useContract({
+  const publicClient = usePublicClient();
+  const [currentDeposit, setCurrentDeposit] = useState<number>(1);
+  const { data: depositsCount } = useContractRead<bigint>({
     address: contractAddress,
     abi: HaqqVestingContract.abi,
-    signerOrProvider: provider,
+    publicClient,
+    functionName: 'depositsCounter',
+    args: [address],
+    watch: true,
   });
-  const [deposit, setDeposit] = useState<Deposit | null>(null);
-  const [depositsCount, setDepositsCount] = useState<number>(0);
-  const [currentDeposit, setCurrentDeposit] = useState<number>(0);
-  // const [isWithdrawRequested, setWithdrawRequested] = useState<boolean>(false);
-
-  const requestDepositCount = useCallback(async () => {
-    try {
-      const depositsCount = await contract?.depositsCounter(address);
-
-      setDepositsCount(depositsCount.toNumber());
-    } catch (error) {
-      console.error(error);
-    }
-  }, [address, contract]);
-
-  const requestDepStats = useCallback(
-    async (address: string, depositNumber: number) => {
-      if (depositNumber > 0) {
-        try {
-          const deposit = await contract?.deposits(address, depositNumber);
-          const amount = await contract?.amountToWithdrawNow(
-            address,
-            depositNumber,
-          );
-          const paymentsPeriod = await contract?.TIME_BETWEEN_PAYMENTS();
-
-          setDeposit(mapSCResponseToJson(deposit, amount, paymentsPeriod));
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    },
-    [contract],
-  );
-
-  useEffect(() => {
-    requestDepositCount();
-  }, [address, contract, requestDepositCount]);
 
   useEffect(() => {
     if (depositsCount > 0) {
       setCurrentDeposit(1);
     }
   }, [depositsCount]);
-
-  useEffect(() => {
-    if (depositsCount === 0) {
-      setCurrentDeposit(0);
-      setDeposit(null);
-    } else if (depositsCount > 0 && currentDeposit > 0 && address) {
-      requestDepStats(address, currentDeposit);
-    }
-  }, [address, currentDeposit, depositsCount, requestDepStats]);
 
   return (
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
@@ -157,7 +193,7 @@ export function DepositStatsWidget({
 
           {isConnected && depositsCount > 0 && (
             <DepositNavigation
-              total={depositsCount}
+              total={(depositsCount as bigint).toString()}
               current={currentDeposit}
               onChange={setCurrentDeposit}
             />
@@ -166,45 +202,24 @@ export function DepositStatsWidget({
 
         <div className="flex flex-col space-y-4">
           {!isConnected && (
-            <div className="flex min-h-[200px] items-center justify-center p-10">
+            <div className="flex min-h-[300px] items-center justify-center p-10">
               <Spinner />
             </div>
           )}
 
-          {isConnected && depositsCount === 0 && (
+          {isConnected && !depositsCount && (
             <div className="px-6 py-12 text-center">
               <Heading level={3}>You have no deposits</Heading>
             </div>
           )}
 
-          {isConnected && deposit !== null && (
-            <Fragment>
-              <DepositInfo
-                deposit={deposit}
-                symbol={chain.nativeCurrency?.symbol ?? ''}
-              />
-
-              <div className="flex flex-col space-y-4 px-6 pb-6">
-                <Withdraw
-                  deposit={deposit}
-                  symbol={chain.nativeCurrency?.symbol ?? ''}
-                  contractAddress={contractAddress}
-                />
-                <Transfer
-                  deposit={deposit}
-                  symbol={chain.nativeCurrency?.symbol ?? ''}
-                  contractAddress={contractAddress}
-                />
-
-                {/* <Button
-                  fill
-                  disabled={!isWithdrawAvailable}
-                  onClick={handleWithdrawRequest}
-                >
-                  Withdraw
-                </Button> */}
-              </div>
-            </Fragment>
+          {isConnected && depositsCount > 0 && (
+            <DepositHooked
+              depositsCount={depositsCount}
+              address={address}
+              contractAddress={contractAddress}
+              currentDeposit={currentDeposit}
+            />
           )}
         </div>
       </div>
@@ -212,7 +227,73 @@ export function DepositStatsWidget({
   );
 }
 
-export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
+function DepositHooked({
+  depositsCount,
+  address,
+  contractAddress,
+  currentDeposit,
+}: {
+  depositsCount: bigint | undefined;
+  address: `0x${string}`;
+  contractAddress: `0x${string}`;
+  currentDeposit: bigint;
+}) {
+  console.log('DepositInfo', {
+    depositsCount,
+    address,
+    contractAddress,
+    currentDeposit,
+  });
+  const { chain } = useNetwork();
+  const deposit = useDepositContract({
+    depositsCount,
+    address,
+    contractAddress,
+    depositId: currentDeposit,
+  });
+  if (!deposit) {
+    return null;
+  }
+
+  return (
+    <Fragment>
+      <DepositInfo
+        deposit={deposit}
+        contractAddress={contractAddress}
+        symbol={chain?.nativeCurrency?.symbol ?? ''}
+      />
+
+      <div className="flex flex-col space-y-4 px-6 pb-6">
+        <Withdraw
+          deposit={deposit}
+          symbol={chain.nativeCurrency?.symbol ?? ''}
+          contractAddress={contractAddress}
+        />
+        <Transfer
+          deposit={deposit}
+          symbol={chain.nativeCurrency?.symbol ?? ''}
+          contractAddress={contractAddress}
+        />
+
+        {/* <Button
+                  fill
+                  disabled={!isWithdrawAvailable}
+                  onClick={handleWithdrawRequest}
+                >
+                  Withdraw
+                </Button> */}
+      </div>
+    </Fragment>
+  );
+}
+
+export function DepositInfo({
+  deposit,
+  symbol,
+}: {
+  deposit: Deposit;
+  symbol: string;
+}) {
   return (
     <div className="flex flex-col space-y-2 px-6">
       <DepositInfoStatsRow
@@ -228,39 +309,32 @@ export function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
         value={`${Number.parseInt(
           formatEther(deposit.deposited),
           10,
-        ).toLocaleString()} ${symbol}`}
+        ).toLocaleString()} ${symbol.toLocaleUpperCase()}`}
       />
       <DepositInfoStatsRow
         label="Locked"
         value={`${Number.parseInt(
           formatEther(deposit.locked),
           10,
-        ).toLocaleString()} ${symbol}`}
+        ).toLocaleString()} ${symbol.toLocaleUpperCase()}`}
       />
       <DepositInfoStatsRow
         label="Unlocked"
         value={`${Number.parseInt(
           formatEther(deposit.unlocked),
           10,
-        ).toLocaleString()} ${symbol}`}
+        ).toLocaleString()} ${symbol.toLocaleUpperCase()}`}
       />
       <DepositInfoStatsRow
         label="Withdrawn"
         value={`${Number.parseInt(
           formatEther(deposit.withdrawn),
           10,
-        ).toLocaleString()} ${symbol}`}
+        ).toLocaleString()} ${symbol.toLocaleUpperCase()}`}
       />
-      {/* <DepositInfoStatsRow
-        label="Available"
-        value={`${Number.parseInt(
-          formatEther(deposit.available),
-          10,
-        ).toLocaleString()} ${symbol}`}
-      /> */}
       <NextDepositUnlock
         createdAt={deposit.createdAt}
-        period={deposit.unlockPeriod}
+        period={Number(deposit.unlockPeriod)}
       />
     </div>
   );
@@ -272,11 +346,13 @@ function Withdraw({
   contractAddress,
 }: TransferAndWithdrawArgs) {
   const { address } = useAccount();
-  const { data: signer } = useSigner();
-  const contract = useContract({
+  const { data: walletClient } = useWalletClient();
+  const { writeAsync: contractWithdraw } = useContractWrite({
     address: contractAddress,
     contractInterface: HaqqVestingContract.abi,
-    signerOrProvider: signer,
+    walletClient,
+    functionName: 'withdraw',
+    args: [address],
   });
   const [withdrawTx, setWithdrawTx] = useState(null);
   const [isPending, setPending] = useState(false);
@@ -292,9 +368,9 @@ function Withdraw({
     setPending(true);
 
     try {
-      const withdraw = await contract?.withdraw(address);
+      const withdraw = await contractWithdraw();
 
-      // console.log({ withdraw });
+      console.log({ withdraw });
       setWithdrawTx(withdraw.hash);
       setComplete(true);
     } catch (error: any) {
@@ -303,7 +379,7 @@ function Withdraw({
     } finally {
       setPending(false);
     }
-  }, [address, contract]);
+  }, [contractWithdraw]);
 
   return (
     <Fragment>
@@ -335,7 +411,7 @@ function Withdraw({
         <div className="flex flex-col">
           <div>
             <Text bold>
-              {formatEther(deposit.unlocked)} {symbol}
+              {formatEther(deposit.unlocked)} {symbol.toLocaleUpperCase()}
             </Text>
             have been withdrawn on your account
           </div>
@@ -349,12 +425,7 @@ function Withdraw({
 
 function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
   const { address } = useAccount();
-  const { data: signer } = useSigner();
-  const contract = useContract({
-    address: contractAddress,
-    contractInterface: HaqqVestingContract.abi,
-    signerOrProvider: signer,
-  });
+  const { data: walletClient } = useWalletClient();
   const [transferTx, setTransferTx] = useState<string>();
   const [isPending, setPending] = useState(false);
   const [isComplete, setComplete] = useState(false);
@@ -364,17 +435,22 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
   const [isWarningModalOpen, setWarningModalOpen] = useState<boolean>(false);
   const [isWarned, setWarned] = useState<boolean>(false);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState<boolean>(false);
+  const { writeAsync: contractTransfer } = useContractWrite({
+    address: contractAddress,
+    contractInterface: HaqqVestingContract.abi,
+    walletClient,
+    functionName: 'transferDepositRights',
+    args: [newBeneficiaryAddress],
+  });
 
   const handleTransfer = useCallback(async () => {
     setPending(true);
     setConfirmModalOpen(false);
 
     try {
-      const transfer = await contract?.transferDepositRights(
-        newBeneficiaryAddress,
-      );
+      const transfer = await contractTransfer();
 
-      // console.log({ transfer });
+      console.log({ transfer });
       setTransferTx(transfer.hash);
       setComplete(true);
     } catch (error: any) {
@@ -383,7 +459,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
     } finally {
       setPending(false);
     }
-  }, [contract, newBeneficiaryAddress]);
+  }, [contractTransfer]);
 
   useEffect(() => {
     setAddressValid(isAddress(newBeneficiaryAddress));
@@ -448,7 +524,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
           setWarningModalOpen(false);
         }}
       >
-        <div className="mx-auto max-w-xl rounded-2xl bg-white p-6">
+        <div className="mx-auto max-w-xl rounded-2xl bg-white p-6 shadow-md">
           <div className="flex flex-col space-y-6">
             <div className="flex items-center justify-between">
               <Heading level={3}>Transfer deposit ownership</Heading>
@@ -465,7 +541,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
               </Text>
               <Text>
                 Once it&apos;s done, <Text bold>{address}</Text> won&apos;t be
-                able to withdraw {symbol} from this deposit.
+                able to withdraw {symbol.toLocaleUpperCase()} from this deposit.
               </Text>
               <Text>Are you sure you want to do this?</Text>
             </div>

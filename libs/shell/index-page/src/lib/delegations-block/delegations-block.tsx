@@ -12,7 +12,7 @@ import {
   ListIcon,
   OrangeLink,
   SpinnerLoader,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
 import { DelegationResponse } from '@evmos/provider';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
@@ -127,7 +127,7 @@ export function DelegationsBlock() {
               <div className="mb-[4px] text-[14px] leading-[22px] text-white/50">
                 You don't have any active delegations
               </div>
-              <Link to="/staking">
+              <Link to="/staking" className="leading-[0]">
                 <OrangeLink>Go to Staking</OrangeLink>
               </Link>
             </div>

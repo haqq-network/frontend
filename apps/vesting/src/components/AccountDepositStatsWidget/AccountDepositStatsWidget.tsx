@@ -1,32 +1,32 @@
-import { useCallback, useState, Fragment, useEffect } from 'react';
-import { getChainParams, useConfig } from '@haqq/shared';
-import { useContract, useProvider } from 'wagmi';
+import { useCallback, useState, useEffect } from 'react';
+import { useContractRead, useNetwork } from 'wagmi';
 import {
   Deposit,
   DepositInfo,
   HaqqVestingContract,
 } from '../DepositStatsWidget/DepositStatsWidget';
-import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
+// import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
 import { Card } from '../Card/Card';
 import { Heading } from '../Typography/Typography';
 import { DepositNavigation } from '../DepositNavigation/DepositNavigation';
-import { SpinnerLoader } from '@haqq/ui-kit';
+import { SpinnerLoader } from '../../pages/PendingPage';
 
 export function AccountDepositStatsWidget({
   contractAddress,
   address,
 }: {
-  contractAddress: string;
-  address: string;
+  contractAddress: `0x${string}`;
+  address: `0x${string}`;
 }) {
-  const { chainName } = useConfig();
-  const chain = getChainParams(chainName);
-  const provider = useProvider();
-  const contract = useContract({
+  const { chain } = useNetwork();
+  // const provider = usePublicClient();
+  const contract = useContractRead({
     address: contractAddress,
     abi: HaqqVestingContract.abi,
-    signerOrProvider: provider,
+    // watch: true,
+    args: [address],
   });
+  console.log({ contract });
   const [deposit, setDeposit] = useState<Deposit | null>(null);
   const [depositsCount, setDepositsCount] = useState<number>(0);
   const [currentDeposit, setCurrentDeposit] = useState<number>(0);
@@ -34,37 +34,35 @@ export function AccountDepositStatsWidget({
 
   const requestDepositCount = useCallback(async () => {
     try {
-      const depositsCount = await contract?.depositsCounter(address);
-
-      setDepositsCount(depositsCount.toNumber());
+      // const depositsCount = await data.depositsCounter();
+      // setDepositsCount(depositsCount.toNumber());
     } catch (error) {
       console.error(error);
     }
-  }, [address, contract]);
+  }, [address]);
 
   const requestDepStats = useCallback(
     async (address: string, depositNumber: number) => {
       if (depositNumber > 0) {
-        try {
-          const deposit = await contract?.deposits(address, depositNumber);
-          const amount = await contract?.amountToWithdrawNow(
-            address,
-            depositNumber,
-          );
-          const paymentsPeriod = await contract?.TIME_BETWEEN_PAYMENTS();
-
-          setDeposit(mapSCResponseToJson(deposit, amount, paymentsPeriod));
-        } catch (error) {
-          console.error(error);
-        }
+        // try {
+        //   const deposit = await contract?.deposits(address, depositNumber);
+        //   const amount = await contract?.amountToWithdrawNow(
+        //     address,
+        //     depositNumber,
+        //   );
+        //   const paymentsPeriod = await contract?.TIME_BETWEEN_PAYMENTS();
+        //   setDeposit(mapSCResponseToJson(deposit, amount, paymentsPeriod));
+        // } catch (error) {
+        //   console.error(error);
+        // }
       }
     },
-    [contract],
+    [],
   );
 
   useEffect(() => {
     requestDepositCount();
-  }, [address, contract, requestDepositCount]);
+  }, [address, requestDepositCount]);
 
   useEffect(() => {
     if (depositsCount > 0) {
@@ -115,7 +113,7 @@ export function AccountDepositStatsWidget({
             <div className="pb-6">
               <DepositInfo
                 deposit={deposit}
-                symbol={chain.nativeCurrency?.symbol ?? ''}
+                symbol={chain?.nativeCurrency?.symbol ?? ''}
               />
             </div>
           )}

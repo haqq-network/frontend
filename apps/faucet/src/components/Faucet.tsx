@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import {
   Fragment,
   ReactElement,
@@ -12,10 +10,8 @@ import Reaptcha from 'reaptcha';
 import SuccessIndicator from 'react-success-indicator';
 import { useAuth0 } from '@auth0/auth0-react';
 import { AccountInfo } from './AccountInfo';
-import { useAccount, useConnect, useNetwork } from 'wagmi';
-import { hexValue } from 'ethers/lib/utils';
+import { useAccount, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import { environment } from '../environments/environment';
-import { getChainParams, useConfig } from '@haqq/shared';
 import {
   Button,
   Heading,
@@ -25,8 +21,9 @@ import {
   WalletIcon,
   EarnIcon,
   Container,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
+import { useSupportedChains } from '@haqq/shared';
 
 interface ClaimInfo {
   available: boolean;
@@ -36,8 +33,9 @@ interface ClaimInfo {
 const { serviceConfig, reCaptchaConfig } = environment;
 
 export function Faucet(): ReactElement {
-  const { chainName } = useConfig();
-  const chain = getChainParams(chainName);
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const { switchNetworkAsync } = useSwitchNetwork();
   const {
     user,
     isAuthenticated,
@@ -49,12 +47,11 @@ export function Faucet(): ReactElement {
   const [isRecaptchaVerified, setIsRecaptchaVerified] =
     useState<boolean>(false);
   const [isTokensClaimed, setTokensClaimed] = useState<boolean>(false);
-  const [claimInfo, setClaimInfo] = useState<ClaimInfo>();
+  const [claimInfo, setClaimInfo] = useState<ClaimInfo | undefined>(undefined);
   const [claimIsLoading, setClaimIsLoading] = useState<boolean>(false);
   const { isConnected, address } = useAccount();
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect();
-  const { chain: currentChain } = useNetwork();
 
   const handleServiceRequest = useCallback(
     async (
@@ -135,39 +132,14 @@ export function Faucet(): ReactElement {
   }, [address, getAccessTokenSilently, handleServiceRequest, recaptchaToken]);
 
   const handleNetworkSwitch = useCallback(async () => {
-    const { ethereum } = window;
-
-    if (ethereum) {
-      const targetNetworkIdHex = hexValue(chain.id);
-
+    if (switchNetworkAsync) {
       try {
-        await ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: targetNetworkIdHex }],
-        });
+        await switchNetworkAsync(chains[0]?.id);
       } catch (error: any) {
-        if (error.code === 4902) {
-          try {
-            await ethereum.request({
-              method: 'wallet_addEthereumChain',
-              params: [
-                {
-                  chainId: targetNetworkIdHex,
-                  chainName: chain.name,
-                  rpcUrls: [chain.ethRpcEndpoint],
-                  nativeCurrency: chain.nativeCurrency,
-                },
-              ],
-            });
-          } catch (error) {
-            console.error(error);
-          }
-        } else {
-          console.error(error);
-        }
+        console.error(error);
       }
     }
-  }, [chain.ethRpcEndpoint, chain.id, chain.name, chain.nativeCurrency]);
+  }, [chains, switchNetworkAsync]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -219,7 +191,7 @@ export function Faucet(): ReactElement {
                     </Heading>
                   </div>
 
-                  {currentChain?.unsupported && (
+                  {chain?.unsupported && (
                     <OrangeLink
                       className="mb-[-2px] text-end font-serif !text-[12px] uppercase"
                       onClick={handleNetworkSwitch}
@@ -358,7 +330,7 @@ export function Faucet(): ReactElement {
                       </div>
                     )}
 
-                    {isCountDownVisible && (
+                    {isCountDownVisible && claimInfo && (
                       <ProposalPeriodTimer
                         color="blue"
                         date={

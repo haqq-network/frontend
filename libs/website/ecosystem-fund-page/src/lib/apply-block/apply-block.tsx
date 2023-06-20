@@ -1,4 +1,4 @@
-import { Button, Heading, Text } from '@haqq/website/ui-kit';
+import { Button, Heading, Text } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 import bgImgData from '../../assets/lines.svg';
 

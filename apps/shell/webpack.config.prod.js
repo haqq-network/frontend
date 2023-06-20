@@ -11,9 +11,19 @@ const baseConfig = require('./module-federation.config');
 const prodConfig = {
   ...baseConfig,
   remotes: [
-    ['staking', '//staking.haqq.network'],
-    ['governance', '//governance.haqq.network'],
+    [
+      'staking',
+      '//staking-app-git-feat-network-change-haqq-network.vercel.app',
+    ],
+    [
+      'governance',
+      '//governance-app-git-feat-network-change-haqq-network.vercel.app',
+    ],
   ],
+  // remotes: [
+  //   ['staking', '//staking.haqq.network'],
+  //   ['governance', '//governance.haqq.network'],
+  // ],
 };
 
 // Nx plugins for webpack.

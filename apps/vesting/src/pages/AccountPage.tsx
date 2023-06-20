@@ -3,7 +3,7 @@ import { environment } from '../environments/environment';
 import { Navigate, useParams } from 'react-router-dom';
 import { AccountDepositStatsWidget } from '../components/AccountDepositStatsWidget/AccountDepositStatsWidget';
 import { Fragment } from 'react';
-import { DepositWithdrawalList } from '../components/DepositWithdrawalList/DepositWithdrawalList';
+// import { DepositWithdrawalList } from '../components/DepositWithdrawalList/DepositWithdrawalList';
 
 export function AccountPage() {
   const { address } = useParams();
@@ -17,13 +17,13 @@ export function AccountPage() {
       {environment.contractAddress && (
         <Fragment>
           <AccountDepositStatsWidget
+            contractAddress={environment.contractAddress as `0x${string}`}
+            address={address as `0x${string}`}
+          />
+          {/* <DepositWithdrawalList
             contractAddress={environment.contractAddress}
             address={address}
-          />
-          <DepositWithdrawalList
-            contractAddress={environment.contractAddress}
-            address={address}
-          />
+          /> */}
         </Fragment>
       )}
     </Container>

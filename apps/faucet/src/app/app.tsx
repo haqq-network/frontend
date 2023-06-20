@@ -1,6 +1,6 @@
 import { lazy, ReactElement, Suspense, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Header, Page, NotFoundPage, PendingPage } from '@haqq/shell/ui-kit';
+import { Header, Page, NotFoundPage, PendingPage } from '@haqq/shell-ui-kit';
 
 const Faucet = lazy(() => {
   return import('../components/Faucet');

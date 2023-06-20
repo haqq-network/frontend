@@ -5,11 +5,12 @@ import { AppContainer } from './app/app-container';
 import { environment } from './environments/environment';
 import './index.css';
 
-if (process.env['NODE_ENV'] === 'production') {
-  const sentryDsn = environment.sentryDsn;
-  if (sentryDsn && sentryDsn !== '') {
+if (process.env['VERCEL_ENV'] === 'production') {
+  if (environment.sentryDsn && environment.sentryDsn !== '') {
+    const dsn = environment.sentryDsn;
+
     import('@haqq/sentry').then(({ initSentry }) => {
-      initSentry(sentryDsn);
+      initSentry(dsn);
     });
   } else {
     console.warn(

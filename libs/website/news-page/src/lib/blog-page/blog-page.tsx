@@ -4,13 +4,15 @@ import Head from 'next/head';
 import { PostsBlock } from '../posts-block/posts-block';
 import { FeaturedPostBlock } from '../featured-post-block/featured-post-block';
 
-interface Post {
+export interface Post {
   id: string;
   title: string;
+  slug: string;
   date: string;
-  content: string;
-  image: string;
-  isFeatured: boolean;
+  content?: string;
+  description?: string;
+  image: { src: string; width: number; height: number } | null;
+  isFeatured?: boolean;
   tags: string[];
 }
 

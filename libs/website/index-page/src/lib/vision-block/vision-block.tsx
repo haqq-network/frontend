@@ -1,4 +1,4 @@
-import { AboveTitle, Heading, Text } from '@haqq/website/ui-kit';
+import { AboveTitle, Heading, Text } from '@haqq/website-ui-kit';
 import clsx from 'clsx';
 import styles from './vision-block.module.css';
 

@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react';
 
 export interface Config {
-  chainName: string;
   isStandalone: boolean;
 }
 
@@ -23,16 +22,14 @@ export function useConfig() {
 
 export function ConfigProvider({
   children,
-  chainName,
   isStandalone = false,
 }: {
   children: ReactNode;
-  chainName: string;
   isStandalone?: boolean;
 }) {
   const memoizedEnvironment = useMemo(() => {
-    return { chainName, isStandalone };
-  }, [chainName, isStandalone]);
+    return { isStandalone };
+  }, [isStandalone]);
 
   return (
     <EnvironmentConfigContext.Provider value={memoizedEnvironment}>

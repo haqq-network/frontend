@@ -31,6 +31,7 @@ export function ProposalCard({
   depositEndDate,
   votingStartDate,
   votingEndDate,
+  symbol,
 }: {
   id: number;
   title: string;
@@ -41,8 +42,8 @@ export function ProposalCard({
   depositEndDate?: Date;
   votingStartDate?: Date;
   votingEndDate?: Date;
+  symbol: string;
 }) {
-  console.log({ minDeposit, totalDeposit });
   const proposalColor = useMemo(() => {
     if (status === ProposalStatusEnum.Deposit) {
       return 'blue';
@@ -104,6 +105,7 @@ export function ProposalCard({
             <ProposalDepositProgress
               minDeposit={minDeposit ?? 0}
               totalDeposit={totalDeposit ?? 0}
+              symbol={symbol}
             />
           )}
           {(status === ProposalStatusEnum.Voting ||

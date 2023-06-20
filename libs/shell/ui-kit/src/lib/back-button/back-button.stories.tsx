@@ -17,9 +17,6 @@ type Story = StoryObj<typeof BackButtonComponent>;
 
 export const BackButton: Story = {
   args: {
-    children: 'Default',
-    onClick: () => {
-      console.log('Go back');
-    },
+    children: 'Back',
   },
 };

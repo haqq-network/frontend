@@ -42,7 +42,6 @@ Thumbs.db
 !.yarn/versions
 
 /coverage
-/dist
 .env
 .log
 

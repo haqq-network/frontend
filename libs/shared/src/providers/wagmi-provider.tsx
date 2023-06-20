@@ -1,41 +1,77 @@
-import { ReactNode, useMemo } from 'react';
-import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import { PropsWithChildren, useMemo, createContext, useContext } from 'react';
+import { Connector, WagmiConfig, configureChains, createConfig } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { InjectedConnector } from '@wagmi/connectors/injected';
-import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
-import { useConfig } from './config-provider';
-import { getChainParams } from '../chains/get-chain-params';
-import { mapToWagmiChain } from '../chains/map-to-wagmi-chain';
+import { haqqMainnet, haqqTestedge2, Chain } from '@wagmi/chains';
+
+export const haqqLocalnet: Chain = {
+  id: 121799,
+  name: 'HAQQ Localnet',
+  network: 'haqq-localnet-1',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Islamic Coin',
+    symbol: 'ISLMT',
+  },
+  rpcUrls: {
+    default: {
+      http: ['http://127.0.0.1:8545'],
+    },
+    public: {
+      http: ['http://127.0.0.1:8545'],
+    },
+  },
+  testnet: true,
+};
+
+const SupportedChainsContext = createContext<Chain[]>([
+  haqqMainnet,
+  haqqLocalnet,
+]);
+
+export function useSupportedChains() {
+  const supportedChains = useContext(SupportedChainsContext);
+
+  if (!supportedChains) {
+    throw new Error(
+      'useSupportedChains should be used only from child of SupportedChainsContext',
+    );
+  }
+
+  return supportedChains;
+}
 
 export function WagmiProvider({
   children,
   walletConnectProjectId,
-}: {
-  children: ReactNode;
+  isProduction = true,
+  supportedChains = [haqqMainnet, haqqTestedge2],
+}: PropsWithChildren<{
   walletConnectProjectId?: string;
-}) {
-  const { chainName } = useConfig();
-  const { provider, chains } = useMemo(() => {
-    const chainParams = getChainParams(chainName);
-    const chain = mapToWagmiChain(chainParams);
+  isProduction?: boolean;
+  supportedChains?: Chain[];
+}>) {
+  const { publicClient, webSocketPublicClient, chains } = useMemo(() => {
+    const configuredChains: Chain[] = [...supportedChains];
 
-    return configureChains(
-      [chain as Chain],
-      [
-        jsonRpcProvider({
-          rpc: (chain: Chain) => {
-            return {
-              http: chain.rpcUrls.default.http[0],
-              // webSocket: chain.rpcUrls.ws,
-            };
-          },
-        }),
-      ],
-    );
-  }, [chainName]);
+    if (!isProduction) {
+      configuredChains.push(haqqLocalnet);
+    }
+
+    return configureChains(configuredChains, [
+      jsonRpcProvider({
+        rpc: (chain) => {
+          return {
+            http: chain.rpcUrls.default.http[0],
+          };
+        },
+      }),
+    ]);
+  }, [isProduction, supportedChains]);
 
   const connectors = useMemo(() => {
-    const connectors: Array<any> = [
+    const connectors: Connector[] = [
       new InjectedConnector({
         chains,
         options: {
@@ -59,13 +95,18 @@ export function WagmiProvider({
     return connectors;
   }, [chains, walletConnectProjectId]);
 
-  const client = useMemo(() => {
-    return createClient({
-      provider,
+  const config = useMemo(() => {
+    return createConfig({
+      publicClient,
+      webSocketPublicClient,
       connectors,
       autoConnect: true,
     });
-  }, [connectors, provider]);
+  }, [connectors, publicClient, webSocketPublicClient]);
 
-  return <WagmiConfig client={client}>{children}</WagmiConfig>;
+  return (
+    <SupportedChainsContext.Provider value={chains}>
+      <WagmiConfig config={config}>{children}</WagmiConfig>;
+    </SupportedChainsContext.Provider>
+  );
 }

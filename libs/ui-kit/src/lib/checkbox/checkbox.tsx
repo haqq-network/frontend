@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactNode, useCallback } from 'react';
 import clsx from 'clsx';
-import styled from '@emotion/styled';
 import { Text } from '../typography/typography';
+import styles from './checkbox.module.css';
 
 export interface CheckboxProps {
   id?: string;
@@ -11,51 +11,6 @@ export interface CheckboxProps {
   className?: string;
   onChange: (value: boolean, event: ChangeEvent<HTMLInputElement>) => void;
 }
-
-const CheckboxContainer = styled.div`
-  --checkbox-border-width: 1.5px;
-  --checkbox-border-radius: 4px;
-  --checkbox-size: 20px;
-  --checkbox-color: var(--haqq-color-stroke);
-`;
-
-const CheckboxTickBox = styled.svg`
-  flex: 0 0 auto;
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border-radius: var(--checkbox-border-radius);
-  box-sizing: border-box;
-  border: var(--checkbox-border-width) solid var(--checkbox-color);
-  outline: none;
-`;
-
-const CheckboxTick = styled.path`
-  color: #fff;
-  stroke-dasharray: 20;
-  stroke-dashoffset: 20;
-  transition: stroke-dashoffset calc(var(--haqq-transition-duration) * 3) ease;
-`;
-
-const CheckboxInputElement = styled.input`
-  position: absolute;
-  left: -9999px;
-  opacity: 0;
-
-  /* Checked */
-  &:checked + ${CheckboxTickBox} {
-    border-color: var(--haqq-color-green) !important;
-    background-color: var(--haqq-color-green);
-
-    & ${CheckboxTick} {
-      stroke-dashoffset: 0;
-    }
-  }
-
-  /* Focus */
-  &:not(&:disabled)&:hover + ${CheckboxTickBox} {
-    --checkbox-color: var(--haqq-color-black);
-  }
-`;
 
 export function Checkbox({
   id,
@@ -75,7 +30,9 @@ export function Checkbox({
   );
 
   return (
-    <CheckboxContainer className={clsx('leading-none', className)}>
+    <div
+      className={clsx(styles['checkboxContainer'], 'leading-none', className)}
+    >
       <label
         htmlFor={id}
         className={clsx(
@@ -83,26 +40,29 @@ export function Checkbox({
           disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
         )}
       >
-        <CheckboxInputElement
+        <input
           id={id}
           type="checkbox"
           checked={value}
           onChange={handleChange}
           disabled={disabled}
+          className={styles['checkboxInputElement']}
         />
-        <CheckboxTickBox
+        <svg
           viewBox="0 0 16 16"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          className={styles['checkboxTickBox']}
         >
-          <CheckboxTick
+          <path
             d="M4 8.14072L6.6546 11L12 5"
             strokeWidth="2"
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className={styles['checkboxTick']}
           />
-        </CheckboxTickBox>
+        </svg>
 
         {children && (
           <Text block className="pl-[12px]">
@@ -110,6 +70,6 @@ export function Checkbox({
           </Text>
         )}
       </label>
-    </CheckboxContainer>
+    </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Heading, Text } from '@haqq/website/ui-kit';
+import { Heading, Text } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 
 export function TextBlock() {

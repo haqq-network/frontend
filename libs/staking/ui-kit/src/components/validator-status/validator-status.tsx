@@ -43,7 +43,7 @@ export function ValidatorDetailsStatus({
   status,
 }: {
   jailed: boolean;
-  status: number;
+  status: string;
 }) {
   if (jailed) {
     return (
@@ -59,7 +59,7 @@ export function ValidatorDetailsStatus({
     );
   }
 
-  if (status === 3) {
+  if (status === 'BOND_STATUS_BONDED') {
     return (
       <div
         className={clsx(

@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { Card } from '../Card/Card';
 import { Heading } from '../Typography/Typography';
 import { formatDate } from '../../utils/format-date';
+import { useNetwork } from 'wagmi';
+import { useSupportedChains } from '@haqq/shared';
 
 const withdrawABI = [
   {
@@ -94,6 +96,7 @@ type RawLogEntry = {
 
 interface WithdrawalLogEntry extends RawLogEntry {
   parsedLog: LogDescription;
+  type: 'withdraw' | 'deposit';
 }
 
 function getLogFetchUrl(contractAddress: string, address: string) {
@@ -142,7 +145,7 @@ async function fetchWithdrawLogs({
 }: {
   contractAddress: string;
   address: string;
-}) {
+}): Promise<WithdrawalLogEntry[]> {
   const logsFetchUrl = getLogFetchUrl(contractAddress, address);
   const response = await fetch(logsFetchUrl);
   const logs = await response.json();
@@ -169,7 +172,7 @@ async function fetchDepositLogs({
 }: {
   contractAddress: string;
   address: string;
-}) {
+}): Promise<WithdrawalLogEntry[]> {
   const logsFetchUrl = getDepositLogsFetchUrl(contractAddress, address);
   const response = await fetch(logsFetchUrl);
   const logs = await response.json();
@@ -190,7 +193,7 @@ async function fetchDepositLogs({
     });
 }
 
-function sortTxByBlock(array: any[]) {
+function sortTxByBlock(array: WithdrawalLogEntry[]) {
   return array.sort((txA, txB) => {
     return Number(txA.blockNumber) - Number(txB.blockNumber);
   });
@@ -206,11 +209,15 @@ export function DepositWithdrawalList({
   const [withdrawLogsList, setWithdrawLogsList] = useState<
     WithdrawalLogEntry[]
   >([]);
-  // const [isFetching, setFetching] = useState(false);
+  const [isFetching, setFetching] = useState(false);
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   const handleGetTransactionList = useCallback(
     async (contractAddress: string, address: string) => {
-      // setFetching(true);
+      setFetching(true);
       const [withdrawLogs, depositLogs] = await Promise.all([
         fetchWithdrawLogs({ contractAddress, address }),
         fetchDepositLogs({ contractAddress, address }),
@@ -221,18 +228,18 @@ export function DepositWithdrawalList({
         ...depositLogs,
       ]);
 
-      console.log({ withdrawLogs, depositLogs, sortedTransactions });
+      // console.log({ withdrawLogs, depositLogs, sortedTransactions });
       setWithdrawLogsList(sortedTransactions);
-      // setFetching(false);
+      setFetching(false);
     },
     [],
   );
 
   useEffect(() => {
     handleGetTransactionList(contractAddress, address);
-  }, [address]);
+  }, [address, contractAddress, handleGetTransactionList]);
 
-  return (
+  return withdrawLogsList.length > 0 ? (
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="flex flex-col space-y-4">
         <div className="px-6 pt-6">
@@ -249,18 +256,25 @@ export function DepositWithdrawalList({
               <DepositWithdrawalListItem
                 key={`w_${index}`}
                 withdrawal={withdrawal}
+                symbol={symbol}
               />
             );
           })}
         </div>
       </div>
     </Card>
-  );
+  ) : null;
 }
 
 const EXPLORER_LINK = 'https://explorer.haqq.network';
 
-function DepositWithdrawalListItem({ withdrawal }: any) {
+function DepositWithdrawalListItem({
+  withdrawal,
+  symbol,
+}: {
+  symbol: string;
+  withdrawal: WithdrawalLogEntry;
+}) {
   const transactionTimestamp = useMemo(() => {
     return formatDate(new Date(Number(withdrawal.timeStamp) * 1000));
   }, [withdrawal.timeStamp]);
@@ -316,10 +330,10 @@ function DepositWithdrawalListItem({ withdrawal }: any) {
           <div>
             <div className="text-lg font-medium">
               {`${Number.parseInt(
-                formatEther(withdrawal.parsedLog.args.sumInWei),
+                formatEther(withdrawal.parsedLog.args['sumInWei']),
                 10,
               ).toLocaleString()}`}{' '}
-              ISLM
+              {symbol.toLocaleUpperCase()}
             </div>
           </div>
         )}
@@ -327,10 +341,10 @@ function DepositWithdrawalListItem({ withdrawal }: any) {
           <div>
             <div className="text-lg font-medium">
               {`${Number.parseInt(
-                formatEther(withdrawal.parsedLog.args.sumInWeiDeposited),
+                formatEther(withdrawal.parsedLog.args['sumInWeiDeposited']),
                 10,
               ).toLocaleString()}`}{' '}
-              ISLM
+              {symbol.toLocaleUpperCase()}
             </div>
           </div>
         )}
