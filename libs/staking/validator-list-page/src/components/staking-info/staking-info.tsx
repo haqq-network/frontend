@@ -12,6 +12,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useBalance, useNetwork } from 'wagmi';
 import { useCosmosProvider } from '@haqq/shared';
 import { Button, Container, Heading, WalletIcon } from '@haqq/shell-ui-kit';
+import { haqqTestedge2 } from '@wagmi/chains';
+import clsx from 'clsx';
 
 export function StakingInfoHooked() {
   const [staked, setStakedValue] = useState(0);
@@ -107,9 +109,20 @@ export function StakingInfo() {
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
+  const isTestedge = useMemo(() => {
+    return chain?.id === haqqTestedge2.id;
+  }, [chain?.id]);
+
   if (!isWalletConnected) {
     return (
-      <section className="sticky top-[62px] z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent py-[32px] backdrop-blur sm:top-[70px]">
+      <section
+        className={clsx(
+          'sticky z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent py-[32px] backdrop-blur',
+          isTestedge
+            ? 'top-[102px] sm:top-[111px]'
+            : 'top-[62px] sm:top-[70px]',
+        )}
+      >
         <Container className="flex min-h-[100px] flex-col items-center justify-center gap-[12px]">
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             You should connect wallet first
@@ -129,7 +142,12 @@ export function StakingInfo() {
   }
 
   return (
-    <section className="sticky top-[62px] z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent py-[32px] backdrop-blur sm:top-[70px]">
+    <section
+      className={clsx(
+        'sticky z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent py-[32px] backdrop-blur',
+        isTestedge ? 'top-[102px] sm:top-[111px]' : 'top-[62px] sm:top-[70px]',
+      )}
+    >
       <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
         <div className="flex flex-row items-center">
           <WalletIcon />
