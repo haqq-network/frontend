@@ -99,7 +99,7 @@ export function BurgerMenu({
 
         <Link href="https://app.haqq.network">
           <Button variant={2} className="block sm:hidden">
-            App
+            Shell
           </Button>
         </Link>
         <Link href="/wallet">

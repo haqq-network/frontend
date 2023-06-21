@@ -75,7 +75,7 @@ export function Header() {
         </nav>
         <div className="flex flex-row items-center gap-[16px]">
           <Link href="https://app.haqq.network">
-            <Button className="hidden sm:block">App</Button>
+            <Button className="hidden sm:block">Shell</Button>
           </Link>
           <Link href="/wallet">
             <Button className="hidden sm:block">Wallet</Button>
