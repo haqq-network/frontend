@@ -39,7 +39,7 @@ export function StatisticsBlockStatCard({
     <div>
       <div
         className={clsx(
-          'h-[42px] font-serif text-[32px] font-[500] leading-[42px]',
+          'font-serif text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px]',
           styles['statsBlock'],
         )}
       >
@@ -62,7 +62,9 @@ export function StatisticsBlockStatCard({
         )}
         {postfix && ` ${postfix}`}
       </div>
-      <div className="font-sans text-[16px] leading-[26px]">{title}</div>
+      <div className="font-sans text-[13px] font-[500] leading-[1.6em] sm:text-[15px] lg:text-[16px]">
+        {title}
+      </div>
     </div>
   );
 }
@@ -125,7 +127,7 @@ export function StatisticsBlock() {
         className="border-haqq-border mx-[16px] border-l px-[16px] sm:ml-[63px] sm:mr-0 sm:pl-0 sm:pr-0 lg:ml-[79px]"
         id="stats"
       >
-        <div className="grid grid-cols-1 gap-[24px] px-[32px] py-[60px] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-[24px] py-[42px] sm:grid-cols-2 sm:px-[32px] sm:py-[60px] xl:grid-cols-4">
           <StatisticsBlockStatCard
             value={stats.mainnetAccountsCreated}
             title="mainnet accounts created"
