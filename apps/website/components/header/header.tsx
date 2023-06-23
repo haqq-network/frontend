@@ -114,8 +114,10 @@ function BurgerMenuComponent({
       <div
         className={clsx(
           'fixed right-0 top-[62px] z-[45] h-[calc(100vh-62px)] w-full sm:top-[72px] sm:h-[calc(100vh-72px)] sm:w-[468px]',
-          'transform-gpu transition-transform duration-150 will-change-transform',
-          isOpen ? 'translate-x-[0px] ease-in' : 'translate-x-[468px] ease-out',
+          'transform-gpu transition-transform duration-200 will-change-transform',
+          isOpen
+            ? 'translate-y-[0px] ease-in-out sm:translate-x-[0px]'
+            : 'translate-y-[100%] ease-out sm:translate-x-[100%] sm:translate-y-[0%]',
         )}
       >
         <BurgerMenu onClose={onClose} />
