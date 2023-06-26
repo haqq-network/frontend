@@ -106,7 +106,7 @@ export function WagmiProvider({
 
   return (
     <SupportedChainsContext.Provider value={chains}>
-      <WagmiConfig config={config}>{children}</WagmiConfig>;
+      <WagmiConfig config={config}>{children}</WagmiConfig>
     </SupportedChainsContext.Provider>
   );
 }
