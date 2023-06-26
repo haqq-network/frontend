@@ -145,7 +145,7 @@
     "jest": "29.5.0",
     "jest-environment-jsdom": "29.5.0",
     "lint-staged": "13.2.2",
-    "nx": "16.3.2",
+    "nx": "16.4.0",
     "postcss": "8.4.24",
     "postcss-import": "15.1.0",
     "postcss-preset-env": "8.5.0",
