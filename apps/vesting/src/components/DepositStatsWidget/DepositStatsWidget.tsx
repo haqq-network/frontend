@@ -3,13 +3,11 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   useAccount,
-  // useContract,
   useContractRead,
   useContractWrite,
   useNetwork,
   usePublicClient,
   useWalletClient,
-  // useSigner,
 } from 'wagmi';
 import { Card } from '../Card/Card';
 import { Heading, Text } from '../Typography/Typography';
@@ -23,9 +21,9 @@ import { Alert } from '../modals/Alert/Alert';
 import { Confirm } from '../modals/Confirm/Confirm';
 import { Input } from '../Input/Input';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
-// import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
 import { formatDate } from '../../utils/format-date';
 import { formatEther, isAddress } from 'viem/utils';
+import { useDepositContract } from '../../hooks/useDepositContract';
 
 export { HaqqVestingContract };
 
@@ -33,16 +31,6 @@ interface TransferAndWithdrawArgs {
   deposit: Deposit;
   contractAddress: string;
   symbol: string;
-}
-
-export interface Deposit {
-  locked: bigint;
-  unlocked: bigint;
-  available: bigint;
-  deposited: bigint;
-  withdrawn: bigint;
-  createdAt: string;
-  unlockPeriod: number;
 }
 
 function NextDepositUnlock({
@@ -79,85 +67,6 @@ export function DepositInfoStatsRow({
       </div>
     </div>
   );
-}
-
-function useDepositContract({
-  depositsCount,
-  address,
-  depositId,
-  contractAddress,
-}: {
-  depositsCount: undefined | bigint;
-  address: `0x${string}`;
-  contractAddress: `0x${string}`;
-  depositId: bigint;
-}): Deposit | undefined {
-  const publicClient = usePublicClient();
-  const { data: depositContract, isLoading: isLoadingDepositContract } =
-    useContractRead({
-      address: contractAddress,
-      abi: HaqqVestingContract.abi,
-      publicClient,
-      functionName: 'deposits',
-      args: [address, depositId],
-      watch: true,
-    });
-  const { data: amountToWithdrawNow, isLoading: isLoadingAmountToWithdrawNow } =
-    useContractRead({
-      address: contractAddress,
-      abi: HaqqVestingContract.abi,
-      publicClient,
-      functionName: 'amountToWithdrawNow',
-      args: [address, depositId],
-      watch: true,
-    });
-  const { data: timeBetweenPayments, isLoading: isLoadingTimeBetweenPayments } =
-    useContractRead({
-      address: contractAddress,
-      abi: HaqqVestingContract.abi,
-      publicClient,
-      functionName: 'TIME_BETWEEN_PAYMENTS',
-      watch: true,
-    });
-
-  return useMemo(() => {
-    if (
-      depositsCount === 0 ||
-      isLoadingDepositContract ||
-      isLoadingAmountToWithdrawNow ||
-      isLoadingTimeBetweenPayments ||
-      depositContract === undefined ||
-      amountToWithdrawNow === undefined ||
-      timeBetweenPayments === undefined
-    ) {
-      return undefined;
-    }
-
-    const available = amountToWithdrawNow;
-    const [timestamp, sumInWeiDeposited, sumPaidAlready] = depositContract;
-    const deposited = sumInWeiDeposited;
-    const withdrawn = sumPaidAlready;
-    const unlocked = BigInt(sumPaidAlready) + BigInt(available);
-    const locked = deposited - unlocked;
-
-    return {
-      locked,
-      unlocked,
-      available,
-      deposited,
-      withdrawn,
-      createdAt: new Date(Number(timestamp) * 1000).toISOString(),
-      unlockPeriod: timeBetweenPayments,
-    };
-  }, [
-    amountToWithdrawNow,
-    depositContract,
-    depositsCount,
-    isLoadingAmountToWithdrawNow,
-    isLoadingDepositContract,
-    isLoadingTimeBetweenPayments,
-    timeBetweenPayments,
-  ]);
 }
 
 export function DepositStatsWidget({
@@ -227,7 +136,7 @@ export function DepositStatsWidget({
   );
 }
 
-function DepositHooked({
+export function DepositHooked({
   depositsCount,
   address,
   contractAddress,
@@ -238,12 +147,12 @@ function DepositHooked({
   contractAddress: `0x${string}`;
   currentDeposit: bigint;
 }) {
-  console.log('DepositInfo', {
-    depositsCount,
-    address,
-    contractAddress,
-    currentDeposit,
-  });
+  // console.log('DepositInfo', {
+  //   depositsCount,
+  //   address,
+  //   contractAddress,
+  //   currentDeposit,
+  // });
   const { chain } = useNetwork();
   const deposit = useDepositContract({
     depositsCount,
@@ -251,6 +160,7 @@ function DepositHooked({
     contractAddress,
     depositId: currentDeposit,
   });
+
   if (!deposit) {
     return null;
   }
@@ -276,12 +186,12 @@ function DepositHooked({
         />
 
         {/* <Button
-                  fill
-                  disabled={!isWithdrawAvailable}
-                  onClick={handleWithdrawRequest}
-                >
-                  Withdraw
-                </Button> */}
+          fill
+          disabled={!isWithdrawAvailable}
+          onClick={handleWithdrawRequest}
+        >
+          Withdraw
+        </Button> */}
       </div>
     </Fragment>
   );

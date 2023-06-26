@@ -1,16 +1,11 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import {
-  formatEther,
-  hexZeroPad,
-  Interface,
-  LogDescription,
-} from 'ethers/lib/utils';
 import { useState } from 'react';
 import { Card } from '../Card/Card';
 import { Heading } from '../Typography/Typography';
 import { formatDate } from '../../utils/format-date';
 import { useNetwork } from 'wagmi';
 import { useSupportedChains } from '@haqq/shared';
+import { pad, formatEther, decodeEventLog } from 'viem';
 
 const withdrawABI = [
   {
@@ -78,8 +73,6 @@ const depositABI = [
     ],
   },
 ];
-const withdrawIface = new Interface(withdrawABI);
-const depositIface = new Interface(depositABI);
 
 type RawLogEntry = {
   address: string;
@@ -95,7 +88,7 @@ type RawLogEntry = {
 };
 
 interface WithdrawalLogEntry extends RawLogEntry {
-  parsedLog: LogDescription;
+  parsedLog: any;
   type: 'withdraw' | 'deposit';
 }
 
@@ -112,7 +105,7 @@ function getLogFetchUrl(contractAddress: string, address: string) {
   );
   getLogsUrl.searchParams.append(
     'topic1',
-    hexZeroPad(address, 32).toLowerCase(),
+    pad(address as `0x${string}`, { size: 32 }).toLowerCase(),
   );
   getLogsUrl.searchParams.append('topic0_1_opr', 'and');
 
@@ -132,7 +125,7 @@ function getDepositLogsFetchUrl(contractAddress: string, address: string) {
   );
   getLogsUrl.searchParams.append(
     'topic1',
-    hexZeroPad(address, 32).toLowerCase(),
+    pad(address as `0x${string}`, { size: 32 }).toLowerCase(),
   );
   getLogsUrl.searchParams.append('topic0_1_opr', 'and');
 
@@ -158,9 +151,15 @@ async function fetchWithdrawLogs({
       };
     })
     .map((logEntry) => {
+      const parsedLog = decodeEventLog({
+        abi: withdrawABI,
+        data: logEntry.data,
+        topics: logEntry.topics,
+      } as any);
+
       return {
         ...logEntry,
-        parsedLog: withdrawIface.parseLog(logEntry),
+        parsedLog,
         type: 'withdraw',
       };
     });
@@ -187,7 +186,7 @@ async function fetchDepositLogs({
     .map((logEntry) => {
       return {
         ...logEntry,
-        parsedLog: depositIface.parseLog(logEntry),
+        parsedLog: decodeEventLog({ abi: depositABI, ...logEntry } as any),
         type: 'deposit',
       };
     });
@@ -330,7 +329,7 @@ function DepositWithdrawalListItem({
           <div>
             <div className="text-lg font-medium">
               {`${Number.parseInt(
-                formatEther(withdrawal.parsedLog.args['sumInWei']),
+                formatEther(BigInt(withdrawal.parsedLog.args['sumInWei'])),
                 10,
               ).toLocaleString()}`}{' '}
               {symbol.toLocaleUpperCase()}
@@ -341,7 +340,9 @@ function DepositWithdrawalListItem({
           <div>
             <div className="text-lg font-medium">
               {`${Number.parseInt(
-                formatEther(withdrawal.parsedLog.args['sumInWeiDeposited']),
+                formatEther(
+                  BigInt(withdrawal.parsedLog.args['sumInWeiDeposited']),
+                ),
                 10,
               ).toLocaleString()}`}{' '}
               {symbol.toLocaleUpperCase()}

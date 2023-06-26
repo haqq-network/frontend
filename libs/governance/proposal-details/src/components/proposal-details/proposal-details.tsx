@@ -5,12 +5,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'marked-react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
 import {
@@ -43,10 +38,9 @@ import {
   ProposalStatus as ProposalStatusComponent,
   ProposalPeriodTimer,
   ProposalVoteProgress,
-  // ProposalDepositModal,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { formatUnits } from 'viem/utils';
 
 const enum ProposalTypes {

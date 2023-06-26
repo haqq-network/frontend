@@ -1,11 +1,11 @@
-import { useCallback, useState, useEffect } from 'react';
-import { useContractRead, useNetwork } from 'wagmi';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import { useState, useEffect } from 'react';
+import { useAccount, useContractRead, usePublicClient } from 'wagmi';
 import {
-  Deposit,
-  DepositInfo,
+  DepositHooked,
   HaqqVestingContract,
 } from '../DepositStatsWidget/DepositStatsWidget';
-// import { mapSCResponseToJson } from '../../utils/mapSCResponseToJson';
 import { Card } from '../Card/Card';
 import { Heading } from '../Typography/Typography';
 import { DepositNavigation } from '../DepositNavigation/DepositNavigation';
@@ -18,66 +18,23 @@ export function AccountDepositStatsWidget({
   contractAddress: `0x${string}`;
   address: `0x${string}`;
 }) {
-  const { chain } = useNetwork();
-  // const provider = usePublicClient();
-  const contract = useContractRead({
+  const { isConnected } = useAccount();
+  const publicClient = usePublicClient();
+  const [currentDeposit, setCurrentDeposit] = useState<number>(1);
+  const { data: depositsCount } = useContractRead<bigint>({
     address: contractAddress,
     abi: HaqqVestingContract.abi,
-    // watch: true,
+    publicClient,
+    functionName: 'depositsCounter',
     args: [address],
+    watch: true,
   });
-  console.log({ contract });
-  const [deposit, setDeposit] = useState<Deposit | null>(null);
-  const [depositsCount, setDepositsCount] = useState<number>(0);
-  const [currentDeposit, setCurrentDeposit] = useState<number>(0);
-  // const [isWithdrawRequested, setWithdrawRequested] = useState<boolean>(false);
-
-  const requestDepositCount = useCallback(async () => {
-    try {
-      // const depositsCount = await data.depositsCounter();
-      // setDepositsCount(depositsCount.toNumber());
-    } catch (error) {
-      console.error(error);
-    }
-  }, [address]);
-
-  const requestDepStats = useCallback(
-    async (address: string, depositNumber: number) => {
-      if (depositNumber > 0) {
-        // try {
-        //   const deposit = await contract?.deposits(address, depositNumber);
-        //   const amount = await contract?.amountToWithdrawNow(
-        //     address,
-        //     depositNumber,
-        //   );
-        //   const paymentsPeriod = await contract?.TIME_BETWEEN_PAYMENTS();
-        //   setDeposit(mapSCResponseToJson(deposit, amount, paymentsPeriod));
-        // } catch (error) {
-        //   console.error(error);
-        // }
-      }
-    },
-    [],
-  );
 
   useEffect(() => {
-    requestDepositCount();
-  }, [address, requestDepositCount]);
-
-  useEffect(() => {
-    if (depositsCount > 0) {
+    if (depositsCount && depositsCount > 0) {
       setCurrentDeposit(1);
     }
   }, [depositsCount]);
-
-  useEffect(() => {
-    if (depositsCount === 0) {
-      setCurrentDeposit(0);
-      setDeposit(null);
-    } else if (depositsCount > 0 && currentDeposit > 0 && address) {
-      requestDepStats(address, currentDeposit);
-    }
-  }, [address, currentDeposit, depositsCount, requestDepStats]);
 
   return (
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
@@ -87,9 +44,9 @@ export function AccountDepositStatsWidget({
             Deposit
           </Heading>
 
-          {depositsCount > 0 && (
+          {isConnected && depositsCount && depositsCount > 0 && (
             <DepositNavigation
-              total={depositsCount}
+              total={(depositsCount as bigint).toString()}
               current={currentDeposit}
               onChange={setCurrentDeposit}
             />
@@ -103,17 +60,19 @@ export function AccountDepositStatsWidget({
             </div>
           )}
 
-          {depositsCount > 0 && deposit == null && (
+          {!isConnected && (
             <div className="flex min-h-[200px] items-center justify-center p-10">
               <SpinnerLoader className="!fill-[#04d484] !text-[#04d48470]" />
             </div>
           )}
 
-          {deposit !== null && (
+          {isConnected && depositsCount && depositsCount > 0 && (
             <div className="pb-6">
-              <DepositInfo
-                deposit={deposit}
-                symbol={chain?.nativeCurrency?.symbol ?? ''}
+              <DepositHooked
+                depositsCount={depositsCount}
+                address={address}
+                contractAddress={contractAddress}
+                currentDeposit={currentDeposit}
               />
             </div>
           )}

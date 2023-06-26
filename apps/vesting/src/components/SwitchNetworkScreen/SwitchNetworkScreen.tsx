@@ -5,6 +5,7 @@ import { Button } from '../Button/Button';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { Heading, Text } from '../Typography/Typography';
 import { toHex } from 'viem';
+import { useSupportedChains } from '@haqq/shared';
 
 function SwitchNetworkNetworkContainer({
   networkName,
@@ -40,8 +41,8 @@ export function SwitchNetworkScreen(): ReactElement {
     clearError,
     switchNetwork,
   } = useOnboarding();
-  const { chain: currentChain, chains } = useNetwork();
-  console.log({ currentChain, chains });
+  const { chain: currentChain } = useNetwork();
+  const chains = useSupportedChains();
 
   return (
     <div className="flex flex-col space-y-8">
@@ -93,9 +94,7 @@ export function SwitchNetworkScreen(): ReactElement {
             </g>
           </svg>
         </div>
-        <SwitchNetworkNetworkContainer
-          networkName={chains.length > 0 ? toHex(chains[0].id) : 'unknown'}
-        />
+        <SwitchNetworkNetworkContainer networkName={chains[0].name} />
       </div>
 
       <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
