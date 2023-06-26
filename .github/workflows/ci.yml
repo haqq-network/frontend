@@ -57,3 +57,5 @@ jobs:
         with:
           name: dist
           path: dist/
+      - name: Clear local NX build cache
+        run: yarn nx reset
