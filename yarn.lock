@@ -3618,7 +3618,7 @@ __metadata:
     "@swc/helpers": 0.5.1
     "@swc/jest": 0.2.26
     "@tailwindcss/typography": 0.5.9
-    "@tanstack/react-query": 4.29.14
+    "@tanstack/react-query": 4.29.17
     "@tanstack/react-query-devtools": 4.29.14
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.4.3
@@ -7340,10 +7340,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:4.29.14":
-  version: 4.29.14
-  resolution: "@tanstack/query-core@npm:4.29.14"
-  checksum: 3f74b2a02a7ac3b5d5f01507dc5ed15af539257005fc299ae4e4ef578feb347ab737ed5beb542c809c8f2838ae4d8626f6bf5d7d134173e0b8504c0900d0d9f6
+"@tanstack/query-core@npm:4.29.17":
+  version: 4.29.17
+  resolution: "@tanstack/query-core@npm:4.29.17"
+  checksum: 0440d58a566fc3d6791a27eae439f497acc0142cb629ca0fb6e536f9c0a29d150b816ae33c9375411582da0b849a2ef141ef3b2284b8b313d5a4d6671b2548a3
   languageName: node
   linkType: hard
 
@@ -7391,11 +7391,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:4.29.14":
-  version: 4.29.14
-  resolution: "@tanstack/react-query@npm:4.29.14"
+"@tanstack/react-query@npm:4.29.17":
+  version: 4.29.17
+  resolution: "@tanstack/react-query@npm:4.29.17"
   dependencies:
-    "@tanstack/query-core": 4.29.14
+    "@tanstack/query-core": 4.29.17
+    client-only: 0.0.1
     use-sync-external-store: ^1.2.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -7406,7 +7407,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 2444cd11dbbb9e6811e845505bd55d0f4b63f39f6067f5b3a65b18ed66d945128d84988df3b7aaae7adc5636fd0909af86bbc184b6101d395136f8bd14509593
+  checksum: 5630dcb93100a48165464188aef2f53ed8e6bcb65669ff919f0916b7a21b58c7e21b06f4e4a331d1b9bfb8a89677266e79bc2a3bc80af62d763b08b3b195f7ea
   languageName: node
   linkType: hard
 
