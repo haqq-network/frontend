@@ -109,13 +109,7 @@ export function DepositStatsWidget({
           )}
         </div>
 
-        <div className="flex flex-col space-y-4">
-          {!isConnected && (
-            <div className="flex min-h-[300px] items-center justify-center p-10">
-              <Spinner />
-            </div>
-          )}
-
+        <div className="flex flex-col space-y-6">
           {isConnected && !depositsCount && (
             <div className="px-6 py-12 text-center">
               <Heading level={3}>You have no deposits</Heading>
@@ -153,7 +147,6 @@ export function DepositHooked({
   //   contractAddress,
   //   currentDeposit,
   // });
-  const { chain } = useNetwork();
   const deposit = useDepositContract({
     depositsCount,
     address,
@@ -162,7 +155,11 @@ export function DepositHooked({
   });
 
   if (!deposit) {
-    return null;
+    return (
+      <div className="flex min-h-[300px] items-center justify-center p-10">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -170,18 +167,18 @@ export function DepositHooked({
       <DepositInfo
         deposit={deposit}
         contractAddress={contractAddress}
-        symbol={chain?.nativeCurrency?.symbol ?? ''}
+        symbol="ISLM"
       />
 
       <div className="flex flex-col space-y-4 px-6 pb-6">
         <Withdraw
           deposit={deposit}
-          symbol={chain.nativeCurrency?.symbol ?? ''}
+          symbol="ISLM"
           contractAddress={contractAddress}
         />
         <Transfer
           deposit={deposit}
-          symbol={chain.nativeCurrency?.symbol ?? ''}
+          symbol="ISLM"
           contractAddress={contractAddress}
         />
 

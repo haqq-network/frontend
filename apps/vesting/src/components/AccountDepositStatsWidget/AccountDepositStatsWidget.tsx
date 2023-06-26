@@ -9,7 +9,6 @@ import {
 import { Card } from '../Card/Card';
 import { Heading } from '../Typography/Typography';
 import { DepositNavigation } from '../DepositNavigation/DepositNavigation';
-import { SpinnerLoader } from '../../pages/PendingPage';
 
 export function AccountDepositStatsWidget({
   contractAddress,
@@ -18,7 +17,6 @@ export function AccountDepositStatsWidget({
   contractAddress: `0x${string}`;
   address: `0x${string}`;
 }) {
-  const { isConnected } = useAccount();
   const publicClient = usePublicClient();
   const [currentDeposit, setCurrentDeposit] = useState<number>(1);
   const { data: depositsCount } = useContractRead<bigint>({
@@ -44,7 +42,7 @@ export function AccountDepositStatsWidget({
             Deposit
           </Heading>
 
-          {isConnected && depositsCount && depositsCount > 0 && (
+          {depositsCount > 0 && (
             <DepositNavigation
               total={(depositsCount as bigint).toString()}
               current={currentDeposit}
@@ -53,28 +51,20 @@ export function AccountDepositStatsWidget({
           )}
         </div>
 
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-6">
           {depositsCount === 0 && (
             <div className="px-6 py-12 text-center">
               <Heading level={3}>You have no deposits</Heading>
             </div>
           )}
 
-          {!isConnected && (
-            <div className="flex min-h-[200px] items-center justify-center p-10">
-              <SpinnerLoader className="!fill-[#04d484] !text-[#04d48470]" />
-            </div>
-          )}
-
-          {isConnected && depositsCount && depositsCount > 0 && (
-            <div className="pb-6">
-              <DepositHooked
-                depositsCount={depositsCount}
-                address={address}
-                contractAddress={contractAddress}
-                currentDeposit={currentDeposit}
-              />
-            </div>
+          {depositsCount > 0 && (
+            <DepositHooked
+              depositsCount={depositsCount}
+              address={address}
+              contractAddress={contractAddress}
+              currentDeposit={currentDeposit}
+            />
           )}
         </div>
       </div>
