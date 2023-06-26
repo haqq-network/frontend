@@ -39,7 +39,7 @@ export function TextBlock() {
           </Link>
           ,{' '}
           <Link
-            href={'https://app.haqq.network'}
+            href={'https://shell.haqq.network'}
             target="_blank"
             rel={'noopener noreferrer'}
             className="text-haqq-orange"

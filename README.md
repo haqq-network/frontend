@@ -20,11 +20,11 @@
 | Description          | Domain                          | Source code             |
 | -------------------- | ------------------------------- | ----------------------- |
 | Homepage             | https://haqq.hetwork            | [Open](apps/website)    |
-| Web3 Dashboard       | https://app.haqq.network        | [Open](apps/shell)      |
-| Web3 Staking app     | https://staking.haqq.network    | [Open](apps/staking)    |
-| Web3 Governance app  | https://governance.haqq.network | [Open](apps/governance) |
+| Shell app            | https://shell.haqq.network      | [Open](apps/shell)      |
+| Staking app          | https://staking.haqq.network    | [Open](apps/staking)    |
+| Governance app       | https://governance.haqq.network | [Open](apps/governance) |
 | TestEdge2 Faucet app | https://testedge2.haqq.network  | [Open](apps/faucet)     |
-| Web3 Vesting app     | https://vesting.haqq.network    | [Open](apps/vesting)    |
+| Vesting app          | https://vesting.haqq.network    | [Open](apps/vesting)    |
 
 ## Development guide
 

@@ -111,7 +111,7 @@ export function BurgerMenu({
           Brand Assets
         </BurgerMenuNavLink>
 
-        <Link href="https://app.haqq.network">
+        <Link href="https://shell.haqq.network">
           <Button variant={2} className="block sm:hidden">
             Shell
           </Button>
