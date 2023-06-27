@@ -18,6 +18,7 @@ interface ValidatorBlockMobileProps {
   onGetRewardClick: () => void;
   onUndelegateClick: () => void;
   isWarningShown?: boolean;
+  symbol: string;
 }
 
 function GrayDescription({
@@ -64,6 +65,7 @@ export function ValidatorBlockMobile({
   rewards,
   undelegate,
   isWarningShown = false,
+  symbol,
 }: ValidatorBlockMobileProps) {
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
@@ -97,7 +99,7 @@ export function ValidatorBlockMobile({
                   minimumFractionDigits: 0,
                   maximumFractionDigits: 3,
                 })}{' '}
-                ISLM
+                {symbol.toLocaleUpperCase()}
               </DescriptionAmount>
             </div>
             {undelegate && undelegate > 0 && (
@@ -108,7 +110,7 @@ export function ValidatorBlockMobile({
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 3,
                   })}{' '}
-                  ISLM
+                  {symbol.toLocaleUpperCase()}
                 </DescriptionAmount>
               </div>
             )}
@@ -119,7 +121,7 @@ export function ValidatorBlockMobile({
                   minimumFractionDigits: 0,
                   maximumFractionDigits: 3,
                 })}{' '}
-                ISLM
+                {symbol.toLocaleUpperCase()}
               </DescriptionAmount>
             </div>
           </div>
@@ -187,7 +189,7 @@ export function ValidatorBlockMobile({
                       minimumFractionDigits: 0,
                       maximumFractionDigits: 3,
                     })}{' '}
-                    ISLM
+                    {symbol.toLocaleUpperCase()}
                   </DescriptionAmount>
                 </div>
                 <div>
@@ -210,7 +212,7 @@ export function ValidatorBlockMobile({
                         minimumFractionDigits: 0,
                         maximumFractionDigits: 3,
                       })}{' '}
-                      ISLM
+                      {symbol.toLocaleUpperCase()}
                     </DescriptionAmount>
                   </div>
                 )}
@@ -235,7 +237,7 @@ export function ValidatorBlockMobile({
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 3,
                   })}{' '}
-                  ISLM
+                  {symbol.toLocaleUpperCase()}
                 </DescriptionAmount>
               </div>
               <div>

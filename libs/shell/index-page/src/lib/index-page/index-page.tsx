@@ -8,13 +8,19 @@ import {
   Button,
   Container,
   LogoutIcon,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
-import { useAddress, useWallet } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  useAddress,
+  useCosmosProvider,
+  useWallet,
+} from '@haqq/shared';
 import { useMemo } from 'react';
 
 export function ShellIndexPage() {
   const { isConnected } = useAccount();
+  const { isReady } = useCosmosProvider();
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
@@ -37,7 +43,7 @@ export function ShellIndexPage() {
 
       <div className="flex flex-col space-y-[80px] py-[68px]">
         {isConnected && <DelegationsBlock />}
-        <ProposalListBlock />
+        {isReady && <ProposalListBlock />}
       </div>
 
       {isTablet && (
@@ -72,11 +78,11 @@ function AccountFooterMobile() {
     <div className="bg-haqq-black transform-gpu bg-opacity-75 backdrop-blur">
       <Container className="py-[16px]">
         {isConnected ? (
-          <div className="flex flex-row flex-wrap gap-[16px]">
+          <div className="flex flex-row flex-wrap gap-[12px] min-[375px]:gap-[16px]">
             <div>
               <AccountButton
                 balance={balance}
-                address={ethAddress}
+                address={getFormattedAddress(ethAddress, 3, 2)}
                 withoutDropdown
               />
             </div>

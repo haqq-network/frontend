@@ -8,9 +8,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2017",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2017", "dom", "esnext.bigint"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -23,17 +23,18 @@
       ],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/shared": ["libs/shared/src/index.ts"],
+      "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
       "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],
-      "@haqq/shell/ui-kit": ["libs/shell/ui-kit/src/index.ts"],
       "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
       "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
-      "@haqq/staking/validator-details": [
-        "libs/staking/validator-details/src/index.ts"
+      "@haqq/staking/validator-details-page": [
+        "libs/staking/validator-details-page/src/index.ts"
       ],
-      "@haqq/staking/validator-list": [
-        "libs/staking/validator-list/src/index.ts"
+      "@haqq/staking/validator-list-page": [
+        "libs/staking/validator-list-page/src/index.ts"
       ],
       "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],
+      "@haqq/website-ui-kit": ["libs/website/ui-kit/src/index.ts"],
       "@haqq/website/brand-assets-page": [
         "libs/website/brand-assets-page/src/index.ts"
       ],
@@ -47,7 +48,6 @@
       "@haqq/website/index-page": ["libs/website/index-page/src/index.ts"],
       "@haqq/website/news-page": ["libs/website/news-page/src/index.ts"],
       "@haqq/website/shared": ["libs/website/shared/src/index.ts"],
-      "@haqq/website/ui-kit": ["libs/website/ui-kit/src/index.ts"],
       "@haqq/website/wallet-page": ["libs/website/wallet-page/src/index.ts"]
     }
   },

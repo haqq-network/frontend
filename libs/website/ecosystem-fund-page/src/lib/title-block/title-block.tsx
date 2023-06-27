@@ -1,4 +1,4 @@
-import { Button } from '@haqq/website/ui-kit';
+import { Button } from '@haqq/website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
 import sunshineBgData from '../../assets/sunshine.png';

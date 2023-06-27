@@ -3,22 +3,28 @@ import {
   useBankSupplyQuery,
   useStakingPoolQuery,
   useStakingValidatorListQuery,
+  useSupportedChains,
 } from '@haqq/shared';
 import {
   BondStatus,
   bondStatusFromJSON,
 } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import { useMemo } from 'react';
+import { useNetwork } from 'wagmi';
 
 export function StatisticsBlock() {
   const { data: stakingPool } = useStakingPoolQuery();
   const { data: validators } = useStakingValidatorListQuery();
   const { data: accounts } = useAuthAccountsQuery();
   const { data: bankSupply } = useBankSupplyQuery();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.pool.bonded_tokens]);
+    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.bonded_tokens]);
 
   const totalSupply = useMemo(() => {
     return Number.parseInt(bankSupply?.supply[0].amount ?? '0') / 10 ** 18;
@@ -46,7 +52,9 @@ export function StatisticsBlock() {
         </div>
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
           {totalSupply.toLocaleString()}
-          <span className="text-white/50">&nbsp;ISLM</span>
+          <span className="text-white/50">
+            &nbsp;{symbol.toLocaleUpperCase()}
+          </span>
         </div>
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
@@ -56,7 +64,9 @@ export function StatisticsBlock() {
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
           <div>
             {totalStaked.toLocaleString()}
-            <span className="text-white/50">&nbsp;ISLM</span>
+            <span className="text-white/50">
+              &nbsp;{symbol.toLocaleUpperCase()}
+            </span>
           </div>
         </div>
       </div>

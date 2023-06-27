@@ -5,9 +5,10 @@ import {
   useStakingRewardsQuery,
   getFormattedAddress,
   useWallet,
+  useSupportedChains,
 } from '@haqq/shared';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { useBalance } from 'wagmi';
+import { useBalance, useNetwork } from 'wagmi';
 import {
   OrangeLink,
   CopyIcon,
@@ -15,7 +16,7 @@ import {
   Tooltip,
   Button,
   Heading,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
@@ -69,6 +70,10 @@ export function MyAccountBlock() {
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   const balance = useMemo(() => {
     if (!balanceData) {
@@ -159,7 +164,7 @@ export function MyAccountBlock() {
           <Heading level={3} className="ml-[8px]">
             My account
           </Heading>
-          <Link to="/staking">
+          <Link to="/staking" className="leading-[0]">
             <OrangeLink className="ml-[16px] font-serif !text-[12px] uppercase">
               Go to Staking
             </OrangeLink>
@@ -169,7 +174,7 @@ export function MyAccountBlock() {
         <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
           <MyAccountAmountBlock
             title="Balance"
-            value={`${balance?.value} ISLM`}
+            value={`${balance?.value} ${symbol.toLocaleUpperCase()}`}
             valueClassName="!text-white"
             isGreen
           />
@@ -178,14 +183,14 @@ export function MyAccountBlock() {
             value={`${delegation.toLocaleString('en-US', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 3,
-            })} ISLM`}
+            })} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
             title="Rewards"
             value={`${rewards.toLocaleString('en-US', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 3,
-            })} ISLM`}
+            })} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
             title="Address"

@@ -32,3 +32,5 @@ export * from './lib/modal-input/modal-input';
 export * from './lib/proposal-status/proposal-status';
 export * from './lib/tooltip/tooltip';
 export * from './lib/unsupported-browser-modal/unsupported-browser-modal';
+export * from './lib/select-wallet-modal/select-wallet-modal';
+export * from './lib/select-chain-button/select-chain-button';

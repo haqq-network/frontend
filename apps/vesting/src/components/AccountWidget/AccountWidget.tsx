@@ -410,21 +410,21 @@ function AccountAddress({
 
   return (
     <div className="flex flex-row items-center space-x-2">
-      <div className="flex h-[48px] flex-1 flex-row items-center space-x-2">
+      <div className="flex h-[56px] flex-1 flex-row items-center space-x-4">
         <IdentIcon
           address={ethAddress}
-          size={48}
-          className="flex-none rounded-full leading-none"
+          size={56}
+          className="flex-none rounded-full"
         />
-        <div className="space-1-2 flex flex-col">
+        <div className="flex flex-col">
           <div className="flex flex-row items-center space-x-1">
-            <div className="text-sm font-medium text-white">
+            <div className="text-base font-medium text-white">
               {getFormattedAddress(ethAddress, 6)}
             </div>
             <CopyButton text={ethAddress} />
           </div>
           <div className="flex flex-row items-center space-x-1">
-            <div className="text-sm font-medium text-white">
+            <div className="text-base font-medium text-white">
               {getFormattedAddress(haqqAddress, 6)}
             </div>
             <CopyButton text={haqqAddress} />
@@ -475,15 +475,15 @@ export function AccountWidget({
   symbol,
 }: AccountWidgetProps) {
   return (
-    <div className="relative mx-auto h-[240px] w-full max-w-lg overflow-clip rounded-[16px] bg-[#06BE77]">
+    <div className="relative mx-auto h-[260px] w-full max-w-lg overflow-clip rounded-[16px] bg-[#06BE77] shadow-sm transition-shadow duration-100 ease-in hover:shadow-lg hover:shadow-[#06BE77]/10">
       <AccountWidgetBgImage />
       <div className="relative z-10 flex h-full flex-col justify-between p-6">
         {isConnected ? (
           <Fragment>
             <div>
-              <div className="mb-1 text-sm leading-normal text-white/80 md:text-base">
+              {/* <div className="mb-1 text-sm leading-normal text-white/80 md:text-base">
                 Account
-              </div>
+              </div> */}
               <AccountAddress
                 ethAddress={ethAddress}
                 haqqAddress={haqqAddress}

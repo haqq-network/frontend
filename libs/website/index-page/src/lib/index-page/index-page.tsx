@@ -6,16 +6,9 @@ import { DevelopersBlock } from '../developers-block/developers-block';
 import { MissionBlock } from '../mission-block/mission-block';
 import Head from 'next/head';
 import { VisionBlock } from '../vision-block/vision-block';
-import {
-  ChainStats,
-  StatisticsBlock,
-} from '../statistics-block/statistics-block';
+import { StatisticsBlock } from '../statistics-block/statistics-block';
 
-export interface WebsiteIndexPageProps {
-  stats: ChainStats;
-}
-
-export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
+export function WebsiteIndexPage() {
   return (
     <Fragment>
       <Head>
@@ -28,7 +21,7 @@ export function WebsiteIndexPage({ stats }: WebsiteIndexPageProps) {
       <section>
         <HeroBlock />
         <AboutBlock />
-        <StatisticsBlock stats={stats} />
+        <StatisticsBlock />
         <MissionBlock />
         <VisionBlock />
         <DevelopersBlock />

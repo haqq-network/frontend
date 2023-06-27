@@ -1,20 +1,18 @@
-import { BigNumber } from 'ethers';
-
 export interface Contract {
-  sumInWeiDeposited: BigNumber;
-  sumPaidAlready: BigNumber;
-  timestamp: BigNumber;
+  sumInWeiDeposited: bigint;
+  sumPaidAlready: bigint;
+  timestamp: bigint;
 }
 
 export function mapSCResponseToJson(
   contract: Contract,
-  available: BigNumber,
-  period: BigNumber,
+  available: bigint,
+  period: bigint,
 ) {
   const deposited = contract.sumInWeiDeposited;
   const withdrawn = contract.sumPaidAlready;
-  const unlocked = contract.sumPaidAlready.add(available);
-  const locked = deposited.sub(unlocked);
+  const unlocked = contract.sumPaidAlready + available;
+  const locked = deposited - unlocked;
 
   return {
     locked,
@@ -22,7 +20,7 @@ export function mapSCResponseToJson(
     available,
     deposited,
     withdrawn,
-    createdAt: new Date(contract.timestamp.toNumber() * 1000).toISOString(),
-    unlockPeriod: period.toNumber(),
+    createdAt: new Date(Number(contract.timestamp) * 1000).toISOString(),
+    unlockPeriod: Number(period),
   };
 }

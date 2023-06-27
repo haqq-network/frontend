@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Heading, SpinnerLoader } from '@haqq/shell/ui-kit';
+import { Card, Heading, SpinnerLoader } from '@haqq/shell-ui-kit';
 import {
   useAddress,
   useStakingDelegationQuery,
@@ -13,9 +13,9 @@ import {
   Validator,
   DistributionRewardsResponse,
 } from '@evmos/provider';
-import { formatUnits } from 'ethers/lib/utils';
 import { ValidatorListStatus } from '@haqq/staking/ui-kit';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
+import { formatUnits } from 'viem';
 
 interface DelegationListValidator {
   name: string;
@@ -46,7 +46,7 @@ export function ValidatorWithDelegationListItem({
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
   const userDelegate = useMemo(() => {
-    return Number.parseFloat(formatUnits(validator.staked));
+    return Number.parseFloat(formatUnits(BigInt(validator.staked), 18));
   }, [validator.staked]);
   const userRewards = useMemo(() => {
     return Number.parseFloat(validator.rewards) / 10 ** 18;

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import eclipseImageData from '../../assets/images/eclipse.png';
 import { ContactForm } from '@haqq/website/forms';
-import { Heading } from '@haqq/website/ui-kit';
+import { Heading } from '@haqq/website-ui-kit';
 
 export function ContactBlock() {
   return (

@@ -3,14 +3,13 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof HeadingComponent> = {
   component: HeadingComponent,
-  title: 'shell/ui-kit/heading',
+  title: 'shell/ui-kit/Heading',
   parameters: {
     layout: 'centered',
   },
 };
 
 export default meta;
-
 type Story = StoryObj<typeof HeadingComponent>;
 
 export const Heading1: Story = {

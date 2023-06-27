@@ -5,6 +5,7 @@ on:
     branches:
       - dev
   pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -57,3 +58,5 @@ jobs:
         with:
           name: dist
           path: dist/
+      - name: Clear local NX build cache
+        run: yarn nx reset

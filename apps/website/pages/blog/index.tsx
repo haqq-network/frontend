@@ -1,3 +1,4 @@
+import { Post } from '@haqq/website/news-page';
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
 export { BlogPage as default } from '@haqq/website/news-page';
@@ -8,20 +9,11 @@ interface StorybookPost {
   date: string;
   slug: string;
   description: string;
-  image: any;
+  image: {
+    filename: null | string;
+  };
   featured: boolean;
   content: string;
-  tags: string[];
-}
-
-interface Post {
-  id: string;
-  title: string;
-  slug: string;
-  date: string;
-  description: string;
-  image: { src: string; width: number; height: number };
-  isFeatured: boolean;
   tags: string[];
 }
 
@@ -43,6 +35,7 @@ function mapStorybookToPosts(data: { posts: StorybookPost[] }): Post[] {
         slug: post.slug,
         date: post.date,
         description: post.description ?? '',
+        content: post.content ?? '',
         image,
         isFeatured: post.featured,
         tags: post.tags,
@@ -76,5 +69,6 @@ export async function getStaticProps() {
     props: {
       posts: posts ?? [],
     },
+    revalidate: 1800, // revalidate every half hour
   };
 }

@@ -1,8 +1,6 @@
 import { ReactElement } from 'react';
 import { Container } from '../Layout/Layout';
-// import { config } from '../../config';
 import { Text } from '../Typography/Typography';
-// import { repository } from '../../../../../package.json';
 
 export function Footer(): ReactElement {
   return (
@@ -11,16 +9,16 @@ export function Footer(): ReactElement {
         <nav className="flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-y-0">
           <div className="flex flex-col space-y-2 sm:flex-row sm:justify-center sm:space-y-0">
             <Text color="light" className="text-sm sm:mb-0">
-              ©️ {new Date().getFullYear()}{' '}
+              © {new Date().getFullYear()}{' '}
               <a
                 href="https://haqq.network/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary underline underline-offset-2 transition-colors duration-200 ease-out"
               >
-                HAQQ Network.
+                HAQQ Network
               </a>
-              &nbsp;
+              . &nbsp;
             </Text>
             <Text color="light" className="self-center text-sm sm:mb-0">
               All rights reserved

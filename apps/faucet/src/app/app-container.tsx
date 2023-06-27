@@ -3,6 +3,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { environment } from '../environments/environment';
 import { ConfigProvider, WagmiProvider } from '@haqq/shared';
 import { BrowserRouter } from 'react-router-dom';
+import { haqqTestedge2 } from '@wagmi/chains';
 
 function AuthContainer({ children }: { children: ReactElement }) {
   const auth0ProviderProperties = useMemo(() => {
@@ -31,10 +32,11 @@ export function AppContainer({
 }): ReactElement {
   return (
     <BrowserRouter>
-      <ConfigProvider chainName={environment.chainName}>
+      <ConfigProvider>
         <AuthContainer>
           <WagmiProvider
             walletConnectProjectId={environment.walletConnectConfig.projectId}
+            supportedChains={[haqqTestedge2]}
           >
             {children}
           </WagmiProvider>

@@ -1,62 +1,35 @@
-export interface Currency {
-  name: string;
-  symbol: string;
-  decimals: number;
-}
-
 export interface ChainProperties {
   id: number;
   cosmosChainId: string;
   name: string;
   network: string;
-  nativeCurrency: Currency;
-  testnet: boolean;
   tmRpcEndpoint: string;
   cosmosRestEndpoint: string;
-  ethRpcEndpoint: string;
-  blockExplorer?: string;
 }
 
-const currency: Currency = {
-  name: 'Islamic Coin',
-  symbol: 'ISLM',
-  decimals: 18,
-};
-
-export const chains: Record<string, ChainProperties> = {
-  dev: {
+export const chains: Record<number, ChainProperties> = {
+  121799: {
     id: 121799,
     cosmosChainId: 'haqq_121799-1',
-    name: 'HAQQ Devnet',
-    network: 'haqq-devnet',
+    name: 'HAQQ Localnet',
+    network: 'haqq-localnet',
     tmRpcEndpoint: 'http://127.0.0.1:26657',
     cosmosRestEndpoint: 'http://127.0.0.1:1317',
-    ethRpcEndpoint: 'http://127.0.0.1:8545',
-    testnet: true,
-    nativeCurrency: currency,
   },
-  testedge2: {
+  54211: {
     id: 54211,
     cosmosChainId: 'haqq_54211-3',
     name: 'HAQQ Testedge 2',
     network: 'haqq-testedge-2',
-    cosmosRestEndpoint: 'https://rest.cosmos.testedge2.haqq.network',
     tmRpcEndpoint: 'https://rpc.tm.testedge2.haqq.network',
-    ethRpcEndpoint: 'https://rpc.eth.testedge2.haqq.network',
-    testnet: true,
-    nativeCurrency: currency,
-    blockExplorer: 'https://explorer.testedge2.haqq.network/',
+    cosmosRestEndpoint: 'https://rest.cosmos.testedge2.haqq.network',
   },
-  mainnet: {
+  11235: {
     id: 11235,
     cosmosChainId: 'haqq_11235-1',
     name: 'HAQQ Mainnet',
     network: 'haqq-mainnet',
-    cosmosRestEndpoint: 'https://rest.cosmos.haqq.network',
     tmRpcEndpoint: 'https://rpc.tm.haqq.network',
-    ethRpcEndpoint: 'https://rpc.eth.haqq.network',
-    testnet: false,
-    nativeCurrency: currency,
-    blockExplorer: 'https://explorer.haqq.network',
+    cosmosRestEndpoint: 'https://rest.cosmos.haqq.network',
   },
 };

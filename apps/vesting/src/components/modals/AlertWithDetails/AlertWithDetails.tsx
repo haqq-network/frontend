@@ -22,7 +22,7 @@ export function AlertWithDetails({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="mx-auto max-w-md rounded-2xl bg-white p-6">
+      <div className="mx-auto max-w-md rounded-2xl bg-white p-6 shadow-md">
         <div className="flex flex-col space-y-6">
           <div className="flex items-center justify-between">
             <Heading level={3}>{title}</Heading>

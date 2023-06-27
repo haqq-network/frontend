@@ -1,4 +1,4 @@
-import { Heading, Text } from '@haqq/website/ui-kit';
+import { Heading, Text } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 
 export function TextBlock() {
@@ -39,7 +39,7 @@ export function TextBlock() {
           </Link>
           ,{' '}
           <Link
-            href={'https://app.haqq.network'}
+            href={'https://shell.haqq.network'}
             target="_blank"
             rel={'noopener noreferrer'}
             className="text-haqq-orange"

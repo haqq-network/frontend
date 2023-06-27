@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { ReactNode, useCallback, useEffect } from 'react';
+import clsx from 'clsx';
 
 export function ModalInput({
   symbol,

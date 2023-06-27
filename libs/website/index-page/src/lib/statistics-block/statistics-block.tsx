@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useInViewport } from 'react-in-viewport';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './statistics-block.module.css';
 import clsx from 'clsx';
 
@@ -22,10 +22,6 @@ export interface ChainStats {
   willBeEmitted: number;
 }
 
-interface StaticsBlockProps {
-  stats: ChainStats;
-}
-
 export function StatisticsBlockStatCard({
   title,
   value,
@@ -43,8 +39,8 @@ export function StatisticsBlockStatCard({
     <div>
       <div
         className={clsx(
-          'h-[42px] font-serif text-[32px] font-[500] leading-[42px]',
-          styles.statsBlock,
+          'font-serif text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px]',
+          styles['statsBlock'],
         )}
       >
         {prefix && `${prefix} `}
@@ -66,12 +62,27 @@ export function StatisticsBlockStatCard({
         )}
         {postfix && ` ${postfix}`}
       </div>
-      <div className="font-sans text-[16px] leading-[26px]">{title}</div>
+      <div className="font-sans text-[13px] font-[500] leading-[1.6em] sm:text-[15px] lg:text-[16px]">
+        {title}
+      </div>
     </div>
   );
 }
 
-export function StatisticsBlock({ stats }: StaticsBlockProps) {
+async function getMainnetAccounts(defaultValue: number) {
+  try {
+    const accountsResponse = await fetch(
+      'https://rest.cosmos.haqq.network/cosmos/auth/v1beta1/accounts?pagination.count_total=true&pagination.limit=1',
+    );
+    const accounts = await accountsResponse.json();
+    return Number.parseInt(accounts.pagination.total, 10);
+  } catch (error) {
+    console.error('Fetch mainnet accounts count failed', error);
+    return defaultValue;
+  }
+}
+
+export function StatisticsBlock() {
   const [startAnimation, setStartAnimation] = useState(false);
   const blockRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(
@@ -79,13 +90,36 @@ export function StatisticsBlock({ stats }: StaticsBlockProps) {
     {},
     { disconnectOnLeave: true },
   );
+  const [stats, setStats] = useState<ChainStats | undefined>(undefined);
+
+  useEffect(() => {
+    async function getStats() {
+      const mainnetAccountsCreated = await getMainnetAccounts(3476);
+
+      setStats({
+        mainnetAccountsCreated,
+        transactionsInLast24Hours: 10000,
+        secondsToConsensusFinality: 5.6,
+        averageCostPerTransaction: 147,
+        era: 1,
+        emissionRate: 0,
+        emittedAlready: 20000000000,
+        willBeEmitted: 80000000000,
+      });
+    }
+
+    getStats();
+  }, []);
+
   useEffect(() => {
     if (inViewport && !startAnimation) {
       setStartAnimation(true);
-      // setTimeout(() => {
-      // }, 150);
     }
   }, [inViewport, startAnimation]);
+
+  if (stats === undefined) {
+    return null;
+  }
 
   return (
     <div className="border-haqq-border border-t" ref={blockRef}>
@@ -93,7 +127,7 @@ export function StatisticsBlock({ stats }: StaticsBlockProps) {
         className="border-haqq-border mx-[16px] border-l px-[16px] sm:ml-[63px] sm:mr-0 sm:pl-0 sm:pr-0 lg:ml-[79px]"
         id="stats"
       >
-        <div className="grid grid-cols-1 gap-[24px] px-[32px] py-[60px] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-[24px] py-[42px] sm:grid-cols-2 sm:px-[32px] sm:py-[60px] xl:grid-cols-4">
           <StatisticsBlockStatCard
             value={stats.mainnetAccountsCreated}
             title="mainnet accounts created"

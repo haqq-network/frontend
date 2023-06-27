@@ -9,7 +9,7 @@ import {
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
-import { Button, SuccessMessageModal, Modal } from '@haqq/website/ui-kit';
+import { Button, SuccessMessageModal, Modal } from '@haqq/website-ui-kit';
 
 const schema = yup
   .object({

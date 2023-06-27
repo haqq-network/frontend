@@ -10,7 +10,7 @@ import {
   LinkArrowIcon,
   TelegramIcon,
   TwitterIcon,
-} from '@haqq/website/ui-kit';
+} from '@haqq/website-ui-kit';
 import { SubscribeForm } from '@haqq/website/forms';
 
 function FooterNavLink({

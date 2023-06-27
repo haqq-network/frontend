@@ -1,20 +1,11 @@
 import { ReactElement } from 'react';
-import { getChainParams, useConfig } from '@haqq/shared';
-import { hexValue } from 'ethers/lib/utils';
 import { useNetwork } from 'wagmi';
 import { useOnboarding } from '../../OnboardingContainer';
 import { Button } from '../Button/Button';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { Heading, Text } from '../Typography/Typography';
-
-interface Ethereumish {
-  autoRefreshOnNetworkChange: boolean;
-  chainId: string;
-  isMetaMask?: boolean;
-  isStatus?: boolean;
-  networkVersion: string | undefined;
-  selectedAddress: string | undefined;
-}
+import { toHex } from 'viem';
+import { useSupportedChains } from '@haqq/shared';
 
 function SwitchNetworkNetworkContainer({
   networkName,
@@ -22,7 +13,7 @@ function SwitchNetworkNetworkContainer({
   networkName?: string;
 }) {
   return (
-    <div className="flex w-full flex-1 flex-col items-center justify-center space-y-3 rounded-md bg-white px-6 py-8 shadow-lg md:max-w-[200px] md:py-6">
+    <div className="z-10 flex w-full flex-1 flex-col items-center justify-center space-y-3 rounded-md bg-white px-6 py-8 shadow-lg md:max-w-[200px] md:py-6">
       <svg
         viewBox="0 0 24 24"
         fill="none"
@@ -50,9 +41,8 @@ export function SwitchNetworkScreen(): ReactElement {
     clearError,
     switchNetwork,
   } = useOnboarding();
-  const { chainName } = useConfig();
-  const chain = getChainParams(chainName);
   const { chain: currentChain } = useNetwork();
+  const chains = useSupportedChains();
 
   return (
     <div className="flex flex-col space-y-8">
@@ -67,41 +57,44 @@ export function SwitchNetworkScreen(): ReactElement {
 
       <div className="mt-[24px] flex flex-col items-center justify-between md:flex-row">
         <SwitchNetworkNetworkContainer
-          networkName={currentChain ? hexValue(currentChain.id) : 'unknown'}
+          networkName={currentChain ? toHex(currentChain.id) : 'unknown'}
         />
         <div className="flex-1">
           <svg
-            className="ml-[-10%] w-[120%] text-gray-400"
+            className="z-10 my-5 ml-[-10%] w-[120%] origin-center rotate-[90deg] text-gray-400 md:my-0 md:rotate-[0deg]"
             width="191"
             height="32"
             viewBox="0 0 191 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M190.75 16.75H111.5V16.74H190.75V16.75Z"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeDasharray="6 6"
-            />
-            <path
-              d="M80.5 16.75H0.25V16.74H80.5V16.75Z"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeDasharray="6 6"
-            />
-            <path
-              d="M96 31.5C104.56 31.5 111.5 24.5604 111.5 16C111.5 7.43959 104.56 0.5 96 0.5C87.4396 0.5 80.5 7.43959 80.5 16C80.5 24.5604 87.4396 31.5 96 31.5Z"
-              stroke="currentColor"
-            />
-            <path
-              d="M93.5 22L99.5 16L93.5 10"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
+            <g className="hidden md:block"></g>
+            <g className="">
+              <path
+                d="M190.75 16.75H111.5V16.74H190.75V16.75Z"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeDasharray="6 6"
+              />
+              <path
+                d="M80.5 16.75H0.25V16.74H80.5V16.75Z"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeDasharray="6 6"
+              />
+              <path
+                d="M96 31.5C104.56 31.5 111.5 24.5604 111.5 16C111.5 7.43959 104.56 0.5 96 0.5C87.4396 0.5 80.5 7.43959 80.5 16C80.5 24.5604 87.4396 31.5 96 31.5Z"
+                stroke="currentColor"
+              />
+              <path
+                d="M93.5 22L99.5 16L93.5 10"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+            </g>
           </svg>
         </div>
-        <SwitchNetworkNetworkContainer networkName={chain.name} />
+        <SwitchNetworkNetworkContainer networkName={chains[0].name} />
       </div>
 
       <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
