@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { Fragment, ReactNode, SyntheticEvent } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
@@ -24,7 +22,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
         >
           <div
             role="none"
-            className="bg-[rgba(12, 12, 12, 0.4)] fixed inset-0 transform-gpu backdrop-blur"
+            className="bg-islamic-modal-overlay fixed inset-0 transform-gpu backdrop-blur"
             onClick={onClose}
             onKeyDown={(
               event: SyntheticEvent<HTMLDivElement, KeyboardEvent>,
