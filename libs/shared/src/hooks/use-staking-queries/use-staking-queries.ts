@@ -7,9 +7,15 @@ export function useStakingValidatorListQuery(limit = 1000) {
   const { getValidators } = useCosmosService();
   const { chain } = useNetwork();
 
-  return useQuery<Validator[], Error>([chain?.id, 'validators'], () => {
-    return getValidators ? getValidators(limit) : [];
-  });
+  return useQuery<Validator[], Error>(
+    [chain?.id, 'validators'],
+    () => {
+      return getValidators ? getValidators(limit) : [];
+    },
+    {
+      refetchOnWindowFocus: false,
+    },
+  );
 }
 
 export function useStakingRewardsQuery(address: string | undefined) {
