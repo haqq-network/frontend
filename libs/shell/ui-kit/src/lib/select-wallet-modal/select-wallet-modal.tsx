@@ -34,36 +34,34 @@ export function SelectWalletModal({
           className="absolute right-[16px] top-[16px]"
         />
 
-        <div className="flex w-full flex-col space-y-6">
-          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
-            <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-              <MobileHeading>Select wallet</MobileHeading>
-            </div>
+        <div className="flex w-full flex-col">
+          <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+            <MobileHeading>Select wallet</MobileHeading>
+          </div>
 
-            <div className="flex flex-col space-y-[12px]">
-              {connectors.map((connector) => {
-                return (
-                  <Button
-                    key={connector.id}
-                    onClick={async () => {
-                      onConnectClick(connector.id);
-                      onClose();
-                    }}
-                    variant={4}
-                    isLoading={connector.isPending}
-                    className={clsx(
-                      connector.isPending
-                        ? '!text-white'
-                        : 'hover:!text-haqq-orange hover:!border-haqq-orange',
-                    )}
-                  >
-                    {connector.name}
-                  </Button>
-                );
-              })}
+          <div className="flex flex-col space-y-[12px]">
+            {connectors.map((connector) => {
+              return (
+                <Button
+                  key={connector.id}
+                  onClick={() => {
+                    onConnectClick(connector.id);
+                    onClose();
+                  }}
+                  variant={4}
+                  isLoading={connector.isPending}
+                  className={clsx(
+                    connector.isPending
+                      ? '!text-white'
+                      : 'hover:!text-haqq-orange hover:!border-haqq-orange',
+                  )}
+                >
+                  {connector.name}
+                </Button>
+              );
+            })}
 
-              {error && <div className="pt-4 text-red-500">{error}</div>}
-            </div>
+            {error && <div className="pt-4 text-red-500">{error}</div>}
           </div>
         </div>
       </div>
