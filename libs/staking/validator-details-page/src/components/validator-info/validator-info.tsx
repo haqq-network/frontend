@@ -258,8 +258,8 @@ export function ValidatorInfoComponent({
                       </div>
                       <div
                         className={clsx(
-                          'prose prose-sm max-w-none text-[12px] leading-[22px] text-white',
-                          'prose-a:text-haqq-orange prose-a:hover:text-[#FF8D69] prose-a:transition-colors prose-a:duration-100 prose-a:ease-out',
+                          'prose prose-sm max-w-none text-[14px] leading-[22px] text-white',
+                          'prose-a:text-haqq-orange hover:prose-a:text-[#FF8D69] prose-a:transition-colors prose-a:duration-100 prose-a:ease-out',
                           'prose-strong:text-white',
                         )}
                       >
