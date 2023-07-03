@@ -1,19 +1,12 @@
-import { useCallback } from 'react';
 import { useOnboarding } from '../OnboardingContainer';
 import { Button } from '../components/Button/Button';
 import { Heading, Text } from '../components/Typography/Typography';
 import { Container } from '../components/Layout/Layout';
-import { useNavigate } from 'react-router-dom';
-import { AddNetworkScreen } from '../components/AddNetworkScreen/AddNetworkScreen';
+import { Navigate } from 'react-router-dom';
 import { SwitchNetworkScreen } from '../components/SwitchNetworkScreen/SwitchNetworkScreen';
 
 export function WelcomeScreen() {
-  const { connectWallet, isConnected } = useOnboarding();
-  const navigate = useNavigate();
-
-  const handleGoToAccount = useCallback(() => {
-    navigate('account');
-  }, [navigate]);
+  const { connectWallet } = useOnboarding();
 
   return (
     <div className="flex flex-col space-y-12">
@@ -33,15 +26,9 @@ export function WelcomeScreen() {
       </div>
 
       <div>
-        {isConnected ? (
-          <Button onClick={handleGoToAccount} className="px-10">
-            Go to account
-          </Button>
-        ) : (
-          <Button onClick={connectWallet} className="px-10">
-            Connect wallet
-          </Button>
-        )}
+        <Button onClick={connectWallet} className="px-10">
+          Connect wallet
+        </Button>
       </div>
     </div>
   );
@@ -53,7 +40,7 @@ export function MainPage() {
   return (
     <section className="flex-1">
       <Container>
-        {(step === 'start' || step == 'finish') && (
+        {step === 'start' && (
           <div className="mx-auto max-w-5xl py-20">
             <WelcomeScreen />
           </div>
@@ -65,11 +52,7 @@ export function MainPage() {
           </div>
         )}
 
-        {step === 'add-network' && (
-          <div className="mx-auto max-w-[600px] py-20">
-            <AddNetworkScreen />
-          </div>
-        )}
+        {step === 'finish' && <Navigate to="/account" />}
       </Container>
     </section>
   );

@@ -1,32 +1,24 @@
 import {
+  Sender,
   createTxMsgVote,
-  createTxRawEIP712,
-  MessageMsgVote,
-  signatureToWeb3Extension,
-  MessageMsgDepositParams,
   createTxMsgDeposit,
-  // MessageMsgSubmitProposal,
-  // createTxMsgSubmitProposal,
+  signatureToWeb3Extension,
+  createTxRawEIP712,
 } from '@evmos/transactions';
 import { useCallback, useMemo } from 'react';
-import type { Fee } from '@evmos/transactions';
+import type {
+  Fee,
+  MessageMsgDepositParams,
+  TxGenerated,
+} from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
 import { getChainParams } from '../../chains/get-chain-params';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { useConfig } from '../../providers/config-provider';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import Decimal from 'decimal.js-light';
-// import { cosmos } from '@evmos/proto/dist/proto/cosmos/gov/v1beta1/gov';
+import { useNetwork, useWalletClient } from 'wagmi';
 
-// const TextProposal = cosmos.gov.v1beta1.TextProposal;
-// const textPro = TextProposal.fromObject({
-//   title: 'SUBMIT PROPOSAL TEST',
-//   description: 'Lorem ipsum',
-// });
-
-// console.log({ textPro });
-
-const fee: Fee = {
+const FEE: Fee = {
   amount: '5000',
   gas: '600000',
   denom: 'aISLM',
@@ -35,7 +27,6 @@ const fee: Fee = {
 interface ProposalActionsHook {
   vote: (proposalId: number, option: number) => Promise<string>;
   deposit: (proposalId: number, amount: number) => Promise<string>;
-  // createProposal: () => Promise<string>;
 }
 
 const WEI = 10 ** 18;
@@ -54,17 +45,24 @@ function getAmountAndDenom(amount: number, fee?: Fee) {
 }
 
 export function useProposalActions(): ProposalActionsHook {
-  const { chainName } = useConfig();
-  const { broadcastTransaction, getAccountInfo, getPubkey } =
-    useCosmosService();
+  const { chain } = useNetwork();
+  const { data: walletClient } = useWalletClient();
+  const {
+    broadcastTransaction,
+    simulateTransaction,
+    getAccountInfo,
+    getPubkey,
+  } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
-  const memo = '';
 
   const haqqChain = useMemo(() => {
-    const chainParams = getChainParams(chainName);
+    if (!chain || chain.unsupported) {
+      return undefined;
+    }
 
+    const chainParams = getChainParams(chain.id);
     return mapToCosmosChain(chainParams);
-  }, [chainName]);
+  }, [chain]);
 
   const getSender = useCallback(
     async (address: string, pubkey: string) => {
@@ -85,24 +83,23 @@ export function useProposalActions(): ProposalActionsHook {
     [getAccountInfo],
   );
 
-  const handleVote = useCallback(
-    async (proposalId: number, option: number) => {
-      const pubkey = await getPubkey(ethAddress as string);
-      const sender = await getSender(haqqAddress as string, pubkey);
+  const getFee = useCallback((gasUsed?: string) => {
+    return gasUsed && gasUsed !== ''
+      ? {
+          amount: `${(Number.parseInt(gasUsed, 10) * 0.007 * 1.1).toFixed()}`,
+          gas: gasUsed,
+          denom: 'aISLM',
+        }
+      : FEE;
+  }, []);
 
-      if (sender) {
-        const voteParams: MessageMsgVote = {
-          proposalId,
-          option,
-        };
-
-        const msg = createTxMsgVote(haqqChain, sender, fee, memo, voteParams);
-
-        const signature = await (window as any).ethereum.request({
+  const signTransaction = useCallback(
+    async (msg: TxGenerated, sender: Sender) => {
+      if (haqqChain && ethAddress && walletClient) {
+        const signature = await walletClient.request({
           method: 'eth_signTypedData_v4',
-          params: [ethAddress, JSON.stringify(msg.eipToSign)],
+          params: [ethAddress as `0x${string}`, JSON.stringify(msg.eipToSign)],
         });
-
         const extension = signatureToWeb3Extension(
           haqqChain,
           sender,
@@ -114,28 +111,61 @@ export function useProposalActions(): ProposalActionsHook {
           extension,
         );
 
-        // console.debug({
-        //   params,
-        //   msg,
-        //   signature,
-        //   extension,
-        //   rawTx,
-        // });
+        return rawTx;
+      } else {
+        throw new Error('No haqqChain');
+      }
+    },
+    [ethAddress, haqqChain, walletClient],
+  );
 
-        const tx = await broadcastTransaction(rawTx);
+  const handleVote = useCallback(
+    async (proposalId: number, option: number) => {
+      console.log('handleVote', { proposalId, option });
+      const pubkey = await getPubkey(ethAddress as string);
+      const sender = await getSender(haqqAddress as string, pubkey);
+      const memo = `Vote for proposal #${proposalId}`;
 
-        return tx.txhash;
+      if (sender && haqqChain) {
+        // Simulate
+        const simFee = getFee();
+        const voteParams = {
+          proposalId,
+          option,
+        };
+
+        const simMsg = createTxMsgVote(
+          haqqChain,
+          sender,
+          simFee,
+          memo,
+          voteParams,
+        );
+        const simTx = await signTransaction(simMsg, sender);
+        const simulateTxResponse = await simulateTransaction(simTx);
+
+        // Broadcast real transaction
+        const fee = getFee(simulateTxResponse.gas_info.gas_used);
+        const msg = createTxMsgVote(haqqChain, sender, fee, memo, voteParams);
+
+        const rawTx = await signTransaction(msg, sender);
+        const txResponse = await broadcastTransaction(rawTx);
+
+        return txResponse.txhash;
       } else {
         throw new Error('No sender');
       }
     },
     [
-      broadcastTransaction,
-      ethAddress,
       getPubkey,
+      ethAddress,
       getSender,
       haqqAddress,
       haqqChain,
+      getFee,
+      signTransaction,
+      simulateTransaction,
+      broadcastTransaction,
     ],
   );
 
@@ -144,13 +174,32 @@ export function useProposalActions(): ProposalActionsHook {
       console.log('handleDeposit', { proposalId, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
+      const memo = `Deposit to proposal #${proposalId}`;
 
-      if (sender) {
+      if (sender && haqqChain) {
+        // Simulate
+        const simFee = getFee();
+        const simDepositParams: MessageMsgDepositParams = {
+          proposalId,
+          deposit: getAmountAndDenom(amount, simFee),
+        };
+
+        const simMsg = createTxMsgDeposit(
+          haqqChain,
+          sender,
+          simFee,
+          memo,
+          simDepositParams,
+        );
+        const simTx = await signTransaction(simMsg, sender);
+        const simulateTxResponse = await simulateTransaction(simTx);
+
+        // Broadcast real transaction
+        const fee = getFee(simulateTxResponse.gas_info.gas_used);
         const depositParams: MessageMsgDepositParams = {
           proposalId,
           deposit: getAmountAndDenom(amount, fee),
         };
-
         const msg = createTxMsgDeposit(
           haqqChain,
           sender,
@@ -159,34 +208,10 @@ export function useProposalActions(): ProposalActionsHook {
           depositParams,
         );
 
-        const signature = await (window as any).ethereum.request({
-          method: 'eth_signTypedData_v4',
-          params: [ethAddress, JSON.stringify(msg.eipToSign)],
-        });
+        const rawTx = await signTransaction(msg, sender);
+        const txResponse = await broadcastTransaction(rawTx);
 
-        const extension = signatureToWeb3Extension(
-          haqqChain,
-          sender,
-          signature,
-        );
-        const rawTx = createTxRawEIP712(
-          msg.legacyAmino.body,
-          msg.legacyAmino.authInfo,
-          extension,
-        );
-
-        console.debug({
-          depositParams,
-          msg,
-          signature,
-          extension,
-          rawTx,
-        });
-
-        const tx = await broadcastTransaction(rawTx);
-        console.log({ tx });
-
-        return tx.txhash;
+        return txResponse.txhash;
       } else {
         throw new Error('No sender');
       }
@@ -194,79 +219,18 @@ export function useProposalActions(): ProposalActionsHook {
     [
       broadcastTransaction,
       ethAddress,
+      getFee,
+      haqqChain,
       getPubkey,
       getSender,
       haqqAddress,
-      haqqChain,
+      signTransaction,
+      simulateTransaction,
     ],
   );
-
-  // const handleCreateProposal = useCallback(async () => {
-  //   const pubkey = await getPubkey(ethAddress as string);
-  //   const sender = await getSender(haqqAddress as string, pubkey);
-
-  //   try {
-  //     if (sender) {
-  //       const depositParams: MessageMsgSubmitProposal = {
-  //         initialDepositAmount: new Decimal(100).mul(10 ** 18).toFixed(),
-  //         initialDepositDenom: 'aISLM',
-  //         proposer: sender.accountAddress,
-  //         content: textPro,
-  //       };
-
-  //       const msg = createTxMsgSubmitProposal(
-  //         haqqChain,
-  //         sender,
-  //         fee,
-  //         memo,
-  //         depositParams,
-  //       );
-
-  //       const signature = await (window as any).ethereum.request({
-  //         method: 'eth_signTypedData_v4',
-  //         params: [ethAddress, JSON.stringify(msg.eipToSign)],
-  //       });
-
-  //       const extension = signatureToWeb3Extension(
-  //         haqqChain,
-  //         sender,
-  //         signature,
-  //       );
-  //       const rawTx = createTxRawEIP712(
-  //         msg.legacyAmino.body,
-  //         msg.legacyAmino.authInfo,
-  //         extension,
-  //       );
-
-  //       console.debug({
-  //         depositParams,
-  //         msg,
-  //         signature,
-  //         extension,
-  //         rawTx,
-  //       });
-
-  //       const tx = await broadcastTransaction(rawTx);
-  //       console.log({ tx });
-
-  //       return tx.txhash;
-  //     }
-  //   } catch (error) {
-  //     console.error({ error });
-  //   }
-  //   return '';
-  // }, [
-  //   broadcastTransaction,
-  //   ethAddress,
-  //   getPubkey,
-  //   getSender,
-  //   haqqAddress,
-  //   haqqChain,
-  // ]);
 
   return {
     vote: handleVote,
     deposit: handleDeposit,
-    // createProposal: handleCreateProposal,
   };
 }

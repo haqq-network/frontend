@@ -1,18 +1,27 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
-import { useGovernanceParamsQuery, useProposalListQuery } from '@haqq/shared';
+import {
+  useGovernanceParamsQuery,
+  useProposalListQuery,
+  useSupportedChains,
+} from '@haqq/shared';
 import {
   Heading,
   Container,
   OrangeLink,
   ProposalsIcon,
   SpinnerLoader,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
+import { useNetwork } from 'wagmi';
 
 export function ProposalListBlock() {
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
       return [];
@@ -28,7 +37,7 @@ export function ProposalListBlock() {
         <Heading level={3} className="ml-[8px]">
           Latest proposals
         </Heading>
-        <Link to="/governance">
+        <Link to="/governance" className="leading-[0]">
           <OrangeLink className="ml-[16px] font-serif !text-[12px] uppercase">
             Go to Governance
           </OrangeLink>
@@ -50,7 +59,11 @@ export function ProposalListBlock() {
                 to={`governance/proposal/${proposal.proposal_id}`}
                 key={proposal.proposal_id}
               >
-                <ProposalListCard proposal={proposal} govParams={govParams} />
+                <ProposalListCard
+                  proposal={proposal}
+                  govParams={govParams}
+                  symbol={symbol}
+                />
               </Link>
             );
           })}

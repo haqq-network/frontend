@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { formatUnits } from 'ethers/lib/utils';
+import { formatUnits } from 'viem/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { ValidatorListStatus } from '../validator-status/validator-status';
@@ -37,7 +37,10 @@ export function ValidatorListItem({
   }, [validator.tokens]);
   const userDelegate = useMemo(() => {
     if (delegation?.balance) {
-      return Number.parseFloat(formatUnits(delegation.balance.amount));
+      return Number.parseInt(
+        formatUnits(BigInt(delegation.balance.amount), 18),
+        10,
+      );
     }
 
     return 0;
@@ -62,31 +65,31 @@ export function ValidatorListItem({
         onClick(validator.operator_address);
       }}
     >
-      <td className="p-[8px] md:p-[12px]">
+      <td className="p-[8px] lg:p-[12px]">
         <div className="w-full overflow-hidden">
           <p className="overflow-ellipsis">{validator.description?.moniker}</p>
         </div>
       </td>
-      <td className="p-[8px] text-left md:p-[12px]">
+      <td className="p-[8px] text-left lg:p-[12px]">
         <ValidatorListStatus
           jailed={validator.jailed}
           status={bondStatusFromJSON(validator.status)}
-          className="!text-[11px] !leading-[18px] md:!text-[16px] md:!leading-[26px]"
+          className="!text-[11px] !leading-[18px] lg:!text-[16px] lg:!leading-[26px]"
         />
       </td>
-      <td className="max-w-[80px] p-[8px] text-left md:p-[12px]">
+      <td className="max-w-[80px] p-[8px] text-left lg:p-[12px]">
         {validatorCommission}%
       </td>
-      <td className="p-[8px] text-right md:p-[12px]">
+      <td className="p-[8px] text-right lg:p-[12px]">
         {formatNumber(votingPower)}
       </td>
-      <td className="p-[8px] text-right md:p-[12px]">
+      <td className="p-[8px] text-right lg:p-[12px]">
         {votingPowerInPercents}%
       </td>
-      <td className="p-[8px] text-right md:p-[12px]">
+      <td className="p-[8px] text-right lg:p-[12px]">
         {formatNumber(userDelegate)}
       </td>
-      <td className="p-[8px] text-right md:p-[12px]">
+      <td className="p-[8px] text-right lg:p-[12px]">
         {formatNumber(userRewards)}
       </td>
     </tr>

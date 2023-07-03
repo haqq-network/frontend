@@ -6,9 +6,9 @@ import type {
   Validator,
 } from '@evmos/provider';
 import { useStakingPoolQuery } from '@haqq/shared';
-import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell/ui-kit';
+import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell-ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
-import { formatUnits } from 'ethers/lib/utils';
+import { formatUnits } from 'viem/utils';
 import { randomSort } from '@haqq/staking/utils';
 import clsx from 'clsx';
 
@@ -30,7 +30,9 @@ export function ValidatorListItemMobile({
   }, [validator.tokens]);
   const userDelegate = useMemo(() => {
     if (delegation?.balance) {
-      return Number.parseFloat(formatUnits(delegation.balance.amount));
+      return Number.parseFloat(
+        formatUnits(BigInt(delegation.balance.amount), 18),
+      );
     }
 
     return 0;
@@ -112,8 +114,8 @@ export function ValidatorsListMobile({
   );
 
   const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.pool.bonded_tokens]);
+    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.bonded_tokens]);
 
   return (
     <div className="divide-haqq-border flex flex-col divide-y divide-solid">
@@ -188,8 +190,8 @@ export function ValidatorsList({
   );
 
   const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.pool.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.pool.bonded_tokens]);
+    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.bonded_tokens]);
 
   const getSortedValidators = useCallback(
     (validators: Validator[], state: SortState) => {

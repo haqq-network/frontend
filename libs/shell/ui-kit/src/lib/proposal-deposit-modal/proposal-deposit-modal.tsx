@@ -133,7 +133,7 @@ export function ProposalDepositModal({
             <div className="flex flex-col gap-[16px] pt-[24px]">
               <div>
                 <ModalInput
-                  symbol="ISLM"
+                  symbol={symbol}
                   value={depositAmount}
                   onChange={handleInputChange}
                   onMaxButtonClick={handleMaxButtonClick}

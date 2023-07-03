@@ -12,7 +12,7 @@ import {
   TwitterIcon,
   // YoutubeIcon,
   Button,
-} from '@haqq/website/ui-kit';
+} from '@haqq/website-ui-kit';
 import { SubscribeForm } from '@haqq/website/forms';
 
 interface NavLinkProps {
@@ -63,79 +63,107 @@ function BurgerMenuSocialLink({
     >
       <div>{icon}</div>
       <div>{children}</div>
-      <LinkArrowIcon />
+      <LinkArrowIcon className="mb-[-3px]" />
     </Link>
   );
 }
 
 export function BurgerMenu({
   className,
-  onClick,
+  onClose,
 }: {
   className?: string;
-  onClick?: () => void;
+  onClose?: () => void;
 }) {
   return (
     <div
       className={clsx(
-        'bg-haqq-black z-50 px-[20px] py-[32px] sm:py-[40px] sm:pl-[40px] sm:pr-[64px]',
+        'bg-haqq-black z-50 h-full px-[20px] py-[32px] sm:py-[40px] sm:pl-[40px] sm:pr-[64px]',
         'border-haqq-border overflow-y-auto sm:border-l',
-        // 'backdrop-blur transform-gpu',
         className,
       )}
-      onClick={onClick}
     >
       <div className="mb-[60px] flex flex-col items-start space-y-[16px] sm:mb-[80px]">
-        <BurgerMenuNavLink href="/#about">About</BurgerMenuNavLink>
-        <BurgerMenuNavLink href="/ecosystem-fund">Fund</BurgerMenuNavLink>
-        <BurgerMenuNavLink href="/ecosystem">Ecosystem</BurgerMenuNavLink>
+        <BurgerMenuNavLink onClick={onClose} href="/#about">
+          About
+        </BurgerMenuNavLink>
+        <BurgerMenuNavLink onClick={onClose} href="/ecosystem-fund">
+          Fund
+        </BurgerMenuNavLink>
+        <BurgerMenuNavLink onClick={onClose} href="/ecosystem">
+          Ecosystem
+        </BurgerMenuNavLink>
         {/* <BurgerMenuNavLink href="/#technology">Technology</BurgerMenuNavLink> */}
-        <BurgerMenuNavLink href="/#developers">Developers</BurgerMenuNavLink>
-        <BurgerMenuNavLink href="/blog">Blog</BurgerMenuNavLink>
-        <BurgerMenuNavLink href="https://docs.haqq.network" isOutLink>
+        <BurgerMenuNavLink onClick={onClose} href="/#developers">
+          Developers
+        </BurgerMenuNavLink>
+        <BurgerMenuNavLink onClick={onClose} href="/blog">
+          Blog
+        </BurgerMenuNavLink>
+        <BurgerMenuNavLink
+          onClick={onClose}
+          href="https://docs.haqq.network"
+          isOutLink
+        >
           Docs
         </BurgerMenuNavLink>
-        <BurgerMenuNavLink href="/brand-assets">Brand Assets</BurgerMenuNavLink>
+        <BurgerMenuNavLink onClick={onClose} href="/brand-assets">
+          Brand Assets
+        </BurgerMenuNavLink>
+
+        <Link href="https://shell.haqq.network">
+          <Button variant={2} className="block sm:hidden">
+            Shell
+          </Button>
+        </Link>
         <Link href="/wallet">
           <Button variant={2} className="block sm:hidden">
-            HAQQ Wallet
+            Wallet
           </Button>
         </Link>
       </div>
 
       <div className="mb-[60px] grid grid-cols-2 gap-[14px] sm:mb-[80px] sm:gap-[18px]">
-        <BurgerMenuSocialLink
-          href="https://discord.gg/4quqkD6Y8c"
-          icon={
-            <DiscordIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
-          }
-        >
-          Discord
-        </BurgerMenuSocialLink>
-        <BurgerMenuSocialLink
-          href="https://github.com/haqq-network"
-          icon={
-            <GithubIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
-          }
-        >
-          Github
-        </BurgerMenuSocialLink>
-        <BurgerMenuSocialLink
-          href="https://twitter.com/The_HaqqNetwork"
-          icon={
-            <TwitterIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
-          }
-        >
-          Twitter
-        </BurgerMenuSocialLink>
-        <BurgerMenuSocialLink
-          href="https://t.me/islamiccoin_int"
-          icon={
-            <TelegramIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
-          }
-        >
-          Telegram
-        </BurgerMenuSocialLink>
+        <div>
+          <BurgerMenuSocialLink
+            href="https://discord.gg/4quqkD6Y8c"
+            icon={
+              <DiscordIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+            }
+          >
+            Discord
+          </BurgerMenuSocialLink>
+        </div>
+        <div>
+          <BurgerMenuSocialLink
+            href="https://github.com/haqq-network"
+            icon={
+              <GithubIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+            }
+          >
+            Github
+          </BurgerMenuSocialLink>
+        </div>
+        <div>
+          <BurgerMenuSocialLink
+            href="https://twitter.com/The_HaqqNetwork"
+            icon={
+              <TwitterIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+            }
+          >
+            Twitter
+          </BurgerMenuSocialLink>
+        </div>
+        <div>
+          <BurgerMenuSocialLink
+            href="https://t.me/islamiccoin_int"
+            icon={
+              <TelegramIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+            }
+          >
+            Telegram
+          </BurgerMenuSocialLink>
+        </div>
         {/* <BurgerMenuSocialLink
           href="#YouTube"
           icon={

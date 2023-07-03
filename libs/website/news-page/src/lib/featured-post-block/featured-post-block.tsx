@@ -1,11 +1,12 @@
-import { Heading, NewsCard } from '@haqq/website/ui-kit';
+import { Heading, NewsCard } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import blogPlaceholderImage1 from '../../assets/blog-placeholder-1.png';
 import blogPlaceholderImage2 from '../../assets/blog-placeholder-2.png';
 import blogPlaceholderImage3 from '../../assets/blog-placeholder-3.png';
+import type { Post } from '../blog-page/blog-page';
 
-export function FeaturedPostBlock({ post }: { post: any }) {
+export function FeaturedPostBlock({ post }: { post: Post }) {
   const postImage = useMemo(() => {
     if (post.image) {
       return post.image;
@@ -41,7 +42,7 @@ export function FeaturedPostBlock({ post }: { post: any }) {
           <Link href={`/blog/${post.slug}`}>
             <NewsCard
               date={new Date(post.date)}
-              description={post.description}
+              description={post.description ?? ''}
               image={postImage}
               title={post.title}
               tags={post.tags}

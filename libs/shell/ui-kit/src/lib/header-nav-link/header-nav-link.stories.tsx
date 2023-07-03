@@ -4,7 +4,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof HeaderNavLinkComponent> = {
   component: HeaderNavLinkComponent,
-  title: 'shell/ui-kit/header-nav-link',
+  title: 'shell/ui-kit',
   decorators: [withRouter],
   parameters: {
     layout: 'centered',
@@ -12,20 +12,11 @@ const meta: Meta<typeof HeaderNavLinkComponent> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof HeaderNavLinkComponent>;
 
-export const Default: Story = {
+export const HeaderNavLink: Story = {
   args: {
     children: 'Default',
     href: '/',
-  },
-};
-
-export const IsOut: Story = {
-  args: {
-    children: 'Is out',
-    href: 'https://haqq.network/',
-    isOutLink: true,
   },
 };

@@ -3,15 +3,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {
-  FormError,
-  FormFields,
+  ContactFormFields,
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
-import { Button, SuccessMessageModal, Modal } from '@haqq/website/ui-kit';
+import { Button, SuccessMessageModal, Modal } from '@haqq/website-ui-kit';
 
-const schema = yup
+const schema: yup.ObjectSchema<ContactFormFields> = yup
   .object({
     name: yup.string().required('Name is required'),
     email: yup
@@ -22,7 +21,7 @@ const schema = yup
   })
   .required();
 
-function submitForm(form: FormFields): Promise<any> {
+function submitForm(form: ContactFormFields): Promise<{ status: number }> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ status: 200 });
@@ -36,11 +35,11 @@ export function ContactForm() {
   );
   const [isMessageSent, setMessageSent] = useState<boolean>(false);
 
-  const { register, handleSubmit, formState } = useForm<FormFields>({
+  const { register, handleSubmit, formState } = useForm<ContactFormFields>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async (data: FormFields) => {
+  const onSubmit = useCallback(async (data: ContactFormFields) => {
     try {
       setContactFormState(FormState.pending);
       const response = await submitForm(data);
@@ -84,25 +83,25 @@ export function ContactForm() {
         <div className="flex flex-col space-y-[12px] lg:space-y-[16px]">
           <div className="flex flex-col space-y-[12px] leading-none sm:flex-row sm:space-x-[12px] sm:space-y-0 lg:space-x-[16px]">
             <div className="flex-1">
-              <HookedFormInput
+              <HookedFormInput<ContactFormFields>
                 wrapperClassName="w-full"
                 placeholder="Name"
                 id="name"
                 register={register}
-                error={formState.errors.name as FormError}
+                error={formState.errors.name?.message}
                 disabled={isFormDisabled}
                 required
                 size="normal"
               />
             </div>
             <div className="flex-1">
-              <HookedFormInput
+              <HookedFormInput<ContactFormFields>
                 wrapperClassName="w-full"
                 placeholder="Email"
                 type="email"
                 id="email"
                 register={register}
-                error={formState.errors.email as FormError}
+                error={formState.errors.email?.message}
                 disabled={isFormDisabled}
                 required
                 size="normal"
@@ -110,7 +109,7 @@ export function ContactForm() {
             </div>
           </div>
           <div>
-            <HookedFormTextarea
+            <HookedFormTextarea<ContactFormFields>
               id="message"
               register={register}
               className="h-[120px] w-full"

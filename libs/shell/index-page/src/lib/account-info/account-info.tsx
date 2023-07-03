@@ -1,12 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useBalance } from 'wagmi';
+import { useBalance, useNetwork } from 'wagmi';
 import {
   useAddress,
   useClipboard,
   useStakingDelegationQuery,
   useStakingRewardsQuery,
+  useSupportedChains,
 } from '@haqq/shared';
-import { CopyIcon, Card, CardHeading } from '@haqq/shell/ui-kit';
+import { CopyIcon, Card, CardHeading } from '@haqq/shell-ui-kit';
 
 export function ShellIndexPageAccountInfo() {
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);
@@ -19,6 +20,10 @@ export function ShellIndexPageAccountInfo() {
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   const balance = useMemo(() => {
     if (!balanceData) {
@@ -127,7 +132,7 @@ export function ShellIndexPageAccountInfo() {
         <div>
           <CardHeading>Balance</CardHeading>
           <div className="mb-[-10px] font-serif text-[42px] font-[500] leading-[1.25]">
-            {balance.value.toLocaleString()} ISLM
+            {balance.value.toLocaleString()} {symbol.toLocaleUpperCase()}
           </div>
         </div>
       )}
@@ -135,14 +140,16 @@ export function ShellIndexPageAccountInfo() {
       <div>
         <CardHeading>Staked</CardHeading>
         <div className="text-2xl font-semibold leading-normal">
-          {delegation.toLocaleString()} <span className="text-base">ISLM</span>
+          {delegation.toLocaleString()}{' '}
+          <span className="text-base">{symbol.toLocaleUpperCase()}</span>
         </div>
       </div>
 
       <div>
         <CardHeading>Unclaimed rewards</CardHeading>
         <div className="text-2xl font-semibold leading-normal">
-          {rewards.toLocaleString()} <span className="text-base">ISLM</span>
+          {rewards.toLocaleString()}{' '}
+          <span className="text-base">{symbol.toLocaleUpperCase()}</span>
         </div>
       </div>
     </Card>

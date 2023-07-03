@@ -6,10 +6,12 @@ export function ProposalDepositProgress({
   userDeposit,
   totalDeposit,
   minDeposit,
+  symbol,
 }: {
   userDeposit?: number;
   totalDeposit: number;
   minDeposit: number;
+  symbol: string;
 }) {
   const percent = useMemo(() => {
     return Math.min((totalDeposit / minDeposit) * 100, 100);
@@ -51,12 +53,12 @@ export function ProposalDepositProgress({
           minimumFractionDigits: 0,
           maximumFractionDigits: 3,
         })}{' '}
-        ISLM from{' '}
+        {symbol.toLocaleUpperCase()} from{' '}
         {minDeposit.toLocaleString('en-US', {
           minimumFractionDigits: 0,
           maximumFractionDigits: 3,
         })}{' '}
-        ISLM
+        {symbol.toLocaleUpperCase()}
       </div>
     </div>
   );

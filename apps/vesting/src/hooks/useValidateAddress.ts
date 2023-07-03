@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import web3 from 'web3';
+import { isAddress } from 'viem';
 
 export function useValidateAddress(address: string): boolean {
   const isValidAddress = useMemo(() => {
-    return web3.utils.isAddress(address);
+    return isAddress(address);
   }, [address]);
 
   return isValidAddress;

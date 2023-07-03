@@ -1,6 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "haqq",
   "affected": {
     "defaultBase": "dev"
   },

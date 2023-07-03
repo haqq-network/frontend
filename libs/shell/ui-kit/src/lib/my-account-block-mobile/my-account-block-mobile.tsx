@@ -10,6 +10,7 @@ interface MyAccountBlockProps {
   totalRewards: number;
   delegated: number;
   onRewardsClaim: () => void;
+  symbol: string;
 }
 
 export function MyAccountCardBlock({
@@ -34,6 +35,7 @@ export function MyAccountBlockMobile({
   unbounded,
   totalRewards,
   delegated,
+  symbol,
 }: MyAccountBlockProps) {
   return (
     <Container className="py-[24px] md:py-[40px]">
@@ -50,7 +52,7 @@ export function MyAccountBlockMobile({
             minimumFractionDigits: 0,
             maximumFractionDigits: 3,
           })}{' '}
-          ISLM
+          {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Unbounded">
@@ -58,7 +60,7 @@ export function MyAccountBlockMobile({
             minimumFractionDigits: 0,
             maximumFractionDigits: 3,
           })}{' '}
-          ISLM
+          {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Staked">
@@ -66,7 +68,7 @@ export function MyAccountBlockMobile({
             minimumFractionDigits: 0,
             maximumFractionDigits: 3,
           })}{' '}
-          ISLM
+          {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Rewards">
@@ -74,7 +76,7 @@ export function MyAccountBlockMobile({
             minimumFractionDigits: 0,
             maximumFractionDigits: 3,
           })}{' '}
-          ISLM
+          {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
       </div>
 

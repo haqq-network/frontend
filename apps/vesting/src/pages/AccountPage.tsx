@@ -17,8 +17,8 @@ export function AccountPage() {
       {environment.contractAddress && (
         <Fragment>
           <AccountDepositStatsWidget
-            contractAddress={environment.contractAddress}
-            address={address}
+            contractAddress={environment.contractAddress as `0x${string}`}
+            address={address as `0x${string}`}
           />
           <DepositWithdrawalList
             contractAddress={environment.contractAddress}

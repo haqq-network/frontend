@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { Heading, Tabs, Tab } from '@haqq/website/ui-kit';
+import { Heading, Tabs, Tab } from '@haqq/website-ui-kit';
 
 export enum PartnerType {
   INFRASTRUCTURE = 'infrastructure',

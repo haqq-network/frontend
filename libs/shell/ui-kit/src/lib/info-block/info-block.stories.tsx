@@ -1,16 +1,20 @@
+import { Meta, StoryObj } from '@storybook/react';
 import { InfoBlock as InfoBlockComponent } from './info-block';
 
-export default {
-  title: 'shell/ui-kit/info-block',
+const meta: Meta<typeof InfoBlockComponent> = {
+  component: InfoBlockComponent,
+  title: 'shell/ui-kit',
   parameters: {
     layout: 'centered',
   },
 };
 
-export const Default = () => {
-  return (
-    <InfoBlockComponent title="Reward">
-      {`${(123030299).toLocaleString()} ISLM`}
-    </InfoBlockComponent>
-  );
+export default meta;
+type Story = StoryObj<typeof InfoBlockComponent>;
+
+export const InfoBlock: Story = {
+  args: {
+    title: 'Rewards',
+    children: '123,030,299 ISLM',
+  },
 };

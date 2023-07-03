@@ -8,13 +8,19 @@ import {
   Button,
   Container,
   LogoutIcon,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
-import { getFormattedAddress, useAddress, useWallet } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  useAddress,
+  useCosmosProvider,
+  useWallet,
+} from '@haqq/shared';
 import { useMemo } from 'react';
 
 export function ShellIndexPage() {
   const { isConnected } = useAccount();
+  const { isReady } = useCosmosProvider();
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
@@ -37,7 +43,7 @@ export function ShellIndexPage() {
 
       <div className="flex flex-col space-y-[80px] py-[68px]">
         {isConnected && <DelegationsBlock />}
-        <ProposalListBlock />
+        {isReady && <ProposalListBlock />}
       </div>
 
       {isTablet && (

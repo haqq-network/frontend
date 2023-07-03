@@ -1,4 +1,4 @@
-import { Heading, Text, DownloadButton } from '@haqq/website/ui-kit';
+import { Heading, Text, DownloadButton } from '@haqq/website-ui-kit';
 import clsx from 'clsx';
 import styles from './title-block.module.css';
 

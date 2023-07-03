@@ -4,9 +4,9 @@
       "@nx/react/babel",
       {
         "runtime": "automatic",
-        "importSource": "@emotion/react"
+        "useBuiltIns": "usage"
       }
     ]
   ],
-  "plugins": ["@emotion/babel-plugin"]
+  "plugins": []
 }

@@ -1,4 +1,4 @@
-import { Heading } from '@haqq/shell/ui-kit';
+import { Heading } from '@haqq/shell-ui-kit';
 import { useMemo } from 'react';
 import { Metadata } from '../metadata/metadata';
 

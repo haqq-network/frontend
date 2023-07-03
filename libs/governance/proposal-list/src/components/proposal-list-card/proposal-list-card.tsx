@@ -1,22 +1,26 @@
 import { ReactElement, useMemo } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
-import { ProposalCard } from '@haqq/shell/ui-kit';
-import { GovernanceParamsResponse } from '@haqq/shared';
-import { formatUnits } from 'ethers/lib/utils.js';
+import { ProposalCard } from '@haqq/shell-ui-kit';
+import { formatUnits } from 'viem/utils';
+import { GetGovernanceParamsResponse } from '@haqq/shared';
 
 export function ProposalListCard({
   proposal,
   govParams,
+  symbol,
 }: {
   proposal: Proposal;
-  govParams: GovernanceParamsResponse;
+  govParams: GetGovernanceParamsResponse;
+  symbol: string;
 }): ReactElement {
   const totalDeposit = useMemo(() => {
     if (!proposal.total_deposit[0]) {
       return 0;
     }
 
-    return Number.parseFloat(formatUnits(proposal.total_deposit[0].amount));
+    return Number.parseFloat(
+      formatUnits(BigInt(proposal.total_deposit[0].amount), 18),
+    );
   }, [proposal]);
   const minDeposit = useMemo(() => {
     if (!govParams.deposit_params.min_deposit[0]) {
@@ -24,7 +28,7 @@ export function ProposalListCard({
     }
 
     return Number.parseFloat(
-      formatUnits(govParams.deposit_params.min_deposit[0].amount),
+      formatUnits(BigInt(govParams.deposit_params.min_deposit[0].amount), 18),
     );
   }, [govParams]);
 
@@ -39,6 +43,7 @@ export function ProposalListCard({
       totalDeposit={totalDeposit}
       minDeposit={minDeposit}
       results={proposal.final_tally_result}
+      symbol={symbol}
     />
   );
 }

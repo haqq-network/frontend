@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Input, InputProps } from '@haqq/website/ui-kit';
+import { Input, InputProps } from '@haqq/website-ui-kit';
 import { Path, UseFormRegister } from 'react-hook-form';
 
 export enum FormState {
@@ -13,20 +13,22 @@ export interface FormError {
   message: string | undefined;
 }
 
-export interface FormFields {
-  name?: string;
-  email?: string;
+export interface ContactFormFields {
+  email: string;
+  name: string;
   message?: string;
 }
 
-export interface HookedInputProps
-  extends Omit<InputProps, 'error' | 'onChange'> {
-  id: Path<FormFields>;
-  error?: FormError;
-  register: UseFormRegister<FormFields>;
+export interface SubscribeFormFields {
+  email: string;
 }
 
-export function HookedFormInput({
+export interface HookedInputProps<F extends Record<string, any>> {
+  id: Path<F>;
+  register: UseFormRegister<F>;
+}
+
+export function HookedFormInput<F extends Record<string, any>>({
   id,
   register,
   inputClassName,
@@ -37,7 +39,7 @@ export function HookedFormInput({
   disabled,
   required,
   size = 'normal',
-}: HookedInputProps): ReactElement {
+}: HookedInputProps<F> & Omit<InputProps, 'onChange'>): ReactElement {
   return (
     <Input
       inputClassName={inputClassName}
@@ -46,9 +48,9 @@ export function HookedFormInput({
       type={type}
       disabled={disabled}
       required={required}
-      error={error && error.message}
-      {...register(id)}
+      error={error}
       size={size}
+      {...register(id)}
     />
   );
 }

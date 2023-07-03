@@ -14,9 +14,6 @@ type Story = StoryObj<typeof BurgerButtonComponent>;
 
 export const BurgerButton: Story = {
   args: {
-    onClick: () => {
-      console.log('Toggle burger menu');
-    },
     isOpen: false,
   },
 };

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import clsx from 'clsx';
-import { DiscordIcon, GithubIcon, TwitterIcon } from '@haqq/website/ui-kit';
+import { DiscordIcon, GithubIcon, TwitterIcon } from '@haqq/website-ui-kit';
 import walletImageData from '../../assets/images/wallet-bg.jpg';
 import { FAQBlock } from '../faq-block/faq-block';
 import { FeaturesBlock } from '../features-block/features-block';

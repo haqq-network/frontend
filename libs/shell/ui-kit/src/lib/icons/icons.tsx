@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 export function ValidatorIcon({ className }: { className?: string }) {
   return (
     <svg

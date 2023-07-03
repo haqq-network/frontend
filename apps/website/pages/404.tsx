@@ -1,5 +1,5 @@
 import { Fragment, ReactElement } from 'react';
-import { Button } from '@haqq/website/ui-kit';
+import { Button } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 import clsx from 'clsx';
 import notFoundGlowImageData from '../assets/images/not-found-glow.png';
@@ -24,7 +24,7 @@ export default function NotFoundPage() {
         Sorry, this page doesn’t seem to exist
       </div>
       <div className="pt-[40px] sm:pt-[48px] lg:pt-[64px]">
-        <Link href="/">
+        <Link href="/" className="leading-[0]">
           <Button variant={3}>Go to main page</Button>
         </Link>
       </div>

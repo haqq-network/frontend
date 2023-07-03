@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import { getChainParams, useConfig } from '@haqq/shared';
-import { useAccount, useBalance, useDisconnect } from 'wagmi';
+import { useAccount, useBalance, useNetwork } from 'wagmi';
 import { useOnboarding } from '../../OnboardingContainer';
 import { AccountButton } from '../AccountButton/AccountButton';
 
@@ -10,10 +9,8 @@ export function ConnectButton() {
     address: address,
     watch: true,
   });
-  const { disconnect } = useDisconnect();
-  const { connectWallet } = useOnboarding();
-  const { chainName } = useConfig();
-  const chainParams = getChainParams(chainName);
+  const { connectWallet, disconnectWallet } = useOnboarding();
+  const { chain } = useNetwork();
 
   const accBalance = useMemo(() => {
     if (!balance) {
@@ -22,9 +19,9 @@ export function ConnectButton() {
 
     return {
       value: Number.parseFloat(balance.formatted),
-      symbol: chainParams.nativeCurrency.symbol,
+      symbol: chain?.nativeCurrency.symbol ?? '',
     };
-  }, [balance, chainParams.nativeCurrency.symbol]);
+  }, [balance, chain?.nativeCurrency.symbol]);
 
   const account = useMemo(() => {
     if (!isConnected || !address) {
@@ -40,7 +37,7 @@ export function ConnectButton() {
   return (
     <AccountButton
       onConnectClick={connectWallet}
-      onDisconnectClick={disconnect}
+      onDisconnectClick={disconnectWallet}
       account={account}
     />
   );

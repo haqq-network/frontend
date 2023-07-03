@@ -1,20 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { GovParamsType } from '@cosmjs/stargate';
+import { useNetwork } from 'wagmi';
 
 export function useProposalListQuery() {
   const { getProposals } = useCosmosService();
+  const { chain } = useNetwork();
 
-  return useQuery(['proposals'], getProposals, {
+  return useQuery([chain?.id, 'proposals'], getProposals, {
     refetchOnWindowFocus: false,
   });
 }
 
 export function useProposalDetailsQuery(proposalId: string | undefined) {
   const { getProposalDetails } = useCosmosService();
+  const { chain } = useNetwork();
 
   return useQuery(
-    ['proposal', proposalId],
+    [chain?.id, 'proposal', proposalId],
     async () => {
       if (!proposalId) {
         return null;
@@ -30,9 +32,10 @@ export function useProposalDetailsQuery(proposalId: string | undefined) {
 
 export function useGovernanceParamsQuery() {
   const { getGovernanceParams } = useCosmosService();
+  const { chain } = useNetwork();
 
   return useQuery(
-    ['governance-params'],
+    [chain?.id, 'governance-params'],
     async () => {
       const [deposit_params, voting_params, tally_params] = await Promise.all([
         getGovernanceParams('deposit').then((res) => {

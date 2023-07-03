@@ -1,0 +1,44 @@
+.checkboxContainer {
+  --checkbox-border-width: 1.5px;
+  --checkbox-border-radius: 4px;
+  --checkbox-size: 20px;
+  --checkbox-color: var(--haqq-color-stroke);
+}
+
+.checkboxTickBox {
+  flex: 0 0 auto;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border-radius: var(--checkbox-border-radius);
+  box-sizing: border-box;
+  border: var(--checkbox-border-width) solid var(--checkbox-color);
+  outline: none;
+}
+
+.checkboxTick {
+  color: #fff;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset calc(var(--haqq-transition-duration) * 3) ease;
+}
+
+.checkboxInputElement {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+
+  /* Checked */
+  &:checked + .checkboxTickBox {
+    border-color: var(--haqq-color-green) !important;
+    background-color: var(--haqq-color-green);
+
+    & .checkboxTick {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Focus */
+  &:not(&:disabled)&:hover + .checkboxTickBox {
+    --checkbox-color: var(--haqq-color-black);
+  }
+}

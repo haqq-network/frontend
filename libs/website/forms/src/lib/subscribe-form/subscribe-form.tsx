@@ -1,17 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {
-  FormError,
-  FormFields,
+  SubscribeFormFields,
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button } from '@haqq/website/ui-kit';
+import { Button } from '@haqq/website-ui-kit';
 import clsx from 'clsx';
 
-const schema = yup
+const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
     email: yup
       .string()
@@ -20,7 +19,7 @@ const schema = yup
   })
   .required();
 
-function submitForm(form: FormFields): Promise<any> {
+function submitForm(form: SubscribeFormFields): Promise<{ status: number }> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ status: 200 });
@@ -39,11 +38,11 @@ export function SubscribeForm({
     FormState.idle,
   );
 
-  const { register, handleSubmit, formState } = useForm<FormFields>({
+  const { register, handleSubmit, formState } = useForm<SubscribeFormFields>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async (data: FormFields) => {
+  const onSubmit = useCallback(async (data: SubscribeFormFields) => {
     try {
       setSubscribeFormState(FormState.pending);
       const response = await submitForm(data);
@@ -75,13 +74,13 @@ export function SubscribeForm({
         autoComplete="off"
       >
         <div className="max-w-[400px] sm:flex-1">
-          <HookedFormInput
+          <HookedFormInput<{ email: string }>
             wrapperClassName="w-full"
             placeholder="Enter your e-mail"
             type="email"
             id="email"
             register={register}
-            error={formState.errors.email as FormError}
+            error={formState.errors.email?.message}
             disabled={isFormDisabled}
             required
             size={inputSize}

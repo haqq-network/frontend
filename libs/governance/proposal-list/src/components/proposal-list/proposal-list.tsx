@@ -1,12 +1,21 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useGovernanceParamsQuery, useProposalListQuery } from '@haqq/shared';
+import {
+  useGovernanceParamsQuery,
+  useProposalListQuery,
+  useSupportedChains,
+} from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
-import { Container, SpinnerLoader } from '@haqq/shell/ui-kit';
+import { Container, SpinnerLoader } from '@haqq/shell-ui-kit';
+import { useNetwork } from 'wagmi';
 
 export function ProposalList() {
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
       return [];
@@ -47,6 +56,7 @@ export function ProposalList() {
                     <ProposalListCard
                       proposal={proposal}
                       govParams={govParams}
+                      symbol={symbol}
                     />
                   </Link>
                 );

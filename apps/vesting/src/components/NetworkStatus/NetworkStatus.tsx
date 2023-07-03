@@ -1,8 +1,7 @@
 import clsx from 'clsx';
-import { hexValue } from 'ethers/lib/utils';
 import { useNetwork } from 'wagmi';
-
 import { useOnboarding } from '../../OnboardingContainer';
+import { toHex } from 'viem';
 
 export function NetworkButton() {
   const { chain } = useNetwork();
@@ -113,7 +112,7 @@ export function UnsupportedNetworkStatus({
         )}
       >
         <div>
-          Network <b>{chain?.id && hexValue(chain.id)}</b> is not supported.
+          Network <b>{chain?.id && toHex(chain.id)}</b> is not supported.
           <br />
           Click on this icon to switch network.
         </div>

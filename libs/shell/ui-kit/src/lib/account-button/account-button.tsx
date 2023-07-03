@@ -21,33 +21,54 @@ export function AccountButton({
   withoutDropdown?: boolean;
 }) {
   return (
-    <div className={clsx('flex max-w-fit flex-row items-center', className)}>
+    <div
+      className={clsx(
+        'flex h-[40px] max-w-fit flex-row items-center',
+        className,
+      )}
+    >
       {balance && (
-        <div className="mr-[-8px] rounded-l-[6px] border border-r-0 border-white pb-[7px] pl-[12px] pr-[20px] pt-[9px] font-serif leading-[24px] tracking-[.01em]">
+        <div className="mr-[-8px] rounded-l-[6px] border border-r-0 border-white pb-[6px] pl-[12px] pr-[20px] pt-[8px] font-serif leading-[24px] tracking-[.01em]">
           {`${balance.value.toLocaleString()} ${balance.symbol.toLocaleUpperCase()}`}
         </div>
       )}
 
       {!withoutDropdown && onDisconnectClick ? (
-        <Menu as="div" className="relative z-10 inline-block">
-          <Menu.Button
-            className={clsx(
-              'flex h-full flex-row items-center space-x-[2px] py-[9px] pl-[12px] pr-[8px]',
-              'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
-              'transition-all duration-150 ease-in',
-              'box-border appearance-none outline-none',
-              'appearance-none rounded-[6px] font-sans text-sm font-[500] leading-[24px]',
-            )}
-          >
-            <span>{address}</span>
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
-                fill="currentColor"
-              />
-            </svg>
+        <Menu as="div" className="relative z-10 inline-block h-[40px]">
+          <Menu.Button as={Fragment}>
+            {({ open }) => {
+              return (
+                <button
+                  className={clsx(
+                    'flex h-full flex-row items-center space-x-[2px] py-[8px] pl-[12px] pr-[8px]',
+                    'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
+                    'transition-colors duration-150 ease-in',
+                    'box-border appearance-none outline-none',
+                    'appearance-none rounded-[6px] font-sans text-sm font-[500] leading-[24px]',
+                  )}
+                >
+                  <div className="mt-[-1px]">{address}</div>
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    className={clsx(
+                      'mb-[-2px] ml-[4px] mr-[-6px]',
+                      'transition-[transform] duration-150 ease-in',
+                      open && 'scale-y-[-1]',
+                    )}
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+              );
+            }}
           </Menu.Button>
 
           <Transition
@@ -62,7 +83,7 @@ export function AccountButton({
             <Menu.Items className="absolute right-[-1px] z-10 mt-1 w-[160px] origin-top-right rounded-md border border-[#ffffff26] bg-black py-2 text-white shadow-lg focus:outline-none">
               <Menu.Item
                 as="button"
-                className="block w-full px-[16px] py-[10px] text-left text-[14px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
+                className="block w-full px-[16px] py-[10px] text-left text-[13px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
                 onClick={onDisconnectClick}
               >
                 Disconnect
@@ -74,7 +95,7 @@ export function AccountButton({
         <div
           className={clsx(
             'flex h-full flex-row items-center space-x-2 rounded-[6px] px-3 py-[9px]',
-            'bg-white font-sans text-sm leading-[24px] text-black',
+            'bg-white font-sans text-[14px] leading-[24px] text-black',
           )}
         >
           {address}

@@ -1,16 +1,12 @@
 import {
+  ChangeEvent,
   Fragment,
   PropsWithChildren,
   useCallback,
   useMemo,
   useState,
 } from 'react';
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'marked-react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
 import {
@@ -18,17 +14,17 @@ import {
   useProposalDetailsQuery,
   isNumber,
   useGovernanceParamsQuery,
-  GovernanceParamsResponse,
   useToast,
   useWallet,
   useProposalActions,
   useConfig,
+  GetGovernanceParamsResponse,
+  useSupportedChains,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from '../software-upgrade-proposal/software-upgrade-proposal';
 import clsx from 'clsx';
-import { formatUnits } from 'ethers/lib/utils';
 import {
   BackButton,
   InfoBlock,
@@ -43,10 +39,10 @@ import {
   ProposalStatus as ProposalStatusComponent,
   ProposalPeriodTimer,
   ProposalVoteProgress,
-  // ProposalDepositModal,
-} from '@haqq/shell/ui-kit';
+} from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
+import { formatUnits } from 'viem/utils';
 
 const enum ProposalTypes {
   Text = '/cosmos.gov.v1beta1.TextProposal',
@@ -135,10 +131,12 @@ function ProposalDetailsMobile({
   proposalDetails,
   totalDeposit,
   minDeposit,
+  symbol,
 }: {
   proposalDetails: Proposal;
   totalDeposit: number;
   minDeposit: number;
+  symbol: string;
 }) {
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
@@ -160,6 +158,7 @@ function ProposalDetailsMobile({
                 <ProposalDepositProgress
                   totalDeposit={totalDeposit}
                   minDeposit={minDeposit}
+                  symbol={symbol}
                 />
               </div>
             )}
@@ -203,20 +202,19 @@ export function ProposalDetailsComponent({
   proposalDetails: Proposal;
   symbol: string;
   isWalletConnected: boolean;
-  govParams: GovernanceParamsResponse;
+  govParams: GetGovernanceParamsResponse;
 }) {
-  // console.log({ proposalDetails });
   const { isConnected } = useAccount();
   const { openSelectWallet } = useWallet();
-  const { deposit } = useProposalActions();
-  const toast = useToast();
+  // const { deposit } = useProposalActions();
+  // const toast = useToast();
   const navigate = useNavigate();
-  const { hash } = useLocation();
-  const { ethAddress } = useAddress();
-  const { data: balanceData } = useBalance({
-    address: ethAddress,
-    watch: true,
-  });
+  // const { hash } = useLocation();
+  // const { ethAddress } = useAddress();
+  // const { data: balanceData } = useBalance({
+  //   address: ethAddress,
+  //   watch: true,
+  // });
   const [showDates, setShowDates] = useState(
     Boolean(
       proposalDetails.status === ProposalStatus.Passed ||
@@ -236,7 +234,7 @@ export function ProposalDetailsComponent({
     }
 
     return Number.parseInt(
-      formatUnits(proposalDetails.total_deposit[0]?.amount),
+      formatUnits(BigInt(proposalDetails.total_deposit[0]?.amount), 18),
       10,
     );
   }, [proposalDetails]);
@@ -246,7 +244,7 @@ export function ProposalDetailsComponent({
     }
 
     return Number.parseInt(
-      formatUnits(govParams.deposit_params.min_deposit[0]?.amount),
+      formatUnits(BigInt(govParams.deposit_params.min_deposit[0]?.amount), 18),
       10,
     );
   }, [govParams]);
@@ -313,6 +311,7 @@ export function ProposalDetailsComponent({
                       proposalDetails={proposalDetails}
                       totalDeposit={totalDeposit}
                       minDeposit={minDeposit}
+                      symbol={symbol}
                     />
                   </div>
                 )}
@@ -523,6 +522,7 @@ export function ProposalDetailsComponent({
                       <ProposalDepositProgress
                         totalDeposit={totalDeposit}
                         minDeposit={minDeposit}
+                        symbol={symbol}
                       />
                     </div>
                   )}
@@ -671,6 +671,12 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     useProposalDetailsQuery(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+
+  if (!proposalDetails && !isFetching) {
+    return <Navigate to="/not-found" replace />;
+  }
 
   return isFetching || !proposalDetails || !govParams ? (
     <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
@@ -681,7 +687,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     </div>
   ) : (
     <ProposalDetailsComponent
-      symbol="ISLM"
+      symbol={chain?.nativeCurrency.symbol ?? chains[0].nativeCurrency.symbol}
       isWalletConnected={Boolean(ethAddress && haqqAddress)}
       proposalDetails={proposalDetails}
       govParams={govParams}
@@ -830,6 +836,10 @@ export function DepositActionsDesktop({
       onDepositSubmit(depositAmount);
     }
   }, [depositAmount, onDepositSubmit]);
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   return (
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
@@ -838,7 +848,7 @@ export function DepositActionsDesktop({
           Enter the amount you want to deposit
         </CardHeading>
         <div className="text-[12px] font-[500] leading-[18px] text-white/50">
-          You balance: {balance.toLocaleString()} ISLM
+          You balance: {balance.toLocaleString()} {symbol.toLocaleUpperCase()}
         </div>
       </div>
       <div>
@@ -885,7 +895,7 @@ export function DepositInput({
           'w-full bg-transparent text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
         )}
         value={value}
-        onChange={(event: any) => {
+        onChange={(event: ChangeEvent<HTMLInputElement>) => {
           onChange(Number.parseFloat(event.currentTarget.value));
         }}
         disabled={disabled}
