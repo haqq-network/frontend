@@ -3432,7 +3432,7 @@ __metadata:
     "@types/react-router-dom": 5.3.3
     "@typescript-eslint/eslint-plugin": 5.60.1
     "@typescript-eslint/parser": 5.60.1
-    "@wagmi/chains": 1.3.0
+    "@wagmi/chains": 1.4.0
     "@wagmi/core": 1.3.1
     "@walletconnect/modal": 2.5.4
     "@web3modal/standalone": 2.4.3
@@ -8312,6 +8312,18 @@ __metadata:
     typescript:
       optional: true
   checksum: a9dd2ed8e5e2c380ed2bcc48c36fda9c34d8fae45d080e29c472bb24f48746c4d697c42be6880ee4c9c6bcd5dcff74b0f1c0fcf17b921594788ded66b76cda78
+  languageName: node
+  linkType: hard
+
+"@wagmi/chains@npm:1.4.0":
+  version: 1.4.0
+  resolution: "@wagmi/chains@npm:1.4.0"
+  peerDependencies:
+    typescript: ">=5.0.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 0f0368d838e881c1ee0bc34e67767da9bb8340f411ee46ed25f4831d2db31bd32e7d8f0f307e3daf06021a07db4ebff9f9a47effbe30cdb8a8b3c4bd4bd248de
   languageName: node
   linkType: hard
 
