@@ -49,7 +49,10 @@
       "@haqq/website/forms": ["libs/website/forms/src/index.ts"],
       "@haqq/website/index-page": ["libs/website/index-page/src/index.ts"],
       "@haqq/website/shared": ["libs/website/shared/src/index.ts"],
-      "@haqq/website/wallet-page": ["libs/website/wallet-page/src/index.ts"]
+      "@haqq/website/wallet-page": ["libs/website/wallet-page/src/index.ts"],
+      "@haqq/website/whitepaper-page": [
+        "libs/website/whitepaper-page/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
