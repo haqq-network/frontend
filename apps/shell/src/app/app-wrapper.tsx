@@ -25,6 +25,7 @@ import {
   useWallet,
   getFormattedAddress,
   useSupportedChains,
+  formatNumber,
 } from '@haqq/shared';
 import { haqqTestedge2 } from '@wagmi/chains';
 
@@ -65,10 +66,7 @@ function HeaderButtons({
 
     return {
       symbol: balanceData.symbol,
-      value: Number.parseFloat(balanceData.formatted).toLocaleString('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 3,
-      }),
+      value: formatNumber(Number.parseFloat(balanceData.formatted)),
     };
   }, [balanceData]);
 

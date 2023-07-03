@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react';
 import {
+  formatNumber,
   getFormattedAddress,
   useAddress,
   useSupportedChains,
@@ -62,10 +63,7 @@ function HeaderButtons({
 
     return {
       symbol: balanceData.symbol,
-      value: Number.parseFloat(balanceData.formatted).toLocaleString('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 3,
-      }),
+      value: formatNumber(Number.parseFloat(balanceData.formatted)),
     };
   }, [balanceData]);
 

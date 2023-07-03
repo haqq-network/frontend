@@ -3,6 +3,7 @@ import { WalletIcon } from '../icons/icons';
 import { Heading } from '../heading/heading';
 import clsx from 'clsx';
 import { Container } from '../container/container';
+import { formatNumber } from '@haqq/shared';
 
 interface MyAccountBlockProps {
   balance: number;
@@ -48,35 +49,19 @@ export function MyAccountBlockMobile({
 
       <div className="mt-[18px] grid grid-cols-2 gap-x-[24px] gap-y-[12px] md:mt-[20px] md:grid-cols-4">
         <MyAccountCardBlock title="Available">
-          {balance.toLocaleString('en-US', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 3,
-          })}{' '}
-          {symbol.toLocaleUpperCase()}
+          {formatNumber(balance)} {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Unbounded">
-          {unbounded.toLocaleString('en-US', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 3,
-          })}{' '}
-          {symbol.toLocaleUpperCase()}
+          {formatNumber(unbounded)} {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Staked">
-          {delegated.toLocaleString('en-US', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 3,
-          })}{' '}
-          {symbol.toLocaleUpperCase()}
+          {formatNumber(delegated)} {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
 
         <MyAccountCardBlock title="Rewards">
-          {totalRewards.toLocaleString('en-US', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 3,
-          })}{' '}
-          {symbol.toLocaleUpperCase()}
+          {formatNumber(totalRewards)} {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
       </div>
 

@@ -6,6 +6,7 @@ import { ValidatorIcon } from '../icons/icons';
 import { Heading } from '../heading/heading';
 import { Container } from '../container/container';
 import { useMediaQuery } from 'react-responsive';
+import { formatNumber } from '@haqq/shared';
 
 interface ValidatorBlockMobileProps {
   delegation: number;
@@ -95,33 +96,21 @@ export function ValidatorBlockMobile({
             <div className="flex flex-1 flex-row items-center justify-between">
               <GrayDescription>My delegation</GrayDescription>
               <DescriptionAmount>
-                {delegation.toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 3,
-                })}{' '}
-                {symbol.toLocaleUpperCase()}
+                {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
               </DescriptionAmount>
             </div>
             {undelegate && undelegate > 0 && (
               <div className="flex flex-1 flex-row items-center justify-between">
                 <GrayDescription>Undelegate in process</GrayDescription>
                 <DescriptionAmount>
-                  {undelegate.toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 3,
-                  })}{' '}
-                  {symbol.toLocaleUpperCase()}
+                  {formatNumber(undelegate)} {symbol.toLocaleUpperCase()}
                 </DescriptionAmount>
               </div>
             )}
             <div className="flex flex-1 flex-row items-center justify-between">
               <GrayDescription>My rewards</GrayDescription>
               <DescriptionAmount className="!text-[#01B26E]">
-                {rewards.toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 3,
-                })}{' '}
-                {symbol.toLocaleUpperCase()}
+                {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
               </DescriptionAmount>
             </div>
           </div>
@@ -185,11 +174,7 @@ export function ValidatorBlockMobile({
                 <div className="flex flex-1 flex-col items-start gap-[6px]">
                   <GrayDescription>My delegation</GrayDescription>
                   <DescriptionAmount>
-                    {delegation.toLocaleString('en-US', {
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 3,
-                    })}{' '}
-                    {symbol.toLocaleUpperCase()}
+                    {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
                   </DescriptionAmount>
                 </div>
                 <div>
@@ -208,11 +193,7 @@ export function ValidatorBlockMobile({
                   <div className="flex flex-1 flex-col items-start gap-[6px]">
                     <GrayDescription>Undelegate in process</GrayDescription>
                     <DescriptionAmount>
-                      {undelegate.toLocaleString('en-US', {
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 3,
-                      })}{' '}
-                      {symbol.toLocaleUpperCase()}
+                      {formatNumber(undelegate)} {symbol.toLocaleUpperCase()}
                     </DescriptionAmount>
                   </div>
                 )}
@@ -233,11 +214,7 @@ export function ValidatorBlockMobile({
               <div className="flex flex-1 flex-col items-start gap-[6px]">
                 <GrayDescription>My rewards</GrayDescription>
                 <DescriptionAmount className="!text-[#01B26E]">
-                  {rewards.toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 3,
-                  })}{' '}
-                  {symbol.toLocaleUpperCase()}
+                  {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
                 </DescriptionAmount>
               </div>
               <div>

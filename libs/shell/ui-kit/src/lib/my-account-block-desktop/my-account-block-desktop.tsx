@@ -3,6 +3,7 @@ import { Heading } from '../heading/heading';
 import { MyAccountCardBlock } from '../my-account-block-mobile/my-account-block-mobile';
 import { WalletIcon } from '../icons/icons';
 import clsx from 'clsx';
+import { formatNumber } from '@haqq/shared';
 
 export function MyAccountBlockDesktop({
   onRewardsClaim,
@@ -63,38 +64,22 @@ export function MyAccountBlockDesktop({
             <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
               <div>
                 <MyAccountCardBlock title="Available">
-                  {balance.toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 3,
-                  })}{' '}
-                  {symbol.toLocaleUpperCase()}
+                  {formatNumber(balance)} {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
               <div>
                 <MyAccountCardBlock title="Unbounded">
-                  {unbounded.toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 3,
-                  })}{' '}
-                  {symbol.toLocaleUpperCase()}
+                  {formatNumber(unbounded)} {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
               <div>
                 <MyAccountCardBlock title="Staked">
-                  {delegated.toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 3,
-                  })}{' '}
-                  {symbol.toLocaleUpperCase()}
+                  {formatNumber(delegated)} {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
               <div>
                 <MyAccountCardBlock title="Rewards">
-                  {totalRewards.toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 3,
-                  })}{' '}
-                  {symbol.toLocaleUpperCase()}
+                  {formatNumber(totalRewards)} {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
             </div>
