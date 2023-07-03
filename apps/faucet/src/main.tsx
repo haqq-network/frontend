@@ -5,7 +5,7 @@ import { App } from './app/app';
 import { AppContainer } from './app/app-container';
 import './index.css';
 
-if (process.env['NODE_ENV'] === 'production') {
+if (process.env['VERCEL_ENV'] === 'production') {
   if (environment.sentryDsn && environment.sentryDsn !== '') {
     const dsn = environment.sentryDsn;
     import('@haqq/sentry').then(({ initSentry }) => {

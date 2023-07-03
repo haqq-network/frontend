@@ -5,15 +5,23 @@ const { ProvidePlugin } = require('webpack');
 const { merge } = require('webpack-merge');
 const baseConfig = require('./module-federation.config');
 
+const moduleFederationRemote =
+  process.env['VERCEL_ENV'] === 'production'
+    ? [
+        ['staking', '//staking.haqq.network'],
+        ['governance', '//governance.haqq.network'],
+      ]
+    : [
+        ['staking', '//staking.haqq.sh'],
+        ['governance', '//governance.haqq.sh'],
+      ];
+
 /**
  * @type {import('@nrwl/devkit').ModuleFederationConfig}
  **/
 const prodConfig = {
   ...baseConfig,
-  remotes: [
-    ['staking', '//staking.haqq.network'],
-    ['governance', '//governance.haqq.network'],
-  ],
+  remotes: moduleFederationRemote,
 };
 
 // Nx plugins for webpack.

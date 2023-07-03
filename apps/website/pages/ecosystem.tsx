@@ -42,14 +42,15 @@ export async function getStaticProps() {
   let data;
 
   storyblokInit({
-    accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
+    accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
     use: [apiPlugin],
   });
 
   try {
     const storyblokApi = getStoryblokApi();
     const response = await storyblokApi.get('cdn/stories/partners', {
-      version: process.env.VERCEL_ENV === 'production' ? 'published' : 'draft',
+      version:
+        process.env['VERCEL_ENV'] === 'production' ? 'published' : 'draft',
     });
     data = response?.data;
   } catch (error) {
