@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import {
   Fragment,
   PropsWithChildren,
@@ -20,7 +18,7 @@ import {
 } from '@haqq/shell-ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useMediaQuery } from 'react-responsive';
-import { useBalance, useNetwork, useSwitchNetwork } from 'wagmi';
+import { useBalance, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import {
   useAddress,
   useWallet,
