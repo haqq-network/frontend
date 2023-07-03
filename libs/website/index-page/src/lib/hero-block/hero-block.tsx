@@ -1,4 +1,4 @@
-import { Text, Button, HeroHeading } from '@haqq/website-ui-kit';
+import { Text, HeroHeading } from '@haqq/website-ui-kit';
 import Image from 'next/image';
 import sunriseImageData from '../../assets/images/sunrise.png';
 import halfEclipseImageData from '../../assets/images/half-eclipse.png';

@@ -1,4 +1,3 @@
-import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import Countdown from 'react-countdown';
 
@@ -94,44 +93,44 @@ export function ProposalPeriodTimer({
   );
 }
 
-function ShowDateToggleButton({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="text-[14px] leading-[22px] text-[#EC5728] transition-colors duration-100 ease-out hover:text-[#FF8D69]"
-    >
-      Show all dates
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 22 22"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="ml-[2px] inline-block"
-      >
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M4.85181 8.89817L6.14817 7.60181L11 12.4536L15.8518 7.60181L17.1482 8.89817L11 15.0464L4.85181 8.89817Z"
-          fill="currentColor"
-        />
-      </svg>
-    </button>
-  );
-}
+// function ShowDateToggleButton({ onClick }: { onClick: () => void }) {
+//   return (
+//     <button
+//       onClick={onClick}
+//       className="text-[14px] leading-[22px] text-[#EC5728] transition-colors duration-100 ease-out hover:text-[#FF8D69]"
+//     >
+//       Show all dates
+//       <svg
+//         width="22"
+//         height="22"
+//         viewBox="0 0 22 22"
+//         fill="none"
+//         xmlns="http://www.w3.org/2000/svg"
+//         className="ml-[2px] inline-block"
+//       >
+//         <path
+//           fillRule="evenodd"
+//           clipRule="evenodd"
+//           d="M4.85181 8.89817L6.14817 7.60181L11 12.4536L15.8518 7.60181L17.1482 8.89817L11 15.0464L4.85181 8.89817Z"
+//           fill="currentColor"
+//         />
+//       </svg>
+//     </button>
+//   );
+// }
 
-function ProposalDatesText({
-  children,
-  className,
-}: PropsWithChildren<{ className?: string }>) {
-  return (
-    <div
-      className={clsx(
-        'font-sans text-[10px] font-[600] uppercase leading-[1.2em] sm:text-[12px]',
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-}
+// function ProposalDatesText({
+//   children,
+//   className,
+// }: PropsWithChildren<{ className?: string }>) {
+//   return (
+//     <div
+//       className={clsx(
+//         'font-sans text-[10px] font-[600] uppercase leading-[1.2em] sm:text-[12px]',
+//         className,
+//       )}
+//     >
+//       {children}
+//     </div>
+//   );
+// }

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ChangeEvent, forwardRef, useCallback } from 'react';
+import { ChangeEvent, Ref, forwardRef, useCallback } from 'react';
 
 export interface InputProps {
   inputClassName?: string;
@@ -31,7 +31,7 @@ export const Input = forwardRef(function Input(
     value,
     size = 'normal',
   }: InputProps,
-  ref: any,
+  ref: Ref<HTMLInputElement>,
 ) {
   const inputClassNames = clsx(
     'inline-block w-full text-white placeholder-white/25 rounded-[6px] bg-[#252528] leading-[20px]',

@@ -21,16 +21,10 @@ import {
 import store from 'store2';
 import { Coin } from '@evmos/transactions';
 import axios from 'axios';
-import {
-  WalletClient,
-  useNetwork,
-  useSwitchNetwork,
-  useWalletClient,
-} from 'wagmi';
+import { WalletClient, useNetwork, useWalletClient } from 'wagmi';
 import { computePublicKey, recoverPublicKey } from '@ethersproject/signing-key';
 import { hashMessage } from '@ethersproject/hash';
 import { getChainParams } from '../chains/get-chain-params';
-import { useWallet } from './wallet-provider';
 import { useSupportedChains } from './wagmi-provider';
 
 export interface CosmosService {
@@ -408,7 +402,7 @@ function createCosmosService(
       const message = 'Verify Public Key';
       const signature = await walletClient.request({
         method: 'personal_sign',
-        params: [message, address, ''],
+        params: [message, address],
       } as any);
 
       if (signature) {
@@ -433,7 +427,7 @@ function createCosmosService(
   async function getPubkey(address: string) {
     const storeKey = `pubkey_${address}`;
     const savedPubKey: string | null = store.get(storeKey);
-    console.log({ storeKey, savedPubKey });
+    console.log('getPubkey', { storeKey, savedPubKey });
 
     if (!savedPubKey) {
       try {

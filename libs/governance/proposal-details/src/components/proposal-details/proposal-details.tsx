@@ -1,4 +1,5 @@
 import {
+  ChangeEvent,
   Fragment,
   PropsWithChildren,
   useCallback,
@@ -894,7 +895,7 @@ export function DepositInput({
           'w-full bg-transparent text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
         )}
         value={value}
-        onChange={(event: any) => {
+        onChange={(event: ChangeEvent<HTMLInputElement>) => {
           onChange(Number.parseFloat(event.currentTarget.value));
         }}
         disabled={disabled}

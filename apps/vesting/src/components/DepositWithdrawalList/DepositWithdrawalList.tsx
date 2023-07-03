@@ -238,7 +238,11 @@ export function DepositWithdrawalList({
     handleGetTransactionList(contractAddress, address);
   }, [address, contractAddress, handleGetTransactionList]);
 
-  return withdrawLogsList.length > 0 ? (
+  if (isFetching || withdrawLogsList.length === 0) {
+    return null;
+  }
+
+  return (
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="flex flex-col space-y-4">
         <div className="px-6 pt-6">
@@ -246,8 +250,6 @@ export function DepositWithdrawalList({
             Transactions
           </Heading>
         </div>
-
-        {/* <div>isFetching: {isFetching ? 'yes' : 'no'}</div> */}
 
         <div>
           {withdrawLogsList.map((withdrawal, index) => {
@@ -262,7 +264,7 @@ export function DepositWithdrawalList({
         </div>
       </div>
     </Card>
-  ) : null;
+  );
 }
 
 const EXPLORER_LINK = 'https://explorer.haqq.network';

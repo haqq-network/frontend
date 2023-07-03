@@ -6,7 +6,6 @@ import {
   useCallback,
   useMemo,
   useEffect,
-  useContext,
 } from 'react';
 import store from 'store2';
 

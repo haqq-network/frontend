@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useInViewport } from 'react-in-viewport';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './statistics-block.module.css';
 import clsx from 'clsx';
 

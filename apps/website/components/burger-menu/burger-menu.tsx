@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { PropsWithChildren, ReactNode, useEffect } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import Link from 'next/link';
 import {
   DiscordIcon,
