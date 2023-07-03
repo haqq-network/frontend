@@ -3,6 +3,7 @@ import { formatUnits } from 'viem/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { ValidatorListStatus } from '../validator-status/validator-status';
+import { formatNumber } from '@haqq/shared';
 
 export interface ValidatorListItemProps {
   validator: Validator;
@@ -10,13 +11,6 @@ export interface ValidatorListItemProps {
   reward?: Reward;
   stakingPool: number;
   onClick: (validatorAddress: string) => void;
-}
-
-function formatNumber(num: number) {
-  return num.toLocaleString('en-US', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 3,
-  });
 }
 
 export function ValidatorListItem({

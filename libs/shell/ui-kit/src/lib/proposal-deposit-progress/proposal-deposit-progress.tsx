@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { CardSubText, CardText } from '../card/card';
 import clsx from 'clsx';
+import { formatNumber } from '@haqq/shared';
 
 export function ProposalDepositProgress({
   userDeposit,
@@ -27,12 +28,7 @@ export function ProposalDepositProgress({
           <div className="inline-flex space-x-[6px]">
             <CardSubText className="text-white/50">
               You Deposited:{' '}
-              <span className="text-white">
-                {userDeposit.toLocaleString('en-US', {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 3,
-                })}
-              </span>
+              <span className="text-white">{formatNumber(userDeposit)}</span>
             </CardSubText>
           </div>
         )}
@@ -49,16 +45,8 @@ export function ProposalDepositProgress({
       </div>
 
       <div className="font-sans text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-        {totalDeposit.toLocaleString('en-US', {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 3,
-        })}{' '}
-        {symbol.toLocaleUpperCase()} from{' '}
-        {minDeposit.toLocaleString('en-US', {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 3,
-        })}{' '}
-        {symbol.toLocaleUpperCase()}
+        {formatNumber(totalDeposit)} {symbol.toLocaleUpperCase()} from{' '}
+        {formatNumber(minDeposit)} {symbol.toLocaleUpperCase()}
       </div>
     </div>
   );

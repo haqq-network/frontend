@@ -14,6 +14,7 @@ import {
   useStakingUnbondingsQuery,
   useWallet,
   useSupportedChains,
+  formatNumber,
 } from '@haqq/shared';
 import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
@@ -237,11 +238,7 @@ export function ValidatorInfoComponent({
                   <div className="flex flex-row gap-[28px]">
                     <div>
                       <InfoBlock title="Voting power">
-                        {votingPower.toLocaleString('en-US', {
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 3,
-                        })}{' '}
-                        {symbol.toLocaleUpperCase()}
+                        {formatNumber(votingPower)} {symbol.toLocaleUpperCase()}
                       </InfoBlock>
                     </div>
                     <div>
@@ -632,11 +629,7 @@ export function ValidatorBlockDesktop({
             My delegation
           </span>
           <span className="font-serif text-[24px] uppercase leading-[30px] text-white">
-            {delegation.toLocaleString('en-US', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 3,
-            })}{' '}
-            {symbol.toLocaleUpperCase()}
+            {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
         <div className="flex gap-x-[12px]">
@@ -672,11 +665,7 @@ export function ValidatorBlockDesktop({
             My rewards
           </span>
           <span className="font-serif text-[24px] uppercase leading-[30px] text-[#01B26E]">
-            {rewards.toLocaleString('en-US', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 3,
-            })}{' '}
-            {symbol.toLocaleUpperCase()}
+            {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
         <Button variant={5} disabled={rewards < 1} onClick={onGetRewardsClick}>

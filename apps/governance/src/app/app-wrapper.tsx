@@ -7,12 +7,13 @@ import {
   useState,
 } from 'react';
 import {
+  formatNumber,
   getFormattedAddress,
   useAddress,
   useSupportedChains,
   useWallet,
 } from '@haqq/shared';
-import { useBalance, useNetwork, useSwitchNetwork } from 'wagmi';
+import { useBalance, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
 import {
   Header,
@@ -21,6 +22,7 @@ import {
   Button,
   AccountButton,
   SelectChainButton,
+  SelectWalletModal,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { haqqTestedge2 } from '@wagmi/chains';
@@ -62,10 +64,7 @@ function HeaderButtons({
 
     return {
       symbol: balanceData.symbol,
-      value: Number.parseFloat(balanceData.formatted).toLocaleString('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 3,
-      }),
+      value: formatNumber(Number.parseFloat(balanceData.formatted)),
     };
   }, [balanceData]);
 
@@ -170,6 +169,16 @@ export function AppWrapper({ children }: PropsWithChildren) {
     query: `(min-width: 1024px)`,
   });
   const { chain } = useNetwork();
+  const { connectAsync, connectors, error, isLoading, pendingConnector } =
+    useConnect();
+  const { closeSelectWallet, isSelectWalletOpen } = useWallet();
+
+  const handleWalletConnect = useCallback(
+    async (connectorIdx: number) => {
+      await connectAsync({ connector: connectors[connectorIdx] });
+    },
+    [connectAsync, connectors],
+  );
 
   useEffect(() => {
     function handleScroll() {
@@ -192,6 +201,16 @@ export function AppWrapper({ children }: PropsWithChildren) {
     return chain?.id === haqqTestedge2.id;
   }, [chain?.id]);
 
+  const selectWalletModalConnectors = useMemo(() => {
+    return connectors.map((connector, index) => {
+      return {
+        id: index,
+        name: connector.name,
+        isPending: isLoading && pendingConnector?.id === connector.id,
+      };
+    });
+  }, [connectors, isLoading, pendingConnector?.id]);
+
   return (
     <Page
       header={
@@ -209,10 +228,17 @@ export function AppWrapper({ children }: PropsWithChildren) {
       banner={isTestedge && <TestedgeBanner />}
     >
       {children}
+
+      <SelectWalletModal
+        isOpen={isSelectWalletOpen}
+        connectors={selectWalletModalConnectors}
+        error={error?.message}
+        onConnectClick={handleWalletConnect}
+        onClose={closeSelectWallet}
+      />
     </Page>
   );
 }
-
 function TestedgeBanner() {
   return (
     <div className="bg-haqq-orange/80 relative z-[51] mb-[-1px] transform-gpu select-none p-[8px] text-center font-serif text-[18px] leading-[24px] text-white backdrop-blur">

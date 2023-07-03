@@ -20,6 +20,7 @@ import {
   useConfig,
   GetGovernanceParamsResponse,
   useSupportedChains,
+  formatNumber,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -334,10 +335,7 @@ export function ProposalDetailsComponent({
                     </div>
                     <div>
                       <InfoBlock title="Total deposit">
-                        {totalDeposit.toLocaleString('en-US', {
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 3,
-                        })}{' '}
+                        {formatNumber(totalDeposit)}{' '}
                         {symbol.toLocaleUpperCase()}
                       </InfoBlock>
                     </div>

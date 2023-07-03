@@ -6,6 +6,7 @@ import {
   getFormattedAddress,
   useWallet,
   useSupportedChains,
+  formatNumber,
 } from '@haqq/shared';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useBalance, useNetwork } from 'wagmi';
@@ -82,10 +83,7 @@ export function MyAccountBlock() {
 
     return {
       symbol: balanceData.symbol,
-      value: Number.parseFloat(balanceData.formatted).toLocaleString('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 3,
-      }),
+      value: formatNumber(Number.parseFloat(balanceData.formatted)),
     };
   }, [balanceData]);
 
@@ -180,17 +178,11 @@ export function MyAccountBlock() {
           />
           <MyAccountAmountBlock
             title="Staked"
-            value={`${delegation.toLocaleString('en-US', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 3,
-            })} ${symbol.toLocaleUpperCase()}`}
+            value={`${formatNumber(delegation)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
             title="Rewards"
-            value={`${rewards.toLocaleString('en-US', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 3,
-            })} ${symbol.toLocaleUpperCase()}`}
+            value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
             title="Address"

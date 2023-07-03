@@ -1,5 +1,10 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
-import { getFormattedAddress, useAddress, useClipboard } from '@haqq/shared';
+import {
+  formatNumber,
+  getFormattedAddress,
+  useAddress,
+  useClipboard,
+} from '@haqq/shared';
 import { useBalance, useNetwork } from 'wagmi';
 import { CopyIcon, Tooltip } from '@haqq/shell-ui-kit';
 
@@ -112,10 +117,7 @@ export function AccountInfo() {
       {accBalance !== undefined && (
         <MyAccountCardBlock title="Balance">
           <div className="flex flex-1 flex-row items-center font-serif text-[20px] font-[500] leading-[30px]">
-            {accBalance.toLocaleString('en-US', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 3,
-            })}{' '}
+            {formatNumber(accBalance)}{' '}
             {chain?.nativeCurrency.symbol.toLocaleUpperCase()}
           </div>
         </MyAccountCardBlock>
