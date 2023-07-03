@@ -1,10 +1,4 @@
-import {
-  Fragment,
-  PropsWithChildren,
-  ReactNode,
-  useMemo,
-  useState,
-} from 'react';
+import { PropsWithChildren, ReactNode, useMemo, useState } from 'react';
 import {
   useAddress,
   useStakingValidatorListQuery,

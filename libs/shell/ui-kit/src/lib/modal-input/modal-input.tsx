@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect } from 'react';
+import { ChangeEvent, ReactNode, useCallback, useEffect } from 'react';
 import clsx from 'clsx';
 
 export function ModalInput({
@@ -17,7 +17,7 @@ export function ModalInput({
   step?: number;
 }) {
   const handleInputChange = useCallback(
-    (event: any) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       onChange(Number.parseFloat(event.target.value));
     },
     [onChange],

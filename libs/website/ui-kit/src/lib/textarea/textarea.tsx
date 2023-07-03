@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ChangeEvent, forwardRef, useCallback } from 'react';
+import { ChangeEvent, Ref, forwardRef, useCallback } from 'react';
 
 export interface TextareaProps {
   className?: string;
@@ -23,7 +23,7 @@ export const Textarea = forwardRef(function Textarea(
     id,
     name,
   }: TextareaProps,
-  ref: any,
+  ref: Ref<HTMLTextAreaElement>,
 ) {
   const classNames = clsx(
     'inline-block pt-[14px] pb-[12px] px-[16px] text-[14px] text-white placeholder-white/25 leading-[20px]',

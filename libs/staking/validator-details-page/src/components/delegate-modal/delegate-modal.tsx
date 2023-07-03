@@ -9,7 +9,6 @@ import {
   MobileHeading,
   ModalInput,
 } from '@haqq/shell-ui-kit';
-import { useNetwork } from 'wagmi';
 
 export interface DelegateModalProps {
   isOpen: boolean;

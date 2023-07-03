@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { useState, useEffect } from 'react';
-import { useAccount, useContractRead, usePublicClient } from 'wagmi';
+import { useContractRead, usePublicClient } from 'wagmi';
 import {
   DepositHooked,
   HaqqVestingContract,

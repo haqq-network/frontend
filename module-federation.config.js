@@ -18,7 +18,6 @@ const coreLibraries = new Set([
   'store2',
   'lodash',
   'wagmi',
-  '@wagmi/core',
   'viem',
   'cosmjs-types',
 ]);

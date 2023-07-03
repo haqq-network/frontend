@@ -6,7 +6,6 @@ import {
   useBankSupplyQuery,
   useSupportedChains,
 } from '@haqq/shared';
-import { BondStatus } from '@evmos/proto/dist/proto/cosmos/staking/staking';
 import { Card, CardHeading } from '@haqq/shell-ui-kit';
 import { useNetwork } from 'wagmi';
 

@@ -1,19 +1,22 @@
 import {
-  createTxMsgVote,
-  // createTxMsgDeposit,
-  TxPayload,
   Sender,
+  createTxMsgVote,
   createTxMsgDeposit,
+  signatureToWeb3Extension,
+  createTxRawEIP712,
 } from '@evmos/transactions';
-import { useCallback } from 'react';
-import type { Fee, MsgDepositParams } from '@evmos/transactions';
+import { useCallback, useMemo } from 'react';
+import type {
+  Fee,
+  MessageMsgDepositParams,
+  TxGenerated,
+} from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
 import { getChainParams } from '../../chains/get-chain-params';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import Decimal from 'decimal.js-light';
 import { useNetwork, useWalletClient } from 'wagmi';
-import { createTxRaw } from '@evmos/proto';
 
 const FEE: Fee = {
   amount: '5000',
@@ -51,10 +54,9 @@ export function useProposalActions(): ProposalActionsHook {
     getPubkey,
   } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
-  const memo = '';
 
-  const getHaqqChain = useCallback(async () => {
-    if (!chain) {
+  const haqqChain = useMemo(() => {
+    if (!chain || chain.unsupported) {
       return undefined;
     }
 
@@ -92,37 +94,37 @@ export function useProposalActions(): ProposalActionsHook {
   }, []);
 
   const signTransaction = useCallback(
-    async (msg: TxPayload, sender: Sender) => {
-      const haqqChain = await getHaqqChain();
-
-      if (haqqChain && walletClient) {
-        const { signDirect, eipToSign } = msg;
-        const signature: string = await walletClient.request({
+    async (msg: TxGenerated, sender: Sender) => {
+      if (haqqChain && ethAddress && walletClient) {
+        const signature = await walletClient.request({
           method: 'eth_signTypedData_v4',
-          params: [sender, JSON.stringify(eipToSign)],
-        } as any);
-        const signatureBytes = Buffer.from(signature.replace('0x', ''), 'hex');
+          params: [ethAddress as `0x${string}`, JSON.stringify(msg.eipToSign)],
+        });
+        const extension = signatureToWeb3Extension(
+          haqqChain,
+          sender,
+          signature,
+        );
+        const rawTx = createTxRawEIP712(
+          msg.legacyAmino.body,
+          msg.legacyAmino.authInfo,
+          extension,
+        );
 
-        const bodyBytes = signDirect.body.toBinary();
-        const authInfoBytes = signDirect.authInfo.toBinary();
-
-        const signedTx = createTxRaw(bodyBytes, authInfoBytes, [
-          signatureBytes,
-        ]);
-
-        return signedTx;
+        return rawTx;
       } else {
         throw new Error('No haqqChain');
       }
     },
-    [getHaqqChain, walletClient],
+    [ethAddress, haqqChain, walletClient],
   );
 
   const handleVote = useCallback(
     async (proposalId: number, option: number) => {
+      console.log('handleVote', { proposalId, option });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const haqqChain = await getHaqqChain();
+      const memo = `Vote for proposal #${proposalId}`;
 
       if (sender && haqqChain) {
         // Simulate
@@ -133,7 +135,10 @@ export function useProposalActions(): ProposalActionsHook {
         };
 
         const simMsg = createTxMsgVote(
-          { chain: haqqChain, fee: simFee, memo, sender },
+          haqqChain,
+          sender,
+          simFee,
+          memo,
           voteParams,
         );
         const simTx = await signTransaction(simMsg, sender);
@@ -141,10 +146,7 @@ export function useProposalActions(): ProposalActionsHook {
 
         // Broadcast real transaction
         const fee = getFee(simulateTxResponse.gas_info.gas_used);
-        const msg = createTxMsgVote(
-          { chain: haqqChain, fee, memo, sender },
-          voteParams,
-        );
+        const msg = createTxMsgVote(haqqChain, sender, fee, memo, voteParams);
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
@@ -159,7 +161,7 @@ export function useProposalActions(): ProposalActionsHook {
       ethAddress,
       getSender,
       haqqAddress,
-      getHaqqChain,
+      haqqChain,
       getFee,
       signTransaction,
       simulateTransaction,
@@ -172,18 +174,21 @@ export function useProposalActions(): ProposalActionsHook {
       console.log('handleDeposit', { proposalId, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const haqqChain = await getHaqqChain();
+      const memo = `Deposit to proposal #${proposalId}`;
 
       if (sender && haqqChain) {
         // Simulate
         const simFee = getFee();
-        const simDepositParams: MsgDepositParams = {
+        const simDepositParams: MessageMsgDepositParams = {
           proposalId,
           deposit: getAmountAndDenom(amount, simFee),
         };
 
         const simMsg = createTxMsgDeposit(
-          { chain: haqqChain, fee: simFee, memo, sender },
+          haqqChain,
+          sender,
+          simFee,
+          memo,
           simDepositParams,
         );
         const simTx = await signTransaction(simMsg, sender);
@@ -191,12 +196,15 @@ export function useProposalActions(): ProposalActionsHook {
 
         // Broadcast real transaction
         const fee = getFee(simulateTxResponse.gas_info.gas_used);
-        const depositParams: MsgDepositParams = {
+        const depositParams: MessageMsgDepositParams = {
           proposalId,
           deposit: getAmountAndDenom(amount, fee),
         };
         const msg = createTxMsgDeposit(
-          { chain: haqqChain, fee, memo, sender },
+          haqqChain,
+          sender,
+          fee,
+          memo,
           depositParams,
         );
 
@@ -212,7 +220,7 @@ export function useProposalActions(): ProposalActionsHook {
       broadcastTransaction,
       ethAddress,
       getFee,
-      getHaqqChain,
+      haqqChain,
       getPubkey,
       getSender,
       haqqAddress,

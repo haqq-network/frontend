@@ -9,7 +9,6 @@ import {
   useStakingDelegationQuery,
   useQueryInvalidate,
   useStakingActions,
-  useStakingValidatorListQuery,
   useStakingPoolQuery,
   useClipboard,
   useStakingUnbondingsQuery,
@@ -40,7 +39,7 @@ import {
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import styles from './validator-info.module.css';

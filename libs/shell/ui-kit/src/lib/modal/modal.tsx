@@ -1,9 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import {
   Fragment,
   PropsWithChildren,
-  ReactNode,
   SyntheticEvent,
   useCallback,
 } from 'react';
@@ -82,7 +79,7 @@ export function Modal({
   isOpen = false,
 }: PropsWithChildren<{
   isOpen?: boolean;
-  onClose?: () => void;
+  onClose: () => void;
 }>) {
   return (
     <Transition appear show={isOpen} as={Fragment}>

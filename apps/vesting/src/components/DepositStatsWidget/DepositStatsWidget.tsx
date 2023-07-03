@@ -5,7 +5,6 @@ import {
   useAccount,
   useContractRead,
   useContractWrite,
-  useNetwork,
   usePublicClient,
   useWalletClient,
 } from 'wagmi';
