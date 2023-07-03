@@ -6,8 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useConnect, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi';
-import { SelectWalletModal } from '@haqq/shell-ui-kit';
+import { useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import '@wagmi/core/window';
 
 export interface WalletProviderInterface {
@@ -26,17 +25,8 @@ const WalletContext = createContext<WalletProviderInterface | undefined>(
 export function WalletProvider({ children }: { children: ReactNode }) {
   const { chain } = useNetwork();
   const { switchNetworkAsync } = useSwitchNetwork();
-  const { connectAsync, connectors, error, isLoading, pendingConnector } =
-    useConnect();
   const { disconnect } = useDisconnect();
   const [isWalletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
-
-  const handleWalletConnect = useCallback(
-    async (connectorIdx: number) => {
-      await connectAsync({ connector: connectors[connectorIdx] });
-    },
-    [connectAsync, connectors],
-  );
 
   const handleNetworkChange = useCallback(async () => {
     if (chain && switchNetworkAsync) {
@@ -51,16 +41,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       ? !chain.unsupported
       : false;
   }, [chain]);
-
-  const selectWalletModalConnectors = useMemo(() => {
-    return connectors.map((connector, index) => {
-      return {
-        id: index,
-        name: connector.name,
-        isPending: isLoading && pendingConnector?.id === connector.id,
-      };
-    });
-  }, [connectors, isLoading, pendingConnector?.id]);
 
   const memoizedContext = useMemo(() => {
     return {
@@ -87,16 +67,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   return (
     <WalletContext.Provider value={memoizedContext}>
       {children}
-
-      <SelectWalletModal
-        isOpen={isWalletSelectModalOpen}
-        connectors={selectWalletModalConnectors}
-        error={error ? error.message : undefined}
-        onConnectClick={handleWalletConnect}
-        onClose={() => {
-          setWalletSelectModalOpen(false);
-        }}
-      />
     </WalletContext.Provider>
   );
 }
