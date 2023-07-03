@@ -104,7 +104,7 @@
     "@storybook/addon-essentials": "7.0.23",
     "@storybook/addon-mdx-gfm": "7.0.23",
     "@storybook/addon-storysource": "7.0.23",
-    "@storybook/core-common": "7.0.23",
+    "@storybook/core-common": "7.0.24",
     "@storybook/core-server": "7.0.23",
     "@storybook/manager-api": "7.0.23",
     "@storybook/react": "7.0.23",
