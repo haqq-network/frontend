@@ -8,8 +8,8 @@ interface SideLinkProps {
 function BarAndSquare() {
   return (
     <div className="flex items-center">
-      <div className="h-[1px] w-full min-w-[30px]  bg-[#0d0d0e3d] xl:min-w-[50px]" />
-      <div className="bg-haqq-black h-[12px] w-[13px] xl:h-[16px] xl:w-[17px]" />
+      <div className="h-[1px] w-full min-w-[30px] bg-[#0d0d0e3d] xl:min-w-[50px]" />
+      <div className="bg-haqq-black min-h-[12px] min-w-[13px] xl:min-h-[16px] xl:min-w-[17px]" />
     </div>
   );
 }

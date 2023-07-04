@@ -21,7 +21,6 @@ export function WhitepaperMarkdownText({
         'prose-strong:text-haqq-black',
         'marker:prose-li:text-haqq-black',
         'prose-headings:font-serif prose-headings:font-[500] font-sans',
-        // 'prose-ins'
         className,
       )}
     >
