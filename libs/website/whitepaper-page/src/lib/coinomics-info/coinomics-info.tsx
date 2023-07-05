@@ -81,14 +81,8 @@ function InitalSupply() {
 
 function TotalSupplyGraph() {
   return (
-    <div>
-      <svg
-        width="719"
-        height="484"
-        viewBox="0 0 719 484"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+    <div className="h-full w-full">
+      <svg viewBox="0 0 719 484" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g opacity="0.4">
           <path
             d="M20 22C20 19.7909 21.7909 18 24 18V18C26.2091 18 28 19.7909 28 22V416H20V22Z"
@@ -1278,13 +1272,13 @@ function SupplyDescription({
   color,
 }: PropsWithChildren<{ color: 'gray' | 'orange' | 'black' }>) {
   return (
-    <div className="flex gap-x-[12px] ">
+    <div className="flex items-center gap-x-[12px] ">
       <div
         className={clsx(
           color === 'gray' && 'bg-[#525252]',
           color === 'orange' && 'bg-haqq-orange',
           color === 'black' && 'bg-haqq-black',
-          'h-[20px] min-w-[20px] rounded-[4px]',
+          'self h-[20px] min-w-[20px] rounded-[4px]',
         )}
       ></div>
       <Text className="text-haqq-black text-start !text-[13px]">
@@ -1302,9 +1296,9 @@ function TotalSupply() {
         ISLM supply is limited to 100 billion coins. Every Era, which is 2
         years, ISLM’s emission rate is reduced by 5%.
       </Text>
-      <div className="mt-[28px] flex flex-col items-start gap-x-[16px] lg:flex-row">
+      <div className="mt-[28px] flex flex-col gap-x-[16px] lg:flex-row">
         <TotalSupplyGraph />
-        <div className="mt-[20px] flex flex-row items-center gap-[20px] lg:mt-0 lg:flex-col lg:items-start">
+        <div className="mt-[20px] flex flex-row flex-wrap items-start gap-[20px] lg:mt-0 lg:flex-col lg:items-start">
           <SupplyDescription color="gray">Total Supply</SupplyDescription>
           <SupplyDescription color="black">Initial Supply</SupplyDescription>
           <SupplyDescription color="orange">
