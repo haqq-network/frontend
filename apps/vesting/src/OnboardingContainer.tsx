@@ -7,7 +7,13 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi';
+import {
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useNetwork,
+  useSwitchNetwork,
+} from 'wagmi';
 import { SelectWalletModal } from './components/modals/SelectWalletModal';
 
 export type OnboardingSteps =
@@ -36,8 +42,10 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   const { disconnectAsync } = useDisconnect();
   const [errors, setErrors] = useState<Record<string, Error | undefined>>({});
   const [isWalletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
+  const { connectAsync, connectors, isLoading, pendingConnector } =
+    useConnect();
 
-  const handleConnectWallet = useCallback(async () => {
+  const handleSelectWalletModalOpen = useCallback(async () => {
     setWalletSelectModalOpen(true);
   }, []);
 
@@ -78,7 +86,7 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
 
   const memoizedHook = useMemo<OnboardingHook>(() => {
     return {
-      connectWallet: handleConnectWallet,
+      connectWallet: handleSelectWalletModalOpen,
       switchNetwork: handleNetworkSwitch,
       step,
       isConnected,
@@ -87,7 +95,7 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
       disconnectWallet: handleDisconnectWallet,
     };
   }, [
-    handleConnectWallet,
+    handleSelectWalletModalOpen,
     handleNetworkSwitch,
     step,
     isConnected,
@@ -96,14 +104,39 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
     handleDisconnectWallet,
   ]);
 
+  const handleWalletConnect = useCallback(
+    async (connectorIdx: number) => {
+      try {
+        await connectAsync({ connector: connectors[connectorIdx] });
+        setWalletSelectModalOpen(false);
+      } catch (error) {
+        setErrors({ ...errors, connectionError: error as Error });
+      }
+    },
+    [connectAsync, connectors, errors],
+  );
+
+  const selectWalletModalConnectors = useMemo(() => {
+    return connectors.map((connector, index) => {
+      return {
+        id: index,
+        name: connector.name,
+        isPending: isLoading && pendingConnector?.id === connector.id,
+      };
+    });
+  }, [connectors, isLoading, pendingConnector?.id]);
+
   return (
     <OnboardingContext.Provider value={memoizedHook}>
       {children}
 
       <SelectWalletModal
         isOpen={isWalletSelectModalOpen}
+        connectors={selectWalletModalConnectors}
+        error={errors['connectionError']?.message}
+        onConnectClick={handleWalletConnect}
         onClose={() => {
-          return setWalletSelectModalOpen(false);
+          setWalletSelectModalOpen(false);
         }}
       />
     </OnboardingContext.Provider>
