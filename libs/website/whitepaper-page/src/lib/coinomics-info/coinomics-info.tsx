@@ -1278,7 +1278,7 @@ function SupplyDescription({
           color === 'gray' && 'bg-[#525252]',
           color === 'orange' && 'bg-haqq-orange',
           color === 'black' && 'bg-haqq-black',
-          'self h-[20px] min-w-[20px] rounded-[4px]',
+          'h-[20px] min-w-[20px] rounded-[4px]',
         )}
       ></div>
       <Text className="text-haqq-black text-start !text-[13px]">
