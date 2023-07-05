@@ -25,7 +25,7 @@ import {
   SelectWalletModal,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
-import { haqqTestedge2 } from 'viem/chains';
+import { haqqTestedge2 } from '@wagmi/chains';
 
 function HeaderButtons({
   isMobileMenuOpen,
@@ -176,8 +176,9 @@ export function AppWrapper({ children }: PropsWithChildren) {
   const handleWalletConnect = useCallback(
     async (connectorIdx: number) => {
       await connectAsync({ connector: connectors[connectorIdx] });
+      closeSelectWallet();
     },
-    [connectAsync, connectors],
+    [closeSelectWallet, connectAsync, connectors],
   );
 
   useEffect(() => {
