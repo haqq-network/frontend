@@ -46,7 +46,6 @@ export function SelectWalletModal({
                   key={connector.id}
                   onClick={() => {
                     onConnectClick(connector.id);
-                    onClose();
                   }}
                   variant={4}
                   isLoading={connector.isPending}

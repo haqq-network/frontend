@@ -44,7 +44,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const memoizedContext = useMemo(() => {
     return {
-      chains: [],
       disconnect,
       selectNetwork: handleNetworkChange,
       isNetworkSupported,

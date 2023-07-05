@@ -20,6 +20,9 @@ const coreLibraries = new Set([
   'wagmi',
   'viem',
   'cosmjs-types',
+  '@wagmi/connectors',
+  '@wagmi/chains',
+  '@wagmi/core',
 ]);
 
 module.exports = {
