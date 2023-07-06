@@ -52,7 +52,7 @@ export function MyAccountBlockMobile({
           {formatNumber(balance)} {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
 
-        <MyAccountCardBlock title="Unbounded">
+        <MyAccountCardBlock title="Unbounding">
           {formatNumber(unbounded)} {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
 

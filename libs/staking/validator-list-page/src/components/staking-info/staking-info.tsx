@@ -180,7 +180,7 @@ export function StakingInfo() {
 
                 <div className="flex-1">
                   <StakingInfoAmountBlock
-                    title="Unbounded"
+                    title="Unbounding"
                     value="---"
                     symbol={symbol}
                   />
