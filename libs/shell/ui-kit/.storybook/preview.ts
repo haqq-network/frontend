@@ -1,6 +1,6 @@
-import './index.css';
-
 import { Preview } from '@storybook/react';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import './index.css';
 
 const preview: Preview = {
   parameters: {
@@ -23,6 +23,9 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
     },
   },
 };

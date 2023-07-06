@@ -1,4 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
+import { ProvidePlugin } from 'webpack';
+import { merge } from 'webpack-merge';
 
 const config: StorybookConfig = {
   stories: ['../src/lib/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
@@ -11,6 +13,30 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/react-webpack5',
     options: {},
+  },
+  webpackFinal: async (config) => {
+    return merge(config, {
+      plugins: [
+        new ProvidePlugin({
+          Buffer: ['buffer', 'Buffer'],
+        }),
+      ],
+      node: { global: true },
+      resolve: {
+        fallback: {
+          buffer: false,
+          crypto: false,
+          events: false,
+          path: false,
+          stream: false,
+          string_decoder: false,
+          http: false,
+          zlib: false,
+          https: false,
+          url: false,
+        },
+      },
+    });
   },
 };
 
