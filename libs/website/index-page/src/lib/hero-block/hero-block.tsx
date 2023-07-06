@@ -3,6 +3,7 @@ import Image from 'next/image';
 import sunriseImageData from '../../assets/images/sunrise.png';
 import halfEclipseImageData from '../../assets/images/half-eclipse.png';
 import Link from 'next/link';
+import clsx from 'clsx';
 
 function SunriseBackground() {
   return (
@@ -28,7 +29,14 @@ function SunriseBackground() {
 export function HeroBlock() {
   return (
     <div className="border-haqq-border relative border-b">
-      <div className="border-haqq-border z-10 flex min-h-[440px] flex-col items-start justify-center px-[16px] sm:ml-[63px] sm:min-h-[610px] sm:border-l sm:pl-[20px] sm:pr-[64px] lg:ml-[79px] lg:min-h-[748px] lg:pl-[32px] lg:pr-[80px] xl:min-h-[calc(100vh-73px)]">
+      <div
+        className={clsx(
+          'border-haqq-border z-10 flex flex-col items-start justify-center',
+          'px-[16px] sm:ml-[63px] sm:border-l sm:pl-[20px] sm:pr-[64px]',
+          'lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] xl:min-h-[calc(100vh-73px)]',
+          'py-[60px] sm:py-[80px] xl:py-[140px]',
+        )}
+      >
         <HeroHeading>
           Home of <br />
           ethical web3
