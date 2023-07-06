@@ -15,8 +15,6 @@ jobs:
   test-and-lint:
     name: Test and Lint
     runs-on: self-hosted
-    env:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,14 +28,16 @@ jobs:
       - name: Run lint
         run: yarn nx run-many --target=lint --parallel=3
       - name: Run tests
-        run: yarn nx run-many --target=test --parallel=3 --ci --code-coverage
-      - name: Upload coverage reports
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: coverage/
+        run: yarn nx run-many --target=test --parallel=3 --ci --code-coverage --skip-cache
+      # - name: Upload coverage reports
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: coverage
+      #     path: coverage/
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   build:
     name: Build
@@ -57,10 +57,10 @@ jobs:
         run: yarn install --immutable
       - name: Build
         run: yarn nx run-many --target=build --parallel=3
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist/
-      - name: Clear local NX build cache
-        run: yarn nx reset
+      # - name: Upload build artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dist
+      #     path: dist/
+      # - name: Clear local NX build cache
+      #   run: yarn nx reset
