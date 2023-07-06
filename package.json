@@ -50,7 +50,7 @@
     "@walletconnect/modal": "2.5.9",
     "@web3modal/standalone": "2.4.3",
     "axios": "1.4.0",
-    "bech32-converting": "1.0.9",
+    "bech32": "2.0.0",
     "clsx": "1.2.1",
     "core-js": "3.31.0",
     "cosmjs-types": "0.8.0",

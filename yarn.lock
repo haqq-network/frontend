@@ -3224,7 +3224,7 @@ __metadata:
     "@web3modal/standalone": 2.4.3
     axios: 1.4.0
     babel-jest: 29.5.0
-    bech32-converting: 1.0.9
+    bech32: 2.0.0
     clsx: 1.2.1
     core-js: 3.31.0
     cosmjs-types: 0.8.0
@@ -9740,7 +9740,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base-x@npm:^3.0.2, base-x@npm:^3.0.8":
+"base-x@npm:^3.0.2":
   version: 3.0.9
   resolution: "base-x@npm:3.0.9"
   dependencies:
@@ -9781,13 +9781,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bech32-converting@npm:1.0.9":
-  version: 1.0.9
-  resolution: "bech32-converting@npm:1.0.9"
-  dependencies:
-    bech32: ^2.0.0
-    crypto-addr-codec: ^0.1.7
-  checksum: a6cb83ebbcf1fb96f2dad86181931ea9fa1eb5300c69438c72afeb5e4df2886235a4893c8d8178155cbbab07b5c8146a150057912220eac1b3de544de5a8deac
+"bech32@npm:2.0.0":
+  version: 2.0.0
+  resolution: "bech32@npm:2.0.0"
+  checksum: fa15acb270b59aa496734a01f9155677b478987b773bf701f465858bf1606c6a970085babd43d71ce61895f1baa594cb41a2cd1394bd2c6698f03cc2d811300e
   languageName: node
   linkType: hard
 
@@ -9798,26 +9795,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bech32@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "bech32@npm:2.0.0"
-  checksum: fa15acb270b59aa496734a01f9155677b478987b773bf701f465858bf1606c6a970085babd43d71ce61895f1baa594cb41a2cd1394bd2c6698f03cc2d811300e
-  languageName: node
-  linkType: hard
-
 "better-opn@npm:^2.1.1":
   version: 2.1.1
   resolution: "better-opn@npm:2.1.1"
   dependencies:
     open: ^7.0.3
   checksum: 3d1a945d125cbbc6e6a841bef7540435d77d5aa61fc4d345896f5f0b3780fcf9c7145373deaedf62d674a427b187ae973f4410884f9fea0c15f7f01f9dc339c7
-  languageName: node
-  linkType: hard
-
-"big-integer@npm:1.6.36":
-  version: 1.6.36
-  resolution: "big-integer@npm:1.6.36"
-  checksum: 8cb9366ab72975a94ace5a99f6f81e0624dc8a5d14349df1f331d75ceec405c9286ad04c2a1188bc4ec4aa65cbbf1f8065f5d6b529fdb4a9d9867bbdfa769306
   languageName: node
   linkType: hard
 
@@ -11284,21 +11267,6 @@ __metadata:
     shebang-command: ^2.0.0
     which: ^2.0.1
   checksum: 671cc7c7288c3a8406f3c69a3ae2fc85555c04169e9d611def9a675635472614f1c0ed0ef80955d5b6d4e724f6ced67f0ad1bb006c2ea643488fcfef994d7f52
-  languageName: node
-  linkType: hard
-
-"crypto-addr-codec@npm:^0.1.7":
-  version: 0.1.7
-  resolution: "crypto-addr-codec@npm:0.1.7"
-  dependencies:
-    base-x: ^3.0.8
-    big-integer: 1.6.36
-    blakejs: ^1.1.0
-    bs58: ^4.0.1
-    ripemd160-min: 0.0.6
-    safe-buffer: ^5.2.0
-    sha3: ^2.1.1
-  checksum: 76a198dea3703b92ecb9329783d30a83257cf5bc8b3c2ed09c2f0a46bf93479fb9d04449bed7cd1702158b3f65060c5fd275300187a5e86feb3bc6acfcaf6fa3
   languageName: node
   linkType: hard
 
@@ -22675,13 +22643,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ripemd160-min@npm:0.0.6":
-  version: 0.0.6
-  resolution: "ripemd160-min@npm:0.0.6"
-  checksum: 3253fec273aee407e736df0baf69f90c65f56573d6fc537532041112e7c09a2f665ee2e618ef4a88eb494923d36614322eac26ddf35a504fcfedb422fd414c75
-  languageName: node
-  linkType: hard
-
 "ripemd160@npm:^2.0.0, ripemd160@npm:^2.0.1":
   version: 2.0.2
   resolution: "ripemd160@npm:2.0.2"
@@ -23214,7 +23175,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sha3@npm:^2.1.1, sha3@npm:^2.1.4":
+"sha3@npm:^2.1.4":
   version: 2.1.4
   resolution: "sha3@npm:2.1.4"
   dependencies:
