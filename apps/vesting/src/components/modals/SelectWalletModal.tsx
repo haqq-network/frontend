@@ -1,19 +1,26 @@
-import { SpinnerLoader } from '../../pages/PendingPage';
 import { Button } from '../Button/Button';
 import { Heading } from '../Typography/Typography';
 import { Modal, ModalCloseButton } from './Modal/Modal';
-import { useConnect } from 'wagmi';
 
 export function SelectWalletModal({
   isOpen,
   onClose,
+  className,
+  onConnectClick,
+  connectors,
+  error,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  className?: string;
+  onConnectClick: (connectorId: number) => void;
+  connectors: {
+    id: number;
+    name: string;
+    isPending: boolean;
+  }[];
+  error: string | undefined;
 }) {
-  const { connectAsync, connectors, error, isLoading, pendingConnector } =
-    useConnect();
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="mx-auto max-w-[400px] rounded-[24px] bg-white p-8 shadow-md">
@@ -22,37 +29,23 @@ export function SelectWalletModal({
             <Heading level={3}>Select wallet</Heading>
             <ModalCloseButton onClick={onClose} />
           </div>
-          {isLoading ? (
-            <SpinnerLoader className="!fill-primary mx-auto my-6" />
-          ) : (
-            <div className="flex flex-col space-y-2">
-              {connectors.map((connector) => {
-                if (!connector.ready) {
-                  return null;
-                }
 
-                return (
-                  <Button
-                    fill
-                    key={connector.id}
-                    onClick={async () => {
-                      await connectAsync({ connector });
-                      onClose();
-                    }}
-                  >
-                    {connector.name}
-                    {isLoading &&
-                      connector.id === pendingConnector?.id &&
-                      ' (connecting)'}
-                  </Button>
-                );
-              })}
+          <div className="flex flex-col space-y-2">
+            {connectors.map((connector) => {
+              return (
+                <Button
+                  key={connector.id}
+                  onClick={() => {
+                    onConnectClick(connector.id);
+                  }}
+                >
+                  {connector.name}
+                </Button>
+              );
+            })}
 
-              {error && (
-                <div className="pt-4 text-red-500">{error.message}</div>
-              )}
-            </div>
-          )}
+            {error && <div className="pt-4 text-red-500">{error}</div>}
+          </div>
         </div>
       </div>
     </Modal>
