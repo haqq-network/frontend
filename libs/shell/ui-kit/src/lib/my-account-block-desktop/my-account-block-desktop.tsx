@@ -68,7 +68,7 @@ export function MyAccountBlockDesktop({
                 </MyAccountCardBlock>
               </div>
               <div>
-                <MyAccountCardBlock title="Unbounded">
+                <MyAccountCardBlock title="Unbounding">
                   {formatNumber(unbounded)} {symbol.toLocaleUpperCase()}
                 </MyAccountCardBlock>
               </div>
