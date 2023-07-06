@@ -1,7 +1,8 @@
-import { Text, HeroHeading } from '@haqq/website-ui-kit';
+import { Text, HeroHeading, Button } from '@haqq/website-ui-kit';
 import Image from 'next/image';
 import sunriseImageData from '../../assets/images/sunrise.png';
 import halfEclipseImageData from '../../assets/images/half-eclipse.png';
+import Link from 'next/link';
 
 function SunriseBackground() {
   return (
@@ -32,18 +33,29 @@ export function HeroBlock() {
           Home of <br />
           ethical web3
         </HeroHeading>
-        <div className="mt-[32px] lg:max-w-[700px]">
-          <Text size="large">
-            Ethics-first network that welcomes sustainability-centered
-            developers, validators and open source contributors as well as
-            Muslim innovators in sustainable Finance
-          </Text>
+        <div className="mt-[32px] flex flex-col gap-[16px] lg:max-w-[700px]">
+          <p>
+            <Text size="large">
+              Ethics-first network that welcomes sustainability-centered
+              developers, validators and open source contributors as well as
+              Muslim innovators in sustainable Finance.
+            </Text>
+          </p>
+          <p>
+            <Text size="large">
+              Islamic Coin is a native currency of HAQQ Network.
+            </Text>
+          </p>
         </div>
-        {/* <div className="mt-[48px] sm:mt-[62px] lg:mt-[64px]">
-          <Button variant={2} className="w-[200px]">
-            Default
-          </Button>
-        </div> */}
+        <div className="mt-[32px] lg:mt-[48px]">
+          <Link
+            href={'https://islamiccoin.net/'}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant={2}>Islamic Coin</Button>
+          </Link>
+        </div>
       </div>
 
       <div className="hidden sm:absolute sm:bottom-[26px] sm:left-[28px] sm:block lg:bottom-[58px] lg:left-[34px]">
