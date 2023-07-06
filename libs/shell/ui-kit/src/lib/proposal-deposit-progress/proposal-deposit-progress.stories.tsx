@@ -14,5 +14,6 @@ export const ProposalDepositProgress: Story = {
     minDeposit: 250,
     totalDeposit: 42,
     userDeposit: undefined,
+    symbol: 'ISLM',
   },
 };

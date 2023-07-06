@@ -1,5 +1,6 @@
 import { Preview } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import './next-image-patch';
 import './index.css';
 
 const preview: Preview = {

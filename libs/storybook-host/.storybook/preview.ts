@@ -1,7 +1,7 @@
 import { Preview } from '@storybook/react';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import './next-image-patch';
 import './index.css';
-import * as NextImage from 'next/image';
-import type { ImageProps } from 'next/image';
 
 const preview: Preview = {
   parameters: {
@@ -19,16 +19,16 @@ const preview: Preview = {
         },
       ],
     },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+    },
   },
 };
 
 export default preview;
-
-const OriginalNextImage = NextImage.default;
-
-Object.defineProperty(NextImage, 'default', {
-  configurable: true,
-  value: (props: ImageProps) => {
-    return <OriginalNextImage {...props} unoptimized />;
-  },
-});

@@ -3,7 +3,12 @@ import { ProvidePlugin } from 'webpack';
 import { merge } from 'webpack-merge';
 
 const config: StorybookConfig = {
-  stories: ['../src/lib/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+  stories: [
+    '../../../libs/website/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../../../libs/shell/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../../../libs/staking/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../../../libs/governance/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+  ],
   addons: [
     '@storybook/addon-essentials',
     '@nx/react/plugins/storybook',
