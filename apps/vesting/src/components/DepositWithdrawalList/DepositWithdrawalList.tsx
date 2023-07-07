@@ -307,7 +307,7 @@ function DepositWithdrawalListItem({
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M14.224 8C14.224 10.9455 11.8361 13.3333 8.89063 13.3333C5.94511 13.3333 3.55729 10.9455 3.55729 8C3.55729 5.05448 5.94511 2.66667 8.89063 2.66667C11.8361 2.66667 14.224 5.05448 14.224 8ZM15.5573 8C15.5573 11.6819 12.5725 14.6667 8.89063 14.6667C5.20873 14.6667 2.22396 11.6819 2.22396 8C2.22396 4.3181 5.20873 1.33333 8.89063 1.33333C12.5725 1.33333 15.5573 4.3181 15.5573 8ZM9.55729 4C9.55729 3.63181 9.25882 3.33333 8.89063 3.33333C8.52244 3.33333 8.22396 3.63181 8.22396 4V7.64321L6.52083 8.77863C6.21447 8.98287 6.13169 9.39678 6.33593 9.70313C6.54016 10.0095 6.95407 10.0923 7.26043 9.88803L9.08231 8.67345C9.37905 8.47562 9.55729 8.14257 9.55729 7.78593V4Z"
-              fill="#8E8E8E"
+              fill="currentColor"
             />
           </svg>
           <div className="font-[400]">{transactionTimestamp}</div>
@@ -315,8 +315,8 @@ function DepositWithdrawalListItem({
       </div>
 
       <div className="mt-[8px] flex items-center justify-between">
-        <div className="flex items-center">
-          <div className="flex items-center hover:text-[#8E8E8E]">
+        <div className="flex flex-row items-center gap-[8px]">
+          <div className="flex flex-row items-center gap-[4px]">
             <svg
               width="16"
               height="16"
@@ -329,31 +329,26 @@ function DepositWithdrawalListItem({
                 fill="currentColor"
               />
             </svg>
-
-            <div className="ml-[4px]">
-              Block:
-              <a
-                href={`${EXPLORER_LINK}/block/${Number(
-                  withdrawal.blockNumber,
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gray-400"
-              >
-                {Number(withdrawal.blockNumber)}
-              </a>
-            </div>
+            <div>Block:</div>
           </div>
 
-          <div className="ml-[12px]">
+          <div className="flex flex-row items-center gap-[12px]">
+            <a
+              href={`${EXPLORER_LINK}/block/${withdrawal.blockNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block transition-colors duration-150 hover:text-[#01B26E]"
+            >
+              {withdrawal.blockNumber}
+            </a>
+
             <a
               href={`${EXPLORER_LINK}/tx/${withdrawal.transactionHash}`}
               target="_blank"
               rel="noopener noreferrer"
+              className="inline-block transition-colors duration-150 hover:text-[#01B26E]"
             >
-              <div className="text-[#01B26E] hover:text-[#bce6d7]">
-                {getFormattedAddress(withdrawal.transactionHash)}
-              </div>
+              {getFormattedAddress(withdrawal.transactionHash)}
             </a>
           </div>
         </div>
