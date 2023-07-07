@@ -82,11 +82,13 @@ export function Footer() {
       <div className="border-haqq-border flex h-[63px] w-full flex-row items-center border-b sm:h-[72px] lg:mx-auto">
         <div className="border-haqq-border flex h-full w-[48px] items-center justify-center border-r sm:w-[64px] lg:w-[80px]">
           <div className="relative h-[26px] w-[26px] sm:h-[32px] sm:w-[32px]">
-            <Image src={logoImageData} alt="HAQQ" fill />
+            <Link href="/">
+              <Image src={logoImageData} alt="HAQQ" fill />
+            </Link>
           </div>
         </div>
         <div className="ml-[12px] font-serif text-[20px] font-medium leading-none sm:ml-[20px] sm:text-[24px] lg:ml-[32px]">
-          HAQQ
+          <Link href="/">HAQQ</Link>
         </div>
       </div>
       <div className="flex w-full flex-col lg:mx-auto lg:flex-row">

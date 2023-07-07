@@ -33,6 +33,7 @@
       "@haqq/staking/validator-list-page": [
         "libs/staking/validator-list-page/src/index.ts"
       ],
+      "@haqq/storybook-host": ["libs/storybook-host/src/index.ts"],
       "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],
       "@haqq/website-ui-kit": ["libs/website/ui-kit/src/index.ts"],
       "@haqq/website/brand-assets-page": [

@@ -16,11 +16,12 @@ type Story = StoryObj<typeof ValidatorBlockMobileComponent>;
 
 export const ValidatorBlockMobile: Story = {
   args: {
-    delegation: '11100',
-    undelegate: '100',
+    delegation: 11100,
+    undelegate: 100,
     isDelegateDisabled: false,
     isGetRewardDisabled: false,
     isUndelegateDisabled: false,
-    rewards: '100',
+    rewards: 100,
+    symbol: 'ISLM',
   },
 };

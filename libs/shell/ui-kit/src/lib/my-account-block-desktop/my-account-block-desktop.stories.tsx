@@ -15,5 +15,6 @@ export const MyAccountBlockDesktop: Story = {
     totalRewards: 987765,
     delegated: 99999999999,
     unbounded: 1298373,
+    symbol: 'ISLM',
   },
 };
