@@ -51,18 +51,17 @@ export function HeroBlock() {
           </p>
           <p>
             <Text size="large">
-              Islamic Coin is a native currency of HAQQ Network.
+              <Link
+                href={'https://islamiccoin.net/'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-haqq-orange underline transition-colors duration-150"
+              >
+                Islamic Coin
+              </Link>{' '}
+              is a native currency of HAQQ Network.
             </Text>
           </p>
-        </div>
-        <div className="mt-[32px] lg:mt-[48px]">
-          <Link
-            href={'https://islamiccoin.net/'}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant={2}>Islamic Coin</Button>
-          </Link>
         </div>
       </div>
 
