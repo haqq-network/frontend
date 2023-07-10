@@ -112,12 +112,12 @@ export function BurgerMenu({
         </BurgerMenuNavLink>
 
         <Link href="https://shell.haqq.network">
-          <Button variant={2} className="block sm:hidden">
+          <Button variant={2} className="block md:hidden">
             Shell
           </Button>
         </Link>
         <Link href="/wallet">
-          <Button variant={2} className="block sm:hidden">
+          <Button variant={2} className="block md:hidden">
             Wallet
           </Button>
         </Link>

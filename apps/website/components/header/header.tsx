@@ -195,11 +195,11 @@ export function Header() {
             {/* <HeaderNavLink href="/404">404</HeaderNavLink> */}
           </nav>
           <div className="flex flex-row items-center gap-[16px]">
-            <Link href="https://shell.haqq.network">
-              <Button className="hidden sm:block">Shell</Button>
+            <Link href="https://shell.haqq.network" className="hidden md:block">
+              <Button>Shell</Button>
             </Link>
-            <Link href="/wallet">
-              <Button className="hidden sm:block">Wallet</Button>
+            <Link href="/wallet" className="hidden md:block">
+              <Button>Wallet</Button>
             </Link>
             <div className="block pl-[8px] leading-[0] lg:hidden">
               <BurgerButton
