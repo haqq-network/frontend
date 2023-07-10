@@ -1,5 +1,8 @@
 import clsx from 'clsx';
-import Markdown from 'marked-react';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
 
 interface MarkdownTextProps {
   children: string;
@@ -24,7 +27,12 @@ export function WhitepaperMarkdownText({
         className,
       )}
     >
-      <Markdown gfm>{children}</Markdown>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw, rehypeSlug]}
+      >
+        {children}
+      </ReactMarkdown>
     </div>
   );
 }
