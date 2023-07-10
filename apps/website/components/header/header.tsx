@@ -186,7 +186,7 @@ export function Header() {
             <HeaderNavLink href="/ecosystem">Ecosystem</HeaderNavLink>
             <HeaderNavLink href="/ecosystem-fund">Fund</HeaderNavLink>
             {/* <HeaderNavLink href="/#technology">Technology</HeaderNavLink> */}
-            <HeaderNavLink href="/#developers">Developers</HeaderNavLink>
+            {/* <HeaderNavLink href="/#developers">Developers</HeaderNavLink> */}
             <HeaderNavLink href="/blog">Blog</HeaderNavLink>
             <HeaderNavLink href="https://docs.haqq.network" isOutLink>
               Docs
