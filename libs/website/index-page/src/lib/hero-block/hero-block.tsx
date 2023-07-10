@@ -34,7 +34,7 @@ export function HeroBlock() {
           'border-haqq-border z-10 flex flex-col items-start justify-center',
           'px-[16px] sm:ml-[63px] sm:border-l sm:pl-[20px] sm:pr-[64px]',
           'lg:ml-[79px] lg:pl-[32px] lg:pr-[80px] xl:min-h-[calc(100vh-73px)]',
-          'py-[60px] sm:py-[80px] xl:py-[140px]',
+          'pb-[80px] pt-[60px] sm:pb-[140px] sm:pt-[80px] xl:py-[140px]',
         )}
       >
         <HeroHeading>
