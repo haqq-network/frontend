@@ -53,7 +53,7 @@ export function Header() {
         )}
       >
         <div className="relative z-50 mx-auto flex h-full w-full flex-row items-center pr-[16px] sm:pr-[64px] lg:pr-[80px]">
-          <div className="flex h-full w-[48px] items-center justify-center border-r border-[#464647] sm:w-[64px] lg:w-[80px]">
+          <div className="flex h-full w-[48px] flex-none items-center justify-center border-r border-[#464647] sm:w-[64px] lg:w-[80px]">
             <div className="relative h-[26px] w-[26px] sm:h-[32px] sm:w-[32px]">
               <Link href="/">
                 <Image src={logoImageData} alt="HAQQ" fill />
@@ -87,7 +87,7 @@ export function Header() {
                 viewBox="0 0 177 28"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-[26px] w-auto"
+                className="h-[22px] w-auto sm:h-[26px]"
               >
                 <g clipPath="url(#clip0_506_360)">
                   <path
