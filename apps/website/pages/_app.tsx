@@ -25,13 +25,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <Fragment>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"
+        />
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
       </Head>
 
-      <main
-        className={clsx('flex min-h-screen flex-col overflow-x-clip font-sans')}
-      >
+      <main className="relative flex min-h-screen flex-col overflow-x-clip font-sans">
         <Header />
 
         <div className="flex-1">
