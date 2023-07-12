@@ -16,7 +16,11 @@ export function TitleBlock() {
       </Text>
 
       <div className="mt-[24px] sm:mt-[32px]">
-        <DownloadButton variant={2} link="../assets/media-kit.zip" withIcon>
+        <DownloadButton
+          variant={2}
+          link="../assets/media-kit/media-kit.zip"
+          withIcon
+        >
           Download Full Pack
         </DownloadButton>
       </div>
