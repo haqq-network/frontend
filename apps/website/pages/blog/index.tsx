@@ -13,7 +13,6 @@ interface StorybookPost {
     filename: null | string;
   };
   featured: boolean;
-  isPublished: boolean;
   content: string;
   tags: string[];
 }
@@ -43,7 +42,6 @@ function mapStorybookToPosts(data: { posts: StorybookPost[] }): Post[] {
         content: post.content ?? '',
         image,
         isFeatured: post.featured,
-        isPublished: post.isPublished,
         tags: post.tags,
       };
     })
