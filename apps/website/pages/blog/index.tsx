@@ -3,7 +3,7 @@ import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
 export { BlogPage as default } from '@haqq/website/news-page';
 
-interface StorybookPost {
+interface StoryblokPost {
   _uid: string;
   title: string;
   date: string;
@@ -13,11 +13,12 @@ interface StorybookPost {
     filename: null | string;
   };
   featured: boolean;
+  isPublished: boolean;
   content: string;
   tags: string[];
 }
 
-function mapStorybookToPosts(data: { posts: StorybookPost[] }): Post[] {
+function mapStorybookToPosts(data: { posts: StoryblokPost[] }): Post[] {
   return data.posts
     .map((post) => {
       if (!post.isPublished) {
