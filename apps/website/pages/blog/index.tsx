@@ -13,6 +13,7 @@ interface StorybookPost {
     filename: null | string;
   };
   featured: boolean;
+  isPublished: boolean;
   content: string;
   tags: string[];
 }
@@ -20,6 +21,10 @@ interface StorybookPost {
 function mapStorybookToPosts(data: { posts: StorybookPost[] }): Post[] {
   return data.posts
     .map((post) => {
+      if (!post.isPublished) {
+        return null;
+      }
+
       const image =
         post.image.filename && post.image.filename !== ''
           ? {
@@ -38,9 +43,11 @@ function mapStorybookToPosts(data: { posts: StorybookPost[] }): Post[] {
         content: post.content ?? '',
         image,
         isFeatured: post.featured,
+        isPublished: post.isPublished,
         tags: post.tags,
       };
     })
+    .filter(Boolean)
     .sort((a, b) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
