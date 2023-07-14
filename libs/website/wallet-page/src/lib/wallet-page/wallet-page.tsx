@@ -109,7 +109,7 @@ export function WebsiteWalletPage() {
           </div>
           <div className="flex flex-col text-center text-[14px] font-normal leading-[24px] sm:flex-row sm:justify-center sm:space-x-[20px]">
             <div className="mb-[8px]">
-              © 2022 HAQQ Wallet. All rights reserved
+              © {new Date().getFullYear()} HAQQ Wallet. All rights reserved.
             </div>
             <Link href="mailto:hello@islamiccoin.net">
               <div className="transition-colors duration-150 hover:text-[#01B36E]">
