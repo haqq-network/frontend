@@ -1,9 +1,15 @@
 import { Post } from '@haqq/website/blog-page';
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
+import { GetStaticProps } from 'next';
 
 export { BlogPage as default } from '@haqq/website/blog-page';
 
-interface StoryblokPost {
+storyblokInit({
+  accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
+  use: [apiPlugin],
+});
+
+export interface StoryblokPost {
   _uid: string;
   title: string;
   date: string;
@@ -13,7 +19,7 @@ interface StoryblokPost {
     filename: null | string;
   };
   featured: boolean;
-  isPublished: boolean;
+  published: boolean;
   content: string;
   tags: string[];
 }
@@ -21,7 +27,7 @@ interface StoryblokPost {
 function mapStorybookToPosts(data: { posts: StoryblokPost[] }): Post[] {
   return data.posts
     .map((post) => {
-      if (!post.isPublished) {
+      if (!post.published) {
         return null;
       }
 
@@ -52,13 +58,8 @@ function mapStorybookToPosts(data: { posts: StoryblokPost[] }): Post[] {
     });
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   let posts;
-
-  storyblokInit({
-    accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
-    use: [apiPlugin],
-  });
 
   try {
     const storyblokApi = getStoryblokApi();
@@ -77,4 +78,4 @@ export async function getStaticProps() {
     },
     revalidate: 1800, // revalidate every half hour
   };
-}
+};

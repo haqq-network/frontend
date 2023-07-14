@@ -1,15 +1,16 @@
 import { Post } from '@haqq/website/blog-page';
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 import type { GetStaticProps, GetStaticPaths } from 'next';
+import { StoryblokPost } from './index';
 
 export { PostPage as default } from '@haqq/website/blog-page';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  storyblokInit({
-    accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
-    use: [apiPlugin],
-  });
+storyblokInit({
+  accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
+  use: [apiPlugin],
+});
 
+export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const storyblokApi = getStoryblokApi();
     const response = await storyblokApi.get('cdn/stories/blog', {
@@ -17,13 +18,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
         process.env['VERCEL_ENV'] === 'production' ? 'published' : 'draft',
     });
 
-    const paths = response.data.story.content.posts.map((post) => {
-      return {
-        params: {
-          slug: post.slug,
-        },
-      };
-    });
+    const paths = response.data.story.content.posts.map(
+      (post: StoryblokPost) => {
+        return {
+          params: {
+            slug: post.slug,
+          },
+        };
+      },
+    );
 
     return {
       paths: paths,
@@ -43,11 +46,6 @@ export const getStaticProps: GetStaticProps<{
   post: Post;
   recentPosts: Post[];
 }> = async (ctx) => {
-  storyblokInit({
-    accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
-    use: [apiPlugin],
-  });
-
   try {
     const slug = ctx.params.slug;
     const storyblokApi = getStoryblokApi();
@@ -55,7 +53,8 @@ export const getStaticProps: GetStaticProps<{
       version:
         process.env['VERCEL_ENV'] === 'production' ? 'published' : 'draft',
     });
-    const post = response.data.story.content.posts.find((post) => {
+    const posts: Array<StoryblokPost> = response.data.story.content.posts;
+    const post = posts.find((post) => {
       return post.slug === slug;
     });
 
