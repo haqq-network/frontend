@@ -5,7 +5,7 @@ import {
   GooglePlayLogoIcon,
 } from '@haqq/website-ui-kit';
 
-export function DownloadButton({
+export function WalletDownloadButton({
   className,
   isAvailable,
   type,

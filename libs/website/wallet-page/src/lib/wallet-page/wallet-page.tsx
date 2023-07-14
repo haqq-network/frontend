@@ -86,7 +86,7 @@ export function WebsiteWalletPage() {
         <div className="container mx-auto px-[20px] pb-[20px] sm:px-[40px]">
           <div className="mb-[12px] flex items-center justify-center space-x-[20px] text-white">
             <Link
-              href="https://discord.gg/4quqkD6Y8c"
+              href="https://discord.gg/islamiccoin"
               target="_blank"
               rel="noopener noreferrer"
             >
