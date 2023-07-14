@@ -176,23 +176,16 @@ export function Header() {
             </Link>
           </div>
 
-          {/* <div className="flex-initial">
-            <Image src={islamicCoinImageData} alt="HAQQ" />
-          </div> */}
-
           <div className="flex-1" />
           <nav className="hidden flex-row items-center space-x-[24px] pl-[24px] lg:mr-[40px] lg:flex xl:mr-[60px]">
             <HeaderNavLink href="/#about">About</HeaderNavLink>
             <HeaderNavLink href="/ecosystem">Ecosystem</HeaderNavLink>
             <HeaderNavLink href="/ecosystem-fund">Fund</HeaderNavLink>
-            {/* <HeaderNavLink href="/#technology">Technology</HeaderNavLink> */}
             {/* <HeaderNavLink href="/#developers">Developers</HeaderNavLink> */}
             <HeaderNavLink href="/blog">Blog</HeaderNavLink>
             <HeaderNavLink href="https://docs.haqq.network" isOutLink>
               Docs
             </HeaderNavLink>
-            {/* <HeaderNavLink href="/#community">Community</HeaderNavLink> */}
-            {/* <HeaderNavLink href="/404">404</HeaderNavLink> */}
           </nav>
           <div className="flex flex-row items-center gap-[16px]">
             <Link href="https://shell.haqq.network" className="hidden md:block">
