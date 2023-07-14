@@ -124,7 +124,7 @@ function AssetCardsContainer({
   return (
     <div
       className={clsx(
-        'grid grid-flow-row grid-cols-1 gap-y-[24px] border-white/20 md:grid-cols-2 md:gap-[36px] lg:gap-y-[36px] xl:gap-x-[58px]',
+        'grid grid-flow-row grid-cols-1 gap-y-[24px] border-white/20 md:grid-cols-2 md:gap-[36px] lg:grid-cols-1 lg:gap-y-[36px] xl:grid-cols-2 xl:gap-x-[58px]',
         className,
       )}
     >
@@ -133,10 +133,10 @@ function AssetCardsContainer({
   );
 }
 
-export function HaqqBlock() {
+export function HaqqAssetsBlock() {
   return (
     <section className="flex flex-col border-t border-white/20 lg:flex-row">
-      <div className="border-white/20 px-[16px] pt-[60px] md:px-[48px] md:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
+      <div className="border-white/20 px-[16px] pt-[60px] sm:px-[48px] sm:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
         <Heading level={2} className="mb-[24px]">
           HAQQ Logo
         </Heading>
@@ -144,7 +144,7 @@ export function HaqqBlock() {
       </div>
 
       <div className="w-full">
-        <div className="border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[120px] xl:pr-[320px]">
+        <div className="border-b border-dashed border-b-white/20 px-[16px] pt-[40px] sm:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[120px]">
           <Heading>White background</Heading>
           <Text className="mt-[10px]">
             Please use this version on white background. Only use the badge
@@ -164,7 +164,7 @@ export function HaqqBlock() {
           </AssetCardsContainer>
         </div>
 
-        <div className="w-full border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
+        <div className="w-full border-b border-dashed border-b-white/20 px-[16px] pt-[40px] sm:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px]">
           <Heading>Dark background</Heading>
           <Text className="mt-[10px]">
             Please use this version on black or dark background. Only use the
@@ -184,7 +184,7 @@ export function HaqqBlock() {
           </AssetCardsContainer>
         </div>
 
-        <div className="w-full px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
+        <div className="w-full px-[16px] pt-[40px] sm:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px]">
           <Heading>Brand colors</Heading>
           <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
             {haqqBrandColors.map((asset) => {
@@ -204,10 +204,10 @@ export function HaqqBlock() {
   );
 }
 
-export function IslamicBlock() {
+export function IslamicAssetsBlock() {
   return (
     <section className="flex flex-col border-t border-white/20 lg:flex-row">
-      <div className="border-white/20 px-[16px] pt-[60px] md:px-[48px] md:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
+      <div className="border-white/20 px-[16px] pt-[60px] sm:px-[48px] md:pt-[100px] lg:max-w-[404px] lg:border-r lg:pl-[80px] lg:pr-[60px] lg:pt-[120px]">
         <Heading level={2} className="mb-[24px]">
           Islamic Coin
         </Heading>
@@ -215,7 +215,7 @@ export function IslamicBlock() {
       </div>
 
       <div className="w-full">
-        <div className="border-b border-dashed border-b-white/20 px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[120px] xl:pr-[320px]">
+        <div className="border-b border-dashed border-b-white/20 px-[16px] pt-[40px] sm:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[120px]">
           <Heading>White background</Heading>
           <Text className="mt-[10px]">
             Although the official brand name contains a space in text, we use no
@@ -235,7 +235,7 @@ export function IslamicBlock() {
           </AssetCardsContainer>
         </div>
 
-        <div className="w-full px-[16px] pt-[40px] md:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px] xl:pr-[320px]">
+        <div className="w-full px-[16px] pt-[40px] sm:px-[48px] md:pt-[60px] lg:px-[80px] lg:pl-[60px] lg:pt-[80px]">
           <Heading>Brand colors</Heading>
           <AssetCardsContainer className="mt-[24px] pb-[40px] md:mt-[28px] md:pb-[60px] lg:mt-[32px] lg:pb-[80px]">
             {islamicBrandColors.map((asset) => {
