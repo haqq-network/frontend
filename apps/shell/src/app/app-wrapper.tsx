@@ -18,13 +18,7 @@ import {
 } from '@haqq/shell-ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useMediaQuery } from 'react-responsive';
-import {
-  useAccount,
-  useBalance,
-  useConnect,
-  useNetwork,
-  useSwitchNetwork,
-} from 'wagmi';
+import { useBalance, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import {
   useAddress,
   useWallet,
@@ -192,17 +186,13 @@ export function AppWrapper({ children }: PropsWithChildren) {
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
   const { closeSelectWallet, isSelectWalletOpen } = useWallet();
-  const { isConnected } = useAccount();
-
-  const isSelectWalletModalOpen = useMemo(() => {
-    return isSelectWalletOpen && !isConnected;
-  }, [isConnected, isSelectWalletOpen]);
 
   const handleWalletConnect = useCallback(
     async (connectorIdx: number) => {
       await connectAsync({ connector: connectors[connectorIdx] });
+      closeSelectWallet();
     },
-    [connectAsync, connectors],
+    [closeSelectWallet, connectAsync, connectors],
   );
 
   useEffect(() => {
@@ -255,7 +245,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
       {children}
 
       <SelectWalletModal
-        isOpen={isSelectWalletModalOpen}
+        isOpen={isSelectWalletOpen}
         connectors={selectWalletModalConnectors}
         error={error?.message}
         onConnectClick={handleWalletConnect}
