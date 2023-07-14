@@ -112,12 +112,13 @@ function HeaderButtons({
         )}
       </div>
 
-      <div className="block lg:hidden">
+      <div className="block leading-[0] lg:hidden">
         <BurgerButton
           isOpen={isMobileMenuOpen}
           onClick={() => {
             onMobileMenuOpenChange(!isMobileMenuOpen);
           }}
+          className="h-[24px] w-[24px] sm:h-[30px] sm:w-[30px]"
         />
       </div>
 
