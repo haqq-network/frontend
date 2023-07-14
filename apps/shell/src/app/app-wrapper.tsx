@@ -153,12 +153,20 @@ function HeaderButtons({
               </div>
 
               {ethAddress && (
-                <AccountButton
-                  balance={balance}
-                  address={getFormattedAddress(ethAddress, 3, 2)}
-                  onDisconnectClick={disconnect}
-                  withoutDropdown
-                />
+                <div className="flex flex-col gap-[24px]">
+                  <div>
+                    <SelectChainButton
+                      {...selectChainButtonProps}
+                      onChainSelect={handleChainSelectClick}
+                    />
+                  </div>
+                  <AccountButton
+                    balance={balance}
+                    address={getFormattedAddress(ethAddress, 3, 2)}
+                    onDisconnectClick={disconnect}
+                    withoutDropdown
+                  />
+                </div>
               )}
 
               <div className="mt-[24px]">
