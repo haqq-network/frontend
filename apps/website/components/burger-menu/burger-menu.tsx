@@ -129,7 +129,7 @@ export function BurgerMenu({
       <div className="mb-[60px] grid grid-cols-2 gap-[14px] sm:mb-[80px] sm:gap-[18px]">
         <div>
           <BurgerMenuSocialLink
-            href="https://discord.gg/4quqkD6Y8c"
+            href="https://discord.gg/islamiccoin"
             icon={
               <DiscordIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
             }
