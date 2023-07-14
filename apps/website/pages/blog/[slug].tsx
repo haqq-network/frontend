@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps<{
       return post.slug === slug;
     });
 
-    if (!post) {
+    if (!post || !post.published) {
       return {
         props: { post: null, recentPosts: [] },
         notFound: true,
