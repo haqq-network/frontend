@@ -1,33 +1,6 @@
 import { Heading, Text } from '@haqq/website-ui-kit';
 import clsx from 'clsx';
-import { Fragment, PropsWithChildren } from 'react';
-
-function CloseButton({
-  onClick,
-  className,
-}: {
-  onClick?: () => void;
-  className?: string;
-}) {
-  return (
-    <div onClick={onClick} className={clsx('text-haqq-black', className)}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="h-6 w-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
-    </div>
-  );
-}
+import { PropsWithChildren } from 'react';
 
 function InitalSupply() {
   return (
@@ -1310,13 +1283,9 @@ function TotalSupply() {
   );
 }
 
-export function CoinomicsInfo({ onClick }: { onClick?: () => void }) {
+export function CoinomicsInfo() {
   return (
     <div className="relative flex max-w-[900px] flex-col rounded-[10px] bg-white px-[40px] py-[48px]">
-      <CloseButton
-        onClick={onClick}
-        className="absolute right-0 top-0 mb-[5px] mr-[24px] mt-[20px] self-end"
-      />
       <InitalSupply />
       <TotalSupply />
     </div>
