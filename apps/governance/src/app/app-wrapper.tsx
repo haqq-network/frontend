@@ -176,8 +176,9 @@ export function AppWrapper({ children }: PropsWithChildren) {
   const handleWalletConnect = useCallback(
     async (connectorIdx: number) => {
       await connectAsync({ connector: connectors[connectorIdx] });
+      closeSelectWallet();
     },
-    [connectAsync, connectors],
+    [closeSelectWallet, connectAsync, connectors],
   );
 
   useEffect(() => {
