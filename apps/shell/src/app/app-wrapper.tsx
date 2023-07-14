@@ -27,6 +27,7 @@ import {
   formatNumber,
 } from '@haqq/shared';
 import { haqqTestedge2 } from '@wagmi/chains';
+import { useNavigate } from 'react-router-dom';
 
 function HeaderButtons({
   isMobileMenuOpen,
@@ -48,14 +49,16 @@ function HeaderButtons({
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
+  const navigate = useNavigate();
 
   const handleChainSelectClick = useCallback(
     (chainId: number) => {
       if (switchNetwork) {
         switchNetwork(chainId);
+        navigate('/');
       }
     },
-    [switchNetwork],
+    [navigate, switchNetwork],
   );
 
   const balance = useMemo(() => {
