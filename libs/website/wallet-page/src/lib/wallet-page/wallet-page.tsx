@@ -86,7 +86,7 @@ export function WebsiteWalletPage() {
         <div className="container mx-auto px-[20px] pb-[20px] sm:px-[40px]">
           <div className="mb-[12px] flex items-center justify-center space-x-[20px] text-white">
             <Link
-              href="https://discord.gg/4quqkD6Y8c"
+              href="https://discord.gg/islamiccoin"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -132,7 +132,10 @@ WebsiteWalletPage.getLayout = function getLayout(page: ReactElement) {
           name="description"
           content="The best way to hold Islamic Coin and remain Shariah-compliant along the way!"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"
+        />
         <link
           rel="icon"
           type="image/png"

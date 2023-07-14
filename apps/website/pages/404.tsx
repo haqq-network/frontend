@@ -36,7 +36,10 @@ NotFoundPage.getLayout = function getLayout(page: ReactElement) {
   return (
     <Fragment>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"
+        />
       </Head>
 
       <main className={clsx('flex min-h-screen flex-col font-sans')}>

@@ -1,4 +1,4 @@
-import { NewsArticle, Breadcrumb } from '@haqq/website-ui-kit';
+import { BlogArticle, Breadcrumb } from '@haqq/website-ui-kit';
 import Head from 'next/head';
 import { Fragment, useCallback, useMemo } from 'react';
 // import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';
@@ -73,7 +73,7 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
         />
       </div>
 
-      <NewsArticle
+      <BlogArticle
         tags={post.tags}
         date={post.date}
         content={post.content ?? ''}

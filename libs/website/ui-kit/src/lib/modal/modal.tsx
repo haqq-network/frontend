@@ -1,6 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-import { Fragment, ReactNode, SyntheticEvent, useCallback } from 'react';
+import {
+  Fragment,
+  PropsWithChildren,
+  SyntheticEvent,
+  useCallback,
+} from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 
@@ -77,13 +80,14 @@ export function ModalCloseButton({
   );
 }
 
-export interface ModalProps {
+export function Modal({
+  children,
+  onClose,
+  isOpen = false,
+}: PropsWithChildren<{
   isOpen?: boolean;
   onClose: () => void;
-  children: ReactNode;
-}
-
-export function Modal({ children, onClose, isOpen = false }: ModalProps) {
+}>) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
