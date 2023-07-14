@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { DownloadButton } from '../download-button/download-button';
+import { WalletDownloadButton } from '../wallet-download-button/wallet-download-button';
 import { CardText } from '../features-block/features-block';
 import iphoneWalletScreenshotData from '../../assets/images/wallet-iphone-screenshot.png';
 
@@ -160,14 +160,14 @@ export function HeroBlock() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <DownloadButton type="apple" isAvailable />
+                <WalletDownloadButton type="apple" isAvailable />
               </Link>
               <Link
                 href="https://play.google.com/store/apps/details?id=com.haqq.wallet"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <DownloadButton type="google" isAvailable />
+                <WalletDownloadButton type="google" isAvailable />
               </Link>
             </div>
             <div>
@@ -178,7 +178,7 @@ export function HeroBlock() {
                 className="inline-block"
                 download
               >
-                <DownloadButton type="apk" isAvailable />
+                <WalletDownloadButton type="apk" isAvailable />
               </Link>
             </div>
           </div>

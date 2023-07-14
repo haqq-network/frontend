@@ -94,7 +94,7 @@ export function DelegationsBlock() {
         )}
       </div>
 
-      {status === 'error' && <p>Error: {(error as any).message}</p>}
+      {status === 'error' && <p>Error: {(error as Error).message}</p>}
 
       {status === 'success' && (
         <div>

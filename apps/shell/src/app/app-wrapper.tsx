@@ -118,12 +118,13 @@ function HeaderButtons({
         )}
       </div>
 
-      <div className="block lg:hidden">
+      <div className="block leading-[0] lg:hidden">
         <BurgerButton
           isOpen={isMobileMenuOpen}
           onClick={() => {
             onMobileMenuOpenChange(!isMobileMenuOpen);
           }}
+          className="h-[24px] w-[24px] sm:h-[30px] sm:w-[30px]"
         />
       </div>
 
@@ -153,12 +154,20 @@ function HeaderButtons({
               </div>
 
               {ethAddress && (
-                <AccountButton
-                  balance={balance}
-                  address={getFormattedAddress(ethAddress, 3, 2)}
-                  onDisconnectClick={disconnect}
-                  withoutDropdown
-                />
+                <div className="flex flex-col gap-[24px]">
+                  <div>
+                    <SelectChainButton
+                      {...selectChainButtonProps}
+                      onChainSelect={handleChainSelectClick}
+                    />
+                  </div>
+                  <AccountButton
+                    balance={balance}
+                    address={getFormattedAddress(ethAddress, 3, 2)}
+                    onDisconnectClick={disconnect}
+                    withoutDropdown
+                  />
+                </div>
               )}
 
               <div className="mt-[24px]">
@@ -190,8 +199,9 @@ export function AppWrapper({ children }: PropsWithChildren) {
   const handleWalletConnect = useCallback(
     async (connectorIdx: number) => {
       await connectAsync({ connector: connectors[connectorIdx] });
+      closeSelectWallet();
     },
-    [connectAsync, connectors],
+    [closeSelectWallet, connectAsync, connectors],
   );
 
   useEffect(() => {

@@ -28,7 +28,8 @@
       "configurations": {
         "development": {
           "buildTarget": "website:build:development",
-          "dev": true
+          "dev": true,
+          "hostname": "0.0.0.0"
         },
         "production": {
           "buildTarget": "website:build:production",

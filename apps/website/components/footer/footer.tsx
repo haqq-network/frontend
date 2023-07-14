@@ -119,9 +119,7 @@ export function Footer() {
               <div className="leading-[0]">
                 <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
               </div>
-              {/* <FooterNavLink href="/privacy-policy">
-                Privacy Policy
-              </FooterNavLink> */}
+              <FooterNavLink href="/wp">Whitepaper</FooterNavLink>
               {/* <FooterNavLink href="/terms-and-conditions">
                 Terms and Conditions
               </FooterNavLink> */}
@@ -131,7 +129,7 @@ export function Footer() {
             <nav className="grid grid-cols-1 gap-[8px] sm:grid-cols-2 sm:gap-[12px] lg:grid-cols-1">
               <div className="leading-[0]">
                 <FooterNavSocialLink
-                  href="https://discord.gg/4quqkD6Y8c"
+                  href="https://discord.gg/islamiccoin"
                   icon={
                     <DiscordIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
                   }

@@ -26,6 +26,7 @@ import { computePublicKey, recoverPublicKey } from '@ethersproject/signing-key';
 import { hashMessage } from '@ethersproject/hash';
 import { getChainParams } from '../chains/get-chain-params';
 import { useSupportedChains } from './wagmi-provider';
+import { Hex } from 'viem';
 
 export interface CosmosService {
   getValidators: (limit?: number) => Promise<Validator[]>;
@@ -400,10 +401,14 @@ function createCosmosService(
   async function generatePubkey(address: string) {
     if (walletClient) {
       const message = 'Verify Public Key';
-      const signature = await walletClient.request({
+      const signature = await walletClient.request<{
+        Method: 'personal_sign';
+        Parameters: [message: string, address: string];
+        ReturnType: Hex;
+      }>({
         method: 'personal_sign',
         params: [message, address],
-      } as any);
+      });
 
       if (signature) {
         const uncompressedPk = recoverPublicKey(
@@ -435,8 +440,8 @@ function createCosmosService(
         store.set(storeKey, generatedPubkey);
         return generatedPubkey;
       } catch (error) {
-        console.error((error as any).message);
-        throw new Error((error as any).message);
+        console.error((error as Error).message);
+        throw error;
       }
     }
 
@@ -454,8 +459,8 @@ function createCosmosService(
 
       return broadcastResponse.data.tx_response;
     } catch (error) {
-      console.error((error as any).message);
-      throw new Error((error as any).message);
+      console.error((error as Error).message);
+      throw error;
     }
   }
 
@@ -471,8 +476,8 @@ function createCosmosService(
       );
       return simulateResponse.data;
     } catch (error) {
-      console.error((error as any).message);
-      throw new Error((error as any).message);
+      console.error((error as Error).message);
+      throw error;
     }
   }
 

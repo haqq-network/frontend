@@ -3,12 +3,15 @@ import { ReactNode } from 'react';
 import { Heading } from '../heading/heading';
 import styles from './page-title.module.css';
 
-interface PageTitleProps {
+export function PageTitle({
+  className,
+  title,
+  subtitle,
+}: {
   className?: string;
-  children: ReactNode;
-}
-
-export function PageTitle({ className, children }: PageTitleProps) {
+  title?: ReactNode;
+  subtitle?: ReactNode;
+}) {
   return (
     <div
       className={clsx(
@@ -17,7 +20,8 @@ export function PageTitle({ className, children }: PageTitleProps) {
         className,
       )}
     >
-      <Heading level={2}>{children}</Heading>
+      {title && <Heading level={2}>{title}</Heading>}
+      {subtitle && <div className="mt-[16px]">{subtitle}</div>}
     </div>
   );
 }

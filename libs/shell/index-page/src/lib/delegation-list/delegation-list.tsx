@@ -179,7 +179,7 @@ export function ShellIndexPageDelegationList() {
             <div className="block text-base">Fetching validators list</div>
           </div>
         )}
-        {status === 'error' && <p>Error: {(error as any).message}</p>}
+        {status === 'error' && <p>Error: {(error as Error).message}</p>}
         {status === 'success' && (
           <div className="max-h-[300px] min-h-[120px] w-full overflow-y-scroll">
             {validatorsWithDelegation?.length ? (

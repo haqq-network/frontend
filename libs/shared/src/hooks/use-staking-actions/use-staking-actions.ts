@@ -70,8 +70,8 @@ export function useStakingActions() {
           pubkey,
         };
       } catch (error) {
-        console.error((error as any).message);
-        throw new Error((error as any).message);
+        console.error((error as Error).message);
+        throw error;
       }
     },
     [getAccountInfo],
