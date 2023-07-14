@@ -8,7 +8,12 @@ import {
 } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'marked-react';
-import { Proposal, ProposalStatus } from '@evmos/provider';
+import {
+  ParameterChangeProposalContent,
+  Proposal,
+  ProposalStatus,
+  SoftwareUpgradeProposalContent,
+} from '@evmos/provider';
 import {
   useAddress,
   useProposalDetailsQuery,
@@ -363,7 +368,9 @@ export function ProposalDetailsComponent({
                 ProposalTypes.ParameterChange && (
                 <div className="py-[24px] md:py-[40px]">
                   <ParameterChangeProposalDetails
-                    content={proposalDetails.content as any}
+                    content={
+                      proposalDetails.content as ParameterChangeProposalContent
+                    }
                   />
                 </div>
               )}
@@ -372,7 +379,11 @@ export function ProposalDetailsComponent({
                 ProposalTypes.SoftwareUpgrade && (
                 <div className="py-[24px] md:py-[40px]">
                   <SoftwareUpgradeProposalDetails
-                    plan={(proposalDetails.content as any).plan}
+                    plan={
+                      (
+                        proposalDetails.content as SoftwareUpgradeProposalContent
+                      ).plan
+                    }
                   />
                 </div>
               )}
