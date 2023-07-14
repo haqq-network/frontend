@@ -24,3 +24,4 @@ export * from './lib/breadcrumb/breadcrumb';
 export * from './lib/blog-tabs/blog-tabs';
 export * from './lib/tooltip/tooltip';
 export * from './lib/modal/modal';
+export * from './lib/markdown-text/markdown-text';

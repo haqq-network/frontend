@@ -12,8 +12,7 @@ type Story = StoryObj<typeof MarkdownTextComponent>;
 
 export const MarkdownText: Story = {
   args: {
-    children: `
-# Ultima a audistis
+    children: `# Ultima a audistis
 
 ## Genus ad vidit
 
@@ -25,11 +24,12 @@ creditis defensae uno occupet et inguina, in haberet ferro videt tu freta
 stamina. Prius curat, obest quis quoque terrae natae advena, pectore natantibus,
 sacer inque, nec.
 
+### Aetherias certior solent
+
 Icto amat obstet, haut parvi dictis aetherias certior solent et *corporis*
 fluctibus dedecus. Orbem remittit angulus obscenae seductaque
 [foedus](http://www.victor.io/mox) animalia decoro arbitrium animum, illa sonos
 morti agresti et canes genitor. Ego et animal luctibus; est inque mirere tenet,
-tantum.
-    `,
+tantum.`,
   },
 };
