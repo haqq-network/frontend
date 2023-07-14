@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { Heading } from '../heading/heading';
+// import { Heading } from '../heading/heading';
 import { MarkdownText } from '../markdown-text/markdown-text';
 // import { TelegramIcon, TwitterIcon } from '../icons';
 import { CopyIcon } from '../icons/copy-icon';
 import { Tooltip } from '../tooltip/tooltip';
 
-export function NewsArticle({
+export function BlogArticle({
   image,
   content,
   title,
@@ -28,7 +28,7 @@ export function NewsArticle({
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
       <div className="w-full overflow-clip px-[16px] sm:px-[63px] lg:px-[79px]">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-4xl xl:max-w-5xl">
           <article>
             {image && (
               <div className="relative mb-[28px] w-full md:mb-[32px] lg:mb-[36px]">
@@ -53,9 +53,7 @@ export function NewsArticle({
               }).format(new Date(date))}
             </div>
 
-            <Heading className="mb-[24px]">{title}</Heading>
-
-            <MarkdownText>{content}</MarkdownText>
+            <MarkdownText>{'# ' + title + '\n\n' + content}</MarkdownText>
           </article>
 
           <div className="mt-[20px] flex flex-row flex-wrap gap-[6px] md:mt-[24px] lg:mt-[32px]">
