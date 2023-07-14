@@ -1,50 +1,56 @@
 import Head from 'next/head';
-import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import { WhitepaperMarkdownText } from '../whitepaper-markdown-text/whitepaper-markdown-text';
-import { SideLink } from '../side-link/side-link';
+import { Fragment } from 'react';
 import { CoinomicsModal } from '../coinomics-modal/coinomics-modal';
-import { PageTitle } from '../hero-block/hero-block';
-import { useRouter } from 'next/router';
+import { Button, MarkdownText, PageTitle } from '@haqq/website-ui-kit';
+import Link from 'next/link';
 
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
-  const router = useRouter();
-  const { query } = router;
-  const [isOpen, setIsOpen] = useState(false);
-
-  // function findH2Elements(markdownString: string): string[] {
-  //   const h2Regex = /## (.+?)(?:\n\n|$)/g;
-  //   const matches = markdownString.match(h2Regex) || [];
-  //   const h2Elements = matches.map((match) => {
-  //     return match.replace('## ', '').replace(/\n\n$/, '');
-  //   });
-  //   return h2Elements;
-  // }
-
-  // const h2Elements = useMemo(() => {
-  //   return findH2Elements(whitepaper);
-  // }, [whitepaper]);
-
-  useEffect(() => {
-    setIsOpen(query.centuryCoinomics === 'true');
-  }, [query.centuryCoinomics]);
-
-  const closeCoinomicsModal = useCallback(() => {
-    router.push({ query: {} }, undefined, { scroll: false });
-    setIsOpen(false);
-  }, [router]);
-
   return (
     <Fragment>
       <Head>
         <title>HAQQ | Whitepaper</title>
       </Head>
-      <PageTitle>HAQQ Whitepaper</PageTitle>
-      <section className="flex bg-white">
-        <WhitepaperMarkdownText className="w-full px-[16px] py-[60px] md:py-[80px] md:pl-[20px] md:pr-[64px] xl:pl-[150px] xl:pr-[200px]">
-          {whitepaper}
-        </WhitepaperMarkdownText>
+
+      <section>
+        <PageTitle
+          title="HAQQ Whitepaper"
+          subtitle={
+            <Link
+              href={'/haqq_whitepaper_v_2.pdf'}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant={2} className="inline-flex flex-row items-center">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="mr-[6px]"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M5.41667 16.25H14.5833V9.16668H10.1667C9.61438 9.16668 9.16667 8.71896 9.16667 8.16668V3.75001H5.41667V16.25ZM13.893 7.50001L10.8333 4.44037V7.50001H13.893ZM15.4167 17.9167H4.58333C4.1231 17.9167 3.75 17.5436 3.75 17.0833V2.91668C3.75 2.45644 4.1231 2.08334 4.58333 2.08334H10.4882C10.7092 2.08334 10.9211 2.17114 11.0774 2.32742L16.0059 7.25593C16.1622 7.41221 16.25 7.62417 16.25 7.84519V17.0833C16.25 17.5436 15.8769 17.9167 15.4167 17.9167Z"
+                    fill="currentColor"
+                  />
+                </svg>
+
+                <span>Download PDF</span>
+              </Button>
+            </Link>
+          }
+        />
+
+        <div className="flex bg-white px-[16px] py-[48px] sm:px-[63px] md:py-[68px] lg:px-[79px] lg:py-[100px]">
+          <article className="mx-auto max-w-5xl">
+            <MarkdownText isBlack>{whitepaper}</MarkdownText>
+          </article>
+        </div>
       </section>
-      <CoinomicsModal isOpen={isOpen} onClose={closeCoinomicsModal} />
+
+      <CoinomicsModal isOpen={false} onClose={console.log} />
     </Fragment>
   );
 }
