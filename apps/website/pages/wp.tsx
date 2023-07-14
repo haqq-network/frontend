@@ -2,13 +2,13 @@ import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
 export { WhitepaperPage as default } from '@haqq/website/whitepaper-page';
 
+storyblokInit({
+  accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
+  use: [apiPlugin],
+});
+
 export async function getStaticProps() {
   let whitepaper;
-
-  storyblokInit({
-    accessToken: process.env['STORYBLOK_ACCESS_TOKEN'],
-    use: [apiPlugin],
-  });
 
   try {
     const storyblokApi = getStoryblokApi();
