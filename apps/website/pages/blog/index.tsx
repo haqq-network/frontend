@@ -1,7 +1,7 @@
-import { Post } from '@haqq/website/news-page';
+import { Post } from '@haqq/website/blog-page';
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 
-export { BlogPage as default } from '@haqq/website/news-page';
+export { BlogPage as default } from '@haqq/website/blog-page';
 
 interface StoryblokPost {
   _uid: string;

@@ -1,8 +1,8 @@
-import { Post } from '@haqq/website/news-page';
+import { Post } from '@haqq/website/blog-page';
 import { getStoryblokApi, storyblokInit, apiPlugin } from '@storyblok/react';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 
-export { PostPage as default } from '@haqq/website/news-page';
+export { PostPage as default } from '@haqq/website/blog-page';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   storyblokInit({
