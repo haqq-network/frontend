@@ -110,6 +110,9 @@ export function BurgerMenu({
         <BurgerMenuNavLink onClick={onClose} href="/brand-assets">
           Brand Assets
         </BurgerMenuNavLink>
+        <BurgerMenuNavLink onClick={onClose} href="/wp">
+          Whitepaper
+        </BurgerMenuNavLink>
 
         <Link href="https://shell.haqq.network">
           <Button variant={2} className="block md:hidden">
