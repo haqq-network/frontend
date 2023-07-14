@@ -186,6 +186,7 @@ export function Header() {
             <HeaderNavLink href="https://docs.haqq.network" isOutLink>
               Docs
             </HeaderNavLink>
+            <HeaderNavLink href="/whitepaper">Whitepaper</HeaderNavLink>
           </nav>
           <div className="flex flex-row items-center gap-[16px]">
             <Link href="https://shell.haqq.network" className="hidden md:block">

@@ -119,9 +119,7 @@ export function Footer() {
               <div className="leading-[0]">
                 <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
               </div>
-              {/* <FooterNavLink href="/privacy-policy">
-                Privacy Policy
-              </FooterNavLink> */}
+              <FooterNavLink href="/whitepaper">Whitepaper</FooterNavLink>
               {/* <FooterNavLink href="/terms-and-conditions">
                 Terms and Conditions
               </FooterNavLink> */}
