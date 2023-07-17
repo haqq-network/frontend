@@ -58,7 +58,7 @@ export function StakingValidatorList() {
     query: `(max-width: 639px)`,
   });
   const navigate = useNavigate();
-  const [checked, setChecked] = useState<boolean>(false);
+  const [isInactiveValidatorsVisible, setInactiveValidatorsVisible] = useState(false)
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -129,14 +129,8 @@ export function StakingValidatorList() {
             <div className="flex flex-col gap-[24px]">
               {delegatedValidators.length !== 0 && (
                 <div>
-                  <div className="border-haqq-border flex flex-row items-center gap-x-[24px] border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
+                  <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
                     My delegations
-                    <Checkbox
-                      className="font-sans text-[14px] font-[500] leading-[20px] text-white"
-                      onChange={setChecked}
-                    >
-                      Show Inactive
-                    </Checkbox>
                   </div>
                   <ValidatorsList
                     validators={delegatedValidators}
