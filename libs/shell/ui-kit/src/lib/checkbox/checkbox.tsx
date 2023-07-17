@@ -36,7 +36,7 @@ export function Checkbox({
         htmlFor={id}
         className={clsx(
           'relative inline-flex select-none flex-row items-center',
-          disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
+          disabled ? 'cursor-not-allowed text-white/50' : 'cursor-pointer',
         )}
       >
         <input

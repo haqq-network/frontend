@@ -15,5 +15,6 @@ type Story = StoryObj<typeof CheckboxComponent>;
 export const Default: Story = {
   args: {
     children: 'Show Inactive',
+    disabled: false,
   },
 };

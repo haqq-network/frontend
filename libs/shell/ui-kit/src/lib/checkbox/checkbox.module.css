@@ -18,29 +18,56 @@
 }
 
 .checkboxTick {
-  color: #fff;
+  color: var(--haqq-black);
   stroke-dasharray: 20;
   stroke-dashoffset: 20;
   transition: stroke-dashoffset 300ms ease;
 }
 
 .checkboxInputElement {
-  position: absolute;
-  left: -9999px;
-  opacity: 0;
+  @apply absolute left-[-9999px] opacity-0;
 
-  /* Checked */
-  &:checked + .checkboxTickBox {
-    border-color: var(--haqq-orange) !important;
-    background-color: transparent;
+  &:disabled + .checkboxTickBox {
+    @apply border-[#474748] bg-[#474748];
 
     & .checkboxTick {
       stroke-dashoffset: 0;
+      color: var(--haqq-black);
     }
   }
 
-  /* Focus */
-  &:not(&:disabled)&:hover + .checkboxTickBox {
-    --checkbox-color: var(--haqq-black);
+  &:not(&:disabled):hover + .checkboxTickBox {
+    @apply !border-white transition-colors duration-300;
+  }
+
+  &:checked + .checkboxTickBox {
+    @apply !border-white bg-white;
+
+    & .checkboxTick {
+      stroke-dashoffset: 0;
+      color: var(--haqq-black);
+    }
+  }
+
+  &:not(&:disabled):checked:hover + .checkboxTickBox {
+    @apply !border-[#868686] bg-[#868686];
+
+    & .checkboxTick {
+      stroke-dashoffset: 0;
+      color: var(--haqq-black);
+    }
+  }
+
+  &:disabled&:not(&:checked) + .checkboxTickBox {
+    @apply !border-[#474748] bg-transparent;
+  }
+
+  &:disabled&:checked + .checkboxTickBox {
+    @apply !border-[#474748] bg-[#474748];
+
+    & .checkboxTick {
+      stroke-dashoffset: 0;
+      color: #e7e7e7;
+    }
   }
 }

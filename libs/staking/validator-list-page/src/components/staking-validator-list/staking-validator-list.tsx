@@ -132,7 +132,7 @@ export function StakingValidatorList() {
                   <div className="border-haqq-border flex flex-row items-center gap-x-[24px] border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
                     My delegations
                     <Checkbox
-                      className="font-sans text-[14px] font-[500] leading-[22px] text-white"
+                      className="font-sans text-[14px] font-[500] leading-[20px] text-white"
                       onChange={setChecked}
                     >
                       Show Inactive
