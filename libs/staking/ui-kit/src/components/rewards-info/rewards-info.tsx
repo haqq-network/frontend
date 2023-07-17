@@ -68,7 +68,7 @@ export function RewardsInfo({
 
           <div className="flex-1">
             <StakingInfoAmountBlock
-              title="Unbounding"
+              title="Unbonding"
               value={unbounded.toLocaleString()}
               symbol={symbol}
             />
