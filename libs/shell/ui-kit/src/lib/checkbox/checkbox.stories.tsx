@@ -18,3 +18,10 @@ export const Default: Story = {
     disabled: false,
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    children: 'Show Inactive',
+    disabled: true,
+  },
+};

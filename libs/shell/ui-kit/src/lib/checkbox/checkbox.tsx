@@ -30,7 +30,11 @@ export function Checkbox({
 
   return (
     <div
-      className={clsx(styles['checkboxContainer'], 'leading-none', className)}
+      className={clsx(
+        styles['checkboxContainer'],
+        'text-[14px] font-[500] leading-[20px] text-white',
+        className,
+      )}
     >
       <label
         htmlFor={id}
