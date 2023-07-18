@@ -429,6 +429,13 @@ function createCosmosService(
     }
   }
 
+  async function getPubkeyFromChain(address: string) {
+    const haqqAddress = ethToHaqq(address);
+    const account = await getAccountInfo(haqqAddress);
+
+    return account.pub_key?.key;
+  }
+
   async function getPubkey(address: string) {
     const storeKey = `pubkey_${address}`;
     const savedPubKey: string | null = store.get(storeKey);
@@ -436,9 +443,15 @@ function createCosmosService(
 
     if (!savedPubKey) {
       try {
-        const generatedPubkey = await generatePubkey(address);
-        store.set(storeKey, generatedPubkey);
-        return generatedPubkey;
+        let pubkey: string | undefined;
+        pubkey = await getPubkeyFromChain(address);
+
+        if (!pubkey) {
+          pubkey = await generatePubkey(address);
+        }
+
+        store.set(storeKey, pubkey);
+        return pubkey;
       } catch (error) {
         console.error((error as Error).message);
         throw error;
