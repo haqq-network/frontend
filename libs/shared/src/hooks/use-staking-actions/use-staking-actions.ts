@@ -13,20 +13,12 @@ import type { Fee } from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
 import Decimal from 'decimal.js-light';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { getChainParams } from '../../chains/get-chain-params';
+import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useNetwork, useWalletClient } from 'wagmi';
 
-const FEE: Fee = {
-  amount: '5000',
-  gas: '14000000',
-  denom: 'aISLM',
-};
-
-const WEI = 10 ** 18;
-
 function getAmountAndDenom(amount: number, fee?: Fee) {
-  let decAmount = new Decimal(amount).mul(WEI);
+  let decAmount = new Decimal(amount).mul(10 ** 18);
 
   if (fee) {
     decAmount = decAmount.sub(new Decimal(fee.amount));
@@ -39,12 +31,8 @@ function getAmountAndDenom(amount: number, fee?: Fee) {
 }
 
 export function useStakingActions() {
-  const {
-    broadcastTransaction,
-    getAccountInfo,
-    getPubkey,
-    simulateTransaction,
-  } = useCosmosService();
+  const { broadcastTransaction, getAccountInfo, getPubkey } =
+    useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
   const { data: walletClient } = useWalletClient();
   const { chain } = useNetwork();
@@ -76,16 +64,6 @@ export function useStakingActions() {
     },
     [getAccountInfo],
   );
-
-  const getFee = useCallback((gasUsed?: string) => {
-    return gasUsed && gasUsed !== ''
-      ? {
-          amount: `${(Number.parseInt(gasUsed, 10) * 0.007 * 1.1).toFixed()}`,
-          gas: gasUsed,
-          denom: 'aISLM',
-        }
-      : FEE;
-  }, []);
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
@@ -131,27 +109,18 @@ export function useStakingActions() {
       const memo = 'Delegate';
 
       if (sender && validatorAddress && haqqChain) {
-        // Simulate
-        const simFee = getFee();
-        const simParams = getDelegationParams(
+        const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
-          simFee,
+          DEFAULT_FEE,
         );
-        const simMsg = createTxMsgDelegate(
+        const msg = createTxMsgDelegate(
           haqqChain,
           sender,
-          simFee,
+          DEFAULT_FEE,
           memo,
-          simParams,
+          params,
         );
-        const simTx = await signTransaction(simMsg, sender);
-        const simulateTxResponse = await simulateTransaction(simTx);
-
-        // Broadcast real transaction
-        const fee = getFee(simulateTxResponse.gas_info.gas_used);
-        const params = getDelegationParams(validatorAddress, amount ?? 0, fee);
-        const msg = createTxMsgDelegate(haqqChain, sender, fee, memo, params);
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
@@ -167,10 +136,8 @@ export function useStakingActions() {
       getSender,
       haqqAddress,
       haqqChain,
-      getFee,
       getDelegationParams,
       signTransaction,
-      simulateTransaction,
       broadcastTransaction,
     ],
   );
@@ -183,27 +150,18 @@ export function useStakingActions() {
       const memo = 'Undelegate';
 
       if (sender && validatorAddress && haqqChain) {
-        // Simulate
-        const simFee = getFee();
-        const simParams = getDelegationParams(
+        const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
-          simFee,
+          DEFAULT_FEE,
         );
-        const simMsg = createTxMsgUndelegate(
+        const msg = createTxMsgUndelegate(
           haqqChain,
           sender,
-          simFee,
+          DEFAULT_FEE,
           memo,
-          simParams,
+          params,
         );
-        const simTx = await signTransaction(simMsg, sender);
-        const simulateTxResponse = await simulateTransaction(simTx);
-
-        // Broadcast real transaction
-        const fee = getFee(simulateTxResponse.gas_info.gas_used);
-        const params = getDelegationParams(validatorAddress, amount ?? 0, fee);
-        const msg = createTxMsgUndelegate(haqqChain, sender, fee, memo, params);
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -218,10 +176,8 @@ export function useStakingActions() {
       getSender,
       haqqAddress,
       haqqChain,
-      getFee,
       getDelegationParams,
       signTransaction,
-      simulateTransaction,
       broadcastTransaction,
     ],
   );
@@ -234,30 +190,13 @@ export function useStakingActions() {
       const memo = 'Claim all rewards';
 
       if (sender && haqqChain) {
-        // Simulate
-        const simFee = getFee();
-        const simParams = {
-          validatorAddresses,
-        };
-        const simMsg = createTxMsgMultipleWithdrawDelegatorReward(
-          haqqChain,
-          sender,
-          simFee,
-          memo,
-          simParams,
-        );
-        const simTx = await signTransaction(simMsg, sender);
-        const simulateTxResponse = await simulateTransaction(simTx);
-
-        // Broadcast real transaction
-        const fee = getFee(simulateTxResponse.gas_info.gas_used);
         const params = {
           validatorAddresses,
         };
         const msg = createTxMsgMultipleWithdrawDelegatorReward(
           haqqChain,
           sender,
-          fee,
+          DEFAULT_FEE,
           memo,
           params,
         );
@@ -272,13 +211,11 @@ export function useStakingActions() {
     [
       broadcastTransaction,
       ethAddress,
-      getFee,
       haqqChain,
       getPubkey,
       getSender,
       haqqAddress,
       signTransaction,
-      simulateTransaction,
     ],
   );
 
@@ -290,30 +227,13 @@ export function useStakingActions() {
       const memo = 'Claim reward';
 
       if (sender && haqqChain) {
-        // Simulate
-        const simFee = getFee();
-        const simParams = {
-          validatorAddress,
-        };
-        const simMsg = createTxMsgWithdrawDelegatorReward(
-          haqqChain,
-          sender,
-          simFee,
-          memo,
-          simParams,
-        );
-        const simTx = await signTransaction(simMsg, sender);
-        const simulateTxResponse = await simulateTransaction(simTx);
-
-        // Broadcast real transaction
-        const fee = getFee(simulateTxResponse.gas_info.gas_used);
         const params = {
           validatorAddress,
         };
         const msg = createTxMsgWithdrawDelegatorReward(
           haqqChain,
           sender,
-          fee,
+          DEFAULT_FEE,
           memo,
           params,
         );
@@ -328,13 +248,11 @@ export function useStakingActions() {
     [
       broadcastTransaction,
       ethAddress,
-      getFee,
       haqqChain,
       getPubkey,
       getSender,
       haqqAddress,
       signTransaction,
-      simulateTransaction,
     ],
   );
 

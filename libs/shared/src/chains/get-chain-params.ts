@@ -1,3 +1,5 @@
+import type { Fee } from '@evmos/transactions';
+
 import { chains } from './chains';
 
 export function getChainParams(chainId: number) {
@@ -10,3 +12,9 @@ export function getChainParams(chainId: number) {
 
   return currentChain;
 }
+
+export const DEFAULT_FEE: Fee = {
+  amount: '4444',
+  gas: '444444',
+  denom: 'aISLM',
+};
