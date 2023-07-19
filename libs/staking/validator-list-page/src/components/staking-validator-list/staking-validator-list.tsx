@@ -1,4 +1,10 @@
-import { PropsWithChildren, ReactNode, useMemo, useState } from 'react';
+import {
+  Fragment,
+  PropsWithChildren,
+  ReactNode,
+  useMemo,
+  useState,
+} from 'react';
 import {
   useAddress,
   useStakingValidatorListQuery,
@@ -58,7 +64,8 @@ export function StakingValidatorList() {
     query: `(max-width: 639px)`,
   });
   const navigate = useNavigate();
-  const [isInactiveValidatorsVisible, setInactiveValidatorsVisible] = useState(false)
+  const [isInactiveValidatorsVisible, setInactiveValidatorsVisible] =
+    useState(false);
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -104,7 +111,7 @@ export function StakingValidatorList() {
   }, [sortedValidators, valWithDelegationAddr]);
 
   return (
-    <div>
+    <Fragment>
       {status === 'loading' && (
         <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
           <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
@@ -116,54 +123,51 @@ export function StakingValidatorList() {
         </div>
       )}
       {status === 'error' && <p>Error: {error.message}</p>}
-      {status === 'success' && (
-        <div>
-          {isMobile ? (
-            <ValidatorsListMobileTabs
-              delegatedValidators={delegatedValidators}
-              otherValidators={otherValidators}
-              delegationInfo={delegationInfo}
-              rewardsInfo={rewardsInfo}
-            />
-          ) : (
-            <div className="flex flex-col gap-[24px]">
-              {delegatedValidators.length !== 0 && (
-                <div>
+      {status === 'success' &&
+        (isMobile ? (
+          <ValidatorsListMobileTabs
+            delegatedValidators={delegatedValidators}
+            otherValidators={otherValidators}
+            delegationInfo={delegationInfo}
+            rewardsInfo={rewardsInfo}
+          />
+        ) : (
+          <Fragment>
+            {delegatedValidators.length !== 0 && (
+              <div>
+                <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
+                  My delegations
+                </div>
+                <ValidatorsList
+                  validators={delegatedValidators}
+                  delegationInfo={delegationInfo}
+                  rewardsInfo={rewardsInfo}
+                  onValidatorClick={(validatorAddress: string) => {
+                    navigate(`validator/${validatorAddress}`);
+                  }}
+                />
+              </div>
+            )}
+            {otherValidators.length !== 0 && (
+              <div>
+                {delegatedValidators.length !== 0 && (
                   <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
-                    My delegations
+                    Other validators
                   </div>
-                  <ValidatorsList
-                    validators={delegatedValidators}
-                    delegationInfo={delegationInfo}
-                    rewardsInfo={rewardsInfo}
-                    onValidatorClick={(validatorAddress: string) => {
-                      navigate(`validator/${validatorAddress}`);
-                    }}
-                  />
-                </div>
-              )}
-              {otherValidators.length !== 0 && (
-                <div>
-                  {delegatedValidators.length !== 0 && (
-                    <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
-                      Other validators
-                    </div>
-                  )}
-                  <ValidatorsList
-                    validators={otherValidators}
-                    delegationInfo={delegationInfo}
-                    rewardsInfo={rewardsInfo}
-                    onValidatorClick={(validatorAddress: string) => {
-                      navigate(`validator/${validatorAddress}`);
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+                )}
+                <ValidatorsList
+                  validators={otherValidators}
+                  delegationInfo={delegationInfo}
+                  rewardsInfo={rewardsInfo}
+                  onValidatorClick={(validatorAddress: string) => {
+                    navigate(`validator/${validatorAddress}`);
+                  }}
+                />
+              </div>
+            )}
+          </Fragment>
+        ))}
+    </Fragment>
   );
 }
 

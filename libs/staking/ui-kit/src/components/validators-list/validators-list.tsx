@@ -270,6 +270,7 @@ export function ValidatorsList({
     },
     [sortStates.key, totalStaked, getDelegationInfo, getValidatorRewards],
   );
+
   const handleSortClick = useCallback((key: string) => {
     setSortStates((prev) => {
       let newDirection: SortDirection;
