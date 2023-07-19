@@ -585,6 +585,7 @@ export function ValidatorInfo({
     </Fragment>
   );
 }
+
 export function ValidatorBlockDesktop({
   validatorInfo,
   delegation,
