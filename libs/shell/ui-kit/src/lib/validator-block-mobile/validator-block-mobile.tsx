@@ -78,7 +78,7 @@ export function ValidatorBlockMobile({
         <div className="flex flex-col items-start gap-y-[24px] md:gap-y-[12px]">
           <div className="flex flex-row items-center">
             <ValidatorIcon />
-            <Heading level={3} className="ml-[8px]">
+            <Heading level={3} className="mb-[-2px] ml-[8px]">
               Validator
             </Heading>
           </div>
@@ -154,7 +154,7 @@ export function ValidatorBlockMobile({
         <div className="flex flex-col items-start gap-[24px]">
           <div className="flex flex-row items-center">
             <ValidatorIcon />
-            <Heading level={3} className="ml-[8px]">
+            <Heading level={3} className="mb-[-2px] ml-[8px]">
               Validator
             </Heading>
           </div>

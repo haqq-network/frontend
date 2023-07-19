@@ -34,7 +34,7 @@ export function ProposalListBlock() {
     <Container>
       <div className="mb-[24px] flex flex-row items-center">
         <ProposalsIcon />
-        <Heading level={3} className="ml-[8px]">
+        <Heading level={3} className="mb-[-2px] ml-[8px]">
           Latest proposals
         </Heading>
         <Link to="/governance" className="leading-[0]">
