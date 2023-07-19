@@ -446,7 +446,7 @@ export function ValidatorInfo({
   }, [hash]);
 
   const handleModalClose = useCallback(() => {
-    navigate('');
+    navigate('', { replace: true });
     invalidateQueries([['rewards'], ['delegation'], ['unboundings']]);
   }, [invalidateQueries, navigate]);
 
