@@ -1,14 +1,39 @@
-import type { Meta } from '@storybook/react';
-import { Button } from './button';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button as ButtonComponent } from './button';
 
-const Story: Meta<typeof Button> = {
-  component: Button,
+const meta: Meta<typeof ButtonComponent> = {
+  component: ButtonComponent,
   title: 'islamic-website/ui-kit/Button',
+  parameters: {
+    layout: 'centered',
+  },
 };
-export default Story;
 
-export const Primary = {
+export default meta;
+type Story = StoryObj<typeof ButtonComponent>;
+
+export const Default: Story = {
   args: {
     children: 'Button',
+    isLoading: false,
+    disabled: false,
+  },
+};
+
+export const Transparent: Story = {
+  args: {
+    children: 'Button',
+    variant: 'transparent',
+    isLoading: false,
+    disabled: false,
+  },
+};
+
+export const Gradient: Story = {
+  args: {
+    children: 'Button',
+    variant: 'gradient',
+    isLoading: false,
+    disabled: false,
   },
 };
