@@ -594,7 +594,7 @@ export function ProposalDetailsComponent({
             onConnectWalletClick={openSelectWallet}
             isDepositAvailable={isDepositAvailable}
             onDepositWalletClick={() => {
-              navigate(`#deposit`);
+              navigate(`#deposit`, { replace: true });
             }}
           />
           {/* <ProposalDepositModal
