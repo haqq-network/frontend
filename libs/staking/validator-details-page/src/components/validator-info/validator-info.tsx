@@ -639,7 +639,7 @@ export function ValidatorBlockDesktop({
               disabled={balance < 1}
               className="w-full"
               onClick={() => {
-                navigate(`#delegate`, { replace: true });
+                navigate('#delegate', { replace: true });
               }}
             >
               Delegate
@@ -651,7 +651,7 @@ export function ValidatorBlockDesktop({
               className="w-full"
               disabled={delegation === 0}
               onClick={() => {
-                navigate(`#undelegate`, { replace: true });
+                navigate('#undelegate', { replace: true });
               }}
             >
               Undelegate
@@ -701,10 +701,10 @@ function ValidatorBlockMobile({
     <ValidatorBlockMobileComponent
       onGetRewardClick={onGetRewardsClick}
       onDelegateClick={() => {
-        navigate(`#delegate`, { replace: true });
+        navigate('#delegate', { replace: true });
       }}
       onUndelegateClick={() => {
-        navigate(`#undelegate`, { replace: true });
+        navigate('#undelegate', { replace: true });
       }}
       isDelegateDisabled={balance < 1}
       isUndelegateDisabled={delegation === 0}
