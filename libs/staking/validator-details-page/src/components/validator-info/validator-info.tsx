@@ -1,13 +1,6 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAccount, useBalance, useNetwork } from 'wagmi';
-import {
-  Link,
-  NavigateFunction,
-  RelativeRoutingType,
-  To,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   useAddress,
   useStakingValidatorInfoQuery,
