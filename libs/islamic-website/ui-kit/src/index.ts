@@ -1,1 +1,1 @@
-export * from './lib/islamic-website-ui-kit';
+export * from './lib/button/button';

@@ -11,6 +11,7 @@ module.exports = {
     join(__dirname, '../../libs/shell/**/*!(*.spec).{ts,tsx,html}'),
     join(__dirname, '../../libs/staking/**/*!(*.spec).{ts,tsx,html}'),
     join(__dirname, '../../libs/governance/**/*!(*.spec).{ts,tsx,html}'),
+    join(__dirname, '../../libs/islamic-website/**/*!(*.spec).{ts,tsx,html}'),
   ],
   darkMode: 'class',
   theme: {
