@@ -1,6 +1,7 @@
 import {
   useAuthAccountsQuery,
   useBankSupplyQuery,
+  useStakingParamsQuery,
   useStakingPoolQuery,
   useStakingValidatorListQuery,
   useSupportedChains,
@@ -17,6 +18,7 @@ export function StatisticsBlock() {
   const { data: validators } = useStakingValidatorListQuery();
   const { data: accounts } = useAuthAccountsQuery();
   const { data: bankSupply } = useBankSupplyQuery();
+  const { data: stakingParams } = useStakingParamsQuery();
   const { chain } = useNetwork();
   const chains = useSupportedChains();
   const symbol =
@@ -85,7 +87,9 @@ export function StatisticsBlock() {
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
           <div>
             {valsActive}
-            <span className="text-white/50">&nbsp;out of {valsTotal}</span>
+            <span className="text-white/50">
+              &nbsp;out of {stakingParams?.max_validators}
+            </span>
           </div>
         </div>
       </div>
