@@ -14,11 +14,10 @@
   box-sizing: border-box;
   border: var(--checkbox-border-width) solid var(--haqq-border);
   outline: none;
-  margin-right: 8px;
 }
 
 .checkboxTick {
-  color: var(--haqq-black);
+  @apply text-haqq-black;
   stroke-dasharray: 20;
   stroke-dashoffset: 20;
   transition: stroke-dashoffset 300ms ease;
@@ -32,7 +31,7 @@
 
     & .checkboxTick {
       stroke-dashoffset: 0;
-      color: var(--haqq-black);
+      @apply text-haqq-black;
     }
   }
 
@@ -45,7 +44,7 @@
 
     & .checkboxTick {
       stroke-dashoffset: 0;
-      color: var(--haqq-black);
+      @apply text-haqq-black;
     }
   }
 
@@ -54,7 +53,7 @@
 
     & .checkboxTick {
       stroke-dashoffset: 0;
-      color: var(--haqq-black);
+      @apply text-haqq-black;
     }
   }
 

@@ -29,13 +29,7 @@ export function Checkbox({
   );
 
   return (
-    <div
-      className={clsx(
-        styles['checkboxContainer'],
-        'text-[14px] font-[500] leading-[20px] text-white',
-        className,
-      )}
-    >
+    <div className={clsx(styles['checkboxContainer'], className)}>
       <label
         htmlFor={id}
         className={clsx(
@@ -66,7 +60,12 @@ export function Checkbox({
             className={styles['checkboxTick']}
           />
         </svg>
-        {children}
+
+        {children && (
+          <span className="ml-[8px] text-[14px] font-[500] leading-[20px] text-white">
+            {children}
+          </span>
+        )}
       </label>
     </div>
   );
