@@ -42,7 +42,7 @@ export function MyAccountBlockMobile({
     <Container className="py-[24px] md:py-[40px]">
       <div className="flex items-center">
         <WalletIcon />
-        <Heading level={3} className="ml-[8px]">
+        <Heading level={3} className="mb-[-2px] ml-[8px]">
           My account
         </Heading>
       </div>

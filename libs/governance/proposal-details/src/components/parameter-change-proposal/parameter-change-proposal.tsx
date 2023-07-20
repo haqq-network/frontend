@@ -25,7 +25,7 @@ export function ParameterChangeProposalDetails({
           />
         </svg>
 
-        <Heading level={3} className="ml-[8px]">
+        <Heading level={3} className="mb-[-2px] ml-[8px]">
           Parameter changes
         </Heading>
       </div>

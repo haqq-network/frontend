@@ -138,12 +138,12 @@ export function ValidatorsListMobile({
   );
 }
 
-function SortDirection({ direction }: { direction: SortDirection }) {
+function SortDirectionArrow({ direction }: { direction: SortDirection }) {
   if (!direction) {
     return null;
   }
 
-  return direction === 'asc' ? <span> ▼</span> : <span> ▲</span>;
+  return <span> {direction === 'asc' ? '▼' : '▲'}</span>;
 }
 
 export function ValidatorsList({
@@ -270,6 +270,7 @@ export function ValidatorsList({
     },
     [sortStates.key, totalStaked, getDelegationInfo, getValidatorRewards],
   );
+
   const handleSortClick = useCallback((key: string) => {
     setSortStates((prev) => {
       let newDirection: SortDirection;
@@ -312,7 +313,7 @@ export function ValidatorsList({
   }, [getSortedValidators, sortStates, vals]);
 
   return (
-    <table className="w-full table-auto lg:table-fixed">
+    <table className="w-full table-auto md:table-fixed">
       <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
         <tr>
           <th
@@ -328,13 +329,13 @@ export function ValidatorsList({
           >
             Name
             {sortStates.key === 'name' && (
-              <SortDirection direction={sortStates.direction} />
+              <SortDirectionArrow direction={sortStates.direction} />
             )}
           </th>
           <th className="cursor-pointer select-none p-[8px] text-left lg:p-[12px]">
             Status
             {sortStates.key === 'status' && (
-              <SortDirection direction={sortStates.direction} />
+              <SortDirectionArrow direction={sortStates.direction} />
             )}
           </th>
           <th
@@ -350,7 +351,7 @@ export function ValidatorsList({
           >
             Fee
             {sortStates.key === 'fee' && (
-              <SortDirection direction={sortStates.direction} />
+              <SortDirectionArrow direction={sortStates.direction} />
             )}
           </th>
           <th
@@ -366,7 +367,7 @@ export function ValidatorsList({
           >
             Voting power
             {sortStates.key === 'votingPower' && (
-              <SortDirection direction={sortStates.direction} />
+              <SortDirectionArrow direction={sortStates.direction} />
             )}
           </th>
           <th
@@ -382,7 +383,7 @@ export function ValidatorsList({
           >
             Voting power %
             {sortStates.key === 'votingPowerPercent' && (
-              <SortDirection direction={sortStates.direction} />
+              <SortDirectionArrow direction={sortStates.direction} />
             )}
           </th>
           <th
@@ -398,7 +399,7 @@ export function ValidatorsList({
           >
             Staked
             {sortStates.key === 'staked' && (
-              <SortDirection direction={sortStates.direction} />
+              <SortDirectionArrow direction={sortStates.direction} />
             )}
           </th>
           <th
@@ -414,7 +415,7 @@ export function ValidatorsList({
           >
             Reward
             {sortStates.key === 'reward' && (
-              <SortDirection direction={sortStates.direction} />
+              <SortDirectionArrow direction={sortStates.direction} />
             )}
           </th>
         </tr>
