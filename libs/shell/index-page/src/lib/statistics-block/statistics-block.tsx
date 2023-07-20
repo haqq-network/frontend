@@ -41,10 +41,10 @@ export function StatisticsBlock() {
       return bondStatusFromJSON(val.status) === BondStatus.BOND_STATUS_BONDED;
     });
     return {
-      valsTotal: validators?.length ?? 0,
+      valsTotal: stakingParams?.max_validators ?? 0,
       valsActive: activeVals?.length ?? 0,
     };
-  }, [validators]);
+  }, [stakingParams?.max_validators, validators]);
 
   return (
     <div className="flex flex-col gap-y-[10px] lg:flex-row lg:flex-wrap lg:gap-x-[24px]">
@@ -88,7 +88,7 @@ export function StatisticsBlock() {
           <div>
             {valsActive}
             <span className="text-white/50">
-              &nbsp;out of {stakingParams?.max_validators}
+              &nbsp;out of {valsTotal}
             </span>
           </div>
         </div>
