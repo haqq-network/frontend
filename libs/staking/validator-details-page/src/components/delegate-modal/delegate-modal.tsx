@@ -18,6 +18,7 @@ export interface DelegateModalProps {
   delegation: number;
   onClose: () => void;
   unboundingTime: number;
+  validatorCommission: string;
 }
 
 export function DelegateModalDetails({
@@ -98,6 +99,7 @@ export function DelegateModal({
   delegation,
   balance,
   unboundingTime,
+  validatorCommission,
 }: DelegateModalProps) {
   const { delegate } = useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
@@ -190,7 +192,10 @@ export function DelegateModal({
                   title="My delegation"
                   value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
                 />
-                <DelegateModalDetails title="Comission" value={`10%`} />
+                <DelegateModalDetails
+                  title="Comission"
+                  value={`${validatorCommission}%`}
+                />
               </div>
             </div>
             <div className="pt-[24px]">
