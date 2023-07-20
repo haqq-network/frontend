@@ -87,9 +87,7 @@ export function StatisticsBlock() {
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
           <div>
             {valsActive}
-            <span className="text-white/50">
-              &nbsp;out of {valsTotal}
-            </span>
+            <span className="text-white/50">&nbsp;out of {valsTotal}</span>
           </div>
         </div>
       </div>
