@@ -555,8 +555,6 @@ export function ValidatorInfo({
     );
   }
 
-  console.log({ validatorCommission });
-
   return (
     <Fragment>
       <ValidatorInfoComponent
