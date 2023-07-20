@@ -17,9 +17,9 @@ export function Button({
 }: PropsWithChildren<ButtonProps>) {
   const classNames = clsx(
     'px-[32px] py-[12px] rounded-[8px] min-w-[160px] h-[48px]',
-    'justify-center flex items-center gap-x-[8px]',
+    'flex justify-center items-center gap-x-[8px]',
     'text-center uppercase text-[16px] leading-[1.5em] font-[400]',
-    'transition-colors duration-300 ease-in',
+    'transition-colors duration-150 ease-in',
 
     variant === 'default' && !disabled && !isLoading
       ? 'bg-[#18FFAC] hover:bg-[#99FFDA]'
@@ -35,12 +35,12 @@ export function Button({
       'hover:text-[#18FFAC] hover:border-[#18FFAC]',
 
     variant === 'gradient' &&
-      'border border-[#8A8A8A] bg-gradient-to-r from-[#B4E4FF] to-[#84FFD3] duration-300 transition-[filter]',
+      'border border-[#8A8A8A] bg-gradient-to-r from-[#B4E4FF] to-[#84FFD3] duration-300 transition-all',
 
     variant === 'gradient' &&
       !disabled &&
       !isLoading &&
-      'hover:hue-rotate-[-30deg]',
+      'hover:from-[#D1EDFD] hover:to-[#29FFB3]',
 
     isLoading && 'cursor-not-allowed',
     isLoading && variant === 'transparent' && 'opacity-none',
@@ -48,7 +48,7 @@ export function Button({
   );
 
   return (
-    <button onClick={onClick} className={clsx(classNames, className, '')}>
+    <button onClick={onClick} className={clsx(classNames, className)}>
       {!isLoading ? (
         <Fragment>
           {children}
