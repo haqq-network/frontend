@@ -13,7 +13,11 @@ import {
   useCosmosProvider,
 } from '@haqq/shared';
 import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
-import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
+import {
+  randomSort,
+  sortValidatorsByToken,
+  splitValidators,
+} from '@haqq/staking/utils';
 import {
   Validator,
   DelegationResponse,
@@ -194,14 +198,20 @@ function ValidatorsListMobileTabs({
   rewardsInfo: DistributionRewardsResponse | null | undefined;
   delegationInfo: GetDelegationsResponse | null | undefined;
 }) {
-  const [tab, setTab] = useState('my-delegations');
+  const [tab, setTab] = useState<'my-delegations' | 'other-validators'>(
+    'my-delegations',
+  );
   const navigate = useNavigate();
+
+  const shuffledValidators = useMemo(() => {
+    return randomSort(otherValidators);
+  }, [otherValidators]);
 
   if (delegatedValidators.length === 0) {
     return (
       <div className="border-top border-haqq-border flex flex-col gap-[24px]">
         <ValidatorsListMobile
-          validators={otherValidators}
+          validators={shuffledValidators}
           delegationInfo={delegationInfo}
           rewardsInfo={rewardsInfo}
           onValidatorClick={(validatorAddress: string) => {
@@ -235,7 +245,7 @@ function ValidatorsListMobileTabs({
       <div className="border-top border-haqq-border flex flex-col gap-[24px]">
         <ValidatorsListMobile
           validators={
-            tab === 'my-delegations' ? delegatedValidators : otherValidators
+            tab === 'my-delegations' ? delegatedValidators : shuffledValidators
           }
           delegationInfo={delegationInfo}
           rewardsInfo={rewardsInfo}
