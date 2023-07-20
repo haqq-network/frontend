@@ -103,7 +103,7 @@ function CommissionCard({ commission }: CommissionCardProps) {
     <div>
       <div className="mb-[16px] flex flex-row items-center">
         <PercentIcon />
-        <Heading level={3} className="ml-[8px]">
+        <Heading level={3} className="mb-[-2px] ml-[8px]">
           Commission
         </Heading>
       </div>
@@ -206,7 +206,7 @@ export function ValidatorInfoComponent({
               <div className="py-[40px]">
                 <div className="mb-[16px] flex flex-row items-center">
                   <InfoIcon />
-                  <Heading level={3} className="ml-[8px]">
+                  <Heading level={3} className="mb-[-2px] ml-[8px]">
                     Info
                   </Heading>
                 </div>
@@ -439,7 +439,7 @@ export function ValidatorInfo({
   }, [hash]);
 
   const handleModalClose = useCallback(() => {
-    navigate('');
+    navigate('', { replace: true });
     invalidateQueries([['rewards'], ['delegation'], ['unboundings']]);
   }, [invalidateQueries, navigate]);
 
@@ -609,7 +609,7 @@ export function ValidatorBlockDesktop({
     <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[28px] py-[32px]">
       <div className="flex flex-row items-center">
         <ValidatorIcon />
-        <Heading level={3} className="ml-[8px]">
+        <Heading level={3} className="mb-[-2px] ml-[8px]">
           Validator
         </Heading>
       </div>
@@ -639,7 +639,7 @@ export function ValidatorBlockDesktop({
               disabled={balance < 1}
               className="w-full"
               onClick={() => {
-                navigate(`#delegate`);
+                navigate('#delegate', { replace: true });
               }}
             >
               Delegate
@@ -651,7 +651,7 @@ export function ValidatorBlockDesktop({
               className="w-full"
               disabled={delegation === 0}
               onClick={() => {
-                navigate(`#undelegate`);
+                navigate('#undelegate', { replace: true });
               }}
             >
               Undelegate
@@ -701,10 +701,10 @@ function ValidatorBlockMobile({
     <ValidatorBlockMobileComponent
       onGetRewardClick={onGetRewardsClick}
       onDelegateClick={() => {
-        navigate(`#delegate`);
+        navigate('#delegate', { replace: true });
       }}
       onUndelegateClick={() => {
-        navigate(`#undelegate`);
+        navigate('#undelegate', { replace: true });
       }}
       isDelegateDisabled={balance < 1}
       isUndelegateDisabled={delegation === 0}

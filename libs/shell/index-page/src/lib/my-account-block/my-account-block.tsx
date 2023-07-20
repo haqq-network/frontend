@@ -159,7 +159,7 @@ export function MyAccountBlock() {
               fill="currentColor"
             />
           </svg>
-          <Heading level={3} className="ml-[8px]">
+          <Heading level={3} className="mb-[-2px] ml-[8px]">
             My account
           </Heading>
           <Link to="/staking" className="leading-[0]">

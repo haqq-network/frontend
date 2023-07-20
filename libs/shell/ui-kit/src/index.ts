@@ -34,3 +34,4 @@ export * from './lib/tooltip/tooltip';
 export * from './lib/unsupported-browser-modal/unsupported-browser-modal';
 export * from './lib/select-wallet-modal/select-wallet-modal';
 export * from './lib/select-chain-button/select-chain-button';
+export * from './lib/checkbox/checkbox';

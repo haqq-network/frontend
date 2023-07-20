@@ -325,7 +325,7 @@ export function ProposalDetailsComponent({
               <div className="py-[24px] md:py-[40px]">
                 <div className="mb-[16px] flex flex-row items-center">
                   <InfoIcon />
-                  <Heading level={3} className="ml-[8px]">
+                  <Heading level={3} className="mb-[-2px] ml-[8px]">
                     Info
                   </Heading>
                 </div>
@@ -594,7 +594,7 @@ export function ProposalDetailsComponent({
             onConnectWalletClick={openSelectWallet}
             isDepositAvailable={isDepositAvailable}
             onDepositWalletClick={() => {
-              navigate(`#deposit`);
+              navigate('#deposit', { replace: true });
             }}
           />
           {/* <ProposalDepositModal

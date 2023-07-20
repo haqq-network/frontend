@@ -12,27 +12,19 @@ import type {
   TxGenerated,
 } from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
-import { getChainParams } from '../../chains/get-chain-params';
+import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import Decimal from 'decimal.js-light';
 import { useNetwork, useWalletClient } from 'wagmi';
-
-const FEE: Fee = {
-  amount: '5000',
-  gas: '600000',
-  denom: 'aISLM',
-};
 
 interface ProposalActionsHook {
   vote: (proposalId: number, option: number) => Promise<string>;
   deposit: (proposalId: number, amount: number) => Promise<string>;
 }
 
-const WEI = 10 ** 18;
-
 function getAmountAndDenom(amount: number, fee?: Fee) {
-  let decAmount = new Decimal(amount).mul(WEI);
+  let decAmount = new Decimal(amount).mul(10 ** 18);
 
   if (fee) {
     decAmount = decAmount.sub(new Decimal(fee.amount));
@@ -47,12 +39,8 @@ function getAmountAndDenom(amount: number, fee?: Fee) {
 export function useProposalActions(): ProposalActionsHook {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
-  const {
-    broadcastTransaction,
-    simulateTransaction,
-    getAccountInfo,
-    getPubkey,
-  } = useCosmosService();
+  const { broadcastTransaction, getAccountInfo, getPubkey } =
+    useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
 
   const haqqChain = useMemo(() => {
@@ -82,16 +70,6 @@ export function useProposalActions(): ProposalActionsHook {
     },
     [getAccountInfo],
   );
-
-  const getFee = useCallback((gasUsed?: string) => {
-    return gasUsed && gasUsed !== ''
-      ? {
-          amount: `${(Number.parseInt(gasUsed, 10) * 0.007 * 1.1).toFixed()}`,
-          gas: gasUsed,
-          denom: 'aISLM',
-        }
-      : FEE;
-  }, []);
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
@@ -127,26 +105,18 @@ export function useProposalActions(): ProposalActionsHook {
       const memo = `Vote for proposal #${proposalId}`;
 
       if (sender && haqqChain) {
-        // Simulate
-        const simFee = getFee();
         const voteParams = {
           proposalId,
           option,
         };
 
-        const simMsg = createTxMsgVote(
+        const msg = createTxMsgVote(
           haqqChain,
           sender,
-          simFee,
+          DEFAULT_FEE,
           memo,
           voteParams,
         );
-        const simTx = await signTransaction(simMsg, sender);
-        const simulateTxResponse = await simulateTransaction(simTx);
-
-        // Broadcast real transaction
-        const fee = getFee(simulateTxResponse.gas_info.gas_used);
-        const msg = createTxMsgVote(haqqChain, sender, fee, memo, voteParams);
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
@@ -162,9 +132,7 @@ export function useProposalActions(): ProposalActionsHook {
       getSender,
       haqqAddress,
       haqqChain,
-      getFee,
       signTransaction,
-      simulateTransaction,
       broadcastTransaction,
     ],
   );
@@ -177,33 +145,14 @@ export function useProposalActions(): ProposalActionsHook {
       const memo = `Deposit to proposal #${proposalId}`;
 
       if (sender && haqqChain) {
-        // Simulate
-        const simFee = getFee();
-        const simDepositParams: MessageMsgDepositParams = {
-          proposalId,
-          deposit: getAmountAndDenom(amount, simFee),
-        };
-
-        const simMsg = createTxMsgDeposit(
-          haqqChain,
-          sender,
-          simFee,
-          memo,
-          simDepositParams,
-        );
-        const simTx = await signTransaction(simMsg, sender);
-        const simulateTxResponse = await simulateTransaction(simTx);
-
-        // Broadcast real transaction
-        const fee = getFee(simulateTxResponse.gas_info.gas_used);
         const depositParams: MessageMsgDepositParams = {
           proposalId,
-          deposit: getAmountAndDenom(amount, fee),
+          deposit: getAmountAndDenom(amount, DEFAULT_FEE),
         };
         const msg = createTxMsgDeposit(
           haqqChain,
           sender,
-          fee,
+          DEFAULT_FEE,
           memo,
           depositParams,
         );
@@ -219,13 +168,11 @@ export function useProposalActions(): ProposalActionsHook {
     [
       broadcastTransaction,
       ethAddress,
-      getFee,
       haqqChain,
       getPubkey,
       getSender,
       haqqAddress,
       signTransaction,
-      simulateTransaction,
     ],
   );
 

@@ -76,7 +76,7 @@ export function DelegationsBlock() {
     <Container>
       <div className="mb-[24px] flex flex-row items-center">
         <ListIcon />
-        <Heading level={3} className="ml-[8px]">
+        <Heading level={3} className="mb-[-2px] ml-[8px]">
           My delegations
         </Heading>
       </div>

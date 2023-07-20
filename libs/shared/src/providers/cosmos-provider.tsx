@@ -27,6 +27,7 @@ import { hashMessage } from '@ethersproject/hash';
 import { getChainParams } from '../chains/get-chain-params';
 import { useSupportedChains } from './wagmi-provider';
 import { Hex } from 'viem';
+import { ethToHaqq } from '../utils/convert-address';
 
 export interface CosmosService {
   getValidators: (limit?: number) => Promise<Validator[]>;
@@ -254,7 +255,7 @@ function createCosmosService(
 ): CosmosService {
   async function getValidators(limit = 1000) {
     const getValidatorsUrl = new URL(
-      `${cosmosRestEndpoint}/${generateEndpointGetValidators()}`,
+      `${cosmosRestEndpoint}${generateEndpointGetValidators()}`,
     );
 
     getValidatorsUrl.searchParams.append('pagination.limit', limit.toString());
@@ -269,7 +270,7 @@ function createCosmosService(
 
   async function getValidatorInfo(address: string) {
     const response = await axios.get<{ validator: Validator }>(
-      `${cosmosRestEndpoint}/${generateEndpointValidatorInfo(address)}`,
+      `${cosmosRestEndpoint}${generateEndpointValidatorInfo(address)}`,
     );
     console.log('getValidatorInfo', { response });
 
@@ -278,7 +279,7 @@ function createCosmosService(
 
   async function getStakingParams() {
     const response = await axios.get<{ params: StakingParams }>(
-      `${cosmosRestEndpoint}/${generateEndpointStakingParams()}`,
+      `${cosmosRestEndpoint}${generateEndpointStakingParams()}`,
     );
     console.log('getStakingParams', { response });
 
@@ -287,7 +288,7 @@ function createCosmosService(
 
   async function getStakingPool() {
     const response = await axios.get<{ pool: StakingPool }>(
-      `${cosmosRestEndpoint}/${generateEndpointStakingPool()}`,
+      `${cosmosRestEndpoint}${generateEndpointStakingPool()}`,
     );
     console.log('getStakingPool', { response });
 
@@ -296,7 +297,7 @@ function createCosmosService(
 
   async function getRewardsInfo(haqqAddress: string) {
     const response = await axios.get<DistributionRewardsResponse>(
-      `${cosmosRestEndpoint}/${generateEndpointDistributionRewardsByAddress(
+      `${cosmosRestEndpoint}${generateEndpointDistributionRewardsByAddress(
         haqqAddress,
       )}`,
     );
@@ -307,7 +308,7 @@ function createCosmosService(
 
   async function getUndelegations(haqqAddress: string) {
     const response = await axios.get<GetUndelegationsResponse>(
-      `${cosmosRestEndpoint}/${generateEndpointGetUndelegations(haqqAddress)}`,
+      `${cosmosRestEndpoint}${generateEndpointGetUndelegations(haqqAddress)}`,
     );
     console.log('getUndelegations', { response });
 
@@ -316,7 +317,7 @@ function createCosmosService(
 
   async function getAccountInfo(haqqAddress: string) {
     const response = await axios.get<AccountResponse>(
-      `${cosmosRestEndpoint}/${generateEndpointAccount(haqqAddress)}`,
+      `${cosmosRestEndpoint}${generateEndpointAccount(haqqAddress)}`,
     );
     console.log('getAccountInfo', { response });
 
@@ -325,7 +326,7 @@ function createCosmosService(
 
   async function getAccountDelegations(haqqAddress: string) {
     const response = await axios.get<GetDelegationsResponse>(
-      `${cosmosRestEndpoint}/${generateEndpointGetDelegations(haqqAddress)}`,
+      `${cosmosRestEndpoint}${generateEndpointGetDelegations(haqqAddress)}`,
     );
     console.log('getAccountDelegations', { response });
 
@@ -334,7 +335,7 @@ function createCosmosService(
 
   async function getProposals() {
     const proposalsUrl = new URL(
-      `${cosmosRestEndpoint}/${generateEndpointProposals()}`,
+      `${cosmosRestEndpoint}${generateEndpointProposals()}`,
     );
 
     proposalsUrl.searchParams.append('pagination.reverse', 'true');
@@ -349,7 +350,7 @@ function createCosmosService(
 
   async function getProposalDetails(id: string) {
     const response = await axios.get<{ proposal: Proposal }>(
-      `${cosmosRestEndpoint}/${generateEndpointProposals()}/${id}`,
+      `${cosmosRestEndpoint}${generateEndpointProposals()}/${id}`,
     );
     console.log('getProposalDetails', { response });
 
@@ -358,7 +359,7 @@ function createCosmosService(
 
   async function getAuthAccounts() {
     const authAccountsUrl = new URL(
-      `${cosmosRestEndpoint}/${generateEndpointAuthAccounts()}`,
+      `${cosmosRestEndpoint}${generateEndpointAuthAccounts()}`,
     );
 
     authAccountsUrl.searchParams.append('pagination.limit', '0');
@@ -373,7 +374,7 @@ function createCosmosService(
 
   async function getDistributionPool() {
     const response = await axios.get<{ pool: Coin[] }>(
-      `${cosmosRestEndpoint}/${generateEndpointDistributionPool()}`,
+      `${cosmosRestEndpoint}${generateEndpointDistributionPool()}`,
     );
     console.log('getDistributionPool', { response });
 
@@ -382,7 +383,7 @@ function createCosmosService(
 
   async function getBankSupply() {
     const response = await axios.get<GetBankSupplyResponse>(
-      `${cosmosRestEndpoint}/${generateEndpointBankSupply()}`,
+      `${cosmosRestEndpoint}${generateEndpointBankSupply()}`,
     );
     console.log('getBankSupply', { response });
 
@@ -392,7 +393,7 @@ function createCosmosService(
   async function getGovernanceParams(type: GovParamsType) {
     const governanceParamsResponse =
       await axios.get<GetGovernanceParamsResponse>(
-        `${cosmosRestEndpoint}/${generateEndpointGovParams(type)}`,
+        `${cosmosRestEndpoint}${generateEndpointGovParams(type)}`,
       );
 
     return governanceParamsResponse.data;
@@ -429,6 +430,13 @@ function createCosmosService(
     }
   }
 
+  async function getPubkeyFromChain(address: string) {
+    const haqqAddress = ethToHaqq(address);
+    const account = await getAccountInfo(haqqAddress);
+
+    return account.pub_key?.key;
+  }
+
   async function getPubkey(address: string) {
     const storeKey = `pubkey_${address}`;
     const savedPubKey: string | null = store.get(storeKey);
@@ -436,9 +444,15 @@ function createCosmosService(
 
     if (!savedPubKey) {
       try {
-        const generatedPubkey = await generatePubkey(address);
-        store.set(storeKey, generatedPubkey);
-        return generatedPubkey;
+        let pubkey: string | undefined;
+        pubkey = await getPubkeyFromChain(address);
+
+        if (!pubkey) {
+          pubkey = await generatePubkey(address);
+        }
+
+        store.set(storeKey, pubkey);
+        return pubkey;
       } catch (error) {
         console.error((error as Error).message);
         throw error;

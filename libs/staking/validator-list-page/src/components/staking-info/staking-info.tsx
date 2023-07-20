@@ -151,7 +151,7 @@ export function StakingInfo() {
       <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
         <div className="flex flex-row items-center">
           <WalletIcon />
-          <Heading level={3} className="ml-[8px]">
+          <Heading level={3} className="mb-[-2px] ml-[8px]">
             My account
           </Heading>
         </div>
@@ -180,7 +180,7 @@ export function StakingInfo() {
 
                 <div className="flex-1">
                   <StakingInfoAmountBlock
-                    title="Unbounding"
+                    title="Unbonding"
                     value="---"
                     symbol={symbol}
                   />
