@@ -536,6 +536,14 @@ export function ValidatorInfo({
     claimAllRewards(delegatedValsAddrs);
   }, [claimAllRewards, delegatedValsAddrs]);
 
+  const validatorCommission = useMemo(() => {
+    return (
+      Number.parseFloat(
+        validatorInfo?.commission.commission_rates.rate ?? '0',
+      ) * 100
+    ).toFixed(0);
+  }, [validatorInfo?.commission.commission_rates.rate]);
+
   if (isFetching || !validatorInfo) {
     return (
       <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
@@ -546,6 +554,8 @@ export function ValidatorInfo({
       </div>
     );
   }
+
+  console.log({ validatorCommission });
 
   return (
     <Fragment>
@@ -571,6 +581,7 @@ export function ValidatorInfo({
         balance={balance}
         symbol={symbol}
         unboundingTime={unboundingTime}
+        validatorCommission={validatorCommission}
       />
 
       <UndelegateModal
