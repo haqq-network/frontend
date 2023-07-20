@@ -51,7 +51,11 @@ function getDelegatedValidatorsAddresses(
     .filter(Boolean);
 }
 
-export function StakingValidatorList() {
+export function StakingValidatorList({
+  isInactiveValidatorsVisible,
+}: {
+  isInactiveValidatorsVisible: boolean;
+}) {
   const { haqqAddress } = useAddress();
   const {
     data: validatorsList,
@@ -64,8 +68,6 @@ export function StakingValidatorList() {
     query: `(max-width: 639px)`,
   });
   const navigate = useNavigate();
-  const [isInactiveValidatorsVisible, setInactiveValidatorsVisible] =
-    useState(false);
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -103,12 +105,18 @@ export function StakingValidatorList() {
       if (hasDelegation) {
         delegated.push(validator);
       } else {
-        others.push(validator);
+        if (isInactiveValidatorsVisible) {
+          others.push(validator);
+        } else {
+          if (validator.status === 'BOND_STATUS_BONDED') {
+            others.push(validator);
+          }
+        }
       }
     }
 
     return [delegated, others];
-  }, [sortedValidators, valWithDelegationAddr]);
+  }, [isInactiveValidatorsVisible, sortedValidators, valWithDelegationAddr]);
 
   return (
     <Fragment>
@@ -135,8 +143,10 @@ export function StakingValidatorList() {
           <Fragment>
             {delegatedValidators.length !== 0 && (
               <div>
-                <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
-                  My delegations
+                <div className="border-haqq-border border-b border-dashed pb-[8px]">
+                  <h4 className=" font-serif text-[20px] leading-[26px] text-white/50">
+                    My delegations
+                  </h4>
                 </div>
                 <ValidatorsList
                   validators={delegatedValidators}
@@ -151,8 +161,10 @@ export function StakingValidatorList() {
             {otherValidators.length !== 0 && (
               <div>
                 {delegatedValidators.length !== 0 && (
-                  <div className="border-haqq-border border-b border-dashed pb-[8px] font-serif text-[20px] leading-[26px] text-white/50">
-                    Other validators
+                  <div className="border-haqq-border border-b border-dashed pb-[8px]">
+                    <h4 className="font-serif text-[20px] leading-[26px] text-white/50">
+                      Other validators
+                    </h4>
                   </div>
                 )}
                 <ValidatorsList
@@ -238,17 +250,33 @@ function ValidatorsListMobileTabs({
 
 export function ValidatorList() {
   const { isReady } = useCosmosProvider();
+  const [isInactiveValidatorsVisible, setInactiveValidatorsVisible] =
+    useState(false);
 
   return (
     <Container className="py-[52px] sm:py-[60px] lg:py-[80px]">
       <div className="flex flex-col gap-[32px]">
-        <div className="flex flex-row items-center">
-          <ValidatorIcon />
-          <Heading level={3} className="mb-[-2px] ml-[8px]">
-            Validators
-          </Heading>
+        <div className="flex flex-row items-center gap-[24px]">
+          <div className="flex flex-row items-center">
+            <ValidatorIcon />
+            <Heading level={3} className="mb-[-2px] ml-[8px]">
+              Validators
+            </Heading>
+          </div>
+
+          <div className="leading-[0]">
+            <Checkbox onChange={setInactiveValidatorsVisible}>
+              Show Inactive
+            </Checkbox>
+          </div>
         </div>
-        {isReady ? <StakingValidatorList /> : <ValidatorListSkeleton />}
+        {isReady ? (
+          <StakingValidatorList
+            isInactiveValidatorsVisible={isInactiveValidatorsVisible}
+          />
+        ) : (
+          <ValidatorListSkeleton />
+        )}
       </div>
     </Container>
   );
@@ -260,7 +288,6 @@ function ColumnLine({
 }: PropsWithChildren<{ columnName: ReactNode }>) {
   return (
     <div className="flex items-center justify-between px-[8px] text-[13px] leading-[36px]">
-      {/* <span className="text-white/50"></span> */}
       <div className="flex-1">{columnName}</div>
       <div className="flex-1">{children}</div>
     </div>
