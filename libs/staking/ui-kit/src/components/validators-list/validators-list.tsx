@@ -313,7 +313,7 @@ export function ValidatorsList({
   }, [getSortedValidators, sortStates, vals]);
 
   return (
-    <table className="w-full table-auto lg:table-fixed">
+    <table className="w-full table-auto md:table-fixed">
       <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
         <tr>
           <th

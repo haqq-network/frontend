@@ -53,37 +53,37 @@ export function ValidatorListItem({
 
   return (
     <tr
-      className="cursor-pointer border-t border-[#FFFFFF26] text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] lg:text-[16px] lg:leading-[26px]"
+      className="cursor-pointer border-t border-[#FFFFFF26] text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] md:text-[16px] md:leading-[26px]"
       onClick={() => {
         // console.log(`validator/${validator.operator_address}`);
         onClick(validator.operator_address);
       }}
     >
-      <td className="p-[8px] lg:p-[12px]">
+      <td className="p-[8px] md:p-[12px]">
         <div className="w-full overflow-hidden">
           <p className="overflow-ellipsis">{validator.description?.moniker}</p>
         </div>
       </td>
-      <td className="p-[8px] text-left lg:p-[12px]">
+      <td className="p-[8px] text-left md:p-[12px]">
         <ValidatorListStatus
           jailed={validator.jailed}
           status={bondStatusFromJSON(validator.status)}
-          className="!text-[11px] !leading-[18px] lg:!text-[16px] lg:!leading-[26px]"
+          className="!text-[11px] !leading-[18px] md:!text-[16px] md:!leading-[26px]"
         />
       </td>
-      <td className="max-w-[80px] p-[8px] text-left lg:p-[12px]">
+      <td className="max-w-[80px] p-[8px] text-left md:p-[12px]">
         {validatorCommission}%
       </td>
-      <td className="p-[8px] text-right lg:p-[12px]">
+      <td className="p-[8px] text-right md:p-[12px]">
         {formatNumber(votingPower)}
       </td>
-      <td className="p-[8px] text-right lg:p-[12px]">
+      <td className="p-[8px] text-right md:p-[12px]">
         {votingPowerInPercents}%
       </td>
-      <td className="p-[8px] text-right lg:p-[12px]">
+      <td className="p-[8px] text-right md:p-[12px]">
         {formatNumber(userDelegate)}
       </td>
-      <td className="p-[8px] text-right lg:p-[12px]">
+      <td className="p-[8px] text-right md:p-[12px]">
         {formatNumber(userRewards)}
       </td>
     </tr>
