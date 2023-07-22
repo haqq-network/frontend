@@ -19,13 +19,13 @@ const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   })
   .required();
 
-function submitForm(form: SubscribeFormFields): Promise<{ status: number }> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ status: 200 });
-    }, 2500);
-  });
-}
+// function submitForm(form: SubscribeFormFields): Promise<{ status: number }> {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve({ status: 200 });
+//     }, 2500);
+//   });
+// }
 
 export function SubscribeForm({
   className,
@@ -42,21 +42,45 @@ export function SubscribeForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async (data: SubscribeFormFields) => {
-    try {
-      setSubscribeFormState(FormState.pending);
-      const response = await submitForm(data);
+  const onSubmitEmail = useCallback(async (form: SubscribeFormFields) => {
+    const request = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: form.email,
+      }),
+    };
 
-      if (response.status === 200) {
-        setSubscribeFormState(FormState.success);
-      } else {
-        setSubscribeFormState(FormState.error);
-      }
+    try {
+      const response = await fetch('/api/sendgrid', request);
+      const data = await response.json();
+      return { status: response.status, data };
     } catch (error) {
       console.error(error);
-      setSubscribeFormState(FormState.error);
+      return { status: 500, data: error };
     }
   }, []);
+
+  const onSubmit = useCallback(
+    async (data: SubscribeFormFields) => {
+      try {
+        setSubscribeFormState(FormState.pending);
+        const response = await onSubmitEmail(data);
+
+        if (response?.status === 200) {
+          setSubscribeFormState(FormState.success);
+        } else {
+          setSubscribeFormState(FormState.error);
+        }
+      } catch (error) {
+        console.error(error);
+        setSubscribeFormState(FormState.error);
+      }
+    },
+    [onSubmitEmail],
+  );
 
   const isFormDisabled = useMemo(() => {
     return (
