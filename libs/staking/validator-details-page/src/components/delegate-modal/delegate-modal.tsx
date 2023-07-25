@@ -174,10 +174,10 @@ export function DelegateModal({
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
             <div className="pb-[24px]">
-              <MobileHeading className="mb-[24px] mt-[24px] sm:mt-[4px]">
+              <MobileHeading className="mt-[24px] sm:mt-[4px]">
                 Delegate
               </MobileHeading>
-              <WarningMessage light>
+              <WarningMessage light wrapperClassName="mt-[24px]">
                 {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
               </WarningMessage>
             </div>
