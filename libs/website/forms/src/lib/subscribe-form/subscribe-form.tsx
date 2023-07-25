@@ -9,6 +9,7 @@ import {
 } from '../hooked-form-input/hooked-form-input';
 import { Button } from '@haqq/website-ui-kit';
 import clsx from 'clsx';
+import axios from 'axios';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -19,13 +20,15 @@ const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   })
   .required();
 
-// function submitForm(form: SubscribeFormFields): Promise<{ status: number }> {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve({ status: 200 });
-//     }, 2500);
-//   });
-// }
+const submitForm = async (form: SubscribeFormFields) => {
+  try {
+    const response = await axios.post('/api/sendgrid', form);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};
 
 export function SubscribeForm({
   className,
@@ -42,45 +45,20 @@ export function SubscribeForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmitEmail = useCallback(async (form: SubscribeFormFields) => {
-    const request = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: form.email,
-      }),
-    };
-
+  const onSubmit = useCallback(async (data: SubscribeFormFields) => {
     try {
-      const response = await fetch('/api/sendgrid', request);
-      const data = await response.json();
-      return { status: response.status, data };
-    } catch (error) {
-      console.error(error);
-      return { status: 500, data: error };
-    }
-  }, []);
-
-  const onSubmit = useCallback(
-    async (data: SubscribeFormFields) => {
-      try {
-        setSubscribeFormState(FormState.pending);
-        const response = await onSubmitEmail(data);
-
-        if (response?.status === 200) {
-          setSubscribeFormState(FormState.success);
-        } else {
-          setSubscribeFormState(FormState.error);
-        }
-      } catch (error) {
-        console.error(error);
+      setSubscribeFormState(FormState.pending);
+      const response = await submitForm(data);
+      if (response.status === 200) {
+        setSubscribeFormState(FormState.success);
+      } else {
         setSubscribeFormState(FormState.error);
       }
-    },
-    [onSubmitEmail],
-  );
+    } catch (error) {
+      console.error(error);
+      setSubscribeFormState(FormState.error);
+    }
+  }, []);
 
   const isFormDisabled = useMemo(() => {
     return (

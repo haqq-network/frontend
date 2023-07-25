@@ -1,11 +1,11 @@
 import client from '@sendgrid/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-client.setApiKey(process.env.SENDGRID_API_KEY);
+client.setApiKey(process.env['SENDGRID_API_KEY']);
 
 async function submitEmail(req: NextApiRequest, res: NextApiResponse) {
   const data = {
-    list_ids: [process.env.SENDGRID_LIST_ID],
+    list_ids: [process.env['SENDGRID_LIST_ID']],
     contacts: [
       {
         email: req?.body?.email,
