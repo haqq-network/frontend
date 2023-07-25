@@ -20,15 +20,11 @@ const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   })
   .required();
 
-const submitForm = async (form: SubscribeFormFields) => {
-  try {
-    const response = await axios.post('/api/sendgrid', form);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
-};
+async function submitForm(
+  form: SubscribeFormFields,
+): Promise<{ status: number }> {
+  return await axios.post('/api/sendgrid', form);
+}
 
 export function SubscribeForm({
   className,
@@ -49,6 +45,7 @@ export function SubscribeForm({
     try {
       setSubscribeFormState(FormState.pending);
       const response = await submitForm(data);
+
       if (response.status === 200) {
         setSubscribeFormState(FormState.success);
       } else {
