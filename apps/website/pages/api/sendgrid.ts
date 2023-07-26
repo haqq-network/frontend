@@ -1,4 +1,5 @@
 import client from '@sendgrid/client';
+import type RequestOptions from '@sendgrid/helpers/classes/request';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 client.setApiKey(process.env['SENDGRID_API_KEY']);
@@ -13,14 +14,14 @@ async function submitEmail(req: NextApiRequest, res: NextApiResponse) {
     ],
   };
 
-  const request = {
+  const request: RequestOptions = {
     url: `/v3/marketing/contacts`,
     method: 'PUT',
     body: data,
   };
 
   try {
-    await client.request(request as any);
+    await client.request(request);
   } catch (error) {
     res.status(error.statusCode || 500).json({ error: error.message });
   }
