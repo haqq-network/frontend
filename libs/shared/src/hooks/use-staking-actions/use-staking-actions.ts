@@ -7,9 +7,11 @@ import {
   createTxRawEIP712,
   signatureToWeb3Extension,
   createTxMsgMultipleWithdrawDelegatorReward,
+  createTxMsgBeginRedelegate,
+  MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import { useCallback, useMemo } from 'react';
-import type { Fee } from '@evmos/transactions';
+import type { Fee, MsgDelegateParams } from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
 import Decimal from 'decimal.js-light';
 import { useCosmosService } from '../../providers/cosmos-provider';
@@ -92,9 +94,25 @@ export function useStakingActions() {
   );
 
   const getDelegationParams = useCallback(
-    (validatorAddress: string, amount: number, fee: Fee) => {
+    (validatorAddress: string, amount: number, fee: Fee): MsgDelegateParams => {
       return {
         validatorAddress,
+        ...getAmountAndDenom(amount, fee),
+      };
+    },
+    [],
+  );
+
+  const getRedelegationParams = useCallback(
+    (
+      validatorSourceAddress: string,
+      validatorDestinationAddress: string,
+      amount: number,
+      fee: Fee,
+    ): MsgBeginRedelegateParams => {
+      return {
+        validatorSrcAddress: validatorSourceAddress,
+        validatorDstAddress: validatorDestinationAddress,
         ...getAmountAndDenom(amount, fee),
       };
     },
@@ -256,10 +274,60 @@ export function useStakingActions() {
     ],
   );
 
+  const handleRedelegate = useCallback(
+    async (
+      validatorSourceAddress: string,
+      validatorDestinationAddress: string,
+      amount: number,
+    ) => {
+      console.log('handleRedelegate', {
+        validatorSourceAddress,
+        validatorDestinationAddress,
+      });
+      const pubkey = await getPubkey(ethAddress as string);
+      const sender = await getSender(haqqAddress as string, pubkey);
+      const memo = `Redelegate from ${validatorSourceAddress} to ${validatorDestinationAddress}`;
+
+      if (sender && haqqChain) {
+        const params = getRedelegationParams(
+          validatorSourceAddress,
+          validatorDestinationAddress,
+          amount ?? 0,
+          DEFAULT_FEE,
+        );
+        const msg = createTxMsgBeginRedelegate(
+          haqqChain,
+          sender,
+          DEFAULT_FEE,
+          memo,
+          params,
+        );
+
+        const rawTx = await signTransaction(msg, sender);
+        const txResponse = await broadcastTransaction(rawTx);
+
+        return txResponse;
+      } else {
+        throw new Error('No sender or Validator address');
+      }
+    },
+    [
+      getPubkey,
+      ethAddress,
+      getSender,
+      haqqAddress,
+      haqqChain,
+      getRedelegationParams,
+      signTransaction,
+      broadcastTransaction,
+    ],
+  );
+
   return {
     delegate: handleDelegate,
     undelegate: handleUndelegate,
     claimAllRewards: handleClaimAllRewards,
     claimReward: handleClaimReward,
+    redelegate: handleRedelegate,
   };
 }
