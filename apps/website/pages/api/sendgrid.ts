@@ -23,10 +23,10 @@ async function submitEmail(req: NextApiRequest, res: NextApiResponse) {
   try {
     await client.request(request);
   } catch (error) {
-    res.status(error.statusCode || 500).json({ error: error.message });
+    return res.status(error.statusCode || 500).json({ error: error.message });
   }
 
-  return res.status(200).json({ error: '' });
+  return res.status(200);
 }
 
 export default submitEmail;
