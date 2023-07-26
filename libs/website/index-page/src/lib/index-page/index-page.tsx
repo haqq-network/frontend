@@ -18,18 +18,24 @@ export function WebsiteIndexPage() {
           name="description"
           content="Ethics-first network that welcomes sustainability-centered developers, validators and open source contributors as well as Muslim innovators in sustainable Finance"
         />
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env['GOOGLE_TAG_ID']}`}
-        />
-        <Script id="google-analytics">
-          {`
+        {process.env['VERCEL_ENV'] === 'production' &&
+          process.env['GOOGLE_TAG_ID'] &&
+          process.env['GOOGLE_TAG_ID'] !== '' && (
+            <Fragment>
+              <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env['GOOGLE_TAG_ID']}`}
+              />
+              <Script id="google-analytics">
+                {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
- 
+          
           gtag('config', '${process.env['GOOGLE_TAG_ID']}');
-        `}
-        </Script>
+          `}
+              </Script>
+            </Fragment>
+          )}
       </Head>
       <section>
         <HeroBlock />
