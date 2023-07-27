@@ -1,4 +1,5 @@
 import { JoinCommunityBlock } from '../join-community-block/join-community-block';
+import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block';
 import { NewsBlock } from '../news-block/news-block';
 import { WhyBlock } from '../why-block/why-block';
 
@@ -64,6 +65,7 @@ export function IndexPage() {
       <WhyBlock />
       <JoinCommunityBlock />
       <NewsBlock news={mockNews} />
+      <LearnAndGrowBlock />
     </div>
   );
 }
