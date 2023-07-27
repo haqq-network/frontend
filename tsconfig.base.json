@@ -22,6 +22,9 @@
         "libs/governance/proposal-list/src/index.ts"
       ],
       "@haqq/islamic-ui-kit": ["libs/islamic-website/ui-kit/src/index.ts"],
+      "@haqq/islamic-website/index-page": [
+        "libs/islamic-website/index-page/src/index.ts"
+      ],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/shared": ["libs/shared/src/index.ts"],
       "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],

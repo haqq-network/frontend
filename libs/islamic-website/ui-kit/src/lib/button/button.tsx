@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, Fragment, PropsWithChildren } from 'react';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
-  variant: 'default' | 'transparent' | 'gradient';
+  variant?: 'default' | 'transparent' | 'gradient';
   isLoading?: boolean;
 }
 
