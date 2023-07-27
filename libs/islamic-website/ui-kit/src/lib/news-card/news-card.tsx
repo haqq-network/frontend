@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 
-interface NewsCardProps {
+export interface NewsCardProps {
   image: {
     src: string;
     width: number;
@@ -38,7 +38,7 @@ export function NewsCard({
         )}
       </div>
       <div className="mt-[28px] text-[#838383]">{source}</div>
-      <div className="mt-[8px] line-clamp-2 text-[24px] font-[700] leading-[34px] text-[#272727]">
+      <div className="mt-[8px] line-clamp-2 text-[24px] font-[700] leading-[34px] text-white">
         {title}
       </div>
       <div className="mt-[12px] line-clamp-3 text-[16px] font-[400] leading-[1.5em] text-[#555555]">
