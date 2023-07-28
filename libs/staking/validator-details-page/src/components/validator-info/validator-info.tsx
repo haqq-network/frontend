@@ -742,9 +742,9 @@ function ValidatorBlockMobile({
       onUndelegateClick={() => {
         navigate('#undelegate', { replace: true });
       }}
-      // onRedelegateClick={() => {
-      //   navigate('#redelegate', { replace: true });
-      // }}
+      onRedelegateClick={() => {
+        navigate('#redelegate', { replace: true });
+      }}
       isDelegateDisabled={balance < 1}
       isUndelegateDisabled={delegation === 0}
       isGetRewardDisabled={rewards < 1}
@@ -753,6 +753,7 @@ function ValidatorBlockMobile({
       isWarningShown={isWarningShown}
       undelegate={undelegate}
       symbol={symbol}
+      isRedelegateDisabled={delegation < 1}
     />
   );
 }
