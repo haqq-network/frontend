@@ -15,6 +15,7 @@ import {
   useWallet,
   useSupportedChains,
   formatNumber,
+  useStakingValidatorListQuery,
 } from '@haqq/shared';
 import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
@@ -47,6 +48,7 @@ import styles from './validator-info.module.css';
 import { Validator } from '@evmos/provider';
 import { formatUnits } from 'viem/utils';
 import { getFormattedAddress } from '@haqq/shared';
+import { RedelegateModal } from '../redelegate-modal/redelegate-modal';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
@@ -425,18 +427,22 @@ export function ValidatorInfo({
   const navigate = useNavigate();
   const { chain } = useNetwork();
   const chains = useSupportedChains();
+  const { data: validatorsList } = useStakingValidatorListQuery(1000);
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
   const balance = useMemo(() => {
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
   }, [balanceData]);
-  const { isDelegateModalOpen, isUndelegateModalOpen } = useMemo(() => {
-    return {
-      isDelegateModalOpen: hash === '#delegate',
-      isUndelegateModalOpen: hash === '#undelegate',
-    };
-  }, [hash]);
+
+  const { isDelegateModalOpen, isUndelegateModalOpen, isRedelegateModalOpen } =
+    useMemo(() => {
+      return {
+        isDelegateModalOpen: hash === '#delegate',
+        isUndelegateModalOpen: hash === '#undelegate',
+        isRedelegateModalOpen: hash === '#redelegate',
+      };
+    }, [hash]);
 
   const handleModalClose = useCallback(() => {
     navigate('', { replace: true });
@@ -536,6 +542,14 @@ export function ValidatorInfo({
     claimAllRewards(delegatedValsAddrs);
   }, [claimAllRewards, delegatedValsAddrs]);
 
+  const validatorCommission = useMemo(() => {
+    return (
+      Number.parseFloat(
+        validatorInfo?.commission.commission_rates.rate ?? '0',
+      ) * 100
+    ).toFixed(0);
+  }, [validatorInfo?.commission.commission_rates.rate]);
+
   if (isFetching || !validatorInfo) {
     return (
       <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
@@ -571,6 +585,7 @@ export function ValidatorInfo({
         balance={balance}
         symbol={symbol}
         unboundingTime={unboundingTime}
+        validatorCommission={validatorCommission}
       />
 
       <UndelegateModal
@@ -581,6 +596,15 @@ export function ValidatorInfo({
         balance={balance}
         unboundingTime={unboundingTime}
         symbol={symbol}
+      />
+
+      <RedelegateModal
+        validatorAddress={validatorAddress}
+        isOpen={isRedelegateModalOpen}
+        onClose={handleModalClose}
+        delegation={myDelegation}
+        symbol={symbol}
+        validatorsList={validatorsList}
       />
     </Fragment>
   );
@@ -632,7 +656,7 @@ export function ValidatorBlockDesktop({
             {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
-        <div className="flex gap-x-[12px]">
+        <div className="flex flex-row gap-x-[12px]">
           <div className="flex-1">
             <Button
               variant={2}
@@ -649,7 +673,7 @@ export function ValidatorBlockDesktop({
             <Button
               variant={2}
               className="w-full"
-              disabled={delegation === 0}
+              disabled={delegation < 1}
               onClick={() => {
                 navigate('#undelegate', { replace: true });
               }}
@@ -657,6 +681,18 @@ export function ValidatorBlockDesktop({
               Undelegate
             </Button>
           </div>
+        </div>
+        <div>
+          <Button
+            variant={2}
+            className="w-full"
+            disabled={delegation < 1}
+            onClick={() => {
+              navigate('#redelegate', { replace: true });
+            }}
+          >
+            Redelegate
+          </Button>
         </div>
       </div>
       <div className="flex flex-col gap-y-[12px]">
@@ -706,6 +742,9 @@ function ValidatorBlockMobile({
       onUndelegateClick={() => {
         navigate('#undelegate', { replace: true });
       }}
+      onRedelegateClick={() => {
+        navigate('#redelegate', { replace: true });
+      }}
       isDelegateDisabled={balance < 1}
       isUndelegateDisabled={delegation === 0}
       isGetRewardDisabled={rewards < 1}
@@ -714,6 +753,7 @@ function ValidatorBlockMobile({
       isWarningShown={isWarningShown}
       undelegate={undelegate}
       symbol={symbol}
+      isRedelegateDisabled={delegation < 1}
     />
   );
 }

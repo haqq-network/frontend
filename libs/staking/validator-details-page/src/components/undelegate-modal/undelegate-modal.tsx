@@ -102,11 +102,15 @@ export function UndelegateModal({
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
             <div className="pb-[24px]">
-              <MobileHeading className="mb-[24px] mt-[24px] sm:mt-[4px]">
+              <MobileHeading className="mt-[24px] sm:mt-[4px]">
                 Undelegate
               </MobileHeading>
 
-              <WarningMessage light className="mt-[3px]">
+              <WarningMessage
+                light
+                className="mt-[3px]"
+                wrapperClassName="mt-[24px]"
+              >
                 {`The funds will be undelegate within ${unboundingTime} day`}
               </WarningMessage>
             </div>

@@ -9,6 +9,7 @@ import {
 } from '../hooked-form-input/hooked-form-input';
 import { Button } from '@haqq/website-ui-kit';
 import clsx from 'clsx';
+import axios from 'axios';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -19,12 +20,10 @@ const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   })
   .required();
 
-function submitForm(form: SubscribeFormFields): Promise<{ status: number }> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ status: 200 });
-    }, 2500);
-  });
+async function submitForm(
+  form: SubscribeFormFields,
+): Promise<{ status: number }> {
+  return await axios.post('/api/sendgrid', form);
 }
 
 export function SubscribeForm({

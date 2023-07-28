@@ -1,6 +1,7 @@
 import {
   useAuthAccountsQuery,
   useBankSupplyQuery,
+  useStakingParamsQuery,
   useStakingPoolQuery,
   useStakingValidatorListQuery,
   useSupportedChains,
@@ -17,6 +18,7 @@ export function StatisticsBlock() {
   const { data: validators } = useStakingValidatorListQuery();
   const { data: accounts } = useAuthAccountsQuery();
   const { data: bankSupply } = useBankSupplyQuery();
+  const { data: stakingParams } = useStakingParamsQuery();
   const { chain } = useNetwork();
   const chains = useSupportedChains();
   const symbol =
@@ -39,10 +41,10 @@ export function StatisticsBlock() {
       return bondStatusFromJSON(val.status) === BondStatus.BOND_STATUS_BONDED;
     });
     return {
-      valsTotal: validators?.length ?? 0,
+      valsTotal: stakingParams?.max_validators ?? 0,
       valsActive: activeVals?.length ?? 0,
     };
-  }, [validators]);
+  }, [stakingParams?.max_validators, validators]);
 
   return (
     <div className="flex flex-col gap-y-[10px] lg:flex-row lg:flex-wrap lg:gap-x-[24px]">
