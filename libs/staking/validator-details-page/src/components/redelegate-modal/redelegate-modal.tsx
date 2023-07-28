@@ -2,7 +2,6 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { useStakingActions, useToast } from '@haqq/shared';
 import {
-  WarningMessage,
   Modal,
   ModalCloseButton,
   Button,
@@ -10,16 +9,13 @@ import {
   ModalInput,
 } from '@haqq/shell-ui-kit';
 import { Validator } from '@evmos/provider';
-import Select from 'react-select';
 import { ValidatorSelect } from '../validator-select/validator-select';
-// import Select from 'react-select/async';
 
 export interface RedelegateModalProps {
   isOpen: boolean;
   symbol: string;
   validatorAddress: string;
   delegation: number;
-  // validatorCommission: string;
   onClose: () => void;
   validatorsList: Validator[] | undefined;
 }
@@ -163,11 +159,10 @@ export function RedelegateModal({
   useEffect(() => {
     if (
       (delegateAmount && delegateAmount <= 0) ||
-      (delegateAmount && delegateAmount > delegation)
+      (delegateAmount && delegateAmount > delegation) ||
+      !(delegation > 0)
     ) {
       seRedelegateEnabled(false);
-    } else if (delegation > 0) {
-      seRedelegateEnabled(true);
     } else {
       seRedelegateEnabled(true);
     }

@@ -33,12 +33,11 @@ export function ValidatorSelect({
   onChange: (validatorAddress?: string) => void;
 }) {
   const handleFilterOption = useCallback(
-    ({ label, value }: ValidatorSelectOption, inputValue: string) => {
+    ({ label }: ValidatorSelectOption, inputValue: string) => {
       const inputLower = inputValue.toLowerCase();
       const labelLower = label.toLowerCase();
-      const valueLower = value.toLowerCase();
 
-      return labelLower.includes(inputLower) || valueLower.includes(inputLower);
+      return labelLower.includes(inputLower);
     },
     [],
   );
@@ -98,7 +97,6 @@ export function ValidatorSelect({
       }}
       unstyled
       classNames={classNames}
-      // defaultMenuIsOpen
     />
   );
 }
