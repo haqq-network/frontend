@@ -10,6 +10,7 @@ import {
 } from '@haqq/shell-ui-kit';
 import { Validator } from '@evmos/provider';
 import { ValidatorSelect } from '../validator-select/validator-select';
+import { splitValidators } from '@haqq/staking/utils';
 
 export interface RedelegateModalProps {
   isOpen: boolean;
@@ -148,7 +149,9 @@ export function RedelegateModal({
   ]);
 
   const validatorsOptions = useMemo(() => {
-    return (validatorsList ?? []).map((validator) => {
+    const { active } = splitValidators(validatorsList ?? []);
+
+    return active.map((validator) => {
       return {
         label: `${validator.description.moniker}`,
         value: validator.operator_address,
