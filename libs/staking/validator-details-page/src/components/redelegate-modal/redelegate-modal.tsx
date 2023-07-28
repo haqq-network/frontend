@@ -151,13 +151,17 @@ export function RedelegateModal({
   const validatorsOptions = useMemo(() => {
     const { active } = splitValidators(validatorsList ?? []);
 
-    return active.map((validator) => {
+    const withoutCurrentValidator = active.filter((validator) => {
+      return validator.operator_address !== validatorAddress;
+    });
+
+    return withoutCurrentValidator.map((validator) => {
       return {
         label: `${validator.description.moniker}`,
         value: validator.operator_address,
       };
     });
-  }, [validatorsList]);
+  }, [validatorsList, validatorAddress]);
 
   useEffect(() => {
     if (
