@@ -20,6 +20,8 @@ interface ValidatorBlockMobileProps {
   onUndelegateClick: () => void;
   isWarningShown?: boolean;
   symbol: string;
+  onRedelegateClick: () => void;
+  isRedelegateDisabled?: boolean;
 }
 
 function GrayDescription({
@@ -67,6 +69,8 @@ export function ValidatorBlockMobile({
   undelegate,
   isWarningShown = false,
   symbol,
+  onRedelegateClick,
+  isRedelegateDisabled = false,
 }: ValidatorBlockMobileProps) {
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
@@ -140,6 +144,16 @@ export function ValidatorBlockMobile({
             </div>
             <div>
               <Button
+                variant={2}
+                className="w-full"
+                onClick={onRedelegateClick}
+                disabled={isRedelegateDisabled}
+              >
+                Redelegate
+              </Button>
+            </div>
+            <div>
+              <Button
                 variant={5}
                 onClick={onGetRewardClick}
                 disabled={isGetRewardDisabled}
@@ -169,7 +183,7 @@ export function ValidatorBlockMobile({
           )}
 
           <div className="flex w-full flex-row gap-[28px]">
-            <div className="flex min-w-[56%] flex-1 flex-row gap-[12px]">
+            <div className="flex flex-1 flex-row gap-[12px]">
               <div className="flex flex-1 flex-col justify-end gap-[12px]">
                 <div className="flex flex-1 flex-col items-start gap-[6px]">
                   <GrayDescription>My delegation</GrayDescription>
@@ -207,10 +221,22 @@ export function ValidatorBlockMobile({
                     Undelegate
                   </Button>
                 </div>
+              </div>{' '}
+              <div className="flex flex-1 flex-col justify-end gap-[12px]">
+                {/* <GrayDescription>My rewards</GrayDescription> */}
+
+                <Button
+                  variant={2}
+                  className="w-full"
+                  onClick={onRedelegateClick}
+                  disabled={isRedelegateDisabled}
+                >
+                  Redelegate
+                </Button>
               </div>
             </div>
 
-            <div className="flex flex-1 flex-col justify-end gap-[12px]">
+            <div className="flex min-w-[20%] flex-1 flex-col justify-end gap-[12px]">
               <div className="flex flex-1 flex-col items-start gap-[6px]">
                 <GrayDescription>My rewards</GrayDescription>
                 <DescriptionAmount className="!text-[#01B26E]">

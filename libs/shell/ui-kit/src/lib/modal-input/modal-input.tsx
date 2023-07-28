@@ -8,6 +8,7 @@ export function ModalInput({
   onMaxButtonClick,
   hint,
   step = 0.001,
+  isMaxButtonDisabled = false,
 }: {
   symbol: string;
   value: number | undefined;
@@ -15,6 +16,7 @@ export function ModalInput({
   onMaxButtonClick: () => void;
   hint?: ReactNode;
   step?: number;
+  isMaxButtonDisabled?: boolean;
 }) {
   const handleInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +39,7 @@ export function ModalInput({
           id="amount"
           value={value}
           className={clsx(
-            'w-full rounded-md px-4 py-2 outline-none',
+            'w-full rounded-[6px] outline-none',
             'transition-colors duration-100 ease-in',
             'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
             'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
@@ -49,8 +51,9 @@ export function ModalInput({
         />
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
           <button
-            className="text-[14px] font-[500] leading-[22px] text-[#EC5728]"
+            className="text-[14px] font-[500] leading-[22px] text-[#EC5728] disabled:text-opacity-30"
             onClick={onMaxButtonClick}
+            disabled={isMaxButtonDisabled}
           >
             Max
           </button>

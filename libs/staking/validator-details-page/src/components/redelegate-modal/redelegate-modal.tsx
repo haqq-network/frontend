@@ -2,26 +2,26 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { useStakingActions, useToast } from '@haqq/shared';
 import {
-  WarningMessage,
   Modal,
   ModalCloseButton,
   Button,
   MobileHeading,
   ModalInput,
 } from '@haqq/shell-ui-kit';
+import { Validator } from '@evmos/provider';
+import { ValidatorSelect } from '../validator-select/validator-select';
+import { splitValidators } from '@haqq/staking/utils';
 
-export interface DelegateModalProps {
+export interface RedelegateModalProps {
   isOpen: boolean;
   symbol: string;
   validatorAddress: string;
-  balance: number;
   delegation: number;
   onClose: () => void;
-  unboundingTime: number;
-  validatorCommission: string;
+  validatorsList: Validator[] | undefined;
 }
 
-export function DelegateModalDetails({
+export function RedelegateModalDetails({
   title,
   value,
   className,
@@ -36,7 +36,10 @@ export function DelegateModalDetails({
 }) {
   return (
     <div
-      className={clsx('flex flex-row items-center justify-between', className)}
+      className={clsx(
+        'flex flex-row items-center justify-between gap-[16px]',
+        className,
+      )}
     >
       <div
         className={clsx(
@@ -59,7 +62,7 @@ export function DelegateModalDetails({
   );
 }
 
-export function DelegateModalSubmitButton({
+export function RedelegateModalSubmitButton({
   children,
   onClick,
   disabled,
@@ -91,81 +94,90 @@ export function DelegateModalSubmitButton({
   );
 }
 
-export function DelegateModal({
+export function RedelegateModal({
   validatorAddress,
   isOpen,
   onClose,
   symbol,
   delegation,
-  balance,
-  unboundingTime,
-  validatorCommission,
-}: DelegateModalProps) {
-  const { delegate } = useStakingActions();
+  validatorsList,
+}: RedelegateModalProps) {
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
-  const [isDelegateEnabled, setDelegateEnabled] = useState(true);
-  const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
-    undefined,
-  );
+  const [isRedelegateEnabled, seRedelegateEnabled] = useState(true);
+  const [validatorDestinationAddress, setValidatorDestinationAddress] =
+    useState<string | undefined>(undefined);
   const toast = useToast();
+  const { redelegate } = useStakingActions();
 
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(balance);
-  }, [balance]);
+    setDelegateAmount(delegation);
+  }, [delegation]);
 
   const handleInputChange = useCallback((value: number | undefined) => {
     setDelegateAmount(value);
   }, []);
 
-  const handleSubmitDelegate = useCallback(async () => {
-    const delegationPromise = delegate(validatorAddress, delegateAmount);
+  const handleSubmitRedelegate = useCallback(async () => {
+    if (validatorDestinationAddress && validatorAddress) {
+      const redelegationPromise = redelegate(
+        validatorAddress,
+        validatorDestinationAddress,
+        delegateAmount ?? 0,
+      );
 
-    toast
-      .promise(delegationPromise, {
-        loading: 'Delegate in progress',
+      await toast.promise(redelegationPromise, {
+        loading: 'Redelegate in progress',
         success: (tx) => {
-          console.log('Delegation successful', { tx }); // maybe successful
-          const txHash = tx?.txhash;
-          console.log('Delegation successful', { txHash });
+          console.log('Redelegation successful', { tx }); // maybe successful
           return `Delegation successful`;
         },
         error: (error) => {
           return error.message;
         },
-      })
-      .then(() => {
-        onClose();
       });
-  }, [delegate, validatorAddress, delegateAmount, toast, onClose]);
+      onClose();
+    }
+  }, [
+    validatorDestinationAddress,
+    validatorAddress,
+    redelegate,
+    delegateAmount,
+    toast,
+    onClose,
+  ]);
+
+  const validatorsOptions = useMemo(() => {
+    const { active } = splitValidators(validatorsList ?? []);
+
+    const withoutCurrentValidator = active.filter((validator) => {
+      return validator.operator_address !== validatorAddress;
+    });
+
+    return withoutCurrentValidator.map((validator) => {
+      return {
+        label: `${validator.description.moniker}`,
+        value: validator.operator_address,
+      };
+    });
+  }, [validatorsList, validatorAddress]);
 
   useEffect(() => {
-    if (delegateAmount && delegateAmount <= 0) {
-      setDelegateEnabled(false);
-      setAmountError('min');
-    } else if (delegateAmount && delegateAmount > balance) {
-      setDelegateEnabled(false);
-      setAmountError('max');
+    if (
+      (delegateAmount && delegateAmount <= 0) ||
+      (delegateAmount && delegateAmount > delegation) ||
+      !(delegation > 0)
+    ) {
+      seRedelegateEnabled(false);
     } else {
-      setDelegateEnabled(true);
-      setAmountError(undefined);
+      seRedelegateEnabled(true);
     }
-  }, [balance, delegateAmount]);
-
-  const amountHint = useMemo(() => {
-    if (amountError === 'min') {
-      return <span className="text-islamic-red-500">Bellow minimal value</span>;
-    } else if (amountError === 'max') {
-      return <span className="text-islamic-red-500">More than you have</span>;
-    }
-
-    return undefined;
-  }, [amountError]);
+  }, [delegateAmount, delegation]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
+      <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-[430px] sm:rounded-[12px] sm:p-[36px]">
         <ModalCloseButton
           onClick={onClose}
           className="absolute right-[16px] top-[16px]"
@@ -175,48 +187,43 @@ export function DelegateModal({
           <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
             <div className="pb-[24px]">
               <MobileHeading className="mt-[24px] sm:mt-[4px]">
-                Delegate
+                Redelegate
               </MobileHeading>
-              <WarningMessage light wrapperClassName="mt-[24px]">
-                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
-              </WarningMessage>
             </div>
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
-                <DelegateModalDetails
-                  title="My balance"
-                  value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
-                />
-                <DelegateModalDetails
+                <RedelegateModalDetails
                   title="My delegation"
                   value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
-                />
-                <DelegateModalDetails
-                  title="Comission"
-                  value={`${validatorCommission}%`}
                 />
               </div>
             </div>
             <div className="pt-[24px]">
               <div className="flex flex-col gap-[16px]">
                 <div>
+                  <ValidatorSelect
+                    validators={validatorsOptions}
+                    onChange={setValidatorDestinationAddress}
+                  />
+                </div>
+                <div>
                   <ModalInput
                     symbol={symbol}
                     value={delegateAmount}
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}
-                    hint={amountHint}
+                    isMaxButtonDisabled={!isRedelegateEnabled}
                   />
                 </div>
                 <div>
                   <Button
                     variant={3}
-                    onClick={handleSubmitDelegate}
+                    onClick={handleSubmitRedelegate}
                     className="w-full"
-                    disabled={!isDelegateEnabled || !delegateAmount}
+                    disabled={!isRedelegateEnabled || !delegateAmount}
                   >
-                    Confirm delegation
+                    Confirm redelegation
                   </Button>
                 </div>
               </div>
