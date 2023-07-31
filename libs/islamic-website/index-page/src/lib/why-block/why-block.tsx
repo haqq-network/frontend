@@ -88,12 +88,12 @@ function Reason({ title, children }: PropsWithChildren<{ title: string }>) {
 
 export function WhyBlock() {
   return (
-    <div className="bg-islamic-primary-graphite flex flex-col items-start rounded-[20px] p-[48px] text-white">
+    <div className="bg-islamic-primary-graphite flex flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white md:p-[40px] lg:p-[48px]">
       <Heading>Why Islamic Coin?</Heading>
-      <Text isMono className="mt-[8px]">
+      <Text isMono className="mt-[12px] md:mt-[20px]">
         Pioneering the Future of Islamic Finance in the Web3 Era
       </Text>
-      <div className="mt-[48px] flex gap-x-[24px]">
+      <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] md:mt-[44px] md:grid-cols-2 xl:grid-cols-4">
         <Reason title="Maintaining Shariah Guidelines">
           <IslamStar />
         </Reason>
