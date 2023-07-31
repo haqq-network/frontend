@@ -5,3 +5,4 @@ export * from './lib/container/container';
 export * from './lib/heading/heading';
 export * from './lib/gradient-text/gradient-text';
 export * from './lib/text/text';
+export * from './lib/burger-button/burger-button';
