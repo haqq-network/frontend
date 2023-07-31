@@ -11,9 +11,9 @@ export function NewsBlock({ news }: NewsBlockProps) {
       <Heading className="text-white">Latest Islamic Coin News</Heading>
 
       <div className="mt-[72px] flex gap-x-[48px]">
-        {news.slice(0, 2).map((el) => {
+        {news.slice(0, 2).map((el, idx) => {
           return (
-            <Link href={el.source} key={el.title}>
+            <Link href={el.source} key={`${el.title}${idx}`}>
               <NewsCard
                 date={el.date}
                 description={el.description}
@@ -25,9 +25,9 @@ export function NewsBlock({ news }: NewsBlockProps) {
           );
         })}
       </div>
-      <div className="text-islamic-primary-green mt-[48px] text-center">
+      <div className="text-islamic-primary-green hover:text-islamic-classic-green mt-[48px] text-center font-mono uppercase transition-colors duration-300">
         <Link href={'/media'} className="flex items-center gap-x-[8px]">
-          <Text isMono>See all news</Text>
+          See all news
           <svg
             width="20"
             height="20"
