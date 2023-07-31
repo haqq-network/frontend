@@ -30,7 +30,7 @@ function FooterNavLink({ url, isOutLink, title }: FooterNavLinkProps) {
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="px-[4px] py-[8px] text-base font-[400] uppercase text-[#F5F5F5] transition-colors duration-300 hover:text-[#18FFAC]"
+      className="px-[8px] py-[6px] font-mono text-base font-[400] uppercase text-[#F5F5F5] transition-colors duration-300 hover:text-[#18FFAC]"
     >
       {title}
     </Link>
@@ -124,11 +124,11 @@ const FooterNavLinks: FooterNavLinkProps[] = [
 
 export function Footer() {
   return (
-    <footer className="flex w-full flex-col ">
-      <div className="border-y border-[#2F2F2F] py-[80px]">
+    <footer className="flex w-full flex-col text-white">
+      <div className="border-y border-[#2F2F2F] py-[32px] md:py-[56px] lg:py-[80px]">
         <Container>
-          <div className="flex flex-col gap-y-[60px]">
-            <div className="grid grid-cols-5 gap-x-[20px] gap-y-[4px]">
+          <div className="flex flex-col gap-y-[32px] lg:gap-y-[60px]">
+            <div className="grid grid-cols-2 gap-x-[20px] md:grid-cols-3 lg:grid-cols-5">
               {FooterNavLinks.map((el) => {
                 return (
                   <FooterNavLink
@@ -140,8 +140,8 @@ export function Footer() {
                 );
               })}
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-x-[14px] py-[12px]">
+            <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
+              <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[12px] text-white">
                 <FooterNavSocialLink url="https://www.youtube.com/channel/UCTjvOCTDeO9H67y_6btF1NA">
                   <YoutubeIcon />
                 </FooterNavSocialLink>
@@ -173,7 +173,7 @@ export function Footer() {
                   <ZenIcon />
                 </FooterNavSocialLink>
               </div>
-              <div className="flex items-center gap-x-[32px]">
+              <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0">
                 <WorldGreenOrgIcon />
                 <SustainableDevIcon />
               </div>
@@ -181,10 +181,10 @@ export function Footer() {
           </div>
         </Container>
       </div>
-      <Container className="mx-0 flex items-center justify-between py-[36px] text-center text-[14px] font-[400] leading-[20px]">
-        <div>{`©${new Date().getFullYear()} Islamic Coin All rights
-        reserved`}</div>
-        <div>Islamic Coin</div>
+      <Container className="flex w-full items-center justify-between py-[16px] text-center text-[12px] font-[300] leading-[18px] md:py-[24px] md:text-[13px] md:leading-[20px] lg:py-[36px] lg:text-[14px] lg:leading-[20px]">
+        <span>{`©${new Date().getFullYear()} Islamic Coin All rights
+        reserved`}</span>
+        <span>Islamic Coin</span>
       </Container>
     </footer>
   );
