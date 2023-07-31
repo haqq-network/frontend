@@ -14,10 +14,10 @@ export function Text({
   isMono = false,
 }: PropsWithChildren<TextProps>) {
   const classNames = clsx(
-    'font-[500]',
-    size === 'small' && 'text-[12px] sm:text-[13px] lg:text-[14px]',
+    size === 'small' &&
+      'text-[13px] md:text-[14px] lg:text-base leading-[20px]',
     size === 'medium' &&
-      'text-[13px] sm:text-[15px] lg:text-[16px] leading-[22px]',
+      'text-[15px] md:text-[16px] leading-[22px] md:leading-[24px] lg:text-[18px] lg:leading-[26px]',
     size === 'large' && 'text-[14px] sm:text-[17px] lg:text-[18px]',
     isMono ? 'font-mono uppercase' : 'font-serif',
     className,
