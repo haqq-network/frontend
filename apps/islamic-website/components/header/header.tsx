@@ -1,6 +1,15 @@
-import { Container } from '@haqq/islamic-ui-kit';
+'use client';
+
+import { BurgerButton, Container } from '@haqq/islamic-ui-kit';
+import clsx from 'clsx';
 import Link from 'next/link';
-import { PropsWithChildren } from 'react';
+import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 interface HeaderLinkProps {
   url: string;
@@ -25,9 +34,37 @@ function HeaderLink({
 }
 
 export function Header() {
+  // const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
+  // const [isScrolled, setIsScrolled] = useState(false);
+
+  // const toggleMobileMenu = useCallback(() => {
+  //   setIsMobileMenuOpened(!isMobileMenuOpen);
+  //   console.log('click');
+  // }, [isMobileMenuOpen]);
+
+  // const headerRef = useRef<HTMLHeadingElement>(null);
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollPosition = window.scrollY;
+  //     setIsScrolled(scrollPosition > 0);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#010304] py-[38px]">
-      <Container>
+    <header
+      className={clsx(
+        'sticky top-0 z-50 w-full bg-transparent py-[38px]',
+        // isScrolled ? 'bg-[#181E25] opacity-70' : 'bg-transparent',
+      )}
+      // ref={headerRef}
+    >
+      <Container className="pr-[24px]">
         <div className="flex items-center justify-between">
           <div className="relative z-50 flex h-[28px] w-[170px]">
             <Link
@@ -120,13 +157,19 @@ export function Header() {
               </svg>
             </Link>
           </div>
-          <nav className="mb-[-44px] flex items-center gap-x-[12px]">
+          <nav className="mb-[-44px] hidden items-center gap-x-[12px] lg:flex">
             <HeaderLink url="/">Home</HeaderLink>
             <HeaderLink url="/about">About</HeaderLink>
             <HeaderLink url="/use-islm">Use ISLM</HeaderLink>
             <HeaderLink url="/learn">Learn</HeaderLink>
             <HeaderLink url="/team">Team</HeaderLink>
           </nav>
+          <div className="inline-flex lg:hidden">
+            <BurgerButton
+              // onClick={toggleMobileMenu}
+              // isOpen={isMobileMenuOpen}
+            />
+          </div>
         </div>
       </Container>
     </header>
