@@ -34,7 +34,7 @@ export function Heading({
     return (
       <h2
         className={clsx(
-          'font-serif text-[18px] font-[600] leading-[1.3em] sm:text-[24px] lg:text-[32px] xl:text-[64px] xl:leading-[70px]',
+          'font-serif text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]',
           className,
         )}
       >
