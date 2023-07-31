@@ -64,7 +64,7 @@ export function IndexPage() {
       <h1>Welcome to IslamicWebsiteIndexPage!</h1>
       <WhyBlock />
       <JoinCommunityBlock />
-      <NewsBlock news={mockNews} />
+      {/* <NewsBlock news={mockNews} /> */}
       <LearnAndGrowBlock />
     </div>
   );
