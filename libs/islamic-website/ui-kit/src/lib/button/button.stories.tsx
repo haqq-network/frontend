@@ -12,7 +12,7 @@ const meta: Meta<typeof ButtonComponent> = {
 export default meta;
 type Story = StoryObj<typeof ButtonComponent>;
 
-export const Default: Story = {
+export const PrimaryGreen: Story = {
   args: {
     children: 'Button',
     isLoading: false,
@@ -35,5 +35,24 @@ export const Gradient: Story = {
     variant: 'gradient',
     isLoading: false,
     disabled: false,
+  },
+};
+
+export const ClassicGreen: Story = {
+  args: {
+    children: 'Button',
+    variant: 'islamic-classic-green',
+    isLoading: false,
+    disabled: false,
+  },
+};
+
+export const WithArrow: Story = {
+  args: {
+    children: 'With arrow',
+    variant: 'islamic-classic-green',
+    isLoading: false,
+    disabled: false,
+    withArrow: true,
   },
 };
