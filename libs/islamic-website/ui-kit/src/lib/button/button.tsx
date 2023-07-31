@@ -22,7 +22,7 @@ export function Button({
   withArrow,
 }: PropsWithChildren<ButtonProps>) {
   const classNames = clsx(
-    'px-[32px] py-[12px] rounded-[8px] min-w-[160px] h-[48px]',
+    'px-[20px] py-[12px] rounded-[8px] min-w-[160px]',
     'flex justify-center items-center gap-x-[8px]',
     'text-center uppercase text-[16px] leading-[1.5em] font-[400] font-mono',
     'transition-all duration-300',
