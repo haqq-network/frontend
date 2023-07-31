@@ -58,7 +58,9 @@ const tailwindThemeExtend = {
     'haqq-azure': '#ECFEFE',
     'haqq-modal-overlay': '#0D0D0ECC',
     'islamic-primary-green': '#01B26E',
-    'islamic-alternative-green': '#18FFAC',
+    'islamic-primary-green-hover': '#0BD286',
+    'islamic-classic-green': '#18FFAC',
+    'islamic-classic-green-hover': '#99FFDA',
     'islamic-primary-graphite': '#181E25A8',
   },
   boxShadow: {

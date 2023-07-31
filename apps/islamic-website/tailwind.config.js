@@ -16,8 +16,10 @@ module.exports = {
     extend: {
       colors: {
         'islamic-primary-green': '#01B26E',
-        'islamic-alternative-green': '#18FFAC',
+        'islamic-primary-green-hover': '#0BD286',
         'islamic-primary-graphite': '#181E25A8',
+        'islamic-classic-green': '#18FFAC',
+        'islamic-classic-green-hover': '#99FFDA',
       },
       fontFamily: {
         serif: ['var(--font-alexandria)'],
