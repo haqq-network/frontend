@@ -33,11 +33,18 @@ export function ValidatorSelect({
   onChange: (validatorAddress?: string) => void;
 }) {
   const handleFilterOption = useCallback(
-    ({ label }: ValidatorSelectOption, inputValue: string) => {
+    ({ label, value }: ValidatorSelectOption, inputValue: string) => {
       const inputLower = inputValue.toLowerCase();
       const labelLower = label.toLowerCase();
+      const valueLower = value.toLowerCase();
 
-      return labelLower.includes(inputLower);
+      if (inputLower.startsWith('haqqv')) {
+        return (
+          labelLower.includes(inputLower) || valueLower.includes(inputLower)
+        );
+      } else {
+        return labelLower.includes(inputLower);
+      }
     },
     [],
   );

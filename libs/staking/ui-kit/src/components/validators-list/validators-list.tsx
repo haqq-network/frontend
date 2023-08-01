@@ -5,7 +5,7 @@ import type {
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import { useStakingPoolQuery } from '@haqq/shared';
+import { formatNumber, useStakingPoolQuery } from '@haqq/shared';
 import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell-ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
 import { formatUnits } from 'viem/utils';
@@ -58,10 +58,10 @@ export function ValidatorListItemMobile({
       <ValidatorListItemMobileComponent
         validatorName={validator.description.moniker}
         fee={`${validatorCommission}%`}
-        reward={userRewards}
-        staked={userDelegate}
+        reward={formatNumber(userRewards)}
+        staked={formatNumber(userDelegate)}
         votingPowerPercent={votingPowerInPercents}
-        votingPower={votingPower}
+        votingPower={formatNumber(votingPower)}
         status="active"
       />
     </div>
