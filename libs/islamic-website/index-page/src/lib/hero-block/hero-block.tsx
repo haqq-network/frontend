@@ -2,7 +2,7 @@ import { Button, GradientText, Text } from '@haqq/islamic-ui-kit';
 
 export function HeroBlock() {
   return (
-    <div className="mt-[150px] flex flex-col text-white">
+    <div className="mt-[60px] flex flex-col text-white md:mt-[120px] xl:mt-[150px]">
       <div className="text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
         Your Gateway <br className="block md:hidden" /> to{' '}
         <br className="hidden md:block" /> Shariah{' '}
