@@ -1,4 +1,4 @@
-import { Heading, NewsCard, NewsCardProps, Text } from '@haqq/islamic-ui-kit';
+import { Heading, NewsCard, NewsCardProps } from '@haqq/islamic-ui-kit';
 import Link from 'next/link';
 
 interface NewsBlockProps {
@@ -7,11 +7,10 @@ interface NewsBlockProps {
 
 export function NewsBlock({ news }: NewsBlockProps) {
   return (
-    <div className="flex flex-col items-start">
+    <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
       <Heading className="text-white">Latest Islamic Coin News</Heading>
-
-      <div className="mt-[72px] flex gap-x-[48px]">
-        {news.slice(0, 2).map((el, idx) => {
+      <div className="mt-[32px] flex max-w-full gap-x-[48px] overflow-x-auto md:mt-[52px] lg:mt-[72px]">
+        {news.map((el, idx) => {
           return (
             <Link href={el.source} key={`${el.title}${idx}`}>
               <NewsCard
