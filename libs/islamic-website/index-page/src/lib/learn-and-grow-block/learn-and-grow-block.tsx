@@ -2,32 +2,14 @@ import { Button, Heading, Text } from '@haqq/islamic-ui-kit';
 
 export function LearnAndGrowBlock() {
   return (
-    <div className="flex items-center justify-between rounded-[20px] border border-[#404040] py-[68px] pl-[48px] pr-[80px]">
-      <div className="flex w-[70%] flex-col items-start">
-        <Heading className="text-white">
-          Learn and Grow with Islamic Coin
-        </Heading>
-        <Text isMono className="mt-[24px] !text-[18px] !leading-[25px]">
-          Learn and Grow with Islamic Coin
-        </Text>
-        <Text className="text-[14px] leading-[20px] text-white/50">
-          Delve into the world of ethical finance with Islamic Coin. Our curated
-          educational guides and resources are designed to enlighten, equip, and
-          empower your financial journey
-        </Text>
-        <div className="mt-[36px]">
-          <Button>Get started with haqq wallet</Button>
-        </div>
-      </div>
-
+    <div className="relative flex flex-col items-center justify-between rounded-[20px] border border-[#404040] px-[20px] pb-[38px] pt-[28px] text-white md:flex-row md:px-[40px] md:py-[48px] lg:px-[48px] lg:pb-[50px] lg:pt-[68px] xl:py-[68px]">
       <svg
-        width="377"
-        height="379"
         viewBox="0 0 377 379"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="z-[-1] h-[211px] w-[210px] md:absolute md:bottom-[88px] md:right-[40px] lg:bottom-auto lg:right-[60px] lg:block lg:h-[379px] lg:w-[377px]"
       >
-        <g clip-path="url(#clip0_205_7428)">
+        <g clipPath="url(#clip0_205_7428)">
           <g opacity="0.1">
             <path
               d="M4.40625 164.601V22.8927L130.696 -52L254.783 19.2215V163.133L127.392 235.089L4.40625 164.601Z"
@@ -149,6 +131,31 @@ export function LearnAndGrowBlock() {
           </clipPath>
         </defs>
       </svg>
+      <div className="flex flex-col items-start">
+        <Heading className="mt-[28px] md:mt-0 lg:w-[60%]">
+          Learn and Grow with Islamic Coin
+        </Heading>
+        <Text
+          isMono
+          className="mt-[24px] !text-[18px] !leading-[25px] text-white md:mt-[20px] md:w-[57%] lg:w-[60%]"
+        >
+          Empower Your Ethical Financial Journey with Our Educational Guides &
+          Resources
+        </Text>
+        <Text
+          size="small"
+          className="mt-[20px] text-[14px] leading-[20px] text-white/50 md:mt-[32px] md:w-[57%] lg:w-[60%]"
+        >
+          Delve into the world of ethical finance with Islamic Coin. Our curated
+          educational guides and resources are designed to enlighten, equip, and
+          empower your financial journey
+        </Text>
+        <div className="mt-[32px] w-full md:mt-[34px] md:w-fit">
+          <Button className="w-full !px-[20px] md:!px-[32px]">
+            Get started with haqq wallet
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
