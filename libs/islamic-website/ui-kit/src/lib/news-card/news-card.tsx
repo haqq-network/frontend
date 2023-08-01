@@ -24,7 +24,10 @@ export function NewsCard({
 }: NewsCardProps) {
   return (
     <div
-      className={clsx('flex max-w-[400px] flex-col bg-transparent', className)}
+      className={clsx(
+        'flex min-w-[234px] max-w-[400px] flex-col bg-transparent',
+        className,
+      )}
     >
       <div className="relative h-[250px] w-full">
         {image && (
