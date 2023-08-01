@@ -1,14 +1,14 @@
 import Image from 'next/image';
 import cubesImgData from '../../assets/images/cubes.png';
-import { Button, Heading, Text } from '@haqq/islamic-ui-kit';
+import { Button, Text } from '@haqq/islamic-ui-kit';
 
 export function JoinCommunityBlock() {
   return (
-    <div className="flex w-full flex-col items-center text-center text-white">
+    <div className="mt-[128px] flex w-full flex-col items-center text-center text-white md:mt-[164px] lg:mt-[200px]">
       <Image src={cubesImgData} alt="" />
-      <Heading level={3} className="mt-[16px]">
+      <span className="mt-[16px] text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px]">
         Join Our Community
-      </Heading>
+      </span>
       <Text isMono className="mt-[8px]">
         Join the Global Islamic Finance Revolution
       </Text>
