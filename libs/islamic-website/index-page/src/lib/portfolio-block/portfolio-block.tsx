@@ -94,7 +94,7 @@ function RatingBadge({ market, rating }: RatingBadgeProps) {
 
 export function PortfolioBlock() {
   return (
-    <div className="flex flex-col gap-y-[32px] text-white">
+    <div className="mt-[108px] flex flex-col gap-y-[32px] text-white md:mt-[164px] lg:mt-[240px]">
       <div className="block text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:hidden lg:text-[64px] lg:leading-[70px]">
         Manage Your <GradientText>Shariah Portfolio </GradientText>
         with HAQQ Wallet

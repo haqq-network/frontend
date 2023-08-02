@@ -2,7 +2,7 @@ import { Button, Heading, Text } from '@haqq/islamic-ui-kit';
 
 export function LearnAndGrowBlock() {
   return (
-    <div className="relative flex flex-col items-center justify-between rounded-[20px] border border-[#404040] px-[20px] pb-[38px] pt-[28px] text-white md:flex-row md:px-[40px] md:py-[48px] lg:px-[48px] lg:pb-[50px] lg:pt-[68px] xl:py-[68px]">
+    <div className="relative mt-[108px] flex flex-col items-center justify-between rounded-[20px] border border-[#404040] px-[20px] pb-[38px] pt-[28px] text-white md:mt-[164px] md:flex-row md:px-[40px] md:py-[48px] lg:mt-[240px] lg:px-[48px] lg:pb-[50px] lg:pt-[68px] xl:py-[68px]">
       <svg
         viewBox="0 0 377 379"
         fill="none"
