@@ -1,19 +1,51 @@
 'use client';
-
-import { BurgerButton, Container } from '@haqq/islamic-ui-kit';
-import clsx from 'clsx';
 import Link from 'next/link';
+import clsx from 'clsx';
 import {
+  Fragment,
   PropsWithChildren,
+  ReactNode,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
+import { Transition } from '@headlessui/react';
+import {
+  Container,
+  AcademyIcon,
+  AlertIcon,
+  BlogIcon,
+  BuildIcon,
+  CaseIcon,
+  CommunityIcon,
+  EcosystemIcon,
+  EventsIcon,
+  GetISLMIcon,
+  MissionIcon,
+  NewsIcon,
+  PartnersIcon,
+  PartnershipIcon,
+  PodcastIcon,
+  QuestionMarkIcon,
+  RoadmapIcon,
+  RocketIcon,
+  StakingIcon,
+  StarIcon,
+  TokenomicsIcon,
+  ValuesIcon,
+  VideoIcon,
+  WalletIcon,
+  BurgerButton,
+} from '@haqq/islamic-ui-kit';
 
 interface HeaderLinkProps {
   url: string;
   isOutLink?: boolean;
+}
+
+interface HeaderProps {
+  links: HeaderLinkProps[];
 }
 
 function HeaderLink({
@@ -26,10 +58,91 @@ function HeaderLink({
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="border-b-[4px] border-transparent pb-[34px] text-center text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300 hover:border-b-[#18FFAC] hover:text-[#18FFAC]"
+      className="hover:text-islamic-classic-green p-[16px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300"
     >
       {children}
     </Link>
+  );
+}
+
+function DropdownLinkWithIcon({
+  icon,
+  title,
+}: {
+  icon?: ReactNode;
+  title: string;
+}) {
+  return (
+    <div className="hover:text-islamic-primary-green flex w-fit cursor-pointer items-center gap-x-[10px] px-[16px] py-[12px] text-white transition-colors duration-300">
+      {icon}
+      <span className="text-base font-[500]">{title}</span>
+    </div>
+  );
+}
+
+function HeaderDropdown({
+  title,
+  items,
+  children,
+}: PropsWithChildren<{ title?: string; items?: any[] }>) {
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleMouseEnter = useCallback(() => {
+    setDropdownOpen(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setDropdownOpen(false);
+  }, []);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="hover:text-islamic-primary-green group flex cursor-pointer items-center gap-x-[4px] p-[16px] text-white transition-colors duration-300">
+        <span className="text-[14px] uppercase leading-[20px]">{title}</span>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M6.29289 8.79289C6.68342 8.40237 7.31658 8.40237 7.70711 8.79289L12 13.0858L16.2929 8.79289C16.6834 8.40237 17.3166 8.40237 17.7071 8.79289C18.0976 9.18342 18.0976 9.81658 17.7071 10.2071L12.7071 15.2071C12.5196 15.3946 12.2652 15.5 12 15.5C11.7348 15.5 11.4804 15.3946 11.2929 15.2071L6.29289 10.2071C5.90237 9.81658 5.90237 9.18342 6.29289 8.79289Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+        show={isDropdownOpen}
+      >
+        <div className="absolute left-1/2 top-full min-w-max origin-top-left translate-x-[-50%]">
+          <div className="w-fit rounded-xl bg-[#15191ef2] p-[8px]">
+            {children}
+          </div>
+        </div>
+      </Transition>
+    </div>
+  );
+}
+
+function LanguageDropdown() {
+  return (
+    <div>
+      <div></div>
+    </div>
   );
 }
 
@@ -66,7 +179,7 @@ export function Header() {
     >
       <Container className="pr-[24px]">
         <div className="flex items-center justify-between">
-          <div className="relative z-50 flex h-[28px] w-[170px]">
+          <div className="flex h-[28px] w-[170px]">
             <Link
               href={'/'}
               className="text-white transition-colors duration-300 hover:text-[#18FFAC]"
@@ -157,17 +270,134 @@ export function Header() {
               </svg>
             </Link>
           </div>
-          <nav className="mb-[-44px] hidden items-center gap-x-[12px] lg:flex">
-            <HeaderLink url="/">Home</HeaderLink>
-            <HeaderLink url="/about">About</HeaderLink>
-            <HeaderLink url="/use-islm">Use ISLM</HeaderLink>
-            <HeaderLink url="/learn">Learn</HeaderLink>
-            <HeaderLink url="/team">Team</HeaderLink>
+          <nav className=" hidden items-center gap-x-[12px] lg:flex">
+            <HeaderLink url="/shariah">Shariah</HeaderLink>
+            {/* <HeaderLink url="/about">About</HeaderLink> */}
+            {/* <HeaderLink url="/use-islm">Use ISLM</HeaderLink> */}
+            {/* <HeaderLink url="/learn">Learn</HeaderLink> */}
+            {/* <HeaderLink url="/team">Team</HeaderLink> */}
+
+            <HeaderDropdown title="About">
+              <div className="flex gap-x-[18px]">
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon
+                    title="Mission"
+                    icon={<MissionIcon />}
+                  />
+                  <DropdownLinkWithIcon
+                    title="Roadmap"
+                    icon={<RoadmapIcon />}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon title="News" icon={<NewsIcon />} />
+                  <DropdownLinkWithIcon title="Press" icon={<NewsIcon />} />
+                  <DropdownLinkWithIcon title="Events" icon={<EventsIcon />} />
+                </div>
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon
+                    title="Ecosystem"
+                    icon={<EcosystemIcon />}
+                  />
+                  <DropdownLinkWithIcon
+                    title="Partnerships"
+                    icon={<PartnershipIcon />}
+                  />
+                  <DropdownLinkWithIcon
+                    title="Build on HAQQ"
+                    icon={<BuildIcon />}
+                  />
+                </div>
+              </div>
+            </HeaderDropdown>
+            <HeaderDropdown title="Use islm">
+              <div className="flex gap-x-[18px]">
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon title="Wallet" icon={<WalletIcon />} />
+                  <DropdownLinkWithIcon
+                    title="Staking & Hodling"
+                    icon={<StakingIcon />}
+                  />
+                  <DropdownLinkWithIcon
+                    title="Tracker and Tokenomics"
+                    icon={<TokenomicsIcon />}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon
+                    title="What is ISLM"
+                    icon={<QuestionMarkIcon />}
+                  />
+                  <DropdownLinkWithIcon
+                    title="Get ISLM"
+                    icon={<GetISLMIcon />}
+                  />
+                </div>
+              </div>
+            </HeaderDropdown>
+            <HeaderDropdown title="Learn">
+              <div className="flex gap-x-[18px]">
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon
+                    title="Academy"
+                    icon={<AcademyIcon />}
+                  />
+                  <DropdownLinkWithIcon title="Blog" icon={<BlogIcon />} />
+                  <DropdownLinkWithIcon
+                    title="Podcast"
+                    icon={<PodcastIcon />}
+                  />
+                  <DropdownLinkWithIcon title="Videos" icon={<VideoIcon />} />
+                </div>
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon
+                    title="Where to start?"
+                    icon={<RocketIcon />}
+                  />
+                  <DropdownLinkWithIcon
+                    title="Partners"
+                    icon={<PartnersIcon />}
+                  />
+                </div>
+              </div>
+            </HeaderDropdown>
+            <HeaderDropdown title="Team">
+              <div className="flex gap-x-[18px]">
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon title="Career" icon={<CaseIcon />} />
+                  <DropdownLinkWithIcon
+                    title="Our Values"
+                    icon={<ValuesIcon />}
+                  />
+                  <DropdownLinkWithIcon
+                    title="Community"
+                    icon={<CommunityIcon />}
+                  />
+                  <DropdownLinkWithIcon
+                    title="Meet our team"
+                    icon={<StarIcon />}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <DropdownLinkWithIcon
+                    title="Fraud alert"
+                    icon={<AlertIcon />}
+                  />
+                </div>
+              </div>
+            </HeaderDropdown>
+            <HeaderDropdown title="En">
+              <div className="flex flex-col">
+                <DropdownLinkWithIcon title="English" />
+                <DropdownLinkWithIcon title="عربي" />
+                <DropdownLinkWithIcon title="Bahasa Indonesia" />
+              </div>
+            </HeaderDropdown>
           </nav>
           <div className="inline-flex lg:hidden">
             <BurgerButton
-              // onClick={toggleMobileMenu}
-              // isOpen={isMobileMenuOpen}
+            // onClick={toggleMobileMenu}
+            // isOpen={isMobileMenuOpen}
             />
           </div>
         </div>
