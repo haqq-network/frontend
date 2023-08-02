@@ -88,7 +88,7 @@ function Reason({ title, children }: PropsWithChildren<{ title: string }>) {
 
 export function WhyBlock() {
   return (
-    <div className="bg-islamic-primary-graphite flex flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white md:p-[40px] lg:p-[48px]">
+    <div className="mt-[80px] lg:mt-[100px] bg-islamic-primary-graphite flex flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white md:p-[40px] lg:p-[48px]">
       <Heading>Why Islamic Coin?</Heading>
       <Text isMono className="mt-[12px] md:mt-[20px]">
         Pioneering the Future of Islamic Finance in the Web3 Era
