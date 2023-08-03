@@ -27,7 +27,7 @@ function HalfGoldenStar() {
             fill="#848484"
           />
         </g>
-        <g clip-path="url(#clip1_139_14250)">
+        <g clipPath="url(#clip1_139_14250)">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
