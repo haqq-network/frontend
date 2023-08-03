@@ -6,13 +6,13 @@ export function GradientText({
   className,
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <div
+    <span
       className={clsx(
-        'bg-gradient-to-r from-[#36FFF3] to-[#18FFAC]',
+        'bg-gradient-to-r from-[#36FFF3] to-[#18FFAC] bg-clip-text text-transparent',
         className,
       )}
     >
-      <span className="bg-clip-text text-transparent">{children}</span>
-    </div>
+      {children}
+    </span>
   );
 }

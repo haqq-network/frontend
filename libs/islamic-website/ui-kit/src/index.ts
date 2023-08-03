@@ -8,3 +8,4 @@ export * from './lib/text/text';
 export * from './lib/burger-button/burger-button';
 export * from './lib/wallet-download-button/wallet-download-button';
 export * from './lib/icons/header-icons';
+export * from './lib/dropdown-link/dropdown-link';
