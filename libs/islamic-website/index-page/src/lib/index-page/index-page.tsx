@@ -143,8 +143,8 @@ export function IndexPage() {
 function HeroBg({ children }: PropsWithChildren) {
   return (
     <div className="relative">
-      <div className="absolute inset-0 -z-10 select-none md:translate-y-[-40%]">
-        <div className="absolute left-0 top-0 z-10 h-full w-[50%] bg-gradient-to-r from-[#010304] to-transparent" />
+      <div className="absolute -z-10 select-none md:translate-y-[-30%]">
+        <div className="absolute bottom-0 left-0 top-0 z-10 w-full bg-gradient-to-r from-[#010304] from-10% to-transparent" />
         <Image
           src={moonBgImageData}
           alt=""
@@ -154,7 +154,7 @@ function HeroBg({ children }: PropsWithChildren) {
           }}
           width={2878}
           height={2802}
-          className="pointer-events-none absolute z-0 "
+          className="pointer-events-none"
         />
       </div>
       {children}
