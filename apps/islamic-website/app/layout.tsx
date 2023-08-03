@@ -23,9 +23,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={alexandria.variable}>
-      <body className="bg-black">
+      <body className="relative flex min-h-screen flex-col bg-[#010304] font-serif">
         <Header />
-        <Container>{children}</Container>
+        <div className="flex-1">
+          <Container>{children}</Container>
+        </div>
         <Footer />
       </body>
     </html>
