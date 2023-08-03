@@ -9,6 +9,7 @@ import { Fragment, PropsWithChildren } from 'react';
 import { Marquee } from '../marquee/marquee';
 import { Container } from '@haqq/islamic-ui-kit';
 import moonBgImageData from '../../assets/images/moon_2x.webp';
+import { FinanceBlock } from '../finance-block/finance-block';
 
 const mockNews = [
   {
@@ -132,6 +133,7 @@ export function IndexPage() {
         </Container>
         <WhyBlock />
       </HeroBg>
+      <FinanceBlock />
       <PortfolioBlock />
       <LearnAndGrowBlock />
       <NewsBlock news={mockNews} />
