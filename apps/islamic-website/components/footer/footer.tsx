@@ -30,7 +30,7 @@ function FooterNavLink({ url, isOutLink, title }: FooterNavLinkProps) {
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="px-[8px] py-[6px] font-mono text-base font-[400] uppercase text-[#F5F5F5] transition-colors duration-300 hover:text-[#18FFAC]"
+      className="w-fit px-[8px] py-[6px] font-mono text-base font-[400] uppercase text-[#F5F5F5] transition-colors duration-300 hover:text-[#18FFAC]"
     >
       {title}
     </Link>
