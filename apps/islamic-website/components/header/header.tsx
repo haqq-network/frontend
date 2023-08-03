@@ -85,11 +85,11 @@ function HeaderDropdown({
 
   return (
     <div
-      className="relative"
+      className="group relative"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="hover:text-islamic-primary-green group flex cursor-pointer items-center gap-x-[4px] p-[16px] text-white transition-colors duration-300">
+      <div className="hover:text-islamic-primary-green group-hover:text-islamic-primary-green flex cursor-pointer items-center gap-x-[4px] p-[16px] text-white transition-colors duration-300">
         <span className="text-[14px] uppercase leading-[20px]">{title}</span>
         <svg
           width="24"
@@ -276,7 +276,7 @@ export function Header() {
                 </svg>
               </Link>
             </div>
-            <nav className=" hidden items-center gap-x-[12px] lg:flex">
+            <nav className="hidden items-center gap-x-[12px] lg:flex">
               <HeaderLink url="/shariah">Shariah</HeaderLink>
               {/* <HeaderLink url="/about">About</HeaderLink> */}
               {/* <HeaderLink url="/use-islm">Use ISLM</HeaderLink> */}
