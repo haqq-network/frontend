@@ -128,10 +128,10 @@ function HeaderDropdown({
 
 function BurgerMenuComponent({
   isOpen,
-  onClose,
-}: {
+}: // onClose,
+{
   isOpen: boolean;
-  onClose: () => void;
+  // onClose: () => void;
 }) {
   return (
     <div className="lg:hidden">
@@ -145,7 +145,7 @@ function BurgerMenuComponent({
             : 'translate-y-[100%] ease-out sm:translate-x-[100%] sm:translate-y-[0%]',
         )}
       >
-        <BurgerMenu onClose={onClose} />
+        <BurgerMenu />
       </div>
     </div>
   );
@@ -375,7 +375,6 @@ export function Header() {
       </header>
       <BurgerMenuComponent
         isOpen={isMobileMenuOpen}
-        onClose={toggleMobileMenu}
       />
     </Fragment>
   );
