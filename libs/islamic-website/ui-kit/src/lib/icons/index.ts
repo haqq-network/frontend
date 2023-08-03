@@ -11,3 +11,5 @@ export * from './vk-icon';
 export * from './youtube-icon';
 export * from './zen-icon';
 export * from './world-green-org-icon';
+export * from './app-store-icon';
+export * from './google-play-icon';
