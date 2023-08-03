@@ -11,6 +11,9 @@ import { Container } from '@haqq/islamic-ui-kit';
 import moonBgImageData from '../../assets/images/moon_2x.webp';
 import { FinanceBlock } from '../finance-block/finance-block';
 
+const RUNNING_TEXT =
+  "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
+
 const mockNews = [
   {
     date: new Date(),
@@ -123,14 +126,9 @@ export function IndexPage() {
     <Fragment>
       <HeroBg>
         <HeroBlock />
-        <Container>
-          <Marquee className="my-[20px] lg:my-[120px]">
-            Our mission is to empower the world's Muslim community with a
-            financial instrument for the Digital Age, that enables seamless
-            transactions and interaction, while supporting innovation and
-            philanthropy.
-          </Marquee>
-        </Container>
+        <Marquee className="my-[20px] lg:my-[120px]">
+          {RUNNING_TEXT.toLocaleUpperCase()}
+        </Marquee>
         <WhyBlock />
       </HeroBg>
       <FinanceBlock />
