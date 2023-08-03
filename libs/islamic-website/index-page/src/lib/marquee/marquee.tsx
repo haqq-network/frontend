@@ -13,7 +13,7 @@ export function Marquee({
         className,
       )}
     >
-      <div className="absolute left-0 top-0 z-50 h-full w-[40px] bg-gradient-to-l from-transparent to-[#010304]" />
+      <div className="absolute left-0 top-0 z-30 h-full w-[40px] bg-gradient-to-l from-transparent to-[#010304]" />
       <div
         className={clsx(
           'flex min-w-full shrink-0 justify-around gap-x-[1rem]',
@@ -31,7 +31,7 @@ export function Marquee({
       >
         {children}
       </div>
-      <div className="absolute right-0 top-0 z-50 h-full w-[40px] bg-gradient-to-l from-[#010304] to-transparent" />
+      <div className="absolute right-0 top-0 z-30 h-full w-[40px] bg-gradient-to-l from-[#010304] to-transparent" />
     </div>
   );
 }
