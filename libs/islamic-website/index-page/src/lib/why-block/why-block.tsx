@@ -1,4 +1,4 @@
-import { Heading, Text } from '@haqq/islamic-ui-kit';
+import { Container, Heading, Text } from '@haqq/islamic-ui-kit';
 import { PropsWithChildren } from 'react';
 
 function IslamStar() {
@@ -88,25 +88,27 @@ function Reason({ title, children }: PropsWithChildren<{ title: string }>) {
 
 export function WhyBlock() {
   return (
-    <div className="mt-[80px] lg:mt-[100px] bg-islamic-primary-graphite flex flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white md:p-[40px] lg:p-[48px]">
-      <Heading>Why Islamic Coin?</Heading>
-      <Text isMono className="mt-[12px] md:mt-[20px]">
-        Pioneering the Future of Islamic Finance in the Web3 Era
-      </Text>
-      <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] md:mt-[44px] md:grid-cols-2 xl:grid-cols-4">
-        <Reason title="Maintaining Shariah Guidelines">
-          <IslamStar />
-        </Reason>
-        <Reason title="HAQQ Ecosystem's Prime Currency">
-          <DoubleCrescent />
-        </Reason>
-        <Reason title="Reviving Communities with Sustainable Practices">
-          <Star />
-        </Reason>
-        <Reason title="Islamic Way to Financial Freedom">
-          <CrescentAndStar />
-        </Reason>
+    <Container>
+      <div className="bg-islamic-primary-graphite flex transform-gpu flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
+        <Heading>Why Islamic Coin?</Heading>
+        <Text isMono className="mt-[12px] md:mt-[20px]">
+          Pioneering the Future of Islamic Finance in the Web3 Era
+        </Text>
+        <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] md:mt-[44px] md:grid-cols-2 xl:grid-cols-4">
+          <Reason title="Maintaining Shariah Guidelines">
+            <IslamStar />
+          </Reason>
+          <Reason title="HAQQ Ecosystem's Prime Currency">
+            <DoubleCrescent />
+          </Reason>
+          <Reason title="Reviving Communities with Sustainable Practices">
+            <Star />
+          </Reason>
+          <Reason title="Islamic Way to Financial Freedom">
+            <CrescentAndStar />
+          </Reason>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 }
