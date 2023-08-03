@@ -25,7 +25,7 @@ export function NewsCard({
   return (
     <div
       className={clsx(
-        'flex min-w-[234px] max-w-[400px] flex-col bg-transparent',
+        'flex min-w-[234px] max-w-[400px] flex-col bg-transparent md:min-w-[250px] lg:min-w-[282px] xl:min-w-[342px]',
         className,
       )}
     >
