@@ -116,7 +116,7 @@ function HeaderDropdown({
         leaveTo="transform opacity-0 scale-95"
         show={isDropdownOpen}
       >
-        <div className="absolute left-1/2 top-full min-w-max origin-top-left translate-x-[-50%]">
+        <div className="absolute left-1/2 top-full min-w-max origin-center translate-x-[-50%]">
           <div className="w-fit rounded-xl bg-[#15191ef2] p-[8px]">
             {children}
           </div>
@@ -141,11 +141,11 @@ function BurgerMenuComponent({
           'fixed right-0 top-[104px] z-[45] h-[calc(100vh-104px)] w-full bg-[#15191EF2]',
           'transform-gpu transition duration-150 will-change-transform',
           isOpen
-            ? 'translate-y-[0px] ease-in-out sm:translate-x-[0px]'
-            : 'translate-y-[100%] ease-out sm:translate-x-[100%] sm:translate-y-[0%]',
+            ? 'block translate-y-[0px] ease-in-out sm:translate-x-[0px]'
+            : 'hidden translate-y-[100%] ease-out sm:translate-x-[100%] sm:translate-y-[0%]',
         )}
       >
-        <BurgerMenu />
+        <BurgerMenu isOpen={isOpen} />
       </div>
     </div>
   );
@@ -373,9 +373,7 @@ export function Header() {
           </div>
         </Container>
       </header>
-      <BurgerMenuComponent
-        isOpen={isMobileMenuOpen}
-      />
+      <BurgerMenuComponent isOpen={isMobileMenuOpen} />
     </Fragment>
   );
 }

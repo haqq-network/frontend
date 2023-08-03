@@ -27,11 +27,85 @@ import {
 import clsx from 'clsx';
 import { Fragment, PropsWithChildren, useCallback, useState } from 'react';
 
-export function BurgerMenu({ className }: { className?: string }) {
+const HeaderLinks = [
+  {
+    title: 'Shariah',
+  },
+  {
+    title: 'About',
+    withArrow: true,
+    children: [
+      {
+        title: 'Mission',
+        icon: <MissionIcon />,
+      },
+      {
+        title: 'Roadmap',
+        icon: <RoadmapIcon />,
+      },
+      {
+        title: 'News',
+        icon: <NewsIcon />,
+      },
+      {
+        title: 'Press',
+        icon: <NewsIcon />,
+      },
+      {
+        title: 'Events',
+        icon: <EventsIcon />,
+      },
+      { title: 'Ecosystem', icon: <EcosystemIcon /> },
+      { title: 'Partnerships', icon: <PartnershipIcon /> },
+      { title: 'Build on HAQQ', icon: <BuildIcon /> },
+    ],
+  },
+  {
+    title: 'Use Islm',
+    withArrow: true,
+    children: [
+      { title: 'Wallet', icon: <WalletIcon /> },
+      { title: 'Staking & Hodling', icon: <StakingIcon /> },
+      { title: 'Tracker and Tokenomics', icon: <TokenomicsIcon /> },
+      { title: 'What is ISLM', icon: <QuestionMarkIcon /> },
+      { title: 'Get ISLM', icon: <GetISLMIcon /> },
+    ],
+  },
+  {
+    title: 'Learn',
+    withArrow: true,
+    children: [
+      { title: 'Academy', icon: <AcademyIcon /> },
+      { title: 'Blog', icon: <BlogIcon /> },
+      { title: 'Podcast', icon: <PodcastIcon /> },
+      { title: 'Videos', icon: <VideoIcon /> },
+      { title: 'Where to start?', icon: <RocketIcon /> },
+      { title: 'Partners', icon: <PartnersIcon /> },
+    ],
+  },
+  {
+    title: 'Team',
+    withArrow: true,
+    children: [
+      { title: 'Career', icon: <CaseIcon /> },
+      { title: 'Our Values', icon: <ValuesIcon /> },
+      { title: 'Community', icon: <CommunityIcon /> },
+      { title: 'Meet the team', icon: <StarIcon /> },
+      { title: 'Fraud Alert', icon: <AlertIcon /> },
+    ],
+  },
+];
+
+export function BurgerMenu({
+  className,
+  isOpen,
+}: {
+  className?: string;
+  isOpen?: boolean;
+}) {
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
   const toggleLangMenu = useCallback(() => {
-    console.log('kek');
     return setIsLangMenuOpen(!isLangMenuOpen);
   }, [isLangMenuOpen]);
 
