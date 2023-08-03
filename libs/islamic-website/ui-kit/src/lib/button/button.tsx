@@ -10,6 +10,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     | 'primary-green';
   isLoading?: boolean;
   withArrow?: boolean;
+  fill?: boolean;
 }
 
 export function Button({
@@ -20,12 +21,13 @@ export function Button({
   variant = 'primary-green',
   className,
   withArrow,
+  fill,
 }: PropsWithChildren<ButtonProps>) {
   const classNames = clsx(
-    'px-[20px] py-[12px] rounded-[8px] min-w-[160px]',
+    'px-[32px] py-[12px] rounded-[8px] min-w-[160px]',
     'flex justify-center items-center gap-x-[8px]',
     'text-center uppercase text-[16px] leading-[1.5em] font-[400] font-mono',
-    'transition-all duration-300',
+    'transition-all duration-300 group',
 
     variant === 'islamic-classic-green' &&
       !disabled &&
@@ -59,8 +61,6 @@ export function Button({
 
     variant === 'primary-green' && disabled && 'bg-islamic-primary-green',
 
-    withArrow && !disabled && !isLoading && 'hover:gap-x-[12px]',
-
     isLoading && 'cursor-not-allowed',
 
     isLoading &&
@@ -68,6 +68,8 @@ export function Button({
       'opacity-none border border-white',
 
     disabled && 'opacity-50 cursor-not-allowed',
+
+    fill && 'w-full',
   );
 
   return (
@@ -91,20 +93,26 @@ export function Button({
       )}
 
       {withArrow && !isLoading && (
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          className={clsx(
+            !disabled && 'duration-75 group-hover:translate-x-[4px]',
+          )}
         >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M12.2559 4.41076C11.9305 4.08533 11.4029 4.08533 11.0774 4.41076C10.752 4.7362 10.752 5.26384 11.0774 5.58928L14.6548 9.16669H2.50002C2.03978 9.16669 1.66669 9.53978 1.66669 10C1.66669 10.4603 2.03978 10.8334 2.50002 10.8334H14.6548L11.0774 14.4108C10.752 14.7362 10.752 15.2638 11.0774 15.5893C11.4029 15.9147 11.9305 15.9147 12.2559 15.5893L17.2554 10.5898C17.2558 10.5894 17.2561 10.5891 17.2564 10.5888L17.8452 10L12.2559 4.41076Z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M12.2559 4.41076C11.9305 4.08533 11.4029 4.08533 11.0774 4.41076C10.752 4.7362 10.752 5.26384 11.0774 5.58928L14.6548 9.16669H2.50002C2.03978 9.16669 1.66669 9.53978 1.66669 10C1.66669 10.4603 2.03978 10.8334 2.50002 10.8334H14.6548L11.0774 14.4108C10.752 14.7362 10.752 15.2638 11.0774 15.5893C11.4029 15.9147 11.9305 15.9147 12.2559 15.5893L17.2554 10.5898C17.2558 10.5894 17.2561 10.5891 17.2564 10.5888L17.8452 10L12.2559 4.41076Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
       )}
     </button>
   );
