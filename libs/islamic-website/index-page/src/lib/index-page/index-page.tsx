@@ -143,20 +143,22 @@ export function IndexPage() {
 function HeroBg({ children }: PropsWithChildren) {
   return (
     <div className="relative">
-      <div className="absolute -z-10 select-none md:translate-y-[-30%]">
-        <div className="absolute bottom-0 left-0 top-0 z-10 w-full bg-gradient-to-r from-[#010304] from-10% to-transparent" />
-        <Image
-          src={moonBgImageData}
-          alt=""
-          style={{
-            width: '100%',
-            height: 'auto',
-          }}
-          width={2878}
-          height={2802}
-          className="pointer-events-none"
-        />
-      </div>
+      <Container className="relative">
+        <div className="absolute -z-10 select-none md:translate-y-[-30%]">
+          <div className="absolute bottom-0 left-0 top-0 z-10 w-full bg-gradient-to-r from-[#010304] from-10% to-transparent" />
+          <Image
+            src={moonBgImageData}
+            alt=""
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}
+            width={2878}
+            height={2802}
+            className="pointer-events-none"
+          />
+        </div>
+      </Container>
       {children}
     </div>
   );

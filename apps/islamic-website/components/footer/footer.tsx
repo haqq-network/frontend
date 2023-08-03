@@ -181,11 +181,17 @@ export function Footer() {
           </div>
         </Container>
       </div>
-      <Container className="flex w-full items-center justify-between py-[16px] text-center text-[12px] font-[300] leading-[18px] md:py-[24px] md:text-[13px] md:leading-[20px] lg:py-[36px] lg:text-[14px] lg:leading-[20px]">
-        <span>{`©${new Date().getFullYear()} Islamic Coin All rights
-        reserved`}</span>
-        <span>Islamic Coin</span>
-      </Container>
+      <div className="py-[16px] md:py-[24px] lg:py-[36px]">
+        <Container>
+          <div className="flex w-full items-center justify-between text-[12px] font-[300] leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px] lg:leading-[20px]">
+            <div>
+              {`© ${new Date().getFullYear()} Islamic Coin. All rights
+        reserved`}
+            </div>
+            <div>Islamic Coin</div>
+          </div>
+        </Container>
+      </div>
     </footer>
   );
 }
