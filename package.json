@@ -109,6 +109,7 @@
     "@storybook/addon-essentials": "7.0.26",
     "@storybook/addon-mdx-gfm": "7.0.26",
     "@storybook/addon-storysource": "7.0.26",
+    "@storybook/addon-viewport": "7.2.1",
     "@storybook/core-common": "7.0.26",
     "@storybook/core-server": "7.0.26",
     "@storybook/manager-api": "7.0.26",
