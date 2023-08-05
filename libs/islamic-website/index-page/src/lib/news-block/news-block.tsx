@@ -15,7 +15,7 @@ export function NewsBlock({ news }: NewsBlockProps) {
     <Container>
       <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
         <Heading className="text-white">Latest Islamic Coin News</Heading>
-        <div className="mt-[32px] flex max-w-full gap-x-[48px] overflow-x-auto md:mt-[52px] lg:mt-[72px]">
+        <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
           {news.slice(0, 3).map((el, idx) => {
             return (
               <Link href={el.source} key={`${el.title}${idx}`}>
@@ -30,7 +30,7 @@ export function NewsBlock({ news }: NewsBlockProps) {
             );
           })}
         </div>
-        <div className="text-islamic-primary-green hover:text-islamic-classic-green mt-[48px] text-center font-mono uppercase transition-colors duration-300">
+        <div className="text-islamic-primary-green hover:text-islamic-classic-green mt-[48px] text-center font-mono text-base uppercase transition-colors duration-300">
           <Link href={'/media'} className="flex items-center gap-x-[8px]">
             See all news
             <svg

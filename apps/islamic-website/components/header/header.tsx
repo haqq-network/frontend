@@ -135,7 +135,7 @@ function BurgerMenuComponent({
 }) {
   return (
     <div className="lg:hidden">
-      <ScrollLock isActive={isOpen} />
+      {/* <ScrollLock isActive={isOpen} /> */}
       <div
         className={clsx(
           'fixed right-0 top-[104px] z-[45] h-[calc(100vh-104px)] w-full bg-[#15191EF2]',
@@ -154,10 +154,29 @@ function BurgerMenuComponent({
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   // const [isScrolled, setIsScrolled] = useState(false);
+  const [isBlurred, setBlurred] = useState(false);
 
   const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpened(!isMobileMenuOpen);
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY > 0) {
+        setBlurred(true);
+      } else {
+        setBlurred(false);
+      }
+    }
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   // const headerRef = useRef<HTMLHeadingElement>(null);
 
@@ -180,6 +199,7 @@ export function Header() {
           'sticky top-0 z-50 w-full py-[38px]',
           'transform-gpu transition duration-150 will-change-transform',
           isMobileMenuOpen ? 'bg-[#15191EF2]' : 'bg-transparent',
+          isBlurred && !isMobileMenuOpen && 'backdrop-blur',
         )}
         // ref={headerRef}
       >

@@ -150,7 +150,7 @@ export function LearnAndGrowBlock() {
           </Heading>
           <Text
             isMono
-            className="mt-[24px] !text-[18px] !leading-[25px] text-white md:mt-[20px] md:w-[57%] lg:w-[60%]"
+            className="mt-[24px] text-white md:mt-[20px] md:w-[57%] lg:w-[60%]"
           >
             Empower Your Ethical Financial Journey with Our Educational Guides &
             Resources

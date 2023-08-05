@@ -25,7 +25,7 @@ export function NewsCard({
   return (
     <div
       className={clsx(
-        'flex min-w-[234px] max-w-[400px] flex-col bg-transparent md:min-w-[250px] lg:min-w-[282px] xl:min-w-[342px]',
+        'flex w-[234px] flex-col bg-transparent md:w-[250px] lg:w-[282px] xl:w-[342px] 2xl:w-[394px]',
         className,
       )}
     >
@@ -40,14 +40,16 @@ export function NewsCard({
           />
         )}
       </div>
-      <div className="mt-[28px] text-[#838383]">{source}</div>
-      <div className="mt-[8px] line-clamp-2 text-[24px] font-[700] leading-[34px] text-white">
+      <div className="mt-[28px] font-mono text-[10px] font-[400] leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]">
+        {source}
+      </div>
+      <div className="mt-[8px] line-clamp-2 text-[18px] font-[700] leading-[26px] text-white md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
         {title}
       </div>
-      <div className="mt-[12px] line-clamp-3 text-[16px] font-[400] leading-[1.5em] text-[#555555]">
+      <div className="mt-[12px] line-clamp-3 text-[13px] font-[400] leading-[20px] text-white/50 md:text-[14px] md:leading-[20px] lg:text-base">
         {description}
       </div>
-      <div className="mt-[12px] text-[12px] leading-[1.5em] text-[#838383]">
+      <div className="mt-[12px] font-mono text-[10px] leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]">
         {new Intl.DateTimeFormat('en-US', {
           day: 'numeric',
           month: 'long',

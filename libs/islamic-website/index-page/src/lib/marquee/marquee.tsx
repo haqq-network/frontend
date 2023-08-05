@@ -9,7 +9,7 @@ export function Marquee({
   return (
     <div
       className={clsx(
-        'relative flex select-none gap-x-[1rem] overflow-hidden border-y border-[#2F2F2F] py-[4px] font-mono text-[18px] leading-[26px] text-white/50',
+        'relative flex select-none gap-x-[1rem] overflow-hidden border-y border-[#2F2F2F] py-[4px] font-mono text-[15px] leading-[22px] text-white/50 md:text-base lg:text-[18px] lg:leading-[26px]',
         className,
       )}
     >

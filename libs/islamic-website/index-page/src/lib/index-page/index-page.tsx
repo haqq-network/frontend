@@ -10,6 +10,8 @@ import { Marquee } from '../marquee/marquee';
 import { Container } from '@haqq/islamic-ui-kit';
 import moonBgImageData from '../../assets/images/moon_2x.webp';
 import { FinanceBlock } from '../finance-block/finance-block';
+import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
+import cubeOnRockImgData from '../../assets/images/cube-on-rock.webp';
 
 const RUNNING_TEXT =
   "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
@@ -126,12 +128,19 @@ export function IndexPage() {
     <Fragment>
       <HeroBg>
         <HeroBlock />
-        <Marquee className="my-[20px] lg:my-[120px]">
+        <Marquee className="my-[20px] mb-[80px] mt-[60px] md:mt-[120px] lg:my-[100px] lg:mt-[150px]">
           {RUNNING_TEXT.toLocaleUpperCase()}
         </Marquee>
         <WhyBlock />
       </HeroBg>
-      <FinanceBlock />
+      {/* mt-[80px] overflow-hidden pb-[50px] pt-[300px] md:mt-0 md:overflow-visible lg:mt-[160px] lg:pb-0 lg:pt-0 */}
+      <div className="relative overflow-clip pb-[108px] pt-[250px] md:pt-[160px] md:pb-[200px] lg:pb-[140px]">
+        <div className="absolute left-1/2 h-[385px] w-[656px] translate-x-[-60%] translate-y-[-60%] scale-[80%] transform md:left-auto md:right-0 md:h-[499px] md:translate-x-[29%] md:translate-y-[-10%] md:scale-100 lg:h-[550px] lg:translate-x-[-1%] lg:translate-y-[0%] min-[1440px]:translate-x-[-23%]">
+          <Image src={cubeOnRockImgData} alt="" />
+        </div>
+        <FinanceBlock />
+      </div>
+      <AdvisoryBoardBlock />
       <PortfolioBlock />
       <LearnAndGrowBlock />
       <NewsBlock news={mockNews} />
