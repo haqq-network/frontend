@@ -2,7 +2,8 @@ import { Footer } from '../components/footer/footer';
 import { Header } from '../components/header/header';
 import { Alexandria } from 'next/font/google';
 import '../styles/global.css';
-import { Container } from '@haqq/islamic-ui-kit';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 export const metadata = {
   title: 'Welcome to islamic-website',
