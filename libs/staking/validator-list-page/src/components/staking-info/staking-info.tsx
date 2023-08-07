@@ -1,10 +1,12 @@
 import {
   useAddress,
+  useQueryInvalidate,
   useStakingActions,
   useStakingDelegationQuery,
   useStakingRewardsQuery,
   useStakingUnbondingsQuery,
   useSupportedChains,
+  useToast,
   useWallet,
 } from '@haqq/shared';
 import { RewardsInfo, StakingInfoAmountBlock } from '@haqq/staking/ui-kit';
@@ -22,6 +24,7 @@ export function StakingInfoHooked() {
   );
   const { ethAddress, haqqAddress } = useAddress();
   const { claimAllRewards } = useStakingActions();
+  const invalidateQueries = useQueryInvalidate();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
@@ -29,10 +32,36 @@ export function StakingInfoHooked() {
     address: ethAddress,
     watch: true,
   });
+  const { chain } = useNetwork();
+  const toast = useToast();
 
-  const handleRewardsClaim = useCallback(() => {
-    claimAllRewards(delegatedValsAddrs);
-  }, [claimAllRewards, delegatedValsAddrs]);
+  const handleRewardsClaim = useCallback(async () => {
+    const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
+
+    await toast.promise(claimAllRewardPromise, {
+      loading: 'Rewards claim in progress',
+      success: (tx) => {
+        const txHash = tx?.txhash;
+        console.log('Rewards claimed', { txHash });
+        return `Rewards claimed`;
+      },
+      error: (error) => {
+        return error.message;
+      },
+    });
+
+    invalidateQueries([
+      [chain?.id, 'rewards'],
+      [chain?.id, 'delegation'],
+      [chain?.id, 'unboundings'],
+    ]);
+  }, [
+    chain?.id,
+    claimAllRewards,
+    delegatedValsAddrs,
+    invalidateQueries,
+    toast,
+  ]);
 
   const formattedBalance = useMemo(() => {
     if (balance) {

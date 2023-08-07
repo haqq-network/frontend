@@ -26,6 +26,8 @@ import {
   GetGovernanceParamsResponse,
   useSupportedChains,
   formatNumber,
+  useStakingRewardsQuery,
+  useStakingDelegationQuery,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -211,6 +213,8 @@ export function ProposalDetailsComponent({
   govParams: GetGovernanceParamsResponse;
 }) {
   const { isConnected } = useAccount();
+  const { haqqAddress } = useAddress();
+  const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { openSelectWallet } = useWallet();
   // const { deposit } = useProposalActions();
   // const toast = useToast();
@@ -257,6 +261,28 @@ export function ProposalDetailsComponent({
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
+
+  const delegation = useMemo(() => {
+    if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
+      let del = 0;
+
+      for (const delegation of delegationInfo.delegation_responses) {
+        del = del + Number.parseInt(delegation.balance.amount, 10);
+      }
+
+      return del / 10 ** 18;
+    }
+
+    return 0;
+  }, [delegationInfo]);
+
+  const isCanVote = useMemo(() => {
+    return (
+      Number.parseFloat(formatNumber(delegation)) > 0 &&
+      proposalDetails.status === ProposalStatus.Voting
+    );
+  }, [delegation, proposalDetails.status]);
+
   // const balance = useMemo(() => {
   //   return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
   // }, [balanceData]);
@@ -570,7 +596,8 @@ export function ProposalDetailsComponent({
                     isConnected={isConnected}
                   />
                 )} */}
-                {proposalDetails.status === ProposalStatus.Voting && (
+
+                {isCanVote && (
                   <div className="bg-white bg-opacity-[15%] px-[28px] py-[32px]">
                     <VoteActions
                       proposalId={Number.parseInt(
@@ -596,6 +623,7 @@ export function ProposalDetailsComponent({
             onDepositWalletClick={() => {
               navigate('#deposit', { replace: true });
             }}
+            isCanVote={isCanVote}
           />
           {/* <ProposalDepositModal
             isOpen={isDepositModalOpen}
@@ -617,12 +645,14 @@ function ProposalActionsMobile({
   onConnectWalletClick,
   onDepositWalletClick,
   isDepositAvailable,
+  isCanVote,
 }: {
   proposalDetails: Proposal;
   isConnected?: boolean;
   onConnectWalletClick: () => void;
   onDepositWalletClick: () => void;
   isDepositAvailable: boolean;
+  isCanVote?: boolean;
 }) {
   if (!isConnected) {
     return (
@@ -660,7 +690,7 @@ function ProposalActionsMobile({
   //   );
   // }
 
-  if (proposalDetails.status === ProposalStatus.Voting) {
+  if (isCanVote) {
     return (
       <div className="transform-gpu bg-[#FFFFFF14] py-[24px] backdrop-blur md:py-[40px]">
         <Container>

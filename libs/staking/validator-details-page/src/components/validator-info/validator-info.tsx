@@ -16,6 +16,7 @@ import {
   useSupportedChains,
   formatNumber,
   useStakingValidatorListQuery,
+  useToast,
 } from '@haqq/shared';
 import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
@@ -430,6 +431,7 @@ export function ValidatorInfo({
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const toast = useToast();
 
   const balance = useMemo(() => {
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
@@ -446,8 +448,12 @@ export function ValidatorInfo({
 
   const handleModalClose = useCallback(() => {
     navigate('', { replace: true });
-    invalidateQueries([['rewards'], ['delegation'], ['unboundings']]);
-  }, [invalidateQueries, navigate]);
+    invalidateQueries([
+      [chain?.id, 'rewards'],
+      [chain?.id, 'delegation'],
+      [chain?.id, 'unboundings'],
+    ]);
+  }, [chain?.id, invalidateQueries, navigate]);
 
   const unboundingTime = useMemo(() => {
     if (stakingParams?.unbonding_time) {
@@ -496,9 +502,27 @@ export function ValidatorInfo({
     return 0;
   }, [rewardsInfo]);
 
-  const handleGetRewardsClick = useCallback(() => {
-    claimReward(validatorAddress);
-  }, [claimReward, validatorAddress]);
+  const handleGetRewardsClick = useCallback(async () => {
+    const claimRewardPromise = claimReward(validatorAddress);
+
+    await toast.promise(claimRewardPromise, {
+      loading: 'Rewards claim in progress',
+      success: (tx) => {
+        const txHash = tx?.txhash;
+        console.log('Rewards claimed', { txHash });
+        return `Rewards claimed`;
+      },
+      error: (error) => {
+        return error.message;
+      },
+    });
+
+    invalidateQueries([
+      [chain?.id, 'rewards'],
+      [chain?.id, 'delegation'],
+      [chain?.id, 'unboundings'],
+    ]);
+  }, [chain?.id, claimReward, invalidateQueries, toast, validatorAddress]);
 
   const unbounded = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
@@ -538,9 +562,33 @@ export function ValidatorInfo({
     }
   }, [delegationInfo]);
 
-  const handleRewardsClaim = useCallback(() => {
-    claimAllRewards(delegatedValsAddrs);
-  }, [claimAllRewards, delegatedValsAddrs]);
+  const handleRewardsClaim = useCallback(async () => {
+    const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
+
+    await toast.promise(claimAllRewardPromise, {
+      loading: 'Rewards claim in progress',
+      success: (tx) => {
+        const txHash = tx?.txhash;
+        console.log('Rewards claimed', { txHash });
+        return `Rewards claimed`;
+      },
+      error: (error) => {
+        return error.message;
+      },
+    });
+
+    invalidateQueries([
+      [chain?.id, 'rewards'],
+      [chain?.id, 'delegation'],
+      [chain?.id, 'unboundings'],
+    ]);
+  }, [
+    chain?.id,
+    claimAllRewards,
+    delegatedValsAddrs,
+    invalidateQueries,
+    toast,
+  ]);
 
   const validatorCommission = useMemo(() => {
     return (

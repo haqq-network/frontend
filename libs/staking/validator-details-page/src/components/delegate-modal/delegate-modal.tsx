@@ -122,22 +122,19 @@ export function DelegateModal({
   const handleSubmitDelegate = useCallback(async () => {
     const delegationPromise = delegate(validatorAddress, delegateAmount);
 
-    toast
-      .promise(delegationPromise, {
-        loading: 'Delegate in progress',
-        success: (tx) => {
-          console.log('Delegation successful', { tx }); // maybe successful
-          const txHash = tx?.txhash;
-          console.log('Delegation successful', { txHash });
-          return `Delegation successful`;
-        },
-        error: (error) => {
-          return error.message;
-        },
-      })
-      .then(() => {
-        onClose();
-      });
+    await toast.promise(delegationPromise, {
+      loading: 'Delegate in progress',
+      success: (tx) => {
+        console.log('Delegation successful', { tx }); // maybe successful
+        const txHash = tx?.txhash;
+        console.log('Delegation successful', { txHash });
+        return `Delegation successful`;
+      },
+      error: (error) => {
+        return error.message;
+      },
+    });
+    onClose();
   }, [delegate, validatorAddress, delegateAmount, toast, onClose]);
 
   useEffect(() => {
