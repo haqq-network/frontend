@@ -133,8 +133,7 @@ export function IndexPage() {
         </Marquee>
         <WhyBlock />
       </HeroBg>
-      {/* mt-[80px] overflow-hidden pb-[50px] pt-[300px] md:mt-0 md:overflow-visible lg:mt-[160px] lg:pb-0 lg:pt-0 */}
-      <div className="relative overflow-clip pb-[108px] pt-[250px] md:pt-[160px] md:pb-[200px] lg:pb-[140px]">
+      <div className="relative overflow-clip pb-[108px] pt-[250px] md:pb-[200px] md:pt-[160px] lg:pb-[140px]">
         <div className="absolute left-1/2 h-[385px] w-[656px] translate-x-[-60%] translate-y-[-60%] scale-[80%] transform md:left-auto md:right-0 md:h-[499px] md:translate-x-[29%] md:translate-y-[-10%] md:scale-100 lg:h-[550px] lg:translate-x-[-1%] lg:translate-y-[0%] min-[1440px]:translate-x-[-23%]">
           <Image src={cubeOnRockImgData} alt="" />
         </div>
