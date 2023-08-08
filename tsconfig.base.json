@@ -21,8 +21,12 @@
       "@haqq/governance/proposal-list": [
         "libs/governance/proposal-list/src/index.ts"
       ],
-      "@haqq/islamic-website/ui-kit": [
-        "libs/islamic-website/ui-kit/src/index.ts"
+      "@haqq/islamic-ui-kit": ["libs/islamic-website/ui-kit/src/index.ts"],
+      "@haqq/islamic-website/index-page": [
+        "libs/islamic-website/index-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/shariah-page": [
+        "libs/islamic-website/shariah-page/src/index.ts"
       ],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/shared": ["libs/shared/src/index.ts"],

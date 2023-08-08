@@ -12,5 +12,6 @@ export function YoutubeIcon({ className }: { className?: string }) {
         fill="currentColor"
       />
     </svg>
+    
   );
 }
