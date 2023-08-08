@@ -113,7 +113,7 @@ function EnFatwa() {
         its administrators, and their answers to the Authority’s questions on
         this matter, that included the following:
       </Text>
-      <ul className="list-decimal pl-[20px]">
+      <ol className="list-decimal pl-[20px]">
         <li>
           HAQQ Chain platform will be built using a technical framework that is
           well-known in the blockchain field, which is the Cosmos technical
@@ -138,7 +138,7 @@ function EnFatwa() {
           International Islamic community and is subject to the decisions voted
           on by the miners of HAQQ Chain platform.
         </li>
-      </ul>
+      </ol>
       <Text size="small">
         After thorough review of the structure of the platform and the white
         paper, and what has been shown to the Authority from the blockchain
@@ -148,7 +148,7 @@ function EnFatwa() {
         reflecting on the types of currencies currently available, which are
         summarized in the following types:
       </Text>
-      <ul className="list-decimal pl-[20px]">
+      <ol className="list-decimal pl-[20px]">
         <li>
           Currencies with no specific purpose behind their issuance other than
           being a store of value and having a price, where the customer aims to
@@ -176,7 +176,7 @@ function EnFatwa() {
           specific property, where the currency owner shall be the owner of the
           asset, image or associated property.
         </li>
-      </ul>
+      </ol>
       <Text size="small">
         The Authority has seen that these four types of currencies are
         considered significant financial assets whose value changes as supply
@@ -195,7 +195,7 @@ function EnFatwa() {
         First: There is no objection to establish the “HAQQ Chain” Platform and
         issuing the “Islamic Coin” based on the following measures:
       </Text>
-      <ul className="list-decimal pl-[20px]">
+      <ol className="list-decimal pl-[20px]">
         <li>
           Islamic Coin is a financial asset that may be traded by sale and
           purchase and replaced with legitimate services and goods and is
@@ -212,7 +212,7 @@ function EnFatwa() {
           Appoint an Authority committee for the Evergreen DAO Endowment Fund to
           ensure the safety of the Fund’s activities.
         </li>
-      </ul>
+      </ol>
       <Text size="small">
         Second: The Authority confirms that this view is specific to the white
         paper, which includes details of establishing the “Haqq Chain” Platform,
@@ -246,6 +246,145 @@ function EnFatwa() {
         Praise be to Allah, the Lord of the Worlds; and may His blessings and
         peace be upon our Prophet Muhammad and upon all his Family and
         Companions.
+      </Text>
+    </div>
+  );
+}
+
+function ArFatwa() {
+  return (
+    <div className="mt-[30px] flex flex-col gap-y-[16px] font-[300] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
+      <Text size="small">بسم الله الرحمن الرحيم</Text>
+      <div className="text-[18px] font-[600] leading-[26px]">
+        الرأي الشرعي لتأسيس شبكة ’الحق تشين’ وإصدار عملة ’إسلاميك كوين’ الخاصة
+        بها
+      </div>
+      <Text size="small">
+        الحمد للّه وحده، والـصـلاة والسلام على نبينـا محمد، وعلى آله وصحبـه، ومن
+        تبعهم بإحسـان إلى يـوم الديـن، أما بعد: فإن الهيئة الشرعية المُشكّلة
+        لغرض إبداء الرأي الشرعي في تأسيس منصة ’الحق تشين’ (’المنصة’) وإصدار عملة
+        ’إسلاميك كوين’ الخاصة بها، قد عقدت عدداً من الاجتماعات كان آخرها بتاريخ
+        19/06/1443هـ - 22/01/2022، لغرض الاطلاع على ’الورقة البيضاء’ الخاصة
+        بمنصة ’الحق تشين’؛ وهي ورقة محررة باللغتين العربية والإنجليزية تتضمن
+        خصائص منصة ’الحق تشين’ المعتمدة على تقنية ’البلوك تشين’، وإطار العمل
+        الفني المستخدم في برمجة منصة الحق تشين، والهدف من المنصة وآلية توزيع
+        وإصدار عملة ’إسلاميك كوين’ الخاصة بهذه المنصة، بالإضافة إلى معلومات عن
+        ’صندوق إيفرجرين داو’ الوقفي الذي سيتم تأسيسه في هذه المنصة.
+      </Text>
+      <Text size="small">
+        وبعد الاطلاع على عرض مفصل لعمل المنصة من القائمين عليها، وإجاباتهم عن
+        أسئلة الهيئة بهذا الشأن، وقد تضمن العرض النقاط التالية:
+      </Text>
+      <ol className="list-decimal pl-[20px]">
+        <li>
+          أن منصة ’الحق تشين’ سيتم بناؤها باستخدام إطار عمل فني معروف في مجال
+          ’البلوك تشين’ وهو الإطار الفني المتعلق بلغة ’كوزموس’.
+        </li>
+        <li>
+          أن المنصة ستعمل على أساس ’تأكيد الملكية’ للتعدين، بحيث يُجمّد عدداً من
+          عملاتهم لتكون لهم صلاحية التعدين وفق معايير معينة، وتعد هذه الطريقة
+          أوفر في استهلاك الطاقة من طريقة التعدين التقليدية التي تقوم على أساس
+          ’تأكيد العمل’.
+        </li>
+        <li>
+          أن العملة الرئيسية المستخدمة في منصة ’الحق تشين’ هي عملة ’إسلاميك
+          كوين’، وستُطرح نسبة معينة من هذه العملات طرحاً خاصاً على عدد محدود من
+          المشترين.
+        </li>
+        <li>
+          أن 10% من العملات المصدرة في المنصة سيتم تحويلها تلقائياً لصندوق
+          ’إيفرجين داو’ الوقفي (مؤسسة مستقلة لا مركزية) وهو صندوق عملات مشفرة
+          وقفي يستثمر في المشروعات التي تخدم المجتمع الإسلامي دولياً، ويخضع
+          الصندوق للقرارات التي يصوت عليها المُعدّنون في منصة ’الحق تشين’.
+        </li>
+      </ol>
+      <p>
+        وبعد التأمل في هيكل المنصة وما تضمنته الورقة البيضاء، وما ظهر للهيئة من
+        أن تقنية ’البلوك تشين’ وإطار العمل الفني المستخدم في برمجة منصة ’الحق
+        تشين’ تُعد تقنية آمنة مُجرّبة يتم من خلالها إجراء التعاملات المالية وحفظ
+        أموال المستخدمين المتعاملين فيها. وبعد التأمل في أنواع العملات المتوفرة
+        حالياً، والتي تتلخص في الأنواع الآتية:
+      </p>
+      <ol className="list-decimal pl-[20px]">
+        <li>
+          عملات ليس لها هدف معين من إصدارها سوى كونها أثماناً ومخزناً للقيمة،
+          ويهدف المتعاملون فيها من الاحتفاظ بها أو استخدامها في مشترياتهم
+          وحجوزاتهم والحصول على أجورهم من خلالها ودفع ضرائبهم بها في عدد من
+          الدول.
+        </li>
+        <li>
+          عملات يتم إصدارها بهدف التعامل بها في منتج معين أو منصة معينة، بحيث
+          تكون هي العملة الرئيسية التي يتم من خلالها تقييم وشراء الخدمات
+          والمنتجات المقدمة في تلك المنصة أو البرنامج، وقد تشتهر بعض هذه العملات
+          ويزيد الطلب عليها لتحمل خصائص النوع الأول أيضاً.
+        </li>
+        <li>
+          عملات يتم إصدارها بمقابل أصل مالي آخر، كالدولار أو الذهب أو اليورو
+          وغير ذلك، بحيث تكون قيمة العملة مماثلة لقيمة الأصل المالي الذي أصدرت
+          بناء عليه.
+        </li>
+        <li>
+          عملات الرموز غير قابلة للاستبدال، ويرمز لها عادة ب (Non Fungible
+          Tokens)NFT ، هي عملات ترمز إلى ملكية لأصول أو صور أو ممتلكات معينة،
+          ويكون مالك العملة مالكاً للأصل أو الصورة أو الممتلكات المرتبطة بها.
+        </li>
+      </ol>
+      <Text size="small">
+        وما ظهر للهيئة من أن هذه الأنواع الأربعة من العملات تُعد أصولا مالياً
+        معتبرة تتغير قيمتها بتغيير العرض والطلب، وأن لكل نوع من تلك العملات
+        أحكامها الشرعية الخاصة بها- التي ليست لها محلاً لنظر الهيئة-، وأن عملة
+        ’إسلاميك كوين’ تعد من النوع الثاني من أنواع العملات، وأن نظر الهيئة
+        الشرعي يقتصر على عملة ’إسلاميك كوين’ دون غيرها من العملات.
+      </Text>
+      <Text size="small">
+        وبعد الدراسة والنظر والمناقشة قررت الهيئة ما يأتي:
+      </Text>
+      <Text size="small">
+        أولاً: لا مانع من تأسيس ’منصةالحق شين’، وإصدار ’عملة إسلاميك كوين’
+        بالضوابط الآتية:
+      </Text>
+      <ol className="list-decimal pl-[20px]">
+        <li>
+          أن عملة ’إسلاميك كوين’ تعتبر أصلاً مالياً يجوز تداوله بالبيع والشراء
+          واستبدالها بالخدمات والسلع المشروعة، كما أنها تعتبر أموالاً لأصحابها
+          لا يجوز الاعتداء عليها، وتجب الزكاة بقيمتها على ماليكها بعد شرائها أو
+          بعد تعدينها وحيازتها بشروط وضوابط الزكاة.
+        </li>
+        <li>
+          تدقيق الأكواد البرمجية المستخدمة في بناء منصة ’الحق تشين’ لدى شركة
+          تدقيق برمجي معتمدة، وذلك للتأكد من سلامة المنصة وقدرتها على حماية
+          أموال المتعاملين فيها.
+        </li>
+        <li>
+          تعيين لجنة نظارة على صندوق ’إيفرجين داو’ الوقفي للتأكد من سلامة أنشطة
+          الصندوق.
+        </li>
+      </ol>
+      <Text size="small">
+        ثانياً: تؤكد الهيئة أن هذا الرأي خاص بالورقة البيضاء التي تتضمن تفاصيل
+        إنشاء ’منصة الحق تشين’ وإصدار عملة ’إسلاميك كوين’ وتأسيس صندوق ’إيفرجين
+        داو الوقفي’ دون غيره من المنتجات والعقود الذكية التي ستبنى على المنصة،
+        وأن على الجهة المعنية التأكد من أن تأسيس المنصة قد تم وفقاً لهذا الرأي
+        الشرعي، كما يجب الحصول على موافقة الهيئة الشرعية في أي منتجات وعقود ذكية
+        جديدة قبل إطلاقها.
+      </Text>
+      <Text size="small">
+        ثالثاً: يختص هذا الرأي بالجانب الشرعي، ولا تبدي الهيئة رأياً في الجوانب
+        القانونية أو الجدوى الاقتصادية أو قبول الجهات القضائية لهذا الرأي، وعلى
+        أطراف التعامل مسؤولية التحقق من ذلك.
+      </Text>
+      <Text size="small">
+        رابعاً: تنبه الهيئة أن الاستثمار في منتجات العملات الرقمية لا تصلح إلا
+        للمستثمرين المؤهلين، لما يكتنفها من مخاطر، كما أنها تحتاج إلى خبرة
+        ومتابعة و معرفة دقيقة بهذه المنتجات، فعلى من يدخل فيها أن يكون من ذوي
+        الوفرة المالية الفائضة عن حاجاته الأساسية، ومن ذوي الاطلاع على التقنيات
+        المعقدة التي تكون أساس العملات المشفرة وما يشبهها. هذا وتوصي الهيئة
+        بتعيين مراجع شرعي مستقل للتحقق من التزام المنصة بالضوابط الواردة في هذا
+        القرار ومرفقاته. وصلى الله وسلم على نبينا محمد وعلى آله وصحبه.
+      </Text>
+      <Text size="small" className="font-[600]">
+        الهيئة الشرعية د. نظام صالح يعقوبي، د. محمد عبد الحكيم محمد، الشيخ محمد
+        فتح الدين بيانوني، د. عصام خلف العنزي، الشيخ محمود محمد زعير.
       </Text>
     </div>
   );
@@ -452,8 +591,7 @@ export function FatwaBlock() {
           />
         </div>
 
-        {lang === 'ar' && 'AR'}
-        {lang === 'en' && <EnFatwa />}
+        {lang === 'en' ? <EnFatwa /> : <ArFatwa />}
         <AuthographsBlock />
 
         <FoundationsBlock />
