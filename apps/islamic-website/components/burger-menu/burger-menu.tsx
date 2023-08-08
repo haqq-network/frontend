@@ -25,6 +25,7 @@ import {
   WalletIcon,
 } from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { Fragment, PropsWithChildren, useCallback, useState } from 'react';
 
 const HeaderLinks = [
@@ -113,7 +114,7 @@ export function BurgerMenu({
     <div className={clsx('px-[16px] pt-[24px] md:px-[48px]', className)}>
       {!isLangMenuOpen ? (
         <div className="flex flex-col">
-          <MobileMenuLink title="Shariah" />
+          <MobileMenuLink title="Shariah" url="/shariah" />
           <MobileMenuLink title="About" withArrow>
             <div className="flex flex-col">
               <DropdownLink title="Mission" icon={<MissionIcon />} />
@@ -217,9 +218,11 @@ function MobileMenuLink({
   title,
   withArrow,
   children,
+  url,
 }: PropsWithChildren<{
   title: string;
   withArrow?: boolean;
+  url?: string;
 }>) {
   const [isSelectorOpened, setIsSelectorOpened] = useState(false);
 
@@ -233,28 +236,30 @@ function MobileMenuLink({
         onClick={withArrow ? toggleSelector : undefined}
         className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between bg-[#15191EF2] py-[12px] text-base uppercase text-white transition-colors duration-300"
       >
-        {title}
-        {withArrow && (
-          <div
-            className={clsx(
-              'transform transition-transform duration-100',
-              isSelectorOpened && 'rotate-180',
-            )}
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+        <Link href={url ? url : ''}>
+          {title}
+          {withArrow && (
+            <div
+              className={clsx(
+                'transform transition-transform duration-100',
+                isSelectorOpened && 'rotate-180',
+              )}
             >
-              <path
-                d="M12.0234 17.2471C12.292 17.2471 12.5283 17.1504 12.7324 16.9463L21.0576 8.42773C21.251 8.24512 21.3477 8.00879 21.3477 7.72949C21.3477 7.1709 20.9287 6.74121 20.3701 6.74121C20.0908 6.74121 19.8545 6.85937 19.6719 7.03125L12.0234 14.8516L4.375 7.03125C4.19238 6.85937 3.94531 6.74121 3.67676 6.74121C3.11816 6.74121 2.69922 7.1709 2.69922 7.72949C2.69922 8.00879 2.7959 8.24512 2.97852 8.42773L11.3145 16.9463C11.5078 17.1504 11.7549 17.2471 12.0234 17.2471Z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
-        )}
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.0234 17.2471C12.292 17.2471 12.5283 17.1504 12.7324 16.9463L21.0576 8.42773C21.251 8.24512 21.3477 8.00879 21.3477 7.72949C21.3477 7.1709 20.9287 6.74121 20.3701 6.74121C20.0908 6.74121 19.8545 6.85937 19.6719 7.03125L12.0234 14.8516L4.375 7.03125C4.19238 6.85937 3.94531 6.74121 3.67676 6.74121C3.11816 6.74121 2.69922 7.1709 2.69922 7.72949C2.69922 8.00879 2.7959 8.24512 2.97852 8.42773L11.3145 16.9463C11.5078 17.1504 11.7549 17.2471 12.0234 17.2471Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          )}
+        </Link>
       </div>
       {isSelectorOpened && children}
     </Fragment>

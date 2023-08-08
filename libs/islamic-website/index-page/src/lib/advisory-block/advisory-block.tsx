@@ -102,7 +102,7 @@ export function AdvisoryBoardBlock() {
         modules={[Navigation]}
         grabCursor={true}
         initialSlide={0}
-        className="mt-[32px] md:mt-[52px] lg:mt-[72px]"
+        className="mt-[32px] px-[80px] md:mt-[52px] lg:mt-[72px]"
       >
         {mockMembers.map((member, index) => {
           return (
@@ -111,6 +111,7 @@ export function AdvisoryBoardBlock() {
                 onClick={() => {
                   return openBoardModal(member);
                 }}
+                className="w-fit"
               >
                 <MemberCard image={member.image} title={member.title} />
               </div>

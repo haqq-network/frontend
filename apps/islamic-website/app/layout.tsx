@@ -14,7 +14,7 @@ const alexandria = Alexandria({
   subsets: ['latin', 'arabic'],
   display: 'swap',
   variable: '--font-alexandria',
-  weight: '400',
+  weight: ['300', '400', '600', '700', '800'],
 });
 
 export default function RootLayout({
