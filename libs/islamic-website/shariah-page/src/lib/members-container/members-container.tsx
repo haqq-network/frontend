@@ -8,6 +8,7 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import clsx from 'clsx';
 
 type Member = {
   image: string;
@@ -19,9 +20,14 @@ type Member = {
 interface MembersContainerProps {
   type: 'advisory' | 'shariah' | 'executive';
   members: Member[];
+  className?: string;
 }
 
-export function MembersContainer({ members, type }: MembersContainerProps) {
+export function MembersContainer({
+  members,
+  type,
+  className,
+}: MembersContainerProps) {
   const [isBoardModalOpen, setBoardModalIsOpen] = useState(false);
   const [memberModalData, setMemberModalData] = useState<Member>({
     description: '',
@@ -50,14 +56,14 @@ export function MembersContainer({ members, type }: MembersContainerProps) {
 
   return (
     <div
-      className="flex flex-col text-white"
-      id={
+      className={clsx('flex flex-col text-white', className)}
+      id={`${
         type === 'advisory'
-          ? 'advisory-board'
+          ? 'advisory'
           : type === 'shariah'
-          ? 'shariah-board'
-          : 'executive-board'
-      }
+          ? 'shariah'
+          : 'executive'
+      }-board`}
     >
       <div className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
         {type === 'advisory' && 'Advisory Board'}

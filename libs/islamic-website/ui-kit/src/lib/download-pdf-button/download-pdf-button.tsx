@@ -7,7 +7,7 @@ interface DownloadPDFButtonProps {
 
 export function DownloadPDFButton({ language, url }: DownloadPDFButtonProps) {
   return (
-    <div className="hover:text-islamic-primary-green-hover hover:border-islamic-primary-green-hover w-[180px] cursor-pointer rounded-[8px] border border-white px-[10px] py-[6px] text-white transition-colors duration-300">
+    <div className="hover:text-islamic-primary-green-hover hover:border-islamic-primary-green-hover w-[164px] cursor-pointer rounded-[8px] border border-white px-[10px] py-[6px] text-white transition-colors duration-300 md:w-[180px]">
       <Link
         href={url}
         target="_blank"

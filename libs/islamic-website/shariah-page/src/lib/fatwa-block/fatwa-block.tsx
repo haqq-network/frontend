@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FoundationsBlock } from '../foundations-block/foundations-block';
+import { ShariahBlock } from '../shariah-block/shariah-block';
 
 const mockMembers = [
   {
@@ -81,7 +83,7 @@ function LangButton({
 
 function EnFatwa() {
   return (
-    <div className="flex flex-col gap-y-[16px] font-[300] md:gap-y-[20px] lg:gap-y-[24px]">
+    <div className="mt-[30px] flex flex-col gap-y-[16px] font-[300] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
       <Text size="small">
         In the name of Allah, the most compassionate, the most merciful
       </Text>
@@ -264,11 +266,11 @@ function Autograph({ name, image }: { name: string; image: string }) {
 
 function AuthographsBlock() {
   return (
-    <div className="flex flex-col gap-y-[20px]">
+    <div className="mt-[28px] flex flex-col gap-y-[20px] md:mt-[32px] lg:mt-[36px]">
       <div className="font-mono text-[17px] leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
         Islamic Coin Shariah Board
       </div>
-      <div className="grid grid-cols-1 gap-x-[32px] gap-y-[20px] md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-x-[32px] gap-y-[20px] sm:grid-cols-2">
         <Autograph
           image="/assets/images/autographs/autograph-al-enezy.webp"
           name="Sheikh Dr. Essam Khalaf Al-Enezi"
@@ -307,7 +309,7 @@ function FatwaHeadingLink({
   return (
     <div
       className={clsx(
-        'hover:text-islamic-primary-green-hover flex cursor-pointer items-center justify-between gap-x-[8px] font-mono transition-colors duration-300',
+        'hover:text-islamic-primary-green-hover flex cursor-pointer items-center justify-between gap-x-[8px] font-mono uppercase transition-colors duration-300',
         isActive ? 'text-islamic-primary-green' : 'text-white',
       )}
       onClick={onClick}
@@ -361,7 +363,7 @@ export function FatwaBlock() {
 
   return (
     <Container className="flex text-white">
-      <div className="hidden !w-[292px] flex-col gap-y-[16px] rounded-[20px] p-[28px] lg:flex">
+      <div className="hidden min-w-[292px] flex-col gap-y-[16px] rounded-[20px] p-[28px] lg:flex">
         <FatwaHeadingLink
           href="fatwa"
           onClick={() => {
@@ -417,7 +419,7 @@ export function FatwaBlock() {
           Executive Board
         </FatwaHeadingLink>
       </div>
-      <div className="flex flex-col">
+      <div className="flex max-w-full flex-col md:py-[32px] md:pl-[32px] lg:pl-[48px]">
         <div
           className="text-[22px] font-[600] leading-[24px] text-white md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]"
           id="fatwa"
@@ -433,7 +435,7 @@ export function FatwaBlock() {
           <DownloadPDFButton language="en" url="/assets/fatwa-en.pdf" />
           <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
         </div>
-        <div className="flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px]">
+        <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
           <LangButton
             active={lang === 'ar'}
             lang="ar"
@@ -454,9 +456,24 @@ export function FatwaBlock() {
         {lang === 'en' && <EnFatwa />}
         <AuthographsBlock />
 
-        <MembersContainer members={mockMembers} type="shariah" />
-        <MembersContainer members={mockMembers} type="advisory" />
-        <MembersContainer members={mockMembers} type="executive" />
+        <FoundationsBlock />
+        <ShariahBlock />
+
+        <MembersContainer
+          members={mockMembers}
+          type="shariah"
+          className="border-b border-[#2F2F2F] py-[80px]"
+        />
+        <MembersContainer
+          members={mockMembers}
+          type="advisory"
+          className="border-b border-[#2F2F2F] py-[80px]"
+        />
+        <MembersContainer
+          members={mockMembers}
+          type="executive"
+          className="py-[80px]"
+        />
       </div>
     </Container>
   );
