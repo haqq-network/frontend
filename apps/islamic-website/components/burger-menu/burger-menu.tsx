@@ -234,9 +234,12 @@ function MobileMenuLink({
     <Fragment>
       <div
         onClick={withArrow ? toggleSelector : undefined}
-        className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between bg-[#15191EF2] py-[12px] text-base uppercase text-white transition-colors duration-300"
+        className="hover:text-islamic-primary-green z-50 cursor-pointer bg-[#15191EF2] py-[12px] text-base uppercase text-white transition-colors duration-300"
       >
-        <Link href={url ? url : ''}>
+        <Link
+          href={url ? url : ''}
+          className="flex items-center justify-between"
+        >
           {title}
           {withArrow && (
             <div
