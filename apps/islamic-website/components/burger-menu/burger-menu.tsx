@@ -153,7 +153,7 @@ export function BurgerMenu({
             <DropdownLink title="Fraud alert" icon={<AlertIcon />} />
           </MobileMenuLink>
           <div
-            className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between bg-[#15191EF2] py-[12px] text-base uppercase text-white transition-colors duration-300"
+            className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-300"
             onClick={toggleLangMenu}
           >
             lang
