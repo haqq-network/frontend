@@ -141,7 +141,7 @@ function BurgerMenuComponent({
           'fixed right-0 top-[104px] z-[45] h-[calc(100vh-104px)] w-full bg-[#15191EF2]',
           'transform-gpu transition duration-150 will-change-transform',
           isOpen
-            ? 'block translate-y-[0px] ease-in-out sm:translate-x-[0px]'
+            ? 'block translate-y-[0px] backdrop-blur ease-in-out sm:translate-x-[0px]'
             : 'hidden translate-y-[100%] ease-out sm:translate-x-[100%] sm:translate-y-[0%]',
         )}
       >
@@ -199,7 +199,7 @@ export function Header() {
           'sticky top-0 z-50 w-full py-[38px]',
           'transform-gpu transition duration-150 will-change-transform',
           isMobileMenuOpen ? 'bg-[#15191EF2]' : 'bg-transparent',
-          isBlurred && !isMobileMenuOpen && 'backdrop-blur',
+          isBlurred && 'backdrop-blur',
         )}
         // ref={headerRef}
       >
