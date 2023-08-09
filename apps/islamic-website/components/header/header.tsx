@@ -298,81 +298,154 @@ export function Header() {
             </div>
             <nav className="hidden items-center gap-x-[12px] lg:flex">
               <HeaderLink url="/shariah">Shariah</HeaderLink>
-              {/* <HeaderLink url="/about">About</HeaderLink> */}
-              {/* <HeaderLink url="/use-islm">Use ISLM</HeaderLink> */}
-              {/* <HeaderLink url="/learn">Learn</HeaderLink> */}
-              {/* <HeaderLink url="/team">Team</HeaderLink> */}
 
               <HeaderDropdown title="About">
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
-                    <DropdownLink title="Mission" icon={<MissionIcon />} />
-                    <DropdownLink title="Roadmap" icon={<RoadmapIcon />} />
+                    <DropdownLink
+                      title="Mission"
+                      icon={<MissionIcon />}
+                      url="mission"
+                    />
+                    <DropdownLink
+                      title="Roadmap"
+                      icon={<RoadmapIcon />}
+                      url="roadmap"
+                    />
                   </div>
                   <div className="flex flex-col">
-                    <DropdownLink title="News" icon={<NewsIcon />} />
-                    <DropdownLink title="Press" icon={<NewsIcon />} />
-                    <DropdownLink title="Events" icon={<EventsIcon />} />
+                    <DropdownLink title="News" icon={<NewsIcon />} url="news" />
+                    <DropdownLink
+                      title="Press"
+                      icon={<NewsIcon />}
+                      url="press"
+                    />
+                    <DropdownLink
+                      title="Events"
+                      icon={<EventsIcon />}
+                      url="events"
+                    />
                   </div>
                   <div className="flex flex-col">
-                    <DropdownLink title="Ecosystem" icon={<EcosystemIcon />} />
+                    <DropdownLink
+                      title="Ecosystem"
+                      icon={<EcosystemIcon />}
+                      url="ecosystem"
+                    />
                     <DropdownLink
                       title="Partnerships"
                       icon={<PartnershipIcon />}
+                      url="partnerships"
                     />
-                    <DropdownLink title="Build on HAQQ" icon={<BuildIcon />} />
+                    <DropdownLink
+                      title="Build on HAQQ"
+                      icon={<BuildIcon />}
+                      url="build"
+                    />
                   </div>
                 </div>
               </HeaderDropdown>
               <HeaderDropdown title="Use islm">
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
-                    <DropdownLink title="Wallet" icon={<WalletIcon />} />
+                    <DropdownLink
+                      title="Wallet"
+                      icon={<WalletIcon />}
+                      url="wallet"
+                    />
                     <DropdownLink
                       title="Staking & Hodling"
                       icon={<StakingIcon />}
+                      url="hodling"
                     />
                     <DropdownLink
                       title="Tracker and Tokenomics"
                       icon={<TokenomicsIcon />}
+                      url="tokenomics"
                     />
                   </div>
                   <div className="flex flex-col">
                     <DropdownLink
                       title="What is ISLM"
                       icon={<QuestionMarkIcon />}
+                      url="what-is-islm"
                     />
-                    <DropdownLink title="Get ISLM" icon={<GetISLMIcon />} />
+                    <DropdownLink
+                      title="Get ISLM"
+                      icon={<GetISLMIcon />}
+                      url="get-islm"
+                    />
                   </div>
                 </div>
               </HeaderDropdown>
               <HeaderDropdown title="Learn">
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
-                    <DropdownLink title="Academy" icon={<AcademyIcon />} />
-                    <DropdownLink title="Blog" icon={<BlogIcon />} />
-                    <DropdownLink title="Podcast" icon={<PodcastIcon />} />
-                    <DropdownLink title="Videos" icon={<VideoIcon />} />
+                    <DropdownLink
+                      title="Academy"
+                      icon={<AcademyIcon />}
+                      url="academy"
+                    />
+                    <DropdownLink
+                      title="Blog"
+                      icon={<BlogIcon />}
+                      url="podcast"
+                    />
+                    <DropdownLink
+                      title="Podcast"
+                      icon={<PodcastIcon />}
+                      url="where-to-start"
+                    />
+                    <DropdownLink
+                      title="Videos"
+                      icon={<VideoIcon />}
+                      url="partners"
+                    />
                   </div>
                   <div className="flex flex-col">
                     <DropdownLink
                       title="Where to start?"
                       icon={<RocketIcon />}
+                      url="where-to-start"
                     />
-                    <DropdownLink title="Partners" icon={<PartnersIcon />} />
+                    <DropdownLink
+                      title="Partners"
+                      icon={<PartnersIcon />}
+                      url="partners"
+                    />
                   </div>
                 </div>
               </HeaderDropdown>
               <HeaderDropdown title="Team">
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
-                    <DropdownLink title="Career" icon={<CaseIcon />} />
-                    <DropdownLink title="Our Values" icon={<ValuesIcon />} />
-                    <DropdownLink title="Community" icon={<CommunityIcon />} />
-                    <DropdownLink title="Meet our team" icon={<StarIcon />} />
+                    <DropdownLink
+                      title="Career"
+                      icon={<CaseIcon />}
+                      url="career"
+                    />
+                    <DropdownLink
+                      title="Our Values"
+                      icon={<ValuesIcon />}
+                      url="values"
+                    />
+                    <DropdownLink
+                      title="Community"
+                      icon={<CommunityIcon />}
+                      url="community"
+                    />
+                    <DropdownLink
+                      title="Meet our team"
+                      icon={<StarIcon />}
+                      url="team"
+                    />
                   </div>
                   <div className="flex flex-col">
-                    <DropdownLink title="Fraud alert" icon={<AlertIcon />} />
+                    <DropdownLink
+                      title="Fraud alert"
+                      icon={<AlertIcon />}
+                      url="fraud"
+                    />
                   </div>
                 </div>
               </HeaderDropdown>
