@@ -2,11 +2,13 @@
 import { Container, DownloadPDFButton, Text } from '@haqq/islamic-ui-kit';
 import { MembersContainer } from '../members-container/members-container';
 import clsx from 'clsx';
-import { PropsWithChildren, useCallback, useState } from 'react';
+import { Fragment, PropsWithChildren, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FoundationsBlock } from '../foundations-block/foundations-block';
 import { ShariahBlock } from '../shariah-block/shariah-block';
+
+import { Menu, Transition } from '@headlessui/react';
 
 const mockMembers = [
   {
@@ -487,6 +489,15 @@ type FatwaPageArticles =
   | 'advisory-board'
   | 'executive-board';
 
+const fatwaArticles = [
+  'fatwa',
+  'foundations',
+  'shariah-oracle',
+  'shariah-board',
+  'advisory-board',
+  'executive-board',
+];
+
 export function FatwaBlock() {
   const [lang, setLang] = useState<'ar' | 'en'>('en');
   const [activeHeading, setActiveHeading] =
@@ -502,7 +513,7 @@ export function FatwaBlock() {
 
   return (
     <Container className="flex text-white">
-      <div className="hidden min-w-[292px] flex-col gap-y-[16px] rounded-[20px] p-[28px] lg:flex">
+      <div className="hidden h-fit min-w-[292px] flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px] lg:flex">
         <FatwaHeadingLink
           href="fatwa"
           onClick={() => {
@@ -558,9 +569,138 @@ export function FatwaBlock() {
           Executive Board
         </FatwaHeadingLink>
       </div>
-      <div className="flex max-w-full flex-col md:py-[32px] md:pl-[32px] lg:pl-[48px]">
+
+      <div className="flex max-w-full flex-col lg:py-[32px] lg:pl-[48px]">
+        <Menu as="div" className="relative z-10 inline-block lg:hidden">
+          <Menu.Button as={Fragment}>
+            {({ open }) => {
+              return (
+                <button
+                  className={clsx(
+                    'flex flex-row items-center justify-between rounded-[8px] px-[16px] py-[12px]',
+                    'font-mono text-base',
+                    'transition-colors duration-300 ease-out',
+                    'box-border appearance-none outline-none',
+                    'hover:text-haqq-black w-full max-w-[330px] bg-[#2F2F2F] uppercase text-white',
+                  )}
+                >
+                  {activeHeading}
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    className={clsx(
+                      'mb-[-2px] ml-[4px] mr-[-6px]',
+                      'transition-[transform] duration-150 ease-in',
+                      open && 'scale-y-[-1]',
+                    )}
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+              );
+            }}
+          </Menu.Button>
+
+          <Transition
+            as={Fragment}
+            enter="ease-out duration-100"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-75"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute left-[0px] z-10 mt-[4px] w-full max-w-[330px] origin-top rounded-[8px] border border-[#ffffff26] bg-[#2f2f2f] py-[8px] text-white shadow-lg focus:outline-none">
+              <Menu.Item
+                as="a"
+                className={clsx(
+                  'block w-full min-w-fit whitespace-nowrap  px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
+                  'transition-colors duration-150 ease-out',
+                )}
+                onClick={() => {
+                  return handleHeadingChange('fatwa');
+                }}
+                href={'#fatwa'}
+              >
+                Fatwa
+              </Menu.Item>
+              <Menu.Item
+                as="a"
+                className={clsx(
+                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
+                  'scroll-smooth transition-colors duration-150 ease-out',
+                )}
+                onClick={() => {
+                  return handleHeadingChange('foundations');
+                }}
+                href={'#foundations'}
+              >
+                Foundations of Halal Investing
+              </Menu.Item>
+              <Menu.Item
+                as="a"
+                className={clsx(
+                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
+                  'transition-colors duration-150 ease-out',
+                )}
+                onClick={() => {
+                  return handleHeadingChange('shariah-oracle');
+                }}
+                href={'#shariah-oracle'}
+              >
+                Shariah Oracle
+              </Menu.Item>
+              <Menu.Item
+                as="a"
+                className={clsx(
+                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
+                  'transition-colors duration-150 ease-out',
+                )}
+                onClick={() => {
+                  return handleHeadingChange('shariah-board');
+                }}
+                href={'#shariah-board'}
+              >
+                Shariah Board
+              </Menu.Item>
+              <Menu.Item
+                as="a"
+                className={clsx(
+                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
+                  'transition-colors duration-150 ease-out',
+                )}
+                onClick={() => {
+                  return handleHeadingChange('advisory-board');
+                }}
+                href={'#advisory-board'}
+              >
+                Advisory Board
+              </Menu.Item>
+              <Menu.Item
+                as="a"
+                className={clsx(
+                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
+                  'transition-colors duration-150 ease-out',
+                )}
+                onClick={() => {
+                  return handleHeadingChange('executive-board');
+                }}
+                href={'#executive-board'}
+              >
+                Executive Board
+              </Menu.Item>
+            </Menu.Items>
+          </Transition>
+        </Menu>
         <div
-          className="text-[22px] font-[600] leading-[24px] text-white md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]"
+          className="mt-[32px] text-[22px] font-[600] leading-[24px] text-white md:mt-[40px] md:text-[32px] md:leading-[36px] lg:mt-0 lg:text-[48px] lg:leading-[54px]"
           id="fatwa"
         >
           Fatwa
