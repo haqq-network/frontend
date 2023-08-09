@@ -490,15 +490,6 @@ type FatwaPageArticles =
   | 'advisory-board'
   | 'executive-board';
 
-const fatwaArticles = [
-  'fatwa',
-  'foundations',
-  'shariah-oracle',
-  'shariah-board',
-  'advisory-board',
-  'executive-board',
-];
-
 export function FatwaBlock() {
   const [lang, setLang] = useState<'ar' | 'en'>('en');
   const [activeHeading, setActiveHeading] =
@@ -571,7 +562,7 @@ export function FatwaBlock() {
         </FatwaHeadingLink>
       </div>
 
-      <div className="flex max-w-full flex-col lg:py-[32px] lg:pl-[48px]">
+      <div className="mt-[40px] flex max-w-full flex-col md:mt-[58px] lg:py-[32px] lg:pl-[48px]">
         <Menu as="div" className="relative z-10 inline-block lg:hidden">
           <Menu.Button as={Fragment}>
             {({ open }) => {
