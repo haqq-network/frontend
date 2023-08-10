@@ -1,14 +1,10 @@
 'use client';
-import {
-  Container,
-  MemberCard,
-  MemberModalCard,
-  Modal,
-} from '@haqq/islamic-ui-kit';
-import { useCallback, useEffect, useState } from 'react';
+import { MemberCard, MemberModalCard, Modal } from '@haqq/islamic-ui-kit';
+import { useCallback, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
 
 type Member = {
   image: string;
@@ -35,7 +31,6 @@ export function MembersContainer({
     title: '',
     url: '',
   });
-  const [isMobile, setIsMobile] = useState(false);
 
   const openBoardModal = useCallback((memberData: Member) => {
     setBoardModalIsOpen(true);
@@ -46,13 +41,9 @@ export function MembersContainer({
     setBoardModalIsOpen(false);
   }, []);
 
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  }, []);
+  const isMobile = useMediaQuery({
+    query: `(max-width: 767px)`,
+  });
 
   return (
     <div
@@ -75,7 +66,8 @@ export function MembersContainer({
           modules={[Navigation]}
           initialSlide={0}
           slidesPerView={1.5}
-          className="mt-[24px] md:mt-[28px] lg:mt-[32px]"
+          spaceBetween={24}
+          className="mt-[24px] max-w-full md:mt-[28px] lg:mt-[32px]"
         >
           {members.map((member, idx) => {
             return (
