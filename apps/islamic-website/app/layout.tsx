@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={alexandria.variable}>
-      <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white">
+      <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />
