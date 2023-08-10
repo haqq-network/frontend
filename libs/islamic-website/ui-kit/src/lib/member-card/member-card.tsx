@@ -14,16 +14,21 @@ export function MemberCard({
 }) {
   return (
     <div
-      className="hover:border-islamic-primary-green flex h-[309px] max-w-[400px] cursor-pointer flex-col gap-y-[30px] rounded-[20px] border border-dashed border-[#585858] bg-transparent px-[16px] pb-[24px] pt-[16px] transition-colors duration-300 md:h-[301px] lg:h-[333px]"
+      className="hover:border-islamic-primary-green flex max-w-[400px] cursor-pointer flex-col gap-y-[30px] rounded-[20px] border border-dashed border-[#585858] bg-transparent px-[16px] pb-[24px] pt-[16px] transition-colors duration-300 md:h-[301px] lg:h-[333px]"
       onClick={onClick}
     >
-      <div className="relative h-[180px] w-[160px] md:h-[180px] md:w-[200px]">
-        <Image src={image} alt="" fill />
+      <div className="relative h-[160px] w-[140px] min-[375px]:h-[180px] min-[375px]:w-[160px] md:h-[180px] md:w-[200px]">
+        <Image
+          src={image}
+          alt=""
+          fill
+          className="h-full w-full rounded-[20px] object-cover"
+        />
       </div>
       <span className="text-[13px] font-[300] leading-[20px] text-white md:text-[14px] lg:text-base">
         {title}
       </span>
-      {url && (
+      {/* {url && (
         <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover mt-[8px] flex items-center gap-x-[4px] font-mono uppercase transition-colors duration-300 md:mt-[12px]">
           <Link href={url} target="_blank" rel="noopener noreferrer">
             Web
@@ -43,7 +48,7 @@ export function MemberCard({
             />
           </svg>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

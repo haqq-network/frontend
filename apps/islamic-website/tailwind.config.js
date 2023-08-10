@@ -20,6 +20,7 @@ module.exports = {
         'islamic-primary-graphite': '#181E25A8',
         'islamic-classic-green': '#18FFAC',
         'islamic-classic-green-hover': '#99FFDA',
+        'islamic-bg-black': '#010304',
       },
       fontFamily: {
         serif: ['var(--font-alexandria)'],
