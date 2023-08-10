@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { NotFoundPage, PendingPage } from '@haqq/shell-ui-kit';
+import { AirdropTestPage } from './airdrop-test';
 
 const ShellIndexPage = lazy(async () => {
   const { ShellIndexPage } = await import('@haqq/shell/index-page');
@@ -21,6 +22,7 @@ export function App() {
 
         <Route path="/staking/*" element={<StakingApp />} />
         <Route path="/governance/*" element={<GovernanceApp />} />
+        <Route path="/airdrop" element={<AirdropTestPage />} />
 
         <Route path="not-found" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
