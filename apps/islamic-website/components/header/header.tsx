@@ -140,9 +140,10 @@ function BurgerMenuComponent({
         className={clsx(
           // py-[24px] md:py-[26px]
           'fixed right-0 top-[72px] z-[45] h-[calc(100vh-70px)] w-full bg-[#15191EF2] md:top-[80px] md:h-[calc(100vh-80px)]',
-          'transform-gpu transition duration-150 will-change-transform',
+          // 'transform-gpu transition duration-150 will-change-transform',
+          'backdrop-blur',
           isOpen
-            ? 'block translate-y-[0px] backdrop-blur ease-in-out sm:translate-x-[0px]'
+            ? 'block translate-y-[0px] ease-in-out sm:translate-x-[0px]'
             : 'hidden translate-y-[100%] ease-out sm:translate-x-[100%] sm:translate-y-[0%]',
         )}
       >
@@ -155,29 +156,29 @@ function BurgerMenuComponent({
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   // const [isScrolled, setIsScrolled] = useState(false);
-  const [isBlurred, setBlurred] = useState(false);
+  // const [isBlurred, setBlurred] = useState(false);
 
   const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpened(!isMobileMenuOpen);
   }, [isMobileMenuOpen]);
 
-  useEffect(() => {
-    function handleScroll() {
-      if (window.scrollY > 0) {
-        setBlurred(true);
-      } else {
-        setBlurred(false);
-      }
-    }
+  // useEffect(() => {
+  //   function handleScroll() {
+  //     if (window.scrollY > 0) {
+  //       setBlurred(true);
+  //     } else {
+  //       setBlurred(false);
+  //     }
+  //   }
 
-    handleScroll();
+  //   handleScroll();
 
-    window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   // const headerRef = useRef<HTMLHeadingElement>(null);
 
@@ -198,27 +199,27 @@ export function Header() {
       <header
         className={clsx(
           'sticky top-0 z-50 w-full py-[24px] md:py-[26px]',
-          'transform-gpu transition duration-150 will-change-transform',
+          // 'transform-gpu transition duration-150 will-change-transform',
+          'backdrop-blur',
           isMobileMenuOpen
             ? 'bg-[#15191EF2] lg:bg-transparent'
-            : 'bg-transparent',
-          isBlurred && !isMobileMenuOpen && 'backdrop-blur',
+            : 'bg-[#010304CC]',
+          // isBlurred && !isMobileMenuOpen && 'backdrop-blur',
         )}
         // ref={headerRef}
       >
-        <Container className="pr-[24px]">
+        <Container>
           <div className="flex items-center justify-between">
-            <div className="flex h-[28px] w-[170px]">
+            <div className="flex">
               <Link
                 href={'/'}
                 className="text-white transition-colors duration-300 hover:text-[#18FFAC]"
               >
                 <svg
-                  width="170"
-                  height="28"
                   viewBox="0 0 170 28"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="h-[24px] w-auto md:h-[28px]"
                 >
                   <path
                     fillRule="evenodd"
@@ -460,7 +461,7 @@ export function Header() {
                 </div>
               </HeaderDropdown>
             </nav>
-            <div className="inline-flex lg:hidden">
+            <div className="inline-flex pr-[8px] md:pr-0 lg:hidden">
               <BurgerButton
                 onClick={toggleMobileMenu}
                 isOpen={isMobileMenuOpen}
@@ -469,6 +470,7 @@ export function Header() {
           </div>
         </Container>
       </header>
+
       <BurgerMenuComponent isOpen={isMobileMenuOpen} />
     </Fragment>
   );
