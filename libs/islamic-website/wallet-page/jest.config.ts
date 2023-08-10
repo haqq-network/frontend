@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: 'islamic-website-wallets-page',
+  displayName: 'islamic-website-wallet-page',
   preset: '../../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/islamic-website/wallets-page',
+  coverageDirectory: '../../../coverage/libs/islamic-website/wallet-page',
 };
