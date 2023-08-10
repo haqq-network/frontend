@@ -25,6 +25,7 @@ export function NewsBlock({ news }: NewsBlockProps) {
                   image={el.image}
                   source={el.source}
                   title={el.title}
+                  type={el.type}
                 />
               </Link>
             );
