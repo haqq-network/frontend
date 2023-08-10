@@ -218,7 +218,7 @@ export function BurgerMenu({
             />
           </MobileMenuLink>
           <div
-            className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between bg-[#15191EF2] py-[12px] text-base uppercase text-white transition-colors duration-300"
+            className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-300"
             onClick={toggleLangMenu}
           >
             lang
@@ -299,7 +299,7 @@ function MobileMenuLink({
     <Fragment>
       <div
         onClick={withArrow ? toggleSelector : undefined}
-        className="hover:text-islamic-primary-green z-50 cursor-pointer bg-[#15191EF2] py-[12px] text-base uppercase text-white transition-colors duration-300"
+        className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-300"
       >
         <Link
           href={url ? url : ''}

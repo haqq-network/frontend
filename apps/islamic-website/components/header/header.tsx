@@ -138,10 +138,11 @@ function BurgerMenuComponent({
       {/* <ScrollLock isActive={isOpen} /> */}
       <div
         className={clsx(
-          'fixed right-0 top-[104px] z-[45] h-[calc(100vh-104px)] w-full bg-[#15191EF2]',
+          // py-[24px] md:py-[26px]
+          'fixed right-0 top-[72px] z-[45] h-[calc(100vh-70px)] w-full bg-[#15191EF2] md:top-[80px] md:h-[calc(100vh-80px)]',
           'transform-gpu transition duration-150 will-change-transform',
           isOpen
-            ? 'block translate-y-[0px] ease-in-out sm:translate-x-[0px]'
+            ? 'block translate-y-[0px] backdrop-blur ease-in-out sm:translate-x-[0px]'
             : 'hidden translate-y-[100%] ease-out sm:translate-x-[100%] sm:translate-y-[0%]',
         )}
       >
@@ -196,9 +197,11 @@ export function Header() {
     <Fragment>
       <header
         className={clsx(
-          'sticky top-0 z-50 w-full py-[38px]',
+          'sticky top-0 z-50 w-full py-[24px] md:py-[26px]',
           'transform-gpu transition duration-150 will-change-transform',
-          isMobileMenuOpen ? 'bg-[#15191EF2]' : 'bg-transparent',
+          isMobileMenuOpen
+            ? 'bg-[#15191EF2] lg:bg-transparent'
+            : 'bg-transparent',
           isBlurred && !isMobileMenuOpen && 'backdrop-blur',
         )}
         // ref={headerRef}
