@@ -50,7 +50,6 @@ export const Input = forwardRef(function Input(
       ? 'border-[#E16363] hover:border-[#F09C9C] focus:border-[#E16363] !text-[#E16363]'
       : 'border-[#252528] focus:border-islamic-primary-green',
     disabled && 'cursor-not-allowed',
-    !error && !disabled && 'hover:border-islamic-primary-green-hover',
     inputValue && !error && 'border-islamic-primary-green',
     !inputValue && !error && !disabled && 'border-white',
     inputClassName,
