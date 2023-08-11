@@ -33,15 +33,13 @@ export function NewsCard({
       className={clsx(
         'flex flex-col bg-transparent',
         isFeatured && 'md:flex-row md:gap-x-[28px]',
-        !isFeatured &&
-          'w-[234px] md:w-[250px] lg:w-[282px] xl:w-[342px] 2xl:w-[394px]',
         className,
       )}
     >
       <div
         className={clsx(
           'relative h-[250px] w-full',
-          isFeatured ? 'md:w-3/5 lg:h-[420px]' : '',
+          isFeatured && 'md:h-[420px] md:w-3/5',
         )}
       >
         {image && (
