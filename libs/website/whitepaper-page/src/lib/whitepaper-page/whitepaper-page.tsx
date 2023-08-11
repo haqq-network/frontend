@@ -5,6 +5,8 @@ import { Button, MarkdownText, PageTitle } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
+  console.log({ whitepaper });
+
   return (
     <Fragment>
       <Head>

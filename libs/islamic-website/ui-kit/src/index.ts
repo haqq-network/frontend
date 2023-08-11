@@ -13,3 +13,4 @@ export * from './lib/member-card/member-card';
 export * from './lib/modal/modal';
 export * from './lib/member-modal-card/member-modal-card';
 export * from './lib/download-pdf-button/download-pdf-button';
+export * from './lib/markdown-text/markdown-text';

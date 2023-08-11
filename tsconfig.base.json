@@ -25,6 +25,9 @@
       "@haqq/islamic-website/academy-page": [
         "libs/islamic-website/academy-page/src/index.ts"
       ],
+      "@haqq/islamic-website/career-page": [
+        "libs/islamic-website/career-page/src/index.ts"
+      ],
       "@haqq/islamic-website/index-page": [
         "libs/islamic-website/index-page/src/index.ts"
       ],
@@ -36,6 +39,9 @@
       ],
       "@haqq/islamic-website/shariah-page": [
         "libs/islamic-website/shariah-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/whitepaper-page": [
+        "libs/islamic-website/whitepaper-page/src/index.ts"
       ],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/shared": ["libs/shared/src/index.ts"],
