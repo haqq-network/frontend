@@ -38,7 +38,7 @@ export const Input = forwardRef(function Input(
     'transition-colors duration-300 ease-in will-change-[color]',
     'px-[10px] py-[14px] text-[14px] leading-[20px]',
     error &&
-      'invalid:border-[#E16363] invalid:text-[#E16363] invalid:focus:border-[#E16363] invalid:focus:text-[#E16363]',
+      'border-[#E16363] !text-[#E16363] focus:border-[#E16363] focus:text-[#E16363] invalid:focus:border-[#E16363]',
     disabled && 'cursor-not-allowed',
     inputClassName,
   );
