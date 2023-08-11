@@ -45,9 +45,14 @@ export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
             type="whitepaper"
           />
         </div>
-        <MarkdownText className="mt-[32px] lg:mt-[100px]">
-          {whitepaper}
-        </MarkdownText>
+
+        <div className="max-w-[860px]">
+          <article>
+            <MarkdownText className="mt-[32px] lg:mt-[100px]">
+              {whitepaper}
+            </MarkdownText>
+          </article>
+        </div>
       </Container>
     </HeroBg>
   );
