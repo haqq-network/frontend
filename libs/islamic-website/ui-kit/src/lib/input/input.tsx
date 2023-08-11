@@ -33,13 +33,15 @@ export const Input = forwardRef(function Input(
 ) {
   const inputClassNames = clsx(
     'inline-block w-full text-white placeholder-white/50 rounded-[6px] bg-transparent',
-    'outline-none border border-[#252528]',
-    'focus:border-islamic-primary-green focus:text-white',
+    'outline-none border',
+    'focus:!text-white',
     'transition-colors duration-300 ease-in will-change-[color]',
     'px-[10px] py-[14px] text-[14px] leading-[20px]',
-    error &&
-      'border-[#E16363] !text-[#E16363] focus:border-[#E16363] focus:text-[#E16363] invalid:focus:border-[#E16363]',
+    error
+      ? 'border-[#E16363] hover:border-[#F09C9C] focus:border-[#E16363] !text-[#E16363]'
+      : 'border-[#252528] focus:border-islamic-primary-green',
     disabled && 'cursor-not-allowed',
+    !error && !disabled && 'hover:border-islamic-primary-green-hover',
     inputClassName,
   );
   const wrapperClassNames = clsx('inline-block', wrapperClassName);
