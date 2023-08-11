@@ -1,5 +1,6 @@
+'use client';
 import clsx from 'clsx';
-import { ChangeEvent, Ref, forwardRef, useCallback } from 'react';
+import { ChangeEvent, Ref, forwardRef, useCallback, useState } from 'react';
 
 export interface InputProps {
   inputClassName?: string;
@@ -11,7 +12,6 @@ export interface InputProps {
   error?: string;
   name?: string;
   id?: string;
-  value?: string | number;
   onChange: (event: ChangeEvent<HTMLInputElement>, value?: string) => void;
 }
 
@@ -27,10 +27,19 @@ export const Input = forwardRef(function Input(
     id,
     name,
     onChange,
-    value,
   }: InputProps,
   ref: Ref<HTMLInputElement>,
 ) {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setInputValue(event.target.value);
+      onChange(event, event.target.value);
+    },
+    [onChange],
+  );
+
   const inputClassNames = clsx(
     'inline-block w-full text-white placeholder-white/50 rounded-[6px] bg-transparent',
     'outline-none border',
@@ -42,16 +51,11 @@ export const Input = forwardRef(function Input(
       : 'border-[#252528] focus:border-islamic-primary-green',
     disabled && 'cursor-not-allowed',
     !error && !disabled && 'hover:border-islamic-primary-green-hover',
+    inputValue && !error && 'border-islamic-primary-green',
+    !inputValue && !error && !disabled && 'border-white',
     inputClassName,
   );
   const wrapperClassNames = clsx('inline-block', wrapperClassName);
-
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      onChange(event, event.target.value);
-    },
-    [onChange],
-  );
 
   return (
     <div className={wrapperClassNames}>
@@ -64,7 +68,7 @@ export const Input = forwardRef(function Input(
         id={id}
         name={name}
         onChange={handleChange}
-        value={value}
+        value={inputValue}
         ref={ref}
       />
 
