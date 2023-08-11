@@ -3,9 +3,7 @@ import Image from 'next/image';
 import halfMoonAcademyImgData from '../../assets/images/academy-half-moon.webp';
 import clsx from 'clsx';
 
-type Level = 'beginner' | 'intermediate' | 'advanced';
-
-function Level({ level }: { level: Level }) {
+function Level({ level }: { level: 'beginner' | 'intermediate' | 'advanced' }) {
   return (
     <div className="group flex cursor-pointer items-start gap-x-[12px]">
       <div
@@ -54,12 +52,15 @@ function Level({ level }: { level: Level }) {
       </div>
 
       <div className="group-hover:text-islamic-primary-green-hover flex flex-col transition-colors duration-300">
-        <div className="flex gap-x-[6px]">
-          <Text isMono>
-            {level === 'beginner' && 'Beginner'}
-            {level === 'intermediate' && 'Intermediate'}
-            {level === 'advanced' && 'Advanced'}
-          </Text>
+        <div className="flex flex-row items-center gap-x-[6px] leading-[0]">
+          <div>
+            <Text isMono>
+              {level === 'beginner' && 'Beginner'}
+              {level === 'intermediate' && 'Intermediate'}
+              {level === 'advanced' && 'Advanced'}
+            </Text>
+          </div>
+
           <svg
             width="18"
             height="18"
