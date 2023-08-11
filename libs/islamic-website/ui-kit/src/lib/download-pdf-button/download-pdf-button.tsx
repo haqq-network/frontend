@@ -2,10 +2,15 @@ import Link from 'next/link';
 
 interface DownloadPDFButtonProps {
   language: 'en' | 'ar' | 'id';
+  type?: 'fatwa' | 'whitepaper';
   url: string;
 }
 
-export function DownloadPDFButton({ language, url }: DownloadPDFButtonProps) {
+export function DownloadPDFButton({
+  language,
+  url,
+  type = 'fatwa',
+}: DownloadPDFButtonProps) {
   return (
     <div className="hover:text-islamic-primary-green-hover hover:border-islamic-primary-green-hover w-[164px] cursor-pointer rounded-[8px] border border-white px-[10px] py-[6px] text-white transition-colors duration-300 md:w-[180px]">
       <Link
@@ -31,7 +36,10 @@ export function DownloadPDFButton({ language, url }: DownloadPDFButtonProps) {
           </svg>
 
           <div className="flex flex-col text-[12px] font-[400] leading-[1.5em]">
-            <span className="font-mono uppercase">Fatwa</span>
+            <span className="font-mono uppercase">
+              {type === 'fatwa' && 'Fatwa'}
+              {type === 'whitepaper' && 'Whitepaper'}
+            </span>
             <span>
               {language === 'ar' && 'Arabic'}
               {language === 'en' && 'English'}
