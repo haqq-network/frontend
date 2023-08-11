@@ -67,6 +67,7 @@ function Level({ level }: { level: 'beginner' | 'intermediate' | 'advanced' }) {
             viewBox="0 0 18 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="mb-[-1px] transform-gpu transition-transform duration-300 group-hover:translate-x-1"
           >
             <path
               fill-rule="evenodd"
@@ -91,27 +92,46 @@ function Level({ level }: { level: 'beginner' | 'intermediate' | 'advanced' }) {
 
 export function AcademyPage() {
   return (
-    <div className="relative overflow-clip">
-      <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] lg:mt-[68px]">
-        <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          Embark on a journey of learning through our{' '}
-          <span className="outline__mono">Academy</span>
-        </div>
-        <Text size="small" className="mt-[32px]">
-          Seamlessly navigate Web3 with HAQQ Wallet, your trusted partner for a
-          principled DeFi journey. With mnemonicless security and a
-          user-friendly interface, managing your digital Shariah-compliant
-          assets has never been easier or more secure
-        </Text>
-        <div className="mt-[32px] flex flex-col gap-[24px]">
-          <Level level="beginner" />
-          <Level level="intermediate" />
-          <Level level="advanced" />
+    <section className="overflow-clip">
+      <Container>
+        <div className="relative pb-[60px] pt-[32px] md:pt-[52px] lg:pt-[68px]">
+          <div className="flex flex-col gap-[32px]">
+            <div className="md:max-w-[880px]">
+              <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+                Embark on a journey of learning through our&nbsp;
+                <span className="text-shadow-outline font-mono uppercase">
+                  Academy
+                </span>
+              </div>
+            </div>
+
+            <div className="md:w-1/2">
+              <Text size="small" className="mt-[32px]">
+                Seamlessly navigate Web3 with HAQQ Wallet, your trusted partner
+                for a principled DeFi journey. With mnemonicless security and a
+                user-friendly interface, managing your digital Shariah-compliant
+                assets has never been easier or more secure
+              </Text>
+            </div>
+
+            <div className="flex flex-col gap-[24px] md:max-w-[480px]">
+              <Level level="beginner" />
+              <Level level="intermediate" />
+              <Level level="advanced" />
+            </div>
+          </div>
+
+          <div
+            className={clsx(
+              'absolute z-0',
+              'right-[-170px] top-[-100px] h-[470px] w-[443px]',
+              'md:right-[0px] md:top-[0] md:h-[800px] md:w-[754px]',
+            )}
+          >
+            <Image src={halfMoonAcademyImgData} alt="" fill className="" />
+          </div>
         </div>
       </Container>
-      <div className="absolute right-[-160px] top-[-130px] z-[-1] h-[470px] w-[443px]">
-        <Image src={halfMoonAcademyImgData} alt="" />
-      </div>
-    </div>
+    </section>
   );
 }
