@@ -141,8 +141,7 @@ function RoadmapCard({ goals, isAchieved, isLast, title }: RoadmapCardProps) {
   );
 }
 
-export function RoadmapPage() {
-// { roadmap }: RoadmapProps
+export function RoadmapPage({ roadmap }: RoadmapProps) {
   return (
     <div className="relative overflow-clip">
       <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:pb-[140px]">
@@ -150,7 +149,7 @@ export function RoadmapPage() {
           Roadmap
         </div>
         <div className="mt-[48px] flex flex-col gap-y-[12px] lg:mt-[60px] lg:gap-y-[20px]">
-          {/* {roadmap &&
+          {roadmap &&
             roadmap.map((el, idx) => {
               return (
                 <RoadmapCard
@@ -160,7 +159,7 @@ export function RoadmapPage() {
                   isLast={roadmap.length === idx + 1}
                 />
               );
-            })} */}
+            })}
           <RoadmapCard
             goals={[
               'The private sale has been completed',
