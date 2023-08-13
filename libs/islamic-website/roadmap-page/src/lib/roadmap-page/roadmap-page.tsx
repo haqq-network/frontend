@@ -118,7 +118,7 @@ function RoadmapCard({ goals, isAchieved, isLast, title }: RoadmapCardProps) {
         <div className="font-mono text-[18px] uppercase leading-[26px] lg:text-[24px] lg:leading-[34px]">
           {title}
         </div>
-        <ul className="list-disc">
+        <ul className="list-disc pb-[16px]">
           {Array.isArray(goals) && goals.length > 1 ? (
             goals.map((goal, idx) => {
               return (
@@ -197,7 +197,7 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
             - Subscribe to our newsletter
           </p>
         </div>
-        <div className="absolute right-[-120px] top-[-105px] z-[-1] h-[382px] w-[382px] lg:right-[-500px] lg:top-[-510px] lg:h-[1300px] lg:w-[1300px]">
+        <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] lg:right-[-500px] lg:top-[-510px] lg:h-[1300px] lg:w-[1300px]">
           <RoadmapBgImg />
         </div>
       </Container>
