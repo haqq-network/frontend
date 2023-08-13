@@ -160,36 +160,6 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
                 />
               );
             })}
-          <RoadmapCard
-            goals={[
-              'The private sale has been completed',
-              'Major investment inked, including $200M from ABO Digital',
-              'Network transition from PoA to PoS',
-              'Mnemonicless private key managment in HAQQ Wallet (testflight)',
-              'Web3 Browser in HAQQ Wallet',
-            ]}
-            isAchieved
-            title="q2 2023"
-          />
-          <RoadmapCard
-            goals={[
-              'Islamic Coin launches on major crypto exchanges 1 September',
-              'ISLM minting starts (Century Coinomics)',
-              'NFT support in Haqq Wallet',
-              'Decentralized Identity',
-              'ERC20 Tokens in Haqq Wallet',
-              'Shariah Oracle implementation in HAQQ Wallet for TestEdge users',
-              'Mnemonicless private key management in HAQQ wallet (security audit and public release)',
-            ]}
-            title="q3 2023"
-          />
-          <RoadmapCard
-            goals={[
-              'Gold-pegged Stable Coin in cooperation with top UAE banks',
-            ]}
-            title="q1 2024"
-            isLast
-          />
         </div>
         <div className="mt-[48px] flex flex-col gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] lg:mt-[120px] lg:max-w-[1000px]">
           <p className="text-[13px] leading-[20px] lg:text-base">
