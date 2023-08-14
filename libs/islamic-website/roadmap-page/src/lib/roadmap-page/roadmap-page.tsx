@@ -144,8 +144,8 @@ function RoadmapCard({ goals, isAchieved, isLast, title }: RoadmapCardProps) {
 
 export function RoadmapPage({ roadmap }: RoadmapProps) {
   return (
-    <div className="relative overflow-clip">
-      <div className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:pb-[140px]">
+    <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
+      <div className="relative overflow-clip">
         <Container>
           <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
             Roadmap
@@ -162,7 +162,7 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
               );
             })}
           </div>
-          <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:flex-row md:items-center lg:mt-[120px] lg:max-w-[1000px]">
+          <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:flex-row md:items-center lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
             <Text size="small" className="md:w-1/2">
               Keep up to date with our upcoming Public Launch and Exchange
               listing - Subscribe to our newsletter
@@ -172,7 +172,7 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
               inputClassName="lg:min-w-[280px]"
             />
           </div>
-          <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] lg:right-[-500px] lg:top-[-510px] lg:h-[1300px] lg:w-[1300px]">
+          <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] lg:right-[-460px] lg:top-[-460px] lg:h-[1300px] lg:w-[1300px]">
             <RoadmapBgImg />
           </div>
         </Container>
