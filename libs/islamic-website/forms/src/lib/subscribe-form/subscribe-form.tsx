@@ -24,10 +24,17 @@ const schema: yup.ObjectSchema<SubscribeFormFields> = yup
 async function submitForm(
   form: SubscribeFormFields,
 ): Promise<{ status: number }> {
-  return await axios.post('/api/sendgrid', form);
+  // return await axios.post('/api/sendgrid', form);
+  return { status: 200 };
 }
 
-export function SubscribeForm({ className }: { className?: string }) {
+export function SubscribeForm({
+  className,
+  inputClassName,
+}: {
+  className?: string;
+  inputClassName?: string;
+}) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
   );
@@ -67,7 +74,7 @@ export function SubscribeForm({ className }: { className?: string }) {
         className={clsx(className)}
         autoComplete="off"
       >
-        <div className="max-w-[400px] sm:flex-1">
+        <div className="sm:flex-1">
           <HookedFormInput<{ email: string }>
             wrapperClassName="w-full"
             placeholder="Your e-mail"
@@ -77,11 +84,12 @@ export function SubscribeForm({ className }: { className?: string }) {
             error={formState.errors.email?.message}
             disabled={isFormDisabled}
             required
+            inputClassName={inputClassName}
           />
         </div>
 
         <Button
-          variant={'islamic-classic-green'}
+          variant={'primary-green'}
           type="submit"
           disabled={isFormDisabled}
         >
