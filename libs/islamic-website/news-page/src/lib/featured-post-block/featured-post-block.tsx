@@ -12,7 +12,7 @@ export function FeaturedPostBlock({
     <div
       className={clsx('flex flex-col gap-y-[28px] md:gap-y-[48px]', className)}
     >
-      <h1 className="text-[46px] font-[600] leading-[52px] md:font-[48px] md:leading-[54px]">
+      <h1 className="text-[22px] font-[600] leading-[24px] md:font-[48px] md:leading-[54px]">
         Featured Post
       </h1>
       <NewsCard post={post} isFeatured />

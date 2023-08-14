@@ -45,9 +45,9 @@ export function PostsBlock({
 
   return (
     <div className={clsx('flex flex-col', className)}>
-      <div className="text-[46px] font-[600] leading-[52px] md:font-[48px] md:leading-[54px]">
+      <h1 className="text-[22px] font-[600] leading-[24px] md:font-[48px] md:leading-[54px]">
         Recent Posts
-      </div>
+      </h1>
       <div className="mt-[28px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
         <NewsTypeButton
           active={activeNewsType === 'all'}
