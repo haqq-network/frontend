@@ -3413,7 +3413,7 @@ __metadata:
     jest-environment-jsdom: 29.5.0
     lint-staged: 13.2.3
     lodash: 4.17.21
-    marked: 5.1.0
+    marked: 7.0.2
     marked-react: 1.3.2
     next: 13.4.7
     nx: 16.5.0
@@ -18620,12 +18620,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:5.1.0":
-  version: 5.1.0
-  resolution: "marked@npm:5.1.0"
+"marked@npm:7.0.2":
+  version: 7.0.2
+  resolution: "marked@npm:7.0.2"
   bin:
     marked: bin/marked.js
-  checksum: ecb2b36a4758f725000400113f5107e89512b897251207e514c22605319bdddb6554fe3e68bd73b0d08f855582946e001adddfbfc7080a556a492950fb4b3a09
+  checksum: dabfd499c4852d671b73fbd10081a93349f74e4141a29697be99d33327e9aacd30e794bcc771a397ceb8060e5205e2f82862e1623c333802a3be0594134ba6c7
   languageName: node
   linkType: hard
 
