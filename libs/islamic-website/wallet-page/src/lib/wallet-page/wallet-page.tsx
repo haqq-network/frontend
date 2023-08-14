@@ -68,8 +68,8 @@ export function WalletPage() {
     <Container className="relative mt-[32px] overflow-hidden pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:overflow-visible">
       <div className="hidden items-center justify-between lg:flex">
         <div className="mr-[60px] flex max-w-[660px] flex-col">{content}</div>
-        <div className="flex grow-0">
-          <div className="relative mr-[44px] h-[600px] w-[350px]">{image}</div>
+        <div className="flex flex-1 justify-center">
+          <div className="relative h-[600px] w-[350px]">{image}</div>
         </div>
       </div>
       <div className="flex flex-col lg:hidden">
