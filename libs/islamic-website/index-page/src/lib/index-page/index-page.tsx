@@ -7,7 +7,7 @@ import { PortfolioBlock } from '../portfolio-block/portfolio-block';
 import { WhyBlock } from '../why-block/why-block';
 import { Fragment, PropsWithChildren } from 'react';
 import { Marquee } from '../marquee/marquee';
-import { Container } from '@haqq/islamic-ui-kit';
+import { Container, NewsPost } from '@haqq/islamic-ui-kit';
 import moonBgImageData from '../../assets/images/moon-2x.webp';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
@@ -16,7 +16,7 @@ import cubeOnRockImgData from '../../assets/images/cube-on-rock.webp';
 const RUNNING_TEXT =
   "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
 
-const mockNews: NewsProps = [
+const mockNews: NewsPost[] = [
   {
     date: new Date(),
     description:

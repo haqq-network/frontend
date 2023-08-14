@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 
-export interface NewsCardProps {
+export interface NewsPost {
   image: {
     src: string;
     width: number;
@@ -23,9 +23,8 @@ export function NewsCard({
   title,
   source,
   className,
-  type,
   isFeatured = false,
-}: NewsCardProps) {
+}: NewsPost) {
   return (
     <div
       className={clsx(

@@ -1,10 +1,10 @@
-import { Container, NewsCardProps, Text } from '@haqq/islamic-ui-kit';
+import { Container, NewsPost, Text } from '@haqq/islamic-ui-kit';
 import { FeaturedPostBlock } from '../featured-post-block/featured-post-block';
 import { useMemo } from 'react';
 import { PostsBlock } from '../posts-block/posts-block';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 
-const mockNews: NewsCardProps[] = [
+const mockNews: NewsPost[] = [
   {
     image: {
       height: 300,
