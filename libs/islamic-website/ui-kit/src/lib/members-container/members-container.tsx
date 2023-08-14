@@ -87,7 +87,7 @@ export function MembersContainer({
           })}
         </Swiper>
       ) : (
-        <div className="mt-[24px] grid grid-cols-2 gap-[32px] md:mt-[28px] lg:mt-[32px] lg:grid-cols-3">
+        <div className="mt-[24px] grid grid-cols-2 gap-[32px] md:mt-[28px] md:grid-cols-4 lg:mt-[32px]">
           {members.map((member, idx) => {
             return (
               <MemberCard
