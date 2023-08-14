@@ -11,20 +11,19 @@ export interface NewsPost {
   description: string;
   date: Date;
   source: string;
-  className?: string;
   type: 'press' | 'events';
   isFeatured?: boolean;
 }
 
 export function NewsCard({
-  date,
-  description,
-  image,
-  title,
-  source,
+  post,
   className,
-  isFeatured = false,
-}: NewsPost) {
+  isFeatured,
+}: {
+  post: NewsPost;
+  className?: string;
+  isFeatured?: boolean;
+}) {
   return (
     <div
       className={clsx(
@@ -39,12 +38,12 @@ export function NewsCard({
           isFeatured && 'md:h-[420px] md:w-3/5',
         )}
       >
-        {image && (
+        {post.image && (
           <Image
-            src={image.src}
-            width={image.width}
-            height={image.height}
-            alt=""
+            src={post.image.src}
+            width={post.image.width}
+            height={post.image.height}
+            alt={post.title}
             className="h-full w-full rounded-xl object-cover"
           />
         )}
@@ -62,7 +61,7 @@ export function NewsCard({
               isFeatured && 'md:mt-0',
             )}
           >
-            {source}
+            {post.source}
           </div>
           <div
             className={clsx(
@@ -70,7 +69,7 @@ export function NewsCard({
               isFeatured ? 'mt-[28px]' : 'mt-[8px]',
             )}
           >
-            {title}
+            {post.title}
           </div>
           <div
             className={clsx(
@@ -78,7 +77,7 @@ export function NewsCard({
               isFeatured ? 'mt-[16px]' : 'mt-[12px]',
             )}
           >
-            {description}
+            {post.description}
           </div>
         </div>
         <div
@@ -93,7 +92,7 @@ export function NewsCard({
             year: 'numeric',
             hour: 'numeric',
             minute: 'numeric',
-          }).format(date)}
+          }).format(post.date)}
         </div>
       </div>
     </div>

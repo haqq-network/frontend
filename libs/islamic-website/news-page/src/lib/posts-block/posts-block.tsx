@@ -1,17 +1,16 @@
 'use client';
 import { NewsCard, NewsPost } from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
-import { useCallback, useMemo, useState } from 'react';
+import { PropsWithChildren, useMemo, useState } from 'react';
 
 function NewsTypeButton({
+  children,
   active,
-  type = 'all',
   onClick,
-}: {
+}: PropsWithChildren<{
   active: boolean;
-  type: 'all' | 'press' | 'events';
   onClick: () => void;
-}) {
+}>) {
   return (
     <div
       className={clsx(
@@ -20,9 +19,7 @@ function NewsTypeButton({
       )}
       onClick={onClick}
     >
-      {type === 'press' && 'Press'}
-      {type === 'events' && 'Events'}
-      {type === 'all' && 'All'}
+      {children}
     </div>
   );
 }
@@ -34,23 +31,17 @@ export function PostsBlock({
   posts: NewsPost[];
   className?: string;
 }) {
-  const [activeNewsType, setActiveNewsType] = useState<
-    'all' | 'press' | 'events'
-  >('all');
+  const [activeNewsType, setActiveNewsType] = useState<string>('all');
 
-  const handleLangChange = useCallback((type: 'all' | 'press' | 'events') => {
-    setActiveNewsType(type);
-  }, []);
+  const filteredPosts = useMemo(() => {
+    if (activeNewsType === 'all') {
+      return posts;
+    }
 
-  const { eventsPosts, pressPosts } = useMemo(() => {
-    const eventsPosts = posts.filter((post) => {
-      return post.type === 'events';
+    return posts.filter((post) => {
+      return post.type === activeNewsType;
     });
-    const pressPosts = posts.filter((post) => {
-      return post.type === 'press';
-    });
-    return { eventsPosts, pressPosts };
-  }, [posts]);
+  }, [activeNewsType, posts]);
 
   return (
     <div className={clsx('flex flex-col', className)}>
@@ -60,72 +51,33 @@ export function PostsBlock({
       <div className="mt-[28px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
         <NewsTypeButton
           active={activeNewsType === 'all'}
-          type="all"
           onClick={() => {
-            return handleLangChange('all');
+            setActiveNewsType('all');
           }}
-        />
+        >
+          All
+        </NewsTypeButton>
         <NewsTypeButton
           active={activeNewsType === 'press'}
-          type="press"
           onClick={() => {
-            return handleLangChange('press');
+            setActiveNewsType('press');
           }}
-        />
+        >
+          Press
+        </NewsTypeButton>
         <NewsTypeButton
           active={activeNewsType === 'events'}
-          type="events"
           onClick={() => {
-            return handleLangChange('events');
+            setActiveNewsType('events');
           }}
-        />
+        >
+          Events
+        </NewsTypeButton>
       </div>
       <div className="mt-[28px] grid grid-cols-1 gap-[28px] md:grid-cols-2 lg:mt-[36px] lg:grid-cols-3 lg:gap-[48px]">
-        {activeNewsType === 'all' &&
-          posts.length > 0 &&
-          posts.map((post, index) => {
-            return (
-              <NewsCard
-                date={post.date}
-                description={post.description}
-                image={post.image}
-                title={post.title}
-                source={post.source}
-                type={post.type}
-                key={index}
-              />
-            );
-          })}
-        {activeNewsType === 'press' &&
-          pressPosts.length > 0 &&
-          pressPosts.map((post, index) => {
-            return (
-              <NewsCard
-                date={post.date}
-                description={post.description}
-                image={post.image}
-                title={post.title}
-                source={post.source}
-                type={post.type}
-                key={index}
-              />
-            );
-          })}
-        {activeNewsType === 'events' &&
-          eventsPosts.length > 0 &&
-          eventsPosts.map((post, index) => {
-            return (
-              <NewsCard
-                date={post.date}
-                description={post.description}
-                image={post.image}
-                title={post.title}
-                source={post.source}
-                type={post.type}
-                key={index}
-              />
-            );
-          })}
+        {filteredPosts.map((post, index) => {
+          return <NewsCard post={post} key={index} />;
+        })}
       </div>
     </div>
   );

@@ -1,13 +1,8 @@
-import {
-  Container,
-  Heading,
-  NewsCard,
-  NewsCardProps,
-} from '@haqq/islamic-ui-kit';
+import { Container, Heading, NewsCard, NewsPost } from '@haqq/islamic-ui-kit';
 import Link from 'next/link';
 
 interface NewsBlockProps {
-  news: NewsCardProps[];
+  news: NewsPost[];
 }
 
 export function NewsBlock({ news }: NewsBlockProps) {
@@ -18,15 +13,8 @@ export function NewsBlock({ news }: NewsBlockProps) {
         <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
           {news.slice(0, 3).map((el, idx) => {
             return (
-              <Link href={el.source} key={`${el.title}${idx}`}>
-                <NewsCard
-                  date={el.date}
-                  description={el.description}
-                  image={el.image}
-                  source={el.source}
-                  title={el.title}
-                  type={el.type}
-                />
+              <Link href={el.source} key={`${el.title}-${idx}`}>
+                <NewsCard post={el} />
               </Link>
             );
           })}
