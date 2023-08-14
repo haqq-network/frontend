@@ -86,7 +86,7 @@ function RoadmapCard({ goals, isAchieved, isLast, title }: RoadmapCardProps) {
       <div className="flex flex-col items-center gap-y-[12px]">
         <div
           className={clsx(
-            'h-[24px] w-[24px]',
+            'h-[24px] w-[24px] lg:h-[34px] lg:w-[34px]',
             isAchieved ? 'text-islamic-primary-green' : 'text-white',
           )}
         >
@@ -145,13 +145,13 @@ function RoadmapCard({ goals, isAchieved, isLast, title }: RoadmapCardProps) {
 export function RoadmapPage({ roadmap }: RoadmapProps) {
   return (
     <div className="relative overflow-clip">
-      <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:pb-[140px]">
-        <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          Roadmap
-        </div>
-        <div className="mt-[48px] flex flex-col gap-y-[12px] lg:mt-[60px] lg:gap-y-[20px]">
-          {roadmap &&
-            roadmap.map((el, idx) => {
+      <div className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:pb-[140px]">
+        <Container>
+          <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+            Roadmap
+          </div>
+          <div className="mt-[48px] flex flex-col gap-y-[12px] lg:mt-[60px] lg:gap-y-[20px]">
+            {roadmap.map((el, idx) => {
               return (
                 <RoadmapCard
                   goals={el.goals}
@@ -161,21 +161,22 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
                 />
               );
             })}
-        </div>
-        <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:flex-row md:items-center lg:mt-[120px] lg:max-w-[1000px]">
-          <Text size="small" className="md:w-1/2">
-            Keep up to date with our upcoming Public Launch and Exchange listing
-            - Subscribe to our newsletter
-          </Text>
-          <SubscribeForm
-            className="flex flex-col gap-[16px] md:flex-row"
-            inputClassName="lg:min-w-[280px]"
-          />
-        </div>
-        <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] lg:right-[-500px] lg:top-[-510px] lg:h-[1300px] lg:w-[1300px]">
-          <RoadmapBgImg />
-        </div>
-      </Container>
+          </div>
+          <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:flex-row md:items-center lg:mt-[120px] lg:max-w-[1000px]">
+            <Text size="small" className="md:w-1/2">
+              Keep up to date with our upcoming Public Launch and Exchange
+              listing - Subscribe to our newsletter
+            </Text>
+            <SubscribeForm
+              className="flex flex-col gap-[16px] md:flex-row"
+              inputClassName="lg:min-w-[280px]"
+            />
+          </div>
+          <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] lg:right-[-500px] lg:top-[-510px] lg:h-[1300px] lg:w-[1300px]">
+            <RoadmapBgImg />
+          </div>
+        </Container>
+      </div>
     </div>
   );
 }
