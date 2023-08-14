@@ -43,7 +43,7 @@ export function NewsPage({ news }: { news: NewsPost[] }) {
 
         {featuredPost && (
           <div className="flex flex-col gap-y-[28px] pt-[60px] md:gap-y-[48px] lg:pt-[140px]">
-            <h2 className="text-[22px] font-[600] leading-[24px] md:font-[48px] md:leading-[54px]">
+            <h2 className="text-[22px] font-[600] leading-[24px] md:text-[48px] md:leading-[54px]">
               Featured Post
             </h2>
             <NewsCard post={featuredPost} isFeatured />
