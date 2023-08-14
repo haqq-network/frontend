@@ -53,7 +53,7 @@ function FooterNavSocialLink({
   );
 }
 
-const FooterNavLinks: FooterNavLinkProps[] = [
+const footerNavLinks: FooterNavLinkProps[] = [
   {
     url: '/about',
     title: 'About us',
@@ -125,17 +125,17 @@ const FooterNavLinks: FooterNavLinkProps[] = [
 export function Footer() {
   return (
     <footer className="flex w-full flex-col text-white">
-      <div className="border-y border-[#2F2F2F] py-[32px] md:py-[56px] lg:py-[80px]">
+      <div className="bg-islamic-bg-black/10 border-y border-[#2F2F2F] py-[32px] backdrop-blur md:py-[56px] lg:py-[80px]">
         <Container>
           <div className="flex flex-col gap-y-[32px] lg:gap-y-[60px]">
             <div className="grid grid-cols-2 gap-x-[20px] md:grid-cols-3 lg:grid-cols-5">
-              {FooterNavLinks.map((el) => {
+              {footerNavLinks.map((link) => {
                 return (
                   <FooterNavLink
-                    key={el.title}
-                    title={el.title}
-                    url={el.url}
-                    isOutLink={el.isOutLink}
+                    key={link.title}
+                    title={link.title}
+                    url={link.url}
+                    isOutLink={link.isOutLink}
                   />
                 );
               })}
