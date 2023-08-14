@@ -30,4 +30,3 @@ export default async function Page() {
 
   return <WhitepaperPage whitepaper={whitepaper} />;
 }
-
