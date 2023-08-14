@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ButtonHTMLAttributes, Fragment, PropsWithChildren } from 'react';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -24,7 +24,7 @@ export function Button({
   fill,
 }: PropsWithChildren<ButtonProps>) {
   const classNames = clsx(
-    'px-[32px] py-[12px] rounded-[8px] min-w-[160px]',
+    'px-[32px] py-[12px] rounded-[8px] h-[48px]',
     'flex justify-center items-center gap-x-[8px]',
     'text-center uppercase text-[16px] leading-[1.5em] font-[400] font-mono',
     'transition-all duration-300 group',
@@ -55,7 +55,7 @@ export function Button({
     variant === 'primary-green' &&
       !disabled &&
       !isLoading &&
-      'bg-islamic-primary-green hover:bg-islamic-primary-green-hover',
+      'bg-islamic-primary-green hover:bg-islamic-primary-green-hover text-white',
 
     variant === 'primary-green' && isLoading && 'text-black',
 
