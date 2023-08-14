@@ -43,6 +43,9 @@
       "@haqq/islamic-website/shariah-page": [
         "libs/islamic-website/shariah-page/src/index.ts"
       ],
+      "@haqq/islamic-website/team-page": [
+        "libs/islamic-website/team-page/src/index.ts"
+      ],
       "@haqq/islamic-website/whitepaper-page": [
         "libs/islamic-website/whitepaper-page/src/index.ts"
       ],
