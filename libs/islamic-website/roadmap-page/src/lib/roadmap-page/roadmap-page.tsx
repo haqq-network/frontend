@@ -119,9 +119,9 @@ function RoadmapCard({ goals, isAchieved, isLast, title }: RoadmapCardProps) {
         <div className="font-mono text-[18px] uppercase leading-[26px] lg:text-[24px] lg:leading-[34px]">
           {title}
         </div>
-        <ul className="list-disc pb-[16px]">
-          {Array.isArray(goals) && goals.length > 1 ? (
-            goals.map((goal, idx) => {
+        {Array.isArray(goals) && goals.length > 1 ? (
+          <ul className="list-disc pb-[16px]">
+            {goals.map((goal, idx) => {
               return (
                 <li
                   className="ml-[28px] text-[13px] leading-[20px] lg:text-base"
@@ -130,13 +130,13 @@ function RoadmapCard({ goals, isAchieved, isLast, title }: RoadmapCardProps) {
                   {goal}
                 </li>
               );
-            })
-          ) : (
-            <span className="text-[13px] leading-[20px] lg:text-base">
-              {goals}
-            </span>
-          )}
-        </ul>
+            })}
+          </ul>
+        ) : (
+          <span className="text-[13px] leading-[20px] lg:text-base">
+            {goals}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -146,7 +146,7 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
   return (
     <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
       <div className="relative overflow-clip">
-        <Container>
+        <Container className="">
           <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
             Roadmap
           </div>
