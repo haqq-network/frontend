@@ -8,7 +8,7 @@ import { WhyBlock } from '../why-block/why-block';
 import { Fragment, PropsWithChildren } from 'react';
 import { Marquee } from '../marquee/marquee';
 import { Container } from '@haqq/islamic-ui-kit';
-import moonBgImageData from '../../assets/images/moon_2x.webp';
+import moonBgImageData from '../../assets/images/moon-2x.webp';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
 import cubeOnRockImgData from '../../assets/images/cube-on-rock.webp';
