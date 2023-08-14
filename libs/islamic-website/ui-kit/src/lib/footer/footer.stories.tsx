@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { Footer as FooterComponent } from './footer';
+import { withoutPadding } from '../../../.storybook/decorators';
 
 const meta: Meta<typeof FooterComponent> = {
   component: FooterComponent,
@@ -8,6 +8,7 @@ const meta: Meta<typeof FooterComponent> = {
   parameters: {
     layout: 'centered',
   },
+  decorators: [withoutPadding],
 };
 
 export default meta;

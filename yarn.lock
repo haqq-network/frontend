@@ -3351,6 +3351,7 @@ __metadata:
     "@sendgrid/client": 7.7.0
     "@sentry/react": 7.57.0
     "@sentry/tracing": 7.57.0
+    "@storyblok/js": 2.2.8
     "@storyblok/react": 2.1.7
     "@storybook/addon-essentials": 7.0.26
     "@storybook/addon-mdx-gfm": 7.0.26
@@ -6061,6 +6062,15 @@ __metadata:
     "@stablelib/random": ^1.0.2
     "@stablelib/wipe": ^1.0.1
   checksum: f8537066b542b6770c1b5b2ae5ad0688d1b986e4bf818067c152c123a5471531987bbf024224f75f387f481ccc5b628e391e49e92102b8b1a3e2d449d6105402
+  languageName: node
+  linkType: hard
+
+"@storyblok/js@npm:2.2.8":
+  version: 2.2.8
+  resolution: "@storyblok/js@npm:2.2.8"
+  dependencies:
+    storyblok-js-client: ^5.13.0
+  checksum: 7c67303f4bac1c174a3f5322c398f2e33cf850f7645f454ec7b620489e518f8a1701bce0dbd96293878fc45857f83d7c25a515b2a46d39c052f29f68ff733209
   languageName: node
   linkType: hard
 
@@ -24794,6 +24804,13 @@ __metadata:
   version: 5.11.0
   resolution: "storyblok-js-client@npm:5.11.0"
   checksum: b59c0dc77b42aaf80b37216ead076466e510ba933de5d99577d9a50ccda1549aa016db69c7cd89aa90c0a8c8f69bce4e5cfb359fe1d899ce771a77123ca8395c
+  languageName: node
+  linkType: hard
+
+"storyblok-js-client@npm:^5.13.0":
+  version: 5.13.0
+  resolution: "storyblok-js-client@npm:5.13.0"
+  checksum: dea5ae19ad2dc3382d74568b6a4a5e198fdde01a9d269205dfe3966abfa54e88bcf2f8427763da07ab01a7cab99be66c07dc295fdccf7e8d30bb8eac6b7376f0
   languageName: node
   linkType: hard
 
