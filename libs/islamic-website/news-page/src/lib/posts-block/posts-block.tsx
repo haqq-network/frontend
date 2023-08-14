@@ -52,8 +52,6 @@ export function PostsBlock({
     return { eventsPosts, pressPosts };
   }, [posts]);
 
-  console.log({ eventsPosts, pressPosts });
-
   return (
     <div className={clsx('flex flex-col', className)}>
       <div className="text-[46px] font-[600] leading-[52px] md:font-[48px] md:leading-[54px]">
