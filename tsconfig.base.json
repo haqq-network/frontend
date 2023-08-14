@@ -34,6 +34,9 @@
       "@haqq/islamic-website/mission-page": [
         "libs/islamic-website/mission-page/src/index.ts"
       ],
+      "@haqq/islamic-website/not-found-page": [
+        "libs/islamic-website/not-found-page/src/index.ts"
+      ],
       "@haqq/islamic-website/partnership-page": [
         "libs/islamic-website/partnership-page/src/index.ts"
       ],
