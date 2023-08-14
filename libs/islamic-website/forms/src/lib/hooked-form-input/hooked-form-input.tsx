@@ -17,12 +17,12 @@ export interface SubscribeFormFields {
   email: string;
 }
 
-export interface HookedInputProps<F extends Record<string, any>> {
+export interface HookedInputProps<F extends Record<string, unknown>> {
   id: Path<F>;
   register: UseFormRegister<F>;
 }
 
-export function HookedFormInput<F extends Record<string, any>>({
+export function HookedFormInput<F extends Record<string, unknown>>({
   id,
   register,
   inputClassName,
