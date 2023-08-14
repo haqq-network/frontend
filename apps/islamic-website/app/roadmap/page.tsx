@@ -1,7 +1,7 @@
-import { RoadmapPage } from '@haqq/islamic-website/roadmap-page';
+import { RoadmapPage, RoadmapPeriod } from '@haqq/islamic-website/roadmap-page';
 
 export default function Page() {
-  const roadmap = [
+  const roadmap: RoadmapPeriod[] = [
     {
       goals: [
         'The private sale has been completed',
