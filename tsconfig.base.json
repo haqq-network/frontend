@@ -46,6 +46,9 @@
       "@haqq/islamic-website/partnership-page": [
         "libs/islamic-website/partnership-page/src/index.ts"
       ],
+      "@haqq/islamic-website/roadmap-page": [
+        "libs/islamic-website/roadmap-page/src/index.ts"
+      ],
       "@haqq/islamic-website/shariah-page": [
         "libs/islamic-website/shariah-page/src/index.ts"
       ],

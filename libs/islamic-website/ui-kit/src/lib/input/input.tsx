@@ -41,7 +41,7 @@ export const Input = forwardRef(function Input(
   );
 
   const inputClassNames = clsx(
-    'inline-block w-full text-white placeholder-white/50 rounded-[6px] bg-transparent',
+    'inline-block w-full h-[48px] text-white placeholder-white/50 rounded-[6px] bg-transparent',
     'outline-none border',
     'focus:!text-white',
     'transition-colors duration-300 ease-out will-change-auto',
