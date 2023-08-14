@@ -1,35 +1,35 @@
-import { Container, NewsProps, Text } from '@haqq/islamic-ui-kit';
+import { Container, NewsCardProps, Text } from '@haqq/islamic-ui-kit';
 import { FeaturedPostBlock } from '../featured-post-block/featured-post-block';
 import { useMemo } from 'react';
 import { PostsBlock } from '../posts-block/posts-block';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 
-const mockNews: NewsProps = [
+const mockNews: NewsCardProps[] = [
   {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
     image: {
       height: 300,
       width: 200,
       src: 'https://picsum.photos/200/300',
     },
+    title:
+      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    date: new Date(),
     source: 'mockwebsite.com',
     type: 'events',
   },
   {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
     image: {
       height: 300,
       width: 200,
       src: 'https://picsum.photos/200/300',
     },
+    title:
+      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    date: new Date(),
     source: 'mockwebsite.com',
     type: 'press',
   },

@@ -1,5 +1,5 @@
 'use client';
-import { NewsCard, NewsProps } from '@haqq/islamic-ui-kit';
+import { NewsCard, NewsCardProps } from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -31,7 +31,7 @@ export function PostsBlock({
   posts,
   className,
 }: {
-  posts: NewsProps;
+  posts: NewsCardProps[];
   className?: string;
 }) {
   const [activeNewsType, setActiveNewsType] = useState<

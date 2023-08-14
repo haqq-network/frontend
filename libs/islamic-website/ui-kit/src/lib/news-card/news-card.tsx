@@ -16,8 +16,6 @@ export interface NewsCardProps {
   isFeatured?: boolean;
 }
 
-export type NewsProps = NewsCardProps[];
-
 export function NewsCard({
   date,
   description,
