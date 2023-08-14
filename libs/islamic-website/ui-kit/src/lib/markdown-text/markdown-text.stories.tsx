@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof MarkdownTextComponent> = {
   component: MarkdownTextComponent,
-  title: 'website/ui-kit',
+  title: 'islamic-website/ui-kit',
 };
 
 export default meta;
