@@ -4,7 +4,7 @@ import teamPageBgImageData from '../../assets/team-page-bg.svg';
 
 function TeamPageBg() {
   return (
-    <div className="absolute right-0 top-[-70px] z-[-1] md:right-[-600px] md:top-[-300px] md:h-[954px] md:w-[1000px] xl:right-[-360px] xl:top-[-320px]">
+    <div className="absolute right-[-160px] top-[-130px] z-[-1] h-[380px] w-[400px] md:right-[-600px] md:top-[-300px] md:h-[954px] md:w-[1000px] xl:right-[-360px] xl:top-[-320px]">
       <Image src={teamPageBgImageData} fill alt="" />
     </div>
   );
@@ -40,16 +40,22 @@ const mockFounders = [
 
 export function TeamPage() {
   return (
-    <div className="relative overflow-clip">
+    <div className="relative overflow-clip pb-[60px] md:pb-0">
       <div className="pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pt-[68px]">
         <Container>
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
             Founders
           </h1>
-          <MembersContainer members={mockFounders} />
+          <MembersContainer
+            members={mockFounders}
+            className="hidden md:block"
+          />
         </Container>
       </div>
-
+      <MembersContainer
+        members={mockFounders}
+        className="ml-[16px] block md:ml-0 md:hidden"
+      />
       <TeamPageBg />
     </div>
   );
