@@ -2,6 +2,7 @@ import { Container, NewsProps, Text } from '@haqq/islamic-ui-kit';
 import { FeaturedPostBlock } from '../featured-post-block/featured-post-block';
 import { useMemo } from 'react';
 import { PostsBlock } from '../posts-block/posts-block';
+import { SubscribeForm } from '@haqq/islamic-website/forms';
 
 const mockNews: NewsProps = [
   {
@@ -145,12 +146,15 @@ export function NewsPage() {
       <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
         Islamic Coin Press & News
       </div>
-      <div className="flex flex-col gap-[24px] md:flex-row">
-        <Text className="mt-[32px]">
+      <div className="mt-[32px] flex flex-col gap-[24px] lg:flex-row xl:w-3/4">
+        <Text size="small" className="lg:w-1/2">
           Keep up to date with our upcoming Public Launch and Exchange listing -
           Subscribe to our newsletter
         </Text>
-        {/* FORM GOES HERE AFTER MERGE DEV */}
+        <SubscribeForm
+          className="flex flex-col gap-[16px] md:flex-row"
+          inputClassName="md:min-w-[240px]"
+        />
       </div>
       {featuredPost && (
         <FeaturedPostBlock
