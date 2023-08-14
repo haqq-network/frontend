@@ -14,7 +14,7 @@ export function MemberCard({
 }) {
   return (
     <div
-      className="hover:border-islamic-primary-green flex max-w-[400px] cursor-pointer flex-col gap-y-[30px] rounded-[20px] border border-dashed border-[#585858] bg-transparent px-[16px] pb-[24px] pt-[16px] transition-colors duration-300 md:h-[301px] lg:h-[333px]"
+      className="hover:border-islamic-primary-green flex h-[272px] max-w-[400px] cursor-pointer flex-col gap-y-[30px] rounded-[20px] border border-dashed border-[#585858] bg-transparent px-[16px] pb-[24px] pt-[16px] transition-colors duration-300 md:h-[301px] lg:h-[333px]"
       onClick={onClick}
     >
       <div className="relative h-[160px] w-[140px] min-[375px]:h-[180px] min-[375px]:w-[160px] md:h-[180px] md:w-[200px]">

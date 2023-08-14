@@ -14,4 +14,6 @@ export * from './lib/modal/modal';
 export * from './lib/member-modal-card/member-modal-card';
 export * from './lib/download-pdf-button/download-pdf-button';
 export * from './lib/rating-badge/rating-badge';
+export * from './lib/members-container/members-container';
+export * from './lib/input/input';
 export * from './lib/markdown-text/markdown-text';
