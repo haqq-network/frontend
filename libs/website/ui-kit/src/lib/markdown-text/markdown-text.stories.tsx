@@ -17,7 +17,7 @@ export const MarkdownText: Story = {
 ## Genus ad vidit
 
 Lorem markdownum meritis leves adiciuntque mediis, hoc certa, iam quod. Venimus
-spectantis datis quo adnuerat nuper, [cum](http://redditur-vulneris.net/)
+spectantis datis quo adnuerat nuper, [cum](https://haqq.network/)
 ursaque nefandos. Imaginis pomoque, et esset, inrequietus terra, tempora in
 autem coniugis Orionis salutifer. Procul Terea flumine remittat et defuit
 creditis defensae uno occupet et inguina, in haberet ferro videt tu freta
@@ -28,7 +28,7 @@ sacer inque, nec.
 
 Icto amat obstet, haut parvi dictis aetherias certior solent et *corporis*
 fluctibus dedecus. Orbem remittit angulus obscenae seductaque
-[foedus](http://www.victor.io/mox) animalia decoro arbitrium animum, illa sonos
+[foedus](https://haqq.network/) animalia decoro arbitrium animum, illa sonos
 morti agresti et canes genitor. Ego et animal luctibus; est inque mirere tenet,
 tantum.`,
   },

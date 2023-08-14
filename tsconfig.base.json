@@ -22,11 +22,23 @@
         "libs/governance/proposal-list/src/index.ts"
       ],
       "@haqq/islamic-ui-kit": ["libs/islamic-website/ui-kit/src/index.ts"],
+      "@haqq/islamic-website/academy-page": [
+        "libs/islamic-website/academy-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/career-page": [
+        "libs/islamic-website/career-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/forms": [
+        "libs/islamic-website/forms/src/index.ts"
+      ],
       "@haqq/islamic-website/index-page": [
         "libs/islamic-website/index-page/src/index.ts"
       ],
       "@haqq/islamic-website/mission-page": [
         "libs/islamic-website/mission-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/not-found-page": [
+        "libs/islamic-website/not-found-page/src/index.ts"
       ],
       "@haqq/islamic-website/partnership-page": [
         "libs/islamic-website/partnership-page/src/index.ts"
@@ -36,6 +48,15 @@
       ],
       "@haqq/islamic-website/shariah-page": [
         "libs/islamic-website/shariah-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/team-page": [
+        "libs/islamic-website/team-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/wallet-page": [
+        "libs/islamic-website/wallet-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/whitepaper-page": [
+        "libs/islamic-website/whitepaper-page/src/index.ts"
       ],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/shared": ["libs/shared/src/index.ts"],
