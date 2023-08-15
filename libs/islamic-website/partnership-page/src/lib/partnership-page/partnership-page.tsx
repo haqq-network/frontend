@@ -859,40 +859,66 @@ function WorldGreenGrowthOrgLogo() {
 
 export function PartnershipPage() {
   return (
-    <Container className="mt-[32px] flex flex-col gap-y-[32px] pb-[60px] text-white md:mt-[52px] lg:mt-[68px]">
-      <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-        Partnerships
-      </div>
-      <div className="flex flex-col gap-y-[12px]">
-        <Text size="small">
-          We are on a journey of shared values, growth, and creating meaningful
-          impact—hand in hand
-        </Text>
-        <Text size="small">
-          Join us in building a future where aspirations intersect and
-          opportunities blossom, all within the framework of our heritage and
-          values
-        </Text>
-      </div>
-      <div className="flex flex-col gap-y-[12px]">
-        <Text isMono>Our partners</Text>
-        <div className="flex items-center gap-x-[12px]">
-          <WorldGreenGrowthOrgLogo />
-          <SustainableDevGoalsLogo />
+    <section className="overflow-x-clip pb-[60px] pt-[32px] lg:pb-[180px] lg:pt-[80px]">
+      <Container className="relative">
+        <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+          Partnerships
+        </h1>
+        <div className="mt-[32px] flex flex-col lg:mt-[60px] lg:flex-row">
+          <div className="order-2 mt-[32px] lg:relative lg:mt-0 lg:flex-1">
+            <Image
+              src={partnershipCubeImgData}
+              width={620}
+              height={600}
+              alt=""
+              className="pointer-events-none select-none lg:absolute lg:left-[50%] lg:top-[50%] lg:translate-x-[-50%] lg:translate-y-[-58%]"
+            />
+          </div>
+          <div className="order-1 lg:w-1/2">
+            <div className="flex flex-col gap-y-[32px] lg:max-w-[480px] lg:gap-[38px] xl:max-w-[680px]">
+              <div className="flex flex-col gap-y-[12px] lg:gap-y-[24px]">
+                <Text size="small">
+                  We are on a journey of shared values, growth, and creating
+                  meaningful impact—hand in hand
+                </Text>
+                <Text size="small">
+                  Join us in building a future where aspirations intersect and
+                  opportunities blossom, all within the framework of our
+                  heritage and values
+                </Text>
+              </div>
+              <div className="flex flex-col gap-y-[12px] lg:gap-y-[16px]">
+                <Text isMono>Our partners</Text>
+                <div className="flex items-center gap-x-[12px] lg:gap-x-[24px]">
+                  <Link
+                    href={'https://wggos.org/'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <WorldGreenGrowthOrgLogo />
+                  </Link>
+                  <Link
+                    href={'https://sdgs.un.org/goals'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SustainableDevGoalsLogo />
+                  </Link>
+                </div>
+              </div>
+              <div className="flex flex-col gap-y-[4px] lg:gap-y-[8px]">
+                <Text isMono>Our partners</Text>
+                <Link
+                  href={'mailto:proposals@islamiccoin.net'}
+                  className="text-islamic-primary-green hover:text-islamic-primary-green-hover w-fit cursor-pointer transition-colors duration-300"
+                >
+                  proposals@islamiccoin.net
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col gap-y-[4px]">
-        <Text isMono>Our partners</Text>
-        <Link
-          href={'mailto:proposals@islamiccoin.net'}
-          className="text-islamic-primary-green hover:text-islamic-primary-green-hover w-fit cursor-pointer transition-colors duration-300"
-        >
-          proposals@islamiccoin.net
-        </Link>
-      </div>
-      <div className="h-[325px] w-[276px] self-center">
-        <Image src={partnershipCubeImgData} alt="" />
-      </div>
-    </Container>
+      </Container>
+    </section>
   );
 }
