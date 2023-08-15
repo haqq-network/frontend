@@ -504,6 +504,50 @@ type FatwaPageArticles =
   | 'advisory-board'
   | 'executive-board';
 
+function HeadingSelectItem({
+  heading,
+  children,
+  handleHeadingChange,
+  activeHeading,
+}: PropsWithChildren<{
+  heading: FatwaPageArticles;
+  handleHeadingChange: (heading: FatwaPageArticles) => void;
+  activeHeading: FatwaPageArticles;
+}>) {
+  return (
+    <Menu.Item
+      as="a"
+      className={clsx(
+        'block w-full min-w-fit whitespace-nowrap px-[16px] py-[8px] text-left font-mono text-base uppercase hover:bg-[#ffffff14]',
+        'transition-colors duration-150 ease-out',
+        heading === activeHeading && 'flex items-center justify-between',
+      )}
+      onClick={() => {
+        return handleHeadingChange(heading);
+      }}
+      href={`#${heading}`}
+    >
+      <span>{children}</span>
+      {heading === activeHeading && (
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M13.172 3.52063C13.4981 3.80018 13.5359 4.29119 13.2563 4.61733L6.58967 12.3951C6.44191 12.5675 6.22619 12.6667 5.99914 12.6667C5.77209 12.6667 5.55637 12.5675 5.40861 12.3951L2.74195 9.28399C2.4624 8.95785 2.50017 8.46684 2.82631 8.18729C3.15245 7.90774 3.64346 7.94551 3.92301 8.27165L5.99914 10.6938L12.0753 3.60499C12.3548 3.27885 12.8458 3.24108 13.172 3.52063Z"
+            fill="#F5F5F5"
+          />
+        </svg>
+      )}
+    </Menu.Item>
+  );
+}
+
 export function FatwaBlock() {
   const [lang, setLang] = useState<'ar' | 'en'>('en');
   const [activeHeading, setActiveHeading] =
@@ -587,7 +631,8 @@ export function FatwaBlock() {
                     'font-mono text-base',
                     'transition-colors duration-300 ease-out',
                     'box-border appearance-none outline-none',
-                    'hover:text-haqq-black w-full bg-[#2F2F2F] uppercase text-white md:max-w-[330px]',
+                    'hover:text-haqq-black w-full uppercase text-white md:max-w-[360px]',
+                    open ? 'bg-[#585858]' : 'bg-[#2F2F2F]',
                   )}
                 >
                   {activeHeading}
@@ -623,85 +668,66 @@ export function FatwaBlock() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Menu.Items className="absolute left-[0px] z-10 mt-[4px] w-full origin-top rounded-[8px] border border-[#ffffff26] bg-[#2f2f2f] py-[8px] text-white shadow-lg focus:outline-none md:max-w-[330px]">
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap  px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
+            <Menu.Items className="absolute left-[0px] z-10 mt-[4px] w-full origin-top rounded-[8px] bg-[#2f2f2f] py-[8px] text-white shadow-lg focus:outline-none md:max-w-[360px]">
+              <HeadingSelectItem
+                activeHeading={activeHeading}
+                heading="fatwa"
+                handleHeadingChange={() => {
                   return handleHeadingChange('fatwa');
                 }}
-                href={'#fatwa'}
               >
                 Fatwa
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'scroll-smooth transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
+              </HeadingSelectItem>
+
+              <HeadingSelectItem
+                activeHeading={activeHeading}
+                heading="foundations"
+                handleHeadingChange={() => {
                   return handleHeadingChange('foundations');
                 }}
-                href={'#foundations'}
               >
                 Foundations of Halal Investing
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
+              </HeadingSelectItem>
+
+              <HeadingSelectItem
+                activeHeading={activeHeading}
+                heading="shariah-oracle"
+                handleHeadingChange={() => {
                   return handleHeadingChange('shariah-oracle');
                 }}
-                href={'#shariah-oracle'}
               >
-                Shariah Oracle
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
+                Fatwa
+              </HeadingSelectItem>
+
+              <HeadingSelectItem
+                activeHeading={activeHeading}
+                heading="shariah-board"
+                handleHeadingChange={() => {
                   return handleHeadingChange('shariah-board');
                 }}
-                href={'#shariah-board'}
               >
                 Shariah Board
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
+              </HeadingSelectItem>
+
+              <HeadingSelectItem
+                activeHeading={activeHeading}
+                heading="advisory-board"
+                handleHeadingChange={() => {
                   return handleHeadingChange('advisory-board');
                 }}
-                href={'#advisory-board'}
               >
                 Advisory Board
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
+              </HeadingSelectItem>
+
+              <HeadingSelectItem
+                activeHeading={activeHeading}
+                heading="executive-board"
+                handleHeadingChange={() => {
                   return handleHeadingChange('executive-board');
                 }}
-                href={'#executive-board'}
               >
                 Executive Board
-              </Menu.Item>
+              </HeadingSelectItem>
             </Menu.Items>
           </Transition>
         </Menu>
