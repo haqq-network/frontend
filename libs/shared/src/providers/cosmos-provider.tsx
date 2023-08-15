@@ -462,13 +462,16 @@ function createCosmosService(
     return savedPubKey;
   }
 
-  async function broadcastTransaction(txToBroadcast: TxToSend) {
+  async function broadcastTransaction(
+    txToBroadcast: TxToSend,
+    mode: BroadcastMode = BroadcastMode.Block,
+  ) {
     try {
       const broadcastResponse = await axios.post<{
         tx_response: BroadcastTxResponse;
       }>(
         `${cosmosRestEndpoint}${generateEndpointBroadcast()}`,
-        generatePostBodyBroadcast(txToBroadcast),
+        generatePostBodyBroadcast(txToBroadcast, mode),
       );
 
       return broadcastResponse.data.tx_response;
@@ -480,7 +483,7 @@ function createCosmosService(
 
   async function simulateTransaction(
     txToBroadcast: TxToSend,
-    mode: BroadcastMode = BroadcastMode.Sync,
+    mode: BroadcastMode = BroadcastMode.Block,
   ) {
     try {
       const simulateUrl = `${cosmosRestEndpoint}${generateSimulateEndpoint()}`;

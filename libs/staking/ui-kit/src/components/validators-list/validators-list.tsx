@@ -5,7 +5,7 @@ import type {
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import { useStakingPoolQuery } from '@haqq/shared';
+import { formatNumber, useStakingPoolQuery } from '@haqq/shared';
 import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell-ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
 import { formatUnits } from 'viem/utils';
@@ -58,10 +58,10 @@ export function ValidatorListItemMobile({
       <ValidatorListItemMobileComponent
         validatorName={validator.description.moniker}
         fee={`${validatorCommission}%`}
-        reward={userRewards}
-        staked={userDelegate}
+        reward={formatNumber(userRewards)}
+        staked={formatNumber(userDelegate)}
         votingPowerPercent={votingPowerInPercents}
-        votingPower={votingPower}
+        votingPower={formatNumber(votingPower)}
         status="active"
       />
     </div>
@@ -271,27 +271,15 @@ export function ValidatorsList({
     [sortStates.key, totalStaked, getDelegationInfo, getValidatorRewards],
   );
 
-  const handleSortClick = useCallback((key: string) => {
-    setSortStates((prev) => {
-      let newDirection: SortDirection;
-
-      if (prev.key === key) {
-        newDirection =
-          prev.direction === 'asc'
-            ? 'desc'
-            : prev.direction === 'desc'
-            ? undefined
-            : 'asc';
-      } else {
-        newDirection = 'asc';
-      }
-
-      return {
-        key: newDirection === undefined ? undefined : key,
-        direction: newDirection,
-      };
-    });
-  }, []);
+  const handleSortClick = useCallback(
+    (key: string) => {
+      setSortStates({
+        key,
+        direction: sortStates.direction === 'asc' ? 'desc' : 'asc',
+      });
+    },
+    [sortStates.direction],
+  );
 
   const valsToRender = useMemo(() => {
     let resultVals: Validator[];
@@ -332,7 +320,7 @@ export function ValidatorsList({
               <SortDirectionArrow direction={sortStates.direction} />
             )}
           </th>
-          <th className="cursor-pointer select-none p-[8px] text-left lg:p-[12px]">
+          <th className="select-none p-[8px] text-left lg:p-[12px]">
             Status
             {sortStates.key === 'status' && (
               <SortDirectionArrow direction={sortStates.direction} />
