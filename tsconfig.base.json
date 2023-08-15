@@ -55,6 +55,9 @@
       "@haqq/islamic-website/team-page": [
         "libs/islamic-website/team-page/src/index.ts"
       ],
+      "@haqq/islamic-website/values-page": [
+        "libs/islamic-website/values-page/src/index.ts"
+      ],
       "@haqq/islamic-website/wallet-page": [
         "libs/islamic-website/wallet-page/src/index.ts"
       ],
