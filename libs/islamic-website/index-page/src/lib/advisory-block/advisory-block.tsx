@@ -87,11 +87,11 @@ export function AdvisoryBoardBlock() {
       <div className="text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
         Advisory <GradientText>Board</GradientText>
       </div>
-      <div className="flex items-center md:gap-x-[36px] lg:gap-x-[34px] xl:gap-x-[18px] 2xl:gap-x-[40px]">
+      <div className="flex md:gap-x-[36px] lg:gap-x-[34px] xl:gap-x-[18px] 2xl:gap-x-[40px]">
         <button
           aria-label="previous slide"
           type="button"
-          className="pointer-events-auto hidden items-center justify-center disabled:opacity-50 md:flex"
+          className="pointer-events-auto mt-[80px] hidden items-center justify-center disabled:opacity-50 md:block"
           id="prev-slide"
         >
           <svg
@@ -140,15 +140,11 @@ export function AdvisoryBoardBlock() {
               </SwiperSlide>
             );
           })}
-          {/* <span
-          slot="container-start"
-          className="pointer-events-none absolute left-[50%] z-10 mt-[270px] flex w-full translate-x-[-50%] flex-row justify-between px-[16%]"
-        > */}
         </Swiper>
         <button
           aria-label="next slide"
           type="button"
-          className="pointer-events-auto hidden items-center justify-center disabled:opacity-50 md:flex"
+          className="pointer-events-auto mt-[80px] hidden items-center justify-center disabled:opacity-50 md:block"
           id="next-slide"
         >
           <svg
