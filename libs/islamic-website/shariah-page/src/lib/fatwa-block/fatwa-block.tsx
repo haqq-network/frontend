@@ -74,8 +74,10 @@ function LangButton({
   return (
     <div
       className={clsx(
-        'hover:bg-islamic-primary-green-hover cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-1000',
-        active ? 'bg-islamic-primary-green' : 'bg-transparent',
+        ' cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+        active
+          ? 'bg-islamic-primary-green'
+          : 'hover:bg-islamic-primary-green/50 bg-transparent',
       )}
       onClick={onClick}
     >
