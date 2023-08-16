@@ -165,8 +165,7 @@ export function LearnAndGrowBlock() {
           </Text>
           <div className="mt-[32px] w-full md:mt-[34px] md:w-fit">
             <Button className="w-full !px-[20px] md:!px-[32px]">
-              Get started with <br className="block min-[400px]:hidden" /> haqq
-              wallet
+              Get started with HAQQ&nbsp;wallet
             </Button>
           </div>
         </div>
