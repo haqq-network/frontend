@@ -77,7 +77,7 @@ function Level({ level }: { level: 'beginner' | 'intermediate' | 'advanced' }) {
             />
           </svg>
         </div>
-        <Text className="text-white/50">
+        <Text className="text-white/50" size="small">
           {level === 'beginner' &&
             'If you are just getting acquainted with our project'}
           {level === 'intermediate' &&
