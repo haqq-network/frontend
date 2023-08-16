@@ -16,7 +16,7 @@ export function FinanceBlock() {
                 <GradientText>of&nbsp;Islamic&nbsp;Finance</GradientText>
               </h2>
 
-              <div className="mt-[40px]">
+              <div className="mt-[24px] md:mt-[44px] lg:mt-[40px]">
                 <Text isMono>
                   Crypto Innovation Meets Islamic Tradition offering
                   Interest-Free Investments, Halal Trading, and Charitable
@@ -24,7 +24,7 @@ export function FinanceBlock() {
                 </Text>
               </div>
 
-              <div className="mt-[32px] max-w-[600px]">
+              <div className="mt-[20px] md:mt-[38px] lg:mt-[32px] flex max-w-[600px] flex-col gap-y-[20px] lg:gap-y-[28px]">
                 <p>
                   <Text size="small" className="text-white/50">
                     Our Shariah compliant products, including interest-free
@@ -32,8 +32,10 @@ export function FinanceBlock() {
                     opportunities, blend modern fintech with Islamic heritage,
                     giving you the power to honor your traditions while
                     embracing the crypto revolution.
-                    <br />
-                    <br />
+                  </Text>
+                </p>
+                <p>
+                  <Text size="small" className="text-white/50">
                     Step into the future with Islamic Coin - the heart of
                     ethical, principled finance that respects your values.
                   </Text>

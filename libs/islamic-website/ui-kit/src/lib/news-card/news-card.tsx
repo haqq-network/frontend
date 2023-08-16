@@ -45,7 +45,7 @@ export function NewsCard({
             width={post.image.width}
             height={post.image.height}
             alt={post.title}
-            className="h-full w-full object-cover blur-sm transition-[transform,filter] duration-[2s] ease-out group-hover:scale-110"
+            className="h-full w-full object-cover transition-[transform,filter] duration-[2s] ease-out group-hover:scale-110 group-hover:blur-sm"
           />
         )}
       </div>
