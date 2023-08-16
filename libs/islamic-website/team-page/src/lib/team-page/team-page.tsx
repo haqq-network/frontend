@@ -43,12 +43,15 @@ export function TeamPage() {
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
-        <div className="pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pt-[68px]">
+        <div className="pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pb-[200px] lg:pt-[68px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
             Founders
           </h1>
 
-          <MembersContainer members={mockFounders} />
+          <MembersContainer
+            members={mockFounders}
+            className="mt-[32px] lg:mt-[100px]"
+          />
 
           <TeamPageBg />
         </div>

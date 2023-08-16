@@ -27,14 +27,15 @@ export function NewsCard({
   return (
     <div
       className={clsx(
-        'flex flex-col bg-transparent',
+        'group flex w-full flex-col bg-transparent',
+        'min-w-[234px] md:min-w-[249px]',
         isFeatured && 'md:flex-row md:gap-x-[28px]',
         className,
       )}
     >
       <div
         className={clsx(
-          'relative h-[250px] w-full',
+          'relative h-[250px] w-full overflow-hidden rounded-[12px]',
           isFeatured && 'md:h-[420px] md:w-3/5',
         )}
       >
@@ -44,7 +45,7 @@ export function NewsCard({
             width={post.image.width}
             height={post.image.height}
             alt={post.title}
-            className="h-full w-full rounded-xl object-cover"
+            className="h-full w-full object-cover transition-[transform,filter] duration-[2s] ease-out group-hover:scale-110 group-hover:blur-sm"
           />
         )}
       </div>
@@ -66,6 +67,7 @@ export function NewsCard({
           <div
             className={clsx(
               'line-clamp-2 text-[18px] font-[700] leading-[26px] text-white md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]',
+              'group-hover:text-islamic-primary-green-hover transition-colors duration-300 ease-in',
               isFeatured ? 'mt-[28px]' : 'mt-[8px]',
             )}
           >

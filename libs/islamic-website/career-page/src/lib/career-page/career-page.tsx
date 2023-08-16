@@ -49,6 +49,7 @@ export function CareerPage() {
             'right-[-222px] top-[-50px] h-[447px] w-[444px]',
             'md:right-[-200px] md:top-[-80px] md:h-[720px] md:w-[724px]',
             'lg:right-[-340px] lg:top-[-220px] lg:h-[1000px] lg:w-[1000px]',
+            'opacity-70 md:opacity-100',
           )}
         >
           <Image src={careerStarsImgData} alt="" fill />

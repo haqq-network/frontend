@@ -30,7 +30,7 @@ export function NewsPage({ news }: { news: NewsPost[] }) {
           Islamic Coin Press & News
         </h1>
 
-        <div className="mt-[32px] flex flex-col gap-[24px] lg:flex-row xl:w-3/4">
+        <div className="mt-[32px] flex flex-col gap-[24px] lg:mt-[56px] lg:flex-row xl:w-3/4">
           <Text size="small" className="lg:w-1/2">
             Keep up to date with our upcoming Public Launch and Exchange listing
             - Subscribe to our newsletter
