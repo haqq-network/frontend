@@ -41,6 +41,7 @@ import {
 } from '@haqq/islamic-ui-kit';
 // import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
+import { useMediaQuery } from 'react-responsive';
 
 interface HeaderLinkProps {
   url: string;
@@ -123,8 +124,12 @@ function HeaderDropdown({
   );
 }
 
-export function Header({ isMobile }: { isMobile: boolean }) {
-  return isMobile ? <MobileHeader /> : <DesktopHeader />;
+export default function Header() {
+  const isTabletMedia = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
+
+  return isTabletMedia ? <MobileHeader /> : <DesktopHeader />;
 }
 
 export function MobileHeader() {
