@@ -17,3 +17,4 @@ export * from './lib/rating-badge/rating-badge';
 export * from './lib/members-container/members-container';
 export * from './lib/input/input';
 export * from './lib/markdown-text/markdown-text';
+export * from './lib/select/select';
