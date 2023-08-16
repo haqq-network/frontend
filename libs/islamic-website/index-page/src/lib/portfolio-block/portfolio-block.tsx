@@ -32,7 +32,9 @@ export function PortfolioBlock() {
                 Manage Your <GradientText>Shariah Portfolio </GradientText>
                 with HAQQ Wallet
               </div>
-              <Text isMono>Ethics-First, Non-Custodial Wallet</Text>
+              <div className="lg:mt-[40px]">
+                <Text isMono>Ethics-First, Non-Custodial Wallet</Text>
+              </div>
               <Text
                 size="small"
                 className="mt-[20px] text-white/50 md:mt-[24px]"
