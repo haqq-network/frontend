@@ -156,9 +156,9 @@ export function MobileHeader() {
         'sticky top-0 z-50 h-[72px] w-full',
         'transform-gpu overflow-clip transition-[height,background] duration-150 ease-in-out will-change-[height,background]',
         isMobileMenuOpen
-          ? '!h-[100vh] bg-[#15191EF2] backdrop-blur'
+          ? '!h-[100vh] bg-[#15191ef2] backdrop-blur-[6px]'
           : isBlurred
-          ? 'bg-[#010304CC] backdrop-blur'
+          ? 'bg-[#010304CC] backdrop-blur-[6px]'
           : 'bg-transparent',
       )}
     >

@@ -5,7 +5,6 @@ import {
   BuildIcon,
   CaseIcon,
   CommunityIcon,
-  DropdownLink,
   EcosystemIcon,
   EventsIcon,
   GetISLMIcon,
@@ -26,9 +25,15 @@ import {
 } from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { Fragment, PropsWithChildren, useCallback, useState } from 'react';
+import {
+  Fragment,
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+  useState,
+} from 'react';
 
-const HeaderLinks = [
+const HEADER_LINKS = [
   {
     title: 'Shariah',
   },
@@ -62,7 +67,7 @@ const HeaderLinks = [
     ],
   },
   {
-    title: 'Use Islm',
+    title: 'Use ISLM',
     withArrow: true,
     children: [
       { title: 'Wallet', icon: <WalletIcon /> },
@@ -97,6 +102,25 @@ const HeaderLinks = [
   },
 ];
 
+export function BurgerMenuDropdownLink({
+  icon,
+  title,
+  url,
+}: {
+  icon?: ReactNode;
+  title: string;
+  url?: string;
+}) {
+  return (
+    <div className="hover:text-islamic-primary-green flex w-fit cursor-pointer items-center gap-x-[10px] py-[12px] text-white transition-colors duration-300">
+      {icon}
+      <span className="text-base font-[500]">
+        <Link href={`/${url}`}>{title}</Link>
+      </span>
+    </div>
+  );
+}
+
 export function BurgerMenu({
   className,
   isOpen,
@@ -111,107 +135,135 @@ export function BurgerMenu({
   }, [isLangMenuOpen]);
 
   return (
-    <div className={clsx('px-[16px] pt-[24px] md:px-[48px]', className)}>
+    <div className={clsx('px-[16px] md:px-[48px]', className)}>
       {!isLangMenuOpen ? (
         <div className="flex flex-col">
           <MobileMenuLink title="Shariah" url="/shariah" />
           <MobileMenuLink title="About" withArrow>
             <div className="flex flex-col">
-              <DropdownLink
+              <BurgerMenuDropdownLink
                 title="Mission"
                 icon={<MissionIcon />}
                 url="mission"
               />
-              <DropdownLink
+              <BurgerMenuDropdownLink
                 title="Roadmap"
                 icon={<RoadmapIcon />}
                 url="roadmap"
               />
-              <DropdownLink title="News" icon={<NewsIcon />} url="news" />
-              <DropdownLink title="Press" icon={<NewsIcon />} url="press" />
-              <DropdownLink title="Events" icon={<EventsIcon />} url="events" />
-              <DropdownLink
+              <BurgerMenuDropdownLink
+                title="News"
+                icon={<NewsIcon />}
+                url="news"
+              />
+              <BurgerMenuDropdownLink
+                title="Press"
+                icon={<NewsIcon />}
+                url="press"
+              />
+              <BurgerMenuDropdownLink
+                title="Events"
+                icon={<EventsIcon />}
+                url="events"
+              />
+              <BurgerMenuDropdownLink
                 title="Ecosystem"
                 icon={<EcosystemIcon />}
                 url="ecosystem"
               />
-              <DropdownLink
+              <BurgerMenuDropdownLink
                 title="Partnerships"
                 icon={<PartnershipIcon />}
                 url="partnerships"
               />
-              <DropdownLink
+              <BurgerMenuDropdownLink
                 title="Build on HAQQ"
                 icon={<BuildIcon />}
                 url="build"
               />
             </div>
           </MobileMenuLink>
-          <MobileMenuLink title="Use Islm" withArrow>
-            <DropdownLink title="Wallet" icon={<WalletIcon />} url="wallet" />
-            <DropdownLink
+          <MobileMenuLink title="Use ISLM" withArrow>
+            <BurgerMenuDropdownLink
+              title="Wallet"
+              icon={<WalletIcon />}
+              url="wallet"
+            />
+            <BurgerMenuDropdownLink
               title="Staking & Hodling"
               icon={<StakingIcon />}
               url="hodling"
             />
-            <DropdownLink
+            <BurgerMenuDropdownLink
               title="Tracker and Tokenomics"
               icon={<TokenomicsIcon />}
               url="tokenomics"
             />
-            <DropdownLink
+            <BurgerMenuDropdownLink
               title="What is ISLM"
               icon={<QuestionMarkIcon />}
               url="what-is-islm"
             />
-            <DropdownLink
+            <BurgerMenuDropdownLink
               title="Get ISLM"
               icon={<GetISLMIcon />}
               url="get-islm"
             />
           </MobileMenuLink>
           <MobileMenuLink title="Learn" withArrow>
-            <DropdownLink
+            <BurgerMenuDropdownLink
               title="Academy"
               icon={<AcademyIcon />}
               url="academy"
             />
-            <DropdownLink title="Blog" icon={<BlogIcon />} url="blog" />
-            <DropdownLink
+            <BurgerMenuDropdownLink
+              title="Blog"
+              icon={<BlogIcon />}
+              url="blog"
+            />
+            <BurgerMenuDropdownLink
               title="Podcast"
               icon={<PodcastIcon />}
               url="podcast"
             />
-            <DropdownLink title="Videos" icon={<VideoIcon />} url="videos" />
-            <DropdownLink
+            <BurgerMenuDropdownLink
+              title="Videos"
+              icon={<VideoIcon />}
+              url="videos"
+            />
+            <BurgerMenuDropdownLink
               title="Where to start?"
               icon={<RocketIcon />}
               url="where-to-start"
             />
-            <DropdownLink
+            <BurgerMenuDropdownLink
               title="Partners"
               icon={<PartnersIcon />}
               url="partners"
             />
           </MobileMenuLink>
           <MobileMenuLink title="Team" withArrow>
-            <DropdownLink title="Career" icon={<CaseIcon />} url="career" />
-            <DropdownLink
+            <BurgerMenuDropdownLink
+              title="Career"
+              icon={<CaseIcon />}
+              url="career"
+            />
+            <BurgerMenuDropdownLink
               title="Our Values"
               icon={<ValuesIcon />}
               url="values"
             />
-            <DropdownLink
+            <BurgerMenuDropdownLink
               title="Community"
               icon={<CommunityIcon />}
               url="community"
             />
-            <DropdownLink
+            <BurgerMenuDropdownLink
               title="Meet our team"
               icon={<StarIcon />}
               url="team"
             />
-            <DropdownLink
+            <BurgerMenuDropdownLink
               title="Fraud alert"
               icon={<AlertIcon />}
               url="fraud"
@@ -257,27 +309,15 @@ export function BurgerMenu({
             <span>Back</span>
           </div>
           <div className="flex flex-col">
-            <DropdownLink title="English" />
-            <DropdownLink title="عربي" />
-            <DropdownLink title="Bahasa Indonesia" />
+            <BurgerMenuDropdownLink title="English" />
+            <BurgerMenuDropdownLink title="عربي" />
+            <BurgerMenuDropdownLink title="Bahasa Indonesia" />
           </div>
         </div>
       )}
     </div>
   );
 }
-
-// function LangSwitcherMenu({
-//   className,
-//   isOpen,
-// }: {
-//   className?: string;
-//   isOpen?: boolean;
-// }) {
-//   return (
-//     <div className={clsx('', isOpen ? 'block' : 'hidden', className)}></div>
-//   );
-// }
 
 function MobileMenuLink({
   title,
