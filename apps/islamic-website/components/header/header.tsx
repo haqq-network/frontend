@@ -39,7 +39,7 @@ import {
   BurgerButton,
   DropdownLink,
 } from '@haqq/islamic-ui-kit';
-// import ScrollLock from 'react-scrolllock';
+import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
 
@@ -157,51 +157,56 @@ export function MobileHeader() {
   }, []);
 
   return (
-    <header
-      className={clsx(
-        'sticky top-0 z-50 h-[72px] w-full',
-        'transform-gpu overflow-clip transition-[height,background] duration-150 ease-in-out will-change-[height,background]',
-        isMobileMenuOpen
-          ? '!h-[100vh] bg-[#15191ef2] backdrop-blur-[6px]'
-          : isBlurred
-          ? 'bg-[#010304CC] backdrop-blur-[6px]'
-          : 'bg-transparent',
-      )}
-    >
-      <div className="flex h-full flex-col">
-        <div className="py-[18px]">
-          <Container>
-            <div className="flex items-center justify-between">
-              <div>
-                <Link
-                  href={'/'}
-                  className="leading-[0] text-white transition-colors duration-150 hover:text-[#18FFAC]"
-                >
-                  <IslamicHeaderLogo />
-                </Link>
+    <Fragment>
+      {isMobileMenuOpen && <ScrollLock />}
+      <div className="h-[72px] lg:h-[92px]" />
+      <header
+        className={clsx(
+          'fixed top-0 z-50 h-[72px] w-full',
+          'transform-gpu overflow-clip transition-[height,background] duration-150 ease-in-out will-change-[height,background]',
+          isMobileMenuOpen
+            ? '!h-[100vh] bg-[#15191ef2] backdrop-blur-[6px]'
+            : isBlurred
+            ? 'bg-[#010304CC] backdrop-blur-[6px]'
+            : 'bg-transparent',
+        )}
+      >
+        <div className="flex h-full flex-col">
+          <div className="py-[18px]">
+            <Container>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Link
+                    href={'/'}
+                    className="leading-[0] text-white transition-colors duration-150 hover:text-[#18FFAC]"
+                  >
+                    <IslamicHeaderLogo />
+                  </Link>
+                </div>
+                <div className="leading-[0]">
+                  <BurgerButton
+                    onClick={() => {
+                      setIsMobileMenuOpened(!isMobileMenuOpen);
+                    }}
+                    isOpen={isMobileMenuOpen}
+                    className="p-[6px]"
+                  />
+                </div>
               </div>
-              <div className="leading-[0]">
-                <BurgerButton
-                  onClick={() => {
-                    setIsMobileMenuOpened(!isMobileMenuOpen);
-                  }}
-                  isOpen={isMobileMenuOpen}
-                  className="p-[6px]"
-                />
-              </div>
-            </div>
-          </Container>
-        </div>
-
-        <div className={clsx('flex-1', isMobileMenuOpen ? 'block ' : 'hidden')}>
+            </Container>
+          </div>
           <div
-            className={clsx('py-[24px]', 'max-h-full w-full overflow-y-auto')}
+            className={clsx('flex-1', isMobileMenuOpen ? 'block ' : 'hidden')}
           >
-            <BurgerMenu isOpen={isMobileMenuOpen} />
+            <div
+              className={clsx('py-[24px]', 'max-h-full w-full overflow-y-auto')}
+            >
+              <BurgerMenu isOpen={isMobileMenuOpen} />
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </Fragment>
   );
 }
 
@@ -218,6 +223,8 @@ export function DesktopHeader() {
         setBlured(false);
       }
     }
+
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
