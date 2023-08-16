@@ -116,7 +116,7 @@ function BurgerMenuDropdownLink({
   return (
     <Link
       href={href}
-      className="hover:text-islamic-primary-green w-fit cursor-pointer py-[12px] text-base font-[500] text-white transition-colors duration-300"
+      className="hover:text-islamic-primary-green w-fit cursor-pointer py-[12px] text-base font-[500] text-white transition-colors duration-200"
       onClick={onClick}
     >
       <div className="flex flex-row items-center gap-x-[10px]">
@@ -148,7 +148,7 @@ export function BurgerMenu({
         <div className="flex flex-col">
           <Link
             href="/shariah"
-            className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-300"
+            className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-200"
             onClick={onClick}
           >
             Shariah
@@ -210,31 +210,31 @@ export function BurgerMenu({
               onClick={onClick}
               title="Wallet"
               icon={<WalletIcon />}
-              href="wallet"
+              href="/wallet"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Staking & Hodling"
               icon={<StakingIcon />}
-              href="hodling"
+              href="/hodling"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Tracker and Tokenomics"
               icon={<TokenomicsIcon />}
-              href="tokenomics"
+              href="/tokenomics"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="What is ISLM"
               icon={<QuestionMarkIcon />}
-              href="what-is-islm"
+              href="/what-is-islm"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Get ISLM"
               icon={<GetISLMIcon />}
-              href="get-islm"
+              href="/get-islm"
             />
           </MobileMenuDropdownLink>
           <MobileMenuDropdownLink title="Learn" withArrow>
@@ -242,37 +242,37 @@ export function BurgerMenu({
               onClick={onClick}
               title="Academy"
               icon={<AcademyIcon />}
-              href="academy"
+              href="/academy"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Blog"
               icon={<BlogIcon />}
-              href="blog"
+              href="/blog"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Podcast"
               icon={<PodcastIcon />}
-              href="podcast"
+              href="/podcast"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Videos"
               icon={<VideoIcon />}
-              href="videos"
+              href="/videos"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Where to start?"
               icon={<RocketIcon />}
-              href="where-to-start"
+              href="/where-to-start"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Partners"
               icon={<PartnersIcon />}
-              href="partners"
+              href="/partners"
             />
           </MobileMenuDropdownLink>
           <MobileMenuDropdownLink title="Team" withArrow>
@@ -280,38 +280,39 @@ export function BurgerMenu({
               onClick={onClick}
               title="Career"
               icon={<CaseIcon />}
-              href="career"
+              href="/career"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Our Values"
               icon={<ValuesIcon />}
-              href="values"
+              href="/values"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Community"
               icon={<CommunityIcon />}
-              href="community"
+              href="/community"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Meet our team"
               icon={<StarIcon />}
-              href="team"
+              href="/team"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Fraud alert"
               icon={<AlertIcon />}
-              href="fraud"
+              href="/fraud"
             />
           </MobileMenuDropdownLink>
+
           <div
-            className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-300"
+            className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-200"
             onClick={toggleLangMenu}
           >
-            lang
+            Lang
             <svg
               width="24"
               height="24"
@@ -329,7 +330,7 @@ export function BurgerMenu({
       ) : (
         <div className="flex flex-col gap-y-[12px]">
           <div
-            className='hover:text-islamic-primary-green duration-300" z-50 flex w-fit cursor-pointer items-start gap-x-[10px] bg-[#15191EF2] py-[12px] text-base uppercase text-white transition-colors'
+            className='hover:text-islamic-primary-green duration-200" z-50 flex w-fit cursor-pointer items-start gap-x-[10px] py-[12px] text-base uppercase text-white transition-colors'
             onClick={toggleLangMenu}
           >
             <svg
@@ -375,7 +376,7 @@ function MobileMenuDropdownLink({
     <Fragment>
       <div
         onClick={toggleSelector}
-        className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-300"
+        className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-200"
       >
         <div>{title}</div>
 

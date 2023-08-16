@@ -425,7 +425,7 @@ export function DesktopHeader() {
                 </div>
               </HeaderDropdown>
 
-              <HeaderDropdown title="En">
+              <HeaderDropdown title="EN">
                 <div className="flex flex-col">
                   <DropdownLink title="English" href="#" />
                   <DropdownLink title="عربي" href="#" />
