@@ -105,8 +105,8 @@ export function AcademyPage() {
               </div>
             </div>
 
-            <div className="md:w-1/2">
-              <Text size="small" className="mt-[32px]">
+            <div className="mt-[32px] md:w-1/2">
+              <Text size="small">
                 Seamlessly navigate Web3 with HAQQ Wallet, your trusted partner
                 for a principled DeFi journey. With mnemonicless security and a
                 user-friendly interface, managing your digital Shariah-compliant
