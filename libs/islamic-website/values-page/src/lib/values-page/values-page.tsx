@@ -1,6 +1,15 @@
+import { PropsWithChildren } from 'react';
 import { Container, GradientText, Text } from '@haqq/islamic-ui-kit';
 import Image from 'next/image';
 import glowCubeImgData from '../../assets/images/glow-cube.webp';
+
+function ValuesPageHeading({ children }: PropsWithChildren) {
+  return (
+    <h3 className="font-mono text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
+      <GradientText>{children}</GradientText>
+    </h3>
+  );
+}
 
 export function ValuesPage() {
   return (
@@ -23,9 +32,7 @@ export function ValuesPage() {
           <div className="lg:order-1 lg:w-1/2">
             <div className="flex flex-col gap-[28px] lg:max-w-[480px] lg:gap-[38px] xl:max-w-[680px]">
               <div className="flex flex-col gap-[16px]">
-                <GradientText className="font-mono text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
-                  Khuloos
-                </GradientText>
+                <ValuesPageHeading>Khuloos</ValuesPageHeading>
                 <p>
                   <Text size="small">
                     Sincerity and Integrity: We place the utmost importance on
@@ -37,9 +44,7 @@ export function ValuesPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <GradientText className="font-mono text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
-                  Islah
-                </GradientText>
+                <ValuesPageHeading>Islah</ValuesPageHeading>
                 <p>
                   <Text size="small">
                     Self-Improvement and Positive Change: Committed to daily
@@ -52,9 +57,7 @@ export function ValuesPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <GradientText className="font-mono text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
-                  Wahda
-                </GradientText>
+                <ValuesPageHeading>Wahda</ValuesPageHeading>
                 <p>
                   <Text size="small">
                     Unity and Collaboration: We celebrate diversity and work
