@@ -4,10 +4,8 @@ import clsx from 'clsx';
 import {
   Fragment,
   PropsWithChildren,
-  ReactNode,
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from 'react';
 import { Transition } from '@headlessui/react';
@@ -39,7 +37,6 @@ import {
   BurgerButton,
   DropdownLink,
 } from '@haqq/islamic-ui-kit';
-import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
 
@@ -67,9 +64,8 @@ function DesktopHeaderLink({
 
 function HeaderDropdown({
   title,
-  items,
   children,
-}: PropsWithChildren<{ title?: string; items?: any[] }>) {
+}: PropsWithChildren<{ title?: string }>) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
@@ -156,9 +152,18 @@ export function MobileHeader() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('overflow-hidden');
+    }
+
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <Fragment>
-      {isMobileMenuOpen && <ScrollLock />}
       <div className="h-[72px] lg:h-[92px]" />
       <header
         className={clsx(
@@ -196,12 +201,18 @@ export function MobileHeader() {
             </Container>
           </div>
           <div
-            className={clsx('flex-1', isMobileMenuOpen ? 'block ' : 'hidden')}
+            className={clsx(
+              'flex-1 overflow-y-auto',
+              isMobileMenuOpen ? 'block ' : 'hidden',
+            )}
           >
-            <div
-              className={clsx('py-[24px]', 'max-h-full w-full overflow-y-auto')}
-            >
-              <BurgerMenu isOpen={isMobileMenuOpen} />
+            <div className={clsx('py-[24px]', 'w-full')}>
+              <BurgerMenu
+                isOpen={isMobileMenuOpen}
+                onClick={() => {
+                  setIsMobileMenuOpened(false);
+                }}
+              />
             </div>
           </div>
         </div>
@@ -246,7 +257,7 @@ export function DesktopHeader() {
           <div className="flex items-center justify-between">
             <div>
               <Link
-                href={'/'}
+                href="/"
                 className="leading-[0] text-white transition-colors duration-150 hover:text-[#18FFAC]"
               >
                 <IslamicHeaderLogo />
@@ -262,76 +273,80 @@ export function DesktopHeader() {
                     <DropdownLink
                       title="Mission"
                       icon={<MissionIcon />}
-                      url="mission"
+                      href="/mission"
                     />
                     <DropdownLink
                       title="Roadmap"
                       icon={<RoadmapIcon />}
-                      url="roadmap"
+                      href="/roadmap"
                     />
                   </div>
                   <div className="flex flex-col">
-                    <DropdownLink title="News" icon={<NewsIcon />} url="news" />
+                    <DropdownLink
+                      title="News"
+                      icon={<NewsIcon />}
+                      href="/news"
+                    />
                     <DropdownLink
                       title="Press"
                       icon={<NewsIcon />}
-                      url="press"
+                      href="/press"
                     />
                     <DropdownLink
                       title="Events"
                       icon={<EventsIcon />}
-                      url="events"
+                      href="/events"
                     />
                   </div>
                   <div className="flex flex-col">
                     <DropdownLink
                       title="Ecosystem"
                       icon={<EcosystemIcon />}
-                      url="ecosystem"
+                      href="/ecosystem"
                     />
                     <DropdownLink
                       title="Partnerships"
                       icon={<PartnershipIcon />}
-                      url="partnerships"
+                      href="/partnerships"
                     />
                     <DropdownLink
                       title="Build on HAQQ"
                       icon={<BuildIcon />}
-                      url="build"
+                      href="/build"
                     />
                   </div>
                 </div>
               </HeaderDropdown>
 
-              <HeaderDropdown title="Use islm">
+              <HeaderDropdown title="Use ISLM">
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
                       title="Wallet"
                       icon={<WalletIcon />}
-                      url="wallet"
+                      href="/wallet"
                     />
                     <DropdownLink
                       title="Staking & Hodling"
                       icon={<StakingIcon />}
-                      url="hodling"
+                      href="/hodling"
                     />
                     <DropdownLink
                       title="Tracker and Tokenomics"
                       icon={<TokenomicsIcon />}
-                      url="tokenomics"
+                      href="/tokenomics"
                     />
                   </div>
                   <div className="flex flex-col">
                     <DropdownLink
                       title="What is ISLM"
                       icon={<QuestionMarkIcon />}
-                      url="what-is-islm"
+                      href="/what-is-islm"
                     />
                     <DropdownLink
                       title="Get ISLM"
                       icon={<GetISLMIcon />}
-                      url="get-islm"
+                      href="/get-islm"
                     />
                   </div>
                 </div>
@@ -343,34 +358,34 @@ export function DesktopHeader() {
                     <DropdownLink
                       title="Academy"
                       icon={<AcademyIcon />}
-                      url="academy"
+                      href="/academy"
                     />
                     <DropdownLink
                       title="Blog"
                       icon={<BlogIcon />}
-                      url="podcast"
+                      href="/podcast"
                     />
                     <DropdownLink
                       title="Podcast"
                       icon={<PodcastIcon />}
-                      url="where-to-start"
+                      href="/where-to-start"
                     />
                     <DropdownLink
                       title="Videos"
                       icon={<VideoIcon />}
-                      url="partners"
+                      href="/partners"
                     />
                   </div>
                   <div className="flex flex-col">
                     <DropdownLink
                       title="Where to start?"
                       icon={<RocketIcon />}
-                      url="where-to-start"
+                      href="/where-to-start"
                     />
                     <DropdownLink
                       title="Partners"
                       icon={<PartnersIcon />}
-                      url="partners"
+                      href="/partners"
                     />
                   </div>
                 </div>
@@ -382,29 +397,29 @@ export function DesktopHeader() {
                     <DropdownLink
                       title="Career"
                       icon={<CaseIcon />}
-                      url="career"
+                      href="/career"
                     />
                     <DropdownLink
                       title="Our Values"
                       icon={<ValuesIcon />}
-                      url="values"
+                      href="/values"
                     />
                     <DropdownLink
                       title="Community"
                       icon={<CommunityIcon />}
-                      url="community"
+                      href="/community"
                     />
                     <DropdownLink
                       title="Meet our team"
                       icon={<StarIcon />}
-                      url="team"
+                      href="/team"
                     />
                   </div>
                   <div className="flex flex-col">
                     <DropdownLink
                       title="Fraud alert"
                       icon={<AlertIcon />}
-                      url="fraud"
+                      href="/fraud"
                     />
                   </div>
                 </div>
@@ -412,9 +427,9 @@ export function DesktopHeader() {
 
               <HeaderDropdown title="En">
                 <div className="flex flex-col">
-                  <DropdownLink title="English" />
-                  <DropdownLink title="عربي" />
-                  <DropdownLink title="Bahasa Indonesia" />
+                  <DropdownLink title="English" href="#" />
+                  <DropdownLink title="عربي" href="#" />
+                  <DropdownLink title="Bahasa Indonesia" href="#" />
                 </div>
               </HeaderDropdown>
             </nav>

@@ -102,31 +102,39 @@ const HEADER_LINKS = [
   },
 ];
 
-export function BurgerMenuDropdownLink({
+function BurgerMenuDropdownLink({
   icon,
   title,
-  url,
+  href,
+  onClick,
 }: {
   icon?: ReactNode;
   title: string;
-  url?: string;
+  href: string;
+  onClick?: () => void;
 }) {
   return (
-    <div className="hover:text-islamic-primary-green flex w-fit cursor-pointer items-center gap-x-[10px] py-[12px] text-white transition-colors duration-300">
-      {icon}
-      <span className="text-base font-[500]">
-        <Link href={`/${url}`}>{title}</Link>
-      </span>
-    </div>
+    <Link
+      href={href}
+      className="hover:text-islamic-primary-green w-fit cursor-pointer py-[12px] text-base font-[500] text-white transition-colors duration-300"
+      onClick={onClick}
+    >
+      <div className="flex flex-row items-center gap-x-[10px]">
+        {icon && <div>{icon}</div>}
+        <div>{title}</div>
+      </div>
+    </Link>
   );
 }
 
 export function BurgerMenu({
   className,
   isOpen,
+  onClick,
 }: {
   className?: string;
   isOpen?: boolean;
+  onClick: () => void;
 }) {
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
@@ -138,137 +146,167 @@ export function BurgerMenu({
     <div className={clsx('px-[16px] md:px-[48px]', className)}>
       {!isLangMenuOpen ? (
         <div className="flex flex-col">
-          <MobileMenuLink title="Shariah" url="/shariah" />
-          <MobileMenuLink title="About" withArrow>
+          <Link
+            href="/shariah"
+            className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-300"
+            onClick={onClick}
+          >
+            Shariah
+          </Link>
+          <MobileMenuDropdownLink title="About" withArrow>
             <div className="flex flex-col">
               <BurgerMenuDropdownLink
                 title="Mission"
                 icon={<MissionIcon />}
-                url="mission"
+                href="/mission"
+                onClick={onClick}
               />
               <BurgerMenuDropdownLink
+                onClick={onClick}
                 title="Roadmap"
                 icon={<RoadmapIcon />}
-                url="roadmap"
+                href="/roadmap"
               />
               <BurgerMenuDropdownLink
+                onClick={onClick}
                 title="News"
                 icon={<NewsIcon />}
-                url="news"
+                href="/news"
               />
               <BurgerMenuDropdownLink
+                onClick={onClick}
                 title="Press"
                 icon={<NewsIcon />}
-                url="press"
+                href="/press"
               />
               <BurgerMenuDropdownLink
+                onClick={onClick}
                 title="Events"
                 icon={<EventsIcon />}
-                url="events"
+                href="/events"
               />
               <BurgerMenuDropdownLink
+                onClick={onClick}
                 title="Ecosystem"
                 icon={<EcosystemIcon />}
-                url="ecosystem"
+                href="/ecosystem"
               />
               <BurgerMenuDropdownLink
+                onClick={onClick}
                 title="Partnerships"
                 icon={<PartnershipIcon />}
-                url="partnerships"
+                href="/partnerships"
               />
               <BurgerMenuDropdownLink
+                onClick={onClick}
                 title="Build on HAQQ"
                 icon={<BuildIcon />}
-                url="build"
+                href="/build"
               />
             </div>
-          </MobileMenuLink>
-          <MobileMenuLink title="Use ISLM" withArrow>
+          </MobileMenuDropdownLink>
+          <MobileMenuDropdownLink title="Use ISLM" withArrow>
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Wallet"
               icon={<WalletIcon />}
-              url="wallet"
+              href="wallet"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Staking & Hodling"
               icon={<StakingIcon />}
-              url="hodling"
+              href="hodling"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Tracker and Tokenomics"
               icon={<TokenomicsIcon />}
-              url="tokenomics"
+              href="tokenomics"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="What is ISLM"
               icon={<QuestionMarkIcon />}
-              url="what-is-islm"
+              href="what-is-islm"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Get ISLM"
               icon={<GetISLMIcon />}
-              url="get-islm"
+              href="get-islm"
             />
-          </MobileMenuLink>
-          <MobileMenuLink title="Learn" withArrow>
+          </MobileMenuDropdownLink>
+          <MobileMenuDropdownLink title="Learn" withArrow>
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Academy"
               icon={<AcademyIcon />}
-              url="academy"
+              href="academy"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Blog"
               icon={<BlogIcon />}
-              url="blog"
+              href="blog"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Podcast"
               icon={<PodcastIcon />}
-              url="podcast"
+              href="podcast"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Videos"
               icon={<VideoIcon />}
-              url="videos"
+              href="videos"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Where to start?"
               icon={<RocketIcon />}
-              url="where-to-start"
+              href="where-to-start"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Partners"
               icon={<PartnersIcon />}
-              url="partners"
+              href="partners"
             />
-          </MobileMenuLink>
-          <MobileMenuLink title="Team" withArrow>
+          </MobileMenuDropdownLink>
+          <MobileMenuDropdownLink title="Team" withArrow>
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Career"
               icon={<CaseIcon />}
-              url="career"
+              href="career"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Our Values"
               icon={<ValuesIcon />}
-              url="values"
+              href="values"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Community"
               icon={<CommunityIcon />}
-              url="community"
+              href="community"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Meet our team"
               icon={<StarIcon />}
-              url="team"
+              href="team"
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
               title="Fraud alert"
               icon={<AlertIcon />}
-              url="fraud"
+              href="fraud"
             />
-          </MobileMenuLink>
+          </MobileMenuDropdownLink>
           <div
             className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-300"
             onClick={toggleLangMenu}
@@ -309,9 +347,9 @@ export function BurgerMenu({
             <span>Back</span>
           </div>
           <div className="flex flex-col">
-            <BurgerMenuDropdownLink title="English" />
-            <BurgerMenuDropdownLink title="عربي" />
-            <BurgerMenuDropdownLink title="Bahasa Indonesia" />
+            <BurgerMenuDropdownLink title="English" href="#" />
+            <BurgerMenuDropdownLink title="عربي" href="#" />
+            <BurgerMenuDropdownLink title="Bahasa Indonesia" href="#" />
           </div>
         </div>
       )}
@@ -319,15 +357,13 @@ export function BurgerMenu({
   );
 }
 
-function MobileMenuLink({
+function MobileMenuDropdownLink({
   title,
   withArrow,
   children,
-  url,
 }: PropsWithChildren<{
   title: string;
   withArrow?: boolean;
-  url?: string;
 }>) {
   const [isSelectorOpened, setIsSelectorOpened] = useState(false);
 
@@ -338,37 +374,32 @@ function MobileMenuLink({
   return (
     <Fragment>
       <div
-        onClick={withArrow ? toggleSelector : undefined}
-        className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-300"
+        onClick={toggleSelector}
+        className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-300"
       >
-        <Link
-          href={url ? url : ''}
-          className="flex items-center justify-between"
-        >
-          {title}
-          {withArrow && (
-            <div
-              className={clsx(
-                'transform transition-transform duration-100',
-                isSelectorOpened && 'rotate-180',
-              )}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12.0234 17.2471C12.292 17.2471 12.5283 17.1504 12.7324 16.9463L21.0576 8.42773C21.251 8.24512 21.3477 8.00879 21.3477 7.72949C21.3477 7.1709 20.9287 6.74121 20.3701 6.74121C20.0908 6.74121 19.8545 6.85937 19.6719 7.03125L12.0234 14.8516L4.375 7.03125C4.19238 6.85937 3.94531 6.74121 3.67676 6.74121C3.11816 6.74121 2.69922 7.1709 2.69922 7.72949C2.69922 8.00879 2.7959 8.24512 2.97852 8.42773L11.3145 16.9463C11.5078 17.1504 11.7549 17.2471 12.0234 17.2471Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
+        <div>{title}</div>
+
+        <div
+          className={clsx(
+            'transform transition-transform duration-100',
+            isSelectorOpened && 'rotate-180',
           )}
-        </Link>
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.0234 17.2471C12.292 17.2471 12.5283 17.1504 12.7324 16.9463L21.0576 8.42773C21.251 8.24512 21.3477 8.00879 21.3477 7.72949C21.3477 7.1709 20.9287 6.74121 20.3701 6.74121C20.0908 6.74121 19.8545 6.85937 19.6719 7.03125L12.0234 14.8516L4.375 7.03125C4.19238 6.85937 3.94531 6.74121 3.67676 6.74121C3.11816 6.74121 2.69922 7.1709 2.69922 7.72949C2.69922 8.00879 2.7959 8.24512 2.97852 8.42773L11.3145 16.9463C11.5078 17.1504 11.7549 17.2471 12.0234 17.2471Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
       </div>
+
       {isSelectorOpened && children}
     </Fragment>
   );
