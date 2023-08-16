@@ -51,7 +51,7 @@ function Level({ level }: { level: 'beginner' | 'intermediate' | 'advanced' }) {
       </div>
 
       <div className="group-hover:text-islamic-primary-green-hover flex flex-col transition-colors duration-300">
-        <div className="flexRow flex items-center gap-x-[6px] leading-[0]">
+        <div className="flex flex-row items-center gap-x-[6px] leading-[0]">
           <div>
             <Text isMono>
               {level === 'beginner' && 'Beginner'}
@@ -94,7 +94,7 @@ export function AcademyPage() {
     <section className="overflow-clip">
       <Container>
         <div className="relative pb-[60px] pt-[32px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
-          <div className="flex flex-col gap-y-[32px] lg:gap-y-[60px]">
+          <div className="flex flex-col gap-[32px] md:gap-[60px]">
             <div className="md:max-w-[880px]">
               <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
                 Embark on a journey of learning through our&nbsp;
