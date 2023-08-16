@@ -20,10 +20,11 @@ export function MemberModalCard({
   return (
     <div className="flex max-w-[680px] flex-col items-center rounded-[20px] bg-[#15191EF2] px-[20px] py-[32px] pt-[20px] text-white lg:px-[40px] lg:pb-[48px]">
       <ModalCloseButton onClick={onClick} className="self-end outline-none" />
+
       <div className="flex flex-col items-start pt-[4px] md:flex-row lg:items-center">
         <Image
           src={image}
-          alt=""
+          alt={title}
           className="rounded-[20px]"
           height={148}
           width={164}

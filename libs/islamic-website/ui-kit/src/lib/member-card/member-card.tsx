@@ -33,6 +33,7 @@ export function MemberCard({
             {title}
           </span>
         </div>
+
         {url && (
           <div>
             <Link
