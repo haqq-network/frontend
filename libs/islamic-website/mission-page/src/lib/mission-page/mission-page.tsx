@@ -1,14 +1,14 @@
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, GradientText, Text } from '@haqq/islamic-ui-kit';
 import missionStarImgData from '../../assets/images/mission-star.webp';
 import missionRockImgData from '../../assets/images/mission-rock.webp';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
-function MissionHeading({ children }: PropsWithChildren) {
+function MissionPageHeading({ children }: PropsWithChildren) {
   return (
-    <h3 className="bg-gradient-to-r from-[#36FFF3] to-[#18FFAC] bg-clip-text font-mono uppercase text-transparent">
-      {children}
+    <h3 className="font-mono text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
+      <GradientText>{children}</GradientText>
     </h3>
   );
 }
@@ -34,7 +34,7 @@ export function MissionPage() {
             </div>
             <div className="flex flex-col gap-[28px] lg:max-w-[480px] lg:gap-[38px] xl:max-w-[680px]">
               <div className="flex flex-col gap-[16px]">
-                <MissionHeading> Vision</MissionHeading>
+                <MissionPageHeading>Vision</MissionPageHeading>
                 <p>
                   <Text size="small">
                     Our vision is to create a global, inclusive, and ethical
@@ -45,7 +45,7 @@ export function MissionPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <MissionHeading>Mission</MissionHeading>
+                <MissionPageHeading>Mission</MissionPageHeading>
                 <p>
                   <Text size="small">
                     Our mission is to empower the world's Muslim community with
