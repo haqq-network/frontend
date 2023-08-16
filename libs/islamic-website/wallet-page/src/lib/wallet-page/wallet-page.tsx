@@ -65,9 +65,11 @@ export function WalletPage() {
   );
 
   return (
-    <Container className="relative mt-[32px] overflow-hidden pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:overflow-visible">
-      <div className="hidden items-center justify-between lg:flex">
-        <div className="mr-[60px] flex max-w-[660px] flex-col">{content}</div>
+    <Container className="relative mt-[32px] overflow-hidden pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:overflow-visible lg:pb-[130px] xl:pb-[108px]">
+      <div className="hidden items-center justify-between lg:flex lg:gap-x-[24px] xl:gap-x-[60px]">
+        <div className="flex max-w-[600px] flex-col xl:max-w-[660px]">
+          {content}
+        </div>
         <div className="flex flex-1 justify-center">
           <div className="relative h-[600px] w-[350px]">{image}</div>
         </div>
