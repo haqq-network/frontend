@@ -319,6 +319,7 @@ export function BurgerMenu({
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="mr-[4px]"
             >
               <path
                 d="M17.2773 11.9941C17.2773 11.7256 17.1807 11.4893 16.9766 11.2852L8.45801 2.95996C8.27539 2.7666 8.03906 2.66992 7.75977 2.66992C7.20117 2.66992 6.77149 3.08887 6.77149 3.64746C6.77149 3.92676 6.88965 4.16309 7.06152 4.3457L14.8818 11.9941L7.06152 19.6426C6.88965 19.8252 6.77148 20.0723 6.77148 20.3408C6.77148 20.8994 7.20117 21.3184 7.75977 21.3184C8.03906 21.3184 8.27539 21.2217 8.45801 21.0391L16.9766 12.7031C17.1807 12.5098 17.2773 12.2627 17.2773 11.9941Z"
@@ -382,7 +383,7 @@ function MobileMenuDropdownLink({
 
         <div
           className={clsx(
-            'transform transition-transform duration-100',
+            'mr-[6px] transform transition-transform duration-100',
             isSelectorOpened && 'rotate-180',
           )}
         >
