@@ -47,7 +47,7 @@ interface HeaderLinkProps {
   isOutLink?: boolean;
 }
 
-function HeaderLink({
+function DesktopHeaderLink({
   children,
   url,
   isOutLink = false,
@@ -57,7 +57,7 @@ function HeaderLink({
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="hover:text-islamic-classic-green p-[16px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300"
+      className="hover:text-islamic-classic-green p-[16px] text-[14px] font-[400] uppercase leading-[24px] text-white transition-colors duration-200"
     >
       {children}
     </Link>
@@ -85,7 +85,7 @@ function HeaderDropdown({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="hover:text-islamic-primary-green group-hover:text-islamic-primary-green flex cursor-pointer items-center gap-x-[4px] p-[16px] text-white transition-colors duration-300">
+      <div className="hover:text-islamic-primary-green group-hover:text-islamic-primary-green flex cursor-pointer items-center gap-x-[4px] p-[16px] text-white transition-colors duration-200">
         <span className="text-[14px] uppercase leading-[20px]">{title}</span>
         <svg
           width="24"
@@ -102,6 +102,7 @@ function HeaderDropdown({
           />
         </svg>
       </div>
+
       <Transition
         as={Fragment}
         enter="transition ease-out duration-100"
@@ -203,8 +204,9 @@ export function DesktopHeader() {
   const [isBlurred, setBlured] = useState(false);
 
   useEffect(() => {
+    const offset = 50;
+
     function handleScroll() {
-      const offset = 30;
       if (window.scrollY > offset) {
         setBlured(true);
       } else {
@@ -227,7 +229,7 @@ export function DesktopHeader() {
         isBlurred && 'translate-y-[-16px]',
       )}
     >
-      <div className="pb-[16px] pt-[26px]">
+      <div className="pb-[10px] pt-[26px]">
         <Container>
           <div className="flex items-center justify-between">
             <div>
@@ -240,7 +242,7 @@ export function DesktopHeader() {
             </div>
 
             <nav className="flex flex-row">
-              <HeaderLink url="/shariah">Shariah</HeaderLink>
+              <DesktopHeaderLink url="/shariah">Shariah</DesktopHeaderLink>
 
               <HeaderDropdown title="About">
                 <div className="flex gap-x-[18px]">
@@ -407,6 +409,7 @@ export function DesktopHeader() {
           </div>
         </Container>
       </div>
+
       <div
         className={clsx(
           'absolute inset-0 z-[-1]',
