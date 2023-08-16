@@ -24,7 +24,7 @@ export function FinanceBlock() {
                 </Text>
               </div>
 
-              <div className="mt-[20px] md:mt-[38px] lg:mt-[32px] flex max-w-[600px] flex-col gap-y-[20px] lg:gap-y-[28px]">
+              <div className="mt-[20px] flex max-w-[600px] flex-col gap-y-[20px] md:mt-[38px] lg:mt-[32px] lg:gap-y-[28px]">
                 <p>
                   <Text size="small" className="text-white/50">
                     Our Shariah compliant products, including interest-free
@@ -43,11 +43,12 @@ export function FinanceBlock() {
               </div>
             </div>
           </div>
-          <div className="relative order-first flex-1 pt-[260px] md:order-last md:pt-[0px]">
+          <div className="relative order-first flex-1 pt-[300px] md:order-last md:pt-[0px]">
             <div
               className={clsx(
                 'absolute left-[50%] top-[50%] z-[-1] max-w-none',
-                'h-[550px] w-[656px] translate-x-[-61.5%] translate-y-[-40%]',
+                'h-[550px] w-[656px] translate-x-[-61.5%] translate-y-[-35%]',
+                'md:translate-x-[-61.5%] md:translate-y-[-40%]',
                 'lg:scale-125',
               )}
             >
