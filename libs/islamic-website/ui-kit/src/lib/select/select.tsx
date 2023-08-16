@@ -59,10 +59,7 @@ export function Select({
   }, [current, onChange, variants]);
 
   return (
-    <Menu
-      as="div"
-      className={clsx('relative inline-block min-w-[300px]', className)}
-    >
+    <Menu as="div" className={clsx('relative inline-block w-full', className)}>
       <Menu.Button as={Fragment}>
         {({ open }) => {
           return (

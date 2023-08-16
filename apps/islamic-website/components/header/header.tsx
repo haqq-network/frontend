@@ -47,10 +47,6 @@ interface HeaderLinkProps {
   isOutLink?: boolean;
 }
 
-interface HeaderProps {
-  links: HeaderLinkProps[];
-}
-
 function HeaderLink({
   children,
   url,
@@ -453,6 +449,7 @@ export function Header() {
                   </div>
                 </div>
               </HeaderDropdown>
+
               <HeaderDropdown title="En">
                 <div className="flex flex-col">
                   <DropdownLink title="English" />
