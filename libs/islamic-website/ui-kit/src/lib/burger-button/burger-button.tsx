@@ -29,7 +29,8 @@ export function BurgerButton({
           fill="currentColor"
           className={clsx(
             'origin-center duration-100 ease-in-out',
-            isOpen && 'translate-x-[4px] translate-y-[4.25px] rotate-[-45deg]',
+            isOpen &&
+              'translate-x-[4px] translate-y-[4.25px] rotate-[-45deg] scale-x-[1.275]',
           )}
         />
         <path
@@ -49,7 +50,8 @@ export function BurgerButton({
           fill="currentColor"
           className={clsx(
             'origin-center duration-100 ease-in-out',
-            isOpen && 'translate-x-[4px] translate-y-[-4.25px] rotate-[45deg]',
+            isOpen &&
+              'translate-x-[4px] translate-y-[-4.25px] rotate-[45deg] scale-x-[1.275]',
           )}
         />
       </svg>
