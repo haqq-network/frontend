@@ -99,7 +99,7 @@ export function AcademyPage() {
             <div className="md:max-w-[880px]">
               <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
                 Embark on a journey of learning through our&nbsp;
-                <span className="text-shadow-outline font-mono uppercase">
+                <span className="text-shadow-outline align-[-2px] font-mono uppercase">
                   Academy
                 </span>
               </div>
