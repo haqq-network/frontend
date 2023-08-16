@@ -11,7 +11,6 @@ import { Container, NewsPost } from '@haqq/islamic-ui-kit';
 import moonBgImageData from '../../assets/images/moon-2x.webp';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
-import cubeOnRockImgData from '../../assets/images/cube-on-rock.webp';
 
 const RUNNING_TEXT =
   "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
@@ -143,9 +142,7 @@ export function IndexPage() {
         </Marquee>
         <WhyBlock />
       </HeroBg>
-      <FinanceBg>
-        <FinanceBlock />
-      </FinanceBg>
+      <FinanceBlock />
       <AdvisoryBoardBlock />
       <PortfolioBlock />
       <LearnAndGrowBlock />
@@ -157,7 +154,7 @@ export function IndexPage() {
 
 function HeroBg({ children }: PropsWithChildren) {
   return (
-    <div className="relative">
+    <div className="overflow-x-clip">
       <Container className="relative">
         <div className="absolute -z-10 translate-x-[-50%] translate-y-[40%] select-none md:translate-x-0 md:translate-y-[-12%] xl:translate-x-[-1.5%] xl:translate-y-[-24.5%]">
           <div className="absolute bottom-0 left-0 top-0 z-10 w-full bg-gradient-to-r from-[#010304] from-10% to-transparent lg:left-[-10%] " />
@@ -172,18 +169,5 @@ function HeroBg({ children }: PropsWithChildren) {
       </Container>
       {children}
     </div>
-  );
-}
-
-function FinanceBg({ children }: PropsWithChildren) {
-  return (
-    <Container className="relative">
-      <div className="overflow-clip pb-[108px] pt-[250px] md:pb-[200px] md:pt-[160px] lg:pb-[140px]">
-        <div className="absolute left-1/2 h-[385px] w-[656px] translate-x-[-60%] translate-y-[-60%] scale-[80%] transform md:left-auto md:right-0 md:h-[499px] md:translate-x-[29%] md:translate-y-[-10%] md:scale-100 lg:h-[550px] lg:translate-x-[-1%] lg:translate-y-[0%] min-[1440px]:translate-x-[-23%]">
-          <Image src={cubeOnRockImgData} alt="" />
-        </div>
-        {children}
-      </div>
-    </Container>
   );
 }

@@ -45,7 +45,7 @@ export function NewsCard({
             width={post.image.width}
             height={post.image.height}
             alt={post.title}
-            className="h-full w-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+            className="h-full w-full object-cover blur-sm transition-[transform,filter] duration-[2s] ease-out group-hover:scale-110"
           />
         )}
       </div>
@@ -67,7 +67,7 @@ export function NewsCard({
           <div
             className={clsx(
               'line-clamp-2 text-[18px] font-[700] leading-[26px] text-white md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]',
-              'group-hover:text-islamic-primary-green-hover duration-300 ease-in',
+              'group-hover:text-islamic-primary-green-hover transition-colors duration-300 ease-in',
               isFeatured ? 'mt-[28px]' : 'mt-[8px]',
             )}
           >
