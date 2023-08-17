@@ -2,6 +2,7 @@
 import {
   Container,
   GradientText,
+  Member,
   MemberCard,
   MemberModalCard,
   Modal,
@@ -9,7 +10,6 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import { useCallback, useState } from 'react';
-import type { Member } from '@haqq/islamic-website/shariah-page';
 
 interface BoardMemberModalProps {
   title: string;

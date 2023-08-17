@@ -1,5 +1,12 @@
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link';
+
+export interface Member {
+  image: string;
+  title: string;
+  description: string;
+  url?: string;
+}
 
 export function MemberCard({
   image,
