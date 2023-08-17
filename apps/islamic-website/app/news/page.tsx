@@ -2,8 +2,7 @@ import { NewsPage } from '@haqq/islamic-website/news-page';
 import { NewsPost } from '@haqq/islamic-ui-kit';
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 
-const STORYBLOK_ACCESS_TOKEN =
-  process.env['STORYBLOK_ISLAMIC_WEBSITE_ACCESS_TOKEN'];
+const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
 const VERCEL_ENV = process.env['VERCEL_ENV'];
 
 interface StoryblokNewsPost {

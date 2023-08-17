@@ -3,7 +3,7 @@ import { mapStorybookToNews } from './news/page';
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 
 const STORYBLOK_ACCESS_TOKEN =
-  process.env['STORYBLOK_ISLAMIC_WEBSITE_ACCESS_TOKEN'];
+  process.env['STORYBLOK_ACCESS_TOKEN'];
 const VERCEL_ENV = process.env['VERCEL_ENV'];
 
 async function getNewsPageContent() {
