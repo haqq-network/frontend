@@ -6,7 +6,7 @@ const STORYBLOK_ACCESS_TOKEN =
   process.env['STORYBLOK_ISLAMIC_WEBSITE_ACCESS_TOKEN'];
 const VERCEL_ENV = process.env['VERCEL_ENV'];
 
-interface StoryblockNewsPost {
+interface StoryblokNewsPost {
   _uid: string;
   date: string;
   text: string;
@@ -19,7 +19,7 @@ interface StoryblockNewsPost {
   main_url_text: string;
 }
 
-function mapStorybookToNews(data: StoryblockNewsPost[]): NewsPost[] {
+function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
   return data.map((post) => {
     const image =
       post.image.filename && post.image.filename !== ''
