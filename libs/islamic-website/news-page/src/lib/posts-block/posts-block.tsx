@@ -1,6 +1,7 @@
 'use client';
 import { NewsCard, NewsPost } from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { PropsWithChildren, useMemo, useState } from 'react';
 
 function NewsTypeButton({
@@ -76,7 +77,11 @@ export function PostsBlock({
       </div>
       <div className="mt-[28px] grid grid-cols-1 gap-[28px] md:grid-cols-2 lg:mt-[36px] lg:grid-cols-3 lg:gap-[48px]">
         {filteredPosts.map((post, index) => {
-          return <NewsCard post={post} key={index} />;
+          return (
+            <Link href={post.url} target="_blank" rel="noopener noreferrer">
+              <NewsCard post={post} key={index} />
+            </Link>
+          );
         })}
       </div>
     </div>
