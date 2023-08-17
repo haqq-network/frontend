@@ -19,7 +19,7 @@ interface StoryblokNewsPost {
   main_url_text: string;
 }
 
-function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
+export function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
   return data.map((post) => {
     const image =
       post.image.filename && post.image.filename !== ''
@@ -56,7 +56,6 @@ async function getNewsPageContent() {
     version: VERCEL_ENV === 'production' ? 'published' : 'draft',
   });
 
-  console.log(response.data.story.content.body[0].columns);
   const posts = mapStorybookToNews(response.data.story.content.body[0].columns);
 
   return posts;
