@@ -5,9 +5,9 @@ import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block'
 import { NewsBlock } from '../news-block/news-block';
 import { PortfolioBlock } from '../portfolio-block/portfolio-block';
 import { WhyBlock } from '../why-block/why-block';
-import { Fragment, PropsWithChildren } from 'react';
+import { Fragment } from 'react';
 import { Marquee } from '../marquee/marquee';
-import { Container, NewsPost } from '@haqq/islamic-ui-kit';
+import { Container, Member, NewsPost } from '@haqq/islamic-ui-kit';
 import moonBgImageData from '../../assets/images/moon-2x.webp';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
@@ -16,12 +16,18 @@ import clsx from 'clsx';
 const RUNNING_TEXT =
   "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
 
-export function IndexPage({ news }: { news: NewsPost[] }) {
+export function IndexPage({
+  news,
+  advisoryMembers,
+}: {
+  news: NewsPost[];
+  advisoryMembers: Member[];
+}) {
   return (
     <Fragment>
       <Hero />
       <FinanceBlock />
-      <AdvisoryBoardBlock />
+      <AdvisoryBoardBlock members={advisoryMembers} />
       <PortfolioBlock />
       <LearnAndGrowBlock />
       <NewsBlock news={news} />
@@ -30,7 +36,7 @@ export function IndexPage({ news }: { news: NewsPost[] }) {
   );
 }
 
-function Hero({ children }: PropsWithChildren) {
+function Hero() {
   return (
     <div className="overflow-x-clip">
       <Container className="relative">

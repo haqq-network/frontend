@@ -2,6 +2,13 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 
+export interface Member {
+  image: string;
+  title: string;
+  description: string;
+  url?: string;
+}
+
 export function MemberCard({
   image,
   title,
