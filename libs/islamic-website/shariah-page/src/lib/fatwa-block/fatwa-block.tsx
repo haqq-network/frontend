@@ -206,10 +206,10 @@ function EnFatwa() {
       </Text>
       <Text size="small">
         Praise be to Allah, the Lord of the Worlds;{' '}
-        <strong className="font-[500]">and may His</strong> blessings and peace
-        be upon <strong className="font-[500]">our Prophet Muhammad</strong> and
+        <strong className="font-[600]">and may His</strong> blessings and peace
+        be upon <strong className="font-[600]">our Prophet Muhammad</strong> and
         upon all{' '}
-        <strong className="font-[500]">his Family and Companions.</strong>
+        <strong className="font-[600]">his Family and Companions.</strong>
       </Text>
     </div>
   );
