@@ -49,7 +49,8 @@ function MembersContainer({
   return (
     <div
       className={clsx(
-        'grid grid-cols-1 gap-[32px] md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3',
+        'flex overflow-x-auto',
+        'gap-[32px] md:grid md:grid-cols-2 xl:grid-cols-3',
         className,
       )}
     >
@@ -145,7 +146,7 @@ export function ShariahPage({
 
         <div
           className={clsx(
-            'flex flex-row pt-[40px] md:pt-[58px]',
+            'flex flex-col pt-[40px] md:pt-[58px] lg:flex-row',
             'md:gap-[32px] lg:gap-[48px] xl:gap-[72px] xl:pr-[72px]',
           )}
         >
