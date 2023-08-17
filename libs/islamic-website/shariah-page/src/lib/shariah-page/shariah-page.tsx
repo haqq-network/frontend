@@ -1,25 +1,31 @@
 import { FatwaBlock } from '../fatwa-block/fatwa-block';
 import fatwaStarsImgData from '../../assets/images/fatwa-stars.webp';
 import Image from 'next/image';
-import { Container, MembersContainer, Text } from '@haqq/islamic-ui-kit';
+import {
+  Container,
+  MemberCard,
+  MemberModalCard,
+  Modal,
+  Text,
+} from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
 import Link from 'next/link';
-import {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { FoundationsBlock } from '../foundations-block/foundations-block';
 import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
-import { useInView } from 'react-intersection-observer';
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
 import mockMemberImgData from '../../assets/images/mock_member.png';
 
-const mockMembers = [
+interface Member {
+  image: string;
+  title: string;
+  description: string;
+  url?: string;
+}
+
+const mockMembers: Member[] = [
   {
     image: mockMemberImgData.src,
     title: '1Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
@@ -84,12 +90,49 @@ const activeSectionsDefaultState = sections.map(() => {
   return false;
 });
 
+function MembersContainer({
+  members,
+  className,
+  onMemberSelect,
+}: {
+  members: Member[];
+  className?: string;
+  onMemberSelect: (member: Member) => void;
+}) {
+  return (
+    <div
+      className={clsx(
+        'grid grid-cols-1 gap-[32px] md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3',
+        className,
+      )}
+    >
+      {members.map((member, idx) => {
+        return (
+          <MemberCard
+            image={member.image}
+            title={member.title}
+            url={member.url}
+            onClick={() => {
+              onMemberSelect(member);
+            }}
+            key={idx}
+            className="float-left min-w-[200px] snap-center md:float-none md:max-w-none"
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 export function ShariahPage() {
   const { replace } = useRouter();
   const [activeSections, setActiveSections] = useState(
     activeSectionsDefaultState,
   );
   const [activeSection, setActiveSection] = useState('fatwa');
+  const [boardMember, setBoardMemeber] = useState<undefined | Member>(
+    undefined,
+  );
 
   const handleSectionInView = useCallback((id: string, inView: boolean) => {
     const sectionIndex = sections.findIndex(({ id: sectionId }) => {
@@ -171,7 +214,7 @@ export function ShariahPage() {
                 />
               </div>
 
-              <div className="flex max-w-[844px] flex-col divide-y-[1px] divide-[#2F2F2F]">
+              <div className="flex flex-col divide-y-[1px] divide-[#2F2F2F] lg:max-w-[844px]">
                 <ScrollSpySection
                   id="fatwa"
                   onSectionInView={handleSectionInView}
@@ -197,16 +240,26 @@ export function ShariahPage() {
                     <ShariahBlock />
                   </div>
                 </ScrollSpySection>
-                {/* <ScrollSpySection
+                <ScrollSpySection
                   id="shariah-board"
                   onSectionInView={handleSectionInView}
                 >
                   <div className="py-[32px] md:py-[60px] lg:py-[80px]">
                     <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
-                      <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                        Shariah Board
-                      </h2>
-                      <MembersContainer members={mockMembers} />
+                      <div>
+                        <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
+                          Shariah Board
+                        </h2>
+                      </div>
+
+                      <div className="max-w-full flex-1 overflow-auto">
+                        <MembersContainer
+                          members={mockMembers}
+                          onMemberSelect={(member) => {
+                            setBoardMemeber(member);
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </ScrollSpySection>
@@ -219,7 +272,12 @@ export function ShariahPage() {
                       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
                         Advisory Board
                       </h2>
-                      <MembersContainer members={mockMembers} />
+                      <MembersContainer
+                        members={mockMembers}
+                        onMemberSelect={(member) => {
+                          setBoardMemeber(member);
+                        }}
+                      />
                     </div>
                   </div>
                 </ScrollSpySection>
@@ -232,10 +290,15 @@ export function ShariahPage() {
                       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
                         Executive Board
                       </h2>
-                      <MembersContainer members={mockMembers} />
+                      <MembersContainer
+                        members={mockMembers}
+                        onMemberSelect={(member) => {
+                          setBoardMemeber(member);
+                        }}
+                      />
                     </div>
                   </div>
-                </ScrollSpySection> */}
+                </ScrollSpySection>
               </div>
             </div>
           </div>
@@ -257,6 +320,25 @@ export function ShariahPage() {
           />
         </div>
       </Container>
+
+      <Modal
+        isOpen={Boolean(boardMember)}
+        onClose={() => {
+          setBoardMemeber(undefined);
+        }}
+      >
+        {boardMember && (
+          <MemberModalCard
+            description={boardMember.description}
+            image={boardMember.image}
+            title={boardMember.title}
+            url={boardMember.url}
+            onClick={() => {
+              setBoardMemeber(undefined);
+            }}
+          />
+        )}
+      </Modal>
     </section>
   );
 }

@@ -7,11 +7,13 @@ export function MemberCard({
   title,
   url,
   onClick,
+  className,
 }: {
   image: string;
   title: string;
   url?: string;
   onClick?: () => void;
+  className?: string;
 }) {
   return (
     <div
@@ -20,11 +22,17 @@ export function MemberCard({
         'px-[16px] pb-[24px] pt-[16px] md:px-[18px] md:pb-[32px] md:pt-[20px] lg:px-[28px] lg:pt-[28px]',
         'hover:border-islamic-primary-green rounded-[20px] border border-dashed border-[#585858]',
         'transition-colors duration-300',
+        className,
       )}
       onClick={onClick}
     >
       <div className="relative h-[164px] overflow-hidden rounded-[20px] md:h-[180px]">
-        <Image src={image} alt="" fill className="h-full w-full object-cover" />
+        <Image
+          src={image}
+          alt=""
+          fill
+          className="pointer-events-none h-full w-full select-none object-cover"
+        />
       </div>
 
       <div className="flex flex-col justify-between gap-[8px] md:gap-[12px]">
