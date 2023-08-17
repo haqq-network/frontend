@@ -35,7 +35,7 @@ function LangButton({
 
 function EnFatwa() {
   return (
-    <div className="mt-[30px] flex flex-col gap-y-[16px] font-[300] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
+    <div className="mt-[30px] flex flex-col gap-y-[16px] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
       <Text size="small">
         In the name of Allah, the most compassionate, the most merciful
       </Text>

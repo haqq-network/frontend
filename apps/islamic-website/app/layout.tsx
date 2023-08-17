@@ -44,7 +44,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang="en" className={alexandria.variable}>
-      <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white subpixel-antialiased">
+      <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
         <div className="flex-1">{children}</div>
         <Footer />

@@ -110,6 +110,8 @@ export function ShariahPage() {
 
     if (activeIndex > 0) {
       setActiveSection(sections[activeIndex].id);
+    } else {
+      setActiveSection(sections[0].id);
     }
   }, [activeSections]);
 
@@ -152,7 +154,7 @@ export function ShariahPage() {
           )}
         >
           <div className="relative hidden w-[292px] flex-none lg:block">
-            <div className="sticky top-[160px] pb-[80px]">
+            <div className="sticky top-[112px] pb-[80px]">
               <ShariPageDesktopNav
                 sections={sections}
                 activeSection={activeSection}
