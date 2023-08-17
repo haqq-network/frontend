@@ -11,9 +11,14 @@ export function NewsBlock({ news }: NewsBlockProps) {
       <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
         <Heading className="text-white">Latest Islamic Coin News</Heading>
         <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
-          {news.slice(0, 3).map((el, idx) => {
+          {news.map((el, idx) => {
             return (
-              <Link href={el.source} key={`${el.title}-${idx}`}>
+              <Link
+                href={el.url}
+                key={`${el.title}-${idx}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <NewsCard post={el} />
               </Link>
             );
