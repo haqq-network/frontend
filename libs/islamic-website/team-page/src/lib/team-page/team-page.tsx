@@ -1,6 +1,6 @@
 import { Container, MembersContainer } from '@haqq/islamic-ui-kit';
 import Image from 'next/image';
-import teamPageBgImageData from '../../assets/team-page-bg.svg';
+import teamPageBgImageData from '../../assets/images/team-page-bg.svg';
 import mockMemberImgData from '../../assets/images/mock_member.png';
 
 function TeamPageBg() {
