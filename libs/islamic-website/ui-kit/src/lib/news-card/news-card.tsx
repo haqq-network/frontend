@@ -13,6 +13,7 @@ export interface NewsPost {
   source: string;
   type: 'press' | 'events';
   isFeatured?: boolean;
+  url: string;
 }
 
 export function NewsCard({
@@ -46,6 +47,7 @@ export function NewsCard({
             height={post.image.height}
             alt={post.title}
             className="h-full w-full object-cover transition-[transform,filter] duration-[2s] ease-out group-hover:scale-110 group-hover:blur-sm"
+            // fill
           />
         )}
       </div>
