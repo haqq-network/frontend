@@ -6,7 +6,8 @@
   },
   "files": [
     "../../../node_modules/@nx/react/typings/cssmodule.d.ts",
-    "../../../node_modules/@nx/react/typings/image.d.ts"
+    // "../../../node_modules/@nx/react/typings/image.d.ts",
+    "../../../apps/islamic-website/next-env.d.ts"
   ],
   "exclude": [
     "jest.config.ts",
