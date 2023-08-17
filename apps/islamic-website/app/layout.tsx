@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
+import { PropsWithChildren } from 'react';
+import { headers } from 'next/headers';
 import { Footer } from '../components/footer/footer';
-import { Header } from '../components/header/header';
+import { MobileHeader } from '../components/header/header';
 import { Alexandria } from 'next/font/google';
-import '../styles/global.css';
+import dynamic from 'next/dynamic';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
+import '../styles/global.css';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin',
@@ -17,15 +21,31 @@ const alexandria = Alexandria({
   weight: ['300', '400', '600', '700', '800'],
 });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const DynamicHeader = dynamic(
+  async () => {
+    return await import('../components/header/header');
+  },
+  {
+    ssr: false,
+    loading: () => {
+      return <div className="h-[72px] lg:h-[92px]" />;
+    },
+  },
+);
+
+export default function RootLayout({ children }: PropsWithChildren) {
+  const headersList = headers();
+  const userAgent = headersList.get('user-agent');
+  const isMobileUserAgent = Boolean(
+    userAgent!.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+    ),
+  );
+
   return (
     <html lang="en" className={alexandria.variable}>
       <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white subpixel-antialiased">
-        <Header />
+        {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
         <div className="flex-1">{children}</div>
         <Footer />
       </body>

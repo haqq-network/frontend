@@ -11,6 +11,7 @@ import { Container, NewsPost } from '@haqq/islamic-ui-kit';
 import moonBgImageData from '../../assets/images/moon-2x.webp';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
+import clsx from 'clsx';
 
 const RUNNING_TEXT =
   "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
@@ -135,13 +136,7 @@ const mockNews: NewsPost[] = [
 export function IndexPage() {
   return (
     <Fragment>
-      <HeroBg>
-        <HeroBlock />
-        <Marquee className="my-[20px] mb-[80px] mt-[60px] md:mt-[120px] lg:my-[100px] lg:mt-[150px]">
-          {RUNNING_TEXT.toLocaleUpperCase()}
-        </Marquee>
-        <WhyBlock />
-      </HeroBg>
+      <Hero />
       <FinanceBlock />
       <AdvisoryBoardBlock />
       <PortfolioBlock />
@@ -152,22 +147,36 @@ export function IndexPage() {
   );
 }
 
-function HeroBg({ children }: PropsWithChildren) {
+function Hero({ children }: PropsWithChildren) {
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
-        <div className="absolute -z-10 translate-x-[-50%] translate-y-[40%] select-none md:translate-x-0 md:translate-y-[-12%] xl:translate-x-[-1.5%] xl:translate-y-[-24.5%]">
-          <div className="absolute bottom-0 left-0 top-0 z-10 w-full bg-gradient-to-r from-[#010304] from-10% to-transparent lg:left-[-10%] " />
+        <HeroBlock />
+
+        <Marquee className="my-[20px] mb-[80px] mt-[60px] md:mt-[120px] lg:my-[100px] lg:mt-[150px]">
+          {RUNNING_TEXT.toLocaleUpperCase()}
+        </Marquee>
+
+        <WhyBlock />
+
+        <div
+          className={clsx(
+            'absolute top-0 z-[-1] select-none',
+            'translate-x-[-50%] translate-y-[48%]',
+            'md:translate-x-0 md:translate-y-[-12%]',
+            'xl:translate-x-[-1.5%] xl:translate-y-[-24.5%]',
+          )}
+        >
+          <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
           <Image
             src={moonBgImageData}
             alt=""
             width={2878}
             height={2802}
-            className="pointer-events-none scale-[3.5] md:scale-100 lg:scale-[1.5] xl:scale-100"
+            className="pointer-events-none relative z-[-2] scale-[3.5] md:scale-100 lg:scale-[1.5] xl:scale-100"
           />
         </div>
       </Container>
-      {children}
     </div>
   );
 }

@@ -86,26 +86,24 @@ function Reason({ icon, children }: PropsWithChildren<{ icon: ReactNode }>) {
 
 export function WhyBlock() {
   return (
-    <Container>
-      <div className="bg-islamic-primary-graphite flex transform-gpu flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
-        <Heading>Why Islamic Coin?</Heading>
-        <Text isMono className="mt-[12px] md:mt-[20px]">
-          Pioneering the Future of Islamic Finance in the Web3 Era
-        </Text>
-        <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] sm:grid-cols-2 md:mt-[44px] xl:grid-cols-4">
-          <Reason icon={<IslamStar />}>Maintaining Shariah Guidelines</Reason>
-          <Reason icon={<DoubleCrescent />}>
-            HAQQ Ecosystem's Prime Currency
-          </Reason>
-          <Reason icon={<Star />}>
-            Reviving Communities with <br className="lg:hidden" /> Sustainable
-            Practices
-          </Reason>
-          <Reason icon={<CrescentAndStar />}>
-            Islamic Way to Financial Freedom
-          </Reason>
-        </div>
+    <div className="bg-islamic-primary-graphite flex transform-gpu flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
+      <Heading>Why Islamic Coin?</Heading>
+      <Text isMono className="mt-[12px] md:mt-[20px]">
+        Pioneering the Future of Islamic Finance in the Web3 Era
+      </Text>
+      <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] sm:grid-cols-2 md:mt-[44px] xl:grid-cols-4">
+        <Reason icon={<IslamStar />}>Maintaining Shariah Guidelines</Reason>
+        <Reason icon={<DoubleCrescent />}>
+          HAQQ Ecosystem's Prime Currency
+        </Reason>
+        <Reason icon={<Star />}>
+          Reviving Communities with <br className="lg:hidden" /> Sustainable
+          Practices
+        </Reason>
+        <Reason icon={<CrescentAndStar />}>
+          Islamic Way to Financial Freedom
+        </Reason>
       </div>
-    </Container>
+    </div>
   );
 }
