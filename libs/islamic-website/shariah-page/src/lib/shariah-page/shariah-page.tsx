@@ -1,3 +1,4 @@
+'use client';
 import { FatwaBlock } from '../fatwa-block/fatwa-block';
 import fatwaStarsImgData from '../../assets/images/fatwa-stars.webp';
 import Image from 'next/image';
@@ -16,67 +17,13 @@ import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
-import mockMemberImgData from '../../assets/images/mock_member.png';
 
-interface Member {
+export interface Member {
   image: string;
   title: string;
   description: string;
   url?: string;
 }
-
-const mockMembers: Member[] = [
-  {
-    image: mockMemberImgData.src,
-    title: '1Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-    url: 'https://google.com',
-  },
-  {
-    image: mockMemberImgData.src,
-    title: '2Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: mockMemberImgData.src,
-    title: '3Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: mockMemberImgData.src,
-    title: '4Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: mockMemberImgData.src,
-    title: '5Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: mockMemberImgData.src,
-    title: '6Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: mockMemberImgData.src,
-    title: '7Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: mockMemberImgData.src,
-    title: '8Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-];
-
 const sections: Array<{ id: string; title: string }> = [
   { id: 'fatwa', title: 'Fatwa' },
   { id: 'foundations', title: 'Foundations of Halal Investing' },
@@ -124,15 +71,21 @@ function MembersContainer({
   );
 }
 
-export function ShariahPage() {
+export function ShariahPage({
+  shariahMembers,
+  executiveMembers,
+  advisoryMembers,
+}: {
+  shariahMembers: Member[];
+  executiveMembers: Member[];
+  advisoryMembers: Member[];
+}) {
   const { replace } = useRouter();
   const [activeSections, setActiveSections] = useState(
     activeSectionsDefaultState,
   );
   const [activeSection, setActiveSection] = useState('fatwa');
-  const [boardMember, setBoardMemeber] = useState<undefined | Member>(
-    undefined,
-  );
+  const [boardMember, setBoardMember] = useState<undefined | Member>(undefined);
 
   const handleSectionInView = useCallback((id: string, inView: boolean) => {
     const sectionIndex = sections.findIndex(({ id: sectionId }) => {
@@ -252,11 +205,11 @@ export function ShariahPage() {
                         </h2>
                       </div>
 
-                      <div className="max-w-full flex-1 overflow-auto">
+                      <div className="max-w-full flex-1">
                         <MembersContainer
-                          members={mockMembers}
+                          members={shariahMembers}
                           onMemberSelect={(member) => {
-                            setBoardMemeber(member);
+                            setBoardMember(member);
                           }}
                         />
                       </div>
@@ -273,9 +226,9 @@ export function ShariahPage() {
                         Advisory Board
                       </h2>
                       <MembersContainer
-                        members={mockMembers}
+                        members={advisoryMembers}
                         onMemberSelect={(member) => {
-                          setBoardMemeber(member);
+                          setBoardMember(member);
                         }}
                       />
                     </div>
@@ -291,9 +244,9 @@ export function ShariahPage() {
                         Executive Board
                       </h2>
                       <MembersContainer
-                        members={mockMembers}
+                        members={executiveMembers}
                         onMemberSelect={(member) => {
-                          setBoardMemeber(member);
+                          setBoardMember(member);
                         }}
                       />
                     </div>
@@ -324,7 +277,7 @@ export function ShariahPage() {
       <Modal
         isOpen={Boolean(boardMember)}
         onClose={() => {
-          setBoardMemeber(undefined);
+          setBoardMember(undefined);
         }}
       >
         {boardMember && (
@@ -334,7 +287,7 @@ export function ShariahPage() {
             title={boardMember.title}
             url={boardMember.url}
             onClick={() => {
-              setBoardMemeber(undefined);
+              setBoardMember(undefined);
             }}
           />
         )}
