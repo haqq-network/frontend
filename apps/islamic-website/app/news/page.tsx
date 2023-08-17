@@ -1,123 +1,72 @@
-import { NewsPage as NewsPageComponent } from '@haqq/islamic-website/news-page';
+import { NewsPage } from '@haqq/islamic-website/news-page';
 import { NewsPost } from '@haqq/islamic-ui-kit';
+import { storyblokInit, apiPlugin } from '@storyblok/js';
 
-const mockNews: NewsPost[] = [
-  {
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/id/1/200/300',
-    },
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    date: new Date(),
-    source: 'mockwebsite.com',
-    type: 'events',
-  },
-  {
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/id/2/200/300',
-    },
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    date: new Date(),
-    source: 'mockwebsite.com',
-    type: 'press',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/id/3/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/id/4/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/id/5/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/id/6/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/id/7/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-    isFeatured: true,
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/id/8/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-    isFeatured: true,
-  },
-];
+const STORYBLOK_ACCESS_TOKEN =
+  process.env['STORYBLOK_ISLAMIC_WEBSITE_ACCESS_TOKEN'];
+const VERCEL_ENV = process.env['VERCEL_ENV'];
 
-export default function NewsPage() {
-  return <NewsPageComponent news={mockNews} />;
+interface StoryblockNewsPost {
+  _uid: string;
+  date: string;
+  text: string;
+  image: {
+    filename: null | string;
+  };
+  title: string;
+  main_url: string;
+  content_type: 'PRESS' | 'VIDEO';
+  main_url_text: string;
+}
+
+function mapStorybookToNews(data: StoryblockNewsPost[]): NewsPost[] {
+  return data.map((post) => {
+    const image =
+      post.image.filename && post.image.filename !== ''
+        ? {
+            src: post.image.filename,
+            width: Number(post.image.filename.split('/')[5].split('x')[0]),
+            height: Number(post.image.filename.split('/')[5].split('x')[1]),
+          }
+        : null;
+
+    return {
+      image,
+      title: post.title,
+      description: post.text,
+      date: new Date(post.date),
+      source: post.main_url_text,
+      type: post.content_type === 'PRESS' ? 'press' : 'events',
+      url: post.main_url,
+    };
+  });
+}
+
+async function getNewsPageContent() {
+  const { storyblokApi } = storyblokInit({
+    accessToken: STORYBLOK_ACCESS_TOKEN,
+    use: [apiPlugin],
+  });
+
+  if (!storyblokApi) {
+    throw new Error('Failed to init storyblok');
+  }
+
+  const response = await storyblokApi.get('cdn/stories/media', {
+    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
+  });
+
+  console.log(response.data.story.content.body[0].columns);
+  const posts = mapStorybookToNews(response.data.story.content.body[0].columns);
+
+  return posts;
+}
+
+export const metadata = {
+  title: 'IslamicCoin | News',
+};
+
+export default async function Page() {
+  const news = await getNewsPageContent();
+  return <NewsPage news={news} />;
 }
