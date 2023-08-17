@@ -16,124 +16,7 @@ import clsx from 'clsx';
 const RUNNING_TEXT =
   "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
 
-const mockNews: NewsPost[] = [
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'events',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'events',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'events',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'events',
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-    isFeatured: true,
-  },
-  {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
-    },
-    source: 'mockwebsite.com',
-    type: 'press',
-    isFeatured: true,
-  },
-];
-
-export function IndexPage() {
+export function IndexPage({ news }: { news: NewsPost[] }) {
   return (
     <Fragment>
       <Hero />
@@ -141,7 +24,7 @@ export function IndexPage() {
       <AdvisoryBoardBlock />
       <PortfolioBlock />
       <LearnAndGrowBlock />
-      <NewsBlock news={mockNews} />
+      <NewsBlock news={news} />
       <JoinCommunityBlock />
     </Fragment>
   );

@@ -13,6 +13,7 @@ export interface NewsPost {
   source: string;
   type: 'press' | 'events';
   isFeatured?: boolean;
+  url: string;
 }
 
 export function NewsCard({
@@ -45,7 +46,7 @@ export function NewsCard({
             width={post.image.width}
             height={post.image.height}
             alt={post.title}
-            className="h-full w-full object-cover transition-[transform,filter] duration-[2s] ease-out group-hover:scale-110 group-hover:blur-sm"
+            className="h-full w-full object-cover transition-[transform,filter] duration-[1s] ease-out group-hover:scale-110 group-hover:blur-[3px]"
           />
         )}
       </div>
@@ -67,7 +68,7 @@ export function NewsCard({
           <div
             className={clsx(
               'line-clamp-2 text-[18px] font-[700] leading-[26px] text-white md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]',
-              'group-hover:text-islamic-primary-green-hover transition-colors duration-300 ease-in',
+              'group-hover:text-islamic-primary-green-hover transition-colors duration-200 ease-out',
               isFeatured ? 'mt-[28px]' : 'mt-[8px]',
             )}
           >
