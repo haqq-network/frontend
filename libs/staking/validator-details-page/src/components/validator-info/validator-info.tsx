@@ -75,6 +75,9 @@ interface CommissionCardProps {
   commission: Commission;
 }
 
+const MIN_BALANCE = 0.01;
+const MIN_DELEGATION = 0.009;
+
 function CommissionCardInnerBlock({
   title,
   value,
@@ -708,7 +711,7 @@ export function ValidatorBlockDesktop({
           <div className="flex-1">
             <Button
               variant={2}
-              disabled={balance < 1}
+              disabled={balance < MIN_BALANCE}
               className="w-full"
               onClick={() => {
                 navigate('#delegate', { replace: true });
@@ -721,7 +724,7 @@ export function ValidatorBlockDesktop({
             <Button
               variant={2}
               className="w-full"
-              disabled={delegation < 1}
+              disabled={delegation < MIN_DELEGATION}
               onClick={() => {
                 navigate('#undelegate', { replace: true });
               }}
@@ -734,7 +737,7 @@ export function ValidatorBlockDesktop({
           <Button
             variant={2}
             className="w-full"
-            disabled={delegation < 1}
+            disabled={delegation < MIN_DELEGATION}
             onClick={() => {
               navigate('#redelegate', { replace: true });
             }}
@@ -793,15 +796,15 @@ function ValidatorBlockMobile({
       onRedelegateClick={() => {
         navigate('#redelegate', { replace: true });
       }}
-      isDelegateDisabled={balance < 1}
-      isUndelegateDisabled={delegation === 0}
+      isDelegateDisabled={balance < MIN_BALANCE}
+      isUndelegateDisabled={delegation < MIN_DELEGATION}
       isGetRewardDisabled={rewards < 1}
       delegation={delegation}
       rewards={rewards}
       isWarningShown={isWarningShown}
       undelegate={undelegate}
       symbol={symbol}
-      isRedelegateDisabled={delegation < 1}
+      isRedelegateDisabled={delegation < MIN_DELEGATION}
     />
   );
 }
