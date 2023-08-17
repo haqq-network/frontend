@@ -4,10 +4,19 @@ import Image from 'next/image';
 import { Container, MembersContainer, Text } from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { PropsWithChildren } from 'react';
+import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { FoundationsBlock } from '../foundations-block/foundations-block';
 import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
+import { useInView } from 'react-intersection-observer';
+import { ScrollSpySection } from './scrollspy';
+import { useRouter } from 'next/navigation';
 import mockMemberImgData from '../../assets/images/mock_member.png';
 
 const mockMembers = [
@@ -62,7 +71,60 @@ const mockMembers = [
   },
 ];
 
+const sections: Array<{ id: string; title: string }> = [
+  { id: 'fatwa', title: 'Fatwa' },
+  { id: 'foundations', title: 'Foundations of Halal Investing' },
+  { id: 'shariah-oracle', title: 'Shariah Oracle' },
+  { id: 'shariah-board', title: 'Shariah Board' },
+  { id: 'advisory-board', title: 'Advisory Board' },
+  { id: 'executive-board', title: 'Executive Board' },
+];
+
+const activeSectionsDefaultState = sections.map(() => {
+  return false;
+});
+
 export function ShariahPage() {
+  const { replace } = useRouter();
+  const [activeSections, setActiveSections] = useState(
+    activeSectionsDefaultState,
+  );
+  const [activeSection, setActiveSection] = useState('fatwa');
+
+  const handleSectionInView = useCallback((id: string, inView: boolean) => {
+    const sectionIndex = sections.findIndex(({ id: sectionId }) => {
+      return sectionId === id;
+    });
+
+    setActiveSections((prevActiveSessions) => {
+      const newActiveSessions = [...prevActiveSessions];
+      newActiveSessions[sectionIndex] = inView;
+      return newActiveSessions;
+    });
+  }, []);
+
+  useEffect(() => {
+    const activeIndex = activeSections.findIndex((inView) => {
+      return inView;
+    });
+
+    if (activeIndex > 0) {
+      setActiveSection(sections[activeIndex].id);
+    }
+  }, [activeSections]);
+
+  // useEffect(() => {
+  //   replace(`#${activeSection}`);
+  // }, [activeSection, replace]);
+
+  const handleSectionSelect = useCallback(
+    (id: string) => {
+      replace(`#${id}`);
+      setActiveSection(id);
+    },
+    [replace],
+  );
+
   return (
     <section className="max-w-full overflow-clip py-[32px] md:py-[52px] lg:py-[68px]">
       <Container className="relative">
@@ -91,67 +153,87 @@ export function ShariahPage() {
         >
           <div className="relative hidden w-[292px] flex-none lg:block">
             <div className="sticky top-[160px] pb-[80px]">
-              <ShariPageDesktopNav />
+              <ShariPageDesktopNav
+                sections={sections}
+                activeSection={activeSection}
+              />
             </div>
           </div>
           <div className="md:flex-1">
             <div>
               <div className="lg:hidden">
-                <ShariPageMobileNav />
+                <ShariPageMobileNav
+                  sections={sections}
+                  activeSection={activeSection}
+                  onSectionSelect={handleSectionSelect}
+                />
               </div>
 
-              <div className="flex max-w-[844px] flex-col divide-y-2 divide-[#2F2F2F] divide-[1px]">
-                <div
-                  className="pb-[32px] pt-[32px] md:pb-[60px] lg:pb-[80px]"
+              <div className="flex max-w-[844px] flex-col divide-y-[1px] divide-[#2F2F2F]">
+                <ScrollSpySection
                   id="fatwa"
+                  onSectionInView={handleSectionInView}
+                  initialInView
                 >
-                  <FatwaBlock />
-                </div>
-                <div
-                  className="py-[32px] md:py-[60px] lg:py-[80px]"
+                  <div className="pb-[32px] pt-[32px] md:pb-[60px] lg:pb-[80px]">
+                    <FatwaBlock />
+                  </div>
+                </ScrollSpySection>
+                <ScrollSpySection
                   id="foundations"
+                  onSectionInView={handleSectionInView}
                 >
-                  <FoundationsBlock />
-                </div>
-                <div
-                  className="py-[32px] md:py-[60px] lg:py-[80px]"
+                  <div className="py-[32px] md:py-[60px] lg:py-[80px]">
+                    <FoundationsBlock />
+                  </div>
+                </ScrollSpySection>
+                <ScrollSpySection
                   id="shariah-oracle"
+                  onSectionInView={handleSectionInView}
                 >
-                  <ShariahBlock />
-                </div>
-                {/* <div
-                  className="py-[32px] md:py-[60px] lg:py-[80px]"
+                  <div className="py-[32px] md:py-[60px] lg:py-[80px]">
+                    <ShariahBlock />
+                  </div>
+                </ScrollSpySection>
+                {/* <ScrollSpySection
                   id="shariah-board"
+                  onSectionInView={handleSectionInView}
                 >
-                  <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
-                    <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                      Shariah Board
-                    </h2>
-                    <MembersContainer members={mockMembers} />
+                  <div className="py-[32px] md:py-[60px] lg:py-[80px]">
+                    <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
+                      <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
+                        Shariah Board
+                      </h2>
+                      <MembersContainer members={mockMembers} />
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="py-[32px] md:py-[60px] lg:py-[80px]"
+                </ScrollSpySection>
+                <ScrollSpySection
                   id="advisory-board"
+                  onSectionInView={handleSectionInView}
                 >
-                  <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
-                    <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                      Advisory Board
-                    </h2>
-                    <MembersContainer members={mockMembers} />
+                  <div className="py-[32px] md:py-[60px] lg:py-[80px]">
+                    <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
+                      <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
+                        Advisory Board
+                      </h2>
+                      <MembersContainer members={mockMembers} />
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="py-[32px] md:py-[60px] lg:py-[80px]"
+                </ScrollSpySection>
+                <ScrollSpySection
                   id="executive-board"
+                  onSectionInView={handleSectionInView}
                 >
-                  <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
-                    <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                      Executive Board
-                    </h2>
-                    <MembersContainer members={mockMembers} />
+                  <div className="py-[32px] md:py-[60px] lg:py-[80px]">
+                    <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
+                      <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
+                        Executive Board
+                      </h2>
+                      <MembersContainer members={mockMembers} />
+                    </div>
                   </div>
-                </div> */}
+                </ScrollSpySection> */}
               </div>
             </div>
           </div>
@@ -219,25 +301,26 @@ function ShariPageDesktopNavLink({
   );
 }
 
-function ShariPageDesktopNav() {
+function ShariPageDesktopNav({
+  sections,
+  activeSection,
+}: {
+  sections: Array<{ id: string; title: string }>;
+  activeSection: string;
+}) {
   return (
-    <div className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px]">
-      <ShariPageDesktopNavLink href="#fatwa">Fatwa</ShariPageDesktopNavLink>
-      <ShariPageDesktopNavLink href="#foundations">
-        Foundations of Halal Investing
-      </ShariPageDesktopNavLink>
-      <ShariPageDesktopNavLink href="#shariah-oracle">
-        Shariah Oracle
-      </ShariPageDesktopNavLink>
-      <ShariPageDesktopNavLink href="#shariah-board">
-        Shariah Board
-      </ShariPageDesktopNavLink>
-      <ShariPageDesktopNavLink href="#advisory-board">
-        Advisory Board
-      </ShariPageDesktopNavLink>
-      <ShariPageDesktopNavLink href="#executive-board">
-        Executive Board
-      </ShariPageDesktopNavLink>
-    </div>
+    <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px]">
+      {sections.map(({ id, title }) => {
+        return (
+          <ShariPageDesktopNavLink
+            href={`#${id}`}
+            key={`sharia-nav-${id}`}
+            isActive={activeSection === id}
+          >
+            {title}
+          </ShariPageDesktopNavLink>
+        );
+      })}
+    </nav>
   );
 }
