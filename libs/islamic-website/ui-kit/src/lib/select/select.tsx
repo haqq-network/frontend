@@ -11,13 +11,19 @@ export function Select({
   placeholder,
 }: {
   current: undefined | string;
-  variants: Record<string, string>;
+  variants: Array<{ id: string; title: string }>;
   onChange: (value: string) => void;
   className?: string;
   placeholder?: string;
 }) {
+  const currentValue = useMemo(() => {
+    return variants.find(({ id }) => {
+      return id === current;
+    });
+  }, [current, variants]);
+
   const optionsToRender = useMemo(() => {
-    return Object.keys(variants).map((id) => {
+    return variants.map(({ id, title }) => {
       return (
         <Menu.Item
           as="div"
@@ -34,7 +40,7 @@ export function Select({
           }}
         >
           <div>
-            <span>{variants[id]}</span>
+            <span>{title}</span>
           </div>
           {id === current && (
             <svg
@@ -74,8 +80,8 @@ export function Select({
               )}
             >
               <div>
-                {current ? (
-                  <span>{variants[current]}</span>
+                {currentValue ? (
+                  <span>{currentValue.title}</span>
                 ) : (
                   <span className="text-white/50">{placeholder}</span>
                 )}

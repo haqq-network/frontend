@@ -33,17 +33,12 @@ export const Select: StoryFn<typeof SelectComponent> = ({
 
 Select.args = {
   placeholder: 'Select article',
-  variants: {
-    fatwa: 'Fatwa',
-    foundations: 'Foundations of Halal Investing',
-    'shariah-oracle': 'Shariah Oracle',
-    'shariah-board': 'Shariah Board',
-    'advisory-board': 'Advisory Board',
-    'executive-board': 'Executive Board',
-    foundations2: 'Foundations of Halal Investing',
-    'shariah-oracle2': 'Shariah Oracle',
-    'shariah-board2': 'Shariah Board',
-    'advisory-board2': 'Advisory Board',
-    'executive-board2': 'Executive Board',
-  },
+  variants: [
+    { id: 'fatwa', title: 'Fatwa' },
+    { id: 'foundations', title: 'Foundations of Halal Investing' },
+    { id: 'shariah-oracle', title: 'Shariah Oracle' },
+    { id: 'shariah-board', title: 'Shariah Board' },
+    { id: 'advisory-board', title: 'Advisory Board' },
+    { id: 'executive-board', title: 'Executive Board' },
+  ],
 };
