@@ -167,12 +167,12 @@ export function MobileHeader() {
       <div className="h-[72px] lg:h-[92px]" />
       <header
         className={clsx(
-          'fixed top-0 z-50 h-[72px] w-full',
-          'transform-gpu overflow-clip transition-[height,background] duration-150 ease-in-out will-change-[height,background]',
+          'fixed top-0 z-50 h-[72px] w-full border-b-[1px] border-transparent',
+          'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
           isMobileMenuOpen
             ? '!h-[100vh] bg-[#15191ef2] backdrop-blur-[6px]'
             : isBlurred
-            ? 'bg-[#010304CC] backdrop-blur-[6px]'
+            ? '!border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px]'
             : 'bg-transparent',
         )}
       >
