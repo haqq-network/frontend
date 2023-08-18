@@ -1,35 +1,52 @@
 import { RoadmapPage, RoadmapPeriod } from '@haqq/islamic-website/roadmap-page';
+import { storyblokInit, apiPlugin } from '@storyblok/js';
 
-export default function Page() {
-  const roadmap: RoadmapPeriod[] = [
-    {
-      goals: [
-        'The private sale has been completed',
-        'Major investment inked, including $200M from ABO Digital',
-        'Network transition from PoA to PoS',
-        'Mnemonicless private key managment in HAQQ Wallet (testflight)',
-        'Web3 Browser in HAQQ Wallet',
-      ],
-      isAchieved: true,
-      title: 'Q2 2023',
-    },
-    {
-      goals: [
-        'Islamic Coin launches on major crypto exchanges 1 September',
-        'ISLM minting starts (Century Coinomics)',
-        'NFT support in Haqq Wallet',
-        'Decentralized Identity',
-        'ERC20 Tokens in Haqq Wallet',
-        'Shariah Oracle implementation in HAQQ Wallet for TestEdge users',
-        'Mnemonicless private key management in HAQQ wallet (security audit and public release)',
-      ],
-      title: 'Q3 2023',
-    },
-    {
-      goals: ['Gold-pegged Stable Coin in cooperation with top UAE banks'],
-      title: 'Q1 2024',
-    },
-  ];
+const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
+const VERCEL_ENV = process.env['VERCEL_ENV'];
+
+function mapStoryblokRoadmapData(roadmapStory: {
+  columns: {
+    status: 'achieved' | 'in_progress';
+    title: string;
+    goals: {
+      step: string;
+    }[];
+  }[];
+}): RoadmapPeriod[] {
+  return roadmapStory.columns.map((period) => {
+    return {
+      title: period.title,
+      isAchieved: period.status === 'achieved',
+      goals: period.goals.map((goal) => {
+        return goal.step;
+      }),
+    };
+  });
+}
+
+async function getRoadmapContent() {
+  const { storyblokApi } = storyblokInit({
+    accessToken: STORYBLOK_ACCESS_TOKEN,
+    use: [apiPlugin],
+  });
+
+  if (!storyblokApi) {
+    throw new Error('Failed to init storyblok');
+  }
+
+  const response = await storyblokApi.get('cdn/stories/roadmap', {
+    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
+  });
+
+  return mapStoryblokRoadmapData(response.data.story.content.body[0]);
+}
+
+export const metadata = {
+  title: 'IslamicCoin | Roadmap',
+};
+
+export default async function Page() {
+  const roadmap = await getRoadmapContent();
 
   return <RoadmapPage roadmap={roadmap} />;
 }
