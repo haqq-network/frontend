@@ -53,7 +53,7 @@ export function NewsPage({ news }: { news: NewsPost[] }) {
         {postsToRender.length > 0 && (
           <PostsBlock
             posts={postsToRender}
-            className="mt-[60px] lg:mt-[140px]"
+            className="py-[60px] lg:py-[140px]"
           />
         )}
       </Container>
