@@ -31,9 +31,11 @@ async function submitForm(
 export function SubscribeForm({
   className,
   inputClassName,
+  wrapperClassName,
 }: {
   className?: string;
   inputClassName?: string;
+  wrapperClassName?: string;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
@@ -74,19 +76,17 @@ export function SubscribeForm({
         className={clsx(className)}
         autoComplete="off"
       >
-        <div className="sm:flex-1">
-          <HookedFormInput<{ email: string }>
-            wrapperClassName="w-full"
-            placeholder="Your e-mail"
-            type="email"
-            id="email"
-            register={register}
-            error={formState.errors.email?.message}
-            disabled={isFormDisabled}
-            required
-            inputClassName={inputClassName}
-          />
-        </div>
+        <HookedFormInput<{ email: string }>
+          wrapperClassName={wrapperClassName}
+          placeholder="Your e-mail"
+          type="email"
+          id="email"
+          register={register}
+          error={formState.errors.email?.message}
+          disabled={isFormDisabled}
+          required
+          inputClassName={inputClassName}
+        />
 
         <Button
           variant={'primary-green'}
