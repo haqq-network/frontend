@@ -1,16 +1,24 @@
+import type { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
 import { headers } from 'next/headers';
 import { Footer } from '../components/footer/footer';
 import { MobileHeader } from '../components/header/header';
 import { Alexandria } from 'next/font/google';
 import dynamic from 'next/dynamic';
+import clsx from 'clsx';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../styles/global.css';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'IslamicCoin',
+  viewport: {
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    width: 'device-width',
+  },
 };
 
 const alexandria = Alexandria({
@@ -42,7 +50,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
   );
 
   return (
-    <html lang="en" className={alexandria.variable}>
+    <html lang="en" className={clsx('ltr', alexandria.variable)}>
       <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
         <div className="flex-1">{children}</div>
