@@ -1,4 +1,4 @@
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, MarkdownText, Text } from '@haqq/islamic-ui-kit';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 import clsx from 'clsx';
 
@@ -122,7 +122,7 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
               'h-full w-[2px]',
               isAchieved
                 ? 'bg-islamic-primary-green'
-                : 'border-l-[2px] border-dashed border-[#8A8A8A]',
+                : 'border-l-[2px] border-dotted border-[#8A8A8A]',
             )}
           />
         )}
@@ -134,21 +134,21 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
         </h3>
 
         {goals.length > 1 ? (
-          <ul className="list-disc pb-[16px]">
+          <div className="pb-[16px]">
             {goals.map((goal, idx) => {
               return (
-                <li
-                  className="ml-[28px] text-[13px] leading-[20px] lg:text-base"
+                <MarkdownText
                   key={`${title}-goal-${idx}`}
+                  className="prose-li:my-[0]"
                 >
                   {goal}
-                </li>
+                </MarkdownText>
               );
             })}
-          </ul>
+          </div>
         ) : (
           <span className="text-[13px] leading-[20px] lg:text-base">
-            {goals}
+            <MarkdownText>{String(goals)}</MarkdownText>
           </span>
         )}
       </div>
