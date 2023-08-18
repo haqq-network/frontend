@@ -18,6 +18,7 @@ export function NewsBlock({ news }: NewsBlockProps) {
                 key={`${el.title}-${idx}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="lg:w-1/3"
               >
                 <NewsCard post={el} />
               </Link>

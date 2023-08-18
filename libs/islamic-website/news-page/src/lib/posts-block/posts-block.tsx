@@ -75,10 +75,15 @@ export function PostsBlock({
           Events
         </NewsTypeButton>
       </div>
-      <div className="mt-[28px] grid grid-cols-1 gap-[28px] md:grid-cols-2 lg:mt-[36px] lg:grid-cols-3 lg:gap-[48px]">
+      <div className="mt-[28px] grid grid-cols-1 gap-x-[28px] gap-y-[36px] md:grid-cols-2 lg:mt-[36px] lg:grid-cols-3 lg:gap-x-[48px] lg:gap-y-[56px]">
         {filteredPosts.map((post, index) => {
           return (
-            <Link href={post.url} target="_blank" rel="noopener noreferrer">
+            <Link
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={`news-${index}`}
+            >
               <NewsCard post={post} key={index} />
             </Link>
           );
