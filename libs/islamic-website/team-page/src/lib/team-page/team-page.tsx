@@ -10,7 +10,7 @@ function TeamPageBg() {
   );
 }
 
-const mockFounders = [
+const Founders = [
   {
     image: '/assets/images/founders/andrey-kuznetsov.png',
     title: 'Andrey Kuznetsov',
@@ -51,7 +51,7 @@ export function TeamPage() {
           </h1>
 
           <MembersContainer
-            members={mockFounders}
+            members={Founders}
             className="mt-[32px] lg:mt-[100px]"
           />
 
