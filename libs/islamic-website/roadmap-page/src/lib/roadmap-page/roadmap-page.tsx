@@ -19,7 +19,7 @@ interface RoadmapProps {
 
 function RoadmapBgImg() {
   return (
-    <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] lg:right-[-460px] lg:top-[-460px] lg:h-[1300px] lg:w-[1300px]">
+    <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] md:right-[-555px] md:top-[-370px]  md:h-[1300px] md:w-[1300px] lg:right-[-460px] lg:top-[-460px]">
       <svg
         viewBox="0 0 1300 1300"
         fill="none"
@@ -94,7 +94,7 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
   const { goals, isAchieved, title } = period;
 
   return (
-    <div className="flex gap-x-[12px]">
+    <div className="flex gap-x-[12px] md:gap-x-[16px]">
       <div className="flex flex-col items-center gap-y-[12px]">
         <div
           className={clsx(
@@ -129,12 +129,12 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
       </div>
 
       <div className="flex flex-col gap-y-[12px]">
-        <h3 className="font-mono text-[18px] uppercase leading-[26px] lg:text-[24px] lg:leading-[34px]">
+        <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
           {title}
         </h3>
 
         {goals.length > 1 ? (
-          <div className="pb-[16px]">
+          <div className="flex flex-col gap-y-[4px] pb-[16px]">
             {goals.map((goal, idx) => {
               return (
                 <MarkdownText
@@ -147,7 +147,7 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
             })}
           </div>
         ) : (
-          <span className="text-[13px] leading-[20px] lg:text-base">
+          <span className="text-[13px] leading-[20px] md:text-[14px] lg:text-base">
             <MarkdownText>{String(goals)}</MarkdownText>
           </span>
         )}
@@ -158,14 +158,14 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
 
 export function RoadmapPage({ roadmap }: RoadmapProps) {
   return (
-    <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
+    <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
       <div className="overflow-x-clip">
         <Container className="relative">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
             Roadmap
           </h1>
 
-          <div className="mt-[48px] flex flex-col gap-y-[12px] lg:mt-[60px] lg:gap-y-[20px]">
+          <div className="mt-[48px] flex flex-col gap-y-[12px] md:gap-y-[16px] lg:mt-[60px] lg:gap-y-[20px]">
             {roadmap.map((period, idx) => {
               return (
                 <RoadmapCard
@@ -176,7 +176,7 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
             })}
           </div>
 
-          <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:flex-row md:items-center lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
+          <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
             <Text size="small" className="md:w-1/2">
               Keep up to date with our upcoming Public Launch and Exchange
               listing - Subscribe to our newsletter
