@@ -10,6 +10,7 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import { useCallback, useState } from 'react';
+import mockMemberImgData from '../../assets/images/mock_member.png';
 
 interface BoardMemberModalProps {
   title: string;
@@ -82,7 +83,7 @@ export function AdvisoryBoardBlock({ members }: { members: Member[] }) {
                 <SwiperSlide key={index}>
                   <div
                     onClick={() => {
-                      return openBoardModal(member);
+                      openBoardModal(member);
                     }}
                     className="w-fit"
                   >
