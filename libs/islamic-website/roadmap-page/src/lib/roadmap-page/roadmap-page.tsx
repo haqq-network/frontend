@@ -1,4 +1,4 @@
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, MarkdownText, Text } from '@haqq/islamic-ui-kit';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 import clsx from 'clsx';
 
@@ -19,7 +19,7 @@ interface RoadmapProps {
 
 function RoadmapBgImg() {
   return (
-    <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] lg:right-[-460px] lg:top-[-460px] lg:h-[1300px] lg:w-[1300px]">
+    <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] md:right-[-555px] md:top-[-370px]  md:h-[1300px] md:w-[1300px] lg:right-[-460px] lg:top-[-460px]">
       <svg
         viewBox="0 0 1300 1300"
         fill="none"
@@ -94,7 +94,7 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
   const { goals, isAchieved, title } = period;
 
   return (
-    <div className="flex gap-x-[12px]">
+    <div className="flex gap-x-[12px] md:gap-x-[16px]">
       <div className="flex flex-col items-center gap-y-[12px]">
         <div
           className={clsx(
@@ -122,33 +122,33 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
               'h-full w-[2px]',
               isAchieved
                 ? 'bg-islamic-primary-green'
-                : 'border-l-[2px] border-dashed border-[#8A8A8A]',
+                : 'border-l-[2px] border-dotted border-[#8A8A8A]',
             )}
           />
         )}
       </div>
 
       <div className="flex flex-col gap-y-[12px]">
-        <h3 className="font-mono text-[18px] uppercase leading-[26px] lg:text-[24px] lg:leading-[34px]">
+        <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
           {title}
         </h3>
 
         {goals.length > 1 ? (
-          <ul className="list-disc pb-[16px]">
+          <div className="flex flex-col gap-y-[4px] pb-[16px]">
             {goals.map((goal, idx) => {
               return (
-                <li
-                  className="ml-[28px] text-[13px] leading-[20px] lg:text-base"
+                <MarkdownText
                   key={`${title}-goal-${idx}`}
+                  className="prose-li:my-[0]"
                 >
                   {goal}
-                </li>
+                </MarkdownText>
               );
             })}
-          </ul>
+          </div>
         ) : (
-          <span className="text-[13px] leading-[20px] lg:text-base">
-            {goals}
+          <span className="text-[13px] leading-[20px] md:text-[14px] lg:text-base">
+            <MarkdownText>{String(goals)}</MarkdownText>
           </span>
         )}
       </div>

@@ -36,7 +36,7 @@ export function NewsCard({
     >
       <div
         className={clsx(
-          'relative h-[250px] w-full overflow-hidden rounded-[12px]',
+          'relative h-[250px] w-full overflow-hidden rounded-[12px] border-[1px] border-[#2F2F2F]',
           isFeatured && 'md:h-[420px] md:w-3/5',
         )}
       >
@@ -46,7 +46,7 @@ export function NewsCard({
             width={post.image.width}
             height={post.image.height}
             alt={post.title}
-            className="h-full w-full object-cover transition-[transform,filter] duration-[1s] ease-out group-hover:scale-110 group-hover:blur-[3px]"
+            className="h-full w-full object-cover transition-transform duration-[1s] ease-out group-hover:scale-110"
           />
         )}
       </div>

@@ -36,6 +36,7 @@ import {
   WalletIcon,
   BurgerButton,
   DropdownLink,
+  HalfMoonAndStarIcon,
 } from '@haqq/islamic-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
@@ -55,7 +56,7 @@ function DesktopHeaderLink({
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="hover:text-islamic-classic-green p-[16px] text-[14px] font-[400] uppercase leading-[24px] text-white transition-colors duration-200"
+      className="hover:text-islamic-primary-green p-[16px] text-[14px] font-[400] uppercase leading-[24px] text-white transition-colors duration-200"
     >
       {children}
     </Link>
@@ -183,7 +184,7 @@ export function MobileHeader() {
                 <div>
                   <Link
                     href={'/'}
-                    className="leading-[0] text-white transition-colors duration-150 hover:text-[#18FFAC]"
+                    className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
                     <IslamicHeaderLogo />
                   </Link>
@@ -258,7 +259,7 @@ export function DesktopHeader() {
             <div>
               <Link
                 href="/"
-                className="leading-[0] text-white transition-colors duration-150 hover:text-[#18FFAC]"
+                className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
               >
                 <IslamicHeaderLogo />
               </Link>
@@ -271,7 +272,7 @@ export function DesktopHeader() {
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
-                      title="Mission"
+                      title="Mission & Vision"
                       icon={<MissionIcon />}
                       href="/mission"
                     />
@@ -279,6 +280,11 @@ export function DesktopHeader() {
                       title="Roadmap"
                       icon={<RoadmapIcon />}
                       href="/roadmap"
+                    />
+                    <DropdownLink
+                      title="Whitepaper"
+                      icon={<HalfMoonAndStarIcon />}
+                      href="/whitepaper"
                     />
                   </div>
                   <div className="flex flex-col">

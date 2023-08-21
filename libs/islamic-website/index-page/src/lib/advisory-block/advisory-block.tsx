@@ -10,27 +10,18 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import { useCallback, useState } from 'react';
-import mockMemberImgData from '../../assets/images/mock_member.png';
-
-interface BoardMemberModalProps {
-  title: string;
-  description: string;
-  image: string;
-}
 
 export function AdvisoryBoardBlock({ members }: { members: Member[] }) {
-  const [isBoardModalOpen, setBoardModalIsOpen] = useState(false);
-  const [memberModalData, setMemberModalData] = useState<BoardMemberModalProps>(
-    { description: '', image: '', title: '' },
+  const [memberModalData, setMemberModalData] = useState<Member | undefined>(
+    undefined,
   );
 
-  const openBoardModal = useCallback((memberData: BoardMemberModalProps) => {
-    setBoardModalIsOpen(true);
+  const openBoardModal = useCallback((memberData: Member) => {
     setMemberModalData(memberData);
   }, []);
 
   const closeBoardModal = useCallback(() => {
-    setBoardModalIsOpen(false);
+    setMemberModalData(undefined);
   }, []);
 
   return (
@@ -85,9 +76,13 @@ export function AdvisoryBoardBlock({ members }: { members: Member[] }) {
                     onClick={() => {
                       openBoardModal(member);
                     }}
-                    className="w-fit"
+                    className="h-full w-fit"
                   >
-                    <MemberCard image={member.image} title={member.title} />
+                    <MemberCard
+                      image={member.image}
+                      title={member.title}
+                      className="h-full"
+                    />
                   </div>
                 </SwiperSlide>
               );
@@ -116,13 +111,15 @@ export function AdvisoryBoardBlock({ members }: { members: Member[] }) {
           </button>
         </div>
 
-        <Modal isOpen={isBoardModalOpen} onClose={closeBoardModal}>
-          <MemberModalCard
-            description={memberModalData.description}
-            image={memberModalData.image}
-            title={memberModalData.title}
-            onClick={closeBoardModal}
-          />
+        <Modal isOpen={Boolean(memberModalData)} onClose={closeBoardModal}>
+          {memberModalData && (
+            <MemberModalCard
+              description={memberModalData.description}
+              image={memberModalData.image}
+              title={memberModalData.title}
+              onClick={closeBoardModal}
+            />
+          )}
         </Modal>
       </Container>
     </div>

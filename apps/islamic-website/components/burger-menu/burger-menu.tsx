@@ -145,7 +145,7 @@ export function BurgerMenu({
   return (
     <div className={clsx('px-[16px] md:px-[48px]', className)}>
       {!isLangMenuOpen ? (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-y-[12px]">
           <Link
             href="/shariah"
             className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-200"
