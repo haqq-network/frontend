@@ -16,9 +16,9 @@ export function HeroBlock() {
           finance without compromising the values or faith. Islamic Coin is the
           native currency of HAQQ Network, an ethics first blockchain
         </Text>
-        <div className="mt-[36px] md:mt-[48px]">
+        {/* <div className="mt-[36px] md:mt-[48px]">
           <Button>Get started</Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
