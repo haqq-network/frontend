@@ -293,23 +293,23 @@ export function DesktopHeader() {
                       icon={<NewsIcon />}
                       href="/news"
                     />
-                    <DropdownLink
+                    {/* <DropdownLink
                       title="Press"
                       icon={<NewsIcon />}
                       href="/press"
-                    />
-                    <DropdownLink
+                    /> */}
+                    {/* <DropdownLink
                       title="Events"
                       icon={<EventsIcon />}
                       href="/events"
-                    />
+                    /> */}
                   </div>
                   <div className="flex flex-col">
-                    <DropdownLink
+                    {/* <DropdownLink
                       title="Ecosystem"
                       icon={<EcosystemIcon />}
                       href="/ecosystem"
-                    />
+                    /> */}
                     <DropdownLink
                       title="Partnerships"
                       icon={<PartnershipIcon />}
@@ -332,18 +332,18 @@ export function DesktopHeader() {
                       icon={<WalletIcon />}
                       href="/wallet"
                     />
-                    <DropdownLink
+                    {/* <DropdownLink
                       title="Staking & Hodling"
                       icon={<StakingIcon />}
                       href="/hodling"
-                    />
-                    <DropdownLink
+                    /> */}
+                    {/* <DropdownLink
                       title="Tracker and Tokenomics"
                       icon={<TokenomicsIcon />}
                       href="/tokenomics"
-                    />
+                    /> */}
                   </div>
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <DropdownLink
                       title="What is ISLM"
                       icon={<QuestionMarkIcon />}
@@ -354,7 +354,7 @@ export function DesktopHeader() {
                       icon={<GetISLMIcon />}
                       href="/get-islm"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </HeaderDropdown>
 
@@ -366,7 +366,7 @@ export function DesktopHeader() {
                       icon={<AcademyIcon />}
                       href="/academy"
                     />
-                    <DropdownLink
+                    {/* <DropdownLink
                       title="Blog"
                       icon={<BlogIcon />}
                       href="/podcast"
@@ -375,14 +375,14 @@ export function DesktopHeader() {
                       title="Podcast"
                       icon={<PodcastIcon />}
                       href="/where-to-start"
-                    />
-                    <DropdownLink
+                    /> */}
+                    {/* <DropdownLink
                       title="Videos"
                       icon={<VideoIcon />}
                       href="/partners"
-                    />
+                    /> */}
                   </div>
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <DropdownLink
                       title="Where to start?"
                       icon={<RocketIcon />}
@@ -393,7 +393,7 @@ export function DesktopHeader() {
                       icon={<PartnersIcon />}
                       href="/partners"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </HeaderDropdown>
 
@@ -410,34 +410,34 @@ export function DesktopHeader() {
                       icon={<ValuesIcon />}
                       href="/values"
                     />
-                    <DropdownLink
+                    {/* <DropdownLink
                       title="Community"
                       icon={<CommunityIcon />}
                       href="/community"
-                    />
+                    /> */}
                     <DropdownLink
                       title="Meet our team"
                       icon={<StarIcon />}
                       href="/team"
                     />
                   </div>
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <DropdownLink
                       title="Fraud alert"
                       icon={<AlertIcon />}
                       href="/fraud"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </HeaderDropdown>
 
-              <HeaderDropdown title="EN">
+              {/* <HeaderDropdown title="EN">
                 <div className="flex flex-col">
                   <DropdownLink title="English" href="#" />
                   <DropdownLink title="عربي" href="#" />
                   <DropdownLink title="Bahasa Indonesia" href="#" />
                 </div>
-              </HeaderDropdown>
+              </HeaderDropdown> */}
             </nav>
           </div>
         </Container>

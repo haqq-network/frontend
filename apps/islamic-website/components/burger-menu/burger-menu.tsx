@@ -173,13 +173,13 @@ export function BurgerMenu({
                 icon={<NewsIcon />}
                 href="/news"
               />
-              <BurgerMenuDropdownLink
+              {/* <BurgerMenuDropdownLink
                 onClick={onClick}
                 title="Press"
                 icon={<NewsIcon />}
                 href="/press"
-              />
-              <BurgerMenuDropdownLink
+              /> */}
+              {/* <BurgerMenuDropdownLink
                 onClick={onClick}
                 title="Events"
                 icon={<EventsIcon />}
@@ -190,7 +190,7 @@ export function BurgerMenu({
                 title="Ecosystem"
                 icon={<EcosystemIcon />}
                 href="/ecosystem"
-              />
+              /> */}
               <BurgerMenuDropdownLink
                 onClick={onClick}
                 title="Partnerships"
@@ -212,7 +212,7 @@ export function BurgerMenu({
               icon={<WalletIcon />}
               href="/wallet"
             />
-            <BurgerMenuDropdownLink
+            {/* <BurgerMenuDropdownLink
               onClick={onClick}
               title="Staking & Hodling"
               icon={<StakingIcon />}
@@ -235,7 +235,7 @@ export function BurgerMenu({
               title="Get ISLM"
               icon={<GetISLMIcon />}
               href="/get-islm"
-            />
+            /> */}
           </MobileMenuDropdownLink>
           <MobileMenuDropdownLink title="Learn" withArrow>
             <BurgerMenuDropdownLink
@@ -244,7 +244,7 @@ export function BurgerMenu({
               icon={<AcademyIcon />}
               href="/academy"
             />
-            <BurgerMenuDropdownLink
+            {/* <BurgerMenuDropdownLink
               onClick={onClick}
               title="Blog"
               icon={<BlogIcon />}
@@ -273,7 +273,7 @@ export function BurgerMenu({
               title="Partners"
               icon={<PartnersIcon />}
               href="/partners"
-            />
+            /> */}
           </MobileMenuDropdownLink>
           <MobileMenuDropdownLink title="Team" withArrow>
             <BurgerMenuDropdownLink
@@ -288,24 +288,24 @@ export function BurgerMenu({
               icon={<ValuesIcon />}
               href="/values"
             />
-            <BurgerMenuDropdownLink
+            {/* <BurgerMenuDropdownLink
               onClick={onClick}
               title="Community"
               icon={<CommunityIcon />}
               href="/community"
-            />
+            /> */}
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Meet our team"
               icon={<StarIcon />}
               href="/team"
             />
-            <BurgerMenuDropdownLink
+            {/* <BurgerMenuDropdownLink
               onClick={onClick}
               title="Fraud alert"
               icon={<AlertIcon />}
               href="/fraud"
-            />
+            /> */}
           </MobileMenuDropdownLink>
 
           <div
