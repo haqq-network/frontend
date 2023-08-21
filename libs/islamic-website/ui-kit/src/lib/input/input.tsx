@@ -48,10 +48,10 @@ export const Input = forwardRef(function Input(
     'px-[10px] py-[14px] text-[14px] leading-[20px]',
     error
       ? 'border-[#E16363] hover:border-[#F09C9C] focus:border-[#E16363] !text-[#E16363]'
-      : 'border-[#252528] focus:border-islamic-primary-green',
+      : 'border-[#252528] focus:border-white',
     disabled && 'cursor-not-allowed',
-    inputValue && !error && 'border-islamic-primary-green',
-    !inputValue && !error && !disabled && 'border-white',
+    inputValue && !error && 'border-[#585858]',
+    !inputValue && !error && !disabled && 'border-[#585858] hover:border-white',
     inputClassName,
   );
   const wrapperClassNames = clsx('inline-block', wrapperClassName);
