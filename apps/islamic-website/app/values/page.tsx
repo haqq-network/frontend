@@ -1,6 +1,6 @@
 export { ValuesPage as default } from '@haqq/islamic-website/values-page';
 
-const VERCEL_URL = process.env['NEXT_PUBLIC_VERCEL_URL'];
+const DEPLOY_URL = `https://${process.env['NEXT_PUBLIC_VERCEL_URL']}`;
 
 export const metadata = {
   title: 'IslamicCoin | Our Values',
@@ -13,5 +13,5 @@ export const metadata = {
     card: 'summary_large_image',
     images: [{ url: '/opengraph-image.png' }],
   },
-  metadataBase: new URL(VERCEL_URL ?? ''),
+  metadataBase: new URL(DEPLOY_URL),
 };
