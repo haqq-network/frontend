@@ -1,11 +1,11 @@
+import { DEPLOY_URL } from '../../src/contansts';
+import { Metadata } from 'next';
+
 export { ValuesPage as default } from '@haqq/islamic-website/values-page';
 
-const DEPLOY_URL = `https://${process.env['NEXT_PUBLIC_VERCEL_URL']}`;
-
-export const metadata = {
+export const metadata: Metadata = {
   title: 'IslamicCoin | Our Values',
-  description:
-    'Our values are the foundation of our company and our products. They guide our decisions, actions and the way we work with each other and our clients.',
+  description: '',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

@@ -1,5 +1,7 @@
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 import { WhitepaperPage } from '@haqq/islamic-website/whitepaper-page';
+import { DEPLOY_URL } from '../../src/contansts';
+import { Metadata } from 'next';
 
 const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
 const VERCEL_ENV = process.env['VERCEL_ENV'];
@@ -21,8 +23,17 @@ async function getWhitepaperContent() {
   return response.data.story.content.body;
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'IslamicCoin | Whitepaper',
+  description: '',
+  openGraph: {
+    images: [{ url: '/opengraph-image.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [{ url: '/opengraph-image.png' }],
+  },
+  metadataBase: new URL(DEPLOY_URL),
 };
 
 export default async function Page() {

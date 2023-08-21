@@ -1,1 +1,18 @@
+import { DEPLOY_URL } from '../../src/contansts';
+import { Metadata } from 'next';
+
 export { PartnershipPage as default } from '@haqq/islamic-website/partnership-page';
+
+export const metadata: Metadata = {
+  title: 'IslamicCoin | Partnership',
+  description: '',
+  openGraph: {
+    images: [{ url: '/opengraph-image.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [{ url: '/opengraph-image.png' }],
+  },
+  metadataBase: new URL(DEPLOY_URL),
+};
+
