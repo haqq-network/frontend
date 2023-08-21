@@ -348,11 +348,11 @@ export function BurgerMenu({
             </svg>
             <span>Back</span>
           </div>
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <BurgerMenuDropdownLink title="English" href="#" />
             <BurgerMenuDropdownLink title="عربي" href="#" />
             <BurgerMenuDropdownLink title="Bahasa Indonesia" href="#" />
-          </div>
+          </div> */}
         </div>
       )}
     </div>
