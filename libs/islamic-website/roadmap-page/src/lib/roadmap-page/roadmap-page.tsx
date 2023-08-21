@@ -165,7 +165,7 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
             Roadmap
           </h1>
 
-          <div className="mt-[48px] flex flex-col gap-y-[12px] md:gap-y-[16px] lg:mt-[60px] lg:gap-y-[20px]">
+          <div className="mt-[48px] flex flex-col gap-y-[12px] md:mt-[44px] lg:mt-[60px] lg:gap-y-[20px]">
             {roadmap.map((period, idx) => {
               return (
                 <RoadmapCard
@@ -176,7 +176,7 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
             })}
           </div>
 
-          <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
+          <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center md:p-[28px] lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
             <Text size="small" className="md:w-1/2">
               Keep up to date with our upcoming Public Launch and Exchange
               listing - Subscribe to our newsletter
