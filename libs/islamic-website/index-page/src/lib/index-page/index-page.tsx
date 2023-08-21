@@ -50,19 +50,20 @@ function Hero() {
 
         <div
           className={clsx(
-            'absolute top-0 z-[-1] select-none',
-            'translate-x-[-50%] translate-y-[48%]',
-            'md:translate-x-0 md:translate-y-[-12%]',
-            'xl:translate-x-[-1.5%] xl:translate-y-[-24.5%]',
+            'absolute z-[-1] select-none',
+            'h-[1011px] w-[1038px] md:h-[877px] md:w-[901px] lg:h-[1400px] lg:w-[1440px]',
+            '-top-1/2 right-1/2 translate-x-[37%] translate-y-[30%]',
+            'md:translate-x-1/2 md:translate-y-[44%]',
+            'lg:translate-y-[18%]',
+            'xl:translate-y-[15%]',
           )}
         >
           <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
           <Image
             src={moonBgImageData}
             alt=""
-            width={2878}
-            height={2802}
-            className="pointer-events-none relative z-[-2] scale-[3.5] md:scale-100 lg:scale-[1.5] xl:scale-100"
+            fill
+            className="pointer-events-none z-[-2]"
           />
         </div>
       </Container>
