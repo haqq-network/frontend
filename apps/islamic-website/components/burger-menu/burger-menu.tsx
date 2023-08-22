@@ -107,17 +107,21 @@ function BurgerMenuDropdownLink({
   title,
   href,
   onClick,
+  isOutLink = false,
 }: {
   icon?: ReactNode;
   title: string;
   href: string;
   onClick?: () => void;
+  isOutLink?: boolean;
 }) {
   return (
     <Link
       href={href}
       className="hover:text-islamic-primary-green w-fit cursor-pointer py-[12px] text-base font-[500] text-white transition-colors duration-200"
       onClick={onClick}
+      target={isOutLink ? '_blank' : undefined}
+      rel={isOutLink ? 'noopener noreferrer' : undefined}
     >
       <div className="flex flex-row items-center gap-x-[10px]">
         {icon && <div>{icon}</div>}
@@ -244,13 +248,14 @@ export function BurgerMenu({
               icon={<AcademyIcon />}
               href="/academy"
             />
-            {/* <BurgerMenuDropdownLink
+            <BurgerMenuDropdownLink
               onClick={onClick}
               title="Blog"
               icon={<BlogIcon />}
-              href="/blog"
+              href="https://haqq.network/blog"
+              isOutLink
             />
-            <BurgerMenuDropdownLink
+            {/* <BurgerMenuDropdownLink
               onClick={onClick}
               title="Podcast"
               icon={<PodcastIcon />}

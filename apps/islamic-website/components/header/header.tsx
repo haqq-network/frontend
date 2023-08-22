@@ -366,12 +366,13 @@ export function DesktopHeader() {
                       icon={<AcademyIcon />}
                       href="/academy"
                     />
-                    {/* <DropdownLink
+                    <DropdownLink
                       title="Blog"
                       icon={<BlogIcon />}
-                      href="/podcast"
+                      href="https://haqq.network/blog"
+                      isOutLink
                     />
-                    <DropdownLink
+                    {/* <DropdownLink
                       title="Podcast"
                       icon={<PodcastIcon />}
                       href="/where-to-start"
