@@ -304,7 +304,7 @@ export function BurgerMenu({
               onClick={onClick}
               title="Fraud alert"
               icon={<AlertIcon />}
-              href="/fraud"
+              href="/fraud-alert"
             />
           </MobileMenuDropdownLink>
 
