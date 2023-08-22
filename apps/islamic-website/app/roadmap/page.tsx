@@ -1,7 +1,7 @@
 import { RoadmapPage } from '@haqq/islamic-website/roadmap-page';
 import { getRoadmapContent } from '../../utils/get-roadmap-data';
 import { Metadata } from 'next';
-import { DEPLOY_URL } from '../../src/contansts';
+import { DEPLOY_URL } from '../../contansts';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Roadmap',

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { DEPLOY_URL } from '../../src/contansts';
+import { DEPLOY_URL } from '../../contansts';
 
 export { AcademyPage as default } from '@haqq/islamic-website/academy-page';
 

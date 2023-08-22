@@ -1,5 +1,12 @@
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 import { NewsPost } from '@haqq/islamic-ui-kit';
+import {
+  REVALIDATE_TIME,
+  STORYBLOK_ACCESS_TOKEN,
+  VERCEL_ENV,
+} from '../contansts';
+
+export const revalidate = REVALIDATE_TIME;
 
 interface StoryblokNewsPost {
   _uid: string;
@@ -13,9 +20,6 @@ interface StoryblokNewsPost {
   content_type: 'PRESS' | 'VIDEO';
   main_url_text: string;
 }
-
-const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
-const VERCEL_ENV = process.env['VERCEL_ENV'];
 
 export async function getNewsPageContent() {
   const { storyblokApi } = storyblokInit({

@@ -1,4 +1,4 @@
-import { DEPLOY_URL } from '../../src/contansts';
+import { DEPLOY_URL } from '../../contansts';
 import { Metadata } from 'next';
 
 export { CareerPage as default } from '@haqq/islamic-website/career-page';
@@ -15,4 +15,3 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(DEPLOY_URL),
 };
-

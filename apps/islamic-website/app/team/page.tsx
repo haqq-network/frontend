@@ -1,4 +1,4 @@
-import { DEPLOY_URL } from '../../src/contansts';
+import { DEPLOY_URL } from '../../contansts';
 import { Metadata } from 'next';
 
 export { TeamPage as default } from '@haqq/islamic-website/team-page';

@@ -1,11 +1,13 @@
 import { cache } from 'react';
 import type { RoadmapPeriod } from '@haqq/islamic-website/roadmap-page';
 import { storyblokInit, apiPlugin } from '@storyblok/js';
+import {
+  STORYBLOK_ACCESS_TOKEN,
+  VERCEL_ENV,
+  REVALIDATE_TIME,
+} from '../contansts';
 
-export const revalidate = 3600; // revalidate the data at most every hour
-
-const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
-const VERCEL_ENV = process.env['VERCEL_ENV'];
+export const revalidate = REVALIDATE_TIME;
 
 export interface StoryblokRoadmapData {
   columns: {

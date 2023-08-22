@@ -1,6 +1,6 @@
 import { Member, ShariahPage } from '@haqq/islamic-website/shariah-page';
 import { storyblokInit, apiPlugin } from '@storyblok/js';
-import { DEPLOY_URL } from '../../src/contansts';
+import { DEPLOY_URL } from '../../contansts';
 import { Metadata } from 'next';
 
 const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
@@ -16,7 +16,6 @@ interface StoryblokMember {
 }
 
 function mapStoryblokToMembers(data: StoryblokMember[]): Member[] {
-  
   return data.map((member) => {
     return {
       image: member.image.filename,
@@ -72,7 +71,6 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(DEPLOY_URL),
 };
-
 
 export default async function Page() {
   const shariaMembers = (await getMembersContent()).shariahMembers;

@@ -1,6 +1,6 @@
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 import { WhitepaperPage } from '@haqq/islamic-website/whitepaper-page';
-import { DEPLOY_URL } from '../../src/contansts';
+import { DEPLOY_URL } from '../../contansts';
 import { Metadata } from 'next';
 
 const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
