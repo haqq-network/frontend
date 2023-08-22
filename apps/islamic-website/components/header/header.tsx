@@ -305,11 +305,12 @@ export function DesktopHeader() {
                     /> */}
                   </div>
                   <div className="flex flex-col">
-                    {/* <DropdownLink
+                    <DropdownLink
                       title="Ecosystem"
                       icon={<EcosystemIcon />}
-                      href="/ecosystem"
-                    /> */}
+                      href="https://haqq.network/ecosystem"
+                      isOutLink
+                    />
                     <DropdownLink
                       title="Partnerships"
                       icon={<PartnershipIcon />}

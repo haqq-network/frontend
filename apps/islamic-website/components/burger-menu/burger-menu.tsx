@@ -188,13 +188,14 @@ export function BurgerMenu({
                 title="Events"
                 icon={<EventsIcon />}
                 href="/events"
-              />
-              <BurgerMenuDropdownLink
-                onClick={onClick}
-                title="Ecosystem"
-                icon={<EcosystemIcon />}
-                href="/ecosystem"
               /> */}
+            <BurgerMenuDropdownLink
+              onClick={onClick}
+              title="Ecosystem"
+              icon={<EcosystemIcon />}
+              href="https://haqq.network/ecosystem"
+              isOutLink
+            />
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Partnerships"
