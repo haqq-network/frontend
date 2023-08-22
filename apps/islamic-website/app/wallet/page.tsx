@@ -1,4 +1,4 @@
-import { DEPLOY_URL } from '../../contansts';
+import { DEPLOY_URL } from '../../constants';
 import { Metadata } from 'next';
 
 export { WalletPage as default } from '@haqq/islamic-website/wallet-page';

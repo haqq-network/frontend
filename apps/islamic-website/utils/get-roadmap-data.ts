@@ -5,7 +5,7 @@ import {
   STORYBLOK_ACCESS_TOKEN,
   VERCEL_ENV,
   REVALIDATE_TIME,
-} from '../contansts';
+} from '../constants';
 
 export const revalidate = REVALIDATE_TIME;
 

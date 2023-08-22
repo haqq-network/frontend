@@ -1,4 +1,4 @@
-import { DEPLOY_URL } from '../../contansts';
+import { DEPLOY_URL } from '../../constants';
 import { Metadata } from 'next';
 
 export { CareerPage as default } from '@haqq/islamic-website/career-page';

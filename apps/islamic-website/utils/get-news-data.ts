@@ -1,12 +1,6 @@
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 import { NewsPost } from '@haqq/islamic-ui-kit';
-import {
-  REVALIDATE_TIME,
-  STORYBLOK_ACCESS_TOKEN,
-  VERCEL_ENV,
-} from '../contansts';
-
-export const revalidate = REVALIDATE_TIME;
+import { STORYBLOK_ACCESS_TOKEN, VERCEL_ENV } from '../constants';
 
 interface StoryblokNewsPost {
   _uid: string;
