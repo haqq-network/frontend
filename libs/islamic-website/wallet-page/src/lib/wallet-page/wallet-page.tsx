@@ -32,7 +32,7 @@ export function WalletPage() {
         <RatingBadge market="app-store" rating={4.5} />
         <RatingBadge market="google-play" rating={5.0} />
       </div>
-      <div className="mt-[28px] flex flex-col gap-x-[16px] gap-y-[20px] md:flex-row lg:mt-[24px]">
+      <div className="mt-[28px] flex flex-col gap-x-[16px] gap-y-[20px] md:flex-row lg:mt-[24px] lg:flex-wrap">
         <div className="w-fit">
           <Link
             href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
@@ -49,6 +49,16 @@ export function WalletPage() {
             rel="noopener noreferrer"
           >
             <WalletDownloadButton type="google" />
+          </Link>
+        </div>
+        <div className="w-fit">
+          <Link
+            href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/app-android.apk"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
+            <WalletDownloadButton type="apk" />
           </Link>
         </div>
       </div>

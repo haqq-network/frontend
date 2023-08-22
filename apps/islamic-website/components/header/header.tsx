@@ -426,7 +426,7 @@ export function DesktopHeader() {
                     <DropdownLink
                       title="Fraud alert"
                       icon={<AlertIcon />}
-                      href="/fraud"
+                      href="/fraud-alert"
                     />
                   </div> */}
                 </div>

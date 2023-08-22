@@ -305,15 +305,15 @@ export function BurgerMenu({
               icon={<StarIcon />}
               href="/team"
             />
-            {/* <BurgerMenuDropdownLink
+             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Fraud alert"
               icon={<AlertIcon />}
-              href="/fraud"
-            /> */}
+              href="/fraud-alert"
+            />
           </MobileMenuDropdownLink>
 
-          <div
+         {/* <div
             className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-200"
             onClick={toggleLangMenu}
           >
