@@ -111,7 +111,7 @@ export function FraudPage() {
               width={502}
               height={764}
               alt=""
-              className="pointer-events-none select-none md:absolute md:right-[-385px] md:top-[350px] md:translate-x-[-50%] md:translate-y-[-50%] lg:right-[-300px]"
+              className="pointer-events-none select-none md:absolute md:right-[-385px] md:top-[350px] md:translate-x-[-50%] md:translate-y-[-50%] lg:right-[-295px] xl:right-[-265px]"
             />
           </div>
         </div>
