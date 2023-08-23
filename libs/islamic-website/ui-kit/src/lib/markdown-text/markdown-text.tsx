@@ -25,7 +25,7 @@ export function MarkdownText({
         'prose-h3:my-[16px] md:prose-h3:my-[20px] lg:prose-h3:my-[24px]',
         'prose-p:text-[13px] md:prose-p:text-[14px] prose-p:leading-[20px] lg:prose-p:text-base',
         'prose-li:text-[13px] prose-li:leading-[20px] lg:prose-li:text-base',
-        'marker:prose-li:font-[600]',
+        'marker:prose-li:font-[600] prose-li:my-0',
         className,
       )}
     >
