@@ -413,7 +413,7 @@ export function DesktopHeader() {
                     <DropdownLink
                       title="Community"
                       icon={<CommunityIcon />}
-                      href="/community"
+                      href="/community-hub"
                     />
                     <DropdownLink
                       title="Meet our team"
