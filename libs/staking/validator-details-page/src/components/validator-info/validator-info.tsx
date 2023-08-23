@@ -47,7 +47,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import styles from './validator-info.module.css';
 import { Validator } from '@evmos/provider';
-import { formatUnits } from 'viem/utils';
+import { formatUnits, parseUnits } from 'viem/utils';
 import { getFormattedAddress } from '@haqq/shared';
 import { RedelegateModal } from '../redelegate-modal/redelegate-modal';
 
@@ -542,11 +542,13 @@ export function ValidatorInfo({
       return accumulator + current;
     }, 0);
 
-    return result / 10 ** 18;
+    return Number.parseFloat(formatUnits(BigInt(result), 18));
   }, [undelegations]);
 
   const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+    return Number.parseFloat(
+      formatUnits(parseUnits(stakingPool?.bonded_tokens ?? '0', 0), 18),
+    );
   }, [stakingPool?.bonded_tokens]);
 
   useEffect(() => {
@@ -559,8 +561,7 @@ export function ValidatorInfo({
         del = del + Number.parseInt(delegation.balance.amount, 10);
       });
 
-      // TODO: use formatter from viem utils
-      setStakedValue(del / 10 ** 18);
+      setStakedValue(Number.parseFloat(formatUnits(BigInt(del), 18)));
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }
   }, [delegationInfo]);

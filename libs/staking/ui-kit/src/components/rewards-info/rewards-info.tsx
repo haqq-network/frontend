@@ -39,10 +39,10 @@ export function RewardsInfo({
   symbol,
   onRewardsClaim,
 }: {
-  balance: number;
-  delegated: number;
-  rewards: number;
-  unbounded: number;
+  balance: string;
+  delegated: string;
+  rewards: string;
+  unbounded: string;
   symbol: string;
   onRewardsClaim: () => void;
 }) {
@@ -53,7 +53,7 @@ export function RewardsInfo({
           <div className="flex-1">
             <StakingInfoAmountBlock
               title="Available"
-              value={balance.toLocaleString()}
+              value={balance}
               symbol={symbol}
             />
           </div>
@@ -61,7 +61,7 @@ export function RewardsInfo({
           <div className="flex-1">
             <StakingInfoAmountBlock
               title="Staked"
-              value={delegated.toLocaleString()}
+              value={delegated}
               symbol={symbol}
             />
           </div>
@@ -69,7 +69,7 @@ export function RewardsInfo({
           <div className="flex-1">
             <StakingInfoAmountBlock
               title="Unbonding"
-              value={unbounded.toLocaleString()}
+              value={unbounded}
               symbol={symbol}
             />
           </div>
@@ -77,7 +77,7 @@ export function RewardsInfo({
           <div className="flex-1">
             <StakingInfoAmountBlock
               title="Rewards"
-              value={rewards.toLocaleString()}
+              value={rewards}
               symbol={symbol}
               isGreen
             />
@@ -86,7 +86,11 @@ export function RewardsInfo({
       </div>
 
       <div className="w-full text-start lg:w-auto lg:flex-none">
-        <Button disabled={rewards < 1} onClick={onRewardsClaim} variant={2}>
+        <Button
+          disabled={Number.parseFloat(rewards) < 1}
+          onClick={onRewardsClaim}
+          variant={2}
+        >
           Claim all rewards
         </Button>
       </div>
