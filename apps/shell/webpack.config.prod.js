@@ -5,16 +5,20 @@ const { ProvidePlugin } = require('webpack');
 const { merge } = require('webpack-merge');
 const baseConfig = require('./module-federation.config');
 
-const moduleFederationRemote =
-  process.env['VERCEL_ENV'] === 'production'
-    ? [
-        ['staking', '//staking.haqq.network'],
-        ['governance', '//governance.haqq.network'],
-      ]
-    : [
-        ['staking', '//staking.haqq.sh'],
-        ['governance', '//governance.haqq.sh'],
-      ];
+const moduleFederationRemote = [
+  ['staking', '//staking-app-git-feat-authz-haqq-network.vercel.app'],
+  ['governance', '//governance-app-git-feat-authz-haqq-network.vercel.app'],
+];
+// const moduleFederationRemote =
+//   process.env['VERCEL_ENV'] === 'production'
+//     ? [
+//         ['staking', '//staking.haqq.network'],
+//         ['governance', '//governance.haqq.network'],
+//       ]
+//     : [
+//         ['staking', '//staking.haqq.sh'],
+//         ['governance', '//governance.haqq.sh'],
+//       ];
 
 /**
  * @type {import('@nrwl/devkit').ModuleFederationConfig}
