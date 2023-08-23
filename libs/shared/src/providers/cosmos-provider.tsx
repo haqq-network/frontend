@@ -56,6 +56,12 @@ export interface CosmosService {
     granter: string,
     grantee: string,
   ) => Promise<AuthzGrantsResponse>;
+  getAuthzGranterGrants: (
+    granter: string,
+  ) => Promise<AuthzGranterGrantsResponse>;
+  getAuthzGranteeGrants: (
+    grantee: string,
+  ) => Promise<AuthzGranterGrantsResponse>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -132,6 +138,14 @@ function generateEndpointGovParams(type: GovParamsType) {
 
 function generateEndpointAuthzGrants() {
   return '/cosmos/authz/v1beta1/grants';
+}
+
+function generateEndpointAuthzGranterGrants(granter: string) {
+  return `/cosmos/authz/v1beta1/grants/granter/${granter}`;
+}
+
+function generateEndpointAuthzGranteeGrants(grantee: string) {
+  return `/cosmos/authz/v1beta1/grants/grantee/${grantee}`;
 }
 
 export interface StakingParams {
@@ -255,16 +269,28 @@ export interface GetGovernanceParamsResponse {
   };
 }
 
+export interface Grant {
+  granter: string;
+  grantee: string;
+  authorization: {
+    '@type': string;
+    msg: string;
+  };
+  expiration: string;
+}
+
 export interface AuthzGrantsResponse {
-  grants: [
-    {
-      authorization: {
-        type_url: string;
-        value: string;
-      };
-      expiration: string;
-    },
-  ];
+  grants: Omit<Grant, 'granter' | 'grantee'>;
+  pagination: Pagination;
+}
+
+export interface AuthzGranterGrantsResponse {
+  grants: Array<Grant>;
+  pagination: Pagination;
+}
+
+export interface AuthzGranteeGrantsResponse {
+  grants: Array<Grant>;
   pagination: Pagination;
 }
 
@@ -535,6 +561,32 @@ function createCosmosService(
     return response.data;
   }
 
+  async function getAuthzGranterGrants(granter: string) {
+    const getAuthzGranterGrantsUrl = new URL(
+      `${cosmosRestEndpoint}${generateEndpointAuthzGranterGrants(granter)}`,
+    );
+
+    const response = await axios.get<AuthzGranterGrantsResponse>(
+      getAuthzGranterGrantsUrl.toString(),
+    );
+    console.log('getAuthzGranterGrants', { response });
+
+    return response.data;
+  }
+
+  async function getAuthzGranteeGrants(grantee: string) {
+    const getAuthzGranteeGrantsUrl = new URL(
+      `${cosmosRestEndpoint}${generateEndpointAuthzGranteeGrants(grantee)}`,
+    );
+
+    const response = await axios.get<AuthzGranteeGrantsResponse>(
+      getAuthzGranteeGrantsUrl.toString(),
+    );
+    console.log('useAuthzGranteeGrants', { grantee });
+
+    return response.data;
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -555,6 +607,8 @@ function createCosmosService(
     broadcastTransaction,
     simulateTransaction,
     getAuthzGrants,
+    getAuthzGranterGrants,
+    getAuthzGranteeGrants,
   };
 }
 
