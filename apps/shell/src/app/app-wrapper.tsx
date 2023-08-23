@@ -102,6 +102,7 @@ function HeaderButtons({
       <nav className="hidden flex-row items-center space-x-6 lg:flex">
         <HeaderNavLink href="/staking">Staking</HeaderNavLink>
         <HeaderNavLink href="/governance">Governance</HeaderNavLink>
+        <HeaderNavLink href="/authz">Authz</HeaderNavLink>
       </nav>
 
       <div className="hidden pl-[80px] lg:block">
@@ -154,6 +155,14 @@ function HeaderButtons({
                   }}
                 >
                   Governance
+                </HeaderNavLink>
+                <HeaderNavLink
+                  href="/authz"
+                  onClick={() => {
+                    onMobileMenuOpenChange(false);
+                  }}
+                >
+                  Authz
                 </HeaderNavLink>
               </div>
 
