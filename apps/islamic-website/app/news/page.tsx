@@ -6,6 +6,8 @@ export const revalidate = REVALIDATE_TIME;
 
 export const metadata = {
   title: 'IslamicCoin | News',
+  description:
+    'Stay in the loop with the latest breakthroughs, announcements, and milestones from Islamic Coin.',
 };
 
 export default async function Page() {

@@ -5,7 +5,8 @@ export { CareerPage as default } from '@haqq/islamic-website/career-page';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Career',
-  description: '',
+  description:
+    'Join a team bridging Islamic finance and cutting-edge blockchain technology. Shape the future with us.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

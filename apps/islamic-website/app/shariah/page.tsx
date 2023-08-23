@@ -7,7 +7,8 @@ export const revalidate = REVALIDATE_TIME;
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Shariah',
-  description: '',
+  description:
+    'Our steadfast commitment to Shariah principles provides an ethical foundation for modern digital finance. Dive into our adherence to Islamic traditions.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

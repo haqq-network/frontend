@@ -5,7 +5,8 @@ export { MissionPage as default } from '@haqq/islamic-website/mission-page';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Mission',
-  description: '',
+  description:
+    'On a mission to onboard the global Muslim community to digital finance without compromising Islamic values.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

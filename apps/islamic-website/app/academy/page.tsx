@@ -5,7 +5,8 @@ export { AcademyPage as default } from '@haqq/islamic-website/academy-page';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Academy',
-  description: '',
+  description:
+    'Dive into a world of knowledge. Explore comprehensive guides on Shariah-compliant financial practices and blockchain integration.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

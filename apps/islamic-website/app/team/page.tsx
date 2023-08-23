@@ -5,7 +5,8 @@ export { TeamPage as default } from '@haqq/islamic-website/team-page';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Team',
-  description: '',
+  description:
+    'Get to know the dedicated individuals propelling Islamic Coin towards harmonizing Islamic finance with blockchain.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

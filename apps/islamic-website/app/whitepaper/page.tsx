@@ -7,7 +7,8 @@ export const revalidate = REVALIDATE_TIME;
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Whitepaper',
-  description: '',
+  description:
+    'The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

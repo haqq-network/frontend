@@ -5,7 +5,8 @@ export { WalletPage as default } from '@haqq/islamic-website/wallet-page';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Wallet',
-  description: '',
+  description:
+    'Seamlessly manage your Shariah-compliant assets. Tailored for the discerning investor in the digital age.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

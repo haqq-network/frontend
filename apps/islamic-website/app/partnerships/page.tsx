@@ -5,7 +5,8 @@ export { PartnershipPage as default } from '@haqq/islamic-website/partnership-pa
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Partnership',
-  description: '',
+  description:
+    "Collaborate with a pioneer in Shariah-compliant blockchain solutions. Let's redefine ethical finance together.",
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

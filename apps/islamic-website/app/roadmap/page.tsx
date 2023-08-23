@@ -7,7 +7,8 @@ export const revalidate = REVALIDATE_TIME;
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Roadmap',
-  description: '',
+  description:
+    'Chart the evolution of Islamic Coin as we pioneer the melding of Islamic traditions with blockchain technology.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

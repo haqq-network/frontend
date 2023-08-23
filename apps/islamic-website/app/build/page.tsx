@@ -5,7 +5,8 @@ export { BuildPage as default } from '@haqq/islamic-website/build-page';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Build',
-  description: '',
+  description:
+    'Content: Develop and innovate on a platform that brings Islamic financial traditions to the blockchain forefront.',
   openGraph: {
     images: [{ url: '/opengraph-image.png' }],
   },

@@ -13,6 +13,8 @@ import '../styles/global.css';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin',
+  description:
+    'Your gateway to a Shariah-compliant decentralized world. Islamic Coin stands at the vanguard of ethical digital finance.',
   viewport: {
     initialScale: 1,
     maximumScale: 1,
