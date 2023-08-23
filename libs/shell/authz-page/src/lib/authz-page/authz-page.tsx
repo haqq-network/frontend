@@ -293,8 +293,12 @@ function AuthzGrantsActions() {
 
   const handleGrantAccess = useCallback(
     async (type: string) => {
+      if (!isGranteeValid) {
+        throw new Error('address is not valid');
+      }
+
       const expire = new Date('1 Sep 2023').getTime() / 1000;
-      const haqqGrantee = ethToHaqq(grantee);
+      const haqqGrantee = granteeAddresses['haqq'];
       const grantPromise = grant(haqqGrantee, type, expire);
 
       await toast.promise(grantPromise, {
@@ -313,7 +317,14 @@ function AuthzGrantsActions() {
         [chain?.id, 'grants-grantee'],
       ]);
     },
-    [chain?.id, grant, grantee, invalidateQueries, toast],
+    [
+      chain?.id,
+      grant,
+      granteeAddresses['haqq'],
+      invalidateQueries,
+      isGranteeValid,
+      toast,
+    ],
   );
 
   useEffect(() => {
