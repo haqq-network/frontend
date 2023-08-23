@@ -52,6 +52,10 @@ export interface CosmosService {
   getPubkey: (address: string) => Promise<string>;
   simulateTransaction: (tx: TxToSend) => Promise<SimulateTxResponse>;
   broadcastTransaction: (tx: TxToSend) => Promise<BroadcastTxResponse>;
+  getAuthzGrants: (
+    granter: string,
+    grantee: string,
+  ) => Promise<AuthzGrantsResponse>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -124,6 +128,10 @@ function generateSimulateEndpoint() {
 
 function generateEndpointGovParams(type: GovParamsType) {
   return `/cosmos/gov/v1beta1/params/${type}`;
+}
+
+function generateEndpointAuthzGrants() {
+  return '/cosmos/authz/v1beta1/grants';
 }
 
 export interface StakingParams {
@@ -245,6 +253,19 @@ export interface GetGovernanceParamsResponse {
     threshold: string;
     veto_threshold: string;
   };
+}
+
+export interface AuthzGrantsResponse {
+  grants: [
+    {
+      authorization: {
+        type_url: string;
+        value: string;
+      };
+      expiration: string;
+    },
+  ];
+  pagination: Pagination;
 }
 
 export type GovParamsType = 'voting' | 'tallying' | 'deposit';
@@ -498,6 +519,22 @@ function createCosmosService(
     }
   }
 
+  async function getAuthzGrants(granter: string, grantee: string) {
+    const getAuthzGrantsUrl = new URL(
+      `${cosmosRestEndpoint}${generateEndpointAuthzGrants()}`,
+    );
+
+    getAuthzGrantsUrl.searchParams.append('granter', granter);
+    getAuthzGrantsUrl.searchParams.append('grantee', grantee);
+
+    const response = await axios.get<AuthzGrantsResponse>(
+      getAuthzGrantsUrl.toString(),
+    );
+    console.log('getAuthzGrants', { response });
+
+    return response.data;
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -517,6 +554,7 @@ function createCosmosService(
     getPubkey,
     broadcastTransaction,
     simulateTransaction,
+    getAuthzGrants,
   };
 }
 
