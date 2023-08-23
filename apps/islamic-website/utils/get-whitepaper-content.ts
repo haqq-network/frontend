@@ -11,7 +11,7 @@ export async function getWhitepaperContent() {
     throw new Error('Failed to init storyblok');
   }
 
-  const response = await storyblokApi.get('cdn/stories/updatedwhitepaper', {
+  const response = await storyblokApi.get('cdn/stories/wp', {
     version: VERCEL_ENV === 'production' ? 'published' : 'draft',
   });
 
