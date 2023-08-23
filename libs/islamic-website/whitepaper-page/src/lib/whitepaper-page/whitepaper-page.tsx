@@ -34,7 +34,7 @@ function HeroBg({ children }: PropsWithChildren) {
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
   return (
     <HeroBg>
-      <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] lg:mt-[68px]">
+      <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] md:pb-[100px] lg:mt-[68px] lg:pb-[140px]">
         <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
           HAQQ Whitepaper
         </div>
