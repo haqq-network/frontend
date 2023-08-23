@@ -12,8 +12,14 @@ import Link from 'next/link';
 
 function BgImage() {
   return (
-    <div className="pointer-events-none h-[740px] w-[1043px] select-none">
-      <svg viewBox="0 0 879 741" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div className="pointer-events-none  select-none">
+      <svg
+        viewBox="0 0 879 741"
+        width="743"
+        height="741"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <g opacity="0.6">
           <g opacity="0.5">
             <g filter="url(#filter0_i_1410_33758)">
@@ -254,9 +260,9 @@ const socialLinks = [
 
 export function CommunityHubPage() {
   return (
-    <section>
-      <Container className="relative overflow-x-clip">
-        <div className="pb-[60px] pt-[32px] md:pb-[120px] md:pt-[52px] lg:pb-[180px] lg:pt-[68px]">
+    <section className="overflow-x-clip">
+      <Container className="">
+        <div className="relative pb-[60px] pt-[32px] md:pb-[120px] md:pt-[52px] lg:pb-[180px] lg:pt-[68px]">
           <div className="flex flex-col">
             <div className="max-w-[340px] md:max-w-[400px] lg:max-w-[480px] xl:max-w-[740px] min-[1440px]:max-w-[800px]">
               <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
@@ -286,7 +292,7 @@ export function CommunityHubPage() {
               })}
             </div>
           </div>
-          <div className="absolute right-0 top-[-530px] z-[-1] translate-x-1/2 translate-y-1/2 md:right-[290px] md:top-[-660px] lg:right-[360px] lg:top-[-630px]">
+          <div className="absolute right-0 top-[-410px] z-[-1] translate-x-1/2 translate-y-1/2 md:right-[155px] md:top-[-500px] lg:right-[210px] lg:top-[-580px]">
             <BgImage />
           </div>
         </div>
