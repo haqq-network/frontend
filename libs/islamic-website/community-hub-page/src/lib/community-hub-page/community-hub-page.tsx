@@ -254,11 +254,11 @@ const socialLinks = [
 
 export function CommunityHubPage() {
   return (
-    <section className="">
-      <Container className="relative">
+    <section>
+      <Container className="relative overflow-x-clip">
         <div className="pb-[60px] pt-[32px] md:pb-[120px] md:pt-[52px] lg:pb-[180px] lg:pt-[68px]">
           <div className="flex flex-col">
-            <div className="md:max-w-[400px] lg:max-w-[480px] xl:max-w-[740px] min-[1440px]:max-w-[800px]">
+            <div className="max-w-[340px] md:max-w-[400px] lg:max-w-[480px] xl:max-w-[740px] min-[1440px]:max-w-[800px]">
               <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
                 Online Community Hub
               </div>
@@ -286,7 +286,7 @@ export function CommunityHubPage() {
               })}
             </div>
           </div>
-          <div className="absolute right-0 top-[-630px] z-[-1] translate-x-1/2 translate-y-[30%]">
+          <div className="absolute right-0 top-[-530px] z-[-1] translate-x-1/2 translate-y-1/2 md:right-[290px] md:top-[-660px] lg:right-[360px] lg:top-[-630px]">
             <BgImage />
           </div>
         </div>
