@@ -412,18 +412,20 @@ export function DesktopHeader() {
                       icon={<ValuesIcon />}
                       href="/values"
                     />
-                    {/* <DropdownLink
+                    <DropdownLink
                       title="Community"
                       icon={<CommunityIcon />}
-                      href="/community"
-                    /> */}
+                      href="/community-hub"
+                    />
+                  </div>
+
+                  {/*
+                    <div className="flex flex-col">
                     <DropdownLink
                       title="Meet our team"
                       icon={<StarIcon />}
                       href="/team"
                     />
-                  </div>
-                  {/* <div className="flex flex-col">
                     <DropdownLink
                       title="Fraud alert"
                       icon={<AlertIcon />}
