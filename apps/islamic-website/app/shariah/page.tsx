@@ -1,9 +1,7 @@
 import { ShariahPage } from '@haqq/islamic-website/shariah-page';
-import { DEPLOY_URL, REVALIDATE_TIME } from '../../constants';
+import { DEPLOY_URL } from '../../constants';
 import { Metadata } from 'next';
 import { getMembersContent } from '../../utils/get-members-data';
-
-export const revalidate = REVALIDATE_TIME;
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Shariah',
@@ -20,13 +18,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const shariaMembers = (await getMembersContent()).shariahMembers;
-  const advisoryMembers = (await getMembersContent()).advisoryMembers;
-  const executiveMembers = (await getMembersContent()).executiveMembers;
+  const { shariahMembers, advisoryMembers, executiveMembers } =
+    await getMembersContent();
 
   return (
     <ShariahPage
-      shariahMembers={shariaMembers}
+      shariahMembers={shariahMembers}
       advisoryMembers={advisoryMembers}
       executiveMembers={executiveMembers}
     />

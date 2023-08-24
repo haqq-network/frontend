@@ -1,7 +1,14 @@
 import { storyblokInit, apiPlugin } from '@storyblok/js';
-import { STORYBLOK_ACCESS_TOKEN, VERCEL_ENV } from '../constants';
+import {
+  REVALIDATE_TIME,
+  STORYBLOK_ACCESS_TOKEN,
+  VERCEL_ENV,
+} from '../constants';
+import { cache } from 'react';
 
-export async function getWhitepaperContent() {
+export const revalidate = REVALIDATE_TIME;
+
+export const getWhitepaperContent = cache(async () => {
   const { storyblokApi } = storyblokInit({
     accessToken: STORYBLOK_ACCESS_TOKEN,
     use: [apiPlugin],
@@ -15,5 +22,5 @@ export async function getWhitepaperContent() {
     version: VERCEL_ENV === 'production' ? 'published' : 'draft',
   });
 
-  return response.data.story.content.body;
-}
+  return response.data.story.content.body as string;
+});

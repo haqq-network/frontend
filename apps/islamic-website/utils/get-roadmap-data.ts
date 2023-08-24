@@ -2,12 +2,10 @@ import { cache } from 'react';
 import type { RoadmapPeriod } from '@haqq/islamic-website/roadmap-page';
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 import {
+  REVALIDATE_TIME,
   STORYBLOK_ACCESS_TOKEN,
   VERCEL_ENV,
-  REVALIDATE_TIME,
 } from '../constants';
-
-export const revalidate = REVALIDATE_TIME;
 
 export interface StoryblokRoadmapData {
   columns: {
@@ -19,7 +17,7 @@ export interface StoryblokRoadmapData {
   }[];
 }
 
-export function mapStoryblokRoadmapData(
+function mapStoryblokRoadmapData(
   roadmapStory: StoryblokRoadmapData,
 ): RoadmapPeriod[] {
   return roadmapStory.columns.map((period) => {
@@ -32,6 +30,8 @@ export function mapStoryblokRoadmapData(
     };
   });
 }
+
+export const revalidate = REVALIDATE_TIME;
 
 export const getRoadmapContent = cache(async () => {
   const { storyblokApi } = storyblokInit({

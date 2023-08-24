@@ -1,6 +1,11 @@
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 import { NewsPost } from '@haqq/islamic-ui-kit';
-import { STORYBLOK_ACCESS_TOKEN, VERCEL_ENV } from '../constants';
+import {
+  REVALIDATE_TIME,
+  STORYBLOK_ACCESS_TOKEN,
+  VERCEL_ENV,
+} from '../constants';
+import { cache } from 'react';
 
 interface StoryblokNewsPost {
   _uid: string;
@@ -13,25 +18,6 @@ interface StoryblokNewsPost {
   main_url: string;
   content_type: 'PRESS' | 'VIDEO';
   main_url_text: string;
-}
-
-export async function getNewsPageContent() {
-  const { storyblokApi } = storyblokInit({
-    accessToken: STORYBLOK_ACCESS_TOKEN,
-    use: [apiPlugin],
-  });
-
-  if (!storyblokApi) {
-    throw new Error('Failed to init storyblok');
-  }
-
-  const response = await storyblokApi.get('cdn/stories/media', {
-    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-  });
-
-  const posts = mapStorybookToNews(response.data.story.content.body[0].columns);
-
-  return posts;
 }
 
 function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
@@ -56,3 +42,22 @@ function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
     };
   });
 }
+
+export const revalidate = REVALIDATE_TIME;
+
+export const getNewsPageContent = cache(async () => {
+  const { storyblokApi } = storyblokInit({
+    accessToken: STORYBLOK_ACCESS_TOKEN,
+    use: [apiPlugin],
+  });
+
+  if (!storyblokApi) {
+    throw new Error('Failed to init storyblok');
+  }
+
+  const response = await storyblokApi.get('cdn/stories/media', {
+    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
+  });
+
+  return mapStorybookToNews(response.data.story.content.body[0].columns);
+});

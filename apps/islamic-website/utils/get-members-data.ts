@@ -1,6 +1,11 @@
 import { storyblokInit, apiPlugin } from '@storyblok/js';
 import { Member } from '@haqq/islamic-ui-kit';
-import { STORYBLOK_ACCESS_TOKEN, VERCEL_ENV } from '../constants';
+import {
+  REVALIDATE_TIME,
+  STORYBLOK_ACCESS_TOKEN,
+  VERCEL_ENV,
+} from '../constants';
+import { cache } from 'react';
 
 interface StoryblokMember {
   title: string;
@@ -10,6 +15,7 @@ interface StoryblokMember {
     filename: string;
   };
 }
+
 function mapStoryblokToMembers(data: StoryblokMember[]): Member[] {
   return data.map((member) => {
     return {
@@ -21,7 +27,9 @@ function mapStoryblokToMembers(data: StoryblokMember[]): Member[] {
   });
 }
 
-export async function getMembersContent() {
+export const revalidate = REVALIDATE_TIME;
+
+export const getMembersContent = cache(async () => {
   const { storyblokApi } = storyblokInit({
     accessToken: STORYBLOK_ACCESS_TOKEN,
     use: [apiPlugin],
@@ -52,4 +60,4 @@ export async function getMembersContent() {
     shariahMembers,
     advisoryMembers,
   };
-}
+});
