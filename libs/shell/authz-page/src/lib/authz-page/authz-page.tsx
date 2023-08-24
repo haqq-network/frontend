@@ -26,7 +26,6 @@ import {
 } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
 import {
-  Fragment,
   PropsWithChildren,
   ReactNode,
   useCallback,
@@ -34,7 +33,6 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { formatUnits, isAddress, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 
@@ -297,7 +295,14 @@ function AuthzGrantsActions() {
         throw new Error('address is not valid');
       }
 
-      const expire = new Date('1 Sep 2023').getTime() / 1000;
+      const now = new Date();
+      const hundredYearsLater = now.getFullYear() + 100;
+      const expireDate = new Date(now.setFullYear(hundredYearsLater));
+      const expire = Number.parseInt(
+        (expireDate.getTime() / 1000).toFixed(),
+        10,
+      );
+
       const haqqGrantee = granteeAddresses['haqq'];
       const grantPromise = grant(haqqGrantee, type, expire);
 
