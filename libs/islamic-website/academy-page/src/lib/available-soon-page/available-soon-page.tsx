@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import notFoundBgImgData from '../../assets/images/not-found-bg.webp';
+import notFoundBgImgData from '../../assets/images/available-soon-bg.webp';
 import Image from 'next/image';
 import { Container, Text } from '@haqq/islamic-ui-kit';
 
