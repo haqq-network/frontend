@@ -1,20 +1,19 @@
+import type { Metadata } from 'next';
 import { ShariahPage } from '@haqq/islamic-website/shariah-page';
-import { DEPLOY_URL } from '../../constants';
-import { Metadata } from 'next';
 import { getMembersContent } from '../../utils/get-members-data';
 
+const title = 'IslamicCoin | Shariah';
+const description =
+  'Our steadfast commitment to Shariah principles provides an ethical foundation for modern digital finance. Dive into our adherence to Islamic traditions.';
+
 export const metadata: Metadata = {
-  title: 'IslamicCoin | Shariah',
-  description:
-    'Our steadfast commitment to Shariah principles provides an ethical foundation for modern digital finance. Dive into our adherence to Islamic traditions.',
+  title,
+  description,
   openGraph: {
+    title,
+    description,
     images: [{ url: '/opengraph-image.png' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    images: [{ url: '/opengraph-image.png' }],
-  },
-  metadataBase: new URL(DEPLOY_URL),
 };
 
 export default async function Page() {

@@ -1,18 +1,17 @@
-import { DEPLOY_URL } from '../../constants';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
-export { TeamPage as default } from '@haqq/islamic-website/team-page';
+const title = 'IslamicCoin | Team';
+const description =
+  'Get to know the dedicated individuals propelling Islamic Coin towards harmonizing Islamic finance with blockchain.';
 
 export const metadata: Metadata = {
-  title: 'IslamicCoin | Team',
-  description:
-    'Get to know the dedicated individuals propelling Islamic Coin towards harmonizing Islamic finance with blockchain.',
+  title,
+  description,
   openGraph: {
+    title,
+    description,
     images: [{ url: '/opengraph-image.png' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    images: [{ url: '/opengraph-image.png' }],
-  },
-  metadataBase: new URL(DEPLOY_URL),
 };
+
+export { TeamPage as default } from '@haqq/islamic-website/team-page';

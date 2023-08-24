@@ -1,18 +1,17 @@
-import { DEPLOY_URL } from '../../constants';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
-export { WalletPage as default } from '@haqq/islamic-website/wallet-page';
+const title = 'IslamicCoin | Wallet';
+const description =
+  'Seamlessly manage your Shariah-compliant assets. Tailored for the discerning investor in the digital age.';
 
 export const metadata: Metadata = {
-  title: 'IslamicCoin | Wallet',
-  description:
-    'Seamlessly manage your Shariah-compliant assets. Tailored for the discerning investor in the digital age.',
+  title,
+  description,
   openGraph: {
+    title,
+    description,
     images: [{ url: '/opengraph-image.png' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    images: [{ url: '/opengraph-image.png' }],
-  },
-  metadataBase: new URL(DEPLOY_URL),
 };
+
+export { WalletPage as default } from '@haqq/islamic-website/wallet-page';

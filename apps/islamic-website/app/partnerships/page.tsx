@@ -1,18 +1,17 @@
-import { DEPLOY_URL } from '../../constants';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
-export { PartnershipPage as default } from '@haqq/islamic-website/partnership-page';
+const title = 'IslamicCoin | Partnership';
+const description =
+  "Collaborate with a pioneer in Shariah-compliant blockchain solutions. Let's redefine ethical finance together.";
 
 export const metadata: Metadata = {
-  title: 'IslamicCoin | Partnership',
-  description:
-    "Collaborate with a pioneer in Shariah-compliant blockchain solutions. Let's redefine ethical finance together.",
+  title,
+  description,
   openGraph: {
+    title,
+    description,
     images: [{ url: '/opengraph-image.png' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    images: [{ url: '/opengraph-image.png' }],
-  },
-  metadataBase: new URL(DEPLOY_URL),
 };
+
+export { PartnershipPage as default } from '@haqq/islamic-website/partnership-page';
