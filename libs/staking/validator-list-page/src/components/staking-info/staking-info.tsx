@@ -1,4 +1,5 @@
 import {
+  formatNumber,
   useAddress,
   useQueryInvalidate,
   useStakingActions,
@@ -16,6 +17,7 @@ import { useCosmosProvider } from '@haqq/shared';
 import { Button, Container, Heading, WalletIcon } from '@haqq/shell-ui-kit';
 import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
+import { formatUnits, parseUnits } from 'viem';
 
 export function StakingInfoHooked() {
   const [staked, setStakedValue] = useState(0);
@@ -81,16 +83,16 @@ export function StakingInfoHooked() {
         del = del + Number.parseInt(delegation.balance.amount, 10);
       });
 
-      // TODO: use formatter from utils
-      setStakedValue(del / 10 ** 18);
+      setStakedValue(Number.parseFloat(formatUnits(BigInt(del), 18)));
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }
   }, [delegationInfo]);
 
   const rewards = useMemo(() => {
     if (rewardsInfo?.total?.length) {
-      const totalRewards =
-        Number.parseFloat(rewardsInfo.total[0].amount) / 10 ** 18;
+      const totalRewards = Number.parseFloat(
+        formatUnits(parseUnits(rewardsInfo.total[0].amount, 0), 18),
+      );
 
       return totalRewards;
     }
@@ -113,15 +115,15 @@ export function StakingInfoHooked() {
       return accumulator + current;
     }, 0);
 
-    return result / 10 ** 18;
+    return Number.parseFloat(formatUnits(BigInt(result), 18));
   }, [undelegations]);
 
   return (
     <RewardsInfo
-      balance={formattedBalance}
-      delegated={staked}
-      rewards={rewards}
-      unbounded={unbounded}
+      balance={formatNumber(formattedBalance)}
+      delegated={formatNumber(staked)}
+      rewards={formatNumber(rewards)}
+      unbounded={formatNumber(unbounded)}
       symbol={balance?.symbol ?? ''}
       onRewardsClaim={handleRewardsClaim}
     />

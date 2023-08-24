@@ -93,7 +93,7 @@
     "yup": "1.2.0"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-react": "7.22.5",
     "@commitlint/cli": "17.6.6",
     "@commitlint/config-conventional": "17.6.6",
     "@nx/cypress": "16.5.0",
