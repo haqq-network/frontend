@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import { DEPLOY_URL } from '../../constants';
 
-export { AcademyPage as default } from '@haqq/islamic-website/academy-page';
+// export { AcademyPage as default } from '@haqq/islamic-website/academy-page';
+export { AvailableSoonPage as default } from '@haqq/islamic-website/academy-page';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin | Academy',
