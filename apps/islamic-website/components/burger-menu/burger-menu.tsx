@@ -107,17 +107,21 @@ function BurgerMenuDropdownLink({
   title,
   href,
   onClick,
+  isOutLink = false,
 }: {
   icon?: ReactNode;
   title: string;
   href: string;
   onClick?: () => void;
+  isOutLink?: boolean;
 }) {
   return (
     <Link
       href={href}
       className="hover:text-islamic-primary-green w-fit cursor-pointer py-[12px] text-base font-[500] text-white transition-colors duration-200"
       onClick={onClick}
+      target={isOutLink ? '_blank' : undefined}
+      rel={isOutLink ? 'noopener noreferrer' : undefined}
     >
       <div className="flex flex-row items-center gap-x-[10px]">
         {icon && <div>{icon}</div>}
@@ -136,83 +140,84 @@ export function BurgerMenu({
   isOpen?: boolean;
   onClick: () => void;
 }) {
-  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  // const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
-  const toggleLangMenu = useCallback(() => {
-    return setIsLangMenuOpen(!isLangMenuOpen);
-  }, [isLangMenuOpen]);
+  // const toggleLangMenu = useCallback(() => {
+  //   return setIsLangMenuOpen(!isLangMenuOpen);
+  // }, [isLangMenuOpen]);
 
   return (
     <div className={clsx('px-[16px] md:px-[48px]', className)}>
-      {!isLangMenuOpen ? (
-        <div className="flex flex-col gap-y-[12px]">
-          <Link
-            href="/shariah"
-            className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-200"
-            onClick={onClick}
-          >
-            Shariah
-          </Link>
-          <MobileMenuDropdownLink title="About" withArrow>
-            <div className="flex flex-col">
-              <BurgerMenuDropdownLink
-                title="Mission"
-                icon={<MissionIcon />}
-                href="/mission"
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
-                onClick={onClick}
-                title="Roadmap"
-                icon={<RoadmapIcon />}
-                href="/roadmap"
-              />
-              <BurgerMenuDropdownLink
-                onClick={onClick}
-                title="News"
-                icon={<NewsIcon />}
-                href="/news"
-              />
-              <BurgerMenuDropdownLink
+      {/* {!isLangMenuOpen ? ( */}
+      <div className="flex flex-col gap-y-[12px]">
+        <Link
+          href="/shariah"
+          className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-200"
+          onClick={onClick}
+        >
+          Shariah
+        </Link>
+        <MobileMenuDropdownLink title="About" withArrow>
+          <div className="flex flex-col">
+            <BurgerMenuDropdownLink
+              title="Mission"
+              icon={<MissionIcon />}
+              href="/mission"
+              onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              onClick={onClick}
+              title="Roadmap"
+              icon={<RoadmapIcon />}
+              href="/roadmap"
+            />
+            <BurgerMenuDropdownLink
+              onClick={onClick}
+              title="News"
+              icon={<NewsIcon />}
+              href="/news"
+            />
+            {/* <BurgerMenuDropdownLink
                 onClick={onClick}
                 title="Press"
                 icon={<NewsIcon />}
                 href="/press"
-              />
-              <BurgerMenuDropdownLink
+              /> */}
+            {/* <BurgerMenuDropdownLink
                 onClick={onClick}
                 title="Events"
                 icon={<EventsIcon />}
                 href="/events"
-              />
-              <BurgerMenuDropdownLink
-                onClick={onClick}
-                title="Ecosystem"
-                icon={<EcosystemIcon />}
-                href="/ecosystem"
-              />
-              <BurgerMenuDropdownLink
-                onClick={onClick}
-                title="Partnerships"
-                icon={<PartnershipIcon />}
-                href="/partnerships"
-              />
-              <BurgerMenuDropdownLink
-                onClick={onClick}
-                title="Build on HAQQ"
-                icon={<BuildIcon />}
-                href="/build"
-              />
-            </div>
-          </MobileMenuDropdownLink>
-          <MobileMenuDropdownLink title="Use ISLM" withArrow>
+              /> */}
             <BurgerMenuDropdownLink
               onClick={onClick}
-              title="Wallet"
-              icon={<WalletIcon />}
-              href="/wallet"
+              title="Ecosystem"
+              icon={<EcosystemIcon />}
+              href="https://haqq.network/ecosystem"
+              isOutLink
             />
             <BurgerMenuDropdownLink
+              onClick={onClick}
+              title="Partnerships"
+              icon={<PartnershipIcon />}
+              href="/partnerships"
+            />
+            <BurgerMenuDropdownLink
+              onClick={onClick}
+              title="Build on HAQQ"
+              icon={<BuildIcon />}
+              href="/build"
+            />
+          </div>
+        </MobileMenuDropdownLink>
+        <MobileMenuDropdownLink title="Use ISLM" withArrow>
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Wallet"
+            icon={<WalletIcon />}
+            href="/wallet"
+          />
+          {/* <BurgerMenuDropdownLink
               onClick={onClick}
               title="Staking & Hodling"
               icon={<StakingIcon />}
@@ -235,22 +240,23 @@ export function BurgerMenu({
               title="Get ISLM"
               icon={<GetISLMIcon />}
               href="/get-islm"
-            />
-          </MobileMenuDropdownLink>
-          <MobileMenuDropdownLink title="Learn" withArrow>
-            <BurgerMenuDropdownLink
-              onClick={onClick}
-              title="Academy"
-              icon={<AcademyIcon />}
-              href="/academy"
-            />
-            <BurgerMenuDropdownLink
-              onClick={onClick}
-              title="Blog"
-              icon={<BlogIcon />}
-              href="/blog"
-            />
-            <BurgerMenuDropdownLink
+            /> */}
+        </MobileMenuDropdownLink>
+        <MobileMenuDropdownLink title="Learn" withArrow>
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Academy"
+            icon={<AcademyIcon />}
+            href="/academy"
+          />
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Blog"
+            icon={<BlogIcon />}
+            href="https://haqq.network/blog"
+            isOutLink
+          />
+          {/* <BurgerMenuDropdownLink
               onClick={onClick}
               title="Podcast"
               icon={<PodcastIcon />}
@@ -273,42 +279,42 @@ export function BurgerMenu({
               title="Partners"
               icon={<PartnersIcon />}
               href="/partners"
-            />
-          </MobileMenuDropdownLink>
-          <MobileMenuDropdownLink title="Team" withArrow>
-            <BurgerMenuDropdownLink
-              onClick={onClick}
-              title="Career"
-              icon={<CaseIcon />}
-              href="/career"
-            />
-            <BurgerMenuDropdownLink
-              onClick={onClick}
-              title="Our Values"
-              icon={<ValuesIcon />}
-              href="/values"
-            />
-            <BurgerMenuDropdownLink
+            /> */}
+        </MobileMenuDropdownLink>
+        <MobileMenuDropdownLink title="Team" withArrow>
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Career"
+            icon={<CaseIcon />}
+            href="/career"
+          />
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Our Values"
+            icon={<ValuesIcon />}
+            href="/values"
+          />
+          {/* <BurgerMenuDropdownLink
               onClick={onClick}
               title="Community"
               icon={<CommunityIcon />}
               href="/community"
-            />
-            <BurgerMenuDropdownLink
-              onClick={onClick}
-              title="Meet our team"
-              icon={<StarIcon />}
-              href="/team"
-            />
-            <BurgerMenuDropdownLink
-              onClick={onClick}
-              title="Fraud alert"
-              icon={<AlertIcon />}
-              href="/fraud-alert"
-            />
-          </MobileMenuDropdownLink>
+            /> */}
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Meet our team"
+            icon={<StarIcon />}
+            href="/team"
+          />
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Fraud alert"
+            icon={<AlertIcon />}
+            href="/fraud-alert"
+          />
+        </MobileMenuDropdownLink>
 
-          <div
+        {/* <div
             className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-200"
             onClick={toggleLangMenu}
           >
@@ -326,10 +332,10 @@ export function BurgerMenu({
                 fill="currentColor"
               />
             </svg>
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-y-[12px]">
+          </div> */}
+      </div>
+      {/* ) : ( */}
+      {/* <div className="flex flex-col gap-y-[12px]">
           <div
             className='hover:text-islamic-primary-green duration-200" z-50 flex w-fit cursor-pointer items-start gap-x-[10px] py-[12px] text-base uppercase text-white transition-colors'
             onClick={toggleLangMenu}
@@ -354,7 +360,7 @@ export function BurgerMenu({
             <BurgerMenuDropdownLink title="Bahasa Indonesia" href="#" />
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

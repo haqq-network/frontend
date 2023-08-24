@@ -1,28 +1,19 @@
-import { storyblokInit, apiPlugin } from '@storyblok/js';
+import type { Metadata } from 'next';
 import { WhitepaperPage } from '@haqq/islamic-website/whitepaper-page';
+import { getWhitepaperContent } from '../../utils/get-whitepaper-content';
 
-const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
-const VERCEL_ENV = process.env['VERCEL_ENV'];
+const title = 'IslamicCoin | Whitepaper';
+const description =
+  'The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin.';
 
-async function getWhitepaperContent() {
-  const { storyblokApi } = storyblokInit({
-    accessToken: STORYBLOK_ACCESS_TOKEN,
-    use: [apiPlugin],
-  });
-
-  if (!storyblokApi) {
-    throw new Error('Failed to init storyblok');
-  }
-
-  const response = await storyblokApi.get('cdn/stories/wp', {
-    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-  });
-
-  return response.data.story.content.body;
-}
-
-export const metadata = {
-  title: 'IslamicCoin | Whitepaper',
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    images: [{ url: '/opengraph-image.png' }],
+  },
 };
 
 export default async function Page() {

@@ -1,11 +1,11 @@
 import { cache } from 'react';
 import type { RoadmapPeriod } from '@haqq/islamic-website/roadmap-page';
 import { storyblokInit, apiPlugin } from '@storyblok/js';
-
-export const revalidate = 3600; // revalidate the data at most every hour
-
-const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
-const VERCEL_ENV = process.env['VERCEL_ENV'];
+import {
+  REVALIDATE_TIME,
+  STORYBLOK_ACCESS_TOKEN,
+  VERCEL_ENV,
+} from '../constants';
 
 export interface StoryblokRoadmapData {
   columns: {
@@ -17,7 +17,7 @@ export interface StoryblokRoadmapData {
   }[];
 }
 
-export function mapStoryblokRoadmapData(
+function mapStoryblokRoadmapData(
   roadmapStory: StoryblokRoadmapData,
 ): RoadmapPeriod[] {
   return roadmapStory.columns.map((period) => {
@@ -30,6 +30,8 @@ export function mapStoryblokRoadmapData(
     };
   });
 }
+
+export const revalidate = REVALIDATE_TIME;
 
 export const getRoadmapContent = cache(async () => {
   const { storyblokApi } = storyblokInit({

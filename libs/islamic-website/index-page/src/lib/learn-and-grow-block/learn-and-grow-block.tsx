@@ -1,4 +1,5 @@
 import { Button, Container, Heading, Text } from '@haqq/islamic-ui-kit';
+import Link from 'next/link';
 
 export function LearnAndGrowBlock() {
   return (
@@ -164,9 +165,11 @@ export function LearnAndGrowBlock() {
             equip, and empower your financial journey
           </Text>
           <div className="mt-[32px] w-full md:mt-[34px] md:w-fit">
-            <Button className="w-full !px-[20px] leading-[16px] md:!px-[32px]">
-              Get started with HAQQ&nbsp;wallet
-            </Button>
+            <Link href={'/wallet'}>
+              <Button className="w-full !px-[20px] leading-[16px] md:!px-[32px]">
+                Get started with HAQQ&nbsp;wallet
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

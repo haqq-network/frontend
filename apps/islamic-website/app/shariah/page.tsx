@@ -1,75 +1,28 @@
-import { Member, ShariahPage } from '@haqq/islamic-website/shariah-page';
-import { storyblokInit, apiPlugin } from '@storyblok/js';
+import type { Metadata } from 'next';
+import { ShariahPage } from '@haqq/islamic-website/shariah-page';
+import { getMembersContent } from '../../utils/get-members-data';
 
-const STORYBLOK_ACCESS_TOKEN = process.env['STORYBLOK_ACCESS_TOKEN'];
-const VERCEL_ENV = process.env['VERCEL_ENV'];
+const title = 'IslamicCoin | Shariah';
+const description =
+  'Our steadfast commitment to Shariah principles provides an ethical foundation for modern digital finance. Dive into our adherence to Islamic traditions.';
 
-interface StoryblokMember {
-  title: string;
-  fullDescription: string;
-  url: string;
-  image: {
-    filename: string;
-  };
-}
-
-function mapStoryblokToMembers(data: StoryblokMember[]): Member[] {
-  
-  return data.map((member) => {
-    return {
-      image: member.image.filename,
-      title: member.title,
-      description: member.fullDescription,
-      url: member.url,
-    };
-  });
-}
-
-async function getMembersContent() {
-  const { storyblokApi } = storyblokInit({
-    accessToken: STORYBLOK_ACCESS_TOKEN,
-    use: [apiPlugin],
-  });
-
-  if (!storyblokApi) {
-    throw new Error('Failed to init storyblok');
-  }
-
-  const response = await storyblokApi.get('cdn/stories/boardmembers', {
-    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-  });
-
-  const executiveMembers = mapStoryblokToMembers(
-    response.data.story.content.body[0].columns,
-  );
-
-  const shariahMembers = mapStoryblokToMembers(
-    response.data.story.content.body[1].columns,
-  );
-
-  const advisoryMembers = mapStoryblokToMembers(
-    response.data.story.content.body[2].columns,
-  );
-
-  return {
-    executiveMembers,
-    shariahMembers,
-    advisoryMembers,
-  };
-}
-
-export const metadata = {
-  title: 'IslamicCoin | Shariah',
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    images: [{ url: '/opengraph-image.png' }],
+  },
 };
 
 export default async function Page() {
-  const shariaMembers = (await getMembersContent()).shariahMembers;
-  const advisoryMembers = (await getMembersContent()).advisoryMembers;
-  const executiveMembers = (await getMembersContent()).executiveMembers;
+  const { shariahMembers, advisoryMembers, executiveMembers } =
+    await getMembersContent();
 
   return (
     <ShariahPage
-      shariahMembers={shariaMembers}
+      shariahMembers={shariahMembers}
       advisoryMembers={advisoryMembers}
       executiveMembers={executiveMembers}
     />

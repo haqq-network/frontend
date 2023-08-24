@@ -125,7 +125,7 @@ export function ShariahPage({
   );
 
   return (
-    <section className="max-w-full overflow-clip py-[32px] md:py-[52px] lg:py-[68px]">
+    <section className="max-w-full overflow-x-clip py-[32px] md:py-[52px] lg:py-[68px]">
       <Container className="relative">
         <div>
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
