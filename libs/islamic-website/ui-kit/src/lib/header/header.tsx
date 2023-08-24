@@ -6,8 +6,6 @@ import {
   PropsWithChildren,
   ReactNode,
   useCallback,
-  useEffect,
-  useRef,
   useState,
 } from 'react';
 import { Transition } from '@headlessui/react';
@@ -21,21 +19,16 @@ import {
   CommunityIcon,
   EcosystemIcon,
   EventsIcon,
-  GetISLMIcon,
   MissionIcon,
   NewsIcon,
   PartnersIcon,
   PartnershipIcon,
   PodcastIcon,
-  QuestionMarkIcon,
   RoadmapIcon,
   RocketIcon,
-  StakingIcon,
   StarIcon,
-  TokenomicsIcon,
   ValuesIcon,
   VideoIcon,
-  WalletIcon,
 } from '../icons/header-icons';
 
 interface HeaderLinkProps {
@@ -137,44 +130,10 @@ function HeaderDropdown({
   );
 }
 
-function LanguageDropdown() {
-  return (
-    <div>
-      <div></div>
-    </div>
-  );
-}
-
 export function Header() {
-  // const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
-  // const [isScrolled, setIsScrolled] = useState(false);
-
-  // const toggleMobileMenu = useCallback(() => {
-  //   setIsMobileMenuOpened(!isMobileMenuOpen);
-  //   console.log('click');
-  // }, [isMobileMenuOpen]);
-
-  // const headerRef = useRef<HTMLHeadingElement>(null);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollPosition = window.scrollY;
-  //     setIsScrolled(scrollPosition > 0);
-  //   };
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
-
   return (
     <header
-      className={clsx(
-        'sticky top-0 z-50 w-full bg-transparent py-[38px]',
-        // isScrolled ? 'bg-[#181E25] opacity-70' : 'bg-transparent',
-      )}
-      // ref={headerRef}
+      className={clsx('sticky top-0 z-50 w-full bg-transparent py-[38px]')}
     >
       <Container className="pr-[24px]">
         <div className="flex items-center justify-between">
@@ -271,10 +230,6 @@ export function Header() {
           </div>
           <nav className=" hidden items-center gap-x-[12px] lg:flex">
             <HeaderLink url="/shariah">Shariah</HeaderLink>
-            {/* <HeaderLink url="/about">About</HeaderLink> */}
-            {/* <HeaderLink url="/use-islm">Use ISLM</HeaderLink> */}
-            {/* <HeaderLink url="/learn">Learn</HeaderLink> */}
-            {/* <HeaderLink url="/team">Team</HeaderLink> */}
 
             <HeaderDropdown title="About">
               <div className="flex gap-x-[18px]">
@@ -309,31 +264,8 @@ export function Header() {
                 </div>
               </div>
             </HeaderDropdown>
-            <HeaderDropdown title="Use islm">
-              <div className="flex gap-x-[18px]">
-                <div className="flex flex-col">
-                  <DropdownLinkWithIcon title="Wallet" icon={<WalletIcon />} />
-                  <DropdownLinkWithIcon
-                    title="Staking & Hodling"
-                    icon={<StakingIcon />}
-                  />
-                  <DropdownLinkWithIcon
-                    title="Tracker and Tokenomics"
-                    icon={<TokenomicsIcon />}
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <DropdownLinkWithIcon
-                    title="What is ISLM"
-                    icon={<QuestionMarkIcon />}
-                  />
-                  <DropdownLinkWithIcon
-                    title="Get ISLM"
-                    icon={<GetISLMIcon />}
-                  />
-                </div>
-              </div>
-            </HeaderDropdown>
+
+            <HeaderLink url="/wallet">Wallet</HeaderLink>
             <HeaderDropdown title="Learn">
               <div className="flex gap-x-[18px]">
                 <div className="flex flex-col">
@@ -394,10 +326,7 @@ export function Header() {
             </HeaderDropdown>
           </nav>
           <div className="inline-flex lg:hidden">
-            <BurgerButton
-            // onClick={toggleMobileMenu}
-            // isOpen={isMobileMenuOpen}
-            />
+            <BurgerButton />
           </div>
         </div>
       </Container>

@@ -325,39 +325,7 @@ export function DesktopHeader() {
                 </div>
               </HeaderDropdown>
 
-              <HeaderDropdown title="Use ISLM">
-                <div className="flex gap-x-[18px]">
-                  <div className="flex flex-col">
-                    <DropdownLink
-                      title="Wallet"
-                      icon={<WalletIcon />}
-                      href="/wallet"
-                    />
-                    {/* <DropdownLink
-                      title="Staking & Hodling"
-                      icon={<StakingIcon />}
-                      href="/hodling"
-                    /> */}
-                    {/* <DropdownLink
-                      title="Tracker and Tokenomics"
-                      icon={<TokenomicsIcon />}
-                      href="/tokenomics"
-                    /> */}
-                  </div>
-                  {/* <div className="flex flex-col">
-                    <DropdownLink
-                      title="What is ISLM"
-                      icon={<QuestionMarkIcon />}
-                      href="/what-is-islm"
-                    />
-                    <DropdownLink
-                      title="Get ISLM"
-                      icon={<GetISLMIcon />}
-                      href="/get-islm"
-                    />
-                  </div> */}
-                </div>
-              </HeaderDropdown>
+              <DesktopHeaderLink url="/wallet">Wallet</DesktopHeaderLink>
 
               <HeaderDropdown title="Learn">
                 <div className="flex gap-x-[18px]">
@@ -434,14 +402,6 @@ export function DesktopHeader() {
                   </div> */}
                 </div>
               </HeaderDropdown>
-
-              {/* <HeaderDropdown title="EN">
-                <div className="flex flex-col">
-                  <DropdownLink title="English" href="#" />
-                  <DropdownLink title="عربي" href="#" />
-                  <DropdownLink title="Bahasa Indonesia" href="#" />
-                </div>
-              </HeaderDropdown> */}
             </nav>
           </div>
         </Container>
