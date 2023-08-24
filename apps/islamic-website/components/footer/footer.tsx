@@ -16,21 +16,29 @@ import {
   Container,
 } from '@haqq/islamic-ui-kit';
 
-interface FooterNavLinkProps {
+interface FooterNavLink {
   url: string;
   isOutLink?: boolean;
   title: string;
 }
 
-type FooterNavSocialLinkProps = Pick<FooterNavLinkProps, 'url'>;
+type FooterNavLinks = Array<Array<FooterNavLink>>;
 
-function FooterNavLink({ url, isOutLink, title }: FooterNavLinkProps) {
+function FooterNavLink({
+  url,
+  isOutLink = false,
+  title,
+}: {
+  url: string;
+  isOutLink?: boolean;
+  title: string;
+}) {
   return (
     <Link
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="w-fit px-[8px] py-[6px] font-mono text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-300 hover:text-[#18FFAC] md:text-[14px] lg:text-base lg:text-base"
+      className="w-fit px-[8px] py-[6px] font-mono text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-150 ease-in hover:text-[#18FFAC] md:text-[14px] lg:text-base lg:text-base"
     >
       {title}
     </Link>
@@ -40,86 +48,110 @@ function FooterNavLink({ url, isOutLink, title }: FooterNavLinkProps) {
 function FooterNavSocialLink({
   url,
   children,
-}: PropsWithChildren<FooterNavSocialLinkProps>) {
+}: PropsWithChildren<{ url: string }>) {
   return (
     <Link
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="transition-colors duration-300 hover:text-[#18FFAC]"
+      className="transition-colors duration-150 ease-in hover:text-[#18FFAC]"
     >
       {children}
     </Link>
   );
 }
 
-const footerNavLinks: FooterNavLinkProps[] = [
-  {
-    url: '/about',
-    title: 'About us',
-  },
-  {
-    url: '/executive-board',
-    title: 'Executive Board',
-  },
-  {
-    url: '/press',
-    title: 'For press',
-  },
-  {
-    url: '/partnerships',
-    title: 'Partnerships',
-  },
-  {
-    url: '/whitepaper',
-    title: 'Whitepaper',
-  },
-  {
-    url: '/fatwa',
-    title: 'Fatwa',
-  },
-  {
-    url: 'https://haqq.network',
-    title: 'Haqq Network',
-    isOutLink: true,
-  },
-  {
-    url: '/media',
-    title: 'Islm in media',
-  },
-  {
-    url: '/wallets',
-    title: 'Wallets',
-  },
-  {
-    url: '/get-islm',
-    title: 'Get Islm',
-  },
-  {
-    url: '/hodling',
-    title: 'Hodling',
-  },
-  {
-    url: '/docs',
-    title: 'Haqq Docs',
-  },
-  {
-    url: '/community-hub',
-    title: 'Community Hub',
-  },
-  {
-    url: '/grants',
-    title: 'Grants',
-  },
-  {
-    url: '/join-us',
-    title: 'Join us',
-  },
-  {
-    url: 'https://app.haqq.network',
-    title: 'Delegate Islm',
-    isOutLink: true,
-  },
+const footerNavLinks: FooterNavLinks = [
+  [
+    {
+      url: '/shariah#fatwa',
+      title: 'Fatwa',
+    },
+    {
+      url: '/whitepaper',
+      title: 'Whitepaper',
+    },
+  ],
+  [
+    {
+      url: '/shariah#shariah-board',
+      title: 'Shariah Board',
+    },
+    {
+      url: '/shariah#advisory-board',
+      title: 'Advisory Board',
+    },
+    {
+      url: '/shariah#executive-board',
+      title: 'Executive Board',
+    },
+  ],
+  [
+    // {
+    //   url: '/press',
+    //   title: 'For press',
+    // },
+    // {
+    //   url: '/grants',
+    //   title: 'Grants',
+    // },
+    // {
+    //   url: '/join-us',
+    //   title: 'Join us',
+    // },
+
+    // {
+    //   url: '/get-islm',
+    //   title: 'Get ISLM',
+    // },
+    // {
+    //   url: '/hodling',
+    //   title: 'Hodling',
+    // },
+    {
+      url: '/news',
+      title: 'ISLM in media',
+    },
+    {
+      url: '/community-hub',
+      title: 'Community Hub',
+    },
+  ],
+  [
+    {
+      url: 'https://haqq.network',
+      title: 'HAQQ Network',
+      isOutLink: true,
+    },
+    {
+      url: 'https://docs.haqq.network/',
+      title: 'HAQQ Docs',
+      isOutLink: true,
+    },
+    {
+      url: '/wallet',
+      title: 'Wallet',
+    },
+    {
+      url: 'https://shell.haqq.network',
+      title: 'Stake ISLM',
+      isOutLink: true,
+    },
+  ],
+  [
+    {
+      url: '/values',
+      title: 'Our values',
+    },
+    {
+      url: '/partnerships',
+      title: 'Partnerships',
+    },
+    {
+      url: '/career',
+      title: 'Career',
+    },
+  ],
 ];
 
 export function Footer() {
@@ -129,14 +161,23 @@ export function Footer() {
         <Container>
           <div className="flex flex-col gap-y-[32px] lg:gap-y-[60px]">
             <div className="grid grid-cols-2 gap-x-[20px] md:grid-cols-3 lg:grid-cols-5">
-              {footerNavLinks.map((link) => {
+              {footerNavLinks.map((column, colIndex) => {
                 return (
-                  <FooterNavLink
-                    key={link.title}
-                    title={link.title}
-                    url={link.url}
-                    isOutLink={link.isOutLink}
-                  />
+                  <div
+                    key={`footer-column-${colIndex}`}
+                    className="flex flex-1 flex-col"
+                  >
+                    {column.map(({ title, isOutLink, url }) => {
+                      return (
+                        <FooterNavLink
+                          key={title}
+                          title={title}
+                          url={url}
+                          isOutLink={isOutLink}
+                        />
+                      );
+                    })}
+                  </div>
                 );
               })}
             </div>
@@ -188,7 +229,14 @@ export function Footer() {
               {`© ${new Date().getFullYear()} Islamic Coin. All rights
         reserved`}
             </div>
-            <div>Islamic Coin</div>
+            <div>
+              <Link
+                href="mailto:hello@islamiccoin.net"
+                className="transition-colors duration-150 ease-in hover:text-[#18FFAC]"
+              >
+                hello@islamiccoin.net
+              </Link>
+            </div>
           </div>
         </Container>
       </div>

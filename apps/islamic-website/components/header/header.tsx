@@ -370,7 +370,7 @@ export function DesktopHeader() {
                     <DropdownLink
                       title="Blog"
                       icon={<BlogIcon />}
-                      href="https://haqq.network/blog"
+                      href="https://blog.islamiccoin.net"
                       isOutLink
                     />
                     {/* <DropdownLink
