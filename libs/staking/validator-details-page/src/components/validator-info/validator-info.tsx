@@ -47,7 +47,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import styles from './validator-info.module.css';
 import { Validator } from '@evmos/provider';
-import { formatUnits, parseUnits } from 'viem/utils';
+import { formatUnits } from 'viem/utils';
 import { getFormattedAddress } from '@haqq/shared';
 import { RedelegateModal } from '../redelegate-modal/redelegate-modal';
 
@@ -547,7 +547,7 @@ export function ValidatorInfo({
 
   const totalStaked = useMemo(() => {
     return Number.parseFloat(
-      formatUnits(parseUnits(stakingPool?.bonded_tokens ?? '0', 0), 18),
+      formatUnits(BigInt(stakingPool?.bonded_tokens ?? '0'), 18),
     );
   }, [stakingPool?.bonded_tokens]);
 
