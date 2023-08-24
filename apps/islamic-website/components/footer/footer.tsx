@@ -160,12 +160,12 @@ export function Footer() {
       <div className="bg-islamic-bg-black/10 border-y border-[#2F2F2F] py-[32px] backdrop-blur md:py-[56px] lg:py-[80px]">
         <Container>
           <div className="flex flex-col gap-y-[32px] lg:gap-y-[60px]">
-            <div className="grid grid-cols-2 gap-x-[20px] md:grid-cols-3 lg:grid-cols-5">
+            <div className="grid grid-cols-2 gap-[20px] md:grid-cols-3 lg:grid-cols-5">
               {footerNavLinks.map((column, colIndex) => {
                 return (
                   <div
                     key={`footer-column-${colIndex}`}
-                    className="flex flex-1 flex-col"
+                    className="flex flex-col"
                   >
                     {column.map(({ title, isOutLink, url }) => {
                       return (
