@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import {
   DiscordIcon,
   FacebookIcon,
@@ -154,13 +154,29 @@ const footerNavLinks: FooterNavLinks = [
   ],
 ];
 
+function flattenArray<T>(nestedArray: T[][]): T[] {
+  return nestedArray.reduce((flatArray, subArray) => {
+    return flatArray.concat(subArray);
+  }, []);
+}
+
 export function Footer() {
+  const maxHeight = useMemo(() => {
+    return footerNavLinks.reduce((acc, el) => {
+      return acc + el.length * 35;
+    }, 0);
+  }, []);
+
+  const flattenedFooterNavLinksArray = useMemo(() => {
+    return flattenArray(footerNavLinks);
+  }, []);
+
   return (
     <footer className="flex w-full flex-col text-white">
       <div className="bg-islamic-bg-black/10 border-y border-[#2F2F2F] py-[32px] backdrop-blur md:py-[56px] lg:py-[80px]">
         <Container>
           <div className="flex flex-col gap-y-[32px] lg:gap-y-[60px]">
-            <div className="grid grid-cols-2 gap-[20px] md:grid-cols-3 lg:grid-cols-5">
+            <div className="hidden md:grid md:grid-cols-3 md:gap-[20px] lg:grid-cols-5">
               {footerNavLinks.map((column, colIndex) => {
                 return (
                   <div
@@ -178,6 +194,23 @@ export function Footer() {
                       );
                     })}
                   </div>
+                );
+              })}
+            </div>
+            <div
+              className="flex flex-col flex-wrap gap-x-[20px] md:hidden"
+              style={{
+                maxHeight: `${maxHeight / 2}px`,
+              }}
+            >
+              {flattenedFooterNavLinksArray.map(({ title, url, isOutLink }) => {
+                return (
+                  <FooterNavLink
+                    key={title}
+                    title={title}
+                    url={url}
+                    isOutLink={isOutLink}
+                  />
                 );
               })}
             </div>
