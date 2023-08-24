@@ -2,7 +2,7 @@ import {
   Grant,
   ethToHaqq,
   formatNumber,
-  getFormattedAddress,
+  // getFormattedAddress,
   haqqToEth,
   useAddress,
   useAuthzActions,
@@ -36,16 +36,16 @@ import {
 import { formatUnits, isAddress, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'GMT',
-  }).format(date);
-}
+// function formatDate(date: Date) {
+//   return new Intl.DateTimeFormat('en-US', {
+//     day: 'numeric',
+//     month: 'short',
+//     year: 'numeric',
+//     hour: 'numeric',
+//     minute: 'numeric',
+//     timeZone: 'GMT',
+//   }).format(date);
+// }
 
 export function ShellAuthzPage() {
   const { ethAddress } = useAddress();
@@ -162,9 +162,9 @@ function GranterGrantsTable() {
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
                   Message
                 </th>
-                <th className="select-none p-[8px] text-left lg:p-[12px]">
+                {/* <th className="select-none p-[8px] text-left lg:p-[12px]">
                   Valid tru
-                </th>
+                </th> */}
                 <th>&nbsp;</th>
               </tr>
             </thead>
@@ -182,9 +182,9 @@ function GranterGrantsTable() {
                     <td className="p-[8px] text-left md:p-[12px]">
                       {grant.msg}
                     </td>
-                    <td className="p-[8px] text-left md:p-[12px]">
+                    {/* <td className="p-[8px] text-left md:p-[12px]">
                       {formatDate(new Date(grant.expire))}
-                    </td>
+                    </td> */}
                     <td className="p-[8px] text-right md:p-[12px]">
                       <div className="invisible group-hover:visible">
                         <Button
@@ -243,9 +243,9 @@ function GranteeGrantsTable() {
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
                   Message
                 </th>
-                <th className="select-none p-[8px] text-left lg:p-[12px]">
+                {/* <th className="select-none p-[8px] text-left lg:p-[12px]">
                   Valid tru
-                </th>
+                </th> */}
               </tr>
             </thead>
             <tbody>
@@ -261,9 +261,9 @@ function GranteeGrantsTable() {
                     <td className="p-[8px] text-left md:p-[12px]">
                       {grant.msg}
                     </td>
-                    <td className="p-[8px] text-left md:p-[12px]">
+                    {/* <td className="p-[8px] text-left md:p-[12px]">
                       {formatDate(new Date(grant.expire))}
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}
