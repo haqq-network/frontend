@@ -31,6 +31,9 @@
       "@haqq/islamic-website/career-page": [
         "libs/islamic-website/career-page/src/index.ts"
       ],
+      "@haqq/islamic-website/community-hub-page": [
+        "libs/islamic-website/community-hub-page/src/index.ts"
+      ],
       "@haqq/islamic-website/forms": [
         "libs/islamic-website/forms/src/index.ts"
       ],
