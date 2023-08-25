@@ -286,31 +286,37 @@ export function DesktopHeader() {
                       icon={<HalfMoonAndStarIcon />}
                       href="/whitepaper"
                     />
-                  </div>
-                  <div className="flex flex-col">
-                    <DropdownLink
-                      title="News"
-                      icon={<NewsIcon />}
-                      href="/news"
-                    />
-                    {/* <DropdownLink
-                      title="Press"
-                      icon={<NewsIcon />}
-                      href="/press"
-                    /> */}
-                    {/* <DropdownLink
-                      title="Events"
-                      icon={<EventsIcon />}
-                      href="/events"
-                    /> */}
-                  </div>
-                  <div className="flex flex-col">
                     <DropdownLink
                       title="Ecosystem"
                       icon={<EcosystemIcon />}
                       href="https://haqq.network/ecosystem"
                       isOutLink
                     />
+                  </div>
+                  {/* <div className="flex flex-col"> */}
+                  {/* <DropdownLink
+                      title="News"
+                      icon={<NewsIcon />}
+                      href="/news"
+                    /> */}
+                  {/* <DropdownLink
+                      title="Press"
+                      icon={<NewsIcon />}
+                      href="/press"
+                    /> */}
+                  {/* <DropdownLink
+                      title="Events"
+                      icon={<EventsIcon />}
+                      href="/events"
+                    /> */}
+                  {/* </div> */}
+                  <div className="flex flex-col">
+                    <DropdownLink
+                      title="News"
+                      icon={<NewsIcon />}
+                      href="/news"
+                    />
+
                     <DropdownLink
                       title="Partnerships"
                       icon={<PartnershipIcon />}
