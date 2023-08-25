@@ -8,7 +8,6 @@ import { WhyBlock } from '../why-block/why-block';
 import { Fragment } from 'react';
 import { Marquee } from '../marquee/marquee';
 import { Container, Member, NewsPost } from '@haqq/islamic-ui-kit';
-import moonBgImageData from '../../assets/images/moon-2x.webp';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
 import clsx from 'clsx';
@@ -42,7 +41,7 @@ function Hero() {
       <Container className="relative">
         <HeroBlock />
 
-        <Marquee className="my-[20px] mb-[80px] mt-[60px] md:mt-[120px] lg:my-[100px] lg:mt-[150px]">
+        <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
           {RUNNING_TEXT.toLocaleUpperCase()}
         </Marquee>
 
@@ -51,16 +50,16 @@ function Hero() {
         <div
           className={clsx(
             'absolute z-[-1] select-none',
-            'h-[1011px] w-[1038px] md:h-[877px] md:w-[901px] lg:h-[1400px] lg:w-[1440px]',
+            'h-[1011px] w-[1038px] md:h-[877px] md:w-[901px] lg:h-[1401px] lg:w-[1439px]',
             '-top-1/2 right-1/2 translate-x-[37%] translate-y-[30%]',
             'md:translate-x-1/2 md:translate-y-[44%]',
             'lg:translate-y-[18%]',
             'xl:translate-y-[15%]',
           )}
         >
-          <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
+          <div className="z-1 pointer-events-none absolute inset-0  bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
           <Image
-            src={moonBgImageData}
+            src={'/assets/images/moon-2x.webp'}
             alt=""
             fill
             className="pointer-events-none z-[-2]"
