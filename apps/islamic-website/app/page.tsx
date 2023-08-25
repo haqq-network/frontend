@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
 import { getNewsPageContent } from '../utils/get-news-data';
 import { getMembersContent } from '../utils/get-members-data';
+import { DEPLOY_URL } from '../constants';
 
 const title = 'IslamicCoin';
 const description =
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
     description,
     images: [{ url: '/opengraph-image.png' }],
   },
+  metadataBase: new URL(DEPLOY_URL),
 };
 
 export default async function Page() {
