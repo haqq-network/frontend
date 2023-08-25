@@ -5,6 +5,7 @@ import {
   BuildIcon,
   CaseIcon,
   EcosystemIcon,
+  HalfMoonAndStarIcon,
   MissionIcon,
   NewsIcon,
   PartnershipIcon,
@@ -77,6 +78,12 @@ export function BurgerMenu({
               icon={<MissionIcon />}
               href="/mission"
               onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              onClick={onClick}
+              title="Whitepaper"
+              icon={<HalfMoonAndStarIcon />}
+              href="/whitepaper"
             />
             <BurgerMenuDropdownLink
               onClick={onClick}
