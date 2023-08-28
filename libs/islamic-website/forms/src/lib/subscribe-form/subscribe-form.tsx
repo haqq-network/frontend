@@ -24,8 +24,7 @@ const schema: yup.ObjectSchema<SubscribeFormFields> = yup
 async function submitForm(
   form: SubscribeFormFields,
 ): Promise<{ status: number }> {
-  // return await axios.post('/api/sendgrid', form);
-  return { status: 200 };
+  return await axios.post('/api/subscribe', form);
 }
 
 export function SubscribeForm({
