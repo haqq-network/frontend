@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
 import { getNewsPageContent } from '../utils/get-news-data';
 import { getMembersContent } from '../utils/get-members-data';
+import { getMainnetAccounts } from '../utils/get-mainnet-accounts-data';
 
 const title = 'IslamicCoin';
 const description =
@@ -20,8 +21,13 @@ export const metadata: Metadata = {
 export default async function Page() {
   const news = await getNewsPageContent();
   const { advisoryMembers } = await getMembersContent();
+  const mainnetAccounts = await getMainnetAccounts(3476);
 
   return (
-    <IndexPage news={news.slice(0, 3)} advisoryMembers={advisoryMembers} />
+    <IndexPage
+      mainnetAccounts={mainnetAccounts}
+      news={news.slice(0, 3)}
+      advisoryMembers={advisoryMembers}
+    />
   );
 }

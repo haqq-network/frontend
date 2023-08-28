@@ -1,5 +1,32 @@
-import { Container, Heading, Text } from '@haqq/islamic-ui-kit';
-import { PropsWithChildren, ReactNode } from 'react';
+'use client';
+import { Heading, Text } from '@haqq/islamic-ui-kit';
+import Image from 'next/image';
+import {
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import haqqLogoImgData from '../../assets/images/haqq-logo.webp';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import clsx from 'clsx';
+import { useInViewport } from 'react-in-viewport';
+
+const AnimatedNumbers = dynamic(
+  () => {
+    return import('react-animated-numbers');
+  },
+  { ssr: false },
+);
+
+export interface ChainStats {
+  mainnetAccountsCreated: number;
+  transactionsInLast24Hours: number;
+  secondsToConsensusFinality: number;
+  averageCostPerTransaction: number;
+}
 
 function IslamStar() {
   return (
@@ -84,7 +111,85 @@ function Reason({ icon, children }: PropsWithChildren<{ icon: ReactNode }>) {
   );
 }
 
-export function WhyBlock() {
+export function StatisticsBlockStatCard({
+  title,
+  value,
+  startAnimation,
+  prefix,
+  postfix,
+}: {
+  title: string;
+  value: number;
+  startAnimation: boolean;
+  prefix?: string;
+  postfix?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-y-[4px]">
+      <div
+        className={clsx(
+          'flex gap-x-[16px] font-mono text-[24px] leading-[34px]',
+        )}
+      >
+        {prefix && `${prefix} `}
+        {startAnimation ? (
+          <AnimatedNumbers
+            includeComma
+            animateToNumber={value}
+            locale="en-US"
+            configs={(_, index) => {
+              return {
+                mass: 1,
+                friction: 100,
+                tension: 140 * (index + 1),
+              };
+            }}
+          ></AnimatedNumbers>
+        ) : (
+          <span>0</span>
+        )}
+        {postfix && ` ${postfix}`}
+      </div>
+      <div className="text-[12px] leading-[16px]">{title}</div>
+    </div>
+  );
+}
+
+export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
+  const [startAnimation, setStartAnimation] = useState(true);
+  const blockRef = useRef<HTMLDivElement>(null);
+  const { inViewport } = useInViewport(
+    blockRef,
+    {},
+    { disconnectOnLeave: true },
+  );
+  const [stats, setStats] = useState<ChainStats | undefined>(undefined);
+
+  useEffect(() => {
+    async function getStats() {
+      setStats({
+        mainnetAccountsCreated: mainnetAccounts,
+        transactionsInLast24Hours: 10000,
+        secondsToConsensusFinality: 5.6,
+        averageCostPerTransaction: 147,
+      });
+    }
+
+    getStats();
+  }, [mainnetAccounts]);
+
+  useEffect(() => {
+    if (inViewport && !startAnimation) {
+      setStartAnimation(true);
+    }
+  }, [inViewport, startAnimation]);
+
+  if (stats === undefined) {
+    return null;
+  }
+
+  console.log({ stats });
+
   return (
     <div className="bg-islamic-primary-graphite flex transform-gpu flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
       <Heading>Why Islamic Coin?</Heading>
@@ -103,6 +208,75 @@ export function WhyBlock() {
         <Reason icon={<CrescentAndStar />}>
           Islamic Way to Financial Freedom
         </Reason>
+      </div>
+      <hr className="my-[40px] h-[1px] w-full border-[#2F2F2F]" />
+      <div className="flex items-center">
+        <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[24px] font-[700] leading-[34px] text-transparent">
+          We are part of{' '}
+        </span>
+        <Image
+          alt=""
+          src={haqqLogoImgData}
+          height={28}
+          width={118}
+          className="pointer-events-none ml-[11px] select-none"
+        />
+        <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover ml-[24px] flex cursor-pointer gap-x-[8px] transition-colors duration-300 ease-out">
+          <Link
+            href={'https://haqq.network/'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono uppercase"
+          >
+            Go to haqq
+          </Link>
+          <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M9.10769 10.6609C8.78225 10.9863 8.78225 11.514 9.10769 11.8394C9.43312 12.1649 9.96076 12.1649 10.2862 11.8394L17.1969 4.92868V7.50016C17.1969 7.9604 17.57 8.3335 18.0303 8.3335C18.4905 8.3335 18.8636 7.9604 18.8636 7.50016L18.8636 2.91698V2.91683C18.8636 2.80294 18.8408 2.69438 18.7994 2.5955C18.7604 2.50214 18.7037 2.41443 18.6293 2.33751L18.6286 2.33675C18.6226 2.33059 18.6165 2.32451 18.6104 2.31854L18.6101 2.31831C18.5331 2.24363 18.4452 2.18676 18.3516 2.1477C18.2527 2.10634 18.1442 2.0835 18.0303 2.0835L13.4469 2.0835C12.9867 2.0835 12.6136 2.45659 12.6136 2.91683C12.6136 3.37707 12.9867 3.75016 13.4469 3.75016L16.0184 3.75016L9.10769 10.6609ZM5.53027 2.50002C4.14956 2.50002 3.03027 3.61931 3.03027 5.00002V15.4167C3.03027 16.7974 4.14956 17.9167 5.53027 17.9167H15.9469C17.3277 17.9167 18.4469 16.7974 18.4469 15.4167V11.25C18.4469 10.7898 18.0738 10.4167 17.6136 10.4167C17.1534 10.4167 16.7803 10.7898 16.7803 11.25V15.4167C16.7803 15.8769 16.4072 16.25 15.9469 16.25H5.53027C5.07004 16.25 4.69694 15.8769 4.69694 15.4167V5.00002C4.69694 4.53979 5.07004 4.16669 5.53027 4.16669H9.69694C10.1572 4.16669 10.5303 3.79359 10.5303 3.33336C10.5303 2.87312 10.1572 2.50002 9.69694 2.50002H5.53027Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+      <Text size="small" className="mt-[12px] text-white/50">
+        HAQQ brings together the most reputable actors of Ethical finance in
+        order to promote community-driven decentralized technologies worldwide
+      </Text>
+      <div
+        ref={blockRef}
+        className="grid gap-[38px] lg:mt-[25px] lg:grid-cols-4"
+      >
+        <StatisticsBlockStatCard
+          value={stats.mainnetAccountsCreated}
+          title="mainnet accounts created"
+          startAnimation={startAnimation}
+        />
+        <StatisticsBlockStatCard
+          value={stats.transactionsInLast24Hours}
+          title="transactions in the last 24 hours"
+          startAnimation={startAnimation}
+          prefix="~"
+        />
+        <StatisticsBlockStatCard
+          value={stats.secondsToConsensusFinality}
+          title="seconds to consensus finality"
+          startAnimation={startAnimation}
+          prefix="~"
+        />
+        <StatisticsBlockStatCard
+          value={stats.averageCostPerTransaction}
+          title="average cost per transaction"
+          startAnimation={startAnimation}
+          postfix="AISLM"
+        />
       </div>
     </div>
   );

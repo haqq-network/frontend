@@ -18,13 +18,15 @@ const RUNNING_TEXT =
 export function IndexPage({
   news,
   advisoryMembers,
+  mainnetAccounts,
 }: {
   news: NewsPost[];
   advisoryMembers: Member[];
+  mainnetAccounts: number;
 }) {
   return (
     <Fragment>
-      <Hero />
+      <Hero mainnetAccounts={mainnetAccounts} />
       <FinanceBlock />
       <NewsBlock news={news} />
       <AdvisoryBoardBlock members={advisoryMembers} />
@@ -35,7 +37,7 @@ export function IndexPage({
   );
 }
 
-function Hero() {
+function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
@@ -45,7 +47,7 @@ function Hero() {
           {RUNNING_TEXT.toLocaleUpperCase()}
         </Marquee>
 
-        <WhyBlock />
+        <WhyBlock mainnetAccounts={mainnetAccounts} />
 
         <div
           className={clsx(
