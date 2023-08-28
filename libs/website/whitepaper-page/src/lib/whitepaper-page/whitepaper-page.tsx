@@ -5,12 +5,14 @@ import { Button, MarkdownText, PageTitle } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
-  console.log({ whitepaper });
-
   return (
     <Fragment>
       <Head>
         <title>HAQQ | Whitepaper</title>
+        <meta
+          name="description"
+          content="The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin."
+        />
       </Head>
 
       <section>
