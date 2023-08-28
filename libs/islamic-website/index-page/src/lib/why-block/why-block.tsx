@@ -128,10 +128,10 @@ export function StatisticsBlockStatCard({
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'flex gap-x-[4px] font-mono text-[24px] leading-[34px]',
+          'flex gap-x-[6px] font-mono text-[24px] leading-[34px]',
         )}
       >
-        {prefix && `${prefix} `}
+        {prefix && prefix}
         {startAnimation ? (
           <AnimatedNumbers
             includeComma
@@ -146,7 +146,7 @@ export function StatisticsBlockStatCard({
         ) : (
           <span>0</span>
         )}
-        {postfix && ` ${postfix}`}
+        {postfix && postfix}
       </div>
       <div className="text-[12px] leading-[16px]">{title}</div>
     </div>
@@ -206,18 +206,20 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
         </Reason>
       </div>
       <hr className="my-[40px] h-[1px] w-full border-[#2F2F2F]" />
-      <div className="flex items-center">
-        <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[24px] font-[700] leading-[34px] text-transparent">
-          We are part of{' '}
-        </span>
-        <Image
-          alt=""
-          src={haqqLogoImgData}
-          height={28}
-          width={118}
-          className="pointer-events-none ml-[11px] select-none"
-        />
-        <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover ml-[24px] flex cursor-pointer gap-x-[8px] transition-colors duration-300 ease-out">
+      <div className="flex flex-col items-center">
+        <div className="flex items-center">
+          <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[24px] font-[700] leading-[34px] text-transparent">
+            We are part of{' '}
+          </span>
+          <Image
+            alt=""
+            src={haqqLogoImgData}
+            height={28}
+            width={118}
+            className="pointer-events-none ml-[11px] select-none"
+          />
+        </div>
+        <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover ml-[24px] flex cursor-pointer items-center gap-x-[8px] transition-colors duration-300 ease-out">
           <Link
             href={'https://haqq.network/'}
             target="_blank"
