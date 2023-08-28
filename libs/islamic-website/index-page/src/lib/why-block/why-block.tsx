@@ -128,7 +128,7 @@ export function StatisticsBlockStatCard({
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'flex gap-x-[16px] font-mono text-[24px] leading-[34px]',
+          'flex gap-x-[4px] font-mono text-[24px] leading-[34px]',
         )}
       >
         {prefix && `${prefix} `}
