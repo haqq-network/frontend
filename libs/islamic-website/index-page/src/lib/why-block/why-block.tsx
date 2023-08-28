@@ -137,14 +137,12 @@ export function StatisticsBlockStatCard({
             includeComma
             animateToNumber={value}
             locale="en-US"
-            configs={(_, index) => {
-              return {
-                mass: 1,
-                friction: 100,
-                tension: 140 * (index + 1),
-              };
-            }}
-          ></AnimatedNumbers>
+            configs={[
+              { mass: 1, tension: 130, friction: 40 },
+              { mass: 2, tension: 140, friction: 40 },
+              { mass: 3, tension: 130, friction: 40 },
+            ]}
+          />
         ) : (
           <span>0</span>
         )}
@@ -187,8 +185,6 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
   if (stats === undefined) {
     return null;
   }
-
-  console.log({ stats });
 
   return (
     <div className="bg-islamic-primary-graphite flex transform-gpu flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
