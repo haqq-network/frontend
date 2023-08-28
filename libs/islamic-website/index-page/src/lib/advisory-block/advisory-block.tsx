@@ -84,7 +84,7 @@ export function AdvisoryBoardBlock({
             Executive
           </FilterButton>
         </div>
-        <div className="grid grid-cols-2 gap-[32px] lg:mt-[36px]">
+        <div className="mt-[12px] grid grid-cols-1 gap-[32px] md:mt-[24px] lg:mt-[36px] xl:grid-cols-2">
           {members?.map((member) => {
             return (
               <div
@@ -97,6 +97,7 @@ export function AdvisoryBoardBlock({
                   description={member.description}
                   image={member.image}
                   title={member.title}
+                  url={member.url}
                 />
               </div>
             );
