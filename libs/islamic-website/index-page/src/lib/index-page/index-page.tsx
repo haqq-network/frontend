@@ -26,10 +26,10 @@ export function IndexPage({
     <Fragment>
       <Hero />
       <FinanceBlock />
+      <NewsBlock news={news} />
       <AdvisoryBoardBlock members={advisoryMembers} />
       <PortfolioBlock />
       <LearnAndGrowBlock />
-      <NewsBlock news={news} />
       <JoinCommunityBlock />
     </Fragment>
   );
