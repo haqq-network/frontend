@@ -20,7 +20,8 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const news = await getNewsPageContent();
-  const { advisoryMembers } = await getMembersContent();
+  const { advisoryMembers, executiveMembers, shariahMembers } =
+    await getMembersContent();
   const mainnetAccounts = await getMainnetAccounts(3476);
 
   return (
@@ -28,6 +29,8 @@ export default async function Page() {
       mainnetAccounts={mainnetAccounts}
       news={news.slice(0, 3)}
       advisoryMembers={advisoryMembers}
+      executiveMembers={executiveMembers}
+      shariahMembers={shariahMembers}
     />
   );
 }

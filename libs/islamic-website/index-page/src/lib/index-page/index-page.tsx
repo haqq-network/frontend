@@ -18,10 +18,14 @@ const RUNNING_TEXT =
 export function IndexPage({
   news,
   advisoryMembers,
+  shariahMembers,
+  executiveMembers,
   mainnetAccounts,
 }: {
   news: NewsPost[];
   advisoryMembers: Member[];
+  shariahMembers: Member[];
+  executiveMembers: Member[];
   mainnetAccounts: number;
 }) {
   return (
@@ -29,7 +33,11 @@ export function IndexPage({
       <Hero mainnetAccounts={mainnetAccounts} />
       <FinanceBlock />
       <NewsBlock news={news} />
-      <AdvisoryBoardBlock members={advisoryMembers} />
+      <AdvisoryBoardBlock
+        executiveMembers={executiveMembers}
+        shariahMembers={shariahMembers}
+        advisoryMembers={advisoryMembers}
+      />
       <PortfolioBlock />
       <LearnAndGrowBlock />
       <JoinCommunityBlock />
