@@ -53,9 +53,9 @@ export function AdvisoryBoardBlock({
     <div className="mt-[110px] lg:mt-[140px]">
       <Container className="relative text-white">
         <div className="text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
-          {activeMembersType === 'advisory' && 'Advisory'}
-          {activeMembersType === 'executive' && 'Executive'}
-          {activeMembersType === 'shariah' && 'Shariah'}
+          {activeMembersType === 'advisory' && 'Advisory '}
+          {activeMembersType === 'executive' && 'Executive '}
+          {activeMembersType === 'shariah' && 'Shariah '}
           <GradientText>Board</GradientText>
         </div>
         <div className="mt-[28px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[42px]">
