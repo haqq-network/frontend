@@ -39,7 +39,7 @@ function BurgerMenuDropdownLink({
   return (
     <Link
       href={href}
-      className="hover:text-islamic-primary-green w-fit cursor-pointer py-[12px] text-base font-[500] text-white transition-colors duration-200"
+      className="hover:text-islamic-primary-green w-fit py-[12px] text-base font-[500] text-white transition-colors duration-200"
       onClick={onClick}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
@@ -66,7 +66,7 @@ export function BurgerMenu({
       <div className="flex flex-col gap-y-[12px]">
         <Link
           href="/shariah"
-          className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-200"
+          className="hover:text-islamic-primary-green z-50 py-[12px] text-base uppercase text-white transition-colors duration-200"
           onClick={onClick}
         >
           Shariah
@@ -120,7 +120,7 @@ export function BurgerMenu({
         </MobileMenuDropdownLink>
         <Link
           href="/wallet"
-          className="hover:text-islamic-primary-green z-50 cursor-pointer py-[12px] text-base uppercase text-white transition-colors duration-200"
+          className="hover:text-islamic-primary-green z-50 py-[12px] text-base uppercase text-white transition-colors duration-200"
           onClick={onClick}
         >
           Wallet
@@ -189,7 +189,7 @@ function MobileMenuDropdownLink({
     <Fragment>
       <div
         onClick={toggleSelector}
-        className="hover:text-islamic-primary-green z-50 flex cursor-pointer items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-200"
+        className="hover:text-islamic-primary-green z-50 flex items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-200"
       >
         <div>{title}</div>
 
