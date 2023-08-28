@@ -170,6 +170,7 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
               return (
                 <RoadmapCard
                   period={period}
+                  key={`${period.title}-${idx}`}
                   isLast={idx === roadmap.length - 1}
                 />
               );
