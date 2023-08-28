@@ -29,7 +29,6 @@ export function NewMemberCard({
       onClick={onClick}
     >
       <div className="flex flex-row items-center gap-x-[20px]">
-        {/* img */}
         <div className="relative h-[180px] w-[160px] overflow-hidden rounded-[20px] md:w-[200px]">
           <Image
             src={image}
@@ -38,8 +37,7 @@ export function NewMemberCard({
             className="pointer-events-none h-full w-full select-none object-cover"
           />
         </div>
-        {/* title */}
-        <div className="flex flex-col justify-between gap-[8px] md:gap-[12px] lg:max-w-[60%]">
+        <div className="flex max-w-[40%] flex-col justify-between gap-[8px] md:gap-[12px]">
           <span className="text-[13px] font-[700] leading-[20px] md:text-[14px] lg:text-[24px] lg:leading-[34px]">
             {title}
           </span>
