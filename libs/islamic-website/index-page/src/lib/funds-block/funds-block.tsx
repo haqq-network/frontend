@@ -8,19 +8,19 @@ import Link from 'next/link';
 export function FundsBlock() {
   return (
     <Container>
-      <div className="relative mt-[86px] flex items-center justify-between border-y-[1px] border-dashed border-[#2F2F2F] py-[80px] lg:mt-[140px]">
+      <div className="relative mt-[86px] flex items-center justify-between border-y-[1px] border-dashed border-[#2F2F2F] py-[80px] md:mt-[110px] lg:mt-[140px]">
         <div className="absolute left-0 top-[-2px] z-30 h-[102%] w-[40px] bg-gradient-to-l from-transparent to-[#010304] md:w-[120px]" />
         <div className="flex flex-1 flex-col items-center gap-y-[32px]">
           <Heading>
             These funds <GradientText>trust us</GradientText>
           </Heading>
-          <div className="flex items-center gap-x-[20px] lg:gap-x-[40px]">
+          <div className="flex items-center gap-x-[20px] md:gap-x-[40px]">
             <Link
               href={'https://df101.xyz/'}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="relative h-[40px] w-[110px] opacity-60 transition-opacity duration-300 hover:opacity-100 lg:h-[80px] lg:w-[220px]">
+              <div className="relative h-[40px] w-[110px] opacity-60 transition-opacity duration-300 hover:opacity-100 md:h-[80px] md:w-[220px]">
                 <Image src={df101LogoImgData} alt="" fill />
               </div>
             </Link>
@@ -30,7 +30,7 @@ export function FundsBlock() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="relative h-[40px] w-[89px] opacity-60 transition-opacity duration-300 hover:opacity-100 lg:h-[80px] lg:w-[178px]">
+              <div className="relative h-[40px] w-[89px] opacity-60 transition-opacity duration-300 hover:opacity-100 md:h-[80px] md:w-[178px]">
                 <Image src={a195LogoImgData.src} alt="" fill />
               </div>
             </Link>
@@ -40,7 +40,7 @@ export function FundsBlock() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="relative h-[40px] w-[50px] opacity-60 transition-opacity duration-300 hover:opacity-100 lg:h-[80px] lg:w-[100px]">
+              <div className="relative h-[40px] w-[50px] opacity-60 transition-opacity duration-300 hover:opacity-100 md:h-[80px] md:w-[100px]">
                 <Image src={opticCapitalLogoImgData.src} alt="" fill />
               </div>
             </Link>
