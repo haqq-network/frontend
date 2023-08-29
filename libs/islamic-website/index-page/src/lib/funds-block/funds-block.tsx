@@ -14,7 +14,7 @@ export function FundsBlock() {
           <Heading>
             These funds <GradientText>trust us</GradientText>
           </Heading>
-          <div className="flex flex-col items-center gap-[40px] md:flex-row">
+          <div className="flex flex-col items-center gap-[40px] md:flex-row md:gap-[80px]">
             <Link
               href={'https://df101.xyz/'}
               target="_blank"
