@@ -18,6 +18,7 @@ export * from './hooks/use-query-invalidate/use-query-invalidate';
 export * from './hooks/use-auth-queries/use-auth-queries';
 export * from './hooks/use-distribution-queries/use-distribution-queries';
 export * from './hooks/use-bank-queries/use-bank-queries';
+export * from './hooks/use-qr-registration-actions/use-qr-registration-actions';
 export * from './utils/convert-address';
 export * from './utils/get-formatted-address';
 export * from './utils/is-number';
