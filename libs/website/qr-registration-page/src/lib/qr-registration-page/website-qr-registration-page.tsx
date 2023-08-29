@@ -17,6 +17,7 @@ export function QrRegistrationPage() {
           <Head>
             <title>HAQQ | QR Registration</title>
           </Head>
+
           <ApplyBlock />
         </Fragment>
       </AppWrapper>

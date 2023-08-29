@@ -1,6 +1,6 @@
-import { Button, Heading, Text } from '@haqq/website-ui-kit';
-import Link from 'next/link';
+import { Text } from '@haqq/website-ui-kit';
 import bgImgData from '../../assets/lines.svg';
+import { СonnectButtons } from '../connect-buttons/connect-buttons';
 
 export function ApplyBlock() {
   return (
@@ -11,21 +11,11 @@ export function ApplyBlock() {
         backgroundImage: `url(${bgImgData.src})`,
       }}
     >
-      <Text className="text-haqq-gold">Grants and Investment Program</Text>
-      <Heading className="mt-[8px]">
-        Apply now for the HAQQ Ecosystem Fund, and let's{' '}
-        <br className="absolute top-0 hidden lg:block" />
-        make a difference together!
-      </Heading>
-      <Link
-        href={'https://forms.gle/cf38bWNKRSEGV2b48'}
-        target="_blank"
-        rel={'noopener noreferrer'}
-      >
-        <div className="mt-[24px]">
-          <Button variant={2}>Apply now</Button>
-        </div>
-      </Link>
+      <div className="flex flex-row items-center gap-[24px]">
+        <Text className="text-haqq-gold">QR-code registration</Text>
+
+        <СonnectButtons />
+      </div>
     </section>
   );
 }
