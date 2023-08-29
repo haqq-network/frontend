@@ -73,7 +73,11 @@ export function Button({
   );
 
   return (
-    <button onClick={onClick} className={clsx(classNames, className)}>
+    <button
+      onClick={onClick}
+      className={clsx(classNames, className)}
+      disabled={disabled}
+    >
       {!isLoading && <div>{children}</div>}
       {isLoading && (
         <svg
