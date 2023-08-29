@@ -11,6 +11,7 @@ import { Container, Member, NewsPost } from '@haqq/islamic-ui-kit';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
 import clsx from 'clsx';
+import { FundsBlock } from '../funds-block/funds-block';
 
 const RUNNING_TEXT =
   "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
@@ -31,6 +32,7 @@ export function IndexPage({
   return (
     <Fragment>
       <Hero mainnetAccounts={mainnetAccounts} />
+      <FundsBlock />
       <FinanceBlock />
       <NewsBlock news={news} />
       <AdvisoryBoardBlock
