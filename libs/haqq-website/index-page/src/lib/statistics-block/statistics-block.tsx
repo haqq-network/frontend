@@ -1,15 +1,8 @@
-import dynamic from 'next/dynamic';
 import { useInViewport } from 'react-in-viewport';
 import { useEffect, useRef, useState } from 'react';
 import styles from './statistics-block.module.css';
 import clsx from 'clsx';
-
-const AnimatedNumbers = dynamic(
-  () => {
-    return import('react-animated-numbers');
-  },
-  { ssr: false },
-);
+import { MemoizedAnimatedNumbers } from '@haqq/haqq-website-ui-kit';
 
 export interface ChainStats {
   mainnetAccountsCreated: number;
@@ -45,7 +38,7 @@ export function StatisticsBlockStatCard({
       >
         {prefix && `${prefix} `}
         {startAnimation ? (
-          <AnimatedNumbers
+          <MemoizedAnimatedNumbers
             includeComma
             animateToNumber={value}
             locale="en-US"
