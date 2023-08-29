@@ -236,7 +236,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
         </Text>
         <div
           ref={blockRef}
-          className="mt-[16px] grid gap-[38px] md:mt-[20px] lg:mt-[24px] lg:grid-cols-4"
+          className="mt-[16px] grid w-full gap-[38px] sm:grid-cols-2 md:mt-[20px] lg:mt-[24px] lg:grid-cols-4"
         >
           <StatisticsBlockStatCard
             value={stats.mainnetAccountsCreated}
