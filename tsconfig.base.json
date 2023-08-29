@@ -90,6 +90,9 @@
       "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],
       "@haqq/website-ui-kit": ["libs/website/ui-kit/src/index.ts"],
       "@haqq/website/blog-page": ["libs/website/blog-page/src/index.ts"],
+      "@haqq/website/qr-registration-page": [
+        "libs/website/qr-registration-page/src/index.ts"
+      ],
       "@haqq/website/brand-assets-page": [
         "libs/website/brand-assets-page/src/index.ts"
       ],
