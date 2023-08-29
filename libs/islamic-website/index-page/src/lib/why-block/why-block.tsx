@@ -5,6 +5,7 @@ import {
   PropsWithChildren,
   ReactNode,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -134,7 +135,7 @@ export function StatisticsBlockStatCard({
         {prefix && prefix}
         {startAnimation ? (
           <AnimatedNumbers
-            includeComma
+            // includeComma
             animateToNumber={value}
             locale="en-US"
             configs={[
@@ -161,19 +162,13 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
     {},
     { disconnectOnLeave: true },
   );
-  const [stats, setStats] = useState<ChainStats | undefined>(undefined);
-
-  useEffect(() => {
-    async function getStats() {
-      setStats({
-        mainnetAccountsCreated: mainnetAccounts,
-        transactionsInLast24Hours: 10000,
-        secondsToConsensusFinality: 5.6,
-        averageCostPerTransaction: 147,
-      });
-    }
-
-    getStats();
+  const stats = useMemo<ChainStats>(() => {
+    return {
+      mainnetAccountsCreated: mainnetAccounts,
+      transactionsInLast24Hours: 10000,
+      secondsToConsensusFinality: 5.6,
+      averageCostPerTransaction: 147,
+    };
   }, [mainnetAccounts]);
 
   useEffect(() => {
