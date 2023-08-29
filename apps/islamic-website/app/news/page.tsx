@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { NewsPage } from '@haqq/islamic-website/news-page';
 import { getNewsPageContent } from '../../utils/get-news-data';
+import { HCAPTCHA_SITEKEY } from '../../constants';
 
 const title = 'IslamicCoin | News';
 const description =
@@ -19,5 +20,5 @@ export const metadata: Metadata = {
 export default async function Page() {
   const news = await getNewsPageContent();
 
-  return <NewsPage news={news} />;
+  return <NewsPage news={news} hCaptchaSiteKey={HCAPTCHA_SITEKEY} />;
 }

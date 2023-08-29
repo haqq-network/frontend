@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -8,9 +8,10 @@ import {
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button } from '@haqq/islamic-ui-kit';
+import { Button, Modal } from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
 import axios from 'axios';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -22,7 +23,7 @@ const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .required();
 
 async function submitForm(
-  form: SubscribeFormFields,
+  form: SubscribeFormFields & { token: string },
 ): Promise<{ status: number }> {
   return await axios.post('/api/subscribe', form);
 }
@@ -31,46 +32,83 @@ export function SubscribeForm({
   className,
   inputClassName,
   wrapperClassName,
+  hCaptchaSiteKey,
 }: {
   className?: string;
   inputClassName?: string;
   wrapperClassName?: string;
+  hCaptchaSiteKey: string;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
   );
-
-  const { register, handleSubmit, formState } = useForm<SubscribeFormFields>({
+  const [formData, setFormData] = useState<SubscribeFormFields | undefined>(
+    undefined,
+  );
+  const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
+  const {
+    register,
+    handleSubmit: hookFormSubmit,
+    formState,
+  } = useForm<SubscribeFormFields>({
     resolver: yupResolver(schema),
   });
+  const [token, setToken] = useState<string | null>(null);
 
-  const onSubmit = useCallback(async (data: SubscribeFormFields) => {
-    try {
-      setSubscribeFormState(FormState.pending);
-      const response = await submitForm(data);
+  const handleSubmitContinue = useCallback(
+    async (token: string) => {
+      if (formData) {
+        try {
+          const response = await submitForm({ ...formData, token });
 
-      if (response.status === 200) {
-        setSubscribeFormState(FormState.success);
-      } else {
-        setSubscribeFormState(FormState.error);
+          if (response.status === 200) {
+            setSubscribeFormState(FormState.success);
+            return;
+          } else {
+            setSubscribeFormState(FormState.error);
+            return;
+          }
+        } catch (error) {
+          console.error(error);
+          setSubscribeFormState(FormState.error);
+          return;
+        }
       }
-    } catch (error) {
-      console.error(error);
+    },
+    [formData],
+  );
+
+  useEffect(() => {
+    setCaptchaModalOpen(false);
+    if (token) {
+      handleSubmitContinue(token);
+    } else {
       setSubscribeFormState(FormState.error);
     }
+  }, [handleSubmitContinue, token]);
+
+  const handleFormSubmit = useCallback((data: SubscribeFormFields) => {
+    setSubscribeFormState(FormState.pending);
+    setCaptchaModalOpen(true);
+    setFormData(data);
+  }, []);
+
+  const handleModalClose = useCallback(() => {
+    setCaptchaModalOpen(false);
   }, []);
 
   const isFormDisabled = useMemo(() => {
     return (
+      isCaptchaModalOpen ||
       subscribeFormState === FormState.pending ||
       subscribeFormState === FormState.success
     );
-  }, [subscribeFormState]);
+  }, [isCaptchaModalOpen, subscribeFormState]);
 
   return (
     <div>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={hookFormSubmit(handleFormSubmit)}
         noValidate
         className={clsx(className)}
         autoComplete="off"
@@ -95,6 +133,10 @@ export function SubscribeForm({
           Subscribe
         </Button>
       </form>
+
+      <Modal onClose={handleModalClose} isOpen={isCaptchaModalOpen}>
+        <HCaptcha sitekey={hCaptchaSiteKey} onVerify={setToken} />
+      </Modal>
     </div>
   );
 }
