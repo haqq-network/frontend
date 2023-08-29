@@ -1,5 +1,5 @@
 'use client';
-import { Heading, Text } from '@haqq/islamic-ui-kit';
+import { MemoizedAnimatedNumbers, Heading, Text } from '@haqq/islamic-ui-kit';
 import Image from 'next/image';
 import {
   PropsWithChildren,
@@ -13,7 +13,6 @@ import haqqLogoImgData from '../../assets/images/haqq-logo.webp';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { useInViewport } from 'react-in-viewport';
-import AnimatedNumbers from 'react-animated-numbers';
 
 export interface ChainStats {
   mainnetAccountsCreated: number;
@@ -122,13 +121,13 @@ export function StatisticsBlockStatCard({
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'pointer-events-none flex select-none gap-x-[6px] font-mono text-[24px] leading-[34px]',
+          'pointer-events-none flex h-[34px] select-none gap-x-[6px] font-mono text-[24px] leading-[34px]',
         )}
       >
-        {prefix && prefix}
+        {prefix}
         {startAnimation ? (
-          <AnimatedNumbers
-            // includeComma
+          <MemoizedAnimatedNumbers
+            separator={' '}
             animateToNumber={value}
             locale="en-US"
             configs={[
@@ -140,9 +139,9 @@ export function StatisticsBlockStatCard({
         ) : (
           <span>0</span>
         )}
-        {postfix && postfix}
+        {postfix}
       </div>
-      <div className="text-[12px] leading-[16px]">{title}</div>
+      <div className="text-[12px] lowercase leading-[16px]">{title}</div>
     </div>
   );
 }
@@ -241,26 +240,26 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
         >
           <StatisticsBlockStatCard
             value={stats.mainnetAccountsCreated}
-            title="mainnet accounts created"
+            title="Mainnet accounts created"
             startAnimation={startAnimation}
           />
           <StatisticsBlockStatCard
             value={stats.transactionsInLast24Hours}
-            title="transactions in the last 24 hours"
+            title="Transactions in the last 24 hours"
             startAnimation={startAnimation}
             prefix="~"
           />
           <StatisticsBlockStatCard
             value={stats.secondsToConsensusFinality}
-            title="seconds to consensus finality"
+            title="Seconds to consensus finality"
             startAnimation={startAnimation}
             prefix="~"
           />
           <StatisticsBlockStatCard
             value={stats.averageCostPerTransaction}
-            title="average cost per transaction"
+            title="Average cost per transaction"
             startAnimation={startAnimation}
-            postfix="AISLM"
+            postfix="aISLM"
           />
         </div>
       </div>
