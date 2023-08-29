@@ -14,13 +14,13 @@ export function FundsBlock() {
           <Heading>
             These funds <GradientText>trust us</GradientText>
           </Heading>
-          <div className="flex items-center gap-x-[20px] md:gap-x-[40px]">
+          <div className="flex flex-col items-center gap-[40px] md:flex-row">
             <Link
               href={'https://df101.xyz/'}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="relative h-[40px] w-[110px] opacity-60 transition-opacity duration-300 hover:opacity-100 md:h-[80px] md:w-[220px]">
+              <div className="relative h-[80px] w-[220px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={df101LogoImgData} alt="" fill />
               </div>
             </Link>
@@ -30,7 +30,7 @@ export function FundsBlock() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="relative h-[40px] w-[89px] opacity-60 transition-opacity duration-300 hover:opacity-100 md:h-[80px] md:w-[178px]">
+              <div className="relative h-[80px] w-[178px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={a195LogoImgData.src} alt="" fill />
               </div>
             </Link>
@@ -40,7 +40,7 @@ export function FundsBlock() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="relative h-[40px] w-[50px] opacity-60 transition-opacity duration-300 hover:opacity-100 md:h-[80px] md:w-[100px]">
+              <div className="relative h-[80px] w-[100px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={opticCapitalLogoImgData.src} alt="" fill />
               </div>
             </Link>
