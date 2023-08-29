@@ -1,4 +1,4 @@
-import { Button, Container, Heading, Text } from '@haqq/islamic-ui-kit';
+import { Button, Container, Heading, Text } from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
 
 export function LearnAndGrowBlock() {

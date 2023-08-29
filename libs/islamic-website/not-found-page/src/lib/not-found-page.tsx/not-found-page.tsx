@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import notFoundBgImgData from '../../assets/images/not-found-bg.webp';
 import Image from 'next/image';
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 
 export function NotFound() {
   return (

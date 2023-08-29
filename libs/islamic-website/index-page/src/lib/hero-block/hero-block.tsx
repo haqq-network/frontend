@@ -1,4 +1,4 @@
-import { Button, GradientText, Text } from '@haqq/islamic-ui-kit';
+import { Button, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 
 export function HeroBlock() {
   return (

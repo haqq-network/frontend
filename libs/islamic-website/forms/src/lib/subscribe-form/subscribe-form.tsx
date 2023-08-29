@@ -8,7 +8,7 @@ import {
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button } from '@haqq/islamic-ui-kit';
+import { Button } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import axios from 'axios';
 

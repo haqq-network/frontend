@@ -4,7 +4,7 @@ import {
   Text,
   WalletDownloadButton,
   RatingBadge,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import iphoneImgData from '../../assets/images/iphone.png';
 import halfIphoneImgData from '../../assets/images/half-iphone.png';
 import Image from 'next/image';

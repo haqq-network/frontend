@@ -1,4 +1,4 @@
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
 import partnershipCubeImgData from '../../assets/images/partnership-cube.webp';
@@ -869,7 +869,7 @@ export function PartnershipPage() {
               width={620}
               height={600}
               alt=""
-              className="md:left-[60%] pointer-events-none select-none md:absolute md:top-1/2 md:translate-x-[-50%] md:translate-y-[-58%] lg:left-1/2 lg:top-1/2"
+              className="pointer-events-none select-none md:absolute md:left-[60%] md:top-1/2 md:translate-x-[-50%] md:translate-y-[-58%] lg:left-1/2 lg:top-1/2"
             />
           </div>
           <div className="order-1 lg:w-1/2">

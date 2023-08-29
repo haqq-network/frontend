@@ -1,4 +1,4 @@
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { PropsWithChildren } from 'react';
 import fraudCubesImgData from '../../assets/images/fraud-cubes.webp';
 import Image from 'next/image';

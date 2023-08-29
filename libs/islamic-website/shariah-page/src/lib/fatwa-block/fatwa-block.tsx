@@ -1,5 +1,5 @@
 'use client';
-import { DownloadPDFButton, Text } from '@haqq/islamic-ui-kit';
+import { DownloadPDFButton, Text } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import fatwaSign1 from '../../assets/images/autographs/autograph-al-enezy.webp';
