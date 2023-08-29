@@ -83,7 +83,7 @@ function HeaderDropdown({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="hover:text-islamic-primary-green group-hover:text-islamic-primary-green flex items-center gap-x-[4px] p-[16px] text-white transition-colors duration-200">
+      <div className="hover:text-islamic-primary-green group-hover:text-islamic-primary-green flex cursor-default items-center gap-x-[4px] p-[16px] text-white transition-colors duration-200">
         <span className="text-[14px] uppercase leading-[20px]">{title}</span>
         <svg
           width="24"

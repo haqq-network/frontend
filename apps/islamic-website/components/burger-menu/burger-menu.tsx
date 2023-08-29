@@ -189,7 +189,7 @@ function MobileMenuDropdownLink({
     <Fragment>
       <div
         onClick={toggleSelector}
-        className="hover:text-islamic-primary-green z-50 flex items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-200"
+        className="hover:text-islamic-primary-green z-50 flex cursor-default items-center justify-between py-[12px] text-base uppercase text-white transition-colors duration-200"
       >
         <div>{title}</div>
 
