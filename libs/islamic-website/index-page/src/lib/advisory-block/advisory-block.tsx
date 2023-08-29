@@ -74,7 +74,7 @@ export function AdvisoryBoardBlock({
             }}
           >
             Shariah
-          </FilterButton>{' '}
+          </FilterButton>
           <FilterButton
             active={activeMembersType === 'executive'}
             onClick={() => {
