@@ -201,7 +201,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
         </Reason>
       </div>
       <hr className="my-[40px] h-[1px] w-full border-[#2F2F2F]" />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center md:flex-row">
         <div className="flex items-center">
           <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[24px] font-[700] leading-[34px] text-transparent">
             We are part of{' '}
