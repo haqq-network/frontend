@@ -1898,6 +1898,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.17.9":
+  version: 7.22.11
+  resolution: "@babel/runtime@npm:7.22.11"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: a5cd6683a8fcdb8065cb1677f221e22f6c67ec8f15ad1d273b180b93ab3bd86c66da2c48f500d4e72d8d2cfa85ff4872a3f350e5aa3855630036af5da765c001
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.20.7, @babel/template@npm:^7.22.5, @babel/template@npm:^7.3.3":
   version: 7.22.5
   resolution: "@babel/template@npm:7.22.5"
@@ -3328,6 +3337,7 @@ __metadata:
     "@evmos/proto": 0.1.27
     "@evmos/provider": 0.2.8
     "@evmos/transactions": 0.2.13
+    "@hcaptcha/react-hcaptcha": 1.8.1
     "@headlessui/react": 1.7.15
     "@hookform/resolvers": 3.1.1
     "@mdx-js/loader": 2.3.0
@@ -3463,6 +3473,18 @@ __metadata:
     yup: 1.2.0
   languageName: unknown
   linkType: soft
+
+"@hcaptcha/react-hcaptcha@npm:1.8.1":
+  version: 1.8.1
+  resolution: "@hcaptcha/react-hcaptcha@npm:1.8.1"
+  dependencies:
+    "@babel/runtime": ^7.17.9
+  peerDependencies:
+    react: ">= 16.3.0"
+    react-dom: ">= 16.3.0"
+  checksum: 01fcfe91bce52e1f45c7ddb4a9a6b885765eee0b8241e838c5637fc764cab4cf30f562b120a9a1e88fec27d17f155d3ae172a9769081d0e6c0eb9f7c1f00ae3a
+  languageName: node
+  linkType: hard
 
 "@headlessui/react@npm:1.7.15":
   version: 1.7.15
@@ -23310,6 +23332,13 @@ __metadata:
   version: 0.13.11
   resolution: "regenerator-runtime@npm:0.13.11"
   checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "regenerator-runtime@npm:0.14.0"
+  checksum: 1c977ad82a82a4412e4f639d65d22be376d3ebdd30da2c003eeafdaaacd03fc00c2320f18120007ee700900979284fc78a9f00da7fb593f6e6eeebc673fba9a3
   languageName: node
   linkType: hard
 
