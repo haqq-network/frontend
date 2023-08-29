@@ -177,10 +177,6 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
     }
   }, [inViewport, startAnimation]);
 
-  if (stats === undefined) {
-    return null;
-  }
-
   return (
     <div className="bg-islamic-primary-graphite flex transform-gpu flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
       <Heading>Why Islamic Coin?</Heading>
