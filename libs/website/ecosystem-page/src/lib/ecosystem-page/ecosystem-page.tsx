@@ -9,6 +9,10 @@ export function EcosystemPage({ partners }: { partners: Partner[] }) {
     <Fragment>
       <Head>
         <title>HAQQ | Ecosystem</title>
+        <meta
+          property="og:image"
+          content={'/assets/images/opengraph-image.png'}
+        />
       </Head>
       <TitleBlock />
       <ApplyBlock />

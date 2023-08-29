@@ -52,10 +52,14 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
     };
   }, [post.date, post.image]);
 
+  console.log(post.description);
+
   return (
     <Fragment>
       <Head>
         <title>HAQQ | Blog | {post.title}</title>
+        <meta property="og:image" content={post.image?.src} />
+        <meta property="og:description" content={post.description} />
       </Head>
 
       <div

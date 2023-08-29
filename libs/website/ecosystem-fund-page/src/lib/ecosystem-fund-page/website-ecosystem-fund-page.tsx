@@ -9,6 +9,10 @@ export function EcosystemFundPage() {
     <Fragment>
       <Head>
         <title>HAQQ | Ecosystem fund</title>
+        <meta
+          property="og:image"
+          content={'/assets/images/opengraph-image.png'}
+        />
       </Head>
       <TitleBlock />
       <TextBlock />

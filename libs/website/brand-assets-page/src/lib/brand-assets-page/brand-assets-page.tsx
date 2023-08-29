@@ -11,6 +11,10 @@ export function BrandAssetsPage() {
     <Fragment>
       <Head>
         <title>HAQQ | Brand assets</title>
+        <meta
+          property="og:image"
+          content={'/assets/images/opengraph-image.png'}
+        />
       </Head>
       <TitleBlock />
       <HaqqAssetsBlock />

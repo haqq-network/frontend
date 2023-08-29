@@ -17,6 +17,10 @@ export function WebsiteIndexPage() {
           name="description"
           content="Ethics-first network that welcomes sustainability-centered developers, validators and open source contributors as well as Muslim innovators in sustainable Finance"
         />
+        <meta
+          property="og:image"
+          content={'/assets/images/opengraph-image.png'}
+        />
       </Head>
       <section>
         <HeroBlock />

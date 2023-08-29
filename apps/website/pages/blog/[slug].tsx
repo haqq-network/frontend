@@ -84,6 +84,7 @@ export const getStaticProps: GetStaticProps<{
           content: post.content,
           image,
           tags: post.tags,
+          description: post.description,
         },
         recentPosts: [],
       },
