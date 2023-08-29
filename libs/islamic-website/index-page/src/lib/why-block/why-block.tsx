@@ -11,16 +11,9 @@ import {
 } from 'react';
 import haqqLogoImgData from '../../assets/images/haqq-logo.webp';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import { useInViewport } from 'react-in-viewport';
-
-const AnimatedNumbers = dynamic(
-  () => {
-    return import('react-animated-numbers');
-  },
-  { ssr: false },
-);
+import AnimatedNumbers from 'react-animated-numbers';
 
 export interface ChainStats {
   mainnetAccountsCreated: number;
