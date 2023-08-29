@@ -13,10 +13,7 @@ export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
           name="description"
           content="The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin."
         />
-        <meta
-          property="og:image"
-          content={'/assets/images/opengraph-image.png'}
-        />
+        <meta property="og:image" content={'/opengraph-image.png'} />
       </Head>
 
       <section>

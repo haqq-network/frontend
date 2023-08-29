@@ -43,10 +43,7 @@ export function BlogPage({ posts }: { posts: Post[] }) {
     <Fragment>
       <Head>
         <title>HAQQ | Blog</title>
-        <meta
-          property="og:image"
-          content={'/assets/images/opengraph-image.png'}
-        />
+        <meta property="og:image" content={'/opengraph-image.png'} />
       </Head>
 
       <section>

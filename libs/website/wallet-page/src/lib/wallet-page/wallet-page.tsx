@@ -128,10 +128,7 @@ WebsiteWalletPage.getLayout = function getLayout(page: ReactElement) {
     <Fragment>
       <Head>
         <title>HAQQ | Wallet</title>
-        <meta
-          property="og:image"
-          content={'/assets/images/opengraph-image.png'}
-        />
+        <meta property="og:image" content={'/opengraph-image.png'} />
         <meta
           name="description"
           content="The best way to hold Islamic Coin and remain Shariah-compliant along the way!"
