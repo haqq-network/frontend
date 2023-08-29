@@ -138,16 +138,13 @@ export function AnimatedNumbers({
                     config={getConfig(configs, n, index)}
                   >
                     {(props) => {
-                      return NUMBERS.map((number, i) => {
-                        return (
-                          <animated.div
-                            key={i}
-                            style={{ ...fontStyle, ...props }}
-                          >
-                            {number}
-                          </animated.div>
-                        );
-                      });
+                      return (
+                        <animated.div style={{ ...fontStyle, ...props }}>
+                          {NUMBERS.map((number, i) => {
+                            return <div key={i}>{number}</div>;
+                          })}
+                        </animated.div>
+                      );
                     }}
                   </Spring>
                 </div>
