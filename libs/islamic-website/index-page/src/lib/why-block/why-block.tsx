@@ -122,7 +122,7 @@ export function StatisticsBlockStatCard({
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'flex gap-x-[6px] font-mono text-[24px] leading-[34px]',
+          'pointer-events-none flex select-none gap-x-[6px] font-mono text-[24px] leading-[34px]',
         )}
       >
         {prefix && prefix}
@@ -171,39 +171,43 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
   }, [inViewport, startAnimation]);
 
   return (
-    <div className="bg-islamic-primary-graphite flex transform-gpu flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
-      <Heading>Why Islamic Coin?</Heading>
-      <Text isMono className="mt-[12px] md:mt-[20px]">
-        Pioneering the Future of Islamic Finance in the Web3 Era
-      </Text>
-      <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] sm:grid-cols-2 md:mt-[44px] xl:grid-cols-4">
-        <Reason icon={<IslamStar />}>Maintaining Shariah Guidelines</Reason>
-        <Reason icon={<DoubleCrescent />}>
-          HAQQ Ecosystem's Prime Currency
-        </Reason>
-        <Reason icon={<Star />}>
-          Reviving Communities with <br className="lg:hidden" /> Sustainable
-          Practices
-        </Reason>
-        <Reason icon={<CrescentAndStar />}>
-          Islamic Way to Financial Freedom
-        </Reason>
-      </div>
-      <hr className="my-[40px] h-[1px] w-full border-[#2F2F2F]" />
-      <div className="flex flex-col items-center md:flex-row">
-        <div className="flex items-center">
-          <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[24px] font-[700] leading-[34px] text-transparent">
-            We are part of{' '}
-          </span>
-          <Image
-            alt="HAQQ"
-            src={haqqLogoImgData}
-            height={28}
-            width={118}
-            className="pointer-events-none ml-[11px] select-none"
-          />
+    <div className="bg-islamic-primary-graphite  transform-gpu divide-y-[1px] divide-[#2F2F2F] rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
+      <div className="flex flex-col items-start pb-[40px]">
+        <Heading>Why Islamic Coin?</Heading>
+        <Text isMono className="mt-[12px] md:mt-[20px]">
+          Pioneering the Future of Islamic Finance in the Web3 Era
+        </Text>
+        <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] sm:grid-cols-2 md:mt-[44px] xl:grid-cols-4">
+          <Reason icon={<IslamStar />}>Maintaining Shariah Guidelines</Reason>
+          <Reason icon={<DoubleCrescent />}>
+            HAQQ Ecosystem's Prime Currency
+          </Reason>
+          <Reason icon={<Star />}>
+            Reviving Communities with <br className="lg:hidden" /> Sustainable
+            Practices
+          </Reason>
+          <Reason icon={<CrescentAndStar />}>
+            Islamic Way to Financial Freedom
+          </Reason>
         </div>
-        <div className="ml-[24px] ">
+      </div>
+      <div className="flex flex-col items-start pt-[40px]">
+        <div className="flex flex-col gap-x-[24px] gap-y-[12px] sm:flex-row">
+          <div className="flex items-center gap-x-[11px]">
+            <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[18px] font-[700] leading-[26px] text-transparent md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+              We are part of{' '}
+            </span>
+            <div className="relative h-[22px] w-[96px] md:h-[28px] md:w-[118px]">
+              <Image
+                alt="HAQQ"
+                src={haqqLogoImgData}
+                // height={28}
+                // width={118}
+                fill
+                className="pointer-events-none select-none"
+              />
+            </div>
+          </div>
           <Link
             href={'https://haqq.network/'}
             target="_blank"
@@ -227,38 +231,38 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
             </svg>
           </Link>
         </div>
-      </div>
-      <Text size="small" className="mt-[12px] text-white/50">
-        HAQQ brings together the most reputable actors of Ethical finance in
-        order to promote community-driven decentralized technologies worldwide
-      </Text>
-      <div
-        ref={blockRef}
-        className="grid gap-[38px] lg:mt-[25px] lg:grid-cols-4"
-      >
-        <StatisticsBlockStatCard
-          value={stats.mainnetAccountsCreated}
-          title="mainnet accounts created"
-          startAnimation={startAnimation}
-        />
-        <StatisticsBlockStatCard
-          value={stats.transactionsInLast24Hours}
-          title="transactions in the last 24 hours"
-          startAnimation={startAnimation}
-          prefix="~"
-        />
-        <StatisticsBlockStatCard
-          value={stats.secondsToConsensusFinality}
-          title="seconds to consensus finality"
-          startAnimation={startAnimation}
-          prefix="~"
-        />
-        <StatisticsBlockStatCard
-          value={stats.averageCostPerTransaction}
-          title="average cost per transaction"
-          startAnimation={startAnimation}
-          postfix="AISLM"
-        />
+        <Text size="small" className="mt-[12px] text-white/50">
+          HAQQ brings together the most reputable actors of Ethical finance in
+          order to promote community-driven decentralized technologies worldwide
+        </Text>
+        <div
+          ref={blockRef}
+          className="mt-[16px] grid gap-[38px] md:mt-[20px] lg:mt-[24px] lg:grid-cols-4"
+        >
+          <StatisticsBlockStatCard
+            value={stats.mainnetAccountsCreated}
+            title="mainnet accounts created"
+            startAnimation={startAnimation}
+          />
+          <StatisticsBlockStatCard
+            value={stats.transactionsInLast24Hours}
+            title="transactions in the last 24 hours"
+            startAnimation={startAnimation}
+            prefix="~"
+          />
+          <StatisticsBlockStatCard
+            value={stats.secondsToConsensusFinality}
+            title="seconds to consensus finality"
+            startAnimation={startAnimation}
+            prefix="~"
+          />
+          <StatisticsBlockStatCard
+            value={stats.averageCostPerTransaction}
+            title="average cost per transaction"
+            startAnimation={startAnimation}
+            postfix="AISLM"
+          />
+        </div>
       </div>
     </div>
   );
