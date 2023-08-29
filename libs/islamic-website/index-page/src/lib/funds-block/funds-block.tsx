@@ -8,7 +8,7 @@ import Link from 'next/link';
 export function FundsBlock() {
   return (
     <Container>
-      <div className="relative mt-[86px] flex items-center justify-between border-y-[1px] border-dashed border-[#2F2F2F] py-[80px] md:mt-[110px] lg:mt-[140px]">
+      <div className="relative mt-[86px] flex items-center justify-between border-y-[1px] border-dashed border-[#2F2F2F] py-[40px] md:mt-[110px] md:py-[68px] lg:mt-[140px] lg:py-[80px]">
         <div className="absolute left-0 top-[-2px] z-30 h-[102%] w-[40px] bg-gradient-to-l from-transparent to-[#010304] md:w-[120px]" />
         <div className="flex flex-1 flex-col items-center gap-y-[32px]">
           <Heading>
