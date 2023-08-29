@@ -88,6 +88,7 @@ export function AdvisoryBoardBlock({
           {members?.map((member) => {
             return (
               <div
+                key={member.title}
                 onClick={() => {
                   openBoardModal(member);
                 }}
