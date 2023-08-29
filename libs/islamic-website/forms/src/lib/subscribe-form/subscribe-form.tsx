@@ -63,15 +63,12 @@ export function SubscribeForm({
 
           if (response.status === 200) {
             setSubscribeFormState(FormState.success);
-            return;
           } else {
             setSubscribeFormState(FormState.error);
-            return;
           }
         } catch (error) {
           console.error(error);
           setSubscribeFormState(FormState.error);
-          return;
         }
       }
     },
