@@ -61,10 +61,11 @@ function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
           className={clsx(
             'absolute z-[-1] select-none',
             'h-[1011px] w-[1038px] md:h-[877px] md:w-[901px] lg:h-[1401px] lg:w-[1439px]',
-            '-top-1/2 right-1/2 translate-x-[37%] translate-y-[30%]',
-            'md:translate-x-1/2 md:translate-y-[44%]',
-            'lg:translate-y-[18%]',
-            'xl:translate-y-[15%]',
+            '-top-1/2 right-1/2 translate-x-[37%] translate-y-[56.2%]',
+            'md:translate-x-1/2 md:translate-y-[70.4%]',
+            'lg:translate-y-[27.7%]',
+            'xl:translate-y-[24.1%]',
+            'min-[1440px]:translate-y-[23.4%]',
           )}
         >
           <div className="z-1 pointer-events-none absolute inset-0  bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
