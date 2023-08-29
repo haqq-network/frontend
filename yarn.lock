@@ -3423,7 +3423,6 @@ __metadata:
     prettier: 2.8.8
     prettier-plugin-tailwindcss: 0.3.0
     react: 18.2.0
-    react-animated-numbers: 0.16.0
     react-countdown: 2.3.5
     react-dom: 18.2.0
     react-hook-form: 7.45.1
@@ -5509,7 +5508,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-spring/web@npm:^9.4.5, @react-spring/web@npm:~9.7.3":
+"@react-spring/web@npm:~9.7.3":
   version: 9.7.3
   resolution: "@react-spring/web@npm:9.7.3"
   dependencies:
@@ -22732,19 +22731,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-animated-numbers@npm:0.16.0":
-  version: 0.16.0
-  resolution: "react-animated-numbers@npm:0.16.0"
-  dependencies:
-    "@react-spring/web": ^9.4.5
-    react-intersection-observer: ^8.33.1
-  peerDependencies:
-    react: ">=16.8.0"
-    react-dom: ">=16.8.0"
-  checksum: a82938363bc628af74553708634fc909d2b545e96f417971fe4bd2bc694f0032eed29ee299f6e7225b18879cd941d71a53962777d6f4ba5294c0abb573a48367
-  languageName: node
-  linkType: hard
-
 "react-colorful@npm:^5.1.2":
   version: 5.6.1
   resolution: "react-colorful@npm:5.6.1"
@@ -22870,15 +22856,6 @@ __metadata:
   peerDependencies:
     react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
   checksum: cdbe40544930d59fc3820bce017fb688910cbecd7baaf382387a3d60d98a36e1d1e4bc27a876775e99b2a9f86762286a29d7bca21f3345f653cff29850c2641d
-  languageName: node
-  linkType: hard
-
-"react-intersection-observer@npm:^8.33.1":
-  version: 8.34.0
-  resolution: "react-intersection-observer@npm:8.34.0"
-  peerDependencies:
-    react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
-  checksum: 7713fecfd1512c7f5a60f9f0bf15403b8f8bbd4110bcafaeaea6de36a0e0eb60368c3638f99e9c97b75ad8fc787ea48c241dcb5c694f821d7f2976f709082cc5
   languageName: node
   linkType: hard
 
