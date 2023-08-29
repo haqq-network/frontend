@@ -347,6 +347,12 @@ export function DesktopHeader() {
                       href="https://blog.islamiccoin.net"
                       isOutLink
                     />
+                    <DropdownLink
+                      title="Fraud alert"
+                      icon={<AlertIcon />}
+                      href="/fraud-alert"
+                    />
+
                     {/* <DropdownLink
                       title="Podcast"
                       icon={<PodcastIcon />}
@@ -391,21 +397,12 @@ export function DesktopHeader() {
                       icon={<CommunityIcon />}
                       href="/community-hub"
                     />
-                  </div>
-
-                  {/*
-                    <div className="flex flex-col">
                     <DropdownLink
                       title="Meet our team"
                       icon={<StarIcon />}
                       href="/team"
                     />
-                    <DropdownLink
-                      title="Fraud alert"
-                      icon={<AlertIcon />}
-                      href="/fraud-alert"
-                    />
-                  </div> */}
+                  </div>
                 </div>
               </HeaderDropdown>
             </nav>

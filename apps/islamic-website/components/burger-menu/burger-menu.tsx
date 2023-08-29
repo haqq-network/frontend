@@ -139,6 +139,12 @@ export function BurgerMenu({
             href="https://haqq.network/blog"
             isOutLink
           />
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Fraud alert"
+            icon={<AlertIcon />}
+            href="/fraud-alert"
+          />
         </MobileMenuDropdownLink>
         <MobileMenuDropdownLink title="Team" withArrow>
           <BurgerMenuDropdownLink
@@ -158,12 +164,6 @@ export function BurgerMenu({
             title="Meet our team"
             icon={<StarIcon />}
             href="/team"
-          />
-          <BurgerMenuDropdownLink
-            onClick={onClick}
-            title="Fraud alert"
-            icon={<AlertIcon />}
-            href="/fraud-alert"
           />
         </MobileMenuDropdownLink>
       </div>
