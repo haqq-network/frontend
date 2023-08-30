@@ -29,7 +29,8 @@ export function HookedFormInput<F extends Record<string, unknown>>({
   wrapperClassName,
   placeholder,
   type,
-  error,
+  state,
+  hint,
   disabled,
   required,
 }: HookedInputProps<F> & Omit<InputProps, 'onChange'>): ReactElement {
@@ -41,7 +42,8 @@ export function HookedFormInput<F extends Record<string, unknown>>({
       type={type}
       disabled={disabled}
       required={required}
-      error={error}
+      state={state}
+      hint={hint}
       {...register(id)}
     />
   );
