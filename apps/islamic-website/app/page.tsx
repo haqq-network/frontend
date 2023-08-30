@@ -3,6 +3,7 @@ import { IndexPage } from '@haqq/islamic-website/index-page';
 import { getNewsPageContent } from '../utils/get-news-data';
 import { getMembersContent } from '../utils/get-members-data';
 import { getMainnetAccounts } from '../utils/get-mainnet-accounts-data';
+import { DEPLOY_URL } from '../../constants';
 
 const title = 'IslamicCoin';
 const description =
@@ -15,6 +16,9 @@ export const metadata: Metadata = {
     title,
     description,
     images: [{ url: '/opengraph-image.png' }],
+    locale: 'en-US',
+    url: `${new URL(DEPLOY_URL)}build`,
+    type: 'website',
   },
 };
 

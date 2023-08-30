@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { RoadmapPage } from '@haqq/islamic-website/roadmap-page';
 import { getRoadmapContent } from '../../utils/get-roadmap-data';
+import { DEPLOY_URL } from '../../constants';
 
 const title = 'IslamicCoin | Roadmap';
 const description =
@@ -13,6 +14,9 @@ export const metadata: Metadata = {
     title,
     description,
     images: [{ url: '/opengraph-image.png' }],
+    locale: 'en-US',
+    url: `${new URL(DEPLOY_URL)}build`,
+    type: 'website',
   },
 };
 

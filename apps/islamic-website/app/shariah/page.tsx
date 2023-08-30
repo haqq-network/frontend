@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ShariahPage } from '@haqq/islamic-website/shariah-page';
 import { getMembersContent } from '../../utils/get-members-data';
+import { DEPLOY_URL } from '../../constants';
 
 const title = 'IslamicCoin | Shariah';
 const description =
@@ -13,6 +14,9 @@ export const metadata: Metadata = {
     title,
     description,
     images: [{ url: '/opengraph-image.png' }],
+    locale: 'en-US',
+    url: `${new URL(DEPLOY_URL)}build`,
+    type: 'website',
   },
 };
 

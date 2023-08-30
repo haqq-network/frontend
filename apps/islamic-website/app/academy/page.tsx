@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description,
     images: [{ url: '/opengraph-image.png' }],
     locale: 'en-US',
-    url: String(new URL(DEPLOY_URL)),
+    url: `${new URL(DEPLOY_URL)}academy`,
     type: 'website',
   },
 };
