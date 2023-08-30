@@ -5,10 +5,10 @@ import { SubscribeForm } from '@haqq/islamic-website/forms';
 
 export function NewsPage({
   news,
-  hCaptchaSiteKey,
+  turnstileSiteKey,
 }: {
   news: NewsPost[];
-  hCaptchaSiteKey?: string;
+  turnstileSiteKey?: string;
 }) {
   const { featuredPost, postsToRender } = useMemo(() => {
     let featuredPost = undefined;
@@ -36,7 +36,7 @@ export function NewsPage({
           Islamic Coin Press & News
         </h1>
 
-        {hCaptchaSiteKey && (
+        {turnstileSiteKey && (
           <div className="mt-[32px] flex flex-col gap-[24px] lg:mt-[56px] lg:flex-row xl:w-3/4">
             <div className="md:max-w-[430px] lg:w-1/2">
               <Text size="small">
@@ -47,7 +47,7 @@ export function NewsPage({
             <SubscribeForm
               className="flex flex-col gap-[16px] md:flex-row"
               inputClassName="md:w-[240px]"
-              hCaptchaSiteKey={hCaptchaSiteKey}
+              turnstileSiteKey={turnstileSiteKey}
             />
           </div>
         )}

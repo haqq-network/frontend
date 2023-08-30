@@ -155,10 +155,10 @@ function RoadmapCard({
 
 export function RoadmapPage({
   roadmap,
-  hCaptchaSiteKey,
+  turnstileSiteKey,
 }: {
   roadmap: RoadmapPeriod[];
-  hCaptchaSiteKey?: string;
+  turnstileSiteKey?: string;
 }) {
   return (
     <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
@@ -180,7 +180,7 @@ export function RoadmapPage({
             })}
           </div>
 
-          {hCaptchaSiteKey && (
+          {turnstileSiteKey && (
             <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center md:p-[28px] lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
               <Text size="small" className="md:w-1/2">
                 Keep up to date with our upcoming Public Launch and Exchange
@@ -189,7 +189,7 @@ export function RoadmapPage({
               <SubscribeForm
                 className="flex flex-col gap-[16px] md:flex-row"
                 inputClassName="lg:min-w-[280px]"
-                hCaptchaSiteKey={hCaptchaSiteKey}
+                turnstileSiteKey={turnstileSiteKey}
               />
             </div>
           )}

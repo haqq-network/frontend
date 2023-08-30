@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -11,7 +11,7 @@ import {
 import { Button, Modal, ModalCloseButton, Text } from '@haqq/islamic-ui-kit';
 import clsx from 'clsx';
 import axios from 'axios';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
+import Turnstile from 'react-turnstile';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -32,12 +32,12 @@ export function SubscribeForm({
   className,
   inputClassName,
   wrapperClassName,
-  hCaptchaSiteKey,
+  turnstileSiteKey,
 }: {
   className?: string;
   inputClassName?: string;
   wrapperClassName?: string;
-  hCaptchaSiteKey: string;
+  turnstileSiteKey: string;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
@@ -46,7 +46,7 @@ export function SubscribeForm({
     undefined,
   );
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
-  const [isSuccessModalOpen, setSuccessModalOpen] = useState(true);
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
   const {
     register,
     handleSubmit: hookFormSubmit,
@@ -143,7 +143,7 @@ export function SubscribeForm({
       </form>
 
       <Modal onClose={handleCaptchaModalClose} isOpen={isCaptchaModalOpen}>
-        <HCaptcha sitekey={hCaptchaSiteKey} onVerify={setToken} />
+        <Turnstile sitekey={turnstileSiteKey} onVerify={setToken} />
       </Modal>
 
       <Modal onClose={handleSuccessModalClose} isOpen={isSuccessModalOpen}>
