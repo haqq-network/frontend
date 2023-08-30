@@ -1,4 +1,4 @@
-import { BlogArticle, Breadcrumb } from '@haqq/website-ui-kit';
+import { BlogArticle, Breadcrumb, OGMetadataLink } from '@haqq/website-ui-kit';
 import Head from 'next/head';
 import { Fragment, useCallback, useMemo } from 'react';
 // import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';
@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import blogPlaceholderImage1 from '../../assets/blog-placeholder-1.png';
 import blogPlaceholderImage2 from '../../assets/blog-placeholder-2.png';
 import blogPlaceholderImage3 from '../../assets/blog-placeholder-3.png';
-import type { Post } from '../blog-page/blog-page';
+import { DEPLOY_URL, type Post } from '../blog-page/blog-page';
 
 type PostPageProps = {
   post: Post;
@@ -52,15 +52,14 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
     };
   }, [post.date, post.image]);
 
-  console.log(post.description);
-
   return (
     <Fragment>
-      <Head>
-        <title>HAQQ | Blog | {post.title}</title>
-        <meta property="og:image" content={post.image?.src} />
-        <meta property="og:description" content={post.description} />
-      </Head>
+      <OGMetadataLink
+        ogDescription={post.description}
+        hostname={String(new URL(DEPLOY_URL))}
+        ogImage={post.image?.src}
+        ogTitle={`HAQQ | Blog | ${post.title}`}
+      />
 
       <div
         className={clsx(

@@ -8,6 +8,7 @@ import walletImageData from '../../assets/images/wallet-bg.jpg';
 import { FAQBlock } from '../faq-block/faq-block';
 import { FeaturesBlock } from '../features-block/features-block';
 import { HeroBlock } from '../hero-block/hero-block';
+import { DEPLOY_URL } from '@haqq/website/blog-page';
 
 function HeaderLogo() {
   return (
@@ -128,7 +129,7 @@ WebsiteWalletPage.getLayout = function getLayout(page: ReactElement) {
     <Fragment>
       <Head>
         <title>HAQQ | Wallet</title>
-        <meta property="og:image" content={'/opengraph-image.png'} />
+
         <meta
           name="description"
           content="The best way to hold Islamic Coin and remain Shariah-compliant along the way!"
@@ -144,6 +145,19 @@ WebsiteWalletPage.getLayout = function getLayout(page: ReactElement) {
           sizes="32x32"
         />
         <meta name="apple-itunes-app" content="app-id=6443843352" />
+        <meta property="og:title" content={'HAQQ | Wallet'} />
+        <meta
+          name="twitter:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta
+          property="og:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta
+          property="og:description"
+          content="The best way to hold Islamic Coin and remain Shariah-compliant along the way!"
+        />
       </Head>
 
       <main

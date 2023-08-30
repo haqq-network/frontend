@@ -4,15 +4,18 @@ import {
   IslamicAssetsBlock,
 } from '../assets-block/assets-block';
 import { TitleBlock } from '../title-block/title-block';
-import Head from 'next/head';
+import { DEPLOY_URL } from '@haqq/website/blog-page';
+import { OGMetadataLink } from '@haqq/website-ui-kit';
 
 export function BrandAssetsPage() {
   return (
     <Fragment>
-      <Head>
-        <title>HAQQ | Brand assets</title>
-        <meta property="og:image" content={'/opengraph-image.png'} />
-      </Head>
+      <OGMetadataLink
+        ogDescription=""
+        hostname={String(new URL(DEPLOY_URL))}
+        ogImage={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        ogTitle="HAQQ | Brand assets"
+      />
       <TitleBlock />
       <HaqqAssetsBlock />
       <IslamicAssetsBlock />

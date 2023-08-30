@@ -1,20 +1,26 @@
 import Head from 'next/head';
 import { Fragment } from 'react';
 import { CoinomicsModal } from '../coinomics-modal/coinomics-modal';
-import { Button, MarkdownText, PageTitle } from '@haqq/website-ui-kit';
+import {
+  Button,
+  MarkdownText,
+  OGMetadataLink,
+  PageTitle,
+} from '@haqq/website-ui-kit';
 import Link from 'next/link';
+import { DEPLOY_URL } from '@haqq/website/blog-page';
 
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
   return (
     <Fragment>
-      <Head>
-        <title>HAQQ | Whitepaper</title>
-        <meta
-          name="description"
-          content="The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin."
-        />
-        <meta property="og:image" content={'/opengraph-image.png'} />
-      </Head>
+      <OGMetadataLink
+        ogDescription={
+          'The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin.'
+        }
+        hostname={String(new URL(DEPLOY_URL))}
+        ogImage={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        ogTitle={'HAQQ | Whitepaper'}
+      />
 
       <section>
         <PageTitle

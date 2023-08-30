@@ -1,8 +1,8 @@
 import { TitleBlock } from '../title-block/title-block';
 import { Fragment, useMemo } from 'react';
-import Head from 'next/head';
 import { PostsBlock } from '../posts-block/posts-block';
 import { FeaturedPostBlock } from '../featured-post-block/featured-post-block';
+import { OGMetadataLink } from '@haqq/website-ui-kit';
 
 export interface Post {
   id: string;
@@ -43,17 +43,12 @@ export function BlogPage({ posts }: { posts: Post[] }) {
 
   return (
     <Fragment>
-      <Head>
-        <title>HAQQ | Blog</title>
-        <meta
-          property="og:image"
-          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
-        />
-        <meta
-          name="twitter:image"
-          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
-        />
-      </Head>
+      <OGMetadataLink
+        ogDescription=""
+        hostname={String(new URL(DEPLOY_URL))}
+        ogImage={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        ogTitle="HAQQ | Blog"
+      />
 
       <section>
         <TitleBlock />
