@@ -16,6 +16,8 @@ export interface Post {
   tags: string[];
 }
 
+export const DEPLOY_URL = `https://${process.env['NEXT_PUBLIC_VERCEL_URL']}`;
+
 export function BlogPage({ posts }: { posts: Post[] }) {
   const { featuredPost, postsToRender, tags } = useMemo(() => {
     let featuredPost = undefined;
@@ -43,7 +45,14 @@ export function BlogPage({ posts }: { posts: Post[] }) {
     <Fragment>
       <Head>
         <title>HAQQ | Blog</title>
-        <meta property="og:image" content={'/opengraph-image.png'} />
+        <meta
+          property="og:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta
+          name="twitter:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
       </Head>
 
       <section>
