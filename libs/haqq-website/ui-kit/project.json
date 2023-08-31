@@ -62,7 +62,7 @@
       "executor": "@nx/storybook:build",
       "outputs": ["{options.outputDir}"],
       "options": {
-        "outputDir": "dist/storybook/website-ui-kit",
+        "outputDir": "dist/storybook/haqq-website-ui-kit",
         "configDir": "libs/haqq-website/ui-kit/.storybook"
       },
       "configurations": {
