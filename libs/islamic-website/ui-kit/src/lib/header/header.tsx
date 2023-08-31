@@ -36,10 +36,6 @@ interface HeaderLinkProps {
   isOutLink?: boolean;
 }
 
-interface HeaderProps {
-  links: HeaderLinkProps[];
-}
-
 function HeaderLink({
   children,
   url,
@@ -74,9 +70,8 @@ function DropdownLinkWithIcon({
 
 function HeaderDropdown({
   title,
-  items,
   children,
-}: PropsWithChildren<{ title?: string; items?: any[] }>) {
+}: PropsWithChildren<{ title?: string }>) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleMouseEnter = useCallback(() => {

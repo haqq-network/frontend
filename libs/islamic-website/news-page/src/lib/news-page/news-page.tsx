@@ -1,4 +1,9 @@
-import { Container, NewsCard, NewsPost, Text } from '@haqq/islamic-ui-kit';
+import {
+  Container,
+  NewsCard,
+  NewsPost,
+  Text,
+} from '@haqq/islamic-website-ui-kit';
 import { useMemo } from 'react';
 import { PostsBlock } from '../posts-block/posts-block';
 import { SubscribeForm } from '@haqq/islamic-website/forms';

@@ -1,5 +1,5 @@
 import { storyblokInit, apiPlugin } from '@storyblok/js';
-import { NewsPost } from '@haqq/islamic-ui-kit';
+import { NewsPost } from '@haqq/islamic-website-ui-kit';
 import {
   REVALIDATE_TIME,
   STORYBLOK_ACCESS_TOKEN,

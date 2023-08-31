@@ -1,4 +1,4 @@
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import { AcademyAnimatedBackground } from '../academy-animated-background/academy-animated-background';
 

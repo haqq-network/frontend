@@ -12,7 +12,7 @@ import {
   RoadmapIcon,
   StarIcon,
   ValuesIcon,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import Link from 'next/link';
 import {

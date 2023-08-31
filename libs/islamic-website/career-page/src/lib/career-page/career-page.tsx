@@ -1,4 +1,4 @@
-import { Button, Container, Text } from '@haqq/islamic-ui-kit';
+import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import careerStarsImgData from '../../assets/images/career-stars.webp';
 import clsx from 'clsx';

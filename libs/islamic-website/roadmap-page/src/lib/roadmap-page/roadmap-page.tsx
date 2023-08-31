@@ -1,4 +1,4 @@
-import { Container, MarkdownText, Text } from '@haqq/islamic-ui-kit';
+import { Container, MarkdownText, Text } from '@haqq/islamic-website-ui-kit';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 import clsx from 'clsx';
 

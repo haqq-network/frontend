@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Input, InputProps } from '@haqq/islamic-ui-kit';
+import { Input, InputProps } from '@haqq/islamic-website-ui-kit';
 import { Path, UseFormRegister } from 'react-hook-form';
 
 export enum FormState {
@@ -17,12 +17,14 @@ export interface SubscribeFormFields {
   email: string;
 }
 
-export interface HookedInputProps<F extends Record<string, unknown>> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface HookedInputProps<F extends Record<string, any>> {
   id: Path<F>;
   register: UseFormRegister<F>;
 }
 
-export function HookedFormInput<F extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function HookedFormInput<F extends Record<string, any>>({
   id,
   register,
   inputClassName,

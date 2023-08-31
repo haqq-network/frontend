@@ -5,8 +5,10 @@ import type {
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import { formatNumber, useStakingPoolQuery } from '@haqq/shared';
-import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell-ui-kit';
+import {
+  ValidatorListItemMobile as ValidatorListItemMobileComponent,
+  formatNumber,
+} from '@haqq/shell-ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
 import { formatUnits, parseUnits } from 'viem/utils';
 import { randomSort } from '@haqq/staking/utils';
@@ -75,6 +77,7 @@ interface ValidatorListProps {
   rewardsInfo: DistributionRewardsResponse | null | undefined;
   delegationInfo: GetDelegationsResponse | null | undefined;
   onValidatorClick: (validatorAddress: string) => void;
+  totalStaked: number;
 }
 
 type SortDirection = 'asc' | 'desc' | undefined;
@@ -89,8 +92,8 @@ export function ValidatorsListMobile({
   rewardsInfo,
   delegationInfo,
   onValidatorClick,
+  totalStaked,
 }: ValidatorListProps) {
-  const { data: stakingPool } = useStakingPoolQuery();
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -114,10 +117,6 @@ export function ValidatorsListMobile({
     },
     [delegationInfo],
   );
-
-  const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.bonded_tokens]);
 
   return (
     <div className="divide-haqq-border flex flex-col divide-y divide-solid">
@@ -153,6 +152,7 @@ export function ValidatorsList({
   rewardsInfo,
   delegationInfo,
   onValidatorClick,
+  totalStaked,
 }: ValidatorListProps) {
   const [sortStates, setSortStates] = useState<SortState>({
     key: undefined,
@@ -164,8 +164,6 @@ export function ValidatorsList({
   useEffect(() => {
     setVals(randomSort(validators));
   }, [validators]);
-
-  const { data: stakingPool } = useStakingPoolQuery();
 
   const getValidatorRewards = useCallback(
     (address: string) => {
@@ -190,10 +188,6 @@ export function ValidatorsList({
     },
     [delegationInfo],
   );
-
-  const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.bonded_tokens]);
 
   const getSortedValidators = useCallback(
     (validators: Validator[], state: SortState) => {

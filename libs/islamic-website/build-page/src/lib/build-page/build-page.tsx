@@ -1,4 +1,4 @@
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 
 export function BuildPage() {
   return (

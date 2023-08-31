@@ -14,7 +14,7 @@ import {
   Modal,
   ModalCloseButton,
   Text,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import axios from 'axios';
 import Turnstile from 'react-turnstile';
@@ -60,7 +60,7 @@ export function SubscribeForm({
     register,
     handleSubmit: hookFormSubmit,
     formState,
-  } = useForm<SubscribeFormFields>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
   const [token, setToken] = useState<string | undefined>(undefined);
@@ -153,7 +153,7 @@ export function SubscribeForm({
         className={clsx(className)}
         autoComplete="off"
       >
-        <HookedFormInput<{ email: string }>
+        <HookedFormInput<SubscribeFormFields>
           wrapperClassName={wrapperClassName}
           placeholder="Your e-mail"
           type="email"

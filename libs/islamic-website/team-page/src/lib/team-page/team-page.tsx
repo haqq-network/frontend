@@ -1,4 +1,4 @@
-import { Container, MembersContainer } from '@haqq/islamic-ui-kit';
+import { Container, MembersContainer } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import teamPageBgImageData from '../../assets/images/team-page-bg.svg';
 

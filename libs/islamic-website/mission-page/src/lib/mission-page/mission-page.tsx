@@ -1,4 +1,4 @@
-import { Container, GradientText, Text } from '@haqq/islamic-ui-kit';
+import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import missionStarImgData from '../../assets/images/mission-star.webp';
 import missionRockImgData from '../../assets/images/mission-rock.webp';
 import Image from 'next/image';
@@ -22,7 +22,7 @@ export function MissionPage() {
             Our Mission & <br className="xl:hidden" /> Vision
           </h1>
 
-          <div className="flex flex-col md:mt-[44px] lg:mt-[60px] md:flex-row">
+          <div className="flex flex-col md:mt-[44px] md:flex-row lg:mt-[60px]">
             <div className="self-center md:relative md:order-2 md:flex-1">
               <Image
                 src={missionStarImgData}

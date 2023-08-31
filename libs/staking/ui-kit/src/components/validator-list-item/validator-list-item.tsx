@@ -3,7 +3,7 @@ import { formatUnits, parseUnits } from 'viem/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { ValidatorListStatus } from '../validator-status/validator-status';
-import { formatNumber } from '@haqq/shared';
+import { formatNumber } from '@haqq/shell-ui-kit';
 
 export interface ValidatorListItemProps {
   validator: Validator;

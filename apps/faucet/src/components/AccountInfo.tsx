@@ -1,12 +1,7 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
-import {
-  formatNumber,
-  getFormattedAddress,
-  useAddress,
-  useClipboard,
-} from '@haqq/shared';
+import { getFormattedAddress, useAddress, useClipboard } from '@haqq/shared';
 import { useBalance, useNetwork } from 'wagmi';
-import { CopyIcon, Tooltip } from '@haqq/shell-ui-kit';
+import { CopyIcon, Tooltip, formatNumber } from '@haqq/shell-ui-kit';
 
 export function MyAccountCardBlock({
   title,

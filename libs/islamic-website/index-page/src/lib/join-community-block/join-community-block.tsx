@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import cubesImgData from '../../assets/images/cubes.webp';
-import { Button, Container, Text } from '@haqq/islamic-ui-kit';
+import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
 
 export function JoinCommunityBlock() {
