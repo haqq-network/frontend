@@ -18,9 +18,10 @@ export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
           title="HAQQ Whitepaper"
           subtitle={
             <Link
-              href={'/haqq_whitepaper_v_2.pdf'}
+              href="/haqq_whitepaper_v_2.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              download
             >
               <Button variant={2} className="inline-flex flex-row items-center">
                 <svg

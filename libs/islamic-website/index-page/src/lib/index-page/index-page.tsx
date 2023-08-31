@@ -72,7 +72,7 @@ function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
         >
           <div className="z-1 pointer-events-none absolute inset-0  bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
           <Image
-            src={'/assets/images/moon-2x.webp'}
+            src="/assets/images/moon-2x.webp"
             alt=""
             fill
             className="pointer-events-none z-[-2]"

@@ -173,7 +173,7 @@ export function MobileHeader() {
               <div className="flex items-center justify-between">
                 <div>
                   <Link
-                    href={'/'}
+                    href="/"
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
                     <IslamicHeaderLogo />

@@ -18,6 +18,7 @@ export function DownloadPDFButton({
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-between"
+        download
       >
         <div className="flex gap-x-[8px]">
           <svg

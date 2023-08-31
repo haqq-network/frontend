@@ -212,7 +212,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
             </div>
           </div>
           <Link
-            href={'https://haqq.network/'}
+            href="https://haqq.network"
             target="_blank"
             rel="noopener noreferrer"
             className="text-islamic-primary-green hover:text-islamic-primary-green-hover flex cursor-pointer items-center gap-x-[8px] font-mono uppercase transition-colors duration-300 ease-out"

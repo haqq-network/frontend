@@ -30,18 +30,18 @@ export function TextBlock() {
           Network from scratch, mature projects willing to expand their services
           to the HAQQ Network, and individual developers willing to contribute
           to the core HAQQ infrastructure products such as{' '}
-          <Link href={'/wallet'} className="text-haqq-orange">
+          <Link href="/wallet" className="text-haqq-orange">
             HAQQ Wallet
           </Link>
           ,{' '}
-          <Link href={'https://docs.haqq.network'} className="text-haqq-orange">
+          <Link href="https://docs.haqq.network" className="text-haqq-orange">
             HAQQ Node
           </Link>
           ,{' '}
           <Link
-            href={'https://shell.haqq.network'}
+            href="https://shell.haqq.network"
             target="_blank"
-            rel={'noopener noreferrer'}
+            rel="noopener noreferrer"
             className="text-haqq-orange"
           >
             HAQQ Shell

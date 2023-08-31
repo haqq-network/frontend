@@ -16,7 +16,7 @@ export function FundsBlock() {
           </Heading>
           <div className="flex flex-col items-center gap-[40px] md:flex-row md:gap-[80px]">
             <Link
-              href={'https://df101.xyz/'}
+              href="https://df101.xyz/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -26,7 +26,7 @@ export function FundsBlock() {
             </Link>
 
             <Link
-              href={'https://www.a195.capital/'}
+              href="https://www.a195.capital/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -36,7 +36,7 @@ export function FundsBlock() {
             </Link>
 
             <Link
-              href={'https://optic.capital/'}
+              href="https://optic.capital/"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -16,7 +16,7 @@ export function JoinCommunityBlock() {
         <Text isMono className="mt-[8px]">
           Join the Global Islamic Finance Revolution
         </Text>
-        <Link href={'/community-hub'}>
+        <Link href="/community-hub">
           <Button className="mt-[42px]">Join our community</Button>
         </Link>
       </div>
