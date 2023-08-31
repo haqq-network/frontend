@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     description,
     images: [{ url: '/opengraph-image.png' }],
     locale: 'en-US',
-    url: `${new URL(DEPLOY_URL)}roadmap`,
+    url: `${new URL('/roadmap', DEPLOY_URL).toString()}`,
     type: 'website',
   },
 };
