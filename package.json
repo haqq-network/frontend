@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "author": "Oleg Shilov <og@haqq.network>",
-  "packageManager": "yarn@3.6.0",
+  "packageManager": "yarn@3.6.3",
   "engines": {
     "node": ">=18.16",
     "yarn": ">=3.6"
