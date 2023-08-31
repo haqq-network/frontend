@@ -8,7 +8,7 @@ import {
   MemberModalCard,
   Modal,
   Text,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';

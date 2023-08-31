@@ -6,7 +6,7 @@ import {
   MemberCard,
   MemberModalCard,
   Modal,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import { useCallback, useState } from 'react';

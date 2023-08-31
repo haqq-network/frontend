@@ -16,6 +16,7 @@ import {
   SelectChainButton,
   SelectWalletModal,
   TestedgeBanner,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useMediaQuery } from 'react-responsive';
@@ -25,7 +26,6 @@ import {
   useWallet,
   getFormattedAddress,
   useSupportedChains,
-  formatNumber,
 } from '@haqq/shared';
 import { haqqTestedge2 } from '@wagmi/chains';
 import { useNavigate } from 'react-router-dom';

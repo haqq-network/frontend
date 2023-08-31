@@ -1,4 +1,4 @@
-import { Text } from '@haqq/islamic-ui-kit';
+import { Text } from '@haqq/islamic-website-ui-kit';
 
 export function ShariahBlock() {
   return (

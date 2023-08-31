@@ -17,7 +17,8 @@
 
 @font-face {
   font-family: 'VCR OSD Mono';
-  src: url('../../../../apps/islamic-website/public/assets/fonts/vcr_osd_mono.woff2')
+  src:
+    url('../../../../apps/islamic-website/public/assets/fonts/vcr_osd_mono.woff2')
       format('woff2'),
     url('../../../../apps/islamic-website/public/assets/fonts/vcr_osd_mono.woff')
       format('woff');
