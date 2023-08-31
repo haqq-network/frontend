@@ -3,7 +3,7 @@ import { WalletIcon } from '../icons/icons';
 import { Heading } from '../heading/heading';
 import clsx from 'clsx';
 import { Container } from '../container/container';
-import { formatNumber } from '@haqq/shared';
+import { formatNumber } from '../../utils/format-number';
 
 interface MyAccountBlockProps {
   balance: number;

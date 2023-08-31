@@ -5,8 +5,10 @@ import type {
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import { formatNumber, useStakingPoolQuery } from '@haqq/shared';
-import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell-ui-kit';
+import {
+  ValidatorListItemMobile as ValidatorListItemMobileComponent,
+  formatNumber,
+} from '@haqq/shell-ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
 import { formatUnits, parseUnits } from 'viem/utils';
 import { randomSort } from '@haqq/staking/utils';

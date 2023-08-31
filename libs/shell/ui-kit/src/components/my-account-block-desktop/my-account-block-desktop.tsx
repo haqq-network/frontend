@@ -3,7 +3,7 @@ import { Heading } from '../heading/heading';
 import { MyAccountCardBlock } from '../my-account-block-mobile/my-account-block-mobile';
 import { WalletIcon } from '../icons/icons';
 import clsx from 'clsx';
-import { formatNumber } from '@haqq/shared';
+import { formatNumber } from '../../utils/format-number';
 
 export function MyAccountBlockDesktop({
   onRewardsClaim,

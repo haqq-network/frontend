@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { CardSubText, CardText } from '../card/card';
 import clsx from 'clsx';
-import { formatNumber } from '@haqq/shared';
+import { formatNumber } from '../../utils/format-number';
 
 export function ProposalDepositProgress({
   userDeposit,

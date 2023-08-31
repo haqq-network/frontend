@@ -6,7 +6,7 @@ import { ValidatorIcon } from '../icons/icons';
 import { Heading } from '../heading/heading';
 import { Container } from '../container/container';
 import { useMediaQuery } from 'react-responsive';
-import { formatNumber } from '@haqq/shared';
+import { formatNumber } from '../../utils/format-number';
 
 interface ValidatorBlockMobileProps {
   delegation: number;

@@ -1,8 +1,6 @@
 import {
   Grant,
   ethToHaqq,
-  formatNumber,
-  // getFormattedAddress,
   haqqToEth,
   useAddress,
   useAuthzActions,
@@ -23,6 +21,7 @@ import {
   CopyIcon,
   Heading,
   Tooltip,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
 import {
