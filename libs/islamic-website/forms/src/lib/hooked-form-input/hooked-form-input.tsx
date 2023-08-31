@@ -17,14 +17,6 @@ export interface SubscribeFormFields {
   email: string;
 }
 
-export interface QrRegistrationFormFields {
-  name: string;
-  surname: string;
-  company?: string;
-  position?: string;
-  email: string;
-}
-
 export interface HookedInputProps<F extends Record<string, unknown>> {
   id: Path<F>;
   register: UseFormRegister<F>;

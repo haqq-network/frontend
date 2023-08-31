@@ -3,12 +3,16 @@ import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import {
-  QrRegistrationFormFields,
-  FormState,
-  HookedFormInput,
-} from '../hooked-form-input/hooked-form-input';
 import { Button } from '@haqq/islamic-ui-kit';
+import { HookedFormInput, FormState } from '@haqq/website/forms';
+
+interface QrRegistrationFormFields {
+  name: string;
+  surname: string;
+  company?: string;
+  position?: string;
+  email: string;
+}
 
 const schema: yup.ObjectSchema<QrRegistrationFormFields> = yup
   .object({
