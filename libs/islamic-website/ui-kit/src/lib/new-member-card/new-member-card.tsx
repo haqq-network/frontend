@@ -32,7 +32,7 @@ export function NewMemberCard({
         <div className="relative h-[180px] w-[160px] overflow-hidden rounded-[20px] md:w-[200px]">
           <Image
             src={image}
-            alt=""
+            alt={title}
             fill
             className="pointer-events-none h-full w-full select-none object-cover"
           />
