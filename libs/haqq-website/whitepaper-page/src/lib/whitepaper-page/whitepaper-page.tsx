@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { CoinomicsModal } from '../coinomics-modal/coinomics-modal';
 import { Button, MarkdownText, PageTitle } from '@haqq/haqq-website-ui-kit';
 import Link from 'next/link';
-import { DEPLOY_URL } from '@haqq/website/blog-page';
+import { DEPLOY_URL } from '@haqq/haqq-website/blog-page';
 
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
   return (

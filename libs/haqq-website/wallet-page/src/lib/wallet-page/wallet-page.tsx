@@ -12,7 +12,7 @@ import walletImageData from '../../assets/images/wallet-bg.jpg';
 import { FAQBlock } from '../faq-block/faq-block';
 import { FeaturesBlock } from '../features-block/features-block';
 import { HeroBlock } from '../hero-block/hero-block';
-import { DEPLOY_URL } from '@haqq/website/blog-page';
+import { DEPLOY_URL } from '@haqq/haqq-website/blog-page';
 
 function HeaderLogo() {
   return (

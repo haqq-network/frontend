@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { ApplyBlock } from '../apply-block/apply-block';
 import { TextBlock } from '../text-block.tsx/text-block';
 import { TitleBlock } from '../title-block/title-block';
-import { DEPLOY_URL } from '@haqq/website/blog-page';
+import { DEPLOY_URL } from '@haqq/haqq-website/blog-page';
 import Head from 'next/head';
 
 export function EcosystemFundPage() {
@@ -10,7 +10,7 @@ export function EcosystemFundPage() {
     <Fragment>
       <Head>
         <title>HAQQ | Ecosystem fund</title>
-        
+
         <meta name="description" content="" />
         <meta property="og:locale" content="en-US" />
         <meta property="og:type" content="website" />

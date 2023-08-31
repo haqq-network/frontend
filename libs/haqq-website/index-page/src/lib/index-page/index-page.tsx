@@ -6,7 +6,7 @@ import { DevelopersBlock } from '../developers-block/developers-block';
 import { MissionBlock } from '../mission-block/mission-block';
 import { VisionBlock } from '../vision-block/vision-block';
 import { StatisticsBlock } from '../statistics-block/statistics-block';
-import { DEPLOY_URL } from '@haqq/website/blog-page';
+import { DEPLOY_URL } from '@haqq/haqq-website/blog-page';
 import Head from 'next/head';
 
 export function WebsiteIndexPage() {
@@ -14,7 +14,7 @@ export function WebsiteIndexPage() {
     <Fragment>
       <Head>
         <title>HAQQ | Home of ethical web3</title>
-        
+
         <meta
           name="description"
           content="Ethics-first network that welcomes sustainability-centered developers, validators and open source contributors as well as Muslim innovators in sustainable Finance"

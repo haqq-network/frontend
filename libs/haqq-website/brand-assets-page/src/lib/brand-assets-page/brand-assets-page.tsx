@@ -4,7 +4,7 @@ import {
   IslamicAssetsBlock,
 } from '../assets-block/assets-block';
 import { TitleBlock } from '../title-block/title-block';
-import { DEPLOY_URL } from '@haqq/website/blog-page';
+import { DEPLOY_URL } from '@haqq/haqq-website/blog-page';
 import Head from 'next/head';
 
 export function BrandAssetsPage() {

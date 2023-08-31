@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { TitleBlock } from '../title-block/title-block';
 import { ApplyBlock } from '../apply-block/apply-block';
 import { Partner, PartnersBlock } from '../partners-block/partners-block';
-import { DEPLOY_URL } from '@haqq/website/blog-page';
+import { DEPLOY_URL } from '@haqq/haqq-website/blog-page';
 import Head from 'next/head';
 
 export function EcosystemPage({ partners }: { partners: Partner[] }) {
@@ -10,7 +10,7 @@ export function EcosystemPage({ partners }: { partners: Partner[] }) {
     <Fragment>
       <Head>
         <title>HAQQ | Ecosystem</title>
-        
+
         <meta name="description" content="" />
         <meta property="og:locale" content="en-US" />
         <meta property="og:type" content="website" />
