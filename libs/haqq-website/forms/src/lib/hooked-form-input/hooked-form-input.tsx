@@ -14,13 +14,13 @@ export interface FormError {
 }
 
 export interface ContactFormFields {
-  email: string;
-  name: string;
+  email?: string;
+  name?: string;
   message?: string;
 }
 
 export interface SubscribeFormFields {
-  email: string;
+  email?: string;
 }
 
 export interface HookedInputProps<F extends Record<string, any>> {

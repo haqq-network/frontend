@@ -73,7 +73,7 @@ export function SubscribeForm({
         autoComplete="off"
       >
         <div className="max-w-[400px] sm:flex-1">
-          <HookedFormInput<{ email: string }>
+          <HookedFormInput<SubscribeFormFields>
             wrapperClassName="w-full"
             placeholder="Enter your e-mail"
             type="email"
