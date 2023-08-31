@@ -11,7 +11,8 @@
         "outputPath": "dist/libs/sentry",
         "main": "libs/sentry/src/index.ts",
         "tsConfig": "libs/sentry/tsconfig.lib.json",
-        "assets": ["libs/sentry/*.md"]
+        "assets": ["libs/sentry/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "lint": {

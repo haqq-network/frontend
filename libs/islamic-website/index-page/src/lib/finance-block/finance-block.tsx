@@ -1,4 +1,4 @@
-import { Container, GradientText, Text } from '@haqq/islamic-ui-kit';
+import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import cubeOnRockImgData from '../../assets/images/cube-on-rock.webp';
 import Image from 'next/image';
 import clsx from 'clsx';

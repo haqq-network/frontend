@@ -1,4 +1,4 @@
-import { Container, Text } from '@haqq/islamic-ui-kit';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { PropsWithChildren } from 'react';
 import {
   YoutubeIcon,
@@ -7,7 +7,7 @@ import {
   DiscordIcon,
   TelegramIcon,
   LinkedinIcon,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
 import bgImgData from '../../assets/images/bg-image.svg';
 import Image from 'next/image';

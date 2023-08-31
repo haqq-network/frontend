@@ -1,5 +1,4 @@
 import {
-  formatNumber,
   useAddress,
   useQueryInvalidate,
   useStakingActions,
@@ -14,7 +13,13 @@ import { RewardsInfo, StakingInfoAmountBlock } from '@haqq/staking/ui-kit';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useBalance, useNetwork } from 'wagmi';
 import { useCosmosProvider } from '@haqq/shared';
-import { Button, Container, Heading, WalletIcon } from '@haqq/shell-ui-kit';
+import {
+  Button,
+  Container,
+  Heading,
+  WalletIcon,
+  formatNumber,
+} from '@haqq/shell-ui-kit';
 import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';

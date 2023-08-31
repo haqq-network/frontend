@@ -21,4 +21,4 @@ export * from './tokenomics-icon';
 export * from './values-icon';
 export * from './video-icon';
 export * from './wallet-icon';
-export * from './half-moon-and-star-icon'
+export * from './half-moon-and-star-icon';

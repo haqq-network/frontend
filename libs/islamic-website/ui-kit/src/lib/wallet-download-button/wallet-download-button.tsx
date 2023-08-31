@@ -1,5 +1,9 @@
 import clsx from 'clsx';
-import { AndroidLogoIcon, AppStoreLogoIcon, GooglePlayLogoIcon } from '../icons';
+import {
+  AndroidLogoIcon,
+  AppStoreLogoIcon,
+  GooglePlayLogoIcon,
+} from '../icons';
 
 export function WalletDownloadButton({
   className,
