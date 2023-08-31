@@ -1,4 +1,4 @@
-import { Container, GradientText, Heading } from '@haqq/islamic-ui-kit';
+import { Container, GradientText, Heading } from '@haqq/islamic-website-ui-kit';
 import a195LogoImgData from '../../assets/images/a195-logo.png';
 import df101LogoImgData from '../../assets/images/df101-logo.svg';
 import opticCapitalLogoImgData from '../../assets/images/optic-capital-logo.png';
