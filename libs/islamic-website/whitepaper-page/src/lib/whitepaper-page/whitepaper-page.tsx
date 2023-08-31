@@ -2,7 +2,7 @@ import {
   Container,
   DownloadPDFButton,
   MarkdownText,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';

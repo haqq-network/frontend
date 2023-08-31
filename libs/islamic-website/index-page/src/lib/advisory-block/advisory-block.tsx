@@ -7,7 +7,7 @@ import {
   MemberModalCard,
   Modal,
   NewMemberCard,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 
 type BoardMembers = 'advisory' | 'executive' | 'shariah';

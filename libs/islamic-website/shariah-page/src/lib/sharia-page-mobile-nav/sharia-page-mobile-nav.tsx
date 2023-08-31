@@ -1,5 +1,5 @@
 'use-client';
-import { Container, Select } from '@haqq/islamic-ui-kit';
+import { Container, Select } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { Fragment, useEffect, useMemo, useState } from 'react';

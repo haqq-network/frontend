@@ -1,5 +1,9 @@
 'use client';
-import { MemoizedAnimatedNumbers, Heading, Text } from '@haqq/islamic-ui-kit';
+import {
+  MemoizedAnimatedNumbers,
+  Heading,
+  Text,
+} from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import {
   PropsWithChildren,

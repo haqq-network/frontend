@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { Container, GradientText, Text } from '@haqq/islamic-ui-kit';
+import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import glowCubeImgData from '../../assets/images/glow-cube.webp';
 

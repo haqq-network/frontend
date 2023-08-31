@@ -5,7 +5,7 @@ import { Heading } from '../Typography/Typography';
 import { formatDate } from '../../utils/format-date';
 import { useNetwork } from 'wagmi';
 import { getFormattedAddress, useSupportedChains } from '@haqq/shared';
-import { pad, formatEther, decodeEventLog } from 'viem';
+import { pad, formatEther, decodeEventLog, Hex } from 'viem';
 
 const withdrawABI = [
   {
@@ -74,21 +74,26 @@ const depositABI = [
   },
 ];
 
-type RawLogEntry = {
-  address: string;
+type Topics = [signature: Hex, ...args: Hex[]] | [];
+
+interface RawLogEntry {
+  address: Hex;
   blockNumber: string;
-  data: string;
+  data: Hex;
   gasPrice: string;
   gasUsed: string;
   logIndex: string;
   timeStamp: string;
-  topics: string[];
+  topics: Topics;
   transactionHash: string;
   transactionIndex: string;
-};
+}
 
 interface WithdrawalLogEntry extends RawLogEntry {
-  parsedLog: any;
+  parsedLog: {
+    eventName: string;
+    args?: Record<string, string>;
+  };
   type: 'withdraw' | 'deposit';
 }
 
@@ -105,7 +110,7 @@ function getLogFetchUrl(contractAddress: string, address: string) {
   );
   getLogsUrl.searchParams.append(
     'topic1',
-    pad(address as `0x${string}`, { size: 32 }).toLowerCase(),
+    pad(address as Hex, { size: 32 }).toLowerCase(),
   );
   getLogsUrl.searchParams.append('topic0_1_opr', 'and');
 
@@ -125,7 +130,7 @@ function getDepositLogsFetchUrl(contractAddress: string, address: string) {
   );
   getLogsUrl.searchParams.append(
     'topic1',
-    pad(address as `0x${string}`, { size: 32 }).toLowerCase(),
+    pad(address as Hex, { size: 32 }).toLowerCase(),
   );
   getLogsUrl.searchParams.append('topic0_1_opr', 'and');
 
@@ -141,13 +146,13 @@ async function fetchWithdrawLogs({
 }): Promise<WithdrawalLogEntry[]> {
   const logsFetchUrl = getLogFetchUrl(contractAddress, address);
   const response = await fetch(logsFetchUrl);
-  const logs = await response.json();
+  const logs: { result: RawLogEntry[] } = await response.json();
 
-  return (logs.result as RawLogEntry[])
+  return logs.result
     .map((entry) => {
       return {
         ...entry,
-        topics: entry.topics.filter(Boolean),
+        topics: entry.topics.filter(Boolean) as Topics,
       };
     })
     .map((logEntry) => {
@@ -155,7 +160,7 @@ async function fetchWithdrawLogs({
         abi: withdrawABI,
         data: logEntry.data,
         topics: logEntry.topics,
-      } as any);
+      });
 
       return {
         ...logEntry,
@@ -180,13 +185,13 @@ async function fetchDepositLogs({
     .map((entry) => {
       return {
         ...entry,
-        topics: entry.topics.filter(Boolean),
+        topics: entry.topics.filter(Boolean) as Topics,
       };
     })
     .map((logEntry) => {
       return {
         ...logEntry,
-        parsedLog: decodeEventLog({ abi: depositABI, ...logEntry } as any),
+        parsedLog: decodeEventLog({ abi: depositABI, ...logEntry }),
         type: 'deposit',
       };
     });
@@ -364,26 +369,30 @@ function DepositWithdrawalListItem({
           </div>
         </div>
 
-        {withdrawal.type === 'withdraw' && (
-          <div className="text-[14px] font-[700] uppercase leading-[18px]">
-            {`${Number.parseInt(
-              formatEther(BigInt(withdrawal.parsedLog.args['sumInWei'])),
-              10,
-            ).toLocaleString()}`}{' '}
-            {symbol.toLocaleUpperCase()}
-          </div>
-        )}
-        {withdrawal.type === 'deposit' && (
-          <div className="text-[14px] font-[700] uppercase leading-[18px]">
-            {`${Number.parseInt(
-              formatEther(
-                BigInt(withdrawal.parsedLog.args['sumInWeiDeposited']),
-              ),
-              10,
-            ).toLocaleString()}`}{' '}
-            {symbol.toLocaleUpperCase()}
-          </div>
-        )}
+        {withdrawal.type === 'withdraw' &&
+          withdrawal.parsedLog.args &&
+          withdrawal.parsedLog.args['sumInWei'] && (
+            <div className="text-[14px] font-[700] uppercase leading-[18px]">
+              {`${Number.parseInt(
+                formatEther(BigInt(withdrawal.parsedLog.args['sumInWei'])),
+                10,
+              ).toLocaleString()}`}{' '}
+              {symbol.toLocaleUpperCase()}
+            </div>
+          )}
+        {withdrawal.type === 'deposit' &&
+          withdrawal.parsedLog.args &&
+          withdrawal.parsedLog.args['sumInWeiDeposited'] && (
+            <div className="text-[14px] font-[700] uppercase leading-[18px]">
+              {`${Number.parseInt(
+                formatEther(
+                  BigInt(withdrawal.parsedLog.args['sumInWeiDeposited']),
+                ),
+                10,
+              ).toLocaleString()}`}{' '}
+              {symbol.toLocaleUpperCase()}
+            </div>
+          )}
       </div>
     </div>
   );

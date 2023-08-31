@@ -4,7 +4,7 @@ import {
   Text,
   RatingBadge,
   WalletDownloadButton,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
 import Image from 'next/image';
 import phoneImgData from '../assets/images/wallet_phone.webp';

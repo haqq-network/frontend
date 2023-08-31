@@ -12,32 +12,20 @@ import { Transition } from '@headlessui/react';
 import {
   Container,
   AcademyIcon,
-  AlertIcon,
   BlogIcon,
   BuildIcon,
   CaseIcon,
   CommunityIcon,
   EcosystemIcon,
-  EventsIcon,
-  GetISLMIcon,
   MissionIcon,
   NewsIcon,
-  PartnersIcon,
   PartnershipIcon,
-  PodcastIcon,
-  QuestionMarkIcon,
   RoadmapIcon,
-  RocketIcon,
-  StakingIcon,
-  StarIcon,
-  TokenomicsIcon,
   ValuesIcon,
-  VideoIcon,
-  WalletIcon,
   BurgerButton,
   DropdownLink,
   HalfMoonAndStarIcon,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
 

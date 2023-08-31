@@ -61,7 +61,7 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
       try {
         await switchNetworkAsync(supportedChain.id);
         setOnboardingStep('finish');
-      } catch (error: any) {
+      } catch (error) {
         setErrors({ ...errors, switchNetworkError: error as Error });
       }
     }

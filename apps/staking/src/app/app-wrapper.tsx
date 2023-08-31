@@ -7,7 +7,6 @@ import {
   useState,
 } from 'react';
 import {
-  formatNumber,
   getFormattedAddress,
   useAddress,
   useSupportedChains,
@@ -24,6 +23,7 @@ import {
   SelectChainButton,
   SelectWalletModal,
   TestedgeBanner,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { haqqTestedge2 } from '@wagmi/chains';

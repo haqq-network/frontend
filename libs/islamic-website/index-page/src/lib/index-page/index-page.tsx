@@ -7,7 +7,7 @@ import { PortfolioBlock } from '../portfolio-block/portfolio-block';
 import { WhyBlock } from '../why-block/why-block';
 import { Fragment } from 'react';
 import { Marquee } from '../marquee/marquee';
-import { Container, Member, NewsPost } from '@haqq/islamic-ui-kit';
+import { Container, Member, NewsPost } from '@haqq/islamic-website-ui-kit';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
 import clsx from 'clsx';

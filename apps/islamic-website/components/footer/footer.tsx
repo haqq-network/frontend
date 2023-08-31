@@ -14,7 +14,7 @@ import {
   YoutubeIcon,
   ZenIcon,
   Container,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 
 interface FooterNavLink {
   url: string;

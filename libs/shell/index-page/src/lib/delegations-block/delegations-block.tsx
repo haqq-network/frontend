@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import {
   useAddress,
   useStakingDelegationQuery,
+  useStakingPoolQuery,
   // useStakingPoolQuery,
   useStakingRewardsQuery,
   useStakingValidatorListQuery,
@@ -46,6 +47,7 @@ export function DelegationsBlock() {
   } = useStakingValidatorListQuery(1000);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const { data: stakingPool } = useStakingPoolQuery();
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
   });
@@ -71,6 +73,10 @@ export function DelegationsBlock() {
       return valWithDelegationAddr.includes(val.operator_address);
     });
   }, [sortedValidators, valWithDelegationAddr]);
+
+  const totalStaked = useMemo(() => {
+    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.bonded_tokens]);
 
   return (
     <Container>
@@ -109,6 +115,7 @@ export function DelegationsBlock() {
                     onValidatorClick={(validatorAddress: string) => {
                       navigate(`/staking/validator/${validatorAddress}`);
                     }}
+                    totalStaked={totalStaked}
                   />
                 </div>
               ) : (
@@ -119,6 +126,7 @@ export function DelegationsBlock() {
                   onValidatorClick={(validatorAddress: string) => {
                     navigate(`/staking/validator/${validatorAddress}`);
                   }}
+                  totalStaked={totalStaked}
                 />
               )}
             </div>

@@ -1,4 +1,9 @@
-import { Container, Heading, NewsCard, NewsPost } from '@haqq/islamic-ui-kit';
+import {
+  Container,
+  Heading,
+  NewsCard,
+  NewsPost,
+} from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
 
 interface NewsBlockProps {

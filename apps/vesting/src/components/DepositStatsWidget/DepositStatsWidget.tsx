@@ -279,9 +279,10 @@ function Withdraw({
       console.log({ withdraw });
       setWithdrawTx(withdraw.hash);
       setComplete(true);
-    } catch (error: any) {
-      console.error(error);
-      setError(error.message);
+    } catch (error) {
+      const errorMessage = (error as Error).message;
+      console.error(errorMessage);
+      setError(errorMessage);
     } finally {
       setPending(false);
     }
@@ -359,9 +360,10 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
       console.log({ transfer });
       setTransferTx(transfer.hash);
       setComplete(true);
-    } catch (error: any) {
-      console.error(error);
-      setError(error.message);
+    } catch (error) {
+      const errorMessage = (error as Error).message;
+      console.error(errorMessage);
+      setError(errorMessage);
     } finally {
       setPending(false);
     }
