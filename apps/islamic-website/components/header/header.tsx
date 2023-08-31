@@ -25,6 +25,8 @@ import {
   BurgerButton,
   DropdownLink,
   HalfMoonAndStarIcon,
+  AlertIcon,
+  StarIcon,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
