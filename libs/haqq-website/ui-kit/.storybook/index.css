@@ -15,7 +15,8 @@
 
 @font-face {
   font-family: 'Clash Display';
-  src: url('../../../../apps/website/public/assets/fonts/ClashDisplay-Medium.woff2')
+  src:
+    url('../../../../apps/website/public/assets/fonts/ClashDisplay-Medium.woff2')
       format('woff2'),
     url('../../../../apps/website/public/assets/fonts/ClashDisplay-Medium.woff')
       format('woff');
@@ -25,7 +26,8 @@
 
 @font-face {
   font-family: 'HK Guise';
-  src: url('../../../../apps/website/public/assets/fonts/hk_guise_medium-webfont.woff2')
+  src:
+    url('../../../../apps/website/public/assets/fonts/hk_guise_medium-webfont.woff2')
       format('woff2'),
     url('../../../../apps/website/public/assets/fonts/hk_guise_medium-webfont.woff')
       format('woff');
@@ -35,7 +37,8 @@
 
 @font-face {
   font-family: 'HK Guise';
-  src: url('../../../../apps/website/public/assets/fonts/hk_guise_regular-webfont.woff2')
+  src:
+    url('../../../../apps/website/public/assets/fonts/hk_guise_regular-webfont.woff2')
       format('woff2'),
     url('../../../../apps/website/public/assets/fonts/hk_guise_regular-webfont.woff')
       format('woff');
