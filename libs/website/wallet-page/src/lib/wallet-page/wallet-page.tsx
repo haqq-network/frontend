@@ -146,10 +146,8 @@ WebsiteWalletPage.getLayout = function getLayout(page: ReactElement) {
         />
         <meta name="apple-itunes-app" content="app-id=6443843352" />
         <meta property="og:title" content={'HAQQ | Wallet'} />
-        <meta
-          name="twitter:image"
-          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
-        />
+        <meta property="og:locale" content="en-US" />
+        <meta property="og:type" content="website" />
         <meta
           property="og:image"
           content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
@@ -158,6 +156,20 @@ WebsiteWalletPage.getLayout = function getLayout(page: ReactElement) {
           property="og:description"
           content="The best way to hold Islamic Coin and remain Shariah-compliant along the way!"
         />
+        <meta
+          property="og:url"
+          content={`${new URL('/wallet', DEPLOY_URL).toString()}`}
+        />
+        <meta name="twitter:title" content="HAQQ | Home of ethical web3" />
+        <meta
+          name="twitter:description"
+          content="Ethics-first network that welcomes sustainability-centered developers, validators and open source contributors as well as Muslim innovators in sustainable Finance"
+        />
+        <meta
+          name="twitter:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <main

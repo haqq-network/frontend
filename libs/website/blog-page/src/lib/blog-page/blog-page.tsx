@@ -2,7 +2,7 @@ import { TitleBlock } from '../title-block/title-block';
 import { Fragment, useMemo } from 'react';
 import { PostsBlock } from '../posts-block/posts-block';
 import { FeaturedPostBlock } from '../featured-post-block/featured-post-block';
-import { OGMetadataLink } from '@haqq/website-ui-kit';
+import Head from 'next/head';
 
 export interface Post {
   id: string;
@@ -43,13 +43,30 @@ export function BlogPage({ posts }: { posts: Post[] }) {
 
   return (
     <Fragment>
-      <OGMetadataLink
-        ogDescription=""
-        hostname={String(new URL(DEPLOY_URL))}
-        ogImage={`${new URL(DEPLOY_URL)}opengraph-image.png`}
-        ogTitle="HAQQ | Blog"
-      />
-
+      <Head>
+        <title>HAQQ | Blog</title>
+        
+        <meta name="description" content="" />
+        <meta property="og:locale" content="en-US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="HAQQ | Blog" />
+        <meta property="og:description" content="" />
+        <meta
+          property="og:url"
+          content={`${new URL('/blog', DEPLOY_URL).toString()}`}
+        />
+        <meta
+          property="og:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta name="twitter:title" content="HAQQ | Blog" />
+        <meta name="twitter:description" content="" />
+        <meta
+          name="twitter:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
       <section>
         <TitleBlock />
 

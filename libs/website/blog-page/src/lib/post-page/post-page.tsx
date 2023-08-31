@@ -1,7 +1,6 @@
-import { BlogArticle, Breadcrumb, OGMetadataLink } from '@haqq/website-ui-kit';
+import { BlogArticle, Breadcrumb } from '@haqq/website-ui-kit';
 import Head from 'next/head';
 import { Fragment, useCallback, useMemo } from 'react';
-// import { RecentPostsBlock } from '../recent-posts-block/recent-posts-block';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
@@ -12,11 +11,10 @@ import { DEPLOY_URL, type Post } from '../blog-page/blog-page';
 
 type PostPageProps = {
   post: Post;
-  recentPosts: Post[];
 };
 
-export function PostPage({ post, recentPosts }: PostPageProps) {
-  const { push } = useRouter();
+export function PostPage({ post }: PostPageProps) {
+  const { push, asPath } = useRouter();
 
   const copyLink = useCallback(() => {
     const copyPromise = navigator.clipboard.writeText(window.location.href);
@@ -54,12 +52,35 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
 
   return (
     <Fragment>
-      <OGMetadataLink
-        ogDescription={post.description}
-        hostname={String(new URL(DEPLOY_URL))}
-        ogImage={post.image?.src}
-        ogTitle={`HAQQ | Blog | ${post.title}`}
-      />
+      <Head>
+        <title>{`HAQQ | Blog | ${post.title}`}</title>
+
+        <meta name="description" content={post.description} />
+        <meta property="og:locale" content="en-US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`HAQQ | Blog | ${post.title}`} />
+        <meta property="og:description" content={post.description} />
+        <meta
+          property="og:url"
+          content={`${new URL(asPath, DEPLOY_URL).toString()}`}
+        />
+        <meta
+          property="og:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta name="twitter:title" content={`HAQQ | Blog | ${post.title}`} />
+        <meta name="twitter:description" content={post.description} />
+        <meta
+          name="twitter:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="article:published_time" content={post.date} />
+        <meta
+          property="article:author"
+          content={new URL(DEPLOY_URL).toString()}
+        />
+      </Head>
 
       <div
         className={clsx(
@@ -84,8 +105,6 @@ export function PostPage({ post, recentPosts }: PostPageProps) {
         image={postImage}
         onLinkCopy={copyLink}
       />
-
-      {/* <RecentPostsBlock recentPosts={recentPosts} /> */}
     </Fragment>
   );
 }

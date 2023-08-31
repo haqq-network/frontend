@@ -1,26 +1,46 @@
 import Head from 'next/head';
 import { Fragment } from 'react';
 import { CoinomicsModal } from '../coinomics-modal/coinomics-modal';
-import {
-  Button,
-  MarkdownText,
-  OGMetadataLink,
-  PageTitle,
-} from '@haqq/website-ui-kit';
+import { Button, MarkdownText, PageTitle } from '@haqq/website-ui-kit';
 import Link from 'next/link';
 import { DEPLOY_URL } from '@haqq/website/blog-page';
 
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
   return (
     <Fragment>
-      <OGMetadataLink
-        ogDescription={
-          'The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin.'
-        }
-        hostname={String(new URL(DEPLOY_URL))}
-        ogImage={`${new URL(DEPLOY_URL)}opengraph-image.png`}
-        ogTitle={'HAQQ | Whitepaper'}
-      />
+      <Head>
+        <title>HAQQ | Whitepaper</title>
+
+        <meta
+          name="description"
+          content="The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin."
+        />
+        <meta property="og:locale" content="en-US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="HAQQ | Whitepaper" />
+        <meta
+          property="og:description"
+          content="The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin."
+        />
+        <meta
+          property="og:url"
+          content={`${new URL('/wp', DEPLOY_URL).toString()}`}
+        />
+        <meta
+          property="og:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta name="twitter:title" content="HAQQ | Whitepaper" />
+        <meta
+          name="twitter:description"
+          content="The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin."
+        />
+        <meta
+          name="twitter:image"
+          content={`${new URL(DEPLOY_URL)}opengraph-image.png`}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
 
       <section>
         <PageTitle
