@@ -7,7 +7,8 @@ export interface CheckboxProps {
   value?: boolean;
   disabled?: boolean;
   children?: ReactNode;
-  className?: string;
+  containerClassName?: string;
+  inputClassName?: string;
   onChange: (value: boolean, event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,20 +17,19 @@ export function Checkbox({
   value,
   disabled,
   children,
-  className,
+  containerClassName,
+  inputClassName,
   onChange,
 }: CheckboxProps) {
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      if (onChange) {
-        onChange(event.target.checked, event);
-      }
+      onChange(event.target.checked, event);
     },
     [onChange],
   );
 
   return (
-    <div className={clsx(styles['checkboxContainer'], className)}>
+    <div className={clsx(styles['checkboxContainer'], containerClassName)}>
       <label
         htmlFor={id}
         className={clsx(
@@ -43,7 +43,7 @@ export function Checkbox({
           checked={value}
           onChange={handleChange}
           disabled={disabled}
-          className={styles['checkboxInputElement']}
+          className={clsx(styles['checkboxInputElement'], inputClassName)}
         />
         <svg
           viewBox="0 0 16 16"
