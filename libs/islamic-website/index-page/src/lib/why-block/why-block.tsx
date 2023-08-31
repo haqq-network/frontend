@@ -1,4 +1,4 @@
-import { Container, Heading, Text } from '@haqq/islamic-website-ui-kit';
+import { Heading, Text } from '@haqq/islamic-website-ui-kit';
 import { PropsWithChildren, ReactNode } from 'react';
 
 function IslamStar() {

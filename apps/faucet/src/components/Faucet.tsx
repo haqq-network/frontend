@@ -135,8 +135,8 @@ export function Faucet(): ReactElement {
     if (switchNetworkAsync) {
       try {
         await switchNetworkAsync(chains[0]?.id);
-      } catch (error: any) {
-        console.error(error);
+      } catch (error) {
+        console.error((error as Error).message);
       }
     }
   }, [chains, switchNetworkAsync]);

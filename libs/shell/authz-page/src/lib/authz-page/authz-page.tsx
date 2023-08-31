@@ -277,9 +277,10 @@ function GranteeGrantsTable() {
 function AuthzGrantsActions() {
   const [grantee, setGrantee] = useState('');
   const [isGranteeValid, setGranteeValid] = useState(false);
-  const [granteeAddresses, setGranteeAddresses] = useState<
-    Record<string, string>
-  >({
+  const [granteeAddresses, setGranteeAddresses] = useState<{
+    eth: string;
+    haqq: string;
+  }>({
     eth: '',
     haqq: '',
   });
@@ -522,7 +523,16 @@ function AuthzGrantsActions() {
   );
 }
 
-function GranteeCard({ granteeAddresses, isValid }: any) {
+function GranteeCard({
+  granteeAddresses,
+  isValid,
+}: {
+  granteeAddresses: {
+    eth: string;
+    haqq: string;
+  };
+  isValid: boolean;
+}) {
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
   const { chain } = useNetwork();

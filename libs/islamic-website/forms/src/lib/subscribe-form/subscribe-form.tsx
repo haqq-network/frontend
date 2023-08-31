@@ -10,7 +10,6 @@ import {
 } from '../hooked-form-input/hooked-form-input';
 import { Button } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import axios from 'axios';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -88,11 +87,7 @@ export function SubscribeForm({
           inputClassName={inputClassName}
         />
 
-        <Button
-          variant={'primary-green'}
-          type="submit"
-          disabled={isFormDisabled}
-        >
+        <Button variant="primary-green" type="submit" disabled={isFormDisabled}>
           Subscribe
         </Button>
       </form>

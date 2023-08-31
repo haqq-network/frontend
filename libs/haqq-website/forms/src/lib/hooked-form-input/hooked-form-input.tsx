@@ -23,11 +23,13 @@ export interface SubscribeFormFields {
   email?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface HookedInputProps<F extends Record<string, any>> {
   id: Path<F>;
   register: UseFormRegister<F>;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function HookedFormInput<F extends Record<string, any>>({
   id,
   register,

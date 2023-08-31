@@ -1,7 +1,6 @@
 import { Fragment, ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import clsx from 'clsx';
 import '../styles/global.css';
 import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
