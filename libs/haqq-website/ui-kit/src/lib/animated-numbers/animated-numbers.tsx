@@ -73,11 +73,11 @@ export function AnimatedNumbers({
           return configs(number, index);
         }
 
-        return configs
-          ? configs[getRandomIntInclusive(0, configs.length - 1)]
-          : undefined;
+        return configs[getRandomIntInclusive(0, configs.length - 1)];
       }
+      return undefined;
     },
+
     [],
   );
 
