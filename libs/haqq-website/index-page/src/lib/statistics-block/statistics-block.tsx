@@ -39,7 +39,6 @@ export function StatisticsBlockStatCard({
         {prefix && `${prefix} `}
         {startAnimation ? (
           <MemoizedAnimatedNumbers
-            includeComma
             animateToNumber={value}
             locale="en-US"
             configs={(_, index) => {
