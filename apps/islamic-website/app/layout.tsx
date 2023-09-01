@@ -11,6 +11,7 @@ import { DEPLOY_URL } from '../constants';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../styles/global.css';
+import { DEPLOY_URL } from '../constants';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin',
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
     userScalable: false,
     width: 'device-width',
   },
+  metadataBase: new URL(DEPLOY_URL),
 };
 
 const alexandria = Alexandria({

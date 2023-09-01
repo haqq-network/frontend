@@ -12,7 +12,7 @@ export function TitleBlock() {
         <div className="font-serif text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
           HAQQ <br /> Ecosystem <br className="block lg:hidden xl:block" /> Fund
         </div>
-        <Link href={'#apply'} className="scroll-smooth" scroll={false}>
+        <Link href="#apply" className="scroll-smooth" scroll={false}>
           <Button
             variant={2}
             className="mb-[80px] mt-[32px] sm:mb-[120px] sm:mt-[48px] lg:mt-[64px]"

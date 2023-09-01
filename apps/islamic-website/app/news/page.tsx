@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { NewsPage } from '@haqq/islamic-website/news-page';
 import { getNewsPageContent } from '../../utils/get-news-data';
-import { TURNSTILE_SITEKEY } from '../../constants';
+import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../constants';
 
 const title = 'IslamicCoin | News';
 const description =
@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     title,
     description,
     images: [{ url: '/opengraph-image.png' }],
+    locale: 'en-US',
+    url: `${new URL('/news', DEPLOY_URL).toString()}`,
+    type: 'website',
   },
 };
 

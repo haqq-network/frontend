@@ -1,3 +1,4 @@
+import { DEPLOY_URL } from '../../constants';
 import type { Metadata } from 'next';
 
 const title = 'IslamicCoin | Academy';
@@ -11,8 +12,10 @@ export const metadata: Metadata = {
     title,
     description,
     images: [{ url: '/opengraph-image.png' }],
+    locale: 'en-US',
+    url: `${new URL('/academy', DEPLOY_URL).toString()}`,
+    type: 'website',
   },
 };
 
-// export { AcademyPage as default } from '@haqq/islamic-website/academy-page';
 export { AvailableSoonPage as default } from '@haqq/islamic-website/academy-page';
