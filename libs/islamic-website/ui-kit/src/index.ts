@@ -18,3 +18,6 @@ export * from './lib/members-container/members-container';
 export * from './lib/input/input';
 export * from './lib/markdown-text/markdown-text';
 export * from './lib/select/select';
+export * from './lib/new-member-card/new-member-card';
+export * from './lib/filter-button/filter-button';
+export * from './lib/animated-numbers/animated-numbers';

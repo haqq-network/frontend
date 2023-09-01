@@ -14,15 +14,15 @@ export function ApplyBlock() {
         </Heading>
         <div className="mt-[24px] flex flex-col gap-[24px] min-[375px]:flex-row">
           <Link
-            href={'https://forms.gle/cf38bWNKRSEGV2b48'}
+            href="https://forms.gle/cf38bWNKRSEGV2b48"
             target="_blank"
-            rel={'noopener noreferrer'}
+            rel="noopener noreferrer"
           >
             <Button variant={2} className="w-full min-[375px]:w-auto">
               Apply now
             </Button>
           </Link>
-          <Link href={'/ecosystem-fund'}>
+          <Link href="/ecosystem-fund">
             <Button className="w-full min-[375px]:w-auto">Learn more</Button>
           </Link>
         </div>
