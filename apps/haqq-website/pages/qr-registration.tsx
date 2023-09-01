@@ -1,1 +1,1 @@
-export { QrRegistrationPage as default } from '@haqq/website/qr-registration-page';
+export { QrRegistrationPage as default } from '@haqq/haqq-website/qr-registration-page';
