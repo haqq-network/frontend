@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-import { TxGenerated } from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
 import { getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';

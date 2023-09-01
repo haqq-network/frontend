@@ -3,8 +3,11 @@ import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Button } from '@haqq/islamic-ui-kit';
-import { HookedFormInput, FormState } from '@haqq/website/forms';
+import {
+  FormState,
+  HookedFormInput,
+} from '../hooked-form-input/hooked-form-input';
+import { Button } from '@haqq/haqq-website-ui-kit';
 
 interface QrRegistrationFormFields {
   name: string;
@@ -134,7 +137,6 @@ export function QrRegistrationForm() {
         </div>
 
         <Button
-          variant={'primary-green'}
           type="submit"
           disabled={isFormDisabled}
         >

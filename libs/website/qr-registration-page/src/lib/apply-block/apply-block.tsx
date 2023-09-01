@@ -1,11 +1,10 @@
-import { Text } from '@haqq/website-ui-kit';
-import bgImgData from '../../assets/lines.svg';
 import { СonnectButtons } from '../connect-buttons/connect-buttons';
 import { useAddress, useQrRegistrationActions } from '@haqq/shared';
 import { useEffect } from 'react';
-import { QrRegistrationForm } from '@haqq/islamic-website/forms';
+import { QrRegistrationForm } from '@haqq/haqq-website/forms';
+import { Text } from '@haqq/haqq-website-ui-kit';
 
-const MESSAGE = 'Welcome to Haqq QR Registration!';
+// const MESSAGE = 'Welcome to Haqq QR Registration!';
 
 export function ApplyBlock() {
   const { sign } = useQrRegistrationActions();
