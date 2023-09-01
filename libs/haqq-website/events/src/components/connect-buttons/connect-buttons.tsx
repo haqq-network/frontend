@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AccountButton, Button, SelectChainButton } from '@haqq/shell-ui-kit';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 import {
@@ -14,6 +14,7 @@ export function ConnectButtons() {
   const chains = useSupportedChains();
   const { disconnect, openSelectWallet } = useWallet();
   const { ethAddress } = useAddress();
+  const [isMounted, setMounted] = useState(false);
 
   const { switchNetworkAsync } = useSwitchNetwork();
 
@@ -44,8 +45,17 @@ export function ConnectButtons() {
     };
   }, [chain, chains]);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Hydration warning hack
+  if (!isMounted) {
+    return null;
+  }
+
   return (
-    <div className="hidden pl-[80px] lg:block">
+    <div>
       {ethAddress ? (
         <div className="flex flex-row gap-[24px]">
           <SelectChainButton
