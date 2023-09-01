@@ -27,6 +27,7 @@ import {
   HalfMoonAndStarIcon,
   AlertIcon,
   StarIcon,
+  QuestionMarkIcon,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
@@ -330,6 +331,11 @@ export function DesktopHeader() {
                       title="Academy"
                       icon={<AcademyIcon />}
                       href="/academy"
+                    />
+                    <DropdownLink
+                      title="Privacy policy"
+                      icon={<QuestionMarkIcon />}
+                      href="/privacy-policy"
                     />
                     <DropdownLink
                       title="Blog"
