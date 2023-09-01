@@ -11,11 +11,9 @@ import { DEPLOY_URL } from '../constants';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../styles/global.css';
-import { DEPLOY_URL } from '../constants';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin',
-  metadataBase: new URL(DEPLOY_URL),
   viewport: {
     initialScale: 1,
     maximumScale: 1,
