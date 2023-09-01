@@ -134,7 +134,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div className="flex h-[28px] w-[170px]">
             <Link
-              href={'/'}
+              href="/"
               className="text-white transition-colors duration-300 hover:text-[#18FFAC]"
             >
               <svg

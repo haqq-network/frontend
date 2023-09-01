@@ -52,7 +52,7 @@ export function HeroBlock() {
           <p>
             <Text size="large">
               <Link
-                href={'https://islamiccoin.net/'}
+                href="https://islamiccoin.net"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-haqq-orange underline transition-colors duration-150"

@@ -890,14 +890,14 @@ export function PartnershipPage() {
                 <Text isMono>Our partners</Text>
                 <div className="flex items-center gap-x-[12px] lg:gap-x-[24px]">
                   <Link
-                    href={'https://wggos.org/'}
+                    href="https://wggos.org"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <WorldGreenGrowthOrgLogo />
                   </Link>
                   <Link
-                    href={'https://sdgs.un.org/goals'}
+                    href="https://sdgs.un.org/goals"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -909,7 +909,7 @@ export function PartnershipPage() {
               <div className="mt-[32px] flex flex-col gap-y-[4px] md:mt-[44px] md:gap-y-[8px] lg:mt-[60px]">
                 <Text isMono>Our partners</Text>
                 <Link
-                  href={'mailto:proposals@islamiccoin.net'}
+                  href="mailto:proposals@islamiccoin.net"
                   className="text-islamic-primary-green hover:text-islamic-primary-green-hover w-fit cursor-pointer transition-colors duration-300"
                 >
                   proposals@islamiccoin.net

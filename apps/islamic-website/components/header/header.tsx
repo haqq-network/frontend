@@ -25,6 +25,8 @@ import {
   BurgerButton,
   DropdownLink,
   HalfMoonAndStarIcon,
+  AlertIcon,
+  StarIcon,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
@@ -71,7 +73,7 @@ function HeaderDropdown({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="hover:text-islamic-primary-green group-hover:text-islamic-primary-green flex cursor-pointer items-center gap-x-[4px] p-[16px] text-white transition-colors duration-200">
+      <div className="hover:text-islamic-primary-green group-hover:text-islamic-primary-green flex cursor-default items-center gap-x-[4px] p-[16px] text-white transition-colors duration-200">
         <span className="text-[14px] uppercase leading-[20px]">{title}</span>
         <svg
           width="24"
@@ -171,7 +173,7 @@ export function MobileHeader() {
               <div className="flex items-center justify-between">
                 <div>
                   <Link
-                    href={'/'}
+                    href="/"
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
                     <IslamicHeaderLogo />
@@ -335,6 +337,12 @@ export function DesktopHeader() {
                       href="https://blog.islamiccoin.net"
                       isOutLink
                     />
+                    <DropdownLink
+                      title="Fraud alert"
+                      icon={<AlertIcon />}
+                      href="/fraud-alert"
+                    />
+
                     {/* <DropdownLink
                       title="Podcast"
                       icon={<PodcastIcon />}
@@ -379,21 +387,12 @@ export function DesktopHeader() {
                       icon={<CommunityIcon />}
                       href="/community-hub"
                     />
-                  </div>
-
-                  {/*
-                    <div className="flex flex-col">
                     <DropdownLink
                       title="Meet our team"
                       icon={<StarIcon />}
                       href="/team"
                     />
-                    <DropdownLink
-                      title="Fraud alert"
-                      icon={<AlertIcon />}
-                      href="/fraud-alert"
-                    />
-                  </div> */}
+                  </div>
                 </div>
               </HeaderDropdown>
             </nav>

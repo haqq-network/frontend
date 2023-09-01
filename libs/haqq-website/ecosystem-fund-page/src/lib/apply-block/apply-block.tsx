@@ -18,9 +18,9 @@ export function ApplyBlock() {
         make a difference together!
       </Heading>
       <Link
-        href={'https://forms.gle/cf38bWNKRSEGV2b48'}
+        href="https://forms.gle/cf38bWNKRSEGV2b48"
         target="_blank"
-        rel={'noopener noreferrer'}
+        rel="noopener noreferrer"
       >
         <div className="mt-[24px]">
           <Button variant={2}>Apply now</Button>
