@@ -10,67 +10,65 @@ import {
 import { Button } from '@haqq/haqq-website-ui-kit';
 import clsx from 'clsx';
 
-interface QrRegistrationFormFields {
-  name?: string;
-  surname?: string;
+export interface QrRegistrationFormFields {
+  fullname: string;
+  email: string;
   company?: string;
   position?: string;
-  email: string;
 }
 
 const schema: yup.ObjectSchema<QrRegistrationFormFields> = yup
   .object({
-    name: yup.string().required('Name is required'),
-    surname: yup.string().required('Surname is required'),
+    fullname: yup.string().required('Name is required'),
+    email: yup
+      .string()
+      .email('Should be valid email')
+      .required('Email is required'),
     company: yup.string(),
     position: yup.string(),
-    email: yup.string().required('Email is required'),
   })
   .required();
 
-async function submitForm(
-  form: QrRegistrationFormFields,
-): Promise<{ status: number }> {
-  // return await axios.post('/api/sendgrid', form);
-  return { status: 200 };
-}
-
-export function QrRegistrationForm({ className }: { className?: string }) {
+export function QrRegistrationForm({
+  className,
+  onSubmit,
+}: {
+  className?: string;
+  onSubmit: (formData: QrRegistrationFormFields) => Promise<void>;
+}) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
   );
 
-  const { register, handleSubmit, formState } =
-    useForm<QrRegistrationFormFields>({
-      resolver: yupResolver(schema),
-    });
+  const {
+    register,
+    handleSubmit: hookSubmitWrapper,
+    formState,
+  } = useForm<QrRegistrationFormFields>({
+    resolver: yupResolver(schema),
+  });
 
-  const onSubmit = useCallback(async (data: QrRegistrationFormFields) => {
-    try {
-      setSubscribeFormState(FormState.pending);
-      const response = await submitForm(data);
-
-      if (response.status === 200) {
+  const handleSubmit = useCallback(
+    async (data: QrRegistrationFormFields) => {
+      try {
+        setSubscribeFormState(FormState.pending);
+        await onSubmit(data);
         setSubscribeFormState(FormState.success);
-      } else {
+      } catch (error) {
+        console.error(error);
         setSubscribeFormState(FormState.error);
       }
-    } catch (error) {
-      console.error(error);
-      setSubscribeFormState(FormState.error);
-    }
-  }, []);
+    },
+    [onSubmit],
+  );
 
   const isFormDisabled = useMemo(() => {
-    return (
-      subscribeFormState === FormState.pending ||
-      subscribeFormState === FormState.success
-    );
+    return subscribeFormState === FormState.pending;
   }, [subscribeFormState]);
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={hookSubmitWrapper(handleSubmit)}
       noValidate
       autoComplete="off"
       className={clsx(
@@ -81,11 +79,11 @@ export function QrRegistrationForm({ className }: { className?: string }) {
       <div className="flex flex-1 flex-col space-y-[12px] lg:space-y-[16px]">
         <div className="flex-1">
           <HookedFormInput<QrRegistrationFormFields>
-            placeholder="Your name"
-            id="name"
-            name="name"
+            placeholder="Full name"
+            id="fullname"
+            name="fullname"
             register={register}
-            error={formState.errors.name?.message}
+            error={formState.errors.fullname?.message}
             disabled={isFormDisabled}
             required
             wrapperClassName="w-full"
@@ -94,11 +92,12 @@ export function QrRegistrationForm({ className }: { className?: string }) {
 
         <div className="flex-1">
           <HookedFormInput<QrRegistrationFormFields>
-            placeholder="Your surname"
-            id="surname"
-            name="surname"
+            placeholder="Your email"
+            type="email"
+            id="email"
+            name="email"
             register={register}
-            error={formState.errors.surname?.message}
+            error={formState.errors.email?.message}
             disabled={isFormDisabled}
             required
             wrapperClassName="w-full"
@@ -125,20 +124,6 @@ export function QrRegistrationForm({ className }: { className?: string }) {
             register={register}
             error={formState.errors.position?.message}
             disabled={isFormDisabled}
-            wrapperClassName="w-full"
-          />
-        </div>
-
-        <div className="flex-1">
-          <HookedFormInput<QrRegistrationFormFields>
-            placeholder="Your email"
-            type="email"
-            id="email"
-            name="email"
-            register={register}
-            error={formState.errors.email?.message}
-            disabled={isFormDisabled}
-            required
             wrapperClassName="w-full"
           />
         </div>

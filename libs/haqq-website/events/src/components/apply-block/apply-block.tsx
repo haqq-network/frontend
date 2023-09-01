@@ -1,22 +1,53 @@
 'use client';
 import { ConnectButtons } from '../connect-buttons/connect-buttons';
-import { useAddress, useQrRegistrationActions } from '@haqq/shared';
-import { useEffect } from 'react';
-import { QrRegistrationForm } from '@haqq/haqq-website/forms';
-import { Text } from '@haqq/haqq-website-ui-kit';
+import { useAddress, useQrRegistrationActions, useWallet } from '@haqq/shared';
+import { useCallback, useState } from 'react';
+import {
+  QrRegistrationForm,
+  QrRegistrationFormFields,
+} from '@haqq/haqq-website/forms';
+import { Button } from '@haqq/haqq-website-ui-kit';
+import axios from 'axios';
 
-// const MESSAGE = 'Welcome to Haqq QR Registration!';
+const MESSAGE = 'GIVE ME TICKET';
+
+async function submitForm(
+  form: QrRegistrationFormFields & { signature: string },
+) {
+  return await axios.post<{ message: number } | { error: string }>(
+    '/api/events/sign-up',
+    form,
+  );
+}
 
 export function ApplyBlock() {
+  const [signature, setSignature] = useState<string | undefined>(undefined);
+  const { ethAddress } = useAddress();
+  const { openSelectWallet } = useWallet();
   const { sign } = useQrRegistrationActions();
 
-  const { ethAddress } = useAddress();
+  const handleSubmit = useCallback(
+    async (signupFormData: QrRegistrationFormFields) => {
+      // console.log('handleSubmit', {
+      //   ...signupFormData,
+      //   signature,
+      // });
+      if (signature) {
+        try {
+          const response = await submitForm({
+            ...signupFormData,
+            signature,
+          });
+          console.log({ response });
+          return;
+        } catch (error) {
+          console.error((error as Error).message);
+        }
+      }
+    },
 
-  useEffect(() => {
-    if (ethAddress) {
-      //sign(MESSAGE);
-    }
-  }, [sign, ethAddress]);
+    [signature],
+  );
 
   return (
     <section className="py-20">
@@ -33,8 +64,28 @@ export function ApplyBlock() {
           </div>
 
           <div>
-            <div className="mx-auto max-w-md">
-              <QrRegistrationForm />
+            <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
+              <div>
+                {ethAddress ? (
+                  <Button
+                    className="w-full"
+                    onClick={async () => {
+                      const signature = await sign(ethAddress, MESSAGE);
+                      setSignature(signature);
+                    }}
+                    disabled={Boolean(signature && signature.length > 0)}
+                  >
+                    Sign message
+                  </Button>
+                ) : (
+                  <Button className="w-full" onClick={openSelectWallet}>
+                    Connect wallet
+                  </Button>
+                )}
+
+                <div>{signature}</div>
+              </div>
+              <QrRegistrationForm onSubmit={handleSubmit} />
             </div>
           </div>
         </div>

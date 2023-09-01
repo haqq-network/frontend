@@ -1,44 +1,31 @@
-import { useCallback, useMemo } from 'react';
-import { useAddress } from '../use-address/use-address';
-import { getChainParams } from '../../chains/get-chain-params';
-import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
-import { useNetwork, useWalletClient } from 'wagmi';
+import { useCallback } from 'react';
+import { useWalletClient } from 'wagmi';
+import { Hex } from 'viem';
 
 interface QrRegistrationActionsHook {
-  sign: (message: string) => Promise<string>;
+  sign: (account: Hex, message: string) => Promise<string>;
 }
 
 export function useQrRegistrationActions(): QrRegistrationActionsHook {
-  const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
-  const { ethAddress } = useAddress();
 
-  const haqqChain = useMemo(() => {
-    if (!chain || chain.unsupported) {
-      return undefined;
-    }
-
-    const chainParams = getChainParams(chain.id);
-    return mapToCosmosChain(chainParams);
-  }, [chain]);
-
-  const signTransaction = useCallback(
-    async (message: string) => {
-      if (haqqChain && ethAddress && walletClient) {
+  const handlePersonalSign = useCallback(
+    async (account: Hex, message: string) => {
+      if (walletClient) {
         const signature = await walletClient.signMessage({
-          account: ethAddress,
+          account,
           message,
         });
 
         return signature;
       } else {
-        throw new Error('No haqqChain');
+        throw new Error('No walletClient');
       }
     },
-    [ethAddress, haqqChain, walletClient],
+    [walletClient],
   );
 
   return {
-    sign: signTransaction,
+    sign: handlePersonalSign,
   };
 }
