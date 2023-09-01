@@ -1,7 +1,7 @@
 'use client';
-import { DownloadPDFButton, Text } from '@haqq/islamic-ui-kit';
+import { DownloadPDFButton, Text } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import fatwaSign1 from '../../assets/images/autographs/autograph-al-enezy.webp';
 import fatwaSign2 from '../../assets/images/autographs/autograph-saleh-yaqubi.webp';
 import fatwaSign3 from '../../assets/images/autographs/autograph-hakim-mohamed.webp';
@@ -364,7 +364,7 @@ function ArFatwa() {
   );
 }
 
-function Autograph({ name, image }: { name: string; image: { src: string } }) {
+function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   return (
     <div className="flex w-fit flex-col items-start justify-between gap-y-[8px] md:gap-y-[12px]">
       <span className="font-mono text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
@@ -385,21 +385,18 @@ function AuthographsBlock() {
       </h4>
 
       <div className="grid grid-cols-1 gap-x-[32px] gap-y-[20px] sm:grid-cols-2">
+        <Autograph image={fatwaSign1} name="Sheikh Dr. Essam Khalaf Al-Enezi" />
         <Autograph
-          image={fatwaSign1 as any}
-          name="Sheikh Dr. Essam Khalaf Al-Enezi"
-        />
-        <Autograph
-          image={fatwaSign2 as any}
+          image={fatwaSign2}
           name="Sheikh Dr. Nizam Mohammed Saleh Yaquby"
         />
         <Autograph
-          image={fatwaSign3 as any}
+          image={fatwaSign3}
           name="Sheikh Mohamed Abdel Hakim Mohamed"
         />
-        <Autograph image={fatwaSign4 as any} name="Sheikh Dr. Mohamed Zoeir" />
+        <Autograph image={fatwaSign4} name="Sheikh Dr. Mohamed Zoeir" />
         <Autograph
-          image={fatwaSign5 as any}
+          image={fatwaSign5}
           name="Sheikh Mohamed Fathiddin Beyanouni"
         />
       </div>

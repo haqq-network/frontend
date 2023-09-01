@@ -14,7 +14,6 @@ import {
   useStakingUnbondingsQuery,
   useWallet,
   useSupportedChains,
-  formatNumber,
   useStakingValidatorListQuery,
   useToast,
 } from '@haqq/shared';
@@ -38,6 +37,7 @@ import {
   InfoIcon,
   MyAccountBlockMobile,
   Tooltip,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';

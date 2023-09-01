@@ -461,7 +461,7 @@ function createCosmosService(
       if (signature) {
         const uncompressedPk = recoverPublicKey(
           hashMessage(message),
-          signature as any,
+          signature,
         );
         const hexPk = computePublicKey(uncompressedPk, true);
         const pk = Buffer.from(hexPk.replace('0x', ''), 'hex').toString(
@@ -635,9 +635,13 @@ export function CosmosServiceContainer({
         service: createCosmosService(cosmosRestEndpoint, walletClient),
         error: undefined,
       };
-    } catch (error: any) {
-      console.error(error.message);
-      return { isReady: false, service: undefined, error: error.message };
+    } catch (error) {
+      console.error((error as Error).message);
+      return {
+        isReady: false,
+        service: undefined,
+        error: (error as Error).message,
+      };
     }
   }, [chainId, walletClient]);
 

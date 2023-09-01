@@ -89,7 +89,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/apps/vesting"],
+      "outputs": ["{workspaceRoot}/coverage/apps/vesting"],
       "options": {
         "jestConfig": "apps/vesting/jest.config.ts",
         "passWithNoTests": true

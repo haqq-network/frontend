@@ -11,6 +11,7 @@ import {
   useStakingRewardsQuery,
   useStakingDelegationQuery,
   useCosmosProvider,
+  useStakingPoolQuery,
 } from '@haqq/shared';
 import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
 import {
@@ -68,6 +69,7 @@ export function StakingValidatorList({
   } = useStakingValidatorListQuery(1000);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const { data: stakingPool } = useStakingPoolQuery();
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
   });
@@ -122,6 +124,10 @@ export function StakingValidatorList({
     return [delegated, others];
   }, [isInactiveValidatorsVisible, sortedValidators, valWithDelegationAddr]);
 
+  const totalStaked = useMemo(() => {
+    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  }, [stakingPool?.bonded_tokens]);
+
   return (
     <Fragment>
       {status === 'loading' && (
@@ -142,6 +148,7 @@ export function StakingValidatorList({
             otherValidators={otherValidators}
             delegationInfo={delegationInfo}
             rewardsInfo={rewardsInfo}
+            totalStaked={totalStaked}
           />
         ) : (
           <Fragment>
@@ -159,6 +166,7 @@ export function StakingValidatorList({
                   onValidatorClick={(validatorAddress: string) => {
                     navigate(`validator/${validatorAddress}`);
                   }}
+                  totalStaked={totalStaked}
                 />
               </div>
             )}
@@ -178,6 +186,7 @@ export function StakingValidatorList({
                   onValidatorClick={(validatorAddress: string) => {
                     navigate(`validator/${validatorAddress}`);
                   }}
+                  totalStaked={totalStaked}
                 />
               </div>
             )}
@@ -192,11 +201,13 @@ function ValidatorsListMobileTabs({
   otherValidators,
   rewardsInfo,
   delegationInfo,
+  totalStaked,
 }: {
   delegatedValidators: Validator[];
   otherValidators: Validator[];
   rewardsInfo: DistributionRewardsResponse | null | undefined;
   delegationInfo: GetDelegationsResponse | null | undefined;
+  totalStaked: number;
 }) {
   const [tab, setTab] = useState<'my-delegations' | 'other-validators'>(
     'my-delegations',
@@ -217,6 +228,7 @@ function ValidatorsListMobileTabs({
           onValidatorClick={(validatorAddress: string) => {
             navigate(`validator/${validatorAddress}`);
           }}
+          totalStaked={totalStaked}
         />
       </div>
     );
@@ -252,6 +264,7 @@ function ValidatorsListMobileTabs({
           onValidatorClick={(validatorAddress: string) => {
             navigate(`validator/${validatorAddress}`);
           }}
+          totalStaked={totalStaked}
         />
       </div>
     </div>

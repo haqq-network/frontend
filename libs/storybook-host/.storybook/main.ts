@@ -5,7 +5,7 @@ import { merge } from 'webpack-merge';
 const config: StorybookConfig = {
   stories: [
     '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../../../libs/website/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../../../libs/haqq-website/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../libs/shell/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../libs/staking/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../libs/governance/**/*.stories.@(js|jsx|ts|tsx|mdx)',
