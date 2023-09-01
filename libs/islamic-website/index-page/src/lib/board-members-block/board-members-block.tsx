@@ -12,7 +12,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 type BoardMembers = 'advisory' | 'executive' | 'shariah';
 
-export function AdvisoryBoardBlock({
+export function BoardMembersBlock({
   shariahMembers,
   executiveMembers,
   advisoryMembers,
@@ -24,20 +24,18 @@ export function AdvisoryBoardBlock({
   const [memberModalData, setMemberModalData] = useState<Member | undefined>(
     undefined,
   );
-
   const [activeMembersType, setActiveMembersType] =
     useState<BoardMembers>('advisory');
 
   const members = useMemo(() => {
     switch (activeMembersType) {
-      case 'advisory':
-        return advisoryMembers;
       case 'executive':
         return executiveMembers;
       case 'shariah':
         return shariahMembers;
+      case 'advisory':
       default:
-        break;
+        return advisoryMembers;
     }
   }, [activeMembersType, advisoryMembers, executiveMembers, shariahMembers]);
 
@@ -104,6 +102,7 @@ export function AdvisoryBoardBlock({
             );
           })}
         </div>
+
         <Modal isOpen={Boolean(memberModalData)} onClose={closeBoardModal}>
           {memberModalData && (
             <MemberModalCard

@@ -9,7 +9,7 @@ import { Fragment } from 'react';
 import { Marquee } from '../marquee/marquee';
 import { Container, Member, NewsPost } from '@haqq/islamic-website-ui-kit';
 import { FinanceBlock } from '../finance-block/finance-block';
-import { AdvisoryBoardBlock } from '../advisory-block/advisory-block';
+import { BoardMembersBlock } from '../board-members-block/board-members-block';
 import clsx from 'clsx';
 import { FundsBlock } from '../funds-block/funds-block';
 
@@ -35,7 +35,7 @@ export function IndexPage({
       <FundsBlock />
       <FinanceBlock />
       <NewsBlock news={news} />
-      <AdvisoryBoardBlock
+      <BoardMembersBlock
         executiveMembers={executiveMembers}
         shariahMembers={shariahMembers}
         advisoryMembers={advisoryMembers}
