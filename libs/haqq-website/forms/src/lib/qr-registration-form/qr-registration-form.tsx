@@ -8,6 +8,7 @@ import {
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
 import { Button } from '@haqq/haqq-website-ui-kit';
+import clsx from 'clsx';
 
 interface QrRegistrationFormFields {
   name?: string;
@@ -34,7 +35,7 @@ async function submitForm(
   return { status: 200 };
 }
 
-export function QrRegistrationForm() {
+export function QrRegistrationForm({ className }: { className?: string }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
   );
@@ -68,78 +69,84 @@ export function QrRegistrationForm() {
   }, [subscribeFormState]);
 
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        autoComplete="off"
-        className="mt-16 flex flex-col space-y-[24px] leading-none sm:space-y-[32px]"
-      >
-        <div className="flex flex-col space-y-[12px] lg:space-y-[16px]">
-          <div className="flex-1">
-            <HookedFormInput<QrRegistrationFormFields>
-              placeholder="Your name"
-              id="name"
-              name="name"
-              register={register}
-              error={formState.errors.name?.message}
-              disabled={isFormDisabled}
-              required
-            />
-          </div>
-
-          <div className="flex-1">
-            <HookedFormInput<QrRegistrationFormFields>
-              placeholder="Your surname"
-              id="surname"
-              name="surname"
-              register={register}
-              error={formState.errors.surname?.message}
-              disabled={isFormDisabled}
-              required
-            />
-          </div>
-
-          <div className="flex-1">
-            <HookedFormInput<QrRegistrationFormFields>
-              placeholder="Your company"
-              id="company"
-              name="company"
-              register={register}
-              error={formState.errors.company?.message}
-              disabled={isFormDisabled}
-            />
-          </div>
-
-          <div className="flex-1">
-            <HookedFormInput<QrRegistrationFormFields>
-              placeholder="Your position"
-              id="position"
-              name="position"
-              register={register}
-              error={formState.errors.position?.message}
-              disabled={isFormDisabled}
-            />
-          </div>
-
-          <div className="flex-1">
-            <HookedFormInput<QrRegistrationFormFields>
-              placeholder="Your email"
-              type="email"
-              id="email"
-              name="email"
-              register={register}
-              error={formState.errors.email?.message}
-              disabled={isFormDisabled}
-              required
-            />
-          </div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      autoComplete="off"
+      className={clsx(
+        'flex flex-col space-y-[24px] leading-none sm:space-y-[32px]',
+        className,
+      )}
+    >
+      <div className="flex flex-1 flex-col space-y-[12px] lg:space-y-[16px]">
+        <div className="flex-1">
+          <HookedFormInput<QrRegistrationFormFields>
+            placeholder="Your name"
+            id="name"
+            name="name"
+            register={register}
+            error={formState.errors.name?.message}
+            disabled={isFormDisabled}
+            required
+            wrapperClassName="w-full"
+          />
         </div>
 
-        <Button type="submit" disabled={isFormDisabled}>
-          Register
-        </Button>
-      </form>
-    </div>
+        <div className="flex-1">
+          <HookedFormInput<QrRegistrationFormFields>
+            placeholder="Your surname"
+            id="surname"
+            name="surname"
+            register={register}
+            error={formState.errors.surname?.message}
+            disabled={isFormDisabled}
+            required
+            wrapperClassName="w-full"
+          />
+        </div>
+
+        <div className="flex-1">
+          <HookedFormInput<QrRegistrationFormFields>
+            placeholder="Your company"
+            id="company"
+            name="company"
+            register={register}
+            error={formState.errors.company?.message}
+            disabled={isFormDisabled}
+            wrapperClassName="w-full"
+          />
+        </div>
+
+        <div className="flex-1">
+          <HookedFormInput<QrRegistrationFormFields>
+            placeholder="Your position"
+            id="position"
+            name="position"
+            register={register}
+            error={formState.errors.position?.message}
+            disabled={isFormDisabled}
+            wrapperClassName="w-full"
+          />
+        </div>
+
+        <div className="flex-1">
+          <HookedFormInput<QrRegistrationFormFields>
+            placeholder="Your email"
+            type="email"
+            id="email"
+            name="email"
+            register={register}
+            error={formState.errors.email?.message}
+            disabled={isFormDisabled}
+            required
+            wrapperClassName="w-full"
+          />
+        </div>
+      </div>
+
+      <Button type="submit" disabled={isFormDisabled}>
+        Register
+      </Button>
+    </form>
   );
 }
