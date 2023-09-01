@@ -1,3 +1,4 @@
+'use client';
 import { useCallback, useMemo } from 'react';
 import { AccountButton, Button, SelectChainButton } from '@haqq/shell-ui-kit';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
@@ -8,7 +9,7 @@ import {
   useSupportedChains,
 } from '@haqq/shared';
 
-export function СonnectButtons() {
+export function ConnectButtons() {
   const { chain } = useNetwork();
   const chains = useSupportedChains();
   const { disconnect, openSelectWallet } = useWallet();

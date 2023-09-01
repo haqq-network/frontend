@@ -10,8 +10,8 @@ import {
 import { Button } from '@haqq/haqq-website-ui-kit';
 
 interface QrRegistrationFormFields {
-  name: string;
-  surname: string;
+  name?: string;
+  surname?: string;
   company?: string;
   position?: string;
   email: string;
@@ -136,10 +136,7 @@ export function QrRegistrationForm() {
           </div>
         </div>
 
-        <Button
-          type="submit"
-          disabled={isFormDisabled}
-        >
+        <Button type="submit" disabled={isFormDisabled}>
           Register
         </Button>
       </form>

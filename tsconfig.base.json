@@ -34,6 +34,10 @@
       "@haqq/haqq-website/ecosystem-page": [
         "libs/haqq-website/ecosystem-page/src/index.ts"
       ],
+      "@haqq/haqq-website/events": ["libs/haqq-website/events/src/index.ts"],
+      "@haqq/haqq-website/events/server": [
+        "libs/haqq-website/events/src/server.ts"
+      ],
       "@haqq/haqq-website/forms": ["libs/haqq-website/forms/src/index.ts"],
       "@haqq/haqq-website/index-page": [
         "libs/haqq-website/index-page/src/index.ts"
@@ -44,9 +48,6 @@
       ],
       "@haqq/haqq-website/whitepaper-page": [
         "libs/haqq-website/whitepaper-page/src/index.ts"
-      ],
-      "@haqq/haqq-website/qr-registration-page": [
-        "libs/website/qr-registration-page/src/index.ts"
       ],
       "@haqq/islamic-website-ui-kit": [
         "libs/islamic-website/ui-kit/src/index.ts"
