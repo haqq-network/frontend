@@ -1,8 +1,4 @@
-import {
-  Container,
-  DownloadPDFButton,
-  MarkdownText,
-} from '@haqq/islamic-website-ui-kit';
+import { Container, MarkdownText } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
@@ -45,14 +41,7 @@ export function PrivacyPolicyPage({
     <HeroBg>
       <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] md:pb-[100px] lg:mt-[68px] lg:pb-[140px]">
         <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          HAQQ Whitepaper
-        </div>
-        <div className="mt-[18px] lg:mt-[32px]">
-          <DownloadPDFButton
-            language="en"
-            url="/assets/haqq-whitepaper.pdf"
-            type="whitepaper"
-          />
+          Privacy Policy
         </div>
 
         <div className="max-w-[860px]">

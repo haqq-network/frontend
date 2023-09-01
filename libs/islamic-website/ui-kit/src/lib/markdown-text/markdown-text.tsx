@@ -26,6 +26,7 @@ export function MarkdownText({
         'prose-p:text-[13px] md:prose-p:text-[14px] prose-p:leading-[20px] lg:prose-p:text-base',
         'prose-li:text-[13px] prose-li:leading-[20px] lg:prose-li:text-base',
         'marker:prose-li:font-[600] prose-li:my-0',
+        'prose-thead:bg-[#2f2f2f] prose-thead:py-[12px] prose-thead:px-[16px] prose-thead:text-start prose-thead:font-mono prose-thead:uppercase',
         className,
       )}
     >

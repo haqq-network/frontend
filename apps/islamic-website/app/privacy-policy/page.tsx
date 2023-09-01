@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import { PrivacyPolicyPage } from '@haqq/islamic-website/privacy-policy-page';
-import { getWhitepaperContent } from '../../utils/get-whitepaper-content';
+import { getPrivacyPolicyContent } from '../../utils/get-privacy-policy-content';
 import { DEPLOY_URL } from '../../constants';
 
-const title = 'IslamicCoin | Whitepaper';
-const description =
-  'The blueprint for a harmonious meld of Islamic finance and blockchain. Delve deep into the vision and strategies steering HAQQ and Islamic Coin.';
+const title = 'IslamicCoin | Privacy Policy';
+const description = '';
 
 export const metadata: Metadata = {
   title,
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const whitepaper = await getWhitepaperContent();
+  const whitepaper = await getPrivacyPolicyContent();
 
   return <PrivacyPolicyPage privacyPolicy={whitepaper} />;
 }
