@@ -8,6 +8,7 @@ import {
 } from '@haqq/haqq-website/forms';
 import { Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
+import { TickerRequest } from '../ticket-request/ticket-request';
 
 const MESSAGE = 'GIVE ME TICKET';
 
@@ -38,6 +39,7 @@ export function ApplyBlock() {
   const [savedSignature, saveSignature] = useLocalStorage(SAVED_SIGNATURE_KEY, signature)
 
   const [submitResult, setSubmitResult] = useState('')
+  const [currentTicket, setCurrentTicket] = useState('blabla')
   const [loading, setLoading] = useState(!!savedSignature)
 
   const checkRequest = useCallback(async () => {
@@ -46,7 +48,8 @@ export function ApplyBlock() {
 
     try {
       if(savedSignature) {
-        const result = await verifySignature(savedSignature)
+     //   const result = await verifySignature(savedSignature)
+     // setCurrentTicket(result)
       }
     } finally {
       setLoading(false)
@@ -95,7 +98,7 @@ export function ApplyBlock() {
 
           {loading ? <SpinnerLoader /> : 
             <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
-              <div>
+              {!savedSignature && <div>
                 {ethAddress ? (
                   <Button
                     className="w-full"
@@ -114,9 +117,11 @@ export function ApplyBlock() {
                     Connect wallet
                   </Button>
                 )}
+              </div>}
 
-              </div>
-              {submitResult ? <div className='flex flex-col space-y-[24px] leading-none sm:space-y-[32px]'>{submitResult}</div> : <QrRegistrationForm onSubmit={handleSubmit} />}
+              {submitResult && <div className='flex flex-col space-y-[24px] leading-none sm:space-y-[32px]'>{submitResult}</div> }
+              
+              {currentTicket ? <TickerRequest qrData={currentTicket}/> : <QrRegistrationForm onSubmit={handleSubmit} />}
             </div>
           }
         </div>
