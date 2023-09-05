@@ -27,3 +27,4 @@ export * from './providers/wallet-provider';
 export * from './hooks/use-window-width/use-window-width';
 export * from './hooks/use-authz-actions/use-authz-actions';
 export * from './hooks/use-authz-queries/use-authz-queries';
+export * from './hooks/use-localstorage/use-local-storage';
