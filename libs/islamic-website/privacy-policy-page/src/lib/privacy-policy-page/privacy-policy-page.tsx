@@ -40,9 +40,9 @@ export function PrivacyPolicyPage({
   return (
     <HeroBg>
       <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] md:pb-[100px] lg:mt-[68px] lg:pb-[140px]">
-        <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+        <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
           Privacy Policy
-        </div>
+        </h1>
 
         <div className="max-w-[860px]">
           <article className="mt-[32px] lg:mt-[100px]">
