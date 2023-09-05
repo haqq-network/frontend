@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const whitepaper = await getMarkdownContent('privacy-policy');
+  const privacyPolicy = await getPrivacyPolicyContent('privacy-policy');
 
   return <PrivacyPolicyPage privacyPolicy={whitepaper} />;
 }
