@@ -1,6 +1,6 @@
 'use client';
 import { ConnectButtons } from '../connect-buttons/connect-buttons';
-import { useAddress, useLocalStorage, useQrRegistrationActions, useWallet } from '@haqq/shared';
+import { useAddress, useDebouncedEffect, useLocalStorage, useQrRegistrationActions, useWallet } from '@haqq/shared';
 import { useCallback, useEffect, useState } from 'react';
 import {
   QrRegistrationForm,
@@ -9,6 +9,7 @@ import {
 import { Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
 import { TickerRequest } from '../ticket-request/ticket-request';
+import debounce from 'lodash'
 
 const MESSAGE = 'GIVE ME TICKET';
 
@@ -21,10 +22,9 @@ async function submitForm(
   );
 }
 
-async function verifySignature(ticket: string,) {
-  return await axios.post<{ message: string, error: string }>(
-    '/api/events/verify',
-    { ticket },
+const getTicket = (signature: string) => {
+  return  axios.get<{ result: any[] }>(
+    `/api/events/get-tickets?signature=${signature}`,
   );
 }
 
@@ -39,26 +39,23 @@ export function ApplyBlock() {
   const [savedSignature, saveSignature] = useLocalStorage(SAVED_SIGNATURE_KEY, signature)
 
   const [submitResult, setSubmitResult] = useState('')
-  const [currentTicket, setCurrentTicket] = useState('blabla')
+  const [currentTicket, setCurrentTicket] = useState('')
   const [loading, setLoading] = useState(!!savedSignature)
 
   const checkRequest = useCallback(async () => {
     setLoading(true)
-    // check and update state
 
     try {
       if(savedSignature) {
-     //   const result = await verifySignature(savedSignature)
-     // setCurrentTicket(result)
+        const ticketsData = await getTicket(savedSignature)
+        ticketsData.data.result[0] && setCurrentTicket(ticketsData.data.result[0].ticket)
       }
     } finally {
       setLoading(false)
     }
   }, [savedSignature])
 
-  useEffect(() => {
-    savedSignature && checkRequest()
-  }, [checkRequest, savedSignature])
+  useDebouncedEffect(checkRequest)
 
   const handleSubmit = useCallback(
     async (signupFormData: QrRegistrationFormFields) => {

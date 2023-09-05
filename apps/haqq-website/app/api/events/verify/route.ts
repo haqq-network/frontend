@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MEETUP_ID } from '../constants';
-
-const FALCONER_ENDPOINT = process.env['FALCONER_ENDPOINT'];
+import { FALCONER_ENDPOINT, MEETUP_ID } from '../constants';
 
 interface EventVerifyRequest {
   meetup_id: string;
