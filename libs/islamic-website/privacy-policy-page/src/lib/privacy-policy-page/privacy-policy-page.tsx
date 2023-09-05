@@ -45,8 +45,8 @@ export function PrivacyPolicyPage({
         </div>
 
         <div className="max-w-[860px]">
-          <article>
-            <MarkdownText className="mt-[32px] lg:mt-[100px]">
+          <article className="mt-[32px] lg:mt-[100px]">
+            <MarkdownText>
               {privacyPolicy}
             </MarkdownText>
           </article>
