@@ -3,15 +3,9 @@ import { MEETUP_ID } from '../constants';
 
 const FALCONER_ENDPOINT = process.env['FALCONER_ENDPOINT'];
 
-interface EventSignupRequest {
-  fullname: string;
-  email: string;
-  company?: string;
-  job_title?: string;
+interface EventVerifyRequest {
   meetup_id: string;
-  captcha_token: string;
-  signature: string;
-  ip: string;
+  ticket: string;
 }
 
 interface EventSignupResponse {
@@ -20,44 +14,27 @@ interface EventSignupResponse {
   error_description?: string;
 }
 
-interface SignupRequest {
-  fullname: string;
-  email: string;
-  company?: string;
-  position?: string;
-  // token: string;
-  signature: string;
+interface VerifyRequest {
+  ticket: string;
 }
 
 export async function POST(request: NextRequest) {
-  const ip = request.ip ?? '[::1]';
   const {
-    fullname,
-    email,
-    company,
-    position,
-    // token,
-    signature,
-  }: SignupRequest = await request.json();
-  const signupRequest: EventSignupRequest = {
-    ip,
+    ticket,
+  }: VerifyRequest = await request.json();
+  const VerifyRequest: EventVerifyRequest = {
     meetup_id: MEETUP_ID,
-    fullname: fullname,
-    email,
-    company: company,
-    job_title: position,
-    captcha_token: 'token',
-    signature,
+    ticket: ticket
   };
 
-  console.log({ signupRequest });
-  const signupUrl = new URL('/meetup/ticket/generate', FALCONER_ENDPOINT);
+  console.log({ VerifyRequest });
+  const signupUrl = new URL('/meetup/ticket/verify', FALCONER_ENDPOINT);
   const signupResponse = await fetch(signupUrl.toString(), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(signupRequest),
+    body: JSON.stringify(VerifyRequest),
   });
   const signupResponseJson: EventSignupResponse = await signupResponse.json();
 
@@ -74,9 +51,8 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  return NextResponse.json<{ message: string, result: EventSignupResponse }>(
+  return NextResponse.json<{ result: EventSignupResponse }>(
     {
-      message: 'You successfully registered to event',
       result: signupResponseJson
     },
     {

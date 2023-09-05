@@ -1,12 +1,12 @@
 'use client';
 import { ConnectButtons } from '../connect-buttons/connect-buttons';
-import { useAddress, useQrRegistrationActions, useWallet } from '@haqq/shared';
-import { useCallback, useState } from 'react';
+import { useAddress, useLocalStorage, useQrRegistrationActions, useWallet } from '@haqq/shared';
+import { useCallback, useEffect, useState } from 'react';
 import {
   QrRegistrationForm,
   QrRegistrationFormFields,
 } from '@haqq/haqq-website/forms';
-import { Button } from '@haqq/haqq-website-ui-kit';
+import { Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
 
 const MESSAGE = 'GIVE ME TICKET';
@@ -14,11 +14,20 @@ const MESSAGE = 'GIVE ME TICKET';
 async function submitForm(
   form: QrRegistrationFormFields & { signature: string },
 ) {
-  return await axios.post<{ message: number } | { error: string }>(
+  return await axios.post<{ message: string, error: string }>(
     '/api/events/sign-up',
     form,
   );
 }
+
+async function verifySignature(ticket: string,) {
+  return await axios.post<{ message: string, error: string }>(
+    '/api/events/verify',
+    { ticket },
+  );
+}
+
+const SAVED_SIGNATURE_KEY = 'SAVED_SIGNATURE_KEY'
 
 export function ApplyBlock() {
   const [signature, setSignature] = useState<string | undefined>(undefined);
@@ -26,19 +35,40 @@ export function ApplyBlock() {
   const { openSelectWallet } = useWallet();
   const { sign } = useQrRegistrationActions();
 
+  const [savedSignature, saveSignature] = useLocalStorage(SAVED_SIGNATURE_KEY, signature)
+
+  const [submitResult, setSubmitResult] = useState('')
+  const [loading, setLoading] = useState(!!savedSignature)
+
+  const checkRequest = useCallback(async () => {
+    setLoading(true)
+    // check and update state
+
+    try {
+      if(savedSignature) {
+        const result = await verifySignature(savedSignature)
+      }
+    } finally {
+      setLoading(false)
+    }
+  }, [savedSignature])
+
+  useEffect(() => {
+    savedSignature && checkRequest()
+  }, [checkRequest, savedSignature])
+
   const handleSubmit = useCallback(
     async (signupFormData: QrRegistrationFormFields) => {
-      // console.log('handleSubmit', {
-      //   ...signupFormData,
-      //   signature,
-      // });
-      if (signature) {
+      
+      if (savedSignature) {
         try {
           const response = await submitForm({
             ...signupFormData,
-            signature,
+            signature: savedSignature ,
           });
-          console.log({ response });
+          console.log({ response: response.data.message });
+
+          setSubmitResult(response.data.message || response.data.error)
           return;
         } catch (error) {
           console.error((error as Error).message);
@@ -46,7 +76,7 @@ export function ApplyBlock() {
       }
     },
 
-    [signature],
+    [savedSignature],
   );
 
   return (
@@ -63,7 +93,7 @@ export function ApplyBlock() {
             <ConnectButtons />
           </div>
 
-          <div>
+          {loading ? <SpinnerLoader /> : 
             <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
               <div>
                 {ethAddress ? (
@@ -72,6 +102,8 @@ export function ApplyBlock() {
                     onClick={async () => {
                       const signature = await sign(ethAddress, MESSAGE);
                       setSignature(signature);
+                      saveSignature(signature)
+                      checkRequest()
                     }}
                     disabled={Boolean(signature && signature.length > 0)}
                   >
@@ -83,11 +115,10 @@ export function ApplyBlock() {
                   </Button>
                 )}
 
-                <div>{signature}</div>
               </div>
-              <QrRegistrationForm onSubmit={handleSubmit} />
+              {submitResult ? <div className='flex flex-col space-y-[24px] leading-none sm:space-y-[32px]'>{submitResult}</div> : <QrRegistrationForm onSubmit={handleSubmit} />}
             </div>
-          </div>
+          }
         </div>
       </div>
     </section>
