@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PrivacyPolicyPage } from '@haqq/islamic-website/privacy-policy-page';
 import { DEPLOY_URL } from '../../constants';
-import { getMarkdownContent } from '../../utils/get-markdown-content';
+import { getPrivacyPolicyContent } from '../../utils/get-privacy-policy-content';
 
 const title = 'IslamicCoin | Privacy Policy';
 const description = '';
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const privacyPolicy = await getPrivacyPolicyContent('privacy-policy');
+  const privacyPolicy = await getPrivacyPolicyContent();
 
-  return <PrivacyPolicyPage privacyPolicy={whitepaper} />;
+  return <PrivacyPolicyPage privacyPolicy={privacyPolicy} />;
 }
