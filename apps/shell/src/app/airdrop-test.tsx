@@ -1,14 +1,21 @@
 import { Button, Container } from '@haqq/shell-ui-kit';
 import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types';
 import { useCallback, useState } from 'react';
+import { ecrecover, fromRpcSig } from '@ethereumjs/util';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Window extends KeplrWindow {}
 }
 
+export function signatureToPubkey(signature: string, msgHash: Buffer) {
+  const ret = fromRpcSig(signature);
+  return ecrecover(msgHash, ret.v, ret.r, ret.s);
+}
+
 export function AirdropTestPage() {
   const [accounts, setAccounts] = useState<Record<string, string>>({});
+  const [signature, setSignature] = useState<any>();
 
   const getKeplrWallet = useCallback(async (): Promise<Keplr | undefined> => {
     if (window.keplr) {
@@ -78,6 +85,8 @@ export function AirdropTestPage() {
         },
       );
       console.log({ signature });
+
+      setSignature(signature);
     }
   }, [getKeplrWallet]);
 
@@ -87,12 +96,32 @@ export function AirdropTestPage() {
       const { bech32Address: osmisisAddress } = await keplrWallet.getKey(
         'osmosis-1',
       );
-      const signature = await keplrWallet?.signArbitrary(
+      const MSG = 'hello world';
+      const signatureArb = await keplrWallet?.signArbitrary(
         'osmosis-1',
         osmisisAddress,
-        'hello',
+        MSG,
       );
-      console.log({ signature });
+      /* 
+        // Compare signature
+      const signatureToCompare = `0x${Buffer.from(
+          signatureArb.signature,
+          'base64',
+      ).toString('hex')}`
+
+      const hexMsg = Buffer.from(
+          MSG,
+          'base64',
+      )
+
+      const pubkeyComputed = signatureToPubkey(
+        signatureToCompare,
+        hexMsg,
+      )
+
+      console.log(signatureToCompare, pubkeyComputed.toString('utf-8'))
+*/
+      setSignature(signatureArb);
     }
   }, [getKeplrWallet]);
 
@@ -112,6 +141,10 @@ export function AirdropTestPage() {
         </div>
         <div className="py-10">
           <pre>{JSON.stringify(accounts, null, 2)}</pre>
+        </div>
+
+        <div className="py-10">
+          <pre>{JSON.stringify(signature?.signature?.signature)}</pre>
         </div>
       </div>
     </Container>
