@@ -1,7 +1,7 @@
 'use client';
 import { ConnectButtons } from '../connect-buttons/connect-buttons';
 import { useAddress, useDebouncedEffect, useLocalStorage, useQrRegistrationActions, useWallet } from '@haqq/shared';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   QrRegistrationForm,
   QrRegistrationFormFields,
@@ -9,7 +9,6 @@ import {
 import { Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
 import { TickerRequest } from '../ticket-request/ticket-request';
-import debounce from 'lodash'
 
 const MESSAGE = 'GIVE ME TICKET';
 
@@ -93,34 +92,37 @@ export function ApplyBlock() {
             <ConnectButtons />
           </div>
 
-          {loading ? <SpinnerLoader /> : 
-            <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
-              {!savedSignature && <div>
-                {ethAddress ? (
-                  <Button
-                    className="w-full"
-                    onClick={async () => {
-                      const signature = await sign(ethAddress, MESSAGE);
-                      setSignature(signature);
-                      saveSignature(signature)
-                      checkRequest()
-                    }}
-                    disabled={Boolean(signature && signature.length > 0)}
-                  >
-                    Sign message
-                  </Button>
-                ) : (
-                  <Button className="w-full" onClick={openSelectWallet}>
-                    Connect wallet
-                  </Button>
-                )}
-              </div>}
+          <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
+            {(loading) ? <SpinnerLoader /> : 
+              <>
+                {!savedSignature && <div>
+                  {ethAddress ? (
+                    <Button
+                      className="w-full"
+                      onClick={async () => {
+                        const signature = await sign(ethAddress, MESSAGE);
+                        setSignature(signature);
+                        saveSignature(signature)
+                        checkRequest()
+                      }}
+                      disabled={Boolean(signature && signature.length > 0)}
+                    >
+                      Sign message
+                    </Button>
+                  ) : (
+                    <Button className="w-full" onClick={openSelectWallet}>
+                      Connect wallet
+                    </Button>
+                  )}
+                </div>}
 
-              {submitResult && <div className='flex flex-col space-y-[24px] leading-none sm:space-y-[32px]'>{submitResult}</div> }
-              
-              {currentTicket ? <TickerRequest qrData={currentTicket}/> : <QrRegistrationForm onSubmit={handleSubmit} />}
-            </div>
+                {submitResult && <div className='flex flex-col space-y-[24px] leading-none sm:space-y-[32px]'>{submitResult}</div> }
+                
+                {currentTicket ? <TickerRequest qrData={currentTicket}/> : <QrRegistrationForm onSubmit={handleSubmit} />}
+              </>
           }
+          </div>
+          
         </div>
       </div>
     </section>
