@@ -71,6 +71,10 @@ const footerNavLinks: FooterNavLinks = [
       url: '/whitepaper',
       title: 'Whitepaper',
     },
+    {
+      url: '/privacy-policy',
+      title: 'Privacy Policy',
+    },
   ],
   [
     {
