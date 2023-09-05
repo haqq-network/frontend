@@ -4,7 +4,6 @@ import { DEPLOY_URL } from '../../constants';
 import { getPrivacyPolicyContent } from '../../utils/get-privacy-policy-content';
 
 const title = 'IslamicCoin | Privacy Policy';
-
 const description = '';
 
 export const metadata: Metadata = {
