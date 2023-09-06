@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps<{
   recentPosts: Post[];
 }> = async (ctx) => {
   try {
-    const slug = ctx.params.slug;
+    const slug = ctx?.params?.slug;
     const storyblokApi = getStoryblokApi();
     const response = await storyblokApi.get('cdn/stories/blog', {
       version:
