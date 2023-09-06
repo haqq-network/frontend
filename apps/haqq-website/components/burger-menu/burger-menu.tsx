@@ -87,6 +87,12 @@ export function BurgerMenu({
         <BurgerMenuNavLink onClick={onClose} href="/#about">
           About
         </BurgerMenuNavLink>
+        <BurgerMenuNavLink
+          onClick={onClose}
+          href="/assets/docs/HAQQ-network-privacy-policy.pdf"
+        >
+          Privacy Policy
+        </BurgerMenuNavLink>
         <BurgerMenuNavLink onClick={onClose} href="/ecosystem-fund">
           Fund
         </BurgerMenuNavLink>
