@@ -26,6 +26,11 @@ export function MarkdownText({
         'prose-p:text-[13px] md:prose-p:text-[14px] prose-p:leading-[20px] lg:prose-p:text-base',
         'prose-li:text-[13px] prose-li:leading-[20px] lg:prose-li:text-base',
         'marker:prose-li:font-[600] prose-li:my-0',
+        'prose-table:text-[14px] prose-table:leading-[20px] prose-thead:bg-[#2f2f2f]',
+        'prose-th:py-[12px] prose-th:text-left prose-th:font-mono prose-th:uppercase',
+        'first:prose-th:pl-[16px] first:prose-th:pr-0 even:prose-th:px-[24px] last:prose-th:pr-[16px] last:prose-th:pl-0',
+        'first:prose-td:pl-[16px] first:prose-td:pr-0 even:prose-td:px-[24px] last:prose-td:pr-[16px] last:prose-td:pl-0',
+        'prose-tr:border-none prose-thead:border-none even:prose-tr:bg-[#2f2f2f]',
         className,
       )}
     >

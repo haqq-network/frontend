@@ -10,7 +10,11 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "esnext",
-    "lib": ["es2017", "dom", "esnext.bigint"],
+    "lib": [
+      "es2017",
+      "dom",
+      "esnext.bigint"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -21,7 +25,9 @@
       "@haqq/governance/proposal-list": [
         "libs/governance/proposal-list/src/index.ts"
       ],
-      "@haqq/haqq-website-ui-kit": ["libs/haqq-website/ui-kit/src/index.ts"],
+      "@haqq/haqq-website-ui-kit": [
+        "libs/haqq-website/ui-kit/src/index.ts"
+      ],
       "@haqq/haqq-website/blog-page": [
         "libs/haqq-website/blog-page/src/index.ts"
       ],
@@ -38,11 +44,15 @@
       "@haqq/haqq-website/events/server": [
         "libs/haqq-website/events/src/server.ts"
       ],
-      "@haqq/haqq-website/forms": ["libs/haqq-website/forms/src/index.ts"],
+      "@haqq/haqq-website/forms": [
+        "libs/haqq-website/forms/src/index.ts"
+      ],
       "@haqq/haqq-website/index-page": [
         "libs/haqq-website/index-page/src/index.ts"
       ],
-      "@haqq/haqq-website/shared": ["libs/website/shared/src/index.ts"],
+      "@haqq/haqq-website/shared": [
+        "libs/website/shared/src/index.ts"
+      ],
       "@haqq/haqq-website/wallet-page": [
         "libs/haqq-website/wallet-page/src/index.ts"
       ],
@@ -85,6 +95,9 @@
       "@haqq/islamic-website/partnership-page": [
         "libs/islamic-website/partnership-page/src/index.ts"
       ],
+      "@haqq/islamic-website/privacy-policy-page": [
+        "libs/islamic-website/privacy-policy-page/src/index.ts"
+      ],
       "@haqq/islamic-website/roadmap-page": [
         "libs/islamic-website/roadmap-page/src/index.ts"
       ],
@@ -103,21 +116,40 @@
       "@haqq/islamic-website/whitepaper-page": [
         "libs/islamic-website/whitepaper-page/src/index.ts"
       ],
-      "@haqq/sentry": ["libs/sentry/src/index.ts"],
-      "@haqq/shared": ["libs/shared/src/index.ts"],
-      "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
-      "@haqq/shell/authz-page": ["libs/shell/authz-page/src/index.ts"],
-      "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],
-      "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
-      "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
+      "@haqq/sentry": [
+        "libs/sentry/src/index.ts"
+      ],
+      "@haqq/shared": [
+        "libs/shared/src/index.ts"
+      ],
+      "@haqq/shell-ui-kit": [
+        "libs/shell/ui-kit/src/index.ts"
+      ],
+      "@haqq/shell/authz-page": [
+        "libs/shell/authz-page/src/index.ts"
+      ],
+      "@haqq/shell/index-page": [
+        "libs/shell/index-page/src/index.ts"
+      ],
+      "@haqq/staking/ui-kit": [
+        "libs/staking/ui-kit/src/index.ts"
+      ],
+      "@haqq/staking/utils": [
+        "libs/staking/utils/src/index.ts"
+      ],
       "@haqq/staking/validator-details-page": [
         "libs/staking/validator-details-page/src/index.ts"
       ],
       "@haqq/staking/validator-list-page": [
         "libs/staking/validator-list-page/src/index.ts"
       ],
-      "@haqq/storybook-host": ["libs/storybook-host/src/index.ts"]
+      "@haqq/storybook-host": [
+        "libs/storybook-host/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

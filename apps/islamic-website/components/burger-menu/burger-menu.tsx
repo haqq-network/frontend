@@ -9,6 +9,7 @@ import {
   MissionIcon,
   NewsIcon,
   PartnershipIcon,
+  QuestionMarkIcon,
   RoadmapIcon,
   StarIcon,
   ValuesIcon,
@@ -131,6 +132,12 @@ export function BurgerMenu({
             title="Academy"
             icon={<AcademyIcon />}
             href="/academy"
+          />
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Privacy Policy"
+            icon={<QuestionMarkIcon />}
+            href="/privacy-policy"
           />
           <BurgerMenuDropdownLink
             onClick={onClick}

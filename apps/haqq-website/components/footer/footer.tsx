@@ -99,6 +99,11 @@ export function Footer() {
                 <FooterNavLink href="/#about">About</FooterNavLink>
               </div>
               <div className="leading-[0]">
+                <FooterNavLink href="/assets/docs/HAQQ-network-privacy-policy.pdf">
+                  Privacy Policy
+                </FooterNavLink>
+              </div>
+              <div className="leading-[0]">
                 <FooterNavLink href="/ecosystem">Ecosystem</FooterNavLink>
               </div>
               <div className="leading-[0]">
