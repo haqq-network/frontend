@@ -4,7 +4,7 @@ import {
   Text,
   RatingBadge,
   WalletDownloadButton,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
 import Image from 'next/image';
 import phoneImgData from '../assets/images/wallet_phone.webp';
@@ -32,7 +32,7 @@ export function WalletPage() {
         <RatingBadge market="app-store" rating={4.5} />
         <RatingBadge market="google-play" rating={5.0} />
       </div>
-      <div className="mt-[28px] flex flex-col gap-x-[16px] gap-y-[20px] md:flex-row lg:mt-[24px]">
+      <div className="mt-[28px] flex flex-col gap-x-[16px] gap-y-[20px] md:flex-row lg:mt-[24px] lg:flex-wrap">
         <div className="w-fit">
           <Link
             href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
@@ -51,6 +51,16 @@ export function WalletPage() {
             <WalletDownloadButton type="google" />
           </Link>
         </div>
+        <div className="w-fit">
+          <Link
+            href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/app-android.apk"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
+            <WalletDownloadButton type="apk" />
+          </Link>
+        </div>
       </div>
     </Fragment>
   );
@@ -65,9 +75,11 @@ export function WalletPage() {
   );
 
   return (
-    <Container className="relative mt-[32px] overflow-hidden pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:overflow-visible">
-      <div className="hidden items-center justify-between lg:flex">
-        <div className="mr-[60px] flex max-w-[660px] flex-col">{content}</div>
+    <Container className="relative mt-[32px] overflow-hidden pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:overflow-visible lg:pb-[130px] xl:pb-[108px]">
+      <div className="hidden items-center justify-between lg:flex lg:gap-x-[24px] xl:gap-x-[60px]">
+        <div className="flex max-w-[600px] flex-col xl:max-w-[660px]">
+          {content}
+        </div>
         <div className="flex flex-1 justify-center">
           <div className="relative h-[600px] w-[350px]">{image}</div>
         </div>

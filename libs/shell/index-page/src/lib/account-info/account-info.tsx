@@ -7,7 +7,7 @@ import {
   useStakingRewardsQuery,
   useSupportedChains,
 } from '@haqq/shared';
-import { CopyIcon, Card, CardHeading } from '@haqq/shell-ui-kit';
+import { CopyIcon, Card, CardHeading, Tooltip } from '@haqq/shell-ui-kit';
 
 export function ShellIndexPageAccountInfo() {
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);
@@ -96,34 +96,34 @@ export function ShellIndexPageAccountInfo() {
           <CardHeading>Address</CardHeading>
 
           <div className="mb-2">
-            {/* <Tooltip text={isEthAddressCopy ? 'Copied' : 'Click to copy'}> */}
-            <div
-              className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px]"
-              onClick={handleEthAddressCopy}
-            >
-              <div className="w-full overflow-hidden text-ellipsis text-[18px] leading-[22px]">
-                {ethAddress}
+            <Tooltip text={isEthAddressCopy ? 'Copied' : 'Click to copy'}>
+              <div
+                className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px]"
+                onClick={handleEthAddressCopy}
+              >
+                <div className="w-full overflow-hidden text-ellipsis text-[18px] leading-[22px]">
+                  {ethAddress}
+                </div>
+                <div>
+                  <CopyIcon className="text-white/20 transition-colors duration-100 ease-in-out group-hover:text-gray-400" />
+                </div>
               </div>
-              <div>
-                <CopyIcon className="text-white/20 transition-colors duration-100 ease-in-out group-hover:text-gray-400" />
-              </div>
-            </div>
-            {/* </Tooltip> */}
+            </Tooltip>
           </div>
           <div>
-            {/* <Tooltip text={isHaqqAddressCopy ? 'Copied' : 'Click to copy'}> */}
-            <div
-              className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px]"
-              onClick={handleHaqqAddressCopy}
-            >
-              <div className="w-full overflow-hidden text-ellipsis text-[18px] leading-[22px]">
-                {haqqAddress}
+            <Tooltip text={isHaqqAddressCopy ? 'Copied' : 'Click to copy'}>
+              <div
+                className="group flex cursor-pointer flex-row items-center justify-center space-x-[8px]"
+                onClick={handleHaqqAddressCopy}
+              >
+                <div className="w-full overflow-hidden text-ellipsis text-[18px] leading-[22px]">
+                  {haqqAddress}
+                </div>
+                <div>
+                  <CopyIcon className="text-white/20 transition-colors duration-100 ease-in-out group-hover:text-gray-400" />
+                </div>
               </div>
-              <div>
-                <CopyIcon className="text-white/20 transition-colors duration-100 ease-in-out group-hover:text-gray-400" />
-              </div>
-            </div>
-            {/* </Tooltip> */}
+            </Tooltip>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 'use client';
-import { NewsCard, NewsPost } from '@haqq/islamic-ui-kit';
+import { NewsCard, NewsPost } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { PropsWithChildren, useMemo, useState } from 'react';
 
 function NewsTypeButton({
@@ -14,8 +15,10 @@ function NewsTypeButton({
   return (
     <div
       className={clsx(
-        'hover:bg-islamic-primary-green-hover cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-150',
-        active ? 'bg-islamic-primary-green' : 'bg-transparent',
+        ' cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+        active
+          ? 'bg-islamic-primary-green'
+          : 'hover:bg-islamic-primary-green/50 bg-transparent',
       )}
       onClick={onClick}
     >
@@ -74,9 +77,18 @@ export function PostsBlock({
           Events
         </NewsTypeButton>
       </div>
-      <div className="mt-[28px] grid grid-cols-1 gap-[28px] md:grid-cols-2 lg:mt-[36px] lg:grid-cols-3 lg:gap-[48px]">
+      <div className="mt-[28px] grid grid-cols-1 gap-x-[28px] gap-y-[36px] md:grid-cols-2 lg:mt-[36px] lg:grid-cols-3 lg:gap-x-[48px] lg:gap-y-[56px]">
         {filteredPosts.map((post, index) => {
-          return <NewsCard post={post} key={index} />;
+          return (
+            <Link
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={`news-${index}`}
+            >
+              <NewsCard post={post} key={index} />
+            </Link>
+          );
         })}
       </div>
     </div>

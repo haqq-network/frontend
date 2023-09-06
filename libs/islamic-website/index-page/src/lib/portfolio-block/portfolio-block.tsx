@@ -4,7 +4,7 @@ import {
   Text,
   WalletDownloadButton,
   RatingBadge,
-} from '@haqq/islamic-ui-kit';
+} from '@haqq/islamic-website-ui-kit';
 import iphoneImgData from '../../assets/images/iphone.png';
 import halfIphoneImgData from '../../assets/images/half-iphone.png';
 import Image from 'next/image';
@@ -32,7 +32,9 @@ export function PortfolioBlock() {
                 Manage Your <GradientText>Shariah Portfolio </GradientText>
                 with HAQQ Wallet
               </div>
-              <Text isMono>Ethics-First, Non-Custodial Wallet</Text>
+              <div className="lg:mt-[40px]">
+                <Text isMono>Ethics-First, Non-Custodial Wallet</Text>
+              </div>
               <Text
                 size="small"
                 className="mt-[20px] text-white/50 md:mt-[24px]"

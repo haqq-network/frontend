@@ -1,66 +1,13 @@
 'use client';
-import { Container, DownloadPDFButton, Text } from '@haqq/islamic-ui-kit';
-import { MembersContainer } from '../members-container/members-container';
+import { DownloadPDFButton, Text } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import { Fragment, PropsWithChildren, useCallback, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { FoundationsBlock } from '../foundations-block/foundations-block';
-import { ShariahBlock } from '../shariah-block/shariah-block';
-
-import { Menu, Transition } from '@headlessui/react';
-
-const mockMembers = [
-  {
-    image: '/assets/images/mock_member.png',
-    title: '1Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-    url: 'https://google.com',
-  },
-  {
-    image: '/assets/images/mock_member.png',
-    title: '2Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: '/assets/images/mock_member.png',
-    title: '3Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: '/assets/images/mock_member.png',
-    title: '4Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: '/assets/images/mock_member.png',
-    title: '5Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: '/assets/images/mock_member.png',
-    title: '6Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: '/assets/images/mock_member.png',
-    title: '7Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-  {
-    image: '/assets/images/mock_member.png',
-    title: '8Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
-    description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-  },
-];
+import Image, { StaticImageData } from 'next/image';
+import fatwaSign1 from '../../assets/images/autographs/autograph-al-enezy.webp';
+import fatwaSign2 from '../../assets/images/autographs/autograph-saleh-yaqubi.webp';
+import fatwaSign3 from '../../assets/images/autographs/autograph-hakim-mohamed.webp';
+import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.webp';
+import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
+import { useState } from 'react';
 
 function LangButton({
   active,
@@ -74,26 +21,30 @@ function LangButton({
   return (
     <div
       className={clsx(
-        'hover:bg-islamic-primary-green-hover cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-1000',
-        active ? 'bg-islamic-primary-green' : 'bg-transparent',
+        ' cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+        active
+          ? 'bg-islamic-primary-green'
+          : 'hover:bg-islamic-primary-green/50 bg-transparent',
       )}
       onClick={onClick}
     >
-      {lang === 'ar' ? 'Arabi' : 'English'} version
+      {lang === 'ar' ? 'Arabic' : 'English'} version
     </div>
   );
 }
 
 function EnFatwa() {
   return (
-    <div className="mt-[30px] flex flex-col gap-y-[16px] font-[300] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
+    <div className="mt-[30px] flex flex-col gap-y-[16px] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
       <Text size="small">
         In the name of Allah, the most compassionate, the most merciful
       </Text>
-      <div className="text-[18px] font-[600] leading-[26px]">
-        The Islamic Shariah view on establishing the “HAQQ Chain” network and
-        the issuance of its own currency “Islamic Coin”
-      </div>
+      <p className="font-serif text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
+        <strong className="font-[700]">
+          The Islamic Shariah view on establishing the “HAQQ Chain” network and
+          the issuance of its own currency “Islamic Coin”
+        </strong>
+      </p>
       <Text size="small">
         Praise be to Allah. Prayers and peace be upon our Prophet, Muhammad, his
         family, and all of his companions, and those who followed them with
@@ -221,7 +172,7 @@ function EnFatwa() {
             Appoint an Authority committee for the Evergreen DAO Endowment Fund
             to ensure the safety of the Fund’s activities.
           </li>
-        </ol>{' '}
+        </ol>
       </Text>
 
       <Text size="small">
@@ -254,9 +205,11 @@ function EnFatwa() {
         in this document and its annexes.
       </Text>
       <Text size="small">
-        Praise be to Allah, the Lord of the Worlds; and may His blessings and
-        peace be upon our Prophet Muhammad and upon all his Family and
-        Companions.
+        Praise be to Allah, the Lord of the Worlds;{' '}
+        <strong className="font-[600]">and may His</strong> blessings and peace
+        be upon <strong className="font-[600]">our Prophet Muhammad</strong> and
+        upon all{' '}
+        <strong className="font-[600]">his Family and Companions.</strong>
       </Text>
     </div>
   );
@@ -266,10 +219,14 @@ function ArFatwa() {
   return (
     <div className="mt-[30px] flex flex-col gap-y-[16px] font-[300] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
       <Text size="small">بسم الله الرحمن الرحيم</Text>
-      <div className="text-[18px] font-[600] leading-[26px]">
-        الرأي الشرعي لتأسيس شبكة ’الحق تشين’ وإصدار عملة ’إسلاميك كوين’ الخاصة
-        بها
-      </div>
+
+      <p className="font-serif text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
+        <strong className="font-[700]">
+          الرأي الشرعي لتأسيس شبكة ’الحق تشين’ وإصدار عملة ’إسلاميك كوين’ الخاصة
+          بها
+        </strong>
+      </p>
+
       <Text size="small">
         الحمد للّه وحده، والـصـلاة والسلام على نبينـا محمد، وعلى آله وصحبـه، ومن
         تبعهم بإحسـان إلى يـوم الديـن، أما بعد: فإن الهيئة الشرعية المُشكّلة
@@ -407,14 +364,14 @@ function ArFatwa() {
   );
 }
 
-function Autograph({ name, image }: { name: string; image: string }) {
+function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   return (
-    <div className="flex w-fit flex-col items-start justify-between gap-y-[8px]">
-      <span className="font-mono text-[12px] leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
+    <div className="flex w-fit flex-col items-start justify-between gap-y-[8px] md:gap-y-[12px]">
+      <span className="font-mono text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
         {name}
       </span>
       <div className="relative h-[62px] w-[170px]">
-        <Image src={image} alt={name} fill />
+        <Image src={image.src} alt={name} fill />
       </div>
     </div>
   );
@@ -423,28 +380,23 @@ function Autograph({ name, image }: { name: string; image: string }) {
 function AuthographsBlock() {
   return (
     <div className="mt-[28px] flex flex-col gap-y-[20px] md:mt-[32px] lg:mt-[36px]">
-      <div className="font-mono text-[17px] leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+      <h4 className="font-mono text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
         Islamic Coin Shariah Board
-      </div>
+      </h4>
+
       <div className="grid grid-cols-1 gap-x-[32px] gap-y-[20px] sm:grid-cols-2">
+        <Autograph image={fatwaSign1} name="Sheikh Dr. Essam Khalaf Al-Enezi" />
         <Autograph
-          image="/assets/images/autographs/autograph-al-enezy.webp"
-          name="Sheikh Dr. Essam Khalaf Al-Enezi"
-        />
-        <Autograph
-          image="/assets/images/autographs/autograph-saleh-yaqubi.webp"
+          image={fatwaSign2}
           name="Sheikh Dr. Nizam Mohammed Saleh Yaquby"
         />
         <Autograph
-          image="/assets/images/autographs/autograph-hakim-mohamed.webp"
+          image={fatwaSign3}
           name="Sheikh Mohamed Abdel Hakim Mohamed"
         />
+        <Autograph image={fatwaSign4} name="Sheikh Dr. Mohamed Zoeir" />
         <Autograph
-          image="/assets/images/autographs/autograph-mohamed-zoeir.webp"
-          name="Sheikh Dr. Mohamed Zoeir"
-        />
-        <Autograph
-          image="/assets/images/autographs/autograph-fathiddin-beyanouni.webp"
+          image={fatwaSign5}
           name="Sheikh Mohamed Fathiddin Beyanouni"
         />
       </div>
@@ -452,313 +404,56 @@ function AuthographsBlock() {
   );
 }
 
-function FatwaHeadingLink({
-  href,
-  isActive,
-  children,
-  onClick,
-}: PropsWithChildren<{
-  href: string;
-  isActive: boolean;
-  onClick: () => void;
-}>) {
-  return (
-    <div
-      className={clsx(
-        'hover:text-islamic-primary-green-hover flex cursor-pointer items-center justify-between gap-x-[8px] font-mono uppercase transition-colors duration-300',
-        isActive ? 'text-islamic-primary-green' : 'text-white',
-      )}
-      onClick={onClick}
-    >
-      <Link href={`#${href}`} className="scroll-smooth" scroll={false}>
-        {children}
-      </Link>
-      {isActive && (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={clsx(
-            isActive ? 'text-islamic-primary-green' : 'text-transparent',
-          )}
-        >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M14.7071 5.29289C14.3166 4.90237 13.6834 4.90237 13.2929 5.29289C12.9024 5.68342 12.9024 6.31658 13.2929 6.70711L17.5858 11H3C2.44772 11 2 11.4477 2 12C2 12.5523 2.44772 13 3 13H17.5858L13.2929 17.2929C12.9024 17.6834 12.9024 18.3166 13.2929 18.7071C13.6834 19.0976 14.3166 19.0976 14.7071 18.7071L21.4142 12L14.7071 5.29289Z"
-            fill="currentColor"
-          />
-        </svg>
-      )}
-    </div>
-  );
-}
-
-type FatwaPageArticles =
-  | 'fatwa'
-  | 'foundations'
-  | 'shariah-oracle'
-  | 'shariah-board'
-  | 'advisory-board'
-  | 'executive-board';
+// type FatwaPageArticles =
+//   | 'fatwa'
+//   | 'foundations'
+//   | 'shariah-oracle'
+//   | 'shariah-board'
+//   | 'advisory-board'
+//   | 'executive-board';
 
 export function FatwaBlock() {
   const [lang, setLang] = useState<'ar' | 'en'>('en');
-  const [activeHeading, setActiveHeading] =
-    useState<FatwaPageArticles>('fatwa');
-
-  const handleLangChange = useCallback((lang: 'ar' | 'en') => {
-    setLang(lang);
-  }, []);
-
-  const handleHeadingChange = useCallback((heading: FatwaPageArticles) => {
-    setActiveHeading(heading);
-  }, []);
 
   return (
-    <Container className="flex text-white">
-      <div className="hidden h-fit min-w-[292px] flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px] lg:flex">
-        <FatwaHeadingLink
-          href="fatwa"
-          onClick={() => {
-            return handleHeadingChange('fatwa');
-          }}
-          isActive={activeHeading === 'fatwa'}
-        >
-          Fatwa
-        </FatwaHeadingLink>
-        <FatwaHeadingLink
-          href="foundations"
-          onClick={() => {
-            return handleHeadingChange('foundations');
-          }}
-          isActive={activeHeading === 'foundations'}
-        >
-          Foundations of Halal Investing
-        </FatwaHeadingLink>
-        <FatwaHeadingLink
-          href="shariah-oracle"
-          onClick={() => {
-            return handleHeadingChange('shariah-oracle');
-          }}
-          isActive={activeHeading === 'shariah-oracle'}
-        >
-          Shariah Oracle
-        </FatwaHeadingLink>
-        <FatwaHeadingLink
-          href="shariah-board"
-          onClick={() => {
-            return handleHeadingChange('shariah-board');
-          }}
-          isActive={activeHeading === 'shariah-board'}
-        >
-          Shariah Board
-        </FatwaHeadingLink>
-        <FatwaHeadingLink
-          href="advisory-board"
-          onClick={() => {
-            return handleHeadingChange('advisory-board');
-          }}
-          isActive={activeHeading === 'advisory-board'}
-        >
-          Advisory Board
-        </FatwaHeadingLink>
-        <FatwaHeadingLink
-          href="executive-board"
-          onClick={() => {
-            return handleHeadingChange('executive-board');
-          }}
-          isActive={activeHeading === 'executive-board'}
-        >
-          Executive Board
-        </FatwaHeadingLink>
-      </div>
+    <div>
+      <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
+        Fatwa
+      </h2>
 
-      <div className="mt-[40px] flex max-w-full flex-col md:mt-[58px] lg:py-[32px] lg:pl-[48px]">
-        <Menu as="div" className="relative z-10 inline-block lg:hidden">
-          <Menu.Button as={Fragment}>
-            {({ open }) => {
-              return (
-                <button
-                  className={clsx(
-                    'flex flex-row items-center justify-between rounded-[8px] px-[16px] py-[12px]',
-                    'font-mono text-base',
-                    'transition-colors duration-300 ease-out',
-                    'box-border appearance-none outline-none',
-                    'hover:text-haqq-black w-full bg-[#2F2F2F] uppercase text-white md:max-w-[330px]',
-                  )}
-                >
-                  {activeHeading}
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                    className={clsx(
-                      'mb-[-2px] ml-[4px] mr-[-6px]',
-                      'transition-[transform] duration-150 ease-in',
-                      open && 'scale-y-[-1]',
-                    )}
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </button>
-              );
-            }}
-          </Menu.Button>
-
-          <Transition
-            as={Fragment}
-            enter="ease-out duration-100"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-75"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute left-[0px] z-10 mt-[4px] w-full origin-top rounded-[8px] border border-[#ffffff26] bg-[#2f2f2f] py-[8px] text-white shadow-lg focus:outline-none md:max-w-[330px]">
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap  px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
-                  return handleHeadingChange('fatwa');
-                }}
-                href={'#fatwa'}
-              >
-                Fatwa
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'scroll-smooth transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
-                  return handleHeadingChange('foundations');
-                }}
-                href={'#foundations'}
-              >
-                Foundations of Halal Investing
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
-                  return handleHeadingChange('shariah-oracle');
-                }}
-                href={'#shariah-oracle'}
-              >
-                Shariah Oracle
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
-                  return handleHeadingChange('shariah-board');
-                }}
-                href={'#shariah-board'}
-              >
-                Shariah Board
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
-                  return handleHeadingChange('advisory-board');
-                }}
-                href={'#advisory-board'}
-              >
-                Advisory Board
-              </Menu.Item>
-              <Menu.Item
-                as="a"
-                className={clsx(
-                  'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left font-mono text-[13px] uppercase leading-[20px] hover:bg-[#ffffff14]',
-                  'transition-colors duration-150 ease-out',
-                )}
-                onClick={() => {
-                  return handleHeadingChange('executive-board');
-                }}
-                href={'#executive-board'}
-              >
-                Executive Board
-              </Menu.Item>
-            </Menu.Items>
-          </Transition>
-        </Menu>
-        <div
-          className="mt-[32px] text-[22px] font-[600] leading-[24px] text-white md:mt-[40px] md:text-[32px] md:leading-[36px] lg:mt-0 lg:text-[48px] lg:leading-[54px]"
-          id="fatwa"
-        >
-          Fatwa
-        </div>
-        <Text size="small" className="mt-[16px] md:mt-[20px] lg:mt-[24px]">
+      <div className="mt-[16px] md:mt-[20px] lg:mt-[24px]">
+        <Text size="small">
           Issued by the World’s leading authorities in Islamic Finance, Islamic
           Coin has been provided a Fatwa based on the Holy Teachings of the
           Quran.
         </Text>
-        <div className="mt-[24px] flex gap-x-[16px] md:mt-[28px] lg:mt-[32px]">
-          <DownloadPDFButton language="en" url="/assets/fatwa-en.pdf" />
-          <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
-        </div>
-        <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
-          <LangButton
-            active={lang === 'ar'}
-            lang="ar"
-            onClick={() => {
-              return handleLangChange('ar');
-            }}
-          />
-          <LangButton
-            active={lang === 'en'}
-            lang="en"
-            onClick={() => {
-              return handleLangChange('en');
-            }}
-          />
-        </div>
+      </div>
 
-        {lang === 'en' ? <EnFatwa /> : <ArFatwa />}
-        <AuthographsBlock />
+      <div className="mt-[24px] flex gap-x-[16px] md:mt-[28px] lg:mt-[32px]">
+        <DownloadPDFButton language="en" url="/assets/fatwa-en.pdf" />
+        <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
+      </div>
 
-        <FoundationsBlock />
-        <ShariahBlock />
-
-        <MembersContainer
-          members={mockMembers}
-          type="shariah"
-          className="border-b border-[#2F2F2F] py-[80px]"
+      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
+        <LangButton
+          active={lang === 'ar'}
+          lang="ar"
+          onClick={() => {
+            setLang('ar');
+          }}
         />
-        <MembersContainer
-          members={mockMembers}
-          type="advisory"
-          className="border-b border-[#2F2F2F] py-[80px]"
-        />
-        <MembersContainer
-          members={mockMembers}
-          type="executive"
-          className="py-[80px]"
+        <LangButton
+          active={lang === 'en'}
+          lang="en"
+          onClick={() => {
+            setLang('en');
+          }}
         />
       </div>
-    </Container>
+
+      {lang === 'en' ? <EnFatwa /> : <ArFatwa />}
+
+      <AuthographsBlock />
+    </div>
   );
 }

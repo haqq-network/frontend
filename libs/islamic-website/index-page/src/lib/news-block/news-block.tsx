@@ -1,4 +1,9 @@
-import { Container, Heading, NewsCard, NewsPost } from '@haqq/islamic-ui-kit';
+import {
+  Container,
+  Heading,
+  NewsCard,
+  NewsPost,
+} from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
 
 interface NewsBlockProps {
@@ -11,16 +16,22 @@ export function NewsBlock({ news }: NewsBlockProps) {
       <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
         <Heading className="text-white">Latest Islamic Coin News</Heading>
         <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
-          {news.slice(0, 3).map((el, idx) => {
+          {news.map((el, idx) => {
             return (
-              <Link href={el.source} key={`${el.title}-${idx}`}>
+              <Link
+                href={el.url}
+                key={`${el.title}-${idx}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lg:w-1/3"
+              >
                 <NewsCard post={el} />
               </Link>
             );
           })}
         </div>
         <div className="text-islamic-primary-green hover:text-islamic-classic-green mt-[48px] text-center font-mono text-base uppercase transition-colors duration-300">
-          <Link href={'/media'} className="flex items-center gap-x-[8px]">
+          <Link href="/news" className="flex items-center gap-x-[8px]">
             See all news
             <svg
               width="20"

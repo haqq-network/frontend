@@ -16,6 +16,7 @@ import {
   SelectChainButton,
   SelectWalletModal,
   TestedgeBanner,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useMediaQuery } from 'react-responsive';
@@ -25,7 +26,6 @@ import {
   useWallet,
   getFormattedAddress,
   useSupportedChains,
-  formatNumber,
 } from '@haqq/shared';
 import { haqqTestedge2 } from '@wagmi/chains';
 import { useNavigate } from 'react-router-dom';
@@ -102,6 +102,7 @@ function HeaderButtons({
       <nav className="hidden flex-row items-center space-x-6 lg:flex">
         <HeaderNavLink href="/staking">Staking</HeaderNavLink>
         <HeaderNavLink href="/governance">Governance</HeaderNavLink>
+        <HeaderNavLink href="/authz">Authz</HeaderNavLink>
       </nav>
 
       <div className="hidden pl-[80px] lg:block">
@@ -154,6 +155,14 @@ function HeaderButtons({
                   }}
                 >
                   Governance
+                </HeaderNavLink>
+                <HeaderNavLink
+                  href="/authz"
+                  onClick={() => {
+                    onMobileMenuOpenChange(false);
+                  }}
+                >
+                  Authz
                 </HeaderNavLink>
               </div>
 

@@ -8,9 +8,8 @@ import {
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button } from '@haqq/islamic-ui-kit';
+import { Button } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import axios from 'axios';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -31,9 +30,11 @@ async function submitForm(
 export function SubscribeForm({
   className,
   inputClassName,
+  wrapperClassName,
 }: {
   className?: string;
   inputClassName?: string;
+  wrapperClassName?: string;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
@@ -74,25 +75,19 @@ export function SubscribeForm({
         className={clsx(className)}
         autoComplete="off"
       >
-        <div className="sm:flex-1">
-          <HookedFormInput<{ email: string }>
-            wrapperClassName="w-full"
-            placeholder="Your e-mail"
-            type="email"
-            id="email"
-            register={register}
-            error={formState.errors.email?.message}
-            disabled={isFormDisabled}
-            required
-            inputClassName={inputClassName}
-          />
-        </div>
-
-        <Button
-          variant={'primary-green'}
-          type="submit"
+        <HookedFormInput<{ email: string }>
+          wrapperClassName={wrapperClassName}
+          placeholder="Your e-mail"
+          type="email"
+          id="email"
+          register={register}
+          error={formState.errors.email?.message}
           disabled={isFormDisabled}
-        >
+          required
+          inputClassName={inputClassName}
+        />
+
+        <Button variant="primary-green" type="submit" disabled={isFormDisabled}>
           Subscribe
         </Button>
       </form>

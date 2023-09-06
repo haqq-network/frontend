@@ -12,6 +12,10 @@ const StakingApp = lazy(async () => {
 const GovernanceApp = lazy(async () => {
   return await import('governance/Module');
 });
+const ShellAuthzPage = lazy(async () => {
+  const { ShellAuthzPage } = await import('@haqq/shell/authz-page');
+  return { default: ShellAuthzPage };
+});
 
 export function App() {
   return (
@@ -21,6 +25,8 @@ export function App() {
 
         <Route path="/staking/*" element={<StakingApp />} />
         <Route path="/governance/*" element={<GovernanceApp />} />
+
+        <Route path="/authz" element={<ShellAuthzPage />} />
 
         <Route path="not-found" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />

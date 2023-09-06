@@ -25,8 +25,6 @@ import {
   useConfig,
   GetGovernanceParamsResponse,
   useSupportedChains,
-  formatNumber,
-  useStakingRewardsQuery,
   useStakingDelegationQuery,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
@@ -47,6 +45,7 @@ import {
   ProposalStatus as ProposalStatusComponent,
   ProposalPeriodTimer,
   ProposalVoteProgress,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { useAccount, useNetwork } from 'wagmi';
