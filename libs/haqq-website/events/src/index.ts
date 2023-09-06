@@ -1,2 +1,3 @@
 // Use this file to export React client components (e.g. those with 'use client' directive) or other non-server utilities
 export * from './components/registration-page/registration-page';
+export * from './components/scan-page/scan-page';

@@ -7,9 +7,7 @@ interface EventVerifyRequest {
 }
 
 interface EventSignupResponse {
-  status: number;
-  error_type?: string;
-  error_description?: string;
+  success: boolean;
 }
 
 interface VerifyRequest {
@@ -37,17 +35,6 @@ export async function POST(request: NextRequest) {
   const signupResponseJson: EventSignupResponse = await signupResponse.json();
 
   console.log({ signupResponseJson });
-  if (signupResponseJson.error_description) {
-    return NextResponse.json<{ error: string, result: EventSignupResponse }>(
-      {
-        error: signupResponseJson.error_description,
-        result: signupResponseJson
-      },
-      {
-        status: 400,
-      },
-    );
-  }
 
   return NextResponse.json<{ result: EventSignupResponse }>(
     {
