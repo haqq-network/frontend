@@ -80,6 +80,9 @@ export function ScanBlock() {
                     style={QR_STYLE}
                     onError={handleError}
                     onScan={handleScan}
+                    constraints={{
+                        facingMode: 'environment'
+                    }}
                     />
                 </div>
                 
