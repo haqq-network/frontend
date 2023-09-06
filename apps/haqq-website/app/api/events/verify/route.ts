@@ -23,7 +23,6 @@ export async function POST(request: NextRequest) {
     ticket: ticket
   };
 
-  console.log({ VerifyRequest });
   const signupUrl = new URL('/meetup/ticket/verify', FALCONER_ENDPOINT);
   const signupResponse = await fetch(signupUrl.toString(), {
     method: 'POST',
