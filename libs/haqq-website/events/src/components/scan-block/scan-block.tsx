@@ -81,7 +81,7 @@ export function ScanBlock() {
                     onError={handleError}
                     onScan={handleScan}
                     constraints={{
-                        facingMode: 'environment'
+                      video: { facingMode: "environment" }
                     }}
                     />
                 </div>
