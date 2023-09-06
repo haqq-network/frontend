@@ -55,6 +55,7 @@ export function ScanBlock() {
 
   const onReset = useCallback(() => {
     setParsedTicket('')
+    setIsVerified(false)
   }, [])
 
   return (
@@ -70,24 +71,29 @@ export function ScanBlock() {
 
           </div>
 
-          <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
+          <div className={`mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px] `}>
             {(loading) ? <SpinnerLoader /> : 
               <>
-                <QrReader
-                  delay={DELAY}
-                  style={QR_STYLE}
-                  onError={handleError}
-                  onScan={handleScan}
-                  />
+                <div className={`flex flex-col gap-y-[16px] ${isVerified ? 'border-[green] border-[15px]' : ''}`}>
+                  <QrReader
+                    delay={DELAY}
+                    style={QR_STYLE}
+                    onError={handleError}
+                    onScan={handleScan}
+                    />
+                </div>
+                
 
                 {parsedTicket && <> 
-                  {isVerified ? <div className="flex flex-col gap-y-[16px]">
+                  {isVerified ? <div className="flex flex-col gap-y-[16px] text-[24px] text-[green] font-[600] uppercase items-center">
                     Verified!
-                  </div> : <div className="flex flex-col gap-y-[16px]">
+                  </div> : <div className="flex flex-col gap-y-[16px] text-[red] text-[24px] font-[600] uppercase items-center">
                     Not Verified!
                   </div>}
 
-                  {parsedTicket && <Button onClick={onReset}>
+                  {parsedTicket && <Button 
+                    variant={2}
+                    className="w-full !px-[16px]" onClick={onReset}>
                     RESET
                   </Button>}
                 </>}
