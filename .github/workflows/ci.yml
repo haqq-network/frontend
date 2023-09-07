@@ -40,6 +40,7 @@ jobs:
     needs: test-and-lint
     env:
       STORYBLOK_ACCESS_TOKEN: ${{ secrets.STORYBLOK_ACCESS_TOKEN }}
+      FALCONER_ENDPOINT: ${{ secrets.FALCONER_ENDPOINT }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
