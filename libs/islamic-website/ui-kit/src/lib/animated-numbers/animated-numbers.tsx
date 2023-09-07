@@ -29,13 +29,11 @@ export function AnimatedNumbers({
   animateToNumber,
   fontStyle,
   configs,
-  includeComma,
   locale,
   separator,
 }: {
   animateToNumber: number;
   fontStyle?: CSSProperties;
-  includeComma?: boolean;
   separator?: string;
   configs?: SpringConfig[] | configsFn;
   locale?: string;
@@ -168,8 +166,7 @@ export const MemoizedAnimatedNumbers = memo(
   (prevProps, nextProps) => {
     return (
       prevProps.animateToNumber === nextProps.animateToNumber &&
-      prevProps.fontStyle === nextProps.fontStyle &&
-      prevProps.includeComma === nextProps.includeComma
+      prevProps.fontStyle === nextProps.fontStyle
     );
   },
 );
