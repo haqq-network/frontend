@@ -1,0 +1,7 @@
+# Block all crawlers for /events
+User-agent: *
+Disallow: /events/*
+
+# Allow all crawlers
+User-agent: *
+Allow: /

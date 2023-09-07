@@ -29,7 +29,8 @@
     "**/*.jsx",
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    "../../dist/apps/haqq-website/.next/types/**/*.ts"
+    "../../dist/apps/haqq-website/.next/types/**/*.ts",
+    "../../apps/haqq-website/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
