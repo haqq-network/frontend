@@ -10,6 +10,6 @@ const SignUpPage = () =>  {
   );
 }
 
-export default dynamic(() => Promise.resolve(SignUpPage), {
+export default dynamic(() => {return Promise.resolve(SignUpPage)}, {
   ssr: false,
 });

@@ -5,6 +5,9 @@ import QrReader from 'react-qr-scanner'
 import {  Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
 
+interface IScanResult {
+  text: string
+}
 
 const verifyTicket = (data: { ticket: string }) => {
   return  axios.post<{ result: {success: boolean} }>(
@@ -41,7 +44,7 @@ export function ScanBlock() {
 
   useDebouncedEffect(checkRequest)
 
-  const handleScan = useCallback((data:any) => {
+  const handleScan = useCallback((data: IScanResult) => {
     if(data?.text) {
       setParsedTicket((prev:string) => {
         return prev !== data.text ? data.text : prev
@@ -49,7 +52,7 @@ export function ScanBlock() {
     }
   }, [])
 
-  const handleError =useCallback( (err:any) => {
+  const handleError =useCallback( (err:IScanResult) => {
     console.error(err)
   }, [])
 

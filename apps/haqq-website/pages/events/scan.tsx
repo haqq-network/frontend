@@ -7,6 +7,6 @@ const ScanPageWrapper = () =>  {
   );
 }
 
-export default dynamic(() => Promise.resolve(ScanPageWrapper), {
+export default dynamic(() => {return Promise.resolve(ScanPageWrapper)}, {
   ssr: false,
 });

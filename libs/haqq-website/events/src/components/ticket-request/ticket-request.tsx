@@ -1,15 +1,5 @@
 import { Heading } from "@haqq/haqq-website-ui-kit";
 import { QRCodeSVG } from "qrcode.react";
-interface ITicketRequest {
-     meetup_id: string,
-     fullname: string,
-     company?: string,
-     job_title?: string,
-     email: string,
-     ip: string,
-     captcha_token: string,
-     signature: string,
-}
 
 export const TickerRequest = ({qrData}: {qrData: string}) => {
     return  <div>
