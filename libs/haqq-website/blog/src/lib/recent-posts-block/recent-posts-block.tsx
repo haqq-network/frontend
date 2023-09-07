@@ -1,11 +1,11 @@
 import { Heading, BlogPostCard } from '@haqq/haqq-website-ui-kit';
-import { Post } from '../../../blog-page';
 import Link from 'next/link';
 import { useCallback } from 'react';
-import blogPlaceholderImage1 from '../../../assets/images/blog-post-placeholder-1.png';
-import blogPlaceholderImage2 from '../../../assets/images/blog-post-placeholder-2.png';
-import blogPlaceholderImage3 from '../../../assets/images/blog-post-placeholder-3.png';
+import blogPlaceholderImage1 from '../../assets/images/blog-post-placeholder-1.png';
+import blogPlaceholderImage2 from '../../assets/images/blog-post-placeholder-2.png';
+import blogPlaceholderImage3 from '../../assets/images/blog-post-placeholder-3.png';
 import type { StaticImageData } from 'next/image';
+import type { Post } from '../blog-page';
 
 export function RecentPostsBlock({ recentPosts }: { recentPosts: Post[] }) {
   const getPostImage = useCallback((post: Post) => {
@@ -14,9 +14,9 @@ export function RecentPostsBlock({ recentPosts }: { recentPosts: Post[] }) {
     }
 
     const imagesArray = [
-      blogPlaceholderImage1 as unknown,
-      blogPlaceholderImage2 as unknown,
-      blogPlaceholderImage3 as unknown,
+      blogPlaceholderImage1,
+      blogPlaceholderImage2,
+      blogPlaceholderImage3,
     ] as StaticImageData[];
     const index = new Date(post.date).getTime() % 3;
     const placeholderImage = imagesArray[index];

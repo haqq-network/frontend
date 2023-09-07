@@ -2,11 +2,11 @@
 import { Heading, BlogPostCard, BlogTabs } from '@haqq/haqq-website-ui-kit';
 import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
-import blogPlaceholderImage1 from '../../../assets/images/blog-post-placeholder-1.png';
-import blogPlaceholderImage2 from '../../../assets/images/blog-post-placeholder-2.png';
-import blogPlaceholderImage3 from '../../../assets/images/blog-post-placeholder-3.png';
-import { Post } from '../../../blog-page';
-import { StaticImageData } from 'next/image';
+import blogPlaceholderImage1 from '../../assets/images/blog-post-placeholder-1.png';
+import blogPlaceholderImage2 from '../../assets/images/blog-post-placeholder-2.png';
+import blogPlaceholderImage3 from '../../assets/images/blog-post-placeholder-3.png';
+import type { StaticImageData } from 'next/image';
+import type { Post } from '../blog-page';
 
 export function PostsBlock({ posts, tags }: { posts: Post[]; tags: string[] }) {
   const [tab, setTab] = useState<string>('All posts');

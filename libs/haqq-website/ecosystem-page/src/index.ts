@@ -2,5 +2,5 @@ export * from './lib/ecosystem-page';
 export {
   PartnerType,
   PartnerStatus,
-  Partner,
+  type Partner,
 } from './lib/partners-block/partners-block';
