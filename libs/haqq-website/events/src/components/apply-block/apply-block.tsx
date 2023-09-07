@@ -12,6 +12,10 @@ import { TickerRequest } from '../ticket-request/ticket-request';
 
 const MESSAGE = 'GIVE ME TICKET';
 
+interface  TicketEntity {
+  ticket: string,
+}
+
 async function submitForm(
   form: QrRegistrationFormFields & { signature: string },
 ) {
@@ -22,7 +26,7 @@ async function submitForm(
 }
 
 const getTicket = (signature: string) => {
-  return  axios.get<{ result: any[] }>(
+  return  axios.get<{ result: TicketEntity[] }>(
     `/api/events/get-tickets?signature=${signature}`,
   );
 }
