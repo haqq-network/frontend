@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 // import { Heading } from '../heading/heading';
 import { MarkdownText } from '../markdown-text/markdown-text';
 // import { TelegramIcon, TwitterIcon } from '../icons';
@@ -13,11 +13,7 @@ export function BlogArticle({
   tags,
   onLinkCopy,
 }: {
-  image: {
-    src: string;
-    width: number;
-    height: number;
-  } | null;
+  image: StaticImageData | null;
   title: string;
   content: string;
   date: string;

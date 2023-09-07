@@ -28,8 +28,7 @@
       "configurations": {
         "development": {
           "buildTarget": "haqq-website:build:development",
-          "dev": true,
-          "hostname": "0.0.0.0"
+          "dev": true
         },
         "production": {
           "buildTarget": "haqq-website:build:production",
@@ -49,6 +48,12 @@
       "options": {
         "jestConfig": "apps/haqq-website/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     },
     "lint": {

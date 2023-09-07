@@ -1,3 +1,4 @@
+'use client';
 import { useInViewport } from 'react-in-viewport';
 import { useEffect, useRef, useState } from 'react';
 import styles from './statistics-block.module.css';
@@ -61,20 +62,7 @@ export function StatisticsBlockStatCard({
   );
 }
 
-async function getMainnetAccounts(defaultValue: number) {
-  try {
-    const accountsResponse = await fetch(
-      'https://rest.cosmos.haqq.network/cosmos/auth/v1beta1/accounts?pagination.count_total=true&pagination.limit=1',
-    );
-    const accounts = await accountsResponse.json();
-    return Number.parseInt(accounts.pagination.total, 10);
-  } catch (error) {
-    console.error('Fetch mainnet accounts count failed', error);
-    return defaultValue;
-  }
-}
-
-export function StatisticsBlock() {
+export function StatisticsBlock({ stats }: { stats: ChainStats }) {
   const [startAnimation, setStartAnimation] = useState(false);
   const blockRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(
@@ -82,26 +70,6 @@ export function StatisticsBlock() {
     {},
     { disconnectOnLeave: true },
   );
-  const [stats, setStats] = useState<ChainStats | undefined>(undefined);
-
-  useEffect(() => {
-    async function getStats() {
-      const mainnetAccountsCreated = await getMainnetAccounts(3476);
-
-      setStats({
-        mainnetAccountsCreated,
-        transactionsInLast24Hours: 10000,
-        secondsToConsensusFinality: 5.6,
-        averageCostPerTransaction: 147,
-        era: 1,
-        emissionRate: 0,
-        emittedAlready: 20000000000,
-        willBeEmitted: 80000000000,
-      });
-    }
-
-    getStats();
-  }, []);
 
   useEffect(() => {
     if (inViewport && !startAnimation) {
