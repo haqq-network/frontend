@@ -1,5 +1,4 @@
 'use client';
-import { ConnectButtons } from '../connect-buttons/connect-buttons';
 import {
   useAddress,
   useDebouncedEffect,
@@ -7,14 +6,15 @@ import {
   useQrRegistrationActions,
   useWallet,
 } from '@haqq/shared';
-import { Fragment, useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   QrRegistrationForm,
   QrRegistrationFormFields,
 } from '@haqq/haqq-website/forms';
-import { Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
+import { Button } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
 import { TickerRequest } from '../ticket-request/ticket-request';
+import { useWalletClient } from 'wagmi';
 
 const MESSAGE = 'GIVE ME TICKET';
 
@@ -37,17 +37,14 @@ const getTicket = (signature: string) => {
   );
 };
 
-const SAVED_SIGNATURE_KEY = 'SAVED_SIGNATURE_KEY';
-
 export function ApplyBlock() {
   const [signature, setSignature] = useState<string | undefined>(undefined);
   const { ethAddress } = useAddress();
   const { openSelectWallet } = useWallet();
   const { sign } = useQrRegistrationActions();
 
-  const [savedSignature, saveSignature] = useLocalStorage(
-    SAVED_SIGNATURE_KEY,
-    signature,
+  const [savedSignature, saveSignature] = useLocalStorage<string>(
+    `SAVED_SIGNATURE_KEY_${ethAddress}`,
   );
 
   const [submitResult, setSubmitResult] = useState('');
@@ -62,13 +59,37 @@ export function ApplyBlock() {
         const ticketsData = await getTicket(savedSignature);
         ticketsData.data.result[0] &&
           setCurrentTicket(ticketsData.data.result[0].ticket);
+      } else {
+        setCurrentTicket('')
       }
     } finally {
       setLoading(false);
     }
   }, [savedSignature]);
 
-  useDebouncedEffect(checkRequest);
+  const deps = useMemo(() => {
+    return ([savedSignature || ''])
+  }, [savedSignature])
+
+  useDebouncedEffect(checkRequest, 100, deps);
+
+  const { data: walletClient } = useWalletClient();
+
+  const onSignHandler = useCallback(async () => {
+    if(!ethAddress){
+      return 
+    }
+    const signature = await sign(ethAddress, MESSAGE);
+    setSignature(signature);
+    saveSignature(signature);
+    checkRequest();
+  }, [checkRequest, ethAddress, saveSignature, sign])
+
+  useEffect(() => {
+    if(!savedSignature && ethAddress && !loading && walletClient){
+      onSignHandler()
+    }
+  }, [savedSignature, sign, loading, ethAddress, walletClient, onSignHandler])
 
   const handleSubmit = useCallback(
     async (signupFormData: QrRegistrationFormFields) => {
@@ -109,35 +130,29 @@ export function ApplyBlock() {
           </div>
 
           <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
-            {loading ? (
-              <SpinnerLoader />
+            {submitResult && (
+              <div className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]">
+                {submitResult}
+              </div>
+            )}
+            {currentTicket ? (
+              <TickerRequest qrData={currentTicket} />
             ) : (
-              currentTicket ? (
-                <TickerRequest qrData={currentTicket} />
-              ) : (
-                <QrRegistrationForm onSubmit={handleSubmit} signBlock={!savedSignature ? (
-                  <div>
-                    {ethAddress ? (
-                      <Button
-                        className="w-full"
-                        onClick={async () => {
-                          const signature = await sign(ethAddress, MESSAGE);
-                          setSignature(signature);
-                          saveSignature(signature);
-                          checkRequest();
-                        }}
-                        disabled={Boolean(signature && signature.length > 0)}
-                      >
-                        Sign message
-                      </Button>
-                    ) : (
-                      <Button className="w-full" onClick={openSelectWallet}>
-                        Connect wallet
-                      </Button>
-                    )}
-                  </div>
-                ) : null} />
-              )
+                (!savedSignature || loading) ? <div>
+                  {ethAddress ? (
+                    <Button
+                      className="w-full"
+                      onClick={onSignHandler}
+                      disabled={Boolean(signature && signature.length > 0) || loading}
+                    >
+                      Sign message
+                    </Button>
+                  ) : (
+                    <Button disabled={loading} className="w-full" onClick={openSelectWallet}>
+                      Connect wallet
+                    </Button>
+                  )}
+                </div> : <QrRegistrationForm onSubmit={handleSubmit} disabled={loading} /> 
             )}
           </div>
         </div>

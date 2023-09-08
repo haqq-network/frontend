@@ -32,10 +32,12 @@ const schema: yup.ObjectSchema<QrRegistrationFormFields> = yup
 export function QrRegistrationForm({
   className,
   onSubmit,
-  signBlock: SignBlock
+  signBlock: SignBlock,
+  disabled
 }: {
   className?: string;
-  signBlock: ReactNode
+  signBlock?: ReactNode
+  disabled?: boolean
   onSubmit: (formData: QrRegistrationFormFields) => Promise<void>;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
@@ -65,8 +67,8 @@ export function QrRegistrationForm({
   );
 
   const isFormDisabled = useMemo(() => {
-    return subscribeFormState === FormState.pending;
-  }, [subscribeFormState]);
+    return subscribeFormState === FormState.pending || disabled;
+  }, [subscribeFormState, disabled]);
 
   return (
     <form
