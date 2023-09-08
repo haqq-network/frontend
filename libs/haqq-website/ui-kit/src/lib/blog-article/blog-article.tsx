@@ -12,6 +12,7 @@ export function BlogArticle({
   date,
   tags,
   onLinkCopy,
+  transformImageUrl,
 }: {
   image: StaticImageData | null;
   title: string;
@@ -20,6 +21,7 @@ export function BlogArticle({
   tags: string[];
   className?: string;
   onLinkCopy?: () => void;
+  transformImageUrl?: (src: string) => string;
 }) {
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
@@ -49,7 +51,9 @@ export function BlogArticle({
               }).format(new Date(date))}
             </div>
 
-            <MarkdownText>{'# ' + title + '\n\n' + content}</MarkdownText>
+            <MarkdownText transformImageUrl={transformImageUrl}>
+              {'# ' + title + '\n\n' + content}
+            </MarkdownText>
           </article>
 
           <div className="mt-[20px] flex flex-row flex-wrap gap-[6px] md:mt-[24px] lg:mt-[32px]">

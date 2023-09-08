@@ -50,6 +50,10 @@ export function BlogPostPage({
     return placeholderImage;
   }, [post.date, post.image]);
 
+  const transformImageUrl = useCallback((src: string) => {
+    return `/_next/image?url=${encodeURIComponent(src)}&w=1080&q=80`;
+  }, []);
+
   return (
     <section>
       <div
@@ -75,6 +79,7 @@ export function BlogPostPage({
         title={post.title}
         image={postImage}
         onLinkCopy={copyLink}
+        transformImageUrl={transformImageUrl}
       />
 
       <RecentPostsBlock recentPosts={recentPosts} />
