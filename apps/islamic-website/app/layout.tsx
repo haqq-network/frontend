@@ -6,11 +6,11 @@ import { MobileHeader } from '../components/header/header';
 import { Alexandria } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import clsx from 'clsx';
+import { DEPLOY_URL } from '../constants';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../styles/global.css';
-import { DEPLOY_URL } from '../constants';
 
 export const metadata: Metadata = {
   title: 'IslamicCoin',
