@@ -325,7 +325,7 @@ function AuthzGrantsActions() {
     [
       chain?.id,
       grant,
-      granteeAddresses['haqq'],
+      granteeAddresses,
       invalidateQueries,
       isGranteeValid,
       toast,

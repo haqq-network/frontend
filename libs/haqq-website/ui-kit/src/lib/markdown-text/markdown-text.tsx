@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { PropsWithChildren } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
