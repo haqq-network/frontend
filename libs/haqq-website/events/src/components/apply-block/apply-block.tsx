@@ -38,7 +38,6 @@ const getTicket = (signature: string) => {
 };
 
 export function ApplyBlock() {
-  const [signature, setSignature] = useState<string | undefined>(undefined);
   const { ethAddress } = useAddress();
   const { openSelectWallet } = useWallet();
   const { sign } = useQrRegistrationActions();
@@ -60,7 +59,7 @@ export function ApplyBlock() {
         ticketsData.data.result[0] &&
           setCurrentTicket(ticketsData.data.result[0].ticket);
       } else {
-        setCurrentTicket('')
+        setCurrentTicket('');
       }
     } finally {
       setLoading(false);
@@ -68,28 +67,27 @@ export function ApplyBlock() {
   }, [savedSignature]);
 
   const deps = useMemo(() => {
-    return ([savedSignature || ''])
-  }, [savedSignature])
+    return [savedSignature || ''];
+  }, [savedSignature]);
 
   useDebouncedEffect(checkRequest, 100, deps);
 
   const { data: walletClient } = useWalletClient();
 
   const onSignHandler = useCallback(async () => {
-    if(!ethAddress){
-      return 
+    if (!ethAddress) {
+      return;
     }
     const signature = await sign(ethAddress, MESSAGE);
-    setSignature(signature);
     saveSignature(signature);
     checkRequest();
-  }, [checkRequest, ethAddress, saveSignature, sign])
+  }, [checkRequest, ethAddress, saveSignature, sign]);
 
   useEffect(() => {
-    if(!savedSignature && ethAddress && !loading && walletClient){
-      onSignHandler()
+    if (!savedSignature && ethAddress && !loading && walletClient) {
+      onSignHandler();
     }
-  }, [savedSignature, sign, loading, ethAddress, walletClient, onSignHandler])
+  }, [savedSignature, sign, loading, ethAddress, walletClient, onSignHandler]);
 
   const handleSubmit = useCallback(
     async (signupFormData: QrRegistrationFormFields) => {
@@ -101,10 +99,10 @@ export function ApplyBlock() {
           });
           console.log({ response: response.data.message });
 
-          if(response.data.message ){
-            checkRequest()
+          if (response.data.message) {
+            checkRequest();
           } else {
-            setSubmitResult(response.data.error)
+            setSubmitResult(response.data.error);
           }
 
           return;
@@ -137,21 +135,24 @@ export function ApplyBlock() {
             )}
             {currentTicket ? (
               <TickerRequest qrData={currentTicket} />
+            ) : !savedSignature || loading ? (
+              <div>
+                {ethAddress ? (
+                  <Button className="w-full" onClick={onSignHandler}>
+                    Sign message
+                  </Button>
+                ) : (
+                  <Button
+                    disabled={loading}
+                    className="w-full"
+                    onClick={openSelectWallet}
+                  >
+                    Connect wallet
+                  </Button>
+                )}
+              </div>
             ) : (
-                (!savedSignature || loading) ? <div>
-                  {ethAddress ? (
-                    <Button
-                      className="w-full"
-                      onClick={onSignHandler}
-                    >
-                      Sign message
-                    </Button>
-                  ) : (
-                    <Button disabled={loading} className="w-full" onClick={openSelectWallet}>
-                      Connect wallet
-                    </Button>
-                  )}
-                </div> : <QrRegistrationForm onSubmit={handleSubmit} disabled={loading} /> 
+              <QrRegistrationForm onSubmit={handleSubmit} disabled={loading} />
             )}
           </div>
         </div>
