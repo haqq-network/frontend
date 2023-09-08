@@ -12,11 +12,11 @@
 }
 
 body {
-  @apply bg-haqq-black font-sans text-white will-change-auto;
+  @apply bg-haqq-black font-guise text-white;
 }
 
 .ledger-block-background {
-  background-image: url('../assets/images/ledger-block-bg.svg');
+  background-image: url('/assets/images/ledger-block-bg.svg');
   background-repeat: repeat;
 }
 
@@ -95,4 +95,11 @@ body {
 }
 .social-login-animation:nth-child(3) {
   animation-delay: 900ms;
+}
+
+.sunrise-background {
+  background-image: url('/assets/images/sunrise-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center bottom;
 }

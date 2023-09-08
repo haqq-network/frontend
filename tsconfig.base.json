@@ -22,9 +22,8 @@
         "libs/governance/proposal-list/src/index.ts"
       ],
       "@haqq/haqq-website-ui-kit": ["libs/haqq-website/ui-kit/src/index.ts"],
-      "@haqq/haqq-website/blog-page": [
-        "libs/haqq-website/blog-page/src/index.ts"
-      ],
+
+      "@haqq/haqq-website/blog": ["libs/haqq-website/blog/src/index.ts"],
       "@haqq/haqq-website/brand-assets-page": [
         "libs/haqq-website/brand-assets-page/src/index.ts"
       ],

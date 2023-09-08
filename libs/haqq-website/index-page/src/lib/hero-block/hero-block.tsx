@@ -1,7 +1,7 @@
 import { Text, HeroHeading } from '@haqq/haqq-website-ui-kit';
 import Image from 'next/image';
-import sunriseImageData from '../../assets/images/sunrise.png';
-import halfEclipseImageData from '../../assets/images/half-eclipse.png';
+import sunriseImageData from '../../assets/images/index-page-sunrise-bg.png';
+import halfEclipseImageData from '../../assets/images/index-page-half-eclipse.png';
 import Link from 'next/link';
 import clsx from 'clsx';
 

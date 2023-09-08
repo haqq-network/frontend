@@ -1,1 +1,1 @@
-export * from './lib/ecosystem-fund-page/website-ecosystem-fund-page';
+export * from './lib/ecosystem-fund-page';

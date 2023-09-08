@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { RoadmapPage } from '@haqq/islamic-website/roadmap-page';
 import { getRoadmapContent } from '../../utils/get-roadmap-data';
-import { DEPLOY_URL } from '../../constants';
+import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../constants';
 
 const title = 'IslamicCoin | Roadmap';
 const description =
@@ -23,5 +23,5 @@ export const metadata: Metadata = {
 export default async function Page() {
   const roadmap = await getRoadmapContent();
 
-  return <RoadmapPage roadmap={roadmap} />;
+  return <RoadmapPage roadmap={roadmap} turnstileSiteKey={TURNSTILE_SITEKEY} />;
 }

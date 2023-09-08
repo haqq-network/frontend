@@ -8,7 +8,13 @@ import { useMemo } from 'react';
 import { PostsBlock } from '../posts-block/posts-block';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 
-export function NewsPage({ news }: { news: NewsPost[] }) {
+export function NewsPage({
+  news,
+  turnstileSiteKey,
+}: {
+  news: NewsPost[];
+  turnstileSiteKey?: string;
+}) {
   const { featuredPost, postsToRender } = useMemo(() => {
     let featuredPost = undefined;
     const postsToRender = [];
@@ -35,18 +41,21 @@ export function NewsPage({ news }: { news: NewsPost[] }) {
           Islamic Coin Press & News
         </h1>
 
-        <div className="mt-[32px] flex flex-col gap-[24px] lg:mt-[56px] lg:flex-row xl:w-3/4">
-          <div className="md:max-w-[430px] lg:w-1/2">
-            <Text size="small">
-              Keep up to date with our upcoming Public Launch and Exchange
-              listing - Subscribe to our newsletter
-            </Text>
+        {turnstileSiteKey && (
+          <div className="mt-[32px] flex flex-col gap-[24px] lg:mt-[56px] lg:flex-row xl:w-3/4">
+            <div className="md:max-w-[430px] lg:w-1/2">
+              <Text size="small">
+                Keep up to date with our upcoming Public Launch and Exchange
+                listing - Subscribe to our newsletter
+              </Text>
+            </div>
+            <SubscribeForm
+              className="flex flex-col gap-[16px] md:flex-row"
+              inputClassName="md:w-[240px]"
+              turnstileSiteKey={turnstileSiteKey}
+            />
           </div>
-          <SubscribeForm
-            className="flex flex-col gap-[16px] md:flex-row"
-            inputClassName="md:w-[240px]"
-          />
-        </div>
+        )}
 
         {featuredPost && (
           <div className="flex flex-col gap-y-[28px] pt-[60px] md:gap-y-[48px] md:pt-[100px] lg:pt-[140px]">

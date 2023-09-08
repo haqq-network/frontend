@@ -1,1 +1,1 @@
-export * from './lib/whitepaper-page/whitepaper-page';
+export * from './lib/whitepaper-page';

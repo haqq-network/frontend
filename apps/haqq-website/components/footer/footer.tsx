@@ -1,3 +1,4 @@
+'use client';
 import { ReactNode, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -76,7 +77,7 @@ export function Footer() {
   return (
     <footer
       className={clsx(
-        'border-haqq-border bg-haqq-black z-10 flex flex-col border-b border-t',
+        'border-haqq-border bg-haqq-black z-[100] flex flex-col border-b border-t',
       )}
     >
       <div className="border-haqq-border flex h-[63px] w-full flex-row items-center border-b sm:h-[72px] lg:mx-auto">
@@ -97,11 +98,6 @@ export function Footer() {
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
               <div className="leading-[0]">
                 <FooterNavLink href="/#about">About</FooterNavLink>
-              </div>
-              <div className="leading-[0]">
-                <FooterNavLink href="/assets/docs/HAQQ-network-privacy-policy.pdf">
-                  Privacy Policy
-                </FooterNavLink>
               </div>
               <div className="leading-[0]">
                 <FooterNavLink href="/ecosystem">Ecosystem</FooterNavLink>

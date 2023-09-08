@@ -1,1 +1,1 @@
-export * from './lib/brand-assets-page/brand-assets-page';
+export * from './lib/brand-assets-page';

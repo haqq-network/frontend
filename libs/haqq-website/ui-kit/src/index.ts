@@ -17,7 +17,7 @@ export * from './lib/button/button';
 export * from './lib/burger-button/burger-button';
 export * from './lib/download-button/download-button';
 export * from './lib/tabs/tabs';
-export * from './lib/news-card/news-card';
+export * from './lib/blog-post-card/blog-post-card';
 export * from './lib/blog-article/blog-article';
 export * from './lib/orange-link/orange-link';
 export * from './lib/breadcrumb/breadcrumb';

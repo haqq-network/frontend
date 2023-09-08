@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import eclipseImageData from '../../assets/images/eclipse.png';
+import eclipseImageData from '../../assets/images/index-page-contact-bg.png';
 import { ContactForm } from '@haqq/haqq-website/forms';
 import { Heading } from '@haqq/haqq-website-ui-kit';
 

@@ -3045,7 +3045,7 @@ __metadata:
     babel-jest: 29.6.4
     bech32: 2.0.0
     clsx: 2.0.0
-    core-js: 3.32.1
+    core-js: 3.31.0
     cosmjs-types: 0.8.0
     css-loader: 6.8.1
     cypress: 13.0.0
@@ -3092,6 +3092,7 @@ __metadata:
     react-select: 5.7.4
     react-spring: 9.7.2
     react-success-indicator: 1.1.0
+    react-turnstile: 1.1.1
     reaptcha: 1.12.1
     regenerator-runtime: 0.14.0
     rehype-raw: 6.1.1
@@ -11507,10 +11508,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:3.32.1":
-  version: 3.32.1
-  resolution: "core-js@npm:3.32.1"
-  checksum: e4af91d9c6be7b59235feb3f273d16705126ce09a0b4a787144d131d874f0cd10be3c24fc52e5eea7d7cb03ceabe4be7b255abcd9474b5eb1ff365d2c5611f9a
+"core-js@npm:3.31.0":
+  version: 3.31.0
+  resolution: "core-js@npm:3.31.0"
+  checksum: f7cf9b3010f7ca99c026d95b61743baca1a85512742ed2b67e8f65a72ac4f4fe0b90b00057783e886bdd39d3a295f42f845d33e7cba3973ed263df978343ab79
   languageName: node
   linkType: hard
 
@@ -22833,6 +22834,16 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
+  languageName: node
+  linkType: hard
+
+"react-turnstile@npm:1.1.1":
+  version: 1.1.1
+  resolution: "react-turnstile@npm:1.1.1"
+  peerDependencies:
+    react: ">= 17.0.0"
+    react-dom: ">= 17.0.0"
+  checksum: 40eee3320cff056a87d6d1e02ea4a8037a462097d4112125fbaca66b2bf6f7c0c6358cdcc8fc2860a9a9049263f97a5793df0f565a46c1da42663d6a87cff016
   languageName: node
   linkType: hard
 
