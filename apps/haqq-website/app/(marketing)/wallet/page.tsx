@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { walletOpenGraphImages } from '../../shared-metadata';
+import { DEPLOY_URL } from '../../../constants';
 
-const title = 'HAQQ | Wallet';
+const title = 'Wallet';
 const description =
   'The best way to hold Islamic Coin and remain Shariah-compliant along the way!';
 
@@ -10,6 +12,8 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
+    url: new URL('/wallet', DEPLOY_URL).toString(),
+    images: walletOpenGraphImages,
   },
   appLinks: {
     ios: {

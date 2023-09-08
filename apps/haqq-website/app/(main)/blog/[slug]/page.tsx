@@ -32,10 +32,11 @@ export async function generateMetadata(
   }
 
   const previousOgImages = (await parent).openGraph?.images || [];
+  const previousTitleTemplate = (await parent).title?.template || '%s';
   const images = post.image
     ? [post.image?.src, ...previousOgImages]
     : previousOgImages;
-  const title = `${post.title} | Blog`;
+  const title = previousTitleTemplate.replace('%s', `${post.title} | Blog`);
   const description = post.description;
   const url = new URL(`/blog/${slug}`, DEPLOY_URL).toString();
 

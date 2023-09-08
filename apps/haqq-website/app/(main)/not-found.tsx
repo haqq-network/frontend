@@ -8,7 +8,7 @@ export default function NotFoundPage() {
     <div className="min relative flex flex-1 flex-col items-center justify-center py-20 md:py-40">
       <Image
         alt=""
-        src={notFoundGlowImageData.src}
+        src={notFoundGlowImageData}
         fill
         className="z-[-1] bg-center object-cover"
       />
