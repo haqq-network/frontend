@@ -102,13 +102,15 @@ function PartnerCard({
       )}
     >
       <div className="relative flex flex-col">
-        <Image
-          src={logoUrl}
-          alt={name}
-          width={logoWidth}
-          height={logoHeight}
-          className="h-[36px] w-fit"
-        />
+        <div className="flex h-[36px] items-center">
+          <Image
+            src={logoUrl}
+            alt={name}
+            width={logoWidth}
+            height={logoHeight}
+            className="h-auto max-h-full w-auto max-w-[180px]"
+          />
+        </div>
         <div className="mt-[12px] text-[16px] leading-[1.2em]">{name}</div>
       </div>
       <div className="flex flex-col gap-y-[12px]">
