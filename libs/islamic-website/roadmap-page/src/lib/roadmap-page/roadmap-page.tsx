@@ -8,15 +8,6 @@ export interface RoadmapPeriod {
   isAchieved?: boolean;
 }
 
-interface RoadmapCardProps {
-  period: RoadmapPeriod;
-  isLast?: boolean;
-}
-
-interface RoadmapProps {
-  roadmap: RoadmapPeriod[];
-}
-
 function RoadmapBgImg() {
   return (
     <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] md:right-[-555px] md:top-[-370px]  md:h-[1300px] md:w-[1300px] lg:right-[-460px] lg:top-[-460px]">
@@ -90,7 +81,13 @@ function RoadmapBgImg() {
   );
 }
 
-function RoadmapCard({ period, isLast }: RoadmapCardProps) {
+function RoadmapCard({
+  period,
+  isLast,
+}: {
+  period: RoadmapPeriod;
+  isLast?: boolean;
+}) {
   const { goals, isAchieved, title } = period;
 
   return (
@@ -156,7 +153,13 @@ function RoadmapCard({ period, isLast }: RoadmapCardProps) {
   );
 }
 
-export function RoadmapPage({ roadmap }: RoadmapProps) {
+export function RoadmapPage({
+  roadmap,
+  turnstileSiteKey,
+}: {
+  roadmap: RoadmapPeriod[];
+  turnstileSiteKey?: string;
+}) {
   return (
     <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
       <div className="overflow-x-clip">
@@ -170,22 +173,26 @@ export function RoadmapPage({ roadmap }: RoadmapProps) {
               return (
                 <RoadmapCard
                   period={period}
+                  key={`${period.title}-${idx}`}
                   isLast={idx === roadmap.length - 1}
                 />
               );
             })}
           </div>
 
-          <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center md:p-[28px] lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
-            <Text size="small" className="md:w-1/2">
-              Keep up to date with our upcoming Public Launch and Exchange
-              listing - Subscribe to our newsletter
-            </Text>
-            <SubscribeForm
-              className="flex flex-col gap-[16px] md:flex-row"
-              inputClassName="lg:min-w-[280px]"
-            />
-          </div>
+          {turnstileSiteKey && (
+            <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center md:p-[28px] lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
+              <Text size="small" className="md:w-1/2">
+                Keep up to date with our upcoming Public Launch and Exchange
+                listing - Subscribe to our newsletter
+              </Text>
+              <SubscribeForm
+                className="flex flex-col gap-[16px] md:flex-row"
+                inputClassName="lg:min-w-[280px]"
+                turnstileSiteKey={turnstileSiteKey}
+              />
+            </div>
+          )}
 
           <RoadmapBgImg />
         </Container>

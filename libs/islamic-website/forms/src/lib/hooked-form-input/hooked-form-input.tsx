@@ -17,19 +17,22 @@ export interface SubscribeFormFields {
   email: string;
 }
 
-export interface HookedInputProps<F extends Record<string, unknown>> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface HookedInputProps<F extends Record<string, any>> {
   id: Path<F>;
   register: UseFormRegister<F>;
 }
 
-export function HookedFormInput<F extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function HookedFormInput<F extends Record<string, any>>({
   id,
   register,
   inputClassName,
   wrapperClassName,
   placeholder,
   type,
-  error,
+  state,
+  hint,
   disabled,
   required,
 }: HookedInputProps<F> & Omit<InputProps, 'onChange'>): ReactElement {
@@ -41,7 +44,8 @@ export function HookedFormInput<F extends Record<string, unknown>>({
       type={type}
       disabled={disabled}
       required={required}
-      error={error}
+      state={state}
+      hint={hint}
       {...register(id)}
     />
   );

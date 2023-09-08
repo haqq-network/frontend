@@ -4,7 +4,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 client.setApiKey(process.env['SENDGRID_API_KEY']);
 
-async function submitEmail(req: NextApiRequest, res: NextApiResponse) {
+export default async function submitEmail(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const data = {
     list_ids: [process.env['SENDGRID_LIST_ID']],
     contacts: [
@@ -28,5 +31,3 @@ async function submitEmail(req: NextApiRequest, res: NextApiResponse) {
 
   return res.status(200);
 }
-
-export default submitEmail;
