@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(DEPLOY_URL),
 };
 
-const alexandria = Alexandria({
+const alexandriaFont = Alexandria({
   subsets: ['latin', 'arabic'],
   display: 'swap',
   variable: '--font-alexandria',
@@ -52,7 +52,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
   );
 
   return (
-    <html lang="en" className={clsx('ltr', alexandria.variable)}>
+    <html lang="en" className={clsx('ltr', alexandriaFont.variable)}>
       <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
         <div className="flex-1">{children}</div>

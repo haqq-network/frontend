@@ -1,1 +1,1 @@
-export * from './lib/wallet-page/wallet-page';
+export * from './lib/wallet-page';
