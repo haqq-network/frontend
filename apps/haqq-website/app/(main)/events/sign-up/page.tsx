@@ -1,4 +1,3 @@
-import { QrRegistrationPage } from '@haqq/haqq-website/events';
 import {
   DEPLOY_URL,
   NX_WALLETCONNECT_PROJECT_ID,
@@ -23,20 +22,24 @@ export const metadata: Metadata = {
   },
 };
 
-const SignUpPage = () => {
+const SignUpPage = dynamic(
+  async () => {
+    const { QrRegistrationPage } = await import('@haqq/haqq-website/events');
+    return { default: QrRegistrationPage };
+  },
+  {
+    ssr: false,
+    loading: () => {
+      return <div className="min-h-[400px]"></div>;
+    },
+  },
+);
+
+export default function Page() {
   return (
-    <QrRegistrationPage
+    <SignUpPage
       walletConnectProjectId={NX_WALLETCONNECT_PROJECT_ID}
       isProduction={VERCEL_ENV === 'production'}
     />
   );
-};
-
-export default dynamic(
-  () => {
-    return Promise.resolve(SignUpPage);
-  },
-  {
-    ssr: false,
-  },
-);
+}

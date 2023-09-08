@@ -1,7 +1,7 @@
 'use client';
 import { useAddress, useQrRegistrationActions, useWallet } from '@haqq/shared';
 import localStore from 'store2';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   QrRegistrationForm,
   QrRegistrationFormFields,
@@ -56,8 +56,11 @@ export function ApplyBlock() {
 
       if (signature) {
         const ticketsData = await getTicket(signature);
-        ticketsData.data.result[0] &&
+        if (ticketsData.data.result.length > 0) {
           setCurrentTicket(ticketsData.data.result[0].ticket);
+        } else {
+          console.log('no tickets');
+        }
       }
     } finally {
       setLoading(false);
@@ -105,33 +108,41 @@ export function ApplyBlock() {
   );
 
   return (
-    <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
-      {submitResult && (
-        <div className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]">
-          {submitResult}
-        </div>
-      )}
-      {currentTicket ? (
-        <TickerRequest qrData={currentTicket} />
-      ) : !savedSignature || loading ? (
-        <div>
-          {ethAddress ? (
-            <Button className="w-full" onClick={onSignHandler}>
-              Sign Event Registration Message
-            </Button>
-          ) : (
-            <Button
-              disabled={loading}
-              className="w-full"
-              onClick={openSelectWallet}
-            >
-              Connect wallet
-            </Button>
-          )}
-        </div>
-      ) : (
-        <QrRegistrationForm onSubmit={handleSubmit} disabled={loading} />
-      )}
+    <div className="flex flex-1 flex-col items-center">
+      <div className="mx-auto w-full max-w-sm">
+        {submitResult && (
+          <div className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]">
+            {submitResult}
+          </div>
+        )}
+        {currentTicket ? (
+          <TickerRequest qrData={currentTicket} />
+        ) : !savedSignature || loading ? (
+          <div>
+            {ethAddress ? (
+              <Button className="w-full" onClick={onSignHandler}>
+                Sign Event Registration Message
+              </Button>
+            ) : (
+              <Button
+                disabled={loading}
+                className="w-full"
+                onClick={openSelectWallet}
+              >
+                Connect wallet
+              </Button>
+            )}
+          </div>
+        ) : (
+          <QrRegistrationForm
+            onSubmit={handleSubmit}
+            disabled={loading}
+            className="w-full"
+          />
+          // <div className="mx-auto max-w-md">
+          // </div>
+        )}
+      </div>
     </div>
   );
 }
