@@ -176,7 +176,7 @@ export function PartnersBlock({ partners }: { partners: Partner[] }) {
   return (
     <section className="flex flex-col bg-white px-[16px] py-[68px] md:px-[48px] md:pb-[130px] md:pt-[100px] lg:px-[80px] lg:py-[140px]">
       <div className="relative flex items-center">
-        <Heading className="text-haqq-black">Haqq ecosystem partners</Heading>
+        <Heading className="text-haqq-black">HAQQ ecosystem partners</Heading>
         <div className="ml-[48px] flex items-center">
           <div className="bg-haqq-black h-[16px] w-[16px]" />
           <div className="absolute h-[1px] w-[1200px] bg-[#0d0d0e3d]" />
