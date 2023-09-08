@@ -33,11 +33,11 @@ export function QrRegistrationForm({
   className,
   onSubmit,
   signBlock: SignBlock,
-  disabled
+  disabled,
 }: {
   className?: string;
-  signBlock?: ReactNode
-  disabled?: boolean
+  signBlock?: ReactNode;
+  disabled?: boolean;
   onSubmit: (formData: QrRegistrationFormFields) => Promise<void>;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
@@ -133,9 +133,13 @@ export function QrRegistrationForm({
         </div>
       </div>
 
-      {SignBlock ? SignBlock : <Button type="submit" disabled={isFormDisabled}>
-        Register
-      </Button>}
+      {SignBlock ? (
+        SignBlock
+      ) : (
+        <Button type="submit" disabled={isFormDisabled}>
+          Register
+        </Button>
+      )}
     </form>
   );
 }

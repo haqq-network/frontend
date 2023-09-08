@@ -105,47 +105,33 @@ export function ApplyBlock() {
   );
 
   return (
-    <section className="py-20">
-      <div className="w-full overflow-clip px-[16px] sm:px-[63px] lg:px-[79px]">
-        <div className="flex flex-col gap-16">
-          <div className="flex flex-1 flex-row items-center justify-between gap-[24px]">
-            <div>
-              <h2 className="font-serif text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px]">
-                Event Registration
-              </h2>
-            </div>
-          </div>
-
-          <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
-            {submitResult && (
-              <div className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]">
-                {submitResult}
-              </div>
-            )}
-            {currentTicket ? (
-              <TickerRequest qrData={currentTicket} />
-            ) : !savedSignature || loading ? (
-              <div>
-                {ethAddress ? (
-                  <Button className="w-full" onClick={onSignHandler}>
-                    Sign Event Registration Message
-                  </Button>
-                ) : (
-                  <Button
-                    disabled={loading}
-                    className="w-full"
-                    onClick={openSelectWallet}
-                  >
-                    Connect wallet
-                  </Button>
-                )}
-              </div>
-            ) : (
-              <QrRegistrationForm onSubmit={handleSubmit} disabled={loading} />
-            )}
-          </div>
+    <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
+      {submitResult && (
+        <div className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]">
+          {submitResult}
         </div>
-      </div>
-    </section>
+      )}
+      {currentTicket ? (
+        <TickerRequest qrData={currentTicket} />
+      ) : !savedSignature || loading ? (
+        <div>
+          {ethAddress ? (
+            <Button className="w-full" onClick={onSignHandler}>
+              Sign Event Registration Message
+            </Button>
+          ) : (
+            <Button
+              disabled={loading}
+              className="w-full"
+              onClick={openSelectWallet}
+            >
+              Connect wallet
+            </Button>
+          )}
+        </div>
+      ) : (
+        <QrRegistrationForm onSubmit={handleSubmit} disabled={loading} />
+      )}
+    </div>
   );
 }
