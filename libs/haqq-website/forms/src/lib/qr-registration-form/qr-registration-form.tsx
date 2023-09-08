@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useMemo, useState } from 'react';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -32,8 +32,10 @@ const schema: yup.ObjectSchema<QrRegistrationFormFields> = yup
 export function QrRegistrationForm({
   className,
   onSubmit,
+  signBlock: SignBlock
 }: {
   className?: string;
+  signBlock: ReactNode
   onSubmit: (formData: QrRegistrationFormFields) => Promise<void>;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
@@ -129,9 +131,9 @@ export function QrRegistrationForm({
         </div>
       </div>
 
-      <Button type="submit" disabled={isFormDisabled}>
+      {SignBlock ? SignBlock : <Button type="submit" disabled={isFormDisabled}>
         Register
-      </Button>
+      </Button>}
     </form>
   );
 }

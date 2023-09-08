@@ -7,7 +7,7 @@ import {
   useQrRegistrationActions,
   useWallet,
 } from '@haqq/shared';
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import {
   QrRegistrationForm,
   QrRegistrationFormFields,
@@ -80,7 +80,12 @@ export function ApplyBlock() {
           });
           console.log({ response: response.data.message });
 
-          setSubmitResult(response.data.message || response.data.error);
+          if(response.data.message ){
+            checkRequest()
+          } else {
+            setSubmitResult(response.data.error)
+          }
+
           return;
         } catch (error) {
           console.error((error as Error).message);
@@ -88,7 +93,7 @@ export function ApplyBlock() {
       }
     },
 
-    [savedSignature],
+    [savedSignature, checkRequest],
   );
 
   return (
@@ -101,16 +106,16 @@ export function ApplyBlock() {
                 Event Registration
               </h2>
             </div>
-
-            <ConnectButtons />
           </div>
 
           <div className="mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]">
             {loading ? (
               <SpinnerLoader />
             ) : (
-              <>
-                {!savedSignature && (
+              currentTicket ? (
+                <TickerRequest qrData={currentTicket} />
+              ) : (
+                <QrRegistrationForm onSubmit={handleSubmit} signBlock={!savedSignature ? (
                   <div>
                     {ethAddress ? (
                       <Button
@@ -131,20 +136,8 @@ export function ApplyBlock() {
                       </Button>
                     )}
                   </div>
-                )}
-
-                {submitResult && (
-                  <div className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]">
-                    {submitResult}
-                  </div>
-                )}
-
-                {currentTicket ? (
-                  <TickerRequest qrData={currentTicket} />
-                ) : (
-                  <QrRegistrationForm onSubmit={handleSubmit} />
-                )}
-              </>
+                ) : null} />
+              )
             )}
           </div>
         </div>
