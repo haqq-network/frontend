@@ -6,6 +6,7 @@ import {
 } from '../../../../constants';
 import type { Metadata } from 'next';
 import { haqqOpenGraphImages } from '../../../shared-metadata';
+import dynamic from 'next/dynamic';
 
 const title = 'Event Registration';
 const description =
@@ -22,11 +23,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+const SignUpPage = () => {
   return (
     <QrRegistrationPage
       walletConnectProjectId={NX_WALLETCONNECT_PROJECT_ID}
       isProduction={VERCEL_ENV === 'production'}
     />
   );
-}
+};
+
+export default dynamic(
+  () => {
+    return Promise.resolve(SignUpPage);
+  },
+  {
+    ssr: false,
+  },
+);

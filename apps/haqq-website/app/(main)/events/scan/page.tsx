@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { haqqOpenGraphImages } from '../../../shared-metadata';
 import { DEPLOY_URL } from '../../../../constants';
+import { ScanPage } from '@haqq/haqq-website/events';
+import dynamic from 'next/dynamic';
 
 const title = 'Event Scanner';
 const description =
@@ -17,4 +19,15 @@ export const metadata: Metadata = {
   },
 };
 
-export { ScanPage as default } from '@haqq/haqq-website/events';
+const ScanPageWrapper = () => {
+  return <ScanPage />;
+};
+
+export default dynamic(
+  () => {
+    return Promise.resolve(ScanPageWrapper);
+  },
+  {
+    ssr: false,
+  },
+);
