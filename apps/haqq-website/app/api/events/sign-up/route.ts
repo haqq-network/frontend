@@ -61,10 +61,10 @@ export async function POST(request: NextRequest) {
 
   console.log({ signupResponseJson });
   if (signupResponseJson.error_description) {
-    return NextResponse.json<{ error: string, result: EventSignupResponse }>(
+    return NextResponse.json<{ error: string; result: EventSignupResponse }>(
       {
         error: signupResponseJson.error_description,
-        result: signupResponseJson
+        result: signupResponseJson,
       },
       {
         status: 400,
@@ -72,10 +72,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  return NextResponse.json<{ message: string, result: EventSignupResponse }>(
+  return NextResponse.json<{ message: string; result: EventSignupResponse }>(
     {
       message: 'You successfully registered to event',
-      result: signupResponseJson
+      result: signupResponseJson,
     },
     {
       status: 200,

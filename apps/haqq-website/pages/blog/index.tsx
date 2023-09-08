@@ -26,10 +26,10 @@ export interface StoryblokPost {
 
 function mapStorybookToPosts(data: { posts: StoryblokPost[] }): Post[] {
   return data.posts
-  .filter((post) => {
-    return post.published
-  })
-  .map((post) => {
+    .filter((post) => {
+      return post.published;
+    })
+    .map((post) => {
       const image =
         post.image.filename && post.image.filename !== ''
           ? {

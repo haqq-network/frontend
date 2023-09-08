@@ -18,9 +18,9 @@ export interface Post {
 
 export function BlogPage({ posts }: { posts: Post[] }) {
   const { featuredPost, postsToRender, tags } = useMemo(() => {
-    let featuredPost:Post | undefined = undefined;
-    const postsToRender:Post[] = [];
-    const tags:string[] = [];
+    let featuredPost: Post | undefined = undefined;
+    const postsToRender: Post[] = [];
+    const tags: string[] = [];
 
     for (const post of posts) {
       if (!featuredPost) {

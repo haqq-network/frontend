@@ -15,12 +15,10 @@ interface VerifyRequest {
 }
 
 export async function POST(request: NextRequest) {
-  const {
-    ticket,
-  }: VerifyRequest = await request.json();
+  const { ticket }: VerifyRequest = await request.json();
   const VerifyRequest: EventVerifyRequest = {
     meetup_id: MEETUP_ID,
-    ticket: ticket
+    ticket: ticket,
   };
 
   const signupUrl = new URL('/meetup/ticket/verify', FALCONER_ENDPOINT);
@@ -37,7 +35,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json<{ result: EventSignupResponse }>(
     {
-      result: signupResponseJson
+      result: signupResponseJson,
     },
     {
       status: 200,

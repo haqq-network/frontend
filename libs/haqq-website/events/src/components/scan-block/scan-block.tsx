@@ -1,65 +1,64 @@
 'use client';
-import {  useDebouncedEffect } from '@haqq/shared';
+import { useDebouncedEffect } from '@haqq/shared';
 import { useCallback, useState } from 'react';
-import QrReader from 'react-qr-scanner'
-import {  Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
+import QrReader from 'react-qr-scanner';
+import { Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
 
 interface IScanResult {
-  text: string
+  text: string;
 }
 
 const verifyTicket = (data: { ticket: string }) => {
-  return  axios.post<{ result: {success: boolean} }>(
+  return axios.post<{ result: { success: boolean } }>(
     `/api/events/verify`,
-    data
+    data,
   );
-}
+};
 
 const DELAY = 300;
 const QR_STYLE = {
   height: 320,
   width: 400,
-}
+};
 
 export function ScanBlock() {
-
-  const [parsedTicket, setParsedTicket] = useState<string>('')
-  const [loading, setLoading] = useState(false)
-  const [isVerified, setIsVerified] = useState(false)
+  const [parsedTicket, setParsedTicket] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const checkRequest = useCallback(async () => {
-    setLoading(true)
+    setLoading(true);
 
     try {
-      if(parsedTicket) {
-        const result = await verifyTicket({ ticket: parsedTicket })
+      if (parsedTicket) {
+        const result = await verifyTicket({ ticket: parsedTicket });
 
-        setIsVerified(result.data.result.success)
+        setIsVerified(result.data.result.success);
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [parsedTicket])
+  }, [parsedTicket]);
 
-  useDebouncedEffect(checkRequest)
+  useDebouncedEffect(checkRequest);
 
   const handleScan = useCallback((data: IScanResult) => {
-    if(data?.text) {
-      setParsedTicket((prev:string) => {
-        return prev !== data.text ? data.text : prev
-      })
+    if (data?.text) {
+      setParsedTicket((prev: string) => {
+        return prev !== data.text ? data.text : prev;
+      });
     }
-  }, [])
+  }, []);
 
-  const handleError =useCallback( (err:IScanResult) => {
-    console.error(err)
-  }, [])
+  const handleError = useCallback((err: IScanResult) => {
+    console.error(err);
+  }, []);
 
   const onReset = useCallback(() => {
-    setParsedTicket('')
-    setIsVerified(false)
-  }, [])
+    setParsedTicket('');
+    setIsVerified(false);
+  }, []);
 
   return (
     <section className="py-20">
@@ -71,42 +70,57 @@ export function ScanBlock() {
                 Event Scanner
               </h2>
             </div>
-
           </div>
 
-          <div className={`mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px] `}>
-            {(loading) ? <SpinnerLoader /> : 
+          <div
+            className={`mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px] `}
+          >
+            {loading ? (
+              <SpinnerLoader />
+            ) : (
               <>
-                <div className={`flex flex-col gap-y-[16px] ${isVerified ? 'border-[green] border-[15px]' : ''}`}>
+                <div
+                  className={`flex flex-col gap-y-[16px] ${
+                    isVerified ? 'border-[15px] border-[green]' : ''
+                  }`}
+                >
                   <QrReader
                     delay={DELAY}
                     style={QR_STYLE}
                     onError={handleError}
                     onScan={handleScan}
                     constraints={{
-                      video: { facingMode: "environment" }
+                      video: { facingMode: 'environment' },
                     }}
-                    />
+                  />
                 </div>
-                
 
-                {parsedTicket && <> 
-                  {isVerified ? <div className="flex flex-col gap-y-[16px] text-[24px] text-[green] font-[600] uppercase items-center">
-                    Verified!
-                  </div> : <div className="flex flex-col gap-y-[16px] text-[red] text-[24px] font-[600] uppercase items-center">
-                    Not Verified!
-                  </div>}
+                {parsedTicket && (
+                  <>
+                    {isVerified ? (
+                      <div className="flex flex-col items-center gap-y-[16px] text-[24px] font-[600] uppercase text-[green]">
+                        Verified!
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-y-[16px] text-[24px] font-[600] uppercase text-[red]">
+                        Not Verified!
+                      </div>
+                    )}
 
-                  {parsedTicket && <Button 
-                    variant={2}
-                    className="w-full !px-[16px]" onClick={onReset}>
-                    RESET
-                  </Button>}
-                </>}
+                    {parsedTicket && (
+                      <Button
+                        variant={2}
+                        className="w-full !px-[16px]"
+                        onClick={onReset}
+                      >
+                        RESET
+                      </Button>
+                    )}
+                  </>
+                )}
               </>
-          }
+            )}
           </div>
-          
         </div>
       </div>
     </section>

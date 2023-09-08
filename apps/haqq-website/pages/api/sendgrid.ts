@@ -2,7 +2,7 @@ import client from '@sendgrid/client';
 import type RequestOptions from '@sendgrid/helpers/classes/request';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const sendGridKey = process.env['SENDGRID_API_KEY'] || ''
+const sendGridKey = process.env['SENDGRID_API_KEY'] || '';
 client.setApiKey(sendGridKey);
 
 async function submitEmail(req: NextApiRequest, res: NextApiResponse) {
