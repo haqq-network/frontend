@@ -63,7 +63,7 @@ function FooterNavSocialLink({
   );
 }
 
-export function Footer() {
+export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [inputSize, setInputSize] = useState<'normal' | 'small'>('normal');
 
   useEffect(() => {
@@ -196,17 +196,20 @@ export function Footer() {
             </nav>
           </div>
         </div>
-        <div className="flex flex-1 flex-row sm:h-[210px] lg:h-auto">
-          <div className="border-haqq-border ml-[16px] flex-1 border-l px-[16px] py-[32px] sm:ml-[63px] sm:px-[34px] sm:py-[56px] lg:ml-0">
-            <Heading level={3} className="mb-[16px] sm:mb-[24px]">
-              Sign up for HAQQ updates
-            </Heading>
-            <SubscribeForm
-              className="flex flex-col sm:flex-row sm:space-x-[24px] lg:flex-col lg:space-x-0"
-              inputSize={inputSize}
-            />
+        {turnstileSiteKey && (
+          <div className="flex flex-1 flex-row sm:h-[210px] lg:h-auto">
+            <div className="border-haqq-border ml-[16px] flex-1 border-l px-[16px] py-[32px] sm:ml-[63px] sm:px-[34px] sm:py-[56px] lg:ml-0">
+              <Heading level={3} className="mb-[16px] sm:mb-[24px]">
+                Sign up for HAQQ updates
+              </Heading>
+              <SubscribeForm
+                className="flex flex-col sm:flex-row sm:space-x-[24px] lg:flex-col lg:space-x-0"
+                inputSize={inputSize}
+                turnstileSiteKey={turnstileSiteKey}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </footer>
   );

@@ -4,44 +4,50 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {
-  SubscribeFormFields,
+  ContactFormFields,
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button, Heading, Modal, Ruler, Text } from '@haqq/haqq-website-ui-kit';
-import clsx from 'clsx';
+import { HookedFormTextarea } from '../hooked-form-textarea/hooked-form-textarea';
+import { Button, Modal, Heading, Ruler, Text } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
 import Turnstile from 'react-turnstile';
 
-const schema: yup.ObjectSchema<SubscribeFormFields> = yup
+const MESSAGE_MIN_LENGTH = 100;
+
+const schema: yup.ObjectSchema<ContactFormFields> = yup
   .object({
+    name: yup.string().required('Name is required'),
     email: yup
       .string()
       .email('Invalid email format')
       .required('Email is required'),
+    message: yup
+      .string()
+      .required('Message is required')
+      .min(
+        MESSAGE_MIN_LENGTH,
+        `Message should be not less than ${MESSAGE_MIN_LENGTH} characters`,
+      ),
   })
   .required();
 
-async function submitForm(form: SubscribeFormFields & { token: string }) {
+async function submitForm(form: ContactFormFields & { token: string }) {
   return await axios.post<{ message: string } | { error: string }>(
-    '/api/subscribe',
+    '/api/feedback',
     form,
   );
 }
 
-export function SubscribeForm({
-  className,
+export function FeedbackForm({
   turnstileSiteKey,
-  inputSize,
 }: {
-  className?: string;
   turnstileSiteKey: string;
-  inputSize: 'small' | 'normal';
 }) {
-  const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
+  const [contactFormState, setContactFormState] = useState<FormState>(
     FormState.idle,
   );
-  const [formData, setFormData] = useState<SubscribeFormFields | undefined>(
+  const [formData, setFormData] = useState<ContactFormFields | undefined>(
     undefined,
   );
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
@@ -52,13 +58,13 @@ export function SubscribeForm({
     register,
     handleSubmit: hookFormSubmit,
     formState,
-  } = useForm({
+  } = useForm<ContactFormFields>({
     resolver: yupResolver(schema),
   });
   const [token, setToken] = useState<string | undefined>(undefined);
 
-  const handleFormSubmit = useCallback((data: SubscribeFormFields) => {
-    setSubscribeFormState(FormState.pending);
+  const handleFormSubmit = useCallback((data: ContactFormFields) => {
+    setContactFormState(FormState.pending);
     setCaptchaModalOpen(true);
     setFormData(data);
   }, []);
@@ -70,17 +76,17 @@ export function SubscribeForm({
           const response = await submitForm({ ...formData, token: token });
 
           if (response.status === 200) {
-            setSubscribeFormState(FormState.success);
+            setContactFormState(FormState.success);
             setSuccessModalOpen(true);
           } else {
-            setSubscribeFormState(FormState.error);
+            setContactFormState(FormState.error);
             if ('error' in response.data) {
               setError(response.data.error);
             }
             setErrorModalOpen(true);
           }
         } catch (error) {
-          setSubscribeFormState(FormState.error);
+          setContactFormState(FormState.error);
           setError((error as Error).message);
           setErrorModalOpen(true);
         }
@@ -114,35 +120,65 @@ export function SubscribeForm({
     return (
       isCaptchaModalOpen ||
       isSuccessModalOpen ||
-      subscribeFormState === FormState.pending ||
-      subscribeFormState === FormState.success
+      contactFormState === FormState.pending ||
+      contactFormState === FormState.success
     );
-  }, [isCaptchaModalOpen, isSuccessModalOpen, subscribeFormState]);
+  }, [isCaptchaModalOpen, isSuccessModalOpen, contactFormState]);
 
   return (
     <Fragment>
       <form
         onSubmit={hookFormSubmit(handleFormSubmit)}
         noValidate
-        className={clsx(className)}
+        className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]"
         autoComplete="off"
       >
-        <div className="max-w-[400px] sm:flex-1">
-          <HookedFormInput<SubscribeFormFields>
-            wrapperClassName="w-full"
-            placeholder="Enter your e-mail"
-            type="email"
-            id="email"
-            register={register}
-            error={formState.errors.email?.message}
-            disabled={isFormDisabled}
-            required
-            size={inputSize}
-          />
+        <div className="flex flex-col space-y-[12px] lg:space-y-[16px]">
+          <div className="flex flex-col space-y-[12px] leading-none sm:flex-row sm:space-x-[12px] sm:space-y-0 lg:space-x-[16px]">
+            <div className="flex-1">
+              <HookedFormInput<ContactFormFields>
+                wrapperClassName="w-full"
+                placeholder="Name"
+                id="name"
+                register={register}
+                error={formState.errors.name?.message}
+                disabled={isFormDisabled}
+                required
+                size="normal"
+              />
+            </div>
+            <div className="flex-1">
+              <HookedFormInput<ContactFormFields>
+                wrapperClassName="w-full"
+                placeholder="Email"
+                type="email"
+                id="email"
+                register={register}
+                error={formState.errors.email?.message}
+                disabled={isFormDisabled}
+                required
+                size="normal"
+              />
+            </div>
+          </div>
+          <div>
+            <HookedFormTextarea<ContactFormFields>
+              id="message"
+              register={register}
+              className="h-[120px] w-full"
+              placeholder="Send us a message"
+              disabled={isFormDisabled}
+            />
+          </div>
         </div>
-        <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
-          <Button variant={1} type="submit" disabled={isFormDisabled}>
-            Subscribe
+        <div className="text-center">
+          <Button
+            className="w-[200px]"
+            variant={2}
+            type="submit"
+            disabled={isFormDisabled}
+          >
+            Submit
           </Button>
         </div>
       </form>
@@ -151,19 +187,16 @@ export function SubscribeForm({
         <Turnstile
           sitekey={turnstileSiteKey}
           onVerify={setToken}
-          theme="dark"
+          // theme="dark"
         />
       </Modal>
 
       <Modal onClose={handleSuccessModalClose} isOpen={isSuccessModalOpen}>
         <div className="text-haqq-black relative flex max-w-[343px] items-center justify-between rounded-[10px] bg-white px-[16px] sm:max-w-[473px] sm:px-[32px] lg:max-w-[623px] lg:px-[62px]">
           <div className="mx-[70px] my-[45px] flex flex-col gap-[24px] text-center sm:gap-[32px]">
-            <Heading>Congratulations!</Heading>
-            <div>
-              <Text>You have successfully subscribed to our newsletter.</Text>
-            </div>
+            <Heading>Your application has been accepted</Heading>
             <Button variant={3} onClick={handleSuccessModalClose}>
-              Close
+              Go back
             </Button>
           </div>
 

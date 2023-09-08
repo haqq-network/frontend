@@ -9,7 +9,13 @@ import {
 } from './statistics-block/statistics-block';
 import { VisionBlock } from './vision-block/vision-block';
 
-export function IndexPage({ stats }: { stats: ChainStats }) {
+export function IndexPage({
+  stats,
+  turnstileSiteKey,
+}: {
+  stats: ChainStats;
+  turnstileSiteKey?: string;
+}) {
   return (
     <section>
       <HeroBlock />
@@ -18,7 +24,7 @@ export function IndexPage({ stats }: { stats: ChainStats }) {
       <MissionBlock />
       <VisionBlock />
       <DevelopersBlock />
-      <ContactBlock />
+      {turnstileSiteKey && <ContactBlock turnstileSiteKey={turnstileSiteKey} />}
     </section>
   );
 }

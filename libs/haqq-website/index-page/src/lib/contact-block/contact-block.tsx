@@ -1,9 +1,13 @@
 import Image from 'next/image';
 import eclipseImageData from '../../assets/images/index-page-contact-bg.png';
-import { ContactForm } from '@haqq/haqq-website/forms';
+import { FeedbackForm } from '@haqq/haqq-website/forms';
 import { Heading } from '@haqq/haqq-website-ui-kit';
 
-export function ContactBlock() {
+export function ContactBlock({
+  turnstileSiteKey,
+}: {
+  turnstileSiteKey: string;
+}) {
   return (
     <div
       className="relative px-[16px] pb-[148px] pt-[120px] sm:py-[120px] lg:min-h-[600px] lg:py-[136px]"
@@ -22,7 +26,7 @@ export function ContactBlock() {
           <Heading level={2}>Develop your vision on HAQQ</Heading>
         </div>
 
-        <ContactForm />
+        <FeedbackForm turnstileSiteKey={turnstileSiteKey} />
       </div>
     </div>
   );
