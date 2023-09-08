@@ -1,10 +1,5 @@
 'use client';
-import {
-  useAddress,
-  useDebouncedEffect,
-  useQrRegistrationActions,
-  useWallet,
-} from '@haqq/shared';
+import { useAddress, useQrRegistrationActions, useWallet } from '@haqq/shared';
 import localStore from 'store2';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -14,7 +9,6 @@ import {
 import { Button } from '@haqq/haqq-website-ui-kit';
 import axios from 'axios';
 import { TickerRequest } from '../ticket-request/ticket-request';
-import { useWalletClient } from 'wagmi';
 
 const MESSAGE = 'GIVE ME TICKET';
 
@@ -46,69 +40,56 @@ export function ApplyBlock() {
     return `SAVED_SIGNATURE_KEY_${ethAddress}`;
   }, [ethAddress]);
 
-  const [savedSignature, saveSignature] = useState<string>(() => {
+  const savedSignature = useMemo(() => {
     return localStore.get(localStKey);
-  });
-
-  useEffect(() => {
-    saveSignature(localStore.get(localStKey));
   }, [localStKey]);
 
   const [submitResult, setSubmitResult] = useState('');
   const [currentTicket, setCurrentTicket] = useState('');
-  const [loading, setLoading] = useState(!!savedSignature);
+  const [loading, setLoading] = useState(false);
 
-  const checkRequest = useCallback(async () => {
+  const checkRequest = useCallback(async (signature: string) => {
     setLoading(true);
 
     try {
-      if (savedSignature) {
-        const ticketsData = await getTicket(savedSignature);
+      setCurrentTicket('');
+
+      if (signature) {
+        const ticketsData = await getTicket(signature);
         ticketsData.data.result[0] &&
           setCurrentTicket(ticketsData.data.result[0].ticket);
-      } else {
-        setCurrentTicket('');
       }
     } finally {
       setLoading(false);
     }
-  }, [savedSignature]);
+  }, []);
 
-  const deps = useMemo(() => {
-    return [savedSignature || ''];
-  }, [savedSignature]);
-
-  useDebouncedEffect(checkRequest, 100, deps);
-
-  const { data: walletClient } = useWalletClient();
+  useEffect(() => {
+    checkRequest(savedSignature);
+  }, [savedSignature, checkRequest]);
 
   const onSignHandler = useCallback(async () => {
     if (!ethAddress) {
       return;
     }
     const signature = await sign(ethAddress, MESSAGE);
-    saveSignature(signature);
-    checkRequest();
-  }, [checkRequest, ethAddress, saveSignature, sign]);
-
-  useEffect(() => {
-    if (!savedSignature && ethAddress && !loading && walletClient) {
-      onSignHandler();
-    }
-  }, [savedSignature, sign, loading, ethAddress, walletClient, onSignHandler]);
+    localStore.set(localStKey, signature);
+    checkRequest(signature);
+  }, [ethAddress, localStKey, sign, checkRequest]);
 
   const handleSubmit = useCallback(
     async (signupFormData: QrRegistrationFormFields) => {
+      setCurrentTicket('');
+
       if (savedSignature) {
         try {
           const response = await submitForm({
             ...signupFormData,
             signature: savedSignature,
           });
-          console.log({ response: response.data.message });
 
           if (response.data.message) {
-            checkRequest();
+            checkRequest(savedSignature);
           } else {
             setSubmitResult(response.data.error);
           }
@@ -147,7 +128,7 @@ export function ApplyBlock() {
               <div>
                 {ethAddress ? (
                   <Button className="w-full" onClick={onSignHandler}>
-                    Sign message
+                    Sign Event Registration Message
                   </Button>
                 ) : (
                   <Button
