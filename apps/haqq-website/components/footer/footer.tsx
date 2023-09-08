@@ -121,6 +121,9 @@ export function Footer() {
                 <FooterNavLink href="/brand-assets">Brand assets</FooterNavLink>
               </div>
               <FooterNavLink href="/wp">Whitepaper</FooterNavLink>
+              <FooterNavLink href="/privacy-policy">
+                Privacy Policy
+              </FooterNavLink>
               {/* <FooterNavLink href="/terms-and-conditions">
                 Terms and Conditions
               </FooterNavLink> */}
