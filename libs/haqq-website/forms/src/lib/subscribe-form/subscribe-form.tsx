@@ -114,8 +114,7 @@ export function SubscribeForm({
     return (
       isCaptchaModalOpen ||
       isSuccessModalOpen ||
-      subscribeFormState === FormState.pending ||
-      subscribeFormState === FormState.success
+      subscribeFormState === FormState.pending
     );
   }, [isCaptchaModalOpen, isSuccessModalOpen, subscribeFormState]);
 

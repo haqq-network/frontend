@@ -25,10 +25,7 @@ const schema: yup.ObjectSchema<ContactFormFields> = yup
     message: yup
       .string()
       .required('Message is required')
-      .min(
-        MESSAGE_MIN_LENGTH,
-        `Message should be not less than ${MESSAGE_MIN_LENGTH} characters`,
-      ),
+      .min(MESSAGE_MIN_LENGTH, `Message should be longer`),
   })
   .required();
 
@@ -120,8 +117,7 @@ export function FeedbackForm({
     return (
       isCaptchaModalOpen ||
       isSuccessModalOpen ||
-      contactFormState === FormState.pending ||
-      contactFormState === FormState.success
+      contactFormState === FormState.pending
     );
   }, [isCaptchaModalOpen, isSuccessModalOpen, contactFormState]);
 
@@ -161,13 +157,16 @@ export function FeedbackForm({
               />
             </div>
           </div>
-          <div>
+          <div className="flex-1">
             <HookedFormTextarea<ContactFormFields>
               id="message"
               register={register}
               className="h-[120px] w-full"
+              wrapperClassName="w-full"
               placeholder="Send us a message"
+              error={formState.errors.message?.message}
               disabled={isFormDisabled}
+              required
             />
           </div>
         </div>
@@ -196,7 +195,7 @@ export function FeedbackForm({
           <div className="mx-[70px] my-[45px] flex flex-col gap-[24px] text-center sm:gap-[32px]">
             <Heading>Your application has been accepted</Heading>
             <Button variant={3} onClick={handleSuccessModalClose}>
-              Go back
+              Close
             </Button>
           </div>
 
@@ -226,7 +225,7 @@ export function FeedbackForm({
               className="px-[18px] sm:px-[32px]"
               onClick={handleErrorModalClose}
             >
-              Try again
+              Close
             </Button>
           </div>
 

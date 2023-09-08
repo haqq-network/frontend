@@ -11,10 +11,16 @@ interface FeedbackRequest {
   captcha_token: string;
 }
 
-interface SubscribeResponse {
-  status: number;
-  error?: string;
+interface FeedbackErrorResponse {
+  error_type: 'validation';
+  error_description: string;
 }
+
+interface FeedbackSuccessResponse {
+  success: true;
+}
+
+type FeedbackResponse = FeedbackSuccessResponse | FeedbackErrorResponse;
 
 export async function POST(request: NextRequest) {
   const ip = request.ip ?? '[::1]';
@@ -30,34 +36,30 @@ export async function POST(request: NextRequest) {
   };
   console.log({ feedbackRequest });
 
-  const subscribeUrl = new URL('/feedback/send', FALCONER_ENDPOINT);
-  const subscribeResponse = await fetch(subscribeUrl.toString(), {
+  const feedbackUrl = new URL('/feedback/send', FALCONER_ENDPOINT);
+  const feedbackResponse = await fetch(feedbackUrl.toString(), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(feedbackRequest),
   });
-  const subscribeResponseJson: SubscribeResponse =
-    await subscribeResponse.json();
+  const feedbackResponseJson: FeedbackResponse = await feedbackResponse.json();
+  console.log({ feedbackResponseJson });
 
-  if (subscribeResponseJson.error) {
+  if ('success' in feedbackResponseJson && feedbackResponseJson.success) {
+    return NextResponse.json<{ message: string }>(
+      { message: 'Message sent' },
+      { status: 200 },
+    );
+  } else {
+    console.log('error', { feedbackResponseJson });
     return NextResponse.json<{ error: string }>(
       {
-        error: subscribeResponseJson.error,
+        error: (feedbackResponseJson as FeedbackErrorResponse)
+          .error_description,
       },
-      {
-        status: 400,
-      },
+      { status: 400 },
     );
   }
-
-  return NextResponse.json<{ message: string }>(
-    {
-      message: 'Subscription successful',
-    },
-    {
-      status: 200,
-    },
-  );
 }
