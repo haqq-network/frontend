@@ -23,6 +23,8 @@ export function BlogArticle({
   onLinkCopy?: () => void;
   transformImageUrl?: (src: string) => string;
 }) {
+  const postDate = new Date(date);
+
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
       <div className="w-full overflow-clip px-[16px] sm:px-[63px] lg:px-[79px]">
@@ -42,13 +44,15 @@ export function BlogArticle({
             )}
 
             <div className="mb-[8px] text-[12px] leading-[1.5em] text-white/50 md:text-[13px] md:leading-[22px] lg:text-[14px]">
-              {new Intl.DateTimeFormat('en-US', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-              }).format(new Date(date))}
+              <time dateTime={postDate.toISOString()}>
+                {new Intl.DateTimeFormat('en-US', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+                }).format(postDate)}
+              </time>
             </div>
 
             <MarkdownText transformImageUrl={transformImageUrl}>
