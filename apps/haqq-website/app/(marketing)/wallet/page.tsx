@@ -4,7 +4,7 @@ import { DEPLOY_URL } from '../../../constants';
 
 const title = 'Wallet';
 const description =
-  'The best way to hold Islamic Coin and remain Shariah-compliant along the way!';
+  'Seamlessly manage your Shariah-compliant assets. Tailored for the discerning investor in the digital age.';
 
 export const metadata: Metadata = {
   title,
