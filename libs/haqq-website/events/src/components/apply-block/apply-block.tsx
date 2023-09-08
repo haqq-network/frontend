@@ -143,7 +143,6 @@ export function ApplyBlock() {
                     <Button
                       className="w-full"
                       onClick={onSignHandler}
-                      disabled={Boolean(signature && signature.length > 0) || loading}
                     >
                       Sign message
                     </Button>
