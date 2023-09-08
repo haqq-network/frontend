@@ -2,22 +2,20 @@ import type { Metadata } from 'next';
 import { PrivacyPolicyPage } from '@haqq/haqq-website/privacy-policy-page';
 import { DEPLOY_URL } from '../../../constants';
 import { getPrivacyPolicy } from '../../../utils/get-privacy-policy';
+import { haqqOpenGraphImages } from '../../shared-metadata';
+
+const title = 'Privacy Policy';
+const description =
+  'Understand how HAQQ Network protects your privacy and manages data in compliance with ethical standards.';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: '',
+  title,
+  description,
   openGraph: {
-    title: 'HAQQ | Privacy Policy',
-    description: '',
-    locale: 'en-US',
-    type: 'website',
-    images: [{ url: `${new URL(DEPLOY_URL)}opengraph-image.png` }],
-    url: `${new URL(DEPLOY_URL)}blog`,
-  },
-  twitter: {
-    title: 'HAQQ | Privacy Policy',
-    description: '',
-    card: 'summary_large_image',
+    title,
+    description,
+    url: new URL('/privacy-policy', DEPLOY_URL).toString(),
+    images: haqqOpenGraphImages,
   },
 };
 
