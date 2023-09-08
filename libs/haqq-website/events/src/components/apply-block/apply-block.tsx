@@ -2,10 +2,10 @@
 import {
   useAddress,
   useDebouncedEffect,
-  useLocalStorage,
   useQrRegistrationActions,
   useWallet,
 } from '@haqq/shared';
+import localStore from 'store2';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   QrRegistrationForm,
@@ -42,9 +42,17 @@ export function ApplyBlock() {
   const { openSelectWallet } = useWallet();
   const { sign } = useQrRegistrationActions();
 
-  const [savedSignature, saveSignature] = useLocalStorage<string>(
-    `SAVED_SIGNATURE_KEY_${ethAddress}`,
-  );
+  const localStKey = useMemo(() => {
+    return `SAVED_SIGNATURE_KEY_${ethAddress}`;
+  }, [ethAddress]);
+
+  const [savedSignature, saveSignature] = useState<string>(() => {
+    return localStore.get(localStKey);
+  });
+
+  useEffect(() => {
+    saveSignature(localStore.get(localStKey));
+  }, [localStKey]);
 
   const [submitResult, setSubmitResult] = useState('');
   const [currentTicket, setCurrentTicket] = useState('');
