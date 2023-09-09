@@ -6,7 +6,7 @@ import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Ecosystem';
 const description =
-  'Ethics-first network that welcomes sustainability-centered developers, validators and open source contributors as well as Muslim innovators in sustainable Finance';
+  'Explore the HAQQ Network ecosystem comprising Bridge, Wallet, Infrastructure, DeFi, Payments, Services, and Institutional, designed to foster community-driven decentralized technologies worldwide.';
 
 export const metadata: Metadata = {
   title,

@@ -4,7 +4,7 @@ import { DEPLOY_URL } from '../../../constants';
 
 const title = 'Brand assets';
 const description =
-  'Ethics-first network that welcomes sustainability-centered developers, validators and open source contributors as well as Muslim innovators in sustainable Finance';
+  'Download HAQQ Network\'s official brand assets to represent our ethical and Shariah-compliant vision.';
 
 export const metadata: Metadata = {
   title,

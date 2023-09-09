@@ -4,7 +4,7 @@ import { DEPLOY_URL } from '../../../constants';
 
 const title = 'Ecosystem fund';
 const description =
-  'Ethics-first network that welcomes sustainability-centered developers, validators and open source contributors as well as Muslim innovators in sustainable Finance';
+  'Discover how you can participate in the HAQQ ecosystem as a builder of Shariah-compliant dApps by taking advantage of our grants.';
 
 export const metadata: Metadata = {
   title,
