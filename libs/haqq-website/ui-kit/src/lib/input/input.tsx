@@ -46,10 +46,10 @@ export const Input = forwardRef(function Input(
   );
   const wrapperClassNames = clsx('inline-block', wrapperClassName);
   const requiredClassNames = clsx(
-    'absolute right-[16px] select-none pointer-events-none',
+    'absolute right-[16px] select-none pointer-events-none h-[24px] leading-[24px]',
     error ? 'text-[#FF5454]' : 'text-haqq-orange',
-    size === 'normal' && 'top-[18px]',
-    size === 'small' && 'top-[14px]',
+    size === 'normal' && 'top-[16px]',
+    size === 'small' && 'top-[12px]',
   );
 
   const handleChange = useCallback(
