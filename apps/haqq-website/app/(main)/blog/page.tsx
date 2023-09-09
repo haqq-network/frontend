@@ -6,7 +6,7 @@ import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Blog';
 const description =
-  'Ethics-first network that welcomes sustainability-centered developers, validators and open source contributors as well as Muslim innovators in sustainable Finance';
+  "Stay updated with the latest news, insights, and trends in the world of ethical and Islamic Finance technology with HAQQ's blog.";
 
 export const metadata: Metadata = {
   title,

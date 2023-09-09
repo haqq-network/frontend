@@ -1,7 +1,7 @@
 'use client';
 import { useAddress, useQrRegistrationActions, useWallet } from '@haqq/shared';
 import localStore from 'store2';
-import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   QrRegistrationForm,
   QrRegistrationFormFields,
