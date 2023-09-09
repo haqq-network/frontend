@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { SpinnerLoader } from '../loader/loader';
 
 export interface ButtonProps {
@@ -21,33 +21,43 @@ export function Button({
   type = 'button',
   isLoading,
 }: ButtonProps) {
-  const classNames = clsx(
-    'relative text-[14px] font-serif leading-[14px] font-[500] tracking-[0.01em] rounded-[6px] h-[40px] uppercase px-[32px] py-[13px] cursor-pointer user-select-none',
-    variant === 1 &&
-      (isLoading
-        ? 'border border-white'
-        : 'text-white border-white border hover:bg-white hover:text-haqq-black disabled:!text-white disabled:!bg-transparent'),
-    variant === 2 &&
-      (isLoading
-        ? 'border border-white bg-white'
-        : 'text-haqq-black bg-white border-white border hover:bg-transparent hover:text-white disabled:!bg-white disabled:!text-haqq-black'),
-    variant === 3 &&
-      (isLoading
-        ? 'border border-white/25 bg-haqq-black'
-        : 'text-white bg-haqq-black hover:bg-haqq-orange disabled:!bg-haqq-black'),
-    variant === 4 &&
-      (isLoading
-        ? 'border border-haqq-black bg-transparent'
-        : 'text-haqq-black border border-haqq-black bg-transparent'),
-    variant === 5 &&
-      (isLoading
-        ? 'bg-[#01B26E]'
-        : 'text-haqq-black bg-[#01B26E] disabled:bg-[#01B26E80] disabled:cursor-not-allowed hover:bg-[#2CE69E]'),
-    'transition-color duration-150 ease-in will-change-[color,background]',
-    disabled && '!cursor-not-allowed',
-    isLoading && 'text-transparent cursor-wait',
+  console.log({
     className,
-  );
+    variant,
+    disabled,
+    children,
+    type,
+    isLoading,
+  });
+  const classNames = useMemo(() => {
+    return clsx(
+      'relative text-[14px] font-serif leading-[14px] font-[500] tracking-[0.01em] rounded-[6px] h-[40px] uppercase px-[32px] py-[13px] cursor-pointer user-select-none',
+      variant === 1 &&
+        (isLoading
+          ? 'border border-white'
+          : 'text-white border-white border hover:bg-white hover:text-haqq-black disabled:!text-white disabled:!bg-transparent'),
+      variant === 2 &&
+        (isLoading
+          ? 'border border-white bg-white'
+          : 'text-haqq-black bg-white border-white border hover:bg-transparent hover:text-white disabled:!bg-white disabled:!text-haqq-black'),
+      variant === 3 &&
+        (isLoading
+          ? 'border border-white/25 bg-haqq-black'
+          : 'text-white bg-haqq-black hover:bg-haqq-orange disabled:!bg-haqq-black'),
+      variant === 4 &&
+        (isLoading
+          ? 'border border-haqq-black bg-transparent'
+          : 'text-haqq-black border border-haqq-black bg-transparent'),
+      variant === 5 &&
+        (isLoading
+          ? 'bg-[#01B26E]'
+          : 'text-haqq-black bg-[#01B26E] disabled:bg-[#01B26E80] disabled:cursor-not-allowed hover:bg-[#2CE69E]'),
+      'transition-color duration-150 ease-in will-change-[color,background]',
+      disabled && '!cursor-not-allowed',
+      isLoading && 'text-transparent cursor-wait',
+      className,
+    );
+  }, [className, disabled, isLoading, variant]);
 
   return (
     <button
