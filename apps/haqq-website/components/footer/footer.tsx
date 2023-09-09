@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,6 +13,7 @@ import {
   TwitterIcon,
 } from '@haqq/haqq-website-ui-kit';
 import { SubscribeForm } from '@haqq/haqq-website/forms';
+import { useMediaQuery } from 'react-responsive';
 
 function FooterNavLink({
   href,
@@ -64,16 +65,10 @@ function FooterNavSocialLink({
 }
 
 export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
-  const [inputSize, setInputSize] = useState<'normal' | 'small'>('normal');
-
-  useEffect(() => {
-    const sizes = { sm: '640px', lg: '1024px' };
-    const query = `(min-width: ${sizes['lg']})`;
-    const { matches } = window.matchMedia(query);
-
-    setInputSize(matches ? 'normal' : 'small');
-  }, []);
-
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
+  console.log({ isTablet });
   return (
     <footer
       className={clsx(
@@ -204,7 +199,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               </Heading>
               <SubscribeForm
                 className="flex flex-col sm:flex-row sm:space-x-[24px] lg:flex-col lg:space-x-0"
-                inputSize={inputSize}
+                inputSize={isTablet ? 'small' : 'normal'}
                 turnstileSiteKey={turnstileSiteKey}
               />
             </div>
