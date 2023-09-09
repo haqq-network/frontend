@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title,
   description,
   openGraph: {
-    title,
+    title: `${title} | HAQQ`,
     description,
     url: new URL('/ecosystem-fund', DEPLOY_URL).toString(),
     images: haqqOpenGraphImages,

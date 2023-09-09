@@ -21,14 +21,6 @@ export function Button({
   type = 'button',
   isLoading,
 }: ButtonProps) {
-  console.log({
-    className,
-    variant,
-    disabled,
-    children,
-    type,
-    isLoading,
-  });
   const classNames = useMemo(() => {
     return clsx(
       'relative text-[14px] font-serif leading-[14px] font-[500] tracking-[0.01em] rounded-[6px] h-[40px] uppercase px-[32px] py-[13px] cursor-pointer user-select-none',

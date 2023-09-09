@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title,
   description,
   openGraph: {
-    title,
+    title: `${title} | HAQQ`,
     description,
     url: new URL('/wp', DEPLOY_URL).toString(),
     images: haqqOpenGraphImages,
