@@ -68,7 +68,6 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
-  console.log({ isTablet });
   return (
     <footer
       className={clsx(
