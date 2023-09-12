@@ -8,6 +8,7 @@ import fatwaSign3 from '../../assets/images/autographs/autograph-hakim-mohamed.w
 import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.webp';
 import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 function LangButton({
   active,
@@ -404,29 +405,19 @@ function AuthographsBlock() {
   );
 }
 
-// type FatwaPageArticles =
-//   | 'fatwa'
-//   | 'foundations'
-//   | 'shariah-oracle'
-//   | 'shariah-board'
-//   | 'advisory-board'
-//   | 'executive-board';
-
 export function FatwaBlock() {
   const [lang, setLang] = useState<'ar' | 'en'>('en');
+
+  const t = useTranslations('shariah-page');
 
   return (
     <div>
       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-        Fatwa
+        {t('fatwa-block.title')}
       </h2>
 
       <div className="mt-[16px] md:mt-[20px] lg:mt-[24px]">
-        <Text size="small">
-          Issued by the World’s leading authorities in Islamic Finance, Islamic
-          Coin has been provided a Fatwa based on the Holy Teachings of the
-          Quran.
-        </Text>
+        <Text size="small">{t('fatwa-block.subtitle')}</Text>
       </div>
 
       <div className="mt-[24px] flex gap-x-[16px] md:mt-[28px] lg:mt-[32px]">

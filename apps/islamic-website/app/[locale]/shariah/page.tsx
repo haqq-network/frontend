@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { ShariahPage } from '@haqq/islamic-website/shariah-page';
-import { getMembersContent } from '../../utils/get-members-data';
-import { DEPLOY_URL } from '../../constants';
-import { islamicOpenGraphImages } from '../shared-metadata';
+import { getMembersContent } from '../../../utils/get-members-data';
+import { DEPLOY_URL } from '../../../constants';
+import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Shariah';
 const description =

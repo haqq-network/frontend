@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { Text } from '../text/text';
 
 interface RatingBadgeProps {
@@ -64,11 +65,12 @@ function GoldenStar() {
 }
 
 export function RatingBadge({ market, rating }: RatingBadgeProps) {
+  const t = useTranslations('index-page');
   return (
     <div className="flex flex-col gap-y-[6px]">
       <span className="font-mono text-[10px] uppercase leading-[16px] text-white/50">
-        {market === 'app-store' && 'App store rating'}
-        {market === 'google-play' && 'Google play rating'}
+        {market === 'app-store' && t('portfolio-block.stores.app-store')}
+        {market === 'google-play' && t('portfolio-block.stores.google-play')}
       </span>
       <div className="flex items-center gap-x-[10px]">
         <div className="flex gap-x-[4px]">

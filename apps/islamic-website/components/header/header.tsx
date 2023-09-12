@@ -31,6 +31,8 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
+import { LocaleSwitcher } from '../locale-switcher/locale-switcher';
+import { useTranslations } from 'next-intl';
 
 interface HeaderLinkProps {
   url: string;
@@ -236,6 +238,8 @@ export function DesktopHeader() {
     };
   }, []);
 
+  const t = useTranslations('header');
+
   return (
     <header
       className={clsx(
@@ -257,28 +261,29 @@ export function DesktopHeader() {
             </div>
 
             <nav className="flex flex-row">
-              <DesktopHeaderLink url="/shariah">Shariah</DesktopHeaderLink>
-
-              <HeaderDropdown title="About">
+              <DesktopHeaderLink url="/shariah">
+                {t('single-links.shariah')}
+              </DesktopHeaderLink>
+              <HeaderDropdown title={t('dropdown-links.about.about')}>
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
-                      title="Mission & Vision"
+                      title={t('dropdown-links.about.mission')}
                       icon={<MissionIcon />}
                       href="/mission"
                     />
                     <DropdownLink
-                      title="Roadmap"
+                      title={t('dropdown-links.about.roadmap')}
                       icon={<RoadmapIcon />}
                       href="/roadmap"
                     />
                     <DropdownLink
-                      title="Whitepaper"
+                      title={t('dropdown-links.about.whitepaper')}
                       icon={<HalfMoonAndStarIcon />}
                       href="/whitepaper"
                     />
                     <DropdownLink
-                      title="Ecosystem"
+                      title={t('dropdown-links.about.ecosystem')}
                       icon={<EcosystemIcon />}
                       href="https://haqq.network/ecosystem"
                       isOutLink
@@ -303,18 +308,18 @@ export function DesktopHeader() {
                   {/* </div> */}
                   <div className="flex flex-col">
                     <DropdownLink
-                      title="News"
+                      title={t('dropdown-links.about.news')}
                       icon={<NewsIcon />}
                       href="/news"
                     />
 
                     <DropdownLink
-                      title="Partnerships"
+                      title={t('dropdown-links.about.partnerships')}
                       icon={<PartnershipIcon />}
                       href="/partnerships"
                     />
                     <DropdownLink
-                      title="Build on HAQQ"
+                      title={t('dropdown-links.about.build-on-haqq')}
                       icon={<BuildIcon />}
                       href="/build"
                     />
@@ -322,13 +327,15 @@ export function DesktopHeader() {
                 </div>
               </HeaderDropdown>
 
-              <DesktopHeaderLink url="/wallet">Wallet</DesktopHeaderLink>
+              <DesktopHeaderLink url="/wallet">
+                {t('single-links.wallet')}
+              </DesktopHeaderLink>
 
-              <HeaderDropdown title="Learn">
+              <HeaderDropdown title={t('dropdown-links.learn.learn')}>
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
-                      title="Academy"
+                      title={t('dropdown-links.learn.academy')}
                       icon={<AcademyIcon />}
                       href="/academy"
                     />
@@ -338,17 +345,17 @@ export function DesktopHeader() {
                       href="/privacy-policy"
                     />
                     <DropdownLink
-                      title="Blog"
+                      title={t('dropdown-links.learn.blog')}
                       icon={<BlogIcon />}
                       href="https://blog.islamiccoin.net"
                       isOutLink
                     />
                     <DropdownLink
-                      title="Fraud alert"
+                      title={t('dropdown-links.learn.fraud-alert')}
                       icon={<AlertIcon />}
                       href="/fraud-alert"
                     />
-
+                    <LocaleSwitcher />
                     {/* <DropdownLink
                       title="Podcast"
                       icon={<PodcastIcon />}
@@ -375,26 +382,26 @@ export function DesktopHeader() {
                 </div>
               </HeaderDropdown>
 
-              <HeaderDropdown title="Team">
+              <HeaderDropdown title={t('dropdown-links.team.team')}>
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
-                      title="Career"
+                      title={t('dropdown-links.team.career')}
                       icon={<CaseIcon />}
                       href="/career"
                     />
                     <DropdownLink
-                      title="Our Values"
+                      title={t('dropdown-links.team.our-values')}
                       icon={<ValuesIcon />}
                       href="/values"
                     />
                     <DropdownLink
-                      title="Community"
+                      title={t('dropdown-links.team.community')}
                       icon={<CommunityIcon />}
                       href="/community-hub"
                     />
                     <DropdownLink
-                      title="Meet our team"
+                      title={t('dropdown-links.team.meet-our-team')}
                       icon={<StarIcon />}
                       href="/team"
                     />

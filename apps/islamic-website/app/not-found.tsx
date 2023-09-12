@@ -1,16 +1,16 @@
-import type { Metadata } from 'next';
-import { DEPLOY_URL } from '../constants';
-import { islamicOpenGraphImages } from './shared-metadata';
+'use client';
+import Error from 'next/error';
 
-const title = 'Not Found';
+// Render the default Next.js 404 page when a route
+// is requested that doesn't match the middleware and
+// therefore doesn't have a locale associated with it.
 
-export const metadata: Metadata = {
-  title,
-  openGraph: {
-    title: `${title} | IslamicCoin`,
-    url: new URL(DEPLOY_URL).toString(),
-    images: islamicOpenGraphImages,
-  },
-};
-
-export { NotFound as default } from '@haqq/islamic-website/not-found-page';
+export default function NotFound() {
+  return (
+    <html lang="en">
+      <body>
+        <Error statusCode={404} />
+      </body>
+    </html>
+  );
+}

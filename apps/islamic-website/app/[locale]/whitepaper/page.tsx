@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { WhitepaperPage } from '@haqq/islamic-website/whitepaper-page';
-import { getWhitepaperContent } from '../../utils/get-whitepaper-content';
-import { DEPLOY_URL } from '../../constants';
-import { islamicOpenGraphImages } from '../shared-metadata';
+import { getWhitepaperContent } from '../../../utils/get-whitepaper-content';
+import { DEPLOY_URL } from '../../../constants';
+import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Whitepaper';
 const description =

@@ -1,4 +1,5 @@
 import { Text } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 import { PropsWithChildren } from 'react';
 
 function HalalPrinciple({ children }: PropsWithChildren) {
@@ -10,10 +11,11 @@ function HalalPrinciple({ children }: PropsWithChildren) {
 }
 
 export function FoundationsBlock() {
+  const t = useTranslations('shariah-page');
   return (
     <div className="flex flex-col gap-y-[24px]">
       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-        Foundations of Halal Investing
+        {t('headings.foundations')}
       </h2>
 
       <div>

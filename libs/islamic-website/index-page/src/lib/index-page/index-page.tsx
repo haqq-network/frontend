@@ -12,9 +12,7 @@ import { FinanceBlock } from '../finance-block/finance-block';
 import { BoardMembersBlock } from '../board-members-block/board-members-block';
 import clsx from 'clsx';
 import { FundsBlock } from '../funds-block/funds-block';
-
-const RUNNING_TEXT =
-  "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
+import { useTranslations } from 'next-intl';
 
 export function IndexPage({
   news,
@@ -48,13 +46,14 @@ export function IndexPage({
 }
 
 function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
+  const t = useTranslations('index-page');
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
         <HeroBlock />
 
         <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
-          {RUNNING_TEXT.toLocaleUpperCase()}
+          {t('hero-block.running-text').toLocaleUpperCase()}
         </Marquee>
 
         <WhyBlock mainnetAccounts={mainnetAccounts} />

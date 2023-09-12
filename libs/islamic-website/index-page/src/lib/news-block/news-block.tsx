@@ -4,6 +4,7 @@ import {
   NewsCard,
   NewsPost,
 } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 interface NewsBlockProps {
@@ -11,10 +12,11 @@ interface NewsBlockProps {
 }
 
 export function NewsBlock({ news }: NewsBlockProps) {
+  const t = useTranslations('index-page');
   return (
     <Container>
       <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
-        <Heading className="text-white">Latest Islamic Coin News</Heading>
+        <Heading className="text-white">{t('news-block.title')}</Heading>
         <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
           {news.map((el, idx) => {
             return (

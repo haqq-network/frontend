@@ -17,6 +17,7 @@ import haqqLogoImgData from '../../assets/images/haqq-logo.webp';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { useInViewport } from 'react-in-viewport';
+import { useTranslations } from 'next-intl';
 
 export interface ChainStats {
   mainnetAccountsCreated: number;
@@ -173,24 +174,23 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
     }
   }, [inViewport, startAnimation]);
 
+  const t = useTranslations('index-page');
+
   return (
     <div className="bg-islamic-primary-graphite transform-gpu divide-y-[1px] divide-[#2F2F2F] rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
       <div className="flex flex-col items-start pb-[40px]">
-        <Heading>Why Islamic Coin?</Heading>
+        <Heading>{t('why-block.title')}</Heading>
         <Text isMono className="mt-[12px] md:mt-[20px]">
-          Pioneering the Future of Islamic Finance in the Web3 Era
+          {t('why-block.subtitle')}
         </Text>
         <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] sm:grid-cols-2 md:mt-[44px] xl:grid-cols-4">
-          <Reason icon={<IslamStar />}>Maintaining Shariah Guidelines</Reason>
+          <Reason icon={<IslamStar />}>{t('why-block.reasons.first')}</Reason>
           <Reason icon={<DoubleCrescent />}>
-            HAQQ Ecosystem's Prime Currency
+            {t('why-block.reasons.second')}
           </Reason>
-          <Reason icon={<Star />}>
-            Reviving Communities with <br className="lg:hidden" /> Sustainable
-            Practices
-          </Reason>
+          <Reason icon={<Star />}>{t('why-block.reasons.third')}</Reason>
           <Reason icon={<CrescentAndStar />}>
-            Islamic Way to Financial Freedom
+            {t('why-block.reasons.fourth')}
           </Reason>
         </div>
       </div>

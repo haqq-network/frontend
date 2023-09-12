@@ -17,6 +17,7 @@ import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export interface Member {
   image: string;
@@ -24,18 +25,6 @@ export interface Member {
   description: string;
   url?: string;
 }
-const sections: Array<{ id: string; title: string }> = [
-  { id: 'fatwa', title: 'Fatwa' },
-  { id: 'foundations', title: 'Foundations of Halal Investing' },
-  { id: 'shariah-oracle', title: 'Shariah Oracle' },
-  { id: 'shariah-board', title: 'Shariah Board' },
-  { id: 'advisory-board', title: 'Advisory Board' },
-  { id: 'executive-board', title: 'Executive Board' },
-];
-
-const activeSectionsDefaultState = sections.map(() => {
-  return false;
-});
 
 function MembersContainer({
   members,
@@ -81,6 +70,21 @@ export function ShariahPage({
   executiveMembers: Member[];
   advisoryMembers: Member[];
 }) {
+  const t = useTranslations('shariah-page');
+
+  const sections: Array<{ id: string; title: string }> = [
+    { id: 'fatwa', title: t('headings.fatwa') },
+    { id: 'foundations', title: t('headings.foundations') },
+    { id: 'shariah-oracle', title: t('headings.sharia-oracle') },
+    { id: 'shariah-board', title: t('headings.shariah-board') },
+    { id: 'advisory-board', title: t('headings.advisory-board') },
+    { id: 'executive-board', title: t('headings.executive-board') },
+  ];
+
+  const activeSectionsDefaultState = sections.map(() => {
+    return false;
+  });
+
   const { replace } = useRouter();
   const [activeSections, setActiveSections] = useState(
     activeSectionsDefaultState,
@@ -129,17 +133,12 @@ export function ShariahPage({
       <Container className="relative">
         <div>
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Sharia-Compliance
+            {t('title')}
           </h1>
 
           <div className="mt-[18px] max-w-[1000px] md:mt-[28px]">
             <Text size="small" className="text-white/50">
-              Islamic Coin harmonizes tradition with modernity, uniting Sharia
-              compliance with blockchain technology to forge a pioneering
-              platform in Islamic finance. Upheld by Halal Investing principles
-              and safeguarded by our innovative Sharia Oracle, Islamic Coin
-              stands as a testament to the thriving of traditional Islamic
-              values in the digital world.
+              {t('text')}
             </Text>
           </div>
         </div>
@@ -202,7 +201,7 @@ export function ShariahPage({
                     <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
                       <div>
                         <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                          Shariah Board
+                          {t('headings.shariah-board')}
                         </h2>
                       </div>
 
@@ -224,7 +223,7 @@ export function ShariahPage({
                   <div className="py-[32px] md:py-[60px] lg:py-[80px]">
                     <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
                       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                        Advisory Board
+                        {t('headings.advisory-board')}
                       </h2>
                       <MembersContainer
                         members={advisoryMembers}
@@ -242,7 +241,7 @@ export function ShariahPage({
                   <div className="py-[32px] md:py-[60px] lg:py-[80px]">
                     <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
                       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                        Executive Board
+                        {t('headings.executive-board')}
                       </h2>
                       <MembersContainer
                         members={executiveMembers}
