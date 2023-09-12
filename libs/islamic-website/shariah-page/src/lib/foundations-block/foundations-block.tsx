@@ -20,27 +20,29 @@ export function FoundationsBlock() {
 
       <div>
         <p>
-          <Text size="small">
-            Embarking on your journey with Islamic Coin, you'll find the
-            'Foundations of Halal Investing' interwoven into our operations. We
-            harmonize Islamic traditions with modern finance, ensuring you
-            engage with a platform that marries timeless ethos with the dynamism
-            of the digital age.
-          </Text>
+          <Text size="small">{t('foundations-block.text')}</Text>
         </p>
       </div>
 
       <div className="flex flex-col gap-y-[8px]">
-        <HalalPrinciple>Profit sharing</HalalPrinciple>
         <HalalPrinciple>
-          Riba prohibition (unjust, exploitative gains)
+          {t('foundations-block.halal-principles.first')}
         </HalalPrinciple>
-        <HalalPrinciple>Gambling prohibition</HalalPrinciple>
-        <HalalPrinciple>Investing in lawful activities only</HalalPrinciple>
         <HalalPrinciple>
-          Upholding of ethical and moral values at all times
+          {t('foundations-block.halal-principles.second')}
         </HalalPrinciple>
-        <HalalPrinciple>A thriving and functional real economy</HalalPrinciple>
+        <HalalPrinciple>
+          {t('foundations-block.halal-principles.third')}
+        </HalalPrinciple>
+        <HalalPrinciple>
+          {t('foundations-block.halal-principles.fourth')}
+        </HalalPrinciple>
+        <HalalPrinciple>
+          {t('foundations-block.halal-principles.fifth')}
+        </HalalPrinciple>
+        <HalalPrinciple>
+          {t('foundations-block.halal-principles.sixth')}
+        </HalalPrinciple>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { RoadmapPage } from '@haqq/islamic-website/roadmap-page';
-import { getRoadmapContent } from '../../utils/get-roadmap-data';
-import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../constants';
-import { islamicOpenGraphImages } from '../shared-metadata';
+import { getRoadmapContent } from '../../../utils/get-roadmap-data';
+import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
+import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Roadmap';
 const description =

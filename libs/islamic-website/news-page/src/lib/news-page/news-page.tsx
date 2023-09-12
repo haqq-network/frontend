@@ -7,6 +7,7 @@ import {
 import { useMemo } from 'react';
 import { PostsBlock } from '../posts-block/posts-block';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
+import { useTranslations } from 'next-intl';
 
 export function NewsPage({
   news,
@@ -34,20 +35,19 @@ export function NewsPage({
     return { featuredPost, postsToRender };
   }, [news]);
 
+  const t = useTranslations('news-page');
+
   return (
     <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
       <Container>
         <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          Islamic Coin Press & News
+          {t('title')}
         </h1>
 
         {turnstileSiteKey && (
           <div className="mt-[32px] flex flex-col gap-[24px] lg:mt-[56px] lg:flex-row xl:w-3/4">
             <div className="md:max-w-[430px] lg:w-1/2">
-              <Text size="small">
-                Keep up to date with our upcoming Public Launch and Exchange
-                listing - Subscribe to our newsletter
-              </Text>
+              <Text size="small">{t('subscribe-block.text')}</Text>
             </div>
             <SubscribeForm
               className="flex flex-col gap-[16px] md:flex-row"

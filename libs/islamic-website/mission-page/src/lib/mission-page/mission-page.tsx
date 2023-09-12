@@ -4,6 +4,7 @@ import missionRockImgData from '../../assets/images/mission-rock.webp';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 
 function MissionPageHeading({ children }: PropsWithChildren) {
   return (
@@ -14,12 +15,13 @@ function MissionPageHeading({ children }: PropsWithChildren) {
 }
 
 export function MissionPage() {
+  const t = useTranslations('mission-page');
   return (
     <section className="overflow-clip">
       <Container className="relative">
         <div className="pb-[150px] pt-[32px] lg:pb-[220px] lg:pt-[80px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Our Mission & <br className="xl:hidden" /> Vision
+            {t('title')}
           </h1>
 
           <div className="flex flex-col md:mt-[44px] md:flex-row lg:mt-[60px]">
@@ -34,25 +36,17 @@ export function MissionPage() {
             </div>
             <div className="flex flex-col gap-[28px] md:max-w-[480px] md:gap-[32px] lg:gap-[38px] xl:max-w-[680px]">
               <div className="flex flex-col gap-[16px]">
-                <MissionPageHeading>Vision</MissionPageHeading>
+                <MissionPageHeading>{t('subtitles.vision')}</MissionPageHeading>
                 <p>
-                  <Text size="small">
-                    Our vision is to create a global, inclusive, and ethical
-                    financial ecosystem that aligns with Islamic principles,
-                    empowering individuals and businesses with accessible and
-                    transparent financial solutions.
-                  </Text>
+                  <Text size="small">{t('text.paragraphs.first')}</Text>
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <MissionPageHeading>Mission</MissionPageHeading>
+                <MissionPageHeading>
+                  {t('subtitles.mission')}
+                </MissionPageHeading>
                 <p>
-                  <Text size="small">
-                    Our mission is to empower the world's Muslim community with
-                    a financial instrument for the Digital Age, that enables
-                    seamless transactions and interaction, while supporting
-                    innovation and philanthropy.
-                  </Text>
+                  <Text size="small">{t('text.paragraphs.second')}</Text>
                 </p>
               </div>
             </div>

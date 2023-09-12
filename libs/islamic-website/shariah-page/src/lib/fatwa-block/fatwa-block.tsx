@@ -378,27 +378,34 @@ function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   );
 }
 
-function AuthographsBlock() {
+function AutographsBlock() {
+  const t = useTranslations('shariah-page');
   return (
     <div className="mt-[28px] flex flex-col gap-y-[20px] md:mt-[32px] lg:mt-[36px]">
       <h4 className="font-mono text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
-        Islamic Coin Shariah Board
+        {t('autographs-block.title')}
       </h4>
 
       <div className="grid grid-cols-1 gap-x-[32px] gap-y-[20px] sm:grid-cols-2">
-        <Autograph image={fatwaSign1} name="Sheikh Dr. Essam Khalaf Al-Enezi" />
+        <Autograph
+          image={fatwaSign1}
+          name={t('autographs-block.members.first')}
+        />
         <Autograph
           image={fatwaSign2}
-          name="Sheikh Dr. Nizam Mohammed Saleh Yaquby"
+          name={t('autographs-block.members.second')}
         />
         <Autograph
           image={fatwaSign3}
-          name="Sheikh Mohamed Abdel Hakim Mohamed"
+          name={t('autographs-block.members.third')}
         />
-        <Autograph image={fatwaSign4} name="Sheikh Dr. Mohamed Zoeir" />
+        <Autograph
+          image={fatwaSign4}
+          name={t('autographs-block.members.fourth')}
+        />
         <Autograph
           image={fatwaSign5}
-          name="Sheikh Mohamed Fathiddin Beyanouni"
+          name={t('autographs-block.members.fifth')}
         />
       </div>
     </div>
@@ -444,7 +451,7 @@ export function FatwaBlock() {
 
       {lang === 'en' ? <EnFatwa /> : <ArFatwa />}
 
-      <AuthographsBlock />
+      <AutographsBlock />
     </div>
   );
 }

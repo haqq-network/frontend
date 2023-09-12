@@ -11,38 +11,16 @@ export function ShariahBlock() {
       </h2>
 
       <p>
-        <Text size="small">
-          Shariah Oracle is an on-chain mechanism controlling a whitelist of
-          smart contracts allowed for interaction (signing and listing in the
-          in-app marketplace) through the HAQQ Wallet.
-        </Text>
+        <Text size="small">{t('shariah-block.text.paragraphs.first')}</Text>
       </p>
       <p>
-        <Text size="small">
-          The Shariah Oracle serves as an on-chain registry of Halal
-          Certificates that provides smart contract developers and web2
-          businesses a way to prove their ethical relevance for Muslim users by
-          listing their products/services on the HAQQ Wallet.
-        </Text>
+        <Text size="small">{t('shariah-block.text.paragraphs.second')}</Text>
       </p>
       <p>
-        <Text size="small">
-          Islamic Coin harmonizes tradition with modernity, uniting Sharia
-          compliance with blockchain technology to forge a pioneering platform
-          in Islamic finance. Upheld by Halal Investing principles and
-          safeguarded by our innovative Sharia Oracle, Islamic Coin stands as a
-          testament to the thriving of traditional Islamic values in the digital
-          world.
-        </Text>
+        <Text size="small">{t('shariah-block.text.paragraphs.third')}</Text>
       </p>
       <p>
-        <Text size="small">
-          Integrating the Shariah Oracle with HAQQ Wallet will ensure that users
-          interact only with whitelisted, Sharia-compliant dApps. Thus whilst
-          being a place where anyone can deploy their dApp or project, HAQQ
-          network’s Shariah Oracle is a key measure to minimize unethical or
-          Haram activity in our network.
-        </Text>
+        <Text size="small">{t('shariah-block.text.paragraphs.fourth')}</Text>
       </p>
     </div>
   );

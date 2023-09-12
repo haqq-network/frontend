@@ -76,6 +76,65 @@
       "fatwa": {
         "appeal": "In the name of Allah, the most compassionate, the most merciful"
       }
+    },
+    "autographs-block": {
+      "title": "Islamic Coin Shariah Board",
+      "members": {
+        "first": "Sheikh Dr. Essam Khalaf Al-Enezi",
+        "second": "Sheikh Dr. Nizam Mohammed Saleh Yaquby",
+        "third": "Sheikh Mohamed Abdel Hakim Mohamed",
+        "fourth": "Sheikh Dr. Mohamed Zoeir",
+        "fifth": "Sheikh Mohamed Fathiddin Beyanouni"
+      }
+    },
+    "foundations-block": {
+      "text": "Embarking on your journey with Islamic Coin, you'll find the 'Foundations of Halal Investing' interwoven into our operations. We harmonize Islamic traditions with modern finance, ensuring you engage with a platform that marries timeless ethos with the dynamism of the digital age.",
+      "halal-principles": {
+        "first": "Profit sharing",
+        "second": "Riba prohibition (unjust, exploitative gains)",
+        "third": "Gambling prohibition",
+        "fourth": "Investing in lawful activities only",
+        "fifth": "Upholding of ethical and moral values at all times",
+        "sixth": "A thriving and functional real economy"
+      }
+    },
+    "shariah-block": {
+      "text": {
+        "paragraphs": {
+          "first": "Shariah Oracle is an on-chain mechanism controlling a whitelist of smart contracts allowed for interaction (signing and listing in the in-app marketplace) through the Haqq Wallet.",
+          "second": "The Shariah Oracle serves as an on-chain registry of Halal Certificates that provides smart contract developers and web2 businesses a way to prove their ethical relevance for Muslim users by listing their products/services on the Haqq Wallet.",
+          "third": "Islamic Coin harmonizes tradition with modernity, uniting Sharia compliance with blockchain technology to forge a pioneering platform in Islamic finance. Upheld by Halal Investing principles and safeguarded by our innovative Sharia Oracle, Islamic Coin stands as a testament to the thriving of traditional Islamic values in the digital world.",
+          "fourth": "Integrating the Shariah Oracle with Haqq Wallet will ensure that users interact only with whitelisted, Sharia-compliant dApps. Thus whilst being a place where anyone can deploy their dApp or project, Haqq network’s Shariah Oracle is a key measure to minimize unethical or Haram activity in our network."
+        }
+      }
+    }
+  },
+  "mission-page": {
+    "title": "Our Mission &\n Vision",
+    "subtitles": {
+      "mission": "Mission",
+      "vision": "Vision"
+    },
+    "text": {
+      "paragraphs": {
+        "first": "Our vision is to create a global, inclusive, and ethical financial ecosystem that aligns with Islamic principles, empowering individuals and businesses with accessible and transparent financial solutions.",
+        "second": "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy."
+      }
+    }
+  },
+  "news-page": {
+    "title": "Islamic Coin Press & News",
+    "subscribe-block": {
+      "text": "Keep up to date with our upcoming Public Launch and Exchange listing - Subscribe to our newsletter"
+    },
+    "posts": {
+      "recent": "Recent posts",
+      "featured": "Featured post"
+    },
+    "filter-buttons": {
+      "all": "All",
+      "press": "Press",
+      "events": "Events"
     }
   },
   "header": {
@@ -109,5 +168,9 @@
         "meet-our-team": "Meet our team"
       }
     }
+  },
+  "subscribe-form": {
+    "input-placeholder": "Your e-mail",
+    "button-text": "Subscribe"
   }
 }

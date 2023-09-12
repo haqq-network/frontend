@@ -18,6 +18,7 @@ import {
 import clsx from 'clsx';
 import axios from 'axios';
 import Turnstile from 'react-turnstile';
+import { useTranslations } from 'next-intl';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -145,6 +146,8 @@ export function SubscribeForm({
     };
   }, [formState.errors.email?.message, hint, subscribeFormState]);
 
+  const t = useTranslations('subscribe-form');
+
   return (
     <Fragment>
       <form
@@ -155,7 +158,7 @@ export function SubscribeForm({
       >
         <HookedFormInput<SubscribeFormFields>
           wrapperClassName={wrapperClassName}
-          placeholder="Your e-mail"
+          placeholder={t('input-placeholder')}
           type="email"
           id="email"
           register={register}
@@ -167,7 +170,7 @@ export function SubscribeForm({
         />
 
         <Button variant="primary-green" type="submit" disabled={isFormDisabled}>
-          Subscribe
+          {t('button-text')}
         </Button>
       </form>
 

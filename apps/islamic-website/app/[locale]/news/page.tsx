@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { NewsPage } from '@haqq/islamic-website/news-page';
-import { getNewsPageContent } from '../../utils/get-news-data';
-import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../constants';
-import { islamicOpenGraphImages } from '../shared-metadata';
+import { getNewsPageContent } from '../../../utils/get-news-data';
+import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
+import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'News';
 const description =
