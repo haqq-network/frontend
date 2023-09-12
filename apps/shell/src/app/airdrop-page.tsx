@@ -2,6 +2,7 @@ import { Button, Container } from '@haqq/shell-ui-kit';
 import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types';
 import { useCallback, useState } from 'react';
 import { ecrecover, fromRpcSig } from '@ethereumjs/util';
+import { AirdropView } from './components/airdrop-view/airdrop-view';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -13,9 +14,9 @@ export function signatureToPubkey(signature: string, msgHash: Buffer) {
   return ecrecover(msgHash, ret.v, ret.r, ret.s);
 }
 
-export function AirdropTestPage() {
+export function AirdropPage() {
   const [accounts, setAccounts] = useState<Record<string, string>>({});
-  const [signature, setSignature] = useState<any>();
+  const [_, setSignature] = useState<string>('');
 
   const getKeplrWallet = useCallback(async (): Promise<Keplr | undefined> => {
     if (window.keplr) {
@@ -48,45 +49,21 @@ export function AirdropTestPage() {
     const keplrWallet = await getKeplrWallet();
 
     if (keplrWallet) {
-      await keplrWallet.enable(['haqq_54211-3', 'osmosis-1', 'evmos_9001-2']);
+      await keplrWallet.enable(['cosmoshub-4', 'osmosis-1', 'evmos_9001-2']);
 
-      const [haqq, osmosis, evmos] = await Promise.all([
-        await keplrWallet.getKey('haqq_54211-3'),
+      const [ cosmos, osmosis, evmos] = await Promise.all([
+        await keplrWallet.getKey('cosmoshub-4'),
         await keplrWallet.getKey('osmosis-1'),
         await keplrWallet.getKey('evmos_9001-2'),
       ]);
 
-      console.log({ haqq, osmosis, evmos });
+      console.log({ cosmos, osmosis, evmos });
 
       setAccounts({
-        haqq: haqq.bech32Address,
+        cosmos: cosmos.bech32Address,
         osmosis: osmosis.bech32Address,
         evmos: evmos.bech32Address,
       });
-    }
-  }, [getKeplrWallet]);
-
-  const keplrSignArbitraryOsmosis = useCallback(async () => {
-    const keplrWallet = await getKeplrWallet();
-
-    if (keplrWallet) {
-      const { bech32Address: osmisisAddress } = await keplrWallet.getKey(
-        'evmos_9001-2',
-      );
-
-      const signature = await keplrWallet?.signDirect(
-        'evmos_9001-2',
-        osmisisAddress,
-        {
-          chainId: 'evmos_9001-2',
-          bodyBytes: new Uint8Array([]),
-          authInfoBytes: new Uint8Array([]),
-          // accountNumber:
-        },
-      );
-      console.log({ signature });
-
-      setSignature(signature);
     }
   }, [getKeplrWallet]);
 
@@ -94,7 +71,7 @@ export function AirdropTestPage() {
     const keplrWallet = await getKeplrWallet();
     if (keplrWallet) {
 
-      const chainId = 'osmosis-1'; // evmos_9001-2, osmosis-1, haqq_11235-1
+      const chainId = 'osmosis-1'; 
 
       const { bech32Address } = await keplrWallet.getKey(
         chainId,
@@ -111,49 +88,21 @@ export function AirdropTestPage() {
       console.log({ message: MSG })
       console.log({ signatureArb: btoa(JSON.stringify(signatureArb)) });
 
-      /*
-        // Compare signature
-      const signatureToCompare = `0x${Buffer.from(
-          signatureArb.signature,
-          'base64',
-      ).toString('hex')}`
-
-      const hexMsg = Buffer.from(
-          MSG,
-          'base64',
-      )
-
-      const pubkeyComputed = signatureToPubkey(
-        signatureToCompare,
-        hexMsg,
-      )
-
-      console.log(signatureToCompare, pubkeyComputed.toString('utf-8'))
-*/
-      setSignature(signatureArb);
+      setSignature(signatureArb.signature);
     }
   }, [getKeplrWallet]);
 
-  const isSignAvailable = Object.keys(accounts).length === 0;
 
   return (
     <Container>
       <div className="flex flex-col divide-y">
         <div className="flex flex-row gap-6 py-10">
-          <Button onClick={connectKeplrWallet}>Connect wallet</Button>
-          <Button onClick={keplrSignArbitrary} disabled={isSignAvailable}>
-            signArbitrary haqq_11235-1
-          </Button>
-          {/* <Button onClick={keplrSignArbitrary("osmosis-1")} disabled={isSignAvailable}>
-            signArbitrary osmosis-1
-          </Button> */}
-        </div>
-        <div className="py-10">
-          <pre>{JSON.stringify(accounts, null, 2)}</pre>
-        </div>
-
-        <div className="py-10">
-          <pre>{JSON.stringify(signature?.signature?.signature)}</pre>
+          {Object.keys(accounts).length > 0  ? <AirdropView cosmosAddress={accounts['cosmos']} evmosAddress={accounts['evmos']} osmosisAddress={accounts['osmosis']}/> : <>
+            <div className='mb-[12px]'>
+              You should connect kepler first
+            </div>
+            <Button onClick={connectKeplrWallet}>Connect to kepler</Button>
+          </>}
         </div>
       </div>
     </Container>
