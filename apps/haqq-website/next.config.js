@@ -27,11 +27,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: '/privacy-policy',
-        destination: 'https://www.boredgen.net/wallet/privacy-policy',
-        permanent: true,
-      },
+      // {
+      //   source: '/privacy-policy',
+      //   destination: 'https://www.boredgen.net/wallet/privacy-policy',
+      //   permanent: true,
+      // },
       {
         source: '/terms-and-conditions',
         destination: 'https://www.boredgen.net/wallet/terms-and-conditions',
