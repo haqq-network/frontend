@@ -12,11 +12,11 @@ interface NewsBlockProps {
 }
 
 export function NewsBlock({ news }: NewsBlockProps) {
-  const t = useTranslations('index-page');
+  const t = useTranslations('index-page.news-block');
   return (
     <Container>
       <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
-        <Heading className="text-white">{t('news-block.title')}</Heading>
+        <Heading className="text-white">{t('title')}</Heading>
         <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
           {news.map((el, idx) => {
             return (
@@ -34,7 +34,7 @@ export function NewsBlock({ news }: NewsBlockProps) {
         </div>
         <div className="text-islamic-primary-green hover:text-islamic-classic-green mt-[48px] text-center font-mono text-base uppercase transition-colors duration-300">
           <Link href="/news" className="flex items-center gap-x-[8px]">
-            See all news
+            {t('see-all-news')}
             <svg
               width="20"
               height="20"
