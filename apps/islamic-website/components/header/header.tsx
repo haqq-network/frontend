@@ -31,8 +31,10 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
+// import { LocaleSwitcher } from '../locale-switcher/locale-switcher';
+import { useLocale, useTranslations } from 'next-intl';
 import { LocaleSwitcher } from '../locale-switcher/locale-switcher';
-import { useTranslations } from 'next-intl';
+// import { LocalesSwitcher } from '../locale-switcher/locales-switcher';
 
 interface HeaderLinkProps {
   url: string;
@@ -239,6 +241,7 @@ export function DesktopHeader() {
   }, []);
 
   const t = useTranslations('header');
+  const locale = useLocale();
 
   return (
     <header
@@ -407,7 +410,20 @@ export function DesktopHeader() {
                   </div>
                 </div>
               </HeaderDropdown>
-              <LocaleSwitcher />
+
+              <HeaderDropdown
+                title={
+                  locale === 'ar'
+                    ? 'عربي'
+                    : locale === 'id'
+                    ? 'Bahasa Indonesia'
+                    : 'EN'
+                }
+              >
+                <LocaleSwitcher isActive={locale === 'en'} locale="en" />
+                <LocaleSwitcher isActive={locale === 'ar'} locale="ar" />
+                {/* <LocaleSwitcher isActive={locale === 'id'} locale="id" /> */}
+              </HeaderDropdown>
             </nav>
           </div>
         </Container>
