@@ -68,22 +68,21 @@ export function VisionBlock() {
       <div className="relative z-10 flex flex-col overflow-hidden border-l border-[#C2C2C2] pb-[72px] pl-[44px] pt-[65px] sm:pb-[100px] sm:pl-[120px] sm:pt-[96px] lg:h-[770px] lg:pb-[140px] lg:pl-[212px] lg:pt-[135px]">
         <div className="mb-[24px] lg:mb-[96px] lg:max-w-[832px]">
           <AboveTitle
-            className={clsx(
-              'mb-[16px] text-[#A4A4A4] sm:mb-[18px]',
-              styles['aboveTitle'],
-            )}
+            className={clsx('relative text-[#A4A4A4]', styles['aboveTitle'])}
           >
-            Vision
+            <span className="absolute top-[-2px] sm:top-[-3px]">Vision</span>
           </AboveTitle>
-          <Heading level={2}>
-            HAQQ is balancing Shariah-compliant philosophy and cutting edge
-            technology to create a fairer, more{' '}
-            <span className="text-haqq-orange">
-              sustainable financial system.
-            </span>{' '}
-            Muslims and ESG powered change throughout the world and HAQQ is
-            leading it.
-          </Heading>
+          <div className="mt-[30px] sm:mt-[32px]">
+            <Heading level={2}>
+              HAQQ is balancing Shariah-compliant philosophy and cutting edge
+              technology to create a fairer, more{' '}
+              <span className="text-haqq-orange">
+                sustainable financial system.
+              </span>{' '}
+              Muslims and ESG powered change throughout the world and HAQQ is
+              leading it.
+            </Heading>
+          </div>
         </div>
 
         <div className="flex flex-col space-y-[12px] sm:space-y-[20px] lg:flex-row lg:space-x-[32px] lg:space-y-0">
