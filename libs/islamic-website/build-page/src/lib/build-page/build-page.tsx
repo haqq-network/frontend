@@ -2,36 +2,27 @@ import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
 
 export function BuildPage() {
+  const t = useTranslations('build-page');
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
         <div className="pb-[60px] pt-[32px] text-white md:pb-[140px] md:pt-[52px] lg:pt-[68px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Build on <br className="xl:hidden" />
-            HAQQ
+            {t('title')}
           </h1>
           <div className="mt-[32px] flex flex-col gap-y-[16px] md:mt-[60px] md:max-w-[480px] md:gap-y-[24px] lg:max-w-[600px]">
             <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
-              Developers Hub
+              {t('subtitle')}
             </h3>
             <div className="flex flex-col gap-y-[12px] md:gap-y-[16px]">
               <p>
-                <Text size="small">
-                  Unleash your developer superpowers within the vibrant
-                  Developers Hub
-                </Text>
+                <Text size="small">{t('text.paragraphs.first')}</Text>
               </p>
               <p>
-                <Text size="small">
-                  Gain access to cutting-edge tools, resources, and a thriving
-                  community that will elevate your skills to new heights.
-                </Text>
+                <Text size="small">{t('text.paragraphs.second')}</Text>
               </p>
               <p>
-                <Text size="small">
-                  Fuel your creativity and be at the forefront of shaping the
-                  future of Islamic Coin.
-                </Text>
+                <Text size="small">{t('text.paragraphs.third')}</Text>
               </p>
             </div>
           </div>

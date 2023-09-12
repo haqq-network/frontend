@@ -9,8 +9,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import phoneImgData from '../assets/images/wallet_phone.webp';
 import bgImgData from '../assets/images/wallet_bg.webp';
+import { useTranslations } from 'next-intl';
 
 export function WalletPage() {
+  const t = useTranslations('wallet-page');
   const content = (
     <Fragment>
       <h1 className="text-[46px] font-[600] leading-[52px] md:text-[80px] md:leading-none lg:text-[80px] lg:leading-none">
@@ -20,13 +22,10 @@ export function WalletPage() {
         for iOS and Android
       </h1>
       <Text isMono className="mt-[24px] md:mt-[40px]">
-        Ethics-First, Non-Custodial Wallet
+        {t('subtitle')}
       </Text>
       <div className="mt-[20px] max-w-[600px] text-[13px] md:mt-[24px] md:text-[16px] lg:text-[#F5F5F580]">
-        Seamlessly navigate Web3 with HAQQ Wallet, your trusted partner for a
-        principled DeFi journey. With mnemonicless security and a user-friendly
-        interface, managing your digital Shariah-compliant assets has never been
-        easier or more secure
+        {t('text')}
       </div>
       <div className="mt-[24px] flex gap-x-[24px] md:mt-[36px] md:gap-x-[38px]">
         <RatingBadge market="app-store" rating={4.5} />
