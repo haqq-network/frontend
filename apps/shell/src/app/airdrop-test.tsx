@@ -66,19 +66,19 @@ export function AirdropTestPage() {
     }
   }, [getKeplrWallet]);
 
-  const keplrSignDirect = useCallback(async () => {
+  const keplrSignArbitraryOsmosis = useCallback(async () => {
     const keplrWallet = await getKeplrWallet();
 
     if (keplrWallet) {
       const { bech32Address: osmisisAddress } = await keplrWallet.getKey(
-        'osmosis-1',
+        'evmos_9001-2',
       );
 
       const signature = await keplrWallet?.signDirect(
-        'osmosis-1',
+        'evmos_9001-2',
         osmisisAddress,
         {
-          chainId: 'osmosis-1',
+          chainId: 'evmos_9001-2',
           bodyBytes: new Uint8Array([]),
           authInfoBytes: new Uint8Array([]),
           // accountNumber:
@@ -93,16 +93,25 @@ export function AirdropTestPage() {
   const keplrSignArbitrary = useCallback(async () => {
     const keplrWallet = await getKeplrWallet();
     if (keplrWallet) {
-      const { bech32Address: osmisisAddress } = await keplrWallet.getKey(
-        'osmosis-1',
+
+      const chainId = 'osmosis-1'; // evmos_9001-2, osmosis-1, haqq_11235-1
+
+      const { bech32Address } = await keplrWallet.getKey(
+        chainId,
       );
-      const MSG = 'hello world';
+
+      const MSG = 'hello';
       const signatureArb = await keplrWallet?.signArbitrary(
-        'osmosis-1',
-        osmisisAddress,
+        chainId,
+        bech32Address,
         MSG,
       );
-      /* 
+
+      console.log({ bech32Address })
+      console.log({ message: MSG })
+      console.log({ signatureArb: btoa(JSON.stringify(signatureArb)) });
+
+      /*
         // Compare signature
       const signatureToCompare = `0x${Buffer.from(
           signatureArb.signature,
@@ -132,12 +141,12 @@ export function AirdropTestPage() {
       <div className="flex flex-col divide-y">
         <div className="flex flex-row gap-6 py-10">
           <Button onClick={connectKeplrWallet}>Connect wallet</Button>
-          <Button onClick={keplrSignDirect} disabled={isSignAvailable}>
-            signDirect osmosis-1
-          </Button>
           <Button onClick={keplrSignArbitrary} disabled={isSignAvailable}>
-            signArbitrary osmosis-1
+            signArbitrary haqq_11235-1
           </Button>
+          {/* <Button onClick={keplrSignArbitrary("osmosis-1")} disabled={isSignAvailable}>
+            signArbitrary osmosis-1
+          </Button> */}
         </div>
         <div className="py-10">
           <pre>{JSON.stringify(accounts, null, 2)}</pre>
