@@ -281,6 +281,11 @@
         "community": "Community",
         "meet-our-team": "Meet our team"
       }
+    },
+    "burger-menu": {
+      "back-button": {
+        "title": "Back"
+      }
     }
   },
   "footer": {

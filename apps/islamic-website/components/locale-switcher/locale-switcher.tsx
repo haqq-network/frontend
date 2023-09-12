@@ -22,12 +22,12 @@ export function LocaleSwitcher({ isActive, locale }: LocalesSwitcherProps) {
         'duration-200" min-w-[170px] px-[16px] py-[12px] text-base font-[500] text-white transition-colors',
         isActive
           ? 'pointer-events-none select-none'
-          : 'hover:text-islamic-primary-green cursor-pointer ',
+          : 'hover:text-islamic-primary-green cursor-pointer',
       )}
     >
       <div className="flex items-center justify-between">
         {locale === 'ar' && 'العربية'}
-        {locale === 'en' && 'EN'}
+        {locale === 'en' && 'English'}
         {locale === 'id' && 'Bahasa Indonesia'}
 
         {isActive && (
@@ -48,19 +48,5 @@ export function LocaleSwitcher({ isActive, locale }: LocalesSwitcherProps) {
         )}
       </div>
     </div>
-    // <select
-    //   className="inline-flex appearance-none bg-transparent py-3 pl-2 pr-6"
-    //   defaultValue={locale}
-    //   disabled={isPending}
-    //   onChange={onSelectChange}
-    // >
-    //   {['en', 'ar'].map((cur) => {
-    //     return (
-    //       <option key={cur} value={cur}>
-    //         {t('locale', { locale: cur })}
-    //       </option>
-    //     );
-    //   })}
-    // </select>
   );
 }

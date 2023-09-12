@@ -283,6 +283,11 @@
         "community": "مجتمعنا",
         "meet-our-team": "فريقنا"
       }
+    },
+    "burger-menu": {
+      "back-button": {
+        "title": "العودة"
+      }
     }
   },
   "footer": {
