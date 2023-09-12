@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { default as LocaleLink } from 'next-intl/link';
 import clsx from 'clsx';
 import {
   Fragment,
@@ -28,18 +29,25 @@ import {
   AlertIcon,
   StarIcon,
   QuestionMarkIcon,
+  CheckMarkIcon,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
-// import { LocaleSwitcher } from '../locale-switcher/locale-switcher';
 import { useLocale, useTranslations } from 'next-intl';
-import { LocaleSwitcher } from '../locale-switcher/locale-switcher';
-// import { LocalesSwitcher } from '../locale-switcher/locales-switcher';
+import { usePathname } from 'next-intl/client';
 
 interface HeaderLinkProps {
   url: string;
   isOutLink?: boolean;
 }
+
+type localeType = 'en' | 'ar' | 'id';
+
+export const localeDisplayNames = {
+  ar: 'العربية',
+  en: 'English',
+  id: 'Bahasa Indonesia',
+};
 
 function DesktopHeaderLink({
   children,
@@ -113,6 +121,34 @@ function HeaderDropdown({
         </div>
       </Transition>
     </div>
+  );
+}
+
+export function LanguageLink({
+  href,
+  locale,
+  isActive,
+}: {
+  href: string;
+  locale: localeType;
+  isActive: boolean;
+}) {
+  return (
+    <LocaleLink
+      href={href}
+      locale={locale}
+      className={clsx(
+        'min-w-[170px] px-[16px] py-[12px] text-base font-[500] text-white transition-colors duration-200',
+        isActive
+          ? 'pointer-events-none select-none'
+          : 'hover:text-islamic-primary-green cursor-pointer',
+      )}
+    >
+      <div className="flex items-center justify-between">
+        <span>{localeDisplayNames[locale]}</span>
+        {isActive && <CheckMarkIcon />}
+      </div>
+    </LocaleLink>
   );
 }
 
@@ -242,6 +278,7 @@ export function DesktopHeader() {
 
   const t = useTranslations('header');
   const locale = useLocale();
+  const pathname = usePathname();
 
   return (
     <header
@@ -271,21 +308,25 @@ export function DesktopHeader() {
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.about.mission')}
                       icon={<MissionIcon />}
                       href="/mission"
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.about.roadmap')}
                       icon={<RoadmapIcon />}
                       href="/roadmap"
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.about.whitepaper')}
                       icon={<HalfMoonAndStarIcon />}
                       href="/whitepaper"
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.about.ecosystem')}
                       icon={<EcosystemIcon />}
                       href="https://haqq.network/ecosystem"
@@ -311,17 +352,20 @@ export function DesktopHeader() {
                   {/* </div> */}
                   <div className="flex flex-col">
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.about.news')}
                       icon={<NewsIcon />}
                       href="/news"
                     />
 
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.about.partnerships')}
                       icon={<PartnershipIcon />}
                       href="/partnerships"
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.about.build-on-haqq')}
                       icon={<BuildIcon />}
                       href="/build"
@@ -338,22 +382,26 @@ export function DesktopHeader() {
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.learn.academy')}
                       icon={<AcademyIcon />}
                       href="/academy"
                     />
                     <DropdownLink
+                      locale={locale}
                       title="Privacy policy"
                       icon={<QuestionMarkIcon />}
                       href="/privacy-policy"
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.learn.blog')}
                       icon={<BlogIcon />}
                       href="https://blog.islamiccoin.net"
                       isOutLink
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.learn.fraud-alert')}
                       icon={<AlertIcon />}
                       href="/fraud-alert"
@@ -388,21 +436,25 @@ export function DesktopHeader() {
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.team.career')}
                       icon={<CaseIcon />}
                       href="/career"
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.team.our-values')}
                       icon={<ValuesIcon />}
                       href="/values"
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.team.community')}
                       icon={<CommunityIcon />}
                       href="/community-hub"
                     />
                     <DropdownLink
+                      locale={locale}
                       title={t('dropdown-links.team.meet-our-team')}
                       icon={<StarIcon />}
                       href="/team"
@@ -420,9 +472,19 @@ export function DesktopHeader() {
                     : 'EN'
                 }
               >
-                <LocaleSwitcher isActive={locale === 'en'} locale="en" />
-                <LocaleSwitcher isActive={locale === 'ar'} locale="ar" />
-                {/* <LocaleSwitcher isActive={locale === 'id'} locale="id" /> */}
+                <div className="flex flex-col">
+                  <LanguageLink
+                    href={pathname}
+                    locale="en"
+                    isActive={locale === 'en'}
+                  />
+
+                  <LanguageLink
+                    href={pathname}
+                    isActive={locale === 'ar'}
+                    locale="ar"
+                  />
+                </div>
               </HeaderDropdown>
             </nav>
           </div>

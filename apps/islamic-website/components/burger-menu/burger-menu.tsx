@@ -25,7 +25,8 @@ import {
   useCallback,
   useState,
 } from 'react';
-import { LocaleSwitcher } from '../locale-switcher/locale-switcher';
+import { LanguageLink } from '../header/header';
+import { usePathname } from 'next-intl/client';
 
 function BurgerMenuDropdownLink({
   icon,
@@ -72,6 +73,8 @@ export function BurgerMenu({
   const toggleLocaleMenu = useCallback(() => {
     return setIsLocaleSwitcherOpened(!isLocaleSwitcherOpened);
   }, [isLocaleSwitcherOpened]);
+
+  const pathname = usePathname();
 
   return (
     <div className={clsx('px-[16px] md:px-[48px]', className)}>
@@ -196,8 +199,16 @@ export function BurgerMenu({
       ) : (
         <div className="flex flex-col gap-y-[12px]">
           <MobileMenuLangButton onClick={toggleLocaleMenu} isBackButton />
-          <LocaleSwitcher isActive={locale === 'en'} locale="en" />
-          <LocaleSwitcher isActive={locale === 'ar'} locale="ar" />
+          <LanguageLink
+            isActive={locale === 'en'}
+            locale="en"
+            href={pathname}
+          />
+          <LanguageLink
+            isActive={locale === 'ar'}
+            locale="ar"
+            href={pathname}
+          />
           {/* <MobileLocaleSwitcher isActive={locale === 'id'} locale="id" /> */}
         </div>
       )}
@@ -289,7 +300,7 @@ function MobileMenuLangButton({
       ) : (
         <Fragment>
           <span>
-            {locale === 'en' && 'English'}
+            {locale === 'en' && 'En'}
             {locale === 'ar' && 'عربي'}
             {locale === 'id' && 'Bahasa Indonesia'}
           </span>

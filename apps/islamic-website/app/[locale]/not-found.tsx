@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
+import { DEPLOY_URL } from '../../constants';
+import { islamicOpenGraphImages } from '../shared-metadata';
+
+const title = 'Not Found';
 
 export const metadata: Metadata = {
-  title: 'IslamicCoin | Not Found',
+  title,
   openGraph: {
-    title: 'IslamicCoin | Not Found',
-    images: [{ url: '/opengraph-image.png' }],
+    title: `${title} | IslamicCoin`,
+    url: new URL(DEPLOY_URL).toString(),
+    images: islamicOpenGraphImages,
   },
 };
 
