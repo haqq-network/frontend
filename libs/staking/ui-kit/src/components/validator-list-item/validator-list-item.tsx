@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { formatUnits } from 'viem/utils';
+import { formatUnits, parseUnits } from 'viem/utils';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { ValidatorListStatus } from '../validator-status/validator-status';
-import { formatNumber } from '@haqq/shared';
+import { formatNumber } from '@haqq/shell-ui-kit';
 
 export interface ValidatorListItemProps {
   validator: Validator;
@@ -27,13 +27,12 @@ export function ValidatorListItem({
     );
   }, [validator.commission?.commission_rates]);
   const votingPower = useMemo(() => {
-    return Number.parseInt(validator.tokens ?? '0') / 10 ** 18;
+    return Number.parseFloat(formatUnits(BigInt(validator.tokens), 18));
   }, [validator.tokens]);
   const userDelegate = useMemo(() => {
     if (delegation?.balance) {
-      return Number.parseInt(
+      return Number.parseFloat(
         formatUnits(BigInt(delegation.balance.amount), 18),
-        10,
       );
     }
 
@@ -41,7 +40,9 @@ export function ValidatorListItem({
   }, [delegation]);
   const userRewards = useMemo(() => {
     if (reward?.reward.length) {
-      return Number.parseFloat(reward?.reward[0].amount) / 10 ** 18;
+      return Number.parseFloat(
+        formatUnits(parseUnits(reward.reward[0].amount, 0), 18),
+      );
     }
 
     return 0;

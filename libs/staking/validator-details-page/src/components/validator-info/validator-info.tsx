@@ -14,7 +14,6 @@ import {
   useStakingUnbondingsQuery,
   useWallet,
   useSupportedChains,
-  formatNumber,
   useStakingValidatorListQuery,
   useToast,
 } from '@haqq/shared';
@@ -38,6 +37,7 @@ import {
   InfoIcon,
   MyAccountBlockMobile,
   Tooltip,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
@@ -74,6 +74,9 @@ interface Commission {
 interface CommissionCardProps {
   commission: Commission;
 }
+
+const MIN_BALANCE = 0.01;
+const MIN_DELEGATION = 0.009;
 
 function CommissionCardInnerBlock({
   title,
@@ -539,11 +542,13 @@ export function ValidatorInfo({
       return accumulator + current;
     }, 0);
 
-    return result / 10 ** 18;
+    return Number.parseFloat(formatUnits(BigInt(result), 18));
   }, [undelegations]);
 
   const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+    return Number.parseFloat(
+      formatUnits(BigInt(stakingPool?.bonded_tokens ?? '0'), 18),
+    );
   }, [stakingPool?.bonded_tokens]);
 
   useEffect(() => {
@@ -556,8 +561,7 @@ export function ValidatorInfo({
         del = del + Number.parseInt(delegation.balance.amount, 10);
       });
 
-      // TODO: use formatter from viem utils
-      setStakedValue(del / 10 ** 18);
+      setStakedValue(Number.parseFloat(formatUnits(BigInt(del), 18)));
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }
   }, [delegationInfo]);
@@ -708,7 +712,7 @@ export function ValidatorBlockDesktop({
           <div className="flex-1">
             <Button
               variant={2}
-              disabled={balance < 1}
+              disabled={balance < MIN_BALANCE}
               className="w-full"
               onClick={() => {
                 navigate('#delegate', { replace: true });
@@ -721,7 +725,7 @@ export function ValidatorBlockDesktop({
             <Button
               variant={2}
               className="w-full"
-              disabled={delegation < 1}
+              disabled={delegation < MIN_DELEGATION}
               onClick={() => {
                 navigate('#undelegate', { replace: true });
               }}
@@ -734,7 +738,7 @@ export function ValidatorBlockDesktop({
           <Button
             variant={2}
             className="w-full"
-            disabled={delegation < 1}
+            disabled={delegation < MIN_DELEGATION}
             onClick={() => {
               navigate('#redelegate', { replace: true });
             }}
@@ -793,15 +797,15 @@ function ValidatorBlockMobile({
       onRedelegateClick={() => {
         navigate('#redelegate', { replace: true });
       }}
-      isDelegateDisabled={balance < 1}
-      isUndelegateDisabled={delegation === 0}
+      isDelegateDisabled={balance < MIN_BALANCE}
+      isUndelegateDisabled={delegation < MIN_DELEGATION}
       isGetRewardDisabled={rewards < 1}
       delegation={delegation}
       rewards={rewards}
       isWarningShown={isWarningShown}
       undelegate={undelegate}
       symbol={symbol}
-      isRedelegateDisabled={delegation < 1}
+      isRedelegateDisabled={delegation < MIN_DELEGATION}
     />
   );
 }

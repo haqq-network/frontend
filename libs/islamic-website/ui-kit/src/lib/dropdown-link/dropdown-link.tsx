@@ -4,18 +4,25 @@ import { ReactNode } from 'react';
 export function DropdownLink({
   icon,
   title,
-  url,
+  href,
+  isOutLink = false,
 }: {
   icon?: ReactNode;
   title: string;
-  url?: string;
+  href: string;
+  isOutLink?: boolean;
 }) {
   return (
-    <div className="hover:text-islamic-primary-green flex w-fit cursor-pointer items-center gap-x-[10px] px-[16px] py-[12px] text-white transition-colors duration-300">
-      {icon}
-      <span className="text-base font-[500]">
-        <Link href={`/${url}`}>{title}</Link>
-      </span>
-    </div>
+    <Link
+      href={href}
+      target={isOutLink ? '_blank' : undefined}
+      rel={isOutLink ? 'noopener noreferrer' : undefined}
+      className="hover:text-islamic-primary-green w-fit cursor-pointer px-[16px] py-[12px] text-base font-[500] text-white transition-colors duration-200"
+    >
+      <div className="flex items-center gap-x-[10px]">
+        <div>{icon}</div>
+        <div>{title}</div>
+      </div>
+    </Link>
   );
 }

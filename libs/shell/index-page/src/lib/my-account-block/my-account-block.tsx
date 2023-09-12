@@ -6,7 +6,6 @@ import {
   getFormattedAddress,
   useWallet,
   useSupportedChains,
-  formatNumber,
 } from '@haqq/shared';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useBalance, useNetwork } from 'wagmi';
@@ -17,6 +16,7 @@ import {
   Tooltip,
   Button,
   Heading,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';

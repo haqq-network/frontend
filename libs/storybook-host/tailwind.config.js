@@ -1,4 +1,4 @@
-const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
+// const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
 const typographyPlugin = require('@tailwindcss/typography');
 const { tailwindThemeExtend } = require('../../shared-tailwind-theme');
@@ -7,7 +7,7 @@ const { tailwindThemeExtend } = require('../../shared-tailwind-theme');
 module.exports = {
   content: [
     // join(__dirname, 'src/**/*!(*.spec).{ts,tsx,html}'),
-    join(__dirname, '../../libs/website/**/*!(*.spec).{ts,tsx,html}'),
+    join(__dirname, '../../libs/haqq-website/**/*!(*.spec).{ts,tsx,html}'),
     join(__dirname, '../../libs/shell/**/*!(*.spec).{ts,tsx,html}'),
     join(__dirname, '../../libs/staking/**/*!(*.spec).{ts,tsx,html}'),
     join(__dirname, '../../libs/governance/**/*!(*.spec).{ts,tsx,html}'),

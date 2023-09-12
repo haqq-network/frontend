@@ -1,5 +1,29 @@
-import { Container, Heading, Text } from '@haqq/islamic-ui-kit';
-import { PropsWithChildren, ReactNode } from 'react';
+'use client';
+import {
+  MemoizedAnimatedNumbers,
+  Heading,
+  Text,
+} from '@haqq/islamic-website-ui-kit';
+import Image from 'next/image';
+import {
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import haqqLogoImgData from '../../assets/images/haqq-logo.webp';
+import Link from 'next/link';
+import clsx from 'clsx';
+import { useInViewport } from 'react-in-viewport';
+
+export interface ChainStats {
+  mainnetAccountsCreated: number;
+  transactionsInLast24Hours: number;
+  secondsToConsensusFinality: number;
+  averageCostPerTransaction: number;
+}
 
 function IslamStar() {
   return (
@@ -84,10 +108,74 @@ function Reason({ icon, children }: PropsWithChildren<{ icon: ReactNode }>) {
   );
 }
 
-export function WhyBlock() {
+export function StatisticsBlockStatCard({
+  title,
+  value,
+  startAnimation,
+  prefix,
+  postfix,
+}: {
+  title: string;
+  value: number;
+  startAnimation: boolean;
+  prefix?: string;
+  postfix?: string;
+}) {
   return (
-    <Container>
-      <div className="bg-islamic-primary-graphite flex transform-gpu flex-col items-start rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
+    <div className="flex flex-col gap-y-[4px]">
+      <div
+        className={clsx(
+          'pointer-events-none flex h-[34px] select-none gap-x-[6px] font-mono text-[24px] leading-[34px]',
+        )}
+      >
+        {prefix}
+        {startAnimation ? (
+          <MemoizedAnimatedNumbers
+            separator={' '}
+            animateToNumber={value}
+            locale="en-US"
+            configs={[
+              { mass: 1, tension: 130, friction: 40 },
+              { mass: 2, tension: 140, friction: 40 },
+              { mass: 3, tension: 130, friction: 40 },
+            ]}
+          />
+        ) : (
+          <span>0</span>
+        )}
+        {postfix}
+      </div>
+      <div className="text-[12px] lowercase leading-[16px]">{title}</div>
+    </div>
+  );
+}
+
+export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
+  const [startAnimation, setStartAnimation] = useState(true);
+  const blockRef = useRef<HTMLDivElement>(null);
+  const { inViewport } = useInViewport(
+    blockRef,
+    {},
+    { disconnectOnLeave: true },
+  );
+  const stats = useMemo<ChainStats>(() => {
+    return {
+      mainnetAccountsCreated: mainnetAccounts,
+      transactionsInLast24Hours: 210000,
+      secondsToConsensusFinality: 5.6,
+      averageCostPerTransaction: 147,
+    };
+  }, [mainnetAccounts]);
+
+  useEffect(() => {
+    if (inViewport && !startAnimation) {
+      setStartAnimation(true);
+    }
+  }, [inViewport, startAnimation]);
+
+  return (
+    <div className="bg-islamic-primary-graphite transform-gpu divide-y-[1px] divide-[#2F2F2F] rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
+      <div className="flex flex-col items-start pb-[40px]">
         <Heading>Why Islamic Coin?</Heading>
         <Text isMono className="mt-[12px] md:mt-[20px]">
           Pioneering the Future of Islamic Finance in the Web3 Era
@@ -106,6 +194,79 @@ export function WhyBlock() {
           </Reason>
         </div>
       </div>
-    </Container>
+      <div className="flex flex-col items-start pt-[40px]">
+        <div className="flex flex-col gap-x-[24px] gap-y-[12px] sm:flex-row">
+          <div className="flex items-center gap-x-[11px]">
+            <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[18px] font-[700] leading-[26px] text-transparent md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+              We are part of{' '}
+            </span>
+            <div className="relative h-[22px] w-[96px] md:h-[28px] md:w-[118px]">
+              <Image
+                alt="HAQQ"
+                src={haqqLogoImgData}
+                // height={28}
+                // width={118}
+                fill
+                className="pointer-events-none select-none"
+              />
+            </div>
+          </div>
+          <Link
+            href="https://haqq.network"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-islamic-primary-green hover:text-islamic-primary-green-hover flex cursor-pointer items-center gap-x-[8px] font-mono uppercase transition-colors duration-300 ease-out"
+          >
+            <span>Go to HAQQ</span>
+            <svg
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M9.10769 10.6609C8.78225 10.9863 8.78225 11.514 9.10769 11.8394C9.43312 12.1649 9.96076 12.1649 10.2862 11.8394L17.1969 4.92868V7.50016C17.1969 7.9604 17.57 8.3335 18.0303 8.3335C18.4905 8.3335 18.8636 7.9604 18.8636 7.50016L18.8636 2.91698V2.91683C18.8636 2.80294 18.8408 2.69438 18.7994 2.5955C18.7604 2.50214 18.7037 2.41443 18.6293 2.33751L18.6286 2.33675C18.6226 2.33059 18.6165 2.32451 18.6104 2.31854L18.6101 2.31831C18.5331 2.24363 18.4452 2.18676 18.3516 2.1477C18.2527 2.10634 18.1442 2.0835 18.0303 2.0835L13.4469 2.0835C12.9867 2.0835 12.6136 2.45659 12.6136 2.91683C12.6136 3.37707 12.9867 3.75016 13.4469 3.75016L16.0184 3.75016L9.10769 10.6609ZM5.53027 2.50002C4.14956 2.50002 3.03027 3.61931 3.03027 5.00002V15.4167C3.03027 16.7974 4.14956 17.9167 5.53027 17.9167H15.9469C17.3277 17.9167 18.4469 16.7974 18.4469 15.4167V11.25C18.4469 10.7898 18.0738 10.4167 17.6136 10.4167C17.1534 10.4167 16.7803 10.7898 16.7803 11.25V15.4167C16.7803 15.8769 16.4072 16.25 15.9469 16.25H5.53027C5.07004 16.25 4.69694 15.8769 4.69694 15.4167V5.00002C4.69694 4.53979 5.07004 4.16669 5.53027 4.16669H9.69694C10.1572 4.16669 10.5303 3.79359 10.5303 3.33336C10.5303 2.87312 10.1572 2.50002 9.69694 2.50002H5.53027Z"
+                fill="currentColor"
+              />
+            </svg>
+          </Link>
+        </div>
+        <Text size="small" className="mt-[12px] text-white/50">
+          HAQQ brings together the most reputable actors of Ethical finance in
+          order to promote community-driven decentralized technologies worldwide
+        </Text>
+        <div
+          ref={blockRef}
+          className="mt-[16px] grid w-full gap-[38px] sm:grid-cols-2 md:mt-[20px] lg:mt-[24px] lg:grid-cols-4"
+        >
+          <StatisticsBlockStatCard
+            value={stats.mainnetAccountsCreated}
+            title="Mainnet accounts created"
+            startAnimation={startAnimation}
+          />
+          <StatisticsBlockStatCard
+            value={stats.transactionsInLast24Hours}
+            title="Transactions in the last 24 hours"
+            startAnimation={startAnimation}
+            prefix="~"
+          />
+          <StatisticsBlockStatCard
+            value={stats.secondsToConsensusFinality}
+            title="Seconds to consensus finality"
+            startAnimation={startAnimation}
+            prefix="~"
+          />
+          <StatisticsBlockStatCard
+            value={stats.averageCostPerTransaction}
+            title="Average cost per transaction"
+            startAnimation={startAnimation}
+            postfix="aISLM"
+          />
+        </div>
+      </div>
+    </div>
   );
 }

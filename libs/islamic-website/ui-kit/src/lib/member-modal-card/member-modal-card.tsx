@@ -18,20 +18,23 @@ export function MemberModalCard({
   url,
 }: MemberModalCardProps) {
   return (
-    <div className="flex max-w-[680px] flex-col items-center rounded-[20px] bg-[#15191EF2] px-[20px] py-[32px] pt-[20px] text-white lg:px-[40px] lg:pb-[48px]">
-      <ModalCloseButton onClick={onClick} className="self-end outline-none" />
-      <div className="flex flex-col items-start pt-[4px] md:flex-row lg:items-center">
-        <Image
-          src={image}
-          alt=""
-          className="rounded-[20px]"
-          height={148}
-          width={164}
-        />
-        <div className="flex flex-col">
-          <div className="mt-[20px] text-[24px] font-[600] leading-[34px]">
-            {title}
-          </div>
+    <div className="relative flex max-w-[680px] flex-col items-center rounded-[20px] bg-[#15191EF2] px-[20px] pb-[32px] pt-[48px] text-white lg:px-[40px] lg:py-[48px]">
+      <ModalCloseButton
+        onClick={onClick}
+        className="absolute right-[16px] top-[20px] outline-none lg:right-[24px]"
+      />
+
+      <div className="flex w-full flex-col items-start gap-[20px] md:flex-row">
+        <div className="relative h-[148px] w-[164px] flex-none overflow-hidden rounded-[20px] leading-[0px]">
+          <Image
+            src={image}
+            alt={title}
+            className="select-none object-cover"
+            fill
+          />
+        </div>
+        <div className="flex flex-col lg:mt-[24px]">
+          <div className="text-[24px] font-[600] leading-[34px]">{title}</div>
           {url && (
             <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover mt-[8px] flex items-center gap-x-[4px] font-mono uppercase transition-colors duration-300 md:mt-[12px]">
               <Link href={url} target="_blank" rel="noopener noreferrer">
@@ -55,6 +58,7 @@ export function MemberModalCard({
           )}
         </div>
       </div>
+
       <div className="mt-[16px] text-[14px] leading-[20px] md:mt-[32px]">
         {description}
       </div>

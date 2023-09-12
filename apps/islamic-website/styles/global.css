@@ -8,3 +8,14 @@
   --font-serif: 'Alexandria';
   --font-mono: 'VCR_OSD_MONO';
 }
+
+.text-shadow-outline {
+  --distance: 1.5px;
+
+  text-shadow:
+    var(--distance) 0 white,
+    calc(-1 * var(--distance)) 0 white,
+    0 var(--distance) white,
+    0 calc(-1 * var(--distance)) white;
+  color: black;
+}

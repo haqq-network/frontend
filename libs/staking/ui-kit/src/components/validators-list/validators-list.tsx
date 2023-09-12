@@ -5,10 +5,12 @@ import type {
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import { formatNumber, useStakingPoolQuery } from '@haqq/shared';
-import { ValidatorListItemMobile as ValidatorListItemMobileComponent } from '@haqq/shell-ui-kit';
+import {
+  ValidatorListItemMobile as ValidatorListItemMobileComponent,
+  formatNumber,
+} from '@haqq/shell-ui-kit';
 import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
-import { formatUnits } from 'viem/utils';
+import { formatUnits, parseUnits } from 'viem/utils';
 import { randomSort } from '@haqq/staking/utils';
 import clsx from 'clsx';
 
@@ -26,7 +28,7 @@ export function ValidatorListItemMobile({
     ).toFixed(0);
   }, [validator.commission?.commission_rates]);
   const votingPower = useMemo(() => {
-    return Number.parseInt(validator.tokens ?? '0') / 10 ** 18;
+    return Number.parseFloat(formatUnits(BigInt(validator.tokens), 18));
   }, [validator.tokens]);
   const userDelegate = useMemo(() => {
     if (delegation?.balance) {
@@ -39,7 +41,9 @@ export function ValidatorListItemMobile({
   }, [delegation]);
   const userRewards = useMemo(() => {
     if (reward?.reward.length) {
-      return Number.parseFloat(reward?.reward[0].amount) / 10 ** 18;
+      return Number.parseFloat(
+        formatUnits(parseUnits(reward.reward[0].amount, 0), 18),
+      );
     }
 
     return 0;
@@ -73,6 +77,7 @@ interface ValidatorListProps {
   rewardsInfo: DistributionRewardsResponse | null | undefined;
   delegationInfo: GetDelegationsResponse | null | undefined;
   onValidatorClick: (validatorAddress: string) => void;
+  totalStaked: number;
 }
 
 type SortDirection = 'asc' | 'desc' | undefined;
@@ -87,8 +92,8 @@ export function ValidatorsListMobile({
   rewardsInfo,
   delegationInfo,
   onValidatorClick,
+  totalStaked,
 }: ValidatorListProps) {
-  const { data: stakingPool } = useStakingPoolQuery();
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -112,10 +117,6 @@ export function ValidatorsListMobile({
     },
     [delegationInfo],
   );
-
-  const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.bonded_tokens]);
 
   return (
     <div className="divide-haqq-border flex flex-col divide-y divide-solid">
@@ -151,6 +152,7 @@ export function ValidatorsList({
   rewardsInfo,
   delegationInfo,
   onValidatorClick,
+  totalStaked,
 }: ValidatorListProps) {
   const [sortStates, setSortStates] = useState<SortState>({
     key: undefined,
@@ -162,8 +164,6 @@ export function ValidatorsList({
   useEffect(() => {
     setVals(randomSort(validators));
   }, [validators]);
-
-  const { data: stakingPool } = useStakingPoolQuery();
 
   const getValidatorRewards = useCallback(
     (address: string) => {
@@ -189,10 +189,6 @@ export function ValidatorsList({
     [delegationInfo],
   );
 
-  const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.bonded_tokens]);
-
   const getSortedValidators = useCallback(
     (validators: Validator[], state: SortState) => {
       const sortedValidators: Validator[] = [...validators];
@@ -213,23 +209,23 @@ export function ValidatorsList({
         case 'fee':
           sortedValidators.sort((a, b) => {
             return (
-              parseFloat(a.commission.commission_rates.rate) -
-              parseFloat(b.commission.commission_rates.rate)
+              Number.parseFloat(a.commission.commission_rates.rate) -
+              Number.parseFloat(b.commission.commission_rates.rate)
             );
           });
           break;
 
         case 'votingPower':
           sortedValidators.sort((a, b) => {
-            return parseFloat(b.tokens) - parseFloat(a.tokens);
+            return Number.parseFloat(b.tokens) - Number.parseFloat(a.tokens);
           });
           break;
 
         case 'votingPowerPercent':
           sortedValidators.sort((a, b) => {
             return (
-              (parseFloat(b.tokens) / totalStaked) * 100 -
-              (parseFloat(a.tokens) / totalStaked) * 100
+              (Number.parseFloat(b.tokens) / totalStaked) * 100 -
+              (Number.parseFloat(a.tokens) / totalStaked) * 100
             );
           });
           break;
@@ -239,8 +235,16 @@ export function ValidatorsList({
             const aDelegation = getDelegationInfo(a.operator_address);
             const bDelegation = getDelegationInfo(b.operator_address);
 
-            const aAmount = parseFloat(aDelegation?.balance.amount || '0');
-            const bAmount = parseFloat(bDelegation?.balance.amount || '0');
+            const aAmount = Number.parseFloat(
+              formatNumber(
+                Number.parseFloat(aDelegation?.balance.amount || '0'),
+              ),
+            );
+            const bAmount = Number.parseFloat(
+              formatNumber(
+                Number.parseFloat(bDelegation?.balance.amount || '0'),
+              ),
+            );
 
             return bAmount - aAmount;
           });

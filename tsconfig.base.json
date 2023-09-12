@@ -21,22 +21,97 @@
       "@haqq/governance/proposal-list": [
         "libs/governance/proposal-list/src/index.ts"
       ],
-      "@haqq/islamic-ui-kit": ["libs/islamic-website/ui-kit/src/index.ts"],
+      "@haqq/haqq-website-ui-kit": ["libs/haqq-website/ui-kit/src/index.ts"],
+
+      "@haqq/haqq-website/blog": ["libs/haqq-website/blog/src/index.ts"],
+      "@haqq/haqq-website/brand-assets-page": [
+        "libs/haqq-website/brand-assets-page/src/index.ts"
+      ],
+      "@haqq/haqq-website/ecosystem-fund-page": [
+        "libs/haqq-website/ecosystem-fund-page/src/index.ts"
+      ],
+      "@haqq/haqq-website/ecosystem-page": [
+        "libs/haqq-website/ecosystem-page/src/index.ts"
+      ],
+      "@haqq/haqq-website/events": ["libs/haqq-website/events/src/index.ts"],
+      "@haqq/haqq-website/events/server": [
+        "libs/haqq-website/events/src/server.ts"
+      ],
+      "@haqq/haqq-website/forms": ["libs/haqq-website/forms/src/index.ts"],
+      "@haqq/haqq-website/index-page": [
+        "libs/haqq-website/index-page/src/index.ts"
+      ],
+      "@haqq/haqq-website/privacy-policy-page": [
+        "libs/haqq-website/privacy-policy-page/src/index.ts"
+      ],
+      "@haqq/haqq-website/shared": ["libs/website/shared/src/index.ts"],
+      "@haqq/haqq-website/wallet-page": [
+        "libs/haqq-website/wallet-page/src/index.ts"
+      ],
+      "@haqq/haqq-website/whitepaper-page": [
+        "libs/haqq-website/whitepaper-page/src/index.ts"
+      ],
+      "@haqq/islamic-website-ui-kit": [
+        "libs/islamic-website/ui-kit/src/index.ts"
+      ],
+      "@haqq/islamic-website/academy-page": [
+        "libs/islamic-website/academy-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/build-page": [
+        "libs/islamic-website/build-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/career-page": [
+        "libs/islamic-website/career-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/community-hub-page": [
+        "libs/islamic-website/community-hub-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/forms": [
+        "libs/islamic-website/forms/src/index.ts"
+      ],
+      "@haqq/islamic-website/fraud-page": [
+        "libs/islamic-website/fraud-page/src/index.ts"
+      ],
       "@haqq/islamic-website/index-page": [
         "libs/islamic-website/index-page/src/index.ts"
       ],
       "@haqq/islamic-website/mission-page": [
         "libs/islamic-website/mission-page/src/index.ts"
       ],
+      "@haqq/islamic-website/news-page": [
+        "libs/islamic-website/news-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/not-found-page": [
+        "libs/islamic-website/not-found-page/src/index.ts"
+      ],
       "@haqq/islamic-website/partnership-page": [
         "libs/islamic-website/partnership-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/privacy-policy-page": [
+        "libs/islamic-website/privacy-policy-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/roadmap-page": [
+        "libs/islamic-website/roadmap-page/src/index.ts"
       ],
       "@haqq/islamic-website/shariah-page": [
         "libs/islamic-website/shariah-page/src/index.ts"
       ],
+      "@haqq/islamic-website/team-page": [
+        "libs/islamic-website/team-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/values-page": [
+        "libs/islamic-website/values-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/wallet-page": [
+        "libs/islamic-website/wallet-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/whitepaper-page": [
+        "libs/islamic-website/whitepaper-page/src/index.ts"
+      ],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/shared": ["libs/shared/src/index.ts"],
       "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
+      "@haqq/shell/authz-page": ["libs/shell/authz-page/src/index.ts"],
       "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],
       "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
       "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
@@ -46,26 +121,7 @@
       "@haqq/staking/validator-list-page": [
         "libs/staking/validator-list-page/src/index.ts"
       ],
-      "@haqq/storybook-host": ["libs/storybook-host/src/index.ts"],
-      "@haqq/ui-kit": ["libs/ui-kit/src/index.ts"],
-      "@haqq/website-ui-kit": ["libs/website/ui-kit/src/index.ts"],
-      "@haqq/website/blog-page": ["libs/website/blog-page/src/index.ts"],
-      "@haqq/website/brand-assets-page": [
-        "libs/website/brand-assets-page/src/index.ts"
-      ],
-      "@haqq/website/ecosystem-fund-page": [
-        "libs/website/ecosystem-fund-page/src/index.ts"
-      ],
-      "@haqq/website/ecosystem-page": [
-        "libs/website/ecosystem-page/src/index.ts"
-      ],
-      "@haqq/website/forms": ["libs/website/forms/src/index.ts"],
-      "@haqq/website/index-page": ["libs/website/index-page/src/index.ts"],
-      "@haqq/website/shared": ["libs/website/shared/src/index.ts"],
-      "@haqq/website/wallet-page": ["libs/website/wallet-page/src/index.ts"],
-      "@haqq/website/whitepaper-page": [
-        "libs/website/whitepaper-page/src/index.ts"
-      ]
+      "@haqq/storybook-host": ["libs/storybook-host/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
