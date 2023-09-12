@@ -68,102 +68,101 @@ function flattenArray<T>(nestedArray: T[][]): T[] {
   }, []);
 }
 
+const footerNavLinks: FooterNavLinks = [
+  [
+    {
+      url: '/shariah#fatwa',
+      title: 'fatwa',
+    },
+    {
+      url: '/whitepaper',
+      title: 'whitepaper',
+    },
+  ],
+  [
+    {
+      url: '/shariah#shariah-board',
+      title: 'shariah-board',
+    },
+    {
+      url: '/shariah#advisory-board',
+      title: 'advisory-board',
+    },
+    {
+      url: '/shariah#executive-board',
+      title: 'executive-board',
+    },
+  ],
+  [
+    // {
+    //   url: '/press',
+    //   title: 'For press',
+    // },
+    // {
+    //   url: '/grants',
+    //   title: 'Grants',
+    // },
+    // {
+    //   url: '/join-us',
+    //   title: 'Join us',
+    // },
+
+    // {
+    //   url: '/get-islm',
+    //   title: 'Get ISLM',
+    // },
+    // {
+    //   url: '/hodling',
+    //   title: 'Hodling',
+    // },
+    {
+      url: '/news',
+      title: 'islm-in-media',
+    },
+    {
+      url: '/community-hub',
+      title: 'community-hub',
+    },
+  ],
+  [
+    {
+      url: 'https://haqq.network',
+      title: 'haqq-network',
+      isOutLink: true,
+    },
+    {
+      url: 'https://docs.haqq.network/',
+      title: 'haqq-docs',
+      isOutLink: true,
+    },
+    {
+      url: '/wallet',
+      title: 'wallet',
+    },
+    {
+      url: 'https://shell.haqq.network',
+      title: 'stake-islm',
+      isOutLink: true,
+    },
+  ],
+  [
+    {
+      url: '/values',
+      title: 'values',
+    },
+    {
+      url: '/partnerships',
+      title: 'partnerships',
+    },
+    {
+      url: '/career',
+      title: 'career',
+    },
+  ],
+];
+
 export function Footer() {
   const t = useTranslations('footer');
-  console.log(t('fatwa'));
-
-  const footerNavLinks: FooterNavLinks = [
-    [
-      {
-        url: '/shariah#fatwa',
-        title: t('fatwa'),
-      },
-      {
-        url: '/whitepaper',
-        title: t('whitepaper'),
-      },
-    ],
-    [
-      {
-        url: '/shariah#shariah-board',
-        title: t('shariah-board'),
-      },
-      {
-        url: '/shariah#advisory-board',
-        title: t('advisory-board'),
-      },
-      {
-        url: '/shariah#executive-board',
-        title: t('executive-board'),
-      },
-    ],
-    [
-      // {
-      //   url: '/press',
-      //   title: 'For press',
-      // },
-      // {
-      //   url: '/grants',
-      //   title: 'Grants',
-      // },
-      // {
-      //   url: '/join-us',
-      //   title: 'Join us',
-      // },
-
-      // {
-      //   url: '/get-islm',
-      //   title: 'Get ISLM',
-      // },
-      // {
-      //   url: '/hodling',
-      //   title: 'Hodling',
-      // },
-      {
-        url: '/news',
-        title: t('islm-in-media'),
-      },
-      {
-        url: '/community-hub',
-        title: t('community-hub'),
-      },
-    ],
-    [
-      {
-        url: 'https://haqq.network',
-        title: t('haqq-network'),
-        isOutLink: true,
-      },
-      {
-        url: 'https://docs.haqq.network/',
-        title: t('haqq-docs'),
-        isOutLink: true,
-      },
-      {
-        url: '/wallet',
-        title: t('wallet'),
-      },
-      {
-        url: 'https://shell.haqq.network',
-        title: 'Stake ISLM',
-        isOutLink: true,
-      },
-    ],
-    [
-      {
-        url: '/values',
-        title: t('values'),
-      },
-      {
-        url: '/partnerships',
-        title: t('partnerships'),
-      },
-      {
-        url: '/career',
-        title: t('career'),
-      },
-    ],
-  ];
 
   const maxHeight = useMemo(() => {
     return footerNavLinks.reduce((acc, el) => {
@@ -191,7 +190,7 @@ export function Footer() {
                       return (
                         <FooterNavLink
                           key={title}
-                          title={title}
+                          title={t(title)}
                           url={url}
                           isOutLink={isOutLink}
                         />
