@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react';
 import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import glowCubeImgData from '../../assets/images/glow-cube.webp';
+import { useTranslations } from 'next-intl';
 
 function ValuesPageHeading({ children }: PropsWithChildren) {
   return (
@@ -12,11 +13,13 @@ function ValuesPageHeading({ children }: PropsWithChildren) {
 }
 
 export function ValuesPage() {
+  const t = useTranslations('values-page');
+
   return (
     <section className="overflow-x-clip pb-[60px] pt-[32px] lg:pb-[140px] lg:pt-[80px]">
       <Container className="relative">
         <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          Our Values
+          {t('title')}
         </h1>
 
         <div className="flex flex-col lg:mt-[60px] lg:flex-row">
@@ -32,41 +35,21 @@ export function ValuesPage() {
           <div className="lg:order-1 lg:w-1/2">
             <div className="flex flex-col gap-[28px] lg:max-w-[480px] lg:gap-[38px] xl:max-w-[680px]">
               <div className="flex flex-col gap-[16px]">
-                <ValuesPageHeading>Khuloos</ValuesPageHeading>
+                <ValuesPageHeading>{t('subtitle.first')}</ValuesPageHeading>
                 <p>
-                  <Text size="small">
-                    Sincerity and Integrity: We place the utmost importance on
-                    sincerity and integrity in our communications and
-                    interactions with one another and the wider community.
-                    Transparency and openness are vital for fostering a thriving
-                    business and ecosystem.
-                  </Text>
+                  <Text size="small">{t('text.paragraphs.first')}</Text>
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <ValuesPageHeading>Islah</ValuesPageHeading>
+                <ValuesPageHeading>{t('subtitle.second')}</ValuesPageHeading>
                 <p>
-                  <Text size="small">
-                    Self-Improvement and Positive Change: Committed to daily
-                    self-improvement, we employ innovative financial practices
-                    grounded in Islamic values to drive positive change in our
-                    communities and the world. Islah signifies our dedication to
-                    continuously reforming ourselves and our practices in
-                    pursuit of excellence and meaningful impact.
-                  </Text>
+                  <Text size="small">{t('text.paragraphs.second')}</Text>
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <ValuesPageHeading>Wahda</ValuesPageHeading>
+                <ValuesPageHeading>{t('subtitle.third')}</ValuesPageHeading>
                 <p>
-                  <Text size="small">
-                    Unity and Collaboration: We celebrate diversity and work
-                    collectively towards establishing an ethics-first economy.
-                    We aim to unite the Muslim community and beyond through a
-                    sustainable financial ecosystem by encouraging diverse
-                    perspectives and solutions and fostering collaboration and
-                    cooperation.
-                  </Text>
+                  <Text size="small">{t('text.paragraphs.third')}</Text>
                 </p>
               </div>
             </div>

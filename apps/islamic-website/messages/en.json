@@ -124,9 +124,6 @@
   },
   "news-page": {
     "title": "Islamic Coin Press & News",
-    "subscribe-block": {
-      "text": "Keep up to date with our upcoming Public Launch and Exchange listing - Subscribe to our newsletter"
-    },
     "posts": {
       "recent": "Recent posts",
       "featured": "Featured post"
@@ -136,6 +133,103 @@
       "press": "Press",
       "events": "Events"
     }
+  },
+  "roadmap-page": {
+    "title": "Roadmap"
+  },
+  "whitepaper-page": {
+    "title": "HAQQ Whitepaper"
+  },
+  "partnerships-page": {
+    "title": "Partnerships",
+    "subtitle": "Our partners",
+    "text": {
+      "paragraphs": {
+        "first": "We are on a journey of shared values, growth, and creating meaningful impact—hand in hand",
+        "second": "Join us in building a future where aspirations intersect and opportunities blossom, all within the framework of our heritage and values"
+      }
+    }
+  },
+  "career-page": {
+    "title": "Career",
+    "text": {
+      "paragraphs": {
+        "first": "Welcome to Islamic Coin's careers page!",
+        "second": "We are a passionate team of professionals committed to creating innovative solutions by combining the power of blockchain technology and the principles of Islamic finance. Our mission is to provide the global Muslim community with a financial instrument for the Digital Age, enabling seamless transactions and interactions while promoting innovation and philanthropy. If you share our values and are enthusiastic about blockchain technology, we invite you to explore our exciting opportunities.",
+        "third": "We offer various roles that enable you to learn, grow, and make a meaningful impact. Join us to build a fairer, more inclusive financial future for all. Discover our current openings and apply today!"
+      }
+    },
+    "button-text": "Discover openings!"
+  },
+  "team-page": {
+    "title": "Founders"
+  },
+  "not-found-page": {
+    "title": "Page not found",
+    "subtitle": "Go to main page"
+  },
+  "values-page": {
+    "title": "Our Values",
+    "subtitle": {
+      "first": "Khuloos",
+      "second": "Islah",
+      "third": "Wahda"
+    },
+    "text": {
+      "paragraphs": {
+        "first": "Sincerity and Integrity: We place the utmost importance on sincerity and integrity in our communications and interactions with one another and the wider community. Transparency and openness are vital for fostering a thriving business and ecosystem.",
+        "second": "Self-Improvement and Positive Change: Committed to daily self-improvement, we employ innovative financial practices grounded in Islamic values to drive positive change in our communities and the world. Islah signifies our dedication to continuously reforming ourselves and our practices in pursuit of excellence and meaningful impact.",
+        "third": "Unity and Collaboration: We celebrate diversity and work collectively towards establishing an ethics-first economy. We aim to unite the Muslim community and beyond through a sustainable financial ecosystem by encouraging diverse perspectives and solutions and fostering collaboration and cooperation."
+      }
+    }
+  },
+  "build-page": {
+    "title": "Build on\n HAQQ",
+    "subtitle": "Developers Hub",
+    "text": {
+      "paragraphs": {
+        "first": "Unleash your developer superpowers within the vibrant Developers Hub",
+        "second": "Gain access to cutting-edge tools, resources, and a thriving community that will elevate your skills to new heights.",
+        "third": "Fuel your creativity and be at the forefront of shaping the future of Islamic Coin."
+      }
+    },
+    "docs-tabs": {
+      "manual": {
+        "title": "Builder's manual",
+        "text": "Unlock the essential roadmap to transform your ideas into reality within the Islamic Coin ecosystem"
+      },
+      "archive": {
+        "title": "HAQQ Archive",
+        "text": "Explore the stories, insights, and groundbreaking ideas that have shaped the Islamic Coin ecosystem, and let history guide your path to a brighter future."
+      }
+    }
+  },
+  "fraud-alert-page": {
+    "title": "Recruitment \nFraud\n Alert",
+    "text": "We have become aware of recruitment scams that fraudulently obtain money or personal information from job seekers. These scams take various forms, such as fake job postings, phishing emails, or fraudulent recruiters claiming to represent our company",
+    "how-to-block": {
+      "title": "How to identify recruitment fraud:",
+      "identifiers": {
+        "first": "Requests for personal information early in the process, such as your address, date of birth, passport information, social security number, or banking details",
+        "second": "Individuals unaffiliated with Islamic Coin contacting you about a fake or legitimate job posting. Review the sender's name and email domain closely. Official Islamic Coin recruitment emails come from accounts formatted as: <span>name@haqq.network</span> or <span>name@islamiccoin.net</span>",
+        "third": "Being asked to participate in an 'interview' via chat or email. Islamic Coin does not conduct 'interviews' through chat or email",
+        "fourth": "Receiving job offers through social media or online forums",
+        "fifth": "Receiving job offers for positions you have yet to apply to or interview for",
+        "sixth": "Insistence of urgent action within a very short time frame"
+      }
+    },
+    "warning-block": {
+      "text": "We have become aware of recruitment scams that fraudulently obtain money or personal information from job seekers. These scams take various forms, such as fake job postings, phishing emails, or fraudulent recruiters claiming to represent our company"
+    }
+  },
+  "community-hub-page": {
+    "title": "Online Community Hub",
+    "subtitle": "Join our channels here:",
+    "text": "Islamic Coin was built to bring Shariah-compliant digital money to the Muslim community and beyond. Wherever you are, we welcome your opinion and invite you to join our Channels and the conversation! Be a part of a new era of sustainable, ethical finance."
+  },
+  "available-soon-page": {
+    "title": "Awaiting soon",
+    "subtitle": "Go to main page"
   },
   "header": {
     "single-links": {
@@ -170,6 +264,7 @@
     }
   },
   "subscribe-form": {
+    "text": "Keep up to date with our upcoming Public Launch and Exchange listing - Subscribe to our newsletter",
     "input-placeholder": "Your e-mail",
     "button-text": "Subscribe"
   }

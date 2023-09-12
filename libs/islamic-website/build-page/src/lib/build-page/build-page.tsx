@@ -1,4 +1,5 @@
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 
 export function BuildPage() {
   return (
@@ -226,6 +227,7 @@ function BuildPageBg() {
 }
 
 function DocsTab({ type }: { type: 'manual' | 'archive' }) {
+  const t = useTranslations('build-page.docs-tabs');
   return (
     <div className="group flex cursor-pointer items-start gap-x-[12px] lg:gap-x-[16px]">
       <div>
@@ -271,8 +273,8 @@ function DocsTab({ type }: { type: 'manual' | 'archive' }) {
         <div className="flex flex-row items-center gap-x-[6px] leading-[0]">
           <div>
             <Text isMono>
-              {type === 'manual' && "Builder's manual"}
-              {type === 'archive' && 'HAQQ Archive'}
+              {type === 'manual' && t('manual.title')}
+              {type === 'archive' && t('archive.title')}
             </Text>
           </div>
 
@@ -294,10 +296,8 @@ function DocsTab({ type }: { type: 'manual' | 'archive' }) {
         </div>
         <div className="mt-[2px]">
           <Text className="text-white/50" size="small">
-            {type === 'manual' &&
-              'Unlock the essential roadmap to transform your ideas into reality within the Islamic Coin ecosystem'}
-            {type === 'archive' &&
-              'Explore the stories, insights, and groundbreaking ideas that have shaped the Islamic Coin ecosystem, and let history guide your path to a brighter future.'}
+            {type === 'manual' && t('manual.text')}
+            {type === 'archive' && t('archive.text')}
           </Text>
         </div>
       </div>

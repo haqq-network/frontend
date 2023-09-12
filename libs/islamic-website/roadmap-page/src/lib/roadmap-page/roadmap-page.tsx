@@ -1,6 +1,7 @@
 import { Container, MarkdownText, Text } from '@haqq/islamic-website-ui-kit';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 
 export interface RoadmapPeriod {
   title: string;
@@ -160,12 +161,14 @@ export function RoadmapPage({
   roadmap: RoadmapPeriod[];
   turnstileSiteKey?: string;
 }) {
+  const t = useTranslations('');
+
   return (
     <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
       <div className="overflow-x-clip">
         <Container className="relative">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Roadmap
+            {t('roadmap-page.title')}
           </h1>
 
           <div className="mt-[48px] flex flex-col gap-y-[12px] md:mt-[44px] lg:mt-[60px] lg:gap-y-[20px]">
@@ -183,8 +186,7 @@ export function RoadmapPage({
           {turnstileSiteKey && (
             <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center md:p-[28px] lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
               <Text size="small" className="md:w-1/2">
-                Keep up to date with our upcoming Public Launch and Exchange
-                listing - Subscribe to our newsletter
+                {t('subscribe-form.text')}
               </Text>
               <SubscribeForm
                 className="flex flex-col gap-[16px] md:flex-row"

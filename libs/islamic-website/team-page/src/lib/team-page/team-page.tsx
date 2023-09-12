@@ -1,6 +1,7 @@
 import { Container, MembersContainer } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import teamPageBgImageData from '../../assets/images/team-page-bg.svg';
+import { useTranslations } from 'next-intl';
 
 function TeamPageBg() {
   return (
@@ -42,12 +43,14 @@ const Founders = [
 ];
 
 export function TeamPage() {
+  const t = useTranslations('team-page');
+
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
         <div className="pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pb-[200px] lg:pt-[68px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Founders
+            {t('title')}
           </h1>
 
           <MembersContainer

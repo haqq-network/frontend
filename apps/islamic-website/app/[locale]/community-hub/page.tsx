@@ -1,4 +1,4 @@
-import { DEPLOY_URL } from '../../constants';
+import { DEPLOY_URL } from '../../../constants';
 import type { Metadata } from 'next';
 import { islamicOpenGraphImages } from '../shared-metadata';
 

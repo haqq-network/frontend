@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import bgImgData from '../../assets/images/bg-image.svg';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 function SocialIconLink({ children, url }: PropsWithChildren<{ url: string }>) {
   return (
@@ -53,26 +54,21 @@ const socialLinks = [
 ];
 
 export function CommunityHubPage() {
+  const t = useTranslations('community-hub-page');
   return (
     <Container>
       <div className="relative  pb-[60px] pt-[32px] md:pb-[120px] md:pt-[52px] lg:pb-[180px] lg:pt-[68px]">
         <div className="flex flex-col">
           <div className="max-w-[340px] md:max-w-[400px] lg:max-w-[480px] xl:max-w-[740px] min-[1440px]:max-w-[800px]">
             <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-              Online Community Hub
+              {t('title')}
             </h1>
             <div className="mt-[24px] md:mt-[32px] lg:mt-[40px]">
-              <Text size="small">
-                Islamic Coin was built to bring Shariah-compliant digital money
-                to the Muslim community and beyond. Wherever you are, we welcome
-                your opinion and invite you to join our Channels and the
-                conversation! Be a part of a new era of sustainable, ethical
-                finance.
-              </Text>
+              <Text size="small">{t('text')}</Text>
             </div>
           </div>
           <div className="mt-[32px] md:mt-[44px] lg:mt-[60px]">
-            <Text isMono>Join our channels here:</Text>
+            <Text isMono>{t('subtitle')}</Text>
           </div>
           <div className="mt-[16px] flex flex-wrap gap-[16px] md:mt-[20px] lg:mt-[24px]">
             {socialLinks.map(({ icon, url }) => {
