@@ -71,9 +71,11 @@ function BurgerMenuSocialLink({
 export function BurgerMenu({
   className,
   onClose,
+  turnstileSiteKey,
 }: {
   className?: string;
   onClose?: () => void;
+  turnstileSiteKey?: string;
 }) {
   return (
     <div
@@ -86,12 +88,6 @@ export function BurgerMenu({
       <div className="mb-[60px] flex flex-col items-start space-y-[16px] sm:mb-[80px]">
         <BurgerMenuNavLink onClick={onClose} href="/#about">
           About
-        </BurgerMenuNavLink>
-        <BurgerMenuNavLink
-          onClick={onClose}
-          href="/assets/docs/HAQQ-network-privacy-policy.pdf"
-        >
-          Privacy Policy
         </BurgerMenuNavLink>
         <BurgerMenuNavLink onClick={onClose} href="/ecosystem-fund">
           Fund
@@ -199,15 +195,18 @@ export function BurgerMenu({
         </BurgerMenuSocialLink> */}
       </div>
 
-      <div>
-        <Heading level={3} className="mb-[16px] sm:mb-[24px]">
-          Sign up for HAQQ updates
-        </Heading>
-        <SubscribeForm
-          className="flex flex-col space-y-[40px]"
-          inputSize="small"
-        />
-      </div>
+      {turnstileSiteKey && (
+        <div>
+          <Heading level={3} className="mb-[16px] sm:mb-[24px]">
+            Sign up for HAQQ updates
+          </Heading>
+          <SubscribeForm
+            className="flex flex-col space-y-[40px]"
+            inputSize="small"
+            turnstileSiteKey={turnstileSiteKey}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from 'react';
+'use client';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -7,9 +8,10 @@ import {
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button } from '@haqq/haqq-website-ui-kit';
+import { Button, Heading, Modal, Ruler, Text } from '@haqq/haqq-website-ui-kit';
 import clsx from 'clsx';
 import axios from 'axios';
+import Turnstile from 'react-turnstile';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -20,54 +22,106 @@ const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   })
   .required();
 
-async function submitForm(
-  form: SubscribeFormFields,
-): Promise<{ status: number }> {
-  return await axios.post('/api/sendgrid', form);
+async function submitForm(form: SubscribeFormFields & { token: string }) {
+  return await axios.post<{ message: string } | { error: string }>(
+    '/api/subscribe',
+    form,
+  );
 }
 
 export function SubscribeForm({
   className,
-  inputSize = 'normal',
+  turnstileSiteKey,
+  inputSize,
 }: {
   className?: string;
-  inputSize?: 'normal' | 'small';
+  turnstileSiteKey: string;
+  inputSize: 'small' | 'normal';
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,
   );
-
-  const { register, handleSubmit, formState } = useForm<SubscribeFormFields>({
+  const [formData, setFormData] = useState<SubscribeFormFields | undefined>(
+    undefined,
+  );
+  const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const {
+    register,
+    handleSubmit: hookFormSubmit,
+    formState,
+  } = useForm({
     resolver: yupResolver(schema),
   });
+  const [token, setToken] = useState<string | undefined>(undefined);
 
-  const onSubmit = useCallback(async (data: SubscribeFormFields) => {
-    try {
-      setSubscribeFormState(FormState.pending);
-      const response = await submitForm(data);
+  const handleFormSubmit = useCallback((data: SubscribeFormFields) => {
+    setSubscribeFormState(FormState.pending);
+    setCaptchaModalOpen(true);
+    setFormData(data);
+  }, []);
 
-      if (response.status === 200) {
-        setSubscribeFormState(FormState.success);
+  const handleSubmitContinue = useCallback(
+    async (token: string) => {
+      if (formData) {
+        try {
+          const response = await submitForm({ ...formData, token: token });
+
+          if (response.status === 200) {
+            setSubscribeFormState(FormState.success);
+            setSuccessModalOpen(true);
+          } else {
+            setSubscribeFormState(FormState.error);
+            if ('error' in response.data) {
+              setError(response.data.error);
+            }
+            setErrorModalOpen(true);
+          }
+        } catch (error) {
+          setSubscribeFormState(FormState.error);
+          setError((error as Error).message);
+          setErrorModalOpen(true);
+        }
       } else {
-        setSubscribeFormState(FormState.error);
+        console.error('no form data');
       }
-    } catch (error) {
-      console.error(error);
-      setSubscribeFormState(FormState.error);
+    },
+    [formData],
+  );
+
+  useEffect(() => {
+    if (token) {
+      setCaptchaModalOpen(false);
+      handleSubmitContinue(token);
     }
+  }, [handleSubmitContinue, token]);
+
+  const handleCaptchaModalClose = useCallback(() => {
+    setCaptchaModalOpen(false);
+  }, []);
+
+  const handleSuccessModalClose = useCallback(() => {
+    setSuccessModalOpen(false);
+  }, []);
+
+  const handleErrorModalClose = useCallback(() => {
+    setErrorModalOpen(false);
   }, []);
 
   const isFormDisabled = useMemo(() => {
     return (
-      subscribeFormState === FormState.pending ||
-      subscribeFormState === FormState.success
+      isCaptchaModalOpen ||
+      isSuccessModalOpen ||
+      subscribeFormState === FormState.pending
     );
-  }, [subscribeFormState]);
+  }, [isCaptchaModalOpen, isSuccessModalOpen, subscribeFormState]);
 
   return (
-    <div>
+    <Fragment>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={hookFormSubmit(handleFormSubmit)}
         noValidate
         className={clsx(className)}
         autoComplete="off"
@@ -91,6 +145,61 @@ export function SubscribeForm({
           </Button>
         </div>
       </form>
-    </div>
+
+      <Modal onClose={handleCaptchaModalClose} isOpen={isCaptchaModalOpen}>
+        <Turnstile
+          sitekey={turnstileSiteKey}
+          onVerify={setToken}
+          theme="dark"
+        />
+      </Modal>
+
+      <Modal onClose={handleSuccessModalClose} isOpen={isSuccessModalOpen}>
+        <div className="text-haqq-black relative flex max-w-[343px] items-center justify-between rounded-[10px] bg-white px-[16px] sm:max-w-[473px] sm:px-[32px] lg:max-w-[623px] lg:px-[62px]">
+          <div className="mx-[70px] my-[45px] flex flex-col gap-[24px] text-center sm:gap-[32px]">
+            <Heading>Congratulations!</Heading>
+            <div>
+              <Text>You have successfully subscribed to our newsletter.</Text>
+            </div>
+            <Button variant={3} onClick={handleSuccessModalClose}>
+              Close
+            </Button>
+          </div>
+
+          <Ruler className="absolute left-[16px] top-0 h-full w-auto sm:left-[32px] sm:top-[2%] sm:h-[96%]" />
+          <Ruler className="absolute right-[16px] top-0 h-full w-auto scale-x-[-1] sm:right-[32px] sm:top-[2%] sm:h-[96%]" />
+        </div>
+      </Modal>
+
+      <Modal onClose={handleErrorModalClose} isOpen={isErrorModalOpen}>
+        <div className="text-haqq-black relative flex max-w-[343px] items-center justify-between rounded-[10px] bg-white px-[16px] sm:max-w-[473px] sm:px-[32px] lg:max-w-[623px] lg:px-[62px]">
+          <div className="mx-[70px] my-[45px] flex flex-col gap-[24px] text-center sm:gap-[32px]">
+            <Heading>
+              Oops...
+              <br /> Something went wrong
+            </Heading>
+
+            {error && (
+              <div>
+                <Text size="small" className="text-[#E16363]">
+                  Error: {error}
+                </Text>
+              </div>
+            )}
+
+            <Button
+              variant={3}
+              className="px-[18px] sm:px-[32px]"
+              onClick={handleErrorModalClose}
+            >
+              Try again
+            </Button>
+          </div>
+
+          <Ruler className="absolute left-[16px] top-0 h-full w-auto sm:left-[32px] sm:top-[2%] sm:h-[96%]" />
+          <Ruler className="absolute right-[16px] top-0 h-full w-auto scale-x-[-1] sm:right-[32px] sm:top-[2%] sm:h-[96%]" />
+        </div>
+      </Modal>
+    </Fragment>
   );
 }

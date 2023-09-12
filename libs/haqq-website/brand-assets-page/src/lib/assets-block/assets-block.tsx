@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import {
-  BrandColorAsset,
   CustomImage,
   LogoType,
   haqqBrandColors,
@@ -10,13 +9,9 @@ import {
   islamicBrandColors,
   islamicLogos,
 } from '../../utils/brand-assets';
-import {
-  Button,
-  DownloadButton,
-  Heading,
-  Text,
-} from '@haqq/haqq-website-ui-kit';
-import { PropsWithChildren, useCallback, useState } from 'react';
+import { DownloadButton, Heading, Text } from '@haqq/haqq-website-ui-kit';
+import { PropsWithChildren } from 'react';
+import { BrandColorCard } from '../brand-color-card/brand-color-card';
 
 interface DownloadCardProps {
   isWhiteBackground: boolean;
@@ -79,44 +74,6 @@ function DownloadCard({
             PNG
           </DownloadButton>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function BrandColorCard({ color, colorType, hex }: BrandColorAsset) {
-  const [isCopied, setIsCopied] = useState(false);
-
-  const handleCopyClick = useCallback(() => {
-    navigator.clipboard.writeText(hex);
-    setIsCopied(true);
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 2000);
-  }, [hex]);
-
-  return (
-    <div className="flex flex-col gap-y-[16px]">
-      <div
-        className={clsx(
-          'rounded-xl py-[60px] text-center text-[14px] font-semibold leading-[22px]',
-          color === 'haqq-orange' && 'bg-haqq-orange',
-          color === 'haqq-blue' && `bg-[#091D53]`,
-          color === 'haqq-seaweed' && 'bg-[#157C83]',
-          color === 'haqq-big-foot-feet' && 'bg-[#E98C50]',
-          color === 'haqq-azure' && 'bg-[#ECFEFE]',
-          color === 'islamic-primary' && 'bg-[#04D484]',
-          color === 'haqq-azure' ? 'text-haqq-black' : 'text-white',
-        )}
-      >
-        <div>{hex}</div>
-      </div>
-      <div className="flex items-center justify-between text-[12px] leading-[1.5em] text-white/50">
-        {colorType === 'gradient' && 'Gradient color'}
-        {colorType === 'main' && 'Main color'}
-        <Button onClick={handleCopyClick}>
-          {isCopied ? 'Copied!' : 'Copy'}
-        </Button>
       </div>
     </div>
   );

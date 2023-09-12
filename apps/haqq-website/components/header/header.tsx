@@ -1,3 +1,4 @@
+'use client';
 import { Fragment, ReactNode, useCallback, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
@@ -33,7 +34,7 @@ function HeaderNavLink({
   );
 }
 
-export function Header() {
+export function Header({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
 
   const handleMenuOpen = useCallback(() => {

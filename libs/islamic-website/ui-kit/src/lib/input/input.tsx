@@ -2,6 +2,8 @@
 import clsx from 'clsx';
 import { ChangeEvent, Ref, forwardRef, useCallback, useState } from 'react';
 
+export type InputState = 'initial' | 'success' | 'error';
+
 export interface InputProps {
   inputClassName?: string;
   wrapperClassName?: string;
@@ -9,9 +11,10 @@ export interface InputProps {
   type?: 'text' | 'email';
   required?: boolean;
   disabled?: boolean;
-  error?: string;
+  state?: InputState;
   name?: string;
   id?: string;
+  hint?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>, value?: string) => void;
 }
 
@@ -21,21 +24,24 @@ export const Input = forwardRef(function Input(
     type = 'text',
     required = false,
     disabled = false,
-    error,
+    state = 'initial',
     inputClassName,
     wrapperClassName,
     id,
     name,
+    hint,
     onChange,
   }: InputProps,
   ref: Ref<HTMLInputElement>,
 ) {
-  const [inputValue, setInputValue] = useState('');
+  const [hasValue, setHasValue] = useState(false);
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      setInputValue(event.target.value);
+      const value = event.target.value;
+
       onChange(event, event.target.value);
+      setHasValue(Boolean(value && value !== ''));
     },
     [onChange],
   );
@@ -46,12 +52,15 @@ export const Input = forwardRef(function Input(
     'focus:!text-white',
     'transition-colors duration-300 ease-out will-change-auto',
     'px-[10px] py-[14px] text-[14px] leading-[20px]',
-    error
+    state === 'error'
       ? 'border-[#E16363] hover:border-[#F09C9C] focus:border-[#E16363] !text-[#E16363]'
       : 'border-[#252528] focus:border-white',
     disabled && 'cursor-not-allowed',
-    inputValue && !error && 'border-[#585858]',
-    !inputValue && !error && !disabled && 'border-[#585858] hover:border-white',
+    hasValue && state !== 'error' && 'border-[#585858]',
+    !hasValue &&
+      state !== 'error' &&
+      !disabled &&
+      'border-[#585858] hover:border-white',
     inputClassName,
   );
   const wrapperClassNames = clsx('inline-block', wrapperClassName);
@@ -67,13 +76,20 @@ export const Input = forwardRef(function Input(
         id={id}
         name={name}
         onChange={handleChange}
-        value={inputValue}
         ref={ref}
       />
 
-      {error && (
-        <div className="mt-[4px] text-[12px] leading-[16px] text-[#E16363]">
-          {error}
+      {hint && (
+        <div className="relative">
+          <div
+            className={clsx(
+              'absolute top-[4px]',
+              'text-[12px] leading-[16px]',
+              state === 'error' ? 'text-[#E16363]' : 'text-[#F5F5F580]',
+            )}
+          >
+            {hint}
+          </div>
         </div>
       )}
     </div>

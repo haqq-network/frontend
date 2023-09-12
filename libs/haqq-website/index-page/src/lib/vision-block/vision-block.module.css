@@ -1,14 +1,4 @@
-.aboveTitle {
-  position: relative;
-}
-
 .aboveTitle:before {
   content: '';
-  position: absolute;
-  top: calc(50% - 2px);
-  right: calc(100% + 10px);
-  width: 200px;
-  height: 1px;
-  background: #c2c2c2;
-  transform: translatey(-50%);
+  @apply absolute right-[calc(100%+10px)] top-[calc(50%+4px)] h-[1px] w-[200px] -translate-y-1/2 bg-[#c2c2c2] sm:top-[calc(50%+5px)];
 }

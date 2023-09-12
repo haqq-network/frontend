@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useState } from 'react';
+'use client';
+import { ReactNode } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +13,7 @@ import {
   TwitterIcon,
 } from '@haqq/haqq-website-ui-kit';
 import { SubscribeForm } from '@haqq/haqq-website/forms';
+import { useMediaQuery } from 'react-responsive';
 
 function FooterNavLink({
   href,
@@ -62,21 +64,14 @@ function FooterNavSocialLink({
   );
 }
 
-export function Footer() {
-  const [inputSize, setInputSize] = useState<'normal' | 'small'>('normal');
-
-  useEffect(() => {
-    const sizes = { sm: '640px', lg: '1024px' };
-    const query = `(min-width: ${sizes['lg']})`;
-    const { matches } = window.matchMedia(query);
-
-    setInputSize(matches ? 'normal' : 'small');
-  }, []);
-
+export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
   return (
     <footer
       className={clsx(
-        'border-haqq-border bg-haqq-black z-10 flex flex-col border-b border-t',
+        'border-haqq-border bg-haqq-black z-[100] flex flex-col border-b border-t',
       )}
     >
       <div className="border-haqq-border flex h-[63px] w-full flex-row items-center border-b sm:h-[72px] lg:mx-auto">
@@ -97,11 +92,6 @@ export function Footer() {
             <nav className="flex flex-col space-y-[8px] sm:space-y-[12px]">
               <div className="leading-[0]">
                 <FooterNavLink href="/#about">About</FooterNavLink>
-              </div>
-              <div className="leading-[0]">
-                <FooterNavLink href="/assets/docs/HAQQ-network-privacy-policy.pdf">
-                  Privacy Policy
-                </FooterNavLink>
               </div>
               <div className="leading-[0]">
                 <FooterNavLink href="/ecosystem">Ecosystem</FooterNavLink>
@@ -200,17 +190,20 @@ export function Footer() {
             </nav>
           </div>
         </div>
-        <div className="flex flex-1 flex-row sm:h-[210px] lg:h-auto">
-          <div className="border-haqq-border ml-[16px] flex-1 border-l px-[16px] py-[32px] sm:ml-[63px] sm:px-[34px] sm:py-[56px] lg:ml-0">
-            <Heading level={3} className="mb-[16px] sm:mb-[24px]">
-              Sign up for HAQQ updates
-            </Heading>
-            <SubscribeForm
-              className="flex flex-col sm:flex-row sm:space-x-[24px] lg:flex-col lg:space-x-0"
-              inputSize={inputSize}
-            />
+        {turnstileSiteKey && (
+          <div className="flex flex-1 flex-row sm:h-[210px] lg:h-auto">
+            <div className="border-haqq-border ml-[16px] flex-1 border-l px-[16px] py-[32px] sm:ml-[63px] sm:px-[34px] sm:py-[56px] lg:ml-0">
+              <Heading level={3} className="mb-[16px] sm:mb-[24px]">
+                Sign up for HAQQ updates
+              </Heading>
+              <SubscribeForm
+                className="flex flex-col sm:flex-row sm:space-x-[24px] lg:flex-col lg:space-x-0"
+                inputSize={isTablet ? 'small' : 'normal'}
+                turnstileSiteKey={turnstileSiteKey}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </footer>
   );

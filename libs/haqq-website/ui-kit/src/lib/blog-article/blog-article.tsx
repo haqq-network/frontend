@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 // import { Heading } from '../heading/heading';
 import { MarkdownText } from '../markdown-text/markdown-text';
 // import { TelegramIcon, TwitterIcon } from '../icons';
@@ -12,19 +12,19 @@ export function BlogArticle({
   date,
   tags,
   onLinkCopy,
+  transformImageUrl,
 }: {
-  image: {
-    src: string;
-    width: number;
-    height: number;
-  } | null;
+  image: StaticImageData | null;
   title: string;
   content: string;
   date: string;
   tags: string[];
   className?: string;
   onLinkCopy?: () => void;
+  transformImageUrl?: (src: string) => string;
 }) {
+  const postDate = new Date(date);
+
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
       <div className="w-full overflow-clip px-[16px] sm:px-[63px] lg:px-[79px]">
@@ -44,16 +44,20 @@ export function BlogArticle({
             )}
 
             <div className="mb-[8px] text-[12px] leading-[1.5em] text-white/50 md:text-[13px] md:leading-[22px] lg:text-[14px]">
-              {new Intl.DateTimeFormat('en-US', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-              }).format(new Date(date))}
+              <time dateTime={postDate.toISOString()}>
+                {new Intl.DateTimeFormat('en-US', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+                }).format(postDate)}
+              </time>
             </div>
 
-            <MarkdownText>{'# ' + title + '\n\n' + content}</MarkdownText>
+            <MarkdownText transformImageUrl={transformImageUrl}>
+              {'# ' + title + '\n\n' + content}
+            </MarkdownText>
           </article>
 
           <div className="mt-[20px] flex flex-row flex-wrap gap-[6px] md:mt-[24px] lg:mt-[32px]">

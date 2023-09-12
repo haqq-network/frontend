@@ -3045,7 +3045,7 @@ __metadata:
     babel-jest: 29.6.4
     bech32: 2.0.0
     clsx: 2.0.0
-    core-js: 3.32.1
+    core-js: 3.31.0
     cosmjs-types: 0.8.0
     css-loader: 6.8.1
     cypress: 13.0.0
@@ -3075,6 +3075,7 @@ __metadata:
     postcss-preset-env: 9.1.2
     prettier: 3.0.3
     prettier-plugin-tailwindcss: 0.5.3
+    qrcode.react: 3.1.0
     react: 18.2.0
     react-countdown: 2.3.5
     react-dom: 18.2.0
@@ -3083,6 +3084,7 @@ __metadata:
     react-in-viewport: 1.0.0-alpha.30
     react-intersection-observer: 9.5.2
     react-markdown: 8.0.7
+    react-qr-scanner: 1.0.0-alpha.11
     react-refresh: 0.14.0
     react-responsive: 9.0.2
     react-router-dom: 6.15.0
@@ -3090,6 +3092,7 @@ __metadata:
     react-select: 5.7.4
     react-spring: 9.7.2
     react-success-indicator: 1.1.0
+    react-turnstile: 1.1.1
     reaptcha: 1.12.1
     regenerator-runtime: 0.14.0
     rehype-raw: 6.1.1
@@ -9108,6 +9111,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@zxing/library@npm:^0.19.1":
+  version: 0.19.3
+  resolution: "@zxing/library@npm:0.19.3"
+  dependencies:
+    "@zxing/text-encoding": ~0.9.0
+    ts-custom-error: ^3.2.1
+  dependenciesMeta:
+    "@zxing/text-encoding":
+      optional: true
+  checksum: 2a3adaccbde0e075ee4c3c73ab7fa9306be979dafeff6d373204470ea3cddab88608c6eca5e891c7d5e693c5df0f0664e14ea0a74d38e0658fc7464f5c986474
+  languageName: node
+  linkType: hard
+
+"@zxing/text-encoding@npm:~0.9.0":
+  version: 0.9.0
+  resolution: "@zxing/text-encoding@npm:0.9.0"
+  checksum: c23b12aee7639382e4949961304a1294776afaffa40f579e09ffecd0e5e68cf26ef3edd75009de46da8a536e571448755ca68b3e2ea707d53793c0edb2e2c34a
+  languageName: node
+  linkType: hard
+
 "JSONStream@npm:^1.3.5":
   version: 1.3.5
   resolution: "JSONStream@npm:1.3.5"
@@ -11485,10 +11508,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:3.32.1":
-  version: 3.32.1
-  resolution: "core-js@npm:3.32.1"
-  checksum: e4af91d9c6be7b59235feb3f273d16705126ce09a0b4a787144d131d874f0cd10be3c24fc52e5eea7d7cb03ceabe4be7b255abcd9474b5eb1ff365d2c5611f9a
+"core-js@npm:3.31.0":
+  version: 3.31.0
+  resolution: "core-js@npm:3.31.0"
+  checksum: f7cf9b3010f7ca99c026d95b61743baca1a85512742ed2b67e8f65a72ac4f4fe0b90b00057783e886bdd39d3a295f42f845d33e7cba3973ed263df978343ab79
   languageName: node
   linkType: hard
 
@@ -22263,6 +22286,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qrcode.react@npm:3.1.0":
+  version: 3.1.0
+  resolution: "qrcode.react@npm:3.1.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 94a2942ecf83f461d869adb20305ae663c6d1abe93ef2c72442b07d756ce70cf6deb6fd588dc5b382b48c6991cfde1dfd5ac9b814c1461e71d5edb2d945e67fc
+  languageName: node
+  linkType: hard
+
 "qrcode@npm:1.5.3, qrcode@npm:^1.5.1":
   version: 1.5.3
   resolution: "qrcode@npm:1.5.3"
@@ -22601,6 +22633,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-qr-scanner@npm:1.0.0-alpha.11":
+  version: 1.0.0-alpha.11
+  resolution: "react-qr-scanner@npm:1.0.0-alpha.11"
+  dependencies:
+    "@zxing/library": ^0.19.1
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: 554564552bb8109ea4dbc1b8467d91fbfc8399e6e8d566a4b618de6e3e8b469da3d53e92056a80a7349f9b18a97e526d8e45743318ee952da47599c5c8b3b5d0
+  languageName: node
+  linkType: hard
+
 "react-refresh@npm:0.14.0":
   version: 0.14.0
   resolution: "react-refresh@npm:0.14.0"
@@ -22789,6 +22834,16 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
+  languageName: node
+  linkType: hard
+
+"react-turnstile@npm:1.1.1":
+  version: 1.1.1
+  resolution: "react-turnstile@npm:1.1.1"
+  peerDependencies:
+    react: ">= 17.0.0"
+    react-dom: ">= 17.0.0"
+  checksum: 40eee3320cff056a87d6d1e02ea4a8037a462097d4112125fbaca66b2bf6f7c0c6358cdcc8fc2860a9a9049263f97a5793df0f565a46c1da42663d6a87cff016
   languageName: node
   linkType: hard
 
@@ -25485,6 +25540,13 @@ __metadata:
   peerDependencies:
     typescript: ">=4.2.0"
   checksum: 6375e12ba90b6cbe73f564405248da14c52aa44b62b386e1cbbb1da2640265dd33e99d3e019688dffa874e365cf596b161ccd49351e90638be825c2639697640
+  languageName: node
+  linkType: hard
+
+"ts-custom-error@npm:^3.2.1":
+  version: 3.3.1
+  resolution: "ts-custom-error@npm:3.3.1"
+  checksum: 50a1e825fced68d70049bd8d282379a635e43aa023a370fa8e736b12a6edba7f18a2d731fa194ac35303a8b625be56e121bdb31d8a0318250d1a8b277059fce3
   languageName: node
   linkType: hard
 

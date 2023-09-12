@@ -656,7 +656,7 @@ export function CosmosProvider({ children }: PropsWithChildren) {
   const chains = useSupportedChains();
   const { chain } = useNetwork();
 
-  console.log('CosmosProvider', { chain, chains });
+  // console.log('CosmosProvider', { chain, chains });
 
   const chainId =
     chain && chain.unsupported !== undefined && !chain.unsupported

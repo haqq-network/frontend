@@ -4,6 +4,7 @@ import { getNewsPageContent } from '../utils/get-news-data';
 import { getMembersContent } from '../utils/get-members-data';
 import { getMainnetAccounts } from '../utils/get-mainnet-accounts-data';
 import { DEPLOY_URL } from '../constants';
+import { islamicOpenGraphImages } from './shared-metadata';
 
 const title = 'IslamicCoin';
 const description =
@@ -13,12 +14,10 @@ export const metadata: Metadata = {
   title,
   description,
   openGraph: {
-    title,
+    title: `${title} | IslamicCoin`,
     description,
-    images: [{ url: '/opengraph-image.png' }],
-    locale: 'en-US',
     url: new URL(DEPLOY_URL).toString(),
-    type: 'website',
+    images: islamicOpenGraphImages,
   },
 };
 

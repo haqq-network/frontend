@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 
 function PlusIcon() {
@@ -36,13 +37,13 @@ function FAQArticle({
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div
-      className="flex flex-col space-y-[16px] py-[16px]"
-      onClick={() => {
-        setOpen(!isOpen);
-      }}
-    >
-      <div className="flex w-full cursor-pointer items-center justify-between text-[24px] font-bold text-white">
+    <div className="flex flex-col space-y-[16px] py-[16px]">
+      <div
+        className="flex w-full cursor-pointer items-center justify-between text-[24px] font-bold text-white"
+        onClick={() => {
+          setOpen(!isOpen);
+        }}
+      >
         <span>{question}</span>
         {isOpen ? <MinusIcon /> : <PlusIcon />}
       </div>

@@ -13,11 +13,12 @@ function DevelopersBlockCard({
 }) {
   const classNames = clsx(
     'rounded-[6px] border border-haqq-border hover:border-haqq-orange',
-    'p-[16px] lg:p-[24px] flex flex-col space-y-[32px] lg:justify-between lg:h-[228px]',
+    'p-[16px] lg:p-[24px] flex flex-col space-y-[32px] lg:justify-between xl:h-[228px]',
     'cursor-pointer group',
     'transition-color duration-150 ease-in',
     className,
   );
+
   return (
     <div className={classNames}>
       <div className="flex flex-row items-center justify-between">
