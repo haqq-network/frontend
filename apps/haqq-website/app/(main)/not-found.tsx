@@ -4,7 +4,7 @@ import Link from 'next/link';
 import notFoundGlowImageData from '../../assets/images/not-found-glow.png';
 import type { Metadata } from 'next';
 import { DEPLOY_URL } from '../../constants';
-import { haqqOpenGraphImages } from '../shared-metadata';
+import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Not Found';
 

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { PrivacyPolicyPage } from '@haqq/islamic-website/privacy-policy-page';
-import { DEPLOY_URL } from '../../constants';
-import { getPrivacyPolicyContent } from '../../utils/get-privacy-policy-content';
-import { islamicOpenGraphImages } from '../shared-metadata';
+import { DEPLOY_URL } from '../../../constants';
+import { getPrivacyPolicyContent } from '../../../utils/get-privacy-policy-content';
+import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Privacy Policy';
 const description = '';

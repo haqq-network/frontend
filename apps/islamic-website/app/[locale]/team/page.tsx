@@ -1,6 +1,6 @@
 import { DEPLOY_URL } from '../../../constants';
 import type { Metadata } from 'next';
-import { islamicOpenGraphImages } from '../shared-metadata';
+import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Team';
 const description =

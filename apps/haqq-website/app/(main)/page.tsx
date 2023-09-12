@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/haqq-website/index-page';
 import { getChainStats } from '../..//utils/get-chain-stats';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../constants';
-import { haqqOpenGraphImages } from '../shared-metadata';
+import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Home of ethical web3';
 const description =
