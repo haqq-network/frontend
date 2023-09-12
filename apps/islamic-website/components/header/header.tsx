@@ -355,7 +355,6 @@ export function DesktopHeader() {
                       icon={<AlertIcon />}
                       href="/fraud-alert"
                     />
-                    <LocaleSwitcher />
                     {/* <DropdownLink
                       title="Podcast"
                       icon={<PodcastIcon />}
@@ -408,6 +407,7 @@ export function DesktopHeader() {
                   </div>
                 </div>
               </HeaderDropdown>
+              <LocaleSwitcher />
             </nav>
           </div>
         </Container>

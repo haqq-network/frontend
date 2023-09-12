@@ -57,6 +57,21 @@
     },
     "news-block": {
       "title": "Latest Islamic Coin News"
+    },
+    "board-members-block": {
+      "title": {
+        "white-text": {
+          "advisory": "Advisory ",
+          "shariah": "Shariah ",
+          "executive": "Executive "
+        },
+        "gradient-text": "Board"
+      },
+      "filter-buttons": {
+        "advisory": "Advisory",
+        "shariah": "Shariah",
+        "executive": "Executive"
+      }
     }
   },
   "shariah-page": {
@@ -262,6 +277,22 @@
         "meet-our-team": "Meet our team"
       }
     }
+  },
+  "footer": {
+    "fatwa": "Fatwa",
+    "whitepaper": "Whitepaper",
+    "shariah-board": "Shariah board",
+    "advisory-board": "Advisory board",
+    "executive-board": "Executive board",
+    "islm-in-media": "ISLM in media",
+    "community-hub": "Community Hub",
+    "haqq-network": "HAQQ Network",
+    "haqq-docs": "HAQQ Docs",
+    "wallet": "Wallet",
+    "stake-islm": "Stake ISLM",
+    "values": "Our values",
+    "partnerships": "Partnerships",
+    "career": "Career"
   },
   "subscribe-form": {
     "text": "Keep up to date with our upcoming Public Launch and Exchange listing - Subscribe to our newsletter",

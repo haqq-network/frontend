@@ -57,6 +57,21 @@
     },
     "news-block": {
       "title": "آخر الأخبار"
+    },
+    "board-members-block": {
+      "title": {
+        "white-text": {
+          "advisory": "الاستشار",
+          "shariah": "الشرعية",
+          "executive": "التنفيذي"
+        },
+        "gradient-text": "المجلس"
+      },
+      "filter-buttons": {
+        "advisory": "المجلس الاستشاري",
+        "shariah": "الهيئة الشرعية",
+        "executive": "المجلس التنفيذي"
+      }
     }
   },
   "shariah-page": {
@@ -185,7 +200,6 @@
       }
     }
   },
-
   "build-page": {
     "title": "Build on\n HAQQ",
     "subtitle": "Developers Hub",
@@ -265,6 +279,22 @@
         "meet-our-team": "فريقنا"
       }
     }
+  },
+  "footer": {
+    "fatwa": "الفتوى",
+    "whitepaper": "الورقة البيضاء",
+    "shariah-board": "الهيئة الشرعية",
+    "advisory-board": "المجلس الاستشاري",
+    "executive-board": "المجلس التنفيذي",
+    "islm-in-media": "الإعلام",
+    "community-hub": "مجتمع إسلاميك كوين",
+    "haqq-network": "شبكة حق",
+    "haqq-docs": "التقنية",
+    "wallet": "المحفظة",
+    "stake-islm": "Stake ISLM",
+    "values": "قيمنا",
+    "partnerships": "الشراكات",
+    "career": "الوظائف"
   },
   "subscribe-form": {
     "text": "ابق على اطلاع لمعرفة آخر المستجدات والأحداث المرتقبة من خلال الاشتراك في نشرتنا البريدية",

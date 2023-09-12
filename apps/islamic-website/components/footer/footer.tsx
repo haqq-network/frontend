@@ -15,6 +15,7 @@ import {
   ZenIcon,
   Container,
 } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 
 interface FooterNavLink {
   url: string;
@@ -61,103 +62,6 @@ function FooterNavSocialLink({
   );
 }
 
-const footerNavLinks: FooterNavLinks = [
-  [
-    {
-      url: '/shariah#fatwa',
-      title: 'Fatwa',
-    },
-    {
-      url: '/whitepaper',
-      title: 'Whitepaper',
-    },
-    {
-      url: '/privacy-policy',
-      title: 'Privacy Policy',
-    },
-  ],
-  [
-    {
-      url: '/shariah#shariah-board',
-      title: 'Shariah Board',
-    },
-    {
-      url: '/shariah#advisory-board',
-      title: 'Advisory Board',
-    },
-    {
-      url: '/shariah#executive-board',
-      title: 'Executive Board',
-    },
-  ],
-  [
-    // {
-    //   url: '/press',
-    //   title: 'For press',
-    // },
-    // {
-    //   url: '/grants',
-    //   title: 'Grants',
-    // },
-    // {
-    //   url: '/join-us',
-    //   title: 'Join us',
-    // },
-
-    // {
-    //   url: '/get-islm',
-    //   title: 'Get ISLM',
-    // },
-    // {
-    //   url: '/hodling',
-    //   title: 'Hodling',
-    // },
-    {
-      url: '/news',
-      title: 'ISLM in media',
-    },
-    {
-      url: '/community-hub',
-      title: 'Community Hub',
-    },
-  ],
-  [
-    {
-      url: 'https://haqq.network',
-      title: 'HAQQ Network',
-      isOutLink: true,
-    },
-    {
-      url: 'https://docs.haqq.network/',
-      title: 'HAQQ Docs',
-      isOutLink: true,
-    },
-    {
-      url: '/wallet',
-      title: 'Wallet',
-    },
-    {
-      url: 'https://shell.haqq.network',
-      title: 'Stake ISLM',
-      isOutLink: true,
-    },
-  ],
-  [
-    {
-      url: '/values',
-      title: 'Our values',
-    },
-    {
-      url: '/partnerships',
-      title: 'Partnerships',
-    },
-    {
-      url: '/career',
-      title: 'Career',
-    },
-  ],
-];
-
 function flattenArray<T>(nestedArray: T[][]): T[] {
   return nestedArray.reduce((flatArray, subArray) => {
     return flatArray.concat(subArray);
@@ -165,6 +69,102 @@ function flattenArray<T>(nestedArray: T[][]): T[] {
 }
 
 export function Footer() {
+  const t = useTranslations('footer');
+  console.log(t('fatwa'));
+
+  const footerNavLinks: FooterNavLinks = [
+    [
+      {
+        url: '/shariah#fatwa',
+        title: t('fatwa'),
+      },
+      {
+        url: '/whitepaper',
+        title: t('whitepaper'),
+      },
+    ],
+    [
+      {
+        url: '/shariah#shariah-board',
+        title: t('shariah-board'),
+      },
+      {
+        url: '/shariah#advisory-board',
+        title: t('advisory-board'),
+      },
+      {
+        url: '/shariah#executive-board',
+        title: t('executive-board'),
+      },
+    ],
+    [
+      // {
+      //   url: '/press',
+      //   title: 'For press',
+      // },
+      // {
+      //   url: '/grants',
+      //   title: 'Grants',
+      // },
+      // {
+      //   url: '/join-us',
+      //   title: 'Join us',
+      // },
+
+      // {
+      //   url: '/get-islm',
+      //   title: 'Get ISLM',
+      // },
+      // {
+      //   url: '/hodling',
+      //   title: 'Hodling',
+      // },
+      {
+        url: '/news',
+        title: t('islm-in-media'),
+      },
+      {
+        url: '/community-hub',
+        title: t('community-hub'),
+      },
+    ],
+    [
+      {
+        url: 'https://haqq.network',
+        title: t('haqq-network'),
+        isOutLink: true,
+      },
+      {
+        url: 'https://docs.haqq.network/',
+        title: t('haqq-docs'),
+        isOutLink: true,
+      },
+      {
+        url: '/wallet',
+        title: t('wallet'),
+      },
+      {
+        url: 'https://shell.haqq.network',
+        title: 'Stake ISLM',
+        isOutLink: true,
+      },
+    ],
+    [
+      {
+        url: '/values',
+        title: t('values'),
+      },
+      {
+        url: '/partnerships',
+        title: t('partnerships'),
+      },
+      {
+        url: '/career',
+        title: t('career'),
+      },
+    ],
+  ];
+
   const maxHeight = useMemo(() => {
     return footerNavLinks.reduce((acc, el) => {
       return acc + el.length * 35;
