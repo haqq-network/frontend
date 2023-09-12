@@ -13,7 +13,11 @@ import 'swiper/css/navigation';
 import '../styles/global.css';
 
 export const metadata: Metadata = {
-  title: 'IslamicCoin',
+  title: {
+    template: '%s | IslamicCoin',
+    default: 'IslamicCoin',
+  },
+  referrer: 'origin-when-cross-origin',
   viewport: {
     initialScale: 1,
     maximumScale: 1,

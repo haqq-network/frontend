@@ -1,7 +1,8 @@
 import { DEPLOY_URL } from '../../constants';
 import type { Metadata } from 'next';
+import { islamicOpenGraphImages } from '../shared-metadata';
 
-const title = 'IslamicCoin | Wallet';
+const title = 'Wallet';
 const description =
   'Seamlessly manage your Shariah-compliant assets. Tailored for the discerning investor in the digital age.';
 
@@ -9,12 +10,10 @@ export const metadata: Metadata = {
   title,
   description,
   openGraph: {
-    title,
+    title: `${title} | IslamicCoin`,
     description,
-    images: [{ url: '/opengraph-image.png' }],
-    locale: 'en-US',
-    url: `${new URL('/wallet', DEPLOY_URL).toString()}`,
-    type: 'website',
+    images: islamicOpenGraphImages,
+    url: new URL('/wallet', DEPLOY_URL).toString(),
   },
 };
 

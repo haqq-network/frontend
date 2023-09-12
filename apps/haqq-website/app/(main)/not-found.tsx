@@ -2,6 +2,20 @@ import { Button } from '@haqq/haqq-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
 import notFoundGlowImageData from '../../assets/images/not-found-glow.png';
+import type { Metadata } from 'next';
+import { DEPLOY_URL } from '../../constants';
+import { haqqOpenGraphImages } from '../shared-metadata';
+
+const title = 'Not Found';
+
+export const metadata: Metadata = {
+  title,
+  openGraph: {
+    title: `${title} | HAQQ`,
+    url: new URL(DEPLOY_URL).toString(),
+    images: haqqOpenGraphImages,
+  },
+};
 
 export default function NotFoundPage() {
   return (
