@@ -37,6 +37,7 @@ export const Textarea = forwardRef(function Textarea(
     error && 'text-[#FF5454] bg-[#360C0E] border-[#360C0E]',
     disabled && 'cursor-not-allowed',
     'text-[14px] pt-[14px] pb-[12px] px-[16px]',
+    'resize-none',
     className,
   );
   const wrapperClassNames = clsx('inline-block', wrapperClassName);
