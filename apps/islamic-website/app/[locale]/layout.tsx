@@ -56,11 +56,11 @@ async function getMessages(locale: string) {
   }
 }
 
-export async function generateStaticParams() {
-  return ['en', 'ar'].map((locale) => {
-    return { locale };
-  });
-}
+// export async function generateStaticParams() {
+//   return ['en', 'ar'].map((locale) => {
+//     return { locale };
+//   });
+// }
 
 export default async function LocaleLayout({
   children,
