@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { FALCONER_ENDPOINT } from '../constants';
+import { FALCONER_ENDPOINT } from '../../../../constants';
 
 interface GetTicketsResponse {
   tickets: TicketEntity[];
@@ -20,6 +20,8 @@ interface MeetupEntity {
   location_lat: number;
   location_long: number;
 }
+
+export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
   const signature = request.nextUrl.searchParams.get('signature');
