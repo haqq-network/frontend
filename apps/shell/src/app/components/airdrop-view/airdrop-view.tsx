@@ -16,7 +16,7 @@ export const AirdropView = ({
     evmosAddress,
 }: IProps) => {
 
-    return <div className="grid grid-flow-row grid-cols-3 gap-[20px]">
+    return <div className="grid grid-cols-1 gap-20 md:grid-cols-2 2xl:grid-cols-3">
         <AirdropCard address={cosmosAddress} icon={cosmosIcon}/>
         <AirdropCard address={osmosisAddress} icon={evmosIcon}/>
         <AirdropCard address={evmosAddress} icon={osmosisIcon}/>

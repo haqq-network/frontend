@@ -1,6 +1,6 @@
 import { Button, Container } from '@haqq/shell-ui-kit';
 import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ecrecover, fromRpcSig } from '@ethereumjs/util';
 import { AirdropView } from './components/airdrop-view/airdrop-view';
 
@@ -67,6 +67,10 @@ export function AirdropPage() {
     }
   }, [getKeplrWallet]);
 
+  useEffect(() => {
+    connectKeplrWallet()
+  }, [connectKeplrWallet])
+
   const keplrSignArbitrary = useCallback(async () => {
     const keplrWallet = await getKeplrWallet();
     if (keplrWallet) {
@@ -94,21 +98,28 @@ export function AirdropPage() {
 
 
   return (
-    <Container>
-      <div className='py-[32px] lg:py-[68px]'>
+    <div>
+       <div className="py-[32px] lg:py-[68px]">
+        <Container>
+          <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+            AIRDROP
+          </div>
+        </Container>
+      </div>
 
-        <div className='font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]'>AIRDROP</div>
-      </div>
-      <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px">
-        <div className="flex flex-row gap-6 py-10">
-          {Object.keys(accounts).length > 0  ? <AirdropView cosmosAddress={accounts['cosmos']} evmosAddress={accounts['evmos']} osmosisAddress={accounts['osmosis']}/> : <>
-            <div className='mb-[12px]'>
-              You should connect kepler first
-            </div>
-            <Button onClick={connectKeplrWallet}>Connect to kepler</Button>
-          </>}
+      <Container>
+        <div className="flex flex-1 flex-col items-center space-y-[12px] border-t border-[#ffffff26]">
+          <div className="flex flex-1 flex-col py-20">
+            {Object.keys(accounts).length > 0  ? <AirdropView cosmosAddress={accounts['cosmos']} evmosAddress={accounts['evmos']} osmosisAddress={accounts['osmosis']}/> : <>
+              <div className='mb-[12px]'>
+                You should connect kepler first
+              </div>
+              <Button onClick={connectKeplrWallet}>Connect to kepler</Button>
+            </>}
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
+    
   );
 }
