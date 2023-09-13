@@ -95,7 +95,11 @@ export function AirdropPage() {
 
   return (
     <Container>
-      <div className="flex flex-col divide-y">
+      <div className='py-[32px] lg:py-[68px]'>
+
+        <div className='font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]'>AIRDROP</div>
+      </div>
+      <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px">
         <div className="flex flex-row gap-6 py-10">
           {Object.keys(accounts).length > 0  ? <AirdropView cosmosAddress={accounts['cosmos']} evmosAddress={accounts['evmos']} osmosisAddress={accounts['osmosis']}/> : <>
             <div className='mb-[12px]'>
