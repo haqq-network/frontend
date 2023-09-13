@@ -29,35 +29,43 @@ function mapStoryblokToMembers(data: StoryblokMember[]): Member[] {
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getMembersContent = cache(async () => {
-  const { storyblokApi } = storyblokInit({
-    accessToken: STORYBLOK_ACCESS_TOKEN,
-    use: [apiPlugin],
-  });
+export const getMembersContent = cache(
+  async ({ locale }: { locale: string }) => {
+    const { storyblokApi } = storyblokInit({
+      accessToken: STORYBLOK_ACCESS_TOKEN,
+      use: [apiPlugin],
+    });
 
-  if (!storyblokApi) {
-    throw new Error('Failed to init storyblok');
-  }
+    if (!storyblokApi) {
+      throw new Error('Failed to init storyblok');
+    }
 
-  const response = await storyblokApi.get('cdn/stories/boardmembers', {
-    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-  });
+    const response = await storyblokApi.get('cdn/stories/boardmembers', {
+      version: VERCEL_ENV === 'production' ? 'published' : 'draft',
+      language: locale,
+    });
 
-  const executiveMembers = mapStoryblokToMembers(
-    response.data.story.content.body[0].columns,
-  );
+    const executiveMembers = mapStoryblokToMembers(
+      response.data.story.content.body[0].columns,
+    );
 
-  const shariahMembers = mapStoryblokToMembers(
-    response.data.story.content.body[1].columns,
-  );
+    const shariahMembers = mapStoryblokToMembers(
+      response.data.story.content.body[1].columns,
+    );
 
-  const advisoryMembers = mapStoryblokToMembers(
-    response.data.story.content.body[2].columns,
-  );
+    const advisoryMembers = mapStoryblokToMembers(
+      response.data.story.content.body[2].columns,
+    );
 
-  return {
-    executiveMembers,
-    shariahMembers,
-    advisoryMembers,
-  };
-});
+    const teamMembers = mapStoryblokToMembers(
+      response.data.story.content.body[3].columns,
+    );
+
+    return {
+      executiveMembers,
+      shariahMembers,
+      advisoryMembers,
+      teamMembers,
+    };
+  },
+);

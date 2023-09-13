@@ -178,7 +178,29 @@
     "button-text": "Discover openings!"
   },
   "team-page": {
-    "title": "Founders"
+    "title": "Founders",
+    "founders": {
+      "kuznetsov": {
+        "title": "Andrey Kuznetsov",
+        "description": "5+ years of legal consulting for leading blockchain and fintech platforms. Alex has advised AAVE, Bequant, Scalable Solutions, Nebula and others.",
+        "url": "https://www.linkedin.com/in/brainsmith/"
+      },
+      "malkov": {
+        "title": "Alex Malkov",
+        "description": "Andrey is a serial entrepreneur and engineer focused on fintech, cybersecurity, and network communication solutions. He has led teams that have built payment services, corporate messengers, blockchain staking services, and financial analysis software.",
+        "url": "https://www.linkedin.com/in/probono42/"
+      },
+      "alkaff": {
+        "title": "Mohammed AlKaff AlHashmi",
+        "description": "Mohammed AlKaff AlHashmi is a computer science engineer with more than 18 years of experience. With this accumulative experience he focuses on Industry 4.0, Artificial Intelligence, machine learning, Industrial automation, and IOTs. He started his career as an Intelligence Network Engineer at Huawei.",
+        "url": "https://www.linkedin.com/in/mohammed-alkaff-alhashmi-19688054/"
+      },
+      "al-meeza": {
+        "title": "Hussein Mohammed Al Meeza",
+        "description": "Hussein Mohammed Al Meeza is an acclaimed award-winning banker with over 45 years of experience spanning the Islamic banking, finance and insurance sectors. A founding member of Emaar properties, Amlak Finance, Emaar Industries & Investments, Emaar Financial services, Dubai Islamic Insurance & Reinsurance Company (AMAN), Nawat, he was named Best Islamic Banking Personality in 2006. His professional career began in 1975 at the Dubai Islamic Bank (DIB), where he spent over 20 years developing the bank’s services, and still serves as Executive Director. As an emerging star of Islamic banking, he is the founder of Al Salam Banks in Sudan, Bahrain and Algeria, where he serves on various positions including Board Member, Vice Chairman and Chairman of the Executive Committee since 2015. He is also the Chairman of Al Salam Bank - Seychelles, Chairman of Top Enterprises L.L.C., Chairman of Lycée Francais Jean Mermoz L.L.C.",
+        "url": "http://www.almeeza.com/biography.php"
+      }
+    }
   },
   "not-found-page": {
     "title": "Page not found",

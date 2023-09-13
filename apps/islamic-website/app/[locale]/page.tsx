@@ -22,10 +22,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page({ params: locale }: PageProps) {
   const news = await getNewsPageContent();
   const { advisoryMembers, executiveMembers, shariahMembers } =
-    await getMembersContent();
+    await getMembersContent(locale);
   const mainnetAccounts = await getMainnetAccounts(3476);
 
   return (

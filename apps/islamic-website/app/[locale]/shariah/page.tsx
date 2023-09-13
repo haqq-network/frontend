@@ -19,9 +19,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page({ params: locale }: PageProps) {
   const { shariahMembers, advisoryMembers, executiveMembers } =
-    await getMembersContent();
+    await getMembersContent(locale);
 
   return (
     <ShariahPage

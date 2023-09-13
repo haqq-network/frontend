@@ -1,6 +1,8 @@
 import { DEPLOY_URL } from '../../../constants';
 import type { Metadata } from 'next';
 import { islamicOpenGraphImages } from '../../shared-metadata';
+import { TeamPage } from '@haqq/islamic-website/team-page';
+import { getMembersContent } from '../../../utils/get-members-data';
 
 const title = 'Team';
 const description =
@@ -17,4 +19,12 @@ export const metadata: Metadata = {
   },
 };
 
-export { TeamPage as default } from '@haqq/islamic-website/team-page';
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page({ params: locale }: PageProps) {
+  const { teamMembers } = await getMembersContent(locale);
+
+  return <TeamPage teamMembers={teamMembers} />;
+}
