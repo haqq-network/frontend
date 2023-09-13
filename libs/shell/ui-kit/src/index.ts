@@ -10,6 +10,7 @@ export * from './components/not-found-page/not-found-page';
 export * from './components/pending-page/pending-page';
 export * from './components/page/page';
 export * from './components/layout/layout';
+export * from './components/address/address';
 export * from './components/header/header';
 export * from './components/burger-button/burger-button';
 export * from './components/account-button/account-button';
