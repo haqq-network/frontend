@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { useStakingActions, useToast } from '@haqq/shared';
+import { toFixedAmount, useStakingActions, useToast } from '@haqq/shared';
 import {
   Modal,
   ModalCloseButton,
@@ -112,11 +112,11 @@ export function RedelegateModal({
   const { redelegate } = useStakingActions();
 
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(delegation);
+    setDelegateAmount(toFixedAmount(delegation));
   }, [delegation]);
 
   const handleInputChange = useCallback((value: number | undefined) => {
-    setDelegateAmount(value);
+    setDelegateAmount(toFixedAmount(value));
   }, []);
 
   const handleSubmitRedelegate = useCallback(async () => {
@@ -164,14 +164,18 @@ export function RedelegateModal({
   }, [validatorsList, validatorAddress]);
 
   useEffect(() => {
-    if (
-      (delegateAmount && delegateAmount <= 0) ||
-      (delegateAmount && delegateAmount > delegation) ||
-      !(delegation > 0)
-    ) {
-      seRedelegateEnabled(false);
-    } else {
-      seRedelegateEnabled(true);
+    if (delegateAmount) {
+      const fixedDelegation = toFixedAmount(delegation) as number;
+
+      if (
+        !(fixedDelegation > 0) ||
+        delegateAmount <= 0 ||
+        delegateAmount > fixedDelegation
+      ) {
+        seRedelegateEnabled(false);
+      } else {
+        seRedelegateEnabled(true);
+      }
     }
   }, [delegateAmount, delegation]);
 
@@ -221,7 +225,11 @@ export function RedelegateModal({
                     variant={3}
                     onClick={handleSubmitRedelegate}
                     className="w-full"
-                    disabled={!isRedelegateEnabled || !delegateAmount}
+                    disabled={
+                      !isRedelegateEnabled ||
+                      !delegateAmount ||
+                      !validatorDestinationAddress
+                    }
                   >
                     Confirm redelegation
                   </Button>
