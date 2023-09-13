@@ -3,6 +3,7 @@ import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types';
 import { useCallback, useEffect, useState } from 'react';
 import { ecrecover, fromRpcSig } from '@ethereumjs/util';
 import { AirdropView } from './components/airdrop-view/airdrop-view';
+import { haqqToEth } from '@haqq/shared';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -49,17 +50,17 @@ export function AirdropPage() {
     const keplrWallet = await getKeplrWallet();
 
     if (keplrWallet) {
-      await keplrWallet.enable(['cosmoshub-4', 'osmosis-1', 'evmos_9001-2']);
+      await keplrWallet.enable(['haqq_54211-3', 'cosmoshub-4', 'osmosis-1', 'evmos_9001-2']);
 
-      const [ cosmos, osmosis, evmos] = await Promise.all([
+      const [ haqq, cosmos, osmosis, evmos] = await Promise.all([
+        await keplrWallet.getKey('haqq_54211-3'),
         await keplrWallet.getKey('cosmoshub-4'),
         await keplrWallet.getKey('osmosis-1'),
         await keplrWallet.getKey('evmos_9001-2'),
       ]);
 
-      console.log({ cosmos, osmosis, evmos });
-
       setAccounts({
+        haqq: haqq.bech32Address,
         cosmos: cosmos.bech32Address,
         osmosis: osmosis.bech32Address,
         evmos: evmos.bech32Address,
@@ -96,6 +97,7 @@ export function AirdropPage() {
     }
   }, [getKeplrWallet]);
 
+  const connectedAccounts = Object.keys(accounts).length > 0;
 
   return (
     <div>
@@ -105,25 +107,25 @@ export function AirdropPage() {
             AIRDROP
           </div>
 
-          <div className='mt-[8px] flex flex-row gap-[28px]'>
+         {connectedAccounts && accounts['haqq'] && <div className='mt-[8px] flex flex-row gap-[28px]'>
             <div>
               <div className='font-sans text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px] uppercase'>
                 Your haqq address hex 
               </div>
               
-              <Address address={'adsasd'} />
+              <Address address={haqqToEth(accounts['haqq'])} />
             </div>
             <div>
               <div className='font-sans text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px] uppercase'>Your haqq address bech32</div>
-              <Address address={'adsasd'} />
+              <Address address={accounts['haqq']} />
             </div>
-          </div>
+          </div>}
         </Container>
       </div>
 
       <div className="flex flex-1 flex-col items-center space-y-[12px] border-t border-[#ffffff26]">
         <div className="flex flex-1 flex-col py-20">
-          {Object.keys(accounts).length > 0  ? <AirdropView cosmosAddress={accounts['cosmos']} evmosAddress={accounts['evmos']} osmosisAddress={accounts['osmosis']}/> : <>
+          {connectedAccounts ? <AirdropView cosmosAddress={accounts['cosmos']} evmosAddress={accounts['evmos']} osmosisAddress={accounts['osmosis']}/> : <>
             <div className='mb-[12px]'>
               You should connect kepler first
             </div>
