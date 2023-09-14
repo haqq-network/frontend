@@ -1,5 +1,6 @@
 import { Container, MarkdownText } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 
@@ -37,11 +38,12 @@ export function PrivacyPolicyPage({
 }: {
   privacyPolicy: string;
 }) {
+  const t = useTranslations('privacy-policy-page');
   return (
     <HeroBg>
       <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] md:pb-[100px] lg:mt-[68px] lg:pb-[140px]">
         <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          Privacy Policy
+          {t('title')}
         </h1>
 
         <div className="max-w-[860px]">

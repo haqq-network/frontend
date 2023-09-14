@@ -1,5 +1,5 @@
-import { DEPLOY_URL } from '../../../constants';
 import type { Metadata } from 'next';
+import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 import { TeamPage } from '@haqq/islamic-website/team-page';
 import { getMembersContent } from '../../../utils/get-members-data';
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   },
 };
 
-interface PageProps {
+export default async function Page({
+  params: locale,
+}: {
   params: { locale: string };
-}
-
-export default async function Page({ params: locale }: PageProps) {
+}) {
   const { teamMembers } = await getMembersContent(locale);
 
   return <TeamPage teamMembers={teamMembers} />;

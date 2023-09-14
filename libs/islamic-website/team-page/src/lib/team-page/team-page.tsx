@@ -15,33 +15,6 @@ function TeamPageBg() {
   );
 }
 
-// const Founders = [
-//   {
-//     image: '/assets/images/founders/andrey-kuznetsov.png',
-//     title: 'kuznetsov.title',
-//     description: 'kuznetsov.description',
-//     url: 'https://www.linkedin.com/in/brainsmith/',
-//   },
-//   {
-//     image: '/assets/images/founders/alex-malkov.png',
-//     title: 'malkov.title',
-//     description: 'malkov.title',
-//     url: 'https://www.linkedin.com/in/probono42/',
-//   },
-//   {
-//     image: '/assets/images/founders/mohammed-alkaff-alhashmi.png',
-//     title: 'alkaff.title',
-//     description: 'alkaff.description',
-//     url: 'https://www.linkedin.com/in/mohammed-alkaff-alhashmi-19688054/',
-//   },
-//   {
-//     image: '/assets/images/founders/hussein-al-meeza.png',
-//     title: 'al-meeza.title',
-//     description: 'al-meeza.description',
-//     url: 'http://www.almeeza.com/biography.php',
-//   },
-// ];
-
 export function TeamPage({ teamMembers }: { teamMembers: Member[] }) {
   const t = useTranslations('team-page');
 

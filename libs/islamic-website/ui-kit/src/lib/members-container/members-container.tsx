@@ -73,7 +73,7 @@ export function MembersContainer({
         >
           {members.map((member, idx) => {
             return (
-              <SwiperSlide key={idx}>
+              <SwiperSlide key={`${member.title}-member-${idx}}`}>
                 <MemberCard
                   image={member.image}
                   title={member.title}
@@ -97,7 +97,7 @@ export function MembersContainer({
                 onClick={() => {
                   return openBoardModal(member);
                 }}
-                key={idx}
+                key={`${member.title}-member-${idx}}`}
               />
             );
           })}

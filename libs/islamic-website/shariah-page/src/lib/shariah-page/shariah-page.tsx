@@ -52,7 +52,7 @@ function MembersContainer({
             onClick={() => {
               onMemberSelect(member);
             }}
-            key={idx}
+            key={`${member.title}-member-${idx}`}
             className="float-left min-w-[200px] snap-center md:float-none md:max-w-none"
           />
         );

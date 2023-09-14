@@ -56,12 +56,6 @@ async function getMessages(locale: string) {
   }
 }
 
-// export async function generateStaticParams() {
-//   return ['en', 'ar'].map((locale) => {
-//     return { locale };
-//   });
-// }
-
 export default async function LocaleLayout({
   children,
   params: { locale },
@@ -74,13 +68,7 @@ export default async function LocaleLayout({
     ),
   );
 
-  // const locale = useLocale();
   const messages = await getMessages(locale);
-
-  // Validate that the incoming `locale` parameter is a valid locale
-  // if (params.locale !== locale) {
-  //   notFound();
-  // }
 
   return (
     <html lang={locale} className={clsx('ltr', alexandria.variable)}>

@@ -206,6 +206,9 @@
     "title": "Page not found",
     "subtitle": "Go to main page"
   },
+  "privacy-policy-page": {
+    "title": "Privacy Policy"
+  },
   "values-page": {
     "title": "Our Values",
     "subtitle": {

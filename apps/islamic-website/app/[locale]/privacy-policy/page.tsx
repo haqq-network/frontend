@@ -5,14 +5,11 @@ import { getPrivacyPolicyContent } from '../../../utils/get-privacy-policy-conte
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Privacy Policy';
-const description = '';
 
 export const metadata: Metadata = {
   title,
-  description,
   openGraph: {
     title: `${title} | IslamicCoin`,
-    description,
     images: islamicOpenGraphImages,
     url: new URL('/privacy-policy', DEPLOY_URL).toString(),
   },

@@ -1,5 +1,5 @@
-import { DEPLOY_URL } from '../../../constants';
 import type { Metadata } from 'next';
+import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Academy';

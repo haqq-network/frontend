@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   },
 };
 
-interface PageProps {
+export default async function Page({
+  params: locale,
+}: {
   params: { locale: string };
-}
-
-export default async function Page({ params: locale }: PageProps) {
+}) {
   const roadmap = await getRoadmapContent(locale);
 
   return <RoadmapPage roadmap={roadmap} turnstileSiteKey={TURNSTILE_SITEKEY} />;
