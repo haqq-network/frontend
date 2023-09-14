@@ -1,18 +1,13 @@
 import type { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
-import { headers } from 'next/headers';
-import { Footer } from '../../components/footer/footer';
-import { MobileHeader } from '../../components/header/header';
-import { Alexandria } from 'next/font/google';
-import dynamic from 'next/dynamic';
-import clsx from 'clsx';
 import { DEPLOY_URL } from '../../constants';
-import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
+import { ClientLayout } from '../../components/layout/layout';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
+import { headers } from 'next/headers';
 
 export const metadata: Metadata = {
   title: {
@@ -28,25 +23,6 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(DEPLOY_URL),
 };
-
-const alexandria = Alexandria({
-  subsets: ['latin', 'arabic'],
-  display: 'swap',
-  variable: '--font-alexandria',
-  weight: ['300', '400', '600', '700', '800'],
-});
-
-const DynamicHeader = dynamic(
-  async () => {
-    return await import('../../components/header/header');
-  },
-  {
-    ssr: false,
-    loading: () => {
-      return <div className="h-[72px] lg:h-[92px]" />;
-    },
-  },
-);
 
 async function getMessages(locale: string) {
   try {
@@ -71,14 +47,12 @@ export default async function LocaleLayout({
   const messages = await getMessages(locale);
 
   return (
-    <html lang={locale} className={clsx('ltr', alexandria.variable)}>
-      <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
-          <div className="flex-1">{children}</div>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <ClientLayout
+      locale={locale}
+      messages={messages}
+      isMobileUserAgent={isMobileUserAgent}
+    >
+      {children}
+    </ClientLayout>
   );
 }
