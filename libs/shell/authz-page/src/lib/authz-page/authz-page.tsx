@@ -34,17 +34,18 @@ import {
 } from 'react';
 import { formatUnits, isAddress, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
+import { Select } from '../select/select';
 
-// function formatDate(date: Date) {
-//   return new Intl.DateTimeFormat('en-US', {
-//     day: 'numeric',
-//     month: 'short',
-//     year: 'numeric',
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     timeZone: 'GMT',
-//   }).format(date);
-// }
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'GMT',
+  }).format(date);
+}
 
 export function ShellAuthzPage() {
   const { ethAddress } = useAddress();
@@ -161,9 +162,9 @@ function GranterGrantsTable() {
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
                   Message
                 </th>
-                {/* <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Valid tru
-                </th> */}
+                <th className="select-none p-[8px] text-left lg:p-[12px]">
+                  Valid thru
+                </th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
@@ -181,9 +182,9 @@ function GranterGrantsTable() {
                     <td className="p-[8px] text-left md:p-[12px]">
                       {grant.msg}
                     </td>
-                    {/* <td className="p-[8px] text-left md:p-[12px]">
+                    <td className="p-[8px] text-left md:p-[12px]">
                       {formatDate(new Date(grant.expire))}
-                    </td> */}
+                    </td>
                     <td className="p-[8px] text-right md:p-[12px]">
                       <div className="invisible group-hover:visible">
                         <Button
@@ -274,6 +275,74 @@ function GranteeGrantsTable() {
   );
 }
 
+const GRANT_TYPE_OPTIONS = [
+  {
+    label: 'Governance',
+    options: [
+      {
+        label: 'Submit Proposal',
+        value: GRANT_TYPES.SubmitProposal,
+      },
+      {
+        label: 'Vote',
+        value: GRANT_TYPES.Vote,
+      },
+    ],
+  },
+  {
+    label: 'Staking',
+    options: [
+      {
+        label: 'Delegate',
+        value: GRANT_TYPES.Delegate,
+      },
+      {
+        label: 'Undelegate',
+        value: GRANT_TYPES.Undelegate,
+      },
+      {
+        label: 'Redelegate',
+        value: GRANT_TYPES.Redelegate,
+      },
+    ],
+  },
+];
+
+const GRANT_TYPE_DEFAULT_OPTION = GRANT_TYPE_OPTIONS[0].options[0];
+
+const GRANT_PERIOD_OPTIONS = [
+  {
+    label: '1 Week',
+    value: '1w',
+  },
+  {
+    label: '1 Month',
+    value: '1m',
+  },
+  {
+    label: '3 Months',
+    value: '3m',
+  },
+  {
+    label: '6 Months',
+    value: '6m',
+  },
+  {
+    label: '1 Year',
+    value: '1y',
+  },
+  {
+    label: '5 Years',
+    value: '5y',
+  },
+  {
+    label: '100 Years',
+    value: '100y',
+  },
+];
+
+const GRANT_PERIOD_DEFAULT_OPTION = GRANT_PERIOD_OPTIONS[4];
+
 function AuthzGrantsActions() {
   const [grantee, setGrantee] = useState('');
   const [isGranteeValid, setGranteeValid] = useState(false);
@@ -288,49 +357,93 @@ function AuthzGrantsActions() {
   const { grant } = useAuthzActions();
   const toast = useToast();
   const { chain } = useNetwork();
-
-  const handleGrantAccess = useCallback(
-    async (type: string) => {
-      if (!isGranteeValid) {
-        throw new Error('address is not valid');
-      }
-
-      const now = new Date();
-      const hundredYearsLater = now.getFullYear() + 100;
-      const expireDate = new Date(now.setFullYear(hundredYearsLater));
-      const expire = Number.parseInt(
-        (expireDate.getTime() / 1000).toFixed(),
-        10,
-      );
-
-      const haqqGrantee = granteeAddresses['haqq'];
-      const grantPromise = grant(haqqGrantee, type, expire);
-
-      await toast.promise(grantPromise, {
-        loading: 'Grant in progress',
-        success: (txHash) => {
-          console.log('Grant successful', { txHash }); // maybe successful
-          return `Grant successful`;
-        },
-        error: (error) => {
-          return error.message;
-        },
-      });
-
-      invalidateQueries([
-        [chain?.id, 'grants-granter'],
-        [chain?.id, 'grants-grantee'],
-      ]);
-    },
-    [
-      chain?.id,
-      grant,
-      granteeAddresses,
-      invalidateQueries,
-      isGranteeValid,
-      toast,
-    ],
+  const [grantType, setGrantType] = useState<string>(
+    GRANT_TYPE_DEFAULT_OPTION.value,
   );
+  const [grantPeriod, setGrantPeriod] = useState<string>(
+    GRANT_PERIOD_DEFAULT_OPTION.value,
+  );
+
+  const getGrantExpire = useCallback((period: string) => {
+    const now = new Date();
+
+    switch (period) {
+      case '1w': {
+        const expireDate = new Date(now.setDate(now.getDate() + 7));
+        return Number.parseInt((expireDate.getTime() / 1000).toFixed(), 10);
+      }
+      case '1m': {
+        const expireDate = new Date(now.setMonth(now.getMonth() + 1));
+        if (expireDate.getDate() !== now.getDate()) {
+          expireDate.setDate(0);
+        }
+        return Number.parseInt((expireDate.getTime() / 1000).toFixed(), 10);
+      }
+      case '3m': {
+        const expireDate = new Date(now.setMonth(now.getMonth() + 3));
+        if (expireDate.getDate() !== now.getDate()) {
+          expireDate.setDate(0);
+        }
+        return Number.parseInt((expireDate.getTime() / 1000).toFixed(), 10);
+      }
+      case '1y': {
+        const expireDate = new Date(now.setFullYear(now.getFullYear() + 1));
+        return Number.parseInt((expireDate.getTime() / 1000).toFixed(), 10);
+      }
+      case '5y': {
+        const expireDate = new Date(now.setFullYear(now.getFullYear() + 5));
+        return Number.parseInt((expireDate.getTime() / 1000).toFixed(), 10);
+      }
+      case '100y': {
+        const expireDate = new Date(now.setFullYear(now.getFullYear() + 100));
+        return Number.parseInt((expireDate.getTime() / 1000).toFixed(), 10);
+      }
+      case '6m':
+      default: {
+        const expireDate = new Date(now.setMonth(now.getMonth() + 6));
+        if (expireDate.getDate() !== now.getDate()) {
+          expireDate.setDate(0);
+        }
+        return Number.parseInt((expireDate.getTime() / 1000).toFixed(), 10);
+      }
+    }
+  }, []);
+
+  const handleGrantAccess = useCallback(async () => {
+    if (!isGranteeValid) {
+      throw new Error('address is not valid');
+    }
+
+    const expire = getGrantExpire(grantPeriod);
+    const haqqGrantee = granteeAddresses['haqq'];
+    const grantPromise = grant(haqqGrantee, grantType, expire);
+
+    await toast.promise(grantPromise, {
+      loading: 'Grant in progress',
+      success: (txHash) => {
+        console.log('Grant successful', { txHash });
+        return `Grant successful`;
+      },
+      error: (error) => {
+        return error.message;
+      },
+    });
+
+    invalidateQueries([
+      [chain?.id, 'grants-granter'],
+      [chain?.id, 'grants-grantee'],
+    ]);
+  }, [
+    chain?.id,
+    getGrantExpire,
+    grant,
+    grantPeriod,
+    grantType,
+    granteeAddresses,
+    invalidateQueries,
+    isGranteeValid,
+    toast,
+  ]);
 
   useEffect(() => {
     if (grantee.startsWith('0x')) {
@@ -389,7 +502,7 @@ function AuthzGrantsActions() {
               </Heading>
             </div>
 
-            <div className="flex flex-col gap-[16px] lg:flex-row lg:gap-[36px]">
+            <div className="flex flex-col gap-[16px] pr-[40px] lg:flex-row lg:gap-[36px]">
               <div className="flex-1">
                 <div className="flex flex-col gap-[18px]">
                   <div className="flex flex-col gap-[8px]">
@@ -423,80 +536,42 @@ function AuthzGrantsActions() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-[8px]">
-                    <div>
-                      <div className="text-[12px] font-[500] uppercase leading-[24px] text-white/50">
-                        Governance
-                      </div>
-                    </div>
-
-                    <div className="flex flex-row flex-wrap gap-[16px]">
-                      <div>
-                        <Button
-                          onClick={() => {
-                            handleGrantAccess(GRANT_TYPES.SubmitProposal);
-                          }}
-                          variant={2}
-                          disabled={!isGranteeValid}
-                        >
-                          Grant Submit Proposal
-                        </Button>
-                      </div>
-                      <div>
-                        <Button
-                          onClick={() => {
-                            handleGrantAccess(GRANT_TYPES.Vote);
-                          }}
-                          variant={2}
-                          disabled={!isGranteeValid}
-                        >
-                          Grant Vote
-                        </Button>
-                      </div>
-                    </div>
+                  <div>
+                    <Select
+                      label="Grant type"
+                      selectContainerClassName="w-full max-w-xl"
+                      onChange={(type) => {
+                        if (type) {
+                          setGrantType(type);
+                        }
+                      }}
+                      options={GRANT_TYPE_OPTIONS}
+                      defaultValue={GRANT_TYPE_DEFAULT_OPTION}
+                    />
                   </div>
 
-                  <div className="flex flex-col gap-[8px]">
-                    <div>
-                      <div className="text-[12px] font-[500] uppercase leading-[24px] text-white/50">
-                        Staking
-                      </div>
-                    </div>
-                    <div className="flex flex-row flex-wrap gap-[16px]">
-                      <div>
-                        <Button
-                          onClick={() => {
-                            handleGrantAccess(GRANT_TYPES.Delegate);
-                          }}
-                          variant={2}
-                          disabled={!isGranteeValid}
-                        >
-                          Grant Delegate
-                        </Button>
-                      </div>
-                      <div>
-                        <Button
-                          onClick={() => {
-                            handleGrantAccess(GRANT_TYPES.Undelegate);
-                          }}
-                          variant={2}
-                          disabled={!isGranteeValid}
-                        >
-                          Grant Undelegate
-                        </Button>
-                      </div>
-                      <div>
-                        <Button
-                          onClick={() => {
-                            handleGrantAccess(GRANT_TYPES.Redelegate);
-                          }}
-                          variant={2}
-                          disabled={!isGranteeValid}
-                        >
-                          Grant Redelegate
-                        </Button>
-                      </div>
-                    </div>
+                  <div>
+                    <Select
+                      label="Grant period"
+                      selectContainerClassName="w-full max-w-xl"
+                      onChange={(period) => {
+                        if (period) {
+                          setGrantPeriod(period);
+                        }
+                      }}
+                      options={GRANT_PERIOD_OPTIONS}
+                      defaultValue={GRANT_PERIOD_DEFAULT_OPTION}
+                    />
+                  </div>
+
+                  <div className="pt-[24px]">
+                    <Button
+                      onClick={handleGrantAccess}
+                      variant={2}
+                      disabled={!isGranteeValid}
+                    >
+                      Grant Access
+                    </Button>
                   </div>
                 </div>
               </div>
