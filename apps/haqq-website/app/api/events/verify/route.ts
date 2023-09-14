@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { FALCONER_ENDPOINT, MEETUP_ID } from '../constants';
+import { MEETUP_ID } from '../constants';
+import { FALCONER_ENDPOINT } from '../../../../constants';
 
 interface EventVerifyRequest {
   meetup_id: string;
@@ -13,6 +14,8 @@ interface EventSignupResponse {
 interface VerifyRequest {
   ticket: string;
 }
+
+export const runtime = 'edge';
 
 export async function POST(request: NextRequest) {
   const { ticket }: VerifyRequest = await request.json();

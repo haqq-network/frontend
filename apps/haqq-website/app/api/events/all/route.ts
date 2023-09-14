@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { FALCONER_ENDPOINT } from '../constants';
+import { FALCONER_ENDPOINT } from '../../../../constants';
+import { NextResponse } from 'next/server';
 
 interface GetTicketsResponse {
   tickets: TicketEntity[];
@@ -21,7 +21,9 @@ interface MeetupEntity {
   location_long: number;
 }
 
-export async function GET(request: NextRequest) {
+export const runtime = 'edge';
+
+export async function GET() {
   const signupUrl = new URL('/meetup/all', FALCONER_ENDPOINT);
   const signupResponse = await fetch(signupUrl.toString(), {
     method: 'GET',
