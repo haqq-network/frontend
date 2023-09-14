@@ -1,4 +1,5 @@
-import { Address, Button } from "@haqq/shell-ui-kit";
+import { Address, Button, Heading, Modal, ModalCloseButton } from "@haqq/shell-ui-kit";
+import { useState } from "react";
 
 interface IProps {
     address: string;
@@ -7,8 +8,9 @@ interface IProps {
 
 export const AirdropCard = ({address, icon}: IProps ) => {
     
+    const [isRequestModalOpened, setRequestModalOpened] = useState<boolean>(false);
     
-    return <div className="flex flex-col gap-[28px] items-start">
+    return <div className="flex flex-col gap-[28px] items-start md:w-[410px]">
         <img src={icon} alt="icon" className="mb-[4px] h-[48px]" />
 
         <div>
@@ -42,7 +44,52 @@ export const AirdropCard = ({address, icon}: IProps ) => {
             </div>
         </div>
 
-        <Button className="mt-[4px]">Airdrop Request</Button>
+        <Button className="mt-[4px]" onClick={()=> {
+            setRequestModalOpened(true);
+        }}>Airdrop Request</Button>
 
+
+
+
+        <Modal
+            isOpen={isRequestModalOpened}
+            onClose={() => {
+                setRequestModalOpened(false);
+            }}
+        >
+            <div className="mx-auto max-w-xl rounded-2xl bg-white p-6 shadow-md w-[420px]">
+                <div className="flex flex-col">
+                    <div className="flex items-center justify-between">
+                        <Heading className="text-black" level={3}>&nbsp;</Heading>
+                        <ModalCloseButton
+                            className="text-black"
+                            onClick={() => {
+                                setRequestModalOpened(false);
+                            }}
+                        />
+                    </div>
+
+                    <div className="flex flex-col break-words mt-0">
+                        <div className="text-black text-[24px] font-[500]">Request was not completed</div>
+                    </div>
+
+                    <div className="flex flex-col space-y-2 break-words text-[12px] mt-[20px]">
+                        <div className="text-black">Please retry the request later</div>
+                    </div>
+
+                    <div className="text-right mt-[24px]">
+                        <Button
+                            onClick={() => {
+                                setRequestModalOpened(false);
+                            }}
+                            variant={3}
+                            className="w-full"
+                        >
+                            Ok
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </Modal>
     </div>
 }

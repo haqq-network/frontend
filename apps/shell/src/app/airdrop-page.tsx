@@ -1,9 +1,10 @@
-import { Address, Button, Container } from '@haqq/shell-ui-kit';
+import { Address, Button, Container, Heading, Modal, ModalCloseButton } from '@haqq/shell-ui-kit';
 import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types';
 import { useCallback, useEffect, useState } from 'react';
 import { ecrecover, fromRpcSig } from '@ethereumjs/util';
 import { AirdropView } from './components/airdrop-view/airdrop-view';
 import { haqqToEth } from '@haqq/shared';
+import { Text } from '@haqq/haqq-website-ui-kit';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -107,7 +108,7 @@ export function AirdropPage() {
             AIRDROP
           </div>
 
-         {connectedAccounts && accounts['haqq'] && <div className='mt-[8px] flex flex-row gap-[28px]'>
+         {connectedAccounts && accounts['haqq'] && <div className='mt-[8px] flex flex-col gap-[28px] sm:flex-col md:flex-row lg:flex-row'>
             <div>
               <div className='font-sans text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px] uppercase'>
                 Your haqq address hex 
