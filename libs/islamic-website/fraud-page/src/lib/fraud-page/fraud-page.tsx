@@ -89,7 +89,7 @@ export function FraudPage() {
               width={502}
               height={764}
               alt=""
-              className="pointer-events-none select-none md:absolute md:right-[-385px] md:top-[350px] md:translate-x-[-50%] md:translate-y-[-50%] lg:right-[-295px] xl:right-[-265px]"
+              className="pointer-events-none select-none md:absolute md:top-[435px] md:translate-x-[-50%] md:translate-y-[-50%] ltr:md:right-[-385px] rtl:md:left-[385px] ltr:lg:right-[-295px] rtl:lg:left-[295px] ltr:xl:right-[-265px] rtl:xl:left-[265px]"
             />
           </div>
         </div>

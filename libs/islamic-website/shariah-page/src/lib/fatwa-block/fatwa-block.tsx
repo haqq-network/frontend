@@ -9,14 +9,15 @@ import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.w
 import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { localeType } from '../shariah-page/shariah-page';
 
 function LangButton({
   active,
-  lang = 'en',
+  locale = 'en',
   onClick,
 }: {
   active: boolean;
-  lang: 'ar' | 'en';
+  locale: localeType;
   onClick: () => void;
 }) {
   return (
@@ -29,7 +30,7 @@ function LangButton({
       )}
       onClick={onClick}
     >
-      {lang === 'ar' ? 'Arabic' : 'English'} version
+      {locale === 'ar' ? 'Arabic' : 'English'} version
     </div>
   );
 }
@@ -412,8 +413,8 @@ function AutographsBlock() {
   );
 }
 
-export function FatwaBlock() {
-  const [lang, setLang] = useState<'ar' | 'en'>('en');
+export function FatwaBlock({ locale }: { locale: localeType }) {
+  const [lang, setLang] = useState<localeType>(locale);
 
   const t = useTranslations('shariah-page');
 
@@ -435,14 +436,14 @@ export function FatwaBlock() {
       <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
         <LangButton
           active={lang === 'ar'}
-          lang="ar"
+          locale="ar"
           onClick={() => {
             setLang('ar');
           }}
         />
         <LangButton
           active={lang === 'en'}
-          lang="en"
+          locale="en"
           onClick={() => {
             setLang('en');
           }}

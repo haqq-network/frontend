@@ -17,7 +17,7 @@ import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export interface Member {
   image: string;
@@ -25,6 +25,8 @@ export interface Member {
   description: string;
   url?: string;
 }
+
+export type localeType = 'ar' | 'en';
 
 function MembersContainer({
   members,
@@ -71,6 +73,7 @@ export function ShariahPage({
   advisoryMembers: Member[];
 }) {
   const t = useTranslations('shariah-page');
+  const locale = useLocale();
 
   const sections: Array<{ id: string; title: string }> = [
     { id: 'fatwa', title: t('headings.fatwa') },
@@ -174,7 +177,7 @@ export function ShariahPage({
                   initialInView
                 >
                   <div className="pb-[32px] pt-[32px] md:pb-[60px] lg:pb-[80px]">
-                    <FatwaBlock />
+                    <FatwaBlock locale={locale as localeType} />
                   </div>
                 </ScrollSpySection>
                 <ScrollSpySection

@@ -211,7 +211,7 @@ function Cubes() {
 
 function BuildPageBg() {
   return (
-    <div className="absolute left-[40px] top-[-150px] z-[-1] h-[550px] w-[655px] md:left-auto md:right-[-180px] md:top-[100px] xl:right-[-90px] xl:top-[100px] min-[1440px]:right-[30px] min-[1440px]:top-[110px]">
+    <div className="absolute left-[40px] top-[-150px] z-[-1] h-[550px] w-[655px] md:top-[100px] ltr:md:left-auto ltr:md:right-[-180px] rtl:md:left-[-180px] rtl:md:right-auto xl:top-[100px] ltr:xl:right-[-90px] rtl:xl:left-[-90px] min-[1440px]:top-[110px] ltr:min-[1440px]:right-[30px] rtl:min-[1440px]:left-[30px]">
       <Cubes />
     </div>
   );

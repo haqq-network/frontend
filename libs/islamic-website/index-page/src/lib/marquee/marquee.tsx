@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { PropsWithChildren } from 'react';
-import styles from './marquee.module.css';
 
 export function Marquee({
   children,
   className,
-}: PropsWithChildren<{ className?: string }>) {
+  locale,
+}: PropsWithChildren<{ className?: string; locale: string }>) {
   return (
     <div
       className={clsx(
@@ -13,11 +13,11 @@ export function Marquee({
         className,
       )}
     >
-      <div className="absolute left-0 top-0 z-30 h-full w-[40px] bg-gradient-to-l from-transparent to-[#010304] rtl:right-0 md:w-[120px]" />
+      <div className="absolute top-0 z-30 h-full w-[40px] from-transparent to-[#010304] ltr:left-0 ltr:bg-gradient-to-l rtl:right-0 rtl:bg-gradient-to-r md:w-[120px]" />
       <div
         className={clsx(
           'flex min-w-full shrink-0 justify-around gap-x-[1rem]',
-          styles['marquee__content'],
+          locale === 'ar' ? 'animate-scroll-left' : 'animate-scroll-right',
         )}
       >
         {children}
@@ -26,12 +26,12 @@ export function Marquee({
         aria-hidden="true"
         className={clsx(
           'flex min-w-full shrink-0 justify-around gap-x-[1rem]',
-          styles['marquee__content'],
+          locale === 'ar' ? 'animate-scroll-left' : 'animate-scroll-right',
         )}
       >
         {children}
       </div>
-      <div className="absolute right-0 top-0 z-30 h-full w-[40px] bg-gradient-to-l from-[#010304] to-transparent rtl:left-0 md:w-[120px]" />
+      <div className="absolute top-0 z-30 h-full w-[40px] from-[#010304] to-transparent ltr:right-0 ltr:bg-gradient-to-l rtl:left-0 rtl:bg-gradient-to-r md:w-[120px]" />
     </div>
   );
 }
