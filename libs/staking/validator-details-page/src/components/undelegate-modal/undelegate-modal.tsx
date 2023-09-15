@@ -1,6 +1,6 @@
 import { DelegateModalDetails } from '../delegate-modal/delegate-modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useStakingActions, useToast } from '@haqq/shared';
+import { useStakingActions, useToast, toFixedAmount } from '@haqq/shared';
 import {
   WarningMessage,
   Modal,
@@ -40,11 +40,11 @@ export function UndelegateModal({
   const toast = useToast();
 
   const handleMaxButtonClick = useCallback(() => {
-    setUndelegateAmount(delegation);
+    setUndelegateAmount(toFixedAmount(delegation));
   }, [delegation]);
 
   const handleInputChange = useCallback((value: number | undefined) => {
-    setUndelegateAmount(value);
+    setUndelegateAmount(toFixedAmount(value));
   }, []);
 
   const handleSubmitUndelegate = useCallback(async () => {

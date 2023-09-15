@@ -28,7 +28,7 @@ function SunriseBackground() {
 
 export function HeroBlock() {
   return (
-    <div className="border-haqq-border relative border-b">
+    <div className="border-haqq-border relative overflow-x-clip border-b">
       <div
         className={clsx(
           'border-haqq-border z-10 flex flex-col items-start justify-center',
