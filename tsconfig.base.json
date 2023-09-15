@@ -22,7 +22,6 @@
         "libs/governance/proposal-list/src/index.ts"
       ],
       "@haqq/haqq-website-ui-kit": ["libs/haqq-website/ui-kit/src/index.ts"],
-
       "@haqq/haqq-website/blog": ["libs/haqq-website/blog/src/index.ts"],
       "@haqq/haqq-website/brand-assets-page": [
         "libs/haqq-website/brand-assets-page/src/index.ts"
@@ -113,6 +112,7 @@
       "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
       "@haqq/shell/authz-page": ["libs/shell/authz-page/src/index.ts"],
       "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],
+      "@haqq/shell/sbt-page": ["libs/shell/sbt-page/src/index.ts"],
       "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
       "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
       "@haqq/staking/validator-details-page": [

@@ -16,6 +16,10 @@ const ShellAuthzPage = lazy(async () => {
   const { ShellAuthzPage } = await import('@haqq/shell/authz-page');
   return { default: ShellAuthzPage };
 });
+const ShellSBTPage = lazy(async () => {
+  const { ShellSBTPage } = await import('@haqq/shell/sbt-page');
+  return { default: ShellSBTPage };
+});
 
 export function App() {
   return (
@@ -27,6 +31,7 @@ export function App() {
         <Route path="/governance/*" element={<GovernanceApp />} />
 
         <Route path="/authz" element={<ShellAuthzPage />} />
+        <Route path="/sbt" element={<ShellSBTPage />} />
 
         <Route path="not-found" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
