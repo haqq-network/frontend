@@ -9,9 +9,11 @@ import {
   LinkedinIcon,
 } from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
-import bgImgData from '../../assets/images/bg-image.svg';
+import ltrBgImgData from '../../assets/images/bg-image-ltr.svg';
+import rtlBgImgData from '../../assets/images/bg-image-rtl.svg';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import clsx from 'clsx';
 
 function SocialIconLink({ children, url }: PropsWithChildren<{ url: string }>) {
   return (
@@ -55,6 +57,7 @@ const socialLinks = [
 
 export function CommunityHubPage() {
   const t = useTranslations('community-hub-page');
+  const locale = useLocale();
   return (
     <Container>
       <div className="relative  pb-[60px] pt-[32px] md:pb-[120px] md:pt-[52px] lg:pb-[180px] lg:pt-[68px]">
@@ -80,9 +83,22 @@ export function CommunityHubPage() {
             })}
           </div>
         </div>
-        <div className="absolute right-[-75px] top-[-435px] z-[-1] translate-x-1/2 translate-y-1/2 md:right-[110px] md:top-[-535px] lg:right-[175px] lg:top-[-580px] xl:right-[145px] min-[1440px]:right-[275px] min-[1440px]:top-[-585px]">
+        <div
+          className={clsx(
+            'absolute z-[-1] translate-y-1/2 ltr:translate-x-1/2 rtl:-translate-x-1/2',
+            'top-[-435px] ltr:right-[-75px] rtl:left-[-75px]',
+            'md:top-[-535px] ltr:md:right-[110px] rtl:md:left-[110px]',
+            'lg:top-[-580px] ltr:lg:right-[175px] rtl:lg:left-[175px]',
+            'rtl:lx:left-[145px] ltr:xl:right-[145px]',
+            'min-[1440px]:top-[-585px] ltr:min-[1440px]:right-[275px] rtl:min-[1440px]:left-[275px]',
+          )}
+        >
           <div className="h-[741px] w-[1044px]">
-            <Image src={bgImgData} alt="" fill />
+            <Image
+              src={locale === 'en' ? ltrBgImgData : rtlBgImgData}
+              alt=""
+              fill
+            />
           </div>
         </div>
       </div>
