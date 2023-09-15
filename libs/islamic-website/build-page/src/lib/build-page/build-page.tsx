@@ -275,7 +275,7 @@ function DocsTab({ type }: { type: 'manual' | 'archive' }) {
             viewBox="0 0 18 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="mb-[-1px] transform-gpu transition-transform duration-300 group-hover:translate-x-1"
+            className="mb-[-1px] transform-gpu transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"
           >
             <path
               fillRule="evenodd"
