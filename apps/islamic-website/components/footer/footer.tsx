@@ -255,10 +255,10 @@ export function Footer() {
                   href="https://sdgs.un.org/goals"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative h-[38px] w-[147px] md:h-[50px] md:w-[200px]"
+                  className="relative h-[38px] w-[147px] grayscale md:h-[50px] md:w-[200px]"
                 >
                   <Image
-                    src="/assets/images/logos/world-green-icon-colorless.svg"
+                    src="/assets/images/logos/world-green-icon.svg"
                     alt=""
                     fill
                   />
@@ -267,10 +267,10 @@ export function Footer() {
                   href="https://sdgs.un.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative h-[28px] w-[63px] md:h-[44px] md:w-[98px]"
+                  className="relative h-[28px] w-[63px] grayscale md:h-[44px] md:w-[98px]"
                 >
                   <Image
-                    src="/assets/images/logos/sustainable-dev-icon-colorless.svg"
+                    src="/assets/images/logos/sustainable-dev-icon.svg"
                     alt=""
                     fill
                   />
