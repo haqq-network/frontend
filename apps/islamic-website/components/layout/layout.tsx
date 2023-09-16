@@ -4,7 +4,6 @@ import { Footer } from '../../components/footer/footer';
 import { MobileHeader } from '../../components/header/header';
 import { Alexandria } from 'next/font/google';
 import dynamic from 'next/dynamic';
-import clsx from 'clsx';
 import { NextIntlClientProvider } from 'next-intl';
 
 import 'swiper/css';
@@ -42,8 +41,6 @@ export function ClientLayout({
 }>) {
   const shortLocale = locale ? locale : 'en';
 
-  console.log(typeof messages);
-
   useEffect(() => {
     const dir = shortLocale == 'ar' ? 'rtl' : 'ltr';
 
@@ -51,7 +48,7 @@ export function ClientLayout({
   }, [shortLocale]);
 
   return (
-    <html lang={locale} className={clsx('ltr', alexandria.variable)}>
+    <html lang={locale} className={alexandria.variable}>
       <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
