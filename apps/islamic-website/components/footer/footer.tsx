@@ -14,8 +14,6 @@ import {
   ZenIcon,
   Container,
 } from '@haqq/islamic-website-ui-kit';
-import worldHGreenImgData from '../../public/assets/images/world-green-icon.svg';
-import sustainableDevImgData from '../../public/assets/images/sustainable-dev-icon.svg';
 
 interface FooterNavLink {
   url: string;
@@ -254,27 +252,27 @@ export function Footer() {
               </div>
               <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0 lg:gap-x-[32px]">
                 <Link
-                  href="https://wggos.org/"
+                  href="https://sdgs.un.org/goals"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="relative h-[38px] w-[147px] md:h-[50px] md:w-[200px]"
                 >
                   <Image
-                    src={worldHGreenImgData}
+                    src="/assets/images/logos/world-green-icon-colorless.svg"
                     alt=""
-                    width={worldHGreenImgData.width}
-                    height={worldHGreenImgData.height}
+                    fill
                   />
                 </Link>
                 <Link
                   href="https://sdgs.un.org/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="relative h-[28px] w-[63px] md:h-[44px] md:w-[98px]"
                 >
                   <Image
-                    src={sustainableDevImgData}
+                    src="/assets/images/logos/sustainable-dev-icon-colorless.svg"
                     alt=""
-                    width={sustainableDevImgData.width}
-                    height={sustainableDevImgData.height}
+                    fill
                   />
                 </Link>
               </div>
