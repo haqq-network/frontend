@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { PropsWithChildren, useMemo } from 'react';
 import {
   DiscordIcon,
@@ -7,14 +8,14 @@ import {
   LinkedinIcon,
   MediumIcon,
   RedditIcon,
-  SustainableDevIcon,
   TelegramIcon,
   TwitterIcon,
-  WorldGreenOrgIcon,
   YoutubeIcon,
   ZenIcon,
   Container,
 } from '@haqq/islamic-website-ui-kit';
+import worldHGreenImgData from '../../public/assets/images/world-green-icon.svg';
+import sustainableDevImgData from '../../public/assets/images/sustainable-dev-icon.svg';
 
 interface FooterNavLink {
   url: string;
@@ -251,9 +252,31 @@ export function Footer() {
                   <ZenIcon />
                 </FooterNavSocialLink>
               </div>
-              <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0">
-                <WorldGreenOrgIcon />
-                <SustainableDevIcon />
+              <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0 lg:gap-x-[32px]">
+                <Link
+                  href="https://wggos.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src={worldHGreenImgData}
+                    alt=""
+                    width={worldHGreenImgData.width}
+                    height={worldHGreenImgData.height}
+                  />
+                </Link>
+                <Link
+                  href="https://sdgs.un.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src={sustainableDevImgData}
+                    alt=""
+                    width={sustainableDevImgData.width}
+                    height={sustainableDevImgData.height}
+                  />
+                </Link>
               </div>
             </div>
           </div>
