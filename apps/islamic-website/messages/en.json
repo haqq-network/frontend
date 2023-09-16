@@ -2,7 +2,7 @@
   "index-page": {
     "hero-block": {
       "title": {
-        "white-text": "Your Gateway \n to \n Shariah",
+        "white-text": "Your Gateway \n to \n Shariah ",
         "gradient-text": "Compliant \n Web3"
       },
       "sub-text": "We are on a mission to onboard over 1.8+ billion Muslims into digital finance without compromising the values or faith. Islamic Coin is the native currency of HAQQ Network, an ethics first blockchain",
@@ -126,7 +126,7 @@
     }
   },
   "mission-page": {
-    "title": "Our Mission &\n Vision",
+    "title": "Our Mission &\nVision",
     "subtitles": {
       "mission": "Mission",
       "vision": "Vision"
