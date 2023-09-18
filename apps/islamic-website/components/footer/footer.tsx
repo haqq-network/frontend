@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { PropsWithChildren, useMemo } from 'react';
 import {
   DiscordIcon,
@@ -7,10 +8,8 @@ import {
   LinkedinIcon,
   MediumIcon,
   RedditIcon,
-  SustainableDevIcon,
   TelegramIcon,
   TwitterIcon,
-  WorldGreenOrgIcon,
   YoutubeIcon,
   ZenIcon,
   Container,
@@ -251,9 +250,31 @@ export function Footer() {
                   <ZenIcon />
                 </FooterNavSocialLink>
               </div>
-              <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0">
-                <WorldGreenOrgIcon />
-                <SustainableDevIcon />
+              <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0 lg:gap-x-[32px]">
+                <Link
+                  href="https://wggos.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative h-[38px] w-[147px] grayscale md:h-[50px] md:w-[200px]"
+                >
+                  <Image
+                    src="/assets/images/logos/world-green-icon.svg"
+                    alt=""
+                    fill
+                  />
+                </Link>
+                <Link
+                  href="https://sdgs.un.org/goals"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative h-[28px] w-[63px] grayscale md:h-[44px] md:w-[98px]"
+                >
+                  <Image
+                    src="/assets/images/logos/sustainable-dev-icon.svg"
+                    alt=""
+                    fill
+                  />
+                </Link>
               </div>
             </div>
           </div>
