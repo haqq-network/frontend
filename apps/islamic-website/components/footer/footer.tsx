@@ -252,7 +252,7 @@ export function Footer() {
               </div>
               <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0 lg:gap-x-[32px]">
                 <Link
-                  href="https://sdgs.un.org/goals"
+                  href="https://wggos.org"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative h-[38px] w-[147px] grayscale md:h-[50px] md:w-[200px]"
@@ -264,7 +264,7 @@ export function Footer() {
                   />
                 </Link>
                 <Link
-                  href="https://sdgs.un.org/"
+                  href="https://sdgs.un.org/goals"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative h-[28px] w-[63px] grayscale md:h-[44px] md:w-[98px]"
