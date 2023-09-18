@@ -12,7 +12,7 @@ import { FinanceBlock } from '../finance-block/finance-block';
 import { BoardMembersBlock } from '../board-members-block/board-members-block';
 import clsx from 'clsx';
 import { FundsBlock } from '../funds-block/funds-block';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 export function IndexPage({
   news,
@@ -47,16 +47,12 @@ export function IndexPage({
 
 function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
   const t = useTranslations('index-page.hero-block');
-  const locale = useLocale();
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
         <HeroBlock />
 
-        <Marquee
-          locale={locale}
-          className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]"
-        >
+        <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
           {t('running-text').toLocaleUpperCase()}
         </Marquee>
 
