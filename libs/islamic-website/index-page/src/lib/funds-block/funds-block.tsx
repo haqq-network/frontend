@@ -4,15 +4,18 @@ import df101LogoImgData from '../../assets/images/df101-logo.svg';
 import opticCapitalLogoImgData from '../../assets/images/optic-capital-logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export function FundsBlock() {
+  const t = useTranslations('index-page.funds-block');
   return (
     <Container>
       <div className="relative mt-[86px] flex items-center justify-between border-y-[1px] border-dashed border-[#2F2F2F] py-[40px] md:mt-[110px] md:py-[68px] lg:mt-[140px] lg:py-[80px]">
         <div className="absolute left-0 top-[-2px] z-30 h-[102%] w-[40px] bg-gradient-to-l from-transparent to-[#010304] md:w-[120px]" />
         <div className="flex flex-1 flex-col items-center gap-y-[32px]">
           <Heading>
-            These funds <GradientText>trust us</GradientText>
+            {t('title.white-text')}{' '}
+            <GradientText>{t('title.gradient-text')}</GradientText>
           </Heading>
           <div className="flex flex-col items-center gap-[40px] md:flex-row md:gap-[80px]">
             <Link
