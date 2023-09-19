@@ -15,7 +15,9 @@ export function FundsBlock() {
         <div className="flex flex-1 flex-col items-center gap-y-[32px]">
           <Heading>
             {t('title.white-text')}{' '}
-            <GradientText>{t('title.gradient-text')}</GradientText>
+            <GradientText className="rtl:pb-[10px]">
+              {t('title.gradient-text')}
+            </GradientText>
           </Heading>
           <div className="flex flex-col items-center gap-[40px] md:flex-row md:gap-[80px]">
             <Link

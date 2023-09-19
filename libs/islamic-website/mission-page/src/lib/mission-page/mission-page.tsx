@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 function MissionPageHeading({ children }: PropsWithChildren) {
   return (
     <h3 className="font-mono text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
-      <GradientText>{children}</GradientText>
+      <GradientText className="rtl:pb-[10px]">{children}</GradientText>
     </h3>
   );
 }

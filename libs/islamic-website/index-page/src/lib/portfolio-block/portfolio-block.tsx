@@ -18,7 +18,7 @@ export function PortfolioBlock() {
       <div className="mt-[108px] flex flex-col gap-y-[32px] text-white md:mt-[164px] lg:mt-[240px]">
         <div className="block text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:hidden lg:text-[64px] lg:leading-[70px]">
           {t('portfolio-block.title.white-text.first')}
-          <GradientText>
+          <GradientText className="rtl:pb-[10px]">
             {t('portfolio-block.title.gradient-text')}
           </GradientText>
           {t('portfolio-block.title.white-text.second')}
@@ -35,7 +35,7 @@ export function PortfolioBlock() {
             <div className="flex flex-col">
               <div className="hidden text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:block lg:text-[64px] lg:leading-[70px]">
                 {t('portfolio-block.title.white-text.first')}
-                <GradientText>
+                <GradientText className="rtl:pb-[10px]">
                   {t('portfolio-block.title.gradient-text')}
                 </GradientText>
                 {t('portfolio-block.title.white-text.second')}

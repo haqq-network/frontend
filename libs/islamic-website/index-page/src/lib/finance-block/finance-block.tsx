@@ -15,7 +15,7 @@ export function FinanceBlock() {
               <h2 className="text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
                 <span>{t('finance-block.title.white-text')}</span>
                 <br className="md:block lg:hidden" />
-                <GradientText>
+                <GradientText className="rtl:pb-[10px]">
                   {t('finance-block.title.gradient-text')}
                 </GradientText>
               </h2>

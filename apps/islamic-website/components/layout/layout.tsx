@@ -5,6 +5,7 @@ import { MobileHeader } from '../../components/header/header';
 import { Alexandria } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
+import { SOCIAL_LINKS } from '../../constants';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -53,7 +54,7 @@ export function ClientLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
           <div className="flex-1">{children}</div>
-          <Footer />
+          <Footer socialLinks={SOCIAL_LINKS} />
         </NextIntlClientProvider>
       </body>
     </html>

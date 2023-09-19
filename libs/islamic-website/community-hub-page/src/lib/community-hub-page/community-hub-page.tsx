@@ -1,13 +1,5 @@
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
-import { PropsWithChildren } from 'react';
-import {
-  YoutubeIcon,
-  MediumIcon,
-  TwitterIcon,
-  DiscordIcon,
-  TelegramIcon,
-  LinkedinIcon,
-} from '@haqq/islamic-website-ui-kit';
+import { ReactNode } from 'react';
 import Link from 'next/link';
 import ltrBgImgData from '../../assets/images/bg-image-ltr.svg';
 import rtlBgImgData from '../../assets/images/bg-image-rtl.svg';
@@ -15,47 +7,31 @@ import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import clsx from 'clsx';
 
-function SocialIconLink({ children, url }: PropsWithChildren<{ url: string }>) {
+interface SocialLink {
+  icon: ReactNode;
+  url: string;
+  title: string;
+}
+
+function SocialIconLink({ icon, url, title }: SocialLink) {
   return (
     <Link
+      title={title}
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       className="cursor-pointer rounded-[12px] bg-[#2F2F2F] p-[16px] transition-colors duration-300 hover:bg-[#585858]"
     >
-      {children}
+      {icon}
     </Link>
   );
 }
 
-const socialLinks = [
-  {
-    icon: <YoutubeIcon />,
-    url: 'https://www.youtube.com/channel/UCTjvOCTDeO9H67y_6btF1NA',
-  },
-  {
-    icon: <MediumIcon />,
-    url: 'https://medium.com/islamic-coin',
-  },
-  {
-    icon: <TwitterIcon />,
-    url: 'https://twitter.com/Islamic_coin',
-  },
-  {
-    icon: <DiscordIcon />,
-    url: 'https://discord.gg/islamiccoin',
-  },
-  {
-    icon: <TelegramIcon />,
-    url: 'https://t.me/islamiccoin_int',
-  },
-  {
-    icon: <LinkedinIcon />,
-    url: 'https://www.linkedin.com/company/islamiccoin',
-  },
-];
-
-export function CommunityHubPage() {
+export function CommunityHubPage({
+  socialLinks,
+}: {
+  socialLinks: SocialLink[];
+}) {
   const t = useTranslations('community-hub-page');
   const locale = useLocale();
   return (
@@ -74,11 +50,14 @@ export function CommunityHubPage() {
             <Text isMono>{t('subtitle')}</Text>
           </div>
           <div className="mt-[16px] flex flex-wrap gap-[16px] md:mt-[20px] lg:mt-[24px]">
-            {socialLinks.map(({ icon, url }) => {
+            {socialLinks.map(({ icon, title, url }) => {
               return (
-                <SocialIconLink key={url} url={url}>
-                  {icon}
-                </SocialIconLink>
+                <SocialIconLink
+                  icon={icon}
+                  key={title}
+                  url={url}
+                  title={title}
+                />
               );
             })}
           </div>
