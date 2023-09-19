@@ -1,8 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { useMemo } from 'react';
-import { useContractRead, usePublicClient } from 'wagmi';
-import { HaqqVestingContract } from '../components/DepositStatsWidget/DepositStatsWidget';
+import { useContractRead } from 'wagmi';
+import HaqqVestingContract from '../../HaqqVesting.json';
 
 export interface Deposit {
   locked: bigint;
@@ -20,42 +18,50 @@ export function useDepositContract({
   depositId,
   contractAddress,
 }: {
-  depositsCount: undefined | bigint;
+  depositsCount: undefined | number;
   address: `0x${string}`;
   contractAddress: `0x${string}`;
-  depositId: bigint;
+  depositId: number;
 }): Deposit | undefined {
-  const publicClient = usePublicClient();
   const { data: depositContract, isLoading: isLoadingDepositContract } =
-    useContractRead({
+    useContractRead<
+      typeof HaqqVestingContract.abi,
+      'deposits',
+      [bigint, bigint, bigint]
+    >({
       address: contractAddress,
       abi: HaqqVestingContract.abi,
-      publicClient,
       functionName: 'deposits',
       args: [address, depositId],
       watch: true,
     });
   const { data: amountToWithdrawNow, isLoading: isLoadingAmountToWithdrawNow } =
-    useContractRead({
+    useContractRead<
+      typeof HaqqVestingContract.abi,
+      'amountToWithdrawNow',
+      bigint
+    >({
       address: contractAddress,
       abi: HaqqVestingContract.abi,
-      publicClient,
       functionName: 'amountToWithdrawNow',
       args: [address, depositId],
       watch: true,
     });
   const { data: timeBetweenPayments, isLoading: isLoadingTimeBetweenPayments } =
-    useContractRead({
+    useContractRead<
+      typeof HaqqVestingContract.abi,
+      'TIME_BETWEEN_PAYMENTS',
+      bigint
+    >({
       address: contractAddress,
       abi: HaqqVestingContract.abi,
-      publicClient,
       functionName: 'TIME_BETWEEN_PAYMENTS',
       watch: true,
     });
 
   return useMemo(() => {
     if (
-      depositsCount === 0 ||
+      (depositsCount && Number.parseInt(depositsCount.toString()) === 0) ||
       isLoadingDepositContract ||
       isLoadingAmountToWithdrawNow ||
       isLoadingTimeBetweenPayments ||
@@ -80,7 +86,7 @@ export function useDepositContract({
       deposited,
       withdrawn,
       createdAt: new Date(Number(timestamp) * 1000).toISOString(),
-      unlockPeriod: timeBetweenPayments,
+      unlockPeriod: Number.parseFloat(timeBetweenPayments.toString()),
     };
   }, [
     amountToWithdrawNow,

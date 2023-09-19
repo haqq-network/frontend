@@ -6,6 +6,7 @@ import { Container } from '../components/Layout/Layout';
 import { environment } from '../environments/environment';
 import { useAddress, useSupportedChains } from '@haqq/shared';
 import { DepositWithdrawalList } from '../components/DepositWithdrawalList/DepositWithdrawalList';
+import { Hex } from 'viem';
 
 export function AccountPage() {
   const { isConnected } = useAccount();
@@ -40,7 +41,9 @@ export function AccountPage() {
 
       {environment.contractAddress && ethAddress && (
         <Fragment>
-          <DepositStatsWidget contractAddress={environment.contractAddress} />
+          <DepositStatsWidget
+            contractAddress={environment.contractAddress as Hex}
+          />
           <DepositWithdrawalList
             contractAddress={environment.contractAddress}
             address={ethAddress}
