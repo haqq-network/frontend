@@ -6,7 +6,7 @@ import { EcosystemPageApplyBlock } from './ecosystem-page-apply-block/ecosystem-
 
 export function EcosystemPage({ partners }: { partners: Partner[] }) {
   return (
-    <section>
+    <section className="overflow-x-clip">
       <div
         className={clsx(
           'relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]',
