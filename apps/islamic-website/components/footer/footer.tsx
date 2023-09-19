@@ -210,7 +210,7 @@ export function Footer() {
                 return (
                   <FooterNavLink
                     key={title}
-                    title={title}
+                    title={t(title)}
                     url={url}
                     isOutLink={isOutLink}
                   />
