@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { useStakingActions, useToast } from '@haqq/shared';
+import { toFixedAmount, useStakingActions, useToast } from '@haqq/shared';
 import {
   WarningMessage,
   Modal,
@@ -112,11 +112,11 @@ export function DelegateModal({
   const toast = useToast();
 
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(balance);
+    setDelegateAmount(toFixedAmount(balance));
   }, [balance]);
 
   const handleInputChange = useCallback((value: number | undefined) => {
-    setDelegateAmount(value);
+    setDelegateAmount(toFixedAmount(value));
   }, []);
 
   const handleSubmitDelegate = useCallback(async () => {

@@ -7,10 +7,8 @@ import {
   LinkedinIcon,
   MediumIcon,
   RedditIcon,
-  SustainableDevIcon,
   TelegramIcon,
   TwitterIcon,
-  WorldGreenOrgIcon,
   YoutubeIcon,
   ZenIcon,
 } from '../icons';
@@ -172,10 +170,6 @@ export function Footer() {
                 <FooterNavSocialLink url="https://zen.yandex.ru/id/61d886b1a243b758ed11c321">
                   <ZenIcon />
                 </FooterNavSocialLink>
-              </div>
-              <div className="flex items-center gap-x-[32px]">
-                <WorldGreenOrgIcon />
-                <SustainableDevIcon />
               </div>
             </div>
           </div>
