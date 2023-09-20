@@ -46,14 +46,14 @@ export function IndexPage({
 }
 
 function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
-  const t = useTranslations('index-page');
+  const t = useTranslations('index-page.hero-block');
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
         <HeroBlock />
 
         <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
-          {t('hero-block.running-text').toLocaleUpperCase()}
+          {t('running-text').toLocaleUpperCase()}
         </Marquee>
 
         <WhyBlock mainnetAccounts={mainnetAccounts} />

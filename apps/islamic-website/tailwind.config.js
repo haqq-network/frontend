@@ -26,6 +26,20 @@ module.exports = {
         serif: ['var(--font-alexandria)'],
         mono: ['var(--font-mono)'],
       },
+      keyframes: {
+        'scroll-left': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(100%)' },
+        },
+        'scroll-right': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        },
+      },
+      animation: {
+        'scroll-left': 'scroll-left 60s linear infinite',
+        'scroll-right': 'scroll-right 60s linear infinite',
+      },
     },
   },
   plugins: [typographyPlugin],

@@ -1,4 +1,4 @@
-export function isNumber(str: string): boolean {
+export function isNumber(str: string | number): boolean {
   if (typeof str !== 'string') {
     return false;
   }

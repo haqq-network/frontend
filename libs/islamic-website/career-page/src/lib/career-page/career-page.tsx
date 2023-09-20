@@ -35,9 +35,9 @@ export function CareerPage() {
         <div
           className={clsx(
             'absolute z-[-1]',
-            'right-[-222px] top-[-50px] h-[447px] w-[444px]',
-            'md:right-[-200px] md:top-[-80px] md:h-[720px] md:w-[724px]',
-            'lg:right-[-340px] lg:top-[-220px] lg:h-[1000px] lg:w-[1000px]',
+            'top-[-50px] h-[447px] w-[444px] ltr:right-[-222px] rtl:left-[-222px] rtl:rotate-180 rtl:transform',
+            'md:top-[-80px] md:h-[720px] md:w-[724px] ltr:md:right-[-200px] rtl:md:left-[-200px]',
+            'lg:top-[-220px] lg:h-[1000px] lg:w-[1000px] ltr:lg:right-[-340px] rtl:lg:left-[-340px] rtl:lg:rotate-90',
             'opacity-70 md:opacity-100',
           )}
         >

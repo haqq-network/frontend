@@ -399,7 +399,7 @@ export function DesktopHeader() {
                     />
                     <DropdownLink
                       locale={locale === 'ar' ? 'ar' : 'en'}
-                      title="Privacy policy"
+                      title={t('dropdown-links.learn.privacy-policy')}
                       icon={<QuestionMarkIcon />}
                       href="/privacy-policy"
                     />

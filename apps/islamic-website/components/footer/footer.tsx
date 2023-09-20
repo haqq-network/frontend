@@ -1,18 +1,8 @@
 import Link from 'next/link';
-import { PropsWithChildren, useMemo } from 'react';
+import { PropsWithChildren, ReactNode, useMemo } from 'react';
 import {
-  DiscordIcon,
-  FacebookIcon,
-  GithubIcon,
-  LinkedinIcon,
-  MediumIcon,
-  RedditIcon,
   SustainableDevIcon,
-  TelegramIcon,
-  TwitterIcon,
   WorldGreenOrgIcon,
-  YoutubeIcon,
-  ZenIcon,
   Container,
 } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
@@ -20,6 +10,12 @@ import { useTranslations } from 'next-intl';
 interface FooterNavLink {
   url: string;
   isOutLink?: boolean;
+  title: string;
+}
+
+interface SocialLink {
+  icon: ReactNode;
+  url: string;
   title: string;
 }
 
@@ -49,13 +45,15 @@ function FooterNavLink({
 function FooterNavSocialLink({
   url,
   children,
-}: PropsWithChildren<{ url: string }>) {
+  title,
+}: PropsWithChildren<{ url: string; title: string }>) {
   return (
     <Link
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       className="transition-colors duration-150 ease-in hover:text-[#18FFAC]"
+      title={title}
     >
       {children}
     </Link>
@@ -161,7 +159,7 @@ const footerNavLinks: FooterNavLinks = [
   ],
 ];
 
-export function Footer() {
+export function Footer({ socialLinks }: { socialLinks: SocialLink[] }) {
   const t = useTranslations('footer');
 
   const maxHeight = useMemo(() => {
@@ -210,7 +208,7 @@ export function Footer() {
                 return (
                   <FooterNavLink
                     key={title}
-                    title={title}
+                    title={t(title)}
                     url={url}
                     isOutLink={isOutLink}
                   />
@@ -219,36 +217,13 @@ export function Footer() {
             </div>
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[12px] text-white">
-                <FooterNavSocialLink url="https://www.youtube.com/channel/UCTjvOCTDeO9H67y_6btF1NA">
-                  <YoutubeIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://discord.gg/islamiccoin">
-                  <DiscordIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://www.facebook.com/groups/islamiccoin">
-                  <FacebookIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://github.com/haqq-network">
-                  <GithubIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://www.linkedin.com/company/islamiccoin">
-                  <LinkedinIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://medium.com/islamic-coin">
-                  <MediumIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://www.reddit.com/user/islamiccoin_net">
-                  <RedditIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://t.me/islamiccoin_int">
-                  <TelegramIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://twitter.com/Islamic_coin">
-                  <TwitterIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://zen.yandex.ru/id/61d886b1a243b758ed11c321">
-                  <ZenIcon />
-                </FooterNavSocialLink>
+                {socialLinks.map(({ icon, url, title }) => {
+                  return (
+                    <FooterNavSocialLink key={title} url={url} title={title}>
+                      {icon}
+                    </FooterNavSocialLink>
+                  );
+                })}
               </div>
               <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0">
                 <WorldGreenOrgIcon />

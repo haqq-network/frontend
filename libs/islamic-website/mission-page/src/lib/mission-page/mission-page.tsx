@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 function MissionPageHeading({ children }: PropsWithChildren) {
   return (
     <h3 className="font-mono text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
-      <GradientText>{children}</GradientText>
+      <GradientText className="rtl:pb-[10px]">{children}</GradientText>
     </h3>
   );
 }
@@ -20,7 +20,7 @@ export function MissionPage() {
     <section className="overflow-clip">
       <Container className="relative">
         <div className="pb-[150px] pt-[32px] lg:pb-[220px] lg:pt-[80px]">
-          <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+          <h1 className="whitespace-pre-line text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
             {t('title')}
           </h1>
 
@@ -31,7 +31,11 @@ export function MissionPage() {
                 width={428}
                 height={440}
                 alt=""
-                className="pointer-events-none max-w-full select-none md:absolute md:left-[110%] md:top-[50%] md:max-w-none md:translate-x-[-50%] md:translate-y-[-78%] lg:left-1/2 lg:translate-y-[-50%]"
+                className={clsx(
+                  'pointer-events-none max-w-full select-none md:absolute md:max-w-none',
+                  'md:top-[50%] md:translate-x-[-50%] md:translate-y-[-78%] ltr:md:left-[110%] rtl:md:right-[110%] rtl:md:translate-x-[50%]',
+                  'lg:translate-y-[-60%] ltr:lg:left-1/2 rtl:lg:right-[50%]',
+                )}
               />
             </div>
             <div className="flex flex-col gap-[28px] md:max-w-[480px] md:gap-[32px] lg:gap-[38px] xl:max-w-[680px]">
@@ -53,7 +57,7 @@ export function MissionPage() {
           </div>
         </div>
 
-        <div className="md:pl-[480px] xl:pl-[680px]">
+        <div className="ltr:md:pl-[480px] rtl:md:pr-[480px] ltr:xl:pl-[680px] rtl:xl:pr-[680px]">
           <div className="relative w-full">
             <Image
               src={missionRockImgData}
@@ -61,8 +65,10 @@ export function MissionPage() {
               width={781}
               height={262}
               className={clsx(
-                'absolute bottom-0 left-[50%] z-[-1] translate-x-[-50%] md:left-[105%] md:translate-y-[30%] lg:left-1/2 lg:translate-y-0',
+                'absolute bottom-0 z-[-1] md:translate-y-[30%] lg:translate-y-0',
                 'max-w-fit opacity-50 md:opacity-100',
+                'rtl:right-[50%] rtl:translate-x-[50%] rtl:scale-x-[-1] rtl:md:right-[105%] rtl:lg:right-[50%]',
+                'ltr:left-[50%] ltr:translate-x-[-50%] ltr:md:left-[105%] ltr:lg:left-[50%]',
               )}
             />
           </div>

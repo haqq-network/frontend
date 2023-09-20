@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { DEPLOY_URL } from '../../../constants';
+import { DEPLOY_URL, SOCIAL_LINKS } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
+import { CommunityHubPage } from '@haqq/islamic-website/community-hub-page';
 
 const title = 'Community hub';
 const description =
@@ -17,4 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-export { CommunityHubPage as default } from '@haqq/islamic-website/community-hub-page';
+export default async function Page() {
+  return <CommunityHubPage socialLinks={SOCIAL_LINKS} />;
+}

@@ -11,7 +11,7 @@ export function LearnAndGrowBlock() {
           viewBox="0 0 377 379"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="z-[-1] h-[211px] w-[210px] md:absolute md:bottom-[88px] md:right-[40px] lg:bottom-auto lg:right-[60px] lg:block lg:h-[379px] lg:w-[377px]"
+          className="z-[-1] h-[211px] w-[210px] md:absolute md:bottom-[88px] ltr:md:right-[40px] rtl:md:left-[40px] lg:bottom-auto lg:block lg:h-[379px] lg:w-[377px] ltr:lg:right-[60px] rtl:lg:left-[60px]"
         >
           <g clipPath="url(#clip0_205_7428)">
             <g opacity="0.1">

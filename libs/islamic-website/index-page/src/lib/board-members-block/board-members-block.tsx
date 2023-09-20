@@ -57,7 +57,9 @@ export function BoardMembersBlock({
           {activeMembersType === 'advisory' && t('title.white-text.advisory')}
           {activeMembersType === 'executive' && t('title.white-text.executive')}
           {activeMembersType === 'shariah' && t('title.white-text.shariah')}
-          <GradientText>{t('title.gradient-text')}</GradientText>
+          <GradientText className="rtl:pb-[10px]">
+            {t('title.gradient-text')}
+          </GradientText>
         </div>
         <div className="mt-[28px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[42px]">
           <FilterButton
