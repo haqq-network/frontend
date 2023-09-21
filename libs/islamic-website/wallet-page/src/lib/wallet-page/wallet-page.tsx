@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 
 export function WalletPage() {
   const t = useTranslations('wallet-page');
+
   const content = (
     <Fragment>
       <h1 className="text-[46px] font-[600] leading-[52px] md:text-[80px] md:leading-none lg:text-[80px] lg:leading-none">
@@ -38,7 +39,10 @@ export function WalletPage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <WalletDownloadButton type="apple" />
+            <WalletDownloadButton
+              type="apple"
+              title={t('download-button.title')}
+            />
           </Link>
         </div>
         <div className="w-fit">
@@ -47,7 +51,10 @@ export function WalletPage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <WalletDownloadButton type="google" />
+            <WalletDownloadButton
+              type="google"
+              title={t('download-button.title')}
+            />
           </Link>
         </div>
         <div className="w-fit">

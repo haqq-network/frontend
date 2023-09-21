@@ -8,9 +8,11 @@ import {
 export function WalletDownloadButton({
   className,
   type,
+  title,
 }: {
   className?: string;
   type: 'google' | 'apple' | 'apk';
+  title?: string;
 }) {
   return (
     <div
@@ -27,7 +29,7 @@ export function WalletDownloadButton({
       </div>
       <div className="flex flex-col text-start">
         <span className="group-hover:text-islamic-primary-green/50 text-[10px] leading-[12px] text-[#8E8E8E] group-hover:transition-colors group-hover:duration-300">
-          Available in
+          {title && title}
         </span>
         <span className="group-hover:text-islamic-primary-green text-base font-[600] group-hover:transition-colors group-hover:duration-300">
           {type === 'apple' && 'App Store'}
