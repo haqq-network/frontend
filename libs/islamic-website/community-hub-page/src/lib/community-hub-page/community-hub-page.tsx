@@ -35,7 +35,7 @@ export function CommunityHubPage({
   const t = useTranslations('community-hub-page');
   const locale = useLocale();
   return (
-    <Container>
+    <Container className="overflow-x-clip">
       <div className="relative  pb-[60px] pt-[32px] md:pb-[120px] md:pt-[52px] lg:pb-[180px] lg:pt-[68px]">
         <div className="flex flex-col">
           <div className="max-w-[340px] md:max-w-[400px] lg:max-w-[480px] xl:max-w-[740px] min-[1440px]:max-w-[800px]">
