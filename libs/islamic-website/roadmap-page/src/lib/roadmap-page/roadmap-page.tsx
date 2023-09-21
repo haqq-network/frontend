@@ -134,7 +134,7 @@ function RoadmapCard({
       </div>
 
       <div className="flex flex-col gap-y-[12px]">
-        <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+        <h3 className="rtl:font-handjet font-mono  text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
           {title}
         </h3>
 

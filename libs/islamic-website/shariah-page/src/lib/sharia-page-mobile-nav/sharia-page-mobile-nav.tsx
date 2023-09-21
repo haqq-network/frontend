@@ -88,7 +88,7 @@ backdrop-blur-[6px]"
               setOpen(!isOpen);
             }}
           >
-            <div className="py-[14px] font-mono text-[16px] uppercase leading-[24px]">
+            <div className="rtl:font-handjet py-[14px] font-mono  text-[16px] uppercase leading-[24px]">
               {currentValue ? (
                 <span>{currentValue.title}</span>
               ) : (
@@ -128,7 +128,7 @@ py-[8px]"
                     href={`#${section.id}`}
                     key={section.id}
                     className={clsx(
-                      'hover:text-islamic-primary-green-hover inline-flex cursor-pointer items-center justify-between gap-x-[8px] font-mono uppercase focus:text-white',
+                      'hover:text-islamic-primary-green-hover rtl:font-handjet inline-flex cursor-pointer items-center justify-between gap-x-[8px] font-mono  uppercase focus:text-white',
                       'transition-colors duration-300',
                       section.id === activeSection
                         ? 'text-islamic-primary-green'

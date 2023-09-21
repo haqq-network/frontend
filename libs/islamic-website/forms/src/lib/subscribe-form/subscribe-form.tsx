@@ -190,7 +190,7 @@ export function SubscribeForm({
           />
 
           <div className="flex flex-col items-center gap-[16px] px-[40px] py-[32px] lg:gap-[32px] lg:px-[80px] lg:py-[60px]">
-            <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+            <h3 className="rtl:font-handjet font-mono  text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
               Congratulations!
             </h3>
 
@@ -209,7 +209,7 @@ export function SubscribeForm({
           />
 
           <div className="flex flex-col items-center gap-[16px] px-[40px] py-[32px] lg:gap-[32px] lg:px-[80px] lg:py-[60px]">
-            <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+            <h3 className="rtl:font-handjet font-mono  text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
               Something went wrong!
             </h3>
 

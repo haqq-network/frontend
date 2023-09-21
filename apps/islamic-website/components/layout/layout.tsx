@@ -2,7 +2,7 @@
 import { PropsWithChildren, useEffect } from 'react';
 import { Footer } from '../../components/footer/footer';
 import { MobileHeader } from '../../components/header/header';
-import { Alexandria } from 'next/font/google';
+import { Alexandria, Handjet } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
 import { SOCIAL_LINKS } from '../../constants';
@@ -10,12 +10,20 @@ import { SOCIAL_LINKS } from '../../constants';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
+import clsx from 'clsx';
 
 const alexandria = Alexandria({
   subsets: ['latin', 'arabic'],
   display: 'swap',
   variable: '--font-alexandria',
   weight: ['300', '400', '600', '700', '800'],
+});
+
+const handjet = Handjet({
+  subsets: ['arabic'],
+  display: 'swap',
+  variable: '--font-handjet',
+  weight: ['600'],
 });
 
 const DynamicHeader = dynamic(
@@ -49,7 +57,7 @@ export function ClientLayout({
   }, [shortLocale]);
 
   return (
-    <html lang={locale} className={alexandria.variable}>
+    <html lang={locale} className={clsx(alexandria.variable, handjet.variable)}>
       <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}

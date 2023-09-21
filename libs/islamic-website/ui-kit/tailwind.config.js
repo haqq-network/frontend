@@ -22,6 +22,7 @@ module.exports = {
       fontFamily: {
         serif: ['var(--font-alexandria)'],
         mono: ['var(--font-mono)'],
+        handjet: ['var(--font-handjet)'],
       },
     },
   },

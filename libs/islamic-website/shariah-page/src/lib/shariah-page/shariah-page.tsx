@@ -311,7 +311,7 @@ function ShariPageDesktopNavLink({
     <Link
       href={href}
       className={clsx(
-        'hover:text-islamic-primary-green-hover inline-flex cursor-pointer items-center justify-between gap-x-[8px] font-mono uppercase',
+        'hover:text-islamic-primary-green-hover rtl:font-handjet inline-flex cursor-pointer items-center justify-between gap-x-[8px] font-mono  uppercase',
         'transition-colors duration-300',
         isActive ? 'text-islamic-primary-green' : 'text-white',
       )}

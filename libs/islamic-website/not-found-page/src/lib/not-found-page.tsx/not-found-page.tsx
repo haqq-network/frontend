@@ -11,10 +11,10 @@ export function NotFound() {
     <div className="relative">
       <Container className="pb-[265px] pt-[245px] lg:py-[312px]">
         <div className="flex flex-col items-center justify-center">
-          <div className="font-mono text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+          <div className="rtl:font-handjet font-mono  text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
             404
           </div>
-          <div className="mt-[4px] font-mono text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+          <div className="rtl:font-handjet mt-[4px] font-mono  text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
             {t('title')}
           </div>
           <Link
