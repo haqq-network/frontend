@@ -23,6 +23,7 @@ import {
 import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
+import { Link } from 'react-router-dom';
 
 export function StakingInfoHooked() {
   const [staked, setStakedValue] = useState(0);
@@ -50,7 +51,19 @@ export function StakingInfoHooked() {
       success: (tx) => {
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
-        return `Rewards claimed`;
+        return (
+          <div className="flex flex-col gap-[8px] text-center">
+            <span>Rewards claimed </span>
+            <Link
+              to={`https://ping.pub/haqq/tx/${txHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+            >
+              Explorer link
+            </Link>
+          </div>
+        );
       },
       error: (error) => {
         return error.message;

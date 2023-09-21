@@ -11,6 +11,7 @@ import {
 import { Validator } from '@evmos/provider';
 import { ValidatorSelect } from '../validator-select/validator-select';
 import { splitValidators } from '@haqq/staking/utils';
+import { Link } from 'react-router-dom';
 
 export interface RedelegateModalProps {
   isOpen: boolean;
@@ -131,7 +132,21 @@ export function RedelegateModal({
         loading: 'Redelegate in progress',
         success: (tx) => {
           console.log('Redelegation successful', { tx }); // maybe successful
-          return `Delegation successful`;
+          const txHash = tx?.txhash;
+          console.log('Redelegation successful', { txHash });
+          return (
+            <div className="flex flex-col gap-[8px] text-center">
+              <span>Delegation successful </span>
+              <Link
+                to={`https://ping.pub/haqq/tx/${txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+              >
+                Explorer link
+              </Link>
+            </div>
+          );
         },
         error: (error) => {
           return error.message;

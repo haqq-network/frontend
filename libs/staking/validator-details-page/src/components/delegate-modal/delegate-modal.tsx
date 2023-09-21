@@ -9,6 +9,7 @@ import {
   MobileHeading,
   ModalInput,
 } from '@haqq/shell-ui-kit';
+import { Link } from 'react-router-dom';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -128,7 +129,19 @@ export function DelegateModal({
         console.log('Delegation successful', { tx }); // maybe successful
         const txHash = tx?.txhash;
         console.log('Delegation successful', { txHash });
-        return `Delegation successful`;
+        return (
+          <div className="flex flex-col gap-[8px] text-center">
+            <span>Delegation successful </span>
+            <Link
+              to={`https://ping.pub/haqq/tx/${txHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+            >
+              Explorer link
+            </Link>
+          </div>
+        );
       },
       error: (error) => {
         return error.message;

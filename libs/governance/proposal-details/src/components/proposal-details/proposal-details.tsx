@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'marked-react';
 import {
   ParameterChangeProposalContent,
@@ -784,7 +784,19 @@ export function VoteActions({
         loading: 'Vote in progress',
         success: (txHash) => {
           console.log('Vote successful', { txHash }); // maybe successful
-          return `Your vote will be counted!!!`;
+          return (
+            <div className="flex flex-col gap-[8px] text-center">
+              <span>Your vote will be counted!!! </span>
+              <Link
+                to={`https://ping.pub/haqq/tx/${txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+              >
+                Explorer link
+              </Link>
+            </div>
+          );
         },
         error: (error) => {
           console.error(error);

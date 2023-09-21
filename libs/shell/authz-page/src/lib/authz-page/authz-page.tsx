@@ -35,6 +35,7 @@ import {
 import { formatUnits, isAddress, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 import { Select } from '../select/select';
+import { Link } from 'react-router-dom';
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {
@@ -124,7 +125,19 @@ function GranterGrantsTable() {
         loading: 'Revoke in progress',
         success: (txHash) => {
           console.log('Revoke successful', { txHash }); // maybe successful
-          return `Revoke successful`;
+          return (
+            <div className="flex flex-col gap-[8px] text-center">
+              <span>Revoke successful </span>
+              <Link
+                to={`https://ping.pub/haqq/tx/${txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+              >
+                Explorer link
+              </Link>
+            </div>
+          );
         },
         error: (error) => {
           return error.message;
@@ -422,7 +435,19 @@ function AuthzGrantsActions() {
       loading: 'Grant in progress',
       success: (txHash) => {
         console.log('Grant successful', { txHash });
-        return `Grant successful`;
+        return (
+          <div className="flex flex-col gap-[8px] text-center">
+            <span>Grant successful </span>
+            <Link
+              to={`https://ping.pub/haqq/tx/${txHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+            >
+              Explorer link
+            </Link>
+          </div>
+        );
       },
       error: (error) => {
         return error.message;

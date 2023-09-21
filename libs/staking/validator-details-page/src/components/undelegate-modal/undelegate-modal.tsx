@@ -9,6 +9,7 @@ import {
   MobileHeading,
   ModalInput,
 } from '@haqq/shell-ui-kit';
+import { Link } from 'react-router-dom';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
@@ -55,7 +56,19 @@ export function UndelegateModal({
         loading: 'Undlegation in progress',
         success: (txHash) => {
           console.log('Undlegation successful', { txHash });
-          return `Undlegation successful`;
+          return (
+            <div className="flex flex-col gap-[8px] text-center">
+              <span>Undlegation successful </span>
+              <Link
+                to={`https://ping.pub/haqq/tx/${txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+              >
+                Explorer link
+              </Link>
+            </div>
+          );
         },
         error: (error) => {
           return error.message;
