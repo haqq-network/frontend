@@ -17,7 +17,7 @@ export function EcosystemFundPage() {
             Fund
           </h1>
 
-          <Link href="#apply" className="scroll-smooth" scroll={false}>
+          <Link href="#apply" className="scroll-smooth" scroll={true}>
             <Button
               variant={2}
               className="mb-[80px] mt-[32px] sm:mb-[120px] sm:mt-[48px] lg:mt-[64px]"
