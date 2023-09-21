@@ -54,7 +54,7 @@
         "app-store": "App store rating",
         "google-play": "Google play rating",
         "download-button": {
-          "title": "متوفر في"
+          "title": "Available in"
         }
       }
     },
