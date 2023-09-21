@@ -15,8 +15,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
-  const privacyPolicy = await getPrivacyPolicyContent();
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page({ params: locale }: PageProps) {
+  const privacyPolicy = await getPrivacyPolicyContent(locale);
 
   return <PrivacyPolicyPage privacyPolicy={privacyPolicy} />;
 }

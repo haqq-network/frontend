@@ -70,7 +70,7 @@ function EnFatwa() {
         this matter, that included the following:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
           <li>
             HAQQ Chain platform will be built using a technical framework that
             is well-known in the blockchain field, which is the Cosmos technical
@@ -108,7 +108,7 @@ function EnFatwa() {
         summarized in the following types:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
           <li>
             Currencies with no specific purpose behind their issuance other than
             being a store of value and having a price, where the customer aims
@@ -157,7 +157,7 @@ function EnFatwa() {
         issuing the “Islamic Coin” based on the following measures:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
           <li>
             Islamic Coin is a financial asset that may be traded by sale and
             purchase and replaced with legitimate services and goods and is
@@ -246,7 +246,7 @@ function ArFatwa() {
         أسئلة الهيئة بهذا الشأن، وقد تضمن العرض النقاط التالية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
           <li>
             أن منصة ’الحق تشين’ سيتم بناؤها باستخدام إطار عمل فني معروف في مجال
             ’البلوك تشين’ وهو الإطار الفني المتعلق بلغة ’كوزموس’.
@@ -278,7 +278,7 @@ function ArFatwa() {
         حالياً، والتي تتلخص في الأنواع الآتية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
           <li>
             عملات ليس لها هدف معين من إصدارها سوى كونها أثماناً ومخزناً للقيمة،
             ويهدف المتعاملون فيها من الاحتفاظ بها أو استخدامها في مشترياتهم
@@ -318,7 +318,7 @@ function ArFatwa() {
         بالضوابط الآتية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
           <li>
             أن عملة ’إسلاميك كوين’ تعتبر أصلاً مالياً يجوز تداوله بالبيع والشراء
             واستبدالها بالخدمات والسلع المشروعة، كما أنها تعتبر أموالاً لأصحابها
