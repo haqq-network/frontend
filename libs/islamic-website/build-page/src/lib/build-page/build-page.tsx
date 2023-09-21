@@ -11,7 +11,7 @@ export function BuildPage() {
             {t('title')}
           </h1>
           <div className="mt-[32px] flex flex-col gap-y-[16px] md:mt-[60px] md:max-w-[480px] md:gap-y-[24px] lg:max-w-[600px]">
-            <h3 className="rtl:font-handjet rtl:font-handjet  font-mono text-[18px] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
+            <h3 className="rtl:font-handjet font-mono text-[18px] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
               {t('subtitle')}
             </h3>
             <div className="flex flex-col gap-y-[12px] md:gap-y-[16px]">

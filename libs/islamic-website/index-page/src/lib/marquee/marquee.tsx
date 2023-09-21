@@ -10,7 +10,7 @@ export function Marquee({
       <div className="absolute top-0 z-30 h-full w-[40px] from-transparent to-[#010304] ltr:left-0 ltr:bg-gradient-to-l rtl:right-0 rtl:bg-gradient-to-r md:w-[120px]" />
       <div
         className={clsx(
-          'rtl:font-handjet rtl:font-handjet flex select-none gap-x-[1rem] overflow-hidden border-y border-[#2F2F2F] py-[4px] font-mono  text-[15px] leading-[22px] text-white/50 md:text-base lg:text-[18px] lg:leading-[26px]',
+          'rtl:font-handjet flex select-none gap-x-[1rem] overflow-hidden border-y border-[#2F2F2F] py-[4px] font-mono  text-[15px] leading-[22px] text-white/50 md:text-base lg:text-[18px] lg:leading-[26px]',
           className,
         )}
       >
