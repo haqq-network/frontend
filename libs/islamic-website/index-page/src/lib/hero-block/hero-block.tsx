@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 export function HeroBlock() {
   const t = useTranslations('index-page');
   return (
-    <div className="flex flex-col pt-[60px] text-white rtl:text-end md:pt-[120px] xl:pt-[150px]">
+    <div className="flex flex-col pt-[60px] text-white md:pt-[120px] xl:pt-[150px]">
       <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
         {t('hero-block.title.white-text')}
         <GradientText className="rtl:pb-[10px]">

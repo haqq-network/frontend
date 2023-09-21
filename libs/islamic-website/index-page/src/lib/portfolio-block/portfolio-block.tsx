@@ -60,7 +60,10 @@ export function PortfolioBlock() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <WalletDownloadButton type="apple" />
+                    <WalletDownloadButton
+                      type="apple"
+                      title={t('portfolio-block.stores.download-button.title')}
+                    />
                   </Link>
                 </div>
                 <div className="w-fit">
@@ -69,7 +72,10 @@ export function PortfolioBlock() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <WalletDownloadButton type="google" />
+                    <WalletDownloadButton
+                      type="google"
+                      title={t('portfolio-block.stores.download-button.title')}
+                    />
                   </Link>
                 </div>
               </div>

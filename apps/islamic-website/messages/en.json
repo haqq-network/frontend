@@ -52,7 +52,10 @@
       "text": "Seamlessly navigate Web3 with HAQQ Wallet, your trusted partner for a principled DeFi journey. With mnemonicless security and a user-friendly interface, managing your digital Shariah-compliant assets has never been easier or more secure",
       "stores": {
         "app-store": "App store rating",
-        "google-play": "Google play rating"
+        "google-play": "Google play rating",
+        "download-button": {
+          "title": "متوفر في"
+        }
       }
     },
     "learn-and-grow-block": {
@@ -358,5 +361,10 @@
     "text": "Keep up to date with our upcoming Public Launch and Exchange listing - Subscribe to our newsletter",
     "input-placeholder": "Your e-mail",
     "button-text": "Subscribe"
+  },
+  "ui-kit": {
+    "member-card": {
+      "web": "Web"
+    }
   }
 }

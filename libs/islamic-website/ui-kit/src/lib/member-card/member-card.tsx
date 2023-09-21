@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -22,6 +23,7 @@ export function MemberCard({
   onClick?: () => void;
   className?: string;
 }) {
+  const t = useTranslations('ui-kit.member-card');
   return (
     <div
       className={clsx(
@@ -64,7 +66,7 @@ export function MemberCard({
                 'transition-colors duration-300',
               )}
             >
-              <span>Web</span>
+              <span>{t('web')}</span>
               <svg
                 width="16"
                 height="16"

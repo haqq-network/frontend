@@ -52,7 +52,10 @@
       "text": "استكشف عالم الويب 3 من خلال محفظة حق، الشريك الأمثل لسبر آفاق التمويل اللامركزي. تقدم لك محفظة حق بمستوى أمانها العالي واستخدامها السلس والسهل تجربة استثنائية تتميز بالسهولة والأمان في إدارة الأصول الرقمية المتوافقة مع الشريعة",
       "stores": {
         "app-store": "تقييم آب ستور",
-        "google-play": "تقييم غوغل بلاي"
+        "google-play": "تقييم غوغل بلاي",
+        "download-button": {
+          "title": "متوفر في"
+        }
       }
     },
     "learn-and-grow-block": {
@@ -279,7 +282,7 @@
       }
     },
     "warning-block": {
-      "text": "We have become aware of recruitment scams that fraudulently obtain money or personal information from job seekers. These scams take various forms, such as fake job postings, phishing emails, or fraudulent recruiters claiming to represent our company"
+      "text": "ورد إلى علمنا وجود عمليات توظيف احتيالية بغرض الحصول على الأموال أو جمع المعلومات الشخصية. تتّخذ هذه العمليات الاحتيالية عدة صور؛ مثل: إعلانات التوظيف الوهمية، ورسائل التصيد الاحتيالي عبر البريد الإلكتروني، وجهات التوظيف الاحتيالية التي تدّعي زيفًا بأنها تمثّل شركة إسلاميك كوين."
     }
   },
   "community-hub-page": {
@@ -360,5 +363,10 @@
     "text": "ابق على اطلاع لمعرفة آخر المستجدات والأحداث المرتقبة من خلال الاشتراك في نشرتنا البريدية",
     "input-placeholder": "عنوان البريد الإلكتروني ",
     "button-text": "اشترك"
+  },
+  "ui-kit": {
+    "member-card": {
+      "web": "شبكة"
+    }
   }
 }
