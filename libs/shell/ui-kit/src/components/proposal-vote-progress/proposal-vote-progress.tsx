@@ -76,7 +76,7 @@ export function ProposalVoteProgress({
             {yesPercents !== 0 && (
               <div
                 className={clsx(
-                  'h-full rounded-xl bg-[#01B26E]',
+                  'h-full min-w-[2px] rounded-xl bg-[#01B26E]',
                   'duration-250 transition-[width] ease-out',
                   yesPercents === 0 && 'hidden',
                 )}
@@ -88,7 +88,7 @@ export function ProposalVoteProgress({
             {noPercents !== 0 && (
               <div
                 className={clsx(
-                  'h-full rounded-xl bg-[#FF5454]',
+                  'h-full min-w-[2px] rounded-xl bg-[#FF5454]',
                   'duration-250 transition-[width] ease-out',
                   noPercents === 0 && 'hidden',
                 )}
@@ -98,7 +98,7 @@ export function ProposalVoteProgress({
             {abstainPercents !== 0 && (
               <div
                 className={clsx(
-                  'h-full rounded-xl bg-[#AAABB2]',
+                  'h-full min-w-[2px] rounded-xl bg-[#AAABB2]',
                   'duration-250 transition-[width] ease-out',
                   abstainPercents === 0 && 'hidden',
                 )}
@@ -108,7 +108,7 @@ export function ProposalVoteProgress({
             {vetoPercents !== 0 && (
               <div
                 className={clsx(
-                  'h-full rounded-xl bg-[#E3A13F]',
+                  'h-full min-w-[2px] rounded-xl bg-[#E3A13F]',
                   'duration-250 transition-[width] ease-out',
                   vetoPercents === 0 && 'hidden',
                 )}
@@ -128,7 +128,7 @@ export function ProposalVoteProgress({
                 </CardText>
               </div>
               <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                {yesPercents ? yesPercents.toFixed(0) : 0}%
+                {yesPercents ? yesPercents.toFixed(2) : 0}%
               </CardText>
             </div>
           </div>
@@ -143,7 +143,7 @@ export function ProposalVoteProgress({
               </div>
             </div>
             <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-              {noPercents ? noPercents.toFixed(0) : 0}%
+              {noPercents ? noPercents.toFixed(2) : 0}%
             </CardText>
           </div>
 
@@ -156,7 +156,7 @@ export function ProposalVoteProgress({
                 </CardText>
               </div>
               <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                {abstainPercents ? abstainPercents.toFixed(0) : 0}%
+                {abstainPercents ? abstainPercents.toFixed(2) : 0}%
               </CardText>
             </div>
           </div>
@@ -170,7 +170,7 @@ export function ProposalVoteProgress({
                 </CardText>
               </div>
               <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                {vetoPercents ? vetoPercents.toFixed(0) : 0}%
+                {vetoPercents ? vetoPercents.toFixed(2) : 0}%
               </CardText>
             </div>
           </div>

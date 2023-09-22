@@ -1,9 +1,12 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  GetGovernanceParamsResponse,
   useGovernanceParamsQuery,
   useProposalListQuery,
   useSupportedChains,
+  Proposal,
+  useProposalTally,
 } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
 import { Container, SpinnerLoader } from '@haqq/shell-ui-kit';
@@ -49,16 +52,12 @@ export function ProposalList() {
             <div className="mb-[68px] grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
               {proposals.map((proposal) => {
                 return (
-                  <Link
-                    to={`proposal/${proposal.proposal_id}`}
+                  <HookedProposalListCard
                     key={proposal.proposal_id}
-                  >
-                    <ProposalListCard
-                      proposal={proposal}
-                      govParams={govParams}
-                      symbol={symbol}
-                    />
-                  </Link>
+                    proposal={proposal}
+                    govParams={govParams}
+                    symbol={symbol}
+                  />
                 );
               })}
             </div>
@@ -66,5 +65,32 @@ export function ProposalList() {
         </Container>
       </div>
     </div>
+  );
+}
+
+function HookedProposalListCard({
+  proposal,
+  govParams,
+  symbol,
+}: {
+  proposal: Proposal;
+  govParams: GetGovernanceParamsResponse;
+  symbol: string;
+}) {
+  const { data: proposalTally } = useProposalTally(proposal.proposal_id);
+
+  if (!proposalTally) {
+    return null;
+  }
+
+  return (
+    <Link to={`proposal/${proposal.proposal_id}`}>
+      <ProposalListCard
+        proposal={proposal}
+        govParams={govParams}
+        symbol={symbol}
+        proposalTally={proposalTally}
+      />
+    </Link>
   );
 }
