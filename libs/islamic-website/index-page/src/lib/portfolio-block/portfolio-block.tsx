@@ -29,6 +29,7 @@ export function PortfolioBlock() {
               src={halfIphoneImgData}
               alt=""
               className="absolute left-1/2 top-[24px] w-[258px] translate-x-[-50%] translate-y-0 transform"
+              loading="lazy"
             />
           </div>
           <div className="flex flex-col items-center justify-between md:flex-row md:gap-x-[28px]">
@@ -86,6 +87,7 @@ export function PortfolioBlock() {
               src={iphoneImgData}
               alt=""
               className="absolute left-1/2 translate-x-[-50%] translate-y-0 transform md:w-[258px] lg:w-[348px]"
+              loading="lazy"
             />
           </div>
         </div>
