@@ -17,6 +17,8 @@ import {
   Button,
   Container,
   Heading,
+  ToastError,
+  ToastLoading,
   WalletIcon,
   formatNumber,
 } from '@haqq/shell-ui-kit';
@@ -47,7 +49,7 @@ export function StakingInfoHooked() {
     const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
 
     await toast.promise(claimAllRewardPromise, {
-      loading: 'Rewards claim in progress',
+      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
       success: (tx) => {
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
@@ -66,7 +68,7 @@ export function StakingInfoHooked() {
         );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
 

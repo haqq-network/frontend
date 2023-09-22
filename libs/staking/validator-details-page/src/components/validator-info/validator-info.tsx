@@ -38,6 +38,8 @@ import {
   MyAccountBlockMobile,
   Tooltip,
   formatNumber,
+  ToastLoading,
+  ToastError,
 } from '@haqq/shell-ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
@@ -509,7 +511,7 @@ export function ValidatorInfo({
     const claimRewardPromise = claimReward(validatorAddress);
 
     await toast.promise(claimRewardPromise, {
-      loading: 'Rewards claim in progress',
+      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
       success: (tx) => {
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
@@ -528,7 +530,7 @@ export function ValidatorInfo({
         );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
 
@@ -582,7 +584,7 @@ export function ValidatorInfo({
     const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
 
     await toast.promise(claimAllRewardPromise, {
-      loading: 'Rewards claim in progress',
+      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
       success: (tx) => {
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
@@ -601,7 +603,7 @@ export function ValidatorInfo({
         );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
 

@@ -4,7 +4,6 @@ import { ConfigProvider } from './config-provider';
 import { WagmiProvider } from './wagmi-provider';
 import { CosmosProvider } from './cosmos-provider';
 import { ReactQueryProvider } from './react-query-provider';
-import { Toaster } from 'react-hot-toast';
 import { WalletProvider } from './wallet-provider';
 
 export function AppProviders({
@@ -28,10 +27,7 @@ export function AppProviders({
             isProduction={isProduction}
           >
             <WalletProvider>
-              <CosmosProvider>
-                {children}
-                <Toaster />
-              </CosmosProvider>
+              <CosmosProvider>{children}</CosmosProvider>
             </WalletProvider>
           </WagmiProvider>
         </BrowserRouter>

@@ -11,6 +11,7 @@ import {
   useAddress,
   useSupportedChains,
   useWallet,
+  Toaster,
 } from '@haqq/shared';
 import { useBalance, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import ScrollLock from 'react-scrolllock';
@@ -242,6 +243,8 @@ export function AppWrapper({ children }: PropsWithChildren) {
         onConnectClick={handleWalletConnect}
         onClose={closeSelectWallet}
       />
+
+      <Toaster />
     </Page>
   );
 }
