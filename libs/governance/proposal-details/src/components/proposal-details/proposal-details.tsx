@@ -26,6 +26,8 @@ import {
   GetGovernanceParamsResponse,
   useSupportedChains,
   useStakingDelegationQuery,
+  useProposalTally,
+  TallyResults,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -139,11 +141,13 @@ function ProposalDetailsMobile({
   totalDeposit,
   minDeposit,
   symbol,
+  proposalTally,
 }: {
   proposalDetails: Proposal;
   totalDeposit: number;
   minDeposit: number;
   symbol: string;
+  proposalTally: TallyResults;
 }) {
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
@@ -155,7 +159,7 @@ function ProposalDetailsMobile({
               proposalDetails.status === ProposalStatus.Rejected) && (
               <div>
                 <ProposalVoteProgress
-                  results={proposalDetails.final_tally_result}
+                  results={proposalTally}
                   status={proposalDetails.status}
                 />
               </div>
@@ -205,11 +209,13 @@ export function ProposalDetailsComponent({
   symbol,
   isWalletConnected,
   govParams,
+  proposalTally,
 }: {
   proposalDetails: Proposal;
   symbol: string;
   isWalletConnected: boolean;
   govParams: GetGovernanceParamsResponse;
+  proposalTally: TallyResults;
 }) {
   const { isConnected } = useAccount();
   const { haqqAddress } = useAddress();
@@ -343,6 +349,7 @@ export function ProposalDetailsComponent({
                       totalDeposit={totalDeposit}
                       minDeposit={minDeposit}
                       symbol={symbol}
+                      proposalTally={proposalTally}
                     />
                   </div>
                 )}
@@ -464,7 +471,7 @@ export function ProposalDetailsComponent({
                     <div className="flex flex-col gap-[24px]">
                       <div>
                         <ProposalVoteProgress
-                          results={proposalDetails.final_tally_result}
+                          results={proposalTally}
                           status={proposalDetails.status}
                         />
                       </div>
@@ -707,6 +714,7 @@ function ProposalActionsMobile({
 function ProposalInfo({ proposalId }: { proposalId: string }) {
   const { data: proposalDetails, isFetching } =
     useProposalDetailsQuery(proposalId);
+  const { data: proposalTally } = useProposalTally(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
   const { chain } = useNetwork();
@@ -716,7 +724,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     return <Navigate to="/not-found" replace />;
   }
 
-  return isFetching || !proposalDetails || !govParams ? (
+  return isFetching || !proposalDetails || !proposalTally || !govParams ? (
     <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
       <SpinnerLoader />
       <div className="font-sans text-[10px] uppercase leading-[1.2em]">
@@ -728,6 +736,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
       symbol={chain?.nativeCurrency.symbol ?? chains[0].nativeCurrency.symbol}
       isWalletConnected={Boolean(ethAddress && haqqAddress)}
       proposalDetails={proposalDetails}
+      proposalTally={proposalTally}
       govParams={govParams}
     />
   );
