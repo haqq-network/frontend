@@ -690,7 +690,7 @@ function ProposalThresholdQuorumBlock({
   valueClassName?: string;
 }) {
   return (
-    <div className="flex flex-col gap-y-[6px]">
+    <div className="flex flex-col gap-y-[4px]">
       <div className="'font-guise md:leading-[18px]' text-[11px] leading-[18px] text-white/50 md:text-[12px]">
         {title}
       </div>
