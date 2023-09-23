@@ -325,7 +325,7 @@ export function ProposalDetailsComponent({
     <Fragment>
       <Container>
         <div className="flex flex-row gap-[48px] lg:mb-[48px]">
-          <div className="w-auto flex-1 md:w-1/2">
+          <div className="w-auto max-w-full flex-1 overflow-hidden md:w-1/2">
             <div className="divide-haqq-border divide-y divide-dashed">
               <div className="pb-[24px] md:pb-[40px]">
                 {isTablet && (
