@@ -416,7 +416,7 @@ export function ProposalDetailsComponent({
                         'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-strong:text-white',
                       )}
                     >
-                      <Markdown gfm>
+                      <Markdown gfm breaks>
                         {proposalDetails.content.description}
                       </Markdown>
                     </div>
