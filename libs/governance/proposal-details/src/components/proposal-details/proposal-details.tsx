@@ -28,6 +28,7 @@ import {
   useStakingDelegationQuery,
   useProposalTally,
   TallyResults,
+  useStakingPoolQuery,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -220,6 +221,7 @@ export function ProposalDetailsComponent({
   const { isConnected } = useAccount();
   const { haqqAddress } = useAddress();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const { data: stakingPool } = useStakingPoolQuery();
   const { openSelectWallet } = useWallet();
   // const { deposit } = useProposalActions();
   // const toast = useToast();
@@ -321,11 +323,37 @@ export function ProposalDetailsComponent({
   //   [deposit, navigate, proposalDetails.proposal_id, toast],
   // );
 
+  const quorum = useMemo(() => {
+    return Number.parseFloat(govParams.tally_params.quorum) * 100;
+  }, [govParams.tally_params.quorum]);
+
+  const threshold = useMemo(() => {
+    if (!stakingPool || !proposalTally) {
+      return 0;
+    }
+
+    const voted = Number.parseInt(
+      formatUnits(
+        BigInt(proposalTally.no) +
+          BigInt(proposalTally.no_with_veto) +
+          BigInt(proposalTally.yes),
+        18,
+      ),
+      10,
+    );
+    const bonded = Number.parseInt(
+      formatUnits(BigInt(stakingPool.bonded_tokens), 18),
+      10,
+    );
+
+    return (voted / bonded) * 100;
+  }, [proposalTally, stakingPool]);
+
   return (
     <Fragment>
       <Container>
         <div className="flex flex-row gap-[48px] lg:mb-[48px]">
-          <div className="w-auto flex-1 md:w-1/2">
+          <div className="w-auto max-w-full flex-1 overflow-hidden md:w-1/2">
             <div className="divide-haqq-border divide-y divide-dashed">
               <div className="pb-[24px] md:pb-[40px]">
                 {isTablet && (
@@ -388,7 +416,7 @@ export function ProposalDetailsComponent({
                         'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-strong:text-white',
                       )}
                     >
-                      <Markdown gfm>
+                      <Markdown gfm breaks>
                         {proposalDetails.content.description}
                       </Markdown>
                     </div>
@@ -465,6 +493,7 @@ export function ProposalDetailsComponent({
                       status={proposalDetails.status as ProposalStatus}
                     />
                   </div>
+
                   {(proposalDetails.status === ProposalStatus.Voting ||
                     proposalDetails.status === ProposalStatus.Passed ||
                     proposalDetails.status === ProposalStatus.Rejected) && (
@@ -475,6 +504,12 @@ export function ProposalDetailsComponent({
                           status={proposalDetails.status}
                         />
                       </div>
+
+                      <ProposalThresholdQuorum
+                        threshold={formatNumber(threshold, 2, 2)}
+                        quorum={formatNumber(quorum, 2, 2)}
+                      />
+
                       {(proposalDetails.status === ProposalStatus.Passed ||
                         proposalDetails.status === ProposalStatus.Rejected) && (
                         <div>
@@ -642,6 +677,47 @@ export function ProposalDetailsComponent({
         </div>
       )}
     </Fragment>
+  );
+}
+
+function ProposalThresholdQuorumBlock({
+  title,
+  value,
+  valueClassName,
+}: {
+  title: string;
+  value: string | number;
+  valueClassName?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-y-[4px]">
+      <div className="'font-guise md:leading-[18px]' text-[11px] leading-[18px] text-white/50 md:text-[12px]">
+        {title}
+      </div>
+      <div
+        className={clsx(
+          'font-serif text-[14px] leading-[18px] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]',
+          valueClassName,
+        )}
+      >
+        {value}%
+      </div>
+    </div>
+  );
+}
+
+function ProposalThresholdQuorum({
+  threshold,
+  quorum,
+}: {
+  threshold: string;
+  quorum: string;
+}) {
+  return (
+    <div className="flex flex-row gap-[16px]">
+      <ProposalThresholdQuorumBlock title="Threshold" value={threshold} />
+      <ProposalThresholdQuorumBlock title="Quorum" value={quorum} />
+    </div>
   );
 }
 
