@@ -76,7 +76,6 @@ export function useProposalTally(proposalId: string | undefined) {
     },
     {
       refetchOnWindowFocus: true,
-      refetchInterval: 5000,
     },
   );
 }

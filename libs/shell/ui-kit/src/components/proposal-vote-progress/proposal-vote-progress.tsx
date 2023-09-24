@@ -2,6 +2,7 @@
 import { ReactElement, useMemo } from 'react';
 import { CardSubText, CardText } from '../card/card';
 import clsx from 'clsx';
+import { formatNumber } from '../../utils/format-number';
 
 export interface VoteResults {
   yes: string;
@@ -40,10 +41,10 @@ export function ProposalVoteProgress({
       }
 
       return [
-        (yes / total) * 100,
-        (no / total) * 100,
-        (abstain / total) * 100,
-        (veto / total) * 100,
+        Number.parseFloat(formatNumber((yes / total) * 100)),
+        Number.parseFloat(formatNumber((no / total) * 100)),
+        Number.parseFloat(formatNumber((abstain / total) * 100)),
+        Number.parseFloat(formatNumber((veto / total) * 100)),
       ];
     }, [yes, abstain, no, veto, total]);
 
