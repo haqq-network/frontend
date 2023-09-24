@@ -88,7 +88,7 @@ function HookedProposalListCard({
   }
 
   return (
-    <Link to={`proposal/${proposal.proposal_id}`}>
+    <Link to={`governance/proposal/${proposal.proposal_id}`}>
       <ProposalListCard
         proposal={proposal}
         govParams={govParams}
