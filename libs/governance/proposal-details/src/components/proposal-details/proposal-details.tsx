@@ -143,12 +143,16 @@ function ProposalDetailsMobile({
   minDeposit,
   symbol,
   proposalTally,
+  quorum,
+  threshold,
 }: {
   proposalDetails: Proposal;
   totalDeposit: number;
   minDeposit: number;
   symbol: string;
   proposalTally: TallyResults;
+  threshold: number;
+  quorum: number;
 }) {
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
@@ -175,6 +179,12 @@ function ProposalDetailsMobile({
               </div>
             )}
           </div>
+
+          <ProposalThresholdQuorum
+            threshold={formatNumber(threshold, 2, 2)}
+            quorum={formatNumber(quorum, 2, 2)}
+          />
+
           {(proposalDetails.status === ProposalStatus.Deposit ||
             proposalDetails.status === ProposalStatus.Voting) && (
             <div>
@@ -378,6 +388,8 @@ export function ProposalDetailsComponent({
                       minDeposit={minDeposit}
                       symbol={symbol}
                       proposalTally={proposalTally}
+                      quorum={quorum}
+                      threshold={threshold}
                     />
                   </div>
                 )}
