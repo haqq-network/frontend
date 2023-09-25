@@ -6,7 +6,7 @@ import { MobileHeader } from '../components/header/header';
 import { Alexandria } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import clsx from 'clsx';
-import { DEPLOY_URL } from '../constants';
+import { DEPLOY_URL, VERCEL_ENV } from '../constants';
 import { CookieConsentModal } from '../components/cookie-consent-modal/cookie-consetnt-modal';
 
 import 'swiper/css';
@@ -60,13 +60,13 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang="en" className={clsx('ltr', alexandriaFont.variable)}>
-      {process.env['VERCEL_ENV'] !== 'production' && <CookieConsentModal />}
+      {VERCEL_ENV !== 'development' && <CookieConsentModal />}
       <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
         <div className="flex-1">{children}</div>
         <Footer />
       </body>
-      {process.env['VERCEL_ENV'] !== 'development' && (
+      {VERCEL_ENV !== 'development' && (
         <Fragment>
           <script
             id="fb-pixel"
