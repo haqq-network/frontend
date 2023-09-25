@@ -144,14 +144,14 @@ function ProposalDetailsMobile({
   symbol,
   proposalTally,
   quorum,
-  threshold,
+  turnout,
 }: {
   proposalDetails: Proposal;
   totalDeposit: number;
   minDeposit: number;
   symbol: string;
   proposalTally: TallyResults;
-  threshold: number;
+  turnout: number;
   quorum: number;
 }) {
   return (
@@ -180,8 +180,8 @@ function ProposalDetailsMobile({
             )}
           </div>
 
-          <ProposalThresholdQuorum
-            threshold={formatNumber(threshold, 2, 2)}
+          <ProposalTurnoutQuorum
+            turnout={formatNumber(turnout, 2, 2)}
             quorum={formatNumber(quorum, 2, 2)}
           />
 
@@ -235,7 +235,7 @@ export function ProposalDetailsComponent({
   const { openSelectWallet } = useWallet();
   // const { deposit } = useProposalActions();
   // const toast = useToast();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const { hash } = useLocation();
   // const { ethAddress } = useAddress();
   // const { data: balanceData } = useBalance({
@@ -249,12 +249,12 @@ export function ProposalDetailsComponent({
     ),
   );
 
-  const isDepositAvailable = useMemo(() => {
-    const now = Date.now();
-    const voteStart = new Date(proposalDetails.voting_start_time).getTime();
+  // const isDepositAvailable = useMemo(() => {
+  //   const now = Date.now();
+  //   const voteStart = new Date(proposalDetails.voting_start_time).getTime();
 
-    return now < voteStart && isWalletConnected;
-  }, [isWalletConnected, proposalDetails]);
+  //   return now < voteStart && isWalletConnected;
+  // }, [isWalletConnected, proposalDetails]);
   const totalDeposit = useMemo(() => {
     if (proposalDetails.total_deposit.length === 0) {
       return 0;
@@ -337,7 +337,7 @@ export function ProposalDetailsComponent({
     return Number.parseFloat(govParams.tally_params.quorum) * 100;
   }, [govParams.tally_params.quorum]);
 
-  const threshold = useMemo(() => {
+  const turnout = useMemo(() => {
     if (!stakingPool || !proposalTally) {
       return 0;
     }
@@ -389,7 +389,7 @@ export function ProposalDetailsComponent({
                       symbol={symbol}
                       proposalTally={proposalTally}
                       quorum={quorum}
-                      threshold={threshold}
+                      turnout={turnout}
                     />
                   </div>
                 )}
@@ -517,8 +517,8 @@ export function ProposalDetailsComponent({
                         />
                       </div>
 
-                      <ProposalThresholdQuorum
-                        threshold={formatNumber(threshold, 2, 2)}
+                      <ProposalTurnoutQuorum
+                        turnout={formatNumber(turnout, 2, 2)}
                         quorum={formatNumber(quorum, 2, 2)}
                       />
 
@@ -672,10 +672,10 @@ export function ProposalDetailsComponent({
             proposalDetails={proposalDetails}
             isConnected={isConnected}
             onConnectWalletClick={openSelectWallet}
-            isDepositAvailable={isDepositAvailable}
-            onDepositWalletClick={() => {
-              navigate('#deposit', { replace: true });
-            }}
+            // isDepositAvailable={isDepositAvailable}
+            // onDepositWalletClick={() => {
+            //   navigate('#deposit', { replace: true });
+            // }}
             isCanVote={isCanVote}
           />
           {/* <ProposalDepositModal
@@ -692,7 +692,7 @@ export function ProposalDetailsComponent({
   );
 }
 
-function ProposalThresholdQuorumBlock({
+function ProposalTurnoutQuorumBlock({
   title,
   value,
   valueClassName,
@@ -718,17 +718,17 @@ function ProposalThresholdQuorumBlock({
   );
 }
 
-function ProposalThresholdQuorum({
-  threshold,
+function ProposalTurnoutQuorum({
+  turnout,
   quorum,
 }: {
-  threshold: string;
+  turnout: string;
   quorum: string;
 }) {
   return (
     <div className="flex flex-row gap-[16px]">
-      <ProposalThresholdQuorumBlock title="Threshold" value={threshold} />
-      <ProposalThresholdQuorumBlock title="Quorum" value={quorum} />
+      <ProposalTurnoutQuorumBlock title="Turnout" value={turnout} />
+      <ProposalTurnoutQuorumBlock title="Quorum" value={quorum} />
     </div>
   );
 }
@@ -737,15 +737,15 @@ function ProposalActionsMobile({
   proposalDetails,
   isConnected,
   onConnectWalletClick,
-  onDepositWalletClick,
-  isDepositAvailable,
+  // onDepositWalletClick,
+  // isDepositAvailable,
   isCanVote,
 }: {
   proposalDetails: Proposal;
   isConnected?: boolean;
   onConnectWalletClick: () => void;
-  onDepositWalletClick: () => void;
-  isDepositAvailable: boolean;
+  // onDepositWalletClick: () => void;
+  // isDepositAvailable: boolean;
   isCanVote?: boolean;
 }) {
   if (!isConnected) {
