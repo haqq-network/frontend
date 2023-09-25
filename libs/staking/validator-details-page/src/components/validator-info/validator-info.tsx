@@ -40,6 +40,8 @@ import {
   formatNumber,
   ToastLoading,
   ToastError,
+  ToastSuccess,
+  LinkIcon,
 } from '@haqq/shell-ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
@@ -516,17 +518,22 @@ export function ValidatorInfo({
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
         return (
-          <div className="flex flex-col gap-[8px] text-center">
-            <span>Rewards claimed </span>
-            <Link
-              to={`https://ping.pub/haqq/tx/${txHash}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
-            >
-              Explorer link
-            </Link>
-          </div>
+          <ToastSuccess>
+            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+              <span>Rewards claimed </span>
+              <div>
+                <Link
+                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                >
+                  <LinkIcon />
+                  <span>{getFormattedAddress(txHash)}</span>
+                </Link>
+              </div>
+            </div>
+          </ToastSuccess>
         );
       },
       error: (error) => {

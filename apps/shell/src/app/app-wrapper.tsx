@@ -26,7 +26,6 @@ import {
   useWallet,
   getFormattedAddress,
   useSupportedChains,
-  Toaster,
 } from '@haqq/shared';
 import { haqqTestedge2 } from '@wagmi/chains';
 import { useNavigate } from 'react-router-dom';
@@ -274,8 +273,6 @@ export function AppWrapper({ children }: PropsWithChildren) {
         onConnectClick={handleWalletConnect}
         onClose={closeSelectWallet}
       />
-
-      <Toaster />
     </Page>
   );
 }
