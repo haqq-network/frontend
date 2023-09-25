@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { PropsWithChildren } from 'react';
+import { Fragment, PropsWithChildren } from 'react';
 import { headers } from 'next/headers';
 import { Footer } from '../components/footer/footer';
 import { MobileHeader } from '../components/header/header';
@@ -7,10 +7,13 @@ import { Alexandria } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import { DEPLOY_URL } from '../constants';
+import { CookieConsentModal } from '../components/cookie-consent-modal/cookie-consetnt-modal';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../styles/global.css';
+import '../styles/consent-cookie.css';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: {
@@ -57,11 +60,47 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang="en" className={clsx('ltr', alexandriaFont.variable)}>
+      {process.env['VERCEL_ENV'] !== 'production' && <CookieConsentModal />}
       <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
         <div className="flex-1">{children}</div>
         <Footer />
       </body>
+      {process.env['VERCEL_ENV'] !== 'development' && (
+        <Fragment>
+          <script
+            id="fb-pixel"
+            data-cookiecategory="analytics"
+            dangerouslySetInnerHTML={{
+              __html: `
+                  !function(f,b,e,v,n,t,s)
+                  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                  n.queue=[];t=b.createElement(e);t.async=!0;
+                  t.src=v;s=b.getElementsByTagName(e)[0];
+                  s.parentNode.insertBefore(t,s)}(window, document,'script',
+                  'https://connect.facebook.net/en_US/fbevents.js');
+                  fbq('init', '873030480371387');
+                  fbq('track', 'PageView');
+                `,
+            }}
+          />
+          <Script
+            id="gtm"
+            data-cookiecategory="analytics"
+            dangerouslySetInnerHTML={{
+              __html: `
+                  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                  })(window,document,'script','dataLayer','GTM-5H2ZFCN');
+                `,
+            }}
+          />
+        </Fragment>
+      )}
     </html>
   );
 }

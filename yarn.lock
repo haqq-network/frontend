@@ -3119,6 +3119,7 @@ __metadata:
     tslib: 2.6.2
     typescript: 5.2.2
     url-loader: 4.1.1
+    vanilla-cookieconsent: 2.9.2
     viem: 1.2.9
     wagmi: 1.3.7
     webpack: 5.88.2
@@ -26562,6 +26563,13 @@ __metadata:
     react:
       optional: true
   checksum: 0e738aa204c479c8f8c89c0a7478d6784c28ddd712be529fdc5c421d3ec28157fec2fb022a75cd4f45b8c4b470fbc64a27032adba6ed9936bdad989256222adf
+  languageName: node
+  linkType: hard
+
+"vanilla-cookieconsent@npm:2.9.2":
+  version: 2.9.2
+  resolution: "vanilla-cookieconsent@npm:2.9.2"
+  checksum: 22851f6e4d7fc97334724bbc5b809a44db2d8a92b56e9844ee1920cca470d5ea3c76c38bf44bb00acd2083dbb3fbe5ecc5b93c9e13bc08081dc0da1d21562773
   languageName: node
   linkType: hard
 
