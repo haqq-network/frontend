@@ -19,7 +19,7 @@ export function ValuesPage() {
           Our Values
         </h1>
 
-        <div className="flex flex-col lg:mt-[60px] lg:flex-row">
+        <div className="flex flex-col items-center lg:mt-[60px] lg:flex-row">
           <div className="lg:relative lg:order-2 lg:flex-1">
             <Image
               src={glowCubeImgData}
