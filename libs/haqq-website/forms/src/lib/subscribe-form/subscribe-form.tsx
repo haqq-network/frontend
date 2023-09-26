@@ -12,6 +12,7 @@ import { Button, Heading, Modal, Ruler, Text } from '@haqq/haqq-website-ui-kit';
 import clsx from 'clsx';
 import axios from 'axios';
 import Turnstile from 'react-turnstile';
+import Link from 'next/link';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -139,6 +140,20 @@ export function SubscribeForm({
             size={inputSize}
           />
         </div>
+        <label
+          htmlFor="email"
+          className="mt-[4px] w-fit text-[12px] text-white"
+        >
+          By clicking the button you accept{' '}
+          <Link
+            href="/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+          >
+            Privacy Policy
+          </Link>
+        </label>
         <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
           <Button variant={1} type="submit" disabled={isFormDisabled}>
             Subscribe
