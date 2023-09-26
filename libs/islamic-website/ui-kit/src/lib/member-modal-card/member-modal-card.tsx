@@ -36,7 +36,7 @@ export function MemberModalCard({
         <div className="flex flex-col lg:mt-[24px]">
           <div className="text-[24px] font-[600] leading-[34px]">{title}</div>
           {url && (
-            <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet mt-[8px] flex items-center gap-x-[4px] font-mono  uppercase transition-colors duration-300 md:mt-[12px]">
+            <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet mt-[8px] flex items-center gap-x-[4px] font-mono uppercase transition-colors duration-300 md:mt-[12px]">
               <Link href={url} target="_blank" rel="noopener noreferrer">
                 Web
               </Link>

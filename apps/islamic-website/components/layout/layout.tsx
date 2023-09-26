@@ -1,11 +1,11 @@
 'use client';
-import { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren } from 'react';
 import { Footer } from '../../components/footer/footer';
 import { MobileHeader } from '../../components/header/header';
 import { Alexandria, Handjet } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
-import { SOCIAL_LINKS } from '../../constants';
+import { SOCIAL_LINKS } from '../footer/social-links';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -48,16 +48,12 @@ export function ClientLayout({
   messages: Record<string, string>;
   isMobileUserAgent: boolean;
 }>) {
-  const shortLocale = locale ? locale : 'en';
-
-  useEffect(() => {
-    const dir = shortLocale == 'ar' ? 'rtl' : 'ltr';
-
-    document?.querySelector('html')?.setAttribute('dir', dir);
-  }, [shortLocale]);
-
   return (
-    <html lang={locale} className={clsx(alexandria.variable, handjet.variable)}>
+    <html
+      lang={locale}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      className={clsx(alexandria.variable, handjet.variable)}
+    >
       <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}

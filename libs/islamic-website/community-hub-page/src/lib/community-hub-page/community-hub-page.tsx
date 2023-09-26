@@ -1,10 +1,9 @@
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import ltrBgImgData from '../../assets/images/bg-image-ltr.svg';
-import rtlBgImgData from '../../assets/images/bg-image-rtl.svg';
+import bgImgData from '../../assets/images/bg-image.svg';
 import Image from 'next/image';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import clsx from 'clsx';
 
 interface SocialLink {
@@ -33,7 +32,6 @@ export function CommunityHubPage({
   socialLinks: SocialLink[];
 }) {
   const t = useTranslations('community-hub-page');
-  const locale = useLocale();
   return (
     <Container className="overflow-x-clip">
       <div className="relative  pb-[60px] pt-[32px] md:pb-[120px] md:pt-[52px] lg:pb-[180px] lg:pt-[68px]">
@@ -73,11 +71,7 @@ export function CommunityHubPage({
           )}
         >
           <div className="h-[741px] w-[1044px]">
-            <Image
-              src={locale === 'en' ? ltrBgImgData : rtlBgImgData}
-              alt=""
-              fill
-            />
+            <Image src={bgImgData} alt="" fill className="rtl:scale-x-[-1]" />
           </div>
         </div>
       </div>
