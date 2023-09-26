@@ -1,13 +1,13 @@
 /** Light color-scheme **/
 :root {
-  --cc-bg: #fff;
-  --cc-text: #2d4156;
+  --cc-bg: #15191e;
+  --cc-text: #fff;
   --cc-border-radius: 0.35em;
   --cc-btn-primary-bg: #01b26e;
   --cc-btn-primary-text: var(--cc-bg);
   --cc-btn-primary-hover-bg: #0bd286;
   --cc-btn-secondary-bg: #eaeff2;
-  --cc-btn-secondary-text: var(--cc-text);
+  --cc-btn-secondary-text: #000000;
   --cc-btn-secondary-hover-bg: #d8e0e6;
   --cc-btn-border-radius: 4px;
   --cc-toggle-bg-off: #919ea6;
