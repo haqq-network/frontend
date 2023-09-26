@@ -1,6 +1,6 @@
 /** Light color-scheme **/
 :root {
-  --cc-bg: #15191e;
+  --cc-bg: #15191ef2;
   --cc-text: #fff;
   --cc-border-radius: 0.35em;
   --cc-btn-primary-bg: #01b26e;
@@ -16,7 +16,7 @@
   --cc-toggle-knob-bg: #fff;
   --cc-toggle-knob-icon-color: #ecf2fa;
   --cc-block-text: var(--cc-text);
-  --cc-cookie-category-block-bg: #15191e;
+  --cc-cookie-category-block-bg: #15191ef2;
   /* --cc-cookie-category-block-bg-hover: #e9eff4; */
   --cc-section-border: #f1f3f5;
   --cc-cookie-table-border: #e9edf2;
