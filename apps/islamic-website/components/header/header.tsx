@@ -112,15 +112,27 @@ function HeaderDropdown({
   );
 }
 
-export default function Header() {
+export default function Header({
+  isBannerVisible = false,
+}: {
+  isBannerVisible?: boolean;
+}) {
   const isTabletMedia = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
 
-  return isTabletMedia ? <MobileHeader /> : <DesktopHeader />;
+  return isTabletMedia ? (
+    <MobileHeader isBannerVisible={isBannerVisible} />
+  ) : (
+    <DesktopHeader isBannerVisible={isBannerVisible} />
+  );
 }
 
-export function MobileHeader() {
+export function MobileHeader({
+  isBannerVisible = false,
+}: {
+  isBannerVisible?: boolean;
+}) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const [isBlurred, setBlured] = useState(false);
 
@@ -156,16 +168,26 @@ export function MobileHeader() {
 
   return (
     <Fragment>
-      <div className="h-[72px] lg:h-[92px]" />
+      <div
+        className={clsx(
+          isBannerVisible
+            ? 'h-[calc(72px+64px)] md:h-[calc(72px+40px)]'
+            : 'h-[72px]',
+        )}
+      />
       <header
         className={clsx(
-          'fixed top-0 z-50 h-[72px] w-full border-b-[1px] border-transparent',
+          'fixed z-50 h-[72px] w-full border-b-[1px] border-transparent',
+          isBannerVisible ? 'top-[64px] md:top-[40px]' : 'top-[0px]',
           'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
           isMobileMenuOpen
-            ? '!h-[100vh] bg-[#15191ef2] backdrop-blur-[6px]'
+            ? 'bg-[#15191ef2] backdrop-blur-[6px]'
             : isBlurred
             ? '!border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px]'
             : 'bg-transparent',
+          isMobileMenuOpen &&
+            isBannerVisible &&
+            'h-[calc(100vh-64px)] md:h-[calc(100vh-40px)]',
         )}
       >
         <div className="flex h-full flex-col">
@@ -194,8 +216,8 @@ export function MobileHeader() {
           </div>
           <div
             className={clsx(
-              'flex-1 overflow-y-auto',
-              isMobileMenuOpen ? 'block ' : 'hidden',
+              'my-[1px] flex-1 overflow-y-auto',
+              isMobileMenuOpen ? 'block' : 'hidden',
             )}
           >
             <div className={clsx('py-[24px]', 'w-full')}>
@@ -213,7 +235,11 @@ export function MobileHeader() {
   );
 }
 
-export function DesktopHeader() {
+export function DesktopHeader({
+  isBannerVisible = false,
+}: {
+  isBannerVisible?: boolean;
+}) {
   const [isBlurred, setBlured] = useState(false);
 
   useEffect(() => {
@@ -239,9 +265,10 @@ export function DesktopHeader() {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 w-full',
+        'sticky z-50 w-full',
         'transform-gpu transition-all duration-150 will-change-auto',
         isBlurred && 'translate-y-[-16px]',
+        isBannerVisible ? 'top-[40px]' : 'top-[0px]',
       )}
     >
       <div className="pb-[10px] pt-[26px]">
