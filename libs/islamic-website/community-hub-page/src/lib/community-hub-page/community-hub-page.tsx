@@ -1,4 +1,15 @@
-import { Container, Text } from '@haqq/islamic-website-ui-kit';
+import {
+  Container,
+  DiscordIcon,
+  FacebookIcon,
+  GithubIcon,
+  LinkedinIcon,
+  MediumIcon,
+  TelegramIcon,
+  Text,
+  TwitterIcon,
+  YoutubeIcon,
+} from '@haqq/islamic-website-ui-kit';
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import bgImgData from '../../assets/images/bg-image.svg';
@@ -6,13 +17,25 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import clsx from 'clsx';
 
-interface SocialLink {
-  icon: ReactNode;
+const SOCIAL_ICONS: Record<string, ReactNode> = {
+  youtube: <YoutubeIcon />,
+  discord: <DiscordIcon />,
+  facebook: <FacebookIcon />,
+  github: <GithubIcon />,
+  linkedin: <LinkedinIcon />,
+  medium: <MediumIcon />,
+  telegram: <TelegramIcon />,
+  twitter: <TwitterIcon />,
+};
+
+interface SocialIconLink {
+  id: string;
   url: string;
   title: string;
 }
+function SocialIconLink({ id, title, url }: SocialIconLink) {
+  const icon = SOCIAL_ICONS[id];
 
-function SocialIconLink({ icon, url, title }: SocialLink) {
   return (
     <Link
       title={title}
@@ -29,7 +52,7 @@ function SocialIconLink({ icon, url, title }: SocialLink) {
 export function CommunityHubPage({
   socialLinks,
 }: {
-  socialLinks: SocialLink[];
+  socialLinks: SocialIconLink[];
 }) {
   const t = useTranslations('community-hub-page');
   return (
@@ -48,14 +71,9 @@ export function CommunityHubPage({
             <Text isMono>{t('subtitle')}</Text>
           </div>
           <div className="mt-[16px] flex flex-wrap gap-[16px] md:mt-[20px] lg:mt-[24px]">
-            {socialLinks.map(({ icon, title, url }) => {
+            {socialLinks.map(({ id, title, url }) => {
               return (
-                <SocialIconLink
-                  icon={icon}
-                  key={title}
-                  url={url}
-                  title={title}
-                />
+                <SocialIconLink id={id} key={title} url={url} title={title} />
               );
             })}
           </div>

@@ -1,18 +1,13 @@
 import Link from 'next/link';
-import { PropsWithChildren, ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { SocialIconLink, SocialIconLinkProps } from './social-links';
 
 interface FooterNavLink {
   url: string;
   isOutLink?: boolean;
-  title: string;
-}
-
-interface SocialLink {
-  icon: ReactNode;
-  url: string;
   title: string;
 }
 
@@ -35,24 +30,6 @@ function FooterNavLink({
       className="rtl:font-handjet w-fit px-[8px] py-[6px] font-mono  text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-150 ease-in hover:text-[#18FFAC] md:text-[14px] lg:text-base lg:text-base"
     >
       {title}
-    </Link>
-  );
-}
-
-function FooterNavSocialLink({
-  url,
-  children,
-  title,
-}: PropsWithChildren<{ url: string; title: string }>) {
-  return (
-    <Link
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="transition-colors duration-150 ease-in hover:text-[#18FFAC]"
-      title={title}
-    >
-      {children}
     </Link>
   );
 }
@@ -156,7 +133,11 @@ const footerNavLinks: FooterNavLinks = [
   ],
 ];
 
-export function Footer({ socialLinks }: { socialLinks: SocialLink[] }) {
+export function Footer({
+  socialLinks,
+}: {
+  socialLinks: SocialIconLinkProps[];
+}) {
   const t = useTranslations('footer');
 
   const maxHeight = useMemo(() => {
@@ -214,11 +195,14 @@ export function Footer({ socialLinks }: { socialLinks: SocialLink[] }) {
             </div>
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[12px] text-white">
-                {socialLinks.map(({ icon, url, title }) => {
+                {socialLinks.map(({ id, url, title }) => {
                   return (
-                    <FooterNavSocialLink key={title} url={url} title={title}>
-                      {icon}
-                    </FooterNavSocialLink>
+                    <SocialIconLink
+                      id={id}
+                      key={title}
+                      url={url}
+                      title={title}
+                    />
                   );
                 })}
               </div>
