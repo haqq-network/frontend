@@ -67,7 +67,7 @@ export function UndelegateModal({
         return (
           <ToastSuccess>
             <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <span>Undelegation successful</span>
+              <div>Undelegation successful</div>
               <div>
                 <Link
                   to={`https://ping.pub/haqq/tx/${txHash.txhash}`}

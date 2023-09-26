@@ -146,7 +146,7 @@ export function RedelegateModal({
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <span>Redelegation successful</span>
+                <div>Redelegation successful</div>
                 <div>
                   <Link
                     to={`https://ping.pub/haqq/tx/${txHash}`}

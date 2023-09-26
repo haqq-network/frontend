@@ -801,7 +801,7 @@ export function VoteActions({
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <span>Your vote will be counted!!!</span>
+                <div>Your vote will be counted!!!</div>
                 <div>
                   <Link
                     to={`https://ping.pub/haqq/tx/${txHash}`}

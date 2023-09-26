@@ -133,7 +133,7 @@ function GranterGrantsTable() {
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <span>Revoke successful</span>
+                <div>Revoke successful</div>
                 <div>
                   <Link
                     to={`https://ping.pub/haqq/tx/${txHash}`}
@@ -448,7 +448,7 @@ function AuthzGrantsActions() {
         return (
           <ToastSuccess>
             <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <span>Grant successful</span>
+              <div>Grant successful</div>
               <div>
                 <Link
                   to={`https://ping.pub/haqq/tx/${txHash}`}

@@ -59,7 +59,7 @@ export function StakingInfoHooked() {
         return (
           <ToastSuccess>
             <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <span>Rewards claimed </span>
+              <div>Rewards claimed</div>
               <div>
                 <Link
                   to={`https://ping.pub/haqq/tx/${txHash}`}
