@@ -127,7 +127,7 @@ export function SubscribeForm({
         className={clsx(className)}
         autoComplete="off"
       >
-        <div className="max-w-[400px] sm:flex-1">
+        <div className="flex max-w-[400px] flex-col sm:flex-1">
           <HookedFormInput<SubscribeFormFields>
             wrapperClassName="w-full"
             placeholder="Enter your e-mail"
@@ -139,21 +139,21 @@ export function SubscribeForm({
             required
             size={inputSize}
           />
-        </div>
-        <label
-          htmlFor="email"
-          className="mt-[4px] w-fit text-[12px] text-white"
-        >
-          By clicking the button you accept{' '}
-          <Link
-            href="/privacy-policy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+          <label
+            htmlFor="email"
+            className="mt-[4px] w-fit text-[12px] text-white"
           >
-            Privacy Policy
-          </Link>
-        </label>
+            By clicking the button you accept{' '}
+            <Link
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+            >
+              Privacy Policy
+            </Link>
+          </label>
+        </div>
         <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
           <Button variant={1} type="submit" disabled={isFormDisabled}>
             Subscribe
