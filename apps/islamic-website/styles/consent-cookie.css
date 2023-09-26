@@ -16,8 +16,8 @@
   --cc-toggle-knob-bg: #fff;
   --cc-toggle-knob-icon-color: #ecf2fa;
   --cc-block-text: var(--cc-text);
-  --cc-cookie-category-block-bg: #f0f4f7;
-  --cc-cookie-category-block-bg-hover: #e9eff4;
+  --cc-cookie-category-block-bg: #15191e;
+  /* --cc-cookie-category-block-bg-hover: #e9eff4; */
   --cc-section-border: #f1f3f5;
   --cc-cookie-table-border: #e9edf2;
   --cc-overlay-bg: rgba(4, 6, 8, 0.85);
@@ -283,6 +283,7 @@
   text-align: center;
   border-radius: var(--cc-btn-border-radius);
   flex: 1;
+  @apply font-mono uppercase;
 }
 
 #c-p-bn span,
@@ -306,8 +307,7 @@
 #cm .c_link:active,
 #s-cnt button + button:hover,
 #s-cnt button + button:active,
-#s-c-bn:active,
-#s-c-bn:hover {
+#s-c-bn:active {
   background: var(--cc-btn-secondary-hover-bg);
 }
 
@@ -315,6 +315,7 @@
 CookieConsent settings modal
 **/
 #s-cnt {
+  @apply transform-gpu opacity-100 backdrop-blur;
   position: fixed;
   top: 0;
   left: 0;
@@ -506,7 +507,7 @@ CookieConsent settings modal
   left: 0;
   right: 0;
   padding: 1em 1.8em;
-  border-top: 1px solid var(--cc-section-border);
+  border-top: 1px solid #ffffff1a;
   height: 4.75em;
 }
 
@@ -568,7 +569,7 @@ CookieConsent settings modal
   height: 4.75em;
   vertical-align: middle;
   z-index: 2;
-  border-bottom: 1px solid var(--cc-section-border);
+  border-bottom: 1px solid #ffffff1a;
   @apply rtl:flex rtl:items-center rtl:justify-between;
 }
 
@@ -587,6 +588,7 @@ CookieConsent settings modal
   font-weight: initial;
   position: relative;
   overflow: hidden;
+  background: transparent;
 }
 
 #s-c-bnc {
@@ -674,8 +676,8 @@ CookieConsent settings modal
 
 /* Create a custom checkbox */
 .cc_div .b-tg .c-tg {
+  @apply bg-white/10;
   position: absolute;
-  background: var(--cc-toggle-bg-off);
   transition:
     background-color 0.25s ease,
     box-shadow 0.25s ease;
@@ -763,7 +765,7 @@ CookieConsent settings modal
 }
 
 #s-bl thead tr:first-child {
-  border-bottom: 1px solid var(--cc-cookie-table-border);
+  border-bottom: 1px solid #ffffff1a;
 }
 
 .force--consent #s-cnt,
@@ -836,7 +838,7 @@ html.force--consent.show--consent body {
 /** BEGIN ICONS **/
 .cc_div .b-bn .exp::before,
 .cc_div .act .b-bn .exp::before {
-  border: solid var(--cc-btn-secondary-text);
+  border: solid white;
   border-width: 0 2px 2px 0;
   padding: 0.2em;
   display: inline-block;
@@ -875,7 +877,7 @@ html.force--consent.show--consent body {
   top: 0.58em;
   height: 0.6em;
   width: 1.5px;
-  background: var(--cc-btn-secondary-text);
+  background: white;
   transform: rotate(45deg);
   border-radius: 1em;
   margin: 0 auto;
