@@ -348,6 +348,11 @@ export function DesktopHeader() {
                       icon={<AlertIcon />}
                       href="/fraud-alert"
                     />
+                    <DropdownLink
+                      title="Scam alert"
+                      icon={<AlertIcon />}
+                      href="/scam-alert"
+                    />
 
                     {/* <DropdownLink
                       title="Podcast"

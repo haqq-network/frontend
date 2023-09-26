@@ -2,7 +2,7 @@ import { DEPLOY_URL } from '../../constants';
 import type { Metadata } from 'next';
 import { islamicOpenGraphImages } from '../shared-metadata';
 
-const title = 'Recruitment Fraud Alert';
+const title = 'Contact ss';
 const description =
   'Learn how to identify and protect yourself against recruitment scams claiming to be from Islamic Coin. Know the red flags and stay secure in your job search.';
 
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     title: `${title} | IslamicCoin`,
     description,
     images: islamicOpenGraphImages,
-    url: new URL('/fraud-alert', DEPLOY_URL).toString(),
+    url: new URL('/contact-us', DEPLOY_URL).toString(),
   },
 };
 
-export { FraudAlertPage as default } from '@haqq/islamic-website/alerts-pages';
+export { ContactUsPage as default } from '@haqq/islamic-website/alerts-pages';

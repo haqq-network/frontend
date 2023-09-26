@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     title: `${title} | IslamicCoin`,
     description,
     images: islamicOpenGraphImages,
-    url: new URL('/fraud-alert', DEPLOY_URL).toString(),
+    url: new URL('/scam-alert', DEPLOY_URL).toString(),
   },
 };
 
-export { FraudAlertPage as default } from '@haqq/islamic-website/alerts-pages';
+export { ScamAlertPage as default } from '@haqq/islamic-website/alerts-pages';
