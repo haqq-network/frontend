@@ -38,6 +38,10 @@ import {
   MyAccountBlockMobile,
   Tooltip,
   formatNumber,
+  ToastLoading,
+  ToastError,
+  ToastSuccess,
+  LinkIcon,
 } from '@haqq/shell-ui-kit';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
@@ -509,14 +513,31 @@ export function ValidatorInfo({
     const claimRewardPromise = claimReward(validatorAddress);
 
     await toast.promise(claimRewardPromise, {
-      loading: 'Rewards claim in progress',
+      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
       success: (tx) => {
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
-        return `Rewards claimed`;
+        return (
+          <ToastSuccess>
+            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+              <div>Rewards claimed</div>
+              <div>
+                <Link
+                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                >
+                  <LinkIcon />
+                  <span>{getFormattedAddress(txHash)}</span>
+                </Link>
+              </div>
+            </div>
+          </ToastSuccess>
+        );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
 
@@ -570,14 +591,26 @@ export function ValidatorInfo({
     const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
 
     await toast.promise(claimAllRewardPromise, {
-      loading: 'Rewards claim in progress',
+      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
       success: (tx) => {
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
-        return `Rewards claimed`;
+        return (
+          <div className="flex flex-col gap-[8px] text-center">
+            <div>Rewards claimed</div>
+            <Link
+              to={`https://ping.pub/haqq/tx/${txHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+            >
+              Explorer link
+            </Link>
+          </div>
+        );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
 
