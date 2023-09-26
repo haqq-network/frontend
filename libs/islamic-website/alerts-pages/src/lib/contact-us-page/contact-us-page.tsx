@@ -3,14 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import contactPageImageData from '../../assets/images/contact-page-image.webp';
 
-const phone = '+9715855474242';
 export function ContactUsPage() {
   return (
     <section className="">
       <Container>
         <div className="pb-[36px] pt-[32px] md:pb-[46px] md:pt-[60px] lg:py-[244px] xl:pb-[324px] xl:pt-[284px]">
           <div className="flex min-h-[200px] flex-col items-start lg:flex-row">
-            <div className="lg:w-2/3">
+            <div className="lg:w-9/12">
               <div className="flex flex-col gap-[24px] md:gap-[28px] lg:gap-[36px] xl:gap-[32px]">
                 <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
                   Contact us
@@ -43,10 +42,10 @@ export function ContactUsPage() {
                     <p>
                       In case of an emergency, please contact us by phone{' '}
                       <Link
-                        href={`tel:${phone}`}
+                        href="tel:+9715855474242"
                         className="text-islamic-primary-green hover:text-islamic-primary-green-hover cursor-pointer transition-colors duration-300"
                       >
-                        {phone}
+                        +9715855474242
                       </Link>
                     </p>
                   </div>
@@ -56,7 +55,7 @@ export function ContactUsPage() {
 
             <div className="relative mb-[-30%] w-full flex-1 lg:mb-[0px] lg:min-h-[200px]">
               <div className="pointer-events-none z-[-1] select-none lg:absolute lg:right-[0px] lg:top-[50%] lg:origin-right lg:translate-x-[80%] lg:translate-y-[-50%] lg:scale-150">
-                <div className="from-islamic-bg-black absolute bottom-[0px] h-[70%] w-full bg-gradient-to-t from-55% to-transparent lg:right-0 lg:h-full lg:w-[90%] lg:bg-gradient-to-l" />
+                <div className="from-islamic-bg-black absolute bottom-[0px] h-[75%] w-full bg-gradient-to-t from-55% to-transparent lg:right-0 lg:h-full lg:w-[90%] lg:bg-gradient-to-l" />
                 <Image
                   alt=""
                   src={contactPageImageData}
