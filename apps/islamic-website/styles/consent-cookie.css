@@ -225,6 +225,7 @@
 }
 
 #cm {
+  @apply transform-gpu opacity-100 backdrop-blur;
   font-family: inherit;
   padding: 1.1em 1.5em 1.4em 1.5em;
   position: fixed;
@@ -470,6 +471,7 @@ CookieConsent settings modal
 }
 
 #s-inr {
+  @apply transform-gpu opacity-100 backdrop-blur;
   height: 100%;
   position: relative;
   max-width: 45em;
@@ -574,6 +576,7 @@ CookieConsent settings modal
 }
 
 #s-ttl {
+  @apply font-mono uppercase;
   display: table-cell;
   vertical-align: middle;
   font-size: 1em;
