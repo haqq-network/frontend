@@ -38,8 +38,6 @@ export default async function Page({
     id: idFatwa,
   };
 
-  console.log({ fatwa });
-
   return (
     <ShariahPage
       shariahMembers={shariahMembers}
