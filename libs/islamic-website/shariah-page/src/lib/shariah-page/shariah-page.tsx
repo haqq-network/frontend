@@ -350,7 +350,7 @@ function ShariPageDesktopNav({
   activeSection: string;
 }) {
   return (
-    <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px]">
+    <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px] backdrop-blur">
       {sections.map(({ id, title }) => {
         return (
           <ShariPageDesktopNavLink

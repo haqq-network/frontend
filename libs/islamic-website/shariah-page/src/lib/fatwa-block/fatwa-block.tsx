@@ -20,6 +20,7 @@ function LangButton({
   locale: localeType;
   onClick: () => void;
 }) {
+  const t = useTranslations('shariah-page.fatwa-block.language-buttons');
   return (
     <div
       className={clsx(
@@ -30,7 +31,7 @@ function LangButton({
       )}
       onClick={onClick}
     >
-      {locale === 'ar' ? 'Arabic' : 'English'} version
+      {locale === 'ar' ? t('arabic') : t('english')}
     </div>
   );
 }
@@ -435,17 +436,17 @@ export function FatwaBlock({ locale }: { locale: localeType }) {
 
       <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
         <LangButton
-          active={lang === 'ar'}
-          locale="ar"
-          onClick={() => {
-            setLang('ar');
-          }}
-        />
-        <LangButton
           active={lang === 'en'}
           locale="en"
           onClick={() => {
             setLang('en');
+          }}
+        />
+        <LangButton
+          active={lang === 'ar'}
+          locale="ar"
+          onClick={() => {
+            setLang('ar');
           }}
         />
       </div>
