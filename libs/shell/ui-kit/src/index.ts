@@ -4,6 +4,8 @@ export * from './components/warning-message/warning-message';
 export * from './components/info-block/info-block';
 export * from './components/orange-link/orange-link';
 export * from './components/icons/icons';
+export * from './components/captcha-modal/captcha-modal';
+export * from './components/information-modal/information-modal';
 export * from './components/button/button';
 export * from './components/heading/heading';
 export * from './components/not-found-page/not-found-page';

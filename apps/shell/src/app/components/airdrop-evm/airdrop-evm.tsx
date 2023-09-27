@@ -1,4 +1,4 @@
-import { Button, Container } from '@haqq/shell-ui-kit';
+import { Button, CaptchaModal, Container } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ethToHaqq,
@@ -9,7 +9,6 @@ import {
 import { Address } from './../address/address';
 import localStore from 'store2';
 import { EvmAirdropView } from '../evm-airdrop-view/evm-airdrop-view';
-import { CaptchaModal } from '../captcha-modal/captcha-modal';
 
 const MESSAGE = 'MESSAGE';
 

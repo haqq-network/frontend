@@ -1,6 +1,7 @@
-import { Modal, Heading, ModalCloseButton } from '@haqq/shell-ui-kit';
 import { useCallback } from 'react';
 import Turnstile from 'react-turnstile';
+import { Heading } from '../heading/heading';
+import { Modal, ModalCloseButton } from '../modal/modal';
 
 export const CaptchaModal = ({
   turnstileSiteKey,

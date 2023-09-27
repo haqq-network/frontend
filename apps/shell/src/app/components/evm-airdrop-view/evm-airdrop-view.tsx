@@ -1,4 +1,4 @@
-import { Button, Heading, Modal, ModalCloseButton } from '@haqq/shell-ui-kit';
+import { Button, InformationModal } from '@haqq/shell-ui-kit';
 import { useState } from 'react';
 
 interface IProps {
@@ -29,7 +29,9 @@ const YesCheckbox = () => {
 };
 
 export const EvmAirdropView = ({ address }: IProps) => {
-  const [isRequestModalOpened, setRequestModalOpened] =
+  const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
+
+  const [isInformationModalOpened, setInformationModalOpened] =
     useState<boolean>(false);
 
   return (
@@ -103,56 +105,25 @@ export const EvmAirdropView = ({ address }: IProps) => {
         <Button
           className="mt-[23px] pl-[32px] pr-[32px]"
           onClick={() => {
-            setRequestModalOpened(true);
+            setErrorModalOpened(true);
           }}
         >
           Airdrop Request
         </Button>
 
-        <Modal
-          isOpen={isRequestModalOpened}
-          onClose={() => {
-            setRequestModalOpened(false);
-          }}
-        >
-          <div className="mx-auto w-[420px] max-w-xl rounded-2xl bg-white p-6 shadow-md">
-            <div className="flex flex-col">
-              <div className="flex items-center justify-between">
-                <Heading className="text-black" level={3}>
-                  &nbsp;
-                </Heading>
-                <ModalCloseButton
-                  className="text-black"
-                  onClick={() => {
-                    setRequestModalOpened(false);
-                  }}
-                />
-              </div>
+        <InformationModal
+          isOpened={isErrorModalOpened}
+          setOpenState={setErrorModalOpened}
+          title="Request was not completed"
+          message="Please retry the request later"
+        />
 
-              <div className="mt-0 flex flex-col break-words">
-                <div className="text-[24px] font-[500] text-black">
-                  Request was not completed
-                </div>
-              </div>
-
-              <div className="mt-[20px] flex flex-col space-y-2 break-words text-[12px]">
-                <div className="text-black">Please retry the request later</div>
-              </div>
-
-              <div className="mt-[24px] text-right">
-                <Button
-                  onClick={() => {
-                    setRequestModalOpened(false);
-                  }}
-                  variant={3}
-                  className="w-full"
-                >
-                  Ok
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Modal>
+        <InformationModal
+          isOpened={isInformationModalOpened}
+          setOpenState={setInformationModalOpened}
+          title="Information"
+          message="Your winning amount will be transferred with vesting, and the first part is available immediately, the rest will be unlocked by schedule"
+        />
       </div>
     </div>
   );
