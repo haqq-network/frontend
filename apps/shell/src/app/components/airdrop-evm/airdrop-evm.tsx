@@ -1,15 +1,26 @@
 import { Button, Container } from '@haqq/shell-ui-kit';
-import { useCallback,  useMemo } from 'react';
-import { CosmosAirdropView } from '../cosmos-airdrop-view/cosmos-airdrop-view';
-import { ethToHaqq, useAddress, useAirdropActions, useWallet } from '@haqq/shared';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  ethToHaqq,
+  useAddress,
+  useAirdropActions,
+  useWallet,
+} from '@haqq/shared';
 import { Address } from './../address/address';
 import localStore from 'store2';
 import { EvmAirdropView } from '../evm-airdrop-view/evm-airdrop-view';
+import { CaptchaModal } from '../captcha-modal/captcha-modal';
 
-const MESSAGE = 'MESSAGE'
+const MESSAGE = 'MESSAGE';
 
-export function AirdropEvm() {
+export function AirdropEvm({
+  turnstileSiteKey,
+}: {
+  turnstileSiteKey?: string;
+}) {
   const { sign } = useAirdropActions();
+
+  console.log('turnstileSiteKey', turnstileSiteKey);
 
   const { ethAddress } = useAddress();
   const { openSelectWallet } = useWallet();
@@ -18,9 +29,9 @@ export function AirdropEvm() {
     return `SAVED_EVM_AIRDROP_SIGNATURE_KEY_${ethAddress}`;
   }, [ethAddress]);
 
-  const checkRequest = useCallback(( ) => {
-    console.log('checkRequest')
-  }, [])
+  const checkRequest = useCallback(() => {
+    console.log('checkRequest');
+  }, []);
 
   const onSignHandler = useCallback(async () => {
     if (!ethAddress) {
@@ -30,7 +41,14 @@ export function AirdropEvm() {
     localStore.set(localStKey, signature);
   }, [ethAddress, localStKey, sign]);
 
-  console.log(onSignHandler, checkRequest)
+  console.log(onSignHandler, checkRequest);
+
+  const [token, setToken] = useState<string | undefined>(undefined);
+  const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
+
+  useEffect(() => {
+    ethAddress && setCaptchaModalOpen(true);
+  }, [ethAddress]);
 
   return (
     <div>
@@ -40,7 +58,7 @@ export function AirdropEvm() {
             AIRDROP
           </div>
 
-          {ethAddress  && (
+          {ethAddress && (
             <div className="mt-[8px] flex flex-col gap-[28px] sm:flex-col md:flex-row lg:flex-row">
               <div>
                 <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
@@ -62,21 +80,23 @@ export function AirdropEvm() {
 
       <div className="flex flex-1 flex-col items-center space-y-[12px] border-t border-[#ffffff26]">
         <div className="flex flex-1 flex-col py-20">
-
-        {!ethAddress ? (
+          {!ethAddress ? (
             <div>
-              <div>You should connect wallet first</div>
-              <Button
-                className="w-full"
-                onClick={openSelectWallet}
-              >
+              <div className="mb-[12px]">You should connect wallet first</div>
+              <Button className="w-full" onClick={openSelectWallet}>
                 Connect wallet
               </Button>
             </div>
-        ) : (
-          <EvmAirdropView address={ethAddress} />
-        )}
+          ) : (
+            <EvmAirdropView address={ethAddress} captchaToken={token} />
+          )}
 
+          <CaptchaModal
+            setCaptchaModalOpen={setCaptchaModalOpen}
+            turnstileSiteKey={turnstileSiteKey}
+            isOpened={isCaptchaModalOpen}
+            setToken={setToken}
+          />
         </div>
       </div>
     </div>

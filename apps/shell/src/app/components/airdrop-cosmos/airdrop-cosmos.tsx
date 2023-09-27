@@ -2,7 +2,7 @@ import { Button, Container } from '@haqq/shell-ui-kit';
 import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types';
 import { useCallback, useEffect, useState } from 'react';
 import { ecrecover, fromRpcSig } from '@ethereumjs/util';
-import { CosmosAirdropView } from './../airdrop-view/airdrop-view';
+import { CosmosAirdropView } from './../cosmos-airdrop-view/cosmos-airdrop-view';
 import { haqqToEth } from '@haqq/shared';
 import { Address } from './../address/address';
 
