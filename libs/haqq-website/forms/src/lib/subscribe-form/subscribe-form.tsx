@@ -139,10 +139,7 @@ export function SubscribeForm({
             required
             size={inputSize}
           />
-          <label
-            htmlFor="email"
-            className="mt-[4px] w-fit text-[12px] text-white"
-          >
+          <div className="mt-[4px] w-fit text-[12px] text-white">
             By clicking the button you accept{' '}
             <Link
               href="/privacy-policy"
@@ -152,7 +149,7 @@ export function SubscribeForm({
             >
               Privacy Policy
             </Link>
-          </label>
+          </div>
         </div>
         <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
           <Button variant={1} type="submit" disabled={isFormDisabled}>
