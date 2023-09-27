@@ -10,7 +10,7 @@ interface IProps {
     evmosAddress: string;
 }
 
-export const AirdropView = ({
+export const CosmosAirdropView = ({
     cosmosAddress,
     osmosisAddress,
     evmosAddress,

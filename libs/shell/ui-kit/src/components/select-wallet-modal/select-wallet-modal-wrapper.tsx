@@ -1,8 +1,8 @@
 'use client';
 import { PropsWithChildren, useCallback, useMemo } from 'react';
-import { SelectWalletModal } from '@haqq/shell-ui-kit';
 import { useConnect } from 'wagmi';
 import { useWallet } from '@haqq/shared';
+import { SelectWalletModal } from './select-wallet-modal';
 
 export function SelectWalletModalWrapper({ children }: PropsWithChildren) {
   const { connectAsync, connectors, error, isLoading, pendingConnector } =

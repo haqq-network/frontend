@@ -33,6 +33,7 @@ export * from './components/proposal-status/proposal-status';
 export * from './components/tooltip/tooltip';
 export * from './components/unsupported-browser-modal/unsupported-browser-modal';
 export * from './components/select-wallet-modal/select-wallet-modal';
+export * from './components/select-wallet-modal/select-wallet-modal-wrapper';
 export * from './components/select-chain-button/select-chain-button';
 export * from './components/checkbox/checkbox';
 export * from './components/testedge-banner/testedge-banner';
