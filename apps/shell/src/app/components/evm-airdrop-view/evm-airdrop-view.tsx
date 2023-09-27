@@ -55,7 +55,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
           </div>
         </div>
 
-        <div className="flex flex-row flex-wrap gap-[220px]">
+        <div className="flex flex-row flex-wrap gap-[24px] md:gap-[44px] lg:gap-[220px]">
           <div>
             <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
               Transactions

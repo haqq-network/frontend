@@ -77,7 +77,7 @@ export function AirdropEvm({
         </Container>
       </div>
 
-      <div className="flex flex-1 flex-col space-y-[12px] border-t border-[#ffffff26] pb-[60px] pl-[80px] pr-[80px] pt-[60px]">
+      <div className="flex flex-1 flex-col space-y-[12px] border-t border-[#ffffff26] px-[16px] py-[24px] sm:px-[48px] sm:py-[24px] lg:pb-[60px] lg:pl-[80px] lg:pr-[80px] lg:pt-[60px]">
         {!ethAddress ? (
           <div className="m-auto flex flex-1 flex-col">
             <div className="mb-[12px]">You should connect wallet first</div>
