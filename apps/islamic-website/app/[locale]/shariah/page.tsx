@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ShariahPage } from '@haqq/islamic-website/shariah-page';
 import { getMembersContent } from '../../../utils/get-members-data';
+import { getFatwaContent } from '../../../utils/get-fatwa-content';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
@@ -27,11 +28,24 @@ export default async function Page({
   const { shariahMembers, advisoryMembers, executiveMembers } =
     await getMembersContent(locale);
 
+  const enFatwa = await getFatwaContent({ locale: 'en' });
+  const arFatwa = await getFatwaContent({ locale: 'ar' });
+  const idFatwa = await getFatwaContent({ locale: 'id' });
+
+  const fatwa = {
+    en: enFatwa,
+    ar: arFatwa,
+    id: idFatwa,
+  };
+
+  console.log({ fatwa });
+
   return (
     <ShariahPage
       shariahMembers={shariahMembers}
       advisoryMembers={advisoryMembers}
       executiveMembers={executiveMembers}
+      fatwa={fatwa}
     />
   );
 }

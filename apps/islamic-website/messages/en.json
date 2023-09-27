@@ -90,7 +90,7 @@
     },
     "funds-block": {
       "title": {
-        "white-text": "There funds",
+        "white-text": "These funds",
         "gradient-text": "trust us"
       }
     }
@@ -114,7 +114,8 @@
       },
       "language-buttons": {
         "english": "English version",
-        "arabic": "Arabic version"
+        "arabic": "Arabic version",
+        "indonesian": "Indonesian version"
       }
     },
     "autographs-block": {
