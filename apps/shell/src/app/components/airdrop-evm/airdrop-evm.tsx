@@ -47,7 +47,7 @@ export function AirdropEvm({
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
 
   useEffect(() => {
-    ethAddress && setCaptchaModalOpen(true);
+    ethAddress && false && setCaptchaModalOpen(true);
   }, [ethAddress]);
 
   return (
@@ -78,26 +78,24 @@ export function AirdropEvm({
         </Container>
       </div>
 
-      <div className="flex flex-1 flex-col items-center space-y-[12px] border-t border-[#ffffff26]">
-        <div className="flex flex-1 flex-col py-20">
-          {!ethAddress ? (
-            <div>
-              <div className="mb-[12px]">You should connect wallet first</div>
-              <Button className="w-full" onClick={openSelectWallet}>
-                Connect wallet
-              </Button>
-            </div>
-          ) : (
-            <EvmAirdropView address={ethAddress} captchaToken={token} />
-          )}
+      <div className="flex flex-1 flex-col space-y-[12px] border-t border-[#ffffff26] pb-[60px] pl-[80px] pr-[80px] pt-[60px]">
+        {!ethAddress ? (
+          <div className="m-auto flex flex-1 flex-col">
+            <div className="mb-[12px]">You should connect wallet first</div>
+            <Button className="w-full" onClick={openSelectWallet}>
+              Connect wallet
+            </Button>
+          </div>
+        ) : (
+          <EvmAirdropView address={ethAddress} captchaToken={token} />
+        )}
 
-          <CaptchaModal
-            setCaptchaModalOpen={setCaptchaModalOpen}
-            turnstileSiteKey={turnstileSiteKey}
-            isOpened={isCaptchaModalOpen}
-            setToken={setToken}
-          />
-        </div>
+        <CaptchaModal
+          setCaptchaModalOpen={setCaptchaModalOpen}
+          turnstileSiteKey={turnstileSiteKey}
+          isOpened={isCaptchaModalOpen}
+          setToken={setToken}
+        />
       </div>
     </div>
   );
