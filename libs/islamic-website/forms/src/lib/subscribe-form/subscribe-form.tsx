@@ -154,7 +154,12 @@ export function SubscribeForm({
         className={clsx(className)}
         autoComplete="off"
       >
-        <div className="flex flex-col gap-y-[4px]">
+        <div
+          className={clsx(
+            'flex flex-col ',
+            formState.errors.email?.message ? 'gap-y-[20px]' : 'gap-y-[4px]',
+          )}
+        >
           <HookedFormInput<SubscribeFormFields>
             wrapperClassName={wrapperClassName}
             placeholder="Your e-mail"
