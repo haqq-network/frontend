@@ -54,7 +54,7 @@
         "app-store": "Peringkat App store",
         "google-play": "Peringkat Google play",
         "download-button": {
-          "title": "Available in"
+          "title": "Tersedia di"
         }
       }
     },
@@ -77,15 +77,15 @@
       "title": {
         "white-text": {
           "advisory": "Penasehat ",
-          "shariah": "Shariah ",
+          "shariah": "Syariah ",
           "executive": "Eksekutif "
         },
         "gradient-text": "Dewan"
       },
       "filter-buttons": {
-        "advisory": "Advisory",
-        "shariah": "Shariah",
-        "executive": "Executive"
+        "advisory": "Penasehat",
+        "shariah": "Syariah",
+        "executive": "Eksekutif"
       }
     },
     "funds-block": {
@@ -96,14 +96,14 @@
     }
   },
   "shariah-page": {
-    "title": "Ssyariah-Kepatuhan",
+    "title": "Syariah-Kepatuhan",
     "headings": {
       "fatwa": "Fatwa",
       "foundations": "Landasan Investasi Halal",
       "sharia-oracle": "Oracle Syariah",
-      "executive-board": "Executive Board",
-      "advisory-board": "Advisory Board",
-      "shariah-board": "Shariah board"
+      "executive-board": "Dewan Eksekutif",
+      "advisory-board": "Dewan Penasehat",
+      "shariah-board": "Dewan Syariah"
     },
     "text": "Islamic Coin menyelaraskan tradisi dengan modernitas, menyatukan kepatuhan Syariah dengan teknologi blockchain untuk membentuk platform perintis dalam keuangan Islam. Dijunjung tinggi oleh prinsip-prinsip Investasi Halal dan dilindungi oleh Oracle Syariah kami yang inovatif, Islamic Coin berdiri sebagai bukti berkembangnya nilai-nilai Islam tradisional di dunia digital.",
     "fatwa-block": {
@@ -179,7 +179,7 @@
     "title": "Peta Jalan"
   },
   "whitepaper-page": {
-    "title": "HAQQ Whitepaper"
+    "title": "Whitepaper HAQQ"
   },
   "partnerships-page": {
     "title": "Kemitraan",
@@ -299,23 +299,23 @@
   },
   "wallet-page": {
     "title": {
-      "white-text": "untuk iOS dan Android",
+      "white-text": "Untuk iOS dan Android",
       "gradient-text": "Dompet"
     },
-    "subtitle": "Ethics-First, Non-Custodial Wallet",
+    "subtitle": "Etika-Pertama, Dompet Non-Custodial",
     "text": "Navigasi Web3 dengan lancar menggunakan HAQQ Wallet, mitra tepercaya kamu untuk perjalanan DeFi yang berprinsip. Dengan keamanan tanpa mnemonik dan antarmuka yang mudah digunakan, mengelola aset digital kamu yang sesuai dengan syariah tidak pernah semudah atau seaman ini",
     "download-button": {
-      "title": "Available in"
+      "title": "Tersedia di"
     }
   },
   "header": {
     "single-links": {
-      "shariah": "SYARIAH",
+      "shariah": "Syariah",
       "wallet": "Dompet"
     },
     "dropdown-links": {
       "about": {
-        "about": "TENTANG",
+        "about": "Tentang",
         "mission": "Misi & Visi Kami",
         "whitepaper": "Whitepaper",
         "roadmap": "Peta jalan",
@@ -326,7 +326,7 @@
         "build-on-haqq": "Membangun di atas haqq"
       },
       "learn": {
-        "learn": "MEMPELAJARI",
+        "learn": "Mempelajari",
         "academy": "Akademi",
         "blog": "Blog",
         "fraud-alert": "Fraud alert",
@@ -335,41 +335,41 @@
       "team": {
         "team": "Team",
         "career": "Karier",
-        "our-values": "Our Values",
-        "community": "Community",
-        "meet-our-team": "Meet our team"
+        "our-values": "Nilai kita",
+        "community": "Masyarakat",
+        "meet-our-team": "Temui tim kami"
       }
     },
     "burger-menu": {
       "back-button": {
-        "title": "Back"
+        "title": "Kembali"
       }
     }
   },
   "footer": {
     "fatwa": "Fatwa",
     "whitepaper": "Whitepaper",
-    "shariah-board": "Shariah board",
-    "advisory-board": "Advisory board",
-    "executive-board": "Executive board",
+    "shariah-board": "Dewan Syariah",
+    "advisory-board": "Dewan Penasehat",
+    "executive-board": "Dewan Eksekutif",
     "islm-in-media": "ISLM di media",
     "community-hub": "Pusat Komunitas",
-    "haqq-network": "HAQQ Network",
+    "haqq-network": "Jaringan HAQQ",
     "haqq-docs": "Dokumen HAQQ",
     "wallet": "Dompet",
-    "stake-islm": "Stake ISLM",
-    "values": "Our values",
+    "stake-islm": "Taruhan ISLM",
+    "values": "Nilai kita",
     "partnerships": "Kemitraan",
     "career": "Karier"
   },
   "subscribe-form": {
-    "text": "Keep up to date with our upcoming Public Launch and Exchange listing - Subscribe to our newsletter",
+    "text": "Ikuti terus perkembangan daftar Peluncuran dan Pertukaran Publik kami yang akan datang - Berlangganan buletin kami",
     "input-placeholder": "Email mu",
     "button-text": "Langganan"
   },
   "ui-kit": {
     "member-card": {
-      "web": "Web"
+      "web": "Jaring"
     }
   }
 }
