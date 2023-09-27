@@ -1,0 +1,374 @@
+{
+  "index-page": {
+    "hero-block": {
+      "title": {
+        "white-text": "Gerbang \nkamu\n ke ",
+        "gradient-text": "Web3 \nSesuai Syariah"
+      },
+      "sub-text": "Kami sedang dalam misi untuk bergabung 1,8+miliar Muslim ke dalam keuangan digital tanpa mengorbankan nilai-nilai atau keyakinan. Islamic Coin adalah mata uang asli Jaringan HAQQ, sebuah etika blockchain pertama",
+      "running-text": "Misi kami adalah memberdayakan komunitas Muslim dunia dengan instrumen keuangan untuk Era Digital, yang memungkinkan transaksi dan interaksi tanpa batas, sekaligus mendukung inovasi dan kedermawanan."
+    },
+    "why-block": {
+      "title": "Mengapa Islamic Coin??",
+      "subtitle": "Merintis Masa Depan Keuangan Islam di Era Web3",
+      "reasons": {
+        "first": "Mempertahankan Pedoman Syariah",
+        "second": "Mata Uang Utama Ekosistem HAQQ",
+        "third": "Menghidupkan Kembali Komunitas dengan\n Praktik Berkelanjutan",
+        "fourth": "Cara Islami Menuju Kebebasan Finansial"
+      },
+      "counters": {
+        "title": "We are part of",
+        "subtitle": "HAQQ brings together the most reputable actors of Ethical finance in order to promote community-driven decentralized technologies worldwide",
+        "link": "Go to HAQQ",
+        "statistic-card": {
+          "first": "Mainnet accounts created",
+          "second": "Transactions in the last 24 hours",
+          "third": "Seconds to consensus finality",
+          "fourth": "Average cost per transaction"
+        }
+      }
+    },
+    "finance-block": {
+      "title": {
+        "white-text": "Merintis Masa Depan",
+        "gradient-text": "Keuangan Islam"
+      },
+      "subtitle": "Inovasi Kripto Memenuhi Tradisi Islam yang menawarkan Investasi Tanpa Bunga, Perdagangan Halal, dan Pemberian Amal",
+      "text": {
+        "first": "Produk-produk kami yang sesuai dengan syariah, termasuk investasi tanpa bunga, perdagangan halal, dan peluang pemberian amal, memadukan fintech modern dengan warisan Islam, memberi kamu kekuatan untuk menghormati tradisi kamu sambil merangkul revolusi kripto.",
+        "second": "Melangkah ke masa depan dengan Islamic Coin - inti keuangan yang beretika dan berprinsip yang menghormati nilai-nilai kamu."
+      }
+    },
+    "portfolio-block": {
+      "title": {
+        "white-text": {
+          "first": "Kelola ",
+          "second": "kamu dengan Dompet HAQQ"
+        },
+        "gradient-text": "Portofolio Syariah "
+      },
+      "subtitle": "Etika-Pertama, Dompet Non-Custodial",
+      "text": "Navigasi Web3 dengan lancar menggunakan HAQQ Wallet, mitra tepercaya kamu untuk perjalanan DeFi yang berprinsip. Dengan keamanan tanpa mnemonik dan antarmuka yang mudah digunakan, mengelola aset digital kamu yang sesuai dengan syariah tidak pernah semudah atau seaman ini",
+      "stores": {
+        "app-store": "Peringkat App store",
+        "google-play": "Peringkat Google play",
+        "download-button": {
+          "title": "Available in"
+        }
+      }
+    },
+    "learn-and-grow-block": {
+      "title": "Belajar dan Tumbuh dengan Islamic Coin",
+      "subtitle": "Berdayakan Perjalanan Keuangan Etis kamu dengan Panduan & Sumber Daya Edukasi Kami",
+      "text": "Selidiki dunia keuangan etis dengan Islamic Coin. Panduan dan sumber daya pendidikan pilihan kami dirancang untuk mencerahkan, melengkapi, dan memberdayakan perjalanan finansial kamu",
+      "button-text": "Memulai dengan dompet HAQQ"
+    },
+    "join-community-block": {
+      "title": "Bergabunglah dengan Komunitas Kami",
+      "subtitle": "Bergabunglah dengan Revolusi Keuangan Islam Global",
+      "button-text": "Bergabunglah dengan komunitas kami"
+    },
+    "news-block": {
+      "title": "Berita Islamic Coin Terbaru",
+      "see-all-news": "Lihat semua berita"
+    },
+    "board-members-block": {
+      "title": {
+        "white-text": {
+          "advisory": "Penasehat ",
+          "shariah": "Shariah ",
+          "executive": "Eksekutif "
+        },
+        "gradient-text": "Dewan"
+      },
+      "filter-buttons": {
+        "advisory": "Advisory",
+        "shariah": "Shariah",
+        "executive": "Executive"
+      }
+    },
+    "funds-block": {
+      "title": {
+        "white-text": "There funds",
+        "gradient-text": "trust us"
+      }
+    }
+  },
+  "shariah-page": {
+    "title": "Ssyariah-Kepatuhan",
+    "headings": {
+      "fatwa": "Fatwa",
+      "foundations": "Foundations of Halal Investing",
+      "sharia-oracle": "Shariah Oracle",
+      "executive-board": "Executive Board",
+      "advisory-board": "Advisory Board",
+      "shariah-board": "Shariah board"
+    },
+    "text": "Islamic Coin menyelaraskan tradisi dengan modernitas, menyatukan kepatuhan Syariah dengan teknologi blockchain untuk membentuk platform perintis dalam keuangan Islam. Dijunjung tinggi oleh prinsip-prinsip Investasi Halal dan dilindungi oleh Oracle Syariah kami yang inovatif, Islamic Coin berdiri sebagai bukti berkembangnya nilai-nilai Islam tradisional di dunia digital.",
+    "fatwa-block": {
+      "title": "Fatwa",
+      "subtitle": "Dikeluarkan oleh otoritas terkemuka dunia di bidang Keuangan Islam, Islamic Coin telah diberikan Fatwa berdasarkan Ajaran Suci Al-Quran.",
+      "fatwa": {
+        "appeal": "Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang"
+      },
+      "language-buttons": {
+        "english": "English version",
+        "arabic": "Arabic version"
+      }
+    },
+    "autographs-block": {
+      "title": "Islamic Coin Shariah Board",
+      "members": {
+        "first": "Sheikh Dr. Essam Khalaf Al-Enezi",
+        "second": "Sheikh Dr. Nizam Mohammed Saleh Yaquby",
+        "third": "Sheikh Mohamed Abdel Hakim Mohamed",
+        "fourth": "Sheikh Dr. Mohamed Zoeir",
+        "fifth": "Sheikh Mohamed Fathiddin Beyanouni"
+      }
+    },
+    "foundations-block": {
+      "text": "Embarking on your journey with Islamic Coin, you'll find the 'Foundations of Halal Investing' interwoven into our operations. We harmonize Islamic traditions with modern finance, ensuring you engage with a platform that marries timeless ethos with the dynamism of the digital age.",
+      "halal-principles": {
+        "first": "Profit sharing",
+        "second": "Riba prohibition (unjust, exploitative gains)",
+        "third": "Gambling prohibition",
+        "fourth": "Investing in lawful activities only",
+        "fifth": "Upholding of ethical and moral values at all times",
+        "sixth": "A thriving and functional real economy"
+      }
+    },
+    "shariah-block": {
+      "text": {
+        "paragraphs": {
+          "first": "Shariah Oracle is an on-chain mechanism controlling a whitelist of smart contracts allowed for interaction (signing and listing in the in-app marketplace) through the Haqq Wallet.",
+          "second": "The Shariah Oracle serves as an on-chain registry of Halal Certificates that provides smart contract developers and web2 businesses a way to prove their ethical relevance for Muslim users by listing their products/services on the Haqq Wallet.",
+          "third": "Islamic Coin harmonizes tradition with modernity, uniting Sharia compliance with blockchain technology to forge a pioneering platform in Islamic finance. Upheld by Halal Investing principles and safeguarded by our innovative Sharia Oracle, Islamic Coin stands as a testament to the thriving of traditional Islamic values in the digital world.",
+          "fourth": "Integrating the Shariah Oracle with Haqq Wallet will ensure that users interact only with whitelisted, Sharia-compliant dApps. Thus whilst being a place where anyone can deploy their dApp or project, Haqq network’s Shariah Oracle is a key measure to minimize unethical or Haram activity in our network."
+        }
+      }
+    }
+  },
+  "mission-page": {
+    "title": "Our Mission &\nVision",
+    "subtitles": {
+      "mission": "Mission",
+      "vision": "Vision"
+    },
+    "text": {
+      "paragraphs": {
+        "first": "Our vision is to create a global, inclusive, and ethical financial ecosystem that aligns with Islamic principles, empowering individuals and businesses with accessible and transparent financial solutions.",
+        "second": "Misi kami adalah memberdayakan komunitas Muslim dunia dengan instrumen keuangan untuk Era Digital, yang memungkinkan transaksi dan interaksi tanpa batas, sekaligus mendukung inovasi dan kedermawanan."
+      }
+    }
+  },
+  "news-page": {
+    "title": "Islamic Coin Press & News",
+    "posts": {
+      "recent": "Recent posts",
+      "featured": "Featured post"
+    },
+    "filter-buttons": {
+      "all": "All",
+      "press": "Press",
+      "events": "Events"
+    }
+  },
+  "roadmap-page": {
+    "title": "Roadmap"
+  },
+  "whitepaper-page": {
+    "title": "HAQQ Whitepaper"
+  },
+  "partnerships-page": {
+    "title": "Partnerships",
+    "subtitle": "Our partners",
+    "text": {
+      "paragraphs": {
+        "first": "We are on a journey of shared values, growth, and creating meaningful impact—hand in hand",
+        "second": "Join us in building a future where aspirations intersect and opportunities blossom, all within the framework of our heritage and values"
+      }
+    }
+  },
+  "career-page": {
+    "title": "Career",
+    "text": {
+      "paragraphs": {
+        "first": "Welcome to Islamic Coin's careers page!",
+        "second": "We are a passionate team of professionals committed to creating innovative solutions by combining the power of blockchain technology and the principles of Islamic finance. Our mission is to provide the global Muslim community with a financial instrument for the Digital Age, enabling seamless transactions and interactions while promoting innovation and philanthropy. If you share our values and are enthusiastic about blockchain technology, we invite you to explore our exciting opportunities.",
+        "third": "We offer various roles that enable you to learn, grow, and make a meaningful impact. Join us to build a fairer, more inclusive financial future for all. Discover our current openings and apply today!"
+      }
+    },
+    "button-text": "Discover openings!"
+  },
+  "team-page": {
+    "title": "Founders",
+    "founders": {
+      "kuznetsov": {
+        "title": "Andrey Kuznetsov",
+        "description": "5+ years of legal consulting for leading blockchain and fintech platforms. Alex has advised AAVE, Bequant, Scalable Solutions, Nebula and others.",
+        "url": "https://www.linkedin.com/in/brainsmith/"
+      },
+      "malkov": {
+        "title": "Alex Malkov",
+        "description": "Andrey is a serial entrepreneur and engineer focused on fintech, cybersecurity, and network communication solutions. He has led teams that have built payment services, corporate messengers, blockchain staking services, and financial analysis software.",
+        "url": "https://www.linkedin.com/in/probono42/"
+      },
+      "alkaff": {
+        "title": "Mohammed AlKaff AlHashmi",
+        "description": "Mohammed AlKaff AlHashmi is a computer science engineer with more than 18 years of experience. With this accumulative experience he focuses on Industry 4.0, Artificial Intelligence, machine learning, Industrial automation, and IOTs. He started his career as an Intelligence Network Engineer at Huawei.",
+        "url": "https://www.linkedin.com/in/mohammed-alkaff-alhashmi-19688054/"
+      },
+      "al-meeza": {
+        "title": "Hussein Mohammed Al Meeza",
+        "description": "Hussein Mohammed Al Meeza is an acclaimed award-winning banker with over 45 years of experience spanning the Islamic banking, finance and insurance sectors. A founding member of Emaar properties, Amlak Finance, Emaar Industries & Investments, Emaar Financial services, Dubai Islamic Insurance & Reinsurance Company (AMAN), Nawat, he was named Best Islamic Banking Personality in 2006. His professional career began in 1975 at the Dubai Islamic Bank (DIB), where he spent over 20 years developing the bank’s services, and still serves as Executive Director. As an emerging star of Islamic banking, he is the founder of Al Salam Banks in Sudan, Bahrain and Algeria, where he serves on various positions including Board Member, Vice Chairman and Chairman of the Executive Committee since 2015. He is also the Chairman of Al Salam Bank - Seychelles, Chairman of Top Enterprises L.L.C., Chairman of Lycée Francais Jean Mermoz L.L.C.",
+        "url": "http://www.almeeza.com/biography.php"
+      }
+    }
+  },
+  "not-found-page": {
+    "title": "Page not found",
+    "subtitle": "Go to main page"
+  },
+  "privacy-policy-page": {
+    "title": "Privacy Policy"
+  },
+  "values-page": {
+    "title": "Our Values",
+    "subtitle": {
+      "first": "Khuloos",
+      "second": "Islah",
+      "third": "Wahda"
+    },
+    "text": {
+      "paragraphs": {
+        "first": "Sincerity and Integrity: We place the utmost importance on sincerity and integrity in our communications and interactions with one another and the wider community. Transparency and openness are vital for fostering a thriving business and ecosystem.",
+        "second": "Self-Improvement and Positive Change: Committed to daily self-improvement, we employ innovative financial practices grounded in Islamic values to drive positive change in our communities and the world. Islah signifies our dedication to continuously reforming ourselves and our practices in pursuit of excellence and meaningful impact.",
+        "third": "Unity and Collaboration: We celebrate diversity and work collectively towards establishing an ethics-first economy. We aim to unite the Muslim community and beyond through a sustainable financial ecosystem by encouraging diverse perspectives and solutions and fostering collaboration and cooperation."
+      }
+    }
+  },
+  "build-page": {
+    "title": "Build on\n HAQQ",
+    "subtitle": "Developers Hub",
+    "text": {
+      "paragraphs": {
+        "first": "Unleash your developer superpowers within the vibrant Developers Hub",
+        "second": "Gain access to cutting-edge tools, resources, and a thriving community that will elevate your skills to new heights.",
+        "third": "Fuel your creativity and be at the forefront of shaping the future of Islamic Coin."
+      }
+    },
+    "docs-tabs": {
+      "manual": {
+        "title": "Builder's manual",
+        "text": "Unlock the essential roadmap to transform your ideas into reality within the Islamic Coin ecosystem"
+      },
+      "archive": {
+        "title": "HAQQ Archive",
+        "text": "Explore the stories, insights, and groundbreaking ideas that have shaped the Islamic Coin ecosystem, and let history guide your path to a brighter future."
+      }
+    }
+  },
+  "fraud-alert-page": {
+    "title": "Recruitment \nFraud\n Alert",
+    "text": "We have become aware of recruitment scams that fraudulently obtain money or personal information from job seekers. These scams take various forms, such as fake job postings, phishing emails, or fraudulent recruiters claiming to represent our company",
+    "how-to-block": {
+      "title": "How to identify recruitment fraud:",
+      "identifiers": {
+        "first": "Requests for personal information early in the process, such as your address, date of birth, passport information, social security number, or banking details",
+        "second": "Individuals unaffiliated with Islamic Coin contacting you about a fake or legitimate job posting. Review the sender's name and email domain closely. Official Islamic Coin recruitment emails come from accounts formatted as: <span>name@haqq.network</span> or <span>name@islamiccoin.net</span>",
+        "third": "Being asked to participate in an 'interview' via chat or email. Islamic Coin does not conduct 'interviews' through chat or email",
+        "fourth": "Receiving job offers through social media or online forums",
+        "fifth": "Receiving job offers for positions you have yet to apply to or interview for",
+        "sixth": "Insistence of urgent action within a very short time frame"
+      }
+    },
+    "warning-block": {
+      "text": "We have become aware of recruitment scams that fraudulently obtain money or personal information from job seekers. These scams take various forms, such as fake job postings, phishing emails, or fraudulent recruiters claiming to represent our company"
+    }
+  },
+  "community-hub-page": {
+    "title": "Online Community Hub",
+    "subtitle": "Join our channels here:",
+    "text": "Islamic Coin was built to bring Shariah-compliant digital money to the Muslim community and beyond. Wherever you are, we welcome your opinion and invite you to join our Channels and the conversation! Be a part of a new era of sustainable, ethical finance."
+  },
+  "available-soon-page": {
+    "title": "Awaiting soon",
+    "subtitle": "Go to main page"
+  },
+  "wallet-page": {
+    "title": {
+      "white-text": "for iOS and Android",
+      "gradient-text": "Wallets"
+    },
+    "subtitle": "Ethics-First, Non-Custodial Wallet",
+    "text": "Seamlessly navigate Web3 with HAQQ Wallet, your trusted partner for a principled DeFi journey. With mnemonicless security and a user-friendly interface, managing your digital Shariah-compliant assets has never been easier or more secure",
+    "download-button": {
+      "title": "Available in"
+    }
+  },
+  "header": {
+    "single-links": {
+      "shariah": "SYARIAH",
+      "wallet": "Dompet"
+    },
+    "dropdown-links": {
+      "about": {
+        "about": "TENTANG",
+        "mission": "Misi",
+        "whitepaper": "Whitepaper",
+        "roadmap": "Peta jalan",
+        "news": "Berita",
+        "press": "Tekan",
+        "ecosystem": "Ekosistem",
+        "partnerships": "Kemitraan",
+        "build-on-haqq": "Membangun di atas haqq"
+      },
+      "learn": {
+        "learn": "MEMPELAJARI",
+        "academy": "Akademi",
+        "blog": "Blog",
+        "fraud-alert": "Fraud alert",
+        "privacy-policy": "Privacy policy"
+      },
+      "team": {
+        "team": "Team",
+        "career": "Career",
+        "our-values": "Our Values",
+        "community": "Community",
+        "meet-our-team": "Meet our team"
+      }
+    },
+    "burger-menu": {
+      "back-button": {
+        "title": "Back"
+      }
+    }
+  },
+  "footer": {
+    "fatwa": "Fatwa",
+    "whitepaper": "Whitepaper",
+    "shariah-board": "Shariah board",
+    "advisory-board": "Advisory board",
+    "executive-board": "Executive board",
+    "islm-in-media": "ISLM di media",
+    "community-hub": "Pusat Komunitas",
+    "haqq-network": "HAQQ Network",
+    "haqq-docs": "Dokumen HAQQ",
+    "wallet": "Dompet",
+    "stake-islm": "Stake ISLM",
+    "values": "Our values",
+    "partnerships": "Kemitraan",
+    "career": "Career"
+  },
+  "subscribe-form": {
+    "text": "Keep up to date with our upcoming Public Launch and Exchange listing - Subscribe to our newsletter",
+    "input-placeholder": "Your e-mail",
+    "button-text": "Subscribe"
+  },
+  "ui-kit": {
+    "member-card": {
+      "web": "Web"
+    }
+  }
+}
