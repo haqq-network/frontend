@@ -1,11 +1,12 @@
 import { FALCONER_ENDPOINT } from '../../../constants';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { ipAddress } from '@vercel/edge';
 
 interface SubscribeRequest {
   email: string;
   ip: string;
-  domain: string;
+  domain: 'haqq.network';
   captcha_token: string;
 }
 
@@ -14,8 +15,10 @@ interface SubscribeResponse {
   error?: string;
 }
 
+export const runtime = 'edge';
+
 export async function POST(request: NextRequest) {
-  const ip = request.ip ?? '[::1]';
+  const ip = ipAddress(request) || 'unknown';
   const { email, token }: Record<string, string> = await request.json();
   const subscribeRequest: SubscribeRequest = {
     domain: 'haqq.network',

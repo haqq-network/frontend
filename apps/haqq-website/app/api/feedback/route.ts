@@ -1,6 +1,7 @@
 import { FALCONER_ENDPOINT } from '../../../constants';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { ipAddress } from '@vercel/edge';
 
 interface FeedbackRequest {
   name: string;
@@ -22,8 +23,10 @@ interface FeedbackSuccessResponse {
 
 type FeedbackResponse = FeedbackSuccessResponse | FeedbackErrorResponse;
 
+export const runtime = 'edge';
+
 export async function POST(request: NextRequest) {
-  const ip = request.ip ?? '[::1]';
+  const ip = ipAddress(request) || 'unknown';
   const { email, token, name, message }: Record<string, string> =
     await request.json();
   const feedbackRequest: FeedbackRequest = {
@@ -34,8 +37,6 @@ export async function POST(request: NextRequest) {
     message,
     captcha_token: token,
   };
-  console.log({ feedbackRequest });
-
   const feedbackUrl = new URL('/feedback/send', FALCONER_ENDPOINT);
   const feedbackResponse = await fetch(feedbackUrl.toString(), {
     method: 'POST',
@@ -45,7 +46,6 @@ export async function POST(request: NextRequest) {
     body: JSON.stringify(feedbackRequest),
   });
   const feedbackResponseJson: FeedbackResponse = await feedbackResponse.json();
-  console.log({ feedbackResponseJson });
 
   if ('success' in feedbackResponseJson && feedbackResponseJson.success) {
     return NextResponse.json<{ message: string }>(

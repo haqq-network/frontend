@@ -60,3 +60,22 @@ export function useGovernanceParamsQuery() {
     },
   );
 }
+
+export function useProposalTally(proposalId: string | undefined) {
+  const { getProposalTally } = useCosmosService();
+  const { chain } = useNetwork();
+
+  return useQuery(
+    [chain?.id, 'proposal-tally', proposalId],
+    async () => {
+      if (!proposalId) {
+        return null;
+      }
+
+      return await getProposalTally(proposalId);
+    },
+    {
+      refetchOnWindowFocus: true,
+    },
+  );
+}

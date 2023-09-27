@@ -16,7 +16,7 @@ export function signatureToPubkey(signature: string, msgHash: Buffer) {
   return ecrecover(msgHash, ret.v, ret.r, ret.s);
 }
 
-export function AirdropPage() {
+export function AirdropCosmosPage() {
   const [accounts, setAccounts] = useState<Record<string, string>>({});
   // const [_, setSignature] = useState<string>('');
 

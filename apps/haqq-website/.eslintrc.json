@@ -12,7 +12,7 @@
       "rules": {
         "@next/next/no-html-link-for-pages": [
           "error",
-          "apps/haqq-website-app-router/pages"
+          "apps/haqq-website/pages"
         ]
       }
     },

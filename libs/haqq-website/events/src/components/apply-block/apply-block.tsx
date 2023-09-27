@@ -40,9 +40,7 @@ export function ApplyBlock() {
     return `SAVED_SIGNATURE_KEY_${ethAddress}`;
   }, [ethAddress]);
 
-  const savedSignature = useMemo(() => {
-    return localStore.get(localStKey);
-  }, [localStKey]);
+  const savedSignature = localStore.get(localStKey);
 
   const [submitResult, setSubmitResult] = useState('');
   const [currentTicket, setCurrentTicket] = useState('');

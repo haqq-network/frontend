@@ -1,16 +1,26 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { useStakingActions, useToast } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  toFixedAmount,
+  useStakingActions,
+  useToast,
+} from '@haqq/shared';
 import {
   Modal,
   ModalCloseButton,
   Button,
   MobileHeading,
   ModalInput,
+  ToastSuccess,
+  ToastLoading,
+  ToastError,
+  LinkIcon,
 } from '@haqq/shell-ui-kit';
 import { Validator } from '@evmos/provider';
 import { ValidatorSelect } from '../validator-select/validator-select';
 import { splitValidators } from '@haqq/staking/utils';
+import { Link } from 'react-router-dom';
 
 export interface RedelegateModalProps {
   isOpen: boolean;
@@ -105,18 +115,18 @@ export function RedelegateModal({
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
-  const [isRedelegateEnabled, seRedelegateEnabled] = useState(true);
+  const [isRedelegateEnabled, setRedelegateEnabled] = useState(true);
   const [validatorDestinationAddress, setValidatorDestinationAddress] =
     useState<string | undefined>(undefined);
   const toast = useToast();
   const { redelegate } = useStakingActions();
 
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(delegation);
+    setDelegateAmount(toFixedAmount(delegation));
   }, [delegation]);
 
   const handleInputChange = useCallback((value: number | undefined) => {
-    setDelegateAmount(value);
+    setDelegateAmount(toFixedAmount(value));
   }, []);
 
   const handleSubmitRedelegate = useCallback(async () => {
@@ -126,15 +136,34 @@ export function RedelegateModal({
         validatorDestinationAddress,
         delegateAmount ?? 0,
       );
-
+      setRedelegateEnabled(false);
       await toast.promise(redelegationPromise, {
-        loading: 'Redelegate in progress',
+        loading: <ToastLoading>Redelegate in progress</ToastLoading>,
         success: (tx) => {
           console.log('Redelegation successful', { tx }); // maybe successful
-          return `Delegation successful`;
+          const txHash = tx?.txhash;
+          console.log('Redelegation successful', { txHash });
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Redelegation successful</div>
+                <div>
+                  <Link
+                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
+              </div>
+            </ToastSuccess>
+          );
         },
         error: (error) => {
-          return error.message;
+          return <ToastError>{error.message}</ToastError>;
         },
       });
       onClose();
@@ -164,14 +193,18 @@ export function RedelegateModal({
   }, [validatorsList, validatorAddress]);
 
   useEffect(() => {
-    if (
-      (delegateAmount && delegateAmount <= 0) ||
-      (delegateAmount && delegateAmount > delegation) ||
-      !(delegation > 0)
-    ) {
-      seRedelegateEnabled(false);
-    } else {
-      seRedelegateEnabled(true);
+    if (delegateAmount) {
+      const fixedDelegation = toFixedAmount(delegation) as number;
+
+      if (
+        !(fixedDelegation > 0) ||
+        delegateAmount <= 0 ||
+        delegateAmount > fixedDelegation
+      ) {
+        setRedelegateEnabled(false);
+      } else {
+        setRedelegateEnabled(true);
+      }
     }
   }, [delegateAmount, delegation]);
 
@@ -221,7 +254,11 @@ export function RedelegateModal({
                     variant={3}
                     onClick={handleSubmitRedelegate}
                     className="w-full"
-                    disabled={!isRedelegateEnabled || !delegateAmount}
+                    disabled={
+                      !isRedelegateEnabled ||
+                      !delegateAmount ||
+                      !validatorDestinationAddress
+                    }
                   >
                     Confirm redelegation
                   </Button>

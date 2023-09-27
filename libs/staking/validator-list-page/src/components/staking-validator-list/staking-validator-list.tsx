@@ -12,6 +12,7 @@ import {
   useStakingDelegationQuery,
   useCosmosProvider,
   useStakingPoolQuery,
+  toFixedAmount,
 } from '@haqq/shared';
 import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
 import {
@@ -37,6 +38,7 @@ import {
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
+import { formatEther } from 'viem';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,
@@ -47,7 +49,10 @@ function getDelegatedValidatorsAddresses(
 
   return delegations
     .map((del) => {
-      if (Number.parseInt(del.balance.amount, 10) > 0) {
+      const amount = toFixedAmount(
+        Number.parseFloat(formatEther(BigInt(del.balance.amount))),
+      );
+      if (amount && amount > 0) {
         return del.delegation.validator_address;
       }
 

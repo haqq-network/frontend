@@ -4,8 +4,8 @@ import { ConfigProvider } from './config-provider';
 import { WagmiProvider } from './wagmi-provider';
 import { CosmosProvider } from './cosmos-provider';
 import { ReactQueryProvider } from './react-query-provider';
-import { Toaster } from 'react-hot-toast';
 import { WalletProvider } from './wallet-provider';
+import { Toaster } from './toaster';
 
 export function AppProviders({
   children,
