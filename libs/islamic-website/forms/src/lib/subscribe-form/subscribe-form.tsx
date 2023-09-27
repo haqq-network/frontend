@@ -167,7 +167,7 @@ export function SubscribeForm({
             required
             inputClassName={inputClassName}
           />
-          <label htmlFor="email" className="w-fit text-[12px] text-white">
+          <div className="w-fit text-[12px] text-white">
             By clicking the button you accept{' '}
             <Link
               href="/privacy-policy"
@@ -177,7 +177,7 @@ export function SubscribeForm({
             >
               Privacy Policy
             </Link>
-          </label>
+          </div>
         </div>
         <Button variant="primary-green" type="submit" disabled={isFormDisabled}>
           Subscribe
