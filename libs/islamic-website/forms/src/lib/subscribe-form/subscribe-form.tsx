@@ -18,6 +18,7 @@ import {
 import clsx from 'clsx';
 import axios from 'axios';
 import Turnstile from 'react-turnstile';
+import Link from 'next/link';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -153,19 +154,36 @@ export function SubscribeForm({
         className={clsx(className)}
         autoComplete="off"
       >
-        <HookedFormInput<SubscribeFormFields>
-          wrapperClassName={wrapperClassName}
-          placeholder="Your e-mail"
-          type="email"
-          id="email"
-          register={register}
-          state={inputState.state}
-          hint={inputState.hint}
-          disabled={isFormDisabled}
-          required
-          inputClassName={inputClassName}
-        />
-
+        <div
+          className={clsx(
+            'flex flex-col ',
+            formState.errors.email?.message ? 'gap-y-[20px]' : 'gap-y-[4px]',
+          )}
+        >
+          <HookedFormInput<SubscribeFormFields>
+            wrapperClassName={wrapperClassName}
+            placeholder="Your e-mail"
+            type="email"
+            id="email"
+            register={register}
+            state={inputState.state}
+            hint={inputState.hint}
+            disabled={isFormDisabled}
+            required
+            inputClassName={inputClassName}
+          />
+          <div className="w-fit text-[12px] text-white">
+            By clicking the button you accept{' '}
+            <Link
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-islamic-primary-green hover:text-islamic-primary-green-hover transition-colors duration-300"
+            >
+              Privacy Policy
+            </Link>
+          </div>
+        </div>
         <Button variant="primary-green" type="submit" disabled={isFormDisabled}>
           Subscribe
         </Button>

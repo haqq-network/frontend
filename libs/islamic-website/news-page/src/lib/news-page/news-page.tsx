@@ -51,7 +51,7 @@ export function NewsPage({
             </div>
             <SubscribeForm
               className="flex flex-col gap-[16px] md:flex-row"
-              inputClassName="md:w-[240px]"
+              inputClassName="md:w-[285px]"
               turnstileSiteKey={turnstileSiteKey}
             />
           </div>
