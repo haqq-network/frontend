@@ -18,13 +18,16 @@ export const metadata: Metadata = {
     url: new URL('/roadmap', DEPLOY_URL).toString(),
   },
 };
-
-export default async function Page({
-  params: locale,
-}: {
+interface PageProps {
   params: { locale: string };
-}) {
-  const roadmap = await getRoadmapContent(locale);
+}
+
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
+
+  const roadmap = await getRoadmapContent({ locale });
 
   return <RoadmapPage roadmap={roadmap} turnstileSiteKey={TURNSTILE_SITEKEY} />;
 }

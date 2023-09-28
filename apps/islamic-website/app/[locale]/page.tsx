@@ -26,10 +26,13 @@ interface PageProps {
   params: { locale: string };
 }
 
-export default async function Page({ params: locale }: PageProps) {
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
   const news = await getNewsPageContent();
   const { advisoryMembers, executiveMembers, shariahMembers } =
-    await getMembersContent(locale);
+    await getMembersContent({ locale });
   const mainnetAccounts = await getMainnetAccounts(3476);
 
   return (
