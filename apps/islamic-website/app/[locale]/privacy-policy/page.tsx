@@ -19,8 +19,12 @@ interface PageProps {
   params: { locale: string };
 }
 
-export default async function Page({ params: locale }: PageProps) {
-  const privacyPolicy = await getPrivacyPolicyContent(locale);
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
+
+  const privacyPolicy = await getPrivacyPolicyContent({ locale });
 
   return <PrivacyPolicyPage privacyPolicy={privacyPolicy} />;
 }
