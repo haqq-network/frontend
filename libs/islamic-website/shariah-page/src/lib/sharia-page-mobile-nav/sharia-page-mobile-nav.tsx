@@ -77,7 +77,7 @@ function FixedPageNavigation({
   }, [activeSection]);
 
   return (
-    <div className="fixed left-0 top-[136px] z-[50] w-full border-b-[1px] border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px] md:top-[112px]">
+    <div className="fixed left-0 top-[136px] z-[10] w-full border-b-[1px] border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px] md:top-[112px]">
       <Container>
         <div className="flex flex-col">
           <div
