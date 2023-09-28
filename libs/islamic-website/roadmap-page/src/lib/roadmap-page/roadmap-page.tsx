@@ -181,13 +181,13 @@ export function RoadmapPage({
           </div>
 
           {turnstileSiteKey && (
-            <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center md:p-[28px] lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
-              <Text size="small" className="md:w-1/2">
+            <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] lg:mt-[120px] lg:max-w-[1200px] lg:flex-row lg:items-start lg:p-[28px]">
+              <Text size="small">
                 Keep up to date with our upcoming Public Launch and Exchange
                 listing - Subscribe to our newsletter
               </Text>
               <SubscribeForm
-                className="flex flex-col gap-[16px] md:flex-row"
+                className="flex w-full flex-col gap-[16px] lg:flex-row"
                 inputClassName="lg:min-w-[280px]"
                 turnstileSiteKey={turnstileSiteKey}
               />

@@ -1,6 +1,11 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { toFixedAmount, useStakingActions, useToast } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  toFixedAmount,
+  useStakingActions,
+  useToast,
+} from '@haqq/shared';
 import {
   WarningMessage,
   Modal,
@@ -8,7 +13,12 @@ import {
   Button,
   MobileHeading,
   ModalInput,
+  ToastLoading,
+  ToastSuccess,
+  ToastError,
+  LinkIcon,
 } from '@haqq/shell-ui-kit';
+import { Link } from 'react-router-dom';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -118,20 +128,36 @@ export function DelegateModal({
   const handleInputChange = useCallback((value: number | undefined) => {
     setDelegateAmount(toFixedAmount(value));
   }, []);
-
   const handleSubmitDelegate = useCallback(async () => {
     const delegationPromise = delegate(validatorAddress, delegateAmount);
-
+    setDelegateEnabled(false);
     await toast.promise(delegationPromise, {
-      loading: 'Delegate in progress',
+      loading: <ToastLoading>Delegation in progress</ToastLoading>,
       success: (tx) => {
         console.log('Delegation successful', { tx }); // maybe successful
         const txHash = tx?.txhash;
         console.log('Delegation successful', { txHash });
-        return `Delegation successful`;
+        return (
+          <ToastSuccess>
+            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+              <div>Delegation successful</div>
+              <div>
+                <Link
+                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                >
+                  <LinkIcon />
+                  <span>{getFormattedAddress(txHash)}</span>
+                </Link>
+              </div>
+            </div>
+          </ToastSuccess>
+        );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
     onClose();

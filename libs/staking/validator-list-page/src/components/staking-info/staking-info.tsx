@@ -1,4 +1,5 @@
 import {
+  getFormattedAddress,
   useAddress,
   useQueryInvalidate,
   useStakingActions,
@@ -17,12 +18,17 @@ import {
   Button,
   Container,
   Heading,
+  LinkIcon,
+  ToastError,
+  ToastLoading,
+  ToastSuccess,
   WalletIcon,
   formatNumber,
 } from '@haqq/shell-ui-kit';
 import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
+import { Link } from 'react-router-dom';
 
 export function StakingInfoHooked() {
   const [staked, setStakedValue] = useState(0);
@@ -46,14 +52,31 @@ export function StakingInfoHooked() {
     const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
 
     await toast.promise(claimAllRewardPromise, {
-      loading: 'Rewards claim in progress',
+      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
       success: (tx) => {
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
-        return `Rewards claimed`;
+        return (
+          <ToastSuccess>
+            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+              <div>Rewards claimed</div>
+              <div>
+                <Link
+                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                >
+                  <LinkIcon />
+                  <span>{getFormattedAddress(txHash)}</span>
+                </Link>
+              </div>
+            </div>
+          </ToastSuccess>
+        );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
 

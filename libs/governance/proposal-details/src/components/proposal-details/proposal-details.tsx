@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'marked-react';
 import {
   ParameterChangeProposalContent,
@@ -26,6 +26,7 @@ import {
   GetGovernanceParamsResponse,
   useSupportedChains,
   useStakingDelegationQuery,
+  getFormattedAddress,
   useProposalTally,
   TallyResults,
   useStakingPoolQuery,
@@ -49,6 +50,10 @@ import {
   ProposalPeriodTimer,
   ProposalVoteProgress,
   formatNumber,
+  ToastSuccess,
+  ToastLoading,
+  ToastError,
+  LinkIcon,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { useAccount, useNetwork } from 'wagmi';
@@ -878,14 +883,31 @@ export function VoteActions({
       const votePromise = vote(proposalId, option);
 
       toast.promise(votePromise, {
-        loading: 'Vote in progress',
+        loading: <ToastLoading>Vote in progress</ToastLoading>,
         success: (txHash) => {
           console.log('Vote successful', { txHash }); // maybe successful
-          return `Your vote will be counted!!!`;
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Your vote will be counted!!!</div>
+                <div>
+                  <Link
+                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
+              </div>
+            </ToastSuccess>
+          );
         },
         error: (error) => {
           console.error(error);
-          return 'For some reason your vote failed.';
+          return <ToastError>For some reason your vote failed.</ToastError>;
         },
       });
     },
