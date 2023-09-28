@@ -29,7 +29,7 @@ function Alert({ children }: PropsWithChildren) {
   );
 }
 
-export function FraudPage() {
+export function FraudAlertPage() {
   return (
     <section className="gap-y-[24px] overflow-x-clip pb-[60px] pt-[32px] md:pb-[90px] lg:gap-y-[40px] lg:pb-[180px] lg:pt-[80px]">
       <Container className="relative">

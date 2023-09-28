@@ -8,12 +8,14 @@ import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import { DEPLOY_URL, VERCEL_ENV } from '../constants';
 import { CookieConsentModal } from '../components/cookie-consent-modal/cookie-consetnt-modal';
+import Link from 'next/link';
+import { Container } from '@haqq/islamic-website-ui-kit';
+import Script from 'next/script';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../styles/global.css';
 import '../styles/consent-cookie.css';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: {
@@ -42,7 +44,7 @@ const DynamicHeader = dynamic(
     return await import('../components/header/header');
   },
   {
-    ssr: false,
+    ssr: true,
     loading: () => {
       return <div className="h-[72px] lg:h-[92px]" />;
     },
@@ -57,12 +59,17 @@ export default function RootLayout({ children }: PropsWithChildren) {
       /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
     ),
   );
+  const isScamBannerShow = true;
 
   return (
     <html lang="en" className={clsx('ltr', alexandriaFont.variable)}>
-      {VERCEL_ENV !== 'development' && <CookieConsentModal />}
-      <body className="bg-islamic-bg-black relative flex min-h-screen flex-col font-serif text-white antialiased">
-        {isMobileUserAgent ? <MobileHeader /> : <DynamicHeader />}
+      <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
+        {isScamBannerShow && <ScamBanner />}
+        {isMobileUserAgent ? (
+          <MobileHeader isBannerVisible={isScamBannerShow} />
+        ) : (
+          <DynamicHeader isBannerVisible={isScamBannerShow} />
+        )}
         <div className="flex-1">{children}</div>
         <Footer />
       </body>
@@ -102,5 +109,20 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </Fragment>
       )}
     </html>
+  );
+}
+
+function ScamBanner() {
+  return (
+    <div className="font-vcr fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center text-[16px] uppercase leading-[24px] text-white">
+      <Container>
+        Beware of scamers! <br className="block md:hidden" />
+        Check{' '}
+        <Link href="/scam-alert" className="underline">
+          this page
+        </Link>{' '}
+        for more information
+      </Container>
+    </div>
   );
 }

@@ -24,7 +24,9 @@ module.exports = {
       },
       fontFamily: {
         serif: ['var(--font-alexandria)'],
-        mono: ['var(--font-mono)'],
+        mono: ['var(--font-vcr)'],
+        alexandria: ['var(--font-alexandria)'],
+        vcr: ['var(--font-vcr)'],
       },
     },
   },
