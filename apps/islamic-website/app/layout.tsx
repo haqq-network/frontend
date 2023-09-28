@@ -7,7 +7,7 @@ import { Alexandria } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import { DEPLOY_URL, VERCEL_ENV } from '../constants';
-// import { CookieConsentModal } from '../components/cookie-consent-modal/cookie-consetnt-modal';
+import { CookieConsentModal } from '../components/cookie-consent-modal/cookie-consetnt-modal';
 import Link from 'next/link';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Script from 'next/script';
@@ -63,6 +63,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang="en" className={clsx('ltr', alexandriaFont.variable)}>
+      {VERCEL_ENV !== 'development' && <CookieConsentModal />}
       <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
         {isScamBannerShow && <ScamBanner />}
         {isMobileUserAgent ? (
@@ -73,7 +74,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <div className="flex-1">{children}</div>
         <Footer />
       </body>
-      {VERCEL_ENV !== 'development' && (
+      {VERCEL_ENV === 'development' && (
         <Fragment>
           <script
             id="fb-pixel"
