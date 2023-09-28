@@ -19,6 +19,8 @@ import {
   GetUndelegationsResponse,
   generateEndpointProposalTally,
   TallyResponse,
+  generateEndpointBalances,
+  BalancesResponse,
 } from '@evmos/provider';
 import store from 'store2';
 import { Coin } from '@evmos/transactions';
@@ -30,6 +32,7 @@ import { getChainParams } from '../chains/get-chain-params';
 import { useSupportedChains } from './wagmi-provider';
 import { Hex } from 'viem';
 import { ethToHaqq } from '../utils/convert-address';
+import { BaseAccount, ClawbackVestingAccount, HaqqAccount } from '../types';
 
 export type TallyResults = TallyResponse['tally'];
 
@@ -45,7 +48,10 @@ export interface CosmosService {
   getAccountDelegations: (
     haqqAddress: string,
   ) => Promise<GetDelegationsResponse>;
-  getAccountInfo: (haqqAddress: string) => Promise<AccountInfo>;
+  getAccountInfo: (
+    haqqAddress: string,
+  ) => Promise<HaqqAccount | ClawbackVestingAccount>;
+  getAccountBaseInfo: (haqqAddress: string) => Promise<BaseAccount | undefined>;
   getBankSupply: () => Promise<GetBankSupplyResponse>;
   getAuthAccounts: () => Promise<GetAuthAccountsResponse>;
   getProposals: () => Promise<Proposal[]>;
@@ -69,6 +75,7 @@ export interface CosmosService {
     grantee: string,
   ) => Promise<AuthzGranterGrantsResponse>;
   getProposalTally: (id: string) => Promise<TallyResults>;
+  getBankBalances: (address: string) => Promise<Array<Coin>>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -302,6 +309,9 @@ export interface AuthzGranteeGrantsResponse {
 }
 
 export type GovParamsType = 'voting' | 'tallying' | 'deposit';
+type AccountInfoResponse<A = BaseAccount> = {
+  account: A;
+};
 
 function createCosmosService(
   cosmosRestEndpoint: string,
@@ -370,12 +380,20 @@ function createCosmosService(
   }
 
   async function getAccountInfo(haqqAddress: string) {
-    const response = await axios.get<AccountResponse>(
-      `${cosmosRestEndpoint}${generateEndpointAccount(haqqAddress)}`,
-    );
+    const response = await axios.get<
+      AccountInfoResponse<HaqqAccount | ClawbackVestingAccount>
+    >(`${cosmosRestEndpoint}${generateEndpointAccount(haqqAddress)}`);
     console.log('getAccountInfo', { response });
 
-    return response.data.account.base_account;
+    return response.data.account;
+  }
+
+  async function getAccountBaseInfo(haqqAddress: string) {
+    const account = await getAccountInfo(haqqAddress);
+
+    return account['@type'] === '/haqq.vesting.v1.ClawbackVestingAccount'
+      ? (account as ClawbackVestingAccount).base_vesting_account?.base_account
+      : (account as HaqqAccount).base_account;
   }
 
   async function getAccountDelegations(haqqAddress: string) {
@@ -488,7 +506,10 @@ function createCosmosService(
     const haqqAddress = ethToHaqq(address);
     const account = await getAccountInfo(haqqAddress);
 
-    return account.pub_key?.key;
+    return account['@type'] === '/haqq.vesting.v1.ClawbackVestingAccount'
+      ? (account as ClawbackVestingAccount).base_vesting_account?.base_account
+          ?.pub_key?.key
+      : (account as HaqqAccount).base_account.pub_key?.key;
   }
 
   async function getPubkey(address: string) {
@@ -603,6 +624,15 @@ function createCosmosService(
     return response.data.tally;
   }
 
+  async function getBankBalances(address: string) {
+    const response = await axios.get<BalancesResponse>(
+      new URL(generateEndpointBalances(address), cosmosRestEndpoint).toString(),
+    );
+    console.log('getBankBalances', { response });
+
+    return response.data.balances;
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -626,6 +656,8 @@ function createCosmosService(
     getAuthzGranterGrants,
     getAuthzGranteeGrants,
     getProposalTally,
+    getAccountBaseInfo,
+    getBankBalances,
   };
 }
 
