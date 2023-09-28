@@ -438,10 +438,12 @@ function AccountAddress({
 function AccountSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="mb-2 mt-1 h-[14px] w-[60px] rounded-[4px] bg-[#0eb471]"></div>
-      <div className="flex h-[32px] flex-1 flex-row items-center space-x-2">
-        <div className="h-[32px] w-[32px] flex-none rounded-full bg-[#0eb471]"></div>
-        <div className="h-[16px] max-w-[110px] flex-1 rounded-[4px] bg-[#0eb471]"></div>
+      <div className="flex flex-row items-center space-x-4">
+        <div className="h-[56px] w-[56px] flex-none rounded-full bg-[#0eb471]"></div>
+        <div className="flex flex-1 flex-col gap-2 ">
+          <div className="h-[18px] w-[110px] rounded-[4px] bg-[#0eb471]"></div>
+          <div className="h-[18px] w-[110px] rounded-[4px] bg-[#0eb471]"></div>
+        </div>
       </div>
     </div>
   );
@@ -481,9 +483,6 @@ export function AccountWidget({
         {isConnected ? (
           <Fragment>
             <div>
-              {/* <div className="mb-1 text-sm leading-normal text-white/80 md:text-base">
-                Account
-              </div> */}
               <AccountAddress
                 ethAddress={ethAddress}
                 haqqAddress={haqqAddress}

@@ -14,7 +14,6 @@ import {
   DistributionRewardsResponse,
   BroadcastMode,
   TxToSend,
-  AccountResponse,
   UndelegationResponse,
   GetUndelegationsResponse,
   generateEndpointProposalTally,
@@ -309,6 +308,7 @@ export interface AuthzGranteeGrantsResponse {
 }
 
 export type GovParamsType = 'voting' | 'tallying' | 'deposit';
+
 type AccountInfoResponse<A = BaseAccount> = {
   account: A;
 };

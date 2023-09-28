@@ -3,6 +3,7 @@ import { environment } from '../environments/environment';
 import { Navigate, useParams } from 'react-router-dom';
 import { AccountDepositStatsWidget } from '../components/AccountDepositStatsWidget/AccountDepositStatsWidget';
 import { Fragment } from 'react';
+import { Hex } from 'viem';
 import { DepositWithdrawalList } from '../components/DepositWithdrawalList/DepositWithdrawalList';
 
 export function AccountPage() {
@@ -17,8 +18,8 @@ export function AccountPage() {
       {environment.contractAddress && (
         <Fragment>
           <AccountDepositStatsWidget
-            contractAddress={environment.contractAddress as `0x${string}`}
-            address={address as `0x${string}`}
+            contractAddress={environment.contractAddress as Hex}
+            address={address as Hex}
           />
           <DepositWithdrawalList
             contractAddress={environment.contractAddress}
