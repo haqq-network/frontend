@@ -216,7 +216,10 @@ export function DelegateModal({
                 />
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
+                  value={`${toFixedAmount(
+                    delegation,
+                    3,
+                  )} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="Comission"
