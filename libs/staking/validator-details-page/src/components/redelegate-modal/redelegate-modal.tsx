@@ -112,7 +112,7 @@ export function RedelegateModal({
   delegation,
   validatorsList,
 }: RedelegateModalProps) {
-  const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
+  const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
   );
   const [isRedelegateEnabled, setRedelegateEnabled] = useState(true);
@@ -122,11 +122,14 @@ export function RedelegateModal({
   const { redelegate } = useStakingActions();
 
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(toFixedAmount(delegation));
+    setRedelegateAmount(toFixedAmount(delegation, 3));
   }, [delegation]);
 
-  const handleInputChange = useCallback((value: number | undefined) => {
-    setDelegateAmount(toFixedAmount(value));
+  const handleInputChange = useCallback((value: string | undefined) => {
+    if (value) {
+      const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
+      setRedelegateAmount(toFixedAmount(Number.parseFloat(parsedValue), 3));
+    }
   }, []);
 
   const handleSubmitRedelegate = useCallback(async () => {
@@ -134,7 +137,7 @@ export function RedelegateModal({
       const redelegationPromise = redelegate(
         validatorAddress,
         validatorDestinationAddress,
-        delegateAmount ?? 0,
+        redelegateAmount ?? 0,
       );
       setRedelegateEnabled(false);
       await toast.promise(redelegationPromise, {
@@ -172,7 +175,7 @@ export function RedelegateModal({
     validatorDestinationAddress,
     validatorAddress,
     redelegate,
-    delegateAmount,
+    redelegateAmount,
     toast,
     onClose,
   ]);
@@ -193,20 +196,20 @@ export function RedelegateModal({
   }, [validatorsList, validatorAddress]);
 
   useEffect(() => {
-    if (delegateAmount) {
+    if (redelegateAmount) {
       const fixedDelegation = toFixedAmount(delegation) as number;
 
       if (
         !(fixedDelegation > 0) ||
-        delegateAmount <= 0 ||
-        delegateAmount > fixedDelegation
+        redelegateAmount <= 0 ||
+        redelegateAmount > fixedDelegation
       ) {
         setRedelegateEnabled(false);
       } else {
         setRedelegateEnabled(true);
       }
     }
-  }, [delegateAmount, delegation]);
+  }, [redelegateAmount, delegation]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -243,7 +246,7 @@ export function RedelegateModal({
                 <div>
                   <ModalInput
                     symbol={symbol}
-                    value={delegateAmount}
+                    value={redelegateAmount}
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}
                     isMaxButtonDisabled={!isRedelegateEnabled}
@@ -256,7 +259,7 @@ export function RedelegateModal({
                     className="w-full"
                     disabled={
                       !isRedelegateEnabled ||
-                      !delegateAmount ||
+                      !redelegateAmount ||
                       !validatorDestinationAddress
                     }
                   >
