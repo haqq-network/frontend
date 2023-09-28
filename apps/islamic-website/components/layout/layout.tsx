@@ -5,7 +5,7 @@ import { MobileHeader } from '../../components/header/header';
 import { Alexandria, Handjet } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import { NextIntlClientProvider } from 'next-intl';
-import { SOCIAL_LINKS } from '../footer/social-links';
+import { SOCIAL_LINKS } from '../../social-links';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
