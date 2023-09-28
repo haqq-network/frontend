@@ -436,17 +436,17 @@ export function FatwaBlock() {
 
       <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
         <LangButton
-          active={lang === 'ar'}
-          lang="ar"
-          onClick={() => {
-            setLang('ar');
-          }}
-        />
-        <LangButton
           active={lang === 'en'}
           lang="en"
           onClick={() => {
             setLang('en');
+          }}
+        />
+        <LangButton
+          active={lang === 'ar'}
+          lang="ar"
+          onClick={() => {
+            setLang('ar');
           }}
         />
       </div>

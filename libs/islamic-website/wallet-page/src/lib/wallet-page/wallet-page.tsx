@@ -15,9 +15,9 @@ export function WalletPage() {
     <Fragment>
       <h1 className="text-[46px] font-[600] leading-[52px] md:text-[80px] md:leading-none lg:text-[80px] lg:leading-none">
         <span className="bg-gradient-to-r from-[#36FFF3] to-[#18FFAC] bg-clip-text text-transparent">
-          Wallets
+          HAQQ Wallet:
         </span>{' '}
-        for iOS and Android
+        Your Gateway to Islamic DeFi
       </h1>
       <Text isMono className="mt-[24px] md:mt-[40px]">
         Ethics-First, Non-Custodial Wallet
