@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'marked-react';
 import {
   ParameterChangeProposalContent,
@@ -26,6 +26,10 @@ import {
   GetGovernanceParamsResponse,
   useSupportedChains,
   useStakingDelegationQuery,
+  getFormattedAddress,
+  useProposalTally,
+  TallyResults,
+  useStakingPoolQuery,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -46,6 +50,10 @@ import {
   ProposalPeriodTimer,
   ProposalVoteProgress,
   formatNumber,
+  ToastSuccess,
+  ToastLoading,
+  ToastError,
+  LinkIcon,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { useAccount, useNetwork } from 'wagmi';
@@ -139,11 +147,17 @@ function ProposalDetailsMobile({
   totalDeposit,
   minDeposit,
   symbol,
+  proposalTally,
+  quorum,
+  turnout,
 }: {
   proposalDetails: Proposal;
   totalDeposit: number;
   minDeposit: number;
   symbol: string;
+  proposalTally: TallyResults;
+  turnout: number;
+  quorum: number;
 }) {
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
@@ -155,7 +169,7 @@ function ProposalDetailsMobile({
               proposalDetails.status === ProposalStatus.Rejected) && (
               <div>
                 <ProposalVoteProgress
-                  results={proposalDetails.final_tally_result}
+                  results={proposalTally}
                   status={proposalDetails.status}
                 />
               </div>
@@ -170,6 +184,12 @@ function ProposalDetailsMobile({
               </div>
             )}
           </div>
+
+          <ProposalTurnoutQuorum
+            turnout={formatNumber(turnout, 2, 2)}
+            quorum={formatNumber(quorum, 2, 2)}
+          />
+
           {(proposalDetails.status === ProposalStatus.Deposit ||
             proposalDetails.status === ProposalStatus.Voting) && (
             <div>
@@ -205,19 +225,22 @@ export function ProposalDetailsComponent({
   symbol,
   isWalletConnected,
   govParams,
+  proposalTally,
 }: {
   proposalDetails: Proposal;
   symbol: string;
   isWalletConnected: boolean;
   govParams: GetGovernanceParamsResponse;
+  proposalTally: TallyResults;
 }) {
   const { isConnected } = useAccount();
   const { haqqAddress } = useAddress();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  const { data: stakingPool } = useStakingPoolQuery();
   const { openSelectWallet } = useWallet();
   // const { deposit } = useProposalActions();
   // const toast = useToast();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const { hash } = useLocation();
   // const { ethAddress } = useAddress();
   // const { data: balanceData } = useBalance({
@@ -231,12 +254,12 @@ export function ProposalDetailsComponent({
     ),
   );
 
-  const isDepositAvailable = useMemo(() => {
-    const now = Date.now();
-    const voteStart = new Date(proposalDetails.voting_start_time).getTime();
+  // const isDepositAvailable = useMemo(() => {
+  //   const now = Date.now();
+  //   const voteStart = new Date(proposalDetails.voting_start_time).getTime();
 
-    return now < voteStart && isWalletConnected;
-  }, [isWalletConnected, proposalDetails]);
+  //   return now < voteStart && isWalletConnected;
+  // }, [isWalletConnected, proposalDetails]);
   const totalDeposit = useMemo(() => {
     if (proposalDetails.total_deposit.length === 0) {
       return 0;
@@ -315,11 +338,37 @@ export function ProposalDetailsComponent({
   //   [deposit, navigate, proposalDetails.proposal_id, toast],
   // );
 
+  const quorum = useMemo(() => {
+    return Number.parseFloat(govParams.tally_params.quorum) * 100;
+  }, [govParams.tally_params.quorum]);
+
+  const turnout = useMemo(() => {
+    if (!stakingPool || !proposalTally) {
+      return 0;
+    }
+
+    const voted = Number.parseInt(
+      formatUnits(
+        BigInt(proposalTally.no) +
+          BigInt(proposalTally.no_with_veto) +
+          BigInt(proposalTally.yes),
+        18,
+      ),
+      10,
+    );
+    const bonded = Number.parseInt(
+      formatUnits(BigInt(stakingPool.bonded_tokens), 18),
+      10,
+    );
+
+    return (voted / bonded) * 100;
+  }, [proposalTally, stakingPool]);
+
   return (
     <Fragment>
       <Container>
         <div className="flex flex-row gap-[48px] lg:mb-[48px]">
-          <div className="w-auto flex-1 md:w-1/2">
+          <div className="w-auto max-w-full flex-1 overflow-hidden md:w-1/2">
             <div className="divide-haqq-border divide-y divide-dashed">
               <div className="pb-[24px] md:pb-[40px]">
                 {isTablet && (
@@ -343,6 +392,9 @@ export function ProposalDetailsComponent({
                       totalDeposit={totalDeposit}
                       minDeposit={minDeposit}
                       symbol={symbol}
+                      proposalTally={proposalTally}
+                      quorum={quorum}
+                      turnout={turnout}
                     />
                   </div>
                 )}
@@ -381,7 +433,7 @@ export function ProposalDetailsComponent({
                         'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-strong:text-white',
                       )}
                     >
-                      <Markdown gfm>
+                      <Markdown gfm breaks>
                         {proposalDetails.content.description}
                       </Markdown>
                     </div>
@@ -458,16 +510,23 @@ export function ProposalDetailsComponent({
                       status={proposalDetails.status as ProposalStatus}
                     />
                   </div>
+
                   {(proposalDetails.status === ProposalStatus.Voting ||
                     proposalDetails.status === ProposalStatus.Passed ||
                     proposalDetails.status === ProposalStatus.Rejected) && (
                     <div className="flex flex-col gap-[24px]">
                       <div>
                         <ProposalVoteProgress
-                          results={proposalDetails.final_tally_result}
+                          results={proposalTally}
                           status={proposalDetails.status}
                         />
                       </div>
+
+                      <ProposalTurnoutQuorum
+                        turnout={formatNumber(turnout, 2, 2)}
+                        quorum={formatNumber(quorum, 2, 2)}
+                      />
+
                       {(proposalDetails.status === ProposalStatus.Passed ||
                         proposalDetails.status === ProposalStatus.Rejected) && (
                         <div>
@@ -618,10 +677,10 @@ export function ProposalDetailsComponent({
             proposalDetails={proposalDetails}
             isConnected={isConnected}
             onConnectWalletClick={openSelectWallet}
-            isDepositAvailable={isDepositAvailable}
-            onDepositWalletClick={() => {
-              navigate('#deposit', { replace: true });
-            }}
+            // isDepositAvailable={isDepositAvailable}
+            // onDepositWalletClick={() => {
+            //   navigate('#deposit', { replace: true });
+            // }}
             isCanVote={isCanVote}
           />
           {/* <ProposalDepositModal
@@ -638,19 +697,60 @@ export function ProposalDetailsComponent({
   );
 }
 
+function ProposalTurnoutQuorumBlock({
+  title,
+  value,
+  valueClassName,
+}: {
+  title: string;
+  value: string | number;
+  valueClassName?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-y-[4px]">
+      <div className="'font-guise md:leading-[18px]' text-[11px] leading-[18px] text-white/50 md:text-[12px]">
+        {title}
+      </div>
+      <div
+        className={clsx(
+          'font-serif text-[14px] leading-[18px] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]',
+          valueClassName,
+        )}
+      >
+        {value}%
+      </div>
+    </div>
+  );
+}
+
+function ProposalTurnoutQuorum({
+  turnout,
+  quorum,
+}: {
+  turnout: string;
+  quorum: string;
+}) {
+  return (
+    <div className="flex flex-row gap-[16px]">
+      <ProposalTurnoutQuorumBlock title="Turnout" value={turnout} />
+      <ProposalTurnoutQuorumBlock title="Quorum" value={quorum} />
+    </div>
+  );
+}
+
 function ProposalActionsMobile({
   proposalDetails,
   isConnected,
   onConnectWalletClick,
-  onDepositWalletClick,
-  isDepositAvailable,
+  // onDepositWalletClick,
+  // isDepositAvailable,
   isCanVote,
 }: {
   proposalDetails: Proposal;
   isConnected?: boolean;
   onConnectWalletClick: () => void;
-  onDepositWalletClick: () => void;
-  isDepositAvailable: boolean;
+  // onDepositWalletClick: () => void;
+  // isDepositAvailable: boolean;
   isCanVote?: boolean;
 }) {
   if (!isConnected) {
@@ -707,6 +807,7 @@ function ProposalActionsMobile({
 function ProposalInfo({ proposalId }: { proposalId: string }) {
   const { data: proposalDetails, isFetching } =
     useProposalDetailsQuery(proposalId);
+  const { data: proposalTally } = useProposalTally(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
   const { chain } = useNetwork();
@@ -716,7 +817,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     return <Navigate to="/not-found" replace />;
   }
 
-  return isFetching || !proposalDetails || !govParams ? (
+  return isFetching || !proposalDetails || !proposalTally || !govParams ? (
     <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
       <SpinnerLoader />
       <div className="font-sans text-[10px] uppercase leading-[1.2em]">
@@ -728,6 +829,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
       symbol={chain?.nativeCurrency.symbol ?? chains[0].nativeCurrency.symbol}
       isWalletConnected={Boolean(ethAddress && haqqAddress)}
       proposalDetails={proposalDetails}
+      proposalTally={proposalTally}
       govParams={govParams}
     />
   );
@@ -781,14 +883,31 @@ export function VoteActions({
       const votePromise = vote(proposalId, option);
 
       toast.promise(votePromise, {
-        loading: 'Vote in progress',
+        loading: <ToastLoading>Vote in progress</ToastLoading>,
         success: (txHash) => {
           console.log('Vote successful', { txHash }); // maybe successful
-          return `Your vote will be counted!!!`;
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Your vote will be counted!!!</div>
+                <div>
+                  <Link
+                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
+              </div>
+            </ToastSuccess>
+          );
         },
         error: (error) => {
           console.error(error);
-          return 'For some reason your vote failed.';
+          return <ToastError>For some reason your vote failed.</ToastError>;
         },
       });
     },

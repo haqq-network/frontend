@@ -17,6 +17,8 @@ module.exports = {
       fontFamily: {
         sans: ['var(--guise-font)'],
         serif: ['var(--clash-font)'],
+        guise: ['var(--guise-font)'],
+        clash: ['var(--clash-font)'],
       },
       colors: {
         ...tailwindThemeExtend.colors,

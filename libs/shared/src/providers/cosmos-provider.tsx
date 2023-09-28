@@ -8,7 +8,7 @@ import {
   generateEndpointGetUndelegations,
   generateEndpointDistributionRewardsByAddress,
   generateEndpointProposals,
-  Proposal,
+  type Proposal,
   Validator,
   GetDelegationsResponse,
   DistributionRewardsResponse,
@@ -17,6 +17,8 @@ import {
   AccountResponse,
   UndelegationResponse,
   GetUndelegationsResponse,
+  generateEndpointProposalTally,
+  TallyResponse,
 } from '@evmos/provider';
 import store from 'store2';
 import { Coin } from '@evmos/transactions';
@@ -28,6 +30,10 @@ import { getChainParams } from '../chains/get-chain-params';
 import { useSupportedChains } from './wagmi-provider';
 import { Hex } from 'viem';
 import { ethToHaqq } from '../utils/convert-address';
+
+export type TallyResults = TallyResponse['tally'];
+
+export { Proposal };
 
 export interface CosmosService {
   getValidators: (limit?: number) => Promise<Validator[]>;
@@ -62,6 +68,7 @@ export interface CosmosService {
   getAuthzGranteeGrants: (
     grantee: string,
   ) => Promise<AuthzGranterGrantsResponse>;
+  getProposalTally: (id: string) => Promise<TallyResults>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -587,6 +594,15 @@ function createCosmosService(
     return response.data;
   }
 
+  async function getProposalTally(id: string) {
+    const response = await axios.get<TallyResponse>(
+      `${cosmosRestEndpoint}${generateEndpointProposalTally(id)}`,
+    );
+    console.log('getProposalTally', { response });
+
+    return response.data.tally;
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -609,6 +625,7 @@ function createCosmosService(
     getAuthzGrants,
     getAuthzGranterGrants,
     getAuthzGranteeGrants,
+    getProposalTally,
   };
 }
 

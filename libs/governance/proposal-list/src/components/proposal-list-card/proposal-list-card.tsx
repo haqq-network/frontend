@@ -2,16 +2,18 @@ import { ReactElement, useMemo } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
 import { ProposalCard } from '@haqq/shell-ui-kit';
 import { formatUnits } from 'viem/utils';
-import { GetGovernanceParamsResponse } from '@haqq/shared';
+import { GetGovernanceParamsResponse, TallyResults } from '@haqq/shared';
 
 export function ProposalListCard({
   proposal,
   govParams,
   symbol,
+  proposalTally,
 }: {
   proposal: Proposal;
   govParams: GetGovernanceParamsResponse;
   symbol: string;
+  proposalTally: TallyResults;
 }): ReactElement {
   const totalDeposit = useMemo(() => {
     if (!proposal.total_deposit[0]) {
@@ -42,7 +44,7 @@ export function ProposalListCard({
       votingEndDate={new Date(proposal.voting_end_time)}
       totalDeposit={totalDeposit}
       minDeposit={minDeposit}
-      results={proposal.final_tally_result}
+      results={proposalTally}
       symbol={symbol}
     />
   );

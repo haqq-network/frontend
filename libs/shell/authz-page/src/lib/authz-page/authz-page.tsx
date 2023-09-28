@@ -1,6 +1,7 @@
 import {
   Grant,
   ethToHaqq,
+  getFormattedAddress,
   haqqToEth,
   useAddress,
   useAuthzActions,
@@ -20,6 +21,10 @@ import {
   Container,
   CopyIcon,
   Heading,
+  LinkIcon,
+  ToastError,
+  ToastLoading,
+  ToastSuccess,
   Tooltip,
   formatNumber,
 } from '@haqq/shell-ui-kit';
@@ -35,6 +40,7 @@ import {
 import { formatUnits, isAddress, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 import { Select } from '../select/select';
+import { Link } from 'react-router-dom';
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {
@@ -121,13 +127,30 @@ function GranterGrantsTable() {
       const grantPromise = revoke(grantee, type);
 
       await toast.promise(grantPromise, {
-        loading: 'Revoke in progress',
+        loading: <ToastLoading>Revoke in progress</ToastLoading>,
         success: (txHash) => {
           console.log('Revoke successful', { txHash }); // maybe successful
-          return `Revoke successful`;
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Revoke successful</div>
+                <div>
+                  <Link
+                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
+              </div>
+            </ToastSuccess>
+          );
         },
         error: (error) => {
-          return error.message;
+          return <ToastError>{error.message}</ToastError>;
         },
       });
 
@@ -419,13 +442,30 @@ function AuthzGrantsActions() {
     const grantPromise = grant(haqqGrantee, grantType, expire);
 
     await toast.promise(grantPromise, {
-      loading: 'Grant in progress',
+      loading: <ToastLoading>Grant in progress</ToastLoading>,
       success: (txHash) => {
         console.log('Grant successful', { txHash });
-        return `Grant successful`;
+        return (
+          <ToastSuccess>
+            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+              <div>Grant successful</div>
+              <div>
+                <Link
+                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                >
+                  <LinkIcon />
+                  <span>{getFormattedAddress(txHash)}</span>
+                </Link>
+              </div>
+            </div>
+          </ToastSuccess>
+        );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
 
