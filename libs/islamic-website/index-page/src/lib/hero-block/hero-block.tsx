@@ -53,18 +53,21 @@ export function HeroBlock() {
         </div>
       </div>
       <Modal isOpen={isVideoModalOpen} onClose={closeVideoModal}>
-        <iframe
-          title="Islamic Coin Video"
-          src={`https://www.youtube.com/embed/${ytVideoId}?rel=0&autoplay=1&showinfo=0`}
-          allow="autoplay"
-          allowFullScreen
-          width="100%"
-          className="aspect-video rounded-[20px] sm:w-[600px] lg:w-[928px]"
-        />
-        <ModalCloseButton
-          onClick={closeVideoModal}
-          className="absolute right-[-30px] top-[-24px] outline-none"
-        />
+        <div className="relative mx-auto w-[calc(100%-32px)] max-w-[928px] lg:w-[calc(100%-98px)]">
+          <iframe
+            title="Islamic Coin Video"
+            src={`https://www.youtube.com/embed/${ytVideoId}?rel=0&autoplay=1&showinfo=0`}
+            allow="autoplay"
+            allowFullScreen
+            width="100%"
+            className="mx-auto aspect-video rounded-[20px]"
+          />
+
+          <ModalCloseButton
+            onClick={closeVideoModal}
+            className="absolute right-[-24px] top-[-24px] outline-none lg:right-[-32px]"
+          />
+        </div>
       </Modal>
     </div>
   );

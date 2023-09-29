@@ -104,7 +104,11 @@ export function MembersContainer({
         </div>
       )}
 
-      <Modal isOpen={isBoardModalOpen} onClose={closeBoardModal}>
+      <Modal
+        isOpen={isBoardModalOpen}
+        onClose={closeBoardModal}
+        className="max-w-fit"
+      >
         <MemberModalCard
           description={memberModalData.description}
           image={memberModalData.image}
