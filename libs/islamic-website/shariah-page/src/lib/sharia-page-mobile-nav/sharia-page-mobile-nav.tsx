@@ -14,6 +14,7 @@ export function ShariPageMobileNav({
   onSectionSelect: (newSection: string) => void;
 }) {
   const [isBlurred, setBlured] = useState(false);
+  console.log('KEEEk');
 
   useEffect(() => {
     const offset = 500;
@@ -76,10 +77,7 @@ function FixedPageNavigation({
   }, [activeSection]);
 
   return (
-    <div
-      className="fixed left-0 top-[72px] z-10 w-full border-b-[1px] border-[#2F2F2F] bg-[#010304CC]
-backdrop-blur-[6px]"
-    >
+    <div className="fixed left-0 top-[136px] z-[10] w-full border-b-[1px] border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px] md:top-[112px]">
       <Container>
         <div className="flex flex-col">
           <div
@@ -118,10 +116,7 @@ backdrop-blur-[6px]"
           </div>
 
           {isOpen && (
-            <div
-              className="flex flex-col border-t-[1px] border-[#2F2F2F]
-py-[8px]"
-            >
+            <div className="flex flex-col border-t-[1px] border-[#2F2F2F] py-[8px]">
               {sections.map((section) => {
                 return (
                   <Link

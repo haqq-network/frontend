@@ -3,11 +3,12 @@ import { PropsWithChildren } from 'react';
 import { DEPLOY_URL } from '../../constants';
 import { notFound } from 'next/navigation';
 import { ClientLayout } from '../../components/layout/layout';
+import { headers } from 'next/headers';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
-import { headers } from 'next/headers';
+import '../../styles/consent-cookie.css';
 
 export const metadata: Metadata = {
   title: {

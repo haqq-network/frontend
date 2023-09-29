@@ -68,8 +68,8 @@
       "@haqq/islamic-website/forms": [
         "libs/islamic-website/forms/src/index.ts"
       ],
-      "@haqq/islamic-website/fraud-page": [
-        "libs/islamic-website/fraud-page/src/index.ts"
+      "@haqq/islamic-website/alerts-pages": [
+        "libs/islamic-website/alerts-pages/src/index.ts"
       ],
       "@haqq/islamic-website/index-page": [
         "libs/islamic-website/index-page/src/index.ts"

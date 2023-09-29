@@ -6,8 +6,8 @@
 
 :root {
   --font-serif: 'Alexandria';
-  --font-mono: 'VCR_OSD_MONO';
   --font-handjet: 'Handjet';
+  --font-vcr: 'VCR_OSD_MONO';
 }
 
 .text-shadow-outline {

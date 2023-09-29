@@ -50,6 +50,10 @@ const footerNavLinks: FooterNavLinks = [
       url: '/whitepaper',
       title: 'whitepaper',
     },
+    {
+      url: '/contact-us',
+      title: 'Contact us',
+    },
   ],
   [
     {

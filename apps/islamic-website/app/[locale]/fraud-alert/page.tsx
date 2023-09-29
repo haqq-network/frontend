@@ -17,4 +17,4 @@ export const metadata: Metadata = {
   },
 };
 
-export { FraudPage as default } from '@haqq/islamic-website/fraud-page';
+export { FraudAlertPage as default } from '@haqq/islamic-website/alerts-pages';
