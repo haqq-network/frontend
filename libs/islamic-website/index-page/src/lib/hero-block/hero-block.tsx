@@ -41,20 +41,16 @@ export function HeroBlock() {
         </div> */}
       </div>
 
-      <div
-        className="group relative mt-[40px] h-[100px] w-[180px] rounded-lg text-black backdrop-grayscale"
-        onClick={openVideoModal}
-      >
-        <div className="brightness-50 transition-all duration-300 group-hover:cursor-pointer group-hover:brightness-100">
+      <div className="group mt-[40px] w-fit" onClick={openVideoModal}>
+        <div className="relative h-[100px] w-[180px] brightness-50 transition-all duration-300 group-hover:cursor-pointer group-hover:brightness-100">
           <Image
             src={`https://img.youtube.com/vi/${ytVideoId}/0.jpg`}
             alt=""
             className="aspect-video"
-            width={180}
-            height={100}
+            fill
           />
+          <PlayVideoIcon className="absolute left-[35%] top-[25%] transform transition-all duration-300 group-hover:scale-110" />
         </div>
-        <PlayVideoIcon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform transition-all duration-300 group-hover:scale-110" />
       </div>
       <Modal isOpen={isVideoModalOpen} onClose={closeVideoModal}>
         <iframe
