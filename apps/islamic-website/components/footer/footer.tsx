@@ -3,15 +3,12 @@ import Image from 'next/image';
 import { PropsWithChildren, useMemo } from 'react';
 import {
   DiscordIcon,
-  FacebookIcon,
   GithubIcon,
   LinkedinIcon,
   MediumIcon,
-  RedditIcon,
   TelegramIcon,
   TwitterIcon,
   YoutubeIcon,
-  ZenIcon,
   Container,
 } from '@haqq/islamic-website-ui-kit';
 
@@ -229,30 +226,30 @@ export function Footer() {
                 <FooterNavSocialLink url="https://discord.gg/islamiccoin">
                   <DiscordIcon />
                 </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://www.facebook.com/groups/islamiccoin">
+                {/* <FooterNavSocialLink url="https://www.facebook.com/groups/islamiccoin">
                   <FacebookIcon />
-                </FooterNavSocialLink>
+                </FooterNavSocialLink> */}
                 <FooterNavSocialLink url="https://github.com/haqq-network">
                   <GithubIcon />
                 </FooterNavSocialLink>
                 <FooterNavSocialLink url="https://www.linkedin.com/company/islamiccoin">
                   <LinkedinIcon />
                 </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://medium.com/islamic-coin">
+                <FooterNavSocialLink url="https://blog.islamiccoin.net/">
                   <MediumIcon />
                 </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://www.reddit.com/user/islamiccoin_net">
+                {/* <FooterNavSocialLink url="https://www.reddit.com/user/islamiccoin_net">
                   <RedditIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://t.me/islamiccoin_int">
+                </FooterNavSocialLink> */}
+                <FooterNavSocialLink url="https://t.me/islamic_coin/">
                   <TelegramIcon />
                 </FooterNavSocialLink>
                 <FooterNavSocialLink url="https://twitter.com/Islamic_coin">
                   <TwitterIcon />
                 </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://zen.yandex.ru/id/61d886b1a243b758ed11c321">
+                {/* <FooterNavSocialLink url="https://zen.yandex.ru/id/61d886b1a243b758ed11c321">
                   <ZenIcon />
-                </FooterNavSocialLink>
+                </FooterNavSocialLink> */}
               </div>
               <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0 lg:gap-x-[32px]">
                 <Link

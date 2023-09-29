@@ -20,7 +20,7 @@ export function FinanceBlock() {
                 <Text isMono>
                   Crypto Innovation Meets Islamic Tradition offering
                   Interest-Free Investments, Halal Trading, and Charitable
-                  Giving
+                  Giving and More
                 </Text>
               </div>
 

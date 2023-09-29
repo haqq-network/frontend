@@ -165,9 +165,9 @@ export function LearnAndGrowBlock() {
             equip, and empower your financial journey
           </Text>
           <div className="mt-[32px] w-full md:mt-[34px] md:w-fit">
-            <Link href="/wallet">
+            <Link href="/academy">
               <Button className="w-full !px-[20px] leading-[16px] md:!px-[32px]">
-                Get started with HAQQ&nbsp;wallet
+                Get started
               </Button>
             </Link>
           </div>

@@ -19,7 +19,7 @@ import {
   EcosystemIcon,
   MissionIcon,
   NewsIcon,
-  PartnershipIcon,
+  // PartnershipIcon,
   RoadmapIcon,
   ValuesIcon,
   BurgerButton,
@@ -335,11 +335,11 @@ export function DesktopHeader({
                       href="/news"
                     />
 
-                    <DropdownLink
+                    {/* <DropdownLink
                       title="Partnerships"
                       icon={<PartnershipIcon />}
                       href="/partnerships"
-                    />
+                    /> */}
                     <DropdownLink
                       title="Build on HAQQ"
                       icon={<BuildIcon />}

@@ -198,7 +198,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
         <div className="flex flex-col gap-x-[24px] gap-y-[12px] sm:flex-row">
           <div className="flex items-center gap-x-[11px]">
             <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[18px] font-[700] leading-[26px] text-transparent md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
-              We are part of{' '}
+              We are the core off{' '}
             </span>
             <div className="relative h-[22px] w-[96px] md:h-[28px] md:w-[118px]">
               <Image
