@@ -59,7 +59,7 @@ export function HeroBlock() {
           allow="autoplay"
           allowFullScreen
           width="100%"
-          className="aspect-video"
+          className="aspect-video rounded-[20px] sm:w-[600px] lg:w-[928px]"
         />
         <ModalCloseButton
           onClick={closeVideoModal}
