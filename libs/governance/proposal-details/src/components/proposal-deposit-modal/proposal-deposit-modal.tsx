@@ -1,8 +1,13 @@
 import clsx from 'clsx';
-import { MobileHeading, Modal, ModalCloseButton } from '../modal/modal';
-import { Button } from '../button/button';
-import { ModalInput } from '../modal-input/modal-input';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { toFixedAmount } from '@haqq/shared';
+import {
+  Button,
+  MobileHeading,
+  Modal,
+  ModalCloseButton,
+  ModalInput,
+} from '@haqq/shell-ui-kit';
 
 export function DepositModalDetails({
   title,
@@ -67,8 +72,11 @@ export function ProposalDepositModal({
     undefined,
   );
 
-  const handleInputChange = useCallback((value: number | undefined) => {
-    setDepositAmount(value);
+  const handleInputChange = useCallback((value: string | undefined) => {
+    if (value) {
+      const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
+      setDepositAmount(toFixedAmount(Number.parseFloat(parsedValue), 3));
+    }
   }, []);
 
   const handleSubmitDelegate = useCallback(async () => {

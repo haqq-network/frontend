@@ -1,5 +1,40 @@
-import { ChangeEvent, ReactNode, useCallback, useEffect } from 'react';
+import {
+  ChangeEvent,
+  InputHTMLAttributes,
+  ReactNode,
+  useCallback,
+  useEffect,
+} from 'react';
 import clsx from 'clsx';
+import MaskedInput from 'react-text-mask';
+import { createNumberMask } from 'text-mask-addons';
+
+const defaultMaskOptions = {
+  prefix: '',
+  suffix: '',
+  includeThousandsSeparator: true,
+  thousandsSeparatorSymbol: ',',
+  allowDecimal: true,
+  decimalSymbol: '.',
+  decimalLimit: 3,
+  allowNegative: false,
+  allowLeadingZeroes: false,
+  // integerLimit: 7,
+};
+
+const CurrencyInput = ({
+  maskOptions,
+  ...inputProps
+}: InputHTMLAttributes<HTMLInputElement> & {
+  maskOptions?: typeof defaultMaskOptions | undefined;
+}) => {
+  const currencyMask: string | Array<string | RegExp> = createNumberMask({
+    ...defaultMaskOptions,
+    ...maskOptions,
+  });
+
+  return <MaskedInput mask={currencyMask} {...inputProps} />;
+};
 
 export function ModalInput({
   symbol,
@@ -7,20 +42,20 @@ export function ModalInput({
   onChange,
   onMaxButtonClick,
   hint,
-  step = 0.001,
+
   isMaxButtonDisabled = false,
 }: {
   symbol: string;
   value: number | undefined;
-  onChange: (value: number | undefined) => void;
+  onChange: (value: string | undefined) => void;
   onMaxButtonClick: () => void;
   hint?: ReactNode;
-  step?: number;
+
   isMaxButtonDisabled?: boolean;
 }) {
   const handleInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      onChange(Number.parseFloat(event.target.value));
+      onChange(event.target.value);
     },
     [onChange],
   );
@@ -34,10 +69,9 @@ export function ModalInput({
   return (
     <div>
       <div className="relative">
-        <input
-          type="number"
-          id="amount"
-          value={value}
+        <CurrencyInput
+          placeholder="Enter amount"
+          type="text"
           className={clsx(
             'w-full rounded-[6px] outline-none',
             'transition-colors duration-100 ease-in',
@@ -45,9 +79,9 @@ export function ModalInput({
             'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
             'bg-[#E7E7E7]',
           )}
-          placeholder="Enter amount"
           onChange={handleInputChange}
-          step={step}
+          id="amount"
+          value={value}
         />
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
           <button
