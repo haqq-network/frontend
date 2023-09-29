@@ -128,6 +128,7 @@ export function DelegateModal({
   const handleInputChange = useCallback((value: number | undefined) => {
     setDelegateAmount(toFixedAmount(value));
   }, []);
+
   const handleSubmitDelegate = useCallback(async () => {
     const delegationPromise = delegate(validatorAddress, delegateAmount);
     setDelegateEnabled(false);
