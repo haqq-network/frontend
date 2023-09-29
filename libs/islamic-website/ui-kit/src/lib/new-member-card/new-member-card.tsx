@@ -52,7 +52,7 @@ export function NewMemberCard({
                   event.stopPropagation();
                 }}
                 className={clsx(
-                  'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-mono  uppercase',
+                  'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-vcr uppercase',
                   'inline-flex flex-row items-center gap-x-[4px]',
                   'transition-colors duration-300',
                 )}

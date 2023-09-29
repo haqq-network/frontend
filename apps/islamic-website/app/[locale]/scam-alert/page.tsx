@@ -1,6 +1,7 @@
-import { DEPLOY_URL } from '../../constants';
+import { DEPLOY_URL } from '../../../constants';
 import type { Metadata } from 'next';
-import { islamicOpenGraphImages } from '../shared-metadata';
+import { islamicOpenGraphImages } from '../../shared-metadata';
+import { ScamAlertPage } from '@haqq/islamic-website/alerts-pages';
 
 const title = 'Recruitment Fraud Alert';
 const description =
@@ -17,4 +18,14 @@ export const metadata: Metadata = {
   },
 };
 
-export { ScamAlertPage as default } from '@haqq/islamic-website/alerts-pages';
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
+
+  return <ScamAlertPage locale={locale} />;
+}

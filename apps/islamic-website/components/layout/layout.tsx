@@ -1,43 +1,30 @@
-import type { Metadata } from 'next';
+'use client';
 import { Fragment, PropsWithChildren } from 'react';
-import { headers } from 'next/headers';
 import { Footer } from '../footer/footer';
 import { MobileHeader } from '../header/header';
-import { Alexandria } from 'next/font/google';
+import { Alexandria, Handjet } from 'next/font/google';
 import dynamic from 'next/dynamic';
-import clsx from 'clsx';
-import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
+import { VERCEL_ENV } from '../../constants';
 import { CookieConsentModal } from '../cookie-consent-modal/cookie-consetnt-modal';
 import Link from 'next/link';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Script from 'next/script';
 import { SOCIAL_LINKS } from '../../social-links';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import '../styles/global.css';
-import '../styles/consent-cookie.css';
-
-export const metadata: Metadata = {
-  title: {
-    template: '%s | IslamicCoin',
-    default: 'IslamicCoin',
-  },
-  referrer: 'origin-when-cross-origin',
-  viewport: {
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    width: 'device-width',
-  },
-  metadataBase: new URL(DEPLOY_URL),
-};
+import { NextIntlClientProvider } from 'next-intl';
+import clsx from 'clsx';
 
 const alexandriaFont = Alexandria({
   subsets: ['latin', 'arabic'],
   display: 'swap',
   variable: '--font-alexandria',
   weight: ['300', '400', '600', '700', '800'],
+});
+
+const handjetFont = Handjet({
+  subsets: ['arabic'],
+  display: 'swap',
+  variable: '--font-handjet',
+  weight: ['600'],
 });
 
 const DynamicHeader = dynamic(
@@ -52,28 +39,36 @@ const DynamicHeader = dynamic(
   },
 );
 
-export default function RootLayout({ children }: PropsWithChildren) {
-  const headersList = headers();
-  const userAgent = headersList.get('user-agent');
-  const isMobileUserAgent = Boolean(
-    userAgent!.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-    ),
-  );
+export function ClientLayout({
+  children,
+  locale,
+  messages,
+  isMobileUserAgent,
+}: PropsWithChildren<{
+  locale: string;
+  messages: Record<string, string>;
+  isMobileUserAgent: boolean;
+}>) {
   const isScamBannerShow = true;
 
   return (
-    <html lang="en" className={clsx('ltr', alexandriaFont.variable)}>
+    <html
+      lang={locale}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      className={clsx(alexandriaFont.variable, handjetFont.variable)}
+    >
       {VERCEL_ENV !== 'development' && <CookieConsentModal />}
-      <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
-        {isScamBannerShow && <ScamBanner />}
-        {isMobileUserAgent ? (
-          <MobileHeader isBannerVisible={isScamBannerShow} />
-        ) : (
-          <DynamicHeader isBannerVisible={isScamBannerShow} />
-        )}
-        <div className="flex-1">{children}</div>
-        <Footer socialLinks={SOCIAL_LINKS} />
+      <body className="bg-islamic-bg-black flex min-h-screen flex-col font-serif text-white antialiased">
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {isScamBannerShow && <ScamBanner />}
+          {isMobileUserAgent ? (
+            <MobileHeader isBannerVisible={isScamBannerShow} />
+          ) : (
+            <DynamicHeader isBannerVisible={isScamBannerShow} />
+          )}
+          <div className="flex-1">{children}</div>
+          <Footer socialLinks={SOCIAL_LINKS} />
+        </NextIntlClientProvider>
       </body>
       {VERCEL_ENV === 'development' && (
         <Fragment>

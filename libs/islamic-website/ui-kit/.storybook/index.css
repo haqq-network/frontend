@@ -34,8 +34,8 @@
   --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --font-family-base: var(--font-apple), var(--font-fallback), var(--font-emoji);
 
-  --font-alexandria: 'Alexandria', var(--font-family-base);
-  --font-mono: 'VCR OSD Mono', var(--font-family-base);
+  --font-serif: 'Alexandria', var(--font-family-base);
+  --font-vcr: 'VCR OSD Mono', var(--font-family-base);
   --font-handjet: 'Handjet', var(var(--font-family-base));
 }
 

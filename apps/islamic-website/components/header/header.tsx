@@ -221,7 +221,9 @@ export function MobileHeader({
       <header
         className={clsx(
           'fixed z-50 h-[72px] w-full border-b-[1px] border-transparent',
-          isBannerVisible ? 'top-[64px] md:top-[40px]' : 'top-[0px]',
+          isBannerVisible
+            ? 'top-[88px] min-[370px]:top-[64px] md:top-[40px]'
+            : 'top-[0px]',
           'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
           isMobileMenuOpen
             ? 'bg-[#15191ef2] backdrop-blur-[6px]'
@@ -439,7 +441,7 @@ export function DesktopHeader({
                     />
                     <DropdownLink
                       locale={locale}
-                      title="Scam alert"
+                      title={t('dropdown-links.learn.scam-alert')}
                       icon={<AlertIcon />}
                       href="/scam-alert"
                     />

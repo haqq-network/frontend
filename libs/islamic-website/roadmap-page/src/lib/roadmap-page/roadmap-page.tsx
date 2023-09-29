@@ -134,7 +134,7 @@ function RoadmapCard({
       </div>
 
       <div className="flex flex-col gap-y-[12px]">
-        <h3 className="rtl:font-handjet font-mono  text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+        <h3 className="rtl:font-handjet font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
           {title}
         </h3>
 
@@ -192,9 +192,7 @@ export function RoadmapPage({
 
           {turnstileSiteKey && (
             <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] lg:mt-[120px] lg:max-w-[1200px] lg:flex-row lg:items-start lg:p-[28px]">
-              <Text size="small">
-               {t('subscribe-form.text')}
-              </Text>
+              <Text size="small">{t('subscribe-form.text')}</Text>
               <SubscribeForm
                 className="flex w-full flex-col gap-[16px] lg:flex-row"
                 inputClassName="lg:min-w-[280px]"

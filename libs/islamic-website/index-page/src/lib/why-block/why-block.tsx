@@ -126,7 +126,7 @@ export function StatisticsBlockStatCard({
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'rtl:font-handjet pointer-events-none flex h-[34px] select-none gap-x-[6px] font-mono  text-[24px] leading-[34px]',
+          'rtl:font-handjet font-vcr pointer-events-none flex h-[34px] select-none gap-x-[6px]  text-[24px] leading-[34px]',
         )}
       >
         {prefix}
@@ -209,7 +209,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
             href="https://haqq.network"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet flex cursor-pointer items-center gap-x-[8px] font-mono  uppercase transition-colors duration-300 ease-out"
+            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-vcr flex cursor-pointer items-center gap-x-[8px]  uppercase transition-colors duration-300 ease-out"
           >
             <span>{t('counters.link')}</span>
             <svg

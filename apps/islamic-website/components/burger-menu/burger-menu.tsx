@@ -167,6 +167,12 @@ export function BurgerMenu({
               href="/fraud-alert"
               onClick={onClick}
             />
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.learn.scam-alert')}
+              icon={<AlertIcon />}
+              href="/scam-alert"
+              onClick={onClick}
+            />
           </MobileMenuDropdownLink>
           <MobileMenuDropdownLink title={t('dropdown-links.team.team')}>
             <BurgerMenuDropdownLink

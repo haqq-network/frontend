@@ -5,8 +5,6 @@
 @tailwind utilities;
 
 :root {
-  --font-serif: 'Alexandria';
-  --font-handjet: 'Handjet';
   --font-vcr: 'VCR_OSD_MONO';
 }
 
