@@ -50,11 +50,14 @@ export function UndelegateModal({
   const toast = useToast();
 
   const handleMaxButtonClick = useCallback(() => {
-    setUndelegateAmount(toFixedAmount(delegation));
+    setUndelegateAmount(toFixedAmount(delegation, 3));
   }, [delegation]);
 
-  const handleInputChange = useCallback((value: number | undefined) => {
-    setUndelegateAmount(toFixedAmount(value));
+  const handleInputChange = useCallback((value: string | undefined) => {
+    if (value) {
+      const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
+      setUndelegateAmount(toFixedAmount(Number.parseFloat(parsedValue), 3));
+    }
   }, []);
 
   const handleSubmitUndelegate = useCallback(async () => {
@@ -146,7 +149,10 @@ export function UndelegateModal({
                 />
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
+                  value={`${toFixedAmount(
+                    delegation,
+                    3,
+                  )} ${symbol.toUpperCase()}`}
                 />
               </div>
             </div>
