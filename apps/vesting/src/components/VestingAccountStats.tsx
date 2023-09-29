@@ -24,19 +24,18 @@ export function VestingAccountStats({
   return (
     <Container>
       <div className="flex flex-col space-y-6">
-        {/* <VestingInfoWidget /> */}
-        {/* {accountInfo.vesting_periods && accountInfo.start_time && (
-          <VestingPeriods
-            vestingPeriods={accountInfo.vesting_periods}
-            startTime={accountInfo.start_time}
-          />
-        )} */}
-        {accountInfo.lockup_periods && accountInfo.start_time && (
-          <LockupPeriods
-            lockupPeriods={accountInfo.lockup_periods}
-            startTime={accountInfo.start_time}
-          />
-        )}
+        {accountInfo.lockup_periods &&
+          accountInfo.start_time &&
+          accountInfo.base_vesting_account?.end_time && (
+            <LockupPeriods
+              lockupPeriods={accountInfo.lockup_periods}
+              startTime={accountInfo.start_time}
+              endTime={new Date(
+                Number.parseInt(accountInfo.base_vesting_account.end_time, 10) *
+                  1000,
+              ).toISOString()}
+            />
+          )}
       </div>
     </Container>
   );
@@ -47,11 +46,13 @@ type LockupState = 'past' | 'current' | 'future';
 function LockupPeriods({
   lockupPeriods,
   startTime,
+  endTime,
 }: {
   lockupPeriods: VestingPeriod[];
   startTime: string;
+  endTime: string;
 }) {
-  const mapedPeriods = useMemo(() => {
+  const mappedPeriods = useMemo(() => {
     const now = new Date();
 
     const getState = (past: boolean, current: boolean): LockupState => {
@@ -94,16 +95,20 @@ function LockupPeriods({
     );
   }, [lockupPeriods, startTime]);
 
-  console.log({ mapedPeriods });
-
   return (
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="">
         <div className="p-4 pt-6">
-          <Heading level={4}>Your timeline</Heading>
+          <Heading level={4}>Lockup timeline</Heading>
         </div>
+
+        <div className="p-4 pt-0">
+          <div>Start date: {formatDate(new Date(startTime))}</div>
+          <div>End date: {formatDate(new Date(endTime))}</div>
+        </div>
+
         <div className="divide-y border-t">
-          {mapedPeriods.map(({ amount, date, state }, index) => {
+          {mappedPeriods.map(({ amount, date, state }, index) => {
             return (
               <LockupTimelineListItem
                 key={`lock-period-${index}`}
@@ -216,60 +221,3 @@ function LockupTimelineListItem({
     </div>
   );
 }
-
-// function VestingPeriods({
-//   vestingPeriods,
-//   startTime,
-// }: {
-//   vestingPeriods: VestingPeriod[];
-//   startTime: string;
-// }) {
-//   const mapedPeriods = useMemo(() => {
-//     return vestingPeriods.reduce(
-//       (acc, el) => {
-//         return [
-//           ...acc,
-//           {
-//             date: new Date().toISOString(),
-//             amount: el.amount?.[0].amount ?? '0',
-//           },
-//         ];
-//       },
-//       [] as { date: string; amount: string }[],
-//     );
-//   }, [vestingPeriods]);
-
-//   return (
-//     <Card className="mx-auto w-full max-w-lg overflow-hidden">
-//       <div>VestingPeriods</div>
-//       {mapedPeriods.map(({ date }: { date: string }) => {
-//         return <div className="border p-2">{date}</div>;
-//       })}
-//     </Card>
-//   );
-// }
-
-// function VestingInfoWidget({ _ }: any) {
-//   return (
-//     <Card className="mx-auto w-full max-w-lg overflow-hidden">
-//       <div>VestingInfoWidget</div>
-//       {/* <div>deposits count: {accountInfo.vesting_periods?.length ?? 0}</div>
-//         {accountInfo.start_time && (
-//           <div>
-//             vesting start date: {formatDate(new Date(accountInfo.start_time))}
-//           </div>
-//         )}
-//         {accountInfo.base_vesting_account?.end_time && (
-//           <div>
-//             vesting end date:{' '}
-//             {formatDate(
-//               new Date(
-//                 Number.parseInt(accountInfo.base_vesting_account.end_time, 10) *
-//                   1000,
-//               ),
-//             )}
-//           </div>
-//         )} */}
-//     </Card>
-//   );
-// }

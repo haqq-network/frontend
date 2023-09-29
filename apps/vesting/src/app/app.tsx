@@ -14,9 +14,6 @@ const MyAccountPage = lazy(() => {
 const AccountPage = lazy(() => {
   return import('../pages/AccountPage');
 });
-const VestingAccountPage = lazy(() => {
-  return import('../pages/VestingAccountPage');
-});
 
 function GoToMainPageWhenDisconnect({ children }: { children: JSX.Element }) {
   const { isConnected } = useAccount();
@@ -68,10 +65,6 @@ export function App() {
           />
 
           <Route path="account/:address" element={<AccountPage />} />
-          <Route
-            path="vesting-account/:address"
-            element={<VestingAccountPage />}
-          />
 
           <Route path="not-found" element={<NotFoundPage />} />
           <Route path="*" element={<Navigate to="/not-found" replace />} />
