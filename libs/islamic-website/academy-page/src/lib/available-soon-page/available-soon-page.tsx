@@ -9,7 +9,7 @@ export function AvailableSoonPage() {
       <Container>
         <div className="flex flex-col items-center justify-center pb-[293px] pt-[273px] md:py-[305px] lg:py-[356px]">
           <div className="font-mono text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
-            Awaiting soon
+            Coming soon
           </div>
           <Link
             href="/"

@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: 'islamic-website-fraud-page',
+  displayName: 'islamic-website-alerts-pages',
   preset: '../../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/islamic-website/fraud-page',
+  coverageDirectory: '../../../coverage/libs/islamic-website/alerts-pages',
 };

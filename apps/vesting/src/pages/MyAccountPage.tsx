@@ -1,55 +1,71 @@
-import { Fragment, useMemo } from 'react';
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { useEffect, useMemo, useState } from 'react';
 import { AccountWidget } from '../components/AccountWidget/AccountWidget';
-import { DepositStatsWidget } from '../components/DepositStatsWidget/DepositStatsWidget';
 import { Container } from '../components/Layout/Layout';
-import { environment } from '../environments/environment';
-import { useAddress, useSupportedChains } from '@haqq/shared';
-import { DepositWithdrawalList } from '../components/DepositWithdrawalList/DepositWithdrawalList';
-import { Hex } from 'viem';
+
+import {
+  ClawbackVestingAccount,
+  useAccountInfoQuery,
+  useAddress,
+  useCosmosService,
+  useSupportedChains,
+} from '@haqq/shared';
+import { formatUnits } from 'viem';
+import { VestingAccountStats } from '../components/VestingAccountStats';
+import { Card } from '@haqq/shell-ui-kit';
 
 export function AccountPage() {
-  const { isConnected } = useAccount();
   const { ethAddress, haqqAddress } = useAddress();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const { data: balance } = useBalance({
-    address: ethAddress,
-    watch: true,
-  });
+  const { getBankBalances } = useCosmosService();
+  const [balance, setBalance] = useState<undefined | number>(undefined);
+  const { data: accountInfo } = useAccountInfoQuery(haqqAddress);
+
+  useEffect(() => {
+    (async () => {
+      if (haqqAddress) {
+        const balances = await getBankBalances(haqqAddress);
+        const balance = Number.parseFloat(
+          formatUnits(BigInt(balances[0].amount), 18),
+        );
+        setBalance(balance);
+      }
+    })();
+  }, [haqqAddress, getBankBalances]);
 
   const accountWidgetProps = useMemo(() => {
+    if (!balance || !ethAddress || !haqqAddress) {
+      return {
+        isConnected: false,
+        ethAddress: '',
+        haqqAddress: '',
+        balance: 0,
+        symbol: '',
+      };
+    }
+
     return {
-      isConnected,
-      ethAddress: ethAddress ?? '',
-      haqqAddress: haqqAddress ?? '',
-      balance: balance ? Number.parseFloat(balance.formatted) : 0,
-      symbol: chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol,
+      isConnected: true,
+      ethAddress: ethAddress,
+      haqqAddress: haqqAddress,
+      balance,
+      symbol: chains[0]?.nativeCurrency.symbol,
     };
-  }, [
-    balance,
-    chain?.nativeCurrency.symbol,
-    chains,
-    ethAddress,
-    haqqAddress,
-    isConnected,
-  ]);
+  }, [balance, chains, ethAddress, haqqAddress]);
 
   return (
     <Container className="flex flex-col space-y-12 py-8 sm:py-20">
       <AccountWidget {...accountWidgetProps} />
 
-      {environment.contractAddress && ethAddress && (
-        <Fragment>
-          <DepositStatsWidget
-            contractAddress={environment.contractAddress as Hex}
+      {accountInfo &&
+        (accountInfo['@type'] === '/haqq.vesting.v1.ClawbackVestingAccount' ? (
+          <VestingAccountStats
+            accountInfo={accountInfo as ClawbackVestingAccount}
           />
-          <DepositWithdrawalList
-            contractAddress={environment.contractAddress}
-            address={ethAddress}
-          />
-        </Fragment>
-      )}
+        ) : (
+          <Card className="mx-auto w-full max-w-lg overflow-hidden">
+            <div className="text-center">This is not vesting account</div>
+          </Card>
+        ))}
     </Container>
   );
 }

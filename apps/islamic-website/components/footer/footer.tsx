@@ -74,6 +74,10 @@ const footerNavLinks: FooterNavLinks = [
       url: '/privacy-policy',
       title: 'Privacy Policy',
     },
+    {
+      url: '/contact-us',
+      title: 'Contact us',
+    },
   ],
   [
     {

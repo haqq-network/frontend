@@ -1,6 +1,11 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { toFixedAmount, useStakingActions, useToast } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  toFixedAmount,
+  useStakingActions,
+  useToast,
+} from '@haqq/shared';
 import {
   WarningMessage,
   Modal,
@@ -8,7 +13,12 @@ import {
   Button,
   MobileHeading,
   ModalInput,
+  ToastLoading,
+  ToastSuccess,
+  ToastError,
+  LinkIcon,
 } from '@haqq/shell-ui-kit';
+import { Link } from 'react-router-dom';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -112,26 +122,45 @@ export function DelegateModal({
   const toast = useToast();
 
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(toFixedAmount(balance));
+    setDelegateAmount(toFixedAmount(balance, 3));
   }, [balance]);
 
-  const handleInputChange = useCallback((value: number | undefined) => {
-    setDelegateAmount(toFixedAmount(value));
+  const handleInputChange = useCallback((value: string | undefined) => {
+    if (value) {
+      const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
+      setDelegateAmount(toFixedAmount(Number.parseFloat(parsedValue), 3));
+    }
   }, []);
-
   const handleSubmitDelegate = useCallback(async () => {
     const delegationPromise = delegate(validatorAddress, delegateAmount);
-
+    setDelegateEnabled(false);
     await toast.promise(delegationPromise, {
-      loading: 'Delegate in progress',
+      loading: <ToastLoading>Delegation in progress</ToastLoading>,
       success: (tx) => {
         console.log('Delegation successful', { tx }); // maybe successful
         const txHash = tx?.txhash;
         console.log('Delegation successful', { txHash });
-        return `Delegation successful`;
+        return (
+          <ToastSuccess>
+            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+              <div>Delegation successful</div>
+              <div>
+                <Link
+                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                >
+                  <LinkIcon />
+                  <span>{getFormattedAddress(txHash)}</span>
+                </Link>
+              </div>
+            </div>
+          </ToastSuccess>
+        );
       },
       error: (error) => {
-        return error.message;
+        return <ToastError>{error.message}</ToastError>;
       },
     });
     onClose();
@@ -183,11 +212,14 @@ export function DelegateModal({
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
                   title="My balance"
-                  value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
+                  value={`${toFixedAmount(balance, 3)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
+                  value={`${toFixedAmount(
+                    delegation,
+                    3,
+                  )} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="Comission"

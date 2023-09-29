@@ -12,7 +12,7 @@ export function FundsBlock() {
         <div className="absolute left-0 top-[-2px] z-30 h-[102%] w-[40px] bg-gradient-to-l from-transparent to-[#010304] md:w-[120px]" />
         <div className="flex flex-1 flex-col items-center gap-y-[32px]">
           <Heading>
-            These funds <GradientText>trust us</GradientText>
+            Backed <GradientText>by</GradientText>
           </Heading>
           <div className="flex flex-col items-center gap-[40px] md:flex-row md:gap-[80px]">
             <Link

@@ -4,7 +4,7 @@ import { islamicOpenGraphImages } from '../shared-metadata';
 
 const title = 'Recruitment Fraud Alert';
 const description =
-  ' Learn how to identify and protect yourself against recruitment scams claiming to be from Islamic Coin. Know the red flags and stay secure in your job search.';
+  'Learn how to identify and protect yourself against recruitment scams claiming to be from Islamic Coin. Know the red flags and stay secure in your job search.';
 
 export const metadata: Metadata = {
   title,
@@ -17,4 +17,4 @@ export const metadata: Metadata = {
   },
 };
 
-export { FraudPage as default } from '@haqq/islamic-website/fraud-page';
+export { FraudAlertPage as default } from '@haqq/islamic-website/alerts-pages';
