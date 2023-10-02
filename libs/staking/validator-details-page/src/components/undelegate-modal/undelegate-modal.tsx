@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useNetwork } from 'wagmi';
 import {
   useStakingActions,
   useToast,
   toFixedAmount,
   getFormattedAddress,
+  getChainParams,
+  useSupportedChains,
 } from '@haqq/shared';
 import {
   WarningMessage,
@@ -48,6 +52,9 @@ export function UndelegateModal({
     undefined,
   );
   const toast = useToast();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+  const { explorer } = getChainParams(chain.id);
 
   const handleMaxButtonClick = useCallback(() => {
     setUndelegateAmount(toFixedAmount(delegation, 3));
@@ -80,7 +87,7 @@ export function UndelegateModal({
                 <div>Undelegation successful</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`${explorer.cosmos}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -101,8 +108,17 @@ export function UndelegateModal({
       onClose();
     } catch (error) {
       console.error((error as Error).message);
+    } finally {
+      setUndelegateEnabled(false);
     }
-  }, [undelegate, validatorAddress, undelegateAmount, toast, onClose]);
+  }, [
+    undelegate,
+    validatorAddress,
+    undelegateAmount,
+    toast,
+    onClose,
+    explorer.cosmos,
+  ]);
 
   useEffect(() => {
     if (undelegateAmount && undelegateAmount <= 0) {

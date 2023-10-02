@@ -5,6 +5,10 @@ export interface ChainProperties {
   network: string;
   tmRpcEndpoint: string;
   cosmosRestEndpoint: string;
+  explorer: {
+    evm: string;
+    cosmos: string;
+  };
 }
 
 export const chains: Record<number, ChainProperties> = {
@@ -15,6 +19,10 @@ export const chains: Record<number, ChainProperties> = {
     network: 'haqq-localnet',
     tmRpcEndpoint: 'http://127.0.0.1:26657',
     cosmosRestEndpoint: 'http://127.0.0.1:1317',
+    explorer: {
+      evm: 'https://explorer.testedge2.haqq.network',
+      cosmos: 'https://testnet.ping.pub/haqq',
+    },
   },
   54211: {
     id: 54211,
@@ -23,6 +31,10 @@ export const chains: Record<number, ChainProperties> = {
     network: 'haqq-testedge-2',
     tmRpcEndpoint: 'https://rpc.tm.testedge2.haqq.network',
     cosmosRestEndpoint: 'https://rest.cosmos.testedge2.haqq.network',
+    explorer: {
+      evm: 'https://explorer.testedge2.haqq.network',
+      cosmos: 'https://testnet.ping.pub/haqq',
+    },
   },
   11235: {
     id: 11235,
@@ -31,5 +43,9 @@ export const chains: Record<number, ChainProperties> = {
     network: 'haqq-mainnet',
     tmRpcEndpoint: 'https://rpc.tm.haqq.network',
     cosmosRestEndpoint: 'https://rest.cosmos.haqq.network',
+    explorer: {
+      evm: 'https://explorer.haqq.network',
+      cosmos: 'https://ping.pub/haqq',
+    },
   },
 };
