@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
+import { notFound } from 'next/navigation';
 
 const title = 'Partnerships';
 const description =
@@ -17,4 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-export { PartnershipPage as default } from '@haqq/islamic-website/partnership-page';
+export default async function Page() {
+  notFound();
+}

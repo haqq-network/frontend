@@ -164,7 +164,7 @@ export function LearnAndGrowBlock() {
             {t('learn-and-grow-block.text')}
           </Text>
           <div className="mt-[32px] w-full md:mt-[34px] md:w-fit">
-            <Link href="/wallet">
+            <Link href="/academy">
               <Button className="w-full !px-[20px] leading-[16px] md:!px-[32px]">
                 {t('learn-and-grow-block.button-text')}
               </Button>

@@ -9,7 +9,6 @@ import {
   HalfMoonAndStarIcon,
   MissionIcon,
   NewsIcon,
-  PartnershipIcon,
   QuestionMarkIcon,
   RoadmapIcon,
   StarIcon,
@@ -118,12 +117,6 @@ export function BurgerMenu({
                 icon={<EcosystemIcon />}
                 href="https://haqq.network/ecosystem"
                 isOutLink
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.partnerships')}
-                icon={<PartnershipIcon />}
-                href="/partnerships"
                 onClick={onClick}
               />
               <BurgerMenuDropdownLink

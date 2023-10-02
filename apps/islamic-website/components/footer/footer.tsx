@@ -70,27 +70,6 @@ const footerNavLinks: FooterNavLinks = [
     },
   ],
   [
-    // {
-    //   url: '/press',
-    //   title: 'For press',
-    // },
-    // {
-    //   url: '/grants',
-    //   title: 'Grants',
-    // },
-    // {
-    //   url: '/join-us',
-    //   title: 'Join us',
-    // },
-
-    // {
-    //   url: '/get-islm',
-    //   title: 'Get ISLM',
-    // },
-    // {
-    //   url: '/hodling',
-    //   title: 'Hodling',
-    // },
     {
       url: '/news',
       title: 'islm-in-media',

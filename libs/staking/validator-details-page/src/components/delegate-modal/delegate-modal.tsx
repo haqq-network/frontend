@@ -122,11 +122,14 @@ export function DelegateModal({
   const toast = useToast();
 
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(toFixedAmount(balance));
+    setDelegateAmount(toFixedAmount(balance, 3));
   }, [balance]);
 
-  const handleInputChange = useCallback((value: number | undefined) => {
-    setDelegateAmount(toFixedAmount(value));
+  const handleInputChange = useCallback((value: string | undefined) => {
+    if (value) {
+      const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
+      setDelegateAmount(toFixedAmount(Number.parseFloat(parsedValue), 3));
+    }
   }, []);
   const handleSubmitDelegate = useCallback(async () => {
     const delegationPromise = delegate(validatorAddress, delegateAmount);
@@ -209,11 +212,14 @@ export function DelegateModal({
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
                   title="My balance"
-                  value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
+                  value={`${toFixedAmount(balance, 3)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${delegation.toLocaleString()} ${symbol.toUpperCase()}`}
+                  value={`${toFixedAmount(
+                    delegation,
+                    3,
+                  )} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="Comission"
