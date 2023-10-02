@@ -8,7 +8,6 @@ import {
   HalfMoonAndStarIcon,
   MissionIcon,
   NewsIcon,
-  // PartnershipIcon,
   QuestionMarkIcon,
   RoadmapIcon,
   StarIcon,
@@ -105,12 +104,6 @@ export function BurgerMenu({
               href="https://haqq.network/ecosystem"
               isOutLink
             />
-            {/* <BurgerMenuDropdownLink
-              onClick={onClick}
-              title="Partnerships"
-              icon={<PartnershipIcon />}
-              href="/partnerships"
-            /> */}
             <BurgerMenuDropdownLink
               onClick={onClick}
               title="Build on HAQQ"
