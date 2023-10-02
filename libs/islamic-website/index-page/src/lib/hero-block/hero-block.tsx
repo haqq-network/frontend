@@ -35,25 +35,21 @@ export function HeroBlock() {
           native currency of HAQQ, an ethics first, scalable and interoperable
           blockchain built on Proof-of-Stake with fast finality.
         </Text>
-
-        {/* <div className="mt-[36px] md:mt-[48px]">
-          <Button>Get started</Button>
-        </div> */}
       </div>
 
       <div className="group mt-[40px] w-fit" onClick={openVideoModal}>
         <div className="relative h-[100px] w-[180px] brightness-50 transition-all duration-300 group-hover:cursor-pointer group-hover:brightness-100">
           <Image
-            src={`https://img.youtube.com/vi/${ytVideoId}/0.jpg`}
+            src="/assets/images/desert-preview.webp"
             alt=""
-            className="aspect-video"
+            className="rounded-lg"
             fill
           />
           <PlayVideoIcon className="absolute left-[35%] top-[25%] transform transition-all duration-300 group-hover:scale-110" />
         </div>
       </div>
       <Modal isOpen={isVideoModalOpen} onClose={closeVideoModal}>
-        <div className="relative mx-auto w-[calc(100%-32px)] max-w-[928px] lg:w-[calc(100%-98px)]">
+        <div className="relative mx-auto w-[300px] sm:w-[500px] md:w-[600px] lg:w-[928px]">
           <iframe
             title="Islamic Coin Video"
             src={`https://www.youtube.com/embed/${ytVideoId}?rel=0&autoplay=1&showinfo=0`}

@@ -85,11 +85,9 @@ export function Modal({
   children,
   onClose,
   isOpen = false,
-  className,
 }: PropsWithChildren<{
   isOpen?: boolean;
   onClose: () => void;
-  className?: string;
 }>) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -107,12 +105,7 @@ export function Modal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div
-                className={clsx(
-                  'pointer-events-auto w-full transform transition-all',
-                  className,
-                )}
-              >
+              <div className="pointer-events-auto transform transition-all">
                 {children}
               </div>
             </Transition.Child>
