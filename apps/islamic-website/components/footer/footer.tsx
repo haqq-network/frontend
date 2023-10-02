@@ -91,27 +91,6 @@ const footerNavLinks: FooterNavLinks = [
     },
   ],
   [
-    // {
-    //   url: '/press',
-    //   title: 'For press',
-    // },
-    // {
-    //   url: '/grants',
-    //   title: 'Grants',
-    // },
-    // {
-    //   url: '/join-us',
-    //   title: 'Join us',
-    // },
-
-    // {
-    //   url: '/get-islm',
-    //   title: 'Get ISLM',
-    // },
-    // {
-    //   url: '/hodling',
-    //   title: 'Hodling',
-    // },
     {
       url: '/news',
       title: 'ISLM in media',
@@ -226,9 +205,6 @@ export function Footer() {
                 <FooterNavSocialLink url="https://discord.gg/islamiccoin">
                   <DiscordIcon />
                 </FooterNavSocialLink>
-                {/* <FooterNavSocialLink url="https://www.facebook.com/groups/islamiccoin">
-                  <FacebookIcon />
-                </FooterNavSocialLink> */}
                 <FooterNavSocialLink url="https://github.com/haqq-network">
                   <GithubIcon />
                 </FooterNavSocialLink>
@@ -238,18 +214,12 @@ export function Footer() {
                 <FooterNavSocialLink url="https://blog.islamiccoin.net/">
                   <MediumIcon />
                 </FooterNavSocialLink>
-                {/* <FooterNavSocialLink url="https://www.reddit.com/user/islamiccoin_net">
-                  <RedditIcon />
-                </FooterNavSocialLink> */}
                 <FooterNavSocialLink url="https://t.me/islamic_coin/">
                   <TelegramIcon />
                 </FooterNavSocialLink>
                 <FooterNavSocialLink url="https://twitter.com/Islamic_coin">
                   <TwitterIcon />
                 </FooterNavSocialLink>
-                {/* <FooterNavSocialLink url="https://zen.yandex.ru/id/61d886b1a243b758ed11c321">
-                  <ZenIcon />
-                </FooterNavSocialLink> */}
               </div>
               <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0 lg:gap-x-[32px]">
                 <Link
