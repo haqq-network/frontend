@@ -46,7 +46,7 @@ export function MemberCard({
 
       <div className="flex flex-col justify-between gap-[8px] md:gap-[12px]">
         <div>
-          <span className="text-[13px] font-[300] leading-[20px] md:text-[14px] lg:text-base">
+          <span className="text-[13px] leading-[20px] md:text-[14px] lg:text-base">
             {title}
           </span>
         </div>
@@ -61,7 +61,7 @@ export function MemberCard({
                 event.stopPropagation();
               }}
               className={clsx(
-                'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-vcr uppercase',
+                'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-mono uppercase',
                 'inline-flex flex-row items-center gap-x-[4px]',
                 'transition-colors duration-300',
               )}

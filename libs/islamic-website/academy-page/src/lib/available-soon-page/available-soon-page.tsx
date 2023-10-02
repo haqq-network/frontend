@@ -10,7 +10,7 @@ export function AvailableSoonPage() {
     <div className="relative">
       <Container>
         <div className="flex flex-col items-center justify-center pb-[293px] pt-[273px] md:py-[305px] lg:py-[356px]">
-          <div className="rtl:font-handjet font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+          <div className="rtl:font-handjet font-mono text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
             {t('title')}
           </div>
           <Link

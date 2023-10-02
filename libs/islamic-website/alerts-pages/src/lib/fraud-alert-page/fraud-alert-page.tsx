@@ -3,6 +3,7 @@ import { PropsWithChildren } from 'react';
 import fraudCubesImgData from '../../assets/images/fraud-cubes.webp';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import clsx from 'clsx';
 
 function Alert({ children }: PropsWithChildren) {
   return (
@@ -46,7 +47,7 @@ export function FraudAlertPage() {
         </div>
         <div className="mt-[32px] flex flex-col items-center md:mt-[44px] md:flex-row md:items-start lg:mt-[60px]">
           <div className="flex flex-col gap-y-[16px] md:max-w-[60%] md:gap-y-[20px] lg:gap-y-[24px]">
-            <h2 className="rtl:font-handjet font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+            <h2 className="rtl:font-handjet font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
               {t('how-to-block.title')}
             </h2>
 
@@ -89,7 +90,11 @@ export function FraudAlertPage() {
               width={502}
               height={764}
               alt=""
-              className="pointer-events-none select-none md:absolute md:top-[435px] md:translate-x-[-50%] md:translate-y-[-50%] ltr:md:right-[-385px] rtl:md:left-[385px] ltr:lg:right-[-295px] rtl:lg:left-[295px] ltr:xl:right-[-265px] rtl:xl:left-[265px]"
+              className={clsx(
+                'pointer-events-none z-[-1] select-none md:absolute md:top-[435px] md:translate-y-[-50%]',
+                'ltr:md:right-[-385px] ltr:md:translate-x-[-50%] ltr:lg:right-[-295px] ltr:xl:right-[-265px]',
+                'rtl:md:left-[-385px] rtl:md:translate-x-[50%] rtl:lg:left-[-295px] rtl:xl:left-[-265px]',
+              )}
             />
           </div>
         </div>

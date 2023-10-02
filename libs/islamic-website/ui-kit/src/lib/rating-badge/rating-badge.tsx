@@ -68,7 +68,7 @@ export function RatingBadge({ market, rating }: RatingBadgeProps) {
   const t = useTranslations('index-page');
   return (
     <div className="flex flex-col gap-y-[6px]">
-      <span className="rtl:font-handjet font-vcr text-[10px] uppercase leading-[16px] text-white/50">
+      <span className="rtl:font-handjet font-mono text-[10px] uppercase leading-[16px] text-white/50">
         {market === 'app-store' && t('portfolio-block.stores.app-store')}
         {market === 'google-play' && t('portfolio-block.stores.google-play')}
       </span>

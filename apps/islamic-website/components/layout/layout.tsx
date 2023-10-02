@@ -58,7 +58,7 @@ export function ClientLayout({
       className={clsx(alexandriaFont.variable, handjetFont.variable)}
     >
       {VERCEL_ENV !== 'development' && <CookieConsentModal />}
-      <body className="bg-islamic-bg-black flex min-h-screen flex-col font-serif text-white antialiased">
+      <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isScamBannerShow && <ScamBanner />}
           {isMobileUserAgent ? (
@@ -111,7 +111,7 @@ export function ClientLayout({
 
 function ScamBanner() {
   return (
-    <div className="font-vcr fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center text-[16px] uppercase leading-[24px] text-white">
+    <div className="fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center font-mono text-[16px] uppercase leading-[24px] text-white">
       <Container>
         Beware of scamers! <br className="block md:hidden" />
         Check{' '}

@@ -24,7 +24,7 @@ function LangButton({
   return (
     <div
       className={clsx(
-        ' rtl:font-handjet font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px]  text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+        'rtl:font-handjet cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
         active
           ? 'bg-islamic-primary-green'
           : 'hover:bg-islamic-primary-green/50 bg-transparent',
@@ -42,7 +42,7 @@ function EnFatwa() {
       <Text size="small">
         In the name of Allah, the most compassionate, the most merciful
       </Text>
-      <p className="font-serif text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
+      <p className="font-alexandria text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
         <strong className="font-[700]">
           The Islamic Shariah view on establishing the “HAQQ Chain” network and
           the issuance of its own currency “Islamic Coin”
@@ -223,7 +223,7 @@ function ArFatwa() {
     <div className="mt-[30px] flex flex-col gap-y-[16px] font-[300] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
       <Text size="small">بسم الله الرحمن الرحيم</Text>
 
-      <p className="font-serif text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
+      <p className="font-alexandria text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
         <strong className="font-[700]">
           الرأي الشرعي لتأسيس شبكة ’الحق تشين’ وإصدار عملة ’إسلاميك كوين’ الخاصة
           بها
@@ -370,7 +370,7 @@ function ArFatwa() {
 function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   return (
     <div className="flex w-fit flex-col items-start justify-between gap-y-[8px] md:gap-y-[12px]">
-      <span className="rtl:font-handjet font-vcr text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
+      <span className="rtl:font-handjet font-mono text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
         {name}
       </span>
       <div className="relative h-[62px] w-[170px]">
@@ -384,7 +384,7 @@ function AutographsBlock() {
   const t = useTranslations('shariah-page');
   return (
     <div className="mt-[28px] flex flex-col gap-y-[20px] md:mt-[32px] lg:mt-[36px]">
-      <h4 className="rtl:font-handjet font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+      <h4 className="rtl:font-handjet font-mono text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
         {t('autographs-block.title')}
       </h4>
 

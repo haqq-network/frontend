@@ -20,9 +20,9 @@ module.exports = {
         'islamic-bg-black': '#010304',
       },
       fontFamily: {
-        serif: ['var(--font-alexandria)'],
+        alexandria: ['var(--font-alexandria)'],
         handjet: ['var(--font-handjet)'],
-        vcr: ['var(--font-vcr)'],
+        mono: ['var(--font-vcr)'],
       },
     },
   },
