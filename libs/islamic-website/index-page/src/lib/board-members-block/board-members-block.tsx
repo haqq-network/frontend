@@ -103,11 +103,7 @@ export function BoardMembersBlock({
           })}
         </div>
 
-        <Modal
-          isOpen={Boolean(memberModalData)}
-          onClose={closeBoardModal}
-          className="max-w-fit"
-        >
+        <Modal isOpen={Boolean(memberModalData)} onClose={closeBoardModal}>
           {memberModalData && (
             <MemberModalCard
               description={memberModalData.description}

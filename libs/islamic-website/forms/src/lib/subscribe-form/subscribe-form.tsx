@@ -189,11 +189,7 @@ export function SubscribeForm({
         </Button>
       </form>
 
-      <Modal
-        onClose={handleCaptchaModalClose}
-        isOpen={isCaptchaModalOpen}
-        className="max-w-fit"
-      >
+      <Modal onClose={handleCaptchaModalClose} isOpen={isCaptchaModalOpen}>
         <Turnstile
           sitekey={turnstileSiteKey}
           onVerify={setToken}
@@ -201,11 +197,7 @@ export function SubscribeForm({
         />
       </Modal>
 
-      <Modal
-        onClose={handleSuccessModalClose}
-        isOpen={isSuccessModalOpen}
-        className="max-w-fit"
-      >
+      <Modal onClose={handleSuccessModalClose} isOpen={isSuccessModalOpen}>
         <div className="relative transform-gpu rounded-[20px] bg-[#15191EF2] text-white backdrop-blur">
           <ModalCloseButton
             onClick={handleSuccessModalClose}
@@ -224,11 +216,7 @@ export function SubscribeForm({
         </div>
       </Modal>
 
-      <Modal
-        onClose={handleErrorModalClose}
-        isOpen={isErrorModalOpen}
-        className="max-w-fit"
-      >
+      <Modal onClose={handleErrorModalClose} isOpen={isErrorModalOpen}>
         <div className="relative transform-gpu rounded-[20px] bg-[#15191EF2] text-white backdrop-blur">
           <ModalCloseButton
             onClick={handleErrorModalClose}
