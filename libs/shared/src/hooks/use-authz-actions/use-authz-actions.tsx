@@ -9,23 +9,23 @@ import {
   MsgGenericRevokeParams,
   createTxMsgGenericRevoke,
 } from '@evmos/transactions';
+import {
+  createMsgGenericAuthorization,
+  createMsgRevokeGenericAuthorization,
+} from '@evmos/eip712';
 import { useAddress } from '../use-address/use-address';
-import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import { getChainParams } from '../../chains/get-chain-params';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
-import { useNetwork, useWalletClient } from 'wagmi';
+import { useFeeData, useNetwork, useWalletClient } from 'wagmi';
 
-interface AuthzActionsHook {
-  grant: (grantee: string, msgType: string, expires: number) => Promise<string>;
-  revoke: (grantee: string, msgType: string) => Promise<string>;
-}
-
-export function useAuthzActions(): AuthzActionsHook {
+export function useAuthzActions() {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
-  const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
+  const { broadcastTransaction, getPubkey, getFee, getSender } =
     useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
+  const { data: feeData } = useFeeData({ watch: true });
 
   const haqqChain = useMemo(() => {
     if (!chain || chain.unsupported) {
@@ -35,29 +35,6 @@ export function useAuthzActions(): AuthzActionsHook {
     const chainParams = getChainParams(chain.id);
     return mapToCosmosChain(chainParams);
   }, [chain]);
-
-  const getSender = useCallback(
-    async (address: string, pubkey: string) => {
-      try {
-        const accInfo = await getAccountBaseInfo(address);
-
-        if (!accInfo) {
-          throw new Error('no base account info');
-        }
-
-        return {
-          accountAddress: address,
-          sequence: parseInt(accInfo.sequence, 10),
-          accountNumber: parseInt(accInfo.account_number, 10),
-          pubkey,
-        };
-      } catch (error) {
-        console.error((error as Error).message);
-        throw error;
-      }
-    },
-    [getAccountBaseInfo],
-  );
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
@@ -92,17 +69,30 @@ export function useAuthzActions(): AuthzActionsHook {
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Grant access to ${grantee} for "${msgType}" transactions`;
 
-      if (sender && haqqChain) {
+      if (sender && haqqChain && feeData) {
         const grantParams: MsgGenericAuthorizationParams = {
           botAddress: grantee,
           typeUrl: msgType,
           expires,
         };
 
+        const fee = await getFee(
+          {
+            '@type': '/cosmos.authz.v1beta1.MsgGrant',
+            ...createMsgGenericAuthorization(
+              sender.accountAddress,
+              grantParams.botAddress,
+              grantParams.typeUrl,
+              grantParams.expires,
+            ).value,
+          },
+          sender,
+          Number(feeData.gasPrice),
+        );
         const msg = createTxMsgGenericGrant(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           grantParams,
         );
@@ -110,7 +100,7 @@ export function useAuthzActions(): AuthzActionsHook {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        return txResponse.txhash;
+        return txResponse;
       } else {
         throw new Error('No sender');
       }
@@ -118,6 +108,8 @@ export function useAuthzActions(): AuthzActionsHook {
     [
       broadcastTransaction,
       ethAddress,
+      feeData,
+      getFee,
       getPubkey,
       getSender,
       haqqAddress,
@@ -133,16 +125,28 @@ export function useAuthzActions(): AuthzActionsHook {
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Revoke access from ${grantee} for "${msgType}" transactions`;
 
-      if (sender && haqqChain) {
+      if (sender && haqqChain && feeData) {
         const revokeParams: MsgGenericRevokeParams = {
           botAddress: grantee,
           typeUrl: msgType,
         };
 
+        const fee = await getFee(
+          {
+            '@type': '/cosmos.authz.v1beta1.MsgRevoke',
+            ...createMsgRevokeGenericAuthorization(
+              sender.accountAddress,
+              revokeParams.botAddress,
+              revokeParams.typeUrl,
+            ).value,
+          },
+          sender,
+          Number(feeData.gasPrice),
+        );
         const msg = createTxMsgGenericRevoke(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           revokeParams,
         );
@@ -150,7 +154,7 @@ export function useAuthzActions(): AuthzActionsHook {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        return txResponse.txhash;
+        return txResponse;
       } else {
         throw new Error('No sender');
       }
@@ -158,6 +162,8 @@ export function useAuthzActions(): AuthzActionsHook {
     [
       broadcastTransaction,
       ethAddress,
+      feeData,
+      getFee,
       getPubkey,
       getSender,
       haqqAddress,

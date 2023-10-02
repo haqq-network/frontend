@@ -2903,7 +2903,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evmos/eip712@npm:^0.2.11":
+"@evmos/eip712@npm:0.2.11, @evmos/eip712@npm:^0.2.11":
   version: 0.2.11
   resolution: "@evmos/eip712@npm:0.2.11"
   dependencies:
@@ -3008,6 +3008,7 @@ __metadata:
     "@commitlint/config-conventional": 17.7.0
     "@ethersproject/hash": 5.7.0
     "@ethersproject/signing-key": 5.7.0
+    "@evmos/eip712": 0.2.11
     "@evmos/proto": 0.1.27
     "@evmos/provider": 0.2.8
     "@evmos/transactions": 0.2.13

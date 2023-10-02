@@ -22,12 +22,12 @@ import {
   BalancesResponse,
 } from '@evmos/provider';
 import store from 'store2';
-import { Coin } from '@evmos/transactions';
+import { Coin, Fee, Sender } from '@evmos/transactions';
 import axios from 'axios';
 import { WalletClient, useNetwork, useWalletClient } from 'wagmi';
 import { computePublicKey, recoverPublicKey } from '@ethersproject/signing-key';
 import { hashMessage } from '@ethersproject/hash';
-import { getChainParams } from '../chains/get-chain-params';
+import { DEFAULT_FEE, getChainParams } from '../chains/get-chain-params';
 import { useSupportedChains } from './wagmi-provider';
 import { Hex } from 'viem';
 import { ethToHaqq } from '../utils/convert-address';
@@ -75,6 +75,24 @@ export interface CosmosService {
   ) => Promise<AuthzGranterGrantsResponse>;
   getProposalTally: (id: string) => Promise<TallyResults>;
   getBankBalances: (address: string) => Promise<Array<Coin>>;
+  simulateUnsignedTransaction: (
+    message: object | object[],
+    sender: Sender,
+  ) => Promise<SimulateTxResponse>;
+  getParams: (
+    subspace: string,
+    key: string,
+  ) => Promise<{
+    subspace: string;
+    key: string;
+    value: string;
+  }>;
+  getFee: (
+    message: object,
+    sender: Sender,
+    ethGasPrice: number,
+  ) => Promise<Fee>;
+  getSender: (address: string, pubkey: string) => Promise<Sender>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -313,13 +331,22 @@ type AccountInfoResponse<A = BaseAccount> = {
   account: A;
 };
 
+export interface ParamsResponse {
+  param: {
+    subspace: string;
+    key: string;
+    value: string;
+  };
+}
+
 function createCosmosService(
   cosmosRestEndpoint: string,
   walletClient: WalletClient | null | undefined,
 ): CosmosService {
   async function getValidators(limit = 1000) {
     const getValidatorsUrl = new URL(
-      `${cosmosRestEndpoint}${generateEndpointGetValidators()}`,
+      generateEndpointGetValidators(),
+      cosmosRestEndpoint,
     );
 
     getValidatorsUrl.searchParams.append('pagination.limit', limit.toString());
@@ -407,7 +434,8 @@ function createCosmosService(
 
   async function getProposals() {
     const proposalsUrl = new URL(
-      `${cosmosRestEndpoint}${generateEndpointProposals()}`,
+      generateEndpointProposals(),
+      cosmosRestEndpoint,
     );
 
     proposalsUrl.searchParams.append('pagination.reverse', 'true');
@@ -431,7 +459,8 @@ function createCosmosService(
 
   async function getAuthAccounts() {
     const authAccountsUrl = new URL(
-      `${cosmosRestEndpoint}${generateEndpointAuthAccounts()}`,
+      generateEndpointAuthAccounts(),
+      cosmosRestEndpoint,
     );
 
     authAccountsUrl.searchParams.append('pagination.limit', '0');
@@ -575,7 +604,8 @@ function createCosmosService(
 
   async function getAuthzGrants(granter: string, grantee: string) {
     const getAuthzGrantsUrl = new URL(
-      `${cosmosRestEndpoint}${generateEndpointAuthzGrants()}`,
+      generateEndpointAuthzGrants(),
+      cosmosRestEndpoint,
     );
 
     getAuthzGrantsUrl.searchParams.append('granter', granter);
@@ -591,7 +621,8 @@ function createCosmosService(
 
   async function getAuthzGranterGrants(granter: string) {
     const getAuthzGranterGrantsUrl = new URL(
-      `${cosmosRestEndpoint}${generateEndpointAuthzGranterGrants(granter)}`,
+      generateEndpointAuthzGranterGrants(granter),
+      cosmosRestEndpoint,
     );
 
     const response = await axios.get<AuthzGranterGrantsResponse>(
@@ -604,7 +635,8 @@ function createCosmosService(
 
   async function getAuthzGranteeGrants(grantee: string) {
     const getAuthzGranteeGrantsUrl = new URL(
-      `${cosmosRestEndpoint}${generateEndpointAuthzGranteeGrants(grantee)}`,
+      generateEndpointAuthzGranteeGrants(grantee),
+      cosmosRestEndpoint,
     );
 
     const response = await axios.get<AuthzGranteeGrantsResponse>(
@@ -633,6 +665,139 @@ function createCosmosService(
     return response.data.balances;
   }
 
+  async function getParams(subspace: string, key: string) {
+    const getParamsUrl = new URL(
+      '/cosmos/params/v1beta1/params',
+      cosmosRestEndpoint,
+    );
+
+    getParamsUrl.searchParams.append('subspace', subspace);
+    getParamsUrl.searchParams.append('key', key);
+
+    const response = await axios.get<ParamsResponse>(getParamsUrl.toString());
+
+    return response.data.param;
+  }
+
+  async function simulateUnsignedTransaction(
+    message: object | object[],
+    sender: Sender,
+  ) {
+    try {
+      const messages = Array.isArray(message) ? message : [message];
+      const txToBroadcast = {
+        tx: {
+          body: {
+            messages,
+            memo: '',
+            timeout_height: '0',
+            extension_options: [],
+            non_critical_extension_options: [],
+          },
+          auth_info: {
+            signer_infos: [
+              {
+                public_key: {
+                  '@type': '/ethermint.crypto.v1.ethsecp256k1.PubKey',
+                  key: sender.pubkey,
+                },
+                mode_info: {
+                  single: {
+                    mode: 'SIGN_MODE_DIRECT',
+                  },
+                },
+                sequence: sender.sequence,
+              },
+            ],
+            fee: {
+              amount: [
+                {
+                  denom: DEFAULT_FEE.denom,
+                  amount: DEFAULT_FEE.amount,
+                },
+              ],
+              gas_limit: DEFAULT_FEE.gas,
+              payer: '',
+              granter: '',
+            },
+          },
+          signatures: [],
+        },
+      };
+      const simulateUrl = new URL(
+        generateSimulateEndpoint(),
+        cosmosRestEndpoint,
+      );
+      const simulateResponse = await axios.post<SimulateTxResponse>(
+        simulateUrl.toString(),
+        JSON.stringify(txToBroadcast),
+      );
+
+      console.log({ simulateResponse });
+
+      return simulateResponse.data;
+    } catch (error) {
+      console.error((error as Error).message);
+      throw error;
+    }
+  }
+
+  async function getFee(message: object, sender: Sender, ethGasPrice: number) {
+    const totalAmount = Number.parseInt(DEFAULT_FEE.amount);
+    const baseGas = Number.parseInt(DEFAULT_FEE.gas);
+
+    try {
+      const simResponse = await simulateUnsignedTransaction(message, sender);
+
+      if (!simResponse.gas_info) {
+        return {
+          ...DEFAULT_FEE,
+          amount: (totalAmount * baseGas).toString(),
+        };
+      }
+
+      const params = await getParams('feemarket', 'BaseFee');
+      const cosmosBaseFee = Number.parseInt(
+        params.value.replaceAll('"', ''),
+        10,
+      );
+
+      const gasUsed = Number.parseInt(simResponse.gas_info.gas_used, 10) * 1.1;
+      const gasPrice = ethGasPrice;
+      const gasCost = gasPrice * gasUsed;
+      const totalFee = gasCost + cosmosBaseFee;
+
+      return {
+        ...DEFAULT_FEE,
+        amount: totalFee.toString(),
+        gas: gasUsed.toString(),
+      };
+    } catch (error) {
+      console.error((error as Error).message);
+      return DEFAULT_FEE;
+    }
+  }
+
+  async function getSender(address: string, pubkey: string) {
+    try {
+      const accInfo = await getAccountBaseInfo(address);
+
+      if (!accInfo) {
+        throw new Error('no base account info');
+      }
+
+      return {
+        accountAddress: address,
+        sequence: Number.parseInt(accInfo.sequence, 10),
+        accountNumber: Number.parseInt(accInfo.account_number, 10),
+        pubkey,
+      };
+    } catch (error) {
+      console.error((error as Error).message);
+      throw error;
+    }
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -658,6 +823,10 @@ function createCosmosService(
     getProposalTally,
     getAccountBaseInfo,
     getBankBalances,
+    simulateUnsignedTransaction,
+    getParams,
+    getFee,
+    getSender,
   };
 }
 

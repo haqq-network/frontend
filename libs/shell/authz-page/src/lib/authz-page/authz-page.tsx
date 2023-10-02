@@ -128,8 +128,9 @@ function GranterGrantsTable() {
 
       await toast.promise(grantPromise, {
         loading: <ToastLoading>Revoke in progress</ToastLoading>,
-        success: (txHash) => {
-          console.log('Revoke successful', { txHash }); // maybe successful
+        success: (tx) => {
+          console.log('Revoke successful', { tx });
+          const txHash = tx?.txhash;
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
@@ -443,7 +444,8 @@ function AuthzGrantsActions() {
 
     await toast.promise(grantPromise, {
       loading: <ToastLoading>Grant in progress</ToastLoading>,
-      success: (txHash) => {
+      success: (tx) => {
+        const txHash = tx?.txhash;
         console.log('Grant successful', { txHash });
         return (
           <ToastSuccess>
@@ -487,7 +489,6 @@ function AuthzGrantsActions() {
 
   useEffect(() => {
     if (grantee.startsWith('0x')) {
-      console.log('validate as eth');
       try {
         const isValidEthAddress = isAddress(grantee);
 
@@ -513,7 +514,6 @@ function AuthzGrantsActions() {
         });
       }
     } else if (grantee.startsWith('haqq1')) {
-      console.log('validate as bech32');
       try {
         const eth = haqqToEth(grantee);
         setGranteeValid(true);

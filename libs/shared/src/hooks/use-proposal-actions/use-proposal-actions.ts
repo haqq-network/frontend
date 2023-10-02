@@ -6,42 +6,26 @@ import {
   createTxRawEIP712,
 } from '@evmos/transactions';
 import { useCallback, useMemo } from 'react';
+import { createMsgVote, createMsgDeposit } from '@evmos/eip712';
 import type {
-  Fee,
   MessageMsgDepositParams,
   TxGenerated,
+  MessageMsgVote,
 } from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
-import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import { getChainParams } from '../../chains/get-chain-params';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
-import Decimal from 'decimal.js-light';
-import { useNetwork, useWalletClient } from 'wagmi';
+import { useFeeData, useNetwork, useWalletClient } from 'wagmi';
+import { getAmount } from '../../utils/get-amount';
 
-interface ProposalActionsHook {
-  vote: (proposalId: number, option: number) => Promise<string>;
-  deposit: (proposalId: number, amount: number) => Promise<string>;
-}
-
-function getAmountAndDenom(amount: number, fee?: Fee) {
-  let decAmount = new Decimal(amount).mul(10 ** 18);
-
-  if (fee) {
-    decAmount = decAmount.sub(new Decimal(fee.amount));
-  }
-
-  return {
-    amount: decAmount.toFixed(),
-    denom: 'aISLM',
-  };
-}
-
-export function useProposalActions(): ProposalActionsHook {
+export function useProposalActions() {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
-  const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
+  const { broadcastTransaction, getSender, getPubkey, getFee } =
     useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
+  const { data: feeData } = useFeeData({ watch: true });
 
   const haqqChain = useMemo(() => {
     if (!chain || chain.unsupported) {
@@ -51,29 +35,6 @@ export function useProposalActions(): ProposalActionsHook {
     const chainParams = getChainParams(chain.id);
     return mapToCosmosChain(chainParams);
   }, [chain]);
-
-  const getSender = useCallback(
-    async (address: string, pubkey: string) => {
-      try {
-        const accInfo = await getAccountBaseInfo(address);
-
-        if (!accInfo) {
-          throw new Error('no base account info');
-        }
-
-        return {
-          accountAddress: address,
-          sequence: parseInt(accInfo.sequence, 10),
-          accountNumber: parseInt(accInfo.account_number, 10),
-          pubkey,
-        };
-      } catch (error) {
-        console.error((error as Error).message);
-        throw error;
-      }
-    },
-    [getAccountBaseInfo],
-  );
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
@@ -108,24 +69,30 @@ export function useProposalActions(): ProposalActionsHook {
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Vote for proposal #${proposalId}`;
 
-      if (sender && haqqChain) {
-        const voteParams = {
+      if (sender && haqqChain && feeData) {
+        const voteParams: MessageMsgVote = {
           proposalId,
           option,
         };
 
-        const msg = createTxMsgVote(
-          haqqChain,
+        const fee = await getFee(
+          {
+            '@type': '/cosmos.gov.v1beta1.MsgVote',
+            ...createMsgVote(
+              voteParams.proposalId,
+              voteParams.option,
+              sender.accountAddress,
+            ).value,
+          },
           sender,
-          DEFAULT_FEE,
-          memo,
-          voteParams,
+          Number(feeData.gasPrice),
         );
+        const msg = createTxMsgVote(haqqChain, sender, fee, memo, voteParams);
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        return txResponse.txhash;
+        return txResponse;
       } else {
         throw new Error('No sender');
       }
@@ -136,6 +103,8 @@ export function useProposalActions(): ProposalActionsHook {
       getSender,
       haqqAddress,
       haqqChain,
+      feeData,
+      getFee,
       signTransaction,
       broadcastTransaction,
     ],
@@ -148,15 +117,31 @@ export function useProposalActions(): ProposalActionsHook {
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Deposit to proposal #${proposalId}`;
 
-      if (sender && haqqChain) {
+      if (sender && haqqChain && feeData) {
         const depositParams: MessageMsgDepositParams = {
           proposalId,
-          deposit: getAmountAndDenom(amount, DEFAULT_FEE),
+          deposit: {
+            amount: getAmount(amount),
+            denom: 'aISLM',
+          },
         };
+
+        const fee = await getFee(
+          {
+            '@type': '/cosmos.gov.v1beta1.MsgDeposit',
+            ...createMsgDeposit(
+              depositParams.proposalId,
+              sender.accountAddress,
+              depositParams.deposit,
+            ).value,
+          },
+          sender,
+          Number(feeData.gasPrice),
+        );
         const msg = createTxMsgDeposit(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           depositParams,
         );
@@ -164,19 +149,21 @@ export function useProposalActions(): ProposalActionsHook {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        return txResponse.txhash;
+        return txResponse;
       } else {
         throw new Error('No sender');
       }
     },
     [
-      broadcastTransaction,
-      ethAddress,
-      haqqChain,
       getPubkey,
+      ethAddress,
       getSender,
       haqqAddress,
+      haqqChain,
+      feeData,
+      getFee,
       signTransaction,
+      broadcastTransaction,
     ],
   );
 

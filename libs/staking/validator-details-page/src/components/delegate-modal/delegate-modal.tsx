@@ -138,9 +138,8 @@ export function DelegateModal({
     await toast.promise(delegationPromise, {
       loading: <ToastLoading>Delegation in progress</ToastLoading>,
       success: (tx) => {
-        console.log('Delegation successful', { tx }); // maybe successful
+        console.log('Delegation successful', { tx });
         const txHash = tx?.txhash;
-        console.log('Delegation successful', { txHash });
         return (
           <ToastSuccess>
             <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
