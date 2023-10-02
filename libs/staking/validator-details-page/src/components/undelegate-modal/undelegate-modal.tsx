@@ -66,9 +66,9 @@ export function UndelegateModal({
     const undelegationPromise = undelegate(validatorAddress, undelegateAmount);
     setUndelegateEnabled(false);
     await toast.promise(undelegationPromise, {
-      loading: <ToastLoading>Undlegation in progress</ToastLoading>,
+      loading: <ToastLoading>Undelegation in progress</ToastLoading>,
       success: (txHash) => {
-        console.log('Undlegation successful', { txHash });
+        console.log('Undelegation successful', { txHash });
         return (
           <ToastSuccess>
             <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
@@ -77,7 +77,7 @@ export function UndelegateModal({
                 <Link
                   to={`https://${
                     isTestedge ? 'testnet.' : ''
-                  }ping.pub/haqq/tx/${txHash}`}
+                  }ping.pub/haqq/tx/${txHash.txhash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -95,7 +95,14 @@ export function UndelegateModal({
       },
     });
     onClose();
-  }, [undelegate, validatorAddress, undelegateAmount, toast, onClose]);
+  }, [
+    undelegate,
+    validatorAddress,
+    undelegateAmount,
+    toast,
+    onClose,
+    isTestedge,
+  ]);
 
   useEffect(() => {
     if (undelegateAmount && undelegateAmount <= 0) {
