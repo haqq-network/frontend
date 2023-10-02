@@ -2,10 +2,14 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { Validator } from '@evmos/provider';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useNetwork } from 'wagmi';
 import {
+  getChainParams,
   getFormattedAddress,
   toFixedAmount,
   useStakingActions,
+  useSupportedChains,
   useToast,
 } from '@haqq/shared';
 import {
@@ -120,6 +124,9 @@ export function RedelegateModal({
     useState<string | undefined>(undefined);
   const toast = useToast();
   const { redelegate } = useStakingActions();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+  const { explorer } = getChainParams(chain.id);
 
   const handleMaxButtonClick = useCallback(() => {
     setRedelegateAmount(toFixedAmount(delegation, 3));
@@ -133,43 +140,49 @@ export function RedelegateModal({
   }, []);
 
   const handleSubmitRedelegate = useCallback(async () => {
-    if (validatorDestinationAddress && validatorAddress) {
-      const redelegationPromise = redelegate(
-        validatorAddress,
-        validatorDestinationAddress,
-        redelegateAmount ?? 0,
-      );
-      setRedelegateEnabled(false);
-      await toast.promise(redelegationPromise, {
-        loading: <ToastLoading>Redelegate in progress</ToastLoading>,
-        success: (tx) => {
-          console.log('Redelegation successful', { tx });
-          const txHash = tx?.txhash;
+    try {
+      if (validatorDestinationAddress && validatorAddress) {
+        const redelegationPromise = redelegate(
+          validatorAddress,
+          validatorDestinationAddress,
+          redelegateAmount ?? 0,
+        );
+        setRedelegateEnabled(false);
+        await toast.promise(redelegationPromise, {
+          loading: <ToastLoading>Redelegate in progress</ToastLoading>,
+          success: (tx) => {
+            console.log('Redelegation successful', { tx });
+            const txHash = tx?.txhash;
 
-          return (
-            <ToastSuccess>
-              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Redelegation successful</div>
-                <div>
-                  <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                  >
-                    <LinkIcon />
-                    <span>{getFormattedAddress(txHash)}</span>
-                  </Link>
+            return (
+              <ToastSuccess>
+                <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                  <div>Redelegation successful</div>
+                  <div>
+                    <Link
+                      to={`${explorer.cosmos}/tx/${txHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                    >
+                      <LinkIcon />
+                      <span>{getFormattedAddress(txHash)}</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </ToastSuccess>
-          );
-        },
-        error: (error) => {
-          return <ToastError>{error.message}</ToastError>;
-        },
-      });
-      onClose();
+              </ToastSuccess>
+            );
+          },
+          error: (error) => {
+            return <ToastError>{error.message}</ToastError>;
+          },
+        });
+        onClose();
+      }
+    } catch (error) {
+      console.error((error as Error).message);
+    } finally {
+      setRedelegateEnabled(true);
     }
   }, [
     validatorDestinationAddress,
@@ -178,6 +191,7 @@ export function RedelegateModal({
     redelegateAmount,
     toast,
     onClose,
+    explorer.cosmos,
   ]);
 
   const validatorsOptions = useMemo(() => {

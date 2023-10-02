@@ -13,6 +13,7 @@ import { useNetwork } from 'wagmi';
 import {
   Grant,
   ethToHaqq,
+  getChainParams,
   getFormattedAddress,
   haqqToEth,
   useAddress,
@@ -25,6 +26,7 @@ import {
   useStakingDelegationQuery,
   useStakingRewardsQuery,
   useStakingUnbondingsQuery,
+  useSupportedChains,
   useToast,
   useWallet,
 } from '@haqq/shared';
@@ -112,8 +114,10 @@ function GranterGrantsTable() {
   const { data: granterGrants } = useAuthzGranterGrants(haqqAddress ?? '');
   const { revoke } = useAuthzActions();
   const toast = useToast();
-  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
+  const { explorer } = getChainParams(chain.id);
 
   const granterGrantsToRender = useMemo(() => {
     if (!granterGrants || granterGrants?.grants.length === 0) {
@@ -140,7 +144,7 @@ function GranterGrantsTable() {
                   <div>Revoke successful</div>
                   <div>
                     <Link
-                      to={`https://ping.pub/haqq/tx/${txHash}`}
+                      to={`${explorer.cosmos}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -161,12 +165,12 @@ function GranterGrantsTable() {
         console.error((error as Error).message);
       } finally {
         invalidateQueries([
-          [chain?.id, 'grants-granter'],
-          [chain?.id, 'grants-grantee'],
+          [chain.id, 'grants-granter'],
+          [chain.id, 'grants-grantee'],
         ]);
       }
     },
-    [chain?.id, invalidateQueries, revoke, toast],
+    [chain.id, explorer.cosmos, invalidateQueries, revoke, toast],
   );
 
   if (granterGrantsToRender.length === 0) {
@@ -388,7 +392,8 @@ function AuthzGrantsActions() {
   const invalidateQueries = useQueryInvalidate();
   const { grant } = useAuthzActions();
   const toast = useToast();
-  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const [grantType, setGrantType] = useState<string>(
     GRANT_TYPE_DEFAULT_OPTION.value,
   );
@@ -396,6 +401,7 @@ function AuthzGrantsActions() {
     GRANT_PERIOD_DEFAULT_OPTION.value,
   );
   const { executeIfNetworkSupported } = useNetworkAwareAction();
+  const { explorer } = getChainParams(chain.id);
 
   const getGrantExpire = useCallback((period: string) => {
     const now = new Date();
@@ -464,7 +470,7 @@ function AuthzGrantsActions() {
                 <div>Grant successful</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`${explorer.cosmos}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -485,12 +491,13 @@ function AuthzGrantsActions() {
       console.error((error as Error).message);
     } finally {
       invalidateQueries([
-        [chain?.id, 'grants-granter'],
-        [chain?.id, 'grants-grantee'],
+        [chain.id, 'grants-granter'],
+        [chain.id, 'grants-grantee'],
       ]);
     }
   }, [
-    chain?.id,
+    chain.id,
+    explorer.cosmos,
     getGrantExpire,
     grant,
     grantPeriod,
