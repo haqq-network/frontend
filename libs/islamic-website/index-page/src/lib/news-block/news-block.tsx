@@ -32,7 +32,7 @@ export function NewsBlock({ news }: NewsBlockProps) {
             );
           })}
         </div>
-        <div className="text-islamic-primary-green hover:text-islamic-classic-green rtl:font-handjet font-vcr mt-[48px] text-center text-base uppercase transition-colors duration-300">
+        <div className="text-islamic-primary-green hover:text-islamic-classic-green rtl:font-handjet ltr:font-vcr mt-[48px] text-center text-base uppercase transition-colors duration-300">
           <Link href="/news" className="flex items-center gap-x-[8px]">
             {t('see-all-news')}
             <svg

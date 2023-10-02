@@ -249,7 +249,7 @@
 }
 
 #c-ttl {
-  @apply font-vcr uppercase;
+  @apply ltr:font-vcr rtl:font-handjet uppercase;
   margin-bottom: 0.7em;
   font-size: 1.05em;
 }
@@ -284,12 +284,12 @@
   text-align: center;
   border-radius: var(--cc-btn-border-radius);
   flex: 1;
-  @apply font-vcr uppercase;
+  @apply ltr:font-vcr rtl:font-handjet uppercase;
 }
 
 #c-p-bn span,
 #c-s-bn span {
-  @apply font-vcr uppercase;
+  @apply ltr:font-vcr rtl:font-handjet uppercase;
 }
 
 #c-bns button + button,
@@ -576,7 +576,7 @@ CookieConsent settings modal
 }
 
 #s-ttl {
-  @apply font-vcr uppercase;
+  @apply ltr:font-vcr rtl:font-handjet uppercase;
   display: table-cell;
   vertical-align: middle;
   font-size: 1em;

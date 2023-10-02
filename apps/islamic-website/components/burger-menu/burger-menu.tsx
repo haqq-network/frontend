@@ -208,7 +208,6 @@ export function BurgerMenu({
             locale="ar"
             href={pathname}
           />
-          {/* <MobileLocaleSwitcher isActive={locale === 'id'} locale="id" /> */}
         </div>
       )}
     </div>

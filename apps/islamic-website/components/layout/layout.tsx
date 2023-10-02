@@ -111,7 +111,7 @@ export function ClientLayout({
 
 function ScamBanner() {
   return (
-    <div className="font-vcr fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center text-[16px] uppercase leading-[24px] text-white">
+    <div className="ltr:font-vcr rtl:font-handjet fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center text-[16px] uppercase leading-[24px] text-white">
       <Container>
         Beware of scamers! <br className="block md:hidden" />
         Check{' '}

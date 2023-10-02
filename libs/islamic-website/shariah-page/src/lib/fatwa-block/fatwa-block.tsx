@@ -24,7 +24,7 @@ function LangButton({
   return (
     <div
       className={clsx(
-        'rtl:font-handjet font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+        'rtl:font-handjet ltr:font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
         active
           ? 'bg-islamic-primary-green'
           : 'hover:bg-islamic-primary-green/50 bg-transparent',
@@ -71,7 +71,7 @@ function EnFatwa() {
         this matter, that included the following:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             HAQQ Chain platform will be built using a technical framework that
             is well-known in the blockchain field, which is the Cosmos technical
@@ -109,7 +109,7 @@ function EnFatwa() {
         summarized in the following types:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             Currencies with no specific purpose behind their issuance other than
             being a store of value and having a price, where the customer aims
@@ -158,7 +158,7 @@ function EnFatwa() {
         issuing the “Islamic Coin” based on the following measures:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             Islamic Coin is a financial asset that may be traded by sale and
             purchase and replaced with legitimate services and goods and is
@@ -247,7 +247,7 @@ function ArFatwa() {
         أسئلة الهيئة بهذا الشأن، وقد تضمن العرض النقاط التالية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             أن منصة ’الحق تشين’ سيتم بناؤها باستخدام إطار عمل فني معروف في مجال
             ’البلوك تشين’ وهو الإطار الفني المتعلق بلغة ’كوزموس’.
@@ -279,7 +279,7 @@ function ArFatwa() {
         حالياً، والتي تتلخص في الأنواع الآتية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             عملات ليس لها هدف معين من إصدارها سوى كونها أثماناً ومخزناً للقيمة،
             ويهدف المتعاملون فيها من الاحتفاظ بها أو استخدامها في مشترياتهم
@@ -319,7 +319,7 @@ function ArFatwa() {
         بالضوابط الآتية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px] rtl:pr-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             أن عملة ’إسلاميك كوين’ تعتبر أصلاً مالياً يجوز تداوله بالبيع والشراء
             واستبدالها بالخدمات والسلع المشروعة، كما أنها تعتبر أموالاً لأصحابها
@@ -370,7 +370,7 @@ function ArFatwa() {
 function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   return (
     <div className="flex w-fit flex-col items-start justify-between gap-y-[8px] md:gap-y-[12px]">
-      <span className="rtl:font-handjet font-vcr text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
+      <span className="rtl:font-handjet ltr:font-vcr text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
         {name}
       </span>
       <div className="relative h-[62px] w-[170px]">
@@ -384,7 +384,7 @@ function AutographsBlock() {
   const t = useTranslations('shariah-page');
   return (
     <div className="mt-[28px] flex flex-col gap-y-[20px] md:mt-[32px] lg:mt-[36px]">
-      <h4 className="rtl:font-handjet font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+      <h4 className="rtl:font-handjet ltr:font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
         {t('autographs-block.title')}
       </h4>
 

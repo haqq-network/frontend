@@ -27,7 +27,7 @@ function FooterNavLink({
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="rtl:font-handjet font-vcr w-fit px-[8px] py-[6px] text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-150 ease-in hover:text-[#18FFAC] md:text-[14px] lg:text-base"
+      className="rtl:font-handjet ltr:font-vcr w-fit px-[8px] py-[6px] text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-150 ease-in hover:text-[#18FFAC] md:text-[14px] lg:text-base"
     >
       {title}
     </Link>

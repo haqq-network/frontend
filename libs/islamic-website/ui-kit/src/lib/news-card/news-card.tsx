@@ -59,7 +59,7 @@ export function NewsCard({
         <div className="flex flex-col">
           <div
             className={clsx(
-              'font-vcr mt-[24px] text-[10px] font-[400] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]',
+              'ltr:font-vcr rtl:font-handjet mt-[24px] text-[10px] font-[400] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]',
               isFeatured && 'md:mt-0',
             )}
           >
@@ -85,7 +85,7 @@ export function NewsCard({
         </div>
         <div
           className={clsx(
-            'font-vcr mt-[16px] text-[10px] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]',
+            'ltr:font-vcr rtl:font-handjet mt-[16px] text-[10px] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]',
             isFeatured && 'md:mt-0',
           )}
         >
