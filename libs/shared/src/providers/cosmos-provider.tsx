@@ -657,8 +657,12 @@ function createCosmosService(
   }
 
   async function getBankBalances(address: string) {
+    const getBalanceUrl = new URL(
+      generateEndpointBalances(address),
+      cosmosRestEndpoint,
+    );
     const response = await axios.get<BalancesResponse>(
-      new URL(generateEndpointBalances(address), cosmosRestEndpoint).toString(),
+      getBalanceUrl.toString(),
     );
     console.log('getBankBalances', { response });
 
@@ -721,7 +725,7 @@ function createCosmosService(
               granter: '',
             },
           },
-          signatures: [],
+          signatures: [Buffer.alloc(0).toString('hex')],
         },
       };
       const simulateUrl = new URL(
