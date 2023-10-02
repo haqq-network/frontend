@@ -280,6 +280,7 @@ export function ShariahPage({
         onClose={() => {
           setBoardMember(undefined);
         }}
+        className="max-w-fit"
       >
         {boardMember && (
           <MemberModalCard
