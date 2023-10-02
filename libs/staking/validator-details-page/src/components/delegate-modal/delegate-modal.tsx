@@ -29,6 +29,7 @@ export interface DelegateModalProps {
   onClose: () => void;
   unboundingTime: number;
   validatorCommission: string;
+  isTestedge: boolean;
 }
 
 export function DelegateModalDetails({
@@ -110,6 +111,7 @@ export function DelegateModal({
   balance,
   unboundingTime,
   validatorCommission,
+  isTestedge,
 }: DelegateModalProps) {
   const { delegate } = useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
@@ -146,7 +148,9 @@ export function DelegateModal({
               <div>Delegation successful</div>
               <div>
                 <Link
-                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  to={`https://${
+                    isTestedge ? 'testnet.' : ''
+                  }ping.pub/haqq/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"

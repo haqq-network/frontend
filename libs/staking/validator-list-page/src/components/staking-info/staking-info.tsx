@@ -30,7 +30,7 @@ import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
 import { Link } from 'react-router-dom';
 
-export function StakingInfoHooked() {
+export function StakingInfoHooked({ isTestedge }: { isTestedge: boolean }) {
   const [staked, setStakedValue] = useState(0);
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
@@ -62,7 +62,9 @@ export function StakingInfoHooked() {
               <div>Rewards claimed</div>
               <div>
                 <Link
-                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  to={`https://${
+                    isTestedge ? 'testnet.' : ''
+                  }ping.pub/haqq/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -216,7 +218,7 @@ export function StakingInfo() {
         </div>
 
         {isReady ? (
-          <StakingInfoHooked />
+          <StakingInfoHooked isTestedge={isTestedge} />
         ) : (
           <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
             <div className="w-full flex-1">

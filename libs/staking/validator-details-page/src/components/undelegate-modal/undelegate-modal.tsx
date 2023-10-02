@@ -28,6 +28,7 @@ export interface UndelegateModalProps {
   delegation: number;
   unboundingTime: number;
   onClose: () => void;
+  isTestedge: boolean;
 }
 
 export function UndelegateModal({
@@ -38,6 +39,7 @@ export function UndelegateModal({
   delegation,
   unboundingTime,
   validatorAddress,
+  isTestedge,
 }: UndelegateModalProps) {
   const { undelegate } = useStakingActions();
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
@@ -73,7 +75,9 @@ export function UndelegateModal({
               <div>Undelegation successful</div>
               <div>
                 <Link
-                  to={`https://ping.pub/haqq/tx/${txHash.txhash}`}
+                  to={`https://${
+                    isTestedge ? 'testnet.' : ''
+                  }ping.pub/haqq/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"

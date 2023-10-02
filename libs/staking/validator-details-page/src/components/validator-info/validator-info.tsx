@@ -54,6 +54,7 @@ import { Validator } from '@evmos/provider';
 import { formatUnits } from 'viem/utils';
 import { getFormattedAddress } from '@haqq/shared';
 import { RedelegateModal } from '../redelegate-modal/redelegate-modal';
+import { haqqTestedge2 } from '@wagmi/chains';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
@@ -509,6 +510,10 @@ export function ValidatorInfo({
     return 0;
   }, [rewardsInfo]);
 
+  const isTestedge = useMemo(() => {
+    return chain?.id === haqqTestedge2.id;
+  }, [chain?.id]);
+
   const handleGetRewardsClick = useCallback(async () => {
     const claimRewardPromise = claimReward(validatorAddress);
 
@@ -523,7 +528,9 @@ export function ValidatorInfo({
               <div>Rewards claimed</div>
               <div>
                 <Link
-                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  to={`https://${
+                    isTestedge ? 'testnet.' : ''
+                  }ping.pub/haqq/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -546,7 +553,14 @@ export function ValidatorInfo({
       [chain?.id, 'delegation'],
       [chain?.id, 'unboundings'],
     ]);
-  }, [chain?.id, claimReward, invalidateQueries, toast, validatorAddress]);
+  }, [
+    chain?.id,
+    claimReward,
+    invalidateQueries,
+    isTestedge,
+    toast,
+    validatorAddress,
+  ]);
 
   const unbounded = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
@@ -599,7 +613,9 @@ export function ValidatorInfo({
           <div className="flex flex-col gap-[8px] text-center">
             <div>Rewards claimed</div>
             <Link
-              to={`https://ping.pub/haqq/tx/${txHash}`}
+              to={`https://${
+                isTestedge ? 'testnet.' : ''
+              }ping.pub/haqq/tx/${txHash}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
@@ -624,6 +640,7 @@ export function ValidatorInfo({
     claimAllRewards,
     delegatedValsAddrs,
     invalidateQueries,
+    isTestedge,
     toast,
   ]);
 
@@ -671,6 +688,7 @@ export function ValidatorInfo({
         symbol={symbol}
         unboundingTime={unboundingTime}
         validatorCommission={validatorCommission}
+        isTestedge={isTestedge}
       />
 
       <UndelegateModal
@@ -681,6 +699,7 @@ export function ValidatorInfo({
         balance={balance}
         unboundingTime={unboundingTime}
         symbol={symbol}
+        isTestedge={isTestedge}
       />
 
       <RedelegateModal
@@ -690,6 +709,7 @@ export function ValidatorInfo({
         delegation={myDelegation}
         symbol={symbol}
         validatorsList={validatorsList}
+        isTestedge={isTestedge}
       />
     </Fragment>
   );

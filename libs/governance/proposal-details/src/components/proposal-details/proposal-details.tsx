@@ -58,6 +58,7 @@ import {
 import { useMediaQuery } from 'react-responsive';
 import { useAccount, useNetwork } from 'wagmi';
 import { formatUnits } from 'viem/utils';
+import { haqqTestedge2 } from '@wagmi/chains';
 
 const enum ProposalTypes {
   Text = '/cosmos.gov.v1beta1.TextProposal',
@@ -238,6 +239,7 @@ export function ProposalDetailsComponent({
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
   const { openSelectWallet } = useWallet();
+  const { chain } = useNetwork();
   // const { deposit } = useProposalActions();
   // const toast = useToast();
   // const navigate = useNavigate();
@@ -363,6 +365,10 @@ export function ProposalDetailsComponent({
 
     return (voted / bonded) * 100;
   }, [proposalTally, stakingPool]);
+
+  const isTestedge = useMemo(() => {
+    return chain?.id === haqqTestedge2.id;
+  }, [chain?.id]);
 
   return (
     <Fragment>
@@ -662,6 +668,7 @@ export function ProposalDetailsComponent({
                         proposalDetails.proposal_id,
                         10,
                       )}
+                      isTestedge={isTestedge}
                     />
                   </div>
                 )}
@@ -682,6 +689,7 @@ export function ProposalDetailsComponent({
             //   navigate('#deposit', { replace: true });
             // }}
             isCanVote={isCanVote}
+            isTestedge={isTestedge}
           />
           {/* <ProposalDepositModal
             isOpen={isDepositModalOpen}
@@ -745,6 +753,7 @@ function ProposalActionsMobile({
   // onDepositWalletClick,
   // isDepositAvailable,
   isCanVote,
+  isTestedge,
 }: {
   proposalDetails: Proposal;
   isConnected?: boolean;
@@ -752,6 +761,7 @@ function ProposalActionsMobile({
   // onDepositWalletClick: () => void;
   // isDepositAvailable: boolean;
   isCanVote?: boolean;
+  isTestedge: boolean;
 }) {
   if (!isConnected) {
     return (
@@ -795,6 +805,7 @@ function ProposalActionsMobile({
         <Container>
           <VoteActions
             proposalId={Number.parseInt(proposalDetails.proposal_id, 10)}
+            isTestedge={isTestedge}
           />
         </Container>
       </div>
@@ -870,9 +881,11 @@ export function ProposalDetails() {
 export function VoteActions({
   proposalId,
   userVote,
+  isTestedge,
 }: {
   proposalId: number;
   userVote?: VoteOption;
+  isTestedge: boolean;
 }) {
   const { vote } = useProposalActions();
   const toast = useToast();
@@ -892,7 +905,9 @@ export function VoteActions({
                 <div>Your vote will be counted!!!</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`https://${
+                      isTestedge ? 'testnet.' : ''
+                    }ping.pub/haqq/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -911,7 +926,7 @@ export function VoteActions({
         },
       });
     },
-    [proposalId, toast, vote],
+    [isTestedge, proposalId, toast, vote],
   );
 
   return (

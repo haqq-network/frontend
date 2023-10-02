@@ -29,6 +29,7 @@ export interface RedelegateModalProps {
   delegation: number;
   onClose: () => void;
   validatorsList: Validator[] | undefined;
+  isTestedge: boolean;
 }
 
 export function RedelegateModalDetails({
@@ -111,6 +112,7 @@ export function RedelegateModal({
   symbol,
   delegation,
   validatorsList,
+  isTestedge,
 }: RedelegateModalProps) {
   const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
@@ -152,7 +154,9 @@ export function RedelegateModal({
                 <div>Redelegation successful</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`https://${
+                      isTestedge ? 'testnet.' : ''
+                    }ping.pub/haqq/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"

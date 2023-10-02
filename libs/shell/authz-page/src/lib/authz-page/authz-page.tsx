@@ -41,6 +41,7 @@ import { formatUnits, isAddress, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 import { Select } from '../select/select';
 import { Link } from 'react-router-dom';
+import { haqqTestedge2 } from '@wagmi/chains';
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {
@@ -56,6 +57,11 @@ function formatDate(date: Date) {
 export function ShellAuthzPage() {
   const { ethAddress } = useAddress();
   const { openSelectWallet } = useWallet();
+  const { chain } = useNetwork();
+
+  const isTestedge = useMemo(() => {
+    return chain?.id === haqqTestedge2.id;
+  }, [chain?.id]);
 
   return (
     <div>
@@ -79,8 +85,8 @@ export function ShellAuthzPage() {
           </div>
         ) : (
           <div className="pb-[62px]">
-            <AuthzGrantsActions />
-            <GranterGrantsTable />
+            <AuthzGrantsActions isTestedge={isTestedge} />
+            <GranterGrantsTable isTestedge={isTestedge} />
             <GranteeGrantsTable />
           </div>
         )}
@@ -106,7 +112,7 @@ function mapRPCGrantToWebGrant(grant: Grant) {
   };
 }
 
-function GranterGrantsTable() {
+function GranterGrantsTable({ isTestedge }: { isTestedge: boolean }) {
   const { haqqAddress } = useAddress();
   const invalidateQueries = useQueryInvalidate();
   const { data: granterGrants } = useAuthzGranterGrants(haqqAddress ?? '');
@@ -136,7 +142,9 @@ function GranterGrantsTable() {
                 <div>Revoke successful</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`https://${
+                      isTestedge ? 'testnet.' : ''
+                    }ping.pub/haqq/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -366,7 +374,7 @@ const GRANT_PERIOD_OPTIONS = [
 
 const GRANT_PERIOD_DEFAULT_OPTION = GRANT_PERIOD_OPTIONS[4];
 
-function AuthzGrantsActions() {
+function AuthzGrantsActions({ isTestedge }: { isTestedge: boolean }) {
   const [grantee, setGrantee] = useState('');
   const [isGranteeValid, setGranteeValid] = useState(false);
   const [granteeAddresses, setGranteeAddresses] = useState<{
@@ -451,7 +459,9 @@ function AuthzGrantsActions() {
               <div>Grant successful</div>
               <div>
                 <Link
-                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  to={`https://${
+                    isTestedge ? 'testnet.' : ''
+                  }ping.pub/haqq/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
