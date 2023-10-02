@@ -74,7 +74,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <div className="flex-1">{children}</div>
         <Footer />
       </body>
-      {VERCEL_ENV === 'development' && (
+      {VERCEL_ENV !== 'development' && (
         <Fragment>
           <script
             id="fb-pixel"
