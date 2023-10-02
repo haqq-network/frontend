@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import {
+  getChainParams,
   getFormattedAddress,
   toFixedAmount,
   useStakingActions,
@@ -21,6 +22,7 @@ import { Validator } from '@evmos/provider';
 import { ValidatorSelect } from '../validator-select/validator-select';
 import { splitValidators } from '@haqq/staking/utils';
 import { Link } from 'react-router-dom';
+import { useNetwork } from 'wagmi';
 
 export interface RedelegateModalProps {
   isOpen: boolean;
@@ -120,6 +122,8 @@ export function RedelegateModal({
     useState<string | undefined>(undefined);
   const toast = useToast();
   const { redelegate } = useStakingActions();
+  const { chain = { id: 11235 } } = useNetwork();
+  const { explorer } = getChainParams(chain.id);
 
   const handleMaxButtonClick = useCallback(() => {
     setRedelegateAmount(toFixedAmount(delegation, 3));
@@ -151,7 +155,7 @@ export function RedelegateModal({
                 <div>Redelegation successful</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`${explorer.cosmos}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -177,6 +181,7 @@ export function RedelegateModal({
     redelegateAmount,
     toast,
     onClose,
+    explorer.cosmos,
   ]);
 
   const validatorsOptions = useMemo(() => {

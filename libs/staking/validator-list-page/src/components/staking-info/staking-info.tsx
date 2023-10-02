@@ -1,4 +1,5 @@
 import {
+  getChainParams,
   getFormattedAddress,
   useAddress,
   useQueryInvalidate,
@@ -47,6 +48,7 @@ export function StakingInfoHooked() {
   });
   const { chain } = useNetwork();
   const toast = useToast();
+  const { explorer } = getChainParams(chain?.id ?? 0);
 
   const handleRewardsClaim = useCallback(async () => {
     const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
@@ -62,7 +64,7 @@ export function StakingInfoHooked() {
               <div>Rewards claimed</div>
               <div>
                 <Link
-                  to={`https://ping.pub/haqq/tx/${txHash}`}
+                  to={`${explorer.cosmos}/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"

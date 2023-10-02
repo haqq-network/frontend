@@ -26,32 +26,6 @@ export const haqqLocalnet: Chain = {
   testnet: true,
 };
 
-// export const haqqMainnet: Chain = {
-//   id: 11235,
-//   name: 'HAQQ Mainnet',
-//   network: 'haqq-mainnet',
-//   nativeCurrency: {
-//     decimals: 18,
-//     name: 'Islamic Coin',
-//     symbol: 'ISLM',
-//   },
-//   rpcUrls: {
-//     default: {
-//       http: ['https://rpc.eth.haqq.network', 'https://m-s1-evm-rpc.haqq.sh'],
-//     },
-//     public: {
-//       http: ['https://rpc.eth.haqq.network', 'https://m-s1-evm-rpc.haqq.sh'],
-//     },
-//   },
-//   blockExplorers: {
-//     default: {
-//       name: 'HAQQ Explorer',
-//       url: 'https://explorer.haqq.network',
-//     },
-//   },
-//   testnet: false,
-// };
-
 const SupportedChainsContext = createContext<Chain[]>([
   haqqMainnet,
   haqqLocalnet,

@@ -30,6 +30,7 @@ import {
   useProposalTally,
   TallyResults,
   useStakingPoolQuery,
+  getChainParams,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -876,6 +877,8 @@ export function VoteActions({
 }) {
   const { vote } = useProposalActions();
   const toast = useToast();
+  const { chain = { id: 11235 } } = useNetwork();
+  const { explorer } = getChainParams(chain.id);
 
   const handleVote = useCallback(
     async (option: number) => {
@@ -893,7 +896,7 @@ export function VoteActions({
                 <div>Your vote will be counted!!!</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`${explorer.cosmos}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -912,7 +915,7 @@ export function VoteActions({
         },
       });
     },
-    [proposalId, toast, vote],
+    [explorer.cosmos, proposalId, toast, vote],
   );
 
   return (
