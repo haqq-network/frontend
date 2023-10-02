@@ -7,6 +7,7 @@ import { formatUnits, parseUnits } from 'viem';
 import { useBalance, useNetwork } from 'wagmi';
 import { useCosmosProvider } from '@haqq/shared';
 import {
+  getChainParams,
   getFormattedAddress,
   useAddress,
   useNetworkAwareAction,
@@ -51,6 +52,7 @@ function useStakingStats() {
   const symbol = 'ISLM';
   const [isRewardsPending, setRewardsPending] = useState(false);
   const { executeIfNetworkSupported } = useNetworkAwareAction();
+  const { explorer } = getChainParams(chain.id);
 
   const handleRewardsClaim = useCallback(async () => {
     try {
@@ -70,7 +72,7 @@ function useStakingStats() {
                 <div>Rewards claimed</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`${explorer.cosmos}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -93,15 +95,16 @@ function useStakingStats() {
       setRewardsPending(false);
 
       invalidateQueries([
-        [chain?.id, 'rewards'],
-        [chain?.id, 'delegation'],
-        [chain?.id, 'unboundings'],
+        [chain.id, 'rewards'],
+        [chain.id, 'delegation'],
+        [chain.id, 'unboundings'],
       ]);
     }
   }, [
-    chain?.id,
+    chain.id,
     claimAllRewards,
     delegatedValsAddrs,
+    explorer.cosmos,
     invalidateQueries,
     toast,
   ]);
@@ -190,7 +193,8 @@ export function StakingInfo() {
   const { openSelectWallet } = useWallet();
   const { isReady } = useCosmosProvider();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
-  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const {
     staked,
     rewards,
@@ -206,8 +210,8 @@ export function StakingInfo() {
   const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const isTestedge = useMemo(() => {
-    return chain?.id === haqqTestedge2.id;
-  }, [chain?.id]);
+    return chain.id === haqqTestedge2.id;
+  }, [chain.id]);
 
   if (!isReady) {
     return null;
