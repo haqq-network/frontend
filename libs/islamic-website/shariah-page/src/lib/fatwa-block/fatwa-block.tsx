@@ -429,7 +429,7 @@ export function FatwaBlock({ locale }: { locale: localeType }) {
         <Text size="small">{t('fatwa-block.subtitle')}</Text>
       </div>
 
-      <div className="mt-[24px] flex gap-x-[16px] rtl:flex-row-reverse md:mt-[28px] lg:mt-[32px]">
+      <div className="mt-[24px] flex gap-x-[16px] rtl:flex-row-reverse rtl:justify-end md:mt-[28px] lg:mt-[32px]">
         <DownloadPDFButton language="en" url="/assets/fatwa-en.pdf" />
         <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
       </div>
