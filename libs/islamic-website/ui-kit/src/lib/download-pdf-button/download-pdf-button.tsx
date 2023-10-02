@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 interface DownloadPDFButtonProps {
@@ -11,6 +12,7 @@ export function DownloadPDFButton({
   url,
   type = 'fatwa',
 }: DownloadPDFButtonProps) {
+  const t = useTranslations('ui-kit.download-pdf-button');
   return (
     <div className="hover:text-islamic-primary-green-hover hover:border-islamic-primary-green-hover w-[164px] cursor-pointer rounded-[8px] border border-white px-[10px] py-[6px] text-white transition-colors duration-300 md:w-[180px]">
       <Link
@@ -38,14 +40,10 @@ export function DownloadPDFButton({
 
           <div className="flex flex-col text-[12px] font-[400] leading-[1.5em]">
             <span className="rtl:font-handjet ltr:font-vcr uppercase">
-              {type === 'fatwa' && 'Fatwa'}
-              {type === 'whitepaper' && 'Whitepaper'}
+              {type === 'fatwa' && t('type.fatwa')}
+              {type === 'whitepaper' && t('type.whitepaper')}
             </span>
-            <span>
-              {language === 'ar' && 'Arabic'}
-              {language === 'en' && 'English'}
-              {language === 'id' && 'Indonesian'}
-            </span>
+            <span>{t(`language.${language}`)}</span>
           </div>
         </div>
         <svg

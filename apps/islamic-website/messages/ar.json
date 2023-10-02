@@ -405,6 +405,16 @@
   "ui-kit": {
     "member-card": {
       "web": "شبكة"
+    },
+    "download-pdf-button": {
+      "type": {
+        "fatwa": "الفتوى",
+        "whitepaper": "الورقة البيضاء"
+      },
+      "language": {
+        "en": "إنجليزي",
+        "ar": "عربي"
+      }
     }
   }
 }

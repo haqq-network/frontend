@@ -402,6 +402,16 @@
   "ui-kit": {
     "member-card": {
       "web": "Web"
+    },
+    "download-pdf-button": {
+      "type": {
+        "fatwa": "Fatwa",
+        "whitepaper": "Whitepaper"
+      },
+      "language": {
+        "en": "English",
+        "ar": "Arabic"
+      }
     }
   }
 }
