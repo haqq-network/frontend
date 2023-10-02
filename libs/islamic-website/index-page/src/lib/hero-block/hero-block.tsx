@@ -9,7 +9,7 @@ import {
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
 
-const ytVideoId = '2Iq1my3tPCU';
+const ytVideoId = 'bevF9a3L3Sk';
 
 export function HeroBlock() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
