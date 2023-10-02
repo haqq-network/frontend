@@ -70,7 +70,7 @@ export function ClientLayout({
           <Footer socialLinks={SOCIAL_LINKS} />
         </NextIntlClientProvider>
       </body>
-      {VERCEL_ENV === 'development' && (
+      {VERCEL_ENV !== 'development' && (
         <Fragment>
           <script
             id="fb-pixel"
