@@ -37,7 +37,7 @@ export function DownloadPDFButton({
           </svg>
 
           <div className="flex flex-col text-[12px] font-[400] leading-[1.5em]">
-            <span className="rtl:font-handjet font-mono uppercase">
+            <span className="rtl:font-handjet font-vcr uppercase">
               {type === 'fatwa' && 'Fatwa'}
               {type === 'whitepaper' && 'Whitepaper'}
             </span>

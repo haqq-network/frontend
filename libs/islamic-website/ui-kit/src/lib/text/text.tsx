@@ -19,7 +19,7 @@ export function Text({
     size === 'medium' &&
       'text-[15px] md:text-base leading-[22px] lg:text-[18px] lg:leading-[26px]',
     size === 'large' && 'text-[14px] sm:text-[17px] lg:text-[18px]',
-    isMono ? 'font-mono rtl:font-handjet uppercase' : 'font-alexandria',
+    isMono ? 'font-vcr rtl:font-handjet uppercase' : 'font-alexandria',
     className,
   );
 

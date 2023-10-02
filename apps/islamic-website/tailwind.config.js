@@ -25,7 +25,7 @@ module.exports = {
       fontFamily: {
         alexandria: ['var(--font-alexandria)'],
         handjet: ['var(--font-handjet)'],
-        mono: ['var(--font-vcr)'],
+        vcr: ['var(--font-vcr)'],
       },
       keyframes: {
         'scroll-left': {

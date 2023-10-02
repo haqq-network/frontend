@@ -322,13 +322,13 @@
         "eighth": "Our ISLM team is committed to your safety and security. Report suspicious activity to us immediately. We're here to help you stay safe and informed."
       },
       "list": {
-        "first": "<ul><li>Official ISLM and HAQQ Website Channels:<ul><li><haqqLink />: The place for HAQQ updates, news, and info</li><li><islamicLink />: Another official source for ISLM news and developments</li></ul></li></ul>",
-        "second": "<ul><li>Official Social Media Channels:<ul><li>Instagram: <islamicInsta>{islamicInsta}</islamicInsta> (Any other spin-off is NOT from us)</li><li>Twitter: <islamicTwitter /> and <haqqTwitter /></li></ul></li></ul>"
+        "first": "<ul><li>Official ISLM and HAQQ Website Channels:<ul><li><haqqLink></haqqLink>: The place for HAQQ updates, news, and info</li><li><islamicLink></islamicLink>: Another official source for ISLM news and developments</li></ul></li></ul>",
+        "second": "<ul><li>Official Social Media Channels:<ul><li>Instagram: <islamicInsta>{islamicInsta}</islamicInsta> (Any other spin-off is NOT from us)</li><li>Twitter: <islamicTwitter></islamicTwitter> and <haqqTwitter></haqqTwitter></li></ul></li></ul>"
       }
     },
     "how-to-spot-block": {
       "title": "How to Spot Scams:",
-      "list": "<ul><li>Unsolicited Messages: If it's unsolicited and not from <haqqLink /> or <islamicLink />, be cautious.</li><li>Too-Good-to-Be-True Promises: High returns with no risk? It's a red flag!</li><li>Unverified Websites and Social Media: Stick to official sources for ISLM updates.</li><li>They add you to telegram groups and show they can airdrop you some supply into your HAQQ Wallet</li></ul>",
+      "list": "<ul><li>Unsolicited Messages: If it's unsolicited and not from <haqqLink></haqqLink> or <islamicLink></islamicLink>, be cautious.</li><li>Too-Good-to-Be-True Promises: High returns with no risk? It's a red flag!</li><li>Unverified Websites and Social Media: Stick to official sources for ISLM updates.</li><li>They add you to telegram groups and show they can airdrop you some supply into your HAQQ Wallet</li></ul>",
       "paragraphs": {
         "first": "IMPORTANT: NO OTHER PLATFORM CAN BE TRUSTED, including social media claiming to be official channels and domains that have hijacked our brand through community initiatives. Whilst we support the community initiatives we do not endorse them as official channels for the sale of ISLM tokens. We DO NOT endorse these platforms.",
         "second": "If you are interested in joining our presale please visit <a>republic.com/islamic-coin</a>",

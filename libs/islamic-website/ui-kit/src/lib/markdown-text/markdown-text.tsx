@@ -25,7 +25,7 @@ export function MarkdownTextProseWrapper({
         'prose-li:text-[13px] prose-li:leading-[20px] lg:prose-li:text-base',
         'marker:prose-li:font-[600] prose-li:my-0',
         'prose-table:text-[14px] prose-table:leading-[20px] prose-thead:bg-[#2f2f2f]',
-        'prose-th:py-[12px] prose-th:text-left rtl:prose-th:text-right prose-th:font-mono prose-th:uppercase',
+        'prose-th:py-[12px] prose-th:text-left rtl:prose-th:text-right prose-th:font-vcr prose-th:uppercase',
         'first:prose-th:pl-[16px] first:prose-th:pr-0 rtl:first:prose-th:pl-0 rtl:first:prose-th:pr-[16px] even:prose-th:px-[24px] last:prose-th:pr-[16px] last:prose-th:pl-0 rtl:last:prose-th:pl-[16px] rtl:last:prose-th:pr-0',
         'first:prose-td:pl-[16px] first:prose-td:pr-0 rtl:first:prose-td:pl-0 rtl:first:prose-td:pr-[16px] even:prose-td:px-[24px] last:prose-td:pr-[16px] last:prose-td:pl-0 rtl:last:prose-td:pl-[16px] rtl:last:prose-td:pr-0',
         'prose-tr:border-none prose-thead:border-none even:prose-tr:bg-[#2f2f2f]',
