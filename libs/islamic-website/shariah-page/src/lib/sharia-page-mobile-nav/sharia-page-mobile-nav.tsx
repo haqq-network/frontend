@@ -13,17 +13,16 @@ export function ShariPageMobileNav({
   activeSection: string;
   onSectionSelect: (newSection: string) => void;
 }) {
-  const [isBlurred, setBlured] = useState(false);
-  console.log('KEEEk');
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 500;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
