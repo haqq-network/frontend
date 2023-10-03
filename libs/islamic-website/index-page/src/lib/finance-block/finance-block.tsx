@@ -52,7 +52,7 @@ export function FinanceBlock() {
                 'lg:scale-125',
               )}
             >
-              <Image src={cubeOnRockImgData} alt="" fill priority />
+              <Image src={cubeOnRockImgData} alt="" fill loading="lazy" />
               <div className="absolute bottom-0 h-[360px] w-full bg-gradient-to-b from-[#01030400] to-[#010304]"></div>
             </div>
           </div>
