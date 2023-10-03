@@ -13,6 +13,7 @@ export function ShariPageMobileNav({
   activeSection: string;
   onSectionSelect: (newSection: string) => void;
 }) {
+
   const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {

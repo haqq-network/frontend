@@ -27,6 +27,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'a.storyblok.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
     ],
   },
 };
