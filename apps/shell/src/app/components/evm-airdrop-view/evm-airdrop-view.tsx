@@ -1,12 +1,24 @@
+import { IParticipant, useAirdropActions } from '@haqq/shared';
 import { Button, InformationModal } from '@haqq/shell-ui-kit';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { AIRDROP_ENDPOINT } from '../../constants';
 
 interface IProps {
   address: string;
   captchaToken?: string;
+  signature: string;
+  message: string;
 }
 
-const YesCheckbox = () => {
+const YesCheckbox = ({ value }: { value?: boolean }) => {
+  if (!value) {
+    return (
+      <div className="mt-[6px] flex flex-row items-center ">
+        <div className="ml-[8px]">No</div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-[6px] flex flex-row items-center ">
       <svg
@@ -28,11 +40,27 @@ const YesCheckbox = () => {
   );
 };
 
-export const EvmAirdropView = ({ address }: IProps) => {
+export const EvmAirdropView = ({ address, signature, message }: IProps) => {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
 
   const [isInformationModalOpened, setInformationModalOpened] =
     useState<boolean>(false);
+
+  const { checkAirdrop, participate } = useAirdropActions();
+
+  const [participant, setParticipant] = useState<IParticipant | undefined>();
+
+  const loadAirdrop = useCallback(() => {
+    address &&
+      AIRDROP_ENDPOINT &&
+      checkAirdrop(AIRDROP_ENDPOINT, address).then((p) => {
+        setParticipant(p);
+      });
+  }, [address, checkAirdrop]);
+
+  useEffect(() => {
+    loadAirdrop();
+  }, [loadAirdrop]);
 
   return (
     <div className="flex">
@@ -42,7 +70,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
             It is possible to get an airdrop
           </div>
           <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            <YesCheckbox />
+            <YesCheckbox value={(participant?.amount || 0) > 0} />
           </div>
         </div>
 
@@ -51,7 +79,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
             Islamic Coin Supporter
           </div>
           <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            <YesCheckbox />
+            <YesCheckbox value={participant?.is_supporter} />
           </div>
         </div>
 
@@ -61,7 +89,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
               Transactions
             </div>
             <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-              <YesCheckbox />
+              <YesCheckbox value={participant?.is_has_transactions} />
             </div>
           </div>
 
@@ -70,7 +98,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
               Staking
             </div>
             <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-              <YesCheckbox />
+              <YesCheckbox value={participant?.is_has_staking} />
             </div>
           </div>
 
@@ -79,7 +107,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
               Vote
             </div>
             <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-              <YesCheckbox />
+              <YesCheckbox value={participant?.is_has_votes} />
             </div>
           </div>
         </div>
@@ -89,7 +117,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
             Run Validator
           </div>
           <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            <YesCheckbox />
+            <YesCheckbox value={participant?.is_validator} />
           </div>
         </div>
 
@@ -98,14 +126,21 @@ export const EvmAirdropView = ({ address }: IProps) => {
             Amount airdrop
           </div>
           <div className="mt-[5px] font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            10000 aISLM
+            {participant?.amount || 0} aISLM
           </div>
         </div>
 
         <Button
           className="mt-[23px] pl-[32px] pr-[32px]"
           onClick={() => {
-            setErrorModalOpened(true);
+            AIRDROP_ENDPOINT &&
+              participate(AIRDROP_ENDPOINT, message, signature).then((v) => {
+                if (!v.message) {
+                  setInformationModalOpened(true);
+                } else {
+                  setErrorModalOpened(true);
+                }
+              });
           }}
         >
           Airdrop Request

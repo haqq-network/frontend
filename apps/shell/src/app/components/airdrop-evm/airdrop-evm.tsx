@@ -10,7 +10,7 @@ import { Address } from './../address/address';
 import localStore from 'store2';
 import { EvmAirdropView } from '../evm-airdrop-view/evm-airdrop-view';
 
-const MESSAGE = 'MESSAGE';
+const MESSAGE = 'Haqqdrop!';
 
 export function AirdropEvm({
   turnstileSiteKey,
@@ -19,8 +19,6 @@ export function AirdropEvm({
 }) {
   const { sign } = useAirdropActions();
 
-  console.log('turnstileSiteKey', turnstileSiteKey);
-
   const { ethAddress } = useAddress();
   const { openSelectWallet } = useWallet();
 
@@ -28,9 +26,7 @@ export function AirdropEvm({
     return `SAVED_EVM_AIRDROP_SIGNATURE_KEY_${ethAddress}`;
   }, [ethAddress]);
 
-  const checkRequest = useCallback(() => {
-    console.log('checkRequest');
-  }, []);
+  const [signature, setSignature] = useState('');
 
   const onSignHandler = useCallback(async () => {
     if (!ethAddress) {
@@ -38,16 +34,17 @@ export function AirdropEvm({
     }
     const signature = await sign(ethAddress, MESSAGE);
     localStore.set(localStKey, signature);
+    setSignature(signature);
   }, [ethAddress, localStKey, sign]);
-
-  console.log(onSignHandler, checkRequest);
 
   const [token, setToken] = useState<string | undefined>(undefined);
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
 
   useEffect(() => {
-    ethAddress && false && setCaptchaModalOpen(true);
-  }, [ethAddress]);
+    ethAddress && setCaptchaModalOpen(true);
+
+    ethAddress && setSignature(localStore.get(localStKey));
+  }, [ethAddress, localStKey]);
 
   return (
     <div>
@@ -85,8 +82,17 @@ export function AirdropEvm({
               Connect wallet
             </Button>
           </div>
+        ) : signature ? (
+          <EvmAirdropView
+            address={ethAddress}
+            captchaToken={token}
+            message={MESSAGE}
+            signature={signature}
+          />
         ) : (
-          <EvmAirdropView address={ethAddress} captchaToken={token} />
+          <Button className="w-full" onClick={onSignHandler}>
+            Sign Message
+          </Button>
         )}
 
         <CaptchaModal
