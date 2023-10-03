@@ -1,7 +1,7 @@
 import { IParticipant, useAirdropActions } from '@haqq/shared';
 import { Button, InformationModal } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useState } from 'react';
-import { AIRDROP_ENDPOINT } from '../../constants';
+import { NX_AIRDROP_ENDPOINT } from '../../constants';
 
 interface IProps {
   address: string;
@@ -14,7 +14,7 @@ const YesCheckbox = ({ value }: { value?: boolean }) => {
   if (!value) {
     return (
       <div className="mt-[6px] flex flex-row items-center ">
-        <div className="ml-[8px]">No</div>
+        <div>No</div>
       </div>
     );
   }
@@ -40,6 +40,7 @@ const YesCheckbox = ({ value }: { value?: boolean }) => {
   );
 };
 
+console.log('NX_AIRDROP_ENDPOINT', NX_AIRDROP_ENDPOINT);
 export const EvmAirdropView = ({ address, signature, message }: IProps) => {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
 
@@ -52,8 +53,8 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
 
   const loadAirdrop = useCallback(() => {
     address &&
-      AIRDROP_ENDPOINT &&
-      checkAirdrop(AIRDROP_ENDPOINT, address).then((p) => {
+      NX_AIRDROP_ENDPOINT &&
+      checkAirdrop(NX_AIRDROP_ENDPOINT, address).then((p) => {
         setParticipant(p);
       });
   }, [address, checkAirdrop]);
@@ -133,8 +134,8 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
         <Button
           className="mt-[23px] pl-[32px] pr-[32px]"
           onClick={() => {
-            AIRDROP_ENDPOINT &&
-              participate(AIRDROP_ENDPOINT, message, signature).then((v) => {
+            NX_AIRDROP_ENDPOINT &&
+              participate(NX_AIRDROP_ENDPOINT, message, signature).then((v) => {
                 if (!v.message) {
                   setInformationModalOpened(true);
                 } else {

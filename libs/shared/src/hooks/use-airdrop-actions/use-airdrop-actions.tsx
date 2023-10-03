@@ -50,6 +50,11 @@ export function useAirdropActions(): AirdropActionsHook {
   const checkAirdrop = useCallback(async (host: string, address: string) => {
     const result = await axios.get<{ result: IParticipant }>(
       `${host}/api/participant/${address}`,
+      {
+        headers: {
+          'content-type': 'application/json',
+        },
+      },
     );
 
     return result.data.result;
@@ -62,6 +67,11 @@ export function useAirdropActions(): AirdropActionsHook {
         {
           message,
           signature,
+        },
+        {
+          headers: {
+            'content-type': 'application/json',
+          },
         },
       );
 
