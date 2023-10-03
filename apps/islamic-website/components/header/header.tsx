@@ -19,7 +19,6 @@ import {
   EcosystemIcon,
   MissionIcon,
   NewsIcon,
-  PartnershipIcon,
   RoadmapIcon,
   ValuesIcon,
   BurgerButton,
@@ -134,16 +133,16 @@ export function MobileHeader({
   isBannerVisible?: boolean;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
-  const [isBlurred, setBlured] = useState(false);
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 40;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
@@ -240,16 +239,16 @@ export function DesktopHeader({
 }: {
   isBannerVisible?: boolean;
 }) {
-  const [isBlurred, setBlured] = useState(false);
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 50;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
@@ -311,34 +310,11 @@ export function DesktopHeader({
                       isOutLink
                     />
                   </div>
-                  {/* <div className="flex flex-col"> */}
-                  {/* <DropdownLink
-                      title="News"
-                      icon={<NewsIcon />}
-                      href="/news"
-                    /> */}
-                  {/* <DropdownLink
-                      title="Press"
-                      icon={<NewsIcon />}
-                      href="/press"
-                    /> */}
-                  {/* <DropdownLink
-                      title="Events"
-                      icon={<EventsIcon />}
-                      href="/events"
-                    /> */}
-                  {/* </div> */}
                   <div className="flex flex-col">
                     <DropdownLink
                       title="News"
                       icon={<NewsIcon />}
                       href="/news"
-                    />
-
-                    <DropdownLink
-                      title="Partnerships"
-                      icon={<PartnershipIcon />}
-                      href="/partnerships"
                     />
                     <DropdownLink
                       title="Build on HAQQ"
@@ -352,85 +328,58 @@ export function DesktopHeader({
               <DesktopHeaderLink url="/wallet">Wallet</DesktopHeaderLink>
 
               <HeaderDropdown title="Learn">
-                <div className="flex gap-x-[18px]">
-                  <div className="flex flex-col">
-                    <DropdownLink
-                      title="Academy"
-                      icon={<AcademyIcon />}
-                      href="/academy"
-                    />
-                    <DropdownLink
-                      title="Privacy policy"
-                      icon={<QuestionMarkIcon />}
-                      href="/privacy-policy"
-                    />
-                    <DropdownLink
-                      title="Blog"
-                      icon={<BlogIcon />}
-                      href="https://blog.islamiccoin.net"
-                      isOutLink
-                    />
-                    <DropdownLink
-                      title="Fraud alert"
-                      icon={<AlertIcon />}
-                      href="/fraud-alert"
-                    />
-                    <DropdownLink
-                      title="Scam alert"
-                      icon={<AlertIcon />}
-                      href="/scam-alert"
-                    />
-
-                    {/* <DropdownLink
-                      title="Podcast"
-                      icon={<PodcastIcon />}
-                      href="/where-to-start"
-                    /> */}
-                    {/* <DropdownLink
-                      title="Videos"
-                      icon={<VideoIcon />}
-                      href="/partners"
-                    /> */}
-                  </div>
-                  {/* <div className="flex flex-col">
-                    <DropdownLink
-                      title="Where to start?"
-                      icon={<RocketIcon />}
-                      href="/where-to-start"
-                    />
-                    <DropdownLink
-                      title="Partners"
-                      icon={<PartnersIcon />}
-                      href="/partners"
-                    />
-                  </div> */}
+                <div className="flex flex-col">
+                  <DropdownLink
+                    title="Academy"
+                    icon={<AcademyIcon />}
+                    href="/academy"
+                  />
+                  <DropdownLink
+                    title="Privacy policy"
+                    icon={<QuestionMarkIcon />}
+                    href="/privacy-policy"
+                  />
+                  <DropdownLink
+                    title="Blog"
+                    icon={<BlogIcon />}
+                    href="https://blog.islamiccoin.net"
+                    isOutLink
+                  />
+                  <DropdownLink
+                    title="Fraud alert"
+                    icon={<AlertIcon />}
+                    href="/fraud-alert"
+                  />
+                  <DropdownLink
+                    title="Scam alert"
+                    icon={<AlertIcon />}
+                    href="/scam-alert"
+                  />
                 </div>
               </HeaderDropdown>
 
               <HeaderDropdown title="Team">
-                <div className="flex gap-x-[18px]">
-                  <div className="flex flex-col">
-                    <DropdownLink
-                      title="Career"
-                      icon={<CaseIcon />}
-                      href="/career"
-                    />
-                    <DropdownLink
-                      title="Our Values"
-                      icon={<ValuesIcon />}
-                      href="/values"
-                    />
-                    <DropdownLink
-                      title="Community"
-                      icon={<CommunityIcon />}
-                      href="/community-hub"
-                    />
-                    <DropdownLink
-                      title="Meet our team"
-                      icon={<StarIcon />}
-                      href="/team"
-                    />
-                  </div>
+                <div className="flex flex-col">
+                  <DropdownLink
+                    title="Career"
+                    icon={<CaseIcon />}
+                    href="/career"
+                  />
+                  <DropdownLink
+                    title="Our Values"
+                    icon={<ValuesIcon />}
+                    href="/values"
+                  />
+                  <DropdownLink
+                    title="Community"
+                    icon={<CommunityIcon />}
+                    href="/community-hub"
+                  />
+                  <DropdownLink
+                    title="Meet our team"
+                    icon={<StarIcon />}
+                    href="/team"
+                  />
                 </div>
               </HeaderDropdown>
             </nav>

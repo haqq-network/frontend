@@ -18,7 +18,7 @@ export function MemberModalCard({
   url,
 }: MemberModalCardProps) {
   return (
-    <div className="relative flex max-w-[680px] flex-col items-center rounded-[20px] bg-[#15191EF2] px-[20px] pb-[32px] pt-[48px] text-white lg:px-[40px] lg:py-[48px]">
+    <div className="relative mx-auto flex max-w-[680px] flex-col items-center rounded-[20px] bg-[#15191EF2] px-[20px] pb-[32px] pt-[48px] text-white lg:px-[40px] lg:py-[48px]">
       <ModalCloseButton
         onClick={onClick}
         className="absolute right-[16px] top-[20px] outline-none lg:right-[24px]"

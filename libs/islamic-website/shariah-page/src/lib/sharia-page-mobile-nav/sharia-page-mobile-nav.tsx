@@ -14,7 +14,6 @@ export function ShariPageMobileNav({
   onSectionSelect: (newSection: string) => void;
 }) {
   const [isBlurred, setBlured] = useState(false);
-  console.log('KEEEk');
 
   useEffect(() => {
     const offset = 500;
