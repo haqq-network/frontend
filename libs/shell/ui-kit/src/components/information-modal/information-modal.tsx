@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { Heading } from '../heading/heading';
 import { Modal, ModalCloseButton } from '../modal/modal';
 import { Button } from '../button/button';
@@ -12,7 +12,7 @@ export const InformationModal = ({
   isOpened: boolean;
   setOpenState: (v: boolean) => void;
   title: string;
-  message: string;
+  message: string | ReactNode;
 }) => {
   const handleCaptchaModalClose = useCallback(() => {
     setOpenState(false);

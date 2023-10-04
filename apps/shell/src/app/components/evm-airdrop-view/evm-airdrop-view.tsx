@@ -1,7 +1,8 @@
-import { IParticipant, useAirdropActions } from '@haqq/shared';
+import { IParticipant, ethToHaqq, useAirdropActions } from '@haqq/shared';
 import { Button, InformationModal, formatEthDecimal } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useState } from 'react';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
+import { Address } from '../address/address';
 
 interface IProps {
   address: string;
@@ -171,8 +172,31 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
         <InformationModal
           isOpened={isInformationModalOpened}
           setOpenState={setInformationModalOpened}
-          title="Information"
-          message="Your winning amount will be transferred with vesting, and the first part is available immediately, the rest will be unlocked by schedule"
+          title="Request completed"
+          message={
+            <>
+              <div className="mb-[12px]">
+                You have requested an AirDrop, it will be sent to your address
+                on the HAQQ network:
+              </div>
+
+              <div>
+                hex:
+                <Address
+                  address={address}
+                  className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                />
+              </div>
+
+              <div className="mt-[6px]">
+                bech32:
+                <Address
+                  address={ethToHaqq(address)}
+                  className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                />
+              </div>
+            </>
+          }
         />
       </div>
     </div>
