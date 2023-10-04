@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 jobs:
   Deploy-Preview:
-    runs-on: self-hosted
+    runs-on: frontend
     steps:
       - uses: actions/checkout@v2
       # - name: Install Vercel CLI
