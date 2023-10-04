@@ -1,5 +1,5 @@
 import { IParticipant, useAirdropActions } from '@haqq/shared';
-import { Button, InformationModal } from '@haqq/shell-ui-kit';
+import { Button, InformationModal, formatEthDecimal } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useState } from 'react';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
 
@@ -42,6 +42,7 @@ const YesCheckbox = ({ value }: { value?: boolean }) => {
 
 export const EvmAirdropView = ({ address, signature, message }: IProps) => {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
+  const [isAlreadyRequested, setAlreadyRequested] = useState<boolean>(false);
 
   const [isInformationModalOpened, setInformationModalOpened] =
     useState<boolean>(false);
@@ -62,6 +63,8 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
     loadAirdrop();
   }, [loadAirdrop]);
 
+  const hasAirdrop = (participant?.amount || 0) > 0;
+
   return (
     <div className="flex">
       <div className="flex w-full flex-col items-start gap-[28px]">
@@ -70,7 +73,7 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
             It is possible to get an airdrop
           </div>
           <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            <YesCheckbox value={(participant?.amount || 0) > 0} />
+            <YesCheckbox value={hasAirdrop} />
           </div>
         </div>
 
@@ -126,19 +129,24 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
             Amount airdrop
           </div>
           <div className="mt-[5px] font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            {participant?.amount || 0} aISLM
+            {formatEthDecimal(participant?.amount || 0, 0)} aISLM
           </div>
         </div>
 
         <Button
           className="mt-[23px] pl-[32px] pr-[32px]"
+          disabled={!hasAirdrop}
           onClick={() => {
             NX_AIRDROP_ENDPOINT &&
               participate(NX_AIRDROP_ENDPOINT, message, signature).then((v) => {
                 if (!v.message) {
                   setInformationModalOpened(true);
                 } else {
-                  setErrorModalOpened(true);
+                  if (v.message === 'requested') {
+                    setAlreadyRequested(true);
+                  } else {
+                    setErrorModalOpened(true);
+                  }
                 }
               });
           }}
@@ -151,6 +159,13 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
           setOpenState={setErrorModalOpened}
           title="Request was not completed"
           message="Please retry the request later"
+        />
+
+        <InformationModal
+          isOpened={isAlreadyRequested}
+          setOpenState={setAlreadyRequested}
+          title="Request was already requested"
+          message="Please wait airdrop"
         />
 
         <InformationModal

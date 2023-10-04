@@ -42,14 +42,14 @@ export function AirdropEvm({
 
   useEffect(() => {
     if (ethAddress) {
-      if (signature) {
+      if (signature && !token) {
         setCaptchaModalOpen(true);
       }
       if (signature !== localStore.get(localStKey)) {
         setSignature(localStore.get(localStKey));
       }
     }
-  }, [ethAddress, localStKey, signature]);
+  }, [ethAddress, token, localStKey, signature]);
 
   return (
     <div>
@@ -95,9 +95,11 @@ export function AirdropEvm({
             signature={signature}
           />
         ) : (
-          <Button className="w-full" onClick={onSignHandler}>
-            Sign Message
-          </Button>
+          <div className="m-auto flex flex-1 flex-col">
+            <Button className="w-full" onClick={onSignHandler}>
+              Sign Message
+            </Button>
+          </div>
         )}
 
         <CaptchaModal

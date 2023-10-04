@@ -48,7 +48,7 @@ export function useAirdropActions(): AirdropActionsHook {
   );
 
   const checkAirdrop = useCallback(async (host: string, address: string) => {
-    const result = await axios.get<{ result: IParticipant }>(
+    const result = await axios.get<IParticipant>(
       `${host}/api/participant/${address}`,
       {
         headers: {
@@ -57,25 +57,30 @@ export function useAirdropActions(): AirdropActionsHook {
       },
     );
 
-    return result.data.result;
+    return result.data;
   }, []);
 
   const participate = useCallback(
     async (host: string, message: string, signature: string) => {
-      const result = await axios.post<{ result: IParticipateResult }>(
-        `${host}/api/participate`,
-        {
-          message,
-          signature,
-        },
-        {
-          headers: {
-            'content-type': 'application/json',
+      try {
+        const result = await axios.post<IParticipateResult>(
+          `${host}/api/participate`,
+          {
+            message,
+            signature,
           },
-        },
-      );
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          },
+        );
 
-      return result.data.result;
+        return result.data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (e: any) {
+        return e?.response?.data;
+      }
     },
     [],
   );

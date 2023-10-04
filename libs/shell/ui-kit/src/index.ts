@@ -40,6 +40,7 @@ export * from './components/select-chain-button/select-chain-button';
 export * from './components/checkbox/checkbox';
 export * from './components/testedge-banner/testedge-banner';
 export * from './utils/format-number';
+export * from './utils/format-eth-decimals';
 export * from './components/toasts/toast-loading';
 export * from './components/toasts/toast-success';
 export * from './components/toasts/toast-error';
