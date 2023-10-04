@@ -129,7 +129,7 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
             Amount airdrop
           </div>
           <div className="mt-[5px] font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            {formatEthDecimal(participant?.amount || 0, 0)} aISLM
+            {formatEthDecimal(participant?.amount || 0, 2)} aISLM
           </div>
         </div>
 
