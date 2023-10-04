@@ -27,6 +27,8 @@
 | Vesting app          | https://vesting.haqq.network    | [Open](apps/vesting)         |
 | IslamicCoin app      | https://islamiccoin.net         | [Open](apps/islamic-website) |
 
+test
+
 ## Development guide
 
 <details>
