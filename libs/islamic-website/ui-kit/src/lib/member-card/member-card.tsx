@@ -27,7 +27,7 @@ export function MemberCard({
   return (
     <div
       className={clsx(
-        'flex cursor-pointer select-none flex-col gap-y-[28px] bg-transparent',
+        'flex cursor-pointer select-none flex-col bg-transparent',
         'px-[16px] pb-[24px] pt-[16px] md:px-[18px] md:pb-[32px] md:pt-[20px] lg:px-[28px] lg:pt-[28px]',
         'hover:border-islamic-primary-green rounded-[20px] border border-dashed border-[#585858]',
         'transition-colors duration-300',
@@ -35,7 +35,7 @@ export function MemberCard({
       )}
       onClick={onClick}
     >
-      <div className="relative h-[164px] overflow-hidden rounded-[20px] md:h-[180px]">
+      <div className="relative mx-auto min-h-[164px] min-w-[164px] overflow-hidden rounded-full md:min-h-[180px] md:min-w-[180px]">
         <Image
           src={image}
           alt=""
@@ -43,16 +43,13 @@ export function MemberCard({
           className="pointer-events-none h-full w-full select-none object-cover"
         />
       </div>
-
-      <div className="flex flex-col justify-between gap-[8px] md:gap-[12px]">
-        <div>
-          <span className="text-[13px] leading-[20px] md:text-[14px] lg:text-base">
-            {title}
-          </span>
+      <div className="mt-[30px] flex h-full flex-col justify-between">
+        <div className="text-[13px] leading-[20px] md:text-[14px] lg:text-base">
+          {title}
         </div>
 
         {url && (
-          <div>
+          <div className="mt-[28px]">
             <Link
               href={url}
               target="_blank"
@@ -63,7 +60,7 @@ export function MemberCard({
               className={clsx(
                 'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr uppercase',
                 'inline-flex flex-row items-center gap-x-[4px]',
-                'transition-colors duration-300',
+                'w-fit transition-colors duration-300',
               )}
             >
               <span>{t('web')}</span>

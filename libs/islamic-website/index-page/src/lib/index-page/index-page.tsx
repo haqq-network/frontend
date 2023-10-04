@@ -75,7 +75,7 @@ function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
             alt=""
             fill
             className="pointer-events-none z-[-2]"
-            priority
+            loading="lazy"
           />
         </div>
       </Container>

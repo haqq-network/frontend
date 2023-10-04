@@ -25,7 +25,7 @@ export function MemberModalCard({
       />
 
       <div className="flex w-full flex-col items-start gap-[20px] md:flex-row">
-        <div className="relative h-[148px] w-[164px] flex-none overflow-hidden rounded-[20px] leading-[0px]">
+        <div className="relative h-[164px] w-[164px] flex-none overflow-hidden rounded-full leading-[0px]">
           <Image
             src={image}
             alt={title}

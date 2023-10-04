@@ -48,7 +48,7 @@ export function HeroBlock() {
         </div>
       </div>
       <Modal isOpen={isVideoModalOpen} onClose={closeVideoModal}>
-        <div className="relative mx-auto w-[300px] sm:w-[500px] md:w-[600px] lg:w-[928px]">
+        <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
           <iframe
             title="Islamic Coin Video"
             src={`https://www.youtube.com/embed/${ytVideoId}?rel=0&autoplay=1&showinfo=0`}

@@ -17,14 +17,15 @@
 
 ## Applications and websites
 
-| Description          | Domain                          | Source code             |
-| -------------------- | ------------------------------- | ----------------------- |
-| Homepage             | https://haqq.hetwork            | [Open](apps/website)    |
-| Shell app            | https://shell.haqq.network      | [Open](apps/shell)      |
-| Staking app          | https://staking.haqq.network    | [Open](apps/staking)    |
-| Governance app       | https://governance.haqq.network | [Open](apps/governance) |
-| TestEdge2 Faucet app | https://testedge2.haqq.network  | [Open](apps/faucet)     |
-| Vesting app          | https://vesting.haqq.network    | [Open](apps/vesting)    |
+| Description          | Domain                          | Source code                  |
+| -------------------- | ------------------------------- | ---------------------------- |
+| Homepage             | https://haqq.hetwork            | [Open](apps/website)         |
+| Shell app            | https://shell.haqq.network      | [Open](apps/shell)           |
+| Staking app          | https://staking.haqq.network    | [Open](apps/staking)         |
+| Governance app       | https://governance.haqq.network | [Open](apps/governance)      |
+| TestEdge2 Faucet app | https://testedge2.haqq.network  | [Open](apps/faucet)          |
+| Vesting app          | https://vesting.haqq.network    | [Open](apps/vesting)         |
+| IslamicCoin app      | https://islamiccoin.net         | [Open](apps/islamic-website) |
 
 ## Development guide
 

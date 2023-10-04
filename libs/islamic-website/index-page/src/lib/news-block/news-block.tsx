@@ -25,9 +25,9 @@ export function NewsBlock({ news }: NewsBlockProps) {
                 key={`${el.title}-${idx}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="lg:w-1/3"
+                className="w-fit"
               >
-                <NewsCard post={el} />
+                <NewsCard post={el} className="lg:max-w-1/3" />
               </Link>
             );
           })}

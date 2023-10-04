@@ -1,5 +1,4 @@
 'use client';
-import { MemberCard } from '../member-card/member-card';
 import { MemberModalCard } from '../member-modal-card/member-modal-card';
 import { Modal } from '../modal/modal';
 import { useCallback, useState } from 'react';
@@ -7,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
+import { NewMemberCard } from '../new-member-card/new-member-card';
 
 type Member = {
   image: string;
@@ -73,31 +73,33 @@ export function MembersContainer({
         >
           {members.map((member, idx) => {
             return (
-              <SwiperSlide key={`${member.title}-member-${idx}}`}>
-                <MemberCard
+              <SwiperSlide key={idx}>
+                <NewMemberCard
                   image={member.image}
                   title={member.title}
                   url={member.url}
                   onClick={() => {
-                    return openBoardModal(member);
+                    openBoardModal(member);
                   }}
+                  description={member.description}
                 />
               </SwiperSlide>
             );
           })}
         </Swiper>
       ) : (
-        <div className="mt-[24px] grid grid-cols-2 gap-[32px] md:mt-[28px] lg:mt-[32px] lg:grid-cols-4">
+        <div className="mt-[24px] grid grid-cols-2 gap-[32px] md:mt-[28px] lg:mt-[32px]">
           {members.map((member, idx) => {
             return (
-              <MemberCard
+              <NewMemberCard
                 image={member.image}
                 title={member.title}
                 url={member.url}
                 onClick={() => {
-                  return openBoardModal(member);
+                  openBoardModal(member);
                 }}
-                key={`${member.title}-member-${idx}}`}
+                key={idx}
+                description={member.description}
               />
             );
           })}

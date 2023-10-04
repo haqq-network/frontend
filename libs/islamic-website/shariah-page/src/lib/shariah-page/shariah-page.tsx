@@ -41,7 +41,7 @@ function MembersContainer({
     <div
       className={clsx(
         'flex overflow-x-auto',
-        'gap-[32px] md:grid md:grid-cols-2 xl:grid-cols-3',
+        'gap-[32px] md:grid md:grid-cols-2 2xl:grid-cols-3',
         className,
       )}
     >
