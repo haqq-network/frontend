@@ -127,10 +127,6 @@ const footerNavLinks: FooterNavLinks = [
       title: 'Our values',
     },
     {
-      url: '/partnerships',
-      title: 'Partnerships',
-    },
-    {
       url: '/career',
       title: 'Career',
     },

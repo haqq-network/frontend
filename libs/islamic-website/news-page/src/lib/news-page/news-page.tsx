@@ -7,27 +7,30 @@ import {
 import { useMemo } from 'react';
 import { PostsBlock } from '../posts-block/posts-block';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
+// import axios from 'axios';
 
 export function NewsPage({
   news,
   turnstileSiteKey,
 }: {
-  news: NewsPost[];
+  news?: NewsPost[];
   turnstileSiteKey?: string;
 }) {
   const { featuredPost, postsToRender } = useMemo(() => {
     let featuredPost = undefined;
     const postsToRender = [];
 
-    for (const post of news) {
-      if (!featuredPost) {
-        if (post.isFeatured) {
-          featuredPost = post;
+    if (news) {
+      for (const post of news) {
+        if (!featuredPost) {
+          if (post.isFeatured) {
+            featuredPost = post;
+          } else {
+            postsToRender.push(post);
+          }
         } else {
           postsToRender.push(post);
         }
-      } else {
-        postsToRender.push(post);
       }
     }
 
