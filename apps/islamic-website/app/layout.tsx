@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { Fragment, PropsWithChildren } from 'react';
 import { headers } from 'next/headers';
 import { Footer } from '../components/footer/footer';
-import { MobileHeader } from '../components/header/header';
+import Header, { MobileHeader } from '../components/header/header';
 import { Alexandria } from 'next/font/google';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import { DEPLOY_URL, VERCEL_ENV } from '../constants';
 import { CookieConsentModal } from '../components/cookie-consent-modal/cookie-consetnt-modal';
@@ -39,17 +39,17 @@ const alexandriaFont = Alexandria({
   weight: ['300', '400', '600', '700', '800'],
 });
 
-const DynamicHeader = dynamic(
-  async () => {
-    return await import('../components/header/header');
-  },
-  {
-    ssr: true,
-    loading: () => {
-      return <div className="h-[72px] lg:h-[92px]" />;
-    },
-  },
-);
+// const DynamicHeader = dynamic(
+//   async () => {
+//     return await import('../components/header/header');
+//   },
+//   {
+//     ssr: true,
+//     loading: () => {
+//       return <div className="h-[72px] lg:h-[92px]" />;
+//     },
+//   },
+// );
 
 export default function RootLayout({ children }: PropsWithChildren) {
   const headersList = headers();
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         {isMobileUserAgent ? (
           <MobileHeader isBannerVisible={isScamBannerShow} />
         ) : (
-          <DynamicHeader isBannerVisible={isScamBannerShow} />
+          <Header isBannerVisible={isScamBannerShow} />
         )}
         <div className="flex-1">{children}</div>
         <Footer />

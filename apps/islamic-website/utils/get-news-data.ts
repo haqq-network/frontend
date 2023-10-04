@@ -18,7 +18,7 @@ interface StoryblokNewsPost {
   url: string;
 }
 
-function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
+export function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
   return data.map((post) => {
     return {
       image: post.image,
