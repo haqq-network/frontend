@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
 import { mapStorybookToNews } from '../utils/get-news-data';
-import { mapStoryblokToMembers } from '../utils/get-members-data';
 import { DEPLOY_URL } from '../constants';
 import { islamicOpenGraphImages } from './shared-metadata';
 import { getHomePageContent } from '../utils/get-index-page-data';
@@ -24,19 +23,14 @@ export const metadata: Metadata = {
 export default async function Page() {
   const { news, members, mainnet_accounts } = await getHomePageContent();
   const mappedNews = mapStorybookToNews(news);
-  const mappedAdvisoryMembers = mapStoryblokToMembers(members.advisory_members);
-  const mappedExecutiveMembers = mapStoryblokToMembers(
-    members.executive_members,
-  );
-  const mappedShariahMembers = mapStoryblokToMembers(members.shariah_members);
 
   return (
     <IndexPage
       mainnetAccounts={mainnet_accounts}
       news={mappedNews}
-      advisoryMembers={mappedAdvisoryMembers}
-      executiveMembers={mappedExecutiveMembers}
-      shariahMembers={mappedShariahMembers}
+      advisoryMembers={members.advisory_members}
+      executiveMembers={members.executive_members}
+      shariahMembers={members.shariah_members}
     />
   );
 }
