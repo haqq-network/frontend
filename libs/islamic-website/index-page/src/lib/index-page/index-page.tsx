@@ -23,7 +23,7 @@ export function IndexPage({
   executiveMembers,
   mainnetAccounts,
 }: {
-  news: NewsPost[];
+  news?: NewsPost[];
   advisoryMembers: Member[];
   shariahMembers: Member[];
   executiveMembers: Member[];

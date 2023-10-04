@@ -7,7 +7,7 @@ import {
 import Link from 'next/link';
 
 interface NewsBlockProps {
-  news: NewsPost[];
+  news?: NewsPost[];
 }
 
 export function NewsBlock({ news }: NewsBlockProps) {
@@ -16,19 +16,20 @@ export function NewsBlock({ news }: NewsBlockProps) {
       <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
         <Heading className="text-white">Latest Islamic Coin News</Heading>
         <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
-          {news.map((el, idx) => {
-            return (
-              <Link
-                href={el.url}
-                key={`${el.title}-${idx}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-fit"
-              >
-                <NewsCard post={el} className="lg:max-w-1/3" />
-              </Link>
-            );
-          })}
+          {news &&
+            news.map((el, idx) => {
+              return (
+                <Link
+                  href={el.url}
+                  key={`${el.title}-${idx}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-fit"
+                >
+                  <NewsCard post={el} className="lg:max-w-1/3" />
+                </Link>
+              );
+            })}
         </div>
         <div className="text-islamic-primary-green hover:text-islamic-classic-green mt-[48px] text-center font-mono text-base uppercase transition-colors duration-300">
           <Link href="/news" className="flex items-center gap-x-[8px]">
