@@ -16,7 +16,7 @@ interface StoryblokMember {
   };
 }
 
-function mapStoryblokToMembers(data: StoryblokMember[]): Member[] {
+export function mapStoryblokToMembers(data: StoryblokMember[]): Member[] {
   return data.map((member) => {
     return {
       image: member.image.filename,

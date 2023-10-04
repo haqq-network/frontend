@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
-import { getNewsPageContent } from '../utils/get-news-data';
-import { getMembersContent } from '../utils/get-members-data';
-// import { getMainnetAccounts } from '../utils/get-mainnet-accounts-data';
+import { mapStorybookToNews } from '../utils/get-news-data';
 import { DEPLOY_URL } from '../constants';
 import { islamicOpenGraphImages } from './shared-metadata';
+import { getHomePageContent } from '../utils/get-index-page-data';
 
 const title = 'IslamicCoin';
 const description =
@@ -22,18 +21,16 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const news = await getNewsPageContent(3);
-  const { advisoryMembers, executiveMembers, shariahMembers } =
-    await getMembersContent();
-  // const mainnetAccounts = await getMainnetAccounts(3476);
+  const { news, members, mainnet_accounts } = await getHomePageContent();
+  const mappedNews = mapStorybookToNews(news);
 
   return (
     <IndexPage
-      mainnetAccounts={2504894}
-      news={news}
-      advisoryMembers={advisoryMembers}
-      executiveMembers={executiveMembers}
-      shariahMembers={shariahMembers}
+      mainnetAccounts={mainnet_accounts}
+      news={mappedNews}
+      advisoryMembers={members.advisory_members}
+      executiveMembers={members.executive_members}
+      shariahMembers={members.shariah_members}
     />
   );
 }

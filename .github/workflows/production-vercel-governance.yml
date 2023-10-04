@@ -1,4 +1,4 @@
-name: Governance Preview Deployment
+name: Governance Production Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_GOVERNANCE_PROJECT_ID }}
