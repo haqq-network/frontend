@@ -41,10 +41,15 @@ export function AirdropEvm({
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
 
   useEffect(() => {
-    ethAddress && setCaptchaModalOpen(true);
-
-    ethAddress && setSignature(localStore.get(localStKey));
-  }, [ethAddress, localStKey]);
+    if (ethAddress) {
+      if (signature) {
+        setCaptchaModalOpen(true);
+      }
+      if (signature !== localStore.get(localStKey)) {
+        setSignature(localStore.get(localStKey));
+      }
+    }
+  }, [ethAddress, localStKey, signature]);
 
   return (
     <div>

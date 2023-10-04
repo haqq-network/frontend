@@ -40,7 +40,6 @@ const YesCheckbox = ({ value }: { value?: boolean }) => {
   );
 };
 
-console.log('NX_AIRDROP_ENDPOINT', NX_AIRDROP_ENDPOINT);
 export const EvmAirdropView = ({ address, signature, message }: IProps) => {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
 
