@@ -19,10 +19,10 @@ export function ContactUsPage() {
                     <p>
                       For questions related to anti-scam, please write to us at{' '}
                       <Link
-                        href="mailto:scamalert@islmamicoin.net"
+                        href="mailto:scamalert@islamiccoin.net"
                         className="text-islamic-primary-green hover:text-islamic-primary-green-hover cursor-pointer transition-colors duration-300"
                       >
-                        scamalert@islmamicoin.net
+                        scamalert@islamiccoin.net
                       </Link>
                     </p>
                   </div>
@@ -31,10 +31,10 @@ export function ContactUsPage() {
                       For other legal and privacy questions, please write to us
                       at{' '}
                       <Link
-                        href="mailto:complience@islmamicoin.net"
+                        href="mailto:compliance@islamiccoin.net"
                         className="text-islamic-primary-green hover:text-islamic-primary-green-hover cursor-pointer transition-colors duration-300"
                       >
-                        complience@islmamicoin.net
+                        compliance@islamiccoin.net
                       </Link>
                     </p>
                   </div>
