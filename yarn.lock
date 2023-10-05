@@ -3066,6 +3066,7 @@ __metadata:
     "@types/react-router-dom": 5.3.3
     "@typescript-eslint/eslint-plugin": 6.7.0
     "@typescript-eslint/parser": 6.7.0
+    "@vercel/analytics": 1.0.2
     "@vercel/edge": 1.0.2
     "@wagmi/chains": 1.4.0
     "@wagmi/connectors": 2.6.5
@@ -8651,6 +8652,13 @@ __metadata:
     "@typescript-eslint/types": 6.7.3
     eslint-visitor-keys: ^3.4.1
   checksum: cef64173a919107f420703e204d97d0afef0d9bd7a67570df5bdb39ac9464211c5a7b3af735d8f41e8004b443ab83e88b1d6fb951886aed4d3fe9d4778667199
+  languageName: node
+  linkType: hard
+
+"@vercel/analytics@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@vercel/analytics@npm:1.0.2"
+  checksum: 5f596db6ed3c959057927985ffc6394ab12f9a5e9e9c65d00a33f1ffb3a7ced95d63f33b31e746939e50c0284d7999b90e9ed5d3d1e8b0d37a135219fd93a6e4
   languageName: node
   linkType: hard
 
