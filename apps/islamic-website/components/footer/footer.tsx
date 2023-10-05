@@ -106,10 +106,6 @@ const footerNavLinks: FooterNavLinks = [
       title: 'values',
     },
     {
-      url: '/partnerships',
-      title: 'partnerships',
-    },
-    {
       url: '/career',
       title: 'career',
     },

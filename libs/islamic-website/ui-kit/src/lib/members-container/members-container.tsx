@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
-import { NewMemberCard } from '../new-member-card/new-member-card';
+import { MemberCard } from '../member-card/member-card';
 
 type Member = {
   image: string;
@@ -74,24 +74,23 @@ export function MembersContainer({
           {members.map((member, idx) => {
             return (
               <SwiperSlide key={idx}>
-                <NewMemberCard
+                <MemberCard
                   image={member.image}
                   title={member.title}
                   url={member.url}
                   onClick={() => {
                     openBoardModal(member);
                   }}
-                  description={member.description}
                 />
               </SwiperSlide>
             );
           })}
         </Swiper>
       ) : (
-        <div className="mt-[24px] grid grid-cols-2 gap-[32px] md:mt-[28px] lg:mt-[32px]">
+        <div className="mt-[24px] grid grid-cols-2 gap-[32px] md:mt-[28px] lg:mt-[32px] lg:grid-cols-4">
           {members.map((member, idx) => {
             return (
-              <NewMemberCard
+              <MemberCard
                 image={member.image}
                 title={member.title}
                 url={member.url}
@@ -99,7 +98,6 @@ export function MembersContainer({
                   openBoardModal(member);
                 }}
                 key={idx}
-                description={member.description}
               />
             );
           })}

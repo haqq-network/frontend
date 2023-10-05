@@ -27,7 +27,7 @@ export function MemberCard({
   return (
     <div
       className={clsx(
-        'flex cursor-pointer select-none flex-col bg-transparent',
+        'flex cursor-pointer select-none flex-col gap-y-[30px] bg-transparent',
         'px-[16px] pb-[24px] pt-[16px] md:px-[18px] md:pb-[32px] md:pt-[20px] lg:px-[28px] lg:pt-[28px]',
         'hover:border-islamic-primary-green rounded-[20px] border border-dashed border-[#585858]',
         'transition-colors duration-300',
@@ -35,16 +35,17 @@ export function MemberCard({
       )}
       onClick={onClick}
     >
-      <div className="relative mx-auto min-h-[164px] min-w-[164px] overflow-hidden rounded-full md:min-h-[180px] md:min-w-[180px]">
+      <div className="relative mx-auto">
         <Image
           src={image}
           alt=""
-          fill
-          className="pointer-events-none h-full w-full select-none object-cover"
+          width={280}
+          height={280}
+          className="pointer-events-none left-0 top-0 select-none rounded-[20px]"
         />
       </div>
-      <div className="mt-[30px] flex h-full flex-col justify-between">
-        <div className="text-[13px] leading-[20px] md:text-[14px] lg:text-base">
+      <div className="flex flex-col justify-between">
+        <div className="min-h-[48px] text-start text-[13px] leading-[20px] md:text-[14px] lg:min-h-[72px] lg:text-base">
           {title}
         </div>
 

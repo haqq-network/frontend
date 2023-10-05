@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 
+type NewsType = 'press' | 'events';
+
 export interface NewsPost {
   image: {
     src: string;
@@ -11,7 +13,7 @@ export interface NewsPost {
   description: string;
   date: Date;
   source: string;
-  type: 'press' | 'events';
+  type: NewsType;
   isFeatured?: boolean;
   url: string;
 }
