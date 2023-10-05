@@ -54,6 +54,13 @@ const team = [
     role: 'Head of Development Division',
   },
   {
+    // image: '',
+    title: 'Igor Moskalyov',
+    description:
+      "Igor has a wide background in banking. He's a former auditor of a financial regulator with expertise in all aspects of the work of a commercial bank. Throughout his career, Igor has held leadership positions such as Head of AML, Head of Retail, Board member, and CEO for several commercial banks.",
+    role: 'Chief Operations Officer',
+  },
+  {
     image: '/assets/images/team/sergei-vorobev.png',
     title: 'Sergei Vorobev',
     description:
@@ -88,12 +95,13 @@ const team = [
       'Zain is a distinguished C-Level Executive with a rich background in growth marketing and global team leadership, spanning several startups from Europe to the Middle East. His versatile roles have included Director of Marketing at Muzmatch (YCombinator), Head of Brand and Communication at Biconomy, and CMO at Advanced Blockchain AG, where he significantly elevated brand profiles and spearheaded impactful growth initiatives. Currently, Zain is intensely focused on leveraging his strategic insight to elevate HAQQ and Islamic Coin, formulating comprehensive global outreach strategies to serve communities universally. His collaborations with eminent organizations like the United Nations have imbued him with a deep understanding of global challenges and the transformative potential of technology. Zain’s insights into the Muslim community and his roles in various philanthropic entities underscore his commitment to excellence and transformative change. Holding a degree in Development Economics and Middle Eastern Studies from SOAS, he’s also pursuing an MPHIL at Cambridge University, delving into the role of digital media in transnational Muslim identities. His relentless pursuit of excellence is recognized through prestigious awards, including the Muslim News Awards for Excellence.',
     role: 'Chief Marketing Officer',
   },
-  // {
-  //   image: '/assets/images/team/shamrose-hamayun.png',
-  //   title: 'Shamrose Hamayun',
-  //   description: '',
-  //   role: 'Digital Marketing Manager',
-  // },
+  {
+    image: '/assets/images/team/shamrose-hamayun.png',
+    title: 'Shamrose Hamayun',
+    description:
+      "Sham Hamayun is a seasoned expert in the realms of business transformation and global partnerships, boasting a career spanning over two decades that has solidified his reputation as a visionary leader in the field. His unique blend of strategic acumen and innovative thinking has consistently delivered remarkable results for both Fortune 500 giants, such as Walgreens Boots Alliance, and agile startups. He is able to identify emerging market trends and leverage cross-border synergies to drive growth and innovation. His strategic insights have guided organizations through complex transitions, making him an invaluable asset in today's rapidly evolving business landscape. Sham Hamayun is a corporate strategist with extensive experience in shaping business frameworks, policies and procedures. He excels in crafting innovative corporate strategies that drive growth, adapt to changing market dynamics and technological advancements.",
+    role: 'Digital Marketing Manager',
+  },
   {
     image: '/assets/images/team/bestun-ibrahim.png',
     title: 'Bestun Ibrahim',
