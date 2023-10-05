@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ModalCloseButton } from '../modal/modal';
 import Link from 'next/link';
+import { Text } from '../text/text';
 
 interface MemberModalCardProps {
   title: string;
@@ -8,6 +9,7 @@ interface MemberModalCardProps {
   image: string;
   onClick: () => void;
   url?: string;
+  role?: string;
 }
 
 export function MemberModalCard({
@@ -16,6 +18,7 @@ export function MemberModalCard({
   image,
   title,
   url,
+  role,
 }: MemberModalCardProps) {
   return (
     <div className="relative mx-auto flex max-w-[680px] flex-col items-center rounded-[20px] bg-[#15191EF2] px-[20px] pb-[32px] pt-[48px] text-white lg:px-[40px] lg:py-[48px]">
@@ -35,6 +38,9 @@ export function MemberModalCard({
         </div>
         <div className="flex flex-col lg:mt-[24px]">
           <div className="text-[24px] font-[600] leading-[34px]">{title}</div>
+          <div className="mt-[4px]">
+            <Text isMono>{role}</Text>
+          </div>
           {url && (
             <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover mt-[8px] flex items-center gap-x-[4px] font-mono uppercase transition-colors duration-300 md:mt-[12px]">
               <Link href={url} target="_blank" rel="noopener noreferrer">

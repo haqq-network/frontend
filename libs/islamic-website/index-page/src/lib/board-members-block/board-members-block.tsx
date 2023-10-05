@@ -110,6 +110,7 @@ export function BoardMembersBlock({
               image={memberModalData.image}
               title={memberModalData.title}
               onClick={closeBoardModal}
+              role={memberModalData.role}
             />
           )}
         </Modal>
