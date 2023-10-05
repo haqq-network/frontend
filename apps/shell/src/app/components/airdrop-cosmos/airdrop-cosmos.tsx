@@ -11,6 +11,8 @@ declare global {
   interface Window extends KeplrWindow {}
 }
 
+// const MSG = 'hello';
+
 export function signatureToPubkey(signature: string, msgHash: Buffer) {
   const ret = fromRpcSig(signature);
   return ecrecover(msgHash, ret.v, ret.r, ret.s);
@@ -18,7 +20,7 @@ export function signatureToPubkey(signature: string, msgHash: Buffer) {
 
 export function AirdropCosmos() {
   const [accounts, setAccounts] = useState<Record<string, string>>({});
-  // const [_, setSignature] = useState<string>('');
+  //const [, setSignature] = useState<string>('');
 
   const getKeplrWallet = useCallback(async (): Promise<Keplr | undefined> => {
     if (window.keplr) {
@@ -84,24 +86,31 @@ export function AirdropCosmos() {
 
       const chainId = 'osmosis-1'; 
 
-      const { bech32Address } = await keplrWallet.getKey(
+
+
+      const { bech32Address,pubKey } = await keplrWallet.getKey(
         chainId,
       );
 
-      const MSG = 'hello';
       const signatureArb = await keplrWallet?.signArbitrary(
         chainId,
         bech32Address,
         MSG,
       );
 
-      console.log({ bech32Address })
+      console.log({ bech32Address, pubKey: Buffer.from(pubKey).toString('base64') })
       console.log({ message: MSG })
       console.log({ signatureArb: btoa(JSON.stringify(signatureArb)) });
 
+      console.log({
+        accounts,
+        signature: signatureArb.signature,
+        message: MSG
+      })
+
       setSignature(signatureArb.signature);
     }
-  }, [getKeplrWallet]);
+  }, [getKeplrWallet, accounts, ]);
 */
   const connectedAccounts = Object.keys(accounts).length > 0;
 
