@@ -3,14 +3,14 @@ import { Fragment, PropsWithChildren } from 'react';
 import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
 import { notFound } from 'next/navigation';
 import { headers } from 'next/headers';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consetnt-modal';
 import { NextIntlClientProvider } from 'next-intl';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
 import Script from 'next/script';
-import { MobileHeader } from '../../components/header/header';
+import Header, { MobileHeader } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SOCIAL_LINKS } from '../../social-links';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
@@ -43,17 +43,17 @@ async function getMessages(locale: string) {
   }
 }
 
-const DynamicHeader = dynamic(
-  async () => {
-    return await import('../../components/header/header');
-  },
-  {
-    ssr: true,
-    loading: () => {
-      return <div className="h-[72px] lg:h-[92px]" />;
-    },
-  },
-);
+// const DynamicHeader = dynamic(
+//   async () => {
+//     return await import('../../components/header/header');
+//   },
+//   {
+//     ssr: true,
+//     loading: () => {
+//       return <div className="h-[72px] lg:h-[92px]" />;
+//     },
+//   },
+// );
 
 export default async function LocaleLayout({
   children,
@@ -87,7 +87,7 @@ export default async function LocaleLayout({
           {isMobileUserAgent ? (
             <MobileHeader isBannerVisible={isScamBannerShow} />
           ) : (
-            <DynamicHeader isBannerVisible={isScamBannerShow} />
+            <Header isBannerVisible={isScamBannerShow} />
           )}
           <div className="flex-1">{children}</div>
           <Footer socialLinks={SOCIAL_LINKS} />
