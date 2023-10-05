@@ -53,13 +53,13 @@ const team = [
       'A programming languages polyglot with vast experience in backend, web, and mobile development, focusing on speed, security, and UX. At HAQQ he leads the product development process while overseeing his own HAQQ node as well as partner integrations. Assisted the Telegram team with R&D solutions for video streaming on mobile devices under high loads. Previously excelled at: Rocketbank — Led backend development for a neobank. Actor — Developed an iOS app for an open-source messaging platform founded by ex-Telegram developers',
     role: 'Head of Development Division',
   },
-  // {
-  //   image: '',
-  //   title: 'Igor Moskalyov',
-  //   description:
-  //     "Igor has a wide background in banking. He's a former auditor of a financial regulator with expertise in all aspects of the work of a commercial bank. Throughout his career, Igor has held leadership positions such as Head of AML, Head of Retail, Board member, and CEO for several commercial banks.",
-  //   role: 'Chief Operations Officer',
-  // },
+  {
+    image: '/assets/images/team/igor-moskalyov.png',
+    title: 'Igor Moskalyov',
+    description:
+      "Igor has a wide background in banking. He's a former auditor of a financial regulator with expertise in all aspects of the work of a commercial bank. Throughout his career, Igor has held leadership positions such as Head of AML, Head of Retail, Board member, and CEO for several commercial banks.",
+    role: 'Chief Operations Officer',
+  },
   {
     image: '/assets/images/team/sergei-vorobev.png',
     title: 'Sergei Vorobev',
