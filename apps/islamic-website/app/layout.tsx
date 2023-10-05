@@ -95,7 +95,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             }}
           />
           <CookieConsentModal />
-          <Analytics />
+          <Analytics mode="auto" />
         </Fragment>
       )}
     </html>
