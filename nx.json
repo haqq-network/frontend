@@ -3,7 +3,7 @@
   "affected": {
     "defaultBase": "dev"
   },
-  "packageManager": "bun",
+  "packageManager": "yarn",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
