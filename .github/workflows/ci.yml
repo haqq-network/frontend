@@ -18,16 +18,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          bun-version: latest
-      - name: Install dependencies
-        run: bun install
+          node-version: 18.16.0
+          cache: yarn
+      - name: Setup dependencies
+        run: yarn install --immutable
       - name: Run lint
-        run: bun nx run-many --target=lint --parallel=3
+        run: yarn nx run-many --target=lint --parallel=3
       - name: Run tests
-        run: bun nx run-many --target=test --parallel=3 --ci --code-coverage --skip-cache
+        run: yarn nx run-many --target=test --parallel=3 --ci --code-coverage --skip-cache
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
@@ -45,11 +46,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          bun-version: latest
+          node-version: 18.16.0
+          cache: yarn
       - name: Setup dependencies
-        run: bun install
+        run: yarn install --immutable
       - name: Build
-        run: bun nx run-many --target=build --parallel=3
+        run: yarn nx run-many --target=build --parallel=3
