@@ -26,8 +26,6 @@ export function MemberCard({
   className?: string;
   role?: string;
 }) {
-  console.log(title.length);
-
   return (
     <div
       className={clsx(

@@ -10,7 +10,7 @@ function TeamPageBg() {
   );
 }
 
-const Founders = [
+const founders = [
   {
     image: '/assets/images/founders/andrey-kuznetsov.png',
     title: 'Andrey Kuznetsov',
@@ -45,7 +45,7 @@ const Founders = [
   },
 ];
 
-const Team = [
+const team = [
   {
     image: '/assets/images/team/evgenii-abramov.png',
     title: 'Evgenii Abramov',
@@ -120,12 +120,12 @@ export function TeamPage() {
           </h1>
 
           <MembersContainer
-            members={Founders}
+            members={founders}
             className="mt-[32px] lg:mt-[100px]"
           />
 
           <MembersContainer
-            members={Team}
+            members={team}
             className="mt-[32px] lg:mt-[100px]"
           />
 
