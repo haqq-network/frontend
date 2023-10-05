@@ -19,13 +19,13 @@
 
 | Description          | Domain                          | Source code                  |
 | -------------------- | ------------------------------- | ---------------------------- |
-| Homepage             | https://haqq.hetwork            | [Open](apps/website)         |
 | Shell app            | https://shell.haqq.network      | [Open](apps/shell)           |
 | Staking app          | https://staking.haqq.network    | [Open](apps/staking)         |
 | Governance app       | https://governance.haqq.network | [Open](apps/governance)      |
 | TestEdge2 Faucet app | https://testedge2.haqq.network  | [Open](apps/faucet)          |
 | Vesting app          | https://vesting.haqq.network    | [Open](apps/vesting)         |
-| IslamicCoin app      | https://islamiccoin.net         | [Open](apps/islamic-website) |
+| HAQQ Website         | https://haqq.hetwork            | [Open](apps/haqq-website)    |
+| IslamicCoin Website  | https://islamiccoin.net         | [Open](apps/islamic-website) |
 
 test
 
