@@ -39,8 +39,7 @@ export function MemberCard({
           alt=""
           width={280}
           height={280}
-          objectFit="cover"
-          className="pointer-events-none left-0 top-0 select-none rounded-[20px] object-cover"
+          className="pointer-events-none left-0 top-0 select-none rounded-[20px]"
         />
       </div>
       <div className="flex flex-col justify-between">
@@ -63,7 +62,7 @@ export function MemberCard({
                 'w-fit transition-colors duration-300',
               )}
             >
-              Web
+              <span>Web</span>
               <svg
                 width="16"
                 height="16"
