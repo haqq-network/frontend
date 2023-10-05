@@ -114,12 +114,14 @@ export function StatisticsBlockStatCard({
   startAnimation,
   prefix,
   postfix,
+  decimalPlaces,
 }: {
   title: string;
   value: number;
   startAnimation: boolean;
   prefix?: string;
   postfix?: string;
+  decimalPlaces?: number;
 }) {
   return (
     <div className="flex flex-col gap-y-[4px]">
@@ -139,6 +141,7 @@ export function StatisticsBlockStatCard({
               { mass: 2, tension: 140, friction: 40 },
               { mass: 3, tension: 130, friction: 40 },
             ]}
+            decimalPlaces={decimalPlaces}
           />
         ) : (
           <span>0</span>
@@ -163,7 +166,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
       mainnetAccountsCreated: mainnetAccounts,
       transactionsInLast24Hours: 210000,
       secondsToConsensusFinality: 5.6,
-      averageCostPerTransaction: 147,
+      averageCostPerTransaction: 0.0005,
     };
   }, [mainnetAccounts]);
 
@@ -263,7 +266,9 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
             value={stats.averageCostPerTransaction}
             title="Average cost per transaction"
             startAnimation={startAnimation}
-            postfix="aISLM"
+            prefix="~"
+            postfix="ISLM"
+            decimalPlaces={4}
           />
         </div>
       </div>

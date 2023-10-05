@@ -2,7 +2,7 @@ import { Text } from '../text/text';
 
 interface RatingBadgeProps {
   market: 'app-store' | 'google-play';
-  rating: 4.5 | 5;
+  rating: number;
 }
 
 function HalfGoldenStar() {
@@ -37,7 +37,7 @@ function HalfGoldenStar() {
           <rect width="16" height="16" fill="white" />
         </clipPath>
         <clipPath id="clip1_139_14250">
-          <rect width="8" height="16" fill="white" />
+          <rect width="13" height="16" fill="white" />
         </clipPath>
       </defs>
     </svg>
@@ -76,12 +76,10 @@ export function RatingBadge({ market, rating }: RatingBadgeProps) {
           <GoldenStar />
           <GoldenStar />
           <GoldenStar />
-          {rating === 5 && <GoldenStar />}
-          {rating === 4.5 && <HalfGoldenStar />}
+          <HalfGoldenStar />
         </div>
         <Text className="text-[#FCC310]" isMono>
-          {rating === 5 && '5.0'}
-          {rating === 4.5 && '4.5'}
+          {rating}
         </Text>
       </div>
     </div>

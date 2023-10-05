@@ -21,16 +21,20 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const { news, members, mainnet_accounts } = await getHomePageContent();
+  const {
+    news,
+    members: { advisory_members, executive_members, shariah_members },
+    mainnet_accounts,
+  } = await getHomePageContent();
   const mappedNews = mapStorybookToNews(news);
 
   return (
     <IndexPage
       mainnetAccounts={mainnet_accounts}
       news={mappedNews}
-      advisoryMembers={members.advisory_members}
-      executiveMembers={members.executive_members}
-      shariahMembers={members.shariah_members}
+      advisoryMembers={advisory_members}
+      executiveMembers={executive_members}
+      shariahMembers={shariah_members}
     />
   );
 }

@@ -91,7 +91,7 @@ export function Modal({
 }>) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
+      <Dialog as="div" className="relative z-[9999]" onClose={onClose}>
         <ModalOverlay onClose={onClose} />
 
         <div className="pointer-events-none fixed inset-0 overflow-y-auto">
