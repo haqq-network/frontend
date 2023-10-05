@@ -466,11 +466,6 @@ export function DesktopHeader({
                     isActive={locale === 'ar'}
                     locale="ar"
                   />
-                  <LanguageLink
-                    href={pathname}
-                    isActive={locale === 'id'}
-                    locale="id"
-                  />
                 </div>
               </HeaderDropdown>
             </nav>
