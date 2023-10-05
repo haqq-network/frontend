@@ -1,10 +1,12 @@
 import { FALCONER_ENDPOINT } from '../constants';
-import { cache } from 'react';
 
-export const getHomePageContent = cache(async () => {
+export const getHomePageContent = async () => {
   try {
     const response = await fetch(`${FALCONER_ENDPOINT}/islamic/home`, {
       method: 'GET',
+      next: {
+        revalidate: 180,
+      },
     });
     if (response.ok) {
       const data = await response.json();
@@ -13,4 +15,4 @@ export const getHomePageContent = cache(async () => {
   } catch (error) {
     console.error(error);
   }
-});
+};
