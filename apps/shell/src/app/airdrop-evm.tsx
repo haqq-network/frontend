@@ -5,7 +5,7 @@ import {
   VERCEL_ENV,
   TURNSTILE_SITEKEY,
 } from './constants';
-import { SelectWalletModalWrapper } from '@haqq/shell-ui-kit';
+import { SelectWalletModalWrapper } from './components/select-wallet-modal-wrapper/select-wallet-modal-wrapper';
 
 const walletConnectProjectId = NX_WALLETCONNECT_PROJECT_ID;
 const isProduction = VERCEL_ENV === 'production';
