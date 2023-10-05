@@ -4,30 +4,29 @@
   "license": "MIT",
   "private": true,
   "author": "Oleg Shilov <og@haqq.network>",
-  "packageManager": "bun@1.0.3",
+  "packageManager": "bun@1.0.4",
   "engines": {
-    "node": ">=18.16",
-    "yarn": ">=3.6"
+    "bun": ">=1.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haqq-network/frontend.git"
   },
   "scripts": {
-    "start": "yarn start:shell",
-    "start:shell": "yarn nx serve shell",
-    "start:shell:all": "yarn nx serve shell --devRemotes=staking,governance",
-    "start:staking": "yarn nx serve staking",
-    "start:governance": "yarn nx serve governance",
-    "start:vesting": "yarn nx serve vesting",
-    "start:faucet": "yarn nx serve faucet",
-    "start:haqq-website": "yarn nx serve haqq-website",
-    "start:islamic-website": "yarn nx serve islamic-website",
-    "format": "yarn prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
+    "start": "bun start:shell",
+    "start:shell": "bun nx serve shell",
+    "start:shell:all": "bun nx serve shell --devRemotes=staking,governance",
+    "start:staking": "bun nx serve staking",
+    "start:governance": "bun nx serve governance",
+    "start:vesting": "bun nx serve vesting",
+    "start:faucet": "bun nx serve faucet",
+    "start:haqq-website": "bun nx serve haqq-website",
+    "start:islamic-website": "bun nx serve islamic-website",
+    "format": "bun prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
     "prepare": "is-ci || husky install",
-    "check-ignore-build": "yarn node ./tools/scripts/ignore-build.mjs",
-    "patch:viem": "yarn node ./tools/scripts/viem-module-federation-patch.mjs",
-    "postinstall": "yarn prepare && yarn patch:viem"
+    "check-ignore-build": "bun node ./tools/scripts/ignore-build.mjs",
+    "patch:viem": "bun ./tools/scripts/viem-module-federation-patch.mjs",
+    "postinstall": "bun prepare && bun patch:viem"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.2.1",
