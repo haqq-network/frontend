@@ -29,7 +29,7 @@ export function NewMemberCard({
       onClick={onClick}
     >
       <div className="flex flex-row items-center gap-x-[20px]">
-        <div className="relative h-[90px] w-[90px] overflow-hidden rounded-full sm:h-[140px] sm:w-[140px] md:h-[160px] md:w-[160px]">
+        <div className="relative h-[90px] w-[90px] overflow-hidden rounded-[20px] sm:h-[140px] sm:w-[140px] md:h-[160px] md:w-[160px]">
           <Image
             src={image}
             alt={title}
