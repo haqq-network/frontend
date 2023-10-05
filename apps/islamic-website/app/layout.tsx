@@ -4,13 +4,13 @@ import { headers } from 'next/headers';
 import { Footer } from '../components/footer/footer';
 import Header, { MobileHeader } from '../components/header/header';
 import { Alexandria } from 'next/font/google';
-// import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import { DEPLOY_URL, VERCEL_ENV } from '../constants';
-import { CookieConsentModal } from '../components/cookie-consent-modal/cookie-consetnt-modal';
+import { CookieConsentModal } from '../components/cookie-consent-modal/cookie-consent-modal';
 import Link from 'next/link';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -39,18 +39,6 @@ const alexandriaFont = Alexandria({
   weight: ['300', '400', '600', '700', '800'],
 });
 
-// const DynamicHeader = dynamic(
-//   async () => {
-//     return await import('../components/header/header');
-//   },
-//   {
-//     ssr: true,
-//     loading: () => {
-//       return <div className="h-[72px] lg:h-[92px]" />;
-//     },
-//   },
-// );
-
 export default function RootLayout({ children }: PropsWithChildren) {
   const headersList = headers();
   const userAgent = headersList.get('user-agent');
@@ -63,7 +51,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang="en" className={clsx('ltr', alexandriaFont.variable)}>
-      {VERCEL_ENV !== 'development' && <CookieConsentModal />}
       <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
         {isScamBannerShow && <ScamBanner />}
         {isMobileUserAgent ? (
@@ -107,6 +94,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 `,
             }}
           />
+          <CookieConsentModal />
+          <Analytics />
         </Fragment>
       )}
     </html>
