@@ -1,56 +1,43 @@
-import { Button, Container } from '@haqq/shell-ui-kit';
-import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types';
-import { useCallback, useEffect, useState } from 'react';
+import { Button } from '@haqq/shell-ui-kit';
+import { Window as KeplrWindow } from '@keplr-wallet/types';
+import { useCallback, useState } from 'react';
 import { ecrecover, fromRpcSig } from '@ethereumjs/util';
 import { CosmosAirdropView } from './../cosmos-airdrop-view/cosmos-airdrop-view';
-import { haqqToEth } from '@haqq/shared';
-import { Address } from './../address/address';
+import { haqqToEth, useWallet } from '@haqq/shared';
+import { getKeplrWallet } from '../cosmos-airdrop-card/cosmos-airdrop-card';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Window extends KeplrWindow {}
 }
 
-// const MSG = 'hello';
-
 export function signatureToPubkey(signature: string, msgHash: Buffer) {
   const ret = fromRpcSig(signature);
   return ecrecover(msgHash, ret.v, ret.r, ret.s);
 }
 
-export function AirdropCosmos() {
+export function AirdropCosmos({
+  hasMetamaskConnected,
+  setEthAddressFromKeppler,
+  ethAddressFromKeppler,
+}: {
+  ethAddressFromKeppler: string;
+  hasMetamaskConnected: boolean;
+  setEthAddressFromKeppler: (haqqAddress: string) => void;
+}) {
   const [accounts, setAccounts] = useState<Record<string, string>>({});
-  //const [, setSignature] = useState<string>('');
 
-  const getKeplrWallet = useCallback(async (): Promise<Keplr | undefined> => {
-    if (window.keplr) {
-      return window.keplr;
-    }
+  const { disconnect } = useWallet();
 
-    if (document.readyState === 'complete') {
-      return window.keplr;
-    }
-
-    return new Promise((resolve) => {
-      const documentStateChange = (event: Event) => {
-        if (
-          event.target &&
-          (event.target as Document).readyState === 'complete'
-        ) {
-          resolve(window.keplr);
-          console.log('getKeplrWallet', {
-            version: window?.keplr?.version,
-          });
-          document.removeEventListener('readystatechange', documentStateChange);
-        }
-      };
-
-      document.addEventListener('readystatechange', documentStateChange);
-    });
-  }, []);
+  const notConnectedKeppler =
+    Object.keys(accounts).length === 0 || hasMetamaskConnected;
 
   const connectKeplrWallet = useCallback(async () => {
     const keplrWallet = await getKeplrWallet();
+
+    if (hasMetamaskConnected) {
+      disconnect();
+    }
 
     if (keplrWallet) {
       await keplrWallet.enable([
@@ -67,6 +54,8 @@ export function AirdropCosmos() {
         await keplrWallet.getKey('evmos_9001-2'),
       ]);
 
+      setEthAddressFromKeppler(haqqToEth(haqq.bech32Address));
+
       setAccounts({
         haqq: haqq.bech32Address,
         cosmos: cosmos.bech32Address,
@@ -74,89 +63,41 @@ export function AirdropCosmos() {
         evmos: evmos.bech32Address,
       });
     }
-  }, [getKeplrWallet]);
-
-  useEffect(() => {
-    connectKeplrWallet();
-  }, [connectKeplrWallet]);
-  /*
-  const keplrSignArbitrary = useCallback(async () => {
-    const keplrWallet = await getKeplrWallet();
-    if (keplrWallet) {
-
-      const chainId = 'osmosis-1'; 
-
-
-
-      const { bech32Address,pubKey } = await keplrWallet.getKey(
-        chainId,
-      );
-
-      const signatureArb = await keplrWallet?.signArbitrary(
-        chainId,
-        bech32Address,
-        MSG,
-      );
-
-      console.log({ bech32Address, pubKey: Buffer.from(pubKey).toString('base64') })
-      console.log({ message: MSG })
-      console.log({ signatureArb: btoa(JSON.stringify(signatureArb)) });
-
-      console.log({
-        accounts,
-        signature: signatureArb.signature,
-        message: MSG
-      })
-
-      setSignature(signatureArb.signature);
-    }
-  }, [getKeplrWallet, accounts, ]);
-*/
-  const connectedAccounts = Object.keys(accounts).length > 0;
+  }, [disconnect, setEthAddressFromKeppler, hasMetamaskConnected]);
 
   return (
     <div>
-      <div className="py-[32px] lg:py-[68px]">
-        <Container>
-          <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-            AIRDROP
-          </div>
-
-          {connectedAccounts && accounts['haqq'] && (
-            <div className="mt-[8px] flex flex-col gap-[28px] sm:flex-col md:flex-row lg:flex-row">
-              <div>
-                <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                  Your haqq address hex
-                </div>
-
-                <Address address={haqqToEth(accounts['haqq'])} />
-              </div>
-              <div>
-                <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                  Your haqq address bech32
-                </div>
-                <Address address={accounts['haqq']} />
-              </div>
-            </div>
-          )}
-        </Container>
+      <div className="mb-[20px] text-[32px] font-[500]">
+        Cosmos ecosystem drop{' '}
       </div>
 
-      <div className="flex flex-1 flex-col items-center space-y-[12px] border-t border-[#ffffff26]">
-        <div className="flex flex-1 flex-col py-20">
-          {connectedAccounts ? (
-            <CosmosAirdropView
-              cosmosAddress={accounts['cosmos']}
-              evmosAddress={accounts['evmos']}
-              osmosisAddress={accounts['osmosis']}
-            />
-          ) : (
-            <>
-              <div className="mb-[12px]">You should connect kepler first</div>
-              <Button onClick={connectKeplrWallet}>Connect to kepler</Button>
-            </>
-          )}
+      <div className="relative">
+        <div
+          className={`flex flex-col ${
+            notConnectedKeppler && 'opacity-50 blur-[6px]'
+          }`}
+        >
+          <CosmosAirdropView
+            cosmosAddress={accounts['cosmos']}
+            evmosAddress={accounts['evmos']}
+            osmosisAddress={accounts['osmosis']}
+            ethAddressFromKeppler={ethAddressFromKeppler}
+          />
         </div>
+
+        {notConnectedKeppler && (
+          <div className="absolute top-0 flex h-[100%] w-[100%] items-center">
+            <div className="m-auto flex flex-col items-center">
+              <div className="mb-[12px]">Connect via Keplr to see</div>
+              <Button
+                className="pl-[32px] pr-[32px]"
+                onClick={connectKeplrWallet}
+              >
+                Connect to kepler
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

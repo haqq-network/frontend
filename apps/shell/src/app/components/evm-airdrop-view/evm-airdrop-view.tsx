@@ -1,27 +1,28 @@
-import { IParticipant, ethToHaqq, useAirdropActions } from '@haqq/shared';
-import { Button, InformationModal, formatEthDecimal } from '@haqq/shell-ui-kit';
-import { useCallback, useEffect, useState } from 'react';
+import { IParticipant, useAirdropActions } from '@haqq/shared';
+import { formatEthDecimal } from '@haqq/shell-ui-kit';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
-import { Address } from '../address/address';
+import { ApproveBtn } from '../approve-btn/approve-btn';
+import localStore from 'store2';
+import { Hex } from 'viem';
 
 interface IProps {
-  address: string;
-  captchaToken?: string;
-  signature: string;
-  message: string;
+  address?: string;
 }
 
 const YesCheckbox = ({ value }: { value?: boolean }) => {
   if (!value) {
     return (
-      <div className="mt-[6px] flex flex-row items-center ">
-        <div>No</div>
+      <div className="mr-[4px] flex flex-row items-center ">
+        <div className="flex flex-row items-center ">
+          <div className="mb-[-2px] ml-[4px] mr-[8px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]"></div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="mt-[6px] flex flex-row items-center ">
+    <div className="mr-[4px] mt-[2px] flex flex-row items-center ">
       <svg
         width="20"
         height="20"
@@ -36,19 +37,34 @@ const YesCheckbox = ({ value }: { value?: boolean }) => {
           fill="currentColor"
         />
       </svg>
-      <div className="ml-[8px]">Yes</div>
     </div>
   );
 };
 
-export const EvmAirdropView = ({ address, signature, message }: IProps) => {
-  const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
-  const [isAlreadyRequested, setAlreadyRequested] = useState<boolean>(false);
+const ValueBlock = ({
+  text,
+  isActive,
+  percent,
+}: {
+  text: string;
+  isActive?: boolean;
+  percent?: string;
+}) => {
+  return (
+    <div className="flex items-center">
+      <div className="font-clash w-[220px] text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
+        {text}
+      </div>
+      <div className="ml-[12px] flex items-center font-sans text-[18px]  font-[500] text-white">
+        <YesCheckbox value={isActive} />
+        {percent && <div>{percent} %</div>}
+      </div>
+    </div>
+  );
+};
 
-  const [isInformationModalOpened, setInformationModalOpened] =
-    useState<boolean>(false);
-
-  const { checkAirdrop, participate } = useAirdropActions();
+export const useAirdropChecker = (address?: string) => {
+  const { checkAirdrop } = useAirdropActions();
 
   const [participant, setParticipant] = useState<IParticipant | undefined>();
 
@@ -64,140 +80,88 @@ export const EvmAirdropView = ({ address, signature, message }: IProps) => {
     loadAirdrop();
   }, [loadAirdrop]);
 
-  const hasAirdrop = (participant?.amount || 0) > 0;
+  return { participant };
+};
+
+const MESSAGE = 'Haqqdrop!';
+
+export const EvmAirdropView = ({ address }: IProps) => {
+  const { participant } = useAirdropChecker(address);
+
+  const { sign } = useAirdropActions();
+  const localStKey = useMemo(() => {
+    return `SAVED_EVM_AIRDROP_SIGNATURE_KEY_${address}`;
+  }, [address]);
+
+  const onSignHandler = useCallback(async () => {
+    if (!address) {
+      return {
+        signature: '',
+      };
+    }
+    const signature = await sign(address as Hex, MESSAGE);
+
+    localStore.set(localStKey, signature);
+
+    return {
+      signature,
+    };
+  }, [address, localStKey, sign]);
 
   return (
     <div className="flex">
-      <div className="flex w-full flex-col items-start gap-[28px]">
-        <div>
-          <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-            It is possible to get an airdrop
-          </div>
-          <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            <YesCheckbox value={hasAirdrop} />
-          </div>
+      <div className="flex w-full flex-col items-start gap-[20px]">
+        <ValueBlock
+          text="Activated the wallet on the network"
+          isActive={participant?.is_activated_wallet_on_network}
+          percent={'10.00'}
+        />
+        <ValueBlock
+          text="Staked"
+          isActive={participant?.is_has_staking}
+          percent="25.00"
+        />
+        <ValueBlock
+          text="Voted"
+          isActive={participant?.is_has_votes}
+          percent="15.00"
+        />
+        <ValueBlock
+          text="Voted several times"
+          isActive={participant?.is_voted_several_times}
+          percent="15.00"
+        />
+        <ValueBlock
+          text="Staked more than 50% of your ISLMs"
+          isActive={participant?.is_staked_many}
+          percent="15.00"
+        />
+
+        <div className=" border-haqq-border mt-[16px] border-b border-t border-dashed pb-[12px] pt-[12px]">
+          <ValueBlock
+            text="EXTRA: RUN Validator"
+            isActive={participant?.is_validator}
+          />
         </div>
 
-        <div>
-          <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-            Islamic Coin Supporter
-          </div>
-          <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            <YesCheckbox value={participant?.is_supporter} />
-          </div>
-        </div>
-
-        <div className="flex flex-row flex-wrap gap-[24px] md:gap-[44px] lg:gap-[220px]">
-          <div>
-            <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-              Transactions
-            </div>
-            <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-              <YesCheckbox value={participant?.is_has_transactions} />
-            </div>
-          </div>
-
-          <div>
-            <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-              Staking
-            </div>
-            <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-              <YesCheckbox value={participant?.is_has_staking} />
-            </div>
-          </div>
-
-          <div>
-            <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-              Vote
-            </div>
-            <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-              <YesCheckbox value={participant?.is_has_votes} />
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-            Run Validator
-          </div>
-          <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            <YesCheckbox value={participant?.is_validator} />
-          </div>
-        </div>
-
-        <div>
-          <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-            Amount airdrop
+        <div className="mt-[20px]">
+          <div className="font-clash w-[220px] text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
+            Your Amount airdrop
           </div>
           <div className="mt-[5px] font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            {formatEthDecimal(participant?.amount || 0, 2)} aISLM
+            {formatEthDecimal(participant?.amount || 0, 2)} ISLMs
           </div>
         </div>
 
-        <Button
-          className="mt-[23px] pl-[32px] pr-[32px]"
-          disabled={!hasAirdrop}
-          onClick={() => {
-            NX_AIRDROP_ENDPOINT &&
-              participate(NX_AIRDROP_ENDPOINT, message, signature).then((v) => {
-                if (!v.message) {
-                  setInformationModalOpened(true);
-                } else {
-                  if (v.message === 'requested') {
-                    setAlreadyRequested(true);
-                  } else {
-                    setErrorModalOpened(true);
-                  }
-                }
-              });
-          }}
-        >
-          Airdrop Request
-        </Button>
-
-        <InformationModal
-          isOpened={isErrorModalOpened}
-          setOpenState={setErrorModalOpened}
-          title="Request was not completed"
-          message="Please retry the request later"
-        />
-
-        <InformationModal
-          isOpened={isAlreadyRequested}
-          setOpenState={setAlreadyRequested}
-          title="Request was already requested"
-          message="Please wait airdrop"
-        />
-
-        <InformationModal
-          isOpened={isInformationModalOpened}
-          setOpenState={setInformationModalOpened}
-          title="Request completed"
-          message={
-            <>
-              <div className="mb-[12px]">
-                You have requested an AirDrop, it will be sent to your address
-                on the HAQQ network:
-              </div>
-
-              <div>
-                hex:
-                <Address
-                  address={address}
-                  className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
-                />
-              </div>
-
-              <div className="mt-[6px]">
-                bech32:
-                <Address
-                  address={ethToHaqq(address)}
-                  className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
-                />
-              </div>
-            </>
-          }
-        />
+        <div className="mt-[23px]">
+          <ApproveBtn
+            participationAddress={address}
+            message={MESSAGE}
+            participant={participant}
+            isCosmos={false}
+            onSign={onSignHandler}
+          />
+        </div>
       </div>
     </div>
   );
