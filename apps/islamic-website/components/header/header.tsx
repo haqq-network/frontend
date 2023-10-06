@@ -33,7 +33,7 @@ import {
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
 import { useLocale, useTranslations } from 'next-intl';
-import { usePathname } from 'next-intl/client';
+// import { usePathname } from 'next-intl/client';
 
 type LocaleType = keyof typeof localeDisplayNames;
 
@@ -308,7 +308,7 @@ export function DesktopHeader({
 
   const t = useTranslations('header');
   const locale = useLocale();
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     <header
@@ -453,7 +453,7 @@ export function DesktopHeader({
                 </div>
               </HeaderDropdown>
 
-              <HeaderDropdown title={localeDisplayNames[locale]}>
+              {/* <HeaderDropdown title={localeDisplayNames[locale]}>
                 <div className="flex flex-col">
                   <LanguageLink
                     href={pathname}
@@ -473,7 +473,7 @@ export function DesktopHeader({
                     locale="id"
                   />
                 </div>
-              </HeaderDropdown>
+              </HeaderDropdown> */}
             </nav>
           </div>
         </Container>
