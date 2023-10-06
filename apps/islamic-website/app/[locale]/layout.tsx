@@ -3,7 +3,6 @@ import { Fragment, PropsWithChildren } from 'react';
 import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
 import { notFound } from 'next/navigation';
 import { headers } from 'next/headers';
-// import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
 import { NextIntlClientProvider } from 'next-intl';
