@@ -28,7 +28,7 @@ function LangButton({
   const t = useTranslations('shariah-page.fatwa-block.language-buttons');
   return (
     <LocaleLink
-      href={!isActive ? href : ''}
+      href={href}
       locale={locale}
       className={clsx(
         'rtl:font-handjet ltr:font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
@@ -119,21 +119,9 @@ export function FatwaBlock({
       </div>
 
       <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] rtl:flex-row-reverse md:mt-[48px] lg:mt-[60px]">
-        <LangButton
-          isActive={locale === 'en'}
-          locale="en"
-          href={locale === 'en' ? pathname : '/shariah'}
-        />
-        <LangButton
-          isActive={locale === 'ar'}
-          locale="ar"
-          href={locale === 'ar' ? pathname : '/shariah'}
-        />
-        <LangButton
-          isActive={locale === 'id'}
-          locale="id"
-          href={locale === 'id' ? pathname : '/shariah'}
-        />
+        <LangButton isActive={locale === 'en'} locale="en" href="/shariah" />
+        <LangButton isActive={locale === 'ar'} locale="ar" href="/shariah" />
+        <LangButton isActive={locale === 'id'} locale="id" href="/shariah" />
       </div>
 
       <MarkdownText className="mt-[30px]">{fatwa}</MarkdownText>
