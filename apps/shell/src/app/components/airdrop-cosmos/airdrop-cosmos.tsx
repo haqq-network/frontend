@@ -68,7 +68,7 @@ export function AirdropCosmos({
 
   return (
     <BluredBlock
-      title="Cosmos ecosystem dro"
+      title="Cosmos ecosystem drop"
       isBlured={!notConnectedKeppler}
       bluredContent={
         <CosmosAirdropView
