@@ -11,7 +11,7 @@ export function BurgerButton({
 }) {
   return (
     <button
-      className={clsx('cursor-pointer leading-[0]', className)}
+      className={clsx('cursor-pointer leading-[0] outline-none', className)}
       onClick={onClick}
     >
       <svg
@@ -20,7 +20,6 @@ export function BurgerButton({
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-full"
       >
         <path
           fillRule="evenodd"
