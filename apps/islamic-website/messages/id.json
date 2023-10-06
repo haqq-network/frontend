@@ -370,6 +370,16 @@
   "ui-kit": {
     "member-card": {
       "web": "Jaring"
+    },
+    "download-pdf-button": {
+      "type": {
+        "fatwa": "Fatwa",
+        "whitepaper": "Whitepaper"
+      },
+      "language": {
+        "en": "English",
+        "ar": "Arabic"
+      }
     }
   }
 }
