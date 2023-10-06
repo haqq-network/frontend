@@ -84,6 +84,7 @@ export default async function LocaleLayout({
       {VERCEL_ENV !== 'development' && (
         <Fragment>
           <script
+            async
             id="fb-pixel"
             data-cookiecategory="analytics"
             dangerouslySetInnerHTML={{
@@ -102,6 +103,7 @@ export default async function LocaleLayout({
             }}
           />
           <Script
+            async
             id="gtm"
             data-cookiecategory="analytics"
             dangerouslySetInnerHTML={{
