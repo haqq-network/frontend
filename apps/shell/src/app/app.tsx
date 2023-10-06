@@ -39,6 +39,16 @@ const WalletCheckPage = lazy(async () => {
   const { WalletCheckPage } = await import('@haqq/shell-airdrop');
   return { default: WalletCheckPage };
 });
+const CreateVestingAccountPage = lazy(async () => {
+  const { CreateVestingAccountPage } = await import(
+    '@haqq/shell/services-pages'
+  );
+  return { default: CreateVestingAccountPage };
+});
+const VestingInfoPage = lazy(async () => {
+  const { VestingInfoPage } = await import('@haqq/shell/services-pages');
+  return { default: VestingInfoPage };
+});
 
 export function App() {
   return (
@@ -86,6 +96,9 @@ export function App() {
             />
           }
         />
+
+        <Route path="/vesting/new" element={<CreateVestingAccountPage />} />
+        <Route path="/vesting/:address" element={<VestingInfoPage />} />
 
         <Route path="not-found" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
