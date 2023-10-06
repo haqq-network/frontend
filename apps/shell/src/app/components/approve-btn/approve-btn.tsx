@@ -4,9 +4,10 @@ import {
   ethToHaqq,
   useAirdropActions,
 } from '@haqq/shared';
+import localStore from 'store2';
 import { Button, InformationModal } from '@haqq/shell-ui-kit';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Address } from '../address/address';
 
 export const ApproveBtn = ({
@@ -37,8 +38,18 @@ export const ApproveBtn = ({
 
   const hasAirdrop = (participant?.amount || 0) > 0;
 
+  const localStKey = useMemo(() => {
+    return `SAVED_AIRDROP_SIGNATURE_KEY_${participationAddress}`;
+  }, [participationAddress]);
+
   const participate = useCallback(async () => {
-    const { signature, pubKey } = await onSign();
+    const savedPrevious = localStore.get(localStKey);
+
+    const { signature, pubKey } = savedPrevious
+      ? savedPrevious
+      : await onSign();
+
+    localStore.set(localStKey, { signature, pubKey });
 
     if (isCosmos) {
       return participateCosmos(
@@ -58,6 +69,7 @@ export const ApproveBtn = ({
     participateCosmos,
     participationAddress,
     onSign,
+    localStKey,
   ]);
 
   return (

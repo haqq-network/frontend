@@ -1,9 +1,8 @@
 import { IParticipant, useAirdropActions } from '@haqq/shared';
 import { formatEthDecimal } from '@haqq/shell-ui-kit';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { ApproveBtn } from '../approve-btn/approve-btn';
-import localStore from 'store2';
 import { Hex } from 'viem';
 
 interface IProps {
@@ -89,10 +88,6 @@ export const EvmAirdropView = ({ address }: IProps) => {
   const { participant } = useAirdropChecker(address);
 
   const { sign } = useAirdropActions();
-  const localStKey = useMemo(() => {
-    return `SAVED_EVM_AIRDROP_SIGNATURE_KEY_${address}`;
-  }, [address]);
-
   const onSignHandler = useCallback(async () => {
     if (!address) {
       return {
@@ -101,12 +96,10 @@ export const EvmAirdropView = ({ address }: IProps) => {
     }
     const signature = await sign(address as Hex, MESSAGE);
 
-    localStore.set(localStKey, signature);
-
     return {
       signature,
     };
-  }, [address, localStKey, sign]);
+  }, [address, sign]);
 
   return (
     <div className="flex">
