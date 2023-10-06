@@ -3,6 +3,7 @@ import Image from 'next/image';
 import careerStarsImgData from '../../assets/images/career-stars.webp';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 export function CareerPage() {
   const t = useTranslations('career-page');
@@ -27,9 +28,14 @@ export function CareerPage() {
             </p>
           </div>
 
-          <div className="mt-[24px] max-w-[233px] md:mt-[44px]">
+          <Link
+            href="https://islamiccoin.bamboohr.com/careers"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-[24px] block w-fit max-w-[233px] md:mt-[44px]"
+          >
             <Button>{t('button-text')}</Button>
-          </div>
+          </Link>
         </div>
 
         <div
