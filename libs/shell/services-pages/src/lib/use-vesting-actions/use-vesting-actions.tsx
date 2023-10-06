@@ -1,37 +1,36 @@
 import { useCallback, useMemo } from 'react';
 import {
-  Sender,
-  signatureToWeb3Extension,
-  createTxRawEIP712,
-  TxGenerated,
+  // Sender,
+  // signatureToWeb3Extension,
+  // createTxRawEIP712,
+  // TxGenerated,
   // createTxCreateClawbackVestingAccount,
   MessageMsgCreateClawbackVestingAccount,
-  Period,
+  // Period,
 } from '@evmos/transactions';
 import {
   useAddress,
-  DEFAULT_FEE,
+  // DEFAULT_FEE,
   getChainParams,
   useCosmosService,
   mapToCosmosChain,
 } from '@haqq/shared';
-import { useNetwork, useWalletClient } from 'wagmi';
+import { useNetwork } from 'wagmi';
 // import { Timestamp } from 'cosmjs-types/google/protobuf/timestamp';
 // import { createMsgCreateClawbackVestingAccount as ConvertToProtoMsgCreateClawbackVestingAccount } from '@evmos/proto';
 // import  * as vesting from '@evmos/proto/evmos/vesting/v1/tx';
-import {
-  generateFee,
-  generateTypes,
-  generateMessage,
-  createEIP712,
-} from '@evmos/eip712';
-import { createTransaction } from '@evmos/proto';
+// import {
+//   generateFee,
+//   generateTypes,
+//   generateMessage,
+//   createEIP712,
+// } from '@evmos/eip712';
+// import { createTransaction } from '@evmos/proto';
 
 export function useVestingActions() {
   const { chain } = useNetwork();
-  const { data: walletClient } = useWalletClient();
-  const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
-    useCosmosService();
+  // const { data: walletClient } = useWalletClient();
+  const { getAccountBaseInfo, getPubkey } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
 
   const haqqChain = useMemo(() => {
@@ -66,32 +65,32 @@ export function useVestingActions() {
     [getAccountBaseInfo],
   );
 
-  const signTransaction = useCallback(
-    async (msg: TxGenerated, sender: Sender) => {
-      if (haqqChain && ethAddress && walletClient) {
-        const signature = await walletClient.request({
-          method: 'eth_signTypedData_v4',
-          params: [ethAddress as `0x${string}`, JSON.stringify(msg.eipToSign)],
-        });
+  // const signTransaction = useCallback(
+  //   async (msg: TxGenerated, sender: Sender) => {
+  //     if (haqqChain && ethAddress && walletClient) {
+  //       const signature = await walletClient.request({
+  //         method: 'eth_signTypedData_v4',
+  //         params: [ethAddress as `0x${string}`, JSON.stringify(msg.eipToSign)],
+  //       });
 
-        const extension = signatureToWeb3Extension(
-          haqqChain,
-          sender,
-          signature,
-        );
-        const rawTx = createTxRawEIP712(
-          msg.legacyAmino.body,
-          msg.legacyAmino.authInfo,
-          extension,
-        );
+  //       const extension = signatureToWeb3Extension(
+  //         haqqChain,
+  //         sender,
+  //         signature,
+  //       );
+  //       const rawTx = createTxRawEIP712(
+  //         msg.legacyAmino.body,
+  //         msg.legacyAmino.authInfo,
+  //         extension,
+  //       );
 
-        return rawTx;
-      } else {
-        throw new Error('No haqqChain');
-      }
-    },
-    [ethAddress, haqqChain, walletClient],
-  );
+  //       return rawTx;
+  //     } else {
+  //       throw new Error('No haqqChain');
+  //     }
+  //   },
+  //   [ethAddress, haqqChain, walletClient],
+  // );
 
   const getParams = useCallback(
     async (

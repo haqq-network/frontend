@@ -1,22 +1,7 @@
-import {
-  ethToHaqq,
-  getFormattedAddress,
-  haqqToEth,
-  useAddress,
-  useToast,
-  useWallet,
-} from '@haqq/shared';
-import {
-  Button,
-  Container,
-  LinkIcon,
-  ToastError,
-  ToastLoading,
-  ToastSuccess,
-} from '@haqq/shell-ui-kit';
+import { ethToHaqq, haqqToEth, useAddress, useWallet } from '@haqq/shared';
+import { Button, Container } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { isAddress } from 'viem';
 // import { useNetwork } from 'wagmi';
 import { useVestingActions } from '../use-vesting-actions/use-vesting-actions';
