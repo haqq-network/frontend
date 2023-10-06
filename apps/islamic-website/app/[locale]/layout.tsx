@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { headers } from 'next/headers';
 // import dynamic from 'next/dynamic';
 import clsx from 'clsx';
-import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consetnt-modal';
+import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
 import { NextIntlClientProvider } from 'next-intl';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Link from 'next/link';
@@ -14,6 +14,7 @@ import Header, { MobileHeader } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SOCIAL_LINKS } from '../../social-links';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
+import { Analytics } from '@vercel/analytics/react';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -42,18 +43,6 @@ async function getMessages(locale: string) {
     notFound();
   }
 }
-
-// const DynamicHeader = dynamic(
-//   async () => {
-//     return await import('../../components/header/header');
-//   },
-//   {
-//     ssr: true,
-//     loading: () => {
-//       return <div className="h-[72px] lg:h-[92px]" />;
-//     },
-//   },
-// );
 
 export default async function LocaleLayout({
   children,
@@ -126,6 +115,8 @@ export default async function LocaleLayout({
                 `,
             }}
           />
+          <CookieConsentModal />
+          <Analytics mode="auto" />
         </Fragment>
       )}
     </html>
@@ -136,7 +127,7 @@ function ScamBanner() {
   return (
     <div className="ltr:font-vcr rtl:font-handjet fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center text-[16px] uppercase leading-[24px] text-white">
       <Container>
-        Beware of scamers! <br className="block md:hidden" />
+        Beware of scammers! <br className="block md:hidden" />
         Check{' '}
         <Link href="/scam-alert" className="underline">
           this page
