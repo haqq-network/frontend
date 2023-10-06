@@ -7,6 +7,7 @@ import {
   Text,
 } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -34,6 +35,20 @@ export function HeroBlock() {
         <Text size="small" className="text-white/50 md:mt-[40px]">
           {t('hero-block.sub-text')}
         </Text>
+      </div>
+
+      <div className="font-vcr mt-[18px] w-fit rounded-lg border border-[#2f2f2f] px-[18px] py-[8px] text-center text-[15px]  uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
+        Disclaimer for{' '}
+        <span role="img" aria-label="UAE">
+          🇦🇪
+        </span>{' '}
+        Dubai Residents
+        <Link
+          href="/dubai-residents-disclaimer"
+          className="text-islamic-primary-green hover:text-islamic-primary-green-hover ml-[18px] w-fit transition-colors duration-300"
+        >
+          Read more
+        </Link>
       </div>
 
       <div className="group mt-[40px] w-fit" onClick={openVideoModal}>

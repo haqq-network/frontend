@@ -24,6 +24,7 @@ export interface Member {
   title: string;
   description: string;
   url?: string;
+  role?: string;
 }
 
 export type localeType = 'ar' | 'en';
@@ -55,6 +56,7 @@ function MembersContainer({
               onMemberSelect(member);
             }}
             key={`${member.title}-member-${idx}`}
+            role={member.role}
             className="float-left min-w-[200px] snap-center md:float-none md:max-w-none"
           />
         );
@@ -292,6 +294,7 @@ export function ShariahPage({
             onClick={() => {
               setBoardMember(undefined);
             }}
+            role={boardMember.role}
           />
         )}
       </Modal>
