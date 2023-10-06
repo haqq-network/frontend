@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Text } from '../text/text';
@@ -26,6 +27,7 @@ export function MemberCard({
   className?: string;
   role?: string;
 }) {
+  const t = useTranslations('ui-kit.member-card');
   return (
     <div
       className={clsx(
@@ -67,12 +69,12 @@ export function MemberCard({
                   event.stopPropagation();
                 }}
                 className={clsx(
-                  'text-islamic-primary-green hover:text-islamic-primary-green-hover font-mono uppercase',
+                  'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr uppercase',
                   'inline-flex flex-row items-center gap-x-[4px]',
                   'w-fit self-end transition-colors duration-300',
                 )}
               >
-                <span>Web</span>
+                <span>{t('web')}</span>
                 <svg
                   width="16"
                   height="16"

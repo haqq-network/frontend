@@ -8,6 +8,7 @@ import {
   Modal,
   NewMemberCard,
 } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 
 type BoardMembers = 'advisory' | 'executive' | 'shariah';
@@ -26,6 +27,8 @@ export function BoardMembersBlock({
   );
   const [activeMembersType, setActiveMembersType] =
     useState<BoardMembers>('advisory');
+
+  const t = useTranslations('index-page.board-members-block');
 
   const members = useMemo(() => {
     switch (activeMembersType) {
@@ -51,10 +54,12 @@ export function BoardMembersBlock({
     <div className="mt-[110px] lg:mt-[140px]">
       <Container className="relative text-white">
         <div className="text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
-          {activeMembersType === 'advisory' && 'Advisory '}
-          {activeMembersType === 'executive' && 'Executive '}
-          {activeMembersType === 'shariah' && 'Shariah '}
-          <GradientText>Board</GradientText>
+          {activeMembersType === 'advisory' && t('title.white-text.advisory')}
+          {activeMembersType === 'executive' && t('title.white-text.executive')}
+          {activeMembersType === 'shariah' && t('title.white-text.shariah')}
+          <GradientText className="rtl:pb-[10px]">
+            {t('title.gradient-text')}
+          </GradientText>
         </div>
         <div className="mt-[28px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[42px]">
           <FilterButton
@@ -63,7 +68,7 @@ export function BoardMembersBlock({
               setActiveMembersType('advisory');
             }}
           >
-            Advisory
+            {t('filter-buttons.advisory')}
           </FilterButton>
           <FilterButton
             active={activeMembersType === 'shariah'}
@@ -71,7 +76,7 @@ export function BoardMembersBlock({
               setActiveMembersType('shariah');
             }}
           >
-            Shariah
+            {t('filter-buttons.shariah')}
           </FilterButton>
           <FilterButton
             active={activeMembersType === 'executive'}
@@ -79,7 +84,7 @@ export function BoardMembersBlock({
               setActiveMembersType('executive');
             }}
           >
-            Executive
+            {t('filter-buttons.executive')}
           </FilterButton>
         </div>
         <div className="mt-[12px] grid grid-cols-1 gap-[32px] md:mt-[24px] lg:mt-[36px] lg:grid-cols-2">

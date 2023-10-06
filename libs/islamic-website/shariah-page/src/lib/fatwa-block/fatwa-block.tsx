@@ -8,27 +8,30 @@ import fatwaSign3 from '../../assets/images/autographs/autograph-hakim-mohamed.w
 import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.webp';
 import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { localeType } from '../shariah-page/shariah-page';
 
 function LangButton({
   active,
-  lang = 'en',
+  locale = 'en',
   onClick,
 }: {
   active: boolean;
-  lang: 'ar' | 'en';
+  locale: localeType;
   onClick: () => void;
 }) {
+  const t = useTranslations('shariah-page.fatwa-block.language-buttons');
   return (
     <div
       className={clsx(
-        ' cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+        'rtl:font-handjet ltr:font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
         active
           ? 'bg-islamic-primary-green'
           : 'hover:bg-islamic-primary-green/50 bg-transparent',
       )}
       onClick={onClick}
     >
-      {lang === 'ar' ? 'Arabic' : 'English'} version
+      {locale === 'ar' ? t('arabic') : t('english')}
     </div>
   );
 }
@@ -39,7 +42,7 @@ function EnFatwa() {
       <Text size="small">
         In the name of Allah, the most compassionate, the most merciful
       </Text>
-      <p className="font-serif text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
+      <p className="font-alexandria text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
         <strong className="font-[700]">
           The Islamic Shariah view on establishing the “HAQQ Chain” network and
           the issuance of its own currency “Islamic Coin”
@@ -68,7 +71,7 @@ function EnFatwa() {
         this matter, that included the following:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             HAQQ Chain platform will be built using a technical framework that
             is well-known in the blockchain field, which is the Cosmos technical
@@ -106,7 +109,7 @@ function EnFatwa() {
         summarized in the following types:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             Currencies with no specific purpose behind their issuance other than
             being a store of value and having a price, where the customer aims
@@ -155,7 +158,7 @@ function EnFatwa() {
         issuing the “Islamic Coin” based on the following measures:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             Islamic Coin is a financial asset that may be traded by sale and
             purchase and replaced with legitimate services and goods and is
@@ -220,7 +223,7 @@ function ArFatwa() {
     <div className="mt-[30px] flex flex-col gap-y-[16px] font-[300] md:mt-[34px] md:gap-y-[20px] lg:mt-[38px] lg:gap-y-[24px]">
       <Text size="small">بسم الله الرحمن الرحيم</Text>
 
-      <p className="font-serif text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
+      <p className="font-alexandria text-[18px] leading-[26px] lg:text-[22px] lg:leading-[32px] xl:text-[24px] xl:leading-[34px]">
         <strong className="font-[700]">
           الرأي الشرعي لتأسيس شبكة ’الحق تشين’ وإصدار عملة ’إسلاميك كوين’ الخاصة
           بها
@@ -244,7 +247,7 @@ function ArFatwa() {
         أسئلة الهيئة بهذا الشأن، وقد تضمن العرض النقاط التالية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             أن منصة ’الحق تشين’ سيتم بناؤها باستخدام إطار عمل فني معروف في مجال
             ’البلوك تشين’ وهو الإطار الفني المتعلق بلغة ’كوزموس’.
@@ -276,7 +279,7 @@ function ArFatwa() {
         حالياً، والتي تتلخص في الأنواع الآتية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             عملات ليس لها هدف معين من إصدارها سوى كونها أثماناً ومخزناً للقيمة،
             ويهدف المتعاملون فيها من الاحتفاظ بها أو استخدامها في مشترياتهم
@@ -316,7 +319,7 @@ function ArFatwa() {
         بالضوابط الآتية:
       </Text>
       <Text size="small">
-        <ol className="list-decimal pl-[20px]">
+        <ol className="list-decimal ltr:pl-[20px] rtl:pr-[20px]">
           <li>
             أن عملة ’إسلاميك كوين’ تعتبر أصلاً مالياً يجوز تداوله بالبيع والشراء
             واستبدالها بالخدمات والسلع المشروعة، كما أنها تعتبر أموالاً لأصحابها
@@ -367,7 +370,7 @@ function ArFatwa() {
 function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   return (
     <div className="flex w-fit flex-col items-start justify-between gap-y-[8px] md:gap-y-[12px]">
-      <span className="font-mono text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
+      <span className="rtl:font-handjet ltr:font-vcr text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
         {name}
       </span>
       <div className="relative h-[62px] w-[170px]">
@@ -377,74 +380,71 @@ function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   );
 }
 
-function AuthographsBlock() {
+function AutographsBlock() {
+  const t = useTranslations('shariah-page');
   return (
     <div className="mt-[28px] flex flex-col gap-y-[20px] md:mt-[32px] lg:mt-[36px]">
-      <h4 className="font-mono text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
-        Islamic Coin Shariah Board
+      <h4 className="rtl:font-handjet ltr:font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+        {t('autographs-block.title')}
       </h4>
 
       <div className="grid grid-cols-1 gap-x-[32px] gap-y-[20px] sm:grid-cols-2">
-        <Autograph image={fatwaSign1} name="Sheikh Dr. Essam Khalaf Al-Enezi" />
+        <Autograph
+          image={fatwaSign1}
+          name={t('autographs-block.members.first')}
+        />
         <Autograph
           image={fatwaSign2}
-          name="Sheikh Dr. Nizam Mohammed Saleh Yaquby"
+          name={t('autographs-block.members.second')}
         />
         <Autograph
           image={fatwaSign3}
-          name="Sheikh Mohamed Abdel Hakim Mohamed"
+          name={t('autographs-block.members.third')}
         />
-        <Autograph image={fatwaSign4} name="Sheikh Dr. Mohamed Zoeir" />
+        <Autograph
+          image={fatwaSign4}
+          name={t('autographs-block.members.fourth')}
+        />
         <Autograph
           image={fatwaSign5}
-          name="Sheikh Mohamed Fathiddin Beyanouni"
+          name={t('autographs-block.members.fifth')}
         />
       </div>
     </div>
   );
 }
 
-// type FatwaPageArticles =
-//   | 'fatwa'
-//   | 'foundations'
-//   | 'shariah-oracle'
-//   | 'shariah-board'
-//   | 'advisory-board'
-//   | 'executive-board';
+export function FatwaBlock({ locale }: { locale: localeType }) {
+  const [lang, setLang] = useState<localeType>(locale);
 
-export function FatwaBlock() {
-  const [lang, setLang] = useState<'ar' | 'en'>('en');
+  const t = useTranslations('shariah-page');
 
   return (
     <div>
       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-        Fatwa
+        {t('fatwa-block.title')}
       </h2>
 
       <div className="mt-[16px] md:mt-[20px] lg:mt-[24px]">
-        <Text size="small">
-          Issued by the World’s leading authorities in Islamic Finance, Islamic
-          Coin has been provided a Fatwa based on the Holy Teachings of the
-          Quran.
-        </Text>
+        <Text size="small">{t('fatwa-block.subtitle')}</Text>
       </div>
 
-      <div className="mt-[24px] flex gap-x-[16px] md:mt-[28px] lg:mt-[32px]">
+      <div className="mt-[24px] flex gap-x-[16px] rtl:flex-row-reverse rtl:justify-end md:mt-[28px] lg:mt-[32px]">
         <DownloadPDFButton language="en" url="/assets/fatwa-en.pdf" />
         <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
       </div>
 
-      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
+      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] rtl:flex-row-reverse md:mt-[48px] lg:mt-[60px]">
         <LangButton
           active={lang === 'en'}
-          lang="en"
+          locale="en"
           onClick={() => {
             setLang('en');
           }}
         />
         <LangButton
           active={lang === 'ar'}
-          lang="ar"
+          locale="ar"
           onClick={() => {
             setLang('ar');
           }}
@@ -453,7 +453,7 @@ export function FatwaBlock() {
 
       {lang === 'en' ? <EnFatwa /> : <ArFatwa />}
 
-      <AuthographsBlock />
+      <AutographsBlock />
     </div>
   );
 }

@@ -18,6 +18,7 @@ import {
 import clsx from 'clsx';
 import axios from 'axios';
 import Turnstile from 'react-turnstile';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
@@ -146,6 +147,8 @@ export function SubscribeForm({
     };
   }, [formState.errors.email?.message, hint, subscribeFormState]);
 
+  const t = useTranslations('subscribe-form');
+
   return (
     <Fragment>
       <form
@@ -185,7 +188,7 @@ export function SubscribeForm({
           </div>
         </div>
         <Button variant="primary-green" type="submit" disabled={isFormDisabled}>
-          Subscribe
+          {t('button-text')}
         </Button>
       </form>
 
@@ -205,7 +208,7 @@ export function SubscribeForm({
           />
 
           <div className="flex flex-col items-center gap-[16px] px-[40px] py-[32px] lg:gap-[32px] lg:px-[80px] lg:py-[60px]">
-            <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+            <h3 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
               Congratulations!
             </h3>
 
@@ -224,7 +227,7 @@ export function SubscribeForm({
           />
 
           <div className="flex flex-col items-center gap-[16px] px-[40px] py-[32px] lg:gap-[32px] lg:px-[80px] lg:py-[60px]">
-            <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+            <h3 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
               Something went wrong!
             </h3>
 

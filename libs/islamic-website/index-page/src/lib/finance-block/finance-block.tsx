@@ -2,8 +2,10 @@ import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import cubeOnRockImgData from '../../assets/images/cube-on-rock.webp';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 
 export function FinanceBlock() {
+  const t = useTranslations('index-page');
   return (
     <div className="mt-[86px] overflow-x-clip md:mt-[110px] lg:mt-[160px] lg:py-[60px]">
       <Container>
@@ -11,33 +13,26 @@ export function FinanceBlock() {
           <div className="md:w-8/12">
             <div className="flex flex-col">
               <h2 className="text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
-                <span>Pioneering the Future </span>
+                <span>{t('finance-block.title.white-text')}</span>
                 <br className="md:block lg:hidden" />
-                <GradientText>of&nbsp;Islamic&nbsp;Finance</GradientText>
+                <GradientText className="rtl:pb-[10px]">
+                  {t('finance-block.title.gradient-text')}
+                </GradientText>
               </h2>
 
               <div className="mt-[24px] md:mt-[44px] lg:mt-[40px]">
-                <Text isMono>
-                  Crypto Innovation Meets Islamic Tradition offering
-                  Interest-Free Investments, Halal Trading, and Charitable
-                  Giving and More
-                </Text>
+                <Text isMono>{t('finance-block.subtitle')}</Text>
               </div>
 
               <div className="mt-[20px] flex max-w-[600px] flex-col gap-y-[20px] md:mt-[38px] lg:mt-[32px] lg:gap-y-[28px]">
                 <p>
                   <Text size="small" className="text-white/50">
-                    Our Shariah compliant products, including interest-free
-                    investments, halal trading, and charitable giving
-                    opportunities, blend modern fintech with Islamic heritage,
-                    giving you the power to honor your traditions while
-                    embracing the crypto revolution.
+                    {t('finance-block.text.first')}
                   </Text>
                 </p>
                 <p>
                   <Text size="small" className="text-white/50">
-                    Step into the future with Islamic Coin - the heart of
-                    ethical, principled finance that respects your values.
+                    {t('finance-block.text.second')}
                   </Text>
                 </p>
               </div>

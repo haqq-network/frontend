@@ -1,36 +1,28 @@
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 
 export function BuildPage() {
+  const t = useTranslations('build-page');
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
         <div className="pb-[60px] pt-[32px] text-white md:pb-[140px] md:pt-[52px] lg:pt-[68px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Build on <br className="xl:hidden" />
-            HAQQ
+            {t('title')}
           </h1>
           <div className="mt-[32px] flex flex-col gap-y-[16px] md:mt-[60px] md:max-w-[480px] md:gap-y-[24px] lg:max-w-[600px]">
-            <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
-              Developers Hub
+            <h3 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
+              {t('subtitle')}
             </h3>
             <div className="flex flex-col gap-y-[12px] md:gap-y-[16px]">
               <p>
-                <Text size="small">
-                  Unleash your developer superpowers within the vibrant
-                  Developers Hub
-                </Text>
+                <Text size="small">{t('text.paragraphs.first')}</Text>
               </p>
               <p>
-                <Text size="small">
-                  Gain access to cutting-edge tools, resources, and a thriving
-                  community that will elevate your skills to new heights.
-                </Text>
+                <Text size="small">{t('text.paragraphs.second')}</Text>
               </p>
               <p>
-                <Text size="small">
-                  Fuel your creativity and be at the forefront of shaping the
-                  future of Islamic Coin.
-                </Text>
+                <Text size="small">{t('text.paragraphs.third')}</Text>
               </p>
             </div>
           </div>
@@ -219,13 +211,14 @@ function Cubes() {
 
 function BuildPageBg() {
   return (
-    <div className="absolute left-[40px] top-[-150px] z-[-1] h-[550px] w-[655px] md:left-auto md:right-[-180px] md:top-[100px] xl:right-[-90px] xl:top-[100px] min-[1440px]:right-[30px] min-[1440px]:top-[110px]">
+    <div className="absolute top-[-150px] z-[-1] h-[550px] w-[655px] ltr:left-[40px] rtl:right-[40px] rtl:scale-x-[-1] rtl:transform md:top-[100px] ltr:md:left-auto ltr:md:right-[-180px] rtl:md:left-[-180px] rtl:md:right-auto xl:top-[100px] ltr:xl:right-[-90px] rtl:xl:left-[-90px] min-[1440px]:top-[110px] ltr:min-[1440px]:right-[30px] rtl:min-[1440px]:left-[30px]">
       <Cubes />
     </div>
   );
 }
 
 function DocsTab({ type }: { type: 'manual' | 'archive' }) {
+  const t = useTranslations('build-page.docs-tabs');
   return (
     <div className="group flex cursor-pointer items-start gap-x-[12px] lg:gap-x-[16px]">
       <div>
@@ -271,8 +264,8 @@ function DocsTab({ type }: { type: 'manual' | 'archive' }) {
         <div className="flex flex-row items-center gap-x-[6px] leading-[0]">
           <div>
             <Text isMono>
-              {type === 'manual' && "Builder's manual"}
-              {type === 'archive' && 'HAQQ Archive'}
+              {type === 'manual' && t('manual.title')}
+              {type === 'archive' && t('archive.title')}
             </Text>
           </div>
 
@@ -282,7 +275,7 @@ function DocsTab({ type }: { type: 'manual' | 'archive' }) {
             viewBox="0 0 18 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="mb-[-1px] transform-gpu transition-transform duration-300 group-hover:translate-x-1"
+            className="mb-[-1px] transform-gpu transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"
           >
             <path
               fillRule="evenodd"
@@ -294,10 +287,8 @@ function DocsTab({ type }: { type: 'manual' | 'archive' }) {
         </div>
         <div className="mt-[2px]">
           <Text className="text-white/50" size="small">
-            {type === 'manual' &&
-              'Unlock the essential roadmap to transform your ideas into reality within the Islamic Coin ecosystem'}
-            {type === 'archive' &&
-              'Explore the stories, insights, and groundbreaking ideas that have shaped the Islamic Coin ecosystem, and let history guide your path to a brighter future.'}
+            {type === 'manual' && t('manual.text')}
+            {type === 'archive' && t('archive.text')}
           </Text>
         </div>
       </div>

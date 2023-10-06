@@ -9,10 +9,12 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 const ytVideoId = 'bevF9a3L3Sk';
 
 export function HeroBlock() {
+  const t = useTranslations('index-page');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const openVideoModal = useCallback(() => {
     setIsVideoModalOpen(true);
@@ -20,21 +22,18 @@ export function HeroBlock() {
   const closeVideoModal = useCallback(() => {
     setIsVideoModalOpen(false);
   }, []);
+
   return (
     <div className="flex flex-col pt-[60px] text-white md:pt-[120px] xl:pt-[150px]">
       <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-        Your Gateway <br className="block md:hidden" /> to{' '}
-        <br className="hidden md:block" /> Shariah{' '}
-        <GradientText>
-          Compliant <br className="block xl:hidden" /> Web3
+        {t('hero-block.title.white-text')}
+        <GradientText className="rtl:pb-[10px]">
+          {t('hero-block.title.gradient-text')}
         </GradientText>
       </h1>
       <div className="mt-[24px] md:max-w-xl">
         <Text size="small" className="text-white/50 md:mt-[40px]">
-          We are on a mission to onboard over 1.8+ billion Muslims into digital
-          finance without compromising the values or faith. Islamic coin is the
-          native currency of HAQQ, an ethics first, scalable and interoperable
-          blockchain built on Proof-of-Stake with fast finality.
+          {t('hero-block.sub-text')}
         </Text>
       </div>
 

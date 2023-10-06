@@ -13,16 +13,17 @@ export function ShariPageMobileNav({
   activeSection: string;
   onSectionSelect: (newSection: string) => void;
 }) {
-  const [isBlurred, setBlured] = useState(false);
+
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 500;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
@@ -85,7 +86,7 @@ function FixedPageNavigation({
               setOpen(!isOpen);
             }}
           >
-            <div className="py-[14px] font-mono text-[16px] uppercase leading-[24px]">
+            <div className="rtl:font-handjet ltr:font-vcr py-[14px] text-[16px] uppercase leading-[24px]">
               {currentValue ? (
                 <span>{currentValue.title}</span>
               ) : (
@@ -122,7 +123,7 @@ function FixedPageNavigation({
                     href={`#${section.id}`}
                     key={section.id}
                     className={clsx(
-                      'hover:text-islamic-primary-green-hover inline-flex cursor-pointer items-center justify-between gap-x-[8px] font-mono uppercase focus:text-white',
+                      'hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr inline-flex cursor-pointer items-center justify-between gap-x-[8px] uppercase focus:text-white',
                       'transition-colors duration-300',
                       section.id === activeSection
                         ? 'text-islamic-primary-green'

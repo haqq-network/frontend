@@ -2,6 +2,8 @@ import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { PropsWithChildren } from 'react';
 import fraudCubesImgData from '../../assets/images/fraud-cubes.webp';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import clsx from 'clsx';
 
 function Alert({ children }: PropsWithChildren) {
   return (
@@ -30,79 +32,56 @@ function Alert({ children }: PropsWithChildren) {
 }
 
 export function FraudAlertPage() {
+  const t = useTranslations('fraud-alert-page');
   return (
     <section className="gap-y-[24px] overflow-x-clip pb-[60px] pt-[32px] md:pb-[90px] lg:gap-y-[40px] lg:pb-[180px] lg:pt-[80px]">
       <Container className="relative">
         <div className="flex flex-col gap-y-[24px] md:gap-y-[32px] lg:gap-y-[40px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Recruitment <br className="min-[1440px]:hidden" />
-            Fraud <br className="hidden min-[1440px]:block" />
-            Alert
+            {t('title')}
           </h1>
 
           <div className="text-[14px] leading-[20px] md:max-w-[60%] lg:text-base ">
-            We have become aware of recruitment scams that fraudulently obtain
-            money or personal information from job seekers. These scams take
-            various forms, such as fake job postings, phishing emails, or
-            fraudulent recruiters claiming to represent our company
+            {t('text')}
           </div>
         </div>
         <div className="mt-[32px] flex flex-col items-center md:mt-[44px] md:flex-row md:items-start lg:mt-[60px]">
           <div className="flex flex-col gap-y-[16px] md:max-w-[60%] md:gap-y-[20px] lg:gap-y-[24px]">
-            <h2 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
-              How to identify recruitment fraud:
+            <h2 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+              {t('how-to-block.title')}
             </h2>
 
             <ul className="list-inside list-disc ">
               <li className="ml-[8px]">
-                <Text size="small">
-                  Requests for personal information early in the process, such
-                  as your address, date of birth, passport information, social
-                  security number, or banking details
-                </Text>
+                <Text size="small">{t('how-to-block.identifiers.first')}</Text>
               </li>
               <li className="ml-[8px]">
                 <Text size="small">
-                  Individuals unaffiliated with Islamic Coin contacting you
-                  about a fake or legitimate job posting. Review the sender's
-                  name and email domain closely. Official Islamic Coin
-                  recruitment emails come from accounts formatted as:
-                  name@haqq.network or{' '}
-                  <span className="text-islamic-primary-green hover:text-islamic-primary-green-hover cursor-pointer transition-colors duration-300">
-                    name@islamiccoin.net
-                  </span>
+                  {t.rich('how-to-block.identifiers.second', {
+                    span: (chunks) => {
+                      return (
+                        <span className="text-islamic-primary-green hover:text-islamic-primary-green-hover cursor-pointer transition-colors duration-300">
+                          {chunks}
+                        </span>
+                      );
+                    },
+                  })}
                 </Text>
               </li>
               <li className="ml-[8px]">
-                <Text size="small">
-                  Being asked to participate in an "interview" via chat or
-                  email. Islamic Coin does not conduct "interviews" through chat
-                  or email
-                </Text>
+                <Text size="small">{t('how-to-block.identifiers.third')}</Text>
               </li>
               <li className="ml-[8px]">
-                <Text size="small">
-                  Receiving job offers through social media or online forums
-                </Text>
+                <Text size="small">{t('how-to-block.identifiers.fourth')}</Text>
               </li>
               <li className="ml-[8px]">
-                <Text size="small">
-                  Receiving job offers for positions you have yet to apply to or
-                  interview for
-                </Text>
+                <Text size="small">{t('how-to-block.identifiers.fifth')}</Text>
               </li>
               <li className="ml-[8px]">
-                <Text size="small">
-                  Insistence of urgent action within a very short time frame
-                </Text>
+                <Text size="small">{t('how-to-block.identifiers.sixth')}</Text>
               </li>
             </ul>
-            <Alert>
-              We have become aware of recruitment scams that fraudulently obtain
-              money or personal information from job seekers. These scams take
-              various forms, such as fake job postings, phishing emails, or
-              fraudulent recruiters claiming to represent our company
-            </Alert>
+            <Alert>{t('warning-block.text')}</Alert>
           </div>
 
           <div className="mt-[32px] md:mt-0 md:flex-1">
@@ -111,7 +90,11 @@ export function FraudAlertPage() {
               width={502}
               height={764}
               alt=""
-              className="pointer-events-none select-none md:absolute md:right-[-385px] md:top-[350px] md:translate-x-[-50%] md:translate-y-[-50%] lg:right-[-295px] xl:right-[-265px]"
+              className={clsx(
+                'pointer-events-none z-[-1] select-none md:absolute md:top-[435px] md:translate-y-[-50%]',
+                'ltr:md:right-[-385px] ltr:md:translate-x-[-50%] ltr:lg:right-[-295px] ltr:xl:right-[-265px]',
+                'rtl:md:left-[-385px] rtl:md:translate-x-[50%] rtl:lg:left-[-295px] rtl:xl:left-[-265px]',
+              )}
             />
           </div>
         </div>

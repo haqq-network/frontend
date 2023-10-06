@@ -67,6 +67,7 @@
     "marked": "7.0.5",
     "marked-react": "2.0.0",
     "next": "13.4.19",
+    "next-intl": "3.0.0-beta.16",
     "qrcode.react": "3.1.0",
     "react": "18.2.0",
     "react-countdown": "2.3.5",

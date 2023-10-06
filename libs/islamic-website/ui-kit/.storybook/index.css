@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Alexandria&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Handjet&display=swap');
 
 @tailwind components;
 @tailwind base;
@@ -35,10 +36,11 @@
 
   --font-alexandria: 'Alexandria', var(--font-family-base);
   --font-mono: 'VCR OSD Mono', var(--font-family-base);
+  --font-handjet: 'Handjet', var(var(--font-family-base));
 }
 
 body {
-  @apply bg-islamic-bg-black font-serif text-white will-change-auto;
+  @apply bg-islamic-bg-black font-alexandria text-white will-change-auto;
 }
 
 html {

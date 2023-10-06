@@ -4,6 +4,7 @@ import {
   NewsCard,
   NewsPost,
 } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 interface NewsBlockProps {
@@ -11,10 +12,11 @@ interface NewsBlockProps {
 }
 
 export function NewsBlock({ news }: NewsBlockProps) {
+  const t = useTranslations('index-page.news-block');
   return (
     <Container>
       <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
-        <Heading className="text-white">Latest Islamic Coin News</Heading>
+        <Heading className="text-white">{t('title')}</Heading>
         <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
           {news &&
             news.map((el, idx) => {
@@ -31,15 +33,16 @@ export function NewsBlock({ news }: NewsBlockProps) {
               );
             })}
         </div>
-        <div className="text-islamic-primary-green hover:text-islamic-classic-green mt-[48px] text-center font-mono text-base uppercase transition-colors duration-300">
+        <div className="text-islamic-primary-green hover:text-islamic-classic-green rtl:font-handjet ltr:font-vcr mt-[48px] text-center text-base uppercase transition-colors duration-300">
           <Link href="/news" className="flex items-center gap-x-[8px]">
-            See all news
+            {t('see-all-news')}
             <svg
               width="20"
               height="20"
               viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="rtl:rotate-180 rtl:transform"
             >
               <path
                 fillRule="evenodd"
