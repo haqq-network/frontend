@@ -117,7 +117,7 @@ function ScamBanner() {
   return (
     <div className="font-vcr fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center text-[16px] uppercase leading-[24px] text-white">
       <Container>
-        Beware of scamers! <br className="block md:hidden" />
+        Beware of scammers! <br className="block md:hidden" />
         Check{' '}
         <Link href="/scam-alert" className="underline">
           this page

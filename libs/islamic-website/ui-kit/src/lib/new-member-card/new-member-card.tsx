@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Text } from '../text/text';
 
 export function NewMemberCard({
   image,
@@ -9,6 +10,7 @@ export function NewMemberCard({
   onClick,
   className,
   description,
+  role,
 }: {
   image: string;
   title: string;
@@ -16,6 +18,7 @@ export function NewMemberCard({
   onClick?: () => void;
   className?: string;
   description: string;
+  role?: string;
 }) {
   return (
     <div
@@ -41,6 +44,11 @@ export function NewMemberCard({
           <span className="text-[13px] font-[700] leading-[20px] md:text-[14px] lg:text-[24px] lg:leading-[26px]">
             {title}
           </span>
+          {role && (
+            <div className="mt-[4px] min-h-[48px]">
+              <Text isMono>{role}</Text>
+            </div>
+          )}
 
           {url && (
             <div>

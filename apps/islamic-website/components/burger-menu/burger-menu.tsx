@@ -4,6 +4,7 @@ import {
   BlogIcon,
   BuildIcon,
   CaseIcon,
+  CommunityIcon,
   EcosystemIcon,
   HalfMoonAndStarIcon,
   MissionIcon,
@@ -158,6 +159,12 @@ export function BurgerMenu({
             title="Our Values"
             icon={<ValuesIcon />}
             href="/values"
+          />
+          <BurgerMenuDropdownLink
+            onClick={onClick}
+            title="Community"
+            icon={<CommunityIcon />}
+            href="/community-hub"
           />
           <BurgerMenuDropdownLink
             onClick={onClick}
