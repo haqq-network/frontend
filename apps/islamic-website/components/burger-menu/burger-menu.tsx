@@ -208,6 +208,11 @@ export function BurgerMenu({
             locale="ar"
             href={pathname}
           />
+          <LanguageLink
+            isActive={locale === 'id'}
+            locale="id"
+            href={pathname}
+          />
         </div>
       )}
     </div>

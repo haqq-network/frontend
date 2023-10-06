@@ -165,7 +165,7 @@ export function SubscribeForm({
         >
           <HookedFormInput<SubscribeFormFields>
             wrapperClassName={wrapperClassName}
-            placeholder="Your e-mail"
+            placeholder={t('input-placeholder')}
             type="email"
             id="email"
             register={register}

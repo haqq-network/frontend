@@ -27,7 +27,7 @@ export interface Member {
   role?: string;
 }
 
-export type localeType = 'ar' | 'en';
+export type localeType = 'ar' | 'en' | 'id';
 
 function MembersContainer({
   members,
@@ -69,10 +69,12 @@ export function ShariahPage({
   shariahMembers,
   executiveMembers,
   advisoryMembers,
+  fatwa,
 }: {
   shariahMembers: Member[];
   executiveMembers: Member[];
   advisoryMembers: Member[];
+  fatwa: string;
 }) {
   const t = useTranslations('shariah-page');
   const locale = useLocale();
@@ -179,7 +181,7 @@ export function ShariahPage({
                   initialInView
                 >
                   <div className="pb-[32px] pt-[32px] md:pb-[60px] lg:pb-[80px]">
-                    <FatwaBlock locale={locale as localeType} />
+                    <FatwaBlock locale={locale as localeType} fatwa={fatwa} />
                   </div>
                 </ScrollSpySection>
                 <ScrollSpySection
