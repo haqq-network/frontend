@@ -37,7 +37,7 @@ const Airdrops = () => {
 
   useEffect(() => {
     if (!token) {
-      false && setCaptchaModalOpen(true);
+      setCaptchaModalOpen(true);
     }
   }, [token]);
 
