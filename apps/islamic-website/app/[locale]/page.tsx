@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
-import { getNewsPageContent } from '../../utils/get-news-data';
+import { mapStorybookToNews } from '../../utils/get-news-data';
 import { getMembersContent } from '../../utils/get-members-data';
-import { getMainnetAccounts } from '../../utils/get-mainnet-accounts-data';
 import { DEPLOY_URL } from '../../constants';
+import { getHomePageContent } from '../../utils/get-index-page-data';
 
 const title = 'IslamicCoin';
 const description =
@@ -26,16 +26,24 @@ interface PageProps {
   params: { locale: string };
 }
 
-export default async function Page({ params: locale }: PageProps) {
-  const news = await getNewsPageContent();
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
   const { advisoryMembers, executiveMembers, shariahMembers } =
-    await getMembersContent(locale);
-  const mainnetAccounts = await getMainnetAccounts(3476);
+    await getMembersContent({ locale });
+  const {
+    news,
+    // commented until falconer supports localization
+    // members: { advisory_members, executive_members, shariah_members },
+    mainnet_accounts,
+  } = await getHomePageContent();
+  const mappedNews = mapStorybookToNews(news);
 
   return (
     <IndexPage
-      mainnetAccounts={mainnetAccounts}
-      news={news.slice(0, 3)}
+      mainnetAccounts={mainnet_accounts}
+      news={mappedNews}
       advisoryMembers={advisoryMembers}
       executiveMembers={executiveMembers}
       shariahMembers={shariahMembers}

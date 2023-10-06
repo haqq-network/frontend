@@ -9,7 +9,6 @@ import {
   HalfMoonAndStarIcon,
   MissionIcon,
   NewsIcon,
-  PartnershipIcon,
   QuestionMarkIcon,
   RoadmapIcon,
   StarIcon,
@@ -121,12 +120,6 @@ export function BurgerMenu({
                 onClick={onClick}
               />
               <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.partnerships')}
-                icon={<PartnershipIcon />}
-                href="/partnerships"
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
                 title={t('dropdown-links.about.build-on-haqq')}
                 icon={<BuildIcon />}
                 href="/build"
@@ -165,6 +158,12 @@ export function BurgerMenu({
               title={t('dropdown-links.learn.fraud-alert')}
               icon={<AlertIcon />}
               href="/fraud-alert"
+              onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.learn.scam-alert')}
+              icon={<AlertIcon />}
+              href="/scam-alert"
               onClick={onClick}
             />
           </MobileMenuDropdownLink>
@@ -209,7 +208,6 @@ export function BurgerMenu({
             locale="ar"
             href={pathname}
           />
-          {/* <MobileLocaleSwitcher isActive={locale === 'id'} locale="id" /> */}
         </div>
       )}
     </div>

@@ -26,7 +26,7 @@ export function Button({
   const classNames = clsx(
     'px-[32px] py-[12px] rounded-[8px] h-[48px]',
     'flex justify-center items-center gap-x-[8px]',
-    'text-center uppercase text-[16px] leading-[1.5em] font-[400] font-mono rtl:font-handjet',
+    'text-center uppercase text-[16px] leading-[1.5em] font-[400] ltr:font-vcr rtl:font-handjet',
     'transition-colors duration-300 ease-out will-change-auto group',
 
     variant === 'islamic-classic-green' &&

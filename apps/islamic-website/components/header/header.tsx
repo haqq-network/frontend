@@ -20,7 +20,6 @@ import {
   EcosystemIcon,
   MissionIcon,
   NewsIcon,
-  PartnershipIcon,
   RoadmapIcon,
   ValuesIcon,
   BurgerButton,
@@ -155,26 +154,38 @@ export function LanguageLink({
   );
 }
 
-export default function Header() {
+export default function Header({
+  isBannerVisible = false,
+}: {
+  isBannerVisible?: boolean;
+}) {
   const isTabletMedia = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
 
-  return isTabletMedia ? <MobileHeader /> : <DesktopHeader />;
+  return isTabletMedia ? (
+    <MobileHeader isBannerVisible={isBannerVisible} />
+  ) : (
+    <DesktopHeader isBannerVisible={isBannerVisible} />
+  );
 }
 
-export function MobileHeader() {
+export function MobileHeader({
+  isBannerVisible = false,
+}: {
+  isBannerVisible?: boolean;
+}) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
-  const [isBlurred, setBlured] = useState(false);
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 40;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
@@ -199,16 +210,28 @@ export function MobileHeader() {
 
   return (
     <Fragment>
-      <div className="h-[72px] lg:h-[92px]" />
+      <div
+        className={clsx(
+          isBannerVisible
+            ? 'h-[calc(72px+64px)] md:h-[calc(72px+40px)]'
+            : 'h-[72px]',
+        )}
+      />
       <header
         className={clsx(
-          'fixed top-0 z-50 h-[72px] w-full border-b-[1px] border-transparent',
+          'fixed z-50 h-[72px] w-full border-b-[1px] border-transparent',
+          isBannerVisible
+            ? 'top-[88px] min-[370px]:top-[64px] md:top-[40px]'
+            : 'top-[0px]',
           'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
           isMobileMenuOpen
-            ? '!h-[100vh] bg-[#15191ef2] backdrop-blur-[6px]'
+            ? 'bg-[#15191ef2] backdrop-blur-[6px]'
             : isBlurred
             ? '!border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px]'
             : 'bg-transparent',
+          isMobileMenuOpen &&
+            isBannerVisible &&
+            'h-[calc(100vh-64px)] md:h-[calc(100vh-40px)]',
         )}
       >
         <div className="flex h-full flex-col">
@@ -237,8 +260,8 @@ export function MobileHeader() {
           </div>
           <div
             className={clsx(
-              'flex-1 overflow-y-auto',
-              isMobileMenuOpen ? 'block ' : 'hidden',
+              'my-[1px] flex-1 overflow-y-auto',
+              isMobileMenuOpen ? 'block' : 'hidden',
             )}
           >
             <div className={clsx('py-[24px]', 'w-full')}>
@@ -256,17 +279,21 @@ export function MobileHeader() {
   );
 }
 
-export function DesktopHeader() {
-  const [isBlurred, setBlured] = useState(false);
+export function DesktopHeader({
+  isBannerVisible = false,
+}: {
+  isBannerVisible?: boolean;
+}) {
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 50;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
@@ -286,9 +313,10 @@ export function DesktopHeader() {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 w-full',
+        'sticky z-50 w-full',
         'transform-gpu transition-all duration-150 will-change-auto',
         isBlurred && 'translate-y-[-16px]',
+        isBannerVisible ? 'top-[40px]' : 'top-[0px]',
       )}
     >
       <div className="pb-[10px] pt-[26px]">
@@ -337,36 +365,12 @@ export function DesktopHeader() {
                       isOutLink
                     />
                   </div>
-                  {/* <div className="flex flex-col"> */}
-                  {/* <DropdownLink
-                      title="News"
-                      icon={<NewsIcon />}
-                      href="/news"
-                    /> */}
-                  {/* <DropdownLink
-                      title="Press"
-                      icon={<NewsIcon />}
-                      href="/press"
-                    /> */}
-                  {/* <DropdownLink
-                      title="Events"
-                      icon={<EventsIcon />}
-                      href="/events"
-                    /> */}
-                  {/* </div> */}
                   <div className="flex flex-col">
                     <DropdownLink
                       locale={locale}
                       title={t('dropdown-links.about.news')}
                       icon={<NewsIcon />}
                       href="/news"
-                    />
-
-                    <DropdownLink
-                      locale={locale}
-                      title={t('dropdown-links.about.partnerships')}
-                      icon={<PartnershipIcon />}
-                      href="/partnerships"
                     />
                     <DropdownLink
                       locale={locale}
@@ -383,56 +387,38 @@ export function DesktopHeader() {
               </DesktopHeaderLink>
 
               <HeaderDropdown title={t('dropdown-links.learn.learn')}>
-                <div className="flex gap-x-[18px]">
-                  <div className="flex flex-col">
-                    <DropdownLink
-                      locale={locale}
-                      title={t('dropdown-links.learn.academy')}
-                      icon={<AcademyIcon />}
-                      href="/academy"
-                    />
-                    <DropdownLink
-                      locale={locale}
-                      title={t('dropdown-links.learn.privacy-policy')}
-                      icon={<QuestionMarkIcon />}
-                      href="/privacy-policy"
-                    />
-                    <DropdownLink
-                      locale={locale}
-                      title={t('dropdown-links.learn.blog')}
-                      icon={<BlogIcon />}
-                      href="https://blog.islamiccoin.net"
-                      isOutLink
-                    />
-                    <DropdownLink
-                      locale={locale}
-                      title={t('dropdown-links.learn.fraud-alert')}
-                      icon={<AlertIcon />}
-                      href="/fraud-alert"
-                    />
-                    {/* <DropdownLink
-                      title="Podcast"
-                      icon={<PodcastIcon />}
-                      href="/where-to-start"
-                    /> */}
-                    {/* <DropdownLink
-                      title="Videos"
-                      icon={<VideoIcon />}
-                      href="/partners"
-                    /> */}
-                  </div>
-                  {/* <div className="flex flex-col">
-                    <DropdownLink
-                      title="Where to start?"
-                      icon={<RocketIcon />}
-                      href="/where-to-start"
-                    />
-                    <DropdownLink
-                      title="Partners"
-                      icon={<PartnersIcon />}
-                      href="/partners"
-                    />
-                  </div> */}
+                <div className="flex flex-col">
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.academy')}
+                    icon={<AcademyIcon />}
+                    href="/academy"
+                  />
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.privacy-policy')}
+                    icon={<QuestionMarkIcon />}
+                    href="/privacy-policy"
+                  />
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.blog')}
+                    icon={<BlogIcon />}
+                    href="https://blog.islamiccoin.net"
+                    isOutLink
+                  />
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.fraud-alert')}
+                    icon={<AlertIcon />}
+                    href="/fraud-alert"
+                  />
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.scam-alert')}
+                    icon={<AlertIcon />}
+                    href="/scam-alert"
+                  />
                 </div>
               </HeaderDropdown>
 
@@ -479,11 +465,6 @@ export function DesktopHeader() {
                     href={pathname}
                     isActive={locale === 'ar'}
                     locale="ar"
-                  />
-                  <LanguageLink
-                    href={pathname}
-                    isActive={locale === 'id'}
-                    locale="id"
                   />
                 </div>
               </HeaderDropdown>

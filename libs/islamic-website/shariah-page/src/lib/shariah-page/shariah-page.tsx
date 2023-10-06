@@ -24,6 +24,7 @@ export interface Member {
   title: string;
   description: string;
   url?: string;
+  role?: string;
 }
 
 export type localeType = 'ar' | 'en' | 'id';
@@ -41,7 +42,7 @@ function MembersContainer({
     <div
       className={clsx(
         'flex overflow-x-auto',
-        'gap-[32px] md:grid md:grid-cols-2 xl:grid-cols-3',
+        'gap-[32px] md:grid md:grid-cols-2 2xl:grid-cols-3',
         className,
       )}
     >
@@ -55,6 +56,7 @@ function MembersContainer({
               onMemberSelect(member);
             }}
             key={`${member.title}-member-${idx}`}
+            role={member.role}
             className="float-left min-w-[200px] snap-center md:float-none md:max-w-none"
           />
         );
@@ -294,6 +296,7 @@ export function ShariahPage({
             onClick={() => {
               setBoardMember(undefined);
             }}
+            role={boardMember.role}
           />
         )}
       </Modal>
@@ -313,7 +316,7 @@ function ShariPageDesktopNavLink({
     <Link
       href={href}
       className={clsx(
-        'hover:text-islamic-primary-green-hover inline-flex cursor-pointer items-center justify-between gap-x-[8px] font-mono uppercase',
+        'hover:text-islamic-primary-green-hover ltr:font-vcr rtl:font-handjet inline-flex cursor-pointer items-center justify-between gap-x-[8px] uppercase',
         'transition-colors duration-300',
         isActive ? 'text-islamic-primary-green' : 'text-white',
       )}

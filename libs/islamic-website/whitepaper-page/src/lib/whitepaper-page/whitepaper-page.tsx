@@ -29,6 +29,7 @@ function HeroBg({ children }: PropsWithChildren) {
             alt=""
             fill
             className="pointer-events-none z-[-2]"
+            loading="lazy"
           />
         </div>
       </Container>

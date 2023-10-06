@@ -5,7 +5,7 @@
         "white-text": "Your Gateway \n to \n Shariah ",
         "gradient-text": "Compliant \n Web3"
       },
-      "sub-text": "We are on a mission to onboard over 1.8+ billion Muslims into digital finance without compromising the values or faith. Islamic Coin is the native currency of HAQQ Network, an ethics first blockchain",
+      "sub-text": "We are on a mission to onboard over 1.8+ billion Muslims into digital finance without compromising the values or faith. Islamic coin is the native currency of HAQQ, an ethics first, scalable and interoperable blockchain built on Proof-of-Stake with fast finality.",
       "running-text": "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy."
     },
     "why-block": {
@@ -18,7 +18,7 @@
         "fourth": "Islamic Way to Financial Freedom"
       },
       "counters": {
-        "title": "We are part of",
+        "title": "We are core of",
         "subtitle": "HAQQ brings together the most reputable actors of Ethical finance in order to promote community-driven decentralized technologies worldwide",
         "link": "Go to HAQQ",
         "statistic-card": {
@@ -34,7 +34,7 @@
         "white-text": "Pioneering the Future",
         "gradient-text": "of Islamic Finance"
       },
-      "subtitle": "Crypto Innovation Meets Islamic Tradition offering Interest-Free Investments, Halal Trading, and Charitable Giving",
+      "subtitle": "Crypto Innovation Meets Islamic Tradition offering Interest-Free Investments, Halal Trading, and Charitable Giving and More",
       "text": {
         "first": "Our Shariah compliant products, including interest-free investments, halal trading, and charitable giving opportunities, blend modern fintech with Islamic heritage, giving you the power to honor your traditions while embracing the crypto revolution.",
         "second": "Step into the future with Islamic Coin - the heart of ethical, principled finance that respects your values."
@@ -62,7 +62,7 @@
       "title": "Learn and Grow with Islamic Coin",
       "subtitle": "Empower Your Ethical Financial Journey with Our Educational Guides & Resources",
       "text": "Delve into the world of ethical finance with Islamic Coin. Our curated educational guides and resources are designed to enlighten, equip, and empower your financial journey",
-      "button-text": "Get started with HAQQ wallet"
+      "button-text": "Get started"
     },
     "join-community-block": {
       "title": "Join Our Community",
@@ -90,8 +90,8 @@
     },
     "funds-block": {
       "title": {
-        "white-text": "These funds",
-        "gradient-text": "trust us"
+        "white-text": "Backed",
+        "gradient-text": "by"
       }
     }
   },
@@ -294,18 +294,49 @@
     "text": "Islamic Coin was built to bring Shariah-compliant digital money to the Muslim community and beyond. Wherever you are, we welcome your opinion and invite you to join our Channels and the conversation! Be a part of a new era of sustainable, ethical finance."
   },
   "available-soon-page": {
-    "title": "Awaiting soon",
+    "title": "Coming soon",
     "subtitle": "Go to main page"
   },
   "wallet-page": {
     "title": {
-      "white-text": "for iOS and Android",
-      "gradient-text": "Wallets"
+      "white-text": "Your Gateway to Islamic DeFi",
+      "gradient-text": "HAQQ Wallet:"
     },
     "subtitle": "Ethics-First, Non-Custodial Wallet",
     "text": "Seamlessly navigate Web3 with HAQQ Wallet, your trusted partner for a principled DeFi journey. With mnemonicless security and a user-friendly interface, managing your digital Shariah-compliant assets has never been easier or more secure",
     "download-button": {
       "title": "Available in"
+    }
+  },
+  "scam-alert-page": {
+    "title": "Scam Alert",
+    "appeal-block": {
+      "title": "Dear Community,",
+      "paragraphs": {
+        "first": "We need your attention regarding the ISLM token. Lately, we've seen a surge in scams tied to ISLM on unauthorized platforms, and we take this very seriously.",
+        "second": "Here's the deal:",
+        "third": "(These are the ONLY official Twitter channels)",
+        "fourth": "Our cashtag ticker is ISLM - <strong>NOTHING ELSE</strong>",
+        "fifth": "Private sellers of ISLM may claim they are part of the official community, we do not solicit tokens through these channels and if claims are made that they are part of the team or represent HAQQ Network or IslamicCoin please be aware that this is categorically false.",
+        "sixth": "Our core team will never try to sell you tokens using their position.",
+        "seventh": "Only Official Options: Legit buying options for ISLM will be revealed EXCLUSIVELY through our official channels and trusted partners. Beware of any other sources.",
+        "eighth": "Our ISLM team is committed to your safety and security. Report suspicious activity to us immediately. We're here to help you stay safe and informed."
+      },
+      "list": {
+        "first": "<ul><li>Official ISLM and HAQQ Website Channels:<ul><li><haqqLink></haqqLink>: The place for HAQQ updates, news, and info</li><li><islamicLink></islamicLink>: Another official source for ISLM news and developments</li></ul></li></ul>",
+        "second": "<ul><li>Official Social Media Channels:<ul><li>Instagram: <islamicInsta>{islamicInsta}</islamicInsta> (Any other spin-off is NOT from us)</li><li>Twitter: <islamicTwitter></islamicTwitter> and <haqqTwitter></haqqTwitter></li></ul></li></ul>"
+      }
+    },
+    "how-to-spot-block": {
+      "title": "How to Spot Scams:",
+      "list": "<ul><li>Unsolicited Messages: If it's unsolicited and not from <haqqLink></haqqLink> or <islamicLink></islamicLink>, be cautious.</li><li>Too-Good-to-Be-True Promises: High returns with no risk? It's a red flag!</li><li>Unverified Websites and Social Media: Stick to official sources for ISLM updates.</li><li>They add you to telegram groups and show they can airdrop you some supply into your HAQQ Wallet</li></ul>",
+      "paragraphs": {
+        "first": "IMPORTANT: NO OTHER PLATFORM CAN BE TRUSTED, including social media claiming to be official channels and domains that have hijacked our brand through community initiatives. Whilst we support the community initiatives we do not endorse them as official channels for the sale of ISLM tokens. We DO NOT endorse these platforms.",
+        "second": "If you are interested in joining our presale please visit <a>republic.com/islamic-coin</a>",
+        "third": "Your safety matters most. Stick to the official channels to make wise investments and protect the ISLM community from scams and fraud.",
+        "fourth": "Thank you for your vigilance and support!",
+        "fifth": "Sincerely,\nIslamicCoin and HAQQ Network Team"
+      }
     }
   },
   "header": {
@@ -330,6 +361,7 @@
         "academy": "Academy",
         "blog": "Blog",
         "fraud-alert": "Fraud alert",
+        "scam-alert": "Scam alert",
         "privacy-policy": "Privacy policy"
       },
       "team": {
@@ -360,7 +392,8 @@
     "stake-islm": "Stake ISLM",
     "values": "Our values",
     "partnerships": "Partnerships",
-    "career": "Career"
+    "career": "Career",
+    "contact-us": "Contact us"
   },
   "subscribe-form": {
     "text": "Keep up to date with our upcoming Public Launch and Exchange listing - Subscribe to our newsletter",
@@ -370,6 +403,16 @@
   "ui-kit": {
     "member-card": {
       "web": "Web"
+    },
+    "download-pdf-button": {
+      "type": {
+        "fatwa": "Fatwa",
+        "whitepaper": "Whitepaper"
+      },
+      "language": {
+        "en": "English",
+        "ar": "Arabic"
+      }
     }
   }
 }

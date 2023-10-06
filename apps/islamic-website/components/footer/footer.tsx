@@ -27,7 +27,7 @@ function FooterNavLink({
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="rtl:font-handjet w-fit px-[8px] py-[6px] font-mono  text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-150 ease-in hover:text-[#18FFAC] md:text-[14px] lg:text-base lg:text-base"
+      className="rtl:font-handjet ltr:font-vcr w-fit px-[8px] py-[6px] text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-150 ease-in hover:text-[#18FFAC] md:text-[14px] lg:text-base"
     >
       {title}
     </Link>
@@ -50,6 +50,10 @@ const footerNavLinks: FooterNavLinks = [
       url: '/whitepaper',
       title: 'whitepaper',
     },
+    {
+      url: '/contact-us',
+      title: 'contact-us',
+    },
   ],
   [
     {
@@ -66,27 +70,6 @@ const footerNavLinks: FooterNavLinks = [
     },
   ],
   [
-    // {
-    //   url: '/press',
-    //   title: 'For press',
-    // },
-    // {
-    //   url: '/grants',
-    //   title: 'Grants',
-    // },
-    // {
-    //   url: '/join-us',
-    //   title: 'Join us',
-    // },
-
-    // {
-    //   url: '/get-islm',
-    //   title: 'Get ISLM',
-    // },
-    // {
-    //   url: '/hodling',
-    //   title: 'Hodling',
-    // },
     {
       url: '/news',
       title: 'islm-in-media',
@@ -121,10 +104,6 @@ const footerNavLinks: FooterNavLinks = [
     {
       url: '/values',
       title: 'values',
-    },
-    {
-      url: '/partnerships',
-      title: 'partnerships',
     },
     {
       url: '/career',

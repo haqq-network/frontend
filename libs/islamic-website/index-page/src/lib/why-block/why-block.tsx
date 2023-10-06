@@ -115,18 +115,20 @@ export function StatisticsBlockStatCard({
   startAnimation,
   prefix,
   postfix,
+  decimalPlaces,
 }: {
   title: string;
   value: number;
   startAnimation: boolean;
   prefix?: string;
   postfix?: string;
+  decimalPlaces?: number;
 }) {
   return (
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'rtl:font-handjet pointer-events-none flex h-[34px] select-none gap-x-[6px] font-mono  text-[24px] leading-[34px]',
+          'rtl:font-handjet ltr:font-vcr pointer-events-none flex h-[34px] select-none gap-x-[6px] text-[24px] leading-[34px]',
         )}
       >
         {prefix}
@@ -140,6 +142,7 @@ export function StatisticsBlockStatCard({
               { mass: 2, tension: 140, friction: 40 },
               { mass: 3, tension: 130, friction: 40 },
             ]}
+            decimalPlaces={decimalPlaces}
           />
         ) : (
           <span>0</span>
@@ -164,7 +167,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
       mainnetAccountsCreated: mainnetAccounts,
       transactionsInLast24Hours: 210000,
       secondsToConsensusFinality: 5.6,
-      averageCostPerTransaction: 147,
+      averageCostPerTransaction: 0.0005,
     };
   }, [mainnetAccounts]);
 
@@ -209,7 +212,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
             href="https://haqq.network"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet flex cursor-pointer items-center gap-x-[8px] font-mono  uppercase transition-colors duration-300 ease-out"
+            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr flex cursor-pointer items-center gap-x-[8px] uppercase transition-colors duration-300 ease-out"
           >
             <span>{t('counters.link')}</span>
             <svg
@@ -256,7 +259,9 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
             value={stats.averageCostPerTransaction}
             title={t('counters.statistic-card.fourth')}
             startAnimation={startAnimation}
-            postfix="aISLM"
+            prefix="~"
+            postfix="ISLM"
+            decimalPlaces={4}
           />
         </div>
       </div>

@@ -27,7 +27,6 @@ export * from './components/proposal-deposit-progress/proposal-deposit-progress'
 export * from './components/proposal-status/proposal-status';
 export * from './components/proposal-period-timer/proposal-period-timer';
 export * from './components/proposal-vote-progress/proposal-vote-progress';
-export * from './components/proposal-deposit-modal/proposal-deposit-modal';
 export * from './components/modal-input/modal-input';
 export * from './components/proposal-status/proposal-status';
 export * from './components/tooltip/tooltip';

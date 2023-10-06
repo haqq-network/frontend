@@ -2,6 +2,8 @@ import { Container, GradientText, Heading } from '@haqq/islamic-website-ui-kit';
 import a195LogoImgData from '../../assets/images/a195-logo.png';
 import df101LogoImgData from '../../assets/images/df101-logo.svg';
 import opticCapitalLogoImgData from '../../assets/images/optic-capital-logo.png';
+import aboDigitalLogoImgData from '../../assets/images/abo-digital-logo.png';
+import futurecraftVenturesImgData from '../../assets/images/futurecraft-ventures.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -19,7 +21,7 @@ export function FundsBlock() {
               {t('title.gradient-text')}
             </GradientText>
           </Heading>
-          <div className="flex flex-col items-center gap-[40px] md:flex-row md:gap-[80px]">
+          <div className="flex flex-col flex-wrap items-center justify-center gap-[40px] md:flex-row md:gap-[80px]">
             <Link
               href="https://df101.xyz/"
               target="_blank"
@@ -47,6 +49,24 @@ export function FundsBlock() {
             >
               <div className="relative h-[80px] w-[100px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={opticCapitalLogoImgData.src} alt="" fill />
+              </div>
+            </Link>
+            <Link
+              href="https://www.abodigital.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative h-[80px] w-[140px] opacity-60 transition-opacity duration-300 hover:opacity-100">
+                <Image src={aboDigitalLogoImgData.src} alt="" fill />
+              </div>
+            </Link>
+            <Link
+              href="https://www.futurecraft.ventures/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative h-[80px] w-[100px] opacity-60 transition-opacity duration-300 hover:opacity-100">
+                <Image src={futurecraftVenturesImgData.src} alt="" fill />
               </div>
             </Link>
           </div>

@@ -40,7 +40,7 @@
 }
 
 body {
-  @apply bg-islamic-bg-black font-serif text-white will-change-auto;
+  @apply bg-islamic-bg-black font-alexandria text-white will-change-auto;
 }
 
 html {

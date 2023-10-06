@@ -1,14 +1,6 @@
-@import './fonts.css';
-
 @tailwind components;
 @tailwind base;
 @tailwind utilities;
-
-:root {
-  --font-serif: 'Alexandria';
-  --font-mono: 'VCR_OSD_MONO';
-  --font-handjet: 'Handjet';
-}
 
 .text-shadow-outline {
   --distance: 1.5px;

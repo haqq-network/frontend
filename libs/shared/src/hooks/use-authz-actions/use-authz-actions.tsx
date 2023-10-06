@@ -23,7 +23,7 @@ interface AuthzActionsHook {
 export function useAuthzActions(): AuthzActionsHook {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
-  const { broadcastTransaction, getAccountInfo, getPubkey } =
+  const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
     useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
 
@@ -39,7 +39,11 @@ export function useAuthzActions(): AuthzActionsHook {
   const getSender = useCallback(
     async (address: string, pubkey: string) => {
       try {
-        const accInfo = await getAccountInfo(address);
+        const accInfo = await getAccountBaseInfo(address);
+
+        if (!accInfo) {
+          throw new Error('no base account info');
+        }
 
         return {
           accountAddress: address,
@@ -52,7 +56,7 @@ export function useAuthzActions(): AuthzActionsHook {
         throw error;
       }
     },
-    [getAccountInfo],
+    [getAccountBaseInfo],
   );
 
   const signTransaction = useCallback(

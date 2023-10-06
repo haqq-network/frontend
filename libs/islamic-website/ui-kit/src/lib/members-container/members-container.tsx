@@ -1,5 +1,4 @@
 'use client';
-import { MemberCard } from '../member-card/member-card';
 import { MemberModalCard } from '../member-modal-card/member-modal-card';
 import { Modal } from '../modal/modal';
 import { useCallback, useState } from 'react';
@@ -7,12 +6,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
+import { MemberCard } from '../member-card/member-card';
 
 type Member = {
   image: string;
   title: string;
   description: string;
   url?: string;
+  role?: string;
 };
 
 interface MembersContainerProps {
@@ -73,14 +74,15 @@ export function MembersContainer({
         >
           {members.map((member, idx) => {
             return (
-              <SwiperSlide key={`${member.title}-member-${idx}}`}>
+              <SwiperSlide key={idx}>
                 <MemberCard
                   image={member.image}
                   title={member.title}
                   url={member.url}
                   onClick={() => {
-                    return openBoardModal(member);
+                    openBoardModal(member);
                   }}
+                  role={member.role}
                 />
               </SwiperSlide>
             );
@@ -95,9 +97,10 @@ export function MembersContainer({
                 title={member.title}
                 url={member.url}
                 onClick={() => {
-                  return openBoardModal(member);
+                  openBoardModal(member);
                 }}
-                key={`${member.title}-member-${idx}}`}
+                key={idx}
+                role={member.role}
               />
             );
           })}
@@ -110,6 +113,7 @@ export function MembersContainer({
           image={memberModalData.image}
           title={memberModalData.title}
           url={memberModalData.url}
+          role={memberModalData.role}
           onClick={closeBoardModal}
         />
       </Modal>

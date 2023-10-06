@@ -20,13 +20,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page({
-  params: locale,
-}: {
+interface PageProps {
   params: { locale: string };
-}) {
+}
+
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
   const { shariahMembers, advisoryMembers, executiveMembers } =
-    await getMembersContent(locale);
+    await getMembersContent({ locale });
 
   const enFatwa = await getFatwaContent({ locale: 'en' });
   const arFatwa = await getFatwaContent({ locale: 'ar' });

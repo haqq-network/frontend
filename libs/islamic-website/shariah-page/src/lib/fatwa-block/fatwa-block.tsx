@@ -28,7 +28,7 @@ function LangButton({
   return (
     <div
       className={clsx(
-        ' rtl:font-handjet cursor-pointer rounded-[8px] px-[12px] py-[8px] font-mono  text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+        'rtl:font-handjet ltr:font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
         active
           ? 'bg-islamic-primary-green'
           : 'hover:bg-islamic-primary-green/50 bg-transparent',
@@ -45,7 +45,7 @@ function LangButton({
 function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   return (
     <div className="flex w-fit flex-col items-start justify-between gap-y-[8px] md:gap-y-[12px]">
-      <span className="rtl:font-handjet font-mono  text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
+      <span className="rtl:font-handjet ltr:font-vcr text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
         {name}
       </span>
       <div className="relative h-[62px] w-[170px]">
@@ -59,7 +59,7 @@ function AutographsBlock() {
   const t = useTranslations('shariah-page');
   return (
     <div className="mt-[28px] flex flex-col gap-y-[20px] md:mt-[32px] lg:mt-[36px]">
-      <h4 className="rtl:font-handjet font-mono  text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+      <h4 className="rtl:font-handjet ltr:font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
         {t('autographs-block.title')}
       </h4>
 
@@ -110,12 +110,12 @@ export function FatwaBlock({
         <Text size="small">{t('fatwa-block.subtitle')}</Text>
       </div>
 
-      <div className="mt-[24px] flex gap-x-[16px] md:mt-[28px] lg:mt-[32px]">
+      <div className="mt-[24px] flex gap-x-[16px] rtl:flex-row-reverse rtl:justify-end md:mt-[28px] lg:mt-[32px]">
         <DownloadPDFButton language="en" url="/assets/fatwa-en.pdf" />
         <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
       </div>
 
-      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
+      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] rtl:flex-row-reverse md:mt-[48px] lg:mt-[60px]">
         <LangButton
           active={lang === 'en'}
           locale="en"
