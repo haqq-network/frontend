@@ -1,5 +1,6 @@
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 export function BuildPage() {
   const t = useTranslations('build-page');
@@ -27,7 +28,14 @@ export function BuildPage() {
             </div>
           </div>
           <div className="mt-[32px] flex flex-col gap-y-[24px] md:mt-[60px] md:max-w-[600px] md:gap-y-[32px]">
-            <DocsTab type="manual" />
+            <Link
+              href="https://docs.haqq.network/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-fit"
+            >
+              <DocsTab type="manual" />
+            </Link>
             <DocsTab type="archive" />
           </div>
           <BuildPageBg />
