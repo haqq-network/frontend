@@ -74,7 +74,7 @@ export function ShariahPage({
   shariahMembers: Member[];
   executiveMembers: Member[];
   advisoryMembers: Member[];
-  fatwa: Record<string, string>;
+  fatwa: string;
 }) {
   const t = useTranslations('shariah-page');
   const locale = useLocale();

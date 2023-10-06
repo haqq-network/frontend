@@ -31,15 +31,7 @@ export default async function Page(props: PageProps) {
   const { shariahMembers, advisoryMembers, executiveMembers } =
     await getMembersContent({ locale });
 
-  const enFatwa = await getFatwaContent({ locale: 'en' });
-  const arFatwa = await getFatwaContent({ locale: 'ar' });
-  const idFatwa = await getFatwaContent({ locale: 'id' });
-
-  const fatwa = {
-    en: enFatwa,
-    ar: arFatwa,
-    id: idFatwa,
-  };
+  const fatwa = await getFatwaContent({ locale });
 
   return (
     <ShariahPage
