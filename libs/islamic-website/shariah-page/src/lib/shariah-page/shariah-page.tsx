@@ -23,6 +23,7 @@ export interface Member {
   title: string;
   description: string;
   url?: string;
+  role?: string;
 }
 const sections: Array<{ id: string; title: string }> = [
   { id: 'fatwa', title: 'Fatwa' },
@@ -64,6 +65,7 @@ function MembersContainer({
               onMemberSelect(member);
             }}
             key={idx}
+            role={member.role}
             className="float-left min-w-[200px] snap-center md:float-none md:max-w-none"
           />
         );
@@ -290,6 +292,7 @@ export function ShariahPage({
             onClick={() => {
               setBoardMember(undefined);
             }}
+            role={boardMember.role}
           />
         )}
       </Modal>
