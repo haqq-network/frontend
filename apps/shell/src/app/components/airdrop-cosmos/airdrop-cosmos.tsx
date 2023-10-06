@@ -5,6 +5,7 @@ import { ecrecover, fromRpcSig } from '@ethereumjs/util';
 import { CosmosAirdropView } from './../cosmos-airdrop-view/cosmos-airdrop-view';
 import { haqqToEth, useWallet } from '@haqq/shared';
 import { getKeplrWallet } from '../cosmos-airdrop-card/cosmos-airdrop-card';
+import { BluredBlock } from '../blured-block/blured-block';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -66,39 +67,25 @@ export function AirdropCosmos({
   }, [disconnect, setEthAddressFromKeppler, hasMetamaskConnected]);
 
   return (
-    <div>
-      <div className="mb-[20px] text-[32px] font-[500]">
-        Cosmos ecosystem drop{' '}
-      </div>
-
-      <div className="relative">
-        <div
-          className={`flex flex-col ${
-            notConnectedKeppler && 'opacity-50 blur-[6px]'
-          }`}
-        >
-          <CosmosAirdropView
-            cosmosAddress={accounts['cosmos']}
-            evmosAddress={accounts['evmos']}
-            osmosisAddress={accounts['osmosis']}
-            ethAddressFromKeppler={ethAddressFromKeppler}
-          />
-        </div>
-
-        {notConnectedKeppler && (
-          <div className="absolute top-0 flex h-[100%] w-[100%] items-center">
-            <div className="m-auto flex flex-col items-center">
-              <div className="mb-[12px]">Connect via Keplr to see</div>
-              <Button
-                className="pl-[32px] pr-[32px]"
-                onClick={connectKeplrWallet}
-              >
-                Connect to Keplr
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+    <BluredBlock
+      title="Cosmos ecosystem dro"
+      isBlured={!notConnectedKeppler}
+      bluredContent={
+        <CosmosAirdropView
+          cosmosAddress={accounts['cosmos']}
+          evmosAddress={accounts['evmos']}
+          osmosisAddress={accounts['osmosis']}
+          ethAddressFromKeppler={ethAddressFromKeppler}
+        />
+      }
+      content={
+        <>
+          <div className="mb-[12px]">Connect via Keplr to see</div>
+          <Button className="pl-[32px] pr-[32px]" onClick={connectKeplrWallet}>
+            Connect to Keplr
+          </Button>
+        </>
+      }
+    />
   );
 }
