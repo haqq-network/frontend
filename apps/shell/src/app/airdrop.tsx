@@ -36,10 +36,10 @@ const Airdrops = () => {
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!token) {
+    if (!token && !ethAddress) {
       setCaptchaModalOpen(true);
     }
-  }, [token]);
+  }, [token, ethAddress]);
 
   const targetHexAddress = ethAddress || ethAddressFromKeppler;
 
