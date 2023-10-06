@@ -93,7 +93,7 @@ export function AirdropCosmos({
                 className="pl-[32px] pr-[32px]"
                 onClick={connectKeplrWallet}
               >
-                Connect to kepler
+                Connect to Keplr
               </Button>
             </div>
           </div>

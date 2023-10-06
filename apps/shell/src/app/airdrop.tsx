@@ -74,7 +74,7 @@ const Airdrops = () => {
       <div className="flex flex-1 flex-col border-t border-[#ffffff26] px-[16px] py-[24px] sm:px-[48px] sm:py-[24px] lg:pb-[60px] lg:pl-[80px] lg:pr-[80px] lg:pt-[60px]">
         <AirdropEvm ethAddress={ethAddress} />
 
-        <div className="mt-[72px]">
+        <div className="mb-[100px] mt-[72px]">
           <AirdropCosmos
             hasMetamaskConnected={!!ethAddress}
             setEthAddressFromKeppler={setEthAddressFromKeppler}
