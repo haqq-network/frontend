@@ -308,6 +308,37 @@
       "title": "Tersedia di"
     }
   },
+  "scam-alert-page": {
+    "title": "Scam Alert",
+    "appeal-block": {
+      "title": "Dear Community,",
+      "paragraphs": {
+        "first": "We need your attention regarding the ISLM token. Lately, we've seen a surge in scams tied to ISLM on unauthorized platforms, and we take this very seriously.",
+        "second": "Here's the deal:",
+        "third": "(These are the ONLY official Twitter channels)",
+        "fourth": "Our cashtag ticker is ISLM - <strong>NOTHING ELSE</strong>",
+        "fifth": "Private sellers of ISLM may claim they are part of the official community, we do not solicit tokens through these channels and if claims are made that they are part of the team or represent HAQQ Network or IslamicCoin please be aware that this is categorically false.",
+        "sixth": "Our core team will never try to sell you tokens using their position.",
+        "seventh": "Only Official Options: Legit buying options for ISLM will be revealed EXCLUSIVELY through our official channels and trusted partners. Beware of any other sources.",
+        "eighth": "Our ISLM team is committed to your safety and security. Report suspicious activity to us immediately. We're here to help you stay safe and informed."
+      },
+      "list": {
+        "first": "<ul><li>Official ISLM and HAQQ Website Channels:<ul><li><haqqLink></haqqLink>: The place for HAQQ updates, news, and info</li><li><islamicLink></islamicLink>: Another official source for ISLM news and developments</li></ul></li></ul>",
+        "second": "<ul><li>Official Social Media Channels:<ul><li>Instagram: <islamicInsta>{islamicInsta}</islamicInsta> (Any other spin-off is NOT from us)</li><li>Twitter: <islamicTwitter></islamicTwitter> and <haqqTwitter></haqqTwitter></li></ul></li></ul>"
+      }
+    },
+    "how-to-spot-block": {
+      "title": "How to Spot Scams:",
+      "list": "<ul><li>Unsolicited Messages: If it's unsolicited and not from <haqqLink></haqqLink> or <islamicLink></islamicLink>, be cautious.</li><li>Too-Good-to-Be-True Promises: High returns with no risk? It's a red flag!</li><li>Unverified Websites and Social Media: Stick to official sources for ISLM updates.</li><li>They add you to telegram groups and show they can airdrop you some supply into your HAQQ Wallet</li></ul>",
+      "paragraphs": {
+        "first": "IMPORTANT: NO OTHER PLATFORM CAN BE TRUSTED, including social media claiming to be official channels and domains that have hijacked our brand through community initiatives. Whilst we support the community initiatives we do not endorse them as official channels for the sale of ISLM tokens. We DO NOT endorse these platforms.",
+        "second": "If you are interested in joining our presale please visit <a>republic.com/islamic-coin</a>",
+        "third": "Your safety matters most. Stick to the official channels to make wise investments and protect the ISLM community from scams and fraud.",
+        "fourth": "Thank you for your vigilance and support!",
+        "fifth": "Sincerely,\nIslamicCoin and HAQQ Network Team"
+      }
+    }
+  },
   "header": {
     "single-links": {
       "shariah": "Syariah",
@@ -330,6 +361,7 @@
         "academy": "Akademi",
         "blog": "Blog",
         "fraud-alert": "Fraud alert",
+        "scam-alert": "Scam alert",
         "privacy-policy": "Kebijakan Privasi"
       },
       "team": {
