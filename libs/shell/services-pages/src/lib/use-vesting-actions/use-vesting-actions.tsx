@@ -1,31 +1,12 @@
 import { useCallback, useMemo } from 'react';
-import {
-  // Sender,
-  // signatureToWeb3Extension,
-  // createTxRawEIP712,
-  // TxGenerated,
-  // createTxCreateClawbackVestingAccount,
-  MessageMsgCreateClawbackVestingAccount,
-  // Period,
-} from '@evmos/transactions';
+import { MessageMsgCreateClawbackVestingAccount } from '@evmos/transactions';
 import {
   useAddress,
-  // DEFAULT_FEE,
   getChainParams,
   useCosmosService,
   mapToCosmosChain,
 } from '@haqq/shared';
 import { useNetwork } from 'wagmi';
-// import { Timestamp } from 'cosmjs-types/google/protobuf/timestamp';
-// import { createMsgCreateClawbackVestingAccount as ConvertToProtoMsgCreateClawbackVestingAccount } from '@evmos/proto';
-// import  * as vesting from '@evmos/proto/evmos/vesting/v1/tx';
-// import {
-//   generateFee,
-//   generateTypes,
-//   generateMessage,
-//   createEIP712,
-// } from '@evmos/eip712';
-// import { createTransaction } from '@evmos/proto';
 
 export function useVestingActions() {
   const { chain } = useNetwork();
@@ -117,7 +98,7 @@ export function useVestingActions() {
 
         const unlockCoins = {
           denom: denom,
-          amount: (unlockAmount * 10 ** 18).toString(),
+          amount: BigInt(unlockAmount * 10 ** 18).toString(),
         };
 
         const period = {

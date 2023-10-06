@@ -1,7 +1,13 @@
-import { ethToHaqq, haqqToEth, useAddress, useWallet } from '@haqq/shared';
+import {
+  ethToHaqq,
+  haqqToEth,
+  useAddress,
+  useClipboard,
+  useWallet,
+} from '@haqq/shared';
 import { Button, Container } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { isAddress } from 'viem';
 // import { useNetwork } from 'wagmi';
 import { useVestingActions } from '../use-vesting-actions/use-vesting-actions';
@@ -52,9 +58,7 @@ export function CreateVestingAccountPage() {
 }
 
 function CreateVestingAccountForm() {
-  const [targetAccount, setTargetAccount] = useState(
-    '0xa5767e34Fc9B41872b4d0b321EF3531fD87624e5',
-  );
+  const [targetAccount, setTargetAccount] = useState('');
   const [isTargetValid, setTargetValid] = useState(false);
   const [targetAddresses, setTargetAddresses] = useState<{
     eth: string;
@@ -68,21 +72,12 @@ function CreateVestingAccountForm() {
   const [unlock, setUnlock] = useState(60);
   const [startTime, setStartTime] = useState(1695695564);
   const { getParams } = useVestingActions();
-  // const toast = useToast();
-  const [isCodeVisible, setCodeVisible] = useState(false);
   const [generatedTx, setGeneratedTx] = useState({});
   const { haqqAddress } = useAddress();
+  const { copyText } = useClipboard();
+  // const toast = useToast();
   // const { chain } = useNetwork();
   // const invalidateQueries = useQueryInvalidate();
-
-  console.log({
-    targetAccount,
-    isTargetValid,
-    targetAddresses,
-    amount,
-    lockup,
-    unlock,
-  });
 
   // const handleCreateNewClick = useCallback(async () => {
   //   const grantPromise = createNew(
@@ -221,97 +216,96 @@ function CreateVestingAccountForm() {
     unlock,
   ]);
 
+  const handleSaveFileClick = useCallback(() => {
+    const jsonString = JSON.stringify(generatedTx, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const blobUrl = URL.createObjectURL(blob);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = blobUrl;
+    downloadLink.download = `${targetAddresses.haqq}-convert-to-vesting-tx.json`;
+    downloadLink.click();
+    URL.revokeObjectURL(blobUrl);
+  }, [generatedTx, targetAddresses.haqq]);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyClick = useCallback(async () => {
+    const jsonString = JSON.stringify(generatedTx, null, 2);
+    await copyText(jsonString);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+  }, [copyText, generatedTx]);
+
   return (
-    <Container>
-      <div className="flex flex-col gap-[18px]">
-        <Input
-          label="Account address"
-          id="target"
-          placeholder="0x... or haqq1..."
-          value={targetAccount}
-          onChange={(value) => {
-            setTargetAccount(value);
-          }}
-        />
-        <Input
-          label="Vesting amount"
-          id="amount"
-          placeholder="Deposit amount in ISLM"
-          value={amount.toString()}
-          onChange={(value) => {
-            const nextValue = !Number.isNaN(Number.parseInt(value))
-              ? Number.parseInt(value)
-              : 0;
-            setAmount(nextValue);
-          }}
-        />
-        <Input
-          label="Lockup period"
-          id="lockup"
-          placeholder="in days"
-          value={lockup.toString()}
-          onChange={(value) => {
-            const nextValue = !Number.isNaN(Number.parseInt(value))
-              ? Number.parseInt(value)
-              : 0;
-            setLockup(nextValue);
-          }}
-        />
-        <Input
-          label="Vesting period"
-          id="unlock"
-          placeholder="in days"
-          value={unlock.toString()}
-          onChange={(value) => {
-            const nextValue = !Number.isNaN(Number.parseInt(value))
-              ? Number.parseInt(value)
-              : 0;
-            setUnlock(nextValue);
-          }}
-        />
-        <div>
-          <Input
-            label="Vesting start date"
-            id="startTime"
-            placeholder="UNIX Timestamp"
-            value={startTime.toString()}
-            onChange={(value) => {
-              const nextValue = !Number.isNaN(Number.parseInt(value))
-                ? Number.parseInt(value)
-                : 0;
-              setStartTime(nextValue);
-            }}
-          />
-          <div className="mt-[4px] text-[12px] leading-[24px] text-white/50">
-            {formatDate(new Date(startTime * 1000))}
-          </div>
-        </div>
+    <div className="border-t border-t-[#ffffff26]">
+      <Container>
+        <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:flex-row lg:pb-[40px] lg:pt-[32px]">
+          <div className="flex flex-none flex-col gap-[18px] lg:w-1/3">
+            <Input
+              label="Account address"
+              id="target"
+              placeholder="0x... or haqq1..."
+              value={targetAccount}
+              onChange={(value) => {
+                setTargetAccount(value);
+              }}
+            />
+            <Input
+              label="Vesting amount"
+              id="amount"
+              placeholder="Deposit amount in ISLM"
+              value={amount.toString()}
+              onChange={(value) => {
+                const nextValue = !Number.isNaN(Number.parseInt(value))
+                  ? Number.parseInt(value)
+                  : 0;
+                setAmount(nextValue);
+              }}
+            />
+            <Input
+              label="Lockup period"
+              id="lockup"
+              placeholder="in days"
+              value={lockup.toString()}
+              onChange={(value) => {
+                const nextValue = !Number.isNaN(Number.parseInt(value))
+                  ? Number.parseInt(value)
+                  : 0;
+                setLockup(nextValue);
+              }}
+            />
+            <Input
+              label="Vesting period"
+              id="unlock"
+              placeholder="in days"
+              value={unlock.toString()}
+              onChange={(value) => {
+                const nextValue = !Number.isNaN(Number.parseInt(value))
+                  ? Number.parseInt(value)
+                  : 0;
+                setUnlock(nextValue);
+              }}
+            />
+            <div>
+              <Input
+                label="Vesting start date"
+                id="startTime"
+                placeholder="UNIX Timestamp"
+                value={startTime.toString()}
+                onChange={(value) => {
+                  const nextValue = !Number.isNaN(Number.parseInt(value))
+                    ? Number.parseInt(value)
+                    : 0;
+                  setStartTime(nextValue);
+                }}
+              />
+              <div className="mt-[4px] text-[12px] leading-[24px] text-white/50">
+                {formatDate(new Date(startTime * 1000))}
+              </div>
+            </div>
 
-        {isCodeVisible ? (
-          <div
-            className={clsx(
-              'prose prose-sm w-full min-w-full max-w-fit',
-              'prose-pre:max-h-[200px] prose-pre:overflow-auto prose-pre:p-[12px] prose-pre:rounded-[8px] prose-pre:border',
-              'prose-pre:bg-transparent prose-pre:text-white prose-pre:border-haqq-border',
-            )}
-          >
-            <pre>
-              <code>{JSON.stringify(generatedTx, null, 2)}</code>
-            </pre>
-          </div>
-        ) : (
-          <Button
-            onClick={() => {
-              setCodeVisible(true);
-            }}
-            variant={2}
-            disabled={!isTargetValid}
-          >
-            Show tx JSON
-          </Button>
-        )}
-
-        {/* <div>
+            {/* <div>
           <Button
             onClick={handleCreateNewClick}
             variant={2}
@@ -320,8 +314,55 @@ function CreateVestingAccountForm() {
             Create new vesting account
           </Button>
         </div> */}
-      </div>
-    </Container>
+          </div>
+          <div className="flex flex-1 flex-col gap-[32px] pt-[32px]">
+            <div className="relative">
+              <div
+                className={clsx(
+                  'prose w-full min-w-full max-w-fit',
+                  'prose-pre:max-h-[444px] prose-pre:overflow-auto prose-pre:p-[12px] prose-pre:rounded-[8px] prose-pre:border',
+                  'prose-pre:bg-transparent prose-pre:text-white prose-pre:border-[#252528]',
+                  'focus:prose-pre:border-white/50 focus:prose-pre:bg-transparent focus:prose-pre:text-white',
+                  'hover:prose-pre:border-white/20',
+                  'prose-pre:transition-colors prose-pre:duration-150 prose-pre:ease-in prose-pre:will-change-[color,background]',
+                )}
+              >
+                <pre>
+                  <code>{JSON.stringify(generatedTx, null, 2)}</code>
+                </pre>
+              </div>
+
+              {!isTargetValid && (
+                <div className="absolute inset-[1px] flex transform-gpu flex-row items-center justify-center rounded-[8px] bg-[#FFFFFF14] backdrop-blur-md">
+                  Wrong parameters
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-row gap-[16px]">
+              <div>
+                <Button
+                  onClick={handleSaveFileClick}
+                  variant={2}
+                  disabled={!isTargetValid}
+                >
+                  Save as file
+                </Button>
+              </div>
+              <div>
+                <Button
+                  onClick={handleCopyClick}
+                  variant={2}
+                  disabled={!isTargetValid}
+                >
+                  {isCopied ? 'Copied!' : 'Copy'}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
   );
 }
 
@@ -355,7 +396,6 @@ function Input({
             'transition-colors duration-150 ease-in will-change-[color,background]',
             'focus:border-white/50 focus:bg-transparent focus:text-white',
             'hover:border-white/20',
-            'max-w-xl',
           )}
           type="text"
           placeholder={placeholder}
