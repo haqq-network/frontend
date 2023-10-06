@@ -17,6 +17,7 @@ import haqqLogoImgData from '../../assets/images/haqq-logo.webp';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { useInViewport } from 'react-in-viewport';
+import { useTranslations } from 'next-intl';
 
 export interface ChainStats {
   mainnetAccountsCreated: number;
@@ -127,7 +128,7 @@ export function StatisticsBlockStatCard({
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'pointer-events-none flex h-[34px] select-none gap-x-[6px] font-mono text-[24px] leading-[34px]',
+          'rtl:font-handjet ltr:font-vcr pointer-events-none flex h-[34px] select-none gap-x-[6px] text-[24px] leading-[34px]',
         )}
       >
         {prefix}
@@ -176,39 +177,32 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
     }
   }, [inViewport, startAnimation]);
 
+  const t = useTranslations('index-page.why-block');
+
   return (
     <div className="bg-islamic-primary-graphite transform-gpu divide-y-[1px] divide-[#2F2F2F] rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
       <div className="flex flex-col items-start pb-[40px]">
-        <Heading>Why Islamic Coin?</Heading>
+        <Heading>{t('title')}</Heading>
         <Text isMono className="mt-[12px] md:mt-[20px]">
-          Pioneering the Future of Islamic Finance in the Web3 Era
+          {t('subtitle')}
         </Text>
         <div className="mt-[24px] grid w-full grid-cols-1 gap-[24px] sm:grid-cols-2 md:mt-[44px] xl:grid-cols-4">
-          <Reason icon={<IslamStar />}>Maintaining Shariah Guidelines</Reason>
-          <Reason icon={<DoubleCrescent />}>
-            HAQQ Ecosystem's Prime Currency
-          </Reason>
-          <Reason icon={<Star />}>
-            Reviving Communities with <br className="lg:hidden" /> Sustainable
-            Practices
-          </Reason>
-          <Reason icon={<CrescentAndStar />}>
-            Islamic Way to Financial Freedom
-          </Reason>
+          <Reason icon={<IslamStar />}>{t('reasons.first')}</Reason>
+          <Reason icon={<DoubleCrescent />}>{t('reasons.second')}</Reason>
+          <Reason icon={<Star />}>{t('reasons.third')}</Reason>
+          <Reason icon={<CrescentAndStar />}>{t('reasons.fourth')}</Reason>
         </div>
       </div>
       <div className="flex flex-col items-start pt-[40px]">
         <div className="flex flex-col gap-x-[24px] gap-y-[12px] sm:flex-row">
           <div className="flex items-center gap-x-[11px]">
             <span className="bg-gradient-to-r from-[#4396BC] to-[#D2754C] bg-clip-text text-[18px] font-[700] leading-[26px] text-transparent md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
-              Powered by
+              {t('counters.title')}
             </span>
             <div className="relative h-[22px] w-[96px] md:h-[28px] md:w-[118px]">
               <Image
                 alt="HAQQ"
                 src={haqqLogoImgData}
-                // height={28}
-                // width={118}
                 fill
                 className="pointer-events-none select-none"
               />
@@ -218,9 +212,9 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
             href="https://haqq.network"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-islamic-primary-green hover:text-islamic-primary-green-hover flex cursor-pointer items-center gap-x-[8px] font-mono uppercase transition-colors duration-300 ease-out"
+            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr flex cursor-pointer items-center gap-x-[8px] uppercase transition-colors duration-300 ease-out"
           >
-            <span>Go to HAQQ</span>
+            <span>{t('counters.link')}</span>
             <svg
               width="21"
               height="20"
@@ -238,8 +232,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
           </Link>
         </div>
         <Text size="small" className="mt-[12px] text-white/50">
-          HAQQ brings together the most reputable actors of Ethical finance in
-          order to promote community-driven decentralized technologies worldwide
+          {t('counters.subtitle')}
         </Text>
         <div
           ref={blockRef}
@@ -247,24 +240,24 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
         >
           <StatisticsBlockStatCard
             value={stats.mainnetAccountsCreated}
-            title="Mainnet accounts created"
+            title={t('counters.statistic-card.first')}
             startAnimation={startAnimation}
           />
           <StatisticsBlockStatCard
             value={stats.transactionsInLast24Hours}
-            title="Transactions in the last 24 hours"
+            title={t('counters.statistic-card.second')}
             startAnimation={startAnimation}
             prefix="~"
           />
           <StatisticsBlockStatCard
             value={stats.secondsToConsensusFinality}
-            title="Seconds to consensus finality"
+            title={t('counters.statistic-card.third')}
             startAnimation={startAnimation}
             prefix="~"
           />
           <StatisticsBlockStatCard
             value={stats.averageCostPerTransaction}
-            title="Average cost per transaction"
+            title={t('counters.statistic-card.fourth')}
             startAnimation={startAnimation}
             prefix="~"
             postfix="ISLM"

@@ -1,16 +1,9 @@
 import Link from 'next/link';
+import { useMemo } from 'react';
+import { Container } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { PropsWithChildren, useMemo } from 'react';
-import {
-  DiscordIcon,
-  GithubIcon,
-  LinkedinIcon,
-  MediumIcon,
-  TelegramIcon,
-  TwitterIcon,
-  YoutubeIcon,
-  Container,
-} from '@haqq/islamic-website-ui-kit';
+import { SocialIconLink, SocialIconLinkProps } from './social-links';
 
 interface FooterNavLink {
   url: string;
@@ -34,104 +27,12 @@ function FooterNavLink({
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
-      className="w-fit px-[8px] py-[6px] font-mono text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-150 ease-in hover:text-[#18FFAC] md:text-[14px] lg:text-base lg:text-base"
+      className="rtl:font-handjet ltr:font-vcr w-fit px-[8px] py-[6px] text-[13px] font-[400] uppercase leading-[20px] text-[#F5F5F5] transition-colors duration-150 ease-in hover:text-[#18FFAC] md:text-[14px] lg:text-base"
     >
       {title}
     </Link>
   );
 }
-
-function FooterNavSocialLink({
-  url,
-  children,
-}: PropsWithChildren<{ url: string }>) {
-  return (
-    <Link
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="transition-colors duration-150 ease-in hover:text-[#18FFAC]"
-    >
-      {children}
-    </Link>
-  );
-}
-
-const footerNavLinks: FooterNavLinks = [
-  [
-    {
-      url: '/shariah#fatwa',
-      title: 'Fatwa',
-    },
-    {
-      url: '/whitepaper',
-      title: 'Whitepaper',
-    },
-    {
-      url: '/privacy-policy',
-      title: 'Privacy Policy',
-    },
-    {
-      url: '/contact-us',
-      title: 'Contact us',
-    },
-  ],
-  [
-    {
-      url: '/shariah#shariah-board',
-      title: 'Shariah Board',
-    },
-    {
-      url: '/shariah#advisory-board',
-      title: 'Advisory Board',
-    },
-    {
-      url: '/shariah#executive-board',
-      title: 'Executive Board',
-    },
-  ],
-  [
-    {
-      url: '/news',
-      title: 'ISLM in media',
-    },
-    {
-      url: '/community-hub',
-      title: 'Community Hub',
-    },
-  ],
-  [
-    {
-      url: 'https://haqq.network',
-      title: 'HAQQ Network',
-      isOutLink: true,
-    },
-    {
-      url: 'https://docs.haqq.network/',
-      title: 'HAQQ Docs',
-      isOutLink: true,
-    },
-    {
-      url: '/wallet',
-      title: 'Wallet',
-    },
-    {
-      url: 'https://shell.haqq.network',
-      title: 'Stake ISLM',
-      isOutLink: true,
-    },
-  ],
-  [
-    {
-      url: '/values',
-      title: 'Our values',
-    },
-    {
-      url: '/career',
-      title: 'Career',
-    },
-  ],
-];
 
 function flattenArray<T>(nestedArray: T[][]): T[] {
   return nestedArray.reduce((flatArray, subArray) => {
@@ -139,7 +40,85 @@ function flattenArray<T>(nestedArray: T[][]): T[] {
   }, []);
 }
 
-export function Footer() {
+const footerNavLinks: FooterNavLinks = [
+  [
+    {
+      url: '/shariah#fatwa',
+      title: 'fatwa',
+    },
+    {
+      url: '/whitepaper',
+      title: 'whitepaper',
+    },
+    {
+      url: '/contact-us',
+      title: 'contact-us',
+    },
+  ],
+  [
+    {
+      url: '/shariah#shariah-board',
+      title: 'shariah-board',
+    },
+    {
+      url: '/shariah#advisory-board',
+      title: 'advisory-board',
+    },
+    {
+      url: '/shariah#executive-board',
+      title: 'executive-board',
+    },
+  ],
+  [
+    {
+      url: '/news',
+      title: 'islm-in-media',
+    },
+    {
+      url: '/community-hub',
+      title: 'community-hub',
+    },
+  ],
+  [
+    {
+      url: 'https://haqq.network',
+      title: 'haqq-network',
+      isOutLink: true,
+    },
+    {
+      url: 'https://docs.haqq.network/',
+      title: 'haqq-docs',
+      isOutLink: true,
+    },
+    {
+      url: '/wallet',
+      title: 'wallet',
+    },
+    {
+      url: 'https://shell.haqq.network',
+      title: 'stake-islm',
+      isOutLink: true,
+    },
+  ],
+  [
+    {
+      url: '/values',
+      title: 'values',
+    },
+    {
+      url: '/career',
+      title: 'career',
+    },
+  ],
+];
+
+export function Footer({
+  socialLinks,
+}: {
+  socialLinks: SocialIconLinkProps[];
+}) {
+  const t = useTranslations('footer');
+
   const maxHeight = useMemo(() => {
     return footerNavLinks.reduce((acc, el) => {
       return acc + el.length * 35;
@@ -166,7 +145,7 @@ export function Footer() {
                       return (
                         <FooterNavLink
                           key={title}
-                          title={title}
+                          title={t(title)}
                           url={url}
                           isOutLink={isOutLink}
                         />
@@ -186,7 +165,7 @@ export function Footer() {
                 return (
                   <FooterNavLink
                     key={title}
-                    title={title}
+                    title={t(title)}
                     url={url}
                     isOutLink={isOutLink}
                   />
@@ -195,34 +174,24 @@ export function Footer() {
             </div>
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[12px] text-white">
-                <FooterNavSocialLink url="https://www.youtube.com/channel/UCTjvOCTDeO9H67y_6btF1NA">
-                  <YoutubeIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://discord.gg/islamiccoin">
-                  <DiscordIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://github.com/haqq-network">
-                  <GithubIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://www.linkedin.com/company/islamiccoin">
-                  <LinkedinIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://blog.islamiccoin.net/">
-                  <MediumIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://t.me/islamic_coin/">
-                  <TelegramIcon />
-                </FooterNavSocialLink>
-                <FooterNavSocialLink url="https://twitter.com/Islamic_coin">
-                  <TwitterIcon />
-                </FooterNavSocialLink>
+                {socialLinks.map(({ id, url, title }) => {
+                  return (
+                    <SocialIconLink
+                      id={id}
+                      key={title}
+                      url={url}
+                      title={title}
+                    />
+                  );
+                })}
               </div>
               <div className="mt-[28px] flex items-center gap-x-[12px] md:mt-0 lg:gap-x-[32px]">
                 <Link
                   href="https://wggos.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative h-[38px] w-[147px] grayscale md:h-[50px] md:w-[200px]"
+                  className="relative h-[38px] w-[147px] grayscale transition-[filter] duration-300 hover:grayscale-0 md:h-[50px]
+                   md:w-[200px]"
                 >
                   <Image
                     src="/assets/images/logos/world-green-icon.svg"
@@ -234,7 +203,7 @@ export function Footer() {
                   href="https://sdgs.un.org/goals"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative h-[28px] w-[63px] grayscale md:h-[44px] md:w-[98px]"
+                  className="relative h-[28px] w-[63px] grayscale transition-[filter] duration-300 hover:grayscale-0 md:h-[44px] md:w-[98px]"
                 >
                   <Image
                     src="/assets/images/logos/sustainable-dev-icon.svg"

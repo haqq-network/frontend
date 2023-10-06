@@ -1,10 +1,23 @@
-import { Container, MembersContainer } from '@haqq/islamic-website-ui-kit';
+import {
+  Container,
+  Member,
+  MembersContainer,
+} from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import teamPageBgImageData from '../../assets/images/team-page-bg.svg';
+import { useTranslations } from 'next-intl';
+import clsx from 'clsx';
 
 function TeamPageBg() {
   return (
-    <div className="absolute right-[-145px] top-[-130px] z-[-1] h-[380px] w-[400px] md:right-[-600px] md:top-[-300px] md:h-[954px] md:w-[1000px] xl:right-[-360px] xl:top-[-320px]">
+    <div
+      className={clsx(
+        'absolute z-[-1] h-[380px] w-[400px] md:h-[954px] md:w-[1000px]',
+        'top-[-130px] ltr:right-[145px] rtl:left-[-145px] rtl:scale-x-[-1]',
+        'md:top-[-300px] ltr:md:right-[-600px] rtl:md:left-[-600px]',
+        'xl:top-[-320px] ltr:xl:right-[-360px] rtl:xl:left-[-360px]',
+      )}
+    >
       <Image src={teamPageBgImageData} fill alt="" />
     </div>
   );
@@ -12,20 +25,20 @@ function TeamPageBg() {
 
 const founders = [
   {
-    image: '/assets/images/founders/andrey-kuznetsov.png',
-    title: 'Andrey Kuznetsov',
-    description:
-      'Andrey is a serial entrepreneur and engineer focused on fintech, cybersecurity, and network communication solutions. He has led teams that have built payment services, corporate messengers, blockchain staking services, and financial analysis software.',
-    url: 'https://www.linkedin.com/in/brainsmith/',
-    role: 'Co-Founder, Chief Technical Officer',
-  },
-  {
     image: '/assets/images/founders/alex-malkov.png',
     title: 'Alex Malkov',
     description:
       '5+ years of legal consulting for leading blockchain and fintech platforms. Alex has advised AAVE, Bequant, Scalable Solutions, Nebula and others.',
     url: 'https://www.linkedin.com/in/probono42/',
     role: 'Co-Founder, Chief Executive Officer',
+  },
+  {
+    image: '/assets/images/founders/andrey-kuznetsov.png',
+    title: 'Andrey Kuznetsov',
+    description:
+      'Andrey is a serial entrepreneur and engineer focused on fintech, cybersecurity, and network communication solutions. He has led teams that have built payment services, corporate messengers, blockchain staking services, and financial analysis software.',
+    url: 'https://www.linkedin.com/in/brainsmith/',
+    role: 'Co-Founder, Chief Technical Officer',
   },
   {
     image: '/assets/images/founders/mohammed-alkaff-alhashmi.png',
@@ -47,11 +60,25 @@ const founders = [
 
 const team = [
   {
-    image: '/assets/images/team/evgenii-abramov.png',
-    title: 'Evgenii Abramov',
+    image: '/assets/images/team/jei-rahman.png',
+    title: 'Jei Rahman',
     description:
-      'A programming languages polyglot with vast experience in backend, web, and mobile development, focusing on speed, security, and UX. At HAQQ he leads the product development process while overseeing his own HAQQ node as well as partner integrations. Assisted the Telegram team with R&D solutions for video streaming on mobile devices under high loads. Previously excelled at: Rocketbank — Led backend development for a neobank. Actor — Developed an iOS app for an open-source messaging platform founded by ex-Telegram developers',
-    role: 'Head of Development Division',
+      "Jei brings over 17 years of experience in the traditional finance sector, honed in the financial and business hub of London. With a background in aerospace engineering, he established a robust technical foundation, seamlessly transitioning into the world of finance. His early career focused on asset liability modeling for pension and insurance funds, with a keen emphasis on capital adequacy. Later, he collaborated closely with tier 1 investment banks and asset management firms, streamlining equity models by disconnecting them from dependent data vendors. Jei is an unwavering advocate for blockchain's transformative potential in traditional finance, foreseeing it as a catalyst for transparency, efficiency, and equitable financial access. His dedication to Islamic Coin x HAQQ Network is epitomized by his commitment to nurturing a diverse portfolio of blockchain projects through HAQQPad and HAQQ Labs. Collaborating with top venture capitalists and industry leaders, Jei strives to infuse traditional methodologies into the evaluation of groundbreaking projects. His profound passion lies in fostering a blockchain ecosystem that is forging the path to mainstream adoption, shaping the future of finance.",
+    role: 'Chief Program Officer',
+  },
+  {
+    image: '/assets/images/team/zain-awan.png',
+    title: 'Zain Awan',
+    description:
+      'Zain is a distinguished C-Level Executive with a rich background in growth marketing and global team leadership, spanning several startups from Europe to the Middle East. His versatile roles have included Director of Marketing at Muzmatch (YCombinator), Head of Brand and Communication at Biconomy, and CMO at Advanced Blockchain AG, where he significantly elevated brand profiles and spearheaded impactful growth initiatives. Currently, Zain is intensely focused on leveraging his strategic insight to elevate HAQQ and Islamic Coin, formulating comprehensive global outreach strategies to serve communities universally. His collaborations with eminent organizations like the United Nations have imbued him with a deep understanding of global challenges and the transformative potential of technology. Zain’s insights into the Muslim community and his roles in various philanthropic entities underscore his commitment to excellence and transformative change. Holding a degree in Development Economics and Middle Eastern Studies from SOAS, he’s also pursuing an MPHIL at Cambridge University, delving into the role of digital media in transnational Muslim identities. His relentless pursuit of excellence is recognized through prestigious awards, including the Muslim News Awards for Excellence.',
+    role: 'Chief Marketing Officer',
+  },
+  {
+    image: '/assets/images/team/nargiz-khanjanbayova.png',
+    title: 'Nargiz Khanjanbayova',
+    description:
+      'International professional with more than 15 years of combined experience in Human Resources (PHRi, CHRM), Consulting, People and Business Management. Proven track records of success in such fields as talent management, performance management, organizational development, HR business partnering, training and development, change management, business development, organizational support & mentorship to employees and leaders. Strategized and executed the implementation of HR processes and programs that improved organizational performance and achieved bottom line results.',
+    role: 'Chief Human Resources Officer',
   },
   {
     image: '/assets/images/team/igor-moskalyov.png',
@@ -59,6 +86,13 @@ const team = [
     description:
       "Igor has a wide background in banking. He's a former auditor of a financial regulator with expertise in all aspects of the work of a commercial bank. Throughout his career, Igor has held leadership positions such as Head of AML, Head of Retail, Board member, and CEO for several commercial banks.",
     role: 'Chief Operations Officer',
+  },
+  {
+    image: '/assets/images/team/evgenii-abramov.png',
+    title: 'Evgenii Abramov',
+    description:
+      'A programming languages polyglot with vast experience in backend, web, and mobile development, focusing on speed, security, and UX. At HAQQ he leads the product development process while overseeing his own HAQQ node as well as partner integrations. Assisted the Telegram team with R&D solutions for video streaming on mobile devices under high loads. Previously excelled at: Rocketbank — Led backend development for a neobank. Actor — Developed an iOS app for an open-source messaging platform founded by ex-Telegram developers',
+    role: 'Head of Development Division',
   },
   {
     image: '/assets/images/team/sergei-vorobev.png',
@@ -73,27 +107,6 @@ const team = [
     description:
       "Andrei Zolin is an experienced Web3 developer. He has a rich background of involvement in Web3 projects and served a crucial role as a Solidity Developer at Islamic Coin. His expertise in Ethereum development is broadly acknowledged, providing guidance to teams and individuals on Ethereum projects. Andrei's journey demonstrates a combination of technical expertise and a progressive mindset in navigating the fast-changing blockchain environment.",
     role: 'Software Engineer',
-  },
-  {
-    image: '/assets/images/team/nargiz-khanjanbayova.png',
-    title: 'Nargiz Khanjanbayova',
-    description:
-      'International professional with more than 15 years of combined experience in Human Resources (PHRi, CHRM), Consulting, People and Business Management. Proven track records of success in such fields as talent management, performance management, organizational development, HR business partnering, training and development, change management, business development, organizational support & mentorship to employees and leaders. Strategized and executed the implementation of HR processes and programs that improved organizational performance and achieved bottom line results.',
-    role: 'Chief Human Resources Officer',
-  },
-  {
-    image: '/assets/images/team/jei-rahman.png',
-    title: 'Jei Rahman',
-    description:
-      "Jei brings over 17 years of experience in the traditional finance sector, honed in the financial and business hub of London. With a background in aerospace engineering, he established a robust technical foundation, seamlessly transitioning into the world of finance. His early career focused on asset liability modeling for pension and insurance funds, with a keen emphasis on capital adequacy. Later, he collaborated closely with tier 1 investment banks and asset management firms, streamlining equity models by disconnecting them from dependent data vendors. Jei is an unwavering advocate for blockchain's transformative potential in traditional finance, foreseeing it as a catalyst for transparency, efficiency, and equitable financial access. His dedication to Islamic Coin x HAQQ Network is epitomized by his commitment to nurturing a diverse portfolio of blockchain projects through HAQQPad and HAQQ Labs. Collaborating with top venture capitalists and industry leaders, Jei strives to infuse traditional methodologies into the evaluation of groundbreaking projects. His profound passion lies in fostering a blockchain ecosystem that is forging the path to mainstream adoption, shaping the future of finance.",
-    role: 'Chief Program Officer',
-  },
-  {
-    image: '/assets/images/team/zain-awan.png',
-    title: 'Zain Awan',
-    description:
-      'Zain is a distinguished C-Level Executive with a rich background in growth marketing and global team leadership, spanning several startups from Europe to the Middle East. His versatile roles have included Director of Marketing at Muzmatch (YCombinator), Head of Brand and Communication at Biconomy, and CMO at Advanced Blockchain AG, where he significantly elevated brand profiles and spearheaded impactful growth initiatives. Currently, Zain is intensely focused on leveraging his strategic insight to elevate HAQQ and Islamic Coin, formulating comprehensive global outreach strategies to serve communities universally. His collaborations with eminent organizations like the United Nations have imbued him with a deep understanding of global challenges and the transformative potential of technology. Zain’s insights into the Muslim community and his roles in various philanthropic entities underscore his commitment to excellence and transformative change. Holding a degree in Development Economics and Middle Eastern Studies from SOAS, he’s also pursuing an MPHIL at Cambridge University, delving into the role of digital media in transnational Muslim identities. His relentless pursuit of excellence is recognized through prestigious awards, including the Muslim News Awards for Excellence.',
-    role: 'Chief Marketing Officer',
   },
   {
     image: '/assets/images/team/shamrose-hamayun.png',
@@ -118,13 +131,14 @@ const team = [
   },
 ];
 
-export function TeamPage() {
+export function TeamPage({ teamMembers }: { teamMembers: Member[] }) {
+  const t = useTranslations('team-page');
   return (
     <div className="overflow-x-clip">
       <Container className="relative">
         <div className="pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pb-[200px] lg:pt-[68px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Founders
+            {t('title')}
           </h1>
 
           <MembersContainer

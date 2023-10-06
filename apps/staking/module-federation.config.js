@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {import('@nrwl/devkit').ModuleFederationConfig}
+ * @type {import('@nx/webpack/src/utils/module-federation').ModuleFederationConfig}
  **/
 const moduleFederationConfig = {
   name: 'staking',
