@@ -55,13 +55,15 @@ export default async function LocaleLayout({
     ),
   );
 
-  const messages = await getMessages(locale);
+  const localeConst = 'en';
+
+  const messages = await getMessages(localeConst);
   const isScamBannerShow = true;
 
   return (
     <html
-      lang={locale}
-      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      lang={localeConst}
+      dir={'ltr'} // dir={localeConst === 'ar' ? 'rtl' : 'ltr'}
       className={clsx(
         alexandriaFont.variable,
         handjetFont.variable,
@@ -70,7 +72,7 @@ export default async function LocaleLayout({
     >
       {VERCEL_ENV !== 'development' && <CookieConsentModal />}
       <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider locale={localeConst} messages={messages}>
           {isScamBannerShow && <ScamBanner />}
           {isMobileUserAgent ? (
             <MobileHeader isBannerVisible={isScamBannerShow} />

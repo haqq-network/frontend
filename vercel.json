@@ -1,5 +1,5 @@
 {
-  "rewrites": [{ "source": "/app", "destination": "/" }],
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "git": {
     "deploymentEnabled": false
   }
