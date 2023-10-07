@@ -1,6 +1,6 @@
 'use client';
-// import Link from 'next/link';
-import { default as LocaleLink } from 'next-intl/link';
+import Link from 'next-intl/link';
+// import { default as LocaleLink } from 'next-intl/link';
 import clsx from 'clsx';
 import {
   Fragment,
@@ -60,7 +60,7 @@ function DesktopHeaderLink({
   locale,
 }: PropsWithChildren<HeaderLinkProps>) {
   return (
-    <LocaleLink
+    <Link
       locale={locale}
       href={url}
       target={isOutLink ? '_blank' : undefined}
@@ -68,7 +68,7 @@ function DesktopHeaderLink({
       className="hover:text-islamic-primary-green p-[16px] text-[14px] font-[400] uppercase leading-[24px] text-white transition-colors duration-200"
     >
       {children}
-    </LocaleLink>
+    </Link>
   );
 }
 
@@ -140,7 +140,7 @@ export function LanguageLink({
   isActive: boolean;
 }) {
   return (
-    <LocaleLink
+    <Link
       href={href}
       locale={locale}
       className={clsx(
@@ -154,7 +154,7 @@ export function LanguageLink({
         <span>{localeDisplayNames[locale]}</span>
         {isActive && <CheckMarkIcon />}
       </div>
-    </LocaleLink>
+    </Link>
   );
 }
 
@@ -247,13 +247,13 @@ export function MobileHeader({
             <Container>
               <div className="flex items-center justify-between">
                 <div>
-                  <LocaleLink
+                  <Link
                     href="/"
                     locale={locale}
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
                     <IslamicHeaderLogo />
-                  </LocaleLink>
+                  </Link>
                 </div>
                 <div className="leading-[0]">
                   <BurgerButton
@@ -275,6 +275,7 @@ export function MobileHeader({
           >
             <div className={clsx('py-[24px]', 'w-full')}>
               <BurgerMenu
+                locale={locale}
                 isOpen={isMobileMenuOpen}
                 onClick={() => {
                   setIsMobileMenuOpened(false);
@@ -334,13 +335,13 @@ export function DesktopHeader({
         <Container>
           <div className="flex items-center justify-between">
             <div>
-              <LocaleLink
+              <Link
                 locale={locale}
                 href="/"
                 className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
               >
                 <IslamicHeaderLogo />
-              </LocaleLink>
+              </Link>
             </div>
 
             <nav className="flex flex-row">

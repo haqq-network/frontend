@@ -1,9 +1,8 @@
-// import Link from 'next/link';
+import Link from 'next-intl/link';
 import notFoundBgImgData from '../../assets/images/not-found-bg.webp';
 import Image from 'next/image';
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useLocale, useTranslations } from 'next-intl';
-import { default as LocaleLink } from 'next-intl/link';
 
 export function NotFound() {
   const t = useTranslations('not-found-page');
@@ -18,13 +17,13 @@ export function NotFound() {
           <div className="rtl:font-handjet ltr:font-vcr mt-[4px] text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
             {t('title')}
           </div>
-          <LocaleLink
+          <Link
             locale={locale}
             href="/"
             className="text-islamic-primary-green hover:text-islamic-primary-green-hover mt-[8px] transition-colors duration-300 lg:mt-[16px]"
           >
             <Text size="small">{t('subtitle')}</Text>
-          </LocaleLink>
+          </Link>
         </div>
       </Container>
 

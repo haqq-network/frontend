@@ -36,6 +36,7 @@ export default async function Page(props: PageProps) {
 
   return (
     <ShariahPage
+      locale={locale}
       shariahMembers={shariahMembers}
       advisoryMembers={advisoryMembers}
       executiveMembers={executiveMembers}

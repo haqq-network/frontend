@@ -15,8 +15,11 @@ import {
   ValuesIcon,
 } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next/link';
+import {
+  // useLocale,
+  useTranslations,
+} from 'next-intl';
+import Link from 'next-intl/link';
 import {
   Fragment,
   PropsWithChildren,
@@ -60,15 +63,15 @@ export function BurgerMenu({
   className,
   isOpen,
   onClick,
+  locale,
 }: {
   className?: string;
   isOpen?: boolean;
   onClick: () => void;
+  locale: string;
 }) {
   const t = useTranslations('header');
   const [isLocaleSwitcherOpened, setIsLocaleSwitcherOpened] = useState(false);
-  const locale = useLocale();
-  console.log({ locale }, 'BURGER MENU CLIENT');
 
   const toggleLocaleMenu = useCallback(() => {
     return setIsLocaleSwitcherOpened(!isLocaleSwitcherOpened);
@@ -81,6 +84,7 @@ export function BurgerMenu({
       {!isLocaleSwitcherOpened ? (
         <div className="flex flex-col gap-y-[12px]">
           <Link
+            locale={locale}
             href="/shariah"
             className="hover:text-islamic-primary-green z-50 py-[12px] text-base uppercase text-white transition-colors duration-200"
             onClick={onClick}

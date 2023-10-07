@@ -34,15 +34,15 @@ export function IndexPage({
       <Hero mainnetAccounts={mainnetAccounts} locale={locale} />
       <FundsBlock />
       <FinanceBlock />
-      <NewsBlock news={news} />
+      <NewsBlock news={news} locale={locale} />
       <BoardMembersBlock
         executiveMembers={executiveMembers}
         shariahMembers={shariahMembers}
         advisoryMembers={advisoryMembers}
       />
       <PortfolioBlock />
-      <LearnAndGrowBlock />
-      <JoinCommunityBlock />
+      <LearnAndGrowBlock locale={locale} />
+      <JoinCommunityBlock locale={locale} />
     </Fragment>
   );
 }

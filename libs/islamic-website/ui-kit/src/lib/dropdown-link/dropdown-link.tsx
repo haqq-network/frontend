@@ -14,8 +14,6 @@ export function DropdownLink({
   isOutLink?: boolean;
   locale: string;
 }) {
-  console.log({ locale }, 'DROPDOWN LINK PROP FROM HEADER USELOCALE');
-
   return (
     <Link
       href={href}

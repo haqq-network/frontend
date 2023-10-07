@@ -13,8 +13,7 @@ import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.w
 import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
 import { useTranslations, useLocale } from 'next-intl';
 import { localeType } from '../shariah-page/shariah-page';
-import { default as LocaleLink } from 'next-intl/link';
-// import { usePathname } from 'next/navigation';
+import Link from 'next-intl/link';
 
 function LangButton({
   isActive,
@@ -32,7 +31,7 @@ function LangButton({
 
   const t = useTranslations('shariah-page.fatwa-block.language-buttons');
   return (
-    <LocaleLink
+    <Link
       href={href}
       locale={locale}
       className={clsx(
@@ -45,7 +44,7 @@ function LangButton({
       {locale === 'en' && t('english')}
       {locale === 'ar' && t('arabic')}
       {locale === 'id' && t('indonesian')}
-    </LocaleLink>
+    </Link>
   );
 }
 

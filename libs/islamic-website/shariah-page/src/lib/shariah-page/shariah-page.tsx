@@ -10,14 +10,17 @@ import {
   Text,
 } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { FoundationsBlock } from '../foundations-block/foundations-block';
 import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import {
+  // useLocale,
+  useTranslations,
+} from 'next-intl';
 
 export interface Member {
   image: string;
@@ -70,16 +73,15 @@ export function ShariahPage({
   executiveMembers,
   advisoryMembers,
   fatwa,
+  locale,
 }: {
   shariahMembers: Member[];
   executiveMembers: Member[];
   advisoryMembers: Member[];
   fatwa: string;
+  locale: string;
 }) {
   const t = useTranslations('shariah-page');
-  const locale = useLocale();
-  console.log({ locale }, 'SHARIAH PAGE CLIENT USE LOCALE');
-
   const sections: Array<{ id: string; title: string }> = [
     { id: 'fatwa', title: t('headings.fatwa') },
     { id: 'foundations', title: t('headings.foundations') },
@@ -160,6 +162,7 @@ export function ShariahPage({
           <div className="relative hidden w-[292px] flex-none lg:block">
             <div className="sticky top-[112px] pb-[80px]">
               <ShariPageDesktopNav
+                locale={locale}
                 sections={sections}
                 activeSection={activeSection}
               />
@@ -169,6 +172,7 @@ export function ShariahPage({
             <div>
               <div className="lg:hidden">
                 <ShariPageMobileNav
+                  locale={locale}
                   sections={sections}
                   activeSection={activeSection}
                   onSectionSelect={handleSectionSelect}
@@ -309,12 +313,15 @@ function ShariPageDesktopNavLink({
   href,
   isActive,
   children,
+  locale,
 }: PropsWithChildren<{
   href: string;
   isActive?: boolean;
+  locale: string;
 }>) {
   return (
     <Link
+      locale={locale}
       href={href}
       className={clsx(
         'hover:text-islamic-primary-green-hover ltr:font-vcr rtl:font-handjet inline-flex cursor-pointer items-center justify-between gap-x-[8px] uppercase',
@@ -351,15 +358,18 @@ function ShariPageDesktopNavLink({
 function ShariPageDesktopNav({
   sections,
   activeSection,
+  locale,
 }: {
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
+  locale: string;
 }) {
   return (
     <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px] backdrop-blur">
       {sections.map(({ id, title }) => {
         return (
           <ShariPageDesktopNavLink
+            locale={locale}
             href={`#${id}`}
             key={`sharia-nav-${id}`}
             isActive={activeSection === id}

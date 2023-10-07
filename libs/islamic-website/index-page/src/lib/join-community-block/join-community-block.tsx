@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import cubesImgData from '../../assets/images/cubes.webp';
 import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { useTranslations } from 'next-intl';
 
-export function JoinCommunityBlock() {
+export function JoinCommunityBlock({ locale }: { locale: string }) {
   const t = useTranslations('index-page');
   return (
     <Container>
@@ -18,7 +18,7 @@ export function JoinCommunityBlock() {
         <Text isMono className="mt-[8px]">
           {t('join-community-block.subtitle')}
         </Text>
-        <Link href="/community-hub">
+        <Link href="/community-hub" locale={locale}>
           <Button className="mt-[42px]">
             {t('join-community-block.button-text')}
           </Button>

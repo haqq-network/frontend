@@ -7,10 +7,10 @@ import {
   Text,
 } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
-// import Link from 'next/link';
+import Link from 'next-intl/link';
 import { useCallback, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { default as LocaleLink } from 'next-intl/link';
+// import { default as LocaleLink } from 'next-intl/link';
 
 const ytVideoId = 'bevF9a3L3Sk';
 
@@ -44,13 +44,13 @@ export function HeroBlock({ locale }: { locale: string }) {
           🇦🇪
         </span>{' '}
         Dubai Residents
-        <LocaleLink
+        <Link
           locale={locale}
           href="/dubai-residents-disclaimer"
           className="text-islamic-primary-green hover:text-islamic-primary-green-hover ml-[18px] w-fit transition-colors duration-300"
         >
           Read more
-        </LocaleLink>
+        </Link>
       </div>
 
       <div className="group mt-[40px] w-fit" onClick={openVideoModal}>

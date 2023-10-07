@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import availableSoonBgImgData from '../../assets/images/available-soon-bg.webp';
 import Image from 'next/image';
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
@@ -14,7 +14,8 @@ export function AvailableSoonPage({ locale }: { locale: string }) {
             {t('title')}
           </div>
           <Link
-            href={`/${locale}`}
+            href="/"
+            locale={locale}
             className="text-islamic-primary-green hover:text-islamic-primary-green-hover mt-[8px] transition-colors duration-300 lg:mt-[16px]"
           >
             <Text size="small">{t('subtitle')}</Text>
