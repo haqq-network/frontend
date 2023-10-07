@@ -80,8 +80,9 @@ export function useVestingActions() {
       const periods = vestingInDays;
       const denom = 'aISLM';
       const lockupPeriods = [];
-      let restAmount = amount;
-      let unlockAmount = Math.floor(amount / periods);
+      const aislmAmount = BigInt(amount * 10 ** 18);
+      let restAmount = aislmAmount;
+      let unlockAmount = aislmAmount / BigInt(periods);
       let length: number = cliff;
 
       for (let i = 0; i < periods; i++) {
@@ -91,7 +92,7 @@ export function useVestingActions() {
 
         const unlockCoins = {
           denom: denom,
-          amount: BigInt(unlockAmount * 10 ** 18).toString(),
+          amount: unlockAmount.toString(),
         };
 
         const period = {

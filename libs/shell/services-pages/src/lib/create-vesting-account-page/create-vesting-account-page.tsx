@@ -343,8 +343,8 @@ function CreateVestingAccountForm() {
               placeholder="Deposit amount in ISLM"
               value={amount.toString()}
               onChange={(value) => {
-                const nextValue = !Number.isNaN(Number.parseInt(value))
-                  ? Number.parseInt(value)
+                const nextValue = !Number.isNaN(Number.parseFloat(value))
+                  ? Number.parseFloat(value)
                   : 0;
                 setAmount(nextValue);
               }}
@@ -488,7 +488,7 @@ function Input({
           required
           id={id}
           name={id}
-          value={value}
+          defaultValue={value}
           onChange={(event) => {
             onChange(event.currentTarget.value);
           }}
