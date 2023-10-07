@@ -1,10 +1,5 @@
 {
-  "routes": [
-    {
-      "src": "/[^.]+",
-      "dest": "/"
-    }
-  ],
+  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }],
   "git": {
     "deploymentEnabled": false
   }
