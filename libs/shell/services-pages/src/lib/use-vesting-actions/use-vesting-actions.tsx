@@ -73,15 +73,8 @@ export function useVestingActions() {
   //   [ethAddress, haqqChain, walletClient],
   // );
 
-  const getParams = useCallback(
-    async (
-      fromAddress: string,
-      toAddress: string,
-      amount: number,
-      startTime: number,
-      lockupInDays: number,
-      vestingInDays: number,
-    ) => {
+  const getPeriods = useCallback(
+    (amount: number, lockupInDays: number, vestingInDays: number) => {
       const cliff = lockupInDays * 24 * 60 * 60;
       const periodLength = 24 * 60 * 60;
       const periods = vestingInDays;
@@ -114,18 +107,41 @@ export function useVestingActions() {
         }
       }
 
+      return {
+        lockupPeriods,
+        vestingPeriods: [] as typeof lockupPeriods,
+      };
+    },
+    [],
+  );
+
+  const getParams = useCallback(
+    async (
+      fromAddress: string,
+      toAddress: string,
+      amount: number,
+      startTime: number,
+      lockupInDays: number,
+      vestingInDays: number,
+    ) => {
+      const { lockupPeriods, vestingPeriods } = getPeriods(
+        amount,
+        lockupInDays,
+        vestingInDays,
+      );
+
       const createParams: MessageMsgCreateClawbackVestingAccount = {
         fromAddress,
         toAddress,
         startTime,
         lockupPeriods,
-        vestingPeriods: [],
+        vestingPeriods,
         merge: false,
       };
 
       return createParams;
     },
-    [],
+    [getPeriods],
   );
 
   const handleCreateNew = useCallback(
@@ -181,8 +197,9 @@ export function useVestingActions() {
     return {
       createNew: handleCreateNew,
       getParams,
+      getPeriods,
     };
-  }, [getParams, handleCreateNew]);
+  }, [getParams, getPeriods, handleCreateNew]);
 }
 
 // const MSG_CONVERT_TO_CLAWBACK_VESTING_ACCOUNT = {};

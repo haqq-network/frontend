@@ -1,15 +1,8 @@
-import {
-  ethToHaqq,
-  haqqToEth,
-  useAddress,
-  useClipboard,
-  useWallet,
-} from '@haqq/shared';
+import { ethToHaqq, haqqToEth, useAddress, useClipboard } from '@haqq/shared';
 import { Button, Container } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { isAddress } from 'viem';
-// import { useNetwork } from 'wagmi';
 import { useVestingActions } from '../use-vesting-actions/use-vesting-actions';
 
 function formatDate(date: Date) {
@@ -23,10 +16,61 @@ function formatDate(date: Date) {
   }).format(date);
 }
 
-export function CreateVestingAccountPage() {
-  const { ethAddress } = useAddress();
-  const { openSelectWallet } = useWallet();
+type Period = {
+  length: number;
+  amount: {
+    denom: string;
+    amount: string;
+  }[];
+};
 
+function createUnsignedTransaction(
+  fromAddress: string,
+  toAddress: string,
+  startTime: string,
+  lockupPeriods: Period[],
+  vestingPeriods: Period[],
+) {
+  return {
+    body: {
+      messages: [
+        {
+          '@type': '/haqq.vesting.v1.MsgConvertIntoVestingAccount',
+          from_address: fromAddress,
+          to_address: toAddress,
+          start_time: startTime,
+          lockup_periods: lockupPeriods,
+          vesting_periods: vestingPeriods,
+          merge: true,
+          stake: false,
+          validator_address: '',
+        },
+      ],
+      memo: '',
+      timeout_height: '0',
+      extension_options: [],
+      non_critical_extension_options: [],
+    },
+    auth_info: {
+      signer_infos: [],
+      fee: {
+        amount: [
+          {
+            denom: 'aISLM',
+            amount: '61559740000000000',
+          },
+        ],
+        gas_limit: '3077987',
+        payer: '',
+        granter: '',
+      },
+      tip: null,
+    },
+    signatures: [],
+  };
+}
+
+export function CreateVestingAccountPage() {
   return (
     <div>
       <div className="py-[32px] lg:py-[68px]">
@@ -38,26 +82,24 @@ export function CreateVestingAccountPage() {
       </div>
 
       <div className="flex flex-col gap-[32px]">
-        {!ethAddress ? (
-          <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px]">
-            <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-              You should connect wallet first
-            </div>
-            <Button onClick={openSelectWallet} variant={2}>
-              Connect wallet
-            </Button>
-          </div>
-        ) : (
-          <div className="pb-[62px]">
-            <CreateVestingAccountForm />
-          </div>
-        )}
+        <div className="pb-[62px]">
+          <CreateVestingAccountForm />
+        </div>
       </div>
     </div>
   );
 }
 
 function CreateVestingAccountForm() {
+  const [fromAccount, setFromAccount] = useState('');
+  const [isFromValid, setFromValid] = useState(false);
+  const [fromAddresses, setFromAddresses] = useState<{
+    eth: string;
+    haqq: string;
+  }>({
+    eth: '',
+    haqq: '',
+  });
   const [targetAccount, setTargetAccount] = useState('');
   const [isTargetValid, setTargetValid] = useState(false);
   const [targetAddresses, setTargetAddresses] = useState<{
@@ -71,7 +113,7 @@ function CreateVestingAccountForm() {
   const [lockup, setLockup] = useState(5);
   const [unlock, setUnlock] = useState(60);
   const [startTime, setStartTime] = useState(1695695564);
-  const { getParams } = useVestingActions();
+  const { getPeriods } = useVestingActions();
   const [generatedTx, setGeneratedTx] = useState({});
   const { haqqAddress } = useAddress();
   const { copyText } = useClipboard();
@@ -133,6 +175,52 @@ function CreateVestingAccountForm() {
   // ]);
 
   useEffect(() => {
+    if (fromAccount.startsWith('0x')) {
+      console.log('validate as eth');
+      try {
+        const isValidEthAddress = isAddress(fromAccount);
+
+        if (isValidEthAddress) {
+          const haqq = ethToHaqq(fromAccount);
+          setFromValid(true);
+          setFromAddresses({
+            eth: fromAccount,
+            haqq,
+          });
+        } else {
+          setFromValid(false);
+          setFromAddresses({
+            eth: fromAccount,
+            haqq: '',
+          });
+        }
+      } catch {
+        setFromValid(false);
+        setFromAddresses({
+          eth: fromAccount,
+          haqq: '',
+        });
+      }
+    } else if (fromAccount.startsWith('haqq1')) {
+      console.log('validate as bech32');
+      try {
+        const eth = haqqToEth(fromAccount);
+        setFromValid(true);
+        setFromAddresses({
+          haqq: fromAccount,
+          eth: eth,
+        });
+      } catch {
+        setFromValid(false);
+        setFromAddresses({
+          haqq: fromAccount,
+          eth: '',
+        });
+      }
+    }
+  }, [fromAccount]);
+
+  useEffect(() => {
     if (targetAccount.startsWith('0x')) {
       console.log('validate as eth');
       try {
@@ -179,39 +267,33 @@ function CreateVestingAccountForm() {
   }, [targetAccount]);
 
   useEffect(() => {
-    if (haqqAddress) {
-      getParams(
-        haqqAddress,
-        targetAddresses.haqq,
-        amount,
-        startTime,
-        lockup,
-        unlock,
-      ).then((params) => {
-        const date = new Date();
-        date.setTime(params.startTime * 1000);
-        let startTime = date.toISOString();
-        startTime = startTime.replace('.000Z', 'Z');
+    const { lockupPeriods, vestingPeriods } = getPeriods(
+      amount,
+      lockup,
+      unlock,
+    );
 
-        setGeneratedTx({
-          '@type': '/haqq.vesting.v1.MsgConvertIntoVestingAccount',
-          from_address: params.fromAddress,
-          to_address: targetAddresses.haqq,
-          start_time: startTime,
-          lockup_periods: params.lockupPeriods,
-          vesting_periods: params.vestingPeriods,
-          merge: params.merge,
-          stake: false,
-          validator_address: '',
-        });
-      });
-    }
+    const date = new Date();
+    date.setTime(startTime * 1000);
+    let startTimeIsoString = date.toISOString();
+    startTimeIsoString = startTimeIsoString.replace('.000Z', 'Z');
+
+    const tx = createUnsignedTransaction(
+      fromAddresses.haqq,
+      targetAddresses.haqq,
+      startTimeIsoString,
+      lockupPeriods,
+      vestingPeriods,
+    );
+
+    setGeneratedTx(tx);
   }, [
     amount,
-    getParams,
+    getPeriods,
     haqqAddress,
     lockup,
     startTime,
+    fromAddresses.haqq,
     targetAddresses.haqq,
     unlock,
   ]);
@@ -243,7 +325,16 @@ function CreateVestingAccountForm() {
         <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:flex-row lg:pb-[40px] lg:pt-[32px]">
           <div className="flex flex-none flex-col gap-[18px] lg:w-1/3">
             <Input
-              label="Account address"
+              label="From address"
+              id="from"
+              placeholder="0x... or haqq1..."
+              value={fromAccount}
+              onChange={(value) => {
+                setFromAccount(value);
+              }}
+            />
+            <Input
+              label="Target address"
               id="target"
               placeholder="0x... or haqq1..."
               value={targetAccount}
@@ -344,7 +435,7 @@ function CreateVestingAccountForm() {
                 <Button
                   onClick={handleSaveFileClick}
                   variant={2}
-                  disabled={!isTargetValid}
+                  disabled={!isTargetValid || !isFromValid}
                 >
                   Save as file
                 </Button>
@@ -353,7 +444,7 @@ function CreateVestingAccountForm() {
                 <Button
                   onClick={handleCopyClick}
                   variant={2}
-                  disabled={!isTargetValid}
+                  disabled={!isTargetValid || !isFromValid}
                 >
                   {isCopied ? 'Copied!' : 'Copy'}
                 </Button>
