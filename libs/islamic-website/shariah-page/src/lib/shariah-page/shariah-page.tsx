@@ -78,6 +78,7 @@ export function ShariahPage({
 }) {
   const t = useTranslations('shariah-page');
   const locale = useLocale();
+  console.log({ locale }, 'SHARIAH PAGE CLIENT USE LOCALE');
 
   const sections: Array<{ id: string; title: string }> = [
     { id: 'fatwa', title: t('headings.fatwa') },

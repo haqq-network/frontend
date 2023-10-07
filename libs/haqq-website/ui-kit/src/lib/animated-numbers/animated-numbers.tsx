@@ -38,6 +38,8 @@ export function AnimatedNumbers({
   configs?: SpringConfig[] | configsFn;
   locale?: string;
 }) {
+  console.log({ locale }, 'ANIMATED NUMS UI-KIT');
+
   const { ref, inView } = useInView({ triggerOnce: true });
   const keyCount = useRef(0);
   const [numberHeight, setNumberHeight] = useState(0);

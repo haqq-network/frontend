@@ -26,6 +26,6 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-
+  console.log({ locale }, 'SCAM PAGE SERVER');
   return <ScamAlertPage locale={locale} />;
 }

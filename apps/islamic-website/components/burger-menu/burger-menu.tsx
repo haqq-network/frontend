@@ -68,6 +68,7 @@ export function BurgerMenu({
   const t = useTranslations('header');
   const [isLocaleSwitcherOpened, setIsLocaleSwitcherOpened] = useState(false);
   const locale = useLocale();
+  console.log({ locale }, 'BURGER MENU CLIENT');
 
   const toggleLocaleMenu = useCallback(() => {
     return setIsLocaleSwitcherOpened(!isLocaleSwitcherOpened);

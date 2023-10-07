@@ -14,7 +14,7 @@ import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyan
 import { useTranslations, useLocale } from 'next-intl';
 import { localeType } from '../shariah-page/shariah-page';
 import { default as LocaleLink } from 'next-intl/link';
-import { usePathname } from 'next/navigation';
+// import { usePathname } from 'next/navigation';
 
 function LangButton({
   isActive,
@@ -25,6 +25,11 @@ function LangButton({
   locale: localeType;
   href: string;
 }) {
+  console.log(
+    { locale },
+    'LANG BUTTON SHARIAH CLIENT PROP FROM FATWA BLOCK USELOCALE',
+  );
+
   const t = useTranslations('shariah-page.fatwa-block.language-buttons');
   return (
     <LocaleLink
@@ -98,10 +103,10 @@ export function FatwaBlock({
   locale: localeType;
   fatwa: string;
 }) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations('shariah-page');
-  console.log({ pathname });
+  console.log({ locale }, 'FATWA CLIENT USE LOCALE');
 
   return (
     <div>

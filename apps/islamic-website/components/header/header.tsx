@@ -309,6 +309,7 @@ export function DesktopHeader({
   const t = useTranslations('header');
   const locale = useLocale();
   const pathname = usePathname();
+  console.log({ locale }, 'HEADER CLIENT');
 
   return (
     <header

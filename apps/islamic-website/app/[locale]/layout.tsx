@@ -36,6 +36,8 @@ export const metadata: Metadata = {
 };
 
 async function getMessages(locale: string) {
+  console.log({ locale }, 'getMessagesFunction [LOCALE]/LAYOUT');
+
   try {
     return (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
@@ -47,6 +49,8 @@ export default async function LocaleLayout({
   children,
   params: { locale },
 }: PropsWithChildren<{ params: { locale: string } }>) {
+  console.log({ locale }, '[LOCALE]/LAYOUT FROM PARAMS');
+
   const headersList = headers();
   const userAgent = headersList.get('user-agent');
   const isMobileUserAgent = Boolean(
