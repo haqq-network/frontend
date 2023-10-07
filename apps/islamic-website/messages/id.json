@@ -203,7 +203,10 @@
     "button-text": "Temukan lowongan!"
   },
   "team-page": {
-    "title": "Pendiri",
+    "title": {
+      "founders": "Pendiri",
+      "team": "Tim"
+    },
     "founders": {
       "kuznetsov": {
         "title": "Andrey Kuznetsov",

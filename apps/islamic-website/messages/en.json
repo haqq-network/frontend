@@ -203,7 +203,10 @@
     "button-text": "Discover openings!"
   },
   "team-page": {
-    "title": "Founders",
+    "title": {
+      "founders": "Founders",
+      "team": "Team"
+    },
     "founders": {
       "kuznetsov": {
         "title": "Andrey Kuznetsov",

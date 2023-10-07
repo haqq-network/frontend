@@ -205,7 +205,10 @@
     "button-text": "ابحث عن فرصتك!"
   },
   "team-page": {
-    "title": "المؤسسون",
+    "title": {
+      "founders": "المؤسسون",
+      "team": "فريق"
+    },
     "founders": {
       "kuznetsov": {
         "title": "أندريه كوزنتسوف",
