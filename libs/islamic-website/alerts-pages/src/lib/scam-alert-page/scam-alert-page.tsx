@@ -15,6 +15,7 @@ const islamicTwitter = 'https://twitter.com/islamic_coin';
 const haqqTwitter = 'https://twitter.com/the_haqqnetwork';
 
 export function ScamAlertPage({ locale }: { locale: string }) {
+  console.log({ locale }, 'SCAM PAGE CLIENT, LOCALE FROM SERVER');
   const t = useTranslations('scam-alert-page');
 
   return (

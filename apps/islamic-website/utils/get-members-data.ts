@@ -35,6 +35,7 @@ export const getMembersContent = cache(
       accessToken: STORYBLOK_ACCESS_TOKEN,
       use: [apiPlugin],
     });
+    console.log({ locale }, 'GET MEMBERS CONTENT SERVER');
 
     if (!storyblokApi) {
       throw new Error('Failed to init storyblok');

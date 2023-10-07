@@ -24,6 +24,7 @@ interface PageProps {
 }
 
 export default async function Page({ params: { locale } }: PageProps) {
+  console.log({ locale }, 'WP PAGE SERVER');
   const whitepaper = await getWhitepaperContent({ locale });
 
   return <WhitepaperPage whitepaper={whitepaper} />;

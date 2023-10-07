@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
+import { AvailableSoonPage } from '@haqq/islamic-website/academy-page';
 
 const title = 'Academy';
 const description =
@@ -17,4 +18,15 @@ export const metadata: Metadata = {
   },
 };
 
-export { AvailableSoonPage as default } from '@haqq/islamic-website/academy-page';
+interface PageProps {
+  params: { locale: string };
+}
+
+// export { AvailableSoonPage as default } from '@haqq/islamic-website/academy-page';
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
+
+  return <AvailableSoonPage locale={locale} />;
+}
