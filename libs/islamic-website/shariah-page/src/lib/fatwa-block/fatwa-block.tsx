@@ -4,48 +4,45 @@ import {
   MarkdownText,
   Text,
 } from '@haqq/islamic-website-ui-kit';
-// import clsx from 'clsx';
+import clsx from 'clsx';
 import Image, { StaticImageData } from 'next/image';
 import fatwaSign1 from '../../assets/images/autographs/autograph-al-enezy.webp';
 import fatwaSign2 from '../../assets/images/autographs/autograph-saleh-yaqubi.webp';
 import fatwaSign3 from '../../assets/images/autographs/autograph-hakim-mohamed.webp';
 import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.webp';
 import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
-import {
-  useTranslations,
-  // useLocale
-} from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { localeType } from '../shariah-page/shariah-page';
-// import { default as LocaleLink } from 'next-intl/link';
-// import { usePathname } from 'next/navigation';
+import { default as LocaleLink } from 'next-intl/link';
+import { usePathname } from 'next/navigation';
 
-// function LangButton({
-//   isActive,
-//   locale,
-//   href,
-// }: {
-//   isActive: boolean;
-//   locale: localeType;
-//   href: string;
-// }) {
-//   const t = useTranslations('shariah-page.fatwa-block.language-buttons');
-//   return (
-//     <LocaleLink
-//       href={href}
-//       locale={locale}
-//       className={clsx(
-//         'rtl:font-handjet ltr:font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
-//         isActive
-//           ? 'bg-islamic-primary-green'
-//           : 'hover:bg-islamic-primary-green/50 bg-transparent',
-//       )}
-//     >
-//       {locale === 'en' && t('english')}
-//       {locale === 'ar' && t('arabic')}
-//       {locale === 'id' && t('indonesian')}
-//     </LocaleLink>
-//   );
-// }
+function LangButton({
+  isActive,
+  locale,
+  href,
+}: {
+  isActive: boolean;
+  locale: localeType;
+  href: string;
+}) {
+  const t = useTranslations('shariah-page.fatwa-block.language-buttons');
+  return (
+    <LocaleLink
+      href={href}
+      locale={locale}
+      className={clsx(
+        'rtl:font-handjet ltr:font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+        isActive
+          ? 'bg-islamic-primary-green'
+          : 'hover:bg-islamic-primary-green/50 bg-transparent',
+      )}
+    >
+      {locale === 'en' && t('english')}
+      {locale === 'ar' && t('arabic')}
+      {locale === 'id' && t('indonesian')}
+    </LocaleLink>
+  );
+}
 
 function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   return (
@@ -101,9 +98,10 @@ export function FatwaBlock({
   locale: localeType;
   fatwa: string;
 }) {
-  // const pathname = usePathname();
-  // const locale = useLocale();
+  const pathname = usePathname();
+  const locale = useLocale();
   const t = useTranslations('shariah-page');
+  console.log({ pathname });
 
   return (
     <div>
@@ -120,11 +118,11 @@ export function FatwaBlock({
         <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
       </div>
 
-      {/* <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] rtl:flex-row-reverse md:mt-[48px] lg:mt-[60px]">
+      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] rtl:flex-row-reverse md:mt-[48px] lg:mt-[60px]">
         <LangButton isActive={locale === 'en'} locale="en" href="/shariah" />
         <LangButton isActive={locale === 'ar'} locale="ar" href="/shariah" />
         <LangButton isActive={locale === 'id'} locale="id" href="/shariah" />
-      </div> */}
+      </div>
 
       <MarkdownText className="mt-[30px]">{fatwa}</MarkdownText>
 
