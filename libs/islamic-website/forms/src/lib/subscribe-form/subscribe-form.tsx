@@ -19,7 +19,7 @@ import clsx from 'clsx';
 import axios from 'axios';
 import Turnstile from 'react-turnstile';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({
@@ -42,11 +42,13 @@ export function SubscribeForm({
   inputClassName,
   wrapperClassName,
   turnstileSiteKey,
+  locale,
 }: {
   className?: string;
   inputClassName?: string;
   wrapperClassName?: string;
   turnstileSiteKey: string;
+  locale: string;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,

@@ -14,6 +14,7 @@ export const getWhitepaperContent = cache(
       accessToken: STORYBLOK_ACCESS_TOKEN,
       use: [apiPlugin],
     });
+    console.log({ locale }, 'GET WP CONTENT SERVER');
 
     if (!storyblokApi) {
       throw new Error('Failed to init storyblok');
