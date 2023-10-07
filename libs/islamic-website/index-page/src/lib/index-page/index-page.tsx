@@ -20,16 +20,18 @@ export function IndexPage({
   shariahMembers,
   executiveMembers,
   mainnetAccounts,
+  locale,
 }: {
   news?: NewsPost[];
   advisoryMembers: Member[];
   shariahMembers: Member[];
   executiveMembers: Member[];
   mainnetAccounts: number;
+  locale: string;
 }) {
   return (
     <Fragment>
-      <Hero mainnetAccounts={mainnetAccounts} />
+      <Hero mainnetAccounts={mainnetAccounts} locale={locale} />
       <FundsBlock />
       <FinanceBlock />
       <NewsBlock news={news} />
@@ -45,12 +47,18 @@ export function IndexPage({
   );
 }
 
-function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
+function Hero({
+  mainnetAccounts,
+  locale,
+}: {
+  mainnetAccounts: number;
+  locale: string;
+}) {
   const t = useTranslations('index-page.hero-block');
   return (
     <HeroBg>
       <Container className="relative">
-        <HeroBlock />
+        <HeroBlock locale={locale} />
 
         <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
           {t('running-text').toLocaleUpperCase()}

@@ -44,6 +44,7 @@ export default async function Page(props: PageProps) {
 
   return (
     <IndexPage
+      locale={locale}
       mainnetAccounts={mainnet_accounts}
       news={mappedNews}
       advisoryMembers={advisoryMembers}
