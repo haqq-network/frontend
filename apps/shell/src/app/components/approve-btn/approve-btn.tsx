@@ -139,7 +139,7 @@ export const ApproveBtn = ({
           <>
             <div className="mb-[12px]">
               You have requested an AirDrop, it will be sent to your address on
-              the HAQQ network:
+              the HAQQ network in few days:
             </div>
 
             {ethAddress && (
@@ -152,13 +152,15 @@ export const ApproveBtn = ({
                   />
                 </div>
 
-                <div className="mt-[6px]">
-                  bech32:
-                  <Address
-                    address={ethToHaqq(ethAddress)}
-                    className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
-                  />
-                </div>
+                {ethAddress !== ethToHaqq(ethAddress) && (
+                  <div className="mt-[6px]">
+                    bech32:
+                    <Address
+                      address={ethToHaqq(ethAddress)}
+                      className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    />
+                  </div>
+                )}
               </>
             )}
           </>
