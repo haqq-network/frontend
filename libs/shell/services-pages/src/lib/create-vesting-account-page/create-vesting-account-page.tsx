@@ -54,12 +54,7 @@ function createUnsignedTransaction(
     auth_info: {
       signer_infos: [],
       fee: {
-        amount: [
-          {
-            denom: 'aISLM',
-            amount: '61559740000000000',
-          },
-        ],
+        amount: [{ denom: 'aISLM', amount: '61559740000000000' }],
         gas_limit: '3077987',
         payer: '',
         granter: '',
