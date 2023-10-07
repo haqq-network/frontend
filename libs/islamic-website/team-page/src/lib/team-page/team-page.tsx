@@ -80,55 +80,55 @@ const team = [
       'International professional with more than 15 years of combined experience in Human Resources (PHRi, CHRM), Consulting, People and Business Management. Proven track records of success in such fields as talent management, performance management, organizational development, HR business partnering, training and development, change management, business development, organizational support & mentorship to employees and leaders. Strategized and executed the implementation of HR processes and programs that improved organizational performance and achieved bottom line results.',
     role: 'Chief Human Resources Officer',
   },
-  {
-    image: '/assets/images/team/igor-moskalyov.png',
-    title: 'Igor Moskalyov',
-    description:
-      "Igor has a wide background in banking. He's a former auditor of a financial regulator with expertise in all aspects of the work of a commercial bank. Throughout his career, Igor has held leadership positions such as Head of AML, Head of Retail, Board member, and CEO for several commercial banks.",
-    role: 'Chief Operations Officer',
-  },
-  {
-    image: '/assets/images/team/evgenii-abramov.png',
-    title: 'Evgenii Abramov',
-    description:
-      'A programming languages polyglot with vast experience in backend, web, and mobile development, focusing on speed, security, and UX. At HAQQ he leads the product development process while overseeing his own HAQQ node as well as partner integrations. Assisted the Telegram team with R&D solutions for video streaming on mobile devices under high loads. Previously excelled at: Rocketbank — Led backend development for a neobank. Actor — Developed an iOS app for an open-source messaging platform founded by ex-Telegram developers',
-    role: 'Head of Development Division',
-  },
-  {
-    image: '/assets/images/team/sergei-vorobev.png',
-    title: 'Sergei Vorobev',
-    description:
-      "Senior Systems Analyst and Solution Architect. I have been developing software for more than 10 years, taught at the university for several years in parallel, and I found my vocation in designing various technological solutions - products, interfaces, SDKs and managing a team to implement these solutions. Now I have been actively developing in the field of cryptography and blockchain technologies. I have a perfect technical background, a Master's in distributed computing systems and networks. I am working at the company HAQQ x IslamicCoin on the creation of an Ethics-first blockchain that welcomes sustainability-centered developers, validators, and open-source contributors as well as ethical innovators in sustainable Finance.",
-    role: 'Senior System Analyst',
-  },
-  {
-    image: '/assets/images/team/andrei-zolin.png',
-    title: 'Andrei Zolin',
-    description:
-      "Andrei Zolin is an experienced Web3 developer. He has a rich background of involvement in Web3 projects and served a crucial role as a Solidity Developer at Islamic Coin. His expertise in Ethereum development is broadly acknowledged, providing guidance to teams and individuals on Ethereum projects. Andrei's journey demonstrates a combination of technical expertise and a progressive mindset in navigating the fast-changing blockchain environment.",
-    role: 'Software Engineer',
-  },
-  {
-    image: '/assets/images/team/shamrose-hamayun.png',
-    title: 'Shamrose Hamayun',
-    description:
-      "Sham Hamayun is a seasoned expert in the realms of business transformation and global partnerships, boasting a career spanning over two decades that has solidified his reputation as a visionary leader in the field. His unique blend of strategic acumen and innovative thinking has consistently delivered remarkable results for both Fortune 500 giants, such as Walgreens Boots Alliance, and agile startups. He is able to identify emerging market trends and leverage cross-border synergies to drive growth and innovation. His strategic insights have guided organizations through complex transitions, making him an invaluable asset in today's rapidly evolving business landscape. Sham Hamayun is a corporate strategist with extensive experience in shaping business frameworks, policies and procedures. He excels in crafting innovative corporate strategies that drive growth, adapt to changing market dynamics and technological advancements.",
-    role: 'Digital Marketing Manager',
-  },
-  {
-    image: '/assets/images/team/bestun-ibrahim.png',
-    title: 'Bestun Ibrahim',
-    description:
-      'Bestun infuses analytical prowess into our team, offering a diverse skill set spanning marketing, operations, and event management. With a keen interest in startups, he’s passionate about the transformative impact of emerging technologies on our daily lives.',
-    role: 'Operations Marketing Lead',
-  },
-  {
-    image: '/assets/images/team/victor-ugochukwu.png',
-    title: 'Victor Ugochukwu',
-    description:
-      'Victor Ugochukwu, with a 7-year tenure as a Web3 content strategist, leads content at HAQQ and architects Islamic Coin’s narrative. His adept strategies foster engaging discourse, merging blockchain ethos with compelling narratives, driving both projects to new digital frontiers.',
-    role: 'Content Lead',
-  },
+  // {
+  //   image: '/assets/images/team/igor-moskalyov.png',
+  //   title: 'Igor Moskalyov',
+  //   description:
+  //     "Igor has a wide background in banking. He's a former auditor of a financial regulator with expertise in all aspects of the work of a commercial bank. Throughout his career, Igor has held leadership positions such as Head of AML, Head of Retail, Board member, and CEO for several commercial banks.",
+  //   role: 'Chief Operations Officer',
+  // },
+  // {
+  //   image: '/assets/images/team/evgenii-abramov.png',
+  //   title: 'Evgenii Abramov',
+  //   description:
+  //     'A programming languages polyglot with vast experience in backend, web, and mobile development, focusing on speed, security, and UX. At HAQQ he leads the product development process while overseeing his own HAQQ node as well as partner integrations. Assisted the Telegram team with R&D solutions for video streaming on mobile devices under high loads. Previously excelled at: Rocketbank — Led backend development for a neobank. Actor — Developed an iOS app for an open-source messaging platform founded by ex-Telegram developers',
+  //   role: 'Head of Development Division',
+  // },
+  // {
+  //   image: '/assets/images/team/sergei-vorobev.png',
+  //   title: 'Sergei Vorobev',
+  //   description:
+  //     "Senior Systems Analyst and Solution Architect. I have been developing software for more than 10 years, taught at the university for several years in parallel, and I found my vocation in designing various technological solutions - products, interfaces, SDKs and managing a team to implement these solutions. Now I have been actively developing in the field of cryptography and blockchain technologies. I have a perfect technical background, a Master's in distributed computing systems and networks. I am working at the company HAQQ x IslamicCoin on the creation of an Ethics-first blockchain that welcomes sustainability-centered developers, validators, and open-source contributors as well as ethical innovators in sustainable Finance.",
+  //   role: 'Senior System Analyst',
+  // },
+  // {
+  //   image: '/assets/images/team/andrei-zolin.png',
+  //   title: 'Andrei Zolin',
+  //   description:
+  //     "Andrei Zolin is an experienced Web3 developer. He has a rich background of involvement in Web3 projects and served a crucial role as a Solidity Developer at Islamic Coin. His expertise in Ethereum development is broadly acknowledged, providing guidance to teams and individuals on Ethereum projects. Andrei's journey demonstrates a combination of technical expertise and a progressive mindset in navigating the fast-changing blockchain environment.",
+  //   role: 'Software Engineer',
+  // },
+  // {
+  //   image: '/assets/images/team/shamrose-hamayun.png',
+  //   title: 'Shamrose Hamayun',
+  //   description:
+  //     "Sham Hamayun is a seasoned expert in the realms of business transformation and global partnerships, boasting a career spanning over two decades that has solidified his reputation as a visionary leader in the field. His unique blend of strategic acumen and innovative thinking has consistently delivered remarkable results for both Fortune 500 giants, such as Walgreens Boots Alliance, and agile startups. He is able to identify emerging market trends and leverage cross-border synergies to drive growth and innovation. His strategic insights have guided organizations through complex transitions, making him an invaluable asset in today's rapidly evolving business landscape. Sham Hamayun is a corporate strategist with extensive experience in shaping business frameworks, policies and procedures. He excels in crafting innovative corporate strategies that drive growth, adapt to changing market dynamics and technological advancements.",
+  //   role: 'Digital Marketing Manager',
+  // },
+  // {
+  //   image: '/assets/images/team/bestun-ibrahim.png',
+  //   title: 'Bestun Ibrahim',
+  //   description:
+  //     'Bestun infuses analytical prowess into our team, offering a diverse skill set spanning marketing, operations, and event management. With a keen interest in startups, he’s passionate about the transformative impact of emerging technologies on our daily lives.',
+  //   role: 'Operations Marketing Lead',
+  // },
+  // {
+  //   image: '/assets/images/team/victor-ugochukwu.png',
+  //   title: 'Victor Ugochukwu',
+  //   description:
+  //     'Victor Ugochukwu, with a 7-year tenure as a Web3 content strategist, leads content at HAQQ and architects Islamic Coin’s narrative. His adept strategies foster engaging discourse, merging blockchain ethos with compelling narratives, driving both projects to new digital frontiers.',
+  //   role: 'Content Lead',
+  // },
 ];
 
 export function TeamPage({ teamMembers }: { teamMembers: Member[] }) {
@@ -138,14 +138,17 @@ export function TeamPage({ teamMembers }: { teamMembers: Member[] }) {
       <Container className="relative">
         <div className="pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pb-[200px] lg:pt-[68px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            {t('title')}
+            {t('title.founders')}
           </h1>
 
           <MembersContainer
             members={founders}
-            className="mt-[32px] lg:mt-[100px]"
+            className="my-[32px] lg:my-[100px]"
           />
 
+          <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+            {t('title.team')}
+          </h1>
           <MembersContainer
             members={team}
             className="mt-[32px] lg:mt-[100px]"
