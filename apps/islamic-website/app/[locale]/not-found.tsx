@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { DEPLOY_URL } from '../../constants';
 import { islamicOpenGraphImages } from '../shared-metadata';
+import { NotFound } from '@haqq/islamic-website/not-found-page';
 
 const title = 'Not Found';
 
@@ -13,4 +14,6 @@ export const metadata: Metadata = {
   },
 };
 
-export { NotFound as default } from '@haqq/islamic-website/not-found-page';
+export default async function Page() {
+  return <NotFound />;
+}

@@ -19,6 +19,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
 import '../../styles/consent-cookie.css';
+import { localeType } from '@haqq/islamic-website/shariah-page';
 
 export const metadata: Metadata = {
   title: {
@@ -77,9 +78,15 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isScamBannerShow && <ScamBanner />}
           {isMobileUserAgent ? (
-            <MobileHeader isBannerVisible={isScamBannerShow} />
+            <MobileHeader
+              locale={locale as localeType}
+              isBannerVisible={isScamBannerShow}
+            />
           ) : (
-            <Header isBannerVisible={isScamBannerShow} />
+            <Header
+              locale={locale as localeType}
+              isBannerVisible={isScamBannerShow}
+            />
           )}
           <div className="flex-1">{children}</div>
           <Footer socialLinks={SOCIAL_LINKS} />

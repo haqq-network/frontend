@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { default as LocaleLink } from 'next-intl/link';
 import clsx from 'clsx';
 import {
@@ -32,8 +32,12 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
-import { useLocale, useTranslations } from 'next-intl';
+import {
+  // useLocale,
+  useTranslations,
+} from 'next-intl';
 import { usePathname } from 'next-intl/client';
+import { localeType } from '@haqq/islamic-website/shariah-page';
 
 type LocaleType = keyof typeof localeDisplayNames;
 
@@ -156,24 +160,28 @@ export function LanguageLink({
 
 export default function Header({
   isBannerVisible = false,
+  locale,
 }: {
   isBannerVisible?: boolean;
+  locale: localeType;
 }) {
   const isTabletMedia = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
 
   return isTabletMedia ? (
-    <MobileHeader isBannerVisible={isBannerVisible} />
+    <MobileHeader locale={locale} isBannerVisible={isBannerVisible} />
   ) : (
-    <DesktopHeader isBannerVisible={isBannerVisible} />
+    <DesktopHeader locale={locale} isBannerVisible={isBannerVisible} />
   );
 }
 
 export function MobileHeader({
+  locale,
   isBannerVisible = false,
 }: {
   isBannerVisible?: boolean;
+  locale: localeType;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const [isBlurred, setBlurred] = useState(false);
@@ -239,12 +247,13 @@ export function MobileHeader({
             <Container>
               <div className="flex items-center justify-between">
                 <div>
-                  <Link
+                  <LocaleLink
                     href="/"
+                    locale={locale}
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
                     <IslamicHeaderLogo />
-                  </Link>
+                  </LocaleLink>
                 </div>
                 <div className="leading-[0]">
                   <BurgerButton
@@ -281,8 +290,10 @@ export function MobileHeader({
 
 export function DesktopHeader({
   isBannerVisible = false,
+  locale,
 }: {
   isBannerVisible?: boolean;
+  locale: localeType;
 }) {
   const [isBlurred, setBlurred] = useState(false);
 
@@ -307,9 +318,8 @@ export function DesktopHeader({
   }, []);
 
   const t = useTranslations('header');
-  const locale = useLocale();
+
   const pathname = usePathname();
-  console.log({ locale }, 'HEADER CLIENT');
 
   return (
     <header
