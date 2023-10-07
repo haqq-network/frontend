@@ -14,6 +14,7 @@ export const getPrivacyPolicyContent = cache(
       accessToken: STORYBLOK_ACCESS_TOKEN,
       use: [apiPlugin],
     });
+    console.log({ locale }, 'GET POLICY CONTENT SERVER');
 
     if (!storyblokApi) {
       throw new Error('Failed to init storyblok');

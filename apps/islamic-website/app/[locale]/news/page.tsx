@@ -19,8 +19,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
   const news = await getNewsPageContent();
 
-  return <NewsPage news={news} turnstileSiteKey={TURNSTILE_SITEKEY} />;
+  return (
+    <NewsPage
+      news={news}
+      turnstileSiteKey={TURNSTILE_SITEKEY}
+      locale={locale}
+    />
+  );
 }

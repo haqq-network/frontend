@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
 import { NextIntlClientProvider } from 'next-intl';
 import { Container } from '@haqq/islamic-website-ui-kit';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import Script from 'next/script';
 import Header, { MobileHeader } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
@@ -19,6 +19,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
 import '../../styles/consent-cookie.css';
+import { localeType } from '@haqq/islamic-website/shariah-page';
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,8 @@ export const metadata: Metadata = {
 };
 
 async function getMessages(locale: string) {
+  console.log({ locale }, 'getMessagesFunction [LOCALE]/LAYOUT');
+
   try {
     return (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
@@ -47,6 +50,8 @@ export default async function LocaleLayout({
   children,
   params: { locale },
 }: PropsWithChildren<{ params: { locale: string } }>) {
+  console.log({ locale }, '[LOCALE]/LAYOUT FROM PARAMS');
+
   const headersList = headers();
   const userAgent = headersList.get('user-agent');
   const isMobileUserAgent = Boolean(
@@ -71,14 +76,20 @@ export default async function LocaleLayout({
       {VERCEL_ENV !== 'development' && <CookieConsentModal />}
       <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {isScamBannerShow && <ScamBanner />}
+          {isScamBannerShow && <ScamBanner locale={locale} />}
           {isMobileUserAgent ? (
-            <MobileHeader isBannerVisible={isScamBannerShow} />
+            <MobileHeader
+              locale={locale as localeType}
+              isBannerVisible={isScamBannerShow}
+            />
           ) : (
-            <Header isBannerVisible={isScamBannerShow} />
+            <Header
+              locale={locale as localeType}
+              isBannerVisible={isScamBannerShow}
+            />
           )}
           <div className="flex-1">{children}</div>
-          <Footer socialLinks={SOCIAL_LINKS} />
+          <Footer socialLinks={SOCIAL_LINKS} locale={locale} />
         </NextIntlClientProvider>
       </body>
       {VERCEL_ENV !== 'development' && (
@@ -128,13 +139,13 @@ export default async function LocaleLayout({
   );
 }
 
-function ScamBanner() {
+function ScamBanner({ locale }: { locale: string }) {
   return (
     <div className="ltr:font-vcr rtl:font-handjet fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center text-[16px] uppercase leading-[24px] text-white">
       <Container>
         Beware of scammers! <br className="block md:hidden" />
         Check{' '}
-        <Link href="/scam-alert" className="underline">
+        <Link href="/scam-alert" locale={locale} className="underline">
           this page
         </Link>{' '}
         for more information

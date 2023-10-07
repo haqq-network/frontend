@@ -1,6 +1,6 @@
 'use client';
-import Link from 'next/link';
-import { default as LocaleLink } from 'next-intl/link';
+import Link from 'next-intl/link';
+// import { default as LocaleLink } from 'next-intl/link';
 import clsx from 'clsx';
 import {
   Fragment,
@@ -32,8 +32,12 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
-import { useLocale, useTranslations } from 'next-intl';
+import {
+  // useLocale,
+  useTranslations,
+} from 'next-intl';
 import { usePathname } from 'next-intl/client';
+import { localeType } from '@haqq/islamic-website/shariah-page';
 
 type LocaleType = keyof typeof localeDisplayNames;
 
@@ -56,7 +60,7 @@ function DesktopHeaderLink({
   locale,
 }: PropsWithChildren<HeaderLinkProps>) {
   return (
-    <LocaleLink
+    <Link
       locale={locale}
       href={url}
       target={isOutLink ? '_blank' : undefined}
@@ -64,7 +68,7 @@ function DesktopHeaderLink({
       className="hover:text-islamic-primary-green p-[16px] text-[14px] font-[400] uppercase leading-[24px] text-white transition-colors duration-200"
     >
       {children}
-    </LocaleLink>
+    </Link>
   );
 }
 
@@ -136,7 +140,7 @@ export function LanguageLink({
   isActive: boolean;
 }) {
   return (
-    <LocaleLink
+    <Link
       href={href}
       locale={locale}
       className={clsx(
@@ -150,30 +154,34 @@ export function LanguageLink({
         <span>{localeDisplayNames[locale]}</span>
         {isActive && <CheckMarkIcon />}
       </div>
-    </LocaleLink>
+    </Link>
   );
 }
 
 export default function Header({
   isBannerVisible = false,
+  locale,
 }: {
   isBannerVisible?: boolean;
+  locale: localeType;
 }) {
   const isTabletMedia = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
 
   return isTabletMedia ? (
-    <MobileHeader isBannerVisible={isBannerVisible} />
+    <MobileHeader locale={locale} isBannerVisible={isBannerVisible} />
   ) : (
-    <DesktopHeader isBannerVisible={isBannerVisible} />
+    <DesktopHeader locale={locale} isBannerVisible={isBannerVisible} />
   );
 }
 
 export function MobileHeader({
+  locale,
   isBannerVisible = false,
 }: {
   isBannerVisible?: boolean;
+  locale: localeType;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const [isBlurred, setBlurred] = useState(false);
@@ -241,6 +249,7 @@ export function MobileHeader({
                 <div>
                   <Link
                     href="/"
+                    locale={locale}
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
                     <IslamicHeaderLogo />
@@ -266,6 +275,7 @@ export function MobileHeader({
           >
             <div className={clsx('py-[24px]', 'w-full')}>
               <BurgerMenu
+                locale={locale}
                 isOpen={isMobileMenuOpen}
                 onClick={() => {
                   setIsMobileMenuOpened(false);
@@ -281,8 +291,10 @@ export function MobileHeader({
 
 export function DesktopHeader({
   isBannerVisible = false,
+  locale,
 }: {
   isBannerVisible?: boolean;
+  locale: localeType;
 }) {
   const [isBlurred, setBlurred] = useState(false);
 
@@ -307,7 +319,7 @@ export function DesktopHeader({
   }, []);
 
   const t = useTranslations('header');
-  const locale = useLocale();
+
   const pathname = usePathname();
 
   return (
@@ -323,13 +335,13 @@ export function DesktopHeader({
         <Container>
           <div className="flex items-center justify-between">
             <div>
-              <LocaleLink
+              <Link
                 locale={locale}
                 href="/"
                 className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
               >
                 <IslamicHeaderLogo />
-              </LocaleLink>
+              </Link>
             </div>
 
             <nav className="flex flex-row">

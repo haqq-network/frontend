@@ -12,9 +12,11 @@ import { useTranslations } from 'next-intl';
 export function NewsPage({
   news,
   turnstileSiteKey,
+  locale,
 }: {
   news?: NewsPost[];
   turnstileSiteKey?: string;
+  locale: string;
 }) {
   const { featuredPost, postsToRender } = useMemo(() => {
     let featuredPost = undefined;
@@ -55,6 +57,7 @@ export function NewsPage({
               className="flex flex-col gap-[16px] md:flex-row"
               inputClassName="md:w-[285px]"
               turnstileSiteKey={turnstileSiteKey}
+              locale={locale}
             />
           </div>
         )}
