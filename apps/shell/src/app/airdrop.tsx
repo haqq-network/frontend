@@ -11,6 +11,8 @@ import { AirdropCosmos } from './components/airdrop-cosmos/airdrop-cosmos';
 import { CaptchaModal, Container } from '@haqq/shell-ui-kit';
 import { Address } from './components/address/address';
 
+const noop = () => {};
+
 const walletConnectProjectId = NX_WALLETCONNECT_PROJECT_ID;
 const isProduction = VERCEL_ENV === 'production';
 
@@ -84,7 +86,7 @@ const Airdrops = () => {
       </div>
 
       <CaptchaModal
-        setCaptchaModalOpen={setCaptchaModalOpen}
+        setCaptchaModalOpen={token ? setCaptchaModalOpen : noop}
         turnstileSiteKey={TURNSTILE_SITEKEY}
         isOpened={isCaptchaModalOpen}
         setToken={setToken}

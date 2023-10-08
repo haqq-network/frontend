@@ -26,13 +26,13 @@ export const CosmosAirdropView = ({
       />
       <CosmosAirdropCard
         participationAddress={osmosisAddress}
-        icon={evmosIcon}
+        icon={osmosisIcon}
         chainId="osmosis-1"
         ethAddressFromKeppler={ethAddressFromKeppler}
       />
       <CosmosAirdropCard
         participationAddress={evmosAddress}
-        icon={osmosisIcon}
+        icon={evmosIcon}
         chainId="evmos_9001-2"
         ethAddressFromKeppler={ethAddressFromKeppler}
       />

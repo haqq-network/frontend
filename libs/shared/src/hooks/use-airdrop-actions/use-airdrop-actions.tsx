@@ -6,6 +6,7 @@ import axios from 'axios';
 export interface IParticipateResult {
   message: string;
   status: string;
+  address: string;
 }
 
 export enum ParticipantStatus {

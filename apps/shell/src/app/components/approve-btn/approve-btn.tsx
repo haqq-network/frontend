@@ -1,7 +1,6 @@
 import {
   IParticipant,
   ParticipantStatus,
-  ethToHaqq,
   useAirdropActions,
 } from '@haqq/shared';
 import localStore from 'store2';
@@ -33,6 +32,8 @@ export const ApproveBtn = ({
 
   const [isInformationModalOpened, setInformationModalOpened] =
     useState<boolean>(false);
+
+  const [receivingAddress, setReceivingAddress] = useState<string>('');
 
   const { participateEvm, participateCosmos } = useAirdropActions();
 
@@ -92,6 +93,10 @@ export const ApproveBtn = ({
                     setErrorModalOpened(true);
                   }
                 }
+
+                if (v.address) {
+                  setReceivingAddress(v.address);
+                }
               });
           }}
         >
@@ -105,7 +110,14 @@ export const ApproveBtn = ({
           <div className="font-clash text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
             Airdrop status
           </div>
-          <div>You already requested</div>
+          {participant?.to_address ? (
+            <div>
+              You already requested to address{' '}
+              <Address address={participant?.to_address} />
+            </div>
+          ) : (
+            <div>You already requested</div>
+          )}
         </>
       )}
 
@@ -114,7 +126,15 @@ export const ApproveBtn = ({
           <div className="font-clash text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
             Airdrop status
           </div>
-          <div>You already redeemed</div>
+
+          {participant?.to_address ? (
+            <div>
+              You already redeemed to address{' '}
+              <Address address={participant?.to_address} />
+            </div>
+          ) : (
+            <div>You already redeemed</div>
+          )}
         </>
       )}
       <InformationModal
@@ -142,27 +162,24 @@ export const ApproveBtn = ({
               the HAQQ network in few days:
             </div>
 
-            {ethAddress && (
-              <>
+            {ethAddress &&
+              (!isCosmos ? (
                 <div>
                   hex:
                   <Address
-                    address={ethAddress}
+                    address={receivingAddress}
                     className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                   />
                 </div>
-
-                {ethAddress !== ethToHaqq(ethAddress) && (
-                  <div className="mt-[6px]">
-                    bech32:
-                    <Address
-                      address={ethToHaqq(ethAddress)}
-                      className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
-                    />
-                  </div>
-                )}
-              </>
-            )}
+              ) : (
+                <div className="mt-[6px]">
+                  bech32:
+                  <Address
+                    address={receivingAddress}
+                    className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                  />
+                </div>
+              ))}
           </>
         }
       />

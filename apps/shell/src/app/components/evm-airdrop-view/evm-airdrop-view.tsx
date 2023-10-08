@@ -1,6 +1,6 @@
 import { IParticipant, useAirdropActions } from '@haqq/shared';
 import { formatEthDecimal } from '@haqq/shell-ui-kit';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { ApproveBtn } from '../approve-btn/approve-btn';
 import { Hex } from 'viem';
@@ -8,6 +8,8 @@ import { Hex } from 'viem';
 interface IProps {
   address?: string;
 }
+
+const PARTICIPANTS_CHECK_INTERVAL = 5000;
 
 const YesCheckbox = ({ value }: { value?: boolean }) => {
   if (!value) {
@@ -75,8 +77,20 @@ export const useAirdropChecker = (address?: string) => {
       });
   }, [address, checkAirdrop]);
 
+  const intervalRef = useRef<number>();
+
   useEffect(() => {
     loadAirdrop();
+
+    const intervalId = setInterval(
+      loadAirdrop,
+      PARTICIPANTS_CHECK_INTERVAL,
+    ) as unknown;
+    intervalRef.current = intervalId as number;
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
   }, [loadAirdrop]);
 
   return { participant };
