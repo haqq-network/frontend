@@ -64,18 +64,17 @@ export default async function LocaleLayout({
   const isScamBannerShow = true;
 
   return (
-    <html
-      lang={locale}
-      dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      className={clsx(
-        alexandriaFont.variable,
-        handjetFont.variable,
-        vcrFont.variable,
-      )}
-    >
-      {VERCEL_ENV !== 'development' && <CookieConsentModal />}
-      <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <html
+        lang={locale}
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        className={clsx(
+          alexandriaFont.variable,
+          handjetFont.variable,
+          vcrFont.variable,
+        )}
+      >
+        <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
           {isScamBannerShow && <ScamBanner locale={locale} />}
           {isMobileUserAgent ? (
             <MobileHeader
@@ -90,52 +89,51 @@ export default async function LocaleLayout({
           )}
           <div className="flex-1">{children}</div>
           <Footer socialLinks={SOCIAL_LINKS} locale={locale} />
-        </NextIntlClientProvider>
-      </body>
-      {VERCEL_ENV !== 'development' && (
-        <div>
-          <Fragment>
-            <script
-              async={true}
-              defer={true}
-              id="fb-pixel"
-              data-cookiecategory="analytics"
-              dangerouslySetInnerHTML={{
-                __html: `
-                    !function(f,b,e,v,n,t,s)
-                    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                    n.queue=[];t=b.createElement(e);t.async=!0;
-                    t.src=v;s=b.getElementsByTagName(e)[0];
-                    s.parentNode.insertBefore(t,s)}(window, document,'script',
-                    'https://connect.facebook.net/en_US/fbevents.js');
-                    fbq('init', '873030480371387');
-                    fbq('track', 'PageView');
-                  `,
-              }}
-            />
-            <Script
-              async={true}
-              defer={true}
-              id="gtm"
-              data-cookiecategory="analytics"
-              dangerouslySetInnerHTML={{
-                __html: `
-                    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                    })(window,document,'script','dataLayer','GTM-5H2ZFCN');
-                  `,
-              }}
-            />
-            <CookieConsentModal />
-            <Analytics mode="auto" />
-          </Fragment>
-        </div>
-      )}
-    </html>
+
+          {VERCEL_ENV !== 'development' && (
+            <Fragment>
+              <script
+                async={true}
+                defer={true}
+                id="fb-pixel"
+                data-cookiecategory="analytics"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  !function(f,b,e,v,n,t,s)
+                  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                  n.queue=[];t=b.createElement(e);t.async=!0;
+                  t.src=v;s=b.getElementsByTagName(e)[0];
+                  s.parentNode.insertBefore(t,s)}(window, document,'script',
+                  'https://connect.facebook.net/en_US/fbevents.js');
+                  fbq('init', '873030480371387');
+                  fbq('track', 'PageView');
+                `,
+                }}
+              />
+              <Script
+                async={true}
+                defer={true}
+                id="gtm"
+                data-cookiecategory="analytics"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                  })(window,document,'script','dataLayer','GTM-5H2ZFCN');
+                `,
+                }}
+              />
+              <CookieConsentModal />
+              <Analytics mode="auto" />
+            </Fragment>
+          )}
+        </body>
+      </html>
+    </NextIntlClientProvider>
   );
 }
 

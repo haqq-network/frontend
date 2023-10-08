@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import 'vanilla-cookieconsent';
 
 const analyticsCookieTable = [
@@ -137,10 +137,13 @@ const pluginConfig: UserConfig = {
 };
 
 export function CookieConsentModal() {
+  const cookieConsentRootRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const cookieConsentApi = window.initCookieConsent();
+    const rootElement = cookieConsentRootRef.current;
+    const cookieConsentApi = window.initCookieConsent(rootElement ?? undefined);
     cookieConsentApi.run(pluginConfig);
   }, []);
 
-  return null;
+  return <div ref={cookieConsentRootRef} id="cookie-consent-modal" />;
 }

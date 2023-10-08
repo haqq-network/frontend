@@ -148,12 +148,11 @@ export function LanguageLink({
         isActive
           ? 'pointer-events-none select-none'
           : 'hover:text-islamic-primary-green cursor-pointer',
+        'flex items-center justify-between',
       )}
     >
-      <div className="flex items-center justify-between">
-        <span>{localeDisplayNames[locale]}</span>
-        {isActive && <CheckMarkIcon />}
-      </div>
+      <span>{localeDisplayNames[locale]}</span>
+      {isActive && <CheckMarkIcon />}
     </Link>
   );
 }
@@ -297,6 +296,8 @@ export function DesktopHeader({
   locale: localeType;
 }) {
   const [isBlurred, setBlurred] = useState(false);
+  const t = useTranslations('header');
+  const pathname = usePathname();
 
   useEffect(() => {
     const offset = 50;
@@ -317,10 +318,6 @@ export function DesktopHeader({
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const t = useTranslations('header');
-
-  const pathname = usePathname();
 
   return (
     <header
