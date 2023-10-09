@@ -10,7 +10,6 @@ import Image from 'next/image';
 import Link from 'next-intl/link';
 import { useCallback, useState } from 'react';
 import { useTranslations } from 'next-intl';
-// import { default as LocaleLink } from 'next-intl/link';
 
 const ytVideoId = 'bevF9a3L3Sk';
 
@@ -38,18 +37,18 @@ export function HeroBlock({ locale }: { locale: string }) {
         </Text>
       </div>
 
-      <div className="font-vcr mt-[18px] w-fit rounded-lg border border-[#2f2f2f] px-[18px] py-[8px] text-center text-[15px]  uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
-        Disclaimer for{' '}
+      <div className="ltr:font-vcr rtl:font-handjet mt-[18px] w-fit rounded-lg border border-[#2f2f2f] px-[18px] py-[8px] text-center text-[15px] uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
+        <span>{t('hero-block.disclaimer.before-flag')}</span>{' '}
         <span role="img" aria-label="UAE">
           🇦🇪
         </span>{' '}
-        Dubai Residents
+        <span>{t('hero-block.disclaimer.after-flag')}</span>
         <Link
           locale={locale}
           href="/dubai-residents-disclaimer"
-          className="text-islamic-primary-green hover:text-islamic-primary-green-hover ml-[18px] w-fit transition-colors duration-300"
+          className="text-islamic-primary-green hover:text-islamic-primary-green-hover w-fit transition-colors duration-300 ltr:ml-[18px] rtl:mr-[18px]"
         >
-          Read more
+          {t('hero-block.disclaimer.read-more')}
         </Link>
       </div>
 
