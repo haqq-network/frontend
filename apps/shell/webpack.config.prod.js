@@ -12,14 +12,8 @@ const moduleFederationRemote =
         ['governance', '//governance.haqq.network'],
       ]
     : [
-        [
-          'staking',
-          '//staking-app-git-chore-airdrop-keplr-test-haqq-network.vercel.app',
-        ],
-        [
-          'governance',
-          '//governance-app-git-chore-airdrop-keplr-test-haqq-network.vercel.app',
-        ],
+        ['staking', '//staking-app-i-kioninja-haqq-network.vercel.app/'],
+        ['governance', '//governance-app-i-kioninja-haqq-network.vercel.app/'],
       ];
 
 /**
