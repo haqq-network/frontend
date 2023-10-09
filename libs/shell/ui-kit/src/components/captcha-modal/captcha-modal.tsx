@@ -18,6 +18,14 @@ export const CaptchaModal = ({
     setCaptchaModalOpen(false);
   }, [setCaptchaModalOpen]);
 
+  const handleTokenChange = useCallback(
+    (token: string) => {
+      setToken(token);
+      setCaptchaModalOpen(false);
+    },
+    [setCaptchaModalOpen, setToken],
+  );
+
   return (
     <Modal onClose={handleCaptchaModalClose} isOpen={isOpened}>
       <div className="rounded-[12px] bg-white pb-[36px] pl-[16px] pr-[16px] pt-[16px]">
@@ -45,7 +53,7 @@ export const CaptchaModal = ({
             <Turnstile
               className="w-full"
               sitekey={turnstileSiteKey}
-              onVerify={setToken}
+              onVerify={handleTokenChange}
               theme="light"
               fixedSize={true}
             />

@@ -40,6 +40,8 @@ const Airdrops = () => {
   useEffect(() => {
     if (!token && !ethAddress) {
       setCaptchaModalOpen(true);
+    } else if (token) {
+      setCaptchaModalOpen(false);
     }
   }, [token, ethAddress]);
 
