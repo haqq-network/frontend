@@ -5,19 +5,18 @@ export function DropdownLink({
   icon,
   title,
   href,
-  isOutLink = false,
-  locale = 'en',
+  isOutLink = false, // locale = 'en',
 }: {
   icon?: ReactNode;
   title: string;
   href: string;
   isOutLink?: boolean;
-  locale: string;
+  locale?: string;
 }) {
   return (
     <Link
       href={href}
-      locale={locale}
+      // locale={locale}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
       className="hover:text-islamic-primary-green w-fit cursor-pointer px-[16px] py-[12px] text-base font-[500] text-white transition-colors duration-200"

@@ -13,7 +13,8 @@ import { useTranslations } from 'next-intl';
 
 const ytVideoId = 'bevF9a3L3Sk';
 
-export function HeroBlock({ locale }: { locale: string }) {
+export function HeroBlock() {
+  // { locale }: { locale: string }
   const t = useTranslations('index-page');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const openVideoModal = useCallback(() => {
@@ -44,7 +45,7 @@ export function HeroBlock({ locale }: { locale: string }) {
         </span>{' '}
         <span>{t('hero-block.disclaimer.after-flag')}</span>
         <Link
-          locale={locale}
+          // locale={locale}
           href="/dubai-residents-disclaimer"
           className="text-islamic-primary-green hover:text-islamic-primary-green-hover w-fit transition-colors duration-300 ltr:ml-[18px] rtl:mr-[18px]"
         >

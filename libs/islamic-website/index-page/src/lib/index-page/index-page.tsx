@@ -34,15 +34,22 @@ export function IndexPage({
       <Hero mainnetAccounts={mainnetAccounts} locale={locale} />
       <FundsBlock />
       <FinanceBlock />
-      <NewsBlock news={news} locale={locale} />
+      <NewsBlock
+        news={news}
+        // locale={locale}
+      />
       <BoardMembersBlock
         executiveMembers={executiveMembers}
         shariahMembers={shariahMembers}
         advisoryMembers={advisoryMembers}
       />
       <PortfolioBlock />
-      <LearnAndGrowBlock locale={locale} />
-      <JoinCommunityBlock locale={locale} />
+      <LearnAndGrowBlock
+      // locale={locale}
+      />
+      <JoinCommunityBlock
+      // locale={locale}
+      />
     </Fragment>
   );
 }
@@ -58,7 +65,9 @@ function Hero({
   return (
     <HeroBg>
       <Container className="relative">
-        <HeroBlock locale={locale} />
+        <HeroBlock
+        // locale={locale}
+        />
 
         <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
           {t('running-text').toLocaleUpperCase()}

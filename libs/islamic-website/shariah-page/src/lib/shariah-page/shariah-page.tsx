@@ -318,7 +318,7 @@ function ShariPageDesktopNavLink({
 }>) {
   return (
     <Link
-      locale={locale}
+      // locale={locale}
       href={href}
       className={clsx(
         'hover:text-islamic-primary-green-hover ltr:font-vcr rtl:font-handjet inline-flex cursor-pointer items-center justify-between gap-x-[8px] uppercase',

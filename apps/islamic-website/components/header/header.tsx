@@ -57,7 +57,7 @@ function DesktopHeaderLink({
 }: PropsWithChildren<HeaderLinkProps>) {
   return (
     <Link
-      locale={locale}
+      // locale={locale}
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
@@ -245,7 +245,7 @@ export function MobileHeader({
                 <div>
                   <Link
                     href="/"
-                    locale={locale}
+                    // locale={locale}
                     aria-label="Islamic Coin"
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
@@ -333,7 +333,7 @@ export function DesktopHeader({
           <div className="flex items-center justify-between">
             <div>
               <Link
-                locale={locale}
+                // locale={locale}
                 href="/"
                 className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
               >

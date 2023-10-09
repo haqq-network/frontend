@@ -41,7 +41,7 @@ export function ShariPageMobileNav({
     <Fragment>
       {isBlurred && (
         <FixedPageNavigation
-          locale={locale}
+          // locale={locale}
           sections={sections}
           activeSection={activeSection}
           onSectionSelect={onSectionSelect}
@@ -62,12 +62,12 @@ function FixedPageNavigation({
   sections,
   activeSection,
   onSectionSelect,
-  locale,
-}: {
+} // locale,
+: {
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
   onSectionSelect: (newSection: string) => void;
-  locale: string;
+  // locale: string;
 }) {
   const [isOpen, setOpen] = useState(false);
   const currentValue = useMemo(() => {

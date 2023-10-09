@@ -15,7 +15,7 @@ export function AvailableSoonPage({ locale }: { locale: string }) {
           </div>
           <Link
             href="/"
-            locale={locale}
+            // locale={locale}
             className="text-islamic-primary-green hover:text-islamic-primary-green-hover mt-[8px] transition-colors duration-300 lg:mt-[16px]"
           >
             <Text size="small">{t('subtitle')}</Text>

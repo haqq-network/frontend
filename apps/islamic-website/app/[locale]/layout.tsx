@@ -141,7 +141,11 @@ function ScamBanner({ locale }: { locale: string }) {
       <Container>
         Beware of scammers! <br className="block md:hidden" />
         Check{' '}
-        <Link href="/scam-alert" locale={locale} className="underline">
+        <Link
+          href="/scam-alert"
+          // locale={locale}
+          className="underline"
+        >
           this page
         </Link>{' '}
         for more information

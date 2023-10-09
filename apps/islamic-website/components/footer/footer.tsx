@@ -26,7 +26,7 @@ function FooterNavLink({
 }) {
   return (
     <Link
-      locale={locale}
+      // locale={locale}
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}

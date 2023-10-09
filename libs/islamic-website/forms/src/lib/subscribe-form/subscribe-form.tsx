@@ -42,13 +42,13 @@ export function SubscribeForm({
   inputClassName,
   wrapperClassName,
   turnstileSiteKey,
-  locale,
-}: {
+} // locale,
+: {
   className?: string;
   inputClassName?: string;
   wrapperClassName?: string;
   turnstileSiteKey: string;
-  locale: string;
+  // locale: string;
 }) {
   const [subscribeFormState, setSubscribeFormState] = useState<FormState>(
     FormState.idle,

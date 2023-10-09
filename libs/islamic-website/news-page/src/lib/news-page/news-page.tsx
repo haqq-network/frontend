@@ -57,7 +57,7 @@ export function NewsPage({
               className="flex flex-col gap-[16px] md:flex-row"
               inputClassName="md:w-[285px]"
               turnstileSiteKey={turnstileSiteKey}
-              locale={locale}
+              // locale={locale}
             />
           </div>
         )}
