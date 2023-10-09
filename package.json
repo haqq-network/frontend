@@ -139,7 +139,7 @@
     "@tailwindcss/typography": "0.5.10",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
-    "@types/jest": "29.5.4",
+    "@types/jest": "29.5.5",
     "@types/lodash": "4.14.198",
     "@types/marked": "5.0.1",
     "@types/node": "20.6.0",
