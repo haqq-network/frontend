@@ -123,7 +123,7 @@
     "@storybook/addon-mdx-gfm": "7.4.1",
     "@storybook/addon-storysource": "7.4.1",
     "@storybook/addon-viewport": "7.4.1",
-    "@storybook/core-common": "7.4.1",
+    "@storybook/core-common": "7.4.6",
     "@storybook/core-server": "7.4.1",
     "@storybook/manager-api": "7.4.1",
     "@storybook/react": "7.4.1",
