@@ -6,7 +6,7 @@ import { formatEthDecimal } from '@haqq/shell-ui-kit';
 import { Keplr } from '@keplr-wallet/types';
 
 interface IProps {
-  participationAddress: string;
+  participationAddress?: string;
   icon: string;
   chainId: string;
   ethAddressFromKeppler: string;
@@ -77,14 +77,16 @@ export const CosmosAirdropCard = ({
     <div className="flex flex-col items-start gap-[28px] md:w-[410px]">
       <img src={icon} alt="icon" className="mb-[4px] h-[48px]" />
 
-      <div>
-        <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-          Address
+      {participationAddress && (
+        <div>
+          <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+            Address
+          </div>
+          <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
+            <Address address={participationAddress} />
+          </div>
         </div>
-        <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-          <Address address={participationAddress} />
-        </div>
-      </div>
+      )}
 
       <div>
         <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
@@ -118,7 +120,7 @@ export const CosmosAirdropCard = ({
               Amount airdrop
             </div>
             <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-              {formatEthDecimal(participant?.amount || 0, 2)} ISLMs
+              {formatEthDecimal(participant?.amount || 0, 2)} ISLM
             </div>
           </div>
 

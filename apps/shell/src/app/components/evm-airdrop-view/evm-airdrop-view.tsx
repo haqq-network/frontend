@@ -155,7 +155,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
           tooltip="You have voted several times on mainnet gov"
         />
         <ValueBlock
-          text="Staked more than 50% of your ISLMs"
+          text="Staked more than 50% of your ISLM"
           isActive={participant?.is_staked_many}
           percent="15.00"
           tooltip="You have staked most of your balance"
@@ -175,7 +175,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
                 Your Amount airdrop
               </div>
               <div className="mt-[5px] font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-                {formatEthDecimal(participant?.amount || 0, 2)} ISLMs
+                {formatEthDecimal(participant?.amount || 0, 2)} ISLM
               </div>
             </div>
 

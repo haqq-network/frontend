@@ -5,14 +5,11 @@ import evmosIcon from './../../../assets/icons/evmos.svg';
 
 interface IProps {
   cosmosAddress: string;
-  osmosisAddress: string;
-  evmosAddress: string;
   ethAddressFromKeppler: string;
 }
 
 export const CosmosAirdropView = ({
   cosmosAddress,
-  evmosAddress,
   ethAddressFromKeppler,
 }: IProps) => {
   return (
@@ -27,7 +24,6 @@ export const CosmosAirdropView = ({
         isBlured
         bluredContent={
           <CosmosAirdropCard
-            participationAddress={evmosAddress}
             icon={evmosIcon}
             chainId="evmos_9001-2"
             ethAddressFromKeppler={ethAddressFromKeppler}

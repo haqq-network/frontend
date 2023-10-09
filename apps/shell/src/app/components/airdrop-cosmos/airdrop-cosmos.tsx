@@ -63,12 +63,7 @@ export function signatureToPubkey(signature: string, msgHash: Buffer) {
 }
 
 const enableChains = async (keplrWallet: Keplr) => {
-  await keplrWallet.enable([
-    'haqq_11235-1',
-    'cosmoshub-4',
-    'osmosis-1',
-    'evmos_9001-2',
-  ]);
+  await keplrWallet.enable(['haqq_11235-1', 'cosmoshub-4', 'evmos_9001-2']);
 };
 
 export function AirdropCosmos({
@@ -103,10 +98,9 @@ export function AirdropCosmos({
         await enableChains(keplrWallet);
       }
 
-      const [haqq, cosmos, osmosis, evmos] = await Promise.all([
+      const [haqq, cosmos, evmos] = await Promise.all([
         await keplrWallet.getKey('haqq_11235-1'),
         await keplrWallet.getKey('cosmoshub-4'),
-        await keplrWallet.getKey('osmosis-1'),
         await keplrWallet.getKey('evmos_9001-2'),
       ]);
 
@@ -115,7 +109,6 @@ export function AirdropCosmos({
       setAccounts({
         haqq: haqq.bech32Address,
         cosmos: cosmos.bech32Address,
-        osmosis: osmosis.bech32Address,
         evmos: evmos.bech32Address,
       });
     }
@@ -128,8 +121,6 @@ export function AirdropCosmos({
       bluredContent={
         <CosmosAirdropView
           cosmosAddress={accounts['cosmos']}
-          evmosAddress={accounts['evmos']}
-          osmosisAddress={accounts['osmosis']}
           ethAddressFromKeppler={ethAddressFromKeppler}
         />
       }
