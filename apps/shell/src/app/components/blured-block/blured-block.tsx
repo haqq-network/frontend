@@ -8,12 +8,12 @@ export const BluredBlock = ({
 }: {
   bluredContent: ReactNode;
   content: ReactNode;
-  title: string;
+  title?: string;
   isBlured: boolean;
 }) => {
   return (
     <>
-      <div className="mb-[20px] text-[32px] font-[500]">{title}</div>
+      {title && <div className="mb-[20px] text-[32px] font-[500]">{title}</div>}
 
       <div className="relative">
         <div className={`flex flex-col ${isBlured && 'opacity-50 blur-[6px]'}`}>
