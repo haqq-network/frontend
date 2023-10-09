@@ -4,7 +4,8 @@ import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
 import Link from 'next-intl/link';
 import { useTranslations } from 'next-intl';
 
-export function JoinCommunityBlock({ locale }: { locale: string }) {
+export function JoinCommunityBlock() {
+  // { locale }: { locale: string }
   const t = useTranslations('index-page');
   return (
     <Container>
@@ -18,7 +19,7 @@ export function JoinCommunityBlock({ locale }: { locale: string }) {
         <Text isMono className="mt-[8px]">
           {t('join-community-block.subtitle')}
         </Text>
-        <Link href="/community-hub" locale={locale}>
+        <Link href="/community-hub">
           <Button className="mt-[42px]">
             {t('join-community-block.button-text')}
           </Button>

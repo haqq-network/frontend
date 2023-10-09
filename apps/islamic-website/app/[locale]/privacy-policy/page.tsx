@@ -23,7 +23,6 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  console.log({ locale }, 'POLICY PAGE SERVER');
   const privacyPolicy = await getPrivacyPolicyContent({ locale });
 
   return <PrivacyPolicyPage privacyPolicy={privacyPolicy} />;

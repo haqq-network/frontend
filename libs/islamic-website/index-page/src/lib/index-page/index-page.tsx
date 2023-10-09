@@ -31,34 +31,28 @@ export function IndexPage({
 }) {
   return (
     <Fragment>
-      <Hero mainnetAccounts={mainnetAccounts} locale={locale} />
+      <Hero mainnetAccounts={mainnetAccounts} />
       <FundsBlock />
       <FinanceBlock />
-      <NewsBlock news={news} locale={locale} />
+      <NewsBlock news={news} />
       <BoardMembersBlock
         executiveMembers={executiveMembers}
         shariahMembers={shariahMembers}
         advisoryMembers={advisoryMembers}
       />
       <PortfolioBlock />
-      <LearnAndGrowBlock locale={locale} />
-      <JoinCommunityBlock locale={locale} />
+      <LearnAndGrowBlock />
+      <JoinCommunityBlock />
     </Fragment>
   );
 }
 
-function Hero({
-  mainnetAccounts,
-  locale,
-}: {
-  mainnetAccounts: number;
-  locale: string;
-}) {
+function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
   const t = useTranslations('index-page.hero-block');
   return (
     <HeroBg>
       <Container className="relative">
-        <HeroBlock locale={locale} />
+        <HeroBlock />
 
         <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
           {t('running-text').toLocaleUpperCase()}

@@ -13,7 +13,6 @@ export const getFatwaContent = cache(async ({ locale }: { locale: string }) => {
     accessToken: STORYBLOK_ACCESS_TOKEN,
     use: [apiPlugin],
   });
-  console.log({ locale }, 'GET FATWA CONTENT');
 
   if (!storyblokApi) {
     throw new Error('Failed to init storyblok');

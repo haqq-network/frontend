@@ -30,7 +30,6 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  console.log({ locale }, 'INDEX PAGE SERVER');
 
   const { advisoryMembers, executiveMembers, shariahMembers } =
     await getMembersContent({ locale });
