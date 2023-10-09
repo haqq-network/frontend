@@ -5,16 +5,14 @@ import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block'
 import { NewsBlock } from '../news-block/news-block';
 import { PortfolioBlock } from '../portfolio-block/portfolio-block';
 import { WhyBlock } from '../why-block/why-block';
-import { Fragment } from 'react';
+import { Fragment, PropsWithChildren } from 'react';
 import { Marquee } from '../marquee/marquee';
 import { Container, Member, NewsPost } from '@haqq/islamic-website-ui-kit';
 import { FinanceBlock } from '../finance-block/finance-block';
 import { BoardMembersBlock } from '../board-members-block/board-members-block';
 import clsx from 'clsx';
 import { FundsBlock } from '../funds-block/funds-block';
-
-const RUNNING_TEXT =
-  "Our mission is to empower the world's Muslim community with a financial instrument for the Digital Age, that enables seamless transactions and interaction, while supporting innovation and philanthropy.";
+import { useTranslations } from 'next-intl';
 
 export function IndexPage({
   news,
@@ -22,64 +20,82 @@ export function IndexPage({
   shariahMembers,
   executiveMembers,
   mainnetAccounts,
+  locale,
 }: {
-  news: NewsPost[];
+  news?: NewsPost[];
   advisoryMembers: Member[];
   shariahMembers: Member[];
   executiveMembers: Member[];
   mainnetAccounts: number;
+  locale: string;
 }) {
   return (
     <Fragment>
-      <Hero mainnetAccounts={mainnetAccounts} />
+      <Hero mainnetAccounts={mainnetAccounts} locale={locale} />
       <FundsBlock />
       <FinanceBlock />
-      <NewsBlock news={news} />
+      <NewsBlock news={news} locale={locale} />
       <BoardMembersBlock
         executiveMembers={executiveMembers}
         shariahMembers={shariahMembers}
         advisoryMembers={advisoryMembers}
       />
       <PortfolioBlock />
-      <LearnAndGrowBlock />
-      <JoinCommunityBlock />
+      <LearnAndGrowBlock locale={locale} />
+      <JoinCommunityBlock locale={locale} />
     </Fragment>
   );
 }
 
-function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
+function Hero({
+  mainnetAccounts,
+  locale,
+}: {
+  mainnetAccounts: number;
+  locale: string;
+}) {
+  const t = useTranslations('index-page.hero-block');
   return (
-    <div className="overflow-x-clip">
+    <HeroBg>
       <Container className="relative">
-        <HeroBlock />
+        <HeroBlock locale={locale} />
 
         <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
-          {RUNNING_TEXT.toLocaleUpperCase()}
+          {t('running-text').toLocaleUpperCase()}
         </Marquee>
 
         <WhyBlock mainnetAccounts={mainnetAccounts} />
+      </Container>
+    </HeroBg>
+  );
+}
 
+function HeroBg({ children }: PropsWithChildren) {
+  return (
+    <section className="overflow-x-clip">
+      <Container className="relative">
         <div
           className={clsx(
             'absolute z-[-1] select-none',
             'h-[1011px] w-[1038px] md:h-[877px] md:w-[901px] lg:h-[1401px] lg:w-[1439px]',
-            '-top-1/2 right-1/2 translate-x-[37%] translate-y-[56.2%]',
-            'md:translate-x-1/2 md:translate-y-[70.4%]',
-            'lg:translate-y-[27.7%]',
-            'xl:translate-y-[24.1%]',
-            'min-[1440px]:translate-y-[23.4%]',
+            '-top-1/2 right-1/2 translate-x-[37%] translate-y-[-21.3%]',
+            'md:translate-x-1/2 md:translate-y-[-16.1%]',
+            'lg:translate-y-[-23.45%]',
+            'xl:translate-y-[-24.9%]',
+            'min-[1440px]:translate-y-[-23.8%]',
           )}
         >
-          <div className="z-1 pointer-events-none absolute inset-0  bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
+          <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
           <Image
             src="/assets/images/moon-2x.webp"
             alt=""
             fill
             className="pointer-events-none z-[-2]"
-            priority
+            loading="lazy"
           />
         </div>
       </Container>
-    </div>
+      {children}
+    </section>
   );
 }

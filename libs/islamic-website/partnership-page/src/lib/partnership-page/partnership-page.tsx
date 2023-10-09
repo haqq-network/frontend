@@ -2,13 +2,15 @@ import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
 import partnershipCubeImgData from '../../assets/images/partnership-cube.webp';
+import { useTranslations } from 'next-intl';
 
 export function PartnershipPage() {
+  const t = useTranslations('partnerships-page');
   return (
     <section className="overflow-x-clip pb-[60px] pt-[32px] md:pb-[90px] lg:pb-[180px] lg:pt-[80px]">
       <Container className="relative">
         <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          Partnerships
+          {t('title')}
         </h1>
         <div className="mt-[32px] flex flex-col md:flex-row lg:mt-[60px]">
           <div className="order-2 mt-[32px] md:relative md:mt-0 md:flex-1">
@@ -23,19 +25,12 @@ export function PartnershipPage() {
           <div className="order-1 lg:w-1/2">
             <div className="flex flex-col md:max-w-[300px] lg:max-w-[480px] lg:gap-[38px] xl:max-w-[680px]">
               <div className="flex flex-col gap-y-[12px] md:gap-y-[20px] lg:gap-y-[24px]">
-                <Text size="small">
-                  We are on a journey of shared values, growth, and creating
-                  meaningful impact—hand in hand
-                </Text>
-                <Text size="small">
-                  Join us in building a future where aspirations intersect and
-                  opportunities blossom, all within the framework of our
-                  heritage and values
-                </Text>
+                <Text size="small">{t('text.paragraphs.first')}</Text>
+                <Text size="small">{t('text.paragraphs.second')}</Text>
               </div>
 
               <div className="mt-[32px] flex flex-col gap-y-[12px] md:mt-[44px] md:gap-y-[16px] lg:mt-[36px]">
-                <Text isMono>Our partners</Text>
+                <Text isMono>{t('subtitle')}</Text>
                 <div className="flex items-center gap-x-[12px] lg:gap-x-[24px]">
                   <Link
                     href="https://wggos.org"
@@ -67,7 +62,7 @@ export function PartnershipPage() {
               </div>
 
               <div className="mt-[32px] flex flex-col gap-y-[4px] md:mt-[44px] md:gap-y-[8px] lg:mt-[60px]">
-                <Text isMono>Our partners</Text>
+                <Text isMono>{t('subtitle')}</Text>
                 <Link
                   href="mailto:proposals@islamiccoin.net"
                   className="text-islamic-primary-green hover:text-islamic-primary-green-hover w-fit cursor-pointer transition-colors duration-300"

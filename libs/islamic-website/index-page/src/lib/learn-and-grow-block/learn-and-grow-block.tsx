@@ -1,7 +1,9 @@
 import { Button, Container, Heading, Text } from '@haqq/islamic-website-ui-kit';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import Link from 'next-intl/link';
 
-export function LearnAndGrowBlock() {
+export function LearnAndGrowBlock({ locale }: { locale: string }) {
+  const t = useTranslations('index-page');
   return (
     <Container>
       <div className="relative mt-[108px] flex flex-col items-center justify-between rounded-[20px] border border-[#404040] px-[20px] pb-[38px] pt-[28px] text-white md:mt-[164px] md:flex-row md:px-[40px] md:py-[48px] lg:mt-[240px] lg:px-[48px] lg:pb-[50px] lg:pt-[68px] xl:py-[68px]">
@@ -9,7 +11,7 @@ export function LearnAndGrowBlock() {
           viewBox="0 0 377 379"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="z-[-1] h-[211px] w-[210px] md:absolute md:bottom-[88px] md:right-[40px] lg:bottom-auto lg:right-[60px] lg:block lg:h-[379px] lg:w-[377px]"
+          className="z-[-1] h-[211px] w-[210px] md:absolute md:bottom-[88px] ltr:md:right-[40px] rtl:md:left-[40px] lg:bottom-auto lg:block lg:h-[379px] lg:w-[377px] ltr:lg:right-[60px] rtl:lg:left-[60px]"
         >
           <g clipPath="url(#clip0_205_7428)">
             <g opacity="0.1">
@@ -147,27 +149,24 @@ export function LearnAndGrowBlock() {
         </svg>
         <div className="flex flex-col items-start">
           <Heading className="mt-[28px] md:mt-0 lg:w-[60%]">
-            Learn and Grow with Islamic Coin
+            {t('learn-and-grow-block.title')}
           </Heading>
           <Text
             isMono
             className="mt-[24px] text-white md:mt-[20px] md:w-[57%] lg:w-[60%]"
           >
-            Empower Your Ethical Financial Journey with Our Educational Guides &
-            Resources
+            {t('learn-and-grow-block.subtitle')}
           </Text>
           <Text
             size="small"
             className="mt-[20px] text-[14px] leading-[20px] text-white/50 md:mt-[32px] md:w-[57%] lg:w-[60%]"
           >
-            Delve into the world of ethical finance with Islamic Coin. Our
-            curated educational guides and resources are designed to enlighten,
-            equip, and empower your financial journey
+            {t('learn-and-grow-block.text')}
           </Text>
           <div className="mt-[32px] w-full md:mt-[34px] md:w-fit">
-            <Link href="/wallet">
+            <Link locale={locale} href="/academy">
               <Button className="w-full !px-[20px] leading-[16px] md:!px-[32px]">
-                Get started with HAQQ&nbsp;wallet
+                {t('learn-and-grow-block.button-text')}
               </Button>
             </Link>
           </div>

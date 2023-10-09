@@ -8,19 +8,23 @@ import { cache } from 'react';
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getPrivacyPolicyContent = cache(async () => {
-  const { storyblokApi } = storyblokInit({
-    accessToken: STORYBLOK_ACCESS_TOKEN,
-    use: [apiPlugin],
-  });
+export const getPrivacyPolicyContent = cache(
+  async ({ locale }: { locale: string }) => {
+    const { storyblokApi } = storyblokInit({
+      accessToken: STORYBLOK_ACCESS_TOKEN,
+      use: [apiPlugin],
+    });
+    console.log({ locale }, 'GET POLICY CONTENT SERVER');
 
-  if (!storyblokApi) {
-    throw new Error('Failed to init storyblok');
-  }
+    if (!storyblokApi) {
+      throw new Error('Failed to init storyblok');
+    }
 
-  const response = await storyblokApi.get('cdn/stories/privacy-policy', {
-    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-  });
+    const response = await storyblokApi.get('cdn/stories/privacy-policy', {
+      version: VERCEL_ENV === 'production' ? 'published' : 'draft',
+      language: locale,
+    });
 
-  return response.data.story.content.body as string;
-});
+    return response.data.story.content.body as string;
+  },
+);

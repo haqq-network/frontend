@@ -1,8 +1,9 @@
+import { useTranslations } from 'next-intl';
 import { Text } from '../text/text';
 
 interface RatingBadgeProps {
   market: 'app-store' | 'google-play';
-  rating: 4.5 | 5;
+  rating: number;
 }
 
 function HalfGoldenStar() {
@@ -37,7 +38,7 @@ function HalfGoldenStar() {
           <rect width="16" height="16" fill="white" />
         </clipPath>
         <clipPath id="clip1_139_14250">
-          <rect width="8" height="16" fill="white" />
+          <rect width="13" height="16" fill="white" />
         </clipPath>
       </defs>
     </svg>
@@ -64,11 +65,12 @@ function GoldenStar() {
 }
 
 export function RatingBadge({ market, rating }: RatingBadgeProps) {
+  const t = useTranslations('index-page');
   return (
     <div className="flex flex-col gap-y-[6px]">
-      <span className="font-mono text-[10px] uppercase leading-[16px] text-white/50">
-        {market === 'app-store' && 'App store rating'}
-        {market === 'google-play' && 'Google play rating'}
+      <span className="rtl:font-handjet ltr:font-vcr text-[10px] uppercase leading-[16px] text-white/50">
+        {market === 'app-store' && t('portfolio-block.stores.app-store')}
+        {market === 'google-play' && t('portfolio-block.stores.google-play')}
       </span>
       <div className="flex items-center gap-x-[10px]">
         <div className="flex gap-x-[4px]">
@@ -76,12 +78,10 @@ export function RatingBadge({ market, rating }: RatingBadgeProps) {
           <GoldenStar />
           <GoldenStar />
           <GoldenStar />
-          {rating === 5 && <GoldenStar />}
-          {rating === 4.5 && <HalfGoldenStar />}
+          <HalfGoldenStar />
         </div>
         <Text className="text-[#FCC310]" isMono>
-          {rating === 5 && '5.0'}
-          {rating === 4.5 && '4.5'}
+          {rating}
         </Text>
       </div>
     </div>

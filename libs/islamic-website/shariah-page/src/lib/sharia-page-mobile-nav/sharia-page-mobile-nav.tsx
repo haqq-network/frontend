@@ -1,28 +1,30 @@
 'use-client';
 import { Container, Select } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 
 export function ShariPageMobileNav({
   sections,
   activeSection,
   onSectionSelect,
+  locale,
 }: {
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
   onSectionSelect: (newSection: string) => void;
+  locale: string;
 }) {
-  const [isBlurred, setBlured] = useState(false);
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 500;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
@@ -39,6 +41,7 @@ export function ShariPageMobileNav({
     <Fragment>
       {isBlurred && (
         <FixedPageNavigation
+          locale={locale}
           sections={sections}
           activeSection={activeSection}
           onSectionSelect={onSectionSelect}
@@ -59,10 +62,12 @@ function FixedPageNavigation({
   sections,
   activeSection,
   onSectionSelect,
+  locale,
 }: {
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
   onSectionSelect: (newSection: string) => void;
+  locale: string;
 }) {
   const [isOpen, setOpen] = useState(false);
   const currentValue = useMemo(() => {
@@ -76,10 +81,7 @@ function FixedPageNavigation({
   }, [activeSection]);
 
   return (
-    <div
-      className="fixed left-0 top-[72px] z-10 w-full border-b-[1px] border-[#2F2F2F] bg-[#010304CC]
-backdrop-blur-[6px]"
-    >
+    <div className="fixed left-0 top-[136px] z-[10] w-full border-b-[1px] border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px] md:top-[112px]">
       <Container>
         <div className="flex flex-col">
           <div
@@ -88,7 +90,7 @@ backdrop-blur-[6px]"
               setOpen(!isOpen);
             }}
           >
-            <div className="py-[14px] font-mono text-[16px] uppercase leading-[24px]">
+            <div className="rtl:font-handjet ltr:font-vcr py-[14px] text-[16px] uppercase leading-[24px]">
               {currentValue ? (
                 <span>{currentValue.title}</span>
               ) : (
@@ -118,17 +120,14 @@ backdrop-blur-[6px]"
           </div>
 
           {isOpen && (
-            <div
-              className="flex flex-col border-t-[1px] border-[#2F2F2F]
-py-[8px]"
-            >
+            <div className="flex flex-col border-t-[1px] border-[#2F2F2F] py-[8px]">
               {sections.map((section) => {
                 return (
                   <Link
                     href={`#${section.id}`}
                     key={section.id}
                     className={clsx(
-                      'hover:text-islamic-primary-green-hover inline-flex cursor-pointer items-center justify-between gap-x-[8px] font-mono uppercase focus:text-white',
+                      'hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr inline-flex cursor-pointer items-center justify-between gap-x-[8px] uppercase focus:text-white',
                       'transition-colors duration-300',
                       section.id === activeSection
                         ? 'text-islamic-primary-green'

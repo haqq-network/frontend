@@ -33,19 +33,23 @@ function mapStoryblokRoadmapData(
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getRoadmapContent = cache(async () => {
-  const { storyblokApi } = storyblokInit({
-    accessToken: STORYBLOK_ACCESS_TOKEN,
-    use: [apiPlugin],
-  });
+export const getRoadmapContent = cache(
+  async ({ locale }: { locale: string }) => {
+    const { storyblokApi } = storyblokInit({
+      accessToken: STORYBLOK_ACCESS_TOKEN,
+      use: [apiPlugin],
+    });
+    console.log({ locale }, 'GET ROADMAP CONTENT SERVER');
 
-  if (!storyblokApi) {
-    throw new Error('Failed to init storyblok');
-  }
+    if (!storyblokApi) {
+      throw new Error('Failed to init storyblok');
+    }
 
-  const response = await storyblokApi.get('cdn/stories/roadmap', {
-    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-  });
+    const response = await storyblokApi.get('cdn/stories/roadmap', {
+      version: VERCEL_ENV === 'production' ? 'published' : 'draft',
+      language: locale,
+    });
 
-  return mapStoryblokRoadmapData(response.data.story.content.body[0]);
-});
+    return mapStoryblokRoadmapData(response.data.story.content.body[0]);
+  },
+);

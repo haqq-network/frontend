@@ -1,5 +1,6 @@
 'use client';
-import Link from 'next/link';
+import Link from 'next-intl/link';
+// import { default as LocaleLink } from 'next-intl/link';
 import clsx from 'clsx';
 import {
   Fragment,
@@ -19,7 +20,6 @@ import {
   EcosystemIcon,
   MissionIcon,
   NewsIcon,
-  PartnershipIcon,
   RoadmapIcon,
   ValuesIcon,
   BurgerButton,
@@ -28,22 +28,40 @@ import {
   AlertIcon,
   StarIcon,
   QuestionMarkIcon,
+  CheckMarkIcon,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
+import {
+  // useLocale,
+  useTranslations,
+} from 'next-intl';
+import { usePathname } from 'next-intl/client';
+import { localeType } from '@haqq/islamic-website/shariah-page';
+
+type LocaleType = keyof typeof localeDisplayNames;
 
 interface HeaderLinkProps {
   url: string;
   isOutLink?: boolean;
+  locale: LocaleType;
 }
+
+export const localeDisplayNames: Record<string, string> = {
+  ar: 'العربية',
+  en: 'English',
+  id: 'Bahasa Indonesia',
+};
 
 function DesktopHeaderLink({
   children,
   url,
   isOutLink = false,
+  locale,
 }: PropsWithChildren<HeaderLinkProps>) {
   return (
     <Link
+      locale={locale}
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
@@ -112,26 +130,70 @@ function HeaderDropdown({
   );
 }
 
-export default function Header() {
+export function LanguageLink({
+  href,
+  locale,
+  isActive,
+}: {
+  href: string;
+  locale: LocaleType;
+  isActive: boolean;
+}) {
+  return (
+    <Link
+      href={href}
+      locale={locale}
+      className={clsx(
+        'min-w-[170px] px-[16px] py-[12px] text-base font-[500] text-white transition-colors duration-200',
+        isActive
+          ? 'pointer-events-none select-none'
+          : 'hover:text-islamic-primary-green cursor-pointer',
+      )}
+    >
+      <div className="flex items-center justify-between">
+        <span>{localeDisplayNames[locale]}</span>
+        {isActive && <CheckMarkIcon />}
+      </div>
+    </Link>
+  );
+}
+
+export default function Header({
+  isBannerVisible = false,
+  locale,
+}: {
+  isBannerVisible?: boolean;
+  locale: localeType;
+}) {
   const isTabletMedia = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
 
-  return isTabletMedia ? <MobileHeader /> : <DesktopHeader />;
+  return isTabletMedia ? (
+    <MobileHeader locale={locale} isBannerVisible={isBannerVisible} />
+  ) : (
+    <DesktopHeader locale={locale} isBannerVisible={isBannerVisible} />
+  );
 }
 
-export function MobileHeader() {
+export function MobileHeader({
+  locale,
+  isBannerVisible = false,
+}: {
+  isBannerVisible?: boolean;
+  locale: localeType;
+}) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
-  const [isBlurred, setBlured] = useState(false);
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 40;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
@@ -156,16 +218,28 @@ export function MobileHeader() {
 
   return (
     <Fragment>
-      <div className="h-[72px] lg:h-[92px]" />
+      <div
+        className={clsx(
+          isBannerVisible
+            ? 'h-[calc(72px+64px)] md:h-[calc(72px+40px)]'
+            : 'h-[72px]',
+        )}
+      />
       <header
         className={clsx(
-          'fixed top-0 z-50 h-[72px] w-full border-b-[1px] border-transparent',
+          'fixed z-50 h-[72px] w-full border-b-[1px] border-transparent',
+          isBannerVisible
+            ? 'top-[88px] min-[370px]:top-[64px] md:top-[40px]'
+            : 'top-[0px]',
           'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
           isMobileMenuOpen
-            ? '!h-[100vh] bg-[#15191ef2] backdrop-blur-[6px]'
+            ? 'bg-[#15191ef2] backdrop-blur-[6px]'
             : isBlurred
             ? '!border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px]'
             : 'bg-transparent',
+          isMobileMenuOpen &&
+            isBannerVisible &&
+            'h-[calc(100vh-64px)] md:h-[calc(100vh-40px)]',
         )}
       >
         <div className="flex h-full flex-col">
@@ -175,6 +249,7 @@ export function MobileHeader() {
                 <div>
                   <Link
                     href="/"
+                    locale={locale}
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
                     <IslamicHeaderLogo />
@@ -194,12 +269,13 @@ export function MobileHeader() {
           </div>
           <div
             className={clsx(
-              'flex-1 overflow-y-auto',
-              isMobileMenuOpen ? 'block ' : 'hidden',
+              'my-[1px] flex-1 overflow-y-auto',
+              isMobileMenuOpen ? 'block' : 'hidden',
             )}
           >
             <div className={clsx('py-[24px]', 'w-full')}>
               <BurgerMenu
+                locale={locale}
                 isOpen={isMobileMenuOpen}
                 onClick={() => {
                   setIsMobileMenuOpened(false);
@@ -213,17 +289,23 @@ export function MobileHeader() {
   );
 }
 
-export function DesktopHeader() {
-  const [isBlurred, setBlured] = useState(false);
+export function DesktopHeader({
+  isBannerVisible = false,
+  locale,
+}: {
+  isBannerVisible?: boolean;
+  locale: localeType;
+}) {
+  const [isBlurred, setBlurred] = useState(false);
 
   useEffect(() => {
     const offset = 50;
 
     function handleScroll() {
       if (window.scrollY > offset) {
-        setBlured(true);
+        setBlurred(true);
       } else {
-        setBlured(false);
+        setBlurred(false);
       }
     }
 
@@ -236,12 +318,17 @@ export function DesktopHeader() {
     };
   }, []);
 
+  const t = useTranslations('header');
+
+  const pathname = usePathname();
+
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 w-full',
+        'sticky z-50 w-full',
         'transform-gpu transition-all duration-150 will-change-auto',
         isBlurred && 'translate-y-[-16px]',
+        isBannerVisible ? 'top-[40px]' : 'top-[0px]',
       )}
     >
       <div className="pb-[10px] pt-[26px]">
@@ -249,6 +336,7 @@ export function DesktopHeader() {
           <div className="flex items-center justify-between">
             <div>
               <Link
+                locale={locale}
                 href="/"
                 className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
               >
@@ -257,64 +345,48 @@ export function DesktopHeader() {
             </div>
 
             <nav className="flex flex-row">
-              <DesktopHeaderLink url="/shariah">Shariah</DesktopHeaderLink>
-
-              <HeaderDropdown title="About">
+              <DesktopHeaderLink url="/shariah" locale={locale as LocaleType}>
+                {t('single-links.shariah')}
+              </DesktopHeaderLink>
+              <HeaderDropdown title={t('dropdown-links.about.about')}>
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
-                      title="Mission & Vision"
+                      locale={locale}
+                      title={t('dropdown-links.about.mission')}
                       icon={<MissionIcon />}
                       href="/mission"
                     />
                     <DropdownLink
-                      title="Roadmap"
+                      locale={locale}
+                      title={t('dropdown-links.about.roadmap')}
                       icon={<RoadmapIcon />}
                       href="/roadmap"
                     />
                     <DropdownLink
-                      title="Whitepaper"
+                      locale={locale}
+                      title={t('dropdown-links.about.whitepaper')}
                       icon={<HalfMoonAndStarIcon />}
                       href="/whitepaper"
                     />
                     <DropdownLink
-                      title="Ecosystem"
+                      locale={locale}
+                      title={t('dropdown-links.about.ecosystem')}
                       icon={<EcosystemIcon />}
                       href="https://haqq.network/ecosystem"
                       isOutLink
                     />
                   </div>
-                  {/* <div className="flex flex-col"> */}
-                  {/* <DropdownLink
-                      title="News"
-                      icon={<NewsIcon />}
-                      href="/news"
-                    /> */}
-                  {/* <DropdownLink
-                      title="Press"
-                      icon={<NewsIcon />}
-                      href="/press"
-                    /> */}
-                  {/* <DropdownLink
-                      title="Events"
-                      icon={<EventsIcon />}
-                      href="/events"
-                    /> */}
-                  {/* </div> */}
                   <div className="flex flex-col">
                     <DropdownLink
-                      title="News"
+                      locale={locale}
+                      title={t('dropdown-links.about.news')}
                       icon={<NewsIcon />}
                       href="/news"
                     />
-
                     <DropdownLink
-                      title="Partnerships"
-                      icon={<PartnershipIcon />}
-                      href="/partnerships"
-                    />
-                    <DropdownLink
-                      title="Build on HAQQ"
+                      locale={locale}
+                      title={t('dropdown-links.about.build-on-haqq')}
                       icon={<BuildIcon />}
                       href="/build"
                     />
@@ -322,83 +394,96 @@ export function DesktopHeader() {
                 </div>
               </HeaderDropdown>
 
-              <DesktopHeaderLink url="/wallet">Wallet</DesktopHeaderLink>
+              <DesktopHeaderLink url="/wallet" locale={locale as LocaleType}>
+                {t('single-links.wallet')}
+              </DesktopHeaderLink>
 
-              <HeaderDropdown title="Learn">
-                <div className="flex gap-x-[18px]">
-                  <div className="flex flex-col">
-                    <DropdownLink
-                      title="Academy"
-                      icon={<AcademyIcon />}
-                      href="/academy"
-                    />
-                    <DropdownLink
-                      title="Privacy policy"
-                      icon={<QuestionMarkIcon />}
-                      href="/privacy-policy"
-                    />
-                    <DropdownLink
-                      title="Blog"
-                      icon={<BlogIcon />}
-                      href="https://blog.islamiccoin.net"
-                      isOutLink
-                    />
-                    <DropdownLink
-                      title="Fraud alert"
-                      icon={<AlertIcon />}
-                      href="/fraud-alert"
-                    />
-
-                    {/* <DropdownLink
-                      title="Podcast"
-                      icon={<PodcastIcon />}
-                      href="/where-to-start"
-                    /> */}
-                    {/* <DropdownLink
-                      title="Videos"
-                      icon={<VideoIcon />}
-                      href="/partners"
-                    /> */}
-                  </div>
-                  {/* <div className="flex flex-col">
-                    <DropdownLink
-                      title="Where to start?"
-                      icon={<RocketIcon />}
-                      href="/where-to-start"
-                    />
-                    <DropdownLink
-                      title="Partners"
-                      icon={<PartnersIcon />}
-                      href="/partners"
-                    />
-                  </div> */}
+              <HeaderDropdown title={t('dropdown-links.learn.learn')}>
+                <div className="flex flex-col">
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.academy')}
+                    icon={<AcademyIcon />}
+                    href="/academy"
+                  />
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.privacy-policy')}
+                    icon={<QuestionMarkIcon />}
+                    href="/privacy-policy"
+                  />
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.blog')}
+                    icon={<BlogIcon />}
+                    href="https://blog.islamiccoin.net"
+                    isOutLink
+                  />
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.fraud-alert')}
+                    icon={<AlertIcon />}
+                    href="/fraud-alert"
+                  />
+                  <DropdownLink
+                    locale={locale}
+                    title={t('dropdown-links.learn.scam-alert')}
+                    icon={<AlertIcon />}
+                    href="/scam-alert"
+                  />
                 </div>
               </HeaderDropdown>
 
-              <HeaderDropdown title="Team">
+              <HeaderDropdown title={t('dropdown-links.team.team')}>
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
-                      title="Career"
+                      locale={locale}
+                      title={t('dropdown-links.team.career')}
                       icon={<CaseIcon />}
                       href="/career"
                     />
                     <DropdownLink
-                      title="Our Values"
+                      locale={locale}
+                      title={t('dropdown-links.team.our-values')}
                       icon={<ValuesIcon />}
                       href="/values"
                     />
                     <DropdownLink
-                      title="Community"
+                      locale={locale}
+                      title={t('dropdown-links.team.community')}
                       icon={<CommunityIcon />}
                       href="/community-hub"
                     />
                     <DropdownLink
-                      title="Meet our team"
+                      locale={locale}
+                      title={t('dropdown-links.team.meet-our-team')}
                       icon={<StarIcon />}
                       href="/team"
                     />
                   </div>
+                </div>
+              </HeaderDropdown>
+
+              <HeaderDropdown title={localeDisplayNames[locale]}>
+                <div className="flex flex-col">
+                  <LanguageLink
+                    href={pathname}
+                    locale="en"
+                    isActive={locale === 'en'}
+                  />
+
+                  <LanguageLink
+                    href={pathname}
+                    isActive={locale === 'ar'}
+                    locale="ar"
+                  />
+
+                  <LanguageLink
+                    href={pathname}
+                    isActive={locale === 'id'}
+                    locale="id"
+                  />
                 </div>
               </HeaderDropdown>
             </nav>

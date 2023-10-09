@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { ReactNode } from 'react';
 
 export function DropdownLink({
@@ -6,15 +6,18 @@ export function DropdownLink({
   title,
   href,
   isOutLink = false,
+  locale = 'en',
 }: {
   icon?: ReactNode;
   title: string;
   href: string;
   isOutLink?: boolean;
+  locale: string;
 }) {
   return (
     <Link
       href={href}
+      locale={locale}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
       className="hover:text-islamic-primary-green w-fit cursor-pointer px-[16px] py-[12px] text-base font-[500] text-white transition-colors duration-200"

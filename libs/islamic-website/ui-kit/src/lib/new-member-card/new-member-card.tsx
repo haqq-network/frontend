@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Text } from '../text/text';
 
 export function NewMemberCard({
   image,
@@ -9,6 +10,7 @@ export function NewMemberCard({
   onClick,
   className,
   description,
+  role,
 }: {
   image: string;
   title: string;
@@ -16,6 +18,7 @@ export function NewMemberCard({
   onClick?: () => void;
   className?: string;
   description: string;
+  role?: string;
 }) {
   return (
     <div
@@ -29,7 +32,7 @@ export function NewMemberCard({
       onClick={onClick}
     >
       <div className="flex flex-row items-center gap-x-[20px]">
-        <div className="relative h-[180px] w-[160px] overflow-hidden rounded-[20px] md:w-[200px]">
+        <div className="relative h-[90px] w-[90px] overflow-hidden rounded-[20px] sm:h-[140px] sm:w-[140px] md:h-[160px] md:w-[160px]">
           <Image
             src={image}
             alt={title}
@@ -37,10 +40,15 @@ export function NewMemberCard({
             className="pointer-events-none h-full w-full select-none object-cover"
           />
         </div>
-        <div className="flex max-w-[40%] flex-col justify-between gap-[8px] md:gap-[12px]">
-          <span className="text-[13px] font-[700] leading-[20px] md:text-[14px] lg:text-[24px] lg:leading-[34px]">
+        <div className="flex max-w-[40%] flex-col justify-between gap-[8px] md:gap-[12px] lg:max-w-[50%] ">
+          <span className="text-[13px] font-[700] leading-[20px] md:text-[14px] lg:text-[24px] lg:leading-[26px]">
             {title}
           </span>
+          {role && (
+            <div className="mt-[4px] min-h-[48px]">
+              <Text isMono>{role}</Text>
+            </div>
+          )}
 
           {url && (
             <div>
@@ -52,7 +60,7 @@ export function NewMemberCard({
                   event.stopPropagation();
                 }}
                 className={clsx(
-                  'text-islamic-primary-green hover:text-islamic-primary-green-hover font-mono uppercase',
+                  'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr uppercase',
                   'inline-flex flex-row items-center gap-x-[4px]',
                   'transition-colors duration-300',
                 )}

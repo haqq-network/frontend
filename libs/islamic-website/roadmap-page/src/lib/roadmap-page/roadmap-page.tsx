@@ -1,6 +1,7 @@
 import { Container, MarkdownText, Text } from '@haqq/islamic-website-ui-kit';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 
 export interface RoadmapPeriod {
   title: string;
@@ -10,7 +11,14 @@ export interface RoadmapPeriod {
 
 function RoadmapBgImg() {
   return (
-    <div className="absolute right-[-135px] top-[-200px] z-[-1] h-[382px] w-[382px] md:right-[-555px] md:top-[-370px]  md:h-[1300px] md:w-[1300px] lg:right-[-460px] lg:top-[-460px]">
+    <div
+      className={clsx(
+        'absolute z-[-1] h-[382px] w-[382px] rtl:scale-x-[-1] md:h-[1300px] md:w-[1300px]',
+        'top-[-200px] ltr:right-[-135px] rtl:left-[-135px]',
+        'md:top-[-370px] ltr:md:right-[-555px] rtl:md:left-[-555px]',
+        'lg:top-[-460px] ltr:lg:right-[-460px] rtl:lg:left-[-460px]',
+      )}
+    >
       <svg
         viewBox="0 0 1300 1300"
         fill="none"
@@ -126,7 +134,7 @@ function RoadmapCard({
       </div>
 
       <div className="flex flex-col gap-y-[12px]">
-        <h3 className="font-mono text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+        <h3 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
           {title}
         </h3>
 
@@ -156,16 +164,20 @@ function RoadmapCard({
 export function RoadmapPage({
   roadmap,
   turnstileSiteKey,
+  locale,
 }: {
   roadmap: RoadmapPeriod[];
   turnstileSiteKey?: string;
+  locale: string;
 }) {
+  const t = useTranslations('');
+
   return (
     <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
       <div className="overflow-x-clip">
         <Container className="relative">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Roadmap
+            {t('roadmap-page.title')}
           </h1>
 
           <div className="mt-[48px] flex flex-col gap-y-[12px] md:mt-[44px] lg:mt-[60px] lg:gap-y-[20px]">
@@ -181,13 +193,11 @@ export function RoadmapPage({
           </div>
 
           {turnstileSiteKey && (
-            <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] md:flex-row md:items-center md:p-[28px] lg:mt-[120px] lg:max-w-[1000px] lg:p-[28px]">
-              <Text size="small" className="md:w-1/2">
-                Keep up to date with our upcoming Public Launch and Exchange
-                listing - Subscribe to our newsletter
-              </Text>
+            <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] lg:mt-[120px] lg:max-w-[1200px] lg:flex-row lg:items-start lg:p-[28px]">
+              <Text size="small">{t('subscribe-form.text')}</Text>
               <SubscribeForm
-                className="flex flex-col gap-[16px] md:flex-row"
+                locale={locale}
+                className="flex w-full flex-col gap-[16px] lg:flex-row"
                 inputClassName="lg:min-w-[280px]"
                 turnstileSiteKey={turnstileSiteKey}
               />

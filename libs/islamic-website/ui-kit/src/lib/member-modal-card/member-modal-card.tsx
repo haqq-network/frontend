@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ModalCloseButton } from '../modal/modal';
 import Link from 'next/link';
+import { Text } from '../text/text';
 
 interface MemberModalCardProps {
   title: string;
@@ -8,6 +9,7 @@ interface MemberModalCardProps {
   image: string;
   onClick: () => void;
   url?: string;
+  role?: string;
 }
 
 export function MemberModalCard({
@@ -16,16 +18,17 @@ export function MemberModalCard({
   image,
   title,
   url,
+  role,
 }: MemberModalCardProps) {
   return (
-    <div className="relative flex max-w-[680px] flex-col items-center rounded-[20px] bg-[#15191EF2] px-[20px] pb-[32px] pt-[48px] text-white lg:px-[40px] lg:py-[48px]">
+    <div className="relative mx-auto flex max-w-[680px] flex-col items-center rounded-[20px] bg-[#15191EF2] px-[20px] pb-[32px] pt-[48px] text-white lg:px-[40px] lg:py-[48px]">
       <ModalCloseButton
         onClick={onClick}
         className="absolute right-[16px] top-[20px] outline-none lg:right-[24px]"
       />
 
       <div className="flex w-full flex-col items-start gap-[20px] md:flex-row">
-        <div className="relative h-[148px] w-[164px] flex-none overflow-hidden rounded-[20px] leading-[0px]">
+        <div className="relative h-[164px] w-[164px] flex-none overflow-hidden rounded-[20px] leading-[0px]">
           <Image
             src={image}
             alt={title}
@@ -35,8 +38,11 @@ export function MemberModalCard({
         </div>
         <div className="flex flex-col lg:mt-[24px]">
           <div className="text-[24px] font-[600] leading-[34px]">{title}</div>
+          <div className="mt-[4px]">
+            <Text isMono>{role}</Text>
+          </div>
           {url && (
-            <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover mt-[8px] flex items-center gap-x-[4px] font-mono uppercase transition-colors duration-300 md:mt-[12px]">
+            <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr mt-[8px] flex items-center gap-x-[4px] uppercase transition-colors duration-300 md:mt-[12px]">
               <Link href={url} target="_blank" rel="noopener noreferrer">
                 Web
               </Link>

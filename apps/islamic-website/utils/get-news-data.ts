@@ -1,63 +1,51 @@
-import { storyblokInit, apiPlugin } from '@storyblok/js';
 import { NewsPost } from '@haqq/islamic-website-ui-kit';
-import {
-  REVALIDATE_TIME,
-  STORYBLOK_ACCESS_TOKEN,
-  VERCEL_ENV,
-} from '../constants';
+import { FALCONER_ENDPOINT } from '../constants';
 import { cache } from 'react';
 
+type NewsType = 'press' | 'events';
+
 interface StoryblokNewsPost {
-  _uid: string;
-  date: string;
-  text: string;
   image: {
-    filename: null | string;
-  };
+    src: string;
+    width: number;
+    height: number;
+  } | null;
   title: string;
-  main_url: string;
-  content_type: 'PRESS' | 'VIDEO';
-  main_url_text: string;
+  description: string;
+  date: string;
+  source: string;
+  content_type: NewsType;
+  url: string;
 }
 
-function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
+export function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
   return data.map((post) => {
-    const image =
-      post.image.filename && post.image.filename !== ''
-        ? {
-            src: post.image.filename,
-            width: Number(post.image.filename.split('/')[5].split('x')[0]),
-            height: Number(post.image.filename.split('/')[5].split('x')[1]),
-          }
-        : null;
-
     return {
-      image,
+      image: post.image,
       title: post.title,
-      description: post.text,
+      description: post.description,
       date: new Date(post.date),
-      source: post.main_url_text,
-      type: post.content_type === 'PRESS' ? 'press' : 'events',
-      url: post.main_url,
+      source: post.source,
+      type: post.content_type,
+      url: post.url,
     };
   });
 }
 
-export const revalidate = REVALIDATE_TIME;
-
-export const getNewsPageContent = cache(async () => {
-  const { storyblokApi } = storyblokInit({
-    accessToken: STORYBLOK_ACCESS_TOKEN,
-    use: [apiPlugin],
-  });
-
-  if (!storyblokApi) {
-    throw new Error('Failed to init storyblok');
+export const getNewsPageContent = cache(async (limit?: number) => {
+  try {
+    const response = await fetch(`${FALCONER_ENDPOINT}/storyblok/news`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ limit }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return mapStorybookToNews(data) ?? [];
+    }
+  } catch (error) {
+    console.error(error);
   }
-
-  const response = await storyblokApi.get('cdn/stories/media', {
-    version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-  });
-
-  return mapStorybookToNews(response.data.story.content.body[0].columns);
 });

@@ -28,7 +28,7 @@ export function Select({
         <Menu.Item
           as="div"
           className={clsx(
-            'block w-full min-w-fit whitespace-nowrap px-[16px] py-[8px] font-mono text-base uppercase hover:bg-[#ffffff14]',
+            'rtl:font-handjet ltr:font-vcr block w-full min-w-fit whitespace-nowrap px-[16px] py-[8px] text-base uppercase hover:bg-[#ffffff14]',
             'flex flex-row justify-between gap-[6px]',
             'transition-colors duration-150 ease-out',
             'cursor-pointer select-none',
@@ -72,7 +72,7 @@ export function Select({
             <button
               className={clsx(
                 'flex h-[48px] flex-row items-center justify-between gap-[6px] rounded-[8px] px-[16px] py-[12px]',
-                'font-mono text-base',
+                'rtl:font-handjet ltr:font-vcr text-base',
                 'transition-colors duration-300 ease-out',
                 'box-border appearance-none outline-none',
                 'hover:text-haqq-black w-full uppercase text-white',
