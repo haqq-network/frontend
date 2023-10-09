@@ -21,8 +21,6 @@ export enum ParticipantStatus {
 export interface IParticipant {
   id: string;
   created_at: number;
-  is_supporter: boolean;
-  is_has_transactions: boolean;
   is_has_staking: boolean;
   is_has_votes: boolean;
   is_validator: boolean;
@@ -34,6 +32,7 @@ export interface IParticipant {
   status: ParticipantStatus;
   tx_hash: string;
   updated_at: number;
+  airdrop_type: string;
 }
 
 export function useAirdropActions() {
