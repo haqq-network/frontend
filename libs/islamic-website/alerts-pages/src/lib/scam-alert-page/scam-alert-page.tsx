@@ -14,7 +14,7 @@ const islamicInsta = 'https://www.instagram.com/Islamic.Coin/';
 const islamicTwitter = 'https://twitter.com/islamic_coin';
 const haqqTwitter = 'https://twitter.com/the_haqqnetwork';
 
-export function ScamAlertPage({ locale }: { locale: string }) {
+export function ScamAlertPage() {
   const t = useTranslations('scam-alert-page');
 
   return (
@@ -26,7 +26,7 @@ export function ScamAlertPage({ locale }: { locale: string }) {
           </h1>
         </div>
         <div className="mt-[32px] flex flex-col items-center md:mt-[44px] md:flex-row md:items-start lg:mt-[60px]">
-          <div dir={locale === 'ar' ? 'rtl' : 'ltr'} className="md:w-2/3">
+          <div className="md:w-2/3">
             <MarkdownTextProseWrapper>
               <h2>{t('appeal-block.title')}</h2>
               <p>{t('appeal-block.paragraphs.first')}</p>

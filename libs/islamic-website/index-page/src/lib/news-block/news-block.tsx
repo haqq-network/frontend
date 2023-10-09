@@ -9,10 +9,12 @@ import Link from 'next-intl/link';
 
 interface NewsBlockProps {
   news?: NewsPost[];
-  locale: string;
+  // locale: string;
 }
 
-export function NewsBlock({ news, locale }: NewsBlockProps) {
+export function NewsBlock({
+  news, // locale
+}: NewsBlockProps) {
   const t = useTranslations('index-page.news-block');
   return (
     <Container>
@@ -35,11 +37,7 @@ export function NewsBlock({ news, locale }: NewsBlockProps) {
             })}
         </div>
         <div className="text-islamic-primary-green hover:text-islamic-classic-green rtl:font-handjet ltr:font-vcr mt-[48px] text-center text-base uppercase transition-colors duration-300">
-          <Link
-            locale={locale}
-            href="/news"
-            className="flex items-center gap-x-[8px]"
-          >
+          <Link href="/news" className="flex items-center gap-x-[8px]">
             {t('see-all-news')}
             <svg
               width="20"

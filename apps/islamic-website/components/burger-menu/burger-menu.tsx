@@ -81,7 +81,6 @@ export function BurgerMenu({
       {!isLocaleSwitcherOpened ? (
         <div className="flex flex-col gap-y-[12px]">
           <Link
-            locale={locale}
             href="/shariah"
             className="hover:text-islamic-primary-green z-50 py-[12px] text-base uppercase text-white transition-colors duration-200"
             onClick={onClick}
