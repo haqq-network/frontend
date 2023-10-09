@@ -246,6 +246,7 @@ export function MobileHeader({
                   <Link
                     href="/"
                     locale={locale}
+                    aria-label="Islamic Coin"
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
                     <IslamicHeaderLogo />
