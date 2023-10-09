@@ -126,10 +126,15 @@ export function AirdropCosmos({
       }
       content={
         <>
-          <div className="mb-[12px]">Connect via Keplr to see</div>
-          <Button className="pl-[32px] pr-[32px]" onClick={connectKeplrWallet}>
-            Connect to Keplr
-          </Button>
+          <div className="mb-[12px] text-[24px]">Coming soon...</div>
+          {false && (
+            <Button
+              className="pl-[32px] pr-[32px]"
+              onClick={connectKeplrWallet}
+            >
+              Connect to Keplr
+            </Button>
+          )}
         </>
       }
     />
