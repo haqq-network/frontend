@@ -1,5 +1,5 @@
 import { IParticipant, useAirdropActions } from '@haqq/shared';
-import { formatEthDecimal } from '@haqq/shell-ui-kit';
+import { Tooltip, formatEthDecimal } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { ApproveBtn } from '../approve-btn/approve-btn';
@@ -46,12 +46,14 @@ const ValueBlock = ({
   text,
   isActive,
   percent,
+  tooltip,
 }: {
   text: string;
   isActive?: boolean;
   percent?: string;
+  tooltip?: string;
 }) => {
-  return (
+  const content = (
     <div className="flex items-center">
       <div className="font-clash w-[220px] text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
         {text}
@@ -61,6 +63,14 @@ const ValueBlock = ({
         {percent && <div>{percent} %</div>}
       </div>
     </div>
+  );
+  if (!tooltip) {
+    return content;
+  }
+  return (
+    <Tooltip text={tooltip}>
+      <div className="cursor-pointer">{content}</div>
+    </Tooltip>
   );
 };
 
@@ -124,26 +134,31 @@ export const EvmAirdropView = ({ address }: IProps) => {
           text="Activated the wallet on the network"
           isActive={participant?.is_activated_wallet_on_network}
           percent={'10.00'}
+          tooltip="This means that your balance on the network is greater than 0, you could receive GasDrop or one of several GiveAway, or Ambassadors rewards"
         />
         <ValueBlock
           text="Staked"
           isActive={participant?.is_has_staking}
           percent="25.00"
+          tooltip="You have staked any amount of ISLM on mainnet"
         />
         <ValueBlock
           text="Voted"
           isActive={participant?.is_has_votes}
           percent="15.00"
+          tooltip="You have voted on mainnet gov"
         />
         <ValueBlock
           text="Voted several times"
           isActive={participant?.is_voted_several_times}
           percent="15.00"
+          tooltip="You have voted several times on mainnet gov"
         />
         <ValueBlock
           text="Staked more than 50% of your ISLMs"
           isActive={participant?.is_staked_many}
           percent="15.00"
+          tooltip="You have staked most of your balance"
         />
 
         <div className=" border-haqq-border mt-[16px] border-b border-t border-dashed pb-[12px] pt-[12px]">
