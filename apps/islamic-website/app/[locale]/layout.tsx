@@ -37,8 +37,6 @@ export const metadata: Metadata = {
 };
 
 async function getMessages(locale: string) {
-  console.log({ locale }, 'getMessagesFunction [LOCALE]/LAYOUT');
-
   try {
     return (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
@@ -50,8 +48,6 @@ export default async function LocaleLayout({
   children,
   params: { locale },
 }: PropsWithChildren<{ params: { locale: string } }>) {
-  console.log({ locale }, '[LOCALE]/LAYOUT FROM PARAMS');
-
   const headersList = headers();
   const userAgent = headersList.get('user-agent');
   const isMobileUserAgent = Boolean(
@@ -76,12 +72,9 @@ export default async function LocaleLayout({
       {VERCEL_ENV !== 'development' && <CookieConsentModal />}
       <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {isScamBannerShow && <ScamBanner locale={locale} />}
+          {isScamBannerShow && <ScamBanner />}
           {isMobileUserAgent ? (
-            <MobileHeader
-              locale={locale as localeType}
-              isBannerVisible={isScamBannerShow}
-            />
+            <MobileHeader locale={locale} isBannerVisible={isScamBannerShow} />
           ) : (
             <Header
               locale={locale as localeType}
@@ -89,7 +82,7 @@ export default async function LocaleLayout({
             />
           )}
           <div className="flex-1">{children}</div>
-          <Footer socialLinks={SOCIAL_LINKS} locale={locale} />
+          <Footer socialLinks={SOCIAL_LINKS} />
         </NextIntlClientProvider>
       </body>
       {VERCEL_ENV !== 'development' && (
@@ -139,13 +132,13 @@ export default async function LocaleLayout({
   );
 }
 
-function ScamBanner({ locale }: { locale: string }) {
+function ScamBanner() {
   return (
     <div className="ltr:font-vcr rtl:font-handjet fixed top-[0px] z-[9000] w-full bg-[#EB9226] py-[8px] text-center text-[16px] uppercase leading-[24px] text-white">
       <Container>
         Beware of scammers! <br className="block md:hidden" />
         Check{' '}
-        <Link href="/scam-alert" locale={locale} className="underline">
+        <Link href="/scam-alert" className="underline">
           this page
         </Link>{' '}
         for more information

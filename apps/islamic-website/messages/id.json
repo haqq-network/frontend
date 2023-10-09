@@ -6,7 +6,12 @@
         "gradient-text": "Web3 \nSesuai Syariah"
       },
       "sub-text": "Kami sedang dalam misi untuk bergabung 1,8+miliar Muslim ke dalam keuangan digital tanpa mengorbankan nilai-nilai atau keyakinan. Islamic Coin adalah mata uang asli Jaringan HAQQ, sebuah etika blockchain pertama",
-      "running-text": "Misi kami adalah memberdayakan komunitas Muslim dunia dengan instrumen keuangan untuk Era Digital, yang memungkinkan transaksi dan interaksi tanpa batas, sekaligus mendukung inovasi dan kedermawanan."
+      "running-text": "Misi kami adalah memberdayakan komunitas Muslim dunia dengan instrumen keuangan untuk Era Digital, yang memungkinkan transaksi dan interaksi tanpa batas, sekaligus mendukung inovasi dan kedermawanan.",
+      "disclaimer": {
+        "before-flag": "Penafian untuk",
+        "after-flag": "penduduk Dubai",
+        "read-more": "Baca lebih lanjut"
+      }
     },
     "why-block": {
       "title": "Mengapa Islamic Coin??",

@@ -26,6 +26,7 @@ export function FundsBlock() {
               href="https://df101.xyz/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="DF101 Capital"
             >
               <div className="relative h-[80px] w-[220px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={df101LogoImgData} alt="" fill />
@@ -36,6 +37,7 @@ export function FundsBlock() {
               href="https://www.a195.capital/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="A195 Capital"
             >
               <div className="relative h-[80px] w-[178px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={a195LogoImgData.src} alt="" fill />
@@ -46,6 +48,7 @@ export function FundsBlock() {
               href="https://optic.capital/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Optic Capital"
             >
               <div className="relative h-[80px] w-[100px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={opticCapitalLogoImgData.src} alt="" fill />
@@ -55,6 +58,7 @@ export function FundsBlock() {
               href="https://www.abodigital.io/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="ABO Fund"
             >
               <div className="relative h-[80px] w-[140px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={aboDigitalLogoImgData.src} alt="" fill />
@@ -64,6 +68,7 @@ export function FundsBlock() {
               href="https://www.futurecraft.ventures/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Futurecraft ventures"
             >
               <div className="relative h-[80px] w-[100px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={futurecraftVenturesImgData.src} alt="" fill />
