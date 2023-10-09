@@ -17,10 +17,7 @@ import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
-import {
-  // useLocale,
-  useTranslations,
-} from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 export interface Member {
   image: string;

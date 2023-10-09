@@ -27,7 +27,6 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  console.log({ locale }, 'TEAM PAGE SERVER');
   const { teamMembers } = await getMembersContent({ locale });
 
   return <TeamPage teamMembers={teamMembers} />;

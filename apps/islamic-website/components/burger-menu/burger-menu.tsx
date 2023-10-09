@@ -15,10 +15,7 @@ import {
   ValuesIcon,
 } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import {
-  // useLocale,
-  useTranslations,
-} from 'next-intl';
+import { useTranslations } from 'next-intl';
 import Link from 'next-intl/link';
 import {
   Fragment,

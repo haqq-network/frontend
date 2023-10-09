@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next-intl/link';
-// import { default as LocaleLink } from 'next-intl/link';
 import clsx from 'clsx';
 import {
   Fragment,
@@ -32,10 +31,7 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
-import {
-  // useLocale,
-  useTranslations,
-} from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { usePathname } from 'next-intl/client';
 import { localeType } from '@haqq/islamic-website/shariah-page';
 
