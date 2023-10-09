@@ -11,7 +11,7 @@ import fatwaSign2 from '../../assets/images/autographs/autograph-saleh-yaqubi.we
 import fatwaSign3 from '../../assets/images/autographs/autograph-hakim-mohamed.webp';
 import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.webp';
 import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { localeType } from '../shariah-page/shariah-page';
 import Link from 'next-intl/link';
 
@@ -24,11 +24,6 @@ function LangButton({
   locale: localeType;
   href: string;
 }) {
-  console.log(
-    { locale },
-    'LANG BUTTON SHARIAH CLIENT PROP FROM FATWA BLOCK USELOCALE',
-  );
-
   const t = useTranslations('shariah-page.fatwa-block.language-buttons');
   return (
     <Link
@@ -96,16 +91,13 @@ function AutographsBlock() {
 }
 
 export function FatwaBlock({
-  // locale,
+  locale,
   fatwa,
 }: {
   locale: localeType;
   fatwa: string;
 }) {
-  // const pathname = usePathname();
-  const locale = useLocale();
   const t = useTranslations('shariah-page');
-  console.log({ locale }, 'FATWA CLIENT USE LOCALE');
 
   return (
     <div>

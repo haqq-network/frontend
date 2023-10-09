@@ -40,8 +40,6 @@ export function AnimatedNumbers({
   locale?: string;
   decimalPlaces?: number;
 }) {
-  // console.log({ locale }, 'ANIMATED NUMS');
-
   const { ref, inView } = useInView({ triggerOnce: true });
   const keyCount = useRef(0);
   const [numberHeight, setNumberHeight] = useState(0);

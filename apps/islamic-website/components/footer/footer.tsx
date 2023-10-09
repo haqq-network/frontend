@@ -17,16 +17,13 @@ function FooterNavLink({
   url,
   isOutLink = false,
   title,
-  locale,
 }: {
   url: string;
   isOutLink?: boolean;
   title: string;
-  locale: string;
 }) {
   return (
     <Link
-      locale={locale}
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
@@ -117,10 +114,8 @@ const footerNavLinks: FooterNavLinks = [
 
 export function Footer({
   socialLinks,
-  locale,
 }: {
   socialLinks: SocialIconLinkProps[];
-  locale: string;
 }) {
   const t = useTranslations('footer');
 
@@ -153,7 +148,6 @@ export function Footer({
                           title={t(title)}
                           url={url}
                           isOutLink={isOutLink}
-                          locale={locale}
                         />
                       );
                     })}
@@ -174,7 +168,6 @@ export function Footer({
                     title={t(title)}
                     url={url}
                     isOutLink={isOutLink}
-                    locale={locale}
                   />
                 );
               })}
@@ -199,6 +192,7 @@ export function Footer({
                   rel="noopener noreferrer"
                   className="relative h-[38px] w-[147px] grayscale transition-[filter] duration-300 hover:grayscale-0 md:h-[50px]
                    md:w-[200px]"
+                  aria-label="World Green Growth Organization"
                 >
                   <Image
                     src="/assets/images/logos/world-green-icon.svg"
@@ -211,6 +205,7 @@ export function Footer({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative h-[28px] w-[63px] grayscale transition-[filter] duration-300 hover:grayscale-0 md:h-[44px] md:w-[98px]"
+                  aria-label="United Nation Sustainable Development"
                 >
                   <Image
                     src="/assets/images/logos/sustainable-dev-icon.svg"
