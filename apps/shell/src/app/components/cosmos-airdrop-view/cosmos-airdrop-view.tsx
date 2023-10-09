@@ -12,7 +12,6 @@ interface IProps {
 
 export const CosmosAirdropView = ({
   cosmosAddress,
-  osmosisAddress,
   evmosAddress,
   ethAddressFromKeppler,
 }: IProps) => {

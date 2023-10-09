@@ -115,6 +115,8 @@ export const EvmAirdropView = ({ address }: IProps) => {
     };
   }, [address, sign]);
 
+  const hasAirdrop = (participant?.amount || 0) > 0;
+
   return (
     <div className="flex">
       <div className="flex w-full flex-col items-start gap-[20px]">
@@ -151,24 +153,28 @@ export const EvmAirdropView = ({ address }: IProps) => {
           />
         </div>
 
-        <div className="mt-[20px]">
-          <div className="font-clash w-[220px] text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
-            Your Amount airdrop
-          </div>
-          <div className="mt-[5px] font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            {formatEthDecimal(participant?.amount || 0, 2)} ISLMs
-          </div>
-        </div>
+        {hasAirdrop ? (
+          <>
+            <div className="mt-[20px]">
+              <div className="font-clash w-[220px] text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
+                Your Amount airdrop
+              </div>
+              <div className="mt-[5px] font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
+                {formatEthDecimal(participant?.amount || 0, 2)} ISLMs
+              </div>
+            </div>
 
-        <div className="mt-[23px]">
-          <ApproveBtn
-            participationAddress={address}
-            message={MESSAGE}
-            participant={participant}
-            isCosmos={false}
-            onSign={onSignHandler}
-          />
-        </div>
+            <div className="mt-[23px]">
+              <ApproveBtn
+                participationAddress={address}
+                message={MESSAGE}
+                participant={participant}
+                isCosmos={false}
+                onSign={onSignHandler}
+              />
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

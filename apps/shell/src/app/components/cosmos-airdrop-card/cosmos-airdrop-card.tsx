@@ -71,6 +71,8 @@ export const CosmosAirdropCard = ({
     }
   }, [chainId]);
 
+  const hasAirdrop = (participant?.amount || 0) > 0;
+
   return (
     <div className="flex flex-col items-start gap-[28px] md:w-[410px]">
       <img src={icon} alt="icon" className="mb-[4px] h-[48px]" />
@@ -109,25 +111,29 @@ export const CosmosAirdropCard = ({
         </div>
       </div>
 
-      <div>
-        <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-          Amount airdrop
-        </div>
-        <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-          {formatEthDecimal(participant?.amount || 0, 2)} ISLMs
-        </div>
-      </div>
+      {hasAirdrop ? (
+        <>
+          <div>
+            <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+              Amount airdrop
+            </div>
+            <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
+              {formatEthDecimal(participant?.amount || 0, 2)} ISLMs
+            </div>
+          </div>
 
-      <div className="mt-[4px]">
-        <ApproveBtn
-          participationAddress={participationAddress}
-          message={MSG}
-          participant={participant}
-          isCosmos
-          onSign={keplrSignArbitrary}
-          ethAddress={ethAddressFromKeppler}
-        />
-      </div>
+          <div className="mt-[4px]">
+            <ApproveBtn
+              participationAddress={participationAddress}
+              message={MSG}
+              participant={participant}
+              isCosmos
+              onSign={keplrSignArbitrary}
+              ethAddress={ethAddressFromKeppler}
+            />
+          </div>
+        </>
+      ) : null}
     </div>
   );
 };
