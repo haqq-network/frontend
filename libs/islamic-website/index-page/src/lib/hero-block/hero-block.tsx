@@ -45,7 +45,6 @@ export function HeroBlock() {
         </span>{' '}
         <span>{t('hero-block.disclaimer.after-flag')}</span>
         <Link
-          // locale={locale}
           href="/dubai-residents-disclaimer"
           className="text-islamic-primary-green hover:text-islamic-primary-green-hover w-fit transition-colors duration-300 ltr:ml-[18px] rtl:mr-[18px]"
         >

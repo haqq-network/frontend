@@ -159,7 +159,6 @@ export function ShariahPage({
           <div className="relative hidden w-[292px] flex-none lg:block">
             <div className="sticky top-[112px] pb-[80px]">
               <ShariPageDesktopNav
-                locale={locale}
                 sections={sections}
                 activeSection={activeSection}
               />
@@ -169,7 +168,6 @@ export function ShariahPage({
             <div>
               <div className="lg:hidden">
                 <ShariPageMobileNav
-                  locale={locale}
                   sections={sections}
                   activeSection={activeSection}
                   onSectionSelect={handleSectionSelect}
@@ -310,15 +308,12 @@ function ShariPageDesktopNavLink({
   href,
   isActive,
   children,
-  locale,
 }: PropsWithChildren<{
   href: string;
   isActive?: boolean;
-  locale: string;
 }>) {
   return (
     <Link
-      // locale={locale}
       href={href}
       className={clsx(
         'hover:text-islamic-primary-green-hover ltr:font-vcr rtl:font-handjet inline-flex cursor-pointer items-center justify-between gap-x-[8px] uppercase',
@@ -355,18 +350,15 @@ function ShariPageDesktopNavLink({
 function ShariPageDesktopNav({
   sections,
   activeSection,
-  locale,
 }: {
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
-  locale: string;
 }) {
   return (
     <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px] backdrop-blur">
       {sections.map(({ id, title }) => {
         return (
           <ShariPageDesktopNavLink
-            locale={locale}
             href={`#${id}`}
             key={`sharia-nav-${id}`}
             isActive={activeSection === id}

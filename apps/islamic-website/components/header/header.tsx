@@ -40,7 +40,6 @@ type LocaleType = keyof typeof localeDisplayNames;
 interface HeaderLinkProps {
   url: string;
   isOutLink?: boolean;
-  locale: LocaleType;
 }
 
 export const localeDisplayNames: Record<string, string> = {
@@ -53,11 +52,9 @@ function DesktopHeaderLink({
   children,
   url,
   isOutLink = false,
-  locale,
 }: PropsWithChildren<HeaderLinkProps>) {
   return (
     <Link
-      // locale={locale}
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
@@ -173,11 +170,11 @@ export default function Header({
 }
 
 export function MobileHeader({
-  locale,
   isBannerVisible = false,
+  locale,
 }: {
   isBannerVisible?: boolean;
-  locale: localeType;
+  locale: LocaleType;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const [isBlurred, setBlurred] = useState(false);
@@ -245,7 +242,6 @@ export function MobileHeader({
                 <div>
                   <Link
                     href="/"
-                    // locale={locale}
                     aria-label="Islamic Coin"
                     className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
                   >
@@ -333,7 +329,6 @@ export function DesktopHeader({
           <div className="flex items-center justify-between">
             <div>
               <Link
-                // locale={locale}
                 href="/"
                 className="hover:text-islamic-primary-green leading-[0] text-white transition-colors duration-150"
               >
@@ -342,32 +337,28 @@ export function DesktopHeader({
             </div>
 
             <nav className="flex flex-row">
-              <DesktopHeaderLink url="/shariah" locale={locale as LocaleType}>
+              <DesktopHeaderLink url="/shariah">
                 {t('single-links.shariah')}
               </DesktopHeaderLink>
               <HeaderDropdown title={t('dropdown-links.about.about')}>
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.about.mission')}
                       icon={<MissionIcon />}
                       href="/mission"
                     />
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.about.roadmap')}
                       icon={<RoadmapIcon />}
                       href="/roadmap"
                     />
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.about.whitepaper')}
                       icon={<HalfMoonAndStarIcon />}
                       href="/whitepaper"
                     />
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.about.ecosystem')}
                       icon={<EcosystemIcon />}
                       href="https://haqq.network/ecosystem"
@@ -376,13 +367,11 @@ export function DesktopHeader({
                   </div>
                   <div className="flex flex-col">
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.about.news')}
                       icon={<NewsIcon />}
                       href="/news"
                     />
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.about.build-on-haqq')}
                       icon={<BuildIcon />}
                       href="/build"
@@ -391,39 +380,34 @@ export function DesktopHeader({
                 </div>
               </HeaderDropdown>
 
-              <DesktopHeaderLink url="/wallet" locale={locale as LocaleType}>
+              <DesktopHeaderLink url="/wallet">
                 {t('single-links.wallet')}
               </DesktopHeaderLink>
 
               <HeaderDropdown title={t('dropdown-links.learn.learn')}>
                 <div className="flex flex-col">
                   <DropdownLink
-                    locale={locale}
                     title={t('dropdown-links.learn.academy')}
                     icon={<AcademyIcon />}
                     href="/academy"
                   />
                   <DropdownLink
-                    locale={locale}
                     title={t('dropdown-links.learn.privacy-policy')}
                     icon={<QuestionMarkIcon />}
                     href="/privacy-policy"
                   />
                   <DropdownLink
-                    locale={locale}
                     title={t('dropdown-links.learn.blog')}
                     icon={<BlogIcon />}
                     href="https://blog.islamiccoin.net"
                     isOutLink
                   />
                   <DropdownLink
-                    locale={locale}
                     title={t('dropdown-links.learn.fraud-alert')}
                     icon={<AlertIcon />}
                     href="/fraud-alert"
                   />
                   <DropdownLink
-                    locale={locale}
                     title={t('dropdown-links.learn.scam-alert')}
                     icon={<AlertIcon />}
                     href="/scam-alert"
@@ -435,25 +419,21 @@ export function DesktopHeader({
                 <div className="flex gap-x-[18px]">
                   <div className="flex flex-col">
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.team.career')}
                       icon={<CaseIcon />}
                       href="/career"
                     />
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.team.our-values')}
                       icon={<ValuesIcon />}
                       href="/values"
                     />
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.team.community')}
                       icon={<CommunityIcon />}
                       href="/community-hub"
                     />
                     <DropdownLink
-                      locale={locale}
                       title={t('dropdown-links.team.meet-our-team')}
                       icon={<StarIcon />}
                       href="/team"

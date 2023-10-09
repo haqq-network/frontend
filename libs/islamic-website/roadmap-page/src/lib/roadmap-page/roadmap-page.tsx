@@ -164,11 +164,9 @@ function RoadmapCard({
 export function RoadmapPage({
   roadmap,
   turnstileSiteKey,
-} // locale,
-: {
+}: {
   roadmap: RoadmapPeriod[];
   turnstileSiteKey?: string;
-  locale: string;
 }) {
   const t = useTranslations('');
 
@@ -196,7 +194,6 @@ export function RoadmapPage({
             <div className="mt-[48px] flex flex-col gap-x-[28px] gap-y-[24px] rounded-[20px] bg-[#181E25B3] px-[16px] py-[24px] md:mt-[80px] lg:mt-[120px] lg:max-w-[1200px] lg:flex-row lg:items-start lg:p-[28px]">
               <Text size="small">{t('subscribe-form.text')}</Text>
               <SubscribeForm
-                // locale={locale}
                 className="flex w-full flex-col gap-[16px] lg:flex-row"
                 inputClassName="lg:min-w-[280px]"
                 turnstileSiteKey={turnstileSiteKey}

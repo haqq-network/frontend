@@ -19,10 +19,7 @@ export function JoinCommunityBlock() {
         <Text isMono className="mt-[8px]">
           {t('join-community-block.subtitle')}
         </Text>
-        <Link
-          href="/community-hub"
-          // locale={locale}
-        >
+        <Link href="/community-hub">
           <Button className="mt-[42px]">
             {t('join-community-block.button-text')}
           </Button>

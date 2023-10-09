@@ -28,11 +28,5 @@ export default async function Page(props: PageProps) {
   } = props;
   const roadmap = await getRoadmapContent({ locale });
 
-  return (
-    <RoadmapPage
-      locale={locale}
-      roadmap={roadmap}
-      turnstileSiteKey={TURNSTILE_SITEKEY}
-    />
-  );
+  return <RoadmapPage roadmap={roadmap} turnstileSiteKey={TURNSTILE_SITEKEY} />;
 }

@@ -17,16 +17,13 @@ function FooterNavLink({
   url,
   isOutLink = false,
   title,
-  locale,
 }: {
   url: string;
   isOutLink?: boolean;
   title: string;
-  locale: string;
 }) {
   return (
     <Link
-      // locale={locale}
       href={url}
       target={isOutLink ? '_blank' : undefined}
       rel={isOutLink ? 'noopener noreferrer' : undefined}
@@ -117,10 +114,8 @@ const footerNavLinks: FooterNavLinks = [
 
 export function Footer({
   socialLinks,
-  locale,
 }: {
   socialLinks: SocialIconLinkProps[];
-  locale: string;
 }) {
   const t = useTranslations('footer');
 
@@ -153,7 +148,6 @@ export function Footer({
                           title={t(title)}
                           url={url}
                           isOutLink={isOutLink}
-                          locale={locale}
                         />
                       );
                     })}
@@ -174,7 +168,6 @@ export function Footer({
                     title={t(title)}
                     url={url}
                     isOutLink={isOutLink}
-                    locale={locale}
                   />
                 );
               })}

@@ -1,6 +1,7 @@
+import { cache } from 'react';
 import { FALCONER_ENDPOINT } from '../constants';
 
-export const getHomePageContent = async () => {
+export const getHomePageContent = cache(async () => {
   try {
     const response = await fetch(`${FALCONER_ENDPOINT}/islamic/home`, {
       method: 'GET',
@@ -15,4 +16,4 @@ export const getHomePageContent = async () => {
   } catch (error) {
     console.error(error);
   }
-};
+});
