@@ -1,10 +1,11 @@
 import { cache } from 'react';
 import { FALCONER_ENDPOINT } from '../constants';
 
-export const getHomePageContent = cache(async () => {
+export const getHomePageContent = cache(async (locale: string) => {
   try {
     const response = await fetch(`${FALCONER_ENDPOINT}/islamic/home`, {
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify({ locale }),
       next: {
         revalidate: 180,
       },

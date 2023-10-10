@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
 import { mapStorybookToNews } from '../../utils/get-news-data';
-import { getMembersContent } from '../../utils/get-members-data';
 import { DEPLOY_URL } from '../../constants';
 import { getHomePageContent } from '../../utils/get-index-page-data';
 
@@ -31,14 +30,11 @@ export default async function Page(props: PageProps) {
     params: { locale },
   } = props;
 
-  const { advisoryMembers, executiveMembers, shariahMembers } =
-    await getMembersContent({ locale });
   const {
     news,
-    // commented until falconer supports localization
-    // members: { advisory_members, executive_members, shariah_members },
     mainnet_accounts,
-  } = await getHomePageContent();
+    members: { advisory_members, executive_members, shariah_members },
+  } = await getHomePageContent(locale);
   const mappedNews = mapStorybookToNews(news);
 
   return (
@@ -46,9 +42,9 @@ export default async function Page(props: PageProps) {
       locale={locale}
       mainnetAccounts={mainnet_accounts}
       news={mappedNews}
-      advisoryMembers={advisoryMembers}
-      executiveMembers={executiveMembers}
-      shariahMembers={shariahMembers}
+      advisoryMembers={advisory_members}
+      executiveMembers={executive_members}
+      shariahMembers={shariah_members}
     />
   );
 }
