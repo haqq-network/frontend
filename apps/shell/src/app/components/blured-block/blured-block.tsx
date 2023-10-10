@@ -21,7 +21,7 @@ export const BluredBlock = ({
         </div>
 
         {isBlured && (
-          <div className="absolute top-0 flex h-[100%] w-[100%] items-center">
+          <div className="absolute top-0 flex h-[100%] min-h-[125px] w-[100%] items-center">
             <div className="m-auto flex flex-col items-center">{content}</div>
           </div>
         )}
