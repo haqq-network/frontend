@@ -28,19 +28,17 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const {
-    members: { shariah_members, advisory_members, executive_members },
-  } = await getMembersContent(locale);
-
   const fatwa = await getFatwaContent({ locale });
+  const { shariahMembers, advisoryMembers, executiveMembers } =
+    await getMembersContent(locale);
 
   return (
     <ShariahPage
-      locale={locale}
-      shariahMembers={shariah_members}
-      advisoryMembers={advisory_members}
-      executiveMembers={executive_members}
       fatwa={fatwa}
+      locale={locale}
+      shariahMembers={shariahMembers}
+      advisoryMembers={advisoryMembers}
+      executiveMembers={executiveMembers}
     />
   );
 }
