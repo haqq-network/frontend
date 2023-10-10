@@ -88,7 +88,7 @@ export const CosmosAirdropCard = ({
         </div>
       )}
 
-      <div>
+      <div className="flex">
         <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
           It is possible to get an airdrop
         </div>
@@ -108,7 +108,11 @@ export const CosmosAirdropCard = ({
               <div className="ml-[8px]">Yes</div>
             </>
           ) : (
-            <div>No</div>
+            <div className="ml-[24px] flex flex-row items-center ">
+              <div className="flex flex-row items-center ">
+                <div className="mb-[-2px] ml-[4px] mr-[8px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]"></div>
+              </div>
+            </div>
           )}
         </div>
       </div>

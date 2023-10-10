@@ -1,4 +1,3 @@
-import { BluredBlock } from '../blured-block/blured-block';
 import { CosmosAirdropCard } from '../cosmos-airdrop-card/cosmos-airdrop-card';
 import cosmosIcon from './../../../assets/icons/cosmos.svg';
 import evmosIcon from './../../../assets/icons/evmos.svg';
@@ -20,23 +19,10 @@ export const CosmosAirdropView = ({
         chainId="cosmoshub-4"
         ethAddressFromKeppler={ethAddressFromKeppler}
       />
-      <BluredBlock
-        isBlured
-        bluredContent={
-          <CosmosAirdropCard
-            icon={evmosIcon}
-            chainId="evmos_9001-2"
-            ethAddressFromKeppler={ethAddressFromKeppler}
-          />
-        }
-        content={
-          <>
-            <div className="font-guise mb-[8px] text-[24px] font-[500]">
-              Evmos Airdrop
-            </div>
-            <div>Coming soon</div>
-          </>
-        }
+      <CosmosAirdropCard
+        icon={evmosIcon}
+        chainId="evmos_9001-2"
+        ethAddressFromKeppler={ethAddressFromKeppler}
       />
     </div>
   );
