@@ -15,8 +15,6 @@ export const CaptchaModal = ({
   const [isNotResident, setImNotResidentDubai] = useState(false);
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
 
-  console.log('isNotResident', isNotResident);
-
   useEffect(() => {
     const tId = setTimeout(() => {
       if (!token && !isClosable) {
