@@ -15,6 +15,8 @@ export const CaptchaModal = ({
   const [isNotResident, setImNotResidentDubai] = useState(false);
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
 
+  console.log('isNotResident', isNotResident);
+
   useEffect(() => {
     const tId = setTimeout(() => {
       if (!token && !isClosable) {
@@ -75,18 +77,20 @@ export const CaptchaModal = ({
             />
           )}
 
-          <div
-            className="font-guise  mt-[20px] flex cursor-pointer text-[12px] font-[500] text-black"
-            onClick={() => {
-              setImNotResidentDubai(!isNotResident);
-            }}
-          >
+          <div className="mt-[20px] flex">
             <Checkbox
               value={isNotResident}
               onChange={setImNotResidentDubai}
               className="mr-[8px]"
             />
-            I confirm that I am not a resident of Dubai.
+            <div
+              className="font-guise  flex cursor-pointer text-[12px] font-[500] text-black"
+              onClick={() => {
+                setImNotResidentDubai(!isNotResident);
+              }}
+            >
+              I confirm that I am not a resident of Dubai.
+            </div>
           </div>
         </div>
       </div>
