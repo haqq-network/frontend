@@ -1,50 +1,57 @@
 import {
-  useAuthAccountsQuery,
-  useBankSupplyQuery,
-  useStakingParamsQuery,
-  useStakingPoolQuery,
-  useStakingValidatorListQuery,
+  // useAuthAccountsQuery,
+  // useBankSupplyQuery,
+  // useStakingParamsQuery,
+  // useStakingPoolQuery,
+  // useStakingValidatorListQuery,
   useSupportedChains,
 } from '@haqq/shared';
-import {
-  BondStatus,
-  bondStatusFromJSON,
-} from 'cosmjs-types/cosmos/staking/v1beta1/staking';
+// import {
+//   BondStatus,
+//   bondStatusFromJSON,
+// } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import { useMemo } from 'react';
 import { useNetwork } from 'wagmi';
 
 export function StatisticsBlock() {
-  const { data: stakingPool } = useStakingPoolQuery();
-  const { data: validators } = useStakingValidatorListQuery();
-  const { data: accounts } = useAuthAccountsQuery();
-  const { data: bankSupply } = useBankSupplyQuery();
-  const { data: stakingParams } = useStakingParamsQuery();
+  // const { data: stakingPool } = useStakingPoolQuery();
+  // const { data: validators } = useStakingValidatorListQuery();
+  // const { data: accounts } = useAuthAccountsQuery();
+  // const { data: bankSupply } = useBankSupplyQuery();
+  // const { data: stakingParams } = useStakingParamsQuery();
   const { chain } = useNetwork();
   const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
-  const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.bonded_tokens]);
+  // const totalStaked = useMemo(() => {
+  //   return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  // }, [stakingPool?.bonded_tokens]);
 
-  const totalSupply = useMemo(() => {
-    return Number.parseInt(bankSupply?.supply[0].amount ?? '0') / 10 ** 18;
-  }, [bankSupply?.supply]);
+  // const totalSupply = useMemo(() => {
+  //   return Number.parseInt(bankSupply?.supply[0].amount ?? '0') / 10 ** 18;
+  // }, [bankSupply?.supply]);
 
-  const totalAccounts = useMemo(() => {
-    return Number.parseInt(accounts?.pagination.total ?? '0');
-  }, [accounts?.pagination.total]);
+  // const totalAccounts = useMemo(() => {
+  //   return Number.parseInt(accounts?.pagination.total ?? '0');
+  // }, [accounts?.pagination.total]);
+
+  const totalStaked = 1561205227.874;
+
+  const totalSupply = 20_000_000_000.0;
+
+  const totalAccounts = 2516427;
 
   const { valsTotal, valsActive } = useMemo(() => {
-    const activeVals = validators?.filter((val) => {
-      return bondStatusFromJSON(val.status) === BondStatus.BOND_STATUS_BONDED;
-    });
+    // const activeVals = validators?.filter((val) => {
+    //   return bondStatusFromJSON(val.status) === BondStatus.BOND_STATUS_BONDED;
+    // });
+
     return {
-      valsTotal: stakingParams?.max_validators ?? 0,
-      valsActive: activeVals?.length ?? 0,
+      valsTotal: 150,
+      valsActive: 68,
     };
-  }, [stakingParams?.max_validators, validators]);
+  }, []); // [stakingParams?.max_validators, validators]
 
   return (
     <div className="flex flex-col gap-y-[10px] lg:flex-row lg:flex-wrap lg:gap-x-[24px]">
