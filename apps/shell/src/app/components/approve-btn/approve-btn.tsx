@@ -158,8 +158,8 @@ export const ApproveBtn = ({
         message={
           <>
             <div className="mb-[12px]">
-              You have requested an AirDrop, it will be sent to your address on
-              the HAQQ network in few days:
+              Your AirDrop request has been received and will be delivered to
+              your address within the next 24 hours.
             </div>
 
             {ethAddress &&
