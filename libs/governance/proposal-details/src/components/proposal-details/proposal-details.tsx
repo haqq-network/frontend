@@ -434,7 +434,10 @@ export function ProposalDetailsComponent({
                       )}
                     >
                       <Markdown gfm breaks>
-                        {proposalDetails.content.description}
+                        {proposalDetails.content.description.replace(
+                          /\\n/g,
+                          '\n',
+                        )}
                       </Markdown>
                     </div>
                   </div>
