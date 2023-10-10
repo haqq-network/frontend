@@ -70,7 +70,7 @@
     "cosmos-sdk": "1.5.1",
     "decimal.js-light": "2.5.1",
     "ethereum-cryptography": "^1.1.2",
-    "ethers": "5.4.4",
+    "ethers": "5.4.7",
     "lodash": "4.17.21",
     "marked": "7.0.5",
     "marked-react": "2.0.0",
