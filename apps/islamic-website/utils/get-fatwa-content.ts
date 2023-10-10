@@ -8,7 +8,7 @@ import { cache } from 'react';
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getFatwaContent = cache(async ({ locale }: { locale: string }) => {
+export const getFatwaContent = cache(async (locale: string) => {
   const { storyblokApi } = storyblokInit({
     accessToken: STORYBLOK_ACCESS_TOKEN,
     use: [apiPlugin],

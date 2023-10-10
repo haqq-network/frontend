@@ -17,7 +17,7 @@ export const getPrivacyPolicyContent = cache(async (locale: string) => {
     });
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return data.pp;
     }
   } catch (error) {
     console.error(error);

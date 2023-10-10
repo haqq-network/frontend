@@ -134,7 +134,7 @@ export function Faucet(): ReactElement {
   const handleNetworkSwitch = useCallback(async () => {
     if (switchNetworkAsync) {
       try {
-        await switchNetworkAsync(chains[0]?.id);
+        await switchNetworkAsync(chains[0].id);
       } catch (error) {
         console.error((error as Error).message);
       }

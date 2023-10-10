@@ -65,27 +65,31 @@ const enum ProposalTypes {
   CancelSoftwareUpgrade = '/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal',
   ParameterChange = '/cosmos.params.v1beta1.ParameterChangeProposal',
   ClientUpdate = '/ibc.core.client.v1.ClientUpdateProposal',
+  RegisterCoin = '/evmos.erc20.v1.RegisterCoinProposal',
 }
 
-function ProposalTypeComponent({ type }: { type: string }) {
+export function getProposalTypeText(type: string) {
   switch (type) {
     case ProposalTypes.Text:
-      return <div>Text</div>;
+      return 'Text';
 
     case ProposalTypes.SoftwareUpgrade:
-      return <div>Software upgrade</div>;
+      return 'Software upgrade';
 
     case ProposalTypes.CancelSoftwareUpgrade:
-      return <div>Cancel software upgrade</div>;
+      return 'Cancel software upgrade';
 
     case ProposalTypes.ClientUpdate:
-      return <div>Client update</div>;
+      return 'Client update';
 
     case ProposalTypes.ParameterChange:
-      return <div>Parameter change</div>;
+      return 'Parameter change';
+
+    case ProposalTypes.RegisterCoin:
+      return 'Register coin';
 
     default:
-      return <div>{type}</div>;
+      return type;
   }
 }
 
@@ -378,9 +382,19 @@ export function ProposalDetailsComponent({
                     />
                   </div>
                 )}
-                <div className="mb-[8px] font-serif text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]">
-                  #{proposalDetails.proposal_id}
+                <div className="mb-[8px] flex flex-row items-center gap-[16px]">
+                  <div>
+                    <div className="font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]">
+                      #{proposalDetails.proposal_id}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-guise text-[14px] leading-[22px] text-white/50">
+                      {getProposalTypeText(proposalDetails.content['@type'])}
+                    </div>
+                  </div>
                 </div>
+
                 <h1 className="font-serif text-[24px] font-[500] leading-[30px] md:text-[32px] md:leading-[42px]">
                   {proposalDetails.content.title}
                 </h1>
@@ -408,13 +422,13 @@ export function ProposalDetailsComponent({
                 </div>
                 <div className="flex flex-col gap-[28px]">
                   <div className="flex flex-row gap-[28px]">
-                    <div>
+                    {/* <div>
                       <InfoBlock title="Type">
                         <ProposalTypeComponent
                           type={proposalDetails.content['@type']}
                         />
                       </InfoBlock>
-                    </div>
+                    </div> */}
                     <div>
                       <InfoBlock title="Total deposit">
                         {formatNumber(totalDeposit)}{' '}
@@ -431,10 +445,14 @@ export function ProposalDetailsComponent({
                       className={clsx(
                         'prose prose-sm max-w-none text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
                         'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-strong:text-white',
+                        'prose-code:text-white prose-code:text-[12px] prose-code:font-mono prose-code:md:leading-[22px] prose-code:md:text-[14px] prose-code:leading-[18px]',
                       )}
                     >
                       <Markdown gfm breaks>
-                        {proposalDetails.content.description}
+                        {proposalDetails.content.description.replace(
+                          /\\n/g,
+                          '\n',
+                        )}
                       </Markdown>
                     </div>
                   </div>

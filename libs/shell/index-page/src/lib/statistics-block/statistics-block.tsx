@@ -49,7 +49,7 @@ export function StatisticsBlock() {
 
     return {
       valsTotal: 150,
-      valsActive: 78,
+      valsActive: 68,
     };
   }, []); // [stakingParams?.max_validators, validators]
 

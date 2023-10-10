@@ -45,7 +45,7 @@ export function StakingInfoHooked() {
   const chains = useSupportedChains();
   const { data: balance } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0]?.id,
+    chainId: chain?.id ?? chains[0].id,
   });
   const toast = useToast();
 

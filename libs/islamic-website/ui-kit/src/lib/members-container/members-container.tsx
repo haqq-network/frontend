@@ -13,7 +13,7 @@ type Member = {
   title: string;
   description: string;
   url?: string;
-  role?: string;
+  subtitle?: string;
 };
 
 interface MembersContainerProps {
@@ -82,7 +82,7 @@ export function MembersContainer({
                   onClick={() => {
                     openBoardModal(member);
                   }}
-                  role={member.role}
+                  role={member.subtitle}
                 />
               </SwiperSlide>
             );
@@ -100,7 +100,7 @@ export function MembersContainer({
                   openBoardModal(member);
                 }}
                 key={idx}
-                role={member.role}
+                role={member.subtitle}
               />
             );
           })}
@@ -113,7 +113,7 @@ export function MembersContainer({
           image={memberModalData.image}
           title={memberModalData.title}
           url={memberModalData.url}
-          role={memberModalData.role}
+          role={memberModalData.subtitle}
           onClick={closeBoardModal}
         />
       </Modal>
