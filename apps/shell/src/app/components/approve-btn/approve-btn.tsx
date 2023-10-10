@@ -95,15 +95,16 @@ export function ApproveBtn({
       </div>
 
       {(participant?.status === ParticipantStatus.Checking ||
-        participant?.status === ParticipantStatus.Queued) && (
+        participant?.status === ParticipantStatus.Queued ||
+        receivingAddress) && (
         <div className="flex flex-col gap-y-[6px]">
           <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
             Airdrop status
           </div>
-          {participant?.to_address ? (
+          {participant?.to_address || receivingAddress ? (
             <div>
               You have already requested to address{' '}
-              <Address address={participant?.to_address} />
+              <Address address={participant?.to_address || receivingAddress} />
             </div>
           ) : (
             <div>You have already requested</div>
@@ -130,34 +131,35 @@ export function ApproveBtn({
 
       {(participant?.status === ParticipantStatus.Awaiting ||
         participant?.status === ParticipantStatus.Failed ||
-        participant?.status === ParticipantStatus.Unknown) && (
-        <div>
-          <Button
-            className="px-[32px]"
-            disabled={!isNotResident || !hasAirdrop}
-            onClick={() => {
-              NX_AIRDROP_ENDPOINT &&
-                participate().then((v) => {
-                  if (!v.message) {
-                    setInformationModalOpened(true);
-                  } else {
-                    if (v.message === 'requested') {
-                      setAlreadyRequested(true);
+        participant?.status === ParticipantStatus.Unknown) &&
+        !receivingAddress && (
+          <div>
+            <Button
+              className="px-[32px]"
+              disabled={!isNotResident || !hasAirdrop}
+              onClick={() => {
+                NX_AIRDROP_ENDPOINT &&
+                  participate().then((v) => {
+                    if (!v.message) {
+                      setInformationModalOpened(true);
                     } else {
-                      setErrorModalOpened(true);
+                      if (v.message === 'requested') {
+                        setAlreadyRequested(true);
+                      } else {
+                        setErrorModalOpened(true);
+                      }
                     }
-                  }
 
-                  if (v.address) {
-                    setReceivingAddress(v.address);
-                  }
-                });
-            }}
-          >
-            Airdrop Request
-          </Button>
-        </div>
-      )}
+                    if (v.address) {
+                      setReceivingAddress(v.address);
+                    }
+                  });
+              }}
+            >
+              Airdrop Request
+            </Button>
+          </div>
+        )}
 
       <InformationModal
         isOpened={isErrorModalOpened}
