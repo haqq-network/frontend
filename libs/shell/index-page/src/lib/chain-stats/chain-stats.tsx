@@ -1,35 +1,41 @@
 import { useMemo } from 'react';
 import {
-  useAuthAccountsQuery,
-  useStakingPoolQuery,
+  // useAuthAccountsQuery,
+  // useStakingPoolQuery,
   useStakingValidatorListQuery,
-  useBankSupplyQuery,
+  // useBankSupplyQuery,
   useSupportedChains,
 } from '@haqq/shared';
 import { Card, CardHeading } from '@haqq/shell-ui-kit';
 import { useNetwork } from 'wagmi';
 
 export function ShellIndexPageChainStats() {
-  const { data: stakingPool } = useStakingPoolQuery();
+  // const { data: stakingPool } = useStakingPoolQuery();
   const { data: validators } = useStakingValidatorListQuery();
-  const { data: accounts } = useAuthAccountsQuery();
-  const { data: bankSupply } = useBankSupplyQuery();
+  // const { data: accounts } = useAuthAccountsQuery();
+  // const { data: bankSupply } = useBankSupplyQuery();
   const { chain } = useNetwork();
   const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
-  const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.bonded_tokens]);
+  // const totalStaked = useMemo(() => {
+  //   return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
+  // }, [stakingPool?.bonded_tokens]);
 
-  const totalSupply = useMemo(() => {
-    return Number.parseInt(bankSupply?.supply[0].amount ?? '0') / 10 ** 18;
-  }, [bankSupply?.supply]);
+  const totalStaked = 1561205227.874;
 
-  const totalAccounts = useMemo(() => {
-    return Number.parseInt(accounts?.pagination.total ?? '0');
-  }, [accounts?.pagination.total]);
+  // const totalSupply = useMemo(() => {
+  //   return Number.parseInt(bankSupply?.supply[0].amount ?? '0') / 10 ** 18;
+  // }, [bankSupply?.supply]);
+
+  const totalSupply = 20_000_000_000.0;
+
+  // const totalAccounts = useMemo(() => {
+  //   return Number.parseInt(accounts?.pagination.total ?? '0');
+  // }, [accounts?.pagination.total]);
+
+  const totalAccounts = 2516427;
 
   const { valsTotal, valsActive } = useMemo(() => {
     const activeVals = validators?.filter((val) => {
