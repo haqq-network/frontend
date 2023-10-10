@@ -1,33 +1,49 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Turnstile from 'react-turnstile';
 import { Heading } from '../heading/heading';
 import { Modal, ModalCloseButton } from '../modal/modal';
+import { Checkbox } from '../checkbox/checkbox';
 
 export const CaptchaModal = ({
   turnstileSiteKey,
-  isOpened,
-  setCaptchaModalOpen,
-  setToken,
+  isClosable,
 }: {
   turnstileSiteKey?: string;
-  isOpened: boolean;
-  setCaptchaModalOpen: (v: boolean) => void;
-  setToken: (v: string) => void;
+  isClosable: boolean;
 }) => {
+  const [token, setToken] = useState<string | undefined>(undefined);
+  const [isNotResident, setImNotResidentDubai] = useState(false);
+  const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
+
+  useEffect(() => {
+    const tId = setTimeout(() => {
+      if (!token && !isClosable) {
+        setCaptchaModalOpen(true);
+      } else if (token && isNotResident) {
+        setCaptchaModalOpen(false);
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(tId);
+    };
+  }, [token, isClosable, isCaptchaModalOpen, isNotResident]);
+
   const handleCaptchaModalClose = useCallback(() => {
-    setCaptchaModalOpen(false);
-  }, [setCaptchaModalOpen]);
+    if (isNotResident) {
+      setCaptchaModalOpen(false);
+    }
+  }, [setCaptchaModalOpen, isNotResident]);
 
   const handleTokenChange = useCallback(
     (token: string) => {
       setToken(token);
-      setCaptchaModalOpen(false);
     },
-    [setCaptchaModalOpen, setToken],
+    [setToken],
   );
 
   return (
-    <Modal onClose={handleCaptchaModalClose} isOpen={isOpened}>
+    <Modal onClose={handleCaptchaModalClose} isOpen={isCaptchaModalOpen}>
       <div className="rounded-[12px] bg-white pb-[36px] pl-[16px] pr-[16px] pt-[16px]">
         <div className="flex items-center justify-between">
           <Heading className="text-black" level={3}>
@@ -47,6 +63,20 @@ export const CaptchaModal = ({
 
           <div className="font-guise mb-[24px] mt-[20px] text-[12px] font-[500] text-black">
             Please complete the captcha to verify that you are not a robot.
+          </div>
+
+          <div
+            className="font-guise mb-[24px] mt-[20px] flex cursor-pointer text-[12px] font-[500] text-black"
+            onClick={() => {
+              setImNotResidentDubai(!isNotResident);
+            }}
+          >
+            <Checkbox
+              value={isNotResident}
+              onChange={setImNotResidentDubai}
+              className="mr-[8px]"
+            />
+            I confirm that I am not a resident of Dubai.
           </div>
 
           {turnstileSiteKey && (
