@@ -147,8 +147,7 @@ export function EvmAirdropView({ address }: IProps) {
         <div className="text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
           Only participants of #TheHaqqExpedition (holders of the Pioneer role)
           community program & HAQQ Network active participants, current Islamic
-          Coin Ambassadors, alongside HAQQ Network Validators, are eligible for
-          the airdrop.
+          Coin Ambassadors, alongside HAQQ Network Validators, are eligible.
         </div>
 
         <div className="flex w-full flex-col gap-[8px]">
