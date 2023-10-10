@@ -47,21 +47,29 @@ const ValueBlock = ({
   isActive,
   percent,
   tooltip,
+  available = true,
 }: {
   text: string;
   isActive?: boolean;
   percent?: string;
   tooltip?: string;
+  available?: boolean;
 }) => {
   const content = (
     <div className="flex items-center">
       <div className="font-clash w-[220px] text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
         {text}
       </div>
-      <div className="ml-[12px] flex items-center font-sans text-[18px]  font-[500] text-white">
-        <YesCheckbox value={isActive} />
-        {percent && <div>{percent} %</div>}
-      </div>
+      {available ? (
+        <div className="ml-[12px] flex items-center font-sans text-[18px]  font-[500] text-white">
+          <YesCheckbox value={isActive} />
+          {percent && <div>{percent} %</div>}
+        </div>
+      ) : (
+        <div className="ml-[12px] flex items-center font-sans text-[18px]  font-[500] text-white">
+          Coming October 11
+        </div>
+      )}
     </div>
   );
   if (!tooltip) {
@@ -165,6 +173,7 @@ export const EvmAirdropView = ({ address }: IProps) => {
           <ValueBlock
             text="EXTRA: RUN Validator"
             isActive={participant?.is_validator}
+            available={false}
           />
         </div>
 
