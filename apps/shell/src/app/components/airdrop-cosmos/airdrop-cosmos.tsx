@@ -126,7 +126,9 @@ export function AirdropCosmos({
       }
       content={
         <>
-          <div className="mb-[12px] text-[24px]">Coming soon!</div>
+          <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+            Coming soon!
+          </div>
           {false && (
             <Button
               className="pl-[32px] pr-[32px]"

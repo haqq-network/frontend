@@ -12,12 +12,18 @@ export function AirdropEvm({ ethAddress }: { ethAddress?: string }) {
       isBlured={!ethAddress}
       bluredContent={<EvmAirdropView address={ethAddress} />}
       content={
-        <>
-          <div className="mb-[12px]">Connect via Metamask to see</div>
-          <Button className="pl-[32px] pr-[32px]" onClick={openSelectWallet}>
+        <div className="flex flex-col items-center space-y-[12px] py-[58px]">
+          <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+            You should connect wallet first
+          </div>
+          <Button
+            onClick={openSelectWallet}
+            variant={2}
+            className="text-black hover:bg-transparent hover:text-white"
+          >
             Connect wallet
           </Button>
-        </>
+        </div>
       }
     />
   );

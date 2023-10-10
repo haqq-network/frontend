@@ -9,7 +9,7 @@ interface IProps {
   address?: string;
 }
 
-const PARTICIPANTS_CHECK_INTERVAL = 5000;
+const PARTICIPANTS_CHECK_INTERVAL = 20000;
 
 function YesCheckbox({ value }: { value?: boolean }) {
   if (!value) {
@@ -144,6 +144,12 @@ export function EvmAirdropView({ address }: IProps) {
   return (
     <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
       <div className="flex flex-col gap-[20px]">
+        <div className="text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
+          Only participants of #TheHaqqExpedition (holders of the Pioneer role)
+          community program & HAQQ Network active participants, current Islamic
+          Coin Ambassadors, alongside HAQQ Network Validators, are eligible.
+        </div>
+
         <div className="flex w-full flex-col gap-[8px]">
           <ValueBlock
             text="Activated the wallet on the network"
@@ -177,7 +183,7 @@ export function EvmAirdropView({ address }: IProps) {
           />
         </div>
 
-        <div className="border-haqq-border mt-[16px] border-y border-dashed py-[12px]">
+        <div className="border-haqq-border border-y border-dashed py-[12px]">
           <ValueBlock
             text="Extra: Run validator"
             isActive={participant?.is_validator}
