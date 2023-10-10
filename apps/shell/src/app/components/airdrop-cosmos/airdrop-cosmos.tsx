@@ -13,8 +13,8 @@ export async function AddTestEdge2Network(keplrWallet: Keplr) {
       features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
       chainId: 'haqq_11235-1',
       chainName: 'HAQQ Mainnet',
-      rpc: 'https://m-s1-tm.haqq.sh',
-      rest: 'https://m-s1-sdk.haqq.sh',
+      rpc: 'https://rpc.tm.haqq.network',
+      rest: 'https://rest.cosmos.haqq.network',
       bip44: {
         coinType: 60,
       },
