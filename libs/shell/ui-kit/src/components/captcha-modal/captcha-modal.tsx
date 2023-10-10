@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import Turnstile from 'react-turnstile';
 import { Heading } from '../heading/heading';
 import { Modal, ModalCloseButton } from '../modal/modal';
-import { Checkbox } from '../checkbox/checkbox';
 
 export const CaptchaModal = ({
   turnstileSiteKey,
@@ -12,14 +11,13 @@ export const CaptchaModal = ({
   isClosable: boolean;
 }) => {
   const [token, setToken] = useState<string | undefined>(undefined);
-  const [isNotResident, setImNotResidentDubai] = useState(false);
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
 
   useEffect(() => {
     const tId = setTimeout(() => {
       if (!token && !isClosable) {
         setCaptchaModalOpen(true);
-      } else if (token && isNotResident) {
+      } else if (token) {
         setCaptchaModalOpen(false);
       }
     }, 500);
@@ -27,13 +25,11 @@ export const CaptchaModal = ({
     return () => {
       clearTimeout(tId);
     };
-  }, [token, isClosable, isCaptchaModalOpen, isNotResident]);
+  }, [token, isClosable, isCaptchaModalOpen]);
 
   const handleCaptchaModalClose = useCallback(() => {
-    if (isNotResident) {
-      setCaptchaModalOpen(false);
-    }
-  }, [setCaptchaModalOpen, isNotResident]);
+    setCaptchaModalOpen(false);
+  }, [setCaptchaModalOpen]);
 
   const handleTokenChange = useCallback(
     (token: string) => {
@@ -74,20 +70,6 @@ export const CaptchaModal = ({
               fixedSize={true}
             />
           )}
-
-          <div
-            className="font-guise  mt-[20px] flex cursor-pointer text-[12px] font-[500] text-black"
-            onClick={() => {
-              setImNotResidentDubai(!isNotResident);
-            }}
-          >
-            <Checkbox
-              value={isNotResident}
-              onChange={setImNotResidentDubai}
-              className="mr-[8px]"
-            />
-            I confirm that I am not a resident of Dubai.
-          </div>
         </div>
       </div>
     </Modal>

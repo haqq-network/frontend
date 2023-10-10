@@ -28,9 +28,9 @@ export function Airdrop() {
   );
 }
 
-const Airdrops = () => {
+function Airdrops() {
   const { ethAddress } = useAddress();
-  const [ethAddressFromKeppler, setEthAddressFromKeppler] = useState('');
+  const [ethAddressFromKeppler, setEthAddressFromKepler] = useState('');
 
   const targetHexAddress = ethAddress || ethAddressFromKeppler;
 
@@ -46,14 +46,14 @@ const Airdrops = () => {
             <div className="mt-[8px] flex flex-col gap-[28px] sm:flex-col md:flex-row lg:flex-row">
               <div>
                 <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                  Your haqq address hex
+                  Your HAQQ address hex
                 </div>
 
                 <Address address={targetHexAddress} />
               </div>
               <div>
                 <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                  Your haqq address bech32
+                  Your HAQQ address bech32
                 </div>
                 <Address address={ethToHaqq(targetHexAddress)} />
               </div>
@@ -62,16 +62,22 @@ const Airdrops = () => {
         </Container>
       </div>
 
-      <div className="flex flex-1 flex-col border-t border-[#ffffff26] px-[16px] py-[24px] sm:px-[48px] sm:py-[24px] lg:pb-[60px] lg:pl-[80px] lg:pr-[80px] lg:pt-[60px]">
-        <AirdropEvm ethAddress={ethAddress} />
+      <div className="border-t border-[#ffffff26] py-[52px] sm:py-[60px] lg:py-[80px]">
+        <Container>
+          <div className="flex flex-col gap-[52px] sm:gap-[60px] lg:gap-[80px]">
+            <div>
+              <AirdropEvm ethAddress={ethAddress} />
+            </div>
 
-        <div className="mb-[100px] mt-[72px]">
-          <AirdropCosmos
-            hasMetamaskConnected={!!ethAddress}
-            setEthAddressFromKeppler={setEthAddressFromKeppler}
-            ethAddressFromKeppler={ethAddressFromKeppler}
-          />
-        </div>
+            <div>
+              <AirdropCosmos
+                hasMetamaskConnected={!!ethAddress}
+                setEthAddressFromKepler={setEthAddressFromKepler}
+                ethAddressFromKeppler={ethAddressFromKeppler}
+              />
+            </div>
+          </div>
+        </Container>
       </div>
 
       <CaptchaModal
@@ -80,4 +86,4 @@ const Airdrops = () => {
       />
     </>
   );
-};
+}
