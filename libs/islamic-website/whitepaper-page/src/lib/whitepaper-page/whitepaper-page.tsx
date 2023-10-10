@@ -50,7 +50,7 @@ export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
         <div className="mt-[18px] lg:mt-[32px]">
           <DownloadPDFButton
             language="en"
-            url="/assets/haqq-whitepaper.pdf"
+            url="/assets/haqq-wp.pdf"
             type="whitepaper"
           />
         </div>
