@@ -57,26 +57,12 @@ export const CaptchaModal = ({
           />
         </div>
         <div className="w-[340px] pl-[20px] pr-[20px]">
-          <div className="font-clash text-[24px] font-[500] text-black">
-            Complete the captcha
+          <div className="font-clash text-[22px] font-[500] text-black">
+            Complete the captcha and agree with restrictions
           </div>
 
           <div className="font-guise mb-[24px] mt-[20px] text-[12px] font-[500] text-black">
             Please complete the captcha to verify that you are not a robot.
-          </div>
-
-          <div
-            className="font-guise mb-[24px] mt-[20px] flex cursor-pointer text-[12px] font-[500] text-black"
-            onClick={() => {
-              setImNotResidentDubai(!isNotResident);
-            }}
-          >
-            <Checkbox
-              value={isNotResident}
-              onChange={setImNotResidentDubai}
-              className="mr-[8px]"
-            />
-            I confirm that I am not a resident of Dubai.
           </div>
 
           {turnstileSiteKey && (
@@ -88,6 +74,20 @@ export const CaptchaModal = ({
               fixedSize={true}
             />
           )}
+
+          <div
+            className="font-guise  mt-[20px] flex cursor-pointer text-[12px] font-[500] text-black"
+            onClick={() => {
+              setImNotResidentDubai(!isNotResident);
+            }}
+          >
+            <Checkbox
+              value={isNotResident}
+              onChange={setImNotResidentDubai}
+              className="mr-[8px]"
+            />
+            I confirm that I am not a resident of Dubai.
+          </div>
         </div>
       </div>
     </Modal>
