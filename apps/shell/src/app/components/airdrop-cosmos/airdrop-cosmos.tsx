@@ -68,12 +68,12 @@ const enableChains = async (keplrWallet: Keplr) => {
 
 export function AirdropCosmos({
   hasMetamaskConnected,
-  setEthAddressFromKeppler,
+  setEthAddressFromKepler,
   ethAddressFromKeppler,
 }: {
   ethAddressFromKeppler: string;
   hasMetamaskConnected: boolean;
-  setEthAddressFromKeppler: (haqqAddress: string) => void;
+  setEthAddressFromKepler: (haqqAddress: string) => void;
 }) {
   const [accounts, setAccounts] = useState<Record<string, string>>({});
 
@@ -104,7 +104,7 @@ export function AirdropCosmos({
         await keplrWallet.getKey('evmos_9001-2'),
       ]);
 
-      setEthAddressFromKeppler(haqqToEth(haqq.bech32Address));
+      setEthAddressFromKepler(haqqToEth(haqq.bech32Address));
 
       setAccounts({
         haqq: haqq.bech32Address,
@@ -112,7 +112,7 @@ export function AirdropCosmos({
         evmos: evmos.bech32Address,
       });
     }
-  }, [disconnect, setEthAddressFromKeppler, hasMetamaskConnected]);
+  }, [disconnect, setEthAddressFromKepler, hasMetamaskConnected]);
 
   return (
     <BluredBlock

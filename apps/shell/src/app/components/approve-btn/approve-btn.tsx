@@ -9,13 +9,14 @@ import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { useCallback, useMemo, useState } from 'react';
 import { Address } from '../address/address';
 
-export const ApproveBtn = ({
+export function ApproveBtn({
   participant,
   message,
   participationAddress,
   ethAddress,
   isCosmos,
   onSign,
+  disabled = false,
 }: {
   participant?: IParticipant;
   message: string;
@@ -26,7 +27,8 @@ export const ApproveBtn = ({
     signature: string;
     pubKey?: string;
   }>;
-}) => {
+  disabled?: boolean;
+}) {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
   const [isAlreadyRequested, setAlreadyRequested] = useState<boolean>(false);
 
@@ -79,8 +81,8 @@ export const ApproveBtn = ({
         participant?.status === ParticipantStatus.Failed ||
         participant?.status === ParticipantStatus.Unknown) && (
         <Button
-          className="pl-[32px] pr-[32px]"
-          disabled={!hasAirdrop}
+          className="px-[32px]"
+          disabled={disabled || !hasAirdrop}
           onClick={() => {
             NX_AIRDROP_ENDPOINT &&
               participate().then((v) => {
@@ -107,7 +109,7 @@ export const ApproveBtn = ({
       {(participant?.status === ParticipantStatus.Checking ||
         participant?.status === ParticipantStatus.Queued) && (
         <>
-          <div className="font-clash text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
+          <div className="font-clash text-[14px] font-[500] uppercase text-white/50 md:text-[12px]">
             Airdrop status
           </div>
           {participant?.to_address ? (
@@ -185,4 +187,4 @@ export const ApproveBtn = ({
       />
     </>
   );
-};
+}
