@@ -43,6 +43,7 @@ jobs:
       ISLAMIC_STORYBLOK_ACCESS_TOKEN: ${{ secrets.ISLAMIC_STORYBLOK_ACCESS_TOKEN }}
       FALCONER_ENDPOINT: ${{ secrets.FALCONER_ENDPOINT }}
       TURNSTILE_SITEKEY: ${{ secrets.TURNSTILE_SITEKEY }}
+      NX_AIRDROP_ENDPOINT: ${{ secrets.NX_AIRDROP_ENDPOINT }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

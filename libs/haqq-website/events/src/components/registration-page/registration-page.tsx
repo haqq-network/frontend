@@ -1,7 +1,7 @@
 'use client';
 import { ApplyBlock } from '../apply-block/apply-block';
 import { WebsiteProviders } from '@haqq/shared';
-import { SelectWalletModalWrapper } from '../select-wallet-modal-wrapper';
+import { SelectWalletModalWrapper } from '../select-wallet-modal-wrapper/select-wallet-modal-wrapper';
 
 export function QrRegistrationPage({
   walletConnectProjectId,
