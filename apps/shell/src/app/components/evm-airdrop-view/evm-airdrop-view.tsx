@@ -1,5 +1,5 @@
 import { IParticipant, useAirdropActions } from '@haqq/shared';
-import { Checkbox, Tooltip, formatEthDecimal } from '@haqq/shell-ui-kit';
+import { Tooltip, formatEthDecimal } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { ApproveBtn } from '../approve-btn/approve-btn';
