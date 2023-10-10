@@ -4,7 +4,7 @@ import {
   useAirdropActions,
 } from '@haqq/shared';
 import localStore from 'store2';
-import { Button, InformationModal } from '@haqq/shell-ui-kit';
+import { Button, Checkbox, InformationModal } from '@haqq/shell-ui-kit';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { useCallback, useMemo, useState } from 'react';
 import { Address } from '../address/address';
@@ -31,6 +31,7 @@ export function ApproveBtn({
 }) {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
   const [isAlreadyRequested, setAlreadyRequested] = useState<boolean>(false);
+  const [isNotResident, setImNotResidentDubai] = useState(false);
 
   const [isInformationModalOpened, setInformationModalOpened] =
     useState<boolean>(false);
@@ -75,70 +76,89 @@ export function ApproveBtn({
     localStKey,
   ]);
 
-  return (
-    <>
-      {(participant?.status === ParticipantStatus.Awaiting ||
-        participant?.status === ParticipantStatus.Failed ||
-        participant?.status === ParticipantStatus.Unknown) && (
-        <Button
-          className="px-[32px]"
-          disabled={disabled || !hasAirdrop}
-          onClick={() => {
-            NX_AIRDROP_ENDPOINT &&
-              participate().then((v) => {
-                if (!v.message) {
-                  setInformationModalOpened(true);
-                } else {
-                  if (v.message === 'requested') {
-                    setAlreadyRequested(true);
-                  } else {
-                    setErrorModalOpened(true);
-                  }
-                }
+  const isCheckboxDefaultChecked =
+    participant?.status === ParticipantStatus.Checking ||
+    participant?.status === ParticipantStatus.Queued ||
+    participant?.status === ParticipantStatus.Redeemed;
 
-                if (v.address) {
-                  setReceivingAddress(v.address);
-                }
-              });
-          }}
+  return (
+    <div className="flex flex-col gap-[20px]">
+      <div>
+        <Checkbox
+          value={isCheckboxDefaultChecked ? true : isNotResident}
+          onChange={setImNotResidentDubai}
+          className="mr-[8px]"
+          disabled={isCheckboxDefaultChecked ? true : !hasAirdrop}
         >
-          Airdrop Request
-        </Button>
-      )}
+          I confirm that I am not a resident of Dubai.
+        </Checkbox>
+      </div>
 
       {(participant?.status === ParticipantStatus.Checking ||
         participant?.status === ParticipantStatus.Queued) && (
-        <>
-          <div className="font-clash text-[14px] font-[500] uppercase text-white/50 md:text-[12px]">
+        <div className="flex flex-col gap-y-[6px]">
+          <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
             Airdrop status
           </div>
           {participant?.to_address ? (
             <div>
-              You already requested to address{' '}
+              You have already requested to address{' '}
               <Address address={participant?.to_address} />
             </div>
           ) : (
-            <div>You already requested</div>
+            <div>You have already requested</div>
           )}
-        </>
+        </div>
       )}
 
       {participant?.status === ParticipantStatus.Redeemed && (
-        <>
-          <div className="font-clash text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
+        <div className="flex flex-col gap-y-[6px]">
+          <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
             Airdrop status
           </div>
 
           {participant?.to_address ? (
             <div>
-              You already redeemed to address{' '}
+              You have already redeemed to address{' '}
               <Address address={participant?.to_address} />
             </div>
           ) : (
-            <div>You already redeemed</div>
+            <div>You have already redeemed</div>
           )}
-        </>
+        </div>
       )}
+
+      {(participant?.status === ParticipantStatus.Awaiting ||
+        participant?.status === ParticipantStatus.Failed ||
+        participant?.status === ParticipantStatus.Unknown) && (
+        <div>
+          <Button
+            className="px-[32px]"
+            disabled={!isNotResident || !hasAirdrop}
+            onClick={() => {
+              NX_AIRDROP_ENDPOINT &&
+                participate().then((v) => {
+                  if (!v.message) {
+                    setInformationModalOpened(true);
+                  } else {
+                    if (v.message === 'requested') {
+                      setAlreadyRequested(true);
+                    } else {
+                      setErrorModalOpened(true);
+                    }
+                  }
+
+                  if (v.address) {
+                    setReceivingAddress(v.address);
+                  }
+                });
+            }}
+          >
+            Airdrop Request
+          </Button>
+        </div>
+      )}
+
       <InformationModal
         isOpened={isErrorModalOpened}
         setOpenState={setErrorModalOpened}
@@ -185,6 +205,6 @@ export function ApproveBtn({
           </>
         }
       />
-    </>
+    </div>
   );
 }

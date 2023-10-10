@@ -1,29 +1,25 @@
-import { storyblokInit, apiPlugin } from '@storyblok/js';
-import {
-  REVALIDATE_TIME,
-  STORYBLOK_ACCESS_TOKEN,
-  VERCEL_ENV,
-} from '../constants';
+import { FALCONER_ENDPOINT, REVALIDATE_TIME } from '../constants';
 import { cache } from 'react';
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getPrivacyPolicyContent = cache(
-  async ({ locale }: { locale: string }) => {
-    const { storyblokApi } = storyblokInit({
-      accessToken: STORYBLOK_ACCESS_TOKEN,
-      use: [apiPlugin],
+export const getPrivacyPolicyContent = cache(async (locale: string) => {
+  try {
+    const response = await fetch(`${FALCONER_ENDPOINT}/islamic/pp`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ locale }),
+      next: {
+        revalidate,
+      },
     });
-
-    if (!storyblokApi) {
-      throw new Error('Failed to init storyblok');
+    if (response.ok) {
+      const data = await response.json();
+      return data;
     }
-
-    const response = await storyblokApi.get('cdn/stories/privacy-policy', {
-      version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-      language: locale,
-    });
-
-    return response.data.story.content.body as string;
-  },
-);
+  } catch (error) {
+    console.error(error);
+  }
+});

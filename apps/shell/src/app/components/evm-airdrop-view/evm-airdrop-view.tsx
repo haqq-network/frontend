@@ -1,5 +1,5 @@
 import { IParticipant, useAirdropActions } from '@haqq/shared';
-import { Checkbox, Tooltip, formatEthDecimal } from '@haqq/shell-ui-kit';
+import { Tooltip, formatEthDecimal } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { ApproveBtn } from '../approve-btn/approve-btn';
@@ -81,7 +81,7 @@ function ValueBlock({
         </div>
       ) : (
         <div className="font-guise text-[11px] leading-[18px] md:text-[16px] md:leading-[26px]">
-          Coming October 11
+          Coming on October 11
         </div>
       )}
     </div>
@@ -124,7 +124,6 @@ const MESSAGE = 'Haqqdrop!';
 
 export function EvmAirdropView({ address }: IProps) {
   const { participant } = useAirdropChecker(address);
-  const [isNotResident, setImNotResidentDubai] = useState(false);
 
   const { sign } = useAirdropActions();
   const onSignHandler = useCallback(async () => {
@@ -143,7 +142,7 @@ export function EvmAirdropView({ address }: IProps) {
   const hasAirdrop = (participant?.amount || 0) > 0;
 
   return (
-    <div className="grid grid-cols-1 gap-20 lg:grid-cols-2 2xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
       <div className="flex flex-col gap-[20px]">
         <div className="flex w-full flex-col gap-[8px]">
           <ValueBlock
@@ -190,33 +189,20 @@ export function EvmAirdropView({ address }: IProps) {
           <>
             <div className="flex flex-col gap-y-[6px]">
               <span className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
-                Your Amount Airdrop
+                Your airdrop amount
               </span>
               <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
                 {formatEthDecimal(participant?.amount || 0, 2)} ISLM
               </span>
             </div>
 
-            <div>
-              <Checkbox
-                value={isNotResident}
-                onChange={setImNotResidentDubai}
-                className="mr-[8px]"
-              >
-                I confirm that I am not a resident of Dubai.
-              </Checkbox>
-            </div>
-
-            <div>
-              <ApproveBtn
-                participationAddress={address}
-                message={MESSAGE}
-                participant={participant}
-                isCosmos={false}
-                onSign={onSignHandler}
-                disabled={!isNotResident}
-              />
-            </div>
+            <ApproveBtn
+              participationAddress={address}
+              message={MESSAGE}
+              participant={participant}
+              isCosmos={false}
+              onSign={onSignHandler}
+            />
           </>
         )}
       </div>
