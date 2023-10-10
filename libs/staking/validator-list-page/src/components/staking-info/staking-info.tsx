@@ -41,11 +41,12 @@ export function StakingInfoHooked() {
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { data: balance } = useBalance({
     address: ethAddress,
-    watch: true,
+    chainId: chain?.id ?? chains[0]?.id,
   });
-  const { chain } = useNetwork();
   const toast = useToast();
 
   const handleRewardsClaim = useCallback(async () => {
