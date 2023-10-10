@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
-import { mapStorybookToNews } from '../../utils/get-news-data';
 import { DEPLOY_URL } from '../../constants';
 import { getHomePageContent } from '../../utils/get-index-page-data';
 
@@ -33,18 +32,19 @@ export default async function Page(props: PageProps) {
   const {
     news,
     mainnet_accounts,
-    members: { advisory_members, executive_members, shariah_members },
+    advisoryMembers,
+    executiveMembers,
+    shariahMembers,
   } = await getHomePageContent(locale);
-  const mappedNews = mapStorybookToNews(news);
 
   return (
     <IndexPage
       locale={locale}
       mainnetAccounts={mainnet_accounts}
-      news={mappedNews}
-      advisoryMembers={advisory_members}
-      executiveMembers={executive_members}
-      shariahMembers={shariah_members}
+      news={news}
+      advisoryMembers={advisoryMembers}
+      executiveMembers={executiveMembers}
+      shariahMembers={shariahMembers}
     />
   );
 }

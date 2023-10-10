@@ -28,7 +28,7 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const fatwa = await getFatwaContent({ locale });
+  const fatwa = await getFatwaContent(locale);
   const { shariahMembers, advisoryMembers, executiveMembers } =
     await getMembersContent(locale);
 
