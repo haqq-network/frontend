@@ -34,7 +34,7 @@ export function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
 
 export const getNewsPageContent = cache(async (limit?: number) => {
   try {
-    const response = await fetch(`${FALCONER_ENDPOINT}/storyblok/news`, {
+    const response = await fetch(`${FALCONER_ENDPOINT}/islamic/news`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -23,8 +23,11 @@ interface PageProps {
   params: { locale: string };
 }
 
-export default async function Page({ params: { locale } }: PageProps) {
-  const whitepaper = await getWhitepaperContent({ locale });
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
+  const { wp } = await getWhitepaperContent(locale);
 
-  return <WhitepaperPage whitepaper={whitepaper} />;
+  return <WhitepaperPage whitepaper={wp} />;
 }
