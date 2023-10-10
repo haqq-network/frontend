@@ -1,24 +1,27 @@
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import notFoundBgImgData from '../../assets/images/not-found-bg.webp';
 import Image from 'next/image';
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
+import { useTranslations } from 'next-intl';
 
 export function NotFound() {
+  const t = useTranslations('not-found-page');
+
   return (
     <div className="relative">
       <Container className="pb-[265px] pt-[245px] lg:py-[312px]">
         <div className="flex flex-col items-center justify-center">
-          <div className="font-mono text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+          <div className="rtl:font-handjet ltr:font-vcr text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
             404
           </div>
-          <div className="mt-[4px] font-mono text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
-            page not found
+          <div className="rtl:font-handjet ltr:font-vcr mt-[4px] text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+            {t('title')}
           </div>
           <Link
             href="/"
             className="text-islamic-primary-green hover:text-islamic-primary-green-hover mt-[8px] transition-colors duration-300 lg:mt-[16px]"
           >
-            <Text size="small">Go to main page</Text>
+            <Text size="small">{t('subtitle')}</Text>
           </Link>
         </div>
       </Container>

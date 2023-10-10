@@ -56,6 +56,9 @@
       "@haqq/islamic-website/academy-page": [
         "libs/islamic-website/academy-page/src/index.ts"
       ],
+      "@haqq/islamic-website/alerts-pages": [
+        "libs/islamic-website/alerts-pages/src/index.ts"
+      ],
       "@haqq/islamic-website/build-page": [
         "libs/islamic-website/build-page/src/index.ts"
       ],
@@ -65,11 +68,11 @@
       "@haqq/islamic-website/community-hub-page": [
         "libs/islamic-website/community-hub-page/src/index.ts"
       ],
+      "@haqq/islamic-website/dubai-residents-disclaimer-page": [
+        "libs/islamic-website/dubai-residents-disclaimer-page/src/index.ts"
+      ],
       "@haqq/islamic-website/forms": [
         "libs/islamic-website/forms/src/index.ts"
-      ],
-      "@haqq/islamic-website/alerts-pages": [
-        "libs/islamic-website/alerts-pages/src/index.ts"
       ],
       "@haqq/islamic-website/index-page": [
         "libs/islamic-website/index-page/src/index.ts"

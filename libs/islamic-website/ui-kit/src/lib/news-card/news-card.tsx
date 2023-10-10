@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 
+type NewsType = 'press' | 'events';
+
 export interface NewsPost {
   image: {
     src: string;
@@ -11,7 +13,7 @@ export interface NewsPost {
   description: string;
   date: Date;
   source: string;
-  type: 'press' | 'events';
+  type: NewsType;
   isFeatured?: boolean;
   url: string;
 }
@@ -59,7 +61,7 @@ export function NewsCard({
         <div className="flex flex-col">
           <div
             className={clsx(
-              'mt-[24px] font-mono text-[10px] font-[400] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]',
+              'ltr:font-vcr rtl:font-handjet mt-[24px] text-[10px] font-[400] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]',
               isFeatured && 'md:mt-0',
             )}
           >
@@ -85,7 +87,7 @@ export function NewsCard({
         </div>
         <div
           className={clsx(
-            'mt-[16px] font-mono text-[10px] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]',
+            'ltr:font-vcr rtl:font-handjet mt-[16px] text-[10px] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]',
             isFeatured && 'md:mt-0',
           )}
         >

@@ -31,12 +31,14 @@ export function AnimatedNumbers({
   configs,
   locale,
   separator,
+  decimalPlaces,
 }: {
   animateToNumber: number;
   fontStyle?: CSSProperties;
   separator?: string;
   configs?: SpringConfig[] | configsFn;
   locale?: string;
+  decimalPlaces?: number;
 }) {
   const { ref, inView } = useInView({ triggerOnce: true });
   const keyCount = useRef(0);
@@ -46,10 +48,12 @@ export function AnimatedNumbers({
       ? Math.abs(animateToNumber)
           .toLocaleString(locale || 'en-US', {
             useGrouping: true,
+            minimumFractionDigits: decimalPlaces,
+            maximumFractionDigits: decimalPlaces,
           })
           .replace(/,/g, separator)
-      : String(Math.abs(animateToNumber));
-  }, [animateToNumber, separator, locale]);
+      : Number(Math.abs(animateToNumber).toFixed(decimalPlaces)).toString();
+  }, [separator, animateToNumber, locale, decimalPlaces]);
   const animateToNumbersArr = useMemo(() => {
     return Array.from(animateToNumberString).map((x, idx) => {
       const parsedNumber = Number.parseInt(x);
@@ -94,11 +98,7 @@ export function AnimatedNumbers({
   return (
     <>
       {numberHeight !== 0 && (
-        <div
-          ref={ref}
-          style={{ display: 'flex', flexDirection: 'row' }}
-          className="animated-container"
-        >
+        <div ref={ref} className="flex ltr:flex-row rtl:flex-row-reverse">
           {inView && animateToNumber < 0 && <div style={fontStyle}>-</div>}
           {inView &&
             animateToNumbersArr.map((n, index) => {

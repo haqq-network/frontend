@@ -22,7 +22,7 @@ export function Heading({
     return (
       <h1
         className={clsx(
-          'font-serif text-[18px] font-[600] sm:text-[28px] lg:text-[48px] xl:text-[80px] xl:leading-[88px]',
+          'font-alexandria text-[18px] font-[600] sm:text-[28px] lg:text-[48px] xl:text-[80px] xl:leading-[88px]',
           className,
         )}
       >
@@ -34,7 +34,7 @@ export function Heading({
     return (
       <h2
         className={clsx(
-          'font-serif text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]',
+          'font-alexandria text-[28px] font-[600] leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]',
           className,
         )}
       >
@@ -46,7 +46,7 @@ export function Heading({
     return (
       <h3
         className={clsx(
-          'font-serif text-[16px] font-[600] leading-[1.2em] sm:text-[18px] lg:text-[22px] xl:text-[42px]',
+          'font-alexandria text-[16px] font-[600] leading-[1.2em] sm:text-[18px] lg:text-[22px] xl:text-[42px]',
           className,
         )}
       >
@@ -58,7 +58,7 @@ export function Heading({
     return (
       <h4
         className={clsx(
-          'font-serif text-[14px] font-[600] leading-[1.2em] sm:text-[16px] lg:text-[18px] xl:text-[24px] xl:leading-[34px]',
+          'font-alexandria text-[14px] font-[600] leading-[1.2em] sm:text-[16px] lg:text-[18px] xl:text-[24px] xl:leading-[34px]',
           className,
         )}
       >

@@ -10,32 +10,24 @@ import {
   Text,
 } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { FoundationsBlock } from '../foundations-block/foundations-block';
 import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export interface Member {
   image: string;
   title: string;
   description: string;
   url?: string;
+  role?: string;
 }
-const sections: Array<{ id: string; title: string }> = [
-  { id: 'fatwa', title: 'Fatwa' },
-  { id: 'foundations', title: 'Foundations of Halal Investing' },
-  { id: 'shariah-oracle', title: 'Shariah Oracle' },
-  { id: 'shariah-board', title: 'Shariah Board' },
-  { id: 'advisory-board', title: 'Advisory Board' },
-  { id: 'executive-board', title: 'Executive Board' },
-];
 
-const activeSectionsDefaultState = sections.map(() => {
-  return false;
-});
+export type localeType = 'ar' | 'en' | 'id';
 
 function MembersContainer({
   members,
@@ -50,7 +42,7 @@ function MembersContainer({
     <div
       className={clsx(
         'flex overflow-x-auto',
-        'gap-[32px] md:grid md:grid-cols-2 xl:grid-cols-3',
+        'gap-[32px] md:grid md:grid-cols-2 2xl:grid-cols-3',
         className,
       )}
     >
@@ -63,7 +55,8 @@ function MembersContainer({
             onClick={() => {
               onMemberSelect(member);
             }}
-            key={idx}
+            key={`${member.title}-member-${idx}`}
+            role={member.role}
             className="float-left min-w-[200px] snap-center md:float-none md:max-w-none"
           />
         );
@@ -76,11 +69,29 @@ export function ShariahPage({
   shariahMembers,
   executiveMembers,
   advisoryMembers,
+  fatwa,
+  locale,
 }: {
   shariahMembers: Member[];
   executiveMembers: Member[];
   advisoryMembers: Member[];
+  fatwa: string;
+  locale: string;
 }) {
+  const t = useTranslations('shariah-page');
+  const sections: Array<{ id: string; title: string }> = [
+    { id: 'fatwa', title: t('headings.fatwa') },
+    { id: 'foundations', title: t('headings.foundations') },
+    { id: 'shariah-oracle', title: t('headings.sharia-oracle') },
+    { id: 'shariah-board', title: t('headings.shariah-board') },
+    { id: 'advisory-board', title: t('headings.advisory-board') },
+    { id: 'executive-board', title: t('headings.executive-board') },
+  ];
+
+  const activeSectionsDefaultState = sections.map(() => {
+    return false;
+  });
+
   const { replace } = useRouter();
   const [activeSections, setActiveSections] = useState(
     activeSectionsDefaultState,
@@ -129,17 +140,12 @@ export function ShariahPage({
       <Container className="relative">
         <div>
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            Sharia-Compliance
+            {t('title')}
           </h1>
 
           <div className="mt-[18px] max-w-[1000px] md:mt-[28px]">
             <Text size="small" className="text-white/50">
-              Islamic Coin harmonizes tradition with modernity, uniting Sharia
-              compliance with blockchain technology to forge a pioneering
-              platform in Islamic finance. Upheld by Halal Investing principles
-              and safeguarded by our innovative Sharia Oracle, Islamic Coin
-              stands as a testament to the thriving of traditional Islamic
-              values in the digital world.
+              {t('text')}
             </Text>
           </div>
         </div>
@@ -175,7 +181,7 @@ export function ShariahPage({
                   initialInView
                 >
                   <div className="pb-[32px] pt-[32px] md:pb-[60px] lg:pb-[80px]">
-                    <FatwaBlock />
+                    <FatwaBlock locale={locale as localeType} fatwa={fatwa} />
                   </div>
                 </ScrollSpySection>
                 <ScrollSpySection
@@ -202,7 +208,7 @@ export function ShariahPage({
                     <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
                       <div>
                         <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                          Shariah Board
+                          {t('headings.shariah-board')}
                         </h2>
                       </div>
 
@@ -224,7 +230,7 @@ export function ShariahPage({
                   <div className="py-[32px] md:py-[60px] lg:py-[80px]">
                     <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
                       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                        Advisory Board
+                        {t('headings.advisory-board')}
                       </h2>
                       <MembersContainer
                         members={advisoryMembers}
@@ -242,7 +248,7 @@ export function ShariahPage({
                   <div className="py-[32px] md:py-[60px] lg:py-[80px]">
                     <div className="flex flex-col gap-y-[24px] lg:gap-y-[28px] xl:gap-y-[32px]">
                       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">
-                        Executive Board
+                        {t('headings.executive-board')}
                       </h2>
                       <MembersContainer
                         members={executiveMembers}
@@ -290,6 +296,7 @@ export function ShariahPage({
             onClick={() => {
               setBoardMember(undefined);
             }}
+            role={boardMember.role}
           />
         )}
       </Modal>
@@ -309,7 +316,7 @@ function ShariPageDesktopNavLink({
     <Link
       href={href}
       className={clsx(
-        'hover:text-islamic-primary-green-hover inline-flex cursor-pointer items-center justify-between gap-x-[8px] font-mono uppercase',
+        'hover:text-islamic-primary-green-hover ltr:font-vcr rtl:font-handjet inline-flex cursor-pointer items-center justify-between gap-x-[8px] uppercase',
         'transition-colors duration-300',
         isActive ? 'text-islamic-primary-green' : 'text-white',
       )}
@@ -324,6 +331,7 @@ function ShariPageDesktopNavLink({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className={clsx(
+            'rtl:rotate-180',
             isActive ? 'text-islamic-primary-green' : 'text-transparent',
           )}
         >
@@ -347,7 +355,7 @@ function ShariPageDesktopNav({
   activeSection: string;
 }) {
   return (
-    <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px]">
+    <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px] backdrop-blur">
       {sections.map(({ id, title }) => {
         return (
           <ShariPageDesktopNavLink

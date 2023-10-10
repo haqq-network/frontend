@@ -1,12 +1,6 @@
-@import './fonts.css';
-
 @tailwind components;
 @tailwind base;
 @tailwind utilities;
-
-:root {
-  --font-vcr: 'VCR_OSD_MONO';
-}
 
 .text-shadow-outline {
   --distance: 1.5px;

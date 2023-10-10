@@ -4,6 +4,7 @@ import {
   MarkdownText,
 } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 
@@ -28,6 +29,7 @@ function HeroBg({ children }: PropsWithChildren) {
             alt=""
             fill
             className="pointer-events-none z-[-2]"
+            loading="lazy"
           />
         </div>
       </Container>
@@ -37,12 +39,14 @@ function HeroBg({ children }: PropsWithChildren) {
 }
 
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
+  const t = useTranslations('whitepaper-page');
+
   return (
     <HeroBg>
       <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] md:pb-[100px] lg:mt-[68px] lg:pb-[140px]">
-        <div className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          HAQQ Whitepaper
-        </div>
+        <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+          {t('title')}
+        </h1>
         <div className="mt-[18px] lg:mt-[32px]">
           <DownloadPDFButton
             language="en"
