@@ -9,13 +9,14 @@ import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { useCallback, useMemo, useState } from 'react';
 import { Address } from '../address/address';
 
-export const ApproveBtn = ({
+export function ApproveBtn({
   participant,
   message,
   participationAddress,
   ethAddress,
   isCosmos,
   onSign,
+  disabled = false,
 }: {
   participant?: IParticipant;
   message: string;
@@ -26,7 +27,8 @@ export const ApproveBtn = ({
     signature: string;
     pubKey?: string;
   }>;
-}) => {
+  disabled?: boolean;
+}) {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
   const [isAlreadyRequested, setAlreadyRequested] = useState<boolean>(false);
 
@@ -72,6 +74,7 @@ export const ApproveBtn = ({
     onSign,
     localStKey,
   ]);
+  console.log({ disabled, hasAirdrop, b: disabled || !hasAirdrop });
 
   return (
     <>
@@ -80,7 +83,7 @@ export const ApproveBtn = ({
         participant?.status === ParticipantStatus.Unknown) && (
         <Button
           className="pl-[32px] pr-[32px]"
-          disabled={!hasAirdrop}
+          disabled={disabled || !hasAirdrop}
           onClick={() => {
             NX_AIRDROP_ENDPOINT &&
               participate().then((v) => {
@@ -185,4 +188,4 @@ export const ApproveBtn = ({
       />
     </>
   );
-};
+}
