@@ -414,9 +414,11 @@ export function ValidatorInfo({
   validatorAddress: string;
 }) {
   const { ethAddress, haqqAddress } = useAddress();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    watch: true,
+    chainId: chain?.id ?? chains[0]?.id,
   });
   const invalidateQueries = useQueryInvalidate();
   const { data: validatorInfo, isFetching } =
@@ -433,8 +435,6 @@ export function ValidatorInfo({
   );
   const { hash } = useLocation();
   const navigate = useNavigate();
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;

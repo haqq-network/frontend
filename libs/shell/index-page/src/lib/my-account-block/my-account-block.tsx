@@ -59,9 +59,11 @@ export function MyAccountBlock() {
   const { copyText } = useClipboard();
   const { ethAddress, haqqAddress } = useAddress();
   const { openSelectWallet } = useWallet();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    watch: true,
+    chainId: chain?.id ?? chains[0]?.id,
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
@@ -71,8 +73,6 @@ export function MyAccountBlock() {
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
