@@ -32,6 +32,7 @@ export function ProposalCard({
   votingStartDate,
   votingEndDate,
   symbol,
+  type,
 }: {
   id: number;
   title: string;
@@ -43,6 +44,7 @@ export function ProposalCard({
   votingStartDate?: Date;
   votingEndDate?: Date;
   symbol: string;
+  type: string;
 }) {
   const proposalColor = useMemo(() => {
     if (status === ProposalStatusEnum.Deposit) {
@@ -65,7 +67,14 @@ export function ProposalCard({
             </div>
           </div>
           <div>
-            <CardHeading className="line-clamp-2 h-[56px]">{title}</CardHeading>
+            <div className="font-guise mb-[4px] text-[14px] leading-[22px] text-white/50">
+              {type}
+            </div>
+            <div>
+              <CardHeading className="line-clamp-2 h-[56px]">
+                {title}
+              </CardHeading>
+            </div>
           </div>
         </div>
         <div className="py-[12px] md:py-[22px]">

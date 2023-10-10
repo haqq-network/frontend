@@ -18,7 +18,7 @@ export function ShellIndexPageAccountInfo() {
   const chains = useSupportedChains();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0]?.id,
+    chainId: chain?.id ?? chains[0].id,
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);

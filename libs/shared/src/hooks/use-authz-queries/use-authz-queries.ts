@@ -1,13 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useNetwork } from 'wagmi';
+import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useAuthzGrantsQuery(granter: string, grantee: string) {
-  const { chain } = useNetwork();
   const { getAuthzGrants } = useCosmosService();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const chainId = chain?.id ?? chains[0].id;
 
   return useQuery(
-    [chain?.id, 'grants', granter, grantee],
+    [chainId, 'grants', granter, grantee],
     async () => {
       return await getAuthzGrants(granter, grantee);
     },
@@ -18,11 +21,13 @@ export function useAuthzGrantsQuery(granter: string, grantee: string) {
 }
 
 export function useAuthzGranterGrants(granter: string) {
-  const { chain } = useNetwork();
   const { getAuthzGranterGrants } = useCosmosService();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const chainId = chain?.id ?? chains[0].id;
 
   return useQuery(
-    [chain?.id, 'grants-granter', granter],
+    [chainId, 'grants-granter', granter],
     async () => {
       return await getAuthzGranterGrants(granter);
     },
@@ -33,11 +38,13 @@ export function useAuthzGranterGrants(granter: string) {
 }
 
 export function useAuthzGranteeGrants(grantee: string) {
-  const { chain } = useNetwork();
   const { getAuthzGranteeGrants } = useCosmosService();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const chainId = chain?.id ?? chains[0].id;
 
   return useQuery(
-    [chain?.id, 'grants-grantee', grantee],
+    [chainId, 'grants-grantee', grantee],
     async () => {
       return await getAuthzGranteeGrants(grantee);
     },

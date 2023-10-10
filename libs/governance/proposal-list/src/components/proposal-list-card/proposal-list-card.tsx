@@ -3,6 +3,7 @@ import { Proposal, ProposalStatus } from '@evmos/provider';
 import { ProposalCard } from '@haqq/shell-ui-kit';
 import { formatUnits } from 'viem/utils';
 import { GetGovernanceParamsResponse, TallyResults } from '@haqq/shared';
+import { getProposalTypeText } from '@haqq/governance/proposal-details';
 
 export function ProposalListCard({
   proposal,
@@ -46,6 +47,7 @@ export function ProposalListCard({
       minDeposit={minDeposit}
       results={proposalTally}
       symbol={symbol}
+      type={getProposalTypeText(proposal.content['@type'])}
     />
   );
 }

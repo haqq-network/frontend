@@ -418,7 +418,7 @@ export function ValidatorInfo({
   const chains = useSupportedChains();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0]?.id,
+    chainId: chain?.id ?? chains[0].id,
   });
   const invalidateQueries = useQueryInvalidate();
   const { data: validatorInfo, isFetching } =
