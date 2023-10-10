@@ -189,7 +189,7 @@ export function EvmAirdropView({ address }: IProps) {
           <>
             <div className="flex flex-col gap-y-[6px]">
               <span className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
-                Your Amount Airdrop
+                Your airdrop amount
               </span>
               <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
                 {formatEthDecimal(participant?.amount || 0, 2)} ISLM

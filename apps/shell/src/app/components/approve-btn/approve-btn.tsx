@@ -102,11 +102,11 @@ export function ApproveBtn({
           </div>
           {participant?.to_address ? (
             <div>
-              You already requested to address{' '}
+              You have already requested to address{' '}
               <Address address={participant?.to_address} />
             </div>
           ) : (
-            <div>You already requested</div>
+            <div>You have already requested</div>
           )}
         </div>
       )}
@@ -119,11 +119,11 @@ export function ApproveBtn({
 
           {participant?.to_address ? (
             <div>
-              You already redeemed to address{' '}
+              You have already redeemed to address{' '}
               <Address address={participant?.to_address} />
             </div>
           ) : (
-            <div>You already redeemed</div>
+            <div>You have already redeemed</div>
           )}
         </div>
       )}
