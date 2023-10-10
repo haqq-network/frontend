@@ -83,6 +83,17 @@ export function ApproveBtn({
 
   return (
     <div className="flex flex-col gap-[20px]">
+      <div>
+        <Checkbox
+          value={isCheckboxDefaultChecked ? true : isNotResident}
+          onChange={setImNotResidentDubai}
+          className="mr-[8px]"
+          disabled={isCheckboxDefaultChecked ? true : !hasAirdrop}
+        >
+          I confirm that I am not a resident of Dubai.
+        </Checkbox>
+      </div>
+
       {(participant?.status === ParticipantStatus.Checking ||
         participant?.status === ParticipantStatus.Queued) && (
         <div className="flex flex-col gap-y-[6px]">
@@ -116,17 +127,6 @@ export function ApproveBtn({
           )}
         </div>
       )}
-
-      <div>
-        <Checkbox
-          value={isCheckboxDefaultChecked ? true : isNotResident}
-          onChange={setImNotResidentDubai}
-          className="mr-[8px]"
-          disabled={isCheckboxDefaultChecked ? true : !hasAirdrop}
-        >
-          I confirm that I am not a resident of Dubai.
-        </Checkbox>
-      </div>
 
       {(participant?.status === ParticipantStatus.Awaiting ||
         participant?.status === ParticipantStatus.Failed ||
