@@ -1,24 +1,25 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  GetGovernanceParamsResponse,
   useGovernanceParamsQuery,
   useProposalListQuery,
   useSupportedChains,
-  Proposal,
-  useProposalTally,
+  useProposalTallys,
 } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
 import { Container, SpinnerLoader } from '@haqq/shell-ui-kit';
 import { useNetwork } from 'wagmi';
+import { ProposalStatus } from '@evmos/provider';
 
 export function ProposalList() {
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
+
   const { chain } = useNetwork();
   const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
       return [];
@@ -26,6 +27,48 @@ export function ProposalList() {
 
     return proposalsData;
   }, [proposalsData]);
+
+  const ongoingProposals = useMemo(() => {
+    return proposals
+      .filter((proposal) => {
+        return proposal.status === ProposalStatus.Voting;
+      })
+      .map((proposal) => {
+        return proposal.proposal_id;
+      });
+  }, [proposals]);
+
+  const proposalTallysDataArray = useProposalTallys(ongoingProposals);
+
+  const ongoingProposalTallysResultMap = useMemo(() => {
+    return new Map(
+      proposalTallysDataArray.map((proposalQueryResult) => {
+        const tallyData = proposalQueryResult.data;
+        return [tallyData?.id, tallyData?.results];
+      }),
+    );
+  }, [proposalTallysDataArray]);
+
+  const proposalsToRender = useMemo(() => {
+    return proposals.map((proposal) => {
+      let tallyResults = proposal.final_tally_result;
+
+      if (proposal.status === ProposalStatus.Voting) {
+        const ongoingTally = ongoingProposalTallysResultMap.get(
+          proposal.proposal_id,
+        );
+
+        if (ongoingTally) {
+          tallyResults = ongoingTally;
+        }
+      }
+
+      return {
+        ...proposal,
+        tallyResults,
+      };
+    });
+  }, [ongoingProposalTallysResultMap, proposals]);
 
   return (
     <div>
@@ -50,14 +93,19 @@ export function ProposalList() {
             </div>
           ) : (
             <div className="mb-[68px] grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
-              {proposals.map((proposal) => {
+              {proposalsToRender.map((proposal) => {
                 return (
-                  <HookedProposalListCard
+                  <Link
+                    to={`proposal/${proposal.proposal_id}`}
                     key={proposal.proposal_id}
-                    proposal={proposal}
-                    govParams={govParams}
-                    symbol={symbol}
-                  />
+                  >
+                    <ProposalListCard
+                      proposal={proposal}
+                      govParams={govParams}
+                      symbol={symbol}
+                      proposalTally={proposal.tallyResults}
+                    />
+                  </Link>
                 );
               })}
             </div>
@@ -65,32 +113,5 @@ export function ProposalList() {
         </Container>
       </div>
     </div>
-  );
-}
-
-function HookedProposalListCard({
-  proposal,
-  govParams,
-  symbol,
-}: {
-  proposal: Proposal;
-  govParams: GetGovernanceParamsResponse;
-  symbol: string;
-}) {
-  const { data: proposalTally } = useProposalTally(proposal.proposal_id);
-
-  if (!proposalTally) {
-    return null;
-  }
-
-  return (
-    <Link to={`proposal/${proposal.proposal_id}`}>
-      <ProposalListCard
-        proposal={proposal}
-        govParams={govParams}
-        symbol={symbol}
-        proposalTally={proposalTally}
-      />
-    </Link>
   );
 }

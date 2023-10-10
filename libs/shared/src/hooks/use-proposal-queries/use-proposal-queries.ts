@@ -88,3 +88,25 @@ export function useProposalTally(proposalId: string | undefined) {
     },
   );
 }
+
+export function useProposalTallys(proposalIds: string[] = []) {
+  const { getProposalTally } = useCosmosService();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const chainId = chain?.id ?? chains[0].id;
+
+  return useQueries({
+    queries: proposalIds.map((id) => {
+      return {
+        queryKey: [chainId, 'proposal-tally', id],
+        queryFn: async () => {
+          return {
+            id,
+            results: await getProposalTally(id),
+          };
+        },
+        refetchOnWindowFocus: false,
+      };
+    }),
+  });
+}
