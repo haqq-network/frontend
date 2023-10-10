@@ -31,7 +31,7 @@ export function AccountInfo() {
   const { copyText } = useClipboard();
   const { data: balance } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0]?.id,
+    chainId: chain?.id ?? chains[0].id,
   });
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);

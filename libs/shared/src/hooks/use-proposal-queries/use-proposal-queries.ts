@@ -1,12 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useNetwork } from 'wagmi';
+import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useProposalListQuery() {
   const { getProposals } = useCosmosService();
   const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const chainId = chain?.id ?? chains[0].id;
 
-  return useQuery([chain?.id, 'proposals'], getProposals, {
+  return useQuery([chainId, 'proposals'], getProposals, {
     refetchOnWindowFocus: false,
   });
 }
@@ -14,9 +17,11 @@ export function useProposalListQuery() {
 export function useProposalDetailsQuery(proposalId: string | undefined) {
   const { getProposalDetails } = useCosmosService();
   const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const chainId = chain?.id ?? chains[0].id;
 
   return useQuery(
-    [chain?.id, 'proposal', proposalId],
+    [chainId, 'proposal', proposalId],
     async () => {
       if (!proposalId) {
         return null;
@@ -33,9 +38,11 @@ export function useProposalDetailsQuery(proposalId: string | undefined) {
 export function useGovernanceParamsQuery() {
   const { getGovernanceParams } = useCosmosService();
   const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const chainId = chain?.id ?? chains[0].id;
 
   return useQuery(
-    [chain?.id, 'governance-params'],
+    [chainId, 'governance-params'],
     async () => {
       const [deposit_params, voting_params, tally_params] = await Promise.all([
         getGovernanceParams('deposit').then((res) => {
@@ -64,9 +71,11 @@ export function useGovernanceParamsQuery() {
 export function useProposalTally(proposalId: string | undefined) {
   const { getProposalTally } = useCosmosService();
   const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const chainId = chain?.id ?? chains[0].id;
 
   return useQuery(
-    [chain?.id, 'proposal-tally', proposalId],
+    [chainId, 'proposal-tally', proposalId],
     async () => {
       if (!proposalId) {
         return null;
@@ -75,7 +84,7 @@ export function useProposalTally(proposalId: string | undefined) {
       return await getProposalTally(proposalId);
     },
     {
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus: false,
     },
   );
 }
