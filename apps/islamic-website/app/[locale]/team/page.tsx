@@ -27,7 +27,7 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const { teamMembers } = await getMembersContent({ locale });
+  const { teamMembers, founderMembers } = await getMembersContent(locale);
 
-  return <TeamPage teamMembers={teamMembers} />;
+  return <TeamPage team={teamMembers} founders={founderMembers} />;
 }

@@ -27,7 +27,7 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const { wp } = await getWhitepaperContent(locale);
+  const whitepaper = await getWhitepaperContent(locale);
 
-  return <WhitepaperPage whitepaper={wp} />;
+  return <WhitepaperPage whitepaper={whitepaper} />;
 }
