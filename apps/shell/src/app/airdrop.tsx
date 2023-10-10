@@ -2,16 +2,14 @@ import { WebsiteProviders, ethToHaqq, useAddress } from '@haqq/shared';
 import { AirdropEvm } from './components/airdrop-evm/airdrop-evm';
 import {
   NX_WALLETCONNECT_PROJECT_ID,
-  VERCEL_ENV,
   TURNSTILE_SITEKEY,
+  VERCEL_ENV,
 } from './constants';
 import { SelectWalletModalWrapper } from './components/select-wallet-modal-wrapper/select-wallet-modal-wrapper';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AirdropCosmos } from './components/airdrop-cosmos/airdrop-cosmos';
 import { CaptchaModal, Container } from '@haqq/shell-ui-kit';
 import { Address } from './components/address/address';
-
-const noop = () => {};
 
 const walletConnectProjectId = NX_WALLETCONNECT_PROJECT_ID;
 const isProduction = VERCEL_ENV === 'production';
@@ -33,17 +31,6 @@ export function Airdrop() {
 const Airdrops = () => {
   const { ethAddress } = useAddress();
   const [ethAddressFromKeppler, setEthAddressFromKeppler] = useState('');
-
-  const [token, setToken] = useState<string | undefined>(undefined);
-  const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (!token && !ethAddress) {
-      setCaptchaModalOpen(true);
-    } else if (token) {
-      setCaptchaModalOpen(false);
-    }
-  }, [token, ethAddress]);
 
   const targetHexAddress = ethAddress || ethAddressFromKeppler;
 
@@ -88,10 +75,8 @@ const Airdrops = () => {
       </div>
 
       <CaptchaModal
-        setCaptchaModalOpen={token ? setCaptchaModalOpen : noop}
         turnstileSiteKey={TURNSTILE_SITEKEY}
-        isOpened={isCaptchaModalOpen}
-        setToken={setToken}
+        isClosable={!!ethAddress}
       />
     </>
   );
