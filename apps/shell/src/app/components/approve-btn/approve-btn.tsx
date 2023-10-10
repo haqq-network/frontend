@@ -74,7 +74,6 @@ export function ApproveBtn({
     onSign,
     localStKey,
   ]);
-  console.log({ disabled, hasAirdrop, b: disabled || !hasAirdrop });
 
   return (
     <>
@@ -82,7 +81,7 @@ export function ApproveBtn({
         participant?.status === ParticipantStatus.Failed ||
         participant?.status === ParticipantStatus.Unknown) && (
         <Button
-          className="pl-[32px] pr-[32px]"
+          className="px-[32px]"
           disabled={disabled || !hasAirdrop}
           onClick={() => {
             NX_AIRDROP_ENDPOINT &&
@@ -110,7 +109,7 @@ export function ApproveBtn({
       {(participant?.status === ParticipantStatus.Checking ||
         participant?.status === ParticipantStatus.Queued) && (
         <>
-          <div className="font-clash text-[14px] font-[500]  uppercase text-white/50 md:text-[12px]">
+          <div className="font-clash text-[14px] font-[500] uppercase text-white/50 md:text-[12px]">
             Airdrop status
           </div>
           {participant?.to_address ? (

@@ -140,8 +140,7 @@ export function EvmAirdropView({ address }: IProps) {
     };
   }, [address, sign]);
 
-  // const hasAirdrop = (participant?.amount || 0) > 0;
-  const hasAirdrop = true;
+  const hasAirdrop = (participant?.amount || 0) > 0;
 
   return (
     <div className="grid grid-cols-1 gap-20 lg:grid-cols-2 2xl:grid-cols-3">
