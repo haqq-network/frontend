@@ -1,10 +1,15 @@
-import { ClawbackVestingAccount, VestingPeriod } from '@haqq/shared';
+import {
+  ClawbackVestingAccount,
+  VestingPeriod,
+  toFixedAmount,
+} from '@haqq/shared';
 import { Container } from './Layout/Layout';
 import { Card } from './Card/Card';
 import { Fragment, useMemo } from 'react';
-import { formatEther } from 'viem';
+import { formatUnits } from 'viem';
 import clsx from 'clsx';
 import { Heading } from './Typography/Typography';
+import { Tooltip } from './Tooltip/Tooltip';
 
 export function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {
@@ -96,7 +101,7 @@ function LockupPeriods({
   }, [lockupPeriods, startTime]);
 
   return (
-    <Card className="mx-auto w-full max-w-lg overflow-hidden">
+    <Card className="mx-auto w-full max-w-lg">
       <div className="">
         <div className="p-4 pt-6">
           <Heading level={4}>Lockup timeline</Heading>
@@ -139,6 +144,11 @@ function LockupTimelineListItem({
   const transactionTimestamp = useMemo(() => {
     return formatDate(date);
   }, [date]);
+  const [parsedAmount, formattedMount] = useMemo(() => {
+    const parsedAmount = Number.parseFloat(formatUnits(BigInt(amount), 18));
+    const formattedMount = toFixedAmount(parsedAmount, 3);
+    return [parsedAmount, formattedMount];
+  }, [amount]);
 
   return (
     <div className="relative h-[78px] px-[16px] py-[14px] pl-[28px] text-[12px] leading-[1.5em] transition-colors duration-150 ease-linear">
@@ -211,11 +221,9 @@ function LockupTimelineListItem({
       <div className="mt-[8px] flex items-center justify-between">
         <div></div>
         <div className="text-[14px] font-[700] uppercase leading-[18px]">
-          {`${Number.parseInt(
-            formatEther(BigInt(amount)),
-            10,
-          ).toLocaleString()}`}{' '}
-          {symbol.toLocaleUpperCase()}
+          <Tooltip text={parsedAmount.toString()}>
+            {toFixedAmount(formattedMount, 3)} {symbol.toLocaleUpperCase()}
+          </Tooltip>
         </div>
       </div>
     </div>
