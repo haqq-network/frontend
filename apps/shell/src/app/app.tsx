@@ -17,6 +17,14 @@ const ShellAuthzPage = lazy(async () => {
   const { ShellAuthzPage } = await import('@haqq/shell/authz-page');
   return { default: ShellAuthzPage };
 });
+const SBTChallengesPage = lazy(async () => {
+  const { SBTChallengesPage } = await import('@haqq/shell/sbt-page');
+  return { default: SBTChallengesPage };
+});
+const SBTChallengePage = lazy(async () => {
+  const { SBTChallengePage } = await import('@haqq/shell/sbt-page');
+  return { default: SBTChallengePage };
+});
 
 export function App() {
   return (
@@ -29,6 +37,16 @@ export function App() {
         <Route path="/airdrop" element={<Airdrop />} />
 
         <Route path="/authz" element={<ShellAuthzPage />} />
+
+        <Route
+          path="/sbt/*"
+          element={
+            <Routes>
+              <Route path="/" element={<SBTChallengesPage />} />
+              <Route path="/:id" element={<SBTChallengePage />} />
+            </Routes>
+          }
+        />
 
         <Route path="not-found" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
