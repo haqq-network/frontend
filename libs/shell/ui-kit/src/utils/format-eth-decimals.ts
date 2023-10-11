@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
+import { formatUnits } from 'ethers/lib/utils';
 
 export const fromWei = (
   b: BigNumber | number,
