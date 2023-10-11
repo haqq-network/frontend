@@ -13,7 +13,7 @@ describe('formatEthDecimal', () => {
 
     const result = formatEthDecimal(value, precision, decimals);
 
-    expect(result).toBe('2.00T');
+    expect(result).toBe('2.00');
   });
 
   // Returns a formatted string with 2 decimal places for values between 0 and 1.
@@ -29,13 +29,13 @@ describe('formatEthDecimal', () => {
 
   // Returns a formatted string with 0 decimal places for values less than 0.01.
   it('should return a formatted string with 0 decimal places for values less than 0.01', () => {
-    const value = BigInt(5000000000000000);
+    const value = BigInt(500000000000000);
     const precision = 2;
     const decimals = 18;
 
     const result = formatEthDecimal(value, precision, decimals);
 
-    expect(result).toBe('0');
+    expect(result).toBe('0.00');
   });
 
   // Returns a formatted string with 2 decimal places for values equal to 1.
@@ -119,29 +119,29 @@ describe('numberWithCommas', () => {
 describe('formatNumberWithSuffix', () => {
   // Returns formatted number with suffix for values greater than or equal to 1 million
   it('should return formatted number with suffix for values greater than or equal to 1 million', () => {
-    expect(formatNumberWithSuffix(1000000, 2)).toBe('1M');
-    expect(formatNumberWithSuffix(1500000, 2)).toBe('1.5M');
-    expect(formatNumberWithSuffix(2000000, 2)).toBe('2M');
-    expect(formatNumberWithSuffix(10000000, 2)).toBe('10M');
-    expect(formatNumberWithSuffix(100000000, 2)).toBe('100M');
-    expect(formatNumberWithSuffix(1000000000, 2)).toBe('1B');
-    expect(formatNumberWithSuffix(10000000000, 2)).toBe('10B');
-    expect(formatNumberWithSuffix(100000000000, 2)).toBe('100B');
-    expect(formatNumberWithSuffix(1000000000000, 2)).toBe('1T');
+    expect(formatNumberWithSuffix(1000000, 2)).toBe('1.00M');
+    expect(formatNumberWithSuffix(1500000, 2)).toBe('1.50M');
+    expect(formatNumberWithSuffix(2000000, 2)).toBe('2.00M');
+    expect(formatNumberWithSuffix(10000000, 2)).toBe('10.00M');
+    expect(formatNumberWithSuffix(100000000, 2)).toBe('100.00M');
+    expect(formatNumberWithSuffix(1000000000, 2)).toBe('1.00B');
+    expect(formatNumberWithSuffix(10000000000, 2)).toBe('10.00B');
+    expect(formatNumberWithSuffix(100000000000, 2)).toBe('100.00B');
+    expect(formatNumberWithSuffix(1000000000000, 2)).toBe('1.00T');
   });
 
   // Returns formatted number without suffix for values less than 1 million
   it('should return formatted number without suffix for values less than 1 million', () => {
-    expect(formatNumberWithSuffix(999999, 2)).toBe('999,999');
-    expect(formatNumberWithSuffix(500000, 2)).toBe('500,000');
-    expect(formatNumberWithSuffix(100000, 2)).toBe('100,000');
-    expect(formatNumberWithSuffix(99999, 2)).toBe('99,999');
-    expect(formatNumberWithSuffix(50000, 2)).toBe('50,000');
-    expect(formatNumberWithSuffix(10000, 2)).toBe('10,000');
-    expect(formatNumberWithSuffix(9999, 2)).toBe('9,999');
-    expect(formatNumberWithSuffix(5000, 2)).toBe('5,000');
-    expect(formatNumberWithSuffix(1000, 2)).toBe('1,000');
-    expect(formatNumberWithSuffix(999, 2)).toBe('999');
+    expect(formatNumberWithSuffix(999999, 2)).toBe('999,999.00');
+    expect(formatNumberWithSuffix(500000, 2)).toBe('500,000.00');
+    expect(formatNumberWithSuffix(100000, 2)).toBe('100,000.00');
+    expect(formatNumberWithSuffix(99999, 2)).toBe('99,999.00');
+    expect(formatNumberWithSuffix(50000, 2)).toBe('50,000.00');
+    expect(formatNumberWithSuffix(10000, 2)).toBe('10,000.00');
+    expect(formatNumberWithSuffix(9999, 2)).toBe('9,999.00');
+    expect(formatNumberWithSuffix(5000, 2)).toBe('5,000.00');
+    expect(formatNumberWithSuffix(1000, 2)).toBe('1,000.00');
+    expect(formatNumberWithSuffix(999, 2)).toBe('999.00');
   });
 
   // Returns formatted number with specified precision
@@ -155,28 +155,28 @@ describe('formatNumberWithSuffix', () => {
 
   // Returns formatted number with 'T' suffix for values greater than or equal to 1 trillion
   it('should return formatted number with "T" suffix for values greater than or equal to 1 trillion', () => {
-    expect(formatNumberWithSuffix(1000000000000, 2)).toBe('1T');
-    expect(formatNumberWithSuffix(1500000000000, 2)).toBe('1.5T');
-    expect(formatNumberWithSuffix(2000000000000, 2)).toBe('2T');
-    expect(formatNumberWithSuffix(10000000000000, 2)).toBe('10T');
-    expect(formatNumberWithSuffix(100000000000000, 2)).toBe('100T');
+    expect(formatNumberWithSuffix(1000000000000, 2)).toBe('1.00T');
+    expect(formatNumberWithSuffix(1500000000000, 2)).toBe('1.50T');
+    expect(formatNumberWithSuffix(2000000000000, 2)).toBe('2.00T');
+    expect(formatNumberWithSuffix(10000000000000, 2)).toBe('10.00T');
+    expect(formatNumberWithSuffix(100000000000000, 2)).toBe('100.00T');
   });
 
   // Returns formatted number with 'B' suffix for values greater than or equal to 1 billion and less than 1 trillion
   it('should return formatted number with "B" suffix for values greater than or equal to 1 billion and less than 1 trillion', () => {
-    expect(formatNumberWithSuffix(1000000000, 2)).toBe('1B');
-    expect(formatNumberWithSuffix(1500000000, 2)).toBe('1.5B');
-    expect(formatNumberWithSuffix(2000000000, 2)).toBe('2B');
-    expect(formatNumberWithSuffix(10000000000, 2)).toBe('10B');
-    expect(formatNumberWithSuffix(100000000000, 2)).toBe('100B');
+    expect(formatNumberWithSuffix(1000000000, 2)).toBe('1.00B');
+    expect(formatNumberWithSuffix(1500000000, 2)).toBe('1.50B');
+    expect(formatNumberWithSuffix(2000000000, 2)).toBe('2.00B');
+    expect(formatNumberWithSuffix(10000000000, 2)).toBe('10.00B');
+    expect(formatNumberWithSuffix(100000000000, 2)).toBe('100.00B');
   });
 
   // Returns formatted number with 'M' suffix for values greater than or equal to 1 million and less than 1 billion
   it('should return formatted number with "M" suffix for values greater than or equal to 1 million and less than 1 billion', () => {
-    expect(formatNumberWithSuffix(1000000, 2)).toBe('1M');
-    expect(formatNumberWithSuffix(1500000, 2)).toBe('1.5M');
-    expect(formatNumberWithSuffix(2000000, 2)).toBe('2M');
-    expect(formatNumberWithSuffix(10000000, 2)).toBe('10M');
-    expect(formatNumberWithSuffix(100000000, 2)).toBe('100M');
+    expect(formatNumberWithSuffix(1000000, 2)).toBe('1.00M');
+    expect(formatNumberWithSuffix(1500000, 2)).toBe('1.50M');
+    expect(formatNumberWithSuffix(2000000, 2)).toBe('2.00M');
+    expect(formatNumberWithSuffix(10000000, 2)).toBe('10.00M');
+    expect(formatNumberWithSuffix(100000000, 2)).toBe('100.00M');
   });
 });

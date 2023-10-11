@@ -11,7 +11,12 @@ export function formatEthDecimal(value: bigint, precision = 2, decimals = 18) {
 }
 
 export function numberWithCommas(value: number, precision: number) {
-  return value.toFixed(precision).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const fixedNumber = value.toFixed(precision);
+  const parts = fixedNumber.split('.');
+
+  const withCommas = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  return parts[1] ? withCommas + '.' + parts[1] : withCommas;
 }
 
 export function formatNumberWithSuffix(num: number, precision: number) {
