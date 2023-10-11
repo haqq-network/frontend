@@ -106,6 +106,7 @@ describe('numberWithCommas', () => {
     expect(numberWithCommas(1000, 0)).toBe('1,000');
     expect(numberWithCommas(5000, 0)).toBe('5,000');
     expect(numberWithCommas(10000, 0)).toBe('10,000');
+    expect(numberWithCommas(100000, 0)).toBe('100,000');
   });
 
   // Returns a string with the specified number of decimal places for a number with trailing zeros

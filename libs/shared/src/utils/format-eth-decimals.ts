@@ -27,14 +27,18 @@ export function formatNumberWithSuffix(num: number, precision: number) {
     // { suffix: 'K', threshold: 1e3 },
     { suffix: '', threshold: 1 },
   ];
-
-  const found = map.find((x) => {
-    return Math.abs(num) >= x.threshold;
-  });
-
-  if (found) {
-    return numberWithCommas(num / found.threshold, precision) + found.suffix;
+  const absNum = Math.abs(num);
+  let found;
+  for (let i = 0; i < map.length; i++) {
+    if (absNum >= map[i].threshold) {
+      found = map[i];
+      break;
+    }
   }
 
-  return numberWithCommas(num, precision);
+  if (!found) {
+    return numberWithCommas(num, precision);
+  }
+
+  return `${numberWithCommas(num / found.threshold, precision)}${found.suffix}`;
 }
