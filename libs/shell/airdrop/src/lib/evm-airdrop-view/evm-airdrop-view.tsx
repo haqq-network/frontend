@@ -166,7 +166,21 @@ export function EvmAirdropView({
         />
         <AirdropChallenge
           label="Extra: Run validator"
-          result={<SmallText>Coming on October 11</SmallText>}
+          result={
+            <div className="flex flex-row items-center gap-[6px]">
+              {participant?.is_validator ? (
+                <>
+                  <AirdropChallengeStatusSuccess />
+                  <AirdropResultStrongText>Yes</AirdropResultStrongText>
+                </>
+              ) : (
+                <>
+                  <AirdropChallengeStatusFailed />
+                  <AirdropResultStrongText>No</AirdropResultStrongText>
+                </>
+              )}
+            </div>
+          }
         />
       </div>
 
