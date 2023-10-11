@@ -1,13 +1,12 @@
 import { Button } from '@haqq/shell-ui-kit';
-import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types';
+import type { Keplr } from '@keplr-wallet/types';
 import { useCallback, useState } from 'react';
-import { ecrecover, fromRpcSig } from '@ethereumjs/util';
-import { CosmosAirdropView } from './../cosmos-airdrop-view/cosmos-airdrop-view';
+import { CosmosAirdropView } from '../cosmos-airdrop-view/cosmos-airdrop-view';
 import { haqqToEth, useWallet } from '@haqq/shared';
 import { getKeplrWallet } from '../cosmos-airdrop-card/cosmos-airdrop-card';
-import { BluredBlock } from '../blured-block/blured-block';
+import { BlurredBlock } from '../blured-block/blured-block';
 
-export async function AddTestEdge2Network(keplrWallet: Keplr) {
+export async function addTestEdge2Network(keplrWallet: Keplr) {
   try {
     await keplrWallet.experimentalSuggestChain({
       features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
@@ -52,34 +51,26 @@ export async function AddTestEdge2Network(keplrWallet: Keplr) {
   }
 }
 
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface Window extends KeplrWindow {}
-}
-
-export function signatureToPubkey(signature: string, msgHash: Buffer) {
-  const ret = fromRpcSig(signature);
-  return ecrecover(msgHash, ret.v, ret.r, ret.s);
-}
-
-const enableChains = async (keplrWallet: Keplr) => {
+async function enableChains(keplrWallet: Keplr) {
   await keplrWallet.enable(['haqq_11235-1', 'cosmoshub-4', 'evmos_9001-2']);
-};
+}
 
 export function AirdropCosmos({
   hasMetamaskConnected,
   setEthAddressFromKepler,
-  ethAddressFromKeppler,
+  ethAddressFromKeplr,
+  airdropEndpoint,
 }: {
-  ethAddressFromKeppler: string;
+  ethAddressFromKeplr: string;
   hasMetamaskConnected: boolean;
   setEthAddressFromKepler: (haqqAddress: string) => void;
+  airdropEndpoint?: string;
 }) {
   const [accounts, setAccounts] = useState<Record<string, string>>({});
 
   const { disconnect } = useWallet();
 
-  const notConnectedKeppler =
+  const notConnectedKeplr =
     Object.keys(accounts).length === 0 || hasMetamaskConnected;
 
   const connectKeplrWallet = useCallback(async () => {
@@ -93,7 +84,7 @@ export function AirdropCosmos({
       try {
         await enableChains(keplrWallet);
       } catch (e) {
-        await AddTestEdge2Network(keplrWallet);
+        await addTestEdge2Network(keplrWallet);
       } finally {
         await enableChains(keplrWallet);
       }
@@ -115,13 +106,14 @@ export function AirdropCosmos({
   }, [disconnect, setEthAddressFromKepler, hasMetamaskConnected]);
 
   return (
-    <BluredBlock
+    <BlurredBlock
       title="Cosmos ecosystem drop"
-      isBlured={notConnectedKeppler}
+      isBlurred={notConnectedKeplr}
       bluredContent={
         <CosmosAirdropView
           cosmosAddress={accounts['cosmos']}
-          ethAddressFromKeppler={ethAddressFromKeppler}
+          ethAddressFromKeplr={ethAddressFromKeplr}
+          airdropEndpoint={airdropEndpoint}
         />
       }
       content={

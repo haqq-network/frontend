@@ -1,16 +1,27 @@
 import { Button } from '@haqq/shell-ui-kit';
 import { useWallet } from '@haqq/shared';
 import { EvmAirdropView } from '../evm-airdrop-view/evm-airdrop-view';
-import { BluredBlock } from '../blured-block/blured-block';
+import { BlurredBlock } from '../blured-block/blured-block';
 
-export function AirdropEvm({ ethAddress }: { ethAddress?: string }) {
+export function AirdropEvm({
+  ethAddress,
+  airdropEndpoint,
+}: {
+  ethAddress?: string;
+  airdropEndpoint?: string;
+}) {
   const { openSelectWallet } = useWallet();
 
   return (
-    <BluredBlock
+    <BlurredBlock
       title="Community drop"
-      isBlured={!ethAddress}
-      bluredContent={<EvmAirdropView address={ethAddress} />}
+      isBlurred={!ethAddress}
+      bluredContent={
+        <EvmAirdropView
+          address={ethAddress}
+          airdropEndpoint={airdropEndpoint}
+        />
+      }
       content={
         <div className="flex flex-col items-center space-y-[12px] py-[58px]">
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">

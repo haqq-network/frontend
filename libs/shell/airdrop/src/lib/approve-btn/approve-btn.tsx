@@ -5,7 +5,6 @@ import {
 } from '@haqq/shared';
 import localStore from 'store2';
 import { Button, Checkbox, InformationModal } from '@haqq/shell-ui-kit';
-import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { useCallback, useMemo, useState } from 'react';
 import { Address } from '../address/address';
 
@@ -17,6 +16,7 @@ export function ApproveBtn({
   isCosmos,
   onSign,
   disabled = false,
+  airdropEndpoint,
 }: {
   participant?: IParticipant;
   message: string;
@@ -28,6 +28,7 @@ export function ApproveBtn({
     pubKey?: string;
   }>;
   disabled?: boolean;
+  airdropEndpoint?: string;
 }) {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
   const [isAlreadyRequested, setAlreadyRequested] = useState<boolean>(false);
@@ -57,23 +58,24 @@ export function ApproveBtn({
 
     if (isCosmos) {
       return participateCosmos(
-        NX_AIRDROP_ENDPOINT,
+        airdropEndpoint,
         message,
         signature,
         participationAddress,
         pubKey,
       );
     } else {
-      return participateEvm(NX_AIRDROP_ENDPOINT, message, signature);
+      return participateEvm(airdropEndpoint, message, signature);
     }
   }, [
-    isCosmos,
-    message,
-    participateEvm,
-    participateCosmos,
-    participationAddress,
-    onSign,
     localStKey,
+    onSign,
+    isCosmos,
+    participateCosmos,
+    airdropEndpoint,
+    message,
+    participationAddress,
+    participateEvm,
   ]);
 
   const isCheckboxDefaultChecked =
@@ -138,7 +140,7 @@ export function ApproveBtn({
               className="px-[32px]"
               disabled={!isNotResident || !hasAirdrop}
               onClick={() => {
-                NX_AIRDROP_ENDPOINT &&
+                airdropEndpoint &&
                   participate().then((v) => {
                     if (!v.message) {
                       setInformationModalOpened(true);

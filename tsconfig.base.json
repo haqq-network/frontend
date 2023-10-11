@@ -112,6 +112,7 @@
       ],
       "@haqq/sentry": ["libs/sentry/src/index.ts"],
       "@haqq/shared": ["libs/shared/src/index.ts"],
+      "@haqq/shell-airdrop": ["libs/shell/airdrop/src/index.ts"],
       "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
       "@haqq/shell/authz-page": ["libs/shell/authz-page/src/index.ts"],
       "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],

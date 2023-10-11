@@ -1,13 +1,12 @@
-import { IParticipant, useAirdropActions } from '@haqq/shared';
-import { Tooltip, formatEthDecimal } from '@haqq/shell-ui-kit';
+import {
+  IParticipant,
+  formatEthDecimal,
+  useAirdropActions,
+} from '@haqq/shared';
+import { Tooltip } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { NX_AIRDROP_ENDPOINT } from '../../constants';
 import { ApproveBtn } from '../approve-btn/approve-btn';
 import { Hex } from 'viem';
-
-interface IProps {
-  address?: string;
-}
 
 const PARTICIPANTS_CHECK_INTERVAL = 20000;
 
@@ -88,18 +87,18 @@ function ValueBlock({
   );
 }
 
-export const useAirdropChecker = (address?: string) => {
+export function useAirdropChecker(address?: string, airdropEndpoint?: string) {
   const { checkAirdrop } = useAirdropActions();
 
   const [participant, setParticipant] = useState<IParticipant | undefined>();
 
   const loadAirdrop = useCallback(() => {
     address &&
-      NX_AIRDROP_ENDPOINT &&
-      checkAirdrop(NX_AIRDROP_ENDPOINT, address).then((p) => {
+      airdropEndpoint &&
+      checkAirdrop(airdropEndpoint, address).then((p) => {
         setParticipant(p);
       });
-  }, [address, checkAirdrop]);
+  }, [address, airdropEndpoint, checkAirdrop]);
 
   const intervalRef = useRef<number>();
 
@@ -118,12 +117,18 @@ export const useAirdropChecker = (address?: string) => {
   }, [loadAirdrop]);
 
   return { participant };
-};
+}
 
 const MESSAGE = 'Haqqdrop!';
 
-export function EvmAirdropView({ address }: IProps) {
-  const { participant } = useAirdropChecker(address);
+export function EvmAirdropView({
+  address,
+  airdropEndpoint,
+}: {
+  address?: string;
+  airdropEndpoint?: string;
+}) {
+  const { participant } = useAirdropChecker(address, airdropEndpoint);
 
   const { sign } = useAirdropActions();
   const onSignHandler = useCallback(async () => {
@@ -198,7 +203,7 @@ export function EvmAirdropView({ address }: IProps) {
                 Your airdrop amount
               </span>
               <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
-                {formatEthDecimal(participant?.amount || 0, 2)} ISLM
+                {formatEthDecimal(BigInt(participant?.amount ?? 0), 2)} ISLM
               </span>
             </div>
 
@@ -208,6 +213,7 @@ export function EvmAirdropView({ address }: IProps) {
               participant={participant}
               isCosmos={false}
               onSign={onSignHandler}
+              airdropEndpoint={airdropEndpoint}
             />
           </>
         )}

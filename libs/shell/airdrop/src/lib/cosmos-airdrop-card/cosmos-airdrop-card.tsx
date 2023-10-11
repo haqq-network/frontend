@@ -2,15 +2,8 @@ import { useCallback } from 'react';
 import { Address } from '../address/address';
 import { ApproveBtn } from '../approve-btn/approve-btn';
 import { useAirdropChecker } from '../evm-airdrop-view/evm-airdrop-view';
-import { formatEthDecimal } from '@haqq/shell-ui-kit';
 import { Keplr } from '@keplr-wallet/types';
-
-interface IProps {
-  participationAddress?: string;
-  icon: string;
-  chainId: string;
-  ethAddressFromKeppler: string;
-}
+import { formatEthDecimal } from '@haqq/shared';
 
 export const getKeplrWallet = async (): Promise<Keplr | undefined> => {
   if (window.keplr) {
@@ -27,11 +20,11 @@ export const getKeplrWallet = async (): Promise<Keplr | undefined> => {
         event.target &&
         (event.target as Document).readyState === 'complete'
       ) {
-        resolve(window.keplr);
         console.log('getKeplrWallet', {
           version: window?.keplr?.version,
         });
         document.removeEventListener('readystatechange', documentStateChange);
+        resolve(window.keplr);
       }
     };
 
@@ -41,13 +34,23 @@ export const getKeplrWallet = async (): Promise<Keplr | undefined> => {
 
 const MSG = 'Haqqdrop!';
 
-export const CosmosAirdropCard = ({
+export function CosmosAirdropCard({
   participationAddress,
-  ethAddressFromKeppler,
+  ethAddressFromKeplr,
   icon,
   chainId,
-}: IProps) => {
-  const { participant } = useAirdropChecker(participationAddress);
+  airdropEndpoint,
+}: {
+  participationAddress?: string;
+  icon: string;
+  chainId: string;
+  ethAddressFromKeplr: string;
+  airdropEndpoint?: string;
+}) {
+  const { participant } = useAirdropChecker(
+    participationAddress,
+    airdropEndpoint,
+  );
 
   const keplrSignArbitrary = useCallback(async () => {
     const keplrWallet = await getKeplrWallet();
@@ -124,7 +127,7 @@ export const CosmosAirdropCard = ({
               Amount airdrop
             </div>
             <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-              {formatEthDecimal(participant?.amount || 0, 2)} ISLM
+              {formatEthDecimal(BigInt(participant?.amount ?? 0), 2)} ISLM
             </div>
           </div>
 
@@ -135,11 +138,12 @@ export const CosmosAirdropCard = ({
               participant={participant}
               isCosmos
               onSign={keplrSignArbitrary}
-              ethAddress={ethAddressFromKeppler}
+              ethAddress={ethAddressFromKeplr}
+              airdropEndpoint={airdropEndpoint}
             />
           </div>
         </>
       ) : null}
     </div>
   );
-};
+}
