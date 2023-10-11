@@ -114,24 +114,20 @@ export function AirdropCosmos({
     <BlurredBlock
       isBlurred={notConnectedKeplr}
       blurredContent={
-        <div className="flex flex-col gap-[48px]">
-          <div className="flex-1">
-            <CosmosAirdropCard
-              participationAddress={accounts['cosmos']}
-              icon={cosmosIcon}
-              chainId="cosmoshub-4"
-              ethAddressFromKeplr={ethAddressFromKeplr}
-              airdropEndpoint={airdropEndpoint}
-            />
-          </div>
-          <div className="flex-1">
-            <CosmosAirdropCard
-              icon={evmosIcon}
-              chainId="evmos_9001-2"
-              ethAddressFromKeplr={ethAddressFromKeplr}
-              airdropEndpoint={airdropEndpoint}
-            />
-          </div>
+        <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
+          <CosmosAirdropCard
+            participationAddress={accounts['cosmos']}
+            icon={cosmosIcon}
+            chainId="cosmoshub-4"
+            ethAddressFromKeplr={ethAddressFromKeplr}
+            airdropEndpoint={airdropEndpoint}
+          />
+          <CosmosAirdropCard
+            icon={evmosIcon}
+            chainId="evmos_9001-2"
+            ethAddressFromKeplr={ethAddressFromKeplr}
+            airdropEndpoint={airdropEndpoint}
+          />
         </div>
       }
       content={

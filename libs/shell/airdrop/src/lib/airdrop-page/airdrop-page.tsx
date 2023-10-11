@@ -48,38 +48,34 @@ export function AirdropPage({
 
       <div className="border-t border-[#ffffff26] py-[52px] sm:py-[60px] lg:py-[80px]">
         <Container>
-          <div className="flex flex-col gap-[60px] xl:flex-row">
-            <div className="xl:w-1/2">
-              <div className="flex flex-col gap-[32px]">
-                <div className="flex flex-row items-center">
-                  <Heading level={3} className="mb-[-2px]">
-                    Community drop
-                  </Heading>
-                </div>
-                <div>
-                  <AirdropEvm
-                    ethAddress={ethAddress}
-                    airdropEndpoint={airdropEndpoint}
-                  />
-                </div>
+          <div className="flex flex-col gap-[52px]">
+            <div className="flex flex-col gap-[32px]">
+              <div className="flex flex-row items-center">
+                <Heading level={3} className="mb-[-2px]">
+                  Community drop
+                </Heading>
+              </div>
+              <div>
+                <AirdropEvm
+                  ethAddress={ethAddress}
+                  airdropEndpoint={airdropEndpoint}
+                />
               </div>
             </div>
-            <div className="xl:w-1/2">
-              <div className="flex flex-col gap-[32px]">
-                <div className="flex flex-row items-center">
-                  <Heading level={3} className="mb-[-2px]">
-                    Cosmos ecosystem drop
-                  </Heading>
-                </div>
+            <div className="flex flex-col gap-[32px]">
+              <div className="flex flex-row items-center">
+                <Heading level={3} className="mb-[-2px]">
+                  Cosmos ecosystem drop
+                </Heading>
+              </div>
 
-                <div>
-                  <AirdropCosmos
-                    hasMetamaskConnected={!!ethAddress}
-                    setEthAddressFromKepler={setEthAddressFromKepler}
-                    ethAddressFromKeplr={ethAddressFromKeplr}
-                    airdropEndpoint={airdropEndpoint}
-                  />
-                </div>
+              <div>
+                <AirdropCosmos
+                  hasMetamaskConnected={!!ethAddress}
+                  setEthAddressFromKepler={setEthAddressFromKepler}
+                  ethAddressFromKeplr={ethAddressFromKeplr}
+                  airdropEndpoint={airdropEndpoint}
+                />
               </div>
             </div>
           </div>

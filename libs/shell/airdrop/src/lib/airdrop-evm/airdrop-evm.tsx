@@ -16,10 +16,12 @@ export function AirdropEvm({
     <BlurredBlock
       isBlurred={!ethAddress}
       blurredContent={
-        <EvmAirdropView
-          address={ethAddress}
-          airdropEndpoint={airdropEndpoint}
-        />
+        <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
+          <EvmAirdropView
+            address={ethAddress}
+            airdropEndpoint={airdropEndpoint}
+          />
+        </div>
       }
       content={
         <div className="flex flex-col items-center space-y-[12px] py-[58px]">
