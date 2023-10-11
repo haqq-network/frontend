@@ -46,9 +46,7 @@ export const CaptchaModal = ({
         />
         <div className="flex w-full flex-col">
           <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-            <MobileHeading>
-              Complete the captcha and agree with restrictions
-            </MobileHeading>
+            <MobileHeading>Complete the captcha</MobileHeading>
           </div>
 
           <div className="flex flex-col space-y-[12px]">

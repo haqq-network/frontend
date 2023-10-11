@@ -17,7 +17,6 @@ import {
   AirdropChallengeStatusFailed,
   AirdropChallengeStatusSuccess,
 } from '../airdrop-challenge/airdrop-challenge';
-import { SmallText } from '../small-text/small-text';
 
 const PARTICIPANTS_CHECK_INTERVAL = 20000;
 
