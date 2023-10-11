@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ethToHaqq, useAddress } from '@haqq/shared';
-import { CaptchaModal, Container } from '@haqq/shell-ui-kit';
+import { CaptchaModal, Container, Heading } from '@haqq/shell-ui-kit';
 import { AirdropEvm } from '../airdrop-evm/airdrop-evm';
 import { AirdropCosmos } from '../airdrop-cosmos/airdrop-cosmos';
 import { Address } from '../address/address';
@@ -32,7 +32,7 @@ export function AirdropPage({
                     Your HAQQ address hex
                   </div>
 
-                  <Address address={targetHexAddress} />
+                  <Address address={targetHexAddress.toLowerCase()} />
                 </div>
                 <div>
                   <div className="font-guise text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
@@ -48,21 +48,39 @@ export function AirdropPage({
 
       <div className="border-t border-[#ffffff26] py-[52px] sm:py-[60px] lg:py-[80px]">
         <Container>
-          <div className="flex flex-col gap-[52px] sm:gap-[60px] lg:gap-[80px]">
-            <div>
-              <AirdropEvm
-                ethAddress={ethAddress}
-                airdropEndpoint={airdropEndpoint}
-              />
+          <div className="flex flex-col gap-[60px] xl:flex-row">
+            <div className="xl:w-1/2">
+              <div className="flex flex-col gap-[32px]">
+                <div className="flex flex-row items-center">
+                  <Heading level={3} className="mb-[-2px]">
+                    Community drop
+                  </Heading>
+                </div>
+                <div>
+                  <AirdropEvm
+                    ethAddress={ethAddress}
+                    airdropEndpoint={airdropEndpoint}
+                  />
+                </div>
+              </div>
             </div>
+            <div className="xl:w-1/2">
+              <div className="flex flex-col gap-[32px]">
+                <div className="flex flex-row items-center">
+                  <Heading level={3} className="mb-[-2px]">
+                    Cosmos ecosystem drop
+                  </Heading>
+                </div>
 
-            <div>
-              <AirdropCosmos
-                hasMetamaskConnected={!!ethAddress}
-                setEthAddressFromKepler={setEthAddressFromKepler}
-                ethAddressFromKeplr={ethAddressFromKeplr}
-                airdropEndpoint={airdropEndpoint}
-              />
+                <div>
+                  <AirdropCosmos
+                    hasMetamaskConnected={!!ethAddress}
+                    setEthAddressFromKepler={setEthAddressFromKepler}
+                    ethAddressFromKeplr={ethAddressFromKeplr}
+                    airdropEndpoint={airdropEndpoint}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </Container>

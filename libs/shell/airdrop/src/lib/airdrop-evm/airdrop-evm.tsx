@@ -14,9 +14,8 @@ export function AirdropEvm({
 
   return (
     <BlurredBlock
-      title="Community drop"
       isBlurred={!ethAddress}
-      bluredContent={
+      blurredContent={
         <EvmAirdropView
           address={ethAddress}
           airdropEndpoint={airdropEndpoint}

@@ -1,36 +1,26 @@
-import { Heading } from '@haqq/shell-ui-kit';
 import { clsx } from 'clsx';
 import { ReactNode } from 'react';
 
 export function BlurredBlock({
-  title,
   isBlurred,
-  bluredContent,
+  blurredContent,
   content,
 }: {
-  bluredContent: ReactNode;
+  blurredContent: ReactNode;
   content: ReactNode;
   title?: string;
   isBlurred: boolean;
 }) {
   return (
-    <div className="flex flex-col gap-[32px]">
-      {title && (
-        <div className="flex flex-row items-center">
-          <Heading level={3} className="mb-[-2px]">
-            {title}
-          </Heading>
-        </div>
-      )}
-
+    <div className="flex flex-1 flex-col gap-[32px]">
       <div className="relative">
         <div
           className={clsx(
             'flex flex-col',
-            isBlurred && 'opacity-60 blur-[2px]',
+            isBlurred && 'opacity-60 blur-[3px]',
           )}
         >
-          {bluredContent}
+          {blurredContent}
         </div>
 
         {isBlurred && (

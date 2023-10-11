@@ -1,9 +1,17 @@
 import { useCallback } from 'react';
 import { Address } from '../address/address';
 import { ApproveBtn } from '../approve-btn/approve-btn';
-import { useAirdropChecker } from '../evm-airdrop-view/evm-airdrop-view';
+import {
+  AirdropResultStrongText,
+  useAirdropChecker,
+} from '../evm-airdrop-view/evm-airdrop-view';
 import { Keplr } from '@keplr-wallet/types';
 import { formatEthDecimal } from '@haqq/shared';
+import {
+  AirdropChallenge,
+  AirdropChallengeStatusFailed,
+  AirdropChallengeStatusSuccess,
+} from '../airdrop-challenge/airdrop-challenge';
 
 export const getKeplrWallet = async (): Promise<Keplr | undefined> => {
   if (window.keplr) {
@@ -77,56 +85,51 @@ export function CosmosAirdropCard({
   const hasAirdrop = (participant?.amount || 0) > 0;
 
   return (
-    <div className="flex flex-col items-start gap-[28px] md:w-[410px]">
-      <img src={icon} alt="icon" className="mb-[4px] h-[48px]" />
+    <div className="flex flex-col gap-[20px]">
+      <div className="h-[48px]">
+        <img
+          src={icon}
+          alt="icon"
+          className="h-auto max-h-full w-auto max-w-[200px]"
+        />
+      </div>
 
       {participationAddress && (
         <div>
-          <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+          <div className="font-guise text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
             Address
           </div>
-          <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
+          <div className="font-guise text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
             <Address address={participationAddress} />
           </div>
         </div>
       )}
 
-      <div className="flex">
-        <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-          It is possible to get an airdrop
-        </div>
-        <div className="flex items-center font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-          {(participant?.amount || 0) > 0 ? (
-            <>
-              <div className="text-[#01B26E]">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M16.8772 5.38208L7.50881 16.0888L3.13062 11.2241L4.36944 10.1092L7.49125 13.5779L15.6229 4.28458L16.8772 5.38208Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </div>
-              <div className="ml-[8px]">Yes</div>
-            </>
-          ) : (
-            <div className="ml-[24px] flex flex-row items-center ">
-              <div className="flex flex-row items-center ">
-                <div className="mb-[-2px] ml-[4px] mr-[8px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]"></div>
-              </div>
+      <div className="divide-haqq-border flex w-full flex-col divide-y divide-dashed">
+        <AirdropChallenge
+          label="It is possible to get an airdrop"
+          result={
+            <div className="flex flex-row items-center gap-[6px]">
+              {(participant?.amount || 0) > 0 ? (
+                <>
+                  <AirdropChallengeStatusSuccess />
+                  <AirdropResultStrongText>Yes</AirdropResultStrongText>
+                </>
+              ) : (
+                <AirdropChallengeStatusFailed />
+              )}
             </div>
-          )}
-        </div>
+          }
+        />
       </div>
 
-      {hasAirdrop ? (
+      {hasAirdrop && (
         <>
           <div>
-            <div className="font-sans text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+            <div className="font-guise text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
               Amount airdrop
             </div>
-            <div className="font-sans text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
+            <div className="font-guise text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
               {formatEthDecimal(BigInt(participant?.amount ?? 0), 2)} ISLM
             </div>
           </div>
@@ -143,7 +146,7 @@ export function CosmosAirdropCard({
             />
           </div>
         </>
-      ) : null}
+      )}
     </div>
   );
 }

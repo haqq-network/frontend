@@ -4,9 +4,15 @@ import {
   useAirdropActions,
 } from '@haqq/shared';
 import localStore from 'store2';
-import { Button, Checkbox, InformationModal } from '@haqq/shell-ui-kit';
+import {
+  Button,
+  Checkbox,
+  InformationModal,
+  OrangeLink,
+} from '@haqq/shell-ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 import { Address } from '../address/address';
+import { SmallText } from '../small-text/small-text';
 
 export function ApproveBtn({
   participant,
@@ -100,33 +106,101 @@ export function ApproveBtn({
         participant?.status === ParticipantStatus.Queued ||
         receivingAddress) && (
         <div className="flex flex-col gap-y-[6px]">
-          <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
+          <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
             Airdrop status
           </div>
           {participant?.to_address || receivingAddress ? (
-            <div>
-              You have already requested to address{' '}
-              <Address address={participant?.to_address || receivingAddress} />
-            </div>
+            <>
+              <div>
+                <SmallText>You have already requested to address</SmallText>{' '}
+                <Address
+                  address={participant?.to_address || receivingAddress}
+                />
+              </div>
+              <div>
+                <SmallText>
+                  Check your vesting schedule here:{' '}
+                  <a
+                    href={`https://vesting.haqq.network/account/${
+                      participant?.to_address || receivingAddress
+                    }`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#EC5728] hover:text-[#FF8D69]"
+                  >
+                    https://vesting.haqq.network
+                  </a>
+                </SmallText>
+              </div>
+            </>
           ) : (
-            <div>You have already requested</div>
+            <>
+              <div>
+                <SmallText>You have already requested</SmallText>
+              </div>
+              <div>
+                <SmallText>
+                  Check your vesting schedule here:{' '}
+                  <a
+                    href="https://vesting.haqq.network"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#EC5728] hover:text-[#FF8D69]"
+                  >
+                    https://vesting.haqq.network
+                  </a>
+                </SmallText>
+              </div>
+            </>
           )}
         </div>
       )}
 
       {participant?.status === ParticipantStatus.Redeemed && (
         <div className="flex flex-col gap-y-[6px]">
-          <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
+          <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
             Airdrop status
           </div>
 
           {participant?.to_address ? (
-            <div>
-              You have already redeemed to address{' '}
-              <Address address={participant?.to_address} />
-            </div>
+            <>
+              <div>
+                <SmallText>You have already redeemed to address</SmallText>{' '}
+                <Address address={participant?.to_address} />
+              </div>
+              <div>
+                <SmallText>
+                  Check your vesting schedule here:{' '}
+                  <a
+                    href={`https://vesting.haqq.network/account/${participant?.to_address}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#EC5728] hover:text-[#FF8D69]"
+                  >
+                    https://vesting.haqq.network
+                  </a>
+                </SmallText>
+              </div>
+            </>
           ) : (
-            <div>You have already redeemed</div>
+            <>
+              <div>
+                <SmallText>You have already redeemed</SmallText>
+              </div>{' '}
+              <div>
+                <SmallText>
+                  Check your vesting schedule here:{' '}
+                  <a
+                    href="https://vesting.haqq.network"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#EC5728] hover:text-[#FF8D69]"
+                  >
+                    https://vesting.haqq.network
+                  </a>
+                </SmallText>
+              </div>
+            </>
           )}
         </div>
       )}
@@ -139,23 +213,22 @@ export function ApproveBtn({
             <Button
               className="px-[32px]"
               disabled={!isNotResident || !hasAirdrop}
-              onClick={() => {
-                airdropEndpoint &&
-                  participate().then((v) => {
-                    if (!v.message) {
-                      setInformationModalOpened(true);
-                    } else {
-                      if (v.message === 'requested') {
-                        setAlreadyRequested(true);
-                      } else {
-                        setErrorModalOpened(true);
-                      }
-                    }
+              onClick={async () => {
+                const resp = await participate();
 
-                    if (v.address) {
-                      setReceivingAddress(v.address);
-                    }
-                  });
+                if (!resp.message) {
+                  setInformationModalOpened(true);
+                } else {
+                  if (resp.message === 'requested') {
+                    setAlreadyRequested(true);
+                  } else {
+                    setErrorModalOpened(true);
+                  }
+                }
+
+                if (resp.address) {
+                  setReceivingAddress(resp.address);
+                }
               }}
             >
               Airdrop Request

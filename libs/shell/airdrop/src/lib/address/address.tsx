@@ -29,7 +29,7 @@ export const Address = ({
       <div
         className={`${
           className ||
-          'flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[18px] font-[500] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]'
+          'font-guise flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] font-[500] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]'
         } `}
         onClick={handleAddressCopy}
       >

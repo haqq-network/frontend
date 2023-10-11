@@ -4,85 +4,28 @@ import {
   useAirdropActions,
 } from '@haqq/shared';
 import { Tooltip } from '@haqq/shell-ui-kit';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { ApproveBtn } from '../approve-btn/approve-btn';
 import { Hex } from 'viem';
+import {
+  AirdropChallenge,
+  AirdropChallengeStatusFailed,
+  AirdropChallengeStatusSuccess,
+} from '../airdrop-challenge/airdrop-challenge';
+import { SmallText } from '../small-text/small-text';
 
 const PARTICIPANTS_CHECK_INTERVAL = 20000;
 
-function YesCheckbox({ value }: { value?: boolean }) {
-  if (!value) {
-    return (
-      <div className="flex flex-row items-center">
-        <div className="flex flex-row items-center ">
-          <div className="mb-[-2px] ml-[4px] mr-[8px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]"></div>
-        </div>
-      </div>
-    );
-  }
-
+export function AirdropResultStrongText({ children }: PropsWithChildren) {
   return (
-    <div className="mt-[-1px] flex flex-row items-center">
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="text-[#01B26E]"
-      >
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M16.8772 5.38208L7.50881 16.0888L3.13062 11.2241L4.36944 10.1092L7.49125 13.5779L15.6229 4.28458L16.8772 5.38208Z"
-          fill="currentColor"
-        />
-      </svg>
-    </div>
-  );
-}
-
-function ValueBlock({
-  text,
-  isActive,
-  percent,
-  tooltip,
-  available = true,
-}: {
-  text: string;
-  isActive?: boolean;
-  percent?: string;
-  tooltip?: string;
-  available?: boolean;
-}) {
-  const label = (
-    <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
-      {text}
-    </div>
-  );
-
-  return (
-    <div className="flex flex-1 items-center justify-between gap-[12px]">
-      <div className="cursor-default leading-[0]">
-        {tooltip ? (
-          <Tooltip text={tooltip} className="z-50 inline-flex min-w-[300px]">
-            {label}
-          </Tooltip>
-        ) : (
-          label
-        )}
-      </div>
-      {available ? (
-        <div className="flex flex-row items-center gap-[6px]">
-          <YesCheckbox value={isActive} />
-          <div className="font-clash text-[14px] leading-[18px] text-white md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
-            {percent && <div>{percent} %</div>}
-          </div>
-        </div>
-      ) : (
-        <div className="font-guise text-[11px] leading-[18px] md:text-[16px] md:leading-[26px]">
-          Coming on October 11
-        </div>
-      )}
+    <div className="font-clash mb-[-2px] text-[14px] leading-[18px] text-white md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
+      {children}
     </div>
   );
 }
@@ -147,77 +90,143 @@ export function EvmAirdropView({
   const hasAirdrop = (participant?.amount || 0) > 0;
 
   return (
-    <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
-      <div className="flex flex-col gap-[20px]">
-        <div className="text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
-          Only participants of #TheHaqqExpedition (holders of the Pioneer role)
-          community program & HAQQ Network active participants, current Islamic
-          Coin Ambassadors, alongside HAQQ Network Validators, are eligible.
-        </div>
+    <div className="flex flex-col gap-[20px]">
+      <CommunityAirdropNote />
 
-        <div className="flex w-full flex-col gap-[8px]">
-          <ValueBlock
-            text="Activated the wallet on the network"
-            isActive={participant?.is_activated_wallet_on_network}
-            percent={'10.00'}
-            tooltip="This means that your balance on the network is greater than 0, you could receive GasDrop or one of several GiveAway, or Ambassadors rewards"
-          />
-          <ValueBlock
-            text="Staked"
-            isActive={participant?.is_has_staking}
-            percent="25.00"
-            tooltip="You have staked any amount of ISLM on mainnet"
-          />
-          <ValueBlock
-            text="Voted"
-            isActive={participant?.is_has_votes}
-            percent="15.00"
-            tooltip="You have voted on mainnet gov"
-          />
-          <ValueBlock
-            text="Voted several times"
-            isActive={participant?.is_voted_several_times}
-            percent="15.00"
-            tooltip="You have voted several times on mainnet gov"
-          />
-          <ValueBlock
-            text="Staked more than 50% of your ISLM"
-            isActive={participant?.is_staked_many}
-            percent="15.00"
-            tooltip="You have staked most of your balance"
-          />
-        </div>
+      <div className="divide-haqq-border flex w-full flex-col divide-y divide-dashed">
+        <AirdropChallenge
+          label="Activated the wallet on the network"
+          result={
+            <div className="flex flex-row items-center gap-[6px]">
+              {participant?.is_activated_wallet_on_network ? (
+                <AirdropChallengeStatusSuccess />
+              ) : (
+                <AirdropChallengeStatusFailed />
+              )}
+              <AirdropResultStrongText>10.00 %</AirdropResultStrongText>
+            </div>
+          }
+          tooltip="This means that your balance on the network is greater than 0, you could receive GasDrop or one of several GiveAway, or Ambassadors rewards"
+        />
+        <AirdropChallenge
+          label="Staked"
+          result={
+            <div className="flex flex-row items-center gap-[6px]">
+              {participant?.is_has_staking ? (
+                <AirdropChallengeStatusSuccess />
+              ) : (
+                <AirdropChallengeStatusFailed />
+              )}
+              <AirdropResultStrongText>25.00 %</AirdropResultStrongText>
+            </div>
+          }
+          tooltip="You have staked any amount of ISLM on mainnet"
+        />
 
-        <div className="border-haqq-border border-y border-dashed py-[12px]">
-          <ValueBlock
-            text="Extra: Run validator"
-            isActive={participant?.is_validator}
-            available={false}
-          />
-        </div>
+        <AirdropChallenge
+          label="Voted"
+          result={
+            <div className="flex flex-row items-center gap-[6px]">
+              {participant?.is_has_votes ? (
+                <AirdropChallengeStatusSuccess />
+              ) : (
+                <AirdropChallengeStatusFailed />
+              )}
+              <AirdropResultStrongText>15.00 %</AirdropResultStrongText>
+            </div>
+          }
+          tooltip="You have voted on mainnet gov"
+        />
+        <AirdropChallenge
+          label="Voted several times"
+          result={
+            <div className="flex flex-row items-center gap-[6px]">
+              {participant?.is_voted_several_times ? (
+                <AirdropChallengeStatusSuccess />
+              ) : (
+                <AirdropChallengeStatusFailed />
+              )}
+              <AirdropResultStrongText>15.00 %</AirdropResultStrongText>
+            </div>
+          }
+          tooltip="You have voted several times on mainnet gov"
+        />
+        <AirdropChallenge
+          label="Staked more than 50% of your ISLM"
+          result={
+            <div className="flex flex-row items-center gap-[6px]">
+              {participant?.is_staked_many ? (
+                <AirdropChallengeStatusSuccess />
+              ) : (
+                <AirdropChallengeStatusFailed />
+              )}
+              <AirdropResultStrongText>15.00 %</AirdropResultStrongText>
+            </div>
+          }
+          tooltip="You have staked most of your balance"
+        />
+        <AirdropChallenge
+          label="Extra: Run validator"
+          result={<SmallText>Coming on October 11</SmallText>}
+        />
+      </div>
 
-        {hasAirdrop && (
-          <>
-            <div className="flex flex-col gap-y-[6px]">
-              <span className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
+      {hasAirdrop && (
+        <>
+          <div className="flex flex-col gap-y-[6px]">
+            <div>
+              <span className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
                 Your airdrop amount
               </span>
-              <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
-                {formatEthDecimal(BigInt(participant?.amount ?? 0), 2)} ISLM
-              </span>
             </div>
+            <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
+              {formatEthDecimal(BigInt(participant?.amount ?? 0), 2)} ISLM
+            </span>
+          </div>
 
-            <ApproveBtn
-              participationAddress={address}
-              message={MESSAGE}
-              participant={participant}
-              isCosmos={false}
-              onSign={onSignHandler}
-              airdropEndpoint={airdropEndpoint}
-            />
-          </>
-        )}
-      </div>
+          <ApproveBtn
+            participationAddress={address}
+            message={MESSAGE}
+            participant={participant}
+            isCosmos={false}
+            onSign={onSignHandler}
+            airdropEndpoint={airdropEndpoint}
+          />
+        </>
+      )}
     </div>
+  );
+}
+
+function AirdropBlockTitle({ children }: PropsWithChildren) {
+  return (
+    <span className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
+      {children}
+    </span>
+  );
+}
+
+function AirdropBlockWithTitle({
+  children,
+  title,
+}: PropsWithChildren<{ title: string }>) {
+  return (
+    <div className="flex flex-col gap-y-[6px]">
+      <div>
+        <AirdropBlockTitle>{title}</AirdropBlockTitle>
+      </div>
+      <div>{children}</div>
+    </div>
+  );
+}
+function CommunityAirdropNote() {
+  return (
+    <AirdropBlockWithTitle title="Notes">
+      <div className="font-guise text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
+        Only participants of #TheHaqqExpedition (holders of the Pioneer role)
+        community program & HAQQ Network active participants, current Islamic
+        Coin Ambassadors, alongside HAQQ Network Validators, are eligible.
+      </div>
+    </AirdropBlockWithTitle>
   );
 }

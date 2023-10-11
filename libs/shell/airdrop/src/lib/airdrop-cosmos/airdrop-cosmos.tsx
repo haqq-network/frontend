@@ -1,10 +1,14 @@
 import { Button } from '@haqq/shell-ui-kit';
 import type { Keplr } from '@keplr-wallet/types';
 import { useCallback, useState } from 'react';
-import { CosmosAirdropView } from '../cosmos-airdrop-view/cosmos-airdrop-view';
 import { haqqToEth, useWallet } from '@haqq/shared';
-import { getKeplrWallet } from '../cosmos-airdrop-card/cosmos-airdrop-card';
+import {
+  CosmosAirdropCard,
+  getKeplrWallet,
+} from '../cosmos-airdrop-card/cosmos-airdrop-card';
 import { BlurredBlock } from '../blured-block/blured-block';
+import cosmosIcon from './../../assets/icons/cosmos.svg';
+import evmosIcon from './../../assets/icons/evmos.svg';
 
 export async function addTestEdge2Network(keplrWallet: Keplr) {
   try {
@@ -107,17 +111,30 @@ export function AirdropCosmos({
 
   return (
     <BlurredBlock
-      title="Cosmos ecosystem drop"
       isBlurred={notConnectedKeplr}
-      bluredContent={
-        <CosmosAirdropView
-          cosmosAddress={accounts['cosmos']}
-          ethAddressFromKeplr={ethAddressFromKeplr}
-          airdropEndpoint={airdropEndpoint}
-        />
+      blurredContent={
+        <div className="flex flex-col gap-[48px]">
+          <div className="flex-1">
+            <CosmosAirdropCard
+              participationAddress={accounts['cosmos']}
+              icon={cosmosIcon}
+              chainId="cosmoshub-4"
+              ethAddressFromKeplr={ethAddressFromKeplr}
+              airdropEndpoint={airdropEndpoint}
+            />
+          </div>
+          <div className="flex-1">
+            <CosmosAirdropCard
+              icon={evmosIcon}
+              chainId="evmos_9001-2"
+              ethAddressFromKeplr={ethAddressFromKeplr}
+              airdropEndpoint={airdropEndpoint}
+            />
+          </div>
+        </div>
       }
       content={
-        <>
+        <div className="flex flex-col items-center space-y-[12px] py-[58px]">
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             Coming soon!
           </div>
@@ -129,7 +146,7 @@ export function AirdropCosmos({
               Connect to Keplr
             </Button>
           )}
-        </>
+        </div>
       }
     />
   );
