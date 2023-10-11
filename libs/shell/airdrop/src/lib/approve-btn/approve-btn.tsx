@@ -118,19 +118,12 @@ export function ApproveBtn({
                 />
               </div>
               <div>
-                <SmallText>
-                  Check your vesting schedule here:{' '}
-                  <a
-                    href={`https://vesting.haqq.network/account/${
-                      participant?.to_address || receivingAddress
-                    }`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#EC5728] hover:text-[#FF8D69]"
-                  >
-                    https://vesting.haqq.network
-                  </a>
-                </SmallText>
+                <div>
+                  <AirdropVestingNote
+                    address={participant?.to_address || receivingAddress}
+                  />
+                  <AirdropStakeNote />
+                </div>
               </div>
             </>
           ) : (
@@ -139,17 +132,8 @@ export function ApproveBtn({
                 <SmallText>You have already requested</SmallText>
               </div>
               <div>
-                <SmallText>
-                  Check your vesting schedule here:{' '}
-                  <a
-                    href="https://vesting.haqq.network"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#EC5728] hover:text-[#FF8D69]"
-                  >
-                    https://vesting.haqq.network
-                  </a>
-                </SmallText>
+                <AirdropVestingNote />
+                <AirdropStakeNote />
               </div>
             </>
           )}
@@ -169,36 +153,18 @@ export function ApproveBtn({
                 <Address address={participant?.to_address} />
               </div>
               <div>
-                <SmallText>
-                  Check your vesting schedule here:{' '}
-                  <a
-                    href={`https://vesting.haqq.network/account/${participant?.to_address}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#EC5728] hover:text-[#FF8D69]"
-                  >
-                    https://vesting.haqq.network
-                  </a>
-                </SmallText>
+                <AirdropVestingNote address={participant?.to_address} />
+                <AirdropStakeNote />
               </div>
             </>
           ) : (
             <>
               <div>
                 <SmallText>You have already redeemed</SmallText>
-              </div>{' '}
+              </div>
               <div>
-                <SmallText>
-                  Check your vesting schedule here:{' '}
-                  <a
-                    href="https://vesting.haqq.network"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#EC5728] hover:text-[#FF8D69]"
-                  >
-                    https://vesting.haqq.network
-                  </a>
-                </SmallText>
+                <AirdropVestingNote />
+                <AirdropStakeNote />
               </div>
             </>
           )}
@@ -282,6 +248,46 @@ export function ApproveBtn({
           </>
         }
       />
+    </div>
+  );
+}
+
+function AirdropVestingNote({ address }: { address?: string }) {
+  return (
+    <div>
+      <SmallText>
+        Check your vesting schedule here:{' '}
+        <a
+          href={
+            address
+              ? `https://vesting.haqq.network/account/${address}`
+              : 'https://vesting.haqq.network'
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#EC5728] hover:text-[#FF8D69]"
+        >
+          https://vesting.haqq.network
+        </a>
+      </SmallText>
+    </div>
+  );
+}
+
+function AirdropStakeNote() {
+  return (
+    <div>
+      <SmallText>
+        Please keep in mind that all locked coins are stakeable in the{' '}
+        <a
+          href="https://shell.haqq.network"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#EC5728] hover:text-[#FF8D69]"
+        >
+          HAQQ Shell
+        </a>
+      </SmallText>
     </div>
   );
 }
