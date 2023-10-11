@@ -10,7 +10,7 @@ import { BlurredBlock } from '../blured-block/blured-block';
 import cosmosIcon from './../../assets/icons/cosmos.svg';
 import evmosIcon from './../../assets/icons/evmos.svg';
 
-export async function addTestEdge2Network(keplrWallet: Keplr) {
+export async function addHaqqNetwork(keplrWallet: Keplr) {
   const basePrefix = 'haqq';
   try {
     await keplrWallet.experimentalSuggestChain({
@@ -89,7 +89,7 @@ export function AirdropCosmos({
       try {
         await enableChains(keplrWallet);
       } catch (e) {
-        await addTestEdge2Network(keplrWallet);
+        await addHaqqNetwork(keplrWallet);
       } finally {
         await enableChains(keplrWallet);
       }
