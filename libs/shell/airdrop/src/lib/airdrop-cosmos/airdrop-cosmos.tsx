@@ -11,6 +11,7 @@ import cosmosIcon from './../../assets/icons/cosmos.svg';
 import evmosIcon from './../../assets/icons/evmos.svg';
 
 export async function addTestEdge2Network(keplrWallet: Keplr) {
+  const basePrefix = 'haqq';
   try {
     await keplrWallet.experimentalSuggestChain({
       features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
@@ -22,12 +23,12 @@ export async function addTestEdge2Network(keplrWallet: Keplr) {
         coinType: 60,
       },
       bech32Config: {
-        bech32PrefixAccAddr: 'haqq',
-        bech32PrefixAccPub: 'haqq' + 'pub',
-        bech32PrefixValAddr: 'haqq' + 'valoper',
-        bech32PrefixValPub: 'haqq' + 'valoperpub',
-        bech32PrefixConsAddr: 'haqq' + 'valcons',
-        bech32PrefixConsPub: 'haqq' + 'valconspub',
+        bech32PrefixAccAddr: basePrefix,
+        bech32PrefixAccPub: `${basePrefix}pub`,
+        bech32PrefixValAddr: `${basePrefix}valoper`,
+        bech32PrefixValPub: `${basePrefix}valoperpub`,
+        bech32PrefixConsAddr: `${basePrefix}valcons`,
+        bech32PrefixConsPub: `${basePrefix}valconspub`,
       },
       currencies: [
         {

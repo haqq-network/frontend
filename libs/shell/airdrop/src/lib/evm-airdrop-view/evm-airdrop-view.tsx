@@ -3,7 +3,6 @@ import {
   formatEthDecimal,
   useAirdropActions,
 } from '@haqq/shared';
-import { Tooltip } from '@haqq/shell-ui-kit';
 import {
   PropsWithChildren,
   useCallback,

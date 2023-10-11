@@ -4,12 +4,7 @@ import {
   useAirdropActions,
 } from '@haqq/shared';
 import localStore from 'store2';
-import {
-  Button,
-  Checkbox,
-  InformationModal,
-  OrangeLink,
-} from '@haqq/shell-ui-kit';
+import { Button, Checkbox, InformationModal } from '@haqq/shell-ui-kit';
 import { useCallback, useMemo, useState } from 'react';
 import { Address } from '../address/address';
 import { SmallText } from '../small-text/small-text';

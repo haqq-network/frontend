@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Turnstile from 'react-turnstile';
-import { Heading } from '../heading/heading';
 import { MobileHeading, Modal, ModalCloseButton } from '../modal/modal';
-import clsx from 'clsx';
 
 export const CaptchaModal = ({
   turnstileSiteKey,
