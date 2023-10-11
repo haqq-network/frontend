@@ -1,4 +1,4 @@
-import { Coin } from '@evmos/transactions';
+import type { Coin } from '@evmos/transactions';
 
 export interface BaseAccount {
   address: string;

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Turnstile from 'react-turnstile';
-import { Heading } from '../heading/heading';
-import { Modal, ModalCloseButton } from '../modal/modal';
+import { MobileHeading, Modal, ModalCloseButton } from '../modal/modal';
 
 export const CaptchaModal = ({
   turnstileSiteKey,
@@ -40,36 +39,33 @@ export const CaptchaModal = ({
 
   return (
     <Modal onClose={handleCaptchaModalClose} isOpen={isCaptchaModalOpen}>
-      <div className="rounded-[12px] bg-white pb-[36px] pl-[16px] pr-[16px] pt-[16px]">
-        <div className="flex items-center justify-between">
-          <Heading className="text-black" level={3}>
-            &nbsp;
-          </Heading>
-          <ModalCloseButton
-            className="text-black"
-            onClick={() => {
-              handleCaptchaModalClose();
-            }}
-          />
-        </div>
-        <div className="w-[340px] pl-[20px] pr-[20px]">
-          <div className="font-clash text-[22px] font-[500] text-black">
-            Complete the captcha and agree with restrictions
+      <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-[380px] sm:rounded-[12px] sm:p-[36px]">
+        <ModalCloseButton
+          onClick={handleCaptchaModalClose}
+          className="absolute right-[16px] top-[16px]"
+        />
+        <div className="flex w-full flex-col">
+          <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+            <MobileHeading>
+              Complete the captcha and agree with restrictions
+            </MobileHeading>
           </div>
 
-          <div className="font-guise mb-[24px] mt-[20px] text-[12px] font-[500] text-black">
-            Please complete the captcha to verify that you are not a robot.
-          </div>
+          <div className="flex flex-col space-y-[12px]">
+            <div className="font-guise text-[12px] font-[500] text-black">
+              Please complete the captcha to verify that you are not a robot.
+            </div>
 
-          {turnstileSiteKey && (
-            <Turnstile
-              className="w-full"
-              sitekey={turnstileSiteKey}
-              onVerify={handleTokenChange}
-              theme="light"
-              fixedSize={true}
-            />
-          )}
+            {turnstileSiteKey && (
+              <Turnstile
+                className="w-full"
+                sitekey={turnstileSiteKey}
+                onVerify={handleTokenChange}
+                theme="light"
+                fixedSize={true}
+              />
+            )}
+          </div>
         </div>
       </div>
     </Modal>
