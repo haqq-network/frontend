@@ -25,6 +25,6 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../../../apps/shell/src/keplr.d.ts"
+    "../../shared/src/hooks/use-keplr/keplr.d.ts"
   ]
 }

@@ -16,6 +16,6 @@
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
     "src/**/*.d.ts",
-    "../../../apps/shell/src/keplr.d.ts"
+    "../../../libs/shared/src/keplr.d.ts"
   ]
 }

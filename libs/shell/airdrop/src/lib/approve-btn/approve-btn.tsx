@@ -21,7 +21,6 @@ export function ApproveBtn({
   isCosmos?: boolean;
   onSign: () => Promise<{
     signature: string;
-    pubKey?: string;
   }>;
   onParticipate: (signature: string) => Promise<IParticipateResponse>;
 }) {

@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useWalletClient } from 'wagmi';
 import { Hex } from 'viem';
 import axios from 'axios';
-
+import { getKeplrWallet } from '../use-keplr/use-keplr';
 export interface IParticipateResult {
   message: string;
   status: string;
@@ -157,8 +157,33 @@ export function useAirdropActions() {
     [],
   );
 
+  const handleSignKeplr = useCallback(
+    async (chainId: string, message: string) => {
+      const keplrWallet = await getKeplrWallet();
+      if (keplrWallet) {
+        const { bech32Address } = await keplrWallet.getKey(chainId);
+
+        const signatureArb = await keplrWallet?.signArbitrary(
+          chainId,
+          bech32Address,
+          message,
+        );
+
+        return {
+          signature: signatureArb.signature,
+        };
+      } else {
+        return {
+          signature: '',
+        };
+      }
+    },
+    [],
+  );
+
   return {
-    sign: handlePersonalSign,
+    signEvm: handlePersonalSign,
+    signKeplr: handleSignKeplr,
     checkAirdropEvm,
     checkAirdropCosmos,
     participateEvm,

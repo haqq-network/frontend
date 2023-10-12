@@ -1,5 +1,11 @@
 import { useCallback, useState } from 'react';
-import { ethToHaqq, haqqToEth, useAddress, useWallet } from '@haqq/shared';
+import {
+  ethToHaqq,
+  getKeplrWallet,
+  haqqToEth,
+  useAddress,
+  useWallet,
+} from '@haqq/shared';
 import { CaptchaModal, Container, Heading } from '@haqq/shell-ui-kit';
 import { AirdropEvm } from '../airdrop-evm/airdrop-evm';
 import {
@@ -7,7 +13,6 @@ import {
   addHaqqNetwork,
 } from '../airdrop-cosmos/airdrop-cosmos';
 import { Address } from '../address/address';
-import { getKeplrWallet } from '../cosmos-airdrop-card/cosmos-airdrop-card';
 import { Keplr } from '@keplr-wallet/types';
 
 async function enableChains(keplrWallet: Keplr) {

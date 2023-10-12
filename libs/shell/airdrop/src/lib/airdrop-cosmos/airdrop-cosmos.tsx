@@ -4,6 +4,9 @@ import { CosmosAirdropCard } from '../cosmos-airdrop-card/cosmos-airdrop-card';
 import { BlurredBlock } from '../blured-block/blured-block';
 import cosmosIcon from './../../assets/icons/cosmos.svg';
 import evmosIcon from './../../assets/icons/evmos.svg';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { IParticipant, useAirdropActions } from '@haqq/shared';
+import { PARTICIPANTS_CHECK_INTERVAL } from '../evm-airdrop-view/evm-airdrop-view';
 
 export async function addHaqqNetwork(keplrWallet: Keplr) {
   const basePrefix = 'haqq';
@@ -51,6 +54,58 @@ export async function addHaqqNetwork(keplrWallet: Keplr) {
   }
 }
 
+function useAirdropCheckerCosmos(
+  participationAddressCosmos: string | undefined,
+  participationAddressEvmos: string | undefined,
+  airdropEndpoint?: string,
+) {
+  const { checkAirdropCosmos: checkAirdrop } = useAirdropActions();
+
+  const [participantCosmos, setParticipantCosmos] = useState<
+    IParticipant | undefined
+  >();
+  const [participantEvmos, setParticipantEvmos] = useState<
+    IParticipant | undefined
+  >();
+
+  const loadAirdrop = useCallback(() => {
+    participationAddressCosmos &&
+      participationAddressEvmos &&
+      airdropEndpoint &&
+      checkAirdrop(
+        airdropEndpoint,
+        participationAddressCosmos,
+        participationAddressEvmos,
+      ).then((p) => {
+        setParticipantCosmos(p.cosmos);
+        setParticipantEvmos(p.evmos);
+      });
+  }, [
+    participationAddressEvmos,
+    participationAddressCosmos,
+    airdropEndpoint,
+    checkAirdrop,
+  ]);
+
+  const intervalRef = useRef<number>();
+
+  useEffect(() => {
+    loadAirdrop();
+
+    const intervalId = setInterval(
+      loadAirdrop,
+      PARTICIPANTS_CHECK_INTERVAL,
+    ) as unknown;
+    intervalRef.current = intervalId as number;
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [loadAirdrop]);
+
+  return { participantCosmos, participantEvmos };
+}
+
 export function AirdropCosmos({
   airdropEndpoint,
   keplrAccounts,
@@ -62,30 +117,38 @@ export function AirdropCosmos({
   keplrAccounts: Record<string, string>;
   notConnectedKeplr: boolean;
 }) {
+  const participationAddressCosmos = keplrAccounts['cosmos'];
+  const participationAddressEvmos = keplrAccounts['evmos'];
+
+  const { participantCosmos, participantEvmos } = useAirdropCheckerCosmos(
+    participationAddressCosmos,
+    participationAddressEvmos,
+    airdropEndpoint,
+  );
+
   return (
     <BlurredBlock
       isBlurred={notConnectedKeplr}
       blurredContent={
         <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
           <CosmosAirdropCard
-            participationAddressCosmos={keplrAccounts['cosmos']}
-            participationAddressEvmos={keplrAccounts['evmos']}
+            address={participationAddressCosmos}
             icon={cosmosIcon}
             chainId="cosmoshub-4"
             airdropEndpoint={airdropEndpoint}
-            isEvmos={false}
+            participant={participantCosmos}
           />
+
           <BlurredBlock
-            isBlurred={true}
+            isBlurred={!participantEvmos}
             content="Coming soon!"
             blurredContent={
               <CosmosAirdropCard
                 icon={evmosIcon}
-                participationAddressCosmos={''}
-                participationAddressEvmos={''}
+                address={participationAddressEvmos}
                 chainId="evmos_9001-2"
                 airdropEndpoint={airdropEndpoint}
-                isEvmos={true}
+                participant={participantEvmos}
               />
             }
           />

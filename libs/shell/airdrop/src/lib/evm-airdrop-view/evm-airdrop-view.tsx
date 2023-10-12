@@ -1,5 +1,6 @@
 import {
   IParticipant,
+  ethToHaqq,
   formatEthDecimal,
   useAirdropActions,
 } from '@haqq/shared';
@@ -76,19 +77,24 @@ export function EvmAirdropView({
 }) {
   const { participant } = useAirdropCheckerEvm(address, airdropEndpoint);
 
-  const { sign } = useAirdropActions();
+  const { signEvm, signKeplr } = useAirdropActions();
   const onSignHandler = useCallback(async () => {
     if (!address) {
       return {
         signature: '',
       };
     }
-    const signature = await sign(address as Hex, MESSAGE);
 
-    return {
-      signature,
-    };
-  }, [address, sign]);
+    if (isCosmos) {
+      return await signKeplr('haqq_11235-1', MESSAGE);
+    } else {
+      const signature = await signEvm(address as Hex, MESSAGE);
+
+      return {
+        signature,
+      };
+    }
+  }, [address, signEvm, signKeplr, isCosmos]);
 
   const hasAirdrop = (participant?.amount || 0) > 0;
 
@@ -97,7 +103,12 @@ export function EvmAirdropView({
   const onParticipate = useCallback(
     (signature: string) => {
       return isCosmos
-        ? participateCosmos(airdropEndpoint, MESSAGE, signature, address)
+        ? participateCosmos(
+            airdropEndpoint,
+            MESSAGE,
+            signature,
+            ethToHaqq(address || ''),
+          )
         : participateEvm(airdropEndpoint, MESSAGE, signature);
     },
     [participateEvm, airdropEndpoint, address, participateCosmos, isCosmos],

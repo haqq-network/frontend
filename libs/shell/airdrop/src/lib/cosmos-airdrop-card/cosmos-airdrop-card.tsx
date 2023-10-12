@@ -1,14 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback } from 'react';
 import { Address } from '../address/address';
 import { ApproveBtn } from '../approve-btn/approve-btn';
-import {
-  AirdropResultStrongText,
-  PARTICIPANTS_CHECK_INTERVAL,
-} from '../evm-airdrop-view/evm-airdrop-view';
-import { Keplr } from '@keplr-wallet/types';
+import { AirdropResultStrongText } from '../evm-airdrop-view/evm-airdrop-view';
 import {
   IParticipant,
   formatEthDecimal,
+  getKeplrWallet,
   useAirdropActions,
 } from '@haqq/shared';
 import {
@@ -17,102 +14,21 @@ import {
   AirdropChallengeStatusSuccess,
 } from '../airdrop-challenge/airdrop-challenge';
 
-function useAirdropCheckerCosmos(
-  participationAddressCosmos: string | undefined,
-  participationAddressEvmos: string | undefined,
-  airdropEndpoint?: string,
-) {
-  const { checkAirdropCosmos: checkAirdrop } = useAirdropActions();
-
-  const [participant, setParticipant] = useState<IParticipant | undefined>();
-
-  const loadAirdrop = useCallback(() => {
-    participationAddressCosmos &&
-      participationAddressEvmos &&
-      airdropEndpoint &&
-      checkAirdrop(
-        airdropEndpoint,
-        participationAddressCosmos,
-        participationAddressEvmos,
-      ).then((p) => {
-        setParticipant(p);
-      });
-  }, [
-    participationAddressEvmos,
-    participationAddressCosmos,
-    airdropEndpoint,
-    checkAirdrop,
-  ]);
-
-  const intervalRef = useRef<number>();
-
-  useEffect(() => {
-    loadAirdrop();
-
-    const intervalId = setInterval(
-      loadAirdrop,
-      PARTICIPANTS_CHECK_INTERVAL,
-    ) as unknown;
-    intervalRef.current = intervalId as number;
-
-    return () => {
-      clearInterval(intervalRef.current);
-    };
-  }, [loadAirdrop]);
-
-  return { participant };
-}
-
-export const getKeplrWallet = async (): Promise<Keplr | undefined> => {
-  if (window.keplr) {
-    return window.keplr;
-  }
-
-  if (document.readyState === 'complete') {
-    return window.keplr;
-  }
-
-  return new Promise((resolve) => {
-    const documentStateChange = (event: Event) => {
-      if (
-        event.target &&
-        (event.target as Document).readyState === 'complete'
-      ) {
-        console.log('getKeplrWallet', {
-          version: window?.keplr?.version,
-        });
-        document.removeEventListener('readystatechange', documentStateChange);
-        resolve(window.keplr);
-      }
-    };
-
-    document.addEventListener('readystatechange', documentStateChange);
-  });
-};
-
 const MSG = 'Haqqdrop!';
 
 export function CosmosAirdropCard({
-  participationAddressCosmos,
-  participationAddressEvmos,
-  isEvmos,
+  address,
   icon,
   chainId,
   airdropEndpoint,
+  participant,
 }: {
-  participationAddressCosmos?: string;
-  participationAddressEvmos?: string;
+  address?: string;
   icon: string;
   chainId: string;
-  isEvmos: boolean;
   airdropEndpoint?: string;
+  participant?: IParticipant;
 }) {
-  const { participant } = useAirdropCheckerCosmos(
-    participationAddressCosmos,
-    participationAddressEvmos,
-    airdropEndpoint,
-  );
-
   const keplrSignArbitrary = useCallback(async () => {
     const keplrWallet = await getKeplrWallet();
     if (keplrWallet) {
@@ -136,10 +52,6 @@ export function CosmosAirdropCard({
   }, [chainId]);
 
   const hasAirdrop = (participant?.amount || 0) > 0;
-
-  const address = isEvmos
-    ? participationAddressEvmos
-    : participationAddressCosmos;
 
   const { participateCosmos } = useAirdropActions();
 
@@ -182,7 +94,10 @@ export function CosmosAirdropCard({
                   <AirdropResultStrongText>Yes</AirdropResultStrongText>
                 </>
               ) : (
-                <AirdropChallengeStatusFailed />
+                <>
+                  <AirdropChallengeStatusFailed />
+                  <AirdropResultStrongText>No</AirdropResultStrongText>
+                </>
               )}
             </div>
           }

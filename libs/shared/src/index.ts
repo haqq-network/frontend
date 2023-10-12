@@ -10,6 +10,7 @@ export * from './providers/website-providers';
 export * from './hooks/use-account-info/use-account-info';
 export * from './hooks/use-address/use-address';
 export * from './hooks/use-airdrop-actions/use-airdrop-actions';
+export * from './hooks/use-keplr/use-keplr';
 export * from './hooks/use-staking-actions/use-staking-actions';
 export * from './hooks/use-staking-queries/use-staking-queries';
 export * from './hooks/use-proposal-actions/use-proposal-actions';
