@@ -19,6 +19,8 @@ export function ReactQueryProvider({
           retryDelay: (attemptIndex: number) => {
             return Math.min(1000 * 2 ** attemptIndex, 30000);
           },
+          staleTime: 30000,
+          refetchInterval: 60000,
         },
       },
     });

@@ -26,9 +26,9 @@ export const getHomePageContent = cache(
         const mappedNews = mapStorybookToNews(data.news);
 
         return {
-          advisoryMembers: data.advisory_members,
-          executiveMembers: data.executive_members,
-          shariahMembers: data.shariah_members,
+          advisoryMembers: data.members.advisory_members,
+          executiveMembers: data.members.executive_members,
+          shariahMembers: data.members.shariah_members,
           news: mappedNews,
           mainnet_accounts: data.mainnet_accounts,
         };

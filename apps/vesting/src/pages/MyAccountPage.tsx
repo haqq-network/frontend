@@ -11,7 +11,7 @@ import {
 } from '@haqq/shared';
 import { formatUnits } from 'viem';
 import { VestingAccountStats } from '../components/VestingAccountStats';
-import { Card } from '@haqq/shell-ui-kit';
+import { Card } from '../components/Card/Card';
 
 export function AccountPage() {
   const { ethAddress, haqqAddress } = useAddress();

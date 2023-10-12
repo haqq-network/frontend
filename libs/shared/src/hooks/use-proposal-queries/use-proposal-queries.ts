@@ -100,10 +100,7 @@ export function useProposalTallys(proposalIds: string[] = []) {
       return {
         queryKey: [chainId, 'proposal-tally', id],
         queryFn: async () => {
-          return {
-            id,
-            results: await getProposalTally(id),
-          };
+          return await getProposalTally(id);
         },
         refetchOnWindowFocus: false,
       };

@@ -47,12 +47,12 @@ export function ProposalListBlock() {
 
   const ongoingProposalTallysResultMap = useMemo(() => {
     return new Map(
-      proposalTallysDataArray.map((proposalQueryResult) => {
+      proposalTallysDataArray.map((proposalQueryResult, index) => {
         const tallyData = proposalQueryResult.data;
-        return [tallyData?.id, tallyData?.results];
+        return [ongoingProposals[index], tallyData];
       }),
     );
-  }, [proposalTallysDataArray]);
+  }, [ongoingProposals, proposalTallysDataArray]);
 
   const proposalsToRender = useMemo(() => {
     return proposals.map((proposal) => {
@@ -101,7 +101,7 @@ export function ProposalListBlock() {
           {proposalsToRender.map((proposal) => {
             return (
               <Link
-                to={`proposal/${proposal.proposal_id}`}
+                to={`governance/proposal/${proposal.proposal_id}`}
                 key={proposal.proposal_id}
               >
                 <ProposalListCard
