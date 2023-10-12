@@ -101,7 +101,7 @@ export function ProposalListBlock() {
           {proposalsToRender.map((proposal) => {
             return (
               <Link
-                to={`proposal/${proposal.proposal_id}`}
+                to={`governance/proposal/${proposal.proposal_id}`}
                 key={proposal.proposal_id}
               >
                 <ProposalListCard
