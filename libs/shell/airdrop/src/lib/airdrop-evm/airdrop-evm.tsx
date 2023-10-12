@@ -6,9 +6,11 @@ import { BlurredBlock } from '../blured-block/blured-block';
 export function AirdropEvm({
   ethAddress,
   airdropEndpoint,
+  isCosmos,
 }: {
   ethAddress?: string;
   airdropEndpoint?: string;
+  isCosmos?: boolean;
 }) {
   const { openSelectWallet } = useWallet();
 
@@ -20,6 +22,7 @@ export function AirdropEvm({
           <EvmAirdropView
             address={ethAddress}
             airdropEndpoint={airdropEndpoint}
+            isCosmos={isCosmos}
           />
         </div>
       }

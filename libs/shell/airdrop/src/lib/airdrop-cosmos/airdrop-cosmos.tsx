@@ -1,11 +1,6 @@
 import { Button } from '@haqq/shell-ui-kit';
 import type { Keplr } from '@keplr-wallet/types';
-import { useCallback, useState } from 'react';
-import { haqqToEth, useWallet } from '@haqq/shared';
-import {
-  CosmosAirdropCard,
-  getKeplrWallet,
-} from '../cosmos-airdrop-card/cosmos-airdrop-card';
+import { CosmosAirdropCard } from '../cosmos-airdrop-card/cosmos-airdrop-card';
 import { BlurredBlock } from '../blured-block/blured-block';
 import cosmosIcon from './../../assets/icons/cosmos.svg';
 import evmosIcon from './../../assets/icons/evmos.svg';
@@ -56,93 +51,58 @@ export async function addHaqqNetwork(keplrWallet: Keplr) {
   }
 }
 
-async function enableChains(keplrWallet: Keplr) {
-  await keplrWallet.enable(['haqq_11235-1', 'cosmoshub-4', 'evmos_9001-2']);
-}
-
 export function AirdropCosmos({
-  hasMetamaskConnected,
-  setEthAddressFromKepler,
-  ethAddressFromKeplr,
   airdropEndpoint,
+  keplrAccounts,
+  connectKeplrWallet,
+  notConnectedKeplr,
 }: {
-  ethAddressFromKeplr: string;
-  hasMetamaskConnected: boolean;
-  setEthAddressFromKepler: (haqqAddress: string) => void;
   airdropEndpoint?: string;
+  connectKeplrWallet: () => void;
+  keplrAccounts: Record<string, string>;
+  notConnectedKeplr: boolean;
 }) {
-  const [accounts, setAccounts] = useState<Record<string, string>>({});
-
-  const { disconnect } = useWallet();
-
-  const notConnectedKeplr =
-    Object.keys(accounts).length === 0 || hasMetamaskConnected;
-
-  const connectKeplrWallet = useCallback(async () => {
-    const keplrWallet = await getKeplrWallet();
-
-    if (hasMetamaskConnected) {
-      disconnect();
-    }
-
-    if (keplrWallet) {
-      try {
-        await enableChains(keplrWallet);
-      } catch (e) {
-        await addHaqqNetwork(keplrWallet);
-      } finally {
-        await enableChains(keplrWallet);
-      }
-
-      const [haqq, cosmos, evmos] = await Promise.all([
-        await keplrWallet.getKey('haqq_11235-1'),
-        await keplrWallet.getKey('cosmoshub-4'),
-        await keplrWallet.getKey('evmos_9001-2'),
-      ]);
-
-      setEthAddressFromKepler(haqqToEth(haqq.bech32Address));
-
-      setAccounts({
-        haqq: haqq.bech32Address,
-        cosmos: cosmos.bech32Address,
-        evmos: evmos.bech32Address,
-      });
-    }
-  }, [disconnect, setEthAddressFromKepler, hasMetamaskConnected]);
-
   return (
     <BlurredBlock
       isBlurred={notConnectedKeplr}
       blurredContent={
         <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
           <CosmosAirdropCard
-            participationAddress={accounts['cosmos']}
+            participationAddressCosmos={keplrAccounts['cosmos']}
+            participationAddressEvmos={keplrAccounts['evmos']}
             icon={cosmosIcon}
             chainId="cosmoshub-4"
-            ethAddressFromKeplr={ethAddressFromKeplr}
             airdropEndpoint={airdropEndpoint}
+            isEvmos={false}
           />
-          <CosmosAirdropCard
-            icon={evmosIcon}
-            chainId="evmos_9001-2"
-            ethAddressFromKeplr={ethAddressFromKeplr}
-            airdropEndpoint={airdropEndpoint}
+          <BlurredBlock
+            isBlurred={true}
+            content="Coming soon!"
+            blurredContent={
+              <CosmosAirdropCard
+                icon={evmosIcon}
+                participationAddressCosmos={''}
+                participationAddressEvmos={''}
+                chainId="evmos_9001-2"
+                airdropEndpoint={airdropEndpoint}
+                isEvmos={true}
+              />
+            }
           />
         </div>
       }
       content={
         <div className="flex flex-col items-center space-y-[12px] py-[58px]">
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-            Coming soon!
+            Connect via Keplr to see
           </div>
-          {false && (
-            <Button
-              className="pl-[32px] pr-[32px]"
-              onClick={connectKeplrWallet}
-            >
-              Connect to Keplr
-            </Button>
-          )}
+          <Button
+            className="text-black hover:bg-transparent hover:text-white"
+            onClick={connectKeplrWallet}
+            variant={2}
+          >
+            Connect to Keplr
+          </Button>
         </div>
       }
     />

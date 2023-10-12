@@ -18,7 +18,7 @@ import {
   AirdropChallengeStatusSuccess,
 } from '../airdrop-challenge/airdrop-challenge';
 
-const PARTICIPANTS_CHECK_INTERVAL = 20000;
+export const PARTICIPANTS_CHECK_INTERVAL = 20000;
 
 export function AirdropResultStrongText({ children }: PropsWithChildren) {
   return (
@@ -28,18 +28,21 @@ export function AirdropResultStrongText({ children }: PropsWithChildren) {
   );
 }
 
-export function useAirdropChecker(address?: string, airdropEndpoint?: string) {
-  const { checkAirdrop } = useAirdropActions();
+function useAirdropCheckerEvm(
+  participationAddressEvm: string | undefined,
+  airdropEndpoint?: string,
+) {
+  const { checkAirdropEvm: checkAirdrop } = useAirdropActions();
 
   const [participant, setParticipant] = useState<IParticipant | undefined>();
 
   const loadAirdrop = useCallback(() => {
-    address &&
+    participationAddressEvm &&
       airdropEndpoint &&
-      checkAirdrop(airdropEndpoint, address).then((p) => {
+      checkAirdrop(airdropEndpoint, participationAddressEvm).then((p) => {
         setParticipant(p);
       });
-  }, [address, airdropEndpoint, checkAirdrop]);
+  }, [participationAddressEvm, airdropEndpoint, checkAirdrop]);
 
   const intervalRef = useRef<number>();
 
@@ -65,11 +68,13 @@ const MESSAGE = 'Haqqdrop!';
 export function EvmAirdropView({
   address,
   airdropEndpoint,
+  isCosmos,
 }: {
   address?: string;
   airdropEndpoint?: string;
+  isCosmos?: boolean;
 }) {
-  const { participant } = useAirdropChecker(address, airdropEndpoint);
+  const { participant } = useAirdropCheckerEvm(address, airdropEndpoint);
 
   const { sign } = useAirdropActions();
   const onSignHandler = useCallback(async () => {
@@ -86,6 +91,17 @@ export function EvmAirdropView({
   }, [address, sign]);
 
   const hasAirdrop = (participant?.amount || 0) > 0;
+
+  const { participateEvm, participateCosmos } = useAirdropActions();
+
+  const onParticipate = useCallback(
+    (signature: string) => {
+      return isCosmos
+        ? participateCosmos(airdropEndpoint, MESSAGE, signature, address)
+        : participateEvm(airdropEndpoint, MESSAGE, signature);
+    },
+    [participateEvm, airdropEndpoint, address, participateCosmos, isCosmos],
+  );
 
   return (
     <div className="flex flex-col gap-[20px]">
@@ -198,11 +214,10 @@ export function EvmAirdropView({
 
           <ApproveBtn
             participationAddress={address}
-            message={MESSAGE}
             participant={participant}
-            isCosmos={false}
+            isCosmos={isCosmos}
             onSign={onSignHandler}
-            airdropEndpoint={airdropEndpoint}
+            onParticipate={onParticipate}
           />
         </>
       )}

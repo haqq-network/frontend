@@ -1,17 +1,67 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Address } from '../address/address';
 import { ApproveBtn } from '../approve-btn/approve-btn';
 import {
   AirdropResultStrongText,
-  useAirdropChecker,
+  PARTICIPANTS_CHECK_INTERVAL,
 } from '../evm-airdrop-view/evm-airdrop-view';
 import { Keplr } from '@keplr-wallet/types';
-import { formatEthDecimal } from '@haqq/shared';
+import {
+  IParticipant,
+  formatEthDecimal,
+  useAirdropActions,
+} from '@haqq/shared';
 import {
   AirdropChallenge,
   AirdropChallengeStatusFailed,
   AirdropChallengeStatusSuccess,
 } from '../airdrop-challenge/airdrop-challenge';
+
+function useAirdropCheckerCosmos(
+  participationAddressCosmos: string | undefined,
+  participationAddressEvmos: string | undefined,
+  airdropEndpoint?: string,
+) {
+  const { checkAirdropCosmos: checkAirdrop } = useAirdropActions();
+
+  const [participant, setParticipant] = useState<IParticipant | undefined>();
+
+  const loadAirdrop = useCallback(() => {
+    participationAddressCosmos &&
+      participationAddressEvmos &&
+      airdropEndpoint &&
+      checkAirdrop(
+        airdropEndpoint,
+        participationAddressCosmos,
+        participationAddressEvmos,
+      ).then((p) => {
+        setParticipant(p);
+      });
+  }, [
+    participationAddressEvmos,
+    participationAddressCosmos,
+    airdropEndpoint,
+    checkAirdrop,
+  ]);
+
+  const intervalRef = useRef<number>();
+
+  useEffect(() => {
+    loadAirdrop();
+
+    const intervalId = setInterval(
+      loadAirdrop,
+      PARTICIPANTS_CHECK_INTERVAL,
+    ) as unknown;
+    intervalRef.current = intervalId as number;
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [loadAirdrop]);
+
+  return { participant };
+}
 
 export const getKeplrWallet = async (): Promise<Keplr | undefined> => {
   if (window.keplr) {
@@ -43,20 +93,23 @@ export const getKeplrWallet = async (): Promise<Keplr | undefined> => {
 const MSG = 'Haqqdrop!';
 
 export function CosmosAirdropCard({
-  participationAddress,
-  ethAddressFromKeplr,
+  participationAddressCosmos,
+  participationAddressEvmos,
+  isEvmos,
   icon,
   chainId,
   airdropEndpoint,
 }: {
-  participationAddress?: string;
+  participationAddressCosmos?: string;
+  participationAddressEvmos?: string;
   icon: string;
   chainId: string;
-  ethAddressFromKeplr: string;
+  isEvmos: boolean;
   airdropEndpoint?: string;
 }) {
-  const { participant } = useAirdropChecker(
-    participationAddress,
+  const { participant } = useAirdropCheckerCosmos(
+    participationAddressCosmos,
+    participationAddressEvmos,
     airdropEndpoint,
   );
 
@@ -84,6 +137,19 @@ export function CosmosAirdropCard({
 
   const hasAirdrop = (participant?.amount || 0) > 0;
 
+  const address = isEvmos
+    ? participationAddressEvmos
+    : participationAddressCosmos;
+
+  const { participateCosmos } = useAirdropActions();
+
+  const onParticipate = useCallback(
+    (signature: string) => {
+      return participateCosmos(airdropEndpoint, MSG, signature, address);
+    },
+    [participateCosmos, airdropEndpoint, address],
+  );
+
   return (
     <div className="flex flex-col gap-[20px]">
       <div className="h-[48px]">
@@ -94,13 +160,13 @@ export function CosmosAirdropCard({
         />
       </div>
 
-      {participationAddress && (
+      {address && (
         <div>
           <div className="font-guise text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
             Address
           </div>
           <div className="font-guise text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]">
-            <Address address={participationAddress} />
+            <Address address={address} />
           </div>
         </div>
       )}
@@ -136,13 +202,11 @@ export function CosmosAirdropCard({
 
           <div className="mt-[4px]">
             <ApproveBtn
-              participationAddress={participationAddress}
-              message={MSG}
+              participationAddress={address}
               participant={participant}
-              isCosmos
+              isCosmos={true}
               onSign={keplrSignArbitrary}
-              ethAddress={ethAddressFromKeplr}
-              airdropEndpoint={airdropEndpoint}
+              onParticipate={onParticipate}
             />
           </div>
         </>
