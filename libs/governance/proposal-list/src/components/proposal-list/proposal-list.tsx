@@ -42,12 +42,12 @@ export function ProposalList() {
 
   const ongoingProposalTallysResultMap = useMemo(() => {
     return new Map(
-      proposalTallysDataArray.map((proposalQueryResult) => {
+      proposalTallysDataArray.map((proposalQueryResult, index) => {
         const tallyData = proposalQueryResult.data;
-        return [tallyData?.id, tallyData?.results];
+        return [ongoingProposals[index], tallyData];
       }),
     );
-  }, [proposalTallysDataArray]);
+  }, [ongoingProposals, proposalTallysDataArray]);
 
   const proposalsToRender = useMemo(() => {
     return proposals.map((proposal) => {
