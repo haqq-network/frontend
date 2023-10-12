@@ -1,6 +1,6 @@
 import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
-import careerStarsImgData from '../../assets/images/career-stars.webp';
+import careerStarsImgData from '../../assets/images/career-stars.jpg';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -47,7 +47,7 @@ export function CareerPage() {
             'opacity-70 md:opacity-100',
           )}
         >
-          <Image src={careerStarsImgData} alt="" fill />
+          <Image src={careerStarsImgData} alt="" fill priority />
         </div>
       </Container>
     </section>
