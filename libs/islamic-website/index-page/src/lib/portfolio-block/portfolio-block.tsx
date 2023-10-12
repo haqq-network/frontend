@@ -5,8 +5,8 @@ import {
   WalletDownloadButton,
   RatingBadge,
 } from '@haqq/islamic-website-ui-kit';
-import iphoneImgData from '../../assets/images/iphone.png';
-import halfIphoneImgData from '../../assets/images/half-iphone.png';
+import iphoneImgData from '../../assets/images/iphone.jpg';
+import halfIphoneImgData from '../../assets/images/half-iphone.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -24,7 +24,7 @@ export function PortfolioBlock() {
           {t('portfolio-block.title.white-text.second')}
         </div>
         <div className="flex flex-col gap-x-[28px] gap-y-[32px] md:flex-row-reverse lg:gap-x-[36px] xl:gap-x-[54px] 2xl:gap-x-[64px]">
-          <div className="bg-islamic-primary-graphite relative block h-[290px] overflow-hidden rounded-[20px] px-[42px] pt-[24px] md:hidden md:h-full md:px-[10px] md:pt-[32px]">
+          <div className="bg-islamic-primary-graphite pointer-events-none relative block h-[290px] select-none overflow-hidden rounded-[20px] px-[42px] pt-[24px] md:hidden md:h-full md:px-[10px] md:pt-[32px]">
             <Image
               src={halfIphoneImgData}
               alt=""
@@ -82,7 +82,7 @@ export function PortfolioBlock() {
               </div>
             </div>
           </div>
-          <div className="bg-islamic-primary-graphite relative hidden w-1/2 overflow-hidden rounded-[20px] px-[42px] pt-[24px] md:block md:h-[480px] md:min-w-[280px] md:px-[10px] md:pt-[32px] lg:h-[648px] lg:min-w-[380px] xl:min-w-[446px] 2xl:min-w-[526px]">
+          <div className="bg-islamic-primary-graphite pointer-events-none relative hidden w-1/2 select-none overflow-hidden rounded-[20px] px-[42px] pt-[24px] md:block md:h-[480px] md:min-w-[280px] md:px-[10px] md:pt-[32px] lg:h-[648px] lg:min-w-[380px] xl:min-w-[446px] 2xl:min-w-[526px]">
             <Image
               src={iphoneImgData}
               alt=""
