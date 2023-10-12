@@ -7,7 +7,6 @@ export function ConnectButton() {
   const { isConnected, address } = useAccount();
   const { data: balance } = useBalance({
     address: address,
-    watch: true,
   });
   const { connectWallet, disconnectWallet } = useOnboarding();
   const { chain } = useNetwork();

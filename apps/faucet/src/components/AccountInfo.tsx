@@ -1,5 +1,10 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
-import { getFormattedAddress, useAddress, useClipboard } from '@haqq/shared';
+import {
+  getFormattedAddress,
+  useAddress,
+  useClipboard,
+  useSupportedChains,
+} from '@haqq/shared';
 import { useBalance, useNetwork } from 'wagmi';
 import { CopyIcon, Tooltip, formatNumber } from '@haqq/shell-ui-kit';
 
@@ -21,11 +26,12 @@ export function MyAccountCardBlock({
 
 export function AccountInfo() {
   const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { ethAddress, haqqAddress } = useAddress();
   const { copyText } = useClipboard();
   const { data: balance } = useBalance({
     address: ethAddress,
-    watch: true,
+    chainId: chain?.id ?? chains[0].id,
   });
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);

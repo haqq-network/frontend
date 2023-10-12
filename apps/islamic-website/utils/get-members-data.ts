@@ -1,71 +1,59 @@
-import { storyblokInit, apiPlugin } from '@storyblok/js';
 import { Member } from '@haqq/islamic-website-ui-kit';
-import {
-  REVALIDATE_TIME,
-  STORYBLOK_ACCESS_TOKEN,
-  VERCEL_ENV,
-} from '../constants';
+import { FALCONER_ENDPOINT, REVALIDATE_TIME } from '../constants';
 import { cache } from 'react';
-
-interface StoryblokMember {
-  title: string;
-  fullDescription: string;
-  url: string;
-  image: {
-    filename: string;
-  };
-}
-
-export function mapStoryblokToMembers(data: StoryblokMember[]): Member[] {
-  return data.map((member) => {
-    return {
-      image: member.image.filename,
-      title: member.title,
-      description: member.fullDescription,
-      url: member.url,
-    };
-  });
-}
 
 export const revalidate = REVALIDATE_TIME;
 
 export const getMembersContent = cache(
-  async ({ locale }: { locale: string }) => {
-    const { storyblokApi } = storyblokInit({
-      accessToken: STORYBLOK_ACCESS_TOKEN,
-      use: [apiPlugin],
-    });
-
-    if (!storyblokApi) {
-      throw new Error('Failed to init storyblok');
+  async (
+    locale: string,
+  ): Promise<{
+    advisoryMembers: Member[];
+    executiveMembers: Member[];
+    shariahMembers: Member[];
+    teamMembers: Member[];
+    founderMembers: Member[];
+  }> => {
+    try {
+      const response = await fetch(`${FALCONER_ENDPOINT}/islamic/members`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ locale }),
+        next: {
+          revalidate,
+        },
+      });
+      if (response.ok) {
+        const {
+          members: {
+            advisory_members,
+            executive_members,
+            shariah_members,
+            team_members,
+            founder_members,
+          },
+        } = await response.json();
+        return {
+          advisoryMembers: advisory_members,
+          executiveMembers: executive_members,
+          shariahMembers: shariah_members,
+          teamMembers: team_members,
+          founderMembers: founder_members,
+        };
+      } else {
+        console.log('Response was not ok.', response);
+      }
+    } catch (error) {
+      console.error(error);
     }
-
-    const response = await storyblokApi.get('cdn/stories/boardmembers', {
-      version: VERCEL_ENV === 'production' ? 'published' : 'draft',
-      language: locale,
-    });
-
-    const executiveMembers = mapStoryblokToMembers(
-      response.data.story.content.body[0].columns,
-    );
-
-    const shariahMembers = mapStoryblokToMembers(
-      response.data.story.content.body[1].columns,
-    );
-
-    const advisoryMembers = mapStoryblokToMembers(
-      response.data.story.content.body[2].columns,
-    );
-
-    const teamMembers = mapStoryblokToMembers(
-      response.data.story.content.body[3].columns,
-    );
-
     return {
-      executiveMembers,
-      shariahMembers,
-      advisoryMembers,
-      teamMembers,
+      advisoryMembers: [],
+      executiveMembers: [],
+      shariahMembers: [],
+      teamMembers: [],
+      founderMembers: [],
     };
   },
 );

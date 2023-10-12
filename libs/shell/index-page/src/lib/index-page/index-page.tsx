@@ -61,7 +61,6 @@ function AccountFooterMobile() {
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    watch: true,
   });
   const balance = useMemo(() => {
     if (!balanceData) {

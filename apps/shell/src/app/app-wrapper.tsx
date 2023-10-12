@@ -43,8 +43,7 @@ function HeaderButtons({
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    watch: true,
-    chainId: chain?.id ?? chains[0]?.id,
+    chainId: chain?.id ?? chains[0].id,
   });
   const { switchNetworkAsync } = useSwitchNetwork();
   const isDesktop = useMediaQuery({

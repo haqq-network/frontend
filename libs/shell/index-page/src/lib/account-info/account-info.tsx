@@ -14,14 +14,14 @@ export function ShellIndexPageAccountInfo() {
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const { copyText } = useClipboard();
   const { ethAddress, haqqAddress } = useAddress();
+  const { chain } = useNetwork();
+  const chains = useSupportedChains();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    watch: true,
+    chainId: chain?.id ?? chains[0].id,
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
 
