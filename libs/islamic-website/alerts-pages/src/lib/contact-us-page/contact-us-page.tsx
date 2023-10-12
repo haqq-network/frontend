@@ -1,7 +1,7 @@
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
-import contactPageImageData from '../../assets/images/contact-page-image.webp';
+import contactPageImageData from '../../assets/images/contact-page-image.jpg';
 
 export function ContactUsPage() {
   return (
@@ -54,7 +54,7 @@ export function ContactUsPage() {
             </div>
 
             <div className="relative mb-[-30%] w-full flex-1 lg:mb-[0px] lg:min-h-[200px]">
-              <div className="pointer-events-none z-[-1] select-none lg:absolute lg:right-[0px] lg:top-[50%] lg:origin-right lg:translate-x-[80%] lg:translate-y-[-50%] lg:scale-150">
+              <div className="pointer-events-none select-none lg:absolute lg:right-[0px] lg:top-[50%] lg:z-[-1] lg:origin-right lg:translate-x-[80%] lg:translate-y-[-50%] lg:scale-150">
                 <div className="from-islamic-bg-black absolute bottom-[0px] h-[75%] w-full bg-gradient-to-t from-55% to-transparent lg:right-0 lg:h-full lg:w-[90%] lg:bg-gradient-to-l" />
                 <Image
                   alt=""
