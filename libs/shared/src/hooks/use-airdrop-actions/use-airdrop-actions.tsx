@@ -16,6 +16,7 @@ export enum ParticipantStatus {
   Queued = 'queued',
   Redeemed = 'redeemed',
   Unknown = 'unknown',
+  Approved = 'approved'
 }
 
 export interface IParticipant {

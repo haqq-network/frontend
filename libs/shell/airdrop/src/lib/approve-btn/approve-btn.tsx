@@ -82,6 +82,7 @@ export function ApproveBtn({
   const isCheckboxDefaultChecked =
     participant?.status === ParticipantStatus.Checking ||
     participant?.status === ParticipantStatus.Queued ||
+    participant?.status === ParticipantStatus.Approved ||
     participant?.status === ParticipantStatus.Redeemed;
 
   return (
@@ -99,6 +100,7 @@ export function ApproveBtn({
 
       {(participant?.status === ParticipantStatus.Checking ||
         participant?.status === ParticipantStatus.Queued ||
+        participant?.status === ParticipantStatus.Approved ||
         receivingAddress) && (
         <div className="flex flex-col gap-y-[6px]">
           <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
