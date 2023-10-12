@@ -12,7 +12,7 @@ import {
   ClawbackVestingAccount,
 } from '@haqq/shared';
 import { VestingAccountStats } from '../components/VestingAccountStats';
-import { Card } from '@haqq/shell-ui-kit';
+import { Card } from '../components/Card/Card';
 
 export function AccountPage() {
   const { address } = useParams();
