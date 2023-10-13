@@ -121,14 +121,14 @@ export function StakingInfoAmountBlockMobile({
   return (
     <div className="flex flex-col items-start gap-y-[6px]">
       <div>
-        <div className="text-[12px] font-[600] uppercase leading-[1.2em] text-white/50">
+        <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50">
           {title}
         </div>
       </div>
       <div>
         <div
           className={clsx(
-            'text-[13px] font-[500] leading-[20px]',
+            'font-guise text-[13px] font-[500] leading-[20px]',
             isGreen ? 'text-[#01B26E]' : 'text-white',
           )}
         >
@@ -148,7 +148,7 @@ export function StakingStatsMobile({
   unbounded,
 }: StakingStatsMobileProps) {
   return (
-    <div className="flex items-start gap-[16px] overflow-x-auto px-[16px] py-[20px]">
+    <div className="flex flex-row items-start gap-[16px] overflow-x-auto px-[16px] py-[20px]">
       <div>
         <WalletIcon />
       </div>
