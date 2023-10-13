@@ -127,6 +127,5 @@
       "@haqq/storybook-host": ["libs/storybook-host/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"],
-  "include": ["**/*.d.ts"]
+  "exclude": ["node_modules", "tmp"]
 }
