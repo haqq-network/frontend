@@ -29,8 +29,6 @@ export function IndexPage({
   mainnetAccounts: number;
   locale: string;
 }) {
-  console.log({ executiveMembers });
-
   return (
     <Fragment>
       <Hero mainnetAccounts={mainnetAccounts} />
