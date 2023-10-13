@@ -120,17 +120,20 @@ export function StakingInfoAmountBlockMobile({
 }) {
   return (
     <div className="flex flex-col items-start gap-y-[6px]">
-      <div className="text-[12px] font-[600] uppercase leading-[1.2em] text-white/50">
-        {title}
+      <div>
+        <div className="text-[12px] font-[600] uppercase leading-[1.2em] text-white/50">
+          {title}
+        </div>
       </div>
-      <div
-        className={clsx(
-          'flex gap-x-[4px] text-[13px] font-[500] leading-[20px]',
-          isGreen ? 'text-[#01B26E]' : 'text-white',
-        )}
-      >
-        {value}
-        <span>{symbol.toUpperCase()}</span>
+      <div>
+        <div
+          className={clsx(
+            'text-[13px] font-[500] leading-[20px]',
+            isGreen ? 'text-[#01B26E]' : 'text-white',
+          )}
+        >
+          {value}&nbsp;{symbol.toUpperCase()}
+        </div>
       </div>
     </div>
   );
@@ -149,27 +152,35 @@ export function StakingStatsMobile({
       <div>
         <WalletIcon />
       </div>
-      <StakingInfoAmountBlockMobile
-        title="Available"
-        value={balance}
-        symbol={symbol}
-      />
-      <StakingInfoAmountBlockMobile
-        title="Staked"
-        value={delegated}
-        symbol={symbol}
-      />
-      <StakingInfoAmountBlockMobile
-        title="Unbonding"
-        value={unbounded}
-        symbol={symbol}
-      />
-      <StakingInfoAmountBlockMobile
-        title="Rewards"
-        value={rewards}
-        symbol={symbol}
-        isGreen
-      />
+      <div className="flex-initial">
+        <StakingInfoAmountBlockMobile
+          title="Available"
+          value={balance}
+          symbol={symbol}
+        />
+      </div>
+      <div className="flex-initial">
+        <StakingInfoAmountBlockMobile
+          title="Staked"
+          value={delegated}
+          symbol={symbol}
+        />
+      </div>
+      <div className="flex-initial">
+        <StakingInfoAmountBlockMobile
+          title="Unbonding"
+          value={unbounded}
+          symbol={symbol}
+        />
+      </div>
+      <div className="flex-initial">
+        <StakingInfoAmountBlockMobile
+          title="Rewards"
+          value={rewards}
+          symbol={symbol}
+          isGreen
+        />
+      </div>
       <div className="min-w-[170px]">
         <Button onClick={onRewardsClaim} variant={2}>
           Get rewards
