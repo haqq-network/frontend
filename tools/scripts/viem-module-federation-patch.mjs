@@ -13,7 +13,7 @@ async function main() {
     );
     const targetPackageFilePath = resolve(
       __dirname,
-      '../../node_modules/viem/dist/esm/package.json',
+      '../../node_modules/viem/_esm/package.json',
     );
     const sourcePackageData = await readFile(sourcePackageFilePath);
     const viemPackage = JSON.parse(sourcePackageData);

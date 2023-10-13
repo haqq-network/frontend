@@ -24,10 +24,11 @@
     "start:haqq-website": "yarn nx serve haqq-website",
     "start:islamic-website": "yarn nx serve islamic-website",
     "format": "yarn prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
-    "prepare": "is-ci || husky install",
     "check-ignore-build": "yarn node ./tools/scripts/ignore-build.mjs",
+    "install:husky": "is-ci || husky install",
     "patch:viem": "yarn node ./tools/scripts/viem-module-federation-patch.mjs",
-    "postinstall": "yarn prepare && yarn patch:viem"
+    "prepare": "yarn install:husky && yarn patch:viem",
+    "postinstall": "yarn prepare"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.2.1",
