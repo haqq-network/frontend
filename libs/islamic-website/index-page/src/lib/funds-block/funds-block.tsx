@@ -40,7 +40,7 @@ export function FundsBlock() {
               aria-label="A195 Capital"
             >
               <div className="relative h-[80px] w-[178px] opacity-60 transition-opacity duration-300 hover:opacity-100">
-                <Image src={a195LogoImgData.src} alt="" fill />
+                <Image src={a195LogoImgData.src} alt="" fill loading="lazy" />
               </div>
             </Link>
 
@@ -51,7 +51,12 @@ export function FundsBlock() {
               aria-label="Optic Capital"
             >
               <div className="relative h-[80px] w-[100px] opacity-60 transition-opacity duration-300 hover:opacity-100">
-                <Image src={opticCapitalLogoImgData.src} alt="" fill />
+                <Image
+                  src={opticCapitalLogoImgData.src}
+                  alt=""
+                  fill
+                  loading="lazy"
+                />
               </div>
             </Link>
             <Link
@@ -61,7 +66,12 @@ export function FundsBlock() {
               aria-label="ABO Fund"
             >
               <div className="relative h-[80px] w-[140px] opacity-60 transition-opacity duration-300 hover:opacity-100">
-                <Image src={aboDigitalLogoImgData.src} alt="" fill />
+                <Image
+                  src={aboDigitalLogoImgData.src}
+                  alt=""
+                  fill
+                  loading="lazy"
+                />
               </div>
             </Link>
             <Link
@@ -70,7 +80,7 @@ export function FundsBlock() {
               rel="noopener noreferrer"
               aria-label="Futurecraft ventures"
             >
-              <div className="relative h-[80px] w-[100px] opacity-60 transition-opacity duration-300 hover:opacity-100">
+              <div className="relative h-[45px] w-[140px] opacity-60 transition-opacity duration-300 hover:opacity-100">
                 <Image src={futurecraftVenturesImgData.src} alt="" fill />
               </div>
             </Link>
