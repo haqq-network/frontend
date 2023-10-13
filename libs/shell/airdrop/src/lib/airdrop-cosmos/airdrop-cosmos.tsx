@@ -110,6 +110,7 @@ export function useAirdropCheckerCosmos(
 export function AirdropCosmos({
   airdropEndpoint,
   connectKeplrWallet,
+  keplrAccounts,
 }: {
   airdropEndpoint?: string;
   connectKeplrWallet?: () => void;
@@ -124,12 +125,14 @@ export function AirdropCosmos({
           <CosmosAirdropCard
             address={''}
             icon={cosmosIcon}
+            message={keplrAccounts['haqq']}
             chainId="cosmoshub-4"
             airdropEndpoint={airdropEndpoint}
           />
 
           <CosmosAirdropCard
             icon={evmosIcon}
+            message={keplrAccounts['haqq']}
             chainId="evmos_9001-2"
             airdropEndpoint={airdropEndpoint}
           />

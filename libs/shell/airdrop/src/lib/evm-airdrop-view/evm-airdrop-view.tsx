@@ -64,20 +64,21 @@ function useAirdropCheckerEvm(
   return { participant };
 }
 
-const MESSAGE = 'Haqqdrop!';
+const EMV_SIGN_MESSAGE = 'Haqqdrop!';
 
 export function EvmAirdropView({
   address,
   airdropEndpoint,
   isCosmos,
 }: {
-  address?: string;
+  address: string;
   airdropEndpoint?: string;
   isCosmos?: boolean;
 }) {
   const { participant } = useAirdropCheckerEvm(address, airdropEndpoint);
 
   const { signEvm, signKeplr } = useAirdropActions();
+
   const onSignHandler = useCallback(async () => {
     if (!address) {
       return {
@@ -86,9 +87,9 @@ export function EvmAirdropView({
     }
 
     if (isCosmos) {
-      return await signKeplr('haqq_11235-1', MESSAGE);
+      return await signKeplr('haqq_11235-1', address);
     } else {
-      const signature = await signEvm(address as Hex, MESSAGE);
+      const signature = await signEvm(address as Hex, EMV_SIGN_MESSAGE);
 
       return {
         signature,
@@ -105,11 +106,11 @@ export function EvmAirdropView({
       return isCosmos
         ? participateCosmos(
             airdropEndpoint,
-            MESSAGE,
+            ethToHaqq(address),
             signature,
             ethToHaqq(address || ''),
           )
-        : participateEvm(airdropEndpoint, MESSAGE, signature);
+        : participateEvm(airdropEndpoint, EMV_SIGN_MESSAGE, signature);
     },
     [participateEvm, airdropEndpoint, address, participateCosmos, isCosmos],
   );

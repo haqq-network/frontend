@@ -14,20 +14,20 @@ import {
   AirdropChallengeStatusSuccess,
 } from '../airdrop-challenge/airdrop-challenge';
 
-const MSG = 'Haqqdrop!';
-
 export function CosmosAirdropCard({
   address,
   icon,
   chainId,
   airdropEndpoint,
   participant,
+  message,
 }: {
   address?: string;
   icon: string;
   chainId: string;
   airdropEndpoint?: string;
   participant?: IParticipant;
+  message: string;
 }) {
   const keplrSignArbitrary = useCallback(async () => {
     const keplrWallet = await getKeplrWallet();
@@ -37,7 +37,7 @@ export function CosmosAirdropCard({
       const signatureArb = await keplrWallet?.signArbitrary(
         chainId,
         bech32Address,
-        MSG,
+        message,
       );
 
       return {
@@ -49,7 +49,7 @@ export function CosmosAirdropCard({
         signature: '',
       };
     }
-  }, [chainId]);
+  }, [chainId, message]);
 
   const hasAirdrop = (participant?.amount || 0) > 0;
 
@@ -57,9 +57,9 @@ export function CosmosAirdropCard({
 
   const onParticipate = useCallback(
     (signature: string) => {
-      return participateCosmos(airdropEndpoint, MSG, signature, address);
+      return participateCosmos(airdropEndpoint, message, signature, address);
     },
-    [participateCosmos, airdropEndpoint, address],
+    [participateCosmos, message, airdropEndpoint, address],
   );
 
   return (

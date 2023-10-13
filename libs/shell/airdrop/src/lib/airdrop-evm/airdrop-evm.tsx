@@ -22,7 +22,7 @@ export function AirdropEvm({
       blurredContent={
         <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
           <EvmAirdropView
-            address={ethAddress}
+            address={ethAddress || ''}
             airdropEndpoint={airdropEndpoint}
             isCosmos={isCosmos}
           />
