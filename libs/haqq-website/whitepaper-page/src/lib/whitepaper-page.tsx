@@ -9,7 +9,7 @@ export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
         title="HAQQ Whitepaper"
         subtitle={
           <Link
-            href="/HAQQ-whitepaper.pdf"
+            href="/haqq-whitepaper.pdf"
             target="_blank"
             rel="noopener noreferrer"
             download
