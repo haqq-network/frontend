@@ -1,5 +1,6 @@
 import {
   IParticipant,
+  ethToHaqq,
   formatEthDecimal,
   useAirdropActions,
 } from '@haqq/shared';
@@ -18,7 +19,7 @@ import {
   AirdropChallengeStatusSuccess,
 } from '../airdrop-challenge/airdrop-challenge';
 
-const PARTICIPANTS_CHECK_INTERVAL = 20000;
+export const PARTICIPANTS_CHECK_INTERVAL = 20000;
 
 export function AirdropResultStrongText({ children }: PropsWithChildren) {
   return (
@@ -28,18 +29,21 @@ export function AirdropResultStrongText({ children }: PropsWithChildren) {
   );
 }
 
-export function useAirdropChecker(address?: string, airdropEndpoint?: string) {
-  const { checkAirdrop } = useAirdropActions();
+function useAirdropCheckerEvm(
+  participationAddressEvm: string | undefined,
+  airdropEndpoint?: string,
+) {
+  const { checkAirdropEvm: checkAirdrop } = useAirdropActions();
 
   const [participant, setParticipant] = useState<IParticipant | undefined>();
 
   const loadAirdrop = useCallback(() => {
-    address &&
+    participationAddressEvm &&
       airdropEndpoint &&
-      checkAirdrop(airdropEndpoint, address).then((p) => {
+      checkAirdrop(airdropEndpoint, participationAddressEvm).then((p) => {
         setParticipant(p);
       });
-  }, [address, airdropEndpoint, checkAirdrop]);
+  }, [participationAddressEvm, airdropEndpoint, checkAirdrop]);
 
   const intervalRef = useRef<number>();
 
@@ -60,32 +64,56 @@ export function useAirdropChecker(address?: string, airdropEndpoint?: string) {
   return { participant };
 }
 
-const MESSAGE = 'Haqqdrop!';
+const EMV_SIGN_MESSAGE = 'Haqqdrop!';
 
 export function EvmAirdropView({
   address,
   airdropEndpoint,
+  isCosmos,
 }: {
-  address?: string;
+  address: string;
   airdropEndpoint?: string;
+  isCosmos?: boolean;
 }) {
-  const { participant } = useAirdropChecker(address, airdropEndpoint);
+  const { participant } = useAirdropCheckerEvm(address, airdropEndpoint);
 
-  const { sign } = useAirdropActions();
+  const { signEvm, signKeplr } = useAirdropActions();
+
   const onSignHandler = useCallback(async () => {
     if (!address) {
       return {
         signature: '',
       };
     }
-    const signature = await sign(address as Hex, MESSAGE);
 
-    return {
-      signature,
-    };
-  }, [address, sign]);
+    if (isCosmos) {
+      return await signKeplr('haqq_11235-1', ethToHaqq(address));
+    } else {
+      const signature = await signEvm(address as Hex, EMV_SIGN_MESSAGE);
+
+      return {
+        signature,
+      };
+    }
+  }, [address, signEvm, signKeplr, isCosmos]);
 
   const hasAirdrop = (participant?.amount || 0) > 0;
+
+  const { participateEvm, participateCosmos } = useAirdropActions();
+
+  const onParticipate = useCallback(
+    (signature: string) => {
+      return isCosmos
+        ? participateCosmos(
+            airdropEndpoint,
+            ethToHaqq(address),
+            signature,
+            ethToHaqq(address || ''),
+          )
+        : participateEvm(airdropEndpoint, EMV_SIGN_MESSAGE, signature);
+    },
+    [participateEvm, airdropEndpoint, address, participateCosmos, isCosmos],
+  );
 
   return (
     <div className="flex flex-col gap-[20px]">
@@ -198,11 +226,10 @@ export function EvmAirdropView({
 
           <ApproveBtn
             participationAddress={address}
-            message={MESSAGE}
             participant={participant}
-            isCosmos={false}
+            isCosmos={isCosmos}
             onSign={onSignHandler}
-            airdropEndpoint={airdropEndpoint}
+            onParticipate={onParticipate}
           />
         </>
       )}

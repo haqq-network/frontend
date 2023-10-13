@@ -36,7 +36,14 @@ export function BuildPage() {
             >
               <DocsTab type="manual" />
             </Link>
-            <DocsTab type="archive" />
+            <Link
+              href="https://haqq.network/blog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-fit"
+            >
+              <DocsTab type="archive" />
+            </Link>
           </div>
           <BuildPageBg />
         </div>

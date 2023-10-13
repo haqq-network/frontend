@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useWalletClient } from 'wagmi';
 import { Hex } from 'viem';
 import axios from 'axios';
-
+import { getKeplrWallet } from '../use-keplr/use-keplr';
 export interface IParticipateResult {
   message: string;
   status: string;
@@ -16,7 +16,12 @@ export enum ParticipantStatus {
   Queued = 'queued',
   Redeemed = 'redeemed',
   Unknown = 'unknown',
-  Approved = 'approved'
+  Approved = 'approved',
+}
+
+export interface IParticipateResponse {
+  message?: string;
+  address?: string;
 }
 
 export interface IParticipant {
@@ -55,7 +60,7 @@ export function useAirdropActions() {
     [walletClient],
   );
 
-  const checkAirdrop = useCallback(async (host: string, address: string) => {
+  const checkAirdropEvm = useCallback(async (host: string, address: string) => {
     const result = await axios.get<IParticipant>(
       `${host}/api/participant/${address}`,
       {
@@ -68,8 +73,37 @@ export function useAirdropActions() {
     return result.data;
   }, []);
 
+  const checkAirdropCosmos = useCallback(
+    async (host: string, addressCosmos: string, addressEvmos: string) => {
+      try {
+        const result = await axios.post<IParticipateResult>(
+          `${host}/api/participant/kepplr`,
+          {
+            cosmos: addressCosmos,
+            evmos: addressEvmos,
+          },
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          },
+        );
+
+        return result.data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (e: any) {
+        return e?.response?.data;
+      }
+    },
+    [],
+  );
+
   const participateEvm = useCallback(
-    async (host: string | undefined, message: string, signature: string) => {
+    async (
+      host: string | undefined,
+      message: string,
+      signature: string,
+    ): Promise<IParticipateResponse> => {
       try {
         const result = await axios.post<IParticipateResult>(
           `${host}/api/participate`,
@@ -99,15 +133,13 @@ export function useAirdropActions() {
       message: string,
       signature: string,
       address?: string,
-      public_key?: string,
-    ) => {
+    ): Promise<IParticipateResponse> => {
       try {
         const result = await axios.post<IParticipateResult>(
           `${host}/api/participate/${address}`,
           {
             message,
             signature,
-            public_key,
           },
           {
             headers: {
@@ -125,9 +157,35 @@ export function useAirdropActions() {
     [],
   );
 
+  const handleSignKeplr = useCallback(
+    async (chainId: string, message: string) => {
+      const keplrWallet = await getKeplrWallet();
+      if (keplrWallet) {
+        const { bech32Address } = await keplrWallet.getKey(chainId);
+
+        const signatureArb = await keplrWallet?.signArbitrary(
+          chainId,
+          bech32Address,
+          message,
+        );
+
+        return {
+          signature: signatureArb.signature,
+        };
+      } else {
+        return {
+          signature: '',
+        };
+      }
+    },
+    [],
+  );
+
   return {
-    sign: handlePersonalSign,
-    checkAirdrop,
+    signEvm: handlePersonalSign,
+    signKeplr: handleSignKeplr,
+    checkAirdropEvm,
+    checkAirdropCosmos,
     participateEvm,
     participateCosmos,
   };

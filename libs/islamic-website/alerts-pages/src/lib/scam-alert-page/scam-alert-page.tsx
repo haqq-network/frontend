@@ -146,24 +146,9 @@ export function ScamAlertPage() {
                 },
               })}
               <p>{t('how-to-spot-block.paragraphs.first')}</p>
-              <p>
-                {t.rich('how-to-spot-block.paragraphs.second', {
-                  a: (children) => {
-                    return (
-                      <Link
-                        href="https://republic.com/islamic-coin"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {children}
-                      </Link>
-                    );
-                  },
-                })}
-              </p>
+              <p>{t('how-to-spot-block.paragraphs.second')}</p>
               <p>{t('how-to-spot-block.paragraphs.third')}</p>
               <p>{t('how-to-spot-block.paragraphs.fourth')}</p>
-              <p>{t('how-to-spot-block.paragraphs.fifth')}</p>
             </MarkdownTextProseWrapper>
           </div>
 
