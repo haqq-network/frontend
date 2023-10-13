@@ -13,6 +13,7 @@ export function BurgerButton({
     <button
       className={clsx('cursor-pointer leading-[0] outline-none', className)}
       onClick={onClick}
+      aria-label="burger button"
     >
       <svg
         width="24"
