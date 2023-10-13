@@ -115,6 +115,7 @@ export function AirdropPage({
                 ethAddress={targetHexAddress}
                 airdropEndpoint={airdropEndpoint}
                 isCosmos={!notConnectedKeplr}
+                connectKeplrWallet={connectKeplrWallet}
               />
             </div>
 
@@ -127,9 +128,11 @@ export function AirdropPage({
 
               <AirdropCosmos
                 airdropEndpoint={airdropEndpoint}
-                connectKeplrWallet={connectKeplrWallet}
                 keplrAccounts={keplrAccounts}
                 notConnectedKeplr={notConnectedKeplr}
+                connectKeplrWallet={
+                  notConnectedKeplr ? connectKeplrWallet : undefined
+                }
               />
             </div>
           </div>

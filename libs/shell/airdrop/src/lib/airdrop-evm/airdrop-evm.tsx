@@ -7,10 +7,12 @@ export function AirdropEvm({
   ethAddress,
   airdropEndpoint,
   isCosmos,
+  connectKeplrWallet,
 }: {
   ethAddress?: string;
   airdropEndpoint?: string;
   isCosmos?: boolean;
+  connectKeplrWallet: () => void;
 }) {
   const { openSelectWallet } = useWallet();
 
@@ -34,9 +36,16 @@ export function AirdropEvm({
           <Button
             onClick={openSelectWallet}
             variant={2}
-            className="text-black hover:bg-transparent hover:text-white"
+            className="w-[280px] text-black hover:bg-transparent hover:text-white"
           >
-            Connect wallet
+            Connect EVM wallet
+          </Button>
+          <Button
+            className="mt-[8px] w-[280px] text-black hover:bg-transparent hover:text-white"
+            onClick={connectKeplrWallet}
+            variant={2}
+          >
+            Connect Keplr
           </Button>
         </div>
       }

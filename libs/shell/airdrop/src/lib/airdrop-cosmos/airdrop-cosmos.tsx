@@ -114,7 +114,7 @@ export function AirdropCosmos({
   notConnectedKeplr,
 }: {
   airdropEndpoint?: string;
-  connectKeplrWallet: () => void;
+  connectKeplrWallet?: () => void;
   keplrAccounts: Record<string, string>;
   notConnectedKeplr: boolean;
 }) {
@@ -160,13 +160,15 @@ export function AirdropCosmos({
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             Connect via Keplr to see
           </div>
-          <Button
-            className="text-black hover:bg-transparent hover:text-white"
-            onClick={connectKeplrWallet}
-            variant={2}
-          >
-            Connect to Keplr
-          </Button>
+          {connectKeplrWallet && (
+            <Button
+              className="w-[280px] text-black hover:bg-transparent hover:text-white"
+              onClick={connectKeplrWallet}
+              variant={2}
+            >
+              Connect to Keplr
+            </Button>
+          )}
         </div>
       }
     />
