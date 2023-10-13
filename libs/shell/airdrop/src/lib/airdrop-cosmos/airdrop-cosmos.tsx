@@ -140,6 +140,7 @@ export function AirdropCosmos({
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             Coming soon!
           </div>
+
           {connectKeplrWallet && false && (
             <Button
               className="w-[280px] text-black hover:bg-transparent hover:text-white"
