@@ -10,7 +10,7 @@ import {
   useToast,
   useWallet,
 } from '@haqq/shared';
-import { RewardsInfo, StakingInfoAmountBlock } from '@haqq/staking/ui-kit';
+import { StakingStats, StakingInfoAmountBlock } from '@haqq/staking/ui-kit';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useBalance, useNetwork } from 'wagmi';
 import { useCosmosProvider } from '@haqq/shared';
@@ -148,7 +148,7 @@ export function StakingInfoHooked() {
   }, [undelegations]);
 
   return (
-    <RewardsInfo
+    <StakingStats
       balance={formatNumber(formattedBalance)}
       delegated={formatNumber(staked)}
       rewards={formatNumber(rewards)}

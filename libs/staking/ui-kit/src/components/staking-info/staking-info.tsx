@@ -1,5 +1,14 @@
 import clsx from 'clsx';
-import { Button } from '@haqq/shell-ui-kit';
+import { Button, WalletIcon } from '@haqq/shell-ui-kit';
+
+interface StakingStatsMobileProps {
+  balance: string;
+  delegated: string;
+  rewards: string;
+  unbounded: string;
+  symbol: string;
+  onRewardsClaim: () => void;
+}
 
 export function StakingInfoAmountBlock({
   title,
@@ -31,7 +40,7 @@ export function StakingInfoAmountBlock({
   );
 }
 
-export function RewardsInfo({
+export function StakingStats({
   balance,
   delegated,
   rewards,
@@ -92,6 +101,78 @@ export function RewardsInfo({
           variant={2}
         >
           Claim all rewards
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+export function StakingInfoAmountBlockMobile({
+  title,
+  value,
+  symbol,
+  isGreen = false,
+}: {
+  title: string;
+  value: string;
+  symbol: string;
+  isGreen?: boolean;
+}) {
+  return (
+    <div className="flex flex-col items-start gap-y-[6px]">
+      <div className="text-[12px] font-[600] uppercase leading-[1.2em] text-white/50">
+        {title}
+      </div>
+      <div
+        className={clsx(
+          'flex gap-x-[4px] text-[13px] font-[500] leading-[20px]',
+          isGreen ? 'text-[#01B26E]' : 'text-white',
+        )}
+      >
+        {value}
+        <span>{symbol.toUpperCase()}</span>
+      </div>
+    </div>
+  );
+}
+
+export function StakingStatsMobile({
+  balance,
+  delegated,
+  onRewardsClaim,
+  rewards,
+  symbol,
+  unbounded,
+}: StakingStatsMobileProps) {
+  return (
+    <div className="flex items-start gap-[16px] overflow-x-auto px-[16px] py-[20px]">
+      <div>
+        <WalletIcon />
+      </div>
+      <StakingInfoAmountBlockMobile
+        title="Available"
+        value={balance}
+        symbol={symbol}
+      />
+      <StakingInfoAmountBlockMobile
+        title="Staked"
+        value={delegated}
+        symbol={symbol}
+      />
+      <StakingInfoAmountBlockMobile
+        title="Unbonding"
+        value={unbounded}
+        symbol={symbol}
+      />
+      <StakingInfoAmountBlockMobile
+        title="Rewards"
+        value={rewards}
+        symbol={symbol}
+        isGreen
+      />
+      <div className="min-w-[170px]">
+        <Button onClick={onRewardsClaim} variant={2}>
+          Get rewards
         </Button>
       </div>
     </div>
