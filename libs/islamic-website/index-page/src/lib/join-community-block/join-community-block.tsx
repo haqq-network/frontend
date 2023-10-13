@@ -5,7 +5,6 @@ import Link from 'next-intl/link';
 import { useTranslations } from 'next-intl';
 
 export function JoinCommunityBlock() {
-  // { locale }: { locale: string }
   const t = useTranslations('index-page');
   return (
     <Container>

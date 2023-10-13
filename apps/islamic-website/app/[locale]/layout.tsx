@@ -85,7 +85,7 @@ export default async function LocaleLayout({
           <Footer socialLinks={SOCIAL_LINKS} />
         </NextIntlClientProvider>
       </body>
-      {VERCEL_ENV !== 'development' && (
+      {VERCEL_ENV === 'production' && (
         <div>
           <Fragment>
             <script
