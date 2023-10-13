@@ -54,7 +54,7 @@ export async function addHaqqNetwork(keplrWallet: Keplr) {
   }
 }
 
-export function useAirdropCheckerCosmos(
+function useAirdropCheckerCosmos(
   participationAddressCosmos: string | undefined,
   participationAddressEvmos: string | undefined,
   airdropEndpoint?: string,
@@ -109,42 +109,61 @@ export function useAirdropCheckerCosmos(
 
 export function AirdropCosmos({
   airdropEndpoint,
-  connectKeplrWallet,
   keplrAccounts,
+  connectKeplrWallet,
+  notConnectedKeplr,
 }: {
   airdropEndpoint?: string;
   connectKeplrWallet?: () => void;
   keplrAccounts: Record<string, string>;
   notConnectedKeplr: boolean;
 }) {
+  const participationAddressCosmos = keplrAccounts['cosmos'];
+  const participationAddressEvmos = keplrAccounts['evmos'];
+  const haqqAddress = keplrAccounts['haqq'];
+
+  const { participantCosmos, participantEvmos } = useAirdropCheckerCosmos(
+    participationAddressCosmos,
+    participationAddressEvmos,
+    airdropEndpoint,
+  );
+
   return (
     <BlurredBlock
-      isBlurred={true}
+      isBlurred={notConnectedKeplr}
       blurredContent={
         <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
           <CosmosAirdropCard
-            address={''}
+            address={participationAddressCosmos}
             icon={cosmosIcon}
-            message={keplrAccounts['haqq']}
+            message={haqqAddress}
             chainId="cosmoshub-4"
             airdropEndpoint={airdropEndpoint}
+            participant={participantCosmos}
           />
 
-          <CosmosAirdropCard
-            icon={evmosIcon}
-            message={keplrAccounts['haqq']}
-            chainId="evmos_9001-2"
-            airdropEndpoint={airdropEndpoint}
+          <BlurredBlock
+            isBlurred={!participantEvmos}
+            content="Coming soon!"
+            blurredContent={
+              <CosmosAirdropCard
+                message={haqqAddress}
+                icon={evmosIcon}
+                address={participationAddressEvmos}
+                chainId="evmos_9001-2"
+                airdropEndpoint={airdropEndpoint}
+                participant={participantEvmos}
+              />
+            }
           />
         </div>
       }
       content={
         <div className="flex flex-col items-center space-y-[12px] py-[58px]">
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-            Coming soon!
+            Connect via Keplr to see
           </div>
-
-          {connectKeplrWallet && false && (
+          {connectKeplrWallet && (
             <Button
               className="w-[280px] text-black hover:bg-transparent hover:text-white"
               onClick={connectKeplrWallet}
