@@ -87,7 +87,7 @@ export function EvmAirdropView({
     }
 
     if (isCosmos) {
-      return await signKeplr('haqq_11235-1', address);
+      return await signKeplr('haqq_11235-1', ethToHaqq(address));
     } else {
       const signature = await signEvm(address as Hex, EMV_SIGN_MESSAGE);
 

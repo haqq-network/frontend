@@ -3,9 +3,8 @@ import {
   IParticipateResponse,
   ParticipantStatus,
 } from '@haqq/shared';
-import localStore from 'store2';
 import { Button, Checkbox, InformationModal } from '@haqq/shell-ui-kit';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Address } from '../address/address';
 import { SmallText } from '../small-text/small-text';
 
@@ -35,19 +34,11 @@ export function ApproveBtn({
 
   const hasAirdrop = (participant?.amount || 0) > 0;
 
-  const localStKey = useMemo(() => {
-    return `SAVED_AIRDROP_SIGNATURE_KEY_${participationAddress}`;
-  }, [participationAddress]);
-
   const participate = useCallback(async () => {
-    const savedPrevious = localStore.get(localStKey);
-
-    const { signature } = savedPrevious ? savedPrevious : await onSign();
-
-    localStore.set(localStKey, { signature });
+    const { signature } = await onSign();
 
     return onParticipate(signature);
-  }, [onParticipate, localStKey, onSign]);
+  }, [onParticipate, onSign]);
 
   const isCheckboxDefaultChecked =
     participant?.status === ParticipantStatus.Checking ||
