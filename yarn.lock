@@ -3154,7 +3154,6 @@ __metadata:
     "@pmmmwh/react-refresh-webpack-plugin": 0.5.11
     "@sendgrid/client": 7.7.0
     "@sentry/react": 7.73.0
-    "@sentry/tracing": 7.73.0
     "@storyblok/js": 2.3.0
     "@storyblok/react": 2.4.7
     "@storybook/addon-essentials": 7.4.6
@@ -5681,15 +5680,6 @@ __metadata:
     "@sentry/types": 7.73.0
     "@sentry/utils": 7.73.0
   checksum: 4ae9327dd7cb324ac40940bfffedc9d380a346381f1030ea2561fc1549b3b5387874e34fcb62e081c2305290dab5c2b5ac809e4ddb43b0210bf49ec331b51b43
-  languageName: node
-  linkType: hard
-
-"@sentry/tracing@npm:7.73.0":
-  version: 7.73.0
-  resolution: "@sentry/tracing@npm:7.73.0"
-  dependencies:
-    "@sentry-internal/tracing": 7.73.0
-  checksum: eb41e0315c8c4fbdba676b4adf264c4f8f24010d292e7734c534d8cd4b83cea00c8a458bba5f186fc653c99ca9d4a6aa25ba6af22abef321563587722bbaea07
   languageName: node
   linkType: hard
 
