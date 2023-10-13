@@ -54,7 +54,7 @@ export async function addHaqqNetwork(keplrWallet: Keplr) {
   }
 }
 
-function useAirdropCheckerCosmos(
+export function useAirdropCheckerCosmos(
   participationAddressCosmos: string | undefined,
   participationAddressEvmos: string | undefined,
   airdropEndpoint?: string,
@@ -109,58 +109,38 @@ function useAirdropCheckerCosmos(
 
 export function AirdropCosmos({
   airdropEndpoint,
-  keplrAccounts,
   connectKeplrWallet,
-  notConnectedKeplr,
 }: {
   airdropEndpoint?: string;
   connectKeplrWallet?: () => void;
   keplrAccounts: Record<string, string>;
   notConnectedKeplr: boolean;
 }) {
-  const participationAddressCosmos = keplrAccounts['cosmos'];
-  const participationAddressEvmos = keplrAccounts['evmos'];
-
-  const { participantCosmos, participantEvmos } = useAirdropCheckerCosmos(
-    participationAddressCosmos,
-    participationAddressEvmos,
-    airdropEndpoint,
-  );
-
   return (
     <BlurredBlock
-      isBlurred={notConnectedKeplr}
+      isBlurred={true}
       blurredContent={
         <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
           <CosmosAirdropCard
-            address={participationAddressCosmos}
+            address={''}
             icon={cosmosIcon}
             chainId="cosmoshub-4"
             airdropEndpoint={airdropEndpoint}
-            participant={participantCosmos}
           />
 
-          <BlurredBlock
-            isBlurred={!participantEvmos}
-            content="Coming soon!"
-            blurredContent={
-              <CosmosAirdropCard
-                icon={evmosIcon}
-                address={participationAddressEvmos}
-                chainId="evmos_9001-2"
-                airdropEndpoint={airdropEndpoint}
-                participant={participantEvmos}
-              />
-            }
+          <CosmosAirdropCard
+            icon={evmosIcon}
+            chainId="evmos_9001-2"
+            airdropEndpoint={airdropEndpoint}
           />
         </div>
       }
       content={
         <div className="flex flex-col items-center space-y-[12px] py-[58px]">
           <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-            Connect via Keplr to see
+            Coming soon!
           </div>
-          {connectKeplrWallet && (
+          {connectKeplrWallet && false && (
             <Button
               className="w-[280px] text-black hover:bg-transparent hover:text-white"
               onClick={connectKeplrWallet}
