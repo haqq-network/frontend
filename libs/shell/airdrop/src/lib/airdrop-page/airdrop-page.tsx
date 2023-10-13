@@ -111,6 +111,7 @@ export function AirdropPage({
                   Community drop
                 </Heading>
               </div>
+
               <AirdropEvm
                 ethAddress={targetHexAddress}
                 airdropEndpoint={airdropEndpoint}
