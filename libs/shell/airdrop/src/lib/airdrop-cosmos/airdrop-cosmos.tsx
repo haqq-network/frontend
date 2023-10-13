@@ -96,6 +96,7 @@ function useAirdropCheckerCosmos(
       loadAirdrop,
       PARTICIPANTS_CHECK_INTERVAL,
     ) as unknown;
+
     intervalRef.current = intervalId as number;
 
     return () => {
