@@ -36,8 +36,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_ISLAMIC_WEBSITE_PROJECT_ID }}
-          GITHUB_DEPLOYMENT_ENV: Preview
-          PREBUILT: true
+          GITHUB_DEPLOYMENT_ENV: IslamicCoin Website Preview
           ALIAS_DOMAINS: |
             islamic-web-{BRANCH}.vercel.app
             islamic-web-{BRANCH}.now.sh
