@@ -19,6 +19,7 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build ./apps/islamic-website --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-next.json
       - name: Deploy to Vercel Action
+        id: vercel-deploy
         uses: kioqq/deploy-to-vercel-action@v1.9.13
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
