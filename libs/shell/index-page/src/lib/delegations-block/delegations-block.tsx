@@ -48,10 +48,10 @@ export function DelegationsBlock() {
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
-  const isMobile = useMediaQuery({
-    query: `(max-width: 639px)`,
-  });
   const navigate = useNavigate();
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -106,7 +106,7 @@ export function DelegationsBlock() {
         <div>
           {valToRender.length ? (
             <div>
-              {isMobile ? (
+              {isTablet ? (
                 <div className="border-haqq-border flex flex-col gap-[24px] border-t">
                   <ValidatorsListMobile
                     validators={valToRender}

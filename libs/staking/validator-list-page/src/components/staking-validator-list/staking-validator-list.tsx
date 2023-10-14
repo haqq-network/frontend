@@ -75,10 +75,10 @@ export function StakingValidatorList({
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
-  const isMobile = useMediaQuery({
-    query: `(max-width: 639px)`,
-  });
   const navigate = useNavigate();
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -147,7 +147,7 @@ export function StakingValidatorList({
       )}
       {status === 'error' && <p>Error: {error.message}</p>}
       {status === 'success' &&
-        (isMobile ? (
+        (isTablet ? (
           <ValidatorsListMobileTabs
             delegatedValidators={delegatedValidators}
             otherValidators={otherValidators}

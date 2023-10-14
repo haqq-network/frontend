@@ -118,7 +118,7 @@ export function ValidatorsListMobile({
   );
 
   return (
-    <div className="flex flex-col gap-[24px] pt-[16px]">
+    <div className="grid grid-cols-1 gap-[24px] pt-[16px] sm:grid-cols-2">
       {validators.map((validator, index) => {
         const delegationInfo = getDelegationInfo(validator.operator_address);
         const rewardsInfo = getValidatorRewards(validator.operator_address);
