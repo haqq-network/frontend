@@ -20,12 +20,21 @@ jobs:
       #   run: vercel build ./apps/islamic-website --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-next.json
       # - name: Deploy Project Artifacts to Vercel
       #   run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-next.json
-      - uses: amondnet/vercel-action@v20
+      # - uses: amondnet/vercel-action@v20
+      #   with:
+      #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     vercel-args: '--local-config vercel-next.json'
+      #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
+      #     vercel-project-id: ${{ secrets.VERCEL_ISLAMIC_WEBSITE_PROJECT_ID}}
+      #     # alias-domains: |
+      #     #   islamic-website-{{BRANCH}}.vercel.app
+      - name: Deploy to Vercel Action
+        uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--local-config vercel-next.json'
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{ secrets.VERCEL_ISLAMIC_WEBSITE_PROJECT_ID}}
-          # alias-domains: |
-          #   islamic-website-{{BRANCH}}.vercel.app
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_ISLAMIC_WEBSITE_PROJECT_ID }}
+          GITHUB_DEPLOYMENT_ENV: Preview
+          PREBUILT: true
