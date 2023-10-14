@@ -21,7 +21,6 @@ jobs:
       - name: Deploy to Vercel Action
         id: vercel-deploy
         uses: kioqq/deploy-to-vercel-action@v1.9.13
-        timeout-minutes: 2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
