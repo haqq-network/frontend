@@ -18,5 +18,15 @@ jobs:
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
         run: vercel build ./apps/staking --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-react.json
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-react.json
+      - name: Deploy to Vercel Action
+        id: vercel-deploy
+        uses: kioqq/deploy-to-vercel-action@v1.9.13
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_STAKING_PROJECT_ID }}
+          GITHUB_DEPLOYMENT_ENV: Staking App Preview
+          PRODUCTION: false
+          PREBUILT: true
+          CREATE_COMMENT: true
