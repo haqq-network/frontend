@@ -1,7 +1,7 @@
 name: Haqq-website Preview Deployment
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_HAQQ_WEBSITE_PROJECT_ID }}
+# env:
+#   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+#   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_HAQQ_WEBSITE_PROJECT_ID }}
 on:
   push:
     branches-ignore:
@@ -21,3 +21,5 @@ jobs:
           vercel-args: '--local-config vercel-next.json' #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_HAQQ_WEBSITE_PROJECT_ID}} #Required
+          # alias-domains: | #Optional
+          #   haqq-website-{{PR_NUMBER}}-{{BRANCH}}.vercel.app
