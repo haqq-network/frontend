@@ -1,12 +1,11 @@
 name: Haqq-website Preview Deployment
-# env:
-#   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-#   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_HAQQ_WEBSITE_PROJECT_ID }}
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_HAQQ_WEBSITE_PROJECT_ID }}
 on:
   push:
     branches-ignore:
       - prod
-      - better-vercel
   workflow_dispatch:
 jobs:
   Deploy-Preview:
@@ -29,36 +28,14 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build ./apps/haqq-website --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-next.json
       - name: Deploy to Vercel Action
+        id: vercel-deploy
         uses: kioqq/deploy-to-vercel-action@v1.9.13
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_HAQQ_WEBSITE_PROJECT_ID }}
-          GITHUB_DEPLOYMENT_ENV: Haqq Website Preview
+          GITHUB_DEPLOYMENT_ENV: Haqq Website App Preview
           PRODUCTION: false
           PREBUILT: true
-          ALIAS_DOMAINS: |
-            haqq-web-{BRANCH}.vercel.app
-            haqq-web-{BRANCH}.now.sh
-      - uses: phulsechinmay/rewritable-pr-comment@v0.3.0
-        if: ${{ steps.vercel-deploy.outputs.DEPLOYMENT_CREATED }}
-        with:
-          message: |
-            This pull request has been deployed to Vercel.
-
-            <table>
-              <tr>
-                <td><strong>✅ Preview:</strong></td>
-                <td><a href='${{ steps.vercel-deploy.outputs.PREVIEW_URL }}'>${{ steps.vercel-deploy.outputs.PREVIEW_URL }}</a></td>
-              </tr>
-              <tr>
-                <td><strong>🔍 Inspect:</strong></td>
-                <td><a href='${ steps.vercel-deploy.outputs.DEPLOYMENT_INSPECTOR_URL }'>${ steps.vercel-deploy.outputs.DEPLOYMENT_INSPECTOR_URL }</a></td>
-              </tr>
-            </table>
-
-            [View Workflow Logs](${ LOG_URL })
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMENT_IDENTIFIER: 'vercel-deploy'
-# 'GITHUB_TOKEN', 'VERCEL_TOKEN', 'VERCEL_PROJECT_ID', 'VERCEL_ORG_ID', 'PRODUCTION', 'GITHUB_DEPLOYMENT', 'CREATE_COMMENT', 'DELETE_EXISTING_COMMENT', 'ATTACH_COMMIT_METADATA', 'DEPLOY_PR_FROM_FORK', 'PR_LABELS', 'ALIAS_DOMAINS', 'PR_PREVIEW_DOMAIN', 'VERCEL_SCOPE', 'GITHUB_DEPLOYMENT_ENV', 'TRIM_COMMIT_MESSAGE', 'BUILD_ENV', 'WORKING_DIRECTORY'
+          CREATE_COMMENT: true
