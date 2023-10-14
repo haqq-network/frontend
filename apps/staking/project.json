@@ -64,12 +64,12 @@
       }
     },
     "serve": {
-      "executor": "@nx/react:module-federation-dev-server",
+      "executor": "@nx/webpack:dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "staking:build",
         "hmr": true,
-        "port": 4201
+        "port": 4200
       },
       "configurations": {
         "development": {
@@ -94,22 +94,6 @@
       "options": {
         "jestConfig": "apps/staking/jest.config.ts",
         "passWithNoTests": true
-      }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "staking:build",
-        "port": 4201
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "staking:build:development"
-        },
-        "production": {
-          "buildTarget": "staking:build:production"
-        }
       }
     }
   },
