@@ -184,7 +184,7 @@ export function StakingInfo() {
         )}
       >
         <Container className="flex min-h-[100px] flex-col items-center justify-center gap-[12px]">
-          <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+          <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             You should connect wallet first
           </div>
           <div>

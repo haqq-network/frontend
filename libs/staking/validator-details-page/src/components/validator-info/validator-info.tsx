@@ -98,7 +98,7 @@ function CommissionCardInnerBlock({
       </div>
       <div
         className={clsx(
-          'font-serif text-[14px] leading-[18px] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]',
+          'font-clash text-[14px] leading-[18px] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]',
           valueClassName,
         )}
       >
@@ -208,7 +208,7 @@ export function ValidatorInfoComponent({
                   />
                 </div>
                 <div>
-                  <h1 className="font-serif text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
+                  <h1 className="font-clash text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
                     {validatorInfo.description?.moniker}
                   </h1>
                 </div>
@@ -259,7 +259,7 @@ export function ValidatorInfoComponent({
                   </div>
                   {validatorInfo.description?.details && (
                     <div>
-                      <div className="font-sans text-[12px] leading-[18px] text-white/50">
+                      <div className="font-guise text-[12px] leading-[18px] text-white/50">
                         Description
                       </div>
                       <div
@@ -388,7 +388,7 @@ function ConnectWallet({
   return (
     <Container className="py-[24px] md:py-[40px]">
       <div className="flex flex-col items-center justify-center gap-[12px]">
-        <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+        <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
           You should connect wallet first
         </div>
         <Button
@@ -639,7 +639,7 @@ export function ValidatorInfo({
     return (
       <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
         <SpinnerLoader />
-        <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+        <div className="font-guise text-[10px] uppercase leading-[1.2em]">
           Fetching validator information
         </div>
       </div>
@@ -737,7 +737,7 @@ export function ValidatorBlockDesktop({
           <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
             My delegation
           </span>
-          <span className="font-serif text-[24px] uppercase leading-[30px] text-white">
+          <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
             {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
@@ -785,7 +785,7 @@ export function ValidatorBlockDesktop({
           <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
             My rewards
           </span>
-          <span className="font-serif text-[24px] uppercase leading-[30px] text-[#01B26E]">
+          <span className="font-clash text-[24px] uppercase leading-[30px] text-[#01B26E]">
             {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
