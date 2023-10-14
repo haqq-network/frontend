@@ -8,7 +8,7 @@ export function Card({
   return (
     <div
       className={clsx(
-        'cursor-pointer rounded-lg border-[1.5px] border-[#ffffff3d] bg-transparent p-4 transition-colors duration-200 ease-out hover:border-[#EC5728] lg:p-7',
+        'cursor-pointer rounded-lg border-[1.5px] border-[#ffffff3d] bg-transparent p-[16px] transition-colors duration-150 ease-out hover:border-[#EC5728] lg:p-[28px]',
         className,
       )}
     >
