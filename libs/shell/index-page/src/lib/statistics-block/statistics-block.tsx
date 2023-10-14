@@ -81,7 +81,7 @@ export function StatisticsBlock() {
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
         <div className="mb-[-3px] font-serif text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
-          Peers
+          Accounts
         </div>
         <div className="inline-flex space-x-[5px] font-sans text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
           {totalAccounts}
