@@ -1,8 +1,7 @@
-import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
+import { init, BrowserTracing } from '@sentry/react';
 
 export function initSentry(sentryDsn: string, debug = false) {
-  Sentry.init({
+  init({
     dsn: sentryDsn,
     integrations: [new BrowserTracing()],
     tracesSampleRate: 1.0,

@@ -7,11 +7,25 @@ const ShellIndexPage = lazy(async () => {
   const { ShellIndexPage } = await import('@haqq/shell/index-page');
   return { default: ShellIndexPage };
 });
-const StakingApp = lazy(async () => {
-  return await import('staking/Module');
+const ValidatorListPage = lazy(async () => {
+  const { ValidatorListPage } = await import(
+    '@haqq/staking/validator-list-page'
+  );
+  return { default: ValidatorListPage };
 });
-const GovernanceApp = lazy(async () => {
-  return await import('governance/Module');
+const ValidatorDetailsPage = lazy(async () => {
+  const { ValidatorDetailsPage } = await import(
+    '@haqq/staking/validator-details-page'
+  );
+  return { default: ValidatorDetailsPage };
+});
+const ProposalListPage = lazy(async () => {
+  const { ProposalList } = await import('@haqq/governance/proposal-list');
+  return { default: ProposalList };
+});
+const ProposalDetailsPage = lazy(async () => {
+  const { ProposalDetails } = await import('@haqq/governance/proposal-details');
+  return { default: ProposalDetails };
 });
 const ShellAuthzPage = lazy(async () => {
   const { ShellAuthzPage } = await import('@haqq/shell/authz-page');
@@ -28,8 +42,27 @@ export function App() {
       <Routes>
         <Route path="/" element={<ShellIndexPage />} />
 
-        <Route path="/staking/*" element={<StakingApp />} />
-        <Route path="/governance/*" element={<GovernanceApp />} />
+        <Route
+          path="/staking/*"
+          element={
+            <Routes>
+              <Route path="/" element={<ValidatorListPage />} />
+              <Route
+                path="validator/:address"
+                element={<ValidatorDetailsPage />}
+              />
+            </Routes>
+          }
+        />
+        <Route
+          path="/governance/*"
+          element={
+            <Routes>
+              <Route path="/" element={<ProposalListPage />} />
+              <Route path="proposal/:id" element={<ProposalDetailsPage />} />
+            </Routes>
+          }
+        />
         <Route path="/authz" element={<ShellAuthzPage />} />
         <Route
           path="/airdrop"

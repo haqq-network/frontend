@@ -64,7 +64,7 @@
       }
     },
     "serve": {
-      "executor": "@nx/react:module-federation-dev-server",
+      "executor": "@nx/webpack:dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "shell:build",
@@ -94,22 +94,6 @@
       "options": {
         "jestConfig": "apps/shell/jest.config.ts",
         "passWithNoTests": true
-      }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "shell:build",
-        "port": 4200
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "shell:build:development"
-        },
-        "production": {
-          "buildTarget": "shell:build:production"
-        }
       }
     }
   },
