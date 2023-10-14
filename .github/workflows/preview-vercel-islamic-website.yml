@@ -38,3 +38,6 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_ISLAMIC_WEBSITE_PROJECT_ID }}
           GITHUB_DEPLOYMENT_ENV: Preview
           PREBUILT: true
+          ALIAS_DOMAINS: |
+            islamic-web-{BRANCH}.vercel.app
+            islamic-web-{BRANCH}.now.sh
