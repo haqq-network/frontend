@@ -30,7 +30,7 @@ jobs:
       #     # alias-domains: |
       #     #   islamic-website-{{BRANCH}}.vercel.app
       - name: Deploy to Vercel Action
-        uses: BetaHuhn/deploy-to-vercel-action@v1
+        uses: BetaHuhn/deploy-to-vercel-action@latest
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -38,6 +38,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_ISLAMIC_WEBSITE_PROJECT_ID }}
           GITHUB_DEPLOYMENT_ENV: IslamicCoin Website Preview
           PRODUCTION: false
+          PREBUILT: true
           ALIAS_DOMAINS: |
             islamic-web-{BRANCH}.vercel.app
             islamic-web-{BRANCH}.now.sh

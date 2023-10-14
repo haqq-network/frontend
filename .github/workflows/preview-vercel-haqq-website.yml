@@ -32,6 +32,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_HAQQ_WEBSITE_PROJECT_ID }}
           GITHUB_DEPLOYMENT_ENV: Haqq Website Preview
           PRODUCTION: false
+          PREBUILT: true
           ALIAS_DOMAINS: |
             haqq-web-{BRANCH}.vercel.app
             haqq-web-{BRANCH}.now.sh
