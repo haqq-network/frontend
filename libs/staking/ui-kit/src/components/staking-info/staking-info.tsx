@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Button, WalletIcon } from '@haqq/shell-ui-kit';
+import { Button, Container, Heading, WalletIcon } from '@haqq/shell-ui-kit';
 
 interface StakingStatsMobileProps {
   balance: string;
@@ -40,7 +40,7 @@ export function StakingInfoAmountBlock({
   );
 }
 
-export function StakingStats({
+export function StakingStatsDesktop({
   balance,
   delegated,
   rewards,
@@ -56,54 +56,62 @@ export function StakingStats({
   onRewardsClaim: () => void;
 }) {
   return (
-    <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
-      <div className="w-full flex-1">
-        <div className="flex w-full flex-col gap-[8px] sm:flex-row sm:gap-[24px]">
-          <div className="flex-1">
-            <StakingInfoAmountBlock
-              title="Available"
-              value={balance}
-              symbol={symbol}
-            />
-          </div>
+    <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
+      <div className="flex flex-row items-center">
+        <WalletIcon />
+        <Heading level={3} className="mb-[-2px] ml-[8px]">
+          My account
+        </Heading>
+      </div>
+      <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
+        <div className="w-full flex-1">
+          <div className="flex w-full flex-col gap-[8px] sm:flex-row sm:gap-[24px]">
+            <div className="flex-1">
+              <StakingInfoAmountBlock
+                title="Available"
+                value={balance}
+                symbol={symbol}
+              />
+            </div>
 
-          <div className="flex-1">
-            <StakingInfoAmountBlock
-              title="Staked"
-              value={delegated}
-              symbol={symbol}
-            />
-          </div>
+            <div className="flex-1">
+              <StakingInfoAmountBlock
+                title="Staked"
+                value={delegated}
+                symbol={symbol}
+              />
+            </div>
 
-          <div className="flex-1">
-            <StakingInfoAmountBlock
-              title="Unbonding"
-              value={unbounded}
-              symbol={symbol}
-            />
-          </div>
+            <div className="flex-1">
+              <StakingInfoAmountBlock
+                title="Unbonding"
+                value={unbounded}
+                symbol={symbol}
+              />
+            </div>
 
-          <div className="flex-1">
-            <StakingInfoAmountBlock
-              title="Rewards"
-              value={rewards}
-              symbol={symbol}
-              isGreen
-            />
+            <div className="flex-1">
+              <StakingInfoAmountBlock
+                title="Rewards"
+                value={rewards}
+                symbol={symbol}
+                isGreen
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="w-full text-start lg:w-auto lg:flex-none">
-        <Button
-          disabled={Number.parseFloat(rewards) < 1}
-          onClick={onRewardsClaim}
-          variant={2}
-        >
-          Claim all rewards
-        </Button>
-      </div>
-    </div>
+        <div className="w-full text-start lg:w-auto lg:flex-none">
+          <Button
+            disabled={Number.parseFloat(rewards) < 1}
+            onClick={onRewardsClaim}
+            variant={2}
+          >
+            Claim all rewards
+          </Button>
+        </div>
+      </div>{' '}
+    </Container>
   );
 }
 
@@ -148,7 +156,7 @@ export function StakingStatsMobile({
   unbounded,
 }: StakingStatsMobileProps) {
   return (
-    <div className="flex flex-row items-start gap-[16px] overflow-x-auto px-[16px] py-[20px]">
+    <div className="flex flex-row items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
       <div>
         <WalletIcon />
       </div>
@@ -181,8 +189,8 @@ export function StakingStatsMobile({
           isGreen
         />
       </div>
-      <div className="min-w-[170px]">
-        <Button onClick={onRewardsClaim} variant={2}>
+      <div className="flex-none">
+        <Button onClick={onRewardsClaim} className="px-[32px]" variant={2}>
           Get rewards
         </Button>
       </div>
