@@ -21,5 +21,5 @@ jobs:
           vercel-args: '--local-config vercel-next.json'
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
           vercel-project-id: ${{ secrets.VERCEL_HAQQ_WEBSITE_PROJECT_ID}}
-          alias-domains: |
-            haqq-website-{{BRANCH}}.vercel.app
+          # alias-domains: |
+          #   haqq-website-{{BRANCH}}.vercel.app
