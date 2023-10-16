@@ -52,6 +52,18 @@ export function ValidatorListItemMobile({
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
 
+  const getStatus = useCallback(() => {
+    if (validator.jailed) {
+      return 'jailed';
+    }
+
+    if (validator.status === 'BOND_STATUS_BONDED') {
+      return 'active';
+    }
+
+    return 'inactive';
+  }, [validator.jailed, validator.status]);
+
   return (
     <div
       onClick={() => {
@@ -65,7 +77,7 @@ export function ValidatorListItemMobile({
         staked={formatNumber(userDelegate)}
         votingPowerPercent={votingPowerInPercents}
         votingPower={formatNumber(votingPower)}
-        status="active"
+        status={getStatus()}
       />
     </div>
   );
