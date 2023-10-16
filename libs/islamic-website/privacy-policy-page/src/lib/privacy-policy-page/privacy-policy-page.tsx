@@ -36,7 +36,7 @@ function HeroBg({ children }: PropsWithChildren) {
 export function PrivacyPolicyPage({
   privacyPolicy,
 }: {
-  privacyPolicy: string;
+  privacyPolicy?: string;
 }) {
   const t = useTranslations('privacy-policy-page');
   return (
@@ -48,7 +48,7 @@ export function PrivacyPolicyPage({
 
         <div className="max-w-[860px]">
           <article className="mt-[32px] lg:mt-[100px]">
-            <MarkdownText>{privacyPolicy}</MarkdownText>
+            {privacyPolicy && <MarkdownText>{privacyPolicy}</MarkdownText>}
           </article>
         </div>
       </Container>

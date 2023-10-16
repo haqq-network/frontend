@@ -1,6 +1,8 @@
 import { NewsPost } from '@haqq/islamic-website-ui-kit';
-import { FALCONER_ENDPOINT } from '../constants';
+import { FALCONER_ENDPOINT, REVALIDATE_TIME } from '../constants';
 import { cache } from 'react';
+
+export const revalidate = REVALIDATE_TIME;
 
 type NewsType = 'press' | 'events';
 
@@ -40,9 +42,14 @@ export const getNewsPageContent = cache(async (limit?: number) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ limit }),
+      next: {
+        revalidate,
+      },
     });
+
     if (response.ok) {
       const data = await response.json();
+
       return mapStorybookToNews(data) ?? [];
     }
   } catch (error) {

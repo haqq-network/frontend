@@ -15,9 +15,11 @@ export const getWhitepaperContent = cache(async (locale: string) => {
         revalidate,
       },
     });
+
     if (response.ok) {
       const data = await response.json();
-      return data.wp;
+
+      return data.wp as string;
     }
   } catch (error) {
     console.error(error);
