@@ -44,7 +44,7 @@ export function ProposalDepositProgress({
         />
       </div>
 
-      <div className="font-sans text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
+      <div className="font-guise text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
         {formatNumber(totalDeposit)} {symbol.toLocaleUpperCase()} from{' '}
         {formatNumber(minDeposit)} {symbol.toLocaleUpperCase()}
       </div>

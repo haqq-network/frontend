@@ -50,7 +50,7 @@ export function ValidatorDetailsStatus({
       <div
         className={clsx(
           'inline-block whitespace-nowrap rounded-lg px-[12px] pb-[11px] pt-[13px] text-center',
-          'font-serif text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
+          'font-clash text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
           'bg-[#FF5454]',
         )}
       >
@@ -64,7 +64,7 @@ export function ValidatorDetailsStatus({
       <div
         className={clsx(
           'inline-block whitespace-nowrap rounded-lg px-[12px] pb-[11px] pt-[13px] text-center',
-          'font-serif text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
+          'font-clash text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
           'bg-[#01B26E]',
         )}
       >
@@ -77,7 +77,7 @@ export function ValidatorDetailsStatus({
     <div
       className={clsx(
         'inline-block whitespace-nowrap rounded-lg px-[12px] pb-[11px] pt-[13px] text-center',
-        'font-serif text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
+        'font-clash text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
         'bg-[#E3A13F]',
       )}
     >

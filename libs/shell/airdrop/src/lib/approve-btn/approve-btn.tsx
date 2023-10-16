@@ -191,7 +191,7 @@ export function ApproveBtn({
                   hex:
                   <Address
                     address={receivingAddress}
-                    className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    className="font-guise ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                   />
                 </div>
               ) : (
@@ -199,7 +199,7 @@ export function ApproveBtn({
                   bech32:
                   <Address
                     address={receivingAddress}
-                    className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    className="font-guise ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                   />
                 </div>
               ))}

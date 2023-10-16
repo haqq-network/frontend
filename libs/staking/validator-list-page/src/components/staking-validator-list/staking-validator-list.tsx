@@ -75,10 +75,10 @@ export function StakingValidatorList({
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
-  const isMobile = useMediaQuery({
-    query: `(max-width: 639px)`,
-  });
   const navigate = useNavigate();
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -139,7 +139,7 @@ export function StakingValidatorList({
         <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
           <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
             <SpinnerLoader />
-            <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+            <div className="font-guise text-[10px] uppercase leading-[1.2em]">
               Fetching validators list
             </div>
           </div>
@@ -147,7 +147,7 @@ export function StakingValidatorList({
       )}
       {status === 'error' && <p>Error: {error.message}</p>}
       {status === 'success' &&
-        (isMobile ? (
+        (isTablet ? (
           <ValidatorsListMobileTabs
             delegatedValidators={delegatedValidators}
             otherValidators={otherValidators}
@@ -160,7 +160,7 @@ export function StakingValidatorList({
             {delegatedValidators.length !== 0 && (
               <div>
                 <div className="border-haqq-border border-b border-dashed pb-[8px]">
-                  <h4 className=" font-serif text-[20px] leading-[26px] text-white/50">
+                  <h4 className=" font-clash text-[20px] leading-[26px] text-white/50">
                     My delegations
                   </h4>
                 </div>
@@ -179,7 +179,7 @@ export function StakingValidatorList({
               <div>
                 {delegatedValidators.length !== 0 && (
                   <div className="border-haqq-border border-b border-dashed pb-[8px]">
-                    <h4 className="font-serif text-[20px] leading-[26px] text-white/50">
+                    <h4 className="font-clash text-[20px] leading-[26px] text-white/50">
                       Other validators
                     </h4>
                   </div>

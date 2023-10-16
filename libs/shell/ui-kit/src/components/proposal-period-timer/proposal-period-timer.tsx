@@ -56,7 +56,7 @@ export function ProposalPeriodTimer({
           date={date}
           renderer={({ days, hours, minutes, seconds }) => {
             return (
-              <div className="flex flex-row gap-[8px] font-serif text-[14px] font-[500] leading-[18px] text-white/50 md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
+              <div className="font-clash flex flex-row gap-[8px] text-[14px] font-[500] leading-[18px] text-white/50 md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
                 {days > 0 && (
                   <div>
                     <span className="text-white">{days}</span> Days

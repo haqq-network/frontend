@@ -48,10 +48,10 @@ export function DelegationsBlock() {
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
-  const isMobile = useMediaQuery({
-    query: `(max-width: 639px)`,
-  });
   const navigate = useNavigate();
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -92,7 +92,7 @@ export function DelegationsBlock() {
           <div className="pointer-events-none mx-auto flex min-h-[220px] w-full flex-1 select-none">
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
               <SpinnerLoader />
-              <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+              <div className="font-guise text-[10px] uppercase leading-[1.2em]">
                 Fetching validators list
               </div>
             </div>
@@ -106,7 +106,7 @@ export function DelegationsBlock() {
         <div>
           {valToRender.length ? (
             <div>
-              {isMobile ? (
+              {isTablet ? (
                 <div className="border-haqq-border flex flex-col gap-[24px] border-t">
                   <ValidatorsListMobile
                     validators={valToRender}

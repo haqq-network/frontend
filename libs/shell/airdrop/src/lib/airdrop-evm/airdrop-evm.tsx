@@ -30,7 +30,7 @@ export function AirdropEvm({
       }
       content={
         <div className="flex flex-col items-center space-y-[12px] py-[58px]">
-          <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+          <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             You should connect wallet first
           </div>
           <Button

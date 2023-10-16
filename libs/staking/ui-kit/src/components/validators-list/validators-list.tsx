@@ -48,7 +48,6 @@ export function ValidatorListItemMobile({
 
     return 0;
   }, [reward]);
-
   const votingPowerInPercents = useMemo(() => {
     return ((votingPower / stakingPool) * 100).toFixed(2);
   }, [votingPower, stakingPool]);
@@ -119,7 +118,7 @@ export function ValidatorsListMobile({
   );
 
   return (
-    <div className="divide-haqq-border flex flex-col divide-y divide-solid">
+    <div className="grid grid-cols-1 gap-[24px] pt-[16px] sm:grid-cols-2">
       {validators.map((validator, index) => {
         const delegationInfo = getDelegationInfo(validator.operator_address);
         const rewardsInfo = getValidatorRewards(validator.operator_address);

@@ -38,7 +38,7 @@ function HeroBg({ children }: PropsWithChildren) {
   );
 }
 
-export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
+export function WhitepaperPage({ whitepaper }: { whitepaper?: string }) {
   const t = useTranslations('whitepaper-page');
 
   return (
@@ -57,9 +57,11 @@ export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
 
         <div className="max-w-[860px]">
           <article>
-            <MarkdownText className="mt-[32px] lg:mt-[100px]">
-              {whitepaper}
-            </MarkdownText>
+            {whitepaper && (
+              <MarkdownText className="mt-[32px] lg:mt-[100px]">
+                {whitepaper}
+              </MarkdownText>
+            )}
           </article>
         </div>
       </Container>

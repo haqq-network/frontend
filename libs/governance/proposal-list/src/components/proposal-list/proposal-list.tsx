@@ -74,7 +74,7 @@ export function ProposalList() {
     <div>
       <div className="py-[32px] lg:py-[68px]">
         <Container>
-          <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+          <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
             Governance
           </div>
         </Container>
