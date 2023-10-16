@@ -1,5 +1,4 @@
 import type { Fee } from '@evmos/transactions';
-
 import { chains } from './chains';
 
 export function getChainParams(chainId: number) {

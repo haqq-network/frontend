@@ -128,8 +128,10 @@ function GranterGrantsTable() {
 
       await toast.promise(grantPromise, {
         loading: <ToastLoading>Revoke in progress</ToastLoading>,
-        success: (txHash) => {
-          console.log('Revoke successful', { txHash }); // maybe successful
+        success: (tx) => {
+          console.log('Revoke successful', { tx }); // maybe successful
+          const txHash = tx?.txhash;
+
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
@@ -443,8 +445,10 @@ function AuthzGrantsActions() {
 
     await toast.promise(grantPromise, {
       loading: <ToastLoading>Grant in progress</ToastLoading>,
-      success: (txHash) => {
-        console.log('Grant successful', { txHash });
+      success: (tx) => {
+        console.log('Grant successful', { tx });
+        const txHash = tx?.txhash;
+
         return (
           <ToastSuccess>
             <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">

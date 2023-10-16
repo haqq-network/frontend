@@ -902,8 +902,10 @@ export function VoteActions({
 
       toast.promise(votePromise, {
         loading: <ToastLoading>Vote in progress</ToastLoading>,
-        success: (txHash) => {
-          console.log('Vote successful', { txHash }); // maybe successful
+        success: (tx) => {
+          console.log('Vote successful', { tx });
+          const txHash = tx?.txhash;
+
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">

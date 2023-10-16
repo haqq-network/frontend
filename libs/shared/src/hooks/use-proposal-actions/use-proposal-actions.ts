@@ -13,14 +13,17 @@ import type {
 } from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
 import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
-import { useCosmosService } from '../../providers/cosmos-provider';
+import {
+  BroadcastTxResponse,
+  useCosmosService,
+} from '../../providers/cosmos-provider';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import Decimal from 'decimal.js-light';
 import { useNetwork, useWalletClient } from 'wagmi';
 
 interface ProposalActionsHook {
-  vote: (proposalId: number, option: number) => Promise<string>;
-  deposit: (proposalId: number, amount: number) => Promise<string>;
+  vote: (proposalId: number, option: number) => Promise<BroadcastTxResponse>;
+  deposit: (proposalId: number, amount: number) => Promise<BroadcastTxResponse>;
 }
 
 function getAmountAndDenom(amount: number, fee?: Fee) {
@@ -125,7 +128,11 @@ export function useProposalActions(): ProposalActionsHook {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        return txResponse.txhash;
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
+
+        return txResponse;
       } else {
         throw new Error('No sender');
       }
@@ -164,7 +171,11 @@ export function useProposalActions(): ProposalActionsHook {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        return txResponse.txhash;
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
+
+        return txResponse;
       } else {
         throw new Error('No sender');
       }
