@@ -102,7 +102,7 @@
     "@babel/core": "7.23.2",
     "@babel/preset-react": "7.22.15",
     "@commitlint/cli": "17.7.2",
-    "@commitlint/config-conventional": "17.7.0",
+    "@commitlint/config-conventional": "17.8.0",
     "@keplr-wallet/types": "0.12.34",
     "@nx/cypress": "16.10.0",
     "@nx/eslint-plugin": "16.10.0",
