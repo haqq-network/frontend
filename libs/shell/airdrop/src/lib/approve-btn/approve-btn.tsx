@@ -61,6 +61,7 @@ export function ApproveBtn({
 
       {(participant?.status === ParticipantStatus.Checking ||
         participant?.status === ParticipantStatus.Queued ||
+        participant?.status === ParticipantStatus.Failed ||
         participant?.status === ParticipantStatus.Approved ||
         receivingAddress) && (
         <div className="flex flex-col gap-y-[6px]">
@@ -130,7 +131,6 @@ export function ApproveBtn({
       )}
 
       {(participant?.status === ParticipantStatus.Awaiting ||
-        participant?.status === ParticipantStatus.Failed ||
         participant?.status === ParticipantStatus.Unknown) &&
         !receivingAddress && (
           <div>
