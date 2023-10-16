@@ -59,7 +59,7 @@ export function ProposalCard({
       <div className="divide-haqq-border flex flex-col divide-y divide-dashed">
         <div className="flex flex-col gap-[16px] pb-[12px] md:pb-[22px]">
           <div className="flex flex-row items-center gap-[18px]">
-            <div className="font-serif text-[14px] font-[500] leading-[18px] text-white md:py-[12[x]] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
+            <div className="font-clash text-[14px] font-[500] leading-[18px] text-white md:py-[12[x]] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
               #{id}
             </div>
             <div>

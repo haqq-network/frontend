@@ -131,7 +131,7 @@ export function ShellIndexPageAccountInfo() {
       {balance && (
         <div>
           <CardHeading>Balance</CardHeading>
-          <div className="mb-[-10px] font-serif text-[42px] font-[500] leading-[1.25]">
+          <div className="font-clash mb-[-10px] text-[42px] font-[500] leading-[1.25]">
             {balance.value.toLocaleString()} {symbol.toLocaleUpperCase()}
           </div>
         </div>

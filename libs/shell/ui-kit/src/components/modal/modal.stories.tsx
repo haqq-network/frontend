@@ -43,7 +43,7 @@ export const Modal = () => {
             }}
           />
 
-          <div className="flex flex-col gap-[24px] font-sans">
+          <div className="font-guise flex flex-col gap-[24px]">
             <MobileHeading className="mt-[24px] sm:mt-[4px]">
               Modal
             </MobileHeading>

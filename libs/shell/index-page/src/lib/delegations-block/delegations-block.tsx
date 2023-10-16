@@ -92,7 +92,7 @@ export function DelegationsBlock() {
           <div className="pointer-events-none mx-auto flex min-h-[220px] w-full flex-1 select-none">
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
               <SpinnerLoader />
-              <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+              <div className="font-guise text-[10px] uppercase leading-[1.2em]">
                 Fetching validators list
               </div>
             </div>

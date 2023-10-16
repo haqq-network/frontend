@@ -395,7 +395,7 @@ export function ProposalDetailsComponent({
                   </div>
                 </div>
 
-                <h1 className="font-serif text-[24px] font-[500] leading-[30px] md:text-[32px] md:leading-[42px]">
+                <h1 className="font-clash text-[24px] font-[500] leading-[30px] md:text-[32px] md:leading-[42px]">
                   {proposalDetails.content.title}
                 </h1>
 
@@ -731,7 +731,7 @@ function ProposalTurnoutQuorumBlock({
       </div>
       <div
         className={clsx(
-          'font-serif text-[14px] leading-[18px] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]',
+          'font-clash text-[14px] leading-[18px] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]',
           valueClassName,
         )}
       >
@@ -1100,7 +1100,7 @@ export function DepositButton({
   return (
     <button
       className={clsx(
-        'text-haqq-black rounded-[6px] px-[24px] py-[12px]  font-serif text-[14px] uppercase leading-[1em]',
+        'text-haqq-black font-clash rounded-[6px] px-[24px]  py-[12px] text-[14px] uppercase leading-[1em]',
         'transition-colors duration-100 ease-linear',
         !disabled
           ? 'cursor-pointer bg-white'
@@ -1132,7 +1132,7 @@ export function VoteButton({
   return (
     <button
       className={clsx(
-        'rounded-[6px] bg-[#FFFFFF26] px-[24px] py-[12px] font-serif text-[14px] leading-[1em] text-white',
+        'font-clash rounded-[6px] bg-[#FFFFFF26] px-[24px] py-[12px] text-[14px] leading-[1em] text-white',
         'uppercase transition-colors duration-100 ease-linear',
         'w-full',
         !disabled
@@ -1166,7 +1166,7 @@ function CardHeading({
   return (
     <h3
       className={clsx(
-        'font-serif text-[20px] font-[500] leading-[26px] text-white',
+        'font-clash text-[20px] font-[500] leading-[26px] text-white',
         className,
       )}
     >

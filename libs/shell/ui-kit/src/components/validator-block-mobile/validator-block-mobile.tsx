@@ -31,7 +31,7 @@ function GrayDescription({
   return (
     <div
       className={clsx(
-        'font-sans text-[12px] font-[600] uppercase leading-[1.2em] text-white/50',
+        'font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50',
         className,
       )}
     >
@@ -48,7 +48,7 @@ function DescriptionAmount({
   return (
     <div
       className={clsx(
-        'font-serif text-[16px] font-[500] uppercase leading-[20px] text-white',
+        'font-clash text-[16px] font-[500] uppercase leading-[20px] text-white',
         className,
       )}
     >
@@ -182,7 +182,7 @@ export function ValidatorBlockMobile({
             </div>
           )}
 
-          <div className="flex w-full flex-row gap-[28px]">
+          <div className="flex w-full flex-row gap-[12px]">
             <div className="flex flex-1 flex-row gap-[12px]">
               <div className="flex flex-1 flex-col justify-end gap-[12px]">
                 <div className="flex flex-1 flex-col items-start gap-[6px]">
@@ -236,7 +236,7 @@ export function ValidatorBlockMobile({
               </div>
             </div>
 
-            <div className="flex min-w-[20%] flex-1 flex-col justify-end gap-[12px]">
+            <div className="flex max-w-[33%] flex-1 flex-col justify-end gap-[12px]">
               <div className="flex flex-1 flex-col items-start gap-[6px]">
                 <GrayDescription>My rewards</GrayDescription>
                 <DescriptionAmount className="!text-[#01B26E]">

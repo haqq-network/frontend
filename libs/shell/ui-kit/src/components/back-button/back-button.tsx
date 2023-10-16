@@ -23,7 +23,7 @@ export function BackButton({
           fill="currentColor"
         />
       </svg>
-      <span className="ml-[8px] cursor-pointer font-sans text-[10px] font-[600] uppercase leading-[1.2em]">
+      <span className="font-guise ml-[8px] cursor-pointer text-[10px] font-[600] uppercase leading-[1.2em]">
         {children}
       </span>
     </button>

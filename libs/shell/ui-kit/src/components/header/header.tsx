@@ -20,7 +20,7 @@ export function Header({
         isBlurred && !darkBackground && 'backdrop-blur',
       )}
     >
-      <div className="mx-auto flex h-full w-full flex-row items-center pr-[16px] sm:pr-[48px] lg:pr-[80px]">
+      <div className="mx-auto flex h-full w-full flex-row items-center pr-[16px] sm:pr-[64px] lg:pr-[80px]">
         <div className="flex h-full w-[48px] items-center justify-center border-r border-[#464647] sm:w-[64px] lg:w-[80px]">
           <div className="relative h-[26px] w-[26px] sm:h-[32px] sm:w-[32px]">
             <NavLink to="/">
@@ -28,7 +28,7 @@ export function Header({
             </NavLink>
           </div>
         </div>
-        <div className="ml-[20px] font-serif text-[24px] font-medium leading-none lg:ml-[32px]">
+        <div className="font-clash ml-[20px] text-[24px] font-medium leading-none lg:ml-[32px]">
           <NavLink to="/">HAQQ</NavLink>
         </div>
         <div className="flex-1" />

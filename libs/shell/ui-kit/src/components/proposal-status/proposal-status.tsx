@@ -8,7 +8,7 @@ export function ProposalStatus({
   status: ProposalStatusEnum;
 }): ReactElement {
   const baseClassName =
-    'inline-flex rounded-[8px] p-[8px] items-center uppercase text-[14px] font-[500] tracking-[0.01em] font-serif gap-[4px]';
+    'inline-flex rounded-[8px] p-[8px] items-center uppercase text-[14px] font-[500] tracking-[0.01em] font-clash gap-[4px]';
 
   switch (status) {
     case ProposalStatusEnum.Rejected:

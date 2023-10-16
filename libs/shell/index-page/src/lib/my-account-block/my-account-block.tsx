@@ -43,8 +43,8 @@ function MyAccountAmountBlock({
         className={clsx(
           'font-[500]',
           isGreen
-            ? 'font-serif text-[20px] leading-[26px] text-[#01B26E]'
-            : 'font-sans text-[18px] leading-[28px] text-white',
+            ? 'font-clash text-[20px] leading-[26px] text-[#01B26E]'
+            : 'font-guise text-[18px] leading-[28px] text-white',
           valueClassName,
         )}
       >
@@ -137,7 +137,7 @@ export function MyAccountBlock() {
 
   return !ethAddress ? (
     <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px]">
-      <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+      <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
         You should connect wallet first
       </div>
       <Button
@@ -150,14 +150,14 @@ export function MyAccountBlock() {
     </div>
   ) : (
     <Container className="border-y border-y-[#ffffff26]">
-      <div className="flex flex-col py-[32px] font-sans sm:py-[22px] lg:py-[32px]">
+      <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
             My account
           </Heading>
           <Link to="/staking" className="leading-[0]">
-            <OrangeLink className="ml-[16px] font-serif !text-[12px] uppercase">
+            <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
               Go to Staking
             </OrangeLink>
           </Link>
@@ -181,7 +181,7 @@ export function MyAccountBlock() {
           <MyAccountAmountBlock
             title="Address"
             value={
-              <div className="flex flex-col items-start space-y-2 font-sans lg:flex-row lg:space-x-4 lg:space-y-0">
+              <div className="font-guise flex flex-col items-start space-y-2 lg:flex-row lg:space-x-4 lg:space-y-0">
                 <div className="flex-1">
                   <Tooltip
                     text={
