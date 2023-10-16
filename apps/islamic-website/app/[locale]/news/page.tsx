@@ -4,6 +4,9 @@ import { getNewsPageContent } from '../../../utils/get-news-data';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 const title = 'News';
 const description =
   'Stay in the loop with the latest breakthroughs, announcements, and milestones from Islamic Coin.';

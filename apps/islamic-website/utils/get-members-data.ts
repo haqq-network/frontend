@@ -25,6 +25,7 @@ export const getMembersContent = cache(
           revalidate,
         },
       });
+
       if (response.ok) {
         const {
           members: {
@@ -35,6 +36,7 @@ export const getMembersContent = cache(
             founder_members,
           },
         } = await response.json();
+
         return {
           advisoryMembers: advisory_members,
           executiveMembers: executive_members,

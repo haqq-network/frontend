@@ -1,7 +1,9 @@
 import { cache } from 'react';
-import { FALCONER_ENDPOINT } from '../constants';
+import { FALCONER_ENDPOINT, REVALIDATE_TIME } from '../constants';
 import { Member, NewsPost } from '@haqq/islamic-website-ui-kit';
 import { mapStorybookToNews } from './get-news-data';
+
+export const revalidate = REVALIDATE_TIME;
 
 export const getHomePageContent = cache(
   async (
@@ -18,9 +20,10 @@ export const getHomePageContent = cache(
         method: 'POST',
         body: JSON.stringify({ locale }),
         next: {
-          revalidate: 180,
+          revalidate,
         },
       });
+
       if (response.ok) {
         const data = await response.json();
         const mappedNews = mapStorybookToNews(data.news);
