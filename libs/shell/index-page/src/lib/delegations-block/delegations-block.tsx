@@ -14,7 +14,10 @@ import {
   OrangeLink,
   SpinnerLoader,
 } from '@haqq/shell-ui-kit';
-import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
+import {
+  ValidatorsListDesktop,
+  ValidatorsListMobile,
+} from '@haqq/staking/ui-kit';
 import { DelegationResponse } from '@evmos/provider';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { useMediaQuery } from 'react-responsive';
@@ -69,9 +72,13 @@ export function DelegationsBlock() {
     return delegatedVals;
   }, [delegationInfo]);
   const valToRender = useMemo(() => {
-    return sortedValidators.filter((val) => {
-      return valWithDelegationAddr.includes(val.operator_address);
-    });
+    return sortedValidators
+      .filter((val) => {
+        return valWithDelegationAddr.includes(val.operator_address);
+      })
+      .filter((validator) => {
+        return validator.status === 'BOND_STATUS_BONDED';
+      });
   }, [sortedValidators, valWithDelegationAddr]);
 
   const totalStaked = useMemo(() => {
@@ -107,19 +114,17 @@ export function DelegationsBlock() {
           {valToRender.length ? (
             <div>
               {isTablet ? (
-                <div className="border-haqq-border flex flex-col gap-[24px] border-t">
-                  <ValidatorsListMobile
-                    validators={valToRender}
-                    delegationInfo={delegationInfo}
-                    rewardsInfo={rewardsInfo}
-                    onValidatorClick={(validatorAddress: string) => {
-                      navigate(`/staking/validator/${validatorAddress}`);
-                    }}
-                    totalStaked={totalStaked}
-                  />
-                </div>
+                <ValidatorsListMobile
+                  validators={valToRender}
+                  delegationInfo={delegationInfo}
+                  rewardsInfo={rewardsInfo}
+                  onValidatorClick={(validatorAddress: string) => {
+                    navigate(`/staking/validator/${validatorAddress}`);
+                  }}
+                  totalStaked={totalStaked}
+                />
               ) : (
-                <ValidatorsList
+                <ValidatorsListDesktop
                   validators={valToRender}
                   delegationInfo={delegationInfo}
                   rewardsInfo={rewardsInfo}

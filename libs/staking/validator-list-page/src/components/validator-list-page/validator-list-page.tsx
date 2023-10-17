@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Container } from '@haqq/shell-ui-kit';
-import { ValidatorList } from '../staking-validator-list/staking-validator-list';
+import { ValidatorList } from '../validator-list/validator-list';
 import { StakingInfo } from '../staking-info/staking-info';
 
 export function ValidatorListPage() {

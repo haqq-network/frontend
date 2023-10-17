@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Button, Container, Heading, WalletIcon } from '@haqq/shell-ui-kit';
 
-interface StakingStatsMobileProps {
+interface StakingStatsProps {
   balance: string;
   delegated: string;
   rewards: string;
@@ -10,7 +10,7 @@ interface StakingStatsMobileProps {
   onRewardsClaim: () => void;
 }
 
-export function StakingInfoAmountBlock({
+export function StakingStatsDesktopAmountBlock({
   title,
   value,
   symbol,
@@ -47,14 +47,7 @@ export function StakingStatsDesktop({
   unbounded,
   symbol,
   onRewardsClaim,
-}: {
-  balance: string;
-  delegated: string;
-  rewards: string;
-  unbounded: string;
-  symbol: string;
-  onRewardsClaim: () => void;
-}) {
+}: StakingStatsProps) {
   return (
     <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
       <div className="flex flex-row items-center">
@@ -67,7 +60,7 @@ export function StakingStatsDesktop({
         <div className="w-full flex-1">
           <div className="flex w-full flex-col gap-[8px] sm:flex-row sm:gap-[24px]">
             <div className="flex-1">
-              <StakingInfoAmountBlock
+              <StakingStatsDesktopAmountBlock
                 title="Available"
                 value={balance}
                 symbol={symbol}
@@ -75,7 +68,7 @@ export function StakingStatsDesktop({
             </div>
 
             <div className="flex-1">
-              <StakingInfoAmountBlock
+              <StakingStatsDesktopAmountBlock
                 title="Staked"
                 value={delegated}
                 symbol={symbol}
@@ -83,7 +76,7 @@ export function StakingStatsDesktop({
             </div>
 
             <div className="flex-1">
-              <StakingInfoAmountBlock
+              <StakingStatsDesktopAmountBlock
                 title="Unbonding"
                 value={unbounded}
                 symbol={symbol}
@@ -91,7 +84,7 @@ export function StakingStatsDesktop({
             </div>
 
             <div className="flex-1">
-              <StakingInfoAmountBlock
+              <StakingStatsDesktopAmountBlock
                 title="Rewards"
                 value={rewards}
                 symbol={symbol}
@@ -115,7 +108,7 @@ export function StakingStatsDesktop({
   );
 }
 
-export function StakingInfoAmountBlockMobile({
+export function StakingStatsMobileAmountBlock({
   title,
   value,
   symbol,
@@ -154,35 +147,35 @@ export function StakingStatsMobile({
   rewards,
   symbol,
   unbounded,
-}: StakingStatsMobileProps) {
+}: StakingStatsProps) {
   return (
     <div className="flex flex-row items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
       <div>
         <WalletIcon />
       </div>
       <div className="flex-initial">
-        <StakingInfoAmountBlockMobile
+        <StakingStatsMobileAmountBlock
           title="Available"
           value={balance}
           symbol={symbol}
         />
       </div>
       <div className="flex-initial">
-        <StakingInfoAmountBlockMobile
+        <StakingStatsMobileAmountBlock
           title="Staked"
           value={delegated}
           symbol={symbol}
         />
       </div>
       <div className="flex-initial">
-        <StakingInfoAmountBlockMobile
+        <StakingStatsMobileAmountBlock
           title="Unbonding"
           value={unbounded}
           symbol={symbol}
         />
       </div>
       <div className="flex-initial">
-        <StakingInfoAmountBlockMobile
+        <StakingStatsMobileAmountBlock
           title="Rewards"
           value={rewards}
           symbol={symbol}
