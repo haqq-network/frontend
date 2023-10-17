@@ -16,10 +16,14 @@ jobs:
         with:
           script: |
             const isPr = [ 'pull_request', 'pull_request_target' ].includes(context.eventName)
-            core.setOutput('ref', isPr ? context.payload.pull_request.head.ref : context.ref)
-            core.setOutput('repo', isPr ? context.payload.pull_request.head.repo.full_name : context.repo.full_name)
-            core.setOutput('pr-number', context.payload.pull_request.number)
-            core.setOutput('repo-name', context.payload.pull_request.head.repo.full_name.split('/')[1])
+
+            const ref = isPr ? context.payload.pull_request.head.ref : context.ref
+            const repo = isPr ? context.payload.pull_request.head.repo.full_name : context.repo.full_name
+            const pr-number = context.payload.pull_request.number
+
+            echo "ref={ref}" >> $GITHUB_OUTPUT
+            echo "repo={repo}" >> $GITHUB_OUTPUT
+            echo "pr-number={pr-number}" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v2
       # - name: Install Vercel CLI
       #   run: npm install --global vercel@latest
