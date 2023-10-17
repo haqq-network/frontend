@@ -49,6 +49,7 @@ export function NewsCard({
             height={post.image.height}
             alt={post.title}
             className="h-full w-full object-cover transition-transform duration-[1s] ease-out group-hover:scale-110"
+            loading="lazy"
           />
         )}
       </div>
