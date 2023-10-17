@@ -1,7 +1,7 @@
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
-import contactPageImageData from '../../assets/images/contact-page-image.jpg';
+import contactPageImageData from '../../assets/images/contact-page-image.webp';
 
 export function ContactUsPage() {
   return (
