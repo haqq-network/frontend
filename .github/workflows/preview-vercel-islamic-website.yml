@@ -30,3 +30,4 @@ jobs:
           PRODUCTION: false
           PREBUILT: true
           CREATE_COMMENT: true
+          PR_PREVIEW_DOMAIN: 'iw-{PR}.preview.haqq.sh'
