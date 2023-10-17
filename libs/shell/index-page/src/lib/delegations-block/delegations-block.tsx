@@ -14,7 +14,10 @@ import {
   OrangeLink,
   SpinnerLoader,
 } from '@haqq/shell-ui-kit';
-import { ValidatorsList, ValidatorsListMobile } from '@haqq/staking/ui-kit';
+import {
+  ValidatorsListDesktop,
+  ValidatorsListMobile,
+} from '@haqq/staking/ui-kit';
 import { DelegationResponse } from '@evmos/provider';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 import { useMediaQuery } from 'react-responsive';
@@ -48,10 +51,10 @@ export function DelegationsBlock() {
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
-  const isMobile = useMediaQuery({
-    query: `(max-width: 639px)`,
-  });
   const navigate = useNavigate();
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
 
   const sortedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
@@ -69,9 +72,13 @@ export function DelegationsBlock() {
     return delegatedVals;
   }, [delegationInfo]);
   const valToRender = useMemo(() => {
-    return sortedValidators.filter((val) => {
-      return valWithDelegationAddr.includes(val.operator_address);
-    });
+    return sortedValidators
+      .filter((val) => {
+        return valWithDelegationAddr.includes(val.operator_address);
+      })
+      .filter((validator) => {
+        return validator.status === 'BOND_STATUS_BONDED';
+      });
   }, [sortedValidators, valWithDelegationAddr]);
 
   const totalStaked = useMemo(() => {
@@ -92,7 +99,7 @@ export function DelegationsBlock() {
           <div className="pointer-events-none mx-auto flex min-h-[220px] w-full flex-1 select-none">
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
               <SpinnerLoader />
-              <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+              <div className="font-guise text-[10px] uppercase leading-[1.2em]">
                 Fetching validators list
               </div>
             </div>
@@ -106,20 +113,18 @@ export function DelegationsBlock() {
         <div>
           {valToRender.length ? (
             <div>
-              {isMobile ? (
-                <div className="border-haqq-border flex flex-col gap-[24px] border-t">
-                  <ValidatorsListMobile
-                    validators={valToRender}
-                    delegationInfo={delegationInfo}
-                    rewardsInfo={rewardsInfo}
-                    onValidatorClick={(validatorAddress: string) => {
-                      navigate(`/staking/validator/${validatorAddress}`);
-                    }}
-                    totalStaked={totalStaked}
-                  />
-                </div>
+              {isTablet ? (
+                <ValidatorsListMobile
+                  validators={valToRender}
+                  delegationInfo={delegationInfo}
+                  rewardsInfo={rewardsInfo}
+                  onValidatorClick={(validatorAddress: string) => {
+                    navigate(`/staking/validator/${validatorAddress}`);
+                  }}
+                  totalStaked={totalStaked}
+                />
               ) : (
-                <ValidatorsList
+                <ValidatorsListDesktop
                   validators={valToRender}
                   delegationInfo={delegationInfo}
                   rewardsInfo={rewardsInfo}

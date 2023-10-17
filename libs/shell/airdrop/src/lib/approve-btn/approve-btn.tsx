@@ -1,35 +1,27 @@
 import {
   IParticipant,
+  IParticipateResponse,
   ParticipantStatus,
-  useAirdropActions,
 } from '@haqq/shared';
-import localStore from 'store2';
 import { Button, Checkbox, InformationModal } from '@haqq/shell-ui-kit';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Address } from '../address/address';
 import { SmallText } from '../small-text/small-text';
 
 export function ApproveBtn({
   participant,
-  message,
   participationAddress,
-  ethAddress,
   isCosmos,
   onSign,
-  disabled = false,
-  airdropEndpoint,
+  onParticipate,
 }: {
   participant?: IParticipant;
-  message: string;
   participationAddress?: string;
-  ethAddress?: string;
-  isCosmos: boolean;
+  isCosmos?: boolean;
   onSign: () => Promise<{
     signature: string;
-    pubKey?: string;
   }>;
-  disabled?: boolean;
-  airdropEndpoint?: string;
+  onParticipate: (signature: string) => Promise<IParticipateResponse>;
 }) {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
   const [isAlreadyRequested, setAlreadyRequested] = useState<boolean>(false);
@@ -40,48 +32,18 @@ export function ApproveBtn({
 
   const [receivingAddress, setReceivingAddress] = useState<string>('');
 
-  const { participateEvm, participateCosmos } = useAirdropActions();
-
   const hasAirdrop = (participant?.amount || 0) > 0;
 
-  const localStKey = useMemo(() => {
-    return `SAVED_AIRDROP_SIGNATURE_KEY_${participationAddress}`;
-  }, [participationAddress]);
-
   const participate = useCallback(async () => {
-    const savedPrevious = localStore.get(localStKey);
+    const { signature } = await onSign();
 
-    const { signature, pubKey } = savedPrevious
-      ? savedPrevious
-      : await onSign();
-
-    localStore.set(localStKey, { signature, pubKey });
-
-    if (isCosmos) {
-      return participateCosmos(
-        airdropEndpoint,
-        message,
-        signature,
-        participationAddress,
-        pubKey,
-      );
-    } else {
-      return participateEvm(airdropEndpoint, message, signature);
-    }
-  }, [
-    localStKey,
-    onSign,
-    isCosmos,
-    participateCosmos,
-    airdropEndpoint,
-    message,
-    participationAddress,
-    participateEvm,
-  ]);
+    return onParticipate(signature);
+  }, [onParticipate, onSign]);
 
   const isCheckboxDefaultChecked =
     participant?.status === ParticipantStatus.Checking ||
     participant?.status === ParticipantStatus.Queued ||
+    participant?.status === ParticipantStatus.Approved ||
     participant?.status === ParticipantStatus.Redeemed;
 
   return (
@@ -99,6 +61,8 @@ export function ApproveBtn({
 
       {(participant?.status === ParticipantStatus.Checking ||
         participant?.status === ParticipantStatus.Queued ||
+        participant?.status === ParticipantStatus.Failed ||
+        participant?.status === ParticipantStatus.Approved ||
         receivingAddress) && (
         <div className="flex flex-col gap-y-[6px]">
           <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
@@ -167,7 +131,6 @@ export function ApproveBtn({
       )}
 
       {(participant?.status === ParticipantStatus.Awaiting ||
-        participant?.status === ParticipantStatus.Failed ||
         participant?.status === ParticipantStatus.Unknown) &&
         !receivingAddress && (
           <div>
@@ -175,7 +138,7 @@ export function ApproveBtn({
               className="px-[32px]"
               disabled={!isNotResident || !hasAirdrop}
               onClick={async () => {
-                const resp = await participate();
+                const resp: IParticipateResponse = await participate();
 
                 if (!resp.message) {
                   setInformationModalOpened(true);
@@ -222,13 +185,13 @@ export function ApproveBtn({
               your address within the next 24 hours.
             </div>
 
-            {ethAddress &&
+            {receivingAddress &&
               (!isCosmos ? (
                 <div>
                   hex:
                   <Address
                     address={receivingAddress}
-                    className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    className="font-guise ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                   />
                 </div>
               ) : (
@@ -236,7 +199,7 @@ export function ApproveBtn({
                   bech32:
                   <Address
                     address={receivingAddress}
-                    className="ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-sans text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    className="font-guise ml-[8px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[12px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                   />
                 </div>
               ))}

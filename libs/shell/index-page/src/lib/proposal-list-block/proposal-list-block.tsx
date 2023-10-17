@@ -47,12 +47,12 @@ export function ProposalListBlock() {
 
   const ongoingProposalTallysResultMap = useMemo(() => {
     return new Map(
-      proposalTallysDataArray.map((proposalQueryResult) => {
+      proposalTallysDataArray.map((proposalQueryResult, index) => {
         const tallyData = proposalQueryResult.data;
-        return [tallyData?.id, tallyData?.results];
+        return [ongoingProposals[index], tallyData];
       }),
     );
-  }, [proposalTallysDataArray]);
+  }, [ongoingProposals, proposalTallysDataArray]);
 
   const proposalsToRender = useMemo(() => {
     return proposals.map((proposal) => {
@@ -83,7 +83,7 @@ export function ProposalListBlock() {
           Latest proposals
         </Heading>
         <Link to="/governance" className="leading-[0]">
-          <OrangeLink className="ml-[16px] font-serif !text-[12px] uppercase">
+          <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
             Go to Governance
           </OrangeLink>
         </Link>
@@ -92,7 +92,7 @@ export function ProposalListBlock() {
       {isFetching || !govParams ? (
         <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8 py-[48px]">
           <SpinnerLoader />
-          <div className="font-sans text-[10px] uppercase leading-[1.2em]">
+          <div className="font-guise text-[10px] uppercase leading-[1.2em]">
             Fetching proposals
           </div>
         </div>
@@ -101,7 +101,7 @@ export function ProposalListBlock() {
           {proposalsToRender.map((proposal) => {
             return (
               <Link
-                to={`proposal/${proposal.proposal_id}`}
+                to={`governance/proposal/${proposal.proposal_id}`}
                 key={proposal.proposal_id}
               >
                 <ProposalListCard

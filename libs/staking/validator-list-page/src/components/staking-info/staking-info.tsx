@@ -11,27 +11,26 @@ import {
   useToast,
   useWallet,
 } from '@haqq/shared';
-import { RewardsInfo, StakingInfoAmountBlock } from '@haqq/staking/ui-kit';
+import { StakingStatsDesktop, StakingStatsMobile } from '@haqq/staking/ui-kit';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useBalance, useNetwork } from 'wagmi';
 import { useCosmosProvider } from '@haqq/shared';
 import {
   Button,
   Container,
-  Heading,
   LinkIcon,
   ToastError,
   ToastLoading,
   ToastSuccess,
-  WalletIcon,
   formatNumber,
 } from '@haqq/shell-ui-kit';
 import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
 import { Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
-export function StakingInfoHooked() {
+function useStakingStats() {
   const [staked, setStakedValue] = useState(0);
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
@@ -50,48 +49,61 @@ export function StakingInfoHooked() {
   });
   const toast = useToast();
   const { explorer } = getChainParams(chain?.id ?? 0);
+  const symbol =
+    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const [isRewardsPending, setRewardsPending] = useState(false);
 
   const handleRewardsClaim = useCallback(async () => {
-    const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
+    try {
+      setRewardsPending(true);
 
-    await toast.promise(claimAllRewardPromise, {
-      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
-      success: (tx) => {
-        const txHash = tx?.txhash;
-        console.log('Rewards claimed', { txHash });
-        return (
-          <ToastSuccess>
-            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <div>Rewards claimed</div>
-              <div>
-                <Link
-                  to={`${explorer.cosmos}/tx/${txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                >
-                  <LinkIcon />
-                  <span>{getFormattedAddress(txHash)}</span>
-                </Link>
+      const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
+
+      await toast.promise(claimAllRewardPromise, {
+        loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
+        success: (tx) => {
+          const txHash = tx?.txhash;
+          console.log('Rewards claimed', { txHash });
+
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Rewards claimed</div>
+                <div>
+                  <Link
+                    to={`${explorer.cosmos}/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </ToastSuccess>
-        );
-      },
-      error: (error) => {
-        return <ToastError>{error.message}</ToastError>;
-      },
-    });
+            </ToastSuccess>
+          );
+        },
+        error: (error) => {
+          return <ToastError>{error.message}</ToastError>;
+        },
+      });
+    } catch (error) {
+      console.error((error as Error).message);
+    } finally {
+      setRewardsPending(false);
 
-    invalidateQueries([
-      [chain?.id, 'rewards'],
-      [chain?.id, 'delegation'],
-      [chain?.id, 'unboundings'],
-    ]);
+      invalidateQueries([
+        [chain?.id, 'rewards'],
+        [chain?.id, 'delegation'],
+        [chain?.id, 'unboundings'],
+      ]);
+    }
   }, [
     chain?.id,
     claimAllRewards,
     delegatedValsAddrs,
+    explorer.cosmos,
     invalidateQueries,
     toast,
   ]);
@@ -149,16 +161,27 @@ export function StakingInfoHooked() {
     return Number.parseFloat(formatUnits(BigInt(result), 18));
   }, [undelegations]);
 
-  return (
-    <RewardsInfo
-      balance={formatNumber(formattedBalance)}
-      delegated={formatNumber(staked)}
-      rewards={formatNumber(rewards)}
-      unbounded={formatNumber(unbounded)}
-      symbol={balance?.symbol ?? ''}
-      onRewardsClaim={handleRewardsClaim}
-    />
-  );
+  return useMemo(() => {
+    return {
+      staked,
+      rewards,
+      unbounded,
+      balance,
+      formattedBalance,
+      symbol,
+      handleRewardsClaim,
+      isRewardsPending,
+    };
+  }, [
+    balance,
+    formattedBalance,
+    handleRewardsClaim,
+    rewards,
+    staked,
+    symbol,
+    unbounded,
+    isRewardsPending,
+  ]);
 }
 
 export function StakingInfo() {
@@ -167,13 +190,26 @@ export function StakingInfo() {
   const { isReady } = useCosmosProvider();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
   const { chain } = useNetwork();
-  const chains = useSupportedChains();
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const {
+    staked,
+    rewards,
+    unbounded,
+    balance,
+    formattedBalance,
+    handleRewardsClaim,
+    isRewardsPending,
+  } = useStakingStats();
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
 
   const isTestedge = useMemo(() => {
     return chain?.id === haqqTestedge2.id;
   }, [chain?.id]);
+
+  if (!isReady) {
+    return null;
+  }
 
   if (!isWalletConnected) {
     return (
@@ -186,7 +222,7 @@ export function StakingInfo() {
         )}
       >
         <Container className="flex min-h-[100px] flex-col items-center justify-center gap-[12px]">
-          <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+          <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             You should connect wallet first
           </div>
           <div>
@@ -206,67 +242,32 @@ export function StakingInfo() {
   return (
     <section
       className={clsx(
-        'sticky z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent py-[32px] backdrop-blur',
-        isTestedge ? 'top-[102px] sm:top-[111px]' : 'top-[62px] sm:top-[70px]',
+        'sticky z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent backdrop-blur',
+        isTestedge ? 'top-[99px] sm:top-[110x]' : 'top-[62px] sm:top-[70px]',
+        !isTablet && 'py-[32px]',
       )}
     >
-      <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
-        <div className="flex flex-row items-center">
-          <WalletIcon />
-          <Heading level={3} className="mb-[-2px] ml-[8px]">
-            My account
-          </Heading>
-        </div>
-
-        {isReady ? (
-          <StakingInfoHooked />
-        ) : (
-          <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
-            <div className="w-full flex-1">
-              <div className="flex w-full flex-col gap-[8px] sm:flex-row sm:gap-[24px]">
-                <div className="flex-1">
-                  <StakingInfoAmountBlock
-                    title="Available"
-                    value="---"
-                    symbol={symbol}
-                  />
-                </div>
-
-                <div className="flex-1">
-                  <StakingInfoAmountBlock
-                    title="Staked"
-                    value="---"
-                    symbol={symbol}
-                  />
-                </div>
-
-                <div className="flex-1">
-                  <StakingInfoAmountBlock
-                    title="Unbonding"
-                    value="---"
-                    symbol={symbol}
-                  />
-                </div>
-
-                <div className="flex-1">
-                  <StakingInfoAmountBlock
-                    title="Rewards"
-                    value="---"
-                    symbol={symbol}
-                    isGreen
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full text-start lg:w-auto lg:flex-none">
-              <Button disabled variant={2}>
-                Claim all rewards
-              </Button>
-            </div>
-          </div>
-        )}
-      </Container>
+      {isTablet ? (
+        <StakingStatsMobile
+          balance={formatNumber(formattedBalance)}
+          delegated={formatNumber(staked)}
+          rewards={formatNumber(rewards)}
+          unbounded={formatNumber(unbounded)}
+          symbol={balance?.symbol ?? ''}
+          onRewardsClaim={handleRewardsClaim}
+          isRewardsPending={isRewardsPending}
+        />
+      ) : (
+        <StakingStatsDesktop
+          balance={formatNumber(formattedBalance)}
+          delegated={formatNumber(staked)}
+          rewards={formatNumber(rewards)}
+          unbounded={formatNumber(unbounded)}
+          symbol={balance?.symbol ?? ''}
+          onRewardsClaim={handleRewardsClaim}
+          isRewardsPending={isRewardsPending}
+        />
+      )}
     </section>
   );
 }

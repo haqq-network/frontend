@@ -64,12 +64,12 @@
       }
     },
     "serve": {
-      "executor": "@nx/react:module-federation-dev-server",
+      "executor": "@nx/webpack:dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "governance:build",
         "hmr": true,
-        "port": 4202
+        "port": 4200
       },
       "configurations": {
         "development": {
@@ -94,22 +94,6 @@
       "options": {
         "jestConfig": "apps/governance/jest.config.ts",
         "passWithNoTests": true
-      }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "governance:build",
-        "port": 4202
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "governance:build:development"
-        },
-        "production": {
-          "buildTarget": "governance:build:production"
-        }
       }
     }
   },

@@ -29,8 +29,7 @@ export const metadata: Metadata = {
   referrer: 'origin-when-cross-origin',
   viewport: {
     initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
+    maximumScale: 2,
     width: 'device-width',
   },
   metadataBase: new URL(DEPLOY_URL),
@@ -85,7 +84,7 @@ export default async function LocaleLayout({
           <Footer socialLinks={SOCIAL_LINKS} />
         </NextIntlClientProvider>
       </body>
-      {VERCEL_ENV !== 'development' && (
+      {VERCEL_ENV === 'production' && (
         <div>
           <Fragment>
             <script

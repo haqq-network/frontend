@@ -62,7 +62,7 @@ export function ShellAuthzPage() {
     <div>
       <div className="py-[32px] lg:py-[68px]">
         <Container>
-          <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+          <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
             Authz
           </div>
         </Container>
@@ -71,7 +71,7 @@ export function ShellAuthzPage() {
       <div className="flex flex-col gap-[32px]">
         {!ethAddress ? (
           <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px]">
-            <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+            <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
               You should connect wallet first
             </div>
             <Button onClick={openSelectWallet} variant={2}>
@@ -133,6 +133,7 @@ function GranterGrantsTable() {
         success: (tx) => {
           console.log('Revoke successful', { tx });
           const txHash = tx?.txhash;
+
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
@@ -162,7 +163,7 @@ function GranterGrantsTable() {
         [chain?.id, 'grants-grantee'],
       ]);
     },
-    [chain?.id, invalidateQueries, revoke, toast],
+    [chain?.id, explorer.cosmos, invalidateQueries, revoke, toast],
   );
 
   if (granterGrantsToRender.length === 0) {
@@ -448,8 +449,9 @@ function AuthzGrantsActions() {
     await toast.promise(grantPromise, {
       loading: <ToastLoading>Grant in progress</ToastLoading>,
       success: (tx) => {
+        console.log('Grant successful', { tx });
         const txHash = tx?.txhash;
-        console.log('Grant successful', { txHash });
+
         return (
           <ToastSuccess>
             <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
@@ -480,6 +482,7 @@ function AuthzGrantsActions() {
     ]);
   }, [
     chain?.id,
+    explorer.cosmos,
     getGrantExpire,
     grant,
     grantPeriod,
@@ -741,7 +744,7 @@ function GranteeCard({
       {!isValid ? (
         <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
           <div className="flex flex-1 flex-col items-center justify-center gap-[12px]">
-            <div className="font-sans text-[12px] leading-[22px] md:text-[14px] md:leading-[28px]">
+            <div className="font-guise text-[12px] leading-[22px] md:text-[14px] md:leading-[28px]">
               You should enter valid grantee wallet to see info
             </div>
           </div>
@@ -752,7 +755,7 @@ function GranteeCard({
             <MyAccountAmountBlock
               title="Address"
               value={
-                <div className="space-gap-2 flex flex-col items-start font-sans">
+                <div className="space-gap-2 font-guise flex flex-col items-start">
                   <div>
                     <Tooltip
                       text={
@@ -866,8 +869,8 @@ function MyAccountAmountBlock({
         className={clsx(
           'font-[500]',
           isGreen
-            ? 'font-serif text-[20px] leading-[26px] text-[#01B26E]'
-            : 'font-sans text-[18px] leading-[28px] text-white',
+            ? 'font-clash text-[20px] leading-[26px] text-[#01B26E]'
+            : 'font-guise text-[18px] leading-[28px] text-white',
           valueClassName,
         )}
       >

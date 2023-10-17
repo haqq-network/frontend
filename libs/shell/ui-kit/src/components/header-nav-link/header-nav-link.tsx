@@ -22,7 +22,7 @@ export function HeaderNavLink({
   return (
     <NavLink
       to={href}
-      className="font-sans text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
+      className="font-guise text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
       onClick={onClick}
       {...additionalProps}
     >

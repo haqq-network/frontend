@@ -42,12 +42,12 @@ export function ProposalList() {
 
   const ongoingProposalTallysResultMap = useMemo(() => {
     return new Map(
-      proposalTallysDataArray.map((proposalQueryResult) => {
+      proposalTallysDataArray.map((proposalQueryResult, index) => {
         const tallyData = proposalQueryResult.data;
-        return [tallyData?.id, tallyData?.results];
+        return [ongoingProposals[index], tallyData];
       }),
     );
-  }, [proposalTallysDataArray]);
+  }, [ongoingProposals, proposalTallysDataArray]);
 
   const proposalsToRender = useMemo(() => {
     return proposals.map((proposal) => {
@@ -74,7 +74,7 @@ export function ProposalList() {
     <div>
       <div className="py-[32px] lg:py-[68px]">
         <Container>
-          <div className="font-serif text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+          <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
             Governance
           </div>
         </Container>

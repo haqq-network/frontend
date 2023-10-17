@@ -24,7 +24,7 @@ export function SelectChainButton({
               <button
                 className={clsx(
                   'flex h-[40px] flex-row items-center rounded-[6px] px-[12px]',
-                  'font-sans text-[14px] font-[500] leading-[22px]',
+                  'font-guise text-[14px] font-[500] leading-[22px]',
                   'transition-colors duration-150 ease-out',
                   'box-border appearance-none outline-none',
                   'hover:text-haqq-black border border-white text-white hover:bg-white',
@@ -67,7 +67,7 @@ export function SelectChainButton({
                   open && '!bg-haqq-orange !text-white',
                 )}
               >
-                <div className="mt-[-1px] text-left font-sans text-[10px] font-[500] uppercase leading-[1.2em]">
+                <div className="font-guise mt-[-1px] text-left text-[10px] font-[500] uppercase leading-[1.2em]">
                   Unsupported <br /> Network
                 </div>
                 <svg

@@ -1,7 +1,9 @@
 import { cache } from 'react';
-import { FALCONER_ENDPOINT } from '../constants';
+import { FALCONER_ENDPOINT, REVALIDATE_TIME } from '../constants';
 import { Member, NewsPost } from '@haqq/islamic-website-ui-kit';
 import { mapStorybookToNews } from './get-news-data';
+
+export const revalidate = REVALIDATE_TIME;
 
 export const getHomePageContent = cache(
   async (
@@ -18,17 +20,18 @@ export const getHomePageContent = cache(
         method: 'POST',
         body: JSON.stringify({ locale }),
         next: {
-          revalidate: 180,
+          revalidate,
         },
       });
+
       if (response.ok) {
         const data = await response.json();
         const mappedNews = mapStorybookToNews(data.news);
 
         return {
-          advisoryMembers: data.advisory_members,
-          executiveMembers: data.executive_members,
-          shariahMembers: data.shariah_members,
+          advisoryMembers: data.members.advisory_members,
+          executiveMembers: data.members.executive_members,
+          shariahMembers: data.members.shariah_members,
           news: mappedNews,
           mainnet_accounts: data.mainnet_accounts,
         };

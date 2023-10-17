@@ -28,7 +28,7 @@ export function UnsupportedBrowserModal({
             <MobileHeading>Your browser does not support web 3.0</MobileHeading>
           </div>
 
-          <div className="text-center font-sans text-[15px] leading-[24px]">
+          <div className="font-guise text-center text-[15px] leading-[24px]">
             Visit this page from a supported browser. Such a browser is
             available in metamask, trust wallet, etc. applications.
           </div>

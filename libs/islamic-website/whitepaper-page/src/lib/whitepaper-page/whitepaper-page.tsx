@@ -25,11 +25,11 @@ function HeroBg({ children }: PropsWithChildren) {
         >
           <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
           <Image
-            src="/assets/images/moon-2x.webp"
+            src="/assets/images/moon.jpg"
             alt=""
             fill
             className="pointer-events-none z-[-2]"
-            loading="lazy"
+            priority
           />
         </div>
       </Container>
@@ -38,7 +38,7 @@ function HeroBg({ children }: PropsWithChildren) {
   );
 }
 
-export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
+export function WhitepaperPage({ whitepaper }: { whitepaper?: string }) {
   const t = useTranslations('whitepaper-page');
 
   return (
@@ -57,9 +57,11 @@ export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {
 
         <div className="max-w-[860px]">
           <article>
-            <MarkdownText className="mt-[32px] lg:mt-[100px]">
-              {whitepaper}
-            </MarkdownText>
+            {whitepaper && (
+              <MarkdownText className="mt-[32px] lg:mt-[100px]">
+                {whitepaper}
+              </MarkdownText>
+            )}
           </article>
         </div>
       </Container>

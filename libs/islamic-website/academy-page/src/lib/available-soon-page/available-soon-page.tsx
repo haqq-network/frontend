@@ -25,6 +25,7 @@ export function AvailableSoonPage() {
         src={availableSoonBgImgData}
         alt=""
         className="user-select-none absolute left-1/2 top-[16%] z-[-1] h-[400px] w-[400px] -translate-x-1/2 object-cover md:top-[6.5%] md:h-[580px] md:w-[580px] lg:top-[4%] lg:h-[720px] lg:w-[720px]"
+        priority
       />
     </div>
   );

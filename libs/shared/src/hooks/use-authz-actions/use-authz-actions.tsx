@@ -15,11 +15,23 @@ import {
 } from '@evmos/eip712';
 import { useAddress } from '../use-address/use-address';
 import { getChainParams } from '../../chains/get-chain-params';
-import { useCosmosService } from '../../providers/cosmos-provider';
+import {
+  BroadcastTxResponse,
+  useCosmosService,
+} from '../../providers/cosmos-provider';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useFeeData, useNetwork, useWalletClient } from 'wagmi';
 
-export function useAuthzActions() {
+interface AuthzActionsHook {
+  grant: (
+    grantee: string,
+    msgType: string,
+    expires: number,
+  ) => Promise<BroadcastTxResponse>;
+  revoke: (grantee: string, msgType: string) => Promise<BroadcastTxResponse>;
+}
+
+export function useAuthzActions(): AuthzActionsHook {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const { broadcastTransaction, getPubkey, getFee, getSender } =
@@ -100,6 +112,10 @@ export function useAuthzActions() {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
+
         return txResponse;
       } else {
         throw new Error('No sender');
@@ -153,6 +169,10 @@ export function useAuthzActions() {
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
+
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
 
         return txResponse;
       } else {

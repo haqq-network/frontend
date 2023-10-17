@@ -6,12 +6,11 @@ import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useStakingValidatorListQuery(limit = 1000) {
   const { getValidators } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
   return useQuery<Validator[], Error>(
-    [chainId, 'validators'],
+    [chain.id, 'validators'],
     () => {
       return getValidators ? getValidators(limit) : [];
     },
@@ -23,11 +22,10 @@ export function useStakingValidatorListQuery(limit = 1000) {
 
 export function useStakingRewardsQuery(address: string | undefined) {
   const { getRewardsInfo } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery([chainId, 'rewards', address], () => {
+  return useQuery([chain.id, 'rewards', address], () => {
     if (!address) {
       return null;
     }
@@ -38,11 +36,10 @@ export function useStakingRewardsQuery(address: string | undefined) {
 
 export function useStakingDelegationQuery(address: string | undefined) {
   const { getAccountDelegations } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery([chainId, 'delegation', address], () => {
+  return useQuery([chain.id, 'delegation', address], () => {
     if (!address) {
       return null;
     }
@@ -53,12 +50,11 @@ export function useStakingDelegationQuery(address: string | undefined) {
 
 export function useStakingUnbondingsQuery(address: string | undefined) {
   const { getUndelegations } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
   return useQuery(
-    [chainId, 'unboundings', address],
+    [chain.id, 'unboundings', address],
     () => {
       if (!address) {
         return null;
@@ -67,7 +63,7 @@ export function useStakingUnbondingsQuery(address: string | undefined) {
       return getUndelegations(address);
     },
     {
-      refetchInterval: 2500,
+      refetchOnWindowFocus: true,
     },
   );
 }
@@ -76,12 +72,11 @@ export function useStakingValidatorInfoQuery(
   valoperAddress: string | undefined,
 ) {
   const { getValidatorInfo } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
   return useQuery(
-    [chainId, 'validator', valoperAddress],
+    [chain.id, 'validator', valoperAddress],
     () => {
       if (!valoperAddress) {
         return null;
@@ -97,18 +92,16 @@ export function useStakingValidatorInfoQuery(
 
 export function useStakingParamsQuery() {
   const { getStakingParams } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery([chainId, 'staking-params'], getStakingParams);
+  return useQuery([chain.id, 'staking-params'], getStakingParams);
 }
 
 export function useStakingPoolQuery() {
   const { getStakingPool } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery([chainId, 'staking-pool'], getStakingPool);
+  return useQuery([chain.id, 'staking-pool'], getStakingPool);
 }

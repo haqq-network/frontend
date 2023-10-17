@@ -15,9 +15,11 @@ export const getPrivacyPolicyContent = cache(async (locale: string) => {
         revalidate,
       },
     });
+
     if (response.ok) {
       const data = await response.json();
-      return data.pp;
+
+      return data.pp as string;
     }
   } catch (error) {
     console.error(error);

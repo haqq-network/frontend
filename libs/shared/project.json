@@ -4,27 +4,6 @@
   "sourceRoot": "libs/shared/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nrwl/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/shared",
-        "tsConfig": "libs/shared/tsconfig.lib.json",
-        "project": "libs/shared/package.json",
-        "entryFile": "libs/shared/src/index.ts",
-        "external": ["react/jsx-runtime"],
-        "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "swc",
-        "assets": [
-          {
-            "glob": "libs/shared/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

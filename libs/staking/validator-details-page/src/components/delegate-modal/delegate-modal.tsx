@@ -52,7 +52,7 @@ export function DelegateModalDetails({
     >
       <div
         className={clsx(
-          'font-sans text-[10px] leading-[1.2em] text-[#0D0D0E80]',
+          'font-guise text-[10px] leading-[1.2em] text-[#0D0D0E80]',
           'uppercase',
           titleClassName,
         )}
@@ -61,7 +61,7 @@ export function DelegateModalDetails({
       </div>
       <div
         className={clsx(
-          'text-haqq-black font-serif text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
+          'text-haqq-black font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
           valueClassName,
         )}
       >

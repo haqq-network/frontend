@@ -115,7 +115,7 @@ export function MobileHeading({
   return (
     <h3
       className={clsx(
-        'font-serif text-[18px] font-[500] leading-[20px] md:text-[24px] md:leading-[26px]',
+        'font-clash text-[18px] font-[500] leading-[20px] md:text-[24px] md:leading-[26px]',
         className,
       )}
     >

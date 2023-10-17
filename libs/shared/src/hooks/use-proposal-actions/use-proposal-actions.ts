@@ -14,12 +14,20 @@ import type {
 } from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
 import { getChainParams } from '../../chains/get-chain-params';
-import { useCosmosService } from '../../providers/cosmos-provider';
+import {
+  BroadcastTxResponse,
+  useCosmosService,
+} from '../../providers/cosmos-provider';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useFeeData, useNetwork, useWalletClient } from 'wagmi';
 import { getAmount } from '../../utils/get-amount';
 
-export function useProposalActions() {
+interface ProposalActionsHook {
+  vote: (proposalId: number, option: number) => Promise<BroadcastTxResponse>;
+  deposit: (proposalId: number, amount: number) => Promise<BroadcastTxResponse>;
+}
+
+export function useProposalActions(): ProposalActionsHook {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const { broadcastTransaction, getSender, getPubkey, getFee } =
@@ -92,6 +100,10 @@ export function useProposalActions() {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
+
         return txResponse;
       } else {
         throw new Error('No sender');
@@ -148,6 +160,10 @@ export function useProposalActions() {
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
+
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
 
         return txResponse;
       } else {

@@ -28,7 +28,7 @@ export function AccountButton({
       )}
     >
       {balance && (
-        <div className="mr-[-8px] rounded-l-[6px] border border-r-0 border-white pb-[6px] pl-[12px] pr-[20px] pt-[8px] font-serif leading-[24px] tracking-[.01em]">
+        <div className="font-clash mr-[-8px] rounded-l-[6px] border border-r-0 border-white pb-[6px] pl-[12px] pr-[20px] pt-[8px] leading-[24px] tracking-[.01em]">
           {`${balance.value.toLocaleString()} ${balance.symbol.toLocaleUpperCase()}`}
         </div>
       )}
@@ -44,7 +44,7 @@ export function AccountButton({
                     'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
                     'transition-colors duration-150 ease-in',
                     'box-border appearance-none outline-none',
-                    'appearance-none rounded-[6px] font-sans text-sm font-[500] leading-[24px]',
+                    'font-guise appearance-none rounded-[6px] text-sm font-[500] leading-[24px]',
                   )}
                 >
                   <div className="mt-[-1px]">{address}</div>
@@ -95,7 +95,7 @@ export function AccountButton({
         <div
           className={clsx(
             'flex h-full flex-row items-center space-x-2 rounded-[6px] px-3 py-[9px]',
-            'bg-white font-sans text-[14px] leading-[24px] text-black',
+            'font-guise bg-white text-[14px] leading-[24px] text-black',
           )}
         >
           {address}

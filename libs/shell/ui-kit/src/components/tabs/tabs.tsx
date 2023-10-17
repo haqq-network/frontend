@@ -31,7 +31,7 @@ export function Tab({ children, isActive = false, onClick }: TabProps) {
     <div
       className={clsx(
         'px-[16px] py-[12px]',
-        'font-sans text-[12px] font-[600px] leading-[18px] text-white',
+        'font-guise text-[12px] font-[600px] leading-[18px] text-white',
         'cursor-pointer transition-colors duration-150',
         'border-b-[2px] border-solid',
         'mb-[-1px]',

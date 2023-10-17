@@ -26,6 +26,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
+          queries: security-and-quality
           languages: ${{ matrix.language }}
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2

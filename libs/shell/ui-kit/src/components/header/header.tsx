@@ -28,7 +28,7 @@ export function Header({
             </NavLink>
           </div>
         </div>
-        <div className="ml-[20px] font-serif text-[24px] font-medium leading-none lg:ml-[32px]">
+        <div className="font-clash ml-[20px] text-[24px] font-medium leading-none lg:ml-[32px]">
           <NavLink to="/">HAQQ</NavLink>
         </div>
         <div className="flex-1" />

@@ -1,14 +1,12 @@
 import { Button } from '@haqq/shell-ui-kit';
 import type { Keplr } from '@keplr-wallet/types';
-import { useCallback, useState } from 'react';
-import { haqqToEth, useWallet } from '@haqq/shared';
-import {
-  CosmosAirdropCard,
-  getKeplrWallet,
-} from '../cosmos-airdrop-card/cosmos-airdrop-card';
+import { CosmosAirdropCard } from '../cosmos-airdrop-card/cosmos-airdrop-card';
 import { BlurredBlock } from '../blured-block/blured-block';
 import cosmosIcon from './../../assets/icons/cosmos.svg';
 import evmosIcon from './../../assets/icons/evmos.svg';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { IParticipant, useAirdropActions } from '@haqq/shared';
+import { PARTICIPANTS_CHECK_INTERVAL } from '../evm-airdrop-view/evm-airdrop-view';
 
 export async function addHaqqNetwork(keplrWallet: Keplr) {
   const basePrefix = 'haqq';
@@ -56,89 +54,101 @@ export async function addHaqqNetwork(keplrWallet: Keplr) {
   }
 }
 
-async function enableChains(keplrWallet: Keplr) {
-  await keplrWallet.enable(['haqq_11235-1', 'cosmoshub-4', 'evmos_9001-2']);
+export function useAirdropCheckerCosmos(
+  participationAddressCosmos: string | undefined,
+  participationAddressEvmos: string | undefined,
+  airdropEndpoint?: string,
+) {
+  const { checkAirdropCosmos: checkAirdrop } = useAirdropActions();
+
+  const [participantCosmos, setParticipantCosmos] = useState<
+    IParticipant | undefined
+  >();
+  const [participantEvmos, setParticipantEvmos] = useState<
+    IParticipant | undefined
+  >();
+
+  const loadAirdrop = useCallback(() => {
+    participationAddressCosmos &&
+      participationAddressEvmos &&
+      airdropEndpoint &&
+      checkAirdrop(
+        airdropEndpoint,
+        participationAddressCosmos,
+        participationAddressEvmos,
+      ).then((p) => {
+        setParticipantCosmos(p.cosmos);
+        setParticipantEvmos(p.evmos);
+      });
+  }, [
+    participationAddressEvmos,
+    participationAddressCosmos,
+    airdropEndpoint,
+    checkAirdrop,
+  ]);
+
+  const intervalRef = useRef<number>();
+
+  useEffect(() => {
+    loadAirdrop();
+
+    const intervalId = setInterval(
+      loadAirdrop,
+      PARTICIPANTS_CHECK_INTERVAL,
+    ) as unknown;
+
+    intervalRef.current = intervalId as number;
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [loadAirdrop]);
+
+  return { participantCosmos, participantEvmos };
 }
 
 export function AirdropCosmos({
-  hasMetamaskConnected,
-  setEthAddressFromKepler,
-  ethAddressFromKeplr,
   airdropEndpoint,
+  connectKeplrWallet,
+  keplrAccounts,
 }: {
-  ethAddressFromKeplr: string;
-  hasMetamaskConnected: boolean;
-  setEthAddressFromKepler: (haqqAddress: string) => void;
   airdropEndpoint?: string;
+  connectKeplrWallet?: () => void;
+  keplrAccounts: Record<string, string>;
+  notConnectedKeplr: boolean;
 }) {
-  const [accounts, setAccounts] = useState<Record<string, string>>({});
-
-  const { disconnect } = useWallet();
-
-  const notConnectedKeplr =
-    Object.keys(accounts).length === 0 || hasMetamaskConnected;
-
-  const connectKeplrWallet = useCallback(async () => {
-    const keplrWallet = await getKeplrWallet();
-
-    if (hasMetamaskConnected) {
-      disconnect();
-    }
-
-    if (keplrWallet) {
-      try {
-        await enableChains(keplrWallet);
-      } catch (e) {
-        await addHaqqNetwork(keplrWallet);
-      } finally {
-        await enableChains(keplrWallet);
-      }
-
-      const [haqq, cosmos, evmos] = await Promise.all([
-        await keplrWallet.getKey('haqq_11235-1'),
-        await keplrWallet.getKey('cosmoshub-4'),
-        await keplrWallet.getKey('evmos_9001-2'),
-      ]);
-
-      setEthAddressFromKepler(haqqToEth(haqq.bech32Address));
-
-      setAccounts({
-        haqq: haqq.bech32Address,
-        cosmos: cosmos.bech32Address,
-        evmos: evmos.bech32Address,
-      });
-    }
-  }, [disconnect, setEthAddressFromKepler, hasMetamaskConnected]);
-
   return (
     <BlurredBlock
-      isBlurred={notConnectedKeplr}
+      isBlurred={true}
       blurredContent={
         <div className="grid grid-cols-1 gap-[48px] lg:grid-cols-2 2xl:grid-cols-3">
           <CosmosAirdropCard
-            participationAddress={accounts['cosmos']}
+            address={''}
             icon={cosmosIcon}
+            message={keplrAccounts['haqq']}
             chainId="cosmoshub-4"
-            ethAddressFromKeplr={ethAddressFromKeplr}
             airdropEndpoint={airdropEndpoint}
           />
+
           <CosmosAirdropCard
             icon={evmosIcon}
+            message={keplrAccounts['haqq']}
             chainId="evmos_9001-2"
-            ethAddressFromKeplr={ethAddressFromKeplr}
             airdropEndpoint={airdropEndpoint}
           />
         </div>
       }
       content={
         <div className="flex flex-col items-center space-y-[12px] py-[58px]">
-          <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+          <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
             Coming soon!
           </div>
-          {false && (
+
+          {connectKeplrWallet && false && (
             <Button
-              className="pl-[32px] pr-[32px]"
+              className="w-[280px] text-black hover:bg-transparent hover:text-white"
               onClick={connectKeplrWallet}
+              variant={2}
             >
               Connect to Keplr
             </Button>

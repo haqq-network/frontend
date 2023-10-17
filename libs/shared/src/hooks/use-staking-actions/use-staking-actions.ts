@@ -103,6 +103,10 @@ export function useStakingActions() {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
+
         return txResponse;
       } else {
         throw new Error('No sender or Validator address');
@@ -152,8 +156,8 @@ export function useStakingActions() {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
-        if (txResponse.code > 0) {
-          console.error(txResponse);
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
         }
 
         return txResponse;
@@ -210,6 +214,10 @@ export function useStakingActions() {
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
+
         return txResponse;
       } else {
         throw new Error('No sender');
@@ -260,6 +268,10 @@ export function useStakingActions() {
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
+
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
 
         return txResponse;
       } else {
@@ -324,6 +336,10 @@ export function useStakingActions() {
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
+
+        if (txResponse.code !== 0) {
+          throw new Error(txResponse.raw_log);
+        }
 
         return txResponse;
       } else {
