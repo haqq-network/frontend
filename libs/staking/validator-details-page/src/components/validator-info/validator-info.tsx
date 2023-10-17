@@ -17,7 +17,7 @@ import {
   useStakingValidatorListQuery,
   useToast,
 } from '@haqq/shared';
-import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
+import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
 import { DelegateModal } from '../delegate-modal/delegate-modal';
 import clsx from 'clsx';
@@ -207,6 +207,13 @@ export function ValidatorInfoComponent({
                     status={validatorInfo.status}
                   />
                 </div>
+
+                <div>
+                  <ValidatorAvatar
+                    identity={validatorInfo.description.identity}
+                  />
+                </div>
+
                 <div>
                   <h1 className="font-clash text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
                     {validatorInfo.description?.moniker}
