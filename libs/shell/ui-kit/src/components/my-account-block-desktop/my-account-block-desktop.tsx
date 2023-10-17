@@ -15,6 +15,7 @@ export function MyAccountBlockDesktop({
   symbol,
   isConnected,
   onConnectWalletClick,
+  isRewardsPending = false,
 }: {
   onRewardsClaim: () => void;
   balance: number;
@@ -24,6 +25,7 @@ export function MyAccountBlockDesktop({
   symbol: string;
   isConnected?: boolean;
   onConnectWalletClick: () => void;
+  isRewardsPending?: boolean;
 }) {
   const [isInfoShown, setInfoShown] = useState(false);
 
@@ -112,7 +114,7 @@ export function MyAccountBlockDesktop({
                       'transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80] disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
                     )}
                     onClick={onRewardsClaim}
-                    disabled={totalRewards < 1}
+                    disabled={totalRewards < 1 || isRewardsPending}
                   >
                     Claim all reward
                   </button>

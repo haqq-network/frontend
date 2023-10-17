@@ -49,45 +49,54 @@ function useStakingStats() {
   const toast = useToast();
   const symbol =
     chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const [isRewardsPending, setRewardsPending] = useState(false);
 
   const handleRewardsClaim = useCallback(async () => {
-    const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
+    try {
+      setRewardsPending(true);
 
-    await toast.promise(claimAllRewardPromise, {
-      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
-      success: (tx) => {
-        const txHash = tx?.txhash;
-        console.log('Rewards claimed', { txHash });
+      const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
 
-        return (
-          <ToastSuccess>
-            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <div>Rewards claimed</div>
-              <div>
-                <Link
-                  to={`https://ping.pub/haqq/tx/${txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                >
-                  <LinkIcon />
-                  <span>{getFormattedAddress(txHash)}</span>
-                </Link>
+      await toast.promise(claimAllRewardPromise, {
+        loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
+        success: (tx) => {
+          const txHash = tx?.txhash;
+          console.log('Rewards claimed', { txHash });
+
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Rewards claimed</div>
+                <div>
+                  <Link
+                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </ToastSuccess>
-        );
-      },
-      error: (error) => {
-        return <ToastError>{error.message}</ToastError>;
-      },
-    });
+            </ToastSuccess>
+          );
+        },
+        error: (error) => {
+          return <ToastError>{error.message}</ToastError>;
+        },
+      });
+    } catch (error) {
+      console.error((error as Error).message);
+    } finally {
+      setRewardsPending(false);
 
-    invalidateQueries([
-      [chain?.id, 'rewards'],
-      [chain?.id, 'delegation'],
-      [chain?.id, 'unboundings'],
-    ]);
+      invalidateQueries([
+        [chain?.id, 'rewards'],
+        [chain?.id, 'delegation'],
+        [chain?.id, 'unboundings'],
+      ]);
+    }
   }, [
     chain?.id,
     claimAllRewards,
@@ -149,15 +158,27 @@ function useStakingStats() {
     return Number.parseFloat(formatUnits(BigInt(result), 18));
   }, [undelegations]);
 
-  return {
-    staked,
-    rewards,
-    unbounded,
+  return useMemo(() => {
+    return {
+      staked,
+      rewards,
+      unbounded,
+      balance,
+      formattedBalance,
+      symbol,
+      handleRewardsClaim,
+      isRewardsPending,
+    };
+  }, [
     balance,
     formattedBalance,
-    symbol,
     handleRewardsClaim,
-  };
+    rewards,
+    staked,
+    symbol,
+    unbounded,
+    isRewardsPending,
+  ]);
 }
 
 export function StakingInfo() {
@@ -173,6 +194,7 @@ export function StakingInfo() {
     balance,
     formattedBalance,
     handleRewardsClaim,
+    isRewardsPending,
   } = useStakingStats();
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
@@ -230,6 +252,7 @@ export function StakingInfo() {
           unbounded={formatNumber(unbounded)}
           symbol={balance?.symbol ?? ''}
           onRewardsClaim={handleRewardsClaim}
+          isRewardsPending={isRewardsPending}
         />
       ) : (
         <StakingStatsDesktop
@@ -239,6 +262,7 @@ export function StakingInfo() {
           unbounded={formatNumber(unbounded)}
           symbol={balance?.symbol ?? ''}
           onRewardsClaim={handleRewardsClaim}
+          isRewardsPending={isRewardsPending}
         />
       )}
     </section>

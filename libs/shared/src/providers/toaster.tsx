@@ -9,7 +9,6 @@ export function Toaster() {
             onClick={() => {
               toast.dismiss(t.id);
             }}
-            className="pointer-events-auto"
           >
             {resolveValue(t.message, t)}
           </span>
