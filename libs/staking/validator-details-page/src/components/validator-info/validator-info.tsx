@@ -67,6 +67,8 @@ interface ValidatorInfoComponentProps {
   totalRewards: number;
   delegated: number;
   onRewardsClaim: () => void;
+  isRewardPending?: boolean;
+  isRewardsPending?: boolean;
 }
 
 interface Commission {
@@ -155,6 +157,8 @@ export function ValidatorInfoComponent({
   totalRewards,
   delegated,
   onRewardsClaim,
+  isRewardPending,
+  isRewardsPending,
 }: ValidatorInfoComponentProps) {
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const { copyText } = useClipboard();
@@ -332,6 +336,7 @@ export function ValidatorInfoComponent({
                   symbol={symbol}
                   isConnected={isConnected}
                   onConnectWalletClick={openSelectWallet}
+                  isRewardsPending={isRewardsPending}
                 />
                 <ValidatorBlockDesktop
                   validatorInfo={validatorInfo}
@@ -340,6 +345,7 @@ export function ValidatorInfoComponent({
                   balance={balance}
                   onGetRewardsClick={onGetRewardsClick}
                   symbol={symbol}
+                  isRewardPending={isRewardPending}
                 />
               </div>
             </div>
@@ -366,6 +372,7 @@ export function ValidatorInfoComponent({
                     balance={balance}
                     onGetRewardsClick={onGetRewardsClick}
                     symbol={symbol}
+                    isRewardPending={isRewardPending}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -376,6 +383,7 @@ export function ValidatorInfoComponent({
                     onRewardsClaim={onRewardsClaim}
                     unbounded={unbounded}
                     symbol={symbol}
+                    isRewardsPending={isRewardsPending}
                   />
                 </SwiperSlide>
               </Swiper>
@@ -439,6 +447,8 @@ export function ValidatorInfo({
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
   const [staked, setStakedValue] = useState(0);
+  const [isRewardPending, setRewardPending] = useState(false);
+  const [isRewardsPending, setRewardsPending] = useState(false);
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
@@ -518,42 +528,50 @@ export function ValidatorInfo({
   }, [rewardsInfo]);
 
   const handleGetRewardsClick = useCallback(async () => {
-    const claimRewardPromise = claimReward(validatorAddress);
+    try {
+      setRewardPending(true);
 
-    await toast.promise(claimRewardPromise, {
-      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
-      success: (tx) => {
-        const txHash = tx?.txhash;
-        console.log('Rewards claimed', { txHash });
-        return (
-          <ToastSuccess>
-            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <div>Rewards claimed</div>
-              <div>
-                <Link
-                  to={`https://ping.pub/haqq/tx/${txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                >
-                  <LinkIcon />
-                  <span>{getFormattedAddress(txHash)}</span>
-                </Link>
+      const claimRewardPromise = claimReward(validatorAddress);
+
+      await toast.promise(claimRewardPromise, {
+        loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
+        success: (tx) => {
+          const txHash = tx?.txhash;
+          console.log('Rewards claimed', { txHash });
+
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Rewards claimed</div>
+                <div>
+                  <Link
+                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </ToastSuccess>
-        );
-      },
-      error: (error) => {
-        return <ToastError>{error.message}</ToastError>;
-      },
-    });
-
-    invalidateQueries([
-      [chain?.id, 'rewards'],
-      [chain?.id, 'delegation'],
-      [chain?.id, 'unboundings'],
-    ]);
+            </ToastSuccess>
+          );
+        },
+        error: (error) => {
+          return <ToastError>{error.message}</ToastError>;
+        },
+      });
+    } catch (error) {
+      console.error((error as Error).message);
+    } finally {
+      setRewardPending(false);
+      invalidateQueries([
+        [chain?.id, 'rewards'],
+        [chain?.id, 'delegation'],
+        [chain?.id, 'unboundings'],
+      ]);
+    }
   }, [chain?.id, claimReward, invalidateQueries, toast, validatorAddress]);
 
   const unbounded = useMemo(() => {
@@ -596,37 +614,46 @@ export function ValidatorInfo({
   }, [delegationInfo]);
 
   const handleRewardsClaim = useCallback(async () => {
-    const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
+    try {
+      setRewardsPending(true);
 
-    await toast.promise(claimAllRewardPromise, {
-      loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
-      success: (tx) => {
-        const txHash = tx?.txhash;
-        console.log('Rewards claimed', { txHash });
-        return (
-          <div className="flex flex-col gap-[8px] text-center">
-            <div>Rewards claimed</div>
-            <Link
-              to={`https://ping.pub/haqq/tx/${txHash}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
-            >
-              Explorer link
-            </Link>
-          </div>
-        );
-      },
-      error: (error) => {
-        return <ToastError>{error.message}</ToastError>;
-      },
-    });
+      const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
 
-    invalidateQueries([
-      [chain?.id, 'rewards'],
-      [chain?.id, 'delegation'],
-      [chain?.id, 'unboundings'],
-    ]);
+      await toast.promise(claimAllRewardPromise, {
+        loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
+        success: (tx) => {
+          const txHash = tx?.txhash;
+          console.log('Rewards claimed', { txHash });
+
+          return (
+            <div className="flex flex-col gap-[8px] text-center">
+              <div>Rewards claimed</div>
+              <Link
+                to={`https://ping.pub/haqq/tx/${txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
+              >
+                Explorer link
+              </Link>
+            </div>
+          );
+        },
+        error: (error) => {
+          return <ToastError>{error.message}</ToastError>;
+        },
+      });
+    } catch (error) {
+      console.error((error as Error).message);
+    } finally {
+      setRewardsPending(false);
+
+      invalidateQueries([
+        [chain?.id, 'rewards'],
+        [chain?.id, 'delegation'],
+        [chain?.id, 'unboundings'],
+      ]);
+    }
   }, [
     chain?.id,
     claimAllRewards,
@@ -668,6 +695,8 @@ export function ValidatorInfo({
         totalRewards={myTotalRewards}
         delegated={staked}
         onRewardsClaim={handleRewardsClaim}
+        isRewardPending={isRewardPending}
+        isRewardsPending={isRewardsPending}
       />
 
       <DelegateModal
@@ -710,6 +739,7 @@ export function ValidatorBlockDesktop({
   balance,
   onGetRewardsClick,
   symbol,
+  isRewardPending = false,
 }: {
   validatorInfo: Validator;
   onGetRewardsClick: () => void;
@@ -717,6 +747,7 @@ export function ValidatorBlockDesktop({
   rewards: number;
   balance: number;
   symbol: string;
+  isRewardPending?: boolean;
 }) {
   const navigate = useNavigate();
   const isWarningShown =
@@ -797,7 +828,12 @@ export function ValidatorBlockDesktop({
             {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
-        <Button variant={5} disabled={rewards < 1} onClick={onGetRewardsClick}>
+        <Button
+          variant={5}
+          disabled={rewards < 1}
+          onClick={onGetRewardsClick}
+          isLoading={isRewardPending}
+        >
           Get my rewards
         </Button>
       </div>
@@ -813,6 +849,7 @@ function ValidatorBlockMobile({
   onGetRewardsClick,
   undelegate,
   symbol,
+  isRewardPending = false,
 }: {
   validatorInfo: Validator;
   onGetRewardsClick: () => void;
@@ -821,6 +858,7 @@ function ValidatorBlockMobile({
   balance: number;
   undelegate?: number;
   symbol: string;
+  isRewardPending?: boolean;
 }) {
   const navigate = useNavigate();
   const isWarningShown =
@@ -847,6 +885,7 @@ function ValidatorBlockMobile({
       undelegate={undelegate}
       symbol={symbol}
       isRedelegateDisabled={delegation < MIN_DELEGATION}
+      isRewardPending={isRewardPending}
     />
   );
 }
