@@ -97,6 +97,5 @@
       }
     }
   },
-  "tags": [],
-  "implicitDependencies": ["staking", "governance"]
+  "tags": []
 }
