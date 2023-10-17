@@ -58,6 +58,7 @@ function useStakingStats() {
       success: (tx) => {
         const txHash = tx?.txhash;
         console.log('Rewards claimed', { txHash });
+
         return (
           <ToastSuccess>
             <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
