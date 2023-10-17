@@ -4,6 +4,7 @@ import { MyAccountCardBlock } from '../my-account-block-mobile/my-account-block-
 import { WalletIcon } from '../icons/icons';
 import clsx from 'clsx';
 import { formatNumber } from '../../utils/format-number';
+import { Button } from '../button/button';
 
 export function MyAccountBlockDesktop({
   onRewardsClaim,
@@ -12,6 +13,8 @@ export function MyAccountBlockDesktop({
   totalRewards,
   delegated,
   symbol,
+  isConnected,
+  onConnectWalletClick,
 }: {
   onRewardsClaim: () => void;
   balance: number;
@@ -19,6 +22,8 @@ export function MyAccountBlockDesktop({
   totalRewards: number;
   delegated: number;
   symbol: string;
+  isConnected?: boolean;
+  onConnectWalletClick: () => void;
 }) {
   const [isInfoShown, setInfoShown] = useState(false);
 
@@ -42,12 +47,13 @@ export function MyAccountBlockDesktop({
           >
             <div>{isInfoShown ? 'Hide Info' : 'Show Info'}</div>
             <svg
-              width="22"
-              height="22"
               viewBox="0 0 22 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={clsx('mb-[-4px]', isInfoShown && 'rotate-180')}
+              className={clsx(
+                'mb-[-4px] h-[20px] w-[20px]',
+                !isInfoShown && 'rotate-180',
+              )}
             >
               <path
                 fillRule="evenodd"
@@ -60,40 +66,59 @@ export function MyAccountBlockDesktop({
         </div>
 
         {isInfoShown && (
-          <div className="flex flex-col gap-[16px]">
-            <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
-              <div>
-                <MyAccountCardBlock title="Available">
-                  {formatNumber(balance)} {symbol.toLocaleUpperCase()}
-                </MyAccountCardBlock>
+          <div>
+            {!isConnected ? (
+              <div className="py-[24px] md:py-[40px]">
+                <div className="flex flex-col items-center gap-[12px]">
+                  <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+                    You should connect wallet first
+                  </div>
+                  <Button
+                    onClick={onConnectWalletClick}
+                    variant={2}
+                    className="text-black hover:bg-transparent hover:text-white"
+                  >
+                    Connect wallet
+                  </Button>
+                </div>
               </div>
-              <div>
-                <MyAccountCardBlock title="Unbonding">
-                  {formatNumber(unbounded)} {symbol.toLocaleUpperCase()}
-                </MyAccountCardBlock>
+            ) : (
+              <div className="flex flex-col gap-[16px]">
+                <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
+                  <div>
+                    <MyAccountCardBlock title="Available">
+                      {formatNumber(balance)} {symbol.toLocaleUpperCase()}
+                    </MyAccountCardBlock>
+                  </div>
+                  <div>
+                    <MyAccountCardBlock title="Unbonding">
+                      {formatNumber(unbounded)} {symbol.toLocaleUpperCase()}
+                    </MyAccountCardBlock>
+                  </div>
+                  <div>
+                    <MyAccountCardBlock title="Staked">
+                      {formatNumber(delegated)} {symbol.toLocaleUpperCase()}
+                    </MyAccountCardBlock>
+                  </div>
+                  <div>
+                    <MyAccountCardBlock title="Rewards">
+                      {formatNumber(totalRewards)} {symbol.toLocaleUpperCase()}
+                    </MyAccountCardBlock>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className={clsx(
+                      'transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80] disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
+                    )}
+                    onClick={onRewardsClaim}
+                    disabled={totalRewards < 1}
+                  >
+                    Claim all reward
+                  </button>
+                </div>
               </div>
-              <div>
-                <MyAccountCardBlock title="Staked">
-                  {formatNumber(delegated)} {symbol.toLocaleUpperCase()}
-                </MyAccountCardBlock>
-              </div>
-              <div>
-                <MyAccountCardBlock title="Rewards">
-                  {formatNumber(totalRewards)} {symbol.toLocaleUpperCase()}
-                </MyAccountCardBlock>
-              </div>
-            </div>
-            <div>
-              <button
-                className={clsx(
-                  'transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80] disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
-                )}
-                onClick={onRewardsClaim}
-                disabled={totalRewards < 1}
-              >
-                Claim all reward
-              </button>
-            </div>
+            )}
           </div>
         )}
       </div>
