@@ -143,9 +143,9 @@ export function RedelegateModal({
       await toast.promise(redelegationPromise, {
         loading: <ToastLoading>Redelegate in progress</ToastLoading>,
         success: (tx) => {
-          console.log('Redelegation successful', { tx }); // maybe successful
+          console.log('Redelegation successful', { tx });
           const txHash = tx?.txhash;
-          console.log('Redelegation successful', { txHash });
+
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
