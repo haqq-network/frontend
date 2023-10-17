@@ -72,12 +72,12 @@ export function WalletPage() {
   );
 
   const image = (
-    <Fragment>
+    <div className="pointer-events-none select-none">
       <div className="absolute left-[-140px] top-[-60px] z-[-1] h-[600px] w-[600px]">
-        <Image src={bgImgData} alt="" />
+        <Image src={bgImgData} alt="" priority />
       </div>
-      <Image src={phoneImgData} alt="" fill />
-    </Fragment>
+      <Image src={phoneImgData} alt="" fill priority />
+    </div>
   );
 
   return (

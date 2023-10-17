@@ -21,10 +21,11 @@ function HeroBg({ children }: PropsWithChildren) {
         >
           <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
           <Image
-            src="/assets/images/moon-2x.webp"
+            src="/assets/images/moon.jpg"
             alt=""
             fill
             className="pointer-events-none z-[-2]"
+            priority
           />
         </div>
       </Container>

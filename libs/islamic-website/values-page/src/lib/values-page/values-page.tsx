@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
-import glowCubeImgData from '../../assets/images/glow-cube.webp';
+import glowCubeImgData from '../../assets/images/glow-cube.jpg';
 import { useTranslations } from 'next-intl';
 
 function ValuesPageHeading({ children }: PropsWithChildren) {
@@ -29,7 +29,7 @@ export function ValuesPage() {
               width={804}
               height={776}
               alt=""
-              className="pointer-events-none select-none lg:absolute lg:left-[50%] lg:top-[50%] lg:translate-x-[-50%] lg:translate-y-[-50%] lg:scale-150 xl:scale-125"
+              className="pointer-events-none select-none lg:absolute lg:left-[50%] lg:top-[50%] lg:z-[-1] lg:translate-x-[-50%] lg:translate-y-[-50%] lg:scale-150 xl:scale-125"
             />
           </div>
           <div className="lg:order-1 lg:w-1/2">

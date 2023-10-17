@@ -1,6 +1,6 @@
 'use client';
 import { FatwaBlock } from '../fatwa-block/fatwa-block';
-import fatwaStarsImgData from '../../assets/images/fatwa-stars.webp';
+import fatwaStarsImgData from '../../assets/images/fatwa-stars.jpg';
 import Image from 'next/image';
 import {
   Container,
@@ -277,6 +277,7 @@ export function ShariahPage({
             alt=""
             fill
             className="opacity-[30%]"
+            priority
           />
         </div>
       </Container>
