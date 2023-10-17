@@ -61,36 +61,45 @@ export function UndelegateModal({
   }, []);
 
   const handleSubmitUndelegate = useCallback(async () => {
-    const undelegationPromise = undelegate(validatorAddress, undelegateAmount);
-    setUndelegateEnabled(false);
-    await toast.promise(undelegationPromise, {
-      loading: <ToastLoading>Undlegation in progress</ToastLoading>,
-      success: (txHash) => {
-        console.log('Undlegation successful', { txHash });
-        return (
-          <ToastSuccess>
-            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <div>Undelegation successful</div>
-              <div>
-                <Link
-                  to={`https://ping.pub/haqq/tx/${txHash.txhash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                >
-                  <LinkIcon />
-                  <span>{getFormattedAddress(txHash.txhash)}</span>
-                </Link>
+    try {
+      setUndelegateEnabled(false);
+      const undelegationPromise = undelegate(
+        validatorAddress,
+        undelegateAmount,
+      );
+
+      await toast.promise(undelegationPromise, {
+        loading: <ToastLoading>Undlegation in progress</ToastLoading>,
+        success: (txHash) => {
+          console.log('Undlegation successful', { txHash });
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Undelegation successful</div>
+                <div>
+                  <Link
+                    to={`https://ping.pub/haqq/tx/${txHash.txhash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash.txhash)}</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </ToastSuccess>
-        );
-      },
-      error: (error) => {
-        return <ToastError>{error.message}</ToastError>;
-      },
-    });
-    onClose();
+            </ToastSuccess>
+          );
+        },
+        error: (error) => {
+          return <ToastError>{error.message}</ToastError>;
+        },
+      });
+
+      onClose();
+    } catch (error) {
+      console.error((error as Error).message);
+    }
   }, [undelegate, validatorAddress, undelegateAmount, toast, onClose]);
 
   useEffect(() => {

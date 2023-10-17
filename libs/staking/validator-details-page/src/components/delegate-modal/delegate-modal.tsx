@@ -132,38 +132,43 @@ export function DelegateModal({
     }
   }, []);
   const handleSubmitDelegate = useCallback(async () => {
-    const delegationPromise = delegate(validatorAddress, delegateAmount);
-    setDelegateEnabled(false);
-    await toast.promise(delegationPromise, {
-      loading: <ToastLoading>Delegation in progress</ToastLoading>,
-      success: (tx) => {
-        console.log('Delegation successful', { tx }); // maybe successful
-        const txHash = tx?.txhash;
-        console.log('Delegation successful', { txHash });
-        return (
-          <ToastSuccess>
-            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <div>Delegation successful</div>
-              <div>
-                <Link
-                  to={`https://ping.pub/haqq/tx/${txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                >
-                  <LinkIcon />
-                  <span>{getFormattedAddress(txHash)}</span>
-                </Link>
+    try {
+      setDelegateEnabled(false);
+      const delegationPromise = delegate(validatorAddress, delegateAmount);
+
+      await toast.promise(delegationPromise, {
+        loading: <ToastLoading>Delegation in progress</ToastLoading>,
+        success: (tx) => {
+          console.log('Delegation successful', { tx });
+          const txHash = tx?.txhash;
+
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Delegation successful</div>
+                <div>
+                  <Link
+                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </ToastSuccess>
-        );
-      },
-      error: (error) => {
-        return <ToastError>{error.message}</ToastError>;
-      },
-    });
-    onClose();
+            </ToastSuccess>
+          );
+        },
+        error: (error) => {
+          return <ToastError>{error.message}</ToastError>;
+        },
+      });
+      onClose();
+    } catch (error) {
+      console.error((error as Error).message);
+    }
   }, [delegate, validatorAddress, delegateAmount, toast, onClose]);
 
   useEffect(() => {
