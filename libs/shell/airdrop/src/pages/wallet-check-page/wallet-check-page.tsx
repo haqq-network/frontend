@@ -1,7 +1,13 @@
-import { useAddress, useWallet } from '@haqq/shared';
+import { ethToHaqq, useAddress, useWallet } from '@haqq/shared';
 import { Button, CaptchaModal, Container } from '@haqq/shell-ui-kit';
 import { CheckWalletExplanation } from '../../lib/check-wallet-explanation/check-wallet-explanation';
-import { AirdropInfo } from '../../lib/airdrop-info/airdrop-info';
+import {
+  AirdropInfo,
+  useWalletInfoChecker,
+} from '../../lib/airdrop-info/airdrop-info';
+import { useMemo } from 'react';
+import { BlurredBlock } from '../../lib/blured-block/blured-block';
+import { NotAllowedWallet } from '../../lib/not-allowed-wallet/not-allowed-wallet';
 
 export function WalletCheckPage({
   turnstileSiteKey,
@@ -13,6 +19,17 @@ export function WalletCheckPage({
   const { ethAddress } = useAddress();
 
   const { openSelectWallet } = useWallet();
+
+  const haqqAddress = useMemo(() => {
+    return ethAddress ? ethToHaqq(ethAddress) : ''; // && 'haqq12nw2gkj3jh994zmuzpj2t73fprzkdxeegawaql';
+  }, [ethAddress]);
+
+  const { walletInfo, loading } = useWalletInfoChecker(
+    walletCheckEndpoint,
+    haqqAddress,
+  );
+
+  const notAllowed = !walletInfo && !loading && haqqAddress;
 
   return (
     <div>
@@ -26,31 +43,47 @@ export function WalletCheckPage({
 
       <div className="border-t  py-[52px] sm:py-[60px] lg:py-[80px]">
         <Container>
-          <div className="flex flex-col items-center gap-[62px]">
-            <div className="flex gap-[58px]">
-              <div
-                className={`${ethAddress ? 'max-w-[360px]' : 'max-w-[800px]'}`}
-              >
-                <CheckWalletExplanation />
-              </div>
-              {ethAddress && <AirdropInfo address={ethAddress} />}
-            </div>
-
-            {!ethAddress && (
-              <div className="flex flex-col items-center space-y-[12px] ">
-                <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-                  You should connect wallet first
-                </div>
-                <Button
-                  onClick={openSelectWallet}
-                  variant={2}
-                  className="w-[280px] text-black hover:bg-transparent hover:text-white"
+          {notAllowed ? (
+            <NotAllowedWallet />
+          ) : (
+            <div className="flex flex-col items-center gap-[62px]">
+              <div className="flex gap-[58px]">
+                <div
+                  className={`${
+                    ethAddress ? 'max-w-[360px]' : 'max-w-[800px]'
+                  }`}
                 >
-                  Connect wallet
-                </Button>
+                  <CheckWalletExplanation />
+                </div>
+                <BlurredBlock
+                  isBlurred={loading}
+                  content="Loading..."
+                  blurredContent={
+                    <AirdropInfo
+                      walletInfo={walletInfo}
+                      address={haqqAddress}
+                      walletCheckEndpoint={walletCheckEndpoint}
+                    />
+                  }
+                />
               </div>
-            )}
-          </div>
+
+              {!ethAddress && (
+                <div className="flex flex-col items-center space-y-[12px] ">
+                  <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+                    You should connect wallet first
+                  </div>
+                  <Button
+                    onClick={openSelectWallet}
+                    variant={2}
+                    className="w-[280px] text-black hover:bg-transparent hover:text-white"
+                  >
+                    Connect wallet
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
         </Container>
       </div>
 

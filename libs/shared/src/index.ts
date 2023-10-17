@@ -15,6 +15,7 @@ export * from './hooks/use-staking-actions/use-staking-actions';
 export * from './hooks/use-staking-queries/use-staking-queries';
 export * from './hooks/use-proposal-actions/use-proposal-actions';
 export * from './hooks/use-proposal-queries/use-proposal-queries';
+export * from './hooks/use-personal-sign/use-personal-sign';
 export * from './hooks/use-toast/use-toast';
 export * from './hooks/use-query-invalidate/use-query-invalidate';
 export * from './hooks/use-auth-queries/use-auth-queries';

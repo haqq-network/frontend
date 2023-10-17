@@ -1,34 +1,110 @@
 import { HookedFormInput } from '@haqq/haqq-website/forms';
 import { Button, Heading, InformationModal } from '@haqq/shell-ui-kit';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import { Address } from '../address/address';
+import { haqqToEth, usePersonalSign } from '@haqq/shared';
+import { Hex } from 'viem';
 
 interface IAddressFormField {
   address: string;
 }
 
+interface IWalletInfo {
+  haqq_address: string;
+  created_at: string;
+  updated_at: string;
+  id: string;
+}
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  }).format(date);
+}
+
+const EMV_SIGN_MESSAGE = 'Haqqdrop!';
+
 const schema: yup.ObjectSchema<IAddressFormField> = yup
   .object({
-    address: yup.string().required('Address is required'),
+    address: yup
+      .string()
+      .required('Address is required')
+      .matches(
+        /^(0x[0-9a-fA-F]{40}|haqq1[0-9a-zA-Z]{38})$/,
+        'Address is not EVM/Haqq format',
+      ),
   })
   .required();
 
-async function submitForm(form: IAddressFormField) {
+async function submitForm(
+  walletCheckEndpoint: string | undefined,
+  form: IAddressFormField & { message: string; signature: string },
+) {
   return await axios.post<{ message: string } | { error: string }>(
-    '/api/feedback',
+    `${walletCheckEndpoint}/api/gaxle/${form.address}`,
     form,
   );
 }
 
-export const AirdropInfo = ({ address }: { address: string }) => {
-  const onChangeAddress = useCallback(() => {
-    console.log('onChangeAddress');
-  }, []);
+async function checkAddress(walletCheckEndpoint: string, address: string) {
+  return await axios.get<IWalletInfo>(
+    `${walletCheckEndpoint}/api/gaxle/${address}`,
+  );
+}
 
+export const useWalletInfoChecker = (
+  walletCheckEndpoint: string | undefined,
+  address: string,
+) => {
+  const [walletInfo, setWalletInfo] = useState<IWalletInfo>();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (address && !walletInfo && walletCheckEndpoint) {
+      try {
+        setLoading(true);
+        checkAddress(walletCheckEndpoint, address)
+          .then((response) => {
+            if (response.data) {
+              setWalletInfo(response.data);
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [walletInfo, address, walletCheckEndpoint]);
+
+  return { walletInfo, loading };
+};
+
+interface IWalletInfo {
+  updatedAt: string;
+}
+
+export const AirdropInfo = ({
+  address,
+  walletCheckEndpoint,
+  walletInfo,
+}: {
+  address: string;
+  walletCheckEndpoint?: string;
+  walletInfo?: IWalletInfo;
+}) => {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
   const [isInformationModalOpened, setInformationModalOpened] =
     useState<boolean>(false);
@@ -41,11 +117,22 @@ export const AirdropInfo = ({ address }: { address: string }) => {
     resolver: yupResolver(schema),
   });
 
+  const signEvm = usePersonalSign();
+
   const handleSubmitContinue = useCallback(
     async (formData: IAddressFormField) => {
       if (formData) {
         try {
-          const response = await submitForm({ ...formData });
+          const signature = await signEvm(
+            haqqToEth(address) as Hex,
+            EMV_SIGN_MESSAGE,
+          );
+
+          const response = await submitForm(walletCheckEndpoint, {
+            ...formData,
+            signature,
+            message: EMV_SIGN_MESSAGE,
+          });
 
           if (response.status === 200) {
             setInformationModalOpened(true);
@@ -59,7 +146,7 @@ export const AirdropInfo = ({ address }: { address: string }) => {
         console.error('no form data');
       }
     },
-    [],
+    [walletCheckEndpoint, address, signEvm],
   );
 
   return (
@@ -73,7 +160,7 @@ export const AirdropInfo = ({ address }: { address: string }) => {
               Current address
             </div>
             <div className="ml-[12px] flex items-center text-[18px] leading-[28px]">
-              0x1f123...2a421
+              {walletInfo && <Address address={walletInfo?.id} />}
             </div>
           </div>
         </div>
@@ -84,7 +171,9 @@ export const AirdropInfo = ({ address }: { address: string }) => {
               Receiving airdrop address
             </div>
             <div className="ml-[12px] flex items-center text-[18px] leading-[28px]">
-              0x1f123...2a421
+              {walletInfo && walletInfo?.haqq_address && (
+                <Address address={walletInfo?.haqq_address} />
+              )}
             </div>
           </div>
         </div>
@@ -95,7 +184,9 @@ export const AirdropInfo = ({ address }: { address: string }) => {
               Last update
             </div>
             <div className="ml-[12px] flex items-center text-[18px] leading-[28px]">
-              0x1f123...2a421
+              {walletInfo && walletInfo?.updatedAt && walletInfo.haqq_address
+                ? formatDate(new Date(walletInfo.updatedAt))
+                : 'Not updated yet'}
             </div>
           </div>
         </div>
@@ -132,10 +223,9 @@ export const AirdropInfo = ({ address }: { address: string }) => {
           </div>
 
           <Button
-            onClick={onChangeAddress}
             variant={2}
             type="submit"
-            disabled
+            disabled={formState.isSubmitting || !formState.isValid || !address}
             className="mt-[16px] w-[200px] p-0 text-[14px]"
           >
             Change address

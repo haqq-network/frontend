@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
-import { useWalletClient } from 'wagmi';
-import { Hex } from 'viem';
 import axios from 'axios';
 import { getKeplrWallet } from '../use-keplr/use-keplr';
+import { usePersonalSign } from '../use-personal-sign/use-personal-sign';
 export interface IParticipateResult {
   message: string;
   status: string;
@@ -42,23 +41,7 @@ export interface IParticipant {
 }
 
 export function useAirdropActions() {
-  const { data: walletClient } = useWalletClient();
-
-  const handlePersonalSign = useCallback(
-    async (account: Hex, message: string) => {
-      if (walletClient) {
-        const signature = await walletClient.signMessage({
-          account,
-          message,
-        });
-
-        return signature;
-      } else {
-        throw new Error('No walletClient');
-      }
-    },
-    [walletClient],
-  );
+  const handlePersonalSign = usePersonalSign();
 
   const checkAirdropEvm = useCallback(async (host: string, address: string) => {
     const result = await axios.get<IParticipant>(
