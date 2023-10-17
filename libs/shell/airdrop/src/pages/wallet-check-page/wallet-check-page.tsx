@@ -1,6 +1,7 @@
 import { useAddress, useWallet } from '@haqq/shared';
 import { Button, CaptchaModal, Container } from '@haqq/shell-ui-kit';
 import { CheckWalletExplanation } from '../../lib/check-wallet-explanation/check-wallet-explanation';
+import { AirdropInfo } from '../../lib/airdrop-info/airdrop-info';
 
 export function WalletCheckPage({
   turnstileSiteKey,
@@ -26,7 +27,14 @@ export function WalletCheckPage({
       <div className="border-t  py-[52px] sm:py-[60px] lg:py-[80px]">
         <Container>
           <div className="flex flex-col items-center gap-[62px]">
-            <CheckWalletExplanation />
+            <div className="flex gap-[58px]">
+              <div
+                className={`${ethAddress ? 'max-w-[360px]' : 'max-w-[800px]'}`}
+              >
+                <CheckWalletExplanation />
+              </div>
+              {ethAddress && <AirdropInfo address={ethAddress} />}
+            </div>
 
             {!ethAddress && (
               <div className="flex flex-col items-center space-y-[12px] ">

@@ -15,7 +15,8 @@ export const CaptchaModal = ({
   useEffect(() => {
     const tId = setTimeout(() => {
       if (!token && !isClosable) {
-        setCaptchaModalOpen(true);
+        // TODO: remove 'false'
+        false && setCaptchaModalOpen(true);
       } else if (token) {
         setCaptchaModalOpen(false);
       }
