@@ -186,6 +186,13 @@ export function StakingValidatorList() {
     query: `(max-width: 1023px)`,
   });
 
+  const validatorsCounterText = useMemo(() => {
+    if (isShowMyDelegation) {
+      return `${validators.length}`;
+    }
+    return `${valsActive}/${valsTotal}`;
+  }, [isShowMyDelegation, validators.length, valsActive, valsTotal]);
+
   return (
     <Container className="py-[52px] sm:py-[60px] lg:py-[80px]">
       <div className="flex flex-col gap-[32px]">
@@ -197,11 +204,7 @@ export function StakingValidatorList() {
               {status !== 'loading' && (
                 <span className="text-white/50">
                   {' '}
-                  (
-                  <span>
-                    {valsActive}/{valsTotal}
-                  </span>
-                  )
+                  (<span>{validatorsCounterText}</span>)
                 </span>
               )}
             </Heading>
