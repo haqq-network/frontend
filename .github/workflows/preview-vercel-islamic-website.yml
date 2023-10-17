@@ -11,11 +11,11 @@ jobs:
   Deploy-Preview:
     runs-on: frontend
     steps:
-      - id: script
-        uses: actions/github-script@f05a81df23035049204b043b50c3322045ce7eb3 # pin@v3
-        with:
-          script: |
-            echo "pr-number={context.payload.pull_request.number}" >> $GITHUB_OUTPUT
+      # - id: script
+      #   uses: actions/github-script@f05a81df23035049204b043b50c3322045ce7eb3 # pin@v3
+      #   with:
+      #     script: |
+      #       echo "pr-number={context.payload.pull_request.number}" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v2
       # - name: Install Vercel CLI
       #   run: npm install --global vercel@latest
@@ -27,7 +27,7 @@ jobs:
         id: vercel-deploy
         uses: kioqq/deploy-to-vercel-action@v1.9.13
         env:
-          DOMAIN: iw-${{ steps.script.outputs.pr-number }}.vercel.app
+          DOMAIN: iw-1337.vercel.app
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
