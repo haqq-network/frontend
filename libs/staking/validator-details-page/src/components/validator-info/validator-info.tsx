@@ -323,6 +323,8 @@ export function ValidatorInfoComponent({
                   unbounded={unbounded}
                   onRewardsClaim={onRewardsClaim}
                   symbol={symbol}
+                  isConnected={isConnected}
+                  onConnectWalletClick={openSelectWallet}
                 />
                 <ValidatorBlockDesktop
                   validatorInfo={validatorInfo}
@@ -414,11 +416,11 @@ export function ValidatorInfo({
   validatorAddress: string;
 }) {
   const { ethAddress, haqqAddress } = useAddress();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0].id,
+    chainId: chain.id,
   });
   const invalidateQueries = useQueryInvalidate();
   const { data: validatorInfo, isFetching } =
@@ -436,8 +438,7 @@ export function ValidatorInfo({
   const { hash } = useLocation();
   const navigate = useNavigate();
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = chain.nativeCurrency.symbol;
   const toast = useToast();
 
   const balance = useMemo(() => {
