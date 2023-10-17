@@ -1,153 +1,21 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ValidatorListItem } from '../validator-list-item/validator-list-item';
-import type {
+import {
   DistributionRewardsResponse,
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import {
-  ValidatorListItemMobile as ValidatorListItemMobileComponent,
-  formatNumber,
-} from '@haqq/shell-ui-kit';
-import { ValidatorListItemProps } from '../validator-list-item/validator-list-item';
-import { formatUnits, parseUnits } from 'viem/utils';
+import { ValidatorListItemDesktop } from '../validator-list-item-desktop/validator-list-item-desktop';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { randomSort } from '@haqq/staking/utils';
+import { formatNumber } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
+import store from 'store2';
+import { useAddress } from '@haqq/shared';
 
-export function ValidatorListItemMobile({
-  validator,
-  reward,
-  delegation,
-  stakingPool,
-  onClick,
-}: ValidatorListItemProps) {
-  const validatorCommission = useMemo(() => {
-    return (
-      Number.parseFloat(validator.commission?.commission_rates?.rate ?? '0') *
-      100
-    ).toFixed(0);
-  }, [validator.commission?.commission_rates]);
-  const votingPower = useMemo(() => {
-    return Number.parseFloat(formatUnits(BigInt(validator.tokens), 18));
-  }, [validator.tokens]);
-  const userDelegate = useMemo(() => {
-    if (delegation?.balance) {
-      return Number.parseFloat(
-        formatUnits(BigInt(delegation.balance.amount), 18),
-      );
-    }
+export type SortDirection = 'asc' | 'desc' | undefined;
 
-    return 0;
-  }, [delegation]);
-  const userRewards = useMemo(() => {
-    if (reward?.reward.length) {
-      return Number.parseFloat(
-        formatUnits(parseUnits(reward.reward[0].amount, 0), 18),
-      );
-    }
-
-    return 0;
-  }, [reward]);
-  const votingPowerInPercents = useMemo(() => {
-    return ((votingPower / stakingPool) * 100).toFixed(2);
-  }, [votingPower, stakingPool]);
-
-  const getStatus = useCallback(() => {
-    if (validator.jailed) {
-      return 'jailed';
-    }
-
-    if (validator.status === 'BOND_STATUS_BONDED') {
-      return 'active';
-    }
-
-    return 'inactive';
-  }, [validator.jailed, validator.status]);
-
-  return (
-    <div
-      onClick={() => {
-        onClick(validator.operator_address);
-      }}
-    >
-      <ValidatorListItemMobileComponent
-        validatorName={validator.description.moniker}
-        fee={`${validatorCommission}%`}
-        reward={formatNumber(userRewards)}
-        staked={formatNumber(userDelegate)}
-        votingPowerPercent={votingPowerInPercents}
-        votingPower={formatNumber(votingPower)}
-        status={getStatus()}
-      />
-    </div>
-  );
-}
-
-interface ValidatorListProps {
-  validators: Validator[];
-  rewardsInfo: DistributionRewardsResponse | null | undefined;
-  delegationInfo: GetDelegationsResponse | null | undefined;
-  onValidatorClick: (validatorAddress: string) => void;
-  totalStaked: number;
-}
-
-type SortDirection = 'asc' | 'desc' | undefined;
-
-interface SortState {
+export interface SortState {
   key: string | undefined;
   direction: SortDirection;
-}
-
-export function ValidatorsListMobile({
-  validators,
-  rewardsInfo,
-  delegationInfo,
-  onValidatorClick,
-  totalStaked,
-}: ValidatorListProps) {
-  const getValidatorRewards = useCallback(
-    (address: string) => {
-      const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
-        return rewardsItem.validator_address === address;
-      });
-
-      return rewards;
-    },
-    [rewardsInfo?.rewards],
-  );
-
-  const getDelegationInfo = useCallback(
-    (address: string) => {
-      const delegationAmount = delegationInfo?.delegation_responses?.find(
-        (delegation) => {
-          return delegation.delegation.validator_address === address;
-        },
-      );
-
-      return delegationAmount;
-    },
-    [delegationInfo],
-  );
-
-  return (
-    <div className="grid grid-cols-1 gap-[24px] pt-[16px] sm:grid-cols-2">
-      {validators.map((validator, index) => {
-        const delegationInfo = getDelegationInfo(validator.operator_address);
-        const rewardsInfo = getValidatorRewards(validator.operator_address);
-
-        return (
-          <ValidatorListItemMobile
-            key={`validator-${index}`}
-            validator={validator}
-            delegation={delegationInfo}
-            reward={rewardsInfo}
-            stakingPool={totalStaked}
-            onClick={onValidatorClick}
-          />
-        );
-      })}
-    </div>
-  );
 }
 
 function SortDirectionArrow({ direction }: { direction: SortDirection }) {
@@ -158,23 +26,38 @@ function SortDirectionArrow({ direction }: { direction: SortDirection }) {
   return <span> {direction === 'asc' ? '▼' : '▲'}</span>;
 }
 
-export function ValidatorsList({
+export function ValidatorsListDesktop({
   validators,
   rewardsInfo,
   delegationInfo,
-  onValidatorClick,
   totalStaked,
-}: ValidatorListProps) {
-  const [sortStates, setSortStates] = useState<SortState>({
-    key: undefined,
-    direction: undefined,
-  });
-
+  onValidatorClick,
+}: {
+  validators: Validator[];
+  rewardsInfo: DistributionRewardsResponse | null | undefined;
+  delegationInfo: GetDelegationsResponse | null | undefined;
+  onValidatorClick: (validatorAddress: string) => void;
+  totalStaked: number;
+}) {
+  const { ethAddress } = useAddress();
+  const storeKey = `validators_sort_state_${ethAddress}`;
+  const storedSortState: string | null = store.get(storeKey);
+  const defaultSortState: SortState = storedSortState
+    ? JSON.parse(storedSortState)
+    : {
+        key: undefined,
+        direction: undefined,
+      };
+  const [sortStates, setSortStates] = useState<SortState>(defaultSortState);
   const [vals, setVals] = useState<Validator[]>([]);
 
   useEffect(() => {
     setVals(randomSort(validators));
   }, [validators]);
+
+  useEffect(() => {
+    store.set(storeKey, JSON.stringify(sortStates));
+  }, [sortStates, storeKey]);
 
   const getValidatorRewards = useCallback(
     (address: string) => {
@@ -316,7 +199,7 @@ export function ValidatorsList({
   }, [getSortedValidators, sortStates, vals]);
 
   return (
-    <table className="w-full table-auto md:table-fixed">
+    <table className="w-full table-auto">
       <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
         <tr>
           <th
@@ -429,7 +312,7 @@ export function ValidatorsList({
           const rewardsInfo = getValidatorRewards(validator.operator_address);
 
           return (
-            <ValidatorListItem
+            <ValidatorListItemDesktop
               key={`validator-${index}`}
               validator={validator}
               delegation={delegationInfo}

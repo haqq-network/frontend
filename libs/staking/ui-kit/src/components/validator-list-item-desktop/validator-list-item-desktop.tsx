@@ -5,21 +5,19 @@ import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { ValidatorListStatus } from '../validator-status/validator-status';
 import { formatNumber } from '@haqq/shell-ui-kit';
 
-export interface ValidatorListItemProps {
-  validator: Validator;
-  delegation?: DelegationResponse;
-  reward?: Reward;
-  stakingPool: number;
-  onClick: (validatorAddress: string) => void;
-}
-
-export function ValidatorListItem({
+export function ValidatorListItemDesktop({
   validator,
   reward,
   delegation,
   stakingPool,
   onClick,
-}: ValidatorListItemProps) {
+}: {
+  validator: Validator;
+  delegation?: DelegationResponse;
+  reward?: Reward;
+  stakingPool: number;
+  onClick: (validatorAddress: string) => void;
+}) {
   const validatorCommission = useMemo(() => {
     return formatNumber(
       Number.parseFloat(validator.commission?.commission_rates?.rate ?? '0') *

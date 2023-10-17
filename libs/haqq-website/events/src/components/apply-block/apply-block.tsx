@@ -137,8 +137,6 @@ export function ApplyBlock() {
             disabled={loading}
             className="w-full"
           />
-          // <div className="mx-auto max-w-md">
-          // </div>
         )}
       </div>
     </div>
