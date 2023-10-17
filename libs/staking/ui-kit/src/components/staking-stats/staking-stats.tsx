@@ -8,6 +8,7 @@ interface StakingStatsProps {
   unbounded: string;
   symbol: string;
   onRewardsClaim: () => void;
+  isRewardsPending?: boolean;
 }
 
 export function StakingStatsDesktopAmountBlock({
@@ -47,6 +48,7 @@ export function StakingStatsDesktop({
   unbounded,
   symbol,
   onRewardsClaim,
+  isRewardsPending = false,
 }: StakingStatsProps) {
   return (
     <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
@@ -99,11 +101,12 @@ export function StakingStatsDesktop({
             disabled={Number.parseFloat(rewards) < 1}
             onClick={onRewardsClaim}
             variant={2}
+            isLoading={isRewardsPending}
           >
             Claim all rewards
           </Button>
         </div>
-      </div>{' '}
+      </div>
     </Container>
   );
 }
@@ -147,6 +150,7 @@ export function StakingStatsMobile({
   rewards,
   symbol,
   unbounded,
+  isRewardsPending = false,
 }: StakingStatsProps) {
   return (
     <div className="flex flex-row items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
@@ -183,7 +187,12 @@ export function StakingStatsMobile({
         />
       </div>
       <div className="flex-none">
-        <Button onClick={onRewardsClaim} className="px-[32px]" variant={2}>
+        <Button
+          onClick={onRewardsClaim}
+          className="px-[32px]"
+          variant={2}
+          isLoading={isRewardsPending}
+        >
           Get rewards
         </Button>
       </div>
