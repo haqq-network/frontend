@@ -11,6 +11,15 @@ jobs:
   Deploy-Preview:
     runs-on: frontend
     steps:
+      - id: script
+        uses: actions/github-script@f05a81df23035049204b043b50c3322045ce7eb3 # pin@v3
+        with:
+          script: |
+            const isPr = [ 'pull_request', 'pull_request_target' ].includes(context.eventName)
+            core.setOutput('ref', isPr ? context.payload.pull_request.head.ref : context.ref)
+            core.setOutput('repo', isPr ? context.payload.pull_request.head.repo.full_name : context.repo.full_name)
+            core.setOutput('pr-number', context.payload.pull_request.number)
+            core.setOutput('repo-name', context.payload.pull_request.head.repo.full_name.split('/')[1])
       - uses: actions/checkout@v2
       # - name: Install Vercel CLI
       #   run: npm install --global vercel@latest
@@ -21,6 +30,8 @@ jobs:
       - name: Deploy to Vercel Action
         id: vercel-deploy
         uses: kioqq/deploy-to-vercel-action@v1.9.13
+        env:
+          DOMAIN: iw-${{ steps.script.outputs.pr-number }}.vercel.app
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -30,5 +41,4 @@ jobs:
           PRODUCTION: false
           PREBUILT: true
           CREATE_COMMENT: true
-          PR_PREVIEW_DOMAIN: 'iw-{PR}.preview.haqq.sh'
-          ALIAS_DOMAINS: 'iw-{PR}.preview.haqq.sh'
+          PR_PREVIEW_DOMAIN: ${{ env.DOMAIN }}
