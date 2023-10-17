@@ -17,7 +17,7 @@ import {
   useStakingValidatorListQuery,
   useToast,
 } from '@haqq/shared';
-import { ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
+import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
 import { DelegateModal } from '../delegate-modal/delegate-modal';
 import clsx from 'clsx';
@@ -207,6 +207,13 @@ export function ValidatorInfoComponent({
                     status={validatorInfo.status}
                   />
                 </div>
+
+                <div>
+                  <ValidatorAvatar
+                    identity={validatorInfo.description.identity}
+                  />
+                </div>
+
                 <div>
                   <h1 className="font-clash text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
                     {validatorInfo.description?.moniker}
@@ -323,6 +330,8 @@ export function ValidatorInfoComponent({
                   unbounded={unbounded}
                   onRewardsClaim={onRewardsClaim}
                   symbol={symbol}
+                  isConnected={isConnected}
+                  onConnectWalletClick={openSelectWallet}
                 />
                 <ValidatorBlockDesktop
                   validatorInfo={validatorInfo}
@@ -414,11 +423,11 @@ export function ValidatorInfo({
   validatorAddress: string;
 }) {
   const { ethAddress, haqqAddress } = useAddress();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0].id,
+    chainId: chain.id,
   });
   const invalidateQueries = useQueryInvalidate();
   const { data: validatorInfo, isFetching } =
@@ -436,8 +445,7 @@ export function ValidatorInfo({
   const { hash } = useLocation();
   const navigate = useNavigate();
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = chain.nativeCurrency.symbol;
   const toast = useToast();
 
   const balance = useMemo(() => {
