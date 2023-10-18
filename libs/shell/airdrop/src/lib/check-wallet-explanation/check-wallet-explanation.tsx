@@ -1,6 +1,6 @@
 export const CheckWalletExplanation = () => {
   return (
-    <div className="m-auto rounded-[8px] bg-[#212122] pb-[32px] pl-[28px] pr-[28px] pt-[32px] text-[16px]   font-[400] text-white">
+    <div className="m-auto rounded-[8px] bg-[#212122] pb-[32px] pl-[28px] pr-[28px] pt-[32px] text-[16px] font-[400] text-white">
       <div className="font-guise">
         This page is specially designed for users who participated in the 3rd
         wave on Axle but whose responses to the "Center HAQQ wallet" prompt

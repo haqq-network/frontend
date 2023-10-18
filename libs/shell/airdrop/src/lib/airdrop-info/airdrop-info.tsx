@@ -169,7 +169,7 @@ export const AirdropInfo = ({
       <div className="mb-[40px] mt-[20px] flex flex-col gap-[20px]">
         <div className="flex w-full">
           <div className="flex flex-1 items-end justify-between gap-[12px]">
-            <div className="font-clash  w-[100px] text-[10px]  font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
+            <div className="font-clash w-[100px] text-[10px] font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
               Current address
             </div>
             <div className="ml-auto flex items-center text-[12px] leading-[28px] lg:ml-[12px] lg:text-[18px]">
@@ -180,7 +180,7 @@ export const AirdropInfo = ({
 
         <div className="flex w-full">
           <div className="flex flex-1 items-end justify-between gap-[12px]">
-            <div className="font-clash w-[100px] text-[10px]  font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
+            <div className="font-clash w-[100px] text-[10px] font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
               Receiving airdrop address
             </div>
             <div className="ml-auto flex items-center text-[12px] leading-[28px] lg:ml-[12px] lg:text-[18px]">
@@ -193,7 +193,7 @@ export const AirdropInfo = ({
 
         <div className="flex w-full">
           <div className="flex flex-1 items-end justify-between gap-[12px]">
-            <div className="font-clash  w-[100px] text-[10px]  font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
+            <div className="font-clash w-[100px] text-[10px] font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
               Last update
             </div>
             <div className="ml-auto flex items-center text-[12px] leading-[28px] lg:ml-[12px] lg:text-[18px]">

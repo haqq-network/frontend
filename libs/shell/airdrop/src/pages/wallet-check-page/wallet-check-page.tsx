@@ -41,7 +41,7 @@ export function WalletCheckPage({
         </Container>
       </div>
 
-      <div className="border-t  py-[52px] sm:py-[60px] lg:py-[80px]">
+      <div className="border-t py-[52px] sm:py-[60px] lg:py-[80px]">
         <Container>
           {notAllowed ? (
             <NotAllowedWallet />
@@ -76,7 +76,7 @@ export function WalletCheckPage({
               </div>
 
               {!haqqAddress && (
-                <div className="flex flex-col items-center space-y-[12px] ">
+                <div className="flex flex-col items-center space-y-[12px]">
                   <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
                     You should connect wallet first
                   </div>

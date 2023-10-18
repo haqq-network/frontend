@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { Hex } from 'viem';
 import { useWalletClient } from 'wagmi';
 
-export const usePersonalSign = () => {
+export function usePersonalSign() {
   const { data: walletClient } = useWalletClient();
 
   const handlePersonalSign = useCallback(
@@ -22,4 +22,4 @@ export const usePersonalSign = () => {
   );
 
   return handlePersonalSign;
-};
+}

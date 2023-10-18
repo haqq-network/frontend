@@ -78,7 +78,7 @@ export function App() {
           }
         />
         <Route
-          path="/check-wallet"
+          path="/airdrop/check-wallet"
           element={
             <WalletCheckPage
               turnstileSiteKey={environment.turnstileSiteKey}
