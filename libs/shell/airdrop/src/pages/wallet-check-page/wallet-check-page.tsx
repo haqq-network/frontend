@@ -21,7 +21,7 @@ export function WalletCheckPage({
   const { openSelectWallet } = useWallet();
 
   const haqqAddress = useMemo(() => {
-    return ethAddress ? ethToHaqq(ethAddress) : ''; // && 'haqq12nw2gkj3jh994zmuzpj2t73fprzkdxeegawaql';
+    return ethAddress ? ethToHaqq(ethAddress) : '';
   }, [ethAddress]);
 
   const { walletInfo, loading, setWalletInfo } = useWalletInfoChecker(
@@ -48,18 +48,18 @@ export function WalletCheckPage({
           ) : (
             <div
               className={`flex flex-col gap-[62px] ${
-                ethAddress ? 'items-start' : 'items-center'
+                haqqAddress ? 'items-start' : 'items-center'
               }`}
             >
               <div className="flex flex-col gap-[58px] lg:flex-row">
                 <div
                   className={`${
-                    ethAddress ? 'max-w-[360px]' : 'max-w-[800px]'
+                    haqqAddress ? 'max-w-[360px]' : 'max-w-[800px]'
                   }`}
                 >
                   <CheckWalletExplanation />
                 </div>
-                {ethAddress && (
+                {haqqAddress && (
                   <BlurredBlock
                     isBlurred={loading}
                     content="Loading..."
@@ -75,7 +75,7 @@ export function WalletCheckPage({
                 )}
               </div>
 
-              {!ethAddress && (
+              {!haqqAddress && (
                 <div className="flex flex-col items-center space-y-[12px] ">
                   <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
                     You should connect wallet first
