@@ -82,7 +82,7 @@ export function App() {
           element={
             <WalletCheckPage
               turnstileSiteKey={environment.turnstileSiteKey}
-              walletCheckEndpoint={environment.walletCheckEndpoint}
+              walletCheckEndpoint={environment.airdropEndpoint}
             />
           }
         />
