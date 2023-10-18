@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import { Address } from '../address/address';
-import { haqqToEth, usePersonalSign } from '@haqq/shared';
+import { ethToHaqq, haqqToEth, usePersonalSign } from '@haqq/shared';
 import { Hex } from 'viem';
 
 interface IAddressFormField {
@@ -30,8 +30,6 @@ function formatDate(date: Date) {
   }).format(date);
 }
 
-const EMV_SIGN_MESSAGE = 'Haqqdrop!';
-
 const schema: yup.ObjectSchema<IAddressFormField> = yup
   .object({
     address: yup
@@ -44,12 +42,21 @@ const schema: yup.ObjectSchema<IAddressFormField> = yup
   })
   .required();
 
+const getHaqqAddress = (address: string) => {
+  if (address.startsWith('haqq')) {
+    return address;
+  } else {
+    return ethToHaqq(address);
+  }
+};
+
 async function submitForm(
   walletCheckEndpoint: string | undefined,
-  form: IAddressFormField & { message: string; signature: string },
+  haqqAddress: string,
+  form: { message: string; signature: string },
 ) {
-  return await axios.post<{ message: string } | { error: string }>(
-    `${walletCheckEndpoint}/api/gaxle/${form.address}`,
+  return await axios.post<IWalletInfo>(
+    `${walletCheckEndpoint}/api/gaxle/${haqqAddress}`,
     form,
   );
 }
@@ -79,6 +86,7 @@ export const useWalletInfoChecker = (
           })
           .catch((e) => {
             console.log(e);
+            setWalletInfo(undefined);
           })
           .finally(() => {
             setLoading(false);
@@ -89,7 +97,7 @@ export const useWalletInfoChecker = (
     }
   }, [walletInfo, address, walletCheckEndpoint]);
 
-  return { walletInfo, loading };
+  return { walletInfo, loading, setWalletInfo };
 };
 
 interface IWalletInfo {
@@ -100,14 +108,18 @@ export const AirdropInfo = ({
   address,
   walletCheckEndpoint,
   walletInfo,
+  setWalletInfo,
 }: {
   address: string;
   walletCheckEndpoint?: string;
   walletInfo?: IWalletInfo;
+  setWalletInfo: (w?: IWalletInfo) => void;
 }) => {
   const [isErrorModalOpened, setErrorModalOpened] = useState<boolean>(false);
   const [isInformationModalOpened, setInformationModalOpened] =
     useState<boolean>(false);
+
+  const [submittedAddress, setSubmittedAddress] = useState<string>('');
 
   const {
     register,
@@ -123,19 +135,20 @@ export const AirdropInfo = ({
     async (formData: IAddressFormField) => {
       if (formData) {
         try {
-          const signature = await signEvm(
-            haqqToEth(address) as Hex,
-            EMV_SIGN_MESSAGE,
-          );
+          setSubmittedAddress('');
 
-          const response = await submitForm(walletCheckEndpoint, {
-            ...formData,
+          const message = getHaqqAddress(formData.address);
+          const signature = await signEvm(haqqToEth(address) as Hex, message);
+
+          const response = await submitForm(walletCheckEndpoint, address, {
             signature,
-            message: EMV_SIGN_MESSAGE,
+            message,
           });
 
           if (response.status === 200) {
             setInformationModalOpened(true);
+            setSubmittedAddress(response.data.haqq_address);
+            setWalletInfo(response.data);
           } else {
             setErrorModalOpened(true);
           }
@@ -146,31 +159,31 @@ export const AirdropInfo = ({
         console.error('no form data');
       }
     },
-    [walletCheckEndpoint, address, signEvm],
+    [walletCheckEndpoint, address, signEvm, setWalletInfo],
   );
 
   return (
-    <div className="max-w-[412px]">
-      <Heading className="text-[42px]">Airdrop Info</Heading>
+    <div className="max-w-[440px]">
+      <Heading>Airdrop Info</Heading>
 
       <div className="mb-[40px] mt-[20px] flex flex-col gap-[20px]">
         <div className="flex w-full">
-          <div className="flex items-center justify-between gap-[12px]">
-            <div className="font-clash w-[200px] text-[14px] font-[500] uppercase leading-[16px] text-white/50">
+          <div className="flex flex-1 items-end justify-between gap-[12px]">
+            <div className="font-clash  w-[100px] text-[10px]  font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
               Current address
             </div>
-            <div className="ml-[12px] flex items-center text-[18px] leading-[28px]">
+            <div className="ml-auto flex items-center text-[12px] leading-[28px] lg:ml-[12px] lg:text-[18px]">
               {walletInfo && <Address address={walletInfo?.id} />}
             </div>
           </div>
         </div>
 
         <div className="flex w-full">
-          <div className="flex items-center justify-between gap-[12px]">
-            <div className="font-clash w-[200px] text-[14px] font-[500] uppercase leading-[16px] text-white/50">
+          <div className="flex flex-1 items-end justify-between gap-[12px]">
+            <div className="font-clash w-[100px] text-[10px]  font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
               Receiving airdrop address
             </div>
-            <div className="ml-[12px] flex items-center text-[18px] leading-[28px]">
+            <div className="ml-auto flex items-center text-[12px] leading-[28px] lg:ml-[12px] lg:text-[18px]">
               {walletInfo && walletInfo?.haqq_address && (
                 <Address address={walletInfo?.haqq_address} />
               )}
@@ -179,13 +192,13 @@ export const AirdropInfo = ({
         </div>
 
         <div className="flex w-full">
-          <div className="flex items-center justify-between gap-[12px]">
-            <div className="font-clash w-[200px] text-[14px] font-[500] uppercase leading-[16px] text-white/50">
+          <div className="flex flex-1 items-end justify-between gap-[12px]">
+            <div className="font-clash  w-[100px] text-[10px]  font-[500] uppercase text-white/50 lg:w-[145px] lg:text-[14px] lg:leading-[20px]">
               Last update
             </div>
-            <div className="ml-[12px] flex items-center text-[18px] leading-[28px]">
-              {walletInfo && walletInfo?.updatedAt && walletInfo.haqq_address
-                ? formatDate(new Date(walletInfo.updatedAt))
+            <div className="ml-auto flex items-center text-[12px] leading-[28px] lg:ml-[12px] lg:text-[18px]">
+              {walletInfo && walletInfo?.updated_at && walletInfo.haqq_address
+                ? formatDate(new Date(walletInfo.updated_at))
                 : 'Not updated yet'}
             </div>
           </div>
@@ -208,11 +221,11 @@ export const AirdropInfo = ({
           className="flex flex-col space-y-[24px] leading-none sm:space-y-[32px]"
           autoComplete="off"
         >
-          <div className="mt-[16px] w-[412px]">
+          <div className="mt-[16px] max-w-[440px]">
             <div className="flex-1">
               <HookedFormInput<IAddressFormField>
                 wrapperClassName="w-full"
-                placeholder="Enter address'"
+                placeholder="Enter address"
                 id="address"
                 register={register}
                 error={formState.errors.address?.message}
@@ -245,9 +258,18 @@ export const AirdropInfo = ({
         setOpenState={setInformationModalOpened}
         title="The address has been successfully updated"
         message={
-          <div>
-            New receiving airdrop address: {<Address address={address} />}
-          </div>
+          walletInfo && (
+            <div className="flex items-center gap-[8px] text-black">
+              <span>New receiving airdrop address: </span>
+              {
+                <Address
+                  amountSymbols={5}
+                  className="font-guise lg;text-[12px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-[500] leading-[28px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                  address={submittedAddress}
+                />
+              }
+            </div>
+          )
         }
       />
     </div>

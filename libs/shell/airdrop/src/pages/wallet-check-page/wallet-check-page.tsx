@@ -24,7 +24,7 @@ export function WalletCheckPage({
     return ethAddress ? ethToHaqq(ethAddress) : ''; // && 'haqq12nw2gkj3jh994zmuzpj2t73fprzkdxeegawaql';
   }, [ethAddress]);
 
-  const { walletInfo, loading } = useWalletInfoChecker(
+  const { walletInfo, loading, setWalletInfo } = useWalletInfoChecker(
     walletCheckEndpoint,
     haqqAddress,
   );
@@ -46,8 +46,12 @@ export function WalletCheckPage({
           {notAllowed ? (
             <NotAllowedWallet />
           ) : (
-            <div className="flex flex-col items-center gap-[62px]">
-              <div className="flex gap-[58px]">
+            <div
+              className={`flex flex-col gap-[62px] ${
+                ethAddress ? 'items-start' : 'items-center'
+              }`}
+            >
+              <div className="flex flex-col gap-[58px] lg:flex-row">
                 <div
                   className={`${
                     ethAddress ? 'max-w-[360px]' : 'max-w-[800px]'
@@ -55,17 +59,20 @@ export function WalletCheckPage({
                 >
                   <CheckWalletExplanation />
                 </div>
-                <BlurredBlock
-                  isBlurred={loading}
-                  content="Loading..."
-                  blurredContent={
-                    <AirdropInfo
-                      walletInfo={walletInfo}
-                      address={haqqAddress}
-                      walletCheckEndpoint={walletCheckEndpoint}
-                    />
-                  }
-                />
+                {ethAddress && (
+                  <BlurredBlock
+                    isBlurred={loading}
+                    content="Loading..."
+                    blurredContent={
+                      <AirdropInfo
+                        setWalletInfo={setWalletInfo}
+                        walletInfo={walletInfo}
+                        address={haqqAddress}
+                        walletCheckEndpoint={walletCheckEndpoint}
+                      />
+                    }
+                  />
+                )}
               </div>
 
               {!ethAddress && (

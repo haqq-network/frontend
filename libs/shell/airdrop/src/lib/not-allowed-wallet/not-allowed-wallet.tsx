@@ -1,7 +1,7 @@
 export const NotAllowedWallet = () => {
   return (
     <div className="m-auto flex flex-col items-center gap-[48px]">
-      <div className="font-clash text-[24px] leading-[30px] text-[#E3A13F]">
+      <div className="font-clash text-center text-[24px] leading-[30px] text-[#E3A13F]">
         Unfortunately your address is not in the list of recovered addresses
         from Galxe
       </div>
