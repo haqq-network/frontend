@@ -900,39 +900,43 @@ export function VoteActions({
 
   const handleVote = useCallback(
     async (option: number) => {
-      console.log('handleVote', { option });
-      const votePromise = vote(proposalId, option);
+      try {
+        console.log('handleVote', { option });
+        const votePromise = vote(proposalId, option);
 
-      toast.promise(votePromise, {
-        loading: <ToastLoading>Vote in progress</ToastLoading>,
-        success: (tx) => {
-          console.log('Vote successful', { tx });
-          const txHash = tx?.txhash;
+        await toast.promise(votePromise, {
+          loading: <ToastLoading>Vote in progress</ToastLoading>,
+          success: (tx) => {
+            console.log('Vote successful', { tx });
+            const txHash = tx?.txhash;
 
-          return (
-            <ToastSuccess>
-              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Your vote will be counted!!!</div>
-                <div>
-                  <Link
-                    to={`${explorer.cosmos}/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                  >
-                    <LinkIcon />
-                    <span>{getFormattedAddress(txHash)}</span>
-                  </Link>
+            return (
+              <ToastSuccess>
+                <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                  <div>Your vote will be counted!!!</div>
+                  <div>
+                    <Link
+                      to={`${explorer.cosmos}/tx/${txHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                    >
+                      <LinkIcon />
+                      <span>{getFormattedAddress(txHash)}</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </ToastSuccess>
-          );
-        },
-        error: (error) => {
-          console.error(error);
-          return <ToastError>For some reason your vote failed.</ToastError>;
-        },
-      });
+              </ToastSuccess>
+            );
+          },
+          error: (error) => {
+            console.error(error);
+            return <ToastError>For some reason your vote failed.</ToastError>;
+          },
+        });
+      } catch (error) {
+        console.error((error as Error).message);
+      }
     },
     [explorer.cosmos, proposalId, toast, vote],
   );

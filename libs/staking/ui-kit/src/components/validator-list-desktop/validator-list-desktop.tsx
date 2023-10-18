@@ -23,7 +23,11 @@ function SortDirectionArrow({ direction }: { direction: SortDirection }) {
     return null;
   }
 
-  return <span> {direction === 'asc' ? '▼' : '▲'}</span>;
+  return (
+    <span className="absolute right-[-16px] top-[0px] text-[12px] leading-[14px]">
+      {direction === 'asc' ? '▼' : '▲'}
+    </span>
+  );
 }
 
 export function ValidatorsListDesktop({
@@ -103,8 +107,8 @@ export function ValidatorsListDesktop({
         case 'fee':
           sortedValidators.sort((a, b) => {
             return (
-              Number.parseFloat(a.commission.commission_rates.rate) -
-              Number.parseFloat(b.commission.commission_rates.rate)
+              Number.parseFloat(b.commission.commission_rates.rate) -
+              Number.parseFloat(a.commission.commission_rates.rate)
             );
           });
           break;
@@ -171,12 +175,19 @@ export function ValidatorsListDesktop({
 
   const handleSortClick = useCallback(
     (key: string) => {
-      setSortStates({
-        key,
-        direction: sortStates.direction === 'asc' ? 'desc' : 'asc',
-      });
+      if (key !== sortStates.key) {
+        setSortStates({
+          key,
+          direction: sortStates.direction,
+        });
+      } else {
+        setSortStates({
+          key,
+          direction: sortStates.direction === 'asc' ? 'desc' : 'asc',
+        });
+      }
     },
-    [sortStates.direction],
+    [sortStates],
   );
 
   const valsToRender = useMemo(() => {
@@ -202,107 +213,121 @@ export function ValidatorsListDesktop({
     <table className="w-full table-auto">
       <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
         <tr>
-          <th
-            className={clsx(
-              'cursor-pointer select-none p-[8px] text-left lg:p-[12px]',
-              sortStates.direction !== undefined &&
-                sortStates.key === 'name' &&
-                'text-white',
-            )}
-            onClick={() => {
-              handleSortClick('name');
-            }}
-          >
-            Name
-            {sortStates.key === 'name' && (
-              <SortDirectionArrow direction={sortStates.direction} />
-            )}
+          <th className="p-[8px] text-left lg:p-[12px]">
+            <div
+              className={clsx(
+                'relative inline-block cursor-pointer select-none',
+                sortStates.direction !== undefined &&
+                  sortStates.key === 'name' &&
+                  'text-white',
+              )}
+              onClick={() => {
+                handleSortClick('name');
+              }}
+            >
+              Name
+              {sortStates.key === 'name' && (
+                <SortDirectionArrow direction={sortStates.direction} />
+              )}
+            </div>
           </th>
-          <th className="select-none p-[8px] text-left lg:p-[12px]">
-            Status
-            {sortStates.key === 'status' && (
-              <SortDirectionArrow direction={sortStates.direction} />
-            )}
+          <th className="p-[8px] text-left lg:p-[12px]">
+            <div className="select-none">
+              Status
+              {sortStates.key === 'status' && (
+                <SortDirectionArrow direction={sortStates.direction} />
+              )}
+            </div>
           </th>
-          <th
-            className={clsx(
-              'cursor-pointer select-none p-[8px] text-left lg:p-[12px]',
-              sortStates.direction !== undefined &&
-                sortStates.key === 'fee' &&
-                'text-white',
-            )}
-            onClick={() => {
-              handleSortClick('fee');
-            }}
-          >
-            Fee
-            {sortStates.key === 'fee' && (
-              <SortDirectionArrow direction={sortStates.direction} />
-            )}
+          <th className="p-[8px] text-right lg:p-[12px]">
+            <div
+              className={clsx(
+                'relative inline-block cursor-pointer select-none',
+                sortStates.direction !== undefined &&
+                  sortStates.key === 'fee' &&
+                  'text-white',
+              )}
+              onClick={() => {
+                handleSortClick('fee');
+              }}
+            >
+              Fee
+              {sortStates.key === 'fee' && (
+                <SortDirectionArrow direction={sortStates.direction} />
+              )}
+            </div>
           </th>
-          <th
-            className={clsx(
-              'cursor-pointer select-none p-[8px] text-right lg:p-[12px]',
-              sortStates.direction !== undefined &&
-                sortStates.key === 'votingPower' &&
-                'text-white',
-            )}
-            onClick={() => {
-              handleSortClick('votingPower');
-            }}
-          >
-            Voting power
-            {sortStates.key === 'votingPower' && (
-              <SortDirectionArrow direction={sortStates.direction} />
-            )}
+          <th className="p-[8px] text-right lg:p-[12px]">
+            <div
+              className={clsx(
+                'relative inline-block cursor-pointer select-none',
+                sortStates.direction !== undefined &&
+                  sortStates.key === 'votingPower' &&
+                  'text-white',
+              )}
+              onClick={() => {
+                handleSortClick('votingPower');
+              }}
+            >
+              Voting power
+              {sortStates.key === 'votingPower' && (
+                <SortDirectionArrow direction={sortStates.direction} />
+              )}
+            </div>
           </th>
-          <th
-            className={clsx(
-              'cursor-pointer select-none p-[8px] text-right lg:p-[12px]',
-              sortStates.direction !== undefined &&
-                sortStates.key === 'votingPowerPercent' &&
-                'text-white',
-            )}
-            onClick={() => {
-              handleSortClick('votingPowerPercent');
-            }}
-          >
-            Voting power %
-            {sortStates.key === 'votingPowerPercent' && (
-              <SortDirectionArrow direction={sortStates.direction} />
-            )}
+          <th className="p-[8px] text-right lg:p-[12px]">
+            <div
+              className={clsx(
+                'relative inline-block cursor-pointer select-none',
+                sortStates.direction !== undefined &&
+                  sortStates.key === 'votingPowerPercent' &&
+                  'text-white',
+              )}
+              onClick={() => {
+                handleSortClick('votingPowerPercent');
+              }}
+            >
+              Voting power %
+              {sortStates.key === 'votingPowerPercent' && (
+                <SortDirectionArrow direction={sortStates.direction} />
+              )}
+            </div>
           </th>
-          <th
-            className={clsx(
-              'cursor-pointer select-none p-[8px] text-right lg:p-[12px]',
-              sortStates.direction !== undefined &&
-                sortStates.key === 'staked' &&
-                'text-white',
-            )}
-            onClick={() => {
-              handleSortClick('staked');
-            }}
-          >
-            Staked
-            {sortStates.key === 'staked' && (
-              <SortDirectionArrow direction={sortStates.direction} />
-            )}
+          <th className="p-[8px] text-right lg:p-[12px]">
+            <div
+              className={clsx(
+                'relative inline-block cursor-pointer select-none',
+                sortStates.direction !== undefined &&
+                  sortStates.key === 'staked' &&
+                  'text-white',
+              )}
+              onClick={() => {
+                handleSortClick('staked');
+              }}
+            >
+              My stake
+              {sortStates.key === 'staked' && (
+                <SortDirectionArrow direction={sortStates.direction} />
+              )}
+            </div>
           </th>
-          <th
-            className={clsx(
-              'cursor-pointer select-none p-[8px] text-right lg:p-[12px]',
-              sortStates.direction !== undefined &&
-                sortStates.key === 'reward' &&
-                'text-white',
-            )}
-            onClick={() => {
-              handleSortClick('reward');
-            }}
-          >
-            Reward
-            {sortStates.key === 'reward' && (
-              <SortDirectionArrow direction={sortStates.direction} />
-            )}
+          <th className="p-[8px] text-right lg:p-[12px]">
+            <div
+              className={clsx(
+                'relative inline-block cursor-pointer select-none',
+                sortStates.direction !== undefined &&
+                  sortStates.key === 'reward' &&
+                  'text-white',
+              )}
+              onClick={() => {
+                handleSortClick('reward');
+              }}
+            >
+              My rewards
+              {sortStates.key === 'reward' && (
+                <SortDirectionArrow direction={sortStates.direction} />
+              )}
+            </div>
           </th>
         </tr>
       </thead>

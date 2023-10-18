@@ -126,42 +126,46 @@ function GranterGrantsTable() {
 
   const handleRevokeAccess = useCallback(
     async (grantee: string, type: string) => {
-      const grantPromise = revoke(grantee, type);
+      try {
+        const grantPromise = revoke(grantee, type);
 
-      await toast.promise(grantPromise, {
-        loading: <ToastLoading>Revoke in progress</ToastLoading>,
-        success: (tx) => {
-          console.log('Revoke successful', { tx });
-          const txHash = tx?.txhash;
+        await toast.promise(grantPromise, {
+          loading: <ToastLoading>Revoke in progress</ToastLoading>,
+          success: (tx) => {
+            console.log('Revoke successful', { tx }); // maybe successful
+            const txHash = tx?.txhash;
 
-          return (
-            <ToastSuccess>
-              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Revoke successful</div>
-                <div>
-                  <Link
-                    to={`${explorer.cosmos}/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                  >
-                    <LinkIcon />
-                    <span>{getFormattedAddress(txHash)}</span>
-                  </Link>
+            return (
+              <ToastSuccess>
+                <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                  <div>Revoke successful</div>
+                  <div>
+                    <Link
+                      to={`${explorer.cosmos}/tx/${txHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                    >
+                      <LinkIcon />
+                      <span>{getFormattedAddress(txHash)}</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </ToastSuccess>
-          );
-        },
-        error: (error) => {
-          return <ToastError>{error.message}</ToastError>;
-        },
-      });
-
-      invalidateQueries([
-        [chain?.id, 'grants-granter'],
-        [chain?.id, 'grants-grantee'],
-      ]);
+              </ToastSuccess>
+            );
+          },
+          error: (error) => {
+            return <ToastError>{error.message}</ToastError>;
+          },
+        });
+      } catch (error) {
+        console.error((error as Error).message);
+      } finally {
+        invalidateQueries([
+          [chain?.id, 'grants-granter'],
+          [chain?.id, 'grants-grantee'],
+        ]);
+      }
     },
     [chain?.id, explorer.cosmos, invalidateQueries, revoke, toast],
   );
@@ -438,48 +442,52 @@ function AuthzGrantsActions() {
   }, []);
 
   const handleGrantAccess = useCallback(async () => {
-    if (!isGranteeValid) {
-      throw new Error('address is not valid');
-    }
+    try {
+      if (!isGranteeValid) {
+        throw new Error('address is not valid');
+      }
 
-    const expire = getGrantExpire(grantPeriod);
-    const haqqGrantee = granteeAddresses['haqq'];
-    const grantPromise = grant(haqqGrantee, grantType, expire);
+      const expire = getGrantExpire(grantPeriod);
+      const haqqGrantee = granteeAddresses['haqq'];
+      const grantPromise = grant(haqqGrantee, grantType, expire);
 
-    await toast.promise(grantPromise, {
-      loading: <ToastLoading>Grant in progress</ToastLoading>,
-      success: (tx) => {
-        console.log('Grant successful', { tx });
-        const txHash = tx?.txhash;
+      await toast.promise(grantPromise, {
+        loading: <ToastLoading>Grant in progress</ToastLoading>,
+        success: (tx) => {
+          console.log('Grant successful', { tx });
+          const txHash = tx?.txhash;
 
-        return (
-          <ToastSuccess>
-            <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-              <div>Grant successful</div>
-              <div>
-                <Link
-                  to={`${explorer.cosmos}/tx/${txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                >
-                  <LinkIcon />
-                  <span>{getFormattedAddress(txHash)}</span>
-                </Link>
+          return (
+            <ToastSuccess>
+              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                <div>Grant successful</div>
+                <div>
+                  <Link
+                    to={`${explorer.cosmos}/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                  >
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </ToastSuccess>
-        );
-      },
-      error: (error) => {
-        return <ToastError>{error.message}</ToastError>;
-      },
-    });
-
-    invalidateQueries([
-      [chain?.id, 'grants-granter'],
-      [chain?.id, 'grants-grantee'],
-    ]);
+            </ToastSuccess>
+          );
+        },
+        error: (error) => {
+          return <ToastError>{error.message}</ToastError>;
+        },
+      });
+    } catch (error) {
+      console.error((error as Error).message);
+    } finally {
+      invalidateQueries([
+        [chain?.id, 'grants-granter'],
+        [chain?.id, 'grants-grantee'],
+      ]);
+    }
   }, [
     chain?.id,
     explorer.cosmos,

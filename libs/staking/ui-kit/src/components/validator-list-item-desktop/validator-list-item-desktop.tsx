@@ -70,7 +70,7 @@ export function ValidatorListItemDesktop({
           className="!text-[11px] !leading-[18px] md:!text-[16px] md:!leading-[26px]"
         />
       </td>
-      <td className="max-w-[80px] p-[8px] text-left md:p-[12px]">
+      <td className="max-w-[80px] p-[8px] text-right md:p-[12px]">
         {validatorCommission}%
       </td>
       <td className="p-[8px] text-right md:p-[12px]">

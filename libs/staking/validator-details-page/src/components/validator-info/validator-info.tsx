@@ -622,8 +622,8 @@ export function ValidatorInfo({
       await toast.promise(claimAllRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
         success: (tx) => {
+          console.log('Rewards claimed', { tx });
           const txHash = tx?.txhash;
-          console.log('Rewards claimed', { txHash });
 
           return (
             <div className="flex flex-col gap-[8px] text-center">
