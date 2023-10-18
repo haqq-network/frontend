@@ -103,8 +103,8 @@ export function ValidatorsListDesktop({
         case 'fee':
           sortedValidators.sort((a, b) => {
             return (
-              Number.parseFloat(a.commission.commission_rates.rate) -
-              Number.parseFloat(b.commission.commission_rates.rate)
+              Number.parseFloat(b.commission.commission_rates.rate) -
+              Number.parseFloat(a.commission.commission_rates.rate)
             );
           });
           break;
