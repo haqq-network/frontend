@@ -44,6 +44,7 @@ jobs:
       FALCONER_ENDPOINT: ${{ secrets.FALCONER_ENDPOINT }}
       TURNSTILE_SITEKEY: ${{ secrets.TURNSTILE_SITEKEY }}
       NX_AIRDROP_ENDPOINT: ${{ secrets.NX_AIRDROP_ENDPOINT }}
+      NX_WALLET_CHECK_ENDPOINT: ${{ secrets.NX_WALLET_CHECK_ENDPOINT }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
