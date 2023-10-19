@@ -1,19 +1,21 @@
 name: Governance Preview Deployment
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_GOVERNANCE_PROJECT_ID }}
+
 on:
   push:
     branches-ignore:
       - prod
   workflow_dispatch:
+
 jobs:
   Deploy-Preview:
     runs-on: frontend
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_GOVERNANCE_PROJECT_ID }}
+      GIT_COMMIT_SHA: ${{ github.sha }}
     steps:
-      - uses: actions/checkout@v2
-      # - name: Install Vercel CLI
-      #   run: npm install --global vercel@latest
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
