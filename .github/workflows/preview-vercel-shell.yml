@@ -1,15 +1,18 @@
 name: Shell Preview Deployment
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_SHELL_PROJECT_ID }}
+
 on:
   push:
     branches-ignore:
       - prod
   workflow_dispatch:
+
 jobs:
   Deploy-Preview:
     runs-on: frontend
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_SHELL_PROJECT_ID }}
+      GIT_COMMIT_SHA: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v2
       # - name: Install Vercel CLI
