@@ -18,8 +18,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
-  const disclaimer = await getDisclaimerContent();
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
+  const disclaimer = await getDisclaimerContent(locale);
 
   return <DubaiResidentDisclaimerPage disclaimer={disclaimer} />;
 }

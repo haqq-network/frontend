@@ -318,7 +318,6 @@
       "title": "متوفر في"
     }
   },
-
   "scam-alert-page": {
     "title": "تنبيه احتيال",
     "appeal-block": {
@@ -348,6 +347,9 @@
         "fourth": "شكرًا لكم،"
       }
     }
+  },
+  "disclaimer-page": {
+    "title": "إخلاء مسؤولية - المقيمين في إمارة دبي"
   },
   "header": {
     "single-links": {
