@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { Address } from '../address/address';
 import { ethToHaqq, haqqToEth, usePersonalSign } from '@haqq/shared';
-import { Hex } from 'viem';
+import { Hex, isAddress } from 'viem';
 
 interface IAddressFormField {
   address: string;
@@ -30,17 +30,43 @@ function formatDate(date: Date) {
   }).format(date);
 }
 
-const schema: yup.ObjectSchema<IAddressFormField> = yup
-  .object({
-    address: yup
-      .string()
-      .required('Address is required')
-      .matches(
-        /^(0x[0-9a-fA-F]{40}|haqq1[0-9a-zA-Z]{38})$/,
-        'Address is not EVM/Haqq format',
-      ),
-  })
-  .required();
+function validAddressChecker(address?: string) {
+  if (address) {
+    try {
+      if (address.startsWith('0x')) {
+        return isAddress(address);
+      } else if (address.startsWith('haqq1')) {
+        const eth = haqqToEth(address);
+        return isAddress(eth);
+      } else {
+        return false;
+      }
+    } catch {
+      return false;
+    }
+  }
+
+  return false;
+}
+
+const ADDRESS_VALIDATION_ERROR = 'Address is not EVM/Haqq format';
+
+const schema: yup.ObjectSchema<IAddressFormField> = yup.object({
+  address: yup
+    .string()
+    .required('Address is required')
+    .test('address', ADDRESS_VALIDATION_ERROR, function (value) {
+      if (!validAddressChecker(value)) {
+        return new yup.ValidationError(
+          ADDRESS_VALIDATION_ERROR,
+          null,
+          'choices',
+        );
+      }
+
+      return true;
+    }),
+});
 
 const getHaqqAddress = (address: string) => {
   if (address.startsWith('haqq')) {
@@ -125,6 +151,7 @@ export const AirdropInfo = ({
     register,
     handleSubmit: hookFormSubmit,
     formState,
+    getValues,
   } = useForm<IAddressFormField>({
     resolver: yupResolver(schema),
   });
@@ -161,6 +188,9 @@ export const AirdropInfo = ({
     },
     [walletCheckEndpoint, address, signEvm, setWalletInfo],
   );
+
+  const values = getValues();
+  const isValidAddress = values?.address && validAddressChecker(values.address);
 
   return (
     <div className="max-w-[440px]">
@@ -227,8 +257,12 @@ export const AirdropInfo = ({
                 wrapperClassName="w-full"
                 placeholder="Enter address"
                 id="address"
+                autoFocus
                 register={register}
-                error={formState.errors.address?.message}
+                error={
+                  formState.errors.address?.message ||
+                  (isValidAddress ? undefined : ADDRESS_VALIDATION_ERROR)
+                }
                 required
                 size="normal"
               />
@@ -238,7 +272,12 @@ export const AirdropInfo = ({
           <Button
             variant={2}
             type="submit"
-            disabled={formState.isSubmitting || !formState.isValid || !address}
+            disabled={
+              formState.isSubmitting ||
+              !formState.isValid ||
+              !isValidAddress ||
+              !address
+            }
             className="mt-[16px] w-[200px] p-0 text-[14px]"
           >
             Change address
@@ -258,16 +297,28 @@ export const AirdropInfo = ({
         setOpenState={setInformationModalOpened}
         title="The address has been successfully updated"
         message={
-          walletInfo && (
-            <div className="flex items-center gap-[8px] text-black">
-              <span>New receiving airdrop address: </span>
-              {
-                <Address
-                  amountSymbols={5}
-                  className="font-guise lg;text-[12px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-[500] leading-[28px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
-                  address={submittedAddress}
-                />
-              }
+          submittedAddress && (
+            <div className="flex flex-col">
+              <div className="flex items-center gap-[8px] text-black">
+                <span>Receiving airdrop address hex: </span>
+                {
+                  <Address
+                    amountSymbols={5}
+                    className="font-guise lg;text-[12px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-[500] leading-[28px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    address={haqqToEth(submittedAddress)}
+                  />
+                }
+              </div>
+              <div className="flex items-center gap-[8px] text-black">
+                <span>Receiving airdrop address bech32: </span>
+                {
+                  <Address
+                    amountSymbols={5}
+                    className="font-guise lg;text-[12px] flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden font-[500] leading-[28px] text-black transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    address={submittedAddress}
+                  />
+                }
+              </div>
             </div>
           )
         }
