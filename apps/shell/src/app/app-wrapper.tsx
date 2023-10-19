@@ -17,6 +17,7 @@ import {
   SelectWalletModal,
   TestedgeBanner,
   formatNumber,
+  Container,
 } from '@haqq/shell-ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useMediaQuery } from 'react-responsive';
@@ -29,13 +30,17 @@ import {
 } from '@haqq/shared';
 import { haqqTestedge2 } from '@wagmi/chains';
 import { useNavigate } from 'react-router-dom';
+import { environment } from '../environments/environment';
+import clsx from 'clsx';
 
 function HeaderButtons({
   isMobileMenuOpen,
   onMobileMenuOpenChange,
+  isTestedge,
 }: {
   isMobileMenuOpen: boolean;
   onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
+  isTestedge: boolean;
 }) {
   const { chain } = useNetwork();
   const chains = useSupportedChains();
@@ -136,33 +141,46 @@ function HeaderButtons({
         <Fragment>
           <ScrollLock isActive />
 
-          <div className="bg-haqq-black fixed right-0 top-[61px] z-40 h-[calc(100vh-61px)] w-full transform-gpu sm:top-[71px] sm:h-[calc(100vh-71px)] lg:hidden">
+          <div
+            className={clsx(
+              'bg-haqq-black fixed right-0 z-40 w-full transform-gpu lg:hidden',
+              isTestedge
+                ? 'top-[61px] h-[calc(100vh-101px)] sm:top-[71px] sm:h-[calc(100vh-111px)]'
+                : 'top-[61px] h-[calc(100vh-61px)] sm:top-[71px] sm:h-[calc(100vh-71px)]',
+            )}
+          >
             <div className="overflow-y-auto px-[24px] py-[32px]">
-              <div className="mb-[24px] flex flex-col items-start space-y-[16px] sm:mb-[80px]">
-                <HeaderNavLink
-                  href="/staking"
-                  onClick={() => {
-                    onMobileMenuOpenChange(false);
-                  }}
-                >
-                  Staking
-                </HeaderNavLink>
-                <HeaderNavLink
-                  href="/governance"
-                  onClick={() => {
-                    onMobileMenuOpenChange(false);
-                  }}
-                >
-                  Governance
-                </HeaderNavLink>
-                <HeaderNavLink
-                  href="/authz"
-                  onClick={() => {
-                    onMobileMenuOpenChange(false);
-                  }}
-                >
-                  Authz
-                </HeaderNavLink>
+              <div className="mb-[24px] flex flex-col items-start gap-[16px] sm:mb-[80px]">
+                <div>
+                  <HeaderNavLink
+                    href="/staking"
+                    onClick={() => {
+                      onMobileMenuOpenChange(false);
+                    }}
+                  >
+                    Staking
+                  </HeaderNavLink>
+                </div>
+                <div>
+                  <HeaderNavLink
+                    href="/governance"
+                    onClick={() => {
+                      onMobileMenuOpenChange(false);
+                    }}
+                  >
+                    Governance
+                  </HeaderNavLink>
+                </div>
+                <div>
+                  <HeaderNavLink
+                    href="/authz"
+                    onClick={() => {
+                      onMobileMenuOpenChange(false);
+                    }}
+                  >
+                    Authz
+                  </HeaderNavLink>
+                </div>
               </div>
 
               {ethAddress && (
@@ -189,6 +207,10 @@ function HeaderButtons({
                   <Button onClick={openSelectWallet}>Connect wallet</Button>
                 )}
               </div>
+            </div>
+
+            <div className="absolute bottom-[8px] left-[20px]">
+              <Version />
             </div>
           </div>
         </Fragment>
@@ -257,11 +279,13 @@ export function AppWrapper({ children }: PropsWithChildren) {
             <HeaderButtons
               isMobileMenuOpen={isMobileMenuOpen}
               onMobileMenuOpenChange={setMobileMenuOpen}
+              isTestedge={isTestedge}
             />
           }
         />
       }
       banner={isTestedge && <TestedgeBanner />}
+      footer={<Footer />}
     >
       {children}
 
@@ -273,5 +297,28 @@ export function AppWrapper({ children }: PropsWithChildren) {
         onClose={closeSelectWallet}
       />
     </Page>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="hidden py-[8px] lg:block">
+      <Container>
+        <div className="flex flex-row items-center justify-between">
+          <div></div>
+          <div>
+            <Version />
+          </div>
+        </div>
+      </Container>
+    </footer>
+  );
+}
+
+function Version() {
+  return (
+    <div className="text-[12px] leading-[16px] text-white/20">
+      {environment.commitSha ? environment.commitSha.substring(0, 7) : 'dev'}
+    </div>
   );
 }
