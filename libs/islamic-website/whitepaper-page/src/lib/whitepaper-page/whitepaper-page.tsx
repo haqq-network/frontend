@@ -47,10 +47,15 @@ export function WhitepaperPage({ whitepaper }: { whitepaper?: string }) {
         <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
           {t('title')}
         </h1>
-        <div className="mt-[18px] lg:mt-[32px]">
+        <div className="mt-[18px] flex flex-row flex-wrap gap-[16px] lg:mt-[32px]">
           <DownloadPDFButton
             language="en"
             url="/assets/haqq-whitepaper.pdf"
+            type="whitepaper"
+          />
+          <DownloadPDFButton
+            language="ar"
+            url="/assets/haqq-whitepaper-ar.pdf"
             type="whitepaper"
           />
         </div>
