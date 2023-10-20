@@ -1,7 +1,7 @@
 import { useCallback, ReactNode, useMemo } from 'react';
 import { useClipboard } from '../../hooks/useClipboard';
 import { CopyIcon } from '../Icons/Icons';
-import { getFormattedAddress, toFixedAmount } from '@haqq/shared';
+import { getFormattedAddress } from '@haqq/shared';
 import { Card } from '../Card/Card';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
 
@@ -84,8 +84,8 @@ export function AccountWidget({
           <div className="text-xs leading-normal text-white/80 md:text-sm">
             Total balance
           </div>
-          <div className="leading-light font-serif text-4xl font-medium text-white md:mt-1 md:text-5xl">
-            {formatLocaleNumber(toFixedAmount(balance, 4))} ISLM
+          <div className="leading-light font-messiri text-4xl font-medium text-white md:mt-1 md:text-5xl">
+            {formatLocaleNumber(balance)} ISLM
           </div>
         </div>
       </div>
@@ -123,8 +123,8 @@ export function BalancesFromIndexer({
             <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
               Available balance
             </div>
-            <div className="leading-light font-serif text-2xl font-medium text-[#0c0c0c] md:mt-1 md:text-3xl">
-              {formatLocaleNumber(toFixedAmount(available, 4))} ISLM
+            <div className="leading-light font-messiri text-2xl font-medium text-[#0c0c0c] md:mt-1 md:text-3xl">
+              {formatLocaleNumber(available)} ISLM
             </div>
           </div>
         )}
@@ -133,8 +133,8 @@ export function BalancesFromIndexer({
             <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
               Locked balance
             </div>
-            <div className="leading-light font-serif text-2xl font-medium text-[#0c0c0c] md:mt-1 md:text-3xl">
-              {formatLocaleNumber(toFixedAmount(locked, 4))} ISLM
+            <div className="leading-light font-messiri text-2xl font-medium text-[#0c0c0c] md:mt-1 md:text-3xl">
+              {formatLocaleNumber(locked)} ISLM
             </div>
           </div>
         )}
@@ -142,10 +142,12 @@ export function BalancesFromIndexer({
           <div>
             <div className="flex flex-col">
               <div className="flex flex-row gap-[2px]">
-                <div
-                  style={{ width: `${vestedPercent}%` }}
-                  className="h-[6px] min-w-[6px] rounded-[8px] bg-[#B26F1D]"
-                />
+                {vested > 0 && (
+                  <div
+                    style={{ width: `${vestedPercent}%` }}
+                    className="h-[6px] min-w-[6px] rounded-[8px] bg-[#B26F1D]"
+                  />
+                )}
                 {staked > 0 && (
                   <div
                     style={{ width: `${stakedPercent}%` }}
@@ -154,12 +156,14 @@ export function BalancesFromIndexer({
                 )}
               </div>
               <div className="flex select-none flex-col justify-between pt-[4px]">
-                <div className="text-[14px] font-[700] leading-[18px] text-[#B26F1D]">
-                  Vested: {formatLocaleNumber(toFixedAmount(vested, 4))} ISLM
-                </div>
+                {vested > 0 && (
+                  <div className="text-[14px] font-[700] leading-[18px] text-[#B26F1D]">
+                    Vested: {formatLocaleNumber(vested)} ISLM
+                  </div>
+                )}
                 {staked > 0 && (
                   <div className="text-[14px] font-[700] leading-[18px] text-[#0489D4]">
-                    Staked: {formatLocaleNumber(toFixedAmount(staked, 4))} ISLM
+                    Staked: {formatLocaleNumber(staked)} ISLM
                   </div>
                 )}
               </div>

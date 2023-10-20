@@ -20,7 +20,7 @@
   --color-red: #f50000;
 
   --ui-kit-font-sans: 'Open Sans', var(--font-family-base);
-  --ui-kit-font-serif: 'El Messiri', var(--font-family-base);
+  --font-messiri: 'El Messiri', var(--font-family-base);
   --ui-kit-text-color: var(--color-black);
   --ui-kit-color-primary: var(--color-green);
   --ui-kit-color-stroke: var(--color-light-gray);
