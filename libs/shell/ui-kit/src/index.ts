@@ -41,3 +41,4 @@ export * from './utils/format-number';
 export * from './components/toasts/toast-loading';
 export * from './components/toasts/toast-success';
 export * from './components/toasts/toast-error';
+export * from './components/footer/footer';
