@@ -2,8 +2,11 @@ name: Staking Preview Deployment
 
 on:
   push:
-    branches-ignore:
-      - prod
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
   workflow_dispatch:
 
 jobs:
@@ -12,6 +15,7 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_STAKING_PROJECT_ID }}
+      NX_SKIP_NX_CACHE: true
       GIT_COMMIT_SHA: ${{ github.sha }}
     steps:
       - name: Checkout code
