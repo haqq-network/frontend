@@ -20,6 +20,9 @@ module.exports = composePlugins(
               process.env['VERCEL_GIT_COMMIT_SHA'] ??
               'dev',
           ),
+          'process.env.INDEXER_ENDPOINT': JSON.stringify(
+            process.env['INDEXER_ENDPOINT'],
+          ),
         }),
       ],
       node: { global: true },
