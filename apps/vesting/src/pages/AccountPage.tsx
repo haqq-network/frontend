@@ -13,7 +13,6 @@ import {
   ClawbackVestingAccount,
 } from '@haqq/shared';
 import { VestingAccountStats } from '../components/VestingAccountStats';
-import { Card } from '../components/Card/Card';
 import {
   IndexerBalances,
   useIndexerBalances,
@@ -106,16 +105,12 @@ export function AccountPageComponent({
           vested={balances.vested}
         />
         {accountInfo &&
-          (accountInfo['@type'] ===
-          '/haqq.vesting.v1.ClawbackVestingAccount' ? (
+          accountInfo['@type'] ===
+            '/haqq.vesting.v1.ClawbackVestingAccount' && (
             <VestingAccountStats
               accountInfo={accountInfo as ClawbackVestingAccount}
             />
-          ) : (
-            <Card className="mx-auto w-full max-w-lg overflow-hidden px-4 py-6">
-              <div className="text-center">This is not vesting account</div>
-            </Card>
-          ))}
+          )}
       </div>
     </Container>
   );

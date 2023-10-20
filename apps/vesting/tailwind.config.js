@@ -16,7 +16,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--ui-kit-font-sans)'],
-        serif: ['var(--ui-kit-font-serif)'],
+        messiri: ['var(--font-messiri)'],
       },
       colors: {
         ...tailwindThemeExtend.colors,

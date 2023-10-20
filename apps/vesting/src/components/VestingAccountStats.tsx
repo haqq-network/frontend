@@ -103,8 +103,20 @@ function LockupPeriods({
         </div>
 
         <div className="p-4 pt-0">
-          <div>Start date: {formatDate(new Date(startTime))}</div>
-          <div>End date: {formatDate(new Date(endTime))}</div>
+          <div className="flex flex-col gap-2">
+            <div>
+              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+                Start date
+              </div>
+              <div>{formatDate(new Date(startTime))}</div>
+            </div>
+            <div>
+              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+                End date
+              </div>
+              <div>{formatDate(new Date(endTime))}</div>
+            </div>
+          </div>
         </div>
 
         <div className="divide-y border-t">
@@ -215,9 +227,11 @@ function LockupTimelineListItem({
       </div>
       <div className="mt-[8px] flex items-center justify-between">
         <div></div>
-        <div className="text-[14px] font-[700] uppercase leading-[18px]">
+        <div>
           <Tooltip text={parsedAmount.toString()}>
-            {formatLocaleNumber(formattedAmount)} {symbol.toLocaleUpperCase()}
+            <span className="cursor-default text-[14px] font-[700] uppercase leading-[18px]">
+              {formatLocaleNumber(formattedAmount)} {symbol.toLocaleUpperCase()}
+            </span>
           </Tooltip>
         </div>
       </div>
