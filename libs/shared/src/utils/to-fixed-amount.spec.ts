@@ -8,6 +8,7 @@ describe('toFixedAmount', () => {
     expect(toFixedAmount(3.14159)).toBe(3.14159);
     expect(toFixedAmount(10.12345, 2)).toBe(10.12);
     expect(toFixedAmount(0.123456789, 4)).toBe(0.1235);
+    expect(toFixedAmount(424160511.1883903, 4)).toBe(424160511.1884);
   });
 
   // Returns undefined when undefined is passed as input.

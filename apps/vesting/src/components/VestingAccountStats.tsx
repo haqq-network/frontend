@@ -3,13 +3,13 @@ import {
   VestingPeriod,
   toFixedAmount,
 } from '@haqq/shared';
-import { Container } from './Layout/Layout';
 import { Card } from './Card/Card';
 import { Fragment, useMemo } from 'react';
 import { formatUnits } from 'viem';
 import clsx from 'clsx';
 import { Heading } from './Typography/Typography';
 import { Tooltip } from './Tooltip/Tooltip';
+import { formatLocaleNumber } from '../utils/format-number-locale';
 
 export function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {
@@ -27,22 +27,17 @@ export function VestingAccountStats({
   accountInfo: ClawbackVestingAccount;
 }) {
   return (
-    <Container>
-      <div className="flex flex-col space-y-6">
-        {accountInfo.lockup_periods &&
-          accountInfo.start_time &&
-          accountInfo.base_vesting_account?.end_time && (
-            <LockupPeriods
-              lockupPeriods={accountInfo.lockup_periods}
-              startTime={accountInfo.start_time}
-              endTime={new Date(
-                Number.parseInt(accountInfo.base_vesting_account.end_time, 10) *
-                  1000,
-              ).toISOString()}
-            />
-          )}
-      </div>
-    </Container>
+    accountInfo.lockup_periods &&
+    accountInfo.start_time &&
+    accountInfo.base_vesting_account?.end_time && (
+      <LockupPeriods
+        lockupPeriods={accountInfo.lockup_periods}
+        startTime={accountInfo.start_time}
+        endTime={new Date(
+          Number.parseInt(accountInfo.base_vesting_account.end_time, 10) * 1000,
+        ).toISOString()}
+      />
+    )
   );
 }
 
@@ -102,9 +97,9 @@ function LockupPeriods({
 
   return (
     <Card className="mx-auto w-full max-w-lg">
-      <div className="">
+      <div>
         <div className="p-4 pt-6">
-          <Heading level={4}>Lockup timeline</Heading>
+          <Heading level={4}>Vesting timeline</Heading>
         </div>
 
         <div className="p-4 pt-0">
@@ -144,10 +139,10 @@ function LockupTimelineListItem({
   const transactionTimestamp = useMemo(() => {
     return formatDate(date);
   }, [date]);
-  const [parsedAmount, formattedMount] = useMemo(() => {
+  const [parsedAmount, formattedAmount] = useMemo(() => {
     const parsedAmount = Number.parseFloat(formatUnits(BigInt(amount), 18));
-    const formattedMount = toFixedAmount(parsedAmount, 3);
-    return [parsedAmount, formattedMount];
+    const formattedAmount = toFixedAmount(parsedAmount, 4);
+    return [parsedAmount, formattedAmount];
   }, [amount]);
 
   return (
@@ -222,7 +217,7 @@ function LockupTimelineListItem({
         <div></div>
         <div className="text-[14px] font-[700] uppercase leading-[18px]">
           <Tooltip text={parsedAmount.toString()}>
-            {toFixedAmount(formattedMount, 3)} {symbol.toLocaleUpperCase()}
+            {formatLocaleNumber(formattedAmount)} {symbol.toLocaleUpperCase()}
           </Tooltip>
         </div>
       </div>
