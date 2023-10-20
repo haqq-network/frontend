@@ -17,7 +17,8 @@ import {
   SelectWalletModal,
   TestedgeBanner,
   formatNumber,
-  Container,
+  Footer,
+  CommitSha,
 } from '@haqq/shell-ui-kit';
 import ScrollLock from 'react-scrolllock';
 import { useMediaQuery } from 'react-responsive';
@@ -210,7 +211,12 @@ function HeaderButtons({
             </div>
 
             <div className="absolute bottom-[8px] left-[20px]">
-              <Version />
+              <div className="text-[12px] leading-[16px] text-white/20">
+                <CommitSha
+                  commitSha={environment.commitSha}
+                  className="transition-colors duration-150 hover:text-white/80"
+                />
+              </div>
             </div>
           </div>
         </Fragment>
@@ -285,7 +291,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
         />
       }
       banner={isTestedge && <TestedgeBanner />}
-      footer={<Footer />}
+      footer={<Footer commitSha={environment.commitSha} />}
     >
       {children}
 
@@ -297,28 +303,5 @@ export function AppWrapper({ children }: PropsWithChildren) {
         onClose={closeSelectWallet}
       />
     </Page>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="hidden py-[8px] lg:block">
-      <Container>
-        <div className="flex flex-row items-center justify-between">
-          <div></div>
-          <div>
-            <Version />
-          </div>
-        </div>
-      </Container>
-    </footer>
-  );
-}
-
-function Version() {
-  return (
-    <div className="text-[12px] leading-[16px] text-white/20">
-      {environment.commitSha ? environment.commitSha.substring(0, 7) : 'dev'}
-    </div>
   );
 }
