@@ -78,7 +78,7 @@ export function WalletCheckPage({
               {!haqqAddress && (
                 <div className="flex flex-col items-center space-y-[12px]">
                   <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-                    You should connect wallet first
+                    You Should Connect Wallet First
                   </div>
                   <Button
                     onClick={openSelectWallet}
