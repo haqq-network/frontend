@@ -43,6 +43,7 @@ export function ApproveBtn({
   const isCheckboxDefaultChecked =
     participant?.status === ParticipantStatus.Checking ||
     participant?.status === ParticipantStatus.Queued ||
+    participant?.status === ParticipantStatus.Failed ||
     participant?.status === ParticipantStatus.Approved ||
     participant?.status === ParticipantStatus.Redeemed;
 
