@@ -1,6 +1,6 @@
 const { composePlugins, withNx } = require('@nx/webpack');
 const { withReact } = require('@nx/react');
-const { ProvidePlugin } = require('webpack');
+const { ProvidePlugin, DefinePlugin } = require('webpack');
 const { merge } = require('webpack-merge');
 
 // Nx plugins for webpack.
@@ -9,6 +9,14 @@ module.exports = composePlugins(withNx(), withReact(), async (config) => {
     plugins: [
       new ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
+      }),
+      new DefinePlugin({
+        'process.env.GIT_COMMIT_SHA': JSON.stringify(
+          process.env['GIT_COMMIT_SHA'] ??
+            process.env['NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA'] ??
+            process.env['VERCEL_GIT_COMMIT_SHA'] ??
+            'dev',
+        ),
       }),
     ],
     node: { global: true },

@@ -7,6 +7,7 @@ import { Button } from '../Button/Button';
 import { IdentIcon } from '../IdentIcon/IdentIcon';
 import { Menu, Transition } from '@headlessui/react';
 import { getFormattedAddress } from '@haqq/shared';
+import { formatLocaleNumber } from '../../utils/format-number-locale';
 
 function AddressButton({
   children,
@@ -43,7 +44,7 @@ function BalanceButton({
   onClick?: () => void;
 }) {
   const classNames = clsx(
-    'font-serif text-base leading-[24px]',
+    'font-messiri text-base leading-[24px]',
     'px-[12px] py-[8px] rounded-none',
     'text-white bg-primary hover:bg-[#20d775]',
     'transition-colors duration-150 ease-linear',
@@ -88,7 +89,7 @@ export function AccountButton({
       {account.balance && (
         <BalanceButton onClick={onBalanceClick} className="hidden sm:block">
           <div className="mb-[-3px] font-bold">
-            {account.balance.value.toLocaleString()}{' '}
+            {formatLocaleNumber(account.balance.value)}{' '}
             {account.balance.symbol.toLocaleUpperCase()}
           </div>
         </BalanceButton>
