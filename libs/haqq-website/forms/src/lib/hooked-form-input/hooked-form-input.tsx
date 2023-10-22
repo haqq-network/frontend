@@ -40,6 +40,7 @@ export function HookedFormInput<F extends Record<string, any>>({
   error,
   disabled,
   required,
+  autoFocus,
   size = 'normal',
 }: HookedInputProps<F> & Omit<InputProps, 'onChange'>): ReactElement {
   return (
@@ -52,6 +53,7 @@ export function HookedFormInput<F extends Record<string, any>>({
       required={required}
       error={error}
       size={size}
+      autoFocus={autoFocus}
       {...register(id)}
     />
   );

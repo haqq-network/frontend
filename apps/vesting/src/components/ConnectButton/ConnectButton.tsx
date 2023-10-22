@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useAccount, useBalance, useNetwork } from 'wagmi';
 import { useOnboarding } from '../../OnboardingContainer';
 import { AccountButton } from '../AccountButton/AccountButton';
+import { useNavigate } from 'react-router-dom';
 
 export function ConnectButton() {
   const { isConnected, address } = useAccount();
@@ -10,6 +11,7 @@ export function ConnectButton() {
   });
   const { connectWallet, disconnectWallet } = useOnboarding();
   const { chain } = useNetwork();
+  const navigate = useNavigate();
 
   const accBalance = useMemo(() => {
     if (!balance) {
@@ -37,6 +39,9 @@ export function ConnectButton() {
     <AccountButton
       onConnectClick={connectWallet}
       onDisconnectClick={disconnectWallet}
+      onBalanceClick={() => {
+        navigate('/account');
+      }}
       account={account}
     />
   );

@@ -2,6 +2,7 @@ import { Container, MarkdownText } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
+import { useTranslations } from 'next-intl';
 
 function HeroBg({ children }: PropsWithChildren) {
   return (
@@ -20,7 +21,7 @@ function HeroBg({ children }: PropsWithChildren) {
         >
           <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
           <Image
-            src="/assets/images/moon.jpg"
+            src="/assets/images/moon.webp"
             alt=""
             fill
             className="pointer-events-none z-[-2]"
@@ -37,11 +38,13 @@ export function DubaiResidentDisclaimerPage({
 }: {
   disclaimer: string;
 }) {
+  const t = useTranslations('disclaimer-page');
+
   return (
     <HeroBg>
       <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] md:pb-[100px] lg:mt-[68px] lg:pb-[140px]">
         <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-          A disclaimer for residents of Dubai
+          {t('title')}
         </h1>
 
         <div className="max-w-[860px]">

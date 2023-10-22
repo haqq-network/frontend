@@ -24,10 +24,13 @@ import {
   SelectWalletModal,
   TestedgeBanner,
   formatNumber,
+  Footer,
+  CommitSha,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { haqqTestedge2 } from '@wagmi/chains';
 import { useNavigate } from 'react-router-dom';
+import { environment } from '../environments/environment';
 
 function HeaderButtons({
   isMobileMenuOpen,
@@ -158,6 +161,15 @@ function HeaderButtons({
                   <Button onClick={openSelectWallet}>Connect wallet</Button>
                 )}
               </div>
+
+              <div className="absolute bottom-[8px] left-[20px]">
+                <div className="text-[12px] leading-[16px] text-white/20">
+                  <CommitSha
+                    commitSha={environment.commitSha}
+                    className="transition-colors duration-150 hover:text-white/80"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </Fragment>
@@ -231,6 +243,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
         />
       }
       banner={isTestedge && <TestedgeBanner />}
+      footer={<Footer commitSha={environment.commitSha} />}
     >
       {children}
 

@@ -10,7 +10,7 @@ export function SpinnerLoader({ className }: { className?: string }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={clsx(
-          'fill-haqq-primary-500 h-8 w-8 animate-spin text-gray-200 dark:text-gray-600',
+          'h-8 w-8 animate-spin fill-[#04d484] text-gray-200/80',
           className,
         )}
       >
@@ -30,7 +30,7 @@ export function SpinnerLoader({ className }: { className?: string }) {
 
 export function PendingPage() {
   return (
-    <Container className="flex min-h-[400px] content-center items-center justify-center py-20">
+    <Container className="flex content-center items-center justify-center py-32">
       <SpinnerLoader />
     </Container>
   );
