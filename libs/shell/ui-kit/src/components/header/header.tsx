@@ -31,10 +31,11 @@ export function Header({
         <div className="font-clash ml-[20px] text-[24px] font-medium leading-none lg:ml-[32px]">
           <NavLink to="/">HAQQ</NavLink>
         </div>
+
         <div className="flex-1" />
 
         {rightSlot && (
-          <div className="flex flex-row items-center space-x-2">
+          <div className="flex flex-row items-center space-x-[16px]">
             {rightSlot}
           </div>
         )}
