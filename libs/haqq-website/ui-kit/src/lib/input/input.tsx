@@ -11,6 +11,7 @@ export interface InputProps {
   error?: string;
   name?: string;
   id?: string;
+  autoFocus?: boolean;
   value?: string | number;
   onChange: (event: ChangeEvent<HTMLInputElement>, value?: string) => void;
   size?: 'normal' | 'small';
@@ -29,6 +30,7 @@ export const Input = forwardRef(function Input(
     name,
     onChange,
     value,
+    autoFocus,
     size = 'normal',
   }: InputProps,
   ref: Ref<HTMLInputElement>,
@@ -73,6 +75,7 @@ export const Input = forwardRef(function Input(
           onChange={handleChange}
           value={value}
           ref={ref}
+          autoFocus={autoFocus}
         />
         {required && <span className={requiredClassNames}>*</span>}
       </div>

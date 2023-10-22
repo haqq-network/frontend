@@ -7,12 +7,12 @@ import {
   useWallet,
 } from '@haqq/shared';
 import { CaptchaModal, Container, Heading } from '@haqq/shell-ui-kit';
-import { AirdropEvm } from '../airdrop-evm/airdrop-evm';
+import { AirdropEvm } from '../../lib/airdrop-evm/airdrop-evm';
 import {
   AirdropCosmos,
   addHaqqNetwork,
-} from '../airdrop-cosmos/airdrop-cosmos';
-import { Address } from '../address/address';
+} from '../../lib/airdrop-cosmos/airdrop-cosmos';
+import { Address } from '../../lib/address/address';
 import { Keplr } from '@keplr-wallet/types';
 
 async function enableChains(keplrWallet: Keplr) {
