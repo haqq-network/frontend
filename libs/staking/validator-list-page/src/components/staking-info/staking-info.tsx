@@ -41,16 +41,15 @@ function useStakingStats() {
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { data: balance } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0].id,
+    chainId: chain.id,
   });
   const toast = useToast();
-  const { explorer } = getChainParams(chain?.id ?? 0);
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const { explorer } = getChainParams(chain.id);
+  const symbol = chain.nativeCurrency.symbol;
   const [isRewardsPending, setRewardsPending] = useState(false);
 
   const handleRewardsClaim = useCallback(async () => {

@@ -747,6 +747,7 @@ function createCosmosService(
   }
 
   async function getFee(message: object, sender: Sender, ethGasPrice: number) {
+    console.log('getFee', { message });
     const totalAmount = Number.parseInt(DEFAULT_FEE.amount);
     const baseGas = Number.parseInt(DEFAULT_FEE.gas);
 
@@ -765,10 +766,8 @@ function createCosmosService(
         params.value.replaceAll('"', ''),
         10,
       );
-
       const gasUsed = Number.parseInt(simResponse.gas_info.gas_used, 10) * 1.1;
-      const gasPrice = ethGasPrice;
-      const gasCost = gasPrice * gasUsed;
+      const gasCost = ethGasPrice * gasUsed;
       const totalFee = gasCost + cosmosBaseFee;
 
       return {
@@ -778,7 +777,10 @@ function createCosmosService(
       };
     } catch (error) {
       console.error((error as Error).message);
-      return DEFAULT_FEE;
+      return {
+        ...DEFAULT_FEE,
+        amount: (totalAmount * baseGas).toString(),
+      };
     }
   }
 

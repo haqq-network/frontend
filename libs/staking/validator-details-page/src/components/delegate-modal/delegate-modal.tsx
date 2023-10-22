@@ -5,6 +5,7 @@ import {
   getFormattedAddress,
   toFixedAmount,
   useStakingActions,
+  useSupportedChains,
   useToast,
 } from '@haqq/shared';
 import {
@@ -21,6 +22,7 @@ import {
 } from '@haqq/shell-ui-kit';
 import { Link } from 'react-router-dom';
 import { useNetwork } from 'wagmi';
+import { formatUnits } from 'viem';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -113,15 +115,17 @@ export function DelegateModal({
   unboundingTime,
   validatorCommission,
 }: DelegateModalProps) {
-  const { delegate } = useStakingActions();
+  const { delegate, getStakingFee } = useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [fee, setFee] = useState<number | undefined>(undefined);
   const [isDelegateEnabled, setDelegateEnabled] = useState(true);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
-  const { chain = { id: 11235 } } = useNetwork();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { explorer } = getChainParams(chain.id);
   const toast = useToast();
 
@@ -135,6 +139,28 @@ export function DelegateModal({
       setDelegateAmount(toFixedAmount(Number.parseFloat(parsedValue), 3));
     }
   }, []);
+
+  useEffect(() => {
+    if (delegateAmount && delegateAmount > 0) {
+      try {
+        getStakingFee(validatorAddress, delegateAmount, 'aISLM').then((fee) => {
+          if (fee) {
+            const estimatedFee = fee.amount;
+            const fixedFeeValue = toFixedAmount(
+              Number.parseFloat(formatUnits(BigInt(estimatedFee), 18)),
+              4,
+            );
+
+            if (fixedFeeValue) {
+              setFee(fixedFeeValue);
+            }
+          }
+        });
+      } catch (error) {
+        console.error((error as Error).message);
+      }
+    }
+  }, [delegateAmount, getStakingFee, validatorAddress]);
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
@@ -203,8 +229,14 @@ export function DelegateModal({
       return <span className="text-islamic-red-500">More than you have</span>;
     }
 
-    return undefined;
-  }, [amountError]);
+    return fee ? (
+      <span className="font-guise select-none pt-[4px] text-[12px] leading-[16px] text-[#0D0D0E80]">
+        Estimated fee: {fee}
+      </span>
+    ) : (
+      <>&nbsp;</>
+    );
+  }, [amountError, fee]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -239,7 +271,7 @@ export function DelegateModal({
                   )} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title="Comission"
+                  title="Commission"
                   value={`${validatorCommission}%`}
                 />
               </div>
