@@ -5,9 +5,11 @@ import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useDistributionPoolQuery() {
   const { getDistributionPool } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery([chainId, 'distribution-pool'], getDistributionPool);
+  return useQuery({
+    queryKey: [chain.id, 'distribution-pool'],
+    queryFn: getDistributionPool,
+  });
 }

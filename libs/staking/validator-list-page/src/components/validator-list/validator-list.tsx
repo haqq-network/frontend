@@ -201,7 +201,7 @@ export function StakingValidatorList() {
             <ValidatorIcon />
             <Heading level={3} className="mb-[-2px] ml-[8px]">
               Validators
-              {status !== 'loading' && (
+              {status !== 'pending' && (
                 <span className="text-white/50">
                   {' '}
                   (<span>{validatorsCounterText}</span>)
@@ -231,7 +231,7 @@ export function StakingValidatorList() {
           </div>
         </div>
 
-        {status === 'loading' && (
+        {status === 'pending' && (
           <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
               <SpinnerLoader />

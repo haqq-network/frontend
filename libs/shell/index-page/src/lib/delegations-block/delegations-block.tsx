@@ -95,7 +95,7 @@ export function DelegationsBlock() {
       </div>
 
       <div>
-        {status === 'loading' && (
+        {status === 'pending' && (
           <div className="pointer-events-none mx-auto flex min-h-[220px] w-full flex-1 select-none">
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
               <SpinnerLoader />
