@@ -22,6 +22,7 @@ import {
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
+import { Hex } from 'viem';
 
 function MyAccountAmountBlock({
   title,
@@ -55,19 +56,46 @@ function MyAccountAmountBlock({
 }
 
 export function MyAccountBlock() {
+  const { ethAddress, haqqAddress } = useAddress();
+  const { openSelectWallet } = useWallet();
+
+  return !ethAddress || !haqqAddress ? (
+    <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px]">
+      <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
+        You should connect wallet first
+      </div>
+      <Button
+        onClick={openSelectWallet}
+        variant={2}
+        className="text-black hover:bg-transparent hover:text-white"
+      >
+        Connect wallet
+      </Button>
+    </div>
+  ) : (
+    <MyAccountConnected ethAddress={ethAddress} haqqAddress={haqqAddress} />
+  );
+}
+
+function MyAccountConnected({
+  ethAddress,
+  haqqAddress,
+}: {
+  ethAddress: Hex;
+  haqqAddress: string;
+}) {
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
   const { copyText } = useClipboard();
-  const { ethAddress, haqqAddress } = useAddress();
-  const { openSelectWallet } = useWallet();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0].id,
+    chainId: chain.id,
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
+
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
   });
@@ -135,20 +163,7 @@ export function MyAccountBlock() {
     }
   }, [copyText, haqqAddress]);
 
-  return !ethAddress ? (
-    <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px]">
-      <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-        You should connect wallet first
-      </div>
-      <Button
-        onClick={openSelectWallet}
-        variant={2}
-        className="text-black hover:bg-transparent hover:text-white"
-      >
-        Connect wallet
-      </Button>
-    </div>
-  ) : (
+  return (
     <Container className="border-y border-y-[#ffffff26]">
       <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
