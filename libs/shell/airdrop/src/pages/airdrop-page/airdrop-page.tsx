@@ -14,6 +14,7 @@ import {
 } from '../../lib/airdrop-cosmos/airdrop-cosmos';
 import { Address } from '../../lib/address/address';
 import { Keplr } from '@keplr-wallet/types';
+import Link from 'next/link';
 
 async function enableChains(keplrWallet: Keplr) {
   await keplrWallet.enable(['haqq_11235-1', 'cosmoshub-4', 'evmos_9001-2']);
@@ -81,7 +82,7 @@ export function AirdropPage({
             <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
               Airdrop
             </div>
-            {targetHexAddress && (
+            {targetHexAddress ? (
               <div className="mt-[8px] flex flex-col gap-[28px] sm:flex-col md:flex-row lg:flex-row">
                 <div>
                   <div className="font-guise text-[11px] uppercase leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
@@ -95,6 +96,29 @@ export function AirdropPage({
                     Your HAQQ address bech32
                   </div>
                   <Address address={ethToHaqq(targetHexAddress)} />
+                </div>
+              </div>
+            ) : (
+              <div className="mt-[8px] flex flex-col gap-[12px]">
+                <div>
+                  Reward distribution is in progress! Your rewards will be on
+                  their way to you shortly. Thank you for your patience and
+                  support.
+                </div>
+
+                <div>
+                  Webpage is specially designed for users who participated in
+                  the 3rd Wave of the HAQQ Expedition on Galaxy, but whose
+                  responses to the "MAIN HAQQ Wallet" prompt weren't saved in
+                  Galxe,{' '}
+                  <Link
+                    target="_blank"
+                    className="text-haqq-orange"
+                    rel="noopener noreferrer"
+                    href=" https://shell.haqq.network/airdrop/revision-address"
+                  >
+                    is avaliabe here.
+                  </Link>
                 </div>
               </div>
             )}
