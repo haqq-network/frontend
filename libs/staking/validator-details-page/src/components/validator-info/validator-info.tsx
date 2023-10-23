@@ -438,7 +438,7 @@ export function ValidatorInfo({
     chainId: chain.id,
   });
   const invalidateQueries = useQueryInvalidate();
-  const { data: validatorInfo, isFetching } =
+  const { data: validatorInfo } =
     useStakingValidatorInfoQuery(validatorAddress);
   const { data: stakingParams } = useStakingParamsQuery();
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
@@ -670,7 +670,7 @@ export function ValidatorInfo({
     ).toFixed(0);
   }, [validatorInfo?.commission.commission_rates.rate]);
 
-  if (isFetching || !validatorInfo) {
+  if (!validatorInfo) {
     return (
       <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
         <SpinnerLoader />

@@ -7,7 +7,7 @@ export function useQueryInvalidate() {
   return useCallback(
     (queries: Array<Array<unknown>>) => {
       for (const queryKey of queries) {
-        queryClient.invalidateQueries(queryKey);
+        queryClient.invalidateQueries({ queryKey });
       }
     },
     [queryClient],

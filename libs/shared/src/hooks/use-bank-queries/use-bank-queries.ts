@@ -5,9 +5,11 @@ import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useBankSupplyQuery() {
   const { getBankSupply } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery([chainId, 'bank-supply'], getBankSupply);
+  return useQuery({
+    queryKey: [chain.id, 'bank-supply'],
+    queryFn: getBankSupply,
+  });
 }

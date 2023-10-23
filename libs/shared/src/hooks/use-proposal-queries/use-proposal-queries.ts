@@ -5,45 +5,40 @@ import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useProposalListQuery() {
   const { getProposals } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery([chainId, 'proposals'], getProposals, {
-    refetchOnWindowFocus: false,
+  return useQuery({
+    queryKey: [chain.id, 'proposals'],
+    queryFn: getProposals,
   });
 }
 
 export function useProposalDetailsQuery(proposalId: string | undefined) {
   const { getProposalDetails } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery(
-    [chainId, 'proposal', proposalId],
-    async () => {
+  return useQuery({
+    queryKey: [chain.id, 'proposal', proposalId],
+    queryFn: async () => {
       if (!proposalId) {
         return null;
       }
 
       return await getProposalDetails(proposalId);
     },
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  });
 }
 
 export function useGovernanceParamsQuery() {
   const { getGovernanceParams } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery(
-    [chainId, 'governance-params'],
-    async () => {
+  return useQuery({
+    queryKey: [chain.id, 'governance-params'],
+    queryFn: async () => {
       const [deposit_params, voting_params, tally_params] = await Promise.all([
         getGovernanceParams('deposit').then((res) => {
           return res.deposit_params;
@@ -62,47 +57,38 @@ export function useGovernanceParamsQuery() {
         tally_params,
       };
     },
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  });
 }
 
 export function useProposalTally(proposalId: string | undefined) {
   const { getProposalTally } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery(
-    [chainId, 'proposal-tally', proposalId],
-    async () => {
+  return useQuery({
+    queryKey: [chain.id, 'proposal-tally', proposalId],
+    queryFn: async () => {
       if (!proposalId) {
         return null;
       }
 
       return await getProposalTally(proposalId);
     },
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  });
 }
 
 export function useProposalTallys(proposalIds: string[] = []) {
   const { getProposalTally } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
   return useQueries({
-    queries: proposalIds.map((id) => {
+    queries: proposalIds.map((proposalId) => {
       return {
-        queryKey: [chainId, 'proposal-tally', id],
+        queryKey: [chain.id, 'proposal-tally', proposalId],
         queryFn: async () => {
-          return await getProposalTally(id);
+          return await getProposalTally(proposalId);
         },
-        refetchOnWindowFocus: false,
       };
     }),
   });
