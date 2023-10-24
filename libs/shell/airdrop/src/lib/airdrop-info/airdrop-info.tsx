@@ -6,7 +6,12 @@ import { Hex, isAddress } from 'viem';
 import * as yup from 'yup';
 import { HookedFormInput } from '@haqq/haqq-website/forms';
 import { ethToHaqq, haqqToEth, usePersonalSign } from '@haqq/shared';
-import { Button, Heading, InformationModal } from '@haqq/shell-ui-kit';
+import {
+  Button,
+  Heading,
+  InformationModal,
+  formatDate,
+} from '@haqq/shell-ui-kit';
 import { Address } from '../address/address';
 
 interface IAddressFormField {
@@ -18,16 +23,6 @@ interface IWalletInfo {
   created_at: string;
   updated_at: string;
   id: string;
-}
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  }).format(date);
 }
 
 function validAddressChecker(address?: string) {
