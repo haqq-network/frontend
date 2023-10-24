@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 export function StakedVestedBalance({
   staked,
   vested,
@@ -5,19 +6,29 @@ export function StakedVestedBalance({
   staked: number;
   vested: number;
 }) {
+  const { vestedPercent, stakedPercent } = useMemo(() => {
+    const all = vested + staked;
+    const vestedPercent = (vested / all) * 100;
+    const stakedPercent = (staked / all) * 100;
+    return {
+      vestedPercent,
+      stakedPercent,
+    };
+  }, [vested, staked]);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row gap-[4px]">
         {staked > 0 && (
           <div
             className="h-[6px] min-w-[6px] rounded-[4px] bg-[#0489D4]"
-            style={{ width: `${staked}%` }}
+            style={{ width: `${stakedPercent}%` }}
           />
         )}
         {vested > 0 && (
           <div
             className="h-[6px] min-w-[6px] rounded-[4px] bg-[#E3A13F]"
-            style={{ width: `${vested}%` }}
+            style={{ width: `${vestedPercent}%` }}
           />
         )}
       </div>
