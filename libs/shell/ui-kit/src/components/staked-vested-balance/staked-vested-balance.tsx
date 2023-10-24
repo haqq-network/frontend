@@ -7,10 +7,7 @@ export function StakedVestedBalance({
 }) {
   return (
     <div className="flex flex-col">
-      <div
-        className="flex flex-row gap-[4px]"
-        style={{ maxWidth: `${staked}+${vested}%` }}
-      >
+      <div className="flex flex-row gap-[4px]">
         {staked > 0 && (
           <div
             className="h-[6px] min-w-[6px] rounded-[4px] bg-[#0489D4]"
