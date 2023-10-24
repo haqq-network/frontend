@@ -11,13 +11,48 @@ export interface VoteResults {
   no_with_veto: string;
 }
 
+export enum VoteOption {
+  VOTE_OPTION_UNSPECIFIED = 0,
+  VOTE_OPTION_YES = 1,
+  VOTE_OPTION_ABSTAIN = 2,
+  VOTE_OPTION_NO = 3,
+  VOTE_OPTION_NO_WITH_VETO = 4,
+  UNRECOGNIZED = -1,
+}
+
+export function voteOptionFromJSON(
+  object: string | number | null | undefined,
+): VoteOption {
+  switch (object) {
+    case 0:
+    case 'VOTE_OPTION_UNSPECIFIED':
+      return VoteOption.VOTE_OPTION_UNSPECIFIED;
+    case 1:
+    case 'VOTE_OPTION_YES':
+      return VoteOption.VOTE_OPTION_YES;
+    case 2:
+    case 'VOTE_OPTION_ABSTAIN':
+      return VoteOption.VOTE_OPTION_ABSTAIN;
+    case 3:
+    case 'VOTE_OPTION_NO':
+      return VoteOption.VOTE_OPTION_NO;
+    case 4:
+    case 'VOTE_OPTION_NO_WITH_VETO':
+      return VoteOption.VOTE_OPTION_NO_WITH_VETO;
+    case -1:
+    case 'UNRECOGNIZED':
+    default:
+      return VoteOption.UNRECOGNIZED;
+  }
+}
+
 export function ProposalVoteProgress({
   results,
-  voteOption,
+  userVote,
   status,
 }: {
   results: VoteResults;
-  voteOption?: string;
+  userVote?: string | null;
   status?: string;
 }): ReactElement {
   const { yes, abstain, no, veto, total } = useMemo(() => {
@@ -34,6 +69,7 @@ export function ProposalVoteProgress({
       total: yes + abstain + no + veto,
     };
   }, [results]);
+
   const [yesPercents, abstainPercents, noPercents, vetoPercents] =
     useMemo(() => {
       if (total === 0) {
@@ -57,17 +93,31 @@ export function ProposalVoteProgress({
               ? 'Voting status'
               : 'Voting results'}
           </CardText>
-          {voteOption && (
+          {userVote && (
             <div className="inline-flex space-x-[6px]">
               <CardSubText className="text-white/50">You voted:</CardSubText>
-              <CardSubText
-                className={clsx(
-                  voteOption === 'YES' && 'text-[#01B26E]',
-                  voteOption === 'NO' && 'text-[#FF5454]',
-                )}
-              >
-                {voteOption}
-              </CardSubText>
+              {voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES && (
+                <CardSubText className="uppercase text-[#01B26E]">
+                  Yes
+                </CardSubText>
+              )}
+              {voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO && (
+                <CardSubText className="uppercase text-[#FF5454]">
+                  No
+                </CardSubText>
+              )}
+              {voteOptionFromJSON(userVote) ===
+                VoteOption.VOTE_OPTION_NO_WITH_VETO && (
+                <CardSubText className="uppercase text-[#E3A13F]">
+                  No with veto
+                </CardSubText>
+              )}
+              {voteOptionFromJSON(userVote) ===
+                VoteOption.VOTE_OPTION_ABSTAIN && (
+                <CardSubText className="uppercase text-[#AAABB2]">
+                  Abstain
+                </CardSubText>
+              )}
             </div>
           )}
         </div>

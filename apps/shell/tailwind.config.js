@@ -24,6 +24,9 @@ module.exports = {
       boxShadow: {
         ...tailwindThemeExtend.boxShadow,
       },
+      screens: {
+        '3xl': '2048px',
+      },
     },
   },
   plugins: [typographyPlugin],

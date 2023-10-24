@@ -10,11 +10,13 @@ export function ProposalListCard({
   govParams,
   symbol,
   proposalTally,
+  userVote,
 }: {
   proposal: Proposal;
   govParams: GetGovernanceParamsResponse;
   symbol: string;
   proposalTally: TallyResults;
+  userVote?: string | null;
 }): ReactElement {
   const totalDeposit = useMemo(() => {
     if (!proposal.total_deposit[0]) {
@@ -48,6 +50,7 @@ export function ProposalListCard({
       results={proposalTally}
       symbol={symbol}
       type={getProposalTypeText(proposal.content['@type'])}
+      userVote={userVote}
     />
   );
 }

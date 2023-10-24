@@ -80,6 +80,11 @@ export interface CosmosService {
     initialInterval?: number,
     maxAttempts?: number,
   ) => Promise<TransactionStatusResponse | null>;
+  getProposalVotes: (
+    proposalId: string,
+    voterAddress: string,
+  ) => Promise<string | null>;
+  // getVotes: (voterAddress: string) => Promise<unknown>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -169,6 +174,18 @@ function generateEndpointAuthzGranterGrants(granter: string) {
 function generateEndpointAuthzGranteeGrants(grantee: string) {
   return `/cosmos/authz/v1beta1/grants/grantee/${grantee}`;
 }
+
+function generateEndpointProposalVotes(
+  proposalId: string,
+  voterAddress: string,
+) {
+  return `/cosmos/gov/v1beta1/proposals/${proposalId}/votes/${voterAddress}`;
+}
+
+// NOTE: Not implemented in our backend
+// function generateEndpointVotes(voterAddress: string) {
+//   return `/cosmos/group/v1/votes_by_voter/${voterAddress}`;
+// }
 
 export interface StakingParams {
   bond_denom: string;
@@ -325,6 +342,20 @@ type AccountInfoResponse<A = BaseAccount> = {
 export type TransactionStatusResponse = {
   tx_response: BroadcastTxResponse;
 };
+
+export interface ProposalVoteResponse {
+  vote: {
+    proposal_id: string;
+    voter: string;
+    option: string;
+    options: [
+      {
+        option: string;
+        weight: string;
+      },
+    ];
+  };
+}
 
 function createCosmosService(
   cosmosRestEndpoint: string,
@@ -693,6 +724,38 @@ function createCosmosService(
     return await retry();
   }
 
+  async function getProposalVotes(proposalId: string, voterAddress: string) {
+    const votesRequestUrl = new URL(
+      generateEndpointProposalVotes(proposalId, voterAddress),
+      cosmosRestEndpoint,
+    );
+    const response = await axios.get<ProposalVoteResponse>(
+      votesRequestUrl.toString(),
+    );
+    console.log('getProposalVotes', { response });
+
+    if (!response.data.vote?.options[0]) {
+      return null;
+    }
+
+    return response.data.vote?.options[0].option;
+  }
+
+  // async function getVotes(voterAddress: string) {
+  //   const votesRequestUrl = new URL(
+  //     generateEndpointVotes(voterAddress),
+  //     cosmosRestEndpoint,
+  //   );
+  //   const response = await axios.get(votesRequestUrl.toString());
+  //   console.log('getVotes', { response });
+
+  //   if (!response.data.vote?.options[0]) {
+  //     return null;
+  //   }
+
+  //   return response;
+  // }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -719,6 +782,8 @@ function createCosmosService(
     getAccountBaseInfo,
     getBankBalances,
     getTransactionStatus,
+    getProposalVotes,
+    // getVotes,
   };
 }
 

@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 import { useNetwork } from 'wagmi';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
@@ -60,7 +60,7 @@ export function useGovernanceParamsQuery() {
   });
 }
 
-export function useProposalTally(proposalId: string | undefined) {
+export function useProposalTallyQuery(proposalId: string | undefined) {
   const { getProposalTally } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -77,7 +77,7 @@ export function useProposalTally(proposalId: string | undefined) {
   });
 }
 
-export function useProposalTallys(proposalIds: string[] = []) {
+export function useProposalTallysQuery(proposalIds: string[] = []) {
   const { getProposalTally } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -93,3 +93,74 @@ export function useProposalTallys(proposalIds: string[] = []) {
     }),
   });
 }
+
+export function useProposalVoteQuery(
+  proposalId: string,
+  voterAddress: string | undefined,
+): UseQueryResult<string | null, Error> {
+  const { getProposalVotes } = useCosmosService();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+
+  return useQuery({
+    queryKey: [chain.id, 'proposal-votes', proposalId, voterAddress],
+    queryFn: async () => {
+      if (!voterAddress) {
+        return null;
+      }
+
+      try {
+        return await getProposalVotes(proposalId, voterAddress);
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    },
+  });
+}
+
+export function useProposalVotesQuery(
+  proposalIds: string[],
+  voterAddress: string | undefined,
+) {
+  const { getProposalVotes } = useCosmosService();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+
+  return useQueries({
+    queries: proposalIds.map((proposalId) => {
+      return {
+        queryKey: [chain.id, 'proposal-votes', proposalId, voterAddress],
+        queryFn: async () => {
+          if (!voterAddress) {
+            return null;
+          }
+
+          return await getProposalVotes(proposalId, voterAddress);
+        },
+      };
+    }),
+  });
+}
+
+// export function useProposalVotesQuery(voterAddress: string | undefined) {
+//   const { getVotes } = useCosmosService();
+//   const chains = useSupportedChains();
+//   const { chain = chains[0] } = useNetwork();
+
+//   return useQuery({
+//     queryKey: [chain.id, 'votes', voterAddress],
+//     queryFn: async () => {
+//       if (!voterAddress) {
+//         return null;
+//       }
+
+//       try {
+//         return await getVotes(voterAddress);
+//       } catch (error) {
+//         console.error(error);
+//         return null;
+//       }
+//     },
+//   });
+// }
