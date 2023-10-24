@@ -21,12 +21,8 @@ export const vcrFont = localFont({
       path: './public/assets/fonts/vcr_osd_mono.woff2',
       style: 'normal',
     },
-    {
-      path: './public/assets/fonts/vcr_osd_mono.woff2',
-      style: 'normal',
-    },
   ],
-  weight: '400,600',
+  weight: '400',
   display: 'swap',
   variable: '--font-vcr',
 });
