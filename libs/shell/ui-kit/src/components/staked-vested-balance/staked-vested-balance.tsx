@@ -2,9 +2,11 @@ import { useMemo } from 'react';
 export function StakedVestedBalance({
   staked,
   vested,
+  symbol,
 }: {
   staked: number;
   vested: number;
+  symbol: string;
 }) {
   const { vestedPercent, stakedPercent } = useMemo(() => {
     const all = vested + staked;
@@ -15,6 +17,10 @@ export function StakedVestedBalance({
       stakedPercent,
     };
   }, [vested, staked]);
+
+  if (vested === 0 && staked === 0) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col">
@@ -35,12 +41,12 @@ export function StakedVestedBalance({
       <div className="flex select-none flex-col justify-between pt-[4px]">
         {vested > 0 && (
           <div className="text-[12px] font-[500] leading-[18px] text-[#E3A13F]">
-            Vested: {vested}
+            Vested: {vested} {symbol}
           </div>
         )}
         {staked > 0 && (
           <div className="text-[12px] font-[500] leading-[18px] text-[#0489D4]">
-            Staked: {staked}
+            Staked: {staked} {symbol}
           </div>
         )}
       </div>
