@@ -55,3 +55,4 @@ export * from './utils/is-number';
 export * from './components/low-balance-alert/low-balance-alert';
 export * from './components/select/select';
 export * from './components/validator-status/validator-status';
+export * from './components/staked-vested-balance/staked-vested-balance';
