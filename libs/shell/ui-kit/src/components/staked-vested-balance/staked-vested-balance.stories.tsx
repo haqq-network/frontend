@@ -4,9 +4,6 @@ import { StakedVestedBalance as StakedVestedBalanceComponent } from './staked-ve
 const meta: Meta<typeof StakedVestedBalanceComponent> = {
   component: StakedVestedBalanceComponent,
   title: 'shell/ui-kit/Staked Vested Balance',
-  parameters: {
-    layout: 'centered',
-  },
 };
 
 export default meta;
