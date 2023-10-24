@@ -18,16 +18,15 @@ export const handjetFont = Handjet({
 export const vcrFont = localFont({
   src: [
     {
-      path: './public/assets/fonts/vcr_osd_mono.woff',
-      weight: '400',
+      path: './public/assets/fonts/vcr_osd_mono.woff2',
       style: 'normal',
     },
     {
       path: './public/assets/fonts/vcr_osd_mono.woff2',
-      weight: '600',
       style: 'normal',
     },
   ],
+  weight: '400,600',
   display: 'swap',
   variable: '--font-vcr',
 });
