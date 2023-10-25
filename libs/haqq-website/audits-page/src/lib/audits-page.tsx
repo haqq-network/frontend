@@ -1,7 +1,7 @@
 import { Heading } from '@haqq/haqq-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
-import halbornLogoImgData from '../assets/images/halborn-logo.png';
+import halbornLogoImgData from '../assets/images/halborn-logo.svg';
 import linesBgImgData from '../assets/images/lines.svg';
 import clsx from 'clsx';
 
