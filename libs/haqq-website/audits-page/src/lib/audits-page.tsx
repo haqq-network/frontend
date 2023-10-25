@@ -1,10 +1,14 @@
 import { Heading } from '@haqq/haqq-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
-import halbornLogoImgData from '../assets/images/halbord-logo.svg';
+import halbornLogoImgData from '../assets/images/halborn-logo.png';
+import linesBgImgData from '../assets/images/lines.svg';
+import clsx from 'clsx';
 
 interface Auditor {
-  image: string;
+  logoUrl: string;
+  logoHeight: number;
+  logoWidth: number;
   name: string;
   report: string;
 }
@@ -15,6 +19,16 @@ export function AuditsPage() {
       <div className="sunrise-background relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]">
         <div className="font-serif text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
           Audits
+        </div>
+        <div
+          className={clsx(
+            'absolute bottom-0 right-[50%] z-[-1] h-[325px] w-[897px] translate-x-[62%] translate-y-[11%]',
+            'md:translate-x-[82%] md:translate-y-[-17%]',
+            'lg:translate-x-[108%] lg:translate-y-[-23%]',
+            '2xl:translate-x-[100%]',
+          )}
+        >
+          <Image src={linesBgImgData} fill alt="" />
         </div>
       </div>
       <div className="text-haqq-black flex flex-col bg-white px-[16px] py-[68px] md:px-[48px] md:pb-[130px] md:pt-[100px] lg:px-[80px] lg:py-[140px]">
@@ -31,21 +45,25 @@ export function AuditsPage() {
             provide you with the most secure solutions
           </div>
         </div>
-        <div className="mt-[28px] grid grid-cols-1 md:mt-[42px] md:grid-cols-2 lg:mt-[80px] lg:grid-cols-3">
-          <AuditCard image={halbornLogoImgData} name="Halborn" report="as/s" />
+        <div className="mt-[28px] grid grid-cols-1 gap-[28px] md:mt-[42px] md:grid-cols-2 lg:mt-[80px] lg:grid-cols-3">
+          <AuditCard
+            logoUrl={halbornLogoImgData}
+            logoHeight={42}
+            logoWidth={234}
+            name="Halborn"
+            report="/fake.txt"
+          />
         </div>
       </div>
     </section>
   );
 }
 
-function AuditCard({ image, name, report }: Auditor) {
+function AuditCard({ logoUrl, logoHeight, logoWidth, name, report }: Auditor) {
   return (
     <div className="flex flex-col border border-[#0D0D0E4D] p-[20px]">
-      <div className="self-center px-[44px] py-[100px] md:px-[28px] lg:px-[8px] 2xl:px-[68px]">
-        <div className="relative h-[38px] w-[234px]">
-          <Image src={image} alt={name} fill />
-        </div>
+      <div className="relative self-center px-[44px] py-[100px] md:px-[28px] lg:px-[8px] 2xl:px-[68px]">
+        <Image src={logoUrl} alt={name} width={logoWidth} height={logoHeight} />
       </div>
       <div className="text-haqq-black text-[12px] leading-[18px]">
         {name} audit
@@ -53,6 +71,8 @@ function AuditCard({ image, name, report }: Auditor) {
       <Link
         className="text-haqq-orange hover:text-haqq-light-orange mt-[12px] flex w-fit flex-row items-center gap-x-[4px] text-[14px] font-[500] uppercase leading-[22px] transition-colors duration-300"
         href={report}
+        target="_blank"
+        rel="noopener noreferrer"
         download
       >
         <svg
