@@ -173,7 +173,7 @@ export function ShellIndexPageDelegationList() {
           </div>
         </div>
 
-        {status === 'loading' && (
+        {status === 'pending' && (
           <div className="flex flex-col items-center justify-center space-y-8 p-20">
             <SpinnerLoader />
             <div className="block text-base">Fetching validators list</div>

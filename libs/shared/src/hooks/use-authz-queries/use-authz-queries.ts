@@ -5,51 +5,39 @@ import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useAuthzGrantsQuery(granter: string, grantee: string) {
   const { getAuthzGrants } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery(
-    [chainId, 'grants', granter, grantee],
-    async () => {
+  return useQuery({
+    queryKey: [chain.id, 'grants', granter, grantee],
+    queryFn: async () => {
       return await getAuthzGrants(granter, grantee);
     },
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  });
 }
 
 export function useAuthzGranterGrants(granter: string) {
   const { getAuthzGranterGrants } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery(
-    [chainId, 'grants-granter', granter],
-    async () => {
+  return useQuery({
+    queryKey: [chain.id, 'grants-granter', granter],
+    queryFn: async () => {
       return await getAuthzGranterGrants(granter);
     },
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  });
 }
 
 export function useAuthzGranteeGrants(grantee: string) {
   const { getAuthzGranteeGrants } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery(
-    [chainId, 'grants-grantee', grantee],
-    async () => {
+  return useQuery({
+    queryKey: [chain.id, 'grants-grantee', grantee],
+    queryFn: async () => {
       return await getAuthzGranteeGrants(grantee);
     },
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  });
 }

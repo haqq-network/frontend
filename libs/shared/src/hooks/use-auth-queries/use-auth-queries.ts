@@ -5,9 +5,11 @@ import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useAuthAccountsQuery() {
   const { getAuthAccounts } = useCosmosService();
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const chainId = chain?.id ?? chains[0].id;
+  const { chain = chains[0] } = useNetwork();
 
-  return useQuery([chainId, 'auth-accounts'], getAuthAccounts);
+  return useQuery({
+    queryKey: [chain.id, 'auth-accounts'],
+    queryFn: getAuthAccounts,
+  });
 }

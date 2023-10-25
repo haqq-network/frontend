@@ -823,7 +823,7 @@ function ProposalActionsMobile({
 }
 
 function ProposalInfo({ proposalId }: { proposalId: string }) {
-  const { data: proposalDetails, isFetching } =
+  const { data: proposalDetails, isFetched } =
     useProposalDetailsQuery(proposalId);
   const { data: proposalTally } = useProposalTally(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
@@ -831,11 +831,11 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
   const { chain } = useNetwork();
   const chains = useSupportedChains();
 
-  if (!proposalDetails && !isFetching) {
+  if (isFetched && !proposalDetails) {
     return <Navigate to="/not-found" replace />;
   }
 
-  return isFetching || !proposalDetails || !proposalTally || !govParams ? (
+  return !proposalDetails || !proposalTally || !govParams ? (
     <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
       <SpinnerLoader />
       <div className="font-sans text-[10px] uppercase leading-[1.2em]">
