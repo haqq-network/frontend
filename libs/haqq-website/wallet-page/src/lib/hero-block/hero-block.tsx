@@ -186,9 +186,8 @@ export function HeroBlock() {
         <div className="flex flex-1 justify-center">
           <Image
             alt="HAQQ Wallet"
-            src={iphoneWalletScreenshotData.src}
-            width={383}
-            height={718}
+            src={iphoneWalletScreenshotData}
+            className="max-w-[400px]"
           />
         </div>
       </div>

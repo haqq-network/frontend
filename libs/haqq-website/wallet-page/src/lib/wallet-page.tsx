@@ -71,7 +71,7 @@ export function WalletPage() {
       </header>
 
       <div className="absolute left-[50%] z-[-1] w-[120%] min-w-[1600px] translate-x-[-50%]">
-        <Image alt="" src={walletImageData} />
+        <Image alt="" src={walletImageData} className="w-full" />
       </div>
 
       <HeroBlock />
