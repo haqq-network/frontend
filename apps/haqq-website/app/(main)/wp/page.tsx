@@ -19,8 +19,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
-  const whitepaper = await getWhitepaper();
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
+  const whitepaper = await getWhitepaper(locale);
 
   return <WhitepaperPage whitepaper={whitepaper} />;
 }

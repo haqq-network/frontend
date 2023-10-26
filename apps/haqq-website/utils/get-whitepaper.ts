@@ -3,14 +3,14 @@ import { cache } from 'react';
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getWhitepaper = cache(async () => {
+export const getWhitepaper = cache(async (locale: string) => {
   try {
     const response = await fetch(`${FALCONER_ENDPOINT}/islamic/wp`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ locale }),
       next: {
         revalidate,
       },
