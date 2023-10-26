@@ -127,7 +127,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
             <nav className="grid grid-cols-1 gap-[8px] sm:grid-cols-2 sm:gap-[12px] lg:grid-cols-1">
               <div className="leading-[0]">
                 <FooterNavSocialLink
-                  href="https://discord.gg/islamiccoin"
+                  href="https://discord.gg/CDtXuQG3Vd"
                   icon={
                     <DiscordIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
                   }
