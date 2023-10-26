@@ -26,7 +26,7 @@ export const getChainStats = cache(async () => {
 
   return {
     mainnetAccountsCreated,
-    transactionsInLast24Hours: 210000,
+    transactionsInLast24Hours: 15000,
     secondsToConsensusFinality: 5.6,
     averageCostPerTransaction: 147,
     era: 1,
