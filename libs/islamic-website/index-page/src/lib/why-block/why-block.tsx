@@ -165,7 +165,7 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
   const stats = useMemo<ChainStats>(() => {
     return {
       mainnetAccountsCreated: mainnetAccounts,
-      transactionsInLast24Hours: 210000,
+      transactionsInLast24Hours: 15000,
       secondsToConsensusFinality: 5.6,
       averageCostPerTransaction: 0.0005,
     };
