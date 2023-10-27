@@ -13,7 +13,6 @@ export const getHomePageContent = cache(
     executiveMembers: Member[];
     shariahMembers: Member[];
     news: NewsPost[];
-    mainnet_accounts: number;
   }> => {
     try {
       const response = await fetch(`${FALCONER_ENDPOINT}/islamic/home`, {
@@ -33,7 +32,6 @@ export const getHomePageContent = cache(
           executiveMembers: data.members.executive_members,
           shariahMembers: data.members.shariah_members,
           news: mappedNews,
-          mainnet_accounts: data.mainnet_accounts,
         };
       } else {
         console.log('Response was not ok.', response);
@@ -46,7 +44,6 @@ export const getHomePageContent = cache(
       executiveMembers: [],
       shariahMembers: [],
       news: [],
-      mainnet_accounts: 2523623,
     };
   },
 );
