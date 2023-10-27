@@ -1,6 +1,6 @@
 'use client';
 import { useInViewport } from 'react-in-viewport';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './statistics-block.module.css';
 import clsx from 'clsx';
 import { MemoizedAnimatedNumbers } from '@haqq/haqq-website-ui-kit';
@@ -71,11 +71,46 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
     { disconnectOnLeave: true },
   );
 
+  const {
+    averageCostPerTransaction,
+    emissionRate,
+    emittedAlready,
+    era,
+    mainnetAccountsCreated,
+    secondsToConsensusFinality,
+    transactionsInLast24Hours,
+    willBeEmitted,
+  } = stats;
+
   useEffect(() => {
     if (inViewport && !startAnimation) {
       setStartAnimation(true);
     }
   }, [inViewport, startAnimation]);
+
+  const memoizedStats = useMemo(() => {
+    return {
+      mainnetAccountsCreated,
+      transactionsInLast24Hours,
+      secondsToConsensusFinality,
+      averageCostPerTransaction,
+      era,
+      emissionRate,
+      emittedAlready,
+      willBeEmitted,
+    };
+  }, [
+    averageCostPerTransaction,
+    emissionRate,
+    emittedAlready,
+    era,
+    mainnetAccountsCreated,
+    secondsToConsensusFinality,
+    transactionsInLast24Hours,
+    willBeEmitted,
+  ]);
+
+  console.log({ memoizedStats });
 
   if (stats === undefined) {
     return null;
@@ -89,45 +124,45 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
       >
         <div className="grid grid-cols-1 gap-[24px] py-[42px] sm:grid-cols-2 sm:px-[32px] sm:py-[60px] xl:grid-cols-4">
           <StatisticsBlockStatCard
-            value={stats.mainnetAccountsCreated}
+            value={memoizedStats.mainnetAccountsCreated}
             title="mainnet accounts created"
             startAnimation={startAnimation}
           />
           <StatisticsBlockStatCard
-            value={stats.transactionsInLast24Hours}
+            value={memoizedStats.transactionsInLast24Hours}
             title="transactions in the last 24 hours"
             startAnimation={startAnimation}
             prefix="~"
           />
           <StatisticsBlockStatCard
-            value={stats.secondsToConsensusFinality}
+            value={memoizedStats.secondsToConsensusFinality}
             title="seconds to consensus finality"
             startAnimation={startAnimation}
             prefix="~"
           />
           <StatisticsBlockStatCard
-            value={stats.averageCostPerTransaction}
+            value={memoizedStats.averageCostPerTransaction}
             title="average cost per transaction"
             startAnimation={startAnimation}
             postfix="aISLM"
           />
           <StatisticsBlockStatCard
-            value={stats.era}
+            value={memoizedStats.era}
             title="era"
             startAnimation={startAnimation}
           />
           <StatisticsBlockStatCard
-            value={stats.emissionRate}
+            value={memoizedStats.emissionRate}
             title="emission rate"
             startAnimation={startAnimation}
           />
           <StatisticsBlockStatCard
-            value={stats.emittedAlready}
+            value={memoizedStats.emittedAlready}
             title="emitted already"
             startAnimation={startAnimation}
           />
           <StatisticsBlockStatCard
-            value={stats.willBeEmitted}
+            value={memoizedStats.willBeEmitted}
             title="will be emitted"
             startAnimation={startAnimation}
           />
