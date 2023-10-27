@@ -4,7 +4,7 @@ import { JoinCommunityBlock } from '../join-community-block/join-community-block
 import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block';
 import { NewsBlock } from '../news-block/news-block';
 import { PortfolioBlock } from '../portfolio-block/portfolio-block';
-import { WhyBlock } from '../why-block/why-block';
+import { ChainStats, WhyBlock } from '../why-block/why-block';
 import { Fragment, PropsWithChildren } from 'react';
 import { Marquee } from '../marquee/marquee';
 import { Container, Member, NewsPost } from '@haqq/islamic-website-ui-kit';
@@ -19,19 +19,17 @@ export function IndexPage({
   advisoryMembers,
   shariahMembers,
   executiveMembers,
-  mainnetAccounts,
-  locale,
+  chainStats,
 }: {
   news?: NewsPost[];
   advisoryMembers: Member[];
   shariahMembers: Member[];
   executiveMembers: Member[];
-  mainnetAccounts: number;
-  locale: string;
+  chainStats: ChainStats;
 }) {
   return (
     <Fragment>
-      <Hero mainnetAccounts={mainnetAccounts} />
+      <Hero chainStats={chainStats} />
       <FundsBlock />
       <FinanceBlock />
       <NewsBlock news={news} />
@@ -47,7 +45,7 @@ export function IndexPage({
   );
 }
 
-function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
+function Hero({ chainStats }: { chainStats: ChainStats }) {
   const t = useTranslations('index-page.hero-block');
   return (
     <HeroBg>
@@ -58,7 +56,7 @@ function Hero({ mainnetAccounts }: { mainnetAccounts: number }) {
           {t('running-text').toLocaleUpperCase()}
         </Marquee>
 
-        <WhyBlock mainnetAccounts={mainnetAccounts} />
+        <WhyBlock chainStats={chainStats} />
       </Container>
     </HeroBg>
   );

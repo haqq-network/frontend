@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
 import { DEPLOY_URL } from '../../constants';
 import { getHomePageContent } from '../../utils/get-index-page-data';
+import { getChainStatsData } from '../../utils/get-chain-stats-data';
 
 const title = 'IslamicCoin';
 const description =
@@ -29,18 +30,14 @@ export default async function Page(props: PageProps) {
     params: { locale },
   } = props;
 
-  const {
-    news,
-    mainnet_accounts,
-    advisoryMembers,
-    executiveMembers,
-    shariahMembers,
-  } = await getHomePageContent(locale);
+  const chainStats = await getChainStatsData();
+
+  const { news, advisoryMembers, executiveMembers, shariahMembers } =
+    await getHomePageContent(locale);
 
   return (
     <IndexPage
-      locale={locale}
-      mainnetAccounts={mainnet_accounts}
+      chainStats={chainStats}
       news={news}
       advisoryMembers={advisoryMembers}
       executiveMembers={executiveMembers}

@@ -154,7 +154,16 @@ export function StatisticsBlockStatCard({
   );
 }
 
-export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
+export function WhyBlock({
+  chainStats: {
+    averageCostPerTransaction,
+    mainnetAccountsCreated,
+    secondsToConsensusFinality,
+    transactionsInLast24Hours,
+  },
+}: {
+  chainStats: ChainStats;
+}) {
   const [startAnimation, setStartAnimation] = useState(true);
   const blockRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(
@@ -164,12 +173,19 @@ export function WhyBlock({ mainnetAccounts }: { mainnetAccounts: number }) {
   );
   const stats = useMemo<ChainStats>(() => {
     return {
-      mainnetAccountsCreated: mainnetAccounts,
-      transactionsInLast24Hours: 15000,
-      secondsToConsensusFinality: 5.6,
-      averageCostPerTransaction: 0.0005,
+      mainnetAccountsCreated,
+      transactionsInLast24Hours,
+      secondsToConsensusFinality,
+      averageCostPerTransaction,
     };
-  }, [mainnetAccounts]);
+  }, [
+    averageCostPerTransaction,
+    mainnetAccountsCreated,
+    secondsToConsensusFinality,
+    transactionsInLast24Hours,
+  ]);
+
+  console.log({ stats });
 
   useEffect(() => {
     if (inViewport && !startAnimation) {
