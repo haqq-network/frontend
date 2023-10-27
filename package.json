@@ -54,7 +54,7 @@
     "@wagmi/core": "1.4.3",
     "@walletconnect/modal": "2.6.2",
     "@web3modal/standalone": "2.4.3",
-    "axios": "1.5.1",
+    "axios": "1.6.0",
     "bech32": "2.0.0",
     "clsx": "2.0.0",
     "core-js": "3.33.0",
