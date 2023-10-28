@@ -276,8 +276,7 @@ export function WhyBlock({
             title={t('counters.statistic-card.fourth')}
             startAnimation={startAnimation}
             prefix="~"
-            postfix="ISLM"
-            decimalPlaces={4}
+            postfix="aISLM"
           />
         </div>
       </div>
