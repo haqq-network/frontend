@@ -30,14 +30,14 @@ export default async function Page(props: PageProps) {
     params: { locale },
   } = props;
 
-  const chainStats = await getChainStatsData();
+  const stats = await getChainStatsData();
 
   const { news, advisoryMembers, executiveMembers, shariahMembers } =
     await getHomePageContent(locale);
 
   return (
     <IndexPage
-      chainStats={chainStats}
+      stats={stats}
       news={news}
       advisoryMembers={advisoryMembers}
       executiveMembers={executiveMembers}

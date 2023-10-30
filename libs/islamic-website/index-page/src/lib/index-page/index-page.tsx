@@ -19,17 +19,17 @@ export function IndexPage({
   advisoryMembers,
   shariahMembers,
   executiveMembers,
-  chainStats,
+  stats,
 }: {
   news?: NewsPost[];
   advisoryMembers: Member[];
   shariahMembers: Member[];
   executiveMembers: Member[];
-  chainStats: ChainStats;
+  stats: ChainStats;
 }) {
   return (
     <Fragment>
-      <Hero chainStats={chainStats} />
+      <Hero stats={stats} />
       <FundsBlock />
       <FinanceBlock />
       <NewsBlock news={news} />
@@ -45,7 +45,7 @@ export function IndexPage({
   );
 }
 
-function Hero({ chainStats }: { chainStats: ChainStats }) {
+function Hero({ stats }: { stats: ChainStats }) {
   const t = useTranslations('index-page.hero-block');
   return (
     <HeroBg>
@@ -56,7 +56,7 @@ function Hero({ chainStats }: { chainStats: ChainStats }) {
           {t('running-text').toLocaleUpperCase()}
         </Marquee>
 
-        <WhyBlock chainStats={chainStats} />
+        <WhyBlock stats={stats} />
       </Container>
     </HeroBg>
   );
