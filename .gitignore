@@ -51,3 +51,4 @@ package-lock.json
 
 # Next.js
 .next
+.nx/cache
