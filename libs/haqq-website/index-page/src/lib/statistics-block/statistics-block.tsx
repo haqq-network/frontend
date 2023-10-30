@@ -110,8 +110,6 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
     willBeEmitted,
   ]);
 
-  console.log({ memoizedStats });
-
   if (stats === undefined) {
     return null;
   }

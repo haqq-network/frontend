@@ -154,16 +154,7 @@ export function StatisticsBlockStatCard({
   );
 }
 
-export function WhyBlock({
-  chainStats: {
-    averageCostPerTransaction,
-    mainnetAccountsCreated,
-    secondsToConsensusFinality,
-    transactionsInLast24Hours,
-  },
-}: {
-  chainStats: ChainStats;
-}) {
+export function WhyBlock({ stats }: { stats: ChainStats }) {
   const [startAnimation, setStartAnimation] = useState(true);
   const blockRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(
@@ -171,7 +162,15 @@ export function WhyBlock({
     {},
     { disconnectOnLeave: true },
   );
-  const stats = useMemo<ChainStats>(() => {
+
+  const {
+    averageCostPerTransaction,
+    mainnetAccountsCreated,
+    secondsToConsensusFinality,
+    transactionsInLast24Hours,
+  } = stats;
+
+  const memoizedStats = useMemo<ChainStats>(() => {
     return {
       mainnetAccountsCreated,
       transactionsInLast24Hours,
@@ -184,8 +183,6 @@ export function WhyBlock({
     secondsToConsensusFinality,
     transactionsInLast24Hours,
   ]);
-
-  console.log({ stats });
 
   useEffect(() => {
     if (inViewport && !startAnimation) {
@@ -255,24 +252,24 @@ export function WhyBlock({
           className="mt-[16px] grid w-full gap-[38px] sm:grid-cols-2 md:mt-[20px] lg:mt-[24px] lg:grid-cols-4"
         >
           <StatisticsBlockStatCard
-            value={stats.mainnetAccountsCreated}
+            value={memoizedStats.mainnetAccountsCreated}
             title={t('counters.statistic-card.first')}
             startAnimation={startAnimation}
           />
           <StatisticsBlockStatCard
-            value={stats.transactionsInLast24Hours}
+            value={memoizedStats.transactionsInLast24Hours}
             title={t('counters.statistic-card.second')}
             startAnimation={startAnimation}
             prefix="~"
           />
           <StatisticsBlockStatCard
-            value={stats.secondsToConsensusFinality}
+            value={memoizedStats.secondsToConsensusFinality}
             title={t('counters.statistic-card.third')}
             startAnimation={startAnimation}
             prefix="~"
           />
           <StatisticsBlockStatCard
-            value={stats.averageCostPerTransaction}
+            value={memoizedStats.averageCostPerTransaction}
             title={t('counters.statistic-card.fourth')}
             startAnimation={startAnimation}
             prefix="~"
