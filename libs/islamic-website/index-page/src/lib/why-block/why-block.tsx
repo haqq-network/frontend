@@ -261,7 +261,7 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
             title={t('counters.statistic-card.fourth')}
             startAnimation={startAnimation}
             prefix="~"
-            postfix="aISLM"
+            postfix="ISLM"
           />
         </div>
       </div>
