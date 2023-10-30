@@ -26,6 +26,9 @@
       "@haqq/haqq-website/brand-assets-page": [
         "libs/haqq-website/brand-assets-page/src/index.ts"
       ],
+      "@haqq/haqq-website/buy-page": [
+        "libs/haqq-website/buy-page/src/index.ts"
+      ],
       "@haqq/haqq-website/ecosystem-fund-page": [
         "libs/haqq-website/ecosystem-fund-page/src/index.ts"
       ],
