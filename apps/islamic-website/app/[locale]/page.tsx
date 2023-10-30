@@ -3,6 +3,7 @@ import { IndexPage } from '@haqq/islamic-website/index-page';
 import { DEPLOY_URL } from '../../constants';
 import { getHomePageContent } from '../../utils/get-index-page-data';
 import { getChainStatsData } from '../../utils/get-chain-stats-data';
+import { islamicOpenGraphImages } from '../shared-metadata';
 
 const title = 'IslamicCoin';
 const description =
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    images: [{ url: '/opengraph-image.png' }],
+    images: islamicOpenGraphImages,
     locale: 'en',
     url: new URL(DEPLOY_URL).toString(),
     type: 'website',
@@ -25,13 +26,8 @@ interface PageProps {
   params: { locale: string };
 }
 
-export default async function Page(props: PageProps) {
-  const {
-    params: { locale },
-  } = props;
-
+export default async function Page({ params: { locale } }: PageProps) {
   const stats = await getChainStatsData();
-
   const { news, advisoryMembers, executiveMembers, shariahMembers } =
     await getHomePageContent(locale);
 
