@@ -19,13 +19,10 @@ export const getChainStatsData = cache(async () => {
       const data = await response.json();
 
       return {
-        mainnetAccountsCreated: Number.parseInt(data.accounts, 10),
-        transactionsInLast24Hours: Number.parseInt(
-          data.transactionsIn24Hour,
-          10,
-        ),
-        secondsToConsensusFinality: Number.parseInt(data.consensusFinality, 10),
-        averageCostPerTransaction: Number.parseInt(data.transactionAvgCost, 10),
+        mainnetAccountsCreated: Number.parseFloat(data.accounts),
+        transactionsInLast24Hours: Number.parseFloat(data.transactionsIn24Hour),
+        secondsToConsensusFinality: Number.parseFloat(data.consensusFinality),
+        averageCostPerTransaction: Number.parseFloat(data.transactionAvgCost),
       };
     } else {
       console.log('Response was not ok.', response);
@@ -33,6 +30,7 @@ export const getChainStatsData = cache(async () => {
   } catch (error) {
     console.error(error);
   }
+
   return {
     mainnetAccountsCreated: 0,
     transactionsInLast24Hours: 0,
