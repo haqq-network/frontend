@@ -163,26 +163,14 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
     { disconnectOnLeave: true },
   );
 
-  const {
-    averageCostPerTransaction,
-    mainnetAccountsCreated,
-    secondsToConsensusFinality,
-    transactionsInLast24Hours,
-  } = stats;
-
   const memoizedStats = useMemo<ChainStats>(() => {
     return {
-      mainnetAccountsCreated,
-      transactionsInLast24Hours,
-      secondsToConsensusFinality,
-      averageCostPerTransaction,
+      mainnetAccountsCreated: stats.mainnetAccountsCreated,
+      transactionsInLast24Hours: stats.transactionsInLast24Hours,
+      secondsToConsensusFinality: stats.secondsToConsensusFinality,
+      averageCostPerTransaction: stats.averageCostPerTransaction,
     };
-  }, [
-    averageCostPerTransaction,
-    mainnetAccountsCreated,
-    secondsToConsensusFinality,
-    transactionsInLast24Hours,
-  ]);
+  }, [stats]);
 
   useEffect(() => {
     if (inViewport && !startAnimation) {
