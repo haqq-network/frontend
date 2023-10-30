@@ -24,8 +24,8 @@ export const getChainStatsData = cache(async () => {
           data.transactionsIn24Hour,
           10,
         ),
-        secondsToConsensusFinality: Number.parseInt(data.consensusFinality, 10),
-        averageCostPerTransaction: Number.parseInt(data.transactionAvgCost, 10),
+        secondsToConsensusFinality: Number.parseFloat(data.consensusFinality),
+        averageCostPerTransaction: Number.parseFloat(data.transactionAvgCost),
       };
     } else {
       console.log('Response was not ok.', response);
