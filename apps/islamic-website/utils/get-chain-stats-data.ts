@@ -19,11 +19,8 @@ export const getChainStatsData = cache(async () => {
       const data = await response.json();
 
       return {
-        mainnetAccountsCreated: Number.parseInt(data.accounts, 10),
-        transactionsInLast24Hours: Number.parseInt(
-          data.transactionsIn24Hour,
-          10,
-        ),
+        mainnetAccountsCreated: Number.parseFloat(data.accounts),
+        transactionsInLast24Hours: Number.parseFloat(data.transactionsIn24Hour),
         secondsToConsensusFinality: Number.parseFloat(data.consensusFinality),
         averageCostPerTransaction: Number.parseFloat(data.transactionAvgCost),
       };
