@@ -71,17 +71,6 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
     { disconnectOnLeave: true },
   );
 
-  const {
-    averageCostPerTransaction,
-    emissionRate,
-    emittedAlready,
-    era,
-    mainnetAccountsCreated,
-    secondsToConsensusFinality,
-    transactionsInLast24Hours,
-    willBeEmitted,
-  } = stats;
-
   useEffect(() => {
     if (inViewport && !startAnimation) {
       setStartAnimation(true);
@@ -90,25 +79,16 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
 
   const memoizedStats = useMemo(() => {
     return {
-      mainnetAccountsCreated,
-      transactionsInLast24Hours,
-      secondsToConsensusFinality,
-      averageCostPerTransaction,
-      era,
-      emissionRate,
-      emittedAlready,
-      willBeEmitted,
+      mainnetAccountsCreated: stats.mainnetAccountsCreated,
+      transactionsInLast24Hours: stats.transactionsInLast24Hours,
+      secondsToConsensusFinality: stats.secondsToConsensusFinality,
+      averageCostPerTransaction: stats.averageCostPerTransaction,
+      era: stats.era,
+      emissionRate: stats.emissionRate,
+      emittedAlready: stats.emittedAlready,
+      willBeEmitted: stats.willBeEmitted,
     };
-  }, [
-    averageCostPerTransaction,
-    emissionRate,
-    emittedAlready,
-    era,
-    mainnetAccountsCreated,
-    secondsToConsensusFinality,
-    transactionsInLast24Hours,
-    willBeEmitted,
-  ]);
+  }, [stats]);
 
   if (stats === undefined) {
     return null;
