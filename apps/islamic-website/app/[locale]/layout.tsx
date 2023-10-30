@@ -14,12 +14,11 @@ import { Footer } from '../../components/footer/footer';
 import { SOCIAL_LINKS } from '../../social-links';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
 import { Analytics } from '@vercel/analytics/react';
-
+import { LocaleType } from '@haqq/islamic-website/shariah-page';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
 import '../../styles/consent-cookie.css';
-import { localeType } from '@haqq/islamic-website/shariah-page';
 
 export const metadata: Metadata = {
   title: {
@@ -54,7 +53,6 @@ export default async function LocaleLayout({
       /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
     ),
   );
-
   const messages = await getMessages(locale);
   const isScamBannerShow = true;
 

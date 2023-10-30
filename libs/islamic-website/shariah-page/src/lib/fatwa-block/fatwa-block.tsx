@@ -12,7 +12,7 @@ import fatwaSign3 from '../../assets/images/autographs/autograph-hakim-mohamed.w
 import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.webp';
 import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
 import { useTranslations } from 'next-intl';
-import { localeType } from '../shariah-page/shariah-page';
+import type { LocaleType } from '../shariah-page/shariah-page';
 import Link from 'next-intl/link';
 
 function LangButton({
@@ -21,7 +21,7 @@ function LangButton({
   href,
 }: {
   isActive: boolean;
-  locale: localeType;
+  locale: LocaleType;
   href: string;
 }) {
   const t = useTranslations('shariah-page.fatwa-block.language-buttons');
@@ -94,7 +94,7 @@ export function FatwaBlock({
   locale,
   fatwa,
 }: {
-  locale: localeType;
+  locale: LocaleType;
   fatwa: string;
 }) {
   const t = useTranslations('shariah-page');

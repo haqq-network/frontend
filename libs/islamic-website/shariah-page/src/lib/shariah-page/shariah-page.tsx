@@ -27,7 +27,7 @@ export interface Member {
   role?: string;
 }
 
-export type localeType = 'ar' | 'en' | 'id';
+export type LocaleType = 'ar' | 'en' | 'id';
 
 function MembersContainer({
   members,
@@ -181,7 +181,7 @@ export function ShariahPage({
                   initialInView
                 >
                   <div className="pb-[32px] pt-[32px] md:pb-[60px] lg:pb-[80px]">
-                    <FatwaBlock locale={locale as localeType} fatwa={fatwa} />
+                    <FatwaBlock locale={locale as LocaleType} fatwa={fatwa} />
                   </div>
                 </ScrollSpySection>
                 <ScrollSpySection

@@ -47,6 +47,7 @@ export function IndexPage({
 
 function Hero({ stats }: { stats: ChainStats }) {
   const t = useTranslations('index-page.hero-block');
+
   return (
     <HeroBg>
       <Container className="relative">

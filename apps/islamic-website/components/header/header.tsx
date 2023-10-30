@@ -33,9 +33,7 @@ import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next-intl/client';
-import { localeType } from '@haqq/islamic-website/shariah-page';
-
-type LocaleType = keyof typeof localeDisplayNames;
+import { LocaleType } from '@haqq/islamic-website/shariah-page';
 
 interface HeaderLinkProps {
   url: string;
@@ -156,7 +154,7 @@ export default function Header({
   locale,
 }: {
   isBannerVisible?: boolean;
-  locale: localeType;
+  locale: LocaleType;
 }) {
   const isTabletMedia = useMediaQuery({
     query: `(max-width: 1023px)`,
@@ -287,7 +285,7 @@ export function DesktopHeader({
   locale,
 }: {
   isBannerVisible?: boolean;
-  locale: localeType;
+  locale: LocaleType;
 }) {
   const [isBlurred, setBlurred] = useState(false);
 
