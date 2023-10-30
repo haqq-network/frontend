@@ -71,10 +71,13 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isScamBannerShow && <ScamBanner />}
           {isMobileUserAgent ? (
-            <MobileHeader locale={locale} isBannerVisible={isScamBannerShow} />
+            <MobileHeader
+              locale={locale as LocaleType}
+              isBannerVisible={isScamBannerShow}
+            />
           ) : (
             <Header
-              locale={locale as localeType}
+              locale={locale as LocaleType}
               isBannerVisible={isScamBannerShow}
             />
           )}
