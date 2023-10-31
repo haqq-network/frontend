@@ -1,8 +1,12 @@
-import Link from 'next-intl/link';
 import notFoundBgImgData from '../../assets/images/not-found-bg.webp';
 import Image from 'next/image';
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 export function NotFound() {
   const t = useTranslations('not-found-page');

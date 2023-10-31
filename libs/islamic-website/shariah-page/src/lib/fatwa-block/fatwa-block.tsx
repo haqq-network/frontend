@@ -13,7 +13,11 @@ import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.w
 import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
 import { useTranslations } from 'next-intl';
 import type { LocaleType } from '../shariah-page/shariah-page';
-import Link from 'next-intl/link';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 function LangButton({
   isActive,

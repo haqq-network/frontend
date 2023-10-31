@@ -1,8 +1,12 @@
 import Image from 'next/image';
 import cubesImgData from '../../assets/images/cubes.jpg';
 import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
-import Link from 'next-intl/link';
 import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 export function JoinCommunityBlock() {
   const t = useTranslations('index-page');

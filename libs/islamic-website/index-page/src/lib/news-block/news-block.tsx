@@ -5,11 +5,14 @@ import {
   NewsPost,
 } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 interface NewsBlockProps {
   news?: NewsPost[];
-  // locale: string;
 }
 
 export function NewsBlock({
