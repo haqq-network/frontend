@@ -19,7 +19,11 @@ import clsx from 'clsx';
 import axios from 'axios';
 import Turnstile from 'react-turnstile';
 import { useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({

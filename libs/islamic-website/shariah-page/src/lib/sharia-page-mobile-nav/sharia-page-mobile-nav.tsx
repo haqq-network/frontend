@@ -1,8 +1,12 @@
 'use-client';
 import { Container, Select } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import Link from 'next-intl/link';
 import { Fragment, useEffect, useMemo, useState } from 'react';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 export function ShariPageMobileNav({
   sections,

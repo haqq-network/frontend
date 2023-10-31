@@ -1,5 +1,9 @@
-import Link from 'next-intl/link';
 import { ReactNode } from 'react';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 export function DropdownLink({
   icon,

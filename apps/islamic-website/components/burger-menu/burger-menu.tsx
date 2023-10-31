@@ -16,7 +16,6 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
 import {
   Fragment,
   PropsWithChildren,
@@ -25,7 +24,11 @@ import {
   useState,
 } from 'react';
 import { LanguageLink } from '../header/header';
-import { usePathname } from 'next-intl/client';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link, usePathname } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 function BurgerMenuDropdownLink({
   icon,

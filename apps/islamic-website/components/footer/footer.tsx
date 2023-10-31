@@ -1,9 +1,13 @@
-import Link from 'next-intl/link';
 import { useMemo } from 'react';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { SocialIconLink, SocialIconLinkProps } from './social-links';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 interface FooterNavLink {
   url: string;

@@ -1,6 +1,10 @@
 import { Button, Container, Heading, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 export function LearnAndGrowBlock() {
   const t = useTranslations('index-page');

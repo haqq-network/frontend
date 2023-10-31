@@ -10,7 +10,6 @@ import {
   Text,
 } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
-import Link from 'next-intl/link';
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { FoundationsBlock } from '../foundations-block/foundations-block';
 import { ShariahBlock } from '../shariah-block/shariah-block';
@@ -18,6 +17,11 @@ import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 export interface Member {
   image: string;
