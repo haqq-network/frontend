@@ -34,7 +34,7 @@
     "@ethersproject/signing-key": "5.7.0",
     "@evmos/proto": "0.1.27",
     "@evmos/provider": "0.2.8",
-    "@evmos/transactions": "0.2.13",
+    "@evmos/transactions": "0.3.2",
     "@headlessui/react": "1.7.17",
     "@hookform/resolvers": "3.3.2",
     "@mdx-js/loader": "3.0.0",
