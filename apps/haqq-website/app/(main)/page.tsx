@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/haqq-website/index-page';
-import { getChainStats } from '../..//utils/get-chain-stats';
+import { getChainStatsFromFalconer } from '../..//utils/get-chain-stats';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../constants';
 import { haqqOpenGraphImages } from '../shared-metadata';
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const stats = await getChainStats();
+  const stats = await getChainStatsFromFalconer();
 
   return <IndexPage stats={stats} turnstileSiteKey={TURNSTILE_SITEKEY} />;
 }

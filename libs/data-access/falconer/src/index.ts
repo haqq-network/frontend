@@ -1,1 +1,1 @@
-export * from './lib/data-access/falconer';
+export * from './lib/get-chain-stats';
