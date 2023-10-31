@@ -3198,7 +3198,7 @@ __metadata:
     reaptcha: "npm:1.12.1"
     regenerator-runtime: "npm:0.14.0"
     rehype-raw: "npm:6.1.1"
-    rehype-slug: "npm:5.1.0"
+    rehype-slug: "npm:6.0.0"
     remark-gfm: "npm:3.0.1"
     sharp: "npm:0.32.6"
     store2: "npm:2.14.2"
@@ -15456,19 +15456,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-has-property@npm:^2.0.0":
-  version: 2.0.1
-  resolution: "hast-util-has-property@npm:2.0.1"
-  checksum: f6e9be2747ba300aff6801840f25d402d6e209b9591cd29bd0aee53d2e457325f6cb246b1061c767248bc016ca66eee8e8c5f8f074c3ca7cb9f59eaaf6656693
-  languageName: node
-  linkType: hard
-
-"hast-util-heading-rank@npm:^2.0.0":
-  version: 2.1.1
-  resolution: "hast-util-heading-rank@npm:2.1.1"
+"hast-util-heading-rank@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "hast-util-heading-rank@npm:3.0.0"
   dependencies:
-    "@types/hast": "npm:^2.0.0"
-  checksum: a49233e9ac78f66e948dd29d6c75f41c72899854f276290423c5f59eb827dee3c42cf181ce9103f3a8295359b613ca0b9c51475dd38ecdd6c26ed291344061f1
+    "@types/hast": "npm:^3.0.0"
+  checksum: e5ce4ec9e8017b24ab72702fa0dd401ec6eaf32574120d71c2aa4e8e0f43829dba2e291f49d305a47e8d65b82a9c5adad7985385dc5bc8370f8cec7c8f9313d3
   languageName: node
   linkType: hard
 
@@ -15562,12 +15555,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-to-string@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "hast-util-to-string@npm:2.0.0"
+"hast-util-to-string@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "hast-util-to-string@npm:3.0.0"
   dependencies:
-    "@types/hast": "npm:^2.0.0"
-  checksum: 93f34355b9679a626a2903371a267139bbe30c4d1d5252be6aa9b6d77524d293b8cb9be1f269edab353b678088fe01003affebce39d08a83aa96db208d38fea5
+    "@types/hast": "npm:^3.0.0"
+  checksum: b0d51e2cf228edcbed0494755a7f095c5c2b7a0e7564f3ad7b83b89abbabf098b62b3c884e1bb4d3394c0c84486ba39800d78f2ccdbdaa38122be62330dd2357
   languageName: node
   linkType: hard
 
@@ -23657,18 +23650,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-slug@npm:5.1.0":
-  version: 5.1.0
-  resolution: "rehype-slug@npm:5.1.0"
+"rehype-slug@npm:6.0.0":
+  version: 6.0.0
+  resolution: "rehype-slug@npm:6.0.0"
   dependencies:
-    "@types/hast": "npm:^2.0.0"
+    "@types/hast": "npm:^3.0.0"
     github-slugger: "npm:^2.0.0"
-    hast-util-has-property: "npm:^2.0.0"
-    hast-util-heading-rank: "npm:^2.0.0"
-    hast-util-to-string: "npm:^2.0.0"
-    unified: "npm:^10.0.0"
-    unist-util-visit: "npm:^4.0.0"
-  checksum: 22f6634a69df6dfedf5765cbf78658013b8c99aef97111848a0de83be99025ead6eb1f81c896c8a6ac33a771f95fabb90d397c98bf1eccbf9f21ee0d4ad4f1b7
+    hast-util-heading-rank: "npm:^3.0.0"
+    hast-util-to-string: "npm:^3.0.0"
+    unist-util-visit: "npm:^5.0.0"
+  checksum: 292074643f8462c70f498bc8bf18a8c959073b96efc249f61e69fa9e36eb81d9b91d62199a90217c604e1c3904e8ff0a75df70d67e41bead56de93afb725c2d0
   languageName: node
   linkType: hard
 
