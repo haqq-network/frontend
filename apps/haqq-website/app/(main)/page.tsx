@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/haqq-website/index-page';
-import { getChainStatsFromFalconer } from '../..//utils/get-chain-stats';
+import { getChainStatsFromFalconer } from '../../utils/get-chain-stats';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../constants';
 import { haqqOpenGraphImages } from '../shared-metadata';
 
