@@ -116,6 +116,7 @@
       "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
       "@haqq/shell/authz-page": ["libs/shell/authz-page/src/index.ts"],
       "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],
+      "@haqq/shell/services-pages": ["libs/shell/services-pages/src/index.ts"],
       "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
       "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
       "@haqq/staking/validator-details-page": [
