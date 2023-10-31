@@ -53,7 +53,7 @@ function Hero({ stats }: { stats: ChainStats }) {
       <Container className="relative">
         <HeroBlock />
 
-        <Marquee className="mb-[80px] mt-[144px] md:mt-[216px] lg:mb-[100px] lg:mt-[198px] xl:mt-[248px]">
+        <Marquee className="my-[80px] md:my-[100px] xl:mt-[140px]">
           {t('running-text').toLocaleUpperCase()}
         </Marquee>
 
