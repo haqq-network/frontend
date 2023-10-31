@@ -4,7 +4,7 @@ export function SuccessBuyPage() {
   return (
     <section>
       <PageTitle title="Buy crypto" />
-      <div className="bg-haqq-black flex flex-col items-center px-[16px] py-[48px] text-center sm:px-[63px] md:py-[68px] lg:px-[79px] lg:py-[100px]">
+      <div className="bg-haqq-black flex flex-col items-center px-[48px] py-[160px] text-center sm:px-[63px] lg:px-[79px]">
         <svg
           width="38"
           height="38"
