@@ -1,32 +1,23 @@
 import { cache } from 'react';
-import { FALCONER_ENDPOINT, REVALIDATE_TIME } from '../constants';
+import { REVALIDATE_TIME } from '../constants';
+import { getChainStats } from '@haqq/data-access-falconer';
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getChainStatsData = cache(async () => {
+export const getChainStatsFromFalconer = cache(async () => {
   try {
-    const response = await fetch(`${FALCONER_ENDPOINT}/haqq/chain_stats`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const stats = await getChainStats({
       next: {
         revalidate,
       },
     });
 
-    if (response.ok) {
-      const data = await response.json();
-
-      return {
-        mainnetAccountsCreated: Number.parseFloat(data.accounts),
-        transactionsInLast24Hours: Number.parseFloat(data.transactionsIn24Hour),
-        secondsToConsensusFinality: Number.parseFloat(data.consensusFinality),
-        averageCostPerTransaction: Number.parseFloat(data.transactionAvgCost),
-      };
-    } else {
-      console.log('Response was not ok.', response);
-    }
+    return {
+      mainnetAccountsCreated: Number.parseFloat(stats.accounts),
+      transactionsInLast24Hours: Number.parseFloat(stats.transactionsIn24Hour),
+      secondsToConsensusFinality: Number.parseFloat(stats.consensusFinality),
+      averageCostPerTransaction: Number.parseFloat(stats.transactionAvgCost),
+    };
   } catch (error) {
     console.error(error);
   }

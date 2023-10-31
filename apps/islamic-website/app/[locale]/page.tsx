@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
 import { DEPLOY_URL } from '../../constants';
 import { getHomePageContent } from '../../utils/get-index-page-data';
-import { getChainStatsData } from '../../utils/get-chain-stats-data';
 import { islamicOpenGraphImages } from '../shared-metadata';
+import { getChainStatsFromFalconer } from '../../utils/get-chain-stats-data';
 
 const title = 'IslamicCoin';
 const description =
@@ -27,7 +27,7 @@ interface PageProps {
 }
 
 export default async function Page({ params: { locale } }: PageProps) {
-  const stats = await getChainStatsData();
+  const stats = await getChainStatsFromFalconer();
   const { news, advisoryMembers, executiveMembers, shariahMembers } =
     await getHomePageContent(locale);
 
