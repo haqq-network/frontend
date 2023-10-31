@@ -1,42 +1,40 @@
 import {
   createTxMsgDelegate,
   createTxMsgUndelegate,
-  Sender,
   createTxMsgWithdrawDelegatorReward,
-  TxGenerated,
   createTxRawEIP712,
   signatureToWeb3Extension,
   createTxMsgMultipleWithdrawDelegatorReward,
   createTxMsgBeginRedelegate,
-  MsgBeginRedelegateParams,
 } from '@evmos/transactions';
+import {
+  createMsgDelegate,
+  createMsgUndelegate,
+  createMsgWithdrawDelegatorReward,
+  createMsgBeginRedelegate,
+} from '@evmos/eip712';
 import { useCallback, useMemo } from 'react';
-import type { Fee, MsgDelegateParams } from '@evmos/transactions';
+import type {
+  MsgBeginRedelegateParams,
+  MsgDelegateParams,
+  MsgMultipleWithdrawDelegatorRewardParams,
+  MsgUndelegateParams,
+  Sender,
+  TxGenerated,
+} from '@evmos/transactions';
 import { useAddress } from '../use-address/use-address';
-import Decimal from 'decimal.js-light';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import { getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
-import { useNetwork, useWalletClient } from 'wagmi';
-
-function getAmountAndDenom(amount: number, fee?: Fee) {
-  let decAmount = new Decimal(amount).mul(10 ** 18);
-
-  if (fee) {
-    decAmount = decAmount.sub(new Decimal(fee.amount));
-  }
-
-  return {
-    amount: decAmount.toFixed(),
-    denom: 'aISLM',
-  };
-}
+import { useFeeData, useNetwork, useWalletClient } from 'wagmi';
+import { getAmount } from '../../utils/get-amount';
 
 export function useStakingActions() {
-  const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
+  const { broadcastTransaction, getPubkey, getFee, getSender } =
     useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
   const { data: walletClient } = useWalletClient();
+  const { data: feeData } = useFeeData();
   const { chain } = useNetwork();
 
   const haqqChain = useMemo(() => {
@@ -47,29 +45,6 @@ export function useStakingActions() {
     const chainParams = getChainParams(chain.id);
     return mapToCosmosChain(chainParams);
   }, [chain]);
-
-  const getSender = useCallback(
-    async (address: string, pubkey: string) => {
-      try {
-        const accInfo = await getAccountBaseInfo(address);
-
-        if (!accInfo) {
-          throw new Error('no base account info');
-        }
-
-        return {
-          accountAddress: address,
-          sequence: parseInt(accInfo.sequence, 10),
-          accountNumber: parseInt(accInfo.account_number, 10),
-          pubkey,
-        };
-      } catch (error) {
-        console.error((error as Error).message);
-        throw error;
-      }
-    },
-    [getAccountBaseInfo],
-  );
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
@@ -97,30 +72,30 @@ export function useStakingActions() {
     [ethAddress, haqqChain, walletClient],
   );
 
-  const getDelegationParams = useCallback(
-    (validatorAddress: string, amount: number, fee: Fee): MsgDelegateParams => {
-      return {
-        validatorAddress,
-        ...getAmountAndDenom(amount, fee),
-      };
-    },
-    [],
-  );
+  const getStakingFee = useCallback(
+    async (validatorAddress: string, amount: number, denom: string) => {
+      const pubkey = await getPubkey(ethAddress as string);
+      const sender = await getSender(haqqAddress as string, pubkey);
 
-  const getRedelegationParams = useCallback(
-    (
-      validatorSourceAddress: string,
-      validatorDestinationAddress: string,
-      amount: number,
-      fee: Fee,
-    ): MsgBeginRedelegateParams => {
-      return {
-        validatorSrcAddress: validatorSourceAddress,
-        validatorDstAddress: validatorDestinationAddress,
-        ...getAmountAndDenom(amount, fee),
-      };
+      if (!feeData) {
+        return null;
+      }
+
+      return await getFee(
+        {
+          '@type': '/cosmos.staking.v1beta1.MsgDelegate',
+          ...createMsgDelegate(
+            sender.accountAddress,
+            validatorAddress,
+            getAmount(amount),
+            denom,
+          ).value,
+        },
+        sender,
+        Number(feeData.gasPrice),
+      );
     },
-    [],
+    [ethAddress, feeData, getFee, getPubkey, getSender, haqqAddress],
   );
 
   const handleDelegate = useCallback(
@@ -128,21 +103,37 @@ export function useStakingActions() {
       console.log('handleDelegate', { validatorAddress, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = 'Delegate';
+      const memo = `Delegate to ${validatorAddress}`;
 
-      if (sender && validatorAddress && haqqChain) {
-        const params = getDelegationParams(
+      if (sender && amount && validatorAddress && haqqChain) {
+        const params: MsgDelegateParams = {
           validatorAddress,
-          amount ?? 0,
-          DEFAULT_FEE,
+          amount: getAmount(amount),
+          denom: 'aISLM',
+        };
+        const fee = await getStakingFee(
+          params.validatorAddress,
+          amount,
+          params.denom,
         );
-        const msg = createTxMsgDelegate(
-          haqqChain,
-          sender,
-          DEFAULT_FEE,
-          memo,
-          params,
-        );
+        if (!fee) {
+          throw new Error('no fee data');
+        }
+        // const fee = await getFee(
+        //   {
+        //     '@type': '/cosmos.staking.v1beta1.MsgDelegate',
+        //     ...createMsgDelegate(
+        //       sender.accountAddress,
+        //       params.validatorAddress,
+        //       params.amount,
+        //       params.denom,
+        //     ).value,
+        //   },
+        //   sender,
+        //   Number(feeData.gasPrice),
+        // );
+        const msg = createTxMsgDelegate(haqqChain, sender, fee, memo, params);
+        console.log({ msg });
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
@@ -162,7 +153,7 @@ export function useStakingActions() {
       getSender,
       haqqAddress,
       haqqChain,
-      getDelegationParams,
+      getStakingFee,
       signTransaction,
       broadcastTransaction,
     ],
@@ -175,19 +166,27 @@ export function useStakingActions() {
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = 'Undelegate';
 
-      if (sender && validatorAddress && haqqChain) {
-        const params = getDelegationParams(
+      if (sender && amount && validatorAddress && haqqChain && feeData) {
+        const params: MsgUndelegateParams = {
           validatorAddress,
-          amount ?? 0,
-          DEFAULT_FEE,
-        );
-        const msg = createTxMsgUndelegate(
-          haqqChain,
+          amount: getAmount(amount),
+          denom: 'aISLM',
+        };
+        const fee = await getFee(
+          {
+            '@type': '/cosmos.staking.v1beta1.MsgUndelegate',
+            ...createMsgUndelegate(
+              sender.accountAddress,
+              params.validatorAddress,
+              params.amount,
+              params.denom,
+            ).value,
+          },
           sender,
-          DEFAULT_FEE,
-          memo,
-          params,
+          Number(feeData.gasPrice),
         );
+        const msg = createTxMsgUndelegate(haqqChain, sender, fee, memo, params);
+
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -206,7 +205,8 @@ export function useStakingActions() {
       getSender,
       haqqAddress,
       haqqChain,
-      getDelegationParams,
+      feeData,
+      getFee,
       signTransaction,
       broadcastTransaction,
     ],
@@ -219,17 +219,32 @@ export function useStakingActions() {
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = 'Claim all rewards';
 
-      if (sender && haqqChain) {
-        const params = {
+      if (sender && haqqChain && feeData) {
+        const params: MsgMultipleWithdrawDelegatorRewardParams = {
           validatorAddresses,
         };
+        const fee = await getFee(
+          validatorAddresses.map((address) => {
+            return {
+              '@type':
+                '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+              ...createMsgWithdrawDelegatorReward(
+                sender.accountAddress,
+                address,
+              ).value,
+            };
+          }),
+          sender,
+          Number(feeData.gasPrice),
+        );
         const msg = createTxMsgMultipleWithdrawDelegatorReward(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           params,
         );
+
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -243,13 +258,15 @@ export function useStakingActions() {
       }
     },
     [
-      broadcastTransaction,
-      ethAddress,
-      haqqChain,
       getPubkey,
+      ethAddress,
       getSender,
       haqqAddress,
+      haqqChain,
+      feeData,
+      getFee,
       signTransaction,
+      broadcastTransaction,
     ],
   );
 
@@ -258,19 +275,31 @@ export function useStakingActions() {
       console.log('handleClaimReward', { validatorAddress });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = 'Claim reward';
+      const memo = `Claim rewards from ${validatorAddress}`;
 
-      if (sender && haqqChain) {
+      if (sender && haqqChain && feeData) {
         const params = {
           validatorAddress,
         };
+        const fee = await getFee(
+          {
+            '@type': '/cosmos.staking.v1beta1.MsgWithdrawDelegationReward',
+            ...createMsgWithdrawDelegatorReward(
+              sender.accountAddress,
+              params.validatorAddress,
+            ).value,
+          },
+          sender,
+          Number(feeData.gasPrice),
+        );
         const msg = createTxMsgWithdrawDelegatorReward(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           params,
         );
+
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -284,13 +313,15 @@ export function useStakingActions() {
       }
     },
     [
-      broadcastTransaction,
-      ethAddress,
-      haqqChain,
       getPubkey,
+      ethAddress,
       getSender,
       haqqAddress,
+      haqqChain,
+      feeData,
+      getFee,
       signTransaction,
+      broadcastTransaction,
     ],
   );
 
@@ -308,17 +339,31 @@ export function useStakingActions() {
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Redelegate from ${validatorSourceAddress} to ${validatorDestinationAddress}`;
 
-      if (sender && haqqChain) {
-        const params = getRedelegationParams(
-          validatorSourceAddress,
-          validatorDestinationAddress,
-          amount ?? 0,
-          DEFAULT_FEE,
+      if (sender && haqqChain && feeData) {
+        const params: MsgBeginRedelegateParams = {
+          validatorSrcAddress: validatorSourceAddress,
+          validatorDstAddress: validatorDestinationAddress,
+          amount: getAmount(amount),
+          denom: 'aISLM',
+        };
+        const fee = await getFee(
+          {
+            '@type': '/cosmos.staking.v1beta1.MsgBeginRedelegate',
+            ...createMsgBeginRedelegate(
+              sender.accountAddress,
+              params.validatorSrcAddress,
+              params.validatorDstAddress,
+              params.amount,
+              params.denom,
+            ).value,
+          },
+          sender,
+          Number(feeData.gasPrice),
         );
         const msg = createTxMsgBeginRedelegate(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           params,
         );
@@ -341,7 +386,8 @@ export function useStakingActions() {
       getSender,
       haqqAddress,
       haqqChain,
-      getRedelegationParams,
+      feeData,
+      getFee,
       signTransaction,
       broadcastTransaction,
     ],
@@ -353,5 +399,6 @@ export function useStakingActions() {
     claimAllRewards: handleClaimAllRewards,
     claimReward: handleClaimReward,
     redelegate: handleRedelegate,
+    getStakingFee,
   };
 }

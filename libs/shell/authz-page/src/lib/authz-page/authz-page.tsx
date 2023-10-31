@@ -1,6 +1,7 @@
 import {
   Grant,
   ethToHaqq,
+  getChainParams,
   getFormattedAddress,
   haqqToEth,
   useAddress,
@@ -112,7 +113,8 @@ function GranterGrantsTable() {
   const { data: granterGrants } = useAuthzGranterGrants(haqqAddress ?? '');
   const { revoke } = useAuthzActions();
   const toast = useToast();
-  const { chain } = useNetwork();
+  const { chain = { id: 11235 } } = useNetwork();
+  const { explorer } = getChainParams(chain.id);
 
   const granterGrantsToRender = useMemo(() => {
     if (!granterGrants || granterGrants?.grants.length === 0) {
@@ -139,7 +141,7 @@ function GranterGrantsTable() {
                   <div>Revoke successful</div>
                   <div>
                     <Link
-                      to={`https://ping.pub/haqq/tx/${txHash}`}
+                      to={`${explorer.cosmos}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -165,7 +167,7 @@ function GranterGrantsTable() {
         ]);
       }
     },
-    [chain?.id, invalidateQueries, revoke, toast],
+    [chain?.id, explorer.cosmos, invalidateQueries, revoke, toast],
   );
 
   if (granterGrantsToRender.length === 0) {
@@ -385,13 +387,14 @@ function AuthzGrantsActions() {
   const invalidateQueries = useQueryInvalidate();
   const { grant } = useAuthzActions();
   const toast = useToast();
-  const { chain } = useNetwork();
+  const { chain = { id: 11235 } } = useNetwork();
   const [grantType, setGrantType] = useState<string>(
     GRANT_TYPE_DEFAULT_OPTION.value,
   );
   const [grantPeriod, setGrantPeriod] = useState<string>(
     GRANT_PERIOD_DEFAULT_OPTION.value,
   );
+  const { explorer } = getChainParams(chain.id);
 
   const getGrantExpire = useCallback((period: string) => {
     const now = new Date();
@@ -460,7 +463,7 @@ function AuthzGrantsActions() {
                 <div>Grant successful</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`${explorer.cosmos}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -487,6 +490,7 @@ function AuthzGrantsActions() {
     }
   }, [
     chain?.id,
+    explorer.cosmos,
     getGrantExpire,
     grant,
     grantPeriod,
@@ -499,7 +503,6 @@ function AuthzGrantsActions() {
 
   useEffect(() => {
     if (grantee.startsWith('0x')) {
-      console.log('validate as eth');
       try {
         const isValidEthAddress = isAddress(grantee);
 
@@ -525,7 +528,6 @@ function AuthzGrantsActions() {
         });
       }
     } else if (grantee.startsWith('haqq1')) {
-      console.log('validate as bech32');
       try {
         const eth = haqqToEth(grantee);
         setGranteeValid(true);

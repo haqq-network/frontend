@@ -699,35 +699,40 @@ export function ValidatorInfo({
         isRewardsPending={isRewardsPending}
       />
 
-      <DelegateModal
-        validatorAddress={validatorAddress}
-        isOpen={isDelegateModalOpen}
-        onClose={handleModalClose}
-        delegation={myDelegation}
-        balance={balance}
-        symbol={symbol}
-        unboundingTime={unboundingTime}
-        validatorCommission={validatorCommission}
-      />
+      {isDelegateModalOpen && (
+        <DelegateModal
+          validatorAddress={validatorAddress}
+          isOpen
+          onClose={handleModalClose}
+          delegation={myDelegation}
+          balance={balance}
+          symbol={symbol}
+          unboundingTime={unboundingTime}
+          validatorCommission={validatorCommission}
+        />
+      )}
+      {isUndelegateModalOpen && (
+        <UndelegateModal
+          validatorAddress={validatorAddress}
+          isOpen
+          onClose={handleModalClose}
+          delegation={myDelegation}
+          balance={balance}
+          unboundingTime={unboundingTime}
+          symbol={symbol}
+        />
+      )}
 
-      <UndelegateModal
-        validatorAddress={validatorAddress}
-        isOpen={isUndelegateModalOpen}
-        onClose={handleModalClose}
-        delegation={myDelegation}
-        balance={balance}
-        unboundingTime={unboundingTime}
-        symbol={symbol}
-      />
-
-      <RedelegateModal
-        validatorAddress={validatorAddress}
-        isOpen={isRedelegateModalOpen}
-        onClose={handleModalClose}
-        delegation={myDelegation}
-        symbol={symbol}
-        validatorsList={validatorsList}
-      />
+      {isRedelegateModalOpen && (
+        <RedelegateModal
+          validatorAddress={validatorAddress}
+          isOpen
+          onClose={handleModalClose}
+          delegation={myDelegation}
+          symbol={symbol}
+          validatorsList={validatorsList}
+        />
+      )}
     </Fragment>
   );
 }

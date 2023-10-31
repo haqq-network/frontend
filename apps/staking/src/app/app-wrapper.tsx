@@ -100,9 +100,9 @@ function HeaderButtons({
 
   return (
     <Fragment>
-      <div className="hidden pl-[80px] lg:block">
+      <div className="hidden pl-[40px] lg:block xl:pl-[60px]">
         {ethAddress ? (
-          <div className="flex flex-row gap-[24px]">
+          <div className="flex flex-row gap-[16px]">
             <SelectChainButton
               {...selectChainButtonProps}
               onChainSelect={handleChainSelectClick}

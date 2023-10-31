@@ -104,15 +104,15 @@ function HeaderButtons({
 
   return (
     <Fragment>
-      <nav className="hidden flex-row items-center space-x-6 lg:flex">
+      <nav className="hidden flex-row items-center gap-[16px] lg:flex xl:gap-[24px]">
         <HeaderNavLink href="/staking">Staking</HeaderNavLink>
         <HeaderNavLink href="/governance">Governance</HeaderNavLink>
         <HeaderNavLink href="/authz">Authz</HeaderNavLink>
       </nav>
 
-      <div className="hidden pl-[80px] lg:block">
+      <div className="hidden pl-[40px] lg:block xl:pl-[60px]">
         {ethAddress ? (
-          <div className="flex flex-row gap-[24px]">
+          <div className="flex flex-row gap-[16px]">
             <SelectChainButton
               {...selectChainButtonProps}
               onChainSelect={handleChainSelectClick}

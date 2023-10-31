@@ -27,7 +27,7 @@ export function MyAccountBlockDesktop({
   onConnectWalletClick: () => void;
   isRewardsPending?: boolean;
 }) {
-  const [isInfoShown, setInfoShown] = useState(false);
+  const [isInfoShown, setInfoShown] = useState(!isConnected);
 
   return (
     <div className="border-haqq-border overflow-hidden rounded-[8px] border">

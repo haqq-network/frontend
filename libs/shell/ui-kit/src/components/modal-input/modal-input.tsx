@@ -42,7 +42,6 @@ export function ModalInput({
   onChange,
   onMaxButtonClick,
   hint,
-
   isMaxButtonDisabled = false,
 }: {
   symbol: string;
