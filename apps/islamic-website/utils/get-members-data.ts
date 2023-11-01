@@ -1,61 +1,35 @@
-import { Member } from '@haqq/islamic-website-ui-kit';
-import { FALCONER_ENDPOINT, REVALIDATE_TIME } from '../constants';
+import { REVALIDATE_TIME } from '../constants';
 import { cache } from 'react';
+import { getMembersData } from '@haqq/data-access-falconer';
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getMembersContent = cache(
-  async (
-    locale: string,
-  ): Promise<{
-    advisoryMembers: Member[];
-    executiveMembers: Member[];
-    shariahMembers: Member[];
-    teamMembers: Member[];
-    founderMembers: Member[];
-  }> => {
-    try {
-      const response = await fetch(`${FALCONER_ENDPOINT}/islamic/members`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ locale }),
+export const getMembersContentFromFalconer = cache(async (locale: string) => {
+  try {
+    const members = await getMembersData(
+      {
         next: {
           revalidate,
         },
-      });
+      },
+      locale,
+    );
 
-      if (response.ok) {
-        const {
-          members: {
-            advisory_members,
-            executive_members,
-            shariah_members,
-            team_members,
-            founder_members,
-          },
-        } = await response.json();
-
-        return {
-          advisoryMembers: advisory_members,
-          executiveMembers: executive_members,
-          shariahMembers: shariah_members,
-          teamMembers: team_members,
-          founderMembers: founder_members,
-        };
-      } else {
-        console.log('Response was not ok.', response);
-      }
-    } catch (error) {
-      console.error(error);
-    }
     return {
-      advisoryMembers: [],
-      executiveMembers: [],
-      shariahMembers: [],
-      teamMembers: [],
-      founderMembers: [],
+      advisoryMembers: members.members.advisory_members,
+      executiveMembers: members.members.executive_members,
+      shariahMembers: members.members.shariah_members,
+      teamMembers: members.members.team_members,
+      founderMembers: members.members.founder_members,
     };
-  },
-);
+  } catch (error) {
+    console.error(error);
+  }
+  return {
+    advisoryMembers: [],
+    executiveMembers: [],
+    shariahMembers: [],
+    teamMembers: [],
+    founderMembers: [],
+  };
+});

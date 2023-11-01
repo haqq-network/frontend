@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 import { TeamPage } from '@haqq/islamic-website/team-page';
-import { getMembersContent } from '../../../utils/get-members-data';
+import { getMembersContentFromFalconer } from '../../../utils/get-members-data';
 
 const title = 'Team';
 const description =
@@ -27,7 +27,8 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const { teamMembers, founderMembers } = await getMembersContent(locale);
+  const { teamMembers, founderMembers } =
+    await getMembersContentFromFalconer(locale);
 
   return <TeamPage team={teamMembers} founders={founderMembers} />;
 }
