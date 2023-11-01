@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { WhitepaperPage } from '@haqq/islamic-website/whitepaper-page';
-import { getWhitepaperContent } from '../../../utils/get-whitepaper-content';
+import { getWhitepaperContentFromFalconer } from '../../../utils/get-whitepaper-content';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
@@ -27,7 +27,7 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const whitepaper = await getWhitepaperContent(locale);
+  const whitepaper = await getWhitepaperContentFromFalconer(locale);
 
   return <WhitepaperPage whitepaper={whitepaper} />;
 }
