@@ -1,26 +1,11 @@
 import { NewsPost } from '@haqq/islamic-website-ui-kit';
-import { FALCONER_ENDPOINT, REVALIDATE_TIME } from '../constants';
+import { REVALIDATE_TIME } from '../constants';
 import { cache } from 'react';
+import { FalconerNewsPost, getNewsData } from '@haqq/data-access-falconer';
 
 export const revalidate = REVALIDATE_TIME;
 
-type NewsType = 'press' | 'events';
-
-interface StoryblokNewsPost {
-  image: {
-    src: string;
-    width: number;
-    height: number;
-  } | null;
-  title: string;
-  description: string;
-  date: string;
-  source: string;
-  content_type: NewsType;
-  url: string;
-}
-
-export function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
+export function mapStorybookToNews(data: FalconerNewsPost[]): NewsPost[] {
   return data.map((post) => {
     return {
       image: post.image,
@@ -34,24 +19,18 @@ export function mapStorybookToNews(data: StoryblokNewsPost[]): NewsPost[] {
   });
 }
 
-export const getNewsPageContent = cache(async (limit?: number) => {
+export const getNewsPageContentFromFalconer = cache(async (limit?: number) => {
   try {
-    const response = await fetch(`${FALCONER_ENDPOINT}/islamic/news`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const data = await getNewsData(
+      {
+        next: {
+          revalidate,
+        },
       },
-      body: JSON.stringify({ limit }),
-      next: {
-        revalidate,
-      },
-    });
+      limit,
+    );
 
-    if (response.ok) {
-      const data = await response.json();
-
-      return mapStorybookToNews(data) ?? [];
-    }
+    return mapStorybookToNews(data) ?? [];
   } catch (error) {
     console.error(error);
   }
