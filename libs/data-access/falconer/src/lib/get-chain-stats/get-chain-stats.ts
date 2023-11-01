@@ -1,4 +1,4 @@
-import { FALCONER_ENDPOINT } from './constants';
+import { FALCONER_ENDPOINT } from '../constants';
 
 export interface FalconerChainStatsRequestInit extends RequestInit {
   next?: {
