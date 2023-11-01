@@ -11,11 +11,11 @@ export interface Member {
 
 export interface FalconerMembers {
   members: {
-    advisoryMembers: Member[];
-    executiveMembers: Member[];
-    shariahMembers: Member[];
-    teamMembers: Member[];
-    founderMembers: Member[];
+    advisory_members: Member[];
+    executive_members: Member[];
+    shariah_members: Member[];
+    team_members: Member[];
+    founder_members: Member[];
   };
 }
 
