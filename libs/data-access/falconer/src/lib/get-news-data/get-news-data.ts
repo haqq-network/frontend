@@ -36,7 +36,6 @@ export async function getNewsData(
   }
 
   const responseJson = await response.json();
-  console.log({ responseJson });
 
   return responseJson as FalconerNewsPost[];
 }
