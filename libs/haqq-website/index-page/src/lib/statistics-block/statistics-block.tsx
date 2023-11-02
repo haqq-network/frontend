@@ -122,7 +122,7 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
             value={memoizedStats.averageCostPerTransaction}
             title="average cost per transaction"
             startAnimation={startAnimation}
-            postfix="aISLM"
+            postfix="ISLM"
           />
           <StatisticsBlockStatCard
             value={memoizedStats.era}

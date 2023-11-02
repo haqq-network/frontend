@@ -12,13 +12,13 @@ export const handjetFont = Handjet({
   subsets: ['arabic'],
   display: 'swap',
   variable: '--font-handjet',
-  weight: ['600'],
+  weight: ['400', '600'],
+  adjustFontFallback: false,
 });
 
 export const vcrFont = localFont({
   src: './public/assets/fonts/vcr_osd_mono.woff2',
   style: 'normal',
-  weight: '400',
   display: 'swap',
   variable: '--font-vcr',
 });

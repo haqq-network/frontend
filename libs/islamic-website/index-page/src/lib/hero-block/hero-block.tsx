@@ -7,14 +7,17 @@ import {
   Text,
 } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
-import Link from 'next-intl/link';
 import { useCallback, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
-const ytVideoId = 'bevF9a3L3Sk';
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
+
+const MODAL_YOUTUBE_VIDEO_ID = 'bevF9a3L3Sk';
 
 export function HeroBlock() {
-  // { locale }: { locale: string }
   const t = useTranslations('index-page');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const openVideoModal = useCallback(() => {
@@ -67,7 +70,7 @@ export function HeroBlock() {
         <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
           <iframe
             title="Islamic Coin Video"
-            src={`https://www.youtube.com/embed/${ytVideoId}?rel=0&autoplay=1&showinfo=0`}
+            src={`https://www.youtube.com/embed/${MODAL_YOUTUBE_VIDEO_ID}?rel=0&autoplay=1&showinfo=0`}
             allow="autoplay"
             allowFullScreen
             width="100%"

@@ -52,3 +52,22 @@ export function AirdropEvm({
     />
   );
 }
+
+export function AirdropFinished() {
+  return (
+    <div className="pb-[48px]">
+      <p
+        className="font-guise max-w-[740px] text-[12px] font-[500] leading-[18px] text-white
+        md:text-[14px] md:leading-[22px]"
+      >
+        We would like to express our sincere gratitude to all participants for
+        their interest and involvement in the Community Drop event. Please be
+        informed that the application submission period and address updates were
+        closed on November 1, 2023. The previously submitted requests for
+        address changes will be processed in due course. We will provide a
+        separate update on this matter. Thank you very much for your active
+        participation and support.
+      </p>
+    </div>
+  );
+}

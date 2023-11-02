@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next-intl/link';
 import clsx from 'clsx';
 import {
   Fragment,
@@ -32,8 +31,12 @@ import {
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslations } from 'next-intl';
-import { usePathname } from 'next-intl/client';
 import { LocaleType } from '@haqq/islamic-website/shariah-page';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link, usePathname } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 interface HeaderLinkProps {
   url: string;

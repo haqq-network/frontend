@@ -1,8 +1,12 @@
-import Link from 'next-intl/link';
 import availableSoonBgImgData from '../../assets/images/available-soon-bg.webp';
 import Image from 'next/image';
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 export function AvailableSoonPage() {
   const t = useTranslations('available-soon-page');

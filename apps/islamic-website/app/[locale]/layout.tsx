@@ -1,13 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Fragment, PropsWithChildren } from 'react';
 import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
-import { notFound } from 'next/navigation';
 import { headers } from 'next/headers';
 import clsx from 'clsx';
 import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
 import { NextIntlClientProvider } from 'next-intl';
 import { Container } from '@haqq/islamic-website-ui-kit';
-import Link from 'next-intl/link';
 import Script from 'next/script';
 import Header, { MobileHeader } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
@@ -19,6 +17,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
 import '../../styles/consent-cookie.css';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { notFound } from 'next/navigation';
+
+const { Link } = createSharedPathnamesNavigation({
+  locales: ['en', 'ar', 'id'],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -26,26 +30,32 @@ export const metadata: Metadata = {
     default: 'IslamicCoin',
   },
   referrer: 'origin-when-cross-origin',
-  viewport: {
-    initialScale: 1,
-    maximumScale: 2,
-    width: 'device-width',
-  },
   metadataBase: new URL(DEPLOY_URL),
 };
 
+export const viewport: Viewport = {
+  initialScale: 1,
+  maximumScale: 2,
+  width: 'device-width',
+};
+
 async function getMessages(locale: string) {
-  try {
-    return (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
-    notFound();
-  }
+  const { default: defaultMessages } = await import(
+    `../../messages/${locale}.json`
+  );
+  return defaultMessages;
 }
 
 export default async function LocaleLayout({
   children,
   params: { locale },
 }: PropsWithChildren<{ params: { locale: string } }>) {
+  const messages = await getMessages(locale);
+
+  if (!messages) {
+    notFound();
+  }
+
   const headersList = headers();
   const userAgent = headersList.get('user-agent');
   const isMobileUserAgent = Boolean(
@@ -53,8 +63,8 @@ export default async function LocaleLayout({
       /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
     ),
   );
-  const messages = await getMessages(locale);
   const isScamBannerShow = true;
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
     <html
@@ -66,9 +76,12 @@ export default async function LocaleLayout({
         vcrFont.variable,
       )}
     >
-      {VERCEL_ENV !== 'development' && <CookieConsentModal />}
       <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider
+          locale={locale}
+          messages={messages}
+          timeZone={timeZone}
+        >
           {isScamBannerShow && <ScamBanner />}
           {isMobileUserAgent ? (
             <MobileHeader

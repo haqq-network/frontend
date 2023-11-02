@@ -4,34 +4,23 @@
     "defaultBase": "dev"
   },
   "packageManager": "yarn",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e",
-          "build-storybook"
-        ],
-        "cacheDirectory": "/tmp/nx-cache"
-      }
-    }
-  },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
     "e2e": {
-      "inputs": ["default", "^production"]
+      "inputs": ["default", "^production"],
+      "cache": true
     },
     "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true
     },
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
     },
     "build-storybook": {
       "inputs": [
@@ -40,7 +29,8 @@
         "{workspaceRoot}/.storybook/**/*",
         "{projectRoot}/.storybook/**/*",
         "{projectRoot}/tsconfig.storybook.json"
-      ]
+      ],
+      "cache": true
     }
   },
   "workspaceLayout": {
@@ -86,5 +76,6 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/tsconfig.storybook.json"
     ]
-  }
+  },
+  "cacheDirectory": "/tmp/nx-cache"
 }
