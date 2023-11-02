@@ -7,14 +7,14 @@ import {
   useWallet,
 } from '@haqq/shared';
 import { CaptchaModal, Container, Heading } from '@haqq/shell-ui-kit';
-import { AirdropEvm } from '../../lib/airdrop-evm/airdrop-evm';
+import { AirdropFinished } from '../../lib/airdrop-evm/airdrop-evm';
 import {
   AirdropCosmos,
   addHaqqNetwork,
 } from '../../lib/airdrop-cosmos/airdrop-cosmos';
 import { Address } from '../../lib/address/address';
 import { Keplr } from '@keplr-wallet/types';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 async function enableChains(keplrWallet: Keplr) {
   await keplrWallet.enable(['haqq_11235-1', 'cosmoshub-4', 'evmos_9001-2']);
@@ -99,7 +99,10 @@ export function AirdropPage({
                 </div>
               </div>
             ) : (
-              <div className="mt-[8px] flex flex-col gap-[12px]">
+              <div
+                className="font-guise mt-[8px] flex max-w-5xl flex-col gap-[12px] text-[12px] font-[500] leading-[18px] text-white
+        md:text-[14px] md:leading-[22px]"
+              >
                 <div>
                   Reward distribution is in progress! Your rewards will be on
                   their way to you shortly. Thank you for your patience and
@@ -115,9 +118,9 @@ export function AirdropPage({
                     target="_blank"
                     className="text-haqq-orange"
                     rel="noopener noreferrer"
-                    href=" https://shell.haqq.network/airdrop/revision-address"
+                    to="https://shell.haqq.network/airdrop/revision-address"
                   >
-                    is avaliabe here.
+                    is available here.
                   </Link>
                 </div>
               </div>
@@ -131,17 +134,38 @@ export function AirdropPage({
           <div className="flex flex-col gap-[52px]">
             <div className="flex flex-col gap-[32px]">
               <div className="flex flex-row items-center">
-                <Heading level={3} className="mb-[-2px]">
+                {/* <Heading level={3} className="mb-[-2px]">
                   Community drop
+                </Heading> */}
+                <Heading
+                  level={2}
+                  className="text-islamic-primary-green mb-[-2px] flex flex-row items-center gap-[10px]"
+                >
+                  <span>Community Drop has successfully ended</span>
+
+                  <svg
+                    width="42"
+                    height="42"
+                    viewBox="0 0 42 42"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M35.442 11.3023L15.7684 33.7864L6.57422 23.5706L9.17575 21.2293L15.7315 28.5135L32.808 8.99756L35.442 11.3023Z"
+                      fill="currentColor"
+                    />
+                  </svg>
                 </Heading>
               </div>
-
-              <AirdropEvm
+              <AirdropFinished />
+              {/* <AirdropEvm
                 ethAddress={targetHexAddress}
                 airdropEndpoint={airdropEndpoint}
                 isCosmos={!notConnectedKeplr}
                 connectKeplrWallet={connectKeplrWallet}
-              />
+              /> */}
             </div>
 
             <div className="flex flex-col gap-[32px]">
