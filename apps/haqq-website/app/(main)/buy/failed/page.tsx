@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${title} | HAQQ`,
     description,
-    url: new URL('/buy/fail', DEPLOY_URL).toString(),
+    url: new URL('/buy/failed', DEPLOY_URL).toString(),
     images: haqqOpenGraphImages,
   },
 };
