@@ -35,10 +35,6 @@ const AirdropPage = lazy(async () => {
   const { AirdropPage } = await import('@haqq/shell-airdrop');
   return { default: AirdropPage };
 });
-const WalletCheckPage = lazy(async () => {
-  const { WalletCheckPage } = await import('@haqq/shell-airdrop');
-  return { default: WalletCheckPage };
-});
 
 export function App() {
   return (
@@ -79,12 +75,7 @@ export function App() {
         />
         <Route
           path="/airdrop/revision-address"
-          element={
-            <WalletCheckPage
-              turnstileSiteKey={environment.turnstileSiteKey}
-              walletCheckEndpoint={environment.airdropEndpoint}
-            />
-          }
+          element={<Navigate to="/airdrop" replace />}
         />
 
         <Route path="not-found" element={<NotFoundPage />} />

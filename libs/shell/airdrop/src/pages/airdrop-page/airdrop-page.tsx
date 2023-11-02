@@ -14,7 +14,6 @@ import {
 } from '../../lib/airdrop-cosmos/airdrop-cosmos';
 import { Address } from '../../lib/address/address';
 import { Keplr } from '@keplr-wallet/types';
-import { Link } from 'react-router-dom';
 
 async function enableChains(keplrWallet: Keplr) {
   await keplrWallet.enable(['haqq_11235-1', 'cosmoshub-4', 'evmos_9001-2']);
@@ -98,33 +97,7 @@ export function AirdropPage({
                   <Address address={ethToHaqq(targetHexAddress)} />
                 </div>
               </div>
-            ) : (
-              <div
-                className="font-guise mt-[8px] flex max-w-5xl flex-col gap-[12px] text-[12px] font-[500] leading-[18px] text-white
-        md:text-[14px] md:leading-[22px]"
-              >
-                <div>
-                  Reward distribution is in progress! Your rewards will be on
-                  their way to you shortly. Thank you for your patience and
-                  support.
-                </div>
-
-                <div>
-                  Webpage is specially designed for users who participated in
-                  the 3rd Wave of the HAQQ Expedition on Galaxy, but whose
-                  responses to the "MAIN HAQQ Wallet" prompt weren't saved in
-                  Galxe,{' '}
-                  <Link
-                    target="_blank"
-                    className="text-haqq-orange"
-                    rel="noopener noreferrer"
-                    to="https://shell.haqq.network/airdrop/revision-address"
-                  >
-                    is available here.
-                  </Link>
-                </div>
-              </div>
-            )}
+            ) : null}
           </div>
         </Container>
       </div>
@@ -134,9 +107,6 @@ export function AirdropPage({
           <div className="flex flex-col gap-[52px]">
             <div className="flex flex-col gap-[32px]">
               <div className="flex flex-row items-center">
-                {/* <Heading level={3} className="mb-[-2px]">
-                  Community drop
-                </Heading> */}
                 <Heading
                   level={2}
                   className="text-islamic-primary-green mb-[-2px] flex flex-row items-center gap-[10px]"
@@ -160,12 +130,6 @@ export function AirdropPage({
                 </Heading>
               </div>
               <AirdropFinished />
-              {/* <AirdropEvm
-                ethAddress={targetHexAddress}
-                airdropEndpoint={airdropEndpoint}
-                isCosmos={!notConnectedKeplr}
-                connectKeplrWallet={connectKeplrWallet}
-              /> */}
             </div>
 
             <div className="flex flex-col gap-[32px]">
