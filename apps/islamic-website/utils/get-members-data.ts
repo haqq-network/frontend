@@ -6,7 +6,13 @@ export const revalidate = REVALIDATE_TIME;
 
 export const getMembersContentFromFalconer = cache(async (locale: string) => {
   try {
-    const members = await getMembersData(
+    const {
+      advisoryMembers,
+      executiveMembers,
+      founderMembers,
+      shariahMembers,
+      teamMembers,
+    } = await getMembersData(
       {
         next: {
           revalidate,
@@ -16,11 +22,11 @@ export const getMembersContentFromFalconer = cache(async (locale: string) => {
     );
 
     return {
-      advisoryMembers: members.members.advisory_members,
-      executiveMembers: members.members.executive_members,
-      shariahMembers: members.members.shariah_members,
-      teamMembers: members.members.team_members,
-      founderMembers: members.members.founder_members,
+      advisoryMembers,
+      executiveMembers,
+      shariahMembers,
+      teamMembers,
+      founderMembers,
     };
   } catch (error) {
     console.error(error);

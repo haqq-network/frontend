@@ -9,16 +9,6 @@ export interface Member {
   role?: string;
 }
 
-export interface FalconerMembers {
-  members: {
-    advisory_members: Member[];
-    executive_members: Member[];
-    shariah_members: Member[];
-    team_members: Member[];
-    founder_members: Member[];
-  };
-}
-
 export async function getMembersData(
   options: Partial<FalconerChainStatsRequestInit>,
   locale: string,
@@ -37,7 +27,13 @@ export async function getMembersData(
     throw new Error('chain stats fetch failed');
   }
 
-  const responseJson = await response.json();
+  const { members } = await response.json();
 
-  return responseJson as FalconerMembers;
+  return {
+    advisoryMembers: members.advisory_members,
+    executiveMembers: members.executive_members,
+    shariahMembers: members.shariah_members,
+    teamMembers: members.team_members,
+    founderMembers: members.founder_members,
+  };
 }
