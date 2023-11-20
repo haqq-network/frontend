@@ -3169,7 +3169,7 @@ __metadata:
     marked-react: "npm:2.0.0"
     nanoid: "npm:5.0.2"
     next: "npm:14.0.1"
-    next-intl: "npm:3.0.0-rc.6"
+    next-intl: "npm:3.1.2"
     nx: "npm:17.0.2"
     postcss: "npm:8.4.31"
     postcss-import: "npm:15.1.0"
@@ -20068,18 +20068,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-intl@npm:3.0.0-rc.6":
-  version: 3.0.0-rc.6
-  resolution: "next-intl@npm:3.0.0-rc.6"
+"next-intl@npm:3.1.2":
+  version: 3.1.2
+  resolution: "next-intl@npm:3.1.2"
   dependencies:
     "@formatjs/intl-localematcher": "npm:^0.2.32"
     negotiator: "npm:^0.6.3"
-    server-only: "npm:0.0.1"
-    use-intl: "npm:3.0.0-rc.6"
+    use-intl: "npm:^3.1.2"
   peerDependencies:
-    next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0
+    next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 1bc60956b57280ac04675074351aad9c7a2aaaa0d670d015276435f04e9d989303772b3333403608e977df638fef06ede7fa336d4b95243134abb961ccf0e498
+  checksum: 229d85d5ddcdf7485cb47e0e97dd5b966eefc09ba374b0ee8afe6a94110fb34ae414a85d4637dbcec974f2ff4343de2993f1b85be9a9f61e65fd0fc29ba71454
   languageName: node
   linkType: hard
 
@@ -24506,7 +24505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"server-only@npm:0.0.1, server-only@npm:^0.0.1":
+"server-only@npm:^0.0.1":
   version: 0.0.1
   resolution: "server-only@npm:0.0.1"
   checksum: c432348956641ea3f460af8dc3765f3a1bdbcf7a1e0205b0756d868e6e6fe8934cdee6bff68401a1dd49ba4a831c75916517a877446d54b334f7de36fa273e53
@@ -26934,15 +26933,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-intl@npm:3.0.0-rc.6":
-  version: 3.0.0-rc.6
-  resolution: "use-intl@npm:3.0.0-rc.6"
+"use-intl@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "use-intl@npm:3.1.2"
   dependencies:
     "@formatjs/ecma402-abstract": "npm:^1.11.4"
     intl-messageformat: "npm:^9.3.18"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 4e67e63bb3ea6b43991ba58fb7d6724a6c2e395ff9bea89a7430c211434e6e151969621bccfbb20732c8fb841c4ade45b07cbaad75b2257913a2789ae38b942b
+  checksum: 189b9d521f1cba90f0724678b4fa3906f5699ee28dd7ecddf9932f73fca43a56f7d69cc5a7fb5f497fcbfcfd973c71d126556537379cd9c0a77d8beed9ccc8ca
   languageName: node
   linkType: hard
 
