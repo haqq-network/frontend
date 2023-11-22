@@ -100,7 +100,7 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
         className="border-haqq-border mx-[16px] border-l px-[16px] sm:ml-[63px] sm:mr-0 sm:pl-0 sm:pr-0 lg:ml-[79px]"
         id="stats"
       >
-        <div className="grid grid-cols-1 gap-[24px] py-[42px] sm:grid-cols-2 sm:px-[32px] sm:py-[60px] xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-[24px] py-[42px] sm:grid-cols-2 sm:px-[32px] sm:py-[60px] xl:grid-cols-3">
           <StatisticsBlockStatCard
             value={memoizedStats.mainnetAccountsCreated}
             title="mainnet accounts created"
@@ -123,16 +123,6 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
             title="average cost per transaction"
             startAnimation={startAnimation}
             postfix="ISLM"
-          />
-          <StatisticsBlockStatCard
-            value={memoizedStats.era}
-            title="era"
-            startAnimation={startAnimation}
-          />
-          <StatisticsBlockStatCard
-            value={memoizedStats.emissionRate}
-            title="emission rate"
-            startAnimation={startAnimation}
           />
           <StatisticsBlockStatCard
             value={memoizedStats.emittedAlready}

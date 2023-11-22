@@ -42,10 +42,10 @@ export function ContactUsPage() {
                     <p>
                       In case of an emergency, please contact us by phone{' '}
                       <Link
-                        href="tel:+9715855474242"
+                        href="tel:+971585474242"
                         className="text-islamic-primary-green hover:text-islamic-primary-green-hover cursor-pointer transition-colors duration-300"
                       >
-                        +9715855474242
+                        +971585474242
                       </Link>
                     </p>
                   </div>
