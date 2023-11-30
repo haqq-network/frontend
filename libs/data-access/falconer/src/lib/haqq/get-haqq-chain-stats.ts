@@ -1,10 +1,5 @@
-import { FALCONER_ENDPOINT } from '../constants';
-
-export interface FalconerChainStatsRequestInit extends RequestInit {
-  next?: {
-    revalidate?: number;
-  };
-}
+import { FALCONER_ENDPOINT } from '../../constants';
+import { FalconerRequestInit } from '../../types';
 
 export interface FalconerChainStats {
   accounts: string;
@@ -17,9 +12,7 @@ export interface FalconerChainStats {
   coinomicsWillBeMinted: string;
 }
 
-export async function getChainStats(
-  options: Partial<FalconerChainStatsRequestInit>,
-) {
+export async function getHaqqChainStats(options: Partial<FalconerRequestInit>) {
   const requestUrl = new URL('/haqq/chain_stats', FALCONER_ENDPOINT);
   const response = await fetch(requestUrl, {
     method: 'get',

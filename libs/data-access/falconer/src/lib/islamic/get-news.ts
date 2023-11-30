@@ -1,7 +1,6 @@
-import { FALCONER_ENDPOINT } from '../constants';
-import { FalconerChainStatsRequestInit } from '../get-chain-stats/get-chain-stats';
-
-type NewsType = 'press' | 'events';
+import { FALCONER_ENDPOINT } from '../../constants';
+import { FalconerRequestInit } from '../../types';
+import { mapFalconerNews } from '../../utils/map-news';
 
 export interface FalconerNewsPost {
   image: {
@@ -13,12 +12,27 @@ export interface FalconerNewsPost {
   description: string;
   date: string;
   source: string;
-  content_type: NewsType;
+  content_type: string;
+  url: string;
+}
+
+export interface NewsPost {
+  image: {
+    src: string;
+    width: number;
+    height: number;
+  } | null;
+  title: string;
+  description: string;
+  date: Date;
+  source: string;
+  type: string;
+  isFeatured?: boolean;
   url: string;
 }
 
 export async function getNewsData(
-  options: Partial<FalconerChainStatsRequestInit>,
+  options: Partial<FalconerRequestInit>,
   limit?: number,
 ) {
   const requestUrl = new URL('/islamic/news', FALCONER_ENDPOINT);
@@ -35,7 +49,7 @@ export async function getNewsData(
     throw new Error('chain stats fetch failed');
   }
 
-  const responseJson = await response.json();
+  const responseJson: FalconerNewsPost[] = await response.json();
 
-  return responseJson as FalconerNewsPost[];
+  return mapFalconerNews(responseJson);
 }
