@@ -62,7 +62,7 @@ export function StatisticsBlockStatCard({
   );
 }
 
-export function StatisticsBlock({ stats }: { stats: ChainStats }) {
+export function StatisticsBlock({ stats }: { stats?: ChainStats }) {
   const [startAnimation, setStartAnimation] = useState(false);
   const blockRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(
@@ -78,6 +78,10 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
   }, [inViewport, startAnimation]);
 
   const memoizedStats = useMemo(() => {
+    if (!stats) {
+      return undefined;
+    }
+
     return {
       mainnetAccountsCreated: stats.mainnetAccountsCreated,
       transactionsInLast24Hours: stats.transactionsInLast24Hours,
@@ -90,7 +94,7 @@ export function StatisticsBlock({ stats }: { stats: ChainStats }) {
     };
   }, [stats]);
 
-  if (stats === undefined) {
+  if (memoizedStats === undefined) {
     return null;
   }
 
