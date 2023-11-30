@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { RoadmapPage } from '@haqq/islamic-website/roadmap-page';
-import { getRoadmapContent } from '../../../utils/get-roadmap-data';
+import { getRoadmapContent } from '../../../utils/get-roadmap';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 

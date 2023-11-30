@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 import { TeamPage } from '@haqq/islamic-website/team-page';
-import { getMembersContentFromFalconer } from '../../../utils/get-members-data';
+import { getMembersContentFromFalconer } from '../../../utils/get-members';
 
 const title = 'Team';
 const description =

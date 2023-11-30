@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { WhitepaperPage } from '@haqq/islamic-website/whitepaper-page';
-import { getWhitepaperContentFromFalconer } from '../../../utils/get-whitepaper-content';
+import { getWhitepaperContentFromFalconer } from '../../../utils/get-whitepaper';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
