@@ -11,7 +11,7 @@ const { Link } = createSharedPathnamesNavigation({
 export function AvailableSoonPage() {
   const t = useTranslations('available-soon-page');
   return (
-    <div className="relative">
+    <section className="relative">
       <Container>
         <div className="flex flex-col items-center justify-center pb-[293px] pt-[273px] md:py-[305px] lg:py-[356px]">
           <div className="rtl:font-handjet ltr:font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
@@ -31,6 +31,6 @@ export function AvailableSoonPage() {
         className="user-select-none absolute left-1/2 top-[16%] z-[-1] h-[400px] w-[400px] -translate-x-1/2 object-cover md:top-[6.5%] md:h-[580px] md:w-[580px] lg:top-[4%] lg:h-[720px] lg:w-[720px]"
         priority
       />
-    </div>
+    </section>
   );
 }
