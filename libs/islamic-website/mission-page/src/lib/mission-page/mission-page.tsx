@@ -16,6 +16,7 @@ function MissionPageHeading({ children }: PropsWithChildren) {
 
 export function MissionPage() {
   const t = useTranslations('mission-page');
+
   return (
     <section className="overflow-clip">
       <Container className="relative">

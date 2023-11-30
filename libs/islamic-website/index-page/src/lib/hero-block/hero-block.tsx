@@ -28,7 +28,7 @@ export function HeroBlock() {
   }, []);
 
   return (
-    <div className="flex flex-col pt-[60px] text-white md:pt-[120px] xl:pt-[150px]">
+    <section className="flex flex-col pt-[60px] text-white md:pt-[120px] xl:pt-[150px]">
       <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
         {t('hero-block.title.white-text')}
         <GradientText className="rtl:pb-[10px]">
@@ -83,6 +83,6 @@ export function HeroBlock() {
           />
         </div>
       </Modal>
-    </div>
+    </section>
   );
 }
