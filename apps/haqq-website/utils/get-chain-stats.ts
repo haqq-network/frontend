@@ -1,12 +1,12 @@
 import { cache } from 'react';
 import { REVALIDATE_TIME } from '../constants';
-import { getChainStats } from '@haqq/data-access-falconer';
+import { getHaqqChainStats } from '@haqq/data-access-falconer';
 
 export const revalidate = REVALIDATE_TIME;
 
 export const getChainStatsFromFalconer = cache(async () => {
   try {
-    const stats = await getChainStats({
+    const stats = await getHaqqChainStats({
       next: {
         revalidate,
       },
@@ -26,14 +26,5 @@ export const getChainStatsFromFalconer = cache(async () => {
     console.error(error);
   }
 
-  return {
-    mainnetAccountsCreated: 0,
-    transactionsInLast24Hours: 0,
-    secondsToConsensusFinality: 0,
-    averageCostPerTransaction: 0,
-    era: 0,
-    emissionRate: 0,
-    emittedAlready: 0,
-    willBeEmitted: 0,
-  };
+  return undefined;
 });
