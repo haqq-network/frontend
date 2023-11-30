@@ -1,10 +1,5 @@
-import {
-  Container,
-  NewsCard,
-  NewsPost,
-  Text,
-} from '@haqq/islamic-website-ui-kit';
-import { useMemo } from 'react';
+import { Container, NewsPost, Text } from '@haqq/islamic-website-ui-kit';
+
 import { PostsBlock } from '../posts-block/posts-block';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 import { useTranslations } from 'next-intl';
@@ -16,31 +11,10 @@ export function NewsPage({
   news?: NewsPost[];
   turnstileSiteKey?: string;
 }) {
-  const { featuredPost, postsToRender } = useMemo(() => {
-    let featuredPost = undefined;
-    const postsToRender = [];
-
-    if (news) {
-      for (const post of news) {
-        if (!featuredPost) {
-          if (post.isFeatured) {
-            featuredPost = post;
-          } else {
-            postsToRender.push(post);
-          }
-        } else {
-          postsToRender.push(post);
-        }
-      }
-    }
-
-    return { featuredPost, postsToRender };
-  }, [news]);
-
-  const t = useTranslations('');
+  const t = useTranslations();
 
   return (
-    <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
+    <section className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
       <Container>
         <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
           {t('news-page.title')}
@@ -59,22 +33,13 @@ export function NewsPage({
           </div>
         )}
 
-        {featuredPost && (
-          <div className="flex flex-col gap-y-[28px] pt-[60px] md:gap-y-[48px] md:pt-[100px] lg:pt-[140px]">
-            <h2 className="text-[22px] font-[600] leading-[24px] md:text-[48px] md:leading-[54px]">
-              {t('posts.featured-post')}
-            </h2>
-            <NewsCard post={featuredPost} isFeatured />
-          </div>
-        )}
-
-        {postsToRender.length > 0 && (
+        {news && news.length > 0 && (
           <PostsBlock
-            posts={postsToRender}
+            posts={news}
             className="mt-[60px] md:mt-[110px] lg:mt-[140px]"
           />
         )}
       </Container>
-    </div>
+    </section>
   );
 }
