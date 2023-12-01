@@ -13,7 +13,7 @@ export function IndexPage({
   stats,
   turnstileSiteKey,
 }: {
-  stats: ChainStats;
+  stats?: ChainStats;
   turnstileSiteKey?: string;
 }) {
   return (
