@@ -13,7 +13,7 @@ import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { FoundationsBlock } from '../foundations-block/foundations-block';
 import { ShariahBlock } from '../shariah-block/shariah-block';
-import { ShariPageMobileNav } from '../sharia-page-mobile-nav/sharia-page-mobile-nav';
+import { ShariahPageMobileNav } from '../shariah-page-mobile-nav/shariah-page-mobile-nav';
 import { ScrollSpySection } from './scrollspy';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -69,6 +69,19 @@ function MembersContainer({
   );
 }
 
+const sections = [
+  { id: 'fatwa', title: 'headings.fatwa' },
+  { id: 'foundations', title: 'headings.foundations' },
+  { id: 'shariah-oracle', title: 'headings.sharia-oracle' },
+  { id: 'shariah-board', title: 'headings.shariah-board' },
+  { id: 'advisory-board', title: 'headings.advisory-board' },
+  { id: 'executive-board', title: 'headings.executive-board' },
+];
+
+const activeSectionsDefaultState = sections.map(() => {
+  return false;
+});
+
 export function ShariahPage({
   shariahMembers,
   executiveMembers,
@@ -83,25 +96,12 @@ export function ShariahPage({
   locale: string;
 }) {
   const t = useTranslations('shariah-page');
-  const sections: Array<{ id: string; title: string }> = [
-    { id: 'fatwa', title: t('headings.fatwa') },
-    { id: 'foundations', title: t('headings.foundations') },
-    { id: 'shariah-oracle', title: t('headings.sharia-oracle') },
-    { id: 'shariah-board', title: t('headings.shariah-board') },
-    { id: 'advisory-board', title: t('headings.advisory-board') },
-    { id: 'executive-board', title: t('headings.executive-board') },
-  ];
-
-  const activeSectionsDefaultState = sections.map(() => {
-    return false;
-  });
-
   const { replace } = useRouter();
+  const [activeSection, setActiveSection] = useState('fatwa');
+  const [boardMember, setBoardMember] = useState<undefined | Member>(undefined);
   const [activeSections, setActiveSections] = useState(
     activeSectionsDefaultState,
   );
-  const [activeSection, setActiveSection] = useState('fatwa');
-  const [boardMember, setBoardMember] = useState<undefined | Member>(undefined);
 
   const handleSectionInView = useCallback((id: string, inView: boolean) => {
     const sectionIndex = sections.findIndex(({ id: sectionId }) => {
@@ -162,7 +162,7 @@ export function ShariahPage({
         >
           <div className="relative hidden w-[292px] flex-none lg:block">
             <div className="sticky top-[112px] pb-[80px]">
-              <ShariPageDesktopNav
+              <ShariahPageDesktopNav
                 sections={sections}
                 activeSection={activeSection}
               />
@@ -171,7 +171,7 @@ export function ShariahPage({
           <div className="md:flex-1">
             <div>
               <div className="lg:hidden">
-                <ShariPageMobileNav
+                <ShariahPageMobileNav
                   sections={sections}
                   activeSection={activeSection}
                   onSectionSelect={handleSectionSelect}
@@ -184,6 +184,7 @@ export function ShariahPage({
                   onSectionInView={handleSectionInView}
                   initialInView
                 >
+                  {/* <div className="border-b-[1px] border-[#2F2F2F] pb-[32px] pt-[32px] md:pb-[60px] lg:pb-[80px]"> */}
                   <div className="pb-[32px] pt-[32px] md:pb-[60px] lg:pb-[80px]">
                     <FatwaBlock locale={locale as LocaleType} fatwa={fatwa} />
                   </div>
@@ -191,12 +192,14 @@ export function ShariahPage({
                 <ScrollSpySection
                   id="foundations"
                   onSectionInView={handleSectionInView}
+                  // threshold={[0.2, 0.5]}
                 >
                   <div className="py-[32px] md:py-[60px] lg:py-[80px]">
                     <FoundationsBlock />
                   </div>
                 </ScrollSpySection>
                 <ScrollSpySection
+                  // threshold={[0.2, 0.5]}
                   id="shariah-oracle"
                   onSectionInView={handleSectionInView}
                 >
@@ -205,6 +208,7 @@ export function ShariahPage({
                   </div>
                 </ScrollSpySection>
                 <ScrollSpySection
+                  // threshold={[0.2, 0.5]}
                   id="shariah-board"
                   onSectionInView={handleSectionInView}
                 >
@@ -228,6 +232,7 @@ export function ShariahPage({
                   </div>
                 </ScrollSpySection>
                 <ScrollSpySection
+                  // threshold={[0.2, 0.5]}
                   id="advisory-board"
                   onSectionInView={handleSectionInView}
                 >
@@ -246,6 +251,7 @@ export function ShariahPage({
                   </div>
                 </ScrollSpySection>
                 <ScrollSpySection
+                  // threshold={[0.2, 0.5]}
                   id="executive-board"
                   onSectionInView={handleSectionInView}
                 >
@@ -309,7 +315,7 @@ export function ShariahPage({
   );
 }
 
-function ShariPageDesktopNavLink({
+function ShariahPageDesktopNavLink({
   href,
   isActive,
   children,
@@ -352,24 +358,26 @@ function ShariPageDesktopNavLink({
   );
 }
 
-function ShariPageDesktopNav({
+function ShariahPageDesktopNav({
   sections,
   activeSection,
 }: {
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
 }) {
+  const t = useTranslations('shariah-page');
+
   return (
     <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px] backdrop-blur">
       {sections.map(({ id, title }) => {
         return (
-          <ShariPageDesktopNavLink
+          <ShariahPageDesktopNavLink
             href={`#${id}`}
             key={`sharia-nav-${id}`}
             isActive={activeSection === id}
           >
-            {title}
-          </ShariPageDesktopNavLink>
+            {t(title)}
+          </ShariahPageDesktopNavLink>
         );
       })}
     </nav>
