@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PrivacyPolicyPage } from '@haqq/haqq-website/privacy-policy-page';
 import { DEPLOY_URL } from '../../../constants';
-import { getPrivacyPolicy } from '../../../utils/get-privacy-policy';
+import { getPrivacyPolicyContentFromFalconer } from '../../../utils/get-privacy-policy';
 import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Privacy Policy';
@@ -19,8 +19,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
-  const privacyPolicy = await getPrivacyPolicy();
+interface PageProps {
+  params: { locale: string };
+}
+
+export default async function Page(props: PageProps) {
+  const {
+    params: { locale },
+  } = props;
+  const privacyPolicy = await getPrivacyPolicyContentFromFalconer(locale);
 
   return <PrivacyPolicyPage privacyPolicy={privacyPolicy} />;
 }
