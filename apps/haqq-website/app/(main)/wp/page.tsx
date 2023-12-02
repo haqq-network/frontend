@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getWhitepaper } from '../../../utils/get-whitepaper';
+import { getWhitepaperContentFromFalconer } from '../../../utils/get-whitepaper';
 import { WhitepaperPage } from '@haqq/haqq-website/whitepaper-page';
 import { DEPLOY_URL } from '../../../constants';
 import { haqqOpenGraphImages } from '../../shared-metadata';
@@ -27,7 +27,7 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const whitepaper = await getWhitepaper(locale);
+  const whitepaper = await getWhitepaperContentFromFalconer(locale);
 
   return <WhitepaperPage whitepaper={whitepaper} />;
 }
