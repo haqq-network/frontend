@@ -20,5 +20,11 @@ export const getMembersContentFromFalconer = cache(async (locale: string) => {
     console.error(error);
   }
 
-  return undefined;
+  return {
+    advisoryMembers: [],
+    executiveMembers: [],
+    shariahMembers: [],
+    teamMembers: [],
+    founderMembers: [],
+  };
 });
