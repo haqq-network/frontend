@@ -35,7 +35,6 @@ const audits: Auditor[] = [
 ];
 
 export function AuditsPage() {
-  console.log(halbornLogoImgData, 'ASJHDHG');
   return (
     <section className="overflow-x-clip">
       <div className="sunrise-background relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]">
