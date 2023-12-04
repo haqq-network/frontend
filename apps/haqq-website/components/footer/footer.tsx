@@ -99,6 +99,9 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               <div className="leading-[0]">
                 <FooterNavLink href="/ecosystem-fund">Fund</FooterNavLink>
               </div>
+              <div className="leading-[0]">
+                <FooterNavLink href="/audits">Audits</FooterNavLink>
+              </div>
               {/* <FooterNavLink href="#technology">Technology</FooterNavLink> */}
               <div className="leading-[0]">
                 <FooterNavLink href="/#developers">Developers</FooterNavLink>
