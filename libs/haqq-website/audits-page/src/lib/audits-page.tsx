@@ -1,19 +1,41 @@
 import { Heading } from '@haqq/haqq-website-ui-kit';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 import halbornLogoImgData from '../assets/images/halborn-logo.svg';
 import linesBgImgData from '../assets/images/lines.svg';
 import clsx from 'clsx';
 
 interface Auditor {
-  logoUrl: string;
-  logoHeight: number;
-  logoWidth: number;
+  logo: StaticImageData | string;
   name: string;
   report: string;
 }
 
+const audits: Auditor[] = [
+  {
+    logo: halbornLogoImgData,
+    name: 'HAQQ Backend',
+    report: '/assets/audits/haqq-backend-webapp-pentest-report.pdf',
+  },
+  {
+    logo: halbornLogoImgData,
+    name: 'HAQQ Coinomics',
+    report: '/assets/audits/haqq-coinomics-cosmos-security-assessment.pdf',
+  },
+  {
+    logo: halbornLogoImgData,
+    name: 'HAQQ Vesting',
+    report: '/assets/audits/haqq-vesting-cosmos-security.pdf',
+  },
+  {
+    logo: halbornLogoImgData,
+    name: 'HAQQ Social Smart Contract',
+    report: '/assets/audits/haqq-social-smart-contract-security-assessment.pdf',
+  },
+];
+
 export function AuditsPage() {
+  console.log(halbornLogoImgData, 'ASJHDHG');
   return (
     <section className="overflow-x-clip">
       <div className="sunrise-background relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]">
@@ -46,34 +68,34 @@ export function AuditsPage() {
           </div>
         </div>
         <div className="mt-[28px] grid grid-cols-1 gap-[28px] md:mt-[42px] md:grid-cols-2 lg:mt-[80px] lg:grid-cols-3">
-          <AuditCard
-            logoUrl={halbornLogoImgData}
-            logoHeight={42}
-            logoWidth={234}
-            name="Halborn"
-            report="/fake.txt"
-          />
+          {audits.map((audit) => {
+            return (
+              <AuditCard
+                key={audit.name}
+                logo={audit.logo}
+                name={audit.name}
+                report={audit.report}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-function AuditCard({ logoUrl, logoHeight, logoWidth, name, report }: Auditor) {
+function AuditCard({ logo, name, report }: Auditor) {
   return (
     <div className="flex flex-col border border-[#0D0D0E4D] p-[20px]">
       <div className="relative self-center px-[44px] py-[100px] md:px-[28px] lg:px-[8px] 2xl:px-[68px]">
-        <Image src={logoUrl} alt={name} width={logoWidth} height={logoHeight} />
+        <Image src={logo} alt={`${name} Logo`} />
       </div>
-      <div className="text-haqq-black text-[12px] leading-[18px]">
-        {name} audit
-      </div>
+      <div className="text-haqq-black text-[12px] leading-[18px]">{name}</div>
       <Link
         className="text-haqq-orange hover:text-haqq-light-orange mt-[12px] flex w-fit flex-row items-center gap-x-[4px] text-[14px] font-[500] uppercase leading-[22px] transition-colors duration-300"
         href={report}
         target="_blank"
         rel="noopener noreferrer"
-        download
       >
         <svg
           width="20"
@@ -83,8 +105,8 @@ function AuditCard({ logoUrl, logoHeight, logoWidth, name, report }: Auditor) {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M5.41667 16.25H14.5833V9.16665H10.1667C9.61438 9.16665 9.16667 8.71893 9.16667 8.16665V3.74998H5.41667V16.25ZM13.893 7.49998L10.8333 4.44034V7.49998H13.893ZM15.4167 17.9166H4.58333C4.1231 17.9166 3.75 17.5435 3.75 17.0833V2.91665C3.75 2.45641 4.1231 2.08331 4.58333 2.08331H10.4882C10.7092 2.08331 10.9211 2.17111 11.0774 2.32739L16.0059 7.2559C16.1622 7.41218 16.25 7.62414 16.25 7.84516V17.0833C16.25 17.5435 15.8769 17.9166 15.4167 17.9166Z"
             fill="currentColor"
           />
@@ -98,8 +120,8 @@ function AuditCard({ logoUrl, logoHeight, logoWidth, name, report }: Auditor) {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M12.2874 8.30374L12.2874 13.363H13.954L13.954 5.45857H6.04965V7.12523L11.1089 7.12523L4.28188 13.9522L5.46039 15.1307L12.2874 8.30374Z"
             fill="currentColor"
           />
