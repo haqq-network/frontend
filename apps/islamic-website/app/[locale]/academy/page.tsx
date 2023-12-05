@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { DEPLOY_URL } from '../../../constants';
+import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
+import { AcademyPreviewPage } from '@haqq/islamic-website/academy-page';
 
 const title = 'Academy';
 const description =
@@ -17,4 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-export { AvailableSoonPage as default } from '@haqq/islamic-website/academy-page';
+export default async function Page() {
+  return <AcademyPreviewPage turnstileSiteKey={TURNSTILE_SITEKEY} />;
+}
