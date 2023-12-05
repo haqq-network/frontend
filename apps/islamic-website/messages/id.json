@@ -305,6 +305,12 @@
     "title": "Menunggu segera",
     "subtitle": "Pergi ke halaman utama"
   },
+  "academy-modules-page": {
+    "back": "Kembali ke halaman utama",
+    "description": "Deskripsi",
+    "quize_title": "Tonton video instruksi sebelum memulai kuis. Setelah menyelesaikan kuis, video berikutnya akan terbuka untuk Anda",
+    "start_quize_btn": "Mulai kuis"
+  },
   "wallet-page": {
     "title": {
       "white-text": "Untuk iOS dan Android",

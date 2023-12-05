@@ -305,6 +305,12 @@
     "title": "Coming soon",
     "subtitle": "Go to main page"
   },
+  "academy-modules-page": {
+    "back": "Back to main page",
+    "description": "Description",
+    "quize_title": "Watch the instructional video before starting the quiz. After completing the quiz, the next video will be unlocked for you",
+    "start_quize_btn": "Start the quiz"
+  },
   "wallet-page": {
     "title": {
       "white-text": "Your Gateway to Islamic DeFi",
