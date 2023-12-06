@@ -25,8 +25,9 @@ export function AcademyPreviewPage({
   const closeVideoModal = useCallback(() => {
     setIsVideoModalOpen(false);
   }, []);
+
   return (
-    <section>
+    <section className="overflow-x-clip">
       <Container>
         <div className="relative pb-[60px] pt-[32px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
           <div className="absolute left-1/2 top-[-11.5%] -translate-x-1/2 -translate-y-1/2">
