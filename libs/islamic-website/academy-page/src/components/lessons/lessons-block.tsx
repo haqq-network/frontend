@@ -5,7 +5,8 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useEffect } from 'react';
 import { IModules, ILesson } from '../../lib/modules-page/types';
 import MODULES from './modules.json';
-import { useLocalStorage } from '@haqq/shared';
+import { useIsMobile, useLocalStorage } from '@haqq/shared';
+import { Select } from '@haqq/islamic-website-ui-kit';
 
 const useActiveLesson = () => {
   const [activeLesson, setActiveLesson] = useLocalStorage<string | null>(
@@ -19,7 +20,7 @@ const useActiveLesson = () => {
 
   const locale = useLocale();
 
-  const modules = (MODULES as IModules)[locale].modules;
+  const modules = ((MODULES as IModules)[locale] || MODULES['en']).modules;
 
   const allLessonsArray = useMemo(() => {
     const lessons: ILesson[] = [];
@@ -42,7 +43,7 @@ const useActiveLesson = () => {
     }
   }, [activeModule, activeLesson, modules, setActiveLesson, setActiveModule]);
 
-  const currentLessons = useMemo(() => {
+  const currentModuleLessons = useMemo(() => {
     const lessons: ILesson[] = [];
 
     const targetModule = Object.values(modules).find((module) => {
@@ -75,19 +76,94 @@ const useActiveLesson = () => {
   return {
     currentActiveLesson,
     setActiveLesson,
-    currentLessons,
+    currentModuleLessons,
     setActiveModule,
     modules,
+    activeModule,
   };
 };
 
 export const LessonsBlock = () => {
   const t = useTranslations('academy-modules-page');
 
-  const { currentActiveLesson } = useActiveLesson();
+  const {
+    currentActiveLesson,
+    activeModule,
+    modules,
+    setActiveModule,
+    currentModuleLessons,
+    setActiveLesson,
+  } = useActiveLesson();
+
+  const sectionsModules = useMemo(() => {
+    return Object.values(modules).map((module) => {
+      return {
+        id: module.name,
+        title: module.name,
+      };
+    });
+  }, [modules]);
+
+  const lessonsModules = useMemo(() => {
+    return currentModuleLessons.map((lesson) => {
+      return {
+        id: lesson.name,
+        title: lesson.title,
+      };
+    });
+  }, [currentModuleLessons]);
+
+  const { isMobile } = useIsMobile();
 
   return (
     <>
+      <div className="mt-[18px] flex flex-row items-center justify-center gap-[18px] md:flex-col lg:mt-[20px]">
+        {activeModule && (
+          <Select
+            variants={sectionsModules}
+            current={activeModule}
+            onChange={setActiveModule}
+            className="w-[162px]"
+          />
+        )}
+
+        {isMobile ? (
+          <Select
+            variants={lessonsModules}
+            current={currentActiveLesson?.name}
+            onChange={setActiveModule}
+            className="min-w-[162px]"
+          />
+        ) : (
+          <div className="flex flex-row gap-[12px]">
+            {currentModuleLessons.map((lesson, index) => {
+              return (
+                <>
+                  {index !== 0 && (
+                    <div className="h-[1px] w-[20px] border-white"></div>
+                  )}
+                  <div
+                    className={`text-alexandria text-[16px] font-[500] ${
+                      currentActiveLesson?.name === lesson.name
+                        ? 'text-[#EB9226]'
+                        : 'text-white/50'
+                    }`}
+                    onClick={() => {
+                      setActiveLesson(lesson.name);
+                    }}
+                  >
+                    {lesson.title}
+                  </div>
+                  {index !== currentModuleLessons.length - 1 && (
+                    <div className="h-[1px] w-[20px] border-white"></div>
+                  )}
+                </>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
       <div className="font-alexandria mt-[28px] max-w-[1258px] text-center text-[46px] font-[600] md:text-[60px] lg:mt-[40px] lg:text-[80px] ">
         {currentActiveLesson?.title}
       </div>
