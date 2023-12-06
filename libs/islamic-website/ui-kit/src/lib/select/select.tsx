@@ -71,7 +71,7 @@ export function Select({
           return (
             <button
               className={clsx(
-                'flex min-h-[48px] flex-row items-center justify-between gap-[6px] rounded-[8px] px-[16px] py-[12px]',
+                'flex h-[48px] flex-row items-center justify-between gap-[6px] rounded-[8px] px-[16px] py-[12px]',
                 'rtl:font-handjet ltr:font-vcr text-base',
                 'transition-colors duration-300 ease-out',
                 'box-border appearance-none outline-none',
