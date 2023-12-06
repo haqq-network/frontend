@@ -122,7 +122,7 @@ export const LessonsBlock = () => {
     return currentModuleLessons.map((lesson) => {
       return {
         id: lesson.name,
-        title: lesson.title,
+        title: lesson.name,
       };
     });
   }, [currentModuleLessons]);
@@ -154,7 +154,7 @@ export const LessonsBlock = () => {
             variants={lessonsModules}
             current={currentActiveLesson?.name}
             onChange={setActiveModule}
-            className="min-w-[162px]"
+            className="w-[162px]"
           />
         ) : (
           <div className="flex flex-row items-center gap-[12px]">
@@ -229,7 +229,7 @@ export const LessonsBlock = () => {
         onClick={() => {
           window.open(currentActiveLesson?.quize_link, '_blank');
         }}
-        className="mt-[12px] min-w-[343px] px-[32px] py-[12px] capitalize"
+        className="mt-[12px] min-w-[320px] px-[32px] py-[12px] capitalize"
       >
         <Text size="medium" className="text-[16px] text-white" isMono>
           {t('start_quize_btn')}
