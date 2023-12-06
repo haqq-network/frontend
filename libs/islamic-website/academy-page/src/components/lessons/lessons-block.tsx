@@ -1,14 +1,21 @@
 'use client';
 
-import { Button } from '@haqq/islamic-website-ui-kit';
+import { Button, Text } from '@haqq/islamic-website-ui-kit';
 import { useLocale, useTranslations } from 'next-intl';
-import { useState, useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { IModules, ILesson } from '../../lib/modules-page/types';
 import MODULES from './modules.json';
+import { useLocalStorage } from '@haqq/shared';
 
 const useActiveLesson = () => {
-  const [activeLesson, setActiveLesson] = useState<string | null>(null);
-  const [activeModule, setActiveModule] = useState<string | null>(null);
+  const [activeLesson, setActiveLesson] = useLocalStorage<string | null>(
+    'ACTIVE_LESSON',
+    null,
+  );
+  const [activeModule, setActiveModule] = useLocalStorage<string | null>(
+    'ACTIVE_MODULE',
+    null,
+  );
 
   const locale = useLocale();
 
@@ -25,6 +32,15 @@ const useActiveLesson = () => {
 
     return lessons;
   }, [modules]);
+
+  useEffect(() => {
+    if (!activeModule) {
+      setActiveModule(modules[0].name);
+    }
+    if (!activeLesson) {
+      setActiveLesson(modules[0].lessons[0].name);
+    }
+  }, [activeModule, activeLesson, modules, setActiveLesson, setActiveModule]);
 
   const currentLessons = useMemo(() => {
     const lessons: ILesson[] = [];
@@ -95,9 +111,9 @@ export const LessonsBlock = () => {
         {currentActiveLesson?.duration}
       </div>
 
-      <div className="mt-[52px] border-[20px]">
+      <div className="mt-[52px]">
         <iframe
-          className="w-[100%] lg:h-[400px] lg:w-[720px]"
+          className="w-[100%] rounded-[20px] lg:h-[400px] lg:w-[720px]"
           src={currentActiveLesson?.video_link}
           title="YouTube video player"
           frameBorder="0"
@@ -106,18 +122,23 @@ export const LessonsBlock = () => {
         ></iframe>
       </div>
 
-      <div className="text-alexandria mt-[46px] max-w-[504px] text-center text-[14px] font-[400] text-[#EB9226]">
+      <Text
+        size="medium"
+        className="text-alexandria mt-[46px] max-w-[504px] text-center text-[#EB9226]"
+      >
         {t('quize_title')}
-      </div>
+      </Text>
 
       <Button
         variant="islamic-classic-green"
         onClick={() => {
           window.open(currentActiveLesson?.quize_link, '_blank');
         }}
-        className="px-[32px] py-[12px] capitalize"
+        className="mt-[12px] min-w-[343px] px-[32px] py-[12px] capitalize"
       >
-        {t('start_quize_btn')}
+        <Text size="medium" className="text-[16px] text-white" isMono>
+          {t('start_quize_btn')}
+        </Text>
       </Button>
 
       <div className="mt-[46px] flex max-w-[720px] flex-col gap-[12px]">
