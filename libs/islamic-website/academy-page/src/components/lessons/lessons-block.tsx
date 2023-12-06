@@ -88,7 +88,7 @@ export const LessonsBlock = () => {
 
   return (
     <>
-      <div className="font-alexandria mt-[40px] max-w-[1258px] text-center text-[80px] font-[600]">
+      <div className="font-alexandria mt-[28px] max-w-[1258px] text-center text-[46px] font-[600] md:text-[60px] lg:mt-[40px] lg:text-[80px] ">
         {currentActiveLesson?.title}
       </div>
 
@@ -108,12 +108,12 @@ export const LessonsBlock = () => {
           />
         </svg>
 
-        {currentActiveLesson?.duration}
+        <Text size="medium">{currentActiveLesson?.duration}</Text>
       </div>
 
-      <div className="mt-[52px]">
+      <div className="mt-[40px] w-[100%] max-w-[720px] md:mt-[52px]">
         <iframe
-          className="w-[100%] rounded-[20px] lg:h-[400px] lg:w-[720px]"
+          className="h-[246px] w-[100%] rounded-[20px] lg:h-[400px] lg:w-[720px]"
           src={currentActiveLesson?.video_link}
           title="YouTube video player"
           frameBorder="0"
@@ -124,7 +124,7 @@ export const LessonsBlock = () => {
 
       <Text
         size="medium"
-        className="text-alexandria mt-[46px] max-w-[504px] text-center text-[#EB9226]"
+        className="text-alexandria mt-[46px] max-w-[504px] text-center text-[#EB9226] md:mt-[40px]"
       >
         {t('quize_title')}
       </Text>
@@ -141,12 +141,12 @@ export const LessonsBlock = () => {
         </Text>
       </Button>
 
-      <div className="mt-[46px] flex max-w-[720px] flex-col gap-[12px]">
+      <div className="mt-[32px] flex w-[100%] max-w-[720px] flex-col gap-[12px] md:mt-[40px] lg:mt-[46px]">
         <div className="text-alexandria text-[16px] font-[500]">
           {t('description')}
         </div>
 
-        <div className="text-alexandria text-[14px] font-[400]">
+        <div className="text-alexandria text-[14px] font-[400] text-white/50">
           {currentActiveLesson?.description}
         </div>
       </div>

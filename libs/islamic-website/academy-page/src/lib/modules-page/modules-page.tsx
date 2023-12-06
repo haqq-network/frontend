@@ -13,11 +13,11 @@ export function AdacademyModulesPage() {
   const t = useTranslations('academy-modules-page');
 
   return (
-    <div className="relative mb-[140px] mt-[45px]">
+    <div className="relative mb-[140px] mt-[30px] md:mb-[100px] lg:mt-[45px]">
       <Container>
         <div className="flex flex-col items-center justify-center">
-          <Link href="/" className="font-vcr text-[12px] font-[400]">
-            <Text size="small" isMono>
+          <Link href="/" className="font-vcr">
+            <Text size="small" isMono className="text-[12px]">
               {t('back')}
             </Text>
           </Link>
