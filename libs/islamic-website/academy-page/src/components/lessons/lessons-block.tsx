@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Text } from '@haqq/islamic-website-ui-kit';
+import { Button, SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useEffect } from 'react';
 import { IModules, ILesson } from '../../lib/modules-page/types';
@@ -61,6 +61,20 @@ const useActiveLesson = () => {
     return lessons;
   }, [modules, activeModule]);
 
+  useEffect(() => {
+    if (!currentModuleLessons) {
+      return;
+    }
+
+    const lessonInModule = currentModuleLessons.find((lesson) => {
+      return lesson.name === activeLesson;
+    });
+
+    if (!lessonInModule) {
+      setActiveLesson(currentModuleLessons[0].name);
+    }
+  }, [currentModuleLessons, activeLesson, setActiveLesson]);
+
   const currentActiveLesson = useMemo(() => {
     if (!activeLesson) {
       return null;
@@ -115,6 +129,14 @@ export const LessonsBlock = () => {
 
   const { isMobile } = useIsMobile();
 
+  if (!currentActiveLesson) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <SpinnerLoader />
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="mt-[18px] flex flex-row items-center justify-center gap-[18px] md:flex-col lg:mt-[20px]">
@@ -135,27 +157,24 @@ export const LessonsBlock = () => {
             className="min-w-[162px]"
           />
         ) : (
-          <div className="flex flex-row gap-[12px]">
+          <div className="flex flex-row items-center gap-[12px]">
             {currentModuleLessons.map((lesson, index) => {
               return (
                 <>
-                  {index !== 0 && (
-                    <div className="h-[1px] w-[20px] border-white"></div>
-                  )}
                   <div
-                    className={`text-alexandria text-[16px] font-[500] ${
+                    className={`text-alexandria cursor-pointer text-[16px] font-[500] ${
                       currentActiveLesson?.name === lesson.name
-                        ? 'text-[#EB9226]'
+                        ? 'text-islamic-classic-green'
                         : 'text-white/50'
                     }`}
                     onClick={() => {
                       setActiveLesson(lesson.name);
                     }}
                   >
-                    {lesson.title}
+                    {lesson.name}
                   </div>
                   {index !== currentModuleLessons.length - 1 && (
-                    <div className="h-[1px] w-[20px] border-white"></div>
+                    <div className="h-[1px] w-[20px] border-[1px] border-white"></div>
                   )}
                 </>
               );
