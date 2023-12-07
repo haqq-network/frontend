@@ -9,9 +9,73 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import styles from './academy-preview-page.module.css';
 import clsx from 'clsx';
-import { useCallback, useState } from 'react';
+import { Fragment, PropsWithChildren, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
+
+type Lesson = {
+  lessonId: string;
+  lesson: string;
+  lessonTitle: string;
+};
+
+const modules = [
+  {
+    moduleTitle: 'Intro',
+    moduleCount: 1,
+    isAvailable: true,
+    isLessonsAvailable: true,
+    moduleLessons: [
+      {
+        lessonId: 'ePn2_LElKlY',
+        lesson: 'Intro',
+        lessonTitle: 'Welcome to HAQQ Academy',
+      },
+    ],
+  },
+  {
+    moduleTitle: 'Module',
+    moduleCount: 2,
+    isAvailable: true,
+    availableLessonsDate: new Date('2023-12-19'),
+    isLessonsAvailable: false,
+    moduleLessons: [
+      {
+        lessonId: 'ePn2_LElKlY',
+        lesson: 'Lesson 1.1',
+        lessonTitle: 'Understanding the Complexities of Money',
+      },
+      {
+        lessonId: 'ePn2_LElKlY',
+        lesson: 'Lesson 1.2',
+        lessonTitle: 'The Evolution of Cryptocurrencies',
+      },
+    ],
+  },
+  {
+    moduleTitle: 'Module',
+    moduleCount: 3,
+    isAvailable: false,
+    isLessonsAvailable: false,
+    moduleLessons: [
+      {
+        lessonId: 'ePn2_LElKlY',
+        lesson: 'Lesson 2.1',
+        lessonTitle: 'Understanding Blockchain Technology',
+      },
+      {
+        lessonId: 'ePn2_LElKlY',
+        lesson: 'Lesson 2.2',
+        lessonTitle: 'How Blockchain Technology Works',
+      },
+      {
+        lessonId: 'ePn2_LElKlY',
+        lesson: 'Lesson 2.3',
+        lessonTitle: 'Use Cases and Utilities of Crypto',
+      },
+    ],
+  },
+];
 
 export function AcademyPreviewPage({
   turnstileSiteKey,
@@ -26,14 +90,27 @@ export function AcademyPreviewPage({
     setIsVideoModalOpen(false);
   }, []);
 
+  const today = new Date();
+  const targetDate = new Date('2023-12-12');
+
+  const isTwelveDecember =
+    today.getDate() === targetDate.getDate() &&
+    today.getMonth() === targetDate.getMonth() &&
+    today.getFullYear() === targetDate.getFullYear();
+
   return (
     <section className="overflow-x-clip">
       <Container>
         <div className="relative pb-[60px] pt-[32px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
-          <div className="absolute left-1/2 top-[-11.5%] -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute left-1/2 top-[-11.5%] z-[-1] -translate-x-1/2 -translate-y-1/2">
             <BgImage />
           </div>
-          <div className="mx-auto flex max-w-[880px] flex-col items-center">
+          <div
+            className={clsx(
+              'mx-auto flex w-full flex-col',
+              isTwelveDecember ? 'items-start' : 'items-center',
+            )}
+          >
             <h1
               className={clsx(
                 'font-vcr text-haqq-black text-[46px] font-[400] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
@@ -42,39 +119,84 @@ export function AcademyPreviewPage({
             >
               HAQQ ACADEMY
             </h1>
-            <h2 className="mt-[12px] text-[28px] font-[600] uppercase leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
-              <span>season 1:&nbsp;</span>
-              <span className="text-[#EB9226]">start 12.12</span>
-            </h2>
-            <div className="group mt-[64px] w-fit" onClick={openVideoModal}>
-              <div className="relative h-[160px] w-[300px] brightness-50 transition-all duration-300 group-hover:cursor-pointer group-hover:brightness-100 md:h-[200px] md:w-[340px] lg:h-[300px] lg:w-[540px]">
-                <Image
-                  src="/assets/images/academy/haqq-academy-preview-1.webp"
-                  alt=""
-                  className="rounded-lg"
-                  fill
-                />
-                <PlayVideoIcon className="absolute left-[36.5%] top-[28%] h-[78px] w-[78px] transform transition-all duration-300 group-hover:scale-110 md:left-[37.5%] md:top-[35%] lg:left-[42.5%] lg:top-[38%]" />
-              </div>
-            </div>
-            <div className="mt-[68px] text-center">
-              <Text isMono>
-                Master The Basics of Crypto Through The Lens of Islamic Finance
-                in 19 <br /> Insightful Lessons. Graduate from HAQQ Academy with
-                Your&nbsp;
-              </Text>
-              <GradientText className="font-vcr text-[15px] uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
-                NFT certificate
-              </GradientText>
-            </div>
+            {isTwelveDecember ? (
+              <Fragment>
+                <h2 className="mt-[12px] text-[28px] font-[600] uppercase leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
+                  <span>season 1:&nbsp;</span>
+                  <span className="text-[#EB9226]">start 12.12</span>
+                </h2>
+                <div className="group mt-[64px] w-fit" onClick={openVideoModal}>
+                  <div className="relative h-[160px] w-[300px] brightness-50 transition-all duration-300 group-hover:cursor-pointer group-hover:brightness-100 md:h-[200px] md:w-[340px] lg:h-[300px] lg:w-[540px]">
+                    <Image
+                      src="/assets/images/academy/haqq-academy-preview-1.webp"
+                      alt=""
+                      className="rounded-lg"
+                      fill
+                    />
+                    <PlayVideoIcon className="absolute left-[36.5%] top-[28%] h-[78px] w-[78px] transform transition-all duration-300 group-hover:scale-110 md:left-[37.5%] md:top-[35%] lg:left-[42.5%] lg:top-[38%]" />
+                  </div>
+                </div>
+                <div className="mt-[68px] text-center">
+                  <Text isMono>
+                    Master The Basics of Crypto Through The Lens of Islamic
+                    Finance in 19 <br /> Insightful Lessons. Graduate from HAQQ
+                    Academy with Your&nbsp;
+                  </Text>
+                  <GradientText className="font-vcr text-[15px] uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
+                    NFT certificate
+                  </GradientText>
+                </div>
 
-            {turnstileSiteKey && (
-              <div>
-                <SubscribeForm
-                  className="mt-[28px] flex w-full flex-col gap-[16px] lg:flex-row"
-                  inputClassName="lg:min-w-[280px]"
-                  turnstileSiteKey={turnstileSiteKey}
-                />
+                {turnstileSiteKey && (
+                  <SubscribeForm
+                    className="mt-[28px] flex w-full flex-col gap-[16px] lg:flex-row"
+                    inputClassName="lg:min-w-[280px]"
+                    turnstileSiteKey={turnstileSiteKey}
+                  />
+                )}
+              </Fragment>
+            ) : (
+              <div className="w-full">
+                <div className="mt-[16px] flex flex-row gap-x-[20px] md:mt-[20px] md:gap-x-[24px] lg:mt-[28px] lg:gap-x-[28px]">
+                  <div className="flex flex-row items-center gap-x-[8px]">
+                    <VideoIcon /> <Text isMono>12 Lessons</Text>
+                  </div>
+                  <div className="flex flex-row gap-x-[8px]">
+                    <ClockIcon /> <Text isMono>90 Minutes</Text>
+                  </div>
+                </div>
+                <div className="mt-[32px] grid grid-cols-1 gap-y-[32px] md:mt-[44px] md:gap-y-[40px] lg:mt-[72px] lg:gap-y-[60px]">
+                  {turnstileSiteKey &&
+                    modules.map((module) => {
+                      const day =
+                        module.availableLessonsDate &&
+                        module.availableLessonsDate?.getDate();
+                      const month =
+                        module.availableLessonsDate &&
+                        module.availableLessonsDate?.getMonth() + 1;
+                      const formattedDate = `${
+                        day && day < 10 ? '0' : ''
+                      }${day}.${month && month < 10 ? '0' : ''}${month}`;
+
+                      return (
+                        <Block
+                          key={`${module.moduleTitle} ${module.moduleCount}`}
+                        >
+                          <Module
+                            isAvailable={module.isAvailable}
+                            moduleTitle={module.moduleTitle}
+                            availableLessonsDate={
+                              module.availableLessonsDate ? formattedDate : ''
+                            }
+                            lessons={module.moduleLessons}
+                            turnstileSiteKey={turnstileSiteKey}
+                            moduleCount={module.moduleCount}
+                            isLessonsAvailable={module.isLessonsAvailable}
+                          />
+                        </Block>
+                      );
+                    })}
+                </div>
               </div>
             )}
           </div>
@@ -122,8 +244,8 @@ function BgImage() {
         >
           <rect fill="white" x="2.63181" y="136.023" width="798" height="619" />
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M47.847 314.563L47.847 270.985L47.847 270.612L47.847 227.911L47.847 227.034L47.847 183.961L3.63181 183.961L3.63181 227.034L3.63181 227.911L3.63181 270.612L3.63181 270.985L3.63182 314.563L3.63182 358.513L3.63182 402.465L3.63182 446.403L3.63182 490.355L47.847 490.355L47.847 534.305L47.847 578.256L92.0623 578.243L92.0623 622.195L136.277 622.195L136.277 666.146L180.493 666.146L180.496 710.085L224.711 710.073L224.711 754.023L268.926 754.023L313.145 754.023L357.359 754.023L401.576 754.023L445.79 754.023L490.008 754.023L534.221 754.023L578.439 754.023L578.439 710.073L622.655 710.085L622.658 666.146L666.872 666.146L666.872 622.195L711.087 622.195L711.087 578.243L755.303 578.256L755.303 534.305L755.303 490.355L799.518 490.355L799.518 446.403L799.518 402.465L799.518 358.513L799.518 314.563L799.518 270.985L799.518 270.612L799.518 227.911L799.518 227.034L799.518 183.961L755.303 183.961L755.303 227.034L755.303 227.911L755.303 270.612L755.303 270.985L755.303 314.563L755.303 358.513L755.303 402.465L755.303 446.403L755.303 490.355L711.087 490.355L711.087 534.305L711.087 578.243L666.872 578.243L666.872 622.195L622.658 622.195L622.658 666.146L578.439 666.134L578.439 710.073L534.221 710.073L490.008 710.073L445.79 710.073L401.576 710.073L357.359 710.073L313.145 710.073L268.926 710.073L224.711 710.073L224.711 666.134L180.493 666.146L180.493 622.195L136.277 622.195L136.277 578.243L92.0623 578.243L92.0623 534.305L92.0623 490.355L47.847 490.355L47.847 446.403L47.847 402.465L47.847 358.513L47.847 314.563ZM47.1276 181.761L47.1276 137.149L92.014 137.149L92.014 178.48L136.12 178.48L136.12 222.432L136.12 265.108L136.12 309.059L91.905 309.059L91.8567 266.37L91.905 222.432L91.905 181.761L47.1276 181.761ZM756.484 137.149L756.484 181.761L711.598 181.761L711.598 137.149L756.484 137.149ZM534.687 442.414L534.687 486.365L578.901 486.365L578.901 442.414L621.825 442.425L621.825 398.475L577.611 398.475L577.611 442.425L534.687 442.414ZM711.598 266.37L711.55 309.059L667.335 309.059L667.335 265.108L667.335 222.432L667.335 178.48L711.55 178.48L711.55 222.432L711.598 266.37ZM667.64 398.667L667.64 309.443L622.754 309.443L622.754 398.667L667.64 398.667ZM534.687 530.964L534.687 487.014L269.439 487.014L269.439 530.964L534.687 530.964ZM268.769 486.365L268.769 442.414L225.844 442.425L225.844 398.475L181.629 398.475L181.629 442.425L224.553 442.414L224.553 486.365L268.769 486.365ZM135.815 309.443L135.815 398.667L180.701 398.667L180.701 309.443L135.815 309.443Z"
           />
         </mask>
@@ -149,8 +271,8 @@ function BgImage() {
             height="380"
           />
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M211.042 204.638L211.042 175.638L240.224 175.638L240.224 204.638L211.042 204.638ZM269.406 233.639L240.224 233.639L240.224 204.638L269.406 204.638L269.406 233.639ZM356.959 320.651L327.772 320.651L298.59 320.651L269.406 320.651L269.406 291.639L269.406 262.651L269.406 233.639L298.59 233.651L298.59 262.651L298.59 291.639L327.772 291.651L356.959 291.651L356.959 320.651ZM386.144 349.651L356.959 349.651L356.959 320.651L386.144 320.651L386.144 349.651ZM415.775 349.663L415.775 378.663L415.328 378.663L386.591 378.663L386.144 378.663L386.144 349.651L386.591 349.663L415.328 349.663L415.775 349.663ZM444.961 320.651L444.961 349.651L415.775 349.663L415.775 320.651L444.961 320.651ZM532.514 233.639L532.514 262.651L532.514 291.639L532.514 320.651L503.33 320.651L474.148 320.651L444.961 320.651L444.961 291.651L474.148 291.651L503.33 291.639L503.33 262.651L503.33 233.651L532.514 233.639ZM561.696 204.638L561.696 233.639L532.514 233.639L532.514 204.638L561.696 204.638ZM561.696 204.638L561.696 175.638L590.877 175.638L590.877 204.638L561.696 204.638ZM561.696 146.614L561.696 175.615L532.514 175.615L532.514 146.614L561.696 146.614ZM444.961 59.6145L474.148 59.6021L503.33 59.6021L532.514 59.6021L532.514 88.6014L532.514 117.602L532.514 146.614L503.33 146.614L503.33 117.602L503.33 88.6014L474.148 88.6137L444.961 88.6137L444.961 59.6145ZM415.775 30.6014L444.961 30.6014L444.961 59.6145L415.775 59.6145L415.775 30.6014ZM386.144 30.6014L386.144 1.58982L386.591 1.58982L415.328 1.58982L415.775 1.58982L415.775 30.6014L415.328 30.6014L386.591 30.6014L386.144 30.6014ZM356.959 59.6145L386.144 59.6145L386.144 30.6014L356.959 30.6014L356.959 59.6145ZM327.772 88.6137L356.959 88.6137L356.959 59.6145L327.772 59.6022L298.59 59.6022L269.406 59.6022L269.406 88.6014L269.406 117.602L269.406 146.614L240.224 146.614L240.224 175.615L269.406 175.615L269.406 146.614L298.59 146.614L298.59 117.602L298.59 88.6014L327.772 88.6137Z"
           />
         </mask>
@@ -161,5 +283,245 @@ function BgImage() {
         />
       </g>
     </svg>
+  );
+}
+
+function Block({ children }: PropsWithChildren) {
+  return (
+    <div className="bg-islamic-primary-graphite rounded-[20px] px-[20px] py-[24px] md:px-[28px] md:py-[36px] lg:px-[48px] lg:py-[56px]">
+      {children}
+    </div>
+  );
+}
+
+function Module({
+  isAvailable,
+  moduleTitle,
+  availableLessonsDate,
+  moduleCount,
+  lessons,
+  turnstileSiteKey,
+  isLessonsAvailable,
+}: {
+  moduleTitle: string;
+  moduleCount?: number;
+  isAvailable: boolean;
+  availableLessonsDate?: string;
+  lessons?: Lesson[];
+  turnstileSiteKey: string;
+  isLessonsAvailable?: boolean;
+}) {
+  console.log({ isLessonsAvailable });
+
+  return (
+    <Fragment>
+      <div className="flex flex-row items-center gap-x-[8px] md:gap-x-[16px]">
+        <h3 className="text-[22px] font-[600] uppercase leading-[24px] md:text-[32px] md:leading-[36px]">
+          {moduleTitle}
+        </h3>
+        {moduleCount && <ModuleBadge moduleCount={moduleCount} />}
+      </div>
+      {isAvailable ? (
+        <Fragment>
+          {availableLessonsDate && (
+            <div className="font-vcr mt-[8px] text-[17px] uppercase leading-[26px] md:mt-[12px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+              Will be available on {availableLessonsDate}
+            </div>
+          )}
+          {lessons && (
+            <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[20px] md:grid-cols-2 md:gap-[24px] lg:mt-[36px]">
+              {lessons.map((lesson) => {
+                return (
+                  <LessonCard
+                    key={lesson.lessonTitle}
+                    lesson={lesson.lesson}
+                    lessonTitle={lesson.lessonTitle}
+                    lessonId={lesson.lessonId}
+                    isAvailable={isLessonsAvailable}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </Fragment>
+      ) : (
+        <div className="flex flex-col items-center py-[33px] text-center">
+          <Text isMono>
+            Don't miss out on any future lessons - subscribe now!
+          </Text>
+          {turnstileSiteKey && (
+            <div>
+              <SubscribeForm
+                className="mt-[28px] flex w-full flex-col gap-[16px] lg:flex-row"
+                inputClassName="lg:min-w-[280px]"
+                turnstileSiteKey={turnstileSiteKey}
+              />
+            </div>
+          )}
+        </div>
+      )}
+    </Fragment>
+  );
+}
+
+function ModuleBadge({ moduleCount }: { moduleCount: number }) {
+  return (
+    <div
+      className={clsx(
+        'relative h-[24px] w-[24px] text-center md:h-[36px] md:w-[36px] lg:h-[52px] lg:w-[52px]',
+        moduleCount === 1 && 'text-islamic-classic-green',
+        moduleCount === 2 && 'text-[#FF7549]',
+        moduleCount === 3 && 'text-[#8349FF]',
+        moduleCount === 4 && 'text-[#FFBE18]',
+        moduleCount === 5 && 'text-[#FF4F18]',
+        moduleCount === 6 && 'text-[#B5FF18]',
+        moduleCount === 7 && 'text-[#18ACFF]',
+      )}
+    >
+      <svg
+        viewBox="0 0 52 52"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute z-0"
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M27.4298 0.620728C26.6562 -0.206909 25.3438 -0.206909 24.5702 0.620728L18.8839 6.7048C18.4981 7.11759 17.9527 7.3435 17.3881 7.32441L9.06515 7.04314C7.93295 7.00488 7.00488 7.93295 7.04314 9.06515L7.32441 17.3881C7.34349 17.9527 7.11759 18.4981 6.7048 18.8839L0.620728 24.5702C-0.206909 25.3438 -0.206909 26.6562 0.620728 27.4298L6.7048 33.1161C7.11759 33.5019 7.34349 34.0473 7.32441 34.6119L7.04314 42.9349C7.00488 44.067 7.93295 44.9951 9.06515 44.9569L17.3881 44.6756C17.9527 44.6565 18.4981 44.8824 18.8839 45.2952L24.5702 51.3793C25.3438 52.2069 26.6562 52.2069 27.4298 51.3793L33.1161 45.2952C33.5019 44.8824 34.0473 44.6565 34.6119 44.6756L42.9348 44.9569C44.067 44.9951 44.9951 44.067 44.9569 42.9348L44.6756 34.6119C44.6565 34.0473 44.8824 33.5019 45.2952 33.1161L51.3793 27.4298C52.2069 26.6562 52.2069 25.3438 51.3793 24.5702L45.2952 18.8839C44.8824 18.4981 44.6565 17.9527 44.6756 17.3881L44.9569 9.06515C44.9951 7.93295 44.067 7.00488 42.9349 7.04314L34.6119 7.32441C34.0473 7.3435 33.5019 7.11759 33.1161 6.7048L27.4298 0.620728Z"
+          fill="currentColor"
+        />
+      </svg>
+      <div className="font-vcr absolute left-[32%] top-[2%] z-[50] text-[15px] leading-[22px] text-[#0D0D0D] md:text-[22px] md:leading-[32px] lg:left-[37%] lg:top-[15%] lg:text-[24px] lg:leading-[34px]">
+        {moduleCount === 1 && 1}
+        {moduleCount === 2 && 2}
+        {moduleCount === 3 && 3}
+        {moduleCount === 4 && 4}
+        {moduleCount === 5 && 5}
+        {moduleCount === 6 && 6}
+        {moduleCount === 7 && 7}
+      </div>
+    </div>
+  );
+}
+
+function LessonCard({
+  lessonId,
+  lesson,
+  lessonTitle,
+  isAvailable = true,
+}: {
+  lessonId: string;
+  lesson: string;
+  lessonTitle: string;
+  isAvailable?: boolean;
+}) {
+  return (
+    <div
+      className={clsx(
+        'relative',
+        !isAvailable
+          ? 'cursor-not-allowed rounded-[19px] border border-[#232323]'
+          : 'cursor-pointer',
+      )}
+    >
+      {!isAvailable && (
+        <LockIcon className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2" />
+      )}
+      <div
+        className={clsx(
+          'group relative flex flex-col rounded-[19px] border border-[#2F2F2F] p-[16px] lg:flex-row lg:items-center lg:gap-x-[25px]',
+          !isAvailable
+            ? 'opacity-10'
+            : 'transition-colors duration-150 ease-in hover:border-[#8A8A8A]',
+        )}
+      >
+        <div className="relative h-[100px] w-full lg:w-[180px]">
+          <div className="absolute z-[1] h-full w-full bg-[#02030480]" />
+          <PlayVideoIcon
+            className={clsx(
+              'absolute left-1/2 top-1/2 z-[2]  -translate-x-1/2 -translate-y-1/2 lg:left-[35.5%] ',
+              isAvailable &&
+                'transform transition-all duration-300 group-hover:scale-110',
+            )}
+          />
+          <Image
+            alt="Lesson preview"
+            src={`https://img.youtube.com/vi/${lessonId}/1.jpg`}
+            fill
+            className="absolute h-full w-full rounded-[8px] object-cover"
+          />
+        </div>
+        <div className="w-full lg:w-[60%]">
+          <div className="font-vcr mt-[12px] text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
+            {lesson}
+          </div>
+          <div className="mt-[2px] h-[26px] truncate text-[17px] leading-[26px] md:mt-[4px] md:text-[18px] lg:mt-[8px] lg:h-auto lg:text-[20px] lg:leading-[28px]">
+            {lessonTitle}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VideoIcon() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-[20px] w-[20px] lg:h-[24px] lg:w-[24px]"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M15.4167 2.91667H4.58333C3.66286 2.91667 2.91667 3.66286 2.91667 4.58333V15.4167C2.91667 16.3371 3.66286 17.0833 4.58333 17.0833H15.4167C16.3371 17.0833 17.0833 16.3371 17.0833 15.4167V4.58333C17.0833 3.66286 16.3371 2.91667 15.4167 2.91667ZM4.58333 1.25C2.74238 1.25 1.25 2.74238 1.25 4.58333V15.4167C1.25 17.2576 2.74238 18.75 4.58333 18.75H15.4167C17.2576 18.75 18.75 17.2576 18.75 15.4167V4.58333C18.75 2.74238 17.2576 1.25 15.4167 1.25H4.58333Z"
+        fill="#F5F5F5"
+      />
+      <path
+        d="M7.5 13.0007V6.99917C7.5 6.51114 8.05162 6.22727 8.44874 6.51092L12.6498 9.51168C12.9848 9.75097 12.9848 10.2489 12.6498 10.4882L8.44874 13.4889C8.05162 13.7726 7.5 13.4887 7.5 13.0007Z"
+        stroke="#F5F5F5"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-[20px] w-[20px] lg:h-[24px] lg:w-[24px]"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M16.668 10.0001C16.668 13.682 13.6832 16.6667 10.0013 16.6667C6.3194 16.6667 3.33464 13.682 3.33464 10.0001C3.33464 6.31818 6.3194 3.33341 10.0013 3.33341C13.6832 3.33341 16.668 6.31818 16.668 10.0001ZM18.3346 10.0001C18.3346 14.6025 14.6037 18.3334 10.0013 18.3334C5.39893 18.3334 1.66797 14.6025 1.66797 10.0001C1.66797 5.39771 5.39893 1.66675 10.0013 1.66675C14.6037 1.66675 18.3346 5.39771 18.3346 10.0001ZM10.8346 5.00008C10.8346 4.53984 10.4615 4.16675 10.0013 4.16675C9.54107 4.16675 9.16797 4.53984 9.16797 5.00008V9.5541L7.03905 10.9734C6.65611 11.2287 6.55263 11.7461 6.80793 12.129C7.06322 12.5119 7.58061 12.6154 7.96355 12.3601L10.2409 10.8419C10.6118 10.5946 10.8346 10.1783 10.8346 9.73249V5.00008Z"
+        fill="#F5F5F5"
+      />
+    </svg>
+  );
+}
+
+function LockIcon({ className }: { className?: string }) {
+  return (
+    <div className={className}>
+      <svg
+        width="40"
+        height="40"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M19.997 3.04175C15.2337 3.04175 11.372 6.90344 11.372 11.6667V14.1529H10.2747C7.81239 14.1529 5.81641 16.1488 5.81641 18.6112V32.5001C5.81641 34.9624 7.81239 36.9584 10.2747 36.9584H29.7192C32.1815 36.9584 34.1775 34.9624 34.1775 32.5001V18.6112C34.1775 16.1488 32.1815 14.1529 29.7192 14.1529H28.622V11.6667C28.622 6.90344 24.7603 3.04175 19.997 3.04175ZM14.7331 11.6667C14.7331 8.75958 17.0898 6.40286 19.997 6.40286C22.9041 6.40286 25.2609 8.75958 25.2609 11.6667V14.1529H14.7331V11.6667ZM9.17752 18.6112C9.17752 18.0053 9.66883 17.514 10.2747 17.514H29.7192C30.3251 17.514 30.8164 18.0053 30.8164 18.6112V32.5001C30.8164 33.106 30.3251 33.5973 29.7192 33.5973H10.2747C9.66883 33.5973 9.17752 33.106 9.17752 32.5001V18.6112ZM19.997 21.0973C19.5963 21.0973 19.181 21.2928 18.8704 21.5825C18.5569 21.8749 18.3164 22.2948 18.3164 22.7779V28.3334C18.3164 29.2615 19.0689 30.014 19.997 30.014C20.3977 30.014 20.8129 29.8185 21.1236 29.5288C21.437 29.2364 21.6775 28.8165 21.6775 28.3334V22.7779C21.6775 21.8498 20.925 21.0973 19.997 21.0973Z"
+          fill="#F5F5F5"
+        />
+      </svg>
+    </div>
   );
 }
