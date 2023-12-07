@@ -12,6 +12,8 @@ import clsx from 'clsx';
 import { Fragment, PropsWithChildren, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
+import Link from 'next/link';
+import { useActiveLesson } from '../../components/lessons/lessons-block';
 
 type Lesson = {
   lessonId: string;
@@ -318,6 +320,16 @@ function Module({
   turnstileSiteKey: string;
   isLessonsAvailable?: boolean;
 }) {
+  const {
+    activeLessonIndex,
+    currentActiveLesson,
+    activeModuleIndex,
+    setActiveModule,
+    setActiveLesson,
+  } = useActiveLesson();
+
+  console.log({ activeLessonIndex, currentActiveLesson, activeModuleIndex });
+
   return (
     <Fragment>
       <div className="flex flex-row items-center gap-x-[8px] md:gap-x-[16px]">
@@ -335,15 +347,23 @@ function Module({
           )}
           {lessons && (
             <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[20px] md:grid-cols-2 md:gap-[24px] lg:mt-[36px]">
-              {lessons.map((lesson) => {
+              {lessons.map((lesson, idx) => {
                 return (
-                  <LessonCard
+                  <Link
                     key={lesson.lessonTitle}
-                    lesson={lesson.lesson}
-                    lessonTitle={lesson.lessonTitle}
-                    lessonId={lesson.lessonId}
-                    isAvailable={isLessonsAvailable}
-                  />
+                    href={`/academy/lessons/${moduleCount}/${idx + 1}`}
+                    onClick={() => {
+                      setActiveModule(moduleCount);
+                      setActiveLesson(idx);
+                    }}
+                  >
+                    <LessonCard
+                      lesson={lesson.lesson}
+                      lessonTitle={lesson.lessonTitle}
+                      lessonId={lesson.lessonId}
+                      isAvailable={isLessonsAvailable}
+                    />
+                  </Link>
                 );
               })}
             </div>
