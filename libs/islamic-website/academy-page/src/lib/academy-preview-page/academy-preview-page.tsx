@@ -84,7 +84,7 @@ export function AcademyPreviewPage({
         <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
           <iframe
             title="Islamic Coin Academy"
-            src={`https://www.youtube.com/embed/JfGu0t2x84E`}
+            src={`https://www.youtube.com/embed/9c2Mz-PBcx4`}
             allow="autoplay"
             allowFullScreen
             width="100%"
