@@ -22,14 +22,32 @@ type Lesson = {
 const modules = [
   {
     moduleTitle: 'Intro',
-    moduleCount: 1,
     isAvailable: true,
     isLessonsAvailable: true,
     moduleLessons: [
       {
-        lessonId: 'ePn2_LElKlY',
+        lessonId: 'JfGu0t2x84E',
         lesson: 'Intro',
         lessonTitle: 'Welcome to HAQQ Academy',
+      },
+    ],
+  },
+  {
+    moduleTitle: 'Module',
+    moduleCount: 1,
+    isAvailable: true,
+    availableLessonsDate: new Date('2023-12-19'),
+    isLessonsAvailable: true,
+    moduleLessons: [
+      {
+        lessonId: '3ZrNYi2vK-o',
+        lesson: 'Lesson 1.1',
+        lessonTitle: 'Understanding the Complexities of Money',
+      },
+      {
+        lessonId: 'Qcs_vXkYqF4',
+        lesson: 'Lesson 1.2',
+        lessonTitle: 'The Evolution of Cryptocurrencies',
       },
     ],
   },
@@ -41,13 +59,18 @@ const modules = [
     isLessonsAvailable: false,
     moduleLessons: [
       {
-        lessonId: 'ePn2_LElKlY',
-        lesson: 'Lesson 1.1',
+        lessonId: '3ZrNYi2vK-o',
+        lesson: 'Lesson 2.1',
         lessonTitle: 'Understanding the Complexities of Money',
       },
       {
-        lessonId: 'ePn2_LElKlY',
-        lesson: 'Lesson 1.2',
+        lessonId: 'Qcs_vXkYqF4',
+        lesson: 'Lesson 2.2',
+        lessonTitle: 'The Evolution of Cryptocurrencies',
+      },
+      {
+        lessonId: 'Qcs_vXkYqF4',
+        lesson: 'Lesson 2.3',
         lessonTitle: 'The Evolution of Cryptocurrencies',
       },
     ],
@@ -56,24 +79,6 @@ const modules = [
     moduleTitle: 'Module',
     moduleCount: 3,
     isAvailable: false,
-    isLessonsAvailable: false,
-    moduleLessons: [
-      {
-        lessonId: 'ePn2_LElKlY',
-        lesson: 'Lesson 2.1',
-        lessonTitle: 'Understanding Blockchain Technology',
-      },
-      {
-        lessonId: 'ePn2_LElKlY',
-        lesson: 'Lesson 2.2',
-        lessonTitle: 'How Blockchain Technology Works',
-      },
-      {
-        lessonId: 'ePn2_LElKlY',
-        lesson: 'Lesson 2.3',
-        lessonTitle: 'Use Cases and Utilities of Crypto',
-      },
-    ],
   },
 ];
 
@@ -439,7 +444,7 @@ function LessonCard({
           <div className="absolute z-[1] h-full w-full bg-[#02030480]" />
           <PlayVideoIcon
             className={clsx(
-              'absolute left-1/2 top-1/2 z-[2]  -translate-x-1/2 -translate-y-1/2 lg:left-[35.5%] ',
+              'absolute left-1/2 top-1/2 z-[2]  -translate-x-1/2 -translate-y-1/2 ',
               isAvailable &&
                 'transform transition-all duration-300 group-hover:scale-110',
             )}
