@@ -8,7 +8,7 @@ import MODULES from './modules.json';
 import { useIsMobile, useLocalStorage } from '@haqq/shared';
 import { Select } from '@haqq/islamic-website-ui-kit';
 
-const useActiveLesson = () => {
+export const useActiveLesson = () => {
   const [activeLessonIndex, setActiveLessonIndex] = useLocalStorage<
     number | undefined
   >('ACTIVE_LESSON_INDEX_', undefined);
