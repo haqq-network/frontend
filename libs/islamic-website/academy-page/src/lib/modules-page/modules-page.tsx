@@ -9,7 +9,7 @@ const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],
 });
 
-export function AdacademyModulesPage() {
+export function AcademyModulesPage() {
   const t = useTranslations('academy-modules-page');
 
   return (

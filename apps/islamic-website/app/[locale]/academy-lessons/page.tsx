@@ -17,4 +17,4 @@ export const metadata: Metadata = {
   },
 };
 
-export { AdacademyModulesPage as default } from '@haqq/islamic-website/academy-page';
+export { AcademyModulesPage as default } from '@haqq/islamic-website/academy-page';
