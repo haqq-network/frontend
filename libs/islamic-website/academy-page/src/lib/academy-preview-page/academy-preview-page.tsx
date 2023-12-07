@@ -148,11 +148,13 @@ export function AcademyPreviewPage({
                 </div>
 
                 {turnstileSiteKey && (
-                  <SubscribeForm
-                    className="mt-[28px] flex w-full flex-col gap-[16px] lg:flex-row"
-                    inputClassName="lg:min-w-[280px]"
-                    turnstileSiteKey={turnstileSiteKey}
-                  />
+                  <div>
+                    <SubscribeForm
+                      className="mt-[28px] flex w-full flex-col gap-[16px] lg:flex-row"
+                      inputClassName="lg:min-w-[280px]"
+                      turnstileSiteKey={turnstileSiteKey}
+                    />
+                  </div>
                 )}
               </Fragment>
             ) : (
@@ -311,8 +313,6 @@ function Module({
   turnstileSiteKey: string;
   isLessonsAvailable?: boolean;
 }) {
-  console.log({ isLessonsAvailable });
-
   return (
     <Fragment>
       <div className="flex flex-row items-center gap-x-[8px] md:gap-x-[16px]">
