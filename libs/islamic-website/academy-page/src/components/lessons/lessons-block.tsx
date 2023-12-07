@@ -35,7 +35,13 @@ const useActiveLesson = () => {
   }, [modules, activeModuleIndex]);
 
   useEffect(() => {
-    if (!currentModuleLessons || activeLessonIndex === undefined) {
+    if (!currentModuleLessons) {
+      return;
+    }
+
+    if (activeLessonIndex === undefined || activeModuleIndex === undefined) {
+      setActiveLessonIndex(0);
+      setActiveModuleIndex(0);
       return;
     }
 
@@ -44,7 +50,13 @@ const useActiveLesson = () => {
     if (!lessonInModule) {
       setActiveLessonIndex(0);
     }
-  }, [currentModuleLessons, activeLessonIndex, setActiveLessonIndex]);
+  }, [
+    currentModuleLessons,
+    activeLessonIndex,
+    setActiveLessonIndex,
+    setActiveModuleIndex,
+    activeModuleIndex,
+  ]);
 
   const currentActiveLesson = useMemo(() => {
     if (activeLessonIndex === undefined) {
