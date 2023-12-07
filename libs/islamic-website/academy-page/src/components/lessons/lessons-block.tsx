@@ -3,97 +3,67 @@
 import { Button, SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useEffect } from 'react';
-import { IModules, ILesson } from '../../lib/modules-page/types';
+import { IModules } from '../../lib/modules-page/types';
 import MODULES from './modules.json';
 import { useIsMobile, useLocalStorage } from '@haqq/shared';
 import { Select } from '@haqq/islamic-website-ui-kit';
 
 const useActiveLesson = () => {
-  const [activeLesson, setActiveLesson] = useLocalStorage<string | null>(
-    'ACTIVE_LESSON',
-    null,
-  );
-  const [activeModule, setActiveModule] = useLocalStorage<string | null>(
-    'ACTIVE_MODULE',
-    null,
-  );
+  const [activeLessonIndex, setActiveLessonIndex] = useLocalStorage<
+    number | undefined
+  >('ACTIVE_LESSON_INDEX_', undefined);
+  const [activeModuleIndex, setActiveModuleIndex] = useLocalStorage<
+    number | undefined
+  >('ACTIVE_MODULE_INDEX_', undefined);
 
   const locale = useLocale();
 
   const modules = ((MODULES as IModules)[locale] || MODULES['en']).modules;
 
-  const allLessonsArray = useMemo(() => {
-    const lessons: ILesson[] = [];
-
-    Object.values(modules).forEach((module) => {
-      module.lessons.forEach((lesson: ILesson) => {
-        lessons.push(lesson);
-      });
-    });
-
-    return lessons;
-  }, [modules]);
-
-  useEffect(() => {
-    if (!activeModule) {
-      setActiveModule(modules[0].name);
-    }
-    if (!activeLesson) {
-      setActiveLesson(modules[0].lessons[0].name);
-    }
-  }, [activeModule, activeLesson, modules, setActiveLesson, setActiveModule]);
-
   const currentModuleLessons = useMemo(() => {
-    const lessons: ILesson[] = [];
+    if (activeModuleIndex === undefined) {
+      return [];
+    }
 
-    const targetModule = Object.values(modules).find((module) => {
-      return module.name === activeModule;
-    });
+    const targetModule = modules[activeModuleIndex];
 
     if (!targetModule) {
-      return lessons;
+      return [];
     }
 
-    targetModule.lessons.forEach((lesson: ILesson) => {
-      lessons.push(lesson);
-    });
-
-    return lessons;
-  }, [modules, activeModule]);
+    return targetModule.lessons;
+  }, [modules, activeModuleIndex]);
 
   useEffect(() => {
-    if (!currentModuleLessons) {
+    if (!currentModuleLessons || activeLessonIndex === undefined) {
       return;
     }
 
-    const lessonInModule = currentModuleLessons.find((lesson) => {
-      return lesson.name === activeLesson;
-    });
+    const lessonInModule = currentModuleLessons[activeLessonIndex];
 
     if (!lessonInModule) {
-      setActiveLesson(currentModuleLessons[0].name);
+      setActiveLessonIndex(0);
     }
-  }, [currentModuleLessons, activeLesson, setActiveLesson]);
+  }, [currentModuleLessons, activeLessonIndex, setActiveLessonIndex]);
 
   const currentActiveLesson = useMemo(() => {
-    if (!activeLesson) {
-      return null;
+    if (activeLessonIndex === undefined) {
+      return;
     }
 
-    const lesson = allLessonsArray.find((lesson) => {
-      return lesson.name === activeLesson;
-    });
+    const lesson = currentModuleLessons[activeLessonIndex];
 
-    return lesson || allLessonsArray[0];
-  }, [activeLesson, allLessonsArray]);
+    return lesson || currentModuleLessons[0];
+  }, [activeLessonIndex, currentModuleLessons]);
 
   return {
+    activeModuleIndex,
+    activeLessonIndex,
     currentActiveLesson,
-    setActiveLesson,
+    setActiveLesson: setActiveLessonIndex,
     currentModuleLessons,
-    setActiveModule,
+    setActiveModule: setActiveModuleIndex,
     modules,
-    activeModule,
   };
 };
 
@@ -101,8 +71,9 @@ export const LessonsBlock = () => {
   const t = useTranslations('academy-modules-page');
 
   const {
+    activeLessonIndex,
     currentActiveLesson,
-    activeModule,
+    activeModuleIndex,
     modules,
     setActiveModule,
     currentModuleLessons,
@@ -110,18 +81,18 @@ export const LessonsBlock = () => {
   } = useActiveLesson();
 
   const sectionsModules = useMemo(() => {
-    return Object.values(modules).map((module) => {
+    return Object.values(modules).map((module, index) => {
       return {
-        id: module.name,
+        id: `${index}`,
         title: module.name,
       };
     });
   }, [modules]);
 
   const lessonsModules = useMemo(() => {
-    return currentModuleLessons.map((lesson) => {
+    return currentModuleLessons.map((lesson, index) => {
       return {
-        id: lesson.name,
+        id: `${index}`,
         title: lesson.name,
       };
     });
@@ -140,20 +111,22 @@ export const LessonsBlock = () => {
   return (
     <>
       <div className="mt-[18px] flex flex-row items-center justify-center gap-[18px] md:flex-col lg:mt-[20px]">
-        {activeModule && (
-          <Select
-            variants={sectionsModules}
-            current={activeModule}
-            onChange={setActiveModule}
-            className="w-[162px]"
-          />
-        )}
+        <Select
+          variants={sectionsModules}
+          current={`${activeModuleIndex}`}
+          onChange={(v) => {
+            setActiveModule(+v);
+          }}
+          className="w-[162px]"
+        />
 
         {isMobile ? (
           <Select
             variants={lessonsModules}
-            current={currentActiveLesson?.name}
-            onChange={setActiveModule}
+            current={`${activeLessonIndex}`}
+            onChange={(v) => {
+              setActiveModule(+v);
+            }}
             className="w-[162px]"
           />
         ) : (
@@ -168,7 +141,7 @@ export const LessonsBlock = () => {
                         : 'text-white/50'
                     }`}
                     onClick={() => {
-                      setActiveLesson(lesson.name);
+                      setActiveLesson(index);
                     }}
                   >
                     {lesson.name}
