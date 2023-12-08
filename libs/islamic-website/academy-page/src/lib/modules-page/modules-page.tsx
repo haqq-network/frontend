@@ -9,7 +9,13 @@ const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],
 });
 
-export function AcademyModulesPage() {
+export function AcademyModulesPage({
+  moduleIndex,
+  lessonIndex,
+}: {
+  moduleIndex: number;
+  lessonIndex: number;
+}) {
   const t = useTranslations('academy-modules-page');
 
   return (
@@ -22,7 +28,10 @@ export function AcademyModulesPage() {
             </Text>
           </Link>
 
-          <LessonsBlock />
+          <LessonsBlock
+            initialLesson={lessonIndex}
+            initialModule={moduleIndex}
+          />
         </div>
       </Container>
     </div>
