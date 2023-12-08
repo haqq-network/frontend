@@ -102,4 +102,5 @@ body {
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center bottom;
+  z-index: 0;
 }
