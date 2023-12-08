@@ -8,6 +8,7 @@ import MODULES from './modules.json';
 import { useIsMobile } from '@haqq/shared';
 import { Select } from '@haqq/islamic-website-ui-kit';
 import { useRouter } from 'next/navigation';
+import clsx from 'clsx';
 
 export const useActiveLesson = () => {
   const [activeLessonIndex, setActiveLessonIndex] = useState(0);
@@ -166,11 +167,12 @@ export const LessonsBlock = ({
               return (
                 <Fragment key={lesson.name}>
                   <div
-                    className={`text-alexandria cursor-pointer text-[16px] font-[500] ${
+                    className={clsx(
+                      'text-alexandria cursor-pointer text-[16px] font-[500] transition-colors duration-150 ease-in',
                       currentActiveLesson?.name === lesson.name
-                        ? 'text-islamic-classic-green'
-                        : 'text-white/50'
-                    }`}
+                        ? 'text-islamic-primary-green'
+                        : 'hover:text-islamic-primary-green-hover text-white/50',
+                    )}
                     onClick={() => {
                       setActiveLesson(index);
                       updateURL(activeModuleIndex, index);
@@ -188,9 +190,9 @@ export const LessonsBlock = ({
         )}
       </div>
 
-      <div className="font-alexandria mt-[28px] max-w-[1258px] text-center text-[46px] font-[600] md:text-[60px] lg:mt-[40px] lg:text-[80px] ">
+      <h1 className="mt-[28px] text-center text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-[60px] lg:mt-[40px] lg:text-[80px] lg:leading-[80px]">
         {currentActiveLesson?.title}
-      </div>
+      </h1>
 
       <div className="mt-[16px] flex flex-row items-center gap-[8px]">
         <svg

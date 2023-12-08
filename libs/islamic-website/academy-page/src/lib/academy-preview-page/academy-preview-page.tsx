@@ -43,7 +43,7 @@ const modules = [
       {
         lessonId: '3ZrNYi2vK-o',
         lesson: 'Lesson 1.1',
-        lessonTitle: 'unnessecary the Complexities of Money',
+        lessonTitle: 'Understanding the Complexities of Money',
       },
       {
         lessonId: 'Qcs_vXkYqF4',
@@ -115,16 +115,16 @@ export function AcademyPreviewPage({
           <div
             className={clsx(
               'mx-auto flex w-full flex-col',
-              isTwelveDecember ? 'items-start' : 'items-center',
+              !isTwelveDecember ? 'items-start' : 'items-center',
             )}
           >
             <h1
               className={clsx(
-                'font-vcr text-haqq-black text-[46px] font-[400] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
+                'font-vcr text-haqq-black text-[46px] font-[400] uppercase leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
                 styles['stroke__heading'],
               )}
             >
-              HAQQ ACADEMY
+              HAQQ Academy
             </h1>
             {isTwelveDecember ? (
               <Fragment>
@@ -494,11 +494,11 @@ function LessonCard({
             : 'transition-colors duration-150 ease-in hover:border-[#8A8A8A]',
         )}
       >
-        <div className="relative h-[100px] w-full lg:w-[180px]">
-          <div className="absolute z-[1] h-full w-full bg-[#02030480]" />
+        <div className="relative aspect-video h-[100px] w-full lg:w-[200px]">
+          <div className="absolute z-[1] h-full w-full rounded-[8px] bg-[#02030480]" />
           <PlayVideoIcon
             className={clsx(
-              'absolute left-1/2 top-1/2 z-[2]  -translate-x-1/2 -translate-y-1/2 ',
+              'absolute left-1/2 top-1/2 z-[2] -translate-x-1/2 -translate-y-1/2 ',
               isAvailable &&
                 'transform transition-all duration-300 group-hover:scale-110',
             )}
@@ -507,10 +507,10 @@ function LessonCard({
             alt="Lesson preview"
             src={`https://img.youtube.com/vi/${lessonId}/1.jpg`}
             fill
-            className="absolute h-full w-full rounded-[8px] object-cover"
+            className="absolute h-full min-w-[200px] rounded-[8px] object-cover"
           />
         </div>
-        <div className="w-full lg:w-[60%]">
+        <div className="w-full lg:w-2/5 xl:min-w-[55%]">
           <div className="font-vcr mt-[12px] text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
             {lesson}
           </div>
