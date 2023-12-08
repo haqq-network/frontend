@@ -28,7 +28,7 @@ const modules = [
     isLessonsAvailable: true,
     moduleLessons: [
       {
-        lessonId: 'JfGu0t2x84E',
+        lessonId: '9c2Mz-PBcx4',
         lesson: 'Intro',
         lessonTitle: 'Welcome to HAQQ Academy',
       },
@@ -90,6 +90,7 @@ export function AcademyPreviewPage({
   turnstileSiteKey?: string;
 }) {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
   const openVideoModal = useCallback(() => {
     setIsVideoModalOpen(true);
   }, []);
@@ -215,7 +216,7 @@ export function AcademyPreviewPage({
         <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
           <iframe
             title="Islamic Coin Academy"
-            src={`https://www.youtube.com/embed/JfGu0t2x84E`}
+            src="https://www.youtube.com/embed/9c2Mz-PBcx4"
             allow="autoplay"
             allowFullScreen
             width="100%"
@@ -320,15 +321,15 @@ function Module({
   turnstileSiteKey: string;
   isLessonsAvailable?: boolean;
 }) {
-  const {
-    activeLessonIndex,
-    currentActiveLesson,
-    activeModuleIndex,
-    setActiveModule,
-    setActiveLesson,
-  } = useActiveLesson();
+  const [isIntroVideoModalOpen, setIsIntroVideoModalOpen] = useState(false);
+  const { setActiveModule, setActiveLesson } = useActiveLesson();
+  const openIntroVideoModal = useCallback(() => {
+    setIsIntroVideoModalOpen(true);
+  }, []);
 
-  console.log({ activeLessonIndex, currentActiveLesson, activeModuleIndex });
+  const closeIntroVideoModal = useCallback(() => {
+    setIsIntroVideoModalOpen(false);
+  }, []);
 
   return (
     <Fragment>
@@ -348,7 +349,7 @@ function Module({
           {lessons && (
             <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[20px] md:grid-cols-2 md:gap-[24px] lg:mt-[36px]">
               {lessons.map((lesson, idx) => {
-                return (
+                return isLessonsAvailable && moduleCount ? (
                   <Link
                     key={lesson.lessonTitle}
                     href={`/academy/lessons/${moduleCount}/${idx + 1}`}
@@ -356,6 +357,7 @@ function Module({
                       setActiveModule(moduleCount);
                       setActiveLesson(idx);
                     }}
+                    aria-disabled={!isLessonsAvailable}
                   >
                     <LessonCard
                       lesson={lesson.lesson}
@@ -364,6 +366,36 @@ function Module({
                       isAvailable={isLessonsAvailable}
                     />
                   </Link>
+                ) : (
+                  <Fragment key={lesson.lesson}>
+                    <LessonCard
+                      onClick={openIntroVideoModal}
+                      lesson={lesson.lesson}
+                      lessonTitle={lesson.lessonTitle}
+                      lessonId={lesson.lessonId}
+                      isAvailable={isLessonsAvailable}
+                    />
+                    <Modal
+                      isOpen={isIntroVideoModalOpen}
+                      onClose={closeIntroVideoModal}
+                    >
+                      <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
+                        <iframe
+                          title="Islamic Coin Academy Intro"
+                          src={`https://www.youtube.com/embed/${lesson.lessonId}`}
+                          allow="autoplay"
+                          allowFullScreen
+                          width="100%"
+                          className="mx-auto aspect-video rounded-[20px]"
+                        />
+
+                        <ModalCloseButton
+                          onClick={closeIntroVideoModal}
+                          className="absolute right-[-24px] top-[-24px] outline-none lg:right-[-32px]"
+                        />
+                      </div>
+                    </Modal>
+                  </Fragment>
                 );
               })}
             </div>
@@ -434,20 +466,23 @@ function LessonCard({
   lesson,
   lessonTitle,
   isAvailable = true,
+  onClick,
 }: {
   lessonId: string;
   lesson: string;
   lessonTitle: string;
   isAvailable?: boolean;
+  onClick?: () => void;
 }) {
   return (
     <div
       className={clsx(
         'relative',
         !isAvailable
-          ? 'cursor-not-allowed rounded-[19px] border border-[#232323]'
+          ? 'pointer-events-none cursor-not-allowed select-none rounded-[19px] border border-[#232323]'
           : 'cursor-pointer',
       )}
+      onClick={onClick}
     >
       {!isAvailable && (
         <LockIcon className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2" />
