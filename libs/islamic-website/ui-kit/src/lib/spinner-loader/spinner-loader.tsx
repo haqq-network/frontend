@@ -22,7 +22,7 @@ export function SpinnerLoader({ className }: { className?: string }) {
         />
       </svg>
 
-      <span className="sr-only relative h-[22px] w-[200px] text-white">
+      <span className="sr-only relative h-[22px] w-fit text-white">
         Loading...
       </span>
     </div>
