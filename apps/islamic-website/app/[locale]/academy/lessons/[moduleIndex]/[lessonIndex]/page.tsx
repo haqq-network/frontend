@@ -23,5 +23,10 @@ export default async function Page({
 }: {
   params: { moduleIndex: string; lessonIndex: string };
 }) {
-  return <AcademyModulesPage />;
+  return (
+    <AcademyModulesPage
+      lessonIndex={Number(params.lessonIndex)}
+      moduleIndex={Number(params.moduleIndex)}
+    />
+  );
 }
