@@ -19,11 +19,6 @@ const audits: Auditor[] = [
   },
   {
     logo: halbornLogoImgData,
-    name: 'HAQQ Coinomics',
-    report: '/assets/audits/haqq-coinomics-cosmos-security-assessment.pdf',
-  },
-  {
-    logo: halbornLogoImgData,
     name: 'HAQQ Vesting',
     report: '/assets/audits/haqq-vesting-cosmos-security.pdf',
   },
