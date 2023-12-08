@@ -38,13 +38,12 @@ const modules = [
     moduleTitle: 'Module',
     moduleCount: 1,
     isAvailable: true,
-    availableLessonsDate: new Date('2023-12-19'),
     isLessonsAvailable: true,
     moduleLessons: [
       {
         lessonId: '3ZrNYi2vK-o',
         lesson: 'Lesson 1.1',
-        lessonTitle: 'Understanding the Complexities of Money',
+        lessonTitle: 'unnessecary the Complexities of Money',
       },
       {
         lessonId: 'Qcs_vXkYqF4',
