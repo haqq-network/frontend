@@ -2,19 +2,16 @@
 
 import { Button, SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
 import { useLocale, useTranslations } from 'next-intl';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState, Fragment } from 'react';
 import { IModules } from '../../lib/modules-page/types';
 import MODULES from './modules.json';
-import { useIsMobile, useLocalStorage } from '@haqq/shared';
+import { useIsMobile } from '@haqq/shared';
 import { Select } from '@haqq/islamic-website-ui-kit';
+import { useRouter } from 'next/navigation';
 
 export const useActiveLesson = () => {
-  const [activeLessonIndex, setActiveLessonIndex] = useLocalStorage<
-    number | undefined
-  >('ACTIVE_LESSON_INDEX_', undefined);
-  const [activeModuleIndex, setActiveModuleIndex] = useLocalStorage<
-    number | undefined
-  >('ACTIVE_MODULE_INDEX_', undefined);
+  const [activeLessonIndex, setActiveLessonIndex] = useState(0);
+  const [activeModuleIndex, setActiveModuleIndex] = useState(0);
 
   const locale = useLocale();
 
@@ -79,7 +76,13 @@ export const useActiveLesson = () => {
   };
 };
 
-export const LessonsBlock = () => {
+export const LessonsBlock = ({
+  initialModule,
+  initialLesson,
+}: {
+  initialModule: number;
+  initialLesson: number;
+}) => {
   const t = useTranslations('academy-modules-page');
 
   const {
@@ -91,6 +94,19 @@ export const LessonsBlock = () => {
     currentModuleLessons,
     setActiveLesson,
   } = useActiveLesson();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (initialLesson !== undefined && initialModule !== undefined) {
+      setActiveLesson(initialLesson - 1);
+      setActiveModule(initialModule - 1);
+    }
+  }, [initialLesson, initialModule, setActiveLesson, setActiveModule]);
+
+  const updateURL = (moduleIndex: number, lessonIndex: number) => {
+    router.push(`/academy/lessons/${moduleIndex + 1}/${lessonIndex + 1}`);
+  };
 
   const sectionsModules = useMemo(() => {
     return Object.values(modules).map((module, index) => {
@@ -127,7 +143,9 @@ export const LessonsBlock = () => {
           variants={sectionsModules}
           current={`${activeModuleIndex}`}
           onChange={(v) => {
-            setActiveModule(+v);
+            setActiveModule(Number(v));
+            setActiveLesson(0);
+            updateURL(Number(v), 0);
           }}
           className="w-[162px]"
         />
@@ -137,7 +155,8 @@ export const LessonsBlock = () => {
             variants={lessonsModules}
             current={`${activeLessonIndex}`}
             onChange={(v) => {
-              setActiveModule(+v);
+              setActiveModule(Number(v));
+              updateURL(activeModuleIndex, Number(v));
             }}
             className="w-[162px]"
           />
@@ -145,7 +164,7 @@ export const LessonsBlock = () => {
           <div className="flex flex-row items-center gap-[12px]">
             {currentModuleLessons.map((lesson, index) => {
               return (
-                <>
+                <Fragment key={lesson.name}>
                   <div
                     className={`text-alexandria cursor-pointer text-[16px] font-[500] ${
                       currentActiveLesson?.name === lesson.name
@@ -154,6 +173,7 @@ export const LessonsBlock = () => {
                     }`}
                     onClick={() => {
                       setActiveLesson(index);
+                      updateURL(activeModuleIndex, index);
                     }}
                   >
                     {lesson.name}
@@ -161,7 +181,7 @@ export const LessonsBlock = () => {
                   {index !== currentModuleLessons.length - 1 && (
                     <div className="h-[1px] w-[20px] border-[1px] border-white"></div>
                   )}
-                </>
+                </Fragment>
               );
             })}
           </div>
@@ -181,8 +201,8 @@ export const LessonsBlock = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M20.5 12C20.5 16.4183 16.9183 20 12.5 20C8.08172 20 4.5 16.4183 4.5 12C4.5 7.58172 8.08172 4 12.5 4C16.9183 4 20.5 7.58172 20.5 12ZM22.5 12C22.5 17.5228 18.0228 22 12.5 22C6.97715 22 2.5 17.5228 2.5 12C2.5 6.47715 6.97715 2 12.5 2C18.0228 2 22.5 6.47715 22.5 12ZM13.5 6C13.5 5.44772 13.0523 5 12.5 5C11.9477 5 11.5 5.44772 11.5 6V11.4648L8.9453 13.1679C8.48577 13.4743 8.3616 14.0952 8.66795 14.5547C8.9743 15.0142 9.59517 15.1384 10.0547 14.8321L12.7875 13.0102C13.2326 12.7134 13.5 12.2139 13.5 11.6789V6Z"
             fill="#F5F5F5"
           />
@@ -196,7 +216,6 @@ export const LessonsBlock = () => {
           className="h-[246px] w-[100%] rounded-[20px] lg:h-[400px] lg:w-[720px]"
           src={currentActiveLesson?.video_link}
           title="YouTube video player"
-          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
@@ -210,7 +229,7 @@ export const LessonsBlock = () => {
       </Text>
 
       <Button
-        variant="islamic-classic-green"
+        variant="primary-green"
         onClick={() => {
           window.open(currentActiveLesson?.quize_link, '_blank');
         }}
