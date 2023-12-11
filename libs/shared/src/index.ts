@@ -35,3 +35,5 @@ export * from './utils/to-fixed-amount';
 export * from './providers/toaster';
 export * from './types';
 export * from './utils/format-eth-decimals';
+export * from './hooks/use-local-storage/use-local-storage';
+export * from './hooks/use-is-mobile/use-is-mobile';

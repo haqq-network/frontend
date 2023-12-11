@@ -1,0 +1,27 @@
+{
+  "en": {
+    "modules": [
+      {
+        "name": "Module 1",
+        "lessons": [
+          {
+            "name": "Lesson 1.1",
+            "title": "Understanding the Complexities of Money",
+            "duration": "7 minutes",
+            "video_link": "https://www.youtube.com/embed/3ZrNYi2vK-o",
+            "description": "We’re talking money – but not just any cash in your wallet. We’re diving into what makes it tick and why we need something better. Money, as you know it, is backed by promises from banks that they'll hold up their end of the bargain on value. But with power to print more money comes a big problem: inflation. Like the US dollar losing a ton of its value or the Venezuelan Bolívar crashing even faster. That hits your pocket hard. Now, sending money across borders is another headache. It’s slow, pricey, and eats up a big chunk of the cash that should be going to families. It's not just an issue for individuals but a big deal for entire economies, with some countries leaning heavily on these funds. What's more, there's a huge gap in who can get banking services, and it's massive among Muslims. A lot of folks in countries like Indonesia and Pakistan can’t even get basic banking, which isn't okay. This all points to one thing: we need a game-changer, and that’s where digital currency steps in. It’s secure, quick, and doesn't leave anyone out. So, as we wrap up, remember this: the money system is ready for an upgrade, and crypto might just be the key. Stick around to learn more about it in the next lesson!",
+            "quize_link": "https://galxe.com/IslamicCoin/campaign/GCRg3tUzEE"
+          },
+          {
+            "name": "Lesson 1.2",
+            "title": "The Evolution of Cryptocurrencies",
+            "duration": "4 minutes",
+            "video_link": "https://www.youtube.com/embed/Qcs_vXkYqF4",
+            "description": "The world of cryptocurrencies sprang up during the 2008 financial crisis. Picture a time of failing banks and shaky economies. That's when Bitcoin emerged, thanks to the mysterious Satoshi Nakamoto. Bitcoin revolutionized money by using blockchain technology, which allows secure, transparent money management without any central authority. It was a first in solving the double-spend problem digitally. Fast forward, and we now have a bouquet of cryptocurrencies, like the pioneering Bitcoin and Ethereum with its smart contracts, plus our Shariah-compliant Islamic Coin. Cryptocurrencies are more than just digital cash; they're creating an inclusive financial system, simplifying transactions across borders, and bringing unmatched security and transparency to our transactions. Imagine sending money worldwide as easily as texting, or being part of the global economy from any corner of the earth. That's the magic we're talking about! We're at the brink of a financial evolution that could change society's very fabric.",
+            "quize_link": "https://galxe.com/IslamicCoin/campaign/GCmowttGc6"
+          }
+        ]
+      }
+    ]
+  }
+}
