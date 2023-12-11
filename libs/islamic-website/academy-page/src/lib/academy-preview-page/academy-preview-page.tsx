@@ -98,35 +98,27 @@ export function AcademyPreviewPage({
   }, []);
 
   const today = new Date();
-  const targetDate = new Date('2023-12-12');
-
-  const isTwelveDecember =
-    today.getDate() === targetDate.getDate() &&
-    today.getMonth() === targetDate.getMonth() &&
-    today.getFullYear() === targetDate.getFullYear();
+  const twelveDecember = new Date('2023-12-12T12:00:00');
+  const isItTwelveDecember = today >= twelveDecember;
 
   return (
     <section className="overflow-x-clip">
       <Container>
         <div className="relative pb-[60px] pt-[32px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
-          <div className="absolute left-1/2 top-[-11.5%] z-[-1] -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute left-1/2 top-[-5%] z-[-1] -translate-x-1/2 -translate-y-1/2 md:top-[-7.9%] lg:top-[-5%]">
             <BgImage />
           </div>
-          <div
-            className={clsx(
-              'mx-auto flex w-full flex-col',
-              !isTwelveDecember ? 'items-start' : 'items-center',
-            )}
-          >
+          <div className="mx-auto flex w-full flex-col items-center">
             <h1
               className={clsx(
                 'font-vcr text-haqq-black text-[46px] font-[400] uppercase leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
                 styles['stroke__heading'],
+                !isItTwelveDecember ? 'self-center' : 'self-start',
               )}
             >
               HAQQ Academy
             </h1>
-            {isTwelveDecember ? (
+            {!isItTwelveDecember ? (
               <Fragment>
                 <h2 className="mt-[12px] text-[28px] font-[600] uppercase leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
                   <span>season 1:&nbsp;</span>
@@ -148,10 +140,10 @@ export function AcademyPreviewPage({
                     Master The Basics of Crypto Through The Lens of Islamic
                     Finance in 19 <br /> Insightful Lessons. Graduate from HAQQ
                     Academy with Your&nbsp;
+                    <GradientText className="font-vcr text-[15px] uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
+                      NFT certificate
+                    </GradientText>
                   </Text>
-                  <GradientText className="font-vcr text-[15px] uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
-                    NFT certificate
-                  </GradientText>
                 </div>
 
                 {turnstileSiteKey && (
@@ -168,10 +160,10 @@ export function AcademyPreviewPage({
               <div className="w-full">
                 <div className="mt-[16px] flex flex-row gap-x-[20px] md:mt-[20px] md:gap-x-[24px] lg:mt-[28px] lg:gap-x-[28px]">
                   <div className="flex flex-row items-center gap-x-[8px]">
-                    <VideoIcon /> <Text isMono>12 Lessons</Text>
+                    <VideoIcon /> <Text isMono>19 Lessons</Text>
                   </div>
-                  <div className="flex flex-row gap-x-[8px]">
-                    <ClockIcon /> <Text isMono>90 Minutes</Text>
+                  <div className="flex flex-row items-center gap-x-[8px]">
+                    <ClockIcon /> <Text isMono>103 Minutes</Text>
                   </div>
                 </div>
                 <div className="mt-[32px] grid grid-cols-1 gap-y-[32px] md:mt-[44px] md:gap-y-[40px] lg:mt-[72px] lg:gap-y-[60px]">
@@ -240,6 +232,7 @@ function BgImage() {
       viewBox="0 0 801 756"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="h-[379px] w-[401px] md:h-[600px] md:w-[565px] lg:h-[756px] lg:w-[801px]"
     >
       <g opacity="0.2">
         <mask
