@@ -22,8 +22,8 @@ export function AcademyModulesPage({
     <div className="relative mb-[140px] mt-[30px] md:mb-[100px] lg:mt-[45px]">
       <Container>
         <div className="flex flex-col items-center justify-center">
-          <Link href="/" className="font-vcr">
-            <Text size="small" isMono className="text-[12px]">
+          <Link href="/academy">
+            <Text size="small" isMono>
               {t('back')}
             </Text>
           </Link>
