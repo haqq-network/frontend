@@ -98,7 +98,7 @@ export function AcademyPreviewPage({
   }, []);
 
   const today = new Date();
-  const twelveDecember = new Date('2023-12-12T12:00:00');
+  const twelveDecember = new Date('2023-12-12T14:00:00');
   const isItTwelveDecember = today >= twelveDecember;
 
   return (
@@ -131,6 +131,7 @@ export function AcademyPreviewPage({
                       alt=""
                       className="rounded-lg"
                       fill
+                      priority
                     />
                     <PlayVideoIcon className="absolute left-[36.5%] top-[28%] h-[78px] w-[78px] transform transition-all duration-300 group-hover:scale-110 md:left-[37.5%] md:top-[35%] lg:left-[42.5%] lg:top-[38%]" />
                   </div>
