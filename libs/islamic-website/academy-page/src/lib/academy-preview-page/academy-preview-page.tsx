@@ -98,7 +98,7 @@ export function AcademyPreviewPage({
   }, []);
 
   const today = new Date();
-  const twelveDecember = new Date('2023-12-12T14:00:00');
+  const twelveDecember = new Date('2023-12-12T13:00:00');
   const isItTwelveDecember = today >= twelveDecember;
 
   return (
