@@ -6,7 +6,7 @@ export function ScrollSpySection({
   children,
   id,
   onSectionInView,
-  threshold = [0.3, 0.7],
+  threshold = [0.1, 0.7],
   className,
   initialInView = false,
 }: PropsWithChildren<{

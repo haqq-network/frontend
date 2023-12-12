@@ -40,6 +40,7 @@ export function PrivacyPolicyPage({
   privacyPolicy?: string;
 }) {
   const t = useTranslations('privacy-policy-page');
+
   return (
     <HeroBg>
       <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] md:pb-[100px] lg:mt-[68px] lg:pb-[140px]">

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { NewsPage } from '@haqq/islamic-website/news-page';
-import { getNewsPageContent } from '../../../utils/get-news-data';
+import { getNewsPageContentFromFalconer } from '../../../utils/get-news';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const news = await getNewsPageContent();
+  const news = await getNewsPageContentFromFalconer();
 
   return <NewsPage news={news} turnstileSiteKey={TURNSTILE_SITEKEY} />;
 }
