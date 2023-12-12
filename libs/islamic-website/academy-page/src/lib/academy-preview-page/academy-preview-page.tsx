@@ -1,7 +1,7 @@
 'use client';
 import {
   Container,
-  GradientText,
+  // GradientText,
   Modal,
   ModalCloseButton,
   PlayVideoIcon,
@@ -90,16 +90,16 @@ export function AcademyPreviewPage({
 }) {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
-  const openVideoModal = useCallback(() => {
-    setIsVideoModalOpen(true);
-  }, []);
+  // const openVideoModal = useCallback(() => {
+  //   setIsVideoModalOpen(true);
+  // }, []);
   const closeVideoModal = useCallback(() => {
     setIsVideoModalOpen(false);
   }, []);
 
-  const today = new Date();
-  const twelveDecember = new Date('2023-12-12T13:00:00');
-  const isItTwelveDecember = today >= twelveDecember;
+  // const today = new Date();
+  // const twelveDecember = new Date('2023-12-12T13:00:00');
+  // const isItTwelveDecember = today >= twelveDecember;
 
   return (
     <section className="overflow-x-clip">
@@ -111,15 +111,15 @@ export function AcademyPreviewPage({
           <div className="mx-auto flex w-full flex-col items-center">
             <h1
               className={clsx(
-                'font-vcr text-haqq-black text-[46px] font-[400] uppercase leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
+                'font-vcr text-haqq-black self-start text-[46px] font-[400] uppercase leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
                 styles['stroke__heading'],
-                !isItTwelveDecember ? 'self-center' : 'self-start',
+                // !isItTwelveDecember ? 'self-center' : 'self-start',
               )}
             >
               HAQQ Academy
             </h1>
-            {!isItTwelveDecember ? (
-              <Fragment>
+            {/* {!isItTwelveDecember ? ( */}
+            {/* <Fragment>
                 <h2 className="mt-[12px] text-[28px] font-[600] uppercase leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
                   <span>season 1:&nbsp;</span>
                   <span className="text-[#EB9226]">start 12.12</span>
@@ -156,51 +156,51 @@ export function AcademyPreviewPage({
                     />
                   </div>
                 )}
-              </Fragment>
-            ) : (
-              <div className="w-full">
-                <div className="mt-[16px] flex flex-row gap-x-[20px] md:mt-[20px] md:gap-x-[24px] lg:mt-[28px] lg:gap-x-[28px]">
-                  <div className="flex flex-row items-center gap-x-[8px]">
-                    <VideoIcon /> <Text isMono>19 Lessons</Text>
-                  </div>
-                  <div className="flex flex-row items-center gap-x-[8px]">
-                    <ClockIcon /> <Text isMono>103 Minutes</Text>
-                  </div>
+              </Fragment> */}
+            {/* ) : ( */}
+            <div className="w-full">
+              <div className="mt-[16px] flex flex-row gap-x-[20px] md:mt-[20px] md:gap-x-[24px] lg:mt-[28px] lg:gap-x-[28px]">
+                <div className="flex flex-row items-center gap-x-[8px]">
+                  <VideoIcon /> <Text isMono>19 Lessons</Text>
                 </div>
-                <div className="mt-[32px] grid grid-cols-1 gap-y-[32px] md:mt-[44px] md:gap-y-[40px] lg:mt-[72px] lg:gap-y-[60px]">
-                  {turnstileSiteKey &&
-                    modules.map((module) => {
-                      const day =
-                        module.availableLessonsDate &&
-                        module.availableLessonsDate?.getDate();
-                      const month =
-                        module.availableLessonsDate &&
-                        module.availableLessonsDate?.getMonth() + 1;
-                      const formattedDate = `${
-                        day && day < 10 ? '0' : ''
-                      }${day}.${month && month < 10 ? '0' : ''}${month}`;
-
-                      return (
-                        <Block
-                          key={`${module.moduleTitle} ${module.moduleCount}`}
-                        >
-                          <Module
-                            isAvailable={module.isAvailable}
-                            moduleTitle={module.moduleTitle}
-                            availableLessonsDate={
-                              module.availableLessonsDate ? formattedDate : ''
-                            }
-                            lessons={module.moduleLessons}
-                            turnstileSiteKey={turnstileSiteKey}
-                            moduleCount={module.moduleCount}
-                            isLessonsAvailable={module.isLessonsAvailable}
-                          />
-                        </Block>
-                      );
-                    })}
+                <div className="flex flex-row items-center gap-x-[8px]">
+                  <ClockIcon /> <Text isMono>103 Minutes</Text>
                 </div>
               </div>
-            )}
+              <div className="mt-[32px] grid grid-cols-1 gap-y-[32px] md:mt-[44px] md:gap-y-[40px] lg:mt-[72px] lg:gap-y-[60px]">
+                {turnstileSiteKey &&
+                  modules.map((module) => {
+                    const day =
+                      module.availableLessonsDate &&
+                      module.availableLessonsDate?.getDate();
+                    const month =
+                      module.availableLessonsDate &&
+                      module.availableLessonsDate?.getMonth() + 1;
+                    const formattedDate = `${
+                      day && day < 10 ? '0' : ''
+                    }${day}.${month && month < 10 ? '0' : ''}${month}`;
+
+                    return (
+                      <Block
+                        key={`${module.moduleTitle} ${module.moduleCount}`}
+                      >
+                        <Module
+                          isAvailable={module.isAvailable}
+                          moduleTitle={module.moduleTitle}
+                          availableLessonsDate={
+                            module.availableLessonsDate ? formattedDate : ''
+                          }
+                          lessons={module.moduleLessons}
+                          turnstileSiteKey={turnstileSiteKey}
+                          moduleCount={module.moduleCount}
+                          isLessonsAvailable={module.isLessonsAvailable}
+                        />
+                      </Block>
+                    );
+                  })}
+              </div>
+            </div>
+            {/* )} */}
           </div>
         </div>
       </Container>
