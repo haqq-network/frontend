@@ -95,6 +95,14 @@ function LockupPeriods({
     );
   }, [lockupPeriods, startTime]);
 
+  const totalLockup = useMemo(() => {
+    const bigIntLockupPeriods = lockupPeriods.reduce((acc, el) => {
+      return acc + BigInt(el.amount?.[0].amount ?? '0');
+    }, 0n);
+
+    return Number.parseFloat(formatUnits(bigIntLockupPeriods, 18));
+  }, [lockupPeriods]);
+
   return (
     <Card className="mx-auto w-full max-w-lg">
       <div>
@@ -115,6 +123,12 @@ function LockupPeriods({
                 End date
               </div>
               <div>{formatDate(new Date(endTime))}</div>
+            </div>
+            <div>
+              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+                Total lockups
+              </div>
+              <div>{totalLockup} ISLM</div>
             </div>
           </div>
         </div>
