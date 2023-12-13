@@ -95,54 +95,6 @@ function LockupPeriods({
     );
   }, [lockupPeriods, startTime]);
 
-  const { lockedAmount, totalAmount, unlockedAmount } = useMemo(() => {
-    const now = new Date();
-    const bigIntLockupPeriods = lockupPeriods.reduce(
-      (acc, el) => {
-        const prevDateStr = acc.lastDate;
-
-        const prevDate = new Date(prevDateStr);
-        const offset = Number.parseInt(el.length ?? '0') * 1000;
-        const unlockDate = new Date(prevDate.getTime() + offset);
-        const nowTime = now.getTime();
-        const past = unlockDate.getTime() < nowTime;
-
-        const nextUnlockedAmount = past
-          ? acc.unlockedAmount + BigInt(el.amount?.[0].amount ?? '0')
-          : acc.unlockedAmount;
-
-        const nextLockedAmount = past
-          ? acc.lockedAmount
-          : acc.lockedAmount + BigInt(el.amount?.[0].amount ?? '0');
-
-        return {
-          totalAmount: acc.totalAmount + BigInt(el.amount?.[0].amount ?? '0'),
-          unlockedAmount: nextUnlockedAmount,
-          lockedAmount: nextLockedAmount,
-          lastDate: unlockDate,
-        };
-      },
-      {
-        totalAmount: 0n,
-        unlockedAmount: 0n,
-        lockedAmount: 0n,
-        lastDate: new Date(startTime),
-      },
-    );
-
-    return {
-      totalAmount: Number.parseFloat(
-        formatUnits(bigIntLockupPeriods.totalAmount, 18),
-      ),
-      unlockedAmount: Number.parseFloat(
-        formatUnits(bigIntLockupPeriods.unlockedAmount, 18),
-      ),
-      lockedAmount: Number.parseFloat(
-        formatUnits(bigIntLockupPeriods.lockedAmount, 18),
-      ),
-    };
-  }, [lockupPeriods, startTime]);
-
   return (
     <Card className="mx-auto w-full max-w-lg">
       <div>
@@ -151,38 +103,11 @@ function LockupPeriods({
         </div>
 
         <div className="p-4 pt-0">
-          <div className="flex flex-col gap-2">
-            <div>
-              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
-                Start date
-              </div>
-              <div>{formatDate(new Date(startTime))}</div>
-            </div>
-            <div>
-              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
-                End date
-              </div>
-              <div>{formatDate(new Date(endTime))}</div>
-            </div>
-            <div>
-              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
-                Total lockups
-              </div>
-              <div>{totalAmount} ISLM</div>
-            </div>
-            <div>
-              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
-                Already unlocked
-              </div>
-              <div>{unlockedAmount} ISLM</div>
-            </div>
-            <div>
-              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
-                Locked
-              </div>
-              <div>{lockedAmount} ISLM</div>
-            </div>
-          </div>
+          <VestingStatsGraph
+            endTime={endTime}
+            startTime={startTime}
+            lockupPeriods={lockupPeriods}
+          />
         </div>
 
         <div className="divide-y border-t">
@@ -300,6 +225,98 @@ function LockupTimelineListItem({
             </span>
           </Tooltip>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function VestingStatsGraph({
+  startTime,
+  endTime,
+  lockupPeriods,
+}: {
+  startTime: string;
+  endTime: string;
+  lockupPeriods: VestingPeriod[];
+}) {
+  const { lockedAmount, totalAmount, unlockedAmount } = useMemo(() => {
+    const now = new Date();
+    const bigIntLockupPeriods = lockupPeriods.reduce(
+      (acc, el) => {
+        const prevDateStr = acc.lastDate;
+
+        const prevDate = new Date(prevDateStr);
+        const offset = Number.parseInt(el.length ?? '0') * 1000;
+        const unlockDate = new Date(prevDate.getTime() + offset);
+        const nowTime = now.getTime();
+        const past = unlockDate.getTime() < nowTime;
+
+        const nextUnlockedAmount = past
+          ? acc.unlockedAmount + BigInt(el.amount?.[0].amount ?? '0')
+          : acc.unlockedAmount;
+
+        const nextLockedAmount = past
+          ? acc.lockedAmount
+          : acc.lockedAmount + BigInt(el.amount?.[0].amount ?? '0');
+
+        return {
+          totalAmount: acc.totalAmount + BigInt(el.amount?.[0].amount ?? '0'),
+          unlockedAmount: nextUnlockedAmount,
+          lockedAmount: nextLockedAmount,
+          lastDate: unlockDate,
+        };
+      },
+      {
+        totalAmount: 0n,
+        unlockedAmount: 0n,
+        lockedAmount: 0n,
+        lastDate: new Date(startTime),
+      },
+    );
+
+    return {
+      totalAmount: Number.parseFloat(
+        formatUnits(bigIntLockupPeriods.totalAmount, 18),
+      ),
+      unlockedAmount: Number.parseFloat(
+        formatUnits(bigIntLockupPeriods.unlockedAmount, 18),
+      ),
+      lockedAmount: Number.parseFloat(
+        formatUnits(bigIntLockupPeriods.lockedAmount, 18),
+      ),
+    };
+  }, [lockupPeriods, startTime]);
+  return (
+    <div className="flex flex-col gap-2">
+      <div>
+        <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+          Start date
+        </div>
+        <div>{formatDate(new Date(startTime))}</div>
+      </div>
+      <div>
+        <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+          End date
+        </div>
+        <div>{formatDate(new Date(endTime))}</div>
+      </div>
+      <div>
+        <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+          Total lockups
+        </div>
+        <div>{totalAmount} ISLM</div>
+      </div>
+      <div>
+        <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+          Already unlocked
+        </div>
+        <div>{unlockedAmount} ISLM</div>
+      </div>
+      <div>
+        <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+          Locked
+        </div>
+        <div>{lockedAmount} ISLM</div>
       </div>
     </div>
   );
