@@ -95,13 +95,53 @@ function LockupPeriods({
     );
   }, [lockupPeriods, startTime]);
 
-  const totalLockup = useMemo(() => {
-    const bigIntLockupPeriods = lockupPeriods.reduce((acc, el) => {
-      return acc + BigInt(el.amount?.[0].amount ?? '0');
-    }, 0n);
+  const { lockedAmount, totalAmount, unlockedAmount } = useMemo(() => {
+    const now = new Date();
+    const bigIntLockupPeriods = lockupPeriods.reduce(
+      (acc, el) => {
+        const prevDateStr = acc.lastDate;
 
-    return Number.parseFloat(formatUnits(bigIntLockupPeriods, 18));
-  }, [lockupPeriods]);
+        const prevDate = new Date(prevDateStr);
+        const offset = Number.parseInt(el.length ?? '0') * 1000;
+        const unlockDate = new Date(prevDate.getTime() + offset);
+        const nowTime = now.getTime();
+        const past = unlockDate.getTime() < nowTime;
+
+        const nextUnlockedAmount = past
+          ? acc.unlockedAmount + BigInt(el.amount?.[0].amount ?? '0')
+          : acc.unlockedAmount;
+
+        const nextLockedAmount = past
+          ? acc.lockedAmount
+          : acc.lockedAmount + BigInt(el.amount?.[0].amount ?? '0');
+
+        return {
+          totalAmount: acc.totalAmount + BigInt(el.amount?.[0].amount ?? '0'),
+          unlockedAmount: nextUnlockedAmount,
+          lockedAmount: nextLockedAmount,
+          lastDate: unlockDate,
+        };
+      },
+      {
+        totalAmount: 0n,
+        unlockedAmount: 0n,
+        lockedAmount: 0n,
+        lastDate: new Date(startTime),
+      },
+    );
+
+    return {
+      totalAmount: Number.parseFloat(
+        formatUnits(bigIntLockupPeriods.totalAmount, 18),
+      ),
+      unlockedAmount: Number.parseFloat(
+        formatUnits(bigIntLockupPeriods.unlockedAmount, 18),
+      ),
+      lockedAmount: Number.parseFloat(
+        formatUnits(bigIntLockupPeriods.lockedAmount, 18),
+      ),
+    };
+  }, [lockupPeriods, startTime]);
 
   return (
     <Card className="mx-auto w-full max-w-lg">
@@ -128,7 +168,19 @@ function LockupPeriods({
               <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
                 Total lockups
               </div>
-              <div>{totalLockup} ISLM</div>
+              <div>{totalAmount} ISLM</div>
+            </div>
+            <div>
+              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+                Already unlocked
+              </div>
+              <div>{unlockedAmount} ISLM</div>
+            </div>
+            <div>
+              <div className="text-xs leading-normal text-[#8E8E8E] md:text-sm">
+                Locked
+              </div>
+              <div>{lockedAmount} ISLM</div>
             </div>
           </div>
         </div>
