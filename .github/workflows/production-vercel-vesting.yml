@@ -15,7 +15,7 @@ jobs:
       NX_SKIP_NX_CACHE: true
       GIT_COMMIT_SHA: ${{ github.sha }}
     steps:
-      - name: Checkout code
+      - nam[![Staking Production Deployment](https://github.com/haqq-network/frontend/actions/workflows/production-vercel-staking.yml/badge.svg?branch=feat%2Fvalidator-pages)](https://github.com/haqq-network/frontend/actions/workflows/production-vercel-staking.yml)100⁰000e: Checkout code
         uses: actions/checkout@v3
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
