@@ -5,7 +5,7 @@ import Link from 'next/link';
 export function BuildPage() {
   const t = useTranslations('build-page');
   return (
-    <div className="overflow-x-clip">
+    <section className="overflow-x-clip">
       <Container className="relative">
         <div className="pb-[60px] pt-[32px] text-white md:pb-[140px] md:pt-[52px] lg:pt-[68px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
@@ -48,7 +48,7 @@ export function BuildPage() {
           <BuildPageBg />
         </div>
       </Container>
-    </div>
+    </section>
   );
 }
 

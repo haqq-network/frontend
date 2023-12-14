@@ -1,0 +1,10 @@
+{
+  "name": "@haqq/data-access-falconer",
+  "version": "0.0.1",
+  "dependencies": {
+    "@swc/helpers": "~0.5.2"
+  },
+  "type": "module",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
+}

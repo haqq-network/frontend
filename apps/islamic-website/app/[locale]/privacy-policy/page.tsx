@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PrivacyPolicyPage } from '@haqq/islamic-website/privacy-policy-page';
 import { DEPLOY_URL } from '../../../constants';
-import { getPrivacyPolicyContent } from '../../../utils/get-privacy-policy-content';
+import { getPrivacyPolicyContentFromFalconer } from '../../../utils/get-privacy-policy';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Privacy Policy';
@@ -15,15 +15,12 @@ export const metadata: Metadata = {
   },
 };
 
-interface PageProps {
+export default async function Page({
+  params: { locale },
+}: {
   params: { locale: string };
-}
-
-export default async function Page(props: PageProps) {
-  const {
-    params: { locale },
-  } = props;
-  const privacyPolicy = await getPrivacyPolicyContent(locale);
+}) {
+  const privacyPolicy = await getPrivacyPolicyContentFromFalconer(locale);
 
   return <PrivacyPolicyPage privacyPolicy={privacyPolicy} />;
 }

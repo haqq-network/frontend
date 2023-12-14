@@ -171,7 +171,7 @@ export function RoadmapPage({
   const t = useTranslations('');
 
   return (
-    <div className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
+    <section className="flex flex-col pb-[60px] pt-[32px] text-white md:pb-[100px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
       <div className="overflow-x-clip">
         <Container className="relative">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
@@ -204,6 +204,6 @@ export function RoadmapPage({
           <RoadmapBgImg />
         </Container>
       </div>
-    </div>
+    </section>
   );
 }

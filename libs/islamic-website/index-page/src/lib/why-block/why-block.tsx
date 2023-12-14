@@ -181,7 +181,7 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
   const t = useTranslations('index-page.why-block');
 
   return (
-    <div className="bg-islamic-primary-graphite transform-gpu divide-y-[1px] divide-[#2F2F2F] rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
+    <section className="bg-islamic-primary-graphite transform-gpu divide-y-[1px] divide-[#2F2F2F] rounded-[20px] px-[20px] py-[28px] text-white backdrop-blur-sm md:p-[40px] lg:mt-[100px] lg:p-[48px]">
       <div className="flex flex-col items-start pb-[40px]">
         <Heading>{t('title')}</Heading>
         <Text isMono className="mt-[12px] md:mt-[20px]">
@@ -265,6 +265,6 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -32,7 +32,7 @@ export function TeamPage({
 }) {
   const t = useTranslations('team-page');
   return (
-    <div className="overflow-x-clip">
+    <section className="overflow-x-clip">
       <Container className="relative">
         <div className="pb-[60px] pt-[32px] text-white md:pt-[52px] lg:pb-[200px] lg:pt-[68px]">
           <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
@@ -59,6 +59,6 @@ export function TeamPage({
           <TeamPageBg />
         </div>
       </Container>
-    </div>
+    </section>
   );
 }

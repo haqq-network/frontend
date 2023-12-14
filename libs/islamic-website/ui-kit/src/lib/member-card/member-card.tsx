@@ -39,13 +39,13 @@ export function MemberCard({
       )}
       onClick={onClick}
     >
-      <div className="relative mx-auto">
+      <div className="h-auto w-full">
         <Image
           src={image}
           alt=""
           width={280}
           height={280}
-          className="pointer-events-none left-0 top-0 select-none rounded-[20px]"
+          className="pointer-events-none w-full select-none rounded-[20px] object-contain"
         />
       </div>
       <div className="flex h-full flex-col">

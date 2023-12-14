@@ -8,7 +8,7 @@ const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],
 });
 
-export function ShariPageMobileNav({
+export function ShariahPageMobileNav({
   sections,
   activeSection,
   onSectionSelect,

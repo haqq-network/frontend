@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@haqq/data-access-falconer": ["libs/data-access/falconer/src/index.ts"],
       "@haqq/governance/proposal-details": [
         "libs/governance/proposal-details/src/index.ts"
       ],

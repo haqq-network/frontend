@@ -12,7 +12,7 @@ export function NotFound() {
   const t = useTranslations('not-found-page');
 
   return (
-    <div className="relative">
+    <section className="relative">
       <Container className="pb-[265px] pt-[245px] lg:py-[312px]">
         <div className="flex flex-col items-center justify-center">
           <div className="rtl:font-handjet ltr:font-vcr text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
@@ -35,6 +35,6 @@ export function NotFound() {
         alt="Not Found"
         className="user-select-none absolute left-1/2 top-[16%] z-[-1] h-[400px] w-[400px] -translate-x-1/2 object-cover md:top-[1.5%] md:h-[580px] md:w-[580px] lg:top-[2%] lg:h-[720px] lg:w-[720px]"
       />
-    </div>
+    </section>
   );
 }

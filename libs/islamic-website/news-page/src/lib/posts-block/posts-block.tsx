@@ -36,10 +36,9 @@ export function PostsBlock({
   className?: string;
 }) {
   const [activeNewsType, setActiveNewsType] = useState<string>('all');
-
   const t = useTranslations('news-page');
 
-  const filteredPosts = useMemo(() => {
+  const newsToRender = useMemo(() => {
     if (activeNewsType === 'all') {
       return posts;
     }
@@ -54,6 +53,7 @@ export function PostsBlock({
       <h2 className="text-[22px] font-[600] leading-[24px] md:text-[48px] md:leading-[54px]">
         {t('posts.recent')}
       </h2>
+
       <div className="mt-[28px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px]">
         <NewsTypeButton
           active={activeNewsType === 'all'}
@@ -80,8 +80,9 @@ export function PostsBlock({
           {t('filter-buttons.events')}
         </NewsTypeButton>
       </div>
+
       <div className="mt-[28px] grid grid-cols-1 gap-x-[28px] gap-y-[36px] md:grid-cols-2 lg:mt-[36px] lg:grid-cols-3 lg:gap-x-[48px] lg:gap-y-[56px]">
-        {filteredPosts.map((post, index) => {
+        {newsToRender.map((post, index) => {
           return (
             <Link
               href={post.url}

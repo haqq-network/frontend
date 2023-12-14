@@ -81,21 +81,23 @@ export function WalletPage() {
   );
 
   return (
-    <Container className="relative mt-[32px] overflow-x-clip pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:pb-[130px] xl:pb-[108px]">
-      <div className="hidden items-center justify-between lg:flex lg:gap-x-[24px] xl:gap-x-[60px]">
-        <div className="flex max-w-[600px] flex-col xl:max-w-[660px]">
+    <section>
+      <Container className="relative mt-[32px] overflow-x-clip pb-[60px] text-white md:mt-[52px] lg:mt-[68px] lg:pb-[130px] xl:pb-[108px]">
+        <div className="hidden items-center justify-between lg:flex lg:gap-x-[24px] xl:gap-x-[60px]">
+          <div className="flex max-w-[600px] flex-col xl:max-w-[660px]">
+            {content}
+          </div>
+          <div className="flex flex-1 justify-center">
+            <div className="relative h-[600px] w-[350px]">{image}</div>
+          </div>
+        </div>
+        <div className="flex flex-col lg:hidden">
           {content}
+          <div className="relative mt-[48px] h-[600px] w-[350px] self-center">
+            {image}
+          </div>
         </div>
-        <div className="flex flex-1 justify-center">
-          <div className="relative h-[600px] w-[350px]">{image}</div>
-        </div>
-      </div>
-      <div className="flex flex-col lg:hidden">
-        {content}
-        <div className="relative mt-[48px] h-[600px] w-[350px] self-center">
-          {image}
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </section>
   );
 }

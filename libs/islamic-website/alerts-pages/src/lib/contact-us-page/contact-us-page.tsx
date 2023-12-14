@@ -5,7 +5,7 @@ import contactPageImageData from '../../assets/images/contact-page-image.webp';
 
 export function ContactUsPage() {
   return (
-    <section className="">
+    <section>
       <Container>
         <div className="pb-[36px] pt-[32px] md:pb-[46px] md:pt-[60px] lg:py-[244px] xl:pb-[324px] xl:pt-[284px]">
           <div className="flex min-h-[200px] flex-col items-start lg:flex-row">
