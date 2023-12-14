@@ -106,7 +106,7 @@
     "@commitlint/config-conventional": "18.1.0",
     "@keplr-wallet/types": "0.12.38",
     "@nx/cypress": "17.0.2",
-    "@nx/eslint": "17.0.2",
+    "@nx/eslint": "17.2.4",
     "@nx/eslint-plugin": "17.0.2",
     "@nx/jest": "17.0.2",
     "@nx/js": "17.0.2",
