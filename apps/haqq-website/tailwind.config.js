@@ -33,6 +33,10 @@ module.exports = {
         messiri: ['var(--font-messiri)'],
         manrope: ['var(--font-manrope)'],
       },
+      screens: {
+        md: '744px',
+        '2xl': '1440px',
+      },
     },
   },
   plugins: [typographyPlugin],
