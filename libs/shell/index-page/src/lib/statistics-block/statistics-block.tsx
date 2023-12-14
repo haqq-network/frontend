@@ -36,11 +36,11 @@ export function StatisticsBlock() {
   //   return Number.parseInt(accounts?.pagination.total ?? '0');
   // }, [accounts?.pagination.total]);
 
-  const totalStaked = 1561205227.874;
+  const totalStaked = 1966430229.27;
 
   const totalSupply = 20_000_000_000.0;
 
-  const totalAccounts = 2516427;
+  const totalAccounts = 2521846;
 
   const { valsTotal, valsActive } = useMemo(() => {
     // const activeVals = validators?.filter((val) => {
@@ -49,7 +49,7 @@ export function StatisticsBlock() {
 
     return {
       valsTotal: 150,
-      valsActive: 68,
+      valsActive: 83,
     };
   }, []); // [stakingParams?.max_validators, validators]
 
