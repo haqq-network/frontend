@@ -5,6 +5,7 @@ import {
   BuildIcon,
   CaseIcon,
   CommunityIcon,
+  CubeIcon,
   EcosystemIcon,
   HalfMoonAndStarIcon,
   MissionIcon,
@@ -127,6 +128,12 @@ export function BurgerMenu({
                 title={t('dropdown-links.about.build-on-haqq')}
                 icon={<BuildIcon />}
                 href="/build"
+                onClick={onClick}
+              />
+              <BurgerMenuDropdownLink
+                title={t('dropdown-links.about.validator-program')}
+                icon={<CubeIcon />}
+                href="/validators"
                 onClick={onClick}
               />
             </div>
