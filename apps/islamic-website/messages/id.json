@@ -308,8 +308,8 @@
   "academy-modules-page": {
     "back": "Kembali ke halaman utama",
     "description": "Deskripsi",
-    "quize_title": "Tonton video instruksi sebelum memulai kuis",
-    "start_quize_btn": "Mulai kuis"
+    "quiz_title": "Tonton video instruksi sebelum memulai kuis",
+    "start_quiz_btn": "Mulai kuis"
   },
   "wallet-page": {
     "title": {
