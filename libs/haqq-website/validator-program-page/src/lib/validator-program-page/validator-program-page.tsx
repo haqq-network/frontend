@@ -6,7 +6,7 @@ type ValidatorBenefits = 'commission' | 'limit' | 'voting';
 export function ValidatorProgramPage() {
   return (
     <section className="overflow-x-clip">
-      <div className="sunrise-background relative overflow-hidden !bg-[center_110%] px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]">
+      <div className="sunrise-background relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]">
         <h1 className="font-serif text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
           Validator <br />
           Program
@@ -22,7 +22,7 @@ export function ValidatorProgramPage() {
           <BgLines />
         </div>
       </div>
-      <div className="bg-haqq-black borber-t border-t-[#2a2a2b] px-[16px] py-[60px] text-white md:px-[48px] md:py-[80px] lg:px-[110px] lg:py-[100px]">
+      <div className="bg-haqq-black border-t border-t-[#2a2a2b] px-[16px] py-[60px] text-white md:px-[48px] md:py-[80px] lg:px-[110px] lg:py-[100px]">
         <div className="mx-auto flex max-w-4xl flex-col xl:max-w-5xl">
           <Heading>
             Validators play a critical role in the HAQQ Ecosystem
