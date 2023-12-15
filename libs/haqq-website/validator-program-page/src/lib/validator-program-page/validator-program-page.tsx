@@ -22,7 +22,7 @@ export function ValidatorProgramPage() {
           <BgLines />
         </div>
       </div>
-      <div className="bg-haqq-black px-[16px] py-[60px] text-white md:px-[48px] md:py-[80px] lg:px-[110px] lg:py-[100px]">
+      <div className="bg-haqq-black borber-t border-t-[#2a2a2b] px-[16px] py-[60px] text-white md:px-[48px] md:py-[80px] lg:px-[110px] lg:py-[100px]">
         <div className="mx-auto flex max-w-4xl flex-col xl:max-w-5xl">
           <Heading>
             Validators play a critical role in the HAQQ Ecosystem
