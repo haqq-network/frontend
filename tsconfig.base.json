@@ -105,6 +105,9 @@
       "@haqq/islamic-website/team-page": [
         "libs/islamic-website/team-page/src/index.ts"
       ],
+      "@haqq/islamic-website/validators-page": [
+        "libs/islamic-website/validators-page/src/index.ts"
+      ],
       "@haqq/islamic-website/values-page": [
         "libs/islamic-website/values-page/src/index.ts"
       ],
