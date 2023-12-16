@@ -27,6 +27,7 @@ import {
   StarIcon,
   QuestionMarkIcon,
   CheckMarkIcon,
+  CubeIcon,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 import { useMediaQuery } from 'react-responsive';
@@ -376,6 +377,11 @@ export function DesktopHeader({
                       title={t('dropdown-links.about.build-on-haqq')}
                       icon={<BuildIcon />}
                       href="/build"
+                    />
+                    <DropdownLink
+                      title={t('dropdown-links.about.validator-program')}
+                      icon={<CubeIcon />}
+                      href="/validator-program"
                     />
                   </div>
                 </div>
