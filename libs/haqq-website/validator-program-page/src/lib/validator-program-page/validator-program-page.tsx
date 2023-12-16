@@ -93,53 +93,51 @@ export function ValidatorProgramPage() {
           <Text size="small" className="mt-[20px] md:mt-[24px]">
             Baseline Delegation Requirements
             <br /> Eligible validators satify these program requirements:
-            <ul className="mt-[8px] list-inside list-disc md:mt-[12px]">
-              <li className="pl-[8px] text-white/50">
-                99% uptime and resiliency
-              </li>
-              <li className="pl-[8px] text-white/50">
-                Current and responsive on releases
-              </li>
-              <li className="pl-[8px] text-white/50">
-                Participation in HAQQ Blockchain governance votes
-              </li>
-              <li className="pl-[8px] text-white/50">
-                An active validator for full duration of quarter (not validator
-                candidates)
-              </li>
-            </ul>
           </Text>
+          <ul className="mt-[8px] list-inside list-disc text-[13px] leading-[20px] md:mt-[12px] md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]">
+            <li className="pl-[8px] text-white/50">
+              99% uptime and resiliency
+            </li>
+            <li className="pl-[8px] text-white/50">
+              Current and responsive on releases
+            </li>
+            <li className="pl-[8px] text-white/50">
+              Participation in HAQQ Blockchain governance votes
+            </li>
+            <li className="pl-[8px] text-white/50">
+              An active validator for full duration of quarter (not validator
+              candidates)
+            </li>
+          </ul>
           <Text size="small" className="mt-[20px] md:mt-[24px]">
             Criteria for Weighing Delegation Distribution:
-            <ul className="mt-[8px] list-inside list-disc md:mt-[12px]">
-              <li className="pl-[8px] text-white/50">
-                Active participation in the community channels
-              </li>
-              <li className="pl-[8px] text-white/50">
-                Supports the diversity of delegation and stability of the
-                network, as well as increasing decentralization
-              </li>
-            </ul>
           </Text>
+          <ul className="mt-[8px] list-inside list-disc text-[13px] leading-[20px] md:mt-[12px] md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]">
+            <li className="pl-[8px] text-white/50">
+              Active participation in the community channels
+            </li>
+            <li className="pl-[8px] text-white/50">
+              Supports the diversity of delegation and stability of the network,
+              as well as increasing decentralization
+            </li>
+          </ul>
           <div className="font-clash mt-[36px] text-[14px] leading-[18px] md:mt-[48px] md:text-[16px] md:leading-[22px] lg:mt-[48px] lg:text-[20px] lg:leading-[26px]">
             Incremental Delegations
           </div>
           <Text size="small" className="mt-[12px] md:mt-[16px] lg:mt-[20px]">
             Awarded for contributing to HAQQ Network in one or more of the
             following areas:*
-            <ul className="mt-[8px] list-inside list-disc md:mt-[12px]">
-              <li className="pl-[8px] text-white/50">
-                Actively contributing to open-source projects/software
-              </li>
-              <li className="pl-[8px] text-white/50">Building a dApp</li>
-              <li className="pl-[8px] text-white/50">
-                Creating and distributing content to broaden adoption
-              </li>
-              <li className="pl-[8px] text-white/50">
-                High-impact introduction
-              </li>
-            </ul>
           </Text>
+          <ul className="mt-[8px] list-inside list-disc text-[13px] leading-[20px] md:mt-[12px] md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]">
+            <li className="pl-[8px] text-white/50">
+              Actively contributing to open-source projects/software
+            </li>
+            <li className="pl-[8px] text-white/50">Building a dApp</li>
+            <li className="pl-[8px] text-white/50">
+              Creating and distributing content to broaden adoption
+            </li>
+            <li className="pl-[8px] text-white/50">High-impact introduction</li>
+          </ul>
         </div>
       </div>
     </section>
