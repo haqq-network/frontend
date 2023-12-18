@@ -1,5 +1,6 @@
 import { Heading, Text } from '@haqq/haqq-website-ui-kit';
 import clsx from 'clsx';
+import { CommissionIcon, LimitIcon, VotingIcon } from '../icons/icons';
 
 type ValidatorBenefits = 'commission' | 'limit' | 'voting';
 
@@ -27,12 +28,15 @@ export function ValidatorProgramPage() {
           <Heading>
             Validators play a critical role in the HAQQ Ecosystem
           </Heading>
-          <Text className="mt-[24px]">
-            Welcome to HAQQ, the proof-of-stake network that empowers validators
-            to play a crucial role in securing and verifying transactions on the
-            blockchain. As a validator on HAQQ, you become an integral part of
-            our network, contributing to its decentralization and security.
-          </Text>
+          <p className="mt-[24px]">
+            <Text>
+              Welcome to HAQQ, the proof-of-stake network that empowers
+              validators to play a crucial role in securing and verifying
+              transactions on the blockchain. As a validator on HAQQ, you become
+              an integral part of our network, contributing to its
+              decentralization and security.
+            </Text>
+          </p>
           <h3 className="font-clash mt-[36px] text-[14px] font-[500] leading-[18px] md:mt-[48px] md:text-[16px] md:leading-[22px] lg:mt-[64px] lg:text-[20px] lg:leading-[26px]">
             Benefits of being a validator
           </h3>
@@ -52,16 +56,18 @@ export function ValidatorProgramPage() {
           </div>
           <div className="relative mt-[60px] flex min-h-[473px] w-full flex-col items-center bg-cover bg-center bg-no-repeat pb-[80px] pt-[48px] md:mt-[80px] md:pb-[97px] md:pt-[60px] lg:mt-[100px] lg:pb-[112px] lg:pt-[80px]">
             <Heading>Join HAQQ as a Validator Today!</Heading>
-            <Text className="mt-[8px] text-center">
-              Take the first step towards becoming a validator on HAQQ and
-              contribute to the growth of our dynamic proof-of-stake network.
-              Seize the limited validator slots, build brand awareness, and earn
-              commissions. Embrace the future of decentralized finance with
-              HAQQ!
-            </Text>
-            <Text className="!font-clash mt-[20px] md:mt-[32px] lg:mt-[36px]">
-              Next steps
-            </Text>
+            <p className="mt-[8px] text-center">
+              <Text>
+                Take the first step towards becoming a validator on HAQQ and
+                contribute to the growth of our dynamic proof-of-stake network.
+                Seize the limited validator slots, build brand awareness, and
+                earn commissions. Embrace the future of decentralized finance
+                with HAQQ!
+              </Text>
+            </p>
+            <p className="mt-[20px] md:mt-[32px] lg:mt-[36px]">
+              <Text className="!font-clash">Next steps</Text>
+            </p>
             <div className="mt-[8px] grid grid-cols-1 gap-[8px] md:grid-cols-3">
               <Step step={1} description="Run your own node" />
               <Step
@@ -81,19 +87,23 @@ export function ValidatorProgramPage() {
           <div className="mt-[60px] md:mt-[80px] lg:mt-[100px]">
             <Heading>HAQQ Validator Delegation Program</Heading>
           </div>
-          <Text className="mt-[24px]">
-            HAQQ Foundation stakes an important part of its ISLM Treasury to
-            delegate to high quality validators, maximize our voice in
-            governance, and further deepen the security and decentralization of
-            the network
-          </Text>
+          <p className="mt-[24px]">
+            <Text>
+              HAQQ Foundation stakes an important part of its ISLM Treasury to
+              delegate to high quality validators, maximize our voice in
+              governance, and further deepen the security and decentralization
+              of the network
+            </Text>
+          </p>
           <div className="font-clash mt-[36px] text-[14px] leading-[18px] md:mt-[48px] md:text-[16px] md:leading-[22px] lg:mt-[48px] lg:text-[20px] lg:leading-[26px]">
             Benefits of being a validator
           </div>
-          <Text size="small" className="mt-[20px] md:mt-[24px]">
-            Baseline Delegation Requirements
-            <br /> Eligible validators satify these program requirements:
-          </Text>
+          <p className="mt-[20px] md:mt-[24px]">
+            <Text size="small">
+              Baseline Delegation Requirements
+              <br /> Eligible validators satify these program requirements:
+            </Text>
+          </p>
           <ul className="mt-[8px] list-inside list-disc text-[13px] leading-[20px] md:mt-[12px] md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]">
             <li className="pl-[8px] text-white/50">
               99% uptime and resiliency
@@ -109,9 +119,11 @@ export function ValidatorProgramPage() {
               candidates)
             </li>
           </ul>
-          <Text size="small" className="mt-[20px] md:mt-[24px]">
-            Criteria for Weighing Delegation Distribution:
-          </Text>
+          <p className="mt-[20px] md:mt-[24px]">
+            <Text size="small">
+              Criteria for Weighing Delegation Distribution:
+            </Text>
+          </p>
           <ul className="mt-[8px] list-inside list-disc text-[13px] leading-[20px] md:mt-[12px] md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]">
             <li className="pl-[8px] text-white/50">
               Active participation in the community channels
@@ -124,10 +136,12 @@ export function ValidatorProgramPage() {
           <div className="font-clash mt-[36px] text-[14px] leading-[18px] md:mt-[48px] md:text-[16px] md:leading-[22px] lg:mt-[48px] lg:text-[20px] lg:leading-[26px]">
             Incremental Delegations
           </div>
-          <Text size="small" className="mt-[12px] md:mt-[16px] lg:mt-[20px]">
-            Awarded for contributing to HAQQ Network in one or more of the
-            following areas:*
-          </Text>
+          <p className="mt-[12px] md:mt-[16px] lg:mt-[20px]">
+            <Text size="small">
+              Awarded for contributing to HAQQ Network in one or more of the
+              following areas:*
+            </Text>
+          </p>
           <ul className="mt-[8px] list-inside list-disc text-[13px] leading-[20px] md:mt-[12px] md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]">
             <li className="pl-[8px] text-white/50">
               Actively contributing to open-source projects/software
@@ -162,52 +176,9 @@ function ValidatorBenefit({
         )}
       >
         <div className="h-[20px] w-[20px] md:h-[24px] md:w-[24px]">
-          {type === 'commission' && (
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12C16 14.2091 14.2091 16 12 16ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"
-                fill="currentColor"
-              />
-            </svg>
-          )}
-          {type === 'limit' && (
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M5 9V5H9V9H5ZM3 3.4C3 3.17909 3.17909 3 3.4 3H10.6C10.8209 3 11 3.17909 11 3.4V10.6C11 10.8209 10.8209 11 10.6 11H3.4C3.17909 11 3 10.8209 3 10.6V3.4ZM5 19V15H9V19H5ZM3 13.4C3 13.1791 3.17909 13 3.4 13H10.6C10.8209 13 11 13.1791 11 13.4V20.6C11 20.8209 10.8209 21 10.6 21H3.4C3.17909 21 3 20.8209 3 20.6V13.4ZM15 5V9H19V5H15ZM13.4 3C13.1791 3 13 3.17909 13 3.4V10.6C13 10.8209 13.1791 11 13.4 11H20.6C20.8209 11 21 10.8209 21 10.6V3.4C21 3.17909 20.8209 3 20.6 3H13.4ZM15 19V15H19V19H15ZM13 13.4C13 13.1791 13.1791 13 13.4 13H20.6C20.8209 13 21 13.1791 21 13.4V20.6C21 20.8209 20.8209 21 20.6 21H13.4C13.1791 21 13 20.8209 13 20.6V13.4Z"
-                fill="currentColor"
-              />
-            </svg>
-          )}
-          {type === 'voting' && (
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M5 2.5C5 1.94772 5.44772 1.5 6 1.5H18C18.5523 1.5 19 1.94772 19 2.5V11.5H21C21.5523 11.5 22 11.9477 22 12.5V21.5C22 22.0523 21.5523 22.5 21 22.5H3C2.44772 22.5 2 22.0523 2 21.5V12.5C2 11.9477 2.44772 11.5 3 11.5H5V2.5ZM5 17.5H19V13.5H20V20.5H4V13.5H5V17.5ZM7 3.5V15.5H17V3.5H7ZM10.9544 12.3686L15.6585 8.25258L14.3415 6.74742L11.0456 9.63136L9.70711 8.29289L8.29289 9.70711L10.9544 12.3686Z"
-                fill="currentColor"
-              />
-            </svg>
-          )}
+          {type === 'commission' && <CommissionIcon />}
+          {type === 'limit' && <LimitIcon />}
+          {type === 'voting' && <VotingIcon />}
         </div>
         <div>
           {type === 'commission' && 'Commission'}
@@ -650,8 +621,12 @@ function JoinSectionLines() {
 function Step({ step, description }: { step: 1 | 2 | 3; description: string }) {
   return (
     <div className="flex flex-col items-center gap-y-[4px] text-center">
-      <Text className="!font-clash text-[#E3A13F80]">Step {step}</Text>
-      <Text className="text-[#E3A13F]">{description}</Text>
+      <p>
+        <Text className="!font-clash text-[#E3A13F80]">Step {step}</Text>
+      </p>
+      <p>
+        <Text className="text-[#E3A13F]">{description}</Text>
+      </p>
     </div>
   );
 }
