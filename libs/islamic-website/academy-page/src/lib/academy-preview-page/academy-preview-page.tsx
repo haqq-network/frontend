@@ -70,7 +70,7 @@ const modules = [
         lessonTitle: 'How Blockchain Technology Works',
       },
       {
-        lessonId: 'VF6RV_lrAY0',
+        lessonId: 'eLru81JzGGU',
         lesson: 'Lesson 2.3',
         lessonTitle: 'Use Cases and Utilities Of Crypto',
       },
