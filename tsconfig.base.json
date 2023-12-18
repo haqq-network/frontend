@@ -48,6 +48,9 @@
         "libs/haqq-website/privacy-policy-page/src/index.ts"
       ],
       "@haqq/haqq-website/shared": ["libs/website/shared/src/index.ts"],
+      "@haqq/haqq-website/validator-program-page": [
+        "libs/haqq-website/validator-program-page/src/index.ts"
+      ],
       "@haqq/haqq-website/wallet-page": [
         "libs/haqq-website/wallet-page/src/index.ts"
       ],

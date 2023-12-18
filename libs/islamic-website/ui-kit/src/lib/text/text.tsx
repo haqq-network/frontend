@@ -23,5 +23,5 @@ export function Text({
     className,
   );
 
-  return <div className={classNames}>{children}</div>;
+  return <span className={classNames}>{children}</span>;
 }
