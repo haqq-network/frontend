@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useActiveLesson } from '../../components/lessons/lessons-block';
 
 type Lesson = {
-  lessonId: string;
+  lessonId?: string;
   lesson: string;
   lessonTitle: string;
 };
