@@ -50,35 +50,6 @@
             "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCnnVttqBf"
           }
         ]
-      },
-      {
-        "name": "Module 3",
-        "lessons": [
-          {
-            "name": "Lesson 3.1",
-            "title": "Understanding Cryptocurrency",
-            "duration": "4 minutes",
-            "video_link": "https://www.youtube.com/embed/hMp60wyMDfU",
-            "description": "In today's lesson, we're getting up close with cryptocurrencies - the new digital frontier for money. Say goodbye to the days of physical cash; cryptocurrencies like Bitcoin and Ethereum are strictly digital, living in wallets online and zipping across the internet for transactions. We're breaking down the 'crypto' part today, which is all about keeping your digital dough safe through cryptography. It's like your personal financial secret code, making sure your transactions are for your eyes only. And remember how we talked about blockchain? Well, cryptocurrencies are the stars of that show, running on a network that's spread across the globe, making them independent of any central bank's whims. We're also looking at the perks of going crypto: think lower fees, more privacy, and a thumbs-up to saying no to central bank shenanigans. But it's not all smooth sailing – there's the rough sea of market ups and downs and the tides of changing regulations to navigate. Cryptocurrencies aren't just about spending or saving; they're about reshaping our financial world. They challenge old systems and open doors to innovative possibilities for how we handle and think about money.",
-            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GC1kVttmBH"
-          },
-          {
-            "name": "Lesson 3.2",
-            "title": "Different Types of Cryptocurrencies",
-            "duration": "3 minutes",
-            "video_link": "https://www.youtube.com/embed/VF6RV_lrAY0",
-            "description": "In this lesson, we focus on the diverse landscape of cryptocurrencies, each with its unique attributes and potential for transforming digital transactions. Bitcoin is our starting point, the pioneering currency introduced by the enigmatic Satoshi Nakamoto in 2008. It set the precedent for decentralized digital cash, operating on a transparent and immutable ledger known as the blockchain. Moving beyond Bitcoin, we have altcoins, which include any cryptocurrency other than Bitcoin. Many of these are built on Bitcoin's open-source protocol with significant modifications, while others originate from entirely new frameworks. Among them is Islamic Coin, which is designed to align with Shariah principles, highlighting the adaptability of cryptocurrencies to cultural and ethical considerations. Ethereum earns a special mention for introducing smart contracts to the blockchain, expanding the technology's use beyond simple transactions to more complex, programmable operations. Stablecoins present a different angle, aiming to offer a digitized currency with stable value, tied to existing assets like gold or fiat currencies, to counteract the volatility typically associated with cryptocurrencies. We also examine Central Bank Digital Currencies (CBDCs), a hybrid concept where central banks create their own digital versions of money. With CBDCs like China's digital yuan, we encounter the blend of crypto efficiency with traditional currency stability, but not without raising debates about privacy and control.",
-            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCVAVttyNZ"
-          },
-          {
-            "name": "Lesson 3.3",
-            "title": "Use Cases and Utilities Of Crypto",
-            "duration": "4 minutes",
-            "video_link": "https://www.youtube.com/embed/eLru81JzGGU",
-            "description": "In this lesson, we explore the digital marketplaces where cryptocurrencies change hands: exchanges. We look at Centralized Exchanges (CEX), such as Coinbase and Binance, which are operated by companies and offer an array of services with ease of use, making them a good starting point for newcomers. Then there are Decentralized Exchanges (DEX), like Uniswap and SushiSwap, where trading is facilitated by smart contracts on the blockchain without intermediaries. DEXs provide greater privacy and control over funds but may present a steeper learning curve and less trading variety. Understanding the mechanics, risks, and fees associated with each type of exchange is crucial for anyone entering the crypto trade. We also stress the importance of security and using reputable platforms to protect your assets.",
-            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCnnVttqBf"
-          }
-        ]
       }
     ]
   }
