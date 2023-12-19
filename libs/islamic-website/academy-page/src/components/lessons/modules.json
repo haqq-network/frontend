@@ -10,7 +10,7 @@
             "duration": "7 minutes",
             "video_link": "https://www.youtube.com/embed/3ZrNYi2vK-o",
             "description": "We’re talking money – but not just any cash in your wallet. We’re diving into what makes it tick and why we need something better. Money, as you know it, is backed by promises from banks that they'll hold up their end of the bargain on value. But with power to print more money comes a big problem: inflation. Like the US dollar losing a ton of its value or the Venezuelan Bolívar crashing even faster. That hits your pocket hard. Now, sending money across borders is another headache. It’s slow, pricey, and eats up a big chunk of the cash that should be going to families. It's not just an issue for individuals but a big deal for entire economies, with some countries leaning heavily on these funds. What's more, there's a huge gap in who can get banking services, and it's massive among Muslims. A lot of folks in countries like Indonesia and Pakistan can’t even get basic banking, which isn't okay. This all points to one thing: we need a game-changer, and that’s where digital currency steps in. It’s secure, quick, and doesn't leave anyone out. So, as we wrap up, remember this: the money system is ready for an upgrade, and crypto might just be the key. Stick around to learn more about it in the next lesson!",
-            "quize_link": "https://galxe.com/IslamicCoin/campaign/GCRg3tUzEE"
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCRg3tUzEE"
           },
           {
             "name": "Lesson 1.2",
@@ -18,7 +18,36 @@
             "duration": "4 minutes",
             "video_link": "https://www.youtube.com/embed/Qcs_vXkYqF4",
             "description": "The world of cryptocurrencies sprang up during the 2008 financial crisis. Picture a time of failing banks and shaky economies. That's when Bitcoin emerged, thanks to the mysterious Satoshi Nakamoto. Bitcoin revolutionized money by using blockchain technology, which allows secure, transparent money management without any central authority. It was a first in solving the double-spend problem digitally. Fast forward, and we now have a bouquet of cryptocurrencies, like the pioneering Bitcoin and Ethereum with its smart contracts, plus our Shariah-compliant Islamic Coin. Cryptocurrencies are more than just digital cash; they're creating an inclusive financial system, simplifying transactions across borders, and bringing unmatched security and transparency to our transactions. Imagine sending money worldwide as easily as texting, or being part of the global economy from any corner of the earth. That's the magic we're talking about! We're at the brink of a financial evolution that could change society's very fabric.",
-            "quize_link": "https://galxe.com/IslamicCoin/campaign/GCmowttGc6"
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCmowttGc6"
+          }
+        ]
+      },
+      {
+        "name": "Module 2",
+        "lessons": [
+          {
+            "name": "Lesson 2.1",
+            "title": "Understanding Blockchain Technology",
+            "duration": "4 minutes",
+            "video_link": "https://www.youtube.com/embed/hMp60wyMDfU",
+            "description": "In this lesson, we dive into the tech marvel of blockchain, breaking it down into bite-sized, easy-to-grasp concepts. Imagine a book where all business is recorded, open for anyone to check – that's blockchain for you, a digital ledger that's transparent and can't be fiddled with. Each transaction is a 'block,' linked together in a 'chain,' storing data across a network of computers, not just one. We compare this tech to a beehive, buzzing with activity, where each bee (or computer node) works independently yet contributes to the hive's health. No queen bee here; instead, every bee's job matters, reflecting blockchain's decentralized nature, where everyone has a copy and no one's in charge. It's safer than a bank vault because you can't just tweak a block without everyone noticing. That's the security magic of blockchain. And about being open? It's like a public library that never forgets, making sure every transaction is there forever, perfect for checking and double-checking.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GC1kVttmBH"
+          },
+          {
+            "name": "Lesson 2.2",
+            "title": "How Blockchain Technology Works",
+            "duration": "3 minutes",
+            "video_link": "https://www.youtube.com/embed/VF6RV_lrAY0",
+            "description": "Today we delve into the nuts and bolts of how blockchain technology operates. Picture yourself at a bustling farmer's market where every transaction is meticulously noted. Similarly, a blockchain keeps a digital record across a network of computers. Every sale is like a transaction on this ledger, grouped into blocks and strung together into a chain, creating a permanent, secure history. We explore 'mining,' the process where special participants solve puzzles to validate transactions. This is akin to the 'Proof of Work' method used by Bitcoin, which ensures the ledger's integrity. However, not all blockchains are the same. Some, including Ethereum and the HAQQ Network, are shifting towards 'Proof of Stake,' where validators are chosen based on their cryptocurrency holdings to create new blocks. Blockchain's transparency and security echo the trustworthiness of a market's transaction records, despite challenges like scalability and energy consumption. As we wrap up, remember that learning about blockchain is more than tech-speak—it's preparing us to influence our future.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCVAVttyNZ"
+          },
+          {
+            "name": "Lesson 2.3",
+            "title": "Use Cases and Utilities Of Crypto",
+            "duration": "4 minutes",
+            "video_link": "https://www.youtube.com/embed/eLru81JzGGU",
+            "description": "In this lesson, we explore the exciting real-world applications of blockchain technology that go beyond just the ledger basics. First up, we dive into Peer-to-Peer Transactions, where cryptocurrencies like Bitcoin allow you to send money directly to someone else without any bank meddling. It's fast, it's cheap, and it's open to everyone with an internet connection. Then, we talk about Bitcoin as a digital store of value, the 'digital gold,' with its limited supply making it a hot pick for investment. Think of it like snagging a rare collectible that might be worth heaps more in the future. We also shed light on the wonders of Decentralized Finance (DeFi) and how Ethereum's smart contracts make things like loans and insurance smarter and more self-sufficient. Plus, there's a nod to Decentralized Autonomous Organizations (DAOs) - like our very own Evergreen DAO - which put the power of decision-making in the community's hands through voting. And who can forget Non-Fungible Tokens (NFTs)? From digital art to virtual lands, NFTs prove ownership of digital goodies that can't be copied willy-nilly, preserving their value and uniqueness.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCnnVttqBf"
           }
         ]
       }

@@ -227,18 +227,18 @@ export const LessonsBlock = ({
         size="medium"
         className="text-alexandria mt-[46px] max-w-[504px] text-center text-[#EB9226] md:mt-[40px]"
       >
-        {t('quize_title')}
+        {t('quiz_title')}
       </Text>
 
       <Button
         variant="primary-green"
         onClick={() => {
-          window.open(currentActiveLesson?.quize_link, '_blank');
+          window.open(currentActiveLesson?.quiz_link, '_blank');
         }}
         className="mt-[12px] min-w-[320px] px-[32px] py-[12px] capitalize"
       >
         <Text size="medium" className="text-[16px] text-white" isMono>
-          {t('start_quize_btn')}
+          {t('start_quiz_btn')}
         </Text>
       </Button>
 

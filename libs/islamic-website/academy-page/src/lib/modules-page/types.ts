@@ -4,7 +4,7 @@ export interface ILesson {
   title: string;
   description: string;
   video_link: string;
-  quize_link: string;
+  quiz_link: string;
 }
 
 interface IModule {
