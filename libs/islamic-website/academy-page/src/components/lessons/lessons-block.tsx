@@ -140,27 +140,31 @@ export const LessonsBlock = ({
   return (
     <>
       <div className="mt-[18px] flex flex-row items-center justify-center gap-[18px] md:flex-col lg:mt-[20px]">
-        <Select
-          variants={sectionsModules}
-          current={`${activeModuleIndex}`}
-          onChange={(v) => {
-            setActiveModule(Number(v));
-            setActiveLesson(0);
-            updateURL(Number(v), 0);
-          }}
-          className="w-[162px]"
-        />
-
-        {isMobile ? (
+        <div>
           <Select
-            variants={lessonsModules}
-            current={`${activeLessonIndex}`}
+            variants={sectionsModules}
+            current={`${activeModuleIndex}`}
             onChange={(v) => {
               setActiveModule(Number(v));
-              updateURL(activeModuleIndex, Number(v));
+              setActiveLesson(0);
+              updateURL(Number(v), 0);
             }}
-            className="w-[162px]"
+            className="min-w-[200px]"
           />
+        </div>
+
+        {isMobile ? (
+          <div>
+            <Select
+              variants={lessonsModules}
+              current={`${activeLessonIndex}`}
+              onChange={(v) => {
+                setActiveModule(Number(v));
+                updateURL(activeModuleIndex, Number(v));
+              }}
+              className="min-w-[200px]"
+            />
+          </div>
         ) : (
           <div className="flex flex-row items-center gap-[12px]">
             {currentModuleLessons.map((lesson, index) => {
