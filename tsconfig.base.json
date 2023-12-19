@@ -48,6 +48,9 @@
         "libs/haqq-website/privacy-policy-page/src/index.ts"
       ],
       "@haqq/haqq-website/shared": ["libs/website/shared/src/index.ts"],
+      "@haqq/haqq-website/validator-program-page": [
+        "libs/haqq-website/validator-program-page/src/index.ts"
+      ],
       "@haqq/haqq-website/wallet-page": [
         "libs/haqq-website/wallet-page/src/index.ts"
       ],
@@ -104,6 +107,9 @@
       ],
       "@haqq/islamic-website/team-page": [
         "libs/islamic-website/team-page/src/index.ts"
+      ],
+      "@haqq/islamic-website/validators-page": [
+        "libs/islamic-website/validators-page/src/index.ts"
       ],
       "@haqq/islamic-website/values-page": [
         "libs/islamic-website/values-page/src/index.ts"

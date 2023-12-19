@@ -310,8 +310,8 @@
   "academy-modules-page": {
     "back": "العودة إلى الصفحة الرئيسية",
     "description": "الوصف",
-    "quize_title": "شاهد الفيديو التعليمي قبل بدء الاختبار",
-    "start_quize_btn": "ابدأ الاختبار"
+    "quiz_title": "شاهد الفيديو التعليمي قبل بدء الاختبار",
+    "start_quiz_btn": "ابدأ الاختبار"
   },
   "wallet-page": {
     "title": {
@@ -372,7 +372,8 @@
         "press": "الصحافة",
         "ecosystem": "المنظومة / منظومة إسلاميك كوين",
         "partnerships": "الشراكات",
-        "build-on-haqq": "البناء على شبكة حق"
+        "build-on-haqq": "البناء على شبكة حق",
+        "validator-program": "برنامج التحقق من صحة"
       },
       "learn": {
         "learn": "تعرّف وتعلّم",

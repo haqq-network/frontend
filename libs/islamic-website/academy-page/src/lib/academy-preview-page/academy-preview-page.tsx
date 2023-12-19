@@ -60,19 +60,19 @@ const modules = [
     isLessonsAvailable: false,
     moduleLessons: [
       {
-        lessonId: '3ZrNYi2vK-o',
+        lessonId: 'hMp60wyMDfU',
         lesson: 'Lesson 2.1',
-        lessonTitle: 'Understanding the Complexities of Money',
+        lessonTitle: 'Understanding Blockchain Technology',
       },
       {
-        lessonId: 'Qcs_vXkYqF4',
+        lessonId: 'VF6RV_lrAY0',
         lesson: 'Lesson 2.2',
-        lessonTitle: 'The Evolution of Cryptocurrencies',
+        lessonTitle: 'How Blockchain Technology Works',
       },
       {
-        lessonId: 'Qcs_vXkYqF4',
+        lessonId: 'eLru81JzGGU',
         lesson: 'Lesson 2.3',
-        lessonTitle: 'The Evolution of Cryptocurrencies',
+        lessonTitle: 'Use Cases and Utilities Of Crypto',
       },
     ],
   },

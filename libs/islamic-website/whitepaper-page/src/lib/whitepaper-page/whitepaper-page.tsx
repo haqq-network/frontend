@@ -38,7 +38,8 @@ export function WhitepaperPage({ whitepaper }: { whitepaper?: string }) {
   const t = useTranslations('whitepaper-page');
 
   return (
-    <section>
+    <div className="overflow-x-clip">
+      <WhitepaperPageBgImage />
       <Container className="mt-[32px] flex flex-col pb-[60px] text-white md:mt-[52px] md:pb-[100px] lg:mt-[68px] lg:pb-[140px]">
         <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
           {t('title')}
@@ -66,8 +67,6 @@ export function WhitepaperPage({ whitepaper }: { whitepaper?: string }) {
           </article>
         </div>
       </Container>
-
-      <WhitepaperPageBgImage />
-    </section>
+    </div>
   );
 }

@@ -23,3 +23,4 @@ export * from './video-icon';
 export * from './wallet-icon';
 export * from './half-moon-and-star-icon';
 export * from './check-mark-icon';
+export * from './cube-icon';

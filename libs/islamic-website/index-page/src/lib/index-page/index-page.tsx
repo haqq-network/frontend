@@ -49,8 +49,9 @@ function Hero({ stats }: { stats: ChainStats }) {
   const t = useTranslations('index-page.hero-block');
 
   return (
-    <section className="overflow-x-clip">
-      <Container className="relative">
+    <div className="overflow-x-clip">
+      <HeroBg />
+      <Container>
         <HeroBlock />
 
         <Marquee className="my-[80px] md:my-[100px] xl:mt-[140px]">
@@ -59,9 +60,7 @@ function Hero({ stats }: { stats: ChainStats }) {
 
         <WhyBlock stats={stats} />
       </Container>
-
-      <HeroBg />
-    </section>
+    </div>
   );
 }
 

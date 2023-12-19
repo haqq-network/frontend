@@ -308,8 +308,8 @@
   "academy-modules-page": {
     "back": "Back to main page",
     "description": "Description",
-    "quize_title": "Watch the instructional video before starting the quiz",
-    "start_quize_btn": "Start the quiz"
+    "quiz_title": "Watch the instructional video before starting the quiz",
+    "start_quiz_btn": "Start the quiz"
   },
   "wallet-page": {
     "title": {
@@ -370,7 +370,8 @@
         "press": "Press",
         "ecosystem": "Ecosystem",
         "partnerships": "Partnerships",
-        "build-on-haqq": "Build on HAQQ"
+        "build-on-haqq": "Build on HAQQ",
+        "validator-program": "Validator Program"
       },
       "learn": {
         "learn": "Learn",
