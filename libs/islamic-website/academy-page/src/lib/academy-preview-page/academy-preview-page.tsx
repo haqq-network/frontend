@@ -56,7 +56,6 @@ const modules = [
     moduleTitle: 'Module',
     moduleCount: 2,
     isAvailable: true,
-    availableLessonsDate: new Date('2023-12-19'),
     isLessonsAvailable: true,
     moduleLessons: [
       {
@@ -79,6 +78,30 @@ const modules = [
   {
     moduleTitle: 'Module',
     moduleCount: 3,
+    isAvailable: true,
+    availableLessonsDate: new Date('2023-12-26'),
+    isLessonsAvailable: false,
+    moduleLessons: [
+      {
+        lesson: 'Lesson 3.1',
+        lessonTitle: 'Understanding Cryptocurrency',
+        // lessonId: 'hMp60wyMDfU',
+      },
+      {
+        lesson: 'Lesson 3.2',
+        lessonTitle: 'Different Types of Cryptocurrencies',
+        // lessonId: 'VF6RV_lrAY0',
+      },
+      {
+        lesson: 'Lesson 3.3',
+        lessonTitle: 'Understanding Cryptocurrency Exchanges',
+        // lessonId: 'eLru81JzGGU',
+      },
+    ],
+  },
+  {
+    moduleTitle: 'Module',
+    moduleCount: 4,
     isAvailable: false,
   },
 ];
@@ -102,7 +125,7 @@ export function AcademyPreviewPage({
   // const isItTwelveDecember = today >= twelveDecember;
 
   return (
-    <section className="overflow-x-clip">
+    <div className="overflow-x-clip">
       <Container>
         <div className="relative pb-[60px] pt-[32px] md:pt-[52px] lg:pb-[140px] lg:pt-[68px]">
           <div className="absolute left-1/2 top-[-5%] z-[-1] -translate-x-1/2 -translate-y-1/2 md:top-[-7.9%] lg:top-[-5%]">
@@ -221,7 +244,7 @@ export function AcademyPreviewPage({
           />
         </div>
       </Modal>
-    </section>
+    </div>
   );
 }
 
@@ -461,7 +484,7 @@ function LessonCard({
   isAvailable = true,
   onClick,
 }: {
-  lessonId: string;
+  lessonId?: string;
   lesson: string;
   lessonTitle: string;
   isAvailable?: boolean;
@@ -497,12 +520,14 @@ function LessonCard({
                 'transform transition-all duration-300 group-hover:scale-110',
             )}
           />
-          <Image
-            alt="Lesson preview"
-            src={`https://img.youtube.com/vi/${lessonId}/1.jpg`}
-            fill
-            className="absolute h-full min-w-[200px] rounded-[8px] object-cover"
-          />
+          {lessonId && (
+            <Image
+              alt="Lesson preview"
+              src={`https://img.youtube.com/vi/${lessonId}/1.jpg`}
+              fill
+              className="absolute h-full min-w-[200px] rounded-[8px] object-cover"
+            />
+          )}
         </div>
         <div className="w-full lg:w-2/5 xl:min-w-[55%]">
           <div className="font-vcr mt-[12px] text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
