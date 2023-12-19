@@ -57,7 +57,7 @@ const modules = [
     moduleCount: 2,
     isAvailable: true,
     availableLessonsDate: new Date('2023-12-19'),
-    isLessonsAvailable: false,
+    isLessonsAvailable: true,
     moduleLessons: [
       {
         lessonId: 'hMp60wyMDfU',
