@@ -27,6 +27,11 @@ const audits: Auditor[] = [
     name: 'HAQQ Social Smart Contract',
     report: '/assets/audits/haqq-social-smart-contract-security-assessment.pdf',
   },
+  {
+    logo: halbornLogoImgData,
+    name: 'HAQQ Coinomics Module',
+    report: '/assets/audits/haqq-coinomics-module-assessment.pdf',
+  },
 ];
 
 export function AuditsPage() {
