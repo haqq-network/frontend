@@ -16,6 +16,14 @@ import clsx from 'clsx';
 import { FundsBlock } from '../funds-block/funds-block';
 import { useTranslations } from 'next-intl';
 
+function delay(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, milliseconds);
+  });
+}
+
 export function IndexPage({
   news,
   advisoryMembers,
@@ -65,23 +73,18 @@ function Hero({ stats }: { stats: ChainStats }) {
     </div>
   );
 }
-
 function HeroBg() {
   const [animationStep, setAnimationStep] = useState<1 | 2 | 3>(1);
 
   useEffect(() => {
-    const timeout1 = setTimeout(() => {
+    const runAnimation = async () => {
+      await delay(3000);
       setAnimationStep(2);
-    }, 3000);
-
-    const timeout2 = setTimeout(() => {
+      await delay(4000);
       setAnimationStep(3);
-    }, 4000);
-
-    return () => {
-      clearTimeout(timeout1);
-      clearTimeout(timeout2);
     };
+
+    runAnimation();
   }, []);
 
   return (
@@ -95,13 +98,18 @@ function HeroBg() {
           'lg:translate-y-[-23.45%]',
           'xl:translate-y-[-24.9%]',
           'min-[1440px]:translate-y-[-23.8%]',
-          'duration-[3000ms] ease-out',
-          animationStep === 1 && 'scale-[.9] opacity-0',
-          animationStep === 2 && 'scale-[.95] opacity-90',
-          animationStep === 3 && 'scale-[1] opacity-100',
+          'duration-[7000ms]',
+          animationStep === 1 && 'scale-[.9] opacity-0 ease-in',
+          animationStep === 2 && 'opacity-90',
+          animationStep === 3 && 'scale-[1] opacity-100 ease-out',
         )}
       >
-        <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
+        <div
+          className={clsx(
+            'z-1 pointer-events-none absolute inset-0 scale-[3.5] transform rounded-full bg-gradient-to-r from-[#010304] from-10% to-transparent duration-[4000ms] ease-out md:scale-100 lg:scale-[1.5] xl:scale-100',
+            animationStep === 2 && 'rotate-90',
+          )}
+        />
         <Image
           src="/assets/images/moon.webp"
           alt=""
