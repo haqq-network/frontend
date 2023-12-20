@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { HeroBlock } from '../hero-block/hero-block';
 import { JoinCommunityBlock } from '../join-community-block/join-community-block';
@@ -5,7 +7,7 @@ import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block'
 import { NewsBlock } from '../news-block/news-block';
 import { PortfolioBlock } from '../portfolio-block/portfolio-block';
 import { ChainStats, WhyBlock } from '../why-block/why-block';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Marquee } from '../marquee/marquee';
 import { Container, Member, NewsPost } from '@haqq/islamic-website-ui-kit';
 import { FinanceBlock } from '../finance-block/finance-block';
@@ -65,6 +67,23 @@ function Hero({ stats }: { stats: ChainStats }) {
 }
 
 function HeroBg() {
+  const [animationStep, setAnimationStep] = useState<1 | 2 | 3>(1);
+
+  useEffect(() => {
+    const timeout1 = setTimeout(() => {
+      setAnimationStep(2);
+    }, 3000);
+
+    const timeout2 = setTimeout(() => {
+      setAnimationStep(3);
+    }, 4000);
+
+    return () => {
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+    };
+  }, []);
+
   return (
     <Container className="relative">
       <div
@@ -76,6 +95,10 @@ function HeroBg() {
           'lg:translate-y-[-23.45%]',
           'xl:translate-y-[-24.9%]',
           'min-[1440px]:translate-y-[-23.8%]',
+          'duration-[3000ms] ease-out',
+          animationStep === 1 && 'scale-[.9] opacity-0',
+          animationStep === 2 && 'scale-[.95] opacity-90',
+          animationStep === 3 && 'scale-[1] opacity-100',
         )}
       >
         <div className="z-1 pointer-events-none absolute inset-0 scale-[3.5] bg-gradient-to-r from-[#010304] from-10% to-transparent md:scale-100 lg:scale-[1.5] xl:scale-100" />
@@ -85,6 +108,9 @@ function HeroBg() {
           fill
           className="pointer-events-none z-[-2]"
           priority
+          onLoad={() => {
+            setAnimationStep(1);
+          }}
         />
       </div>
     </Container>
