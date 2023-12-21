@@ -381,7 +381,7 @@ export function DesktopHeader({
                     <DropdownLink
                       title={t('dropdown-links.about.validator-program')}
                       icon={<CubeIcon />}
-                      href="/validator-program"
+                      href="/validators"
                     />
                   </div>
                 </div>

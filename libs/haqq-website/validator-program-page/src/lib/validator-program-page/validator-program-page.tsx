@@ -1,6 +1,11 @@
-import { Heading, Text } from '@haqq/haqq-website-ui-kit';
+import { Button, Heading, Text } from '@haqq/haqq-website-ui-kit';
 import clsx from 'clsx';
 import { CommissionIcon, LimitIcon, VotingIcon } from '../icons/icons';
+import Link from 'next/link';
+import Image from 'next/image';
+import bgImgData from '../assets/images/bg-lines.svg';
+import joinSectionImgData from '../assets/images/join-section-lines.svg';
+import { PropsWithChildren } from 'react';
 
 type ValidatorBenefits = 'commission' | 'limit' | 'voting';
 
@@ -20,7 +25,7 @@ export function ValidatorProgramPage() {
             '2xl:translate-x-[80%]',
           )}
         >
-          <BgLines />
+          <Image src={bgImgData} alt="" fill />
         </div>
       </div>
       <div className="bg-haqq-black border-t border-t-[#2a2a2b] px-[16px] py-[60px] text-white md:px-[48px] md:py-[80px] lg:px-[110px] lg:py-[100px]">
@@ -54,7 +59,7 @@ export function ValidatorProgramPage() {
               description="Voting within the Provenance Blockchain ecosystem allows staked-Hash holders to direct the development of the network. When governance proposals are being voted upon, validators will vote with the full weight of not only the validator's staked Hash, but the delegator's staked Hash as well, if those delegators haven't voted"
             />
           </div>
-          <div className="relative mt-[60px] flex min-h-[473px] w-full flex-col items-center bg-cover bg-center bg-no-repeat pb-[80px] pt-[48px] md:mt-[80px] md:pb-[97px] md:pt-[60px] lg:mt-[100px] lg:pb-[112px] lg:pt-[80px]">
+          <div className="relative mt-[60px] flex min-h-[473px] w-full flex-col items-center pb-[80px] pt-[48px] md:mt-[80px] md:pb-[97px] md:pt-[60px] lg:mt-[100px] lg:pb-[112px] lg:pt-[80px]">
             <Heading>Join HAQQ as a Validator Today!</Heading>
             <p className="mt-[8px] text-center">
               <Text>
@@ -69,19 +74,18 @@ export function ValidatorProgramPage() {
               <Text className="!font-clash">Next steps</Text>
             </p>
             <div className="mt-[8px] grid grid-cols-1 gap-[8px] md:grid-cols-3">
-              <Step step={1} description="Run your own node" />
-              <Step
-                step={2}
-                description="Automatically be enrolled in our delegation program"
-              />
-              <Step
-                step={3}
-                description="Operate validator and make your reward"
-              />
+              <Step step={1}>Run your own node</Step>
+              <Step step={2}>
+                Automatically be enrolled in our delegation program
+              </Step>
+              <Step step={3}>
+                Operate validator and make <br className="hidden lg:block" />
+                your reward
+              </Step>
             </div>
 
-            <div className="absolute left-1/2 top-0 z-0 -translate-x-1/2">
-              <JoinSectionLines />
+            <div className="absolute left-1/2 top-0 z-0 h-[474px] w-[2783px] -translate-x-1/2">
+              <Image src={joinSectionImgData} alt="" fill />
             </div>
           </div>
           <div className="mt-[60px] md:mt-[80px] lg:mt-[100px]">
@@ -154,6 +158,15 @@ export function ValidatorProgramPage() {
           </ul>
         </div>
       </div>
+      <div className="sunrise-background flex flex-col items-center border-t border-t-[#2a2a2b] py-[60px] md:py-[74px]">
+        <Heading>Let’s work together</Heading>
+        <Link
+          href="mailto:hello@islamiccoin.net"
+          className="mt-[20px] md:mt-[24px]"
+        >
+          <Button variant={2}>Contact Us</Button>
+        </Link>
+      </div>
     </section>
   );
 }
@@ -191,441 +204,14 @@ function ValidatorBenefit({
   );
 }
 
-function BgLines() {
-  return (
-    <svg
-      width="850"
-      height="583"
-      viewBox="0 0 850 583"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g clipPath="url(#clip0_58_2067)">
-        <rect
-          x="0.5"
-          y="261.5"
-          width="210.981"
-          height="107"
-          rx="19.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="0.5"
-          y="154.5"
-          width="210.981"
-          height="107"
-          rx="19.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="210.523"
-          y="154.5"
-          width="210.981"
-          height="107"
-          rx="19.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="207.5"
-          y="475.5"
-          width="107"
-          height="107"
-          rx="39.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="314.5"
-          y="475.5"
-          width="107"
-          height="107"
-          rx="39.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="314.5"
-          y="368.5"
-          width="107"
-          height="107"
-          rx="39.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="421.5"
-          y="261.5"
-          width="107"
-          height="107"
-          rx="49.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="421.5"
-          y="154.5"
-          width="107"
-          height="107"
-          rx="49.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="421"
-          y="47.501"
-          width="214.498"
-          height="107"
-          rx="53.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="206.5"
-          y="-59.499"
-          width="214.498"
-          height="107"
-          rx="53.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="421"
-          y="-59.499"
-          width="214.498"
-          height="107"
-          rx="53.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="421.5"
-          y="475.5"
-          width="214.498"
-          height="107"
-          rx="27.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="635"
-          y="475.5"
-          width="214.498"
-          height="107"
-          rx="27.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="421.5"
-          y="368.5"
-          width="214.498"
-          height="107"
-          rx="27.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="635.5"
-          y="261.5"
-          width="107"
-          height="107"
-          rx="39.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="742.5"
-          y="261.5"
-          width="107"
-          height="107"
-          rx="39.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="635.5"
-          y="154.5"
-          width="107"
-          height="107"
-          rx="39.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="742.5"
-          y="154.5"
-          width="107"
-          height="107"
-          rx="39.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="635"
-          y="368.5"
-          width="214.498"
-          height="107"
-          rx="27.5"
-          stroke="#6F6F6F"
-        />
-        <rect
-          x="207.5"
-          y="368.5"
-          width="107"
-          height="107"
-          rx="39.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="528.5"
-          y="261.5"
-          width="107"
-          height="107"
-          rx="49.5"
-          stroke="#2A2A2B"
-        />
-        <rect
-          x="528.5"
-          y="154.5"
-          width="107"
-          height="107"
-          rx="49.5"
-          stroke="#CD7246"
-        />
-        <rect
-          x="210.516"
-          y="261.5"
-          width="210.981"
-          height="107"
-          rx="19.5"
-          stroke="#266680"
-        />
-        <rect
-          x="206.5"
-          y="47.501"
-          width="214.498"
-          height="107"
-          rx="53.5"
-          stroke="#2A2A2B"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_58_2067">
-          <rect
-            width="850"
-            height="583"
-            fill="white"
-            transform="translate(850 583) rotate(-180)"
-          />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
-
-function JoinSectionLines() {
-  return (
-    <svg
-      width="2783"
-      height="474"
-      viewBox="0 0 2783 474"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect
-        x="642.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="535.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="428.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="321.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="214.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="107.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="0.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="856.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="749.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="963.5"
-        y="442.5"
-        width="428"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="1391.5"
-        y="442.5"
-        width="428"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="1819.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="1926.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="2033.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="2140.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="2247.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="2354.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="2461.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="2568.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <rect
-        x="2675.5"
-        y="442.5"
-        width="107"
-        height="31"
-        rx="15.5"
-        stroke="#2F2F2F"
-      />
-      <path
-        d="M734.5 442.5C739.5 442.667 749.5 440.6 749.5 431"
-        stroke="#2F2F2F"
-      />
-      <path
-        d="M764.5 442.5C759.5 442.667 749.5 440.6 749.5 431"
-        stroke="#2F2F2F"
-      />
-      <path d="M749.5 431L749.5 1" stroke="#2F2F2F" />
-      <path
-        d="M841.5 442.5C846.5 442.667 856.5 440.6 856.5 431"
-        stroke="#2F2F2F"
-      />
-      <path
-        d="M871.5 442.5C866.5 442.667 856.5 440.6 856.5 431"
-        stroke="#2F2F2F"
-      />
-      <path d="M856.5 432L856.5 1" stroke="#2F2F2F" />
-      <path
-        d="M1911.5 442.5C1916.5 442.667 1926.5 440.6 1926.5 431"
-        stroke="#2F2F2F"
-      />
-      <path
-        d="M1941.5 442.5C1936.5 442.667 1926.5 440.6 1926.5 431"
-        stroke="#2F2F2F"
-      />
-      <path d="M1926.5 432L1926.5 1" stroke="#2F2F2F" />
-      <path
-        d="M2018.5 442.5C2023.5 442.667 2033.5 440.6 2033.5 431"
-        stroke="#2F2F2F"
-      />
-      <path
-        d="M2048.5 442.5C2043.5 442.667 2033.5 440.6 2033.5 431"
-        stroke="#2F2F2F"
-      />
-      <path d="M2033.5 432L2033.5 1" stroke="#2F2F2F" />
-      <path d="M8.2016e-05 1L2783 1" stroke="#2F2F2F" />
-    </svg>
-  );
-}
-
-function Step({ step, description }: { step: 1 | 2 | 3; description: string }) {
+function Step({ step, children }: PropsWithChildren<{ step: 1 | 2 | 3 }>) {
   return (
     <div className="flex flex-col items-center gap-y-[4px] text-center">
       <p>
         <Text className="!font-clash text-[#E3A13F80]">Step {step}</Text>
       </p>
       <p>
-        <Text className="text-[#E3A13F]">{description}</Text>
+        <Text className="text-[#E3A13F]">{children}</Text>
       </p>
     </div>
   );
