@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-cpu16-ram64
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -46,11 +46,11 @@ jobs:
       NX_AIRDROP_ENDPOINT: ${{ secrets.NX_AIRDROP_ENDPOINT }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.16.0
+          node-version-file: .nvmrc
           cache: yarn
       - name: Setup dependencies
         run: yarn install --immutable
