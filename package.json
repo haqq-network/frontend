@@ -41,7 +41,6 @@
     "@mdx-js/react": "3.0.0",
     "@metamask/jazzicon": "2.0.0",
     "@next/mdx": "14.0.1",
-    "@sendgrid/client": "7.7.0",
     "@sentry/react": "7.77.0",
     "@storyblok/js": "2.3.0",
     "@storyblok/react": "2.4.7",

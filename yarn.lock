@@ -3105,7 +3105,6 @@ __metadata:
     "@nx/webpack": "npm:17.0.2"
     "@nx/workspace": "npm:17.0.2"
     "@pmmmwh/react-refresh-webpack-plugin": "npm:0.5.11"
-    "@sendgrid/client": "npm:7.7.0"
     "@sentry/react": "npm:7.77.0"
     "@storyblok/js": "npm:2.3.0"
     "@storyblok/react": "npm:2.4.7"
@@ -5703,25 +5702,6 @@ __metadata:
     "@noble/hashes": "npm:~1.3.0"
     "@scure/base": "npm:~1.1.0"
   checksum: 2ea368bbed34d6b1701c20683bf465e147f231a9e37e639b8c82f585d6f978bb0f3855fca7ceff04954ae248b3e313f5d322d0210614fb7acb402739415aaf31
-  languageName: node
-  linkType: hard
-
-"@sendgrid/client@npm:7.7.0":
-  version: 7.7.0
-  resolution: "@sendgrid/client@npm:7.7.0"
-  dependencies:
-    "@sendgrid/helpers": "npm:^7.7.0"
-    axios: "npm:^0.26.0"
-  checksum: 4ed869ff7214e5f67833b8c90f4fac4b455425f72d697b7e0904355fa7bebd54d6b67593f1bbe3bef5a6f675c0d96768fe6231ecc10d47d29b768341f04bb8f7
-  languageName: node
-  linkType: hard
-
-"@sendgrid/helpers@npm:^7.7.0":
-  version: 7.7.0
-  resolution: "@sendgrid/helpers@npm:7.7.0"
-  dependencies:
-    deepmerge: "npm:^4.2.2"
-  checksum: d84999fa4b66be448b114da43e20b6e7af1f67870490f83af203e3e50e4cface698118499d1e1e7a3b46de011d7be5a5a78400034dab0d5f9c2471b1bf9a5465
   languageName: node
   linkType: hard
 
@@ -10246,15 +10226,6 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: f069d938a05d2293e27c7cd6f0c08a1cb764f7cc43a1e637572f8d5928837ecd735890ad67a867d696094ee4b8b4dfdb3727a57aae600845e4c295581cb32f9a
-  languageName: node
-  linkType: hard
-
-"axios@npm:^0.26.0":
-  version: 0.26.1
-  resolution: "axios@npm:0.26.1"
-  dependencies:
-    follow-redirects: "npm:^1.14.8"
-  checksum: 02863f4a4fd4e43ad6e0c8bc9d1359a0863c43cc57bda42ea21dfce34681e3211df193b2bf2e8ee10b2c3870ab8d6bed38a3cf80cd6e8ee17749b7d73ccd4752
   languageName: node
   linkType: hard
 
@@ -14897,7 +14868,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.8, follow-redirects@npm:^1.15.0":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.0":
   version: 1.15.3
   resolution: "follow-redirects@npm:1.15.3"
   peerDependenciesMeta:
