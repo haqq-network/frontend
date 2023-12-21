@@ -83,17 +83,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/staking/**/*.{ts,tsx,js,jsx}"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/staking"],
       "options": {
-        "jestConfig": "apps/staking/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/staking/jest.config.ts"
       }
     }
   },

@@ -82,17 +82,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/vesting/**/*.{ts,tsx,js,jsx}"]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/vesting"],
       "options": {
-        "jestConfig": "apps/vesting/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/vesting/jest.config.ts"
       }
     }
   },
