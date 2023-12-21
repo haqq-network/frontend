@@ -14,14 +14,14 @@ concurrency:
 jobs:
   test-and-lint:
     name: Test and Lint
-    runs-on: self-hosted
+    runs-on: ubuntu-cpu16-ram64
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.16.0
+          node-version-file: .nvmrc
           cache: yarn
       - name: Setup dependencies
         run: yarn install --immutable
@@ -36,7 +36,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: self-hosted
+    runs-on: ubuntu-cpu16-ram64
     needs: test-and-lint
     env:
       HAQQ_STORYBLOK_ACCESS_TOKEN: ${{ secrets.HAQQ_STORYBLOK_ACCESS_TOKEN }}
