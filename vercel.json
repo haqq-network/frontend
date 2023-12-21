@@ -1,5 +1,6 @@
 {
   "git": {
     "deploymentEnabled": false
-  }
+  },
+  "installCommand": "bun install --immutable"
 }
