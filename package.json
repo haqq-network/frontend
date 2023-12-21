@@ -166,6 +166,8 @@
     "jest-environment-jsdom": "29.7.0",
     "lint-staged": "15.0.2",
     "nx": "17.0.2",
+    "pino": "8.17.1",
+    "pino-pretty": "10.3.0",
     "postcss": "8.4.31",
     "postcss-import": "15.1.0",
     "postcss-preset-env": "9.2.0",
