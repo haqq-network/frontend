@@ -161,8 +161,10 @@ export function ValidatorProgramPage() {
       <div className="sunrise-background flex flex-col items-center border-t border-t-[#2a2a2b] py-[60px] md:py-[74px]">
         <Heading>Let’s work together</Heading>
         <Link
-          href="mailto:hello@islamiccoin.net"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdBdSp_hRYjUBHODdPPatlHi3U7d8_KbWoqMzjoPDIe5_f2qw/viewform"
           className="mt-[20px] md:mt-[24px]"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <Button variant={2}>Contact Us</Button>
         </Link>
