@@ -22,3 +22,4 @@ export * from './lib/new-member-card/new-member-card';
 export * from './lib/filter-button/filter-button';
 export * from './lib/animated-numbers/animated-numbers';
 export * from './lib/spinner-loader/spinner-loader';
+export * from './lib/moon-animated-background/moon-animated-background';
