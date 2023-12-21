@@ -31,6 +31,9 @@ export const metadata: Metadata = {
   },
   referrer: 'origin-when-cross-origin',
   metadataBase: new URL(DEPLOY_URL),
+  other: {
+    google: 'notranslate',
+  },
 };
 
 export const viewport: Viewport = {
@@ -70,6 +73,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      translate="no"
       className={clsx(
         alexandriaFont.variable,
         handjetFont.variable,
