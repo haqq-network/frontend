@@ -25,8 +25,11 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: yarn
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
       - name: Install Vercel CLI
-        run: npm install -g vercel@latest
+        run: bun install -g vercel@latest
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
