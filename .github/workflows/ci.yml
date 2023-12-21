@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.16.0
+          node-version-file: .nvmrc
           cache: yarn
       - name: Setup dependencies
         run: yarn install --immutable
