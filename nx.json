@@ -14,10 +14,6 @@
       "inputs": ["default", "^production"],
       "cache": true
     },
-    "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "cache": true
-    },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
@@ -31,6 +27,19 @@
         "{projectRoot}/tsconfig.storybook.json"
       ],
       "cache": true
+    },
+    "@nx/jest:jest": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true,
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     }
   },
   "workspaceLayout": {
