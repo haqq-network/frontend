@@ -70,22 +70,22 @@ export default async function LocaleLayout({
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? 'GMT';
 
   return (
-    <html
-      lang={locale}
-      dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      translate="no"
-      className={clsx(
-        alexandriaFont.variable,
-        handjetFont.variable,
-        vcrFont.variable,
-      )}
+    <NextIntlClientProvider
+      locale={locale}
+      messages={messages}
+      timeZone={timeZone}
     >
-      <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
-        <NextIntlClientProvider
-          locale={locale}
-          messages={messages}
-          timeZone={timeZone}
-        >
+      <html
+        lang={locale}
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        translate="no"
+        className={clsx(
+          alexandriaFont.variable,
+          handjetFont.variable,
+          vcrFont.variable,
+        )}
+      >
+        <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
           {isScamBannerShow && <ScamBanner />}
           {isMobileUserAgent ? (
             <MobileHeader locale={locale} isBannerVisible={isScamBannerShow} />
@@ -94,16 +94,16 @@ export default async function LocaleLayout({
           )}
           <main className="flex-1">{children}</main>
           <Footer socialLinks={SOCIAL_LINKS} />
-        </NextIntlClientProvider>
 
-        {VERCEL_ENV === 'production' && (
-          <script
-            async={true}
-            defer={true}
-            id="fb-pixel"
-            data-cookiecategory="analytics"
-            dangerouslySetInnerHTML={{
-              __html: `
+          <div>
+            {VERCEL_ENV === 'production' && (
+              <script
+                async={true}
+                defer={true}
+                id="fb-pixel"
+                data-cookiecategory="analytics"
+                dangerouslySetInnerHTML={{
+                  __html: `
                     !function(f,b,e,v,n,t,s)
                     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -115,31 +115,32 @@ export default async function LocaleLayout({
                     fbq('init', '873030480371387');
                     fbq('track', 'PageView');
                   `,
-            }}
-          />
-        )}
-        {VERCEL_ENV === 'production' && (
-          <Script
-            async={true}
-            defer={true}
-            id="gtm"
-            data-cookiecategory="analytics"
-            dangerouslySetInnerHTML={{
-              __html: `
+                }}
+              />
+            )}
+            {VERCEL_ENV === 'production' && (
+              <Script
+                async={true}
+                defer={true}
+                id="gtm"
+                data-cookiecategory="analytics"
+                dangerouslySetInnerHTML={{
+                  __html: `
                     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                     })(window,document,'script','dataLayer','GTM-5H2ZFCN');
                   `,
-            }}
-          />
-        )}
-        {VERCEL_ENV === 'production' && <CookieConsentModal />}
-
-        {VERCEL_ENV === 'production' && <Analytics mode="auto" />}
-      </body>
-    </html>
+                }}
+              />
+            )}
+            {VERCEL_ENV === 'production' && <CookieConsentModal />}
+            {VERCEL_ENV === 'production' && <Analytics mode="auto" />}
+          </div>
+        </body>
+      </html>
+    </NextIntlClientProvider>
   );
 }
 
