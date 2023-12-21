@@ -19,5 +19,5 @@ export function Text({
     className,
   );
 
-  return <p className={classNames}>{children}</p>;
+  return <span className={classNames}>{children}</span>;
 }
