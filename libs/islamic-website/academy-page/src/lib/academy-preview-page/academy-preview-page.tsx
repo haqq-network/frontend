@@ -80,22 +80,22 @@ const modules = [
     moduleCount: 3,
     isAvailable: true,
     availableLessonsDate: new Date('2023-12-26'),
-    isLessonsAvailable: false,
+    isLessonsAvailable: true,
     moduleLessons: [
       {
         lesson: 'Lesson 3.1',
         lessonTitle: 'Understanding Cryptocurrency',
-        // lessonId: 'hMp60wyMDfU',
+        lessonId: 'CfpCuIMbA0I',
       },
       {
         lesson: 'Lesson 3.2',
         lessonTitle: 'Different Types of Cryptocurrencies',
-        // lessonId: 'VF6RV_lrAY0',
+        lessonId: 'gUyc-7Ft2Io',
       },
       {
         lesson: 'Lesson 3.3',
         lessonTitle: 'Understanding Cryptocurrency Exchanges',
-        // lessonId: 'eLru81JzGGU',
+        lessonId: 'WoDBXHNVjgQ',
       },
     ],
   },
