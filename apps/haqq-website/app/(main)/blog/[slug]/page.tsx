@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import {
   getBlogPost,
-  getHAQQBlockPostsFromFalconer,
+  getHaqqBlogPostsFromFalconer,
 } from '../../../../utils/get-blog-posts';
 import { DEPLOY_URL, REVALIDATE_TIME } from '../../../../constants';
 import type { Metadata, ResolvingMetadata } from 'next';
@@ -12,7 +12,7 @@ export const dynamicParams = true;
 export const revalidate = REVALIDATE_TIME;
 
 export async function generateStaticParams() {
-  const { posts } = await getHAQQBlockPostsFromFalconer();
+  const { posts } = await getHaqqBlogPostsFromFalconer();
 
   return posts.map((post) => {
     return {
@@ -63,7 +63,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  const { posts } = await getHAQQBlockPostsFromFalconer();
+  const { posts } = await getHaqqBlogPostsFromFalconer();
   const relatedTagPosts = posts
     .filter((post) => {
       return post.slug !== slug;

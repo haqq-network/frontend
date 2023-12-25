@@ -1,7 +1,7 @@
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 
-interface Post {
+export interface Post {
   id: string;
   title: string;
   slug: string;
@@ -13,7 +13,7 @@ interface Post {
   tags: string[];
 }
 
-export async function getHAQQBlogPosts(options: Partial<FalconerRequestInit>) {
+export async function getHaqqBlogPosts(options: Partial<FalconerRequestInit>) {
   const requestUrl = new URL('/haqq/blog_posts', FALCONER_ENDPOINT);
   const response = await fetch(requestUrl, {
     method: 'GET',

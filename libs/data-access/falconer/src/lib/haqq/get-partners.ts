@@ -1,7 +1,7 @@
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 
-interface Partner {
+export interface Partner {
   logoUrl: string;
   logoWidth?: number;
   logoHeight?: number;
@@ -29,7 +29,7 @@ export enum PartnerStatus {
   PLANNED = 'planned',
 }
 
-export async function getHAQQPartners(options: Partial<FalconerRequestInit>) {
+export async function getHaqqPartners(options: Partial<FalconerRequestInit>) {
   const requestUrl = new URL('/haqq/partners', FALCONER_ENDPOINT);
   const response = await fetch(requestUrl, {
     method: 'GET',
@@ -41,7 +41,6 @@ export async function getHAQQPartners(options: Partial<FalconerRequestInit>) {
   }
 
   const responseJson = await response.json();
-  console.log({ responseJson });
 
   return responseJson.partners as Partner[];
 }
