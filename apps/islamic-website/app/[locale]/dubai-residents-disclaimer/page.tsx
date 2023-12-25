@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { DubaiResidentDisclaimerPage } from '@haqq/islamic-website/dubai-residents-disclaimer-page';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
-import { getDisclaimerContent } from '../../../utils/get-disclaimer';
+import { getDisclaimerContentFromFalconer } from '../../../utils/get-disclaimer';
 
 const title = 'Dubai Residents Disclaimer';
 const description = '';
@@ -23,7 +23,7 @@ export default async function Page({
 }: {
   params: { locale: string };
 }) {
-  const disclaimer = await getDisclaimerContent(locale);
+  const disclaimer = await getDisclaimerContentFromFalconer(locale);
 
   return <DubaiResidentDisclaimerPage disclaimer={disclaimer} />;
 }
