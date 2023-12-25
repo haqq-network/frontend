@@ -5,10 +5,10 @@ export async function getIslamicDisclaimer(
   options: Partial<FalconerRequestInit>,
   locale: string,
 ) {
-  const requestUrl = new URL(
-    `/islamic/disclaimer?locale=${locale}`,
-    FALCONER_ENDPOINT,
-  );
+  const requestUrl = new URL('/islamic/disclaimer/', FALCONER_ENDPOINT);
+
+  requestUrl.searchParams.append('locale', locale);
+
   const response = await fetch(requestUrl, {
     method: 'GET',
     ...options,

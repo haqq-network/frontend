@@ -5,10 +5,10 @@ export async function getIslamicFatwa(
   options: Partial<FalconerRequestInit>,
   locale: string,
 ) {
-  const requestUrl = new URL(
-    `/islamic/fatwa?locale=${locale}`,
-    FALCONER_ENDPOINT,
-  );
+  const requestUrl = new URL('/islamic/fatwa', FALCONER_ENDPOINT);
+
+  requestUrl.searchParams.append('locale', locale);
+
   const response = await fetch(requestUrl, {
     method: 'GET',
     ...options,
