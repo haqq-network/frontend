@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { RoadmapPage } from '@haqq/islamic-website/roadmap-page';
-import { getRoadmapContent } from '../../../utils/get-roadmap';
+import { getRoadmapContentFromFalconer } from '../../../utils/get-roadmap';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
@@ -26,7 +26,7 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const roadmap = await getRoadmapContent({ locale });
+  const roadmap = await getRoadmapContentFromFalconer(locale);
 
   return <RoadmapPage roadmap={roadmap} turnstileSiteKey={TURNSTILE_SITEKEY} />;
 }
