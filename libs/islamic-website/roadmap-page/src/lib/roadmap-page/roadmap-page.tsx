@@ -179,7 +179,7 @@ export function RoadmapPage({
           </h1>
 
           <div className="mt-[48px] flex flex-col gap-y-[12px] md:mt-[44px] lg:mt-[60px] lg:gap-y-[20px]">
-            {roadmap?.map((period, idx) => {
+            {roadmap.map((period, idx) => {
               return (
                 <RoadmapCard
                   period={period}
