@@ -13,7 +13,7 @@ function RoadmapBgImg() {
   return (
     <div
       className={clsx(
-        'absolute z-[-1] h-[382px] w-[382px] rtl:scale-x-[-1] md:h-[1300px] md:w-[1300px]',
+        'absolute z-[-1] h-[382px] w-[382px] md:h-[1300px] md:w-[1300px] rtl:scale-x-[-1]',
         'top-[-200px] ltr:right-[-135px] rtl:left-[-135px]',
         'md:top-[-370px] ltr:md:right-[-555px] rtl:md:left-[-555px]',
         'lg:top-[-460px] ltr:lg:right-[-460px] rtl:lg:left-[-460px]',
@@ -179,7 +179,7 @@ export function RoadmapPage({
           </h1>
 
           <div className="mt-[48px] flex flex-col gap-y-[12px] md:mt-[44px] lg:mt-[60px] lg:gap-y-[20px]">
-            {roadmap.map((period, idx) => {
+            {roadmap?.map((period, idx) => {
               return (
                 <RoadmapCard
                   period={period}
