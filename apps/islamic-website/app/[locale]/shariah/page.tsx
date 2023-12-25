@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ShariahPage } from '@haqq/islamic-website/shariah-page';
 import { getMembersContentFromFalconer } from '../../../utils/get-members';
-import { getFatwaContent } from '../../../utils/get-fatwa';
+import { getFatwaContentFromFalconer } from '../../../utils/get-fatwa';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
@@ -28,7 +28,7 @@ export default async function Page(props: PageProps) {
   const {
     params: { locale },
   } = props;
-  const fatwa = await getFatwaContent(locale);
+  const fatwa = await getFatwaContentFromFalconer(locale);
   const members = await getMembersContentFromFalconer(locale);
 
   return (
