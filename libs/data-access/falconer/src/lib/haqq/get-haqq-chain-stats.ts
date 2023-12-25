@@ -12,7 +12,9 @@ export interface FalconerChainStats {
   coinomicsWillBeMinted: string;
 }
 
-export async function getHaqqChainStats(options: Partial<FalconerRequestInit>) {
+export async function getHaqqChainStatsData(
+  options: Partial<FalconerRequestInit>,
+) {
   const requestUrl = new URL('/haqq/chain_stats', FALCONER_ENDPOINT);
   const response = await fetch(requestUrl, {
     method: 'get',

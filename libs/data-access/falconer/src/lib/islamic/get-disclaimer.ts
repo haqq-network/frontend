@@ -1,11 +1,11 @@
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 
-export async function getIslamicDisclaimer(
+export async function getIslamicDisclaimerData(
   options: Partial<FalconerRequestInit>,
   locale: string,
 ) {
-  const requestUrl = new URL('/islamic/disclaimer/', FALCONER_ENDPOINT);
+  const requestUrl = new URL('/islamic/disclaimer', FALCONER_ENDPOINT);
 
   requestUrl.searchParams.append('locale', locale);
 

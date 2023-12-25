@@ -1,7 +1,7 @@
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 
-export async function getIslamicPrivacyPolicy(
+export async function getIslamicPrivacyPolicyData(
   options: Partial<FalconerRequestInit>,
   locale: string,
 ) {

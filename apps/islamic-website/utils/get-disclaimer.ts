@@ -1,13 +1,13 @@
 import { REVALIDATE_TIME } from '../constants';
 import { cache } from 'react';
-import { getIslamicDisclaimer } from '@haqq/data-access-falconer';
+import { getIslamicDisclaimerData } from '@haqq/data-access-falconer';
 
 export const revalidate = REVALIDATE_TIME;
 
 export const getDisclaimerContentFromFalconer = cache(
   async (locale: string) => {
     try {
-      const data = await getIslamicDisclaimer(
+      const data = await getIslamicDisclaimerData(
         {
           next: {
             revalidate,
