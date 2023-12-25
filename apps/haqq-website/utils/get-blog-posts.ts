@@ -1,12 +1,12 @@
 import { REVALIDATE_TIME } from '../constants';
 import { cache } from 'react';
-import { getHaqqBlogPosts } from '@haqq/data-access-falconer';
+import { getHaqqBlogPostsData } from '@haqq/data-access-falconer';
 
 export const revalidate = REVALIDATE_TIME;
 
 export const getHaqqBlogPostsFromFalconer = cache(async () => {
   try {
-    const posts = await getHaqqBlogPosts({
+    const posts = await getHaqqBlogPostsData({
       next: {
         revalidate,
       },
@@ -27,7 +27,7 @@ export const getHaqqBlogPostsFromFalconer = cache(async () => {
 });
 
 export const getBlogPost = cache(async (slug: string) => {
-  const posts = await getHaqqBlogPosts({
+  const posts = await getHaqqBlogPostsData({
     next: {
       revalidate,
     },

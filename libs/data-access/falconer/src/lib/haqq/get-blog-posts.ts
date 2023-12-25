@@ -13,7 +13,9 @@ export interface Post {
   tags: string[];
 }
 
-export async function getHaqqBlogPosts(options: Partial<FalconerRequestInit>) {
+export async function getHaqqBlogPostsData(
+  options: Partial<FalconerRequestInit>,
+) {
   const requestUrl = new URL('/haqq/blog_posts', FALCONER_ENDPOINT);
   const response = await fetch(requestUrl, {
     method: 'GET',

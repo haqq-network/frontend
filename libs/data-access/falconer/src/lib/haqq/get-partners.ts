@@ -29,7 +29,9 @@ export enum PartnerStatus {
   PLANNED = 'planned',
 }
 
-export async function getHaqqPartners(options: Partial<FalconerRequestInit>) {
+export async function getHaqqPartnersData(
+  options: Partial<FalconerRequestInit>,
+) {
   const requestUrl = new URL('/haqq/partners', FALCONER_ENDPOINT);
   const response = await fetch(requestUrl, {
     method: 'GET',

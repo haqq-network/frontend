@@ -31,7 +31,7 @@ export interface NewsPost {
   url: string;
 }
 
-export async function getNewsData(
+export async function getIslamicNewsData(
   options: Partial<FalconerRequestInit>,
   limit?: number,
 ) {
