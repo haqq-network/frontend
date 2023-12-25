@@ -41,6 +41,7 @@
     "@mdx-js/react": "3.0.0",
     "@metamask/jazzicon": "2.0.0",
     "@next/mdx": "14.0.4",
+    "@sentry/nextjs": "7.90.0",
     "@sentry/react": "7.90.0",
     "@storyblok/js": "3.0.0",
     "@storyblok/react": "3.0.0",

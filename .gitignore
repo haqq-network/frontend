@@ -52,3 +52,6 @@ package-lock.json
 # Next.js
 .next
 .nx/cache
+
+# Sentry Config File
+.sentryclirc
