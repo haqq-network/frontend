@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next';
 import { DEPLOY_URL } from '../constants';
 import { getBlogPosts } from '../utils/get-blog-posts';
 
-const staticUrls = [
-  '',
+const staticRoutes = [
+  '/',
   '/audits',
   '/blog',
   '/brand-assets',
@@ -27,12 +27,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  const staticRoutes = staticUrls.map((el) => {
+  const staticUrls = staticRoutes.map((route) => {
     return {
-      url: `${DEPLOY_URL}${el}`,
+      url: `${DEPLOY_URL}${route}`,
       lastModified: new Date().toISOString().split('T')[0],
     };
   });
 
-  return [...staticRoutes, ...blogPosts];
+  return [...staticUrls, ...blogPosts];
 }
