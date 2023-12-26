@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getHAQQPartnersFromFalconer } from '../../../utils/get-partners';
+import { getHaqqPartnersFromFalconer } from '../../../utils/get-partners';
 import { EcosystemPage } from '@haqq/haqq-website/ecosystem-page';
 import { DEPLOY_URL } from '../../../constants';
 import { haqqOpenGraphImages } from '../../shared-metadata';
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const partners = await getHAQQPartnersFromFalconer();
+  const partners = await getHaqqPartnersFromFalconer();
 
   return <EcosystemPage partners={partners} />;
 }

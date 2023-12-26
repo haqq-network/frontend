@@ -4,7 +4,7 @@ import { getHaqqPartnersData } from '@haqq/data-access-falconer';
 
 export const revalidate = REVALIDATE_TIME;
 
-export const getHAQQPartnersFromFalconer = cache(async () => {
+export const getHaqqPartnersFromFalconer = cache(async () => {
   try {
     const data = await getHaqqPartnersData({
       next: {
