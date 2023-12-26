@@ -116,7 +116,7 @@ export function MyAccountBlockDesktop({
                     onClick={onRewardsClaim}
                     disabled={totalRewards < 1 || isRewardsPending}
                   >
-                    Claim all reward
+                    Claim all rewards
                   </button>
                 </div>
               </div>
