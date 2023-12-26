@@ -79,7 +79,6 @@ const modules = [
     moduleTitle: 'Module',
     moduleCount: 3,
     isAvailable: true,
-    availableLessonsDate: new Date('2023-12-26'),
     isLessonsAvailable: true,
     moduleLessons: [
       {
@@ -102,6 +101,29 @@ const modules = [
   {
     moduleTitle: 'Module',
     moduleCount: 4,
+    isAvailable: true,
+    availableLessonsDate: new Date('2024-01-02'),
+    isLessonsAvailable: false,
+    moduleLessons: [
+      {
+        lesson: 'Lesson 4.1',
+        lessonTitle:
+          'Bridging the Gap between Islamic Finance and Crypto w/ Sheikh Mohamad Beyanouni',
+      },
+      {
+        lesson: 'Lesson 4.2',
+        lessonTitle: 'Cryptocurrency and the Prohibition of Riba (Usury)',
+      },
+      {
+        lesson: 'Lesson 4.3',
+        lessonTitle:
+          'What is staking? How to approach staking from Sharia perspectives? ',
+      },
+    ],
+  },
+  {
+    moduleTitle: 'Module',
+    moduleCount: 5,
     isAvailable: false,
   },
 ];
