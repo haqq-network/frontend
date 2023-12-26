@@ -1,7 +1,5 @@
-import {
-  FalconerChainStatsRequestInit,
-  getHaqqChainStatsData,
-} from './get-haqq-chain-stats';
+import { getHaqqChainStatsData } from './get-haqq-chain-stats';
+import { FalconerRequestInit } from '../../types';
 
 const statsResponseMock = {
   accounts: '1000',
@@ -21,7 +19,7 @@ describe('getHaqqChainStatsData', () => {
       json: jest.fn().mockResolvedValueOnce(statsResponseMock),
     } as unknown as Response);
 
-    const validOptions: Partial<FalconerChainStatsRequestInit> = {
+    const validOptions: Partial<FalconerRequestInit> = {
       next: {
         revalidate: 60,
       },
