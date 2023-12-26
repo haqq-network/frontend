@@ -11,11 +11,14 @@ import '@wagmi/core/window';
 
 export interface WalletProviderInterface {
   disconnect: () => void;
-  selectNetwork: () => Promise<void>;
+  selectNetwork: (chainId: number) => Promise<void>;
   isNetworkSupported: boolean;
   openSelectWallet: () => void;
   closeSelectWallet: () => void;
   isSelectWalletOpen: boolean;
+  openSelectChain: () => void;
+  closeSelectChain: () => void;
+  isSelectChainOpen: boolean;
 }
 
 const WalletContext = createContext<WalletProviderInterface | undefined>(
@@ -27,14 +30,18 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const { switchNetworkAsync } = useSwitchNetwork();
   const { disconnect } = useDisconnect();
   const [isWalletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
+  const [isSelectChainModalOpen, setSelectChainModalOpen] = useState(false);
 
-  const handleNetworkChange = useCallback(async () => {
-    if (chain && switchNetworkAsync) {
-      await switchNetworkAsync(chain.id);
-    } else {
-      console.warn('useWallet(): handleNetworkChange error');
-    }
-  }, [chain, switchNetworkAsync]);
+  const handleNetworkChange = useCallback(
+    async (chainId: number) => {
+      if (switchNetworkAsync) {
+        await switchNetworkAsync(chainId);
+      } else {
+        console.warn('useWallet(): handleNetworkChange error');
+      }
+    },
+    [switchNetworkAsync],
+  );
 
   const isNetworkSupported = useMemo(() => {
     return chain && chain.unsupported !== undefined
@@ -54,13 +61,20 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         setWalletSelectModalOpen(false);
       },
       isSelectWalletOpen: isWalletSelectModalOpen,
+      openSelectChain: () => {
+        setSelectChainModalOpen(true);
+      },
+      closeSelectChain: () => {
+        setSelectChainModalOpen(false);
+      },
+      isSelectChainOpen: isSelectChainModalOpen,
     };
   }, [
     disconnect,
     handleNetworkChange,
     isNetworkSupported,
-    setWalletSelectModalOpen,
     isWalletSelectModalOpen,
+    isSelectChainModalOpen,
   ]);
 
   return (
