@@ -192,6 +192,7 @@ export function StakingStatsMobile({
           className="px-[32px]"
           variant={2}
           isLoading={isRewardsPending}
+          disabled={Number.parseFloat(rewards) < 1}
         >
           Get rewards
         </Button>
