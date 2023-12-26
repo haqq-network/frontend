@@ -26,6 +26,7 @@ import {
   formatNumber,
   CommitSha,
   Footer,
+  SelectChainModal,
 } from '@haqq/shell-ui-kit';
 import { useMediaQuery } from 'react-responsive';
 import { haqqTestedge2 } from '@wagmi/chains';
@@ -39,13 +40,14 @@ function HeaderButtons({
   isMobileMenuOpen: boolean;
   onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
 }) {
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
-  const { disconnect, openSelectWallet } = useWallet();
+  const { chain = chains[0] } = useNetwork();
+  const { disconnect, openSelectWallet, isNetworkSupported, selectNetwork } =
+    useWallet();
   const { ethAddress } = useAddress();
   const { data: balanceData } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0].id,
+    chainId: chain.id,
   });
   const { switchNetworkAsync } = useSwitchNetwork();
   const isDesktop = useMediaQuery({
@@ -76,12 +78,10 @@ function HeaderButtons({
 
   const selectChainButtonProps = useMemo(() => {
     return {
-      isSupported: Boolean(
-        chain && chain?.unsupported !== undefined && !chain.unsupported,
-      ),
+      isSupported: isNetworkSupported,
       currentChain: {
-        name: chain?.name.replace('HAQQ', '').trim() ?? '',
-        id: chain?.id ?? 0,
+        name: chain.name.replace('HAQQ', '').trim() ?? '',
+        id: chain.id ?? 0,
       },
       chains: chains.map((chain) => {
         return {
@@ -90,7 +90,7 @@ function HeaderButtons({
         };
       }),
     };
-  }, [chain, chains]);
+  }, [chain.id, chain.name, chains, isNetworkSupported]);
 
   useEffect(() => {
     if (isDesktop) {
@@ -105,7 +105,10 @@ function HeaderButtons({
           <div className="flex flex-row gap-[24px]">
             <SelectChainButton
               {...selectChainButtonProps}
-              onChainSelect={handleChainSelectClick}
+              onChainSelect={async (chainId) => {
+                await selectNetwork(chainId);
+                navigate('/');
+              }}
             />
             <AccountButton
               balance={balance}
@@ -184,10 +187,17 @@ export function AppWrapper({ children }: PropsWithChildren) {
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
-  const { chain } = useNetwork();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
-  const { closeSelectWallet, isSelectWalletOpen } = useWallet();
+  const {
+    closeSelectWallet,
+    isSelectWalletOpen,
+    isSelectChainOpen,
+    closeSelectChain,
+    selectNetwork,
+  } = useWallet();
 
   const handleWalletConnect = useCallback(
     async (connectorIdx: number) => {
@@ -195,6 +205,14 @@ export function AppWrapper({ children }: PropsWithChildren) {
       closeSelectWallet();
     },
     [closeSelectWallet, connectAsync, connectors],
+  );
+
+  const handleChainSelect = useCallback(
+    async (chainId: number) => {
+      await selectNetwork(chainId);
+      closeSelectChain();
+    },
+    [closeSelectChain, selectNetwork],
   );
 
   useEffect(() => {
@@ -215,8 +233,8 @@ export function AppWrapper({ children }: PropsWithChildren) {
   }, [isDesktop]);
 
   const isTestedge = useMemo(() => {
-    return chain?.id === haqqTestedge2.id;
-  }, [chain?.id]);
+    return chain.id === haqqTestedge2.id;
+  }, [chain.id]);
 
   const selectWalletModalConnectors = useMemo(() => {
     return connectors.map((connector, index) => {
@@ -253,6 +271,12 @@ export function AppWrapper({ children }: PropsWithChildren) {
         error={error?.message}
         onConnectClick={handleWalletConnect}
         onClose={closeSelectWallet}
+      />
+      <SelectChainModal
+        isOpen={isSelectChainOpen}
+        chains={chains}
+        onChainSelect={handleChainSelect}
+        onClose={closeSelectChain}
       />
     </Page>
   );
