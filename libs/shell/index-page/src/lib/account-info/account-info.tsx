@@ -22,8 +22,7 @@ export function ShellIndexPageAccountInfo() {
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = 'ISLM';
 
   const balance = useMemo(() => {
     if (!balanceData) {

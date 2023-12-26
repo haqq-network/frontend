@@ -455,7 +455,7 @@ export function ValidatorInfo({
   const { hash } = useLocation();
   const navigate = useNavigate();
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
-  const symbol = chain.nativeCurrency.symbol;
+  const symbol = 'ISLM';
   const toast = useToast();
 
   const balance = useMemo(() => {
@@ -474,11 +474,11 @@ export function ValidatorInfo({
   const handleModalClose = useCallback(() => {
     navigate('', { replace: true });
     invalidateQueries([
-      [chain?.id, 'rewards'],
-      [chain?.id, 'delegation'],
-      [chain?.id, 'unboundings'],
+      [chain.id, 'rewards'],
+      [chain.id, 'delegation'],
+      [chain.id, 'unboundings'],
     ]);
-  }, [chain?.id, invalidateQueries, navigate]);
+  }, [chain.id, invalidateQueries, navigate]);
 
   const unboundingTime = useMemo(() => {
     if (stakingParams?.unbonding_time) {
@@ -567,12 +567,12 @@ export function ValidatorInfo({
     } finally {
       setRewardPending(false);
       invalidateQueries([
-        [chain?.id, 'rewards'],
-        [chain?.id, 'delegation'],
-        [chain?.id, 'unboundings'],
+        [chain.id, 'rewards'],
+        [chain.id, 'delegation'],
+        [chain.id, 'unboundings'],
       ]);
     }
-  }, [chain?.id, claimReward, invalidateQueries, toast, validatorAddress]);
+  }, [chain.id, claimReward, invalidateQueries, toast, validatorAddress]);
 
   const unbounded = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
@@ -649,18 +649,12 @@ export function ValidatorInfo({
       setRewardsPending(false);
 
       invalidateQueries([
-        [chain?.id, 'rewards'],
-        [chain?.id, 'delegation'],
-        [chain?.id, 'unboundings'],
+        [chain.id, 'rewards'],
+        [chain.id, 'delegation'],
+        [chain.id, 'unboundings'],
       ]);
     }
-  }, [
-    chain?.id,
-    claimAllRewards,
-    delegatedValsAddrs,
-    invalidateQueries,
-    toast,
-  ]);
+  }, [chain.id, claimAllRewards, delegatedValsAddrs, invalidateQueries, toast]);
 
   const validatorCommission = useMemo(() => {
     return (

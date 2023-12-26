@@ -1,17 +1,4 @@
-import {
-  // useAuthAccountsQuery,
-  // useBankSupplyQuery,
-  // useStakingParamsQuery,
-  // useStakingPoolQuery,
-  // useStakingValidatorListQuery,
-  useSupportedChains,
-} from '@haqq/shared';
-// import {
-//   BondStatus,
-//   bondStatusFromJSON,
-// } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import { useMemo } from 'react';
-import { useNetwork } from 'wagmi';
 
 export function StatisticsBlock() {
   // const { data: stakingPool } = useStakingPoolQuery();
@@ -19,10 +6,7 @@ export function StatisticsBlock() {
   // const { data: accounts } = useAuthAccountsQuery();
   // const { data: bankSupply } = useBankSupplyQuery();
   // const { data: stakingParams } = useStakingParamsQuery();
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = 'ISLM';
 
   // const totalStaked = useMemo(() => {
   //   return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;

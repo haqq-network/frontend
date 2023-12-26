@@ -1016,10 +1016,7 @@ export function DepositActionsDesktop({
       onDepositSubmit(depositAmount);
     }
   }, [depositAmount, onDepositSubmit]);
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = 'ISLM';
 
   return (
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
