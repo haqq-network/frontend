@@ -3,22 +3,16 @@ import { Link } from 'react-router-dom';
 import {
   useGovernanceParamsQuery,
   useProposalListQuery,
-  useSupportedChains,
   useProposalTallys,
 } from '@haqq/shared';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
 import { Container, SpinnerLoader } from '@haqq/shell-ui-kit';
-import { useNetwork } from 'wagmi';
 import { ProposalStatus } from '@evmos/provider';
 
 export function ProposalList() {
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
-
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = 'ISLM';
 
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
