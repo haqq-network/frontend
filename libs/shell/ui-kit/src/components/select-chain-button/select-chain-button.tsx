@@ -63,12 +63,12 @@ export function SelectChainButton({
                   'flex h-[40px] flex-row items-center rounded-[6px] px-[12px]',
                   'transition-colors duration-150 ease-out',
                   'box-border appearance-none outline-none',
-                  'border-haqq-orange text-haqq-orange hover:bg-haqq-orange border bg-transparent hover:text-white',
-                  open && '!bg-haqq-orange !text-white',
+                  'border-haqq-orange hover:bg-haqq-orange/80 bg-haqq-orange border text-white hover:text-white',
                 )}
               >
                 <div className="font-guise mt-[-1px] text-left text-[10px] font-[500] uppercase leading-[1.2em]">
-                  Unsupported <br /> Network
+                  Unsupported <br />
+                  Network
                 </div>
                 <svg
                   width="22"
