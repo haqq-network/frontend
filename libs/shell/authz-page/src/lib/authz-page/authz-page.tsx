@@ -662,8 +662,6 @@ function GranteeCard({
 }) {
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
   const { copyText } = useClipboard();
   const { data: delegationInfo } = useStakingDelegationQuery(
     granteeAddresses.haqq,
@@ -672,8 +670,7 @@ function GranteeCard({
   const { data: undelegations } = useStakingUnbondingsQuery(
     granteeAddresses.haqq,
   );
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = 'ISLM';
 
   const handleEthAddressCopy = useCallback(async () => {
     if (granteeAddresses.eth) {
