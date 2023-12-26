@@ -1,7 +1,7 @@
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 
-export interface Post {
+export interface BlogPost {
   id: string;
   title: string;
   slug: string;
@@ -28,5 +28,5 @@ export async function getHaqqBlogPostsData(
 
   const responseJson = await response.json();
 
-  return responseJson.posts as Post[];
+  return responseJson.posts as BlogPost[];
 }
