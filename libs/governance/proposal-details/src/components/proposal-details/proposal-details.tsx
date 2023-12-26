@@ -30,6 +30,7 @@ import {
   useProposalTally,
   TallyResults,
   useStakingPoolQuery,
+  useNetworkAwareAction,
 } from '@haqq/shared';
 import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
@@ -894,6 +895,7 @@ export function VoteActions({
 }) {
   const { vote } = useProposalActions();
   const toast = useToast();
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const handleVote = useCallback(
     async (option: number) => {
@@ -949,7 +951,9 @@ export function VoteActions({
         <div>
           <VoteButton
             onClick={() => {
-              handleVote(VoteOption.VOTE_OPTION_YES);
+              executeIfNetworkSupported(() => {
+                handleVote(VoteOption.VOTE_OPTION_YES);
+              });
             }}
             color="green"
             isActive={userVote === VoteOption.VOTE_OPTION_YES}
@@ -961,7 +965,9 @@ export function VoteActions({
         <div>
           <VoteButton
             onClick={() => {
-              handleVote(VoteOption.VOTE_OPTION_NO);
+              executeIfNetworkSupported(() => {
+                handleVote(VoteOption.VOTE_OPTION_NO);
+              });
             }}
             color="red"
             isActive={userVote === VoteOption.VOTE_OPTION_NO}
@@ -973,7 +979,9 @@ export function VoteActions({
         <div>
           <VoteButton
             onClick={() => {
-              handleVote(VoteOption.VOTE_OPTION_ABSTAIN);
+              executeIfNetworkSupported(() => {
+                handleVote(VoteOption.VOTE_OPTION_ABSTAIN);
+              });
             }}
             color="gray"
             isActive={userVote === VoteOption.VOTE_OPTION_ABSTAIN}
@@ -985,7 +993,9 @@ export function VoteActions({
         <div>
           <VoteButton
             onClick={() => {
-              handleVote(VoteOption.VOTE_OPTION_NO_WITH_VETO);
+              executeIfNetworkSupported(() => {
+                handleVote(VoteOption.VOTE_OPTION_NO_WITH_VETO);
+              });
             }}
             color="yellow"
             isActive={userVote === VoteOption.VOTE_OPTION_NO_WITH_VETO}
@@ -1017,6 +1027,7 @@ export function DepositActionsDesktop({
     }
   }, [depositAmount, onDepositSubmit]);
   const symbol = 'ISLM';
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   return (
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
@@ -1037,7 +1048,9 @@ export function DepositActionsDesktop({
       </div>
       <div>
         <DepositButton
-          onClick={handleDeposit}
+          onClick={() => {
+            executeIfNetworkSupported(handleDeposit);
+          }}
           className="w-full"
           disabled={Boolean(
             !isConnected || (depositAmount && depositAmount === 0),
