@@ -42,3 +42,4 @@ export * from './components/toasts/toast-loading';
 export * from './components/toasts/toast-success';
 export * from './components/toasts/toast-error';
 export * from './components/footer/footer';
+export * from './components/select-chain-modal/select-chain-modal';
