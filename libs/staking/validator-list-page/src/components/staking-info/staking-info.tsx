@@ -1,6 +1,7 @@
 import {
   getFormattedAddress,
   useAddress,
+  useNetworkAwareAction,
   useQueryInvalidate,
   useStakingActions,
   useStakingDelegationQuery,
@@ -49,6 +50,7 @@ function useStakingStats() {
   const toast = useToast();
   const symbol = 'ISLM';
   const [isRewardsPending, setRewardsPending] = useState(false);
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const handleRewardsClaim = useCallback(async () => {
     try {
@@ -165,18 +167,21 @@ function useStakingStats() {
       balance,
       formattedBalance,
       symbol,
-      handleRewardsClaim,
+      handleRewardsClaim: () => {
+        executeIfNetworkSupported(handleRewardsClaim);
+      },
       isRewardsPending,
     };
   }, [
+    staked,
+    rewards,
+    unbounded,
     balance,
     formattedBalance,
-    handleRewardsClaim,
-    rewards,
-    staked,
     symbol,
-    unbounded,
     isRewardsPending,
+    executeIfNetworkSupported,
+    handleRewardsClaim,
   ]);
 }
 
@@ -198,6 +203,7 @@ export function StakingInfo() {
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const isTestedge = useMemo(() => {
     return chain?.id === haqqTestedge2.id;
@@ -250,7 +256,9 @@ export function StakingInfo() {
           rewards={formatNumber(rewards)}
           unbounded={formatNumber(unbounded)}
           symbol={balance?.symbol ?? ''}
-          onRewardsClaim={handleRewardsClaim}
+          onRewardsClaim={() => {
+            executeIfNetworkSupported(handleRewardsClaim);
+          }}
           isRewardsPending={isRewardsPending}
         />
       ) : (
@@ -260,7 +268,9 @@ export function StakingInfo() {
           rewards={formatNumber(rewards)}
           unbounded={formatNumber(unbounded)}
           symbol={balance?.symbol ?? ''}
-          onRewardsClaim={handleRewardsClaim}
+          onRewardsClaim={() => {
+            executeIfNetworkSupported(handleRewardsClaim);
+          }}
           isRewardsPending={isRewardsPending}
         />
       )}

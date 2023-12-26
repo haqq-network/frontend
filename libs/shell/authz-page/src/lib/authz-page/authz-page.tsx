@@ -8,11 +8,11 @@ import {
   useAuthzGranteeGrants,
   useAuthzGranterGrants,
   useClipboard,
+  useNetworkAwareAction,
   useQueryInvalidate,
   useStakingDelegationQuery,
   useStakingRewardsQuery,
   useStakingUnbondingsQuery,
-  useSupportedChains,
   useToast,
   useWallet,
 } from '@haqq/shared';
@@ -113,6 +113,7 @@ function GranterGrantsTable() {
   const { revoke } = useAuthzActions();
   const toast = useToast();
   const { chain } = useNetwork();
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const granterGrantsToRender = useMemo(() => {
     if (!granterGrants || granterGrants?.grants.length === 0) {
@@ -130,7 +131,7 @@ function GranterGrantsTable() {
         await toast.promise(grantPromise, {
           loading: <ToastLoading>Revoke in progress</ToastLoading>,
           success: (tx) => {
-            console.log('Revoke successful', { tx }); // maybe successful
+            console.log('Revoke successful', { tx });
             const txHash = tx?.txhash;
 
             return (
@@ -218,7 +219,9 @@ function GranterGrantsTable() {
                       <div className="invisible group-hover:visible">
                         <Button
                           onClick={() => {
-                            handleRevokeAccess(grant.grantee, grant.msg);
+                            executeIfNetworkSupported(() => {
+                              handleRevokeAccess(grant.grantee, grant.msg);
+                            });
                           }}
                           variant={1}
                         >
@@ -392,6 +395,7 @@ function AuthzGrantsActions() {
   const [grantPeriod, setGrantPeriod] = useState<string>(
     GRANT_PERIOD_DEFAULT_OPTION.value,
   );
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const getGrantExpire = useCallback((period: string) => {
     const now = new Date();
@@ -618,7 +622,9 @@ function AuthzGrantsActions() {
 
                   <div className="pt-[24px]">
                     <Button
-                      onClick={handleGrantAccess}
+                      onClick={() => {
+                        executeIfNetworkSupported(handleGrantAccess);
+                      }}
                       variant={2}
                       disabled={!isGranteeValid}
                     >
