@@ -74,7 +74,6 @@ export function AcademyPreviewPage({
               className={clsx(
                 'font-vcr text-haqq-black self-start text-[46px] font-[400] uppercase leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
                 styles['stroke__heading'],
-                // !isItTwelveDecember ? 'self-center' : 'self-start',
               )}
             >
               HAQQ Academy
@@ -386,7 +385,7 @@ function LessonCard({
           {lessonId && (
             <Image
               alt="Lesson preview"
-              src={`https://img.youtube.com/vi/${lessonId}/1.jpg`}
+              src={`https://img.youtube.com/vi/${lessonId}/0.jpg`}
               fill
               className="absolute h-full min-w-[200px] rounded-[8px] object-cover"
             />
