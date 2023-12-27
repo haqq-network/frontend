@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { DEPLOY_URL } from '../../constants';
+import { SITE_URL } from '../../constants';
 import { SUPPORTED_LOCALES } from '../../constants';
 
 export interface SitemapUrl {
@@ -46,7 +46,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lessonCount++
     ) {
       SUPPORTED_LOCALES.forEach((locale) => {
-        const url = `${DEPLOY_URL}/${locale}${staticRoutes[1]}/lessons/${module.moduleCount}/${lessonCount}`;
+        const url = new URL(
+          `/${locale}${staticRoutes[1]}/lessons/${module.moduleCount}/${lessonCount}`,
+          SITE_URL,
+        ).toString();
         lessonUrls.push({
           url,
           lastModified: module.releaseDate.toISOString(),
@@ -58,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticUrls = SUPPORTED_LOCALES.flatMap((locale) => {
     return staticRoutes.map((route) => {
       return {
-        url: `${DEPLOY_URL}/${locale}${route}`,
+        url: new URL(`/${locale}${route}`, SITE_URL).toString(),
         lastModified: new Date().toISOString(),
       };
     });
