@@ -1,10 +1,10 @@
 import { MetadataRoute } from 'next';
-import { DEPLOY_URL } from '../constants';
+import { SITE_URL } from '../constants';
 import { SUPPORTED_LOCALES } from '../constants';
 
 export default function robots(): MetadataRoute.Robots {
   const sitemapUrls = SUPPORTED_LOCALES.map((locale) => {
-    return `${DEPLOY_URL}/${locale}/sitemap.xml`;
+    return new URL(`/${locale}/sitemap.xml`, SITE_URL).toString();
   });
 
   return {
@@ -13,6 +13,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
     },
     sitemap: sitemapUrls,
-    host: DEPLOY_URL,
+    host: new URL(SITE_URL).toString(),
   };
 }
