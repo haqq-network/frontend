@@ -17,7 +17,7 @@ export interface FalconerMembers {
   founder_members: Member[];
 }
 
-export async function getIslamicMembers(
+export async function getIslamicMembersData(
   options: Partial<FalconerRequestInit>,
   locale: string,
 ) {

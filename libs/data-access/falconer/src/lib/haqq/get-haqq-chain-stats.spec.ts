@@ -1,7 +1,5 @@
-import {
-  FalconerChainStatsRequestInit,
-  getHaqqChainStats,
-} from './get-haqq-chain-stats';
+import { getHaqqChainStatsData } from './get-haqq-chain-stats';
+import { FalconerRequestInit } from '../../types';
 
 const statsResponseMock = {
   accounts: '1000',
@@ -14,21 +12,21 @@ const statsResponseMock = {
   coinomicsWillBeMinted: '80',
 };
 
-describe('getHaqqChainStats', () => {
+describe('getHaqqChainStatsData', () => {
   it('should return a valid FalconerChainStats object when given valid options', async () => {
     jest.spyOn(global, 'fetch').mockResolvedValueOnce({
       ok: true,
       json: jest.fn().mockResolvedValueOnce(statsResponseMock),
     } as unknown as Response);
 
-    const validOptions: Partial<FalconerChainStatsRequestInit> = {
+    const validOptions: Partial<FalconerRequestInit> = {
       next: {
         revalidate: 60,
       },
     };
 
     // Act
-    const result = await getHaqqChainStats(validOptions);
+    const result = await getHaqqChainStatsData(validOptions);
 
     // Assert
     expect(result).toEqual(
@@ -50,7 +48,7 @@ describe('getHaqqChainStats', () => {
       ok: false,
     } as Response);
 
-    await expect(getHaqqChainStats({})).rejects.toThrowError(
+    await expect(getHaqqChainStatsData({})).rejects.toThrowError(
       'chain stats fetch failed',
     );
   });

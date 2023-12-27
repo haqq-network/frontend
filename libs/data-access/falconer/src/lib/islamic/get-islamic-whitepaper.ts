@@ -1,7 +1,7 @@
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 
-export async function getIslamicWhitepaper(
+export async function getIslamicWhitepaperData(
   options: Partial<FalconerRequestInit>,
   locale: string,
 ) {

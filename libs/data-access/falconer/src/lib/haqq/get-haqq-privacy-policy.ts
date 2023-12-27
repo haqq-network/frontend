@@ -1,17 +1,12 @@
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 
-export async function getIslamicPrivacyPolicyData(
+export async function getHaqqPrivacyPolicyData(
   options: Partial<FalconerRequestInit>,
-  locale: string,
 ) {
-  const requestUrl = new URL('/islamic/pp', FALCONER_ENDPOINT);
+  const requestUrl = new URL('/haqq/pp', FALCONER_ENDPOINT);
   const response = await fetch(requestUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ locale }),
+    method: 'GET',
     ...options,
   });
 

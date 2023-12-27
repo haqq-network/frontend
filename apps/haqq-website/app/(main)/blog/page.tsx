@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getBlogPosts } from '../../../utils/get-blog-posts';
+import { getHaqqBlogPostsFromFalconer } from '../../../utils/get-blog-posts';
 import { BlogPage } from '@haqq/haqq-website/blog';
 import { DEPLOY_URL } from '../../../constants';
 import { haqqOpenGraphImages } from '../../shared-metadata';
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const { posts, tags } = await getBlogPosts();
+  const { posts, tags } = await getHaqqBlogPostsFromFalconer();
 
   let featuredPost;
   const postsToRender = [];

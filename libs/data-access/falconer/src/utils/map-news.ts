@@ -1,4 +1,4 @@
-import { FalconerNewsPost, NewsPost } from '../lib/islamic/get-news';
+import { FalconerNewsPost, NewsPost } from '../lib/islamic/get-islamic-news';
 
 export function mapFalconerNews(data: FalconerNewsPost[]): NewsPost[] {
   return data.map((post) => {
