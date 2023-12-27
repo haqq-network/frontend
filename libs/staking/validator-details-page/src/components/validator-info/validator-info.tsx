@@ -16,6 +16,7 @@ import {
   useSupportedChains,
   useStakingValidatorListQuery,
   useToast,
+  useNetworkAwareAction,
 } from '@haqq/shared';
 import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
@@ -455,8 +456,9 @@ export function ValidatorInfo({
   const { hash } = useLocation();
   const navigate = useNavigate();
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
-  const symbol = chain.nativeCurrency.symbol;
+  const symbol = 'ISLM';
   const toast = useToast();
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const balance = useMemo(() => {
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
@@ -474,11 +476,11 @@ export function ValidatorInfo({
   const handleModalClose = useCallback(() => {
     navigate('', { replace: true });
     invalidateQueries([
-      [chain?.id, 'rewards'],
-      [chain?.id, 'delegation'],
-      [chain?.id, 'unboundings'],
+      [chain.id, 'rewards'],
+      [chain.id, 'delegation'],
+      [chain.id, 'unboundings'],
     ]);
-  }, [chain?.id, invalidateQueries, navigate]);
+  }, [chain.id, invalidateQueries, navigate]);
 
   const unboundingTime = useMemo(() => {
     if (stakingParams?.unbonding_time) {
@@ -567,12 +569,12 @@ export function ValidatorInfo({
     } finally {
       setRewardPending(false);
       invalidateQueries([
-        [chain?.id, 'rewards'],
-        [chain?.id, 'delegation'],
-        [chain?.id, 'unboundings'],
+        [chain.id, 'rewards'],
+        [chain.id, 'delegation'],
+        [chain.id, 'unboundings'],
       ]);
     }
-  }, [chain?.id, claimReward, invalidateQueries, toast, validatorAddress]);
+  }, [chain.id, claimReward, invalidateQueries, toast, validatorAddress]);
 
   const unbounded = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
@@ -649,18 +651,12 @@ export function ValidatorInfo({
       setRewardsPending(false);
 
       invalidateQueries([
-        [chain?.id, 'rewards'],
-        [chain?.id, 'delegation'],
-        [chain?.id, 'unboundings'],
+        [chain.id, 'rewards'],
+        [chain.id, 'delegation'],
+        [chain.id, 'unboundings'],
       ]);
     }
-  }, [
-    chain?.id,
-    claimAllRewards,
-    delegatedValsAddrs,
-    invalidateQueries,
-    toast,
-  ]);
+  }, [chain.id, claimAllRewards, delegatedValsAddrs, invalidateQueries, toast]);
 
   const validatorCommission = useMemo(() => {
     return (
@@ -694,7 +690,9 @@ export function ValidatorInfo({
         stakingPool={totalStaked}
         totalRewards={myTotalRewards}
         delegated={staked}
-        onRewardsClaim={handleRewardsClaim}
+        onRewardsClaim={() => {
+          executeIfNetworkSupported(handleRewardsClaim);
+        }}
         isRewardPending={isRewardPending}
         isRewardsPending={isRewardsPending}
       />
@@ -752,6 +750,7 @@ export function ValidatorBlockDesktop({
   const navigate = useNavigate();
   const isWarningShown =
     validatorInfo.jailed || validatorInfo.status === 'BOND_STATUS_UNBONDED';
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   return (
     <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[28px] py-[32px]">
@@ -787,7 +786,9 @@ export function ValidatorBlockDesktop({
               disabled={balance < MIN_BALANCE}
               className="w-full"
               onClick={() => {
-                navigate('#delegate', { replace: true });
+                executeIfNetworkSupported(() => {
+                  navigate('#delegate', { replace: true });
+                });
               }}
             >
               Delegate
@@ -799,7 +800,9 @@ export function ValidatorBlockDesktop({
               className="w-full"
               disabled={delegation < MIN_DELEGATION}
               onClick={() => {
-                navigate('#undelegate', { replace: true });
+                executeIfNetworkSupported(() => {
+                  navigate('#undelegate', { replace: true });
+                });
               }}
             >
               Undelegate
@@ -812,7 +815,9 @@ export function ValidatorBlockDesktop({
             className="w-full"
             disabled={delegation < MIN_DELEGATION}
             onClick={() => {
-              navigate('#redelegate', { replace: true });
+              executeIfNetworkSupported(() => {
+                navigate('#redelegate', { replace: true });
+              });
             }}
           >
             Redelegate
@@ -831,7 +836,9 @@ export function ValidatorBlockDesktop({
         <Button
           variant={5}
           disabled={rewards < 1}
-          onClick={onGetRewardsClick}
+          onClick={() => {
+            executeIfNetworkSupported(onGetRewardsClick);
+          }}
           isLoading={isRewardPending}
         >
           Get my rewards
@@ -863,18 +870,27 @@ function ValidatorBlockMobile({
   const navigate = useNavigate();
   const isWarningShown =
     validatorInfo.jailed || validatorInfo.status === 'BOND_STATUS_UNBONDED';
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   return (
     <ValidatorBlockMobileComponent
-      onGetRewardClick={onGetRewardsClick}
+      onGetRewardClick={() => {
+        executeIfNetworkSupported(onGetRewardsClick);
+      }}
       onDelegateClick={() => {
-        navigate('#delegate', { replace: true });
+        executeIfNetworkSupported(() => {
+          navigate('#delegate', { replace: true });
+        });
       }}
       onUndelegateClick={() => {
-        navigate('#undelegate', { replace: true });
+        executeIfNetworkSupported(() => {
+          navigate('#undelegate', { replace: true });
+        });
       }}
       onRedelegateClick={() => {
-        navigate('#redelegate', { replace: true });
+        executeIfNetworkSupported(() => {
+          navigate('#redelegate', { replace: true });
+        });
       }}
       isDelegateDisabled={balance < MIN_BALANCE}
       isUndelegateDisabled={delegation < MIN_DELEGATION}

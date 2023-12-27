@@ -1,6 +1,7 @@
 import {
   getFormattedAddress,
   useAddress,
+  useNetworkAwareAction,
   useQueryInvalidate,
   useStakingActions,
   useStakingDelegationQuery,
@@ -40,16 +41,16 @@ function useStakingStats() {
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { data: balance } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0].id,
+    chainId: chain.id,
   });
   const toast = useToast();
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = 'ISLM';
   const [isRewardsPending, setRewardsPending] = useState(false);
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const handleRewardsClaim = useCallback(async () => {
     try {
@@ -166,18 +167,21 @@ function useStakingStats() {
       balance,
       formattedBalance,
       symbol,
-      handleRewardsClaim,
+      handleRewardsClaim: () => {
+        executeIfNetworkSupported(handleRewardsClaim);
+      },
       isRewardsPending,
     };
   }, [
+    staked,
+    rewards,
+    unbounded,
     balance,
     formattedBalance,
-    handleRewardsClaim,
-    rewards,
-    staked,
     symbol,
-    unbounded,
     isRewardsPending,
+    executeIfNetworkSupported,
+    handleRewardsClaim,
   ]);
 }
 
@@ -199,6 +203,7 @@ export function StakingInfo() {
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const isTestedge = useMemo(() => {
     return chain?.id === haqqTestedge2.id;
@@ -251,7 +256,9 @@ export function StakingInfo() {
           rewards={formatNumber(rewards)}
           unbounded={formatNumber(unbounded)}
           symbol={balance?.symbol ?? ''}
-          onRewardsClaim={handleRewardsClaim}
+          onRewardsClaim={() => {
+            executeIfNetworkSupported(handleRewardsClaim);
+          }}
           isRewardsPending={isRewardsPending}
         />
       ) : (
@@ -261,7 +268,9 @@ export function StakingInfo() {
           rewards={formatNumber(rewards)}
           unbounded={formatNumber(unbounded)}
           symbol={balance?.symbol ?? ''}
-          onRewardsClaim={handleRewardsClaim}
+          onRewardsClaim={() => {
+            executeIfNetworkSupported(handleRewardsClaim);
+          }}
           isRewardsPending={isRewardsPending}
         />
       )}

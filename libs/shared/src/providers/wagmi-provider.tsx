@@ -28,7 +28,7 @@ export const haqqLocalnet: Chain = {
 
 const SupportedChainsContext = createContext<Chain[]>([
   haqqMainnet,
-  haqqLocalnet,
+  haqqTestedge2,
 ]);
 
 export function useSupportedChains() {

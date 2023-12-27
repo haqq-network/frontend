@@ -95,15 +95,13 @@ function MyAccountConnected({
   });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-
   const isMobile = useMediaQuery({
     query: `(max-width: 639px)`,
   });
   const isDesktop = useMediaQuery({
     query: `(min-width: 1024px)`,
   });
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = 'ISLM';
 
   const balance = useMemo(() => {
     if (!balanceData) {

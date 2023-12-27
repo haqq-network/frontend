@@ -70,21 +70,23 @@ export function UndelegateModal({
 
       await toast.promise(undelegationPromise, {
         loading: <ToastLoading>Undlegation in progress</ToastLoading>,
-        success: (txHash) => {
+        success: (tx) => {
+          const txHash = tx?.txhash;
           console.log('Undlegation successful', { txHash });
+
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                 <div>Undelegation successful</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash.txhash}`}
+                    to={`https://ping.pub/haqq/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
                   >
                     <LinkIcon />
-                    <span>{getFormattedAddress(txHash.txhash)}</span>
+                    <span>{getFormattedAddress(txHash)}</span>
                   </Link>
                 </div>
               </div>
