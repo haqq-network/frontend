@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
-import { SITE_URL } from '../../constants';
-import { SUPPORTED_LOCALES } from '../../constants';
+import { SITE_URL } from '../constants';
+import { SUPPORTED_LOCALES } from '../constants';
 
 export interface SitemapUrl {
   url: string;
