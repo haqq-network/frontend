@@ -22,14 +22,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogPosts = posts.map((post) => {
     return {
-      url: `${SITE_URL}/blog/${post.slug}`,
+      url: new URL(`blog/${post.slug}`, SITE_URL).toString(),
       lastModified: new Date(post.date)?.toUTCString(),
     };
   });
 
   const staticUrls = staticRoutes.map((route) => {
     return {
-      url: `${SITE_URL}${route}`,
+      url: new URL(route, SITE_URL).toString(),
       lastModified: new Date().toISOString().split('T')[0],
     };
   });
