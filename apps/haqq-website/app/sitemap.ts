@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { SITE_URL } from '../constants';
-import { getBlogPosts } from '../utils/get-blog-posts';
+import { getHaqqBlogPostsFromFalconer } from '../utils/get-blog-posts';
 
 const staticRoutes = [
   '/',
@@ -18,7 +18,7 @@ const staticRoutes = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { posts } = await getBlogPosts();
+  const { posts } = await getHaqqBlogPostsFromFalconer();
 
   const blogPosts = posts.map((post) => {
     return {
