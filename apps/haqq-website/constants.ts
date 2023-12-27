@@ -11,3 +11,4 @@ export const FALCONER_ENDPOINT = process.env['FALCONER_ENDPOINT'];
 export const TURNSTILE_SITEKEY = process.env['TURNSTILE_SITEKEY'];
 export const NX_WALLETCONNECT_PROJECT_ID =
   process.env['NX_WALLETCONNECT_PROJECT_ID'];
+export const SITE_URL = 'https://haqq.network';
