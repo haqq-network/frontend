@@ -19,15 +19,8 @@ export const metadata: Metadata = {
   },
 };
 
-interface PageProps {
-  params: { locale: string };
-}
-
-export default async function Page(props: PageProps) {
-  const {
-    params: { locale },
-  } = props;
-  const privacyPolicy = await getPrivacyPolicyContentFromFalconer(locale);
+export default async function Page() {
+  const privacyPolicy = await getPrivacyPolicyContentFromFalconer();
 
   return <PrivacyPolicyPage privacyPolicy={privacyPolicy} />;
 }
