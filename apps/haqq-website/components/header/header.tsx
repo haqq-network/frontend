@@ -1,12 +1,16 @@
 'use client';
-import { Fragment, ReactNode, useCallback, useState } from 'react';
+import { Fragment, ReactNode, lazy, useCallback, useState } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import Link from 'next/link';
 import logoImageData from '../../assets/images/logo.svg';
 import { Button, BurgerButton } from '@haqq/haqq-website-ui-kit';
-import ScrollLock from 'react-scrolllock';
 import { BurgerMenu } from '../burger-menu/burger-menu';
+
+const ScrollLock = lazy(async () => {
+  const { ScrollLock } = await import('@haqq/haqq-website-ui-kit');
+  return { default: ScrollLock };
+});
 
 function HeaderNavLink({
   href,
@@ -228,7 +232,7 @@ function BurgerMenuComponent({
       <div
         className={clsx(
           'fixed right-0 top-[62px] z-[45] h-[calc(100vh-62px)] w-full sm:top-[72px] sm:h-[calc(100vh-72px)] sm:w-[468px]',
-          'transform-gpu transition-transform duration-200 will-change-transform',
+          'transform-gpu transition-transform duration-200 ease-in-out will-change-transform',
           isOpen
             ? 'translate-y-[0px] ease-in-out sm:translate-x-[0px]'
             : 'translate-y-[100%] ease-out sm:translate-x-[100%] sm:translate-y-[0%]',
@@ -240,7 +244,7 @@ function BurgerMenuComponent({
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed right-0 top-[0] z-40 h-full w-full bg-black/80"
+          className="fixed right-0 top-[0] z-40 hidden h-full w-full bg-black/80 md:block"
         />
       )}
     </div>
