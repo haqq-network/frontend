@@ -9,8 +9,6 @@ const staticRoutes = [
   '/brand-assets',
   '/ecosystem',
   '/ecosystem-fund',
-  '/events/scan',
-  '/events/sign-up',
   '/privacy-policy',
   '/validators',
   '/wp',
