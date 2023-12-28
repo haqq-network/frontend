@@ -1,7 +1,6 @@
 'use client';
 import {
   Container,
-  // GradientText,
   Modal,
   ModalCloseButton,
   PlayVideoIcon,
@@ -9,142 +8,59 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import styles from './academy-preview-page.module.css';
 import clsx from 'clsx';
-import { Fragment, PropsWithChildren, useCallback, useState } from 'react';
+import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import Image from 'next/image';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 import Link from 'next/link';
 import { useActiveLesson } from '../../components/lessons/lessons-block';
-
-type Lesson = {
-  lessonId?: string;
-  lesson: string;
-  lessonTitle: string;
-};
-
-const modules = [
-  {
-    moduleTitle: 'Intro',
-    isAvailable: true,
-    isLessonsAvailable: true,
-    moduleLessons: [
-      {
-        lessonId: '9c2Mz-PBcx4',
-        lesson: 'Intro',
-        lessonTitle: 'Welcome to HAQQ Academy',
-      },
-    ],
-  },
-  {
-    moduleTitle: 'Module',
-    moduleCount: 1,
-    isAvailable: true,
-    isLessonsAvailable: true,
-    moduleLessons: [
-      {
-        lessonId: '3ZrNYi2vK-o',
-        lesson: 'Lesson 1.1',
-        lessonTitle: 'Understanding the Complexities of Money',
-      },
-      {
-        lessonId: 'Qcs_vXkYqF4',
-        lesson: 'Lesson 1.2',
-        lessonTitle: 'The Evolution of Cryptocurrencies',
-      },
-    ],
-  },
-  {
-    moduleTitle: 'Module',
-    moduleCount: 2,
-    isAvailable: true,
-    isLessonsAvailable: true,
-    moduleLessons: [
-      {
-        lessonId: 'hMp60wyMDfU',
-        lesson: 'Lesson 2.1',
-        lessonTitle: 'Understanding Blockchain Technology',
-      },
-      {
-        lessonId: 'VF6RV_lrAY0',
-        lesson: 'Lesson 2.2',
-        lessonTitle: 'How Blockchain Technology Works',
-      },
-      {
-        lessonId: 'eLru81JzGGU',
-        lesson: 'Lesson 2.3',
-        lessonTitle: 'Use Cases and Utilities Of Crypto',
-      },
-    ],
-  },
-  {
-    moduleTitle: 'Module',
-    moduleCount: 3,
-    isAvailable: true,
-    isLessonsAvailable: true,
-    moduleLessons: [
-      {
-        lesson: 'Lesson 3.1',
-        lessonTitle: 'Understanding Cryptocurrency',
-        lessonId: 'CfpCuIMbA0I',
-      },
-      {
-        lesson: 'Lesson 3.2',
-        lessonTitle: 'Different Types of Cryptocurrencies',
-        lessonId: 'gUyc-7Ft2Io',
-      },
-      {
-        lesson: 'Lesson 3.3',
-        lessonTitle: 'Understanding Cryptocurrency Exchanges',
-        lessonId: 'WoDBXHNVjgQ',
-      },
-    ],
-  },
-  {
-    moduleTitle: 'Module',
-    moduleCount: 4,
-    isAvailable: true,
-    availableLessonsDate: new Date('2024-01-02'),
-    isLessonsAvailable: false,
-    moduleLessons: [
-      {
-        lesson: 'Lesson 4.1',
-        lessonTitle:
-          'Bridging the Gap between Islamic Finance and Crypto w/ Sheikh Mohamad Beyanouni',
-      },
-      {
-        lesson: 'Lesson 4.2',
-        lessonTitle: 'Cryptocurrency and the Prohibition of Riba (Usury)',
-      },
-      {
-        lesson: 'Lesson 4.3',
-        lessonTitle:
-          'What is staking? How to approach staking from Sharia perspectives? ',
-      },
-    ],
-  },
-  {
-    moduleTitle: 'Module',
-    moduleCount: 5,
-    isAvailable: false,
-  },
-];
+import { academyModules } from '../modules-page/modules';
+import { AcademyLesson } from '../modules-page/types';
 
 export function AcademyPreviewPage({
   turnstileSiteKey,
 }: {
   turnstileSiteKey?: string;
 }) {
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [locale, setLocale] = useState('en-US');
 
-  // const openVideoModal = useCallback(() => {
-  //   setIsVideoModalOpen(true);
-  // }, []);
-  const closeVideoModal = useCallback(() => {
-    setIsVideoModalOpen(false);
+  useEffect(() => {
+    setLocale(navigator?.language ?? 'en-US');
   }, []);
 
-  // const today = new Date();
-  // const twelveDecember = new Date('2023-12-12T13:00:00');
-  // const isItTwelveDecember = today >= twelveDecember;
+  const modulesToRender = useMemo(() => {
+    return (
+      turnstileSiteKey &&
+      academyModules.map((academyModule, index) => {
+        if (!academyModule.isAvailable) {
+          return null;
+        }
+
+        const date = new Date(academyModule.availableLessonsDate);
+        const formattedDate = date.toLocaleDateString(locale, {
+          day: '2-digit',
+          month: '2-digit',
+          year: undefined,
+        });
+        const moduleCount = index + 1;
+
+        return (
+          <Module
+            key={`module-${moduleCount}`}
+            availableLessonsDate={formattedDate}
+            lessons={academyModule.moduleLessons}
+            moduleCount={moduleCount}
+            isLessonsAvailable={academyModule.isLessonsAvailable}
+          />
+        );
+      })
+    );
+  }, [locale, turnstileSiteKey]);
 
   return (
     <div className="overflow-x-clip">
@@ -163,46 +79,7 @@ export function AcademyPreviewPage({
             >
               HAQQ Academy
             </h1>
-            {/* {!isItTwelveDecember ? ( */}
-            {/* <Fragment>
-                <h2 className="mt-[12px] text-[28px] font-[600] uppercase leading-[32px] md:text-[44px] md:leading-[48px] lg:text-[64px] lg:leading-[70px]">
-                  <span>season 1:&nbsp;</span>
-                  <span className="text-[#EB9226]">start 12.12</span>
-                </h2>
-                <div className="group mt-[64px] w-fit" onClick={openVideoModal}>
-                  <div className="relative h-[160px] w-[300px] brightness-50 transition-all duration-300 group-hover:cursor-pointer group-hover:brightness-100 md:h-[200px] md:w-[340px] lg:h-[300px] lg:w-[540px]">
-                    <Image
-                      src="/assets/images/academy/haqq-academy-preview-1.webp"
-                      alt=""
-                      className="rounded-lg"
-                      fill
-                      priority
-                    />
-                    <PlayVideoIcon className="absolute left-[36.5%] top-[28%] h-[78px] w-[78px] transform transition-all duration-300 group-hover:scale-110 md:left-[37.5%] md:top-[35%] lg:left-[42.5%] lg:top-[38%]" />
-                  </div>
-                </div>
-                <div className="mt-[68px] text-center">
-                  <Text isMono>
-                    Master The Basics of Crypto Through The Lens of Islamic
-                    Finance in 19 <br /> Insightful Lessons. Graduate from HAQQ
-                    Academy with Your&nbsp;
-                    <GradientText className="font-vcr text-[15px] uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
-                      NFT certificate
-                    </GradientText>
-                  </Text>
-                </div>
 
-                {turnstileSiteKey && (
-                  <div>
-                    <SubscribeForm
-                      className="mt-[28px] flex w-full flex-col gap-[16px] lg:flex-row"
-                      inputClassName="lg:min-w-[280px]"
-                      turnstileSiteKey={turnstileSiteKey}
-                    />
-                  </div>
-                )}
-              </Fragment> */}
-            {/* ) : ( */}
             <div className="w-full">
               <div className="mt-[16px] flex flex-row gap-x-[20px] md:mt-[20px] md:gap-x-[24px] lg:mt-[28px] lg:gap-x-[28px]">
                 <div className="flex flex-row items-center gap-x-[8px]">
@@ -212,60 +89,20 @@ export function AcademyPreviewPage({
                   <ClockIcon /> <Text isMono>103 Minutes</Text>
                 </div>
               </div>
-              <div className="mt-[32px] grid grid-cols-1 gap-y-[32px] md:mt-[44px] md:gap-y-[40px] lg:mt-[72px] lg:gap-y-[60px]">
-                {turnstileSiteKey &&
-                  modules.map((module) => {
-                    const day =
-                      module.availableLessonsDate &&
-                      module.availableLessonsDate?.getDate();
-                    const month =
-                      module.availableLessonsDate &&
-                      module.availableLessonsDate?.getMonth() + 1;
-                    const formattedDate = `${
-                      day && day < 10 ? '0' : ''
-                    }${day}.${month && month < 10 ? '0' : ''}${month}`;
 
-                    return (
-                      <Block
-                        key={`${module.moduleTitle} ${module.moduleCount}`}
-                      >
-                        <Module
-                          isAvailable={module.isAvailable}
-                          moduleTitle={module.moduleTitle}
-                          availableLessonsDate={
-                            module.availableLessonsDate ? formattedDate : ''
-                          }
-                          lessons={module.moduleLessons}
-                          turnstileSiteKey={turnstileSiteKey}
-                          moduleCount={module.moduleCount}
-                          isLessonsAvailable={module.isLessonsAvailable}
-                        />
-                      </Block>
-                    );
-                  })}
-              </div>
+              {modulesToRender && (
+                <div className="mt-[32px] grid grid-cols-1 gap-y-[32px] md:mt-[44px] md:gap-y-[40px] lg:mt-[72px] lg:gap-y-[60px]">
+                  <IntroModule />
+                  {modulesToRender}
+                  {turnstileSiteKey && (
+                    <SubscribeBlock turnstileSiteKey={turnstileSiteKey} />
+                  )}
+                </div>
+              )}
             </div>
-            {/* )} */}
           </div>
         </div>
       </Container>
-      <Modal isOpen={isVideoModalOpen} onClose={closeVideoModal}>
-        <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
-          <iframe
-            title="Islamic Coin Academy"
-            src="https://www.youtube.com/embed/9c2Mz-PBcx4"
-            allow="autoplay"
-            allowFullScreen
-            width="100%"
-            className="mx-auto aspect-video rounded-[20px]"
-          />
-
-          <ModalCloseButton
-            onClick={closeVideoModal}
-            className="absolute right-[-24px] top-[-24px] outline-none lg:right-[-32px]"
-          />
-        </div>
-      </Modal>
     </div>
   );
 }
@@ -343,119 +180,123 @@ function Block({ children }: PropsWithChildren) {
 }
 
 function Module({
-  isAvailable,
-  moduleTitle,
   availableLessonsDate,
   moduleCount,
   lessons,
-  turnstileSiteKey,
-  isLessonsAvailable,
+  isLessonsAvailable = false,
 }: {
-  moduleTitle: string;
-  moduleCount?: number;
-  isAvailable: boolean;
-  availableLessonsDate?: string;
-  lessons?: Lesson[];
-  turnstileSiteKey: string;
+  moduleCount: number;
+  availableLessonsDate: string;
+  lessons: AcademyLesson[];
   isLessonsAvailable?: boolean;
 }) {
-  const [isIntroVideoModalOpen, setIsIntroVideoModalOpen] = useState(false);
   const { setActiveModule, setActiveLesson } = useActiveLesson();
+
+  return (
+    <Block>
+      <div className="flex flex-row items-center gap-x-[8px] md:gap-x-[16px]">
+        <h3 className="text-[22px] font-[600] uppercase leading-[24px] md:text-[32px] md:leading-[36px]">
+          Module
+        </h3>
+        <ModuleBadge moduleCount={moduleCount} />
+      </div>
+      {availableLessonsDate && !isLessonsAvailable && (
+        <div className="font-vcr mt-[8px] text-[17px] uppercase leading-[26px] md:mt-[12px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+          Will be available on {availableLessonsDate}
+        </div>
+      )}
+      {lessons && (
+        <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[20px] md:grid-cols-2 md:gap-[24px] lg:mt-[36px]">
+          {lessons.map((lesson, idx) => {
+            return (
+              <Link
+                key={lesson.lessonTitle}
+                href={`/academy/lessons/${moduleCount}/${idx + 1}`}
+                onClick={() => {
+                  setActiveModule(moduleCount);
+                  setActiveLesson(idx);
+                }}
+                aria-disabled={!isLessonsAvailable}
+              >
+                <LessonCard
+                  lessonDescription={lesson.lessonDescription}
+                  lessonTitle={lesson.lessonTitle}
+                  lessonId={lesson.lessonId}
+                  isAvailable={isLessonsAvailable}
+                />
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </Block>
+  );
+}
+
+function IntroModule() {
+  const [isIntroVideoModalOpen, setIsIntroVideoModalOpen] = useState(false);
   const openIntroVideoModal = useCallback(() => {
     setIsIntroVideoModalOpen(true);
   }, []);
-
   const closeIntroVideoModal = useCallback(() => {
     setIsIntroVideoModalOpen(false);
   }, []);
 
   return (
-    <Fragment>
+    <Block>
       <div className="flex flex-row items-center gap-x-[8px] md:gap-x-[16px]">
         <h3 className="text-[22px] font-[600] uppercase leading-[24px] md:text-[32px] md:leading-[36px]">
-          {moduleTitle}
+          Intro
         </h3>
-        {moduleCount && <ModuleBadge moduleCount={moduleCount} />}
       </div>
-      {isAvailable ? (
-        <Fragment>
-          {availableLessonsDate && (
-            <div className="font-vcr mt-[8px] text-[17px] uppercase leading-[26px] md:mt-[12px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
-              Will be available on {availableLessonsDate}
-            </div>
-          )}
-          {lessons && (
-            <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[20px] md:grid-cols-2 md:gap-[24px] lg:mt-[36px]">
-              {lessons.map((lesson, idx) => {
-                return isLessonsAvailable && moduleCount ? (
-                  <Link
-                    key={lesson.lessonTitle}
-                    href={`/academy/lessons/${moduleCount}/${idx + 1}`}
-                    onClick={() => {
-                      setActiveModule(moduleCount);
-                      setActiveLesson(idx);
-                    }}
-                    aria-disabled={!isLessonsAvailable}
-                  >
-                    <LessonCard
-                      lesson={lesson.lesson}
-                      lessonTitle={lesson.lessonTitle}
-                      lessonId={lesson.lessonId}
-                      isAvailable={isLessonsAvailable}
-                    />
-                  </Link>
-                ) : (
-                  <Fragment key={lesson.lesson}>
-                    <LessonCard
-                      onClick={openIntroVideoModal}
-                      lesson={lesson.lesson}
-                      lessonTitle={lesson.lessonTitle}
-                      lessonId={lesson.lessonId}
-                      isAvailable={isLessonsAvailable}
-                    />
-                    <Modal
-                      isOpen={isIntroVideoModalOpen}
-                      onClose={closeIntroVideoModal}
-                    >
-                      <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
-                        <iframe
-                          title="Islamic Coin Academy Intro"
-                          src={`https://www.youtube.com/embed/${lesson.lessonId}`}
-                          allow="autoplay"
-                          allowFullScreen
-                          width="100%"
-                          className="mx-auto aspect-video rounded-[20px]"
-                        />
 
-                        <ModalCloseButton
-                          onClick={closeIntroVideoModal}
-                          className="absolute right-[-24px] top-[-24px] outline-none lg:right-[-32px]"
-                        />
-                      </div>
-                    </Modal>
-                  </Fragment>
-                );
-              })}
-            </div>
-          )}
-        </Fragment>
-      ) : (
-        <div className="flex flex-col items-center py-[33px] text-center">
-          <Text isMono>
-            Don't miss out on any future lessons - subscribe now!
-          </Text>
-          {turnstileSiteKey && (
-            <div>
-              <SubscribeForm
-                className="mt-[28px] flex w-full flex-col gap-[16px] lg:flex-row"
-                inputClassName="lg:min-w-[280px]"
-                turnstileSiteKey={turnstileSiteKey}
-              />
-            </div>
-          )}
+      <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[20px] md:grid-cols-2 md:gap-[24px] lg:mt-[36px]">
+        <LessonCard
+          onClick={openIntroVideoModal}
+          lessonTitle="Intro"
+          lessonDescription="Welcome to HAQQ Academy"
+          isAvailable={true}
+        />
+      </div>
+
+      <Modal isOpen={isIntroVideoModalOpen} onClose={closeIntroVideoModal}>
+        <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
+          <iframe
+            title="Islamic Coin Academy Intro"
+            src="https://www.youtube.com/embed/9c2Mz-PBcx4"
+            allow="autoplay"
+            allowFullScreen
+            width="100%"
+            className="mx-auto aspect-video rounded-[20px]"
+          />
+
+          <ModalCloseButton
+            onClick={closeIntroVideoModal}
+            className="absolute right-[-24px] top-[-24px] outline-none lg:right-[-32px]"
+          />
         </div>
-      )}
-    </Fragment>
+      </Modal>
+    </Block>
+  );
+}
+
+function SubscribeBlock({ turnstileSiteKey }: { turnstileSiteKey: string }) {
+  return (
+    <Block>
+      <div className="flex flex-col items-center py-[33px] text-center">
+        <Text isMono>
+          Don't miss out on any future lessons - subscribe now!
+        </Text>
+
+        <div>
+          <SubscribeForm
+            className="mt-[28px] flex w-full flex-col gap-[16px] lg:flex-row"
+            inputClassName="lg:min-w-[280px]"
+            turnstileSiteKey={turnstileSiteKey}
+          />
+        </div>
+      </div>
+    </Block>
   );
 }
 
@@ -501,13 +342,13 @@ function ModuleBadge({ moduleCount }: { moduleCount: number }) {
 
 function LessonCard({
   lessonId,
-  lesson,
+  lessonDescription,
   lessonTitle,
   isAvailable = true,
   onClick,
 }: {
   lessonId?: string;
-  lesson: string;
+  lessonDescription: string;
   lessonTitle: string;
   isAvailable?: boolean;
   onClick?: () => void;
@@ -520,7 +361,7 @@ function LessonCard({
           ? 'pointer-events-none cursor-not-allowed select-none rounded-[19px] border border-[#232323]'
           : 'cursor-pointer',
       )}
-      onClick={onClick}
+      onClick={isAvailable ? onClick : undefined}
     >
       {!isAvailable && (
         <LockIcon className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2" />
@@ -553,7 +394,7 @@ function LessonCard({
         </div>
         <div className="w-full lg:w-2/5 xl:min-w-[55%]">
           <div className="font-vcr mt-[12px] text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
-            {lesson}
+            {lessonDescription}
           </div>
           <div className="mt-[2px] h-[26px] truncate text-[17px] leading-[26px] md:mt-[4px] md:text-[18px] lg:mt-[8px] lg:h-auto lg:text-[20px] lg:leading-[28px]">
             {lessonTitle}

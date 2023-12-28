@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { SITE_URL } from '../constants';
 import { SUPPORTED_LOCALES } from '../constants';
+import { academyModules } from '@haqq/islamic-website/academy-page';
 
 export interface SitemapUrl {
   url: string;
@@ -30,33 +31,33 @@ const staticRoutes = [
   '/whitepaper',
 ];
 
-const academyModules = [
-  { moduleCount: 1, lessonsCount: 2, releaseDate: new Date('2023-12-12') },
-  { moduleCount: 2, lessonsCount: 3, releaseDate: new Date('2023-12-19') },
-  { moduleCount: 3, lessonsCount: 3, releaseDate: new Date('2023-12-26') },
-];
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lessonUrls: SitemapUrl[] = [];
 
-  academyModules.forEach((module) => {
+  for (const academyModule of academyModules) {
+    const moduleLessonsLength = academyModule.isAvailable
+      ? academyModule.moduleLessons.length
+      : 0;
+
     for (
       let lessonCount = 1;
-      lessonCount <= module.lessonsCount;
+      lessonCount <= moduleLessonsLength;
       lessonCount++
     ) {
-      SUPPORTED_LOCALES.forEach((locale) => {
-        const url = new URL(
-          `/${locale}${staticRoutes[1]}/lessons/${module.moduleCount}/${lessonCount}`,
-          SITE_URL,
-        ).toString();
-        lessonUrls.push({
-          url,
-          lastModified: module.releaseDate.toISOString(),
-        });
-      });
+      for (const locale of SUPPORTED_LOCALES) {
+        if (academyModule.isAvailable) {
+          const url = new URL(
+            `/${locale}${staticRoutes[1]}/lessons/${moduleLessonsLength}/${lessonCount}`,
+            SITE_URL,
+          ).toString();
+          lessonUrls.push({
+            url,
+            lastModified: academyModule.availableLessonsDate.toISOString(),
+          });
+        }
+      }
     }
-  });
+  }
 
   const staticUrls = SUPPORTED_LOCALES.flatMap((locale) => {
     return staticRoutes.map((route) => {

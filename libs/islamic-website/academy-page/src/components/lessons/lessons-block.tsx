@@ -3,7 +3,7 @@
 import { Button, SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useEffect, useState, Fragment } from 'react';
-import { IModules } from '../../lib/modules-page/types';
+import { AcademyModulesJson } from '../../lib/modules-page/types';
 import MODULES from './modules.json';
 import { useIsMobile } from '@haqq/shared';
 import { Select } from '@haqq/islamic-website-ui-kit';
@@ -13,10 +13,10 @@ import clsx from 'clsx';
 export const useActiveLesson = () => {
   const [activeLessonIndex, setActiveLessonIndex] = useState(0);
   const [activeModuleIndex, setActiveModuleIndex] = useState(0);
-
   const locale = useLocale();
 
-  const modules = ((MODULES as IModules)[locale] || MODULES['en']).modules;
+  const modules = ((MODULES as AcademyModulesJson)[locale] || MODULES['en'])
+    .academyModules;
 
   const currentModuleLessons = useMemo(() => {
     if (activeModuleIndex === undefined) {

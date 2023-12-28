@@ -12,3 +12,8 @@ export const TURNSTILE_SITEKEY = process.env['TURNSTILE_SITEKEY'];
 export const NX_WALLETCONNECT_PROJECT_ID =
   process.env['NX_WALLETCONNECT_PROJECT_ID'];
 export const SITE_URL = 'https://haqq.network';
+
+console.log({
+  VERCEL_URL: process.env['VERCEL_URL'],
+  NEXT_PUBLIC_VERCEL_URL: process.env['NEXT_PUBLIC_VERCEL_URL'],
+});
