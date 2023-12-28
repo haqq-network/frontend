@@ -1,4 +1,4 @@
-export interface ILesson {
+export interface AcademyLessonJson {
   name: string;
   duration: string;
   title: string;
@@ -7,13 +7,32 @@ export interface ILesson {
   quiz_link: string;
 }
 
-interface IModule {
+interface AcademyModuleJson {
   name: string;
-  lessons: ILesson[];
+  lessons: AcademyLessonJson[];
 }
 
-export interface IModules {
-  [key: string]: {
-    modules: IModule[];
+export interface AcademyModulesJson {
+  [locale: string]: {
+    academyModules: AcademyModuleJson[];
   };
 }
+
+export interface AcademyLesson {
+  lessonId?: string;
+  lessonTitle: string;
+  lessonDescription: string;
+}
+
+export type AvailableAcademyModule = {
+  isAvailable: true;
+  availableLessonsDate: Date;
+  isLessonsAvailable?: boolean;
+  moduleLessons: AcademyLesson[];
+};
+
+export type UnavailableAcademyModule = {
+  isAvailable: false;
+};
+
+export type AcademyModule = AvailableAcademyModule | UnavailableAcademyModule;
