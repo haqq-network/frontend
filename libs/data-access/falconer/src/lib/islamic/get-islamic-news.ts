@@ -36,12 +36,11 @@ export async function getIslamicNewsData(
   limit?: number,
 ) {
   const requestUrl = new URL('/islamic/news', FALCONER_ENDPOINT);
+
+  limit && requestUrl.searchParams.append('limit', limit.toString());
+
   const response = await fetch(requestUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ limit }),
+    method: 'GET',
     ...options,
   });
 
