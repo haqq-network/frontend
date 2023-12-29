@@ -45,7 +45,7 @@ export async function getIslamicNewsData(
   });
 
   if (!response.ok) {
-    throw new Error('chain stats fetch failed');
+    throw new Error('News fetch failed');
   }
 
   const responseJson: FalconerNewsPost[] = await response.json();
