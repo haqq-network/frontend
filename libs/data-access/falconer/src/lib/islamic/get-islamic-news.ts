@@ -36,17 +36,18 @@ export async function getIslamicNewsData(
   limit?: number,
 ) {
   const requestUrl = new URL('/islamic/news', FALCONER_ENDPOINT);
+
+  if (limit) {
+    requestUrl.searchParams.append('limit', limit.toString());
+  }
+
   const response = await fetch(requestUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ limit }),
+    method: 'GET',
     ...options,
   });
 
   if (!response.ok) {
-    throw new Error('chain stats fetch failed');
+    throw new Error('News fetch failed');
   }
 
   const responseJson: FalconerNewsPost[] = await response.json();
