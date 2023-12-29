@@ -13,6 +13,7 @@ export async function getIslamicWhitepaperData(
     method: 'GET',
     ...options,
   });
+
   if (!response.ok) {
     throw new Error('Whitepaper fetch failed');
   }
