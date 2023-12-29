@@ -4,7 +4,7 @@ import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
 import { headers } from 'next/headers';
 import clsx from 'clsx';
 import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
-import { NextIntlClientProvider } from 'next-intl';
+// import { NextIntlClientProvider } from 'next-intl';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Script from 'next/script';
 import Header, { MobileHeader } from '../../components/header/header';
@@ -18,7 +18,8 @@ import 'swiper/css/navigation';
 import '../../styles/global.css';
 import '../../styles/consent-cookie.css';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
-import { notFound } from 'next/navigation';
+// import { notFound } from 'next/navigation';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],
@@ -42,22 +43,24 @@ export const viewport: Viewport = {
   width: 'device-width',
 };
 
-async function getMessages(locale: string) {
-  const { default: defaultMessages } = await import(
-    `../../messages/${locale}.json`
-  );
-  return defaultMessages;
-}
+// async function getMessages(locale: string) {
+//   const { default: defaultMessages } = await import(
+//     `../../messages/${locale}.json`
+//   );
+//   return defaultMessages;
+// }
 
 export default async function LocaleLayout({
   children,
   params: { locale },
 }: PropsWithChildren<{ params: { locale: LocaleType } }>) {
-  const messages = await getMessages(locale);
+  // const messages = await getMessages(locale);
 
-  if (!messages) {
-    notFound();
-  }
+  unstable_setRequestLocale(locale);
+
+  // if (!messages) {
+  //   notFound();
+  // }
 
   const headersList = headers();
   const userAgent = headersList.get('user-agent');
@@ -67,43 +70,43 @@ export default async function LocaleLayout({
     ),
   );
   const isScamBannerShow = true;
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? 'GMT';
+  // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? 'GMT';
 
   return (
-    <NextIntlClientProvider
-      locale={locale}
-      messages={messages}
-      timeZone={timeZone}
+    // <NextIntlClientProvider
+    //   locale={locale}
+    //   messages={messages}
+    //   timeZone={timeZone}
+    // >
+    <html
+      lang={locale}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      translate="no"
+      className={clsx(
+        alexandriaFont.variable,
+        handjetFont.variable,
+        vcrFont.variable,
+      )}
     >
-      <html
-        lang={locale}
-        dir={locale === 'ar' ? 'rtl' : 'ltr'}
-        translate="no"
-        className={clsx(
-          alexandriaFont.variable,
-          handjetFont.variable,
-          vcrFont.variable,
+      <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
+        {isScamBannerShow && <ScamBanner />}
+        {isMobileUserAgent ? (
+          <MobileHeader locale={locale} isBannerVisible={isScamBannerShow} />
+        ) : (
+          <Header locale={locale} isBannerVisible={isScamBannerShow} />
         )}
-      >
-        <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
-          {isScamBannerShow && <ScamBanner />}
-          {isMobileUserAgent ? (
-            <MobileHeader locale={locale} isBannerVisible={isScamBannerShow} />
-          ) : (
-            <Header locale={locale} isBannerVisible={isScamBannerShow} />
-          )}
-          <main className="flex-1">{children}</main>
-          <Footer socialLinks={SOCIAL_LINKS} />
+        <main className="flex-1">{children}</main>
+        <Footer socialLinks={SOCIAL_LINKS} />
 
-          <div>
-            {VERCEL_ENV === 'production' && (
-              <script
-                async={true}
-                defer={true}
-                id="fb-pixel"
-                data-cookiecategory="analytics"
-                dangerouslySetInnerHTML={{
-                  __html: `
+        <div>
+          {VERCEL_ENV === 'production' && (
+            <script
+              async={true}
+              defer={true}
+              id="fb-pixel"
+              data-cookiecategory="analytics"
+              dangerouslySetInnerHTML={{
+                __html: `
                     !function(f,b,e,v,n,t,s)
                     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -115,32 +118,32 @@ export default async function LocaleLayout({
                     fbq('init', '873030480371387');
                     fbq('track', 'PageView');
                   `,
-                }}
-              />
-            )}
-            {VERCEL_ENV === 'production' && (
-              <Script
-                async={true}
-                defer={true}
-                id="gtm"
-                data-cookiecategory="analytics"
-                dangerouslySetInnerHTML={{
-                  __html: `
+              }}
+            />
+          )}
+          {VERCEL_ENV === 'production' && (
+            <Script
+              async={true}
+              defer={true}
+              id="gtm"
+              data-cookiecategory="analytics"
+              dangerouslySetInnerHTML={{
+                __html: `
                     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                     })(window,document,'script','dataLayer','GTM-5H2ZFCN');
                   `,
-                }}
-              />
-            )}
-            {VERCEL_ENV === 'production' && <CookieConsentModal />}
-            {VERCEL_ENV === 'production' && <Analytics mode="auto" />}
-          </div>
-        </body>
-      </html>
-    </NextIntlClientProvider>
+              }}
+            />
+          )}
+          {VERCEL_ENV === 'production' && <CookieConsentModal />}
+          {VERCEL_ENV === 'production' && <Analytics mode="auto" />}
+        </div>
+      </body>
+    </html>
+    // </NextIntlClientProvider>
   );
 }
 
