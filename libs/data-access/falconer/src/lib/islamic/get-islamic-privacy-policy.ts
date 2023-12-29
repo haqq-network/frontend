@@ -6,12 +6,11 @@ export async function getIslamicPrivacyPolicyData(
   locale: string,
 ) {
   const requestUrl = new URL('/islamic/pp', FALCONER_ENDPOINT);
+
+  requestUrl.searchParams.append('locale', locale);
+
   const response = await fetch(requestUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ locale }),
+    method: 'GET',
     ...options,
   });
 
