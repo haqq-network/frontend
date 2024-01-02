@@ -392,7 +392,7 @@ function LessonCard({
           )}
         </div>
         <div className="w-full lg:w-2/5 xl:min-w-[55%]">
-          <div className="font-vcr mt-[12px] text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
+          <div className="font-vcr mt-[12px] truncate text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
             {lessonDescription}
           </div>
           <div className="mt-[2px] h-[26px] truncate text-[17px] leading-[26px] md:mt-[4px] md:text-[18px] lg:mt-[8px] lg:h-auto lg:text-[20px] lg:leading-[28px]">
