@@ -24,6 +24,7 @@ comment:
     - flags
     - files
   behavior: default
+  require_changes: true
 
 parsers:
   javascript:
