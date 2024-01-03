@@ -74,6 +74,7 @@ export function AcademyPreviewPage({
               className={clsx(
                 'font-vcr text-haqq-black self-start text-[46px] font-[400] uppercase leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
                 styles['stroke__heading'],
+                // !isItTwelveDecember ? 'self-center' : 'self-start',
               )}
             >
               HAQQ Academy
@@ -385,14 +386,14 @@ function LessonCard({
           {lessonId && (
             <Image
               alt="Lesson preview"
-              src={`https://img.youtube.com/vi/${lessonId}/0.jpg`}
+              src={`https://img.youtube.com/vi/${lessonId}/1.jpg`}
               fill
               className="absolute h-full min-w-[200px] rounded-[8px] object-cover"
             />
           )}
         </div>
         <div className="w-full lg:w-2/5 xl:min-w-[55%]">
-          <div className="font-vcr mt-[12px] truncate text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
+          <div className="font-vcr mt-[12px] text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
             {lessonDescription}
           </div>
           <div className="mt-[2px] h-[26px] truncate text-[17px] leading-[26px] md:mt-[4px] md:text-[18px] lg:mt-[8px] lg:h-auto lg:text-[20px] lg:leading-[28px]">
