@@ -3118,7 +3118,6 @@ __metadata:
     "@keplr-wallet/types": "npm:0.12.57"
     "@mdx-js/loader": "npm:3.0.0"
     "@mdx-js/react": "npm:3.0.0"
-    "@metamask/jazzicon": "npm:2.0.0"
     "@next/mdx": "npm:14.0.4"
     "@nx/cypress": "npm:17.2.8"
     "@nx/eslint": "npm:17.2.8"
@@ -3963,16 +3962,6 @@ __metadata:
     tweetnacl: "npm:^1.0.3"
     tweetnacl-util: "npm:^0.15.1"
   checksum: a41a986abd14675badeb02041466e30e1c3ef529c1d131f47c27fd48d73144fcf590f45d8ee8b7cd357725ebf75ece93f4484adf1baf6311cc996f7ef82c4ae1
-  languageName: node
-  linkType: hard
-
-"@metamask/jazzicon@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@metamask/jazzicon@npm:2.0.0"
-  dependencies:
-    color: "npm:^0.11.3"
-    mersenne-twister: "npm:^1.1.0"
-  checksum: 0b5add49e8d28270e4f8ca6159aa4ea0848f70cbb1cb217de2b0c13799a45fb27b8a6f0b3f72b6a76cbb55446764f79daf71e7d2a830a14b8e5e54d5e57bf7d1
   languageName: node
   linkType: hard
 
@@ -11509,7 +11498,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-convert@npm:^1.3.0, color-convert@npm:^1.9.0":
+"color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
   dependencies:
@@ -11541,15 +11530,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-string@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "color-string@npm:0.3.0"
-  dependencies:
-    color-name: "npm:^1.0.0"
-  checksum: 3755fe07d2f12539c5c4cf6aa69e3400bcc8cdb7d6aef64084d5f50c27a7337c22b7cfbefd1cf3a3f83ef3fce6014f86c0bfc008f436caa70b909f56b86ccee2
-  languageName: node
-  linkType: hard
-
 "color-string@npm:^1.9.0":
   version: 1.9.1
   resolution: "color-string@npm:1.9.1"
@@ -11557,17 +11537,6 @@ __metadata:
     color-name: "npm:^1.0.0"
     simple-swizzle: "npm:^0.2.2"
   checksum: 72aa0b81ee71b3f4fb1ac9cd839cdbd7a011a7d318ef58e6cb13b3708dca75c7e45029697260488709f1b1c7ac4e35489a87e528156c1e365917d1c4ccb9b9cd
-  languageName: node
-  linkType: hard
-
-"color@npm:^0.11.3":
-  version: 0.11.4
-  resolution: "color@npm:0.11.4"
-  dependencies:
-    clone: "npm:^1.0.2"
-    color-convert: "npm:^1.3.0"
-    color-string: "npm:^0.3.0"
-  checksum: 6384245de2869cc480fee5e1b3f3e814119a4139b0b05d8a65750eb091c23e9632415bf52c1441e6e6c9d98d5ccc49d24b3c414bdf302029f99e372adedccd68
   languageName: node
   linkType: hard
 
@@ -19298,13 +19267,6 @@ __metadata:
   version: 1.4.1
   resolution: "merge2@npm:1.4.1"
   checksum: 7268db63ed5169466540b6fb947aec313200bcf6d40c5ab722c22e242f651994619bcd85601602972d3c85bd2cc45a358a4c61937e9f11a061919a1da569b0c2
-  languageName: node
-  linkType: hard
-
-"mersenne-twister@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "mersenne-twister@npm:1.1.0"
-  checksum: 1123526199091097102f2f91639ad7d5b3df4b098de9a4a72c835920e11ef0ce08e25737d5af1d363325a60da8804365eae8a41e03b7a46a1acc22e18fa8f261
   languageName: node
   linkType: hard
 

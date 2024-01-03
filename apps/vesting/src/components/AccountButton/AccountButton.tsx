@@ -4,7 +4,6 @@
 import { Fragment, ReactElement, ReactNode } from 'react';
 import clsx from 'clsx';
 import { Button } from '../Button/Button';
-import { IdentIcon } from '../IdentIcon/IdentIcon';
 import { Menu, Transition } from '@headlessui/react';
 import { getFormattedAddress } from '@haqq/shared';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
@@ -101,11 +100,6 @@ export function AccountButton({
             <div className="flex-1 text-[14px] font-medium">
               {getFormattedAddress(account.address, 3, 2)}
             </div>
-            <IdentIcon
-              address={account.address}
-              size={16}
-              className="flex-none"
-            />
           </AddressButton>
         </Menu.Button>
 
