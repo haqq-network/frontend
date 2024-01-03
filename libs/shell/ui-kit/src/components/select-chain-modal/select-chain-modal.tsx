@@ -56,8 +56,6 @@ export function SelectChainModal({
                 </Button>
               );
             })}
-
-            {/* {error && <div className="pt-4 text-red-500">{error}</div>} */}
           </div>
         </div>
       </div>

@@ -20,25 +20,25 @@ export const FirstVariant: Story = {
 
 export const SecondVariant: Story = {
   args: {
-    children: 'First variant',
+    children: 'Second variant',
     variant: 2,
   },
 };
 export const ThirdVariant: Story = {
   args: {
-    children: 'First variant',
+    children: 'Third variant',
     variant: 3,
   },
 };
 export const FourthVariant: Story = {
   args: {
-    children: 'First variant',
+    children: 'Fourth variant',
     variant: 4,
   },
 };
 export const FifthVariant: Story = {
   args: {
-    children: 'First variant',
+    children: 'Fifth variant',
     variant: 5,
   },
 };
