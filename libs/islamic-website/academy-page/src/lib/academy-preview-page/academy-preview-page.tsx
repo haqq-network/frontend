@@ -256,6 +256,7 @@ function IntroModule() {
           lessonTitle="Intro"
           lessonDescription="Welcome to HAQQ Academy"
           isAvailable={true}
+          lessonId="9c2Mz-PBcx4"
         />
       </div>
 
@@ -374,7 +375,7 @@ function LessonCard({
             : 'transition-colors duration-150 ease-in hover:border-[#8A8A8A]',
         )}
       >
-        <div className="relative aspect-video h-[100px] w-full lg:w-[200px]">
+        <div className="relative aspect-video h-[114px] w-full lg:w-[200px]">
           <div className="absolute z-[1] h-full w-full rounded-[8px] bg-[#02030480]" />
           <PlayVideoIcon
             className={clsx(
@@ -393,11 +394,13 @@ function LessonCard({
           )}
         </div>
         <div className="w-full lg:w-2/5 xl:min-w-[55%]">
-          <div className="font-vcr mt-[12px] text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:mt-0 lg:text-[18px] lg:leading-[26px]">
-            {lessonDescription}
-          </div>
-          <div className="mt-[2px] h-[26px] truncate text-[17px] leading-[26px] md:mt-[4px] md:text-[18px] lg:mt-[8px] lg:h-auto lg:text-[20px] lg:leading-[28px]">
-            {lessonTitle}
+          <div className="flex h-full flex-col justify-between gap-[2px] md:gap-[4px] lg:gap-[8px]">
+            <div className="font-vcr text-[15px] uppercase leading-[22px] text-white/50 md:text-[16px] md:leading-[24px] lg:text-[18px] lg:leading-[26px]">
+              {lessonDescription}
+            </div>
+            <div className="h-[26px] truncate text-[17px] leading-[26px] md:text-[18px] lg:h-auto lg:text-[20px] lg:leading-[28px]">
+              {lessonTitle}
+            </div>
           </div>
         </div>
       </div>
