@@ -25,7 +25,8 @@
     "**/*.jsx",
     "../../apps/islamic-website/.next/types/**/*.ts",
     "../../dist/apps/islamic-website/.next/types/**/*.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
