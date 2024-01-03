@@ -1,9 +1,8 @@
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
+import { act, render } from '@testing-library/react';
+import { renderWithUserEvents } from '../../../tests/render-with-user-events';
 import { Checkbox } from './checkbox';
 
-describe('Checkbox', () => {
+describe('<Checkbox />', () => {
   it('should render Checkbox component with default props', () => {
     const { getByRole } = render(<Checkbox onChange={jest.fn()} />);
 
@@ -48,11 +47,15 @@ describe('Checkbox', () => {
 
   it('should call onChange function when checkbox is clicked', async () => {
     const onChangeMock = jest.fn();
-    const { getByRole } = render(<Checkbox onChange={onChangeMock} />);
+    const { getByRole, user } = renderWithUserEvents(
+      <Checkbox onChange={onChangeMock} />,
+    );
 
     const checkboxElement = getByRole('checkbox');
 
-    await userEvent.click(checkboxElement);
+    await act(async () => {
+      await user.click(checkboxElement);
+    });
 
     expect(onChangeMock).toHaveBeenCalledTimes(1);
     expect(onChangeMock).toHaveBeenCalledWith(true, expect.anything());
@@ -60,18 +63,22 @@ describe('Checkbox', () => {
 
   it('should toggle checkbox when label is clicked', async () => {
     const onChangeMock = jest.fn();
-    const { getByText } = render(
+    const { getByText, user } = renderWithUserEvents(
       <Checkbox onChange={onChangeMock}>Click me!</Checkbox>,
     );
 
     const labelElement = getByText('Click me!');
 
-    await userEvent.click(labelElement);
+    await act(async () => {
+      await user.click(labelElement);
+    });
 
     expect(onChangeMock).toHaveBeenCalledTimes(1);
     expect(onChangeMock).toHaveBeenCalledWith(true, expect.anything());
 
-    await userEvent.click(labelElement);
+    await act(async () => {
+      await user.click(labelElement);
+    });
 
     expect(onChangeMock).toHaveBeenCalledTimes(2);
     expect(onChangeMock).toHaveBeenCalledWith(false, expect.anything());
@@ -89,7 +96,7 @@ describe('Checkbox', () => {
 
   it('should render disabled Checkbox component', async () => {
     const onChangeMock = jest.fn();
-    const { getByRole } = render(
+    const { getByRole, user } = renderWithUserEvents(
       <Checkbox onChange={jest.fn()} disabled={true} />,
     );
 
@@ -98,7 +105,9 @@ describe('Checkbox', () => {
     expect(checkboxElement).toBeInTheDocument();
     expect(checkboxElement).toBeDisabled();
 
-    await userEvent.click(checkboxElement);
+    await act(async () => {
+      await user.click(checkboxElement);
+    });
 
     expect(onChangeMock).not.toHaveBeenCalled();
   });
