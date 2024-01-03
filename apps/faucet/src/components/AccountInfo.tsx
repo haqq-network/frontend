@@ -25,13 +25,13 @@ export function MyAccountCardBlock({
 }
 
 export function AccountInfo() {
-  const { chain } = useNetwork();
   const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
   const { ethAddress, haqqAddress } = useAddress();
   const { copyText } = useClipboard();
   const { data: balance } = useBalance({
     address: ethAddress,
-    chainId: chain?.id ?? chains[0].id,
+    chainId: chain.id,
   });
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
@@ -70,10 +70,6 @@ export function AccountInfo() {
     <div className="flex flex-col justify-between gap-[16px]">
       {ethAddress && (
         <div className="flex flex-1 flex-row items-center gap-x-4">
-          {/* <div className="h-[40px] w-[40px] leading-[0]">
-            <IdentIcon address={ethAddress} size={40} />
-          </div> */}
-
           <MyAccountCardBlock title="Address">
             <div className="flex flex-col gap-[16px] font-sans sm:flex-row">
               <div className="flex-1">
@@ -119,7 +115,7 @@ export function AccountInfo() {
         <MyAccountCardBlock title="Balance">
           <div className="flex flex-1 flex-row items-center font-serif text-[20px] font-[500] leading-[30px]">
             {formatNumber(accBalance)}{' '}
-            {chain?.nativeCurrency.symbol.toLocaleUpperCase()}
+            {chain.nativeCurrency.symbol.toLocaleUpperCase()}
           </div>
         </MyAccountCardBlock>
       )}
