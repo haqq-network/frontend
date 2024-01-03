@@ -1,16 +1,15 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import { SpinnerLoader } from '../spinner-loader/spinner-loader';
 
-export interface ButtonProps {
+export type ButtonProps = PropsWithChildren<{
   className?: string;
-  children: ReactNode;
-  onClick?: () => void;
   variant?: 1 | 2 | 3 | 4 | 5;
   disabled?: boolean;
   type?: 'submit' | 'button' | 'reset';
   isLoading?: boolean;
-}
+  onClick?: () => void;
+}>;
 
 export function Button({
   onClick,
@@ -58,8 +57,8 @@ export function Button({
       onClick={onClick}
       type={type}
     >
-      {isLoading && (
-        <div className="absolute left-1/2 top-1/2 !h-6 !w-6 translate-x-[-50%] translate-y-[-50%] leading-none">
+      {isLoading ? (
+        <span className="absolute left-1/2 top-1/2 !h-6 !w-6 translate-x-[-50%] translate-y-[-50%] leading-none">
           <SpinnerLoader
             className={clsx(
               '!h-[24px] !w-[24px]',
@@ -69,9 +68,10 @@ export function Button({
                 '!fill-haqq-black !text-haqq-black/25',
             )}
           />
-        </div>
+        </span>
+      ) : (
+        children
       )}
-      {children}
     </button>
   );
 }
