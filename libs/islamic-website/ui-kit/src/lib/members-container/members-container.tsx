@@ -55,8 +55,8 @@ export function MembersContainer({
         type === 'advisory'
           ? 'advisory'
           : type === 'shariah'
-          ? 'shariah'
-          : 'executive'
+            ? 'shariah'
+            : 'executive'
       }-board`}
     >
       <div className="text-[22px] font-[600] leading-[24px] md:text-[32px] md:leading-[36px] lg:text-[48px] lg:leading-[54px]">

@@ -1,12 +1,10 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
-export interface TabsProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function Tabs({ children, className }: TabsProps) {
+export function Tabs({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) {
   return (
     <div
       className={clsx(
@@ -19,14 +17,15 @@ export function Tabs({ children, className }: TabsProps) {
   );
 }
 
-export interface TabProps {
-  children: ReactNode;
+export function Tab({
+  children,
+  isActive = false,
+  onClick,
+}: PropsWithChildren<{
   className?: string;
   isActive?: boolean;
   onClick: () => void;
-}
-
-export function Tab({ children, isActive = false, onClick }: TabProps) {
+}>) {
   return (
     <div
       className={clsx(

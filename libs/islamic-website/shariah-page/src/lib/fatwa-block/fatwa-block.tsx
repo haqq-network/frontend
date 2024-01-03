@@ -113,12 +113,12 @@ export function FatwaBlock({
         <Text size="small">{t('fatwa-block.subtitle')}</Text>
       </div>
 
-      <div className="mt-[24px] flex gap-x-[16px] rtl:flex-row-reverse rtl:justify-end md:mt-[28px] lg:mt-[32px]">
+      <div className="mt-[24px] flex gap-x-[16px] md:mt-[28px] lg:mt-[32px] rtl:flex-row-reverse rtl:justify-end">
         <DownloadPDFButton language="en" url="/assets/fatwa-en.pdf" />
         <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
       </div>
 
-      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] rtl:flex-row-reverse md:mt-[48px] lg:mt-[60px]">
+      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px] rtl:flex-row-reverse">
         <LangButton isActive={locale === 'en'} locale="en" href="/shariah" />
         <LangButton isActive={locale === 'ar'} locale="ar" href="/shariah" />
         <LangButton isActive={locale === 'id'} locale="id" href="/shariah" />

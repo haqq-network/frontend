@@ -226,7 +226,7 @@ function Cubes() {
 
 function BuildPageBg() {
   return (
-    <div className="absolute top-[-150px] z-[-1] h-[550px] w-[655px] ltr:left-[40px] rtl:right-[40px] rtl:scale-x-[-1] rtl:transform md:top-[100px] ltr:md:left-auto ltr:md:right-[-180px] rtl:md:left-[-180px] rtl:md:right-auto xl:top-[100px] ltr:xl:right-[-90px] rtl:xl:left-[-90px] min-[1440px]:top-[110px] ltr:min-[1440px]:right-[30px] rtl:min-[1440px]:left-[30px]">
+    <div className="absolute top-[-150px] z-[-1] h-[550px] w-[655px] md:top-[100px] xl:top-[100px] min-[1440px]:top-[110px] ltr:left-[40px] ltr:md:left-auto ltr:md:right-[-180px] ltr:xl:right-[-90px] ltr:min-[1440px]:right-[30px] rtl:right-[40px] rtl:scale-x-[-1] rtl:transform rtl:md:left-[-180px] rtl:md:right-auto rtl:xl:left-[-90px] rtl:min-[1440px]:left-[30px]">
       <Cubes />
     </div>
   );

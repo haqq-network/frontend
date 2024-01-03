@@ -54,6 +54,7 @@ export function ModalCloseButton({
         className,
       )}
       onClick={onClick}
+      aria-label="Close modal"
     >
       <svg
         width="24"

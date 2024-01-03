@@ -230,8 +230,8 @@ export function MobileHeader({
           isMobileMenuOpen
             ? 'bg-[#15191ef2] backdrop-blur-[6px]'
             : isBlurred
-            ? '!border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px]'
-            : 'bg-transparent',
+              ? '!border-[#2F2F2F] bg-[#010304CC] backdrop-blur-[6px]'
+              : 'bg-transparent',
           isMobileMenuOpen &&
             isBannerVisible &&
             'h-[calc(100vh-64px)] md:h-[calc(100vh-40px)]',

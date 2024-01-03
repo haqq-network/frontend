@@ -58,7 +58,7 @@ export function MissionPage() {
           </div>
         </div>
 
-        <div className="ltr:md:pl-[480px] rtl:md:pr-[480px] ltr:xl:pl-[680px] rtl:xl:pr-[680px]">
+        <div className="ltr:md:pl-[480px] ltr:xl:pl-[680px] rtl:md:pr-[480px] rtl:xl:pr-[680px]">
           <div className="relative w-full">
             <Image
               src={missionRockImgData}
