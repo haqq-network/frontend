@@ -71,18 +71,18 @@ export const academyModules: AcademyModule[] = [
         lessonTitle: 'Lesson 4.1',
         lessonDescription:
           'Bridging the Gap between Islamic Finance and Crypto w/ Sheikh Mohamad Beyanouni',
-        lessonId: 'GCXaQttX6o',
+        lessonId: 'j6seXXPl9zs',
       },
       {
         lessonTitle: 'Lesson 4.2',
         lessonDescription: 'Cryptocurrency and the Prohibition of Riba (Usury)',
-        lessonId: 'GC7uQttxkV',
+        lessonId: 'WqUMg20x8dg',
       },
       {
         lessonTitle: 'Lesson 4.3',
         lessonDescription:
           'What is staking? How to approach staking from Sharia perspectives?',
-        lessonId: 'GCS6QttfGC',
+        lessonId: '7a1x6_1jfoY',
       },
     ],
   },
