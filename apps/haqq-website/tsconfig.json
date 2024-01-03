@@ -23,8 +23,7 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "../../apps/haqq-website/.next/types/**/*.ts",
-    "../../dist/apps/haqq-website/.next/types/**/*.ts",
+    ".next/types/**/*.ts",
     "next-env.d.ts"
   ],
   "exclude": [

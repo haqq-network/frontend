@@ -87,6 +87,7 @@ export default async function LocaleLayout({
       >
         <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
           {isScamBannerShow && <ScamBanner />}
+
           {isMobileUserAgent ? (
             <MobileHeader locale={locale} isBannerVisible={isScamBannerShow} />
           ) : (
@@ -95,9 +96,9 @@ export default async function LocaleLayout({
           <main className="flex-1">{children}</main>
           <Footer socialLinks={SOCIAL_LINKS} />
 
-          <div>
-            {VERCEL_ENV === 'production' && (
-              <script
+          {VERCEL_ENV === 'production' && (
+            <div>
+              <Script
                 async={true}
                 defer={true}
                 id="fb-pixel"
@@ -117,8 +118,6 @@ export default async function LocaleLayout({
                   `,
                 }}
               />
-            )}
-            {VERCEL_ENV === 'production' && (
               <Script
                 async={true}
                 defer={true}
@@ -134,10 +133,10 @@ export default async function LocaleLayout({
                   `,
                 }}
               />
-            )}
-            {VERCEL_ENV === 'production' && <CookieConsentModal />}
-            {VERCEL_ENV === 'production' && <Analytics mode="auto" />}
-          </div>
+              <CookieConsentModal />
+              <Analytics mode="auto" />
+            </div>
+          )}
         </body>
       </html>
     </NextIntlClientProvider>
