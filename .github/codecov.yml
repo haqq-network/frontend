@@ -25,6 +25,7 @@ flag_management:
 comment:
   layout: 'reach, diff, flags, files'
   behavior: default
+  require_changes: true
 
 parsers:
   javascript:
