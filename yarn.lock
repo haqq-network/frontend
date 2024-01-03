@@ -3255,7 +3255,7 @@ __metadata:
     typescript: "npm:5.3.3"
     url-loader: "npm:4.1.1"
     vanilla-cookieconsent: "npm:2.9.2"
-    viem: "npm:1.21.1"
+    viem: "npm:1.21.4"
     wagmi: "npm:1.4.12"
     webpack: "npm:5.89.0"
     webpack-merge: "npm:5.10.0"
@@ -27810,7 +27810,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:1.21.1, viem@npm:^1.0.0":
+"viem@npm:1.21.4":
+  version: 1.21.4
+  resolution: "viem@npm:1.21.4"
+  dependencies:
+    "@adraffy/ens-normalize": "npm:1.10.0"
+    "@noble/curves": "npm:1.2.0"
+    "@noble/hashes": "npm:1.3.2"
+    "@scure/bip32": "npm:1.3.2"
+    "@scure/bip39": "npm:1.2.1"
+    abitype: "npm:0.9.8"
+    isows: "npm:1.0.3"
+    ws: "npm:8.13.0"
+  peerDependencies:
+    typescript: ">=5.0.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 2007a8a674301d790b3172a0a84bd1659f76332ac13a78d695f7cee0602388103a07b2d6a3fc46b4f27582f8b506f7c1f90f13c5e21e464daffc6cccb14fbc3a
+  languageName: node
+  linkType: hard
+
+"viem@npm:^1.0.0":
   version: 1.21.1
   resolution: "viem@npm:1.21.1"
   dependencies:
