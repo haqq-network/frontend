@@ -65,21 +65,45 @@ export const academyModules: AcademyModule[] = [
   {
     isAvailable: true,
     availableLessonsDate: new Date('2024-01-02'),
-    isLessonsAvailable: false,
+    isLessonsAvailable: true,
     moduleLessons: [
       {
         lessonTitle: 'Lesson 4.1',
         lessonDescription:
           'Bridging the Gap between Islamic Finance and Crypto w/ Sheikh Mohamad Beyanouni',
+        lessonId: 'GCXaQttX6o',
       },
       {
         lessonTitle: 'Lesson 4.2',
         lessonDescription: 'Cryptocurrency and the Prohibition of Riba (Usury)',
+        lessonId: 'GC7uQttxkV',
       },
       {
         lessonTitle: 'Lesson 4.3',
         lessonDescription:
-          'What is staking? How to approach staking from Sharia perspectives? ',
+          'What is staking? How to approach staking from Sharia perspectives?',
+        lessonId: 'GCS6QttfGC',
+      },
+    ],
+  },
+  {
+    isAvailable: true,
+    availableLessonsDate: new Date('2024-01-09'),
+    isLessonsAvailable: false,
+    moduleLessons: [
+      {
+        lessonTitle: 'Lesson 5.1',
+        lessonDescription: 'Buying your first Cryptocurrency',
+      },
+      {
+        lessonTitle: 'Lesson 5.2',
+        lessonDescription:
+          'Understanding Crypto Wallets and Their Types - Hot and Cold',
+      },
+      {
+        lessonTitle: 'Lesson 5.3',
+        lessonDescription:
+          '4 Basic security strategies on how to stay safe in the world of cryptocurrencies',
       },
     ],
   },
