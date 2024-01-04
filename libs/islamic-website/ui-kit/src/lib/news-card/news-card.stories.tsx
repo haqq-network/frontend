@@ -14,15 +14,19 @@ type Story = StoryObj<typeof NewsCardComponent>;
 
 export const NewsCard: Story = {
   args: {
-    date: new Date(),
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    title:
-      'News Title News TitleNews TitleNews TitleNews TitleNews TitleNews TitleNews Title',
-    image: {
-      height: 300,
-      width: 200,
-      src: 'https://picsum.photos/200/300',
+    post: {
+      date: new Date(),
+      title: 'News Title',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: {
+        height: 300,
+        width: 200,
+        src: 'https://picsum.photos/200/300',
+      },
+      source: 'https://picsum.photos',
+      type: 'type',
+      url: 'https://picsum.photos',
     },
   },
 };

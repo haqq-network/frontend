@@ -12,10 +12,10 @@ type Story = StoryObj<typeof ProposalVoteProgressComponent>;
 export const ProposalVoteProgress: Story = {
   args: {
     results: {
-      yes: '5000',
-      abstain: '100',
-      no: '3000',
-      no_with_veto: '50',
+      yes: '200',
+      abstain: '300',
+      no: '100',
+      no_with_veto: '400',
     },
   },
 };

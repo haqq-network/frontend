@@ -28,6 +28,7 @@ export function MemberCard({
   role?: string;
 }) {
   const t = useTranslations('ui-kit.member-card');
+
   return (
     <div
       className={clsx(
