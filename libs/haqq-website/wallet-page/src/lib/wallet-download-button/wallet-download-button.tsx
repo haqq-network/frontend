@@ -32,8 +32,8 @@ export function WalletDownloadButton({
             {type === 'apk'
               ? 'Direct download'
               : isAvailable
-              ? 'Available in'
-              : 'Coming soon to the'}
+                ? 'Available in'
+                : 'Coming soon to the'}
           </span>
           <span className="text-[16px] font-extrabold leading-[22px]">
             {type === 'apple' && 'App Store'}

@@ -18,7 +18,7 @@ import {
 import Image from 'next/image';
 import { SubscribeForm } from '@haqq/islamic-website/forms';
 import Link from 'next/link';
-import { useActiveLesson } from '../../components/lessons/lessons-block';
+import { useActiveLesson } from '../lessons/lessons-block';
 import { academyModules } from '../modules-page/modules';
 import { AcademyLesson } from '../modules-page/types';
 
