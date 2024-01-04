@@ -1,9 +1,9 @@
-import { NewsCard as NewsCardComponent } from './blog-post-card';
+import { BlogPostCard as BlogPostCardComponent } from './blog-post-card';
 import { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof NewsCardComponent> = {
-  component: NewsCardComponent,
-  title: 'website/ui-kit/news-card',
+const meta: Meta<typeof BlogPostCardComponent> = {
+  component: BlogPostCardComponent,
+  title: 'website/ui-kit/BlogPostCard',
   parameters: {
     layout: 'centered',
   },
@@ -11,9 +11,9 @@ const meta: Meta<typeof NewsCardComponent> = {
 
 export default meta;
 
-type Story = StoryObj<typeof NewsCardComponent>;
+type Story = StoryObj<typeof BlogPostCardComponent>;
 
-export const NewsCardRegular: Story = {
+export const BlogPostCardRegular: Story = {
   args: {
     date: new Date('2021-05-01T00:00:00.000Z'),
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -28,7 +28,7 @@ export const NewsCardRegular: Story = {
   },
 };
 
-export const NewsCardFeatured: Story = {
+export const BlogPostCardFeatured: Story = {
   args: {
     date: new Date('2021-05-01T00:00:00.000Z'),
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
