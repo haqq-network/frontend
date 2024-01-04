@@ -203,8 +203,7 @@ export function StakingValidatorList() {
               Validators
               {status !== 'pending' && (
                 <span className="text-white/50">
-                  {' '}
-                  (<span>{validatorsCounterText}</span>)
+                  &nbsp;(<span>{validatorsCounterText}</span>)
                 </span>
               )}
             </Heading>
