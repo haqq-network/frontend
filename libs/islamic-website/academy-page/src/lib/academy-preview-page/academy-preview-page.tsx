@@ -74,7 +74,6 @@ export function AcademyPreviewPage({
               className={clsx(
                 'font-vcr text-haqq-black self-start text-[46px] font-[400] uppercase leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]',
                 styles['stroke__heading'],
-                // !isItTwelveDecember ? 'self-center' : 'self-start',
               )}
             >
               HAQQ Academy
@@ -208,7 +207,7 @@ function Module({
       {lessons && (
         <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[20px] md:grid-cols-2 md:gap-[24px] lg:mt-[36px]">
           {lessons.map((lesson, idx) => {
-            return (
+            return isLessonsAvailable ? (
               <Link
                 key={lesson.lessonTitle}
                 href={`/academy/lessons/${moduleCount}/${idx + 1}`}
@@ -225,6 +224,14 @@ function Module({
                   isAvailable={isLessonsAvailable}
                 />
               </Link>
+            ) : (
+              <LessonCard
+                key={lesson.lessonTitle}
+                lessonDescription={lesson.lessonDescription}
+                lessonTitle={lesson.lessonTitle}
+                lessonId={lesson.lessonId}
+                isAvailable={isLessonsAvailable}
+              />
             );
           })}
         </div>
