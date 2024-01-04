@@ -3,14 +3,14 @@
 import { Button, SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useEffect, useState, Fragment } from 'react';
-import { AcademyModulesJson } from '../../lib/modules-page/types';
+import { AcademyModulesJson } from '../modules-page/types';
 import MODULES from './modules.json';
 import { useIsMobile } from '@haqq/shared';
 import { Select } from '@haqq/islamic-website-ui-kit';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 
-export const useActiveLesson = () => {
+export function useActiveLesson() {
   const [activeLessonIndex, setActiveLessonIndex] = useState(0);
   const [activeModuleIndex, setActiveModuleIndex] = useState(0);
   const locale = useLocale();
@@ -75,7 +75,7 @@ export const useActiveLesson = () => {
     setActiveModule: setActiveModuleIndex,
     modules,
   };
-};
+}
 
 export const LessonsBlock = ({
   initialModule,

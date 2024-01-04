@@ -2,7 +2,7 @@
 
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
-import { LessonsBlock } from '../../components/lessons/lessons-block';
+import { LessonsBlock } from '../lessons/lessons-block';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
 const { Link } = createSharedPathnamesNavigation({
