@@ -31,9 +31,9 @@ jobs:
       - name: Setup dependencies
         run: yarn install --immutable
       - name: Run lint
-        run: yarn nx run-many --target=lint --parallel=3
+        run: yarn nx run-many --target=lint --parallel=5
       - name: Run tests
-        run: yarn nx run-many --target=test --parallel=3 --ci --code-coverage --skip-cache
+        run: yarn nx run-many --target=test --parallel=5 --ci --code-coverage --skip-cache
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
@@ -60,4 +60,4 @@ jobs:
       - name: Setup dependencies
         run: yarn install --immutable
       - name: Build
-        run: yarn nx run-many --target=build --parallel=3
+        run: yarn nx run-many --target=build --parallel=5
