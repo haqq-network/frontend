@@ -1,7 +1,7 @@
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 
-export interface FalconerChainStats {
+export interface HaqqChainStats {
   accounts: string;
   transactionsIn24Hour: string;
   consensusFinality: string;
@@ -25,10 +25,10 @@ export async function getHaqqChainStatsData(
   });
 
   if (!response.ok) {
-    throw new Error('chain stats fetch failed');
+    throw new Error('Chain stats fetch failed');
   }
 
-  const responseJson = await response.json();
+  const responseJson: HaqqChainStats = await response.json();
 
-  return responseJson as FalconerChainStats;
+  return responseJson;
 }
