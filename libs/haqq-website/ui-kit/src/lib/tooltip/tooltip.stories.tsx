@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof TooltipComponent> = {
   component: TooltipComponent,
-  title: 'website/ui-kit',
+  title: 'haqq-website/ui-kit',
   parameters: {
     layout: 'centered',
   },

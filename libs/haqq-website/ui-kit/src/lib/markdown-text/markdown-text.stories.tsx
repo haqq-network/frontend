@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof MarkdownTextComponent> = {
   component: MarkdownTextComponent,
-  title: 'website/ui-kit',
+  title: 'haqq-website/ui-kit',
 };
 
 export default meta;
@@ -12,6 +12,7 @@ type Story = StoryObj<typeof MarkdownTextComponent>;
 
 export const MarkdownText: Story = {
   args: {
+    isBlack: false,
     children: `# Ultima a audistis
 
 ## Genus ad vidit
