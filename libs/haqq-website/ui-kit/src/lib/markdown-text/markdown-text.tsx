@@ -11,12 +11,10 @@ import { Element } from 'react-markdown/lib/ast-to-react';
 function LinkIcon({ className }: { className?: string }) {
   return (
     <svg
-      width="24"
-      height="24"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={clsx('h-[24px] w-[24px]', className)}
     >
       <path
         fillRule="evenodd"
@@ -33,33 +31,39 @@ export function MarkdownText({
   isBlack = false,
   className,
   transformImageUrl,
+  shouldRenderHeadingLinks = true,
 }: {
   className?: string;
   isBlack?: boolean;
   children: string;
   transformImageUrl?: (src: string) => string;
+  shouldRenderHeadingLinks?: boolean;
 }) {
   // Custom renderer for headings
-  const renderHeading = ({
-    level,
-    children,
-    node,
-  }: {
-    level: number;
-    children: ReactNode;
-    node: Element;
-  }) => {
-    const tagName = `h${level}`;
-    const id = node?.properties?.['id'];
-    return createElement(
-      tagName,
-      { ...node?.properties },
-      <Link href={`#${id}`} className="!text-haqq-black group relative">
-        <LinkIcon className="absolute left-[100%] top-[50%] ml-[8px] translate-y-[-50%] transition-opacity duration-150 ease-out lg:opacity-0 lg:group-hover:opacity-100" />
-        {children}
-      </Link>,
-    );
-  };
+  function renderHeading(shouldRenderHeadingLinks: boolean) {
+    return ({
+      level,
+      children,
+      node,
+    }: {
+      level: number;
+      children: ReactNode;
+      node: Element;
+    }) => {
+      const tagName = `h${level}`;
+      const id = node?.properties?.['id'];
+      const elementToRender = shouldRenderHeadingLinks ? (
+        <Link href={`#${id}`} className="group relative !text-inherit">
+          {children}
+          <LinkIcon className="ml-[8px] inline transition-opacity duration-150 ease-out lg:opacity-0 lg:group-hover:opacity-100" />
+        </Link>
+      ) : (
+        children
+      );
+
+      return createElement(tagName, { ...node?.properties }, elementToRender);
+    };
+  }
 
   return (
     <div
@@ -82,12 +86,12 @@ export function MarkdownText({
         rehypePlugins={[rehypeRaw, rehypeSlug]}
         transformImageUri={transformImageUrl}
         components={{
-          h1: renderHeading,
-          h2: renderHeading,
-          h3: renderHeading,
-          h4: renderHeading,
-          h5: renderHeading,
-          h6: renderHeading,
+          h1: renderHeading(shouldRenderHeadingLinks),
+          h2: renderHeading(shouldRenderHeadingLinks),
+          h3: renderHeading(shouldRenderHeadingLinks),
+          h4: renderHeading(shouldRenderHeadingLinks),
+          h5: renderHeading(shouldRenderHeadingLinks),
+          h6: renderHeading(shouldRenderHeadingLinks),
         }}
         children={children}
       />
