@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof BlogPostCardComponent> = {
   component: BlogPostCardComponent,
-  title: 'website/ui-kit/BlogPostCard',
+  title: 'haqq-website/ui-kit/BlogPostCard',
   parameters: {
     layout: 'centered',
   },
