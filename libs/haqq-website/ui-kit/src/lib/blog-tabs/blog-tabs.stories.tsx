@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof BlogTabsComponent> = {
   component: BlogTabsComponent,
-  title: 'website/ui-kit',
+  title: 'haqq-website/ui-kit',
 };
 
 export default meta;
