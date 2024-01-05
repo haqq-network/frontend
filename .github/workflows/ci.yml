@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - dev
+      - prod
   pull_request:
+    branches:
+      - dev
+      - prod
   workflow_dispatch:
   merge_group:
 
