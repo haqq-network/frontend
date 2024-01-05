@@ -7,7 +7,7 @@ export interface RoadmapPeriod {
   isAchieved?: boolean;
 }
 
-export async function getIslamicRoadmap(
+export async function getIslamicRoadmapData(
   options: Partial<FalconerRequestInit>,
   locale: string,
 ) {
