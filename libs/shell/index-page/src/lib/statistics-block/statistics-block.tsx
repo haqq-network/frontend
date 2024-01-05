@@ -1,41 +1,40 @@
+import { useChainStatsQuery } from '@haqq/shared';
+import { formatNumber } from '@haqq/shell-ui-kit';
 import { useMemo } from 'react';
 
 export function StatisticsBlock() {
-  // const { data: stakingPool } = useStakingPoolQuery();
-  // const { data: validators } = useStakingValidatorListQuery();
-  // const { data: accounts } = useAuthAccountsQuery();
-  // const { data: bankSupply } = useBankSupplyQuery();
-  // const { data: stakingParams } = useStakingParamsQuery();
   const symbol = 'ISLM';
 
-  // const totalStaked = useMemo(() => {
-  //   return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
-  // }, [stakingPool?.bonded_tokens]);
+  const { data: chainStats, isFetching, isFetched } = useChainStatsQuery();
 
-  // const totalSupply = useMemo(() => {
-  //   return Number.parseInt(bankSupply?.supply[0].amount ?? '0') / 10 ** 18;
-  // }, [bankSupply?.supply]);
-
-  // const totalAccounts = useMemo(() => {
-  //   return Number.parseInt(accounts?.pagination.total ?? '0');
-  // }, [accounts?.pagination.total]);
-
-  const totalStaked = 1966430229.27;
-
-  const totalSupply = 20_000_000_000.0;
-
-  const totalAccounts = 2521846;
-
-  const { valsTotal, valsActive } = useMemo(() => {
-    // const activeVals = validators?.filter((val) => {
-    //   return bondStatusFromJSON(val.status) === BondStatus.BOND_STATUS_BONDED;
-    // });
+  const {
+    valsTotal,
+    valsActive,
+    totalStaked,
+    totalSupply,
+    totalAccounts,
+    stakeRatio,
+  } = useMemo(() => {
+    if (isFetched && chainStats) {
+      return {
+        valsTotal: parseInt(chainStats.validatorsCount),
+        valsActive: parseInt(chainStats.validatorsActive),
+        totalStaked: parseFloat(chainStats.staked),
+        totalSupply: parseFloat(chainStats.supply),
+        totalAccounts: parseInt(chainStats.accounts),
+        stakeRatio: parseInt(chainStats.stakeRatio),
+      };
+    }
 
     return {
-      valsTotal: 150,
-      valsActive: 83,
+      valsTotal: 0,
+      valsActive: 0,
+      totalStaked: 0,
+      totalSupply: 0,
+      totalAccounts: 0,
+      stakeRatio: 0,
     };
-  }, []); // [stakingParams?.max_validators, validators]
+  }, [chainStats, isFetched]);
 
   return (
     <div className="flex flex-col gap-y-[10px] lg:flex-row lg:flex-wrap lg:gap-x-[24px]">
@@ -44,23 +43,29 @@ export function StatisticsBlock() {
           Total supply
         </div>
         <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
-          {totalSupply.toLocaleString()}
-          <span className="text-white/50">
-            &nbsp;{symbol.toLocaleUpperCase()}
-          </span>
+          {!isFetching && (
+            <div>
+              {formatNumber(totalSupply)}
+              <span className="text-white/50">
+                &nbsp;{symbol.toLocaleUpperCase()}
+              </span>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
-          Total staked ({((totalStaked / totalSupply) * 100).toFixed(2)}%)
+          Total staked ({stakeRatio}%)
         </div>
         <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
-          <div>
-            {totalStaked.toLocaleString()}
-            <span className="text-white/50">
-              &nbsp;{symbol.toLocaleUpperCase()}
-            </span>
-          </div>
+          {!isFetching && (
+            <div>
+              {formatNumber(totalStaked)}
+              <span className="text-white/50">
+                &nbsp;{symbol.toLocaleUpperCase()}
+              </span>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
@@ -68,7 +73,7 @@ export function StatisticsBlock() {
           Accounts
         </div>
         <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
-          {totalAccounts}
+          {!isFetching && <div>{totalAccounts}</div>}
         </div>
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
@@ -76,10 +81,12 @@ export function StatisticsBlock() {
           Active validators
         </div>
         <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
-          <div>
-            {valsActive}
-            <span className="text-white/50">&nbsp;out of {valsTotal}</span>
-          </div>
+          {!isFetching && (
+            <div>
+              {valsActive}
+              <span className="text-white/50">&nbsp;out of {valsTotal}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
