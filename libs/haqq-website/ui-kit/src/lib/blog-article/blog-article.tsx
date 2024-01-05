@@ -55,7 +55,10 @@ export function BlogArticle({
               </time>
             </div>
 
-            <MarkdownText transformImageUrl={transformImageUrl}>
+            <MarkdownText
+              transformImageUrl={transformImageUrl}
+              shouldRenderHeadingLinks={false}
+            >
               {'# ' + title + '\n\n' + content}
             </MarkdownText>
           </article>
