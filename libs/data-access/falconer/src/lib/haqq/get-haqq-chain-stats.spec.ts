@@ -13,7 +13,7 @@ const statsResponseMock = {
 };
 
 describe('getHaqqChainStatsData', () => {
-  it('should return a valid FalconerChainStats object when given valid options', async () => {
+  it('should return a valid HaqqChainStats object when given valid options', async () => {
     jest.spyOn(global, 'fetch').mockResolvedValueOnce({
       ok: true,
       json: jest.fn().mockResolvedValueOnce(statsResponseMock),
@@ -49,7 +49,7 @@ describe('getHaqqChainStatsData', () => {
     } as Response);
 
     await expect(getHaqqChainStatsData({})).rejects.toThrowError(
-      'chain stats fetch failed',
+      'Chain stats fetch failed',
     );
   });
 });
