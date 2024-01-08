@@ -10,9 +10,16 @@ import { Select } from '@haqq/islamic-website-ui-kit';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 
-export function useActiveLesson(initialModule: number, initialLesson: number) {
-  const [activeLessonIndex, setActiveLessonIndex] = useState(initialLesson - 1);
-  const [activeModuleIndex, setActiveModuleIndex] = useState(initialModule - 1);
+export function useActiveLesson(
+  initialModule?: number,
+  initialLesson?: number,
+) {
+  const [activeLessonIndex, setActiveLessonIndex] = useState(
+    initialLesson ? initialLesson - 1 : 0,
+  );
+  const [activeModuleIndex, setActiveModuleIndex] = useState(
+    initialModule ? initialModule - 1 : 0,
+  );
   const locale = useLocale();
 
   const modules = ((MODULES as AcademyModulesJson)[locale] || MODULES['en'])
