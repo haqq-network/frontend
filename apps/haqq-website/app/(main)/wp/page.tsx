@@ -19,15 +19,8 @@ export const metadata: Metadata = {
   },
 };
 
-interface PageProps {
-  params: { locale: string };
-}
-
-export default async function Page(props: PageProps) {
-  const {
-    params: { locale },
-  } = props;
-  const whitepaper = await getWhitepaperContentFromFalconer(locale);
+export default async function Page() {
+  const whitepaper = await getWhitepaperContentFromFalconer();
 
   return <WhitepaperPage whitepaper={whitepaper} />;
 }
