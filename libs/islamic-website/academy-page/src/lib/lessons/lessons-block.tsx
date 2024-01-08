@@ -10,9 +10,9 @@ import { Select } from '@haqq/islamic-website-ui-kit';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 
-export function useActiveLesson() {
-  const [activeLessonIndex, setActiveLessonIndex] = useState(0);
-  const [activeModuleIndex, setActiveModuleIndex] = useState(0);
+export function useActiveLesson(initialModule: number, initialLesson: number) {
+  const [activeLessonIndex, setActiveLessonIndex] = useState(initialLesson - 1);
+  const [activeModuleIndex, setActiveModuleIndex] = useState(initialModule - 1);
   const locale = useLocale();
 
   const modules = ((MODULES as AcademyModulesJson)[locale] || MODULES['en'])
@@ -94,16 +94,9 @@ export const LessonsBlock = ({
     setActiveModule,
     currentModuleLessons,
     setActiveLesson,
-  } = useActiveLesson();
+  } = useActiveLesson(initialModule, initialLesson);
 
   const router = useRouter();
-
-  useEffect(() => {
-    if (initialLesson !== undefined && initialModule !== undefined) {
-      setActiveLesson(initialLesson - 1);
-      setActiveModule(initialModule - 1);
-    }
-  }, [initialLesson, initialModule, setActiveLesson, setActiveModule]);
 
   const updateURL = (moduleIndex: number, lessonIndex: number) => {
     router.push(`/academy/lessons/${moduleIndex + 1}/${lessonIndex + 1}`);
