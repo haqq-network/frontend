@@ -5,7 +5,7 @@ import { cache } from 'react';
 export const revalidate = REVALIDATE_TIME;
 
 export const getWhitepaperContentFromFalconer = cache(
-  async (locale: string) => {
+  async (locale?: string) => {
     try {
       const data = await getIslamicWhitepaperData(
         {
@@ -13,7 +13,7 @@ export const getWhitepaperContentFromFalconer = cache(
             revalidate,
           },
         },
-        locale,
+        locale ? locale : 'en',
       );
 
       return data;
