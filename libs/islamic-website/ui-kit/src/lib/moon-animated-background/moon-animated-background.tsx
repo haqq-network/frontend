@@ -12,14 +12,24 @@ function delay(milliseconds: number): Promise<void> {
     }, milliseconds);
   });
 }
-export function MoonAnimatedBg({ className }: { className?: string }) {
-  const [animationStep, setAnimationStep] = useState<1 | 2 | 3>(1);
+export function MoonAnimatedBg({
+  className,
+  isAnimationNeeded,
+}: {
+  className?: string;
+  isAnimationNeeded?: boolean;
+}) {
+  const [animationStep, setAnimationStep] = useState<1 | 2 | 3>(
+    isAnimationNeeded ? 1 : 3,
+  );
 
   const startAnimation = useCallback(async () => {
-    setAnimationStep(2);
-    await delay(3000);
-    setAnimationStep(3);
-  }, []);
+    if (isAnimationNeeded) {
+      setAnimationStep(2);
+      await delay(3000);
+      setAnimationStep(3);
+    }
+  }, [isAnimationNeeded]);
 
   return (
     <Container className="relative">
@@ -30,8 +40,8 @@ export function MoonAnimatedBg({ className }: { className?: string }) {
           '-top-1/2 right-1/2',
           'ease-in-out',
           animationStep === 1 && 'scale-[.9] opacity-0',
-          animationStep === 2 && 'opacity-90 duration-[3000ms]',
-          animationStep === 3 && 'scale-[1] opacity-100 duration-[4000ms]',
+          animationStep === 2 && 'opacity-90 ',
+          animationStep === 3 && 'scale-[1] opacity-100 ',
           className,
         )}
       >
