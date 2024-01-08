@@ -89,21 +89,40 @@ export const academyModules: AcademyModule[] = [
   {
     isAvailable: true,
     availableLessonsDate: new Date('2024-01-09'),
-    isLessonsAvailable: false,
+    isLessonsAvailable: true,
     moduleLessons: [
       {
         lessonTitle: 'Lesson 5.1',
         lessonDescription: 'Buying your first Cryptocurrency',
+        lessonId: '7ng2X-HP8WQ',
       },
       {
         lessonTitle: 'Lesson 5.2',
         lessonDescription:
           'Understanding Crypto Wallets and Their Types - Hot and Cold',
+        lessonId: 'O8Q7k8epFq8',
       },
       {
         lessonTitle: 'Lesson 5.3',
         lessonDescription:
           '4 Basic security strategies on how to stay safe in the world of cryptocurrencies',
+        lessonId: '7a1x6_1jfoY',
+      },
+    ],
+  },
+  {
+    isAvailable: true,
+    availableLessonsDate: new Date('2024-01-16'),
+    isLessonsAvailable: false,
+    moduleLessons: [
+      {
+        lessonTitle: 'Lesson 6.1',
+        lessonDescription: 'Debunking the myth: Cryptocurrency Is Gambling',
+      },
+      {
+        lessonTitle: 'Lesson 6.2',
+        lessonDescription:
+          'Addressing Concerns About Anonymity and Illicit Activities',
       },
     ],
   },

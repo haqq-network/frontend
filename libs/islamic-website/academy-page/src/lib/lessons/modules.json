@@ -108,6 +108,35 @@
             "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCPDrttvTD"
           }
         ]
+      },
+      {
+        "name": "Module 5",
+        "lessons": [
+          {
+            "name": "Lesson 5.1",
+            "title": "Buying your first Cryptocurrency",
+            "duration": "3 minutes",
+            "video_link": "https://www.youtube.com/embed/7ng2X-HP8WQ",
+            "description": "In this lesson, we walk you through buying your first cryptocurrency step-by-step. We've chosen Kucoin for its reliable and straightforward platform, perfect for beginners like you. You'll learn how to safely access the exchange, complete the essential KYC verification with your ID, and navigate the site to make your first purchase.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCULuttr2n"
+          },
+          {
+            "name": "Lesson 5.2",
+            "title": "Understanding Crypto Wallets and Their Types - Hot and Cold",
+            "duration": "5 minutes",
+            "video_link": "https://www.youtube.com/embed/O8Q7k8epFq8",
+            "description": "In this lesson, we explore the essentials of crypto wallets, breaking down the concept into simple terms. Think of public and private keys as your email address and password - one is for sharing, and the other is for secure access to your funds. We compare custodial wallets to bank services and non-custodial wallets to personal safes at home. You'll learn why having control over your private keys with non-custodial wallets puts you in charge of your crypto, much like safeguarding the combination to your personal safe.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCHA2ttXbR"
+          },
+          {
+            "name": "Lesson 5.3",
+            "title": "4 Basic security strategies on how to stay safe in the world of cryptocurrencies",
+            "duration": "3 minutes",
+            "video_link": "https://www.youtube.com/embed/7a1x6_1jfoY",
+            "description": "In this Lesson we cover essential security practices to protect your cryptocurrencies. You'll learn to deploy two-factor authentication and create strong, unique passwords for increased safety across platforms. The lesson emphasizes the importance of the careful handling of your seed phrase and private key, advocating for physical backups in secure locations. We'll also guide you through the prudent use of hardware wallets and the necessity of buying from trusted manufacturers. The final part of the lesson deals with the risks posed by phishing attempts and the importance of vigilance when managing crypto transactions and verifying web links. The goal is to equip you with the knowledge to minimize risks and safeguard your digital assets effectively.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCac2ttZdL"
+          }
+        ]
       }
     ]
   }
