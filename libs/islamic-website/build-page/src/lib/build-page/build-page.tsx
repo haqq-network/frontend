@@ -1,6 +1,8 @@
 import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
+import buildBgImgData from '../../assets/images/build-bg-image.svg';
 
 export function BuildPage() {
   const t = useTranslations('build-page');
@@ -52,182 +54,10 @@ export function BuildPage() {
   );
 }
 
-function Cubes() {
-  return (
-    <svg viewBox="0 0 665 550" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M414.783 241.133L287.392 313.089L164.406 242.601V100.893L290.696 26L414.783 97.2215"
-        stroke="#1C1C1C"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M165.508 100.158L287.392 170.279"
-        stroke="#1C1C1C"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M287.391 170.279V312.721"
-        stroke="#1C1C1C"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M283.023 311.089V169.38L409.313 94.4873L533.4 165.709V309.62L406.009 381.576L283.023 311.089Z"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M284.125 168.646L406.009 238.766L532.666 166.076"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M406.008 238.766V381.209"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M39.4062 316.601V174.893L165.696 100L289.783 171.221V315.133L162.392 387.089L39.4062 316.601Z"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M40.5078 174.158L162.392 244.279L289.049 171.589"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M162.391 244.279V386.721"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M165.7 101.2L158 105.5L160.5 237.5L204.5 211.5V123.5L165.7 101.2Z"
-        fill="#010304"
-      />
-      <path
-        d="M157 382.513V240.804L283.29 165.911L407.376 237.133V381.044L279.986 453L157 382.513Z"
-        fill="#010304"
-        stroke="#3D3D3D"
-        strokeWidth="2"
-      />
-      <path
-        d="M158.102 240.07L279.986 310.19L406.642 237.5"
-        stroke="#3D3D3D"
-        strokeWidth="2"
-      />
-      <path
-        d="M332.852 278.25H349.372V267.971L332.852 272.009V278.25Z"
-        fill="#010304"
-      />
-      <path
-        d="M212.805 278.25H228.224L228.591 273.111L212.805 272.376V278.25Z"
-        fill="#010304"
-      />
-      <path d="M279.984 310.19V452.633" stroke="#3D3D3D" strokeWidth="2" />
-      <path
-        d="M253.925 194.547H212.808V217.675L185.641 233.462L212.808 250.349V273.111H253.925L281.092 289.264L309.36 273.111H349.009V250.349L376.911 234.93L349.009 217.675V194.547H309.36L281.092 177.659L253.925 194.547Z"
-        fill="#010304"
-        stroke="#949494"
-        strokeWidth="2"
-      />
-      <path
-        d="M185.641 233.462V239.703L212.808 255.856"
-        stroke="#949494"
-        strokeWidth="2"
-      />
-      <path
-        d="M212.07 278.25H253.555L281.089 294.404L309.357 278.25H349.741"
-        stroke="#949494"
-        strokeWidth="2"
-      />
-      <path d="M349 273.111V278.25" stroke="#949494" strokeWidth="2" />
-      <path d="M212.805 273.111V278.25" stroke="#949494" strokeWidth="2" />
-      <path
-        d="M376.534 234.93V239.336L349 255.489"
-        stroke="#949494"
-        strokeWidth="2"
-      />
-      <path
-        d="M259.428 265.401H224.184V246.678L204.359 234.563L225.652 221.714V201.889H259.428L281.088 188.306L303.482 202.991H336.89V219.878L357.816 234.196L336.89 247.045V266.135H303.482L281.088 279.352L259.428 265.401Z"
-        stroke="#949494"
-        strokeWidth="2"
-      />
-      <path
-        d="M208.031 236.766L225.653 226.853V221.347"
-        stroke="#949494"
-        strokeWidth="2"
-      />
-      <path
-        d="M225.281 207.763H259.791L281.084 194.547L302.377 207.763H336.886"
-        stroke="#949494"
-        strokeWidth="2"
-      />
-      <path
-        d="M336.891 219.511V226.486L353.778 236.399"
-        stroke="#949494"
-        strokeWidth="2"
-      />
-      <path
-        d="M408.023 382.089L531.009 452.576L658.4 380.62V236.709L534.313 165.487"
-        stroke="#1C1C1C"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M408 382V240L461.5 209.5H477.5L478 200L535 167L658 237.5L657.5 380L531 451.6L408 382Z"
-        fill="#010304"
-      />
-      <path
-        d="M409.125 239.646L531.009 309.766L657.666 237.076"
-        stroke="#1C1C1C"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M531.008 309.766V452.209"
-        stroke="#1C1C1C"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M281.023 453.089L404.009 523.576L531.4 451.62V307.709L407.313 236.487"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M281 453V311L334.5 280.5H350.5L351 271L408 238L530.5 308.5L530 451.5L404 522.4L281 453Z"
-        fill="#010304"
-      />
-      <path
-        d="M282.125 310.646L404.009 380.766L530.666 308.076"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-      <path
-        d="M404.008 380.766V523.209"
-        stroke="#333333"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-      />
-    </svg>
-  );
-}
-
 function BuildPageBg() {
   return (
     <div className="absolute top-[-150px] z-[-1] h-[550px] w-[655px] md:top-[100px] xl:top-[100px] min-[1440px]:top-[110px] ltr:left-[40px] ltr:md:left-auto ltr:md:right-[-180px] ltr:xl:right-[-90px] ltr:min-[1440px]:right-[30px] rtl:right-[40px] rtl:scale-x-[-1] rtl:transform rtl:md:left-[-180px] rtl:md:right-auto rtl:xl:left-[-90px] rtl:min-[1440px]:left-[30px]">
-      <Cubes />
+      <Image src={buildBgImgData} alt="" fill />
     </div>
   );
 }
