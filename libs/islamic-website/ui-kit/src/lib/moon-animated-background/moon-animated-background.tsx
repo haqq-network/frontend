@@ -40,8 +40,8 @@ export function MoonAnimatedBg({
           '-top-1/2 right-1/2',
           'ease-in-out',
           animationStep === 1 && 'scale-[.9] opacity-0',
-          animationStep === 2 && 'opacity-90 ',
-          animationStep === 3 && 'scale-[1] opacity-100 ',
+          animationStep === 2 && 'opacity-90 duration-[3000ms]',
+          animationStep === 3 && 'scale-[1] opacity-100 duration-[4000ms]',
           className,
         )}
       >
