@@ -216,7 +216,7 @@ export function StakingValidatorList() {
                 disabled={!isWalletConnected}
                 value={isWalletConnected ? isShowMyDelegation : false}
               >
-                Show my delegations
+                My delegations
               </Checkbox>
             </div>
             <div className="leading-[0]">
