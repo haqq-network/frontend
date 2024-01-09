@@ -1,9 +1,10 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Container } from '../container/container';
 import clsx from 'clsx';
 import Image from 'next/image';
+import store from 'store2';
 
 function delay(milliseconds: number): Promise<void> {
   return new Promise((resolve) => {
@@ -12,24 +13,28 @@ function delay(milliseconds: number): Promise<void> {
     }, milliseconds);
   });
 }
-export function MoonAnimatedBg({
-  className,
-  isAnimationNeeded,
-}: {
-  className?: string;
-  isAnimationNeeded?: boolean;
-}) {
+
+const homePageKey = 'home-page-visited';
+
+export function MoonAnimatedBg({ className }: { className?: string }) {
+  const [homePageCache, setHomePageCache] = useState<Record<string, string>>(
+    store.get(homePageKey) ?? {},
+  );
   const [animationStep, setAnimationStep] = useState<1 | 2 | 3>(
-    isAnimationNeeded ? 1 : 3,
+    homePageCache ? 1 : 3,
   );
 
+  useEffect(() => {
+    store.set(homePageKey, 'true');
+    setHomePageCache(store.set(homePageKey, 'true'));
+  }, []);
+
   const startAnimation = useCallback(async () => {
-    if (isAnimationNeeded) {
-      setAnimationStep(2);
-      await delay(3000);
-      setAnimationStep(3);
-    }
-  }, [isAnimationNeeded]);
+    setAnimationStep(2);
+    await delay(3000);
+    setAnimationStep(3);
+    setHomePageCache(store.set(homePageKey, 'true'));
+  }, []);
 
   return (
     <Container className="relative">

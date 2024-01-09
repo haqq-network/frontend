@@ -6,7 +6,7 @@ import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block'
 import { NewsBlock } from '../news-block/news-block';
 import { PortfolioBlock } from '../portfolio-block/portfolio-block';
 import { ChainStats, WhyBlock } from '../why-block/why-block';
-import { Fragment, useEffect, useMemo } from 'react';
+import { Fragment } from 'react';
 import { Marquee } from '../marquee/marquee';
 import {
   Container,
@@ -19,7 +19,6 @@ import { BoardMembersBlock } from '../board-members-block/board-members-block';
 import clsx from 'clsx';
 import { FundsBlock } from '../funds-block/funds-block';
 import { useTranslations } from 'next-intl';
-import store from 'store2';
 
 export function IndexPage({
   news,
@@ -54,15 +53,6 @@ export function IndexPage({
 
 function Hero({ stats }: { stats: ChainStats }) {
   const t = useTranslations('index-page.hero-block');
-  const isHomePageVisited = useMemo(() => {
-    return store.get('home-visited') ? true : false;
-  }, []);
-
-  useEffect(() => {
-    if (!isHomePageVisited) {
-      store.set('home-visited', true);
-    }
-  }, [isHomePageVisited]);
 
   return (
     <div className="overflow-x-clip">
@@ -74,7 +64,6 @@ function Hero({ stats }: { stats: ChainStats }) {
           'xl:translate-y-[-24.9%]',
           'min-[1440px]:translate-y-[-23.8%]',
         )}
-        isAnimationNeeded={!isHomePageVisited}
       />
       <Container>
         <HeroBlock />
