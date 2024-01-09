@@ -13,7 +13,7 @@ export const getWhitepaperContentFromFalconer = cache(
             revalidate,
           },
         },
-        locale ? locale : 'en',
+        locale ?? 'en',
       );
 
       return data;
