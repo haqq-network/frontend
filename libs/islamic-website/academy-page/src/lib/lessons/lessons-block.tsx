@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
+import { SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useEffect, useState, Fragment } from 'react';
 import { AcademyModulesJson } from '../modules-page/types';
@@ -9,6 +9,7 @@ import { useIsMobile } from '@haqq/shared';
 import { Select } from '@haqq/islamic-website-ui-kit';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import Script from 'next/script';
 
 export function useActiveLesson(
   initialModule?: number,
@@ -172,7 +173,7 @@ export const LessonsBlock = ({
                 <Fragment key={lesson.name}>
                   <div
                     className={clsx(
-                      'text-alexandria cursor-pointer text-[16px] font-[500] transition-colors duration-150 ease-in',
+                      'font-alexandria cursor-pointer text-[16px] font-[500] transition-colors duration-150 ease-in',
                       currentActiveLesson?.name === lesson.name
                         ? 'text-islamic-primary-green'
                         : 'hover:text-islamic-primary-green-hover text-white/50',
@@ -227,32 +228,28 @@ export const LessonsBlock = ({
         ></iframe>
       </div>
 
-      <Text
-        size="medium"
-        className="text-alexandria mt-[46px] max-w-[504px] text-center text-[#EB9226] md:mt-[40px]"
-      >
-        {t('quiz_title')}
-      </Text>
-
-      <Button
-        variant="primary-green"
-        onClick={() => {
-          window.open(currentActiveLesson?.quiz_link, '_blank');
-        }}
-        className="mt-[12px] min-w-[320px] px-[32px] py-[12px] capitalize"
-      >
-        <Text size="medium" className="text-[16px] text-white" isMono>
-          {t('start_quiz_btn')}
-        </Text>
-      </Button>
-
       <div className="mt-[32px] flex w-[100%] max-w-[720px] flex-col gap-[12px] md:mt-[40px] lg:mt-[46px]">
-        <div className="text-alexandria text-[16px] font-[500]">
+        <div className="font-alexandria text-[16px] font-[500]">
           {t('description')}
         </div>
 
-        <div className="text-alexandria text-[14px] font-[400] text-white/50">
+        <div className="font-alexandria text-[14px] font-[400] text-white/50">
           {currentActiveLesson?.description}
+        </div>
+      </div>
+
+      <div className="mt-[46px] w-full max-w-[504px] text-center md:mt-[40px]">
+        <div>
+          <div>
+            <Text size="medium" className="font-alexandria text-[#EB9226]">
+              {t('quiz_title')}
+            </Text>
+          </div>
+          <Script async src="https://www.tideprotocol.xyz/embed.js" />
+          <div
+            className="tide-embedded mt-[12px]"
+            data-campaign-id="2b342e53-56f2-4f10-be64-5d657925bb3c"
+          />
         </div>
       </div>
     </>
