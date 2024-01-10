@@ -22,7 +22,7 @@ export function StatisticsBlock() {
         totalStaked: parseFloat(chainStats.staked),
         totalSupply: parseFloat(chainStats.supply),
         totalAccounts: parseInt(chainStats.accounts),
-        stakeRatio: parseInt(chainStats.stakeRatio),
+        stakeRatio: parseFloat(chainStats.stakeRatio),
       };
     }
 
@@ -55,7 +55,7 @@ export function StatisticsBlock() {
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
-          Total staked ({stakeRatio}%)
+          Total staked ({formatNumber(stakeRatio)}%)
         </div>
         <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[24px] sm:text-[13px] sm:leading-[22px]">
           {!isFetching && (
