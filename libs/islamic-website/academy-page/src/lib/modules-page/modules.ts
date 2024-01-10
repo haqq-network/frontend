@@ -106,7 +106,7 @@ export const academyModules: AcademyModule[] = [
         lessonTitle: 'Lesson 5.3',
         lessonDescription:
           '4 Basic security strategies on how to stay safe in the world of cryptocurrencies',
-        lessonId: '7a1x6_1jfoY',
+        lessonId: 'fH1WA_I5zoM',
       },
     ],
   },
