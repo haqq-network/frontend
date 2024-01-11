@@ -13,8 +13,11 @@ export const getHaqqBlogPostsFromFalconer = cache(async () => {
     });
 
     const tags = [];
+    const sortedPosts = posts.sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
-    for (const post of posts) {
+    for (const post of sortedPosts) {
       tags.push(...post.tags);
     }
 
