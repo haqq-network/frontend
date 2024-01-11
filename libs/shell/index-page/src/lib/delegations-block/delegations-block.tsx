@@ -20,8 +20,13 @@ import {
 import {
   ValidatorsListDesktop,
   ValidatorsListMobile,
+  // useValidatorsSort,
 } from '@haqq/staking/ui-kit';
-import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
+import {
+  sortValidatorsByToken,
+  splitValidators,
+  useValidatorsSortState,
+} from '@haqq/staking/utils';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,
@@ -56,7 +61,7 @@ export function DelegationsBlock() {
     query: `(max-width: 1023px)`,
   });
 
-  const sortedValidators = useMemo(() => {
+  const splittedValidators = useMemo(() => {
     const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
 
     return [
@@ -72,18 +77,20 @@ export function DelegationsBlock() {
     return delegatedVals;
   }, [delegationInfo]);
   const valToRender = useMemo(() => {
-    return sortedValidators
+    return splittedValidators
       .filter((val) => {
         return valWithDelegationAddr.includes(val.operator_address);
       })
       .filter((validator) => {
         return validator.status === 'BOND_STATUS_BONDED';
       });
-  }, [sortedValidators, valWithDelegationAddr]);
+  }, [splittedValidators, valWithDelegationAddr]);
 
   const totalStaked = useMemo(() => {
     return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
   }, [stakingPool?.bonded_tokens]);
+
+  const { sortState } = useValidatorsSortState();
 
   return (
     <Container>
@@ -132,6 +139,8 @@ export function DelegationsBlock() {
                     navigate(`/staking/validator/${validatorAddress}`);
                   }}
                   totalStaked={totalStaked}
+                  sortState={sortState}
+                  onDesktopSortClick={console.log}
                 />
               )}
             </div>
