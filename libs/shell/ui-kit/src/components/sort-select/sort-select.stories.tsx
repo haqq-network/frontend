@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import type { Meta, StoryFn } from '@storybook/react';
 import { SortSelect as SortSelectComponent } from './sort-select';
-import { useState } from 'react';
 
 const meta: Meta<typeof SortSelectComponent> = {
   component: SortSelectComponent,
