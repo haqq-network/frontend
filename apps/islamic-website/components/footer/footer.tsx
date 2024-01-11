@@ -82,6 +82,11 @@ const footerNavLinks: FooterNavLinks = [
       url: '/community-hub',
       title: 'community-hub',
     },
+    {
+      url: 'https://haqq.network/brand-assets',
+      title: 'brand-assets',
+      isOutLink: true,
+    },
   ],
   [
     {
