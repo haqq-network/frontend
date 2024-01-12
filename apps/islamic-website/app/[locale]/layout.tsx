@@ -137,6 +137,12 @@ export default async function LocaleLayout({
               <Analytics mode="auto" />
             </div>
           )}
+          <Script
+            id="scroll-restoration"
+            dangerouslySetInnerHTML={{
+              __html: `history.scrollRestoration = "manual"`,
+            }}
+          />
         </body>
       </html>
     </NextIntlClientProvider>

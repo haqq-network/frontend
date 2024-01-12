@@ -1,3 +1,5 @@
+'use client';
+
 import { HeroBlock } from '../hero-block/hero-block';
 import { JoinCommunityBlock } from '../join-community-block/join-community-block';
 import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block';
