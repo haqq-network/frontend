@@ -6,7 +6,7 @@ import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie
 import { NextIntlClientProvider } from 'next-intl';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Script from 'next/script';
-import Header from '../../components/header/header';
+import Header, { MobileHeader } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SOCIAL_LINKS } from '../../social-links';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
@@ -80,7 +80,13 @@ export default async function LocaleLayout({
         <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
           {isScamBannerShow && <ScamBanner />}
 
-          <Header locale={locale} isBannerVisible={isScamBannerShow} />
+          <div className="block lg:hidden">
+            <MobileHeader locale={locale} isBannerVisible={isScamBannerShow} />
+          </div>
+          <div className="hidden lg:block">
+            <Header locale={locale} isBannerVisible={isScamBannerShow} />
+          </div>
+
           <main className="flex-1">{children}</main>
           <Footer socialLinks={SOCIAL_LINKS} />
 
