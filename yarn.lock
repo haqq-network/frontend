@@ -3204,7 +3204,7 @@ __metadata:
     marked-react: "npm:2.0.0"
     nanoid: "npm:5.0.4"
     next: "npm:14.0.4"
-    next-intl: "npm:3.4.1"
+    next-intl: "npm:3.4.2"
     nx: "npm:17.2.8"
     pino: "npm:8.17.2"
     pino-pretty: "npm:10.3.1"
@@ -20680,17 +20680,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-intl@npm:3.4.1":
-  version: 3.4.1
-  resolution: "next-intl@npm:3.4.1"
+"next-intl@npm:3.4.2":
+  version: 3.4.2
+  resolution: "next-intl@npm:3.4.2"
   dependencies:
     "@formatjs/intl-localematcher": "npm:^0.2.32"
     negotiator: "npm:^0.6.3"
-    use-intl: "npm:^3.4.1"
+    use-intl: "npm:^3.4.2"
   peerDependencies:
     next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 102ca9f1844d9fcd2df55588237bab1e110a3d4979ce4a5b3eb07b4accd3985fd4f72dd3dc8856a9d3c6a878b7a84c5fddea18f14096211f40122c6eeb35b6b8
+  checksum: 30f49aefff4f29baa090b68234cd2f7d99b4bd4aa096014ec4b7ddbe0149633a5ac0bbdb4af4042eeb307df60eb8985322a05274aba18fb8097016eb716d5c66
   languageName: node
   linkType: hard
 
@@ -28130,15 +28130,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-intl@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "use-intl@npm:3.4.1"
+"use-intl@npm:^3.4.2":
+  version: 3.4.2
+  resolution: "use-intl@npm:3.4.2"
   dependencies:
     "@formatjs/ecma402-abstract": "npm:^1.11.4"
     intl-messageformat: "npm:^9.3.18"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 3f17aa3803fab4363e201e2d0632e4921bafe9219bbd0b4cb0e0280a1dbe62de3d0185e4df825b14a5876fd7e9ac50e984a06ec5a4355003325031c84e9d29e1
+  checksum: 9b882e9b6cd75881161d33a6c11e76d36e0e4420d402ab2805d117793803e4ad5c0f6cc5e9d134e326dbfefd79be29e8c9511517062f4b7a28ffd384bcad00d0
   languageName: node
   linkType: hard
 
