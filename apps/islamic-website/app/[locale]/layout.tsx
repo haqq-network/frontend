@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import { PropsWithChildren } from 'react';
 import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
-import { headers } from 'next/headers';
 import clsx from 'clsx';
 import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
 import { NextIntlClientProvider } from 'next-intl';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import Script from 'next/script';
-import Header, { MobileHeader } from '../../components/header/header';
+import Header from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { SOCIAL_LINKS } from '../../social-links';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
@@ -59,13 +58,6 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const headersList = headers();
-  const userAgent = headersList.get('user-agent');
-  const isMobileUserAgent = Boolean(
-    userAgent!.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-    ),
-  );
   const isScamBannerShow = true;
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? 'GMT';
 
@@ -88,11 +80,7 @@ export default async function LocaleLayout({
         <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
           {isScamBannerShow && <ScamBanner />}
 
-          {isMobileUserAgent ? (
-            <MobileHeader locale={locale} isBannerVisible={isScamBannerShow} />
-          ) : (
-            <Header locale={locale} isBannerVisible={isScamBannerShow} />
-          )}
+          <Header locale={locale} isBannerVisible={isScamBannerShow} />
           <main className="flex-1">{children}</main>
           <Footer socialLinks={SOCIAL_LINKS} />
 
