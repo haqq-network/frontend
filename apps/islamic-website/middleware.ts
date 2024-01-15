@@ -3,7 +3,7 @@ import { SUPPORTED_LOCALES } from './constants';
 
 export default createMiddleware({
   locales: SUPPORTED_LOCALES,
-  defaultLocale: SUPPORTED_LOCALES[0],
+  defaultLocale: 'en',
   localePrefix: 'as-needed',
   localeDetection: true,
 });
