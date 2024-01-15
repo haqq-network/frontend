@@ -156,27 +156,39 @@ export function LanguageLink({
 export default function Header({
   isBannerVisible = false,
   locale,
+  className,
 }: {
   isBannerVisible?: boolean;
   locale: LocaleType;
+  className?: string;
 }) {
   const isTabletMedia = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
 
   return isTabletMedia ? (
-    <MobileHeader locale={locale} isBannerVisible={isBannerVisible} />
+    <MobileHeader
+      className={className}
+      locale={locale}
+      isBannerVisible={isBannerVisible}
+    />
   ) : (
-    <DesktopHeader locale={locale} isBannerVisible={isBannerVisible} />
+    <DesktopHeader
+      className={className}
+      locale={locale}
+      isBannerVisible={isBannerVisible}
+    />
   );
 }
 
 export function MobileHeader({
   isBannerVisible = false,
   locale,
+  className,
 }: {
   isBannerVisible?: boolean;
   locale: LocaleType;
+  className?: string;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const [isBlurred, setBlurred] = useState(false);
@@ -218,6 +230,7 @@ export function MobileHeader({
           isBannerVisible
             ? 'h-[calc(72px+64px)] md:h-[calc(72px+40px)]'
             : 'h-[72px]',
+          className,
         )}
       />
       <header
@@ -287,9 +300,11 @@ export function MobileHeader({
 export function DesktopHeader({
   isBannerVisible = false,
   locale,
+  className,
 }: {
   isBannerVisible?: boolean;
   locale: LocaleType;
+  className?: string;
 }) {
   const [isBlurred, setBlurred] = useState(false);
 
@@ -324,6 +339,7 @@ export function DesktopHeader({
         'transform-gpu transition-all duration-150 will-change-auto',
         isBlurred && 'translate-y-[-16px]',
         isBannerVisible ? 'top-[40px]' : 'top-[0px]',
+        className,
       )}
     >
       <div className="pb-[10px] pt-[26px]">
