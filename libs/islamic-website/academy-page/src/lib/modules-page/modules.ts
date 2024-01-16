@@ -113,7 +113,7 @@ export const academyModules: AcademyModule[] = [
   {
     isAvailable: true,
     availableLessonsDate: new Date('2024-01-16'),
-    isLessonsAvailable: false,
+    isLessonsAvailable: true,
     moduleLessons: [
       {
         lessonTitle: 'Lesson 6.1',
@@ -123,6 +123,26 @@ export const academyModules: AcademyModule[] = [
         lessonTitle: 'Lesson 6.2',
         lessonDescription:
           'Addressing Concerns About Anonymity and Illicit Activities',
+      },
+    ],
+  },
+  {
+    isAvailable: true,
+    availableLessonsDate: new Date('2024-01-23'),
+    isLessonsAvailable: false,
+    moduleLessons: [
+      {
+        lessonTitle: 'Lesson 7.1',
+        lessonDescription: 'Understanding the Concept of Zakat in Islam',
+      },
+      {
+        lessonTitle: 'Lesson 7.2',
+        lessonDescription: 'Calculating Zakat on Cryptocurrency Holdings',
+      },
+      {
+        lessonTitle: 'Lesson 7.3',
+        lessonDescription:
+          'Taxation and Reporting of Cryptocurrency Income and Assets',
       },
     ],
   },
