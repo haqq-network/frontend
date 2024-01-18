@@ -118,11 +118,13 @@ export const academyModules: AcademyModule[] = [
       {
         lessonTitle: 'Lesson 6.1',
         lessonDescription: 'Debunking the myth: Cryptocurrency Is Gambling',
+        lessonId: '7nn2O9710m8',
       },
       {
         lessonTitle: 'Lesson 6.2',
         lessonDescription:
           'Addressing Concerns About Anonymity and Illicit Activities',
+        lessonId: 'Zrm9MyEI3_E',
       },
     ],
   },
@@ -134,15 +136,18 @@ export const academyModules: AcademyModule[] = [
       {
         lessonTitle: 'Lesson 7.1',
         lessonDescription: 'Understanding the Concept of Zakat in Islam',
+        lessonId: 'lvq9jxage8c',
       },
       {
         lessonTitle: 'Lesson 7.2',
         lessonDescription: 'Calculating Zakat on Cryptocurrency Holdings',
+        lessonId: 'yHz5hud6nTM',
       },
       {
         lessonTitle: 'Lesson 7.3',
         lessonDescription:
           'Taxation and Reporting of Cryptocurrency Income and Assets',
+        lessonId: '4hN0LWGGCqc',
       },
     ],
   },
