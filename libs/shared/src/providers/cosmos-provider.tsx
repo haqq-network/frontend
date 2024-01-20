@@ -539,7 +539,7 @@ function createCosmosService(
 
   async function broadcastTransaction(
     txToBroadcast: TxToSend,
-    mode: BroadcastMode = BroadcastMode.Block,
+    mode: BroadcastMode = BroadcastMode.Sync,
   ) {
     try {
       const broadcastResponse = await axios.post<{
@@ -558,7 +558,7 @@ function createCosmosService(
 
   async function simulateTransaction(
     txToBroadcast: TxToSend,
-    mode: BroadcastMode = BroadcastMode.Block,
+    mode: BroadcastMode = BroadcastMode.Sync,
   ) {
     try {
       const simulateUrl = `${cosmosRestEndpoint}${generateSimulateEndpoint()}`;
