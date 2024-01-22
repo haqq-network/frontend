@@ -131,7 +131,7 @@ export const academyModules: AcademyModule[] = [
   {
     isAvailable: true,
     availableLessonsDate: new Date('2024-01-23'),
-    isLessonsAvailable: false,
+    isLessonsAvailable: true,
     moduleLessons: [
       {
         lessonTitle: 'Lesson 7.1',
