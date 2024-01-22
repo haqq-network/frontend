@@ -53,8 +53,9 @@ export function ProposalVoteProgress({
       <div className="space-y-[8px]">
         <div className="flex items-center space-x-[12px]">
           <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
-            {status === ProposalStatusEnum.Voting && 'Voting status'}
-            {status === ProposalStatusEnum.Passed && 'Voting results'}
+            {status === ProposalStatusEnum.Voting
+              ? 'Voting status'
+              : 'Voting results'}
           </CardText>
           {voteOption && (
             <div className="inline-flex space-x-[6px]">
