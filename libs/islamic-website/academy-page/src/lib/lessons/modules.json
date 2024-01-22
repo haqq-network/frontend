@@ -158,6 +158,35 @@
             "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCptgtwJcG"
           }
         ]
+      },
+      {
+        "name": "Module 7",
+        "lessons": [
+          {
+            "name": "Lesson 7.1",
+            "title": "Understanding the Concept of Zakat in Islam",
+            "duration": "14 minutes",
+            "video_link": "https://www.youtube.com/embed/lvq9jxage8c",
+            "description": "In this lesson, we delve into Zakat, Islam's mandatory charity, with Sheikh Mahmoud Zair guiding us. We'll learn how Zakat reflects personal piety and social responsibility. The teachings of the Prophet Muhammad (PBUH) shed light on its crucial role in community welfare by ensuring the fair distribution of wealth. By understanding and practicing Zakat, Muslims fulfill a key Islamic tenet and contribute to the well-being and equity of their communities.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCyqKtwF6H"
+          },
+          {
+            "name": "Lesson 7.2",
+            "title": "Calculating Zakat on Cryptocurrency Holdings",
+            "duration": "3 minutes",
+            "video_link": "https://www.youtube.com/embed/yHz5hud6nTM",
+            "description": "In this lesson, we get practical about Zakat and cryptocurrency. We're covering how to calculate the charity you owe on your Cryptocurrency after holding them for one lunar year. The key is to check if your held amoiunt hits the Nisab—the minimum wealth required to pay Zakat, based on gold or silver's current value. Calculating your Zakat is simple: if your crypto is at or above Nisab, you give away 2.5%. For traders, Zakat applies to your investment and profits. If you're just using crypto for purchases, you may not owe Zakat, but it's best to ask a scholar.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCSWKtwiYR"
+          },
+          {
+            "name": "Lesson 7.3",
+            "title": "Taxation and Reporting of Cryptocurrency Income and Assets",
+            "duration": "3 minutes",
+            "video_link": "https://www.youtube.com/embed/4hN0LWGGCqc",
+            "description": "In this lesson, we address the legal and ethical considerations for Muslims in reporting cryptocurrency income and assets for taxation purposes. You'll learn the importance of adhering to tax laws, which reflect the Islamic values of honesty and responsibility. We'll clarify when and how to report cryptocurrency transactions, whether they're from investments, trading, or mining. Understanding the difference between capital gains and income, and the appropriate tax treatment for each, is crucial.",
+            "quiz_link": "https://galxe.com/IslamicCoin/campaign/GCSsKtwRPZ"
+          }
+        ]
       }
     ]
   }
