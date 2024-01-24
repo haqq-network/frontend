@@ -5,10 +5,10 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useEffect, useState, Fragment } from 'react';
 import { AcademyModulesJson } from '../modules-page/types';
 import MODULES from './modules.json';
-import { useIsMobile } from '@haqq/shared';
 import { Select } from '@haqq/islamic-website-ui-kit';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
 
 export function useActiveLesson(
   initialModule?: number,
@@ -127,7 +127,9 @@ export const LessonsBlock = ({
     });
   }, [currentModuleLessons]);
 
-  const { isMobile } = useIsMobile();
+  const isMobile = useMediaQuery({
+    query: `(max-width: 767px)`,
+  });
 
   if (!currentActiveLesson) {
     return (
