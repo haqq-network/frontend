@@ -6,12 +6,7 @@ import {
   signatureToWeb3Extension,
   createTxRawEIP712,
 } from '@evmos/transactions';
-import type {
-  Fee,
-  MessageMsgDepositParams,
-  TxGenerated,
-} from '@evmos/transactions';
-import Decimal from 'decimal.js-light';
+import type { MessageMsgDepositParams, TxGenerated } from '@evmos/transactions';
 import { useNetwork, useWalletClient } from 'wagmi';
 import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
@@ -19,24 +14,12 @@ import {
   BroadcastTxResponse,
   useCosmosService,
 } from '../../providers/cosmos-provider';
+import { getAmountAndDenom } from '../../utils/get-amount-and-denom';
 import { useAddress } from '../use-address/use-address';
 
 interface ProposalActionsHook {
   vote: (proposalId: number, option: number) => Promise<BroadcastTxResponse>;
   deposit: (proposalId: number, amount: number) => Promise<BroadcastTxResponse>;
-}
-
-function getAmountAndDenom(amount: number, fee?: Fee) {
-  let decAmount = new Decimal(amount).mul(10 ** 18);
-
-  if (fee) {
-    decAmount = decAmount.sub(new Decimal(fee.amount));
-  }
-
-  return {
-    amount: decAmount.toFixed(),
-    denom: 'aISLM',
-  };
 }
 
 export function useProposalActions(): ProposalActionsHook {

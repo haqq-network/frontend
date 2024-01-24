@@ -12,25 +12,12 @@ import {
   MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
-import Decimal from 'decimal.js-light';
 import { useNetwork, useWalletClient } from 'wagmi';
 import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useCosmosService } from '../../providers/cosmos-provider';
+import { getAmountAndDenom } from '../../utils/get-amount-and-denom';
 import { useAddress } from '../use-address/use-address';
-
-function getAmountAndDenom(amount: number, fee?: Fee) {
-  let decAmount = new Decimal(amount).mul(10 ** 18);
-
-  if (fee) {
-    decAmount = decAmount.sub(new Decimal(fee.amount));
-  }
-
-  return {
-    amount: decAmount.toFixed(),
-    denom: 'aISLM',
-  };
-}
 
 export function useStakingActions() {
   const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
