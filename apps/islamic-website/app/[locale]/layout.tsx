@@ -12,12 +12,12 @@ import { SOCIAL_LINKS } from '../../social-links';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
 import { Analytics } from '@vercel/analytics/react';
 import { LocaleType } from '@haqq/islamic-website/shariah-page';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { notFound } from 'next/navigation';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
 import '../../styles/consent-cookie.css';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
-import { notFound } from 'next/navigation';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],
