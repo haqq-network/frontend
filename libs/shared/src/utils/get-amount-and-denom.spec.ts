@@ -47,7 +47,7 @@ describe('getAmountAndDenom', () => {
       gas: '21000',
     };
     const expectedAmount =
-      BigInt(amount) * BigInt(10 ** 18) - BigInt(fee.amount);
+      BigInt(amount) * BigInt(10 ** 18) + BigInt(fee.amount);
     const result = getAmountAndDenom(amount, fee);
 
     expect(result).toEqual({
