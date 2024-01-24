@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import {
   createTxMsgDelegate,
   createTxMsgUndelegate,
@@ -16,24 +16,23 @@ import { useNetwork, useWalletClient } from 'wagmi';
 import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useCosmosService } from '../../providers/cosmos-provider';
+import { useSupportedChains } from '../../providers/wagmi-provider';
 import { getAmountAndDenom } from '../../utils/get-amount-and-denom';
 import { useAddress } from '../use-address/use-address';
 
 export function useStakingActions() {
-  const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
-    useCosmosService();
+  const {
+    broadcastTransaction,
+    getAccountBaseInfo,
+    getPubkey,
+    getTransactionStatus,
+  } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
   const { data: walletClient } = useWalletClient();
-  const { chain } = useNetwork();
-
-  const haqqChain = useMemo(() => {
-    if (!chain || chain.unsupported) {
-      return undefined;
-    }
-
-    const chainParams = getChainParams(chain.id);
-    return mapToCosmosChain(chainParams);
-  }, [chain]);
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+  const chainParams = getChainParams(chain.id);
+  const haqqChain = mapToCosmosChain(chainParams);
 
   const getSender = useCallback(
     async (address: string, pubkey: string) => {
@@ -138,20 +137,27 @@ export function useStakingActions() {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender or Validator address');
       }
     },
     [
-      getPubkey,
       ethAddress,
-      getSender,
       haqqAddress,
       haqqChain,
+      getPubkey,
+      getSender,
       getDelegationParams,
       signTransaction,
       broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 
@@ -182,20 +188,27 @@ export function useStakingActions() {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender or Validator address');
       }
     },
     [
-      getPubkey,
       ethAddress,
-      getSender,
       haqqAddress,
       haqqChain,
+      getPubkey,
+      getSender,
       getDelegationParams,
       signTransaction,
       broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 
@@ -224,19 +237,26 @@ export function useStakingActions() {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender');
       }
     },
     [
-      broadcastTransaction,
       ethAddress,
+      haqqAddress,
       haqqChain,
       getPubkey,
       getSender,
-      haqqAddress,
       signTransaction,
+      broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 
@@ -265,19 +285,26 @@ export function useStakingActions() {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender');
       }
     },
     [
-      broadcastTransaction,
       ethAddress,
+      haqqAddress,
       haqqChain,
       getPubkey,
       getSender,
-      haqqAddress,
       signTransaction,
+      broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 
@@ -317,20 +344,27 @@ export function useStakingActions() {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender or Validator address');
       }
     },
     [
-      getPubkey,
       ethAddress,
-      getSender,
       haqqAddress,
       haqqChain,
+      getPubkey,
+      getSender,
       getRedelegationParams,
       signTransaction,
       broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 

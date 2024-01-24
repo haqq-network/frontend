@@ -25,8 +25,12 @@ interface ProposalActionsHook {
 export function useProposalActions(): ProposalActionsHook {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
-  const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
-    useCosmosService();
+  const {
+    broadcastTransaction,
+    getAccountBaseInfo,
+    getPubkey,
+    getTransactionStatus,
+  } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
 
   const haqqChain = useMemo(() => {
@@ -115,19 +119,26 @@ export function useProposalActions(): ProposalActionsHook {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender');
       }
     },
     [
-      getPubkey,
       ethAddress,
-      getSender,
       haqqAddress,
       haqqChain,
+      getPubkey,
+      getSender,
       signTransaction,
       broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 
@@ -158,19 +169,26 @@ export function useProposalActions(): ProposalActionsHook {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender');
       }
     },
     [
-      broadcastTransaction,
       ethAddress,
+      haqqAddress,
       haqqChain,
       getPubkey,
       getSender,
-      haqqAddress,
       signTransaction,
+      broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 

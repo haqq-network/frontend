@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import {
   Sender,
   createTxMsgGenericGrant,
@@ -16,6 +16,7 @@ import {
   BroadcastTxResponse,
   useCosmosService,
 } from '../../providers/cosmos-provider';
+import { useSupportedChains } from '../../providers/wagmi-provider';
 import { useAddress } from '../use-address/use-address';
 
 interface AuthzActionsHook {
@@ -28,20 +29,18 @@ interface AuthzActionsHook {
 }
 
 export function useAuthzActions(): AuthzActionsHook {
-  const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
-  const { broadcastTransaction, getAccountBaseInfo, getPubkey } =
-    useCosmosService();
+  const {
+    broadcastTransaction,
+    getAccountBaseInfo,
+    getPubkey,
+    getTransactionStatus,
+  } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
-
-  const haqqChain = useMemo(() => {
-    if (!chain || chain.unsupported) {
-      return undefined;
-    }
-
-    const chainParams = getChainParams(chain.id);
-    return mapToCosmosChain(chainParams);
-  }, [chain]);
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+  const chainParams = getChainParams(chain.id);
+  const haqqChain = mapToCosmosChain(chainParams);
 
   const getSender = useCallback(
     async (address: string, pubkey: string) => {
@@ -121,19 +120,26 @@ export function useAuthzActions(): AuthzActionsHook {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender');
       }
     },
     [
-      broadcastTransaction,
       ethAddress,
-      getPubkey,
-      getSender,
       haqqAddress,
       haqqChain,
+      getPubkey,
+      getSender,
       signTransaction,
+      broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 
@@ -165,19 +171,26 @@ export function useAuthzActions(): AuthzActionsHook {
           throw new Error(txResponse.raw_log);
         }
 
-        return txResponse;
+        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+
+        if (transactionStatus === null) {
+          throw new Error('Transaction not found');
+        }
+
+        return transactionStatus.tx_response;
       } else {
         throw new Error('No sender');
       }
     },
     [
-      broadcastTransaction,
       ethAddress,
-      getPubkey,
-      getSender,
       haqqAddress,
       haqqChain,
+      getPubkey,
+      getSender,
       signTransaction,
+      broadcastTransaction,
+      getTransactionStatus,
     ],
   );
 
