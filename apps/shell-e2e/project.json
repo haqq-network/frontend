@@ -23,6 +23,6 @@
       "outputs": ["{options.outputFile}"]
     }
   },
-  "tags": [],
+  "tags": ["shell"],
   "implicitDependencies": ["shell"]
 }

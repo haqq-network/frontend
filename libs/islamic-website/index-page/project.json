@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/islamic-website/index-page/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["islamic-lib-index-page"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",

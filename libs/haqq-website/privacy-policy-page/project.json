@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/haqq-website/privacy-policy-page/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["haqq-lib-privacy-policy-page"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",

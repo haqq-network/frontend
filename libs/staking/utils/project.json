@@ -3,6 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/staking/utils/src",
   "projectType": "library",
+  "tags": ["shell-lib-staking-utils"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -15,6 +16,5 @@
         "jestConfig": "libs/staking/utils/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

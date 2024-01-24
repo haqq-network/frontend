@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/governance/proposal-list/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["shell-lib-governance-proposal-list"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
