@@ -75,6 +75,11 @@ export interface CosmosService {
   ) => Promise<AuthzGranterGrantsResponse>;
   getProposalTally: (id: string) => Promise<TallyResults>;
   getBankBalances: (address: string) => Promise<Array<Coin>>;
+  getTransactionStatus: (
+    transactionHash: string,
+    initialInterval?: number,
+    maxAttempts?: number,
+  ) => Promise<TransactionStatusResponse | null>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -143,6 +148,10 @@ function generateEndpointBankSupply() {
 
 function generateSimulateEndpoint() {
   return '/cosmos/tx/v1beta1/simulate';
+}
+
+function generateTxEndpoint(txHash: string) {
+  return `/cosmos/tx/v1beta1/txs/${txHash}`;
 }
 
 function generateEndpointGovParams(type: GovParamsType) {
@@ -311,6 +320,10 @@ export type GovParamsType = 'voting' | 'tallying' | 'deposit';
 
 type AccountInfoResponse<A = BaseAccount> = {
   account: A;
+};
+
+export type TransactionStatusResponse = {
+  tx_response: BroadcastTxResponse;
 };
 
 function createCosmosService(
@@ -633,6 +646,53 @@ function createCosmosService(
     return response.data.balances;
   }
 
+  async function getTransactionStatus(
+    transactionHash: string,
+    initialInterval = 5000,
+    maxAttempts = 5,
+  ) {
+    let attempts = 0;
+    let interval = initialInterval;
+
+    const queryApi = async () => {
+      try {
+        const response = await axios.get<TransactionStatusResponse | null>(
+          `${cosmosRestEndpoint}${generateTxEndpoint(transactionHash)}`,
+        );
+        return response.data; // Returns the response data
+      } catch (error) {
+        console.error('Error during request:', error);
+        return null; // Returns null on error
+      }
+    };
+
+    const retry = async () => {
+      while (attempts < maxAttempts) {
+        const currentInterval = interval; // Preserve current interval in closure to solve eslint no-loop-func warning
+        const result = await queryApi();
+
+        if (result) {
+          return result; // Returns the result on successful request
+        }
+
+        attempts++;
+        console.log(`Retry attempt ${attempts} in ${currentInterval} ms.`);
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, currentInterval);
+        });
+
+        interval += initialInterval;
+      }
+
+      console.log('Exceeded maximum number of attempts');
+
+      return null; // Returns null if max attempts exceeded
+    };
+
+    return await retry();
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -658,6 +718,7 @@ function createCosmosService(
     getProposalTally,
     getAccountBaseInfo,
     getBankBalances,
+    getTransactionStatus,
   };
 }
 
