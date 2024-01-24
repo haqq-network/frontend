@@ -10,11 +10,6 @@ export const SOCIAL_LINKS = [
     title: 'Discord',
   },
   {
-    id: 'facebook',
-    url: 'https://www.facebook.com/groups/islamiccoin',
-    title: 'Facebook',
-  },
-  {
     id: 'github',
     url: 'https://github.com/haqq-network',
     title: 'Github',

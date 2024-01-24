@@ -1,9 +1,17 @@
-import { useMemo } from 'react';
-import { Container } from '@haqq/islamic-website-ui-kit';
+import { ReactNode, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { SocialIconLink, SocialIconLinkProps } from './social-links';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import {
+  Container,
+  DiscordIcon,
+  GithubIcon,
+  LinkedinIcon,
+  MediumIcon,
+  TelegramIcon,
+  TwitterIcon,
+  YoutubeIcon,
+} from '@haqq/islamic-website-ui-kit';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],
@@ -14,6 +22,16 @@ interface FooterNavLink {
   isOutLink?: boolean;
   title: string;
 }
+
+const SOCIAL_ICONS: Record<string, ReactNode> = {
+  youtube: <YoutubeIcon />,
+  discord: <DiscordIcon />,
+  github: <GithubIcon />,
+  linkedin: <LinkedinIcon />,
+  medium: <MediumIcon />,
+  telegram: <TelegramIcon />,
+  twitter: <TwitterIcon />,
+};
 
 type FooterNavLinks = Array<Array<FooterNavLink>>;
 
@@ -124,7 +142,7 @@ const footerNavLinks: FooterNavLinks = [
 export function Footer({
   socialLinks,
 }: {
-  socialLinks: SocialIconLinkProps[];
+  socialLinks: { id: string; title: string; url: string }[];
 }) {
   const t = useTranslations('footer');
 
@@ -185,12 +203,16 @@ export function Footer({
               <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[12px] text-white">
                 {socialLinks.map(({ id, url, title }) => {
                   return (
-                    <SocialIconLink
-                      id={id}
-                      key={title}
-                      url={url}
+                    <Link
                       title={title}
-                    />
+                      href={url}
+                      key={`${id}-${title}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors duration-150 ease-in hover:text-[#18FFAC]"
+                    >
+                      {SOCIAL_ICONS[id]}
+                    </Link>
                   );
                 })}
               </div>
