@@ -38,3 +38,4 @@ export * from './utils/format-eth-decimals';
 export * from './hooks/use-local-storage/use-local-storage';
 export * from './hooks/use-network-aware-action/use-network-aware-action';
 export * from './hooks/use-falconer-queries/use-falconer-queries';
+export * from './utils/get-amount-and-denom';
