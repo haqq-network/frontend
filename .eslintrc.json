@@ -13,8 +13,51 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "shell",
+                "onlyDependOnLibsWithTags": [
+                  "shell-lib-*",
+                  "data-access-falconer",
+                  "sentry"
+                ]
+              },
+              {
+                "sourceTag": "shell-lib-*",
+                "onlyDependOnLibsWithTags": [
+                  "shell-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "islamic",
+                "onlyDependOnLibsWithTags": [
+                  "islamic-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "islamic-lib-*",
+                "onlyDependOnLibsWithTags": [
+                  "islamic-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "haqq",
+                "onlyDependOnLibsWithTags": [
+                  "haqq-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "haqq-lib-*",
+                "onlyDependOnLibsWithTags": [
+                  "haqq-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "vesting",
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "sentry"]
               }
             ]
           }
