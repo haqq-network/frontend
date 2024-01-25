@@ -3168,8 +3168,9 @@ __metadata:
     "@types/react-router-dom": "npm:5.3.3"
     "@typescript-eslint/eslint-plugin": "npm:6.17.0"
     "@typescript-eslint/parser": "npm:6.17.0"
-    "@vercel/analytics": "npm:1.1.1"
+    "@vercel/analytics": "npm:1.1.2"
     "@vercel/edge": "npm:1.1.1"
+    "@vercel/speed-insights": "npm:1.0.7"
     "@wagmi/chains": "npm:1.8.0"
     "@wagmi/connectors": "npm:3.1.10"
     "@wagmi/core": "npm:1.4.12"
@@ -8934,12 +8935,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/analytics@npm:1.1.1":
-  version: 1.1.1
-  resolution: "@vercel/analytics@npm:1.1.1"
+"@vercel/analytics@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@vercel/analytics@npm:1.1.2"
   dependencies:
     server-only: "npm:^0.0.1"
-  checksum: fece944678360085a5deaea3afdade16cab67097dca6585e02a1c4c67ac3ba91b8e0bb848b7ec686b87757aad763df5bae41ce103bdc16c6e586b9390d0b4c11
+  checksum: 1b8b98eaed3601d40cd265f8332525bbdb606e4e3545a37a0f1d05b28b84a95e7611ae2c52bf7c23ec6d763c2672ef5f3abf453770326a64e9f313ce2089e266
   languageName: node
   linkType: hard
 
@@ -8947,6 +8948,33 @@ __metadata:
   version: 1.1.1
   resolution: "@vercel/edge@npm:1.1.1"
   checksum: 208ffcd92cab9621045b85d4fd4ed1a24bd5babad1b0c0d713b242d229b512a750dcf1589e40b8d4f63de889dc215eb6a031890890deabbbe7da41df590e461e
+  languageName: node
+  linkType: hard
+
+"@vercel/speed-insights@npm:1.0.7":
+  version: 1.0.7
+  resolution: "@vercel/speed-insights@npm:1.0.7"
+  peerDependencies:
+    "@sveltejs/kit": ^1 || ^2
+    next: ">= 13"
+    react: ^18 || ^19
+    svelte: ^4
+    vue: ^3
+    vue-router: ^4
+  peerDependenciesMeta:
+    "@sveltejs/kit":
+      optional: true
+    next:
+      optional: true
+    react:
+      optional: true
+    svelte:
+      optional: true
+    vue:
+      optional: true
+    vue-router:
+      optional: true
+  checksum: 8a951d72c2e95740fac063aa92002f25a7c458cd88536cb83e60759460aac01aa5f901a754e5f58d13adf0fc7ae3b4ced4b041e29ba63a5e0748dde9bd86a32c
   languageName: node
   linkType: hard
 
