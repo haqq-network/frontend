@@ -14,6 +14,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { LocaleType } from '@haqq/islamic-website/shariah-page';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import { notFound } from 'next/navigation';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
@@ -81,12 +82,11 @@ export default async function LocaleLayout({
           {isScamBannerShow && <ScamBanner />}
 
           <Header locale={locale} isBannerVisible={isScamBannerShow} />
-
           <main className="flex-1">{children}</main>
           <Footer socialLinks={SOCIAL_LINKS} />
 
           {VERCEL_ENV === 'production' && (
-            <div>
+            <>
               <Script
                 async={true}
                 defer={true}
@@ -124,7 +124,8 @@ export default async function LocaleLayout({
               />
               <CookieConsentModal />
               <Analytics mode="auto" />
-            </div>
+              <SpeedInsights />
+            </>
           )}
         </body>
       </html>

@@ -1,7 +1,9 @@
 import '../styles/global.css';
 import type { Metadata, Viewport } from 'next';
 import type { PropsWithChildren } from 'react';
-import { DEPLOY_URL } from '../constants';
+import { DEPLOY_URL, VERCEL_ENV } from '../constants';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: {
@@ -22,7 +24,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="ltr">
-      <body className="will-change-scroll">{children}</body>
+      <body className="will-change-scroll">
+        {children}
+        {VERCEL_ENV === 'production' && (
+          <>
+            <Analytics mode="auto" />
+            <SpeedInsights />
+          </>
+        )}
+      </body>
     </html>
   );
 }
