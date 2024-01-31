@@ -2,7 +2,6 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { Validator } from '@evmos/provider';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { useNetwork } from 'wagmi';
 import {
   getChainParams,
