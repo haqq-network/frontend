@@ -1,5 +1,7 @@
+import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { DownloadButton, Heading, Text } from '@haqq/haqq-website-ui-kit';
 import {
   CustomImage,
   LogoType,
@@ -9,8 +11,6 @@ import {
   islamicBrandColors,
   islamicLogos,
 } from '../../utils/brand-assets';
-import { DownloadButton, Heading, Text } from '@haqq/haqq-website-ui-kit';
-import { PropsWithChildren } from 'react';
 import { BrandColorCard } from '../brand-color-card/brand-color-card';
 
 interface DownloadCardProps {

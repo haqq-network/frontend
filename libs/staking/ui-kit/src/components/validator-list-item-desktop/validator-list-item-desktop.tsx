@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { formatUnits, parseUnits } from 'viem/utils';
-import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
-import { ValidatorListStatus } from '../validator-status/validator-status';
+import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
+import { formatUnits, parseUnits } from 'viem/utils';
 import { formatNumber } from '@haqq/shell-ui-kit';
+import { ValidatorListStatus } from '../validator-status/validator-status';
 
 export function ValidatorListItemDesktop({
   validator,

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
+import { AuditsPage } from '@haqq/haqq-website/audits-page';
 import { DEPLOY_URL } from '../../../constants';
 import { haqqOpenGraphImages } from '../../shared-metadata';
-import { AuditsPage } from '@haqq/haqq-website/audits-page';
 
 const title = 'Audits';
 const description = '';

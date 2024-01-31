@@ -1,5 +1,5 @@
-import { Button, Heading, Text } from '@haqq/haqq-website-ui-kit';
 import Link from 'next/link';
+import { Button, Heading, Text } from '@haqq/haqq-website-ui-kit';
 
 export function EcosystemPageApplyBlock() {
   return (

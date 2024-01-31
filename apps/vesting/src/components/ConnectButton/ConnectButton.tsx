@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAccount, useBalance, useNetwork } from 'wagmi';
 import { useOnboarding } from '../../OnboardingContainer';
 import { AccountButton } from '../AccountButton/AccountButton';
-import { useNavigate } from 'react-router-dom';
 
 export function ConnectButton() {
   const { isConnected, address } = useAccount();

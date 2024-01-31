@@ -1,4 +1,6 @@
 'use client';
+import { useCallback, useMemo, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Container,
   FilterButton,
@@ -8,8 +10,6 @@ import {
   Modal,
   NewMemberCard,
 } from '@haqq/islamic-website-ui-kit';
-import { useTranslations } from 'next-intl';
-import { useCallback, useMemo, useState } from 'react';
 
 type BoardMembers = 'advisory' | 'executive' | 'shariah';
 

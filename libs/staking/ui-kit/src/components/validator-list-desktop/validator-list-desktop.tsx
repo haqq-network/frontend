@@ -1,15 +1,15 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   DistributionRewardsResponse,
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import { ValidatorListItemDesktop } from '../validator-list-item-desktop/validator-list-item-desktop';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { randomSort } from '@haqq/staking/utils';
-import { formatNumber } from '@haqq/shell-ui-kit';
 import clsx from 'clsx';
 import store from 'store2';
 import { useAddress } from '@haqq/shared';
+import { formatNumber } from '@haqq/shell-ui-kit';
+import { randomSort } from '@haqq/staking/utils';
+import { ValidatorListItemDesktop } from '../validator-list-item-desktop/validator-list-item-desktop';
 
 export type SortDirection = 'asc' | 'desc' | undefined;
 

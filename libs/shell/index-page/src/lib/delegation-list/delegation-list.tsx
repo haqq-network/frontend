@@ -1,6 +1,12 @@
 import { useMemo } from 'react';
+import {
+  GetDelegationsResponse,
+  Validator,
+  DistributionRewardsResponse,
+} from '@evmos/provider';
+import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import { Link } from 'react-router-dom';
-import { Card, Heading, SpinnerLoader } from '@haqq/shell-ui-kit';
+import { formatUnits } from 'viem';
 import {
   useAddress,
   useStakingDelegationQuery,
@@ -8,14 +14,8 @@ import {
   useStakingValidatorListQuery,
   useStakingPoolQuery,
 } from '@haqq/shared';
-import {
-  GetDelegationsResponse,
-  Validator,
-  DistributionRewardsResponse,
-} from '@evmos/provider';
+import { Card, Heading, SpinnerLoader } from '@haqq/shell-ui-kit';
 import { ValidatorListStatus } from '@haqq/staking/ui-kit';
-import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
-import { formatUnits } from 'viem';
 
 interface DelegationListValidator {
   name: string;

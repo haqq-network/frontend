@@ -1,5 +1,4 @@
 'use client';
-import clsx from 'clsx';
 import {
   Fragment,
   PropsWithChildren,
@@ -8,6 +7,11 @@ import {
   useState,
 } from 'react';
 import { Transition } from '@headlessui/react';
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { useMediaQuery } from 'react-responsive';
+import { LocaleType } from '@haqq/islamic-website/shariah-page';
 import {
   Container,
   AcademyIcon,
@@ -30,10 +34,6 @@ import {
   CubeIcon,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
-import { useMediaQuery } from 'react-responsive';
-import { useTranslations } from 'next-intl';
-import { LocaleType } from '@haqq/islamic-website/shariah-page';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
 const { Link, usePathname } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { getWhitepaperContentFromFalconer } from '../../../utils/get-whitepaper';
 import { WhitepaperPage } from '@haqq/haqq-website/whitepaper-page';
 import { DEPLOY_URL } from '../../../constants';
+import { getWhitepaperContentFromFalconer } from '../../../utils/get-whitepaper';
 import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Whitepaper';

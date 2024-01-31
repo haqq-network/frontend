@@ -1,14 +1,14 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   DiscordIcon,
   GithubIcon,
   TwitterIcon,
 } from '@haqq/haqq-website-ui-kit';
-import walletImageData from '../assets/images/wallet-bg.jpg';
-import { HeroBlock } from './hero-block/hero-block';
-import { FeaturesBlock } from './features-block/features-block';
 import { FAQBlock } from './faq-block/faq-block';
+import { FeaturesBlock } from './features-block/features-block';
+import { HeroBlock } from './hero-block/hero-block';
+import walletImageData from '../assets/images/wallet-bg.jpg';
 
 function HeaderLogo() {
   return (

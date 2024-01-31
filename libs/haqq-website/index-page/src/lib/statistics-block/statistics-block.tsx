@@ -1,9 +1,9 @@
 'use client';
-import { useInViewport } from 'react-in-viewport';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import styles from './statistics-block.module.css';
 import clsx from 'clsx';
+import { useInViewport } from 'react-in-viewport';
 import { MemoizedAnimatedNumbers } from '@haqq/haqq-website-ui-kit';
+import styles from './statistics-block.module.css';
 
 export interface ChainStats {
   mainnetAccountsCreated: number;

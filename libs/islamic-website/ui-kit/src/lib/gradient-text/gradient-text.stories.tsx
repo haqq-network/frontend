@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { GradientText as GradientTextComponent } from './gradient-text';
 
 const meta: Meta<typeof GradientTextComponent> = {

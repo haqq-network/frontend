@@ -1,11 +1,11 @@
 'use client';
 import { Fragment, ReactNode, useCallback, useState } from 'react';
-import Image from 'next/image';
 import clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
-import logoImageData from '../../assets/images/logo.svg';
-import { Button, BurgerButton } from '@haqq/haqq-website-ui-kit';
 import ScrollLock from 'react-scrolllock';
+import { Button, BurgerButton } from '@haqq/haqq-website-ui-kit';
+import logoImageData from '../../assets/images/logo.svg';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 
 function HeaderNavLink({

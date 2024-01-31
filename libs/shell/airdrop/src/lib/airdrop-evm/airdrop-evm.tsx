@@ -1,7 +1,7 @@
-import { Button } from '@haqq/shell-ui-kit';
 import { useWallet } from '@haqq/shared';
-import { EvmAirdropView } from '../evm-airdrop-view/evm-airdrop-view';
+import { Button } from '@haqq/shell-ui-kit';
 import { BlurredBlock } from '../blured-block/blured-block';
+import { EvmAirdropView } from '../evm-airdrop-view/evm-airdrop-view';
 
 export function AirdropEvm({
   ethAddress,

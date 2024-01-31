@@ -1,5 +1,5 @@
-import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
+import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 
 type StarColor = 'purple' | 'orange' | 'green';
 

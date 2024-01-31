@@ -1,11 +1,11 @@
-import { Button } from '@haqq/shell-ui-kit';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Keplr } from '@keplr-wallet/types';
-import { CosmosAirdropCard } from '../cosmos-airdrop-card/cosmos-airdrop-card';
-import { BlurredBlock } from '../blured-block/blured-block';
+import { IParticipant, useAirdropActions } from '@haqq/shared';
+import { Button } from '@haqq/shell-ui-kit';
 import cosmosIcon from './../../assets/icons/cosmos.svg';
 import evmosIcon from './../../assets/icons/evmos.svg';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { IParticipant, useAirdropActions } from '@haqq/shared';
+import { BlurredBlock } from '../blured-block/blured-block';
+import { CosmosAirdropCard } from '../cosmos-airdrop-card/cosmos-airdrop-card';
 import { PARTICIPANTS_CHECK_INTERVAL } from '../evm-airdrop-view/evm-airdrop-view';
 
 export async function addHaqqNetwork(keplrWallet: Keplr) {

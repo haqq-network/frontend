@@ -1,7 +1,7 @@
-import { FALCONER_ENDPOINT } from '../../../constants';
+import { ipAddress } from '@vercel/edge';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { ipAddress } from '@vercel/edge';
+import { FALCONER_ENDPOINT } from '../../../constants';
 
 interface SubscribeRequest {
   email: string;

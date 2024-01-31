@@ -1,6 +1,6 @@
-import { REVALIDATE_TIME } from '../constants';
 import { cache } from 'react';
 import { getIslamicDisclaimerData } from '@haqq/data-access-falconer';
+import { REVALIDATE_TIME } from '../constants';
 
 export const revalidate = REVALIDATE_TIME;
 

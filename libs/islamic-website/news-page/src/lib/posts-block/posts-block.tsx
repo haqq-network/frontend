@@ -1,9 +1,9 @@
 'use client';
-import { NewsCard, NewsPost } from '@haqq/islamic-website-ui-kit';
+import { PropsWithChildren, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { PropsWithChildren, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { NewsCard, NewsPost } from '@haqq/islamic-website-ui-kit';
 
 function NewsTypeButton({
   children,

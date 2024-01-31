@@ -1,8 +1,8 @@
-import { Button } from '@haqq/haqq-website-ui-kit';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@haqq/haqq-website-ui-kit';
 import notFoundGlowImageData from '../../assets/images/not-found-glow.png';
-import type { Metadata } from 'next';
 import { DEPLOY_URL } from '../../constants';
 import { haqqOpenGraphImages } from '../shared-metadata';
 

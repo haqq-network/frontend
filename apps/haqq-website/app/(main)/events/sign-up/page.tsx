@@ -1,11 +1,11 @@
+import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import {
   DEPLOY_URL,
   NX_WALLETCONNECT_PROJECT_ID,
   VERCEL_ENV,
 } from '../../../../constants';
-import type { Metadata } from 'next';
 import { haqqOpenGraphImages } from '../../../shared-metadata';
-import dynamic from 'next/dynamic';
 
 const title = 'Event Registration';
 const description =

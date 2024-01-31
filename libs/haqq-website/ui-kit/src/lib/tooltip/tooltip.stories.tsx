@@ -1,5 +1,5 @@
-import { Tooltip as TooltipComponent } from './tooltip';
 import { Meta, StoryObj } from '@storybook/react';
+import { Tooltip as TooltipComponent } from './tooltip';
 
 const meta: Meta<typeof TooltipComponent> = {
   component: TooltipComponent,

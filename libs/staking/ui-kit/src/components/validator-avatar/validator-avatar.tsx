@@ -1,7 +1,7 @@
-import { ValidatorIcon } from '@haqq/shell-ui-kit';
-import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import axios from 'axios';
 import store from 'store2';
+import { ValidatorIcon } from '@haqq/shell-ui-kit';
 
 const avatarsCacheKey = 'validator_avatars';
 

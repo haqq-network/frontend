@@ -1,8 +1,7 @@
-import { Container, NewsPost, Text } from '@haqq/islamic-website-ui-kit';
-
-import { PostsBlock } from '../posts-block/posts-block';
-import { SubscribeForm } from '@haqq/islamic-website/forms';
 import { useTranslations } from 'next-intl';
+import { SubscribeForm } from '@haqq/islamic-website/forms';
+import { Container, NewsPost, Text } from '@haqq/islamic-website-ui-kit';
+import { PostsBlock } from '../posts-block/posts-block';
 
 export function NewsPage({
   news,

@@ -1,5 +1,5 @@
-import { Address as AddressComponent } from './address';
 import { Meta, StoryObj } from '@storybook/react';
+import { Address as AddressComponent } from './address';
 
 const meta: Meta<typeof AddressComponent> = {
   component: AddressComponent,

@@ -1,9 +1,9 @@
+import { useCallback } from 'react';
 import {
   DistributionRewardsResponse,
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import { useCallback } from 'react';
 import { ValidatorListItemMobile } from '../validator-list-item-mobile/validator-list-item-mobile';
 
 export function ValidatorsListMobile({

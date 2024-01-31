@@ -1,10 +1,10 @@
-import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
-import missionStarImgData from '../../assets/images/mission-star.webp';
-import missionRockImgData from '../../assets/images/mission-rock.webp';
-import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
+import missionRockImgData from '../../assets/images/mission-rock.webp';
+import missionStarImgData from '../../assets/images/mission-star.webp';
 
 function MissionPageHeading({ children }: PropsWithChildren) {
   return (

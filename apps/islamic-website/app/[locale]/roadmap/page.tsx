@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { RoadmapPage } from '@haqq/islamic-website/roadmap-page';
-import { getRoadmapContentFromFalconer } from '../../../utils/get-roadmap';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
+import { getRoadmapContentFromFalconer } from '../../../utils/get-roadmap';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Roadmap';

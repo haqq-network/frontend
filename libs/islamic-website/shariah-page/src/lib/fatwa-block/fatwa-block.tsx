@@ -1,19 +1,19 @@
 'use client';
+import clsx from 'clsx';
+import Image, { StaticImageData } from 'next/image';
+import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import {
   DownloadPDFButton,
   MarkdownText,
   Text,
 } from '@haqq/islamic-website-ui-kit';
-import clsx from 'clsx';
-import Image, { StaticImageData } from 'next/image';
 import fatwaSign1 from '../../assets/images/autographs/autograph-al-enezy.webp';
-import fatwaSign2 from '../../assets/images/autographs/autograph-saleh-yaqubi.webp';
+import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
 import fatwaSign3 from '../../assets/images/autographs/autograph-hakim-mohamed.webp';
 import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.webp';
-import fatwaSign5 from '../../assets/images/autographs/autograph-fathiddin-beyanouni.webp';
-import { useTranslations } from 'next-intl';
+import fatwaSign2 from '../../assets/images/autographs/autograph-saleh-yaqubi.webp';
 import type { LocaleType } from '../shariah-page/shariah-page';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

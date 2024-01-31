@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import cubesImgData from '../../assets/images/cubes.jpg';
-import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
+import cubesImgData from '../../assets/images/cubes.jpg';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

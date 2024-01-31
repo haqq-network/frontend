@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import clsx from 'clsx';
 import { toFixedAmount } from '@haqq/shared';
 import {
   Button,

@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import titleBlockBgData from '../assets/images/blog-page-header-bg.svg';
 import { FeaturedPostBlock } from './featured-post-block/featured-post-block';
 import { PostsBlock } from './posts-block/posts-block';
+import titleBlockBgData from '../assets/images/blog-page-header-bg.svg';
 
 export interface Post {
   id: string;

@@ -1,6 +1,6 @@
+import { Meta, StoryObj } from '@storybook/react';
 import { withRouter } from 'storybook-addon-react-router-v6';
 import { OrangeLink as OrangeLinkComponent } from './orange-link';
-import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof OrangeLinkComponent> = {
   component: OrangeLinkComponent,

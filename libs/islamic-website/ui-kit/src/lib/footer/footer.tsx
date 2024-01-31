@@ -1,5 +1,6 @@
-import Link from 'next/link';
 import { PropsWithChildren } from 'react';
+import Link from 'next/link';
+import { Container } from '../container/container';
 import {
   DiscordIcon,
   FacebookIcon,
@@ -12,7 +13,6 @@ import {
   YoutubeIcon,
   ZenIcon,
 } from '../icons';
-import { Container } from '../container/container';
 
 interface FooterNavLinkProps {
   url: string;

@@ -1,6 +1,6 @@
+import { PropsWithChildren, createElement } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { PropsWithChildren, createElement } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { ReactMarkdownProps } from 'react-markdown/lib/complex-types';
 import rehypeRaw from 'rehype-raw';

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
+import { toHex } from 'viem';
 import { useNetwork } from 'wagmi';
 import { useOnboarding } from '../../OnboardingContainer';
-import { toHex } from 'viem';
 
 export function NetworkButton() {
   const { chain } = useNetwork();

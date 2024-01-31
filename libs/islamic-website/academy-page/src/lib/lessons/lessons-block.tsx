@@ -1,14 +1,14 @@
 'use client';
 
-import { Button, SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
-import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useEffect, useState, Fragment } from 'react';
-import { AcademyModulesJson } from '../modules-page/types';
-import MODULES from './modules.json';
-import { Select } from '@haqq/islamic-website-ui-kit';
-import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { useMediaQuery } from 'react-responsive';
+import { Select } from '@haqq/islamic-website-ui-kit';
+import { Button, SpinnerLoader, Text } from '@haqq/islamic-website-ui-kit';
+import MODULES from './modules.json';
+import { AcademyModulesJson } from '../modules-page/types';
 
 export function useActiveLesson(
   initialModule?: number,

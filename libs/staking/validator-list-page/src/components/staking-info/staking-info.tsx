@@ -1,3 +1,11 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { haqqTestedge2 } from '@wagmi/chains';
+import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router-dom';
+import { formatUnits, parseUnits } from 'viem';
+import { useBalance, useNetwork } from 'wagmi';
+import { useCosmosProvider } from '@haqq/shared';
 import {
   getFormattedAddress,
   useAddress,
@@ -11,10 +19,6 @@ import {
   useToast,
   useWallet,
 } from '@haqq/shared';
-import { StakingStatsDesktop, StakingStatsMobile } from '@haqq/staking/ui-kit';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useBalance, useNetwork } from 'wagmi';
-import { useCosmosProvider } from '@haqq/shared';
 import {
   Button,
   Container,
@@ -24,11 +28,7 @@ import {
   ToastSuccess,
   formatNumber,
 } from '@haqq/shell-ui-kit';
-import { haqqTestedge2 } from '@wagmi/chains';
-import clsx from 'clsx';
-import { formatUnits, parseUnits } from 'viem';
-import { Link } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
+import { StakingStatsDesktop, StakingStatsMobile } from '@haqq/staking/ui-kit';
 
 function useStakingStats() {
   const [staked, setStakedValue] = useState(0);

@@ -1,11 +1,5 @@
 'use client';
 import {
-  MemoizedAnimatedNumbers,
-  Heading,
-  Text,
-} from '@haqq/islamic-website-ui-kit';
-import Image from 'next/image';
-import {
   PropsWithChildren,
   ReactNode,
   useEffect,
@@ -13,11 +7,17 @@ import {
   useRef,
   useState,
 } from 'react';
-import haqqLogoImgData from '../../assets/images/haqq-logo.webp';
-import Link from 'next/link';
 import clsx from 'clsx';
-import { useInViewport } from 'react-in-viewport';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { useInViewport } from 'react-in-viewport';
+import {
+  MemoizedAnimatedNumbers,
+  Heading,
+  Text,
+} from '@haqq/islamic-website-ui-kit';
+import haqqLogoImgData from '../../assets/images/haqq-logo.webp';
 
 export interface ChainStats {
   mainnetAccountsCreated: number;

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { Text as TextComponent } from './text';
 
 const meta: Meta<typeof TextComponent> = {

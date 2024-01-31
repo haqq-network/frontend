@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { useCosmosService } from '../../providers/cosmos-provider';
 import { useNetwork } from 'wagmi';
+import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useAuthzGrantsQuery(granter: string, grantee: string) {

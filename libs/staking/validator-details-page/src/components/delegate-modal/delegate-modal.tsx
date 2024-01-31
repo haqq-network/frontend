@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 import {
   getFormattedAddress,
   toFixedAmount,
@@ -18,7 +19,6 @@ import {
   ToastError,
   LinkIcon,
 } from '@haqq/shell-ui-kit';
-import { Link } from 'react-router-dom';
 
 export interface DelegateModalProps {
   isOpen: boolean;

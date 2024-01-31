@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/islamic-website/index-page';
 import { DEPLOY_URL } from '../../constants';
+import { getChainStatsFromFalconer } from '../../utils/get-chain-stats-data';
 import { getHomePageDataFromFalconer } from '../../utils/get-home-page-data';
 import { islamicOpenGraphImages } from '../shared-metadata';
-import { getChainStatsFromFalconer } from '../../utils/get-chain-stats-data';
 
 const title = 'IslamicCoin';
 const description =

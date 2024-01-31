@@ -1,9 +1,9 @@
 import '../styles/global.css';
-import type { Metadata, Viewport } from 'next';
 import type { PropsWithChildren } from 'react';
-import { DEPLOY_URL, VERCEL_ENV } from '../constants';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Metadata, Viewport } from 'next';
+import { DEPLOY_URL, VERCEL_ENV } from '../constants';
 
 export const metadata: Metadata = {
   title: {

@@ -1,4 +1,8 @@
 'use client';
+import { useCallback, useState } from 'react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import {
   GradientText,
   Modal,
@@ -6,10 +10,6 @@ import {
   PlayVideoIcon,
   Text,
 } from '@haqq/islamic-website-ui-kit';
-import Image from 'next/image';
-import { useCallback, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

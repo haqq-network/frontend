@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { ReactNode, useMemo } from 'react';
+import clsx from 'clsx';
 import { SpinnerLoader } from '../loader/loader';
 
 export interface ButtonProps {

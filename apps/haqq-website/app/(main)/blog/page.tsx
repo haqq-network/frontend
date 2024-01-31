@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { getHaqqBlogPostsFromFalconer } from '../../../utils/get-blog-posts';
 import { BlogPage } from '@haqq/haqq-website/blog';
 import { DEPLOY_URL } from '../../../constants';
+import { getHaqqBlogPostsFromFalconer } from '../../../utils/get-blog-posts';
 import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Blog';

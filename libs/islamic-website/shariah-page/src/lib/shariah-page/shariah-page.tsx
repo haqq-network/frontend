@@ -1,7 +1,10 @@
 'use client';
-import { FatwaBlock } from '../fatwa-block/fatwa-block';
-import fatwaStarsImgData from '../../assets/images/fatwa-stars.jpg';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import clsx from 'clsx';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import {
   Container,
   MemberCard,
@@ -9,15 +12,12 @@ import {
   Modal,
   Text,
 } from '@haqq/islamic-website-ui-kit';
-import clsx from 'clsx';
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { ScrollSpySection } from './scrollspy';
+import fatwaStarsImgData from '../../assets/images/fatwa-stars.jpg';
+import { FatwaBlock } from '../fatwa-block/fatwa-block';
 import { FoundationsBlock } from '../foundations-block/foundations-block';
 import { ShariahBlock } from '../shariah-block/shariah-block';
 import { ShariahPageMobileNav } from '../shariah-page-mobile-nav/shariah-page-mobile-nav';
-import { ScrollSpySection } from './scrollspy';
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

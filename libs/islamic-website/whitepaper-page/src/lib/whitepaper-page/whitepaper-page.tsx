@@ -1,11 +1,11 @@
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import {
   Container,
   DownloadPDFButton,
   MarkdownText,
   MoonAnimatedBg,
 } from '@haqq/islamic-website-ui-kit';
-import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
 
 export function WhitepaperPage({ whitepaper }: { whitepaper?: string }) {
   const t = useTranslations('whitepaper-page');

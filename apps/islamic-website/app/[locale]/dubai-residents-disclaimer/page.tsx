@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { DubaiResidentDisclaimerPage } from '@haqq/islamic-website/dubai-residents-disclaimer-page';
 import { DEPLOY_URL } from '../../../constants';
-import { islamicOpenGraphImages } from '../../shared-metadata';
 import { getDisclaimerContentFromFalconer } from '../../../utils/get-disclaimer';
+import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Dubai Residents Disclaimer';
 const description = '';

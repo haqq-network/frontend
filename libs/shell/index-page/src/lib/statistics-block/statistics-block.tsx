@@ -1,6 +1,6 @@
+import { useMemo } from 'react';
 import { useChainStatsQuery } from '@haqq/shared';
 import { formatNumber } from '@haqq/shell-ui-kit';
-import { useMemo } from 'react';
 
 export function StatisticsBlock() {
   const symbol = 'ISLM';

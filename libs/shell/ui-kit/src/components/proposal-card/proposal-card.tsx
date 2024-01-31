@@ -1,14 +1,14 @@
+import { useMemo } from 'react';
 import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
 import { Card, CardHeading } from '../card/card';
+import { InfoBlock } from '../info-block/info-block';
 import { ProposalDepositProgress } from '../proposal-deposit-progress/proposal-deposit-progress';
+import { ProposalPeriodTimer } from '../proposal-period-timer/proposal-period-timer';
+import { ProposalStatus } from '../proposal-status/proposal-status';
 import {
   ProposalVoteProgress,
   VoteResults,
 } from '../proposal-vote-progress/proposal-vote-progress';
-import { ProposalStatus } from '../proposal-status/proposal-status';
-import { ProposalPeriodTimer } from '../proposal-period-timer/proposal-period-timer';
-import { InfoBlock } from '../info-block/info-block';
-import { useMemo } from 'react';
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {

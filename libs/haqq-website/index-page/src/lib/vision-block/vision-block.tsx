@@ -1,5 +1,5 @@
-import { AboveTitle, Heading, Text } from '@haqq/haqq-website-ui-kit';
 import clsx from 'clsx';
+import { AboveTitle, Heading, Text } from '@haqq/haqq-website-ui-kit';
 import styles from './vision-block.module.css';
 
 function BorderRuler({

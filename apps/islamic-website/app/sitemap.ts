@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
+import { academyModules } from '@haqq/islamic-website/academy-page';
 import { SITE_URL } from '../constants';
 import { SUPPORTED_LOCALES } from '../constants';
-import { academyModules } from '@haqq/islamic-website/academy-page';
 
 export interface SitemapUrl {
   url: string;

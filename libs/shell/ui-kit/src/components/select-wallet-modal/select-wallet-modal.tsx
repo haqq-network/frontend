@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import { MobileHeading, Modal, ModalCloseButton } from '../modal/modal';
 import { Button } from '../button/button';
+import { MobileHeading, Modal, ModalCloseButton } from '../modal/modal';
 
 export function SelectWalletModal({
   isOpen,

@@ -1,4 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Validator, DelegationResponse } from '@evmos/provider';
+import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
+import { formatEther } from 'viem';
 import {
   useAddress,
   useStakingValidatorListQuery,
@@ -10,21 +14,17 @@ import {
   useStakingParamsQuery,
 } from '@haqq/shared';
 import {
-  ValidatorsListDesktop,
-  ValidatorsListMobile,
-} from '@haqq/staking/ui-kit';
-import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
-import { Validator, DelegationResponse } from '@evmos/provider';
-import {
   SpinnerLoader,
   ValidatorIcon,
   Heading,
   Container,
   Checkbox,
 } from '@haqq/shell-ui-kit';
-import { useMediaQuery } from 'react-responsive';
-import { useNavigate } from 'react-router-dom';
-import { formatEther } from 'viem';
+import {
+  ValidatorsListDesktop,
+  ValidatorsListMobile,
+} from '@haqq/staking/ui-kit';
+import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,

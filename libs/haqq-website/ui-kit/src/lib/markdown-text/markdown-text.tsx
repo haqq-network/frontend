@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
+import { createElement } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { createElement } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { Element } from 'react-markdown/lib/ast-to-react';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import { Element } from 'react-markdown/lib/ast-to-react';
 
 function LinkIcon({ className }: { className?: string }) {
   return (

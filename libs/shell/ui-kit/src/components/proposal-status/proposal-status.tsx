@@ -1,6 +1,6 @@
+import { ReactElement } from 'react';
 import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
 import clsx from 'clsx';
-import { ReactElement } from 'react';
 
 export function ProposalStatus({
   status,

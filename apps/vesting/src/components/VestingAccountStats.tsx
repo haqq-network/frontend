@@ -1,14 +1,14 @@
+import { Fragment, useMemo } from 'react';
+import clsx from 'clsx';
+import { formatUnits } from 'viem';
 import {
   ClawbackVestingAccount,
   VestingPeriod,
   toFixedAmount,
 } from '@haqq/shared';
 import { Card } from './Card/Card';
-import { Fragment, useMemo } from 'react';
-import { formatUnits } from 'viem';
-import clsx from 'clsx';
-import { Heading } from './Typography/Typography';
 import { Tooltip } from './Tooltip/Tooltip';
+import { Heading } from './Typography/Typography';
 import { formatLocaleNumber } from '../utils/format-number-locale';
 
 export function formatDate(date: Date) {

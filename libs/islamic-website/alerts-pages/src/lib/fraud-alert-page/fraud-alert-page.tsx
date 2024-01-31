@@ -1,9 +1,9 @@
-import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { PropsWithChildren } from 'react';
-import fraudCubesImgData from '../../assets/images/fraud-cubes.webp';
+import clsx from 'clsx';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import clsx from 'clsx';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
+import fraudCubesImgData from '../../assets/images/fraud-cubes.webp';
 
 function Alert({ children }: PropsWithChildren) {
   return (

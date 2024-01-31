@@ -1,3 +1,8 @@
+import { ReactNode } from 'react';
+import clsx from 'clsx';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
   Container,
   DiscordIcon,
@@ -10,12 +15,7 @@ import {
   TwitterIcon,
   YoutubeIcon,
 } from '@haqq/islamic-website-ui-kit';
-import { ReactNode } from 'react';
-import Link from 'next/link';
 import bgImgData from '../../assets/images/bg-image.svg';
-import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import clsx from 'clsx';
 
 const SOCIAL_ICONS: Record<string, ReactNode> = {
   youtube: <YoutubeIcon />,

@@ -1,5 +1,5 @@
-import { WarningMessage as WarningMessageComponent } from './warning-message';
 import { Meta, StoryObj } from '@storybook/react';
+import { WarningMessage as WarningMessageComponent } from './warning-message';
 
 const meta: Meta<typeof WarningMessageComponent> = {
   component: WarningMessageComponent,

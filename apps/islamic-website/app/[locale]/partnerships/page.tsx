@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { DEPLOY_URL } from '../../../constants';
 import { islamicOpenGraphImages } from '../../shared-metadata';
-import { notFound } from 'next/navigation';
 
 const title = 'Partnerships';
 const description =

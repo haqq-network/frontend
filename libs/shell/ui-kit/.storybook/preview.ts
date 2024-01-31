@@ -1,5 +1,5 @@
-import { Preview } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { Preview } from '@storybook/react';
 import './index.css';
 
 const preview: Preview = {

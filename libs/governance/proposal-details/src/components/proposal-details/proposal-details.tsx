@@ -6,14 +6,19 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-import Markdown from 'marked-react';
 import {
   ParameterChangeProposalContent,
   Proposal,
   ProposalStatus,
   SoftwareUpgradeProposalContent,
 } from '@evmos/provider';
+import clsx from 'clsx';
+import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
+import Markdown from 'marked-react';
+import { useMediaQuery } from 'react-responsive';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { formatUnits } from 'viem/utils';
+import { useAccount, useNetwork } from 'wagmi';
 import {
   useAddress,
   useProposalDetailsQuery,
@@ -32,10 +37,6 @@ import {
   useStakingPoolQuery,
   useNetworkAwareAction,
 } from '@haqq/shared';
-import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
-import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
-import { SoftwareUpgradeProposalDetails } from '../software-upgrade-proposal/software-upgrade-proposal';
-import clsx from 'clsx';
 import {
   BackButton,
   InfoBlock,
@@ -56,9 +57,8 @@ import {
   ToastError,
   LinkIcon,
 } from '@haqq/shell-ui-kit';
-import { useMediaQuery } from 'react-responsive';
-import { useAccount, useNetwork } from 'wagmi';
-import { formatUnits } from 'viem/utils';
+import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
+import { SoftwareUpgradeProposalDetails } from '../software-upgrade-proposal/software-upgrade-proposal';
 
 const enum ProposalTypes {
   Text = '/cosmos.gov.v1beta1.TextProposal',

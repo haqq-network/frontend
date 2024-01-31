@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { useWalletClient } from 'wagmi';
 import { Hex } from 'viem';
+import { useWalletClient } from 'wagmi';
 
 interface QrRegistrationActionsHook {
   sign: (account: Hex, message: string) => Promise<string>;

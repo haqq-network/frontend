@@ -1,6 +1,6 @@
-import { Button, Container, Heading, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { Button, Container, Heading, Text } from '@haqq/islamic-website-ui-kit';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

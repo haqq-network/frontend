@@ -1,6 +1,6 @@
 'use client';
-import clsx from 'clsx';
 import { ChangeEvent, Ref, forwardRef, useCallback, useState } from 'react';
+import clsx from 'clsx';
 
 export type InputState = 'initial' | 'success' | 'error';
 

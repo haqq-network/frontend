@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
+import clsx from 'clsx';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;

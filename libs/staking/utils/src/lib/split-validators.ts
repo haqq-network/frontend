@@ -1,5 +1,5 @@
-import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import { Validator } from '@evmos/provider';
+import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 
 export function splitValidators(validatorsList: Validator[]) {
   const active: Validator[] = [];

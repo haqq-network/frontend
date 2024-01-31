@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { PropsWithChildren } from 'react';
+import clsx from 'clsx';
 
 export interface TextProps {
   className?: string;

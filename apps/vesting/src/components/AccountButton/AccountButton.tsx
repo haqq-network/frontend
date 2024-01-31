@@ -2,11 +2,11 @@
 // @ts-nocheck
 
 import { Fragment, ReactElement, ReactNode } from 'react';
-import clsx from 'clsx';
-import { Button } from '../Button/Button';
 import { Menu, Transition } from '@headlessui/react';
+import clsx from 'clsx';
 import { getFormattedAddress } from '@haqq/shared';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
+import { Button } from '../Button/Button';
 
 function AddressButton({
   children,

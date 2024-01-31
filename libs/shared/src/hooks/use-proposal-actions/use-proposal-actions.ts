@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import {
   Sender,
   createTxMsgVote,
@@ -5,21 +6,20 @@ import {
   signatureToWeb3Extension,
   createTxRawEIP712,
 } from '@evmos/transactions';
-import { useCallback, useMemo } from 'react';
 import type {
   Fee,
   MessageMsgDepositParams,
   TxGenerated,
 } from '@evmos/transactions';
-import { useAddress } from '../use-address/use-address';
+import Decimal from 'decimal.js-light';
+import { useNetwork, useWalletClient } from 'wagmi';
 import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import {
   BroadcastTxResponse,
   useCosmosService,
 } from '../../providers/cosmos-provider';
-import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
-import Decimal from 'decimal.js-light';
-import { useNetwork, useWalletClient } from 'wagmi';
+import { useAddress } from '../use-address/use-address';
 
 interface ProposalActionsHook {
   vote: (proposalId: number, option: number) => Promise<BroadcastTxResponse>;

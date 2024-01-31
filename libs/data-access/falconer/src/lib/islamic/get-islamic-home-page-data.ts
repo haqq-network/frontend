@@ -1,8 +1,8 @@
+import { FalconerMembers } from './get-islamic-members';
+import { FalconerNewsPost } from './get-islamic-news';
 import { FALCONER_ENDPOINT } from '../../constants';
 import { FalconerRequestInit } from '../../types';
 import { mapFalconerNews } from '../../utils/map-news';
-import { FalconerMembers } from './get-islamic-members';
-import { FalconerNewsPost } from './get-islamic-news';
 
 export async function getIslamicHomePageData(
   options: Partial<FalconerRequestInit>,

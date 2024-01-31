@@ -1,5 +1,5 @@
-import { MarkdownText as MarkdownTextComponent } from './markdown-text';
 import { Meta, StoryObj } from '@storybook/react';
+import { MarkdownText as MarkdownTextComponent } from './markdown-text';
 
 const meta: Meta<typeof MarkdownTextComponent> = {
   component: MarkdownTextComponent,

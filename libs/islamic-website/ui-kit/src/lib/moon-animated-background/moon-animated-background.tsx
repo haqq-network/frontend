@@ -1,9 +1,9 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { Container } from '../container/container';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { Container } from '../container/container';
 
 function delay(milliseconds: number): Promise<void> {
   return new Promise((resolve) => {
