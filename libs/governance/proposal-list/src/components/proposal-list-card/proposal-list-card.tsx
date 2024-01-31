@@ -1,9 +1,9 @@
 import { ReactElement, useMemo } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
-import { ProposalCard } from '@haqq/shell-ui-kit';
 import { formatUnits } from 'viem/utils';
-import { GetGovernanceParamsResponse, TallyResults } from '@haqq/shared';
 import { getProposalTypeText } from '@haqq/governance/proposal-details';
+import { GetGovernanceParamsResponse, TallyResults } from '@haqq/shared';
+import { ProposalCard } from '@haqq/shell-ui-kit';
 
 export function ProposalListCard({
   proposal,

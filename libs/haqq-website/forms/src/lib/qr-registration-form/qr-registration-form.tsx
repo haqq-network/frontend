@@ -1,14 +1,14 @@
 'use client';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import clsx from 'clsx';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { Button } from '@haqq/haqq-website-ui-kit';
 import {
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button } from '@haqq/haqq-website-ui-kit';
-import clsx from 'clsx';
 
 export interface QrRegistrationFormFields {
   fullname: string;

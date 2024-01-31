@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
-import { SUPPORTED_LOCALES } from '../constants';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { SUPPORTED_LOCALES } from '../constants';
 
 export default function RootLayout({
   children,

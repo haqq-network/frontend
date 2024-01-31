@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
+import { ProposalStatus } from '@evmos/provider';
 import { Link } from 'react-router-dom';
 import {
   useGovernanceParamsQuery,
   useProposalListQuery,
   useProposalTallys,
 } from '@haqq/shared';
-import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
 import { Container, SpinnerLoader } from '@haqq/shell-ui-kit';
-import { ProposalStatus } from '@evmos/provider';
+import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
 
 export function ProposalList() {
   const { data: govParams } = useGovernanceParamsQuery();

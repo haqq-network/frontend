@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { haqqOpenGraphImages } from '../../shared-metadata';
 import { DEPLOY_URL } from '../../../constants';
+import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Brand assets';
 const description = `Download HAQQ Network's official brand assets to represent our ethical and Shariah-compliant vision.`;

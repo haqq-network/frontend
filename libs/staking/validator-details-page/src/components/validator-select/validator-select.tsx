@@ -1,10 +1,10 @@
+import { useCallback, useMemo } from 'react';
+import clsx from 'clsx';
 import Select, {
   components as validatorSelectComponents,
   OptionProps,
   ClassNamesConfig,
 } from 'react-select';
-import clsx from 'clsx';
-import { useCallback, useMemo } from 'react';
 
 interface ValidatorSelectOption {
   label: string;

@@ -1,6 +1,6 @@
 'use client';
-import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
+import clsx from 'clsx';
 
 export function AcademyAnimatedBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);

@@ -1,9 +1,9 @@
 'use client';
-import { useDebouncedEffect } from '@haqq/shared';
 import { useCallback, useState } from 'react';
+import axios from 'axios';
 import QrReader from 'react-qr-scanner';
 import { Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
-import axios from 'axios';
+import { useDebouncedEffect } from '@haqq/shared';
 
 interface IScanResult {
   text: string;

@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { PropsWithChildren } from 'react';
+import clsx from 'clsx';
 
 interface HeadingProps {
   level?: 1 | 2 | 3 | 4;

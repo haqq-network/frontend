@@ -1,6 +1,3 @@
-import Link from 'next/link';
-import { Container } from '../container/container';
-import clsx from 'clsx';
 import {
   Fragment,
   PropsWithChildren,
@@ -9,7 +6,10 @@ import {
   useState,
 } from 'react';
 import { Transition } from '@headlessui/react';
+import clsx from 'clsx';
+import Link from 'next/link';
 import { BurgerButton } from '../burger-button/burger-button';
+import { Container } from '../container/container';
 import {
   AcademyIcon,
   AlertIcon,

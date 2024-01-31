@@ -3,7 +3,8 @@ import { ReactNode } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import logoImageData from '../../assets/images/logo.svg';
+import { useMediaQuery } from 'react-responsive';
+import { SubscribeForm } from '@haqq/haqq-website/forms';
 import {
   DiscordIcon,
   GithubIcon,
@@ -12,8 +13,7 @@ import {
   TelegramIcon,
   TwitterIcon,
 } from '@haqq/haqq-website-ui-kit';
-import { SubscribeForm } from '@haqq/haqq-website/forms';
-import { useMediaQuery } from 'react-responsive';
+import logoImageData from '../../assets/images/logo.svg';
 
 function FooterNavLink({
   href,

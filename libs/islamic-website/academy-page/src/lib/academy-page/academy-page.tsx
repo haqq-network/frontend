@@ -1,5 +1,5 @@
-import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { AcademyAnimatedBackground } from '../academy-animated-background/academy-animated-background';
 
 function Level({ level }: { level: 'beginner' | 'intermediate' | 'advanced' }) {

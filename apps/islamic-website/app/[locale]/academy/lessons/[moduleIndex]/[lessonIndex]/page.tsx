@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
+import { AcademyModulesPage } from '@haqq/islamic-website/academy-page';
 import { DEPLOY_URL } from '../../../../../../constants';
 import { islamicOpenGraphImages } from '../../../../../shared-metadata';
-import { AcademyModulesPage } from '@haqq/islamic-website/academy-page';
 
 const title = 'Academy';
 const description =

@@ -1,5 +1,5 @@
-import { FALCONER_ENDPOINT } from '../../../../constants';
 import { NextResponse } from 'next/server';
+import { FALCONER_ENDPOINT } from '../../../../constants';
 
 interface GetTicketsResponse {
   tickets: TicketEntity[];

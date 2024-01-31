@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { getHaqqPartnersFromFalconer } from '../../../utils/get-partners';
 import { EcosystemPage } from '@haqq/haqq-website/ecosystem-page';
 import { DEPLOY_URL } from '../../../constants';
+import { getHaqqPartnersFromFalconer } from '../../../utils/get-partners';
 import { haqqOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Ecosystem';

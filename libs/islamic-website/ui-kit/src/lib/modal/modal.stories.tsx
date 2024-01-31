@@ -1,6 +1,6 @@
+import { Fragment, useState } from 'react';
 import { Meta } from '@storybook/react';
 import { Modal as ModalComponent, ModalCloseButton } from './modal';
-import { Fragment, useState } from 'react';
 import { Button } from '../button/button';
 
 const meta: Meta<typeof ModalComponent> = {

@@ -1,7 +1,7 @@
 import { ReactNode, useCallback } from 'react';
+import { Button } from '../button/button';
 import { Heading } from '../heading/heading';
 import { Modal, ModalCloseButton } from '../modal/modal';
-import { Button } from '../button/button';
 
 export const InformationModal = ({
   isOpened,

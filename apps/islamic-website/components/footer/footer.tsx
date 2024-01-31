@@ -1,6 +1,6 @@
 import { ReactNode, useMemo } from 'react';
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import {
   Container,

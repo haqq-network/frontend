@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactNode, useCallback } from 'react';
 import clsx from 'clsx';
-import { Text } from '../Typography/Typography';
 import styles from './Checkbox.module.css';
+import { Text } from '../Typography/Typography';
 export interface CheckboxProps {
   id?: string;
   value?: boolean;

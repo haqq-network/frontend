@@ -1,4 +1,7 @@
 import { useMemo } from 'react';
+import { DelegationResponse } from '@evmos/provider';
+import { useMediaQuery } from 'react-responsive';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   useAddress,
   useStakingDelegationQuery,
@@ -18,10 +21,7 @@ import {
   ValidatorsListDesktop,
   ValidatorsListMobile,
 } from '@haqq/staking/ui-kit';
-import { DelegationResponse } from '@evmos/provider';
 import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
-import { useMediaQuery } from 'react-responsive';
-import { Link, useNavigate } from 'react-router-dom';
 
 function getDelegatedValidatorsAddresses(
   delegations: DelegationResponse[] | null | undefined,

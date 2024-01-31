@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { ChangeEvent, Ref, forwardRef, useCallback } from 'react';
+import clsx from 'clsx';
 
 export interface InputProps {
   inputClassName?: string;

@@ -1,5 +1,5 @@
-import { BlogArticle as BlogArticleComponent } from './blog-article';
 import { Meta, StoryObj } from '@storybook/react';
+import { BlogArticle as BlogArticleComponent } from './blog-article';
 
 const meta: Meta<typeof BlogArticleComponent> = {
   component: BlogArticleComponent,

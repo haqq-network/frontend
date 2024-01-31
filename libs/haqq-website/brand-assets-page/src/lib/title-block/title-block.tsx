@@ -1,5 +1,5 @@
-import { Heading, Text, DownloadButton } from '@haqq/haqq-website-ui-kit';
 import clsx from 'clsx';
+import { Heading, Text, DownloadButton } from '@haqq/haqq-website-ui-kit';
 import styles from './title-block.module.css';
 
 export function TitleBlock() {

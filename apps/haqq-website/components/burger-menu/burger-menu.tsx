@@ -1,6 +1,7 @@
-import clsx from 'clsx';
 import { PropsWithChildren, ReactNode } from 'react';
+import clsx from 'clsx';
 import Link from 'next/link';
+import { SubscribeForm } from '@haqq/haqq-website/forms';
 import {
   DiscordIcon,
   GithubIcon,
@@ -13,7 +14,6 @@ import {
   // YoutubeIcon,
   Button,
 } from '@haqq/haqq-website-ui-kit';
-import { SubscribeForm } from '@haqq/haqq-website/forms';
 
 interface NavLinkProps {
   href: string;

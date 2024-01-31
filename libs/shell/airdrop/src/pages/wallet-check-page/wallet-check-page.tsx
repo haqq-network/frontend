@@ -1,12 +1,12 @@
+import { useMemo } from 'react';
 import { ethToHaqq, useAddress, useWallet } from '@haqq/shared';
 import { Button, CaptchaModal, Container } from '@haqq/shell-ui-kit';
-import { CheckWalletExplanation } from '../../lib/check-wallet-explanation/check-wallet-explanation';
 import {
   AirdropInfo,
   useWalletInfoChecker,
 } from '../../lib/airdrop-info/airdrop-info';
-import { useMemo } from 'react';
 import { BlurredBlock } from '../../lib/blured-block/blured-block';
+import { CheckWalletExplanation } from '../../lib/check-wallet-explanation/check-wallet-explanation';
 import { NotAllowedWallet } from '../../lib/not-allowed-wallet/not-allowed-wallet';
 
 export function WalletCheckPage({

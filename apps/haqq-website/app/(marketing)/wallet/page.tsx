@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { walletOpenGraphImages } from '../../shared-metadata';
 import { DEPLOY_URL } from '../../../constants';
+import { walletOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Wallet';
 const description =

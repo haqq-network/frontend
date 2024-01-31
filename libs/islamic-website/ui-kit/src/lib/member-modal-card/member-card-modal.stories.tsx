@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { MemberModalCard as MemberModalCardComponent } from './member-modal-card';
 
 const meta: Meta<typeof MemberModalCardComponent> = {

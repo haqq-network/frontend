@@ -1,6 +1,6 @@
+import { Modal, ModalCloseButton } from './Modal/Modal';
 import { Button } from '../Button/Button';
 import { Heading } from '../Typography/Typography';
-import { Modal, ModalCloseButton } from './Modal/Modal';
 
 export function SelectWalletModal({
   isOpen,

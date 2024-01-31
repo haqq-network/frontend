@@ -1,5 +1,5 @@
-import { Button, MarkdownText, PageTitle } from '@haqq/haqq-website-ui-kit';
 import Link from 'next/link';
+import { Button, MarkdownText, PageTitle } from '@haqq/haqq-website-ui-kit';
 // import { CoinomicsModal } from '../components/whitepaper-page/coinomics-modal/coinomics-modal';
 
 export function WhitepaperPage({ whitepaper }: { whitepaper: string }) {

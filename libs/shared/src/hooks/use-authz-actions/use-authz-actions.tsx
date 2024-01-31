@@ -9,14 +9,14 @@ import {
   MsgGenericRevokeParams,
   createTxMsgGenericRevoke,
 } from '@evmos/transactions';
-import { useAddress } from '../use-address/use-address';
+import { useNetwork, useWalletClient } from 'wagmi';
 import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import {
   BroadcastTxResponse,
   useCosmosService,
 } from '../../providers/cosmos-provider';
-import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
-import { useNetwork, useWalletClient } from 'wagmi';
+import { useAddress } from '../use-address/use-address';
 
 interface AuthzActionsHook {
   grant: (

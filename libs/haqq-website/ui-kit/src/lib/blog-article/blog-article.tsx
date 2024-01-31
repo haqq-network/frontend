@@ -1,8 +1,8 @@
 import Image, { type StaticImageData } from 'next/image';
 // import { Heading } from '../heading/heading';
+import { CopyIcon } from '../icons/copy-icon';
 import { MarkdownText } from '../markdown-text/markdown-text';
 // import { TelegramIcon, TwitterIcon } from '../icons';
-import { CopyIcon } from '../icons/copy-icon';
 import { Tooltip } from '../tooltip/tooltip';
 
 export function BlogArticle({

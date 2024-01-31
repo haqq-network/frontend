@@ -1,5 +1,7 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { Validator } from '@evmos/provider';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 import {
   getFormattedAddress,
   toFixedAmount,
@@ -17,10 +19,8 @@ import {
   ToastError,
   LinkIcon,
 } from '@haqq/shell-ui-kit';
-import { Validator } from '@evmos/provider';
-import { ValidatorSelect } from '../validator-select/validator-select';
 import { splitValidators } from '@haqq/staking/utils';
-import { Link } from 'react-router-dom';
+import { ValidatorSelect } from '../validator-select/validator-select';
 
 export interface RedelegateModalProps {
   isOpen: boolean;

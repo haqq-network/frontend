@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { ShariahPage } from '@haqq/islamic-website/shariah-page';
-import { getMembersContentFromFalconer } from '../../../utils/get-members';
-import { getFatwaContentFromFalconer } from '../../../utils/get-fatwa';
 import { DEPLOY_URL } from '../../../constants';
+import { getFatwaContentFromFalconer } from '../../../utils/get-fatwa';
+import { getMembersContentFromFalconer } from '../../../utils/get-members';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Shariah';

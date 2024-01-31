@@ -1,6 +1,6 @@
-import { Modal, ModalCloseButton } from '../Modal/Modal';
-import { Heading, Text } from '../../Typography/Typography';
 import { Button } from '../../Button/Button';
+import { Heading, Text } from '../../Typography/Typography';
+import { Modal, ModalCloseButton } from '../Modal/Modal';
 
 export interface NoMetamaskAlertProps {
   isOpen: boolean;

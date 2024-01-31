@@ -1,8 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { environment } from './environments/environment';
 import { App } from './app/app';
 import { AppContainer } from './app/app-container';
+import { environment } from './environments/environment';
 import './index.css';
 
 if (process.env['VERCEL_ENV'] === 'production') {

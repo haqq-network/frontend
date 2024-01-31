@@ -1,6 +1,6 @@
 import { useAddress } from '@haqq/shared';
-import { PendingPage } from './PendingPage';
 import { AccountPageComponent } from './AccountPage';
+import { PendingPage } from './PendingPage';
 
 export function AccountPage() {
   const { ethAddress, haqqAddress } = useAddress();

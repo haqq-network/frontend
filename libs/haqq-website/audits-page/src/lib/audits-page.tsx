@@ -1,9 +1,9 @@
-import { Heading } from '@haqq/haqq-website-ui-kit';
+import clsx from 'clsx';
 import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
+import { Heading } from '@haqq/haqq-website-ui-kit';
 import halbornLogoImgData from '../assets/images/halborn-logo.svg';
 import linesBgImgData from '../assets/images/lines.svg';
-import clsx from 'clsx';
 
 interface Auditor {
   logo: StaticImageData | string;

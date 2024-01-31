@@ -1,13 +1,13 @@
 'use client';
-import { useAddress, useQrRegistrationActions, useWallet } from '@haqq/shared';
-import localStore from 'store2';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import axios from 'axios';
+import localStore from 'store2';
 import {
   QrRegistrationForm,
   QrRegistrationFormFields,
 } from '@haqq/haqq-website/forms';
 import { Button } from '@haqq/haqq-website-ui-kit';
-import axios from 'axios';
+import { useAddress, useQrRegistrationActions, useWallet } from '@haqq/shared';
 import { TickerRequest } from '../ticket-request/ticket-request';
 
 const MESSAGE = 'GIVE ME TICKET';

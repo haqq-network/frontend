@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import maskData from '../../assets/images/mask.png';
-import ledgerImageData from '../../assets/images/landing-ledger-item.svg';
 import { ReactNode } from 'react';
 import clsx from 'clsx';
+import Image from 'next/image';
+import ledgerImageData from '../../assets/images/landing-ledger-item.svg';
+import maskData from '../../assets/images/mask.png';
 
 function LikeIcon({ className }: { className?: string }) {
   return (

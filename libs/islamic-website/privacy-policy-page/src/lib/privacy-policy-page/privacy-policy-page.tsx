@@ -1,8 +1,8 @@
-import { Container, MarkdownText } from '@haqq/islamic-website-ui-kit';
-import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { PropsWithChildren } from 'react';
+import clsx from 'clsx';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { Container, MarkdownText } from '@haqq/islamic-website-ui-kit';
 
 function HeroBg({ children }: PropsWithChildren) {
   return (

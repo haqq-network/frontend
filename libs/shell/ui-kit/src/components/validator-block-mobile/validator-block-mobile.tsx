@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
-import { Button } from '../button/button';
-import { WarningMessage } from '../warning-message/warning-message';
 import clsx from 'clsx';
-import { ValidatorIcon } from '../icons/icons';
-import { Heading } from '../heading/heading';
-import { Container } from '../container/container';
 import { formatNumber } from '../../utils/format-number';
+import { Button } from '../button/button';
+import { Container } from '../container/container';
+import { Heading } from '../heading/heading';
+import { ValidatorIcon } from '../icons/icons';
+import { WarningMessage } from '../warning-message/warning-message';
 
 interface ValidatorBlockMobileProps {
   delegation: number;

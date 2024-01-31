@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
+import { ProposalStatus } from '@evmos/provider';
 import { Link } from 'react-router-dom';
+import { useNetwork } from 'wagmi';
 import { ProposalListCard } from '@haqq/governance/proposal-list';
 import {
   useGovernanceParamsQuery,
@@ -14,8 +16,6 @@ import {
   ProposalsIcon,
   SpinnerLoader,
 } from '@haqq/shell-ui-kit';
-import { useNetwork } from 'wagmi';
-import { ProposalStatus } from '@evmos/provider';
 
 export function ProposalListBlock() {
   const { data: govParams } = useGovernanceParamsQuery();

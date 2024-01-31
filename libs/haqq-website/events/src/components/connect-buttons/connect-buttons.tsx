@@ -1,6 +1,5 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AccountButton, Button, SelectChainButton } from '@haqq/shell-ui-kit';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 import {
   useAddress,
@@ -8,6 +7,7 @@ import {
   getFormattedAddress,
   useSupportedChains,
 } from '@haqq/shared';
+import { AccountButton, Button, SelectChainButton } from '@haqq/shell-ui-kit';
 
 export function ConnectButtons() {
   const { chain } = useNetwork();

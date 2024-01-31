@@ -1,6 +1,6 @@
+import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { PropsWithChildren } from 'react';
 
 interface OrangeLinkProps {
   className?: string;

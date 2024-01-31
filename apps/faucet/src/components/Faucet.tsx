@@ -6,12 +6,12 @@ import {
   useMemo,
   useState,
 } from 'react';
-import Reaptcha from 'reaptcha';
-import SuccessIndicator from 'react-success-indicator';
 import { useAuth0 } from '@auth0/auth0-react';
-import { AccountInfo } from './AccountInfo';
+import clsx from 'clsx';
+import SuccessIndicator from 'react-success-indicator';
+import Reaptcha from 'reaptcha';
 import { useAccount, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
-import { environment } from '../environments/environment';
+import { useSupportedChains } from '@haqq/shared';
 import {
   Button,
   Heading,
@@ -22,8 +22,8 @@ import {
   EarnIcon,
   Container,
 } from '@haqq/shell-ui-kit';
-import clsx from 'clsx';
-import { useSupportedChains } from '@haqq/shared';
+import { AccountInfo } from './AccountInfo';
+import { environment } from '../environments/environment';
 
 interface ClaimInfo {
   available: boolean;

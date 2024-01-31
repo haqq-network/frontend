@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import clsx from 'clsx';
-import logoImageData from '../../assets/images/logo.svg';
 import { NavLink } from 'react-router-dom';
+import logoImageData from '../../assets/images/logo.svg';
 
 export function Header({
   rightSlot,

@@ -6,6 +6,18 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { haqqTestedge2 } from '@wagmi/chains';
+import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
+import ScrollLock from 'react-scrolllock';
+import { useBalance, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
+import {
+  useAddress,
+  useWallet,
+  getFormattedAddress,
+  useSupportedChains,
+} from '@haqq/shared';
 import {
   Page,
   Header,
@@ -21,19 +33,7 @@ import {
   CommitSha,
   SelectChainModal,
 } from '@haqq/shell-ui-kit';
-import ScrollLock from 'react-scrolllock';
-import { useMediaQuery } from 'react-responsive';
-import { useBalance, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
-import {
-  useAddress,
-  useWallet,
-  getFormattedAddress,
-  useSupportedChains,
-} from '@haqq/shared';
-import { haqqTestedge2 } from '@wagmi/chains';
-import { useNavigate } from 'react-router-dom';
 import { environment } from '../environments/environment';
-import clsx from 'clsx';
 
 function HeaderButtons({
   isMobileMenuOpen,

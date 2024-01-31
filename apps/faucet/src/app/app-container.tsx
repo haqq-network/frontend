@@ -1,9 +1,9 @@
 import { ReactElement, ReactNode, useMemo } from 'react';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { environment } from '../environments/environment';
-import { ConfigProvider, WagmiProvider } from '@haqq/shared';
-import { BrowserRouter } from 'react-router-dom';
 import { haqqTestedge2 } from '@wagmi/chains';
+import { BrowserRouter } from 'react-router-dom';
+import { ConfigProvider, WagmiProvider } from '@haqq/shared';
+import { environment } from '../environments/environment';
 
 function AuthContainer({ children }: { children: ReactElement }) {
   const auth0ProviderProperties = useMemo(() => {

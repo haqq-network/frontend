@@ -1,11 +1,11 @@
+import type { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
+import { BlogPostPage } from '@haqq/haqq-website/blog';
+import { DEPLOY_URL, REVALIDATE_TIME } from '../../../../constants';
 import {
   getBlogPost,
   getHaqqBlogPostsFromFalconer,
 } from '../../../../utils/get-blog-posts';
-import { DEPLOY_URL, REVALIDATE_TIME } from '../../../../constants';
-import type { Metadata, ResolvingMetadata } from 'next';
-import { BlogPostPage } from '@haqq/haqq-website/blog';
 
 export const dynamicParams = true;
 

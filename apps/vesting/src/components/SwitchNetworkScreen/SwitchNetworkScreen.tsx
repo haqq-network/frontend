@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
+import { toHex } from 'viem';
 import { useNetwork } from 'wagmi';
+import { useSupportedChains } from '@haqq/shared';
 import { useOnboarding } from '../../OnboardingContainer';
 import { Button } from '../Button/Button';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { Heading, Text } from '../Typography/Typography';
-import { toHex } from 'viem';
-import { useSupportedChains } from '@haqq/shared';
 
 function SwitchNetworkNetworkContainer({
   networkName,

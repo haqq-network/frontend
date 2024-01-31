@@ -1,11 +1,11 @@
-import { Button, Heading, Text } from '@haqq/haqq-website-ui-kit';
+import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
-import { CommissionIcon, LimitIcon, VotingIcon } from '../icons/icons';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Button, Heading, Text } from '@haqq/haqq-website-ui-kit';
 import bgImgData from '../assets/images/bg-lines.svg';
 import joinSectionImgData from '../assets/images/join-section-lines.svg';
-import { PropsWithChildren } from 'react';
+import { CommissionIcon, LimitIcon, VotingIcon } from '../icons/icons';
 
 type ValidatorBenefits = 'commission' | 'limit' | 'voting';
 

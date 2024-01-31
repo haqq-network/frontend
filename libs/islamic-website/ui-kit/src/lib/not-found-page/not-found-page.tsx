@@ -1,7 +1,7 @@
-import notFoundBgImgData from '../../assets/images/not-found-bg.webp';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import notFoundBgImgData from '../../assets/images/not-found-bg.webp';
 import { Container } from '../container/container';
 import { Text } from '../text/text';
 

@@ -1,9 +1,4 @@
 import { useEffect, useState } from 'react';
-import {
-  AccountWidget,
-  BalancesFromIndexer,
-} from '../components/AccountWidget/AccountWidget';
-import { Container } from '../components/Layout/Layout';
 import { Navigate, useParams } from 'react-router-dom';
 import { isAddress } from 'viem';
 import {
@@ -12,12 +7,17 @@ import {
   useAccountInfoQuery,
   ClawbackVestingAccount,
 } from '@haqq/shared';
+import { PendingPage } from './PendingPage';
+import {
+  AccountWidget,
+  BalancesFromIndexer,
+} from '../components/AccountWidget/AccountWidget';
+import { Container } from '../components/Layout/Layout';
 import { VestingAccountStats } from '../components/VestingAccountStats';
 import {
   IndexerBalances,
   useIndexerBalances,
 } from '../hooks/use-indexer-balances';
-import { PendingPage } from './PendingPage';
 
 export function AccountPage() {
   const { address } = useParams();

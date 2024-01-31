@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { DEPLOY_URL } from '../../../constants';
-import { islamicOpenGraphImages } from '../../shared-metadata';
 import { TeamPage } from '@haqq/islamic-website/team-page';
+import { DEPLOY_URL } from '../../../constants';
 import { getMembersContentFromFalconer } from '../../../utils/get-members';
+import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Team';
 const description =

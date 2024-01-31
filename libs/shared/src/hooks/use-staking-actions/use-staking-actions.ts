@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import {
   createTxMsgDelegate,
   createTxMsgUndelegate,
@@ -10,14 +11,13 @@ import {
   createTxMsgBeginRedelegate,
   MsgBeginRedelegateParams,
 } from '@evmos/transactions';
-import { useCallback, useMemo } from 'react';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
-import { useAddress } from '../use-address/use-address';
 import Decimal from 'decimal.js-light';
-import { useCosmosService } from '../../providers/cosmos-provider';
+import { useNetwork, useWalletClient } from 'wagmi';
 import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
-import { useNetwork, useWalletClient } from 'wagmi';
+import { useCosmosService } from '../../providers/cosmos-provider';
+import { useAddress } from '../use-address/use-address';
 
 function getAmountAndDenom(amount: number, fee?: Fee) {
   let decAmount = new Decimal(amount).mul(10 ** 18);

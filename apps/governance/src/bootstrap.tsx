@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
-import { App } from './app/app';
-import { environment } from './environments/environment';
 import { AppProviders } from '@haqq/shared';
+import { App } from './app/app';
 import { AppWrapper } from './app/app-wrapper';
+import { environment } from './environments/environment';
 import './index.css';
 
 if (process.env['VERCEL_ENV'] === 'production') {

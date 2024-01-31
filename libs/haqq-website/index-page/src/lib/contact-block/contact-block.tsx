@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import eclipseImageData from '../../assets/images/index-page-contact-bg.png';
 import { FeedbackForm } from '@haqq/haqq-website/forms';
 import { Heading } from '@haqq/haqq-website-ui-kit';
+import eclipseImageData from '../../assets/images/index-page-contact-bg.png';
 
 export function ContactBlock({
   turnstileSiteKey,

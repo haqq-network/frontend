@@ -1,18 +1,18 @@
 'use client';
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import Turnstile from 'react-turnstile';
 import * as yup from 'yup';
+import { Button, Heading, Modal, Ruler, Text } from '@haqq/haqq-website-ui-kit';
 import {
   SubscribeFormFields,
   FormState,
   HookedFormInput,
 } from '../hooked-form-input/hooked-form-input';
-import { Button, Heading, Modal, Ruler, Text } from '@haqq/haqq-website-ui-kit';
-import clsx from 'clsx';
-import axios from 'axios';
-import Turnstile from 'react-turnstile';
-import Link from 'next/link';
 
 const schema: yup.ObjectSchema<SubscribeFormFields> = yup
   .object({

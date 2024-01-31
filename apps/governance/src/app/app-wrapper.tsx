@@ -6,14 +6,17 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { haqqTestedge2 } from '@wagmi/chains';
+import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
+import ScrollLock from 'react-scrolllock';
+import { useBalance, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 import {
   getFormattedAddress,
   useAddress,
   useSupportedChains,
   useWallet,
 } from '@haqq/shared';
-import { useBalance, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
-import ScrollLock from 'react-scrolllock';
 import {
   Header,
   Page,
@@ -28,9 +31,6 @@ import {
   Footer,
   SelectChainModal,
 } from '@haqq/shell-ui-kit';
-import { useMediaQuery } from 'react-responsive';
-import { haqqTestedge2 } from '@wagmi/chains';
-import { useNavigate } from 'react-router-dom';
 import { environment } from '../environments/environment';
 
 function HeaderButtons({

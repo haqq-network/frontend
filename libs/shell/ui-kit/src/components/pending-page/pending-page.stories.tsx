@@ -1,5 +1,5 @@
-import { PendingPage as PendingPageComponent } from './pending-page';
 import { Meta, StoryObj } from '@storybook/react';
+import { PendingPage as PendingPageComponent } from './pending-page';
 
 const meta: Meta<typeof PendingPageComponent> = {
   component: PendingPageComponent,

@@ -1,10 +1,10 @@
+import { useCallback, useState } from 'react';
 import {
   IParticipant,
   IParticipateResponse,
   ParticipantStatus,
 } from '@haqq/shared';
 import { Button, Checkbox, InformationModal } from '@haqq/shell-ui-kit';
-import { useCallback, useState } from 'react';
 import { Address } from '../address/address';
 import { SmallText } from '../small-text/small-text';
 

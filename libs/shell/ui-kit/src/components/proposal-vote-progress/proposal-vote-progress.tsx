@@ -1,8 +1,8 @@
-import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
 import { ReactElement, useMemo } from 'react';
-import { CardSubText, CardText } from '../card/card';
+import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
 import clsx from 'clsx';
 import { formatNumber } from '../../utils/format-number';
+import { CardSubText, CardText } from '../card/card';
 
 export interface VoteResults {
   yes: string;

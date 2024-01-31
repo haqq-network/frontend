@@ -1,9 +1,9 @@
-import { useOnboarding } from '../OnboardingContainer';
-import { Button } from '../components/Button/Button';
-import { Heading, Text } from '../components/Typography/Typography';
-import { Container } from '../components/Layout/Layout';
 import { Navigate } from 'react-router-dom';
+import { Button } from '../components/Button/Button';
+import { Container } from '../components/Layout/Layout';
 import { SwitchNetworkScreen } from '../components/SwitchNetworkScreen/SwitchNetworkScreen';
+import { Heading, Text } from '../components/Typography/Typography';
+import { useOnboarding } from '../OnboardingContainer';
 
 export function WelcomeScreen() {
   const { connectWallet } = useOnboarding();

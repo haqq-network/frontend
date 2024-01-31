@@ -1,22 +1,22 @@
-import { HeroBlock } from '../hero-block/hero-block';
-import { JoinCommunityBlock } from '../join-community-block/join-community-block';
-import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block';
-import { NewsBlock } from '../news-block/news-block';
-import { PortfolioBlock } from '../portfolio-block/portfolio-block';
-import { ChainStats, WhyBlock } from '../why-block/why-block';
 import { Fragment } from 'react';
-import { Marquee } from '../marquee/marquee';
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import {
   Container,
   Member,
   MoonAnimatedBg,
   NewsPost,
 } from '@haqq/islamic-website-ui-kit';
-import { FinanceBlock } from '../finance-block/finance-block';
 import { BoardMembersBlock } from '../board-members-block/board-members-block';
-import clsx from 'clsx';
+import { FinanceBlock } from '../finance-block/finance-block';
 import { FundsBlock } from '../funds-block/funds-block';
-import { useTranslations } from 'next-intl';
+import { HeroBlock } from '../hero-block/hero-block';
+import { JoinCommunityBlock } from '../join-community-block/join-community-block';
+import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block';
+import { Marquee } from '../marquee/marquee';
+import { NewsBlock } from '../news-block/news-block';
+import { PortfolioBlock } from '../portfolio-block/portfolio-block';
+import { ChainStats, WhyBlock } from '../why-block/why-block';
 
 export function IndexPage({
   news,

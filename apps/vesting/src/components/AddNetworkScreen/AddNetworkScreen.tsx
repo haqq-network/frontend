@@ -1,9 +1,9 @@
 import { ReactElement, ReactNode } from 'react';
+import { useNetwork } from 'wagmi';
+import { useOnboarding } from '../../OnboardingContainer';
 import { Button } from '../Button/Button';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';
 import { Heading, Text } from '../Typography/Typography';
-import { useOnboarding } from '../../OnboardingContainer';
-import { useNetwork } from 'wagmi';
 
 function AddNetworkDetailsItem({
   title,

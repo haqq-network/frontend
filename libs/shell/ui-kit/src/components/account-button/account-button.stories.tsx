@@ -1,5 +1,5 @@
-import { AccountButton as AccountButtonComponent } from './account-button';
 import { Meta, StoryObj } from '@storybook/react';
+import { AccountButton as AccountButtonComponent } from './account-button';
 
 const meta: Meta<typeof AccountButtonComponent> = {
   component: AccountButtonComponent,

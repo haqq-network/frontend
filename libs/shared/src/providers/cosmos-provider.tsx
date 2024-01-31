@@ -1,4 +1,6 @@
 import { PropsWithChildren, useContext, useMemo, createContext } from 'react';
+import { hashMessage } from '@ethersproject/hash';
+import { computePublicKey, recoverPublicKey } from '@ethersproject/signing-key';
 import {
   generateEndpointBroadcast,
   generatePostBodyBroadcast,
@@ -21,17 +23,15 @@ import {
   generateEndpointBalances,
   BalancesResponse,
 } from '@evmos/provider';
-import store from 'store2';
 import { Coin } from '@evmos/transactions';
 import axios from 'axios';
-import { WalletClient, useNetwork, useWalletClient } from 'wagmi';
-import { computePublicKey, recoverPublicKey } from '@ethersproject/signing-key';
-import { hashMessage } from '@ethersproject/hash';
-import { getChainParams } from '../chains/get-chain-params';
-import { useSupportedChains } from './wagmi-provider';
+import store from 'store2';
 import { Hex } from 'viem';
-import { ethToHaqq } from '../utils/convert-address';
+import { WalletClient, useNetwork, useWalletClient } from 'wagmi';
+import { useSupportedChains } from './wagmi-provider';
+import { getChainParams } from '../chains/get-chain-params';
 import { BaseAccount, ClawbackVestingAccount, HaqqAccount } from '../types';
+import { ethToHaqq } from '../utils/convert-address';
 
 export type TallyResults = TallyResponse['tally'];
 

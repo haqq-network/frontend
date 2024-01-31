@@ -1,12 +1,12 @@
+import clsx from 'clsx';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
   Container,
   MarkdownTextProseWrapper,
 } from '@haqq/islamic-website-ui-kit';
 import fraudCubesImgData from '../../assets/images/fraud-cubes.webp';
-import Image from 'next/image';
-import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 
 const haqqLink = 'https://haqq.network';
 const islamicLink = 'https://islamiccoin.net';

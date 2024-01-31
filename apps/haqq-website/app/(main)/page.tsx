@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { IndexPage } from '@haqq/haqq-website/index-page';
-import { getChainStatsFromFalconer } from '../../utils/get-chain-stats';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../constants';
+import { getChainStatsFromFalconer } from '../../utils/get-chain-stats';
 import { haqqOpenGraphImages } from '../shared-metadata';
 
 const title = 'Home of ethical web3';

@@ -1,4 +1,14 @@
 import {
+  Fragment,
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+  useState,
+} from 'react';
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import {
   AcademyIcon,
   AlertIcon,
   BlogIcon,
@@ -15,17 +25,7 @@ import {
   StarIcon,
   ValuesIcon,
 } from '@haqq/islamic-website-ui-kit';
-import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
-import {
-  Fragment,
-  PropsWithChildren,
-  ReactNode,
-  useCallback,
-  useState,
-} from 'react';
 import { LanguageLink } from '../header/header';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
 const { Link, usePathname } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

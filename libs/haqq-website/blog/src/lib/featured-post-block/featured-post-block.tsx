@@ -1,11 +1,11 @@
-import { Heading, BlogPostCard } from '@haqq/haqq-website-ui-kit';
-import Link from 'next/link';
 import { useMemo } from 'react';
+import { type StaticImageData } from 'next/image';
+import Link from 'next/link';
+import { Heading, BlogPostCard } from '@haqq/haqq-website-ui-kit';
 import blogPlaceholderImage1 from '../../assets/images/blog-post-placeholder-1.png';
 import blogPlaceholderImage2 from '../../assets/images/blog-post-placeholder-2.png';
 import blogPlaceholderImage3 from '../../assets/images/blog-post-placeholder-3.png';
 import type { Post } from '../blog-page';
-import { type StaticImageData } from 'next/image';
 
 export function FeaturedPostBlock({ post }: { post: Post }) {
   const postImage = useMemo(() => {
