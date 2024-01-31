@@ -1,7 +1,6 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { useNetwork } from 'wagmi';
 import {
   getChainParams,

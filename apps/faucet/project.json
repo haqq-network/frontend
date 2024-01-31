@@ -42,25 +42,9 @@
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
-          "vendorChunk": false,
+          "vendorChunk": true,
           "webpackConfig": "apps/faucet/webpack.config.prod.js"
         }
-      },
-      "production": {
-        "fileReplacements": [
-          {
-            "replace": "apps/faucet/src/environments/environment.ts",
-            "with": "apps/faucet/src/environments/environment.prod.ts"
-          }
-        ],
-        "optimization": true,
-        "outputHashing": "all",
-        "sourceMap": false,
-        "namedChunks": false,
-        "extractLicenses": true,
-        "vendorChunk": false,
-        "webpackConfig": "apps/faucet/webpack.config.prod.js",
-        "isolatedConfig": true
       }
     },
     "serve": {
