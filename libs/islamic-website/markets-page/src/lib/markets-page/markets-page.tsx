@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Container, Heading, Text } from '@haqq/islamic-website-ui-kit';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import bitgetLogoImageData from '../../assets/images/bitget.svg';
 import kucoinLogoImageData from '../../assets/images/kucoin.svg';
 import lbankLogoImageData from '../../assets/images/lbank.png';
@@ -54,17 +54,16 @@ export function MarketsPage({ price }: { price: string }) {
                 Markets
               </h1>
 
-              <Heading
-                level={3}
-                className="mt-[28px] md:mt-[44px] lg:mt-[60px]"
-              >
+              <h2 className="font-alexandria mt-[28px] text-[22px] font-[600] leading-[24px] md:mt-[44px] md:text-[48px] md:leading-[54px] lg:mt-[60px]">
                 Price:&nbsp;{price}
-              </Heading>
+              </h2>
             </div>
 
             <div>
               <div>
-                <Heading level={3}>CEX</Heading>
+                <h2 className="font-alexandria text-[22px] font-[600] leading-[24px] md:text-[48px] md:leading-[54px]">
+                  CEX
+                </h2>
                 <div className="mt-[12px] md:mt-[18px]">
                   <Text>
                     A list of exchanges where you can purchase and exchange
@@ -73,7 +72,7 @@ export function MarketsPage({ price }: { price: string }) {
                 </div>
               </div>
 
-              <div className="mt-[24px] grid grid-cols-2 gap-[16px] md:mt-[40px] md:grid-cols-2 md:gap-[36px] lg:grid-cols-3">
+              <div className="mt-[24px] grid grid-cols-2 gap-[16px] md:mt-[40px] md:grid-cols-2 md:gap-[24px] lg:grid-cols-3 xl:gap-[36px]">
                 <Link href="#">
                   <CEXCard name="kuCoin" logo={kucoinLogoImageData} />
                 </Link>
@@ -88,7 +87,10 @@ export function MarketsPage({ price }: { price: string }) {
 
             <div>
               <div>
-                <Heading level={3}>DEX</Heading>
+                <h2 className="font-alexandria text-[22px] font-[600] leading-[24px] md:text-[48px] md:leading-[54px]">
+                  DEX
+                </h2>
+
                 <div className="mt-[12px] md:mt-[18px]">
                   <Text>
                     List of dex platforms where you can swap IslamicCoin
@@ -119,13 +121,15 @@ export function MarketsPage({ price }: { price: string }) {
 
             <div>
               <div>
-                <Heading level={3}>OnRamp</Heading>
+                <h2 className="font-alexandria text-[22px] font-[600] leading-[24px] md:text-[48px] md:leading-[54px]">
+                  OnRamp
+                </h2>
                 <div className="mt-[12px] md:mt-[18px]">
                   <Text>Buying IslamicCoin for fiat currency</Text>
                 </div>
               </div>
 
-              <div className="mt-[24px] grid grid-cols-1 gap-[16px] md:mt-[40px] md:grid-cols-3 md:gap-[36px]">
+              <div className="mt-[24px] grid grid-cols-1 gap-[16px] md:mt-[40px] md:grid-cols-2 md:gap-[24px] lg:grid-cols-3 xl:gap-[36px]">
                 <Link href="#">
                   <OnamperCard />
                 </Link>
@@ -133,10 +137,10 @@ export function MarketsPage({ price }: { price: string }) {
             </div>
 
             <div>
-              <div className="flex flex-col gap-[8px]">
-                <div>
-                  <Heading level={4}>Disclaimer</Heading>
-                </div>
+              <h2 className="font-alexandria text-[22px] font-[600] leading-[24px] md:text-[48px] md:leading-[54px]">
+                Disclaimer
+              </h2>
+              <div className="mt-[16px] flex flex-col gap-[16px] md:mt-[20px] md:gap-[24px] lg:mt-[24px]">
                 <p>
                   <Text>
                     The availability of IslamicCoin (ISLM) tokens, including the

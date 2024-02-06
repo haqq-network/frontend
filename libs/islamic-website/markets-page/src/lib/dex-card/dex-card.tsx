@@ -16,13 +16,15 @@ export function DEXCard({ pair }: DEXCardProps) {
         'p-[20px]',
       )}
     >
-      <DEXPair pair={pair} />
+      <div className="flex-initial">
+        <DEXPair pair={pair} />
+      </div>
       <div>
         <div className="ltr:font-vcr rtl:font-handjet text-[17px] font-[400] uppercase leading-[28px] md:text-[20px] md:leading-[34px]">
           {`${pair[0]}/${pair[1]}`}
         </div>
 
-        <div className="font-alexandria text-[13px] font-[400] leading-[20px] md:text-[16px] md:leading-[24px]">
+        <div className="font-alexandria mt-[2px] text-[13px] font-[400] leading-[20px] md:mt-[4px] md:text-[16px] md:leading-[24px]">
           <GradientText>Go to Swap</GradientText>
         </div>
       </div>

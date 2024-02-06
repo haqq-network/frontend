@@ -5,7 +5,7 @@ import { getPriceFromFalconer } from '../../../utils/get-price';
 import { createCurrencyFormatter } from '../../../utils/locale-utils';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
-const title = 'Islamic Markets';
+const title = 'Markets';
 const description = '';
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: `${title} | IslamicCoin`,
     description,
     images: islamicOpenGraphImages,
-    url: new URL('/islamic-markets', DEPLOY_URL).toString(),
+    url: new URL('/markets', DEPLOY_URL).toString(),
   },
 };
 

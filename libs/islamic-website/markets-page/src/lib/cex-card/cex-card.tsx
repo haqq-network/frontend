@@ -32,7 +32,7 @@ export function CEXCard({ name, logo }: CEXCardProps) {
           {name}
         </div>
 
-        <div className="font-alexandria text-[13px] font-[400] leading-[20px] md:text-[18px] md:leading-[24px]">
+        <div className="font-alexandria mt-[2px] text-[13px] font-[400] leading-[20px] md:mt-[4px] md:text-[18px] md:leading-[24px]">
           <GradientText>Go to Exchange</GradientText>
         </div>
       </div>
