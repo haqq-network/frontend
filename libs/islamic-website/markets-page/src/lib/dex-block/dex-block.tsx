@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 
 export function DEXBlock({
   children,
   name,
   logo,
-}: PropsWithChildren<{ name: string; logo: string }>) {
+}: PropsWithChildren<{ name: string; logo: string | StaticImageData }>) {
   return (
     <div className="rounded-[20px] border-[1px] border-[#2F2F2F] p-[24px] md:p-[40px]">
       <div className="flex flex-row items-center gap-[16px]">

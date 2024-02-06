@@ -55,7 +55,7 @@ export function MarketsPage({ price }: { price: string }) {
               </h1>
 
               <Heading
-                level={2}
+                level={3}
                 className="mt-[28px] md:mt-[44px] lg:mt-[60px]"
               >
                 Price:&nbsp;{price}
@@ -64,7 +64,7 @@ export function MarketsPage({ price }: { price: string }) {
 
             <div>
               <div>
-                <Heading level={2}>CEX</Heading>
+                <Heading level={3}>CEX</Heading>
                 <div className="mt-[12px] md:mt-[18px]">
                   <Text>
                     A list of exchanges where you can purchase and exchange
@@ -88,7 +88,7 @@ export function MarketsPage({ price }: { price: string }) {
 
             <div>
               <div>
-                <Heading level={2}>DEX</Heading>
+                <Heading level={3}>DEX</Heading>
                 <div className="mt-[12px] md:mt-[18px]">
                   <Text>
                     List of dex platforms where you can swap IslamicCoin

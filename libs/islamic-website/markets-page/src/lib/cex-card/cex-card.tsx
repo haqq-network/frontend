@@ -1,10 +1,10 @@
 import clsx from 'clsx';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { GradientText } from '@haqq/islamic-website-ui-kit';
 
 interface CEXCardProps {
   name: string;
-  logo: string;
+  logo: string | StaticImageData;
 }
 
 export function CEXCard({ name, logo }: CEXCardProps) {
