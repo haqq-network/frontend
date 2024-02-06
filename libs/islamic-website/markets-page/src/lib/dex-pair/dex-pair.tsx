@@ -1,15 +1,16 @@
 import clsx from 'clsx';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import atomLogo from '../../assets/images/coin-logos/atom.svg';
 import btcLogo from '../../assets/images/coin-logos/btc.svg';
 import daiLogo from '../../assets/images/coin-logos/dai.svg';
 import ethLogo from '../../assets/images/coin-logos/eth.svg';
 import injLogo from '../../assets/images/coin-logos/inj.svg';
 import islmLogo from '../../assets/images/coin-logos/islm.svg';
+import osmoLogo from '../../assets/images/coin-logos/osmo.svg';
 import usdcLogo from '../../assets/images/coin-logos/usdc.svg';
 import usdtLogo from '../../assets/images/coin-logos/usdt.svg';
 
-const coinLogos: Record<string, string> = {
+const coinLogos: Record<string, string | StaticImageData> = {
   islm: islmLogo,
   weth: ethLogo,
   atom: atomLogo,
@@ -18,6 +19,7 @@ const coinLogos: Record<string, string> = {
   dai: daiLogo,
   wbtc: btcLogo,
   inj: injLogo,
+  osmo: osmoLogo,
 };
 
 export function DEXPair({ pair }: { pair: [string, string] }) {
@@ -45,12 +47,12 @@ function DEXPairCoinImage({
   return (
     <div
       className={clsx(
-        'h-[30px] w-[30px] overflow-hidden rounded-full outline-[1px] outline-[#181E25B2] md:h-[36px] md:w-[36px]',
+        'h-[30px] w-[30px] overflow-hidden rounded-full md:h-[36px] md:w-[36px]',
         className,
       )}
     >
       <Image
-        src={coinLogos[symbol] as string}
+        src={coinLogos[symbol]}
         alt={`${symbol} coin logo`}
         className="object-cover"
         width={36}
