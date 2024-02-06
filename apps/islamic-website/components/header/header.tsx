@@ -32,6 +32,7 @@ import {
   QuestionMarkIcon,
   CheckMarkIcon,
   CubeIcon,
+  Button,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 
@@ -354,7 +355,7 @@ export function DesktopHeader({
               </Link>
             </div>
 
-            <nav className="flex flex-row">
+            <nav className="flex flex-row items-center">
               <DesktopHeaderLink url="/shariah">
                 {t('single-links.shariah')}
               </DesktopHeaderLink>
@@ -486,6 +487,10 @@ export function DesktopHeader({
                   />
                 </div>
               </HeaderDropdown>
+
+              <Link href="/markets" className="ml-[8px]">
+                <Button>Buy ISLM</Button>
+              </Link>
             </nav>
           </div>
         </Container>

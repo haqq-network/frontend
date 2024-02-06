@@ -16,7 +16,7 @@ export function DEXBlock({
           {name}
         </div>
       </div>
-      <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[36px] md:grid-cols-3 md:gap-[36px] lg:grid-cols-4">
+      <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[36px] md:grid-cols-2 md:gap-[24px] lg:grid-cols-3 xl:grid-cols-4 xl:gap-[36px]">
         {children}
       </div>
     </div>

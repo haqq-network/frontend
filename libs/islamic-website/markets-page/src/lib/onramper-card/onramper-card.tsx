@@ -28,7 +28,7 @@ export function OnamperCard() {
         </defs>
       </svg>
 
-      <div className="font-alexandria text-islamic-primary-green text-[13px] font-[400] leading-[20px] md:text-[18px] md:leading-[24px]">
+      <div className="font-alexandria text-islamic-primary-green mt-[2px] text-[13px] font-[400] leading-[20px] md:mt-[4px] md:text-[18px] md:leading-[24px]">
         Go to onramper
       </div>
     </div>
