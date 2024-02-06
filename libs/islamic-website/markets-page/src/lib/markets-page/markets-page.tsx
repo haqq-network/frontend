@@ -1,9 +1,11 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Container, Heading, Text } from '@haqq/islamic-website-ui-kit';
 import bitgetLogoImageData from '../../assets/images/bitget.svg';
 import kucoinLogoImageData from '../../assets/images/kucoin.svg';
 import lbankLogoImageData from '../../assets/images/lbank.png';
 import osmosisLogoImageData from '../../assets/images/osmosis.svg';
+import bgPageImageData from '../../assets/images/page-background.svg';
 import sushiLogoImageData from '../../assets/images/sushi.svg';
 import { CEXCard } from '../cex-card/cex-card';
 import { DEXBlock } from '../dex-block/dex-block';
@@ -43,11 +45,13 @@ export function MarketsPage({ price }: { price: string }) {
   return (
     <section className="overflow-clip">
       <Container className="relative">
+        <BgImage />
         <div className="pb-[60px] pt-[32px] lg:pb-[140px] lg:pt-[80px]">
           <div className="flex flex-col gap-[48px] md:gap-[100px]">
             <div>
               <h1 className="whitespace-pre-line text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-                Islamic Markets
+                Islamic <br className="block md:hidden" />
+                Markets
               </h1>
 
               <Heading
@@ -163,5 +167,13 @@ export function MarketsPage({ price }: { price: string }) {
         </div>
       </Container>
     </section>
+  );
+}
+
+function BgImage() {
+  return (
+    <div className="absolute right-[-160px] z-[-1] h-[723.45px] w-[488.48px] opacity-60 md:right-[-100px] md:top-[80px] md:opacity-100">
+      <Image src={bgPageImageData} fill alt="" />
+    </div>
   );
 }
