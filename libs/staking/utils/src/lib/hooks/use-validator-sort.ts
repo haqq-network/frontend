@@ -6,7 +6,15 @@ import {
 } from '@evmos/provider';
 import store from 'store2';
 import { useAddress } from '@haqq/shared';
-import { randomSort } from '../sort-validators';
+import {
+  createSortValidatorsByStakedOrReward,
+  createSortValidatorsByVotingPowerPercent,
+  randomSort,
+  sortValidatorsByFee,
+  sortValidatorsByName,
+  sortValidatorsByStatus,
+  sortValidatorsByVotingPower,
+} from '../sort-validators';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -19,47 +27,6 @@ export type SortState =
       key: 'random';
       direction: null;
     };
-
-function sortValidatorsByName(a: Validator, b: Validator) {
-  return a.description.moniker.localeCompare(b.description.moniker);
-}
-
-function sortValidatorsByStatus(a: Validator, b: Validator) {
-  return a.jailed === b.jailed ? 0 : a.jailed ? 1 : -1;
-}
-
-function sortValidatorsByFee(a: Validator, b: Validator) {
-  return (
-    Number.parseFloat(b.commission.commission_rates.rate) -
-    Number.parseFloat(a.commission.commission_rates.rate)
-  );
-}
-
-function sortValidatorsByVotingPower(a: Validator, b: Validator) {
-  return Number.parseFloat(b.tokens) - Number.parseFloat(a.tokens);
-}
-
-function createSortValidatorsByVotingPowerPercent(totalStaked: number) {
-  return (a: Validator, b: Validator) => {
-    return (
-      (Number.parseFloat(b.tokens) / totalStaked) * 100 -
-      (Number.parseFloat(a.tokens) / totalStaked) * 100
-    );
-  };
-}
-
-function createSortValidatorsByStakedOrReward(
-  getSortValues: (operatorAddreses: Array<string>) => Array<number>,
-) {
-  return (a: Validator, b: Validator) => {
-    const delegations = getSortValues([a.operator_address, b.operator_address]);
-
-    const aAmount = delegations[0];
-    const bAmount = delegations[1];
-
-    return bAmount - aAmount;
-  };
-}
 
 export function useSortedValidators(
   validators: Validator[],
@@ -171,7 +138,6 @@ export function useValidatorsSortState() {
         direction: null,
       };
   const [sortState, setSortState] = useState<SortState>(defaultSortState);
-  console.log({ sortState });
 
   useEffect(() => {
     store.set(storeKey, JSON.stringify(sortState));
