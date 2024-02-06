@@ -1,0 +1,20 @@
+{
+  "name": "islamic-website-markets-page",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/islamic-website/markets-page/src",
+  "projectType": "library",
+  "tags": ["islamic-lib-markets-page"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/islamic-website/markets-page/jest.config.ts"
+      }
+    }
+  }
+}
