@@ -14,7 +14,7 @@ import {
   BroadcastTxResponse,
   useCosmosService,
 } from '../../providers/cosmos-provider';
-import { getAmountAndDenom } from '../../utils/get-amount-and-denom';
+import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { useAddress } from '../use-address/use-address';
 
 interface ProposalActionsHook {
@@ -143,7 +143,7 @@ export function useProposalActions(): ProposalActionsHook {
   );
 
   const handleDeposit = useCallback(
-    async (proposalId: number, amount: number) => {
+    async (proposalId: number, amount: number, balance?: number) => {
       console.log('handleDeposit', { proposalId, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
@@ -152,7 +152,7 @@ export function useProposalActions(): ProposalActionsHook {
       if (sender && haqqChain) {
         const depositParams: MessageMsgDepositParams = {
           proposalId,
-          deposit: getAmountAndDenom(amount, DEFAULT_FEE),
+          deposit: getAmountIncludeFee(amount, balance ?? 0, DEFAULT_FEE),
         };
         const msg = createTxMsgDeposit(
           haqqChain,

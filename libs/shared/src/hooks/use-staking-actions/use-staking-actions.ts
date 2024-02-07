@@ -17,7 +17,7 @@ import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
-import { getAmountAndDenom } from '../../utils/get-amount-and-denom';
+import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { useAddress } from '../use-address/use-address';
 
 export function useStakingActions() {
@@ -84,10 +84,17 @@ export function useStakingActions() {
   );
 
   const getDelegationParams = useCallback(
-    (validatorAddress: string, amount: number, fee: Fee): MsgDelegateParams => {
+    (
+      validatorAddress: string,
+      amount: number,
+      balance: number,
+      fee: Fee,
+    ): MsgDelegateParams => {
+      const gaad = getAmountIncludeFee(amount, balance, fee);
+      console.log({ gaad });
       return {
         validatorAddress,
-        ...getAmountAndDenom(amount, fee),
+        ...gaad,
       };
     },
     [],
@@ -98,28 +105,31 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       amount: number,
+      balance: number,
       fee: Fee,
     ): MsgBeginRedelegateParams => {
       return {
         validatorSrcAddress: validatorSourceAddress,
         validatorDstAddress: validatorDestinationAddress,
-        ...getAmountAndDenom(amount, fee),
+        ...getAmountIncludeFee(amount, balance, fee),
       };
     },
     [],
   );
 
   const handleDelegate = useCallback(
-    async (validatorAddress?: string, amount?: number) => {
+    async (validatorAddress?: string, amount?: number, balance?: number) => {
       console.log('handleDelegate', { validatorAddress, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = 'Delegate';
 
       if (sender && validatorAddress && haqqChain) {
+        // debugger;
         const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
+          balance ?? 0,
           DEFAULT_FEE,
         );
         const msg = createTxMsgDelegate(
@@ -162,7 +172,7 @@ export function useStakingActions() {
   );
 
   const handleUndelegate = useCallback(
-    async (validatorAddress?: string, amount?: number) => {
+    async (validatorAddress?: string, amount?: number, balance?: number) => {
       console.log('handleUndelegate', { validatorAddress, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
@@ -172,6 +182,7 @@ export function useStakingActions() {
         const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
+          balance ?? 0,
           DEFAULT_FEE,
         );
         const msg = createTxMsgUndelegate(
@@ -313,6 +324,7 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       amount: number,
+      balance?: number,
     ) => {
       console.log('handleRedelegate', {
         validatorSourceAddress,
@@ -327,6 +339,7 @@ export function useStakingActions() {
           validatorSourceAddress,
           validatorDestinationAddress,
           amount ?? 0,
+          balance ?? 0,
           DEFAULT_FEE,
         );
         const msg = createTxMsgBeginRedelegate(

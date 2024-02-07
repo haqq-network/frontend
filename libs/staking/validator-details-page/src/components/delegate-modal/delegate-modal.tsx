@@ -128,7 +128,7 @@ export function DelegateModal({
   const toast = useToast();
 
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(toFixedAmount(balance, 3));
+    setDelegateAmount(balance);
   }, [balance]);
 
   const handleInputChange = useCallback((value: string | undefined) => {
@@ -141,7 +141,11 @@ export function DelegateModal({
   const handleSubmitDelegate = useCallback(async () => {
     try {
       setDelegateEnabled(false);
-      const delegationPromise = delegate(validatorAddress, delegateAmount);
+      const delegationPromise = delegate(
+        validatorAddress,
+        delegateAmount,
+        balance,
+      );
 
       await toast.promise(delegationPromise, {
         loading: <ToastLoading>Delegation in progress</ToastLoading>,
