@@ -113,7 +113,7 @@ export function MarketsPage({ price }: { price: string }) {
                   <div className="mt-[12px] md:mt-[18px]">
                     <Text>
                       A list of exchanges where you can purchase and exchange
-                      IslamicCoin
+                      Islamic Coin
                     </Text>
                   </div>
                 </div>
@@ -165,7 +165,7 @@ export function MarketsPage({ price }: { price: string }) {
 
                   <div className="mt-[12px] md:mt-[18px]">
                     <Text>
-                      List of dex platforms where you can swap IslamicCoin
+                      List of dex platforms where you can swap Islamic Coin
                     </Text>
                   </div>
                 </div>
@@ -202,7 +202,7 @@ export function MarketsPage({ price }: { price: string }) {
                     OnRamp
                   </h2>
                   <div className="mt-[12px] md:mt-[18px]">
-                    <Text>Buying IslamicCoin for fiat currency</Text>
+                    <Text>Buying Islamic Coin for fiat currency</Text>
                   </div>
                 </div>
 
@@ -224,7 +224,7 @@ export function MarketsPage({ price }: { price: string }) {
                 <div className="mt-[16px] flex flex-col gap-[16px] md:mt-[20px] md:gap-[24px] lg:mt-[24px]">
                   <p>
                     <Text>
-                      The availability of IslamicCoin (ISLM) tokens, including
+                      The availability of Islamic Coin (ISLM) tokens, including
                       the venues and methods of payment, may vary depending on
                       the purchaser's residency and/or citizenship. We expressly
                       highlight that residents of Dubai are currently restricted
