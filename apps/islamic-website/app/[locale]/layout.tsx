@@ -12,7 +12,7 @@ import { LocaleType } from '@haqq/islamic-website/shariah-page';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
 import { Footer } from '../../components/footer/footer';
-import Header from '../../components/header/header';
+import Header, { MobileHeader } from '../../components/header/header';
 import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
 import { SOCIAL_LINKS } from '../../social-links';
@@ -65,6 +65,12 @@ export default async function LocaleLayout({
 
   const headersList = headers();
   const isRestrictedByGeo = Boolean(headersList.get('x-restricted-by-geo'));
+  const userAgent = headersList.get('user-agent');
+  const isMobileUserAgent = Boolean(
+    userAgent!.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+    ),
+  );
 
   return (
     <NextIntlClientProvider
@@ -85,11 +91,20 @@ export default async function LocaleLayout({
         <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
           {isScamBannerShow && <ScamBanner />}
 
-          <Header
-            locale={locale}
-            isBannerVisible={isScamBannerShow}
-            isBuyButtonVisible={!isRestrictedByGeo}
-          />
+          {isMobileUserAgent ? (
+            <MobileHeader
+              locale={locale}
+              isBannerVisible={isScamBannerShow}
+              isBuyButtonVisible={!isRestrictedByGeo}
+            />
+          ) : (
+            <Header
+              locale={locale}
+              isBannerVisible={isScamBannerShow}
+              isBuyButtonVisible={!isRestrictedByGeo}
+            />
+          )}
+
           <main className="flex-1">{children}</main>
           <Footer socialLinks={SOCIAL_LINKS} />
 
