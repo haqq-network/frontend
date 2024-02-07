@@ -32,6 +32,7 @@ export interface RedelegateModalProps {
   delegation: number;
   onClose: () => void;
   validatorsList: Validator[] | undefined;
+  balance: number;
 }
 
 export function RedelegateModalDetails({
@@ -114,6 +115,7 @@ export function RedelegateModal({
   symbol,
   delegation,
   validatorsList,
+  balance,
 }: RedelegateModalProps) {
   const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
@@ -145,6 +147,7 @@ export function RedelegateModal({
           validatorAddress,
           validatorDestinationAddress,
           redelegateAmount ?? 0,
+          balance,
         );
         setRedelegateEnabled(false);
         await toast.promise(redelegationPromise, {
