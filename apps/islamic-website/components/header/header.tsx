@@ -12,7 +12,6 @@ import { useTranslations } from 'next-intl';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import { useMediaQuery } from 'react-responsive';
 import { LocaleType } from '@haqq/islamic-website/shariah-page';
-import { useRestriction } from '@haqq/islamic-website-markets-page';
 import {
   Container,
   AcademyIcon,
@@ -159,10 +158,12 @@ export default function Header({
   isBannerVisible = false,
   locale,
   className,
+  isBuyButtonVisible = true,
 }: {
   isBannerVisible?: boolean;
   locale: LocaleType;
   className?: string;
+  isBuyButtonVisible?: boolean;
 }) {
   const isTabletMedia = useMediaQuery({
     query: `(max-width: 1023px)`,
@@ -173,12 +174,14 @@ export default function Header({
       className={className}
       locale={locale}
       isBannerVisible={isBannerVisible}
+      isBuyButtonVisible={isBuyButtonVisible}
     />
   ) : (
     <DesktopHeader
       className={className}
       locale={locale}
       isBannerVisible={isBannerVisible}
+      isBuyButtonVisible={isBuyButtonVisible}
     />
   );
 }
@@ -187,10 +190,12 @@ export function MobileHeader({
   isBannerVisible = false,
   locale,
   className,
+  isBuyButtonVisible = false,
 }: {
   isBannerVisible?: boolean;
   locale: LocaleType;
   className?: string;
+  isBuyButtonVisible?: boolean;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const [isBlurred, setBlurred] = useState(false);
@@ -303,14 +308,14 @@ export function DesktopHeader({
   isBannerVisible = false,
   locale,
   className,
+  isBuyButtonVisible = false,
 }: {
   isBannerVisible?: boolean;
   locale: LocaleType;
   className?: string;
+  isBuyButtonVisible?: boolean;
 }) {
   const [isBlurred, setBlurred] = useState(false);
-
-  const { isRestricted } = useRestriction();
 
   useEffect(() => {
     const offset = 50;
@@ -491,7 +496,7 @@ export function DesktopHeader({
                 </div>
               </HeaderDropdown>
 
-              {!isRestricted && (
+              {isBuyButtonVisible && (
                 <Link href="/markets" className="ml-[8px]">
                   <Button>Buy ISLM</Button>
                 </Link>
