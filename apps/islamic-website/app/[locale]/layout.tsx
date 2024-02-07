@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { NextIntlClientProvider } from 'next-intl';
@@ -62,6 +63,9 @@ export default async function LocaleLayout({
   const isScamBannerShow = true;
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? 'GMT';
 
+  const headersList = headers();
+  const isRestrictedByGeo = Boolean(headersList.get('x-restricted-by-geo'));
+
   return (
     <NextIntlClientProvider
       locale={locale}
@@ -81,7 +85,11 @@ export default async function LocaleLayout({
         <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
           {isScamBannerShow && <ScamBanner />}
 
-          <Header locale={locale} isBannerVisible={isScamBannerShow} />
+          <Header
+            locale={locale}
+            isBannerVisible={isScamBannerShow}
+            isBuyButtonVisible={!isRestrictedByGeo}
+          />
           <main className="flex-1">{children}</main>
           <Footer socialLinks={SOCIAL_LINKS} />
 
