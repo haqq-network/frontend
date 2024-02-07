@@ -1,15 +1,6 @@
-import { useMemo } from 'react';
-import { DelegationResponse } from '@evmos/provider';
+import { useCallback } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  useAddress,
-  useStakingDelegationQuery,
-  useStakingPoolQuery,
-  // useStakingPoolQuery,
-  useStakingRewardsQuery,
-  useStakingValidatorListQuery,
-} from '@haqq/shared';
 import {
   Container,
   Heading,
@@ -21,69 +12,60 @@ import {
   ValidatorsListDesktop,
   ValidatorsListMobile,
 } from '@haqq/staking/ui-kit';
-import { sortValidatorsByToken, splitValidators } from '@haqq/staking/utils';
-
-function getDelegatedValidatorsAddresses(
-  delegations: DelegationResponse[] | null | undefined,
-) {
-  if (!delegations) {
-    return [];
-  }
-
-  return delegations
-    .map((del) => {
-      if (Number.parseInt(del.balance.amount, 10) > 0) {
-        return del.delegation.validator_address;
-      }
-
-      return null;
-    })
-    .filter(Boolean);
-}
+import { useStakingData } from '@haqq/staking/utils';
 
 export function DelegationsBlock() {
-  const { haqqAddress } = useAddress();
   const {
-    data: validatorsList,
-    error,
+    totalStaked,
     status,
-  } = useStakingValidatorListQuery(1000);
-  const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-  const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
-  const { data: stakingPool } = useStakingPoolQuery();
+    error,
+    validators,
+    delegationInfo,
+    rewardsInfo,
+    sortState,
+    setSortState,
+  } = useStakingData({
+    showOnlyMyDelegation: true,
+    inactiveValidatorsVisible: false,
+  });
   const navigate = useNavigate();
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
 
-  const sortedValidators = useMemo(() => {
-    const { active, inactive, jailed } = splitValidators(validatorsList ?? []);
+  // const handleMobileSortChange = useCallback(
+  //   (mobileSortKey: string) => {
+  //     if (mobileSortKey === 'random') {
+  //       setSortState({
+  //         key: 'random',
+  //         direction: null,
+  //       });
+  //     }
 
-    return [
-      ...sortValidatorsByToken(active),
-      ...sortValidatorsByToken(inactive),
-      ...sortValidatorsByToken(jailed),
-    ];
-  }, [validatorsList]);
-  const valWithDelegationAddr = useMemo(() => {
-    const delegatedVals = getDelegatedValidatorsAddresses(
-      delegationInfo?.delegation_responses,
-    );
-    return delegatedVals;
-  }, [delegationInfo]);
-  const valToRender = useMemo(() => {
-    return sortedValidators
-      .filter((val) => {
-        return valWithDelegationAddr.includes(val.operator_address);
-      })
-      .filter((validator) => {
-        return validator.status === 'BOND_STATUS_BONDED';
+  //     const [key, direction] = mobileSortKey.split('-') as [
+  //       string,
+  //       SortDirection,
+  //     ];
+
+  //     setSortState({
+  //       key,
+  //       direction,
+  //     });
+  //   },
+  //   [setSortState],
+  // );
+
+  const handleDesktopSortClick = useCallback(
+    (key: string) => {
+      setSortState((state) => {
+        return {
+          key,
+          direction: state?.direction === 'asc' ? 'desc' : 'asc',
+        };
       });
-  }, [sortedValidators, valWithDelegationAddr]);
-
-  const totalStaked = useMemo(() => {
-    return Number.parseInt(stakingPool?.bonded_tokens ?? '0') / 10 ** 18;
-  }, [stakingPool?.bonded_tokens]);
+    },
+    [setSortState],
+  );
 
   return (
     <Container>
@@ -111,11 +93,11 @@ export function DelegationsBlock() {
 
       {status === 'success' && (
         <div>
-          {valToRender.length ? (
+          {validators.length ? (
             <div>
               {isTablet ? (
                 <ValidatorsListMobile
-                  validators={valToRender}
+                  validators={validators}
                   delegationInfo={delegationInfo}
                   rewardsInfo={rewardsInfo}
                   onValidatorClick={(validatorAddress: string) => {
@@ -125,13 +107,15 @@ export function DelegationsBlock() {
                 />
               ) : (
                 <ValidatorsListDesktop
-                  validators={valToRender}
+                  validators={validators}
                   delegationInfo={delegationInfo}
                   rewardsInfo={rewardsInfo}
                   onValidatorClick={(validatorAddress: string) => {
                     navigate(`/staking/validator/${validatorAddress}`);
                   }}
                   totalStaked={totalStaked}
+                  sortState={sortState}
+                  onDesktopSortClick={handleDesktopSortClick}
                 />
               )}
             </div>

@@ -65,6 +65,7 @@ const tailwindThemeExtend = {
   },
   boxShadow: {
     'islamic-dropdown': '0px 0px 20px rgb(0 0 0 / 20%)',
+    'shell-dropdown': '0px 10px 30px -10px rgba(0, 0, 0, 0.15)',
   },
   screens: {
     sm: '640px',
