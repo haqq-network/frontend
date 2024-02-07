@@ -1,6 +1,6 @@
-import { BackButton as BackButtonComponent } from './back-button';
-import { withRouter } from 'storybook-addon-react-router-v6';
 import { Meta, StoryObj } from '@storybook/react';
+import { withRouter } from 'storybook-addon-react-router-v6';
+import { BackButton as BackButtonComponent } from './back-button';
 
 const meta: Meta<typeof BackButtonComponent> = {
   component: BackButtonComponent,

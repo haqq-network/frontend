@@ -1,11 +1,11 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { useBalance, useNetwork } from 'wagmi';
 import {
   getFormattedAddress,
   useAddress,
   useClipboard,
   useSupportedChains,
 } from '@haqq/shared';
-import { useBalance, useNetwork } from 'wagmi';
 import { CopyIcon, Tooltip, formatNumber } from '@haqq/shell-ui-kit';
 
 export function MyAccountCardBlock({

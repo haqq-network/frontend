@@ -1,7 +1,7 @@
-import { Container, Text } from '@haqq/islamic-website-ui-kit';
-import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import buildBgImgData from '../../assets/images/build-bg-image.svg';
 
 export function BuildPage() {

@@ -1,11 +1,11 @@
-import { Heading, Text } from '@haqq/haqq-website-ui-kit';
-import { Button } from '@haqq/haqq-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Heading, Text } from '@haqq/haqq-website-ui-kit';
+import { Button } from '@haqq/haqq-website-ui-kit';
 // import sunshineBgData from '../assets/images/hero-block-sunrise-bg.png';
-import linesBgData from '../assets/images/hero-block-bg.svg';
-import linesSmallBgData from '../assets/images/hero-block-bg-small.svg';
 import { EcosystemFundApplyBlock } from './ecosystem-fund-apply-block/ecosystem-fund-apply-block';
+import linesSmallBgData from '../assets/images/hero-block-bg-small.svg';
+import linesBgData from '../assets/images/hero-block-bg.svg';
 
 export function EcosystemFundPage() {
   return (

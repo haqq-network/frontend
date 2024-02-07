@@ -57,6 +57,12 @@
       "@haqq/haqq-website/whitepaper-page": [
         "libs/haqq-website/whitepaper-page/src/index.ts"
       ],
+      "@haqq/islamic-website-markets-page": [
+        "libs/islamic-website/markets-page/src/index.ts"
+      ],
+      "@haqq/islamic-website-markets-page/server": [
+        "libs/islamic-website/markets-page/src/server.ts"
+      ],
       "@haqq/islamic-website-ui-kit": [
         "libs/islamic-website/ui-kit/src/index.ts"
       ],
@@ -89,9 +95,6 @@
       ],
       "@haqq/islamic-website/news-page": [
         "libs/islamic-website/news-page/src/index.ts"
-      ],
-      "@haqq/islamic-website/not-found-page": [
-        "libs/islamic-website/not-found-page/src/index.ts"
       ],
       "@haqq/islamic-website/partnership-page": [
         "libs/islamic-website/partnership-page/src/index.ts"

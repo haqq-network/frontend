@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import clsx from 'clsx';
-import { WalletDownloadButton } from '../wallet-download-button/wallet-download-button';
-import { CardText } from '../features-block/features-block';
 import iphoneWalletScreenshotData from '../../assets/images/wallet-iphone-screenshot.png';
+import { CardText } from '../features-block/features-block';
+import { WalletDownloadButton } from '../wallet-download-button/wallet-download-button';
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (

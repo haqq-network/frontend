@@ -3,10 +3,10 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAccount, useNetwork } from 'wagmi';
 import { Footer } from '../components/Footer/Footer';
 import { Header } from '../components/Header/Header';
+import { Page } from '../components/Layout/Layout';
 import { MainPage } from '../pages/MainPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { PendingPage } from '../pages/PendingPage';
-import { Page } from '../components/Layout/Layout';
 
 const MyAccountPage = lazy(() => {
   return import('../pages/MyAccountPage');

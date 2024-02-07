@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/haqq-website/events/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["haqq-lib-events"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",

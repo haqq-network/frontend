@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { WalletDownloadButton as WalletDownloadButtonComponent } from './wallet-download-button';
 
 const meta: Meta<typeof WalletDownloadButtonComponent> = {

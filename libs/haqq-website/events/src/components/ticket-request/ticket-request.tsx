@@ -1,5 +1,5 @@
-import { Heading } from '@haqq/haqq-website-ui-kit';
 import { QRCodeSVG } from 'qrcode.react';
+import { Heading } from '@haqq/haqq-website-ui-kit';
 
 export const TickerRequest = ({ qrData }: { qrData: string }) => {
   return (

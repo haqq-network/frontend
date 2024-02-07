@@ -1,22 +1,22 @@
-import { ProposalListBlock } from '../proposal-list-block/proposal-list-block';
-import { MyAccountBlock } from '../my-account-block/my-account-block';
-import { StatisticsBlock } from '../statistics-block/statistics-block';
-import { DelegationsBlock } from '../delegations-block/delegations-block';
-import { useAccount, useBalance } from 'wagmi';
-import {
-  AccountButton,
-  Button,
-  Container,
-  LogoutIcon,
-} from '@haqq/shell-ui-kit';
+import { useMemo } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useAccount, useBalance } from 'wagmi';
 import {
   getFormattedAddress,
   useAddress,
   useCosmosProvider,
   useWallet,
 } from '@haqq/shared';
-import { useMemo } from 'react';
+import {
+  AccountButton,
+  Button,
+  Container,
+  LogoutIcon,
+} from '@haqq/shell-ui-kit';
+import { DelegationsBlock } from '../delegations-block/delegations-block';
+import { MyAccountBlock } from '../my-account-block/my-account-block';
+import { ProposalListBlock } from '../proposal-list-block/proposal-list-block';
+import { StatisticsBlock } from '../statistics-block/statistics-block';
 
 export function ShellIndexPage() {
   const { isConnected } = useAccount();

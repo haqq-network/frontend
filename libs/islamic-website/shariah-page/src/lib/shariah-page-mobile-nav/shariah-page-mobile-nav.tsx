@@ -1,8 +1,8 @@
 'use-client';
-import { Container, Select } from '@haqq/islamic-website-ui-kit';
-import clsx from 'clsx';
 import { Fragment, useEffect, useMemo, useState } from 'react';
+import clsx from 'clsx';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { Container, Select } from '@haqq/islamic-website-ui-kit';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

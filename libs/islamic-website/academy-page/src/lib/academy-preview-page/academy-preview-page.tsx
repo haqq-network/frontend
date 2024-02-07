@@ -1,5 +1,16 @@
 'use client';
 import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import clsx from 'clsx';
+import Image from 'next/image';
+import Link from 'next/link';
+import { SubscribeForm } from '@haqq/islamic-website/forms';
+import {
   Container,
   Modal,
   ModalCloseButton,
@@ -7,17 +18,6 @@ import {
   Text,
 } from '@haqq/islamic-website-ui-kit';
 import styles from './academy-preview-page.module.css';
-import clsx from 'clsx';
-import {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import Image from 'next/image';
-import { SubscribeForm } from '@haqq/islamic-website/forms';
-import Link from 'next/link';
 import { useActiveLesson } from '../lessons/lessons-block';
 import { academyModules } from '../modules-page/modules';
 import { AcademyLesson } from '../modules-page/types';

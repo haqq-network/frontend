@@ -1,5 +1,4 @@
 'use client';
-import clsx from 'clsx';
 import {
   Fragment,
   PropsWithChildren,
@@ -8,6 +7,12 @@ import {
   useState,
 } from 'react';
 import { Transition } from '@headlessui/react';
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { useMediaQuery } from 'react-responsive';
+import { LocaleType } from '@haqq/islamic-website/shariah-page';
+import { useRestriction } from '@haqq/islamic-website-markets-page';
 import {
   Container,
   AcademyIcon,
@@ -28,12 +33,9 @@ import {
   QuestionMarkIcon,
   CheckMarkIcon,
   CubeIcon,
+  Button,
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
-import { useMediaQuery } from 'react-responsive';
-import { useTranslations } from 'next-intl';
-import { LocaleType } from '@haqq/islamic-website/shariah-page';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
 const { Link, usePathname } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],
@@ -308,6 +310,8 @@ export function DesktopHeader({
 }) {
   const [isBlurred, setBlurred] = useState(false);
 
+  const { isRestricted } = useRestriction();
+
   useEffect(() => {
     const offset = 50;
 
@@ -354,7 +358,7 @@ export function DesktopHeader({
               </Link>
             </div>
 
-            <nav className="flex flex-row">
+            <nav className="flex flex-row items-center">
               <DesktopHeaderLink url="/shariah">
                 {t('single-links.shariah')}
               </DesktopHeaderLink>
@@ -486,6 +490,12 @@ export function DesktopHeader({
                   />
                 </div>
               </HeaderDropdown>
+
+              {!isRestricted && (
+                <Link href="/markets" className="ml-[8px]">
+                  <Button>Buy ISLM</Button>
+                </Link>
+              )}
             </nav>
           </div>
         </Container>

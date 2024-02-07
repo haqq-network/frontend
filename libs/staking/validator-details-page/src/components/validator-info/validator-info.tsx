@@ -1,6 +1,13 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import type { Validator } from '@evmos/provider';
+import clsx from 'clsx';
+import Markdown from 'marked-react';
+import { useMediaQuery } from 'react-responsive';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { formatUnits } from 'viem/utils';
+import { useAccount, useBalance, useNetwork } from 'wagmi';
 import {
   useAddress,
   useStakingValidatorInfoQuery,
@@ -17,11 +24,8 @@ import {
   useStakingValidatorListQuery,
   useToast,
   useNetworkAwareAction,
+  getFormattedAddress,
 } from '@haqq/shared';
-import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
-import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
-import { DelegateModal } from '../delegate-modal/delegate-modal';
-import clsx from 'clsx';
 import {
   InfoBlock,
   OrangeLink,
@@ -44,17 +48,13 @@ import {
   ToastSuccess,
   LinkIcon,
 } from '@haqq/shell-ui-kit';
-import Markdown from 'marked-react';
-import { useMediaQuery } from 'react-responsive';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
+import styles from './validator-info.module.css';
+import { DelegateModal } from '../delegate-modal/delegate-modal';
+import { RedelegateModal } from '../redelegate-modal/redelegate-modal';
+import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import styles from './validator-info.module.css';
-import { Validator } from '@evmos/provider';
-import { formatUnits } from 'viem/utils';
-import { getFormattedAddress } from '@haqq/shared';
-import { RedelegateModal } from '../redelegate-modal/redelegate-modal';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;

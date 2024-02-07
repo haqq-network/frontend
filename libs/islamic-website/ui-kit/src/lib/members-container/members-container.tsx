@@ -1,12 +1,12 @@
 'use client';
-import { MemberModalCard } from '../member-modal-card/member-modal-card';
-import { Modal } from '../modal/modal';
 import { useCallback, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
+import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { MemberCard } from '../member-card/member-card';
+import { MemberModalCard } from '../member-modal-card/member-modal-card';
+import { Modal } from '../modal/modal';
 
 type Member = {
   image: string;

@@ -1,15 +1,15 @@
 import { Fragment } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
   Container,
   Text,
   RatingBadge,
   WalletDownloadButton,
 } from '@haqq/islamic-website-ui-kit';
-import Link from 'next/link';
-import Image from 'next/image';
-import phoneImgData from '../assets/images/wallet_phone.webp';
 import bgImgData from '../assets/images/wallet_bg.webp';
-import { useTranslations } from 'next-intl';
+import phoneImgData from '../assets/images/wallet_phone.webp';
 
 export function WalletPage() {
   const t = useTranslations('wallet-page');

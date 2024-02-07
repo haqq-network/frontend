@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { Keplr } from '@keplr-wallet/types';
 import {
   ethToHaqq,
   getKeplrWallet,
@@ -7,13 +8,12 @@ import {
   useWallet,
 } from '@haqq/shared';
 import { CaptchaModal, Container, Heading } from '@haqq/shell-ui-kit';
-import { AirdropFinished } from '../../lib/airdrop-evm/airdrop-evm';
+import { Address } from '../../lib/address/address';
 import {
   AirdropCosmos,
   addHaqqNetwork,
 } from '../../lib/airdrop-cosmos/airdrop-cosmos';
-import { Address } from '../../lib/address/address';
-import { Keplr } from '@keplr-wallet/types';
+import { AirdropFinished } from '../../lib/airdrop-evm/airdrop-evm';
 
 async function enableChains(keplrWallet: Keplr) {
   await keplrWallet.enable(['haqq_11235-1', 'cosmoshub-4', 'evmos_9001-2']);

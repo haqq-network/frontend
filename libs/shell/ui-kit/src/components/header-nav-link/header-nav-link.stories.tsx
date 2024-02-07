@@ -1,6 +1,6 @@
+import { Meta, StoryObj } from '@storybook/react';
 import { withRouter } from 'storybook-addon-react-router-v6';
 import { HeaderNavLink as HeaderNavLinkComponent } from './header-nav-link';
-import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof HeaderNavLinkComponent> = {
   component: HeaderNavLinkComponent,

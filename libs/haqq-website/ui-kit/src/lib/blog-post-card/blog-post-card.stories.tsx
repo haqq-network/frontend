@@ -1,5 +1,5 @@
-import { BlogPostCard as BlogPostCardComponent } from './blog-post-card';
 import { Meta, StoryObj } from '@storybook/react';
+import { BlogPostCard as BlogPostCardComponent } from './blog-post-card';
 
 const meta: Meta<typeof BlogPostCardComponent> = {
   component: BlogPostCardComponent,

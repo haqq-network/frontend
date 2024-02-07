@@ -1,8 +1,8 @@
 'use client';
 import { useCallback, useMemo, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import clsx from 'clsx';
+import Image from 'next/image';
+import Link from 'next/link';
 import { Heading, Tabs, Tab } from '@haqq/haqq-website-ui-kit';
 
 export enum PartnerType {

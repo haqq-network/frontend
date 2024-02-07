@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Container } from '@haqq/shell-ui-kit';
-import { ValidatorList } from '../validator-list/validator-list';
 import { StakingInfo } from '../staking-info/staking-info';
+import { ValidatorList } from '../validator-list/validator-list';
 
 export function ValidatorListPage() {
   return (

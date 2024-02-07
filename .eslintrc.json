@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "extends": ["plugin:storybook/recommended"],
+  "plugins": ["@nx", "import", "prettier"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -13,8 +14,51 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "shell",
+                "onlyDependOnLibsWithTags": [
+                  "shell-lib-*",
+                  "data-access-falconer",
+                  "sentry"
+                ]
+              },
+              {
+                "sourceTag": "shell-lib-*",
+                "onlyDependOnLibsWithTags": [
+                  "shell-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "islamic",
+                "onlyDependOnLibsWithTags": [
+                  "islamic-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "islamic-lib-*",
+                "onlyDependOnLibsWithTags": [
+                  "islamic-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "haqq",
+                "onlyDependOnLibsWithTags": [
+                  "haqq-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "haqq-lib-*",
+                "onlyDependOnLibsWithTags": [
+                  "haqq-lib-*",
+                  "data-access-falconer"
+                ]
+              },
+              {
+                "sourceTag": "vesting",
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "sentry"]
               }
             ]
           }
@@ -43,7 +87,6 @@
       "rules": {}
     }
   ],
-  "extends": ["plugin:storybook/recommended"],
   "rules": {
     "storybook/no-uninstalled-addons": [
       "error",
@@ -51,6 +94,35 @@
         "ignore": ["@nx/react/plugins/storybook"]
       }
     ],
-    "arrow-body-style": ["error", "always"]
+    "arrow-body-style": ["error", "always"],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"]
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@haqq/**",
+            "group": "internal"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "never"
+      }
+    ],
+    "prettier/prettier": "error"
   }
 }

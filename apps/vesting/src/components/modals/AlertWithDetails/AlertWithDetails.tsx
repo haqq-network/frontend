@@ -1,7 +1,7 @@
-import { Heading, Text } from '../../Typography/Typography';
-import { Button } from '../../Button/Button';
-import { Modal, ModalCloseButton } from '../Modal/Modal';
 import { useToggle } from '../../../hooks/useToggle';
+import { Button } from '../../Button/Button';
+import { Heading, Text } from '../../Typography/Typography';
+import { Modal, ModalCloseButton } from '../Modal/Modal';
 
 export interface AlertWithDetailsProps {
   isOpen: boolean;

@@ -2,7 +2,6 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
-
 const withNextIntl = require('next-intl/plugin')(
   // This is the default (also the `src` folder is supported out of the box)
   './i18n.ts',
@@ -18,6 +17,7 @@ const nextConfig = {
     svgr: false,
   },
   images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     remotePatterns: [
       {
         protocol: 'https',
@@ -30,6 +30,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'img.youtube.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'placekitten.com',
       },
     ],
   },

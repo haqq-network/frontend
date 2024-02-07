@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Heading } from '../heading/heading';
-import { MyAccountCardBlock } from '../my-account-block-mobile/my-account-block-mobile';
-import { WalletIcon } from '../icons/icons';
 import clsx from 'clsx';
 import { formatNumber } from '../../utils/format-number';
 import { Button } from '../button/button';
+import { Heading } from '../heading/heading';
+import { WalletIcon } from '../icons/icons';
+import { MyAccountCardBlock } from '../my-account-block-mobile/my-account-block-mobile';
 
 export function MyAccountBlockDesktop({
   onRewardsClaim,

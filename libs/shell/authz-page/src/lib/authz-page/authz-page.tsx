@@ -1,4 +1,16 @@
 import {
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import clsx from 'clsx';
+import { Link } from 'react-router-dom';
+import { formatUnits, isAddress, parseUnits } from 'viem';
+import { useNetwork } from 'wagmi';
+import {
   Grant,
   ethToHaqq,
   getFormattedAddress,
@@ -28,19 +40,7 @@ import {
   Tooltip,
   formatNumber,
 } from '@haqq/shell-ui-kit';
-import clsx from 'clsx';
-import {
-  PropsWithChildren,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { formatUnits, isAddress, parseUnits } from 'viem';
-import { useNetwork } from 'wagmi';
 import { Select } from '../select/select';
-import { Link } from 'react-router-dom';
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {

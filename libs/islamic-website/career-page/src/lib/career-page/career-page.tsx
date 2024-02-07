@@ -1,9 +1,9 @@
-import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
-import Image from 'next/image';
-import careerStarsImgData from '../../assets/images/career-stars.jpg';
 import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Button, Container, Text } from '@haqq/islamic-website-ui-kit';
+import careerStarsImgData from '../../assets/images/career-stars.jpg';
 
 export function CareerPage() {
   const t = useTranslations('career-page');

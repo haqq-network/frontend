@@ -1,8 +1,8 @@
-import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
 import Link from 'next/link';
-import partnershipCubeImgData from '../../assets/images/partnership-cube.webp';
 import { useTranslations } from 'next-intl';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
+import partnershipCubeImgData from '../../assets/images/partnership-cube.webp';
 
 export function PartnershipPage() {
   const t = useTranslations('partnerships-page');

@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
+import { haqqMainnet } from '@wagmi/chains';
 import { BrowserRouter } from 'react-router-dom';
-import { environment } from '../environments/environment';
-import { OnboardingContainer } from '../OnboardingContainer';
 import {
   CosmosProvider,
   ReactQueryProvider,
   WagmiProvider,
 } from '@haqq/shared';
-import { haqqMainnet } from '@wagmi/chains';
+import { environment } from '../environments/environment';
+import { OnboardingContainer } from '../OnboardingContainer';
 
 export function AppContainer({ children }: { children: ReactElement }) {
   return (

@@ -1,10 +1,10 @@
 import { PropsWithChildren, useMemo, createContext, useContext } from 'react';
-import { Connector, WagmiConfig, configureChains, createConfig } from 'wagmi';
+import { haqqMainnet, haqqTestedge2, Chain } from '@wagmi/chains';
 import { InjectedConnector } from '@wagmi/connectors/injected';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
+import { Connector, WagmiConfig, configureChains, createConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
-import { haqqMainnet, haqqTestedge2, Chain } from '@wagmi/chains';
 
 export const haqqLocalnet: Chain = {
   id: 121799,

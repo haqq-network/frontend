@@ -1,8 +1,8 @@
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { ValidatorInfo } from '../validator-info/validator-info';
-import { BackButton, Container } from '@haqq/shell-ui-kit';
 import { Fragment } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useConfig } from '@haqq/shared';
+import { BackButton, Container } from '@haqq/shell-ui-kit';
+import { ValidatorInfo } from '../validator-info/validator-info';
 
 export function ValidatorDetailsPage() {
   const { address } = useParams();

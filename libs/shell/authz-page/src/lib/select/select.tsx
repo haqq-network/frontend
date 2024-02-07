@@ -1,3 +1,5 @@
+import { useCallback, useMemo } from 'react';
+import clsx from 'clsx';
 import ReactSelect, {
   components as selectComponents,
   OptionProps,
@@ -5,8 +7,6 @@ import ReactSelect, {
   OptionsOrGroups,
   GroupBase,
 } from 'react-select';
-import clsx from 'clsx';
-import { useCallback, useMemo } from 'react';
 
 interface SelectOption {
   label: string | undefined;

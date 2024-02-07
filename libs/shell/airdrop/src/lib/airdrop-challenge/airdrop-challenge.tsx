@@ -1,5 +1,5 @@
-import { Tooltip } from '@haqq/shell-ui-kit';
 import { ReactNode } from 'react';
+import { Tooltip } from '@haqq/shell-ui-kit';
 
 export function AirdropChallengeStatusFailed() {
   return (

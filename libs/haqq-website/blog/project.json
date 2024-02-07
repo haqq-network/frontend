@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/haqq-website/blog/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["haqq-lib-blog"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",

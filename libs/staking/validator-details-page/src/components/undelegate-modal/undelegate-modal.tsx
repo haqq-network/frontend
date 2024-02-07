@@ -1,5 +1,5 @@
-import { DelegateModalDetails } from '../delegate-modal/delegate-modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   useStakingActions,
   useToast,
@@ -18,7 +18,7 @@ import {
   ToastError,
   LinkIcon,
 } from '@haqq/shell-ui-kit';
-import { Link } from 'react-router-dom';
+import { DelegateModalDetails } from '../delegate-modal/delegate-modal';
 
 export interface UndelegateModalProps {
   isOpen: boolean;

@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
   Container,
   GradientText,
@@ -5,11 +8,8 @@ import {
   WalletDownloadButton,
   RatingBadge,
 } from '@haqq/islamic-website-ui-kit';
-import iphoneImgData from '../../assets/images/iphone.jpg';
 import halfIphoneImgData from '../../assets/images/half-iphone.jpg';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import iphoneImgData from '../../assets/images/iphone.jpg';
 
 export function PortfolioBlock() {
   const t = useTranslations('index-page');

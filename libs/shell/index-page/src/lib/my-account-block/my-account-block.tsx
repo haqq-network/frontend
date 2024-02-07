@@ -1,3 +1,9 @@
+import { ReactNode, useCallback, useMemo, useState } from 'react';
+import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router-dom';
+import { Hex } from 'viem';
+import { useBalance, useNetwork } from 'wagmi';
 import {
   useAddress,
   useClipboard,
@@ -7,8 +13,6 @@ import {
   useWallet,
   useSupportedChains,
 } from '@haqq/shared';
-import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { useBalance, useNetwork } from 'wagmi';
 import {
   OrangeLink,
   CopyIcon,
@@ -19,10 +23,6 @@ import {
   formatNumber,
   WalletIcon,
 } from '@haqq/shell-ui-kit';
-import clsx from 'clsx';
-import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
-import { Hex } from 'viem';
 
 function MyAccountAmountBlock({
   title,

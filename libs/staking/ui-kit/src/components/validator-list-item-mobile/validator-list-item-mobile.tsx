@@ -1,10 +1,10 @@
+import { useCallback, useMemo } from 'react';
+import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
+import { formatUnits, parseUnits } from 'viem';
 import {
   ValidatorListItemMobile as ValidatorListItemMobileComponent,
   formatNumber,
 } from '@haqq/shell-ui-kit';
-import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
-import { useCallback, useMemo } from 'react';
-import { formatUnits, parseUnits } from 'viem';
 
 export function ValidatorListItemMobile({
   validator,

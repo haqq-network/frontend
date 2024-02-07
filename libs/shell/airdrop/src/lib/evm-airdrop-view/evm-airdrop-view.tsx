@@ -1,23 +1,23 @@
 import {
-  IParticipant,
-  ethToHaqq,
-  formatEthDecimal,
-  useAirdropActions,
-} from '@haqq/shared';
-import {
   PropsWithChildren,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import { ApproveBtn } from '../approve-btn/approve-btn';
 import { Hex } from 'viem';
+import {
+  IParticipant,
+  ethToHaqq,
+  formatEthDecimal,
+  useAirdropActions,
+} from '@haqq/shared';
 import {
   AirdropChallenge,
   AirdropChallengeStatusFailed,
   AirdropChallengeStatusSuccess,
 } from '../airdrop-challenge/airdrop-challenge';
+import { ApproveBtn } from '../approve-btn/approve-btn';
 
 export const PARTICIPANTS_CHECK_INTERVAL = 20000;
 

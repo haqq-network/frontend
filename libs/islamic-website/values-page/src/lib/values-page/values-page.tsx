@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react';
-import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import Image from 'next/image';
-import glowCubeImgData from '../../assets/images/glow-cube.jpg';
 import { useTranslations } from 'next-intl';
+import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
+import glowCubeImgData from '../../assets/images/glow-cube.jpg';
 
 function ValuesPageHeading({ children }: PropsWithChildren) {
   return (

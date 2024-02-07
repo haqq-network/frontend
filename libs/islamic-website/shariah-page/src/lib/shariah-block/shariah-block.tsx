@@ -1,5 +1,5 @@
-import { Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
+import { Text } from '@haqq/islamic-website-ui-kit';
 
 export function ShariahBlock() {
   const t = useTranslations('shariah-page');

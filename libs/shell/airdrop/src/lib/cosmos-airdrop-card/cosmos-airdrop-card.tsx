@@ -1,18 +1,18 @@
 import { useCallback } from 'react';
-import { Address } from '../address/address';
-import { ApproveBtn } from '../approve-btn/approve-btn';
-import { AirdropResultStrongText } from '../evm-airdrop-view/evm-airdrop-view';
 import {
   IParticipant,
   formatEthDecimal,
   getKeplrWallet,
   useAirdropActions,
 } from '@haqq/shared';
+import { Address } from '../address/address';
 import {
   AirdropChallenge,
   AirdropChallengeStatusFailed,
   AirdropChallengeStatusSuccess,
 } from '../airdrop-challenge/airdrop-challenge';
+import { ApproveBtn } from '../approve-btn/approve-btn';
+import { AirdropResultStrongText } from '../evm-airdrop-view/evm-airdrop-view';
 
 export function CosmosAirdropCard({
   address,

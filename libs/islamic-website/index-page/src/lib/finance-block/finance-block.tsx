@@ -1,8 +1,8 @@
+import clsx from 'clsx';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { Container, GradientText, Text } from '@haqq/islamic-website-ui-kit';
 import cubeOnRockImgData from '../../assets/images/cube-on-rock.jpg';
-import Image from 'next/image';
-import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
 
 export function FinanceBlock() {
   const t = useTranslations('index-page');

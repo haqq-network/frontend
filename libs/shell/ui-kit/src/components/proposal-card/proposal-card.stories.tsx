@@ -1,6 +1,6 @@
+import { ProposalStatus } from '@evmos/provider';
 import { Meta, StoryObj } from '@storybook/react';
 import { ProposalCard as ProposalCardComponent } from './proposal-card';
-import { ProposalStatus } from '@evmos/provider';
 
 const meta: Meta<typeof ProposalCardComponent> = {
   component: ProposalCardComponent,

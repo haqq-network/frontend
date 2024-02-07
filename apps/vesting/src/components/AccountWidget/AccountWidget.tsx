@@ -1,9 +1,9 @@
 import { useCallback, ReactNode, useMemo } from 'react';
-import { useClipboard } from '../../hooks/useClipboard';
-import { CopyIcon } from '../Icons/Icons';
 import { getFormattedAddress } from '@haqq/shared';
-import { Card } from '../Card/Card';
+import { useClipboard } from '../../hooks/useClipboard';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
+import { Card } from '../Card/Card';
+import { CopyIcon } from '../Icons/Icons';
 
 function AccountWidgetBgImage() {
   return (

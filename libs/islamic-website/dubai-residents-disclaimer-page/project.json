@@ -1,9 +1,9 @@
 {
-  "name": "dubai-residents-disclaimer-page",
+  "name": "islamic-website-dubai-residents-disclaimer-page",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/islamic-website/dubai-residents-disclaimer-page/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["islamic-lib-dubai-residents-disclaimer-page"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",

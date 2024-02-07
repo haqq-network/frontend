@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MEETUP_ID } from '../constants';
 import { FALCONER_ENDPOINT } from '../../../../constants';
+import { MEETUP_ID } from '../constants';
 
 interface EventVerifyRequest {
   meetup_id: string;

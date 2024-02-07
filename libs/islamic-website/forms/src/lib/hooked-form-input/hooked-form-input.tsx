@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import { Input, InputProps } from '@haqq/islamic-website-ui-kit';
 import { Path, UseFormRegister } from 'react-hook-form';
+import { Input, InputProps } from '@haqq/islamic-website-ui-kit';
 
 export enum FormState {
   idle,

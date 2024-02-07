@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { nanoid } from 'nanoid';
-import { environment } from '../environments/environment';
 import { formatUnits } from 'viem';
+import { environment } from '../environments/environment';
 
 function createRequest(address: string, date: Date) {
   return {

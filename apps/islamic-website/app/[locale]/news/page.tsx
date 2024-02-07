@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { NewsPage } from '@haqq/islamic-website/news-page';
-import { getNewsPageContentFromFalconer } from '../../../utils/get-news';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
+import { getNewsPageContentFromFalconer } from '../../../utils/get-news';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 export const dynamic = 'force-dynamic';

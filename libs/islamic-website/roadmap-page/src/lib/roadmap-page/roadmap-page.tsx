@@ -1,7 +1,7 @@
-import { Container, MarkdownText, Text } from '@haqq/islamic-website-ui-kit';
-import { SubscribeForm } from '@haqq/islamic-website/forms';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+import { SubscribeForm } from '@haqq/islamic-website/forms';
+import { Container, MarkdownText, Text } from '@haqq/islamic-website-ui-kit';
 
 export interface RoadmapPeriod {
   title: string;

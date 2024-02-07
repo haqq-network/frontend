@@ -1,7 +1,7 @@
-import { Container, MarkdownText } from '@haqq/islamic-website-ui-kit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Container, MarkdownText } from '@haqq/islamic-website-ui-kit';
 
 function HeroBg() {
   return (

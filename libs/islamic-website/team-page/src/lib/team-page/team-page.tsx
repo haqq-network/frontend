@@ -1,12 +1,12 @@
+import clsx from 'clsx';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import {
   Container,
   Member,
   MembersContainer,
 } from '@haqq/islamic-website-ui-kit';
-import Image from 'next/image';
 import teamPageBgImageData from '../../assets/images/team-page-bg.svg';
-import { useTranslations } from 'next-intl';
-import clsx from 'clsx';
 
 function TeamPageBg() {
   return (

@@ -1,13 +1,13 @@
-import { HookedFormInput } from '@haqq/haqq-website/forms';
-import { Button, Heading, InformationModal } from '@haqq/shell-ui-kit';
 import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import axios from 'axios';
-import { Address } from '../address/address';
-import { ethToHaqq, haqqToEth, usePersonalSign } from '@haqq/shared';
+import { useForm } from 'react-hook-form';
 import { Hex, isAddress } from 'viem';
+import * as yup from 'yup';
+import { HookedFormInput } from '@haqq/haqq-website/forms';
+import { ethToHaqq, haqqToEth, usePersonalSign } from '@haqq/shared';
+import { Button, Heading, InformationModal } from '@haqq/shell-ui-kit';
+import { Address } from '../address/address';
 
 interface IAddressFormField {
   address: string;

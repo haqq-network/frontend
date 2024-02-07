@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { ModalCloseButton } from '../modal/modal';
 import Link from 'next/link';
+import { ModalCloseButton } from '../modal/modal';
 import { Text } from '../text/text';
 
 interface MemberModalCardProps {

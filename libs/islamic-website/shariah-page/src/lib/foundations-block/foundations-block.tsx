@@ -1,6 +1,6 @@
-import { Text } from '@haqq/islamic-website-ui-kit';
-import { useTranslations } from 'next-intl';
 import { PropsWithChildren } from 'react';
+import { useTranslations } from 'next-intl';
+import { Text } from '@haqq/islamic-website-ui-kit';
 
 function HalalPrinciple({ children }: PropsWithChildren) {
   return (

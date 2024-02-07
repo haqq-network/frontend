@@ -1,5 +1,5 @@
-const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
+const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const typographyPlugin = require('@tailwindcss/typography');
 const { tailwindThemeExtend } = require('../../../shared-tailwind-theme');
 
@@ -13,8 +13,6 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--guise-font)'],
-        serif: ['var(--clash-font)'],
         guise: ['var(--guise-font)'],
         clash: ['var(--clash-font)'],
       },

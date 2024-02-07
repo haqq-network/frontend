@@ -1,8 +1,9 @@
 {
-  "name": "shared",
+  "name": "shell-shared",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/src",
   "projectType": "library",
+  "tags": ["shell-lib-shared"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -15,6 +16,5 @@
         "jestConfig": "libs/shared/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

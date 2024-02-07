@@ -1,9 +1,9 @@
+import { StoryFn } from '@storybook/react';
+import { withRouter } from 'storybook-addon-react-router-v6';
+import { Page as PageComponent } from './page';
+import { withoutPadding } from '../../../.storybook/decorators';
 import { Container } from '../container/container';
 import { Heading } from '../heading/heading';
-import { Page as PageComponent } from './page';
-import { withRouter } from 'storybook-addon-react-router-v6';
-import { withoutPadding } from '../../../.storybook/decorators';
-import { StoryFn } from '@storybook/react';
 
 export default {
   title: 'shell/ui-kit/layout',

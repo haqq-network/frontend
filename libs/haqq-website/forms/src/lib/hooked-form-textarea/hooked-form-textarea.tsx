@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import { Textarea, TextareaProps } from '@haqq/haqq-website-ui-kit';
 import { Path, UseFormRegister } from 'react-hook-form';
+import { Textarea, TextareaProps } from '@haqq/haqq-website-ui-kit';
 
 export interface HookedTextareaProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

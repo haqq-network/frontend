@@ -1,5 +1,5 @@
-import { SelectChainButton as SelectChainButtonComponent } from './select-chain-button';
 import { Meta, StoryObj } from '@storybook/react';
+import { SelectChainButton as SelectChainButtonComponent } from './select-chain-button';
 
 const meta: Meta<typeof SelectChainButtonComponent> = {
   component: SelectChainButtonComponent,

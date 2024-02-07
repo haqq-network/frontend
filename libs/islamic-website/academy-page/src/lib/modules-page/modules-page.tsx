@@ -1,9 +1,9 @@
 'use client';
 
-import { Container, Text } from '@haqq/islamic-website-ui-kit';
 import { useTranslations } from 'next-intl';
-import { LessonsBlock } from '../lessons/lessons-block';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { Container, Text } from '@haqq/islamic-website-ui-kit';
+import { LessonsBlock } from '../lessons/lessons-block';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],

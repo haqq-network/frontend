@@ -2,6 +2,7 @@ export * from './lib/haqq/get-haqq-chain-stats';
 export * from './lib/haqq/get-haqq-partners';
 export * from './lib/haqq/get-haqq-blog-posts';
 export * from './lib/haqq/get-haqq-privacy-policy';
+export * from './lib/haqq/get-haqq-price';
 export * from './lib/islamic/get-islamic-members';
 export * from './lib/islamic/get-islamic-whitepaper';
 export * from './lib/islamic/get-islamic-news';

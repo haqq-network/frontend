@@ -1,6 +1,6 @@
-import { Heading, Text } from '@haqq/haqq-website-ui-kit';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { Heading, Text } from '@haqq/haqq-website-ui-kit';
 
 function DevelopersBlockCard({
   title,

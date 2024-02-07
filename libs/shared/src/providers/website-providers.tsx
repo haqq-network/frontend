@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { ConfigProvider } from './config-provider';
-import { WagmiProvider } from './wagmi-provider';
 import { CosmosProvider } from './cosmos-provider';
 import { ReactQueryProvider } from './react-query-provider';
-import { Toaster } from 'react-hot-toast';
+import { WagmiProvider } from './wagmi-provider';
 import { WalletProvider } from './wallet-provider';
 
 export function WebsiteProviders({

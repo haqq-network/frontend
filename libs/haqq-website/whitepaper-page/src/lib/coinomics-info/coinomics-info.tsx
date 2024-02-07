@@ -1,6 +1,6 @@
-import { Heading, Text } from '@haqq/haqq-website-ui-kit';
-import clsx from 'clsx';
 import { PropsWithChildren } from 'react';
+import clsx from 'clsx';
+import { Heading, Text } from '@haqq/haqq-website-ui-kit';
 
 function InitalSupply() {
   return (

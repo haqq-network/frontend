@@ -1,5 +1,5 @@
-const { composePlugins, withNx } = require('@nx/webpack');
 const { withReact } = require('@nx/react');
+const { composePlugins, withNx } = require('@nx/webpack');
 const { ProvidePlugin, DefinePlugin } = require('webpack');
 const { merge } = require('webpack-merge');
 

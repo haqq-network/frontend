@@ -229,3 +229,24 @@ export function LinkIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function MagnifierIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M10.1639 17.5779C11.9145 17.5779 13.5233 16.9712 14.7916 15.9566L17.8192 18.9842L18.9842 17.8192L15.9566 14.7916C16.9712 13.5233 17.5779 11.9145 17.5779 10.1639C17.5779 6.06934 14.2586 2.75 10.1639 2.75C6.06934 2.75 2.75 6.06934 2.75 10.1639C2.75 14.2586 6.06934 17.5779 10.1639 17.5779ZM10.1639 15.9304C13.3486 15.9304 15.9304 13.3486 15.9304 10.1639C15.9304 6.97925 13.3486 4.39754 10.1639 4.39754C6.97925 4.39754 4.39754 6.97925 4.39754 10.1639C4.39754 13.3486 6.97925 15.9304 10.1639 15.9304Z"
+        fill="currentColor"
+        fillOpacity="0.5"
+      />
+    </svg>
+  );
+}

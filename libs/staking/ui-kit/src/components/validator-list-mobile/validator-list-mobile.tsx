@@ -1,9 +1,9 @@
+import { useCallback } from 'react';
 import {
   DistributionRewardsResponse,
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
-import { useCallback } from 'react';
 import { ValidatorListItemMobile } from '../validator-list-item-mobile/validator-list-item-mobile';
 
 export function ValidatorsListMobile({
@@ -19,12 +19,6 @@ export function ValidatorsListMobile({
   onValidatorClick: (validatorAddress: string) => void;
   totalStaked: number;
 }) {
-  console.log('ValidatorsListMobile', {
-    validators,
-    rewardsInfo,
-    delegationInfo,
-    totalStaked,
-  });
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -48,6 +42,16 @@ export function ValidatorsListMobile({
     },
     [delegationInfo],
   );
+
+  if (validators.length === 0) {
+    return (
+      <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
+        <div className="font-guise text-[10px] uppercase leading-[1.2em]">
+          Nothing found
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 gap-[24px] sm:grid-cols-2">

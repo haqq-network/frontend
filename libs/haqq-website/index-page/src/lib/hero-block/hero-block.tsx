@@ -1,9 +1,9 @@
-import { Text, HeroHeading } from '@haqq/haqq-website-ui-kit';
-import Image from 'next/image';
-import sunriseImageData from '../../assets/images/index-page-sunrise-bg.png';
-import halfEclipseImageData from '../../assets/images/index-page-half-eclipse.png';
-import Link from 'next/link';
 import clsx from 'clsx';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Text, HeroHeading } from '@haqq/haqq-website-ui-kit';
+import halfEclipseImageData from '../../assets/images/index-page-half-eclipse.png';
+import sunriseImageData from '../../assets/images/index-page-sunrise-bg.png';
 
 function SunriseBackground() {
   return (

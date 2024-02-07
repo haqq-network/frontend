@@ -1,23 +1,24 @@
-import type { Metadata, Viewport } from 'next';
 import { PropsWithChildren } from 'react';
-import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
-import clsx from 'clsx';
-import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
-import { NextIntlClientProvider } from 'next-intl';
-import { Container } from '@haqq/islamic-website-ui-kit';
-import Script from 'next/script';
-import Header from '../../components/header/header';
-import { Footer } from '../../components/footer/footer';
-import { SOCIAL_LINKS } from '../../social-links';
-import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import clsx from 'clsx';
+import type { Metadata, Viewport } from 'next';
+import { notFound } from 'next/navigation';
+import Script from 'next/script';
+import { NextIntlClientProvider } from 'next-intl';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import { LocaleType } from '@haqq/islamic-website/shariah-page';
+import { Container } from '@haqq/islamic-website-ui-kit';
+import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
+import { Footer } from '../../components/footer/footer';
+import Header from '../../components/header/header';
+import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
+import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
+import { SOCIAL_LINKS } from '../../social-links';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
 import '../../styles/consent-cookie.css';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
-import { notFound } from 'next/navigation';
 
 const { Link } = createSharedPathnamesNavigation({
   locales: ['en', 'ar', 'id'],
@@ -81,12 +82,11 @@ export default async function LocaleLayout({
           {isScamBannerShow && <ScamBanner />}
 
           <Header locale={locale} isBannerVisible={isScamBannerShow} />
-
           <main className="flex-1">{children}</main>
           <Footer socialLinks={SOCIAL_LINKS} />
 
           {VERCEL_ENV === 'production' && (
-            <div>
+            <>
               <Script
                 async={true}
                 defer={true}
@@ -124,7 +124,8 @@ export default async function LocaleLayout({
               />
               <CookieConsentModal />
               <Analytics mode="auto" />
-            </div>
+              <SpeedInsights />
+            </>
           )}
         </body>
       </html>
