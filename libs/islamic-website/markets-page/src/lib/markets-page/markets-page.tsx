@@ -44,11 +44,11 @@ const mock: Array<{
       },
       {
         pair: ['DAI', 'ISLM'],
-        href: 'https://www.sushi.com/swap?chainId=11235&token0=0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687&token1=NATIVE',
+        href: 'https://www.sushi.com/swap?chainId=11235&token0=0xC5e00D3b04563950941f7137B5AfA3a534F0D6d6&token1=NATIVE',
       },
       {
         pair: ['wBTC', 'ISLM'],
-        href: 'https://www.sushi.com/swap?chainId=11235&token0=0xC5e00D3b04563950941f7137B5AfA3a534F0D6d6&token1=NATIVE',
+        href: 'https://www.sushi.com/swap?chainId=11235&token0=0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687&token1=NATIVE',
       },
     ],
   },
@@ -66,7 +66,7 @@ const mock: Array<{
       },
       {
         pair: ['ATOM', 'ISLM'],
-        href: 'https://app.osmosis.zone/?to=ISLM&from=ATOK',
+        href: 'https://app.osmosis.zone/?to=ISLM&from=ATOM',
       },
       {
         pair: ['OSMO', 'ISLM'],
