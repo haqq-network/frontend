@@ -12,6 +12,7 @@ import { useTranslations } from 'next-intl';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import { useMediaQuery } from 'react-responsive';
 import { LocaleType } from '@haqq/islamic-website/shariah-page';
+import { useRestriction } from '@haqq/islamic-website-markets-page';
 import {
   Container,
   AcademyIcon,
@@ -309,6 +310,8 @@ export function DesktopHeader({
 }) {
   const [isBlurred, setBlurred] = useState(false);
 
+  const { isRestricted } = useRestriction();
+
   useEffect(() => {
     const offset = 50;
 
@@ -488,9 +491,11 @@ export function DesktopHeader({
                 </div>
               </HeaderDropdown>
 
-              <Link href="/markets" className="ml-[8px]">
-                <Button>Buy ISLM</Button>
-              </Link>
+              {!isRestricted && (
+                <Link href="/markets" className="ml-[8px]">
+                  <Button>Buy ISLM</Button>
+                </Link>
+              )}
             </nav>
           </div>
         </Container>
