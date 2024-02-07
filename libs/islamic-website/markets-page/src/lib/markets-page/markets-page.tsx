@@ -199,7 +199,7 @@ export function MarketsPage({ price }: { price: string }) {
               <div>
                 <div>
                   <h2 className="font-alexandria text-[22px] font-[600] leading-[24px] md:text-[48px] md:leading-[54px]">
-                    OnRamp
+                    Fiat
                   </h2>
                   <div className="mt-[12px] md:mt-[18px]">
                     <Text>Buying Islamic Coin for fiat currency</Text>
