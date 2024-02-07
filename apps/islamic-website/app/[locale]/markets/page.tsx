@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { MarketsPage } from '@haqq/islamic-website-markets-page/server';
+import { MarketsPage } from '@haqq/islamic-website-markets-page';
 import { DEPLOY_URL } from '../../../constants';
 import { getPriceFromFalconer } from '../../../utils/get-price';
 import { createCurrencyFormatter } from '../../../utils/locale-utils';
