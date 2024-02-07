@@ -725,6 +725,7 @@ export function ValidatorInfo({
         delegation={myDelegation}
         symbol={symbol}
         validatorsList={validatorsList}
+        balance={balance}
       />
     </Fragment>
   );
