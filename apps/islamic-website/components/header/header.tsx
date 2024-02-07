@@ -271,13 +271,24 @@ export function MobileHeader({
                   </Link>
                 </div>
                 <div className="leading-[0]">
-                  <BurgerButton
-                    onClick={() => {
-                      setIsMobileMenuOpened(!isMobileMenuOpen);
-                    }}
-                    isOpen={isMobileMenuOpen}
-                    className="p-[6px]"
-                  />
+                  <div className="flex flex-row items-center gap-[12px]">
+                    {isBuyButtonVisible && (
+                      <Link href="/markets" className="leading-[0]">
+                        <Button className="!h-[36px] !px-[16px] !py-[4px] !text-[14px] !leading-[28px]">
+                          Buy ISLM
+                        </Button>
+                      </Link>
+                    )}
+                    <div className="leading-[0]">
+                      <BurgerButton
+                        onClick={() => {
+                          setIsMobileMenuOpened(!isMobileMenuOpen);
+                        }}
+                        isOpen={isMobileMenuOpen}
+                        className="p-[6px]"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </Container>
