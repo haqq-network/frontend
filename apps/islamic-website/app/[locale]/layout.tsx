@@ -145,6 +145,23 @@ export default async function LocaleLayout({
                   `,
                 }}
               />
+              <Script
+                async={true}
+                src="https://www.googletagmanager.com/gtag/js?id=G-5FLBNV5M30"
+                id="gtm-haqq"
+                data-cookiecategory="analytics"
+              />
+              <Script
+                defer={true}
+                id="gtm-haqq-2"
+                data-cookiecategory="analytics"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                   window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-5FLBNV5M30');
+                  `,
+                }}
+              />
+
               <CookieConsentModal />
               <Analytics mode="auto" />
               <SpeedInsights />
