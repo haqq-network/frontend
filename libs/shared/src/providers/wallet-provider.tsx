@@ -19,6 +19,7 @@ export interface WalletProviderInterface {
   openSelectChain: () => void;
   closeSelectChain: () => void;
   isSelectChainOpen: boolean;
+  isHaqqWallet: boolean;
 }
 
 const WalletContext = createContext<WalletProviderInterface | undefined>(
@@ -68,6 +69,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         setSelectChainModalOpen(false);
       },
       isSelectChainOpen: isSelectChainModalOpen,
+      isHaqqWallet: window.ethereum?.isHaqqWallet || false,
     };
   }, [
     disconnect,
