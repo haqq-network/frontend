@@ -7,11 +7,13 @@ export function TopValidatorsWarningModal({
   onClose,
   onContinue,
   className,
+  votingPowerPercent,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onContinue: () => void;
   className?: string;
+  votingPowerPercent: number;
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -34,10 +36,10 @@ export function TopValidatorsWarningModal({
           <div>
             <div className="font-guise text-[15px] leading-[24px]">
               You are attempting to delegate to a validator that ranks in the
-              top 30% by voting power. Delegating to highly ranked validators
-              might centralize voting power and potentially reduce the network's
-              decentralization. Please ensure you understand the implications
-              before proceeding.
+              top {votingPowerPercent}% by voting power. Delegating to highly
+              ranked validators might centralize voting power and potentially
+              reduce the network's decentralization. Please ensure you
+              understand the implications before proceeding.
             </div>
           </div>
 
