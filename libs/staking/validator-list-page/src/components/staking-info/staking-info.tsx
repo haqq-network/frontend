@@ -190,7 +190,7 @@ function useStakingStats() {
 
 export function StakingInfo() {
   const { ethAddress, haqqAddress } = useAddress();
-  const { openSelectWallet } = useWallet();
+  const { openSelectWallet, isHaqqWallet } = useWallet();
   const { isReady } = useCosmosProvider();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
   const chains = useSupportedChains();
@@ -249,8 +249,15 @@ export function StakingInfo() {
     <section
       className={clsx(
         'sticky z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent backdrop-blur',
-        isTestedge ? 'top-[99px] sm:top-[110x]' : 'top-[62px] sm:top-[70px]',
+        isHaqqWallet
+          ? isTestedge
+            ? 'top-[101px] sm:top-[111px]'
+            : 'top-[62px] sm:top-[72px]'
+          : isTestedge
+            ? 'top-[99px] sm:top-[110px]'
+            : 'top-[62px] sm:top-[70px]',
         !isTablet && 'py-[32px]',
+        isHaqqWallet && '!border-t-[0px]',
       )}
     >
       {isTablet ? (

@@ -58,6 +58,7 @@ function HeaderButtons({
     query: `(min-width: 1024px)`,
   });
   const navigate = useNavigate();
+  const { isHaqqWallet } = useWallet();
 
   const handleChainSelectClick = useCallback(
     async (chainId: number) => {
@@ -155,6 +156,19 @@ function HeaderButtons({
           >
             <div className="overflow-y-auto px-[24px] py-[32px]">
               <div className="mb-[24px] flex flex-col items-start gap-[16px] sm:mb-[80px]">
+                {isHaqqWallet && (
+                  <div>
+                    <HeaderNavLink
+                      href="/"
+                      onClick={() => {
+                        onMobileMenuOpenChange(false);
+                      }}
+                    >
+                      Home
+                    </HeaderNavLink>
+                  </div>
+                )}
+
                 <div>
                   <HeaderNavLink
                     href="/staking"
@@ -244,6 +258,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
     isSelectChainOpen,
     closeSelectChain,
     selectNetwork,
+    isHaqqWallet,
   } = useWallet();
 
   const handleWalletConnect = useCallback(
@@ -299,6 +314,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
         <Header
           darkBackground={isMobileMenuOpen}
           isBlurred={isBlurred}
+          isHaqqWallet={isHaqqWallet}
           rightSlot={
             <HeaderButtons
               isMobileMenuOpen={isMobileMenuOpen}

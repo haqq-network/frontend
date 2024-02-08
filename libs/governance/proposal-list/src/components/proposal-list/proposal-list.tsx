@@ -7,6 +7,7 @@ import {
   useProposalListQuery,
   useProposalTallysQuery,
   useProposalVotesQuery,
+  useWallet,
 } from '@haqq/shared';
 import { Container, SpinnerLoader } from '@haqq/shell-ui-kit';
 import { ProposalListCard } from '../proposal-list-card/proposal-list-card';
@@ -16,6 +17,7 @@ export function ProposalList() {
   const { data: proposalsData, isFetching } = useProposalListQuery();
   const symbol = 'ISLM';
   const { haqqAddress } = useAddress();
+  const { isHaqqWallet } = useWallet();
 
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
@@ -91,15 +93,17 @@ export function ProposalList() {
 
   return (
     <div>
-      <div className="py-[32px] lg:py-[68px]">
-        <Container>
-          <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-            Governance
-          </div>
-        </Container>
-      </div>
+      {!isHaqqWallet && (
+        <div className="pt-[32px] lg:pt-[68px]">
+          <Container>
+            <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+              Governance
+            </div>
+          </Container>
+        </div>
+      )}
 
-      <div>
+      <div className="pt-[32px] lg:pt-[68px]">
         <Container>
           {!govParams || isFetching ? (
             <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">

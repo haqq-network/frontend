@@ -1,7 +1,8 @@
 import { useCallback, useMemo } from 'react';
+import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-import { useCosmosProvider } from '@haqq/shared';
+import { useCosmosProvider, useWallet } from '@haqq/shared';
 import {
   SpinnerLoader,
   ValidatorIcon,
@@ -41,6 +42,7 @@ export function StakingValidatorList() {
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
+  const { isHaqqWallet } = useWallet();
 
   const handleMobileSortChange = useCallback(
     (mobileSortKey: string) => {
@@ -93,7 +95,13 @@ export function StakingValidatorList() {
   }, [filter, isShowMyDelegation, validators, valsActive, valsTotal]);
 
   return (
-    <Container className="py-[52px] sm:py-[60px] lg:py-[80px]">
+    <Container
+      className={clsx(
+        isHaqqWallet
+          ? 'py-[24px] sm:py-[36px] lg:py-[68px]'
+          : 'py-[52px] sm:py-[60px] lg:py-[80px]',
+      )}
+    >
       <div className="flex flex-col gap-[32px]">
         <div className="flex flex-col gap-[24px] lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-row items-center">
