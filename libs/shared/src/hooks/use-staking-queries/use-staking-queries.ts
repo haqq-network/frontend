@@ -1,9 +1,21 @@
-import { useQuery } from '@tanstack/react-query';
+import {
+  DistributionRewardsResponse,
+  GetDelegationsResponse,
+  UndelegationResponse,
+  Validator,
+} from '@evmos/provider';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { useNetwork } from 'wagmi';
-import { useCosmosService } from '../../providers/cosmos-provider';
+import {
+  StakingParams,
+  StakingPool,
+  useCosmosService,
+} from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 
-export function useStakingValidatorListQuery(limit = 1000) {
+export function useStakingValidatorListQuery(
+  limit = 1000,
+): UseQueryResult<Validator[], Error> {
   const { getValidators } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -16,7 +28,9 @@ export function useStakingValidatorListQuery(limit = 1000) {
   });
 }
 
-export function useStakingRewardsQuery(address: string | undefined) {
+export function useStakingRewardsQuery(
+  address: string | undefined,
+): UseQueryResult<DistributionRewardsResponse | null, Error> {
   const { getRewardsInfo } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -33,7 +47,9 @@ export function useStakingRewardsQuery(address: string | undefined) {
   });
 }
 
-export function useStakingDelegationQuery(address: string | undefined) {
+export function useStakingDelegationQuery(
+  address: string | undefined,
+): UseQueryResult<GetDelegationsResponse | null, Error> {
   const { getAccountDelegations } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -50,7 +66,9 @@ export function useStakingDelegationQuery(address: string | undefined) {
   });
 }
 
-export function useStakingUnbondingsQuery(address: string | undefined) {
+export function useStakingUnbondingsQuery(
+  address: string | undefined,
+): UseQueryResult<UndelegationResponse[] | null, Error> {
   const { getUndelegations } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -67,7 +85,9 @@ export function useStakingUnbondingsQuery(address: string | undefined) {
   });
 }
 
-export function useStakingValidatorInfoQuery(valoperAddress: string) {
+export function useStakingValidatorInfoQuery(
+  valoperAddress: string,
+): UseQueryResult<Validator | undefined, Error> {
   const { getValidatorInfo } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -80,7 +100,7 @@ export function useStakingValidatorInfoQuery(valoperAddress: string) {
   });
 }
 
-export function useStakingParamsQuery() {
+export function useStakingParamsQuery(): UseQueryResult<StakingParams, Error> {
   const { getStakingParams } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -91,7 +111,7 @@ export function useStakingParamsQuery() {
   });
 }
 
-export function useStakingPoolQuery() {
+export function useStakingPoolQuery(): UseQueryResult<StakingPool, Error> {
   const { getStakingPool } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
