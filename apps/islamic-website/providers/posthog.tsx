@@ -1,10 +1,14 @@
 'use client';
 import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
-import { DEPLOY_URL } from '../constants';
+import { DEPLOY_URL, NEXT_PUBLIC_VERCEL_URL, VERCEL_URL } from '../constants';
 
 if (typeof window !== 'undefined') {
-  console.log({ DEPLOY_URL });
+  console.log('posthog-init', {
+    DEPLOY_URL,
+    NEXT_PUBLIC_VERCEL_URL,
+    VERCEL_URL,
+  });
   posthog.init(process.env['NEXT_PUBLIC_POSTHOG_KEY']!, {
     api_host: new URL('/ingest', DEPLOY_URL).toString(),
     ui_host: process.env['NEXT_PUBLIC_POSTHOG_HOST'],
