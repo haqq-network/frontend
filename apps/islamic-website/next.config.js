@@ -8,6 +8,9 @@ const withNextIntl = require('next-intl/plugin');
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
+  compress: true,
+  swcMinify: true,
+  reactStrictMode: true,
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
@@ -33,6 +36,10 @@ const nextConfig = {
         hostname: 'placekitten.com',
       },
     ],
+  },
+  env: {
+    NEXT_PUBLIC_VERCEL_URL:
+      process.env['VERCEL_URL'] ?? 'http://localhost:4200',
   },
   rewrites: async () => {
     return [
