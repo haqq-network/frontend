@@ -172,7 +172,7 @@ export function HeroBlock() {
             </div>
             <div>
               <Link
-                href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/app-android.apk"
+                href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block"

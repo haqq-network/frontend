@@ -59,7 +59,7 @@ export function WalletPage() {
         </div>
         <div className="w-fit">
           <Link
-            href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/app-android.apk"
+            href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
             target="_blank"
             rel="noopener noreferrer"
             download
