@@ -124,7 +124,7 @@
     "@storybook/addon-viewport": "7.6.7",
     "@storybook/core-common": "7.6.7",
     "@storybook/core-server": "7.6.7",
-    "@storybook/manager-api": "7.6.7",
+    "@storybook/manager-api": "7.6.13",
     "@storybook/nextjs": "7.6.7",
     "@storybook/react": "7.6.7",
     "@storybook/react-webpack5": "7.6.7",
