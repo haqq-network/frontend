@@ -3212,6 +3212,7 @@ __metadata:
     postcss: "npm:8.4.32"
     postcss-import: "npm:16.0.0"
     postcss-preset-env: "npm:9.3.0"
+    posthog-js: "npm:1.105.6"
     prettier: "npm:3.1.1"
     prettier-plugin-tailwindcss: "npm:0.5.10"
     qrcode.react: "npm:3.1.0"
@@ -14885,6 +14886,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fflate@npm:^0.4.8":
+  version: 0.4.8
+  resolution: "fflate@npm:0.4.8"
+  checksum: c0c75029bcbefd0b47cede4ad2a3698f571e38d3d93dfbb96d744c655ec3bf5e31111044c2c01fa3965109874f5be8b5a6b3686b958392693689665cbabf3ece
+  languageName: node
+  linkType: hard
+
 "figures@npm:3.2.0, figures@npm:^3.2.0":
   version: 3.2.0
   resolution: "figures@npm:3.2.0"
@@ -23313,10 +23321,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"posthog-js@npm:1.105.6":
+  version: 1.105.6
+  resolution: "posthog-js@npm:1.105.6"
+  dependencies:
+    fflate: "npm:^0.4.8"
+    preact: "npm:^10.19.3"
+  checksum: 21b09f98c943197b054821b7705cde37e8198a366a78f15bb2ee9636ea51542cd7241857f199b970c8a6dcef34961504943f924627325549ba011feb151e4a50
+  languageName: node
+  linkType: hard
+
 "preact@npm:^10.12.0, preact@npm:^10.16.0":
   version: 10.19.3
   resolution: "preact@npm:10.19.3"
   checksum: 16478272162a986f03bbde7bb681103339dd00bfe0a6dffe78f9124f3999586647a31e9cb2324ae59ca51eb7d8dd5659eef6df0f7a5f424107cd9f99dddb08e8
+  languageName: node
+  linkType: hard
+
+"preact@npm:^10.19.3":
+  version: 10.19.4
+  resolution: "preact@npm:10.19.4"
+  checksum: e79051c08d61c6723a4535606c9136ea752f8bae984ae8056039e2a56f6d58d6200aa941850478dc822dca38c16469d23368e9f75d7a7e57f9ca4df70a305d0f
   languageName: node
   linkType: hard
 
