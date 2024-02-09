@@ -47,8 +47,11 @@ import {
   ToastError,
   ToastSuccess,
   LinkIcon,
+  formatPercents,
+  TopValidatorsWarningModal,
 } from '@haqq/shell-ui-kit';
 import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
+import { useValidatorsShares } from '@haqq/staking/utils';
 import styles from './validator-info.module.css';
 import { DelegateModal } from '../delegate-modal/delegate-modal';
 import { RedelegateModal } from '../redelegate-modal/redelegate-modal';
@@ -140,10 +143,6 @@ function CommissionCard({ commission }: CommissionCardProps) {
       </div>
     </div>
   );
-}
-
-function formatPercents(value: string): number {
-  return Number.parseFloat((Number.parseFloat(value) * 100).toLocaleString());
 }
 
 export function ValidatorInfoComponent({
@@ -666,7 +665,7 @@ export function ValidatorInfo({
     ).toFixed(0);
   }, [validatorInfo?.commission.commission_rates.rate]);
 
-  if (!validatorInfo) {
+  if (!validatorInfo || !validatorsList) {
     return (
       <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
         <SpinnerLoader />
@@ -752,6 +751,18 @@ export function ValidatorBlockDesktop({
   const isWarningShown =
     validatorInfo.jailed || validatorInfo.status === 'BOND_STATUS_UNBONDED';
   const { executeIfNetworkSupported } = useNetworkAwareAction();
+  const [isTopWarningModalOpen, setTopWarningModalOpen] = useState(false);
+  const { checkTopShare, votingPowerPercent } = useValidatorsShares();
+
+  const handleTopWarningModalClose = useCallback(() => {
+    setTopWarningModalOpen(false);
+  }, []);
+
+  const handleDelegateContinue = useCallback(() => {
+    executeIfNetworkSupported(() => {
+      navigate('#delegate', { replace: true });
+    });
+  }, [executeIfNetworkSupported, navigate]);
 
   return (
     <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[28px] py-[32px]">
@@ -787,9 +798,11 @@ export function ValidatorBlockDesktop({
               disabled={balance < MIN_BALANCE}
               className="w-full"
               onClick={() => {
-                executeIfNetworkSupported(() => {
-                  navigate('#delegate', { replace: true });
-                });
+                if (checkTopShare(validatorInfo.operator_address)) {
+                  setTopWarningModalOpen(true);
+                } else {
+                  handleDelegateContinue();
+                }
               }}
             >
               Delegate
@@ -845,6 +858,17 @@ export function ValidatorBlockDesktop({
           Get my rewards
         </Button>
       </div>
+
+      {/* TODO: Refactor this. This modal should be placed not here */}
+      <TopValidatorsWarningModal
+        isOpen={isTopWarningModalOpen}
+        onClose={handleTopWarningModalClose}
+        onContinue={() => {
+          handleTopWarningModalClose();
+          handleDelegateContinue();
+        }}
+        votingPowerPercent={votingPowerPercent}
+      />
     </div>
   );
 }

@@ -41,37 +41,34 @@ import {
   ToastSuccess,
   Tooltip,
   formatNumber,
+  formatDate,
 } from '@haqq/shell-ui-kit';
 import { Select } from '../select/select';
 
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'GMT',
-  }).format(date);
-}
-
 export function ShellAuthzPage() {
   const { ethAddress } = useAddress();
-  const { openSelectWallet } = useWallet();
+  const { openSelectWallet, isHaqqWallet } = useWallet();
 
   return (
     <div>
-      <div className="py-[32px] lg:py-[68px]">
-        <Container>
-          <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-            Authz
-          </div>
-        </Container>
-      </div>
+      {!isHaqqWallet && (
+        <div className="py-[32px] lg:py-[68px]">
+          <Container>
+            <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+              Authz
+            </div>
+          </Container>
+        </div>
+      )}
 
       <div className="flex flex-col gap-[32px]">
         {!ethAddress ? (
-          <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px]">
+          <div
+            className={clsx(
+              'flex flex-col items-center space-y-[12px] py-[58px]',
+              !isHaqqWallet && 'border-y border-[#ffffff26]',
+            )}
+          >
             <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
               You should connect wallet first
             </div>
@@ -402,6 +399,7 @@ function AuthzGrantsActions() {
   );
   const { executeIfNetworkSupported } = useNetworkAwareAction();
   const { explorer } = getChainParams(chain.id);
+  const { isHaqqWallet } = useWallet();
 
   const getGrantExpire = useCallback((period: string) => {
     const now = new Date();
@@ -555,7 +553,13 @@ function AuthzGrantsActions() {
   }, [grantee]);
 
   return (
-    <div className="border-y border-y-[#ffffff26]">
+    <div
+      className={clsx(
+        !isHaqqWallet
+          ? 'border-y border-y-[#ffffff26]'
+          : 'sm:pt-[24px] lg:pt-[32px]',
+      )}
+    >
       <Container>
         <div className="flex flex-col gap-[16px] lg:flex-row lg:gap-[36px]">
           <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px]">

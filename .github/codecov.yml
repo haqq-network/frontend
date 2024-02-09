@@ -8,6 +8,8 @@ coverage:
   status:
     patch:
       enabled: false
+    project:
+      enabled: false
 
 flag_management:
   default_rules:

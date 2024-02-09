@@ -6,7 +6,7 @@ import { ProposalListCard } from '@haqq/governance/proposal-list';
 import {
   useGovernanceParamsQuery,
   useProposalListQuery,
-  useProposalTallys,
+  useProposalTallysQuery,
   useSupportedChains,
 } from '@haqq/shared';
 import {
@@ -43,7 +43,7 @@ export function ProposalListBlock() {
       });
   }, [proposals]);
 
-  const proposalTallysDataArray = useProposalTallys(ongoingProposals);
+  const proposalTallysDataArray = useProposalTallysQuery(ongoingProposals);
 
   const ongoingProposalTallysResultMap = useMemo(() => {
     return new Map(

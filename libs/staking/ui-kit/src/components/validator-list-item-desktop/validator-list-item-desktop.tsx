@@ -47,7 +47,7 @@ export function ValidatorListItemDesktop({
   }, [reward]);
 
   const votingPowerInPercents = useMemo(() => {
-    return formatNumber((votingPower / stakingPool) * 100);
+    return Number.parseFloat(formatNumber((votingPower / stakingPool) * 100));
   }, [votingPower, stakingPool]);
 
   return (

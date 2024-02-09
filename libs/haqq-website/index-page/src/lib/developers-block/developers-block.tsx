@@ -76,7 +76,7 @@ export function DevelopersBlock() {
             />
           </Link>
           <Link
-            href="https://docs.haqq.network/guides/validators/setup.html"
+            href="https://docs.haqq.network/user-guides/run-a-validator"
             target="_blank"
             rel="noopener noreferrer"
           >

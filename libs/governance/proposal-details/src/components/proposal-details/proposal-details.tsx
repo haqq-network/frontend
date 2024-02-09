@@ -13,7 +13,6 @@ import {
   SoftwareUpgradeProposalContent,
 } from '@evmos/provider';
 import clsx from 'clsx';
-import { VoteOption } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import Markdown from 'marked-react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
@@ -32,11 +31,12 @@ import {
   useSupportedChains,
   useStakingDelegationQuery,
   getFormattedAddress,
-  useProposalTally,
+  useProposalTallyQuery,
   TallyResults,
   useStakingPoolQuery,
   useNetworkAwareAction,
   getChainParams,
+  useProposalVoteQuery,
 } from '@haqq/shared';
 import {
   BackButton,
@@ -57,6 +57,9 @@ import {
   ToastLoading,
   ToastError,
   LinkIcon,
+  VoteOption,
+  voteOptionFromJSON,
+  formatDate,
 } from '@haqq/shell-ui-kit';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from '../software-upgrade-proposal/software-upgrade-proposal';
@@ -93,17 +96,6 @@ export function getProposalTypeText(type: string) {
     default:
       return type;
   }
-}
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'GMT',
-  }).format(date);
 }
 
 function ShowDateToggleButton({ onClick }: { onClick: () => void }) {
@@ -156,6 +148,7 @@ function ProposalDetailsMobile({
   proposalTally,
   quorum,
   turnout,
+  userVote,
 }: {
   proposalDetails: Proposal;
   totalDeposit: number;
@@ -164,6 +157,7 @@ function ProposalDetailsMobile({
   proposalTally: TallyResults;
   turnout: number;
   quorum: number;
+  userVote?: string | null;
 }) {
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
@@ -177,6 +171,7 @@ function ProposalDetailsMobile({
                 <ProposalVoteProgress
                   results={proposalTally}
                   status={proposalDetails.status}
+                  userVote={userVote}
                 />
               </div>
             )}
@@ -258,6 +253,10 @@ export function ProposalDetailsComponent({
       proposalDetails.status === ProposalStatus.Passed ||
         proposalDetails.status === ProposalStatus.Rejected,
     ),
+  );
+  const { data: userVote } = useProposalVoteQuery(
+    proposalDetails.proposal_id,
+    haqqAddress,
   );
 
   // const isDepositAvailable = useMemo(() => {
@@ -411,6 +410,7 @@ export function ProposalDetailsComponent({
                       proposalTally={proposalTally}
                       quorum={quorum}
                       turnout={turnout}
+                      userVote={userVote}
                     />
                   </div>
                 )}
@@ -539,6 +539,7 @@ export function ProposalDetailsComponent({
                         <ProposalVoteProgress
                           results={proposalTally}
                           status={proposalDetails.status}
+                          userVote={userVote}
                         />
                       </div>
 
@@ -682,6 +683,7 @@ export function ProposalDetailsComponent({
                         proposalDetails.proposal_id,
                         10,
                       )}
+                      userVote={userVote}
                     />
                   </div>
                 )}
@@ -702,6 +704,7 @@ export function ProposalDetailsComponent({
             //   navigate('#deposit', { replace: true });
             // }}
             isCanVote={isCanVote}
+            userVote={userVote}
           />
           {/* <ProposalDepositModal
             isOpen={isDepositModalOpen}
@@ -765,6 +768,7 @@ function ProposalActionsMobile({
   // onDepositWalletClick,
   // isDepositAvailable,
   isCanVote,
+  userVote,
 }: {
   proposalDetails: Proposal;
   isConnected?: boolean;
@@ -772,6 +776,7 @@ function ProposalActionsMobile({
   // onDepositWalletClick: () => void;
   // isDepositAvailable: boolean;
   isCanVote?: boolean;
+  userVote?: string | null;
 }) {
   if (!isConnected) {
     return (
@@ -815,6 +820,7 @@ function ProposalActionsMobile({
         <Container>
           <VoteActions
             proposalId={Number.parseInt(proposalDetails.proposal_id, 10)}
+            userVote={userVote}
           />
         </Container>
       </div>
@@ -827,7 +833,7 @@ function ProposalActionsMobile({
 function ProposalInfo({ proposalId }: { proposalId: string }) {
   const { data: proposalDetails, isFetched } =
     useProposalDetailsQuery(proposalId);
-  const { data: proposalTally } = useProposalTally(proposalId);
+  const { data: proposalTally } = useProposalTallyQuery(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
   const chains = useSupportedChains();
@@ -892,7 +898,7 @@ export function VoteActions({
   userVote,
 }: {
   proposalId: number;
-  userVote?: VoteOption;
+  userVote?: string | null;
 }) {
   const { vote } = useProposalActions();
   const toast = useToast();
@@ -960,8 +966,10 @@ export function VoteActions({
               });
             }}
             color="green"
-            isActive={userVote === VoteOption.VOTE_OPTION_YES}
             disabled={userVote !== undefined}
+            isActive={
+              voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES
+            }
           >
             Yes
           </VoteButton>
@@ -974,8 +982,10 @@ export function VoteActions({
               });
             }}
             color="red"
-            isActive={userVote === VoteOption.VOTE_OPTION_NO}
             disabled={userVote !== undefined}
+            isActive={
+              voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO
+            }
           >
             No
           </VoteButton>
@@ -988,8 +998,10 @@ export function VoteActions({
               });
             }}
             color="gray"
-            isActive={userVote === VoteOption.VOTE_OPTION_ABSTAIN}
             disabled={userVote !== undefined}
+            isActive={
+              voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_ABSTAIN
+            }
           >
             Abstain
           </VoteButton>
@@ -1002,8 +1014,11 @@ export function VoteActions({
               });
             }}
             color="yellow"
-            isActive={userVote === VoteOption.VOTE_OPTION_NO_WITH_VETO}
             disabled={userVote !== undefined}
+            isActive={
+              voteOptionFromJSON(userVote) ===
+              VoteOption.VOTE_OPTION_NO_WITH_VETO
+            }
           >
             Veto
           </VoteButton>
@@ -1152,22 +1167,23 @@ export function VoteButton({
     <button
       className={clsx(
         'font-clash rounded-[6px] bg-[#FFFFFF26] px-[24px] py-[12px] text-[14px] leading-[1em] text-white',
-        'uppercase transition-colors duration-100 ease-linear',
+        'cursor-pointer uppercase transition-colors duration-100 ease-in',
         'w-full',
-        !disabled
+        disabled && '!cursor-not-allowed',
+        disabled && !isActive && 'bg-[#FFFFFF26] hover:bg-[#FFFFFF26]',
+        isActive
           ? {
-              'hover:bg-[#01B26E]': color === 'green' && !isActive,
-              'hover:bg-[#AAABB2]': color === 'gray' && !isActive,
-              'hover:bg-[#FF5454]': color === 'red' && !isActive,
-              'hover:bg-[#E3A13F]': color === 'yellow' && !isActive,
-              '!bg-[#01B26E]': color === 'green' && isActive,
-              '!bg-[#AAABB2]': color === 'gray' && isActive,
-              '!bg-[#FF5454]': color === 'red' && isActive,
-              '!bg-[#E3A13F]': color === 'yellow' && isActive,
-              'cursor-not-allowed': isActive,
-              'cursor-pointer': !isActive,
+              '!bg-[#01B26E]': color === 'green',
+              '!bg-[#AAABB2]': color === 'gray',
+              '!bg-[#FF5454]': color === 'red',
+              '!bg-[#E3A13F]': color === 'yellow',
             }
-          : 'cursor-not-allowed bg-[#FFFFFF26] hover:bg-[#FFFFFF26]',
+          : {
+              'hover:bg-[#01B26E]': color === 'green',
+              'hover:bg-[#AAABB2]': color === 'gray',
+              'hover:bg-[#FF5454]': color === 'red',
+              'hover:bg-[#E3A13F]': color === 'yellow',
+            },
         className,
       )}
       onClick={!isActive || !disabled ? onClick : undefined}

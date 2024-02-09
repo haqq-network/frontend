@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
+import { formatDate } from '../../utils/format-date';
 import { Card, CardHeading } from '../card/card';
 import { InfoBlock } from '../info-block/info-block';
 import { ProposalDepositProgress } from '../proposal-deposit-progress/proposal-deposit-progress';
@@ -9,17 +10,6 @@ import {
   ProposalVoteProgress,
   VoteResults,
 } from '../proposal-vote-progress/proposal-vote-progress';
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'GMT',
-  }).format(date);
-}
 
 export function ProposalCard({
   id,
@@ -33,6 +23,7 @@ export function ProposalCard({
   votingEndDate,
   symbol,
   type,
+  userVote,
 }: {
   id: number;
   title: string;
@@ -45,6 +36,7 @@ export function ProposalCard({
   votingEndDate?: Date;
   symbol: string;
   type: string;
+  userVote?: string | null;
 }) {
   const proposalColor = useMemo(() => {
     if (status === ProposalStatusEnum.Deposit) {
@@ -120,7 +112,11 @@ export function ProposalCard({
           {(status === ProposalStatusEnum.Voting ||
             status === ProposalStatusEnum.Rejected ||
             status === ProposalStatusEnum.Passed) && (
-            <ProposalVoteProgress results={results} status={status} />
+            <ProposalVoteProgress
+              results={results}
+              status={status}
+              userVote={userVote}
+            />
           )}
         </div>
       </div>
