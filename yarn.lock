@@ -3170,7 +3170,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:6.17.0"
     "@vercel/analytics": "npm:1.1.2"
     "@vercel/edge": "npm:1.1.1"
-    "@vercel/speed-insights": "npm:1.0.7"
+    "@vercel/speed-insights": "npm:1.0.9"
     "@wagmi/chains": "npm:1.8.0"
     "@wagmi/connectors": "npm:3.1.10"
     "@wagmi/core": "npm:1.4.12"
@@ -8959,9 +8959,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/speed-insights@npm:1.0.7":
-  version: 1.0.7
-  resolution: "@vercel/speed-insights@npm:1.0.7"
+"@vercel/speed-insights@npm:1.0.9":
+  version: 1.0.9
+  resolution: "@vercel/speed-insights@npm:1.0.9"
   peerDependencies:
     "@sveltejs/kit": ^1 || ^2
     next: ">= 13"
@@ -8982,7 +8982,7 @@ __metadata:
       optional: true
     vue-router:
       optional: true
-  checksum: 8a951d72c2e95740fac063aa92002f25a7c458cd88536cb83e60759460aac01aa5f901a754e5f58d13adf0fc7ae3b4ced4b041e29ba63a5e0748dde9bd86a32c
+  checksum: 2fdfbcf00ce9b9a542b2b2be5a0d09601124d30ac3d8b22d302d59df72483de9582c8a82f813b49313d2763d92388534dd132e0a6c837fb47a6c5ba1e591e961
   languageName: node
   linkType: hard
 

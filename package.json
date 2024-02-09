@@ -48,7 +48,7 @@
     "@tanstack/react-query-devtools": "5.17.0",
     "@vercel/analytics": "1.1.2",
     "@vercel/edge": "1.1.1",
-    "@vercel/speed-insights": "1.0.7",
+    "@vercel/speed-insights": "1.0.9",
     "@wagmi/chains": "1.8.0",
     "@wagmi/connectors": "3.1.10",
     "@wagmi/core": "1.4.12",
