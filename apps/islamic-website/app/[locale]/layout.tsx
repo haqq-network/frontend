@@ -90,7 +90,7 @@ export default async function LocaleLayout({
           vcrFont.variable,
         )}
       >
-        <PHProvider>
+        <PHProvider hostname={DEPLOY_URL}>
           <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
             <PostHogPageView />
             {isScamBannerShow && <ScamBanner />}

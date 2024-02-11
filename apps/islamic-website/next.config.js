@@ -37,14 +37,10 @@ const nextConfig = {
       },
     ],
   },
-  env: {
-    VERCEL_URL: process.env['VERCEL_URL'],
-    NEXT_PUBLIC_VERCEL_URL: process.env['NEXT_PUBLIC_VERCEL_URL'],
-  },
   rewrites: async () => {
     return [
       {
-        source: '/ingest/:path*',
+        source: '/api/ingest/:path*',
         destination: 'https://eu.posthog.com/:path*',
       },
     ];
