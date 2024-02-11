@@ -73,14 +73,16 @@ export function WagmiProvider({
   }, [isProduction, supportedChains]);
 
   const connectors = useMemo(() => {
-    const connectors: Connector[] = [
+    const connectors: Connector[] = [];
+
+    connectors.push(
       new InjectedConnector({
         chains,
         options: {
           shimDisconnect: true,
         },
       }),
-    ];
+    );
 
     if (walletConnectProjectId) {
       connectors.push(
