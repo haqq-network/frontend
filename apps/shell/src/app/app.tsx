@@ -35,6 +35,10 @@ const AirdropPage = lazy(async () => {
   const { AirdropPage } = await import('@haqq/shell-airdrop');
   return { default: AirdropPage };
 });
+const MultisigPage = lazy(async () => {
+  const { MultisigPage } = await import('@haqq/shell-multisig');
+  return { default: MultisigPage };
+});
 
 export function App() {
   return (
@@ -54,6 +58,7 @@ export function App() {
             </Routes>
           }
         />
+
         <Route
           path="/governance/*"
           element={
@@ -63,19 +68,38 @@ export function App() {
             </Routes>
           }
         />
+
         <Route path="/authz" element={<ShellAuthzPage />} />
+
         <Route
-          path="/airdrop"
+          path="/airdrop/*"
           element={
-            <AirdropPage
-              turnstileSiteKey={environment.turnstileSiteKey}
-              airdropEndpoint={environment.airdropEndpoint}
-            />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <AirdropPage
+                    turnstileSiteKey={environment.turnstileSiteKey}
+                    airdropEndpoint={environment.airdropEndpoint}
+                  />
+                }
+              />
+              <Route
+                path="/revision-address"
+                element={<Navigate to="/airdrop" replace />}
+              />
+            </Routes>
           }
         />
+
         <Route
-          path="/airdrop/revision-address"
-          element={<Navigate to="/airdrop" replace />}
+          path="/multisig/*"
+          element={
+            <Routes>
+              <Route path="/" element={<MultisigPage />} />
+              {/* <Route path="proposal/:id" element={<ProposalDetailsPage />} /> */}
+            </Routes>
+          }
         />
 
         <Route path="not-found" element={<NotFoundPage />} />
