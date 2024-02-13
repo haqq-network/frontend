@@ -8,8 +8,8 @@ import {
   RatingBadge,
   WalletDownloadButton,
 } from '@haqq/islamic-website-ui-kit';
+import phoneImgData from '../assets/images/wallet-iphone-screenshot.webp';
 import bgImgData from '../assets/images/wallet_bg.webp';
-import phoneImgData from '../assets/images/wallet_phone.webp';
 
 export function WalletPage() {
   const t = useTranslations('wallet-page');
