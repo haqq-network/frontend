@@ -40,8 +40,6 @@ jobs:
     runs-on: ubuntu-cpu16-ram64
     needs: test-and-lint
     env:
-      HAQQ_STORYBLOK_ACCESS_TOKEN: ${{ secrets.HAQQ_STORYBLOK_ACCESS_TOKEN }}
-      ISLAMIC_STORYBLOK_ACCESS_TOKEN: ${{ secrets.ISLAMIC_STORYBLOK_ACCESS_TOKEN }}
       FALCONER_ENDPOINT: ${{ secrets.FALCONER_ENDPOINT }}
       TURNSTILE_SITEKEY: ${{ secrets.TURNSTILE_SITEKEY }}
       NX_AIRDROP_ENDPOINT: ${{ secrets.NX_AIRDROP_ENDPOINT }}

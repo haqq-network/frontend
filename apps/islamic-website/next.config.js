@@ -2,15 +2,15 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
-const withNextIntl = require('next-intl/plugin')(
-  // This is the default (also the `src` folder is supported out of the box)
-  './i18n.ts',
-);
+const withNextIntl = require('next-intl/plugin');
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
+  compress: true,
+  swcMinify: true,
+  reactStrictMode: true,
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
@@ -37,12 +37,16 @@ const nextConfig = {
       },
     ],
   },
+  rewrites: async () => {
+    return [
+      {
+        source: '/api/ingest/:path*',
+        destination: 'https://eu.posthog.com/:path*',
+      },
+    ];
+  },
 };
 
-const plugins = [
-  // Add more Next.js plugins to this list if needed.
-  withNx,
-  withNextIntl,
-];
+const plugins = [withNx, withNextIntl('./i18n.ts')];
 
 module.exports = composePlugins(...plugins)(nextConfig);
