@@ -8,10 +8,8 @@ export function PHProvider({
   hostname,
 }: PropsWithChildren<{ hostname: string }>) {
   if (typeof window !== 'undefined') {
-    console.log('posthog-init', { hostname });
-
     posthog.init(process.env['NEXT_PUBLIC_POSTHOG_KEY']!, {
-      api_host: new URL('/api/ingest', hostname).toString(),
+      api_host: '/api/ingest',
       ui_host: process.env['NEXT_PUBLIC_POSTHOG_HOST'],
       capture_pageview: false,
     });
