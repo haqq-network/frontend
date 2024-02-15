@@ -3,7 +3,7 @@ import { SelectWalletModal as SelectWalletModalComponent } from './select-wallet
 
 const meta: Meta<typeof SelectWalletModalComponent> = {
   component: SelectWalletModalComponent,
-  title: 'shell/ui-kit/SelectWalletModal',
+  title: 'shell/ui-kit/modals/plug-and-play/SelectWalletModal',
   parameters: {
     layout: 'centered',
   },

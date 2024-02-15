@@ -3,7 +3,7 @@ import { TopValidatorsWarningModal as TopValidatorsWarningModalComponent } from 
 
 const meta: Meta<typeof TopValidatorsWarningModalComponent> = {
   component: TopValidatorsWarningModalComponent,
-  title: 'shell/ui-kit/TopValidatorsWarningModal',
+  title: 'shell/ui-kit/modals/plug-and-play',
   parameters: {
     layout: 'centered',
   },
@@ -12,7 +12,7 @@ const meta: Meta<typeof TopValidatorsWarningModalComponent> = {
 export default meta;
 type Story = StoryObj<typeof TopValidatorsWarningModalComponent>;
 
-export const Default: Story = {
+export const TopValidatorsWarningModal: Story = {
   args: {
     isOpen: true,
   },

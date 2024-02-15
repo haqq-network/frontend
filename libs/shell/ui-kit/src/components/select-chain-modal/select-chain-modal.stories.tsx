@@ -3,7 +3,7 @@ import { SelectChainModal as SelectChainModalComponent } from './select-chain-mo
 
 const meta: Meta<typeof SelectChainModalComponent> = {
   component: SelectChainModalComponent,
-  title: 'shell/ui-kit/SelectChainModal',
+  title: 'shell/ui-kit/modals/plug-and-play',
   parameters: {
     layout: 'centered',
   },
@@ -12,28 +12,18 @@ const meta: Meta<typeof SelectChainModalComponent> = {
 export default meta;
 type Story = StoryObj<typeof SelectChainModalComponent>;
 
-const chains = [
-  {
-    id: 1,
-    name: 'Brave Wallet',
-  },
-  {
-    id: 2,
-    name: 'ConnectWallet',
-  },
-];
-
-export const Default: Story = {
+export const SelectChainModal: Story = {
   args: {
     isOpen: true,
-    chains,
-  },
-};
-
-export const WithError: Story = {
-  args: {
-    isOpen: true,
-    chains,
-    error: 'Something went wrong',
+    chains: [
+      {
+        id: 1,
+        name: 'HAQQ Mainnet',
+      },
+      {
+        id: 2,
+        name: 'HAQQ Testedge',
+      },
+    ],
   },
 };
