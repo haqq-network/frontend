@@ -1,7 +1,6 @@
 'use client';
 import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
-import type { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { BlogArticle, Breadcrumb } from '@haqq/haqq-website-ui-kit';
@@ -10,6 +9,12 @@ import { RecentPostsBlock } from './recent-posts-block/recent-posts-block';
 import blogPlaceholderImage1 from '../assets/images/blog-post-placeholder-1.png';
 import blogPlaceholderImage2 from '../assets/images/blog-post-placeholder-2.png';
 import blogPlaceholderImage3 from '../assets/images/blog-post-placeholder-3.png';
+
+const placeholderImagesArray = [
+  blogPlaceholderImage1,
+  blogPlaceholderImage2,
+  blogPlaceholderImage3,
+];
 
 export function BlogPostPage({
   post,
@@ -39,13 +44,8 @@ export function BlogPostPage({
       return post.image;
     }
 
-    const imagesArray = [
-      blogPlaceholderImage1 as unknown,
-      blogPlaceholderImage2 as unknown,
-      blogPlaceholderImage3 as unknown,
-    ] as StaticImageData[];
     const index = new Date(post.date).getTime() % 3;
-    const placeholderImage = imagesArray[index];
+    const placeholderImage = placeholderImagesArray[index];
 
     return placeholderImage;
   }, [post.date, post.image]);
@@ -74,7 +74,7 @@ export function BlogPostPage({
 
       <BlogArticle
         tags={post.tags}
-        date={post.date}
+        publishDate={post.date}
         content={post.content ?? ''}
         title={post.title}
         image={postImage}

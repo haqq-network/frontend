@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/react-webpack5';
+import type { StorybookConfig } from '@storybook/nextjs';
 import { ProvidePlugin } from 'webpack';
 import { merge } from 'webpack-merge';
 
@@ -11,7 +11,7 @@ const config: StorybookConfig = {
     '@storybook/addon-storysource',
   ],
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/nextjs',
     options: {},
   },
   webpackFinal: async (config) => {

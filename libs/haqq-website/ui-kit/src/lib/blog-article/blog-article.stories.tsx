@@ -15,16 +15,18 @@ type Story = StoryObj<typeof BlogArticleComponent>;
 
 export const BlogArticle: Story = {
   args: {
-    tags: ['News'],
+    tags: ['News', 'Second tag'],
     title: 'Haqq Finance is now live on BSC!',
-    date: '2021-05-01T00:00:00.000Z',
-    content: `# Our vision – synthesis of ideology, technology, and community
+    publishDate: new Date().toISOString(),
+    content: `## Our vision – synthesis of ideology, technology, and community
 
-## Islam
+### Islam
 
 Islam is the world’s second-largest religion with almost 2 billion followers — a quarter of the world’s population. Muslims make up a majority of the population in 47 countries. Islam teaches that God is merciful, all-powerful, and unique.
 
 Islamic law, or Shariah law, is a religious law forming part of the Islamic tradition. It guides and dictates many aspects in the lives of Muslims throughout the world, including financial interactions.
+
+> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere eum fuga aliquam dolore repellendus nesciunt repudiandae illo, consequuntur cupiditate asperiores similique quidem maiores odio cum sunt recusandae ut veniam? Nesciunt!
 
 One of the core principles of Islamic financial law is the prohibition of paying or charging interest, which is currently not followed by a large part of financial institutions constituting the modern financial system.
 

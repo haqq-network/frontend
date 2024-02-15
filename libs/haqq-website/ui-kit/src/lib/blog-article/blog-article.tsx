@@ -9,7 +9,7 @@ export function BlogArticle({
   image,
   content,
   title,
-  date,
+  publishDate,
   tags,
   onLinkCopy,
   transformImageUrl,
@@ -17,13 +17,20 @@ export function BlogArticle({
   image: StaticImageData | null;
   title: string;
   content: string;
-  date: string;
+  publishDate: string;
   tags: string[];
   className?: string;
   onLinkCopy?: () => void;
   transformImageUrl?: (src: string) => string;
 }) {
-  const postDate = new Date(date);
+  const postDate = new Date(publishDate);
+  const formattedPostDate = new Intl.DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  }).format(postDate);
 
   return (
     <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
@@ -44,15 +51,7 @@ export function BlogArticle({
             )}
 
             <div className="mb-[8px] text-[12px] leading-[1.5em] text-white/50 md:text-[13px] md:leading-[22px] lg:text-[14px]">
-              <time dateTime={postDate.toISOString()}>
-                {new Intl.DateTimeFormat('en-US', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                  hour: 'numeric',
-                  minute: 'numeric',
-                }).format(postDate)}
-              </time>
+              <time dateTime={postDate.toISOString()}>{formattedPostDate}</time>
             </div>
 
             <MarkdownText
