@@ -67,11 +67,13 @@ export default async function LocaleLayout({
   const headersList = headers();
   const isRestrictedByGeo = Boolean(headersList.get('x-restricted-by-geo'));
   const userAgent = headersList.get('user-agent');
-  const isMobileUserAgent = Boolean(
-    userAgent!.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-    ),
-  );
+  const isMobileUserAgent = userAgent
+    ? Boolean(
+        userAgent.match(
+          /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+        ),
+      )
+    : false;
 
   return (
     <NextIntlClientProvider
