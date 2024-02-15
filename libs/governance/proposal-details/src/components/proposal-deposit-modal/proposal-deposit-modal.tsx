@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { toFixedAmount } from '@haqq/shared';
 import {
   Button,
   MobileHeading,
   Modal,
   ModalCloseButton,
   ModalInput,
+  toFixedAmount,
 } from '@haqq/shell-ui-kit';
 
 export function DepositModalDetails({

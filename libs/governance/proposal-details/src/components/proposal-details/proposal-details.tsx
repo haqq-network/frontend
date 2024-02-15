@@ -21,7 +21,6 @@ import { useAccount, useNetwork } from 'wagmi';
 import {
   useAddress,
   useProposalDetailsQuery,
-  isNumber,
   useGovernanceParamsQuery,
   useToast,
   useWallet,
@@ -59,6 +58,7 @@ import {
   VoteOption,
   voteOptionFromJSON,
   formatDate,
+  isNumber,
 } from '@haqq/shell-ui-kit';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from '../software-upgrade-proposal/software-upgrade-proposal';

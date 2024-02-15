@@ -49,3 +49,5 @@ export * from './components/search-input/search-input';
 export * from './utils/format-date';
 export * from './components/top-validators-warning-modal/top-validators-warning-modal';
 export * from './utils/format-percent';
+export * from './utils/to-fixed-amount';
+export * from './utils/is-number';
