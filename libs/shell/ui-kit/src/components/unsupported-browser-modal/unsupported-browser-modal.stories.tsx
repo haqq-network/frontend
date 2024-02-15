@@ -3,7 +3,7 @@ import { UnsupportedBrowserModal as UnsupportedBrowserModalComponent } from './u
 
 const meta: Meta<typeof UnsupportedBrowserModalComponent> = {
   component: UnsupportedBrowserModalComponent,
-  title: 'shell/ui-kit',
+  title: 'shell/ui-kit/modals/plug-and-play',
   parameters: {
     layout: 'centered',
   },

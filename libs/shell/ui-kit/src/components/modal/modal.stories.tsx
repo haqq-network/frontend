@@ -9,7 +9,7 @@ import { Button } from '../button/button';
 
 const meta: Meta<typeof ModalComponent> = {
   component: ModalComponent,
-  title: 'shell/ui-kit',
+  title: 'shell/ui-kit/modals',
   parameters: {
     layout: 'centered',
   },
