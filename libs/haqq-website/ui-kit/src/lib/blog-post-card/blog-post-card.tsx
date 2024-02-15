@@ -62,7 +62,7 @@ export function BlogPostCard({
         >
           <div
             className={clsx(
-              'text-haqq-orange font-serif text-[16px] font-[500] leading-[1.25em]',
+              'text-haqq-orange font-clash text-[16px] font-[500] leading-[1.25em]',
               isFeatured
                 ? 'line-clamp-2 md:text-[24px] md:leading-[42px] lg:text-[30px]'
                 : 'line-clamp-1 md:text-[18px] lg:text-[24px]',

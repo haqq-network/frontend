@@ -33,7 +33,7 @@ export function StatisticsBlockStatCard({
     <div>
       <div
         className={clsx(
-          'font-serif text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px]',
+          'font-clash text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px]',
           styles['statsBlock'],
         )}
       >
@@ -55,7 +55,7 @@ export function StatisticsBlockStatCard({
         )}
         {postfix && ` ${postfix}`}
       </div>
-      <div className="font-sans text-[13px] font-[500] leading-[1.6em] sm:text-[15px] lg:text-[16px]">
+      <div className="font-guise text-[13px] font-[500] leading-[1.6em] sm:text-[15px] lg:text-[16px]">
         {title}
       </div>
     </div>

@@ -65,7 +65,7 @@ export function Header({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
             <div>
               <Link
                 href="/"
-                className="font-serif text-[20px] font-medium leading-none sm:text-[24px]"
+                className="font-clash text-[20px] font-medium leading-none sm:text-[24px]"
               >
                 HAQQ
               </Link>

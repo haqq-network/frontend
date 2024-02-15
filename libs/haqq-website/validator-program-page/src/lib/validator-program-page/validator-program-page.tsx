@@ -13,7 +13,7 @@ export function ValidatorProgramPage() {
   return (
     <section className="overflow-x-clip">
       <div className="sunrise-background relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]">
-        <h1 className="font-serif text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
+        <h1 className="font-clash text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
           Validator <br />
           Program
         </h1>

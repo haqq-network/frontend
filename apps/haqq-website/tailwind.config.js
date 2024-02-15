@@ -26,8 +26,6 @@ module.exports = {
         'haqq-gold': '#E3A13F',
       },
       fontFamily: {
-        serif: ['var(--font-clash)'],
-        sans: ['var(--font-guise)'],
         clash: ['var(--font-clash)'],
         guise: ['var(--font-guise)'],
         messiri: ['var(--font-messiri)'],

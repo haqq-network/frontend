@@ -78,7 +78,7 @@ export function BlogArticle({
 
           <div className="mt-[20px] md:mt-[24px] lg:mt-[32px]">
             <div className="flex w-full flex-row items-center gap-x-[26px] border-y border-dashed border-[#ffffff26] px-[10px] py-[17px]">
-              <span className="font-serif text-[14px] uppercase leading-none tracking-[0.01em] text-white">
+              <span className="font-clash text-[14px] uppercase leading-none tracking-[0.01em] text-white">
                 Share the article
               </span>
               <div className="flex items-center gap-x-[16px] text-white/50">
