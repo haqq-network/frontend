@@ -76,8 +76,8 @@ export function MarkdownText({
         'prose-img:w-full',
         'prose-h1:mt-[1.87em]',
         isBlack
-          ? 'text-haqq-black prose-headings:text-haqq-black prose-strong:text-haqq-black marker:prose-li:text-haqq-black'
-          : 'prose-headings:text-white prose-strong:text-white marker:prose-li:text-white text-white',
+          ? 'text-haqq-black prose-headings:text-haqq-black prose-strong:text-haqq-black marker:prose-li:text-haqq-black prose-blockquote:text-haqq-black'
+          : 'prose-headings:text-white prose-strong:text-white marker:prose-li:text-white prose-blockquote:text-white text-white',
         className,
       )}
     >
