@@ -82,7 +82,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
             </Link>
           </div>
         </div>
-        <div className="ml-[12px] font-serif text-[20px] font-medium leading-none sm:ml-[20px] sm:text-[24px] lg:ml-[32px]">
+        <div className="font-clash ml-[12px] text-[20px] font-medium leading-none sm:ml-[20px] sm:text-[24px] lg:ml-[32px]">
           <Link href="/">HAQQ</Link>
         </div>
       </div>

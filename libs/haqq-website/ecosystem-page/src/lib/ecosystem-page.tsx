@@ -12,7 +12,7 @@ export function EcosystemPage({ partners }: { partners: Partner[] }) {
           'relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]',
         )}
       >
-        <div className="font-serif text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
+        <div className="font-clash text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
           HAQQ <br /> Ecosys
           <br className="hidden lg:block xl:hidden" />
           tem

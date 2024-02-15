@@ -12,7 +12,7 @@ export function EcosystemFundPage() {
     <section>
       <div className="sunrise-background relative overflow-hidden px-[16px] pt-[80px] sm:px-[48px] sm:pt-[120px] lg:px-[80px]">
         <div className="relative z-10">
-          <h1 className="font-serif text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
+          <h1 className="font-clash text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
             HAQQ <br /> Ecosystem <br className="block lg:hidden xl:block" />{' '}
             Fund
           </h1>

@@ -33,7 +33,7 @@ export function Tab({
     <div
       className={clsx(
         'px-[16px] py-[12px]',
-        'font-sans text-[12px] font-[500] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px]',
+        'font-guise text-[12px] font-[500] leading-[1.5em] md:text-[13px] md:leading-[22px] lg:text-[14px]',
         'cursor-pointer transition-colors duration-150',
         'md:mb-[-1px]',
         isActive
