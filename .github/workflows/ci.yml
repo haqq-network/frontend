@@ -5,6 +5,8 @@ on:
     branches:
       - dev
   pull_request:
+    branches-ignore:
+      - dev
   workflow_dispatch:
   merge_group:
 
