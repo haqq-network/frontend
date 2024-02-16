@@ -2,9 +2,12 @@ name: 'CodeQL'
 
 on:
   push:
-    branches: ['dev', 'prod']
+    branches:
+      - dev
+      - prod
   pull_request:
-    branches: ['dev']
+    branches:
+      - dev
   schedule:
     - cron: '0 8 * * 1'
   merge_group:
@@ -12,7 +15,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: frontend
+    runs-on: ubuntu, self-hosted
     permissions:
       actions: read
       contents: read

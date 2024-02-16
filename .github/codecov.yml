@@ -1,30 +1,29 @@
 codecov:
   branch: dev
+  notify:
+    after_n_builds: 2
+    wait_for_ci: true
 
 coverage:
-  range: 70..90
+  range: [70, 90]
   round: down
   precision: 2
   status:
-    patch:
-      enabled: false
-    project:
-      enabled: false
+    patch: false
+    project: false
 
 flag_management:
   default_rules:
     carryforward: true
     statuses:
       - type: project
-        target: 70..90
+        target: auto
+        threshold: 1
       - type: patch
+        target: 50
 
 comment:
-  layout:
-    - reach
-    - diff
-    - flags
-    - files
+  layout: 'reach, diff, flags, files'
   behavior: default
 
 parsers:
