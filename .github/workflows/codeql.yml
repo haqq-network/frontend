@@ -12,7 +12,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-cpu16-ram64
+    runs-on: [self-hosted, ubuntu]
     permissions:
       actions: read
       contents: read
