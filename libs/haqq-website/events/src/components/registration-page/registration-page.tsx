@@ -25,7 +25,6 @@ export function QrRegistrationPage({
           <WebsiteProviders
             walletConnectProjectId={walletConnectProjectId}
             withReactQueryDevtools={isProduction}
-            isStandalone
           >
             <SelectWalletModalWrapper>
               <ApplyBlock />
