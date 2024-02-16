@@ -12,7 +12,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: [self-hosted, ubuntu]
+    runs-on: frontend
     permissions:
       actions: read
       contents: read

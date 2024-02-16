@@ -15,7 +15,7 @@ concurrency:
 jobs:
   test-and-lint:
     name: Test and Lint
-    runs-on: [self-hosted, ubuntu]
+    runs-on: frontend
     timeout-minutes: 15
     steps:
       - name: Checkout code
@@ -38,7 +38,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: [self-hosted, ubuntu]
+    runs-on: frontend
     needs: test-and-lint
     env:
       FALCONER_ENDPOINT: ${{ secrets.FALCONER_ENDPOINT }}
