@@ -6,6 +6,7 @@ import {
   haqqToEth,
   useAccountInfoQuery,
   ClawbackVestingAccount,
+  HaqqAccount,
 } from '@haqq/shared';
 import { PendingPage } from './PendingPage';
 import {
@@ -13,13 +14,78 @@ import {
   BalancesFromIndexer,
 } from '../components/AccountWidget/AccountWidget';
 import { Container } from '../components/Layout/Layout';
+import {
+  LiquidVesting,
+  LiquidVestingHooked,
+} from '../components/liquid-vesting/liquid-vesting';
 import { VestingAccountStats } from '../components/VestingAccountStats';
 import {
   IndexerBalances,
   useIndexerBalances,
 } from '../hooks/use-indexer-balances';
 
-export function AccountPage() {
+function isClawbackVestingAccount(
+  accountInfo?: HaqqAccount | ClawbackVestingAccount,
+) {
+  return Boolean(
+    accountInfo &&
+      accountInfo['@type'] === '/haqq.vesting.v1.ClawbackVestingAccount',
+  );
+}
+
+export function AccountPageComponent({
+  ethAddress,
+  haqqAddress,
+}: {
+  ethAddress: string;
+  haqqAddress: string;
+}) {
+  const { data: accountInfo } = useAccountInfoQuery(haqqAddress);
+  const { getBalances } = useIndexerBalances();
+  const [balances, setBalances] = useState<IndexerBalances | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    (async () => {
+      const balancesResponse = await getBalances(haqqAddress);
+      setBalances(balancesResponse);
+    })();
+  }, [getBalances, haqqAddress]);
+
+  if (!balances) {
+    return <PendingPage />;
+  }
+
+  return (
+    <Container className="py-8 sm:py-12">
+      <div className="flex flex-col space-y-8">
+        <AccountWidget
+          ethAddress={ethAddress}
+          haqqAddress={haqqAddress}
+          balance={balances.total}
+        />
+
+        <BalancesFromIndexer
+          available={balances.available}
+          locked={balances.locked}
+          staked={balances.staked}
+          vested={balances.vested}
+        />
+
+        <LiquidVestingHooked balance={balances.total} />
+
+        {isClawbackVestingAccount() && (
+          <VestingAccountStats
+            accountInfo={accountInfo as ClawbackVestingAccount}
+          />
+        )}
+      </div>
+    </Container>
+  );
+}
+
+export default function AccountPage() {
   const { address } = useParams();
   const [accountAddress, setAccountAddress] = useState<
     { eth: string; haqq: string } | undefined
@@ -65,55 +131,3 @@ export function AccountPage() {
     />
   );
 }
-
-export function AccountPageComponent({
-  ethAddress,
-  haqqAddress,
-}: {
-  ethAddress: string;
-  haqqAddress: string;
-}) {
-  const { data: accountInfo } = useAccountInfoQuery(haqqAddress);
-  const { getBalances } = useIndexerBalances();
-  const [balances, setBalances] = useState<IndexerBalances | undefined>(
-    undefined,
-  );
-
-  useEffect(() => {
-    (async () => {
-      const balancesResponse = await getBalances(haqqAddress);
-      setBalances(balancesResponse);
-    })();
-  }, [getBalances, haqqAddress]);
-
-  if (!balances) {
-    return <PendingPage />;
-  }
-
-  return (
-    <Container className="py-8 sm:py-12">
-      <div className="flex flex-col space-y-8">
-        <AccountWidget
-          ethAddress={ethAddress}
-          haqqAddress={haqqAddress}
-          balance={balances.total}
-        />
-        <BalancesFromIndexer
-          available={balances.available}
-          locked={balances.locked}
-          staked={balances.staked}
-          vested={balances.vested}
-        />
-        {accountInfo &&
-          accountInfo['@type'] ===
-            '/haqq.vesting.v1.ClawbackVestingAccount' && (
-            <VestingAccountStats
-              accountInfo={accountInfo as ClawbackVestingAccount}
-            />
-          )}
-      </div>
-    </Container>
-  );
-}
-
-export { AccountPage as default };
