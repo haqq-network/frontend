@@ -3,11 +3,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { GenesisState as GenesisState$1 } from "../../client/v1/genesis_pb.js";
-import { GenesisState as GenesisState$2 } from "../../connection/v1/genesis_pb.js";
-import { GenesisState as GenesisState$3 } from "../../channel/v1/genesis_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { GenesisState as GenesisState$1 } from '../../client/v1/genesis_pb';
+import { GenesisState as GenesisState$2 } from '../../connection/v1/genesis_pb';
+import { GenesisState as GenesisState$3 } from '../../channel/v1/genesis_pb';
 
 /**
  * GenesisState defines the ibc module's genesis state.
@@ -42,27 +49,38 @@ export class GenesisState extends Message<GenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.types.v1.GenesisState";
+  static readonly typeName = 'ibc.core.types.v1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_genesis", kind: "message", T: GenesisState$1 },
-    { no: 2, name: "connection_genesis", kind: "message", T: GenesisState$2 },
-    { no: 3, name: "channel_genesis", kind: "message", T: GenesisState$3 },
+    { no: 1, name: 'client_genesis', kind: 'message', T: GenesisState$1 },
+    { no: 2, name: 'connection_genesis', kind: 'message', T: GenesisState$2 },
+    { no: 3, name: 'channel_genesis', kind: 'message', T: GenesisState$3 },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisState | PlainMessage<GenesisState> | undefined, b: GenesisState | PlainMessage<GenesisState> | undefined): boolean {
+  static equals(
+    a: GenesisState | PlainMessage<GenesisState> | undefined,
+    b: GenesisState | PlainMessage<GenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisState, a, b);
   }
 }
-

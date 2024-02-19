@@ -3,10 +3,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Coin } from "../../../../cosmos/base/v1beta1/coin_pb.js";
-import { PacketId } from "../../../core/channel/v1/channel_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Coin } from '../../../../cosmos/base/v1beta1/coin_pb';
+import { PacketId } from '../../../core/channel/v1/channel_pb';
 
 /**
  * Fee defines the ICS29 receive, acknowledgement and timeout fees
@@ -41,26 +48,38 @@ export class Fee extends Message<Fee> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.Fee";
+  static readonly typeName = 'ibc.applications.fee.v1.Fee';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "recv_fee", kind: "message", T: Coin, repeated: true },
-    { no: 2, name: "ack_fee", kind: "message", T: Coin, repeated: true },
-    { no: 3, name: "timeout_fee", kind: "message", T: Coin, repeated: true },
+    { no: 1, name: 'recv_fee', kind: 'message', T: Coin, repeated: true },
+    { no: 2, name: 'ack_fee', kind: 'message', T: Coin, repeated: true },
+    { no: 3, name: 'timeout_fee', kind: 'message', T: Coin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Fee {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Fee {
     return new Fee().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Fee {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Fee {
     return new Fee().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Fee {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Fee {
     return new Fee().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Fee | PlainMessage<Fee> | undefined, b: Fee | PlainMessage<Fee> | undefined): boolean {
+  static equals(
+    a: Fee | PlainMessage<Fee> | undefined,
+    b: Fee | PlainMessage<Fee> | undefined,
+  ): boolean {
     return proto3.util.equals(Fee, a, b);
   }
 }
@@ -83,7 +102,7 @@ export class PacketFee extends Message<PacketFee> {
    *
    * @generated from field: string refund_address = 2;
    */
-  refundAddress = "";
+  refundAddress = '';
 
   /**
    * optional list of relayers permitted to receive fees
@@ -98,26 +117,49 @@ export class PacketFee extends Message<PacketFee> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.PacketFee";
+  static readonly typeName = 'ibc.applications.fee.v1.PacketFee';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "fee", kind: "message", T: Fee },
-    { no: 2, name: "refund_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "relayers", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: 'fee', kind: 'message', T: Fee },
+    {
+      no: 2,
+      name: 'refund_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'relayers',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PacketFee {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): PacketFee {
     return new PacketFee().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PacketFee {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): PacketFee {
     return new PacketFee().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PacketFee {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): PacketFee {
     return new PacketFee().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PacketFee | PlainMessage<PacketFee> | undefined, b: PacketFee | PlainMessage<PacketFee> | undefined): boolean {
+  static equals(
+    a: PacketFee | PlainMessage<PacketFee> | undefined,
+    b: PacketFee | PlainMessage<PacketFee> | undefined,
+  ): boolean {
     return proto3.util.equals(PacketFee, a, b);
   }
 }
@@ -141,24 +183,42 @@ export class PacketFees extends Message<PacketFees> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.PacketFees";
+  static readonly typeName = 'ibc.applications.fee.v1.PacketFees';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "packet_fees", kind: "message", T: PacketFee, repeated: true },
+    {
+      no: 1,
+      name: 'packet_fees',
+      kind: 'message',
+      T: PacketFee,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PacketFees {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): PacketFees {
     return new PacketFees().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PacketFees {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): PacketFees {
     return new PacketFees().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PacketFees {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): PacketFees {
     return new PacketFees().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PacketFees | PlainMessage<PacketFees> | undefined, b: PacketFees | PlainMessage<PacketFees> | undefined): boolean {
+  static equals(
+    a: PacketFees | PlainMessage<PacketFees> | undefined,
+    b: PacketFees | PlainMessage<PacketFees> | undefined,
+  ): boolean {
     return proto3.util.equals(PacketFees, a, b);
   }
 }
@@ -189,26 +249,43 @@ export class IdentifiedPacketFees extends Message<IdentifiedPacketFees> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.IdentifiedPacketFees";
+  static readonly typeName = 'ibc.applications.fee.v1.IdentifiedPacketFees';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "packet_id", kind: "message", T: PacketId },
-    { no: 2, name: "packet_fees", kind: "message", T: PacketFee, repeated: true },
+    { no: 1, name: 'packet_id', kind: 'message', T: PacketId },
+    {
+      no: 2,
+      name: 'packet_fees',
+      kind: 'message',
+      T: PacketFee,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IdentifiedPacketFees {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): IdentifiedPacketFees {
     return new IdentifiedPacketFees().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IdentifiedPacketFees {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): IdentifiedPacketFees {
     return new IdentifiedPacketFees().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IdentifiedPacketFees {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): IdentifiedPacketFees {
     return new IdentifiedPacketFees().fromJsonString(jsonString, options);
   }
 
-  static equals(a: IdentifiedPacketFees | PlainMessage<IdentifiedPacketFees> | undefined, b: IdentifiedPacketFees | PlainMessage<IdentifiedPacketFees> | undefined): boolean {
+  static equals(
+    a: IdentifiedPacketFees | PlainMessage<IdentifiedPacketFees> | undefined,
+    b: IdentifiedPacketFees | PlainMessage<IdentifiedPacketFees> | undefined,
+  ): boolean {
     return proto3.util.equals(IdentifiedPacketFees, a, b);
   }
 }
-

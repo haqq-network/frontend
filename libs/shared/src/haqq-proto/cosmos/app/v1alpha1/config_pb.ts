@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * Config represents the configuration for a Cosmos SDK ABCI app.
@@ -40,25 +47,49 @@ export class Config extends Message<Config> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.app.v1alpha1.Config";
+  static readonly typeName = 'cosmos.app.v1alpha1.Config';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "modules", kind: "message", T: ModuleConfig, repeated: true },
-    { no: 2, name: "golang_bindings", kind: "message", T: GolangBinding, repeated: true },
+    {
+      no: 1,
+      name: 'modules',
+      kind: 'message',
+      T: ModuleConfig,
+      repeated: true,
+    },
+    {
+      no: 2,
+      name: 'golang_bindings',
+      kind: 'message',
+      T: GolangBinding,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Config {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Config {
     return new Config().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Config {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Config {
     return new Config().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Config {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Config {
     return new Config().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Config | PlainMessage<Config> | undefined, b: Config | PlainMessage<Config> | undefined): boolean {
+  static equals(
+    a: Config | PlainMessage<Config> | undefined,
+    b: Config | PlainMessage<Config> | undefined,
+  ): boolean {
     return proto3.util.equals(Config, a, b);
   }
 }
@@ -83,7 +114,7 @@ export class ModuleConfig extends Message<ModuleConfig> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * config is the config object for the module. Module config messages should
@@ -108,26 +139,44 @@ export class ModuleConfig extends Message<ModuleConfig> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.app.v1alpha1.ModuleConfig";
+  static readonly typeName = 'cosmos.app.v1alpha1.ModuleConfig';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "config", kind: "message", T: Any },
-    { no: 3, name: "golang_bindings", kind: "message", T: GolangBinding, repeated: true },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'config', kind: 'message', T: Any },
+    {
+      no: 3,
+      name: 'golang_bindings',
+      kind: 'message',
+      T: GolangBinding,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModuleConfig {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModuleConfig {
     return new ModuleConfig().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModuleConfig {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleConfig {
     return new ModuleConfig().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModuleConfig {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleConfig {
     return new ModuleConfig().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModuleConfig | PlainMessage<ModuleConfig> | undefined, b: ModuleConfig | PlainMessage<ModuleConfig> | undefined): boolean {
+  static equals(
+    a: ModuleConfig | PlainMessage<ModuleConfig> | undefined,
+    b: ModuleConfig | PlainMessage<ModuleConfig> | undefined,
+  ): boolean {
     return proto3.util.equals(ModuleConfig, a, b);
   }
 }
@@ -143,14 +192,14 @@ export class GolangBinding extends Message<GolangBinding> {
    *
    * @generated from field: string interface_type = 1;
    */
-  interfaceType = "";
+  interfaceType = '';
 
   /**
    * implementation is the implementing type which will be supplied when an input of type interface is requested
    *
    * @generated from field: string implementation = 2;
    */
-  implementation = "";
+  implementation = '';
 
   constructor(data?: PartialMessage<GolangBinding>) {
     super();
@@ -158,26 +207,47 @@ export class GolangBinding extends Message<GolangBinding> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.app.v1alpha1.GolangBinding";
+  static readonly typeName = 'cosmos.app.v1alpha1.GolangBinding';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "interface_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "implementation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'interface_type',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'implementation',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GolangBinding {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GolangBinding {
     return new GolangBinding().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GolangBinding {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GolangBinding {
     return new GolangBinding().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GolangBinding {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GolangBinding {
     return new GolangBinding().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GolangBinding | PlainMessage<GolangBinding> | undefined, b: GolangBinding | PlainMessage<GolangBinding> | undefined): boolean {
+  static equals(
+    a: GolangBinding | PlainMessage<GolangBinding> | undefined,
+    b: GolangBinding | PlainMessage<GolangBinding> | undefined,
+  ): boolean {
     return proto3.util.equals(GolangBinding, a, b);
   }
 }
-

@@ -3,10 +3,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Params } from "../../controller/v1/controller_pb.js";
-import { Params as Params$1 } from "../../host/v1/host_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Params } from '../../controller/v1/controller_pb';
+import { Params as Params$1 } from '../../host/v1/host_pb';
 
 /**
  * GenesisState defines the interchain accounts genesis state
@@ -30,25 +37,43 @@ export class GenesisState extends Message<GenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.genesis.v1.GenesisState";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.genesis.v1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "controller_genesis_state", kind: "message", T: ControllerGenesisState },
-    { no: 2, name: "host_genesis_state", kind: "message", T: HostGenesisState },
+    {
+      no: 1,
+      name: 'controller_genesis_state',
+      kind: 'message',
+      T: ControllerGenesisState,
+    },
+    { no: 2, name: 'host_genesis_state', kind: 'message', T: HostGenesisState },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisState | PlainMessage<GenesisState> | undefined, b: GenesisState | PlainMessage<GenesisState> | undefined): boolean {
+  static equals(
+    a: GenesisState | PlainMessage<GenesisState> | undefined,
+    b: GenesisState | PlainMessage<GenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisState, a, b);
   }
 }
@@ -85,27 +110,64 @@ export class ControllerGenesisState extends Message<ControllerGenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.genesis.v1.ControllerGenesisState";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.genesis.v1.ControllerGenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "active_channels", kind: "message", T: ActiveChannel, repeated: true },
-    { no: 2, name: "interchain_accounts", kind: "message", T: RegisteredInterchainAccount, repeated: true },
-    { no: 3, name: "ports", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 4, name: "params", kind: "message", T: Params },
+    {
+      no: 1,
+      name: 'active_channels',
+      kind: 'message',
+      T: ActiveChannel,
+      repeated: true,
+    },
+    {
+      no: 2,
+      name: 'interchain_accounts',
+      kind: 'message',
+      T: RegisteredInterchainAccount,
+      repeated: true,
+    },
+    {
+      no: 3,
+      name: 'ports',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    { no: 4, name: 'params', kind: 'message', T: Params },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ControllerGenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ControllerGenesisState {
     return new ControllerGenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ControllerGenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ControllerGenesisState {
     return new ControllerGenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ControllerGenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ControllerGenesisState {
     return new ControllerGenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ControllerGenesisState | PlainMessage<ControllerGenesisState> | undefined, b: ControllerGenesisState | PlainMessage<ControllerGenesisState> | undefined): boolean {
+  static equals(
+    a:
+      | ControllerGenesisState
+      | PlainMessage<ControllerGenesisState>
+      | undefined,
+    b:
+      | ControllerGenesisState
+      | PlainMessage<ControllerGenesisState>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ControllerGenesisState, a, b);
   }
 }
@@ -129,7 +191,7 @@ export class HostGenesisState extends Message<HostGenesisState> {
   /**
    * @generated from field: string port = 3;
    */
-  port = "";
+  port = '';
 
   /**
    * @generated from field: ibc.applications.interchain_accounts.host.v1.Params params = 4;
@@ -142,27 +204,52 @@ export class HostGenesisState extends Message<HostGenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.genesis.v1.HostGenesisState";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.genesis.v1.HostGenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "active_channels", kind: "message", T: ActiveChannel, repeated: true },
-    { no: 2, name: "interchain_accounts", kind: "message", T: RegisteredInterchainAccount, repeated: true },
-    { no: 3, name: "port", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "params", kind: "message", T: Params$1 },
+    {
+      no: 1,
+      name: 'active_channels',
+      kind: 'message',
+      T: ActiveChannel,
+      repeated: true,
+    },
+    {
+      no: 2,
+      name: 'interchain_accounts',
+      kind: 'message',
+      T: RegisteredInterchainAccount,
+      repeated: true,
+    },
+    { no: 3, name: 'port', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'params', kind: 'message', T: Params$1 },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HostGenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): HostGenesisState {
     return new HostGenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HostGenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): HostGenesisState {
     return new HostGenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HostGenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): HostGenesisState {
     return new HostGenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: HostGenesisState | PlainMessage<HostGenesisState> | undefined, b: HostGenesisState | PlainMessage<HostGenesisState> | undefined): boolean {
+  static equals(
+    a: HostGenesisState | PlainMessage<HostGenesisState> | undefined,
+    b: HostGenesisState | PlainMessage<HostGenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(HostGenesisState, a, b);
   }
 }
@@ -177,17 +264,17 @@ export class ActiveChannel extends Message<ActiveChannel> {
   /**
    * @generated from field: string connection_id = 1;
    */
-  connectionId = "";
+  connectionId = '';
 
   /**
    * @generated from field: string port_id = 2;
    */
-  portId = "";
+  portId = '';
 
   /**
    * @generated from field: string channel_id = 3;
    */
-  channelId = "";
+  channelId = '';
 
   /**
    * @generated from field: bool is_middleware_enabled = 4;
@@ -200,27 +287,50 @@ export class ActiveChannel extends Message<ActiveChannel> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.genesis.v1.ActiveChannel";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.genesis.v1.ActiveChannel';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "connection_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "port_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "channel_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "is_middleware_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 1,
+      name: 'connection_id',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 2, name: 'port_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'channel_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 4,
+      name: 'is_middleware_enabled',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ActiveChannel {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ActiveChannel {
     return new ActiveChannel().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ActiveChannel {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ActiveChannel {
     return new ActiveChannel().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ActiveChannel {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ActiveChannel {
     return new ActiveChannel().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ActiveChannel | PlainMessage<ActiveChannel> | undefined, b: ActiveChannel | PlainMessage<ActiveChannel> | undefined): boolean {
+  static equals(
+    a: ActiveChannel | PlainMessage<ActiveChannel> | undefined,
+    b: ActiveChannel | PlainMessage<ActiveChannel> | undefined,
+  ): boolean {
     return proto3.util.equals(ActiveChannel, a, b);
   }
 }
@@ -234,17 +344,17 @@ export class RegisteredInterchainAccount extends Message<RegisteredInterchainAcc
   /**
    * @generated from field: string connection_id = 1;
    */
-  connectionId = "";
+  connectionId = '';
 
   /**
    * @generated from field: string port_id = 2;
    */
-  portId = "";
+  portId = '';
 
   /**
    * @generated from field: string account_address = 3;
    */
-  accountAddress = "";
+  accountAddress = '';
 
   constructor(data?: PartialMessage<RegisteredInterchainAccount>) {
     super();
@@ -252,27 +362,58 @@ export class RegisteredInterchainAccount extends Message<RegisteredInterchainAcc
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.genesis.v1.RegisteredInterchainAccount";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.genesis.v1.RegisteredInterchainAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "connection_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "port_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "account_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'connection_id',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 2, name: 'port_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 3,
+      name: 'account_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisteredInterchainAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): RegisteredInterchainAccount {
     return new RegisteredInterchainAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisteredInterchainAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): RegisteredInterchainAccount {
     return new RegisteredInterchainAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisteredInterchainAccount {
-    return new RegisteredInterchainAccount().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): RegisteredInterchainAccount {
+    return new RegisteredInterchainAccount().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: RegisteredInterchainAccount | PlainMessage<RegisteredInterchainAccount> | undefined, b: RegisteredInterchainAccount | PlainMessage<RegisteredInterchainAccount> | undefined): boolean {
+  static equals(
+    a:
+      | RegisteredInterchainAccount
+      | PlainMessage<RegisteredInterchainAccount>
+      | undefined,
+    b:
+      | RegisteredInterchainAccount
+      | PlainMessage<RegisteredInterchainAccount>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(RegisteredInterchainAccount, a, b);
   }
 }
-

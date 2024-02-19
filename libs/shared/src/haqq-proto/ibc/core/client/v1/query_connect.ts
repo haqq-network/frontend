@@ -3,8 +3,27 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryClientParamsRequest, QueryClientParamsResponse, QueryClientStateRequest, QueryClientStateResponse, QueryClientStatesRequest, QueryClientStatesResponse, QueryClientStatusRequest, QueryClientStatusResponse, QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse, QueryConsensusStateRequest, QueryConsensusStateResponse, QueryConsensusStatesRequest, QueryConsensusStatesResponse, QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryClientParamsRequest,
+  QueryClientParamsResponse,
+  QueryClientStateRequest,
+  QueryClientStateResponse,
+  QueryClientStatesRequest,
+  QueryClientStatesResponse,
+  QueryClientStatusRequest,
+  QueryClientStatusResponse,
+  QueryConsensusStateHeightsRequest,
+  QueryConsensusStateHeightsResponse,
+  QueryConsensusStateRequest,
+  QueryConsensusStateResponse,
+  QueryConsensusStatesRequest,
+  QueryConsensusStatesResponse,
+  QueryUpgradedClientStateRequest,
+  QueryUpgradedClientStateResponse,
+  QueryUpgradedConsensusStateRequest,
+  QueryUpgradedConsensusStateResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service
@@ -12,7 +31,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.core.client.v1.Query
  */
 export const Query = {
-  typeName: "ibc.core.client.v1.Query",
+  typeName: 'ibc.core.client.v1.Query',
   methods: {
     /**
      * ClientState queries an IBC light client.
@@ -20,7 +39,7 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.ClientState
      */
     clientState: {
-      name: "ClientState",
+      name: 'ClientState',
       I: QueryClientStateRequest,
       O: QueryClientStateResponse,
       kind: MethodKind.Unary,
@@ -31,7 +50,7 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.ClientStates
      */
     clientStates: {
-      name: "ClientStates",
+      name: 'ClientStates',
       I: QueryClientStatesRequest,
       O: QueryClientStatesResponse,
       kind: MethodKind.Unary,
@@ -43,7 +62,7 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.ConsensusState
      */
     consensusState: {
-      name: "ConsensusState",
+      name: 'ConsensusState',
       I: QueryConsensusStateRequest,
       O: QueryConsensusStateResponse,
       kind: MethodKind.Unary,
@@ -55,7 +74,7 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.ConsensusStates
      */
     consensusStates: {
-      name: "ConsensusStates",
+      name: 'ConsensusStates',
       I: QueryConsensusStatesRequest,
       O: QueryConsensusStatesResponse,
       kind: MethodKind.Unary,
@@ -66,7 +85,7 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.ConsensusStateHeights
      */
     consensusStateHeights: {
-      name: "ConsensusStateHeights",
+      name: 'ConsensusStateHeights',
       I: QueryConsensusStateHeightsRequest,
       O: QueryConsensusStateHeightsResponse,
       kind: MethodKind.Unary,
@@ -77,7 +96,7 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.ClientStatus
      */
     clientStatus: {
-      name: "ClientStatus",
+      name: 'ClientStatus',
       I: QueryClientStatusRequest,
       O: QueryClientStatusResponse,
       kind: MethodKind.Unary,
@@ -88,7 +107,7 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.ClientParams
      */
     clientParams: {
-      name: "ClientParams",
+      name: 'ClientParams',
       I: QueryClientParamsRequest,
       O: QueryClientParamsResponse,
       kind: MethodKind.Unary,
@@ -99,7 +118,7 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.UpgradedClientState
      */
     upgradedClientState: {
-      name: "UpgradedClientState",
+      name: 'UpgradedClientState',
       I: QueryUpgradedClientStateRequest,
       O: QueryUpgradedClientStateResponse,
       kind: MethodKind.Unary,
@@ -110,11 +129,10 @@ export const Query = {
      * @generated from rpc ibc.core.client.v1.Query.UpgradedConsensusState
      */
     upgradedConsensusState: {
-      name: "UpgradedConsensusState",
+      name: 'UpgradedConsensusState',
       I: QueryUpgradedConsensusStateRequest,
       O: QueryUpgradedConsensusStateResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -3,8 +3,37 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryChannelClientStateRequest, QueryChannelClientStateResponse, QueryChannelConsensusStateRequest, QueryChannelConsensusStateResponse, QueryChannelRequest, QueryChannelResponse, QueryChannelsRequest, QueryChannelsResponse, QueryConnectionChannelsRequest, QueryConnectionChannelsResponse, QueryNextSequenceReceiveRequest, QueryNextSequenceReceiveResponse, QueryNextSequenceSendRequest, QueryNextSequenceSendResponse, QueryPacketAcknowledgementRequest, QueryPacketAcknowledgementResponse, QueryPacketAcknowledgementsRequest, QueryPacketAcknowledgementsResponse, QueryPacketCommitmentRequest, QueryPacketCommitmentResponse, QueryPacketCommitmentsRequest, QueryPacketCommitmentsResponse, QueryPacketReceiptRequest, QueryPacketReceiptResponse, QueryUnreceivedAcksRequest, QueryUnreceivedAcksResponse, QueryUnreceivedPacketsRequest, QueryUnreceivedPacketsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryChannelClientStateRequest,
+  QueryChannelClientStateResponse,
+  QueryChannelConsensusStateRequest,
+  QueryChannelConsensusStateResponse,
+  QueryChannelRequest,
+  QueryChannelResponse,
+  QueryChannelsRequest,
+  QueryChannelsResponse,
+  QueryConnectionChannelsRequest,
+  QueryConnectionChannelsResponse,
+  QueryNextSequenceReceiveRequest,
+  QueryNextSequenceReceiveResponse,
+  QueryNextSequenceSendRequest,
+  QueryNextSequenceSendResponse,
+  QueryPacketAcknowledgementRequest,
+  QueryPacketAcknowledgementResponse,
+  QueryPacketAcknowledgementsRequest,
+  QueryPacketAcknowledgementsResponse,
+  QueryPacketCommitmentRequest,
+  QueryPacketCommitmentResponse,
+  QueryPacketCommitmentsRequest,
+  QueryPacketCommitmentsResponse,
+  QueryPacketReceiptRequest,
+  QueryPacketReceiptResponse,
+  QueryUnreceivedAcksRequest,
+  QueryUnreceivedAcksResponse,
+  QueryUnreceivedPacketsRequest,
+  QueryUnreceivedPacketsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service
@@ -12,7 +41,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.core.channel.v1.Query
  */
 export const Query = {
-  typeName: "ibc.core.channel.v1.Query",
+  typeName: 'ibc.core.channel.v1.Query',
   methods: {
     /**
      * Channel queries an IBC Channel.
@@ -20,7 +49,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.Channel
      */
     channel: {
-      name: "Channel",
+      name: 'Channel',
       I: QueryChannelRequest,
       O: QueryChannelResponse,
       kind: MethodKind.Unary,
@@ -31,7 +60,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.Channels
      */
     channels: {
-      name: "Channels",
+      name: 'Channels',
       I: QueryChannelsRequest,
       O: QueryChannelsResponse,
       kind: MethodKind.Unary,
@@ -43,7 +72,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.ConnectionChannels
      */
     connectionChannels: {
-      name: "ConnectionChannels",
+      name: 'ConnectionChannels',
       I: QueryConnectionChannelsRequest,
       O: QueryConnectionChannelsResponse,
       kind: MethodKind.Unary,
@@ -55,7 +84,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.ChannelClientState
      */
     channelClientState: {
-      name: "ChannelClientState",
+      name: 'ChannelClientState',
       I: QueryChannelClientStateRequest,
       O: QueryChannelClientStateResponse,
       kind: MethodKind.Unary,
@@ -67,7 +96,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.ChannelConsensusState
      */
     channelConsensusState: {
-      name: "ChannelConsensusState",
+      name: 'ChannelConsensusState',
       I: QueryChannelConsensusStateRequest,
       O: QueryChannelConsensusStateResponse,
       kind: MethodKind.Unary,
@@ -78,7 +107,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.PacketCommitment
      */
     packetCommitment: {
-      name: "PacketCommitment",
+      name: 'PacketCommitment',
       I: QueryPacketCommitmentRequest,
       O: QueryPacketCommitmentResponse,
       kind: MethodKind.Unary,
@@ -90,7 +119,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.PacketCommitments
      */
     packetCommitments: {
-      name: "PacketCommitments",
+      name: 'PacketCommitments',
       I: QueryPacketCommitmentsRequest,
       O: QueryPacketCommitmentsResponse,
       kind: MethodKind.Unary,
@@ -102,7 +131,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.PacketReceipt
      */
     packetReceipt: {
-      name: "PacketReceipt",
+      name: 'PacketReceipt',
       I: QueryPacketReceiptRequest,
       O: QueryPacketReceiptResponse,
       kind: MethodKind.Unary,
@@ -113,7 +142,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.PacketAcknowledgement
      */
     packetAcknowledgement: {
-      name: "PacketAcknowledgement",
+      name: 'PacketAcknowledgement',
       I: QueryPacketAcknowledgementRequest,
       O: QueryPacketAcknowledgementResponse,
       kind: MethodKind.Unary,
@@ -125,7 +154,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.PacketAcknowledgements
      */
     packetAcknowledgements: {
-      name: "PacketAcknowledgements",
+      name: 'PacketAcknowledgements',
       I: QueryPacketAcknowledgementsRequest,
       O: QueryPacketAcknowledgementsResponse,
       kind: MethodKind.Unary,
@@ -137,7 +166,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.UnreceivedPackets
      */
     unreceivedPackets: {
-      name: "UnreceivedPackets",
+      name: 'UnreceivedPackets',
       I: QueryUnreceivedPacketsRequest,
       O: QueryUnreceivedPacketsResponse,
       kind: MethodKind.Unary,
@@ -149,7 +178,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.UnreceivedAcks
      */
     unreceivedAcks: {
-      name: "UnreceivedAcks",
+      name: 'UnreceivedAcks',
       I: QueryUnreceivedAcksRequest,
       O: QueryUnreceivedAcksResponse,
       kind: MethodKind.Unary,
@@ -160,7 +189,7 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.NextSequenceReceive
      */
     nextSequenceReceive: {
-      name: "NextSequenceReceive",
+      name: 'NextSequenceReceive',
       I: QueryNextSequenceReceiveRequest,
       O: QueryNextSequenceReceiveResponse,
       kind: MethodKind.Unary,
@@ -171,11 +200,10 @@ export const Query = {
      * @generated from rpc ibc.core.channel.v1.Query.NextSequenceSend
      */
     nextSequenceSend: {
-      name: "NextSequenceSend",
+      name: 'NextSequenceSend',
       I: QueryNextSequenceSendRequest,
       O: QueryNextSequenceSendResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

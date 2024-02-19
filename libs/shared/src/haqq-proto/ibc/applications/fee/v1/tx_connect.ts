@@ -3,8 +3,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgPayPacketFee, MsgPayPacketFeeAsync, MsgPayPacketFeeAsyncResponse, MsgPayPacketFeeResponse, MsgRegisterCounterpartyPayee, MsgRegisterCounterpartyPayeeResponse, MsgRegisterPayee, MsgRegisterPayeeResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgPayPacketFee,
+  MsgPayPacketFeeAsync,
+  MsgPayPacketFeeAsyncResponse,
+  MsgPayPacketFeeResponse,
+  MsgRegisterCounterpartyPayee,
+  MsgRegisterCounterpartyPayeeResponse,
+  MsgRegisterPayee,
+  MsgRegisterPayeeResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the ICS29 Msg service.
@@ -12,7 +21,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.applications.fee.v1.Msg
  */
 export const Msg = {
-  typeName: "ibc.applications.fee.v1.Msg",
+  typeName: 'ibc.applications.fee.v1.Msg',
   methods: {
     /**
      * RegisterPayee defines a rpc handler method for MsgRegisterPayee
@@ -24,7 +33,7 @@ export const Msg = {
      * @generated from rpc ibc.applications.fee.v1.Msg.RegisterPayee
      */
     registerPayee: {
-      name: "RegisterPayee",
+      name: 'RegisterPayee',
       I: MsgRegisterPayee,
       O: MsgRegisterPayeeResponse,
       kind: MethodKind.Unary,
@@ -39,7 +48,7 @@ export const Msg = {
      * @generated from rpc ibc.applications.fee.v1.Msg.RegisterCounterpartyPayee
      */
     registerCounterpartyPayee: {
-      name: "RegisterCounterpartyPayee",
+      name: 'RegisterCounterpartyPayee',
       I: MsgRegisterCounterpartyPayee,
       O: MsgRegisterCounterpartyPayeeResponse,
       kind: MethodKind.Unary,
@@ -54,7 +63,7 @@ export const Msg = {
      * @generated from rpc ibc.applications.fee.v1.Msg.PayPacketFee
      */
     payPacketFee: {
-      name: "PayPacketFee",
+      name: 'PayPacketFee',
       I: MsgPayPacketFee,
       O: MsgPayPacketFeeResponse,
       kind: MethodKind.Unary,
@@ -67,11 +76,10 @@ export const Msg = {
      * @generated from rpc ibc.applications.fee.v1.Msg.PayPacketFeeAsync
      */
     payPacketFeeAsync: {
-      name: "PayPacketFeeAsync",
+      name: 'PayPacketFeeAsync',
       I: MsgPayPacketFeeAsync,
       O: MsgPayPacketFeeAsyncResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

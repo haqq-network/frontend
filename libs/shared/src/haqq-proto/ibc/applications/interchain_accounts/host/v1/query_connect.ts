@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryParamsRequest, QueryParamsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { QueryParamsRequest, QueryParamsResponse } from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service.
@@ -12,7 +12,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.applications.interchain_accounts.host.v1.Query
  */
 export const Query = {
-  typeName: "ibc.applications.interchain_accounts.host.v1.Query",
+  typeName: 'ibc.applications.interchain_accounts.host.v1.Query',
   methods: {
     /**
      * Params queries all parameters of the ICA host submodule.
@@ -20,11 +20,10 @@ export const Query = {
      * @generated from rpc ibc.applications.interchain_accounts.host.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

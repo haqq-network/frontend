@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * App includes the protocol and software version for the application.
@@ -22,7 +29,7 @@ export class App extends Message<App> {
   /**
    * @generated from field: string software = 2;
    */
-  software = "";
+  software = '';
 
   constructor(data?: PartialMessage<App>) {
     super();
@@ -30,25 +37,37 @@ export class App extends Message<App> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.version.App";
+  static readonly typeName = 'tendermint.version.App';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "protocol", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "software", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'protocol', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: 'software', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): App {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): App {
     return new App().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): App {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): App {
     return new App().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): App {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): App {
     return new App().fromJsonString(jsonString, options);
   }
 
-  static equals(a: App | PlainMessage<App> | undefined, b: App | PlainMessage<App> | undefined): boolean {
+  static equals(
+    a: App | PlainMessage<App> | undefined,
+    b: App | PlainMessage<App> | undefined,
+  ): boolean {
     return proto3.util.equals(App, a, b);
   }
 }
@@ -77,26 +96,37 @@ export class Consensus extends Message<Consensus> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.version.Consensus";
+  static readonly typeName = 'tendermint.version.Consensus';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "block", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "app", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'block', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: 'app', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Consensus {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Consensus {
     return new Consensus().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Consensus {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Consensus {
     return new Consensus().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Consensus {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Consensus {
     return new Consensus().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Consensus | PlainMessage<Consensus> | undefined, b: Consensus | PlainMessage<Consensus> | undefined): boolean {
+  static equals(
+    a: Consensus | PlainMessage<Consensus> | undefined,
+    b: Consensus | PlainMessage<Consensus> | undefined,
+  ): boolean {
     return proto3.util.equals(Consensus, a, b);
   }
 }
-

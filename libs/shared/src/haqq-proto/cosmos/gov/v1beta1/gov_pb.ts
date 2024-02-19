@@ -3,9 +3,23 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Duration, Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
-import { Coin } from "../../base/v1beta1/coin_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import {
+  Any,
+  Duration,
+  Message,
+  proto3,
+  protoInt64,
+  Timestamp,
+} from '@bufbuild/protobuf';
+import { Coin } from '../../base/v1beta1/coin_pb';
 
 /**
  * VoteOption enumerates the valid vote options for a given governance proposal.
@@ -49,12 +63,12 @@ export enum VoteOption {
   NO_WITH_VETO = 4,
 }
 // Retrieve enum metadata with: proto3.getEnumType(VoteOption)
-proto3.util.setEnumType(VoteOption, "cosmos.gov.v1beta1.VoteOption", [
-  { no: 0, name: "VOTE_OPTION_UNSPECIFIED" },
-  { no: 1, name: "VOTE_OPTION_YES" },
-  { no: 2, name: "VOTE_OPTION_ABSTAIN" },
-  { no: 3, name: "VOTE_OPTION_NO" },
-  { no: 4, name: "VOTE_OPTION_NO_WITH_VETO" },
+proto3.util.setEnumType(VoteOption, 'cosmos.gov.v1beta1.VoteOption', [
+  { no: 0, name: 'VOTE_OPTION_UNSPECIFIED' },
+  { no: 1, name: 'VOTE_OPTION_YES' },
+  { no: 2, name: 'VOTE_OPTION_ABSTAIN' },
+  { no: 3, name: 'VOTE_OPTION_NO' },
+  { no: 4, name: 'VOTE_OPTION_NO_WITH_VETO' },
 ]);
 
 /**
@@ -111,13 +125,13 @@ export enum ProposalStatus {
   FAILED = 5,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ProposalStatus)
-proto3.util.setEnumType(ProposalStatus, "cosmos.gov.v1beta1.ProposalStatus", [
-  { no: 0, name: "PROPOSAL_STATUS_UNSPECIFIED" },
-  { no: 1, name: "PROPOSAL_STATUS_DEPOSIT_PERIOD" },
-  { no: 2, name: "PROPOSAL_STATUS_VOTING_PERIOD" },
-  { no: 3, name: "PROPOSAL_STATUS_PASSED" },
-  { no: 4, name: "PROPOSAL_STATUS_REJECTED" },
-  { no: 5, name: "PROPOSAL_STATUS_FAILED" },
+proto3.util.setEnumType(ProposalStatus, 'cosmos.gov.v1beta1.ProposalStatus', [
+  { no: 0, name: 'PROPOSAL_STATUS_UNSPECIFIED' },
+  { no: 1, name: 'PROPOSAL_STATUS_DEPOSIT_PERIOD' },
+  { no: 2, name: 'PROPOSAL_STATUS_VOTING_PERIOD' },
+  { no: 3, name: 'PROPOSAL_STATUS_PASSED' },
+  { no: 4, name: 'PROPOSAL_STATUS_REJECTED' },
+  { no: 5, name: 'PROPOSAL_STATUS_FAILED' },
 ]);
 
 /**
@@ -136,11 +150,11 @@ export class WeightedVoteOption extends Message<WeightedVoteOption> {
   option = VoteOption.UNSPECIFIED;
 
   /**
-   * weight is the vote weight associated with the vote option. 
+   * weight is the vote weight associated with the vote option.
    *
    * @generated from field: string weight = 2;
    */
-  weight = "";
+  weight = '';
 
   constructor(data?: PartialMessage<WeightedVoteOption>) {
     super();
@@ -148,25 +162,37 @@ export class WeightedVoteOption extends Message<WeightedVoteOption> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.WeightedVoteOption";
+  static readonly typeName = 'cosmos.gov.v1beta1.WeightedVoteOption';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "option", kind: "enum", T: proto3.getEnumType(VoteOption) },
-    { no: 2, name: "weight", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'option', kind: 'enum', T: proto3.getEnumType(VoteOption) },
+    { no: 2, name: 'weight', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WeightedVoteOption {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): WeightedVoteOption {
     return new WeightedVoteOption().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WeightedVoteOption {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): WeightedVoteOption {
     return new WeightedVoteOption().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WeightedVoteOption {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): WeightedVoteOption {
     return new WeightedVoteOption().fromJsonString(jsonString, options);
   }
 
-  static equals(a: WeightedVoteOption | PlainMessage<WeightedVoteOption> | undefined, b: WeightedVoteOption | PlainMessage<WeightedVoteOption> | undefined): boolean {
+  static equals(
+    a: WeightedVoteOption | PlainMessage<WeightedVoteOption> | undefined,
+    b: WeightedVoteOption | PlainMessage<WeightedVoteOption> | undefined,
+  ): boolean {
     return proto3.util.equals(WeightedVoteOption, a, b);
   }
 }
@@ -183,14 +209,14 @@ export class TextProposal extends Message<TextProposal> {
    *
    * @generated from field: string title = 1;
    */
-  title = "";
+  title = '';
 
   /**
    * description associated with the proposal.
    *
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   constructor(data?: PartialMessage<TextProposal>) {
     super();
@@ -198,25 +224,42 @@ export class TextProposal extends Message<TextProposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.TextProposal";
+  static readonly typeName = 'cosmos.gov.v1beta1.TextProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'title', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TextProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TextProposal {
     return new TextProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TextProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TextProposal {
     return new TextProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TextProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TextProposal {
     return new TextProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TextProposal | PlainMessage<TextProposal> | undefined, b: TextProposal | PlainMessage<TextProposal> | undefined): boolean {
+  static equals(
+    a: TextProposal | PlainMessage<TextProposal> | undefined,
+    b: TextProposal | PlainMessage<TextProposal> | undefined,
+  ): boolean {
     return proto3.util.equals(TextProposal, a, b);
   }
 }
@@ -240,7 +283,7 @@ export class Deposit extends Message<Deposit> {
    *
    * @generated from field: string depositor = 2;
    */
-  depositor = "";
+  depositor = '';
 
   /**
    * amount to be deposited by depositor.
@@ -255,26 +298,43 @@ export class Deposit extends Message<Deposit> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.Deposit";
+  static readonly typeName = 'cosmos.gov.v1beta1.Deposit';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "depositor", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "amount", kind: "message", T: Coin, repeated: true },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'depositor', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'amount', kind: 'message', T: Coin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Deposit {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Deposit {
     return new Deposit().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Deposit {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Deposit {
     return new Deposit().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Deposit {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Deposit {
     return new Deposit().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Deposit | PlainMessage<Deposit> | undefined, b: Deposit | PlainMessage<Deposit> | undefined): boolean {
+  static equals(
+    a: Deposit | PlainMessage<Deposit> | undefined,
+    b: Deposit | PlainMessage<Deposit> | undefined,
+  ): boolean {
     return proto3.util.equals(Deposit, a, b);
   }
 }
@@ -356,32 +416,54 @@ export class Proposal extends Message<Proposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.Proposal";
+  static readonly typeName = 'cosmos.gov.v1beta1.Proposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "content", kind: "message", T: Any },
-    { no: 3, name: "status", kind: "enum", T: proto3.getEnumType(ProposalStatus) },
-    { no: 4, name: "final_tally_result", kind: "message", T: TallyResult },
-    { no: 5, name: "submit_time", kind: "message", T: Timestamp },
-    { no: 6, name: "deposit_end_time", kind: "message", T: Timestamp },
-    { no: 7, name: "total_deposit", kind: "message", T: Coin, repeated: true },
-    { no: 8, name: "voting_start_time", kind: "message", T: Timestamp },
-    { no: 9, name: "voting_end_time", kind: "message", T: Timestamp },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'content', kind: 'message', T: Any },
+    {
+      no: 3,
+      name: 'status',
+      kind: 'enum',
+      T: proto3.getEnumType(ProposalStatus),
+    },
+    { no: 4, name: 'final_tally_result', kind: 'message', T: TallyResult },
+    { no: 5, name: 'submit_time', kind: 'message', T: Timestamp },
+    { no: 6, name: 'deposit_end_time', kind: 'message', T: Timestamp },
+    { no: 7, name: 'total_deposit', kind: 'message', T: Coin, repeated: true },
+    { no: 8, name: 'voting_start_time', kind: 'message', T: Timestamp },
+    { no: 9, name: 'voting_end_time', kind: 'message', T: Timestamp },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Proposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Proposal {
     return new Proposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Proposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Proposal {
     return new Proposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Proposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Proposal {
     return new Proposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Proposal | PlainMessage<Proposal> | undefined, b: Proposal | PlainMessage<Proposal> | undefined): boolean {
+  static equals(
+    a: Proposal | PlainMessage<Proposal> | undefined,
+    b: Proposal | PlainMessage<Proposal> | undefined,
+  ): boolean {
     return proto3.util.equals(Proposal, a, b);
   }
 }
@@ -397,28 +479,28 @@ export class TallyResult extends Message<TallyResult> {
    *
    * @generated from field: string yes = 1;
    */
-  yes = "";
+  yes = '';
 
   /**
    * abstain is the number of abstain votes on a proposal.
    *
    * @generated from field: string abstain = 2;
    */
-  abstain = "";
+  abstain = '';
 
   /**
    * no is the number of no votes on a proposal.
    *
    * @generated from field: string no = 3;
    */
-  no = "";
+  no = '';
 
   /**
    * no_with_veto is the number of no with veto votes on a proposal.
    *
    * @generated from field: string no_with_veto = 4;
    */
-  noWithVeto = "";
+  noWithVeto = '';
 
   constructor(data?: PartialMessage<TallyResult>) {
     super();
@@ -426,27 +508,44 @@ export class TallyResult extends Message<TallyResult> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.TallyResult";
+  static readonly typeName = 'cosmos.gov.v1beta1.TallyResult';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "yes", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "abstain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "no", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "no_with_veto", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'yes', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'abstain', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'no', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 4,
+      name: 'no_with_veto',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TallyResult {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TallyResult {
     return new TallyResult().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TallyResult {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TallyResult {
     return new TallyResult().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TallyResult {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TallyResult {
     return new TallyResult().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TallyResult | PlainMessage<TallyResult> | undefined, b: TallyResult | PlainMessage<TallyResult> | undefined): boolean {
+  static equals(
+    a: TallyResult | PlainMessage<TallyResult> | undefined,
+    b: TallyResult | PlainMessage<TallyResult> | undefined,
+  ): boolean {
     return proto3.util.equals(TallyResult, a, b);
   }
 }
@@ -470,7 +569,7 @@ export class Vote extends Message<Vote> {
    *
    * @generated from field: string voter = 2;
    */
-  voter = "";
+  voter = '';
 
   /**
    * Deprecated: Prefer to use `options` instead. This field is set in queries
@@ -497,27 +596,50 @@ export class Vote extends Message<Vote> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.Vote";
+  static readonly typeName = 'cosmos.gov.v1beta1.Vote';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "voter", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "option", kind: "enum", T: proto3.getEnumType(VoteOption) },
-    { no: 4, name: "options", kind: "message", T: WeightedVoteOption, repeated: true },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'voter', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'option', kind: 'enum', T: proto3.getEnumType(VoteOption) },
+    {
+      no: 4,
+      name: 'options',
+      kind: 'message',
+      T: WeightedVoteOption,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Vote {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Vote {
     return new Vote().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Vote {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Vote {
     return new Vote().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Vote {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Vote {
     return new Vote().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Vote | PlainMessage<Vote> | undefined, b: Vote | PlainMessage<Vote> | undefined): boolean {
+  static equals(
+    a: Vote | PlainMessage<Vote> | undefined,
+    b: Vote | PlainMessage<Vote> | undefined,
+  ): boolean {
     return proto3.util.equals(Vote, a, b);
   }
 }
@@ -549,25 +671,37 @@ export class DepositParams extends Message<DepositParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.DepositParams";
+  static readonly typeName = 'cosmos.gov.v1beta1.DepositParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "min_deposit", kind: "message", T: Coin, repeated: true },
-    { no: 2, name: "max_deposit_period", kind: "message", T: Duration },
+    { no: 1, name: 'min_deposit', kind: 'message', T: Coin, repeated: true },
+    { no: 2, name: 'max_deposit_period', kind: 'message', T: Duration },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DepositParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): DepositParams {
     return new DepositParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DepositParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): DepositParams {
     return new DepositParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DepositParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): DepositParams {
     return new DepositParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: DepositParams | PlainMessage<DepositParams> | undefined, b: DepositParams | PlainMessage<DepositParams> | undefined): boolean {
+  static equals(
+    a: DepositParams | PlainMessage<DepositParams> | undefined,
+    b: DepositParams | PlainMessage<DepositParams> | undefined,
+  ): boolean {
     return proto3.util.equals(DepositParams, a, b);
   }
 }
@@ -591,24 +725,36 @@ export class VotingParams extends Message<VotingParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.VotingParams";
+  static readonly typeName = 'cosmos.gov.v1beta1.VotingParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "voting_period", kind: "message", T: Duration },
+    { no: 1, name: 'voting_period', kind: 'message', T: Duration },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VotingParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): VotingParams {
     return new VotingParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VotingParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): VotingParams {
     return new VotingParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VotingParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): VotingParams {
     return new VotingParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: VotingParams | PlainMessage<VotingParams> | undefined, b: VotingParams | PlainMessage<VotingParams> | undefined): boolean {
+  static equals(
+    a: VotingParams | PlainMessage<VotingParams> | undefined,
+    b: VotingParams | PlainMessage<VotingParams> | undefined,
+  ): boolean {
     return proto3.util.equals(VotingParams, a, b);
   }
 }
@@ -648,27 +794,43 @@ export class TallyParams extends Message<TallyParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.TallyParams";
+  static readonly typeName = 'cosmos.gov.v1beta1.TallyParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "quorum", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "threshold", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "veto_threshold", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'quorum', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: 'threshold', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 3,
+      name: 'veto_threshold',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TallyParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TallyParams {
     return new TallyParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TallyParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TallyParams {
     return new TallyParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TallyParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TallyParams {
     return new TallyParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TallyParams | PlainMessage<TallyParams> | undefined, b: TallyParams | PlainMessage<TallyParams> | undefined): boolean {
+  static equals(
+    a: TallyParams | PlainMessage<TallyParams> | undefined,
+    b: TallyParams | PlainMessage<TallyParams> | undefined,
+  ): boolean {
     return proto3.util.equals(TallyParams, a, b);
   }
 }
-

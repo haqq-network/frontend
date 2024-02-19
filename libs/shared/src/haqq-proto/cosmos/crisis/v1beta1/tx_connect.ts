@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgUpdateParams, MsgUpdateParamsResponse, MsgVerifyInvariant, MsgVerifyInvariantResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+  MsgVerifyInvariant,
+  MsgVerifyInvariantResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the bank Msg service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.crisis.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.crisis.v1beta1.Msg",
+  typeName: 'cosmos.crisis.v1beta1.Msg',
   methods: {
     /**
      * VerifyInvariant defines a method to verify a particular invariant.
@@ -20,7 +25,7 @@ export const Msg = {
      * @generated from rpc cosmos.crisis.v1beta1.Msg.VerifyInvariant
      */
     verifyInvariant: {
-      name: "VerifyInvariant",
+      name: 'VerifyInvariant',
       I: MsgVerifyInvariant,
       O: MsgVerifyInvariantResponse,
       kind: MethodKind.Unary,
@@ -34,11 +39,10 @@ export const Msg = {
      * @generated from rpc cosmos.crisis.v1beta1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

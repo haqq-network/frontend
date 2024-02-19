@@ -5,8 +5,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryAllowanceRequest, QueryAllowanceResponse, QueryAllowancesByGranterRequest, QueryAllowancesByGranterResponse, QueryAllowancesRequest, QueryAllowancesResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryAllowanceRequest,
+  QueryAllowanceResponse,
+  QueryAllowancesByGranterRequest,
+  QueryAllowancesByGranterResponse,
+  QueryAllowancesRequest,
+  QueryAllowancesResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -14,7 +21,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.feegrant.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.feegrant.v1beta1.Query",
+  typeName: 'cosmos.feegrant.v1beta1.Query',
   methods: {
     /**
      * Allowance returns fee granted to the grantee by the granter.
@@ -22,7 +29,7 @@ export const Query = {
      * @generated from rpc cosmos.feegrant.v1beta1.Query.Allowance
      */
     allowance: {
-      name: "Allowance",
+      name: 'Allowance',
       I: QueryAllowanceRequest,
       O: QueryAllowanceResponse,
       kind: MethodKind.Unary,
@@ -33,7 +40,7 @@ export const Query = {
      * @generated from rpc cosmos.feegrant.v1beta1.Query.Allowances
      */
     allowances: {
-      name: "Allowances",
+      name: 'Allowances',
       I: QueryAllowancesRequest,
       O: QueryAllowancesResponse,
       kind: MethodKind.Unary,
@@ -46,11 +53,10 @@ export const Query = {
      * @generated from rpc cosmos.feegrant.v1beta1.Query.AllowancesByGranter
      */
     allowancesByGranter: {
-      name: "AllowancesByGranter",
+      name: 'AllowancesByGranter',
       I: QueryAllowancesByGranterRequest,
       O: QueryAllowancesByGranterResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

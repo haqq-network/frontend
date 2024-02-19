@@ -5,10 +5,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination_pb.js";
-import { Grant, GrantAuthorization } from "./authz_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import {
+  PageRequest,
+  PageResponse,
+} from '../../base/query/v1beta1/pagination_pb';
+import { Grant, GrantAuthorization } from './authz_pb';
 
 /**
  * QueryGrantsRequest is the request type for the Query/Grants RPC method.
@@ -19,19 +29,19 @@ export class QueryGrantsRequest extends Message<QueryGrantsRequest> {
   /**
    * @generated from field: string granter = 1;
    */
-  granter = "";
+  granter = '';
 
   /**
    * @generated from field: string grantee = 2;
    */
-  grantee = "";
+  grantee = '';
 
   /**
    * Optional, msg_type_url, when set, will query only grants matching given msg type.
    *
    * @generated from field: string msg_type_url = 3;
    */
-  msgTypeUrl = "";
+  msgTypeUrl = '';
 
   /**
    * pagination defines an pagination for the request.
@@ -46,27 +56,44 @@ export class QueryGrantsRequest extends Message<QueryGrantsRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.authz.v1beta1.QueryGrantsRequest";
+  static readonly typeName = 'cosmos.authz.v1beta1.QueryGrantsRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "granter", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "grantee", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "msg_type_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'granter', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'grantee', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 3,
+      name: 'msg_type_url',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 4, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryGrantsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryGrantsRequest {
     return new QueryGrantsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryGrantsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGrantsRequest {
     return new QueryGrantsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryGrantsRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGrantsRequest {
     return new QueryGrantsRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryGrantsRequest | PlainMessage<QueryGrantsRequest> | undefined, b: QueryGrantsRequest | PlainMessage<QueryGrantsRequest> | undefined): boolean {
+  static equals(
+    a: QueryGrantsRequest | PlainMessage<QueryGrantsRequest> | undefined,
+    b: QueryGrantsRequest | PlainMessage<QueryGrantsRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryGrantsRequest, a, b);
   }
 }
@@ -97,25 +124,37 @@ export class QueryGrantsResponse extends Message<QueryGrantsResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.authz.v1beta1.QueryGrantsResponse";
+  static readonly typeName = 'cosmos.authz.v1beta1.QueryGrantsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "grants", kind: "message", T: Grant, repeated: true },
-    { no: 2, name: "pagination", kind: "message", T: PageResponse },
+    { no: 1, name: 'grants', kind: 'message', T: Grant, repeated: true },
+    { no: 2, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryGrantsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryGrantsResponse {
     return new QueryGrantsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryGrantsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGrantsResponse {
     return new QueryGrantsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryGrantsResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGrantsResponse {
     return new QueryGrantsResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryGrantsResponse | PlainMessage<QueryGrantsResponse> | undefined, b: QueryGrantsResponse | PlainMessage<QueryGrantsResponse> | undefined): boolean {
+  static equals(
+    a: QueryGrantsResponse | PlainMessage<QueryGrantsResponse> | undefined,
+    b: QueryGrantsResponse | PlainMessage<QueryGrantsResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryGrantsResponse, a, b);
   }
 }
@@ -129,7 +168,7 @@ export class QueryGranterGrantsRequest extends Message<QueryGranterGrantsRequest
   /**
    * @generated from field: string granter = 1;
    */
-  granter = "";
+  granter = '';
 
   /**
    * pagination defines an pagination for the request.
@@ -144,25 +183,43 @@ export class QueryGranterGrantsRequest extends Message<QueryGranterGrantsRequest
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.authz.v1beta1.QueryGranterGrantsRequest";
+  static readonly typeName = 'cosmos.authz.v1beta1.QueryGranterGrantsRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "granter", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'granter', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryGranterGrantsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryGranterGrantsRequest {
     return new QueryGranterGrantsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryGranterGrantsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGranterGrantsRequest {
     return new QueryGranterGrantsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryGranterGrantsRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGranterGrantsRequest {
     return new QueryGranterGrantsRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryGranterGrantsRequest | PlainMessage<QueryGranterGrantsRequest> | undefined, b: QueryGranterGrantsRequest | PlainMessage<QueryGranterGrantsRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryGranterGrantsRequest
+      | PlainMessage<QueryGranterGrantsRequest>
+      | undefined,
+    b:
+      | QueryGranterGrantsRequest
+      | PlainMessage<QueryGranterGrantsRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryGranterGrantsRequest, a, b);
   }
 }
@@ -193,25 +250,49 @@ export class QueryGranterGrantsResponse extends Message<QueryGranterGrantsRespon
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.authz.v1beta1.QueryGranterGrantsResponse";
+  static readonly typeName = 'cosmos.authz.v1beta1.QueryGranterGrantsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "grants", kind: "message", T: GrantAuthorization, repeated: true },
-    { no: 2, name: "pagination", kind: "message", T: PageResponse },
+    {
+      no: 1,
+      name: 'grants',
+      kind: 'message',
+      T: GrantAuthorization,
+      repeated: true,
+    },
+    { no: 2, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryGranterGrantsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryGranterGrantsResponse {
     return new QueryGranterGrantsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryGranterGrantsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGranterGrantsResponse {
     return new QueryGranterGrantsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryGranterGrantsResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGranterGrantsResponse {
     return new QueryGranterGrantsResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryGranterGrantsResponse | PlainMessage<QueryGranterGrantsResponse> | undefined, b: QueryGranterGrantsResponse | PlainMessage<QueryGranterGrantsResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryGranterGrantsResponse
+      | PlainMessage<QueryGranterGrantsResponse>
+      | undefined,
+    b:
+      | QueryGranterGrantsResponse
+      | PlainMessage<QueryGranterGrantsResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryGranterGrantsResponse, a, b);
   }
 }
@@ -225,7 +306,7 @@ export class QueryGranteeGrantsRequest extends Message<QueryGranteeGrantsRequest
   /**
    * @generated from field: string grantee = 1;
    */
-  grantee = "";
+  grantee = '';
 
   /**
    * pagination defines an pagination for the request.
@@ -240,25 +321,43 @@ export class QueryGranteeGrantsRequest extends Message<QueryGranteeGrantsRequest
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.authz.v1beta1.QueryGranteeGrantsRequest";
+  static readonly typeName = 'cosmos.authz.v1beta1.QueryGranteeGrantsRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "grantee", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'grantee', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryGranteeGrantsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryGranteeGrantsRequest {
     return new QueryGranteeGrantsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryGranteeGrantsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGranteeGrantsRequest {
     return new QueryGranteeGrantsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryGranteeGrantsRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGranteeGrantsRequest {
     return new QueryGranteeGrantsRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryGranteeGrantsRequest | PlainMessage<QueryGranteeGrantsRequest> | undefined, b: QueryGranteeGrantsRequest | PlainMessage<QueryGranteeGrantsRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryGranteeGrantsRequest
+      | PlainMessage<QueryGranteeGrantsRequest>
+      | undefined,
+    b:
+      | QueryGranteeGrantsRequest
+      | PlainMessage<QueryGranteeGrantsRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryGranteeGrantsRequest, a, b);
   }
 }
@@ -289,26 +388,49 @@ export class QueryGranteeGrantsResponse extends Message<QueryGranteeGrantsRespon
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.authz.v1beta1.QueryGranteeGrantsResponse";
+  static readonly typeName = 'cosmos.authz.v1beta1.QueryGranteeGrantsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "grants", kind: "message", T: GrantAuthorization, repeated: true },
-    { no: 2, name: "pagination", kind: "message", T: PageResponse },
+    {
+      no: 1,
+      name: 'grants',
+      kind: 'message',
+      T: GrantAuthorization,
+      repeated: true,
+    },
+    { no: 2, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryGranteeGrantsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryGranteeGrantsResponse {
     return new QueryGranteeGrantsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryGranteeGrantsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGranteeGrantsResponse {
     return new QueryGranteeGrantsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryGranteeGrantsResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryGranteeGrantsResponse {
     return new QueryGranteeGrantsResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryGranteeGrantsResponse | PlainMessage<QueryGranteeGrantsResponse> | undefined, b: QueryGranteeGrantsResponse | PlainMessage<QueryGranteeGrantsResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryGranteeGrantsResponse
+      | PlainMessage<QueryGranteeGrantsResponse>
+      | undefined,
+    b:
+      | QueryGranteeGrantsResponse
+      | PlainMessage<QueryGranteeGrantsResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryGranteeGrantsResponse, a, b);
   }
 }
-

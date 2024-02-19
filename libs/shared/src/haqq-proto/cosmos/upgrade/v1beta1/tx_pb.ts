@@ -5,9 +5,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Plan } from "./upgrade_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Plan } from './upgrade_pb';
 
 /**
  * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
@@ -22,7 +29,7 @@ export class MsgSoftwareUpgrade extends Message<MsgSoftwareUpgrade> {
    *
    * @generated from field: string authority = 1;
    */
-  authority = "";
+  authority = '';
 
   /**
    * plan is the upgrade plan.
@@ -37,25 +44,37 @@ export class MsgSoftwareUpgrade extends Message<MsgSoftwareUpgrade> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.upgrade.v1beta1.MsgSoftwareUpgrade";
+  static readonly typeName = 'cosmos.upgrade.v1beta1.MsgSoftwareUpgrade';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "authority", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "plan", kind: "message", T: Plan },
+    { no: 1, name: 'authority', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'plan', kind: 'message', T: Plan },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgSoftwareUpgrade {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgSoftwareUpgrade {
     return new MsgSoftwareUpgrade().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgSoftwareUpgrade {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSoftwareUpgrade {
     return new MsgSoftwareUpgrade().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgSoftwareUpgrade {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSoftwareUpgrade {
     return new MsgSoftwareUpgrade().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgSoftwareUpgrade | PlainMessage<MsgSoftwareUpgrade> | undefined, b: MsgSoftwareUpgrade | PlainMessage<MsgSoftwareUpgrade> | undefined): boolean {
+  static equals(
+    a: MsgSoftwareUpgrade | PlainMessage<MsgSoftwareUpgrade> | undefined,
+    b: MsgSoftwareUpgrade | PlainMessage<MsgSoftwareUpgrade> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgSoftwareUpgrade, a, b);
   }
 }
@@ -74,23 +93,41 @@ export class MsgSoftwareUpgradeResponse extends Message<MsgSoftwareUpgradeRespon
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgSoftwareUpgradeResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgSoftwareUpgradeResponse {
     return new MsgSoftwareUpgradeResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgSoftwareUpgradeResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSoftwareUpgradeResponse {
     return new MsgSoftwareUpgradeResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgSoftwareUpgradeResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSoftwareUpgradeResponse {
     return new MsgSoftwareUpgradeResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgSoftwareUpgradeResponse | PlainMessage<MsgSoftwareUpgradeResponse> | undefined, b: MsgSoftwareUpgradeResponse | PlainMessage<MsgSoftwareUpgradeResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgSoftwareUpgradeResponse
+      | PlainMessage<MsgSoftwareUpgradeResponse>
+      | undefined,
+    b:
+      | MsgSoftwareUpgradeResponse
+      | PlainMessage<MsgSoftwareUpgradeResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgSoftwareUpgradeResponse, a, b);
   }
 }
@@ -108,7 +145,7 @@ export class MsgCancelUpgrade extends Message<MsgCancelUpgrade> {
    *
    * @generated from field: string authority = 1;
    */
-  authority = "";
+  authority = '';
 
   constructor(data?: PartialMessage<MsgCancelUpgrade>) {
     super();
@@ -116,24 +153,36 @@ export class MsgCancelUpgrade extends Message<MsgCancelUpgrade> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.upgrade.v1beta1.MsgCancelUpgrade";
+  static readonly typeName = 'cosmos.upgrade.v1beta1.MsgCancelUpgrade';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "authority", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'authority', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCancelUpgrade {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCancelUpgrade {
     return new MsgCancelUpgrade().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCancelUpgrade {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCancelUpgrade {
     return new MsgCancelUpgrade().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCancelUpgrade {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCancelUpgrade {
     return new MsgCancelUpgrade().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgCancelUpgrade | PlainMessage<MsgCancelUpgrade> | undefined, b: MsgCancelUpgrade | PlainMessage<MsgCancelUpgrade> | undefined): boolean {
+  static equals(
+    a: MsgCancelUpgrade | PlainMessage<MsgCancelUpgrade> | undefined,
+    b: MsgCancelUpgrade | PlainMessage<MsgCancelUpgrade> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCancelUpgrade, a, b);
   }
 }
@@ -152,24 +201,40 @@ export class MsgCancelUpgradeResponse extends Message<MsgCancelUpgradeResponse> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCancelUpgradeResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCancelUpgradeResponse {
     return new MsgCancelUpgradeResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCancelUpgradeResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCancelUpgradeResponse {
     return new MsgCancelUpgradeResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCancelUpgradeResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCancelUpgradeResponse {
     return new MsgCancelUpgradeResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgCancelUpgradeResponse | PlainMessage<MsgCancelUpgradeResponse> | undefined, b: MsgCancelUpgradeResponse | PlainMessage<MsgCancelUpgradeResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgCancelUpgradeResponse
+      | PlainMessage<MsgCancelUpgradeResponse>
+      | undefined,
+    b:
+      | MsgCancelUpgradeResponse
+      | PlainMessage<MsgCancelUpgradeResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCancelUpgradeResponse, a, b);
   }
 }
-

@@ -3,13 +3,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { PageRequest, PageResponse } from "../../query/v1beta1/pagination_pb.js";
-import { BlockID } from "../../../../tendermint/types/types_pb.js";
-import { Block } from "../../../../tendermint/types/block_pb.js";
-import { Block as Block$1 } from "./types_pb.js";
-import { DefaultNodeInfo } from "../../../../tendermint/p2p/types_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { PageRequest, PageResponse } from '../../query/v1beta1/pagination_pb';
+import { BlockID } from '../../../../tendermint/types/types_pb';
+import { Block } from '../../../../tendermint/types/block_pb';
+import { Block as Block$1 } from './types_pb';
+import { DefaultNodeInfo } from '../../../../tendermint/p2p/types_pb';
 
 /**
  * GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method.
@@ -35,25 +42,47 @@ export class GetValidatorSetByHeightRequest extends Message<GetValidatorSetByHei
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetValidatorSetByHeightRequest";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetValidatorSetByHeightRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'height', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetValidatorSetByHeightRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetValidatorSetByHeightRequest {
     return new GetValidatorSetByHeightRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetValidatorSetByHeightRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetValidatorSetByHeightRequest {
     return new GetValidatorSetByHeightRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetValidatorSetByHeightRequest {
-    return new GetValidatorSetByHeightRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetValidatorSetByHeightRequest {
+    return new GetValidatorSetByHeightRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: GetValidatorSetByHeightRequest | PlainMessage<GetValidatorSetByHeightRequest> | undefined, b: GetValidatorSetByHeightRequest | PlainMessage<GetValidatorSetByHeightRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetValidatorSetByHeightRequest
+      | PlainMessage<GetValidatorSetByHeightRequest>
+      | undefined,
+    b:
+      | GetValidatorSetByHeightRequest
+      | PlainMessage<GetValidatorSetByHeightRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetValidatorSetByHeightRequest, a, b);
   }
 }
@@ -87,26 +116,59 @@ export class GetValidatorSetByHeightResponse extends Message<GetValidatorSetByHe
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetValidatorSetByHeightResponse";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetValidatorSetByHeightResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "block_height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "validators", kind: "message", T: Validator, repeated: true },
-    { no: 3, name: "pagination", kind: "message", T: PageResponse },
+    {
+      no: 1,
+      name: 'block_height',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    {
+      no: 2,
+      name: 'validators',
+      kind: 'message',
+      T: Validator,
+      repeated: true,
+    },
+    { no: 3, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetValidatorSetByHeightResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetValidatorSetByHeightResponse {
     return new GetValidatorSetByHeightResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetValidatorSetByHeightResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetValidatorSetByHeightResponse {
     return new GetValidatorSetByHeightResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetValidatorSetByHeightResponse {
-    return new GetValidatorSetByHeightResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetValidatorSetByHeightResponse {
+    return new GetValidatorSetByHeightResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: GetValidatorSetByHeightResponse | PlainMessage<GetValidatorSetByHeightResponse> | undefined, b: GetValidatorSetByHeightResponse | PlainMessage<GetValidatorSetByHeightResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetValidatorSetByHeightResponse
+      | PlainMessage<GetValidatorSetByHeightResponse>
+      | undefined,
+    b:
+      | GetValidatorSetByHeightResponse
+      | PlainMessage<GetValidatorSetByHeightResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetValidatorSetByHeightResponse, a, b);
   }
 }
@@ -130,24 +192,46 @@ export class GetLatestValidatorSetRequest extends Message<GetLatestValidatorSetR
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetLatestValidatorSetRequest";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetLatestValidatorSetRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLatestValidatorSetRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetLatestValidatorSetRequest {
     return new GetLatestValidatorSetRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetLatestValidatorSetRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetLatestValidatorSetRequest {
     return new GetLatestValidatorSetRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetLatestValidatorSetRequest {
-    return new GetLatestValidatorSetRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetLatestValidatorSetRequest {
+    return new GetLatestValidatorSetRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: GetLatestValidatorSetRequest | PlainMessage<GetLatestValidatorSetRequest> | undefined, b: GetLatestValidatorSetRequest | PlainMessage<GetLatestValidatorSetRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetLatestValidatorSetRequest
+      | PlainMessage<GetLatestValidatorSetRequest>
+      | undefined,
+    b:
+      | GetLatestValidatorSetRequest
+      | PlainMessage<GetLatestValidatorSetRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetLatestValidatorSetRequest, a, b);
   }
 }
@@ -181,26 +265,59 @@ export class GetLatestValidatorSetResponse extends Message<GetLatestValidatorSet
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetLatestValidatorSetResponse";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetLatestValidatorSetResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "block_height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "validators", kind: "message", T: Validator, repeated: true },
-    { no: 3, name: "pagination", kind: "message", T: PageResponse },
+    {
+      no: 1,
+      name: 'block_height',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    {
+      no: 2,
+      name: 'validators',
+      kind: 'message',
+      T: Validator,
+      repeated: true,
+    },
+    { no: 3, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLatestValidatorSetResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetLatestValidatorSetResponse {
     return new GetLatestValidatorSetResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetLatestValidatorSetResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetLatestValidatorSetResponse {
     return new GetLatestValidatorSetResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetLatestValidatorSetResponse {
-    return new GetLatestValidatorSetResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetLatestValidatorSetResponse {
+    return new GetLatestValidatorSetResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: GetLatestValidatorSetResponse | PlainMessage<GetLatestValidatorSetResponse> | undefined, b: GetLatestValidatorSetResponse | PlainMessage<GetLatestValidatorSetResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetLatestValidatorSetResponse
+      | PlainMessage<GetLatestValidatorSetResponse>
+      | undefined,
+    b:
+      | GetLatestValidatorSetResponse
+      | PlainMessage<GetLatestValidatorSetResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetLatestValidatorSetResponse, a, b);
   }
 }
@@ -214,7 +331,7 @@ export class Validator extends Message<Validator> {
   /**
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * @generated from field: google.protobuf.Any pub_key = 2;
@@ -237,27 +354,49 @@ export class Validator extends Message<Validator> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.Validator";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.Validator';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "pub_key", kind: "message", T: Any },
-    { no: 3, name: "voting_power", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 4, name: "proposer_priority", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'pub_key', kind: 'message', T: Any },
+    {
+      no: 3,
+      name: 'voting_power',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    {
+      no: 4,
+      name: 'proposer_priority',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Validator {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Validator {
     return new Validator().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Validator {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Validator {
     return new Validator().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Validator {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Validator {
     return new Validator().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Validator | PlainMessage<Validator> | undefined, b: Validator | PlainMessage<Validator> | undefined): boolean {
+  static equals(
+    a: Validator | PlainMessage<Validator> | undefined,
+    b: Validator | PlainMessage<Validator> | undefined,
+  ): boolean {
     return proto3.util.equals(Validator, a, b);
   }
 }
@@ -279,24 +418,43 @@ export class GetBlockByHeightRequest extends Message<GetBlockByHeightRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetBlockByHeightRequest";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetBlockByHeightRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 1, name: 'height', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBlockByHeightRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetBlockByHeightRequest {
     return new GetBlockByHeightRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetBlockByHeightRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetBlockByHeightRequest {
     return new GetBlockByHeightRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetBlockByHeightRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetBlockByHeightRequest {
     return new GetBlockByHeightRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetBlockByHeightRequest | PlainMessage<GetBlockByHeightRequest> | undefined, b: GetBlockByHeightRequest | PlainMessage<GetBlockByHeightRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetBlockByHeightRequest
+      | PlainMessage<GetBlockByHeightRequest>
+      | undefined,
+    b:
+      | GetBlockByHeightRequest
+      | PlainMessage<GetBlockByHeightRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetBlockByHeightRequest, a, b);
   }
 }
@@ -332,26 +490,45 @@ export class GetBlockByHeightResponse extends Message<GetBlockByHeightResponse> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetBlockByHeightResponse";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetBlockByHeightResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "block_id", kind: "message", T: BlockID },
-    { no: 2, name: "block", kind: "message", T: Block },
-    { no: 3, name: "sdk_block", kind: "message", T: Block$1 },
+    { no: 1, name: 'block_id', kind: 'message', T: BlockID },
+    { no: 2, name: 'block', kind: 'message', T: Block },
+    { no: 3, name: 'sdk_block', kind: 'message', T: Block$1 },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBlockByHeightResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetBlockByHeightResponse {
     return new GetBlockByHeightResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetBlockByHeightResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetBlockByHeightResponse {
     return new GetBlockByHeightResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetBlockByHeightResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetBlockByHeightResponse {
     return new GetBlockByHeightResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetBlockByHeightResponse | PlainMessage<GetBlockByHeightResponse> | undefined, b: GetBlockByHeightResponse | PlainMessage<GetBlockByHeightResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetBlockByHeightResponse
+      | PlainMessage<GetBlockByHeightResponse>
+      | undefined,
+    b:
+      | GetBlockByHeightResponse
+      | PlainMessage<GetBlockByHeightResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetBlockByHeightResponse, a, b);
   }
 }
@@ -368,23 +545,35 @@ export class GetLatestBlockRequest extends Message<GetLatestBlockRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetLatestBlockRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetLatestBlockRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLatestBlockRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetLatestBlockRequest {
     return new GetLatestBlockRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetLatestBlockRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetLatestBlockRequest {
     return new GetLatestBlockRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetLatestBlockRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetLatestBlockRequest {
     return new GetLatestBlockRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetLatestBlockRequest | PlainMessage<GetLatestBlockRequest> | undefined, b: GetLatestBlockRequest | PlainMessage<GetLatestBlockRequest> | undefined): boolean {
+  static equals(
+    a: GetLatestBlockRequest | PlainMessage<GetLatestBlockRequest> | undefined,
+    b: GetLatestBlockRequest | PlainMessage<GetLatestBlockRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(GetLatestBlockRequest, a, b);
   }
 }
@@ -420,26 +609,45 @@ export class GetLatestBlockResponse extends Message<GetLatestBlockResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetLatestBlockResponse";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetLatestBlockResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "block_id", kind: "message", T: BlockID },
-    { no: 2, name: "block", kind: "message", T: Block },
-    { no: 3, name: "sdk_block", kind: "message", T: Block$1 },
+    { no: 1, name: 'block_id', kind: 'message', T: BlockID },
+    { no: 2, name: 'block', kind: 'message', T: Block },
+    { no: 3, name: 'sdk_block', kind: 'message', T: Block$1 },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLatestBlockResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetLatestBlockResponse {
     return new GetLatestBlockResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetLatestBlockResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetLatestBlockResponse {
     return new GetLatestBlockResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetLatestBlockResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetLatestBlockResponse {
     return new GetLatestBlockResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetLatestBlockResponse | PlainMessage<GetLatestBlockResponse> | undefined, b: GetLatestBlockResponse | PlainMessage<GetLatestBlockResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetLatestBlockResponse
+      | PlainMessage<GetLatestBlockResponse>
+      | undefined,
+    b:
+      | GetLatestBlockResponse
+      | PlainMessage<GetLatestBlockResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetLatestBlockResponse, a, b);
   }
 }
@@ -456,23 +664,34 @@ export class GetSyncingRequest extends Message<GetSyncingRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetSyncingRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.GetSyncingRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSyncingRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetSyncingRequest {
     return new GetSyncingRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSyncingRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetSyncingRequest {
     return new GetSyncingRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSyncingRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetSyncingRequest {
     return new GetSyncingRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetSyncingRequest | PlainMessage<GetSyncingRequest> | undefined, b: GetSyncingRequest | PlainMessage<GetSyncingRequest> | undefined): boolean {
+  static equals(
+    a: GetSyncingRequest | PlainMessage<GetSyncingRequest> | undefined,
+    b: GetSyncingRequest | PlainMessage<GetSyncingRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(GetSyncingRequest, a, b);
   }
 }
@@ -494,24 +713,37 @@ export class GetSyncingResponse extends Message<GetSyncingResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetSyncingResponse";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetSyncingResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "syncing", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'syncing', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSyncingResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetSyncingResponse {
     return new GetSyncingResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSyncingResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetSyncingResponse {
     return new GetSyncingResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSyncingResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetSyncingResponse {
     return new GetSyncingResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetSyncingResponse | PlainMessage<GetSyncingResponse> | undefined, b: GetSyncingResponse | PlainMessage<GetSyncingResponse> | undefined): boolean {
+  static equals(
+    a: GetSyncingResponse | PlainMessage<GetSyncingResponse> | undefined,
+    b: GetSyncingResponse | PlainMessage<GetSyncingResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(GetSyncingResponse, a, b);
   }
 }
@@ -528,23 +760,35 @@ export class GetNodeInfoRequest extends Message<GetNodeInfoRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetNodeInfoRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetNodeInfoRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetNodeInfoRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetNodeInfoRequest {
     return new GetNodeInfoRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetNodeInfoRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetNodeInfoRequest {
     return new GetNodeInfoRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetNodeInfoRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetNodeInfoRequest {
     return new GetNodeInfoRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetNodeInfoRequest | PlainMessage<GetNodeInfoRequest> | undefined, b: GetNodeInfoRequest | PlainMessage<GetNodeInfoRequest> | undefined): boolean {
+  static equals(
+    a: GetNodeInfoRequest | PlainMessage<GetNodeInfoRequest> | undefined,
+    b: GetNodeInfoRequest | PlainMessage<GetNodeInfoRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(GetNodeInfoRequest, a, b);
   }
 }
@@ -571,25 +815,38 @@ export class GetNodeInfoResponse extends Message<GetNodeInfoResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.GetNodeInfoResponse";
+  static readonly typeName =
+    'cosmos.base.tendermint.v1beta1.GetNodeInfoResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "default_node_info", kind: "message", T: DefaultNodeInfo },
-    { no: 2, name: "application_version", kind: "message", T: VersionInfo },
+    { no: 1, name: 'default_node_info', kind: 'message', T: DefaultNodeInfo },
+    { no: 2, name: 'application_version', kind: 'message', T: VersionInfo },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetNodeInfoResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetNodeInfoResponse {
     return new GetNodeInfoResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetNodeInfoResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetNodeInfoResponse {
     return new GetNodeInfoResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetNodeInfoResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetNodeInfoResponse {
     return new GetNodeInfoResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetNodeInfoResponse | PlainMessage<GetNodeInfoResponse> | undefined, b: GetNodeInfoResponse | PlainMessage<GetNodeInfoResponse> | undefined): boolean {
+  static equals(
+    a: GetNodeInfoResponse | PlainMessage<GetNodeInfoResponse> | undefined,
+    b: GetNodeInfoResponse | PlainMessage<GetNodeInfoResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(GetNodeInfoResponse, a, b);
   }
 }
@@ -603,32 +860,32 @@ export class VersionInfo extends Message<VersionInfo> {
   /**
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * @generated from field: string app_name = 2;
    */
-  appName = "";
+  appName = '';
 
   /**
    * @generated from field: string version = 3;
    */
-  version = "";
+  version = '';
 
   /**
    * @generated from field: string git_commit = 4;
    */
-  gitCommit = "";
+  gitCommit = '';
 
   /**
    * @generated from field: string build_tags = 5;
    */
-  buildTags = "";
+  buildTags = '';
 
   /**
    * @generated from field: string go_version = 6;
    */
-  goVersion = "";
+  goVersion = '';
 
   /**
    * @generated from field: repeated cosmos.base.tendermint.v1beta1.Module build_deps = 7;
@@ -640,7 +897,7 @@ export class VersionInfo extends Message<VersionInfo> {
    *
    * @generated from field: string cosmos_sdk_version = 8;
    */
-  cosmosSdkVersion = "";
+  cosmosSdkVersion = '';
 
   constructor(data?: PartialMessage<VersionInfo>) {
     super();
@@ -648,31 +905,48 @@ export class VersionInfo extends Message<VersionInfo> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.VersionInfo";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.VersionInfo';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "app_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "git_commit", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "build_tags", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "go_version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "build_deps", kind: "message", T: Module, repeated: true },
-    { no: 8, name: "cosmos_sdk_version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'app_name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'version', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'git_commit', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: 'build_tags', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: 'go_version', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: 'build_deps', kind: 'message', T: Module, repeated: true },
+    {
+      no: 8,
+      name: 'cosmos_sdk_version',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VersionInfo {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): VersionInfo {
     return new VersionInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VersionInfo {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): VersionInfo {
     return new VersionInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VersionInfo {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): VersionInfo {
     return new VersionInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: VersionInfo | PlainMessage<VersionInfo> | undefined, b: VersionInfo | PlainMessage<VersionInfo> | undefined): boolean {
+  static equals(
+    a: VersionInfo | PlainMessage<VersionInfo> | undefined,
+    b: VersionInfo | PlainMessage<VersionInfo> | undefined,
+  ): boolean {
     return proto3.util.equals(VersionInfo, a, b);
   }
 }
@@ -688,21 +962,21 @@ export class Module extends Message<Module> {
    *
    * @generated from field: string path = 1;
    */
-  path = "";
+  path = '';
 
   /**
    * module version
    *
    * @generated from field: string version = 2;
    */
-  version = "";
+  version = '';
 
   /**
    * checksum
    *
    * @generated from field: string sum = 3;
    */
-  sum = "";
+  sum = '';
 
   constructor(data?: PartialMessage<Module>) {
     super();
@@ -710,26 +984,38 @@ export class Module extends Message<Module> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.Module";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.Module';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "sum", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'path', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'version', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'sum', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Module {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Module {
     return new Module().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Module {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Module {
     return new Module().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Module {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Module {
     return new Module().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Module | PlainMessage<Module> | undefined, b: Module | PlainMessage<Module> | undefined): boolean {
+  static equals(
+    a: Module | PlainMessage<Module> | undefined,
+    b: Module | PlainMessage<Module> | undefined,
+  ): boolean {
     return proto3.util.equals(Module, a, b);
   }
 }
@@ -748,7 +1034,7 @@ export class ABCIQueryRequest extends Message<ABCIQueryRequest> {
   /**
    * @generated from field: string path = 2;
    */
-  path = "";
+  path = '';
 
   /**
    * @generated from field: int64 height = 3;
@@ -766,27 +1052,39 @@ export class ABCIQueryRequest extends Message<ABCIQueryRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.ABCIQueryRequest";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.ABCIQueryRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 4, name: "prove", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'data', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: 'path', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'height', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 4, name: 'prove', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ABCIQueryRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ABCIQueryRequest {
     return new ABCIQueryRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ABCIQueryRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ABCIQueryRequest {
     return new ABCIQueryRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ABCIQueryRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ABCIQueryRequest {
     return new ABCIQueryRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ABCIQueryRequest | PlainMessage<ABCIQueryRequest> | undefined, b: ABCIQueryRequest | PlainMessage<ABCIQueryRequest> | undefined): boolean {
+  static equals(
+    a: ABCIQueryRequest | PlainMessage<ABCIQueryRequest> | undefined,
+    b: ABCIQueryRequest | PlainMessage<ABCIQueryRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(ABCIQueryRequest, a, b);
   }
 }
@@ -810,14 +1108,14 @@ export class ABCIQueryResponse extends Message<ABCIQueryResponse> {
    *
    * @generated from field: string log = 3;
    */
-  log = "";
+  log = '';
 
   /**
    * nondeterministic
    *
    * @generated from field: string info = 4;
    */
-  info = "";
+  info = '';
 
   /**
    * @generated from field: int64 index = 5;
@@ -847,7 +1145,7 @@ export class ABCIQueryResponse extends Message<ABCIQueryResponse> {
   /**
    * @generated from field: string codespace = 10;
    */
-  codespace = "";
+  codespace = '';
 
   constructor(data?: PartialMessage<ABCIQueryResponse>) {
     super();
@@ -855,32 +1153,44 @@ export class ABCIQueryResponse extends Message<ABCIQueryResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.ABCIQueryResponse";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.ABCIQueryResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "code", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "log", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "info", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "index", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 6, name: "key", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 7, name: "value", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 8, name: "proof_ops", kind: "message", T: ProofOps },
-    { no: 9, name: "height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 10, name: "codespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'code', kind: 'scalar', T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: 'log', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'info', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: 'index', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 6, name: 'key', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 7, name: 'value', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 8, name: 'proof_ops', kind: 'message', T: ProofOps },
+    { no: 9, name: 'height', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 10, name: 'codespace', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ABCIQueryResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ABCIQueryResponse {
     return new ABCIQueryResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ABCIQueryResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ABCIQueryResponse {
     return new ABCIQueryResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ABCIQueryResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ABCIQueryResponse {
     return new ABCIQueryResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ABCIQueryResponse | PlainMessage<ABCIQueryResponse> | undefined, b: ABCIQueryResponse | PlainMessage<ABCIQueryResponse> | undefined): boolean {
+  static equals(
+    a: ABCIQueryResponse | PlainMessage<ABCIQueryResponse> | undefined,
+    b: ABCIQueryResponse | PlainMessage<ABCIQueryResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(ABCIQueryResponse, a, b);
   }
 }
@@ -898,7 +1208,7 @@ export class ProofOp extends Message<ProofOp> {
   /**
    * @generated from field: string type = 1;
    */
-  type = "";
+  type = '';
 
   /**
    * @generated from field: bytes key = 2;
@@ -916,26 +1226,38 @@ export class ProofOp extends Message<ProofOp> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.ProofOp";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.ProofOp';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "key", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'type', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'key', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: 'data', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProofOp {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ProofOp {
     return new ProofOp().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProofOp {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ProofOp {
     return new ProofOp().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProofOp {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ProofOp {
     return new ProofOp().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ProofOp | PlainMessage<ProofOp> | undefined, b: ProofOp | PlainMessage<ProofOp> | undefined): boolean {
+  static equals(
+    a: ProofOp | PlainMessage<ProofOp> | undefined,
+    b: ProofOp | PlainMessage<ProofOp> | undefined,
+  ): boolean {
     return proto3.util.equals(ProofOp, a, b);
   }
 }
@@ -959,25 +1281,36 @@ export class ProofOps extends Message<ProofOps> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.ProofOps";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.ProofOps';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "ops", kind: "message", T: ProofOp, repeated: true },
+    { no: 1, name: 'ops', kind: 'message', T: ProofOp, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProofOps {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ProofOps {
     return new ProofOps().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProofOps {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ProofOps {
     return new ProofOps().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProofOps {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ProofOps {
     return new ProofOps().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ProofOps | PlainMessage<ProofOps> | undefined, b: ProofOps | PlainMessage<ProofOps> | undefined): boolean {
+  static equals(
+    a: ProofOps | PlainMessage<ProofOps> | undefined,
+    b: ProofOps | PlainMessage<ProofOps> | undefined,
+  ): boolean {
     return proto3.util.equals(ProofOps, a, b);
   }
 }
-

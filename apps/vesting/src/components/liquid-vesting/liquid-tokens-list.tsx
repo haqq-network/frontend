@@ -1,12 +1,4 @@
 import { useState } from 'react';
-// import { Button } from '../Button/Button';
-
-// const pendingTokens = [
-//   {
-//     amount: 12331,
-//     symbol: 'aLIQUID3',
-//   },
-// ];
 
 export interface LiquidToken {
   denom: string;

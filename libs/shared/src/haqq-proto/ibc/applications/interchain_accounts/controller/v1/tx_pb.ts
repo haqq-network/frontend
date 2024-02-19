@@ -3,10 +3,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { InterchainAccountPacketData } from "../../v1/packet_pb.js";
-import { Params } from "./controller_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { InterchainAccountPacketData } from '../../v1/packet_pb';
+import { Params } from './controller_pb';
 
 /**
  * MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount
@@ -17,17 +24,17 @@ export class MsgRegisterInterchainAccount extends Message<MsgRegisterInterchainA
   /**
    * @generated from field: string owner = 1;
    */
-  owner = "";
+  owner = '';
 
   /**
    * @generated from field: string connection_id = 2;
    */
-  connectionId = "";
+  connectionId = '';
 
   /**
    * @generated from field: string version = 3;
    */
-  version = "";
+  version = '';
 
   constructor(data?: PartialMessage<MsgRegisterInterchainAccount>) {
     super();
@@ -35,26 +42,53 @@ export class MsgRegisterInterchainAccount extends Message<MsgRegisterInterchainA
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "connection_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'owner', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'connection_id',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'version', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgRegisterInterchainAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgRegisterInterchainAccount {
     return new MsgRegisterInterchainAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgRegisterInterchainAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRegisterInterchainAccount {
     return new MsgRegisterInterchainAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgRegisterInterchainAccount {
-    return new MsgRegisterInterchainAccount().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRegisterInterchainAccount {
+    return new MsgRegisterInterchainAccount().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgRegisterInterchainAccount | PlainMessage<MsgRegisterInterchainAccount> | undefined, b: MsgRegisterInterchainAccount | PlainMessage<MsgRegisterInterchainAccount> | undefined): boolean {
+  static equals(
+    a:
+      | MsgRegisterInterchainAccount
+      | PlainMessage<MsgRegisterInterchainAccount>
+      | undefined,
+    b:
+      | MsgRegisterInterchainAccount
+      | PlainMessage<MsgRegisterInterchainAccount>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgRegisterInterchainAccount, a, b);
   }
 }
@@ -68,12 +102,12 @@ export class MsgRegisterInterchainAccountResponse extends Message<MsgRegisterInt
   /**
    * @generated from field: string channel_id = 1;
    */
-  channelId = "";
+  channelId = '';
 
   /**
    * @generated from field: string port_id = 2;
    */
-  portId = "";
+  portId = '';
 
   constructor(data?: PartialMessage<MsgRegisterInterchainAccountResponse>) {
     super();
@@ -81,25 +115,53 @@ export class MsgRegisterInterchainAccountResponse extends Message<MsgRegisterInt
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "channel_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "port_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'channel_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'port_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgRegisterInterchainAccountResponse {
-    return new MsgRegisterInterchainAccountResponse().fromBinary(bytes, options);
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgRegisterInterchainAccountResponse {
+    return new MsgRegisterInterchainAccountResponse().fromBinary(
+      bytes,
+      options,
+    );
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgRegisterInterchainAccountResponse {
-    return new MsgRegisterInterchainAccountResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRegisterInterchainAccountResponse {
+    return new MsgRegisterInterchainAccountResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgRegisterInterchainAccountResponse {
-    return new MsgRegisterInterchainAccountResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRegisterInterchainAccountResponse {
+    return new MsgRegisterInterchainAccountResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgRegisterInterchainAccountResponse | PlainMessage<MsgRegisterInterchainAccountResponse> | undefined, b: MsgRegisterInterchainAccountResponse | PlainMessage<MsgRegisterInterchainAccountResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgRegisterInterchainAccountResponse
+      | PlainMessage<MsgRegisterInterchainAccountResponse>
+      | undefined,
+    b:
+      | MsgRegisterInterchainAccountResponse
+      | PlainMessage<MsgRegisterInterchainAccountResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgRegisterInterchainAccountResponse, a, b);
   }
 }
@@ -113,12 +175,12 @@ export class MsgSendTx extends Message<MsgSendTx> {
   /**
    * @generated from field: string owner = 1;
    */
-  owner = "";
+  owner = '';
 
   /**
    * @generated from field: string connection_id = 2;
    */
-  connectionId = "";
+  connectionId = '';
 
   /**
    * @generated from field: ibc.applications.interchain_accounts.v1.InterchainAccountPacketData packet_data = 3;
@@ -139,27 +201,55 @@ export class MsgSendTx extends Message<MsgSendTx> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.controller.v1.MsgSendTx";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.controller.v1.MsgSendTx';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "connection_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "packet_data", kind: "message", T: InterchainAccountPacketData },
-    { no: 4, name: "relative_timeout", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'owner', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'connection_id',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'packet_data',
+      kind: 'message',
+      T: InterchainAccountPacketData,
+    },
+    {
+      no: 4,
+      name: 'relative_timeout',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgSendTx {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgSendTx {
     return new MsgSendTx().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgSendTx {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSendTx {
     return new MsgSendTx().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgSendTx {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSendTx {
     return new MsgSendTx().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgSendTx | PlainMessage<MsgSendTx> | undefined, b: MsgSendTx | PlainMessage<MsgSendTx> | undefined): boolean {
+  static equals(
+    a: MsgSendTx | PlainMessage<MsgSendTx> | undefined,
+    b: MsgSendTx | PlainMessage<MsgSendTx> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgSendTx, a, b);
   }
 }
@@ -181,24 +271,37 @@ export class MsgSendTxResponse extends Message<MsgSendTxResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "sequence", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'sequence', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgSendTxResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgSendTxResponse {
     return new MsgSendTxResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgSendTxResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSendTxResponse {
     return new MsgSendTxResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgSendTxResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSendTxResponse {
     return new MsgSendTxResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgSendTxResponse | PlainMessage<MsgSendTxResponse> | undefined, b: MsgSendTxResponse | PlainMessage<MsgSendTxResponse> | undefined): boolean {
+  static equals(
+    a: MsgSendTxResponse | PlainMessage<MsgSendTxResponse> | undefined,
+    b: MsgSendTxResponse | PlainMessage<MsgSendTxResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgSendTxResponse, a, b);
   }
 }
@@ -214,7 +317,7 @@ export class MsgUpdateParams extends Message<MsgUpdateParams> {
    *
    * @generated from field: string signer = 1;
    */
-  signer = "";
+  signer = '';
 
   /**
    * params defines the 27-interchain-accounts/controller parameters to update.
@@ -231,25 +334,38 @@ export class MsgUpdateParams extends Message<MsgUpdateParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams";
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "signer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "params", kind: "message", T: Params },
+    { no: 1, name: 'signer', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'params', kind: 'message', T: Params },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateParams {
     return new MsgUpdateParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateParams {
     return new MsgUpdateParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateParams {
     return new MsgUpdateParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgUpdateParams | PlainMessage<MsgUpdateParams> | undefined, b: MsgUpdateParams | PlainMessage<MsgUpdateParams> | undefined): boolean {
+  static equals(
+    a: MsgUpdateParams | PlainMessage<MsgUpdateParams> | undefined,
+    b: MsgUpdateParams | PlainMessage<MsgUpdateParams> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateParams, a, b);
   }
 }
@@ -266,24 +382,41 @@ export class MsgUpdateParamsResponse extends Message<MsgUpdateParamsResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateParamsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateParamsResponse {
     return new MsgUpdateParamsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateParamsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateParamsResponse {
     return new MsgUpdateParamsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateParamsResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateParamsResponse {
     return new MsgUpdateParamsResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgUpdateParamsResponse | PlainMessage<MsgUpdateParamsResponse> | undefined, b: MsgUpdateParamsResponse | PlainMessage<MsgUpdateParamsResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateParamsResponse
+      | PlainMessage<MsgUpdateParamsResponse>
+      | undefined,
+    b:
+      | MsgUpdateParamsResponse
+      | PlainMessage<MsgUpdateParamsResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateParamsResponse, a, b);
   }
 }
-

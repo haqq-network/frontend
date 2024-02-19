@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgLiquidate, MsgLiquidateResponse, MsgRedeem, MsgRedeemResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgLiquidate,
+  MsgLiquidateResponse,
+  MsgRedeem,
+  MsgRedeemResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the Msg service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service haqq.liquidvesting.v1.Msg
  */
 export const Msg = {
-  typeName: "haqq.liquidvesting.v1.Msg",
+  typeName: 'haqq.liquidvesting.v1.Msg',
   methods: {
     /**
      * Liquidate transforms specified amount of tokens locked on vesting account into a new liquid token
@@ -20,7 +25,7 @@ export const Msg = {
      * @generated from rpc haqq.liquidvesting.v1.Msg.Liquidate
      */
     liquidate: {
-      name: "Liquidate",
+      name: 'Liquidate',
       I: MsgLiquidate,
       O: MsgLiquidateResponse,
       kind: MethodKind.Unary,
@@ -31,11 +36,10 @@ export const Msg = {
      * @generated from rpc haqq.liquidvesting.v1.Msg.Redeem
      */
     redeem: {
-      name: "Redeem",
+      name: 'Redeem',
       I: MsgRedeem,
       O: MsgRedeemResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -3,8 +3,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgDeposit, MsgDepositResponse, MsgSubmitProposal, MsgSubmitProposalResponse, MsgVote, MsgVoteResponse, MsgVoteWeighted, MsgVoteWeightedResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgDeposit,
+  MsgDepositResponse,
+  MsgSubmitProposal,
+  MsgSubmitProposalResponse,
+  MsgVote,
+  MsgVoteResponse,
+  MsgVoteWeighted,
+  MsgVoteWeightedResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the bank Msg service.
@@ -12,7 +21,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.gov.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.gov.v1beta1.Msg",
+  typeName: 'cosmos.gov.v1beta1.Msg',
   methods: {
     /**
      * SubmitProposal defines a method to create new proposal given a content.
@@ -20,7 +29,7 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1beta1.Msg.SubmitProposal
      */
     submitProposal: {
-      name: "SubmitProposal",
+      name: 'SubmitProposal',
       I: MsgSubmitProposal,
       O: MsgSubmitProposalResponse,
       kind: MethodKind.Unary,
@@ -31,7 +40,7 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1beta1.Msg.Vote
      */
     vote: {
-      name: "Vote",
+      name: 'Vote',
       I: MsgVote,
       O: MsgVoteResponse,
       kind: MethodKind.Unary,
@@ -44,7 +53,7 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1beta1.Msg.VoteWeighted
      */
     voteWeighted: {
-      name: "VoteWeighted",
+      name: 'VoteWeighted',
       I: MsgVoteWeighted,
       O: MsgVoteWeightedResponse,
       kind: MethodKind.Unary,
@@ -55,11 +64,10 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1beta1.Msg.Deposit
      */
     deposit: {
-      name: "Deposit",
+      name: 'Deposit',
       I: MsgDeposit,
       O: MsgDepositResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgConvertCoin, MsgConvertCoinResponse, MsgConvertERC20, MsgConvertERC20Response, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgConvertCoin,
+  MsgConvertCoinResponse,
+  MsgConvertERC20,
+  MsgConvertERC20Response,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the erc20 Msg service.
@@ -12,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service evmos.erc20.v1.Msg
  */
 export const Msg = {
-  typeName: "evmos.erc20.v1.Msg",
+  typeName: 'evmos.erc20.v1.Msg',
   methods: {
     /**
      * ConvertCoin mints a ERC20 representation of the native Cosmos coin denom
@@ -21,7 +28,7 @@ export const Msg = {
      * @generated from rpc evmos.erc20.v1.Msg.ConvertCoin
      */
     convertCoin: {
-      name: "ConvertCoin",
+      name: 'ConvertCoin',
       I: MsgConvertCoin,
       O: MsgConvertCoinResponse,
       kind: MethodKind.Unary,
@@ -33,7 +40,7 @@ export const Msg = {
      * @generated from rpc evmos.erc20.v1.Msg.ConvertERC20
      */
     convertERC20: {
-      name: "ConvertERC20",
+      name: 'ConvertERC20',
       I: MsgConvertERC20,
       O: MsgConvertERC20Response,
       kind: MethodKind.Unary,
@@ -46,11 +53,10 @@ export const Msg = {
      * @generated from rpc evmos.erc20.v1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

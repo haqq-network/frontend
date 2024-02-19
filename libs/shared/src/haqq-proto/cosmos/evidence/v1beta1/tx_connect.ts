@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgSubmitEvidence, MsgSubmitEvidenceResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { MsgSubmitEvidence, MsgSubmitEvidenceResponse } from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the evidence Msg service.
@@ -12,7 +12,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.evidence.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.evidence.v1beta1.Msg",
+  typeName: 'cosmos.evidence.v1beta1.Msg',
   methods: {
     /**
      * SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
@@ -21,11 +21,10 @@ export const Msg = {
      * @generated from rpc cosmos.evidence.v1beta1.Msg.SubmitEvidence
      */
     submitEvidence: {
-      name: "SubmitEvidence",
+      name: 'SubmitEvidence',
       I: MsgSubmitEvidence,
       O: MsgSubmitEvidenceResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

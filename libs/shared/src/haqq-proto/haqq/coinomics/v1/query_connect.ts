@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryMaxSupplyRequest, QueryMaxSupplyResponse, QueryParamsRequest, QueryParamsResponse, QueryRewardCoefficientRequest, QueryRewardCoefficientResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryMaxSupplyRequest,
+  QueryMaxSupplyResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryRewardCoefficientRequest,
+  QueryRewardCoefficientResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service.
@@ -12,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service haqq.coinomics.v1.Query
  */
 export const Query = {
-  typeName: "haqq.coinomics.v1.Query",
+  typeName: 'haqq.coinomics.v1.Query',
   methods: {
     /**
      * MaxSupply retrieves total coins of all eras and when mint ended.
@@ -20,7 +27,7 @@ export const Query = {
      * @generated from rpc haqq.coinomics.v1.Query.MaxSupply
      */
     maxSupply: {
-      name: "MaxSupply",
+      name: 'MaxSupply',
       I: QueryMaxSupplyRequest,
       O: QueryMaxSupplyResponse,
       kind: MethodKind.Unary,
@@ -31,7 +38,7 @@ export const Query = {
      * @generated from rpc haqq.coinomics.v1.Query.RewardCoefficient
      */
     rewardCoefficient: {
-      name: "RewardCoefficient",
+      name: 'RewardCoefficient',
       I: QueryRewardCoefficientRequest,
       O: QueryRewardCoefficientResponse,
       kind: MethodKind.Unary,
@@ -42,11 +49,10 @@ export const Query = {
      * @generated from rpc haqq.coinomics.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

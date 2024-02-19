@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware
@@ -24,7 +31,7 @@ export class IncentivizedAcknowledgement extends Message<IncentivizedAcknowledge
    *
    * @generated from field: string forward_relayer_address = 2;
    */
-  forwardRelayerAddress = "";
+  forwardRelayerAddress = '';
 
   /**
    * success flag of the base application callback
@@ -39,27 +46,63 @@ export class IncentivizedAcknowledgement extends Message<IncentivizedAcknowledge
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.IncentivizedAcknowledgement";
+  static readonly typeName =
+    'ibc.applications.fee.v1.IncentivizedAcknowledgement';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "app_acknowledgement", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "forward_relayer_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "underlying_app_success", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 1,
+      name: 'app_acknowledgement',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    {
+      no: 2,
+      name: 'forward_relayer_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'underlying_app_success',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IncentivizedAcknowledgement {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): IncentivizedAcknowledgement {
     return new IncentivizedAcknowledgement().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IncentivizedAcknowledgement {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): IncentivizedAcknowledgement {
     return new IncentivizedAcknowledgement().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IncentivizedAcknowledgement {
-    return new IncentivizedAcknowledgement().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): IncentivizedAcknowledgement {
+    return new IncentivizedAcknowledgement().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: IncentivizedAcknowledgement | PlainMessage<IncentivizedAcknowledgement> | undefined, b: IncentivizedAcknowledgement | PlainMessage<IncentivizedAcknowledgement> | undefined): boolean {
+  static equals(
+    a:
+      | IncentivizedAcknowledgement
+      | PlainMessage<IncentivizedAcknowledgement>
+      | undefined,
+    b:
+      | IncentivizedAcknowledgement
+      | PlainMessage<IncentivizedAcknowledgement>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(IncentivizedAcknowledgement, a, b);
   }
 }
-

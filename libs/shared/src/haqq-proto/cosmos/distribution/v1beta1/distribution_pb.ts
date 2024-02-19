@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { Coin, DecCoin } from "../../base/v1beta1/coin_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { Coin, DecCoin } from '../../base/v1beta1/coin_pb';
 
 /**
  * Params defines the set of params for the distribution module.
@@ -16,7 +23,7 @@ export class Params extends Message<Params> {
   /**
    * @generated from field: string community_tax = 1;
    */
-  communityTax = "";
+  communityTax = '';
 
   /**
    * Deprecated: The base_proposer_reward field is deprecated and is no longer used
@@ -25,7 +32,7 @@ export class Params extends Message<Params> {
    * @generated from field: string base_proposer_reward = 2 [deprecated = true];
    * @deprecated
    */
-  baseProposerReward = "";
+  baseProposerReward = '';
 
   /**
    * Deprecated: The bonus_proposer_reward field is deprecated and is no longer used
@@ -34,7 +41,7 @@ export class Params extends Message<Params> {
    * @generated from field: string bonus_proposer_reward = 3 [deprecated = true];
    * @deprecated
    */
-  bonusProposerReward = "";
+  bonusProposerReward = '';
 
   /**
    * @generated from field: bool withdraw_addr_enabled = 4;
@@ -47,27 +54,59 @@ export class Params extends Message<Params> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.Params";
+  static readonly typeName = 'cosmos.distribution.v1beta1.Params';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "community_tax", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "base_proposer_reward", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "bonus_proposer_reward", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "withdraw_addr_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 1,
+      name: 'community_tax',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'base_proposer_reward',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'bonus_proposer_reward',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 4,
+      name: 'withdraw_addr_enabled',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Params {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Params {
     return new Params().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Params {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Params {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Params | PlainMessage<Params> | undefined, b: Params | PlainMessage<Params> | undefined): boolean {
+  static equals(
+    a: Params | PlainMessage<Params> | undefined,
+    b: Params | PlainMessage<Params> | undefined,
+  ): boolean {
     return proto3.util.equals(Params, a, b);
   }
 }
@@ -105,25 +144,55 @@ export class ValidatorHistoricalRewards extends Message<ValidatorHistoricalRewar
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.ValidatorHistoricalRewards";
+  static readonly typeName =
+    'cosmos.distribution.v1beta1.ValidatorHistoricalRewards';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "cumulative_reward_ratio", kind: "message", T: DecCoin, repeated: true },
-    { no: 2, name: "reference_count", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    {
+      no: 1,
+      name: 'cumulative_reward_ratio',
+      kind: 'message',
+      T: DecCoin,
+      repeated: true,
+    },
+    {
+      no: 2,
+      name: 'reference_count',
+      kind: 'scalar',
+      T: 13 /* ScalarType.UINT32 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorHistoricalRewards {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorHistoricalRewards {
     return new ValidatorHistoricalRewards().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorHistoricalRewards {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorHistoricalRewards {
     return new ValidatorHistoricalRewards().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorHistoricalRewards {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorHistoricalRewards {
     return new ValidatorHistoricalRewards().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ValidatorHistoricalRewards | PlainMessage<ValidatorHistoricalRewards> | undefined, b: ValidatorHistoricalRewards | PlainMessage<ValidatorHistoricalRewards> | undefined): boolean {
+  static equals(
+    a:
+      | ValidatorHistoricalRewards
+      | PlainMessage<ValidatorHistoricalRewards>
+      | undefined,
+    b:
+      | ValidatorHistoricalRewards
+      | PlainMessage<ValidatorHistoricalRewards>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorHistoricalRewards, a, b);
   }
 }
@@ -152,25 +221,44 @@ export class ValidatorCurrentRewards extends Message<ValidatorCurrentRewards> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.ValidatorCurrentRewards";
+  static readonly typeName =
+    'cosmos.distribution.v1beta1.ValidatorCurrentRewards';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "rewards", kind: "message", T: DecCoin, repeated: true },
-    { no: 2, name: "period", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'rewards', kind: 'message', T: DecCoin, repeated: true },
+    { no: 2, name: 'period', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorCurrentRewards {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorCurrentRewards {
     return new ValidatorCurrentRewards().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorCurrentRewards {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorCurrentRewards {
     return new ValidatorCurrentRewards().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorCurrentRewards {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorCurrentRewards {
     return new ValidatorCurrentRewards().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ValidatorCurrentRewards | PlainMessage<ValidatorCurrentRewards> | undefined, b: ValidatorCurrentRewards | PlainMessage<ValidatorCurrentRewards> | undefined): boolean {
+  static equals(
+    a:
+      | ValidatorCurrentRewards
+      | PlainMessage<ValidatorCurrentRewards>
+      | undefined,
+    b:
+      | ValidatorCurrentRewards
+      | PlainMessage<ValidatorCurrentRewards>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorCurrentRewards, a, b);
   }
 }
@@ -193,24 +281,46 @@ export class ValidatorAccumulatedCommission extends Message<ValidatorAccumulated
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.ValidatorAccumulatedCommission";
+  static readonly typeName =
+    'cosmos.distribution.v1beta1.ValidatorAccumulatedCommission';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "commission", kind: "message", T: DecCoin, repeated: true },
+    { no: 1, name: 'commission', kind: 'message', T: DecCoin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorAccumulatedCommission {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorAccumulatedCommission {
     return new ValidatorAccumulatedCommission().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorAccumulatedCommission {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorAccumulatedCommission {
     return new ValidatorAccumulatedCommission().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorAccumulatedCommission {
-    return new ValidatorAccumulatedCommission().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorAccumulatedCommission {
+    return new ValidatorAccumulatedCommission().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: ValidatorAccumulatedCommission | PlainMessage<ValidatorAccumulatedCommission> | undefined, b: ValidatorAccumulatedCommission | PlainMessage<ValidatorAccumulatedCommission> | undefined): boolean {
+  static equals(
+    a:
+      | ValidatorAccumulatedCommission
+      | PlainMessage<ValidatorAccumulatedCommission>
+      | undefined,
+    b:
+      | ValidatorAccumulatedCommission
+      | PlainMessage<ValidatorAccumulatedCommission>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorAccumulatedCommission, a, b);
   }
 }
@@ -233,24 +343,46 @@ export class ValidatorOutstandingRewards extends Message<ValidatorOutstandingRew
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.ValidatorOutstandingRewards";
+  static readonly typeName =
+    'cosmos.distribution.v1beta1.ValidatorOutstandingRewards';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "rewards", kind: "message", T: DecCoin, repeated: true },
+    { no: 1, name: 'rewards', kind: 'message', T: DecCoin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorOutstandingRewards {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorOutstandingRewards {
     return new ValidatorOutstandingRewards().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorOutstandingRewards {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorOutstandingRewards {
     return new ValidatorOutstandingRewards().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorOutstandingRewards {
-    return new ValidatorOutstandingRewards().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorOutstandingRewards {
+    return new ValidatorOutstandingRewards().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: ValidatorOutstandingRewards | PlainMessage<ValidatorOutstandingRewards> | undefined, b: ValidatorOutstandingRewards | PlainMessage<ValidatorOutstandingRewards> | undefined): boolean {
+  static equals(
+    a:
+      | ValidatorOutstandingRewards
+      | PlainMessage<ValidatorOutstandingRewards>
+      | undefined,
+    b:
+      | ValidatorOutstandingRewards
+      | PlainMessage<ValidatorOutstandingRewards>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorOutstandingRewards, a, b);
   }
 }
@@ -272,7 +404,7 @@ export class ValidatorSlashEvent extends Message<ValidatorSlashEvent> {
   /**
    * @generated from field: string fraction = 2;
    */
-  fraction = "";
+  fraction = '';
 
   constructor(data?: PartialMessage<ValidatorSlashEvent>) {
     super();
@@ -280,25 +412,42 @@ export class ValidatorSlashEvent extends Message<ValidatorSlashEvent> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.ValidatorSlashEvent";
+  static readonly typeName = 'cosmos.distribution.v1beta1.ValidatorSlashEvent';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "validator_period", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "fraction", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'validator_period',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'fraction', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorSlashEvent {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorSlashEvent {
     return new ValidatorSlashEvent().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorSlashEvent {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorSlashEvent {
     return new ValidatorSlashEvent().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorSlashEvent {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorSlashEvent {
     return new ValidatorSlashEvent().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ValidatorSlashEvent | PlainMessage<ValidatorSlashEvent> | undefined, b: ValidatorSlashEvent | PlainMessage<ValidatorSlashEvent> | undefined): boolean {
+  static equals(
+    a: ValidatorSlashEvent | PlainMessage<ValidatorSlashEvent> | undefined,
+    b: ValidatorSlashEvent | PlainMessage<ValidatorSlashEvent> | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorSlashEvent, a, b);
   }
 }
@@ -320,24 +469,42 @@ export class ValidatorSlashEvents extends Message<ValidatorSlashEvents> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.ValidatorSlashEvents";
+  static readonly typeName = 'cosmos.distribution.v1beta1.ValidatorSlashEvents';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "validator_slash_events", kind: "message", T: ValidatorSlashEvent, repeated: true },
+    {
+      no: 1,
+      name: 'validator_slash_events',
+      kind: 'message',
+      T: ValidatorSlashEvent,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorSlashEvents {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorSlashEvents {
     return new ValidatorSlashEvents().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorSlashEvents {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorSlashEvents {
     return new ValidatorSlashEvents().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorSlashEvents {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorSlashEvents {
     return new ValidatorSlashEvents().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ValidatorSlashEvents | PlainMessage<ValidatorSlashEvents> | undefined, b: ValidatorSlashEvents | PlainMessage<ValidatorSlashEvents> | undefined): boolean {
+  static equals(
+    a: ValidatorSlashEvents | PlainMessage<ValidatorSlashEvents> | undefined,
+    b: ValidatorSlashEvents | PlainMessage<ValidatorSlashEvents> | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorSlashEvents, a, b);
   }
 }
@@ -359,24 +526,42 @@ export class FeePool extends Message<FeePool> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.FeePool";
+  static readonly typeName = 'cosmos.distribution.v1beta1.FeePool';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "community_pool", kind: "message", T: DecCoin, repeated: true },
+    {
+      no: 1,
+      name: 'community_pool',
+      kind: 'message',
+      T: DecCoin,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FeePool {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): FeePool {
     return new FeePool().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FeePool {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): FeePool {
     return new FeePool().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FeePool {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): FeePool {
     return new FeePool().fromJsonString(jsonString, options);
   }
 
-  static equals(a: FeePool | PlainMessage<FeePool> | undefined, b: FeePool | PlainMessage<FeePool> | undefined): boolean {
+  static equals(
+    a: FeePool | PlainMessage<FeePool> | undefined,
+    b: FeePool | PlainMessage<FeePool> | undefined,
+  ): boolean {
     return proto3.util.equals(FeePool, a, b);
   }
 }
@@ -398,17 +583,17 @@ export class CommunityPoolSpendProposal extends Message<CommunityPoolSpendPropos
   /**
    * @generated from field: string title = 1;
    */
-  title = "";
+  title = '';
 
   /**
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   /**
    * @generated from field: string recipient = 3;
    */
-  recipient = "";
+  recipient = '';
 
   /**
    * @generated from field: repeated cosmos.base.v1beta1.Coin amount = 4;
@@ -421,27 +606,51 @@ export class CommunityPoolSpendProposal extends Message<CommunityPoolSpendPropos
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.CommunityPoolSpendProposal";
+  static readonly typeName =
+    'cosmos.distribution.v1beta1.CommunityPoolSpendProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "recipient", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "amount", kind: "message", T: Coin, repeated: true },
+    { no: 1, name: 'title', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'recipient', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'amount', kind: 'message', T: Coin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CommunityPoolSpendProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): CommunityPoolSpendProposal {
     return new CommunityPoolSpendProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CommunityPoolSpendProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): CommunityPoolSpendProposal {
     return new CommunityPoolSpendProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CommunityPoolSpendProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): CommunityPoolSpendProposal {
     return new CommunityPoolSpendProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: CommunityPoolSpendProposal | PlainMessage<CommunityPoolSpendProposal> | undefined, b: CommunityPoolSpendProposal | PlainMessage<CommunityPoolSpendProposal> | undefined): boolean {
+  static equals(
+    a:
+      | CommunityPoolSpendProposal
+      | PlainMessage<CommunityPoolSpendProposal>
+      | undefined,
+    b:
+      | CommunityPoolSpendProposal
+      | PlainMessage<CommunityPoolSpendProposal>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(CommunityPoolSpendProposal, a, b);
   }
 }
@@ -465,7 +674,7 @@ export class DelegatorStartingInfo extends Message<DelegatorStartingInfo> {
   /**
    * @generated from field: string stake = 2;
    */
-  stake = "";
+  stake = '';
 
   /**
    * @generated from field: uint64 height = 3;
@@ -478,26 +687,44 @@ export class DelegatorStartingInfo extends Message<DelegatorStartingInfo> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.DelegatorStartingInfo";
+  static readonly typeName =
+    'cosmos.distribution.v1beta1.DelegatorStartingInfo';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "previous_period", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "stake", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "height", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'previous_period',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'stake', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'height', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DelegatorStartingInfo {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): DelegatorStartingInfo {
     return new DelegatorStartingInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DelegatorStartingInfo {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): DelegatorStartingInfo {
     return new DelegatorStartingInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DelegatorStartingInfo {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): DelegatorStartingInfo {
     return new DelegatorStartingInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: DelegatorStartingInfo | PlainMessage<DelegatorStartingInfo> | undefined, b: DelegatorStartingInfo | PlainMessage<DelegatorStartingInfo> | undefined): boolean {
+  static equals(
+    a: DelegatorStartingInfo | PlainMessage<DelegatorStartingInfo> | undefined,
+    b: DelegatorStartingInfo | PlainMessage<DelegatorStartingInfo> | undefined,
+  ): boolean {
     return proto3.util.equals(DelegatorStartingInfo, a, b);
   }
 }
@@ -512,7 +739,7 @@ export class DelegationDelegatorReward extends Message<DelegationDelegatorReward
   /**
    * @generated from field: string validator_address = 1;
    */
-  validatorAddress = "";
+  validatorAddress = '';
 
   /**
    * @generated from field: repeated cosmos.base.v1beta1.DecCoin reward = 2;
@@ -525,25 +752,49 @@ export class DelegationDelegatorReward extends Message<DelegationDelegatorReward
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.DelegationDelegatorReward";
+  static readonly typeName =
+    'cosmos.distribution.v1beta1.DelegationDelegatorReward';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "validator_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "reward", kind: "message", T: DecCoin, repeated: true },
+    {
+      no: 1,
+      name: 'validator_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 2, name: 'reward', kind: 'message', T: DecCoin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DelegationDelegatorReward {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): DelegationDelegatorReward {
     return new DelegationDelegatorReward().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DelegationDelegatorReward {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): DelegationDelegatorReward {
     return new DelegationDelegatorReward().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DelegationDelegatorReward {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): DelegationDelegatorReward {
     return new DelegationDelegatorReward().fromJsonString(jsonString, options);
   }
 
-  static equals(a: DelegationDelegatorReward | PlainMessage<DelegationDelegatorReward> | undefined, b: DelegationDelegatorReward | PlainMessage<DelegationDelegatorReward> | undefined): boolean {
+  static equals(
+    a:
+      | DelegationDelegatorReward
+      | PlainMessage<DelegationDelegatorReward>
+      | undefined,
+    b:
+      | DelegationDelegatorReward
+      | PlainMessage<DelegationDelegatorReward>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(DelegationDelegatorReward, a, b);
   }
 }
@@ -558,27 +809,27 @@ export class CommunityPoolSpendProposalWithDeposit extends Message<CommunityPool
   /**
    * @generated from field: string title = 1;
    */
-  title = "";
+  title = '';
 
   /**
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   /**
    * @generated from field: string recipient = 3;
    */
-  recipient = "";
+  recipient = '';
 
   /**
    * @generated from field: string amount = 4;
    */
-  amount = "";
+  amount = '';
 
   /**
    * @generated from field: string deposit = 5;
    */
-  deposit = "";
+  deposit = '';
 
   constructor(data?: PartialMessage<CommunityPoolSpendProposalWithDeposit>) {
     super();
@@ -586,29 +837,61 @@ export class CommunityPoolSpendProposalWithDeposit extends Message<CommunityPool
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit";
+  static readonly typeName =
+    'cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "recipient", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "amount", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "deposit", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'title', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'recipient', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'amount', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: 'deposit', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CommunityPoolSpendProposalWithDeposit {
-    return new CommunityPoolSpendProposalWithDeposit().fromBinary(bytes, options);
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): CommunityPoolSpendProposalWithDeposit {
+    return new CommunityPoolSpendProposalWithDeposit().fromBinary(
+      bytes,
+      options,
+    );
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CommunityPoolSpendProposalWithDeposit {
-    return new CommunityPoolSpendProposalWithDeposit().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): CommunityPoolSpendProposalWithDeposit {
+    return new CommunityPoolSpendProposalWithDeposit().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CommunityPoolSpendProposalWithDeposit {
-    return new CommunityPoolSpendProposalWithDeposit().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): CommunityPoolSpendProposalWithDeposit {
+    return new CommunityPoolSpendProposalWithDeposit().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: CommunityPoolSpendProposalWithDeposit | PlainMessage<CommunityPoolSpendProposalWithDeposit> | undefined, b: CommunityPoolSpendProposalWithDeposit | PlainMessage<CommunityPoolSpendProposalWithDeposit> | undefined): boolean {
+  static equals(
+    a:
+      | CommunityPoolSpendProposalWithDeposit
+      | PlainMessage<CommunityPoolSpendProposalWithDeposit>
+      | undefined,
+    b:
+      | CommunityPoolSpendProposalWithDeposit
+      | PlainMessage<CommunityPoolSpendProposalWithDeposit>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(CommunityPoolSpendProposalWithDeposit, a, b);
   }
 }
-

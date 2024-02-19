@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Height } from "../../../core/client/v1/client_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Height } from '../../../core/client/v1/client_pb';
 
 /**
  * ClientState defines the 09-localhost client state
@@ -26,25 +33,36 @@ export class ClientState extends Message<ClientState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.localhost.v2.ClientState";
+  static readonly typeName = 'ibc.lightclients.localhost.v2.ClientState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "latest_height", kind: "message", T: Height },
+    { no: 1, name: 'latest_height', kind: 'message', T: Height },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ClientState {
     return new ClientState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ClientState {
     return new ClientState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ClientState {
     return new ClientState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ClientState | PlainMessage<ClientState> | undefined, b: ClientState | PlainMessage<ClientState> | undefined): boolean {
+  static equals(
+    a: ClientState | PlainMessage<ClientState> | undefined,
+    b: ClientState | PlainMessage<ClientState> | undefined,
+  ): boolean {
     return proto3.util.equals(ClientState, a, b);
   }
 }
-

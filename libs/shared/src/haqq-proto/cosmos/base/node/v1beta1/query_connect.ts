@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConfigRequest, ConfigResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { ConfigRequest, ConfigResponse } from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Service defines the gRPC querier service for node related queries.
@@ -12,7 +12,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.base.node.v1beta1.Service
  */
 export const Service = {
-  typeName: "cosmos.base.node.v1beta1.Service",
+  typeName: 'cosmos.base.node.v1beta1.Service',
   methods: {
     /**
      * Config queries for the operator configuration.
@@ -20,11 +20,10 @@ export const Service = {
      * @generated from rpc cosmos.base.node.v1beta1.Service.Config
      */
     config: {
-      name: "Config",
+      name: 'Config',
       I: ConfigRequest,
       O: ConfigResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

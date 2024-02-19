@@ -5,9 +5,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3 } from "@bufbuild/protobuf";
-import { BIP44Params } from "../../hd/v1/hd_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3 } from '@bufbuild/protobuf';
+import { BIP44Params } from '../../hd/v1/hd_pb';
 
 /**
  * Record is used for representing a key in the keyring.
@@ -20,7 +27,7 @@ export class Record extends Message<Record> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * pub_key represents a public key in any format
@@ -34,39 +41,44 @@ export class Record extends Message<Record> {
    *
    * @generated from oneof cosmos.crypto.keyring.v1.Record.item
    */
-  item: {
-    /**
-     * local stores the private key locally.
-     *
-     * @generated from field: cosmos.crypto.keyring.v1.Record.Local local = 3;
-     */
-    value: Record_Local;
-    case: "local";
-  } | {
-    /**
-     * ledger stores the information about a Ledger key.
-     *
-     * @generated from field: cosmos.crypto.keyring.v1.Record.Ledger ledger = 4;
-     */
-    value: Record_Ledger;
-    case: "ledger";
-  } | {
-    /**
-     * Multi does not store any other information.
-     *
-     * @generated from field: cosmos.crypto.keyring.v1.Record.Multi multi = 5;
-     */
-    value: Record_Multi;
-    case: "multi";
-  } | {
-    /**
-     * Offline does not store any other information.
-     *
-     * @generated from field: cosmos.crypto.keyring.v1.Record.Offline offline = 6;
-     */
-    value: Record_Offline;
-    case: "offline";
-  } | { case: undefined; value?: undefined } = { case: undefined };
+  item:
+    | {
+        /**
+         * local stores the private key locally.
+         *
+         * @generated from field: cosmos.crypto.keyring.v1.Record.Local local = 3;
+         */
+        value: Record_Local;
+        case: 'local';
+      }
+    | {
+        /**
+         * ledger stores the information about a Ledger key.
+         *
+         * @generated from field: cosmos.crypto.keyring.v1.Record.Ledger ledger = 4;
+         */
+        value: Record_Ledger;
+        case: 'ledger';
+      }
+    | {
+        /**
+         * Multi does not store any other information.
+         *
+         * @generated from field: cosmos.crypto.keyring.v1.Record.Multi multi = 5;
+         */
+        value: Record_Multi;
+        case: 'multi';
+      }
+    | {
+        /**
+         * Offline does not store any other information.
+         *
+         * @generated from field: cosmos.crypto.keyring.v1.Record.Offline offline = 6;
+         */
+        value: Record_Offline;
+        case: 'offline';
+      }
+    | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<Record>) {
     super();
@@ -74,29 +86,47 @@ export class Record extends Message<Record> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.keyring.v1.Record";
+  static readonly typeName = 'cosmos.crypto.keyring.v1.Record';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "pub_key", kind: "message", T: Any },
-    { no: 3, name: "local", kind: "message", T: Record_Local, oneof: "item" },
-    { no: 4, name: "ledger", kind: "message", T: Record_Ledger, oneof: "item" },
-    { no: 5, name: "multi", kind: "message", T: Record_Multi, oneof: "item" },
-    { no: 6, name: "offline", kind: "message", T: Record_Offline, oneof: "item" },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'pub_key', kind: 'message', T: Any },
+    { no: 3, name: 'local', kind: 'message', T: Record_Local, oneof: 'item' },
+    { no: 4, name: 'ledger', kind: 'message', T: Record_Ledger, oneof: 'item' },
+    { no: 5, name: 'multi', kind: 'message', T: Record_Multi, oneof: 'item' },
+    {
+      no: 6,
+      name: 'offline',
+      kind: 'message',
+      T: Record_Offline,
+      oneof: 'item',
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Record {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Record {
     return new Record().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Record {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Record {
     return new Record().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Record {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Record {
     return new Record().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Record | PlainMessage<Record> | undefined, b: Record | PlainMessage<Record> | undefined): boolean {
+  static equals(
+    a: Record | PlainMessage<Record> | undefined,
+    b: Record | PlainMessage<Record> | undefined,
+  ): boolean {
     return proto3.util.equals(Record, a, b);
   }
 }
@@ -119,24 +149,36 @@ export class Record_Local extends Message<Record_Local> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.keyring.v1.Record.Local";
+  static readonly typeName = 'cosmos.crypto.keyring.v1.Record.Local';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "priv_key", kind: "message", T: Any },
+    { no: 1, name: 'priv_key', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Record_Local {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Record_Local {
     return new Record_Local().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Record_Local {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Record_Local {
     return new Record_Local().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Record_Local {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Record_Local {
     return new Record_Local().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Record_Local | PlainMessage<Record_Local> | undefined, b: Record_Local | PlainMessage<Record_Local> | undefined): boolean {
+  static equals(
+    a: Record_Local | PlainMessage<Record_Local> | undefined,
+    b: Record_Local | PlainMessage<Record_Local> | undefined,
+  ): boolean {
     return proto3.util.equals(Record_Local, a, b);
   }
 }
@@ -158,24 +200,36 @@ export class Record_Ledger extends Message<Record_Ledger> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.keyring.v1.Record.Ledger";
+  static readonly typeName = 'cosmos.crypto.keyring.v1.Record.Ledger';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "path", kind: "message", T: BIP44Params },
+    { no: 1, name: 'path', kind: 'message', T: BIP44Params },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Record_Ledger {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Record_Ledger {
     return new Record_Ledger().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Record_Ledger {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Record_Ledger {
     return new Record_Ledger().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Record_Ledger {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Record_Ledger {
     return new Record_Ledger().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Record_Ledger | PlainMessage<Record_Ledger> | undefined, b: Record_Ledger | PlainMessage<Record_Ledger> | undefined): boolean {
+  static equals(
+    a: Record_Ledger | PlainMessage<Record_Ledger> | undefined,
+    b: Record_Ledger | PlainMessage<Record_Ledger> | undefined,
+  ): boolean {
     return proto3.util.equals(Record_Ledger, a, b);
   }
 }
@@ -192,23 +246,34 @@ export class Record_Multi extends Message<Record_Multi> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.keyring.v1.Record.Multi";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.crypto.keyring.v1.Record.Multi';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Record_Multi {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Record_Multi {
     return new Record_Multi().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Record_Multi {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Record_Multi {
     return new Record_Multi().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Record_Multi {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Record_Multi {
     return new Record_Multi().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Record_Multi | PlainMessage<Record_Multi> | undefined, b: Record_Multi | PlainMessage<Record_Multi> | undefined): boolean {
+  static equals(
+    a: Record_Multi | PlainMessage<Record_Multi> | undefined,
+    b: Record_Multi | PlainMessage<Record_Multi> | undefined,
+  ): boolean {
     return proto3.util.equals(Record_Multi, a, b);
   }
 }
@@ -225,24 +290,34 @@ export class Record_Offline extends Message<Record_Offline> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.keyring.v1.Record.Offline";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.crypto.keyring.v1.Record.Offline';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Record_Offline {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Record_Offline {
     return new Record_Offline().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Record_Offline {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Record_Offline {
     return new Record_Offline().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Record_Offline {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Record_Offline {
     return new Record_Offline().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Record_Offline | PlainMessage<Record_Offline> | undefined, b: Record_Offline | PlainMessage<Record_Offline> | undefined): boolean {
+  static equals(
+    a: Record_Offline | PlainMessage<Record_Offline> | undefined,
+    b: Record_Offline | PlainMessage<Record_Offline> | undefined,
+  ): boolean {
     return proto3.util.equals(Record_Offline, a, b);
   }
 }
-

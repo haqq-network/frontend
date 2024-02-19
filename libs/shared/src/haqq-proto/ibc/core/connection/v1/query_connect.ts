@@ -3,8 +3,21 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryClientConnectionsRequest, QueryClientConnectionsResponse, QueryConnectionClientStateRequest, QueryConnectionClientStateResponse, QueryConnectionConsensusStateRequest, QueryConnectionConsensusStateResponse, QueryConnectionParamsRequest, QueryConnectionParamsResponse, QueryConnectionRequest, QueryConnectionResponse, QueryConnectionsRequest, QueryConnectionsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryClientConnectionsRequest,
+  QueryClientConnectionsResponse,
+  QueryConnectionClientStateRequest,
+  QueryConnectionClientStateResponse,
+  QueryConnectionConsensusStateRequest,
+  QueryConnectionConsensusStateResponse,
+  QueryConnectionParamsRequest,
+  QueryConnectionParamsResponse,
+  QueryConnectionRequest,
+  QueryConnectionResponse,
+  QueryConnectionsRequest,
+  QueryConnectionsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service
@@ -12,7 +25,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.core.connection.v1.Query
  */
 export const Query = {
-  typeName: "ibc.core.connection.v1.Query",
+  typeName: 'ibc.core.connection.v1.Query',
   methods: {
     /**
      * Connection queries an IBC connection end.
@@ -20,7 +33,7 @@ export const Query = {
      * @generated from rpc ibc.core.connection.v1.Query.Connection
      */
     connection: {
-      name: "Connection",
+      name: 'Connection',
       I: QueryConnectionRequest,
       O: QueryConnectionResponse,
       kind: MethodKind.Unary,
@@ -31,7 +44,7 @@ export const Query = {
      * @generated from rpc ibc.core.connection.v1.Query.Connections
      */
     connections: {
-      name: "Connections",
+      name: 'Connections',
       I: QueryConnectionsRequest,
       O: QueryConnectionsResponse,
       kind: MethodKind.Unary,
@@ -43,7 +56,7 @@ export const Query = {
      * @generated from rpc ibc.core.connection.v1.Query.ClientConnections
      */
     clientConnections: {
-      name: "ClientConnections",
+      name: 'ClientConnections',
       I: QueryClientConnectionsRequest,
       O: QueryClientConnectionsResponse,
       kind: MethodKind.Unary,
@@ -55,7 +68,7 @@ export const Query = {
      * @generated from rpc ibc.core.connection.v1.Query.ConnectionClientState
      */
     connectionClientState: {
-      name: "ConnectionClientState",
+      name: 'ConnectionClientState',
       I: QueryConnectionClientStateRequest,
       O: QueryConnectionClientStateResponse,
       kind: MethodKind.Unary,
@@ -67,7 +80,7 @@ export const Query = {
      * @generated from rpc ibc.core.connection.v1.Query.ConnectionConsensusState
      */
     connectionConsensusState: {
-      name: "ConnectionConsensusState",
+      name: 'ConnectionConsensusState',
       I: QueryConnectionConsensusStateRequest,
       O: QueryConnectionConsensusStateResponse,
       kind: MethodKind.Unary,
@@ -78,11 +91,10 @@ export const Query = {
      * @generated from rpc ibc.core.connection.v1.Query.ConnectionParams
      */
     connectionParams: {
-      name: "ConnectionParams",
+      name: 'ConnectionParams',
       I: QueryConnectionParamsRequest,
       O: QueryConnectionParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

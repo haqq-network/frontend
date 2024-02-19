@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgTransfer, MsgTransferResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgTransfer,
+  MsgTransferResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the ibc/transfer Msg service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.applications.transfer.v1.Msg
  */
 export const Msg = {
-  typeName: "ibc.applications.transfer.v1.Msg",
+  typeName: 'ibc.applications.transfer.v1.Msg',
   methods: {
     /**
      * Transfer defines a rpc handler method for MsgTransfer.
@@ -20,7 +25,7 @@ export const Msg = {
      * @generated from rpc ibc.applications.transfer.v1.Msg.Transfer
      */
     transfer: {
-      name: "Transfer",
+      name: 'Transfer',
       I: MsgTransfer,
       O: MsgTransferResponse,
       kind: MethodKind.Unary,
@@ -31,11 +36,10 @@ export const Msg = {
      * @generated from rpc ibc.applications.transfer.v1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

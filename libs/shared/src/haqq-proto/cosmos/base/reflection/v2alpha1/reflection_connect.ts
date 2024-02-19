@@ -5,8 +5,21 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetAuthnDescriptorRequest, GetAuthnDescriptorResponse, GetChainDescriptorRequest, GetChainDescriptorResponse, GetCodecDescriptorRequest, GetCodecDescriptorResponse, GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse, GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse, GetTxDescriptorRequest, GetTxDescriptorResponse } from "./reflection_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  GetAuthnDescriptorRequest,
+  GetAuthnDescriptorResponse,
+  GetChainDescriptorRequest,
+  GetChainDescriptorResponse,
+  GetCodecDescriptorRequest,
+  GetCodecDescriptorResponse,
+  GetConfigurationDescriptorRequest,
+  GetConfigurationDescriptorResponse,
+  GetQueryServicesDescriptorRequest,
+  GetQueryServicesDescriptorResponse,
+  GetTxDescriptorRequest,
+  GetTxDescriptorResponse,
+} from './reflection_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * ReflectionService defines a service for application reflection.
@@ -14,7 +27,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.base.reflection.v2alpha1.ReflectionService
  */
 export const ReflectionService = {
-  typeName: "cosmos.base.reflection.v2alpha1.ReflectionService",
+  typeName: 'cosmos.base.reflection.v2alpha1.ReflectionService',
   methods: {
     /**
      * GetAuthnDescriptor returns information on how to authenticate transactions in the application
@@ -24,7 +37,7 @@ export const ReflectionService = {
      * @generated from rpc cosmos.base.reflection.v2alpha1.ReflectionService.GetAuthnDescriptor
      */
     getAuthnDescriptor: {
-      name: "GetAuthnDescriptor",
+      name: 'GetAuthnDescriptor',
       I: GetAuthnDescriptorRequest,
       O: GetAuthnDescriptorResponse,
       kind: MethodKind.Unary,
@@ -35,7 +48,7 @@ export const ReflectionService = {
      * @generated from rpc cosmos.base.reflection.v2alpha1.ReflectionService.GetChainDescriptor
      */
     getChainDescriptor: {
-      name: "GetChainDescriptor",
+      name: 'GetChainDescriptor',
       I: GetChainDescriptorRequest,
       O: GetChainDescriptorResponse,
       kind: MethodKind.Unary,
@@ -46,7 +59,7 @@ export const ReflectionService = {
      * @generated from rpc cosmos.base.reflection.v2alpha1.ReflectionService.GetCodecDescriptor
      */
     getCodecDescriptor: {
-      name: "GetCodecDescriptor",
+      name: 'GetCodecDescriptor',
       I: GetCodecDescriptorRequest,
       O: GetCodecDescriptorResponse,
       kind: MethodKind.Unary,
@@ -57,7 +70,7 @@ export const ReflectionService = {
      * @generated from rpc cosmos.base.reflection.v2alpha1.ReflectionService.GetConfigurationDescriptor
      */
     getConfigurationDescriptor: {
-      name: "GetConfigurationDescriptor",
+      name: 'GetConfigurationDescriptor',
       I: GetConfigurationDescriptorRequest,
       O: GetConfigurationDescriptorResponse,
       kind: MethodKind.Unary,
@@ -68,7 +81,7 @@ export const ReflectionService = {
      * @generated from rpc cosmos.base.reflection.v2alpha1.ReflectionService.GetQueryServicesDescriptor
      */
     getQueryServicesDescriptor: {
-      name: "GetQueryServicesDescriptor",
+      name: 'GetQueryServicesDescriptor',
       I: GetQueryServicesDescriptorRequest,
       O: GetQueryServicesDescriptorResponse,
       kind: MethodKind.Unary,
@@ -79,11 +92,10 @@ export const ReflectionService = {
      * @generated from rpc cosmos.base.reflection.v2alpha1.ReflectionService.GetTxDescriptor
      */
     getTxDescriptor: {
-      name: "GetTxDescriptor",
+      name: 'GetTxDescriptor',
       I: GetTxDescriptorRequest,
       O: GetTxDescriptorResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

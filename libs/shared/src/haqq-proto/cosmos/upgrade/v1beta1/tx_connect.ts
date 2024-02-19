@@ -5,8 +5,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgCancelUpgrade, MsgCancelUpgradeResponse, MsgSoftwareUpgrade, MsgSoftwareUpgradeResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgCancelUpgrade,
+  MsgCancelUpgradeResponse,
+  MsgSoftwareUpgrade,
+  MsgSoftwareUpgradeResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the upgrade Msg service.
@@ -14,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.upgrade.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.upgrade.v1beta1.Msg",
+  typeName: 'cosmos.upgrade.v1beta1.Msg',
   methods: {
     /**
      * SoftwareUpgrade is a governance operation for initiating a software upgrade.
@@ -24,7 +29,7 @@ export const Msg = {
      * @generated from rpc cosmos.upgrade.v1beta1.Msg.SoftwareUpgrade
      */
     softwareUpgrade: {
-      name: "SoftwareUpgrade",
+      name: 'SoftwareUpgrade',
       I: MsgSoftwareUpgrade,
       O: MsgSoftwareUpgradeResponse,
       kind: MethodKind.Unary,
@@ -38,11 +43,10 @@ export const Msg = {
      * @generated from rpc cosmos.upgrade.v1beta1.Msg.CancelUpgrade
      */
     cancelUpgrade: {
-      name: "CancelUpgrade",
+      name: 'CancelUpgrade',
       I: MsgCancelUpgrade,
       O: MsgCancelUpgradeResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

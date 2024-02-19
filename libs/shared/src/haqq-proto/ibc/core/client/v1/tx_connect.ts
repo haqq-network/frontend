@@ -3,8 +3,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgCreateClient, MsgCreateClientResponse, MsgSubmitMisbehaviour, MsgSubmitMisbehaviourResponse, MsgUpdateClient, MsgUpdateClientResponse, MsgUpdateParams, MsgUpdateParamsResponse, MsgUpgradeClient, MsgUpgradeClientResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgCreateClient,
+  MsgCreateClientResponse,
+  MsgSubmitMisbehaviour,
+  MsgSubmitMisbehaviourResponse,
+  MsgUpdateClient,
+  MsgUpdateClientResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+  MsgUpgradeClient,
+  MsgUpgradeClientResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the ibc/client Msg service.
@@ -12,7 +23,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.core.client.v1.Msg
  */
 export const Msg = {
-  typeName: "ibc.core.client.v1.Msg",
+  typeName: 'ibc.core.client.v1.Msg',
   methods: {
     /**
      * CreateClient defines a rpc handler method for MsgCreateClient.
@@ -20,7 +31,7 @@ export const Msg = {
      * @generated from rpc ibc.core.client.v1.Msg.CreateClient
      */
     createClient: {
-      name: "CreateClient",
+      name: 'CreateClient',
       I: MsgCreateClient,
       O: MsgCreateClientResponse,
       kind: MethodKind.Unary,
@@ -31,7 +42,7 @@ export const Msg = {
      * @generated from rpc ibc.core.client.v1.Msg.UpdateClient
      */
     updateClient: {
-      name: "UpdateClient",
+      name: 'UpdateClient',
       I: MsgUpdateClient,
       O: MsgUpdateClientResponse,
       kind: MethodKind.Unary,
@@ -42,7 +53,7 @@ export const Msg = {
      * @generated from rpc ibc.core.client.v1.Msg.UpgradeClient
      */
     upgradeClient: {
-      name: "UpgradeClient",
+      name: 'UpgradeClient',
       I: MsgUpgradeClient,
       O: MsgUpgradeClientResponse,
       kind: MethodKind.Unary,
@@ -53,7 +64,7 @@ export const Msg = {
      * @generated from rpc ibc.core.client.v1.Msg.SubmitMisbehaviour
      */
     submitMisbehaviour: {
-      name: "SubmitMisbehaviour",
+      name: 'SubmitMisbehaviour',
       I: MsgSubmitMisbehaviour,
       O: MsgSubmitMisbehaviourResponse,
       kind: MethodKind.Unary,
@@ -64,11 +75,10 @@ export const Msg = {
      * @generated from rpc ibc.core.client.v1.Msg.UpdateClientParams
      */
     updateClientParams: {
-      name: "UpdateClientParams",
+      name: 'UpdateClientParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgCreatePeriodicVestingAccount, MsgCreatePeriodicVestingAccountResponse, MsgCreatePermanentLockedAccount, MsgCreatePermanentLockedAccountResponse, MsgCreateVestingAccount, MsgCreateVestingAccountResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgCreatePeriodicVestingAccount,
+  MsgCreatePeriodicVestingAccountResponse,
+  MsgCreatePermanentLockedAccount,
+  MsgCreatePermanentLockedAccountResponse,
+  MsgCreateVestingAccount,
+  MsgCreateVestingAccountResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the bank Msg service.
@@ -12,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.vesting.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.vesting.v1beta1.Msg",
+  typeName: 'cosmos.vesting.v1beta1.Msg',
   methods: {
     /**
      * CreateVestingAccount defines a method that enables creating a vesting
@@ -21,7 +28,7 @@ export const Msg = {
      * @generated from rpc cosmos.vesting.v1beta1.Msg.CreateVestingAccount
      */
     createVestingAccount: {
-      name: "CreateVestingAccount",
+      name: 'CreateVestingAccount',
       I: MsgCreateVestingAccount,
       O: MsgCreateVestingAccountResponse,
       kind: MethodKind.Unary,
@@ -35,7 +42,7 @@ export const Msg = {
      * @generated from rpc cosmos.vesting.v1beta1.Msg.CreatePermanentLockedAccount
      */
     createPermanentLockedAccount: {
-      name: "CreatePermanentLockedAccount",
+      name: 'CreatePermanentLockedAccount',
       I: MsgCreatePermanentLockedAccount,
       O: MsgCreatePermanentLockedAccountResponse,
       kind: MethodKind.Unary,
@@ -49,11 +56,10 @@ export const Msg = {
      * @generated from rpc cosmos.vesting.v1beta1.Msg.CreatePeriodicVestingAccount
      */
     createPeriodicVestingAccount: {
-      name: "CreatePeriodicVestingAccount",
+      name: 'CreatePeriodicVestingAccount',
       I: MsgCreatePeriodicVestingAccount,
       O: MsgCreatePeriodicVestingAccountResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

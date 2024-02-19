@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * MultiSignature wraps the signatures from a multisig.LegacyAminoPubKey.
@@ -25,24 +32,42 @@ export class MultiSignature extends Message<MultiSignature> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.multisig.v1beta1.MultiSignature";
+  static readonly typeName = 'cosmos.crypto.multisig.v1beta1.MultiSignature';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "signatures", kind: "scalar", T: 12 /* ScalarType.BYTES */, repeated: true },
+    {
+      no: 1,
+      name: 'signatures',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MultiSignature {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MultiSignature {
     return new MultiSignature().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MultiSignature {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MultiSignature {
     return new MultiSignature().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MultiSignature {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MultiSignature {
     return new MultiSignature().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MultiSignature | PlainMessage<MultiSignature> | undefined, b: MultiSignature | PlainMessage<MultiSignature> | undefined): boolean {
+  static equals(
+    a: MultiSignature | PlainMessage<MultiSignature> | undefined,
+    b: MultiSignature | PlainMessage<MultiSignature> | undefined,
+  ): boolean {
     return proto3.util.equals(MultiSignature, a, b);
   }
 }
@@ -72,26 +97,42 @@ export class CompactBitArray extends Message<CompactBitArray> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.multisig.v1beta1.CompactBitArray";
+  static readonly typeName = 'cosmos.crypto.multisig.v1beta1.CompactBitArray';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "extra_bits_stored", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 2, name: "elems", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 1,
+      name: 'extra_bits_stored',
+      kind: 'scalar',
+      T: 13 /* ScalarType.UINT32 */,
+    },
+    { no: 2, name: 'elems', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompactBitArray {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): CompactBitArray {
     return new CompactBitArray().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompactBitArray {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): CompactBitArray {
     return new CompactBitArray().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompactBitArray {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): CompactBitArray {
     return new CompactBitArray().fromJsonString(jsonString, options);
   }
 
-  static equals(a: CompactBitArray | PlainMessage<CompactBitArray> | undefined, b: CompactBitArray | PlainMessage<CompactBitArray> | undefined): boolean {
+  static equals(
+    a: CompactBitArray | PlainMessage<CompactBitArray> | undefined,
+    b: CompactBitArray | PlainMessage<CompactBitArray> | undefined,
+  ): boolean {
     return proto3.util.equals(CompactBitArray, a, b);
   }
 }
-

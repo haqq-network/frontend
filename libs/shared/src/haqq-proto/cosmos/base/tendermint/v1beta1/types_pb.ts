@@ -3,11 +3,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
-import { BlockID, Commit, Data } from "../../../../tendermint/types/types_pb.js";
-import { EvidenceList } from "../../../../tendermint/types/evidence_pb.js";
-import { Consensus } from "../../../../tendermint/version/types_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64, Timestamp } from '@bufbuild/protobuf';
+import { BlockID, Commit, Data } from '../../../../tendermint/types/types_pb';
+import { EvidenceList } from '../../../../tendermint/types/evidence_pb';
+import { Consensus } from '../../../../tendermint/version/types_pb';
 
 /**
  * Block is tendermint type Block, with the Header proposer address
@@ -42,27 +49,39 @@ export class Block extends Message<Block> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.Block";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.Block';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "header", kind: "message", T: Header },
-    { no: 2, name: "data", kind: "message", T: Data },
-    { no: 3, name: "evidence", kind: "message", T: EvidenceList },
-    { no: 4, name: "last_commit", kind: "message", T: Commit },
+    { no: 1, name: 'header', kind: 'message', T: Header },
+    { no: 2, name: 'data', kind: 'message', T: Data },
+    { no: 3, name: 'evidence', kind: 'message', T: EvidenceList },
+    { no: 4, name: 'last_commit', kind: 'message', T: Commit },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Block {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Block {
     return new Block().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Block {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Block {
     return new Block().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Block {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Block {
     return new Block().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Block | PlainMessage<Block> | undefined, b: Block | PlainMessage<Block> | undefined): boolean {
+  static equals(
+    a: Block | PlainMessage<Block> | undefined,
+    b: Block | PlainMessage<Block> | undefined,
+  ): boolean {
     return proto3.util.equals(Block, a, b);
   }
 }
@@ -83,7 +102,7 @@ export class Header extends Message<Header> {
   /**
    * @generated from field: string chain_id = 2;
    */
-  chainId = "";
+  chainId = '';
 
   /**
    * @generated from field: int64 height = 3;
@@ -173,7 +192,7 @@ export class Header extends Message<Header> {
    *
    * @generated from field: string proposer_address = 14;
    */
-  proposerAddress = "";
+  proposerAddress = '';
 
   constructor(data?: PartialMessage<Header>) {
     super();
@@ -181,38 +200,84 @@ export class Header extends Message<Header> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.tendermint.v1beta1.Header";
+  static readonly typeName = 'cosmos.base.tendermint.v1beta1.Header';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "version", kind: "message", T: Consensus },
-    { no: 2, name: "chain_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 4, name: "time", kind: "message", T: Timestamp },
-    { no: 5, name: "last_block_id", kind: "message", T: BlockID },
-    { no: 6, name: "last_commit_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 7, name: "data_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 8, name: "validators_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 9, name: "next_validators_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 10, name: "consensus_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 11, name: "app_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 12, name: "last_results_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 13, name: "evidence_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 14, name: "proposer_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'version', kind: 'message', T: Consensus },
+    { no: 2, name: 'chain_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'height', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 4, name: 'time', kind: 'message', T: Timestamp },
+    { no: 5, name: 'last_block_id', kind: 'message', T: BlockID },
+    {
+      no: 6,
+      name: 'last_commit_hash',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    { no: 7, name: 'data_hash', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 8,
+      name: 'validators_hash',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    {
+      no: 9,
+      name: 'next_validators_hash',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    {
+      no: 10,
+      name: 'consensus_hash',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    { no: 11, name: 'app_hash', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 12,
+      name: 'last_results_hash',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    {
+      no: 13,
+      name: 'evidence_hash',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    {
+      no: 14,
+      name: 'proposer_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Header {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Header {
     return new Header().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Header {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Header {
     return new Header().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Header {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Header {
     return new Header().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Header | PlainMessage<Header> | undefined, b: Header | PlainMessage<Header> | undefined): boolean {
+  static equals(
+    a: Header | PlainMessage<Header> | undefined,
+    b: Header | PlainMessage<Header> | undefined,
+  ): boolean {
     return proto3.util.equals(Header, a, b);
   }
 }
-

@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { CapabilityOwners } from "./capability_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { CapabilityOwners } from './capability_pb';
 
 /**
  * GenesisOwners defines the capability owners with their corresponding index.
@@ -33,25 +40,37 @@ export class GenesisOwners extends Message<GenesisOwners> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.capability.v1beta1.GenesisOwners";
+  static readonly typeName = 'cosmos.capability.v1beta1.GenesisOwners';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "index_owners", kind: "message", T: CapabilityOwners },
+    { no: 1, name: 'index', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: 'index_owners', kind: 'message', T: CapabilityOwners },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisOwners {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisOwners {
     return new GenesisOwners().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisOwners {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisOwners {
     return new GenesisOwners().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisOwners {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisOwners {
     return new GenesisOwners().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisOwners | PlainMessage<GenesisOwners> | undefined, b: GenesisOwners | PlainMessage<GenesisOwners> | undefined): boolean {
+  static equals(
+    a: GenesisOwners | PlainMessage<GenesisOwners> | undefined,
+    b: GenesisOwners | PlainMessage<GenesisOwners> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisOwners, a, b);
   }
 }
@@ -83,26 +102,43 @@ export class GenesisState extends Message<GenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.capability.v1beta1.GenesisState";
+  static readonly typeName = 'cosmos.capability.v1beta1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "owners", kind: "message", T: GenesisOwners, repeated: true },
+    { no: 1, name: 'index', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 2,
+      name: 'owners',
+      kind: 'message',
+      T: GenesisOwners,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisState | PlainMessage<GenesisState> | undefined, b: GenesisState | PlainMessage<GenesisState> | undefined): boolean {
+  static equals(
+    a: GenesisState | PlainMessage<GenesisState> | undefined,
+    b: GenesisState | PlainMessage<GenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisState, a, b);
   }
 }
-

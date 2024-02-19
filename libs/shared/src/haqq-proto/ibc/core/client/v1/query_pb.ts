@@ -3,10 +3,25 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { ConsensusStateWithHeight, Height, IdentifiedClientState, Params } from "./client_pb.js";
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import {
+  ConsensusStateWithHeight,
+  Height,
+  IdentifiedClientState,
+  Params,
+} from './client_pb';
+import {
+  PageRequest,
+  PageResponse,
+} from '../../../../cosmos/base/query/v1beta1/pagination_pb';
 
 /**
  * QueryClientStateRequest is the request type for the Query/ClientState RPC
@@ -20,7 +35,7 @@ export class QueryClientStateRequest extends Message<QueryClientStateRequest> {
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   constructor(data?: PartialMessage<QueryClientStateRequest>) {
     super();
@@ -28,24 +43,42 @@ export class QueryClientStateRequest extends Message<QueryClientStateRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryClientStateRequest";
+  static readonly typeName = 'ibc.core.client.v1.QueryClientStateRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryClientStateRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryClientStateRequest {
     return new QueryClientStateRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryClientStateRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStateRequest {
     return new QueryClientStateRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryClientStateRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStateRequest {
     return new QueryClientStateRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryClientStateRequest | PlainMessage<QueryClientStateRequest> | undefined, b: QueryClientStateRequest | PlainMessage<QueryClientStateRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryClientStateRequest
+      | PlainMessage<QueryClientStateRequest>
+      | undefined,
+    b:
+      | QueryClientStateRequest
+      | PlainMessage<QueryClientStateRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryClientStateRequest, a, b);
   }
 }
@@ -85,26 +118,44 @@ export class QueryClientStateResponse extends Message<QueryClientStateResponse> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryClientStateResponse";
+  static readonly typeName = 'ibc.core.client.v1.QueryClientStateResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_state", kind: "message", T: Any },
-    { no: 2, name: "proof", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "proof_height", kind: "message", T: Height },
+    { no: 1, name: 'client_state', kind: 'message', T: Any },
+    { no: 2, name: 'proof', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: 'proof_height', kind: 'message', T: Height },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryClientStateResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryClientStateResponse {
     return new QueryClientStateResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryClientStateResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStateResponse {
     return new QueryClientStateResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryClientStateResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStateResponse {
     return new QueryClientStateResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryClientStateResponse | PlainMessage<QueryClientStateResponse> | undefined, b: QueryClientStateResponse | PlainMessage<QueryClientStateResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryClientStateResponse
+      | PlainMessage<QueryClientStateResponse>
+      | undefined,
+    b:
+      | QueryClientStateResponse
+      | PlainMessage<QueryClientStateResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryClientStateResponse, a, b);
   }
 }
@@ -129,24 +180,42 @@ export class QueryClientStatesRequest extends Message<QueryClientStatesRequest> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryClientStatesRequest";
+  static readonly typeName = 'ibc.core.client.v1.QueryClientStatesRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryClientStatesRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryClientStatesRequest {
     return new QueryClientStatesRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryClientStatesRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStatesRequest {
     return new QueryClientStatesRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryClientStatesRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStatesRequest {
     return new QueryClientStatesRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryClientStatesRequest | PlainMessage<QueryClientStatesRequest> | undefined, b: QueryClientStatesRequest | PlainMessage<QueryClientStatesRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryClientStatesRequest
+      | PlainMessage<QueryClientStatesRequest>
+      | undefined,
+    b:
+      | QueryClientStatesRequest
+      | PlainMessage<QueryClientStatesRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryClientStatesRequest, a, b);
   }
 }
@@ -178,25 +247,49 @@ export class QueryClientStatesResponse extends Message<QueryClientStatesResponse
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryClientStatesResponse";
+  static readonly typeName = 'ibc.core.client.v1.QueryClientStatesResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_states", kind: "message", T: IdentifiedClientState, repeated: true },
-    { no: 2, name: "pagination", kind: "message", T: PageResponse },
+    {
+      no: 1,
+      name: 'client_states',
+      kind: 'message',
+      T: IdentifiedClientState,
+      repeated: true,
+    },
+    { no: 2, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryClientStatesResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryClientStatesResponse {
     return new QueryClientStatesResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryClientStatesResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStatesResponse {
     return new QueryClientStatesResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryClientStatesResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStatesResponse {
     return new QueryClientStatesResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryClientStatesResponse | PlainMessage<QueryClientStatesResponse> | undefined, b: QueryClientStatesResponse | PlainMessage<QueryClientStatesResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryClientStatesResponse
+      | PlainMessage<QueryClientStatesResponse>
+      | undefined,
+    b:
+      | QueryClientStatesResponse
+      | PlainMessage<QueryClientStatesResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryClientStatesResponse, a, b);
   }
 }
@@ -214,7 +307,7 @@ export class QueryConsensusStateRequest extends Message<QueryConsensusStateReque
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * consensus state revision number
@@ -244,27 +337,60 @@ export class QueryConsensusStateRequest extends Message<QueryConsensusStateReque
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryConsensusStateRequest";
+  static readonly typeName = 'ibc.core.client.v1.QueryConsensusStateRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "revision_number", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "revision_height", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 4, name: "latest_height", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'revision_number',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 3,
+      name: 'revision_height',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 4,
+      name: 'latest_height',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryConsensusStateRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryConsensusStateRequest {
     return new QueryConsensusStateRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryConsensusStateRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStateRequest {
     return new QueryConsensusStateRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryConsensusStateRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStateRequest {
     return new QueryConsensusStateRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryConsensusStateRequest | PlainMessage<QueryConsensusStateRequest> | undefined, b: QueryConsensusStateRequest | PlainMessage<QueryConsensusStateRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryConsensusStateRequest
+      | PlainMessage<QueryConsensusStateRequest>
+      | undefined,
+    b:
+      | QueryConsensusStateRequest
+      | PlainMessage<QueryConsensusStateRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryConsensusStateRequest, a, b);
   }
 }
@@ -303,26 +429,47 @@ export class QueryConsensusStateResponse extends Message<QueryConsensusStateResp
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryConsensusStateResponse";
+  static readonly typeName = 'ibc.core.client.v1.QueryConsensusStateResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "consensus_state", kind: "message", T: Any },
-    { no: 2, name: "proof", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "proof_height", kind: "message", T: Height },
+    { no: 1, name: 'consensus_state', kind: 'message', T: Any },
+    { no: 2, name: 'proof', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: 'proof_height', kind: 'message', T: Height },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryConsensusStateResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryConsensusStateResponse {
     return new QueryConsensusStateResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryConsensusStateResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStateResponse {
     return new QueryConsensusStateResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryConsensusStateResponse {
-    return new QueryConsensusStateResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStateResponse {
+    return new QueryConsensusStateResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryConsensusStateResponse | PlainMessage<QueryConsensusStateResponse> | undefined, b: QueryConsensusStateResponse | PlainMessage<QueryConsensusStateResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryConsensusStateResponse
+      | PlainMessage<QueryConsensusStateResponse>
+      | undefined,
+    b:
+      | QueryConsensusStateResponse
+      | PlainMessage<QueryConsensusStateResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryConsensusStateResponse, a, b);
   }
 }
@@ -339,7 +486,7 @@ export class QueryConsensusStatesRequest extends Message<QueryConsensusStatesReq
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * pagination request
@@ -354,25 +501,46 @@ export class QueryConsensusStatesRequest extends Message<QueryConsensusStatesReq
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryConsensusStatesRequest";
+  static readonly typeName = 'ibc.core.client.v1.QueryConsensusStatesRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryConsensusStatesRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryConsensusStatesRequest {
     return new QueryConsensusStatesRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryConsensusStatesRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStatesRequest {
     return new QueryConsensusStatesRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryConsensusStatesRequest {
-    return new QueryConsensusStatesRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStatesRequest {
+    return new QueryConsensusStatesRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryConsensusStatesRequest | PlainMessage<QueryConsensusStatesRequest> | undefined, b: QueryConsensusStatesRequest | PlainMessage<QueryConsensusStatesRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryConsensusStatesRequest
+      | PlainMessage<QueryConsensusStatesRequest>
+      | undefined,
+    b:
+      | QueryConsensusStatesRequest
+      | PlainMessage<QueryConsensusStatesRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryConsensusStatesRequest, a, b);
   }
 }
@@ -404,25 +572,52 @@ export class QueryConsensusStatesResponse extends Message<QueryConsensusStatesRe
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryConsensusStatesResponse";
+  static readonly typeName = 'ibc.core.client.v1.QueryConsensusStatesResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "consensus_states", kind: "message", T: ConsensusStateWithHeight, repeated: true },
-    { no: 2, name: "pagination", kind: "message", T: PageResponse },
+    {
+      no: 1,
+      name: 'consensus_states',
+      kind: 'message',
+      T: ConsensusStateWithHeight,
+      repeated: true,
+    },
+    { no: 2, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryConsensusStatesResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryConsensusStatesResponse {
     return new QueryConsensusStatesResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryConsensusStatesResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStatesResponse {
     return new QueryConsensusStatesResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryConsensusStatesResponse {
-    return new QueryConsensusStatesResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStatesResponse {
+    return new QueryConsensusStatesResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryConsensusStatesResponse | PlainMessage<QueryConsensusStatesResponse> | undefined, b: QueryConsensusStatesResponse | PlainMessage<QueryConsensusStatesResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryConsensusStatesResponse
+      | PlainMessage<QueryConsensusStatesResponse>
+      | undefined,
+    b:
+      | QueryConsensusStatesResponse
+      | PlainMessage<QueryConsensusStatesResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryConsensusStatesResponse, a, b);
   }
 }
@@ -439,7 +634,7 @@ export class QueryConsensusStateHeightsRequest extends Message<QueryConsensusSta
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * pagination request
@@ -454,25 +649,47 @@ export class QueryConsensusStateHeightsRequest extends Message<QueryConsensusSta
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryConsensusStateHeightsRequest";
+  static readonly typeName =
+    'ibc.core.client.v1.QueryConsensusStateHeightsRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryConsensusStateHeightsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryConsensusStateHeightsRequest {
     return new QueryConsensusStateHeightsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryConsensusStateHeightsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStateHeightsRequest {
     return new QueryConsensusStateHeightsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryConsensusStateHeightsRequest {
-    return new QueryConsensusStateHeightsRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStateHeightsRequest {
+    return new QueryConsensusStateHeightsRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryConsensusStateHeightsRequest | PlainMessage<QueryConsensusStateHeightsRequest> | undefined, b: QueryConsensusStateHeightsRequest | PlainMessage<QueryConsensusStateHeightsRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryConsensusStateHeightsRequest
+      | PlainMessage<QueryConsensusStateHeightsRequest>
+      | undefined,
+    b:
+      | QueryConsensusStateHeightsRequest
+      | PlainMessage<QueryConsensusStateHeightsRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryConsensusStateHeightsRequest, a, b);
   }
 }
@@ -504,25 +721,56 @@ export class QueryConsensusStateHeightsResponse extends Message<QueryConsensusSt
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryConsensusStateHeightsResponse";
+  static readonly typeName =
+    'ibc.core.client.v1.QueryConsensusStateHeightsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "consensus_state_heights", kind: "message", T: Height, repeated: true },
-    { no: 2, name: "pagination", kind: "message", T: PageResponse },
+    {
+      no: 1,
+      name: 'consensus_state_heights',
+      kind: 'message',
+      T: Height,
+      repeated: true,
+    },
+    { no: 2, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryConsensusStateHeightsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryConsensusStateHeightsResponse {
     return new QueryConsensusStateHeightsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryConsensusStateHeightsResponse {
-    return new QueryConsensusStateHeightsResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStateHeightsResponse {
+    return new QueryConsensusStateHeightsResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryConsensusStateHeightsResponse {
-    return new QueryConsensusStateHeightsResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryConsensusStateHeightsResponse {
+    return new QueryConsensusStateHeightsResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryConsensusStateHeightsResponse | PlainMessage<QueryConsensusStateHeightsResponse> | undefined, b: QueryConsensusStateHeightsResponse | PlainMessage<QueryConsensusStateHeightsResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryConsensusStateHeightsResponse
+      | PlainMessage<QueryConsensusStateHeightsResponse>
+      | undefined,
+    b:
+      | QueryConsensusStateHeightsResponse
+      | PlainMessage<QueryConsensusStateHeightsResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryConsensusStateHeightsResponse, a, b);
   }
 }
@@ -539,7 +787,7 @@ export class QueryClientStatusRequest extends Message<QueryClientStatusRequest> 
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   constructor(data?: PartialMessage<QueryClientStatusRequest>) {
     super();
@@ -547,24 +795,42 @@ export class QueryClientStatusRequest extends Message<QueryClientStatusRequest> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryClientStatusRequest";
+  static readonly typeName = 'ibc.core.client.v1.QueryClientStatusRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryClientStatusRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryClientStatusRequest {
     return new QueryClientStatusRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryClientStatusRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStatusRequest {
     return new QueryClientStatusRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryClientStatusRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStatusRequest {
     return new QueryClientStatusRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryClientStatusRequest | PlainMessage<QueryClientStatusRequest> | undefined, b: QueryClientStatusRequest | PlainMessage<QueryClientStatusRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryClientStatusRequest
+      | PlainMessage<QueryClientStatusRequest>
+      | undefined,
+    b:
+      | QueryClientStatusRequest
+      | PlainMessage<QueryClientStatusRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryClientStatusRequest, a, b);
   }
 }
@@ -579,7 +845,7 @@ export class QueryClientStatusResponse extends Message<QueryClientStatusResponse
   /**
    * @generated from field: string status = 1;
    */
-  status = "";
+  status = '';
 
   constructor(data?: PartialMessage<QueryClientStatusResponse>) {
     super();
@@ -587,24 +853,42 @@ export class QueryClientStatusResponse extends Message<QueryClientStatusResponse
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryClientStatusResponse";
+  static readonly typeName = 'ibc.core.client.v1.QueryClientStatusResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "status", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'status', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryClientStatusResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryClientStatusResponse {
     return new QueryClientStatusResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryClientStatusResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStatusResponse {
     return new QueryClientStatusResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryClientStatusResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientStatusResponse {
     return new QueryClientStatusResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryClientStatusResponse | PlainMessage<QueryClientStatusResponse> | undefined, b: QueryClientStatusResponse | PlainMessage<QueryClientStatusResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryClientStatusResponse
+      | PlainMessage<QueryClientStatusResponse>
+      | undefined,
+    b:
+      | QueryClientStatusResponse
+      | PlainMessage<QueryClientStatusResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryClientStatusResponse, a, b);
   }
 }
@@ -622,23 +906,40 @@ export class QueryClientParamsRequest extends Message<QueryClientParamsRequest> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryClientParamsRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'ibc.core.client.v1.QueryClientParamsRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryClientParamsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryClientParamsRequest {
     return new QueryClientParamsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryClientParamsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientParamsRequest {
     return new QueryClientParamsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryClientParamsRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientParamsRequest {
     return new QueryClientParamsRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryClientParamsRequest | PlainMessage<QueryClientParamsRequest> | undefined, b: QueryClientParamsRequest | PlainMessage<QueryClientParamsRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryClientParamsRequest
+      | PlainMessage<QueryClientParamsRequest>
+      | undefined,
+    b:
+      | QueryClientParamsRequest
+      | PlainMessage<QueryClientParamsRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryClientParamsRequest, a, b);
   }
 }
@@ -663,24 +964,42 @@ export class QueryClientParamsResponse extends Message<QueryClientParamsResponse
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryClientParamsResponse";
+  static readonly typeName = 'ibc.core.client.v1.QueryClientParamsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "params", kind: "message", T: Params },
+    { no: 1, name: 'params', kind: 'message', T: Params },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryClientParamsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryClientParamsResponse {
     return new QueryClientParamsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryClientParamsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientParamsResponse {
     return new QueryClientParamsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryClientParamsResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryClientParamsResponse {
     return new QueryClientParamsResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryClientParamsResponse | PlainMessage<QueryClientParamsResponse> | undefined, b: QueryClientParamsResponse | PlainMessage<QueryClientParamsResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryClientParamsResponse
+      | PlainMessage<QueryClientParamsResponse>
+      | undefined,
+    b:
+      | QueryClientParamsResponse
+      | PlainMessage<QueryClientParamsResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryClientParamsResponse, a, b);
   }
 }
@@ -698,23 +1017,44 @@ export class QueryUpgradedClientStateRequest extends Message<QueryUpgradedClient
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryUpgradedClientStateRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'ibc.core.client.v1.QueryUpgradedClientStateRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryUpgradedClientStateRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryUpgradedClientStateRequest {
     return new QueryUpgradedClientStateRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryUpgradedClientStateRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryUpgradedClientStateRequest {
     return new QueryUpgradedClientStateRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryUpgradedClientStateRequest {
-    return new QueryUpgradedClientStateRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryUpgradedClientStateRequest {
+    return new QueryUpgradedClientStateRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryUpgradedClientStateRequest | PlainMessage<QueryUpgradedClientStateRequest> | undefined, b: QueryUpgradedClientStateRequest | PlainMessage<QueryUpgradedClientStateRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryUpgradedClientStateRequest
+      | PlainMessage<QueryUpgradedClientStateRequest>
+      | undefined,
+    b:
+      | QueryUpgradedClientStateRequest
+      | PlainMessage<QueryUpgradedClientStateRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryUpgradedClientStateRequest, a, b);
   }
 }
@@ -739,24 +1079,46 @@ export class QueryUpgradedClientStateResponse extends Message<QueryUpgradedClien
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryUpgradedClientStateResponse";
+  static readonly typeName =
+    'ibc.core.client.v1.QueryUpgradedClientStateResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "upgraded_client_state", kind: "message", T: Any },
+    { no: 1, name: 'upgraded_client_state', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryUpgradedClientStateResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryUpgradedClientStateResponse {
     return new QueryUpgradedClientStateResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryUpgradedClientStateResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryUpgradedClientStateResponse {
     return new QueryUpgradedClientStateResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryUpgradedClientStateResponse {
-    return new QueryUpgradedClientStateResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryUpgradedClientStateResponse {
+    return new QueryUpgradedClientStateResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryUpgradedClientStateResponse | PlainMessage<QueryUpgradedClientStateResponse> | undefined, b: QueryUpgradedClientStateResponse | PlainMessage<QueryUpgradedClientStateResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryUpgradedClientStateResponse
+      | PlainMessage<QueryUpgradedClientStateResponse>
+      | undefined,
+    b:
+      | QueryUpgradedClientStateResponse
+      | PlainMessage<QueryUpgradedClientStateResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryUpgradedClientStateResponse, a, b);
   }
 }
@@ -774,23 +1136,47 @@ export class QueryUpgradedConsensusStateRequest extends Message<QueryUpgradedCon
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryUpgradedConsensusStateRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'ibc.core.client.v1.QueryUpgradedConsensusStateRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryUpgradedConsensusStateRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryUpgradedConsensusStateRequest {
     return new QueryUpgradedConsensusStateRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryUpgradedConsensusStateRequest {
-    return new QueryUpgradedConsensusStateRequest().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryUpgradedConsensusStateRequest {
+    return new QueryUpgradedConsensusStateRequest().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryUpgradedConsensusStateRequest {
-    return new QueryUpgradedConsensusStateRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryUpgradedConsensusStateRequest {
+    return new QueryUpgradedConsensusStateRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryUpgradedConsensusStateRequest | PlainMessage<QueryUpgradedConsensusStateRequest> | undefined, b: QueryUpgradedConsensusStateRequest | PlainMessage<QueryUpgradedConsensusStateRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryUpgradedConsensusStateRequest
+      | PlainMessage<QueryUpgradedConsensusStateRequest>
+      | undefined,
+    b:
+      | QueryUpgradedConsensusStateRequest
+      | PlainMessage<QueryUpgradedConsensusStateRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryUpgradedConsensusStateRequest, a, b);
   }
 }
@@ -815,25 +1201,49 @@ export class QueryUpgradedConsensusStateResponse extends Message<QueryUpgradedCo
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.QueryUpgradedConsensusStateResponse";
+  static readonly typeName =
+    'ibc.core.client.v1.QueryUpgradedConsensusStateResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "upgraded_consensus_state", kind: "message", T: Any },
+    { no: 1, name: 'upgraded_consensus_state', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryUpgradedConsensusStateResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryUpgradedConsensusStateResponse {
     return new QueryUpgradedConsensusStateResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryUpgradedConsensusStateResponse {
-    return new QueryUpgradedConsensusStateResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryUpgradedConsensusStateResponse {
+    return new QueryUpgradedConsensusStateResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryUpgradedConsensusStateResponse {
-    return new QueryUpgradedConsensusStateResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryUpgradedConsensusStateResponse {
+    return new QueryUpgradedConsensusStateResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryUpgradedConsensusStateResponse | PlainMessage<QueryUpgradedConsensusStateResponse> | undefined, b: QueryUpgradedConsensusStateResponse | PlainMessage<QueryUpgradedConsensusStateResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryUpgradedConsensusStateResponse
+      | PlainMessage<QueryUpgradedConsensusStateResponse>
+      | undefined,
+    b:
+      | QueryUpgradedConsensusStateResponse
+      | PlainMessage<QueryUpgradedConsensusStateResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryUpgradedConsensusStateResponse, a, b);
   }
 }
-

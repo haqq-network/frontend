@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * ModuleOptions describes the CLI options for a Cosmos SDK module.
@@ -32,25 +39,37 @@ export class ModuleOptions extends Message<ModuleOptions> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.autocli.v1.ModuleOptions";
+  static readonly typeName = 'cosmos.autocli.v1.ModuleOptions';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "tx", kind: "message", T: ServiceCommandDescriptor },
-    { no: 2, name: "query", kind: "message", T: ServiceCommandDescriptor },
+    { no: 1, name: 'tx', kind: 'message', T: ServiceCommandDescriptor },
+    { no: 2, name: 'query', kind: 'message', T: ServiceCommandDescriptor },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModuleOptions {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModuleOptions {
     return new ModuleOptions().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModuleOptions {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleOptions {
     return new ModuleOptions().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModuleOptions {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleOptions {
     return new ModuleOptions().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModuleOptions | PlainMessage<ModuleOptions> | undefined, b: ModuleOptions | PlainMessage<ModuleOptions> | undefined): boolean {
+  static equals(
+    a: ModuleOptions | PlainMessage<ModuleOptions> | undefined,
+    b: ModuleOptions | PlainMessage<ModuleOptions> | undefined,
+  ): boolean {
     return proto3.util.equals(ModuleOptions, a, b);
   }
 }
@@ -68,7 +87,7 @@ export class ServiceCommandDescriptor extends Message<ServiceCommandDescriptor> 
    *
    * @generated from field: string service = 1;
    */
-  service = "";
+  service = '';
 
   /**
    * rpc_command_options are options for commands generated from rpc methods.
@@ -94,26 +113,56 @@ export class ServiceCommandDescriptor extends Message<ServiceCommandDescriptor> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.autocli.v1.ServiceCommandDescriptor";
+  static readonly typeName = 'cosmos.autocli.v1.ServiceCommandDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "service", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "rpc_command_options", kind: "message", T: RpcCommandOptions, repeated: true },
-    { no: 3, name: "sub_commands", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: ServiceCommandDescriptor} },
+    { no: 1, name: 'service', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'rpc_command_options',
+      kind: 'message',
+      T: RpcCommandOptions,
+      repeated: true,
+    },
+    {
+      no: 3,
+      name: 'sub_commands',
+      kind: 'map',
+      K: 9 /* ScalarType.STRING */,
+      V: { kind: 'message', T: ServiceCommandDescriptor },
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ServiceCommandDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ServiceCommandDescriptor {
     return new ServiceCommandDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ServiceCommandDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ServiceCommandDescriptor {
     return new ServiceCommandDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ServiceCommandDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ServiceCommandDescriptor {
     return new ServiceCommandDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ServiceCommandDescriptor | PlainMessage<ServiceCommandDescriptor> | undefined, b: ServiceCommandDescriptor | PlainMessage<ServiceCommandDescriptor> | undefined): boolean {
+  static equals(
+    a:
+      | ServiceCommandDescriptor
+      | PlainMessage<ServiceCommandDescriptor>
+      | undefined,
+    b:
+      | ServiceCommandDescriptor
+      | PlainMessage<ServiceCommandDescriptor>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ServiceCommandDescriptor, a, b);
   }
 }
@@ -131,7 +180,7 @@ export class RpcCommandOptions extends Message<RpcCommandOptions> {
    *
    * @generated from field: string rpc_method = 1;
    */
-  rpcMethod = "";
+  rpcMethod = '';
 
   /**
    * use is the one-line usage method. It also allows specifying an alternate
@@ -142,28 +191,28 @@ export class RpcCommandOptions extends Message<RpcCommandOptions> {
    *
    * @generated from field: string use = 2;
    */
-  use = "";
+  use = '';
 
   /**
    * long is the long message shown in the 'help <this-command>' output.
    *
    * @generated from field: string long = 3;
    */
-  long = "";
+  long = '';
 
   /**
    * short is the short description shown in the 'help' output.
    *
    * @generated from field: string short = 4;
    */
-  short = "";
+  short = '';
 
   /**
    * example is examples of how to use the command.
    *
    * @generated from field: string example = 5;
    */
-  example = "";
+  example = '';
 
   /**
    * alias is an array of aliases that can be used instead of the first word in Use.
@@ -185,7 +234,7 @@ export class RpcCommandOptions extends Message<RpcCommandOptions> {
    *
    * @generated from field: string deprecated = 8;
    */
-  deprecated = "";
+  deprecated = '';
 
   /**
    * version defines the version for this command. If this value is non-empty and the command does not
@@ -195,7 +244,7 @@ export class RpcCommandOptions extends Message<RpcCommandOptions> {
    *
    * @generated from field: string version = 9;
    */
-  version = "";
+  version = '';
 
   /**
    * flag_options are options for flags generated from rpc request fields.
@@ -226,35 +275,71 @@ export class RpcCommandOptions extends Message<RpcCommandOptions> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.autocli.v1.RpcCommandOptions";
+  static readonly typeName = 'cosmos.autocli.v1.RpcCommandOptions';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "rpc_method", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "use", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "long", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "short", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "example", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "alias", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 7, name: "suggest_for", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 8, name: "deprecated", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 9, name: "version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 10, name: "flag_options", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: FlagOptions} },
-    { no: 11, name: "positional_args", kind: "message", T: PositionalArgDescriptor, repeated: true },
-    { no: 12, name: "skip", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'rpc_method', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'use', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'long', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'short', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: 'example', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 6,
+      name: 'alias',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    {
+      no: 7,
+      name: 'suggest_for',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    { no: 8, name: 'deprecated', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: 'version', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 10,
+      name: 'flag_options',
+      kind: 'map',
+      K: 9 /* ScalarType.STRING */,
+      V: { kind: 'message', T: FlagOptions },
+    },
+    {
+      no: 11,
+      name: 'positional_args',
+      kind: 'message',
+      T: PositionalArgDescriptor,
+      repeated: true,
+    },
+    { no: 12, name: 'skip', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RpcCommandOptions {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): RpcCommandOptions {
     return new RpcCommandOptions().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RpcCommandOptions {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): RpcCommandOptions {
     return new RpcCommandOptions().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RpcCommandOptions {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): RpcCommandOptions {
     return new RpcCommandOptions().fromJsonString(jsonString, options);
   }
 
-  static equals(a: RpcCommandOptions | PlainMessage<RpcCommandOptions> | undefined, b: RpcCommandOptions | PlainMessage<RpcCommandOptions> | undefined): boolean {
+  static equals(
+    a: RpcCommandOptions | PlainMessage<RpcCommandOptions> | undefined,
+    b: RpcCommandOptions | PlainMessage<RpcCommandOptions> | undefined,
+  ): boolean {
     return proto3.util.equals(RpcCommandOptions, a, b);
   }
 }
@@ -273,49 +358,49 @@ export class FlagOptions extends Message<FlagOptions> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * shorthand is a one-letter abbreviated flag.
    *
    * @generated from field: string shorthand = 2;
    */
-  shorthand = "";
+  shorthand = '';
 
   /**
    * usage is the help message.
    *
    * @generated from field: string usage = 3;
    */
-  usage = "";
+  usage = '';
 
   /**
    * default_value is the default value as text.
    *
    * @generated from field: string default_value = 4;
    */
-  defaultValue = "";
+  defaultValue = '';
 
   /**
    * default value is the default value as text if the flag is used without any value.
    *
    * @generated from field: string no_opt_default_value = 5;
    */
-  noOptDefaultValue = "";
+  noOptDefaultValue = '';
 
   /**
    * deprecated is the usage text to show if this flag is deprecated.
    *
    * @generated from field: string deprecated = 6;
    */
-  deprecated = "";
+  deprecated = '';
 
   /**
    * shorthand_deprecated is the usage text to show if the shorthand of this flag is deprecated.
    *
    * @generated from field: string shorthand_deprecated = 7;
    */
-  shorthandDeprecated = "";
+  shorthandDeprecated = '';
 
   /**
    * hidden hides the flag from help/usage text
@@ -330,31 +415,58 @@ export class FlagOptions extends Message<FlagOptions> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.autocli.v1.FlagOptions";
+  static readonly typeName = 'cosmos.autocli.v1.FlagOptions';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "shorthand", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "usage", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "default_value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "no_opt_default_value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "deprecated", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "shorthand_deprecated", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 8, name: "hidden", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'shorthand', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'usage', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 4,
+      name: 'default_value',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 5,
+      name: 'no_opt_default_value',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 6, name: 'deprecated', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 7,
+      name: 'shorthand_deprecated',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 8, name: 'hidden', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FlagOptions {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): FlagOptions {
     return new FlagOptions().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FlagOptions {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): FlagOptions {
     return new FlagOptions().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FlagOptions {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): FlagOptions {
     return new FlagOptions().fromJsonString(jsonString, options);
   }
 
-  static equals(a: FlagOptions | PlainMessage<FlagOptions> | undefined, b: FlagOptions | PlainMessage<FlagOptions> | undefined): boolean {
+  static equals(
+    a: FlagOptions | PlainMessage<FlagOptions> | undefined,
+    b: FlagOptions | PlainMessage<FlagOptions> | undefined,
+  ): boolean {
     return proto3.util.equals(FlagOptions, a, b);
   }
 }
@@ -371,7 +483,7 @@ export class PositionalArgDescriptor extends Message<PositionalArgDescriptor> {
    *
    * @generated from field: string proto_field = 1;
    */
-  protoField = "";
+  protoField = '';
 
   /**
    * varargs makes a positional parameter a varargs parameter. This can only be
@@ -388,26 +500,48 @@ export class PositionalArgDescriptor extends Message<PositionalArgDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.autocli.v1.PositionalArgDescriptor";
+  static readonly typeName = 'cosmos.autocli.v1.PositionalArgDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proto_field", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "varargs", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 1,
+      name: 'proto_field',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 2, name: 'varargs', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PositionalArgDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): PositionalArgDescriptor {
     return new PositionalArgDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PositionalArgDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): PositionalArgDescriptor {
     return new PositionalArgDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PositionalArgDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): PositionalArgDescriptor {
     return new PositionalArgDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PositionalArgDescriptor | PlainMessage<PositionalArgDescriptor> | undefined, b: PositionalArgDescriptor | PlainMessage<PositionalArgDescriptor> | undefined): boolean {
+  static equals(
+    a:
+      | PositionalArgDescriptor
+      | PlainMessage<PositionalArgDescriptor>
+      | undefined,
+    b:
+      | PositionalArgDescriptor
+      | PlainMessage<PositionalArgDescriptor>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(PositionalArgDescriptor, a, b);
   }
 }
-

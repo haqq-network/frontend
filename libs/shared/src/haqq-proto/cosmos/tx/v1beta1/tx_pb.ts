@@ -3,11 +3,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { SignMode } from "../signing/v1beta1/signing_pb.js";
-import { CompactBitArray } from "../../crypto/multisig/v1beta1/multisig_pb.js";
-import { Coin } from "../../base/v1beta1/coin_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { SignMode } from '../signing/v1beta1/signing_pb';
+import { CompactBitArray } from '../../crypto/multisig/v1beta1/multisig_pb';
+import { Coin } from '../../base/v1beta1/coin_pb';
 
 /**
  * Tx is the standard type used for broadcasting transactions.
@@ -45,26 +52,44 @@ export class Tx extends Message<Tx> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.Tx";
+  static readonly typeName = 'cosmos.tx.v1beta1.Tx';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "body", kind: "message", T: TxBody },
-    { no: 2, name: "auth_info", kind: "message", T: AuthInfo },
-    { no: 3, name: "signatures", kind: "scalar", T: 12 /* ScalarType.BYTES */, repeated: true },
+    { no: 1, name: 'body', kind: 'message', T: TxBody },
+    { no: 2, name: 'auth_info', kind: 'message', T: AuthInfo },
+    {
+      no: 3,
+      name: 'signatures',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Tx {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Tx {
     return new Tx().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Tx {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Tx {
     return new Tx().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Tx {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Tx {
     return new Tx().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Tx | PlainMessage<Tx> | undefined, b: Tx | PlainMessage<Tx> | undefined): boolean {
+  static equals(
+    a: Tx | PlainMessage<Tx> | undefined,
+    b: Tx | PlainMessage<Tx> | undefined,
+  ): boolean {
     return proto3.util.equals(Tx, a, b);
   }
 }
@@ -110,26 +135,49 @@ export class TxRaw extends Message<TxRaw> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.TxRaw";
+  static readonly typeName = 'cosmos.tx.v1beta1.TxRaw';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "body_bytes", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "auth_info_bytes", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "signatures", kind: "scalar", T: 12 /* ScalarType.BYTES */, repeated: true },
+    { no: 1, name: 'body_bytes', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 2,
+      name: 'auth_info_bytes',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    {
+      no: 3,
+      name: 'signatures',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TxRaw {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TxRaw {
     return new TxRaw().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TxRaw {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TxRaw {
     return new TxRaw().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TxRaw {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TxRaw {
     return new TxRaw().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TxRaw | PlainMessage<TxRaw> | undefined, b: TxRaw | PlainMessage<TxRaw> | undefined): boolean {
+  static equals(
+    a: TxRaw | PlainMessage<TxRaw> | undefined,
+    b: TxRaw | PlainMessage<TxRaw> | undefined,
+  ): boolean {
     return proto3.util.equals(TxRaw, a, b);
   }
 }
@@ -163,7 +211,7 @@ export class SignDoc extends Message<SignDoc> {
    *
    * @generated from field: string chain_id = 3;
    */
-  chainId = "";
+  chainId = '';
 
   /**
    * account_number is the account number of the account in state
@@ -178,27 +226,49 @@ export class SignDoc extends Message<SignDoc> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.SignDoc";
+  static readonly typeName = 'cosmos.tx.v1beta1.SignDoc';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "body_bytes", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "auth_info_bytes", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "chain_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "account_number", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'body_bytes', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 2,
+      name: 'auth_info_bytes',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    { no: 3, name: 'chain_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 4,
+      name: 'account_number',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignDoc {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignDoc {
     return new SignDoc().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignDoc {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignDoc {
     return new SignDoc().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignDoc {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignDoc {
     return new SignDoc().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SignDoc | PlainMessage<SignDoc> | undefined, b: SignDoc | PlainMessage<SignDoc> | undefined): boolean {
+  static equals(
+    a: SignDoc | PlainMessage<SignDoc> | undefined,
+    b: SignDoc | PlainMessage<SignDoc> | undefined,
+  ): boolean {
     return proto3.util.equals(SignDoc, a, b);
   }
 }
@@ -234,7 +304,7 @@ export class SignDocDirectAux extends Message<SignDocDirectAux> {
    *
    * @generated from field: string chain_id = 3;
    */
-  chainId = "";
+  chainId = '';
 
   /**
    * account_number is the account number of the account in state.
@@ -268,29 +338,46 @@ export class SignDocDirectAux extends Message<SignDocDirectAux> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.SignDocDirectAux";
+  static readonly typeName = 'cosmos.tx.v1beta1.SignDocDirectAux';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "body_bytes", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "public_key", kind: "message", T: Any },
-    { no: 3, name: "chain_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "account_number", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 5, name: "sequence", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 6, name: "tip", kind: "message", T: Tip },
+    { no: 1, name: 'body_bytes', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: 'public_key', kind: 'message', T: Any },
+    { no: 3, name: 'chain_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 4,
+      name: 'account_number',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 5, name: 'sequence', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 6, name: 'tip', kind: 'message', T: Tip },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignDocDirectAux {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignDocDirectAux {
     return new SignDocDirectAux().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignDocDirectAux {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignDocDirectAux {
     return new SignDocDirectAux().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignDocDirectAux {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignDocDirectAux {
     return new SignDocDirectAux().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SignDocDirectAux | PlainMessage<SignDocDirectAux> | undefined, b: SignDocDirectAux | PlainMessage<SignDocDirectAux> | undefined): boolean {
+  static equals(
+    a: SignDocDirectAux | PlainMessage<SignDocDirectAux> | undefined,
+    b: SignDocDirectAux | PlainMessage<SignDocDirectAux> | undefined,
+  ): boolean {
     return proto3.util.equals(SignDocDirectAux, a, b);
   }
 }
@@ -321,7 +408,7 @@ export class TxBody extends Message<TxBody> {
    *
    * @generated from field: string memo = 2;
    */
-  memo = "";
+  memo = '';
 
   /**
    * timeout is the block height after which this transaction will not
@@ -355,28 +442,57 @@ export class TxBody extends Message<TxBody> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.TxBody";
+  static readonly typeName = 'cosmos.tx.v1beta1.TxBody';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "messages", kind: "message", T: Any, repeated: true },
-    { no: 2, name: "memo", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "timeout_height", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 1023, name: "extension_options", kind: "message", T: Any, repeated: true },
-    { no: 2047, name: "non_critical_extension_options", kind: "message", T: Any, repeated: true },
+    { no: 1, name: 'messages', kind: 'message', T: Any, repeated: true },
+    { no: 2, name: 'memo', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 3,
+      name: 'timeout_height',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 1023,
+      name: 'extension_options',
+      kind: 'message',
+      T: Any,
+      repeated: true,
+    },
+    {
+      no: 2047,
+      name: 'non_critical_extension_options',
+      kind: 'message',
+      T: Any,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TxBody {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TxBody {
     return new TxBody().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TxBody {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TxBody {
     return new TxBody().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TxBody {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TxBody {
     return new TxBody().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TxBody | PlainMessage<TxBody> | undefined, b: TxBody | PlainMessage<TxBody> | undefined): boolean {
+  static equals(
+    a: TxBody | PlainMessage<TxBody> | undefined,
+    b: TxBody | PlainMessage<TxBody> | undefined,
+  ): boolean {
     return proto3.util.equals(TxBody, a, b);
   }
 }
@@ -426,26 +542,44 @@ export class AuthInfo extends Message<AuthInfo> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.AuthInfo";
+  static readonly typeName = 'cosmos.tx.v1beta1.AuthInfo';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "signer_infos", kind: "message", T: SignerInfo, repeated: true },
-    { no: 2, name: "fee", kind: "message", T: Fee },
-    { no: 3, name: "tip", kind: "message", T: Tip },
+    {
+      no: 1,
+      name: 'signer_infos',
+      kind: 'message',
+      T: SignerInfo,
+      repeated: true,
+    },
+    { no: 2, name: 'fee', kind: 'message', T: Fee },
+    { no: 3, name: 'tip', kind: 'message', T: Tip },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AuthInfo {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AuthInfo {
     return new AuthInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AuthInfo {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AuthInfo {
     return new AuthInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AuthInfo {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AuthInfo {
     return new AuthInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: AuthInfo | PlainMessage<AuthInfo> | undefined, b: AuthInfo | PlainMessage<AuthInfo> | undefined): boolean {
+  static equals(
+    a: AuthInfo | PlainMessage<AuthInfo> | undefined,
+    b: AuthInfo | PlainMessage<AuthInfo> | undefined,
+  ): boolean {
     return proto3.util.equals(AuthInfo, a, b);
   }
 }
@@ -489,26 +623,38 @@ export class SignerInfo extends Message<SignerInfo> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.SignerInfo";
+  static readonly typeName = 'cosmos.tx.v1beta1.SignerInfo';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "public_key", kind: "message", T: Any },
-    { no: 2, name: "mode_info", kind: "message", T: ModeInfo },
-    { no: 3, name: "sequence", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'public_key', kind: 'message', T: Any },
+    { no: 2, name: 'mode_info', kind: 'message', T: ModeInfo },
+    { no: 3, name: 'sequence', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignerInfo {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignerInfo {
     return new SignerInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignerInfo {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignerInfo {
     return new SignerInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignerInfo {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignerInfo {
     return new SignerInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SignerInfo | PlainMessage<SignerInfo> | undefined, b: SignerInfo | PlainMessage<SignerInfo> | undefined): boolean {
+  static equals(
+    a: SignerInfo | PlainMessage<SignerInfo> | undefined,
+    b: SignerInfo | PlainMessage<SignerInfo> | undefined,
+  ): boolean {
     return proto3.util.equals(SignerInfo, a, b);
   }
 }
@@ -525,23 +671,26 @@ export class ModeInfo extends Message<ModeInfo> {
    *
    * @generated from oneof cosmos.tx.v1beta1.ModeInfo.sum
    */
-  sum: {
-    /**
-     * single represents a single signer
-     *
-     * @generated from field: cosmos.tx.v1beta1.ModeInfo.Single single = 1;
-     */
-    value: ModeInfo_Single;
-    case: "single";
-  } | {
-    /**
-     * multi represents a nested multisig signer
-     *
-     * @generated from field: cosmos.tx.v1beta1.ModeInfo.Multi multi = 2;
-     */
-    value: ModeInfo_Multi;
-    case: "multi";
-  } | { case: undefined; value?: undefined } = { case: undefined };
+  sum:
+    | {
+        /**
+         * single represents a single signer
+         *
+         * @generated from field: cosmos.tx.v1beta1.ModeInfo.Single single = 1;
+         */
+        value: ModeInfo_Single;
+        case: 'single';
+      }
+    | {
+        /**
+         * multi represents a nested multisig signer
+         *
+         * @generated from field: cosmos.tx.v1beta1.ModeInfo.Multi multi = 2;
+         */
+        value: ModeInfo_Multi;
+        case: 'multi';
+      }
+    | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ModeInfo>) {
     super();
@@ -549,25 +698,43 @@ export class ModeInfo extends Message<ModeInfo> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.ModeInfo";
+  static readonly typeName = 'cosmos.tx.v1beta1.ModeInfo';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "single", kind: "message", T: ModeInfo_Single, oneof: "sum" },
-    { no: 2, name: "multi", kind: "message", T: ModeInfo_Multi, oneof: "sum" },
+    {
+      no: 1,
+      name: 'single',
+      kind: 'message',
+      T: ModeInfo_Single,
+      oneof: 'sum',
+    },
+    { no: 2, name: 'multi', kind: 'message', T: ModeInfo_Multi, oneof: 'sum' },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModeInfo {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModeInfo {
     return new ModeInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModeInfo {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModeInfo {
     return new ModeInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModeInfo {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModeInfo {
     return new ModeInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModeInfo | PlainMessage<ModeInfo> | undefined, b: ModeInfo | PlainMessage<ModeInfo> | undefined): boolean {
+  static equals(
+    a: ModeInfo | PlainMessage<ModeInfo> | undefined,
+    b: ModeInfo | PlainMessage<ModeInfo> | undefined,
+  ): boolean {
     return proto3.util.equals(ModeInfo, a, b);
   }
 }
@@ -593,24 +760,36 @@ export class ModeInfo_Single extends Message<ModeInfo_Single> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.ModeInfo.Single";
+  static readonly typeName = 'cosmos.tx.v1beta1.ModeInfo.Single';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "mode", kind: "enum", T: proto3.getEnumType(SignMode) },
+    { no: 1, name: 'mode', kind: 'enum', T: proto3.getEnumType(SignMode) },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModeInfo_Single {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModeInfo_Single {
     return new ModeInfo_Single().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModeInfo_Single {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModeInfo_Single {
     return new ModeInfo_Single().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModeInfo_Single {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModeInfo_Single {
     return new ModeInfo_Single().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModeInfo_Single | PlainMessage<ModeInfo_Single> | undefined, b: ModeInfo_Single | PlainMessage<ModeInfo_Single> | undefined): boolean {
+  static equals(
+    a: ModeInfo_Single | PlainMessage<ModeInfo_Single> | undefined,
+    b: ModeInfo_Single | PlainMessage<ModeInfo_Single> | undefined,
+  ): boolean {
     return proto3.util.equals(ModeInfo_Single, a, b);
   }
 }
@@ -642,25 +821,37 @@ export class ModeInfo_Multi extends Message<ModeInfo_Multi> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.ModeInfo.Multi";
+  static readonly typeName = 'cosmos.tx.v1beta1.ModeInfo.Multi';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "bitarray", kind: "message", T: CompactBitArray },
-    { no: 2, name: "mode_infos", kind: "message", T: ModeInfo, repeated: true },
+    { no: 1, name: 'bitarray', kind: 'message', T: CompactBitArray },
+    { no: 2, name: 'mode_infos', kind: 'message', T: ModeInfo, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModeInfo_Multi {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModeInfo_Multi {
     return new ModeInfo_Multi().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModeInfo_Multi {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModeInfo_Multi {
     return new ModeInfo_Multi().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModeInfo_Multi {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModeInfo_Multi {
     return new ModeInfo_Multi().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModeInfo_Multi | PlainMessage<ModeInfo_Multi> | undefined, b: ModeInfo_Multi | PlainMessage<ModeInfo_Multi> | undefined): boolean {
+  static equals(
+    a: ModeInfo_Multi | PlainMessage<ModeInfo_Multi> | undefined,
+    b: ModeInfo_Multi | PlainMessage<ModeInfo_Multi> | undefined,
+  ): boolean {
     return proto3.util.equals(ModeInfo_Multi, a, b);
   }
 }
@@ -695,7 +886,7 @@ export class Fee extends Message<Fee> {
    *
    * @generated from field: string payer = 3;
    */
-  payer = "";
+  payer = '';
 
   /**
    * if set, the fee payer (either the first signer or the value of the payer field) requests that a fee grant be used
@@ -704,7 +895,7 @@ export class Fee extends Message<Fee> {
    *
    * @generated from field: string granter = 4;
    */
-  granter = "";
+  granter = '';
 
   constructor(data?: PartialMessage<Fee>) {
     super();
@@ -712,27 +903,39 @@ export class Fee extends Message<Fee> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.Fee";
+  static readonly typeName = 'cosmos.tx.v1beta1.Fee';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "amount", kind: "message", T: Coin, repeated: true },
-    { no: 2, name: "gas_limit", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "payer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "granter", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'amount', kind: 'message', T: Coin, repeated: true },
+    { no: 2, name: 'gas_limit', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: 'payer', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'granter', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Fee {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Fee {
     return new Fee().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Fee {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Fee {
     return new Fee().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Fee {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Fee {
     return new Fee().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Fee | PlainMessage<Fee> | undefined, b: Fee | PlainMessage<Fee> | undefined): boolean {
+  static equals(
+    a: Fee | PlainMessage<Fee> | undefined,
+    b: Fee | PlainMessage<Fee> | undefined,
+  ): boolean {
     return proto3.util.equals(Fee, a, b);
   }
 }
@@ -757,7 +960,7 @@ export class Tip extends Message<Tip> {
    *
    * @generated from field: string tipper = 2;
    */
-  tipper = "";
+  tipper = '';
 
   constructor(data?: PartialMessage<Tip>) {
     super();
@@ -765,25 +968,37 @@ export class Tip extends Message<Tip> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.Tip";
+  static readonly typeName = 'cosmos.tx.v1beta1.Tip';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "amount", kind: "message", T: Coin, repeated: true },
-    { no: 2, name: "tipper", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'amount', kind: 'message', T: Coin, repeated: true },
+    { no: 2, name: 'tipper', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Tip {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Tip {
     return new Tip().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Tip {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Tip {
     return new Tip().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Tip {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Tip {
     return new Tip().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Tip | PlainMessage<Tip> | undefined, b: Tip | PlainMessage<Tip> | undefined): boolean {
+  static equals(
+    a: Tip | PlainMessage<Tip> | undefined,
+    b: Tip | PlainMessage<Tip> | undefined,
+  ): boolean {
     return proto3.util.equals(Tip, a, b);
   }
 }
@@ -806,7 +1021,7 @@ export class AuxSignerData extends Message<AuxSignerData> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * sign_doc is the SIGN_MODE_DIRECT_AUX sign doc that the auxiliary signer
@@ -837,28 +1052,39 @@ export class AuxSignerData extends Message<AuxSignerData> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.v1beta1.AuxSignerData";
+  static readonly typeName = 'cosmos.tx.v1beta1.AuxSignerData';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "sign_doc", kind: "message", T: SignDocDirectAux },
-    { no: 3, name: "mode", kind: "enum", T: proto3.getEnumType(SignMode) },
-    { no: 4, name: "sig", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'sign_doc', kind: 'message', T: SignDocDirectAux },
+    { no: 3, name: 'mode', kind: 'enum', T: proto3.getEnumType(SignMode) },
+    { no: 4, name: 'sig', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AuxSignerData {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AuxSignerData {
     return new AuxSignerData().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AuxSignerData {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AuxSignerData {
     return new AuxSignerData().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AuxSignerData {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AuxSignerData {
     return new AuxSignerData().fromJsonString(jsonString, options);
   }
 
-  static equals(a: AuxSignerData | PlainMessage<AuxSignerData> | undefined, b: AuxSignerData | PlainMessage<AuxSignerData> | undefined): boolean {
+  static equals(
+    a: AuxSignerData | PlainMessage<AuxSignerData> | undefined,
+    b: AuxSignerData | PlainMessage<AuxSignerData> | undefined,
+  ): boolean {
     return proto3.util.equals(AuxSignerData, a, b);
   }
 }
-

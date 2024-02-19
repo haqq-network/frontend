@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { Params, ValidatorSigningInfo } from "./slashing_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { Params, ValidatorSigningInfo } from './slashing_pb';
 
 /**
  * GenesisState defines the slashing module's genesis state.
@@ -42,26 +49,50 @@ export class GenesisState extends Message<GenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.slashing.v1beta1.GenesisState";
+  static readonly typeName = 'cosmos.slashing.v1beta1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "params", kind: "message", T: Params },
-    { no: 2, name: "signing_infos", kind: "message", T: SigningInfo, repeated: true },
-    { no: 3, name: "missed_blocks", kind: "message", T: ValidatorMissedBlocks, repeated: true },
+    { no: 1, name: 'params', kind: 'message', T: Params },
+    {
+      no: 2,
+      name: 'signing_infos',
+      kind: 'message',
+      T: SigningInfo,
+      repeated: true,
+    },
+    {
+      no: 3,
+      name: 'missed_blocks',
+      kind: 'message',
+      T: ValidatorMissedBlocks,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisState | PlainMessage<GenesisState> | undefined, b: GenesisState | PlainMessage<GenesisState> | undefined): boolean {
+  static equals(
+    a: GenesisState | PlainMessage<GenesisState> | undefined,
+    b: GenesisState | PlainMessage<GenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisState, a, b);
   }
 }
@@ -77,7 +108,7 @@ export class SigningInfo extends Message<SigningInfo> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * validator_signing_info represents the signing info of this validator.
@@ -92,25 +123,42 @@ export class SigningInfo extends Message<SigningInfo> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.slashing.v1beta1.SigningInfo";
+  static readonly typeName = 'cosmos.slashing.v1beta1.SigningInfo';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "validator_signing_info", kind: "message", T: ValidatorSigningInfo },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'validator_signing_info',
+      kind: 'message',
+      T: ValidatorSigningInfo,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SigningInfo {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SigningInfo {
     return new SigningInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SigningInfo {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SigningInfo {
     return new SigningInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SigningInfo {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SigningInfo {
     return new SigningInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SigningInfo | PlainMessage<SigningInfo> | undefined, b: SigningInfo | PlainMessage<SigningInfo> | undefined): boolean {
+  static equals(
+    a: SigningInfo | PlainMessage<SigningInfo> | undefined,
+    b: SigningInfo | PlainMessage<SigningInfo> | undefined,
+  ): boolean {
     return proto3.util.equals(SigningInfo, a, b);
   }
 }
@@ -127,7 +175,7 @@ export class ValidatorMissedBlocks extends Message<ValidatorMissedBlocks> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * missed_blocks is an array of missed blocks by the validator.
@@ -142,25 +190,43 @@ export class ValidatorMissedBlocks extends Message<ValidatorMissedBlocks> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.slashing.v1beta1.ValidatorMissedBlocks";
+  static readonly typeName = 'cosmos.slashing.v1beta1.ValidatorMissedBlocks';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "missed_blocks", kind: "message", T: MissedBlock, repeated: true },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'missed_blocks',
+      kind: 'message',
+      T: MissedBlock,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorMissedBlocks {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorMissedBlocks {
     return new ValidatorMissedBlocks().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorMissedBlocks {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorMissedBlocks {
     return new ValidatorMissedBlocks().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorMissedBlocks {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorMissedBlocks {
     return new ValidatorMissedBlocks().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ValidatorMissedBlocks | PlainMessage<ValidatorMissedBlocks> | undefined, b: ValidatorMissedBlocks | PlainMessage<ValidatorMissedBlocks> | undefined): boolean {
+  static equals(
+    a: ValidatorMissedBlocks | PlainMessage<ValidatorMissedBlocks> | undefined,
+    b: ValidatorMissedBlocks | PlainMessage<ValidatorMissedBlocks> | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorMissedBlocks, a, b);
   }
 }
@@ -191,26 +257,37 @@ export class MissedBlock extends Message<MissedBlock> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.slashing.v1beta1.MissedBlock";
+  static readonly typeName = 'cosmos.slashing.v1beta1.MissedBlock';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "index", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "missed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'index', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: 'missed', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MissedBlock {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MissedBlock {
     return new MissedBlock().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MissedBlock {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MissedBlock {
     return new MissedBlock().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MissedBlock {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MissedBlock {
     return new MissedBlock().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MissedBlock | PlainMessage<MissedBlock> | undefined, b: MissedBlock | PlainMessage<MissedBlock> | undefined): boolean {
+  static equals(
+    a: MissedBlock | PlainMessage<MissedBlock> | undefined,
+    b: MissedBlock | PlainMessage<MissedBlock> | undefined,
+  ): boolean {
     return proto3.util.equals(MissedBlock, a, b);
   }
 }
-

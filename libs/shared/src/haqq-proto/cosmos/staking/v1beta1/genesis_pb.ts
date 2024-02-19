@@ -3,9 +3,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { Delegation, Params, Redelegation, UnbondingDelegation, Validator } from "./staking_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import {
+  Delegation,
+  Params,
+  Redelegation,
+  UnbondingDelegation,
+  Validator,
+} from './staking_pb';
 
 /**
  * GenesisState defines the staking module's genesis state.
@@ -75,31 +88,78 @@ export class GenesisState extends Message<GenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.staking.v1beta1.GenesisState";
+  static readonly typeName = 'cosmos.staking.v1beta1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "params", kind: "message", T: Params },
-    { no: 2, name: "last_total_power", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "last_validator_powers", kind: "message", T: LastValidatorPower, repeated: true },
-    { no: 4, name: "validators", kind: "message", T: Validator, repeated: true },
-    { no: 5, name: "delegations", kind: "message", T: Delegation, repeated: true },
-    { no: 6, name: "unbonding_delegations", kind: "message", T: UnbondingDelegation, repeated: true },
-    { no: 7, name: "redelegations", kind: "message", T: Redelegation, repeated: true },
-    { no: 8, name: "exported", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'params', kind: 'message', T: Params },
+    {
+      no: 2,
+      name: 'last_total_power',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    {
+      no: 3,
+      name: 'last_validator_powers',
+      kind: 'message',
+      T: LastValidatorPower,
+      repeated: true,
+    },
+    {
+      no: 4,
+      name: 'validators',
+      kind: 'message',
+      T: Validator,
+      repeated: true,
+    },
+    {
+      no: 5,
+      name: 'delegations',
+      kind: 'message',
+      T: Delegation,
+      repeated: true,
+    },
+    {
+      no: 6,
+      name: 'unbonding_delegations',
+      kind: 'message',
+      T: UnbondingDelegation,
+      repeated: true,
+    },
+    {
+      no: 7,
+      name: 'redelegations',
+      kind: 'message',
+      T: Redelegation,
+      repeated: true,
+    },
+    { no: 8, name: 'exported', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisState | PlainMessage<GenesisState> | undefined, b: GenesisState | PlainMessage<GenesisState> | undefined): boolean {
+  static equals(
+    a: GenesisState | PlainMessage<GenesisState> | undefined,
+    b: GenesisState | PlainMessage<GenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisState, a, b);
   }
 }
@@ -115,7 +175,7 @@ export class LastValidatorPower extends Message<LastValidatorPower> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * power defines the power of the validator.
@@ -130,26 +190,37 @@ export class LastValidatorPower extends Message<LastValidatorPower> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.staking.v1beta1.LastValidatorPower";
+  static readonly typeName = 'cosmos.staking.v1beta1.LastValidatorPower';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "power", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'power', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LastValidatorPower {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): LastValidatorPower {
     return new LastValidatorPower().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LastValidatorPower {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): LastValidatorPower {
     return new LastValidatorPower().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LastValidatorPower {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): LastValidatorPower {
     return new LastValidatorPower().fromJsonString(jsonString, options);
   }
 
-  static equals(a: LastValidatorPower | PlainMessage<LastValidatorPower> | undefined, b: LastValidatorPower | PlainMessage<LastValidatorPower> | undefined): boolean {
+  static equals(
+    a: LastValidatorPower | PlainMessage<LastValidatorPower> | undefined,
+    b: LastValidatorPower | PlainMessage<LastValidatorPower> | undefined,
+  ): boolean {
     return proto3.util.equals(LastValidatorPower, a, b);
   }
 }
-

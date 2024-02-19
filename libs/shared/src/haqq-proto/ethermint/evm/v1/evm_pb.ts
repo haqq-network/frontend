@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * Params defines the EVM module parameters
@@ -18,7 +25,7 @@ export class Params extends Message<Params> {
    *
    * @generated from field: string evm_denom = 1;
    */
-  evmDenom = "";
+  evmDenom = '';
 
   /**
    * enable_create toggles state transitions that use the vm.Create function
@@ -62,29 +69,57 @@ export class Params extends Message<Params> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.evm.v1.Params";
+  static readonly typeName = 'ethermint.evm.v1.Params';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "evm_denom", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "enable_create", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 3, name: "enable_call", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 4, name: "extra_eips", kind: "scalar", T: 3 /* ScalarType.INT64 */, repeated: true },
-    { no: 5, name: "chain_config", kind: "message", T: ChainConfig },
-    { no: 6, name: "allow_unprotected_txs", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'evm_denom', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'enable_create',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
+    { no: 3, name: 'enable_call', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 4,
+      name: 'extra_eips',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+      repeated: true,
+    },
+    { no: 5, name: 'chain_config', kind: 'message', T: ChainConfig },
+    {
+      no: 6,
+      name: 'allow_unprotected_txs',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Params {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Params {
     return new Params().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Params {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Params {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Params | PlainMessage<Params> | undefined, b: Params | PlainMessage<Params> | undefined): boolean {
+  static equals(
+    a: Params | PlainMessage<Params> | undefined,
+    b: Params | PlainMessage<Params> | undefined,
+  ): boolean {
     return proto3.util.equals(Params, a, b);
   }
 }
@@ -101,14 +136,14 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string homestead_block = 1;
    */
-  homesteadBlock = "";
+  homesteadBlock = '';
 
   /**
    * dao_fork_block corresponds to TheDAO hard-fork switch block (nil no fork)
    *
    * @generated from field: string dao_fork_block = 2;
    */
-  daoForkBlock = "";
+  daoForkBlock = '';
 
   /**
    * dao_fork_support defines whether the nodes supports or opposes the DAO
@@ -124,7 +159,7 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string eip150_block = 4;
    */
-  eip150Block = "";
+  eip150Block = '';
 
   /**
    * eip150_hash: EIP150 HF hash (needed for header only clients as only gas
@@ -132,21 +167,21 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string eip150_hash = 5;
    */
-  eip150Hash = "";
+  eip150Hash = '';
 
   /**
    * eip155_block: EIP155Block HF block
    *
    * @generated from field: string eip155_block = 6;
    */
-  eip155Block = "";
+  eip155Block = '';
 
   /**
    * eip158_block: EIP158 HF block
    *
    * @generated from field: string eip158_block = 7;
    */
-  eip158Block = "";
+  eip158Block = '';
 
   /**
    * byzantium_block: Byzantium switch block (nil no fork, 0 = already on
@@ -154,7 +189,7 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string byzantium_block = 8;
    */
-  byzantiumBlock = "";
+  byzantiumBlock = '';
 
   /**
    * constantinople_block: Constantinople switch block (nil no fork, 0 = already
@@ -162,14 +197,14 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string constantinople_block = 9;
    */
-  constantinopleBlock = "";
+  constantinopleBlock = '';
 
   /**
    * petersburg_block: Petersburg switch block (nil same as Constantinople)
    *
    * @generated from field: string petersburg_block = 10;
    */
-  petersburgBlock = "";
+  petersburgBlock = '';
 
   /**
    * istanbul_block: Istanbul switch block (nil no fork, 0 = already on
@@ -177,7 +212,7 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string istanbul_block = 11;
    */
-  istanbulBlock = "";
+  istanbulBlock = '';
 
   /**
    * muir_glacier_block: Eip-2384 (bomb delay) switch block (nil no fork, 0 =
@@ -185,21 +220,21 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string muir_glacier_block = 12;
    */
-  muirGlacierBlock = "";
+  muirGlacierBlock = '';
 
   /**
    * berlin_block: Berlin switch block (nil = no fork, 0 = already on berlin)
    *
    * @generated from field: string berlin_block = 13;
    */
-  berlinBlock = "";
+  berlinBlock = '';
 
   /**
    * london_block: London switch block (nil = no fork, 0 = already on london)
    *
    * @generated from field: string london_block = 17;
    */
-  londonBlock = "";
+  londonBlock = '';
 
   /**
    * arrow_glacier_block: Eip-4345 (bomb delay) switch block (nil = no fork, 0 =
@@ -207,7 +242,7 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string arrow_glacier_block = 18;
    */
-  arrowGlacierBlock = "";
+  arrowGlacierBlock = '';
 
   /**
    * gray_glacier_block: EIP-5133 (bomb delay) switch block (nil = no fork, 0 =
@@ -215,7 +250,7 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string gray_glacier_block = 20;
    */
-  grayGlacierBlock = "";
+  grayGlacierBlock = '';
 
   /**
    * merge_netsplit_block: Virtual fork after The Merge to use as a network
@@ -223,21 +258,21 @@ export class ChainConfig extends Message<ChainConfig> {
    *
    * @generated from field: string merge_netsplit_block = 21;
    */
-  mergeNetsplitBlock = "";
+  mergeNetsplitBlock = '';
 
   /**
    * shanghai_block switch block (nil = no fork, 0 = already on shanghai)
    *
    * @generated from field: string shanghai_block = 22;
    */
-  shanghaiBlock = "";
+  shanghaiBlock = '';
 
   /**
    * cancun_block switch block (nil = no fork, 0 = already on cancun)
    *
    * @generated from field: string cancun_block = 23;
    */
-  cancunBlock = "";
+  cancunBlock = '';
 
   constructor(data?: PartialMessage<ChainConfig>) {
     super();
@@ -245,42 +280,149 @@ export class ChainConfig extends Message<ChainConfig> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.evm.v1.ChainConfig";
+  static readonly typeName = 'ethermint.evm.v1.ChainConfig';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "homestead_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "dao_fork_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "dao_fork_support", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 4, name: "eip150_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "eip150_hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "eip155_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "eip158_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 8, name: "byzantium_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 9, name: "constantinople_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 10, name: "petersburg_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 11, name: "istanbul_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 12, name: "muir_glacier_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 13, name: "berlin_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 17, name: "london_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 18, name: "arrow_glacier_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 20, name: "gray_glacier_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 21, name: "merge_netsplit_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 22, name: "shanghai_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 23, name: "cancun_block", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'homestead_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'dao_fork_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'dao_fork_support',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
+    {
+      no: 4,
+      name: 'eip150_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 5,
+      name: 'eip150_hash',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 6,
+      name: 'eip155_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 7,
+      name: 'eip158_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 8,
+      name: 'byzantium_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 9,
+      name: 'constantinople_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 10,
+      name: 'petersburg_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 11,
+      name: 'istanbul_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 12,
+      name: 'muir_glacier_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 13,
+      name: 'berlin_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 17,
+      name: 'london_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 18,
+      name: 'arrow_glacier_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 20,
+      name: 'gray_glacier_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 21,
+      name: 'merge_netsplit_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 22,
+      name: 'shanghai_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 23,
+      name: 'cancun_block',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChainConfig {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ChainConfig {
     return new ChainConfig().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChainConfig {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ChainConfig {
     return new ChainConfig().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChainConfig {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ChainConfig {
     return new ChainConfig().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ChainConfig | PlainMessage<ChainConfig> | undefined, b: ChainConfig | PlainMessage<ChainConfig> | undefined): boolean {
+  static equals(
+    a: ChainConfig | PlainMessage<ChainConfig> | undefined,
+    b: ChainConfig | PlainMessage<ChainConfig> | undefined,
+  ): boolean {
     return proto3.util.equals(ChainConfig, a, b);
   }
 }
@@ -296,14 +438,14 @@ export class State extends Message<State> {
    *
    * @generated from field: string key = 1;
    */
-  key = "";
+  key = '';
 
   /**
    * value is the stored value for the given key
    *
    * @generated from field: string value = 2;
    */
-  value = "";
+  value = '';
 
   constructor(data?: PartialMessage<State>) {
     super();
@@ -311,25 +453,37 @@ export class State extends Message<State> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.evm.v1.State";
+  static readonly typeName = 'ethermint.evm.v1.State';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'key', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'value', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): State {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): State {
     return new State().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): State {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): State {
     return new State().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): State {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): State {
     return new State().fromJsonString(jsonString, options);
   }
 
-  static equals(a: State | PlainMessage<State> | undefined, b: State | PlainMessage<State> | undefined): boolean {
+  static equals(
+    a: State | PlainMessage<State> | undefined,
+    b: State | PlainMessage<State> | undefined,
+  ): boolean {
     return proto3.util.equals(State, a, b);
   }
 }
@@ -347,7 +501,7 @@ export class TransactionLogs extends Message<TransactionLogs> {
    *
    * @generated from field: string hash = 1;
    */
-  hash = "";
+  hash = '';
 
   /**
    * logs is an array of Logs for the given transaction hash
@@ -362,25 +516,37 @@ export class TransactionLogs extends Message<TransactionLogs> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.evm.v1.TransactionLogs";
+  static readonly typeName = 'ethermint.evm.v1.TransactionLogs';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "logs", kind: "message", T: Log, repeated: true },
+    { no: 1, name: 'hash', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'logs', kind: 'message', T: Log, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TransactionLogs {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TransactionLogs {
     return new TransactionLogs().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TransactionLogs {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TransactionLogs {
     return new TransactionLogs().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TransactionLogs {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TransactionLogs {
     return new TransactionLogs().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TransactionLogs | PlainMessage<TransactionLogs> | undefined, b: TransactionLogs | PlainMessage<TransactionLogs> | undefined): boolean {
+  static equals(
+    a: TransactionLogs | PlainMessage<TransactionLogs> | undefined,
+    b: TransactionLogs | PlainMessage<TransactionLogs> | undefined,
+  ): boolean {
     return proto3.util.equals(TransactionLogs, a, b);
   }
 }
@@ -401,7 +567,7 @@ export class Log extends Message<Log> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * topics is a list of topics provided by the contract.
@@ -429,7 +595,7 @@ export class Log extends Message<Log> {
    *
    * @generated from field: string tx_hash = 5;
    */
-  txHash = "";
+  txHash = '';
 
   /**
    * tx_index of the transaction in the block
@@ -443,7 +609,7 @@ export class Log extends Message<Log> {
    *
    * @generated from field: string block_hash = 7;
    */
-  blockHash = "";
+  blockHash = '';
 
   /**
    * index of the log in the block
@@ -467,32 +633,55 @@ export class Log extends Message<Log> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.evm.v1.Log";
+  static readonly typeName = 'ethermint.evm.v1.Log';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "topics", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 3, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 4, name: "block_number", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 5, name: "tx_hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "tx_index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 7, name: "block_hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 8, name: "index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 9, name: "removed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'topics',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    { no: 3, name: 'data', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 4,
+      name: 'block_number',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 5, name: 'tx_hash', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: 'tx_index', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 7, name: 'block_hash', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: 'index', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 9, name: 'removed', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Log {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Log {
     return new Log().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Log {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Log {
     return new Log().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Log {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Log {
     return new Log().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Log | PlainMessage<Log> | undefined, b: Log | PlainMessage<Log> | undefined): boolean {
+  static equals(
+    a: Log | PlainMessage<Log> | undefined,
+    b: Log | PlainMessage<Log> | undefined,
+  ): boolean {
     return proto3.util.equals(Log, a, b);
   }
 }
@@ -510,7 +699,7 @@ export class TxResult extends Message<TxResult> {
    *
    * @generated from field: string contract_address = 1;
    */
-  contractAddress = "";
+  contractAddress = '';
 
   /**
    * bloom represents the bloom filter bytes
@@ -554,29 +743,46 @@ export class TxResult extends Message<TxResult> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.evm.v1.TxResult";
+  static readonly typeName = 'ethermint.evm.v1.TxResult';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "contract_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "bloom", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "tx_logs", kind: "message", T: TransactionLogs },
-    { no: 4, name: "ret", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 5, name: "reverted", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 6, name: "gas_used", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'contract_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 2, name: 'bloom', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: 'tx_logs', kind: 'message', T: TransactionLogs },
+    { no: 4, name: 'ret', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: 'reverted', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: 'gas_used', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TxResult {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TxResult {
     return new TxResult().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TxResult {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TxResult {
     return new TxResult().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TxResult {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TxResult {
     return new TxResult().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TxResult | PlainMessage<TxResult> | undefined, b: TxResult | PlainMessage<TxResult> | undefined): boolean {
+  static equals(
+    a: TxResult | PlainMessage<TxResult> | undefined,
+    b: TxResult | PlainMessage<TxResult> | undefined,
+  ): boolean {
     return proto3.util.equals(TxResult, a, b);
   }
 }
@@ -592,7 +798,7 @@ export class AccessTuple extends Message<AccessTuple> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * storage_keys are hex formatted hashes of the storage keys
@@ -607,25 +813,43 @@ export class AccessTuple extends Message<AccessTuple> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.evm.v1.AccessTuple";
+  static readonly typeName = 'ethermint.evm.v1.AccessTuple';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "storage_keys", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'storage_keys',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AccessTuple {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AccessTuple {
     return new AccessTuple().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AccessTuple {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AccessTuple {
     return new AccessTuple().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AccessTuple {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AccessTuple {
     return new AccessTuple().fromJsonString(jsonString, options);
   }
 
-  static equals(a: AccessTuple | PlainMessage<AccessTuple> | undefined, b: AccessTuple | PlainMessage<AccessTuple> | undefined): boolean {
+  static equals(
+    a: AccessTuple | PlainMessage<AccessTuple> | undefined,
+    b: AccessTuple | PlainMessage<AccessTuple> | undefined,
+  ): boolean {
     return proto3.util.equals(AccessTuple, a, b);
   }
 }
@@ -641,7 +865,7 @@ export class TraceConfig extends Message<TraceConfig> {
    *
    * @generated from field: string tracer = 1;
    */
-  tracer = "";
+  tracer = '';
 
   /**
    * timeout overrides the default timeout of 5 seconds for JavaScript-based
@@ -649,7 +873,7 @@ export class TraceConfig extends Message<TraceConfig> {
    *
    * @generated from field: string timeout = 2;
    */
-  timeout = "";
+  timeout = '';
 
   /**
    * reexec defines the number of blocks the tracer is willing to go back
@@ -712,7 +936,7 @@ export class TraceConfig extends Message<TraceConfig> {
    *
    * @generated from field: string tracer_json_config = 13;
    */
-  tracerJsonConfig = "";
+  tracerJsonConfig = '';
 
   constructor(data?: PartialMessage<TraceConfig>) {
     super();
@@ -720,35 +944,71 @@ export class TraceConfig extends Message<TraceConfig> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.evm.v1.TraceConfig";
+  static readonly typeName = 'ethermint.evm.v1.TraceConfig';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "tracer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "timeout", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "reexec", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 5, name: "disable_stack", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 6, name: "disable_storage", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 8, name: "debug", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 9, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 10, name: "overrides", kind: "message", T: ChainConfig },
-    { no: 11, name: "enable_memory", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 12, name: "enable_return_data", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 13, name: "tracer_json_config", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'tracer', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'timeout', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'reexec', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 5,
+      name: 'disable_stack',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
+    {
+      no: 6,
+      name: 'disable_storage',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
+    { no: 8, name: 'debug', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    { no: 9, name: 'limit', kind: 'scalar', T: 5 /* ScalarType.INT32 */ },
+    { no: 10, name: 'overrides', kind: 'message', T: ChainConfig },
+    {
+      no: 11,
+      name: 'enable_memory',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
+    {
+      no: 12,
+      name: 'enable_return_data',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
+    {
+      no: 13,
+      name: 'tracer_json_config',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TraceConfig {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TraceConfig {
     return new TraceConfig().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TraceConfig {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TraceConfig {
     return new TraceConfig().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TraceConfig {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TraceConfig {
     return new TraceConfig().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TraceConfig | PlainMessage<TraceConfig> | undefined, b: TraceConfig | PlainMessage<TraceConfig> | undefined): boolean {
+  static equals(
+    a: TraceConfig | PlainMessage<TraceConfig> | undefined,
+    b: TraceConfig | PlainMessage<TraceConfig> | undefined,
+  ): boolean {
     return proto3.util.equals(TraceConfig, a, b);
   }
 }
-

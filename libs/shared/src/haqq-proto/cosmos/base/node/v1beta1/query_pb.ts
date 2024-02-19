@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * ConfigRequest defines the request structure for the Config gRPC query.
@@ -18,23 +25,34 @@ export class ConfigRequest extends Message<ConfigRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.node.v1beta1.ConfigRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.base.node.v1beta1.ConfigRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConfigRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ConfigRequest {
     return new ConfigRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConfigRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ConfigRequest {
     return new ConfigRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConfigRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ConfigRequest {
     return new ConfigRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ConfigRequest | PlainMessage<ConfigRequest> | undefined, b: ConfigRequest | PlainMessage<ConfigRequest> | undefined): boolean {
+  static equals(
+    a: ConfigRequest | PlainMessage<ConfigRequest> | undefined,
+    b: ConfigRequest | PlainMessage<ConfigRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(ConfigRequest, a, b);
   }
 }
@@ -48,7 +66,7 @@ export class ConfigResponse extends Message<ConfigResponse> {
   /**
    * @generated from field: string minimum_gas_price = 1;
    */
-  minimumGasPrice = "";
+  minimumGasPrice = '';
 
   constructor(data?: PartialMessage<ConfigResponse>) {
     super();
@@ -56,25 +74,41 @@ export class ConfigResponse extends Message<ConfigResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.node.v1beta1.ConfigResponse";
+  static readonly typeName = 'cosmos.base.node.v1beta1.ConfigResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "minimum_gas_price", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'minimum_gas_price',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConfigResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ConfigResponse {
     return new ConfigResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConfigResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ConfigResponse {
     return new ConfigResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConfigResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ConfigResponse {
     return new ConfigResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ConfigResponse | PlainMessage<ConfigResponse> | undefined, b: ConfigResponse | PlainMessage<ConfigResponse> | undefined): boolean {
+  static equals(
+    a: ConfigResponse | PlainMessage<ConfigResponse> | undefined,
+    b: ConfigResponse | PlainMessage<ConfigResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(ConfigResponse, a, b);
   }
 }
-

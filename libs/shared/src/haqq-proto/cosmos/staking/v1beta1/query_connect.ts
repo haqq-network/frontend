@@ -3,8 +3,37 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryDelegationRequest, QueryDelegationResponse, QueryDelegatorDelegationsRequest, QueryDelegatorDelegationsResponse, QueryDelegatorUnbondingDelegationsRequest, QueryDelegatorUnbondingDelegationsResponse, QueryDelegatorValidatorRequest, QueryDelegatorValidatorResponse, QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse, QueryHistoricalInfoRequest, QueryHistoricalInfoResponse, QueryParamsRequest, QueryParamsResponse, QueryPoolRequest, QueryPoolResponse, QueryRedelegationsRequest, QueryRedelegationsResponse, QueryUnbondingDelegationRequest, QueryUnbondingDelegationResponse, QueryValidatorDelegationsRequest, QueryValidatorDelegationsResponse, QueryValidatorRequest, QueryValidatorResponse, QueryValidatorsRequest, QueryValidatorsResponse, QueryValidatorUnbondingDelegationsRequest, QueryValidatorUnbondingDelegationsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryDelegationRequest,
+  QueryDelegationResponse,
+  QueryDelegatorDelegationsRequest,
+  QueryDelegatorDelegationsResponse,
+  QueryDelegatorUnbondingDelegationsRequest,
+  QueryDelegatorUnbondingDelegationsResponse,
+  QueryDelegatorValidatorRequest,
+  QueryDelegatorValidatorResponse,
+  QueryDelegatorValidatorsRequest,
+  QueryDelegatorValidatorsResponse,
+  QueryHistoricalInfoRequest,
+  QueryHistoricalInfoResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryPoolRequest,
+  QueryPoolResponse,
+  QueryRedelegationsRequest,
+  QueryRedelegationsResponse,
+  QueryUnbondingDelegationRequest,
+  QueryUnbondingDelegationResponse,
+  QueryValidatorDelegationsRequest,
+  QueryValidatorDelegationsResponse,
+  QueryValidatorRequest,
+  QueryValidatorResponse,
+  QueryValidatorsRequest,
+  QueryValidatorsResponse,
+  QueryValidatorUnbondingDelegationsRequest,
+  QueryValidatorUnbondingDelegationsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +41,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.staking.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.staking.v1beta1.Query",
+  typeName: 'cosmos.staking.v1beta1.Query',
   methods: {
     /**
      * Validators queries all validators that match the given status.
@@ -23,7 +52,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.Validators
      */
     validators: {
-      name: "Validators",
+      name: 'Validators',
       I: QueryValidatorsRequest,
       O: QueryValidatorsResponse,
       kind: MethodKind.Unary,
@@ -34,7 +63,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.Validator
      */
     validator: {
-      name: "Validator",
+      name: 'Validator',
       I: QueryValidatorRequest,
       O: QueryValidatorResponse,
       kind: MethodKind.Unary,
@@ -48,7 +77,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.ValidatorDelegations
      */
     validatorDelegations: {
-      name: "ValidatorDelegations",
+      name: 'ValidatorDelegations',
       I: QueryValidatorDelegationsRequest,
       O: QueryValidatorDelegationsResponse,
       kind: MethodKind.Unary,
@@ -62,7 +91,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.ValidatorUnbondingDelegations
      */
     validatorUnbondingDelegations: {
-      name: "ValidatorUnbondingDelegations",
+      name: 'ValidatorUnbondingDelegations',
       I: QueryValidatorUnbondingDelegationsRequest,
       O: QueryValidatorUnbondingDelegationsResponse,
       kind: MethodKind.Unary,
@@ -73,7 +102,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.Delegation
      */
     delegation: {
-      name: "Delegation",
+      name: 'Delegation',
       I: QueryDelegationRequest,
       O: QueryDelegationResponse,
       kind: MethodKind.Unary,
@@ -85,7 +114,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.UnbondingDelegation
      */
     unbondingDelegation: {
-      name: "UnbondingDelegation",
+      name: 'UnbondingDelegation',
       I: QueryUnbondingDelegationRequest,
       O: QueryUnbondingDelegationResponse,
       kind: MethodKind.Unary,
@@ -99,7 +128,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.DelegatorDelegations
      */
     delegatorDelegations: {
-      name: "DelegatorDelegations",
+      name: 'DelegatorDelegations',
       I: QueryDelegatorDelegationsRequest,
       O: QueryDelegatorDelegationsResponse,
       kind: MethodKind.Unary,
@@ -114,7 +143,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.DelegatorUnbondingDelegations
      */
     delegatorUnbondingDelegations: {
-      name: "DelegatorUnbondingDelegations",
+      name: 'DelegatorUnbondingDelegations',
       I: QueryDelegatorUnbondingDelegationsRequest,
       O: QueryDelegatorUnbondingDelegationsResponse,
       kind: MethodKind.Unary,
@@ -128,7 +157,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.Redelegations
      */
     redelegations: {
-      name: "Redelegations",
+      name: 'Redelegations',
       I: QueryRedelegationsRequest,
       O: QueryRedelegationsResponse,
       kind: MethodKind.Unary,
@@ -143,7 +172,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.DelegatorValidators
      */
     delegatorValidators: {
-      name: "DelegatorValidators",
+      name: 'DelegatorValidators',
       I: QueryDelegatorValidatorsRequest,
       O: QueryDelegatorValidatorsResponse,
       kind: MethodKind.Unary,
@@ -155,7 +184,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.DelegatorValidator
      */
     delegatorValidator: {
-      name: "DelegatorValidator",
+      name: 'DelegatorValidator',
       I: QueryDelegatorValidatorRequest,
       O: QueryDelegatorValidatorResponse,
       kind: MethodKind.Unary,
@@ -166,7 +195,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.HistoricalInfo
      */
     historicalInfo: {
-      name: "HistoricalInfo",
+      name: 'HistoricalInfo',
       I: QueryHistoricalInfoRequest,
       O: QueryHistoricalInfoResponse,
       kind: MethodKind.Unary,
@@ -177,7 +206,7 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.Pool
      */
     pool: {
-      name: "Pool",
+      name: 'Pool',
       I: QueryPoolRequest,
       O: QueryPoolResponse,
       kind: MethodKind.Unary,
@@ -188,11 +217,10 @@ export const Query = {
      * @generated from rpc cosmos.staking.v1beta1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

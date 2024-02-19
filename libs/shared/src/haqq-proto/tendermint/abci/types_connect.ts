@@ -3,20 +3,53 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { RequestApplySnapshotChunk, RequestBeginBlock, RequestCheckTx, RequestCommit, RequestDeliverTx, RequestEcho, RequestEndBlock, RequestFlush, RequestInfo, RequestInitChain, RequestListSnapshots, RequestLoadSnapshotChunk, RequestOfferSnapshot, RequestPrepareProposal, RequestProcessProposal, RequestQuery, ResponseApplySnapshotChunk, ResponseBeginBlock, ResponseCheckTx, ResponseCommit, ResponseDeliverTx, ResponseEcho, ResponseEndBlock, ResponseFlush, ResponseInfo, ResponseInitChain, ResponseListSnapshots, ResponseLoadSnapshotChunk, ResponseOfferSnapshot, ResponsePrepareProposal, ResponseProcessProposal, ResponseQuery } from "./types_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  RequestApplySnapshotChunk,
+  RequestBeginBlock,
+  RequestCheckTx,
+  RequestCommit,
+  RequestDeliverTx,
+  RequestEcho,
+  RequestEndBlock,
+  RequestFlush,
+  RequestInfo,
+  RequestInitChain,
+  RequestListSnapshots,
+  RequestLoadSnapshotChunk,
+  RequestOfferSnapshot,
+  RequestPrepareProposal,
+  RequestProcessProposal,
+  RequestQuery,
+  ResponseApplySnapshotChunk,
+  ResponseBeginBlock,
+  ResponseCheckTx,
+  ResponseCommit,
+  ResponseDeliverTx,
+  ResponseEcho,
+  ResponseEndBlock,
+  ResponseFlush,
+  ResponseInfo,
+  ResponseInitChain,
+  ResponseListSnapshots,
+  ResponseLoadSnapshotChunk,
+  ResponseOfferSnapshot,
+  ResponsePrepareProposal,
+  ResponseProcessProposal,
+  ResponseQuery,
+} from './types_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * @generated from service tendermint.abci.ABCIApplication
  */
 export const ABCIApplication = {
-  typeName: "tendermint.abci.ABCIApplication",
+  typeName: 'tendermint.abci.ABCIApplication',
   methods: {
     /**
      * @generated from rpc tendermint.abci.ABCIApplication.Echo
      */
     echo: {
-      name: "Echo",
+      name: 'Echo',
       I: RequestEcho,
       O: ResponseEcho,
       kind: MethodKind.Unary,
@@ -25,7 +58,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.Flush
      */
     flush: {
-      name: "Flush",
+      name: 'Flush',
       I: RequestFlush,
       O: ResponseFlush,
       kind: MethodKind.Unary,
@@ -34,7 +67,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.Info
      */
     info: {
-      name: "Info",
+      name: 'Info',
       I: RequestInfo,
       O: ResponseInfo,
       kind: MethodKind.Unary,
@@ -43,7 +76,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.DeliverTx
      */
     deliverTx: {
-      name: "DeliverTx",
+      name: 'DeliverTx',
       I: RequestDeliverTx,
       O: ResponseDeliverTx,
       kind: MethodKind.Unary,
@@ -52,7 +85,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.CheckTx
      */
     checkTx: {
-      name: "CheckTx",
+      name: 'CheckTx',
       I: RequestCheckTx,
       O: ResponseCheckTx,
       kind: MethodKind.Unary,
@@ -61,7 +94,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.Query
      */
     query: {
-      name: "Query",
+      name: 'Query',
       I: RequestQuery,
       O: ResponseQuery,
       kind: MethodKind.Unary,
@@ -70,7 +103,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.Commit
      */
     commit: {
-      name: "Commit",
+      name: 'Commit',
       I: RequestCommit,
       O: ResponseCommit,
       kind: MethodKind.Unary,
@@ -79,7 +112,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.InitChain
      */
     initChain: {
-      name: "InitChain",
+      name: 'InitChain',
       I: RequestInitChain,
       O: ResponseInitChain,
       kind: MethodKind.Unary,
@@ -88,7 +121,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.BeginBlock
      */
     beginBlock: {
-      name: "BeginBlock",
+      name: 'BeginBlock',
       I: RequestBeginBlock,
       O: ResponseBeginBlock,
       kind: MethodKind.Unary,
@@ -97,7 +130,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.EndBlock
      */
     endBlock: {
-      name: "EndBlock",
+      name: 'EndBlock',
       I: RequestEndBlock,
       O: ResponseEndBlock,
       kind: MethodKind.Unary,
@@ -106,7 +139,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.ListSnapshots
      */
     listSnapshots: {
-      name: "ListSnapshots",
+      name: 'ListSnapshots',
       I: RequestListSnapshots,
       O: ResponseListSnapshots,
       kind: MethodKind.Unary,
@@ -115,7 +148,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.OfferSnapshot
      */
     offerSnapshot: {
-      name: "OfferSnapshot",
+      name: 'OfferSnapshot',
       I: RequestOfferSnapshot,
       O: ResponseOfferSnapshot,
       kind: MethodKind.Unary,
@@ -124,7 +157,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.LoadSnapshotChunk
      */
     loadSnapshotChunk: {
-      name: "LoadSnapshotChunk",
+      name: 'LoadSnapshotChunk',
       I: RequestLoadSnapshotChunk,
       O: ResponseLoadSnapshotChunk,
       kind: MethodKind.Unary,
@@ -133,7 +166,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.ApplySnapshotChunk
      */
     applySnapshotChunk: {
-      name: "ApplySnapshotChunk",
+      name: 'ApplySnapshotChunk',
       I: RequestApplySnapshotChunk,
       O: ResponseApplySnapshotChunk,
       kind: MethodKind.Unary,
@@ -142,7 +175,7 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.PrepareProposal
      */
     prepareProposal: {
-      name: "PrepareProposal",
+      name: 'PrepareProposal',
       I: RequestPrepareProposal,
       O: ResponsePrepareProposal,
       kind: MethodKind.Unary,
@@ -151,11 +184,10 @@ export const ABCIApplication = {
      * @generated from rpc tendermint.abci.ABCIApplication.ProcessProposal
      */
     processProposal: {
-      name: "ProcessProposal",
+      name: 'ProcessProposal',
       I: RequestProcessProposal,
       O: ResponseProcessProposal,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

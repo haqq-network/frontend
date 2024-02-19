@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryDenomRequest, QueryDenomResponse, QueryDenomsRequest, QueryDenomsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryDenomRequest,
+  QueryDenomResponse,
+  QueryDenomsRequest,
+  QueryDenomsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service haqq.liquidvesting.v1.Query
  */
 export const Query = {
-  typeName: "haqq.liquidvesting.v1.Query",
+  typeName: 'haqq.liquidvesting.v1.Query',
   methods: {
     /**
      * Denom queries liquid vesting token info by denom
@@ -20,7 +25,7 @@ export const Query = {
      * @generated from rpc haqq.liquidvesting.v1.Query.Denom
      */
     denom: {
-      name: "Denom",
+      name: 'Denom',
       I: QueryDenomRequest,
       O: QueryDenomResponse,
       kind: MethodKind.Unary,
@@ -31,11 +36,10 @@ export const Query = {
      * @generated from rpc haqq.liquidvesting.v1.Query.Denoms
      */
     denoms: {
-      name: "Denoms",
+      name: 'Denoms',
       I: QueryDenomsRequest,
       O: QueryDenomsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

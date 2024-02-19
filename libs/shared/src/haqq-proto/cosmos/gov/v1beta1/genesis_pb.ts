@@ -3,9 +3,23 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { Deposit, DepositParams, Proposal, TallyParams, Vote, VotingParams } from "./gov_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import {
+  Deposit,
+  DepositParams,
+  Proposal,
+  TallyParams,
+  Vote,
+  VotingParams,
+} from './gov_pb';
 
 /**
  * GenesisState defines the gov module's genesis state.
@@ -68,31 +82,47 @@ export class GenesisState extends Message<GenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.gov.v1beta1.GenesisState";
+  static readonly typeName = 'cosmos.gov.v1beta1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "starting_proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "deposits", kind: "message", T: Deposit, repeated: true },
-    { no: 3, name: "votes", kind: "message", T: Vote, repeated: true },
-    { no: 4, name: "proposals", kind: "message", T: Proposal, repeated: true },
-    { no: 5, name: "deposit_params", kind: "message", T: DepositParams },
-    { no: 6, name: "voting_params", kind: "message", T: VotingParams },
-    { no: 7, name: "tally_params", kind: "message", T: TallyParams },
+    {
+      no: 1,
+      name: 'starting_proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'deposits', kind: 'message', T: Deposit, repeated: true },
+    { no: 3, name: 'votes', kind: 'message', T: Vote, repeated: true },
+    { no: 4, name: 'proposals', kind: 'message', T: Proposal, repeated: true },
+    { no: 5, name: 'deposit_params', kind: 'message', T: DepositParams },
+    { no: 6, name: 'voting_params', kind: 'message', T: VotingParams },
+    { no: 7, name: 'tally_params', kind: 'message', T: TallyParams },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisState | PlainMessage<GenesisState> | undefined, b: GenesisState | PlainMessage<GenesisState> | undefined): boolean {
+  static equals(
+    a: GenesisState | PlainMessage<GenesisState> | undefined,
+    b: GenesisState | PlainMessage<GenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisState, a, b);
   }
 }
-

@@ -5,8 +5,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgExec, MsgExecResponse, MsgGrant, MsgGrantResponse, MsgRevoke, MsgRevokeResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgExec,
+  MsgExecResponse,
+  MsgGrant,
+  MsgGrantResponse,
+  MsgRevoke,
+  MsgRevokeResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the authz Msg service.
@@ -14,7 +21,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.authz.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.authz.v1beta1.Msg",
+  typeName: 'cosmos.authz.v1beta1.Msg',
   methods: {
     /**
      * Grant grants the provided authorization to the grantee on the granter's
@@ -25,7 +32,7 @@ export const Msg = {
      * @generated from rpc cosmos.authz.v1beta1.Msg.Grant
      */
     grant: {
-      name: "Grant",
+      name: 'Grant',
       I: MsgGrant,
       O: MsgGrantResponse,
       kind: MethodKind.Unary,
@@ -38,7 +45,7 @@ export const Msg = {
      * @generated from rpc cosmos.authz.v1beta1.Msg.Exec
      */
     exec: {
-      name: "Exec",
+      name: 'Exec',
       I: MsgExec,
       O: MsgExecResponse,
       kind: MethodKind.Unary,
@@ -50,11 +57,10 @@ export const Msg = {
      * @generated from rpc cosmos.authz.v1beta1.Msg.Revoke
      */
     revoke: {
-      name: "Revoke",
+      name: 'Revoke',
       I: MsgRevoke,
       O: MsgRevokeResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

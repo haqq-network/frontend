@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * Params defines the EVM module parameters
@@ -48,7 +55,7 @@ export class Params extends Message<Params> {
    *
    * @generated from field: string base_fee = 6;
    */
-  baseFee = "";
+  baseFee = '';
 
   /**
    * min_gas_price defines the minimum gas price value for cosmos and eth
@@ -56,7 +63,7 @@ export class Params extends Message<Params> {
    *
    * @generated from field: string min_gas_price = 7;
    */
-  minGasPrice = "";
+  minGasPrice = '';
 
   /**
    * min_gas_multiplier bounds the minimum gas used to be charged
@@ -64,7 +71,7 @@ export class Params extends Message<Params> {
    *
    * @generated from field: string min_gas_multiplier = 8;
    */
-  minGasMultiplier = "";
+  minGasMultiplier = '';
 
   constructor(data?: PartialMessage<Params>) {
     super();
@@ -72,31 +79,67 @@ export class Params extends Message<Params> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ethermint.feemarket.v1.Params";
+  static readonly typeName = 'ethermint.feemarket.v1.Params';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "no_base_fee", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 2, name: "base_fee_change_denominator", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "elasticity_multiplier", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 5, name: "enable_height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 6, name: "base_fee", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "min_gas_price", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 8, name: "min_gas_multiplier", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'no_base_fee', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 2,
+      name: 'base_fee_change_denominator',
+      kind: 'scalar',
+      T: 13 /* ScalarType.UINT32 */,
+    },
+    {
+      no: 3,
+      name: 'elasticity_multiplier',
+      kind: 'scalar',
+      T: 13 /* ScalarType.UINT32 */,
+    },
+    {
+      no: 5,
+      name: 'enable_height',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    { no: 6, name: 'base_fee', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 7,
+      name: 'min_gas_price',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 8,
+      name: 'min_gas_multiplier',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Params {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Params {
     return new Params().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Params {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Params {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Params | PlainMessage<Params> | undefined, b: Params | PlainMessage<Params> | undefined): boolean {
+  static equals(
+    a: Params | PlainMessage<Params> | undefined,
+    b: Params | PlainMessage<Params> | undefined,
+  ): boolean {
     return proto3.util.equals(Params, a, b);
   }
 }
-

@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { CommitmentProof } from "../../../../cosmos/ics23/v1/proofs_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { CommitmentProof } from '../../../../cosmos/ics23/v1/proofs_pb';
 
 /**
  * MerkleRoot defines a merkle root hash.
@@ -25,24 +32,36 @@ export class MerkleRoot extends Message<MerkleRoot> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.commitment.v1.MerkleRoot";
+  static readonly typeName = 'ibc.core.commitment.v1.MerkleRoot';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'hash', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MerkleRoot {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MerkleRoot {
     return new MerkleRoot().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MerkleRoot {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MerkleRoot {
     return new MerkleRoot().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MerkleRoot {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MerkleRoot {
     return new MerkleRoot().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MerkleRoot | PlainMessage<MerkleRoot> | undefined, b: MerkleRoot | PlainMessage<MerkleRoot> | undefined): boolean {
+  static equals(
+    a: MerkleRoot | PlainMessage<MerkleRoot> | undefined,
+    b: MerkleRoot | PlainMessage<MerkleRoot> | undefined,
+  ): boolean {
     return proto3.util.equals(MerkleRoot, a, b);
   }
 }
@@ -66,24 +85,36 @@ export class MerklePrefix extends Message<MerklePrefix> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.commitment.v1.MerklePrefix";
+  static readonly typeName = 'ibc.core.commitment.v1.MerklePrefix';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "key_prefix", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'key_prefix', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MerklePrefix {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MerklePrefix {
     return new MerklePrefix().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MerklePrefix {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MerklePrefix {
     return new MerklePrefix().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MerklePrefix {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MerklePrefix {
     return new MerklePrefix().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MerklePrefix | PlainMessage<MerklePrefix> | undefined, b: MerklePrefix | PlainMessage<MerklePrefix> | undefined): boolean {
+  static equals(
+    a: MerklePrefix | PlainMessage<MerklePrefix> | undefined,
+    b: MerklePrefix | PlainMessage<MerklePrefix> | undefined,
+  ): boolean {
     return proto3.util.equals(MerklePrefix, a, b);
   }
 }
@@ -107,24 +138,42 @@ export class MerklePath extends Message<MerklePath> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.commitment.v1.MerklePath";
+  static readonly typeName = 'ibc.core.commitment.v1.MerklePath';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "key_path", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    {
+      no: 1,
+      name: 'key_path',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MerklePath {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MerklePath {
     return new MerklePath().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MerklePath {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MerklePath {
     return new MerklePath().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MerklePath {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MerklePath {
     return new MerklePath().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MerklePath | PlainMessage<MerklePath> | undefined, b: MerklePath | PlainMessage<MerklePath> | undefined): boolean {
+  static equals(
+    a: MerklePath | PlainMessage<MerklePath> | undefined,
+    b: MerklePath | PlainMessage<MerklePath> | undefined,
+  ): boolean {
     return proto3.util.equals(MerklePath, a, b);
   }
 }
@@ -150,25 +199,42 @@ export class MerkleProof extends Message<MerkleProof> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.commitment.v1.MerkleProof";
+  static readonly typeName = 'ibc.core.commitment.v1.MerkleProof';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proofs", kind: "message", T: CommitmentProof, repeated: true },
+    {
+      no: 1,
+      name: 'proofs',
+      kind: 'message',
+      T: CommitmentProof,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MerkleProof {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MerkleProof {
     return new MerkleProof().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MerkleProof {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MerkleProof {
     return new MerkleProof().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MerkleProof {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MerkleProof {
     return new MerkleProof().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MerkleProof | PlainMessage<MerkleProof> | undefined, b: MerkleProof | PlainMessage<MerkleProof> | undefined): boolean {
+  static equals(
+    a: MerkleProof | PlainMessage<MerkleProof> | undefined,
+    b: MerkleProof | PlainMessage<MerkleProof> | undefined,
+  ): boolean {
     return proto3.util.equals(MerkleProof, a, b);
   }
 }
-

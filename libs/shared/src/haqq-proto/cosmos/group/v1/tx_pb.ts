@@ -5,9 +5,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { MemberRequest, ProposalExecutorResult, VoteOption } from "./types_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { MemberRequest, ProposalExecutorResult, VoteOption } from './types_pb';
 
 /**
  * Exec defines modes of execution of a proposal on creation or on new vote.
@@ -34,9 +41,9 @@ export enum Exec {
   TRY = 1,
 }
 // Retrieve enum metadata with: proto3.getEnumType(Exec)
-proto3.util.setEnumType(Exec, "cosmos.group.v1.Exec", [
-  { no: 0, name: "EXEC_UNSPECIFIED" },
-  { no: 1, name: "EXEC_TRY" },
+proto3.util.setEnumType(Exec, 'cosmos.group.v1.Exec', [
+  { no: 0, name: 'EXEC_UNSPECIFIED' },
+  { no: 1, name: 'EXEC_TRY' },
 ]);
 
 /**
@@ -50,7 +57,7 @@ export class MsgCreateGroup extends Message<MsgCreateGroup> {
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * members defines the group members.
@@ -64,7 +71,7 @@ export class MsgCreateGroup extends Message<MsgCreateGroup> {
    *
    * @generated from field: string metadata = 3;
    */
-  metadata = "";
+  metadata = '';
 
   constructor(data?: PartialMessage<MsgCreateGroup>) {
     super();
@@ -72,26 +79,44 @@ export class MsgCreateGroup extends Message<MsgCreateGroup> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgCreateGroup";
+  static readonly typeName = 'cosmos.group.v1.MsgCreateGroup';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "members", kind: "message", T: MemberRequest, repeated: true },
-    { no: 3, name: "metadata", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'members',
+      kind: 'message',
+      T: MemberRequest,
+      repeated: true,
+    },
+    { no: 3, name: 'metadata', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCreateGroup {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCreateGroup {
     return new MsgCreateGroup().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCreateGroup {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroup {
     return new MsgCreateGroup().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCreateGroup {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroup {
     return new MsgCreateGroup().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgCreateGroup | PlainMessage<MsgCreateGroup> | undefined, b: MsgCreateGroup | PlainMessage<MsgCreateGroup> | undefined): boolean {
+  static equals(
+    a: MsgCreateGroup | PlainMessage<MsgCreateGroup> | undefined,
+    b: MsgCreateGroup | PlainMessage<MsgCreateGroup> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCreateGroup, a, b);
   }
 }
@@ -115,24 +140,42 @@ export class MsgCreateGroupResponse extends Message<MsgCreateGroupResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgCreateGroupResponse";
+  static readonly typeName = 'cosmos.group.v1.MsgCreateGroupResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCreateGroupResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCreateGroupResponse {
     return new MsgCreateGroupResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCreateGroupResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupResponse {
     return new MsgCreateGroupResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCreateGroupResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupResponse {
     return new MsgCreateGroupResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgCreateGroupResponse | PlainMessage<MsgCreateGroupResponse> | undefined, b: MsgCreateGroupResponse | PlainMessage<MsgCreateGroupResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgCreateGroupResponse
+      | PlainMessage<MsgCreateGroupResponse>
+      | undefined,
+    b:
+      | MsgCreateGroupResponse
+      | PlainMessage<MsgCreateGroupResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCreateGroupResponse, a, b);
   }
 }
@@ -148,7 +191,7 @@ export class MsgUpdateGroupMembers extends Message<MsgUpdateGroupMembers> {
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * group_id is the unique ID of the group.
@@ -171,26 +214,44 @@ export class MsgUpdateGroupMembers extends Message<MsgUpdateGroupMembers> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupMembers";
+  static readonly typeName = 'cosmos.group.v1.MsgUpdateGroupMembers';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "member_updates", kind: "message", T: MemberRequest, repeated: true },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 3,
+      name: 'member_updates',
+      kind: 'message',
+      T: MemberRequest,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupMembers {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupMembers {
     return new MsgUpdateGroupMembers().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupMembers {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupMembers {
     return new MsgUpdateGroupMembers().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupMembers {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupMembers {
     return new MsgUpdateGroupMembers().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgUpdateGroupMembers | PlainMessage<MsgUpdateGroupMembers> | undefined, b: MsgUpdateGroupMembers | PlainMessage<MsgUpdateGroupMembers> | undefined): boolean {
+  static equals(
+    a: MsgUpdateGroupMembers | PlainMessage<MsgUpdateGroupMembers> | undefined,
+    b: MsgUpdateGroupMembers | PlainMessage<MsgUpdateGroupMembers> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupMembers, a, b);
   }
 }
@@ -207,23 +268,43 @@ export class MsgUpdateGroupMembersResponse extends Message<MsgUpdateGroupMembers
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupMembersResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.group.v1.MsgUpdateGroupMembersResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupMembersResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupMembersResponse {
     return new MsgUpdateGroupMembersResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupMembersResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupMembersResponse {
     return new MsgUpdateGroupMembersResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupMembersResponse {
-    return new MsgUpdateGroupMembersResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupMembersResponse {
+    return new MsgUpdateGroupMembersResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateGroupMembersResponse | PlainMessage<MsgUpdateGroupMembersResponse> | undefined, b: MsgUpdateGroupMembersResponse | PlainMessage<MsgUpdateGroupMembersResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupMembersResponse
+      | PlainMessage<MsgUpdateGroupMembersResponse>
+      | undefined,
+    b:
+      | MsgUpdateGroupMembersResponse
+      | PlainMessage<MsgUpdateGroupMembersResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupMembersResponse, a, b);
   }
 }
@@ -239,7 +320,7 @@ export class MsgUpdateGroupAdmin extends Message<MsgUpdateGroupAdmin> {
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * group_id is the unique ID of the group.
@@ -253,7 +334,7 @@ export class MsgUpdateGroupAdmin extends Message<MsgUpdateGroupAdmin> {
    *
    * @generated from field: string new_admin = 3;
    */
-  newAdmin = "";
+  newAdmin = '';
 
   constructor(data?: PartialMessage<MsgUpdateGroupAdmin>) {
     super();
@@ -261,26 +342,38 @@ export class MsgUpdateGroupAdmin extends Message<MsgUpdateGroupAdmin> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupAdmin";
+  static readonly typeName = 'cosmos.group.v1.MsgUpdateGroupAdmin';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "new_admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: 'new_admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupAdmin {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupAdmin {
     return new MsgUpdateGroupAdmin().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupAdmin {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupAdmin {
     return new MsgUpdateGroupAdmin().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupAdmin {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupAdmin {
     return new MsgUpdateGroupAdmin().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgUpdateGroupAdmin | PlainMessage<MsgUpdateGroupAdmin> | undefined, b: MsgUpdateGroupAdmin | PlainMessage<MsgUpdateGroupAdmin> | undefined): boolean {
+  static equals(
+    a: MsgUpdateGroupAdmin | PlainMessage<MsgUpdateGroupAdmin> | undefined,
+    b: MsgUpdateGroupAdmin | PlainMessage<MsgUpdateGroupAdmin> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupAdmin, a, b);
   }
 }
@@ -297,23 +390,43 @@ export class MsgUpdateGroupAdminResponse extends Message<MsgUpdateGroupAdminResp
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupAdminResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.group.v1.MsgUpdateGroupAdminResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupAdminResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupAdminResponse {
     return new MsgUpdateGroupAdminResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupAdminResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupAdminResponse {
     return new MsgUpdateGroupAdminResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupAdminResponse {
-    return new MsgUpdateGroupAdminResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupAdminResponse {
+    return new MsgUpdateGroupAdminResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateGroupAdminResponse | PlainMessage<MsgUpdateGroupAdminResponse> | undefined, b: MsgUpdateGroupAdminResponse | PlainMessage<MsgUpdateGroupAdminResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupAdminResponse
+      | PlainMessage<MsgUpdateGroupAdminResponse>
+      | undefined,
+    b:
+      | MsgUpdateGroupAdminResponse
+      | PlainMessage<MsgUpdateGroupAdminResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupAdminResponse, a, b);
   }
 }
@@ -329,7 +442,7 @@ export class MsgUpdateGroupMetadata extends Message<MsgUpdateGroupMetadata> {
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * group_id is the unique ID of the group.
@@ -343,7 +456,7 @@ export class MsgUpdateGroupMetadata extends Message<MsgUpdateGroupMetadata> {
    *
    * @generated from field: string metadata = 3;
    */
-  metadata = "";
+  metadata = '';
 
   constructor(data?: PartialMessage<MsgUpdateGroupMetadata>) {
     super();
@@ -351,26 +464,44 @@ export class MsgUpdateGroupMetadata extends Message<MsgUpdateGroupMetadata> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupMetadata";
+  static readonly typeName = 'cosmos.group.v1.MsgUpdateGroupMetadata';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "metadata", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: 'metadata', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupMetadata {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupMetadata {
     return new MsgUpdateGroupMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupMetadata {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupMetadata {
     return new MsgUpdateGroupMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupMetadata {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupMetadata {
     return new MsgUpdateGroupMetadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgUpdateGroupMetadata | PlainMessage<MsgUpdateGroupMetadata> | undefined, b: MsgUpdateGroupMetadata | PlainMessage<MsgUpdateGroupMetadata> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupMetadata
+      | PlainMessage<MsgUpdateGroupMetadata>
+      | undefined,
+    b:
+      | MsgUpdateGroupMetadata
+      | PlainMessage<MsgUpdateGroupMetadata>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupMetadata, a, b);
   }
 }
@@ -387,23 +518,43 @@ export class MsgUpdateGroupMetadataResponse extends Message<MsgUpdateGroupMetada
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupMetadataResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.group.v1.MsgUpdateGroupMetadataResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupMetadataResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupMetadataResponse {
     return new MsgUpdateGroupMetadataResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupMetadataResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupMetadataResponse {
     return new MsgUpdateGroupMetadataResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupMetadataResponse {
-    return new MsgUpdateGroupMetadataResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupMetadataResponse {
+    return new MsgUpdateGroupMetadataResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateGroupMetadataResponse | PlainMessage<MsgUpdateGroupMetadataResponse> | undefined, b: MsgUpdateGroupMetadataResponse | PlainMessage<MsgUpdateGroupMetadataResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupMetadataResponse
+      | PlainMessage<MsgUpdateGroupMetadataResponse>
+      | undefined,
+    b:
+      | MsgUpdateGroupMetadataResponse
+      | PlainMessage<MsgUpdateGroupMetadataResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupMetadataResponse, a, b);
   }
 }
@@ -419,7 +570,7 @@ export class MsgCreateGroupPolicy extends Message<MsgCreateGroupPolicy> {
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * group_id is the unique ID of the group.
@@ -433,7 +584,7 @@ export class MsgCreateGroupPolicy extends Message<MsgCreateGroupPolicy> {
    *
    * @generated from field: string metadata = 3;
    */
-  metadata = "";
+  metadata = '';
 
   /**
    * decision_policy specifies the group policy's decision policy.
@@ -448,27 +599,39 @@ export class MsgCreateGroupPolicy extends Message<MsgCreateGroupPolicy> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgCreateGroupPolicy";
+  static readonly typeName = 'cosmos.group.v1.MsgCreateGroupPolicy';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "metadata", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "decision_policy", kind: "message", T: Any },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: 'metadata', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'decision_policy', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCreateGroupPolicy {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCreateGroupPolicy {
     return new MsgCreateGroupPolicy().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCreateGroupPolicy {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupPolicy {
     return new MsgCreateGroupPolicy().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCreateGroupPolicy {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupPolicy {
     return new MsgCreateGroupPolicy().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgCreateGroupPolicy | PlainMessage<MsgCreateGroupPolicy> | undefined, b: MsgCreateGroupPolicy | PlainMessage<MsgCreateGroupPolicy> | undefined): boolean {
+  static equals(
+    a: MsgCreateGroupPolicy | PlainMessage<MsgCreateGroupPolicy> | undefined,
+    b: MsgCreateGroupPolicy | PlainMessage<MsgCreateGroupPolicy> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCreateGroupPolicy, a, b);
   }
 }
@@ -484,7 +647,7 @@ export class MsgCreateGroupPolicyResponse extends Message<MsgCreateGroupPolicyRe
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   constructor(data?: PartialMessage<MsgCreateGroupPolicyResponse>) {
     super();
@@ -492,24 +655,45 @@ export class MsgCreateGroupPolicyResponse extends Message<MsgCreateGroupPolicyRe
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgCreateGroupPolicyResponse";
+  static readonly typeName = 'cosmos.group.v1.MsgCreateGroupPolicyResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCreateGroupPolicyResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCreateGroupPolicyResponse {
     return new MsgCreateGroupPolicyResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCreateGroupPolicyResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupPolicyResponse {
     return new MsgCreateGroupPolicyResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCreateGroupPolicyResponse {
-    return new MsgCreateGroupPolicyResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupPolicyResponse {
+    return new MsgCreateGroupPolicyResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgCreateGroupPolicyResponse | PlainMessage<MsgCreateGroupPolicyResponse> | undefined, b: MsgCreateGroupPolicyResponse | PlainMessage<MsgCreateGroupPolicyResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgCreateGroupPolicyResponse
+      | PlainMessage<MsgCreateGroupPolicyResponse>
+      | undefined,
+    b:
+      | MsgCreateGroupPolicyResponse
+      | PlainMessage<MsgCreateGroupPolicyResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCreateGroupPolicyResponse, a, b);
   }
 }
@@ -525,21 +709,21 @@ export class MsgUpdateGroupPolicyAdmin extends Message<MsgUpdateGroupPolicyAdmin
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * group_policy_address is the account address of the group policy.
    *
    * @generated from field: string group_policy_address = 2;
    */
-  groupPolicyAddress = "";
+  groupPolicyAddress = '';
 
   /**
    * new_admin is the new group policy admin.
    *
    * @generated from field: string new_admin = 3;
    */
-  newAdmin = "";
+  newAdmin = '';
 
   constructor(data?: PartialMessage<MsgUpdateGroupPolicyAdmin>) {
     super();
@@ -547,26 +731,49 @@ export class MsgUpdateGroupPolicyAdmin extends Message<MsgUpdateGroupPolicyAdmin
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupPolicyAdmin";
+  static readonly typeName = 'cosmos.group.v1.MsgUpdateGroupPolicyAdmin';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "group_policy_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "new_admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'group_policy_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'new_admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupPolicyAdmin {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupPolicyAdmin {
     return new MsgUpdateGroupPolicyAdmin().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyAdmin {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyAdmin {
     return new MsgUpdateGroupPolicyAdmin().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyAdmin {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyAdmin {
     return new MsgUpdateGroupPolicyAdmin().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgUpdateGroupPolicyAdmin | PlainMessage<MsgUpdateGroupPolicyAdmin> | undefined, b: MsgUpdateGroupPolicyAdmin | PlainMessage<MsgUpdateGroupPolicyAdmin> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupPolicyAdmin
+      | PlainMessage<MsgUpdateGroupPolicyAdmin>
+      | undefined,
+    b:
+      | MsgUpdateGroupPolicyAdmin
+      | PlainMessage<MsgUpdateGroupPolicyAdmin>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupPolicyAdmin, a, b);
   }
 }
@@ -583,23 +790,44 @@ export class MsgUpdateGroupPolicyAdminResponse extends Message<MsgUpdateGroupPol
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupPolicyAdminResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.group.v1.MsgUpdateGroupPolicyAdminResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupPolicyAdminResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupPolicyAdminResponse {
     return new MsgUpdateGroupPolicyAdminResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyAdminResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyAdminResponse {
     return new MsgUpdateGroupPolicyAdminResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyAdminResponse {
-    return new MsgUpdateGroupPolicyAdminResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyAdminResponse {
+    return new MsgUpdateGroupPolicyAdminResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateGroupPolicyAdminResponse | PlainMessage<MsgUpdateGroupPolicyAdminResponse> | undefined, b: MsgUpdateGroupPolicyAdminResponse | PlainMessage<MsgUpdateGroupPolicyAdminResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupPolicyAdminResponse
+      | PlainMessage<MsgUpdateGroupPolicyAdminResponse>
+      | undefined,
+    b:
+      | MsgUpdateGroupPolicyAdminResponse
+      | PlainMessage<MsgUpdateGroupPolicyAdminResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupPolicyAdminResponse, a, b);
   }
 }
@@ -615,7 +843,7 @@ export class MsgCreateGroupWithPolicy extends Message<MsgCreateGroupWithPolicy> 
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * members defines the group members.
@@ -629,14 +857,14 @@ export class MsgCreateGroupWithPolicy extends Message<MsgCreateGroupWithPolicy> 
    *
    * @generated from field: string group_metadata = 3;
    */
-  groupMetadata = "";
+  groupMetadata = '';
 
   /**
    * group_policy_metadata is any arbitrary metadata attached to the group policy.
    *
    * @generated from field: string group_policy_metadata = 4;
    */
-  groupPolicyMetadata = "";
+  groupPolicyMetadata = '';
 
   /**
    * group_policy_as_admin is a boolean field, if set to true, the group policy account address will be used as group
@@ -659,29 +887,68 @@ export class MsgCreateGroupWithPolicy extends Message<MsgCreateGroupWithPolicy> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgCreateGroupWithPolicy";
+  static readonly typeName = 'cosmos.group.v1.MsgCreateGroupWithPolicy';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "members", kind: "message", T: MemberRequest, repeated: true },
-    { no: 3, name: "group_metadata", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "group_policy_metadata", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "group_policy_as_admin", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 6, name: "decision_policy", kind: "message", T: Any },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'members',
+      kind: 'message',
+      T: MemberRequest,
+      repeated: true,
+    },
+    {
+      no: 3,
+      name: 'group_metadata',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 4,
+      name: 'group_policy_metadata',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 5,
+      name: 'group_policy_as_admin',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
+    },
+    { no: 6, name: 'decision_policy', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCreateGroupWithPolicy {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCreateGroupWithPolicy {
     return new MsgCreateGroupWithPolicy().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCreateGroupWithPolicy {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupWithPolicy {
     return new MsgCreateGroupWithPolicy().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCreateGroupWithPolicy {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupWithPolicy {
     return new MsgCreateGroupWithPolicy().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgCreateGroupWithPolicy | PlainMessage<MsgCreateGroupWithPolicy> | undefined, b: MsgCreateGroupWithPolicy | PlainMessage<MsgCreateGroupWithPolicy> | undefined): boolean {
+  static equals(
+    a:
+      | MsgCreateGroupWithPolicy
+      | PlainMessage<MsgCreateGroupWithPolicy>
+      | undefined,
+    b:
+      | MsgCreateGroupWithPolicy
+      | PlainMessage<MsgCreateGroupWithPolicy>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCreateGroupWithPolicy, a, b);
   }
 }
@@ -704,7 +971,7 @@ export class MsgCreateGroupWithPolicyResponse extends Message<MsgCreateGroupWith
    *
    * @generated from field: string group_policy_address = 2;
    */
-  groupPolicyAddress = "";
+  groupPolicyAddress = '';
 
   constructor(data?: PartialMessage<MsgCreateGroupWithPolicyResponse>) {
     super();
@@ -712,25 +979,51 @@ export class MsgCreateGroupWithPolicyResponse extends Message<MsgCreateGroupWith
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgCreateGroupWithPolicyResponse";
+  static readonly typeName = 'cosmos.group.v1.MsgCreateGroupWithPolicyResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "group_policy_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 2,
+      name: 'group_policy_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCreateGroupWithPolicyResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCreateGroupWithPolicyResponse {
     return new MsgCreateGroupWithPolicyResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCreateGroupWithPolicyResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupWithPolicyResponse {
     return new MsgCreateGroupWithPolicyResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCreateGroupWithPolicyResponse {
-    return new MsgCreateGroupWithPolicyResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateGroupWithPolicyResponse {
+    return new MsgCreateGroupWithPolicyResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgCreateGroupWithPolicyResponse | PlainMessage<MsgCreateGroupWithPolicyResponse> | undefined, b: MsgCreateGroupWithPolicyResponse | PlainMessage<MsgCreateGroupWithPolicyResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgCreateGroupWithPolicyResponse
+      | PlainMessage<MsgCreateGroupWithPolicyResponse>
+      | undefined,
+    b:
+      | MsgCreateGroupWithPolicyResponse
+      | PlainMessage<MsgCreateGroupWithPolicyResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCreateGroupWithPolicyResponse, a, b);
   }
 }
@@ -746,14 +1039,14 @@ export class MsgUpdateGroupPolicyDecisionPolicy extends Message<MsgUpdateGroupPo
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * group_policy_address is the account address of group policy.
    *
    * @generated from field: string group_policy_address = 2;
    */
-  groupPolicyAddress = "";
+  groupPolicyAddress = '';
 
   /**
    * decision_policy is the updated group policy's decision policy.
@@ -768,26 +1061,56 @@ export class MsgUpdateGroupPolicyDecisionPolicy extends Message<MsgUpdateGroupPo
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicy";
+  static readonly typeName =
+    'cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicy';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "group_policy_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "decision_policy", kind: "message", T: Any },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'group_policy_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'decision_policy', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupPolicyDecisionPolicy {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupPolicyDecisionPolicy {
     return new MsgUpdateGroupPolicyDecisionPolicy().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyDecisionPolicy {
-    return new MsgUpdateGroupPolicyDecisionPolicy().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyDecisionPolicy {
+    return new MsgUpdateGroupPolicyDecisionPolicy().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyDecisionPolicy {
-    return new MsgUpdateGroupPolicyDecisionPolicy().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyDecisionPolicy {
+    return new MsgUpdateGroupPolicyDecisionPolicy().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateGroupPolicyDecisionPolicy | PlainMessage<MsgUpdateGroupPolicyDecisionPolicy> | undefined, b: MsgUpdateGroupPolicyDecisionPolicy | PlainMessage<MsgUpdateGroupPolicyDecisionPolicy> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupPolicyDecisionPolicy
+      | PlainMessage<MsgUpdateGroupPolicyDecisionPolicy>
+      | undefined,
+    b:
+      | MsgUpdateGroupPolicyDecisionPolicy
+      | PlainMessage<MsgUpdateGroupPolicyDecisionPolicy>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupPolicyDecisionPolicy, a, b);
   }
 }
@@ -798,29 +1121,58 @@ export class MsgUpdateGroupPolicyDecisionPolicy extends Message<MsgUpdateGroupPo
  * @generated from message cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse
  */
 export class MsgUpdateGroupPolicyDecisionPolicyResponse extends Message<MsgUpdateGroupPolicyDecisionPolicyResponse> {
-  constructor(data?: PartialMessage<MsgUpdateGroupPolicyDecisionPolicyResponse>) {
+  constructor(
+    data?: PartialMessage<MsgUpdateGroupPolicyDecisionPolicyResponse>,
+  ) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupPolicyDecisionPolicyResponse {
-    return new MsgUpdateGroupPolicyDecisionPolicyResponse().fromBinary(bytes, options);
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupPolicyDecisionPolicyResponse {
+    return new MsgUpdateGroupPolicyDecisionPolicyResponse().fromBinary(
+      bytes,
+      options,
+    );
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyDecisionPolicyResponse {
-    return new MsgUpdateGroupPolicyDecisionPolicyResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyDecisionPolicyResponse {
+    return new MsgUpdateGroupPolicyDecisionPolicyResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyDecisionPolicyResponse {
-    return new MsgUpdateGroupPolicyDecisionPolicyResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyDecisionPolicyResponse {
+    return new MsgUpdateGroupPolicyDecisionPolicyResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateGroupPolicyDecisionPolicyResponse | PlainMessage<MsgUpdateGroupPolicyDecisionPolicyResponse> | undefined, b: MsgUpdateGroupPolicyDecisionPolicyResponse | PlainMessage<MsgUpdateGroupPolicyDecisionPolicyResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupPolicyDecisionPolicyResponse
+      | PlainMessage<MsgUpdateGroupPolicyDecisionPolicyResponse>
+      | undefined,
+    b:
+      | MsgUpdateGroupPolicyDecisionPolicyResponse
+      | PlainMessage<MsgUpdateGroupPolicyDecisionPolicyResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupPolicyDecisionPolicyResponse, a, b);
   }
 }
@@ -836,21 +1188,21 @@ export class MsgUpdateGroupPolicyMetadata extends Message<MsgUpdateGroupPolicyMe
    *
    * @generated from field: string admin = 1;
    */
-  admin = "";
+  admin = '';
 
   /**
    * group_policy_address is the account address of group policy.
    *
    * @generated from field: string group_policy_address = 2;
    */
-  groupPolicyAddress = "";
+  groupPolicyAddress = '';
 
   /**
    * metadata is the group policy metadata to be updated.
    *
    * @generated from field: string metadata = 3;
    */
-  metadata = "";
+  metadata = '';
 
   constructor(data?: PartialMessage<MsgUpdateGroupPolicyMetadata>) {
     super();
@@ -858,26 +1210,52 @@ export class MsgUpdateGroupPolicyMetadata extends Message<MsgUpdateGroupPolicyMe
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupPolicyMetadata";
+  static readonly typeName = 'cosmos.group.v1.MsgUpdateGroupPolicyMetadata';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "admin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "group_policy_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "metadata", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'admin', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'group_policy_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'metadata', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupPolicyMetadata {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupPolicyMetadata {
     return new MsgUpdateGroupPolicyMetadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyMetadata {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyMetadata {
     return new MsgUpdateGroupPolicyMetadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyMetadata {
-    return new MsgUpdateGroupPolicyMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyMetadata {
+    return new MsgUpdateGroupPolicyMetadata().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateGroupPolicyMetadata | PlainMessage<MsgUpdateGroupPolicyMetadata> | undefined, b: MsgUpdateGroupPolicyMetadata | PlainMessage<MsgUpdateGroupPolicyMetadata> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupPolicyMetadata
+      | PlainMessage<MsgUpdateGroupPolicyMetadata>
+      | undefined,
+    b:
+      | MsgUpdateGroupPolicyMetadata
+      | PlainMessage<MsgUpdateGroupPolicyMetadata>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupPolicyMetadata, a, b);
   }
 }
@@ -894,23 +1272,50 @@ export class MsgUpdateGroupPolicyMetadataResponse extends Message<MsgUpdateGroup
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgUpdateGroupPolicyMetadataResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.group.v1.MsgUpdateGroupPolicyMetadataResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateGroupPolicyMetadataResponse {
-    return new MsgUpdateGroupPolicyMetadataResponse().fromBinary(bytes, options);
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateGroupPolicyMetadataResponse {
+    return new MsgUpdateGroupPolicyMetadataResponse().fromBinary(
+      bytes,
+      options,
+    );
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyMetadataResponse {
-    return new MsgUpdateGroupPolicyMetadataResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyMetadataResponse {
+    return new MsgUpdateGroupPolicyMetadataResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateGroupPolicyMetadataResponse {
-    return new MsgUpdateGroupPolicyMetadataResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateGroupPolicyMetadataResponse {
+    return new MsgUpdateGroupPolicyMetadataResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateGroupPolicyMetadataResponse | PlainMessage<MsgUpdateGroupPolicyMetadataResponse> | undefined, b: MsgUpdateGroupPolicyMetadataResponse | PlainMessage<MsgUpdateGroupPolicyMetadataResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateGroupPolicyMetadataResponse
+      | PlainMessage<MsgUpdateGroupPolicyMetadataResponse>
+      | undefined,
+    b:
+      | MsgUpdateGroupPolicyMetadataResponse
+      | PlainMessage<MsgUpdateGroupPolicyMetadataResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateGroupPolicyMetadataResponse, a, b);
   }
 }
@@ -926,7 +1331,7 @@ export class MsgSubmitProposal extends Message<MsgSubmitProposal> {
    *
    * @generated from field: string group_policy_address = 1;
    */
-  groupPolicyAddress = "";
+  groupPolicyAddress = '';
 
   /**
    * proposers are the account addresses of the proposers.
@@ -941,7 +1346,7 @@ export class MsgSubmitProposal extends Message<MsgSubmitProposal> {
    *
    * @generated from field: string metadata = 3;
    */
-  metadata = "";
+  metadata = '';
 
   /**
    * messages is a list of `sdk.Msg`s that will be executed if the proposal passes.
@@ -966,7 +1371,7 @@ export class MsgSubmitProposal extends Message<MsgSubmitProposal> {
    *
    * @generated from field: string title = 6;
    */
-  title = "";
+  title = '';
 
   /**
    * summary is the summary of the proposal.
@@ -975,7 +1380,7 @@ export class MsgSubmitProposal extends Message<MsgSubmitProposal> {
    *
    * @generated from field: string summary = 7;
    */
-  summary = "";
+  summary = '';
 
   constructor(data?: PartialMessage<MsgSubmitProposal>) {
     super();
@@ -983,30 +1388,53 @@ export class MsgSubmitProposal extends Message<MsgSubmitProposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgSubmitProposal";
+  static readonly typeName = 'cosmos.group.v1.MsgSubmitProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "group_policy_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "proposers", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 3, name: "metadata", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "messages", kind: "message", T: Any, repeated: true },
-    { no: 5, name: "exec", kind: "enum", T: proto3.getEnumType(Exec) },
-    { no: 6, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "summary", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'group_policy_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'proposers',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    { no: 3, name: 'metadata', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'messages', kind: 'message', T: Any, repeated: true },
+    { no: 5, name: 'exec', kind: 'enum', T: proto3.getEnumType(Exec) },
+    { no: 6, name: 'title', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: 'summary', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgSubmitProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgSubmitProposal {
     return new MsgSubmitProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgSubmitProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSubmitProposal {
     return new MsgSubmitProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgSubmitProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSubmitProposal {
     return new MsgSubmitProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgSubmitProposal | PlainMessage<MsgSubmitProposal> | undefined, b: MsgSubmitProposal | PlainMessage<MsgSubmitProposal> | undefined): boolean {
+  static equals(
+    a: MsgSubmitProposal | PlainMessage<MsgSubmitProposal> | undefined,
+    b: MsgSubmitProposal | PlainMessage<MsgSubmitProposal> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgSubmitProposal, a, b);
   }
 }
@@ -1030,24 +1458,47 @@ export class MsgSubmitProposalResponse extends Message<MsgSubmitProposalResponse
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgSubmitProposalResponse";
+  static readonly typeName = 'cosmos.group.v1.MsgSubmitProposalResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgSubmitProposalResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgSubmitProposalResponse {
     return new MsgSubmitProposalResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgSubmitProposalResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSubmitProposalResponse {
     return new MsgSubmitProposalResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgSubmitProposalResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgSubmitProposalResponse {
     return new MsgSubmitProposalResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgSubmitProposalResponse | PlainMessage<MsgSubmitProposalResponse> | undefined, b: MsgSubmitProposalResponse | PlainMessage<MsgSubmitProposalResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgSubmitProposalResponse
+      | PlainMessage<MsgSubmitProposalResponse>
+      | undefined,
+    b:
+      | MsgSubmitProposalResponse
+      | PlainMessage<MsgSubmitProposalResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgSubmitProposalResponse, a, b);
   }
 }
@@ -1070,7 +1521,7 @@ export class MsgWithdrawProposal extends Message<MsgWithdrawProposal> {
    *
    * @generated from field: string address = 2;
    */
-  address = "";
+  address = '';
 
   constructor(data?: PartialMessage<MsgWithdrawProposal>) {
     super();
@@ -1078,25 +1529,42 @@ export class MsgWithdrawProposal extends Message<MsgWithdrawProposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgWithdrawProposal";
+  static readonly typeName = 'cosmos.group.v1.MsgWithdrawProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgWithdrawProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgWithdrawProposal {
     return new MsgWithdrawProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgWithdrawProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgWithdrawProposal {
     return new MsgWithdrawProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgWithdrawProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgWithdrawProposal {
     return new MsgWithdrawProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgWithdrawProposal | PlainMessage<MsgWithdrawProposal> | undefined, b: MsgWithdrawProposal | PlainMessage<MsgWithdrawProposal> | undefined): boolean {
+  static equals(
+    a: MsgWithdrawProposal | PlainMessage<MsgWithdrawProposal> | undefined,
+    b: MsgWithdrawProposal | PlainMessage<MsgWithdrawProposal> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgWithdrawProposal, a, b);
   }
 }
@@ -1113,23 +1581,43 @@ export class MsgWithdrawProposalResponse extends Message<MsgWithdrawProposalResp
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgWithdrawProposalResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.group.v1.MsgWithdrawProposalResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgWithdrawProposalResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgWithdrawProposalResponse {
     return new MsgWithdrawProposalResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgWithdrawProposalResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgWithdrawProposalResponse {
     return new MsgWithdrawProposalResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgWithdrawProposalResponse {
-    return new MsgWithdrawProposalResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgWithdrawProposalResponse {
+    return new MsgWithdrawProposalResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgWithdrawProposalResponse | PlainMessage<MsgWithdrawProposalResponse> | undefined, b: MsgWithdrawProposalResponse | PlainMessage<MsgWithdrawProposalResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgWithdrawProposalResponse
+      | PlainMessage<MsgWithdrawProposalResponse>
+      | undefined,
+    b:
+      | MsgWithdrawProposalResponse
+      | PlainMessage<MsgWithdrawProposalResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgWithdrawProposalResponse, a, b);
   }
 }
@@ -1152,7 +1640,7 @@ export class MsgVote extends Message<MsgVote> {
    *
    * @generated from field: string voter = 2;
    */
-  voter = "";
+  voter = '';
 
   /**
    * option is the voter's choice on the proposal.
@@ -1166,7 +1654,7 @@ export class MsgVote extends Message<MsgVote> {
    *
    * @generated from field: string metadata = 4;
    */
-  metadata = "";
+  metadata = '';
 
   /**
    * exec defines whether the proposal should be executed
@@ -1182,28 +1670,45 @@ export class MsgVote extends Message<MsgVote> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgVote";
+  static readonly typeName = 'cosmos.group.v1.MsgVote';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "voter", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "option", kind: "enum", T: proto3.getEnumType(VoteOption) },
-    { no: 4, name: "metadata", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "exec", kind: "enum", T: proto3.getEnumType(Exec) },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'voter', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'option', kind: 'enum', T: proto3.getEnumType(VoteOption) },
+    { no: 4, name: 'metadata', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: 'exec', kind: 'enum', T: proto3.getEnumType(Exec) },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgVote {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgVote {
     return new MsgVote().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgVote {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgVote {
     return new MsgVote().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgVote {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgVote {
     return new MsgVote().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgVote | PlainMessage<MsgVote> | undefined, b: MsgVote | PlainMessage<MsgVote> | undefined): boolean {
+  static equals(
+    a: MsgVote | PlainMessage<MsgVote> | undefined,
+    b: MsgVote | PlainMessage<MsgVote> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgVote, a, b);
   }
 }
@@ -1220,23 +1725,34 @@ export class MsgVoteResponse extends Message<MsgVoteResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgVoteResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.group.v1.MsgVoteResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgVoteResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgVoteResponse {
     return new MsgVoteResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgVoteResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgVoteResponse {
     return new MsgVoteResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgVoteResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgVoteResponse {
     return new MsgVoteResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgVoteResponse | PlainMessage<MsgVoteResponse> | undefined, b: MsgVoteResponse | PlainMessage<MsgVoteResponse> | undefined): boolean {
+  static equals(
+    a: MsgVoteResponse | PlainMessage<MsgVoteResponse> | undefined,
+    b: MsgVoteResponse | PlainMessage<MsgVoteResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgVoteResponse, a, b);
   }
 }
@@ -1259,7 +1775,7 @@ export class MsgExec extends Message<MsgExec> {
    *
    * @generated from field: string executor = 2;
    */
-  executor = "";
+  executor = '';
 
   constructor(data?: PartialMessage<MsgExec>) {
     super();
@@ -1267,25 +1783,42 @@ export class MsgExec extends Message<MsgExec> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgExec";
+  static readonly typeName = 'cosmos.group.v1.MsgExec';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "executor", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 2, name: 'executor', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgExec {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgExec {
     return new MsgExec().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgExec {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgExec {
     return new MsgExec().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgExec {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgExec {
     return new MsgExec().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgExec | PlainMessage<MsgExec> | undefined, b: MsgExec | PlainMessage<MsgExec> | undefined): boolean {
+  static equals(
+    a: MsgExec | PlainMessage<MsgExec> | undefined,
+    b: MsgExec | PlainMessage<MsgExec> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgExec, a, b);
   }
 }
@@ -1309,24 +1842,41 @@ export class MsgExecResponse extends Message<MsgExecResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgExecResponse";
+  static readonly typeName = 'cosmos.group.v1.MsgExecResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 2, name: "result", kind: "enum", T: proto3.getEnumType(ProposalExecutorResult) },
+    {
+      no: 2,
+      name: 'result',
+      kind: 'enum',
+      T: proto3.getEnumType(ProposalExecutorResult),
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgExecResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgExecResponse {
     return new MsgExecResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgExecResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgExecResponse {
     return new MsgExecResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgExecResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgExecResponse {
     return new MsgExecResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgExecResponse | PlainMessage<MsgExecResponse> | undefined, b: MsgExecResponse | PlainMessage<MsgExecResponse> | undefined): boolean {
+  static equals(
+    a: MsgExecResponse | PlainMessage<MsgExecResponse> | undefined,
+    b: MsgExecResponse | PlainMessage<MsgExecResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgExecResponse, a, b);
   }
 }
@@ -1342,7 +1892,7 @@ export class MsgLeaveGroup extends Message<MsgLeaveGroup> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * group_id is the unique ID of the group.
@@ -1357,25 +1907,37 @@ export class MsgLeaveGroup extends Message<MsgLeaveGroup> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgLeaveGroup";
+  static readonly typeName = 'cosmos.group.v1.MsgLeaveGroup';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgLeaveGroup {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgLeaveGroup {
     return new MsgLeaveGroup().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgLeaveGroup {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgLeaveGroup {
     return new MsgLeaveGroup().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgLeaveGroup {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgLeaveGroup {
     return new MsgLeaveGroup().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgLeaveGroup | PlainMessage<MsgLeaveGroup> | undefined, b: MsgLeaveGroup | PlainMessage<MsgLeaveGroup> | undefined): boolean {
+  static equals(
+    a: MsgLeaveGroup | PlainMessage<MsgLeaveGroup> | undefined,
+    b: MsgLeaveGroup | PlainMessage<MsgLeaveGroup> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgLeaveGroup, a, b);
   }
 }
@@ -1392,24 +1954,34 @@ export class MsgLeaveGroupResponse extends Message<MsgLeaveGroupResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.MsgLeaveGroupResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.group.v1.MsgLeaveGroupResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgLeaveGroupResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgLeaveGroupResponse {
     return new MsgLeaveGroupResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgLeaveGroupResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgLeaveGroupResponse {
     return new MsgLeaveGroupResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgLeaveGroupResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgLeaveGroupResponse {
     return new MsgLeaveGroupResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgLeaveGroupResponse | PlainMessage<MsgLeaveGroupResponse> | undefined, b: MsgLeaveGroupResponse | PlainMessage<MsgLeaveGroupResponse> | undefined): boolean {
+  static equals(
+    a: MsgLeaveGroupResponse | PlainMessage<MsgLeaveGroupResponse> | undefined,
+    b: MsgLeaveGroupResponse | PlainMessage<MsgLeaveGroupResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgLeaveGroupResponse, a, b);
   }
 }
-

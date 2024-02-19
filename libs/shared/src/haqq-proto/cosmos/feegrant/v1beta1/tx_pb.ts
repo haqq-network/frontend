@@ -5,8 +5,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * MsgGrantAllowance adds permission for Grantee to spend up to Allowance
@@ -20,14 +27,14 @@ export class MsgGrantAllowance extends Message<MsgGrantAllowance> {
    *
    * @generated from field: string granter = 1;
    */
-  granter = "";
+  granter = '';
 
   /**
    * grantee is the address of the user being granted an allowance of another user's funds.
    *
    * @generated from field: string grantee = 2;
    */
-  grantee = "";
+  grantee = '';
 
   /**
    * allowance can be any of basic, periodic, allowed fee allowance.
@@ -42,26 +49,38 @@ export class MsgGrantAllowance extends Message<MsgGrantAllowance> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.feegrant.v1beta1.MsgGrantAllowance";
+  static readonly typeName = 'cosmos.feegrant.v1beta1.MsgGrantAllowance';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "granter", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "grantee", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "allowance", kind: "message", T: Any },
+    { no: 1, name: 'granter', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'grantee', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'allowance', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgGrantAllowance {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgGrantAllowance {
     return new MsgGrantAllowance().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgGrantAllowance {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgGrantAllowance {
     return new MsgGrantAllowance().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgGrantAllowance {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgGrantAllowance {
     return new MsgGrantAllowance().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgGrantAllowance | PlainMessage<MsgGrantAllowance> | undefined, b: MsgGrantAllowance | PlainMessage<MsgGrantAllowance> | undefined): boolean {
+  static equals(
+    a: MsgGrantAllowance | PlainMessage<MsgGrantAllowance> | undefined,
+    b: MsgGrantAllowance | PlainMessage<MsgGrantAllowance> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgGrantAllowance, a, b);
   }
 }
@@ -78,23 +97,41 @@ export class MsgGrantAllowanceResponse extends Message<MsgGrantAllowanceResponse
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgGrantAllowanceResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgGrantAllowanceResponse {
     return new MsgGrantAllowanceResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgGrantAllowanceResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgGrantAllowanceResponse {
     return new MsgGrantAllowanceResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgGrantAllowanceResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgGrantAllowanceResponse {
     return new MsgGrantAllowanceResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgGrantAllowanceResponse | PlainMessage<MsgGrantAllowanceResponse> | undefined, b: MsgGrantAllowanceResponse | PlainMessage<MsgGrantAllowanceResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgGrantAllowanceResponse
+      | PlainMessage<MsgGrantAllowanceResponse>
+      | undefined,
+    b:
+      | MsgGrantAllowanceResponse
+      | PlainMessage<MsgGrantAllowanceResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgGrantAllowanceResponse, a, b);
   }
 }
@@ -110,14 +147,14 @@ export class MsgRevokeAllowance extends Message<MsgRevokeAllowance> {
    *
    * @generated from field: string granter = 1;
    */
-  granter = "";
+  granter = '';
 
   /**
    * grantee is the address of the user being granted an allowance of another user's funds.
    *
    * @generated from field: string grantee = 2;
    */
-  grantee = "";
+  grantee = '';
 
   constructor(data?: PartialMessage<MsgRevokeAllowance>) {
     super();
@@ -125,25 +162,37 @@ export class MsgRevokeAllowance extends Message<MsgRevokeAllowance> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.feegrant.v1beta1.MsgRevokeAllowance";
+  static readonly typeName = 'cosmos.feegrant.v1beta1.MsgRevokeAllowance';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "granter", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "grantee", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'granter', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'grantee', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgRevokeAllowance {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgRevokeAllowance {
     return new MsgRevokeAllowance().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgRevokeAllowance {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRevokeAllowance {
     return new MsgRevokeAllowance().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgRevokeAllowance {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRevokeAllowance {
     return new MsgRevokeAllowance().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgRevokeAllowance | PlainMessage<MsgRevokeAllowance> | undefined, b: MsgRevokeAllowance | PlainMessage<MsgRevokeAllowance> | undefined): boolean {
+  static equals(
+    a: MsgRevokeAllowance | PlainMessage<MsgRevokeAllowance> | undefined,
+    b: MsgRevokeAllowance | PlainMessage<MsgRevokeAllowance> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgRevokeAllowance, a, b);
   }
 }
@@ -160,24 +209,41 @@ export class MsgRevokeAllowanceResponse extends Message<MsgRevokeAllowanceRespon
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgRevokeAllowanceResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgRevokeAllowanceResponse {
     return new MsgRevokeAllowanceResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgRevokeAllowanceResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRevokeAllowanceResponse {
     return new MsgRevokeAllowanceResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgRevokeAllowanceResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRevokeAllowanceResponse {
     return new MsgRevokeAllowanceResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgRevokeAllowanceResponse | PlainMessage<MsgRevokeAllowanceResponse> | undefined, b: MsgRevokeAllowanceResponse | PlainMessage<MsgRevokeAllowanceResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgRevokeAllowanceResponse
+      | PlainMessage<MsgRevokeAllowanceResponse>
+      | undefined,
+    b:
+      | MsgRevokeAllowanceResponse
+      | PlainMessage<MsgRevokeAllowanceResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgRevokeAllowanceResponse, a, b);
   }
 }
-

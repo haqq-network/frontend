@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * Module is the config object for the runtime module.
@@ -17,7 +24,7 @@ export class Module extends Message<Module> {
    *
    * @generated from field: string app_name = 1;
    */
-  appName = "";
+  appName = '';
 
   /**
    * begin_blockers specifies the module names of begin blockers
@@ -69,29 +76,71 @@ export class Module extends Message<Module> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.app.runtime.v1alpha1.Module";
+  static readonly typeName = 'cosmos.app.runtime.v1alpha1.Module';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "app_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "begin_blockers", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 3, name: "end_blockers", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 4, name: "init_genesis", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 5, name: "export_genesis", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 6, name: "override_store_keys", kind: "message", T: StoreKeyConfig, repeated: true },
+    { no: 1, name: 'app_name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'begin_blockers',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    {
+      no: 3,
+      name: 'end_blockers',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    {
+      no: 4,
+      name: 'init_genesis',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    {
+      no: 5,
+      name: 'export_genesis',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
+    {
+      no: 6,
+      name: 'override_store_keys',
+      kind: 'message',
+      T: StoreKeyConfig,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Module {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Module {
     return new Module().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Module {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Module {
     return new Module().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Module {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Module {
     return new Module().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Module | PlainMessage<Module> | undefined, b: Module | PlainMessage<Module> | undefined): boolean {
+  static equals(
+    a: Module | PlainMessage<Module> | undefined,
+    b: Module | PlainMessage<Module> | undefined,
+  ): boolean {
     return proto3.util.equals(Module, a, b);
   }
 }
@@ -108,14 +157,14 @@ export class StoreKeyConfig extends Message<StoreKeyConfig> {
    *
    * @generated from field: string module_name = 1;
    */
-  moduleName = "";
+  moduleName = '';
 
   /**
    * the kv store key to use instead of the module name.
    *
    * @generated from field: string kv_store_key = 2;
    */
-  kvStoreKey = "";
+  kvStoreKey = '';
 
   constructor(data?: PartialMessage<StoreKeyConfig>) {
     super();
@@ -123,26 +172,47 @@ export class StoreKeyConfig extends Message<StoreKeyConfig> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.app.runtime.v1alpha1.StoreKeyConfig";
+  static readonly typeName = 'cosmos.app.runtime.v1alpha1.StoreKeyConfig';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "module_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "kv_store_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'module_name',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'kv_store_key',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StoreKeyConfig {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): StoreKeyConfig {
     return new StoreKeyConfig().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StoreKeyConfig {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): StoreKeyConfig {
     return new StoreKeyConfig().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StoreKeyConfig {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): StoreKeyConfig {
     return new StoreKeyConfig().fromJsonString(jsonString, options);
   }
 
-  static equals(a: StoreKeyConfig | PlainMessage<StoreKeyConfig> | undefined, b: StoreKeyConfig | PlainMessage<StoreKeyConfig> | undefined): boolean {
+  static equals(
+    a: StoreKeyConfig | PlainMessage<StoreKeyConfig> | undefined,
+    b: StoreKeyConfig | PlainMessage<StoreKeyConfig> | undefined,
+  ): boolean {
     return proto3.util.equals(StoreKeyConfig, a, b);
   }
 }
-

@@ -362,12 +362,12 @@ export interface ProposalVoteResponse {
   };
 }
 
-interface TokenPair {
+export interface TokenPair {
   erc20_address: string;
   denom: string;
 }
 
-interface TokenPairsResponse {
+export interface TokenPairsResponse {
   token_pairs: TokenPair[];
 }
 

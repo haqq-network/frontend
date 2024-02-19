@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AppOptionsRequest, AppOptionsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { AppOptionsRequest, AppOptionsResponse } from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * RemoteInfoService provides clients with the information they need
@@ -13,7 +13,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.autocli.v1.Query
  */
 export const Query = {
-  typeName: "cosmos.autocli.v1.Query",
+  typeName: 'cosmos.autocli.v1.Query',
   methods: {
     /**
      * AppOptions returns the autocli options for all of the modules in an app.
@@ -21,11 +21,10 @@ export const Query = {
      * @generated from rpc cosmos.autocli.v1.Query.AppOptions
      */
     appOptions: {
-      name: "AppOptions",
+      name: 'AppOptions',
       I: AppOptionsRequest,
       O: AppOptionsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

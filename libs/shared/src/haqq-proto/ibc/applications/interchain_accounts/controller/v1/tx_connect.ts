@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgRegisterInterchainAccount, MsgRegisterInterchainAccountResponse, MsgSendTx, MsgSendTxResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgRegisterInterchainAccount,
+  MsgRegisterInterchainAccountResponse,
+  MsgSendTx,
+  MsgSendTxResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the 27-interchain-accounts/controller Msg service.
@@ -12,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.applications.interchain_accounts.controller.v1.Msg
  */
 export const Msg = {
-  typeName: "ibc.applications.interchain_accounts.controller.v1.Msg",
+  typeName: 'ibc.applications.interchain_accounts.controller.v1.Msg',
   methods: {
     /**
      * RegisterInterchainAccount defines a rpc handler for MsgRegisterInterchainAccount.
@@ -20,7 +27,7 @@ export const Msg = {
      * @generated from rpc ibc.applications.interchain_accounts.controller.v1.Msg.RegisterInterchainAccount
      */
     registerInterchainAccount: {
-      name: "RegisterInterchainAccount",
+      name: 'RegisterInterchainAccount',
       I: MsgRegisterInterchainAccount,
       O: MsgRegisterInterchainAccountResponse,
       kind: MethodKind.Unary,
@@ -31,7 +38,7 @@ export const Msg = {
      * @generated from rpc ibc.applications.interchain_accounts.controller.v1.Msg.SendTx
      */
     sendTx: {
-      name: "SendTx",
+      name: 'SendTx',
       I: MsgSendTx,
       O: MsgSendTxResponse,
       kind: MethodKind.Unary,
@@ -42,11 +49,10 @@ export const Msg = {
      * @generated from rpc ibc.applications.interchain_accounts.controller.v1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -5,8 +5,37 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgCreateGroup, MsgCreateGroupPolicy, MsgCreateGroupPolicyResponse, MsgCreateGroupResponse, MsgCreateGroupWithPolicy, MsgCreateGroupWithPolicyResponse, MsgExec, MsgExecResponse, MsgLeaveGroup, MsgLeaveGroupResponse, MsgSubmitProposal, MsgSubmitProposalResponse, MsgUpdateGroupAdmin, MsgUpdateGroupAdminResponse, MsgUpdateGroupMembers, MsgUpdateGroupMembersResponse, MsgUpdateGroupMetadata, MsgUpdateGroupMetadataResponse, MsgUpdateGroupPolicyAdmin, MsgUpdateGroupPolicyAdminResponse, MsgUpdateGroupPolicyDecisionPolicy, MsgUpdateGroupPolicyDecisionPolicyResponse, MsgUpdateGroupPolicyMetadata, MsgUpdateGroupPolicyMetadataResponse, MsgVote, MsgVoteResponse, MsgWithdrawProposal, MsgWithdrawProposalResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgCreateGroup,
+  MsgCreateGroupPolicy,
+  MsgCreateGroupPolicyResponse,
+  MsgCreateGroupResponse,
+  MsgCreateGroupWithPolicy,
+  MsgCreateGroupWithPolicyResponse,
+  MsgExec,
+  MsgExecResponse,
+  MsgLeaveGroup,
+  MsgLeaveGroupResponse,
+  MsgSubmitProposal,
+  MsgSubmitProposalResponse,
+  MsgUpdateGroupAdmin,
+  MsgUpdateGroupAdminResponse,
+  MsgUpdateGroupMembers,
+  MsgUpdateGroupMembersResponse,
+  MsgUpdateGroupMetadata,
+  MsgUpdateGroupMetadataResponse,
+  MsgUpdateGroupPolicyAdmin,
+  MsgUpdateGroupPolicyAdminResponse,
+  MsgUpdateGroupPolicyDecisionPolicy,
+  MsgUpdateGroupPolicyDecisionPolicyResponse,
+  MsgUpdateGroupPolicyMetadata,
+  MsgUpdateGroupPolicyMetadataResponse,
+  MsgVote,
+  MsgVoteResponse,
+  MsgWithdrawProposal,
+  MsgWithdrawProposalResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg is the cosmos.group.v1 Msg service.
@@ -14,7 +43,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.group.v1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.group.v1.Msg",
+  typeName: 'cosmos.group.v1.Msg',
   methods: {
     /**
      * CreateGroup creates a new group with an admin account address, a list of members and some optional metadata.
@@ -22,7 +51,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.CreateGroup
      */
     createGroup: {
-      name: "CreateGroup",
+      name: 'CreateGroup',
       I: MsgCreateGroup,
       O: MsgCreateGroupResponse,
       kind: MethodKind.Unary,
@@ -33,7 +62,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.UpdateGroupMembers
      */
     updateGroupMembers: {
-      name: "UpdateGroupMembers",
+      name: 'UpdateGroupMembers',
       I: MsgUpdateGroupMembers,
       O: MsgUpdateGroupMembersResponse,
       kind: MethodKind.Unary,
@@ -44,7 +73,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.UpdateGroupAdmin
      */
     updateGroupAdmin: {
-      name: "UpdateGroupAdmin",
+      name: 'UpdateGroupAdmin',
       I: MsgUpdateGroupAdmin,
       O: MsgUpdateGroupAdminResponse,
       kind: MethodKind.Unary,
@@ -55,7 +84,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.UpdateGroupMetadata
      */
     updateGroupMetadata: {
-      name: "UpdateGroupMetadata",
+      name: 'UpdateGroupMetadata',
       I: MsgUpdateGroupMetadata,
       O: MsgUpdateGroupMetadataResponse,
       kind: MethodKind.Unary,
@@ -66,7 +95,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.CreateGroupPolicy
      */
     createGroupPolicy: {
-      name: "CreateGroupPolicy",
+      name: 'CreateGroupPolicy',
       I: MsgCreateGroupPolicy,
       O: MsgCreateGroupPolicyResponse,
       kind: MethodKind.Unary,
@@ -77,7 +106,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.CreateGroupWithPolicy
      */
     createGroupWithPolicy: {
-      name: "CreateGroupWithPolicy",
+      name: 'CreateGroupWithPolicy',
       I: MsgCreateGroupWithPolicy,
       O: MsgCreateGroupWithPolicyResponse,
       kind: MethodKind.Unary,
@@ -88,7 +117,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.UpdateGroupPolicyAdmin
      */
     updateGroupPolicyAdmin: {
-      name: "UpdateGroupPolicyAdmin",
+      name: 'UpdateGroupPolicyAdmin',
       I: MsgUpdateGroupPolicyAdmin,
       O: MsgUpdateGroupPolicyAdminResponse,
       kind: MethodKind.Unary,
@@ -99,7 +128,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.UpdateGroupPolicyDecisionPolicy
      */
     updateGroupPolicyDecisionPolicy: {
-      name: "UpdateGroupPolicyDecisionPolicy",
+      name: 'UpdateGroupPolicyDecisionPolicy',
       I: MsgUpdateGroupPolicyDecisionPolicy,
       O: MsgUpdateGroupPolicyDecisionPolicyResponse,
       kind: MethodKind.Unary,
@@ -110,7 +139,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.UpdateGroupPolicyMetadata
      */
     updateGroupPolicyMetadata: {
-      name: "UpdateGroupPolicyMetadata",
+      name: 'UpdateGroupPolicyMetadata',
       I: MsgUpdateGroupPolicyMetadata,
       O: MsgUpdateGroupPolicyMetadataResponse,
       kind: MethodKind.Unary,
@@ -121,7 +150,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.SubmitProposal
      */
     submitProposal: {
-      name: "SubmitProposal",
+      name: 'SubmitProposal',
       I: MsgSubmitProposal,
       O: MsgSubmitProposalResponse,
       kind: MethodKind.Unary,
@@ -132,7 +161,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.WithdrawProposal
      */
     withdrawProposal: {
-      name: "WithdrawProposal",
+      name: 'WithdrawProposal',
       I: MsgWithdrawProposal,
       O: MsgWithdrawProposalResponse,
       kind: MethodKind.Unary,
@@ -143,7 +172,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.Vote
      */
     vote: {
-      name: "Vote",
+      name: 'Vote',
       I: MsgVote,
       O: MsgVoteResponse,
       kind: MethodKind.Unary,
@@ -154,7 +183,7 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.Exec
      */
     exec: {
-      name: "Exec",
+      name: 'Exec',
       I: MsgExec,
       O: MsgExecResponse,
       kind: MethodKind.Unary,
@@ -165,11 +194,10 @@ export const Msg = {
      * @generated from rpc cosmos.group.v1.Msg.LeaveGroup
      */
     leaveGroup: {
-      name: "LeaveGroup",
+      name: 'LeaveGroup',
       I: MsgLeaveGroup,
       O: MsgLeaveGroupResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

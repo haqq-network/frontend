@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgEthereumTx, MsgEthereumTxResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgEthereumTx,
+  MsgEthereumTxResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the evm Msg service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ethermint.evm.v1.Msg
  */
 export const Msg = {
-  typeName: "ethermint.evm.v1.Msg",
+  typeName: 'ethermint.evm.v1.Msg',
   methods: {
     /**
      * EthereumTx defines a method submitting Ethereum transactions.
@@ -20,7 +25,7 @@ export const Msg = {
      * @generated from rpc ethermint.evm.v1.Msg.EthereumTx
      */
     ethereumTx: {
-      name: "EthereumTx",
+      name: 'EthereumTx',
       I: MsgEthereumTx,
       O: MsgEthereumTxResponse,
       kind: MethodKind.Unary,
@@ -33,11 +38,10 @@ export const Msg = {
      * @generated from rpc ethermint.evm.v1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

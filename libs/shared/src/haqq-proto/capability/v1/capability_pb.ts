@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * Capability defines an implementation of an object capability. The index
@@ -24,24 +31,36 @@ export class Capability extends Message<Capability> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "capability.v1.Capability";
+  static readonly typeName = 'capability.v1.Capability';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "index", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'index', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Capability {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Capability {
     return new Capability().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Capability {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Capability {
     return new Capability().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Capability {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Capability {
     return new Capability().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Capability | PlainMessage<Capability> | undefined, b: Capability | PlainMessage<Capability> | undefined): boolean {
+  static equals(
+    a: Capability | PlainMessage<Capability> | undefined,
+    b: Capability | PlainMessage<Capability> | undefined,
+  ): boolean {
     return proto3.util.equals(Capability, a, b);
   }
 }
@@ -56,12 +75,12 @@ export class Owner extends Message<Owner> {
   /**
    * @generated from field: string module = 1;
    */
-  module = "";
+  module = '';
 
   /**
    * @generated from field: string name = 2;
    */
-  name = "";
+  name = '';
 
   constructor(data?: PartialMessage<Owner>) {
     super();
@@ -69,25 +88,37 @@ export class Owner extends Message<Owner> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "capability.v1.Owner";
+  static readonly typeName = 'capability.v1.Owner';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "module", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'module', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Owner {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Owner {
     return new Owner().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Owner {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Owner {
     return new Owner().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Owner {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Owner {
     return new Owner().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Owner | PlainMessage<Owner> | undefined, b: Owner | PlainMessage<Owner> | undefined): boolean {
+  static equals(
+    a: Owner | PlainMessage<Owner> | undefined,
+    b: Owner | PlainMessage<Owner> | undefined,
+  ): boolean {
     return proto3.util.equals(Owner, a, b);
   }
 }
@@ -110,25 +141,36 @@ export class CapabilityOwners extends Message<CapabilityOwners> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "capability.v1.CapabilityOwners";
+  static readonly typeName = 'capability.v1.CapabilityOwners';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "owners", kind: "message", T: Owner, repeated: true },
+    { no: 1, name: 'owners', kind: 'message', T: Owner, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CapabilityOwners {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): CapabilityOwners {
     return new CapabilityOwners().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CapabilityOwners {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): CapabilityOwners {
     return new CapabilityOwners().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CapabilityOwners {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): CapabilityOwners {
     return new CapabilityOwners().fromJsonString(jsonString, options);
   }
 
-  static equals(a: CapabilityOwners | PlainMessage<CapabilityOwners> | undefined, b: CapabilityOwners | PlainMessage<CapabilityOwners> | undefined): boolean {
+  static equals(
+    a: CapabilityOwners | PlainMessage<CapabilityOwners> | undefined,
+    b: CapabilityOwners | PlainMessage<CapabilityOwners> | undefined,
+  ): boolean {
     return proto3.util.equals(CapabilityOwners, a, b);
   }
 }
-

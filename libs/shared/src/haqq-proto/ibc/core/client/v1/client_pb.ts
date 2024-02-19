@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { Plan } from "../../../../cosmos/upgrade/v1beta1/upgrade_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { Plan } from '../../../../cosmos/upgrade/v1beta1/upgrade_pb';
 
 /**
  * IdentifiedClientState defines a client state with an additional client
@@ -19,7 +26,7 @@ export class IdentifiedClientState extends Message<IdentifiedClientState> {
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * client state
@@ -34,25 +41,37 @@ export class IdentifiedClientState extends Message<IdentifiedClientState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.IdentifiedClientState";
+  static readonly typeName = 'ibc.core.client.v1.IdentifiedClientState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "client_state", kind: "message", T: Any },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'client_state', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IdentifiedClientState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): IdentifiedClientState {
     return new IdentifiedClientState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IdentifiedClientState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): IdentifiedClientState {
     return new IdentifiedClientState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IdentifiedClientState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): IdentifiedClientState {
     return new IdentifiedClientState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: IdentifiedClientState | PlainMessage<IdentifiedClientState> | undefined, b: IdentifiedClientState | PlainMessage<IdentifiedClientState> | undefined): boolean {
+  static equals(
+    a: IdentifiedClientState | PlainMessage<IdentifiedClientState> | undefined,
+    b: IdentifiedClientState | PlainMessage<IdentifiedClientState> | undefined,
+  ): boolean {
     return proto3.util.equals(IdentifiedClientState, a, b);
   }
 }
@@ -84,25 +103,43 @@ export class ConsensusStateWithHeight extends Message<ConsensusStateWithHeight> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.ConsensusStateWithHeight";
+  static readonly typeName = 'ibc.core.client.v1.ConsensusStateWithHeight';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "height", kind: "message", T: Height },
-    { no: 2, name: "consensus_state", kind: "message", T: Any },
+    { no: 1, name: 'height', kind: 'message', T: Height },
+    { no: 2, name: 'consensus_state', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConsensusStateWithHeight {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ConsensusStateWithHeight {
     return new ConsensusStateWithHeight().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConsensusStateWithHeight {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ConsensusStateWithHeight {
     return new ConsensusStateWithHeight().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConsensusStateWithHeight {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ConsensusStateWithHeight {
     return new ConsensusStateWithHeight().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ConsensusStateWithHeight | PlainMessage<ConsensusStateWithHeight> | undefined, b: ConsensusStateWithHeight | PlainMessage<ConsensusStateWithHeight> | undefined): boolean {
+  static equals(
+    a:
+      | ConsensusStateWithHeight
+      | PlainMessage<ConsensusStateWithHeight>
+      | undefined,
+    b:
+      | ConsensusStateWithHeight
+      | PlainMessage<ConsensusStateWithHeight>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ConsensusStateWithHeight, a, b);
   }
 }
@@ -119,7 +156,7 @@ export class ClientConsensusStates extends Message<ClientConsensusStates> {
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * consensus states and their heights associated with the client
@@ -134,25 +171,43 @@ export class ClientConsensusStates extends Message<ClientConsensusStates> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.ClientConsensusStates";
+  static readonly typeName = 'ibc.core.client.v1.ClientConsensusStates';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "consensus_states", kind: "message", T: ConsensusStateWithHeight, repeated: true },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'consensus_states',
+      kind: 'message',
+      T: ConsensusStateWithHeight,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientConsensusStates {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ClientConsensusStates {
     return new ClientConsensusStates().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientConsensusStates {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ClientConsensusStates {
     return new ClientConsensusStates().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientConsensusStates {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ClientConsensusStates {
     return new ClientConsensusStates().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ClientConsensusStates | PlainMessage<ClientConsensusStates> | undefined, b: ClientConsensusStates | PlainMessage<ClientConsensusStates> | undefined): boolean {
+  static equals(
+    a: ClientConsensusStates | PlainMessage<ClientConsensusStates> | undefined,
+    b: ClientConsensusStates | PlainMessage<ClientConsensusStates> | undefined,
+  ): boolean {
     return proto3.util.equals(ClientConsensusStates, a, b);
   }
 }
@@ -171,21 +226,21 @@ export class ClientUpdateProposal extends Message<ClientUpdateProposal> {
    *
    * @generated from field: string title = 1;
    */
-  title = "";
+  title = '';
 
   /**
    * the description of the proposal
    *
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   /**
    * the client identifier for the client to be updated if the proposal passes
    *
    * @generated from field: string subject_client_id = 3;
    */
-  subjectClientId = "";
+  subjectClientId = '';
 
   /**
    * the substitute client identifier for the client standing in for the subject
@@ -193,7 +248,7 @@ export class ClientUpdateProposal extends Message<ClientUpdateProposal> {
    *
    * @generated from field: string substitute_client_id = 4;
    */
-  substituteClientId = "";
+  substituteClientId = '';
 
   constructor(data?: PartialMessage<ClientUpdateProposal>) {
     super();
@@ -201,27 +256,54 @@ export class ClientUpdateProposal extends Message<ClientUpdateProposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.ClientUpdateProposal";
+  static readonly typeName = 'ibc.core.client.v1.ClientUpdateProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "subject_client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "substitute_client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'title', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'subject_client_id',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 4,
+      name: 'substitute_client_id',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientUpdateProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ClientUpdateProposal {
     return new ClientUpdateProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientUpdateProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ClientUpdateProposal {
     return new ClientUpdateProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientUpdateProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ClientUpdateProposal {
     return new ClientUpdateProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ClientUpdateProposal | PlainMessage<ClientUpdateProposal> | undefined, b: ClientUpdateProposal | PlainMessage<ClientUpdateProposal> | undefined): boolean {
+  static equals(
+    a: ClientUpdateProposal | PlainMessage<ClientUpdateProposal> | undefined,
+    b: ClientUpdateProposal | PlainMessage<ClientUpdateProposal> | undefined,
+  ): boolean {
     return proto3.util.equals(ClientUpdateProposal, a, b);
   }
 }
@@ -236,12 +318,12 @@ export class UpgradeProposal extends Message<UpgradeProposal> {
   /**
    * @generated from field: string title = 1;
    */
-  title = "";
+  title = '';
 
   /**
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   /**
    * @generated from field: cosmos.upgrade.v1beta1.Plan plan = 3;
@@ -266,27 +348,44 @@ export class UpgradeProposal extends Message<UpgradeProposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.UpgradeProposal";
+  static readonly typeName = 'ibc.core.client.v1.UpgradeProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "plan", kind: "message", T: Plan },
-    { no: 4, name: "upgraded_client_state", kind: "message", T: Any },
+    { no: 1, name: 'title', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'plan', kind: 'message', T: Plan },
+    { no: 4, name: 'upgraded_client_state', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpgradeProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): UpgradeProposal {
     return new UpgradeProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpgradeProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): UpgradeProposal {
     return new UpgradeProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpgradeProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): UpgradeProposal {
     return new UpgradeProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: UpgradeProposal | PlainMessage<UpgradeProposal> | undefined, b: UpgradeProposal | PlainMessage<UpgradeProposal> | undefined): boolean {
+  static equals(
+    a: UpgradeProposal | PlainMessage<UpgradeProposal> | undefined,
+    b: UpgradeProposal | PlainMessage<UpgradeProposal> | undefined,
+  ): boolean {
     return proto3.util.equals(UpgradeProposal, a, b);
   }
 }
@@ -326,25 +425,47 @@ export class Height extends Message<Height> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.Height";
+  static readonly typeName = 'ibc.core.client.v1.Height';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "revision_number", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "revision_height", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'revision_number',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 2,
+      name: 'revision_height',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Height {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Height {
     return new Height().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Height {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Height {
     return new Height().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Height {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Height {
     return new Height().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Height | PlainMessage<Height> | undefined, b: Height | PlainMessage<Height> | undefined): boolean {
+  static equals(
+    a: Height | PlainMessage<Height> | undefined,
+    b: Height | PlainMessage<Height> | undefined,
+  ): boolean {
     return proto3.util.equals(Height, a, b);
   }
 }
@@ -370,25 +491,42 @@ export class Params extends Message<Params> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.client.v1.Params";
+  static readonly typeName = 'ibc.core.client.v1.Params';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "allowed_clients", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    {
+      no: 1,
+      name: 'allowed_clients',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Params {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Params {
     return new Params().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Params {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Params {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Params | PlainMessage<Params> | undefined, b: Params | PlainMessage<Params> | undefined): boolean {
+  static equals(
+    a: Params | PlainMessage<Params> | undefined,
+    b: Params | PlainMessage<Params> | undefined,
+  ): boolean {
     return proto3.util.equals(Params, a, b);
   }
 }
-

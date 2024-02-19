@@ -3,8 +3,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { FileDescriptorsRequest, FileDescriptorsResponse } from "./reflection_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  FileDescriptorsRequest,
+  FileDescriptorsResponse,
+} from './reflection_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Package cosmos.reflection.v1 provides support for inspecting protobuf
@@ -13,7 +16,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.reflection.v1.ReflectionService
  */
 export const ReflectionService = {
-  typeName: "cosmos.reflection.v1.ReflectionService",
+  typeName: 'cosmos.reflection.v1.ReflectionService',
   methods: {
     /**
      * FileDescriptors queries all the file descriptors in the app in order
@@ -22,11 +25,10 @@ export const ReflectionService = {
      * @generated from rpc cosmos.reflection.v1.ReflectionService.FileDescriptors
      */
     fileDescriptors: {
-      name: "FileDescriptors",
+      name: 'FileDescriptors',
       I: FileDescriptorsRequest,
       O: FileDescriptorsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

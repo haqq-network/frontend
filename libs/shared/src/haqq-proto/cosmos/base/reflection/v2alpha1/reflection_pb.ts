@@ -5,8 +5,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * AppDescriptor describes a cosmos-sdk based application
@@ -63,29 +70,51 @@ export class AppDescriptor extends Message<AppDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.AppDescriptor";
+  static readonly typeName = 'cosmos.base.reflection.v2alpha1.AppDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "authn", kind: "message", T: AuthnDescriptor },
-    { no: 2, name: "chain", kind: "message", T: ChainDescriptor },
-    { no: 3, name: "codec", kind: "message", T: CodecDescriptor },
-    { no: 4, name: "configuration", kind: "message", T: ConfigurationDescriptor },
-    { no: 5, name: "query_services", kind: "message", T: QueryServicesDescriptor },
-    { no: 6, name: "tx", kind: "message", T: TxDescriptor },
+    { no: 1, name: 'authn', kind: 'message', T: AuthnDescriptor },
+    { no: 2, name: 'chain', kind: 'message', T: ChainDescriptor },
+    { no: 3, name: 'codec', kind: 'message', T: CodecDescriptor },
+    {
+      no: 4,
+      name: 'configuration',
+      kind: 'message',
+      T: ConfigurationDescriptor,
+    },
+    {
+      no: 5,
+      name: 'query_services',
+      kind: 'message',
+      T: QueryServicesDescriptor,
+    },
+    { no: 6, name: 'tx', kind: 'message', T: TxDescriptor },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AppDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AppDescriptor {
     return new AppDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AppDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AppDescriptor {
     return new AppDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AppDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AppDescriptor {
     return new AppDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: AppDescriptor | PlainMessage<AppDescriptor> | undefined, b: AppDescriptor | PlainMessage<AppDescriptor> | undefined): boolean {
+  static equals(
+    a: AppDescriptor | PlainMessage<AppDescriptor> | undefined,
+    b: AppDescriptor | PlainMessage<AppDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(AppDescriptor, a, b);
   }
 }
@@ -103,7 +132,7 @@ export class TxDescriptor extends Message<TxDescriptor> {
    *
    * @generated from field: string fullname = 1;
    */
-  fullname = "";
+  fullname = '';
 
   /**
    * msgs lists the accepted application messages (sdk.Msg)
@@ -118,25 +147,37 @@ export class TxDescriptor extends Message<TxDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.TxDescriptor";
+  static readonly typeName = 'cosmos.base.reflection.v2alpha1.TxDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "fullname", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "msgs", kind: "message", T: MsgDescriptor, repeated: true },
+    { no: 1, name: 'fullname', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'msgs', kind: 'message', T: MsgDescriptor, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TxDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TxDescriptor {
     return new TxDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TxDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TxDescriptor {
     return new TxDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TxDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TxDescriptor {
     return new TxDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TxDescriptor | PlainMessage<TxDescriptor> | undefined, b: TxDescriptor | PlainMessage<TxDescriptor> | undefined): boolean {
+  static equals(
+    a: TxDescriptor | PlainMessage<TxDescriptor> | undefined,
+    b: TxDescriptor | PlainMessage<TxDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(TxDescriptor, a, b);
   }
 }
@@ -161,24 +202,42 @@ export class AuthnDescriptor extends Message<AuthnDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.AuthnDescriptor";
+  static readonly typeName = 'cosmos.base.reflection.v2alpha1.AuthnDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "sign_modes", kind: "message", T: SigningModeDescriptor, repeated: true },
+    {
+      no: 1,
+      name: 'sign_modes',
+      kind: 'message',
+      T: SigningModeDescriptor,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AuthnDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AuthnDescriptor {
     return new AuthnDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AuthnDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AuthnDescriptor {
     return new AuthnDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AuthnDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AuthnDescriptor {
     return new AuthnDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: AuthnDescriptor | PlainMessage<AuthnDescriptor> | undefined, b: AuthnDescriptor | PlainMessage<AuthnDescriptor> | undefined): boolean {
+  static equals(
+    a: AuthnDescriptor | PlainMessage<AuthnDescriptor> | undefined,
+    b: AuthnDescriptor | PlainMessage<AuthnDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(AuthnDescriptor, a, b);
   }
 }
@@ -197,7 +256,7 @@ export class SigningModeDescriptor extends Message<SigningModeDescriptor> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * number is the unique int32 identifier for the sign_mode enum
@@ -212,7 +271,7 @@ export class SigningModeDescriptor extends Message<SigningModeDescriptor> {
    *
    * @generated from field: string authn_info_provider_method_fullname = 3;
    */
-  authnInfoProviderMethodFullname = "";
+  authnInfoProviderMethodFullname = '';
 
   constructor(data?: PartialMessage<SigningModeDescriptor>) {
     super();
@@ -220,26 +279,44 @@ export class SigningModeDescriptor extends Message<SigningModeDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.SigningModeDescriptor";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.SigningModeDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "number", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 3, name: "authn_info_provider_method_fullname", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'number', kind: 'scalar', T: 5 /* ScalarType.INT32 */ },
+    {
+      no: 3,
+      name: 'authn_info_provider_method_fullname',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SigningModeDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SigningModeDescriptor {
     return new SigningModeDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SigningModeDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SigningModeDescriptor {
     return new SigningModeDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SigningModeDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SigningModeDescriptor {
     return new SigningModeDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SigningModeDescriptor | PlainMessage<SigningModeDescriptor> | undefined, b: SigningModeDescriptor | PlainMessage<SigningModeDescriptor> | undefined): boolean {
+  static equals(
+    a: SigningModeDescriptor | PlainMessage<SigningModeDescriptor> | undefined,
+    b: SigningModeDescriptor | PlainMessage<SigningModeDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(SigningModeDescriptor, a, b);
   }
 }
@@ -255,7 +332,7 @@ export class ChainDescriptor extends Message<ChainDescriptor> {
    *
    * @generated from field: string id = 1;
    */
-  id = "";
+  id = '';
 
   constructor(data?: PartialMessage<ChainDescriptor>) {
     super();
@@ -263,24 +340,36 @@ export class ChainDescriptor extends Message<ChainDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.ChainDescriptor";
+  static readonly typeName = 'cosmos.base.reflection.v2alpha1.ChainDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChainDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ChainDescriptor {
     return new ChainDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChainDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ChainDescriptor {
     return new ChainDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChainDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ChainDescriptor {
     return new ChainDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ChainDescriptor | PlainMessage<ChainDescriptor> | undefined, b: ChainDescriptor | PlainMessage<ChainDescriptor> | undefined): boolean {
+  static equals(
+    a: ChainDescriptor | PlainMessage<ChainDescriptor> | undefined,
+    b: ChainDescriptor | PlainMessage<ChainDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(ChainDescriptor, a, b);
   }
 }
@@ -304,24 +393,42 @@ export class CodecDescriptor extends Message<CodecDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.CodecDescriptor";
+  static readonly typeName = 'cosmos.base.reflection.v2alpha1.CodecDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "interfaces", kind: "message", T: InterfaceDescriptor, repeated: true },
+    {
+      no: 1,
+      name: 'interfaces',
+      kind: 'message',
+      T: InterfaceDescriptor,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CodecDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): CodecDescriptor {
     return new CodecDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CodecDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): CodecDescriptor {
     return new CodecDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CodecDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): CodecDescriptor {
     return new CodecDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: CodecDescriptor | PlainMessage<CodecDescriptor> | undefined, b: CodecDescriptor | PlainMessage<CodecDescriptor> | undefined): boolean {
+  static equals(
+    a: CodecDescriptor | PlainMessage<CodecDescriptor> | undefined,
+    b: CodecDescriptor | PlainMessage<CodecDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(CodecDescriptor, a, b);
   }
 }
@@ -337,7 +444,7 @@ export class InterfaceDescriptor extends Message<InterfaceDescriptor> {
    *
    * @generated from field: string fullname = 1;
    */
-  fullname = "";
+  fullname = '';
 
   /**
    * interface_accepting_messages contains information regarding the proto messages which contain the interface as
@@ -360,26 +467,51 @@ export class InterfaceDescriptor extends Message<InterfaceDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.InterfaceDescriptor";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.InterfaceDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "fullname", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "interface_accepting_messages", kind: "message", T: InterfaceAcceptingMessageDescriptor, repeated: true },
-    { no: 3, name: "interface_implementers", kind: "message", T: InterfaceImplementerDescriptor, repeated: true },
+    { no: 1, name: 'fullname', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'interface_accepting_messages',
+      kind: 'message',
+      T: InterfaceAcceptingMessageDescriptor,
+      repeated: true,
+    },
+    {
+      no: 3,
+      name: 'interface_implementers',
+      kind: 'message',
+      T: InterfaceImplementerDescriptor,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InterfaceDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): InterfaceDescriptor {
     return new InterfaceDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InterfaceDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): InterfaceDescriptor {
     return new InterfaceDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InterfaceDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): InterfaceDescriptor {
     return new InterfaceDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: InterfaceDescriptor | PlainMessage<InterfaceDescriptor> | undefined, b: InterfaceDescriptor | PlainMessage<InterfaceDescriptor> | undefined): boolean {
+  static equals(
+    a: InterfaceDescriptor | PlainMessage<InterfaceDescriptor> | undefined,
+    b: InterfaceDescriptor | PlainMessage<InterfaceDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(InterfaceDescriptor, a, b);
   }
 }
@@ -395,7 +527,7 @@ export class InterfaceImplementerDescriptor extends Message<InterfaceImplementer
    *
    * @generated from field: string fullname = 1;
    */
-  fullname = "";
+  fullname = '';
 
   /**
    * type_url defines the type URL used when marshalling the type as any
@@ -405,7 +537,7 @@ export class InterfaceImplementerDescriptor extends Message<InterfaceImplementer
    *
    * @generated from field: string type_url = 2;
    */
-  typeUrl = "";
+  typeUrl = '';
 
   constructor(data?: PartialMessage<InterfaceImplementerDescriptor>) {
     super();
@@ -413,25 +545,47 @@ export class InterfaceImplementerDescriptor extends Message<InterfaceImplementer
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.InterfaceImplementerDescriptor";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.InterfaceImplementerDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "fullname", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "type_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'fullname', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'type_url', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InterfaceImplementerDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): InterfaceImplementerDescriptor {
     return new InterfaceImplementerDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InterfaceImplementerDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): InterfaceImplementerDescriptor {
     return new InterfaceImplementerDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InterfaceImplementerDescriptor {
-    return new InterfaceImplementerDescriptor().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): InterfaceImplementerDescriptor {
+    return new InterfaceImplementerDescriptor().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: InterfaceImplementerDescriptor | PlainMessage<InterfaceImplementerDescriptor> | undefined, b: InterfaceImplementerDescriptor | PlainMessage<InterfaceImplementerDescriptor> | undefined): boolean {
+  static equals(
+    a:
+      | InterfaceImplementerDescriptor
+      | PlainMessage<InterfaceImplementerDescriptor>
+      | undefined,
+    b:
+      | InterfaceImplementerDescriptor
+      | PlainMessage<InterfaceImplementerDescriptor>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(InterfaceImplementerDescriptor, a, b);
   }
 }
@@ -448,7 +602,7 @@ export class InterfaceAcceptingMessageDescriptor extends Message<InterfaceAccept
    *
    * @generated from field: string fullname = 1;
    */
-  fullname = "";
+  fullname = '';
 
   /**
    * field_descriptor_names is a list of the protobuf name (not fullname) of the field
@@ -465,25 +619,56 @@ export class InterfaceAcceptingMessageDescriptor extends Message<InterfaceAccept
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "fullname", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "field_descriptor_names", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: 'fullname', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'field_descriptor_names',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InterfaceAcceptingMessageDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): InterfaceAcceptingMessageDescriptor {
     return new InterfaceAcceptingMessageDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InterfaceAcceptingMessageDescriptor {
-    return new InterfaceAcceptingMessageDescriptor().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): InterfaceAcceptingMessageDescriptor {
+    return new InterfaceAcceptingMessageDescriptor().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InterfaceAcceptingMessageDescriptor {
-    return new InterfaceAcceptingMessageDescriptor().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): InterfaceAcceptingMessageDescriptor {
+    return new InterfaceAcceptingMessageDescriptor().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: InterfaceAcceptingMessageDescriptor | PlainMessage<InterfaceAcceptingMessageDescriptor> | undefined, b: InterfaceAcceptingMessageDescriptor | PlainMessage<InterfaceAcceptingMessageDescriptor> | undefined): boolean {
+  static equals(
+    a:
+      | InterfaceAcceptingMessageDescriptor
+      | PlainMessage<InterfaceAcceptingMessageDescriptor>
+      | undefined,
+    b:
+      | InterfaceAcceptingMessageDescriptor
+      | PlainMessage<InterfaceAcceptingMessageDescriptor>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(InterfaceAcceptingMessageDescriptor, a, b);
   }
 }
@@ -499,7 +684,7 @@ export class ConfigurationDescriptor extends Message<ConfigurationDescriptor> {
    *
    * @generated from field: string bech32_account_address_prefix = 1;
    */
-  bech32AccountAddressPrefix = "";
+  bech32AccountAddressPrefix = '';
 
   constructor(data?: PartialMessage<ConfigurationDescriptor>) {
     super();
@@ -507,24 +692,48 @@ export class ConfigurationDescriptor extends Message<ConfigurationDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.ConfigurationDescriptor";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.ConfigurationDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "bech32_account_address_prefix", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'bech32_account_address_prefix',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConfigurationDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ConfigurationDescriptor {
     return new ConfigurationDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConfigurationDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ConfigurationDescriptor {
     return new ConfigurationDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConfigurationDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ConfigurationDescriptor {
     return new ConfigurationDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ConfigurationDescriptor | PlainMessage<ConfigurationDescriptor> | undefined, b: ConfigurationDescriptor | PlainMessage<ConfigurationDescriptor> | undefined): boolean {
+  static equals(
+    a:
+      | ConfigurationDescriptor
+      | PlainMessage<ConfigurationDescriptor>
+      | undefined,
+    b:
+      | ConfigurationDescriptor
+      | PlainMessage<ConfigurationDescriptor>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ConfigurationDescriptor, a, b);
   }
 }
@@ -540,7 +749,7 @@ export class MsgDescriptor extends Message<MsgDescriptor> {
    *
    * @generated from field: string msg_type_url = 1;
    */
-  msgTypeUrl = "";
+  msgTypeUrl = '';
 
   constructor(data?: PartialMessage<MsgDescriptor>) {
     super();
@@ -548,24 +757,41 @@ export class MsgDescriptor extends Message<MsgDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.MsgDescriptor";
+  static readonly typeName = 'cosmos.base.reflection.v2alpha1.MsgDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "msg_type_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'msg_type_url',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgDescriptor {
     return new MsgDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgDescriptor {
     return new MsgDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgDescriptor {
     return new MsgDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgDescriptor | PlainMessage<MsgDescriptor> | undefined, b: MsgDescriptor | PlainMessage<MsgDescriptor> | undefined): boolean {
+  static equals(
+    a: MsgDescriptor | PlainMessage<MsgDescriptor> | undefined,
+    b: MsgDescriptor | PlainMessage<MsgDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgDescriptor, a, b);
   }
 }
@@ -582,23 +808,41 @@ export class GetAuthnDescriptorRequest extends Message<GetAuthnDescriptorRequest
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetAuthnDescriptorRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetAuthnDescriptorRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAuthnDescriptorRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetAuthnDescriptorRequest {
     return new GetAuthnDescriptorRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAuthnDescriptorRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetAuthnDescriptorRequest {
     return new GetAuthnDescriptorRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAuthnDescriptorRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetAuthnDescriptorRequest {
     return new GetAuthnDescriptorRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetAuthnDescriptorRequest | PlainMessage<GetAuthnDescriptorRequest> | undefined, b: GetAuthnDescriptorRequest | PlainMessage<GetAuthnDescriptorRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetAuthnDescriptorRequest
+      | PlainMessage<GetAuthnDescriptorRequest>
+      | undefined,
+    b:
+      | GetAuthnDescriptorRequest
+      | PlainMessage<GetAuthnDescriptorRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetAuthnDescriptorRequest, a, b);
   }
 }
@@ -622,24 +866,43 @@ export class GetAuthnDescriptorResponse extends Message<GetAuthnDescriptorRespon
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetAuthnDescriptorResponse";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetAuthnDescriptorResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "authn", kind: "message", T: AuthnDescriptor },
+    { no: 1, name: 'authn', kind: 'message', T: AuthnDescriptor },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAuthnDescriptorResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetAuthnDescriptorResponse {
     return new GetAuthnDescriptorResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAuthnDescriptorResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetAuthnDescriptorResponse {
     return new GetAuthnDescriptorResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAuthnDescriptorResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetAuthnDescriptorResponse {
     return new GetAuthnDescriptorResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetAuthnDescriptorResponse | PlainMessage<GetAuthnDescriptorResponse> | undefined, b: GetAuthnDescriptorResponse | PlainMessage<GetAuthnDescriptorResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetAuthnDescriptorResponse
+      | PlainMessage<GetAuthnDescriptorResponse>
+      | undefined,
+    b:
+      | GetAuthnDescriptorResponse
+      | PlainMessage<GetAuthnDescriptorResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetAuthnDescriptorResponse, a, b);
   }
 }
@@ -656,23 +919,41 @@ export class GetChainDescriptorRequest extends Message<GetChainDescriptorRequest
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetChainDescriptorRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetChainDescriptorRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetChainDescriptorRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetChainDescriptorRequest {
     return new GetChainDescriptorRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetChainDescriptorRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetChainDescriptorRequest {
     return new GetChainDescriptorRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetChainDescriptorRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetChainDescriptorRequest {
     return new GetChainDescriptorRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetChainDescriptorRequest | PlainMessage<GetChainDescriptorRequest> | undefined, b: GetChainDescriptorRequest | PlainMessage<GetChainDescriptorRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetChainDescriptorRequest
+      | PlainMessage<GetChainDescriptorRequest>
+      | undefined,
+    b:
+      | GetChainDescriptorRequest
+      | PlainMessage<GetChainDescriptorRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetChainDescriptorRequest, a, b);
   }
 }
@@ -696,24 +977,43 @@ export class GetChainDescriptorResponse extends Message<GetChainDescriptorRespon
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetChainDescriptorResponse";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetChainDescriptorResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "chain", kind: "message", T: ChainDescriptor },
+    { no: 1, name: 'chain', kind: 'message', T: ChainDescriptor },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetChainDescriptorResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetChainDescriptorResponse {
     return new GetChainDescriptorResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetChainDescriptorResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetChainDescriptorResponse {
     return new GetChainDescriptorResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetChainDescriptorResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetChainDescriptorResponse {
     return new GetChainDescriptorResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetChainDescriptorResponse | PlainMessage<GetChainDescriptorResponse> | undefined, b: GetChainDescriptorResponse | PlainMessage<GetChainDescriptorResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetChainDescriptorResponse
+      | PlainMessage<GetChainDescriptorResponse>
+      | undefined,
+    b:
+      | GetChainDescriptorResponse
+      | PlainMessage<GetChainDescriptorResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetChainDescriptorResponse, a, b);
   }
 }
@@ -730,23 +1030,41 @@ export class GetCodecDescriptorRequest extends Message<GetCodecDescriptorRequest
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetCodecDescriptorRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetCodecDescriptorRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCodecDescriptorRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetCodecDescriptorRequest {
     return new GetCodecDescriptorRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCodecDescriptorRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetCodecDescriptorRequest {
     return new GetCodecDescriptorRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCodecDescriptorRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetCodecDescriptorRequest {
     return new GetCodecDescriptorRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetCodecDescriptorRequest | PlainMessage<GetCodecDescriptorRequest> | undefined, b: GetCodecDescriptorRequest | PlainMessage<GetCodecDescriptorRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetCodecDescriptorRequest
+      | PlainMessage<GetCodecDescriptorRequest>
+      | undefined,
+    b:
+      | GetCodecDescriptorRequest
+      | PlainMessage<GetCodecDescriptorRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetCodecDescriptorRequest, a, b);
   }
 }
@@ -770,24 +1088,43 @@ export class GetCodecDescriptorResponse extends Message<GetCodecDescriptorRespon
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetCodecDescriptorResponse";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetCodecDescriptorResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "codec", kind: "message", T: CodecDescriptor },
+    { no: 1, name: 'codec', kind: 'message', T: CodecDescriptor },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCodecDescriptorResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetCodecDescriptorResponse {
     return new GetCodecDescriptorResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCodecDescriptorResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetCodecDescriptorResponse {
     return new GetCodecDescriptorResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCodecDescriptorResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetCodecDescriptorResponse {
     return new GetCodecDescriptorResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetCodecDescriptorResponse | PlainMessage<GetCodecDescriptorResponse> | undefined, b: GetCodecDescriptorResponse | PlainMessage<GetCodecDescriptorResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetCodecDescriptorResponse
+      | PlainMessage<GetCodecDescriptorResponse>
+      | undefined,
+    b:
+      | GetCodecDescriptorResponse
+      | PlainMessage<GetCodecDescriptorResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetCodecDescriptorResponse, a, b);
   }
 }
@@ -804,23 +1141,44 @@ export class GetConfigurationDescriptorRequest extends Message<GetConfigurationD
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetConfigurationDescriptorRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetConfigurationDescriptorRequest {
     return new GetConfigurationDescriptorRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetConfigurationDescriptorRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetConfigurationDescriptorRequest {
     return new GetConfigurationDescriptorRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetConfigurationDescriptorRequest {
-    return new GetConfigurationDescriptorRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetConfigurationDescriptorRequest {
+    return new GetConfigurationDescriptorRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: GetConfigurationDescriptorRequest | PlainMessage<GetConfigurationDescriptorRequest> | undefined, b: GetConfigurationDescriptorRequest | PlainMessage<GetConfigurationDescriptorRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetConfigurationDescriptorRequest
+      | PlainMessage<GetConfigurationDescriptorRequest>
+      | undefined,
+    b:
+      | GetConfigurationDescriptorRequest
+      | PlainMessage<GetConfigurationDescriptorRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetConfigurationDescriptorRequest, a, b);
   }
 }
@@ -844,24 +1202,49 @@ export class GetConfigurationDescriptorResponse extends Message<GetConfiguration
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorResponse";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "config", kind: "message", T: ConfigurationDescriptor },
+    { no: 1, name: 'config', kind: 'message', T: ConfigurationDescriptor },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetConfigurationDescriptorResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetConfigurationDescriptorResponse {
     return new GetConfigurationDescriptorResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetConfigurationDescriptorResponse {
-    return new GetConfigurationDescriptorResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetConfigurationDescriptorResponse {
+    return new GetConfigurationDescriptorResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetConfigurationDescriptorResponse {
-    return new GetConfigurationDescriptorResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetConfigurationDescriptorResponse {
+    return new GetConfigurationDescriptorResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: GetConfigurationDescriptorResponse | PlainMessage<GetConfigurationDescriptorResponse> | undefined, b: GetConfigurationDescriptorResponse | PlainMessage<GetConfigurationDescriptorResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetConfigurationDescriptorResponse
+      | PlainMessage<GetConfigurationDescriptorResponse>
+      | undefined,
+    b:
+      | GetConfigurationDescriptorResponse
+      | PlainMessage<GetConfigurationDescriptorResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetConfigurationDescriptorResponse, a, b);
   }
 }
@@ -878,23 +1261,44 @@ export class GetQueryServicesDescriptorRequest extends Message<GetQueryServicesD
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetQueryServicesDescriptorRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetQueryServicesDescriptorRequest {
     return new GetQueryServicesDescriptorRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetQueryServicesDescriptorRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetQueryServicesDescriptorRequest {
     return new GetQueryServicesDescriptorRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetQueryServicesDescriptorRequest {
-    return new GetQueryServicesDescriptorRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetQueryServicesDescriptorRequest {
+    return new GetQueryServicesDescriptorRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: GetQueryServicesDescriptorRequest | PlainMessage<GetQueryServicesDescriptorRequest> | undefined, b: GetQueryServicesDescriptorRequest | PlainMessage<GetQueryServicesDescriptorRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetQueryServicesDescriptorRequest
+      | PlainMessage<GetQueryServicesDescriptorRequest>
+      | undefined,
+    b:
+      | GetQueryServicesDescriptorRequest
+      | PlainMessage<GetQueryServicesDescriptorRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetQueryServicesDescriptorRequest, a, b);
   }
 }
@@ -918,24 +1322,49 @@ export class GetQueryServicesDescriptorResponse extends Message<GetQueryServices
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorResponse";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "queries", kind: "message", T: QueryServicesDescriptor },
+    { no: 1, name: 'queries', kind: 'message', T: QueryServicesDescriptor },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetQueryServicesDescriptorResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetQueryServicesDescriptorResponse {
     return new GetQueryServicesDescriptorResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetQueryServicesDescriptorResponse {
-    return new GetQueryServicesDescriptorResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetQueryServicesDescriptorResponse {
+    return new GetQueryServicesDescriptorResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetQueryServicesDescriptorResponse {
-    return new GetQueryServicesDescriptorResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetQueryServicesDescriptorResponse {
+    return new GetQueryServicesDescriptorResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: GetQueryServicesDescriptorResponse | PlainMessage<GetQueryServicesDescriptorResponse> | undefined, b: GetQueryServicesDescriptorResponse | PlainMessage<GetQueryServicesDescriptorResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetQueryServicesDescriptorResponse
+      | PlainMessage<GetQueryServicesDescriptorResponse>
+      | undefined,
+    b:
+      | GetQueryServicesDescriptorResponse
+      | PlainMessage<GetQueryServicesDescriptorResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetQueryServicesDescriptorResponse, a, b);
   }
 }
@@ -952,23 +1381,41 @@ export class GetTxDescriptorRequest extends Message<GetTxDescriptorRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetTxDescriptorRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetTxDescriptorRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTxDescriptorRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetTxDescriptorRequest {
     return new GetTxDescriptorRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTxDescriptorRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetTxDescriptorRequest {
     return new GetTxDescriptorRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTxDescriptorRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetTxDescriptorRequest {
     return new GetTxDescriptorRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetTxDescriptorRequest | PlainMessage<GetTxDescriptorRequest> | undefined, b: GetTxDescriptorRequest | PlainMessage<GetTxDescriptorRequest> | undefined): boolean {
+  static equals(
+    a:
+      | GetTxDescriptorRequest
+      | PlainMessage<GetTxDescriptorRequest>
+      | undefined,
+    b:
+      | GetTxDescriptorRequest
+      | PlainMessage<GetTxDescriptorRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetTxDescriptorRequest, a, b);
   }
 }
@@ -993,24 +1440,43 @@ export class GetTxDescriptorResponse extends Message<GetTxDescriptorResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.GetTxDescriptorResponse";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.GetTxDescriptorResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "tx", kind: "message", T: TxDescriptor },
+    { no: 1, name: 'tx', kind: 'message', T: TxDescriptor },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTxDescriptorResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GetTxDescriptorResponse {
     return new GetTxDescriptorResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTxDescriptorResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GetTxDescriptorResponse {
     return new GetTxDescriptorResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTxDescriptorResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GetTxDescriptorResponse {
     return new GetTxDescriptorResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetTxDescriptorResponse | PlainMessage<GetTxDescriptorResponse> | undefined, b: GetTxDescriptorResponse | PlainMessage<GetTxDescriptorResponse> | undefined): boolean {
+  static equals(
+    a:
+      | GetTxDescriptorResponse
+      | PlainMessage<GetTxDescriptorResponse>
+      | undefined,
+    b:
+      | GetTxDescriptorResponse
+      | PlainMessage<GetTxDescriptorResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(GetTxDescriptorResponse, a, b);
   }
 }
@@ -1034,24 +1500,49 @@ export class QueryServicesDescriptor extends Message<QueryServicesDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.QueryServicesDescriptor";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.QueryServicesDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "query_services", kind: "message", T: QueryServiceDescriptor, repeated: true },
+    {
+      no: 1,
+      name: 'query_services',
+      kind: 'message',
+      T: QueryServiceDescriptor,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryServicesDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryServicesDescriptor {
     return new QueryServicesDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryServicesDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryServicesDescriptor {
     return new QueryServicesDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryServicesDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryServicesDescriptor {
     return new QueryServicesDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryServicesDescriptor | PlainMessage<QueryServicesDescriptor> | undefined, b: QueryServicesDescriptor | PlainMessage<QueryServicesDescriptor> | undefined): boolean {
+  static equals(
+    a:
+      | QueryServicesDescriptor
+      | PlainMessage<QueryServicesDescriptor>
+      | undefined,
+    b:
+      | QueryServicesDescriptor
+      | PlainMessage<QueryServicesDescriptor>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryServicesDescriptor, a, b);
   }
 }
@@ -1067,7 +1558,7 @@ export class QueryServiceDescriptor extends Message<QueryServiceDescriptor> {
    *
    * @generated from field: string fullname = 1;
    */
-  fullname = "";
+  fullname = '';
 
   /**
    * is_module describes if this service is actually exposed by an application's module
@@ -1089,26 +1580,51 @@ export class QueryServiceDescriptor extends Message<QueryServiceDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.QueryServiceDescriptor";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.QueryServiceDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "fullname", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "is_module", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 3, name: "methods", kind: "message", T: QueryMethodDescriptor, repeated: true },
+    { no: 1, name: 'fullname', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'is_module', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 3,
+      name: 'methods',
+      kind: 'message',
+      T: QueryMethodDescriptor,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryServiceDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryServiceDescriptor {
     return new QueryServiceDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryServiceDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryServiceDescriptor {
     return new QueryServiceDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryServiceDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryServiceDescriptor {
     return new QueryServiceDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryServiceDescriptor | PlainMessage<QueryServiceDescriptor> | undefined, b: QueryServiceDescriptor | PlainMessage<QueryServiceDescriptor> | undefined): boolean {
+  static equals(
+    a:
+      | QueryServiceDescriptor
+      | PlainMessage<QueryServiceDescriptor>
+      | undefined,
+    b:
+      | QueryServiceDescriptor
+      | PlainMessage<QueryServiceDescriptor>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryServiceDescriptor, a, b);
   }
 }
@@ -1126,7 +1642,7 @@ export class QueryMethodDescriptor extends Message<QueryMethodDescriptor> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * full_query_path is the path that can be used to query
@@ -1134,7 +1650,7 @@ export class QueryMethodDescriptor extends Message<QueryMethodDescriptor> {
    *
    * @generated from field: string full_query_path = 2;
    */
-  fullQueryPath = "";
+  fullQueryPath = '';
 
   constructor(data?: PartialMessage<QueryMethodDescriptor>) {
     super();
@@ -1142,26 +1658,43 @@ export class QueryMethodDescriptor extends Message<QueryMethodDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.base.reflection.v2alpha1.QueryMethodDescriptor";
+  static readonly typeName =
+    'cosmos.base.reflection.v2alpha1.QueryMethodDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "full_query_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'full_query_path',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryMethodDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryMethodDescriptor {
     return new QueryMethodDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryMethodDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryMethodDescriptor {
     return new QueryMethodDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryMethodDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryMethodDescriptor {
     return new QueryMethodDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryMethodDescriptor | PlainMessage<QueryMethodDescriptor> | undefined, b: QueryMethodDescriptor | PlainMessage<QueryMethodDescriptor> | undefined): boolean {
+  static equals(
+    a: QueryMethodDescriptor | PlainMessage<QueryMethodDescriptor> | undefined,
+    b: QueryMethodDescriptor | PlainMessage<QueryMethodDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryMethodDescriptor, a, b);
   }
 }
-

@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * Minter represents the minting state.
@@ -17,14 +24,14 @@ export class Minter extends Message<Minter> {
    *
    * @generated from field: string inflation = 1;
    */
-  inflation = "";
+  inflation = '';
 
   /**
    * current annual expected provisions
    *
    * @generated from field: string annual_provisions = 2;
    */
-  annualProvisions = "";
+  annualProvisions = '';
 
   constructor(data?: PartialMessage<Minter>) {
     super();
@@ -32,25 +39,42 @@ export class Minter extends Message<Minter> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.mint.v1beta1.Minter";
+  static readonly typeName = 'cosmos.mint.v1beta1.Minter';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "inflation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "annual_provisions", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'inflation', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'annual_provisions',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Minter {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Minter {
     return new Minter().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Minter {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Minter {
     return new Minter().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Minter {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Minter {
     return new Minter().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Minter | PlainMessage<Minter> | undefined, b: Minter | PlainMessage<Minter> | undefined): boolean {
+  static equals(
+    a: Minter | PlainMessage<Minter> | undefined,
+    b: Minter | PlainMessage<Minter> | undefined,
+  ): boolean {
     return proto3.util.equals(Minter, a, b);
   }
 }
@@ -66,35 +90,35 @@ export class Params extends Message<Params> {
    *
    * @generated from field: string mint_denom = 1;
    */
-  mintDenom = "";
+  mintDenom = '';
 
   /**
    * maximum annual change in inflation rate
    *
    * @generated from field: string inflation_rate_change = 2;
    */
-  inflationRateChange = "";
+  inflationRateChange = '';
 
   /**
    * maximum inflation rate
    *
    * @generated from field: string inflation_max = 3;
    */
-  inflationMax = "";
+  inflationMax = '';
 
   /**
    * minimum inflation rate
    *
    * @generated from field: string inflation_min = 4;
    */
-  inflationMin = "";
+  inflationMin = '';
 
   /**
    * goal of percent bonded atoms
    *
    * @generated from field: string goal_bonded = 5;
    */
-  goalBonded = "";
+  goalBonded = '';
 
   /**
    * expected blocks per year
@@ -109,30 +133,66 @@ export class Params extends Message<Params> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.mint.v1beta1.Params";
+  static readonly typeName = 'cosmos.mint.v1beta1.Params';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "mint_denom", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "inflation_rate_change", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "inflation_max", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "inflation_min", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "goal_bonded", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "blocks_per_year", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'mint_denom', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'inflation_rate_change',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'inflation_max',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 4,
+      name: 'inflation_min',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 5,
+      name: 'goal_bonded',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 6,
+      name: 'blocks_per_year',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Params {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Params {
     return new Params().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Params {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Params {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Params | PlainMessage<Params> | undefined, b: Params | PlainMessage<Params> | undefined): boolean {
+  static equals(
+    a: Params | PlainMessage<Params> | undefined,
+    b: Params | PlainMessage<Params> | undefined,
+  ): boolean {
     return proto3.util.equals(Params, a, b);
   }
 }
-

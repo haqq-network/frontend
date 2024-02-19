@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ListAllInterfacesRequest, ListAllInterfacesResponse, ListImplementationsRequest, ListImplementationsResponse } from "./reflection_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  ListAllInterfacesRequest,
+  ListAllInterfacesResponse,
+  ListImplementationsRequest,
+  ListImplementationsResponse,
+} from './reflection_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * ReflectionService defines a service for interface reflection.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.base.reflection.v1beta1.ReflectionService
  */
 export const ReflectionService = {
-  typeName: "cosmos.base.reflection.v1beta1.ReflectionService",
+  typeName: 'cosmos.base.reflection.v1beta1.ReflectionService',
   methods: {
     /**
      * ListAllInterfaces lists all the interfaces registered in the interface
@@ -21,7 +26,7 @@ export const ReflectionService = {
      * @generated from rpc cosmos.base.reflection.v1beta1.ReflectionService.ListAllInterfaces
      */
     listAllInterfaces: {
-      name: "ListAllInterfaces",
+      name: 'ListAllInterfaces',
       I: ListAllInterfacesRequest,
       O: ListAllInterfacesResponse,
       kind: MethodKind.Unary,
@@ -33,11 +38,10 @@ export const ReflectionService = {
      * @generated from rpc cosmos.base.reflection.v1beta1.ReflectionService.ListImplementations
      */
     listImplementations: {
-      name: "ListImplementations",
+      name: 'ListImplementations',
       I: ListImplementationsRequest,
       O: ListImplementationsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

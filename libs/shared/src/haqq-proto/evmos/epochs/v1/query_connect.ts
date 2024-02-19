@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryCurrentEpochRequest, QueryCurrentEpochResponse, QueryEpochsInfoRequest, QueryEpochsInfoResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryCurrentEpochRequest,
+  QueryCurrentEpochResponse,
+  QueryEpochsInfoRequest,
+  QueryEpochsInfoResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service evmos.epochs.v1.Query
  */
 export const Query = {
-  typeName: "evmos.epochs.v1.Query",
+  typeName: 'evmos.epochs.v1.Query',
   methods: {
     /**
      * EpochInfos provide running epochInfos
@@ -20,7 +25,7 @@ export const Query = {
      * @generated from rpc evmos.epochs.v1.Query.EpochInfos
      */
     epochInfos: {
-      name: "EpochInfos",
+      name: 'EpochInfos',
       I: QueryEpochsInfoRequest,
       O: QueryEpochsInfoResponse,
       kind: MethodKind.Unary,
@@ -31,11 +36,10 @@ export const Query = {
      * @generated from rpc evmos.epochs.v1.Query.CurrentEpoch
      */
     currentEpoch: {
-      name: "CurrentEpoch",
+      name: 'CurrentEpoch',
       I: QueryCurrentEpochRequest,
       O: QueryCurrentEpochResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

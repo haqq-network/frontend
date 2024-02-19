@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryParamsRequest, QueryParamsResponse, QueryTokenPairRequest, QueryTokenPairResponse, QueryTokenPairsRequest, QueryTokenPairsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryTokenPairRequest,
+  QueryTokenPairResponse,
+  QueryTokenPairsRequest,
+  QueryTokenPairsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service evmos.erc20.v1.Query
  */
 export const Query = {
-  typeName: "evmos.erc20.v1.Query",
+  typeName: 'evmos.erc20.v1.Query',
   methods: {
     /**
      * TokenPairs retrieves registered token pairs
@@ -20,7 +27,7 @@ export const Query = {
      * @generated from rpc evmos.erc20.v1.Query.TokenPairs
      */
     tokenPairs: {
-      name: "TokenPairs",
+      name: 'TokenPairs',
       I: QueryTokenPairsRequest,
       O: QueryTokenPairsResponse,
       kind: MethodKind.Unary,
@@ -31,7 +38,7 @@ export const Query = {
      * @generated from rpc evmos.erc20.v1.Query.TokenPair
      */
     tokenPair: {
-      name: "TokenPair",
+      name: 'TokenPair',
       I: QueryTokenPairRequest,
       O: QueryTokenPairResponse,
       kind: MethodKind.Unary,
@@ -42,11 +49,10 @@ export const Query = {
      * @generated from rpc evmos.erc20.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-
