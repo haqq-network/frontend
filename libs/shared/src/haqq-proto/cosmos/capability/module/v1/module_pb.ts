@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * Module is the config object of the capability module.
@@ -26,25 +33,36 @@ export class Module extends Message<Module> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.capability.module.v1.Module";
+  static readonly typeName = 'cosmos.capability.module.v1.Module';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "seal_keeper", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: 'seal_keeper', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Module {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Module {
     return new Module().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Module {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Module {
     return new Module().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Module {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Module {
     return new Module().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Module | PlainMessage<Module> | undefined, b: Module | PlainMessage<Module> | undefined): boolean {
+  static equals(
+    a: Module | PlainMessage<Module> | undefined,
+    b: Module | PlainMessage<Module> | undefined,
+  ): boolean {
     return proto3.util.equals(Module, a, b);
   }
 }
-

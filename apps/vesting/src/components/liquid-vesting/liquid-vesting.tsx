@@ -133,30 +133,7 @@ export function LiquidVestingHooked({ balance: _ }: { balance: number }) {
       );
 
       await toast.promise(liquidatePromise, {
-        // loading: <Toast>Liquid token mint in progress</Toast>,
-        loading: (
-          <Toast>
-            <div>You successfully mint liquid token</div>
-            <div>
-              <div className="text-[14px] leading-[30px] text-[#0389D4]">
-                Add token
-              </div>
-            </div>
-            {/* <div>
-              <Button
-                onClick={() => {
-                  //   if (token.erc20Address) {
-                  //     watchAsset(token.denom, token.erc20Address);
-                  //   } else {
-                  //     console.warn('No erc20 address found');
-                  //   }
-                }}
-              >
-                Add token
-              </Button>
-            </div> */}
-          </Toast>
-        ),
+        loading: <Toast>Liquid token mint in progress</Toast>,
         success: (tx) => {
           console.log('Convert to liquid successful', { tx });
           const token = getLiquidTokenFromResponse(tx);
@@ -166,7 +143,8 @@ export function LiquidVestingHooked({ balance: _ }: { balance: number }) {
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                 <div>You successfully mint liquid token</div>
                 <div>
-                  <Button
+                  <div
+                    className="cursor-pointer text-[14px] leading-[30px] text-[#0389D4]"
                     onClick={() => {
                       if (token.erc20Address) {
                         watchAsset(token.denom, token.erc20Address);
@@ -176,7 +154,18 @@ export function LiquidVestingHooked({ balance: _ }: { balance: number }) {
                     }}
                   >
                     Add token
-                  </Button>
+                  </div>
+                  {/* <Button
+                    onClick={() => {
+                      if (token.erc20Address) {
+                        watchAsset(token.denom, token.erc20Address);
+                      } else {
+                        console.warn('No erc20 address found');
+                      }
+                    }}
+                  >
+                    Add token
+                  </Button> */}
                 </div>
               </div>
             </Toast>

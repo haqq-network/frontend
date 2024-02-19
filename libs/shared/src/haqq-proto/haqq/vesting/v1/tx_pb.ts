@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { Period } from "../../../cosmos/vesting/v1beta1/vesting_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, Timestamp } from '@bufbuild/protobuf';
+import { Period } from '../../../cosmos/vesting/v1beta1/vesting_pb';
 
 /**
  * MsgCreateClawbackVestingAccount defines a message that enables creating a
@@ -20,14 +27,14 @@ export class MsgCreateClawbackVestingAccount extends Message<MsgCreateClawbackVe
    *
    * @generated from field: string from_address = 1;
    */
-  fromAddress = "";
+  fromAddress = '';
 
   /**
    * to_address specifies the account to receive the funds
    *
    * @generated from field: string to_address = 2;
    */
-  toAddress = "";
+  toAddress = '';
 
   /**
    * start_time defines the time at which the vesting period begins
@@ -67,29 +74,67 @@ export class MsgCreateClawbackVestingAccount extends Message<MsgCreateClawbackVe
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgCreateClawbackVestingAccount";
+  static readonly typeName = 'haqq.vesting.v1.MsgCreateClawbackVestingAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "from_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "to_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "start_time", kind: "message", T: Timestamp },
-    { no: 4, name: "lockup_periods", kind: "message", T: Period, repeated: true },
-    { no: 5, name: "vesting_periods", kind: "message", T: Period, repeated: true },
-    { no: 6, name: "merge", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 1,
+      name: 'from_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 2, name: 'to_address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'start_time', kind: 'message', T: Timestamp },
+    {
+      no: 4,
+      name: 'lockup_periods',
+      kind: 'message',
+      T: Period,
+      repeated: true,
+    },
+    {
+      no: 5,
+      name: 'vesting_periods',
+      kind: 'message',
+      T: Period,
+      repeated: true,
+    },
+    { no: 6, name: 'merge', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCreateClawbackVestingAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCreateClawbackVestingAccount {
     return new MsgCreateClawbackVestingAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCreateClawbackVestingAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateClawbackVestingAccount {
     return new MsgCreateClawbackVestingAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCreateClawbackVestingAccount {
-    return new MsgCreateClawbackVestingAccount().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateClawbackVestingAccount {
+    return new MsgCreateClawbackVestingAccount().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgCreateClawbackVestingAccount | PlainMessage<MsgCreateClawbackVestingAccount> | undefined, b: MsgCreateClawbackVestingAccount | PlainMessage<MsgCreateClawbackVestingAccount> | undefined): boolean {
+  static equals(
+    a:
+      | MsgCreateClawbackVestingAccount
+      | PlainMessage<MsgCreateClawbackVestingAccount>
+      | undefined,
+    b:
+      | MsgCreateClawbackVestingAccount
+      | PlainMessage<MsgCreateClawbackVestingAccount>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCreateClawbackVestingAccount, a, b);
   }
 }
@@ -107,23 +152,50 @@ export class MsgCreateClawbackVestingAccountResponse extends Message<MsgCreateCl
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgCreateClawbackVestingAccountResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'haqq.vesting.v1.MsgCreateClawbackVestingAccountResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgCreateClawbackVestingAccountResponse {
-    return new MsgCreateClawbackVestingAccountResponse().fromBinary(bytes, options);
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgCreateClawbackVestingAccountResponse {
+    return new MsgCreateClawbackVestingAccountResponse().fromBinary(
+      bytes,
+      options,
+    );
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgCreateClawbackVestingAccountResponse {
-    return new MsgCreateClawbackVestingAccountResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateClawbackVestingAccountResponse {
+    return new MsgCreateClawbackVestingAccountResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgCreateClawbackVestingAccountResponse {
-    return new MsgCreateClawbackVestingAccountResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgCreateClawbackVestingAccountResponse {
+    return new MsgCreateClawbackVestingAccountResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgCreateClawbackVestingAccountResponse | PlainMessage<MsgCreateClawbackVestingAccountResponse> | undefined, b: MsgCreateClawbackVestingAccountResponse | PlainMessage<MsgCreateClawbackVestingAccountResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgCreateClawbackVestingAccountResponse
+      | PlainMessage<MsgCreateClawbackVestingAccountResponse>
+      | undefined,
+    b:
+      | MsgCreateClawbackVestingAccountResponse
+      | PlainMessage<MsgCreateClawbackVestingAccountResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgCreateClawbackVestingAccountResponse, a, b);
   }
 }
@@ -140,7 +212,7 @@ export class MsgClawback extends Message<MsgClawback> {
    *
    * @generated from field: string funder_address = 1;
    */
-  funderAddress = "";
+  funderAddress = '';
 
   /**
    * account_address is the address of the ClawbackVestingAccount to claw back
@@ -148,7 +220,7 @@ export class MsgClawback extends Message<MsgClawback> {
    *
    * @generated from field: string account_address = 2;
    */
-  accountAddress = "";
+  accountAddress = '';
 
   /**
    * dest_address specifies where the clawed-back tokens should be transferred
@@ -157,7 +229,7 @@ export class MsgClawback extends Message<MsgClawback> {
    *
    * @generated from field: string dest_address = 3;
    */
-  destAddress = "";
+  destAddress = '';
 
   constructor(data?: PartialMessage<MsgClawback>) {
     super();
@@ -165,26 +237,53 @@ export class MsgClawback extends Message<MsgClawback> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgClawback";
+  static readonly typeName = 'haqq.vesting.v1.MsgClawback';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "funder_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "account_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "dest_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'funder_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'account_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'dest_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgClawback {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgClawback {
     return new MsgClawback().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgClawback {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgClawback {
     return new MsgClawback().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgClawback {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgClawback {
     return new MsgClawback().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgClawback | PlainMessage<MsgClawback> | undefined, b: MsgClawback | PlainMessage<MsgClawback> | undefined): boolean {
+  static equals(
+    a: MsgClawback | PlainMessage<MsgClawback> | undefined,
+    b: MsgClawback | PlainMessage<MsgClawback> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgClawback, a, b);
   }
 }
@@ -201,23 +300,34 @@ export class MsgClawbackResponse extends Message<MsgClawbackResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgClawbackResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'haqq.vesting.v1.MsgClawbackResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgClawbackResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgClawbackResponse {
     return new MsgClawbackResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgClawbackResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgClawbackResponse {
     return new MsgClawbackResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgClawbackResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgClawbackResponse {
     return new MsgClawbackResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgClawbackResponse | PlainMessage<MsgClawbackResponse> | undefined, b: MsgClawbackResponse | PlainMessage<MsgClawbackResponse> | undefined): boolean {
+  static equals(
+    a: MsgClawbackResponse | PlainMessage<MsgClawbackResponse> | undefined,
+    b: MsgClawbackResponse | PlainMessage<MsgClawbackResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgClawbackResponse, a, b);
   }
 }
@@ -234,7 +344,7 @@ export class MsgUpdateVestingFunder extends Message<MsgUpdateVestingFunder> {
    *
    * @generated from field: string funder_address = 1;
    */
-  funderAddress = "";
+  funderAddress = '';
 
   /**
    * new_funder_address is the new address to replace the existing
@@ -242,14 +352,14 @@ export class MsgUpdateVestingFunder extends Message<MsgUpdateVestingFunder> {
    *
    * @generated from field: string new_funder_address = 2;
    */
-  newFunderAddress = "";
+  newFunderAddress = '';
 
   /**
    * vesting_address is the address of the ClawbackVestingAccount being updated
    *
    * @generated from field: string vesting_address = 3;
    */
-  vestingAddress = "";
+  vestingAddress = '';
 
   constructor(data?: PartialMessage<MsgUpdateVestingFunder>) {
     super();
@@ -257,26 +367,59 @@ export class MsgUpdateVestingFunder extends Message<MsgUpdateVestingFunder> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgUpdateVestingFunder";
+  static readonly typeName = 'haqq.vesting.v1.MsgUpdateVestingFunder';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "funder_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "new_funder_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "vesting_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'funder_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'new_funder_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'vesting_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateVestingFunder {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateVestingFunder {
     return new MsgUpdateVestingFunder().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateVestingFunder {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateVestingFunder {
     return new MsgUpdateVestingFunder().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateVestingFunder {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateVestingFunder {
     return new MsgUpdateVestingFunder().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgUpdateVestingFunder | PlainMessage<MsgUpdateVestingFunder> | undefined, b: MsgUpdateVestingFunder | PlainMessage<MsgUpdateVestingFunder> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateVestingFunder
+      | PlainMessage<MsgUpdateVestingFunder>
+      | undefined,
+    b:
+      | MsgUpdateVestingFunder
+      | PlainMessage<MsgUpdateVestingFunder>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateVestingFunder, a, b);
   }
 }
@@ -294,23 +437,43 @@ export class MsgUpdateVestingFunderResponse extends Message<MsgUpdateVestingFund
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgUpdateVestingFunderResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'haqq.vesting.v1.MsgUpdateVestingFunderResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgUpdateVestingFunderResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgUpdateVestingFunderResponse {
     return new MsgUpdateVestingFunderResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgUpdateVestingFunderResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateVestingFunderResponse {
     return new MsgUpdateVestingFunderResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgUpdateVestingFunderResponse {
-    return new MsgUpdateVestingFunderResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgUpdateVestingFunderResponse {
+    return new MsgUpdateVestingFunderResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgUpdateVestingFunderResponse | PlainMessage<MsgUpdateVestingFunderResponse> | undefined, b: MsgUpdateVestingFunderResponse | PlainMessage<MsgUpdateVestingFunderResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgUpdateVestingFunderResponse
+      | PlainMessage<MsgUpdateVestingFunderResponse>
+      | undefined,
+    b:
+      | MsgUpdateVestingFunderResponse
+      | PlainMessage<MsgUpdateVestingFunderResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgUpdateVestingFunderResponse, a, b);
   }
 }
@@ -327,7 +490,7 @@ export class MsgConvertVestingAccount extends Message<MsgConvertVestingAccount> 
    *
    * @generated from field: string vesting_address = 1;
    */
-  vestingAddress = "";
+  vestingAddress = '';
 
   constructor(data?: PartialMessage<MsgConvertVestingAccount>) {
     super();
@@ -335,24 +498,47 @@ export class MsgConvertVestingAccount extends Message<MsgConvertVestingAccount> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgConvertVestingAccount";
+  static readonly typeName = 'haqq.vesting.v1.MsgConvertVestingAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "vesting_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'vesting_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgConvertVestingAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgConvertVestingAccount {
     return new MsgConvertVestingAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgConvertVestingAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgConvertVestingAccount {
     return new MsgConvertVestingAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgConvertVestingAccount {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgConvertVestingAccount {
     return new MsgConvertVestingAccount().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgConvertVestingAccount | PlainMessage<MsgConvertVestingAccount> | undefined, b: MsgConvertVestingAccount | PlainMessage<MsgConvertVestingAccount> | undefined): boolean {
+  static equals(
+    a:
+      | MsgConvertVestingAccount
+      | PlainMessage<MsgConvertVestingAccount>
+      | undefined,
+    b:
+      | MsgConvertVestingAccount
+      | PlainMessage<MsgConvertVestingAccount>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgConvertVestingAccount, a, b);
   }
 }
@@ -370,23 +556,43 @@ export class MsgConvertVestingAccountResponse extends Message<MsgConvertVestingA
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgConvertVestingAccountResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'haqq.vesting.v1.MsgConvertVestingAccountResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgConvertVestingAccountResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgConvertVestingAccountResponse {
     return new MsgConvertVestingAccountResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgConvertVestingAccountResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgConvertVestingAccountResponse {
     return new MsgConvertVestingAccountResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgConvertVestingAccountResponse {
-    return new MsgConvertVestingAccountResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgConvertVestingAccountResponse {
+    return new MsgConvertVestingAccountResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgConvertVestingAccountResponse | PlainMessage<MsgConvertVestingAccountResponse> | undefined, b: MsgConvertVestingAccountResponse | PlainMessage<MsgConvertVestingAccountResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgConvertVestingAccountResponse
+      | PlainMessage<MsgConvertVestingAccountResponse>
+      | undefined,
+    b:
+      | MsgConvertVestingAccountResponse
+      | PlainMessage<MsgConvertVestingAccountResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgConvertVestingAccountResponse, a, b);
   }
 }
@@ -404,14 +610,14 @@ export class MsgConvertIntoVestingAccount extends Message<MsgConvertIntoVestingA
    *
    * @generated from field: string from_address = 1;
    */
-  fromAddress = "";
+  fromAddress = '';
 
   /**
    * to_address is the account to be converted into clawback vesting account
    *
    * @generated from field: string to_address = 2;
    */
-  toAddress = "";
+  toAddress = '';
 
   /**
    * start_time defines the time at which the vesting period begins
@@ -458,7 +664,7 @@ export class MsgConvertIntoVestingAccount extends Message<MsgConvertIntoVestingA
    *
    * @generated from field: string validator_address = 8;
    */
-  validatorAddress = "";
+  validatorAddress = '';
 
   constructor(data?: PartialMessage<MsgConvertIntoVestingAccount>) {
     super();
@@ -466,31 +672,74 @@ export class MsgConvertIntoVestingAccount extends Message<MsgConvertIntoVestingA
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgConvertIntoVestingAccount";
+  static readonly typeName = 'haqq.vesting.v1.MsgConvertIntoVestingAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "from_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "to_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "start_time", kind: "message", T: Timestamp },
-    { no: 4, name: "lockup_periods", kind: "message", T: Period, repeated: true },
-    { no: 5, name: "vesting_periods", kind: "message", T: Period, repeated: true },
-    { no: 6, name: "merge", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 7, name: "stake", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 8, name: "validator_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'from_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 2, name: 'to_address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'start_time', kind: 'message', T: Timestamp },
+    {
+      no: 4,
+      name: 'lockup_periods',
+      kind: 'message',
+      T: Period,
+      repeated: true,
+    },
+    {
+      no: 5,
+      name: 'vesting_periods',
+      kind: 'message',
+      T: Period,
+      repeated: true,
+    },
+    { no: 6, name: 'merge', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: 'stake', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 8,
+      name: 'validator_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgConvertIntoVestingAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgConvertIntoVestingAccount {
     return new MsgConvertIntoVestingAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgConvertIntoVestingAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgConvertIntoVestingAccount {
     return new MsgConvertIntoVestingAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgConvertIntoVestingAccount {
-    return new MsgConvertIntoVestingAccount().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgConvertIntoVestingAccount {
+    return new MsgConvertIntoVestingAccount().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgConvertIntoVestingAccount | PlainMessage<MsgConvertIntoVestingAccount> | undefined, b: MsgConvertIntoVestingAccount | PlainMessage<MsgConvertIntoVestingAccount> | undefined): boolean {
+  static equals(
+    a:
+      | MsgConvertIntoVestingAccount
+      | PlainMessage<MsgConvertIntoVestingAccount>
+      | undefined,
+    b:
+      | MsgConvertIntoVestingAccount
+      | PlainMessage<MsgConvertIntoVestingAccount>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgConvertIntoVestingAccount, a, b);
   }
 }
@@ -508,24 +757,50 @@ export class MsgConvertIntoVestingAccountResponse extends Message<MsgConvertInto
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.MsgConvertIntoVestingAccountResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName =
+    'haqq.vesting.v1.MsgConvertIntoVestingAccountResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgConvertIntoVestingAccountResponse {
-    return new MsgConvertIntoVestingAccountResponse().fromBinary(bytes, options);
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgConvertIntoVestingAccountResponse {
+    return new MsgConvertIntoVestingAccountResponse().fromBinary(
+      bytes,
+      options,
+    );
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgConvertIntoVestingAccountResponse {
-    return new MsgConvertIntoVestingAccountResponse().fromJson(jsonValue, options);
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgConvertIntoVestingAccountResponse {
+    return new MsgConvertIntoVestingAccountResponse().fromJson(
+      jsonValue,
+      options,
+    );
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgConvertIntoVestingAccountResponse {
-    return new MsgConvertIntoVestingAccountResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgConvertIntoVestingAccountResponse {
+    return new MsgConvertIntoVestingAccountResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: MsgConvertIntoVestingAccountResponse | PlainMessage<MsgConvertIntoVestingAccountResponse> | undefined, b: MsgConvertIntoVestingAccountResponse | PlainMessage<MsgConvertIntoVestingAccountResponse> | undefined): boolean {
+  static equals(
+    a:
+      | MsgConvertIntoVestingAccountResponse
+      | PlainMessage<MsgConvertIntoVestingAccountResponse>
+      | undefined,
+    b:
+      | MsgConvertIntoVestingAccountResponse
+      | PlainMessage<MsgConvertIntoVestingAccountResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(MsgConvertIntoVestingAccountResponse, a, b);
   }
 }
-

@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * ClientState defines a solo machine client that tracks the current consensus
@@ -38,26 +45,38 @@ export class ClientState extends Message<ClientState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.solomachine.v3.ClientState";
+  static readonly typeName = 'ibc.lightclients.solomachine.v3.ClientState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "sequence", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "is_frozen", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 3, name: "consensus_state", kind: "message", T: ConsensusState },
+    { no: 1, name: 'sequence', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: 'is_frozen', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: 'consensus_state', kind: 'message', T: ConsensusState },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ClientState {
     return new ClientState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ClientState {
     return new ClientState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ClientState {
     return new ClientState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ClientState | PlainMessage<ClientState> | undefined, b: ClientState | PlainMessage<ClientState> | undefined): boolean {
+  static equals(
+    a: ClientState | PlainMessage<ClientState> | undefined,
+    b: ClientState | PlainMessage<ClientState> | undefined,
+  ): boolean {
     return proto3.util.equals(ClientState, a, b);
   }
 }
@@ -84,7 +103,7 @@ export class ConsensusState extends Message<ConsensusState> {
    *
    * @generated from field: string diversifier = 2;
    */
-  diversifier = "";
+  diversifier = '';
 
   /**
    * @generated from field: uint64 timestamp = 3;
@@ -97,26 +116,43 @@ export class ConsensusState extends Message<ConsensusState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.solomachine.v3.ConsensusState";
+  static readonly typeName = 'ibc.lightclients.solomachine.v3.ConsensusState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "public_key", kind: "message", T: Any },
-    { no: 2, name: "diversifier", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "timestamp", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'public_key', kind: 'message', T: Any },
+    {
+      no: 2,
+      name: 'diversifier',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'timestamp', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConsensusState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ConsensusState {
     return new ConsensusState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConsensusState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ConsensusState {
     return new ConsensusState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConsensusState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ConsensusState {
     return new ConsensusState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ConsensusState | PlainMessage<ConsensusState> | undefined, b: ConsensusState | PlainMessage<ConsensusState> | undefined): boolean {
+  static equals(
+    a: ConsensusState | PlainMessage<ConsensusState> | undefined,
+    b: ConsensusState | PlainMessage<ConsensusState> | undefined,
+  ): boolean {
     return proto3.util.equals(ConsensusState, a, b);
   }
 }
@@ -145,7 +181,7 @@ export class Header extends Message<Header> {
   /**
    * @generated from field: string new_diversifier = 4;
    */
-  newDiversifier = "";
+  newDiversifier = '';
 
   constructor(data?: PartialMessage<Header>) {
     super();
@@ -153,27 +189,44 @@ export class Header extends Message<Header> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.solomachine.v3.Header";
+  static readonly typeName = 'ibc.lightclients.solomachine.v3.Header';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "timestamp", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "signature", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "new_public_key", kind: "message", T: Any },
-    { no: 4, name: "new_diversifier", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'timestamp', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: 'signature', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: 'new_public_key', kind: 'message', T: Any },
+    {
+      no: 4,
+      name: 'new_diversifier',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Header {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Header {
     return new Header().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Header {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Header {
     return new Header().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Header {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Header {
     return new Header().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Header | PlainMessage<Header> | undefined, b: Header | PlainMessage<Header> | undefined): boolean {
+  static equals(
+    a: Header | PlainMessage<Header> | undefined,
+    b: Header | PlainMessage<Header> | undefined,
+  ): boolean {
     return proto3.util.equals(Header, a, b);
   }
 }
@@ -206,26 +259,38 @@ export class Misbehaviour extends Message<Misbehaviour> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.solomachine.v3.Misbehaviour";
+  static readonly typeName = 'ibc.lightclients.solomachine.v3.Misbehaviour';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "sequence", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "signature_one", kind: "message", T: SignatureAndData },
-    { no: 3, name: "signature_two", kind: "message", T: SignatureAndData },
+    { no: 1, name: 'sequence', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: 'signature_one', kind: 'message', T: SignatureAndData },
+    { no: 3, name: 'signature_two', kind: 'message', T: SignatureAndData },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Misbehaviour {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Misbehaviour {
     return new Misbehaviour().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Misbehaviour {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Misbehaviour {
     return new Misbehaviour().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Misbehaviour {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Misbehaviour {
     return new Misbehaviour().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Misbehaviour | PlainMessage<Misbehaviour> | undefined, b: Misbehaviour | PlainMessage<Misbehaviour> | undefined): boolean {
+  static equals(
+    a: Misbehaviour | PlainMessage<Misbehaviour> | undefined,
+    b: Misbehaviour | PlainMessage<Misbehaviour> | undefined,
+  ): boolean {
     return proto3.util.equals(Misbehaviour, a, b);
   }
 }
@@ -263,27 +328,39 @@ export class SignatureAndData extends Message<SignatureAndData> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.solomachine.v3.SignatureAndData";
+  static readonly typeName = 'ibc.lightclients.solomachine.v3.SignatureAndData';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "signature", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "path", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 4, name: "timestamp", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'signature', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: 'path', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: 'data', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 4, name: 'timestamp', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignatureAndData {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignatureAndData {
     return new SignatureAndData().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignatureAndData {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureAndData {
     return new SignatureAndData().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignatureAndData {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureAndData {
     return new SignatureAndData().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SignatureAndData | PlainMessage<SignatureAndData> | undefined, b: SignatureAndData | PlainMessage<SignatureAndData> | undefined): boolean {
+  static equals(
+    a: SignatureAndData | PlainMessage<SignatureAndData> | undefined,
+    b: SignatureAndData | PlainMessage<SignatureAndData> | undefined,
+  ): boolean {
     return proto3.util.equals(SignatureAndData, a, b);
   }
 }
@@ -311,25 +388,49 @@ export class TimestampedSignatureData extends Message<TimestampedSignatureData> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.solomachine.v3.TimestampedSignatureData";
+  static readonly typeName =
+    'ibc.lightclients.solomachine.v3.TimestampedSignatureData';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "signature_data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "timestamp", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'signature_data',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    { no: 2, name: 'timestamp', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TimestampedSignatureData {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): TimestampedSignatureData {
     return new TimestampedSignatureData().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TimestampedSignatureData {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): TimestampedSignatureData {
     return new TimestampedSignatureData().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TimestampedSignatureData {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): TimestampedSignatureData {
     return new TimestampedSignatureData().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TimestampedSignatureData | PlainMessage<TimestampedSignatureData> | undefined, b: TimestampedSignatureData | PlainMessage<TimestampedSignatureData> | undefined): boolean {
+  static equals(
+    a:
+      | TimestampedSignatureData
+      | PlainMessage<TimestampedSignatureData>
+      | undefined,
+    b:
+      | TimestampedSignatureData
+      | PlainMessage<TimestampedSignatureData>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(TimestampedSignatureData, a, b);
   }
 }
@@ -359,7 +460,7 @@ export class SignBytes extends Message<SignBytes> {
    *
    * @generated from field: string diversifier = 3;
    */
-  diversifier = "";
+  diversifier = '';
 
   /**
    * the standardised path bytes
@@ -381,28 +482,45 @@ export class SignBytes extends Message<SignBytes> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.solomachine.v3.SignBytes";
+  static readonly typeName = 'ibc.lightclients.solomachine.v3.SignBytes';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "sequence", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "timestamp", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "diversifier", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "path", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 5, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'sequence', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: 'timestamp', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 3,
+      name: 'diversifier',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 4, name: 'path', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: 'data', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignBytes {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignBytes {
     return new SignBytes().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignBytes {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignBytes {
     return new SignBytes().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignBytes {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignBytes {
     return new SignBytes().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SignBytes | PlainMessage<SignBytes> | undefined, b: SignBytes | PlainMessage<SignBytes> | undefined): boolean {
+  static equals(
+    a: SignBytes | PlainMessage<SignBytes> | undefined,
+    b: SignBytes | PlainMessage<SignBytes> | undefined,
+  ): boolean {
     return proto3.util.equals(SignBytes, a, b);
   }
 }
@@ -425,7 +543,7 @@ export class HeaderData extends Message<HeaderData> {
    *
    * @generated from field: string new_diversifier = 2;
    */
-  newDiversifier = "";
+  newDiversifier = '';
 
   constructor(data?: PartialMessage<HeaderData>) {
     super();
@@ -433,26 +551,42 @@ export class HeaderData extends Message<HeaderData> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.lightclients.solomachine.v3.HeaderData";
+  static readonly typeName = 'ibc.lightclients.solomachine.v3.HeaderData';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "new_pub_key", kind: "message", T: Any },
-    { no: 2, name: "new_diversifier", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'new_pub_key', kind: 'message', T: Any },
+    {
+      no: 2,
+      name: 'new_diversifier',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HeaderData {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): HeaderData {
     return new HeaderData().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HeaderData {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): HeaderData {
     return new HeaderData().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HeaderData {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): HeaderData {
     return new HeaderData().fromJsonString(jsonString, options);
   }
 
-  static equals(a: HeaderData | PlainMessage<HeaderData> | undefined, b: HeaderData | PlainMessage<HeaderData> | undefined): boolean {
+  static equals(
+    a: HeaderData | PlainMessage<HeaderData> | undefined,
+    b: HeaderData | PlainMessage<HeaderData> | undefined,
+  ): boolean {
     return proto3.util.equals(HeaderData, a, b);
   }
 }
-

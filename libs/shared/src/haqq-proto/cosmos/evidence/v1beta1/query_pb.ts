@@ -3,9 +3,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3 } from "@bufbuild/protobuf";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3 } from '@bufbuild/protobuf';
+import {
+  PageRequest,
+  PageResponse,
+} from '../../base/query/v1beta1/pagination_pb';
 
 /**
  * QueryEvidenceRequest is the request type for the Query/Evidence RPC method.
@@ -29,7 +39,7 @@ export class QueryEvidenceRequest extends Message<QueryEvidenceRequest> {
    *
    * @generated from field: string hash = 2;
    */
-  hash = "";
+  hash = '';
 
   constructor(data?: PartialMessage<QueryEvidenceRequest>) {
     super();
@@ -37,25 +47,42 @@ export class QueryEvidenceRequest extends Message<QueryEvidenceRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.evidence.v1beta1.QueryEvidenceRequest";
+  static readonly typeName = 'cosmos.evidence.v1beta1.QueryEvidenceRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "evidence_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'evidence_hash',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    { no: 2, name: 'hash', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryEvidenceRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryEvidenceRequest {
     return new QueryEvidenceRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryEvidenceRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryEvidenceRequest {
     return new QueryEvidenceRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryEvidenceRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryEvidenceRequest {
     return new QueryEvidenceRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryEvidenceRequest | PlainMessage<QueryEvidenceRequest> | undefined, b: QueryEvidenceRequest | PlainMessage<QueryEvidenceRequest> | undefined): boolean {
+  static equals(
+    a: QueryEvidenceRequest | PlainMessage<QueryEvidenceRequest> | undefined,
+    b: QueryEvidenceRequest | PlainMessage<QueryEvidenceRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryEvidenceRequest, a, b);
   }
 }
@@ -79,24 +106,36 @@ export class QueryEvidenceResponse extends Message<QueryEvidenceResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.evidence.v1beta1.QueryEvidenceResponse";
+  static readonly typeName = 'cosmos.evidence.v1beta1.QueryEvidenceResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "evidence", kind: "message", T: Any },
+    { no: 1, name: 'evidence', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryEvidenceResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryEvidenceResponse {
     return new QueryEvidenceResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryEvidenceResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryEvidenceResponse {
     return new QueryEvidenceResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryEvidenceResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryEvidenceResponse {
     return new QueryEvidenceResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryEvidenceResponse | PlainMessage<QueryEvidenceResponse> | undefined, b: QueryEvidenceResponse | PlainMessage<QueryEvidenceResponse> | undefined): boolean {
+  static equals(
+    a: QueryEvidenceResponse | PlainMessage<QueryEvidenceResponse> | undefined,
+    b: QueryEvidenceResponse | PlainMessage<QueryEvidenceResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryEvidenceResponse, a, b);
   }
 }
@@ -121,24 +160,42 @@ export class QueryAllEvidenceRequest extends Message<QueryAllEvidenceRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.evidence.v1beta1.QueryAllEvidenceRequest";
+  static readonly typeName = 'cosmos.evidence.v1beta1.QueryAllEvidenceRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAllEvidenceRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAllEvidenceRequest {
     return new QueryAllEvidenceRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAllEvidenceRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAllEvidenceRequest {
     return new QueryAllEvidenceRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAllEvidenceRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAllEvidenceRequest {
     return new QueryAllEvidenceRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryAllEvidenceRequest | PlainMessage<QueryAllEvidenceRequest> | undefined, b: QueryAllEvidenceRequest | PlainMessage<QueryAllEvidenceRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryAllEvidenceRequest
+      | PlainMessage<QueryAllEvidenceRequest>
+      | undefined,
+    b:
+      | QueryAllEvidenceRequest
+      | PlainMessage<QueryAllEvidenceRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAllEvidenceRequest, a, b);
   }
 }
@@ -170,26 +227,43 @@ export class QueryAllEvidenceResponse extends Message<QueryAllEvidenceResponse> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.evidence.v1beta1.QueryAllEvidenceResponse";
+  static readonly typeName = 'cosmos.evidence.v1beta1.QueryAllEvidenceResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "evidence", kind: "message", T: Any, repeated: true },
-    { no: 2, name: "pagination", kind: "message", T: PageResponse },
+    { no: 1, name: 'evidence', kind: 'message', T: Any, repeated: true },
+    { no: 2, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAllEvidenceResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAllEvidenceResponse {
     return new QueryAllEvidenceResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAllEvidenceResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAllEvidenceResponse {
     return new QueryAllEvidenceResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAllEvidenceResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAllEvidenceResponse {
     return new QueryAllEvidenceResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryAllEvidenceResponse | PlainMessage<QueryAllEvidenceResponse> | undefined, b: QueryAllEvidenceResponse | PlainMessage<QueryAllEvidenceResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryAllEvidenceResponse
+      | PlainMessage<QueryAllEvidenceResponse>
+      | undefined,
+    b:
+      | QueryAllEvidenceResponse
+      | PlainMessage<QueryAllEvidenceResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAllEvidenceResponse, a, b);
   }
 }
-

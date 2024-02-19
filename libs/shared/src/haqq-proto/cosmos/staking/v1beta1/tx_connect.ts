@@ -3,8 +3,23 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgBeginRedelegate, MsgBeginRedelegateResponse, MsgCancelUnbondingDelegation, MsgCancelUnbondingDelegationResponse, MsgCreateValidator, MsgCreateValidatorResponse, MsgDelegate, MsgDelegateResponse, MsgEditValidator, MsgEditValidatorResponse, MsgUndelegate, MsgUndelegateResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgBeginRedelegate,
+  MsgBeginRedelegateResponse,
+  MsgCancelUnbondingDelegation,
+  MsgCancelUnbondingDelegationResponse,
+  MsgCreateValidator,
+  MsgCreateValidatorResponse,
+  MsgDelegate,
+  MsgDelegateResponse,
+  MsgEditValidator,
+  MsgEditValidatorResponse,
+  MsgUndelegate,
+  MsgUndelegateResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the staking Msg service.
@@ -12,7 +27,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.staking.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.staking.v1beta1.Msg",
+  typeName: 'cosmos.staking.v1beta1.Msg',
   methods: {
     /**
      * CreateValidator defines a method for creating a new validator.
@@ -20,7 +35,7 @@ export const Msg = {
      * @generated from rpc cosmos.staking.v1beta1.Msg.CreateValidator
      */
     createValidator: {
-      name: "CreateValidator",
+      name: 'CreateValidator',
       I: MsgCreateValidator,
       O: MsgCreateValidatorResponse,
       kind: MethodKind.Unary,
@@ -31,7 +46,7 @@ export const Msg = {
      * @generated from rpc cosmos.staking.v1beta1.Msg.EditValidator
      */
     editValidator: {
-      name: "EditValidator",
+      name: 'EditValidator',
       I: MsgEditValidator,
       O: MsgEditValidatorResponse,
       kind: MethodKind.Unary,
@@ -43,7 +58,7 @@ export const Msg = {
      * @generated from rpc cosmos.staking.v1beta1.Msg.Delegate
      */
     delegate: {
-      name: "Delegate",
+      name: 'Delegate',
       I: MsgDelegate,
       O: MsgDelegateResponse,
       kind: MethodKind.Unary,
@@ -55,7 +70,7 @@ export const Msg = {
      * @generated from rpc cosmos.staking.v1beta1.Msg.BeginRedelegate
      */
     beginRedelegate: {
-      name: "BeginRedelegate",
+      name: 'BeginRedelegate',
       I: MsgBeginRedelegate,
       O: MsgBeginRedelegateResponse,
       kind: MethodKind.Unary,
@@ -67,7 +82,7 @@ export const Msg = {
      * @generated from rpc cosmos.staking.v1beta1.Msg.Undelegate
      */
     undelegate: {
-      name: "Undelegate",
+      name: 'Undelegate',
       I: MsgUndelegate,
       O: MsgUndelegateResponse,
       kind: MethodKind.Unary,
@@ -81,7 +96,7 @@ export const Msg = {
      * @generated from rpc cosmos.staking.v1beta1.Msg.CancelUnbondingDelegation
      */
     cancelUnbondingDelegation: {
-      name: "CancelUnbondingDelegation",
+      name: 'CancelUnbondingDelegation',
       I: MsgCancelUnbondingDelegation,
       O: MsgCancelUnbondingDelegationResponse,
       kind: MethodKind.Unary,
@@ -94,11 +109,10 @@ export const Msg = {
      * @generated from rpc cosmos.staking.v1beta1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

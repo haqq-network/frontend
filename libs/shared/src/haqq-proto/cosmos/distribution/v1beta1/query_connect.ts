@@ -3,8 +3,29 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryCommunityPoolRequest, QueryCommunityPoolResponse, QueryDelegationRewardsRequest, QueryDelegationRewardsResponse, QueryDelegationTotalRewardsRequest, QueryDelegationTotalRewardsResponse, QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse, QueryDelegatorWithdrawAddressRequest, QueryDelegatorWithdrawAddressResponse, QueryParamsRequest, QueryParamsResponse, QueryValidatorCommissionRequest, QueryValidatorCommissionResponse, QueryValidatorDistributionInfoRequest, QueryValidatorDistributionInfoResponse, QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse, QueryValidatorSlashesRequest, QueryValidatorSlashesResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryCommunityPoolRequest,
+  QueryCommunityPoolResponse,
+  QueryDelegationRewardsRequest,
+  QueryDelegationRewardsResponse,
+  QueryDelegationTotalRewardsRequest,
+  QueryDelegationTotalRewardsResponse,
+  QueryDelegatorValidatorsRequest,
+  QueryDelegatorValidatorsResponse,
+  QueryDelegatorWithdrawAddressRequest,
+  QueryDelegatorWithdrawAddressResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryValidatorCommissionRequest,
+  QueryValidatorCommissionResponse,
+  QueryValidatorDistributionInfoRequest,
+  QueryValidatorDistributionInfoResponse,
+  QueryValidatorOutstandingRewardsRequest,
+  QueryValidatorOutstandingRewardsResponse,
+  QueryValidatorSlashesRequest,
+  QueryValidatorSlashesResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service for distribution module.
@@ -12,7 +33,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.distribution.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.distribution.v1beta1.Query",
+  typeName: 'cosmos.distribution.v1beta1.Query',
   methods: {
     /**
      * Params queries params of the distribution module.
@@ -20,7 +41,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -31,7 +52,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.ValidatorDistributionInfo
      */
     validatorDistributionInfo: {
-      name: "ValidatorDistributionInfo",
+      name: 'ValidatorDistributionInfo',
       I: QueryValidatorDistributionInfoRequest,
       O: QueryValidatorDistributionInfoResponse,
       kind: MethodKind.Unary,
@@ -42,7 +63,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.ValidatorOutstandingRewards
      */
     validatorOutstandingRewards: {
-      name: "ValidatorOutstandingRewards",
+      name: 'ValidatorOutstandingRewards',
       I: QueryValidatorOutstandingRewardsRequest,
       O: QueryValidatorOutstandingRewardsResponse,
       kind: MethodKind.Unary,
@@ -53,7 +74,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.ValidatorCommission
      */
     validatorCommission: {
-      name: "ValidatorCommission",
+      name: 'ValidatorCommission',
       I: QueryValidatorCommissionRequest,
       O: QueryValidatorCommissionResponse,
       kind: MethodKind.Unary,
@@ -64,7 +85,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.ValidatorSlashes
      */
     validatorSlashes: {
-      name: "ValidatorSlashes",
+      name: 'ValidatorSlashes',
       I: QueryValidatorSlashesRequest,
       O: QueryValidatorSlashesResponse,
       kind: MethodKind.Unary,
@@ -75,7 +96,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.DelegationRewards
      */
     delegationRewards: {
-      name: "DelegationRewards",
+      name: 'DelegationRewards',
       I: QueryDelegationRewardsRequest,
       O: QueryDelegationRewardsResponse,
       kind: MethodKind.Unary,
@@ -87,7 +108,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.DelegationTotalRewards
      */
     delegationTotalRewards: {
-      name: "DelegationTotalRewards",
+      name: 'DelegationTotalRewards',
       I: QueryDelegationTotalRewardsRequest,
       O: QueryDelegationTotalRewardsResponse,
       kind: MethodKind.Unary,
@@ -98,7 +119,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.DelegatorValidators
      */
     delegatorValidators: {
-      name: "DelegatorValidators",
+      name: 'DelegatorValidators',
       I: QueryDelegatorValidatorsRequest,
       O: QueryDelegatorValidatorsResponse,
       kind: MethodKind.Unary,
@@ -109,7 +130,7 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.DelegatorWithdrawAddress
      */
     delegatorWithdrawAddress: {
-      name: "DelegatorWithdrawAddress",
+      name: 'DelegatorWithdrawAddress',
       I: QueryDelegatorWithdrawAddressRequest,
       O: QueryDelegatorWithdrawAddressResponse,
       kind: MethodKind.Unary,
@@ -120,11 +141,10 @@ export const Query = {
      * @generated from rpc cosmos.distribution.v1beta1.Query.CommunityPool
      */
     communityPool: {
-      name: "CommunityPool",
+      name: 'CommunityPool',
       I: QueryCommunityPoolRequest,
       O: QueryCommunityPoolResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Params } from "./mint_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Params } from './mint_pb';
 
 /**
  * QueryParamsRequest is the request type for the Query/Params RPC method.
@@ -19,23 +26,34 @@ export class QueryParamsRequest extends Message<QueryParamsRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.mint.v1beta1.QueryParamsRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.mint.v1beta1.QueryParamsRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryParamsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryParamsRequest {
     return new QueryParamsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryParamsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryParamsRequest {
     return new QueryParamsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryParamsRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryParamsRequest {
     return new QueryParamsRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryParamsRequest | PlainMessage<QueryParamsRequest> | undefined, b: QueryParamsRequest | PlainMessage<QueryParamsRequest> | undefined): boolean {
+  static equals(
+    a: QueryParamsRequest | PlainMessage<QueryParamsRequest> | undefined,
+    b: QueryParamsRequest | PlainMessage<QueryParamsRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryParamsRequest, a, b);
   }
 }
@@ -59,24 +77,36 @@ export class QueryParamsResponse extends Message<QueryParamsResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.mint.v1beta1.QueryParamsResponse";
+  static readonly typeName = 'cosmos.mint.v1beta1.QueryParamsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "params", kind: "message", T: Params },
+    { no: 1, name: 'params', kind: 'message', T: Params },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryParamsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryParamsResponse {
     return new QueryParamsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryParamsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryParamsResponse {
     return new QueryParamsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryParamsResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryParamsResponse {
     return new QueryParamsResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryParamsResponse | PlainMessage<QueryParamsResponse> | undefined, b: QueryParamsResponse | PlainMessage<QueryParamsResponse> | undefined): boolean {
+  static equals(
+    a: QueryParamsResponse | PlainMessage<QueryParamsResponse> | undefined,
+    b: QueryParamsResponse | PlainMessage<QueryParamsResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryParamsResponse, a, b);
   }
 }
@@ -93,23 +123,34 @@ export class QueryInflationRequest extends Message<QueryInflationRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.mint.v1beta1.QueryInflationRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.mint.v1beta1.QueryInflationRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryInflationRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryInflationRequest {
     return new QueryInflationRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryInflationRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryInflationRequest {
     return new QueryInflationRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryInflationRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryInflationRequest {
     return new QueryInflationRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryInflationRequest | PlainMessage<QueryInflationRequest> | undefined, b: QueryInflationRequest | PlainMessage<QueryInflationRequest> | undefined): boolean {
+  static equals(
+    a: QueryInflationRequest | PlainMessage<QueryInflationRequest> | undefined,
+    b: QueryInflationRequest | PlainMessage<QueryInflationRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryInflationRequest, a, b);
   }
 }
@@ -134,24 +175,42 @@ export class QueryInflationResponse extends Message<QueryInflationResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.mint.v1beta1.QueryInflationResponse";
+  static readonly typeName = 'cosmos.mint.v1beta1.QueryInflationResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "inflation", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'inflation', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryInflationResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryInflationResponse {
     return new QueryInflationResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryInflationResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryInflationResponse {
     return new QueryInflationResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryInflationResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryInflationResponse {
     return new QueryInflationResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryInflationResponse | PlainMessage<QueryInflationResponse> | undefined, b: QueryInflationResponse | PlainMessage<QueryInflationResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryInflationResponse
+      | PlainMessage<QueryInflationResponse>
+      | undefined,
+    b:
+      | QueryInflationResponse
+      | PlainMessage<QueryInflationResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryInflationResponse, a, b);
   }
 }
@@ -169,23 +228,43 @@ export class QueryAnnualProvisionsRequest extends Message<QueryAnnualProvisionsR
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.mint.v1beta1.QueryAnnualProvisionsRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.mint.v1beta1.QueryAnnualProvisionsRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAnnualProvisionsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAnnualProvisionsRequest {
     return new QueryAnnualProvisionsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAnnualProvisionsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAnnualProvisionsRequest {
     return new QueryAnnualProvisionsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAnnualProvisionsRequest {
-    return new QueryAnnualProvisionsRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAnnualProvisionsRequest {
+    return new QueryAnnualProvisionsRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryAnnualProvisionsRequest | PlainMessage<QueryAnnualProvisionsRequest> | undefined, b: QueryAnnualProvisionsRequest | PlainMessage<QueryAnnualProvisionsRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryAnnualProvisionsRequest
+      | PlainMessage<QueryAnnualProvisionsRequest>
+      | undefined,
+    b:
+      | QueryAnnualProvisionsRequest
+      | PlainMessage<QueryAnnualProvisionsRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAnnualProvisionsRequest, a, b);
   }
 }
@@ -210,25 +289,51 @@ export class QueryAnnualProvisionsResponse extends Message<QueryAnnualProvisions
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.mint.v1beta1.QueryAnnualProvisionsResponse";
+  static readonly typeName =
+    'cosmos.mint.v1beta1.QueryAnnualProvisionsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "annual_provisions", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 1,
+      name: 'annual_provisions',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAnnualProvisionsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAnnualProvisionsResponse {
     return new QueryAnnualProvisionsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAnnualProvisionsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAnnualProvisionsResponse {
     return new QueryAnnualProvisionsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAnnualProvisionsResponse {
-    return new QueryAnnualProvisionsResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAnnualProvisionsResponse {
+    return new QueryAnnualProvisionsResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryAnnualProvisionsResponse | PlainMessage<QueryAnnualProvisionsResponse> | undefined, b: QueryAnnualProvisionsResponse | PlainMessage<QueryAnnualProvisionsResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryAnnualProvisionsResponse
+      | PlainMessage<QueryAnnualProvisionsResponse>
+      | undefined,
+    b:
+      | QueryAnnualProvisionsResponse
+      | PlainMessage<QueryAnnualProvisionsResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAnnualProvisionsResponse, a, b);
   }
 }
-

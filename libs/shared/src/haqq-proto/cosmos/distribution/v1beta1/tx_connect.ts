@@ -3,8 +3,21 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgCommunityPoolSpend, MsgCommunityPoolSpendResponse, MsgFundCommunityPool, MsgFundCommunityPoolResponse, MsgSetWithdrawAddress, MsgSetWithdrawAddressResponse, MsgUpdateParams, MsgUpdateParamsResponse, MsgWithdrawDelegatorReward, MsgWithdrawDelegatorRewardResponse, MsgWithdrawValidatorCommission, MsgWithdrawValidatorCommissionResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgCommunityPoolSpend,
+  MsgCommunityPoolSpendResponse,
+  MsgFundCommunityPool,
+  MsgFundCommunityPoolResponse,
+  MsgSetWithdrawAddress,
+  MsgSetWithdrawAddressResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+  MsgWithdrawDelegatorReward,
+  MsgWithdrawDelegatorRewardResponse,
+  MsgWithdrawValidatorCommission,
+  MsgWithdrawValidatorCommissionResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the distribution Msg service.
@@ -12,7 +25,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.distribution.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.distribution.v1beta1.Msg",
+  typeName: 'cosmos.distribution.v1beta1.Msg',
   methods: {
     /**
      * SetWithdrawAddress defines a method to change the withdraw address
@@ -21,7 +34,7 @@ export const Msg = {
      * @generated from rpc cosmos.distribution.v1beta1.Msg.SetWithdrawAddress
      */
     setWithdrawAddress: {
-      name: "SetWithdrawAddress",
+      name: 'SetWithdrawAddress',
       I: MsgSetWithdrawAddress,
       O: MsgSetWithdrawAddressResponse,
       kind: MethodKind.Unary,
@@ -33,7 +46,7 @@ export const Msg = {
      * @generated from rpc cosmos.distribution.v1beta1.Msg.WithdrawDelegatorReward
      */
     withdrawDelegatorReward: {
-      name: "WithdrawDelegatorReward",
+      name: 'WithdrawDelegatorReward',
       I: MsgWithdrawDelegatorReward,
       O: MsgWithdrawDelegatorRewardResponse,
       kind: MethodKind.Unary,
@@ -45,7 +58,7 @@ export const Msg = {
      * @generated from rpc cosmos.distribution.v1beta1.Msg.WithdrawValidatorCommission
      */
     withdrawValidatorCommission: {
-      name: "WithdrawValidatorCommission",
+      name: 'WithdrawValidatorCommission',
       I: MsgWithdrawValidatorCommission,
       O: MsgWithdrawValidatorCommissionResponse,
       kind: MethodKind.Unary,
@@ -57,7 +70,7 @@ export const Msg = {
      * @generated from rpc cosmos.distribution.v1beta1.Msg.FundCommunityPool
      */
     fundCommunityPool: {
-      name: "FundCommunityPool",
+      name: 'FundCommunityPool',
       I: MsgFundCommunityPool,
       O: MsgFundCommunityPoolResponse,
       kind: MethodKind.Unary,
@@ -71,7 +84,7 @@ export const Msg = {
      * @generated from rpc cosmos.distribution.v1beta1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
@@ -87,11 +100,10 @@ export const Msg = {
      * @generated from rpc cosmos.distribution.v1beta1.Msg.CommunityPoolSpend
      */
     communityPoolSpend: {
-      name: "CommunityPoolSpend",
+      name: 'CommunityPoolSpend',
       I: MsgCommunityPoolSpend,
       O: MsgCommunityPoolSpendResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

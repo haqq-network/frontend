@@ -3,8 +3,21 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import {
+  Any,
+  Message,
+  proto3,
+  protoInt64,
+  Timestamp,
+} from '@bufbuild/protobuf';
 
 /**
  * Plan specifies information about a planned upgrade and when it should occur.
@@ -23,7 +36,7 @@ export class Plan extends Message<Plan> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * Deprecated: Time based upgrades have been deprecated. Time based upgrade logic
@@ -48,7 +61,7 @@ export class Plan extends Message<Plan> {
    *
    * @generated from field: string info = 4;
    */
-  info = "";
+  info = '';
 
   /**
    * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
@@ -66,28 +79,40 @@ export class Plan extends Message<Plan> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.upgrade.v1beta1.Plan";
+  static readonly typeName = 'cosmos.upgrade.v1beta1.Plan';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "time", kind: "message", T: Timestamp },
-    { no: 3, name: "height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 4, name: "info", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "upgraded_client_state", kind: "message", T: Any },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'time', kind: 'message', T: Timestamp },
+    { no: 3, name: 'height', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 4, name: 'info', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: 'upgraded_client_state', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Plan {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Plan {
     return new Plan().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Plan {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Plan {
     return new Plan().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Plan {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Plan {
     return new Plan().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Plan | PlainMessage<Plan> | undefined, b: Plan | PlainMessage<Plan> | undefined): boolean {
+  static equals(
+    a: Plan | PlainMessage<Plan> | undefined,
+    b: Plan | PlainMessage<Plan> | undefined,
+  ): boolean {
     return proto3.util.equals(Plan, a, b);
   }
 }
@@ -107,14 +132,14 @@ export class SoftwareUpgradeProposal extends Message<SoftwareUpgradeProposal> {
    *
    * @generated from field: string title = 1;
    */
-  title = "";
+  title = '';
 
   /**
    * description of the proposal
    *
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   /**
    * plan of the proposal
@@ -129,26 +154,49 @@ export class SoftwareUpgradeProposal extends Message<SoftwareUpgradeProposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.upgrade.v1beta1.SoftwareUpgradeProposal";
+  static readonly typeName = 'cosmos.upgrade.v1beta1.SoftwareUpgradeProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "plan", kind: "message", T: Plan },
+    { no: 1, name: 'title', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'plan', kind: 'message', T: Plan },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SoftwareUpgradeProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SoftwareUpgradeProposal {
     return new SoftwareUpgradeProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SoftwareUpgradeProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SoftwareUpgradeProposal {
     return new SoftwareUpgradeProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SoftwareUpgradeProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SoftwareUpgradeProposal {
     return new SoftwareUpgradeProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SoftwareUpgradeProposal | PlainMessage<SoftwareUpgradeProposal> | undefined, b: SoftwareUpgradeProposal | PlainMessage<SoftwareUpgradeProposal> | undefined): boolean {
+  static equals(
+    a:
+      | SoftwareUpgradeProposal
+      | PlainMessage<SoftwareUpgradeProposal>
+      | undefined,
+    b:
+      | SoftwareUpgradeProposal
+      | PlainMessage<SoftwareUpgradeProposal>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(SoftwareUpgradeProposal, a, b);
   }
 }
@@ -168,14 +216,14 @@ export class CancelSoftwareUpgradeProposal extends Message<CancelSoftwareUpgrade
    *
    * @generated from field: string title = 1;
    */
-  title = "";
+  title = '';
 
   /**
    * description of the proposal
    *
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   constructor(data?: PartialMessage<CancelSoftwareUpgradeProposal>) {
     super();
@@ -183,25 +231,52 @@ export class CancelSoftwareUpgradeProposal extends Message<CancelSoftwareUpgrade
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal";
+  static readonly typeName =
+    'cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'title', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CancelSoftwareUpgradeProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): CancelSoftwareUpgradeProposal {
     return new CancelSoftwareUpgradeProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CancelSoftwareUpgradeProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): CancelSoftwareUpgradeProposal {
     return new CancelSoftwareUpgradeProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CancelSoftwareUpgradeProposal {
-    return new CancelSoftwareUpgradeProposal().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): CancelSoftwareUpgradeProposal {
+    return new CancelSoftwareUpgradeProposal().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: CancelSoftwareUpgradeProposal | PlainMessage<CancelSoftwareUpgradeProposal> | undefined, b: CancelSoftwareUpgradeProposal | PlainMessage<CancelSoftwareUpgradeProposal> | undefined): boolean {
+  static equals(
+    a:
+      | CancelSoftwareUpgradeProposal
+      | PlainMessage<CancelSoftwareUpgradeProposal>
+      | undefined,
+    b:
+      | CancelSoftwareUpgradeProposal
+      | PlainMessage<CancelSoftwareUpgradeProposal>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(CancelSoftwareUpgradeProposal, a, b);
   }
 }
@@ -219,7 +294,7 @@ export class ModuleVersion extends Message<ModuleVersion> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * consensus version of the app module
@@ -234,26 +309,37 @@ export class ModuleVersion extends Message<ModuleVersion> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.upgrade.v1beta1.ModuleVersion";
+  static readonly typeName = 'cosmos.upgrade.v1beta1.ModuleVersion';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "version", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'version', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModuleVersion {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModuleVersion {
     return new ModuleVersion().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModuleVersion {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleVersion {
     return new ModuleVersion().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModuleVersion {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleVersion {
     return new ModuleVersion().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModuleVersion | PlainMessage<ModuleVersion> | undefined, b: ModuleVersion | PlainMessage<ModuleVersion> | undefined): boolean {
+  static equals(
+    a: ModuleVersion | PlainMessage<ModuleVersion> | undefined,
+    b: ModuleVersion | PlainMessage<ModuleVersion> | undefined,
+  ): boolean {
     return proto3.util.equals(ModuleVersion, a, b);
   }
 }
-

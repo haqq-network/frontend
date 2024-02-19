@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { CompactBitArray } from "../../../crypto/multisig/v1beta1/multisig_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { CompactBitArray } from '../../../crypto/multisig/v1beta1/multisig_pb';
 
 /**
  * SignMode represents a signing mode with its own security guarantees.
@@ -82,13 +89,13 @@ export enum SignMode {
   EIP_191 = 191,
 }
 // Retrieve enum metadata with: proto3.getEnumType(SignMode)
-proto3.util.setEnumType(SignMode, "cosmos.tx.signing.v1beta1.SignMode", [
-  { no: 0, name: "SIGN_MODE_UNSPECIFIED" },
-  { no: 1, name: "SIGN_MODE_DIRECT" },
-  { no: 2, name: "SIGN_MODE_TEXTUAL" },
-  { no: 3, name: "SIGN_MODE_DIRECT_AUX" },
-  { no: 127, name: "SIGN_MODE_LEGACY_AMINO_JSON" },
-  { no: 191, name: "SIGN_MODE_EIP_191" },
+proto3.util.setEnumType(SignMode, 'cosmos.tx.signing.v1beta1.SignMode', [
+  { no: 0, name: 'SIGN_MODE_UNSPECIFIED' },
+  { no: 1, name: 'SIGN_MODE_DIRECT' },
+  { no: 2, name: 'SIGN_MODE_TEXTUAL' },
+  { no: 3, name: 'SIGN_MODE_DIRECT_AUX' },
+  { no: 127, name: 'SIGN_MODE_LEGACY_AMINO_JSON' },
+  { no: 191, name: 'SIGN_MODE_EIP_191' },
 ]);
 
 /**
@@ -110,24 +117,42 @@ export class SignatureDescriptors extends Message<SignatureDescriptors> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.signing.v1beta1.SignatureDescriptors";
+  static readonly typeName = 'cosmos.tx.signing.v1beta1.SignatureDescriptors';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "signatures", kind: "message", T: SignatureDescriptor, repeated: true },
+    {
+      no: 1,
+      name: 'signatures',
+      kind: 'message',
+      T: SignatureDescriptor,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignatureDescriptors {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignatureDescriptors {
     return new SignatureDescriptors().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignatureDescriptors {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptors {
     return new SignatureDescriptors().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignatureDescriptors {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptors {
     return new SignatureDescriptors().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SignatureDescriptors | PlainMessage<SignatureDescriptors> | undefined, b: SignatureDescriptors | PlainMessage<SignatureDescriptors> | undefined): boolean {
+  static equals(
+    a: SignatureDescriptors | PlainMessage<SignatureDescriptors> | undefined,
+    b: SignatureDescriptors | PlainMessage<SignatureDescriptors> | undefined,
+  ): boolean {
     return proto3.util.equals(SignatureDescriptors, a, b);
   }
 }
@@ -168,26 +193,38 @@ export class SignatureDescriptor extends Message<SignatureDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.signing.v1beta1.SignatureDescriptor";
+  static readonly typeName = 'cosmos.tx.signing.v1beta1.SignatureDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "public_key", kind: "message", T: Any },
-    { no: 2, name: "data", kind: "message", T: SignatureDescriptor_Data },
-    { no: 3, name: "sequence", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'public_key', kind: 'message', T: Any },
+    { no: 2, name: 'data', kind: 'message', T: SignatureDescriptor_Data },
+    { no: 3, name: 'sequence', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignatureDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignatureDescriptor {
     return new SignatureDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignatureDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptor {
     return new SignatureDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignatureDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptor {
     return new SignatureDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SignatureDescriptor | PlainMessage<SignatureDescriptor> | undefined, b: SignatureDescriptor | PlainMessage<SignatureDescriptor> | undefined): boolean {
+  static equals(
+    a: SignatureDescriptor | PlainMessage<SignatureDescriptor> | undefined,
+    b: SignatureDescriptor | PlainMessage<SignatureDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(SignatureDescriptor, a, b);
   }
 }
@@ -203,23 +240,26 @@ export class SignatureDescriptor_Data extends Message<SignatureDescriptor_Data> 
    *
    * @generated from oneof cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.sum
    */
-  sum: {
-    /**
-     * single represents a single signer
-     *
-     * @generated from field: cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single single = 1;
-     */
-    value: SignatureDescriptor_Data_Single;
-    case: "single";
-  } | {
-    /**
-     * multi represents a multisig signer
-     *
-     * @generated from field: cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi multi = 2;
-     */
-    value: SignatureDescriptor_Data_Multi;
-    case: "multi";
-  } | { case: undefined; value?: undefined } = { case: undefined };
+  sum:
+    | {
+        /**
+         * single represents a single signer
+         *
+         * @generated from field: cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single single = 1;
+         */
+        value: SignatureDescriptor_Data_Single;
+        case: 'single';
+      }
+    | {
+        /**
+         * multi represents a multisig signer
+         *
+         * @generated from field: cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi multi = 2;
+         */
+        value: SignatureDescriptor_Data_Multi;
+        case: 'multi';
+      }
+    | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<SignatureDescriptor_Data>) {
     super();
@@ -227,25 +267,56 @@ export class SignatureDescriptor_Data extends Message<SignatureDescriptor_Data> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.signing.v1beta1.SignatureDescriptor.Data";
+  static readonly typeName =
+    'cosmos.tx.signing.v1beta1.SignatureDescriptor.Data';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "single", kind: "message", T: SignatureDescriptor_Data_Single, oneof: "sum" },
-    { no: 2, name: "multi", kind: "message", T: SignatureDescriptor_Data_Multi, oneof: "sum" },
+    {
+      no: 1,
+      name: 'single',
+      kind: 'message',
+      T: SignatureDescriptor_Data_Single,
+      oneof: 'sum',
+    },
+    {
+      no: 2,
+      name: 'multi',
+      kind: 'message',
+      T: SignatureDescriptor_Data_Multi,
+      oneof: 'sum',
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignatureDescriptor_Data {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignatureDescriptor_Data {
     return new SignatureDescriptor_Data().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignatureDescriptor_Data {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptor_Data {
     return new SignatureDescriptor_Data().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignatureDescriptor_Data {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptor_Data {
     return new SignatureDescriptor_Data().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SignatureDescriptor_Data | PlainMessage<SignatureDescriptor_Data> | undefined, b: SignatureDescriptor_Data | PlainMessage<SignatureDescriptor_Data> | undefined): boolean {
+  static equals(
+    a:
+      | SignatureDescriptor_Data
+      | PlainMessage<SignatureDescriptor_Data>
+      | undefined,
+    b:
+      | SignatureDescriptor_Data
+      | PlainMessage<SignatureDescriptor_Data>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(SignatureDescriptor_Data, a, b);
   }
 }
@@ -276,25 +347,47 @@ export class SignatureDescriptor_Data_Single extends Message<SignatureDescriptor
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single";
+  static readonly typeName =
+    'cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "mode", kind: "enum", T: proto3.getEnumType(SignMode) },
-    { no: 2, name: "signature", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'mode', kind: 'enum', T: proto3.getEnumType(SignMode) },
+    { no: 2, name: 'signature', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignatureDescriptor_Data_Single {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignatureDescriptor_Data_Single {
     return new SignatureDescriptor_Data_Single().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignatureDescriptor_Data_Single {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptor_Data_Single {
     return new SignatureDescriptor_Data_Single().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignatureDescriptor_Data_Single {
-    return new SignatureDescriptor_Data_Single().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptor_Data_Single {
+    return new SignatureDescriptor_Data_Single().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: SignatureDescriptor_Data_Single | PlainMessage<SignatureDescriptor_Data_Single> | undefined, b: SignatureDescriptor_Data_Single | PlainMessage<SignatureDescriptor_Data_Single> | undefined): boolean {
+  static equals(
+    a:
+      | SignatureDescriptor_Data_Single
+      | PlainMessage<SignatureDescriptor_Data_Single>
+      | undefined,
+    b:
+      | SignatureDescriptor_Data_Single
+      | PlainMessage<SignatureDescriptor_Data_Single>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(SignatureDescriptor_Data_Single, a, b);
   }
 }
@@ -325,26 +418,53 @@ export class SignatureDescriptor_Data_Multi extends Message<SignatureDescriptor_
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi";
+  static readonly typeName =
+    'cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "bitarray", kind: "message", T: CompactBitArray },
-    { no: 2, name: "signatures", kind: "message", T: SignatureDescriptor_Data, repeated: true },
+    { no: 1, name: 'bitarray', kind: 'message', T: CompactBitArray },
+    {
+      no: 2,
+      name: 'signatures',
+      kind: 'message',
+      T: SignatureDescriptor_Data,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignatureDescriptor_Data_Multi {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): SignatureDescriptor_Data_Multi {
     return new SignatureDescriptor_Data_Multi().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignatureDescriptor_Data_Multi {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptor_Data_Multi {
     return new SignatureDescriptor_Data_Multi().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignatureDescriptor_Data_Multi {
-    return new SignatureDescriptor_Data_Multi().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): SignatureDescriptor_Data_Multi {
+    return new SignatureDescriptor_Data_Multi().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: SignatureDescriptor_Data_Multi | PlainMessage<SignatureDescriptor_Data_Multi> | undefined, b: SignatureDescriptor_Data_Multi | PlainMessage<SignatureDescriptor_Data_Multi> | undefined): boolean {
+  static equals(
+    a:
+      | SignatureDescriptor_Data_Multi
+      | PlainMessage<SignatureDescriptor_Data_Multi>
+      | undefined,
+    b:
+      | SignatureDescriptor_Data_Multi
+      | PlainMessage<SignatureDescriptor_Data_Multi>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(SignatureDescriptor_Data_Multi, a, b);
   }
 }
-

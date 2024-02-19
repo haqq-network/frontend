@@ -3,8 +3,23 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ABCIQueryRequest, ABCIQueryResponse, GetBlockByHeightRequest, GetBlockByHeightResponse, GetLatestBlockRequest, GetLatestBlockResponse, GetLatestValidatorSetRequest, GetLatestValidatorSetResponse, GetNodeInfoRequest, GetNodeInfoResponse, GetSyncingRequest, GetSyncingResponse, GetValidatorSetByHeightRequest, GetValidatorSetByHeightResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  ABCIQueryRequest,
+  ABCIQueryResponse,
+  GetBlockByHeightRequest,
+  GetBlockByHeightResponse,
+  GetLatestBlockRequest,
+  GetLatestBlockResponse,
+  GetLatestValidatorSetRequest,
+  GetLatestValidatorSetResponse,
+  GetNodeInfoRequest,
+  GetNodeInfoResponse,
+  GetSyncingRequest,
+  GetSyncingResponse,
+  GetValidatorSetByHeightRequest,
+  GetValidatorSetByHeightResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Service defines the gRPC querier service for tendermint queries.
@@ -12,7 +27,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.base.tendermint.v1beta1.Service
  */
 export const Service = {
-  typeName: "cosmos.base.tendermint.v1beta1.Service",
+  typeName: 'cosmos.base.tendermint.v1beta1.Service',
   methods: {
     /**
      * GetNodeInfo queries the current node info.
@@ -20,7 +35,7 @@ export const Service = {
      * @generated from rpc cosmos.base.tendermint.v1beta1.Service.GetNodeInfo
      */
     getNodeInfo: {
-      name: "GetNodeInfo",
+      name: 'GetNodeInfo',
       I: GetNodeInfoRequest,
       O: GetNodeInfoResponse,
       kind: MethodKind.Unary,
@@ -31,7 +46,7 @@ export const Service = {
      * @generated from rpc cosmos.base.tendermint.v1beta1.Service.GetSyncing
      */
     getSyncing: {
-      name: "GetSyncing",
+      name: 'GetSyncing',
       I: GetSyncingRequest,
       O: GetSyncingResponse,
       kind: MethodKind.Unary,
@@ -42,7 +57,7 @@ export const Service = {
      * @generated from rpc cosmos.base.tendermint.v1beta1.Service.GetLatestBlock
      */
     getLatestBlock: {
-      name: "GetLatestBlock",
+      name: 'GetLatestBlock',
       I: GetLatestBlockRequest,
       O: GetLatestBlockResponse,
       kind: MethodKind.Unary,
@@ -53,7 +68,7 @@ export const Service = {
      * @generated from rpc cosmos.base.tendermint.v1beta1.Service.GetBlockByHeight
      */
     getBlockByHeight: {
-      name: "GetBlockByHeight",
+      name: 'GetBlockByHeight',
       I: GetBlockByHeightRequest,
       O: GetBlockByHeightResponse,
       kind: MethodKind.Unary,
@@ -64,7 +79,7 @@ export const Service = {
      * @generated from rpc cosmos.base.tendermint.v1beta1.Service.GetLatestValidatorSet
      */
     getLatestValidatorSet: {
-      name: "GetLatestValidatorSet",
+      name: 'GetLatestValidatorSet',
       I: GetLatestValidatorSetRequest,
       O: GetLatestValidatorSetResponse,
       kind: MethodKind.Unary,
@@ -75,7 +90,7 @@ export const Service = {
      * @generated from rpc cosmos.base.tendermint.v1beta1.Service.GetValidatorSetByHeight
      */
     getValidatorSetByHeight: {
-      name: "GetValidatorSetByHeight",
+      name: 'GetValidatorSetByHeight',
       I: GetValidatorSetByHeightRequest,
       O: GetValidatorSetByHeightResponse,
       kind: MethodKind.Unary,
@@ -90,11 +105,10 @@ export const Service = {
      * @generated from rpc cosmos.base.tendermint.v1beta1.Service.ABCIQuery
      */
     aBCIQuery: {
-      name: "ABCIQuery",
+      name: 'ABCIQuery',
       I: ABCIQueryRequest,
       O: ABCIQueryResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -3,10 +3,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination_pb.js";
-import { BaseAccount, Params } from "./auth_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import {
+  PageRequest,
+  PageResponse,
+} from '../../base/query/v1beta1/pagination_pb';
+import { BaseAccount, Params } from './auth_pb';
 
 /**
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
@@ -29,24 +39,36 @@ export class QueryAccountsRequest extends Message<QueryAccountsRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryAccountsRequest";
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryAccountsRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "pagination", kind: "message", T: PageRequest },
+    { no: 1, name: 'pagination', kind: 'message', T: PageRequest },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAccountsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAccountsRequest {
     return new QueryAccountsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAccountsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountsRequest {
     return new QueryAccountsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAccountsRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountsRequest {
     return new QueryAccountsRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryAccountsRequest | PlainMessage<QueryAccountsRequest> | undefined, b: QueryAccountsRequest | PlainMessage<QueryAccountsRequest> | undefined): boolean {
+  static equals(
+    a: QueryAccountsRequest | PlainMessage<QueryAccountsRequest> | undefined,
+    b: QueryAccountsRequest | PlainMessage<QueryAccountsRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAccountsRequest, a, b);
   }
 }
@@ -79,25 +101,37 @@ export class QueryAccountsResponse extends Message<QueryAccountsResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryAccountsResponse";
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryAccountsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "accounts", kind: "message", T: Any, repeated: true },
-    { no: 2, name: "pagination", kind: "message", T: PageResponse },
+    { no: 1, name: 'accounts', kind: 'message', T: Any, repeated: true },
+    { no: 2, name: 'pagination', kind: 'message', T: PageResponse },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAccountsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAccountsResponse {
     return new QueryAccountsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAccountsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountsResponse {
     return new QueryAccountsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAccountsResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountsResponse {
     return new QueryAccountsResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryAccountsResponse | PlainMessage<QueryAccountsResponse> | undefined, b: QueryAccountsResponse | PlainMessage<QueryAccountsResponse> | undefined): boolean {
+  static equals(
+    a: QueryAccountsResponse | PlainMessage<QueryAccountsResponse> | undefined,
+    b: QueryAccountsResponse | PlainMessage<QueryAccountsResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAccountsResponse, a, b);
   }
 }
@@ -113,7 +147,7 @@ export class QueryAccountRequest extends Message<QueryAccountRequest> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   constructor(data?: PartialMessage<QueryAccountRequest>) {
     super();
@@ -121,24 +155,36 @@ export class QueryAccountRequest extends Message<QueryAccountRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryAccountRequest";
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryAccountRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAccountRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAccountRequest {
     return new QueryAccountRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAccountRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountRequest {
     return new QueryAccountRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAccountRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountRequest {
     return new QueryAccountRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryAccountRequest | PlainMessage<QueryAccountRequest> | undefined, b: QueryAccountRequest | PlainMessage<QueryAccountRequest> | undefined): boolean {
+  static equals(
+    a: QueryAccountRequest | PlainMessage<QueryAccountRequest> | undefined,
+    b: QueryAccountRequest | PlainMessage<QueryAccountRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAccountRequest, a, b);
   }
 }
@@ -162,24 +208,36 @@ export class QueryAccountResponse extends Message<QueryAccountResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryAccountResponse";
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryAccountResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "account", kind: "message", T: Any },
+    { no: 1, name: 'account', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAccountResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAccountResponse {
     return new QueryAccountResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAccountResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountResponse {
     return new QueryAccountResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAccountResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountResponse {
     return new QueryAccountResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryAccountResponse | PlainMessage<QueryAccountResponse> | undefined, b: QueryAccountResponse | PlainMessage<QueryAccountResponse> | undefined): boolean {
+  static equals(
+    a: QueryAccountResponse | PlainMessage<QueryAccountResponse> | undefined,
+    b: QueryAccountResponse | PlainMessage<QueryAccountResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAccountResponse, a, b);
   }
 }
@@ -196,23 +254,34 @@ export class QueryParamsRequest extends Message<QueryParamsRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryParamsRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryParamsRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryParamsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryParamsRequest {
     return new QueryParamsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryParamsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryParamsRequest {
     return new QueryParamsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryParamsRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryParamsRequest {
     return new QueryParamsRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryParamsRequest | PlainMessage<QueryParamsRequest> | undefined, b: QueryParamsRequest | PlainMessage<QueryParamsRequest> | undefined): boolean {
+  static equals(
+    a: QueryParamsRequest | PlainMessage<QueryParamsRequest> | undefined,
+    b: QueryParamsRequest | PlainMessage<QueryParamsRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryParamsRequest, a, b);
   }
 }
@@ -236,24 +305,36 @@ export class QueryParamsResponse extends Message<QueryParamsResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryParamsResponse";
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryParamsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "params", kind: "message", T: Params },
+    { no: 1, name: 'params', kind: 'message', T: Params },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryParamsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryParamsResponse {
     return new QueryParamsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryParamsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryParamsResponse {
     return new QueryParamsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryParamsResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryParamsResponse {
     return new QueryParamsResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryParamsResponse | PlainMessage<QueryParamsResponse> | undefined, b: QueryParamsResponse | PlainMessage<QueryParamsResponse> | undefined): boolean {
+  static equals(
+    a: QueryParamsResponse | PlainMessage<QueryParamsResponse> | undefined,
+    b: QueryParamsResponse | PlainMessage<QueryParamsResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryParamsResponse, a, b);
   }
 }
@@ -272,23 +353,40 @@ export class QueryModuleAccountsRequest extends Message<QueryModuleAccountsReque
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryModuleAccountsRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryModuleAccountsRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryModuleAccountsRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryModuleAccountsRequest {
     return new QueryModuleAccountsRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryModuleAccountsRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryModuleAccountsRequest {
     return new QueryModuleAccountsRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryModuleAccountsRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryModuleAccountsRequest {
     return new QueryModuleAccountsRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryModuleAccountsRequest | PlainMessage<QueryModuleAccountsRequest> | undefined, b: QueryModuleAccountsRequest | PlainMessage<QueryModuleAccountsRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryModuleAccountsRequest
+      | PlainMessage<QueryModuleAccountsRequest>
+      | undefined,
+    b:
+      | QueryModuleAccountsRequest
+      | PlainMessage<QueryModuleAccountsRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryModuleAccountsRequest, a, b);
   }
 }
@@ -312,24 +410,45 @@ export class QueryModuleAccountsResponse extends Message<QueryModuleAccountsResp
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryModuleAccountsResponse";
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryModuleAccountsResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "accounts", kind: "message", T: Any, repeated: true },
+    { no: 1, name: 'accounts', kind: 'message', T: Any, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryModuleAccountsResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryModuleAccountsResponse {
     return new QueryModuleAccountsResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryModuleAccountsResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryModuleAccountsResponse {
     return new QueryModuleAccountsResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryModuleAccountsResponse {
-    return new QueryModuleAccountsResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryModuleAccountsResponse {
+    return new QueryModuleAccountsResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryModuleAccountsResponse | PlainMessage<QueryModuleAccountsResponse> | undefined, b: QueryModuleAccountsResponse | PlainMessage<QueryModuleAccountsResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryModuleAccountsResponse
+      | PlainMessage<QueryModuleAccountsResponse>
+      | undefined,
+    b:
+      | QueryModuleAccountsResponse
+      | PlainMessage<QueryModuleAccountsResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryModuleAccountsResponse, a, b);
   }
 }
@@ -343,7 +462,7 @@ export class QueryModuleAccountByNameRequest extends Message<QueryModuleAccountB
   /**
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   constructor(data?: PartialMessage<QueryModuleAccountByNameRequest>) {
     super();
@@ -351,24 +470,46 @@ export class QueryModuleAccountByNameRequest extends Message<QueryModuleAccountB
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryModuleAccountByNameRequest";
+  static readonly typeName =
+    'cosmos.auth.v1beta1.QueryModuleAccountByNameRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryModuleAccountByNameRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryModuleAccountByNameRequest {
     return new QueryModuleAccountByNameRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryModuleAccountByNameRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryModuleAccountByNameRequest {
     return new QueryModuleAccountByNameRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryModuleAccountByNameRequest {
-    return new QueryModuleAccountByNameRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryModuleAccountByNameRequest {
+    return new QueryModuleAccountByNameRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryModuleAccountByNameRequest | PlainMessage<QueryModuleAccountByNameRequest> | undefined, b: QueryModuleAccountByNameRequest | PlainMessage<QueryModuleAccountByNameRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryModuleAccountByNameRequest
+      | PlainMessage<QueryModuleAccountByNameRequest>
+      | undefined,
+    b:
+      | QueryModuleAccountByNameRequest
+      | PlainMessage<QueryModuleAccountByNameRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryModuleAccountByNameRequest, a, b);
   }
 }
@@ -390,24 +531,46 @@ export class QueryModuleAccountByNameResponse extends Message<QueryModuleAccount
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryModuleAccountByNameResponse";
+  static readonly typeName =
+    'cosmos.auth.v1beta1.QueryModuleAccountByNameResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "account", kind: "message", T: Any },
+    { no: 1, name: 'account', kind: 'message', T: Any },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryModuleAccountByNameResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryModuleAccountByNameResponse {
     return new QueryModuleAccountByNameResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryModuleAccountByNameResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryModuleAccountByNameResponse {
     return new QueryModuleAccountByNameResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryModuleAccountByNameResponse {
-    return new QueryModuleAccountByNameResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryModuleAccountByNameResponse {
+    return new QueryModuleAccountByNameResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryModuleAccountByNameResponse | PlainMessage<QueryModuleAccountByNameResponse> | undefined, b: QueryModuleAccountByNameResponse | PlainMessage<QueryModuleAccountByNameResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryModuleAccountByNameResponse
+      | PlainMessage<QueryModuleAccountByNameResponse>
+      | undefined,
+    b:
+      | QueryModuleAccountByNameResponse
+      | PlainMessage<QueryModuleAccountByNameResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryModuleAccountByNameResponse, a, b);
   }
 }
@@ -426,23 +589,34 @@ export class Bech32PrefixRequest extends Message<Bech32PrefixRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.Bech32PrefixRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'cosmos.auth.v1beta1.Bech32PrefixRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Bech32PrefixRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Bech32PrefixRequest {
     return new Bech32PrefixRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Bech32PrefixRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Bech32PrefixRequest {
     return new Bech32PrefixRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Bech32PrefixRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Bech32PrefixRequest {
     return new Bech32PrefixRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Bech32PrefixRequest | PlainMessage<Bech32PrefixRequest> | undefined, b: Bech32PrefixRequest | PlainMessage<Bech32PrefixRequest> | undefined): boolean {
+  static equals(
+    a: Bech32PrefixRequest | PlainMessage<Bech32PrefixRequest> | undefined,
+    b: Bech32PrefixRequest | PlainMessage<Bech32PrefixRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(Bech32PrefixRequest, a, b);
   }
 }
@@ -458,7 +632,7 @@ export class Bech32PrefixResponse extends Message<Bech32PrefixResponse> {
   /**
    * @generated from field: string bech32_prefix = 1;
    */
-  bech32Prefix = "";
+  bech32Prefix = '';
 
   constructor(data?: PartialMessage<Bech32PrefixResponse>) {
     super();
@@ -466,24 +640,41 @@ export class Bech32PrefixResponse extends Message<Bech32PrefixResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.Bech32PrefixResponse";
+  static readonly typeName = 'cosmos.auth.v1beta1.Bech32PrefixResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "bech32_prefix", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'bech32_prefix',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Bech32PrefixResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Bech32PrefixResponse {
     return new Bech32PrefixResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Bech32PrefixResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Bech32PrefixResponse {
     return new Bech32PrefixResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Bech32PrefixResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Bech32PrefixResponse {
     return new Bech32PrefixResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Bech32PrefixResponse | PlainMessage<Bech32PrefixResponse> | undefined, b: Bech32PrefixResponse | PlainMessage<Bech32PrefixResponse> | undefined): boolean {
+  static equals(
+    a: Bech32PrefixResponse | PlainMessage<Bech32PrefixResponse> | undefined,
+    b: Bech32PrefixResponse | PlainMessage<Bech32PrefixResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(Bech32PrefixResponse, a, b);
   }
 }
@@ -507,24 +698,50 @@ export class AddressBytesToStringRequest extends Message<AddressBytesToStringReq
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.AddressBytesToStringRequest";
+  static readonly typeName = 'cosmos.auth.v1beta1.AddressBytesToStringRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address_bytes", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 1,
+      name: 'address_bytes',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddressBytesToStringRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AddressBytesToStringRequest {
     return new AddressBytesToStringRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddressBytesToStringRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AddressBytesToStringRequest {
     return new AddressBytesToStringRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddressBytesToStringRequest {
-    return new AddressBytesToStringRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AddressBytesToStringRequest {
+    return new AddressBytesToStringRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: AddressBytesToStringRequest | PlainMessage<AddressBytesToStringRequest> | undefined, b: AddressBytesToStringRequest | PlainMessage<AddressBytesToStringRequest> | undefined): boolean {
+  static equals(
+    a:
+      | AddressBytesToStringRequest
+      | PlainMessage<AddressBytesToStringRequest>
+      | undefined,
+    b:
+      | AddressBytesToStringRequest
+      | PlainMessage<AddressBytesToStringRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(AddressBytesToStringRequest, a, b);
   }
 }
@@ -540,7 +757,7 @@ export class AddressBytesToStringResponse extends Message<AddressBytesToStringRe
   /**
    * @generated from field: string address_string = 1;
    */
-  addressString = "";
+  addressString = '';
 
   constructor(data?: PartialMessage<AddressBytesToStringResponse>) {
     super();
@@ -548,24 +765,50 @@ export class AddressBytesToStringResponse extends Message<AddressBytesToStringRe
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.AddressBytesToStringResponse";
+  static readonly typeName = 'cosmos.auth.v1beta1.AddressBytesToStringResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address_string", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'address_string',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddressBytesToStringResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AddressBytesToStringResponse {
     return new AddressBytesToStringResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddressBytesToStringResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AddressBytesToStringResponse {
     return new AddressBytesToStringResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddressBytesToStringResponse {
-    return new AddressBytesToStringResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AddressBytesToStringResponse {
+    return new AddressBytesToStringResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: AddressBytesToStringResponse | PlainMessage<AddressBytesToStringResponse> | undefined, b: AddressBytesToStringResponse | PlainMessage<AddressBytesToStringResponse> | undefined): boolean {
+  static equals(
+    a:
+      | AddressBytesToStringResponse
+      | PlainMessage<AddressBytesToStringResponse>
+      | undefined,
+    b:
+      | AddressBytesToStringResponse
+      | PlainMessage<AddressBytesToStringResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(AddressBytesToStringResponse, a, b);
   }
 }
@@ -581,7 +824,7 @@ export class AddressStringToBytesRequest extends Message<AddressStringToBytesReq
   /**
    * @generated from field: string address_string = 1;
    */
-  addressString = "";
+  addressString = '';
 
   constructor(data?: PartialMessage<AddressStringToBytesRequest>) {
     super();
@@ -589,24 +832,50 @@ export class AddressStringToBytesRequest extends Message<AddressStringToBytesReq
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.AddressStringToBytesRequest";
+  static readonly typeName = 'cosmos.auth.v1beta1.AddressStringToBytesRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address_string", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'address_string',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddressStringToBytesRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AddressStringToBytesRequest {
     return new AddressStringToBytesRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddressStringToBytesRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AddressStringToBytesRequest {
     return new AddressStringToBytesRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddressStringToBytesRequest {
-    return new AddressStringToBytesRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AddressStringToBytesRequest {
+    return new AddressStringToBytesRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: AddressStringToBytesRequest | PlainMessage<AddressStringToBytesRequest> | undefined, b: AddressStringToBytesRequest | PlainMessage<AddressStringToBytesRequest> | undefined): boolean {
+  static equals(
+    a:
+      | AddressStringToBytesRequest
+      | PlainMessage<AddressStringToBytesRequest>
+      | undefined,
+    b:
+      | AddressStringToBytesRequest
+      | PlainMessage<AddressStringToBytesRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(AddressStringToBytesRequest, a, b);
   }
 }
@@ -630,24 +899,50 @@ export class AddressStringToBytesResponse extends Message<AddressStringToBytesRe
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.AddressStringToBytesResponse";
+  static readonly typeName = 'cosmos.auth.v1beta1.AddressStringToBytesResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address_bytes", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 1,
+      name: 'address_bytes',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddressStringToBytesResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): AddressStringToBytesResponse {
     return new AddressStringToBytesResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddressStringToBytesResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): AddressStringToBytesResponse {
     return new AddressStringToBytesResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddressStringToBytesResponse {
-    return new AddressStringToBytesResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): AddressStringToBytesResponse {
+    return new AddressStringToBytesResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: AddressStringToBytesResponse | PlainMessage<AddressStringToBytesResponse> | undefined, b: AddressStringToBytesResponse | PlainMessage<AddressStringToBytesResponse> | undefined): boolean {
+  static equals(
+    a:
+      | AddressStringToBytesResponse
+      | PlainMessage<AddressStringToBytesResponse>
+      | undefined,
+    b:
+      | AddressStringToBytesResponse
+      | PlainMessage<AddressStringToBytesResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(AddressStringToBytesResponse, a, b);
   }
 }
@@ -687,25 +982,47 @@ export class QueryAccountAddressByIDRequest extends Message<QueryAccountAddressB
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryAccountAddressByIDRequest";
+  static readonly typeName =
+    'cosmos.auth.v1beta1.QueryAccountAddressByIDRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "account_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'id', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: 'account_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAccountAddressByIDRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAccountAddressByIDRequest {
     return new QueryAccountAddressByIDRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAccountAddressByIDRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountAddressByIDRequest {
     return new QueryAccountAddressByIDRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAccountAddressByIDRequest {
-    return new QueryAccountAddressByIDRequest().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountAddressByIDRequest {
+    return new QueryAccountAddressByIDRequest().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryAccountAddressByIDRequest | PlainMessage<QueryAccountAddressByIDRequest> | undefined, b: QueryAccountAddressByIDRequest | PlainMessage<QueryAccountAddressByIDRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryAccountAddressByIDRequest
+      | PlainMessage<QueryAccountAddressByIDRequest>
+      | undefined,
+    b:
+      | QueryAccountAddressByIDRequest
+      | PlainMessage<QueryAccountAddressByIDRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAccountAddressByIDRequest, a, b);
   }
 }
@@ -721,7 +1038,7 @@ export class QueryAccountAddressByIDResponse extends Message<QueryAccountAddress
   /**
    * @generated from field: string account_address = 1;
    */
-  accountAddress = "";
+  accountAddress = '';
 
   constructor(data?: PartialMessage<QueryAccountAddressByIDResponse>) {
     super();
@@ -729,24 +1046,51 @@ export class QueryAccountAddressByIDResponse extends Message<QueryAccountAddress
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryAccountAddressByIDResponse";
+  static readonly typeName =
+    'cosmos.auth.v1beta1.QueryAccountAddressByIDResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "account_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'account_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAccountAddressByIDResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAccountAddressByIDResponse {
     return new QueryAccountAddressByIDResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAccountAddressByIDResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountAddressByIDResponse {
     return new QueryAccountAddressByIDResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAccountAddressByIDResponse {
-    return new QueryAccountAddressByIDResponse().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountAddressByIDResponse {
+    return new QueryAccountAddressByIDResponse().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: QueryAccountAddressByIDResponse | PlainMessage<QueryAccountAddressByIDResponse> | undefined, b: QueryAccountAddressByIDResponse | PlainMessage<QueryAccountAddressByIDResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryAccountAddressByIDResponse
+      | PlainMessage<QueryAccountAddressByIDResponse>
+      | undefined,
+    b:
+      | QueryAccountAddressByIDResponse
+      | PlainMessage<QueryAccountAddressByIDResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAccountAddressByIDResponse, a, b);
   }
 }
@@ -764,7 +1108,7 @@ export class QueryAccountInfoRequest extends Message<QueryAccountInfoRequest> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   constructor(data?: PartialMessage<QueryAccountInfoRequest>) {
     super();
@@ -772,24 +1116,42 @@ export class QueryAccountInfoRequest extends Message<QueryAccountInfoRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryAccountInfoRequest";
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryAccountInfoRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAccountInfoRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAccountInfoRequest {
     return new QueryAccountInfoRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAccountInfoRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountInfoRequest {
     return new QueryAccountInfoRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAccountInfoRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountInfoRequest {
     return new QueryAccountInfoRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryAccountInfoRequest | PlainMessage<QueryAccountInfoRequest> | undefined, b: QueryAccountInfoRequest | PlainMessage<QueryAccountInfoRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryAccountInfoRequest
+      | PlainMessage<QueryAccountInfoRequest>
+      | undefined,
+    b:
+      | QueryAccountInfoRequest
+      | PlainMessage<QueryAccountInfoRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAccountInfoRequest, a, b);
   }
 }
@@ -815,25 +1177,42 @@ export class QueryAccountInfoResponse extends Message<QueryAccountInfoResponse> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.QueryAccountInfoResponse";
+  static readonly typeName = 'cosmos.auth.v1beta1.QueryAccountInfoResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "info", kind: "message", T: BaseAccount },
+    { no: 1, name: 'info', kind: 'message', T: BaseAccount },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryAccountInfoResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryAccountInfoResponse {
     return new QueryAccountInfoResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryAccountInfoResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountInfoResponse {
     return new QueryAccountInfoResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryAccountInfoResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryAccountInfoResponse {
     return new QueryAccountInfoResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryAccountInfoResponse | PlainMessage<QueryAccountInfoResponse> | undefined, b: QueryAccountInfoResponse | PlainMessage<QueryAccountInfoResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryAccountInfoResponse
+      | PlainMessage<QueryAccountInfoResponse>
+      | undefined,
+    b:
+      | QueryAccountInfoResponse
+      | PlainMessage<QueryAccountInfoResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryAccountInfoResponse, a, b);
   }
 }
-

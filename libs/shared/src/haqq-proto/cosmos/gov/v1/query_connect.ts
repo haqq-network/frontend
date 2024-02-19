@@ -5,8 +5,25 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryDepositRequest, QueryDepositResponse, QueryDepositsRequest, QueryDepositsResponse, QueryParamsRequest, QueryParamsResponse, QueryProposalRequest, QueryProposalResponse, QueryProposalsRequest, QueryProposalsResponse, QueryTallyResultRequest, QueryTallyResultResponse, QueryVoteRequest, QueryVoteResponse, QueryVotesRequest, QueryVotesResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryDepositRequest,
+  QueryDepositResponse,
+  QueryDepositsRequest,
+  QueryDepositsResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryProposalRequest,
+  QueryProposalResponse,
+  QueryProposalsRequest,
+  QueryProposalsResponse,
+  QueryTallyResultRequest,
+  QueryTallyResultResponse,
+  QueryVoteRequest,
+  QueryVoteResponse,
+  QueryVotesRequest,
+  QueryVotesResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service for gov module
@@ -14,7 +31,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.gov.v1.Query
  */
 export const Query = {
-  typeName: "cosmos.gov.v1.Query",
+  typeName: 'cosmos.gov.v1.Query',
   methods: {
     /**
      * Proposal queries proposal details based on ProposalID.
@@ -22,7 +39,7 @@ export const Query = {
      * @generated from rpc cosmos.gov.v1.Query.Proposal
      */
     proposal: {
-      name: "Proposal",
+      name: 'Proposal',
       I: QueryProposalRequest,
       O: QueryProposalResponse,
       kind: MethodKind.Unary,
@@ -33,7 +50,7 @@ export const Query = {
      * @generated from rpc cosmos.gov.v1.Query.Proposals
      */
     proposals: {
-      name: "Proposals",
+      name: 'Proposals',
       I: QueryProposalsRequest,
       O: QueryProposalsResponse,
       kind: MethodKind.Unary,
@@ -44,7 +61,7 @@ export const Query = {
      * @generated from rpc cosmos.gov.v1.Query.Vote
      */
     vote: {
-      name: "Vote",
+      name: 'Vote',
       I: QueryVoteRequest,
       O: QueryVoteResponse,
       kind: MethodKind.Unary,
@@ -55,7 +72,7 @@ export const Query = {
      * @generated from rpc cosmos.gov.v1.Query.Votes
      */
     votes: {
-      name: "Votes",
+      name: 'Votes',
       I: QueryVotesRequest,
       O: QueryVotesResponse,
       kind: MethodKind.Unary,
@@ -66,7 +83,7 @@ export const Query = {
      * @generated from rpc cosmos.gov.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -77,7 +94,7 @@ export const Query = {
      * @generated from rpc cosmos.gov.v1.Query.Deposit
      */
     deposit: {
-      name: "Deposit",
+      name: 'Deposit',
       I: QueryDepositRequest,
       O: QueryDepositResponse,
       kind: MethodKind.Unary,
@@ -88,7 +105,7 @@ export const Query = {
      * @generated from rpc cosmos.gov.v1.Query.Deposits
      */
     deposits: {
-      name: "Deposits",
+      name: 'Deposits',
       I: QueryDepositsRequest,
       O: QueryDepositsResponse,
       kind: MethodKind.Unary,
@@ -99,11 +116,10 @@ export const Query = {
      * @generated from rpc cosmos.gov.v1.Query.TallyResult
      */
     tallyResult: {
-      name: "TallyResult",
+      name: 'TallyResult',
       I: QueryTallyResultRequest,
       O: QueryTallyResultResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

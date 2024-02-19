@@ -3,8 +3,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgClawback, MsgClawbackResponse, MsgConvertIntoVestingAccount, MsgConvertIntoVestingAccountResponse, MsgConvertVestingAccount, MsgConvertVestingAccountResponse, MsgCreateClawbackVestingAccount, MsgCreateClawbackVestingAccountResponse, MsgUpdateVestingFunder, MsgUpdateVestingFunderResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgClawback,
+  MsgClawbackResponse,
+  MsgConvertIntoVestingAccount,
+  MsgConvertIntoVestingAccountResponse,
+  MsgConvertVestingAccount,
+  MsgConvertVestingAccountResponse,
+  MsgCreateClawbackVestingAccount,
+  MsgCreateClawbackVestingAccountResponse,
+  MsgUpdateVestingFunder,
+  MsgUpdateVestingFunderResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the vesting Msg service.
@@ -12,7 +23,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service haqq.vesting.v1.Msg
  */
 export const Msg = {
-  typeName: "haqq.vesting.v1.Msg",
+  typeName: 'haqq.vesting.v1.Msg',
   methods: {
     /**
      * CreateClawbackVestingAccount creats a vesting account that is subject to
@@ -21,7 +32,7 @@ export const Msg = {
      * @generated from rpc haqq.vesting.v1.Msg.CreateClawbackVestingAccount
      */
     createClawbackVestingAccount: {
-      name: "CreateClawbackVestingAccount",
+      name: 'CreateClawbackVestingAccount',
       I: MsgCreateClawbackVestingAccount,
       O: MsgCreateClawbackVestingAccountResponse,
       kind: MethodKind.Unary,
@@ -32,7 +43,7 @@ export const Msg = {
      * @generated from rpc haqq.vesting.v1.Msg.Clawback
      */
     clawback: {
-      name: "Clawback",
+      name: 'Clawback',
       I: MsgClawback,
       O: MsgClawbackResponse,
       kind: MethodKind.Unary,
@@ -44,7 +55,7 @@ export const Msg = {
      * @generated from rpc haqq.vesting.v1.Msg.UpdateVestingFunder
      */
     updateVestingFunder: {
-      name: "UpdateVestingFunder",
+      name: 'UpdateVestingFunder',
       I: MsgUpdateVestingFunder,
       O: MsgUpdateVestingFunderResponse,
       kind: MethodKind.Unary,
@@ -55,7 +66,7 @@ export const Msg = {
      * @generated from rpc haqq.vesting.v1.Msg.ConvertVestingAccount
      */
     convertVestingAccount: {
-      name: "ConvertVestingAccount",
+      name: 'ConvertVestingAccount',
       I: MsgConvertVestingAccount,
       O: MsgConvertVestingAccountResponse,
       kind: MethodKind.Unary,
@@ -67,11 +78,10 @@ export const Msg = {
      * @generated from rpc haqq.vesting.v1.Msg.ConvertIntoVestingAccount
      */
     convertIntoVestingAccount: {
-      name: "ConvertIntoVestingAccount",
+      name: 'ConvertIntoVestingAccount',
       I: MsgConvertIntoVestingAccount,
       O: MsgConvertIntoVestingAccountResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

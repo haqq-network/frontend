@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Coin } from "../../../cosmos/base/v1beta1/coin_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Coin } from '../../../cosmos/base/v1beta1/coin_pb';
 
 /**
  * QueryBalancesRequest is the request type for the Query/Balances RPC method.
@@ -18,7 +25,7 @@ export class QueryBalancesRequest extends Message<QueryBalancesRequest> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   constructor(data?: PartialMessage<QueryBalancesRequest>) {
     super();
@@ -26,24 +33,36 @@ export class QueryBalancesRequest extends Message<QueryBalancesRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.QueryBalancesRequest";
+  static readonly typeName = 'haqq.vesting.v1.QueryBalancesRequest';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryBalancesRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryBalancesRequest {
     return new QueryBalancesRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryBalancesRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryBalancesRequest {
     return new QueryBalancesRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryBalancesRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryBalancesRequest {
     return new QueryBalancesRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryBalancesRequest | PlainMessage<QueryBalancesRequest> | undefined, b: QueryBalancesRequest | PlainMessage<QueryBalancesRequest> | undefined): boolean {
+  static equals(
+    a: QueryBalancesRequest | PlainMessage<QueryBalancesRequest> | undefined,
+    b: QueryBalancesRequest | PlainMessage<QueryBalancesRequest> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryBalancesRequest, a, b);
   }
 }
@@ -82,26 +101,38 @@ export class QueryBalancesResponse extends Message<QueryBalancesResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.QueryBalancesResponse";
+  static readonly typeName = 'haqq.vesting.v1.QueryBalancesResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "locked", kind: "message", T: Coin, repeated: true },
-    { no: 2, name: "unvested", kind: "message", T: Coin, repeated: true },
-    { no: 3, name: "vested", kind: "message", T: Coin, repeated: true },
+    { no: 1, name: 'locked', kind: 'message', T: Coin, repeated: true },
+    { no: 2, name: 'unvested', kind: 'message', T: Coin, repeated: true },
+    { no: 3, name: 'vested', kind: 'message', T: Coin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryBalancesResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryBalancesResponse {
     return new QueryBalancesResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryBalancesResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryBalancesResponse {
     return new QueryBalancesResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryBalancesResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryBalancesResponse {
     return new QueryBalancesResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryBalancesResponse | PlainMessage<QueryBalancesResponse> | undefined, b: QueryBalancesResponse | PlainMessage<QueryBalancesResponse> | undefined): boolean {
+  static equals(
+    a: QueryBalancesResponse | PlainMessage<QueryBalancesResponse> | undefined,
+    b: QueryBalancesResponse | PlainMessage<QueryBalancesResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(QueryBalancesResponse, a, b);
   }
 }
@@ -119,23 +150,40 @@ export class QueryTotalLockedRequest extends Message<QueryTotalLockedRequest> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.QueryTotalLockedRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'haqq.vesting.v1.QueryTotalLockedRequest';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryTotalLockedRequest {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryTotalLockedRequest {
     return new QueryTotalLockedRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryTotalLockedRequest {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryTotalLockedRequest {
     return new QueryTotalLockedRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryTotalLockedRequest {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryTotalLockedRequest {
     return new QueryTotalLockedRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryTotalLockedRequest | PlainMessage<QueryTotalLockedRequest> | undefined, b: QueryTotalLockedRequest | PlainMessage<QueryTotalLockedRequest> | undefined): boolean {
+  static equals(
+    a:
+      | QueryTotalLockedRequest
+      | PlainMessage<QueryTotalLockedRequest>
+      | undefined,
+    b:
+      | QueryTotalLockedRequest
+      | PlainMessage<QueryTotalLockedRequest>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryTotalLockedRequest, a, b);
   }
 }
@@ -174,27 +222,44 @@ export class QueryTotalLockedResponse extends Message<QueryTotalLockedResponse> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.QueryTotalLockedResponse";
+  static readonly typeName = 'haqq.vesting.v1.QueryTotalLockedResponse';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "locked", kind: "message", T: Coin, repeated: true },
-    { no: 2, name: "unvested", kind: "message", T: Coin, repeated: true },
-    { no: 3, name: "vested", kind: "message", T: Coin, repeated: true },
+    { no: 1, name: 'locked', kind: 'message', T: Coin, repeated: true },
+    { no: 2, name: 'unvested', kind: 'message', T: Coin, repeated: true },
+    { no: 3, name: 'vested', kind: 'message', T: Coin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QueryTotalLockedResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): QueryTotalLockedResponse {
     return new QueryTotalLockedResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QueryTotalLockedResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): QueryTotalLockedResponse {
     return new QueryTotalLockedResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QueryTotalLockedResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): QueryTotalLockedResponse {
     return new QueryTotalLockedResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: QueryTotalLockedResponse | PlainMessage<QueryTotalLockedResponse> | undefined, b: QueryTotalLockedResponse | PlainMessage<QueryTotalLockedResponse> | undefined): boolean {
+  static equals(
+    a:
+      | QueryTotalLockedResponse
+      | PlainMessage<QueryTotalLockedResponse>
+      | undefined,
+    b:
+      | QueryTotalLockedResponse
+      | PlainMessage<QueryTotalLockedResponse>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(QueryTotalLockedResponse, a, b);
   }
 }
-

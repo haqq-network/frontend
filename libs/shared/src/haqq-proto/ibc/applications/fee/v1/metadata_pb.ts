@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * Metadata defines the ICS29 channel specific metadata encoded into the channel version bytestring
@@ -18,14 +25,14 @@ export class Metadata extends Message<Metadata> {
    *
    * @generated from field: string fee_version = 1;
    */
-  feeVersion = "";
+  feeVersion = '';
 
   /**
    * app_version defines the underlying application version, which may or may not be a JSON encoded bytestring
    *
    * @generated from field: string app_version = 2;
    */
-  appVersion = "";
+  appVersion = '';
 
   constructor(data?: PartialMessage<Metadata>) {
     super();
@@ -33,26 +40,47 @@ export class Metadata extends Message<Metadata> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.Metadata";
+  static readonly typeName = 'ibc.applications.fee.v1.Metadata';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "fee_version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "app_version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'fee_version',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'app_version',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Metadata {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Metadata {
     return new Metadata().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Metadata {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Metadata {
     return new Metadata().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Metadata {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Metadata {
     return new Metadata().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Metadata | PlainMessage<Metadata> | undefined, b: Metadata | PlainMessage<Metadata> | undefined): boolean {
+  static equals(
+    a: Metadata | PlainMessage<Metadata> | undefined,
+    b: Metadata | PlainMessage<Metadata> | undefined,
+  ): boolean {
     return proto3.util.equals(Metadata, a, b);
   }
 }
-

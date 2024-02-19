@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * ModuleDescriptor describes an app module.
@@ -19,7 +26,7 @@ export class ModuleDescriptor extends Message<ModuleDescriptor> {
    *
    * @generated from field: string go_import = 1;
    */
-  goImport = "";
+  goImport = '';
 
   /**
    * use_package refers to a protobuf package that this module
@@ -50,26 +57,50 @@ export class ModuleDescriptor extends Message<ModuleDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.app.v1alpha1.ModuleDescriptor";
+  static readonly typeName = 'cosmos.app.v1alpha1.ModuleDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "go_import", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "use_package", kind: "message", T: PackageReference, repeated: true },
-    { no: 3, name: "can_migrate_from", kind: "message", T: MigrateFromInfo, repeated: true },
+    { no: 1, name: 'go_import', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'use_package',
+      kind: 'message',
+      T: PackageReference,
+      repeated: true,
+    },
+    {
+      no: 3,
+      name: 'can_migrate_from',
+      kind: 'message',
+      T: MigrateFromInfo,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModuleDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModuleDescriptor {
     return new ModuleDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModuleDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleDescriptor {
     return new ModuleDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModuleDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleDescriptor {
     return new ModuleDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModuleDescriptor | PlainMessage<ModuleDescriptor> | undefined, b: ModuleDescriptor | PlainMessage<ModuleDescriptor> | undefined): boolean {
+  static equals(
+    a: ModuleDescriptor | PlainMessage<ModuleDescriptor> | undefined,
+    b: ModuleDescriptor | PlainMessage<ModuleDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(ModuleDescriptor, a, b);
   }
 }
@@ -85,7 +116,7 @@ export class PackageReference extends Message<PackageReference> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * revision is the optional revision of the package that is being used.
@@ -134,25 +165,37 @@ export class PackageReference extends Message<PackageReference> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.app.v1alpha1.PackageReference";
+  static readonly typeName = 'cosmos.app.v1alpha1.PackageReference';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "revision", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'revision', kind: 'scalar', T: 13 /* ScalarType.UINT32 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PackageReference {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): PackageReference {
     return new PackageReference().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PackageReference {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): PackageReference {
     return new PackageReference().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PackageReference {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): PackageReference {
     return new PackageReference().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PackageReference | PlainMessage<PackageReference> | undefined, b: PackageReference | PlainMessage<PackageReference> | undefined): boolean {
+  static equals(
+    a: PackageReference | PlainMessage<PackageReference> | undefined,
+    b: PackageReference | PlainMessage<PackageReference> | undefined,
+  ): boolean {
     return proto3.util.equals(PackageReference, a, b);
   }
 }
@@ -170,7 +213,7 @@ export class MigrateFromInfo extends Message<MigrateFromInfo> {
    *
    * @generated from field: string module = 1;
    */
-  module = "";
+  module = '';
 
   constructor(data?: PartialMessage<MigrateFromInfo>) {
     super();
@@ -178,25 +221,36 @@ export class MigrateFromInfo extends Message<MigrateFromInfo> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.app.v1alpha1.MigrateFromInfo";
+  static readonly typeName = 'cosmos.app.v1alpha1.MigrateFromInfo';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "module", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'module', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MigrateFromInfo {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MigrateFromInfo {
     return new MigrateFromInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MigrateFromInfo {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MigrateFromInfo {
     return new MigrateFromInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MigrateFromInfo {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MigrateFromInfo {
     return new MigrateFromInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MigrateFromInfo | PlainMessage<MigrateFromInfo> | undefined, b: MigrateFromInfo | PlainMessage<MigrateFromInfo> | undefined): boolean {
+  static equals(
+    a: MigrateFromInfo | PlainMessage<MigrateFromInfo> | undefined,
+    b: MigrateFromInfo | PlainMessage<MigrateFromInfo> | undefined,
+  ): boolean {
     return proto3.util.equals(MigrateFromInfo, a, b);
   }
 }
-

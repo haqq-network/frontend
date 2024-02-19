@@ -3,8 +3,29 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryCounterpartyPayeeRequest, QueryCounterpartyPayeeResponse, QueryFeeEnabledChannelRequest, QueryFeeEnabledChannelResponse, QueryFeeEnabledChannelsRequest, QueryFeeEnabledChannelsResponse, QueryIncentivizedPacketRequest, QueryIncentivizedPacketResponse, QueryIncentivizedPacketsForChannelRequest, QueryIncentivizedPacketsForChannelResponse, QueryIncentivizedPacketsRequest, QueryIncentivizedPacketsResponse, QueryPayeeRequest, QueryPayeeResponse, QueryTotalAckFeesRequest, QueryTotalAckFeesResponse, QueryTotalRecvFeesRequest, QueryTotalRecvFeesResponse, QueryTotalTimeoutFeesRequest, QueryTotalTimeoutFeesResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryCounterpartyPayeeRequest,
+  QueryCounterpartyPayeeResponse,
+  QueryFeeEnabledChannelRequest,
+  QueryFeeEnabledChannelResponse,
+  QueryFeeEnabledChannelsRequest,
+  QueryFeeEnabledChannelsResponse,
+  QueryIncentivizedPacketRequest,
+  QueryIncentivizedPacketResponse,
+  QueryIncentivizedPacketsForChannelRequest,
+  QueryIncentivizedPacketsForChannelResponse,
+  QueryIncentivizedPacketsRequest,
+  QueryIncentivizedPacketsResponse,
+  QueryPayeeRequest,
+  QueryPayeeResponse,
+  QueryTotalAckFeesRequest,
+  QueryTotalAckFeesResponse,
+  QueryTotalRecvFeesRequest,
+  QueryTotalRecvFeesResponse,
+  QueryTotalTimeoutFeesRequest,
+  QueryTotalTimeoutFeesResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the ICS29 gRPC querier service.
@@ -12,7 +33,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.applications.fee.v1.Query
  */
 export const Query = {
-  typeName: "ibc.applications.fee.v1.Query",
+  typeName: 'ibc.applications.fee.v1.Query',
   methods: {
     /**
      * IncentivizedPackets returns all incentivized packets and their associated fees
@@ -20,7 +41,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.IncentivizedPackets
      */
     incentivizedPackets: {
-      name: "IncentivizedPackets",
+      name: 'IncentivizedPackets',
       I: QueryIncentivizedPacketsRequest,
       O: QueryIncentivizedPacketsResponse,
       kind: MethodKind.Unary,
@@ -31,7 +52,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.IncentivizedPacket
      */
     incentivizedPacket: {
-      name: "IncentivizedPacket",
+      name: 'IncentivizedPacket',
       I: QueryIncentivizedPacketRequest,
       O: QueryIncentivizedPacketResponse,
       kind: MethodKind.Unary,
@@ -42,7 +63,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.IncentivizedPacketsForChannel
      */
     incentivizedPacketsForChannel: {
-      name: "IncentivizedPacketsForChannel",
+      name: 'IncentivizedPacketsForChannel',
       I: QueryIncentivizedPacketsForChannelRequest,
       O: QueryIncentivizedPacketsForChannelResponse,
       kind: MethodKind.Unary,
@@ -53,7 +74,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.TotalRecvFees
      */
     totalRecvFees: {
-      name: "TotalRecvFees",
+      name: 'TotalRecvFees',
       I: QueryTotalRecvFeesRequest,
       O: QueryTotalRecvFeesResponse,
       kind: MethodKind.Unary,
@@ -64,7 +85,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.TotalAckFees
      */
     totalAckFees: {
-      name: "TotalAckFees",
+      name: 'TotalAckFees',
       I: QueryTotalAckFeesRequest,
       O: QueryTotalAckFeesResponse,
       kind: MethodKind.Unary,
@@ -75,7 +96,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.TotalTimeoutFees
      */
     totalTimeoutFees: {
-      name: "TotalTimeoutFees",
+      name: 'TotalTimeoutFees',
       I: QueryTotalTimeoutFeesRequest,
       O: QueryTotalTimeoutFeesResponse,
       kind: MethodKind.Unary,
@@ -86,7 +107,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.Payee
      */
     payee: {
-      name: "Payee",
+      name: 'Payee',
       I: QueryPayeeRequest,
       O: QueryPayeeResponse,
       kind: MethodKind.Unary,
@@ -97,7 +118,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.CounterpartyPayee
      */
     counterpartyPayee: {
-      name: "CounterpartyPayee",
+      name: 'CounterpartyPayee',
       I: QueryCounterpartyPayeeRequest,
       O: QueryCounterpartyPayeeResponse,
       kind: MethodKind.Unary,
@@ -108,7 +129,7 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.FeeEnabledChannels
      */
     feeEnabledChannels: {
-      name: "FeeEnabledChannels",
+      name: 'FeeEnabledChannels',
       I: QueryFeeEnabledChannelsRequest,
       O: QueryFeeEnabledChannelsResponse,
       kind: MethodKind.Unary,
@@ -119,11 +140,10 @@ export const Query = {
      * @generated from rpc ibc.applications.fee.v1.Query.FeeEnabledChannel
      */
     feeEnabledChannel: {
-      name: "FeeEnabledChannel",
+      name: 'FeeEnabledChannel',
       I: QueryFeeEnabledChannelRequest,
       O: QueryFeeEnabledChannelResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

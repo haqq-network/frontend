@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryAllEvidenceRequest, QueryAllEvidenceResponse, QueryEvidenceRequest, QueryEvidenceResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryAllEvidenceRequest,
+  QueryAllEvidenceResponse,
+  QueryEvidenceRequest,
+  QueryEvidenceResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.evidence.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.evidence.v1beta1.Query",
+  typeName: 'cosmos.evidence.v1beta1.Query',
   methods: {
     /**
      * Evidence queries evidence based on evidence hash.
@@ -20,7 +25,7 @@ export const Query = {
      * @generated from rpc cosmos.evidence.v1beta1.Query.Evidence
      */
     evidence: {
-      name: "Evidence",
+      name: 'Evidence',
       I: QueryEvidenceRequest,
       O: QueryEvidenceResponse,
       kind: MethodKind.Unary,
@@ -31,11 +36,10 @@ export const Query = {
      * @generated from rpc cosmos.evidence.v1beta1.Query.AllEvidence
      */
     allEvidence: {
-      name: "AllEvidence",
+      name: 'AllEvidence',
       I: QueryAllEvidenceRequest,
       O: QueryAllEvidenceResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

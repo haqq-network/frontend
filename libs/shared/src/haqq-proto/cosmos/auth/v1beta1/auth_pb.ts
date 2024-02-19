@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Any, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Any, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * BaseAccount defines a base account type. It contains all the necessary fields
@@ -17,7 +24,7 @@ export class BaseAccount extends Message<BaseAccount> {
   /**
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * @generated from field: google.protobuf.Any pub_key = 2;
@@ -40,27 +47,44 @@ export class BaseAccount extends Message<BaseAccount> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.BaseAccount";
+  static readonly typeName = 'cosmos.auth.v1beta1.BaseAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "pub_key", kind: "message", T: Any },
-    { no: 3, name: "account_number", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 4, name: "sequence", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'pub_key', kind: 'message', T: Any },
+    {
+      no: 3,
+      name: 'account_number',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 4, name: 'sequence', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BaseAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): BaseAccount {
     return new BaseAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BaseAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): BaseAccount {
     return new BaseAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BaseAccount {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): BaseAccount {
     return new BaseAccount().fromJsonString(jsonString, options);
   }
 
-  static equals(a: BaseAccount | PlainMessage<BaseAccount> | undefined, b: BaseAccount | PlainMessage<BaseAccount> | undefined): boolean {
+  static equals(
+    a: BaseAccount | PlainMessage<BaseAccount> | undefined,
+    b: BaseAccount | PlainMessage<BaseAccount> | undefined,
+  ): boolean {
     return proto3.util.equals(BaseAccount, a, b);
   }
 }
@@ -79,7 +103,7 @@ export class ModuleAccount extends Message<ModuleAccount> {
   /**
    * @generated from field: string name = 2;
    */
-  name = "";
+  name = '';
 
   /**
    * @generated from field: repeated string permissions = 3;
@@ -92,26 +116,44 @@ export class ModuleAccount extends Message<ModuleAccount> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.ModuleAccount";
+  static readonly typeName = 'cosmos.auth.v1beta1.ModuleAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "base_account", kind: "message", T: BaseAccount },
-    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "permissions", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: 'base_account', kind: 'message', T: BaseAccount },
+    { no: 2, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 3,
+      name: 'permissions',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModuleAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModuleAccount {
     return new ModuleAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModuleAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleAccount {
     return new ModuleAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModuleAccount {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleAccount {
     return new ModuleAccount().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModuleAccount | PlainMessage<ModuleAccount> | undefined, b: ModuleAccount | PlainMessage<ModuleAccount> | undefined): boolean {
+  static equals(
+    a: ModuleAccount | PlainMessage<ModuleAccount> | undefined,
+    b: ModuleAccount | PlainMessage<ModuleAccount> | undefined,
+  ): boolean {
     return proto3.util.equals(ModuleAccount, a, b);
   }
 }
@@ -129,7 +171,7 @@ export class ModuleCredential extends Message<ModuleCredential> {
    *
    * @generated from field: string module_name = 1;
    */
-  moduleName = "";
+  moduleName = '';
 
   /**
    * derivation_keys is for deriving a module account address (passed into address.Module)
@@ -145,25 +187,48 @@ export class ModuleCredential extends Message<ModuleCredential> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.ModuleCredential";
+  static readonly typeName = 'cosmos.auth.v1beta1.ModuleCredential';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "module_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "derivation_keys", kind: "scalar", T: 12 /* ScalarType.BYTES */, repeated: true },
+    {
+      no: 1,
+      name: 'module_name',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'derivation_keys',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModuleCredential {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ModuleCredential {
     return new ModuleCredential().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModuleCredential {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleCredential {
     return new ModuleCredential().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModuleCredential {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ModuleCredential {
     return new ModuleCredential().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModuleCredential | PlainMessage<ModuleCredential> | undefined, b: ModuleCredential | PlainMessage<ModuleCredential> | undefined): boolean {
+  static equals(
+    a: ModuleCredential | PlainMessage<ModuleCredential> | undefined,
+    b: ModuleCredential | PlainMessage<ModuleCredential> | undefined,
+  ): boolean {
     return proto3.util.equals(ModuleCredential, a, b);
   }
 }
@@ -205,29 +270,65 @@ export class Params extends Message<Params> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.auth.v1beta1.Params";
+  static readonly typeName = 'cosmos.auth.v1beta1.Params';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "max_memo_characters", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "tx_sig_limit", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "tx_size_cost_per_byte", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 4, name: "sig_verify_cost_ed25519", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 5, name: "sig_verify_cost_secp256k1", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'max_memo_characters',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 2,
+      name: 'tx_sig_limit',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 3,
+      name: 'tx_size_cost_per_byte',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 4,
+      name: 'sig_verify_cost_ed25519',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 5,
+      name: 'sig_verify_cost_secp256k1',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Params {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Params {
     return new Params().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Params {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Params {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Params | PlainMessage<Params> | undefined, b: Params | PlainMessage<Params> | undefined): boolean {
+  static equals(
+    a: Params | PlainMessage<Params> | undefined,
+    b: Params | PlainMessage<Params> | undefined,
+  ): boolean {
     return proto3.util.equals(Params, a, b);
   }
 }
-

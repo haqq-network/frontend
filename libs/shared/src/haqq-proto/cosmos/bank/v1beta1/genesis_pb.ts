@@ -3,10 +3,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Metadata, Params, SendEnabled } from "./bank_pb.js";
-import { Coin } from "../../base/v1beta1/coin_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Metadata, Params, SendEnabled } from './bank_pb';
+import { Coin } from '../../base/v1beta1/coin_pb';
 
 /**
  * GenesisState defines the bank module's genesis state.
@@ -58,28 +65,52 @@ export class GenesisState extends Message<GenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.bank.v1beta1.GenesisState";
+  static readonly typeName = 'cosmos.bank.v1beta1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "params", kind: "message", T: Params },
-    { no: 2, name: "balances", kind: "message", T: Balance, repeated: true },
-    { no: 3, name: "supply", kind: "message", T: Coin, repeated: true },
-    { no: 4, name: "denom_metadata", kind: "message", T: Metadata, repeated: true },
-    { no: 5, name: "send_enabled", kind: "message", T: SendEnabled, repeated: true },
+    { no: 1, name: 'params', kind: 'message', T: Params },
+    { no: 2, name: 'balances', kind: 'message', T: Balance, repeated: true },
+    { no: 3, name: 'supply', kind: 'message', T: Coin, repeated: true },
+    {
+      no: 4,
+      name: 'denom_metadata',
+      kind: 'message',
+      T: Metadata,
+      repeated: true,
+    },
+    {
+      no: 5,
+      name: 'send_enabled',
+      kind: 'message',
+      T: SendEnabled,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisState | PlainMessage<GenesisState> | undefined, b: GenesisState | PlainMessage<GenesisState> | undefined): boolean {
+  static equals(
+    a: GenesisState | PlainMessage<GenesisState> | undefined,
+    b: GenesisState | PlainMessage<GenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisState, a, b);
   }
 }
@@ -96,7 +127,7 @@ export class Balance extends Message<Balance> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * coins defines the different coins this balance holds.
@@ -111,26 +142,37 @@ export class Balance extends Message<Balance> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.bank.v1beta1.Balance";
+  static readonly typeName = 'cosmos.bank.v1beta1.Balance';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "coins", kind: "message", T: Coin, repeated: true },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'coins', kind: 'message', T: Coin, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Balance {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Balance {
     return new Balance().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Balance {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Balance {
     return new Balance().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Balance {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Balance {
     return new Balance().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Balance | PlainMessage<Balance> | undefined, b: Balance | PlainMessage<Balance> | undefined): boolean {
+  static equals(
+    a: Balance | PlainMessage<Balance> | undefined,
+    b: Balance | PlainMessage<Balance> | undefined,
+  ): boolean {
     return proto3.util.equals(Balance, a, b);
   }
 }
-

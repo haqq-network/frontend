@@ -3,8 +3,29 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AddressBytesToStringRequest, AddressBytesToStringResponse, AddressStringToBytesRequest, AddressStringToBytesResponse, Bech32PrefixRequest, Bech32PrefixResponse, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse, QueryAccountInfoRequest, QueryAccountInfoResponse, QueryAccountRequest, QueryAccountResponse, QueryAccountsRequest, QueryAccountsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryParamsRequest, QueryParamsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  AddressBytesToStringRequest,
+  AddressBytesToStringResponse,
+  AddressStringToBytesRequest,
+  AddressStringToBytesResponse,
+  Bech32PrefixRequest,
+  Bech32PrefixResponse,
+  QueryAccountAddressByIDRequest,
+  QueryAccountAddressByIDResponse,
+  QueryAccountInfoRequest,
+  QueryAccountInfoResponse,
+  QueryAccountRequest,
+  QueryAccountResponse,
+  QueryAccountsRequest,
+  QueryAccountsResponse,
+  QueryModuleAccountByNameRequest,
+  QueryModuleAccountByNameResponse,
+  QueryModuleAccountsRequest,
+  QueryModuleAccountsResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +33,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.auth.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.auth.v1beta1.Query",
+  typeName: 'cosmos.auth.v1beta1.Query',
   methods: {
     /**
      * Accounts returns all the existing accounts.
@@ -25,7 +46,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.Accounts
      */
     accounts: {
-      name: "Accounts",
+      name: 'Accounts',
       I: QueryAccountsRequest,
       O: QueryAccountsResponse,
       kind: MethodKind.Unary,
@@ -36,7 +57,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.Account
      */
     account: {
-      name: "Account",
+      name: 'Account',
       I: QueryAccountRequest,
       O: QueryAccountResponse,
       kind: MethodKind.Unary,
@@ -49,7 +70,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.AccountAddressByID
      */
     accountAddressByID: {
-      name: "AccountAddressByID",
+      name: 'AccountAddressByID',
       I: QueryAccountAddressByIDRequest,
       O: QueryAccountAddressByIDResponse,
       kind: MethodKind.Unary,
@@ -60,7 +81,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -73,7 +94,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.ModuleAccounts
      */
     moduleAccounts: {
-      name: "ModuleAccounts",
+      name: 'ModuleAccounts',
       I: QueryModuleAccountsRequest,
       O: QueryModuleAccountsResponse,
       kind: MethodKind.Unary,
@@ -84,7 +105,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.ModuleAccountByName
      */
     moduleAccountByName: {
-      name: "ModuleAccountByName",
+      name: 'ModuleAccountByName',
       I: QueryModuleAccountByNameRequest,
       O: QueryModuleAccountByNameResponse,
       kind: MethodKind.Unary,
@@ -97,7 +118,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.Bech32Prefix
      */
     bech32Prefix: {
-      name: "Bech32Prefix",
+      name: 'Bech32Prefix',
       I: Bech32PrefixRequest,
       O: Bech32PrefixResponse,
       kind: MethodKind.Unary,
@@ -110,7 +131,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.AddressBytesToString
      */
     addressBytesToString: {
-      name: "AddressBytesToString",
+      name: 'AddressBytesToString',
       I: AddressBytesToStringRequest,
       O: AddressBytesToStringResponse,
       kind: MethodKind.Unary,
@@ -123,7 +144,7 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.AddressStringToBytes
      */
     addressStringToBytes: {
-      name: "AddressStringToBytes",
+      name: 'AddressStringToBytes',
       I: AddressStringToBytesRequest,
       O: AddressStringToBytesResponse,
       kind: MethodKind.Unary,
@@ -136,11 +157,10 @@ export const Query = {
      * @generated from rpc cosmos.auth.v1beta1.Query.AccountInfo
      */
     accountInfo: {
-      name: "AccountInfo",
+      name: 'AccountInfo',
       I: QueryAccountInfoRequest,
       O: QueryAccountInfoResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

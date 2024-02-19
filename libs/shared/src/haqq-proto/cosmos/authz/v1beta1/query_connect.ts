@@ -5,8 +5,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryGranteeGrantsRequest, QueryGranteeGrantsResponse, QueryGranterGrantsRequest, QueryGranterGrantsResponse, QueryGrantsRequest, QueryGrantsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryGranteeGrantsRequest,
+  QueryGranteeGrantsResponse,
+  QueryGranterGrantsRequest,
+  QueryGranterGrantsResponse,
+  QueryGrantsRequest,
+  QueryGrantsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -14,7 +21,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.authz.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.authz.v1beta1.Query",
+  typeName: 'cosmos.authz.v1beta1.Query',
   methods: {
     /**
      * Returns list of `Authorization`, granted to the grantee by the granter.
@@ -22,7 +29,7 @@ export const Query = {
      * @generated from rpc cosmos.authz.v1beta1.Query.Grants
      */
     grants: {
-      name: "Grants",
+      name: 'Grants',
       I: QueryGrantsRequest,
       O: QueryGrantsResponse,
       kind: MethodKind.Unary,
@@ -35,7 +42,7 @@ export const Query = {
      * @generated from rpc cosmos.authz.v1beta1.Query.GranterGrants
      */
     granterGrants: {
-      name: "GranterGrants",
+      name: 'GranterGrants',
       I: QueryGranterGrantsRequest,
       O: QueryGranterGrantsResponse,
       kind: MethodKind.Unary,
@@ -48,11 +55,10 @@ export const Query = {
      * @generated from rpc cosmos.authz.v1beta1.Query.GranteeGrants
      */
     granteeGrants: {
-      name: "GranteeGrants",
+      name: 'GranteeGrants',
       I: QueryGranteeGrantsRequest,
       O: QueryGranteeGrantsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

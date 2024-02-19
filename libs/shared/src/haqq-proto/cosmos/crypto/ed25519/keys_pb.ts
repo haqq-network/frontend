@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * PubKey is an ed25519 public key for handling Tendermint keys in SDK.
@@ -27,24 +34,36 @@ export class PubKey extends Message<PubKey> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.ed25519.PubKey";
+  static readonly typeName = 'cosmos.crypto.ed25519.PubKey';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "key", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'key', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PubKey {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): PubKey {
     return new PubKey().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PubKey {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): PubKey {
     return new PubKey().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PubKey {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): PubKey {
     return new PubKey().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PubKey | PlainMessage<PubKey> | undefined, b: PubKey | PlainMessage<PubKey> | undefined): boolean {
+  static equals(
+    a: PubKey | PlainMessage<PubKey> | undefined,
+    b: PubKey | PlainMessage<PubKey> | undefined,
+  ): boolean {
     return proto3.util.equals(PubKey, a, b);
   }
 }
@@ -67,25 +86,36 @@ export class PrivKey extends Message<PrivKey> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.crypto.ed25519.PrivKey";
+  static readonly typeName = 'cosmos.crypto.ed25519.PrivKey';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "key", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'key', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PrivKey {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): PrivKey {
     return new PrivKey().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PrivKey {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): PrivKey {
     return new PrivKey().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PrivKey {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): PrivKey {
     return new PrivKey().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PrivKey | PlainMessage<PrivKey> | undefined, b: PrivKey | PlainMessage<PrivKey> | undefined): boolean {
+  static equals(
+    a: PrivKey | PlainMessage<PrivKey> | undefined,
+    b: PrivKey | PlainMessage<PrivKey> | undefined,
+  ): boolean {
     return proto3.util.equals(PrivKey, a, b);
   }
 }
-

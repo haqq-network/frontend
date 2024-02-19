@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryInterchainAccountRequest, QueryInterchainAccountResponse, QueryParamsRequest, QueryParamsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryInterchainAccountRequest,
+  QueryInterchainAccountResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.applications.interchain_accounts.controller.v1.Query
  */
 export const Query = {
-  typeName: "ibc.applications.interchain_accounts.controller.v1.Query",
+  typeName: 'ibc.applications.interchain_accounts.controller.v1.Query',
   methods: {
     /**
      * InterchainAccount returns the interchain account address for a given owner address on a given connection
@@ -20,7 +25,7 @@ export const Query = {
      * @generated from rpc ibc.applications.interchain_accounts.controller.v1.Query.InterchainAccount
      */
     interchainAccount: {
-      name: "InterchainAccount",
+      name: 'InterchainAccount',
       I: QueryInterchainAccountRequest,
       O: QueryInterchainAccountResponse,
       kind: MethodKind.Unary,
@@ -31,11 +36,10 @@ export const Query = {
      * @generated from rpc ibc.applications.interchain_accounts.controller.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

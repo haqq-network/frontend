@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryConfigRequest, QueryConfigResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { QueryConfigRequest, QueryConfigResponse } from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query is the app module query service.
@@ -12,7 +12,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.app.v1alpha1.Query
  */
 export const Query = {
-  typeName: "cosmos.app.v1alpha1.Query",
+  typeName: 'cosmos.app.v1alpha1.Query',
   methods: {
     /**
      * Config returns the current app config.
@@ -20,11 +20,10 @@ export const Query = {
      * @generated from rpc cosmos.app.v1alpha1.Query.Config
      */
     config: {
-      name: "Config",
+      name: 'Config',
       I: QueryConfigRequest,
       O: QueryConfigResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

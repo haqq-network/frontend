@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Coin } from "../../base/v1beta1/coin_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Coin } from '../../base/v1beta1/coin_pb';
 
 /**
  * AuthorizationType defines the type of staking module authorization type
@@ -44,12 +51,16 @@ export enum AuthorizationType {
   REDELEGATE = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(AuthorizationType)
-proto3.util.setEnumType(AuthorizationType, "cosmos.staking.v1beta1.AuthorizationType", [
-  { no: 0, name: "AUTHORIZATION_TYPE_UNSPECIFIED" },
-  { no: 1, name: "AUTHORIZATION_TYPE_DELEGATE" },
-  { no: 2, name: "AUTHORIZATION_TYPE_UNDELEGATE" },
-  { no: 3, name: "AUTHORIZATION_TYPE_REDELEGATE" },
-]);
+proto3.util.setEnumType(
+  AuthorizationType,
+  'cosmos.staking.v1beta1.AuthorizationType',
+  [
+    { no: 0, name: 'AUTHORIZATION_TYPE_UNSPECIFIED' },
+    { no: 1, name: 'AUTHORIZATION_TYPE_DELEGATE' },
+    { no: 2, name: 'AUTHORIZATION_TYPE_UNDELEGATE' },
+    { no: 3, name: 'AUTHORIZATION_TYPE_REDELEGATE' },
+  ],
+);
 
 /**
  * StakeAuthorization defines authorization for delegate/undelegate/redelegate.
@@ -72,24 +83,27 @@ export class StakeAuthorization extends Message<StakeAuthorization> {
    *
    * @generated from oneof cosmos.staking.v1beta1.StakeAuthorization.validators
    */
-  validators: {
-    /**
-     * allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
-     * account.
-     *
-     * @generated from field: cosmos.staking.v1beta1.StakeAuthorization.Validators allow_list = 2;
-     */
-    value: StakeAuthorization_Validators;
-    case: "allowList";
-  } | {
-    /**
-     * deny_list specifies list of validator addresses to whom grantee can not delegate tokens.
-     *
-     * @generated from field: cosmos.staking.v1beta1.StakeAuthorization.Validators deny_list = 3;
-     */
-    value: StakeAuthorization_Validators;
-    case: "denyList";
-  } | { case: undefined; value?: undefined } = { case: undefined };
+  validators:
+    | {
+        /**
+         * allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
+         * account.
+         *
+         * @generated from field: cosmos.staking.v1beta1.StakeAuthorization.Validators allow_list = 2;
+         */
+        value: StakeAuthorization_Validators;
+        case: 'allowList';
+      }
+    | {
+        /**
+         * deny_list specifies list of validator addresses to whom grantee can not delegate tokens.
+         *
+         * @generated from field: cosmos.staking.v1beta1.StakeAuthorization.Validators deny_list = 3;
+         */
+        value: StakeAuthorization_Validators;
+        case: 'denyList';
+      }
+    | { case: undefined; value?: undefined } = { case: undefined };
 
   /**
    * authorization_type defines one of AuthorizationType.
@@ -104,27 +118,56 @@ export class StakeAuthorization extends Message<StakeAuthorization> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.staking.v1beta1.StakeAuthorization";
+  static readonly typeName = 'cosmos.staking.v1beta1.StakeAuthorization';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "max_tokens", kind: "message", T: Coin },
-    { no: 2, name: "allow_list", kind: "message", T: StakeAuthorization_Validators, oneof: "validators" },
-    { no: 3, name: "deny_list", kind: "message", T: StakeAuthorization_Validators, oneof: "validators" },
-    { no: 4, name: "authorization_type", kind: "enum", T: proto3.getEnumType(AuthorizationType) },
+    { no: 1, name: 'max_tokens', kind: 'message', T: Coin },
+    {
+      no: 2,
+      name: 'allow_list',
+      kind: 'message',
+      T: StakeAuthorization_Validators,
+      oneof: 'validators',
+    },
+    {
+      no: 3,
+      name: 'deny_list',
+      kind: 'message',
+      T: StakeAuthorization_Validators,
+      oneof: 'validators',
+    },
+    {
+      no: 4,
+      name: 'authorization_type',
+      kind: 'enum',
+      T: proto3.getEnumType(AuthorizationType),
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StakeAuthorization {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): StakeAuthorization {
     return new StakeAuthorization().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StakeAuthorization {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): StakeAuthorization {
     return new StakeAuthorization().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StakeAuthorization {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): StakeAuthorization {
     return new StakeAuthorization().fromJsonString(jsonString, options);
   }
 
-  static equals(a: StakeAuthorization | PlainMessage<StakeAuthorization> | undefined, b: StakeAuthorization | PlainMessage<StakeAuthorization> | undefined): boolean {
+  static equals(
+    a: StakeAuthorization | PlainMessage<StakeAuthorization> | undefined,
+    b: StakeAuthorization | PlainMessage<StakeAuthorization> | undefined,
+  ): boolean {
     return proto3.util.equals(StakeAuthorization, a, b);
   }
 }
@@ -146,25 +189,52 @@ export class StakeAuthorization_Validators extends Message<StakeAuthorization_Va
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.staking.v1beta1.StakeAuthorization.Validators";
+  static readonly typeName =
+    'cosmos.staking.v1beta1.StakeAuthorization.Validators';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    {
+      no: 1,
+      name: 'address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StakeAuthorization_Validators {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): StakeAuthorization_Validators {
     return new StakeAuthorization_Validators().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StakeAuthorization_Validators {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): StakeAuthorization_Validators {
     return new StakeAuthorization_Validators().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StakeAuthorization_Validators {
-    return new StakeAuthorization_Validators().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): StakeAuthorization_Validators {
+    return new StakeAuthorization_Validators().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: StakeAuthorization_Validators | PlainMessage<StakeAuthorization_Validators> | undefined, b: StakeAuthorization_Validators | PlainMessage<StakeAuthorization_Validators> | undefined): boolean {
+  static equals(
+    a:
+      | StakeAuthorization_Validators
+      | PlainMessage<StakeAuthorization_Validators>
+      | undefined,
+    b:
+      | StakeAuthorization_Validators
+      | PlainMessage<StakeAuthorization_Validators>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(StakeAuthorization_Validators, a, b);
   }
 }
-

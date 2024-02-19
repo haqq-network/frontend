@@ -3,8 +3,21 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryDenomHashRequest, QueryDenomHashResponse, QueryDenomTraceRequest, QueryDenomTraceResponse, QueryDenomTracesRequest, QueryDenomTracesResponse, QueryEscrowAddressRequest, QueryEscrowAddressResponse, QueryParamsRequest, QueryParamsResponse, QueryTotalEscrowForDenomRequest, QueryTotalEscrowForDenomResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryDenomHashRequest,
+  QueryDenomHashResponse,
+  QueryDenomTraceRequest,
+  QueryDenomTraceResponse,
+  QueryDenomTracesRequest,
+  QueryDenomTracesResponse,
+  QueryEscrowAddressRequest,
+  QueryEscrowAddressResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryTotalEscrowForDenomRequest,
+  QueryTotalEscrowForDenomResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service.
@@ -12,7 +25,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.applications.transfer.v1.Query
  */
 export const Query = {
-  typeName: "ibc.applications.transfer.v1.Query",
+  typeName: 'ibc.applications.transfer.v1.Query',
   methods: {
     /**
      * DenomTrace queries a denomination trace information.
@@ -20,7 +33,7 @@ export const Query = {
      * @generated from rpc ibc.applications.transfer.v1.Query.DenomTrace
      */
     denomTrace: {
-      name: "DenomTrace",
+      name: 'DenomTrace',
       I: QueryDenomTraceRequest,
       O: QueryDenomTraceResponse,
       kind: MethodKind.Unary,
@@ -31,7 +44,7 @@ export const Query = {
      * @generated from rpc ibc.applications.transfer.v1.Query.DenomTraces
      */
     denomTraces: {
-      name: "DenomTraces",
+      name: 'DenomTraces',
       I: QueryDenomTracesRequest,
       O: QueryDenomTracesResponse,
       kind: MethodKind.Unary,
@@ -42,7 +55,7 @@ export const Query = {
      * @generated from rpc ibc.applications.transfer.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -53,7 +66,7 @@ export const Query = {
      * @generated from rpc ibc.applications.transfer.v1.Query.DenomHash
      */
     denomHash: {
-      name: "DenomHash",
+      name: 'DenomHash',
       I: QueryDenomHashRequest,
       O: QueryDenomHashResponse,
       kind: MethodKind.Unary,
@@ -64,7 +77,7 @@ export const Query = {
      * @generated from rpc ibc.applications.transfer.v1.Query.EscrowAddress
      */
     escrowAddress: {
-      name: "EscrowAddress",
+      name: 'EscrowAddress',
       I: QueryEscrowAddressRequest,
       O: QueryEscrowAddressResponse,
       kind: MethodKind.Unary,
@@ -75,11 +88,10 @@ export const Query = {
      * @generated from rpc ibc.applications.transfer.v1.Query.TotalEscrowForDenom
      */
     totalEscrowForDenom: {
-      name: "TotalEscrowForDenom",
+      name: 'TotalEscrowForDenom',
       I: QueryTotalEscrowForDenomRequest,
       O: QueryTotalEscrowForDenomResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryParamsRequest, QueryParamsResponse, QuerySigningInfoRequest, QuerySigningInfoResponse, QuerySigningInfosRequest, QuerySigningInfosResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QuerySigningInfoRequest,
+  QuerySigningInfoResponse,
+  QuerySigningInfosRequest,
+  QuerySigningInfosResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service
@@ -12,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.slashing.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.slashing.v1beta1.Query",
+  typeName: 'cosmos.slashing.v1beta1.Query',
   methods: {
     /**
      * Params queries the parameters of slashing module
@@ -20,7 +27,7 @@ export const Query = {
      * @generated from rpc cosmos.slashing.v1beta1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -31,7 +38,7 @@ export const Query = {
      * @generated from rpc cosmos.slashing.v1beta1.Query.SigningInfo
      */
     signingInfo: {
-      name: "SigningInfo",
+      name: 'SigningInfo',
       I: QuerySigningInfoRequest,
       O: QuerySigningInfoResponse,
       kind: MethodKind.Unary,
@@ -42,11 +49,10 @@ export const Query = {
      * @generated from rpc cosmos.slashing.v1beta1.Query.SigningInfos
      */
     signingInfos: {
-      name: "SigningInfos",
+      name: 'SigningInfos',
       I: QuerySigningInfosRequest,
       O: QuerySigningInfosResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

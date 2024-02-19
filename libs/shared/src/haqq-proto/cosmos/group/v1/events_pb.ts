@@ -5,9 +5,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { ProposalExecutorResult } from "./types_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { ProposalExecutorResult } from './types_pb';
 
 /**
  * EventCreateGroup is an event emitted when a group is created.
@@ -28,24 +35,36 @@ export class EventCreateGroup extends Message<EventCreateGroup> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventCreateGroup";
+  static readonly typeName = 'cosmos.group.v1.EventCreateGroup';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventCreateGroup {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventCreateGroup {
     return new EventCreateGroup().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventCreateGroup {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventCreateGroup {
     return new EventCreateGroup().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventCreateGroup {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventCreateGroup {
     return new EventCreateGroup().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventCreateGroup | PlainMessage<EventCreateGroup> | undefined, b: EventCreateGroup | PlainMessage<EventCreateGroup> | undefined): boolean {
+  static equals(
+    a: EventCreateGroup | PlainMessage<EventCreateGroup> | undefined,
+    b: EventCreateGroup | PlainMessage<EventCreateGroup> | undefined,
+  ): boolean {
     return proto3.util.equals(EventCreateGroup, a, b);
   }
 }
@@ -69,24 +88,36 @@ export class EventUpdateGroup extends Message<EventUpdateGroup> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventUpdateGroup";
+  static readonly typeName = 'cosmos.group.v1.EventUpdateGroup';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventUpdateGroup {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventUpdateGroup {
     return new EventUpdateGroup().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventUpdateGroup {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventUpdateGroup {
     return new EventUpdateGroup().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventUpdateGroup {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventUpdateGroup {
     return new EventUpdateGroup().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventUpdateGroup | PlainMessage<EventUpdateGroup> | undefined, b: EventUpdateGroup | PlainMessage<EventUpdateGroup> | undefined): boolean {
+  static equals(
+    a: EventUpdateGroup | PlainMessage<EventUpdateGroup> | undefined,
+    b: EventUpdateGroup | PlainMessage<EventUpdateGroup> | undefined,
+  ): boolean {
     return proto3.util.equals(EventUpdateGroup, a, b);
   }
 }
@@ -102,7 +133,7 @@ export class EventCreateGroupPolicy extends Message<EventCreateGroupPolicy> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   constructor(data?: PartialMessage<EventCreateGroupPolicy>) {
     super();
@@ -110,24 +141,42 @@ export class EventCreateGroupPolicy extends Message<EventCreateGroupPolicy> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventCreateGroupPolicy";
+  static readonly typeName = 'cosmos.group.v1.EventCreateGroupPolicy';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventCreateGroupPolicy {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventCreateGroupPolicy {
     return new EventCreateGroupPolicy().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventCreateGroupPolicy {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventCreateGroupPolicy {
     return new EventCreateGroupPolicy().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventCreateGroupPolicy {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventCreateGroupPolicy {
     return new EventCreateGroupPolicy().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventCreateGroupPolicy | PlainMessage<EventCreateGroupPolicy> | undefined, b: EventCreateGroupPolicy | PlainMessage<EventCreateGroupPolicy> | undefined): boolean {
+  static equals(
+    a:
+      | EventCreateGroupPolicy
+      | PlainMessage<EventCreateGroupPolicy>
+      | undefined,
+    b:
+      | EventCreateGroupPolicy
+      | PlainMessage<EventCreateGroupPolicy>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(EventCreateGroupPolicy, a, b);
   }
 }
@@ -143,7 +192,7 @@ export class EventUpdateGroupPolicy extends Message<EventUpdateGroupPolicy> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   constructor(data?: PartialMessage<EventUpdateGroupPolicy>) {
     super();
@@ -151,24 +200,42 @@ export class EventUpdateGroupPolicy extends Message<EventUpdateGroupPolicy> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventUpdateGroupPolicy";
+  static readonly typeName = 'cosmos.group.v1.EventUpdateGroupPolicy';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventUpdateGroupPolicy {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventUpdateGroupPolicy {
     return new EventUpdateGroupPolicy().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventUpdateGroupPolicy {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventUpdateGroupPolicy {
     return new EventUpdateGroupPolicy().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventUpdateGroupPolicy {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventUpdateGroupPolicy {
     return new EventUpdateGroupPolicy().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventUpdateGroupPolicy | PlainMessage<EventUpdateGroupPolicy> | undefined, b: EventUpdateGroupPolicy | PlainMessage<EventUpdateGroupPolicy> | undefined): boolean {
+  static equals(
+    a:
+      | EventUpdateGroupPolicy
+      | PlainMessage<EventUpdateGroupPolicy>
+      | undefined,
+    b:
+      | EventUpdateGroupPolicy
+      | PlainMessage<EventUpdateGroupPolicy>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(EventUpdateGroupPolicy, a, b);
   }
 }
@@ -192,24 +259,41 @@ export class EventSubmitProposal extends Message<EventSubmitProposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventSubmitProposal";
+  static readonly typeName = 'cosmos.group.v1.EventSubmitProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventSubmitProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventSubmitProposal {
     return new EventSubmitProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventSubmitProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventSubmitProposal {
     return new EventSubmitProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventSubmitProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventSubmitProposal {
     return new EventSubmitProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventSubmitProposal | PlainMessage<EventSubmitProposal> | undefined, b: EventSubmitProposal | PlainMessage<EventSubmitProposal> | undefined): boolean {
+  static equals(
+    a: EventSubmitProposal | PlainMessage<EventSubmitProposal> | undefined,
+    b: EventSubmitProposal | PlainMessage<EventSubmitProposal> | undefined,
+  ): boolean {
     return proto3.util.equals(EventSubmitProposal, a, b);
   }
 }
@@ -233,24 +317,41 @@ export class EventWithdrawProposal extends Message<EventWithdrawProposal> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventWithdrawProposal";
+  static readonly typeName = 'cosmos.group.v1.EventWithdrawProposal';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventWithdrawProposal {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventWithdrawProposal {
     return new EventWithdrawProposal().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventWithdrawProposal {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventWithdrawProposal {
     return new EventWithdrawProposal().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventWithdrawProposal {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventWithdrawProposal {
     return new EventWithdrawProposal().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventWithdrawProposal | PlainMessage<EventWithdrawProposal> | undefined, b: EventWithdrawProposal | PlainMessage<EventWithdrawProposal> | undefined): boolean {
+  static equals(
+    a: EventWithdrawProposal | PlainMessage<EventWithdrawProposal> | undefined,
+    b: EventWithdrawProposal | PlainMessage<EventWithdrawProposal> | undefined,
+  ): boolean {
     return proto3.util.equals(EventWithdrawProposal, a, b);
   }
 }
@@ -274,24 +375,41 @@ export class EventVote extends Message<EventVote> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventVote";
+  static readonly typeName = 'cosmos.group.v1.EventVote';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventVote {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventVote {
     return new EventVote().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventVote {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventVote {
     return new EventVote().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventVote {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventVote {
     return new EventVote().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventVote | PlainMessage<EventVote> | undefined, b: EventVote | PlainMessage<EventVote> | undefined): boolean {
+  static equals(
+    a: EventVote | PlainMessage<EventVote> | undefined,
+    b: EventVote | PlainMessage<EventVote> | undefined,
+  ): boolean {
     return proto3.util.equals(EventVote, a, b);
   }
 }
@@ -321,7 +439,7 @@ export class EventExec extends Message<EventExec> {
    *
    * @generated from field: string logs = 3;
    */
-  logs = "";
+  logs = '';
 
   constructor(data?: PartialMessage<EventExec>) {
     super();
@@ -329,26 +447,48 @@ export class EventExec extends Message<EventExec> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventExec";
+  static readonly typeName = 'cosmos.group.v1.EventExec';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "proposal_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "result", kind: "enum", T: proto3.getEnumType(ProposalExecutorResult) },
-    { no: 3, name: "logs", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'proposal_id',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    {
+      no: 2,
+      name: 'result',
+      kind: 'enum',
+      T: proto3.getEnumType(ProposalExecutorResult),
+    },
+    { no: 3, name: 'logs', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventExec {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventExec {
     return new EventExec().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventExec {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventExec {
     return new EventExec().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventExec {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventExec {
     return new EventExec().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventExec | PlainMessage<EventExec> | undefined, b: EventExec | PlainMessage<EventExec> | undefined): boolean {
+  static equals(
+    a: EventExec | PlainMessage<EventExec> | undefined,
+    b: EventExec | PlainMessage<EventExec> | undefined,
+  ): boolean {
     return proto3.util.equals(EventExec, a, b);
   }
 }
@@ -371,7 +511,7 @@ export class EventLeaveGroup extends Message<EventLeaveGroup> {
    *
    * @generated from field: string address = 2;
    */
-  address = "";
+  address = '';
 
   constructor(data?: PartialMessage<EventLeaveGroup>) {
     super();
@@ -379,26 +519,37 @@ export class EventLeaveGroup extends Message<EventLeaveGroup> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.group.v1.EventLeaveGroup";
+  static readonly typeName = 'cosmos.group.v1.EventLeaveGroup';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "group_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'group_id', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventLeaveGroup {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventLeaveGroup {
     return new EventLeaveGroup().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventLeaveGroup {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventLeaveGroup {
     return new EventLeaveGroup().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventLeaveGroup {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventLeaveGroup {
     return new EventLeaveGroup().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventLeaveGroup | PlainMessage<EventLeaveGroup> | undefined, b: EventLeaveGroup | PlainMessage<EventLeaveGroup> | undefined): boolean {
+  static equals(
+    a: EventLeaveGroup | PlainMessage<EventLeaveGroup> | undefined,
+    b: EventLeaveGroup | PlainMessage<EventLeaveGroup> | undefined,
+  ): boolean {
     return proto3.util.equals(EventLeaveGroup, a, b);
   }
 }
-

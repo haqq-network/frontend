@@ -3,8 +3,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgMultiSend, MsgMultiSendResponse, MsgSend, MsgSendResponse, MsgSetSendEnabled, MsgSetSendEnabledResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgMultiSend,
+  MsgMultiSendResponse,
+  MsgSend,
+  MsgSendResponse,
+  MsgSetSendEnabled,
+  MsgSetSendEnabledResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the bank Msg service.
@@ -12,7 +21,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.bank.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.bank.v1beta1.Msg",
+  typeName: 'cosmos.bank.v1beta1.Msg',
   methods: {
     /**
      * Send defines a method for sending coins from one account to another account.
@@ -20,7 +29,7 @@ export const Msg = {
      * @generated from rpc cosmos.bank.v1beta1.Msg.Send
      */
     send: {
-      name: "Send",
+      name: 'Send',
       I: MsgSend,
       O: MsgSendResponse,
       kind: MethodKind.Unary,
@@ -31,7 +40,7 @@ export const Msg = {
      * @generated from rpc cosmos.bank.v1beta1.Msg.MultiSend
      */
     multiSend: {
-      name: "MultiSend",
+      name: 'MultiSend',
       I: MsgMultiSend,
       O: MsgMultiSendResponse,
       kind: MethodKind.Unary,
@@ -45,7 +54,7 @@ export const Msg = {
      * @generated from rpc cosmos.bank.v1beta1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
@@ -61,11 +70,10 @@ export const Msg = {
      * @generated from rpc cosmos.bank.v1beta1.Msg.SetSendEnabled
      */
     setSendEnabled: {
-      name: "SetSendEnabled",
+      name: 'SetSendEnabled',
       I: MsgSetSendEnabled,
       O: MsgSetSendEnabledResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

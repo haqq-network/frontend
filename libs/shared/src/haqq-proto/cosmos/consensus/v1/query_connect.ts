@@ -5,8 +5,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryParamsRequest, QueryParamsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { QueryParamsRequest, QueryParamsResponse } from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -14,7 +14,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.consensus.v1.Query
  */
 export const Query = {
-  typeName: "cosmos.consensus.v1.Query",
+  typeName: 'cosmos.consensus.v1.Query',
   methods: {
     /**
      * Params queries the parameters of x/consensus_param module.
@@ -22,11 +22,10 @@ export const Query = {
      * @generated from rpc cosmos.consensus.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

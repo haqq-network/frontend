@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryBalancesRequest, QueryBalancesResponse, QueryTotalLockedRequest, QueryTotalLockedResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryBalancesRequest,
+  QueryBalancesResponse,
+  QueryTotalLockedRequest,
+  QueryTotalLockedResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service haqq.vesting.v1.Query
  */
 export const Query = {
-  typeName: "haqq.vesting.v1.Query",
+  typeName: 'haqq.vesting.v1.Query',
   methods: {
     /**
      * Balances retrieves the unvested, vested and locked tokens for a vesting
@@ -21,7 +26,7 @@ export const Query = {
      * @generated from rpc haqq.vesting.v1.Query.Balances
      */
     balances: {
-      name: "Balances",
+      name: 'Balances',
       I: QueryBalancesRequest,
       O: QueryBalancesResponse,
       kind: MethodKind.Unary,
@@ -33,11 +38,10 @@ export const Query = {
      * @generated from rpc haqq.vesting.v1.Query.TotalLocked
      */
     totalLocked: {
-      name: "TotalLocked",
+      name: 'TotalLocked',
       I: QueryTotalLockedRequest,
       O: QueryTotalLockedResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

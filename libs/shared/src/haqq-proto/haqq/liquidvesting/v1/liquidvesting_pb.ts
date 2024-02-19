@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { Period } from "../../../cosmos/vesting/v1beta1/vesting_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, Timestamp } from '@bufbuild/protobuf';
+import { Period } from '../../../cosmos/vesting/v1beta1/vesting_pb';
 
 /**
  * Denom represents liquid token bonded to some specific vesting schedule
@@ -18,21 +25,21 @@ export class Denom extends Message<Denom> {
    *
    * @generated from field: string base_denom = 1;
    */
-  baseDenom = "";
+  baseDenom = '';
 
   /**
    * display_denom identifier used for display name for broad audience
    *
    * @generated from field: string display_denom = 2;
    */
-  displayDenom = "";
+  displayDenom = '';
 
   /**
    * original_denom which liquid denom derived from
    *
    * @generated from field: string original_denom = 3;
    */
-  originalDenom = "";
+  originalDenom = '';
 
   /**
    * start date
@@ -61,30 +68,57 @@ export class Denom extends Message<Denom> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.liquidvesting.v1.Denom";
+  static readonly typeName = 'haqq.liquidvesting.v1.Denom';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "base_denom", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "display_denom", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "original_denom", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "start_time", kind: "message", T: Timestamp },
-    { no: 5, name: "end_time", kind: "message", T: Timestamp },
-    { no: 6, name: "lockup_periods", kind: "message", T: Period, repeated: true },
+    { no: 1, name: 'base_denom', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'display_denom',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'original_denom',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 4, name: 'start_time', kind: 'message', T: Timestamp },
+    { no: 5, name: 'end_time', kind: 'message', T: Timestamp },
+    {
+      no: 6,
+      name: 'lockup_periods',
+      kind: 'message',
+      T: Period,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Denom {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Denom {
     return new Denom().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Denom {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Denom {
     return new Denom().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Denom {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Denom {
     return new Denom().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Denom | PlainMessage<Denom> | undefined, b: Denom | PlainMessage<Denom> | undefined): boolean {
+  static equals(
+    a: Denom | PlainMessage<Denom> | undefined,
+    b: Denom | PlainMessage<Denom> | undefined,
+  ): boolean {
     return proto3.util.equals(Denom, a, b);
   }
 }
-

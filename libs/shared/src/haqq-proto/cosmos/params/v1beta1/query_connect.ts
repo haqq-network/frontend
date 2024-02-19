@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryParamsRequest, QueryParamsResponse, QuerySubspacesRequest, QuerySubspacesResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QuerySubspacesRequest,
+  QuerySubspacesResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.params.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.params.v1beta1.Query",
+  typeName: 'cosmos.params.v1beta1.Query',
   methods: {
     /**
      * Params queries a specific parameter of a module, given its subspace and
@@ -21,7 +26,7 @@ export const Query = {
      * @generated from rpc cosmos.params.v1beta1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -34,11 +39,10 @@ export const Query = {
      * @generated from rpc cosmos.params.v1beta1.Query.Subspaces
      */
     subspaces: {
-      name: "Subspaces",
+      name: 'Subspaces',
       I: QuerySubspacesRequest,
       O: QuerySubspacesResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

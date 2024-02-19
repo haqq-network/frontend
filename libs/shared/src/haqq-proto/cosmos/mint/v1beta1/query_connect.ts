@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryAnnualProvisionsRequest, QueryAnnualProvisionsResponse, QueryInflationRequest, QueryInflationResponse, QueryParamsRequest, QueryParamsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryAnnualProvisionsRequest,
+  QueryAnnualProvisionsResponse,
+  QueryInflationRequest,
+  QueryInflationResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query provides defines the gRPC querier service.
@@ -12,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.mint.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.mint.v1beta1.Query",
+  typeName: 'cosmos.mint.v1beta1.Query',
   methods: {
     /**
      * Params returns the total set of minting parameters.
@@ -20,7 +27,7 @@ export const Query = {
      * @generated from rpc cosmos.mint.v1beta1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -31,7 +38,7 @@ export const Query = {
      * @generated from rpc cosmos.mint.v1beta1.Query.Inflation
      */
     inflation: {
-      name: "Inflation",
+      name: 'Inflation',
       I: QueryInflationRequest,
       O: QueryInflationResponse,
       kind: MethodKind.Unary,
@@ -42,11 +49,10 @@ export const Query = {
      * @generated from rpc cosmos.mint.v1beta1.Query.AnnualProvisions
      */
     annualProvisions: {
-      name: "AnnualProvisions",
+      name: 'AnnualProvisions',
       I: QueryAnnualProvisionsRequest,
       O: QueryAnnualProvisionsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

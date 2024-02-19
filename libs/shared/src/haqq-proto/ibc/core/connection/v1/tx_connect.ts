@@ -3,8 +3,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgConnectionOpenAck, MsgConnectionOpenAckResponse, MsgConnectionOpenConfirm, MsgConnectionOpenConfirmResponse, MsgConnectionOpenInit, MsgConnectionOpenInitResponse, MsgConnectionOpenTry, MsgConnectionOpenTryResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgConnectionOpenAck,
+  MsgConnectionOpenAckResponse,
+  MsgConnectionOpenConfirm,
+  MsgConnectionOpenConfirmResponse,
+  MsgConnectionOpenInit,
+  MsgConnectionOpenInitResponse,
+  MsgConnectionOpenTry,
+  MsgConnectionOpenTryResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the ibc/connection Msg service.
@@ -12,7 +23,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ibc.core.connection.v1.Msg
  */
 export const Msg = {
-  typeName: "ibc.core.connection.v1.Msg",
+  typeName: 'ibc.core.connection.v1.Msg',
   methods: {
     /**
      * ConnectionOpenInit defines a rpc handler method for MsgConnectionOpenInit.
@@ -20,7 +31,7 @@ export const Msg = {
      * @generated from rpc ibc.core.connection.v1.Msg.ConnectionOpenInit
      */
     connectionOpenInit: {
-      name: "ConnectionOpenInit",
+      name: 'ConnectionOpenInit',
       I: MsgConnectionOpenInit,
       O: MsgConnectionOpenInitResponse,
       kind: MethodKind.Unary,
@@ -31,7 +42,7 @@ export const Msg = {
      * @generated from rpc ibc.core.connection.v1.Msg.ConnectionOpenTry
      */
     connectionOpenTry: {
-      name: "ConnectionOpenTry",
+      name: 'ConnectionOpenTry',
       I: MsgConnectionOpenTry,
       O: MsgConnectionOpenTryResponse,
       kind: MethodKind.Unary,
@@ -42,7 +53,7 @@ export const Msg = {
      * @generated from rpc ibc.core.connection.v1.Msg.ConnectionOpenAck
      */
     connectionOpenAck: {
-      name: "ConnectionOpenAck",
+      name: 'ConnectionOpenAck',
       I: MsgConnectionOpenAck,
       O: MsgConnectionOpenAckResponse,
       kind: MethodKind.Unary,
@@ -54,7 +65,7 @@ export const Msg = {
      * @generated from rpc ibc.core.connection.v1.Msg.ConnectionOpenConfirm
      */
     connectionOpenConfirm: {
-      name: "ConnectionOpenConfirm",
+      name: 'ConnectionOpenConfirm',
       I: MsgConnectionOpenConfirm,
       O: MsgConnectionOpenConfirmResponse,
       kind: MethodKind.Unary,
@@ -66,11 +77,10 @@ export const Msg = {
      * @generated from rpc ibc.core.connection.v1.Msg.UpdateConnectionParams
      */
     updateConnectionParams: {
-      name: "UpdateConnectionParams",
+      name: 'UpdateConnectionParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

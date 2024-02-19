@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * @generated from enum cosmos_proto.ScalarType
@@ -26,10 +33,10 @@ export enum ScalarType {
   BYTES = 2,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ScalarType)
-proto3.util.setEnumType(ScalarType, "cosmos_proto.ScalarType", [
-  { no: 0, name: "SCALAR_TYPE_UNSPECIFIED" },
-  { no: 1, name: "SCALAR_TYPE_STRING" },
-  { no: 2, name: "SCALAR_TYPE_BYTES" },
+proto3.util.setEnumType(ScalarType, 'cosmos_proto.ScalarType', [
+  { no: 0, name: 'SCALAR_TYPE_UNSPECIFIED' },
+  { no: 1, name: 'SCALAR_TYPE_STRING' },
+  { no: 2, name: 'SCALAR_TYPE_BYTES' },
 ]);
 
 /**
@@ -47,7 +54,7 @@ export class InterfaceDescriptor extends Message<InterfaceDescriptor> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * description is a human-readable description of the interface and its
@@ -55,7 +62,7 @@ export class InterfaceDescriptor extends Message<InterfaceDescriptor> {
    *
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   constructor(data?: PartialMessage<InterfaceDescriptor>) {
     super();
@@ -63,25 +70,42 @@ export class InterfaceDescriptor extends Message<InterfaceDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos_proto.InterfaceDescriptor";
+  static readonly typeName = 'cosmos_proto.InterfaceDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InterfaceDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): InterfaceDescriptor {
     return new InterfaceDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InterfaceDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): InterfaceDescriptor {
     return new InterfaceDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InterfaceDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): InterfaceDescriptor {
     return new InterfaceDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: InterfaceDescriptor | PlainMessage<InterfaceDescriptor> | undefined, b: InterfaceDescriptor | PlainMessage<InterfaceDescriptor> | undefined): boolean {
+  static equals(
+    a: InterfaceDescriptor | PlainMessage<InterfaceDescriptor> | undefined,
+    b: InterfaceDescriptor | PlainMessage<InterfaceDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(InterfaceDescriptor, a, b);
   }
 }
@@ -106,7 +130,7 @@ export class ScalarDescriptor extends Message<ScalarDescriptor> {
    *
    * @generated from field: string name = 1;
    */
-  name = "";
+  name = '';
 
   /**
    * description is a human-readable description of the scalar and its
@@ -115,7 +139,7 @@ export class ScalarDescriptor extends Message<ScalarDescriptor> {
    *
    * @generated from field: string description = 2;
    */
-  description = "";
+  description = '';
 
   /**
    * field_type is the type of field with which this scalar can be used.
@@ -133,27 +157,49 @@ export class ScalarDescriptor extends Message<ScalarDescriptor> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos_proto.ScalarDescriptor";
+  static readonly typeName = 'cosmos_proto.ScalarDescriptor';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "field_type", kind: "enum", T: proto3.getEnumType(ScalarType), repeated: true },
+    { no: 1, name: 'name', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'description',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 3,
+      name: 'field_type',
+      kind: 'enum',
+      T: proto3.getEnumType(ScalarType),
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ScalarDescriptor {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ScalarDescriptor {
     return new ScalarDescriptor().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ScalarDescriptor {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ScalarDescriptor {
     return new ScalarDescriptor().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ScalarDescriptor {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ScalarDescriptor {
     return new ScalarDescriptor().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ScalarDescriptor | PlainMessage<ScalarDescriptor> | undefined, b: ScalarDescriptor | PlainMessage<ScalarDescriptor> | undefined): boolean {
+  static equals(
+    a: ScalarDescriptor | PlainMessage<ScalarDescriptor> | undefined,
+    b: ScalarDescriptor | PlainMessage<ScalarDescriptor> | undefined,
+  ): boolean {
     return proto3.util.equals(ScalarDescriptor, a, b);
   }
 }
-

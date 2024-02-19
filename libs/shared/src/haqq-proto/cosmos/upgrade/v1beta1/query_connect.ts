@@ -3,8 +3,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryAppliedPlanRequest, QueryAppliedPlanResponse, QueryAuthorityRequest, QueryAuthorityResponse, QueryCurrentPlanRequest, QueryCurrentPlanResponse, QueryModuleVersionsRequest, QueryModuleVersionsResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryAppliedPlanRequest,
+  QueryAppliedPlanResponse,
+  QueryAuthorityRequest,
+  QueryAuthorityResponse,
+  QueryCurrentPlanRequest,
+  QueryCurrentPlanResponse,
+  QueryModuleVersionsRequest,
+  QueryModuleVersionsResponse,
+  QueryUpgradedConsensusStateRequest,
+  QueryUpgradedConsensusStateResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC upgrade querier service.
@@ -12,7 +23,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.upgrade.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.upgrade.v1beta1.Query",
+  typeName: 'cosmos.upgrade.v1beta1.Query',
   methods: {
     /**
      * CurrentPlan queries the current upgrade plan.
@@ -20,7 +31,7 @@ export const Query = {
      * @generated from rpc cosmos.upgrade.v1beta1.Query.CurrentPlan
      */
     currentPlan: {
-      name: "CurrentPlan",
+      name: 'CurrentPlan',
       I: QueryCurrentPlanRequest,
       O: QueryCurrentPlanResponse,
       kind: MethodKind.Unary,
@@ -31,7 +42,7 @@ export const Query = {
      * @generated from rpc cosmos.upgrade.v1beta1.Query.AppliedPlan
      */
     appliedPlan: {
-      name: "AppliedPlan",
+      name: 'AppliedPlan',
       I: QueryAppliedPlanRequest,
       O: QueryAppliedPlanResponse,
       kind: MethodKind.Unary,
@@ -48,7 +59,7 @@ export const Query = {
      * @deprecated
      */
     upgradedConsensusState: {
-      name: "UpgradedConsensusState",
+      name: 'UpgradedConsensusState',
       I: QueryUpgradedConsensusStateRequest,
       O: QueryUpgradedConsensusStateResponse,
       kind: MethodKind.Unary,
@@ -61,7 +72,7 @@ export const Query = {
      * @generated from rpc cosmos.upgrade.v1beta1.Query.ModuleVersions
      */
     moduleVersions: {
-      name: "ModuleVersions",
+      name: 'ModuleVersions',
       I: QueryModuleVersionsRequest,
       O: QueryModuleVersionsResponse,
       kind: MethodKind.Unary,
@@ -74,11 +85,10 @@ export const Query = {
      * @generated from rpc cosmos.upgrade.v1beta1.Query.Authority
      */
     authority: {
-      name: "Authority",
+      name: 'Authority',
       I: QueryAuthorityRequest,
       O: QueryAuthorityResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

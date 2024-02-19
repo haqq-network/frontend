@@ -5,8 +5,35 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryGroupInfoRequest, QueryGroupInfoResponse, QueryGroupMembersRequest, QueryGroupMembersResponse, QueryGroupPoliciesByAdminRequest, QueryGroupPoliciesByAdminResponse, QueryGroupPoliciesByGroupRequest, QueryGroupPoliciesByGroupResponse, QueryGroupPolicyInfoRequest, QueryGroupPolicyInfoResponse, QueryGroupsByAdminRequest, QueryGroupsByAdminResponse, QueryGroupsByMemberRequest, QueryGroupsByMemberResponse, QueryProposalRequest, QueryProposalResponse, QueryProposalsByGroupPolicyRequest, QueryProposalsByGroupPolicyResponse, QueryTallyResultRequest, QueryTallyResultResponse, QueryVoteByProposalVoterRequest, QueryVoteByProposalVoterResponse, QueryVotesByProposalRequest, QueryVotesByProposalResponse, QueryVotesByVoterRequest, QueryVotesByVoterResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryGroupInfoRequest,
+  QueryGroupInfoResponse,
+  QueryGroupMembersRequest,
+  QueryGroupMembersResponse,
+  QueryGroupPoliciesByAdminRequest,
+  QueryGroupPoliciesByAdminResponse,
+  QueryGroupPoliciesByGroupRequest,
+  QueryGroupPoliciesByGroupResponse,
+  QueryGroupPolicyInfoRequest,
+  QueryGroupPolicyInfoResponse,
+  QueryGroupsByAdminRequest,
+  QueryGroupsByAdminResponse,
+  QueryGroupsByMemberRequest,
+  QueryGroupsByMemberResponse,
+  QueryProposalRequest,
+  QueryProposalResponse,
+  QueryProposalsByGroupPolicyRequest,
+  QueryProposalsByGroupPolicyResponse,
+  QueryTallyResultRequest,
+  QueryTallyResultResponse,
+  QueryVoteByProposalVoterRequest,
+  QueryVoteByProposalVoterResponse,
+  QueryVotesByProposalRequest,
+  QueryVotesByProposalResponse,
+  QueryVotesByVoterRequest,
+  QueryVotesByVoterResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query is the cosmos.group.v1 Query service.
@@ -14,7 +41,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.group.v1.Query
  */
 export const Query = {
-  typeName: "cosmos.group.v1.Query",
+  typeName: 'cosmos.group.v1.Query',
   methods: {
     /**
      * GroupInfo queries group info based on group id.
@@ -22,7 +49,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.GroupInfo
      */
     groupInfo: {
-      name: "GroupInfo",
+      name: 'GroupInfo',
       I: QueryGroupInfoRequest,
       O: QueryGroupInfoResponse,
       kind: MethodKind.Unary,
@@ -33,7 +60,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.GroupPolicyInfo
      */
     groupPolicyInfo: {
-      name: "GroupPolicyInfo",
+      name: 'GroupPolicyInfo',
       I: QueryGroupPolicyInfoRequest,
       O: QueryGroupPolicyInfoResponse,
       kind: MethodKind.Unary,
@@ -44,7 +71,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.GroupMembers
      */
     groupMembers: {
-      name: "GroupMembers",
+      name: 'GroupMembers',
       I: QueryGroupMembersRequest,
       O: QueryGroupMembersResponse,
       kind: MethodKind.Unary,
@@ -55,7 +82,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.GroupsByAdmin
      */
     groupsByAdmin: {
-      name: "GroupsByAdmin",
+      name: 'GroupsByAdmin',
       I: QueryGroupsByAdminRequest,
       O: QueryGroupsByAdminResponse,
       kind: MethodKind.Unary,
@@ -66,7 +93,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.GroupPoliciesByGroup
      */
     groupPoliciesByGroup: {
-      name: "GroupPoliciesByGroup",
+      name: 'GroupPoliciesByGroup',
       I: QueryGroupPoliciesByGroupRequest,
       O: QueryGroupPoliciesByGroupResponse,
       kind: MethodKind.Unary,
@@ -77,7 +104,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.GroupPoliciesByAdmin
      */
     groupPoliciesByAdmin: {
-      name: "GroupPoliciesByAdmin",
+      name: 'GroupPoliciesByAdmin',
       I: QueryGroupPoliciesByAdminRequest,
       O: QueryGroupPoliciesByAdminResponse,
       kind: MethodKind.Unary,
@@ -88,7 +115,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.Proposal
      */
     proposal: {
-      name: "Proposal",
+      name: 'Proposal',
       I: QueryProposalRequest,
       O: QueryProposalResponse,
       kind: MethodKind.Unary,
@@ -99,7 +126,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.ProposalsByGroupPolicy
      */
     proposalsByGroupPolicy: {
-      name: "ProposalsByGroupPolicy",
+      name: 'ProposalsByGroupPolicy',
       I: QueryProposalsByGroupPolicyRequest,
       O: QueryProposalsByGroupPolicyResponse,
       kind: MethodKind.Unary,
@@ -110,7 +137,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.VoteByProposalVoter
      */
     voteByProposalVoter: {
-      name: "VoteByProposalVoter",
+      name: 'VoteByProposalVoter',
       I: QueryVoteByProposalVoterRequest,
       O: QueryVoteByProposalVoterResponse,
       kind: MethodKind.Unary,
@@ -121,7 +148,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.VotesByProposal
      */
     votesByProposal: {
-      name: "VotesByProposal",
+      name: 'VotesByProposal',
       I: QueryVotesByProposalRequest,
       O: QueryVotesByProposalResponse,
       kind: MethodKind.Unary,
@@ -132,7 +159,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.VotesByVoter
      */
     votesByVoter: {
-      name: "VotesByVoter",
+      name: 'VotesByVoter',
       I: QueryVotesByVoterRequest,
       O: QueryVotesByVoterResponse,
       kind: MethodKind.Unary,
@@ -143,7 +170,7 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.GroupsByMember
      */
     groupsByMember: {
-      name: "GroupsByMember",
+      name: 'GroupsByMember',
       I: QueryGroupsByMemberRequest,
       O: QueryGroupsByMemberResponse,
       kind: MethodKind.Unary,
@@ -158,11 +185,10 @@ export const Query = {
      * @generated from rpc cosmos.group.v1.Query.TallyResult
      */
     tallyResult: {
-      name: "TallyResult",
+      name: 'TallyResult',
       I: QueryTallyResultRequest,
       O: QueryTallyResultResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -5,8 +5,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgGrantAllowance, MsgGrantAllowanceResponse, MsgRevokeAllowance, MsgRevokeAllowanceResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgGrantAllowance,
+  MsgGrantAllowanceResponse,
+  MsgRevokeAllowance,
+  MsgRevokeAllowanceResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the feegrant msg service.
@@ -14,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.feegrant.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.feegrant.v1beta1.Msg",
+  typeName: 'cosmos.feegrant.v1beta1.Msg',
   methods: {
     /**
      * GrantAllowance grants fee allowance to the grantee on the granter's
@@ -23,7 +28,7 @@ export const Msg = {
      * @generated from rpc cosmos.feegrant.v1beta1.Msg.GrantAllowance
      */
     grantAllowance: {
-      name: "GrantAllowance",
+      name: 'GrantAllowance',
       I: MsgGrantAllowance,
       O: MsgGrantAllowanceResponse,
       kind: MethodKind.Unary,
@@ -35,11 +40,10 @@ export const Msg = {
      * @generated from rpc cosmos.feegrant.v1beta1.Msg.RevokeAllowance
      */
     revokeAllowance: {
-      name: "RevokeAllowance",
+      name: 'RevokeAllowance',
       I: MsgRevokeAllowance,
       O: MsgRevokeAllowanceResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

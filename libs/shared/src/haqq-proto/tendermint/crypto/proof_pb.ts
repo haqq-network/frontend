@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * @generated from message tendermint.crypto.Proof
@@ -36,27 +43,45 @@ export class Proof extends Message<Proof> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.crypto.Proof";
+  static readonly typeName = 'tendermint.crypto.Proof';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "total", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "index", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 3, name: "leaf_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 4, name: "aunts", kind: "scalar", T: 12 /* ScalarType.BYTES */, repeated: true },
+    { no: 1, name: 'total', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: 'index', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: 'leaf_hash', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 4,
+      name: 'aunts',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Proof {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Proof {
     return new Proof().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Proof {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Proof {
     return new Proof().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Proof {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Proof {
     return new Proof().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Proof | PlainMessage<Proof> | undefined, b: Proof | PlainMessage<Proof> | undefined): boolean {
+  static equals(
+    a: Proof | PlainMessage<Proof> | undefined,
+    b: Proof | PlainMessage<Proof> | undefined,
+  ): boolean {
     return proto3.util.equals(Proof, a, b);
   }
 }
@@ -85,25 +110,37 @@ export class ValueOp extends Message<ValueOp> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.crypto.ValueOp";
+  static readonly typeName = 'tendermint.crypto.ValueOp';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "key", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "proof", kind: "message", T: Proof },
+    { no: 1, name: 'key', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: 'proof', kind: 'message', T: Proof },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValueOp {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValueOp {
     return new ValueOp().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValueOp {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValueOp {
     return new ValueOp().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValueOp {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValueOp {
     return new ValueOp().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ValueOp | PlainMessage<ValueOp> | undefined, b: ValueOp | PlainMessage<ValueOp> | undefined): boolean {
+  static equals(
+    a: ValueOp | PlainMessage<ValueOp> | undefined,
+    b: ValueOp | PlainMessage<ValueOp> | undefined,
+  ): boolean {
     return proto3.util.equals(ValueOp, a, b);
   }
 }
@@ -115,17 +152,17 @@ export class DominoOp extends Message<DominoOp> {
   /**
    * @generated from field: string key = 1;
    */
-  key = "";
+  key = '';
 
   /**
    * @generated from field: string input = 2;
    */
-  input = "";
+  input = '';
 
   /**
    * @generated from field: string output = 3;
    */
-  output = "";
+  output = '';
 
   constructor(data?: PartialMessage<DominoOp>) {
     super();
@@ -133,26 +170,38 @@ export class DominoOp extends Message<DominoOp> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.crypto.DominoOp";
+  static readonly typeName = 'tendermint.crypto.DominoOp';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "input", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "output", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'key', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'input', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'output', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DominoOp {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): DominoOp {
     return new DominoOp().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DominoOp {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): DominoOp {
     return new DominoOp().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DominoOp {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): DominoOp {
     return new DominoOp().fromJsonString(jsonString, options);
   }
 
-  static equals(a: DominoOp | PlainMessage<DominoOp> | undefined, b: DominoOp | PlainMessage<DominoOp> | undefined): boolean {
+  static equals(
+    a: DominoOp | PlainMessage<DominoOp> | undefined,
+    b: DominoOp | PlainMessage<DominoOp> | undefined,
+  ): boolean {
     return proto3.util.equals(DominoOp, a, b);
   }
 }
@@ -168,7 +217,7 @@ export class ProofOp extends Message<ProofOp> {
   /**
    * @generated from field: string type = 1;
    */
-  type = "";
+  type = '';
 
   /**
    * @generated from field: bytes key = 2;
@@ -186,26 +235,38 @@ export class ProofOp extends Message<ProofOp> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.crypto.ProofOp";
+  static readonly typeName = 'tendermint.crypto.ProofOp';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "key", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: 'type', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'key', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: 'data', kind: 'scalar', T: 12 /* ScalarType.BYTES */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProofOp {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ProofOp {
     return new ProofOp().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProofOp {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ProofOp {
     return new ProofOp().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProofOp {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ProofOp {
     return new ProofOp().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ProofOp | PlainMessage<ProofOp> | undefined, b: ProofOp | PlainMessage<ProofOp> | undefined): boolean {
+  static equals(
+    a: ProofOp | PlainMessage<ProofOp> | undefined,
+    b: ProofOp | PlainMessage<ProofOp> | undefined,
+  ): boolean {
     return proto3.util.equals(ProofOp, a, b);
   }
 }
@@ -227,25 +288,36 @@ export class ProofOps extends Message<ProofOps> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.crypto.ProofOps";
+  static readonly typeName = 'tendermint.crypto.ProofOps';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "ops", kind: "message", T: ProofOp, repeated: true },
+    { no: 1, name: 'ops', kind: 'message', T: ProofOp, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProofOps {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ProofOps {
     return new ProofOps().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProofOps {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ProofOps {
     return new ProofOps().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProofOps {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ProofOps {
     return new ProofOps().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ProofOps | PlainMessage<ProofOps> | undefined, b: ProofOps | PlainMessage<ProofOps> | undefined): boolean {
+  static equals(
+    a: ProofOps | PlainMessage<ProofOps> | undefined,
+    b: ProofOps | PlainMessage<ProofOps> | undefined,
+  ): boolean {
     return proto3.util.equals(ProofOps, a, b);
   }
 }
-

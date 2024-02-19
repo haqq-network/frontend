@@ -3,8 +3,27 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { BroadcastTxRequest, BroadcastTxResponse, GetBlockWithTxsRequest, GetBlockWithTxsResponse, GetTxRequest, GetTxResponse, GetTxsEventRequest, GetTxsEventResponse, SimulateRequest, SimulateResponse, TxDecodeAminoRequest, TxDecodeAminoResponse, TxDecodeRequest, TxDecodeResponse, TxEncodeAminoRequest, TxEncodeAminoResponse, TxEncodeRequest, TxEncodeResponse } from "./service_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  BroadcastTxRequest,
+  BroadcastTxResponse,
+  GetBlockWithTxsRequest,
+  GetBlockWithTxsResponse,
+  GetTxRequest,
+  GetTxResponse,
+  GetTxsEventRequest,
+  GetTxsEventResponse,
+  SimulateRequest,
+  SimulateResponse,
+  TxDecodeAminoRequest,
+  TxDecodeAminoResponse,
+  TxDecodeRequest,
+  TxDecodeResponse,
+  TxEncodeAminoRequest,
+  TxEncodeAminoResponse,
+  TxEncodeRequest,
+  TxEncodeResponse,
+} from './service_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Service defines a gRPC service for interacting with transactions.
@@ -12,7 +31,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.tx.v1beta1.Service
  */
 export const Service = {
-  typeName: "cosmos.tx.v1beta1.Service",
+  typeName: 'cosmos.tx.v1beta1.Service',
   methods: {
     /**
      * Simulate simulates executing a transaction for estimating gas usage.
@@ -20,7 +39,7 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.Simulate
      */
     simulate: {
-      name: "Simulate",
+      name: 'Simulate',
       I: SimulateRequest,
       O: SimulateResponse,
       kind: MethodKind.Unary,
@@ -31,7 +50,7 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.GetTx
      */
     getTx: {
-      name: "GetTx",
+      name: 'GetTx',
       I: GetTxRequest,
       O: GetTxResponse,
       kind: MethodKind.Unary,
@@ -42,7 +61,7 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.BroadcastTx
      */
     broadcastTx: {
-      name: "BroadcastTx",
+      name: 'BroadcastTx',
       I: BroadcastTxRequest,
       O: BroadcastTxResponse,
       kind: MethodKind.Unary,
@@ -53,7 +72,7 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.GetTxsEvent
      */
     getTxsEvent: {
-      name: "GetTxsEvent",
+      name: 'GetTxsEvent',
       I: GetTxsEventRequest,
       O: GetTxsEventResponse,
       kind: MethodKind.Unary,
@@ -66,7 +85,7 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.GetBlockWithTxs
      */
     getBlockWithTxs: {
-      name: "GetBlockWithTxs",
+      name: 'GetBlockWithTxs',
       I: GetBlockWithTxsRequest,
       O: GetBlockWithTxsResponse,
       kind: MethodKind.Unary,
@@ -79,7 +98,7 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.TxDecode
      */
     txDecode: {
-      name: "TxDecode",
+      name: 'TxDecode',
       I: TxDecodeRequest,
       O: TxDecodeResponse,
       kind: MethodKind.Unary,
@@ -92,7 +111,7 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.TxEncode
      */
     txEncode: {
-      name: "TxEncode",
+      name: 'TxEncode',
       I: TxEncodeRequest,
       O: TxEncodeResponse,
       kind: MethodKind.Unary,
@@ -105,7 +124,7 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.TxEncodeAmino
      */
     txEncodeAmino: {
-      name: "TxEncodeAmino",
+      name: 'TxEncodeAmino',
       I: TxEncodeAminoRequest,
       O: TxEncodeAminoResponse,
       kind: MethodKind.Unary,
@@ -118,11 +137,10 @@ export const Service = {
      * @generated from rpc cosmos.tx.v1beta1.Service.TxDecodeAmino
      */
     txDecodeAmino: {
-      name: "TxDecodeAmino",
+      name: 'TxDecodeAmino',
       I: TxDecodeAminoRequest,
       O: TxDecodeAminoResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

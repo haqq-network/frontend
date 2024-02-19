@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
 
 /**
  * EventCreateClawbackVestingAccount defines the event type
@@ -18,35 +25,35 @@ export class EventCreateClawbackVestingAccount extends Message<EventCreateClawba
    *
    * @generated from field: string sender = 1;
    */
-  sender = "";
+  sender = '';
 
   /**
    * coins to be vested
    *
    * @generated from field: string coins = 2;
    */
-  coins = "";
+  coins = '';
 
   /**
    * start_time is the time when the coins start to vest
    *
    * @generated from field: string start_time = 3;
    */
-  startTime = "";
+  startTime = '';
 
   /**
    * merge
    *
    * @generated from field: string merge = 4;
    */
-  merge = "";
+  merge = '';
 
   /**
    * account address of recipient
    *
    * @generated from field: string account = 5;
    */
-  account = "";
+  account = '';
 
   constructor(data?: PartialMessage<EventCreateClawbackVestingAccount>) {
     super();
@@ -54,28 +61,50 @@ export class EventCreateClawbackVestingAccount extends Message<EventCreateClawba
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.EventCreateClawbackVestingAccount";
+  static readonly typeName =
+    'haqq.vesting.v1.EventCreateClawbackVestingAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "sender", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "coins", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "start_time", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "merge", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "account", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'sender', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'coins', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'start_time', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: 'merge', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: 'account', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventCreateClawbackVestingAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventCreateClawbackVestingAccount {
     return new EventCreateClawbackVestingAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventCreateClawbackVestingAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventCreateClawbackVestingAccount {
     return new EventCreateClawbackVestingAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventCreateClawbackVestingAccount {
-    return new EventCreateClawbackVestingAccount().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventCreateClawbackVestingAccount {
+    return new EventCreateClawbackVestingAccount().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: EventCreateClawbackVestingAccount | PlainMessage<EventCreateClawbackVestingAccount> | undefined, b: EventCreateClawbackVestingAccount | PlainMessage<EventCreateClawbackVestingAccount> | undefined): boolean {
+  static equals(
+    a:
+      | EventCreateClawbackVestingAccount
+      | PlainMessage<EventCreateClawbackVestingAccount>
+      | undefined,
+    b:
+      | EventCreateClawbackVestingAccount
+      | PlainMessage<EventCreateClawbackVestingAccount>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(EventCreateClawbackVestingAccount, a, b);
   }
 }
@@ -91,21 +120,21 @@ export class EventClawback extends Message<EventClawback> {
    *
    * @generated from field: string funder = 1;
    */
-  funder = "";
+  funder = '';
 
   /**
    * account is the address of the account
    *
    * @generated from field: string account = 2;
    */
-  account = "";
+  account = '';
 
   /**
    * destination is the address of the destination
    *
    * @generated from field: string destination = 3;
    */
-  destination = "";
+  destination = '';
 
   constructor(data?: PartialMessage<EventClawback>) {
     super();
@@ -113,26 +142,43 @@ export class EventClawback extends Message<EventClawback> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.EventClawback";
+  static readonly typeName = 'haqq.vesting.v1.EventClawback';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "funder", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "account", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "destination", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'funder', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'account', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 3,
+      name: 'destination',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventClawback {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventClawback {
     return new EventClawback().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventClawback {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventClawback {
     return new EventClawback().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventClawback {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventClawback {
     return new EventClawback().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventClawback | PlainMessage<EventClawback> | undefined, b: EventClawback | PlainMessage<EventClawback> | undefined): boolean {
+  static equals(
+    a: EventClawback | PlainMessage<EventClawback> | undefined,
+    b: EventClawback | PlainMessage<EventClawback> | undefined,
+  ): boolean {
     return proto3.util.equals(EventClawback, a, b);
   }
 }
@@ -149,21 +195,21 @@ export class EventUpdateVestingFunder extends Message<EventUpdateVestingFunder> 
    *
    * @generated from field: string funder = 1;
    */
-  funder = "";
+  funder = '';
 
   /**
    * account is the address of the account
    *
    * @generated from field: string account = 2;
    */
-  account = "";
+  account = '';
 
   /**
    * new_funder is the address of the new funder
    *
    * @generated from field: string new_funder = 3;
    */
-  newFunder = "";
+  newFunder = '';
 
   constructor(data?: PartialMessage<EventUpdateVestingFunder>) {
     super();
@@ -171,27 +217,44 @@ export class EventUpdateVestingFunder extends Message<EventUpdateVestingFunder> 
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.EventUpdateVestingFunder";
+  static readonly typeName = 'haqq.vesting.v1.EventUpdateVestingFunder';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "funder", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "account", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "new_funder", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'funder', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'account', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'new_funder', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EventUpdateVestingFunder {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EventUpdateVestingFunder {
     return new EventUpdateVestingFunder().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EventUpdateVestingFunder {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EventUpdateVestingFunder {
     return new EventUpdateVestingFunder().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EventUpdateVestingFunder {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EventUpdateVestingFunder {
     return new EventUpdateVestingFunder().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EventUpdateVestingFunder | PlainMessage<EventUpdateVestingFunder> | undefined, b: EventUpdateVestingFunder | PlainMessage<EventUpdateVestingFunder> | undefined): boolean {
+  static equals(
+    a:
+      | EventUpdateVestingFunder
+      | PlainMessage<EventUpdateVestingFunder>
+      | undefined,
+    b:
+      | EventUpdateVestingFunder
+      | PlainMessage<EventUpdateVestingFunder>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(EventUpdateVestingFunder, a, b);
   }
 }
-

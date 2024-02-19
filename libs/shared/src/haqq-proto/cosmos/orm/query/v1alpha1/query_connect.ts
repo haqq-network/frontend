@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetRequest, GetResponse, ListRequest, ListResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { GetRequest, GetResponse, ListRequest, ListResponse } from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query is a generic gRPC service for querying ORM data.
@@ -12,7 +12,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.orm.query.v1alpha1.Query
  */
 export const Query = {
-  typeName: "cosmos.orm.query.v1alpha1.Query",
+  typeName: 'cosmos.orm.query.v1alpha1.Query',
   methods: {
     /**
      * Get queries an ORM table against an unique index.
@@ -20,7 +20,7 @@ export const Query = {
      * @generated from rpc cosmos.orm.query.v1alpha1.Query.Get
      */
     get: {
-      name: "Get",
+      name: 'Get',
       I: GetRequest,
       O: GetResponse,
       kind: MethodKind.Unary,
@@ -31,11 +31,10 @@ export const Query = {
      * @generated from rpc cosmos.orm.query.v1alpha1.Query.List
      */
     list: {
-      name: "List",
+      name: 'List',
       I: ListRequest,
       O: ListResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

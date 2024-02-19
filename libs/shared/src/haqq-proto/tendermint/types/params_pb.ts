@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Duration, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Duration, Message, proto3, protoInt64 } from '@bufbuild/protobuf';
 
 /**
  * ConsensusParams contains consensus critical parameters that determine the
@@ -39,27 +46,39 @@ export class ConsensusParams extends Message<ConsensusParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.types.ConsensusParams";
+  static readonly typeName = 'tendermint.types.ConsensusParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "block", kind: "message", T: BlockParams },
-    { no: 2, name: "evidence", kind: "message", T: EvidenceParams },
-    { no: 3, name: "validator", kind: "message", T: ValidatorParams },
-    { no: 4, name: "version", kind: "message", T: VersionParams },
+    { no: 1, name: 'block', kind: 'message', T: BlockParams },
+    { no: 2, name: 'evidence', kind: 'message', T: EvidenceParams },
+    { no: 3, name: 'validator', kind: 'message', T: ValidatorParams },
+    { no: 4, name: 'version', kind: 'message', T: VersionParams },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConsensusParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ConsensusParams {
     return new ConsensusParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConsensusParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ConsensusParams {
     return new ConsensusParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConsensusParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ConsensusParams {
     return new ConsensusParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ConsensusParams | PlainMessage<ConsensusParams> | undefined, b: ConsensusParams | PlainMessage<ConsensusParams> | undefined): boolean {
+  static equals(
+    a: ConsensusParams | PlainMessage<ConsensusParams> | undefined,
+    b: ConsensusParams | PlainMessage<ConsensusParams> | undefined,
+  ): boolean {
     return proto3.util.equals(ConsensusParams, a, b);
   }
 }
@@ -92,25 +111,37 @@ export class BlockParams extends Message<BlockParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.types.BlockParams";
+  static readonly typeName = 'tendermint.types.BlockParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "max_bytes", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "max_gas", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 1, name: 'max_bytes', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: 'max_gas', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BlockParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): BlockParams {
     return new BlockParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BlockParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): BlockParams {
     return new BlockParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BlockParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): BlockParams {
     return new BlockParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: BlockParams | PlainMessage<BlockParams> | undefined, b: BlockParams | PlainMessage<BlockParams> | undefined): boolean {
+  static equals(
+    a: BlockParams | PlainMessage<BlockParams> | undefined,
+    b: BlockParams | PlainMessage<BlockParams> | undefined,
+  ): boolean {
     return proto3.util.equals(BlockParams, a, b);
   }
 }
@@ -157,26 +188,43 @@ export class EvidenceParams extends Message<EvidenceParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.types.EvidenceParams";
+  static readonly typeName = 'tendermint.types.EvidenceParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "max_age_num_blocks", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "max_age_duration", kind: "message", T: Duration },
-    { no: 3, name: "max_bytes", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    {
+      no: 1,
+      name: 'max_age_num_blocks',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    { no: 2, name: 'max_age_duration', kind: 'message', T: Duration },
+    { no: 3, name: 'max_bytes', kind: 'scalar', T: 3 /* ScalarType.INT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EvidenceParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): EvidenceParams {
     return new EvidenceParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EvidenceParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): EvidenceParams {
     return new EvidenceParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EvidenceParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): EvidenceParams {
     return new EvidenceParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: EvidenceParams | PlainMessage<EvidenceParams> | undefined, b: EvidenceParams | PlainMessage<EvidenceParams> | undefined): boolean {
+  static equals(
+    a: EvidenceParams | PlainMessage<EvidenceParams> | undefined,
+    b: EvidenceParams | PlainMessage<EvidenceParams> | undefined,
+  ): boolean {
     return proto3.util.equals(EvidenceParams, a, b);
   }
 }
@@ -199,24 +247,42 @@ export class ValidatorParams extends Message<ValidatorParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.types.ValidatorParams";
+  static readonly typeName = 'tendermint.types.ValidatorParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "pub_key_types", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    {
+      no: 1,
+      name: 'pub_key_types',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorParams {
     return new ValidatorParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorParams {
     return new ValidatorParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorParams {
     return new ValidatorParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ValidatorParams | PlainMessage<ValidatorParams> | undefined, b: ValidatorParams | PlainMessage<ValidatorParams> | undefined): boolean {
+  static equals(
+    a: ValidatorParams | PlainMessage<ValidatorParams> | undefined,
+    b: ValidatorParams | PlainMessage<ValidatorParams> | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorParams, a, b);
   }
 }
@@ -238,24 +304,36 @@ export class VersionParams extends Message<VersionParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.types.VersionParams";
+  static readonly typeName = 'tendermint.types.VersionParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "app", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'app', kind: 'scalar', T: 4 /* ScalarType.UINT64 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VersionParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): VersionParams {
     return new VersionParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VersionParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): VersionParams {
     return new VersionParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VersionParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): VersionParams {
     return new VersionParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: VersionParams | PlainMessage<VersionParams> | undefined, b: VersionParams | PlainMessage<VersionParams> | undefined): boolean {
+  static equals(
+    a: VersionParams | PlainMessage<VersionParams> | undefined,
+    b: VersionParams | PlainMessage<VersionParams> | undefined,
+  ): boolean {
     return proto3.util.equals(VersionParams, a, b);
   }
 }
@@ -284,26 +362,47 @@ export class HashedParams extends Message<HashedParams> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "tendermint.types.HashedParams";
+  static readonly typeName = 'tendermint.types.HashedParams';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "block_max_bytes", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "block_max_gas", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    {
+      no: 1,
+      name: 'block_max_bytes',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    {
+      no: 2,
+      name: 'block_max_gas',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HashedParams {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): HashedParams {
     return new HashedParams().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HashedParams {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): HashedParams {
     return new HashedParams().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HashedParams {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): HashedParams {
     return new HashedParams().fromJsonString(jsonString, options);
   }
 
-  static equals(a: HashedParams | PlainMessage<HashedParams> | undefined, b: HashedParams | PlainMessage<HashedParams> | undefined): boolean {
+  static equals(
+    a: HashedParams | PlainMessage<HashedParams> | undefined,
+    b: HashedParams | PlainMessage<HashedParams> | undefined,
+  ): boolean {
     return proto3.util.equals(HashedParams, a, b);
   }
 }
-

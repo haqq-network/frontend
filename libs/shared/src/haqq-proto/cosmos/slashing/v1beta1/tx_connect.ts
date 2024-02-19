@@ -3,8 +3,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgUnjail, MsgUnjailResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgUnjail,
+  MsgUnjailResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the slashing Msg service.
@@ -12,7 +17,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.slashing.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.slashing.v1beta1.Msg",
+  typeName: 'cosmos.slashing.v1beta1.Msg',
   methods: {
     /**
      * Unjail defines a method for unjailing a jailed validator, thus returning
@@ -22,7 +27,7 @@ export const Msg = {
      * @generated from rpc cosmos.slashing.v1beta1.Msg.Unjail
      */
     unjail: {
-      name: "Unjail",
+      name: 'Unjail',
       I: MsgUnjail,
       O: MsgUnjailResponse,
       kind: MethodKind.Unary,
@@ -36,11 +41,10 @@ export const Msg = {
      * @generated from rpc cosmos.slashing.v1beta1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

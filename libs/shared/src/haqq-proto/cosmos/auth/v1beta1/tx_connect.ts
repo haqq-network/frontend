@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgUpdateParams, MsgUpdateParamsResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { MsgUpdateParams, MsgUpdateParamsResponse } from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the x/auth Msg service.
@@ -12,7 +12,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.auth.v1beta1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.auth.v1beta1.Msg",
+  typeName: 'cosmos.auth.v1beta1.Msg',
   methods: {
     /**
      * UpdateParams defines a (governance) operation for updating the x/auth module
@@ -23,11 +23,10 @@ export const Msg = {
      * @generated from rpc cosmos.auth.v1beta1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

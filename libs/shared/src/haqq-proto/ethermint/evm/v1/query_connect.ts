@@ -3,9 +3,32 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { EstimateGasResponse, EthCallRequest, QueryAccountRequest, QueryAccountResponse, QueryBalanceRequest, QueryBalanceResponse, QueryBaseFeeRequest, QueryBaseFeeResponse, QueryCodeRequest, QueryCodeResponse, QueryCosmosAccountRequest, QueryCosmosAccountResponse, QueryParamsRequest, QueryParamsResponse, QueryStorageRequest, QueryStorageResponse, QueryTraceBlockRequest, QueryTraceBlockResponse, QueryTraceTxRequest, QueryTraceTxResponse, QueryValidatorAccountRequest, QueryValidatorAccountResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
-import { MsgEthereumTxResponse } from "./tx_pb.js";
+import {
+  EstimateGasResponse,
+  EthCallRequest,
+  QueryAccountRequest,
+  QueryAccountResponse,
+  QueryBalanceRequest,
+  QueryBalanceResponse,
+  QueryBaseFeeRequest,
+  QueryBaseFeeResponse,
+  QueryCodeRequest,
+  QueryCodeResponse,
+  QueryCosmosAccountRequest,
+  QueryCosmosAccountResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryStorageRequest,
+  QueryStorageResponse,
+  QueryTraceBlockRequest,
+  QueryTraceBlockResponse,
+  QueryTraceTxRequest,
+  QueryTraceTxResponse,
+  QueryValidatorAccountRequest,
+  QueryValidatorAccountResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
+import { MsgEthereumTxResponse } from './tx_pb';
 
 /**
  * Query defines the gRPC querier service.
@@ -13,7 +36,7 @@ import { MsgEthereumTxResponse } from "./tx_pb.js";
  * @generated from service ethermint.evm.v1.Query
  */
 export const Query = {
-  typeName: "ethermint.evm.v1.Query",
+  typeName: 'ethermint.evm.v1.Query',
   methods: {
     /**
      * Account queries an Ethereum account.
@@ -21,7 +44,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.Account
      */
     account: {
-      name: "Account",
+      name: 'Account',
       I: QueryAccountRequest,
       O: QueryAccountResponse,
       kind: MethodKind.Unary,
@@ -32,7 +55,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.CosmosAccount
      */
     cosmosAccount: {
-      name: "CosmosAccount",
+      name: 'CosmosAccount',
       I: QueryCosmosAccountRequest,
       O: QueryCosmosAccountResponse,
       kind: MethodKind.Unary,
@@ -44,7 +67,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.ValidatorAccount
      */
     validatorAccount: {
-      name: "ValidatorAccount",
+      name: 'ValidatorAccount',
       I: QueryValidatorAccountRequest,
       O: QueryValidatorAccountResponse,
       kind: MethodKind.Unary,
@@ -56,7 +79,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.Balance
      */
     balance: {
-      name: "Balance",
+      name: 'Balance',
       I: QueryBalanceRequest,
       O: QueryBalanceResponse,
       kind: MethodKind.Unary,
@@ -67,7 +90,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.Storage
      */
     storage: {
-      name: "Storage",
+      name: 'Storage',
       I: QueryStorageRequest,
       O: QueryStorageResponse,
       kind: MethodKind.Unary,
@@ -78,7 +101,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.Code
      */
     code: {
-      name: "Code",
+      name: 'Code',
       I: QueryCodeRequest,
       O: QueryCodeResponse,
       kind: MethodKind.Unary,
@@ -89,7 +112,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -100,7 +123,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.EthCall
      */
     ethCall: {
-      name: "EthCall",
+      name: 'EthCall',
       I: EthCallRequest,
       O: MsgEthereumTxResponse,
       kind: MethodKind.Unary,
@@ -111,7 +134,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.EstimateGas
      */
     estimateGas: {
-      name: "EstimateGas",
+      name: 'EstimateGas',
       I: EthCallRequest,
       O: EstimateGasResponse,
       kind: MethodKind.Unary,
@@ -122,7 +145,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.TraceTx
      */
     traceTx: {
-      name: "TraceTx",
+      name: 'TraceTx',
       I: QueryTraceTxRequest,
       O: QueryTraceTxResponse,
       kind: MethodKind.Unary,
@@ -134,7 +157,7 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.TraceBlock
      */
     traceBlock: {
-      name: "TraceBlock",
+      name: 'TraceBlock',
       I: QueryTraceBlockRequest,
       O: QueryTraceBlockResponse,
       kind: MethodKind.Unary,
@@ -147,11 +170,10 @@ export const Query = {
      * @generated from rpc ethermint.evm.v1.Query.BaseFee
      */
     baseFee: {
-      name: "BaseFee",
+      name: 'BaseFee',
       I: QueryBaseFeeRequest,
       O: QueryBaseFeeResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { Coin } from "../../../cosmos/base/v1beta1/coin_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { Coin } from '../../../cosmos/base/v1beta1/coin_pb';
 
 /**
  * MsgLiquidate represents message to liquidate arbitrary amount of tokens locked in vesting
@@ -18,14 +25,14 @@ export class MsgLiquidate extends Message<MsgLiquidate> {
    *
    * @generated from field: string liquidate_from = 1;
    */
-  liquidateFrom = "";
+  liquidateFrom = '';
 
   /**
    * account to send resulted liquid token
    *
    * @generated from field: string liquidate_to = 2;
    */
-  liquidateTo = "";
+  liquidateTo = '';
 
   /**
    * amount of tokens subject for liquidation
@@ -40,26 +47,48 @@ export class MsgLiquidate extends Message<MsgLiquidate> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.liquidvesting.v1.MsgLiquidate";
+  static readonly typeName = 'haqq.liquidvesting.v1.MsgLiquidate';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "liquidate_from", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "liquidate_to", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "amount", kind: "message", T: Coin },
+    {
+      no: 1,
+      name: 'liquidate_from',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'liquidate_to',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'amount', kind: 'message', T: Coin },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgLiquidate {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgLiquidate {
     return new MsgLiquidate().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgLiquidate {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgLiquidate {
     return new MsgLiquidate().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgLiquidate {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgLiquidate {
     return new MsgLiquidate().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgLiquidate | PlainMessage<MsgLiquidate> | undefined, b: MsgLiquidate | PlainMessage<MsgLiquidate> | undefined): boolean {
+  static equals(
+    a: MsgLiquidate | PlainMessage<MsgLiquidate> | undefined,
+    b: MsgLiquidate | PlainMessage<MsgLiquidate> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgLiquidate, a, b);
   }
 }
@@ -76,23 +105,34 @@ export class MsgLiquidateResponse extends Message<MsgLiquidateResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.liquidvesting.v1.MsgLiquidateResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'haqq.liquidvesting.v1.MsgLiquidateResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgLiquidateResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgLiquidateResponse {
     return new MsgLiquidateResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgLiquidateResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgLiquidateResponse {
     return new MsgLiquidateResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgLiquidateResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgLiquidateResponse {
     return new MsgLiquidateResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgLiquidateResponse | PlainMessage<MsgLiquidateResponse> | undefined, b: MsgLiquidateResponse | PlainMessage<MsgLiquidateResponse> | undefined): boolean {
+  static equals(
+    a: MsgLiquidateResponse | PlainMessage<MsgLiquidateResponse> | undefined,
+    b: MsgLiquidateResponse | PlainMessage<MsgLiquidateResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgLiquidateResponse, a, b);
   }
 }
@@ -106,14 +146,14 @@ export class MsgRedeem extends Message<MsgRedeem> {
   /**
    * @generated from field: string redeem_from = 1;
    */
-  redeemFrom = "";
+  redeemFrom = '';
 
   /**
    * destination address for vesting tokens
    *
    * @generated from field: string redeem_to = 2;
    */
-  redeemTo = "";
+  redeemTo = '';
 
   /**
    * amount of vesting tokens to redeem from liquidation module
@@ -128,26 +168,43 @@ export class MsgRedeem extends Message<MsgRedeem> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.liquidvesting.v1.MsgRedeem";
+  static readonly typeName = 'haqq.liquidvesting.v1.MsgRedeem';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "redeem_from", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "redeem_to", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "amount", kind: "message", T: Coin },
+    {
+      no: 1,
+      name: 'redeem_from',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 2, name: 'redeem_to', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'amount', kind: 'message', T: Coin },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgRedeem {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgRedeem {
     return new MsgRedeem().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgRedeem {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRedeem {
     return new MsgRedeem().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgRedeem {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRedeem {
     return new MsgRedeem().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgRedeem | PlainMessage<MsgRedeem> | undefined, b: MsgRedeem | PlainMessage<MsgRedeem> | undefined): boolean {
+  static equals(
+    a: MsgRedeem | PlainMessage<MsgRedeem> | undefined,
+    b: MsgRedeem | PlainMessage<MsgRedeem> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgRedeem, a, b);
   }
 }
@@ -164,24 +221,34 @@ export class MsgRedeemResponse extends Message<MsgRedeemResponse> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.liquidvesting.v1.MsgRedeemResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
+  static readonly typeName = 'haqq.liquidvesting.v1.MsgRedeemResponse';
+  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MsgRedeemResponse {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): MsgRedeemResponse {
     return new MsgRedeemResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MsgRedeemResponse {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRedeemResponse {
     return new MsgRedeemResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MsgRedeemResponse {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): MsgRedeemResponse {
     return new MsgRedeemResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: MsgRedeemResponse | PlainMessage<MsgRedeemResponse> | undefined, b: MsgRedeemResponse | PlainMessage<MsgRedeemResponse> | undefined): boolean {
+  static equals(
+    a: MsgRedeemResponse | PlainMessage<MsgRedeemResponse> | undefined,
+    b: MsgRedeemResponse | PlainMessage<MsgRedeemResponse> | undefined,
+  ): boolean {
     return proto3.util.equals(MsgRedeemResponse, a, b);
   }
 }
-

@@ -3,9 +3,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { BaseVestingAccount, Period } from "../../../cosmos/vesting/v1beta1/vesting_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, Timestamp } from '@bufbuild/protobuf';
+import {
+  BaseVestingAccount,
+  Period,
+} from '../../../cosmos/vesting/v1beta1/vesting_pb';
 
 /**
  * ClawbackVestingAccount implements the VestingAccount interface. It provides
@@ -29,7 +39,7 @@ export class ClawbackVestingAccount extends Message<ClawbackVestingAccount> {
    *
    * @generated from field: string funder_address = 2;
    */
-  funderAddress = "";
+  funderAddress = '';
 
   /**
    * start_time defines the time at which the vesting period begins
@@ -57,7 +67,7 @@ export class ClawbackVestingAccount extends Message<ClawbackVestingAccount> {
    *
    * @generated from field: string code_hash = 6;
    */
-  codeHash = "";
+  codeHash = '';
 
   constructor(data?: PartialMessage<ClawbackVestingAccount>) {
     super();
@@ -65,30 +75,69 @@ export class ClawbackVestingAccount extends Message<ClawbackVestingAccount> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "haqq.vesting.v1.ClawbackVestingAccount";
+  static readonly typeName = 'haqq.vesting.v1.ClawbackVestingAccount';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "base_vesting_account", kind: "message", T: BaseVestingAccount },
-    { no: 2, name: "funder_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "start_time", kind: "message", T: Timestamp },
-    { no: 4, name: "lockup_periods", kind: "message", T: Period, repeated: true },
-    { no: 5, name: "vesting_periods", kind: "message", T: Period, repeated: true },
-    { no: 6, name: "code_hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    {
+      no: 1,
+      name: 'base_vesting_account',
+      kind: 'message',
+      T: BaseVestingAccount,
+    },
+    {
+      no: 2,
+      name: 'funder_address',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'start_time', kind: 'message', T: Timestamp },
+    {
+      no: 4,
+      name: 'lockup_periods',
+      kind: 'message',
+      T: Period,
+      repeated: true,
+    },
+    {
+      no: 5,
+      name: 'vesting_periods',
+      kind: 'message',
+      T: Period,
+      repeated: true,
+    },
+    { no: 6, name: 'code_hash', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClawbackVestingAccount {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ClawbackVestingAccount {
     return new ClawbackVestingAccount().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClawbackVestingAccount {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ClawbackVestingAccount {
     return new ClawbackVestingAccount().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClawbackVestingAccount {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ClawbackVestingAccount {
     return new ClawbackVestingAccount().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ClawbackVestingAccount | PlainMessage<ClawbackVestingAccount> | undefined, b: ClawbackVestingAccount | PlainMessage<ClawbackVestingAccount> | undefined): boolean {
+  static equals(
+    a:
+      | ClawbackVestingAccount
+      | PlainMessage<ClawbackVestingAccount>
+      | undefined,
+    b:
+      | ClawbackVestingAccount
+      | PlainMessage<ClawbackVestingAccount>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(ClawbackVestingAccount, a, b);
   }
 }
-

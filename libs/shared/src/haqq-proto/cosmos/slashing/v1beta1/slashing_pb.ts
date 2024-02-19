@@ -3,8 +3,21 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Duration, Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import {
+  Duration,
+  Message,
+  proto3,
+  protoInt64,
+  Timestamp,
+} from '@bufbuild/protobuf';
 
 /**
  * ValidatorSigningInfo defines a validator's signing info for monitoring their
@@ -16,7 +29,7 @@ export class ValidatorSigningInfo extends Message<ValidatorSigningInfo> {
   /**
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * Height at which validator was first a candidate OR was unjailed
@@ -63,29 +76,56 @@ export class ValidatorSigningInfo extends Message<ValidatorSigningInfo> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.slashing.v1beta1.ValidatorSigningInfo";
+  static readonly typeName = 'cosmos.slashing.v1beta1.ValidatorSigningInfo';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "start_height", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 3, name: "index_offset", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 4, name: "jailed_until", kind: "message", T: Timestamp },
-    { no: 5, name: "tombstoned", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 6, name: "missed_blocks_counter", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'start_height',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    {
+      no: 3,
+      name: 'index_offset',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    { no: 4, name: 'jailed_until', kind: 'message', T: Timestamp },
+    { no: 5, name: 'tombstoned', kind: 'scalar', T: 8 /* ScalarType.BOOL */ },
+    {
+      no: 6,
+      name: 'missed_blocks_counter',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ValidatorSigningInfo {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ValidatorSigningInfo {
     return new ValidatorSigningInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ValidatorSigningInfo {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorSigningInfo {
     return new ValidatorSigningInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ValidatorSigningInfo {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ValidatorSigningInfo {
     return new ValidatorSigningInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ValidatorSigningInfo | PlainMessage<ValidatorSigningInfo> | undefined, b: ValidatorSigningInfo | PlainMessage<ValidatorSigningInfo> | undefined): boolean {
+  static equals(
+    a: ValidatorSigningInfo | PlainMessage<ValidatorSigningInfo> | undefined,
+    b: ValidatorSigningInfo | PlainMessage<ValidatorSigningInfo> | undefined,
+  ): boolean {
     return proto3.util.equals(ValidatorSigningInfo, a, b);
   }
 }
@@ -127,29 +167,60 @@ export class Params extends Message<Params> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "cosmos.slashing.v1beta1.Params";
+  static readonly typeName = 'cosmos.slashing.v1beta1.Params';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "signed_blocks_window", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "min_signed_per_window", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "downtime_jail_duration", kind: "message", T: Duration },
-    { no: 4, name: "slash_fraction_double_sign", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 5, name: "slash_fraction_downtime", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    {
+      no: 1,
+      name: 'signed_blocks_window',
+      kind: 'scalar',
+      T: 3 /* ScalarType.INT64 */,
+    },
+    {
+      no: 2,
+      name: 'min_signed_per_window',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    { no: 3, name: 'downtime_jail_duration', kind: 'message', T: Duration },
+    {
+      no: 4,
+      name: 'slash_fraction_double_sign',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
+    {
+      no: 5,
+      name: 'slash_fraction_downtime',
+      kind: 'scalar',
+      T: 12 /* ScalarType.BYTES */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Params {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Params {
     return new Params().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Params {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Params {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Params | PlainMessage<Params> | undefined, b: Params | PlainMessage<Params> | undefined): boolean {
+  static equals(
+    a: Params | PlainMessage<Params> | undefined,
+    b: Params | PlainMessage<Params> | undefined,
+  ): boolean {
     return proto3.util.equals(Params, a, b);
   }
 }
-

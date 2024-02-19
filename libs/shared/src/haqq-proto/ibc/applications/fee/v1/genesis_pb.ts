@@ -3,10 +3,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { IdentifiedPacketFees } from "./fee_pb.js";
-import { PacketId } from "../../../core/channel/v1/channel_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3 } from '@bufbuild/protobuf';
+import { IdentifiedPacketFees } from './fee_pb';
+import { PacketId } from '../../../core/channel/v1/channel_pb';
 
 /**
  * GenesisState defines the ICS29 fee middleware genesis state
@@ -55,28 +62,70 @@ export class GenesisState extends Message<GenesisState> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.GenesisState";
+  static readonly typeName = 'ibc.applications.fee.v1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "identified_fees", kind: "message", T: IdentifiedPacketFees, repeated: true },
-    { no: 2, name: "fee_enabled_channels", kind: "message", T: FeeEnabledChannel, repeated: true },
-    { no: 3, name: "registered_payees", kind: "message", T: RegisteredPayee, repeated: true },
-    { no: 4, name: "registered_counterparty_payees", kind: "message", T: RegisteredCounterpartyPayee, repeated: true },
-    { no: 5, name: "forward_relayers", kind: "message", T: ForwardRelayerAddress, repeated: true },
+    {
+      no: 1,
+      name: 'identified_fees',
+      kind: 'message',
+      T: IdentifiedPacketFees,
+      repeated: true,
+    },
+    {
+      no: 2,
+      name: 'fee_enabled_channels',
+      kind: 'message',
+      T: FeeEnabledChannel,
+      repeated: true,
+    },
+    {
+      no: 3,
+      name: 'registered_payees',
+      kind: 'message',
+      T: RegisteredPayee,
+      repeated: true,
+    },
+    {
+      no: 4,
+      name: 'registered_counterparty_payees',
+      kind: 'message',
+      T: RegisteredCounterpartyPayee,
+      repeated: true,
+    },
+    {
+      no: 5,
+      name: 'forward_relayers',
+      kind: 'message',
+      T: ForwardRelayerAddress,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenesisState {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenesisState {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): GenesisState {
     return new GenesisState().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GenesisState | PlainMessage<GenesisState> | undefined, b: GenesisState | PlainMessage<GenesisState> | undefined): boolean {
+  static equals(
+    a: GenesisState | PlainMessage<GenesisState> | undefined,
+    b: GenesisState | PlainMessage<GenesisState> | undefined,
+  ): boolean {
     return proto3.util.equals(GenesisState, a, b);
   }
 }
@@ -92,14 +141,14 @@ export class FeeEnabledChannel extends Message<FeeEnabledChannel> {
    *
    * @generated from field: string port_id = 1;
    */
-  portId = "";
+  portId = '';
 
   /**
    * unique channel identifier
    *
    * @generated from field: string channel_id = 2;
    */
-  channelId = "";
+  channelId = '';
 
   constructor(data?: PartialMessage<FeeEnabledChannel>) {
     super();
@@ -107,25 +156,37 @@ export class FeeEnabledChannel extends Message<FeeEnabledChannel> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.FeeEnabledChannel";
+  static readonly typeName = 'ibc.applications.fee.v1.FeeEnabledChannel';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "port_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "channel_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'port_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'channel_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FeeEnabledChannel {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): FeeEnabledChannel {
     return new FeeEnabledChannel().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FeeEnabledChannel {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): FeeEnabledChannel {
     return new FeeEnabledChannel().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FeeEnabledChannel {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): FeeEnabledChannel {
     return new FeeEnabledChannel().fromJsonString(jsonString, options);
   }
 
-  static equals(a: FeeEnabledChannel | PlainMessage<FeeEnabledChannel> | undefined, b: FeeEnabledChannel | PlainMessage<FeeEnabledChannel> | undefined): boolean {
+  static equals(
+    a: FeeEnabledChannel | PlainMessage<FeeEnabledChannel> | undefined,
+    b: FeeEnabledChannel | PlainMessage<FeeEnabledChannel> | undefined,
+  ): boolean {
     return proto3.util.equals(FeeEnabledChannel, a, b);
   }
 }
@@ -141,21 +202,21 @@ export class RegisteredPayee extends Message<RegisteredPayee> {
    *
    * @generated from field: string channel_id = 1;
    */
-  channelId = "";
+  channelId = '';
 
   /**
    * the relayer address
    *
    * @generated from field: string relayer = 2;
    */
-  relayer = "";
+  relayer = '';
 
   /**
    * the payee address
    *
    * @generated from field: string payee = 3;
    */
-  payee = "";
+  payee = '';
 
   constructor(data?: PartialMessage<RegisteredPayee>) {
     super();
@@ -163,26 +224,38 @@ export class RegisteredPayee extends Message<RegisteredPayee> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.RegisteredPayee";
+  static readonly typeName = 'ibc.applications.fee.v1.RegisteredPayee';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "channel_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "relayer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "payee", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'channel_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'relayer', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'payee', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisteredPayee {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): RegisteredPayee {
     return new RegisteredPayee().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisteredPayee {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): RegisteredPayee {
     return new RegisteredPayee().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisteredPayee {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): RegisteredPayee {
     return new RegisteredPayee().fromJsonString(jsonString, options);
   }
 
-  static equals(a: RegisteredPayee | PlainMessage<RegisteredPayee> | undefined, b: RegisteredPayee | PlainMessage<RegisteredPayee> | undefined): boolean {
+  static equals(
+    a: RegisteredPayee | PlainMessage<RegisteredPayee> | undefined,
+    b: RegisteredPayee | PlainMessage<RegisteredPayee> | undefined,
+  ): boolean {
     return proto3.util.equals(RegisteredPayee, a, b);
   }
 }
@@ -199,21 +272,21 @@ export class RegisteredCounterpartyPayee extends Message<RegisteredCounterpartyP
    *
    * @generated from field: string channel_id = 1;
    */
-  channelId = "";
+  channelId = '';
 
   /**
    * the relayer address
    *
    * @generated from field: string relayer = 2;
    */
-  relayer = "";
+  relayer = '';
 
   /**
    * the counterparty payee address
    *
    * @generated from field: string counterparty_payee = 3;
    */
-  counterpartyPayee = "";
+  counterpartyPayee = '';
 
   constructor(data?: PartialMessage<RegisteredCounterpartyPayee>) {
     super();
@@ -221,26 +294,53 @@ export class RegisteredCounterpartyPayee extends Message<RegisteredCounterpartyP
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.RegisteredCounterpartyPayee";
+  static readonly typeName =
+    'ibc.applications.fee.v1.RegisteredCounterpartyPayee';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "channel_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "relayer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "counterparty_payee", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: 'channel_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'relayer', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 3,
+      name: 'counterparty_payee',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisteredCounterpartyPayee {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): RegisteredCounterpartyPayee {
     return new RegisteredCounterpartyPayee().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisteredCounterpartyPayee {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): RegisteredCounterpartyPayee {
     return new RegisteredCounterpartyPayee().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisteredCounterpartyPayee {
-    return new RegisteredCounterpartyPayee().fromJsonString(jsonString, options);
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): RegisteredCounterpartyPayee {
+    return new RegisteredCounterpartyPayee().fromJsonString(
+      jsonString,
+      options,
+    );
   }
 
-  static equals(a: RegisteredCounterpartyPayee | PlainMessage<RegisteredCounterpartyPayee> | undefined, b: RegisteredCounterpartyPayee | PlainMessage<RegisteredCounterpartyPayee> | undefined): boolean {
+  static equals(
+    a:
+      | RegisteredCounterpartyPayee
+      | PlainMessage<RegisteredCounterpartyPayee>
+      | undefined,
+    b:
+      | RegisteredCounterpartyPayee
+      | PlainMessage<RegisteredCounterpartyPayee>
+      | undefined,
+  ): boolean {
     return proto3.util.equals(RegisteredCounterpartyPayee, a, b);
   }
 }
@@ -256,7 +356,7 @@ export class ForwardRelayerAddress extends Message<ForwardRelayerAddress> {
    *
    * @generated from field: string address = 1;
    */
-  address = "";
+  address = '';
 
   /**
    * unique packet identifer comprised of the channel ID, port ID and sequence
@@ -271,26 +371,37 @@ export class ForwardRelayerAddress extends Message<ForwardRelayerAddress> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.applications.fee.v1.ForwardRelayerAddress";
+  static readonly typeName = 'ibc.applications.fee.v1.ForwardRelayerAddress';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "packet_id", kind: "message", T: PacketId },
+    { no: 1, name: 'address', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'packet_id', kind: 'message', T: PacketId },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForwardRelayerAddress {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ForwardRelayerAddress {
     return new ForwardRelayerAddress().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ForwardRelayerAddress {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ForwardRelayerAddress {
     return new ForwardRelayerAddress().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ForwardRelayerAddress {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ForwardRelayerAddress {
     return new ForwardRelayerAddress().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ForwardRelayerAddress | PlainMessage<ForwardRelayerAddress> | undefined, b: ForwardRelayerAddress | PlainMessage<ForwardRelayerAddress> | undefined): boolean {
+  static equals(
+    a: ForwardRelayerAddress | PlainMessage<ForwardRelayerAddress> | undefined,
+    b: ForwardRelayerAddress | PlainMessage<ForwardRelayerAddress> | undefined,
+  ): boolean {
     return proto3.util.equals(ForwardRelayerAddress, a, b);
   }
 }
-

@@ -3,9 +3,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { MerklePrefix } from "../../commitment/v1/commitment_pb.js";
+import type {
+  BinaryReadOptions,
+  FieldList,
+  JsonReadOptions,
+  JsonValue,
+  PartialMessage,
+  PlainMessage,
+} from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { MerklePrefix } from '../../commitment/v1/commitment_pb';
 
 /**
  * State defines if a connection is in one of the following states:
@@ -44,11 +51,11 @@ export enum State {
   OPEN = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(State)
-proto3.util.setEnumType(State, "ibc.core.connection.v1.State", [
-  { no: 0, name: "STATE_UNINITIALIZED_UNSPECIFIED" },
-  { no: 1, name: "STATE_INIT" },
-  { no: 2, name: "STATE_TRYOPEN" },
-  { no: 3, name: "STATE_OPEN" },
+proto3.util.setEnumType(State, 'ibc.core.connection.v1.State', [
+  { no: 0, name: 'STATE_UNINITIALIZED_UNSPECIFIED' },
+  { no: 1, name: 'STATE_INIT' },
+  { no: 2, name: 'STATE_TRYOPEN' },
+  { no: 3, name: 'STATE_OPEN' },
 ]);
 
 /**
@@ -65,7 +72,7 @@ export class ConnectionEnd extends Message<ConnectionEnd> {
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * IBC version which can be utilised to determine encodings or protocols for
@@ -104,28 +111,45 @@ export class ConnectionEnd extends Message<ConnectionEnd> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.connection.v1.ConnectionEnd";
+  static readonly typeName = 'ibc.core.connection.v1.ConnectionEnd';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "versions", kind: "message", T: Version, repeated: true },
-    { no: 3, name: "state", kind: "enum", T: proto3.getEnumType(State) },
-    { no: 4, name: "counterparty", kind: "message", T: Counterparty },
-    { no: 5, name: "delay_period", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'versions', kind: 'message', T: Version, repeated: true },
+    { no: 3, name: 'state', kind: 'enum', T: proto3.getEnumType(State) },
+    { no: 4, name: 'counterparty', kind: 'message', T: Counterparty },
+    {
+      no: 5,
+      name: 'delay_period',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConnectionEnd {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ConnectionEnd {
     return new ConnectionEnd().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConnectionEnd {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ConnectionEnd {
     return new ConnectionEnd().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConnectionEnd {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ConnectionEnd {
     return new ConnectionEnd().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ConnectionEnd | PlainMessage<ConnectionEnd> | undefined, b: ConnectionEnd | PlainMessage<ConnectionEnd> | undefined): boolean {
+  static equals(
+    a: ConnectionEnd | PlainMessage<ConnectionEnd> | undefined,
+    b: ConnectionEnd | PlainMessage<ConnectionEnd> | undefined,
+  ): boolean {
     return proto3.util.equals(ConnectionEnd, a, b);
   }
 }
@@ -142,14 +166,14 @@ export class IdentifiedConnection extends Message<IdentifiedConnection> {
    *
    * @generated from field: string id = 1;
    */
-  id = "";
+  id = '';
 
   /**
    * client associated with this connection.
    *
    * @generated from field: string client_id = 2;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * IBC version which can be utilised to determine encodings or protocols for
@@ -186,29 +210,46 @@ export class IdentifiedConnection extends Message<IdentifiedConnection> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.connection.v1.IdentifiedConnection";
+  static readonly typeName = 'ibc.core.connection.v1.IdentifiedConnection';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "versions", kind: "message", T: Version, repeated: true },
-    { no: 4, name: "state", kind: "enum", T: proto3.getEnumType(State) },
-    { no: 5, name: "counterparty", kind: "message", T: Counterparty },
-    { no: 6, name: "delay_period", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: 'id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'versions', kind: 'message', T: Version, repeated: true },
+    { no: 4, name: 'state', kind: 'enum', T: proto3.getEnumType(State) },
+    { no: 5, name: 'counterparty', kind: 'message', T: Counterparty },
+    {
+      no: 6,
+      name: 'delay_period',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IdentifiedConnection {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): IdentifiedConnection {
     return new IdentifiedConnection().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IdentifiedConnection {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): IdentifiedConnection {
     return new IdentifiedConnection().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IdentifiedConnection {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): IdentifiedConnection {
     return new IdentifiedConnection().fromJsonString(jsonString, options);
   }
 
-  static equals(a: IdentifiedConnection | PlainMessage<IdentifiedConnection> | undefined, b: IdentifiedConnection | PlainMessage<IdentifiedConnection> | undefined): boolean {
+  static equals(
+    a: IdentifiedConnection | PlainMessage<IdentifiedConnection> | undefined,
+    b: IdentifiedConnection | PlainMessage<IdentifiedConnection> | undefined,
+  ): boolean {
     return proto3.util.equals(IdentifiedConnection, a, b);
   }
 }
@@ -225,7 +266,7 @@ export class Counterparty extends Message<Counterparty> {
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * identifies the connection end on the counterparty chain associated with a
@@ -233,7 +274,7 @@ export class Counterparty extends Message<Counterparty> {
    *
    * @generated from field: string connection_id = 2;
    */
-  connectionId = "";
+  connectionId = '';
 
   /**
    * commitment merkle prefix of the counterparty chain.
@@ -248,26 +289,43 @@ export class Counterparty extends Message<Counterparty> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.connection.v1.Counterparty";
+  static readonly typeName = 'ibc.core.connection.v1.Counterparty';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "connection_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "prefix", kind: "message", T: MerklePrefix },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'connection_id',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+    { no: 3, name: 'prefix', kind: 'message', T: MerklePrefix },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Counterparty {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Counterparty {
     return new Counterparty().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Counterparty {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Counterparty {
     return new Counterparty().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Counterparty {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Counterparty {
     return new Counterparty().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Counterparty | PlainMessage<Counterparty> | undefined, b: Counterparty | PlainMessage<Counterparty> | undefined): boolean {
+  static equals(
+    a: Counterparty | PlainMessage<Counterparty> | undefined,
+    b: Counterparty | PlainMessage<Counterparty> | undefined,
+  ): boolean {
     return proto3.util.equals(Counterparty, a, b);
   }
 }
@@ -291,24 +349,42 @@ export class ClientPaths extends Message<ClientPaths> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.connection.v1.ClientPaths";
+  static readonly typeName = 'ibc.core.connection.v1.ClientPaths';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "paths", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    {
+      no: 1,
+      name: 'paths',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientPaths {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ClientPaths {
     return new ClientPaths().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientPaths {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ClientPaths {
     return new ClientPaths().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientPaths {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ClientPaths {
     return new ClientPaths().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ClientPaths | PlainMessage<ClientPaths> | undefined, b: ClientPaths | PlainMessage<ClientPaths> | undefined): boolean {
+  static equals(
+    a: ClientPaths | PlainMessage<ClientPaths> | undefined,
+    b: ClientPaths | PlainMessage<ClientPaths> | undefined,
+  ): boolean {
     return proto3.util.equals(ClientPaths, a, b);
   }
 }
@@ -324,7 +400,7 @@ export class ConnectionPaths extends Message<ConnectionPaths> {
    *
    * @generated from field: string client_id = 1;
    */
-  clientId = "";
+  clientId = '';
 
   /**
    * list of connection paths
@@ -339,25 +415,43 @@ export class ConnectionPaths extends Message<ConnectionPaths> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.connection.v1.ConnectionPaths";
+  static readonly typeName = 'ibc.core.connection.v1.ConnectionPaths';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "client_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "paths", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: 'client_id', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'paths',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConnectionPaths {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): ConnectionPaths {
     return new ConnectionPaths().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConnectionPaths {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): ConnectionPaths {
     return new ConnectionPaths().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConnectionPaths {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): ConnectionPaths {
     return new ConnectionPaths().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ConnectionPaths | PlainMessage<ConnectionPaths> | undefined, b: ConnectionPaths | PlainMessage<ConnectionPaths> | undefined): boolean {
+  static equals(
+    a: ConnectionPaths | PlainMessage<ConnectionPaths> | undefined,
+    b: ConnectionPaths | PlainMessage<ConnectionPaths> | undefined,
+  ): boolean {
     return proto3.util.equals(ConnectionPaths, a, b);
   }
 }
@@ -374,7 +468,7 @@ export class Version extends Message<Version> {
    *
    * @generated from field: string identifier = 1;
    */
-  identifier = "";
+  identifier = '';
 
   /**
    * list of features compatible with the specified identifier
@@ -389,25 +483,43 @@ export class Version extends Message<Version> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.connection.v1.Version";
+  static readonly typeName = 'ibc.core.connection.v1.Version';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "identifier", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "features", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: 'identifier', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    {
+      no: 2,
+      name: 'features',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+      repeated: true,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Version {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Version {
     return new Version().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Version {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Version {
     return new Version().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Version {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Version {
     return new Version().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Version | PlainMessage<Version> | undefined, b: Version | PlainMessage<Version> | undefined): boolean {
+  static equals(
+    a: Version | PlainMessage<Version> | undefined,
+    b: Version | PlainMessage<Version> | undefined,
+  ): boolean {
     return proto3.util.equals(Version, a, b);
   }
 }
@@ -433,25 +545,41 @@ export class Params extends Message<Params> {
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "ibc.core.connection.v1.Params";
+  static readonly typeName = 'ibc.core.connection.v1.Params';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "max_expected_time_per_block", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    {
+      no: 1,
+      name: 'max_expected_time_per_block',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Params {
+  static fromBinary(
+    bytes: Uint8Array,
+    options?: Partial<BinaryReadOptions>,
+  ): Params {
     return new Params().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Params {
+  static fromJson(
+    jsonValue: JsonValue,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Params {
+  static fromJsonString(
+    jsonString: string,
+    options?: Partial<JsonReadOptions>,
+  ): Params {
     return new Params().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Params | PlainMessage<Params> | undefined, b: Params | PlainMessage<Params> | undefined): boolean {
+  static equals(
+    a: Params | PlainMessage<Params> | undefined,
+    b: Params | PlainMessage<Params> | undefined,
+  ): boolean {
     return proto3.util.equals(Params, a, b);
   }
 }
-

@@ -3,8 +3,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryBaseFeeRequest, QueryBaseFeeResponse, QueryBlockGasRequest, QueryBlockGasResponse, QueryParamsRequest, QueryParamsResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryBaseFeeRequest,
+  QueryBaseFeeResponse,
+  QueryBlockGasRequest,
+  QueryBlockGasResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +19,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service ethermint.feemarket.v1.Query
  */
 export const Query = {
-  typeName: "ethermint.feemarket.v1.Query",
+  typeName: 'ethermint.feemarket.v1.Query',
   methods: {
     /**
      * Params queries the parameters of x/feemarket module.
@@ -20,7 +27,7 @@ export const Query = {
      * @generated from rpc ethermint.feemarket.v1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -31,7 +38,7 @@ export const Query = {
      * @generated from rpc ethermint.feemarket.v1.Query.BaseFee
      */
     baseFee: {
-      name: "BaseFee",
+      name: 'BaseFee',
       I: QueryBaseFeeRequest,
       O: QueryBaseFeeResponse,
       kind: MethodKind.Unary,
@@ -42,11 +49,10 @@ export const Query = {
      * @generated from rpc ethermint.feemarket.v1.Query.BlockGas
      */
     blockGas: {
-      name: "BlockGas",
+      name: 'BlockGas',
       I: QueryBlockGasRequest,
       O: QueryBlockGasResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

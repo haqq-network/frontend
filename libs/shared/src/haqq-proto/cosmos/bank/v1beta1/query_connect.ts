@@ -3,8 +3,31 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QueryAllBalancesRequest, QueryAllBalancesResponse, QueryBalanceRequest, QueryBalanceResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryParamsRequest, QueryParamsResponse, QuerySendEnabledRequest, QuerySendEnabledResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse } from "./query_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  QueryAllBalancesRequest,
+  QueryAllBalancesResponse,
+  QueryBalanceRequest,
+  QueryBalanceResponse,
+  QueryDenomMetadataRequest,
+  QueryDenomMetadataResponse,
+  QueryDenomOwnersRequest,
+  QueryDenomOwnersResponse,
+  QueryDenomsMetadataRequest,
+  QueryDenomsMetadataResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QuerySendEnabledRequest,
+  QuerySendEnabledResponse,
+  QuerySpendableBalanceByDenomRequest,
+  QuerySpendableBalanceByDenomResponse,
+  QuerySpendableBalancesRequest,
+  QuerySpendableBalancesResponse,
+  QuerySupplyOfRequest,
+  QuerySupplyOfResponse,
+  QueryTotalSupplyRequest,
+  QueryTotalSupplyResponse,
+} from './query_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Query defines the gRPC querier service.
@@ -12,7 +35,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.bank.v1beta1.Query
  */
 export const Query = {
-  typeName: "cosmos.bank.v1beta1.Query",
+  typeName: 'cosmos.bank.v1beta1.Query',
   methods: {
     /**
      * Balance queries the balance of a single coin for a single account.
@@ -20,7 +43,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.Balance
      */
     balance: {
-      name: "Balance",
+      name: 'Balance',
       I: QueryBalanceRequest,
       O: QueryBalanceResponse,
       kind: MethodKind.Unary,
@@ -34,7 +57,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.AllBalances
      */
     allBalances: {
-      name: "AllBalances",
+      name: 'AllBalances',
       I: QueryAllBalancesRequest,
       O: QueryAllBalancesResponse,
       kind: MethodKind.Unary,
@@ -51,7 +74,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.SpendableBalances
      */
     spendableBalances: {
-      name: "SpendableBalances",
+      name: 'SpendableBalances',
       I: QuerySpendableBalancesRequest,
       O: QuerySpendableBalancesResponse,
       kind: MethodKind.Unary,
@@ -68,7 +91,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.SpendableBalanceByDenom
      */
     spendableBalanceByDenom: {
-      name: "SpendableBalanceByDenom",
+      name: 'SpendableBalanceByDenom',
       I: QuerySpendableBalanceByDenomRequest,
       O: QuerySpendableBalanceByDenomResponse,
       kind: MethodKind.Unary,
@@ -82,7 +105,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.TotalSupply
      */
     totalSupply: {
-      name: "TotalSupply",
+      name: 'TotalSupply',
       I: QueryTotalSupplyRequest,
       O: QueryTotalSupplyResponse,
       kind: MethodKind.Unary,
@@ -96,7 +119,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.SupplyOf
      */
     supplyOf: {
-      name: "SupplyOf",
+      name: 'SupplyOf',
       I: QuerySupplyOfRequest,
       O: QuerySupplyOfResponse,
       kind: MethodKind.Unary,
@@ -107,7 +130,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.Params
      */
     params: {
-      name: "Params",
+      name: 'Params',
       I: QueryParamsRequest,
       O: QueryParamsResponse,
       kind: MethodKind.Unary,
@@ -118,7 +141,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.DenomMetadata
      */
     denomMetadata: {
-      name: "DenomMetadata",
+      name: 'DenomMetadata',
       I: QueryDenomMetadataRequest,
       O: QueryDenomMetadataResponse,
       kind: MethodKind.Unary,
@@ -130,7 +153,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.DenomsMetadata
      */
     denomsMetadata: {
-      name: "DenomsMetadata",
+      name: 'DenomsMetadata',
       I: QueryDenomsMetadataRequest,
       O: QueryDenomsMetadataResponse,
       kind: MethodKind.Unary,
@@ -147,7 +170,7 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.DenomOwners
      */
     denomOwners: {
-      name: "DenomOwners",
+      name: 'DenomOwners',
       I: QueryDenomOwnersRequest,
       O: QueryDenomOwnersResponse,
       kind: MethodKind.Unary,
@@ -164,11 +187,10 @@ export const Query = {
      * @generated from rpc cosmos.bank.v1beta1.Query.SendEnabled
      */
     sendEnabled: {
-      name: "SendEnabled",
+      name: 'SendEnabled',
       I: QuerySendEnabledRequest,
       O: QuerySendEnabledResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-

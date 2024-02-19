@@ -5,8 +5,21 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MsgDeposit, MsgDepositResponse, MsgExecLegacyContent, MsgExecLegacyContentResponse, MsgSubmitProposal, MsgSubmitProposalResponse, MsgUpdateParams, MsgUpdateParamsResponse, MsgVote, MsgVoteResponse, MsgVoteWeighted, MsgVoteWeightedResponse } from "./tx_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import {
+  MsgDeposit,
+  MsgDepositResponse,
+  MsgExecLegacyContent,
+  MsgExecLegacyContentResponse,
+  MsgSubmitProposal,
+  MsgSubmitProposalResponse,
+  MsgUpdateParams,
+  MsgUpdateParamsResponse,
+  MsgVote,
+  MsgVoteResponse,
+  MsgVoteWeighted,
+  MsgVoteWeightedResponse,
+} from './tx_pb';
+import { MethodKind } from '@bufbuild/protobuf';
 
 /**
  * Msg defines the gov Msg service.
@@ -14,7 +27,7 @@ import { MethodKind } from "@bufbuild/protobuf";
  * @generated from service cosmos.gov.v1.Msg
  */
 export const Msg = {
-  typeName: "cosmos.gov.v1.Msg",
+  typeName: 'cosmos.gov.v1.Msg',
   methods: {
     /**
      * SubmitProposal defines a method to create new proposal given the messages.
@@ -22,7 +35,7 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1.Msg.SubmitProposal
      */
     submitProposal: {
-      name: "SubmitProposal",
+      name: 'SubmitProposal',
       I: MsgSubmitProposal,
       O: MsgSubmitProposalResponse,
       kind: MethodKind.Unary,
@@ -34,7 +47,7 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1.Msg.ExecLegacyContent
      */
     execLegacyContent: {
-      name: "ExecLegacyContent",
+      name: 'ExecLegacyContent',
       I: MsgExecLegacyContent,
       O: MsgExecLegacyContentResponse,
       kind: MethodKind.Unary,
@@ -45,7 +58,7 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1.Msg.Vote
      */
     vote: {
-      name: "Vote",
+      name: 'Vote',
       I: MsgVote,
       O: MsgVoteResponse,
       kind: MethodKind.Unary,
@@ -56,7 +69,7 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1.Msg.VoteWeighted
      */
     voteWeighted: {
-      name: "VoteWeighted",
+      name: 'VoteWeighted',
       I: MsgVoteWeighted,
       O: MsgVoteWeightedResponse,
       kind: MethodKind.Unary,
@@ -67,7 +80,7 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1.Msg.Deposit
      */
     deposit: {
-      name: "Deposit",
+      name: 'Deposit',
       I: MsgDeposit,
       O: MsgDepositResponse,
       kind: MethodKind.Unary,
@@ -81,11 +94,10 @@ export const Msg = {
      * @generated from rpc cosmos.gov.v1.Msg.UpdateParams
      */
     updateParams: {
-      name: "UpdateParams",
+      name: 'UpdateParams',
       I: MsgUpdateParams,
       O: MsgUpdateParamsResponse,
       kind: MethodKind.Unary,
     },
-  }
+  },
 } as const;
-
