@@ -8,7 +8,9 @@ on:
 
 jobs:
   Production:
-    runs-on: ubuntu-cpu16-ram64
+    runs-on:
+      - ubuntu
+      - self-hosted
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_STORYBOOK_PROJECT_ID }}

@@ -15,7 +15,9 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu, self-hosted
+    runs-on:
+      - ubuntu
+      - self-hosted
     permissions:
       actions: read
       contents: read
