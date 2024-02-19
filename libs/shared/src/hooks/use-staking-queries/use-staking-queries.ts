@@ -74,7 +74,7 @@ export function useStakingUnbondingsQuery(
   const { chain = chains[0] } = useNetwork();
 
   return useQuery({
-    queryKey: address ? [chain.id, 'unbondings', address] : [undefined],
+    queryKey: [chain.id, 'unbondings', address],
     queryFn: async () => {
       if (!address) {
         return null;
