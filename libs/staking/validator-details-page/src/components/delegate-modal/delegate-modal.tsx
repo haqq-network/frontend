@@ -1,15 +1,5 @@
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
-import { useNetwork } from 'wagmi';
-import {
-  getChainParams,
-  getFormattedAddress,
-  toFixedAmount,
-  useStakingActions,
-  useSupportedChains,
-  useToast,
-} from '@haqq/shared';
 import {
   WarningMessage,
   Modal,
@@ -17,21 +7,23 @@ import {
   Button,
   MobileHeading,
   ModalInput,
-  ToastLoading,
-  ToastSuccess,
-  ToastError,
-  LinkIcon,
+  formatNumber,
+  toFixedAmount,
 } from '@haqq/shell-ui-kit';
 
 export interface DelegateModalProps {
   isOpen: boolean;
   symbol: string;
-  validatorAddress: string;
-  balance: number;
   delegation: number;
-  onClose: () => void;
+  balance: number;
   unboundingTime: number;
-  validatorCommission: string;
+  validatorCommission: number;
+  amountError?: 'min' | 'max';
+  delegateAmount: number | undefined;
+  isDisabled: boolean;
+  onClose: () => void;
+  onChange: (value: number) => void;
+  onSubmit: () => void;
 }
 
 export function DelegateModalDetails({
@@ -105,104 +97,39 @@ export function DelegateModalSubmitButton({
 }
 
 export function DelegateModal({
-  validatorAddress,
   isOpen,
-  onClose,
   symbol,
   delegation,
   balance,
   unboundingTime,
   validatorCommission,
+  amountError,
+  delegateAmount,
+  isDisabled,
+  onClose,
+  onChange,
+  onSubmit,
 }: DelegateModalProps) {
-  const { delegate } = useStakingActions();
-  const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
-    undefined,
-  );
-  const [isDelegateEnabled, setDelegateEnabled] = useState(true);
-  const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
-    undefined,
-  );
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(chain.id);
-  const toast = useToast();
-
   const handleMaxButtonClick = useCallback(() => {
-    setDelegateAmount(balance);
-  }, [balance]);
+    onChange(toFixedAmount(delegation, 3) ?? 0);
+  }, [delegation, onChange]);
 
-  const handleInputChange = useCallback((value: string | undefined) => {
-    if (value) {
-      const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
-      setDelegateAmount(toFixedAmount(Number.parseFloat(parsedValue), 3));
-    }
-  }, []);
+  const handleInputChange = useCallback(
+    (value: string | undefined) => {
+      if (value) {
+        const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
+        const normalizedAmount = toFixedAmount(
+          Number.parseFloat(parsedValue),
+          3,
+        );
 
-  const handleSubmitDelegate = useCallback(async () => {
-    try {
-      setDelegateEnabled(false);
-      const delegationPromise = delegate(
-        validatorAddress,
-        delegateAmount,
-        balance,
-      );
-
-      await toast.promise(delegationPromise, {
-        loading: <ToastLoading>Delegation in progress</ToastLoading>,
-        success: (tx) => {
-          console.log('Delegation successful', { tx });
-          const txHash = tx?.txhash;
-
-          return (
-            <ToastSuccess>
-              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Delegation successful</div>
-                <div>
-                  <Link
-                    to={`${explorer.cosmos}/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                  >
-                    <LinkIcon />
-                    <span>{getFormattedAddress(txHash)}</span>
-                  </Link>
-                </div>
-              </div>
-            </ToastSuccess>
-          );
-        },
-        error: (error) => {
-          return <ToastError>{error.message}</ToastError>;
-        },
-      });
-      onClose();
-    } catch (error) {
-      console.error((error as Error).message);
-    } finally {
-      setDelegateEnabled(true);
-    }
-  }, [
-    delegate,
-    validatorAddress,
-    delegateAmount,
-    toast,
-    onClose,
-    explorer.cosmos,
-  ]);
-
-  useEffect(() => {
-    if (delegateAmount && delegateAmount <= 0) {
-      setDelegateEnabled(false);
-      setAmountError('min');
-    } else if (delegateAmount && delegateAmount > balance) {
-      setDelegateEnabled(false);
-      setAmountError('max');
-    } else {
-      setDelegateEnabled(true);
-      setAmountError(undefined);
-    }
-  }, [balance, delegateAmount]);
+        if (normalizedAmount) {
+          onChange(normalizedAmount);
+        }
+      }
+    },
+    [onChange],
+  );
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
@@ -237,18 +164,15 @@ export function DelegateModal({
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
                   title="My balance"
-                  value={`${toFixedAmount(balance, 3)} ${symbol.toUpperCase()}`}
+                  value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${toFixedAmount(
-                    delegation,
-                    3,
-                  )} ${symbol.toUpperCase()}`}
+                  value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="Comission"
-                  value={`${validatorCommission}%`}
+                  value={`${formatNumber(validatorCommission)}%`}
                 />
               </div>
             </div>
@@ -266,9 +190,9 @@ export function DelegateModal({
                 <div>
                   <Button
                     variant={3}
-                    onClick={handleSubmitDelegate}
+                    onClick={onSubmit}
                     className="w-full"
-                    disabled={!isDelegateEnabled || !delegateAmount}
+                    disabled={isDisabled}
                   >
                     Confirm delegation
                   </Button>

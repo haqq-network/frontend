@@ -53,11 +53,11 @@ import {
 import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { useValidatorsShares } from '@haqq/staking/utils';
 import styles from './validator-info.module.css';
-import { DelegateModal } from '../delegate-modal/delegate-modal';
-import { RedelegateModal } from '../redelegate-modal/redelegate-modal';
-import { UndelegateModal } from '../undelegate-modal/undelegate-modal';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { DelegateModalHooked } from '../delegate-modal/delegate-modal-hooked';
+import { RedelegateModalHooked } from '../redelegate-modal/redelegate-modal-hooked';
+import { UndelegateModalHooked } from '../undelegate-modal/undelegate-modal-hooked';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
@@ -662,7 +662,7 @@ export function ValidatorInfo({
       Number.parseFloat(
         validatorInfo?.commission.commission_rates.rate ?? '0',
       ) * 100
-    ).toFixed(0);
+    );
   }, [validatorInfo?.commission.commission_rates.rate]);
 
   if (!validatorInfo || !validatorsList) {
@@ -696,7 +696,7 @@ export function ValidatorInfo({
         isRewardsPending={isRewardsPending}
       />
 
-      <DelegateModal
+      <DelegateModalHooked
         validatorAddress={validatorAddress}
         isOpen={isDelegateModalOpen}
         onClose={handleModalClose}
@@ -707,7 +707,7 @@ export function ValidatorInfo({
         validatorCommission={validatorCommission}
       />
 
-      <UndelegateModal
+      <UndelegateModalHooked
         validatorAddress={validatorAddress}
         isOpen={isUndelegateModalOpen}
         onClose={handleModalClose}
@@ -717,7 +717,7 @@ export function ValidatorInfo({
         symbol={symbol}
       />
 
-      <RedelegateModal
+      <RedelegateModalHooked
         validatorAddress={validatorAddress}
         isOpen={isRedelegateModalOpen}
         onClose={handleModalClose}

@@ -7,7 +7,7 @@ export function ScanPage() {
         <div className="flex flex-col gap-16">
           <div className="flex flex-1 flex-row items-center justify-between gap-[24px]">
             <div>
-              <h2 className="font-serif text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px]">
+              <h2 className="font-clash text-[18px] font-[500] leading-[1.3em] sm:text-[24px] lg:text-[32px]">
                 Event Scanner
               </h2>
             </div>

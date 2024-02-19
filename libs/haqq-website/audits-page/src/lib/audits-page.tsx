@@ -38,7 +38,7 @@ export function AuditsPage() {
   return (
     <section className="overflow-x-clip">
       <div className="sunrise-background relative overflow-hidden px-[16px] py-[80px] md:px-[48px] md:py-[120px] lg:px-[80px]">
-        <div className="font-serif text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
+        <div className="font-clash text-[46px] font-medium uppercase leading-none sm:text-[80px] lg:text-[140px]">
           Audits
         </div>
         <div
@@ -61,7 +61,7 @@ export function AuditsPage() {
           </div>
         </div>
         <div className="mt-[20px] w-full md:mt-[24px] lg:mt-[30px] lg:w-[90%] 2xl:w-[60%]">
-          <div className="font-serif text-[14px] font-[500] leading-[18px] md:text-[16px] md:leading-[22px]">
+          <div className="font-clash text-[14px] font-[500] leading-[18px] md:text-[16px] md:leading-[22px]">
             We conduct third-party audits of applications and infrastructure to
             provide you with the most secure solutions
           </div>

@@ -1,15 +1,12 @@
 import { Fragment, useMemo } from 'react';
 import clsx from 'clsx';
 import { formatUnits } from 'viem';
-import {
-  ClawbackVestingAccount,
-  VestingPeriod,
-  toFixedAmount,
-} from '@haqq/shared';
+import { ClawbackVestingAccount, VestingPeriod } from '@haqq/shared';
 import { Card } from './Card/Card';
 import { Tooltip } from './Tooltip/Tooltip';
 import { Heading } from './Typography/Typography';
 import { formatLocaleNumber } from '../utils/format-number-locale';
+import { toFixedAmount } from '../utils/to-fixed-amount';
 
 export function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {

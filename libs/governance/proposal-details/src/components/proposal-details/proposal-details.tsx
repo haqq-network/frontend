@@ -21,12 +21,10 @@ import { useAccount, useNetwork } from 'wagmi';
 import {
   useAddress,
   useProposalDetailsQuery,
-  isNumber,
   useGovernanceParamsQuery,
   useToast,
   useWallet,
   useProposalActions,
-  useConfig,
   GetGovernanceParamsResponse,
   useSupportedChains,
   useStakingDelegationQuery,
@@ -60,6 +58,7 @@ import {
   VoteOption,
   voteOptionFromJSON,
   formatDate,
+  isNumber,
 } from '@haqq/shell-ui-kit';
 import { ParameterChangeProposalDetails } from '../parameter-change-proposal/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from '../software-upgrade-proposal/software-upgrade-proposal';
@@ -864,7 +863,6 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
 export function ProposalDetails() {
   const { id: proposalId } = useParams();
   const navigate = useNavigate();
-  const { isStandalone } = useConfig();
 
   if (!proposalId || !isNumber(proposalId)) {
     return <Navigate to="/not-found" replace />;
@@ -876,11 +874,7 @@ export function ProposalDetails() {
         <div className="py-[18px] sm:py-[26px] lg:py-[34px]">
           <BackButton
             onClick={() => {
-              if (isStandalone) {
-                navigate('/');
-              } else {
-                navigate('/governance');
-              }
+              navigate('/governance');
             }}
           >
             Governance

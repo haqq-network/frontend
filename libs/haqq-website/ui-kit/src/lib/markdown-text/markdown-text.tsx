@@ -72,12 +72,12 @@ export function MarkdownText({
         // 'text-[13px] leading-[20px] md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]',
         'prose-a:text-haqq-orange prose-a:no-underline hover:prose-a:text-[#FF8D69]',
         'prose-a:transition-colors prose-a:duration-300 prose-a:ease-out',
-        'prose-headings:font-serif prose-headings:font-[500] font-sans',
+        'prose-headings:font-clash prose-headings:font-[500] font-guise',
         'prose-img:w-full',
         'prose-h1:mt-[1.87em]',
         isBlack
-          ? 'text-haqq-black prose-headings:text-haqq-black prose-strong:text-haqq-black marker:prose-li:text-haqq-black'
-          : 'prose-headings:text-white prose-strong:text-white marker:prose-li:text-white text-white',
+          ? 'text-haqq-black prose-headings:text-haqq-black prose-strong:text-haqq-black marker:prose-li:text-haqq-black prose-blockquote:text-haqq-black'
+          : 'prose-headings:text-white prose-strong:text-white marker:prose-li:text-white prose-blockquote:text-white text-white',
         className,
       )}
     >

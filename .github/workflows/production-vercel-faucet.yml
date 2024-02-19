@@ -1,4 +1,4 @@
-name: Faucet Production Deployment
+name: Faucet Deploy
 
 on:
   push:
@@ -7,13 +7,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  Deploy-Production:
-    runs-on: ubuntu-cpu16-ram64
+  Production:
+    runs-on:
+      - ubuntu
+      - self-hosted
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_FAUCET_PROJECT_ID }}
       NX_SKIP_NX_CACHE: true
       GIT_COMMIT_SHA: ${{ github.sha }}
+    timeout-minutes: 15
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

@@ -17,7 +17,6 @@ import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
 import { PHProvider } from '../../providers/posthog';
 import { SOCIAL_LINKS } from '../../social-links';
-import { PostHogPageView } from '../../utils/posthog-page-view';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../styles/global.css';
@@ -68,11 +67,13 @@ export default async function LocaleLayout({
   const headersList = headers();
   const isRestrictedByGeo = Boolean(headersList.get('x-restricted-by-geo'));
   const userAgent = headersList.get('user-agent');
-  const isMobileUserAgent = Boolean(
-    userAgent!.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-    ),
-  );
+  const isMobileUserAgent = userAgent
+    ? Boolean(
+        userAgent.match(
+          /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+        ),
+      )
+    : false;
 
   return (
     <NextIntlClientProvider
@@ -90,9 +91,8 @@ export default async function LocaleLayout({
           vcrFont.variable,
         )}
       >
-        <PHProvider hostname={DEPLOY_URL}>
+        <PHProvider>
           <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
-            <PostHogPageView />
             {isScamBannerShow && <ScamBanner />}
             {isMobileUserAgent ? (
               <MobileHeader

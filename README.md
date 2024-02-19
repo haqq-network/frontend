@@ -17,15 +17,13 @@
 
 ## Applications and websites
 
-| Description          | Domain                          | Source code                  |
-| -------------------- | ------------------------------- | ---------------------------- |
-| Shell app            | https://shell.haqq.network      | [Open](apps/shell)           |
-| Staking app          | https://staking.haqq.network    | [Open](apps/staking)         |
-| Governance app       | https://governance.haqq.network | [Open](apps/governance)      |
-| TestEdge2 Faucet app | https://testedge2.haqq.network  | [Open](apps/faucet)          |
-| Vesting app          | https://vesting.haqq.network    | [Open](apps/vesting)         |
-| HAQQ Website         | https://haqq.hetwork            | [Open](apps/haqq-website)    |
-| IslamicCoin Website  | https://islamiccoin.net         | [Open](apps/islamic-website) |
+| Description          | Domain                         | Source code                  |
+| -------------------- | ------------------------------ | ---------------------------- |
+| Shell app            | https://shell.haqq.network     | [Open](apps/shell)           |
+| TestEdge2 Faucet app | https://testedge2.haqq.network | [Open](apps/faucet)          |
+| Vesting app          | https://vesting.haqq.network   | [Open](apps/vesting)         |
+| HAQQ Website         | https://haqq.hetwork           | [Open](apps/haqq-website)    |
+| IslamicCoin Website  | https://islamiccoin.net        | [Open](apps/islamic-website) |
 
 test
 
@@ -47,35 +45,3 @@ test
     <li><a target="_blank" rel="noopener noreferrer" href="https://nx.dev">NX</a></li>
   </ol>
 </details>
-
-### Usable commands
-
-`@haqq/staking-app`
-
-```shell
-# start app
-yarn nx serve staking
-# build app
-yarn nx build staking
-# run tests
-yarn nx test staking
-# run e2e tests
-yarn nx e2e staking-e2e
-# start storybook
-yarn nx storybook staking
-```
-
-`@haqq/ui-kit`
-
-```shell
-# run tests
-yarn nx test ui-kit
-# start storybook
-yarn nx storybook ui-kit
-```
-
-To create new `Button` component `ui-kit` package
-
-```shell
-yarn nx generate @nx/react:component Button --project=ui-kit --directory=components --export --no-interactive
-```

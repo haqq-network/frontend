@@ -91,7 +91,6 @@ export function useStakingActions() {
       fee: Fee,
     ): MsgDelegateParams => {
       const gaad = getAmountIncludeFee(amount, balance, fee);
-      console.log({ gaad });
       return {
         validatorAddress,
         ...gaad,

@@ -7,9 +7,9 @@ import {
   useStakingRewardsQuery,
   useStakingDelegationQuery,
   useStakingPoolQuery,
-  toFixedAmount,
   useStakingParamsQuery,
 } from '@haqq/shared';
+import { toFixedAmount } from '@haqq/shell-ui-kit';
 import {
   sortValidatorsByToken,
   splitValidators,

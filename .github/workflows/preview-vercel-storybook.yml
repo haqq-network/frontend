@@ -1,4 +1,4 @@
-name: Vesting Deploy
+name: Storybook Deploy
 
 on:
   push:
@@ -10,13 +10,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  Preview:
+  Production:
     runs-on:
       - ubuntu
       - self-hosted
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_VESTING_PROJECT_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_STORYBOOK_PROJECT_ID }}
       NX_SKIP_NX_CACHE: true
       GIT_COMMIT_SHA: ${{ github.sha }}
     timeout-minutes: 15
@@ -33,6 +33,6 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build ./apps/vesting --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-react.json
+        run: vercel build ./libs/storybook--host --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-react.json
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --local-config vercel-react.json

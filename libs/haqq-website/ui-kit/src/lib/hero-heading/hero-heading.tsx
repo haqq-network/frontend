@@ -9,7 +9,7 @@ export function HeroHeading({
   className?: string;
 }) {
   const classNames = clsx(
-    'font-serif font-[500] leading-none uppercase',
+    'font-clash font-[500] leading-none uppercase',
     'text-[46px] sm:text-[80px] lg:text-[140px]',
     className,
   );

@@ -1,14 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNetwork } from 'wagmi';
-import {
-  useStakingActions,
-  useToast,
-  toFixedAmount,
-  getFormattedAddress,
-  getChainParams,
-  useSupportedChains,
-} from '@haqq/shared';
+import { useCallback, useMemo } from 'react';
 import {
   WarningMessage,
   Modal,
@@ -16,121 +6,58 @@ import {
   Button,
   MobileHeading,
   ModalInput,
-  ToastSuccess,
-  ToastLoading,
-  ToastError,
-  LinkIcon,
+  toFixedAmount,
+  formatNumber,
 } from '@haqq/shell-ui-kit';
 import { DelegateModalDetails } from '../delegate-modal/delegate-modal';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
-  validatorAddress: string;
   symbol: string;
   balance: number;
   delegation: number;
   unboundingTime: number;
+  amountError?: 'min' | 'max';
+  undelegateAmount: number | undefined;
+  isDisabled: boolean;
   onClose: () => void;
+  onChange: (value: number) => void;
+  onSubmit: () => void;
 }
 
 export function UndelegateModal({
   isOpen,
-  onClose,
   symbol,
-  balance,
   delegation,
+  balance,
   unboundingTime,
-  validatorAddress,
+  amountError,
+  undelegateAmount,
+  isDisabled,
+  onClose,
+  onChange,
+  onSubmit,
 }: UndelegateModalProps) {
-  const { undelegate } = useStakingActions();
-  const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
-    undefined,
-  );
-  const [isUndelegateEnabled, setUndelegateEnabled] = useState(true);
-  const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
-    undefined,
-  );
-  const toast = useToast();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(chain.id);
-
   const handleMaxButtonClick = useCallback(() => {
-    setUndelegateAmount(toFixedAmount(delegation, 3));
-  }, [delegation]);
+    onChange(toFixedAmount(delegation, 3) ?? 0);
+  }, [delegation, onChange]);
 
-  const handleInputChange = useCallback((value: string | undefined) => {
-    if (value) {
-      const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
-      setUndelegateAmount(toFixedAmount(Number.parseFloat(parsedValue), 3));
-    }
-  }, []);
+  const handleInputChange = useCallback(
+    (value: string | undefined) => {
+      if (value) {
+        const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
+        const normalizedAmount = toFixedAmount(
+          Number.parseFloat(parsedValue),
+          3,
+        );
 
-  const handleSubmitUndelegate = useCallback(async () => {
-    try {
-      setUndelegateEnabled(false);
-      const undelegationPromise = undelegate(
-        validatorAddress,
-        undelegateAmount,
-      );
-
-      await toast.promise(undelegationPromise, {
-        loading: <ToastLoading>Undlegation in progress</ToastLoading>,
-        success: (tx) => {
-          const txHash = tx?.txhash;
-          console.log('Undlegation successful', { txHash });
-
-          return (
-            <ToastSuccess>
-              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Undelegation successful</div>
-                <div>
-                  <Link
-                    to={`${explorer.cosmos}/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                  >
-                    <LinkIcon />
-                    <span>{getFormattedAddress(txHash)}</span>
-                  </Link>
-                </div>
-              </div>
-            </ToastSuccess>
-          );
-        },
-        error: (error) => {
-          return <ToastError>{error.message}</ToastError>;
-        },
-      });
-
-      onClose();
-    } catch (error) {
-      console.error((error as Error).message);
-    } finally {
-      setUndelegateEnabled(false);
-    }
-  }, [
-    undelegate,
-    validatorAddress,
-    undelegateAmount,
-    toast,
-    onClose,
-    explorer.cosmos,
-  ]);
-
-  useEffect(() => {
-    if (undelegateAmount && undelegateAmount <= 0) {
-      setUndelegateEnabled(false);
-      setAmountError('min');
-    } else if (undelegateAmount && undelegateAmount > delegation) {
-      setUndelegateEnabled(false);
-      setAmountError('max');
-    } else {
-      setUndelegateEnabled(true);
-      setAmountError(undefined);
-    }
-  }, [delegation, undelegateAmount]);
+        if (normalizedAmount) {
+          onChange(normalizedAmount);
+        }
+      }
+    },
+    [onChange],
+  );
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
@@ -146,7 +73,7 @@ export function UndelegateModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[36px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px]">
+      <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
         <ModalCloseButton
           onClick={onClose}
           className="absolute right-[16px] top-[16px]"
@@ -171,14 +98,11 @@ export function UndelegateModal({
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
                   title="My balance"
-                  value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
+                  value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${toFixedAmount(
-                    delegation,
-                    3,
-                  )} ${symbol.toUpperCase()}`}
+                  value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
                 />
               </div>
             </div>
@@ -197,9 +121,9 @@ export function UndelegateModal({
                 <div>
                   <Button
                     variant={3}
-                    onClick={handleSubmitUndelegate}
+                    onClick={onSubmit}
                     className="w-full"
-                    disabled={!isUndelegateEnabled || !undelegateAmount}
+                    disabled={isDisabled}
                   >
                     Confirm undelegation
                   </Button>
