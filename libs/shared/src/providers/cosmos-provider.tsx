@@ -85,6 +85,7 @@ export interface CosmosService {
     voterAddress: string,
   ) => Promise<string | null>;
   // getVotes: (voterAddress: string) => Promise<unknown>;
+  getErc20TokenPairs: () => Promise<TokenPair[]>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -186,6 +187,10 @@ function generateEndpointProposalVotes(
 // function generateEndpointVotes(voterAddress: string) {
 //   return `/cosmos/group/v1/votes_by_voter/${voterAddress}`;
 // }
+
+function generateErc20TokenPairsEndpoint() {
+  return '/evmos/erc20/v1/token_pairs';
+}
 
 export interface StakingParams {
   bond_denom: string;
@@ -355,6 +360,15 @@ export interface ProposalVoteResponse {
       },
     ];
   };
+}
+
+interface TokenPair {
+  erc20_address: string;
+  denom: string;
+}
+
+interface TokenPairsResponse {
+  token_pairs: TokenPair[];
 }
 
 function createCosmosService(
@@ -756,6 +770,15 @@ function createCosmosService(
   //   return response;
   // }
 
+  async function getErc20TokenPairs() {
+    const response = await axios.get<TokenPairsResponse>(
+      new URL(generateErc20TokenPairsEndpoint(), cosmosRestEndpoint).toString(),
+    );
+    console.log('getErc20TokenPairs', { response });
+
+    return response.data.token_pairs;
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -784,6 +807,7 @@ function createCosmosService(
     getTransactionStatus,
     getProposalVotes,
     // getVotes,
+    getErc20TokenPairs,
   };
 }
 
