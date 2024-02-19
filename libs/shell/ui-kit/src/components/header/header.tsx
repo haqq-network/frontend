@@ -1,7 +1,6 @@
 import { ReactNode, useCallback } from 'react';
 import clsx from 'clsx';
 import { NavLink, useLocation } from 'react-router-dom';
-import logoImageData from '../../assets/images/logo.svg';
 
 export function Header({
   rightSlot,
@@ -53,7 +52,7 @@ export function Header({
         >
           <div className="relative h-[26px] w-[26px] sm:h-[32px] sm:w-[32px]">
             <NavLink to="/">
-              <img src={logoImageData} alt="HAQQ" />
+              <img src="/assets/logo.svg" alt="HAQQ" />
             </NavLink>
           </div>
         </div>
