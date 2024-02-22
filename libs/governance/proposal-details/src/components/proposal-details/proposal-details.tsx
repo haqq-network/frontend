@@ -943,6 +943,10 @@ export function VoteActions({
     [explorer.cosmos, proposalId, toast, vote],
   );
 
+  const isVoteEnabled = useMemo(() => {
+    return !userVote;
+  }, [userVote]);
+
   return (
     <Fragment>
       <div className="mb-[16px]">
@@ -960,7 +964,7 @@ export function VoteActions({
               });
             }}
             color="green"
-            disabled={userVote !== undefined}
+            disabled={!isVoteEnabled}
             isActive={
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES
             }
@@ -976,7 +980,7 @@ export function VoteActions({
               });
             }}
             color="red"
-            disabled={userVote !== undefined}
+            disabled={!isVoteEnabled}
             isActive={
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO
             }
@@ -992,7 +996,7 @@ export function VoteActions({
               });
             }}
             color="gray"
-            disabled={userVote !== undefined}
+            disabled={!isVoteEnabled}
             isActive={
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_ABSTAIN
             }
@@ -1008,7 +1012,7 @@ export function VoteActions({
               });
             }}
             color="yellow"
-            disabled={userVote !== undefined}
+            disabled={!isVoteEnabled}
             isActive={
               voteOptionFromJSON(userVote) ===
               VoteOption.VOTE_OPTION_NO_WITH_VETO
