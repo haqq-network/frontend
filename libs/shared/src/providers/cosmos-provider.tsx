@@ -86,6 +86,15 @@ export interface CosmosService {
   ) => Promise<string | null>;
   // getVotes: (voterAddress: string) => Promise<unknown>;
   getErc20TokenPairs: () => Promise<TokenPair[]>;
+  getSender: (
+    address: string,
+    pubkey: string,
+  ) => Promise<{
+    accountAddress: string;
+    sequence: number;
+    accountNumber: number;
+    pubkey: string;
+  }>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -779,6 +788,26 @@ function createCosmosService(
     return response.data.token_pairs;
   }
 
+  async function getSender(address: string, pubkey: string) {
+    try {
+      const accInfo = await getAccountBaseInfo(address);
+
+      if (!accInfo) {
+        throw new Error('no base account info');
+      }
+
+      return {
+        accountAddress: address,
+        sequence: parseInt(accInfo.sequence, 10),
+        accountNumber: parseInt(accInfo.account_number, 10),
+        pubkey,
+      };
+    } catch (error) {
+      console.error((error as Error).message);
+      throw error;
+    }
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -808,6 +837,7 @@ function createCosmosService(
     getProposalVotes,
     // getVotes,
     getErc20TokenPairs,
+    getSender,
   };
 }
 
