@@ -40,8 +40,8 @@ export function MyAccountBlockDesktop({
           <button
             className={clsx(
               'text-[14px] font-[600] leading-[20px] text-[#EC5728] hover:text-[#FF8D69]',
-              'mt-[-4px] inline-flex cursor-pointer flex-row items-center justify-center gap-[4px] transition-colors duration-100 ease-out',
-              'ml-[16px]',
+              'inline-flex cursor-pointer flex-row items-center justify-center gap-[4px] transition-colors duration-100 ease-out',
+              'ml-[16px] mt-[-4px]',
             )}
             onClick={() => {
               setInfoShown(!isInfoShown);

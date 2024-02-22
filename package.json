@@ -29,6 +29,7 @@
     "postinstall": "yarn prepare"
   },
   "dependencies": {
+    "@apollo/client": "3.9.5",
     "@auth0/auth0-react": "2.2.4",
     "@bufbuild/protobuf": "1.7.2",
     "@ethersproject/hash": "5.7.0",
@@ -58,6 +59,7 @@
     "clsx": "2.1.0",
     "core-js": "3.36.0",
     "cosmjs-types": "0.9.0",
+    "graphql": "16.8.1",
     "lodash": "4.17.21",
     "marked": "7.0.5",
     "marked-react": "2.0.0",

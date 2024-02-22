@@ -1,1 +1,1 @@
-export * from './lib/multisig-page';
+export * from './lib/components/multisig-page/multisig-page';
