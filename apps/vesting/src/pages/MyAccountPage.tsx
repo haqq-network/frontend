@@ -2,7 +2,7 @@ import { useAddress } from '@haqq/shared';
 import { AccountPageComponent } from './AccountPage';
 import { PendingPage } from './PendingPage';
 
-export function AccountPage() {
+export default function AccountPage() {
   const { ethAddress, haqqAddress } = useAddress();
 
   if (!ethAddress || !haqqAddress) {
@@ -13,5 +13,3 @@ export function AccountPage() {
     <AccountPageComponent ethAddress={ethAddress} haqqAddress={haqqAddress} />
   );
 }
-
-export { AccountPage as default };

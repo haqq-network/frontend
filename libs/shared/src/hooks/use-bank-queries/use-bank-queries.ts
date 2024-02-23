@@ -13,3 +13,20 @@ export function useBankSupplyQuery() {
     queryFn: getBankSupply,
   });
 }
+
+export function useBankBalance(address: string | undefined) {
+  const { getBankBalances } = useCosmosService();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+
+  return useQuery({
+    queryKey: [chain.id, 'bank-balance', address],
+    queryFn: async () => {
+      if (!address) {
+        return null;
+      }
+
+      return await getBankBalances(address);
+    },
+  });
+}

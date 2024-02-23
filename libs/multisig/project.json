@@ -1,0 +1,20 @@
+{
+  "name": "shell-multisig",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/multisig/src",
+  "projectType": "library",
+  "tags": ["shell-lib-multisig"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/multisig/jest.config.ts"
+      }
+    }
+  }
+}

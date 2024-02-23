@@ -5,18 +5,9 @@ import { ClawbackVestingAccount, VestingPeriod } from '@haqq/shared';
 import { Card } from './Card/Card';
 import { Tooltip } from './Tooltip/Tooltip';
 import { Heading } from './Typography/Typography';
+import { formatDate } from '../utils/format-date';
 import { formatLocaleNumber } from '../utils/format-number-locale';
 import { toFixedAmount } from '../utils/to-fixed-amount';
-
-export function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  }).format(date);
-}
 
 export function VestingAccountStats({
   accountInfo,

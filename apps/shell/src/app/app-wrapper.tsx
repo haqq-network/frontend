@@ -109,6 +109,7 @@ function HeaderButtons({
         <HeaderNavLink href="/staking">Staking</HeaderNavLink>
         <HeaderNavLink href="/governance">Governance</HeaderNavLink>
         <HeaderNavLink href="/authz">Authz</HeaderNavLink>
+        <HeaderNavLink href="/multisig">Multisig</HeaderNavLink>
       </nav>
 
       <div className="hidden pl-[80px] lg:block">
@@ -197,6 +198,16 @@ function HeaderButtons({
                     }}
                   >
                     Authz
+                  </HeaderNavLink>
+                </div>
+                <div>
+                  <HeaderNavLink
+                    href="/multisig"
+                    onClick={() => {
+                      onMobileMenuOpenChange(false);
+                    }}
+                  >
+                    Multisig
                   </HeaderNavLink>
                 </div>
               </div>

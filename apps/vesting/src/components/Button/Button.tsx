@@ -1,5 +1,6 @@
 import { ReactNode, SyntheticEvent } from 'react';
 import clsx from 'clsx';
+import { Loader } from '../Loader/Loader';
 
 export interface ButtonProps {
   children: ReactNode;
@@ -10,6 +11,7 @@ export interface ButtonProps {
   fill?: boolean;
   type?: 'submit' | 'reset' | 'button';
   onClick?: (event: SyntheticEvent<HTMLButtonElement, MouseEvent>) => void;
+  isPending?: boolean;
 }
 
 export function Button({
@@ -20,28 +22,36 @@ export function Button({
   fill = false,
   type = 'button',
   className,
+  isPending = false,
 }: ButtonProps) {
   const classNames = clsx(
     outline
-      ? 'bg-transparent text-primary border-[2px] border-solid border-primary hover:text-[#20d775] hover:border-[#20d775]'
-      : 'bg-primary text-white hover:bg-[#20d775]',
-    'bg-primary text-white hover:bg-[#20d775]',
-    'text-base font-semibold font-sans leading-[24px]',
-    'rounded-[8px] py-[8px] px-[16px] appearance-none box-border',
+      ? 'bg-transparent text-primary border-[1px] border-solid border-primary hover:text-[#20d775] hover:border-[#20d775] py-[10px]'
+      : 'bg-primary text-white hover:bg-[#20d775] py-[11px]',
+    'text-[14px] font-semibold font-sans leading-[20px]',
+    'rounded-[8px] px-[16px] appearance-none relative',
     'transition-colors duration-150 ease-linear',
     fill ? 'w-full' : 'inline-block',
-    { 'opacity-75 cursor-not-allowed': disabled },
+    disabled && 'opacity-75 cursor-not-allowed',
+    isPending && 'cursor-wait',
     className,
   );
 
   return (
     <button
       type={type}
-      disabled={disabled}
       onClick={onClick}
       className={classNames}
+      disabled={disabled || isPending}
     >
-      {children}
+      <span className={clsx(isPending && 'invisible')}>{children}</span>
+
+      <Loader
+        className={clsx(
+          'pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+          isPending ? 'visible' : 'invisible',
+        )}
+      />
     </button>
   );
 }
@@ -57,10 +67,10 @@ export function DangerButton({
 }: ButtonProps) {
   const classNames = clsx(
     outline
-      ? 'bg-transparent text-danger border-[2px] border-solid border-danger hover:text-[#ff0000] hover:border-[#ff0000]'
-      : 'bg-danger text-white hover:bg-[#ff0000]',
-    'text-base font-semibold font-sans leading-[24px]',
-    'rounded-[8px] py-[8px] px-[16px] appearance-none box-border',
+      ? 'bg-transparent text-danger border-[1px] border-solid border-danger hover:text-[#ff0000] hover:border-[#ff0000] py-[10px]'
+      : 'bg-danger text-white hover:bg-[#ff0000] py-[11px]',
+    'text-[14px] font-semibold font-sans leading-[20px]',
+    'rounded-[8px] px-[16px] appearance-none box-border',
     'transition-colors duration-150 ease-linear',
     fill ? 'w-full' : 'inline-block',
     { 'opacity-75 cursor-not-allowed': disabled },

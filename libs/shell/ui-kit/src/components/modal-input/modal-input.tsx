@@ -3,7 +3,6 @@ import {
   InputHTMLAttributes,
   ReactNode,
   useCallback,
-  useEffect,
 } from 'react';
 import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
@@ -50,7 +49,6 @@ export function ModalInput({
   onChange: (value: string | undefined) => void;
   onMaxButtonClick: () => void;
   hint?: ReactNode;
-
   isMaxButtonDisabled?: boolean;
 }) {
   const handleInputChange = useCallback(
@@ -59,12 +57,6 @@ export function ModalInput({
     },
     [onChange],
   );
-
-  useEffect(() => {
-    return () => {
-      onChange(undefined);
-    };
-  }, [onChange]);
 
   return (
     <div>

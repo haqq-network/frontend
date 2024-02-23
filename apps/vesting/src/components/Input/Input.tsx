@@ -1,6 +1,21 @@
-import { ChangeEvent, useCallback, useMemo } from 'react';
+import { ChangeEvent, InputHTMLAttributes, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
+import MaskedInput from 'react-text-mask';
+import { createNumberMask } from 'text-mask-addons';
 import { Text } from '../Typography/Typography';
+
+const defaultMaskOptions = {
+  prefix: '',
+  suffix: '',
+  includeThousandsSeparator: true,
+  thousandsSeparatorSymbol: ',',
+  allowDecimal: true,
+  decimalSymbol: '.',
+  decimalLimit: 4,
+  allowNegative: false,
+  allowLeadingZeroes: false,
+  // integerLimit: 7,
+};
 
 type InputValue = string | number;
 
@@ -9,13 +24,26 @@ export interface InputProps {
   id?: string;
   placeholder?: string;
   value?: InputValue;
-  onChange?: (value: string, event?: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string | undefined) => void;
   state?: 'normal' | 'success' | 'error';
   hint?: string;
-  type?: 'text' | 'number';
   required?: boolean;
   disabled?: boolean;
 }
+
+const CurrencyInput = ({
+  maskOptions,
+  ...inputProps
+}: InputHTMLAttributes<HTMLInputElement> & {
+  maskOptions?: typeof defaultMaskOptions | undefined;
+}) => {
+  const currencyMask: string | Array<string | RegExp> = createNumberMask({
+    ...defaultMaskOptions,
+    ...maskOptions,
+  });
+
+  return <MaskedInput mask={currencyMask} {...inputProps} />;
+};
 
 export function Input({
   label,
@@ -25,7 +53,6 @@ export function Input({
   onChange,
   state = 'normal',
   hint,
-  type = 'text',
   required,
   disabled = false,
 }: InputProps) {
@@ -56,12 +83,7 @@ export function Input({
 
   const handleInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      if (onChange) {
-        const {
-          target: { value },
-        } = event;
-        onChange(value, event);
-      }
+      onChange(event.target.value);
     },
     [onChange],
   );
@@ -76,16 +98,18 @@ export function Input({
           </Text>
         </label>
       )}
-      <input
+
+      <CurrencyInput
         disabled={disabled}
-        type={type}
         id={inputId}
         className={classNames}
         placeholder={placeholder}
         required={required}
+        type="text"
         onChange={handleInputChange}
         value={value}
       />
+
       {hint && hint !== '' && (
         <div
           className={clsx(

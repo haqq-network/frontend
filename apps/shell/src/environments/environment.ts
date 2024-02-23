@@ -5,4 +5,6 @@ export const environment = {
   turnstileSiteKey: process.env['NX_TURNSTILE_SITEKEY'],
   airdropEndpoint: process.env['NX_AIRDROP_ENDPOINT'],
   commitSha: process.env['GIT_COMMIT_SHA'],
+  faunaDbSecret: process.env['FAUNADB_SECRET'],
+  faunaDbUrl: process.env['FAUNADB_URL'],
 };

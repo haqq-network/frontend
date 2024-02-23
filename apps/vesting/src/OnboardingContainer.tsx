@@ -1,6 +1,6 @@
 import {
   createContext,
-  ReactElement,
+  PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
@@ -34,7 +34,7 @@ export interface OnboardingHook {
 
 const OnboardingContext = createContext<OnboardingHook | undefined>(undefined);
 
-export function OnboardingContainer({ children }: { children: ReactElement }) {
+export function OnboardingContainer({ children }: PropsWithChildren) {
   const { chain } = useNetwork();
   const { chains, switchNetworkAsync } = useSwitchNetwork();
   const [step, setOnboardingStep] = useState<OnboardingSteps>('start');
