@@ -14,10 +14,7 @@ import {
   BalancesFromIndexer,
 } from '../components/AccountWidget/AccountWidget';
 import { Container } from '../components/Layout/Layout';
-import {
-  LiquidVesting,
-  LiquidVestingHooked,
-} from '../components/liquid-vesting/liquid-vesting';
+import { LiquidVestingHooked } from '../components/liquid-vesting/liquid-vesting';
 import { VestingAccountStats } from '../components/VestingAccountStats';
 import {
   IndexerBalances,
@@ -25,7 +22,7 @@ import {
 } from '../hooks/use-indexer-balances';
 
 function isClawbackVestingAccount(
-  accountInfo?: HaqqAccount | ClawbackVestingAccount,
+  accountInfo?: HaqqAccount | ClawbackVestingAccount | null,
 ) {
   return Boolean(
     accountInfo &&
@@ -75,7 +72,7 @@ export function AccountPageComponent({
 
         <LiquidVestingHooked balance={balances.total} />
 
-        {isClawbackVestingAccount() && (
+        {isClawbackVestingAccount(accountInfo) && (
           <VestingAccountStats
             accountInfo={accountInfo as ClawbackVestingAccount}
           />
