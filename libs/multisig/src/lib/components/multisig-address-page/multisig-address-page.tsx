@@ -259,13 +259,16 @@ function MultisigBalance({
   const liquidTokens = useLiquidTokens(address.haqq);
   const { data: bankBalance } = useBankBalance(address.haqq);
   console.log({ liquidTokens, bankBalance });
+  const balance = bankBalance?.filter((token) => {
+    return !token.denom.startsWith('aLIQUID');
+  });
 
   return (
     <div className="py-[32px]">
       <div className="text-[12px] uppercase leading-[16px] text-[#FFFFFF80]">
         Balance
       </div>
-      {bankBalance && bankBalance.length < 1 && liquidTokens.length < 1 ? (
+      {balance && balance.length < 1 && liquidTokens.length < 1 ? (
         <div className="mt-[6px] flex flex-row gap-[24px]">
           <div className="text-[12px] leading-[16px] text-white/25">
             There is no tokens balance on this multisig wallet
@@ -273,7 +276,7 @@ function MultisigBalance({
         </div>
       ) : (
         <div className="mt-[6px] flex flex-col gap-[4px]">
-          {bankBalance?.map((token) => {
+          {balance?.map((token) => {
             if (token.denom === 'aISLM') {
               return (
                 <div
@@ -307,9 +310,7 @@ function MultisigBalance({
                 className="font-clash text-[24px] leading-[30px] text-white"
                 key={token.denom}
               >
-                {formatLocaleNumber(
-                  Number.parseFloat(formatUnits(BigInt(token.amount), 18)),
-                )}{' '}
+                {formatLocaleNumber(Number.parseFloat(token.amount))}{' '}
                 {token.denom}
               </div>
             );
