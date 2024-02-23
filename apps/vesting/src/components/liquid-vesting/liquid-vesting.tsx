@@ -47,7 +47,7 @@ function useLiquidTokens(address: string | undefined) {
   }, [bankBalance]);
 
   // Сопоставление токенов пользователя с их erc20_address
-  const liquidTokens = useMemo(() => {
+  return useMemo(() => {
     return userLiquidTokens.map((token) => {
       const pair = liquidTokenPairs.find((pair) => {
         return pair.denom === token.denom;
@@ -64,10 +64,6 @@ function useLiquidTokens(address: string | undefined) {
       };
     });
   }, [userLiquidTokens, liquidTokenPairs]);
-
-  return {
-    liquidTokens,
-  };
 }
 
 function getLiquidTokenFromResponse(
@@ -88,8 +84,7 @@ function getLiquidTokenFromResponse(
   };
 }
 
-export function LiquidVestingHooked({ balance: _ }: { balance: number }) {
-  const balance = 30000;
+export function LiquidVestingHooked({ balance }: { balance: number }) {
   const [liquidationAmount, setLiquidationAmount] = useState<
     number | undefined
   >(undefined);
@@ -99,7 +94,7 @@ export function LiquidVestingHooked({ balance: _ }: { balance: number }) {
   const [isLiquidationEnabled, setLiquidationEnabled] = useState(true);
   const [isLiquidationPending, setLiquidationPending] = useState(false);
   const { haqqAddress } = useAddress();
-  const { liquidTokens } = useLiquidTokens(haqqAddress);
+  const liquidTokens = useLiquidTokens(haqqAddress);
   const { watchAsset } = useWallet();
 
   const { liquidate } = useLiquidVestingActions();
@@ -155,17 +150,6 @@ export function LiquidVestingHooked({ balance: _ }: { balance: number }) {
                   >
                     Add token
                   </div>
-                  {/* <Button
-                    onClick={() => {
-                      if (token.erc20Address) {
-                        watchAsset(token.denom, token.erc20Address);
-                      } else {
-                        console.warn('No erc20 address found');
-                      }
-                    }}
-                  >
-                    Add token
-                  </Button> */}
                 </div>
               </div>
             </Toast>
@@ -181,7 +165,7 @@ export function LiquidVestingHooked({ balance: _ }: { balance: number }) {
       setLiquidationEnabled(true);
       setLiquidationPending(false);
     }
-  }, [haqqAddress, liquidate, liquidationAmount, toast, watchAsset]);
+  }, [balance, haqqAddress, liquidate, liquidationAmount, toast, watchAsset]);
 
   const handleWatchAsset = useCallback(
     async (denom: string) => {

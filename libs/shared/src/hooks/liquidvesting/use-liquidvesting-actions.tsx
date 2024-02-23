@@ -21,7 +21,7 @@ import { useSupportedChains } from '../../providers/wagmi-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { useAddress } from '../use-address/use-address';
 
-export function useLiquidateActions() {
+export function useLiquidVestingActions() {
   const { broadcastTransaction, getPubkey, getTransactionStatus, getSender } =
     useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
