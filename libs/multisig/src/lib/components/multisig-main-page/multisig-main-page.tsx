@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import { isAddress } from 'viem';
@@ -137,7 +137,6 @@ function ConnectMultisigModal({
   const { chain = chains[0] } = useNetwork();
   const chainParams = getChainParams(chain.id);
   const haqqChain = mapToCosmosChain(chainParams);
-
   const navigate = useNavigate();
 
   const addSignMember = () => {
@@ -438,6 +437,7 @@ function ConnectMultisigForm() {
   const [multisigAccount, setMultisigAccount] = useState<string | undefined>(
     undefined,
   );
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-row gap-[16px]">
@@ -466,6 +466,7 @@ function ConnectMultisigForm() {
         <Button
           onClick={() => {
             console.log('onMultisigConnectClick');
+            navigate(`/multisig/${multisigAccount}`);
           }}
           variant={2}
         >

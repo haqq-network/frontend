@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { pubkeyToAddress } from '@haqqjs/amino';
 import { StargateClient } from '@haqqjs/stargate';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import { formatUnits, isAddress } from 'viem';
 import { useNetwork } from 'wagmi';
 import {
@@ -34,6 +34,7 @@ export function MultisigAddressPage() {
   const { chain = chains[0] } = useNetwork();
   const chainParams = getChainParams(chain.id);
   const [multisigAccount, setMultisigAccount] = useState<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (address) {
@@ -86,9 +87,10 @@ export function MultisigAddressPage() {
             ? error.message
             : 'Multisig address could not be found',
         );
+        navigate('/not-found');
       }
     })();
-  }, [chain, chainParams.tmRpcEndpoint, multisigAddress]);
+  }, [chain, chainParams.tmRpcEndpoint, multisigAddress, navigate]);
 
   if (!address) {
     return <Navigate to="/not-found" replace />;
