@@ -200,6 +200,16 @@ function HeaderButtons({
                     Authz
                   </HeaderNavLink>
                 </div>
+                <div>
+                  <HeaderNavLink
+                    href="/multisig"
+                    onClick={() => {
+                      onMobileMenuOpenChange(false);
+                    }}
+                  >
+                    Multisig
+                  </HeaderNavLink>
+                </div>
               </div>
 
               {ethAddress && (

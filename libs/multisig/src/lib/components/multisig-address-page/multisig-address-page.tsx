@@ -19,6 +19,7 @@ import {
   Container,
   CopyIcon,
   Heading,
+  LogoutIcon,
   PendingPage,
   WalletIcon,
 } from '@haqq/shell-ui-kit';
@@ -126,8 +127,20 @@ export function MultisigAddressPage() {
                   Account:
                 </Heading>
 
-                <div className="ml-[16px]">
+                <div className="ml-[16px] leading-[0]">
                   <AccountAddresses address={multisigAddress} />
+                </div>
+
+                <div className="ml-[16px] leading-[0]">
+                  <div
+                    className="text-haqq-orange hover:text-haqq-light-orange font-guise inline-flex cursor-pointer flex-row items-center gap-[4px] text-[12px] font-[600] uppercase leading-[20px]"
+                    onClick={() => {
+                      navigate('/multisig');
+                    }}
+                  >
+                    <LogoutIcon className="h-[20px] w-[20px]" />
+                    Exit
+                  </div>
                 </div>
               </div>
               <MultisigInfo multisigAccount={multisigAccount} />
@@ -163,7 +176,7 @@ function MultisigInfo({ multisigAccount }: { multisigAccount: any }) {
           Members
         </div>
         {multisigAccount.pubkey.value.pubkeys.map((pubkey: any) => {
-          return <MultisigMember pubkey={pubkey} />;
+          return <MultisigMember pubkey={pubkey} key={pubkey.value} />;
         })}
       </div>
     </div>
@@ -179,11 +192,11 @@ function MultisigMember({ pubkey }: { pubkey: string }) {
 
   return (
     <div
-      className="flex cursor-pointer flex-row gap-[4px] rounded-full bg-white/15 px-[8px] py-[4px] text-[14px] leading-[22px] transition-colors"
+      className="flex cursor-pointer flex-row items-center gap-[4px] rounded-full bg-white/15 px-[8px] py-[4px] text-[14px] leading-[22px] transition-colors hover:bg-white/25"
       onClick={handleTextCopy}
     >
       <span>{getFormattedAddress(haqqToEth(address))}</span>
-      <CopyIcon className="text-white" />
+      <CopyIcon className="h-[18px] w-[18px] text-white" />
     </div>
   );
 }
@@ -247,38 +260,57 @@ function MultisigBalance({
   const { data: bankBalance } = useBankBalance(address.haqq);
   console.log({ liquidTokens, bankBalance });
 
-  const formattedBalance =
-    bankBalance && bankBalance[0]
-      ? Number.parseFloat(formatUnits(BigInt(bankBalance[0].amount), 18))
-      : 0;
-
   return (
     <div className="py-[32px]">
       <div className="text-[12px] uppercase leading-[16px] text-[#FFFFFF80]">
         Balance
       </div>
-      {formattedBalance === 0 && liquidTokens.length < 1 ? (
+      {bankBalance && bankBalance.length < 1 && liquidTokens.length < 1 ? (
         <div className="mt-[6px] flex flex-row gap-[24px]">
           <div className="text-[12px] leading-[16px] text-white/25">
-            There is no tokens balance on the multisig account
+            There is no tokens balance on this multisig wallet
           </div>
         </div>
       ) : (
-        <div className="mt-[6px] flex flex-row gap-[24px]">
-          {formattedBalance > 0 && (
-            <div className="font-clash text-[24px] leading-[30px] text-white">
-              {formatLocaleNumber(formattedBalance)} ISLM
-            </div>
-          )}
+        <div className="mt-[6px] flex flex-col gap-[4px]">
+          {bankBalance?.map((token) => {
+            if (token.denom === 'aISLM') {
+              return (
+                <div
+                  className="font-clash text-[24px] leading-[30px] text-white"
+                  key={'ISLM'}
+                >
+                  {formatLocaleNumber(
+                    Number.parseFloat(formatUnits(BigInt(token.amount), 18)),
+                  )}{' '}
+                  ISLM
+                </div>
+              );
+            } else {
+              return (
+                <div
+                  className="font-clash text-[24px] leading-[30px] text-white"
+                  key={token.denom}
+                >
+                  {formatLocaleNumber(
+                    Number.parseFloat(formatUnits(BigInt(token.amount), 0)),
+                  )}{' '}
+                  {getFormattedAddress(token.denom, 8, 4)}
+                </div>
+              );
+            }
+          })}
 
           {liquidTokens.map((token) => {
-            const formattedToken = Number.parseFloat(
-              formatUnits(BigInt(token.amount), 18),
-            );
-
             return (
-              <div className="font-clash text-[24px] leading-[30px] text-white">
-                {formatLocaleNumber(formattedToken)} {token.denom}
+              <div
+                className="font-clash text-[24px] leading-[30px] text-white"
+                key={token.denom}
+              >
+                {formatLocaleNumber(
+                  Number.parseFloat(formatUnits(BigInt(token.amount), 18)),
+                )}{' '}
+                {token.denom}
               </div>
             );
           })}

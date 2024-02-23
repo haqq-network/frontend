@@ -469,6 +469,7 @@ function ConnectMultisigForm() {
             navigate(`/multisig/${multisigAccount}`);
           }}
           variant={2}
+          disabled={!multisigAccount || multisigAccount.length < 42}
         >
           Connect
         </Button>
