@@ -187,7 +187,7 @@ function MultisigMember({ pubkey }: { pubkey: string }) {
   const address = pubkeyToAddress(pubkey as any, 'haqq');
   const { copyText } = useClipboard();
   const handleTextCopy = useCallback(() => {
-    copyText(address);
+    copyText(haqqToEth(address));
   }, [copyText, address]);
 
   return (
