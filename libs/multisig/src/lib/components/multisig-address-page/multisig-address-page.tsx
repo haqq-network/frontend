@@ -1,14 +1,28 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { pubkeyToAddress } from '@haqqjs/amino';
+import { StargateClient } from '@haqqjs/stargate';
 import { Navigate, useParams } from 'react-router-dom';
-import { isAddress } from 'viem';
+import { formatUnits, isAddress } from 'viem';
+import { useNetwork } from 'wagmi';
 import {
   ethToHaqq,
+  getChainParams,
   getFormattedAddress,
   haqqToEth,
+  useBankBalance,
   useClipboard,
+  useSupportedChains,
+  useTokenPairs,
   useWallet,
 } from '@haqq/shared';
-import { Container, CopyIcon, Heading, WalletIcon } from '@haqq/shell-ui-kit';
+import {
+  Container,
+  CopyIcon,
+  Heading,
+  PendingPage,
+  WalletIcon,
+} from '@haqq/shell-ui-kit';
+import { getMultisigAccount } from '../../utils/multisig-helpers';
 
 export function MultisigAddressPage() {
   const { address } = useParams();
@@ -16,6 +30,10 @@ export function MultisigAddressPage() {
   const [multisigAddress, setMultisigAddress] = useState<
     { eth: string; haqq: string } | undefined
   >(undefined);
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+  const chainParams = getChainParams(chain.id);
+  const [multisigAccount, setMultisigAccount] = useState<any>(null);
 
   useEffect(() => {
     if (address) {
@@ -42,12 +60,46 @@ export function MultisigAddressPage() {
     }
   }, [address]);
 
+  useEffect(() => {
+    (async function fetchMultisig() {
+      if (!multisigAddress) {
+        return;
+      }
+
+      try {
+        const client = await StargateClient.connect(chainParams.tmRpcEndpoint);
+        const tempHoldings = await client.getAllBalances(multisigAddress.haqq);
+        // setHoldings(tempHoldings);
+        console.log({ tempHoldings });
+
+        const result = await getMultisigAccount(
+          multisigAddress.haqq,
+          'haqq',
+          client,
+        );
+        console.log('getMultisigAccount', { result });
+        setMultisigAccount(result);
+      } catch (error: unknown) {
+        // setHasAccountError(true);
+        console.error(
+          error instanceof Error
+            ? error.message
+            : 'Multisig address could not be found',
+        );
+      }
+    })();
+  }, [chain, chainParams.tmRpcEndpoint, multisigAddress]);
+
   if (!address) {
     return <Navigate to="/not-found" replace />;
   }
 
-  if (!multisigAddress) {
-    return <div>PendingPage</div>;
+  if (!multisigAddress || !multisigAccount) {
+    return (
+      <div>
+        <PendingPage />
+      </div>
+    );
   }
 
   return (
@@ -64,7 +116,7 @@ export function MultisigAddressPage() {
 
       <div className="border-y-[1px] border-[#FFFFFF26]">
         <Container>
-          <div className="flex flex-col divide-y divide-dashed divide-[#FFFFFF26] py-[32px]">
+          <div className="flex flex-col divide-y divide-dashed divide-[#FFFFFF26] pt-[32px]">
             <div className="pb-[32px]">
               <div className="flex flex-row items-center">
                 <WalletIcon />
@@ -76,26 +128,155 @@ export function MultisigAddressPage() {
                   <AccountAddresses address={multisigAddress} />
                 </div>
               </div>
-
-              <div className="mt-[16px] flex flex-row gap-[32px]">
-                <div className="text-[12px] uppercase leading-[16px]">
-                  <span className="">Threshold</span>&nbsp;
-                  <span className="text-white">2</span>&nbsp;
-                  <span className="text-white/25">from 3</span>
-                </div>
-
-                <div className="text-[12px] uppercase leading-[16px]">
-                  Members
-                </div>
-              </div>
+              <MultisigInfo multisigAccount={multisigAccount} />
             </div>
-            <div className="pt-[32px]">
-              <div className="text-[12px] uppercase leading-[16px] text-[#FFFFFF80]">
-                Balance
-              </div>
-            </div>
+            <MultisigBalance address={multisigAddress} />
           </div>
         </Container>
+      </div>
+    </div>
+  );
+}
+
+function MultisigInfo({ multisigAccount }: { multisigAccount: any }) {
+  if (!multisigAccount) {
+    return null;
+  }
+
+  return (
+    <div className="mt-[16px] flex h-[30px] flex-row items-center gap-[32px]">
+      <div className="text-[12px] uppercase leading-[16px]">
+        <span className="text-white/50">Threshold</span>&nbsp;
+        <span className="text-white">
+          {multisigAccount.pubkey.value.threshold}
+        </span>
+        &nbsp;
+        <span className="text-white/25">
+          from {multisigAccount.pubkey.value.pubkeys.length}
+        </span>
+      </div>
+
+      <div className="flex flex-row items-center gap-[12px]">
+        <div className="text-[12px] uppercase leading-[16px] text-white/50">
+          Members
+        </div>
+        {multisigAccount.pubkey.value.pubkeys.map((pubkey: any) => {
+          return <MultisigMember pubkey={pubkey} />;
+        })}
+      </div>
+    </div>
+  );
+}
+
+function MultisigMember({ pubkey }: { pubkey: string }) {
+  const address = pubkeyToAddress(pubkey as any, 'haqq');
+  const { copyText } = useClipboard();
+  const handleTextCopy = useCallback(() => {
+    copyText(address);
+  }, [copyText, address]);
+
+  return (
+    <div
+      className="flex cursor-pointer flex-row gap-[4px] rounded-full bg-white/15 px-[8px] py-[4px] text-[14px] leading-[22px] transition-colors"
+      onClick={handleTextCopy}
+    >
+      <span>{getFormattedAddress(haqqToEth(address))}</span>
+      <CopyIcon className="text-white" />
+    </div>
+  );
+}
+
+function formatLocaleNumber(value?: number) {
+  if (!value) {
+    return undefined;
+  }
+
+  return value.toLocaleString(navigator.language, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 4,
+  });
+}
+
+function useLiquidTokens(address: string | undefined) {
+  const { data: bankBalance } = useBankBalance(address);
+  const { data: tokenPairs } = useTokenPairs();
+
+  const liquidTokenPairs = useMemo(() => {
+    return (
+      tokenPairs?.filter((pair) => {
+        return pair.denom.startsWith('aLIQUID');
+      }) ?? []
+    );
+  }, [tokenPairs]);
+
+  const userLiquidTokens = useMemo(() => {
+    return (
+      bankBalance?.filter((token) => {
+        return token.denom.startsWith('aLIQUID');
+      }) ?? []
+    );
+  }, [bankBalance]);
+
+  return useMemo(() => {
+    return userLiquidTokens.map((token) => {
+      const pair = liquidTokenPairs.find((pair) => {
+        return pair.denom === token.denom;
+      });
+
+      const formattedAmount = Number.parseFloat(
+        formatUnits(BigInt(token.amount), 18),
+      );
+
+      return {
+        erc20Address: pair?.erc20_address ?? null,
+        denom: token.denom,
+        amount: formatLocaleNumber(formattedAmount) as string,
+      };
+    });
+  }, [userLiquidTokens, liquidTokenPairs]);
+}
+
+function MultisigBalance({
+  address,
+}: {
+  address: { eth: string; haqq: string };
+}) {
+  const liquidTokens = useLiquidTokens(address.haqq);
+  const { data: bankBalance } = useBankBalance(address.haqq);
+  console.log({ liquidTokens, bankBalance });
+
+  const formattedBalance =
+    bankBalance && bankBalance[0]
+      ? Number.parseFloat(formatUnits(BigInt(bankBalance[0].amount), 18))
+      : 0;
+
+  if (formattedBalance === 0 && liquidTokens.length < 1) {
+    return null;
+  }
+
+  return (
+    <div className="py-[32px]">
+      <div className="text-[12px] uppercase leading-[16px] text-[#FFFFFF80]">
+        Balance
+      </div>
+      <div className="mt-[6px] flex flex-row gap-[24px]">
+        {formattedBalance > 0 && (
+          <div className="font-clash text-[24px] leading-[30px] text-white">
+            {formatLocaleNumber(formattedBalance)} ISLM
+          </div>
+        )}
+
+        {liquidTokens.map((token) => {
+          const formattedToken = Number.parseFloat(
+            formatUnits(BigInt(token.amount), 18),
+          );
+
+          return (
+            <div className="font-clash text-[24px] leading-[30px] text-white">
+              {formatLocaleNumber(formattedToken)} {token.denom}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

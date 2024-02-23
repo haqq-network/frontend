@@ -53,6 +53,7 @@ module.exports = composePlugins(
         { module: /@walletconnect/ },
         { module: /@cosmjs/ },
         { module: /@haqqjs/ },
+        { module: /@confio/ },
       ],
     });
   },

@@ -7,7 +7,6 @@ import {
 } from '@haqqjs/amino';
 import { Account, StargateClient } from '@haqqjs/stargate';
 import { checkAddress } from './display-helpers';
-import { requestJson } from './request';
 import { createMultisig, getMultisig } from './graphql-helpers';
 
 export const timestampFromDatetimeLocal = (
@@ -148,7 +147,7 @@ const getMultisigAccount = async (
   address: string,
   addressPrefix: string,
   client: StargateClient,
-): Promise<[MultisigThresholdPubkey, Account | null]> => {
+): Promise<any> => {
   console.log('getMultisigAccount # 1', { address, addressPrefix });
   // we need the multisig pubkeys to create transactions, if the multisig
   // is new, and has never submitted a transaction its pubkeys will not be
@@ -182,8 +181,13 @@ const getMultisigAccount = async (
       console.log('getRes', JSON.stringify(getRes, null, 2));
       console.log('success', getRes.data.getMultisig);
 
-      return getRes.data.getMultisig;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { pubkeyJSON } = getRes.data.getMultisig;
+      const pubkey = JSON.parse(pubkeyJSON);
+
+      return {
+        address: getRes.data.getMultisig.address,
+        pubkey,
+      };
     } catch (err: any) {
       console.log(err);
 
