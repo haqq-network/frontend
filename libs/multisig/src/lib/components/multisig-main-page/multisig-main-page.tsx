@@ -1,6 +1,19 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { GraphQLProvider, useAddress, useWallet } from '@haqq/shared';
+import { useNavigate } from 'react-router-dom';
+import { isAddress } from 'viem';
+import { useNetwork } from 'wagmi';
+import {
+  GraphQLProvider,
+  ethToHaqq,
+  getChainParams,
+  haqqToEth,
+  mapToCosmosChain,
+  useAddress,
+  useCosmosService,
+  useSupportedChains,
+  useWallet,
+} from '@haqq/shared';
 import {
   Button,
   Container,
@@ -10,8 +23,9 @@ import {
   ModalInput,
   WarningMessage,
 } from '@haqq/shell-ui-kit';
+import { createMultisigFromCompressedSecp256k1Pubkeys } from '../../utils/multisig-helpers';
 
-export function MultisigPage() {
+export function MultisigMainPage() {
   const { ethAddress } = useAddress();
   const { openSelectWallet, isHaqqWallet } = useWallet();
   const [isCreateMultisigModalOpen, setCreateMultisigModalOpen] =
@@ -87,6 +101,24 @@ export function MultisigPage() {
   );
 }
 
+type AddressError = string | null;
+
+function useDebounceValue<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
 function ConnectMultisigModal({
   isOpen,
   onClose,
@@ -96,6 +128,17 @@ function ConnectMultisigModal({
 }) {
   const [threshold, setThreshold] = useState(2);
   const [addresses, setAddresses] = useState<string[]>(['', '']);
+  const [errors, setErrors] = useState<AddressError[]>([null, null]);
+  const [pubkeys, setPubkeys] = useState<{ '@type': string; key: string }[]>(
+    [],
+  );
+  const { getAccountBaseInfo } = useCosmosService();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+  const chainParams = getChainParams(chain.id);
+  const haqqChain = mapToCosmosChain(chainParams);
+
+  const navigate = useNavigate();
 
   const addSignMember = () => {
     setAddresses([...addresses, '']);
@@ -106,9 +149,133 @@ function ConnectMultisigModal({
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newAddresses = [...addresses];
+
     newAddresses[index] = event.target.value;
+
     setAddresses(newAddresses);
   };
+
+  const removeSignMember = (index: number) => {
+    const newAddresses = addresses.filter((_, idx) => {
+      return idx !== index;
+    });
+
+    setAddresses(newAddresses);
+  };
+
+  const debouncedAddresses = useDebounceValue(addresses, 300);
+
+  const validate = (address: string): AddressError => {
+    if (!address) {
+      return 'Адрес не может быть пустым';
+    }
+
+    if (address.startsWith('0x')) {
+      const isValidEthAddress = isAddress(address);
+
+      if (!isValidEthAddress) {
+        return 'Неверный ETH адрес';
+      }
+    } else if (address.startsWith('haqq')) {
+      const ethAddress = haqqToEth(address);
+      const isValidEthAddress = isAddress(ethAddress);
+
+      if (!isValidEthAddress) {
+        return 'Неверный haqq адрес';
+      }
+    } else {
+      return 'Адрес должен начинаться с 0x или haqq1';
+    }
+
+    return null;
+  };
+
+  const validateAndFetchPubkey = useCallback(
+    async (address: string, index: number) => {
+      const error = validate(address);
+      if (error) {
+        setErrors((prevErrors) => {
+          const newErrors = [...prevErrors];
+          newErrors[index] = error;
+          return newErrors;
+        });
+      } else {
+        try {
+          const baseAccountInfo = await getAccountBaseInfo(
+            address.startsWith('0x') ? ethToHaqq(address) : address,
+          );
+          const pubkey = baseAccountInfo?.pub_key;
+
+          if (pubkey) {
+            setPubkeys((prevPubkeys) => {
+              const newPubkeys = [...prevPubkeys];
+              newPubkeys[index] = pubkey;
+              return newPubkeys;
+            });
+            setErrors((prevErrors) => {
+              const newErrors = [...prevErrors];
+              newErrors[index] = null;
+              return newErrors;
+            });
+          } else {
+            setErrors((prevErrors) => {
+              const newErrors = [...prevErrors];
+              newErrors[index] =
+                'Account has no pubkey on chain, this address will need to send a transaction to appear on chain.';
+              return newErrors;
+            });
+          }
+        } catch (e) {
+          setErrors((prevErrors) => {
+            const newErrors = [...prevErrors];
+            newErrors[index] = 'Ошибка при получении публичного ключа';
+            return newErrors;
+          });
+        }
+      }
+    },
+    [getAccountBaseInfo],
+  );
+
+  useEffect(() => {
+    debouncedAddresses.forEach((address, index) => {
+      if (address) {
+        validateAndFetchPubkey(address, index);
+      }
+    });
+  }, [debouncedAddresses, validateAndFetchPubkey]);
+
+  const handleCreateMultisig = async () => {
+    // setProcessing(true);
+    const compressedPubkeys = pubkeys.map((item) => {
+      return item.key;
+    });
+
+    let multisigAddress;
+
+    try {
+      multisigAddress = await createMultisigFromCompressedSecp256k1Pubkeys(
+        compressedPubkeys,
+        threshold,
+        'haqq',
+        haqqChain.cosmosChainId,
+      );
+
+      console.log({ multisigAddress });
+
+      navigate(`/multisig/${multisigAddress}`);
+    } catch (error) {
+      console.log('Failed to creat multisig: ', error);
+    }
+  };
+
+  const isButtonDisabled =
+    errors.some((error) => {
+      return error !== null;
+    }) ||
+    pubkeys.some((pubkey) => {
+      return !pubkey;
+    });
 
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
@@ -129,13 +296,13 @@ function ConnectMultisigModal({
             <div className="flex flex-col gap-[20px]">
               {addresses.map((address, index) => {
                 return (
-                  <div>
+                  <div className="flex flex-row gap-[10px]">
                     <input
                       className={clsx(
                         'w-full rounded-[6px] outline-none',
                         'transition-colors duration-100 ease-in',
                         'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
-                        'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+                        'px-[16px] py-[9px] text-[14px] font-[500] leading-[22px]',
                         'bg-[#E7E7E7]',
                       )}
                       key={index}
@@ -146,6 +313,19 @@ function ConnectMultisigModal({
                       }}
                       placeholder="Address"
                     />
+
+                    {addresses.length >= 3 && (
+                      <div>
+                        <button
+                          className="inline-flex h-[40px] w-[40px] items-center justify-center rounded-[6px] bg-[#E7E7E7] text-[#0D0D0E]/50 hover:text-[#0D0D0E] disabled:cursor-not-allowed"
+                          onClick={() => {
+                            removeSignMember(index);
+                          }}
+                        >
+                          <MinusIcon />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -204,46 +384,28 @@ function ConnectMultisigModal({
                   <button
                     className="inline-flex h-[40px] w-[40px] items-center justify-center bg-[#E7E7E7] text-[#0D0D0E]/50 hover:text-[#0D0D0E] disabled:cursor-not-allowed"
                     onClick={() => {
-                      setThreshold(threshold - 1);
+                      const newThreshold = threshold - 1;
+
+                      if (threshold > 0) {
+                        setThreshold(newThreshold);
+                      }
                     }}
                     disabled={threshold <= 1}
                   >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M3 11L21 11V13L3 13L3 11Z"
-                        fill="currentColor"
-                      />
-                    </svg>
+                    <MinusIcon />
                   </button>
                   <button
                     className="inline-flex h-[40px] w-[40px] items-center justify-center bg-[#E7E7E7] text-[#0D0D0E]/50 hover:text-[#0D0D0E] disabled:cursor-not-allowed"
                     onClick={() => {
-                      setThreshold(threshold + 1);
+                      const newThreshold = threshold + 1;
+
+                      if (threshold < addresses.length) {
+                        setThreshold(newThreshold);
+                      }
                     }}
                     disabled={threshold >= addresses.length}
                   >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M11 13V19H13V13H19V11H13V5H11V11H5V13H11Z"
-                        fill="currentColor"
-                      />
-                    </svg>
+                    <PlusIcon />
                   </button>
                 </div>
               </div>
@@ -258,7 +420,12 @@ function ConnectMultisigModal({
         </div>
 
         <div className="pt-[24px]">
-          <Button variant={3} className="w-full">
+          <Button
+            variant={3}
+            className="w-full"
+            onClick={handleCreateMultisig}
+            disabled={isButtonDisabled}
+          >
             Create
           </Button>
         </div>
@@ -306,5 +473,43 @@ function ConnectMultisigForm() {
         </Button>
       </div>
     </div>
+  );
+}
+
+function PlusIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11 13V19H13V13H19V11H13V5H11V11H5V13H11Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function MinusIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M3 11L21 11V13L3 13L3 11Z"
+        fill="currentColor"
+      />
+    </svg>
   );
 }

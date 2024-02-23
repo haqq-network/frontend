@@ -35,9 +35,13 @@ const AirdropPage = lazy(async () => {
   const { AirdropPage } = await import('@haqq/shell-airdrop');
   return { default: AirdropPage };
 });
-const MultisigPage = lazy(async () => {
-  const { MultisigPage } = await import('@haqq/shell-multisig');
-  return { default: MultisigPage };
+const MultisigMainPage = lazy(async () => {
+  const { MultisigMainPage } = await import('@haqq/shell-multisig');
+  return { default: MultisigMainPage };
+});
+const MultisigAddressPage = lazy(async () => {
+  const { MultisigAddressPage } = await import('@haqq/shell-multisig');
+  return { default: MultisigAddressPage };
 });
 
 export function App() {
@@ -96,8 +100,8 @@ export function App() {
           path="/multisig/*"
           element={
             <Routes>
-              <Route path="/" element={<MultisigPage />} />
-              {/* <Route path="proposal/:id" element={<ProposalDetailsPage />} /> */}
+              <Route path="/" element={<MultisigMainPage />} />
+              <Route path=":address" element={<MultisigAddressPage />} />
             </Routes>
           }
         />

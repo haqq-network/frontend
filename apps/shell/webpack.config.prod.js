@@ -24,6 +24,10 @@ module.exports = composePlugins(
               process.env['VERCEL_GIT_COMMIT_SHA'] ??
               'dev',
           ),
+          'process.env.FAUNADB_SECRET': JSON.stringify(
+            process.env.FAUNADB_SECRET,
+          ),
+          'process.env.FAUNADB_URL': JSON.stringify(process.env.FAUNADB_URL),
         }),
       ],
       node: { global: true },
@@ -41,6 +45,15 @@ module.exports = composePlugins(
           url: false,
         },
       },
+      ignoreWarnings: [
+        { module: /next/ },
+        { module: /cosmjs-types/ },
+        { module: /ethereumjs-util/ },
+        { module: /@evmos/ },
+        { module: /@walletconnect/ },
+        { module: /@cosmjs/ },
+        { module: /@haqqjs/ },
+      ],
     });
   },
 );

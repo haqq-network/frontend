@@ -95,6 +95,7 @@ export interface CosmosService {
     accountNumber: number;
     pubkey: string;
   }>;
+  getPubkeyFromChain: (address: string) => Promise<string | undefined>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -108,6 +109,7 @@ type CosmosServiceContextProviderValue =
       service: CosmosService;
       error: string | undefined;
     };
+
 export const CosmosServiceContext =
   createContext<CosmosServiceContextProviderValue>({
     isReady: false,
@@ -835,6 +837,7 @@ function createCosmosService(
     getBankBalances,
     getTransactionStatus,
     getProposalVotes,
+    getPubkeyFromChain,
     // getVotes,
     getErc20TokenPairs,
     getSender,

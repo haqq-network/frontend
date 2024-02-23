@@ -19,5 +19,13 @@
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/lib/utils/graphql-helpers.ts",
+    "src/lib/utils/request.ts",
+    "src/lib/utils/multisig-helpers.ts"
+  ]
 }
