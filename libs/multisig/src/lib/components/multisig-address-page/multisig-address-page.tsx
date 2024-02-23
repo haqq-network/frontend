@@ -252,34 +252,38 @@ function MultisigBalance({
       ? Number.parseFloat(formatUnits(BigInt(bankBalance[0].amount), 18))
       : 0;
 
-  if (formattedBalance === 0 && liquidTokens.length < 1) {
-    return null;
-  }
-
   return (
     <div className="py-[32px]">
       <div className="text-[12px] uppercase leading-[16px] text-[#FFFFFF80]">
         Balance
       </div>
-      <div className="mt-[6px] flex flex-row gap-[24px]">
-        {formattedBalance > 0 && (
-          <div className="font-clash text-[24px] leading-[30px] text-white">
-            {formatLocaleNumber(formattedBalance)} ISLM
+      {formattedBalance === 0 && liquidTokens.length < 1 ? (
+        <div className="mt-[6px] flex flex-row gap-[24px]">
+          <div className="text-[12px] leading-[16px] text-white/25">
+            There is no tokens balance on the multisig account
           </div>
-        )}
-
-        {liquidTokens.map((token) => {
-          const formattedToken = Number.parseFloat(
-            formatUnits(BigInt(token.amount), 18),
-          );
-
-          return (
+        </div>
+      ) : (
+        <div className="mt-[6px] flex flex-row gap-[24px]">
+          {formattedBalance > 0 && (
             <div className="font-clash text-[24px] leading-[30px] text-white">
-              {formatLocaleNumber(formattedToken)} {token.denom}
+              {formatLocaleNumber(formattedBalance)} ISLM
             </div>
-          );
-        })}
-      </div>
+          )}
+
+          {liquidTokens.map((token) => {
+            const formattedToken = Number.parseFloat(
+              formatUnits(BigInt(token.amount), 18),
+            );
+
+            return (
+              <div className="font-clash text-[24px] leading-[30px] text-white">
+                {formatLocaleNumber(formattedToken)} {token.denom}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

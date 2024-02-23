@@ -191,7 +191,7 @@ const getMultisigAccount = async (
     } catch (err: any) {
       console.log(err);
 
-      return err.message;
+      throw new Error(err);
     }
 
     // try {
