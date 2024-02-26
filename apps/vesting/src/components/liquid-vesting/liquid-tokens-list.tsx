@@ -1,40 +1,32 @@
 import { useState } from 'react';
+import { LiquidToken } from '../../hooks/use-liquid-tokens/use-liquid-tokens';
+import { Button } from '../Button/Button';
 
-export interface LiquidToken {
-  denom: string;
-  erc20Address: string | null;
-  amount: string;
+export function AddedToken({
+  token,
+  onTokenAddClick,
+}: {
+  token: LiquidToken;
+  onTokenAddClick: (denom: string) => void;
+}) {
+  return (
+    <div className="flex flex-row items-center justify-between py-[6px]">
+      <div className="text-[16px] font-[600] leading-[24px]">
+        {token.amount} {token.denom.toUpperCase()}
+      </div>
+      <div>
+        <Button
+          outline
+          onClick={() => {
+            onTokenAddClick(token.denom);
+          }}
+        >
+          Add token
+        </Button>
+      </div>
+    </div>
+  );
 }
-
-// export function PendingTokens({
-//   onTokenAddClick,
-//   tokens = pendingTokens,
-// }: {
-//   onTokenAddClick: (denom: string) => void;
-//   iquidToken?: LiquidToken;
-// }) {
-//   return (
-//     <div className="flex flex-col divide-y divide-[#D9D9D9]">
-//       {pendingTokens.map((token, index) => {
-//         return (
-//           <div
-//             key={`${index}-${token.symbol}`}
-//             className="flex flex-row items-center justify-between py-[6px]"
-//           >
-//             <div className="text-[16px] font-[600] leading-[24px]">
-//               {token.amount} {token.symbol}
-//             </div>
-//             <div>
-//               <Button outline onClick={onTokenAddClick}>
-//                 Add token
-//               </Button>
-//             </div>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// }
 
 export function LiquidTokensList({
   liquidTokens = [],
