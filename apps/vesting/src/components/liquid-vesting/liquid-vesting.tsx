@@ -146,7 +146,11 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
             );
           },
           error: (error: Error) => {
-            return <ToastError>{error.message}</ToastError>;
+            return (
+              <ToastError>
+                <span className="!text-danger">Error: {error.message}</span>
+              </ToastError>
+            );
           },
         },
         {
