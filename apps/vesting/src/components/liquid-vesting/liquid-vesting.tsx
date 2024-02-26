@@ -1,70 +1,32 @@
-import {
-  FormEvent,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { formatUnits } from 'viem';
+import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useNetwork } from 'wagmi';
 import {
   BroadcastTxResponse,
+  getChainParams,
+  getFormattedAddress,
   useAddress,
-  useBankBalance,
   useLiquidVestingActions,
+  useSupportedChains,
   useToast,
-  useTokenPairs,
   useWallet,
 } from '@haqq/shared';
-import { LiquidToken, LiquidTokensList } from './liquid-tokens-list';
+import { AddedToken, LiquidTokensList } from './liquid-tokens-list';
+import {
+  LiquidToken,
+  useLiquidTokens,
+} from '../../hooks/use-liquid-tokens/use-liquid-tokens';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
 import { toFixedAmount } from '../../utils/to-fixed-amount';
 import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { Input } from '../Input/Input';
+import { ToastError } from '../toasts/toast-error';
+import { ToastLoading } from '../toasts/toast-loading';
+import { ToastSuccess } from '../toasts/toast-success';
 import { Heading } from '../Typography/Typography';
 
 const MIN_AMOUNT = 1000;
-
-function useLiquidTokens(address: string | undefined) {
-  const { data: bankBalance } = useBankBalance(address);
-  const { data: tokenPairs } = useTokenPairs();
-
-  const liquidTokenPairs = useMemo(() => {
-    return (
-      tokenPairs?.filter((pair) => {
-        return pair.denom.startsWith('aLIQUID');
-      }) ?? []
-    );
-  }, [tokenPairs]);
-
-  const userLiquidTokens = useMemo(() => {
-    return (
-      bankBalance?.filter((token) => {
-        return token.denom.startsWith('aLIQUID');
-      }) ?? []
-    );
-  }, [bankBalance]);
-
-  // Сопоставление токенов пользователя с их erc20_address
-  return useMemo(() => {
-    return userLiquidTokens.map((token) => {
-      const pair = liquidTokenPairs.find((pair) => {
-        return pair.denom === token.denom;
-      });
-
-      const formattedAmount = Number.parseFloat(
-        formatUnits(BigInt(token.amount), 18),
-      );
-
-      return {
-        erc20Address: pair?.erc20_address ?? null,
-        denom: token.denom,
-        amount: formatLocaleNumber(formattedAmount) as string,
-      };
-    });
-  }, [userLiquidTokens, liquidTokenPairs]);
-}
 
 function getLiquidTokenFromResponse(
   response: BroadcastTxResponse,
@@ -84,6 +46,26 @@ function getLiquidTokenFromResponse(
   };
 }
 
+function LinkIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M13 5.5H6C4.89543 5.5 4 6.39543 4 7.5V11.5C4 12.6046 4.89543 13.5 6 13.5H13C13.7571 13.5 14.4159 13.0793 14.7555 12.459C15.0207 11.9745 15.4477 11.5 16 11.5C16.5523 11.5 17.0128 11.9547 16.8766 12.4899C16.4361 14.2202 14.8675 15.5 13 15.5H6C3.79086 15.5 2 13.7091 2 11.5V7.5C2 5.29086 3.79086 3.5 6 3.5H13C14.8675 3.5 16.4361 4.77976 16.8766 6.51012C17.0128 7.04533 16.5523 7.5 16 7.5C15.4477 7.5 15.0207 7.02548 14.7555 6.54103C14.4159 5.92067 13.7571 5.5 13 5.5ZM18 10.5H11C10.2429 10.5 9.58407 10.9207 9.24447 11.541C8.97928 12.0255 8.55228 12.5 8 12.5C7.44772 12.5 6.98717 12.0453 7.12343 11.5101C7.56394 9.77976 9.13252 8.5 11 8.5H18C20.2091 8.5 22 10.2909 22 12.5V16.5C22 18.7091 20.2091 20.5 18 20.5H11C9.13252 20.5 7.56394 19.2202 7.12343 17.4899C6.98717 16.9547 7.44772 16.5 8 16.5C8.55228 16.5 8.97928 16.9745 9.24447 17.459C9.58406 18.0793 10.2429 18.5 11 18.5H18C19.1046 18.5 20 17.6046 20 16.5V12.5C20 11.3954 19.1046 10.5 18 10.5Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 export function LiquidVestingHooked({ balance }: { balance: number }) {
   const [liquidationAmount, setLiquidationAmount] = useState<
     number | undefined
@@ -96,9 +78,12 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
   const { haqqAddress } = useAddress();
   const liquidTokens = useLiquidTokens(haqqAddress);
   const { watchAsset } = useWallet();
-
   const { liquidate } = useLiquidVestingActions();
   const toast = useToast();
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+  const { explorer } = getChainParams(chain.id);
+  const [addedTokens, setAddedTokens] = useState<LiquidToken[]>([]);
 
   useEffect(() => {
     if (balance < MIN_AMOUNT) {
@@ -128,39 +113,37 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
       );
 
       await toast.promise(liquidatePromise, {
-        loading: <Toast>Liquid token mint in progress</Toast>,
+        loading: <ToastLoading>Liquid token mint in progress</ToastLoading>,
         success: (tx) => {
           console.log('Convert to liquid successful', { tx });
           const token = getLiquidTokenFromResponse(tx);
+          const txHash = tx?.txhash;
+
+          setAddedTokens((tokens) => {
+            return [...tokens, token];
+          });
 
           return (
-            <Toast>
+            <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                 <div>You successfully mint liquid token</div>
                 <div>
-                  <div
-                    className="cursor-pointer text-[14px] leading-[30px] text-[#0389D4]"
-                    onClick={() => {
-                      if (token.erc20Address) {
-                        watchAsset(token.denom, token.erc20Address);
-                      } else {
-                        console.warn('No erc20 address found');
-                      }
-                    }}
+                  <Link
+                    to={`${explorer.cosmos}/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-[4px] lowercase text-[#0389D4] transition-colors duration-300 hover:text-[#0389D4]/75"
                   >
-                    Add token
-                  </div>
+                    <LinkIcon />
+                    <span>{getFormattedAddress(txHash)}</span>
+                  </Link>
                 </div>
               </div>
-            </Toast>
+            </ToastSuccess>
           );
         },
         error: (error: Error) => {
-          return (
-            <Toast>
-              <span className="!text-danger">Error: {error.message}</span>
-            </Toast>
-          );
+          return <ToastError>{error.message}</ToastError>;
         },
       });
     } catch (error) {
@@ -169,7 +152,14 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
       setLiquidationEnabled(true);
       setLiquidationPending(false);
     }
-  }, [balance, haqqAddress, liquidate, liquidationAmount, toast, watchAsset]);
+  }, [
+    balance,
+    explorer.cosmos,
+    haqqAddress,
+    liquidate,
+    liquidationAmount,
+    toast,
+  ]);
 
   const handleWatchAsset = useCallback(
     async (denom: string) => {
@@ -196,6 +186,7 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
       isLiquidationPending={isLiquidationPending}
       liquidTokens={liquidTokens}
       onTokenAddClick={handleWatchAsset}
+      addedTokens={addedTokens}
     />
   );
 }
@@ -209,6 +200,7 @@ export function LiquidVesting({
   isLiquidationPending,
   liquidTokens,
   onTokenAddClick,
+  addedTokens,
 }: {
   liquidationAmount: number | undefined;
   onAmountChange: (value: number) => void;
@@ -218,6 +210,7 @@ export function LiquidVesting({
   isLiquidationPending: boolean;
   liquidTokens?: LiquidToken[];
   onTokenAddClick: (denom: string) => void;
+  addedTokens: LiquidToken[];
 }) {
   const handleInputChange = useCallback(
     (value: string | undefined) => {
@@ -305,6 +298,18 @@ export function LiquidVesting({
             </div>
           </form>
 
+          <div className="flex flex-col divide-y divide-[#D9D9D9]">
+            {addedTokens.map((token) => {
+              return (
+                <AddedToken
+                  key={token.denom}
+                  token={token}
+                  onTokenAddClick={onTokenAddClick}
+                />
+              );
+            })}
+          </div>
+
           <LiquidTokensList
             liquidTokens={liquidTokens}
             onTokenAddClick={onTokenAddClick}
@@ -312,13 +317,5 @@ export function LiquidVesting({
         </div>
       </div>
     </Card>
-  );
-}
-
-function Toast({ children }: PropsWithChildren) {
-  return (
-    <div className="max-w-lg gap-[8px] rounded-[8px] bg-white p-[16px] font-sans text-[16px] leading-[24px] text-black shadow-lg">
-      {children}
-    </div>
   );
 }
