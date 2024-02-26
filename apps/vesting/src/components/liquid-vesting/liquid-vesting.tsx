@@ -112,40 +112,49 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
         balance,
       );
 
-      await toast.promise(liquidatePromise, {
-        loading: <ToastLoading>Liquid token mint in progress</ToastLoading>,
-        success: (tx) => {
-          console.log('Convert to liquid successful', { tx });
-          const token = getLiquidTokenFromResponse(tx);
-          const txHash = tx?.txhash;
+      await toast.promise(
+        liquidatePromise,
+        {
+          loading: <ToastLoading>Liquid token mint in progress</ToastLoading>,
+          success: (tx) => {
+            console.log('Convert to liquid successful', { tx });
+            const txHash = tx?.txhash;
 
-          setAddedTokens((tokens) => {
-            return [...tokens, token];
-          });
+            // Add to added tokens
+            const token = getLiquidTokenFromResponse(tx);
+            setAddedTokens((tokens) => {
+              return [...tokens, token];
+            });
 
-          return (
-            <ToastSuccess>
-              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>You successfully mint liquid token</div>
-                <div>
-                  <Link
-                    to={`${explorer.cosmos}/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-[4px] lowercase text-[#0389D4] transition-colors duration-300 hover:text-[#0389D4]/75"
-                  >
-                    <LinkIcon />
-                    <span>{getFormattedAddress(txHash)}</span>
-                  </Link>
+            return (
+              <ToastSuccess>
+                <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                  <div>You successfully mint liquid token</div>
+                  <div>
+                    <Link
+                      to={`${explorer.cosmos}/tx/${txHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-[4px] lowercase text-[#0389D4] transition-colors duration-300 hover:text-[#0389D4]/75"
+                    >
+                      <LinkIcon />
+                      <span>{getFormattedAddress(txHash)}</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </ToastSuccess>
-          );
+              </ToastSuccess>
+            );
+          },
+          error: (error: Error) => {
+            return <ToastError>{error.message}</ToastError>;
+          },
         },
-        error: (error: Error) => {
-          return <ToastError>{error.message}</ToastError>;
+        {
+          success: {
+            duration: 5000,
+          },
         },
-      });
+      );
     } catch (error) {
       console.error((error as Error).message);
     } finally {
