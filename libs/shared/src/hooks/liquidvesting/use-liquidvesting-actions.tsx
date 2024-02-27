@@ -14,7 +14,10 @@ import {
   createTxMsgRedeem,
   MsgRedeemParams,
 } from './liquidvesting';
-import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import {
+  VESTING_DEFAULT_FEE,
+  getChainParams,
+} from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
@@ -104,13 +107,13 @@ export function useLiquidVestingActions() {
           address,
           amount ?? 0,
           balance ?? 0,
-          DEFAULT_FEE,
+          VESTING_DEFAULT_FEE,
         );
 
         const msg = createTxMsgLiquidate(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          VESTING_DEFAULT_FEE,
           memo,
           params,
         );
@@ -157,13 +160,13 @@ export function useLiquidVestingActions() {
           address,
           amount ?? 0,
           balance ?? 0,
-          DEFAULT_FEE,
+          VESTING_DEFAULT_FEE,
         );
 
         const msg = createTxMsgRedeem(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          VESTING_DEFAULT_FEE,
           memo,
           params,
         );
