@@ -7,6 +7,7 @@ import {
   getFormattedAddress,
   useAddress,
   useLiquidVestingActions,
+  useQueryInvalidate,
   useSupportedChains,
   useToast,
   useWallet,
@@ -84,6 +85,7 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
   const { chain = chains[0] } = useNetwork();
   const { explorer } = getChainParams(chain.id);
   const [addedTokens, setAddedTokens] = useState<LiquidToken[]>([]);
+  const invalidateQueries = useQueryInvalidate();
 
   useEffect(() => {
     if (balance < MIN_AMOUNT) {
@@ -164,11 +166,17 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
     } finally {
       setLiquidationEnabled(true);
       setLiquidationPending(false);
+      invalidateQueries([
+        [chain.id, 'bank-balance'],
+        [chain.id, 'token-pairs'],
+      ]);
     }
   }, [
     balance,
+    chain.id,
     explorer.cosmos,
     haqqAddress,
+    invalidateQueries,
     liquidate,
     liquidationAmount,
     toast,
@@ -183,10 +191,14 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
       if (token && token.erc20Address) {
         // Remove first 'a' from denom
         const assetDenom = token.denom.slice(1);
-        watchAsset(assetDenom, token.erc20Address);
+        await watchAsset(assetDenom, token.erc20Address);
+        invalidateQueries([
+          [chain.id, 'bank-balance'],
+          [chain.id, 'token-pairs'],
+        ]);
       }
     },
-    [liquidTokens, watchAsset],
+    [chain.id, invalidateQueries, liquidTokens, watchAsset],
   );
 
   return (
