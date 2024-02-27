@@ -13,7 +13,13 @@ export function getChainParams(chainId: number) {
 }
 
 export const DEFAULT_FEE: Fee = {
-  amount: '110000000000000000',
-  gas: '4000000',
+  amount: '20000000000000000',
+  gas: '400000',
+  denom: 'aISLM',
+};
+
+export const VESTING_DEFAULT_FEE: Fee = {
+  amount: '300000000000000000',
+  gas: '15000000',
   denom: 'aISLM',
 };
