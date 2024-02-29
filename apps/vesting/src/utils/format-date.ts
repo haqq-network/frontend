@@ -1,5 +1,5 @@
-export function formatDate(date: Date) {
-  return new Intl.DateTimeFormat(navigator.language, {
+export function formatDate(date: Date, locale = 'en-US') {
+  return new Intl.DateTimeFormat(locale, {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

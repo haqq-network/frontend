@@ -85,6 +85,16 @@ export interface CosmosService {
     voterAddress: string,
   ) => Promise<string | null>;
   // getVotes: (voterAddress: string) => Promise<unknown>;
+  getErc20TokenPairs: () => Promise<TokenPair[]>;
+  getSender: (
+    address: string,
+    pubkey: string,
+  ) => Promise<{
+    accountAddress: string;
+    sequence: number;
+    accountNumber: number;
+    pubkey: string;
+  }>;
 }
 
 type CosmosServiceContextProviderValue =
@@ -186,6 +196,10 @@ function generateEndpointProposalVotes(
 // function generateEndpointVotes(voterAddress: string) {
 //   return `/cosmos/group/v1/votes_by_voter/${voterAddress}`;
 // }
+
+function generateErc20TokenPairsEndpoint() {
+  return '/evmos/erc20/v1/token_pairs';
+}
 
 export interface StakingParams {
   bond_denom: string;
@@ -355,6 +369,15 @@ export interface ProposalVoteResponse {
       },
     ];
   };
+}
+
+export interface TokenPair {
+  erc20_address: string;
+  denom: string;
+}
+
+export interface TokenPairsResponse {
+  token_pairs: TokenPair[];
 }
 
 function createCosmosService(
@@ -756,6 +779,35 @@ function createCosmosService(
   //   return response;
   // }
 
+  async function getErc20TokenPairs() {
+    const response = await axios.get<TokenPairsResponse>(
+      new URL(generateErc20TokenPairsEndpoint(), cosmosRestEndpoint).toString(),
+    );
+    console.log('getErc20TokenPairs', { response });
+
+    return response.data.token_pairs;
+  }
+
+  async function getSender(address: string, pubkey: string) {
+    try {
+      const accInfo = await getAccountBaseInfo(address);
+
+      if (!accInfo) {
+        throw new Error('no base account info');
+      }
+
+      return {
+        accountAddress: address,
+        sequence: parseInt(accInfo.sequence, 10),
+        accountNumber: parseInt(accInfo.account_number, 10),
+        pubkey,
+      };
+    } catch (error) {
+      console.error((error as Error).message);
+      throw error;
+    }
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -784,6 +836,8 @@ function createCosmosService(
     getTransactionStatus,
     getProposalVotes,
     // getVotes,
+    getErc20TokenPairs,
+    getSender,
   };
 }
 

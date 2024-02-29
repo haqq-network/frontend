@@ -58,11 +58,11 @@
 }
 
 body {
-  @apply bg-haqq-black font-guise text-white will-change-auto overflow-auto h-full;
+  @apply bg-haqq-black font-guise h-full overflow-auto text-white will-change-auto;
 }
 
 html {
-  @apply overflow-auto h-full;
+  @apply h-full overflow-auto;
 }
 
 .storybook-sticky-emulation {
