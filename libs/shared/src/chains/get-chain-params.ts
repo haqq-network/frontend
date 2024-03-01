@@ -14,7 +14,7 @@ export function getChainParams(chainId: number) {
 
 export const DEFAULT_FEE: Fee = {
   amount: '20000000000000000',
-  gas: '400000',
+  gas: '600000',
   denom: 'aISLM',
 };
 
