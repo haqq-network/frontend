@@ -21,6 +21,7 @@ export interface DelegateModalProps {
   amountError?: 'min' | 'max';
   delegateAmount: number | undefined;
   isDisabled: boolean;
+  fee: number | undefined;
   onClose: () => void;
   onChange: (value: number) => void;
   onSubmit: () => void;
@@ -106,6 +107,7 @@ export function DelegateModal({
   amountError,
   delegateAmount,
   isDisabled,
+  fee,
   onClose,
   onChange,
   onSubmit,
@@ -187,6 +189,14 @@ export function DelegateModal({
                     hint={amountHint}
                   />
                 </div>
+
+                <div>
+                  <DelegateModalDetails
+                    title="Estimated fee"
+                    value={`${fee ? formatNumber(fee) : '---'} ${symbol.toUpperCase()}`}
+                  />
+                </div>
+
                 <div>
                   <Button
                     variant={3}

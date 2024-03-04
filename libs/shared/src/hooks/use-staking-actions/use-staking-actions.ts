@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { createBody, createMsgDelegate } from '@evmos/proto';
 import {
   createTxMsgDelegate,
   createTxMsgUndelegate,
@@ -12,12 +13,14 @@ import {
   MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
+import { base64FromBytes } from 'cosmjs-types/helpers';
 import { useNetwork, useWalletClient } from 'wagmi';
 import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
+import { getEstimatedFee } from '../../utils/get-estimated-fee';
 import { useAddress } from '../use-address/use-address';
 
 export function useStakingActions() {
@@ -90,10 +93,11 @@ export function useStakingActions() {
       balance: number,
       fee: Fee,
     ): MsgDelegateParams => {
-      const gaad = getAmountIncludeFee(amount, balance, fee);
+      const amountIncludeFee = getAmountIncludeFee(amount, balance, fee);
+
       return {
         validatorAddress,
-        ...gaad,
+        ...amountIncludeFee,
       };
     },
     [],
@@ -124,7 +128,6 @@ export function useStakingActions() {
       const memo = 'Delegate';
 
       if (sender && validatorAddress && haqqChain) {
-        // debugger;
         const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
@@ -380,11 +383,43 @@ export function useStakingActions() {
     ],
   );
 
+  const handleDelegateEstimatedFee = useCallback(
+    async (validatorAddress: string, amount: number) => {
+      console.log('handleDelegateEstimatedFee', {
+        validatorAddress,
+        amount,
+      });
+      const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
+      console.log({ bigIntAmount });
+      const protoMsg = createMsgDelegate(
+        haqqAddress as string,
+        validatorAddress,
+        bigIntAmount.toString(),
+        'aISLM',
+      );
+      console.log({ protoMsg });
+      const txBody = createBody(protoMsg, 'Delegate');
+      console.log({ txBody });
+
+      const feeEstimation = await getEstimatedFee({
+        chainId: haqqChain.cosmosChainId,
+        bodyBytes: base64FromBytes(txBody.serializeBinary()),
+        fromAddress: haqqAddress as string,
+      });
+
+      console.log({ feeEstimation });
+
+      return feeEstimation;
+    },
+    [haqqAddress, haqqChain.cosmosChainId],
+  );
+
   return {
     delegate: handleDelegate,
     undelegate: handleUndelegate,
     claimAllRewards: handleClaimAllRewards,
     claimReward: handleClaimReward,
     redelegate: handleRedelegate,
+    getDelegateEstimatedFee: handleDelegateEstimatedFee,
   };
 }

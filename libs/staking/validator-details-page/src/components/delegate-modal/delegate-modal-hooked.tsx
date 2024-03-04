@@ -4,6 +4,7 @@ import { useNetwork } from 'wagmi';
 import {
   getChainParams,
   getFormattedAddress,
+  useDebounceValue,
   useStakingActions,
   useSupportedChains,
   useToast,
@@ -37,10 +38,11 @@ export function DelegateModalHooked({
   unboundingTime,
   validatorCommission,
 }: DelegateModalProps) {
-  const { delegate } = useStakingActions();
+  const { delegate, getDelegateEstimatedFee } = useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [fee, setFee] = useState<number | undefined>(undefined);
   const [isDelegateEnabled, setDelegateEnabled] = useState(true);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -104,18 +106,20 @@ export function DelegateModalHooked({
     explorer.cosmos,
   ]);
 
+  const debouncedDelegateAmount = useDebounceValue(delegateAmount, 300);
+
   useEffect(() => {
-    if (delegateAmount && delegateAmount <= 0) {
+    if (debouncedDelegateAmount && debouncedDelegateAmount <= 0) {
       setDelegateEnabled(false);
       setAmountError('min');
-    } else if (delegateAmount && delegateAmount > balance) {
+    } else if (debouncedDelegateAmount && debouncedDelegateAmount > balance) {
       setDelegateEnabled(false);
       setAmountError('max');
     } else {
       setDelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [balance, delegateAmount]);
+  }, [balance, debouncedDelegateAmount]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -124,6 +128,30 @@ export function DelegateModalHooked({
       setAmountError(undefined);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    (async () => {
+      if (debouncedDelegateAmount && isDelegateEnabled) {
+        console.log({
+          validatorAddress,
+          debouncedDelegateAmount,
+        });
+        const estimatedFee = await getDelegateEstimatedFee(
+          validatorAddress,
+          debouncedDelegateAmount ?? 0,
+        );
+
+        setFee(Number.parseFloat(estimatedFee.fee) / 10 ** 18);
+      }
+    })();
+  }, [
+    debouncedDelegateAmount,
+    getDelegateEstimatedFee,
+    isDelegateEnabled,
+    validatorAddress,
+  ]);
+
+  console.log({ delegateAmount });
 
   return (
     <DelegateModal
@@ -139,6 +167,7 @@ export function DelegateModalHooked({
       amountError={amountError}
       onSubmit={handleSubmitDelegate}
       delegateAmount={delegateAmount}
+      fee={fee}
     />
   );
 }
