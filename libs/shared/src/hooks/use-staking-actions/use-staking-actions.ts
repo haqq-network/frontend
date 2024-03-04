@@ -254,7 +254,7 @@ export function useStakingActions() {
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = 'Claim all rewards';
+      const memo = `Claim rewards from ${validatorAddresses.length} validators`;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -502,7 +502,7 @@ export function useStakingActions() {
           validatorAddress,
         );
       });
-      const memo = 'Claim all rewards';
+      const memo = `Claim rewards from ${validatorAddresses.length} validators`;
 
       return await handleGetEstimatedFee(protoMsgs, memo);
     },
