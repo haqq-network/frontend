@@ -2,9 +2,11 @@ import { useCallback } from 'react';
 import {
   MessageGenerated,
   createBody,
+  createBodyWithMultipleMessages,
   createMsgBeginRedelegate,
   createMsgDelegate,
   createMsgUndelegate,
+  createMsgWithdrawDelegatorReward,
 } from '@evmos/proto';
 import {
   createTxMsgDelegate,
@@ -26,7 +28,10 @@ import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
-import { getEstimatedFee } from '../../utils/get-estimated-fee';
+import {
+  EstimatedFeeResponse,
+  getEstimatedFee,
+} from '../../utils/get-estimated-fee';
 import { useAddress } from '../use-address/use-address';
 
 export function useStakingActions() {
@@ -126,26 +131,37 @@ export function useStakingActions() {
     [],
   );
 
+  const getFee = useCallback((estimatedFee?: EstimatedFeeResponse): Fee => {
+    return estimatedFee
+      ? {
+          amount: estimatedFee.fee,
+          gas: estimatedFee.gas_used,
+          denom: 'aISLM',
+        }
+      : DEFAULT_FEE;
+  }, []);
+
   const handleDelegate = useCallback(
-    async (validatorAddress?: string, amount?: number, balance?: number) => {
+    async (
+      validatorAddress?: string,
+      amount?: number,
+      balance?: number,
+      estimatedFee?: EstimatedFeeResponse,
+    ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Delegate ${Number.parseFloat((amount ?? 0).toString())} ISLM to ${validatorAddress}`;
 
       if (sender && validatorAddress && haqqChain) {
+        const fee = getFee(estimatedFee);
+
         const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
           balance ?? 0,
-          DEFAULT_FEE,
+          fee,
         );
-        const msg = createTxMsgDelegate(
-          haqqChain,
-          sender,
-          DEFAULT_FEE,
-          memo,
-          params,
-        );
+        const msg = createTxMsgDelegate(haqqChain, sender, fee, memo, params);
 
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
@@ -166,11 +182,12 @@ export function useStakingActions() {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       getDelegationParams,
       signTransaction,
       broadcastTransaction,
@@ -179,25 +196,25 @@ export function useStakingActions() {
   );
 
   const handleUndelegate = useCallback(
-    async (validatorAddress?: string, amount?: number, balance?: number) => {
+    async (
+      validatorAddress?: string,
+      amount?: number,
+      balance?: number,
+      estimatedFee?: EstimatedFeeResponse,
+    ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Undelegate ${Number.parseFloat((amount ?? 0).toString())} ISLM from ${validatorAddress}`;
 
       if (sender && validatorAddress && haqqChain) {
+        const fee = getFee(estimatedFee);
         const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
           balance ?? 0,
-          DEFAULT_FEE,
+          fee,
         );
-        const msg = createTxMsgUndelegate(
-          haqqChain,
-          sender,
-          DEFAULT_FEE,
-          memo,
-          params,
-        );
+        const msg = createTxMsgUndelegate(haqqChain, sender, fee, memo, params);
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -217,11 +234,12 @@ export function useStakingActions() {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       getDelegationParams,
       signTransaction,
       broadcastTransaction,
@@ -230,19 +248,23 @@ export function useStakingActions() {
   );
 
   const handleClaimAllRewards = useCallback(
-    async (validatorAddresses: string[]) => {
+    async (
+      validatorAddresses: string[],
+      estimatedFee?: EstimatedFeeResponse,
+    ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = 'Claim all rewards';
 
       if (sender && haqqChain) {
+        const fee = getFee(estimatedFee);
         const params = {
           validatorAddresses,
         };
         const msg = createTxMsgMultipleWithdrawDelegatorReward(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           params,
         );
@@ -265,11 +287,12 @@ export function useStakingActions() {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       signTransaction,
       broadcastTransaction,
       getTransactionStatus,
@@ -277,19 +300,20 @@ export function useStakingActions() {
   );
 
   const handleClaimReward = useCallback(
-    async (validatorAddress: string) => {
+    async (validatorAddress: string, estimatedFee?: EstimatedFeeResponse) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Claim reward from ${validatorAddress}`;
 
       if (sender && haqqChain) {
+        const fee = getFee(estimatedFee);
         const params = {
           validatorAddress,
         };
         const msg = createTxMsgWithdrawDelegatorReward(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           params,
         );
@@ -312,11 +336,12 @@ export function useStakingActions() {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       signTransaction,
       broadcastTransaction,
       getTransactionStatus,
@@ -329,27 +354,28 @@ export function useStakingActions() {
       validatorDestinationAddress: string,
       amount: number,
       balance?: number,
+      estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Redelegate from ${validatorSourceAddress} to ${validatorDestinationAddress}`;
 
       if (sender && haqqChain) {
+        const fee = getFee(estimatedFee);
         const params = getRedelegationParams(
           validatorSourceAddress,
           validatorDestinationAddress,
           amount ?? 0,
           balance ?? 0,
-          DEFAULT_FEE,
+          fee,
         );
         const msg = createTxMsgBeginRedelegate(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           params,
         );
-
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -369,11 +395,12 @@ export function useStakingActions() {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       getRedelegationParams,
       signTransaction,
       broadcastTransaction,
@@ -382,12 +409,17 @@ export function useStakingActions() {
   );
 
   const handleGetEstimatedFee = useCallback(
-    async (protoMsg: MessageGenerated, memo: string) => {
-      const txBody = createBody(protoMsg, memo);
+    async (protoMsg: MessageGenerated | MessageGenerated[], memo: string) => {
+      let body;
+      if (protoMsg instanceof Array) {
+        body = createBodyWithMultipleMessages(protoMsg, memo);
+      } else {
+        body = createBody(protoMsg, memo);
+      }
 
       const feeEstimation = await getEstimatedFee({
         chainId: haqqChain.cosmosChainId,
-        bodyBytes: base64FromBytes(txBody.serializeBinary()),
+        bodyBytes: base64FromBytes(body.serializeBinary()),
         fromAddress: haqqAddress as string,
       });
 
@@ -449,6 +481,34 @@ export function useStakingActions() {
     [handleGetEstimatedFee, haqqAddress],
   );
 
+  const handleGetRewardEstimatedFee = useCallback(
+    async (validatorAddress: string) => {
+      const protoMsg = createMsgWithdrawDelegatorReward(
+        haqqAddress as string,
+        validatorAddress,
+      );
+      const memo = `Claim reward from ${validatorAddress}`;
+
+      return await handleGetEstimatedFee(protoMsg, memo);
+    },
+    [handleGetEstimatedFee, haqqAddress],
+  );
+
+  const handleGetAllRewardEstimatedFee = useCallback(
+    async (validatorAddresses: string[]) => {
+      const protoMsgs = validatorAddresses.map((validatorAddress) => {
+        return createMsgWithdrawDelegatorReward(
+          haqqAddress as string,
+          validatorAddress,
+        );
+      });
+      const memo = 'Claim all rewards';
+
+      return await handleGetEstimatedFee(protoMsgs, memo);
+    },
+    [handleGetEstimatedFee, haqqAddress],
+  );
+
   return {
     delegate: handleDelegate,
     undelegate: handleUndelegate,
@@ -458,5 +518,7 @@ export function useStakingActions() {
     getDelegateEstimatedFee: handleDelegateEstimatedFee,
     getUndelegateEstimatedFee: handleUndelegateEstimatedFee,
     getRedelegateEstimatedFee: handleRedelegateEstimatedFee,
+    getClaimRewardEstimatedFee: handleGetRewardEstimatedFee,
+    getClaimAllRewardEstimatedFee: handleGetAllRewardEstimatedFee,
   };
 }

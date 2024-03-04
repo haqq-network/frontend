@@ -37,7 +37,8 @@ function useStakingStats() {
     [],
   );
   const { ethAddress, haqqAddress } = useAddress();
-  const { claimAllRewards } = useStakingActions();
+  const { claimAllRewards, getClaimAllRewardEstimatedFee } =
+    useStakingActions();
   const invalidateQueries = useQueryInvalidate();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
@@ -57,8 +58,12 @@ function useStakingStats() {
   const handleRewardsClaim = useCallback(async () => {
     try {
       setRewardsPending(true);
-
-      const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
+      const estimatedFee =
+        await getClaimAllRewardEstimatedFee(delegatedValsAddrs);
+      const claimAllRewardPromise = claimAllRewards(
+        delegatedValsAddrs,
+        estimatedFee,
+      );
 
       await toast.promise(claimAllRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
@@ -105,6 +110,7 @@ function useStakingStats() {
     claimAllRewards,
     delegatedValsAddrs,
     explorer.cosmos,
+    getClaimAllRewardEstimatedFee,
     invalidateQueries,
     toast,
   ]);
