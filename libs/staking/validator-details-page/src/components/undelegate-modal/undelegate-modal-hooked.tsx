@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNetwork } from 'wagmi';
 import {
@@ -7,7 +7,9 @@ import {
   getFormattedAddress,
   getChainParams,
   useSupportedChains,
-  useDebounceValue,
+  useThrottle,
+  useDebounce,
+  EstimatedFeeResponse,
 } from '@haqq/shared';
 import {
   ToastSuccess,
@@ -41,8 +43,9 @@ export function UndelegateModalHooked({
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
   );
-  const [fee, setFee] = useState<number | undefined>(undefined);
+  const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isUndelegateEnabled, setUndelegateEnabled] = useState(true);
+  const [isFeePending, setFeePending] = useState(false);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
@@ -50,6 +53,9 @@ export function UndelegateModalHooked({
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const { explorer } = getChainParams(chain.id);
+  const cancelPreviousRequest = useRef<(() => void) | null>(null);
+  const throttledUndelegateAmount = useThrottle(undelegateAmount, 300);
+  const debounceFeePending = useDebounce(isFeePending, 5);
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
@@ -57,6 +63,8 @@ export function UndelegateModalHooked({
       const undelegationPromise = undelegate(
         validatorAddress,
         undelegateAmount,
+        balance,
+        fee,
       );
 
       await toast.promise(undelegationPromise, {
@@ -104,17 +112,15 @@ export function UndelegateModalHooked({
     explorer.cosmos,
   ]);
 
-  const debouncedUndelegateAmount = useDebounceValue(undelegateAmount, 300);
-
   useEffect(() => {
     const fixedDelegation = toFixedAmount(delegation, 3) ?? 0;
 
-    if (debouncedUndelegateAmount && debouncedUndelegateAmount <= 0) {
+    if (throttledUndelegateAmount && throttledUndelegateAmount <= 0) {
       setUndelegateEnabled(false);
       setAmountError('min');
     } else if (
-      debouncedUndelegateAmount &&
-      debouncedUndelegateAmount > fixedDelegation
+      throttledUndelegateAmount &&
+      throttledUndelegateAmount > fixedDelegation
     ) {
       setUndelegateEnabled(false);
       setAmountError('max');
@@ -122,32 +128,50 @@ export function UndelegateModalHooked({
       setUndelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [delegation, debouncedUndelegateAmount]);
+  }, [delegation, throttledUndelegateAmount]);
 
   useEffect(() => {
     if (!isOpen) {
       setUndelegateAmount(undefined);
       setUndelegateEnabled(true);
       setAmountError(undefined);
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+        cancelPreviousRequest.current = null;
+      }
     }
   }, [isOpen]);
 
   useEffect(() => {
-    (async () => {
-      if (debouncedUndelegateAmount && isUndelegateEnabled) {
-        const estimatedFee = await getUndelegateEstimatedFee(
-          validatorAddress,
-          debouncedUndelegateAmount,
-        );
-
-        setFee(Number.parseFloat(estimatedFee.fee) / 10 ** 18);
+    if (throttledUndelegateAmount) {
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
       }
-    })();
+
+      let isCancelled = false;
+
+      cancelPreviousRequest.current = () => {
+        isCancelled = true;
+      };
+
+      setFeePending(true);
+      getUndelegateEstimatedFee(validatorAddress, throttledUndelegateAmount)
+        .then((estimatedFee) => {
+          if (!isCancelled) {
+            setFee(estimatedFee);
+            setFeePending(false);
+          }
+        })
+        .catch((reason) => {
+          console.error(reason);
+          setFeePending(false);
+        });
+    }
   }, [
-    debouncedUndelegateAmount,
-    getUndelegateEstimatedFee,
-    isUndelegateEnabled,
     validatorAddress,
+    cancelPreviousRequest,
+    throttledUndelegateAmount,
+    getUndelegateEstimatedFee,
   ]);
 
   return (
@@ -163,7 +187,8 @@ export function UndelegateModalHooked({
       amountError={amountError}
       onSubmit={handleSubmitUndelegate}
       undelegateAmount={undelegateAmount}
-      fee={fee}
+      fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
+      isFeePending={debounceFeePending}
     />
   );
 }

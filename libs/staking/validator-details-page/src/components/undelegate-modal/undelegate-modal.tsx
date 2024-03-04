@@ -21,6 +21,7 @@ export interface UndelegateModalProps {
   undelegateAmount: number | undefined;
   isDisabled: boolean;
   fee: number | undefined;
+  isFeePending: boolean;
   onClose: () => void;
   onChange: (value: number) => void;
   onSubmit: () => void;
@@ -36,6 +37,7 @@ export function UndelegateModal({
   undelegateAmount,
   isDisabled,
   fee,
+  isFeePending,
   onClose,
   onChange,
   onSubmit,
@@ -123,7 +125,8 @@ export function UndelegateModal({
                 <div>
                   <DelegateModalDetails
                     title="Estimated fee"
-                    value={`${fee ? formatNumber(fee) : '---'} ${symbol.toUpperCase()}`}
+                    value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
+                    isValuePending={isFeePending}
                   />
                 </div>
 
