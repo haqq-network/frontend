@@ -7,6 +7,7 @@ import {
   getFormattedAddress,
   getChainParams,
   useSupportedChains,
+  useDebounceValue,
 } from '@haqq/shared';
 import {
   ToastSuccess,
@@ -36,10 +37,11 @@ export function UndelegateModalHooked({
   unboundingTime,
   validatorAddress,
 }: UndelegateModalProps) {
-  const { undelegate } = useStakingActions();
+  const { undelegate, getUndelegateEstimatedFee } = useStakingActions();
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [fee, setFee] = useState<number | undefined>(undefined);
   const [isUndelegateEnabled, setUndelegateEnabled] = useState(true);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -60,8 +62,8 @@ export function UndelegateModalHooked({
       await toast.promise(undelegationPromise, {
         loading: <ToastLoading>Undlegation in progress</ToastLoading>,
         success: (tx) => {
+          console.log('Undlegation successful', { tx });
           const txHash = tx?.txhash;
-          console.log('Undlegation successful', { txHash });
 
           return (
             <ToastSuccess>
@@ -102,20 +104,25 @@ export function UndelegateModalHooked({
     explorer.cosmos,
   ]);
 
+  const debouncedUndelegateAmount = useDebounceValue(undelegateAmount, 300);
+
   useEffect(() => {
     const fixedDelegation = toFixedAmount(delegation, 3) ?? 0;
 
-    if (undelegateAmount && undelegateAmount <= 0) {
+    if (debouncedUndelegateAmount && debouncedUndelegateAmount <= 0) {
       setUndelegateEnabled(false);
       setAmountError('min');
-    } else if (undelegateAmount && undelegateAmount > fixedDelegation) {
+    } else if (
+      debouncedUndelegateAmount &&
+      debouncedUndelegateAmount > fixedDelegation
+    ) {
       setUndelegateEnabled(false);
       setAmountError('max');
     } else {
       setUndelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [delegation, undelegateAmount]);
+  }, [delegation, debouncedUndelegateAmount]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -124,6 +131,24 @@ export function UndelegateModalHooked({
       setAmountError(undefined);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    (async () => {
+      if (debouncedUndelegateAmount && isUndelegateEnabled) {
+        const estimatedFee = await getUndelegateEstimatedFee(
+          validatorAddress,
+          debouncedUndelegateAmount,
+        );
+
+        setFee(Number.parseFloat(estimatedFee.fee) / 10 ** 18);
+      }
+    })();
+  }, [
+    debouncedUndelegateAmount,
+    getUndelegateEstimatedFee,
+    isUndelegateEnabled,
+    validatorAddress,
+  ]);
 
   return (
     <UndelegateModal
@@ -138,6 +163,7 @@ export function UndelegateModalHooked({
       amountError={amountError}
       onSubmit={handleSubmitUndelegate}
       undelegateAmount={undelegateAmount}
+      fee={fee}
     />
   );
 }

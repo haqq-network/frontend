@@ -903,7 +903,6 @@ export function VoteActions({
 
   const handleVote = useCallback(
     async (option: number) => {
-      console.log('handleVote', { option });
       try {
         const votePromise = vote(proposalId, option);
         await toast.promise(votePromise, {

@@ -179,7 +179,6 @@ export function createTxMsgLiquidate(
     params.denom,
   );
 
-  console.log({ protoMessage });
   const tx = createTransaction(
     protoMessage,
     memo,

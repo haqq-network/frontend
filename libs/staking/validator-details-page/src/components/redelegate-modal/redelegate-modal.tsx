@@ -15,9 +15,10 @@ export interface RedelegateModalProps {
   isOpen: boolean;
   symbol: string;
   delegation: number;
-  redelegateAmount?: number;
+  redelegateAmount: number | undefined;
   balance: number;
   isDisabled: boolean;
+  fee: number | undefined;
   onClose: () => void;
   onChange: (value: number) => void;
   onSubmit: () => void;
@@ -105,10 +106,11 @@ export function RedelegateModal({
   delegation,
   redelegateAmount,
   isDisabled,
+  validatorsOptions,
+  fee,
   onChange,
   onSubmit,
   onValidatorChange,
-  validatorsOptions,
 }: RedelegateModalProps) {
   const handleMaxButtonClick = useCallback(() => {
     onChange(toFixedAmount(delegation, 3) ?? 0);
@@ -171,6 +173,14 @@ export function RedelegateModal({
                     onMaxButtonClick={handleMaxButtonClick}
                   />
                 </div>
+
+                <div>
+                  <RedelegateModalDetails
+                    title="Estimated fee"
+                    value={`${fee ? formatNumber(fee) : '---'} ${symbol.toUpperCase()}`}
+                  />
+                </div>
+
                 <div>
                   <Button
                     variant={3}

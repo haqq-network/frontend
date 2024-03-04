@@ -63,8 +63,8 @@ function useStakingStats() {
       await toast.promise(claimAllRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
         success: (tx) => {
+          console.log('Rewards claimed', { tx });
           const txHash = tx?.txhash;
-          console.log('Rewards claimed', { txHash });
 
           return (
             <ToastSuccess>
