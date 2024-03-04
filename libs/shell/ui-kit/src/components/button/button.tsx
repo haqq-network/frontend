@@ -54,8 +54,8 @@ export function Button({
   return (
     <button
       className={classNames}
+      disabled={disabled || isLoading}
       onClick={onClick}
-      disabled={disabled}
       type={type}
     >
       {isLoading && (
