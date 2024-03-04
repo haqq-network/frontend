@@ -1,12 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNetwork } from 'wagmi';
 import {
   getChainParams,
   getFormattedAddress,
+  useThrottle,
   useStakingActions,
   useSupportedChains,
   useToast,
+  EstimatedFeeResponse,
+  useDebounce,
 } from '@haqq/shared';
 import {
   ToastLoading,
@@ -37,11 +40,13 @@ export function DelegateModalHooked({
   unboundingTime,
   validatorCommission,
 }: DelegateModalProps) {
-  const { delegate } = useStakingActions();
+  const { delegate, getDelegateEstimatedFee } = useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isDelegateEnabled, setDelegateEnabled] = useState(true);
+  const [isFeePending, setFeePending] = useState(false);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
@@ -49,6 +54,9 @@ export function DelegateModalHooked({
   const { chain = chains[0] } = useNetwork();
   const { explorer } = getChainParams(chain.id);
   const toast = useToast();
+  const cancelPreviousRequest = useRef<(() => void) | null>(null);
+  const throttledDelegateAmount = useThrottle(delegateAmount, 300);
+  const debounceFeePending = useDebounce(isFeePending, 5);
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
@@ -57,6 +65,7 @@ export function DelegateModalHooked({
         validatorAddress,
         delegateAmount,
         balance,
+        fee,
       );
 
       await toast.promise(delegationPromise, {
@@ -102,28 +111,69 @@ export function DelegateModalHooked({
     toast,
     onClose,
     explorer.cosmos,
+    fee,
   ]);
 
   useEffect(() => {
-    if (delegateAmount && delegateAmount <= 0) {
+    if (!fee) {
+      setDelegateEnabled(false);
+    } else if (throttledDelegateAmount && throttledDelegateAmount <= 0) {
       setDelegateEnabled(false);
       setAmountError('min');
-    } else if (delegateAmount && delegateAmount > balance) {
+    } else if (throttledDelegateAmount && throttledDelegateAmount > balance) {
       setDelegateEnabled(false);
       setAmountError('max');
     } else {
       setDelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [balance, delegateAmount]);
+  }, [balance, throttledDelegateAmount, fee]);
 
   useEffect(() => {
     if (!isOpen) {
       setDelegateAmount(undefined);
       setDelegateEnabled(true);
       setAmountError(undefined);
+      setFee(undefined);
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+        cancelPreviousRequest.current = null;
+      }
     }
-  }, [isOpen]);
+  }, [cancelPreviousRequest, isOpen]);
+
+  useEffect(() => {
+    if (throttledDelegateAmount) {
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+      }
+
+      let isCancelled = false;
+
+      cancelPreviousRequest.current = () => {
+        isCancelled = true;
+      };
+
+      setFeePending(true);
+      getDelegateEstimatedFee(validatorAddress, throttledDelegateAmount)
+        .then((estimatedFee) => {
+          if (!isCancelled) {
+            setFee(estimatedFee);
+            setFeePending(false);
+          }
+        })
+        .catch((reason) => {
+          console.error(reason);
+          setFeePending(false);
+        });
+    }
+  }, [
+    throttledDelegateAmount,
+    getDelegateEstimatedFee,
+    isDelegateEnabled,
+    validatorAddress,
+    cancelPreviousRequest,
+  ]);
 
   return (
     <DelegateModal
@@ -135,10 +185,12 @@ export function DelegateModalHooked({
       unboundingTime={unboundingTime}
       validatorCommission={validatorCommission}
       onChange={setDelegateAmount}
-      isDisabled={!isDelegateEnabled || !delegateAmount}
+      isDisabled={!isDelegateEnabled || !delegateAmount || !fee}
       amountError={amountError}
       onSubmit={handleSubmitDelegate}
       delegateAmount={delegateAmount}
+      fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
+      isFeePending={debounceFeePending}
     />
   );
 }

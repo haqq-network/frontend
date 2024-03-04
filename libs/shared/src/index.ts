@@ -39,3 +39,6 @@ export * from './hooks/use-falconer-queries/use-falconer-queries';
 export * from './utils/get-amount-include-fee';
 export * from './hooks/liquidvesting/use-liquidvesting-actions';
 export * from './hooks/erc20/use-token-pairs';
+export * from './utils/get-estimated-fee';
+export * from './hooks/use-debounce/use-debounce';
+export * from './hooks/use-throttle/use-throttle';

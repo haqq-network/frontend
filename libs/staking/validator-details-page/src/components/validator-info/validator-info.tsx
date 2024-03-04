@@ -25,6 +25,7 @@ import {
   useToast,
   useNetworkAwareAction,
   getFormattedAddress,
+  getChainParams,
 } from '@haqq/shared';
 import {
   InfoBlock,
@@ -443,7 +444,12 @@ export function ValidatorInfo({
   const { data: stakingParams } = useStakingParamsQuery();
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
-  const { claimReward, claimAllRewards } = useStakingActions();
+  const {
+    claimReward,
+    claimAllRewards,
+    getClaimRewardEstimatedFee,
+    getClaimAllRewardEstimatedFee,
+  } = useStakingActions();
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
   const [staked, setStakedValue] = useState(0);
@@ -458,6 +464,7 @@ export function ValidatorInfo({
   const symbol = 'ISLM';
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
+  const { explorer } = getChainParams(chain.id);
 
   const balance = useMemo(() => {
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
@@ -531,14 +538,14 @@ export function ValidatorInfo({
   const handleGetRewardsClick = useCallback(async () => {
     try {
       setRewardPending(true);
-
-      const claimRewardPromise = claimReward(validatorAddress);
+      const estimatedFee = await getClaimRewardEstimatedFee(validatorAddress);
+      const claimRewardPromise = claimReward(validatorAddress, estimatedFee);
 
       await toast.promise(claimRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
         success: (tx) => {
+          console.log('Rewards claimed', { tx });
           const txHash = tx?.txhash;
-          console.log('Rewards claimed', { txHash });
 
           return (
             <ToastSuccess>
@@ -546,7 +553,7 @@ export function ValidatorInfo({
                 <div>Rewards claimed</div>
                 <div>
                   <Link
-                    to={`https://ping.pub/haqq/tx/${txHash}`}
+                    to={`${explorer.cosmos}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -573,7 +580,15 @@ export function ValidatorInfo({
         [chain.id, 'unboundings'],
       ]);
     }
-  }, [chain.id, claimReward, invalidateQueries, toast, validatorAddress]);
+  }, [
+    chain.id,
+    claimReward,
+    explorer.cosmos,
+    getClaimRewardEstimatedFee,
+    invalidateQueries,
+    toast,
+    validatorAddress,
+  ]);
 
   const unbounded = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
@@ -617,20 +632,24 @@ export function ValidatorInfo({
   const handleRewardsClaim = useCallback(async () => {
     try {
       setRewardsPending(true);
-
-      const claimAllRewardPromise = claimAllRewards(delegatedValsAddrs);
+      const estimatedFee =
+        await getClaimAllRewardEstimatedFee(delegatedValsAddrs);
+      const claimAllRewardPromise = claimAllRewards(
+        delegatedValsAddrs,
+        estimatedFee,
+      );
 
       await toast.promise(claimAllRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
         success: (tx) => {
-          console.log('Rewards claimed', { tx });
+          console.log('All rewards claimed', { tx });
           const txHash = tx?.txhash;
 
           return (
             <div className="flex flex-col gap-[8px] text-center">
               <div>Rewards claimed</div>
               <Link
-                to={`https://ping.pub/haqq/tx/${txHash}`}
+                to={`${explorer.cosmos}/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
@@ -655,7 +674,15 @@ export function ValidatorInfo({
         [chain.id, 'unboundings'],
       ]);
     }
-  }, [chain.id, claimAllRewards, delegatedValsAddrs, invalidateQueries, toast]);
+  }, [
+    chain.id,
+    claimAllRewards,
+    delegatedValsAddrs,
+    explorer.cosmos,
+    getClaimAllRewardEstimatedFee,
+    invalidateQueries,
+    toast,
+  ]);
 
   const validatorCommission = useMemo(() => {
     return (

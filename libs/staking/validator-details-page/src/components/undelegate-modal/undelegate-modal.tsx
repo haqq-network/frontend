@@ -20,6 +20,8 @@ export interface UndelegateModalProps {
   amountError?: 'min' | 'max';
   undelegateAmount: number | undefined;
   isDisabled: boolean;
+  fee: number | undefined;
+  isFeePending: boolean;
   onClose: () => void;
   onChange: (value: number) => void;
   onSubmit: () => void;
@@ -34,6 +36,8 @@ export function UndelegateModal({
   amountError,
   undelegateAmount,
   isDisabled,
+  fee,
+  isFeePending,
   onClose,
   onChange,
   onSubmit,
@@ -115,6 +119,14 @@ export function UndelegateModal({
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}
                     hint={amountHint}
+                  />
+                </div>
+
+                <div>
+                  <DelegateModalDetails
+                    title="Estimated fee"
+                    value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
+                    isValuePending={isFeePending}
                   />
                 </div>
 

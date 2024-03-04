@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Production:
+  Preview:
     runs-on:
       - ubuntu
       - self-hosted

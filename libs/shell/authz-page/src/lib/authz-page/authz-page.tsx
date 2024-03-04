@@ -201,7 +201,6 @@ function GranterGrantsTable() {
             </thead>
             <tbody>
               {granterGrantsToRender.map((grant, index) => {
-                console.log({ grant });
                 return (
                   <tr
                     key={`grant-grantee-${index}`}

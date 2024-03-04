@@ -1,13 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Validator } from '@evmos/provider';
 import { Link } from 'react-router-dom';
 import { useNetwork } from 'wagmi';
 import {
   getChainParams,
   getFormattedAddress,
+  useThrottle,
   useStakingActions,
   useSupportedChains,
   useToast,
+  useDebounce,
+  EstimatedFeeResponse,
 } from '@haqq/shared';
 import {
   ToastSuccess,
@@ -41,14 +44,19 @@ export function RedelegateModalHooked({
   const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isRedelegateEnabled, setRedelegateEnabled] = useState(true);
   const [validatorDestinationAddress, setValidatorDestinationAddress] =
     useState<string | undefined>(undefined);
+  const [isFeePending, setFeePending] = useState(false);
   const toast = useToast();
-  const { redelegate } = useStakingActions();
+  const { redelegate, getRedelegateEstimatedFee } = useStakingActions();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const { explorer } = getChainParams(chain.id);
+  const cancelPreviousRequest = useRef<(() => void) | null>(null);
+  const throttledRedelegateAmount = useThrottle(redelegateAmount, 300);
+  const debounceFeePending = useDebounce(isFeePending, 5);
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
@@ -58,6 +66,7 @@ export function RedelegateModalHooked({
           validatorDestinationAddress,
           redelegateAmount ?? 0,
           balance,
+          fee,
         );
         setRedelegateEnabled(false);
         await toast.promise(redelegationPromise, {
@@ -123,27 +132,69 @@ export function RedelegateModalHooked({
   }, [validatorsList, validatorAddress]);
 
   useEffect(() => {
-    if (redelegateAmount) {
+    if (throttledRedelegateAmount) {
       const fixedDelegation = toFixedAmount(delegation, 3) ?? 0;
 
       if (
         !(fixedDelegation > 0) ||
-        redelegateAmount <= 0 ||
-        redelegateAmount > fixedDelegation
+        throttledRedelegateAmount <= 0 ||
+        throttledRedelegateAmount > fixedDelegation
       ) {
         setRedelegateEnabled(false);
       } else {
         setRedelegateEnabled(true);
       }
     }
-  }, [redelegateAmount, delegation]);
+  }, [throttledRedelegateAmount, delegation]);
 
   useEffect(() => {
     if (!isOpen) {
       setRedelegateAmount(undefined);
       setValidatorDestinationAddress(undefined);
+      setFee(undefined);
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+        cancelPreviousRequest.current = null;
+      }
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (throttledRedelegateAmount && validatorDestinationAddress) {
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+      }
+
+      let isCancelled = false;
+
+      cancelPreviousRequest.current = () => {
+        isCancelled = true;
+      };
+
+      setFeePending(true);
+      getRedelegateEstimatedFee(
+        validatorAddress,
+        validatorDestinationAddress,
+        throttledRedelegateAmount,
+      )
+        .then((estimatedFee) => {
+          if (!isCancelled) {
+            setFee(estimatedFee);
+            setFeePending(false);
+          }
+        })
+        .catch((reason) => {
+          console.error(reason);
+          setFeePending(false);
+        });
+    }
+  }, [
+    validatorAddress,
+    cancelPreviousRequest,
+    throttledRedelegateAmount,
+    validatorDestinationAddress,
+    getRedelegateEstimatedFee,
+  ]);
 
   return (
     <RedelegateModal
@@ -162,6 +213,8 @@ export function RedelegateModalHooked({
       onValidatorChange={setValidatorDestinationAddress}
       validatorsOptions={validatorsOptions}
       redelegateAmount={redelegateAmount}
+      fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
+      isFeePending={debounceFeePending}
     />
   );
 }

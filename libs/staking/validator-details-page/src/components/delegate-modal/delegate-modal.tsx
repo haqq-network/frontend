@@ -9,6 +9,7 @@ import {
   ModalInput,
   formatNumber,
   toFixedAmount,
+  SpinnerLoader,
 } from '@haqq/shell-ui-kit';
 
 export interface DelegateModalProps {
@@ -21,6 +22,8 @@ export interface DelegateModalProps {
   amountError?: 'min' | 'max';
   delegateAmount: number | undefined;
   isDisabled: boolean;
+  fee: number | undefined;
+  isFeePending: boolean;
   onClose: () => void;
   onChange: (value: number) => void;
   onSubmit: () => void;
@@ -32,16 +35,21 @@ export function DelegateModalDetails({
   className,
   titleClassName,
   valueClassName,
+  isValuePending = false,
 }: {
   title: string;
   value: string;
   className?: string;
   titleClassName?: string;
   valueClassName?: string;
+  isValuePending?: boolean;
 }) {
   return (
     <div
-      className={clsx('flex flex-row items-center justify-between', className)}
+      className={clsx(
+        'flex flex-row items-center justify-between gap-[16px]',
+        className,
+      )}
     >
       <div
         className={clsx(
@@ -51,10 +59,17 @@ export function DelegateModalDetails({
         )}
       >
         {title}
+        {isValuePending && (
+          <SpinnerLoader
+            className="h-[8px] w-[8px]"
+            wrapperClassName="ml-[8px] inline-block h-[8px] w-[8px]"
+          />
+        )}
       </div>
       <div
         className={clsx(
           'text-haqq-black font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
+          isValuePending && 'animate-pulse',
           valueClassName,
         )}
       >
@@ -106,6 +121,8 @@ export function DelegateModal({
   amountError,
   delegateAmount,
   isDisabled,
+  fee,
+  isFeePending,
   onClose,
   onChange,
   onSubmit,
@@ -171,7 +188,7 @@ export function DelegateModal({
                   value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title="Comission"
+                  title="Commission"
                   value={`${formatNumber(validatorCommission)}%`}
                 />
               </div>
@@ -187,6 +204,15 @@ export function DelegateModal({
                     hint={amountHint}
                   />
                 </div>
+
+                <div>
+                  <DelegateModalDetails
+                    title="Estimated fee"
+                    value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
+                    isValuePending={isFeePending}
+                  />
+                </div>
+
                 <div>
                   <Button
                     variant={3}
