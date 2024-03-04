@@ -9,6 +9,7 @@ import {
   formatNumber,
   toFixedAmount,
 } from '@haqq/shell-ui-kit';
+import { DelegateModalDetails } from '../delegate-modal/delegate-modal';
 import { ValidatorSelect } from '../validator-select/validator-select';
 
 export interface RedelegateModalProps {
@@ -19,52 +20,12 @@ export interface RedelegateModalProps {
   balance: number;
   isDisabled: boolean;
   fee: number | undefined;
+  isFeePending: boolean;
   onClose: () => void;
   onChange: (value: number) => void;
   onSubmit: () => void;
   onValidatorChange: (validatorAddress: string | undefined) => void;
   validatorsOptions: { label: string; value: string }[];
-}
-
-export function RedelegateModalDetails({
-  title,
-  value,
-  className,
-  titleClassName,
-  valueClassName,
-}: {
-  title: string;
-  value: string;
-  className?: string;
-  titleClassName?: string;
-  valueClassName?: string;
-}) {
-  return (
-    <div
-      className={clsx(
-        'flex flex-row items-center justify-between gap-[16px]',
-        className,
-      )}
-    >
-      <div
-        className={clsx(
-          'font-guise text-[10px] leading-[1.2em] text-[#0D0D0E80]',
-          'uppercase',
-          titleClassName,
-        )}
-      >
-        {title}
-      </div>
-      <div
-        className={clsx(
-          'text-haqq-black font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
-          valueClassName,
-        )}
-      >
-        {value}
-      </div>
-    </div>
-  );
 }
 
 export function RedelegateModalSubmitButton({
@@ -108,6 +69,7 @@ export function RedelegateModal({
   isDisabled,
   validatorsOptions,
   fee,
+  isFeePending,
   onChange,
   onSubmit,
   onValidatorChange,
@@ -151,7 +113,7 @@ export function RedelegateModal({
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
-                <RedelegateModalDetails
+                <DelegateModalDetails
                   title="My delegation"
                   value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
                 />
@@ -175,9 +137,10 @@ export function RedelegateModal({
                 </div>
 
                 <div>
-                  <RedelegateModalDetails
+                  <DelegateModalDetails
                     title="Estimated fee"
-                    value={`${fee ? formatNumber(fee) : '---'} ${symbol.toUpperCase()}`}
+                    value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
+                    isValuePending={isFeePending}
                   />
                 </div>
 

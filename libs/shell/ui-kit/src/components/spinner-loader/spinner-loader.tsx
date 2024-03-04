@@ -1,8 +1,14 @@
 import clsx from 'clsx';
 
-export function SpinnerLoader({ className }: { className?: string }) {
+export function SpinnerLoader({
+  className,
+  wrapperClassName,
+}: {
+  className?: string;
+  wrapperClassName?: string;
+}) {
   return (
-    <div role="status">
+    <div role="status" className={wrapperClassName}>
       <svg
         aria-hidden="true"
         viewBox="0 0 100 101"
