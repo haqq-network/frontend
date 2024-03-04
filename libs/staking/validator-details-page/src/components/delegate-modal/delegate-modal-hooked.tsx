@@ -138,7 +138,7 @@ export function DelegateModalHooked({
         });
         const estimatedFee = await getDelegateEstimatedFee(
           validatorAddress,
-          debouncedDelegateAmount ?? 0,
+          debouncedDelegateAmount,
         );
 
         setFee(Number.parseFloat(estimatedFee.fee) / 10 ** 18);
@@ -150,8 +150,6 @@ export function DelegateModalHooked({
     isDelegateEnabled,
     validatorAddress,
   ]);
-
-  console.log({ delegateAmount });
 
   return (
     <DelegateModal

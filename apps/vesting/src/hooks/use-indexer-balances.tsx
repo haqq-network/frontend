@@ -69,9 +69,6 @@ function mapBalances(
 
 export function useIndexerBalances() {
   const getBalances = useCallback(async (address: string) => {
-    console.log('getBalances', {
-      indexerEndpoint: environment.indexerEndpoint,
-    });
     if (!environment.indexerEndpoint || environment.indexerEndpoint === '') {
       console.warn('no indexer endpoint');
       return undefined;

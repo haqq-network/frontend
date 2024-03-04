@@ -1,5 +1,11 @@
 import { useCallback } from 'react';
-import { createBody, createMsgDelegate } from '@evmos/proto';
+import {
+  MessageGenerated,
+  createBody,
+  createMsgBeginRedelegate,
+  createMsgDelegate,
+  createMsgUndelegate,
+} from '@evmos/proto';
 import {
   createTxMsgDelegate,
   createTxMsgUndelegate,
@@ -122,10 +128,9 @@ export function useStakingActions() {
 
   const handleDelegate = useCallback(
     async (validatorAddress?: string, amount?: number, balance?: number) => {
-      console.log('handleDelegate', { validatorAddress, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = 'Delegate';
+      const memo = `Delegate ${Number.parseFloat((amount ?? 0).toString())} ISLM to ${validatorAddress}`;
 
       if (sender && validatorAddress && haqqChain) {
         const params = getDelegationParams(
@@ -175,10 +180,9 @@ export function useStakingActions() {
 
   const handleUndelegate = useCallback(
     async (validatorAddress?: string, amount?: number, balance?: number) => {
-      console.log('handleUndelegate', { validatorAddress, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = 'Undelegate';
+      const memo = `Undelegate ${Number.parseFloat((amount ?? 0).toString())} ISLM from ${validatorAddress}`;
 
       if (sender && validatorAddress && haqqChain) {
         const params = getDelegationParams(
@@ -227,7 +231,6 @@ export function useStakingActions() {
 
   const handleClaimAllRewards = useCallback(
     async (validatorAddresses: string[]) => {
-      console.log('handleClaimReward', { validatorAddresses });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = 'Claim all rewards';
@@ -275,10 +278,9 @@ export function useStakingActions() {
 
   const handleClaimReward = useCallback(
     async (validatorAddress: string) => {
-      console.log('handleClaimReward', { validatorAddress });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = 'Claim reward';
+      const memo = `Claim reward from ${validatorAddress}`;
 
       if (sender && haqqChain) {
         const params = {
@@ -328,10 +330,6 @@ export function useStakingActions() {
       amount: number,
       balance?: number,
     ) => {
-      console.log('handleRedelegate', {
-        validatorSourceAddress,
-        validatorDestinationAddress,
-      });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Redelegate from ${validatorSourceAddress} to ${validatorDestinationAddress}`;
@@ -383,23 +381,9 @@ export function useStakingActions() {
     ],
   );
 
-  const handleDelegateEstimatedFee = useCallback(
-    async (validatorAddress: string, amount: number) => {
-      console.log('handleDelegateEstimatedFee', {
-        validatorAddress,
-        amount,
-      });
-      const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
-      console.log({ bigIntAmount });
-      const protoMsg = createMsgDelegate(
-        haqqAddress as string,
-        validatorAddress,
-        bigIntAmount.toString(),
-        'aISLM',
-      );
-      console.log({ protoMsg });
-      const txBody = createBody(protoMsg, 'Delegate');
-      console.log({ txBody });
+  const handleGetEstimatedFee = useCallback(
+    async (protoMsg: MessageGenerated, memo: string) => {
+      const txBody = createBody(protoMsg, memo);
 
       const feeEstimation = await getEstimatedFee({
         chainId: haqqChain.cosmosChainId,
@@ -407,19 +391,72 @@ export function useStakingActions() {
         fromAddress: haqqAddress as string,
       });
 
-      console.log({ feeEstimation });
-
       return feeEstimation;
     },
     [haqqAddress, haqqChain.cosmosChainId],
   );
 
+  const handleDelegateEstimatedFee = useCallback(
+    async (validatorAddress: string, amount: number) => {
+      const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
+      const protoMsg = createMsgDelegate(
+        haqqAddress as string,
+        validatorAddress,
+        bigIntAmount.toString(),
+        'aISLM',
+      );
+      const memo = `Delegate ${Number.parseFloat(bigIntAmount.toString())} ISLM to ${validatorAddress}`;
+
+      return await handleGetEstimatedFee(protoMsg, memo);
+    },
+    [handleGetEstimatedFee, haqqAddress],
+  );
+
+  const handleUndelegateEstimatedFee = useCallback(
+    async (validatorAddress: string, amount: number) => {
+      const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
+      const protoMsg = createMsgUndelegate(
+        haqqAddress as string,
+        validatorAddress,
+        bigIntAmount.toString(),
+        'aISLM',
+      );
+      const memo = `Undelegate ${Number.parseFloat(bigIntAmount.toString())} ISLM from ${validatorAddress}`;
+
+      return await handleGetEstimatedFee(protoMsg, memo);
+    },
+    [handleGetEstimatedFee, haqqAddress],
+  );
+
+  const handleRedelegateEstimatedFee = useCallback(
+    async (
+      validatorSourceAddress: string,
+      validatorDestinationAddress: string,
+      amount: number,
+    ) => {
+      const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
+      const protoMsg = createMsgBeginRedelegate(
+        haqqAddress as string,
+        validatorSourceAddress,
+        validatorDestinationAddress,
+        bigIntAmount.toString(),
+        'aISLM',
+      );
+      const memo = `Redelegate from ${validatorSourceAddress} to ${validatorDestinationAddress}`;
+
+      return await handleGetEstimatedFee(protoMsg, memo);
+    },
+    [handleGetEstimatedFee, haqqAddress],
+  );
+
   return {
     delegate: handleDelegate,
     undelegate: handleUndelegate,
-    claimAllRewards: handleClaimAllRewards,
-    claimReward: handleClaimReward,
     redelegate: handleRedelegate,
+    claimReward: handleClaimReward,
+    claimAllRewards: handleClaimAllRewards,
     getDelegateEstimatedFee: handleDelegateEstimatedFee,
+    getUndelegateEstimatedFee: handleUndelegateEstimatedFee,
+    getRedelegateEstimatedFee: handleRedelegateEstimatedFee,
   };
 }

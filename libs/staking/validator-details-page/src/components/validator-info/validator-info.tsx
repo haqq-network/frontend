@@ -537,8 +537,8 @@ export function ValidatorInfo({
       await toast.promise(claimRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
         success: (tx) => {
+          console.log('Rewards claimed', { tx });
           const txHash = tx?.txhash;
-          console.log('Rewards claimed', { txHash });
 
           return (
             <ToastSuccess>
@@ -623,7 +623,7 @@ export function ValidatorInfo({
       await toast.promise(claimAllRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
         success: (tx) => {
-          console.log('Rewards claimed', { tx });
+          console.log('All rewards claimed', { tx });
           const txHash = tx?.txhash;
 
           return (

@@ -53,11 +53,6 @@ export function useLiquidVestingActions() {
           extension,
         );
 
-        console.log({
-          extension,
-          rawTx,
-        });
-
         return rawTx;
       } else {
         throw new Error('No haqqChain');

@@ -5,6 +5,7 @@ import { useNetwork } from 'wagmi';
 import {
   getChainParams,
   getFormattedAddress,
+  useDebounceValue,
   useStakingActions,
   useSupportedChains,
   useToast,
@@ -41,11 +42,12 @@ export function RedelegateModalHooked({
   const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [fee, setFee] = useState<number | undefined>(undefined);
   const [isRedelegateEnabled, setRedelegateEnabled] = useState(true);
   const [validatorDestinationAddress, setValidatorDestinationAddress] =
     useState<string | undefined>(undefined);
   const toast = useToast();
-  const { redelegate } = useStakingActions();
+  const { redelegate, getRedelegateEstimatedFee } = useStakingActions();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const { explorer } = getChainParams(chain.id);
@@ -122,21 +124,23 @@ export function RedelegateModalHooked({
     });
   }, [validatorsList, validatorAddress]);
 
+  const debouncedRedelegateAmount = useDebounceValue(redelegateAmount, 300);
+
   useEffect(() => {
-    if (redelegateAmount) {
+    if (debouncedRedelegateAmount) {
       const fixedDelegation = toFixedAmount(delegation, 3) ?? 0;
 
       if (
         !(fixedDelegation > 0) ||
-        redelegateAmount <= 0 ||
-        redelegateAmount > fixedDelegation
+        debouncedRedelegateAmount <= 0 ||
+        debouncedRedelegateAmount > fixedDelegation
       ) {
         setRedelegateEnabled(false);
       } else {
         setRedelegateEnabled(true);
       }
     }
-  }, [redelegateAmount, delegation]);
+  }, [debouncedRedelegateAmount, delegation]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -144,6 +148,30 @@ export function RedelegateModalHooked({
       setValidatorDestinationAddress(undefined);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    (async () => {
+      if (
+        debouncedRedelegateAmount &&
+        validatorDestinationAddress &&
+        isRedelegateEnabled
+      ) {
+        const estimatedFee = await getRedelegateEstimatedFee(
+          validatorAddress,
+          validatorDestinationAddress,
+          debouncedRedelegateAmount,
+        );
+
+        setFee(Number.parseFloat(estimatedFee.fee) / 10 ** 18);
+      }
+    })();
+  }, [
+    debouncedRedelegateAmount,
+    getRedelegateEstimatedFee,
+    isRedelegateEnabled,
+    validatorAddress,
+    validatorDestinationAddress,
+  ]);
 
   return (
     <RedelegateModal
@@ -162,6 +190,7 @@ export function RedelegateModalHooked({
       onValidatorChange={setValidatorDestinationAddress}
       validatorsOptions={validatorsOptions}
       redelegateAmount={redelegateAmount}
+      fee={fee}
     />
   );
 }
