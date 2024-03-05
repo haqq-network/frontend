@@ -58,12 +58,11 @@ function useStakingStats() {
   const handleRewardsClaim = useCallback(async () => {
     try {
       setRewardsPending(true);
-      const estimatedFee =
-        await getClaimAllRewardEstimatedFee(delegatedValsAddrs);
-      const claimAllRewardPromise = claimAllRewards(
+      const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
-        estimatedFee,
-      );
+      ).then((estimatedFee) => {
+        return claimAllRewards(delegatedValsAddrs, estimatedFee);
+      });
 
       await toast.promise(claimAllRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,

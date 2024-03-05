@@ -538,8 +538,11 @@ export function ValidatorInfo({
   const handleGetRewardsClick = useCallback(async () => {
     try {
       setRewardPending(true);
-      const estimatedFee = await getClaimRewardEstimatedFee(validatorAddress);
-      const claimRewardPromise = claimReward(validatorAddress, estimatedFee);
+      const claimRewardPromise = getClaimRewardEstimatedFee(
+        validatorAddress,
+      ).then((estimatedFee) => {
+        return claimReward(validatorAddress, estimatedFee);
+      });
 
       await toast.promise(claimRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,

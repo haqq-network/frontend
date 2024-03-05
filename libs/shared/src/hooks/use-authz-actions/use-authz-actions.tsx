@@ -1,5 +1,10 @@
 import { useCallback } from 'react';
 import {
+  createGenericAuthorization,
+  createMsgGrant,
+  createMsgRevoke,
+} from '@evmos/proto';
+import {
   Sender,
   createTxMsgGenericGrant,
   signatureToWeb3Extension,
@@ -10,13 +15,14 @@ import {
   createTxMsgGenericRevoke,
 } from '@evmos/transactions';
 import { useNetwork, useWalletClient } from 'wagmi';
-import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import { getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import {
   BroadcastTxResponse,
   useCosmosService,
 } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
+import { EstimatedFeeResponse } from '../../utils/get-estimated-fee';
 import { useAddress } from '../use-address/use-address';
 
 interface AuthzActionsHook {
@@ -24,46 +30,39 @@ interface AuthzActionsHook {
     grantee: string,
     msgType: string,
     expires: number,
+    estimatedFee?: EstimatedFeeResponse,
   ) => Promise<BroadcastTxResponse>;
-  revoke: (grantee: string, msgType: string) => Promise<BroadcastTxResponse>;
+  revoke: (
+    grantee: string,
+    msgType: string,
+    estimatedFee?: EstimatedFeeResponse,
+  ) => Promise<BroadcastTxResponse>;
+  getGrantEstimatedFee: (
+    grantee: string,
+    msgType: string,
+    expires: number,
+  ) => Promise<EstimatedFeeResponse>;
+  getRevokeEstimatedFee: (
+    grantee: string,
+    msgType: string,
+  ) => Promise<EstimatedFeeResponse>;
 }
 
 export function useAuthzActions(): AuthzActionsHook {
   const { data: walletClient } = useWalletClient();
   const {
     broadcastTransaction,
-    getAccountBaseInfo,
     getPubkey,
     getTransactionStatus,
+    getEstimatedFee,
+    getFee,
+    getSender,
   } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const chainParams = getChainParams(chain.id);
   const haqqChain = mapToCosmosChain(chainParams);
-
-  const getSender = useCallback(
-    async (address: string, pubkey: string) => {
-      try {
-        const accInfo = await getAccountBaseInfo(address);
-
-        if (!accInfo) {
-          throw new Error('no base account info');
-        }
-
-        return {
-          accountAddress: address,
-          sequence: parseInt(accInfo.sequence, 10),
-          accountNumber: parseInt(accInfo.account_number, 10),
-          pubkey,
-        };
-      } catch (error) {
-        console.error((error as Error).message);
-        throw error;
-      }
-    },
-    [getAccountBaseInfo],
-  );
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
@@ -92,13 +91,19 @@ export function useAuthzActions(): AuthzActionsHook {
   );
 
   const handleGrant = useCallback(
-    async (grantee: string, msgType: string, expires: number) => {
+    async (
+      grantee: string,
+      msgType: string,
+      expires: number,
+      estimatedFee?: EstimatedFeeResponse,
+    ) => {
       console.log('handleGrant', { grantee, expires });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Grant access to ${grantee} for "${msgType}" transactions`;
 
       if (sender && haqqChain) {
+        const fee = getFee(estimatedFee);
         const grantParams: MsgGenericAuthorizationParams = {
           botAddress: grantee,
           typeUrl: msgType,
@@ -108,7 +113,7 @@ export function useAuthzActions(): AuthzActionsHook {
         const msg = createTxMsgGenericGrant(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           grantParams,
         );
@@ -132,11 +137,12 @@ export function useAuthzActions(): AuthzActionsHook {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       signTransaction,
       broadcastTransaction,
       getTransactionStatus,
@@ -144,13 +150,18 @@ export function useAuthzActions(): AuthzActionsHook {
   );
 
   const handleRevoke = useCallback(
-    async (grantee: string, msgType: string) => {
+    async (
+      grantee: string,
+      msgType: string,
+      estimatedFee?: EstimatedFeeResponse,
+    ) => {
       console.log('handleRevoke', { grantee, msgType });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Revoke access from ${grantee} for "${msgType}" transactions`;
 
       if (sender && haqqChain) {
+        const fee = getFee(estimatedFee);
         const revokeParams: MsgGenericRevokeParams = {
           botAddress: grantee,
           typeUrl: msgType,
@@ -159,7 +170,7 @@ export function useAuthzActions(): AuthzActionsHook {
         const msg = createTxMsgGenericRevoke(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           revokeParams,
         );
@@ -183,19 +194,57 @@ export function useAuthzActions(): AuthzActionsHook {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       signTransaction,
       broadcastTransaction,
       getTransactionStatus,
     ],
   );
 
+  const handleGrantEstimatedFee = useCallback(
+    async (grantee: string, msgType: string, expires: number) => {
+      const protoMsg = createMsgGrant(
+        haqqAddress as string,
+        grantee,
+        createGenericAuthorization(msgType),
+        expires,
+      );
+      const memo = `Grant access to ${grantee} for "${msgType}" transactions`;
+
+      return await getEstimatedFee(
+        protoMsg,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
+    },
+    [haqqAddress, getEstimatedFee, haqqChain.cosmosChainId],
+  );
+
+  const handleRevokeEstimatedFee = useCallback(
+    async (grantee: string, msgType: string) => {
+      const protoMsg = createMsgRevoke(haqqAddress as string, grantee, msgType);
+      const memo = `Revoke access from ${grantee} for "${msgType}" transactions`;
+
+      return await getEstimatedFee(
+        protoMsg,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
+    },
+    [haqqAddress, getEstimatedFee, haqqChain.cosmosChainId],
+  );
+
   return {
     grant: handleGrant,
     revoke: handleRevoke,
+    getGrantEstimatedFee: handleGrantEstimatedFee,
+    getRevokeEstimatedFee: handleRevokeEstimatedFee,
   };
 }
