@@ -12,13 +12,10 @@ const defaultMaskOptions = {
   prefix: '',
   suffix: '',
   includeThousandsSeparator: true,
-  thousandsSeparatorSymbol: ',',
   allowDecimal: true,
-  decimalSymbol: '.',
   decimalLimit: 3,
   allowNegative: false,
   allowLeadingZeroes: false,
-  // integerLimit: 7,
 };
 
 const CurrencyInput = ({

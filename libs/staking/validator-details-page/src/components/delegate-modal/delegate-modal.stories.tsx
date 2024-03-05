@@ -20,6 +20,6 @@ export const DelegateModal: Story = {
     delegation: 1000,
     isDisabled: false,
     unboundingTime: 21,
-    validatorCommission: '100',
+    validatorCommission: 10,
   },
 };

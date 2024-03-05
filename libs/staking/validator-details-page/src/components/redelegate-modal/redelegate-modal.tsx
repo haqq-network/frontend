@@ -75,7 +75,7 @@ export function RedelegateModal({
   onValidatorChange,
 }: RedelegateModalProps) {
   const handleMaxButtonClick = useCallback(() => {
-    onChange(toFixedAmount(delegation, 3) ?? 0);
+    onChange(Math.floor(delegation));
   }, [delegation, onChange]);
 
   const handleInputChange = useCallback(
