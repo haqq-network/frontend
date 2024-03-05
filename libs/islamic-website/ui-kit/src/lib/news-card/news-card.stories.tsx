@@ -4,9 +4,6 @@ import { NewsCard as NewsCardComponent } from './news-card';
 const meta: Meta<typeof NewsCardComponent> = {
   component: NewsCardComponent,
   title: 'islamic-website/ui-kit',
-  parameters: {
-    layout: 'centered',
-  },
 };
 
 export default meta;
@@ -20,9 +17,9 @@ export const NewsCard: Story = {
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: {
-        height: 300,
-        width: 200,
-        src: 'https://picsum.photos/200/300',
+        height: 1800,
+        width: 1000,
+        src: 'https://picsum.photos/1800/1000',
       },
       source: 'https://picsum.photos',
       type: 'type',

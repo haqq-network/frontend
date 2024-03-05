@@ -3,7 +3,7 @@ import { ProposalDepositModal as ProposalDepositModalComponent } from './proposa
 
 const meta: Meta<typeof ProposalDepositModalComponent> = {
   component: ProposalDepositModalComponent,
-  title: 'shell/ui-kit',
+  title: 'shell/ui-kit/modals/plug-and-play',
   parameters: {
     layout: 'centered',
   },
@@ -14,7 +14,7 @@ type Story = StoryObj<typeof ProposalDepositModalComponent>;
 
 export const ProposalDepositModal: Story = {
   args: {
-    balance: 250,
+    balance: 250.48819,
     isOpen: true,
   },
 };
