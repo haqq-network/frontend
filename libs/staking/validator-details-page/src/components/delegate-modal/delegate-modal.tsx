@@ -128,8 +128,8 @@ export function DelegateModal({
   onSubmit,
 }: DelegateModalProps) {
   const handleMaxButtonClick = useCallback(() => {
-    onChange(toFixedAmount(delegation, 3) ?? 0);
-  }, [delegation, onChange]);
+    onChange(Math.floor(balance));
+  }, [balance, onChange]);
 
   const handleInputChange = useCallback(
     (value: string | undefined) => {

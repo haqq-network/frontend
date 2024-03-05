@@ -107,20 +107,20 @@ export function UndelegateModalHooked({
     undelegate,
     validatorAddress,
     undelegateAmount,
+    balance,
+    fee,
     toast,
     onClose,
     explorer.cosmos,
   ]);
 
   useEffect(() => {
-    const fixedDelegation = toFixedAmount(delegation, 3) ?? 0;
-
     if (throttledUndelegateAmount && throttledUndelegateAmount <= 0) {
       setUndelegateEnabled(false);
       setAmountError('min');
     } else if (
       throttledUndelegateAmount &&
-      throttledUndelegateAmount > fixedDelegation
+      throttledUndelegateAmount > delegation
     ) {
       setUndelegateEnabled(false);
       setAmountError('max');
