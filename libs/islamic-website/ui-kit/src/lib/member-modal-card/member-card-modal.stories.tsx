@@ -14,9 +14,9 @@ type Story = StoryObj<typeof MemberModalCardComponent>;
 
 export const MemberModalCard: Story = {
   args: {
-    title: 'Sheikh Dr. Hazza bin Sultan bin Zayed Al Nahyan',
+    title: 'Alexander Jonathan Sebastian-Carrington',
     description:
-      "His Highness Sheikh Dr. Hazza Bin Sultan Bin Zayed Al Nahyan is Chairman of the Board of Directors of the Management of H. H. Sheikh Sultan Bin Zayed Al Nahyan. He also chairs the Board of Directors of holding companies concerned with Real Estate and Economic Development. Sheikh Dr. Hazza completed his Ph.D. in natural resources, Economic Development and Security in the United Arab Emirates from Bangor University in the United Kingdom in 2009. This is after completing his master's thesis in the philosophy of modern societies and global transformation from the University of Cambridge, United Kingdom, in 2007.",
-    image: 'https://picsum.photos/200/300',
+      'Alexander Jonathan Sebastian-Carrington is a renowned historian and linguist, known for his extensive research in ancient Mediterranean civilizations. With a career spanning over three decades, Alexander has contributed significantly to the understanding of early human societies through his innovative approach to deciphering ancient scripts. His work has not only enriched academic discourse but also made ancient history accessible to a wider audience, earning him numerous awards and accolades in the field of historical studies.',
+    image: 'https://picsum.photos/400/300',
   },
 };
