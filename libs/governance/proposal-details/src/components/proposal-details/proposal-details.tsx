@@ -894,7 +894,7 @@ export function VoteActions({
   proposalId: number;
   userVote?: string | null;
 }) {
-  const { vote } = useProposalActions();
+  const { vote, getVoteEstimatedFee } = useProposalActions();
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
   const chains = useSupportedChains();
@@ -904,7 +904,12 @@ export function VoteActions({
   const handleVote = useCallback(
     async (option: number) => {
       try {
-        const votePromise = vote(proposalId, option);
+        const votePromise = getVoteEstimatedFee(proposalId, option).then(
+          (estimatedFee) => {
+            return vote(proposalId, option, estimatedFee);
+          },
+        );
+
         await toast.promise(votePromise, {
           loading: <ToastLoading>Vote in progress</ToastLoading>,
           success: (tx) => {

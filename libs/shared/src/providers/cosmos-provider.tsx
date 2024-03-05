@@ -2,6 +2,11 @@ import { PropsWithChildren, useContext, useMemo, createContext } from 'react';
 import { hashMessage } from '@ethersproject/hash';
 import { computePublicKey, recoverPublicKey } from '@ethersproject/signing-key';
 import {
+  MessageGenerated,
+  createBody,
+  createBodyWithMultipleMessages,
+} from '@evmos/proto';
+import {
   generateEndpointBroadcast,
   generatePostBodyBroadcast,
   generateEndpointAccount,
@@ -23,15 +28,20 @@ import {
   generateEndpointBalances,
   BalancesResponse,
 } from '@evmos/provider';
-import { Coin } from '@evmos/transactions';
+import { Coin, Fee } from '@evmos/transactions';
 import axios from 'axios';
+import { base64FromBytes } from 'cosmjs-types/helpers';
 import store from 'store2';
 import { Hex } from 'viem';
 import { WalletClient, useNetwork, useWalletClient } from 'wagmi';
 import { useSupportedChains } from './wagmi-provider';
-import { getChainParams } from '../chains/get-chain-params';
+import { DEFAULT_FEE, getChainParams } from '../chains/get-chain-params';
 import { BaseAccount, ClawbackVestingAccount, HaqqAccount } from '../types';
 import { ethToHaqq } from '../utils/convert-address';
+import {
+  EstimatedFeeResponse,
+  getEstimatedFee,
+} from '../utils/get-estimated-fee';
 
 export type TallyResults = TallyResponse['tally'];
 
@@ -95,6 +105,13 @@ export interface CosmosService {
     accountNumber: number;
     pubkey: string;
   }>;
+  getEstimatedFee: (
+    protoMsg: MessageGenerated | MessageGenerated[],
+    memo: string,
+    chainId: string,
+    fromAddress: string,
+  ) => Promise<EstimatedFeeResponse>;
+  getFee: (estimatedFee?: EstimatedFeeResponse) => Fee;
 }
 
 type CosmosServiceContextProviderValue =
@@ -808,6 +825,40 @@ function createCosmosService(
     }
   }
 
+  async function handleGetEstimatedFee(
+    protoMsg: MessageGenerated | MessageGenerated[],
+    memo: string,
+    chainId: string,
+    fromAddress: string,
+  ) {
+    try {
+      const body = Array.isArray(protoMsg)
+        ? createBodyWithMultipleMessages(protoMsg, memo)
+        : createBody(protoMsg, memo);
+
+      const feeEstimation = await getEstimatedFee({
+        chainId,
+        bodyBytes: base64FromBytes(body.serializeBinary()),
+        fromAddress,
+      });
+
+      return feeEstimation;
+    } catch (error) {
+      console.error((error as Error).message);
+      throw error;
+    }
+  }
+
+  function getFee(estimatedFee?: EstimatedFeeResponse): Fee {
+    return estimatedFee
+      ? {
+          amount: estimatedFee.fee,
+          gas: estimatedFee.gas_used,
+          denom: 'aISLM',
+        }
+      : DEFAULT_FEE;
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -838,6 +889,8 @@ function createCosmosService(
     // getVotes,
     getErc20TokenPairs,
     getSender,
+    getEstimatedFee: handleGetEstimatedFee,
+    getFee,
   };
 }
 
