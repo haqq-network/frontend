@@ -117,11 +117,11 @@ export function DelegateModalHooked({
       setDelegateEnabled(false);
       setAmountError(undefined);
       setFee(undefined);
-    } else if (delegateAmount && delegateAmount <= 0) {
+    } else if (delegateAmount <= 0) {
       setDelegateEnabled(false);
       setAmountError('min');
       setFee(undefined);
-    } else if (delegateAmount && delegateAmount > balance) {
+    } else if (delegateAmount > balance) {
       setDelegateEnabled(false);
       setAmountError('max');
       setFee(undefined);
