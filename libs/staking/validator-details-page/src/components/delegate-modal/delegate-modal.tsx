@@ -25,7 +25,7 @@ export interface DelegateModalProps {
   fee: number | undefined;
   isFeePending: boolean;
   onClose: () => void;
-  onChange: (value: number) => void;
+  onChange: (value: number | undefined) => void;
   onSubmit: () => void;
 }
 
@@ -133,7 +133,9 @@ export function DelegateModal({
 
   const handleInputChange = useCallback(
     (value: string | undefined) => {
-      if (value) {
+      if (value === '') {
+        onChange(undefined);
+      } else if (value !== undefined) {
         const parsedValue = value.replace(/ /g, '').replace(/,/g, '');
         const normalizedAmount = toFixedAmount(
           Number.parseFloat(parsedValue),
@@ -143,6 +145,8 @@ export function DelegateModal({
         if (normalizedAmount) {
           onChange(normalizedAmount);
         }
+      } else {
+        onChange(undefined);
       }
     },
     [onChange],

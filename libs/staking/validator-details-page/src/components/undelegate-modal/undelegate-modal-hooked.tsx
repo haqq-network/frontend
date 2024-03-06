@@ -8,7 +8,6 @@ import {
   getChainParams,
   useSupportedChains,
   useThrottle,
-  useDebounce,
   EstimatedFeeResponse,
 } from '@haqq/shared';
 import {
@@ -16,7 +15,6 @@ import {
   ToastLoading,
   ToastError,
   LinkIcon,
-  toFixedAmount,
 } from '@haqq/shell-ui-kit';
 import { UndelegateModal } from './undelegate-modal';
 
@@ -44,7 +42,7 @@ export function UndelegateModalHooked({
     undefined,
   );
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
-  const [isUndelegateEnabled, setUndelegateEnabled] = useState(true);
+  const [isUndelegateEnabled, setUndelegateEnabled] = useState(false);
   const [isFeePending, setFeePending] = useState(false);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -55,7 +53,6 @@ export function UndelegateModalHooked({
   const { explorer } = getChainParams(chain.id);
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledUndelegateAmount = useThrottle(undelegateAmount, 300);
-  const debounceFeePending = useDebounce(isFeePending, 5);
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
@@ -115,26 +112,30 @@ export function UndelegateModalHooked({
   ]);
 
   useEffect(() => {
-    if (throttledUndelegateAmount && throttledUndelegateAmount <= 0) {
+    if (!undelegateAmount) {
+      setUndelegateEnabled(false);
+      setAmountError(undefined);
+      setFee(undefined);
+    } else if (undelegateAmount <= 0) {
       setUndelegateEnabled(false);
       setAmountError('min');
-    } else if (
-      throttledUndelegateAmount &&
-      throttledUndelegateAmount > delegation
-    ) {
+      setFee(undefined);
+    } else if (undelegateAmount > delegation) {
       setUndelegateEnabled(false);
       setAmountError('max');
+      setFee(undefined);
     } else {
       setUndelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [delegation, throttledUndelegateAmount]);
+  }, [delegation, undelegateAmount]);
 
   useEffect(() => {
     if (!isOpen) {
       setUndelegateAmount(undefined);
-      setUndelegateEnabled(true);
+      setUndelegateEnabled(false);
       setAmountError(undefined);
+      setFee(undefined);
       if (cancelPreviousRequest.current) {
         cancelPreviousRequest.current();
         cancelPreviousRequest.current = null;
@@ -143,35 +144,38 @@ export function UndelegateModalHooked({
   }, [isOpen]);
 
   useEffect(() => {
-    if (throttledUndelegateAmount) {
-      if (cancelPreviousRequest.current) {
-        cancelPreviousRequest.current();
-      }
+    if (isUndelegateEnabled) {
+      if (throttledUndelegateAmount && throttledUndelegateAmount > 0) {
+        if (cancelPreviousRequest.current) {
+          cancelPreviousRequest.current();
+        }
 
-      let isCancelled = false;
+        let isCancelled = false;
 
-      cancelPreviousRequest.current = () => {
-        isCancelled = true;
-      };
+        cancelPreviousRequest.current = () => {
+          isCancelled = true;
+        };
 
-      setFeePending(true);
-      getUndelegateEstimatedFee(validatorAddress, throttledUndelegateAmount)
-        .then((estimatedFee) => {
-          if (!isCancelled) {
-            setFee(estimatedFee);
+        setFeePending(true);
+        getUndelegateEstimatedFee(validatorAddress, throttledUndelegateAmount)
+          .then((estimatedFee) => {
+            if (!isCancelled) {
+              setFee(estimatedFee);
+              setFeePending(false);
+            }
+          })
+          .catch((reason) => {
+            console.error(reason);
             setFeePending(false);
-          }
-        })
-        .catch((reason) => {
-          console.error(reason);
-          setFeePending(false);
-        });
+          });
+      }
     }
   }, [
     validatorAddress,
     cancelPreviousRequest,
     throttledUndelegateAmount,
     getUndelegateEstimatedFee,
+    isUndelegateEnabled,
   ]);
 
   return (
@@ -183,12 +187,14 @@ export function UndelegateModalHooked({
       balance={balance}
       unboundingTime={unboundingTime}
       onChange={setUndelegateAmount}
-      isDisabled={!isUndelegateEnabled || !undelegateAmount}
+      isDisabled={
+        !isUndelegateEnabled || !undelegateAmount || !fee || isFeePending
+      }
       amountError={amountError}
       onSubmit={handleSubmitUndelegate}
       undelegateAmount={undelegateAmount}
       fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
-      isFeePending={debounceFeePending}
+      isFeePending={isFeePending}
     />
   );
 }
