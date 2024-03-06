@@ -9,7 +9,6 @@ import {
   useSupportedChains,
   useToast,
   EstimatedFeeResponse,
-  useDebounce,
 } from '@haqq/shared';
 import {
   ToastLoading,
@@ -45,7 +44,7 @@ export function DelegateModalHooked({
     undefined,
   );
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
-  const [isDelegateEnabled, setDelegateEnabled] = useState(true);
+  const [isDelegateEnabled, setDelegateEnabled] = useState(false);
   const [isFeePending, setFeePending] = useState(false);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -56,7 +55,6 @@ export function DelegateModalHooked({
   const toast = useToast();
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledDelegateAmount = useThrottle(delegateAmount, 300);
-  const debounceFeePending = useDebounce(isFeePending, 5);
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
@@ -115,24 +113,28 @@ export function DelegateModalHooked({
   ]);
 
   useEffect(() => {
-    if (!fee) {
+    if (!delegateAmount) {
       setDelegateEnabled(false);
-    } else if (throttledDelegateAmount && throttledDelegateAmount <= 0) {
+      setAmountError(undefined);
+      setFee(undefined);
+    } else if (delegateAmount && delegateAmount <= 0) {
       setDelegateEnabled(false);
       setAmountError('min');
-    } else if (throttledDelegateAmount && throttledDelegateAmount > balance) {
+      setFee(undefined);
+    } else if (delegateAmount && delegateAmount > balance) {
       setDelegateEnabled(false);
       setAmountError('max');
+      setFee(undefined);
     } else {
       setDelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [balance, throttledDelegateAmount, fee]);
+  }, [balance, delegateAmount, fee]);
 
   useEffect(() => {
     if (!isOpen) {
       setDelegateAmount(undefined);
-      setDelegateEnabled(true);
+      setDelegateEnabled(false);
       setAmountError(undefined);
       setFee(undefined);
       if (cancelPreviousRequest.current) {
@@ -143,29 +145,31 @@ export function DelegateModalHooked({
   }, [cancelPreviousRequest, isOpen]);
 
   useEffect(() => {
-    if (throttledDelegateAmount) {
-      if (cancelPreviousRequest.current) {
-        cancelPreviousRequest.current();
-      }
+    if (isDelegateEnabled) {
+      if (throttledDelegateAmount && throttledDelegateAmount > 0) {
+        if (cancelPreviousRequest.current) {
+          cancelPreviousRequest.current();
+        }
 
-      let isCancelled = false;
+        let isCancelled = false;
 
-      cancelPreviousRequest.current = () => {
-        isCancelled = true;
-      };
+        cancelPreviousRequest.current = () => {
+          isCancelled = true;
+        };
 
-      setFeePending(true);
-      getDelegateEstimatedFee(validatorAddress, throttledDelegateAmount)
-        .then((estimatedFee) => {
-          if (!isCancelled) {
-            setFee(estimatedFee);
+        setFeePending(true);
+        getDelegateEstimatedFee(validatorAddress, throttledDelegateAmount)
+          .then((estimatedFee) => {
+            if (!isCancelled) {
+              setFee(estimatedFee);
+              setFeePending(false);
+            }
+          })
+          .catch((reason) => {
+            console.error(reason);
             setFeePending(false);
-          }
-        })
-        .catch((reason) => {
-          console.error(reason);
-          setFeePending(false);
-        });
+          });
+      }
     }
   }, [
     throttledDelegateAmount,
@@ -185,12 +189,12 @@ export function DelegateModalHooked({
       unboundingTime={unboundingTime}
       validatorCommission={validatorCommission}
       onChange={setDelegateAmount}
-      isDisabled={!isDelegateEnabled || !delegateAmount || !fee}
+      isDisabled={!isDelegateEnabled || !delegateAmount || !fee || isFeePending}
       amountError={amountError}
       onSubmit={handleSubmitDelegate}
       delegateAmount={delegateAmount}
       fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
-      isFeePending={debounceFeePending}
+      isFeePending={isFeePending}
     />
   );
 }
