@@ -1,5 +1,12 @@
 import clsx from 'clsx';
-import { Button, Container, Heading, WalletIcon } from '@haqq/shell-ui-kit';
+import {
+  Button,
+  Container,
+  Heading,
+  MIN_REWARDS_TO_CLAIM,
+  Tooltip,
+  WalletIcon,
+} from '@haqq/shell-ui-kit';
 
 interface StakingStatsProps {
   balance: string;
@@ -97,14 +104,23 @@ export function StakingStatsDesktop({
         </div>
 
         <div className="w-full text-start lg:w-auto lg:flex-none">
-          <Button
-            disabled={Number.parseFloat(rewards) < 1}
-            onClick={onRewardsClaim}
-            variant={2}
-            isLoading={isRewardsPending}
+          <Tooltip
+            text={
+              Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
+                ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+                : ''
+            }
+            className="min-w-[300px] text-center"
           >
-            Claim all rewards
-          </Button>
+            <Button
+              disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
+              onClick={onRewardsClaim}
+              variant={2}
+              isLoading={isRewardsPending}
+            >
+              Claim all rewards
+            </Button>
+          </Tooltip>
         </div>
       </div>
     </Container>
@@ -187,15 +203,24 @@ export function StakingStatsMobile({
         />
       </div>
       <div className="flex-none">
-        <Button
-          onClick={onRewardsClaim}
-          className="px-[32px]"
-          variant={2}
-          isLoading={isRewardsPending}
-          disabled={Number.parseFloat(rewards) < 1}
+        <Tooltip
+          text={
+            Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
+              ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+              : ''
+          }
+          className="min-w-[300px] text-center"
         >
-          Get rewards
-        </Button>
+          <Button
+            onClick={onRewardsClaim}
+            className="px-[32px]"
+            variant={2}
+            isLoading={isRewardsPending}
+            disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
+          >
+            Get rewards
+          </Button>
+        </Tooltip>
       </div>
     </div>
   );

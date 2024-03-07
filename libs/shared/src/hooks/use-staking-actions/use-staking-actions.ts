@@ -1,8 +1,5 @@
 import { useCallback } from 'react';
 import {
-  MessageGenerated,
-  createBody,
-  createBodyWithMultipleMessages,
   createMsgBeginRedelegate,
   createMsgDelegate,
   createMsgUndelegate,
@@ -21,25 +18,23 @@ import {
   MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
-import { base64FromBytes } from 'cosmjs-types/helpers';
 import { useNetwork, useWalletClient } from 'wagmi';
-import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import { getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
-import {
-  EstimatedFeeResponse,
-  getEstimatedFee,
-} from '../../utils/get-estimated-fee';
+import { EstimatedFeeResponse } from '../../utils/get-estimated-fee';
 import { useAddress } from '../use-address/use-address';
 
 export function useStakingActions() {
   const {
     broadcastTransaction,
-    getAccountBaseInfo,
     getPubkey,
     getTransactionStatus,
+    getEstimatedFee,
+    getFee,
+    getSender,
   } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
   const { data: walletClient } = useWalletClient();
@@ -47,29 +42,6 @@ export function useStakingActions() {
   const { chain = chains[0] } = useNetwork();
   const chainParams = getChainParams(chain.id);
   const haqqChain = mapToCosmosChain(chainParams);
-
-  const getSender = useCallback(
-    async (address: string, pubkey: string) => {
-      try {
-        const accInfo = await getAccountBaseInfo(address);
-
-        if (!accInfo) {
-          throw new Error('no base account info');
-        }
-
-        return {
-          accountAddress: address,
-          sequence: parseInt(accInfo.sequence, 10),
-          accountNumber: parseInt(accInfo.account_number, 10),
-          pubkey,
-        };
-      } catch (error) {
-        console.error((error as Error).message);
-        throw error;
-      }
-    },
-    [getAccountBaseInfo],
-  );
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
@@ -131,16 +103,6 @@ export function useStakingActions() {
     [],
   );
 
-  const getFee = useCallback((estimatedFee?: EstimatedFeeResponse): Fee => {
-    return estimatedFee
-      ? {
-          amount: estimatedFee.fee,
-          gas: estimatedFee.gas_used,
-          denom: 'aISLM',
-        }
-      : DEFAULT_FEE;
-  }, []);
-
   const handleDelegate = useCallback(
     async (
       validatorAddress?: string,
@@ -154,7 +116,6 @@ export function useStakingActions() {
 
       if (sender && validatorAddress && haqqChain) {
         const fee = getFee(estimatedFee);
-
         const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
@@ -408,26 +369,6 @@ export function useStakingActions() {
     ],
   );
 
-  const handleGetEstimatedFee = useCallback(
-    async (protoMsg: MessageGenerated | MessageGenerated[], memo: string) => {
-      let body;
-      if (protoMsg instanceof Array) {
-        body = createBodyWithMultipleMessages(protoMsg, memo);
-      } else {
-        body = createBody(protoMsg, memo);
-      }
-
-      const feeEstimation = await getEstimatedFee({
-        chainId: haqqChain.cosmosChainId,
-        bodyBytes: base64FromBytes(body.serializeBinary()),
-        fromAddress: haqqAddress as string,
-      });
-
-      return feeEstimation;
-    },
-    [haqqAddress, haqqChain.cosmosChainId],
-  );
-
   const handleDelegateEstimatedFee = useCallback(
     async (validatorAddress: string, amount: number) => {
       const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
@@ -439,9 +380,14 @@ export function useStakingActions() {
       );
       const memo = `Delegate ${Number.parseFloat(bigIntAmount.toString())} ISLM to ${validatorAddress}`;
 
-      return await handleGetEstimatedFee(protoMsg, memo);
+      return await getEstimatedFee(
+        protoMsg,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
     },
-    [handleGetEstimatedFee, haqqAddress],
+    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
   );
 
   const handleUndelegateEstimatedFee = useCallback(
@@ -455,9 +401,14 @@ export function useStakingActions() {
       );
       const memo = `Undelegate ${Number.parseFloat(bigIntAmount.toString())} ISLM from ${validatorAddress}`;
 
-      return await handleGetEstimatedFee(protoMsg, memo);
+      return await getEstimatedFee(
+        protoMsg,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
     },
-    [handleGetEstimatedFee, haqqAddress],
+    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
   );
 
   const handleRedelegateEstimatedFee = useCallback(
@@ -476,9 +427,14 @@ export function useStakingActions() {
       );
       const memo = `Redelegate from ${validatorSourceAddress} to ${validatorDestinationAddress}`;
 
-      return await handleGetEstimatedFee(protoMsg, memo);
+      return await getEstimatedFee(
+        protoMsg,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
     },
-    [handleGetEstimatedFee, haqqAddress],
+    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
   );
 
   const handleGetRewardEstimatedFee = useCallback(
@@ -489,9 +445,14 @@ export function useStakingActions() {
       );
       const memo = `Claim reward from ${validatorAddress}`;
 
-      return await handleGetEstimatedFee(protoMsg, memo);
+      return await getEstimatedFee(
+        protoMsg,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
     },
-    [handleGetEstimatedFee, haqqAddress],
+    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
   );
 
   const handleGetAllRewardEstimatedFee = useCallback(
@@ -504,9 +465,14 @@ export function useStakingActions() {
       });
       const memo = `Claim rewards from ${validatorAddresses.length} validators`;
 
-      return await handleGetEstimatedFee(protoMsgs, memo);
+      return await getEstimatedFee(
+        protoMsgs,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
     },
-    [handleGetEstimatedFee, haqqAddress],
+    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
   );
 
   return {

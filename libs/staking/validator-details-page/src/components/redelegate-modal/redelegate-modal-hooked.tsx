@@ -9,7 +9,6 @@ import {
   useStakingActions,
   useSupportedChains,
   useToast,
-  useDebounce,
   EstimatedFeeResponse,
 } from '@haqq/shared';
 import {
@@ -45,7 +44,7 @@ export function RedelegateModalHooked({
     undefined,
   );
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
-  const [isRedelegateEnabled, setRedelegateEnabled] = useState(true);
+  const [isRedelegateEnabled, setRedelegateEnabled] = useState(false);
   const [validatorDestinationAddress, setValidatorDestinationAddress] =
     useState<string | undefined>(undefined);
   const [isFeePending, setFeePending] = useState(false);
@@ -56,11 +55,11 @@ export function RedelegateModalHooked({
   const { explorer } = getChainParams(chain.id);
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledRedelegateAmount = useThrottle(redelegateAmount, 300);
-  const debounceFeePending = useDebounce(isFeePending, 5);
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
       if (validatorDestinationAddress && validatorAddress) {
+        setRedelegateEnabled(false);
         const redelegationPromise = redelegate(
           validatorAddress,
           validatorDestinationAddress,
@@ -68,7 +67,7 @@ export function RedelegateModalHooked({
           balance,
           fee,
         );
-        setRedelegateEnabled(false);
+
         await toast.promise(redelegationPromise, {
           loading: <ToastLoading>Redelegate in progress</ToastLoading>,
           success: (tx) => {
@@ -111,6 +110,7 @@ export function RedelegateModalHooked({
     redelegate,
     redelegateAmount,
     balance,
+    fee,
     toast,
     onClose,
     explorer.cosmos,
@@ -125,27 +125,31 @@ export function RedelegateModalHooked({
 
     return withoutCurrentValidator.map((validator) => {
       return {
-        label: `${validator.description.moniker}`,
+        label: validator.description.moniker,
         value: validator.operator_address,
       };
     });
   }, [validatorsList, validatorAddress]);
 
   useEffect(() => {
-    if (throttledRedelegateAmount) {
+    if (redelegateAmount) {
       const fixedDelegation = toFixedAmount(delegation, 3) ?? 0;
 
       if (
         !(fixedDelegation > 0) ||
-        throttledRedelegateAmount <= 0 ||
-        throttledRedelegateAmount > fixedDelegation
+        redelegateAmount <= 0 ||
+        redelegateAmount > fixedDelegation
       ) {
         setRedelegateEnabled(false);
+        setFee(undefined);
       } else {
         setRedelegateEnabled(true);
       }
+    } else {
+      setRedelegateEnabled(false);
+      setFee(undefined);
     }
-  }, [throttledRedelegateAmount, delegation]);
+  }, [redelegateAmount, delegation]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -160,33 +164,39 @@ export function RedelegateModalHooked({
   }, [isOpen]);
 
   useEffect(() => {
-    if (throttledRedelegateAmount && validatorDestinationAddress) {
-      if (cancelPreviousRequest.current) {
-        cancelPreviousRequest.current();
-      }
+    if (isRedelegateEnabled) {
+      if (
+        throttledRedelegateAmount &&
+        throttledRedelegateAmount > 0 &&
+        validatorDestinationAddress
+      ) {
+        if (cancelPreviousRequest.current) {
+          cancelPreviousRequest.current();
+        }
 
-      let isCancelled = false;
+        let isCancelled = false;
 
-      cancelPreviousRequest.current = () => {
-        isCancelled = true;
-      };
+        cancelPreviousRequest.current = () => {
+          isCancelled = true;
+        };
 
-      setFeePending(true);
-      getRedelegateEstimatedFee(
-        validatorAddress,
-        validatorDestinationAddress,
-        throttledRedelegateAmount,
-      )
-        .then((estimatedFee) => {
-          if (!isCancelled) {
-            setFee(estimatedFee);
+        setFeePending(true);
+        getRedelegateEstimatedFee(
+          validatorAddress,
+          validatorDestinationAddress,
+          throttledRedelegateAmount,
+        )
+          .then((estimatedFee) => {
+            if (!isCancelled) {
+              setFee(estimatedFee);
+              setFeePending(false);
+            }
+          })
+          .catch((reason) => {
+            console.error(reason);
             setFeePending(false);
-          }
-        })
-        .catch((reason) => {
-          console.error(reason);
-          setFeePending(false);
-        });
+          });
+      }
     }
   }, [
     validatorAddress,
@@ -194,6 +204,7 @@ export function RedelegateModalHooked({
     throttledRedelegateAmount,
     validatorDestinationAddress,
     getRedelegateEstimatedFee,
+    isRedelegateEnabled,
   ]);
 
   return (
@@ -208,13 +219,15 @@ export function RedelegateModalHooked({
       isDisabled={
         !isRedelegateEnabled ||
         !redelegateAmount ||
-        !validatorDestinationAddress
+        !validatorDestinationAddress ||
+        !fee ||
+        isFeePending
       }
       onValidatorChange={setValidatorDestinationAddress}
       validatorsOptions={validatorsOptions}
       redelegateAmount={redelegateAmount}
       fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
-      isFeePending={debounceFeePending}
+      isFeePending={isFeePending}
     />
   );
 }

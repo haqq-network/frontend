@@ -1,4 +1,5 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
+import { createMsgDeposit, createMsgVote } from '@evmos/proto';
 import {
   Sender,
   createTxMsgVote,
@@ -7,63 +8,56 @@ import {
   createTxRawEIP712,
 } from '@evmos/transactions';
 import type { MessageMsgDepositParams, TxGenerated } from '@evmos/transactions';
+import { formatUnits } from 'viem';
 import { useNetwork, useWalletClient } from 'wagmi';
-import { DEFAULT_FEE, getChainParams } from '../../chains/get-chain-params';
+import { getChainParams } from '../../chains/get-chain-params';
 import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import {
   BroadcastTxResponse,
   useCosmosService,
 } from '../../providers/cosmos-provider';
+import { useSupportedChains } from '../../providers/wagmi-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
+import { EstimatedFeeResponse } from '../../utils/get-estimated-fee';
 import { useAddress } from '../use-address/use-address';
 
 interface ProposalActionsHook {
-  vote: (proposalId: number, option: number) => Promise<BroadcastTxResponse>;
-  deposit: (proposalId: number, amount: number) => Promise<BroadcastTxResponse>;
+  vote: (
+    proposalId: number,
+    option: number,
+    estimatedFee?: EstimatedFeeResponse,
+  ) => Promise<BroadcastTxResponse>;
+  deposit: (
+    proposalId: number,
+    amount: number,
+    balance?: number,
+    estimatedFee?: EstimatedFeeResponse,
+  ) => Promise<BroadcastTxResponse>;
+  getVoteEstimatedFee: (
+    proposalId: number,
+    option: number,
+  ) => Promise<EstimatedFeeResponse>;
+  getDepositEstimatedFee: (
+    proposalId: number,
+    amount: number,
+  ) => Promise<EstimatedFeeResponse>;
 }
 
 export function useProposalActions(): ProposalActionsHook {
-  const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const {
     broadcastTransaction,
-    getAccountBaseInfo,
     getPubkey,
     getTransactionStatus,
+    getEstimatedFee,
+    getFee,
+    getSender,
   } = useCosmosService();
+  const chains = useSupportedChains();
   const { haqqAddress, ethAddress } = useAddress();
-
-  const haqqChain = useMemo(() => {
-    if (!chain || chain.unsupported) {
-      return undefined;
-    }
-
-    const chainParams = getChainParams(chain.id);
-    return mapToCosmosChain(chainParams);
-  }, [chain]);
-
-  const getSender = useCallback(
-    async (address: string, pubkey: string) => {
-      try {
-        const accInfo = await getAccountBaseInfo(address);
-
-        if (!accInfo) {
-          throw new Error('no base account info');
-        }
-
-        return {
-          accountAddress: address,
-          sequence: parseInt(accInfo.sequence, 10),
-          accountNumber: parseInt(accInfo.account_number, 10),
-          pubkey,
-        };
-      } catch (error) {
-        console.error((error as Error).message);
-        throw error;
-      }
-    },
-    [getAccountBaseInfo],
-  );
+  const { chain = chains[0] } = useNetwork();
+  const chainParams = getChainParams(chain.id);
+  const haqqChain = mapToCosmosChain(chainParams);
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
@@ -92,26 +86,23 @@ export function useProposalActions(): ProposalActionsHook {
   );
 
   const handleVote = useCallback(
-    async (proposalId: number, option: number) => {
+    async (
+      proposalId: number,
+      option: number,
+      estimatedFee?: EstimatedFeeResponse,
+    ) => {
       console.log('handleVote', { proposalId, option });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Vote for proposal #${proposalId}`;
 
       if (sender && haqqChain) {
+        const fee = getFee(estimatedFee);
         const voteParams = {
           proposalId,
           option,
         };
-
-        const msg = createTxMsgVote(
-          haqqChain,
-          sender,
-          DEFAULT_FEE,
-          memo,
-          voteParams,
-        );
-
+        const msg = createTxMsgVote(haqqChain, sender, fee, memo, voteParams);
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -131,11 +122,12 @@ export function useProposalActions(): ProposalActionsHook {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       signTransaction,
       broadcastTransaction,
       getTransactionStatus,
@@ -143,25 +135,30 @@ export function useProposalActions(): ProposalActionsHook {
   );
 
   const handleDeposit = useCallback(
-    async (proposalId: number, amount: number, balance?: number) => {
+    async (
+      proposalId: number,
+      amount: number,
+      balance?: number,
+      estimatedFee?: EstimatedFeeResponse,
+    ) => {
       console.log('handleDeposit', { proposalId, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Deposit to proposal #${proposalId}`;
 
       if (sender && haqqChain) {
+        const fee = getFee(estimatedFee);
         const depositParams: MessageMsgDepositParams = {
           proposalId,
-          deposit: getAmountIncludeFee(amount, balance ?? 0, DEFAULT_FEE),
+          deposit: getAmountIncludeFee(amount, balance ?? 0, fee),
         };
         const msg = createTxMsgDeposit(
           haqqChain,
           sender,
-          DEFAULT_FEE,
+          fee,
           memo,
           depositParams,
         );
-
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await broadcastTransaction(rawTx);
 
@@ -181,19 +178,56 @@ export function useProposalActions(): ProposalActionsHook {
       }
     },
     [
+      getPubkey,
       ethAddress,
+      getSender,
       haqqAddress,
       haqqChain,
-      getPubkey,
-      getSender,
+      getFee,
       signTransaction,
       broadcastTransaction,
       getTransactionStatus,
     ],
   );
 
+  const handleVoteEstimatedFee = useCallback(
+    async (proposalId: number, option: number) => {
+      const protoMsg = createMsgVote(proposalId, option, haqqAddress as string);
+      const memo = `Vote for proposal #${proposalId}`;
+
+      return await getEstimatedFee(
+        protoMsg,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
+    },
+    [haqqAddress, getEstimatedFee, haqqChain.cosmosChainId],
+  );
+
+  const handleDepositEstimatedFee = useCallback(
+    async (proposalId: number, amount: number) => {
+      console.log({ units: formatUnits(BigInt(amount), 18) });
+      const protoMsg = createMsgDeposit(proposalId, haqqAddress as string, {
+        amount: formatUnits(BigInt(amount), 18),
+        denom: 'aISLM',
+      });
+      const memo = `Deposit to proposal #${proposalId}`;
+
+      return await getEstimatedFee(
+        protoMsg,
+        memo,
+        haqqChain.cosmosChainId,
+        haqqAddress as string,
+      );
+    },
+    [haqqAddress, getEstimatedFee, haqqChain.cosmosChainId],
+  );
+
   return {
     vote: handleVote,
     deposit: handleDeposit,
+    getVoteEstimatedFee: handleVoteEstimatedFee,
+    getDepositEstimatedFee: handleDepositEstimatedFee,
   };
 }

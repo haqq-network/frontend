@@ -109,7 +109,7 @@ function GranterGrantsTable() {
   const { haqqAddress } = useAddress();
   const invalidateQueries = useQueryInvalidate();
   const { data: granterGrants } = useAuthzGranterGrants(haqqAddress ?? '');
-  const { revoke } = useAuthzActions();
+  const { revoke, getRevokeEstimatedFee } = useAuthzActions();
   const toast = useToast();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -127,9 +127,13 @@ function GranterGrantsTable() {
   const handleRevokeAccess = useCallback(
     async (grantee: string, type: string) => {
       try {
-        const grantPromise = revoke(grantee, type);
+        const revokePromise = getRevokeEstimatedFee(grantee, type).then(
+          (estimatedFee) => {
+            return revoke(grantee, type, estimatedFee);
+          },
+        );
 
-        await toast.promise(grantPromise, {
+        await toast.promise(revokePromise, {
           loading: <ToastLoading>Revoke in progress</ToastLoading>,
           success: (tx) => {
             console.log('Revoke successful', { tx });
@@ -167,7 +171,14 @@ function GranterGrantsTable() {
         ]);
       }
     },
-    [chain.id, explorer.cosmos, invalidateQueries, revoke, toast],
+    [
+      chain.id,
+      explorer.cosmos,
+      getRevokeEstimatedFee,
+      invalidateQueries,
+      revoke,
+      toast,
+    ],
   );
 
   if (granterGrantsToRender.length === 0) {
@@ -386,7 +397,7 @@ function AuthzGrantsActions() {
     haqq: '',
   });
   const invalidateQueries = useQueryInvalidate();
-  const { grant } = useAuthzActions();
+  const { grant, getGrantEstimatedFee } = useAuthzActions();
   const toast = useToast();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -453,7 +464,14 @@ function AuthzGrantsActions() {
 
       const expire = getGrantExpire(grantPeriod);
       const haqqGrantee = granteeAddresses['haqq'];
-      const grantPromise = grant(haqqGrantee, grantType, expire);
+
+      const grantPromise = getGrantEstimatedFee(
+        haqqGrantee,
+        grantType,
+        expire,
+      ).then((estimatedFee) => {
+        return grant(haqqGrantee, grantType, expire, estimatedFee);
+      });
 
       await toast.promise(grantPromise, {
         loading: <ToastLoading>Grant in progress</ToastLoading>,
@@ -495,6 +513,7 @@ function AuthzGrantsActions() {
   }, [
     chain.id,
     explorer.cosmos,
+    getGrantEstimatedFee,
     getGrantExpire,
     grant,
     grantPeriod,

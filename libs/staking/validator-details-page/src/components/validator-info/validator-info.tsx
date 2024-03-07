@@ -26,6 +26,7 @@ import {
   useNetworkAwareAction,
   getFormattedAddress,
   getChainParams,
+  useBalanceAwareActions,
 } from '@haqq/shared';
 import {
   InfoBlock,
@@ -50,6 +51,7 @@ import {
   LinkIcon,
   formatPercents,
   TopValidatorsWarningModal,
+  MIN_REWARDS_TO_CLAIM,
 } from '@haqq/shell-ui-kit';
 import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { useValidatorsShares } from '@haqq/staking/utils';
@@ -470,6 +472,8 @@ export function ValidatorInfo({
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
   }, [balanceData]);
 
+  const { executeIfCanPayFee } = useBalanceAwareActions(balance);
+
   const { isDelegateModalOpen, isUndelegateModalOpen, isRedelegateModalOpen } =
     useMemo(() => {
       return {
@@ -538,8 +542,11 @@ export function ValidatorInfo({
   const handleGetRewardsClick = useCallback(async () => {
     try {
       setRewardPending(true);
-      const estimatedFee = await getClaimRewardEstimatedFee(validatorAddress);
-      const claimRewardPromise = claimReward(validatorAddress, estimatedFee);
+      const claimRewardPromise = getClaimRewardEstimatedFee(
+        validatorAddress,
+      ).then((estimatedFee) => {
+        return claimReward(validatorAddress, estimatedFee);
+      });
 
       await toast.promise(claimRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
@@ -711,13 +718,17 @@ export function ValidatorInfo({
         rewards={myRewards}
         validatorInfo={validatorInfo}
         symbol={symbol}
-        onGetRewardsClick={handleGetRewardsClick}
+        onGetRewardsClick={() => {
+          executeIfCanPayFee(handleGetRewardsClick);
+        }}
         unbounded={unbounded}
         stakingPool={totalStaked}
         totalRewards={myTotalRewards}
         delegated={staked}
         onRewardsClaim={() => {
-          executeIfNetworkSupported(handleRewardsClaim);
+          executeIfNetworkSupported(() => {
+            executeIfCanPayFee(handleRewardsClaim);
+          });
         }}
         isRewardPending={isRewardPending}
         isRewardsPending={isRewardsPending}
@@ -874,16 +885,25 @@ export function ValidatorBlockDesktop({
             {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
-        <Button
-          variant={5}
-          disabled={rewards < 1}
-          onClick={() => {
-            executeIfNetworkSupported(onGetRewardsClick);
-          }}
-          isLoading={isRewardPending}
+
+        <Tooltip
+          text={
+            rewards < MIN_REWARDS_TO_CLAIM
+              ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+              : ''
+          }
+          className="min-w-[300px] text-center"
         >
-          Get my rewards
-        </Button>
+          <Button
+            variant={5}
+            disabled={rewards < MIN_REWARDS_TO_CLAIM}
+            onClick={onGetRewardsClick}
+            isLoading={isRewardPending}
+            className="w-full"
+          >
+            Get my rewards
+          </Button>
+        </Tooltip>
       </div>
 
       {/* TODO: Refactor this. This modal should be placed not here */}
