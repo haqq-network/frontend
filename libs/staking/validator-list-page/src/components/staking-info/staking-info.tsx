@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { formatUnits, parseUnits } from 'viem';
 import { useBalance, useNetwork } from 'wagmi';
-import { useCosmosProvider } from '@haqq/shared';
+import { useBalanceAwareActions, useCosmosProvider } from '@haqq/shared';
 import {
   getChainParams,
   getFormattedAddress,
@@ -167,6 +167,8 @@ function useStakingStats() {
     return Number.parseFloat(formatUnits(BigInt(result), 18));
   }, [undelegations]);
 
+  const { executeIfCanPayFee } = useBalanceAwareActions(formattedBalance);
+
   return useMemo(() => {
     return {
       staked,
@@ -176,7 +178,9 @@ function useStakingStats() {
       formattedBalance,
       symbol,
       handleRewardsClaim: () => {
-        executeIfNetworkSupported(handleRewardsClaim);
+        executeIfNetworkSupported(() => {
+          executeIfCanPayFee(handleRewardsClaim);
+        });
       },
       isRewardsPending,
     };
@@ -186,9 +190,9 @@ function useStakingStats() {
     unbounded,
     balance,
     formattedBalance,
-    symbol,
     isRewardsPending,
     executeIfNetworkSupported,
+    executeIfCanPayFee,
     handleRewardsClaim,
   ]);
 }
@@ -212,7 +216,6 @@ export function StakingInfo() {
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
-  const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   const isTestedge = useMemo(() => {
     return chain.id === haqqTestedge2.id;
@@ -272,9 +275,7 @@ export function StakingInfo() {
           rewards={formatNumber(rewards)}
           unbounded={formatNumber(unbounded)}
           symbol={balance?.symbol ?? ''}
-          onRewardsClaim={() => {
-            executeIfNetworkSupported(handleRewardsClaim);
-          }}
+          onRewardsClaim={handleRewardsClaim}
           isRewardsPending={isRewardsPending}
         />
       ) : (
@@ -284,9 +285,7 @@ export function StakingInfo() {
           rewards={formatNumber(rewards)}
           unbounded={formatNumber(unbounded)}
           symbol={balance?.symbol ?? ''}
-          onRewardsClaim={() => {
-            executeIfNetworkSupported(handleRewardsClaim);
-          }}
+          onRewardsClaim={handleRewardsClaim}
           isRewardsPending={isRewardsPending}
         />
       )}
