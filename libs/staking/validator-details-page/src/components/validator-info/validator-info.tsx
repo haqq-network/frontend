@@ -50,6 +50,7 @@ import {
   LinkIcon,
   formatPercents,
   TopValidatorsWarningModal,
+  MIN_REWARDS_TO_CLAIM,
 } from '@haqq/shell-ui-kit';
 import { ValidatorAvatar, ValidatorDetailsStatus } from '@haqq/staking/ui-kit';
 import { useValidatorsShares } from '@haqq/staking/utils';
@@ -877,16 +878,25 @@ export function ValidatorBlockDesktop({
             {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
-        <Button
-          variant={5}
-          disabled={rewards < 1}
-          onClick={() => {
-            executeIfNetworkSupported(onGetRewardsClick);
-          }}
-          isLoading={isRewardPending}
+
+        <Tooltip
+          text={
+            rewards < MIN_REWARDS_TO_CLAIM
+              ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+              : ''
+          }
+          className="min-w-[300px] text-center"
         >
-          Get my rewards
-        </Button>
+          <Button
+            variant={5}
+            disabled={rewards < MIN_REWARDS_TO_CLAIM}
+            onClick={onGetRewardsClick}
+            isLoading={isRewardPending}
+            className="w-full"
+          >
+            Get my rewards
+          </Button>
+        </Tooltip>
       </div>
 
       {/* TODO: Refactor this. This modal should be placed not here */}

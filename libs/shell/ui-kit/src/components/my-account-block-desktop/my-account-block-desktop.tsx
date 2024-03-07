@@ -5,6 +5,9 @@ import { Button } from '../button/button';
 import { Heading } from '../heading/heading';
 import { WalletIcon } from '../icons/icons';
 import { MyAccountCardBlock } from '../my-account-block-mobile/my-account-block-mobile';
+import { Tooltip } from '../tooltip/tooltip';
+
+export const MIN_REWARDS_TO_CLAIM = 1;
 
 export function MyAccountBlockDesktop({
   onRewardsClaim,
@@ -30,7 +33,7 @@ export function MyAccountBlockDesktop({
   const [isInfoShown, setInfoShown] = useState(false);
 
   return (
-    <div className="border-haqq-border overflow-hidden rounded-[8px] border">
+    <div className="border-haqq-border rounded-[8px] border">
       <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
         <div className="flex flex-row items-center">
           <WalletIcon />
@@ -109,15 +112,28 @@ export function MyAccountBlockDesktop({
                   </div>
                 </div>
                 <div>
-                  <button
-                    className={clsx(
-                      'transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80] disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
-                    )}
-                    onClick={onRewardsClaim}
-                    disabled={totalRewards < 1 || isRewardsPending}
+                  <Tooltip
+                    text={
+                      totalRewards < MIN_REWARDS_TO_CLAIM
+                        ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+                        : ''
+                    }
+                    className="min-w-[300px] text-center"
                   >
-                    Claim all rewards
-                  </button>
+                    <button
+                      className={clsx(
+                        'cursor-pointer text-[14px] leading-[22px] text-[#01B26E] hover:text-[#01b26e80]',
+                        'transition-color duration-150 ease-in will-change-[color]',
+                        'disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
+                      )}
+                      onClick={onRewardsClaim}
+                      disabled={
+                        totalRewards < MIN_REWARDS_TO_CLAIM || isRewardsPending
+                      }
+                    >
+                      Claim all rewards
+                    </button>
+                  </Tooltip>
                 </div>
               </div>
             )}
