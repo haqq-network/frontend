@@ -4,6 +4,8 @@ import { formatNumber } from '../../utils/format-number';
 import { Container } from '../container/container';
 import { Heading } from '../heading/heading';
 import { WalletIcon } from '../icons/icons';
+import { MIN_REWARDS_TO_CLAIM } from '../my-account-block-desktop/my-account-block-desktop';
+import { Tooltip } from '../tooltip/tooltip';
 
 interface MyAccountBlockProps {
   balance: number;
@@ -68,16 +70,28 @@ export function MyAccountBlockMobile({
       </div>
 
       <div className="mt-[16px] md:mt-[12px]">
-        <button
-          type="button"
-          className={clsx(
-            'transition-color cursor-pointer text-[14px] leading-[22px] text-[#01B26E] duration-150 ease-in will-change-[color] hover:text-[#01b26e80] disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
-          )}
-          onClick={onRewardsClaim}
-          disabled={totalRewards < 1 || isRewardsPending}
+        <Tooltip
+          text={
+            totalRewards < MIN_REWARDS_TO_CLAIM
+              ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+              : ''
+          }
+          className="min-w-[300px] text-center"
         >
-          Claim all rewards
-        </button>
+          <button
+            type="button"
+            className={clsx(
+              'cursor-pointer text-[14px] leading-[22px]',
+              'transition-color duration-150 ease-in will-change-[color]',
+              'text-[#01B26E] hover:text-[#01b26e80]',
+              'disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
+            )}
+            onClick={onRewardsClaim}
+            disabled={totalRewards < MIN_REWARDS_TO_CLAIM || isRewardsPending}
+          >
+            Claim all rewards
+          </button>
+        </Tooltip>
       </div>
     </Container>
   );
