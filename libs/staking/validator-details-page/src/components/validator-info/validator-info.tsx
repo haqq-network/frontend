@@ -26,6 +26,7 @@ import {
   useNetworkAwareAction,
   getFormattedAddress,
   getChainParams,
+  useBalanceAwareActions,
 } from '@haqq/shared';
 import {
   InfoBlock,
@@ -471,6 +472,8 @@ export function ValidatorInfo({
     return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
   }, [balanceData]);
 
+  const { executeIfCanPayFee } = useBalanceAwareActions(balance);
+
   const { isDelegateModalOpen, isUndelegateModalOpen, isRedelegateModalOpen } =
     useMemo(() => {
       return {
@@ -715,13 +718,17 @@ export function ValidatorInfo({
         rewards={myRewards}
         validatorInfo={validatorInfo}
         symbol={symbol}
-        onGetRewardsClick={handleGetRewardsClick}
+        onGetRewardsClick={() => {
+          executeIfCanPayFee(handleGetRewardsClick);
+        }}
         unbounded={unbounded}
         stakingPool={totalStaked}
         totalRewards={myTotalRewards}
         delegated={staked}
         onRewardsClaim={() => {
-          executeIfNetworkSupported(handleRewardsClaim);
+          executeIfNetworkSupported(() => {
+            executeIfCanPayFee(handleRewardsClaim);
+          });
         }}
         isRewardPending={isRewardPending}
         isRewardsPending={isRewardsPending}
