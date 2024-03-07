@@ -32,6 +32,7 @@ import {
   Footer,
   CommitSha,
   SelectChainModal,
+  LowBalanceAlert,
 } from '@haqq/shell-ui-kit';
 import { environment } from '../environments/environment';
 
@@ -259,6 +260,8 @@ export function AppWrapper({ children }: PropsWithChildren) {
     closeSelectChain,
     selectNetwork,
     isHaqqWallet,
+    isLowBalanceAlertOpen,
+    closeLowBalanceAlert,
   } = useWallet();
 
   const handleWalletConnect = useCallback(
@@ -341,6 +344,10 @@ export function AppWrapper({ children }: PropsWithChildren) {
         chains={chains}
         onChainSelect={handleChainSelect}
         onClose={closeSelectChain}
+      />
+      <LowBalanceAlert
+        isOpen={isLowBalanceAlertOpen}
+        onClose={closeLowBalanceAlert}
       />
     </Page>
   );
