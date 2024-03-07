@@ -26,6 +26,9 @@ export interface WalletProviderInterface {
   isSelectChainOpen: boolean;
   isHaqqWallet: boolean;
   watchAsset: (denom: string, contractAddress: string) => Promise<void>;
+  isLowBalanceAlertOpen: boolean;
+  openLowBalanceAlert: () => void;
+  closeLowBalanceAlert: () => void;
 }
 
 const WalletContext = createContext<WalletProviderInterface | undefined>(
@@ -39,6 +42,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [isWalletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
   const [isSelectChainModalOpen, setSelectChainModalOpen] = useState(false);
   const { data: walletClient } = useWalletClient();
+  const [isLowBalanceAlertOpen, setLowBalanceAlertOpen] = useState(false);
 
   const handleNetworkChange = useCallback(
     async (chainId: number) => {
@@ -96,6 +100,13 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       isSelectChainOpen: isSelectChainModalOpen,
       isHaqqWallet: window.ethereum?.isHaqqWallet || false,
       watchAsset: handleWatchAsset,
+      isLowBalanceAlertOpen,
+      openLowBalanceAlert: () => {
+        setLowBalanceAlertOpen(true);
+      },
+      closeLowBalanceAlert: () => {
+        setLowBalanceAlertOpen(false);
+      },
     };
   }, [
     disconnect,
@@ -104,6 +115,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     isWalletSelectModalOpen,
     isSelectChainModalOpen,
     handleWatchAsset,
+    isLowBalanceAlertOpen,
   ]);
 
   return (

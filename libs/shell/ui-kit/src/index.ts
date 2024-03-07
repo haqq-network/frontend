@@ -51,3 +51,4 @@ export * from './components/top-validators-warning-modal/top-validators-warning-
 export * from './utils/format-percent';
 export * from './utils/to-fixed-amount';
 export * from './utils/is-number';
+export * from './components/low-balance-alert/low-balance-alert';
