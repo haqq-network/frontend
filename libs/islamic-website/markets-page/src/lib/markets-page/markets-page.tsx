@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Container, IslamicLogoIcon, Text } from '@haqq/islamic-website-ui-kit';
-import bitgetLogoImageData from '../../assets/images/bitget.svg';
+// import bitgetLogoImageData from '../../assets/images/bitget.svg';
 import kucoinLogoImageData from '../../assets/images/kucoin.svg';
 import lbankLogoImageData from '../../assets/images/lbank.png';
 import mexcLogoImageData from '../../assets/images/mexc.svg';
@@ -116,13 +116,13 @@ export function MarketsPage({ price }: { price: string }) {
                 >
                   <CEXCard name="kuCoin" logo={kucoinLogoImageData} />
                 </Link>
-                <Link
+                {/* <Link
                   href="https://www.bitget.com/spot/ISLMUSDT"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <CEXCard name="BitGet" logo={bitgetLogoImageData} />
-                </Link>
+                </Link> */}
                 <Link
                   href="https://www.lbank.com/trade/islm_usdt/"
                   target="_blank"
