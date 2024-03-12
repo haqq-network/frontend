@@ -192,6 +192,7 @@ export function useProposalActions(): ProposalActionsHook {
 
   const handleVoteEstimatedFee = useCallback(
     async (proposalId: number, option: number) => {
+      const pubkey = await getPubkey(ethAddress as string);
       const protoMsg = createMsgVote(proposalId, option, haqqAddress as string);
       const memo = `Vote for proposal #${proposalId}`;
 
@@ -200,14 +201,21 @@ export function useProposalActions(): ProposalActionsHook {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [haqqAddress, getEstimatedFee, haqqChain.cosmosChainId],
+    [
+      getPubkey,
+      ethAddress,
+      haqqAddress,
+      getEstimatedFee,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   const handleDepositEstimatedFee = useCallback(
     async (proposalId: number, amount: number) => {
-      console.log({ units: formatUnits(BigInt(amount), 18) });
+      const pubkey = await getPubkey(ethAddress as string);
       const protoMsg = createMsgDeposit(proposalId, haqqAddress as string, {
         amount: formatUnits(BigInt(amount), 18),
         denom: 'aISLM',
@@ -219,9 +227,16 @@ export function useProposalActions(): ProposalActionsHook {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [haqqAddress, getEstimatedFee, haqqChain.cosmosChainId],
+    [
+      getPubkey,
+      ethAddress,
+      haqqAddress,
+      getEstimatedFee,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   return {

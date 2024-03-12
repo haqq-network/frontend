@@ -4,6 +4,7 @@ export interface EstimatedFeeRequest {
   chainId: string;
   bodyBytes: string;
   fromAddress: string;
+  pubkey: string;
 }
 
 export interface EstimatedFeeResponse {
@@ -16,6 +17,7 @@ export async function getEstimatedFee({
   chainId,
   bodyBytes,
   fromAddress,
+  pubkey,
 }: EstimatedFeeRequest): Promise<EstimatedFeeResponse> {
   const requestUrl = new URL('/tx/simulate', FALCONER_ENDPOINT);
 
@@ -28,6 +30,7 @@ export async function getEstimatedFee({
       chain_id: chainId,
       b64_body_bytes: bodyBytes,
       from_addr: fromAddress,
+      pub_key: pubkey,
     }),
   });
 

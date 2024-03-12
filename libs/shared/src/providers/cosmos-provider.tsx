@@ -110,6 +110,7 @@ export interface CosmosService {
     memo: string,
     chainId: string,
     fromAddress: string,
+    oubkey: string,
   ) => Promise<EstimatedFeeResponse>;
   getFee: (estimatedFee?: EstimatedFeeResponse) => Fee;
 }
@@ -830,6 +831,7 @@ function createCosmosService(
     memo: string,
     chainId: string,
     fromAddress: string,
+    pubkey: string,
   ) {
     try {
       const body = Array.isArray(protoMsg)
@@ -840,6 +842,7 @@ function createCosmosService(
         chainId,
         bodyBytes: base64FromBytes(body.serializeBinary()),
         fromAddress,
+        pubkey,
       });
 
       return feeEstimation;
