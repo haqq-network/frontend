@@ -7,7 +7,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Hex } from 'viem';
-import { setBalance } from 'viem/_types/actions/test/setBalance';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useBalance, useNetwork } from 'wagmi';
 import {

@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
+import { haqqTestedge2 } from '@wagmi/chains';
 import { nanoid } from 'nanoid';
 import { Hex, formatUnits } from 'viem';
-import { haqqTestedge2 } from '@wagmi/chains';
 import { useNetwork } from 'wagmi';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 
