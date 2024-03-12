@@ -208,6 +208,7 @@ export function useAuthzActions(): AuthzActionsHook {
 
   const handleGrantEstimatedFee = useCallback(
     async (grantee: string, msgType: string, expires: number) => {
+      const pubkey = await getPubkey(ethAddress as string);
       const protoMsg = createMsgGrant(
         haqqAddress as string,
         grantee,
@@ -221,13 +222,21 @@ export function useAuthzActions(): AuthzActionsHook {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [haqqAddress, getEstimatedFee, haqqChain.cosmosChainId],
+    [
+      getPubkey,
+      ethAddress,
+      haqqAddress,
+      getEstimatedFee,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   const handleRevokeEstimatedFee = useCallback(
     async (grantee: string, msgType: string) => {
+      const pubkey = await getPubkey(ethAddress as string);
       const protoMsg = createMsgRevoke(haqqAddress as string, grantee, msgType);
       const memo = `Revoke access from ${grantee} for "${msgType}" transactions`;
 
@@ -236,9 +245,16 @@ export function useAuthzActions(): AuthzActionsHook {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [haqqAddress, getEstimatedFee, haqqChain.cosmosChainId],
+    [
+      getPubkey,
+      ethAddress,
+      haqqAddress,
+      getEstimatedFee,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   return {

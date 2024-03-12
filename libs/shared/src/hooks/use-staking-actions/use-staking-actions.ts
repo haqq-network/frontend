@@ -371,6 +371,7 @@ export function useStakingActions() {
 
   const handleDelegateEstimatedFee = useCallback(
     async (validatorAddress: string, amount: number) => {
+      const pubkey = await getPubkey(ethAddress as string);
       const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
       const protoMsg = createMsgDelegate(
         haqqAddress as string,
@@ -385,13 +386,21 @@ export function useStakingActions() {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
+    [
+      ethAddress,
+      getEstimatedFee,
+      getPubkey,
+      haqqAddress,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   const handleUndelegateEstimatedFee = useCallback(
     async (validatorAddress: string, amount: number) => {
+      const pubkey = await getPubkey(ethAddress as string);
       const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
       const protoMsg = createMsgUndelegate(
         haqqAddress as string,
@@ -406,9 +415,16 @@ export function useStakingActions() {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
+    [
+      ethAddress,
+      getEstimatedFee,
+      getPubkey,
+      haqqAddress,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   const handleRedelegateEstimatedFee = useCallback(
@@ -417,6 +433,7 @@ export function useStakingActions() {
       validatorDestinationAddress: string,
       amount: number,
     ) => {
+      const pubkey = await getPubkey(ethAddress as string);
       const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
       const protoMsg = createMsgBeginRedelegate(
         haqqAddress as string,
@@ -432,13 +449,21 @@ export function useStakingActions() {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
+    [
+      ethAddress,
+      getEstimatedFee,
+      getPubkey,
+      haqqAddress,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   const handleGetRewardEstimatedFee = useCallback(
     async (validatorAddress: string) => {
+      const pubkey = await getPubkey(ethAddress as string);
       const protoMsg = createMsgWithdrawDelegatorReward(
         haqqAddress as string,
         validatorAddress,
@@ -450,13 +475,21 @@ export function useStakingActions() {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
+    [
+      ethAddress,
+      getEstimatedFee,
+      getPubkey,
+      haqqAddress,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   const handleGetAllRewardEstimatedFee = useCallback(
     async (validatorAddresses: string[]) => {
+      const pubkey = await getPubkey(ethAddress as string);
       const protoMsgs = validatorAddresses.map((validatorAddress) => {
         return createMsgWithdrawDelegatorReward(
           haqqAddress as string,
@@ -470,9 +503,16 @@ export function useStakingActions() {
         memo,
         haqqChain.cosmosChainId,
         haqqAddress as string,
+        pubkey,
       );
     },
-    [getEstimatedFee, haqqAddress, haqqChain.cosmosChainId],
+    [
+      ethAddress,
+      getEstimatedFee,
+      getPubkey,
+      haqqAddress,
+      haqqChain.cosmosChainId,
+    ],
   );
 
   return {
