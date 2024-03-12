@@ -1,6 +1,9 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import { Hex, formatUnits } from 'viem';
+import { haqqTestedge2 } from '@wagmi/chains';
+import { useNetwork } from 'wagmi';
+import { useSupportedChains } from '../../providers/wagmi-provider';
 
 function createRequest(address: string, date: Date) {
   return {
@@ -47,6 +50,8 @@ export interface IndexerBalances {
 }
 
 const INDEXER_ENDPOINT = 'https://jsonrpc.indexer.haqq.network';
+const TESTEDGE_INDEXER_ENDPOINT =
+  'https://jsonrpc.indexer.testedge2.haqq.network';
 
 function mapBalances(
   balancesResponse: IndexerBalancesResponse,
@@ -69,8 +74,16 @@ function mapBalances(
 }
 
 export function useIndexerBalances() {
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+  const isTestedge = useMemo(() => {
+    return chain.id === haqqTestedge2.id;
+  }, [chain.id]);
+
   const getBalances = useCallback(async (address: Hex) => {
-    const requestUrl = new URL(INDEXER_ENDPOINT);
+    const requestUrl = new URL(
+      isTestedge ? TESTEDGE_INDEXER_ENDPOINT : INDEXER_ENDPOINT,
+    );
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
