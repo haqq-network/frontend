@@ -6,6 +6,8 @@ import { useMediaQuery } from 'react-responsive';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Hex } from 'viem';
+import { setBalance } from 'viem/_types/actions/test/setBalance';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useBalance, useNetwork } from 'wagmi';
 import {
@@ -27,6 +29,7 @@ import {
   getFormattedAddress,
   getChainParams,
   useBalanceAwareActions,
+  useIndexerBalances,
 } from '@haqq/shared';
 import {
   InfoBlock,
@@ -467,10 +470,19 @@ export function ValidatorInfo({
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
   const { explorer } = getChainParams(chain.id);
+  const { getBalances } = useIndexerBalances();
+  const [balance, setBalance] = useState(0);
 
-  const balance = useMemo(() => {
-    return balanceData ? Number.parseFloat(balanceData.formatted) : 0;
-  }, [balanceData]);
+  useEffect(() => {
+    if (haqqAddress) {
+      getBalances(haqqAddress as Hex).then((balances) => {
+        if (balances) {
+          const { available } = balances;
+          setBalance(available);
+        }
+      });
+    }
+  }, [balanceData, getBalances, haqqAddress]);
 
   const { executeIfCanPayFee } = useBalanceAwareActions(balance);
 
