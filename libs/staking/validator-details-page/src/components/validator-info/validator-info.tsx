@@ -476,8 +476,8 @@ export function ValidatorInfo({
     if (haqqAddress) {
       getBalances(haqqAddress as Hex).then((balances) => {
         if (balances) {
-          const { available } = balances;
-          setBalance(available);
+          const { availableForStake } = balances;
+          setBalance(availableForStake);
         }
       });
     }
