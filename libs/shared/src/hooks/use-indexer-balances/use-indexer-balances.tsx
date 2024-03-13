@@ -80,32 +80,35 @@ export function useIndexerBalances() {
     return chain.id === haqqTestedge2.id;
   }, [chain.id]);
 
-  const getBalances = useCallback(async (address: Hex) => {
-    const requestUrl = new URL(
-      isTestedge ? TESTEDGE_INDEXER_ENDPOINT : INDEXER_ENDPOINT,
-    );
+  const getBalances = useCallback(
+    async (address: Hex) => {
+      const requestUrl = new URL(
+        isTestedge ? TESTEDGE_INDEXER_ENDPOINT : INDEXER_ENDPOINT,
+      );
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json');
 
-    const nowDate = new Date(Date.now());
-    const requestBody = createRequest(address, nowDate);
+      const nowDate = new Date(Date.now());
+      const requestBody = createRequest(address, nowDate);
 
-    try {
-      const response = await fetch(requestUrl, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(requestBody),
-        redirect: 'follow',
-      });
-      console.log({ response });
-      const responseJson = await response.json();
-      return mapBalances(responseJson.result, address);
-    } catch (error) {
-      console.error((error as Error).message);
-      return undefined;
-    }
-  }, []);
+      try {
+        const response = await fetch(requestUrl, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(requestBody),
+          redirect: 'follow',
+        });
+
+        const responseJson = await response.json();
+        return mapBalances(responseJson.result, address);
+      } catch (error) {
+        console.error((error as Error).message);
+        return undefined;
+      }
+    },
+    [isTestedge],
+  );
 
   return {
     getBalances,
