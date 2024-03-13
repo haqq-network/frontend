@@ -6,7 +6,7 @@ export function useBalanceAwareActions(balance: number) {
 
   const executeIfCanPayFee = useCallback(
     (callback: () => void) => {
-      if (balance > 0.01) {
+      if (balance > 0.2) {
         callback();
       } else {
         console.warn('Not enough balance to pay fee');
