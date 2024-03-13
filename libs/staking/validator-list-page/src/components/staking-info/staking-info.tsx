@@ -3,9 +3,13 @@ import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
-import { formatUnits, parseUnits } from 'viem';
-import { useBalance, useNetwork } from 'wagmi';
-import { useBalanceAwareActions, useCosmosProvider } from '@haqq/shared';
+import { Hex, formatUnits, parseUnits } from 'viem';
+import { useNetwork } from 'wagmi';
+import {
+  useBalanceAwareActions,
+  useCosmosProvider,
+  useIndexerBalances,
+} from '@haqq/shared';
 import {
   getChainParams,
   getFormattedAddress,
@@ -36,7 +40,7 @@ function useStakingStats() {
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
-  const { ethAddress, haqqAddress } = useAddress();
+  const { haqqAddress } = useAddress();
   const { claimAllRewards, getClaimAllRewardEstimatedFee } =
     useStakingActions();
   const invalidateQueries = useQueryInvalidate();
@@ -45,15 +49,25 @@ function useStakingStats() {
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
-  const { data: balance } = useBalance({
-    address: ethAddress,
-    chainId: chain.id,
-  });
   const toast = useToast();
   const symbol = 'ISLM';
   const [isRewardsPending, setRewardsPending] = useState(false);
   const { executeIfNetworkSupported } = useNetworkAwareAction();
   const { explorer } = getChainParams(chain.id);
+
+  const { getBalances } = useIndexerBalances();
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    if (haqqAddress) {
+      getBalances(haqqAddress as Hex).then((balances) => {
+        if (balances) {
+          const { availableForStake } = balances;
+          setBalance(availableForStake);
+        }
+      });
+    }
+  }, [getBalances, haqqAddress]);
 
   const handleRewardsClaim = useCallback(async () => {
     try {
@@ -114,14 +128,6 @@ function useStakingStats() {
     toast,
   ]);
 
-  const formattedBalance = useMemo(() => {
-    if (balance) {
-      return Number.parseFloat(balance.formatted);
-    }
-
-    return 0;
-  }, [balance]);
-
   useEffect(() => {
     if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
       let del = 0;
@@ -167,7 +173,7 @@ function useStakingStats() {
     return Number.parseFloat(formatUnits(BigInt(result), 18));
   }, [undelegations]);
 
-  const { executeIfCanPayFee } = useBalanceAwareActions(formattedBalance);
+  const { executeIfCanPayFee } = useBalanceAwareActions(balance);
 
   return useMemo(() => {
     return {
@@ -175,7 +181,6 @@ function useStakingStats() {
       rewards,
       unbounded,
       balance,
-      formattedBalance,
       symbol,
       handleRewardsClaim: () => {
         executeIfNetworkSupported(() => {
@@ -189,7 +194,6 @@ function useStakingStats() {
     rewards,
     unbounded,
     balance,
-    formattedBalance,
     isRewardsPending,
     executeIfNetworkSupported,
     executeIfCanPayFee,
@@ -209,7 +213,6 @@ export function StakingInfo() {
     rewards,
     unbounded,
     balance,
-    formattedBalance,
     handleRewardsClaim,
     isRewardsPending,
   } = useStakingStats();
@@ -270,21 +273,21 @@ export function StakingInfo() {
     >
       {isTablet ? (
         <StakingStatsMobile
-          balance={formatNumber(formattedBalance)}
+          balance={formatNumber(balance)}
           delegated={formatNumber(staked)}
           rewards={formatNumber(rewards)}
           unbounded={formatNumber(unbounded)}
-          symbol={balance?.symbol ?? ''}
+          symbol="ISLM"
           onRewardsClaim={handleRewardsClaim}
           isRewardsPending={isRewardsPending}
         />
       ) : (
         <StakingStatsDesktop
-          balance={formatNumber(formattedBalance)}
+          balance={formatNumber(balance)}
           delegated={formatNumber(staked)}
           rewards={formatNumber(rewards)}
           unbounded={formatNumber(unbounded)}
-          symbol={balance?.symbol ?? ''}
+          symbol="ISLM"
           onRewardsClaim={handleRewardsClaim}
           isRewardsPending={isRewardsPending}
         />
