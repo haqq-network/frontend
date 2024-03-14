@@ -43,7 +43,7 @@ export function MarkdownTextProseWrapper({
         'prose-h2:mb-[20px] prose-h2:mt-[32px] md:prose-h2:mb-[28px] md:prose-h2:mt-[56px] lg:prose-h2:mb-[32px] lg:prose-h2:mt-[64px]',
         'prose-h3:text-[18px] prose-h3:leading-[26px] lg:prose-h3:text-[24px] lg:prose-h3:leading-[34px]',
         'prose-h3:my-[16px] md:prose-h3:my-[20px] lg:prose-h3:my-[24px]',
-        'prose-p:text-[13px] md:prose-p:text-[14px] prose-p:leading-[20px] lg:prose-p:text-base',
+        'prose-p:text-[13px] md:prose-p:text-[14px] prose-p:leading-[20px] lg:prose-p:text-base prose-p:text-white',
         'prose-li:text-[13px] prose-li:leading-[20px] lg:prose-li:text-base',
         'marker:prose-li:font-[600] prose-li:my-0',
         'prose-table:text-[14px] prose-table:leading-[20px] prose-thead:bg-[#2f2f2f]',
