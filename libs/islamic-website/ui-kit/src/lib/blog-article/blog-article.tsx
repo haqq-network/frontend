@@ -1,3 +1,4 @@
+import Image, { StaticImageData } from 'next/image';
 import { CopyIcon } from '../icons';
 import { MarkdownText } from '../markdown-text/markdown-text';
 import { Tooltip } from '../tooltip/tooltip';
@@ -9,6 +10,7 @@ export function BlogArticle({
   tags,
   onLinkCopy,
   isLinkCopied,
+  image,
 }: {
   title: string;
   content: string;
@@ -17,6 +19,7 @@ export function BlogArticle({
   className?: string;
   onLinkCopy?: () => void;
   isLinkCopied?: boolean;
+  image: StaticImageData | null;
 }) {
   const postDate = new Date(publishDate);
   const formattedPostDate = new Intl.DateTimeFormat('en-US', {
@@ -32,6 +35,19 @@ export function BlogArticle({
       <div className="w-full overflow-clip px-[16px] sm:px-[40px] lg:px-[80px]">
         <div className="mx-auto max-w-4xl xl:max-w-5xl">
           <article>
+            {image && (
+              <div className="relative mb-[28px] w-full md:mb-[32px] lg:mb-[36px]">
+                <Image
+                  src={image.src}
+                  width={image.width}
+                  height={image.height}
+                  alt={title}
+                  role="img"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            )}
+
             <div className="mb-[8px] text-[12px] leading-[1.5em] text-white/50 md:text-[13px] md:leading-[22px] lg:text-[14px]">
               <time
                 className="font-vcr text-[13px] leading-[20px] lg:text-[14px]"
@@ -41,7 +57,9 @@ export function BlogArticle({
               </time>
             </div>
 
-            <MarkdownText>{'# ' + title + '\n\n' + content}</MarkdownText>
+            <MarkdownText className="ltr:prose-headings:font-vcr rtl:prose-headings:font-handjet prose-headings:uppercase">
+              {'# ' + title + '\n\n' + content}
+            </MarkdownText>
           </article>
 
           <div className="mt-[20px] flex flex-row flex-wrap gap-[6px] md:mt-[24px] lg:mt-[32px]">
@@ -49,7 +67,7 @@ export function BlogArticle({
               return (
                 <div
                   key={tag}
-                  className="ltr:font-vcr rtl:font-handjet max-w-fit rounded-[8px] border border-[#585858] px-[10px] py-[6px] text-center text-[12px] leading-[1.5em]"
+                  className="ltr:font-vcr rtl:font-handjet max-w-fit rounded-[8px] border border-[#585858] px-[10px] py-[6px] text-center text-[12px] uppercase leading-[1.5em]"
                 >
                   {tag}
                 </div>
