@@ -442,8 +442,7 @@ export function DesktopHeader({
                   <DropdownLink
                     title={t('dropdown-links.learn.blog')}
                     icon={<BlogIcon />}
-                    href="https://blog.islamiccoin.net"
-                    isOutLink
+                    href="/blog"
                   />
                   <DropdownLink
                     title={t('dropdown-links.learn.fraud-alert')}
