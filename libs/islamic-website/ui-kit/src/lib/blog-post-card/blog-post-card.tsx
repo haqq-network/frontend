@@ -58,7 +58,12 @@ export function BlogPostCard({
             isFeatured && 'md:gap-y-[16px]',
           )}
         >
-          <div className="line-clamp-2 text-[18px] font-[700] leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+          <div
+            className={clsx(
+              'line-clamp-2 text-[18px] font-[700] leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]',
+              'group-hover:text-islamic-primary-green-hover transition-colors duration-200 ease-out',
+            )}
+          >
             {title}
           </div>
           <div
@@ -84,14 +89,14 @@ export function BlogPostCard({
               return (
                 <div
                   key={tag}
-                  className="ltr:font-vcr rtl:font-handjet max-w-fit rounded-[8px] border border-[#585858] px-[10px] py-[6px] text-center text-[12px] leading-[1.5em]"
+                  className="ltr:font-vcr rtl:font-handjet max-w-fit rounded-[8px] border border-[#585858] px-[10px] py-[6px] text-center text-[12px] uppercase leading-[1.5em]"
                 >
                   {tag}
                 </div>
               );
             })}
           </div>
-          <div className="ltr:font-vcr rtl:font-handjet text-[10px] font-[400] leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]">
+          <div className="ltr:font-vcr rtl:font-handjet text-[10px] font-[400] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]">
             {new Intl.DateTimeFormat('en-US', {
               day: 'numeric',
               month: 'long',
