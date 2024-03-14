@@ -3,7 +3,7 @@ import { Tooltip as TooltipComponent } from './tooltip';
 
 const meta: Meta<typeof TooltipComponent> = {
   component: TooltipComponent,
-  title: 'haqq-website/ui-kit',
+  title: 'islamic-website/ui-kit',
   parameters: {
     layout: 'centered',
   },
