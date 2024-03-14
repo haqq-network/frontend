@@ -32,7 +32,7 @@ export function BlogArticle({
 
   return (
     <section className="flex flex-col items-start py-[32px] md:py-[60px] lg:py-[80px]">
-      <div className="w-full overflow-clip px-[16px] sm:px-[40px] lg:px-[80px]">
+      <div className="w-full overflow-clip px-[16px] md:px-[40px] xl:px-[80px]">
         <div className="mx-auto max-w-4xl xl:max-w-5xl">
           <article>
             {image && (

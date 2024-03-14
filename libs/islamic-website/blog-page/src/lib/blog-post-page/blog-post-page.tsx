@@ -47,9 +47,9 @@ export function BlogPostPage({
     <section>
       <div
         className={clsx(
-          'overflow-clip px-[16px] sm:px-[48px] lg:px-[80px] lg:pt-[32px]',
-          'bg-haqq-black transform-gpu backdrop-blur',
-          'sticky top-[63px] z-40 sm:top-[72px] ',
+          'overflow-clip px-[16px] md:px-[48px] xl:px-[80px]',
+          'transform-gpu backdrop-blur',
+          'sticky top-[160px] z-40 min-[375px]:top-[134px] md:top-[112px] lg:top-[116px]',
         )}
       >
         <Breadcrumb
