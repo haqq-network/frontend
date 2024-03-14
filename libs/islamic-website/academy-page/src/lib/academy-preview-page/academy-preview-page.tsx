@@ -91,8 +91,9 @@ export function AcademyPreviewPage({
 
               {modulesToRender && (
                 <div className="mt-[32px] grid grid-cols-1 gap-y-[32px] md:mt-[44px] md:gap-y-[40px] lg:mt-[72px] lg:gap-y-[60px]">
-                  <IntroModule />
+                  <IntroOutroModule isIntro />
                   {modulesToRender}
+                  <IntroOutroModule />
                   {turnstileSiteKey && (
                     <SubscribeBlock turnstileSiteKey={turnstileSiteKey} />
                   )}
@@ -240,38 +241,48 @@ function Module({
   );
 }
 
-function IntroModule() {
-  const [isIntroVideoModalOpen, setIsIntroVideoModalOpen] = useState(false);
-  const openIntroVideoModal = useCallback(() => {
-    setIsIntroVideoModalOpen(true);
+function IntroOutroModule({ isIntro }: { isIntro?: boolean }) {
+  const [isIntroOutroVideoModalOpen, setIsIntroOutroVideoModalOpen] =
+    useState(false);
+  const openIntroOutroVideoModal = useCallback(() => {
+    setIsIntroOutroVideoModalOpen(true);
   }, []);
-  const closeIntroVideoModal = useCallback(() => {
-    setIsIntroVideoModalOpen(false);
+  const closeIntroOutroVideoModal = useCallback(() => {
+    setIsIntroOutroVideoModalOpen(false);
   }, []);
 
   return (
     <Block>
       <div className="flex flex-row items-center gap-x-[8px] md:gap-x-[16px]">
         <h3 className="text-[22px] font-[600] uppercase leading-[24px] md:text-[32px] md:leading-[36px]">
-          Intro
+          {isIntro ? 'Intro' : 'Outro'}
         </h3>
       </div>
 
       <div className="mt-[16px] grid grid-cols-1 gap-[16px] md:mt-[20px] md:grid-cols-2 md:gap-[24px] lg:mt-[36px]">
         <LessonCard
-          onClick={openIntroVideoModal}
-          lessonTitle="Intro"
-          lessonDescription="Welcome to HAQQ Academy"
+          onClick={openIntroOutroVideoModal}
+          lessonTitle={isIntro ? 'Intro' : 'Outro'}
+          lessonDescription={
+            isIntro ? 'Welcome to HAQQ Academy' : 'The 1st Season Is Finished'
+          }
           isAvailable={true}
-          lessonId="9c2Mz-PBcx4"
+          lessonId={isIntro ? '9c2Mz-PBcx4' : 'Cu49unGccOU'}
         />
       </div>
 
-      <Modal isOpen={isIntroVideoModalOpen} onClose={closeIntroVideoModal}>
+      <Modal
+        isOpen={isIntroOutroVideoModalOpen}
+        onClose={closeIntroOutroVideoModal}
+      >
         <div className="relative mx-auto w-[288px] min-[375px]:w-[340px] min-[500px]:w-[460px] sm:w-[600px] md:w-[676px] lg:w-[928px]">
           <iframe
             title="Islamic Coin Academy Intro"
-            src="https://www.youtube.com/embed/9c2Mz-PBcx4"
+            src={
+              isIntro
+                ? 'https://www.youtube.com/embed/9c2Mz-PBcx4'
+                : 'https://www.youtube.com/embed/Cu49unGccOU'
+            }
             allow="autoplay"
             allowFullScreen
             width="100%"
@@ -279,7 +290,7 @@ function IntroModule() {
           />
 
           <ModalCloseButton
-            onClick={closeIntroVideoModal}
+            onClick={closeIntroOutroVideoModal}
             className="absolute right-[-24px] top-[-24px] outline-none lg:right-[-32px]"
           />
         </div>
