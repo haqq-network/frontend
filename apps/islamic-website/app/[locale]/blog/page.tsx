@@ -5,7 +5,8 @@ import { getHaqqBlogPostsFromFalconer } from '../../../utils/get-blog-posts';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Blog';
-const description = '';
+const description =
+  'Stay updated with the latest news, insights, and trends in the world of ethical and Islamic Finance technology with Islamic Coin blog.';
 
 export const metadata: Metadata = {
   title,
