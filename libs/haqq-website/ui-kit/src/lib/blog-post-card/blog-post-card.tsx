@@ -32,10 +32,10 @@ export function BlogPostCard({
     >
       <div
         className={clsx(
-          'relative h-[192px] overflow-hidden',
+          'relative overflow-hidden',
           isFeatured
             ? 'md:h-[380px] md:w-1/2 lg:h-[420px] lg:w-2/5 xl:w-3/5'
-            : 'w-full md:h-[200px] lg:h-[240px]',
+            : 'w-full md:h-[240px] lg:h-[280px]',
         )}
       >
         {image && (
