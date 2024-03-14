@@ -18,15 +18,8 @@ export const metadata: Metadata = {
     url: new URL('/blog', DEPLOY_URL).toString(),
   },
 };
-interface PageProps {
-  params: { locale: string };
-}
 
-export default async function Page(props: PageProps) {
-  const {
-    params: { locale },
-  } = props;
-
+export default async function Page() {
   const { posts, tags } = await getHaqqBlogPostsFromFalconer();
 
   let featuredPost;

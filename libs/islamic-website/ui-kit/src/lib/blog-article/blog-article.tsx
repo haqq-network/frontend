@@ -28,7 +28,7 @@ export function BlogArticle({
   }).format(postDate);
 
   return (
-    <section className="flex flex-col items-start py-[48px] md:py-[68px] lg:py-[100px]">
+    <section className="flex flex-col items-start py-[32px] md:py-[60px] lg:py-[80px]">
       <div className="w-full overflow-clip px-[16px] sm:px-[40px] lg:px-[80px]">
         <div className="mx-auto max-w-4xl xl:max-w-5xl">
           <article>
@@ -58,8 +58,8 @@ export function BlogArticle({
           </div>
 
           <div className="mt-[20px] md:mt-[24px] lg:mt-[32px]">
-            <div className="flex w-full flex-row items-center gap-x-[26px] border-y border-dashed border-[#ffffff26] px-[10px] py-[17px]">
-              <span className="font-clash text-[14px] uppercase leading-none tracking-[0.01em] text-white">
+            <div className="flex w-fit flex-row items-center gap-x-[26px] rounded-[8px] border border-[#585858] px-[24px] py-[14px] ">
+              <span className="font-vcr text-[14px] uppercase leading-none tracking-[0.01em] text-white">
                 Share the article
               </span>
               <div className="flex items-center gap-x-[16px] text-white/50">
