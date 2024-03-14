@@ -24,3 +24,7 @@ export * from './lib/animated-numbers/animated-numbers';
 export * from './lib/spinner-loader/spinner-loader';
 export * from './lib/moon-animated-background/moon-animated-background';
 export * from './lib/not-found-page/not-found-page';
+export * from './lib/blog-post-card/blog-post-card';
+export * from './lib/tab/tab';
+export * from './lib/breadcrumb/breadcrumb';
+export * from './lib/blog-article/blog-article';
