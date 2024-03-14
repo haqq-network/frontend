@@ -3,7 +3,7 @@ import { BlogPostCard as BlogPostCardComponent } from './blog-post-card';
 
 const meta: Meta<typeof BlogPostCardComponent> = {
   component: BlogPostCardComponent,
-  title: 'haqq-website/ui-kit/BlogPostCard',
+  title: 'islamic-website/ui-kit/BlogPostCard',
   parameters: {
     layout: 'centered',
   },
