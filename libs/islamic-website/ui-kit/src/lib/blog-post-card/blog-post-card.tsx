@@ -49,7 +49,7 @@ export function BlogPostCard({
           'flex flex-col justify-between gap-y-[12px]',
           isFeatured
             ? 'md:w-1/2 lg:w-3/5 xl:w-2/5'
-            : 'h-[152px] md:h-[170px] lg:h-[192px]',
+            : 'h-[190px] md:h-[208px] lg:h-[230px]',
         )}
       >
         <div
