@@ -4,7 +4,7 @@ import { BlogPostPage } from '@haqq/islamic-website/blog-page';
 import { DEPLOY_URL, REVALIDATE_TIME } from '../../../../constants';
 import {
   getBlogPost,
-  getHaqqBlogPostsFromFalconer,
+  getIslamicBlogPostsFromFalconer,
 } from '../../../../utils/get-blog-posts';
 
 export const dynamicParams = true;
@@ -12,7 +12,7 @@ export const dynamicParams = true;
 export const revalidate = REVALIDATE_TIME;
 
 export async function generateStaticParams() {
-  const { posts } = await getHaqqBlogPostsFromFalconer();
+  const { posts } = await getIslamicBlogPostsFromFalconer();
 
   return posts.map((post) => {
     return {
@@ -63,7 +63,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  const { posts } = await getHaqqBlogPostsFromFalconer();
+  const { posts } = await getIslamicBlogPostsFromFalconer();
   const relatedTagPosts = posts
     .filter((post) => {
       return post.slug !== slug;
