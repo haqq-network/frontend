@@ -1,9 +1,10 @@
-import '../styles/global.css';
 import type { PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
-import { DEPLOY_URL, VERCEL_ENV } from '../constants';
+import Script from 'next/script';
+import { DEPLOY_URL, GA_ID, VERCEL_ENV } from '../constants';
+import '../styles/global.css';
 
 export const metadata: Metadata = {
   title: {
@@ -23,11 +24,26 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className="ltr">
+    <html lang="en" className="ltr" dir="ltr" translate="no">
       <body className="will-change-scroll">
         {children}
+
         {VERCEL_ENV === 'production' && (
           <>
+            <Script
+              async={true}
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              id="gtm-haqq"
+            />
+            <Script
+              defer={true}
+              id="gtm-haqq-2"
+              dangerouslySetInnerHTML={{
+                __html: `
+                   window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');
+                  `,
+              }}
+            />
             <Analytics mode="auto" />
             <SpeedInsights />
           </>
