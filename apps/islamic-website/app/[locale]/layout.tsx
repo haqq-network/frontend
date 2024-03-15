@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import type { Metadata, Viewport } from 'next';
+import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
@@ -51,6 +52,19 @@ async function getMessages(locale: string) {
   return defaultMessages;
 }
 
+const PostHogPageView = dynamic(
+  async () => {
+    const { PostHogPageView } = await import('../../utils/posthog-page-view');
+    return { default: PostHogPageView };
+  },
+  {
+    ssr: false,
+    loading: () => {
+      return null;
+    },
+  },
+);
+
 export default async function LocaleLayout({
   children,
   params: { locale },
@@ -93,6 +107,7 @@ export default async function LocaleLayout({
       >
         <PHProvider>
           <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
+            <PostHogPageView />
             {isScamBannerShow && <ScamBanner />}
             {isMobileUserAgent ? (
               <MobileHeader
