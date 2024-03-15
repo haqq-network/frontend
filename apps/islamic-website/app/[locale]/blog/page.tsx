@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { BlogPage } from '@haqq/islamic-website/blog-page';
 import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
-import { getHaqqBlogPostsFromFalconer } from '../../../utils/get-blog-posts';
+import { getIslamicBlogPostsFromFalconer } from '../../../utils/get-blog-posts';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Blog';
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const { posts, tags } = await getHaqqBlogPostsFromFalconer();
+  const { posts, tags } = await getIslamicBlogPostsFromFalconer();
 
   let featuredPost;
   const postsToRender = [];
