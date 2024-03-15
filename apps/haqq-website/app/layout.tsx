@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { DEPLOY_URL, GA_ID, VERCEL_ENV } from '../constants';
+import { PHProvider } from '../providers/posthog';
 import '../styles/global.css';
 
 export const metadata: Metadata = {
@@ -25,30 +26,32 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="ltr" dir="ltr" translate="no">
-      <body className="will-change-scroll">
-        {children}
+      <PHProvider>
+        <body className="will-change-scroll">
+          {children}
 
-        {VERCEL_ENV === 'production' && (
-          <>
-            <Script
-              async={true}
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              id="gtm-haqq"
-            />
-            <Script
-              defer={true}
-              id="gtm-haqq-2"
-              dangerouslySetInnerHTML={{
-                __html: `
+          {VERCEL_ENV === 'production' && (
+            <>
+              <Script
+                async={true}
+                src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                id="gtm-haqq"
+              />
+              <Script
+                defer={true}
+                id="gtm-haqq-2"
+                dangerouslySetInnerHTML={{
+                  __html: `
                    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');
                   `,
-              }}
-            />
-            <Analytics mode="auto" />
-            <SpeedInsights />
-          </>
-        )}
-      </body>
+                }}
+              />
+              <Analytics mode="auto" />
+              <SpeedInsights />
+            </>
+          )}
+        </body>
+      </PHProvider>
     </html>
   );
 }

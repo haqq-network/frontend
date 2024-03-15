@@ -24,6 +24,19 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'a.storyblok.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
+    ],
+  },
   async redirects() {
     return [
       // {
@@ -38,14 +51,13 @@ const nextConfig = {
       },
     ];
   },
-  images: {
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    remotePatterns: [
+  rewrites: async () => {
+    return [
       {
-        protocol: 'https',
-        hostname: 'a.storyblok.com',
+        source: '/api/ingest/:path*',
+        destination: 'https://eu.posthog.com/:path*',
       },
-    ],
+    ];
   },
 };
 
