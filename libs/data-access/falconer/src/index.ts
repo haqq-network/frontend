@@ -12,3 +12,4 @@ export * from './lib/islamic/get-islamic-privacy-policy';
 export * from './lib/islamic/get-islamic-fatwa';
 export * from './lib/islamic/get-islamic-disclaimer';
 export * from './lib/islamic/get-islamic-roadmap';
+export * from './lib/islamic/get-islamic-blog-posts';
