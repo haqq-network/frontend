@@ -2,7 +2,6 @@
 import { PropsWithChildren, useMemo } from 'react';
 import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
-import { PostHogPageView } from '../utils/posthog-page-view';
 
 export function PHProvider({ children }: PropsWithChildren) {
   const posthogInstance = useMemo(() => {
@@ -28,10 +27,5 @@ export function PHProvider({ children }: PropsWithChildren) {
     return children;
   }
 
-  return (
-    <PostHogProvider client={posthogInstance}>
-      <PostHogPageView />
-      {children}
-    </PostHogProvider>
-  );
+  return <PostHogProvider client={posthogInstance}>{children}</PostHogProvider>;
 }
