@@ -161,8 +161,7 @@ export function BurgerMenu({
             <BurgerMenuDropdownLink
               title={t('dropdown-links.learn.blog')}
               icon={<BlogIcon />}
-              href="https://haqq.network/blog"
-              isOutLink
+              href="/blog"
               onClick={onClick}
             />
             <BurgerMenuDropdownLink

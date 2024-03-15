@@ -6,9 +6,9 @@ export interface BlogPostCardProps {
   title: string;
   description: string;
   date: Date;
-  tags: string[];
   isFeatured?: boolean;
   className?: string;
+  tags: string[];
 }
 
 export function BlogPostCard({
@@ -23,58 +23,54 @@ export function BlogPostCard({
   return (
     <div
       className={clsx(
-        'flex w-full flex-col',
-        'group bg-[#ffffff14] hover:bg-[#FFFFFF26]',
-        'transition-color duration-150 ease-out will-change-[color,background]',
+        'group flex w-full flex-col gap-[24px] md:gap-[28px]',
         isFeatured && 'md:flex-row',
         className,
       )}
     >
       <div
         className={clsx(
-          'relative overflow-hidden',
+          'relative h-[249px] overflow-hidden rounded-[12px] border border-[#2F2F2F]',
           isFeatured
             ? 'md:h-[380px] md:w-1/2 lg:h-[420px] lg:w-2/5 xl:w-3/5'
-            : 'w-full md:h-[240px] lg:h-[280px]',
+            : 'w-full',
         )}
       >
         {image && (
           <Image
             src={image}
             alt=""
-            className="h-full w-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+            className="h-full w-full  object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
           />
         )}
       </div>
       <div
         className={clsx(
-          'flex flex-col justify-between gap-y-[12px] p-[16px]',
+          'flex flex-col justify-between gap-y-[12px]',
           isFeatured
-            ? 'md:w-1/2 md:px-[28px] md:py-[30px] lg:w-3/5 lg:p-[40px] xl:w-2/5'
-            : 'h-[200px] md:h-[243px] lg:h-[274px] lg:px-[20px] lg:py-[24px]',
+            ? 'md:w-1/2 lg:w-3/5 xl:w-2/5'
+            : 'h-[190px] md:h-[208px] lg:h-[230px]',
         )}
       >
         <div
           className={clsx(
-            'flex flex-col gap-y-[8px]',
+            'flex flex-col gap-y-[8px] md:gap-y-[12px]',
             isFeatured && 'md:gap-y-[16px]',
           )}
         >
           <div
             className={clsx(
-              'text-haqq-orange font-clash text-[16px] font-[500] leading-[1.25em]',
-              isFeatured
-                ? 'line-clamp-2 md:text-[24px] md:leading-[42px] lg:text-[30px]'
-                : 'line-clamp-1 md:text-[18px] lg:text-[24px]',
+              'line-clamp-2 text-[18px] font-[700] leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]',
+              'group-hover:text-islamic-primary-green-hover transition-colors duration-200 ease-out',
             )}
           >
             {title}
           </div>
           <div
             className={clsx(
-              'line-clamp-4 text-[12px] leading-[1.5em]',
+              'line-clamp-3 text-[12px] leading-[1.5em] text-white/50',
               isFeatured
-                ? 'md:line-clamp-5 md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]'
+                ? 'md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]'
                 : 'md:text-[13px] md:leading-[22px] lg:text-[14px]',
             )}
           >
@@ -93,22 +89,14 @@ export function BlogPostCard({
               return (
                 <div
                   key={tag}
-                  className="border-haqq-border max-w-fit rounded-[2px] border px-[10px] py-[6px] text-center text-[11px] leading-[1.55em] md:leading-[18px] lg:text-[12px]"
+                  className="ltr:font-vcr rtl:font-handjet max-w-fit rounded-[8px] border border-[#585858] px-[10px] py-[6px] text-center text-[12px] uppercase leading-[1.5em]"
                 >
                   {tag}
                 </div>
               );
             })}
           </div>
-
-          <div
-            className={clsx(
-              'text-[11px] leading-[1.55em] text-white/50',
-              isFeatured
-                ? 'md:text-[13px] md:leading-[22px] lg:text-[14px]'
-                : 'md:leading-[18px] lg:text-[12px]',
-            )}
-          >
+          <div className="ltr:font-vcr rtl:font-handjet text-[10px] font-[400] uppercase leading-[16px] text-[#838383] md:text-[11px] md:leading-[18px] lg:text-[12px]">
             {new Intl.DateTimeFormat('en-US', {
               day: 'numeric',
               month: 'long',

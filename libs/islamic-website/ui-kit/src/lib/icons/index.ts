@@ -14,3 +14,5 @@ export * from './google-play-icon';
 export * from './android-logo-icon';
 export * from './play-video-icon';
 export * from './islamic-logo-icon';
+export * from './copy-icon';
+export * from './chevron-icon';

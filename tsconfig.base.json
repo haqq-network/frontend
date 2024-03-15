@@ -72,6 +72,9 @@
       "@haqq/islamic-website/alerts-pages": [
         "libs/islamic-website/alerts-pages/src/index.ts"
       ],
+      "@haqq/islamic-website/blog-page": [
+        "libs/islamic-website/blog-page/src/index.ts"
+      ],
       "@haqq/islamic-website/build-page": [
         "libs/islamic-website/build-page/src/index.ts"
       ],
