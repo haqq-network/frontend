@@ -11,7 +11,7 @@ import {
   useSupportedChains,
   useToast,
   useWallet,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import { AddedToken, LiquidTokensList } from './liquid-tokens-list';
 import {
   LiquidToken,

@@ -3,7 +3,7 @@ import {
   IParticipant,
   IParticipateResponse,
   ParticipantStatus,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import { Button, Checkbox, InformationModal } from '@haqq/shell-ui-kit';
 import { Address } from '../address/address';
 import { SmallText } from '../small-text/small-text';

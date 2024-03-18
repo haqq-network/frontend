@@ -1,7 +1,7 @@
 import { Fragment, useMemo } from 'react';
 import clsx from 'clsx';
 import { formatUnits } from 'viem';
-import { ClawbackVestingAccount, VestingPeriod } from '@haqq/shared';
+import { ClawbackVestingAccount, VestingPeriod } from '@haqq/shell-shared';
 import { Card } from './Card/Card';
 import { Tooltip } from './Tooltip/Tooltip';
 import { Heading } from './Typography/Typography';

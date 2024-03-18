@@ -1,0 +1,39 @@
+{
+  "name": "shell-governance",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shell/governance/src",
+  "projectType": "library",
+  "tags": ["shell-lib-governance"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shell/governance",
+        "tsConfig": "libs/shell/governance/tsconfig.lib.json",
+        "project": "libs/shell/governance/package.json",
+        "entryFile": "libs/shell/governance/src/index.ts",
+        "external": ["react", "react-dom", "react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "swc",
+        "assets": [
+          {
+            "glob": "libs/shell/governance/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/shell/governance/jest.config.ts"
+      }
+    }
+  }
+}

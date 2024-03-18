@@ -1,7 +1,7 @@
 'use client';
 import { PropsWithChildren, useCallback, useMemo } from 'react';
 import { useConnect } from 'wagmi';
-import { useWallet } from '@haqq/shared';
+import { useWallet } from '@haqq/shell-shared';
 import { SelectWalletModal } from '@haqq/shell-ui-kit';
 
 export function SelectWalletModalWrapper({ children }: PropsWithChildren) {

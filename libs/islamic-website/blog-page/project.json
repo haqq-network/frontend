@@ -1,5 +1,5 @@
 {
-  "name": "blog-page",
+  "name": "islamic-website-blog-page",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/islamic-website/blog-page/src",
   "projectType": "library",

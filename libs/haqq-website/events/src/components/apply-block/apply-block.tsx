@@ -7,7 +7,11 @@ import {
   QrRegistrationFormFields,
 } from '@haqq/haqq-website/forms';
 import { Button } from '@haqq/haqq-website-ui-kit';
-import { useAddress, useQrRegistrationActions, useWallet } from '@haqq/shared';
+import {
+  useAddress,
+  useQrRegistrationActions,
+  useWallet,
+} from '@haqq/shell-shared';
 import { TickerRequest } from '../ticket-request/ticket-request';
 
 const MESSAGE = 'GIVE ME TICKET';

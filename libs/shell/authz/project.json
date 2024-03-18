@@ -1,0 +1,39 @@
+{
+  "name": "shell-authz",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shell/authz/src",
+  "projectType": "library",
+  "tags": ["shell-lib-authz"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shell/authz",
+        "tsConfig": "libs/shell/authz/tsconfig.lib.json",
+        "project": "libs/shell/authz/package.json",
+        "entryFile": "libs/shell/authz/src/index.ts",
+        "external": ["react", "react-dom", "react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "swc",
+        "assets": [
+          {
+            "glob": "libs/shell/authz/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/shell/authz/jest.config.ts"
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@ if (process.env['VERCEL_ENV'] === 'production') {
   if (environment.sentryDsn && environment.sentryDsn !== '') {
     const dsn = environment.sentryDsn;
 
-    import('@haqq/sentry').then(({ initSentry }) => {
+    import('./utils/sentry').then(({ initSentry }) => {
       initSentry(dsn);
     });
   } else {

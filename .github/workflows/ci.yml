@@ -49,7 +49,6 @@ jobs:
     env:
       FALCONER_ENDPOINT: ${{ secrets.FALCONER_ENDPOINT }}
       TURNSTILE_SITEKEY: ${{ secrets.TURNSTILE_SITEKEY }}
-      NX_AIRDROP_ENDPOINT: ${{ secrets.NX_AIRDROP_ENDPOINT }}
     timeout-minutes: 15
     steps:
       - name: Checkout code

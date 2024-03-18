@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { ethToHaqq, useAddress, useWallet } from '@haqq/shared';
+import { ethToHaqq, useAddress, useWallet } from '@haqq/shell-shared';
 import { Button, CaptchaModal, Container } from '@haqq/shell-ui-kit';
 import {
   AirdropInfo,

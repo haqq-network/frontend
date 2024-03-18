@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import axios from 'axios';
 import QrReader from 'react-qr-scanner';
 import { Button, SpinnerLoader } from '@haqq/haqq-website-ui-kit';
-import { useDebouncedEffect } from '@haqq/shared';
+import { useDebouncedEffect } from '@haqq/shell-shared';
 
 interface IScanResult {
   text: string;

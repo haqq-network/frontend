@@ -6,7 +6,7 @@ import {
   useWallet,
   getFormattedAddress,
   useSupportedChains,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import { AccountButton, Button, SelectChainButton } from '@haqq/shell-ui-kit';
 
 export function ConnectButtons() {

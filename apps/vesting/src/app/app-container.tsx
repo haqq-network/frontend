@@ -7,7 +7,7 @@ import {
   Toaster,
   WagmiProvider,
   WalletProvider,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import { environment } from '../environments/environment';
 import { OnboardingContainer } from '../OnboardingContainer';
 

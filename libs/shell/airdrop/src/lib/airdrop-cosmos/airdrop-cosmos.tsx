@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Keplr } from '@keplr-wallet/types';
-import { IParticipant, useAirdropActions } from '@haqq/shared';
+import { IParticipant, useAirdropActions } from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
 import cosmosIcon from './../../assets/icons/cosmos.svg';
 import evmosIcon from './../../assets/icons/evmos.svg';

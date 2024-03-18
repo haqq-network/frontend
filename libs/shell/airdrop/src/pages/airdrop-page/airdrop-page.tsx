@@ -6,7 +6,7 @@ import {
   haqqToEth,
   useAddress,
   useWallet,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import { CaptchaModal, Container, Heading } from '@haqq/shell-ui-kit';
 import { Address } from '../../lib/address/address';
 import {

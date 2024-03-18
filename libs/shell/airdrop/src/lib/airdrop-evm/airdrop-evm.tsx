@@ -1,4 +1,4 @@
-import { useWallet } from '@haqq/shared';
+import { useWallet } from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
 import { BlurredBlock } from '../blured-block/blured-block';
 import { EvmAirdropView } from '../evm-airdrop-view/evm-airdrop-view';
