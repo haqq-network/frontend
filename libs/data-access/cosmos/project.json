@@ -1,23 +1,23 @@
 {
-  "name": "data-access-falconer",
+  "name": "data-access-cosmos",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/data-access/falconer/src",
+  "sourceRoot": "libs/data-access/cosmos/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/data-access/falconer",
-        "tsConfig": "libs/data-access/falconer/tsconfig.lib.json",
-        "project": "libs/data-access/falconer/package.json",
-        "entryFile": "libs/data-access/falconer/src/index.ts",
+        "outputPath": "dist/libs/data-access/cosmos",
+        "tsConfig": "libs/data-access/cosmos/tsconfig.lib.json",
+        "project": "libs/data-access/cosmos/package.json",
+        "entryFile": "libs/data-access/cosmos/src/index.ts",
         "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
         "compiler": "swc",
         "assets": [
           {
-            "glob": "libs/data-access/falconer/README.md",
+            "glob": "libs/data-access/cosmos/README.md",
             "input": ".",
             "output": "."
           }
@@ -32,7 +32,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/data-access/falconer/jest.config.ts"
+        "jestConfig": "libs/data-access/cosmos/jest.config.ts"
       }
     }
   },
