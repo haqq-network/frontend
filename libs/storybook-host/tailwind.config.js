@@ -6,21 +6,19 @@ const { tailwindThemeExtend } = require('../../shared-tailwind-theme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    // join(__dirname, 'src/**/*!(*.spec).{ts,tsx,html}'),
     join(__dirname, '../../libs/haqq-website/**/*!(*.spec).{ts,tsx,html}'),
-    join(__dirname, '../../libs/shell/**/*!(*.spec).{ts,tsx,html}'),
-    join(__dirname, '../../libs/staking/**/*!(*.spec).{ts,tsx,html}'),
-    join(__dirname, '../../libs/governance/**/*!(*.spec).{ts,tsx,html}'),
     join(__dirname, '../../libs/islamic-website/**/*!(*.spec).{ts,tsx,html}'),
+    join(__dirname, '../../libs/shell/**/*!(*.spec).{ts,tsx,html}'),
   ],
   darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--guise-font)'],
-        serif: ['var(--clash-font)'],
         guise: ['var(--guise-font)'],
         clash: ['var(--clash-font)'],
+        alexandria: ['var(--font-alexandria)'],
+        handjet: ['var(--font-handjet)'],
+        vcr: ['var(--font-vcr)'],
       },
       colors: {
         ...tailwindThemeExtend.colors,

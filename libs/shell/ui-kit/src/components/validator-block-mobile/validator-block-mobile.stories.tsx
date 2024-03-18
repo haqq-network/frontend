@@ -3,7 +3,7 @@ import { ValidatorBlockMobile as ValidatorBlockMobileComponent } from './validat
 import {
   withoutPadding,
   withStickyEmulation,
-} from '../../../.storybook/decorators';
+} from '../../../../../storybook-host/.storybook/decorators';
 
 const meta: Meta<typeof ValidatorBlockMobileComponent> = {
   component: ValidatorBlockMobileComponent,
