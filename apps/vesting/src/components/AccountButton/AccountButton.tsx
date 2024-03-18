@@ -4,7 +4,7 @@
 import { Fragment, ReactElement, ReactNode } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
-import { getFormattedAddress } from '@haqq/shared';
+import { getFormattedAddress } from '@haqq/shell-shared';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
 import { Button } from '../Button/Button';
 

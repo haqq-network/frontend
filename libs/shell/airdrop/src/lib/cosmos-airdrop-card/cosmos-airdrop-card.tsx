@@ -4,7 +4,7 @@ import {
   formatEthDecimal,
   getKeplrWallet,
   useAirdropActions,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import { Address } from '../address/address';
 import {
   AirdropChallenge,

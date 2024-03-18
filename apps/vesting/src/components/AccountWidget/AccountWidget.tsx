@@ -1,5 +1,5 @@
 import { useCallback, ReactNode, useMemo } from 'react';
-import { getFormattedAddress } from '@haqq/shared';
+import { getFormattedAddress } from '@haqq/shell-shared';
 import { useClipboard } from '../../hooks/useClipboard';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
 import { Card } from '../Card/Card';

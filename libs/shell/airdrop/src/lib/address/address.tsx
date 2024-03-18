@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { getFormattedAddress, useClipboard } from '@haqq/shared';
+import { getFormattedAddress, useClipboard } from '@haqq/shell-shared';
 import { CopyIcon, Tooltip } from '@haqq/shell-ui-kit';
 
 export const Address = ({

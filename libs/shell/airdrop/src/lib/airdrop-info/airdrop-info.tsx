@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Hex, isAddress } from 'viem';
 import * as yup from 'yup';
 import { HookedFormInput } from '@haqq/haqq-website/forms';
-import { ethToHaqq, haqqToEth, usePersonalSign } from '@haqq/shared';
+import { ethToHaqq, haqqToEth, usePersonalSign } from '@haqq/shell-shared';
 import {
   Button,
   Heading,

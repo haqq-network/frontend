@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { toHex } from 'viem';
 import { useNetwork } from 'wagmi';
-import { useSupportedChains } from '@haqq/shared';
+import { useSupportedChains } from '@haqq/shell-shared';
 import { useOnboarding } from '../../OnboardingContainer';
 import { Button } from '../Button/Button';
 import { AlertWithDetails } from '../modals/AlertWithDetails/AlertWithDetails';

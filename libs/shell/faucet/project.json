@@ -1,0 +1,39 @@
+{
+  "name": "shell-faucet",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shell/faucet/src",
+  "projectType": "library",
+  "tags": ["shell-lib-faucet"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shell/faucet",
+        "tsConfig": "libs/shell/faucet/tsconfig.lib.json",
+        "project": "libs/shell/faucet/package.json",
+        "entryFile": "libs/shell/faucet/src/index.ts",
+        "external": ["react", "react-dom", "react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "swc",
+        "assets": [
+          {
+            "glob": "libs/shell/faucet/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/shell/faucet/jest.config.ts"
+      }
+    }
+  }
+}

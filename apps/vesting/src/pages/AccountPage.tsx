@@ -7,7 +7,7 @@ import {
   useAccountInfoQuery,
   ClawbackVestingAccount,
   HaqqAccount,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import { PendingPage } from './PendingPage';
 import {
   AccountWidget,

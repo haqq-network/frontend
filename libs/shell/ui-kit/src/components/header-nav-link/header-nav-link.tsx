@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 
 interface HeaderNavLinkProps {
   href: string;
@@ -20,13 +20,13 @@ export function HeaderNavLink({
       }
     : {};
   return (
-    <NavLink
-      to={href}
+    <Link
+      href={href}
       className="font-guise text-[13px] leading-[20px] sm:text-[15px] sm:leading-[24px]"
       onClick={onClick}
       {...additionalProps}
     >
       {children}
-    </NavLink>
+    </Link>
   );
 }

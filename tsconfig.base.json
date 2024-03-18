@@ -16,12 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@haqq/data-access-falconer": ["libs/data-access/falconer/src/index.ts"],
-      "@haqq/governance/proposal-details": [
-        "libs/governance/proposal-details/src/index.ts"
-      ],
-      "@haqq/governance/proposal-list": [
-        "libs/governance/proposal-list/src/index.ts"
-      ],
       "@haqq/haqq-website-ui-kit": ["libs/haqq-website/ui-kit/src/index.ts"],
       "@haqq/haqq-website/audits-page": [
         "libs/haqq-website/audits-page/src/index.ts"
@@ -126,20 +120,19 @@
       "@haqq/islamic-website/whitepaper-page": [
         "libs/islamic-website/whitepaper-page/src/index.ts"
       ],
-      "@haqq/sentry": ["libs/sentry/src/index.ts"],
-      "@haqq/shared": ["libs/shared/src/index.ts"],
       "@haqq/shell-airdrop": ["libs/shell/airdrop/src/index.ts"],
+      "@haqq/shell-authz": ["libs/shell/authz/src/index.ts"],
+      "@haqq/shell-authz/server": ["libs/shell/authz/src/server.ts"],
+      "@haqq/shell-faucet": ["libs/shell/faucet/src/index.ts"],
+      "@haqq/shell-faucet/server": ["libs/shell/faucet/src/server.ts"],
+      "@haqq/shell-governance": ["libs/shell/governance/src/index.ts"],
+      "@haqq/shell-governance/server": ["libs/shell/governance/src/server.ts"],
+      "@haqq/shell-main": ["libs/shell/main/src/index.ts"],
+      "@haqq/shell-main/server": ["libs/shell/main/src/server.ts"],
+      "@haqq/shell-shared": ["libs/shell/shared/src/index.ts"],
+      "@haqq/shell-staking": ["libs/shell/staking/src/index.ts"],
+      "@haqq/shell-staking/server": ["libs/shell/staking/src/server.ts"],
       "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
-      "@haqq/shell/authz-page": ["libs/shell/authz-page/src/index.ts"],
-      "@haqq/shell/index-page": ["libs/shell/index-page/src/index.ts"],
-      "@haqq/staking/ui-kit": ["libs/staking/ui-kit/src/index.ts"],
-      "@haqq/staking/utils": ["libs/staking/utils/src/index.ts"],
-      "@haqq/staking/validator-details-page": [
-        "libs/staking/validator-details-page/src/index.ts"
-      ],
-      "@haqq/staking/validator-list-page": [
-        "libs/staking/validator-list-page/src/index.ts"
-      ],
       "@haqq/storybook-host": ["libs/storybook-host/src/index.ts"]
     }
   },

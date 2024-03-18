@@ -1,0 +1,39 @@
+{
+  "name": "shell-staking",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shell/staking/src",
+  "projectType": "library",
+  "tags": ["shell-lib-staking"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shell/staking",
+        "tsConfig": "libs/shell/staking/tsconfig.lib.json",
+        "project": "libs/shell/staking/package.json",
+        "entryFile": "libs/shell/staking/src/index.ts",
+        "external": ["react", "react-dom", "react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "swc",
+        "assets": [
+          {
+            "glob": "libs/shell/staking/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/shell/staking/jest.config.ts"
+      }
+    }
+  }
+}

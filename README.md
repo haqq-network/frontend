@@ -25,8 +25,6 @@
 | HAQQ Website         | https://haqq.hetwork           | [Open](apps/haqq-website)    |
 | IslamicCoin Website  | https://islamiccoin.net        | [Open](apps/islamic-website) |
 
-test
-
 ## Development guide
 
 <details>
