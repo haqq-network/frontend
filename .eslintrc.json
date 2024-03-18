@@ -15,50 +15,35 @@
             "depConstraints": [
               {
                 "sourceTag": "shell",
-                "onlyDependOnLibsWithTags": [
-                  "shell-lib-*",
-                  "data-access-falconer",
-                  "sentry"
-                ]
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "data-access"]
               },
               {
                 "sourceTag": "shell-lib-*",
-                "onlyDependOnLibsWithTags": [
-                  "shell-lib-*",
-                  "data-access-falconer"
-                ]
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "data-access"]
               },
               {
                 "sourceTag": "islamic",
-                "onlyDependOnLibsWithTags": [
-                  "islamic-lib-*",
-                  "data-access-falconer"
-                ]
+                "onlyDependOnLibsWithTags": ["islamic-lib-*", "data-access"]
               },
               {
                 "sourceTag": "islamic-lib-*",
-                "onlyDependOnLibsWithTags": [
-                  "islamic-lib-*",
-                  "data-access-falconer"
-                ]
+                "onlyDependOnLibsWithTags": ["islamic-lib-*", "data-access"]
               },
               {
                 "sourceTag": "haqq",
-                "onlyDependOnLibsWithTags": [
-                  "haqq-lib-*",
-                  "data-access-falconer"
-                ]
+                "onlyDependOnLibsWithTags": ["haqq-lib-*", "data-access"]
               },
               {
                 "sourceTag": "haqq-lib-*",
-                "onlyDependOnLibsWithTags": [
-                  "haqq-lib-*",
-                  "data-access-falconer"
-                ]
+                "onlyDependOnLibsWithTags": ["haqq-lib-*", "data-access"]
               },
               {
                 "sourceTag": "vesting",
-                "onlyDependOnLibsWithTags": ["shell-lib-*", "sentry"]
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "data-access"]
+              },
+              {
+                "sourceTag": "data-access",
+                "onlyDependOnLibsWithTags": ["data-access"]
               }
             ]
           }

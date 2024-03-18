@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@haqq/data-access-cosmos": ["libs/data-access/cosmos/src/index.ts"],
       "@haqq/data-access-falconer": ["libs/data-access/falconer/src/index.ts"],
       "@haqq/haqq-website-ui-kit": ["libs/haqq-website/ui-kit/src/index.ts"],
       "@haqq/haqq-website/audits-page": [
