@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 const shellConfig: Config = {
-  commitSha: process.env.NEXT_PUBLIC_COMMIT_SHA ?? 'dev',
+  commitSha: process.env.GIT_COMMIT_SHA ?? 'dev',
   faucetConfig: {
     serviceEndpoint: process.env.FAUCET_SERVICE_ENDPOINT,
     auth0Domain: process.env.FAUCET_AUTH0_DOMAIN,
