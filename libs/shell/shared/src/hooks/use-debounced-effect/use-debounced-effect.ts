@@ -1,3 +1,4 @@
+'use client';
 import { useCallback, useEffect } from 'react';
 
 // Example: prevent double-clicks from user of handle inputs for search boxes

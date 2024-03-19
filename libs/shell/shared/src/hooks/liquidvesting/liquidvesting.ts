@@ -256,17 +256,3 @@ export function createTxMsgRedeem(
     eipToSign,
   };
 }
-
-function extractVRS(signature: string): {
-  v: Uint8Array;
-  r: Uint8Array;
-  s: Uint8Array;
-} {
-  const signatureBytes = Buffer.from(signature.slice(2), 'hex');
-
-  const v = signatureBytes.slice(64, 65);
-  const r = signatureBytes.slice(0, 32);
-  const s = signatureBytes.slice(32, 64);
-
-  return { v, r, s };
-}

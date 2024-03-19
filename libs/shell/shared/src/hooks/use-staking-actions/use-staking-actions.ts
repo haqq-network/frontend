@@ -8,66 +8,36 @@ import {
 import {
   createTxMsgDelegate,
   createTxMsgUndelegate,
-  Sender,
   createTxMsgWithdrawDelegatorReward,
-  TxGenerated,
-  createTxRawEIP712,
-  signatureToWeb3Extension,
   createTxMsgMultipleWithdrawDelegatorReward,
   createTxMsgBeginRedelegate,
   MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
-import { useNetwork, useWalletClient } from 'wagmi';
-import { getChainParams } from '../../chains/get-chain-params';
-import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
+import { useNetwork } from 'wagmi';
+import { getChainParams } from '@haqq/data-access-cosmos';
+import { mapToCosmosChain } from '@haqq/data-access-cosmos';
+import { EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
+import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
-import { EstimatedFeeResponse } from '../../utils/get-estimated-fee';
 import { useAddress } from '../use-address/use-address';
 
 export function useStakingActions() {
   const {
     broadcastTransaction,
-    getPubkey,
     getTransactionStatus,
     getEstimatedFee,
     getFee,
     getSender,
   } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
-  const { data: walletClient } = useWalletClient();
+  const { getPubkey, signTransaction } = useWallet();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const chainParams = getChainParams(chain.id);
   const haqqChain = mapToCosmosChain(chainParams);
-
-  const signTransaction = useCallback(
-    async (msg: TxGenerated, sender: Sender) => {
-      if (haqqChain && ethAddress && walletClient) {
-        const signature = await walletClient.request({
-          method: 'eth_signTypedData_v4',
-          params: [ethAddress as `0x${string}`, JSON.stringify(msg.eipToSign)],
-        });
-        const extension = signatureToWeb3Extension(
-          haqqChain,
-          sender,
-          signature,
-        );
-        const rawTx = createTxRawEIP712(
-          msg.legacyAmino.body,
-          msg.legacyAmino.authInfo,
-          extension,
-        );
-
-        return rawTx;
-      } else {
-        throw new Error('No haqqChain');
-      }
-    },
-    [ethAddress, haqqChain, walletClient],
-  );
 
   const getDelegationParams = useCallback(
     (

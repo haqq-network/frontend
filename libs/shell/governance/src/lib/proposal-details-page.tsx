@@ -21,21 +21,23 @@ import { useMediaQuery } from 'react-responsive';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useNetwork } from 'wagmi';
 import {
+  GetGovernanceParamsResponse,
+  TallyResults,
+  getChainParams,
+} from '@haqq/data-access-cosmos';
+import {
   useAddress,
   useProposalDetailsQuery,
   useGovernanceParamsQuery,
   useToast,
   useWallet,
   useProposalActions,
-  GetGovernanceParamsResponse,
   useSupportedChains,
   useStakingDelegationQuery,
   getFormattedAddress,
   useProposalTallyQuery,
-  TallyResults,
   useStakingPoolQuery,
   useNetworkAwareAction,
-  getChainParams,
   useProposalVoteQuery,
 } from '@haqq/shell-shared';
 import {

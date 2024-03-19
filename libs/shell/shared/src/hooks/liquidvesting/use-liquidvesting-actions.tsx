@@ -1,65 +1,29 @@
 import { useCallback, useMemo } from 'react';
-import {
-  Sender,
-  TxGenerated,
-  createTxRawEIP712,
-  Fee,
-  signatureToWeb3Extension,
-} from '@evmos/transactions';
-import { type Hex } from 'viem';
-import { useNetwork, useWalletClient } from 'wagmi';
+import { Fee } from '@evmos/transactions';
+import { useNetwork } from 'wagmi';
+import { VESTING_DEFAULT_FEE, getChainParams } from '@haqq/data-access-cosmos';
+import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import {
   MsgLiquidateParams,
   createTxMsgLiquidate,
   createTxMsgRedeem,
   MsgRedeemParams,
 } from './liquidvesting';
-import {
-  VESTING_DEFAULT_FEE,
-  getChainParams,
-} from '../../chains/get-chain-params';
-import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
+import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { useAddress } from '../use-address/use-address';
 
 export function useLiquidVestingActions() {
-  const { broadcastTransaction, getPubkey, getTransactionStatus, getSender } =
+  const { broadcastTransaction, getTransactionStatus, getSender } =
     useCosmosService();
+  const { getPubkey, signTransaction } = useWallet();
   const { haqqAddress, ethAddress } = useAddress();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const chainParams = getChainParams(chain.id);
   const haqqChain = mapToCosmosChain(chainParams);
-  const { data: walletClient } = useWalletClient();
-
-  const signTransaction = useCallback(
-    async (msg: TxGenerated, sender: Sender) => {
-      if (haqqChain && ethAddress && walletClient) {
-        const signature = await walletClient.request({
-          method: 'eth_signTypedData_v4',
-          params: [ethAddress as Hex, JSON.stringify(msg.eipToSign)],
-        });
-
-        const extension = signatureToWeb3Extension(
-          haqqChain,
-          sender,
-          signature,
-        );
-        const rawTx = createTxRawEIP712(
-          msg.legacyAmino.body,
-          msg.legacyAmino.authInfo,
-          extension,
-        );
-
-        return rawTx;
-      } else {
-        throw new Error('No haqqChain');
-      }
-    },
-    [ethAddress, haqqChain, walletClient],
-  );
 
   const getLiquidateParams = useCallback(
     (

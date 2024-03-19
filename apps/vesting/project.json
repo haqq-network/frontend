@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "babel",
+        "compiler": "tsc",
         "outputPath": "dist/apps/vesting",
         "index": "apps/vesting/src/index.html",
         "baseHref": "/",

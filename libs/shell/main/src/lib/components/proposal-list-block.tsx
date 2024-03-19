@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { ProposalStatus } from '@evmos/provider';
 import Link from 'next/link';
 import { useNetwork } from 'wagmi';
+import { ProposalListCard } from '@haqq/shell-governance';
 import {
   useGovernanceParamsQuery,
   useProposalListQuery,
   useProposalTallysQuery,
   useSupportedChains,
 } from '@haqq/shell-shared';
-import { ProposalListCard } from '@haqq/shell-governance';
 import {
   Heading,
   Container,

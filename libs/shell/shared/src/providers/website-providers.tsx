@@ -1,3 +1,4 @@
+'use client';
 import { PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CosmosProvider } from './cosmos-provider';

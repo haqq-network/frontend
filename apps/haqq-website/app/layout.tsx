@@ -31,9 +31,6 @@ const PostHogPageView = dynamic(
   },
   {
     ssr: false,
-    loading: () => {
-      return null;
-    },
   },
 );
 
