@@ -1,5 +1,5 @@
+import { DEFAULT_FEE } from '@haqq/data-access-cosmos';
 import { getAmountIncludeFee } from './get-amount-include-fee';
-import { DEFAULT_FEE } from '../chains/get-chain-params';
 
 describe('getAmountIncludeFee', () => {
   it('should return correct object', () => {
