@@ -138,12 +138,13 @@ export function StakingStatsMobileAmountBlock({
   isGreen?: boolean;
 }) {
   return (
-    <div className="flex flex-col items-start gap-y-[6px]">
+    <div className="flex flex-row items-center justify-between gap-y-[6px]">
       <div>
-        <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50">
+        <div className="font-guise text-[12px] font-[600] uppercase leading-[20px] text-white/50">
           {title}
         </div>
       </div>
+
       <div>
         <div
           className={clsx(
@@ -168,32 +169,30 @@ export function StakingStatsMobile({
   isRewardsPending = false,
 }: StakingStatsProps) {
   return (
-    <div className="flex flex-row items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
-      <div>
+    <div className="flex flex-col items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
+      <div className="flex flex-row items-center">
         <WalletIcon />
+        <Heading level={3} className="mb-[-2px] ml-[8px]">
+          My account
+        </Heading>
       </div>
-      <div className="flex-initial">
+
+      <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
           title="Available"
           value={balance}
           symbol={symbol}
         />
-      </div>
-      <div className="flex-initial">
         <StakingStatsMobileAmountBlock
           title="Staked"
           value={delegated}
           symbol={symbol}
         />
-      </div>
-      <div className="flex-initial">
         <StakingStatsMobileAmountBlock
           title="Unbonding"
           value={unbounded}
           symbol={symbol}
         />
-      </div>
-      <div className="flex-initial">
         <StakingStatsMobileAmountBlock
           title="Rewards"
           value={rewards}
@@ -201,18 +200,18 @@ export function StakingStatsMobile({
           isGreen
         />
       </div>
-      <div className="flex-none">
+
+      <div>
         <Tooltip
           text={
             Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
               ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
               : ''
           }
-          className="min-w-[300px] text-center"
         >
           <Button
             onClick={onRewardsClaim}
-            className="px-[32px]"
+            className="w-full px-[32px]"
             variant={2}
             isLoading={isRewardsPending}
             disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
