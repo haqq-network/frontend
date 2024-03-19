@@ -79,7 +79,7 @@ export function AccountInfo() {
                   }
                 >
                   <div
-                    className="font-guise flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] font-[500] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    className="font-guise inline-flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] font-[500] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                     onClick={handleEthAddressCopy}
                   >
                     <div>{getFormattedAddress(ethAddress, 6, 6, '...')}</div>
@@ -97,7 +97,7 @@ export function AccountInfo() {
                   }
                 >
                   <div
-                    className="font-guise flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] font-[500] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    className="font-guise inline-flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] font-[500] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                     onClick={handleHaqqAddressCopy}
                   >
                     <div>{getFormattedAddress(haqqAddress, 6, 6, '...')}</div>

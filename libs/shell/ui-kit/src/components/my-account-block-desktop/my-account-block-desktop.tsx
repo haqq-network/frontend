@@ -118,7 +118,6 @@ export function MyAccountBlockDesktop({
                         ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
                         : ''
                     }
-                    className="min-w-[300px] text-center"
                   >
                     <button
                       className={clsx(

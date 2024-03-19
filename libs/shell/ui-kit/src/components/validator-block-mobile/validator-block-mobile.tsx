@@ -6,6 +6,8 @@ import { Container } from '../container/container';
 import { Heading } from '../heading/heading';
 import { ValidatorIcon } from '../icons/icons';
 import { WarningMessage } from '../warning-message/warning-message';
+import { Tooltip } from '../tooltip/tooltip';
+import { MIN_REWARDS_TO_CLAIM } from '../my-account-block-desktop/my-account-block-desktop';
 
 interface ValidatorBlockMobileProps {
   delegation: number;
@@ -149,15 +151,23 @@ export function ValidatorBlockMobile({
             </Button>
           </div>
           <div>
-            <Button
-              variant={5}
-              onClick={onGetRewardClick}
-              disabled={isGetRewardDisabled}
-              className="w-full"
-              isLoading={isRewardPending}
+            <Tooltip
+              text={
+                rewards < MIN_REWARDS_TO_CLAIM
+                  ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+                  : ''
+              }
             >
-              Get my rewards
-            </Button>
+              <Button
+                variant={5}
+                onClick={onGetRewardClick}
+                disabled={isGetRewardDisabled}
+                className="w-full"
+                isLoading={isRewardPending}
+              >
+                Get my rewards
+              </Button>
+            </Tooltip>
           </div>
         </div>
       </div>

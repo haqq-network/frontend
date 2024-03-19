@@ -804,7 +804,7 @@ function GranteeCard({
                     >
                       <div
                         className={clsx(
-                          'flex w-fit cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
+                          'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
                           'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
                         )}
                         onClick={handleEthAddressCopy}
@@ -824,7 +824,7 @@ function GranteeCard({
                     >
                       <div
                         className={clsx(
-                          'flex w-fit cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
+                          'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
                           'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
                         )}
                         onClick={handleHaqqAddressCopy}
