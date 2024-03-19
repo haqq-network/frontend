@@ -1,13 +1,17 @@
+'use client';
 import { Fragment } from 'react';
 import Link from 'next/link';
+import { notFound, useParams } from 'next/navigation';
 import { BackButton, Container } from '@haqq/shell-ui-kit';
 import { ValidatorInfo } from './components/validator-info';
 
-export function ValidatorDetailsPage({
-  validatorAddress,
-}: {
-  validatorAddress: string;
-}) {
+export function ValidatorDetailsPage() {
+  const { address } = useParams<{ address: string }>();
+
+  if (!address) {
+    return notFound();
+  }
+
   return (
     <Fragment>
       <Container>
@@ -18,7 +22,7 @@ export function ValidatorDetailsPage({
         </div>
       </Container>
 
-      <ValidatorInfo validatorAddress={validatorAddress} />
+      <ValidatorInfo validatorAddress={address} />
     </Fragment>
   );
 }

@@ -110,7 +110,6 @@ export function StakingStatsDesktop({
                 ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
                 : ''
             }
-            className="min-w-[300px] text-center"
           >
             <Button
               disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
