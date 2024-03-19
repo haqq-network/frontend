@@ -10,7 +10,6 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-essentials',
     '@nx/react/plugins/storybook',
-    'storybook-addon-react-router-v6',
     '@storybook/addon-storysource',
   ],
   framework: {

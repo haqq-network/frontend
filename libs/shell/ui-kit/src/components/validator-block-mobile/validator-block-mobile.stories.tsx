@@ -1,9 +1,10 @@
+/* eslint-disable @nx/enforce-module-boundaries */
 import { Meta, StoryObj } from '@storybook/react';
 import { ValidatorBlockMobile as ValidatorBlockMobileComponent } from './validator-block-mobile';
 import {
   withoutPadding,
   withStickyEmulation,
-} from '../../../../../storybook-host/.storybook/decorators';
+} from '../../../../../storybook-host/src/decorators';
 
 const meta: Meta<typeof ValidatorBlockMobileComponent> = {
   component: ValidatorBlockMobileComponent,

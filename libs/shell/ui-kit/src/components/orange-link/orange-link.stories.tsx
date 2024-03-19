@@ -1,11 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { withRouter } from 'storybook-addon-react-router-v6';
 import { OrangeLink as OrangeLinkComponent } from './orange-link';
 
 const meta: Meta<typeof OrangeLinkComponent> = {
   component: OrangeLinkComponent,
   title: 'shell/ui-kit',
-  decorators: [withRouter],
   parameters: {
     layout: 'centered',
   },
