@@ -311,7 +311,7 @@ export function ValidatorInfoComponent({
                       }
                     >
                       <div
-                        className="flex w-fit cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50"
+                        className="inline-flex w-fit cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50"
                         onClick={handleHaqqAddressCopy}
                       >
                         {isTablet
@@ -907,7 +907,6 @@ export function ValidatorBlockDesktop({
               ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
               : ''
           }
-          className="min-w-[300px] text-center"
         >
           <Button
             variant={5}
