@@ -3335,6 +3335,7 @@ __metadata:
     is-ci: "npm:3.0.1"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
+    jest-environment-node: "npm:29.7.0"
     lint-staged: "npm:15.2.2"
     lodash: "npm:4.17.21"
     marked: "npm:7.0.5"
@@ -3378,7 +3379,6 @@ __metadata:
     sharp: "npm:0.33.2"
     store2: "npm:2.14.3"
     storybook: "npm:7.6.17"
-    storybook-addon-react-router-v6: "npm:2.0.11"
     style-loader: "npm:3.3.4"
     swc-loader: "npm:0.2.6"
     swiper: "npm:11.0.7"
@@ -12243,13 +12243,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"compare-versions@npm:^6.0.0":
-  version: 6.1.0
-  resolution: "compare-versions@npm:6.1.0"
-  checksum: 10/20f349e7f8ad784704c68265f4e660e2abbe2c3d5c75793184fccb85f0c5c0263260e01fdd4488376f6b74b0f069e16c9684463f7316b075716fb1581eb36b77
-  languageName: node
-  linkType: hard
-
 "compressible@npm:~2.0.16":
   version: 2.0.18
   resolution: "compressible@npm:2.0.18"
@@ -18253,7 +18246,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-environment-node@npm:^29.7.0":
+"jest-environment-node@npm:29.7.0, jest-environment-node@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-environment-node@npm:29.7.0"
   dependencies:
@@ -24610,15 +24603,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-inspector@npm:6.0.2":
-  version: 6.0.2
-  resolution: "react-inspector@npm:6.0.2"
-  peerDependencies:
-    react: ^16.8.4 || ^17.0.0 || ^18.0.0
-  checksum: 10/5d23ad0f6f920458abd4c01af1b3cbdbe8846c254762fd6cfff4df119c54e08dd98ce8e91acacafb8173c19f07de2066df5b8e6cb19425751c1929a2620cbe77
-  languageName: node
-  linkType: hard
-
 "react-intersection-observer@npm:9.8.1":
   version: 9.8.1
   resolution: "react-intersection-observer@npm:9.8.1"
@@ -26728,32 +26712,6 @@ __metadata:
   version: 2.14.3
   resolution: "store2@npm:2.14.3"
   checksum: 10/f95f6fbacff14cc3bb9e5e16ced2f29e2d706e30b248c16cf19abed8b2bb31d8f3907c8ccf1a5284d806fdcaf06e96710e4f4f52195e51522a452536beaf7af9
-  languageName: node
-  linkType: hard
-
-"storybook-addon-react-router-v6@npm:2.0.11":
-  version: 2.0.11
-  resolution: "storybook-addon-react-router-v6@npm:2.0.11"
-  dependencies:
-    compare-versions: "npm:^6.0.0"
-    react-inspector: "npm:6.0.2"
-  peerDependencies:
-    "@storybook/blocks": ^7.0.0
-    "@storybook/channels": ^7.0.0
-    "@storybook/components": ^7.0.0
-    "@storybook/core-events": ^7.0.0
-    "@storybook/manager-api": ^7.0.0
-    "@storybook/preview-api": ^7.0.0
-    "@storybook/theming": ^7.0.0
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-router-dom: ^6.4.0
-  peerDependenciesMeta:
-    react:
-      optional: true
-    react-dom:
-      optional: true
-  checksum: 10/7f74d44179ce231112eb4d6d482dfa1dd579d4b6a3c44507bd457e316c9591699ad9a86f6ffc7563b32fb660e2b6e595c753a97c3d5acff159e0aa89958af4cd
   languageName: node
   linkType: hard
 
