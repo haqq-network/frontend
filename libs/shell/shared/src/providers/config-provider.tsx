@@ -1,7 +1,19 @@
+'use client';
 import { createContext, ReactNode, useContext, useMemo } from 'react';
 
 export interface Config {
-  isStandalone: boolean;
+  commitSha: string;
+  faucetConfig: {
+    serviceEndpoint: string | undefined;
+    auth0Domain: string | undefined;
+    auth0ClientId: string | undefined;
+  };
+  reCaptchaConfig: {
+    siteKey: string | undefined;
+  };
+  walletConnectConfig: {
+    projectId: string | undefined;
+  };
 }
 
 export const EnvironmentConfigContext = createContext<Config | undefined>(
@@ -22,14 +34,14 @@ export function useConfig() {
 
 export function ConfigProvider({
   children,
-  isStandalone = false,
+  config,
 }: {
   children: ReactNode;
-  isStandalone?: boolean;
+  config?: Config;
 }) {
   const memoizedEnvironment = useMemo(() => {
-    return { isStandalone };
-  }, [isStandalone]);
+    return config;
+  }, [config]);
 
   return (
     <EnvironmentConfigContext.Provider value={memoizedEnvironment}>

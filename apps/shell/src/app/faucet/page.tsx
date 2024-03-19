@@ -1,13 +1,25 @@
-import { AuthProvider, FaucetPage } from '@haqq/shell-faucet';
+import dynamic from 'next/dynamic';
+// import { FaucetPage } from '@haqq/shell-faucet';
 
-const auth0Config = {
-  domain: process.env['SHELL_FAUCET_AUTH0_DOMAIN'] as string,
-  clientId: process.env['SHELL_FAUCET_AUTH0_CLIENT_ID'] as string,
-};
+const AuthProvider = dynamic(
+  async () => {
+    const { AuthProvider } = await import('@haqq/shell-faucet');
+    return { default: AuthProvider };
+  },
+  { ssr: false },
+);
 
-export default async function Faucet() {
+const FaucetPage = dynamic(
+  async () => {
+    const { FaucetPage } = await import('@haqq/shell-faucet');
+    return { default: FaucetPage };
+  },
+  { ssr: false },
+);
+
+export default function Faucet() {
   return (
-    <AuthProvider auth0Config={auth0Config}>
+    <AuthProvider>
       <FaucetPage />
     </AuthProvider>
   );
