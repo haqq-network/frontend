@@ -1,6 +1,8 @@
 'use client';
 import { PropsWithChildren } from 'react';
 import {
+  Config,
+  ConfigProvider,
   CosmosProvider,
   ReactQueryProvider,
   Toaster,
@@ -8,17 +10,22 @@ import {
   WalletProvider,
 } from '@haqq/shell-shared';
 
-export function Providers({ children }: PropsWithChildren) {
+export function Providers({
+  children,
+  config,
+}: PropsWithChildren<{ config: Config }>) {
   return (
-    <WagmiProvider>
-      <ReactQueryProvider withDevtools={true}>
-        <WalletProvider>
+    <ConfigProvider config={config}>
+      <WagmiProvider>
+        <ReactQueryProvider withDevtools={true}>
           <CosmosProvider>
-            {children}
-            <Toaster />
+            <WalletProvider>
+              {children}
+              <Toaster />
+            </WalletProvider>
           </CosmosProvider>
-        </WalletProvider>
-      </ReactQueryProvider>
-    </WagmiProvider>
+        </ReactQueryProvider>
+      </WagmiProvider>
+    </ConfigProvider>
   );
 }

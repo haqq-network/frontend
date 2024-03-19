@@ -14,7 +14,7 @@ import { notFound } from 'next/navigation';
 import SuccessIndicator from 'react-success-indicator';
 import Reaptcha from 'reaptcha';
 import { useAccount, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
-import { useSupportedChains, useWallet } from '@haqq/shell-shared';
+import { useConfig, useSupportedChains, useWallet } from '@haqq/shell-shared';
 import {
   Button,
   Heading,
@@ -33,6 +33,7 @@ interface ClaimInfo {
 }
 
 export function FaucetPage(): ReactElement {
+  const config = useConfig();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const { switchNetworkAsync } = useSwitchNetwork();
@@ -67,7 +68,7 @@ export function FaucetPage(): ReactElement {
       body: Record<string, unknown>,
       method: 'POST' | 'GET' = 'POST',
     ) => {
-      const requestUrl = `${serviceConfig.endpoint}/${path}`;
+      const requestUrl = new URL(path, config.faucetConfig.serviceEndpoint);
       const requestOptions = {
         method,
         headers: { 'Content-Type': 'application/json' },
@@ -76,7 +77,7 @@ export function FaucetPage(): ReactElement {
 
       return await fetch(requestUrl, requestOptions);
     },
-    [],
+    [config.faucetConfig.serviceEndpoint],
   );
 
   const handleLogin = useCallback(async () => {
@@ -320,7 +321,7 @@ export function FaucetPage(): ReactElement {
                         ) : (
                           <div className="flex flex-row items-center">
                             <Reaptcha
-                              sitekey={reCaptchaConfig.siteKey}
+                              sitekey={config.reCaptchaConfig.siteKey}
                               onVerify={handleRecapthcaVerify}
                               theme="dark"
                             />

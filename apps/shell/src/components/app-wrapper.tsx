@@ -18,6 +18,7 @@ import {
   useWallet,
   getFormattedAddress,
   useSupportedChains,
+  useConfig,
 } from '@haqq/shell-shared';
 import {
   Page,
@@ -35,7 +36,6 @@ import {
   SelectChainModal,
   LowBalanceAlert,
 } from '@haqq/shell-ui-kit';
-// import { environment } from '../environments/environment';
 
 function HeaderButtons({
   isMobileMenuOpen,
@@ -46,6 +46,7 @@ function HeaderButtons({
   onMobileMenuOpenChange: (isMobileMenuOpen: boolean) => void;
   isTestedge: boolean;
 }) {
+  const { commitSha } = useConfig();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const { disconnect, openSelectWallet, isNetworkSupported, selectNetwork } =
@@ -245,7 +246,7 @@ function HeaderButtons({
             <div className="absolute bottom-[8px] left-[20px]">
               <div className="text-[12px] leading-[16px] text-white/20">
                 <CommitSha
-                  // commitSha={environment.commitSha}
+                  commitSha={commitSha}
                   className="transition-colors duration-150 hover:text-white/80"
                 />
               </div>
@@ -258,6 +259,7 @@ function HeaderButtons({
 }
 
 export function AppWrapper({ children }: PropsWithChildren) {
+  const { commitSha } = useConfig();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isBlurred, setBlured] = useState(false);
   const isDesktop = useMediaQuery({
@@ -341,7 +343,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
         />
       }
       banner={isTestedge && <TestedgeBanner />}
-      footer={<Footer />}
+      footer={<Footer commitSha={commitSha} />}
     >
       {children}
 

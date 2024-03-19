@@ -3,10 +3,11 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import type { Metadata, Viewport } from 'next';
-import './global.css';
+import type { Config } from '@haqq/shell-shared';
 import { AppWrapper } from '../components/app-wrapper';
 import { Providers } from '../components/providers';
 import { clashDisplayFont, hkGuiseFont } from '../lib/fonts';
+import './global.css';
 
 export const metadata: Metadata = {
   title: {
@@ -24,6 +25,21 @@ export const viewport: Viewport = {
   width: 'device-width',
 };
 
+const shellConfig: Config = {
+  commitSha: process.env.NEXT_PUBLIC_COMMIT_SHA ?? 'dev',
+  faucetConfig: {
+    serviceEndpoint: process.env.FAUCET_SERVICE_ENDPOINT,
+    auth0Domain: process.env.FAUCET_AUTH0_DOMAIN,
+    auth0ClientId: process.env.FAUCET_AUTH0_CLIENT_ID,
+  },
+  reCaptchaConfig: {
+    siteKey: process.env.FAUCET_RECAPTCHA_SITE_KEY,
+  },
+  walletConnectConfig: {
+    projectId: process.env.WALLET_CONNECT_PROJECT_ID,
+  },
+};
+
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html
@@ -32,7 +48,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       className={clsx('ltr', clashDisplayFont.variable, hkGuiseFont.variable)}
     >
       <body>
-        <Providers>
+        <Providers config={shellConfig}>
           <AppWrapper>{children}</AppWrapper>
         </Providers>
 
