@@ -1,10 +1,12 @@
 'use client';
-
 import { useCallback, useMemo, useState } from 'react';
-import clsx from 'clsx';
 import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
-import { BlogArticle, Breadcrumb } from '@haqq/islamic-website-ui-kit';
+import {
+  BlogArticle,
+  Breadcrumb,
+  Container,
+} from '@haqq/islamic-website-ui-kit';
 import blogPlaceholderImage1 from '../../assets/images/blog-post-placeholder-1.png';
 import blogPlaceholderImage2 from '../../assets/images/blog-post-placeholder-2.png';
 import blogPlaceholderImage3 from '../../assets/images/blog-post-placeholder-3.png';
@@ -44,34 +46,33 @@ export function BlogPostPage({
   }, [post.date, post.image]);
 
   return (
-    <section>
-      <div
-        className={clsx(
-          'overflow-clip px-[16px] md:px-[48px] xl:px-[80px]',
-          'transform-gpu backdrop-blur',
-          'sticky top-[160px] z-40 min-[375px]:top-[134px] md:top-[112px] lg:top-[116px]',
-        )}
-      >
-        <Breadcrumb
-          title={post.title}
-          backTitle="Posts"
-          onBackClick={() => {
-            push('/blog');
-          }}
-        />
-      </div>
+    <section className="py-[32px] md:py-[60px] lg:py-[80px]">
+      <Container>
+        <div className="mb-[20px] md:mb-[24px] lg:mb-[32px]">
+          <Breadcrumb
+            title={post.title}
+            backTitle="Posts"
+            onBackClick={() => {
+              push('/blog');
+            }}
+          />
+        </div>
+      </Container>
+      <Container>
+        <div className="flex flex-col gap-[32px] md:gap-[60px] lg:gap-[80px]">
+          <BlogArticle
+            tags={post.tags}
+            publishDate={post.date}
+            content={post.content ?? ''}
+            title={post.title}
+            onLinkCopy={copyLink}
+            isLinkCopied={isLinkCopied}
+            image={postImage as StaticImageData | null}
+          />
 
-      <BlogArticle
-        tags={post.tags}
-        publishDate={post.date}
-        content={post.content ?? ''}
-        title={post.title}
-        onLinkCopy={copyLink}
-        isLinkCopied={isLinkCopied}
-        image={postImage as StaticImageData | null}
-      />
-
-      <RecentPostsBlock recentPosts={recentPosts} />
+          <RecentPostsBlock recentPosts={recentPosts} />
+        </div>
+      </Container>
     </section>
   );
 }
