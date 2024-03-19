@@ -36,6 +36,7 @@
     "@evmos/proto": "0.1.27",
     "@evmos/provider": "0.2.8",
     "@evmos/transactions": "0.2.13",
+    "@floating-ui/react": "0.26.9",
     "@headlessui/react": "1.7.18",
     "@hookform/resolvers": "3.3.4",
     "@mdx-js/loader": "3.0.1",
