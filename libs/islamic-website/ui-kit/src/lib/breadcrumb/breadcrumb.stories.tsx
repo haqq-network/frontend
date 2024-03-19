@@ -13,5 +13,6 @@ type Story = StoryObj<typeof BreadcrumbComponent>;
 export const Breadcrumb: Story = {
   args: {
     title: 'lorem ipsum dolor sit amet',
+    backTitle: 'Posts',
   },
 };

@@ -10,7 +10,7 @@ export function Breadcrumb({
   onBackClick: () => void;
 }) {
   return (
-    <div className="mx-auto flex max-w-[1280px] items-center gap-x-[6px] py-[10px] text-[12px] leading-[1.5em]">
+    <div className="flex items-center gap-x-[6px] py-[10px] text-[12px] leading-[1.5em]">
       <div className="cursor-pointer" onClick={onBackClick}>
         {backTitle}
       </div>
