@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Hex } from 'viem';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useAddress,
   useStakingValidatorInfoQuery,
@@ -28,7 +29,6 @@ import {
   useToast,
   useNetworkAwareAction,
   getFormattedAddress,
-  getChainParams,
   useBalanceAwareActions,
   useIndexerBalances,
 } from '@haqq/shell-shared';

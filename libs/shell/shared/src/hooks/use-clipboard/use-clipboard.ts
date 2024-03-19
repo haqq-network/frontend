@@ -1,3 +1,5 @@
+'use client';
+
 interface UseClipboardHook {
   copyText: (text: string) => Promise<void>;
 }

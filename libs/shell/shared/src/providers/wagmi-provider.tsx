@@ -1,10 +1,15 @@
+'use client';
 import { PropsWithChildren, useMemo, createContext, useContext } from 'react';
-import { haqqMainnet, haqqTestedge2, Chain } from '@wagmi/chains';
+import { haqqMainnet, haqqTestedge2, Chain as WagmiChain } from '@wagmi/chains';
 import { InjectedConnector } from '@wagmi/connectors/injected';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
 import { Connector, WagmiConfig, configureChains, createConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
+
+export type Chain = WagmiChain & {
+  unsupported?: boolean | undefined;
+};
 
 export const haqqLocalnet: Chain = {
   id: 121799,
@@ -24,6 +29,7 @@ export const haqqLocalnet: Chain = {
     },
   },
   testnet: true,
+  unsupported: false,
 };
 
 const SupportedChainsContext = createContext<Chain[]>([

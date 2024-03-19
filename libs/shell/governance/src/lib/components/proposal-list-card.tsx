@@ -1,7 +1,10 @@
 import { ReactElement, useMemo } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
 import { formatUnits } from 'viem/utils';
-import { GetGovernanceParamsResponse, TallyResults } from '@haqq/shell-shared';
+import {
+  GetGovernanceParamsResponse,
+  TallyResults,
+} from '@haqq/data-access-cosmos';
 import { ProposalCard } from '@haqq/shell-ui-kit';
 import { getProposalTypeText } from '../proposal-details-page';
 

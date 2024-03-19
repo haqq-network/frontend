@@ -1,3 +1,4 @@
+'use client';
 import toast, { Toaster as ReactHotToast, resolveValue } from 'react-hot-toast';
 
 export function Toaster() {

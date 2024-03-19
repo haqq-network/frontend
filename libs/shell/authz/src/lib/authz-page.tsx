@@ -11,10 +11,9 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { formatUnits, isAddress, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
+import { Grant, getChainParams } from '@haqq/data-access-cosmos';
 import {
-  Grant,
   ethToHaqq,
-  getChainParams,
   getFormattedAddress,
   haqqToEth,
   useAddress,

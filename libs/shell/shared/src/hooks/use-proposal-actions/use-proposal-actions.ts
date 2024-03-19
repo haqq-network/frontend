@@ -1,24 +1,16 @@
 import { useCallback } from 'react';
 import { createMsgDeposit, createMsgVote } from '@evmos/proto';
-import {
-  Sender,
-  createTxMsgVote,
-  createTxMsgDeposit,
-  signatureToWeb3Extension,
-  createTxRawEIP712,
-} from '@evmos/transactions';
-import type { MessageMsgDepositParams, TxGenerated } from '@evmos/transactions';
+import { createTxMsgVote, createTxMsgDeposit } from '@evmos/transactions';
+import type { MessageMsgDepositParams } from '@evmos/transactions';
 import { formatUnits } from 'viem';
-import { useNetwork, useWalletClient } from 'wagmi';
-import { getChainParams } from '../../chains/get-chain-params';
-import { mapToCosmosChain } from '../../chains/map-to-cosmos-chain';
-import {
-  BroadcastTxResponse,
-  useCosmosService,
-} from '../../providers/cosmos-provider';
+import { useNetwork } from 'wagmi';
+import { BroadcastTxResponse, getChainParams } from '@haqq/data-access-cosmos';
+import { mapToCosmosChain } from '@haqq/data-access-cosmos';
+import { EstimatedFeeResponse } from '@haqq/data-access-falconer';
+import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
+import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
-import { EstimatedFeeResponse } from '../../utils/get-estimated-fee';
 import { useAddress } from '../use-address/use-address';
 
 interface ProposalActionsHook {
@@ -44,46 +36,19 @@ interface ProposalActionsHook {
 }
 
 export function useProposalActions(): ProposalActionsHook {
-  const { data: walletClient } = useWalletClient();
   const {
     broadcastTransaction,
-    getPubkey,
     getTransactionStatus,
     getEstimatedFee,
     getFee,
     getSender,
   } = useCosmosService();
+  const { getPubkey, signTransaction } = useWallet();
   const chains = useSupportedChains();
   const { haqqAddress, ethAddress } = useAddress();
   const { chain = chains[0] } = useNetwork();
   const chainParams = getChainParams(chain.id);
   const haqqChain = mapToCosmosChain(chainParams);
-
-  const signTransaction = useCallback(
-    async (msg: TxGenerated, sender: Sender) => {
-      if (haqqChain && ethAddress && walletClient) {
-        const signature = await walletClient.request({
-          method: 'eth_signTypedData_v4',
-          params: [ethAddress as `0x${string}`, JSON.stringify(msg.eipToSign)],
-        });
-        const extension = signatureToWeb3Extension(
-          haqqChain,
-          sender,
-          signature,
-        );
-        const rawTx = createTxRawEIP712(
-          msg.legacyAmino.body,
-          msg.legacyAmino.authInfo,
-          extension,
-        );
-
-        return rawTx;
-      } else {
-        throw new Error('No haqqChain');
-      }
-    },
-    [ethAddress, haqqChain, walletClient],
-  );
 
   const handleVote = useCallback(
     async (

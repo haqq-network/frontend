@@ -1,9 +1,8 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNetwork } from 'wagmi';
+import { BroadcastTxResponse, getChainParams } from '@haqq/data-access-cosmos';
 import {
-  BroadcastTxResponse,
-  getChainParams,
   getFormattedAddress,
   useAddress,
   useLiquidVestingActions,

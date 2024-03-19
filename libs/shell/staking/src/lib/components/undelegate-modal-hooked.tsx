@@ -2,14 +2,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useNetwork } from 'wagmi';
+import { getChainParams } from '@haqq/data-access-cosmos';
+import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   useStakingActions,
   useToast,
   getFormattedAddress,
-  getChainParams,
   useSupportedChains,
   useThrottle,
-  EstimatedFeeResponse,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,

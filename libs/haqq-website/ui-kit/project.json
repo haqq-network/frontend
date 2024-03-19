@@ -13,7 +13,7 @@
         "tsConfig": "libs/haqq-website/ui-kit/tsconfig.lib.json",
         "project": "libs/haqq-website/ui-kit/package.json",
         "entryFile": "libs/haqq-website/ui-kit/src/index.ts",
-        "external": ["react/jsx-runtime"],
+        "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
         "compiler": "swc",
         "assets": [

@@ -6,11 +6,8 @@ import {
 } from '@evmos/provider';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { useNetwork } from 'wagmi';
-import {
-  StakingParams,
-  StakingPool,
-  useCosmosService,
-} from '../../providers/cosmos-provider';
+import { StakingParams, StakingPool } from '@haqq/data-access-cosmos';
+import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useStakingValidatorListQuery(
