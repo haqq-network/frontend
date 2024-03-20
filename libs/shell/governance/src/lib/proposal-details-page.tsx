@@ -936,7 +936,7 @@ export function VoteActions({
         console.error((error as Error).message);
       }
     },
-    [explorer.cosmos, proposalId, toast, vote],
+    [explorer.cosmos, getVoteEstimatedFee, proposalId, toast, vote],
   );
 
   const isVoteEnabled = useMemo(() => {

@@ -120,12 +120,12 @@ export function useSortedValidators(
       return sortedValidators;
     },
 
-    [totalStaked],
+    [getDelegationsInfo, getRewardsInfo, totalStaked],
   );
 
   return useMemo(() => {
     return sortValidators(validators, sortState);
-  }, [validators, sortState]);
+  }, [sortValidators, validators, sortState]);
 }
 
 export function useValidatorsSortState() {

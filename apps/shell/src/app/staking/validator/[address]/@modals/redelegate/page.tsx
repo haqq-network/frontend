@@ -8,7 +8,7 @@ import {
   useStakingDelegationQuery,
   useStakingValidatorListQuery,
 } from '@haqq/shell-shared';
-import { RedelegateModalHooked, secondsToDays } from '@haqq/shell-staking';
+import { RedelegateModalHooked } from '@haqq/shell-staking';
 
 export default function RedelegateModal() {
   const { haqqAddress } = useAddress();
