@@ -12,6 +12,7 @@ export function PHProvider({ children }: PropsWithChildren) {
     ) {
       return undefined;
     }
+
     const phInstance = posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
       api_host: '/api/ingest',
       ui_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
