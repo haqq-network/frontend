@@ -16,7 +16,7 @@ import {
 import clsx from 'clsx';
 import Markdown from 'marked-react';
 import Link from 'next/link';
-import { notFound, useParams, useRouter } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { useMediaQuery } from 'react-responsive';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useNetwork } from 'wagmi';
@@ -864,25 +864,14 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
   );
 }
 
-export function ProposalDetailsPage() {
-  const { id: proposalId } = useParams<{ id: string }>();
-  const router = useRouter();
-
-  if (!proposalId || !isNumber(proposalId)) {
-    notFound();
-  }
-
+export function ProposalDetailsPage({ proposalId }: { proposalId: string }) {
   return (
     <Fragment>
       <Container>
         <div className="py-[18px] sm:py-[26px] lg:py-[34px]">
-          <BackButton
-            onClick={() => {
-              router.push('/governance');
-            }}
-          >
-            Governance
-          </BackButton>
+          <Link href="/governance">
+            <BackButton>Governance</BackButton>
+          </Link>
         </div>
       </Container>
 
