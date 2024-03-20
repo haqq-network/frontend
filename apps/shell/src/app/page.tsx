@@ -11,18 +11,25 @@ export default async function IndexPage() {
   // FIXME: Think how to get chain id on server side
   const chainId = 11235;
   const { cosmosRestEndpoint } = getChainParams(chainId);
-  const { getProposals, getGovernanceParams } =
-    createCosmosService(cosmosRestEndpoint);
+  const {
+    getProposals,
+    getGovernanceParams,
+    getValidators,
+    getStakingPool,
+    getStakingParams,
+  } = createCosmosService(cosmosRestEndpoint);
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [chainId, 'chain-stats'],
     queryFn: getShellChainStatsData,
   });
+
   await queryClient.prefetchQuery({
     queryKey: [chainId, 'proposals'],
     queryFn: getProposals,
   });
+
   await queryClient.prefetchQuery({
     queryKey: [chainId, 'governance-params'],
     queryFn: async () => {
@@ -43,6 +50,23 @@ export default async function IndexPage() {
         voting_params,
         tally_params,
       };
+    },
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: [chainId, 'staking-pool'],
+    queryFn: getStakingPool,
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: [chainId, 'staking-params'],
+    queryFn: getStakingParams,
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: [chainId, 'validators'],
+    queryFn: async () => {
+      return await getValidators(1000);
     },
   });
 

@@ -673,10 +673,25 @@ function AuthzGrantsActions() {
                 'py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px] xl:py-[0px]',
               )}
             >
-              <GranteeCard
-                granteeAddresses={granteeAddresses}
-                isValid={isGranteeValid}
-              />
+              {!isGranteeValid ? (
+                <div className="flex w-full transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[36px] py-[32px]">
+                  <div>
+                    <Heading level={3} className="mb-[-2px]">
+                      Selected grantee
+                    </Heading>
+                  </div>
+
+                  <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
+                    <div className="flex flex-1 flex-col items-center justify-center gap-[12px]">
+                      <div className="font-guise text-[12px] leading-[22px] md:text-[14px] md:leading-[28px]">
+                        You should enter valid grantee wallet to see info
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <GranteeCard granteeAddresses={granteeAddresses} />
+              )}
             </div>
           </div>
         </div>
@@ -687,13 +702,11 @@ function AuthzGrantsActions() {
 
 function GranteeCard({
   granteeAddresses,
-  isValid,
 }: {
   granteeAddresses: {
     eth: string;
     haqq: string;
   };
-  isValid: boolean;
 }) {
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
@@ -779,94 +792,82 @@ function GranteeCard({
         </Heading>
       </div>
 
-      {!isValid ? (
-        <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
-          <div className="flex flex-1 flex-col items-center justify-center gap-[12px]">
-            <div className="font-guise text-[12px] leading-[22px] md:text-[14px] md:leading-[28px]">
-              You should enter valid grantee wallet to see info
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
-          <div>
-            <MyAccountAmountBlock
-              title="Address"
-              value={
-                <div className="space-gap-2 font-guise flex flex-col items-start">
-                  <div>
-                    <Tooltip
-                      text={
-                        isEthAddressCopy
-                          ? 'Copied!'
-                          : `Click to copy ${granteeAddresses.eth}`
-                      }
+      <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
+        <div>
+          <MyAccountAmountBlock
+            title="Address"
+            value={
+              <div className="space-gap-2 font-guise flex flex-col items-start">
+                <div>
+                  <Tooltip
+                    text={
+                      isEthAddressCopy
+                        ? 'Copied!'
+                        : `Click to copy ${granteeAddresses.eth}`
+                    }
+                  >
+                    <div
+                      className={clsx(
+                        'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
+                        'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                      )}
+                      onClick={handleEthAddressCopy}
                     >
-                      <div
-                        className={clsx(
-                          'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
-                          'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
-                        )}
-                        onClick={handleEthAddressCopy}
-                      >
-                        <div>{granteeAddresses.eth}</div>
-                        <CopyIcon className="mb-[-2px]" />
-                      </div>
-                    </Tooltip>
-                  </div>
-                  <div>
-                    <Tooltip
-                      text={
-                        isHaqqAddressCopy
-                          ? 'Copied!'
-                          : `Click to copy ${granteeAddresses.haqq}`
-                      }
-                    >
-                      <div
-                        className={clsx(
-                          'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
-                          'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
-                        )}
-                        onClick={handleHaqqAddressCopy}
-                      >
-                        <div>{granteeAddresses.haqq}</div>
-                        <CopyIcon className="mb-[-2px]" />
-                      </div>
-                    </Tooltip>
-                  </div>
+                      <div>{granteeAddresses.eth}</div>
+                      <CopyIcon className="mb-[-2px]" />
+                    </div>
+                  </Tooltip>
                 </div>
-              }
+                <div>
+                  <Tooltip
+                    text={
+                      isHaqqAddressCopy
+                        ? 'Copied!'
+                        : `Click to copy ${granteeAddresses.haqq}`
+                    }
+                  >
+                    <div
+                      className={clsx(
+                        'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
+                        'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                      )}
+                      onClick={handleHaqqAddressCopy}
+                    >
+                      <div>{granteeAddresses.haqq}</div>
+                      <CopyIcon className="mb-[-2px]" />
+                    </div>
+                  </Tooltip>
+                </div>
+              </div>
+            }
+          />
+        </div>
+
+        <div className="flex flex-row flex-wrap gap-[16px]">
+          <div className="flex-1">
+            <MyAccountAmountBlock
+              title="Staked"
+              value={`${formatNumber(
+                delegation,
+              )} ${symbol.toLocaleUpperCase()}`}
             />
           </div>
-
-          <div className="flex flex-row flex-wrap gap-[16px]">
-            <div className="flex-1">
-              <MyAccountAmountBlock
-                title="Staked"
-                value={`${formatNumber(
-                  delegation,
-                )} ${symbol.toLocaleUpperCase()}`}
-              />
-            </div>
-            <div className="flex-1">
-              <MyAccountAmountBlock
-                title="Rewards"
-                value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="flex-1">
-              <MyAccountAmountBlock
-                title="Unbonding"
-                value={`${formatNumber(
-                  unbounded,
-                )} ${symbol.toLocaleUpperCase()}`}
-              />
-            </div>
+          <div className="flex-1">
+            <MyAccountAmountBlock
+              title="Rewards"
+              value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
+            />
           </div>
         </div>
-      )}
+        <div>
+          <div className="flex-1">
+            <MyAccountAmountBlock
+              title="Unbonding"
+              value={`${formatNumber(unbounded)} ${symbol.toLocaleUpperCase()}`}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
