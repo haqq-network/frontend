@@ -20,10 +20,16 @@ export function AuthProvider({ children }: PropsWithChildren) {
     return {
       domain: faucetConfig.auth0Domain ?? '',
       clientId: faucetConfig.auth0ClientId ?? '',
-      redirectUri: window?.location.origin ?? '',
       useRefreshTokens: true,
     };
   }, [faucetConfig.auth0ClientId, faucetConfig.auth0Domain]);
 
-  return <Auth0Provider {...auth0ProviderProperties}>{children}</Auth0Provider>;
+  return (
+    <Auth0Provider
+      {...auth0ProviderProperties}
+      authorizationParams={{ redirect_uri: window?.location.origin ?? '' }}
+    >
+      {children}
+    </Auth0Provider>
+  );
 }
