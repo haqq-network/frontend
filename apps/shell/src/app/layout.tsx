@@ -3,8 +3,10 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import type { Metadata, Viewport } from 'next';
+import dynamic from 'next/dynamic';
 import type { Config } from '@haqq/shell-shared';
 import { AppWrapper } from '../components/app-wrapper';
+import { PHProvider } from '../components/posthog';
 import { Providers } from '../components/providers';
 import { clashDisplayFont, hkGuiseFont } from '../lib/fonts';
 import './global.css';
@@ -40,6 +42,16 @@ const shellConfig: Config = {
   },
 };
 
+const PostHogPageView = dynamic(
+  async () => {
+    const { PostHogPageView } = await import('../components/posthog-page-view');
+    return { default: PostHogPageView };
+  },
+  {
+    ssr: false,
+  },
+);
+
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html
@@ -47,18 +59,17 @@ export default function RootLayout({ children }: PropsWithChildren) {
       dir="ltr"
       className={clsx('ltr', clashDisplayFont.variable, hkGuiseFont.variable)}
     >
-      <body>
-        <Providers config={shellConfig}>
-          <AppWrapper>{children}</AppWrapper>
-        </Providers>
+      <PHProvider>
+        <body>
+          <PostHogPageView />
+          <Providers config={shellConfig}>
+            <AppWrapper>{children}</AppWrapper>
+          </Providers>
 
-        {process.env['VERCEL_ENV'] === 'production' && (
-          <>
-            <Analytics mode="auto" />
-            <SpeedInsights />
-          </>
-        )}
-      </body>
+          <Analytics mode="auto" />
+          <SpeedInsights />
+        </body>
+      </PHProvider>
     </html>
   );
 }
