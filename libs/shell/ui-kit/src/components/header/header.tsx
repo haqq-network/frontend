@@ -34,6 +34,10 @@ export function Header({
       return 'Airdrop';
     }
 
+    if (pathname.startsWith('/faucet')) {
+      return 'Faucet';
+    }
+
     return 'Shell';
   }, [pathname]);
 

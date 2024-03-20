@@ -33,7 +33,7 @@ interface ClaimInfo {
 }
 
 export function FaucetPage(): ReactElement {
-  const config = useConfig();
+  const { reCaptchaConfig, faucetConfig } = useConfig();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const { switchNetworkAsync } = useSwitchNetwork();
@@ -57,6 +57,7 @@ export function FaucetPage(): ReactElement {
   const isTestedge = useMemo(() => {
     return chain.id === haqqTestedge2.id;
   }, [chain.id]);
+  const { isHaqqWallet } = useWallet();
 
   if (!isTestedge) {
     notFound();
@@ -68,7 +69,7 @@ export function FaucetPage(): ReactElement {
       body: Record<string, unknown>,
       method: 'POST' | 'GET' = 'POST',
     ) => {
-      const requestUrl = new URL(path, config.faucetConfig.serviceEndpoint);
+      const requestUrl = new URL(path, faucetConfig.serviceEndpoint);
       const requestOptions = {
         method,
         headers: { 'Content-Type': 'application/json' },
@@ -77,7 +78,7 @@ export function FaucetPage(): ReactElement {
 
       return await fetch(requestUrl, requestOptions);
     },
-    [config.faucetConfig.serviceEndpoint],
+    [faucetConfig.serviceEndpoint],
   );
 
   const handleLogin = useCallback(async () => {
@@ -173,16 +174,18 @@ export function FaucetPage(): ReactElement {
   }, [claimInfo, isAuthenticated]);
 
   return (
-    <div>
-      <div className="py-[32px] lg:py-[68px]">
-        <Container>
-          <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-            Faucet
-          </div>
-        </Container>
-      </div>
+    <div className="flex flex-col gap-[32px] py-[32px] lg:gap-[68px] lg:py-[68px]">
+      {!isHaqqWallet && (
+        <div>
+          <Container>
+            <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+              Faucet
+            </div>
+          </Container>
+        </div>
+      )}
 
-      <div className="pb-[32px] lg:pb-[68px]">
+      <div>
         <Container>
           <div className="mx-auto max-w-lg">
             <div
@@ -321,7 +324,7 @@ export function FaucetPage(): ReactElement {
                         ) : (
                           <div className="flex flex-row items-center">
                             <Reaptcha
-                              sitekey={config.reCaptchaConfig.siteKey}
+                              sitekey={reCaptchaConfig.siteKey}
                               onVerify={handleRecapthcaVerify}
                               theme="dark"
                             />
