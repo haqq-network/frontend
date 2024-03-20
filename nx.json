@@ -1,8 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "dev"
-  },
   "packageManager": "yarn",
   "targetDefaults": {
     "build": {
@@ -99,5 +96,6 @@
       "!{projectRoot}/tsconfig.storybook.json"
     ]
   },
-  "cacheDirectory": "./.nx/cache"
+  "cacheDirectory": "./.nx/cache",
+  "defaultBase": "dev"
 }
