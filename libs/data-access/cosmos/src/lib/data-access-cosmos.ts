@@ -383,7 +383,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(postBody),
+      body: postBody,
     });
 
     if (!response.ok) {
@@ -413,7 +413,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(postBody),
+      body: postBody,
     });
 
     if (!response.ok) {
@@ -515,7 +515,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
 
   async function getTransactionStatus(
     transactionHash: string,
-    initialInterval = 3000,
+    initialInterval = 5000,
     maxAttempts = 5,
   ): Promise<TransactionStatusResponse | null> {
     let attempts = 0;
