@@ -18,106 +18,41 @@ import {
   DistributionRewardsResponse,
   BroadcastMode,
   TxToSend,
-  UndelegationResponse,
   GetUndelegationsResponse,
   generateEndpointProposalTally,
   TallyResponse,
   generateEndpointBalances,
   BalancesResponse,
+  AccountResponse,
+  ProposalsResponse,
+  GetValidatorsResponse,
 } from '@evmos/provider';
-import { Coin, Fee } from '@evmos/transactions';
-import axios from 'axios';
+import { Coin, Fee, Sender } from '@evmos/transactions';
 import { base64FromBytes } from 'cosmjs-types/helpers';
 import {
   EstimatedFeeResponse,
-  getEstimatedFee,
+  getEstimatedFee as getEstimatedFeeFromFalconer,
 } from '@haqq/data-access-falconer';
 import { DEFAULT_FEE } from './get-chain-params';
 import {
-  BaseAccount,
+  AuthzGranteeGrantsResponse,
+  AuthzGranterGrantsResponse,
+  AuthzGrantsResponse,
+  BroadcastTxResponse,
   ClawbackVestingAccount,
+  CosmosService,
+  GetAuthAccountsResponse,
+  GetBankSupplyResponse,
+  GetGovernanceParamsResponse,
+  GovParamsType,
   HaqqAccount,
-  TallyResults,
+  ProposalVoteResponse,
+  SimulateTxResponse,
+  StakingParams,
+  StakingPool,
+  TokenPairsResponse,
+  TransactionStatusResponse,
 } from '../types';
-
-export interface CosmosService {
-  getValidators: (limit?: number) => Promise<Validator[]>;
-  getRewardsInfo: (address: string) => Promise<DistributionRewardsResponse>;
-  getValidatorInfo: (address: string) => Promise<Validator | undefined>;
-  getStakingParams: () => Promise<StakingParams>;
-  getStakingPool: () => Promise<StakingPool>;
-  getDistributionPool: () => Promise<Coin[]>;
-  getAccountDelegations: (
-    haqqAddress: string,
-  ) => Promise<GetDelegationsResponse>;
-  getAccountInfo: (
-    haqqAddress: string,
-  ) => Promise<HaqqAccount | ClawbackVestingAccount>;
-  getAccountBaseInfo: (haqqAddress: string) => Promise<BaseAccount | undefined>;
-  getBankSupply: () => Promise<GetBankSupplyResponse>;
-  getAuthAccounts: () => Promise<GetAuthAccountsResponse>;
-  getProposals: () => Promise<Proposal[]>;
-  getProposalDetails: (id: string) => Promise<Proposal>;
-  getUndelegations: (haqqAddress: string) => Promise<UndelegationResponse[]>;
-  getGovernanceParams: (
-    type: GovParamsType,
-  ) => Promise<GetGovernanceParamsResponse>;
-  getPubkeyFromChain: (address: string) => Promise<string | undefined>;
-  simulateTransaction: (tx: TxToSend) => Promise<SimulateTxResponse>;
-  broadcastTransaction: (tx: TxToSend) => Promise<BroadcastTxResponse>;
-  getAuthzGrants: (
-    granter: string,
-    grantee: string,
-  ) => Promise<AuthzGrantsResponse>;
-  getAuthzGranterGrants: (
-    granter: string,
-  ) => Promise<AuthzGranterGrantsResponse>;
-  getAuthzGranteeGrants: (
-    grantee: string,
-  ) => Promise<AuthzGranterGrantsResponse>;
-  getProposalTally: (id: string) => Promise<TallyResults>;
-  getBankBalances: (address: string) => Promise<Array<Coin>>;
-  getTransactionStatus: (
-    transactionHash: string,
-    initialInterval?: number,
-    maxAttempts?: number,
-  ) => Promise<TransactionStatusResponse | null>;
-  getProposalVotes: (
-    proposalId: string,
-    voterAddress: string,
-  ) => Promise<string | null>;
-  // getVotes: (voterAddress: string) => Promise<unknown>;
-  getErc20TokenPairs: () => Promise<TokenPair[]>;
-  getSender: (
-    address: string,
-    pubkey: string,
-  ) => Promise<{
-    accountAddress: string;
-    sequence: number;
-    accountNumber: number;
-    pubkey: string;
-  }>;
-  getEstimatedFee: (
-    protoMsg: MessageGenerated | MessageGenerated[],
-    memo: string,
-    chainId: string,
-    fromAddress: string,
-    oubkey: string,
-  ) => Promise<EstimatedFeeResponse>;
-  getFee: (estimatedFee?: EstimatedFeeResponse) => Fee;
-}
-
-export type CosmosServiceContextProviderValue =
-  | {
-      isReady: false;
-      service: undefined;
-      error: string | undefined;
-    }
-  | {
-      isReady: true;
-      service: CosmosService;
-      error: string | undefined;
-    };
 
 export function generateEndpointValidatorInfo(address: string) {
   return `/cosmos/staking/v1beta1/validators/${address}`;
@@ -183,186 +118,15 @@ export function generateErc20TokenPairsEndpoint() {
   return '/evmos/erc20/v1/token_pairs';
 }
 
-export interface StakingParams {
-  bond_denom: string;
-  historical_entries: number;
-  max_entries: number;
-  max_validators: number;
-  unbonding_time: string;
-  min_commission_rate: string;
-}
-
-export interface StakingPool {
-  not_bonded_tokens: string;
-  bonded_tokens: string;
-}
-
-export interface Pagination {
-  next_key: string;
-  total: string;
-}
-
-export interface AccountInfo {
-  address: string;
-  pub_key?: {
-    '@type': string;
-    key: string;
-  };
-  account_number: string;
-  sequence: string;
-}
-
-export interface GetAuthAccountsResponse {
-  accounts: Array<{
-    base_account: {
-      address: string;
-      account_number: string;
-      sequence: string;
-      [key: string]: unknown;
-    };
-    code_hash: string;
-  }>;
-  pagination: Pagination;
-}
-
-export interface GetBankSupplyResponse {
-  supply: Coin[];
-  pagination: Pagination;
-}
-
-export interface SimulateTxResponse {
-  gas_info: {
-    gas_used: string;
-    gas_wanted: string;
-  };
-  result: {
-    data: string;
-    log: string;
-    events: {
-      type: string;
-      attributes: {
-        key: string;
-        value: string;
-        index: true;
-      }[];
-    }[];
-    msg_responses: {
-      type_url: string;
-      value: string;
-    }[];
-  };
-}
-
-export interface BroadcastTxResponse {
-  height: string;
-  txhash: string;
-  codespace: string;
-  code: number;
-  data: string;
-  raw_log: string;
-  info: string;
-  gas_wanted: string;
-  gas_used: string;
-  tx: {
-    type_url: string;
-    value: string;
-  };
-  timestamp: string;
-  events: {
-    type: string;
-    attributes: {
-      key: string;
-      value: string;
-      index: true;
-    }[];
-  }[];
-  logs: {
-    msg_index: number;
-    log: string;
-    events: {
-      type: string;
-      attributes: {
-        key: string;
-        value: string;
-      }[];
-    }[];
-  }[];
-}
-
-export interface GetGovernanceParamsResponse {
-  voting_params: {
-    voting_period: string;
-  };
-  deposit_params: {
-    min_deposit: Coin[];
-    max_deposit_period: string;
-  };
-  tally_params: {
-    quorum: string;
-    threshold: string;
-    veto_threshold: string;
-  };
-}
-
-export interface Grant {
-  granter: string;
-  grantee: string;
-  authorization: {
-    '@type': string;
-    msg: string;
-  };
-  expiration: string;
-}
-
-export interface AuthzGrantsResponse {
-  grants: Omit<Grant, 'granter' | 'grantee'>;
-  pagination: Pagination;
-}
-
-export interface AuthzGranterGrantsResponse {
-  grants: Array<Grant>;
-  pagination: Pagination;
-}
-
-export interface AuthzGranteeGrantsResponse {
-  grants: Array<Grant>;
-  pagination: Pagination;
-}
-
-export type GovParamsType = 'voting' | 'tallying' | 'deposit';
-
-type AccountInfoResponse<A = BaseAccount> = {
-  account: A;
-};
-
-export type TransactionStatusResponse = {
-  tx_response: BroadcastTxResponse;
-};
-
-export interface ProposalVoteResponse {
-  vote: {
-    proposal_id: string;
-    voter: string;
-    option: string;
-    options: [
-      {
-        option: string;
-        weight: string;
-      },
-    ];
-  };
-}
-
-export interface TokenPair {
-  erc20_address: string;
-  denom: string;
-}
-
-export interface TokenPairsResponse {
-  token_pairs: TokenPair[];
+export function generateEndpointProposal(id: number | string) {
+  return `/cosmos/gov/v1beta1/proposals/${id}`;
 }
 
 export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
+  if (!cosmosRestEndpoint || typeof cosmosRestEndpoint !== 'string') {
+    throw new Error('Invalid cosmosRestEndpoint');
+  }
+
   async function getValidators(limit = 1000) {
     const getValidatorsUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointGetValidators()}`,
@@ -370,61 +134,110 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
 
     getValidatorsUrl.searchParams.append('pagination.limit', limit.toString());
 
-    const response = await axios.get<{ validators: Validator[] }>(
-      getValidatorsUrl.toString(),
-    );
+    const response = await fetch(getValidatorsUrl);
 
-    return response.data.validators;
+    if (!response.ok) {
+      throw new Error('Failed to fetch validators');
+    }
+
+    const responseJson: GetValidatorsResponse = await response.json();
+
+    return responseJson.validators;
   }
 
   async function getValidatorInfo(address: string) {
-    const response = await axios.get<{ validator: Validator }>(
+    const getValidatorInfoUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointValidatorInfo(address)}`,
     );
 
-    return response.data.validator;
+    const response = await fetch(getValidatorInfoUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch validator info');
+    }
+    const responseJson: { validator: Validator } = await response.json();
+
+    return responseJson.validator;
   }
 
   async function getStakingParams() {
-    const response = await axios.get<{ params: StakingParams }>(
+    const getStakingParamsUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointStakingParams()}`,
     );
 
-    return response.data.params;
+    const response = await fetch(getStakingParamsUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch staking params');
+    }
+
+    const responseJson: { params: StakingParams } = await response.json();
+
+    return responseJson.params;
   }
 
   async function getStakingPool() {
-    const response = await axios.get<{ pool: StakingPool }>(
+    const getStakingPoolUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointStakingPool()}`,
     );
 
-    return response.data.pool;
+    const response = await fetch(getStakingPoolUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch staking pool');
+    }
+
+    const responseJson: { pool: StakingPool } = await response.json();
+
+    return responseJson.pool;
   }
 
   async function getRewardsInfo(haqqAddress: string) {
-    const response = await axios.get<DistributionRewardsResponse>(
-      `${cosmosRestEndpoint}${generateEndpointDistributionRewardsByAddress(
-        haqqAddress,
-      )}`,
+    const rewardsInfoUrl = new URL(
+      `${cosmosRestEndpoint}${generateEndpointDistributionRewardsByAddress(haqqAddress)}`,
     );
 
-    return response.data;
+    const response = await fetch(rewardsInfoUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch rewards info');
+    }
+
+    const responseJson: DistributionRewardsResponse = await response.json();
+
+    return responseJson;
   }
 
   async function getUndelegations(haqqAddress: string) {
-    const response = await axios.get<GetUndelegationsResponse>(
+    const undelegationsUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointGetUndelegations(haqqAddress)}`,
     );
 
-    return response.data.unbonding_responses;
+    const response = await fetch(undelegationsUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch undelegations');
+    }
+
+    const responseJson: GetUndelegationsResponse = await response.json();
+
+    return responseJson.unbonding_responses;
   }
 
   async function getAccountInfo(haqqAddress: string) {
-    const response = await axios.get<
-      AccountInfoResponse<HaqqAccount | ClawbackVestingAccount>
-    >(`${cosmosRestEndpoint}${generateEndpointAccount(haqqAddress)}`);
+    const accountInfoUrl = new URL(
+      `${cosmosRestEndpoint}${generateEndpointAccount(haqqAddress)}`,
+    );
 
-    return response.data.account;
+    const response = await fetch(accountInfoUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch account info');
+    }
+
+    const responseJson: AccountResponse = await response.json();
+
+    return responseJson.account as HaqqAccount | ClawbackVestingAccount;
   }
 
   async function getAccountBaseInfo(haqqAddress: string) {
@@ -436,11 +249,19 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   }
 
   async function getAccountDelegations(haqqAddress: string) {
-    const response = await axios.get<GetDelegationsResponse>(
+    const delegationsUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointGetDelegations(haqqAddress)}`,
     );
 
-    return response.data;
+    const response = await fetch(delegationsUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch account delegations');
+    }
+
+    const responseJson: GetDelegationsResponse = await response.json();
+
+    return responseJson;
   }
 
   async function getProposals() {
@@ -450,19 +271,29 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
 
     proposalsUrl.searchParams.append('pagination.reverse', 'true');
 
-    const response = await axios.get<{ proposals: Proposal[] }>(
-      proposalsUrl.toString(),
-    );
+    const response = await fetch(proposalsUrl);
 
-    return response.data.proposals;
+    if (!response.ok) {
+      throw new Error('Failed to fetch proposals');
+    }
+
+    const responseJson: ProposalsResponse = await response.json();
+
+    return responseJson.proposals;
   }
 
   async function getProposalDetails(id: string) {
-    const response = await axios.get<{ proposal: Proposal }>(
-      `${cosmosRestEndpoint}${generateEndpointProposals()}/${id}`,
-    );
+    const getProposalDetailsUrl = `${cosmosRestEndpoint}${generateEndpointProposal(id)}`;
 
-    return response.data.proposal;
+    const response = await fetch(getProposalDetailsUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch proposal details');
+    }
+
+    const responseJson: { proposal: Proposal } = await response.json();
+
+    return responseJson.proposal;
   }
 
   async function getAuthAccounts() {
@@ -472,36 +303,61 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
 
     authAccountsUrl.searchParams.append('pagination.limit', '0');
 
-    const response = await axios.get<GetAuthAccountsResponse>(
-      authAccountsUrl.toString(),
-    );
+    const response = await fetch(authAccountsUrl);
 
-    return response.data;
+    if (!response.ok) {
+      throw new Error('Failed to fetch auth accounts');
+    }
+
+    const responseJson: GetAuthAccountsResponse = await response.json();
+
+    return responseJson;
   }
 
   async function getDistributionPool() {
-    const response = await axios.get<{ pool: Coin[] }>(
-      `${cosmosRestEndpoint}${generateEndpointDistributionPool()}`,
-    );
+    const getDistributionPoolUrl = `${cosmosRestEndpoint}${generateEndpointDistributionPool()}`;
 
-    return response.data.pool;
+    const response = await fetch(getDistributionPoolUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch distribution pool');
+    }
+
+    const responseJson: { pool: Coin[] } = await response.json();
+
+    return responseJson.pool;
   }
 
   async function getBankSupply() {
-    const response = await axios.get<GetBankSupplyResponse>(
+    const getBankSupplyUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointBankSupply()}`,
     );
 
-    return response.data;
+    const response = await fetch(getBankSupplyUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bank supply');
+    }
+
+    const responseJson: GetBankSupplyResponse = await response.json();
+
+    return responseJson;
   }
 
   async function getGovernanceParams(type: GovParamsType) {
-    const governanceParamsResponse =
-      await axios.get<GetGovernanceParamsResponse>(
-        `${cosmosRestEndpoint}${generateEndpointGovParams(type)}`,
-      );
+    const getGovernanceParamsUrl = new URL(
+      `${cosmosRestEndpoint}${generateEndpointGovParams(type)}`,
+    );
 
-    return governanceParamsResponse.data;
+    const response = await fetch(getGovernanceParamsUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch governance params');
+    }
+
+    const responseJson: GetGovernanceParamsResponse = await response.json();
+
+    return responseJson;
   }
 
   async function getPubkeyFromChain(haqqAddress: string) {
@@ -516,37 +372,61 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   async function broadcastTransaction(
     txToBroadcast: TxToSend,
     mode: BroadcastMode = BroadcastMode.Sync,
-  ) {
-    try {
-      const broadcastResponse = await axios.post<{
-        tx_response: BroadcastTxResponse;
-      }>(
-        `${cosmosRestEndpoint}${generateEndpointBroadcast()}`,
-        generatePostBodyBroadcast(txToBroadcast, mode),
-      );
+  ): Promise<BroadcastTxResponse> {
+    const endpoint = new URL(
+      `${cosmosRestEndpoint}${generateEndpointBroadcast()}`,
+    );
+    const postBody = generatePostBodyBroadcast(txToBroadcast, mode);
 
-      return broadcastResponse.data.tx_response;
-    } catch (error) {
-      console.error((error as Error).message);
-      throw error;
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postBody),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        `HTTP error! status: ${response.status}, message: ${errorText}`,
+      );
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const responseJson = await response.json();
+
+    return responseJson.tx_response;
   }
 
   async function simulateTransaction(
     txToBroadcast: TxToSend,
     mode: BroadcastMode = BroadcastMode.Sync,
-  ) {
-    try {
-      const simulateUrl = `${cosmosRestEndpoint}${generateSimulateEndpoint()}`;
-      const simulateResponse = await axios.post<SimulateTxResponse>(
-        simulateUrl,
-        generatePostBodyBroadcast(txToBroadcast, mode),
+  ): Promise<SimulateTxResponse> {
+    const simulateUrl = new URL(
+      `${cosmosRestEndpoint}${generateSimulateEndpoint()}`,
+    );
+    const postBody = generatePostBodyBroadcast(txToBroadcast, mode);
+
+    const response = await fetch(simulateUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postBody),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        `HTTP error! status: ${response.status}, message: ${errorText}`,
       );
-      return simulateResponse.data;
-    } catch (error) {
-      console.error((error as Error).message);
-      throw error;
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const responseJson = await response.json();
+
+    return responseJson;
   }
 
   async function getAuthzGrants(granter: string, grantee: string) {
@@ -557,11 +437,15 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
     getAuthzGrantsUrl.searchParams.append('granter', granter);
     getAuthzGrantsUrl.searchParams.append('grantee', grantee);
 
-    const response = await axios.get<AuthzGrantsResponse>(
-      getAuthzGrantsUrl.toString(),
-    );
+    const response = await fetch(getAuthzGrantsUrl);
 
-    return response.data;
+    if (!response.ok) {
+      throw new Error('Failed to fetch Authz grants');
+    }
+
+    const responseJson: AuthzGrantsResponse = await response.json();
+
+    return responseJson;
   }
 
   async function getAuthzGranterGrants(granter: string) {
@@ -569,11 +453,15 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
       `${cosmosRestEndpoint}${generateEndpointAuthzGranterGrants(granter)}`,
     );
 
-    const response = await axios.get<AuthzGranterGrantsResponse>(
-      getAuthzGranterGrantsUrl.toString(),
-    );
+    const response = await fetch(getAuthzGranterGrantsUrl);
 
-    return response.data;
+    if (!response.ok) {
+      throw new Error('Failed to fetch Authz granter grants');
+    }
+
+    const responseJson: AuthzGranterGrantsResponse = await response.json();
+
+    return responseJson;
   }
 
   async function getAuthzGranteeGrants(grantee: string) {
@@ -581,87 +469,125 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
       `${cosmosRestEndpoint}${generateEndpointAuthzGranteeGrants(grantee)}`,
     );
 
-    const response = await axios.get<AuthzGranteeGrantsResponse>(
-      getAuthzGranteeGrantsUrl.toString(),
-    );
+    const response = await fetch(getAuthzGranteeGrantsUrl);
 
-    return response.data;
+    if (!response.ok) {
+      throw new Error('Failed to fetch Authz grantee grants');
+    }
+
+    const responseJson: AuthzGranteeGrantsResponse = await response.json();
+
+    return responseJson;
   }
 
   async function getProposalTally(id: string) {
-    const response = await axios.get<TallyResponse>(
+    const getProposalTallyUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointProposalTally(id)}`,
     );
 
-    return response.data.tally;
+    const response = await fetch(getProposalTallyUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch proposal tally');
+    }
+
+    const responseJson: TallyResponse = await response.json();
+
+    return responseJson.tally;
   }
 
   async function getBankBalances(address: string) {
-    const response = await axios.get<BalancesResponse>(
-      new URL(generateEndpointBalances(address), cosmosRestEndpoint).toString(),
+    const getBankBalancesUrl = new URL(
+      generateEndpointBalances(address),
+      cosmosRestEndpoint,
     );
 
-    return response.data.balances;
+    const response = await fetch(getBankBalancesUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bank balances');
+    }
+
+    const responseJson: BalancesResponse = await response.json();
+
+    return responseJson.balances;
   }
 
   async function getTransactionStatus(
     transactionHash: string,
-    initialInterval = 5000,
+    initialInterval = 3000,
     maxAttempts = 5,
-  ) {
+  ): Promise<TransactionStatusResponse | null> {
     let attempts = 0;
     let interval = initialInterval;
 
     const queryApi = async () => {
+      const endpoint = new URL(
+        `${cosmosRestEndpoint}${generateTxEndpoint(transactionHash)}`,
+      );
+
       try {
-        const response = await axios.get<TransactionStatusResponse | null>(
-          `${cosmosRestEndpoint}${generateTxEndpoint(transactionHash)}`,
-        );
-        return response.data; // Returns the response data
+        const response = await fetch(endpoint);
+
+        if (!response.ok) {
+          console.error(`HTTP error! status: ${response.status}`);
+          return null; // Return null if the response is not successful
+        }
+
+        const responseJson: TransactionStatusResponse = await response.json();
+
+        return responseJson;
       } catch (error) {
         console.error('Error during request:', error);
-        return null; // Returns null on error
+        return null; // Return null on network error or other request issues
       }
     };
 
     const retry = async () => {
       while (attempts < maxAttempts) {
-        const currentInterval = interval; // Preserve current interval in closure to solve eslint no-loop-func warning
         const result = await queryApi();
 
         if (result) {
-          return result; // Returns the result on successful request
+          return result; // Return the result on successful request
         }
 
         attempts++;
 
         await new Promise((resolve) => {
-          setTimeout(resolve, currentInterval);
+          return setTimeout(resolve, interval);
         });
 
-        interval += initialInterval;
+        interval += initialInterval; // Increase the interval for the next attempt
       }
 
-      return null; // Returns null if max attempts exceeded
+      return null; // Return null if max attempts are exceeded
     };
 
-    return await retry();
+    return retry();
   }
 
-  async function getProposalVotes(proposalId: string, voterAddress: string) {
+  async function getProposalVotes(
+    proposalId: string,
+    voterAddress: string,
+  ): Promise<string | null> {
     const votesRequestUrl = new URL(
       generateEndpointProposalVotes(proposalId, voterAddress),
       cosmosRestEndpoint,
     );
-    const response = await axios.get<ProposalVoteResponse>(
-      votesRequestUrl.toString(),
-    );
 
-    if (!response.data.vote?.options[0]) {
+    const response = await fetch(votesRequestUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bank balances');
+    }
+
+    const responseJson: ProposalVoteResponse = await response.json();
+
+    if (!responseJson.vote?.options[0]) {
       return null;
     }
 
-    return response.data.vote?.options[0].option;
+    return responseJson.vote?.options[0].option;
   }
 
   // async function getVotes(voterAddress: string) {
@@ -679,11 +605,20 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   // }
 
   async function getErc20TokenPairs() {
-    const response = await axios.get<TokenPairsResponse>(
-      new URL(generateErc20TokenPairsEndpoint(), cosmosRestEndpoint).toString(),
+    const getErc20TokenPairsUrl = new URL(
+      generateErc20TokenPairsEndpoint(),
+      cosmosRestEndpoint,
     );
 
-    return response.data.token_pairs;
+    const response = await fetch(getErc20TokenPairsUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch token pairs');
+    }
+
+    const responseJson: TokenPairsResponse = await response.json();
+
+    return responseJson.token_pairs;
   }
 
   async function getSender(address: string, pubkey: string) {
@@ -699,14 +634,14 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
         sequence: parseInt(accInfo.sequence, 10),
         accountNumber: parseInt(accInfo.account_number, 10),
         pubkey,
-      };
+      } as Sender;
     } catch (error) {
       console.error((error as Error).message);
       throw error;
     }
   }
 
-  async function handleGetEstimatedFee(
+  async function getEstimatedFee(
     protoMsg: MessageGenerated | MessageGenerated[],
     memo: string,
     chainId: string,
@@ -718,7 +653,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
         ? createBodyWithMultipleMessages(protoMsg, memo)
         : createBody(protoMsg, memo);
 
-      const feeEstimation = await getEstimatedFee({
+      const feeEstimation = await getEstimatedFeeFromFalconer({
         chainId,
         bodyBytes: base64FromBytes(body.serializeBinary()),
         fromAddress,
@@ -771,7 +706,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
     // getVotes,
     getErc20TokenPairs,
     getSender,
-    getEstimatedFee: handleGetEstimatedFee,
+    getEstimatedFee,
     getFee,
   };
 }

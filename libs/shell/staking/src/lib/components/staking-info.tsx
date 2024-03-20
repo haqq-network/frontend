@@ -55,7 +55,6 @@ function useStakingStats() {
   const [isRewardsPending, setRewardsPending] = useState(false);
   const { executeIfNetworkSupported } = useNetworkAwareAction();
   const { explorer } = getChainParams(chain.id);
-
   const { getBalances } = useIndexerBalances();
   const [balance, setBalance] = useState(0);
 

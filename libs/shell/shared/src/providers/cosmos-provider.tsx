@@ -2,11 +2,23 @@
 import { PropsWithChildren, useContext, useMemo, createContext } from 'react';
 import { useNetwork } from 'wagmi';
 import {
-  CosmosServiceContextProviderValue,
+  CosmosService,
   createCosmosService,
   getChainParams,
 } from '@haqq/data-access-cosmos';
 import { useSupportedChains } from './wagmi-provider';
+
+export type CosmosServiceContextProviderValue =
+  | {
+      isReady: false;
+      service: undefined;
+      error: string | undefined;
+    }
+  | {
+      isReady: true;
+      service: CosmosService;
+      error: string | undefined;
+    };
 
 export const CosmosServiceContext =
   createContext<CosmosServiceContextProviderValue>({
