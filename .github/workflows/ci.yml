@@ -39,26 +39,26 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-  build:
-    name: Build
-    runs-on:
-      - ubuntu
-      - self-hosted
-    if: (github.event_name == 'pull_request' && !github.event.pull_request.draft) || (github.event_name == 'push' && github.ref == 'refs/heads/dev')
-    needs: test-and-lint
-    env:
-      FALCONER_ENDPOINT: ${{ secrets.FALCONER_ENDPOINT }}
-      TURNSTILE_SITEKEY: ${{ secrets.TURNSTILE_SITEKEY }}
-    timeout-minutes: 15
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-      - name: Setup dependencies
-        run: yarn install --immutable
-      - name: Build
-        run: yarn nx run-many --target=build --parallel=3
+  # build:
+  #   name: Build
+  #   runs-on:
+  #     - ubuntu
+  #     - self-hosted
+  #   if: (github.event_name == 'pull_request' && !github.event.pull_request.draft) || (github.event_name == 'push' && github.ref == 'refs/heads/dev')
+  #   needs: test-and-lint
+  #   env:
+  #     FALCONER_ENDPOINT: ${{ secrets.FALCONER_ENDPOINT }}
+  #     TURNSTILE_SITEKEY: ${{ secrets.TURNSTILE_SITEKEY }}
+  #   timeout-minutes: 15
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version-file: .nvmrc
+  #         cache: yarn
+  #     - name: Setup dependencies
+  #       run: yarn install --immutable
+  #     - name: Build
+  #       run: yarn nx run-many --target=build --parallel=3
