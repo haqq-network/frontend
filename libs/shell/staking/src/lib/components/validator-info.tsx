@@ -15,7 +15,6 @@ import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useAddress,
   useStakingValidatorInfoQuery,
-  useStakingParamsQuery,
   useStakingRewardsQuery,
   useStakingDelegationQuery,
   useQueryInvalidate,
@@ -60,13 +59,9 @@ import {
 } from '@haqq/shell-ui-kit';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { DelegateModalHooked } from './delegate-modal-hooked';
-import { RedelegateModalHooked } from './redelegate-modal-hooked';
-import { UndelegateModalHooked } from './undelegate-modal-hooked';
 import { ValidatorAvatar } from './validator-avatar';
 import styles from './validator-info.module.css';
 import { useValidatorsShares } from '../hooks/use-validator-shares';
-import { secondsToDays } from '../utils/seconds-to-days';
 
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
@@ -443,7 +438,6 @@ export function ValidatorInfo({
   const invalidateQueries = useQueryInvalidate();
   const { data: validatorInfo } =
     useStakingValidatorInfoQuery(validatorAddress);
-  const { data: stakingParams } = useStakingParamsQuery();
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const {
@@ -460,7 +454,6 @@ export function ValidatorInfo({
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
-  const router = useRouter();
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
   const symbol = 'ISLM';
   const toast = useToast();
@@ -468,13 +461,6 @@ export function ValidatorInfo({
   const { explorer } = getChainParams(chain.id);
   const { getBalances } = useIndexerBalances();
   const [balance, setBalance] = useState(0);
-  const [hash, setHash] = useState('');
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setHash(window.location.hash);
-    }
-  }, []);
 
   useEffect(() => {
     if (haqqAddress) {
@@ -488,32 +474,6 @@ export function ValidatorInfo({
   }, [balanceData, getBalances, haqqAddress]);
 
   const { executeIfCanPayFee } = useBalanceAwareActions(balance);
-
-  const { isDelegateModalOpen, isUndelegateModalOpen, isRedelegateModalOpen } =
-    useMemo(() => {
-      return {
-        isDelegateModalOpen: hash === '#delegate',
-        isUndelegateModalOpen: hash === '#undelegate',
-        isRedelegateModalOpen: hash === '#redelegate',
-      };
-    }, [hash]);
-
-  const handleModalClose = useCallback(() => {
-    router.replace('');
-    invalidateQueries([
-      [chain.id, 'rewards'],
-      [chain.id, 'delegation'],
-      [chain.id, 'unboundings'],
-    ]);
-  }, [chain.id, invalidateQueries, router]);
-
-  const unboundingTime = useMemo(() => {
-    if (stakingParams?.unbonding_time) {
-      return secondsToDays(stakingParams.unbonding_time);
-    }
-
-    return 0;
-  }, [stakingParams]);
 
   const myDelegation = useMemo(() => {
     const delegation = delegationInfo?.delegation_responses?.find(
@@ -706,14 +666,6 @@ export function ValidatorInfo({
     toast,
   ]);
 
-  const validatorCommission = useMemo(() => {
-    return (
-      Number.parseFloat(
-        validatorInfo?.commission.commission_rates.rate ?? '0',
-      ) * 100
-    );
-  }, [validatorInfo?.commission.commission_rates.rate]);
-
   if (!validatorInfo || !validatorsList) {
     return (
       <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
@@ -726,60 +678,27 @@ export function ValidatorInfo({
   }
 
   return (
-    <Fragment>
-      <ValidatorInfoComponent
-        balance={balance}
-        delegation={myDelegation}
-        rewards={myRewards}
-        validatorInfo={validatorInfo}
-        symbol={symbol}
-        onGetRewardsClick={() => {
-          executeIfCanPayFee(handleGetRewardsClick);
-        }}
-        unbounded={unbounded}
-        stakingPool={totalStaked}
-        totalRewards={myTotalRewards}
-        delegated={staked}
-        onRewardsClaim={() => {
-          executeIfNetworkSupported(() => {
-            executeIfCanPayFee(handleRewardsClaim);
-          });
-        }}
-        isRewardPending={isRewardPending}
-        isRewardsPending={isRewardsPending}
-      />
-
-      <DelegateModalHooked
-        validatorAddress={validatorAddress}
-        isOpen={isDelegateModalOpen}
-        onClose={handleModalClose}
-        delegation={myDelegation}
-        balance={balance}
-        symbol={symbol}
-        unboundingTime={unboundingTime}
-        validatorCommission={validatorCommission}
-      />
-
-      <UndelegateModalHooked
-        validatorAddress={validatorAddress}
-        isOpen={isUndelegateModalOpen}
-        onClose={handleModalClose}
-        delegation={myDelegation}
-        balance={balance}
-        unboundingTime={unboundingTime}
-        symbol={symbol}
-      />
-
-      <RedelegateModalHooked
-        validatorAddress={validatorAddress}
-        isOpen={isRedelegateModalOpen}
-        onClose={handleModalClose}
-        delegation={myDelegation}
-        symbol={symbol}
-        validatorsList={validatorsList}
-        balance={balance}
-      />
-    </Fragment>
+    <ValidatorInfoComponent
+      balance={balance}
+      delegation={myDelegation}
+      rewards={myRewards}
+      validatorInfo={validatorInfo}
+      symbol={symbol}
+      onGetRewardsClick={() => {
+        executeIfCanPayFee(handleGetRewardsClick);
+      }}
+      unbounded={unbounded}
+      stakingPool={totalStaked}
+      totalRewards={myTotalRewards}
+      delegated={staked}
+      onRewardsClaim={() => {
+        executeIfNetworkSupported(() => {
+          executeIfCanPayFee(handleRewardsClaim);
+        });
+      }}
+      isRewardPending={isRewardPending}
+      isRewardsPending={isRewardsPending}
+    />
   );
 }
 
@@ -813,9 +732,12 @@ export function ValidatorBlockDesktop({
 
   const handleDelegateContinue = useCallback(() => {
     executeIfNetworkSupported(() => {
-      router.replace('#delegate');
+      router.push(
+        `/staking/validator/${validatorInfo.operator_address}/delegate`,
+        { scroll: false },
+      );
     });
-  }, [executeIfNetworkSupported, router]);
+  }, [executeIfNetworkSupported, router, validatorInfo.operator_address]);
 
   return (
     <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[28px] py-[32px]">
@@ -868,7 +790,10 @@ export function ValidatorBlockDesktop({
               disabled={delegation < MIN_DELEGATION}
               onClick={() => {
                 executeIfNetworkSupported(() => {
-                  router.replace('#undelegate');
+                  router.push(
+                    `/staking/validator/${validatorInfo.operator_address}/undelegate`,
+                    { scroll: false },
+                  );
                 });
               }}
             >
@@ -883,7 +808,10 @@ export function ValidatorBlockDesktop({
             disabled={delegation < MIN_DELEGATION}
             onClick={() => {
               executeIfNetworkSupported(() => {
-                router.replace('#redelegate');
+                router.push(
+                  `/staking/validator/${validatorInfo.operator_address}/redelegate`,
+                  { scroll: false },
+                );
               });
             }}
           >
@@ -965,17 +893,26 @@ function ValidatorBlockMobile({
       }}
       onDelegateClick={() => {
         executeIfNetworkSupported(() => {
-          router.replace('#delegate');
+          router.push(
+            `/staking/validator/${validatorInfo.operator_address}/delegate`,
+            { scroll: false },
+          );
         });
       }}
       onUndelegateClick={() => {
         executeIfNetworkSupported(() => {
-          router.replace('#undelegate');
+          router.push(
+            `/staking/validator/${validatorInfo.operator_address}/undelegate`,
+            { scroll: false },
+          );
         });
       }}
       onRedelegateClick={() => {
         executeIfNetworkSupported(() => {
-          router.replace('#redelegate');
+          router.push(
+            `/staking/validator/${validatorInfo.operator_address}/redelegate`,
+            { scroll: false },
+          );
         });
       }}
       isDelegateDisabled={balance < MIN_BALANCE}
