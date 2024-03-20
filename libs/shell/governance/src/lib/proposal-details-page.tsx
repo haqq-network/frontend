@@ -16,7 +16,7 @@ import {
 import clsx from 'clsx';
 import Markdown from 'marked-react';
 import Link from 'next/link';
-import { notFound, useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { useMediaQuery } from 'react-responsive';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useNetwork } from 'wagmi';
@@ -62,7 +62,6 @@ import {
   VoteOption,
   voteOptionFromJSON,
   formatDate,
-  isNumber,
 } from '@haqq/shell-ui-kit';
 import { ParameterChangeProposalDetails } from './components/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from './components/software-upgrade-proposal';
