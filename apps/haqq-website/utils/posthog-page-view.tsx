@@ -17,6 +17,9 @@ export function PostHogPageView() {
         }
         posthog.capture('$pageview', {
           $current_url: url,
+          $set: {
+            $browser_language: window.navigator.language,
+          },
         });
       }
     };
