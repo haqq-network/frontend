@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { TopValidatorsWarningModal as TopValidatorsWarningModalComponent } from './top-validators-warning-modal';
 
 const meta: Meta<typeof TopValidatorsWarningModalComponent> = {
@@ -14,6 +15,8 @@ type Story = StoryObj<typeof TopValidatorsWarningModalComponent>;
 
 export const TopValidatorsWarningModal: Story = {
   args: {
-    isOpen: true,
+    isOpen: false,
+    onClose: fn(),
+    onContinue: fn(),
   },
 };

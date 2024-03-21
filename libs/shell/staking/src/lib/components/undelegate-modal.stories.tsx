@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { UndelegateModal as UndelegateModalComponent } from './undelegate-modal';
 
 const meta: Meta<typeof UndelegateModalComponent> = {
@@ -14,11 +15,14 @@ type Story = StoryObj<typeof UndelegateModalComponent>;
 
 export const UndelegateModal: Story = {
   args: {
-    isOpen: true,
+    isOpen: false,
     symbol: 'islm',
     delegation: 1000,
     balance: 100,
     unboundingTime: 10,
     undelegateAmount: 100,
+    onChange: fn(),
+    onClose: fn(),
+    onSubmit: fn(),
   },
 };

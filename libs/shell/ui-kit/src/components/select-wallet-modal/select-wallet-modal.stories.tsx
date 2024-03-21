@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { SelectWalletModal as SelectWalletModalComponent } from './select-wallet-modal';
 
 const meta: Meta<typeof SelectWalletModalComponent> = {
@@ -27,15 +28,19 @@ const connectors = [
 
 export const Default: Story = {
   args: {
-    isOpen: true,
+    isOpen: false,
     connectors,
+    onClose: fn(),
+    onConnectClick: fn(),
   },
 };
 
 export const WithError: Story = {
   args: {
-    isOpen: true,
+    isOpen: false,
     connectors,
     error: 'Something went wrong',
+    onClose: fn(),
+    onConnectClick: fn(),
   },
 };
