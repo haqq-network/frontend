@@ -17,7 +17,7 @@ jobs:
     if: (github.event_name == 'pull_request' && !github.event.pull_request.draft) || (github.event_name == 'push' && github.ref == 'refs/heads/dev')
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_SHELL_PROJECT_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_SHELL_PROJECT_ID_NEXT }}
       NX_SKIP_NX_CACHE: true
       GIT_COMMIT_SHA: ${{ github.sha }}
     timeout-minutes: 15
