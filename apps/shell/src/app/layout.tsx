@@ -38,7 +38,7 @@ const shellConfig: Config = {
     siteKey: process.env.FAUCET_RECAPTCHA_SITE_KEY,
   },
   walletConnectConfig: {
-    projectId: process.env.WALLET_CONNECT_PROJECT_ID,
+    projectId: process.env.WALLETCONNECT_PROJECT_ID,
   },
 };
 
