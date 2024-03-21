@@ -23,18 +23,17 @@ export function NewsBlock({ news }: NewsBlockProps) {
       <Container>
         <div className="mt-[110px] flex flex-col items-start md:mt-[160px] lg:mt-[140px] xl:mt-[220px]">
           <Heading className="text-white">{t('title')}</Heading>
-          <div className="mt-[32px] flex w-full gap-x-[32px] overflow-x-auto md:mt-[52px] md:gap-x-[48px] lg:mt-[72px]">
+          <div className="mt-[32px] grid grid-cols-1 gap-[32px] md:mt-[52px] md:grid-cols-2 md:gap-[48px] lg:mt-[72px] lg:grid-cols-3">
             {news &&
-              news.map((el, idx) => {
+              news.map((newsItem, idx) => {
                 return (
                   <Link
-                    href={el.url}
-                    key={`${el.title}-${idx}`}
+                    href={newsItem.url}
+                    key={`${newsItem.title}-${idx}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-fit"
                   >
-                    <NewsCard post={el} className="lg:max-w-1/3" />
+                    <NewsCard post={newsItem} />
                   </Link>
                 );
               })}
