@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { ProposalDepositModal as ProposalDepositModalComponent } from './proposal-deposit-modal';
 
 const meta: Meta<typeof ProposalDepositModalComponent> = {
@@ -14,7 +15,9 @@ type Story = StoryObj<typeof ProposalDepositModalComponent>;
 
 export const ProposalDepositModal: Story = {
   args: {
+    isOpen: false,
     balance: 250.48819,
-    isOpen: true,
+    onClose: fn(),
+    onSubmit: fn(),
   },
 };

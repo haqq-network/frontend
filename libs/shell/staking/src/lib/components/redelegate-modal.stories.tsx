@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { RedelegateModal as RedelegateModalComponent } from './redelegate-modal';
 
 const meta: Meta<typeof RedelegateModalComponent> = {
@@ -14,7 +15,7 @@ type Story = StoryObj<typeof RedelegateModalComponent>;
 
 export const RedelegateModal: Story = {
   args: {
-    isOpen: true,
+    isOpen: false,
     symbol: 'islm',
     delegation: 1000,
     validatorsOptions: [
@@ -39,5 +40,9 @@ export const RedelegateModal: Story = {
         value: 'haqqvaloper12g3c7a2z9jfwrpyd9vxxt53vup6pfgk5hzl48r',
       },
     ],
+    onChange: fn(),
+    onClose: fn(),
+    onSubmit: fn(),
+    onValidatorChange: fn(),
   },
 };

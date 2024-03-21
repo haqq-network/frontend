@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { UnsupportedBrowserModal as UnsupportedBrowserModalComponent } from './unsupported-browser-modal';
 
 const meta: Meta<typeof UnsupportedBrowserModalComponent> = {
@@ -15,5 +16,6 @@ type Story = StoryObj<typeof UnsupportedBrowserModalComponent>;
 export const UnsupportedBrowserModal: Story = {
   args: {
     isOpen: true,
+    onClose: fn(),
   },
 };
