@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { usePostHog } from 'posthog-js/react';
 import { useForm } from 'react-hook-form';
 import Turnstile from 'react-turnstile';
 import * as yup from 'yup';
@@ -57,6 +58,7 @@ export function SubscribeForm({
     resolver: yupResolver(schema),
   });
   const [token, setToken] = useState<string | undefined>(undefined);
+  const posthog = usePostHog();
 
   const handleFormSubmit = useCallback((data: SubscribeFormFields) => {
     setSubscribeFormState(FormState.pending);
@@ -67,6 +69,8 @@ export function SubscribeForm({
   const handleSubmitContinue = useCallback(
     async (token: string) => {
       if (formData) {
+        posthog.setPersonProperties({ email: formData.email });
+
         try {
           const response = await submitForm({ ...formData, token: token });
 
@@ -89,7 +93,7 @@ export function SubscribeForm({
         console.error('no form data');
       }
     },
-    [formData],
+    [formData, posthog],
   );
 
   useEffect(() => {
