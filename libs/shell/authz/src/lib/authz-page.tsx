@@ -114,7 +114,11 @@ function GranterGrantsTable() {
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(chain.id);
+  const { explorer } = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
 
   const granterGrantsToRender = useMemo(() => {
     if (!granterGrants || granterGrants?.grants.length === 0) {
@@ -408,7 +412,11 @@ function AuthzGrantsActions() {
     GRANT_PERIOD_DEFAULT_OPTION.value,
   );
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(chain.id);
+  const { explorer } = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
   const { isHaqqWallet } = useWallet();
 
   const getGrantExpire = useCallback((period: string) => {

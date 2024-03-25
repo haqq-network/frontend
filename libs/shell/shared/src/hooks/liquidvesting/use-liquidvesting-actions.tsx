@@ -22,7 +22,11 @@ export function useLiquidVestingActions() {
   const { haqqAddress, ethAddress } = useAddress();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
-  const chainParams = getChainParams(chain.id);
+  const chainParams = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
   const haqqChain = mapToCosmosChain(chainParams);
 
   const getLiquidateParams = useCallback(

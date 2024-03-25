@@ -54,7 +54,11 @@ function useStakingStats() {
   const symbol = 'ISLM';
   const [isRewardsPending, setRewardsPending] = useState(false);
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(chain.id);
+  const { explorer } = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
   const { getBalances } = useIndexerBalances();
   const [balance, setBalance] = useState(0);
 
