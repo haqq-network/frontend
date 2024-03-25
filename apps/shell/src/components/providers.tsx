@@ -16,18 +16,18 @@ export function Providers({
 }: PropsWithChildren<{ config: Config }>) {
   return (
     <ConfigProvider config={config}>
-      <WagmiProvider
-        walletConnectProjectId={config.walletConnectConfig.projectId}
-      >
-        <ReactQueryProvider withDevtools={true}>
+      <ReactQueryProvider withDevtools={true}>
+        <WagmiProvider
+          walletConnectProjectId={config.walletConnectConfig.projectId}
+        >
           <CosmosProvider>
             <WalletProvider>
               {children}
               <Toaster />
             </WalletProvider>
           </CosmosProvider>
-        </ReactQueryProvider>
-      </WagmiProvider>
+        </WagmiProvider>
+      </ReactQueryProvider>
     </ConfigProvider>
   );
 }

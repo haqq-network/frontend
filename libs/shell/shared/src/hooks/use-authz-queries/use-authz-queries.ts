@@ -10,6 +10,7 @@ export function useAuthzGrantsQuery(granter: string, grantee: string) {
 
   return useQuery({
     queryKey: [chain.id, 'grants', granter, grantee],
+    enabled: !!granter && !!grantee,
     queryFn: async () => {
       return await getAuthzGrants(granter, grantee);
     },
@@ -23,6 +24,7 @@ export function useAuthzGranterGrants(granter: string) {
 
   return useQuery({
     queryKey: [chain.id, 'grants-granter', granter],
+    enabled: !!granter,
     queryFn: async () => {
       return await getAuthzGranterGrants(granter);
     },
@@ -36,6 +38,7 @@ export function useAuthzGranteeGrants(grantee: string) {
 
   return useQuery({
     queryKey: [chain.id, 'grants-grantee', grantee],
+    enabled: !!grantee,
     queryFn: async () => {
       return await getAuthzGranteeGrants(grantee);
     },

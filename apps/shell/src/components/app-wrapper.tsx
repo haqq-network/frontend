@@ -37,6 +37,7 @@ import {
   SelectChainModal,
   LowBalanceAlert,
 } from '@haqq/shell-ui-kit';
+import { useHaqqWalletAutoConnect } from '../hooks/use-autoconnect';
 
 declare const window: Window &
   typeof globalThis & {
@@ -288,6 +289,8 @@ export function AppWrapper({ children }: PropsWithChildren) {
   } = useWallet();
   const posthog = usePostHog();
 
+  useHaqqWalletAutoConnect();
+
   const handleWalletConnect = useCallback(
     async (connectorIdx: number) => {
       await connectAsync({ connector: connectors[connectorIdx] });
@@ -339,9 +342,8 @@ export function AppWrapper({ children }: PropsWithChildren) {
     if (isHaqqWallet) {
       const distinctId = posthog.get_distinct_id();
       const walletDistinctId = window.__HAQQWALLET__?.POSTHOG_DISTINCT_ID;
-      console.log({ distinctId, walletDistinctId });
 
-      posthog.identify(walletDistinctId);
+      posthog.identify(walletDistinctId ?? distinctId);
     }
   }, [posthog, isHaqqWallet]);
 

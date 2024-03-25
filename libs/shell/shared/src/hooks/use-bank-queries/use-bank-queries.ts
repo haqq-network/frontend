@@ -21,6 +21,7 @@ export function useBankBalance(address: string | undefined) {
 
   return useQuery({
     queryKey: [chain.id, 'bank-balance', address],
+    enabled: !!address,
     queryFn: async () => {
       if (!address) {
         return null;
