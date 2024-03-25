@@ -52,3 +52,4 @@ export * from './utils/format-percent';
 export * from './utils/to-fixed-amount';
 export * from './utils/is-number';
 export * from './components/low-balance-alert/low-balance-alert';
+export * from './components/staked-vested-balance/staked-vested-balance';
