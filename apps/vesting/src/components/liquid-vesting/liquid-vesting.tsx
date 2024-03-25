@@ -82,7 +82,11 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
   const toast = useToast();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(chain.id);
+  const { explorer } = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
   const [addedTokens, setAddedTokens] = useState<LiquidToken[]>([]);
   const invalidateQueries = useQueryInvalidate();
 

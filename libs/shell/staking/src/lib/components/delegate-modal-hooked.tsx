@@ -52,7 +52,11 @@ export function DelegateModalHooked({
   );
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(chain.id);
+  const { explorer } = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
   const toast = useToast();
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledDelegateAmount = useThrottle(delegateAmount, 300);
