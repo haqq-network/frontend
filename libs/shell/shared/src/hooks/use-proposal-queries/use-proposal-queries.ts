@@ -21,6 +21,7 @@ export function useProposalDetailsQuery(proposalId: string | undefined) {
 
   return useQuery({
     queryKey: [chain.id, 'proposal', proposalId],
+    enabled: !!proposalId,
     queryFn: async () => {
       if (!proposalId) {
         return null;
@@ -35,6 +36,7 @@ export function useGovernanceParamsQuery() {
   const { getGovernanceParams } = useCosmosService();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
+
   return useQuery({
     queryKey: [chain.id, 'governance-params'],
     queryFn: async () => {
@@ -66,6 +68,7 @@ export function useProposalTallyQuery(proposalId: string | undefined) {
 
   return useQuery({
     queryKey: [chain.id, 'proposal-tally', proposalId],
+    enabled: !!proposalId,
     queryFn: async () => {
       if (!proposalId) {
         return null;
@@ -85,6 +88,7 @@ export function useProposalTallysQuery(proposalIds: string[] = []) {
     queries: proposalIds.map((proposalId) => {
       return {
         queryKey: [chain.id, 'proposal-tally', proposalId],
+        enabled: !!proposalId,
         queryFn: async () => {
           return await getProposalTally(proposalId);
         },
@@ -103,6 +107,7 @@ export function useProposalVoteQuery(
 
   return useQuery({
     queryKey: [chain.id, 'proposal-votes', proposalId, voterAddress],
+    enabled: !!proposalId && !!voterAddress,
     queryFn: async () => {
       if (!voterAddress) {
         return null;
@@ -130,6 +135,7 @@ export function useProposalVotesQuery(
     queries: proposalIds.map((proposalId) => {
       return {
         queryKey: [chain.id, 'proposal-votes', proposalId, voterAddress],
+        enabled: !!proposalId && !!voterAddress,
         queryFn: async () => {
           if (!voterAddress) {
             return null;

@@ -34,6 +34,7 @@ export function useStakingRewardsQuery(
 
   return useQuery({
     queryKey: [chain.id, 'rewards', address],
+    enabled: !!address,
     queryFn: async () => {
       if (!address) {
         return null;
@@ -53,6 +54,7 @@ export function useStakingDelegationQuery(
 
   return useQuery({
     queryKey: [chain.id, 'delegation', address],
+    enabled: !!address,
     queryFn: async () => {
       if (!address) {
         return null;
@@ -72,6 +74,7 @@ export function useStakingUnbondingsQuery(
 
   return useQuery({
     queryKey: [chain.id, 'unbondings', address],
+    enabled: !!address,
     queryFn: async () => {
       if (!address) {
         return null;
@@ -91,6 +94,7 @@ export function useStakingValidatorInfoQuery(
 
   return useQuery({
     queryKey: [chain.id, 'validator', valoperAddress],
+    enabled: !!valoperAddress,
     queryFn: async () => {
       return await getValidatorInfo(valoperAddress);
     },
