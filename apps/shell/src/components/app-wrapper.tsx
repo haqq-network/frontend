@@ -9,6 +9,7 @@ import {
 } from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
+import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import ScrollLock from 'react-scrolllock';
 import { useBalance, useConnect, useSwitchNetwork, useNetwork } from 'wagmi';
@@ -36,6 +37,13 @@ import {
   SelectChainModal,
   LowBalanceAlert,
 } from '@haqq/shell-ui-kit';
+
+declare const window: Window &
+  typeof globalThis & {
+    __HAQQWALLET__?: {
+      POSTHOG_DISTINCT_ID?: string;
+    };
+  };
 
 function HeaderButtons({
   isMobileMenuOpen,
@@ -278,6 +286,7 @@ export function AppWrapper({ children }: PropsWithChildren) {
     isLowBalanceAlertOpen,
     closeLowBalanceAlert,
   } = useWallet();
+  const posthog = usePostHog();
 
   const handleWalletConnect = useCallback(
     async (connectorIdx: number) => {
@@ -325,6 +334,16 @@ export function AppWrapper({ children }: PropsWithChildren) {
       };
     });
   }, [connectors, isLoading]);
+
+  useEffect(() => {
+    if (isHaqqWallet) {
+      const distinctId = posthog.get_distinct_id();
+      const walletDistinctId = window.__HAQQWALLET__?.POSTHOG_DISTINCT_ID;
+      console.log({ distinctId, walletDistinctId });
+
+      posthog.identify(walletDistinctId);
+    }
+  }, [posthog, isHaqqWallet]);
 
   return (
     <Page
