@@ -56,7 +56,8 @@ export function BlogArticle({
 
             <MarkdownText
               transformImageUrl={transformImageUrl}
-              shouldRenderHeadingLinks={false}
+              shouldRenderHeadingLinks={true}
+              className="anchor-fix-blog"
             >
               {'# ' + title + '\n\n' + content}
             </MarkdownText>
