@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { formatUnits } from 'viem';
 import { LiquidToken } from '../../hooks/use-liquid-tokens/use-liquid-tokens';
+import { formatLocaleNumber } from '../../utils/format-number-locale';
 import { Button } from '../Button/Button';
 
 export function AddedToken({
@@ -31,9 +33,11 @@ export function AddedToken({
 export function LiquidTokensList({
   liquidTokens = [],
   onTokenAddClick,
+  onTokenRedeemClick,
 }: {
   liquidTokens?: LiquidToken[];
   onTokenAddClick: (denom: string) => void;
+  onTokenRedeemClick: (denom: string) => void;
 }) {
   const [isOpen, setOpen] = useState(false);
 
@@ -66,16 +70,32 @@ export function LiquidTokensList({
             return (
               <div
                 key={`${index}-${token.denom}`}
-                className="group flex cursor-pointer flex-row items-center justify-between py-[6px]"
-                onClick={() => {
-                  onTokenAddClick(token.denom);
-                }}
+                className="flex flex-row items-center justify-between py-[6px]"
               >
                 <div className="text-[16px] font-[600] leading-[30px]">
-                  {token.amount} {token.denom}
+                  {formatLocaleNumber(
+                    Number.parseInt(formatUnits(BigInt(token.amount), 18)),
+                  )}{' '}
+                  {token.denom}
                 </div>
-                <div className="hidden text-[14px] leading-[30px] text-[#0389D4] group-hover:block">
-                  Click to add
+
+                <div className="flex flex-row gap-4">
+                  <div
+                    className="block cursor-pointer text-[14px] leading-[30px] text-[#0389D4] hover:text-opacity-80"
+                    onClick={() => {
+                      onTokenAddClick(token.denom);
+                    }}
+                  >
+                    Add to wallet
+                  </div>
+                  <div
+                    className="block cursor-pointer text-[14px] leading-[30px] text-[#0389D4] hover:text-opacity-80"
+                    onClick={() => {
+                      onTokenRedeemClick(token.denom);
+                    }}
+                  >
+                    Redeem
+                  </div>
                 </div>
               </div>
             );

@@ -45,15 +45,11 @@ export function useLiquidVestingActions() {
   );
 
   const getRedeemParams = useCallback(
-    (
-      redeemTo: string,
-      amount: number,
-      balance: number,
-      fee: Fee,
-    ): MsgRedeemParams => {
+    (redeemTo: string, amount: string, denom: string): MsgRedeemParams => {
       return {
         redeemTo,
-        ...getAmountIncludeFee(amount, balance, fee),
+        amount,
+        denom,
       };
     },
     [],
@@ -113,18 +109,14 @@ export function useLiquidVestingActions() {
   );
 
   const handleRedeem = useCallback(
-    async (address?: string, amount?: number, balance?: number) => {
+    async (address: string, amount: string, denom: string) => {
+      console.log('handleRedeem', { address, amount, denom });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = 'Redeem liquid token';
 
       if (sender && address && haqqChain) {
-        const params = getRedeemParams(
-          address,
-          amount ?? 0,
-          balance ?? 0,
-          VESTING_DEFAULT_FEE,
-        );
+        const params = getRedeemParams(address, amount, denom);
 
         const msg = createTxMsgRedeem(
           haqqChain,

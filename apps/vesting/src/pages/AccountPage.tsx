@@ -28,9 +28,11 @@ function isClawbackVestingAccount(
 export function AccountPageComponent({
   ethAddress,
   haqqAddress,
+  isLiquidVestingVisible = false,
 }: {
   ethAddress: string;
   haqqAddress: string;
+  isLiquidVestingVisible?: boolean;
 }) {
   const { data: accountInfo } = useAccountInfoQuery(haqqAddress);
   const { getBalances } = useIndexerBalances();
@@ -65,7 +67,12 @@ export function AccountPageComponent({
           vested={balances.vested}
         />
 
-        <LiquidVestingHooked balance={balances.total} />
+        {isLiquidVestingVisible && (
+          <LiquidVestingHooked
+            balance={balances.total}
+            haqqAddress={haqqAddress}
+          />
+        )}
 
         {isClawbackVestingAccount(accountInfo) && (
           <VestingAccountStats
@@ -120,6 +127,7 @@ export default function AccountPage() {
     <AccountPageComponent
       ethAddress={accountAddress.eth}
       haqqAddress={accountAddress.haqq}
+      isLiquidVestingVisible={false}
     />
   );
 }

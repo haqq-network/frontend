@@ -10,6 +10,10 @@ export default function AccountPage() {
   }
 
   return (
-    <AccountPageComponent ethAddress={ethAddress} haqqAddress={haqqAddress} />
+    <AccountPageComponent
+      ethAddress={ethAddress}
+      haqqAddress={haqqAddress}
+      isLiquidVestingVisible
+    />
   );
 }
