@@ -1,5 +1,4 @@
 'use client';
-
 import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
@@ -81,6 +80,7 @@ export function BlogPostPage({
         image={postImage}
         onLinkCopy={copyLink}
         transformImageUrl={transformImageUrl}
+        articleLink={window.location.href}
       />
 
       <RecentPostsBlock recentPosts={recentPosts} />
