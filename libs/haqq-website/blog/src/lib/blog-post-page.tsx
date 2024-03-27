@@ -80,7 +80,10 @@ export function BlogPostPage({
         image={postImage}
         onLinkCopy={copyLink}
         transformImageUrl={transformImageUrl}
-        articleLink={window.location.href}
+        articleLink={new URL(
+          `/blog/${post.slug}`,
+          'https://haqq.network',
+        ).toString()}
       />
 
       <RecentPostsBlock recentPosts={recentPosts} />
