@@ -1,9 +1,10 @@
+/* eslint-disable @nx/enforce-module-boundaries */
 import { Meta, StoryObj } from '@storybook/react';
 import { MyAccountBlockMobile as MyAccountBlockMobileComponent } from './my-account-block-mobile';
 import {
-  withoutPadding,
   withStickyEmulation,
-} from '../../../.storybook/decorators';
+  withoutPadding,
+} from '../../../../../storybook-host/src/decorators';
 
 const meta: Meta<typeof MyAccountBlockMobileComponent> = {
   component: MyAccountBlockMobileComponent,

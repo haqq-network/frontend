@@ -76,7 +76,6 @@ export function MyAccountBlockMobile({
               ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
               : ''
           }
-          className="min-w-[300px] text-center"
         >
           <button
             type="button"

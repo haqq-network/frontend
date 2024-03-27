@@ -1,9 +1,8 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNetwork } from 'wagmi';
+import { BroadcastTxResponse, getChainParams } from '@haqq/data-access-cosmos';
 import {
-  BroadcastTxResponse,
-  getChainParams,
   getFormattedAddress,
   useAddress,
   useLiquidVestingActions,
@@ -11,7 +10,7 @@ import {
   useSupportedChains,
   useToast,
   useWallet,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import { AddedToken, LiquidTokensList } from './liquid-tokens-list';
 import {
   LiquidToken,
@@ -83,7 +82,11 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
   const toast = useToast();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(chain.id);
+  const { explorer } = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
   const [addedTokens, setAddedTokens] = useState<LiquidToken[]>([]);
   const invalidateQueries = useQueryInvalidate();
 

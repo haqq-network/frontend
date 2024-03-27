@@ -60,6 +60,7 @@ export function BlogPostCard({
         >
           <div
             className={clsx(
+              'font-alexandria',
               'line-clamp-2 text-[18px] font-[700] leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]',
               'group-hover:text-islamic-primary-green-hover transition-colors duration-200 ease-out',
             )}
@@ -68,10 +69,10 @@ export function BlogPostCard({
           </div>
           <div
             className={clsx(
-              'line-clamp-3 text-[12px] leading-[1.5em] text-white/50',
+              'font-alexandria text-[12px] leading-[1.5em] text-white/50',
               isFeatured
                 ? 'md:text-[15px] md:leading-[24px] lg:text-[16px] lg:leading-[26px]'
-                : 'md:text-[13px] md:leading-[22px] lg:text-[14px]',
+                : 'line-clamp-3 md:text-[13px] md:leading-[22px] lg:text-[14px]',
             )}
           >
             {description}

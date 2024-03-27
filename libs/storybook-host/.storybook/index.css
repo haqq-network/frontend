@@ -15,33 +15,24 @@
 
 @font-face {
   font-family: 'Clash Display';
-  src:
-    url('../../../apps/shell/src/assets/fonts/ClashDisplay-Medium.woff2')
-      format('woff2'),
-    url('../../../apps/shell/src/assets/fonts/ClashDisplay-Medium.woff')
-      format('woff');
+  src: url('../../../apps/shell/src/lib/fonts/clash-display-medium.woff2')
+    format('woff2');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'HK Guise';
-  src:
-    url('../../../apps/shell/src/assets/fonts/hk_guise_medium-webfont.woff2')
-      format('woff2'),
-    url('../../../apps/shell/src/assets/fonts/hk_guise_medium-webfont.woff')
-      format('woff');
+  src: url('../../../apps/shell/src/lib/fonts/hk-guise-medium.woff2')
+    format('woff2');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'HK Guise';
-  src:
-    url('../../../apps/shell/src/assets/fonts/hk_guise_regular-webfont.woff2')
-      format('woff2'),
-    url('../../../apps/shell/src/assets/fonts/hk_guise_regular-webfont.woff')
-      format('woff');
+  src: url('../../../apps/shell/src/lib/fonts/hk-guise-regular.woff2')
+    format('woff2');
   font-weight: 400;
   font-style: normal;
 }

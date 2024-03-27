@@ -1,5 +1,7 @@
 import Image, { type StaticImageData } from 'next/image';
+import Link from 'next/link';
 // import { Heading } from '../heading/heading';
+import { TwitterIcon } from '../icons';
 import { CopyIcon } from '../icons/copy-icon';
 import { MarkdownText } from '../markdown-text/markdown-text';
 // import { TelegramIcon, TwitterIcon } from '../icons';
@@ -13,6 +15,7 @@ export function BlogArticle({
   tags,
   onLinkCopy,
   transformImageUrl,
+  articleLink,
 }: {
   image: StaticImageData | null;
   title: string;
@@ -22,6 +25,7 @@ export function BlogArticle({
   className?: string;
   onLinkCopy?: () => void;
   transformImageUrl?: (src: string) => string;
+  articleLink: string;
 }) {
   const postDate = new Date(publishDate);
   const formattedPostDate = new Intl.DateTimeFormat('en-US', {
@@ -56,7 +60,8 @@ export function BlogArticle({
 
             <MarkdownText
               transformImageUrl={transformImageUrl}
-              shouldRenderHeadingLinks={false}
+              shouldRenderHeadingLinks={true}
+              className="anchor-fix-blog"
             >
               {'# ' + title + '\n\n' + content}
             </MarkdownText>
@@ -81,7 +86,14 @@ export function BlogArticle({
                 Share the article
               </span>
               <div className="flex items-center gap-x-[16px] text-white/50">
-                {/* <TwitterIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
+                <Link
+                  aria-label="Share to twitter"
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(articleLink)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <TwitterIcon className="cursor-pointer transition-colors duration-100 ease-out hover:text-white" />
+                </Link>
                 {/* <TelegramIcon className="hover:text-white cursor-pointer transition-colors duration-100 ease-out" /> */}
                 <div className="leading-[0]">
                   <button aria-label="Copy link" onClick={onLinkCopy}>

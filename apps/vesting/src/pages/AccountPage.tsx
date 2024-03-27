@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { isAddress } from 'viem';
-import {
-  ethToHaqq,
-  haqqToEth,
-  useAccountInfoQuery,
-  ClawbackVestingAccount,
-  HaqqAccount,
-} from '@haqq/shared';
+import { ClawbackVestingAccount, HaqqAccount } from '@haqq/data-access-cosmos';
+import { ethToHaqq, haqqToEth, useAccountInfoQuery } from '@haqq/shell-shared';
 import { PendingPage } from './PendingPage';
 import {
   AccountWidget,

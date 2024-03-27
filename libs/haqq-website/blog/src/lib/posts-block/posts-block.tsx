@@ -70,7 +70,7 @@ export function PostsBlock({ posts, tags }: { posts: Post[]; tags: string[] }) {
               );
             })
           ) : (
-            <div>no posts</div>
+            <div>No posts</div>
           )}
         </div>
       </div>

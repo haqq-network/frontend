@@ -1,4 +1,4 @@
-import { useAddress } from '@haqq/shared';
+import { useAddress } from '@haqq/shell-shared';
 import { AccountPageComponent } from './AccountPage';
 import { PendingPage } from './PendingPage';
 

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { formatUnits } from 'viem';
-import { useBankBalance, useTokenPairs } from '@haqq/shared';
+import { useBankBalance, useTokenPairs } from '@haqq/shell-shared';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
 
 export interface LiquidToken {

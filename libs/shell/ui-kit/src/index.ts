@@ -1,3 +1,4 @@
+'use client';
 export * from './components/back-button/back-button';
 export * from './components/spinner-loader/spinner-loader';
 export * from './components/warning-message/warning-message';
@@ -52,3 +53,5 @@ export * from './utils/format-percent';
 export * from './utils/to-fixed-amount';
 export * from './utils/is-number';
 export * from './components/low-balance-alert/low-balance-alert';
+export * from './components/select/select';
+export * from './components/validator-status/validator-status';

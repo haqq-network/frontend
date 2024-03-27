@@ -4,7 +4,7 @@ import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
 
 export function PHProvider({ children }: PropsWithChildren) {
-  const posthogInstance = useMemo(() => {
+  const postHogInstance = useMemo(() => {
     if (
       typeof window === 'undefined' ||
       !process.env.NEXT_PUBLIC_POSTHOG_KEY ||
@@ -23,9 +23,9 @@ export function PHProvider({ children }: PropsWithChildren) {
     }
   }, []);
 
-  if (posthogInstance) {
+  if (!postHogInstance) {
     return children;
   }
 
-  return <PostHogProvider client={posthogInstance}>{children}</PostHogProvider>;
+  return <PostHogProvider client={postHogInstance}>{children}</PostHogProvider>;
 }

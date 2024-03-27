@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react';
 export function BackButton({
   children,
   onClick,
-}: PropsWithChildren<{ onClick: () => void }>) {
+}: PropsWithChildren<{ onClick?: () => void }>) {
   return (
     <button
       onClick={onClick}

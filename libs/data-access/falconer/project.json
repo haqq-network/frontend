@@ -5,24 +5,28 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/js:swc",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/data-access/falconer",
-        "main": "libs/data-access/falconer/src/index.ts",
         "tsConfig": "libs/data-access/falconer/tsconfig.lib.json",
-        "assets": ["libs/data-access/falconer/*.md"]
+        "project": "libs/data-access/falconer/package.json",
+        "entryFile": "libs/data-access/falconer/src/index.ts",
+        "external": ["react", "react-dom", "react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "swc",
+        "assets": [
+          {
+            "glob": "libs/data-access/falconer/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/data-access/falconer/**/*.ts",
-          "libs/data-access/falconer/package.json"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -32,5 +36,5 @@
       }
     }
   },
-  "tags": ["data-access-falconer"]
+  "tags": ["data-access"]
 }

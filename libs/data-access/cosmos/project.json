@@ -1,0 +1,40 @@
+{
+  "name": "data-access-cosmos",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/data-access/cosmos/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/data-access/cosmos",
+        "tsConfig": "libs/data-access/cosmos/tsconfig.lib.json",
+        "project": "libs/data-access/cosmos/package.json",
+        "entryFile": "libs/data-access/cosmos/src/index.ts",
+        "external": ["react", "react-dom", "react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "swc",
+        "assets": [
+          {
+            "glob": "libs/data-access/cosmos/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ],
+        "updateBuildableProjectDepsInPackageJson": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/data-access/cosmos/jest.config.ts"
+      }
+    }
+  },
+  "tags": ["data-access"]
+}

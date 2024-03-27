@@ -1,6 +1,8 @@
 import { ReactNode, useCallback } from 'react';
 import clsx from 'clsx';
-import { NavLink, useLocation } from 'react-router-dom';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export function Header({
   rightSlot,
@@ -13,7 +15,8 @@ export function Header({
   isBlurred?: boolean;
   isHaqqWallet?: boolean;
 }) {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
+
   const renderPageTitle = useCallback(() => {
     if (pathname.startsWith('/staking')) {
       return 'Staking';
@@ -29,6 +32,10 @@ export function Header({
 
     if (pathname.startsWith('/airdrop')) {
       return 'Airdrop';
+    }
+
+    if (pathname.startsWith('/faucet')) {
+      return 'Faucet';
     }
 
     return 'Shell';
@@ -50,11 +57,11 @@ export function Header({
             !isHaqqWallet && 'border-r border-[#464647]',
           )}
         >
-          <div className="relative h-[26px] w-[26px] sm:h-[32px] sm:w-[32px]">
-            <NavLink to="/">
-              <img src="/assets/logo.svg" alt="HAQQ" />
-            </NavLink>
-          </div>
+          <Link href="/">
+            <div className="relative h-[26px] w-[26px] sm:h-[32px] sm:w-[32px]">
+              <Image src="/logo.svg" alt="HAQQ" fill />
+            </div>
+          </Link>
         </div>
 
         <div
@@ -63,7 +70,7 @@ export function Header({
             !isHaqqWallet ? 'ml-[20px] lg:ml-[32px]' : 'ml-[8px] lg:ml-[4px]',
           )}
         >
-          {!isHaqqWallet ? <NavLink to="/">HAQQ</NavLink> : renderPageTitle()}
+          {!isHaqqWallet ? <Link href="/">HAQQ</Link> : renderPageTitle()}
         </div>
 
         <div className="flex-1" />

@@ -62,6 +62,7 @@ const tailwindThemeExtend = {
     'islamic-classic-green': '#18FFAC',
     'islamic-classic-green-hover': '#99FFDA',
     'islamic-primary-graphite': '#181E25A8',
+    'islamic-bg-black': '#010304',
   },
   boxShadow: {
     'islamic-dropdown': '0px 0px 20px rgb(0 0 0 / 20%)',

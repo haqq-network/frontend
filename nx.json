@@ -1,8 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "dev"
-  },
   "packageManager": "yarn",
   "targetDefaults": {
     "build": {
@@ -44,6 +41,16 @@
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
+    },
+    "@nx/next:build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "@nx/rollup:rollup": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "workspaceLayout": {
@@ -74,7 +81,6 @@
       }
     }
   },
-  "defaultProject": "shell",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": ["{workspaceRoot}/babel.config.json"],
@@ -90,5 +96,6 @@
       "!{projectRoot}/tsconfig.storybook.json"
     ]
   },
-  "cacheDirectory": "./.nx/cache"
+  "cacheDirectory": "./.nx/cache",
+  "defaultBase": "dev"
 }

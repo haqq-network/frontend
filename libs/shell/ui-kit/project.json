@@ -13,7 +13,7 @@
         "tsConfig": "libs/shell/ui-kit/tsconfig.lib.json",
         "project": "libs/shell/ui-kit/package.json",
         "entryFile": "libs/shell/ui-kit/src/index.ts",
-        "external": ["react/jsx-runtime"],
+        "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
         "compiler": "swc",
         "assets": [
@@ -35,31 +35,6 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/shell/ui-kit/jest.config.ts"
-      }
-    },
-    "storybook": {
-      "executor": "@nx/storybook:storybook",
-      "options": {
-        "port": 4400,
-        "configDir": "libs/shell/ui-kit/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@nx/storybook:build",
-      "outputs": ["{options.outputDir}"],
-      "options": {
-        "outputDir": "dist/storybook/shell-ui-kit",
-        "configDir": "libs/shell/ui-kit/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
       }
     }
   }

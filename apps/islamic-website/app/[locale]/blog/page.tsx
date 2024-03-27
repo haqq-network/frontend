@@ -4,6 +4,9 @@ import { DEPLOY_URL, TURNSTILE_SITEKEY } from '../../../constants';
 import { getIslamicBlogPostsFromFalconer } from '../../../utils/get-blog-posts';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 const title = 'Blog';
 const description =
   'Stay updated with the latest news, insights, and trends in the world of ethical and Islamic Finance technology with Islamic Coin blog.';

@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { SelectChainModal as SelectChainModalComponent } from './select-chain-modal';
 
 const meta: Meta<typeof SelectChainModalComponent> = {
@@ -14,7 +15,7 @@ type Story = StoryObj<typeof SelectChainModalComponent>;
 
 export const SelectChainModal: Story = {
   args: {
-    isOpen: true,
+    isOpen: false,
     chains: [
       {
         id: 1,
@@ -25,5 +26,7 @@ export const SelectChainModal: Story = {
         name: 'HAQQ Testedge',
       },
     ],
+    onClose: fn(),
+    onChainSelect: fn(),
   },
 };

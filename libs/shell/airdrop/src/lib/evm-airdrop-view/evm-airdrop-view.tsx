@@ -11,7 +11,7 @@ import {
   ethToHaqq,
   formatEthDecimal,
   useAirdropActions,
-} from '@haqq/shared';
+} from '@haqq/shell-shared';
 import {
   AirdropChallenge,
   AirdropChallengeStatusFailed,
