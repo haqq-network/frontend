@@ -4,7 +4,6 @@ import { useNetwork } from 'wagmi';
 import { BroadcastTxResponse, getChainParams } from '@haqq/data-access-cosmos';
 import {
   getFormattedAddress,
-  useAddress,
   useLiquidVestingActions,
   useQueryInvalidate,
   useSupportedChains,
@@ -66,7 +65,13 @@ function LinkIcon({ className }: { className?: string }) {
   );
 }
 
-export function LiquidVestingHooked({ balance }: { balance: number }) {
+export function LiquidVestingHooked({
+  balance,
+  haqqAddress,
+}: {
+  balance: number;
+  haqqAddress: string;
+}) {
   const [liquidationAmount, setLiquidationAmount] = useState<
     number | undefined
   >(undefined);
@@ -75,10 +80,9 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
   >(undefined);
   const [isLiquidationEnabled, setLiquidationEnabled] = useState(true);
   const [isLiquidationPending, setLiquidationPending] = useState(false);
-  const { haqqAddress } = useAddress();
   const liquidTokens = useLiquidTokens(haqqAddress);
   const { watchAsset } = useWallet();
-  const { liquidate } = useLiquidVestingActions();
+  const { liquidate, redeem } = useLiquidVestingActions();
   const toast = useToast();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -204,6 +208,83 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
     [chain.id, invalidateQueries, liquidTokens, watchAsset],
   );
 
+  const handleRedeem = useCallback(
+    async (denom: string) => {
+      try {
+        const token = liquidTokens.find((token) => {
+          return token.denom === denom;
+        });
+
+        if (!token) {
+          throw new Error('No token');
+        }
+
+        const redeemPromise = redeem(haqqAddress, token.amount, token.denom);
+        await toast.promise(
+          redeemPromise,
+          {
+            loading: (
+              <ToastLoading>Redeem liquid token in progress</ToastLoading>
+            ),
+            success: (tx) => {
+              console.log('Convert to liquid successful', { tx });
+              const txHash = tx?.txhash;
+
+              return (
+                <ToastSuccess>
+                  <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                    <div>You successfully redeem liquid token</div>
+                    <div>
+                      <Link
+                        to={`${explorer.cosmos}/tx/${txHash}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-[4px] lowercase text-[#0389D4] transition-colors duration-300 hover:text-[#0389D4]/75"
+                      >
+                        <LinkIcon />
+                        <span>{getFormattedAddress(txHash)}</span>
+                      </Link>
+                    </div>
+                  </div>
+                </ToastSuccess>
+              );
+            },
+            error: (error: Error) => {
+              return (
+                <ToastError>
+                  <span className="!text-danger">Error: {error.message}</span>
+                </ToastError>
+              );
+            },
+          },
+          {
+            success: {
+              duration: 5000,
+            },
+          },
+        );
+      } catch (error) {
+        console.error((error as Error).message);
+      } finally {
+        setLiquidationEnabled(true);
+        setLiquidationPending(false);
+        invalidateQueries([
+          [chain.id, 'bank-balance'],
+          [chain.id, 'token-pairs'],
+        ]);
+      }
+    },
+    [
+      chain.id,
+      explorer.cosmos,
+      haqqAddress,
+      invalidateQueries,
+      liquidTokens,
+      redeem,
+      toast,
+    ],
+  );
+
   return (
     <LiquidVesting
       liquidationAmount={liquidationAmount}
@@ -215,6 +296,7 @@ export function LiquidVestingHooked({ balance }: { balance: number }) {
       liquidTokens={liquidTokens}
       onTokenAddClick={handleWatchAsset}
       addedTokens={addedTokens}
+      onRedeemClick={handleRedeem}
     />
   );
 }
@@ -229,6 +311,7 @@ export function LiquidVesting({
   liquidTokens,
   onTokenAddClick,
   addedTokens,
+  onRedeemClick,
 }: {
   liquidationAmount: number | undefined;
   onAmountChange: (value: number) => void;
@@ -239,6 +322,7 @@ export function LiquidVesting({
   liquidTokens?: LiquidToken[];
   onTokenAddClick: (denom: string) => void;
   addedTokens: LiquidToken[];
+  onRedeemClick: (denom: string) => void;
 }) {
   const handleInputChange = useCallback(
     (value: string | undefined) => {
@@ -341,6 +425,7 @@ export function LiquidVesting({
           <LiquidTokensList
             liquidTokens={liquidTokens}
             onTokenAddClick={onTokenAddClick}
+            onTokenRedeemClick={onRedeemClick}
           />
         </div>
       </div>
