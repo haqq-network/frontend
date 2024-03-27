@@ -11,3 +11,4 @@ export * from './app-store-icon';
 export * from './android-icon';
 export * from './copy-icon';
 export * from './chevron-icon';
+export * from './icons';
