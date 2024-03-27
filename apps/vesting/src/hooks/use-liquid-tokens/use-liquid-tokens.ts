@@ -1,11 +1,9 @@
 import { useMemo } from 'react';
-import { formatUnits } from 'viem';
 import { useBankBalance, useTokenPairs } from '@haqq/shell-shared';
-import { formatLocaleNumber } from '../../utils/format-number-locale';
 
 export interface LiquidToken {
   denom: string;
-  erc20Address: string | null;
+  erc20Address: string;
   amount: string;
 }
 
@@ -23,28 +21,34 @@ export function useLiquidTokens(address: string | undefined) {
 
   const userLiquidTokens = useMemo(() => {
     return (
-      bankBalance?.filter((token) => {
-        return token.denom.startsWith('aLIQUID');
-      }) ?? []
+      bankBalance
+        ?.filter((token) => {
+          return token.denom.startsWith('aLIQUID');
+        })
+        .filter((token) => {
+          return token.amount !== '0';
+        }) ?? []
     );
   }, [bankBalance]);
 
   // Mapping user tokens to their erc20_address
   return useMemo(() => {
-    return userLiquidTokens.map((token) => {
-      const pair = liquidTokenPairs.find((pair) => {
-        return pair.denom === token.denom;
-      });
+    return userLiquidTokens
+      .map((token) => {
+        const pair = liquidTokenPairs.find((pair) => {
+          return pair.denom === token.denom;
+        });
 
-      const formattedAmount = Number.parseFloat(
-        formatUnits(BigInt(token.amount), 18),
-      );
+        if (pair && pair.erc20_address && pair.erc20_address !== '') {
+          return {
+            erc20Address: pair.erc20_address,
+            denom: token.denom,
+            amount: token.amount,
+          };
+        }
 
-      return {
-        erc20Address: pair?.erc20_address ?? null,
-        denom: token.denom,
-        amount: formatLocaleNumber(formattedAmount) as string,
-      };
-    });
+        return null;
+      })
+      .filter(Boolean) as LiquidToken[];
   }, [userLiquidTokens, liquidTokenPairs]);
 }

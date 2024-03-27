@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s | Shell | HAQQ',
   },
   referrer: 'origin-when-cross-origin',
-  metadataBase: new URL('https://shell.haqq.hetwork'),
+  metadataBase: new URL('https://shell.haqq.network'),
 };
 
 export const viewport: Viewport = {
