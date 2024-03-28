@@ -1,4 +1,3 @@
-'use client';
 import clsx from 'clsx';
 import { QRCodeSVG } from 'qrcode.react';
 import {
@@ -75,8 +74,8 @@ export function WalletDownloadWithQrButton({
       >
         <div
           className={clsx(
-            'flex min-w-[188px] flex-initial select-none flex-row items-center space-x-[8px] rounded-xl px-[24px] py-[12px] transition duration-150',
-            'text-haqq-black cursor-pointer bg-white hover:text-[#01B36E] hover:shadow-xl',
+            'inline-flex min-w-[188px] flex-initial select-none flex-row items-center space-x-[8px] rounded-xl px-[24px] py-[12px] transition duration-150',
+            'text-haqq-black bg-white hover:text-[#01B36E] hover:shadow-xl',
           )}
         >
           {type === 'apple' && <AppStoreLogoIcon />}
