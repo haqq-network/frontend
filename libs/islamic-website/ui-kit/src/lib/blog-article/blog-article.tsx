@@ -55,7 +55,7 @@ export function BlogArticle({
           </time>
         </div>
 
-        <MarkdownText className="ltr:prose-headings:font-vcr rtl:prose-headings:font-handjet prose-headings:uppercase">
+        <MarkdownText className="anchor-fix ltr:prose-headings:font-vcr rtl:prose-headings:font-handjet prose-headings:uppercase">
           {'# ' + title + '\n\n' + content}
         </MarkdownText>
       </article>
