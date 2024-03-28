@@ -81,8 +81,8 @@ export function MarkdownText({
       tagName,
       { ...node?.properties },
       <Link href={`#${id}`} className="group relative !text-white">
-        <LinkIcon className="absolute left-[100%] top-[50%] ml-[8px] translate-y-[-50%] transition-opacity duration-150 ease-out lg:opacity-0 lg:group-hover:opacity-100" />
         {children}
+        <LinkIcon className="ml-[8px] inline transition-opacity duration-150 ease-out lg:opacity-0 lg:group-hover:opacity-100" />
       </Link>,
     );
   };

@@ -50,7 +50,11 @@ export function PrivacyPolicyPage({
 
         <div className="max-w-[860px]">
           <article className="mt-[32px] lg:mt-[100px]">
-            {privacyPolicy && <MarkdownText>{privacyPolicy}</MarkdownText>}
+            {privacyPolicy && (
+              <MarkdownText className="anchor-fix">
+                {privacyPolicy}
+              </MarkdownText>
+            )}
           </article>
         </div>
       </Container>

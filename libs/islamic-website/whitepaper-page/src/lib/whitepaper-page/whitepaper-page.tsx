@@ -41,7 +41,7 @@ export function WhitepaperPage({ whitepaper }: { whitepaper?: string }) {
         <div className="max-w-[860px]">
           <article>
             {whitepaper && (
-              <MarkdownText className="mt-[32px] lg:mt-[100px]">
+              <MarkdownText className="anchor-fix mt-[32px] lg:mt-[100px]">
                 {whitepaper}
               </MarkdownText>
             )}

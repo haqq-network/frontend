@@ -1,10 +1,16 @@
-import { ReactNode } from 'react';
+'use client';
+import { ReactNode, useMemo } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePostHog } from 'posthog-js/react';
 import iphoneWalletScreenshotData from '../../assets/images/wallet-iphone-screenshot.png';
 import { CardText } from '../features-block/features-block';
-import { WalletDownloadButton } from '../wallet-download-button/wallet-download-button';
+import { getDynamicLink } from '../utils/get-dynamic-link';
+import {
+  WalletDownloadButton,
+  WalletDownloadWithQrButton,
+} from '../wallet-download-button/wallet-download-button';
 
 function FeatureText({ children }: { children: ReactNode }) {
   return (
@@ -104,6 +110,29 @@ function MpcIcon() {
 }
 
 export function HeroBlock() {
+  const posthog = usePostHog();
+
+  const { appStoreLink, playMarketLink } = useMemo(() => {
+    const distinctId = posthog.get_distinct_id();
+
+    if (!distinctId) {
+      return {};
+    }
+
+    return {
+      appStoreLink: getDynamicLink(
+        'https://haqq.network/wallet',
+        distinctId,
+        'https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352',
+      ),
+      playMarketLink: getDynamicLink(
+        'https://haqq.network/wallet',
+        distinctId,
+        'https://play.google.com/store/apps/details?id=com.haqq.wallet',
+      ),
+    };
+  }, [posthog]);
+
   return (
     <section className="w-full py-[40px] sm:py-[70px]">
       <div className="container mx-auto flex flex-col items-center px-[20px] sm:px-[40px] lg:flex-row">
@@ -120,6 +149,7 @@ export function HeroBlock() {
             The best way to hold Islamic Coin and remain Shariah-compliant along
             the way!
           </CardText>
+
           <div className="mb-[38px] text-center lg:text-left">
             <FeatureText>
               <div className="mb-[-6px] mr-[6px] inline-block">
@@ -153,36 +183,90 @@ export function HeroBlock() {
               <span>Mnemonic-free private key security (is coming soon)</span>
             </FeatureText>
           </div>
-          <div className="mb-[60px] flex flex-col space-y-[16px]">
-            <div className="flex flex-col flex-wrap items-center justify-center space-y-[16px] sm:flex-row sm:justify-center sm:space-x-[16px] sm:space-y-0 lg:justify-start">
-              <Link
-                href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <WalletDownloadButton type="apple" isAvailable />
-              </Link>
-              <Link
-                href="https://play.google.com/store/apps/details?id=com.haqq.wallet"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <WalletDownloadButton type="google" isAvailable />
-              </Link>
+
+          <div className="mb-[60px]">
+            <div className="flex flex-col space-y-[16px] md:hidden">
+              <div className="flex flex-col flex-wrap items-center justify-center space-y-[16px] sm:flex-row sm:justify-center sm:space-x-[16px] sm:space-y-0 lg:justify-start">
+                {appStoreLink && (
+                  <Link
+                    href={appStoreLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <WalletDownloadButton type="apple" isAvailable />
+                  </Link>
+                )}
+                {playMarketLink && (
+                  <Link
+                    href={playMarketLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <WalletDownloadButton type="google" isAvailable />
+                  </Link>
+                )}
+              </div>
+              <div>
+                <Link
+                  href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                  download
+                >
+                  <WalletDownloadButton type="apk" isAvailable />
+                </Link>
+              </div>
             </div>
-            <div>
-              <Link
-                href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
-                download
-              >
-                <WalletDownloadButton type="apk" isAvailable />
-              </Link>
+
+            <div className="hidden flex-col md:flex">
+              <div className="mt-[16px]">
+                {appStoreLink && (
+                  <Link
+                    href={appStoreLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    className="inline-block"
+                  >
+                    <WalletDownloadWithQrButton
+                      link={appStoreLink}
+                      type="apple"
+                    />
+                  </Link>
+                )}
+              </div>
+              <div className="mt-[16px]">
+                {playMarketLink && (
+                  <Link
+                    href={playMarketLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    className="inline-block"
+                  >
+                    <WalletDownloadWithQrButton
+                      link={playMarketLink}
+                      type="google"
+                    />
+                  </Link>
+                )}
+              </div>
+              <div className="mt-[16px]">
+                <Link
+                  href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="inline-block"
+                >
+                  <WalletDownloadButton type="apk" isAvailable />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
+
         <div className="flex flex-1 justify-center">
           <Image
             alt="HAQQ Wallet"

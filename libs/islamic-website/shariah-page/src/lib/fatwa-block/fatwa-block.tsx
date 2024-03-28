@@ -124,7 +124,9 @@ export function FatwaBlock({
         <LangButton isActive={locale === 'id'} locale="id" href="/shariah" />
       </div>
 
-      <MarkdownText className="mt-[30px]">{fatwa}</MarkdownText>
+      <MarkdownText className="anchor-fix-fatwa mt-[30px]">
+        {fatwa}
+      </MarkdownText>
 
       <AutographsBlock />
     </div>

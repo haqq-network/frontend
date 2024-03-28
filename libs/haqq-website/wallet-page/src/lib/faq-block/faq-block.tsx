@@ -37,9 +37,9 @@ function FAQArticle({
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-col space-y-[16px] py-[16px]">
+    <div className="flex flex-col">
       <div
-        className="flex w-full cursor-pointer items-center justify-between text-[24px] font-bold text-white"
+        className="flex w-full cursor-pointer items-center justify-between py-[16px] text-[24px] font-bold text-white"
         onClick={() => {
           setOpen(!isOpen);
         }}
@@ -47,7 +47,7 @@ function FAQArticle({
         <span>{question}</span>
         {isOpen ? <MinusIcon /> : <PlusIcon />}
       </div>
-      {isOpen && <div className="whitespace-pre-wrap">{answer}</div>}
+      {isOpen && <div className="whitespace-pre-wrap pb-[16px]">{answer}</div>}
     </div>
   );
 }

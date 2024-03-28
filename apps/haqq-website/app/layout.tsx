@@ -34,12 +34,25 @@ const PostHogPageView = dynamic(
   },
 );
 
+const DynamicLinkRedirect = dynamic(
+  async () => {
+    const { DynamicLinkRedirect } = await import(
+      '../components/dynamic-link-redirect/dynamic-link-redirect'
+    );
+    return { default: DynamicLinkRedirect };
+  },
+  {
+    ssr: false,
+  },
+);
+
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="ltr" dir="ltr" translate="no">
       <PHProvider>
         <body className="will-change-scroll">
           <PostHogPageView />
+          <DynamicLinkRedirect />
 
           {children}
 
