@@ -1,9 +1,8 @@
 'use client';
-import { ReactNode, useEffect, useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect, useSearchParams } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
 import iphoneWalletScreenshotData from '../../assets/images/wallet-iphone-screenshot.png';
 import { CardText } from '../features-block/features-block';
@@ -112,7 +111,6 @@ function MpcIcon() {
 
 export function HeroBlock() {
   const posthog = usePostHog();
-  const params = useSearchParams();
 
   const { appStoreLink, playMarketLink } = useMemo(() => {
     const distinctId = posthog.get_distinct_id();
@@ -134,21 +132,6 @@ export function HeroBlock() {
       ),
     };
   }, [posthog]);
-
-  useEffect(() => {
-    const goTo = params.get('go_to');
-    const distinctId = params.get('distinct_id');
-
-    if (distinctId && goTo) {
-      if (distinctId !== '' && distinctId !== 'undefined') {
-        posthog.identify(distinctId);
-
-        if (goTo !== 'undefined' && goTo !== '') {
-          redirect(goTo);
-        }
-      }
-    }
-  }, [params, posthog]);
 
   return (
     <section className="w-full py-[40px] sm:py-[70px]">
