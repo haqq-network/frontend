@@ -82,8 +82,7 @@ export function MarketsPage({ price }: { price: string }) {
           <div className="flex flex-col gap-[48px] md:gap-[100px]">
             <div>
               <h1 className="whitespace-pre-line text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-                Islamic <br className="block md:hidden" />
-                Markets
+                Where to buy
               </h1>
               <div className="mt-[28px] flex flex-row items-center gap-x-[12px] md:mt-[44px] md:gap-x-[24px] lg:mt-[60px]">
                 <div className="h-[24px] w-[24px] rounded-[6px] bg-[#04D484] p-[4px] md:h-[54px] md:w-[54px] md:rounded-[20px] md:p-[9px]">
