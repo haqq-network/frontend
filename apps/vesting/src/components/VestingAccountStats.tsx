@@ -72,12 +72,14 @@ function LockupPeriods({
           prevDate.getTime() < nowTime && unlockDate.getTime() > nowTime;
 
         const state = getState(past, current);
+        const amount =
+          el.amount && el.amount.length ? el.amount?.[0].amount : '0';
 
         return [
           ...acc,
           {
             date: unlockDate,
-            amount: el.amount?.[0].amount ?? '0',
+            amount,
             state,
           },
         ];
