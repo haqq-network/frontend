@@ -1,5 +1,5 @@
 export function formatLocaleNumber(value?: number) {
-  if (!value) {
+  if (value === undefined) {
     return undefined;
   }
 
