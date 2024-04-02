@@ -263,7 +263,7 @@ export function StakingInfo() {
   return (
     <section
       className={clsx(
-        'sticky z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent backdrop-blur',
+        'z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent backdrop-blur',
         isHaqqWallet
           ? isTestedge
             ? 'top-[101px] sm:top-[111px]'
@@ -273,6 +273,7 @@ export function StakingInfo() {
             : 'top-[62px] sm:top-[70px]',
         !isTablet && 'py-[32px]',
         isHaqqWallet && '!border-t-[0px]',
+        !isTablet && 'sticky',
       )}
     >
       {isTablet ? (
