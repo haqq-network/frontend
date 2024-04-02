@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Validator } from '@evmos/provider';
 import Link from 'next/link';
+import { usePostHog } from 'posthog-js/react';
 import { useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
@@ -60,10 +61,12 @@ export function RedelegateModalHooked({
   );
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledRedelegateAmount = useThrottle(redelegateAmount, 300);
+  const posthog = usePostHog();
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
       if (validatorDestinationAddress && validatorAddress) {
+        posthog.capture('redelegate started');
         setRedelegateEnabled(false);
         const redelegationPromise = redelegate(
           validatorAddress,
@@ -78,6 +81,7 @@ export function RedelegateModalHooked({
           success: (tx) => {
             console.log('Redelegation successful', { tx });
             const txHash = tx?.txhash;
+            posthog.capture('redelegate success');
 
             return (
               <ToastSuccess>
@@ -99,6 +103,7 @@ export function RedelegateModalHooked({
             );
           },
           error: (error) => {
+            posthog.capture('redelegate failed');
             return <ToastError>{error.message}</ToastError>;
           },
         });
@@ -112,6 +117,7 @@ export function RedelegateModalHooked({
   }, [
     validatorDestinationAddress,
     validatorAddress,
+    posthog,
     redelegate,
     redelegateAmount,
     balance,
