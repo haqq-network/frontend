@@ -125,6 +125,7 @@ export function ValidatorBlockMobile({
                 className="w-full !px-[16px]"
                 onClick={onDelegateClick}
                 disabled={isDelegateDisabled}
+                data-attr="delegate"
               >
                 Delegate
               </Button>
@@ -135,6 +136,7 @@ export function ValidatorBlockMobile({
                 className="w-full !px-[16px]"
                 onClick={onUndelegateClick}
                 disabled={isUndelegateDisabled}
+                data-attr="undelegate"
               >
                 Undelegate
               </Button>
@@ -146,6 +148,7 @@ export function ValidatorBlockMobile({
               className="w-full"
               onClick={onRedelegateClick}
               disabled={isRedelegateDisabled}
+              data-attr="redelegate"
             >
               Redelegate
             </Button>
@@ -164,6 +167,7 @@ export function ValidatorBlockMobile({
                 disabled={isGetRewardDisabled}
                 className="w-full"
                 isLoading={isRewardPending}
+                data-attr="get-my-rewards"
               >
                 Get my rewards
               </Button>

@@ -215,6 +215,7 @@ export function StakingStatsMobile({
             variant={2}
             isLoading={isRewardsPending}
             disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
+            data-attr="get-rewards"
           >
             Get rewards
           </Button>

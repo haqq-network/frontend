@@ -273,7 +273,11 @@ export function MobileHeader({
                 <div className="leading-[0]">
                   <div className="flex flex-row items-center gap-[12px]">
                     {isBuyButtonVisible && (
-                      <Link href="/markets" className="leading-[0]">
+                      <Link
+                        href="/markets"
+                        className="leading-[0]"
+                        data-attr="buy-islm"
+                      >
                         <Button className="!h-[36px] !px-[16px] !py-[4px] !text-[14px] !leading-[28px]">
                           Buy ISLM
                         </Button>
@@ -507,7 +511,7 @@ export function DesktopHeader({
               </HeaderDropdown>
 
               {isBuyButtonVisible && (
-                <Link href="/markets" className="ml-[8px]">
+                <Link href="/markets" className="ml-[8px]" data-attr="buy-islm">
                   <Button>Buy ISLM</Button>
                 </Link>
               )}

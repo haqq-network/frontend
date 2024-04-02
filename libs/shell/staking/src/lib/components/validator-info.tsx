@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Markdown from 'marked-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -465,6 +466,7 @@ export function ValidatorInfo({
   );
   const { getBalances } = useIndexerBalances();
   const [balance, setBalance] = useState(0);
+  const posthog = usePostHog();
 
   useEffect(() => {
     if (haqqAddress) {
@@ -520,6 +522,7 @@ export function ValidatorInfo({
 
   const handleGetRewardsClick = useCallback(async () => {
     try {
+      posthog.capture('claim rewards from validator started');
       setRewardPending(true);
       const claimRewardPromise = getClaimRewardEstimatedFee(
         validatorAddress,
@@ -532,6 +535,7 @@ export function ValidatorInfo({
         success: (tx) => {
           console.log('Rewards claimed', { tx });
           const txHash = tx?.txhash;
+          posthog.capture('rewards claimed');
 
           return (
             <ToastSuccess>
@@ -553,6 +557,7 @@ export function ValidatorInfo({
           );
         },
         error: (error) => {
+          posthog.capture('rewards claim failed');
           return <ToastError>{error.message}</ToastError>;
         },
       });
@@ -572,6 +577,7 @@ export function ValidatorInfo({
     explorer.cosmos,
     getClaimRewardEstimatedFee,
     invalidateQueries,
+    posthog,
     toast,
     validatorAddress,
   ]);
@@ -617,6 +623,7 @@ export function ValidatorInfo({
 
   const handleRewardsClaim = useCallback(async () => {
     try {
+      posthog.capture('claim all rewards started');
       setRewardsPending(true);
       const estimatedFee =
         await getClaimAllRewardEstimatedFee(delegatedValsAddrs);
@@ -630,6 +637,7 @@ export function ValidatorInfo({
         success: (tx) => {
           console.log('All rewards claimed', { tx });
           const txHash = tx?.txhash;
+          posthog.capture('rewards claimed');
 
           return (
             <div className="flex flex-col gap-[8px] text-center">
@@ -646,6 +654,7 @@ export function ValidatorInfo({
           );
         },
         error: (error) => {
+          posthog.capture('rewards claim failed');
           return <ToastError>{error.message}</ToastError>;
         },
       });
@@ -667,6 +676,7 @@ export function ValidatorInfo({
     explorer.cosmos,
     getClaimAllRewardEstimatedFee,
     invalidateQueries,
+    posthog,
     toast,
   ]);
 
@@ -783,6 +793,7 @@ export function ValidatorBlockDesktop({
                   handleDelegateContinue();
                 }
               }}
+              data-attr="delegate"
             >
               Delegate
             </Button>
@@ -800,6 +811,7 @@ export function ValidatorBlockDesktop({
                   );
                 });
               }}
+              data-attr="undelegate"
             >
               Undelegate
             </Button>
@@ -818,6 +830,7 @@ export function ValidatorBlockDesktop({
                 );
               });
             }}
+            data-attr="redelegate"
           >
             Redelegate
           </Button>
@@ -846,6 +859,7 @@ export function ValidatorBlockDesktop({
             onClick={onGetRewardsClick}
             isLoading={isRewardPending}
             className="w-full"
+            data-attr="get-my-rewards"
           >
             Get my rewards
           </Button>

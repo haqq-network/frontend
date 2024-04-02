@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 
 const PostHogPageView = dynamic(
   async () => {
-    const { PostHogPageView } = await import('../utils/posthog-page-view');
+    const { PostHogPageView } = await import('../components/posthog-page-view');
     return { default: PostHogPageView };
   },
   {
@@ -46,6 +46,18 @@ const DynamicLinkRedirect = dynamic(
   },
 );
 
+const IdentifyWalletUsers = dynamic(
+  async () => {
+    const { IdentifyWalletUsers } = await import(
+      '../components/identify-wallet-users'
+    );
+    return { default: IdentifyWalletUsers };
+  },
+  {
+    ssr: false,
+  },
+);
+
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="ltr" dir="ltr" translate="no">
@@ -53,6 +65,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <body className="will-change-scroll">
           <PostHogPageView />
           <DynamicLinkRedirect />
+          <IdentifyWalletUsers />
 
           {children}
 

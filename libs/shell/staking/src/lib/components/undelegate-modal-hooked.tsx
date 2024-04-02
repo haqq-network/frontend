@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePostHog } from 'posthog-js/react';
 import { useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
@@ -58,9 +59,11 @@ export function UndelegateModalHooked({
   );
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledUndelegateAmount = useThrottle(undelegateAmount, 300);
+  const posthog = usePostHog();
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
+      posthog.capture('undelegate started');
       setUndelegateEnabled(false);
       const undelegationPromise = undelegate(
         validatorAddress,
@@ -74,6 +77,7 @@ export function UndelegateModalHooked({
         success: (tx) => {
           console.log('Undlegation successful', { tx });
           const txHash = tx?.txhash;
+          posthog.capture('undelegate success');
 
           return (
             <ToastSuccess>
@@ -95,6 +99,7 @@ export function UndelegateModalHooked({
           );
         },
         error: (error) => {
+          posthog.capture('undelegate failed');
           return <ToastError>{error.message}</ToastError>;
         },
       });
@@ -106,6 +111,7 @@ export function UndelegateModalHooked({
       setUndelegateEnabled(false);
     }
   }, [
+    posthog,
     undelegate,
     validatorAddress,
     undelegateAmount,

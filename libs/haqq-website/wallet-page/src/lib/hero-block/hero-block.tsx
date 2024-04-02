@@ -192,6 +192,7 @@ export function HeroBlock() {
                     href={appStoreLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-attr="download-ios"
                   >
                     <WalletDownloadButton type="apple" isAvailable />
                   </Link>
@@ -201,6 +202,7 @@ export function HeroBlock() {
                     href={playMarketLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-attr="download-android"
                   >
                     <WalletDownloadButton type="google" isAvailable />
                   </Link>
@@ -212,6 +214,7 @@ export function HeroBlock() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block"
+                  data-attr="download-apk"
                   download
                 >
                   <WalletDownloadButton type="apk" isAvailable />
@@ -226,8 +229,8 @@ export function HeroBlock() {
                     href={appStoreLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    download
                     className="inline-block"
+                    data-attr="download-ios"
                   >
                     <WalletDownloadWithQrButton
                       link={appStoreLink}
@@ -242,8 +245,8 @@ export function HeroBlock() {
                     href={playMarketLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    download
                     className="inline-block"
+                    data-attr="download-android"
                   >
                     <WalletDownloadWithQrButton
                       link={playMarketLink}
@@ -257,8 +260,9 @@ export function HeroBlock() {
                   href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
                   target="_blank"
                   rel="noopener noreferrer"
-                  download
                   className="inline-block"
+                  data-attr="download-apk"
+                  download
                 >
                   <WalletDownloadButton type="apk" isAvailable />
                 </Link>

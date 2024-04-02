@@ -54,7 +54,9 @@ async function getMessages(locale: string) {
 
 const PostHogPageView = dynamic(
   async () => {
-    const { PostHogPageView } = await import('../../utils/posthog-page-view');
+    const { PostHogPageView } = await import(
+      '../../components/posthog-page-view'
+    );
     return { default: PostHogPageView };
   },
   {
@@ -62,6 +64,18 @@ const PostHogPageView = dynamic(
     loading: () => {
       return null;
     },
+  },
+);
+
+const IdentifyWalletUsers = dynamic(
+  async () => {
+    const { IdentifyWalletUsers } = await import(
+      '../../components/identify-wallet-users'
+    );
+    return { default: IdentifyWalletUsers };
+  },
+  {
+    ssr: false,
   },
 );
 
@@ -108,6 +122,8 @@ export default async function LocaleLayout({
         <PHProvider>
           <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
             <PostHogPageView />
+            <IdentifyWalletUsers />
+
             {isScamBannerShow && <ScamBanner />}
             {isMobileUserAgent ? (
               <MobileHeader

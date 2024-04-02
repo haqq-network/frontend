@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePostHog } from 'posthog-js/react';
 import { useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
@@ -60,9 +61,12 @@ export function DelegateModalHooked({
   const toast = useToast();
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledDelegateAmount = useThrottle(delegateAmount, 300);
+  const posthog = usePostHog();
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
+      posthog.capture('delegate started');
+
       setDelegateEnabled(false);
       const delegationPromise = delegate(
         validatorAddress,
@@ -76,6 +80,7 @@ export function DelegateModalHooked({
         success: (tx) => {
           console.log('Delegation successful', { tx });
           const txHash = tx?.txhash;
+          posthog.capture('delegate success');
 
           return (
             <ToastSuccess>
@@ -97,6 +102,7 @@ export function DelegateModalHooked({
           );
         },
         error: (error) => {
+          posthog.capture('delegate failed');
           return <ToastError>{error.message}</ToastError>;
         },
       });
@@ -111,10 +117,11 @@ export function DelegateModalHooked({
     validatorAddress,
     delegateAmount,
     balance,
+    fee,
     toast,
     onClose,
+    posthog,
     explorer.cosmos,
-    fee,
   ]);
 
   useEffect(() => {
