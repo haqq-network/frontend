@@ -192,6 +192,7 @@ export function HeroBlock() {
                     href={appStoreLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-attr="download-ios"
                   >
                     <WalletDownloadButton type="apple" isAvailable />
                   </Link>
@@ -201,6 +202,7 @@ export function HeroBlock() {
                     href={playMarketLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-attr="download-android"
                   >
                     <WalletDownloadButton type="google" isAvailable />
                   </Link>
@@ -213,6 +215,7 @@ export function HeroBlock() {
                   rel="noopener noreferrer"
                   className="inline-block"
                   download
+                  data-attr="download-apk"
                 >
                   <WalletDownloadButton type="apk" isAvailable />
                 </Link>
@@ -228,6 +231,7 @@ export function HeroBlock() {
                     rel="noopener noreferrer"
                     download
                     className="inline-block"
+                    data-attr="download-ios"
                   >
                     <WalletDownloadWithQrButton
                       link={appStoreLink}
@@ -244,6 +248,7 @@ export function HeroBlock() {
                     rel="noopener noreferrer"
                     download
                     className="inline-block"
+                    data-attr="download-android"
                   >
                     <WalletDownloadWithQrButton
                       link={playMarketLink}
@@ -259,6 +264,7 @@ export function HeroBlock() {
                   rel="noopener noreferrer"
                   download
                   className="inline-block"
+                  data-attr="download-apk"
                 >
                   <WalletDownloadButton type="apk" isAvailable />
                 </Link>
