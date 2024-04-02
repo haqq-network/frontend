@@ -38,6 +38,7 @@ export function WalletPage() {
             href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
             target="_blank"
             rel="noopener noreferrer"
+            data-attr="download-ios"
           >
             <WalletDownloadButton
               type="apple"
@@ -50,6 +51,7 @@ export function WalletPage() {
             href="https://play.google.com/store/apps/details?id=com.haqq.wallet"
             target="_blank"
             rel="noopener noreferrer"
+            data-attr="download-android"
           >
             <WalletDownloadButton
               type="google"
@@ -63,6 +65,7 @@ export function WalletPage() {
             target="_blank"
             rel="noopener noreferrer"
             download
+            data-attr="download-apk"
           >
             <WalletDownloadButton type="apk" />
           </Link>
