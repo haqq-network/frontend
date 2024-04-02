@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react';
-import { renderWithUserEvents } from '../../../tests/render-with-user-events';
 import { Button } from './button';
+import { renderWithUserEvents } from '../../../tests/render-with-user-events';
 
 describe('<Button />', () => {
   it('should render a button element with the provided children and default props', () => {

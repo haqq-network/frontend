@@ -50,11 +50,17 @@ export function Button({
     className,
   );
 
+  const handleClick = () => {
+    if (!isLoading && !disabled && onClick) {
+      onClick();
+    }
+  };
+
   return (
     <button
       className={classNames}
-      disabled={disabled || isLoading}
-      onClick={onClick}
+      disabled={disabled}
+      onClick={handleClick}
       type={type}
     >
       {isLoading ? (

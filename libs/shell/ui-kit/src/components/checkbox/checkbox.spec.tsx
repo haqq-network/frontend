@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react';
-import { renderWithUserEvents } from '../../../tests/render-with-user-events';
 import { Checkbox } from './checkbox';
+import { renderWithUserEvents } from '../../../tests/render-with-user-events';
 
 describe('<Checkbox />', () => {
   it('should render Checkbox component with default props', () => {
