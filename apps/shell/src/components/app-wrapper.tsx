@@ -340,10 +340,8 @@ export function AppWrapper({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (isHaqqWallet) {
-      const distinctId = posthog.get_distinct_id();
       const walletDistinctId = window.__HAQQWALLET__?.POSTHOG_DISTINCT_ID;
-
-      posthog.identify(walletDistinctId ?? distinctId);
+      posthog.identify(walletDistinctId ?? posthog.get_distinct_id());
     }
   }, [posthog, isHaqqWallet]);
 
