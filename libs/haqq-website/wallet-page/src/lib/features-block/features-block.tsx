@@ -170,13 +170,7 @@ function StakingBlock() {
 function SocialLoginBlock() {
   return (
     <div className="social-login group relative flex h-full min-h-[298px] select-none flex-col overflow-hidden rounded-2xl bg-[#2E7579] px-[24px] py-[32px]">
-      <div className="mb-[12px]">
-        <CardHeading>Social Login</CardHeading>
-
-        <div className="mt-[4px] inline-block rounded-[6px] bg-white/10 px-[12px] py-[4px] font-[800]">
-          Coming soon
-        </div>
-      </div>
+      <CardHeading className="mb-[12px]">Social Login</CardHeading>
       <CardText className="text-white/60">
         Hassle-free private key management without a mnemonic phrase
       </CardText>
