@@ -180,7 +180,7 @@ export function HeroBlock() {
               <div className="mb-[-6px] mr-[6px] inline-block">
                 <MpcIcon />
               </div>
-              <span>Mnemonic-free private key security (is coming soon)</span>
+              <span>Mnemonic-free private key security</span>
             </FeatureText>
           </div>
 

@@ -69,7 +69,7 @@ export function FAQBlock() {
           />
           <FAQArticle
             question="Can I connect a hardware wallet?"
-            answer="Yes, we support Ledger Nano X"
+            answer="Yes, we support Ledger Nano X and Keystone 2"
           />
           <FAQArticle
             question="Does wallet support NFTs?"
