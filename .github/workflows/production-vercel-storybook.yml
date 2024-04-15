@@ -9,7 +9,7 @@ on:
 jobs:
   Production:
     runs-on:
-      - ubuntu
+      - frontend
       - self-hosted
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
