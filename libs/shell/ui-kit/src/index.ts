@@ -46,7 +46,6 @@ export * from './components/footer/footer';
 export * from './components/select-chain-modal/select-chain-modal';
 export * from './components/search-input/search-input';
 export * from './components/sort-select/sort-select';
-export * from './components/search-input/search-input';
 export * from './utils/format-date';
 export * from './components/top-validators-warning-modal/top-validators-warning-modal';
 export * from './utils/format-percent';

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import { Button, Container, Heading } from '@haqq/shell-ui-kit';
 
 export default function ErrorPage({
   error,
@@ -15,15 +16,18 @@ export default function ErrorPage({
   }, [error]);
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button
-        onClick={() => {
-          reset();
-        }}
-      >
-        Try again
-      </button>
-    </div>
+    <Container>
+      <div className="flex flex-col items-center justify-center gap-8 py-32">
+        <Heading level={2}>Something went wrong!</Heading>
+
+        <Button
+          onClick={() => {
+            reset();
+          }}
+        >
+          Try again
+        </Button>
+      </div>
+    </Container>
   );
 }

@@ -182,18 +182,21 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         const ethAddress = haqqToEth(sender.accountAddress);
         const signature = await walletClient.request({
           method: 'eth_signTypedData_v4',
-          params: [ethAddress as `0x${string}`, JSON.stringify(msg.eipToSign)],
+          params: [ethAddress as Hex, JSON.stringify(msg.eipToSign)],
         });
+        console.log({ signature });
         const extension = signatureToWeb3Extension(
           haqqChain,
           sender,
           signature,
         );
+        console.log({ extension });
         const rawTx = createTxRawEIP712(
           msg.legacyAmino.body,
           msg.legacyAmino.authInfo,
           extension,
         );
+        console.log({ rawTx });
 
         return rawTx;
       } else {

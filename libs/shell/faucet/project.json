@@ -8,26 +8,26 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/shell/faucet",
-        "tsConfig": "libs/shell/faucet/tsconfig.lib.json",
-        "project": "libs/shell/faucet/package.json",
-        "entryFile": "libs/shell/faucet/src/index.ts",
-        "external": ["react", "react-dom", "react/jsx-runtime"],
-        "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "swc",
-        "assets": [
-          {
-            "glob": "libs/shell/faucet/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ]
-      }
-    },
+    // "build": {
+    //   "executor": "@nx/rollup:rollup",
+    //   "outputs": ["{options.outputPath}"],
+    //   "options": {
+    //     "outputPath": "dist/libs/shell/faucet",
+    //     "tsConfig": "libs/shell/faucet/tsconfig.lib.json",
+    //     "project": "libs/shell/faucet/package.json",
+    //     "entryFile": "libs/shell/faucet/src/index.ts",
+    //     "external": ["react", "react-dom", "react/jsx-runtime"],
+    //     "rollupConfig": "@nx/react/plugins/bundle-rollup",
+    //     "compiler": "swc",
+    //     "assets": [
+    //       {
+    //         "glob": "libs/shell/faucet/README.md",
+    //         "input": ".",
+    //         "output": "."
+    //       }
+    //     ]
+    //   }
+    // },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

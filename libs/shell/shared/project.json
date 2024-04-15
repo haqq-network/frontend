@@ -5,27 +5,27 @@
   "projectType": "library",
   "tags": ["shell-lib-shared"],
   "targets": {
-    "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/shell/shared",
-        "tsConfig": "libs/shell/shared/tsconfig.lib.json",
-        "project": "libs/shell/shared/package.json",
-        "entryFile": "libs/shell/shared/src/index.ts",
-        "external": ["react", "react-dom", "react/jsx-runtime"],
-        "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "swc",
-        "assets": [
-          {
-            "glob": "libs/shell/shared/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
-      }
-    },
+    // "build": {
+    //   "executor": "@nx/rollup:rollup",
+    //   "outputs": ["{options.outputPath}"],
+    //   "options": {
+    //     "outputPath": "dist/libs/shell/shared",
+    //     "tsConfig": "libs/shell/shared/tsconfig.lib.json",
+    //     "project": "libs/shell/shared/package.json",
+    //     "entryFile": "libs/shell/shared/src/index.ts",
+    //     "external": ["react", "react-dom", "react/jsx-runtime"],
+    //     "rollupConfig": "@nx/react/plugins/bundle-rollup",
+    //     "compiler": "swc",
+    //     "assets": [
+    //       {
+    //         "glob": "libs/shell/shared/README.md",
+    //         "input": ".",
+    //         "output": "."
+    //       }
+    //     ],
+    //     "updateBuildableProjectDepsInPackageJson": true
+    //   }
+    // },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
