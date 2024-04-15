@@ -194,7 +194,6 @@ export default async function LocaleLayout({
                 />
 
                 <CookieConsentModal />
-                <Analytics mode="auto" />
                 <SpeedInsights />
               </>
             )}

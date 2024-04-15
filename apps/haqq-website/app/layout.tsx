@@ -84,7 +84,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
                   `,
                 }}
               />
-              <Analytics mode="auto" />
               <SpeedInsights />
             </>
           )}

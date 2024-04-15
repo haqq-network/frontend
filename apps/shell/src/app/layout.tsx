@@ -61,7 +61,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <PHProvider>
         <body>
           <PostHogPageView />
-          <Analytics mode="auto" />
           <SpeedInsights />
 
           <Providers config={shellConfig}>
