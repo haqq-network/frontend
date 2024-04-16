@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import Image, { StaticImageData } from 'next/image';
 import atomLogo from '../../assets/images/coin-logos/atom.svg';
-import btcLogo from '../../assets/images/coin-logos/btc.svg';
 import daiLogo from '../../assets/images/coin-logos/dai.svg';
 import dymLogo from '../../assets/images/coin-logos/dym.svg';
 import ethLogo from '../../assets/images/coin-logos/eth.svg';
@@ -23,7 +22,7 @@ const coinLogos: Record<string, string | StaticImageData> = {
   usdt: usdtLogo,
   usdc: usdcLogo,
   dai: daiLogo,
-  axlwbtc: btcLogo,
+  axlwbtc: wbtcLogo,
   inj: injLogo,
   osmo: osmoLogo,
   evmos: evmosLogo,
