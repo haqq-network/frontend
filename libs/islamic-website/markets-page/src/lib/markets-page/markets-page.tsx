@@ -58,6 +58,10 @@ const dexData: Array<{
         href: 'https://app.osmosis.zone/?to=ISLM&from=USDC',
       },
       {
+        pair: ['ETH', 'ISLM'],
+        href: 'https://app.osmosis.zone/?to=ISLM&from=ETH',
+      },
+      {
         pair: ['ATOM', 'ISLM'],
         href: 'https://app.osmosis.zone/?to=ISLM&from=ATOM',
       },
@@ -68,6 +72,30 @@ const dexData: Array<{
       {
         pair: ['INJ', 'ISLM'],
         href: 'https://app.osmosis.zone/?to=ISLM&from=INJ',
+      },
+      {
+        pair: ['EVMOS', 'ISLM'],
+        href: 'https://app.osmosis.zone/?to=ISLM&from=EVMOS',
+      },
+      {
+        pair: ['USDCaxl', 'ISLM'],
+        href: 'https://app.osmosis.zone/?to=ISLM&from=USDC.axl',
+      },
+      {
+        pair: ['WBTC', 'ISLM'],
+        href: 'https://app.osmosis.zone/?to=ISLM&from=WBTC',
+      },
+      {
+        pair: ['TIA', 'ISLM'],
+        href: 'https://app.osmosis.zone/?to=ISLM&from=TIA',
+      },
+      {
+        pair: ['STRD', 'ISLM'],
+        href: 'https://app.osmosis.zone/?to=ISLM&from=STRD',
+      },
+      {
+        pair: ['DYM', 'ISLM'],
+        href: 'https://app.osmosis.zone/?to=ISLM&from=DYM',
       },
     ],
   },
