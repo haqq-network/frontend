@@ -78,8 +78,12 @@ const dexData: Array<{
         href: 'https://app.osmosis.zone/?to=ISLM&from=EVMOS',
       },
       {
-        pair: ['USDCaxl', 'ISLM'],
+        pair: ['USDC.axl', 'ISLM'],
         href: 'https://app.osmosis.zone/?to=ISLM&from=USDC.axl',
+      },
+      {
+        pair: ['WBTC.axl', 'ISLM'],
+        href: 'https://app.osmosis.zone/?to=ISLM&from=WBTC.axl',
       },
       {
         pair: ['WBTC', 'ISLM'],

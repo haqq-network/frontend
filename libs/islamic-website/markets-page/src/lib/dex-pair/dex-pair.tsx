@@ -13,6 +13,7 @@ import tiaLogo from '../../assets/images/coin-logos/tia.svg';
 import usdcAxlLogo from '../../assets/images/coin-logos/usdc.axl.svg';
 import usdcLogo from '../../assets/images/coin-logos/usdc.svg';
 import usdtLogo from '../../assets/images/coin-logos/usdt.svg';
+import wbtcAxlLogo from '../../assets/images/coin-logos/wbtc.axl.svg';
 import wbtcLogo from '../../assets/images/coin-logos/wbtc.svg';
 
 const coinLogos: Record<string, string | StaticImageData> = {
@@ -22,7 +23,6 @@ const coinLogos: Record<string, string | StaticImageData> = {
   usdt: usdtLogo,
   usdc: usdcLogo,
   dai: daiLogo,
-  axlwbtc: wbtcLogo,
   inj: injLogo,
   osmo: osmoLogo,
   evmos: evmosLogo,
@@ -32,17 +32,18 @@ const coinLogos: Record<string, string | StaticImageData> = {
   strd: strdLogo,
   eth: ethLogo,
   dym: dymLogo,
+  wbtcaxl: wbtcAxlLogo,
 };
 
 export function DEXPair({ pair }: { pair: [string, string] }) {
   return (
     <div className="relative h-[52px] w-[52px] md:h-[62px] md:w-[62px]">
       <DEXPairCoinImage
-        symbol={pair[0].toLowerCase()}
+        symbol={pair[0].toLowerCase().replace(/\./g, '')}
         className="absolute left-[4px] top-[4px] z-20"
       />
       <DEXPairCoinImage
-        symbol={pair[1].toLowerCase()}
+        symbol={pair[1].toLowerCase().replace(/\./g, '')}
         className="absolute bottom-[4px] right-[4px] z-10"
       />
     </div>
