@@ -1,14 +1,20 @@
 import clsx from 'clsx';
 import Image, { StaticImageData } from 'next/image';
 import atomLogo from '../../assets/images/coin-logos/atom.svg';
-import btcLogo from '../../assets/images/coin-logos/btc.svg';
 import daiLogo from '../../assets/images/coin-logos/dai.svg';
+import dymLogo from '../../assets/images/coin-logos/dym.svg';
 import ethLogo from '../../assets/images/coin-logos/eth.svg';
+import evmosLogo from '../../assets/images/coin-logos/evmos.svg';
 import injLogo from '../../assets/images/coin-logos/inj.svg';
 import islmLogo from '../../assets/images/coin-logos/islm.svg';
 import osmoLogo from '../../assets/images/coin-logos/osmo.svg';
+import strdLogo from '../../assets/images/coin-logos/strd.svg';
+import tiaLogo from '../../assets/images/coin-logos/tia.svg';
+import usdcAxlLogo from '../../assets/images/coin-logos/usdc.axl.svg';
 import usdcLogo from '../../assets/images/coin-logos/usdc.svg';
 import usdtLogo from '../../assets/images/coin-logos/usdt.svg';
+import wbtcAxlLogo from '../../assets/images/coin-logos/wbtc.axl.svg';
+import wbtcLogo from '../../assets/images/coin-logos/wbtc.svg';
 
 const coinLogos: Record<string, string | StaticImageData> = {
   islm: islmLogo,
@@ -17,20 +23,27 @@ const coinLogos: Record<string, string | StaticImageData> = {
   usdt: usdtLogo,
   usdc: usdcLogo,
   dai: daiLogo,
-  wbtc: btcLogo,
   inj: injLogo,
   osmo: osmoLogo,
+  evmos: evmosLogo,
+  usdcaxl: usdcAxlLogo,
+  wbtc: wbtcLogo,
+  tia: tiaLogo,
+  strd: strdLogo,
+  eth: ethLogo,
+  dym: dymLogo,
+  wbtcaxl: wbtcAxlLogo,
 };
 
 export function DEXPair({ pair }: { pair: [string, string] }) {
   return (
     <div className="relative h-[52px] w-[52px] md:h-[62px] md:w-[62px]">
       <DEXPairCoinImage
-        symbol={pair[0].toLowerCase()}
+        symbol={pair[0].toLowerCase().replace(/\./g, '')}
         className="absolute left-[4px] top-[4px] z-20"
       />
       <DEXPairCoinImage
-        symbol={pair[1].toLowerCase()}
+        symbol={pair[1].toLowerCase().replace(/\./g, '')}
         className="absolute bottom-[4px] right-[4px] z-10"
       />
     </div>
@@ -47,7 +60,7 @@ function DEXPairCoinImage({
   return (
     <div
       className={clsx(
-        'h-[30px] w-[30px] overflow-hidden rounded-full md:h-[36px] md:w-[36px]',
+        'h-[30px] w-[30px] rounded-full md:h-[36px] md:w-[36px]',
         className,
       )}
     >
