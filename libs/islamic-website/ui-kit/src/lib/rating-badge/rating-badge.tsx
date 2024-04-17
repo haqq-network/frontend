@@ -1,4 +1,6 @@
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+import styles from './rating-badge.module.css';
 import { Text } from '../text/text';
 
 interface RatingBadgeProps {
@@ -58,7 +60,7 @@ function GoldenStar() {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M8.69134 1.77684C8.44156 1.18539 7.56104 1.18539 7.31127 1.77684L5.86752 5.19551C5.76115 5.44738 5.51256 5.61912 5.22779 5.63748L1.36236 5.8867C0.693626 5.92982 0.421531 6.72612 0.935898 7.13477L3.90903 9.49685C4.12807 9.67087 4.22303 9.94876 4.15339 10.212L3.20818 13.7847C3.04465 14.4028 3.75701 14.8949 4.32468 14.556L7.60593 12.5972C7.84767 12.4529 8.15494 12.4529 8.39668 12.5972L11.6779 14.556C12.2456 14.8949 12.958 14.4028 12.7944 13.7847L11.8492 10.212C11.7796 9.94876 11.8745 9.67087 12.0936 9.49685L15.0667 7.13477C15.5811 6.72612 15.309 5.92982 14.6402 5.8867L10.7748 5.63748C10.49 5.61912 10.2415 5.44738 10.1351 5.19551L8.69134 1.77684Z"
-        fill="#FCC310"
+        fill="currentColor"
       />
     </svg>
   );
@@ -73,12 +75,47 @@ export function RatingBadge({ market, rating }: RatingBadgeProps) {
         {market === 'google-play' && t('portfolio-block.stores.google-play')}
       </span>
       <div className="flex items-center gap-x-[10px]">
-        <div className="flex gap-x-[4px]">
-          <GoldenStar />
-          <GoldenStar />
-          <GoldenStar />
-          <GoldenStar />
-          <HalfGoldenStar />
+        <div className="relative flex gap-x-[4px] bg-[#848484]">
+          <svg className="hidden">
+            <defs>
+              <symbol id="fivestars">
+                <path
+                  d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                  fillRule="evenodd"
+                />
+                <path
+                  d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                  fillRule="evenodd"
+                  transform="translate(24)"
+                />
+                <path
+                  d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                  fillRule="evenodd"
+                  transform="translate(48)"
+                />
+                <path
+                  d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                  fillRule="evenodd"
+                  transform="translate(72)"
+                />
+                <path
+                  d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                  fillRule="evenodd"
+                  transform="translate(96)"
+                />
+              </symbol>
+            </defs>
+          </svg>
+          <div className={styles['rating']}>
+            <progress
+              className={clsx(styles['rating-bg'])}
+              value={rating}
+              max="5"
+            />
+            <svg>
+              <use xlinkHref="#fivestars" />
+            </svg>
+          </div>
         </div>
         <Text className="text-[#FCC310]" isMono>
           {rating}
