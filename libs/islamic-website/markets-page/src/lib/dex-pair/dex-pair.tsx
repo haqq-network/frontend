@@ -60,14 +60,14 @@ function DEXPairCoinImage({
   return (
     <div
       className={clsx(
-        'h-[30px] w-[30px] overflow-hidden rounded-full md:h-[36px] md:w-[36px]',
+        'h-[30px] w-[30px] rounded-full md:h-[36px] md:w-[36px]',
         className,
       )}
     >
       <Image
         src={coinLogos[symbol]}
         alt={`${symbol} coin logo`}
-        className="bg-black object-cover"
+        className="object-cover"
         width={36}
         height={36}
       />
