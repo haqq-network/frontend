@@ -11,7 +11,6 @@ type Story = StoryObj<typeof RatingBadgeComponent>;
 
 export const RatingBadge: Story = {
   args: {
-    storeName: 'App Store',
     rating: 0.887123123798,
   },
 };
