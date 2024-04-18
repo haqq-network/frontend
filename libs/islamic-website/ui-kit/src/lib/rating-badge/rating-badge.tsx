@@ -1,11 +1,6 @@
 import { Text } from '../text/text';
 
-interface RatingBadgeProps {
-  rating: number;
-  storeName: string;
-}
-
-export function RatingBadge({ rating }: RatingBadgeProps) {
+export function RatingBadge({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-x-[10px]">
       <div className="relative">
@@ -18,7 +13,7 @@ export function RatingBadge({ rating }: RatingBadgeProps) {
         </div>
         <div
           style={{ width: (rating / 5) * 100 + '%' }}
-          className=" absolute left-0 top-0 z-10"
+          className="absolute left-0 top-0 z-10"
         >
           <div className="flex shrink-0 flex-row gap-x-[4px] text-[#fcc310]">
             <Star />
