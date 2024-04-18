@@ -159,7 +159,7 @@ export function ScamAlertPage() {
               height={764}
               alt=""
               className={clsx(
-                'pointer-events-none select-none md:absolute md:top-[350px] md:translate-x-[-50%] md:translate-y-[-50%] ltr:md:right-[-385px] ltr:lg:right-[-295px] ltr:xl:right-[-265px]',
+                'pointer-events-none select-none md:absolute md:right-[-385px] md:top-[350px] md:translate-x-[-50%] md:translate-y-[-50%] lg:right-[-295px] xl:right-[-265px]',
                 'rtl:md:left-[-385px] rtl:md:translate-x-[50%] rtl:lg:left-[-295px] rtl:xl:left-[-265px]',
               )}
             />

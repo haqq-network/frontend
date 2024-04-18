@@ -14,7 +14,7 @@ export function BuildPage() {
             {t('title')}
           </h1>
           <div className="mt-[32px] flex flex-col gap-y-[16px] md:mt-[60px] md:max-w-[480px] md:gap-y-[24px] lg:max-w-[600px]">
-            <h3 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
+            <h3 className="rtl:font-handjet font-vcr text-[18px] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
               {t('subtitle')}
             </h3>
             <div className="flex flex-col gap-y-[12px] md:gap-y-[16px]">
@@ -56,7 +56,7 @@ export function BuildPage() {
 
 function BuildPageBg() {
   return (
-    <div className="absolute top-[-150px] z-[-1] h-[550px] w-[655px] md:top-[100px] xl:top-[100px] min-[1440px]:top-[110px] ltr:left-[40px] ltr:md:left-auto ltr:md:right-[-180px] ltr:xl:right-[-90px] ltr:min-[1440px]:right-[30px] rtl:right-[40px] rtl:scale-x-[-1] rtl:transform rtl:md:left-[-180px] rtl:md:right-auto rtl:xl:left-[-90px] rtl:min-[1440px]:left-[30px]">
+    <div className="absolute left-[40px] top-[-150px] z-[-1] h-[550px] w-[655px] md:left-auto md:right-[-180px] md:top-[100px] xl:right-[-90px] xl:top-[100px] min-[1440px]:right-[30px] min-[1440px]:top-[110px] rtl:right-[40px] rtl:scale-x-[-1] rtl:transform rtl:md:left-[-180px] rtl:md:right-auto rtl:xl:left-[-90px] rtl:min-[1440px]:left-[30px]">
       <Image src={buildBgImgData} alt="" fill />
     </div>
   );
@@ -120,7 +120,7 @@ function DocsTab({ type }: { type: 'manual' | 'archive' }) {
             viewBox="0 0 18 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="mb-[-1px] transform-gpu transition-transform duration-300 ltr:group-hover:translate-x-[4px] rtl:rotate-180 rtl:group-hover:translate-x-[-4px]"
+            className="mb-[-1px] transform-gpu transition-transform duration-300 group-hover:translate-x-[4px] rtl:rotate-180 rtl:group-hover:translate-x-[-4px]"
           >
             <path
               fillRule="evenodd"

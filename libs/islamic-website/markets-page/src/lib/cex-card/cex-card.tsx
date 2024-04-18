@@ -28,7 +28,7 @@ export function CEXCard({ name, logo }: CEXCardProps) {
       </div>
 
       <div>
-        <div className="ltr:font-vcr rtl:font-handjet text-[18px] font-[400] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
+        <div className="font-vcr rtl:font-handjet text-[18px] font-[400] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
           {name}
         </div>
 

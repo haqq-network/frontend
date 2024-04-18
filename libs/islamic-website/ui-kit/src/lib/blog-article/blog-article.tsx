@@ -55,7 +55,7 @@ export function BlogArticle({
           </time>
         </div>
 
-        <MarkdownText className="anchor-fix ltr:prose-headings:font-vcr rtl:prose-headings:font-handjet prose-headings:uppercase">
+        <MarkdownText className="anchor-fix prose-headings:font-vcr rtl:prose-headings:font-handjet prose-headings:uppercase">
           {'# ' + title + '\n\n' + content}
         </MarkdownText>
       </article>
@@ -65,7 +65,7 @@ export function BlogArticle({
           return (
             <div
               key={tag}
-              className="ltr:font-vcr rtl:font-handjet max-w-fit rounded-[8px] border border-[#585858] px-[10px] py-[6px] text-center text-[12px] uppercase leading-[1.5em]"
+              className="font-vcr rtl:font-handjet max-w-fit rounded-[8px] border border-[#585858] px-[10px] py-[6px] text-center text-[12px] uppercase leading-[1.5em]"
             >
               {tag}
             </div>

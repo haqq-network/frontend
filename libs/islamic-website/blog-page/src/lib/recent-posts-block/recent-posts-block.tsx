@@ -29,7 +29,7 @@ export function RecentPostsBlock({ recentPosts }: { recentPosts: Post[] }) {
       <div className="w-full overflow-clip px-[16px] md:px-[48px] xl:px-[80px]">
         <div className="mx-auto max-w-4xl xl:max-w-5xl">
           <div className="mb-[28px] lg:mb-[32px]">
-            <h2 className="ltr:font-vcr rtl:font-handjet text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+            <h2 className="font-vcr rtl:font-handjet text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
               Related articles
             </h2>
           </div>

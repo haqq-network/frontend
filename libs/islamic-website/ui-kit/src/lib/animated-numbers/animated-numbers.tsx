@@ -98,7 +98,7 @@ export function AnimatedNumbers({
   return (
     <>
       {numberHeight !== 0 && (
-        <div ref={ref} className="flex ltr:flex-row rtl:flex-row-reverse">
+        <div ref={ref} className="flex flex-row rtl:flex-row-reverse">
           {inView && animateToNumber < 0 && <div style={fontStyle}>-</div>}
           {inView &&
             animateToNumbersArr.map((n, index) => {
