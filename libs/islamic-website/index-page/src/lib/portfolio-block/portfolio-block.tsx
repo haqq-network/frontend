@@ -53,8 +53,14 @@ export function PortfolioBlock() {
                   {t('portfolio-block.text')}
                 </Text>
                 <div className="mt-[24px] flex gap-x-[24px] gap-y-[20px] min-[375px]:gap-x-[32px] md:mt-[36px]">
-                  <RatingBadge market="app-store" rating={4.8} />
-                  <RatingBadge market="google-play" rating={4.5} />
+                  <RatingBadge
+                    storeName={t('portfolio-block.stores.app-store')}
+                    rating={4.8}
+                  />
+                  <RatingBadge
+                    storeName={t('portfolio-block.stores.google-play')}
+                    rating={4.5}
+                  />
                 </div>
                 <div className="mt-[20px] flex flex-col gap-x-[16px] gap-y-[20px] lg:mt-[24px] lg:flex-row">
                   <div className="w-fit">
