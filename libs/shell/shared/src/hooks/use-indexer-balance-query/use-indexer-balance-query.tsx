@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { haqqTestedge2 } from '@wagmi/chains';
 import { nanoid } from 'nanoid';
-import { Hex, formatUnits } from 'viem';
+import { formatUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 
@@ -20,20 +20,20 @@ function parseResponseNumber(number: string) {
 
 export interface IndexerBalancesResponse {
   addresses: string[];
-  available: Record<Hex, string>;
-  available_for_stake: Record<Hex, string>;
-  balance: Record<Hex, string>;
+  available: Record<string, string>;
+  available_for_stake: Record<string, string>;
+  balance: Record<string, string>;
   last_update: string;
-  locked: Record<Hex, string>;
+  locked: Record<string, string>;
   nfts: string[];
-  staked: Record<Hex, string>;
-  staked_free: Record<Hex, string>;
-  staked_locked: Record<Hex, string>;
+  staked: Record<string, string>;
+  staked_free: Record<string, string>;
+  staked_locked: Record<string, string>;
   tokens: string[];
-  total: Record<Hex, string>;
+  total: Record<string, string>;
   transactions: string[];
-  unlock: Record<Hex, number>;
-  vested: Record<Hex, string>;
+  unlock: Record<string, number>;
+  vested: Record<string, string>;
 }
 
 export interface IndexerBalances {
@@ -55,7 +55,7 @@ const TESTEDGE_INDEXER_ENDPOINT =
 
 function mapBalances(
   balancesResponse: IndexerBalancesResponse,
-  address: Hex,
+  address: string,
 ): IndexerBalances {
   console.log({
     available: parseResponseNumber(balancesResponse.available[address]),
@@ -87,7 +87,7 @@ function mapBalances(
   };
 }
 
-async function indexerBalancesFetcher(chainId: number, address: Hex) {
+async function indexerBalancesFetcher(chainId: number, address: string) {
   const isTestedge = chainId === haqqTestedge2.id;
   const requestUrl = new URL(
     isTestedge ? TESTEDGE_INDEXER_ENDPOINT : INDEXER_ENDPOINT,
