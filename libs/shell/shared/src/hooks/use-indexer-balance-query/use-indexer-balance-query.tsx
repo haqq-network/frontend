@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { haqqTestedge2 } from '@wagmi/chains';
 import { nanoid } from 'nanoid';
 import { Hex, formatUnits } from 'viem';
@@ -57,6 +57,20 @@ function mapBalances(
   balancesResponse: IndexerBalancesResponse,
   address: Hex,
 ): IndexerBalances {
+  console.log({
+    available: parseResponseNumber(balancesResponse.available[address]),
+    availableForStake: parseResponseNumber(
+      balancesResponse.available_for_stake[address],
+    ),
+    balance: parseResponseNumber(balancesResponse.balance[address]),
+    locked: parseResponseNumber(balancesResponse.locked[address]),
+    staked: parseResponseNumber(balancesResponse.staked[address]),
+    stakedFree: parseResponseNumber(balancesResponse.staked_free[address]),
+    stakedLocked: parseResponseNumber(balancesResponse.staked_locked[address]),
+    total: parseResponseNumber(balancesResponse.total[address]),
+    // unlock: parseResponseNumber(balancesResponse.unlock[address]),
+    vested: parseResponseNumber(balancesResponse.vested[address]),
+  });
   return {
     available: parseResponseNumber(balancesResponse.available[address]),
     availableForStake: parseResponseNumber(
@@ -73,44 +87,47 @@ function mapBalances(
   };
 }
 
-export function useIndexerBalances() {
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const isTestedge = useMemo(() => {
-    return chain.id === haqqTestedge2.id;
-  }, [chain.id]);
-
-  const getBalances = useCallback(
-    async (address: Hex) => {
-      const requestUrl = new URL(
-        isTestedge ? TESTEDGE_INDEXER_ENDPOINT : INDEXER_ENDPOINT,
-      );
-
-      const headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      const nowDate = new Date(Date.now());
-      const requestBody = createRequest(address, nowDate);
-
-      try {
-        const response = await fetch(requestUrl, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify(requestBody),
-          redirect: 'follow',
-        });
-
-        const responseJson = await response.json();
-        return mapBalances(responseJson.result, address);
-      } catch (error) {
-        console.error((error as Error).message);
-        return undefined;
-      }
-    },
-    [isTestedge],
+async function indexerBalancesFetcher(chainId: number, address: Hex) {
+  const isTestedge = chainId === haqqTestedge2.id;
+  const requestUrl = new URL(
+    isTestedge ? TESTEDGE_INDEXER_ENDPOINT : INDEXER_ENDPOINT,
   );
 
-  return {
-    getBalances,
-  };
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+
+  const nowDate = new Date(Date.now());
+  const requestBody = createRequest(address, nowDate);
+
+  try {
+    const response = await fetch(requestUrl, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(requestBody),
+      redirect: 'follow',
+    });
+
+    const responseJson = await response.json();
+    return mapBalances(responseJson.result, address);
+  } catch (error) {
+    console.error((error as Error).message);
+    return undefined;
+  }
+}
+
+export function useIndexerBalanceQuery(address?: string) {
+  const chains = useSupportedChains();
+  const { chain = chains[0] } = useNetwork();
+
+  return useQuery({
+    queryKey: [chain.id, 'indexer-balance', address],
+    enabled: !!address,
+    queryFn: async () => {
+      if (!address) {
+        return null;
+      }
+
+      return await indexerBalancesFetcher(chain.id, address);
+    },
+  });
 }

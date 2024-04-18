@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useMediaQuery } from 'react-responsive';
 import { Hex } from 'viem';
-import { useBalance, useNetwork } from 'wagmi';
 import {
   useAddress,
   useClipboard,
@@ -11,7 +10,7 @@ import {
   useStakingRewardsQuery,
   getFormattedAddress,
   useWallet,
-  useSupportedChains,
+  useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import {
   OrangeLink,
@@ -22,6 +21,14 @@ import {
   Heading,
   formatNumber,
   WalletIcon,
+  InfoIcon,
+  CoinIcon,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  useHoverPopover,
+  LockIcon,
+  StakedVestedBalance,
 } from '@haqq/shell-ui-kit';
 
 function MyAccountAmountBlock({
@@ -87,12 +94,6 @@ function MyAccountConnected({
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
   const { copyText } = useClipboard();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { data: balanceData } = useBalance({
-    address: ethAddress,
-    chainId: chain.id,
-  });
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const isMobile = useMediaQuery({
@@ -102,17 +103,7 @@ function MyAccountConnected({
     query: `(min-width: 1024px)`,
   });
   const symbol = 'ISLM';
-
-  const balance = useMemo(() => {
-    if (!balanceData) {
-      return undefined;
-    }
-
-    return {
-      symbol: balanceData.symbol,
-      value: formatNumber(Number.parseFloat(balanceData.formatted)),
-    };
-  }, [balanceData]);
+  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
 
   const delegation = useMemo(() => {
     if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
@@ -161,6 +152,9 @@ function MyAccountConnected({
     }
   }, [copyText, haqqAddress]);
 
+  const { isHovered, handleMouseEnter, handleMouseLeave } =
+    useHoverPopover(100);
+
   return (
     <Container className="border-y border-y-[#ffffff26]">
       <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
@@ -177,12 +171,41 @@ function MyAccountConnected({
         </div>
 
         <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
-          <MyAccountAmountBlock
-            title="Balance"
-            value={`${balance?.value} ${symbol.toLocaleUpperCase()}`}
-            valueClassName="!text-white"
-            isGreen
-          />
+          <div className="flex flex-col gap-y-[6px]">
+            <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
+              Balance
+            </div>
+            <div className="flex flex-col justify-center gap-[4px]">
+              <div className="font-clash text-[20px] font-[500] leading-[26px] text-white">
+                {balances?.balance
+                  ? `${formatNumber(balances?.balance)} ${symbol.toLocaleUpperCase()}`
+                  : ' '}
+              </div>
+              <div className="leading-[0px]">
+                <Popover open={isHovered} placement="top-start">
+                  <PopoverTrigger
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <div
+                      className={clsx(
+                        'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
+                        'text-white hover:text-white/50',
+                        'text-[12px] font-[500] leading-[18px]',
+                        'transition-colors duration-150 ease-in-out',
+                      )}
+                    >
+                      <span>Locked: {formatNumber(balances?.locked ?? 0)}</span>
+                      <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="outline-none">
+                    <LockedBalancePopup haqqAddress={haqqAddress} />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+          </div>
           <MyAccountAmountBlock
             title="Staked"
             value={`${formatNumber(delegation)} ${symbol.toLocaleUpperCase()}`}
@@ -244,5 +267,52 @@ function MyAccountConnected({
         </div>
       </div>
     </Container>
+  );
+}
+
+function LockedBalancePopup({ haqqAddress }: { haqqAddress: string }) {
+  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
+
+  if (!balances) {
+    return null;
+  }
+
+  return (
+    <div className="bg-haqq-black font-guise max-w-[320px] transform-gpu rounded-lg border border-[#FFFFFF26] bg-opacity-90 text-white shadow-lg backdrop-blur">
+      <div className="flex flex-col divide-y divide-white/15 px-[8px]">
+        <div className="py-[8px]">
+          <p className="text-[12px] leading-[18px] text-[#8E8E8E]">
+            Locked tokens are your tokens but you cannot transfer to other users
+            or use them to pay for gas, but you can delegate to validators -
+            stake to improve the reliability of the HAQQ network, and make a
+            profit. Locked tokens are unlocked according to the schedule.
+          </p>
+        </div>
+        <div className="py-[8px]">
+          <div className="flex flex-row items-center gap-[4px]">
+            <CoinIcon />
+            <div className="text-[14px] leading-[22px] text-white">
+              Available: {formatNumber(balances.available)}
+            </div>
+          </div>
+        </div>
+        <div className="py-[8px]">
+          <div className="flex flex-col gap-[8px]">
+            <div className="flex flex-row items-center gap-[4px]">
+              <LockIcon />
+              <div className="text-[14px] leading-[22px] text-white">
+                Locked: {formatNumber(balances.locked)}
+              </div>
+            </div>
+            <div>
+              <StakedVestedBalance
+                staked={balances.staked}
+                vested={balances.vested}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -37,4 +37,4 @@ export * from './hooks/erc20/use-token-pairs';
 export * from './hooks/use-debounce/use-debounce';
 export * from './hooks/use-throttle/use-throttle';
 export * from './hooks/use-balance-aware-action/use-balance-aware-action';
-export * from './hooks/use-indexer-balances/use-indexer-balances';
+export * from './hooks/use-indexer-balance-query/use-indexer-balance-query';
