@@ -318,8 +318,12 @@
     },
     "subtitle": "Etika-Pertama, Dompet Non-Custodial",
     "text": "Navigasi Web3 dengan lancar menggunakan HAQQ Wallet, mitra tepercaya kamu untuk perjalanan DeFi yang berprinsip. Dengan keamanan tanpa mnemonik dan antarmuka yang mudah digunakan, mengelola aset digital kamu yang sesuai dengan syariah tidak pernah semudah atau seaman ini",
-    "download-button": {
-      "title": "Tersedia di"
+    "stores": {
+      "app-store": "Peringkat App store",
+      "google-play": "Peringkat Google play",
+      "download-button": {
+        "title": "Tersedia di"
+      }
     }
   },
   "scam-alert-page": {

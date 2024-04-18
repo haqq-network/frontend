@@ -29,8 +29,8 @@ export function WalletPage() {
         {t('text')}
       </div>
       <div className="mt-[24px] flex gap-x-[24px] md:mt-[36px] md:gap-x-[38px]">
-        <RatingBadge market="app-store" rating={4.8} />
-        <RatingBadge market="google-play" rating={4.9} />
+        <RatingBadge storeName={t('stores.app-store')} rating={4.8} />
+        <RatingBadge storeName={t('stores.google-play')} rating={4.9} />
       </div>
       <div className="mt-[28px] flex flex-col gap-x-[16px] gap-y-[20px] md:flex-row lg:mt-[24px] lg:flex-wrap">
         <div className="w-fit">
