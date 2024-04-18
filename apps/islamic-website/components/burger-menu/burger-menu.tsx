@@ -82,130 +82,130 @@ export function BurgerMenu({
 
   return (
     <div className={clsx('px-[16px] md:px-[48px]', className)}>
-      {!isLocaleSwitcherOpened ? (
-        <div className="flex flex-col gap-y-[12px]">
-          <Link
-            href="/shariah"
-            className="hover:text-islamic-primary-green z-50 py-[12px] text-base uppercase text-white transition-colors duration-200"
+      {/* {!isLocaleSwitcherOpened ? ( */}
+      <div className="flex flex-col gap-y-[12px]">
+        <Link
+          href="/shariah"
+          className="hover:text-islamic-primary-green z-50 py-[12px] text-base uppercase text-white transition-colors duration-200"
+          onClick={onClick}
+        >
+          {t('single-links.shariah')}
+        </Link>
+        <MobileMenuDropdownLink title={t('dropdown-links.about.about')}>
+          <div className="flex flex-col">
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.about.mission')}
+              icon={<MissionIcon />}
+              href="/mission"
+              onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.about.whitepaper')}
+              icon={<HalfMoonAndStarIcon />}
+              href="/whitepaper"
+              onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.about.roadmap')}
+              icon={<RoadmapIcon />}
+              href="/roadmap"
+              onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.about.news')}
+              icon={<NewsIcon />}
+              href="/news"
+              onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.about.ecosystem')}
+              icon={<EcosystemIcon />}
+              href="https://haqq.network/ecosystem"
+              isOutLink
+              onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.about.build-on-haqq')}
+              icon={<BuildIcon />}
+              href="/build"
+              onClick={onClick}
+            />
+            <BurgerMenuDropdownLink
+              title={t('dropdown-links.about.validator-program')}
+              icon={<CubeIcon />}
+              href="/validators"
+              onClick={onClick}
+            />
+          </div>
+        </MobileMenuDropdownLink>
+        <Link
+          href="/wallet"
+          className="hover:text-islamic-primary-green z-50 py-[12px] text-base uppercase text-white transition-colors duration-200"
+          onClick={onClick}
+        >
+          {t('single-links.wallet')}
+        </Link>
+        <MobileMenuDropdownLink title={t('dropdown-links.learn.learn')}>
+          <BurgerMenuDropdownLink
+            title={t('dropdown-links.learn.academy')}
+            icon={<AcademyIcon />}
+            href="/academy"
             onClick={onClick}
-          >
-            {t('single-links.shariah')}
-          </Link>
-          <MobileMenuDropdownLink title={t('dropdown-links.about.about')}>
-            <div className="flex flex-col">
-              <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.mission')}
-                icon={<MissionIcon />}
-                href="/mission"
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.whitepaper')}
-                icon={<HalfMoonAndStarIcon />}
-                href="/whitepaper"
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.roadmap')}
-                icon={<RoadmapIcon />}
-                href="/roadmap"
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.news')}
-                icon={<NewsIcon />}
-                href="/news"
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.ecosystem')}
-                icon={<EcosystemIcon />}
-                href="https://haqq.network/ecosystem"
-                isOutLink
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.build-on-haqq')}
-                icon={<BuildIcon />}
-                href="/build"
-                onClick={onClick}
-              />
-              <BurgerMenuDropdownLink
-                title={t('dropdown-links.about.validator-program')}
-                icon={<CubeIcon />}
-                href="/validators"
-                onClick={onClick}
-              />
-            </div>
-          </MobileMenuDropdownLink>
-          <Link
-            href="/wallet"
-            className="hover:text-islamic-primary-green z-50 py-[12px] text-base uppercase text-white transition-colors duration-200"
+          />
+          <BurgerMenuDropdownLink
             onClick={onClick}
-          >
-            {t('single-links.wallet')}
-          </Link>
-          <MobileMenuDropdownLink title={t('dropdown-links.learn.learn')}>
-            <BurgerMenuDropdownLink
-              title={t('dropdown-links.learn.academy')}
-              icon={<AcademyIcon />}
-              href="/academy"
-              onClick={onClick}
-            />
-            <BurgerMenuDropdownLink
-              onClick={onClick}
-              title="Privacy Policy"
-              icon={<QuestionMarkIcon />}
-              href="/privacy-policy"
-            />
-            <BurgerMenuDropdownLink
-              title={t('dropdown-links.learn.blog')}
-              icon={<BlogIcon />}
-              href="/blog"
-              onClick={onClick}
-            />
-            <BurgerMenuDropdownLink
-              title={t('dropdown-links.learn.fraud-alert')}
-              icon={<AlertIcon />}
-              href="/fraud-alert"
-              onClick={onClick}
-            />
-            <BurgerMenuDropdownLink
-              title={t('dropdown-links.learn.scam-alert')}
-              icon={<AlertIcon />}
-              href="/scam-alert"
-              onClick={onClick}
-            />
-          </MobileMenuDropdownLink>
-          <MobileMenuDropdownLink title={t('dropdown-links.team.team')}>
-            <BurgerMenuDropdownLink
-              title={t('dropdown-links.team.career')}
-              icon={<CaseIcon />}
-              href="/career"
-              onClick={onClick}
-            />
-            <BurgerMenuDropdownLink
-              title={t('dropdown-links.team.our-values')}
-              icon={<ValuesIcon />}
-              href="/values"
-              onClick={onClick}
-            />
-            <BurgerMenuDropdownLink
-              title={t('dropdown-links.team.community')}
-              icon={<CommunityIcon />}
-              href="/community-hub"
-              onClick={onClick}
-            />
-            <BurgerMenuDropdownLink
-              title={t('dropdown-links.team.meet-our-team')}
-              icon={<StarIcon />}
-              href="/team"
-              onClick={onClick}
-            />
-          </MobileMenuDropdownLink>
-          <MobileMenuLangButton onClick={toggleLocaleMenu} locale={locale} />
-        </div>
-      ) : (
+            title="Privacy Policy"
+            icon={<QuestionMarkIcon />}
+            href="/privacy-policy"
+          />
+          <BurgerMenuDropdownLink
+            title={t('dropdown-links.learn.blog')}
+            icon={<BlogIcon />}
+            href="/blog"
+            onClick={onClick}
+          />
+          <BurgerMenuDropdownLink
+            title={t('dropdown-links.learn.fraud-alert')}
+            icon={<AlertIcon />}
+            href="/fraud-alert"
+            onClick={onClick}
+          />
+          <BurgerMenuDropdownLink
+            title={t('dropdown-links.learn.scam-alert')}
+            icon={<AlertIcon />}
+            href="/scam-alert"
+            onClick={onClick}
+          />
+        </MobileMenuDropdownLink>
+        <MobileMenuDropdownLink title={t('dropdown-links.team.team')}>
+          <BurgerMenuDropdownLink
+            title={t('dropdown-links.team.career')}
+            icon={<CaseIcon />}
+            href="/career"
+            onClick={onClick}
+          />
+          <BurgerMenuDropdownLink
+            title={t('dropdown-links.team.our-values')}
+            icon={<ValuesIcon />}
+            href="/values"
+            onClick={onClick}
+          />
+          <BurgerMenuDropdownLink
+            title={t('dropdown-links.team.community')}
+            icon={<CommunityIcon />}
+            href="/community-hub"
+            onClick={onClick}
+          />
+          <BurgerMenuDropdownLink
+            title={t('dropdown-links.team.meet-our-team')}
+            icon={<StarIcon />}
+            href="/team"
+            onClick={onClick}
+          />
+        </MobileMenuDropdownLink>
+        {/* <MobileMenuLangButton onClick={toggleLocaleMenu} locale={locale} /> */}
+      </div>
+      {/* ) : (
         <div className="flex flex-col gap-y-[12px]">
           <MobileMenuLangButton onClick={toggleLocaleMenu} isBackButton />
           <LanguageLink
@@ -224,7 +224,7 @@ export function BurgerMenu({
             href={pathname}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 }
