@@ -488,7 +488,7 @@ export function DesktopHeader({
                 </div>
               </HeaderDropdown>
 
-              <HeaderDropdown title={localeDisplayNames[locale]}>
+              {/* <HeaderDropdown title={localeDisplayNames[locale]}>
                 <div className="flex flex-col">
                   <LanguageLink
                     href={pathname}
@@ -508,7 +508,7 @@ export function DesktopHeader({
                     locale="id"
                   />
                 </div>
-              </HeaderDropdown>
+              </HeaderDropdown> */}
 
               {isBuyButtonVisible && (
                 <Link href="/markets" className="ml-[8px]" data-attr="buy-islm">
