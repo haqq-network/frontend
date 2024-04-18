@@ -41,7 +41,7 @@ export function HeroBlock() {
         </Text>
       </div>
 
-      <div className="ltr:font-vcr rtl:font-handjet mt-[18px] w-fit rounded-lg border border-[#2f2f2f] px-[18px] py-[8px] text-center text-[15px] uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
+      <div className="font-vcr rtl:font-handjet mt-[18px] w-fit rounded-lg border border-[#2f2f2f] px-[18px] py-[8px] text-center text-[15px] uppercase leading-[22px] md:text-base lg:text-[18px] lg:leading-[26px]">
         <span>{t('hero-block.disclaimer.before-flag')}</span>{' '}
         <span role="img" aria-label="UAE">
           🇦🇪
@@ -49,7 +49,7 @@ export function HeroBlock() {
         <span>{t('hero-block.disclaimer.after-flag')}</span>
         <Link
           href="/dubai-residents-disclaimer"
-          className="text-islamic-primary-green hover:text-islamic-primary-green-hover w-fit transition-colors duration-300 ltr:ml-[18px] rtl:mr-[18px]"
+          className="text-islamic-primary-green hover:text-islamic-primary-green-hover ml-[18px] w-fit transition-colors duration-300 rtl:mr-[18px]"
         >
           {t('hero-block.disclaimer.read-more')}
         </Link>

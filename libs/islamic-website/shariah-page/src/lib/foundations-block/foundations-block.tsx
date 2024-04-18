@@ -4,7 +4,7 @@ import { Text } from '@haqq/islamic-website-ui-kit';
 
 function HalalPrinciple({ children }: PropsWithChildren) {
   return (
-    <span className="rtl:font-handjet ltr:font-vcr text-[12px] uppercase leading-[18px] md:text-[14px] md:leading-[20px]">
+    <span className="rtl:font-handjet font-vcr text-[12px] uppercase leading-[18px] md:text-[14px] md:leading-[20px]">
       {children}
     </span>
   );

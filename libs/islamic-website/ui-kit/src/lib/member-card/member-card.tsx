@@ -70,7 +70,7 @@ export function MemberCard({
                   event.stopPropagation();
                 }}
                 className={clsx(
-                  'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr uppercase',
+                  'text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-vcr uppercase',
                   'inline-flex flex-row items-center gap-x-[4px]',
                   'w-fit self-end transition-colors duration-300',
                 )}
