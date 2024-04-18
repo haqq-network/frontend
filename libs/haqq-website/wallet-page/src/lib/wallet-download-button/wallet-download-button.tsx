@@ -5,8 +5,6 @@ import {
   AppStoreLogoIcon,
   GooglePlayLogoIcon,
   QrCodeIcon,
-} from '@haqq/haqq-website-ui-kit';
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,

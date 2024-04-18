@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Hex, formatUnits } from 'viem';
 import {
   useAddress,
-  useIndexerBalances,
+  useIndexerBalanceQuery,
   useStakingDelegationQuery,
   useStakingParamsQuery,
   useStakingValidatorInfoQuery,
@@ -17,7 +17,7 @@ export default function DelegateModalSegment() {
   const { push, back } = useRouter();
   const { data: validatorInfo } = useStakingValidatorInfoQuery(address);
   const { data: stakingParams } = useStakingParamsQuery();
-  const { getBalances } = useIndexerBalances();
+  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
 
@@ -38,15 +38,11 @@ export default function DelegateModalSegment() {
   }, [stakingParams]);
 
   useEffect(() => {
-    if (haqqAddress) {
-      getBalances(haqqAddress as Hex).then((balances) => {
-        if (balances) {
-          const { availableForStake } = balances;
-          setBalance(availableForStake);
-        }
-      });
+    if (balances) {
+      const { availableForStake } = balances;
+      setBalance(availableForStake);
     }
-  }, [getBalances, haqqAddress]);
+  }, [balances]);
 
   const myDelegation = useMemo(() => {
     const delegation = delegationInfo?.delegation_responses?.find(

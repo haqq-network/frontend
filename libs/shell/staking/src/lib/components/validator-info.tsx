@@ -30,7 +30,7 @@ import {
   useNetworkAwareAction,
   getFormattedAddress,
   useBalanceAwareActions,
-  useIndexerBalances,
+  useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import {
   InfoBlock,
@@ -429,13 +429,9 @@ export function ValidatorInfo({
 }: {
   validatorAddress: string;
 }) {
-  const { ethAddress, haqqAddress } = useAddress();
+  const { haqqAddress } = useAddress();
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
-  const { data: balanceData } = useBalance({
-    address: ethAddress,
-    chainId: chain.id,
-  });
   const invalidateQueries = useQueryInvalidate();
   const { data: validatorInfo } =
     useStakingValidatorInfoQuery(validatorAddress);
@@ -464,20 +460,16 @@ export function ValidatorInfo({
       ? chain.id
       : chains[0].id,
   );
-  const { getBalances } = useIndexerBalances();
+  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
   const posthog = usePostHog();
 
   useEffect(() => {
-    if (haqqAddress) {
-      getBalances(haqqAddress as Hex).then((balances) => {
-        if (balances) {
-          const { availableForStake } = balances;
-          setBalance(availableForStake);
-        }
-      });
+    if (balances) {
+      const { availableForStake } = balances;
+      setBalance(availableForStake);
     }
-  }, [balanceData, getBalances, haqqAddress]);
+  }, [balances]);
 
   const { executeIfCanPayFee } = useBalanceAwareActions(balance);
 

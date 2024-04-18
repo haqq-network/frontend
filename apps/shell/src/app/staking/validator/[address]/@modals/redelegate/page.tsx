@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Hex, formatUnits } from 'viem';
 import {
   useAddress,
-  useIndexerBalances,
+  useIndexerBalanceQuery,
   useStakingDelegationQuery,
   useStakingValidatorListQuery,
 } from '@haqq/shell-shared';
@@ -14,22 +14,17 @@ export default function RedelegateModal() {
   const { haqqAddress } = useAddress();
   const { address } = useParams<{ address: string }>();
   const { push, back } = useRouter();
-
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
-  const { getBalances } = useIndexerBalances();
+  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
-    if (haqqAddress) {
-      getBalances(haqqAddress as Hex).then((balances) => {
-        if (balances) {
-          const { availableForStake } = balances;
-          setBalance(availableForStake);
-        }
-      });
+    if (balances) {
+      const { availableForStake } = balances;
+      setBalance(availableForStake);
     }
-  }, [getBalances, haqqAddress]);
+  }, [balances]);
 
   const myDelegation = useMemo(() => {
     const delegation = delegationInfo?.delegation_responses?.find(

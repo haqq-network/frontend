@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { isAddress } from 'viem';
 import { ClawbackVestingAccount, HaqqAccount } from '@haqq/data-access-cosmos';
-import { ethToHaqq, haqqToEth, useAccountInfoQuery } from '@haqq/shell-shared';
+import {
+  ethToHaqq,
+  haqqToEth,
+  useAccountInfoQuery,
+  useIndexerBalanceQuery,
+} from '@haqq/shell-shared';
 import { PendingPage } from './PendingPage';
 import {
   AccountWidget,
@@ -11,10 +16,6 @@ import {
 import { Container } from '../components/Layout/Layout';
 import { LiquidVestingHooked } from '../components/liquid-vesting/liquid-vesting';
 import { VestingAccountStats } from '../components/VestingAccountStats';
-import {
-  IndexerBalances,
-  useIndexerBalances,
-} from '../hooks/use-indexer-balances';
 
 function isClawbackVestingAccount(
   accountInfo?: HaqqAccount | ClawbackVestingAccount | null,
@@ -35,17 +36,7 @@ export function AccountPageComponent({
   isLiquidVestingVisible?: boolean;
 }) {
   const { data: accountInfo } = useAccountInfoQuery(haqqAddress);
-  const { getBalances } = useIndexerBalances();
-  const [balances, setBalances] = useState<IndexerBalances | undefined>(
-    undefined,
-  );
-
-  useEffect(() => {
-    (async () => {
-      const balancesResponse = await getBalances(haqqAddress);
-      setBalances(balancesResponse);
-    })();
-  }, [getBalances, haqqAddress]);
+  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
 
   if (!balances) {
     return <PendingPage />;
