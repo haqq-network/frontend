@@ -11,7 +11,14 @@ import {
 import bgImgData from '../assets/images/wallet-bg.webp';
 import phoneImgData from '../assets/images/wallet-iphone-screenshot.webp';
 
-export function WalletPage() {
+export function WalletPage({
+  storeRatings,
+}: {
+  storeRatings: {
+    appStore: number;
+    googlePlay: number;
+  };
+}) {
   const t = useTranslations('wallet-page');
 
   const content = (
@@ -33,13 +40,13 @@ export function WalletPage() {
           <span className="rtl:font-handjet ltr:font-vcr text-[10px] uppercase leading-[16px] text-white/50">
             {t('stores.app-store')}
           </span>
-          <RatingBadge rating={4.8} />
+          <RatingBadge rating={storeRatings.appStore} />
         </div>
         <div className="flex flex-col gap-y-[6px]">
           <span className="rtl:font-handjet ltr:font-vcr text-[10px] uppercase leading-[16px] text-white/50">
             {t('stores.google-play')}
           </span>
-          <RatingBadge rating={4.9} />
+          <RatingBadge rating={storeRatings.googlePlay} />
         </div>
       </div>
       <div className="mt-[28px] flex flex-col gap-x-[16px] gap-y-[20px] md:flex-row lg:mt-[24px] lg:flex-wrap">

@@ -9,12 +9,12 @@ export async function GET(request: NextRequest) {
   ]);
 
   return NextResponse.json<{
-    appStoreRating: number;
-    googlePlayRating: number;
+    appStore: number;
+    googlePlay: number;
   }>(
     {
-      appStoreRating: appStoreResponse.score,
-      googlePlayRating: googlePlayResponse.score,
+      appStore: appStoreResponse.score,
+      googlePlay: googlePlayResponse.score,
     },
     {
       status: 200,
