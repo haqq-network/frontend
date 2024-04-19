@@ -37,7 +37,10 @@ import {
 import { BurgerMenu } from '../burger-menu/burger-menu';
 
 const { Link, usePathname } = createSharedPathnamesNavigation({
-  locales: ['en', 'ar', 'id'],
+  locales: [
+    'en',
+    // 'ar', 'id'
+  ],
 });
 
 interface HeaderLinkProps {
