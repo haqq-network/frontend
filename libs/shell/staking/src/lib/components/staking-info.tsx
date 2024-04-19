@@ -10,7 +10,7 @@ import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useBalanceAwareActions,
   useCosmosProvider,
-  useIndexerBalances,
+  useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import {
   getFormattedAddress,
@@ -59,19 +59,15 @@ function useStakingStats() {
       ? chain.id
       : chains[0].id,
   );
-  const { getBalances } = useIndexerBalances();
+  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
-    if (haqqAddress) {
-      getBalances(haqqAddress as Hex).then((balances) => {
-        if (balances) {
-          const { availableForStake } = balances;
-          setBalance(availableForStake);
-        }
-      });
+    if (balances) {
+      const { availableForStake } = balances;
+      setBalance(availableForStake);
     }
-  }, [getBalances, haqqAddress]);
+  }, [balances]);
 
   const handleRewardsClaim = useCallback(async () => {
     try {
