@@ -28,7 +28,10 @@ import {
 import { LanguageLink } from '../header/header';
 
 const { Link, usePathname } = createSharedPathnamesNavigation({
-  locales: ['en', 'ar', 'id'],
+  locales: [
+    'en',
+    // 'ar', 'id'
+  ],
 });
 
 function BurgerMenuDropdownLink({

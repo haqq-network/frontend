@@ -14,7 +14,10 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 
 const { Link } = createSharedPathnamesNavigation({
-  locales: ['en', 'ar', 'id'],
+  locales: [
+    'en',
+    // 'ar', 'id'
+  ],
 });
 
 interface FooterNavLink {
