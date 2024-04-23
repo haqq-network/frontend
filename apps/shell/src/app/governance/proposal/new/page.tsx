@@ -4,11 +4,7 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 import { Container } from '@haqq/shell-ui-kit';
-import {
-  CreateTextProposalForm,
-  CreateUpgradeProposalForm,
-} from '../../../../components/submit-proposal-form';
-// import { CreateProposalFormKeplr } from '../../../../components/submit-proposal-su-form-keplr';
+import { CreateProposalFormKeplr } from '../../../../components/submit-proposal-su-form-keplr';
 
 export default async function CreateProposal() {
   const queryClient = new QueryClient();
@@ -26,9 +22,7 @@ export default async function CreateProposal() {
           </Container>
         </div>
 
-        <CreateTextProposalForm />
-        <CreateUpgradeProposalForm />
-        {/* <CreateProposalFormKeplr /> */}
+        <CreateProposalFormKeplr />
       </div>
     </HydrationBoundary>
   );

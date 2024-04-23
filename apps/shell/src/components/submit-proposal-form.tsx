@@ -8,7 +8,7 @@ import { useNetwork } from 'wagmi';
 import * as Yup from 'yup';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
-  CreateTextProposalForm,
+  CreateTextProposalForm as ICreateTextProposalForm,
   getFormattedAddress,
   useProposalActions,
   useSupportedChains,
@@ -68,7 +68,7 @@ export function CreateTextProposalForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateTextProposalForm>({
+  } = useForm<ICreateTextProposalForm>({
     resolver: yupResolver(submitTextProposalSchema),
     defaultValues: {
       title: 'Test proposal 32312323',
@@ -87,7 +87,7 @@ export function CreateTextProposalForm() {
   const { submitTextProposal } = useProposalActions();
 
   const handleSubmitProposal = useCallback(
-    async (data: CreateTextProposalForm) => {
+    async (data: ICreateTextProposalForm) => {
       try {
         const submitProposalPromise = submitTextProposal(data);
 
@@ -128,7 +128,7 @@ export function CreateTextProposalForm() {
     [explorer.cosmos, submitTextProposal, toast],
   );
 
-  const onFormSubmit: SubmitHandler<CreateTextProposalForm> = (data) => {
+  const onFormSubmit: SubmitHandler<ICreateTextProposalForm> = (data) => {
     handleSubmitProposal(data);
   };
 

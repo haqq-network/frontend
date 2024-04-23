@@ -19,8 +19,7 @@ export const chains: Record<number, ChainProperties> = {
     name: 'HAQQ Testedge 2',
     network: 'haqq-testedge-2',
     tmRpcEndpoint: 'https://rpc.tm.testedge2.haqq.network',
-    // cosmosRestEndpoint: 'https://rest.cosmos.testedge2.haqq.network',
-    cosmosRestEndpoint: 'https://te2-s1-sdk.haqq.sh',
+    cosmosRestEndpoint: 'https://rest.cosmos.testedge2.haqq.network',
     explorer: {
       evm: 'https://explorer.testedge2.haqq.network',
       cosmos: 'https://testnet.ping.pub/haqq',
