@@ -283,6 +283,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   }
 
   async function getProposalDetails(id: string) {
+    console.log('getProposalDetails', { id });
     const getProposalDetailsUrl = `${cosmosRestEndpoint}${generateEndpointProposal(id)}`;
 
     const response = await fetch(getProposalDetailsUrl);
@@ -481,6 +482,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   }
 
   async function getProposalTally(id: string) {
+    console.log('getProposalTally', { id });
     const getProposalTallyUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointProposalTally(id)}`,
     );

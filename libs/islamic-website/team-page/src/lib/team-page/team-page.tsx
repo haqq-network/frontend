@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Fragment } from 'react/jsx-runtime';
 import {
   Container,
   Member,
@@ -46,14 +47,17 @@ export function TeamPage({
             />
           )}
 
-          <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            {t('title.team')}
-          </h1>
-          {team && (
-            <MembersContainer
-              members={team}
-              className="mt-[32px] lg:mt-[100px]"
-            />
+          {team && team.length && (
+            <Fragment>
+              <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+                {t('title.team')}
+              </h1>
+
+              <MembersContainer
+                members={team}
+                className="mt-[32px] lg:mt-[100px]"
+              />
+            </Fragment>
           )}
 
           <TeamPageBg />
