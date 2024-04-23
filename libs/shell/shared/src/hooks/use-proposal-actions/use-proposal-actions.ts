@@ -222,7 +222,7 @@ function createMsgSubmitProposalSuEIP712(
       },
       initial_deposit: [
         {
-          amount: ,
+          amount: initialDepositAmount,
           denom: initialDepositDenom,
         },
       ],
