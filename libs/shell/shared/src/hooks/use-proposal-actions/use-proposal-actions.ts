@@ -246,7 +246,7 @@ function createTxMsgSubmitSuProposal(
     sender.accountAddress,
   );
   const types = generateTypes(MSG_SUBMIT_UPGRADE_PROPOSAL_TYPES);
-  const msg = createMsgSubmitProposalsSuEIP712(
+  const msg = createMsgSubmitProposalSuEIP712(
     params.content,
     params.initialDepositDenom,
     params.initialDepositAmount,
