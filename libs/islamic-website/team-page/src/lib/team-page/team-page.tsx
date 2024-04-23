@@ -47,7 +47,7 @@ export function TeamPage({
             />
           )}
 
-          {team && (
+          {team && team.length && (
             <Fragment>
               <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
                 {t('title.team')}
