@@ -6,6 +6,9 @@ import {
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import { ValidatorListPage } from '@haqq/shell-staking';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 export default async function ValidatorList() {
   // FIXME: Think how to get chain id on server side
   const chainId = 11235;
