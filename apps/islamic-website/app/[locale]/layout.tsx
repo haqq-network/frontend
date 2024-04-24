@@ -23,7 +23,10 @@ import '../../styles/global.css';
 import '../../styles/consent-cookie.css';
 
 const { Link } = createSharedPathnamesNavigation({
-  locales: ['en', 'ar', 'id'],
+  locales: [
+    'en',
+    // 'ar', 'id'
+  ],
 });
 
 export const metadata: Metadata = {

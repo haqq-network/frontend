@@ -13,15 +13,16 @@ export function DownloadPDFButton({
   type = 'fatwa',
 }: DownloadPDFButtonProps) {
   const t = useTranslations('ui-kit.download-pdf-button');
+
   return (
-    <div className="hover:text-islamic-primary-green-hover hover:border-islamic-primary-green-hover w-[164px] cursor-pointer rounded-[8px] border border-white px-[10px] py-[6px] text-white transition-colors duration-300 md:w-[180px]">
-      <Link
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center justify-between"
-        download
-      >
+    <Link
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-islamic-primary-green-hover hover:border-islamic-primary-green-hover w-[164px] cursor-pointer rounded-[8px] border border-white px-[10px] py-[6px] text-white transition-colors duration-300 md:w-[180px]"
+      download
+    >
+      <div className="flex items-center justify-between">
         <div className="flex gap-x-[8px]">
           <svg
             width="36"
@@ -61,7 +62,7 @@ export function DownloadPDFButton({
             fill="currentColor"
           />
         </svg>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }

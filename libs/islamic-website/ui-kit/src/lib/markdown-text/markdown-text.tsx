@@ -52,6 +52,7 @@ export function MarkdownTextProseWrapper({
         'first:prose-td:pl-[16px] first:prose-td:pr-0 rtl:first:prose-td:pl-0 rtl:first:prose-td:pr-[16px] even:prose-td:px-[24px] last:prose-td:pr-[16px] last:prose-td:pl-0 rtl:last:prose-td:pl-[16px] rtl:last:prose-td:pr-0',
         'prose-tr:border-none prose-thead:border-none even:prose-tr:bg-[#2f2f2f]',
         'rtl:prose-ul:pr-[26px] rtl:prose-ul:pl-0 rtl:prose-ol:pr-[26px] rtl:prose-ol:pl-0',
+        'prose-code:text-current',
         className,
       )}
     >
