@@ -356,7 +356,8 @@ export function ProposalDetailsComponent({
 
     const voted = Number.parseInt(
       formatUnits(
-        BigInt(proposalTally.no) +
+        BigInt(proposalTally.abstain) +
+          BigInt(proposalTally.no) +
           BigInt(proposalTally.no_with_veto) +
           BigInt(proposalTally.yes),
         18,

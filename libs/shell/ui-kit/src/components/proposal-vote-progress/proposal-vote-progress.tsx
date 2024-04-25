@@ -70,7 +70,7 @@ export function ProposalVoteProgress({
     };
   }, [results]);
 
-  const [yesPercents, abstainPercents, noPercents, vetoPercents] =
+  const [yesPercents, noPercents, abstainPercents, vetoPercents] =
     useMemo(() => {
       if (total === 0) {
         return [0, 0, 0, 0];
