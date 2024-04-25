@@ -482,7 +482,6 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   }
 
   async function getProposalTally(id: string) {
-    console.log('getProposalTally', { id });
     const getProposalTallyUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointProposalTally(id)}`,
     );

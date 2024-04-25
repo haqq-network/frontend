@@ -47,7 +47,11 @@ export function useProposalActions(): ProposalActionsHook {
   const chains = useSupportedChains();
   const { haqqAddress, ethAddress } = useAddress();
   const { chain = chains[0] } = useNetwork();
-  const chainParams = getChainParams(chain.id);
+  const chainParams = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
   const haqqChain = mapToCosmosChain(chainParams);
 
   const handleVote = useCallback(
@@ -56,7 +60,6 @@ export function useProposalActions(): ProposalActionsHook {
       option: number,
       estimatedFee?: EstimatedFeeResponse,
     ) => {
-      console.log('handleVote', { proposalId, option });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Vote for proposal #${proposalId}`;
