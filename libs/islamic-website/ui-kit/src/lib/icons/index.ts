@@ -16,3 +16,4 @@ export * from './play-video-icon';
 export * from './islamic-logo-icon';
 export * from './copy-icon';
 export * from './chevron-icon';
+export * from './icons';

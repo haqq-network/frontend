@@ -24,12 +24,17 @@ export function IndexPage({
   shariahMembers,
   executiveMembers,
   stats,
+  storeRatings,
 }: {
   news?: NewsPost[];
   advisoryMembers: Member[];
   shariahMembers: Member[];
   executiveMembers: Member[];
   stats: ChainStats;
+  storeRatings: {
+    appStore: number;
+    googlePlay: number;
+  };
 }) {
   return (
     <Fragment>
@@ -42,7 +47,7 @@ export function IndexPage({
         shariahMembers={shariahMembers}
         advisoryMembers={advisoryMembers}
       />
-      <PortfolioBlock />
+      <PortfolioBlock storeRatings={storeRatings} />
       <LearnAndGrowBlock />
       <JoinCommunityBlock />
     </Fragment>

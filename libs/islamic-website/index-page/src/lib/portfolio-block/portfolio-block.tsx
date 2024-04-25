@@ -11,7 +11,14 @@ import {
 import halfIphoneImgData from '../../assets/images/half-iphone.jpg';
 import iphoneImgData from '../../assets/images/iphone.jpg';
 
-export function PortfolioBlock() {
+export function PortfolioBlock({
+  storeRatings,
+}: {
+  storeRatings: {
+    appStore: number;
+    googlePlay: number;
+  };
+}) {
   const t = useTranslations('index-page');
 
   return (
@@ -53,8 +60,18 @@ export function PortfolioBlock() {
                   {t('portfolio-block.text')}
                 </Text>
                 <div className="mt-[24px] flex gap-x-[24px] gap-y-[20px] min-[375px]:gap-x-[32px] md:mt-[36px]">
-                  <RatingBadge market="app-store" rating={4.8} />
-                  <RatingBadge market="google-play" rating={4.9} />
+                  <div className="flex flex-col gap-y-[6px]">
+                    <span className="rtl:font-handjet ltr:font-vcr text-[10px] uppercase leading-[16px] text-white/50">
+                      {t('portfolio-block.stores.app-store')}
+                    </span>
+                    <RatingBadge rating={storeRatings.appStore} />
+                  </div>
+                  <div className="flex flex-col gap-y-[6px]">
+                    <span className="rtl:font-handjet ltr:font-vcr text-[10px] uppercase leading-[16px] text-white/50">
+                      {t('portfolio-block.stores.google-play')}
+                    </span>
+                    <RatingBadge rating={storeRatings.googlePlay} />
+                  </div>
                 </div>
                 <div className="mt-[20px] flex flex-col gap-x-[16px] gap-y-[20px] lg:mt-[24px] lg:flex-row">
                   <div className="w-fit">

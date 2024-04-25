@@ -14,9 +14,9 @@ function TeamPageBg() {
     <div
       className={clsx(
         'absolute z-[-1] h-[380px] w-[400px] md:h-[954px] md:w-[1000px]',
-        'top-[-130px] ltr:right-[145px] rtl:left-[-145px] rtl:scale-x-[-1]',
-        'md:top-[-300px] ltr:md:right-[-600px] rtl:md:left-[-600px]',
-        'xl:top-[-320px] ltr:xl:right-[-360px] rtl:xl:left-[-360px]',
+        'right-[145px] top-[-130px] rtl:left-[-145px] rtl:scale-x-[-1]',
+        'md:right-[-600px] md:top-[-300px] rtl:md:left-[-600px]',
+        'xl:right-[-360px] xl:top-[-320px] rtl:xl:left-[-360px]',
       )}
     >
       <Image src={teamPageBgImageData} fill alt="" />

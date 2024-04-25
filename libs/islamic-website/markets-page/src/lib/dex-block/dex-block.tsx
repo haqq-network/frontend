@@ -12,7 +12,7 @@ export function DEXBlock({
         <div className="relative h-[40px] w-[40px] overflow-hidden md:h-[48px] md:w-[48px]">
           <Image src={logo} alt={`${name} logo`} fill />
         </div>
-        <div className="ltr:font-vcr rtl:font-handjet text-[18px] font-[400] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
+        <div className="font-vcr rtl:font-handjet text-[18px] font-[400] uppercase leading-[26px] md:text-[24px] md:leading-[34px]">
           {name}
         </div>
       </div>

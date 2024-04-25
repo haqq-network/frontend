@@ -128,7 +128,7 @@ export function StatisticsBlockStatCard({
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'rtl:font-handjet ltr:font-vcr pointer-events-none flex h-[34px] select-none gap-x-[6px] text-[24px] leading-[34px] ltr:flex-row rtl:flex-row-reverse rtl:justify-end',
+          'rtl:font-handjet font-vcr pointer-events-none flex h-[34px] select-none flex-row gap-x-[6px] text-[24px] leading-[34px] rtl:flex-row-reverse rtl:justify-end',
         )}
       >
         {prefix}
@@ -213,7 +213,7 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
             href="https://haqq.network"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr flex cursor-pointer items-center gap-x-[8px] uppercase transition-colors duration-300 ease-out"
+            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-vcr flex cursor-pointer items-center gap-x-[8px] uppercase transition-colors duration-300 ease-out"
           >
             <span>{t('counters.link')}</span>
             <svg
