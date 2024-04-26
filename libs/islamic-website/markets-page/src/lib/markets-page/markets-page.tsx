@@ -8,6 +8,7 @@ import mexcLogoImageData from '../../assets/images/mexc.svg';
 import osmosisLogoImageData from '../../assets/images/osmosis.svg';
 import bgPageImageData from '../../assets/images/page-background.svg';
 import sushiLogoImageData from '../../assets/images/sushi.svg';
+import uniswapLogoImageData from '../../assets/images/uniswap.svg';
 import xtLogoImageData from '../../assets/images/xt.svg';
 import { CEXCard } from '../cex-card/cex-card';
 import { DEXBlock } from '../dex-block/dex-block';
@@ -19,6 +20,20 @@ const dexData: Array<{
   logo: string;
   pools: Array<{ pair: [string, string]; href: string }>;
 }> = [
+  {
+    name: 'UNISWAP',
+    logo: uniswapLogoImageData,
+    pools: [
+      {
+        pair: ['USDC', 'ISLM'],
+        href: 'https://app.uniswap.org/explore/pools/ethereum/0x2ed7B9F472bE4D0A5a0a3e6D2f8E7dECCF7dFC9D',
+      },
+      {
+        pair: ['ETH', 'ISLM'],
+        href: 'https://app.uniswap.org/explore/pools/ethereum/0x1DE43182992FE252674B5Aac9B5C884ca48D2812',
+      },
+    ],
+  },
   {
     name: 'SUSHI',
     logo: sushiLogoImageData,
