@@ -31,7 +31,10 @@ export function PortfolioBlock({
     const distinctId = posthog.get_distinct_id();
 
     if (!distinctId) {
-      return null;
+      return {
+        appStoreLink: null,
+        playMarketLink: null,
+      };
     }
 
     return {
