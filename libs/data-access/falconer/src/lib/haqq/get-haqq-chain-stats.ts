@@ -10,6 +10,7 @@ export interface HaqqChainStats {
   coinomicsEmissionRate: string;
   supply: string;
   coinomicsWillBeMinted: string;
+  circulatingSupply: string;
 }
 
 export async function getHaqqChainStatsData(
