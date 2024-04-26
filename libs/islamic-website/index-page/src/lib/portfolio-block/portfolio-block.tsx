@@ -31,7 +31,7 @@ export function PortfolioBlock({
     const distinctId = posthog.get_distinct_id();
 
     if (!distinctId) {
-      return {};
+      return null;
     }
 
     return {
