@@ -28,3 +28,4 @@ export * from './lib/blog-post-card/blog-post-card';
 export * from './lib/tab/tab';
 export * from './lib/breadcrumb/breadcrumb';
 export * from './lib/blog-article/blog-article';
+export * from './lib/popover/popover';

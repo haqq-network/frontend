@@ -24,6 +24,8 @@ export interface ChainStats {
   transactionsInLast24Hours: number;
   secondsToConsensusFinality: number;
   averageCostPerTransaction: number;
+  supply: number;
+  circulatingSupply: number;
 }
 
 function IslamStar() {
@@ -169,6 +171,8 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
       transactionsInLast24Hours: stats.transactionsInLast24Hours,
       secondsToConsensusFinality: stats.secondsToConsensusFinality,
       averageCostPerTransaction: stats.averageCostPerTransaction,
+      supply: stats.supply,
+      circulatingSupply: stats.circulatingSupply,
     };
   }, [stats]);
 
@@ -237,7 +241,7 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
         </Text>
         <div
           ref={blockRef}
-          className="mt-[16px] grid w-full gap-[38px] sm:grid-cols-2 md:mt-[20px] lg:mt-[24px] lg:grid-cols-4"
+          className="mt-[16px] grid w-full gap-[38px] sm:grid-cols-2 md:mt-[20px] lg:mt-[24px] lg:grid-cols-3"
         >
           <StatisticsBlockStatCard
             value={memoizedStats.mainnetAccountsCreated}
@@ -255,6 +259,18 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
             title={t('counters.statistic-card.third')}
             startAnimation={startAnimation}
             prefix="~"
+          />
+          <StatisticsBlockStatCard
+            value={memoizedStats.supply}
+            title={t('counters.statistic-card.fifth')}
+            startAnimation={startAnimation}
+            postfix="ISLM"
+          />
+          <StatisticsBlockStatCard
+            value={memoizedStats.circulatingSupply}
+            title={t('counters.statistic-card.sixth')}
+            startAnimation={startAnimation}
+            postfix="ISLM"
           />
           <StatisticsBlockStatCard
             value={memoizedStats.averageCostPerTransaction}

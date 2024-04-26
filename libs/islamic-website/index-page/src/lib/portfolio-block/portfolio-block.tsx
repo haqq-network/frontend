@@ -1,15 +1,20 @@
+'use client';
+import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { usePostHog } from 'posthog-js/react';
 import {
   Container,
   GradientText,
   Text,
-  WalletDownloadButton,
   RatingBadge,
+  WalletDownloadWithQrButton,
+  WalletDownloadButton,
 } from '@haqq/islamic-website-ui-kit';
 import halfIphoneImgData from '../../assets/images/half-iphone.jpg';
 import iphoneImgData from '../../assets/images/iphone.jpg';
+import { getDynamicLink } from '../utils/get-dynamic-link';
 
 export function PortfolioBlock({
   storeRatings,
@@ -20,6 +25,31 @@ export function PortfolioBlock({
   };
 }) {
   const t = useTranslations('index-page');
+  const posthog = usePostHog();
+
+  const { appStoreLink, playMarketLink } = useMemo(() => {
+    const distinctId = posthog.get_distinct_id();
+
+    if (!distinctId) {
+      return {
+        appStoreLink: null,
+        playMarketLink: null,
+      };
+    }
+
+    return {
+      appStoreLink: getDynamicLink(
+        'https://haqq.network/wallet',
+        distinctId,
+        'https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352',
+      ),
+      playMarketLink: getDynamicLink(
+        'https://haqq.network/wallet',
+        distinctId,
+        'https://play.google.com/store/apps/details?id=com.haqq.wallet',
+      ),
+    };
+  }, [posthog]);
 
   return (
     <section>
@@ -73,12 +103,51 @@ export function PortfolioBlock({
                     <RatingBadge rating={storeRatings.googlePlay} />
                   </div>
                 </div>
-                <div className="mt-[20px] flex flex-col gap-x-[16px] gap-y-[20px] lg:mt-[24px] lg:flex-row">
+                <div className="hidden lg:mt-[24px] lg:flex lg:flex-row lg:gap-x-[16px]">
                   <div className="w-fit">
+                    {appStoreLink && (
+                      <Link
+                        href={appStoreLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-attr="download-ios"
+                      >
+                        <WalletDownloadWithQrButton
+                          type="apple"
+                          title={t(
+                            'portfolio-block.stores.download-button.title',
+                          )}
+                          link={appStoreLink}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                  <div className="w-fit">
+                    {playMarketLink && (
+                      <Link
+                        href={playMarketLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-attr="download-android"
+                      >
+                        <WalletDownloadWithQrButton
+                          type="google"
+                          title={t(
+                            'portfolio-block.stores.download-button.title',
+                          )}
+                          link={playMarketLink}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                </div>
+                <div className="mt-[20px] flex flex-col gap-y-[20px] lg:hidden">
+                  {appStoreLink && (
                     <Link
-                      href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
+                      href={appStoreLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-attr="download-ios"
                     >
                       <WalletDownloadButton
                         type="apple"
@@ -87,12 +156,13 @@ export function PortfolioBlock({
                         )}
                       />
                     </Link>
-                  </div>
-                  <div className="w-fit">
+                  )}
+                  {playMarketLink && (
                     <Link
-                      href="https://play.google.com/store/apps/details?id=com.haqq.wallet"
+                      href={playMarketLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-attr="download-android"
                     >
                       <WalletDownloadButton
                         type="google"
@@ -101,7 +171,7 @@ export function PortfolioBlock({
                         )}
                       />
                     </Link>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

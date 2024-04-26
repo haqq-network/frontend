@@ -1,15 +1,19 @@
-import { Fragment } from 'react';
+'use client';
+import { Fragment, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { usePostHog } from 'posthog-js/react';
 import {
   Container,
   Text,
   RatingBadge,
   WalletDownloadButton,
+  WalletDownloadWithQrButton,
 } from '@haqq/islamic-website-ui-kit';
 import bgImgData from '../assets/images/wallet-bg.webp';
 import phoneImgData from '../assets/images/wallet-iphone-screenshot.webp';
+import { getDynamicLink } from '../utils/get-dynamic-link';
 
 export function WalletPage({
   storeRatings,
@@ -20,6 +24,31 @@ export function WalletPage({
   };
 }) {
   const t = useTranslations('wallet-page');
+  const posthog = usePostHog();
+
+  const { appStoreLink, playMarketLink } = useMemo(() => {
+    const distinctId = posthog.get_distinct_id();
+
+    if (!distinctId) {
+      return {
+        appStoreLink: null,
+        playMarketLink: null,
+      };
+    }
+
+    return {
+      appStoreLink: getDynamicLink(
+        'https://haqq.network/wallet',
+        distinctId,
+        'https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352',
+      ),
+      playMarketLink: getDynamicLink(
+        'https://haqq.network/wallet',
+        distinctId,
+        'https://play.google.com/store/apps/details?id=com.haqq.wallet',
+      ),
+    };
+  }, [posthog]);
 
   const content = (
     <Fragment>
@@ -49,33 +78,78 @@ export function WalletPage({
           <RatingBadge rating={storeRatings.googlePlay} />
         </div>
       </div>
-      <div className="mt-[28px] flex flex-col gap-x-[16px] gap-y-[20px] md:flex-row lg:mt-[24px] lg:flex-wrap">
+      <div className="hidden lg:mt-[24px] lg:flex lg:flex-row lg:flex-wrap lg:gap-[16px]">
+        <div className="w-fit">
+          {appStoreLink && (
+            <Link
+              href={appStoreLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-attr="download-ios"
+            >
+              <WalletDownloadWithQrButton
+                type="apple"
+                title={t('stores.download-button.title')}
+                link={appStoreLink}
+              />
+            </Link>
+          )}
+        </div>
+        <div className="w-fit">
+          {playMarketLink && (
+            <Link
+              href={playMarketLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-attr="download-android"
+            >
+              <WalletDownloadWithQrButton
+                type="google"
+                title={t('stores.download-button.title')}
+                link={playMarketLink}
+              />
+            </Link>
+          )}
+        </div>
         <div className="w-fit">
           <Link
-            href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
+            href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+            data-attr="download-apk"
+          >
+            <WalletDownloadButton type="apk" />
+          </Link>
+        </div>
+      </div>
+      <div className="mt-[28px] flex flex-col gap-y-[20px] lg:hidden">
+        {appStoreLink && (
+          <Link
+            href={appStoreLink}
             target="_blank"
             rel="noopener noreferrer"
             data-attr="download-ios"
           >
             <WalletDownloadButton
               type="apple"
-              title={t('download-button.title')}
+              title={t('stores.download-button.title')}
             />
           </Link>
-        </div>
-        <div className="w-fit">
+        )}
+        {playMarketLink && (
           <Link
-            href="https://play.google.com/store/apps/details?id=com.haqq.wallet"
+            href={playMarketLink}
             target="_blank"
             rel="noopener noreferrer"
             data-attr="download-android"
           >
             <WalletDownloadButton
               type="google"
-              title={t('download-button.title')}
+              title={t('stores.download-button.title')}
             />
           </Link>
-        </div>
+        )}
         <div className="w-fit">
           <Link
             href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
