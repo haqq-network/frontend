@@ -31,8 +31,8 @@
           "second": "Transactions in the last 24 hours",
           "third": "Seconds to consensus finality",
           "fourth": "Average cost per transaction",
-          "fifth": "Total supply ISLM",
-          "sixth": "Circulating supply ISLM"
+          "fifth": "Total supply",
+          "sixth": "Circulating supply"
         }
       }
     },
