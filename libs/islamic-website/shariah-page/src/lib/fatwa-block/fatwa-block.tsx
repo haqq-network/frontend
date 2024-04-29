@@ -118,11 +118,12 @@ export function FatwaBlock({
         <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
       </div>
 
-      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px] rtl:flex-row-reverse">
+      {/* TEMPORARY HIDE FATWA LANG BUTTONS */}
+      {/* <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px] rtl:flex-row-reverse">
         <LangButton isActive={locale === 'en'} locale="en" href="/shariah" />
         <LangButton isActive={locale === 'ar'} locale="ar" href="/shariah" />
         <LangButton isActive={locale === 'id'} locale="id" href="/shariah" />
-      </div>
+      </div> */}
 
       <MarkdownText className="anchor-fix-fatwa mt-[30px]">
         {fatwa}
