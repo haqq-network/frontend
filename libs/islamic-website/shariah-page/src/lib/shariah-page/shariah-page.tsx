@@ -1,5 +1,11 @@
 'use client';
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -69,19 +75,6 @@ function MembersContainer({
   );
 }
 
-const sections = [
-  { id: 'fatwa', title: 'headings.fatwa' },
-  { id: 'foundations', title: 'headings.foundations' },
-  { id: 'shariah-oracle', title: 'headings.sharia-oracle' },
-  { id: 'shariah-board', title: 'headings.shariah-board' },
-  { id: 'advisory-board', title: 'headings.advisory-board' },
-  { id: 'executive-board', title: 'headings.executive-board' },
-];
-
-const activeSectionsDefaultState = sections.map(() => {
-  return false;
-});
-
 export function ShariahPage({
   shariahMembers,
   executiveMembers,
@@ -96,6 +89,19 @@ export function ShariahPage({
   locale: string;
 }) {
   const t = useTranslations('shariah-page');
+  const sections = useMemo(() => {
+    return [
+      { id: 'fatwa', title: t('headings.fatwa') },
+      { id: 'foundations', title: t('headings.foundations') },
+      { id: 'shariah-oracle', title: t('headings.sharia-oracle') },
+      { id: 'shariah-board', title: t('headings.shariah-board') },
+      { id: 'advisory-board', title: t('headings.advisory-board') },
+      { id: 'executive-board', title: t('headings.executive-board') },
+    ];
+  }, [t]);
+  const activeSectionsDefaultState = sections.map(() => {
+    return false;
+  });
   const { replace } = useRouter();
   const [activeSection, setActiveSection] = useState('fatwa');
   const [boardMember, setBoardMember] = useState<undefined | Member>(undefined);
@@ -103,17 +109,20 @@ export function ShariahPage({
     activeSectionsDefaultState,
   );
 
-  const handleSectionInView = useCallback((id: string, inView: boolean) => {
-    const sectionIndex = sections.findIndex(({ id: sectionId }) => {
-      return sectionId === id;
-    });
+  const handleSectionInView = useCallback(
+    (id: string, inView: boolean) => {
+      const sectionIndex = sections.findIndex(({ id: sectionId }) => {
+        return sectionId === id;
+      });
 
-    setActiveSections((prevActiveSessions) => {
-      const newActiveSessions = [...prevActiveSessions];
-      newActiveSessions[sectionIndex] = inView;
-      return newActiveSessions;
-    });
-  }, []);
+      setActiveSections((prevActiveSessions) => {
+        const newActiveSessions = [...prevActiveSessions];
+        newActiveSessions[sectionIndex] = inView;
+        return newActiveSessions;
+      });
+    },
+    [sections],
+  );
 
   useEffect(() => {
     const activeIndex = activeSections.findIndex((inView) => {
@@ -125,7 +134,7 @@ export function ShariahPage({
     } else {
       setActiveSection(sections[0].id);
     }
-  }, [activeSections]);
+  }, [activeSections, sections]);
 
   // useEffect(() => {
   //   replace(`#${activeSection}`);
@@ -365,8 +374,6 @@ function ShariahPageDesktopNav({
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
 }) {
-  const t = useTranslations('shariah-page');
-
   return (
     <nav className="flex flex-col gap-y-[16px] rounded-[20px] bg-[#181E25b3] p-[28px] backdrop-blur">
       {sections.map(({ id, title }) => {
@@ -376,7 +383,7 @@ function ShariahPageDesktopNav({
             key={`sharia-nav-${id}`}
             isActive={activeSection === id}
           >
-            {t(title)}
+            {title}
           </ShariahPageDesktopNavLink>
         );
       })}
