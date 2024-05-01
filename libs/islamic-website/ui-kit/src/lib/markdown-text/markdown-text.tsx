@@ -61,46 +61,52 @@ export function MarkdownTextProseWrapper({
   );
 }
 
+function MarkdownHeading({
+  level,
+  children,
+  node,
+}: PropsWithChildren<{
+  level: number;
+  node: ReactMarkdownProps['node'];
+}>) {
+  const tagName = `h${level}`;
+  const id = node?.properties?.['id'];
+  return createElement(
+    tagName,
+    { ...node?.properties },
+    <Link href={`#${id}`} className="group relative !text-white">
+      {children}
+      <LinkIcon className="ml-[8px] inline transition-opacity duration-150 ease-out lg:opacity-0 lg:group-hover:opacity-100" />
+    </Link>,
+  );
+}
+
 export function MarkdownText({
   children,
   className,
+  renderHeadingsAsLinks = true,
 }: {
   className?: string;
   children: string;
+  renderHeadingsAsLinks?: boolean;
 }) {
-  const renderHeading = ({
-    level,
-    children,
-    node,
-  }: PropsWithChildren<{
-    level: number;
-    node: ReactMarkdownProps['node'];
-  }>) => {
-    const tagName = `h${level}`;
-    const id = node?.properties?.['id'];
-    return createElement(
-      tagName,
-      { ...node?.properties },
-      <Link href={`#${id}`} className="group relative !text-white">
-        {children}
-        <LinkIcon className="ml-[8px] inline transition-opacity duration-150 ease-out lg:opacity-0 lg:group-hover:opacity-100" />
-      </Link>,
-    );
-  };
-
   return (
     <MarkdownTextProseWrapper className={className}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug]}
-        components={{
-          h1: renderHeading,
-          h2: renderHeading,
-          h3: renderHeading,
-          h4: renderHeading,
-          h5: renderHeading,
-          h6: renderHeading,
-        }}
+        components={
+          renderHeadingsAsLinks
+            ? {
+                h1: MarkdownHeading,
+                h2: MarkdownHeading,
+                h3: MarkdownHeading,
+                h4: MarkdownHeading,
+                h5: MarkdownHeading,
+                h6: MarkdownHeading,
+              }
+            : {}
+        }
       >
         {children}
       </ReactMarkdown>
