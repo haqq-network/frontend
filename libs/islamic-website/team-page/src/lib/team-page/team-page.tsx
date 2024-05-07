@@ -32,6 +32,7 @@ export function TeamPage({
   team?: Member[];
 }) {
   const t = useTranslations('team-page');
+
   return (
     <section className="overflow-x-clip">
       <Container className="relative">
@@ -40,14 +41,14 @@ export function TeamPage({
             {t('title.founders')}
           </h1>
 
-          {founders && (
+          {founders !== undefined && founders.length > 0 && (
             <MembersContainer
               members={founders}
               className="my-[32px] lg:my-[100px]"
             />
           )}
 
-          {team && team.length && (
+          {team !== undefined && team.length > 0 && (
             <Fragment>
               <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
                 {t('title.team')}
