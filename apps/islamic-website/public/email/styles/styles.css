@@ -29,6 +29,16 @@ h2 {
   font-weight: 600;
 }
 
+button {
+  padding: 24px 0;
+  font-family: 'Alexandria', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 32px;
+  border-radius: 10px;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.2));
+}
+
 button.download__wallet {
   background: rgb(24, 255, 172);
   background: linear-gradient(
@@ -36,4 +46,18 @@ button.download__wallet {
     rgba(24, 255, 172, 1) 0%,
     rgba(24, 255, 172, 1) 100%
   );
+  color: rgba(19, 19, 19, 1);
+}
+
+button.photos__button {
+  background: rgba(19, 19, 19, 1);
+
+  span {
+    font-size: 28px;
+    line-height: 32px;
+    background: -webkit-linear-gradient(80deg, #36fff3, #18ffac);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
