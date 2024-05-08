@@ -1,8 +1,8 @@
-import store from 'app-store-scraper';
 import gplay from 'google-play-scraper';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import store from '@haqq/app-store-scraper';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const [appStoreResponse, googlePlayResponse] = await Promise.all([
     store.app({ id: 6443843352 }),
     gplay.app({ appId: 'com.haqq.wallet' }),

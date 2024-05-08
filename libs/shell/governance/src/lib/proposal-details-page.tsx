@@ -951,7 +951,7 @@ export function VoteActions({
   return (
     <Fragment>
       <div className="mb-[16px]">
-        <CardHeading className="mb-[2px]">Choose what to vote for</CardHeading>
+        <CardHeading className="mb-[2px]">Cast your vote</CardHeading>
         <div className="text-[12px] font-[500] leading-[18px] text-white/50">
           You can change your vote while the voting is in progress
         </div>

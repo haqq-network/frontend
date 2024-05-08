@@ -219,7 +219,7 @@ export function ProposalVoteProgress({
               <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
               <div className="mr-[2px]">
                 <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  Veto
+                  No with veto
                 </CardText>
               </div>
               <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
