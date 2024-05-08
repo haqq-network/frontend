@@ -1,19 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
-
-.vt323-regular {
-  font-family: 'VT323', monospace;
-  font-weight: 400;
-  font-style: normal;
-}
 
 body {
   font-family: 'Alexandria', sans-serif;
   font-weight: 400;
   font-style: normal;
   max-width: 600px;
-  font-size: 20px;
-  line-height: 28px;
 }
 
 h1 {
@@ -31,6 +22,8 @@ h2 {
 
 td {
   padding: 0 14px;
+  font-size: 20px;
+  line-height: 28px;
 }
 
 button {
@@ -69,4 +62,39 @@ button.photos__button {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  background-image: url(https://islamic-website-ejvf3cc39-haqq-network.vercel.app/email/email-footer.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 572px;
+  height: 351px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+
+  a {
+    background: -webkit-linear-gradient(80deg, #36fff3, #18ffac);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.social__links {
+  display: flex;
+  align-items: center;
+}
+
+.copyright__text {
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  color: white;
 }
