@@ -68,7 +68,7 @@ button.photos__button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(https://islamic-website-ejvf3cc39-haqq-network.vercel.app/email/email-footer.png);
+  background-image: url(https://islamiccoin.net/email/email-footer.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -88,7 +88,7 @@ button.photos__button {
 }
 
 .header {
-  background-image: url(https://islamic-website-ejvf3cc39-haqq-network.vercel.app/email/email-header-token-2049.png);
+  background-image: url(https://islamiccoin.net/email/email-header-token-2049.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
