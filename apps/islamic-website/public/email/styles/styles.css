@@ -67,7 +67,7 @@ button.photos__button {
 .footer {
   display: flex;
   flex-direction: column;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
   background-image: url(https://islamic-website-ejvf3cc39-haqq-network.vercel.app/email/email-footer.png);
   background-repeat: no-repeat;
@@ -78,6 +78,7 @@ button.photos__button {
   text-align: center;
   font-size: 16px;
   line-height: 20px;
+  margin-top: 48px;
 
   a {
     background: -webkit-linear-gradient(80deg, #36fff3, #18ffac);
@@ -85,6 +86,15 @@ button.photos__button {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+}
+
+.header {
+  background-image: url(https://islamic-website-ejvf3cc39-haqq-network.vercel.app/email/email-header-token-2049.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 572px;
+  height: 243px;
 }
 
 .social__links {
