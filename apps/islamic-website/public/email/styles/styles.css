@@ -11,6 +11,29 @@ body {
   font-family: 'Alexandria', sans-serif;
   font-weight: 400;
   font-style: normal;
-  color: white;
   max-width: 600px;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 28px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+button.download__wallet {
+  background: rgb(24, 255, 172);
+  background: linear-gradient(
+    90deg,
+    rgba(24, 255, 172, 1) 0%,
+    rgba(24, 255, 172, 1) 100%
+  );
 }
