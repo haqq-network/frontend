@@ -99,7 +99,7 @@
     "tslib": "2.6.2",
     "vanilla-cookieconsent": "2.9.2",
     "viem": "1.21.4",
-    "wagmi": "1.4.13",
+    "wagmi": "2.8.1",
     "yup": "1.4.0"
   },
   "devDependencies": {
