@@ -53,7 +53,7 @@
     "@vercel/speed-insights": "1.0.10",
     "@wagmi/chains": "1.8.0",
     "@wagmi/connectors": "3.1.11",
-    "@wagmi/core": "1.4.13",
+    "@wagmi/core": "2.9.1",
     "@walletconnect/modal": "2.6.2",
     "@web3modal/standalone": "2.4.3",
     "axios": "1.6.8",
