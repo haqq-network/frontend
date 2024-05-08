@@ -4,7 +4,6 @@ body {
   font-family: 'Alexandria', sans-serif;
   font-weight: 400;
   font-style: normal;
-  max-width: 600px;
 }
 
 h1 {
@@ -72,7 +71,7 @@ button.photos__button {
   background-image: url(https://islamic-website-ejvf3cc39-haqq-network.vercel.app/email/email-footer.png);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   width: 572px;
   height: 351px;
   text-align: center;
