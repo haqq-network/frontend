@@ -1,6 +1,7 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useScrollLock } from 'usehooks-ts';
 import { SubscribeForm } from '@haqq/haqq-website/forms';
 import {
   DiscordIcon,
@@ -77,6 +78,8 @@ export function BurgerMenu({
   onClose?: () => void;
   turnstileSiteKey?: string;
 }) {
+  useScrollLock();
+
   return (
     <div
       className={clsx(

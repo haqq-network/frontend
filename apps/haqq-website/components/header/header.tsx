@@ -3,7 +3,6 @@ import { Fragment, ReactNode, useCallback, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import ScrollLock from 'react-scrolllock';
 import { Button, BurgerButton } from '@haqq/haqq-website-ui-kit';
 import logoImageData from '../../assets/images/logo.svg';
 import { BurgerMenu } from '../burger-menu/burger-menu';
@@ -223,8 +222,6 @@ function BurgerMenuComponent({
 }) {
   return (
     <div className="lg:hidden">
-      <ScrollLock isActive={isOpen} />
-
       <div
         className={clsx(
           'fixed right-0 top-[62px] z-[45] h-[calc(100vh-62px)] w-full sm:top-[72px] sm:h-[calc(100vh-72px)] sm:w-[468px]',
