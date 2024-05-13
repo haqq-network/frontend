@@ -1,3 +1,4 @@
+'use client';
 import { useCallback } from 'react';
 import { createMsgDeposit, createMsgVote } from '@evmos/proto';
 import { createTxMsgVote, createTxMsgDeposit } from '@evmos/transactions';

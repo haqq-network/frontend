@@ -1,3 +1,4 @@
+'use client';
 import { useCallback, useMemo } from 'react';
 import { Fee } from '@evmos/transactions';
 import { usePostHog } from 'posthog-js/react';

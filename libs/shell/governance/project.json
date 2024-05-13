@@ -8,26 +8,6 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/shell/governance",
-        "tsConfig": "libs/shell/governance/tsconfig.lib.json",
-        "project": "libs/shell/governance/package.json",
-        "entryFile": "libs/shell/governance/src/index.ts",
-        "external": ["react", "react-dom", "react/jsx-runtime"],
-        "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "swc",
-        "assets": [
-          {
-            "glob": "libs/shell/governance/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ]
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
