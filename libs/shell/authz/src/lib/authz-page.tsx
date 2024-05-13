@@ -9,6 +9,7 @@ import {
 } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { usePostHog } from 'posthog-js/react';
 import { formatUnits, isAddress, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 import { Grant, getChainParams } from '@haqq/data-access-cosmos';
@@ -119,6 +120,8 @@ function GranterGrantsTable() {
       ? chain.id
       : chains[0].id,
   );
+  const posthog = usePostHog();
+  const chainId = chain.id;
 
   const granterGrantsToRender = useMemo(() => {
     if (!granterGrants || granterGrants?.grants.length === 0) {
@@ -131,6 +134,7 @@ function GranterGrantsTable() {
   const handleRevokeAccess = useCallback(
     async (grantee: string, type: string) => {
       try {
+        posthog.capture('revoke access started', { chainId });
         const revokePromise = getRevokeEstimatedFee(grantee, type).then(
           (estimatedFee) => {
             return revoke(grantee, type, estimatedFee);
@@ -166,8 +170,14 @@ function GranterGrantsTable() {
             return <ToastError>{error.message}</ToastError>;
           },
         });
+        posthog.capture('revoke access success', { chainId });
       } catch (error) {
-        console.error((error as Error).message);
+        const message = (error as Error).message;
+        posthog.capture('revoke access failed', {
+          chainId,
+          error: message,
+        });
+        console.error(message);
       } finally {
         invalidateQueries([
           [chain.id, 'grants-granter'],

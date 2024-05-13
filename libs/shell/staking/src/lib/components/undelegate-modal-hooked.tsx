@@ -60,10 +60,11 @@ export function UndelegateModalHooked({
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledUndelegateAmount = useThrottle(undelegateAmount, 300);
   const posthog = usePostHog();
+  const chainId = chain.id;
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
-      posthog.capture('undelegate started');
+      posthog.capture('undelegate started', { chainId });
       setUndelegateEnabled(false);
       const undelegationPromise = undelegate(
         validatorAddress,
@@ -77,7 +78,6 @@ export function UndelegateModalHooked({
         success: (tx) => {
           console.log('Undlegation successful', { tx });
           const txHash = tx?.txhash;
-          posthog.capture('undelegate success');
 
           return (
             <ToastSuccess>
@@ -99,19 +99,21 @@ export function UndelegateModalHooked({
           );
         },
         error: (error) => {
-          posthog.capture('undelegate failed');
           return <ToastError>{error.message}</ToastError>;
         },
       });
-
+      posthog.capture('undelegate success', { chainId });
       onClose();
     } catch (error) {
-      console.error((error as Error).message);
+      const message = (error as Error).message;
+      posthog.capture('undelegate failed', { chainId, error: message });
+      console.error(message);
     } finally {
       setUndelegateEnabled(false);
     }
   }, [
     posthog,
+    chainId,
     undelegate,
     validatorAddress,
     undelegateAmount,

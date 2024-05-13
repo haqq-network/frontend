@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { Fee } from '@evmos/transactions';
+import { usePostHog } from 'posthog-js/react';
 import { useNetwork } from 'wagmi';
 import { VESTING_DEFAULT_FEE, getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
@@ -13,6 +14,7 @@ import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
+import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
 
 export function useLiquidVestingActions() {
@@ -28,6 +30,8 @@ export function useLiquidVestingActions() {
       : chains[0].id,
   );
   const haqqChain = mapToCosmosChain(chainParams);
+  const posthog = usePostHog();
+  const chainId = chain.id;
 
   const getLiquidateParams = useCallback(
     (
@@ -78,7 +82,11 @@ export function useLiquidVestingActions() {
         );
 
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -103,6 +111,8 @@ export function useLiquidVestingActions() {
       haqqChain,
       getLiquidateParams,
       signTransaction,
+      posthog,
+      chainId,
       broadcastTransaction,
       getTransactionStatus,
     ],
@@ -127,7 +137,11 @@ export function useLiquidVestingActions() {
         );
 
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -153,6 +167,8 @@ export function useLiquidVestingActions() {
       getRedeemParams,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );
