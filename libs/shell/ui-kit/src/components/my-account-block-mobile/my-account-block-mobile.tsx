@@ -1,10 +1,10 @@
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
+import { MIN_REWARDS_TO_CLAIM } from '../../constants';
 import { formatNumber } from '../../utils/format-number';
 import { Container } from '../container/container';
 import { Heading } from '../heading/heading';
 import { WalletIcon } from '../icons/icons';
-import { MIN_REWARDS_TO_CLAIM } from '../my-account-block-desktop/my-account-block-desktop';
 import { Tooltip } from '../tooltip/tooltip';
 
 interface MyAccountBlockProps {
