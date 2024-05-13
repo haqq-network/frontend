@@ -1,8 +1,8 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useScrollLock } from 'usehooks-ts';
-import { SubscribeForm } from '@haqq/haqq-website/forms';
 import {
   DiscordIcon,
   GithubIcon,
@@ -15,6 +15,16 @@ import {
   // YoutubeIcon,
   Button,
 } from '@haqq/haqq-website-ui-kit';
+
+const SubscribeForm = dynamic(
+  async () => {
+    const { SubscribeForm } = await import('@haqq/haqq-website/forms');
+    return { default: SubscribeForm };
+  },
+  {
+    ssr: false,
+  },
+);
 
 interface NavLinkProps {
   href: string;

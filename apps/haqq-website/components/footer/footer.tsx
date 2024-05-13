@@ -1,10 +1,10 @@
 'use client';
 import { ReactNode } from 'react';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMediaQuery } from 'react-responsive';
-import { SubscribeForm } from '@haqq/haqq-website/forms';
 import {
   DiscordIcon,
   GithubIcon,
@@ -14,6 +14,11 @@ import {
   TwitterIcon,
 } from '@haqq/haqq-website-ui-kit';
 import logoImageData from '../../assets/images/logo.svg';
+
+const SubscribeForm = dynamic(async () => {
+  const { SubscribeForm } = await import('@haqq/haqq-website/forms');
+  return { default: SubscribeForm };
+});
 
 function FooterNavLink({
   href,

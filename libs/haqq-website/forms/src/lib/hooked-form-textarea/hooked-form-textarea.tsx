@@ -1,3 +1,4 @@
+'use client';
 import { ReactElement } from 'react';
 import { Path, UseFormRegister } from 'react-hook-form';
 import { Textarea, TextareaProps } from '@haqq/haqq-website-ui-kit';
