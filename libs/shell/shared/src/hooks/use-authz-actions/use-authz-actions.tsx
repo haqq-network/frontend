@@ -1,3 +1,4 @@
+'use client';
 import { useCallback } from 'react';
 import {
   createGenericAuthorization,
@@ -10,6 +11,7 @@ import {
   MsgGenericRevokeParams,
   createTxMsgGenericRevoke,
 } from '@evmos/transactions';
+import { usePostHog } from 'posthog-js/react';
 import { useNetwork } from 'wagmi';
 import { BroadcastTxResponse, getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
@@ -17,6 +19,7 @@ import { EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 import { useWallet } from '../../providers/wallet-provider';
+import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
 
 interface AuthzActionsHook {
@@ -60,6 +63,8 @@ export function useAuthzActions(): AuthzActionsHook {
       : chains[0].id,
   );
   const haqqChain = mapToCosmosChain(chainParams);
+  const posthog = usePostHog();
+  const chainId = chain.id;
 
   const handleGrant = useCallback(
     async (
@@ -90,7 +95,11 @@ export function useAuthzActions(): AuthzActionsHook {
         );
 
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -116,6 +125,8 @@ export function useAuthzActions(): AuthzActionsHook {
       getFee,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );
@@ -147,7 +158,11 @@ export function useAuthzActions(): AuthzActionsHook {
         );
 
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -173,6 +188,8 @@ export function useAuthzActions(): AuthzActionsHook {
       getFee,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );

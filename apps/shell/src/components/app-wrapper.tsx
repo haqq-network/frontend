@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
-import ScrollLock from 'react-scrolllock';
+import { useScrollLock } from 'usehooks-ts';
 import { useBalance, useConnect, useSwitchNetwork, useNetwork } from 'wagmi';
 import { haqqTestedge2 } from 'wagmi/chains';
 import {
@@ -71,6 +71,7 @@ function HeaderButtons({
   });
   const router = useRouter();
   const { isHaqqWallet } = useWallet();
+  const { lock, unlock } = useScrollLock();
 
   const handleChainSelectClick = useCallback(
     async (chainId: number) => {
@@ -115,6 +116,14 @@ function HeaderButtons({
     }
   }, [isDesktop, onMobileMenuOpenChange]);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      lock();
+    } else {
+      unlock();
+    }
+  }, [isMobileMenuOpen, lock, unlock]);
+
   return (
     <Fragment>
       <nav className="hidden flex-row items-center space-x-6 lg:flex">
@@ -157,8 +166,6 @@ function HeaderButtons({
 
       {isMobileMenuOpen && (
         <Fragment>
-          <ScrollLock isActive />
-
           <div
             className={clsx(
               'bg-haqq-black fixed right-0 z-40 w-full transform-gpu lg:hidden',

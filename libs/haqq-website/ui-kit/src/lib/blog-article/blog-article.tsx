@@ -16,6 +16,7 @@ export function BlogArticle({
   onLinkCopy,
   transformImageUrl,
   articleLink,
+  utmCampaign,
 }: {
   image: StaticImageData | null;
   title: string;
@@ -26,6 +27,7 @@ export function BlogArticle({
   onLinkCopy?: () => void;
   transformImageUrl?: (src: string) => string;
   articleLink: string;
+  utmCampaign?: string;
 }) {
   const postDate = new Date(publishDate);
   const formattedPostDate = new Intl.DateTimeFormat('en-US', {
@@ -62,6 +64,7 @@ export function BlogArticle({
               transformImageUrl={transformImageUrl}
               shouldRenderHeadingLinks={true}
               className="anchor-fix-blog"
+              utmCampaign={utmCampaign}
             >
               {'# ' + title + '\n\n' + content}
             </MarkdownText>

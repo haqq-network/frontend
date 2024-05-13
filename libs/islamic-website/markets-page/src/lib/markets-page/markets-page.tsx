@@ -159,6 +159,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://www.kucoin.com/trade/ISLM-USDT"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="cex-kucoin"
                 >
                   <CEXCard name="kuCoin" logo={kucoinLogoImageData} />
                 </Link>
@@ -173,6 +174,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://www.lbank.com/trade/islm_usdt/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="cex-lbank"
                 >
                   <CEXCard name="LBank" logo={lbankLogoImageData} />
                 </Link>
@@ -180,6 +182,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://www.xt.com/en/trade/islm_usdt"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="cex-xt"
                 >
                   <CEXCard name="XT.com" logo={xtLogoImageData} />
                 </Link>
@@ -187,6 +190,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://www.mexc.com/exchange/ISLM_USDT"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="cex-mexc"
                 >
                   <CEXCard name="MEXC" logo={mexcLogoImageData} />
                 </Link>
@@ -215,12 +219,15 @@ export function MarketsPage({ price }: { price: string }) {
                       key={`dex-${index}`}
                     >
                       {dex.pools.map((pool) => {
+                        const key = pool.pair.join('-');
+
                         return (
                           <Link
-                            key={pool.pair.join('_')}
+                            key={key}
                             href={pool.href}
                             target="_blank"
                             rel="noopener noreferrer"
+                            data-attr={`dex-${dex.name}-pool-${key}`}
                           >
                             <DEXCard pair={pool.pair} />
                           </Link>
@@ -247,6 +254,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://buy.onramper.com/?apiKey=pk_prod_01HD0SSHKR1BYWAH09NWZCXVFS&mode=buy&onlyCryptos=islm&onlyCryptoNetworks=haqq"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="fiat-onramper"
                 >
                   <OnamperCard />
                 </Link>

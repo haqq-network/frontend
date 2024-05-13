@@ -62,11 +62,11 @@ export function DelegateModalHooked({
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledDelegateAmount = useThrottle(delegateAmount, 300);
   const posthog = usePostHog();
+  const chainId = chain.id;
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
-      posthog.capture('delegate started');
-
+      posthog.capture('delegate started', { chainId });
       setDelegateEnabled(false);
       const delegationPromise = delegate(
         validatorAddress,
@@ -80,7 +80,6 @@ export function DelegateModalHooked({
         success: (tx) => {
           console.log('Delegation successful', { tx });
           const txHash = tx?.txhash;
-          posthog.capture('delegate success');
 
           return (
             <ToastSuccess>
@@ -102,17 +101,21 @@ export function DelegateModalHooked({
           );
         },
         error: (error) => {
-          posthog.capture('delegate failed');
           return <ToastError>{error.message}</ToastError>;
         },
       });
+      posthog.capture('delegate success', { chainId });
       onClose();
     } catch (error) {
-      console.error((error as Error).message);
+      const message = (error as Error).message;
+      posthog.capture('delegate failed', { chainId, error: message });
+      console.error(message);
     } finally {
       setDelegateEnabled(true);
     }
   }, [
+    posthog,
+    chainId,
     delegate,
     validatorAddress,
     delegateAmount,
@@ -120,7 +123,6 @@ export function DelegateModalHooked({
     fee,
     toast,
     onClose,
-    posthog,
     explorer.cosmos,
   ]);
 

@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import { useMediaQuery } from 'react-responsive';
+import { useScrollLock } from 'usehooks-ts';
 import { LocaleType } from '@haqq/islamic-website/shariah-page';
 import {
   Container,
@@ -36,7 +37,7 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 
-const { Link, usePathname } = createSharedPathnamesNavigation({
+const { Link } = createSharedPathnamesNavigation({
   locales: [
     'en',
     // 'ar', 'id'
@@ -202,6 +203,7 @@ export function MobileHeader({
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const [isBlurred, setBlurred] = useState(false);
+  const { lock, unlock } = useScrollLock();
 
   useEffect(() => {
     const offset = 40;
@@ -224,14 +226,17 @@ export function MobileHeader({
   }, []);
 
   useEffect(() => {
+    console.log({ isMobileMenuOpen });
     if (isMobileMenuOpen) {
-      document.body.classList.add('overflow-hidden');
+      lock();
+    } else {
+      unlock();
     }
 
     return () => {
-      document.body.classList.remove('overflow-hidden');
+      unlock();
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, lock, unlock]);
 
   return (
     <Fragment>
@@ -356,8 +361,6 @@ export function DesktopHeader({
   }, []);
 
   const t = useTranslations('header');
-
-  const pathname = usePathname();
 
   return (
     <header

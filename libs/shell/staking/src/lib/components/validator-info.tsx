@@ -9,9 +9,8 @@ import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Hex } from 'viem';
 import { formatUnits } from 'viem/utils';
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useAddress,
@@ -514,7 +513,9 @@ export function ValidatorInfo({
 
   const handleGetRewardsClick = useCallback(async () => {
     try {
-      posthog.capture('claim rewards from validator started');
+      posthog.capture('claim rewards from validator started', {
+        chainId: chain.id,
+      });
       setRewardPending(true);
       const claimRewardPromise = getClaimRewardEstimatedFee(
         validatorAddress,
@@ -527,7 +528,6 @@ export function ValidatorInfo({
         success: (tx) => {
           console.log('Rewards claimed', { tx });
           const txHash = tx?.txhash;
-          posthog.capture('rewards claimed');
 
           return (
             <ToastSuccess>
@@ -549,11 +549,18 @@ export function ValidatorInfo({
           );
         },
         error: (error) => {
-          posthog.capture('rewards claim failed');
           return <ToastError>{error.message}</ToastError>;
         },
       });
+      posthog.capture('claim rewards from validator success', {
+        chainId: chain.id,
+      });
     } catch (error) {
+      const message = (error as Error).message;
+      posthog.capture('claim rewards from validator failed', {
+        chainId: chain.id,
+        error: message,
+      });
       console.error((error as Error).message);
     } finally {
       setRewardPending(false);
@@ -615,7 +622,7 @@ export function ValidatorInfo({
 
   const handleRewardsClaim = useCallback(async () => {
     try {
-      posthog.capture('claim all rewards started');
+      posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
       const estimatedFee =
         await getClaimAllRewardEstimatedFee(delegatedValsAddrs);
@@ -629,7 +636,6 @@ export function ValidatorInfo({
         success: (tx) => {
           console.log('All rewards claimed', { tx });
           const txHash = tx?.txhash;
-          posthog.capture('rewards claimed');
 
           return (
             <div className="flex flex-col gap-[8px] text-center">
@@ -646,15 +652,19 @@ export function ValidatorInfo({
           );
         },
         error: (error) => {
-          posthog.capture('rewards claim failed');
           return <ToastError>{error.message}</ToastError>;
         },
       });
+      posthog.capture('claim all rewards success', { chainId: chain.id });
     } catch (error) {
-      console.error((error as Error).message);
+      const message = (error as Error).message;
+      posthog.capture('claim all rewards failed', {
+        chainId: chain.id,
+        error: message,
+      });
+      console.error(message);
     } finally {
       setRewardsPending(false);
-
       invalidateQueries([
         [chain.id, 'rewards'],
         [chain.id, 'delegation'],
