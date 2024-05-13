@@ -1,8 +1,7 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { PropsWithChildren, ReactNode, useEffect } from 'react';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useScrollLock } from 'usehooks-ts';
 import {
   DiscordIcon,
   GithubIcon,
@@ -88,8 +87,6 @@ export function BurgerMenu({
   onClose?: () => void;
   turnstileSiteKey?: string;
 }) {
-  useScrollLock();
-
   return (
     <div
       className={clsx(
