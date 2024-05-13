@@ -209,10 +209,11 @@ export function Footer({
                     <Link
                       title={title}
                       href={url}
-                      key={`${id}-${title}`}
+                      key={id}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="transition-colors duration-150 ease-in hover:text-[#18FFAC]"
+                      data-attr={`community-${id}`}
                     >
                       {SOCIAL_ICONS[id]}
                     </Link>

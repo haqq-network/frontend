@@ -43,6 +43,7 @@ function SocialIconLink({ id, title, url }: SocialIconLink) {
       target="_blank"
       rel="noopener noreferrer"
       className="cursor-pointer rounded-[12px] bg-[#2F2F2F] p-[16px] transition-colors duration-300 hover:bg-[#585858]"
+      data-attr={`community-${id}`}
     >
       {icon}
     </Link>
