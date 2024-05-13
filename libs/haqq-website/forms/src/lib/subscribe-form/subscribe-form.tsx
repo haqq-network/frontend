@@ -72,22 +72,26 @@ export function SubscribeForm({
         posthog.setPersonProperties({ email: formData.email });
 
         try {
+          posthog.capture('subscribe to newsletter started');
           const response = await submitForm({ ...formData, token: token });
 
           if (response.status === 200) {
             setSubscribeFormState(FormState.success);
             setSuccessModalOpen(true);
+            posthog.capture('subscribe to newsletter success');
           } else {
             setSubscribeFormState(FormState.error);
             if ('error' in response.data) {
               setError(response.data.error);
             }
             setErrorModalOpen(true);
+            posthog.capture('subscribe to newsletter failed');
           }
         } catch (error) {
           setSubscribeFormState(FormState.error);
           setError((error as Error).message);
           setErrorModalOpen(true);
+          posthog.capture('subscribe to newsletter failed');
         }
       } else {
         console.error('no form data');
@@ -156,7 +160,12 @@ export function SubscribeForm({
           </div>
         </div>
         <div className="mt-[24px] sm:mt-0 lg:mt-[40px]">
-          <Button variant={1} type="submit" disabled={isFormDisabled}>
+          <Button
+            variant={1}
+            type="submit"
+            disabled={isFormDisabled}
+            data-attr="subscribe-form-submit-button"
+          >
             Subscribe
           </Button>
         </div>
