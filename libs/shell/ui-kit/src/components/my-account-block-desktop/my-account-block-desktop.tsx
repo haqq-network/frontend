@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import clsx from 'clsx';
+import { MIN_REWARDS_TO_CLAIM } from '../../constants';
 import { formatNumber } from '../../utils/format-number';
 import { Button } from '../button/button';
 import { Heading } from '../heading/heading';
 import { WalletIcon } from '../icons/icons';
 import { MyAccountCardBlock } from '../my-account-block-mobile/my-account-block-mobile';
 import { Tooltip } from '../tooltip/tooltip';
-
-export const MIN_REWARDS_TO_CLAIM = 1;
 
 export function MyAccountBlockDesktop({
   onRewardsClaim,
