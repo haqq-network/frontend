@@ -66,24 +66,27 @@ button.photos__button {
 .footer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: url(https://islamiccoin.net/email/email-footer.png);
+  justify-content: end;
+  background-image: url(https://islamic-website-c0fyjbumk-haqq-network.vercel.app/email/email-new-footer.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   width: 572px;
-  height: 351px;
+  height: 235px;
   text-align: center;
   font-size: 16px;
   line-height: 20px;
   margin-top: 48px;
 
   a {
-    background: -webkit-linear-gradient(80deg, #36fff3, #18ffac);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    opacity: 50%;
+  }
+
+  .social__links {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 26px;
   }
 }
 
@@ -94,11 +97,6 @@ button.photos__button {
   background-size: cover;
   width: 572px;
   height: 243px;
-}
-
-.social__links {
-  display: flex;
-  align-items: center;
 }
 
 .copyright__text {
