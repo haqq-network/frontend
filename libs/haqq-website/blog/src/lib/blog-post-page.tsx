@@ -84,6 +84,7 @@ export function BlogPostPage({
           `/blog/${post.slug}`,
           'https://haqq.network',
         ).toString()}
+        utmCampaign={post.utmCampaign}
       />
 
       <RecentPostsBlock recentPosts={recentPosts} />
