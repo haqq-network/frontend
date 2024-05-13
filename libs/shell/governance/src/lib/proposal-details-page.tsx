@@ -17,6 +17,7 @@ import clsx from 'clsx';
 import Markdown from 'marked-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useNetwork } from 'wagmi';
@@ -896,10 +897,13 @@ export function VoteActions({
       ? chain.id
       : chains[0].id,
   );
+  const posthog = usePostHog();
+  const chainId = chain.id;
 
   const handleVote = useCallback(
     async (option: number) => {
       try {
+        posthog.capture('vote started', { chainId });
         const votePromise = getVoteEstimatedFee(proposalId, option).then(
           (estimatedFee) => {
             return vote(proposalId, option, estimatedFee);
@@ -936,11 +940,22 @@ export function VoteActions({
             return <ToastError>For some reason your vote failed.</ToastError>;
           },
         });
+        posthog.capture('vote success', { chainId });
       } catch (error) {
+        const message = (error as Error).message;
+        posthog.capture('vote failed', { chainId, error: message });
         console.error((error as Error).message);
       }
     },
-    [explorer.cosmos, getVoteEstimatedFee, proposalId, toast, vote],
+    [
+      chainId,
+      explorer.cosmos,
+      getVoteEstimatedFee,
+      posthog,
+      proposalId,
+      toast,
+      vote,
+    ],
   );
 
   const isVoteEnabled = useMemo(() => {

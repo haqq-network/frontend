@@ -62,11 +62,12 @@ export function RedelegateModalHooked({
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledRedelegateAmount = useThrottle(redelegateAmount, 300);
   const posthog = usePostHog();
+  const chainId = chain.id;
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
       if (validatorDestinationAddress && validatorAddress) {
-        posthog.capture('redelegate started');
+        posthog.capture('redelegate started', { chainId });
         setRedelegateEnabled(false);
         const redelegationPromise = redelegate(
           validatorAddress,
@@ -81,7 +82,6 @@ export function RedelegateModalHooked({
           success: (tx) => {
             console.log('Redelegation successful', { tx });
             const txHash = tx?.txhash;
-            posthog.capture('redelegate success');
 
             return (
               <ToastSuccess>
@@ -103,14 +103,16 @@ export function RedelegateModalHooked({
             );
           },
           error: (error) => {
-            posthog.capture('redelegate failed');
             return <ToastError>{error.message}</ToastError>;
           },
         });
+        posthog.capture('redelegate success', { chainId });
         onClose();
       }
     } catch (error) {
-      console.error((error as Error).message);
+      const message = (error as Error).message;
+      posthog.capture('redelegate failed', { chainId, error: message });
+      console.error(message);
     } finally {
       setRedelegateEnabled(true);
     }
@@ -118,6 +120,7 @@ export function RedelegateModalHooked({
     validatorDestinationAddress,
     validatorAddress,
     posthog,
+    chainId,
     redelegate,
     redelegateAmount,
     balance,
