@@ -37,7 +37,7 @@ import {
 } from '@haqq/islamic-website-ui-kit';
 import { BurgerMenu } from '../burger-menu/burger-menu';
 
-const { Link, usePathname } = createSharedPathnamesNavigation({
+const { Link } = createSharedPathnamesNavigation({
   locales: [
     'en',
     // 'ar', 'id'
@@ -361,8 +361,6 @@ export function DesktopHeader({
   }, []);
 
   const t = useTranslations('header');
-
-  const pathname = usePathname();
 
   return (
     <header
