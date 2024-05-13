@@ -2,6 +2,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
+import { usePostHog } from 'posthog-js/react';
 import { useForm } from 'react-hook-form';
 import Turnstile from 'react-turnstile';
 import * as yup from 'yup';
@@ -65,33 +66,40 @@ export function FeedbackForm({
     setCaptchaModalOpen(true);
     setFormData(data);
   }, []);
+  const posthog = usePostHog();
 
   const handleSubmitContinue = useCallback(
     async (token: string) => {
       if (formData) {
+        posthog.setPersonProperties({ email: formData.email });
+
         try {
+          posthog.capture('submit feedback started');
           const response = await submitForm({ ...formData, token: token });
 
           if (response.status === 200) {
             setContactFormState(FormState.success);
             setSuccessModalOpen(true);
+            posthog.capture('submit feedback success');
           } else {
             setContactFormState(FormState.error);
             if ('error' in response.data) {
               setError(response.data.error);
             }
             setErrorModalOpen(true);
+            posthog.capture('submit feedback failed');
           }
         } catch (error) {
           setContactFormState(FormState.error);
           setError((error as Error).message);
           setErrorModalOpen(true);
+          posthog.capture('submit feedback failed');
         }
       } else {
         console.error('no form data');
       }
     },
-    [formData],
+    [formData, posthog],
   );
 
   useEffect(() => {
