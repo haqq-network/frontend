@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode, useEffect } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';

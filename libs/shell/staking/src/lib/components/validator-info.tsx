@@ -9,9 +9,8 @@ import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Hex } from 'viem';
 import { formatUnits } from 'viem/utils';
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useAddress,

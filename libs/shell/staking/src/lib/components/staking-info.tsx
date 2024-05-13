@@ -4,7 +4,7 @@ import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useMediaQuery } from 'react-responsive';
-import { Hex, formatUnits, parseUnits } from 'viem';
+import { formatUnits, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
