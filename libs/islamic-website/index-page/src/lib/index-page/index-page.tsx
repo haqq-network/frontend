@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import {
   Container,
@@ -15,8 +16,17 @@ import { JoinCommunityBlock } from '../join-community-block/join-community-block
 import { LearnAndGrowBlock } from '../learn-and-grow-block/learn-and-grow-block';
 import { Marquee } from '../marquee/marquee';
 import { NewsBlock } from '../news-block/news-block';
-import { PortfolioBlock } from '../portfolio-block/portfolio-block';
 import { ChainStats, WhyBlock } from '../why-block/why-block';
+
+const PortfolioBlock = dynamic(
+  async () => {
+    const { PortfolioBlock } = await import(
+      '../portfolio-block/portfolio-block'
+    );
+    return { default: PortfolioBlock };
+  },
+  { ssr: false },
+);
 
 export function IndexPage({
   news,
