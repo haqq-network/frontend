@@ -8,10 +8,13 @@ const StakingInfo = dynamic(async () => {
   const { StakingInfo } = await import('./components/staking-info');
   return { default: StakingInfo };
 });
-const ValidatorList = dynamic(async () => {
-  const { ValidatorList } = await import('./components/validator-list');
-  return { default: ValidatorList };
-});
+const ValidatorList = dynamic(
+  async () => {
+    const { ValidatorList } = await import('./components/validator-list');
+    return { default: ValidatorList };
+  },
+  { ssr: false },
+);
 
 export function ValidatorListPage() {
   const { isHaqqWallet } = useWallet();
