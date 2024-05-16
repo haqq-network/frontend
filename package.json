@@ -98,7 +98,7 @@
     "usehooks-ts": "3.1.0",
     "vanilla-cookieconsent": "2.9.2",
     "viem": "1.21.4",
-    "wagmi": "1.4.13",
+    "wagmi": "2.8.8",
     "yup": "1.4.0"
   },
   "devDependencies": {
