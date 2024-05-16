@@ -10,7 +10,6 @@ import { useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useBalanceAwareActions,
-  useCosmosProvider,
   useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import {
@@ -214,7 +213,6 @@ function useStakingStats() {
 export function StakingInfo() {
   const { ethAddress, haqqAddress } = useAddress();
   const { openSelectWallet, isHaqqWallet } = useWallet();
-  const { isReady } = useCosmosProvider();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -233,10 +231,6 @@ export function StakingInfo() {
   const isTestedge = useMemo(() => {
     return chain.id === haqqTestedge2.id;
   }, [chain.id]);
-
-  if (!isReady) {
-    return null;
-  }
 
   if (!isWalletConnected) {
     return (
