@@ -57,20 +57,6 @@ function mapBalances(
   balancesResponse: IndexerBalancesResponse,
   address: string,
 ): IndexerBalances {
-  console.log({
-    available: parseResponseNumber(balancesResponse.available[address]),
-    availableForStake: parseResponseNumber(
-      balancesResponse.available_for_stake[address],
-    ),
-    balance: parseResponseNumber(balancesResponse.balance[address]),
-    locked: parseResponseNumber(balancesResponse.locked[address]),
-    staked: parseResponseNumber(balancesResponse.staked[address]),
-    stakedFree: parseResponseNumber(balancesResponse.staked_free[address]),
-    stakedLocked: parseResponseNumber(balancesResponse.staked_locked[address]),
-    total: parseResponseNumber(balancesResponse.total[address]),
-    // unlock: parseResponseNumber(balancesResponse.unlock[address]),
-    vested: parseResponseNumber(balancesResponse.vested[address]),
-  });
   return {
     available: parseResponseNumber(balancesResponse.available[address]),
     availableForStake: parseResponseNumber(

@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import type { Metadata, Viewport } from 'next';
 import dynamic from 'next/dynamic';
+import { headers } from 'next/headers';
 import type { Config } from '@haqq/shell-shared';
 import { AppWrapper } from '../components/app-wrapper';
 import { PHProvider } from '../components/posthog';
@@ -46,12 +47,20 @@ const PostHogPageView = dynamic(
     const { PostHogPageView } = await import('../components/posthog-page-view');
     return { default: PostHogPageView };
   },
-  {
-    ssr: false,
-  },
+  { ssr: false },
 );
 
 export default function RootLayout({ children }: PropsWithChildren) {
+  const headersList = headers();
+  const userAgent = headersList.get('user-agent');
+  const isMobileUserAgent = userAgent
+    ? Boolean(
+        userAgent.match(
+          /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+        ),
+      )
+    : false;
+
   return (
     <html
       lang="en"
@@ -63,7 +72,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <PostHogPageView />
           <SpeedInsights />
 
-          <Providers config={shellConfig}>
+          <Providers config={shellConfig} isMobileUserAgent={isMobileUserAgent}>
             <AppWrapper>{children}</AppWrapper>
           </Providers>
         </body>

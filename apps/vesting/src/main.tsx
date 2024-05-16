@@ -2,22 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './app/app';
 import { AppContainer } from './app/app-container';
-import { environment } from './environments/environment';
 import './index.css';
-
-if (process.env['VERCEL_ENV'] === 'production') {
-  if (environment.sentryDsn && environment.sentryDsn !== '') {
-    const dsn = environment.sentryDsn;
-
-    import('./utils/sentry').then(({ initSentry }) => {
-      initSentry(dsn);
-    });
-  } else {
-    console.warn(
-      'NX_VESTING_SENTRY_DSN is undefined. Sentry is not initialized. Check environments variables',
-    );
-  }
-}
 
 function startApp() {
   const rootElement = document.getElementById('root');
