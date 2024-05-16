@@ -1,5 +1,6 @@
 'use client';
 import { PropsWithChildren } from 'react';
+import { Context as ResponsiveContext } from 'react-responsive';
 import {
   Config,
   ConfigProvider,
@@ -13,7 +14,10 @@ import {
 export function Providers({
   children,
   config,
-}: PropsWithChildren<{ config: Config }>) {
+  isMobileUserAgent,
+}: PropsWithChildren<{ config: Config; isMobileUserAgent?: boolean }>) {
+  const possibleDevice = isMobileUserAgent ? { width: 375 } : { width: 1280 };
+
   return (
     <ConfigProvider config={config}>
       <ReactQueryProvider withDevtools={true}>
@@ -22,8 +26,10 @@ export function Providers({
         >
           <CosmosProvider>
             <WalletProvider>
-              {children}
-              <Toaster />
+              <ResponsiveContext.Provider value={possibleDevice}>
+                {children}
+                <Toaster />
+              </ResponsiveContext.Provider>
             </WalletProvider>
           </CosmosProvider>
         </WagmiProvider>
