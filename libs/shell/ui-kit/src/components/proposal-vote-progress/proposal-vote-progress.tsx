@@ -78,8 +78,8 @@ export function ProposalVoteProgress({
 
       return [
         Number.parseFloat(formatNumber((yes / total) * 100)),
-        Number.parseFloat(formatNumber((no / total) * 100)),
         Number.parseFloat(formatNumber((abstain / total) * 100)),
+        Number.parseFloat(formatNumber((no / total) * 100)),
         Number.parseFloat(formatNumber((veto / total) * 100)),
       ];
     }, [yes, abstain, no, veto, total]);
