@@ -11,13 +11,26 @@ import {
   WalletProvider,
 } from '@haqq/shell-shared';
 
+function ResponsiveProvider({
+  children,
+  isMobileUserAgent,
+}: PropsWithChildren<{ isMobileUserAgent?: boolean }>) {
+  if (!isMobileUserAgent) {
+    return children;
+  }
+
+  return (
+    <ResponsiveContext.Provider value={{ width: 375 }}>
+      {children}
+    </ResponsiveContext.Provider>
+  );
+}
+
 export function Providers({
   children,
   config,
   isMobileUserAgent,
 }: PropsWithChildren<{ config: Config; isMobileUserAgent?: boolean }>) {
-  const possibleDevice = isMobileUserAgent ? { width: 375 } : { width: 1280 };
-
   return (
     <ConfigProvider config={config}>
       <ReactQueryProvider withDevtools={true}>
@@ -26,10 +39,10 @@ export function Providers({
         >
           <CosmosProvider>
             <WalletProvider>
-              <ResponsiveContext.Provider value={possibleDevice}>
+              <ResponsiveProvider isMobileUserAgent={isMobileUserAgent}>
                 {children}
                 <Toaster />
-              </ResponsiveContext.Provider>
+              </ResponsiveProvider>
             </WalletProvider>
           </CosmosProvider>
         </WagmiProvider>
