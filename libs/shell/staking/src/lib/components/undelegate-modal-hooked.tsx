@@ -73,35 +73,43 @@ export function UndelegateModalHooked({
         fee,
       );
 
-      await toast.promise(undelegationPromise, {
-        loading: <ToastLoading>Undlegation in progress</ToastLoading>,
-        success: (tx) => {
-          console.log('Undlegation successful', { tx });
-          const txHash = tx?.txhash;
+      await toast.promise(
+        undelegationPromise,
+        {
+          loading: <ToastLoading>Undlegation in progress</ToastLoading>,
+          success: (tx) => {
+            console.log('Undlegation successful', { tx });
+            const txHash = tx?.txhash;
 
-          return (
-            <ToastSuccess>
-              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Undelegation successful</div>
-                <div>
-                  <Link
-                    href={`${explorer.cosmos}/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                  >
-                    <LinkIcon />
-                    <span>{getFormattedAddress(txHash)}</span>
-                  </Link>
+            return (
+              <ToastSuccess>
+                <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                  <div>Undelegation successful</div>
+                  <div>
+                    <Link
+                      href={`${explorer.cosmos}/tx/${txHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                    >
+                      <LinkIcon />
+                      <span>{getFormattedAddress(txHash)}</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </ToastSuccess>
-          );
+              </ToastSuccess>
+            );
+          },
+          error: (error) => {
+            return <ToastError>{error.message}</ToastError>;
+          },
         },
-        error: (error) => {
-          return <ToastError>{error.message}</ToastError>;
+        {
+          success: {
+            duration: 5000,
+          },
         },
-      });
+      );
       posthog.capture('undelegate success', { chainId });
       onClose();
     } catch (error) {
@@ -177,8 +185,9 @@ export function UndelegateModalHooked({
               setFeePending(false);
             }
           })
-          .catch((reason) => {
-            console.error(reason);
+          .catch((error) => {
+            const message = (error as Error).message;
+            toast.error(<ToastError>{message}</ToastError>);
             setFeePending(false);
           });
       }
@@ -189,6 +198,7 @@ export function UndelegateModalHooked({
     throttledUndelegateAmount,
     getUndelegateEstimatedFee,
     isUndelegateEnabled,
+    toast,
   ]);
 
   return (
