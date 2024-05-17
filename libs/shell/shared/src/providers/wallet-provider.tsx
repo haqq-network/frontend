@@ -16,9 +16,11 @@ import {
   createTxRawEIP712,
   TxGenerated,
 } from '@evmos/transactions';
+import { ec as EC } from 'elliptic';
 import { usePostHog } from 'posthog-js/react';
 import store from 'store2';
 import type { Hex } from 'viem';
+import { publicKeyToAddress } from 'viem/utils';
 import {
   useDisconnect,
   useNetwork,
@@ -61,6 +63,15 @@ export interface WalletProviderInterface {
 const WalletContext = createContext<WalletProviderInterface | undefined>(
   undefined,
 );
+
+function base64ToUncompressedHex(base64: string): Hex {
+  const buffer = Buffer.from(base64, 'base64');
+  const ec = new EC('secp256k1');
+  const key = ec.keyFromPublic(buffer);
+  const uncompressed = key.getPublic(false, 'hex');
+
+  return `0x${uncompressed}`;
+}
 
 export function WalletProvider({ children }: { children: ReactNode }) {
   const chains = useSupportedChains();
@@ -164,45 +175,99 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     [walletClient],
   );
 
-  const getPubkey = useCallback(
+  const validatePubkey = useCallback((address: string, pubkey: string) => {
+    try {
+      const pkUncompressedHex = base64ToUncompressedHex(pubkey);
+      const recoveredAddress = publicKeyToAddress(pkUncompressedHex);
+
+      return address.toLowerCase() === recoveredAddress.toLowerCase();
+    } catch (error) {
+      console.error('Failed to validate pubkey');
+      return false;
+    }
+  }, []);
+
+  const fetchPubkey = useCallback(
     async (address: string) => {
-      posthog.capture('get pubkey start', {
-        chaidId: haqqChain.chainId,
-      });
-      const storeKey = `pubkey_${address}`;
-      const savedPubKey: string | null = store.get(storeKey);
-      // console.log('getPubkey', { storeKey, savedPubKey });
+      const haqqAddress = ethToHaqq(address);
+      let pubkey = await getPubkeyFromChain(haqqAddress);
 
-      if (!savedPubKey) {
-        try {
-          let pubkey: string | undefined;
-          const haqqAddress = ethToHaqq(address);
-          pubkey = await getPubkeyFromChain(haqqAddress);
-
-          if (!pubkey) {
-            pubkey = await generatePubkey(address);
-          }
-
-          store.set(storeKey, pubkey);
-          return pubkey;
-        } catch (error) {
-          const message = (error as Error).message;
-          posthog.capture('get pubkey failed', {
-            chaidId: haqqChain.chainId,
-            error: message,
-          });
-          console.error(message);
-          throw error;
-        }
+      if (!pubkey) {
+        pubkey = await generatePubkey(address);
       }
 
-      posthog.capture('get pubkey success', {
-        chaidId: haqqChain.chainId,
-      });
-
-      return savedPubKey;
+      return pubkey;
     },
-    [generatePubkey, getPubkeyFromChain, haqqChain.chainId, posthog],
+    [generatePubkey, getPubkeyFromChain],
+  );
+
+  const getPubkey = useCallback(
+    async (address: string) => {
+      const storeKey = `pubkey_${address}`;
+
+      try {
+        posthog.capture('get pubkey start', {
+          chaidId: haqqChain.chainId,
+          address,
+        });
+
+        let savedPubKey: string | null = store.get(storeKey);
+
+        if (!savedPubKey) {
+          const pubkey = await fetchPubkey(address);
+
+          store.set(storeKey, pubkey);
+          savedPubKey = pubkey;
+        }
+
+        const isValid = validatePubkey(address, savedPubKey);
+
+        if (!isValid) {
+          store.remove(storeKey);
+
+          const pubkey = await fetchPubkey(address);
+
+          store.set(storeKey, pubkey);
+
+          const isValidAfterRetry = validatePubkey(address, pubkey);
+
+          if (!isValidAfterRetry) {
+            const errorMessage = 'Invalid public key after retry';
+            posthog.capture('get pubkey failed', {
+              chaidId: haqqChain.chainId,
+              address,
+              error: errorMessage,
+            });
+            console.error(errorMessage);
+            throw new Error(errorMessage);
+          }
+
+          posthog.capture('get pubkey success', {
+            chaidId: haqqChain.chainId,
+            address,
+          });
+
+          return pubkey;
+        }
+
+        posthog.capture('get pubkey success', {
+          chaidId: haqqChain.chainId,
+          address,
+        });
+
+        return savedPubKey;
+      } catch (error) {
+        const message = (error as Error).message;
+        posthog.capture('get pubkey failed', {
+          chaidId: haqqChain.chainId,
+          address,
+          error: message,
+        });
+        console.error(message);
+        throw error;
+      }
+    },
+    [fetchPubkey, haqqChain.chainId, posthog, validatePubkey],
   );
 
   const signTransaction = useCallback(
