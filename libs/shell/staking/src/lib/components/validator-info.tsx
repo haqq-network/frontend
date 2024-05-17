@@ -3,6 +3,7 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import type { Validator } from '@evmos/provider';
 import clsx from 'clsx';
 import Markdown from 'marked-react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
@@ -59,10 +60,24 @@ import {
 } from '@haqq/shell-ui-kit';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { ValidatorAvatar } from './validator-avatar';
 import styles from './validator-info.module.css';
 import { useValidatorsShares } from '../hooks/use-validator-shares';
 
+const ValidatorAvatar = dynamic(
+  async () => {
+    const { ValidatorAvatar } = await import('./validator-avatar');
+    return { default: ValidatorAvatar };
+  },
+  {
+    loading: () => {
+      return (
+        <div className="flex h-[38px] w-[38px] flex-row items-center justify-center overflow-hidden rounded-[8px] bg-[#FFFFFF3D] text-[#AAABB2]">
+          <ValidatorIcon />
+        </div>
+      );
+    },
+  },
+);
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
   delegation: number;
