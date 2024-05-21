@@ -41,11 +41,10 @@ export function HeaderButtons({
   useEffect(() => {
     if (isMobileMenuOpen) {
       lock();
-      console.log('LOCK');
     } else {
-      console.log('UNLOCK');
       unlock();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobileMenuOpen]);
 
   return (
