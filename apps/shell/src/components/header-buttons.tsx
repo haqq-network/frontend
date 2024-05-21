@@ -41,10 +41,12 @@ export function HeaderButtons({
   useEffect(() => {
     if (isMobileMenuOpen) {
       lock();
+      console.log('LOCK');
     } else {
+      console.log('UNLOCK');
       unlock();
     }
-  }, [isMobileMenuOpen, lock, unlock]);
+  }, [isMobileMenuOpen]);
 
   return (
     <Fragment>
