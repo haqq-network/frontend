@@ -44,7 +44,8 @@ export function HeaderButtons({
     } else {
       unlock();
     }
-  }, [isMobileMenuOpen, lock, unlock]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobileMenuOpen]);
 
   return (
     <Fragment>

@@ -3,12 +3,13 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import type { Validator } from '@evmos/provider';
 import clsx from 'clsx';
 import Markdown from 'marked-react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
-import { useMediaQuery } from 'react-responsive';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useMediaQuery } from 'usehooks-ts';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -59,10 +60,24 @@ import {
 } from '@haqq/shell-ui-kit';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { ValidatorAvatar } from './validator-avatar';
 import styles from './validator-info.module.css';
 import { useValidatorsShares } from '../hooks/use-validator-shares';
 
+const ValidatorAvatar = dynamic(
+  async () => {
+    const { ValidatorAvatar } = await import('./validator-avatar');
+    return { default: ValidatorAvatar };
+  },
+  {
+    loading: () => {
+      return (
+        <div className="flex h-[38px] w-[38px] flex-row items-center justify-center overflow-hidden rounded-[8px] bg-[#FFFFFF3D] text-[#AAABB2]">
+          <ValidatorIcon />
+        </div>
+      );
+    },
+  },
+);
 interface ValidatorInfoComponentProps {
   validatorInfo: Validator;
   delegation: number;
@@ -166,8 +181,9 @@ export function ValidatorInfoComponent({
 }: ValidatorInfoComponentProps) {
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const { copyText } = useClipboard();
-  const isTablet = useMediaQuery({
-    query: `(max-width: 1023px)`,
+  const isDesktop = useMediaQuery('(min-width: 1024px)', {
+    initializeWithValue: false,
+    defaultValue: true,
   });
   const { isConnected } = useAccount();
   const { openSelectWallet } = useWallet();
@@ -296,7 +312,7 @@ export function ValidatorInfoComponent({
                         isHaqqAddressCopy
                           ? 'Copied!'
                           : `Click to copy ${
-                              isTablet
+                              !isDesktop
                                 ? getFormattedAddress(
                                     validatorInfo.operator_address,
                                     12,
@@ -309,7 +325,7 @@ export function ValidatorInfoComponent({
                         className="inline-flex w-fit cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50"
                         onClick={handleHaqqAddressCopy}
                       >
-                        {isTablet
+                        {!isDesktop
                           ? getFormattedAddress(
                               validatorInfo.operator_address,
                               12,
@@ -327,7 +343,7 @@ export function ValidatorInfoComponent({
             </div>
           </div>
 
-          {!isTablet && (
+          {isDesktop && (
             <div className="hidden flex-1 lg:block lg:w-1/2 xl:w-1/3 xl:flex-none">
               <div className="flex flex-col gap-[20px]">
                 <MyAccountBlockDesktop
@@ -356,7 +372,7 @@ export function ValidatorInfoComponent({
         </div>
       </Container>
 
-      {isTablet && (
+      {!isDesktop && (
         <div className="sticky bottom-0 left-0 right-0 z-30">
           <div className="transform-gpu bg-[#FFFFFF07] backdrop-blur">
             {isConnected ? (
@@ -682,7 +698,7 @@ export function ValidatorInfo({
     toast,
   ]);
 
-  if (!validatorInfo || !validatorsList) {
+  if (!validatorInfo) {
     return (
       <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
         <SpinnerLoader />
