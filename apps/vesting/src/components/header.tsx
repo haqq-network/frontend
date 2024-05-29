@@ -1,13 +1,10 @@
-import { lazy, ReactElement } from 'react';
+import { lazy, ReactElement, Suspense } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Container } from '../Layout/Layout';
-import { Logo, LogoSmall } from '../Logo/Logo';
+import { Container } from './Layout/Layout';
+import { Logo, LogoSmall } from './Logo/Logo';
 
-const ConnectButton = lazy(() => {
-  return import('../ConnectButton/ConnectButton');
-});
-const NetworkStatus = lazy(() => {
-  return import('../NetworkStatus/NetworkStatus');
+const Web3ConnectButtons = lazy(() => {
+  return import('./web3-connect-button');
 });
 
 export function Header(): ReactElement {
@@ -20,12 +17,19 @@ export function Header(): ReactElement {
               <Logo className="hidden h-8 w-auto sm:block" />
               <LogoSmall className="block h-10 w-auto sm:hidden" />
             </NavLink>
-            <div className="flex flex-shrink-0 items-center"></div>
+            <div className="flex flex-shrink-0 items-center" />
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="flex flex-row space-x-2">
-              <NetworkStatus />
-              <ConnectButton />
+              <Suspense
+                fallback={
+                  <div className="animate-pulse">
+                    <div className="bg-primary h-[20px] w-[60px] rounded opacity-30" />
+                  </div>
+                }
+              >
+                <Web3ConnectButtons />
+              </Suspense>
             </div>
           </div>
         </div>

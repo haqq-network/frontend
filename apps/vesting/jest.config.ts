@@ -3,9 +3,15 @@ export default {
   displayName: 'vesting',
   preset: '../../jest.preset.js',
   transform: {
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': [
       '@swc/jest',
-      { jsc: { transform: { react: { runtime: 'automatic' } } } },
+      {
+        jsc: {
+          parser: { syntax: 'typescript', tsx: true },
+          transform: { react: { runtime: 'automatic' } },
+        },
+      },
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

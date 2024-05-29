@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Text } from '../../Typography/Typography';
+import { Text } from '../../typography';
 
 interface TransferOwnershipConfirmationProps {
   currentOwnerAddress: string;

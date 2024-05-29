@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './app/app';
-import { AppContainer } from './app/app-container';
+import { AppProviders } from './providers/app-providers';
 import './index.css';
 
 function startApp() {
@@ -10,9 +10,9 @@ function startApp() {
 
   root.render(
     <StrictMode>
-      <AppContainer>
+      <AppProviders>
         <App />
-      </AppContainer>
+      </AppProviders>
     </StrictMode>,
   );
 }

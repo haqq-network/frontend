@@ -1,31 +1,9 @@
 import clsx from 'clsx';
 import { toHex } from 'viem';
-import { useNetwork } from 'wagmi';
-import { useOnboarding } from '../../OnboardingContainer';
+import { useAccount, useChains, useSwitchChain } from 'wagmi';
 
-export function NetworkButton() {
-  const { chain } = useNetwork();
-  const { switchNetwork } = useOnboarding();
-
-  if (!chain) {
-    return null;
-  }
-
-  return (
-    <div className="flex items-center justify-center">
-      {!chain?.unsupported ? (
-        <SupportedNetworkStatus />
-      ) : (
-        <UnsupportedNetworkStatus onClick={switchNetwork} />
-      )}
-    </div>
-  );
-}
-
-export { NetworkButton as default };
-
-export function SupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
-  const { chain } = useNetwork();
+function SupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
+  const { chain } = useAccount();
 
   return (
     <div className="group relative flex overflow-visible">
@@ -70,12 +48,8 @@ export function SupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
   );
 }
 
-export function UnsupportedNetworkStatus({
-  onClick,
-}: {
-  onClick?: () => void;
-}) {
-  const { chain } = useNetwork();
+function UnsupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
+  const { chain } = useAccount();
 
   return (
     <div className="group relative flex">
@@ -117,6 +91,26 @@ export function UnsupportedNetworkStatus({
           Click on this icon to switch network.
         </div>
       </div>
+    </div>
+  );
+}
+
+export function NetworkButton() {
+  const { chain } = useAccount();
+  const chains = useChains();
+  const { switchChainAsync } = useSwitchChain();
+
+  return (
+    <div className="flex items-center justify-center">
+      {chain ? (
+        <SupportedNetworkStatus />
+      ) : (
+        <UnsupportedNetworkStatus
+          onClick={async () => {
+            await switchChainAsync({ chainId: chains[0].id });
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -1,8 +1,9 @@
-import { Modal, ModalCloseButton } from './Modal/Modal';
-import { Button } from '../Button/Button';
-import { Heading } from '../Typography/Typography';
+import clsx from 'clsx';
+import { Button } from './Button/Button';
+import { Modal, ModalCloseButton } from './modals/Modal/Modal';
+import { Heading } from './typography';
 
-export function SelectWalletModal({
+export function SelectChainModal({
   isOpen,
   onClose,
   className,
@@ -17,13 +18,17 @@ export function SelectWalletModal({
   connectors: {
     id: number;
     name: string;
-    isPending: boolean;
   }[];
   error: string | undefined;
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="mx-auto max-w-[400px] rounded-[24px] bg-white p-8 shadow-md">
+      <div
+        className={clsx(
+          'mx-auto max-w-[400px] rounded-[24px] bg-white p-8 shadow-md',
+          className,
+        )}
+      >
         <div className="flex flex-col space-y-6">
           <div className="flex items-center justify-between">
             <Heading level={3}>Select wallet</Heading>
