@@ -3,18 +3,26 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data-access/falconer/src",
   "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": ["data-access"],
   "targets": {
     "build": {
       "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/data-access/falconer",
+        "main": "libs/data-access/falconer/src/index.ts",
         "tsConfig": "libs/data-access/falconer/tsconfig.lib.json",
         "project": "libs/data-access/falconer/package.json",
-        "entryFile": "libs/data-access/falconer/src/index.ts",
-        "external": ["react", "react-dom", "react/jsx-runtime"],
-        "rollupConfig": "@nx/react/plugins/bundle-rollup",
         "compiler": "swc",
+        "format": ["cjs", "esm"],
         "assets": [
           {
             "glob": "libs/data-access/falconer/README.md",
@@ -25,16 +33,10 @@
         "updateBuildableProjectDepsInPackageJson": true
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "nx-release-publish": {
       "options": {
-        "jestConfig": "libs/data-access/falconer/jest.config.ts"
+        "packageRoot": "dist/{projectRoot}"
       }
     }
-  },
-  "tags": ["data-access"]
+  }
 }

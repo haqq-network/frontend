@@ -4,10 +4,6 @@
   "sourceRoot": "libs/storybook-host/src",
   "projectType": "library",
   "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
     "storybook": {
       "executor": "@nx/storybook:storybook",
       "options": {

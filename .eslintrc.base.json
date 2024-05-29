@@ -1,7 +1,6 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "extends": ["plugin:storybook/recommended"],
   "plugins": ["@nx", "import", "prettier"],
   "overrides": [
     {
@@ -53,16 +52,12 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nx/typescript"],
-      "rules": {
-        "curly": "error"
-      }
+      "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
-      "rules": {
-        "curly": "error"
-      }
+      "rules": {}
     },
     {
       "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
@@ -73,12 +68,6 @@
     }
   ],
   "rules": {
-    "storybook/no-uninstalled-addons": [
-      "error",
-      {
-        "ignore": ["@nx/react/plugins/storybook"]
-      }
-    ],
     "arrow-body-style": ["error", "always"],
     "import/order": [
       "error",
