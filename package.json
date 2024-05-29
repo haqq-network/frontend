@@ -6,8 +6,8 @@
   "author": "Oleg Shilov <og@haqq.network>",
   "packageManager": "yarn@4.2.2",
   "engines": {
-    "node": ">=20.10",
-    "yarn": ">=4.0"
+    "node": ">=20.14",
+    "yarn": ">=4.2"
   },
   "repository": {
     "type": "git",
