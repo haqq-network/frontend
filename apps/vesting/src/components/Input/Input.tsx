@@ -2,7 +2,7 @@ import { ChangeEvent, InputHTMLAttributes, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
 import { createNumberMask } from 'text-mask-addons';
-import { Text } from '../Typography/Typography';
+import { Text } from '../typography';
 
 const defaultMaskOptions = {
   prefix: '',

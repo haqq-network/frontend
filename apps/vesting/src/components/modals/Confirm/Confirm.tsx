@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Button, DangerButton } from '../../Button/Button';
-import { Heading } from '../../Typography/Typography';
+import { Heading } from '../../typography';
 import { Modal, ModalCloseButton } from '../Modal/Modal';
 
 export interface ConfirmProps {

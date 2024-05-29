@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import { Container } from '../Layout/Layout';
-import { Text } from '../Typography/Typography';
+import { Container } from './Layout/Layout';
+import { Text } from './typography';
 
 export function Footer(): ReactElement {
   return (

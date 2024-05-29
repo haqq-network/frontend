@@ -6,8 +6,8 @@ import {
   VestingPeriod,
 } from '@haqq/data-access-cosmos';
 import { Card } from './Card/Card';
-import { Tooltip } from './Tooltip/Tooltip';
-import { Heading } from './Typography/Typography';
+import { Tooltip } from './tooltip';
+import { Heading } from './typography';
 import { formatDate } from '../utils/format-date';
 import { formatLocaleNumber } from '../utils/format-number-locale';
 import { toFixedAmount } from '../utils/to-fixed-amount';

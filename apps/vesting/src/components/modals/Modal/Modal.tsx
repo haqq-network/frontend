@@ -1,13 +1,11 @@
-import { Fragment, ReactNode, SyntheticEvent } from 'react';
+import { Fragment, PropsWithChildren } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-export interface ModalProps {
-  isOpen?: boolean;
-  onClose: () => void;
-  children: ReactNode;
-}
-
-export function Modal({ children, onClose, isOpen = false }: ModalProps) {
+export function Modal({
+  children,
+  onClose,
+  isOpen = false,
+}: PropsWithChildren<{ isOpen?: boolean; onClose: () => void }>) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -23,35 +21,24 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
           <div
             role="none"
             className="bg-islamic-modal-overlay fixed inset-0 transform-gpu backdrop-blur"
-            onClick={onClose}
-            onKeyDown={(
-              event: SyntheticEvent<HTMLDivElement, KeyboardEvent>,
-            ) => {
-              event.preventDefault();
-              event.stopPropagation();
-
-              if (event.nativeEvent.code === 'Escape') {
-                onClose();
-              }
-            }}
           />
         </Transition.Child>
 
-        <div className="pointer-events-none fixed inset-0 overflow-y-auto">
-          <div className="pointer-events-none flex min-h-full items-center justify-center p-4">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="pointer-events-auto w-full transform transition-all">
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <Dialog.Panel>
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
                 {children}
-              </div>
-            </Transition.Child>
+              </Transition.Child>
+            </Dialog.Panel>
           </div>
         </div>
       </Dialog>

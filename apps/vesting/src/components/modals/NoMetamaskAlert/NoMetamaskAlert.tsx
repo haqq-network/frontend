@@ -1,5 +1,5 @@
 import { Button } from '../../Button/Button';
-import { Heading, Text } from '../../Typography/Typography';
+import { Heading, Text } from '../../typography';
 import { Modal, ModalCloseButton } from '../Modal/Modal';
 
 export interface NoMetamaskAlertProps {

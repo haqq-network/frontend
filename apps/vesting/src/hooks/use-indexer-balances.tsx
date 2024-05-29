@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { nanoid } from 'nanoid';
 import { formatUnits } from 'viem';
-import { environment } from '../environments/environment';
+import { INDEXER_ENDPOINT } from '../constants';
 
 function createRequest(address: string, date: Date) {
   return {
@@ -69,13 +69,7 @@ function mapBalances(
 
 export function useIndexerBalances() {
   const getBalances = useCallback(async (address: string) => {
-    if (!environment.indexerEndpoint || environment.indexerEndpoint === '') {
-      console.warn('no indexer endpoint');
-      return undefined;
-    }
-
-    const requestUrl = new URL(environment.indexerEndpoint);
-
+    const requestUrl = new URL(INDEXER_ENDPOINT);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
