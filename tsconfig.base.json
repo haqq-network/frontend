@@ -134,6 +134,7 @@
       "@haqq/shell-staking": ["libs/shell/staking/src/index.ts"],
       "@haqq/shell-staking/server": ["libs/shell/staking/src/server.ts"],
       "@haqq/shell-ui-kit": ["libs/shell/ui-kit/src/index.ts"],
+      "@haqq/shell-ui-kit/server": ["libs/shell/ui-kit/src/server.ts"],
       "@haqq/storybook-host": ["libs/storybook-host/src/index.ts"]
     }
   },

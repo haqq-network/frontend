@@ -49,7 +49,7 @@ const tailwindThemeExtend = {
       900: '#2d5364',
     },
     'islamic-modal-overlay': '#0c0c0c66',
-    'haqq-border': '#FFFFFF3D',
+    'haqq-border': '#FFFFFF1A',
     'haqq-black': '#0D0D0E',
     'haqq-orange': '#EC5728',
     'haqq-blue': '#091D53',
