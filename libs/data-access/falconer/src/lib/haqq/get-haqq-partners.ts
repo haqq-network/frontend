@@ -1,5 +1,4 @@
-import { FALCONER_ENDPOINT } from '../../constants';
-import { FalconerRequestInit } from '../../types';
+import { FALCONER_ENDPOINT, FalconerRequestInit } from '../../constants';
 
 export interface Partner {
   logoUrl: string;
