@@ -1,5 +1,4 @@
-import { FALCONER_ENDPOINT } from '../../constants';
-import { FalconerRequestInit } from '../../types';
+import { FALCONER_ENDPOINT, FalconerRequestInit } from '../../constants';
 import { mapFalconerNews } from '../../utils/map-news';
 
 export interface FalconerNewsPost {
