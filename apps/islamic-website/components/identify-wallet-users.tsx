@@ -1,11 +1,10 @@
 'use client';
 import { useEffect } from 'react';
 import { usePostHog } from 'posthog-js/react';
-import type { WindowProvider } from 'wagmi';
 
 declare global {
   interface Window {
-    ethereum?: WindowProvider;
+    ethereum?: { isHaqqWallet?: boolean };
     __HAQQWALLET__?: {
       POSTHOG_DISTINCT_ID?: string;
     };
