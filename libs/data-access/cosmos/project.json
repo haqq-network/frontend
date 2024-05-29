@@ -3,38 +3,39 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data-access/cosmos/src",
   "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": ["data-access"],
   "targets": {
     "build": {
       "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/data-access/cosmos",
+        "main": "libs/data-access/cosmos/src/index.ts",
         "tsConfig": "libs/data-access/cosmos/tsconfig.lib.json",
+        "assets": [],
         "project": "libs/data-access/cosmos/package.json",
-        "entryFile": "libs/data-access/cosmos/src/index.ts",
-        "external": ["react", "react-dom", "react/jsx-runtime"],
-        "rollupConfig": "@nx/react/plugins/bundle-rollup",
         "compiler": "swc",
-        "assets": [
-          {
-            "glob": "libs/data-access/cosmos/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
+        "format": ["cjs", "esm"],
+        "external": [
+          "@evmos/proto",
+          "@evmos/provider",
+          "@evmos/transactions",
+          "@haqq/data-access-falconer"
+        ]
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "nx-release-publish": {
       "options": {
-        "jestConfig": "libs/data-access/cosmos/jest.config.ts"
+        "packageRoot": "dist/{projectRoot}"
       }
     }
-  },
-  "tags": ["data-access"]
+  }
 }

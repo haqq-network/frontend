@@ -4,17 +4,5 @@
   "sourceRoot": "libs/haqq-website/ecosystem-page/src",
   "projectType": "library",
   "tags": ["haqq-lib-ecosystem-page"],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/haqq-website/ecosystem-page/jest.config.ts"
-      }
-    }
-  }
+  "targets": {}
 }

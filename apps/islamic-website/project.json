@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/islamic-website",
   "projectType": "application",
+  "tags": ["islamic"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",
@@ -10,49 +11,7 @@
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/islamic-website"
-      },
-      "configurations": {
-        "development": {
-          "outputPath": "apps/islamic-website"
-        },
-        "production": {}
       }
-    },
-    "serve": {
-      "executor": "@nx/next:server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "islamic-website:build",
-        "dev": true
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "islamic-website:build:development",
-          "dev": true
-        },
-        "production": {
-          "buildTarget": "islamic-website:build:production",
-          "dev": false
-        }
-      }
-    },
-    "export": {
-      "executor": "@nx/next:export",
-      "options": {
-        "buildTarget": "islamic-website:build:production"
-      }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/islamic-website/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": ["islamic"]
+  }
 }

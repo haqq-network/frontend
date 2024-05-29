@@ -16,10 +16,6 @@
           "devServerTarget": "islamic-website:serve:production"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["islamic-website"],

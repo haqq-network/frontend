@@ -18,9 +18,6 @@
           "devServerTarget": "shell:serve-static"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["shell"],
