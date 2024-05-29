@@ -68,7 +68,7 @@ export function MyAccountBlock() {
   const { openSelectWallet } = useWallet();
 
   return !ethAddress || !haqqAddress ? (
-    <div className="border-haqq-border flex flex-col items-center space-y-[12px] border-y-[1px] py-[58px]">
+    <div className="border-haqq-border bg-haqq-black/15 flex flex-col items-center space-y-[12px] border-y-[1px] py-[58px] backdrop-blur">
       <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
         You should connect wallet first
       </div>

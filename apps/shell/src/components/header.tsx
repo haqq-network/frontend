@@ -12,14 +12,14 @@ const AppHeaderDesktop = dynamic(async () => {
 });
 
 export function AppHeader() {
-  const isMobile = useMediaQuery('(max-width: 1023px)', {
-    defaultValue: false,
+  const isDesktop = useMediaQuery('(min-width: 1024px)', {
+    defaultValue: true,
     initializeWithValue: false,
   });
 
-  return isMobile ? (
-    <AppHeaderMobile className="block lg:hidden" />
-  ) : (
+  return isDesktop ? (
     <AppHeaderDesktop className="hidden lg:block" />
+  ) : (
+    <AppHeaderMobile className="block lg:hidden" />
   );
 }
