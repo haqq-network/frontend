@@ -28,7 +28,6 @@ import {
   GetValidatorsResponse,
 } from '@evmos/provider';
 import { Coin, Fee, Sender } from '@evmos/transactions';
-import { base64FromBytes } from 'cosmjs-types/helpers';
 import {
   EstimatedFeeResponse,
   getEstimatedFee as getEstimatedFeeFromFalconer,
@@ -120,6 +119,15 @@ export function generateErc20TokenPairsEndpoint() {
 
 export function generateEndpointProposal(id: number | string) {
   return `/cosmos/gov/v1beta1/proposals/${id}`;
+}
+
+export function isClawbackVestingAccount(
+  accountInfo?: HaqqAccount | ClawbackVestingAccount | null,
+) {
+  return Boolean(
+    accountInfo &&
+      accountInfo['@type'] === '/haqq.vesting.v1.ClawbackVestingAccount',
+  );
 }
 
 export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
@@ -243,7 +251,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   async function getAccountBaseInfo(haqqAddress: string) {
     const account = await getAccountInfo(haqqAddress);
 
-    return account['@type'] === '/haqq.vesting.v1.ClawbackVestingAccount'
+    return isClawbackVestingAccount(account)
       ? (account as ClawbackVestingAccount).base_vesting_account?.base_account
       : (account as HaqqAccount).base_account;
   }
@@ -283,7 +291,6 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   }
 
   async function getProposalDetails(id: string) {
-    console.log('getProposalDetails', { id });
     const getProposalDetailsUrl = `${cosmosRestEndpoint}${generateEndpointProposal(id)}`;
 
     const response = await fetch(getProposalDetailsUrl);
@@ -654,9 +661,10 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
         ? createBodyWithMultipleMessages(protoMsg, memo)
         : createBody(protoMsg, memo);
 
+      const bodyBytes = Buffer.from(body.serializeBinary()).toString('base64');
       const feeEstimation = await getEstimatedFeeFromFalconer({
         chainId,
-        bodyBytes: base64FromBytes(body.serializeBinary()),
+        bodyBytes,
         fromAddress,
         pubkey,
       });
