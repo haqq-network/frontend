@@ -1,14 +1,16 @@
 import { useCallback, useMemo } from 'react';
 import {
-  WarningMessage,
   Modal,
   ModalCloseButton,
   Button,
-  MobileHeading,
+  ModalHeading,
   ModalInput,
+} from '@haqq/shell-ui-kit';
+import {
+  WarningMessage,
   toFixedAmount,
   formatNumber,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { DelegateModalDetails } from './delegate-modal';
 
 export interface UndelegateModalProps {
@@ -88,11 +90,11 @@ export function UndelegateModal({
         />
 
         <div className="flex w-full flex-col space-y-6">
-          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
+          <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
-              <MobileHeading className="mt-[24px] sm:mt-[4px]">
+              <ModalHeading className="mt-[24px] sm:mt-[4px]">
                 Undelegate
-              </MobileHeading>
+              </ModalHeading>
 
               <WarningMessage
                 light

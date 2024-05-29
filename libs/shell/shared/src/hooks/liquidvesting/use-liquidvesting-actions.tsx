@@ -2,7 +2,7 @@
 import { useCallback, useMemo } from 'react';
 import { Fee } from '@evmos/transactions';
 import { usePostHog } from 'posthog-js/react';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { VESTING_DEFAULT_FEE, getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import {
@@ -12,7 +12,6 @@ import {
   MsgRedeemParams,
 } from './liquidvesting';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { useSupportedChains } from '../../providers/wagmi-provider';
 import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
@@ -23,13 +22,9 @@ export function useLiquidVestingActions() {
     useCosmosService();
   const { getPubkey, signTransaction } = useWallet();
   const { haqqAddress, ethAddress } = useAddress();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const chainParams = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const chainParams = getChainParams(chain?.id ?? chains[0].id);
   const haqqChain = mapToCosmosChain(chainParams);
   const posthog = usePostHog();
   const chainId = chain.id;
@@ -121,7 +116,6 @@ export function useLiquidVestingActions() {
 
   const handleRedeem = useCallback(
     async (address: string, amount: string, denom: string) => {
-      console.log('handleRedeem', { address, amount, denom });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = 'Redeem liquid token';

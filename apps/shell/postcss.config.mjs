@@ -1,12 +1,8 @@
-const { join } = require('path');
-
-module.exports = {
+const config = {
   plugins: {
     'postcss-import': {},
     'tailwindcss/nesting': {},
-    tailwindcss: {
-      config: join(__dirname, 'tailwind.config.js'),
-    },
+    tailwindcss: {},
     'postcss-preset-env': {
       stage: 3,
       features: {
@@ -15,3 +11,5 @@ module.exports = {
     },
   },
 };
+
+export default config;

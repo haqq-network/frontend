@@ -10,7 +10,7 @@ import {
 } from '@haqq/shell-shared';
 import { RedelegateModalHooked } from '@haqq/shell-staking';
 
-export default function RedelegateModal() {
+export default function RedelegateModalSegment() {
   const { haqqAddress } = useAddress();
   const { address } = useParams<{ address: string }>();
   const { push, back } = useRouter();

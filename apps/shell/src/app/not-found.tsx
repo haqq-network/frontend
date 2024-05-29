@@ -1,5 +1,6 @@
 'use client';
-import { Button, Heading } from '@haqq/shell-ui-kit';
+import { Button } from '@haqq/shell-ui-kit';
+import { Heading } from '@haqq/shell-ui-kit/server';
 
 export default function NotFound() {
   return (

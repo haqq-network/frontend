@@ -10,7 +10,7 @@ import { useAddress } from '@haqq/shell-shared';
 import {
   createSortValidatorsByStakedOrReward,
   createSortValidatorsByVotingPowerPercent,
-  randomSort,
+  randomSortWithSeed,
   sortValidatorsByFee,
   sortValidatorsByName,
   sortValidatorsByStatus,
@@ -35,6 +35,7 @@ export function useSortedValidators(
   totalStaked: number,
   rewardsInfo: DistributionRewardsResponse | null | undefined,
   delegationInfo: GetDelegationsResponse | null | undefined,
+  seed: string,
 ) {
   const getDelegationsInfo = useCallback(
     (addresses: string[]): Array<number> => {
@@ -69,7 +70,7 @@ export function useSortedValidators(
       const sortedValidators = [...validators];
 
       if (state.key === 'random') {
-        return randomSort(validators);
+        return randomSortWithSeed(validators, seed);
       }
 
       // Sorting logic based on the provided sortState
@@ -120,7 +121,7 @@ export function useSortedValidators(
       return sortedValidators;
     },
 
-    [getDelegationsInfo, getRewardsInfo, totalStaked],
+    [getDelegationsInfo, getRewardsInfo, seed, totalStaked],
   );
 
   return useMemo(() => {
@@ -131,7 +132,7 @@ export function useSortedValidators(
 export function useValidatorsSortState() {
   const { ethAddress } = useAddress();
   const storeKey = `validators_sort_state_${ethAddress}`;
-  const storedSortState: string | null = store.get(storeKey);
+  const storedSortState: string | null = store.session.get(storeKey);
   const defaultSortState: SortState = storedSortState
     ? JSON.parse(storedSortState)
     : {
@@ -141,7 +142,7 @@ export function useValidatorsSortState() {
   const [sortState, setSortState] = useState<SortState>(defaultSortState);
 
   useEffect(() => {
-    store.set(storeKey, JSON.stringify(sortState));
+    store.session.set(storeKey, JSON.stringify(sortState));
   }, [sortState, storeKey]);
 
   return useMemo(() => {

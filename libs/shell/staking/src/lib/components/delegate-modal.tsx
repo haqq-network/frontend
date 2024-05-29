@@ -1,16 +1,18 @@
 import { ReactNode, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import {
-  WarningMessage,
   Modal,
   ModalCloseButton,
   Button,
-  MobileHeading,
+  ModalHeading,
   ModalInput,
+} from '@haqq/shell-ui-kit';
+import {
+  WarningMessage,
   formatNumber,
   toFixedAmount,
   SpinnerLoader,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -171,11 +173,11 @@ export function DelegateModal({
         />
 
         <div className="flex w-full flex-col space-y-6">
-          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
+          <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
-              <MobileHeading className="mt-[24px] sm:mt-[4px]">
+              <ModalHeading className="mt-[24px] sm:mt-[4px]">
                 Delegate
-              </MobileHeading>
+              </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
                 {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
               </WarningMessage>

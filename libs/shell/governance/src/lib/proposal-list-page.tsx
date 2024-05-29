@@ -10,7 +10,7 @@ import {
   useProposalVotesQuery,
   useWallet,
 } from '@haqq/shell-shared';
-import { Container, SpinnerLoader } from '@haqq/shell-ui-kit';
+import { Container, SpinnerLoader } from '@haqq/shell-ui-kit/server';
 import { ProposalListCard } from './components/proposal-list-card';
 
 export function ProposalListPage() {
@@ -116,7 +116,7 @@ export function ProposalListPage() {
               </div>
             </div>
           ) : (
-            <div className="3xl:grid-cols-4 mb-[68px] grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
+            <div className="3xl:grid-cols-4 mb-[68px] grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
               {proposalsToRender.map(({ userVote, proposal }) => {
                 return (
                   <Link

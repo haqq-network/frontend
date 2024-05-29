@@ -24,8 +24,6 @@
 }
 
 .checkboxInputElement {
-  @apply absolute left-[-9999px] opacity-0;
-
   &:disabled + .checkboxTickBox {
     @apply border-[#474748] bg-[#474748];
 

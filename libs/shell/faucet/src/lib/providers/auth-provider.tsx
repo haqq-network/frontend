@@ -1,13 +1,18 @@
 'use client';
 import { PropsWithChildren, useMemo } from 'react';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { useConfig } from '@haqq/shell-shared';
 
-export function AuthProvider({ children }: PropsWithChildren) {
-  const { faucetConfig } = useConfig();
-
+export function AuthProvider({
+  children,
+  config = {},
+}: PropsWithChildren<{
+  config?: {
+    auth0Domain?: string;
+    auth0ClientId?: string;
+  };
+}>) {
   const auth0ProviderProperties = useMemo(() => {
-    if (!faucetConfig.auth0Domain || !faucetConfig.auth0ClientId) {
+    if (!config.auth0Domain || !config.auth0ClientId) {
       console.warn(
         'Wrong auth0 configuration. Please check environment variables.',
       );
@@ -18,16 +23,19 @@ export function AuthProvider({ children }: PropsWithChildren) {
     }
 
     return {
-      domain: faucetConfig.auth0Domain ?? '',
-      clientId: faucetConfig.auth0ClientId ?? '',
+      domain: config.auth0Domain ?? '',
+      clientId: config.auth0ClientId ?? '',
       useRefreshTokens: true,
     };
-  }, [faucetConfig.auth0ClientId, faucetConfig.auth0Domain]);
+  }, [config.auth0ClientId, config.auth0Domain]);
 
   return (
     <Auth0Provider
       {...auth0ProviderProperties}
-      authorizationParams={{ redirect_uri: window?.location.origin ?? '' }}
+      authorizationParams={{
+        redirect_uri:
+          typeof window !== 'undefined' ? window.location.origin : '',
+      }}
     >
       {children}
     </Auth0Provider>

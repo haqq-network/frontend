@@ -1,12 +1,11 @@
 import clsx from 'clsx';
+import { Button, Tooltip } from '@haqq/shell-ui-kit';
 import {
-  Button,
   Container,
   Heading,
   MIN_REWARDS_TO_CLAIM,
-  Tooltip,
   WalletIcon,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 
 interface StakingStatsProps {
   balance: string;

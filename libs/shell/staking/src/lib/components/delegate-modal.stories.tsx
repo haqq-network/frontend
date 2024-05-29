@@ -15,7 +15,7 @@ type Story = StoryObj<typeof DelegateModalComponent>;
 
 export const DelegateModal: Story = {
   args: {
-    isOpen: false,
+    isOpen: true,
     symbol: 'islm',
     balance: 10000,
     delegation: 1000,

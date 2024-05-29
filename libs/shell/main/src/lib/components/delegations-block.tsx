@@ -13,10 +13,16 @@ import {
   Heading,
   ListIcon,
   OrangeLink,
-  SpinnerLoader,
-} from '@haqq/shell-ui-kit';
+  // SpinnerLoader,
+} from '@haqq/shell-ui-kit/server';
 
-export function DelegationsBlock() {
+export function DelegationsBlock({
+  isMobileUserAgent,
+  seedPhrase,
+}: {
+  isMobileUserAgent: boolean;
+  seedPhrase: string;
+}) {
   const {
     totalStaked,
     status,
@@ -29,6 +35,7 @@ export function DelegationsBlock() {
   } = useStakingData({
     showOnlyMyDelegation: true,
     inactiveValidatorsVisible: false,
+    seedPhrase,
   });
   const router = useRouter();
   const isTablet = useMediaQuery({
@@ -56,7 +63,7 @@ export function DelegationsBlock() {
         </Heading>
       </div>
 
-      <div>
+      {/* <div>
         {status === 'pending' && (
           <div className="pointer-events-none mx-auto flex min-h-[220px] w-full flex-1 select-none">
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
@@ -67,7 +74,7 @@ export function DelegationsBlock() {
             </div>
           </div>
         )}
-      </div>
+      </div> */}
 
       {status === 'error' && <p>Error: {(error as Error).message}</p>}
 
@@ -75,7 +82,7 @@ export function DelegationsBlock() {
         <div>
           {validators.length ? (
             <div>
-              {isTablet ? (
+              {isMobileUserAgent ? (
                 <ValidatorsListMobile
                   validators={validators}
                   delegationInfo={delegationInfo}
@@ -86,17 +93,31 @@ export function DelegationsBlock() {
                   totalStaked={totalStaked}
                 />
               ) : (
-                <ValidatorsListDesktop
-                  validators={validators}
-                  delegationInfo={delegationInfo}
-                  rewardsInfo={rewardsInfo}
-                  onValidatorClick={(validatorAddress: string) => {
-                    router.push(`/staking/validator/${validatorAddress}`);
-                  }}
-                  totalStaked={totalStaked}
-                  sortState={sortState}
-                  onDesktopSortClick={handleDesktopSortClick}
-                />
+                <div>
+                  {isTablet ? (
+                    <ValidatorsListMobile
+                      validators={validators}
+                      delegationInfo={delegationInfo}
+                      rewardsInfo={rewardsInfo}
+                      onValidatorClick={(validatorAddress: string) => {
+                        router.push(`/staking/validator/${validatorAddress}`);
+                      }}
+                      totalStaked={totalStaked}
+                    />
+                  ) : (
+                    <ValidatorsListDesktop
+                      validators={validators}
+                      delegationInfo={delegationInfo}
+                      rewardsInfo={rewardsInfo}
+                      onValidatorClick={(validatorAddress: string) => {
+                        router.push(`/staking/validator/${validatorAddress}`);
+                      }}
+                      totalStaked={totalStaked}
+                      sortState={sortState}
+                      onDesktopSortClick={handleDesktopSortClick}
+                    />
+                  )}
+                </div>
               )}
             </div>
           ) : (

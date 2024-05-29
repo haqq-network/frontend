@@ -1,35 +1,36 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useMediaQuery } from 'react-responsive';
-import { Hex } from 'viem';
+// import { useMediaQuery } from 'react-responsive';
+import { Hex, formatUnits, parseUnits } from 'viem';
 import {
   useAddress,
   useClipboard,
-  useStakingDelegationQuery,
   useStakingRewardsQuery,
   getFormattedAddress,
   useWallet,
   useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import {
+  Tooltip,
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  useHoverPopover,
+} from '@haqq/shell-ui-kit';
+import {
   OrangeLink,
   CopyIcon,
   Container,
-  Tooltip,
-  Button,
   Heading,
   formatNumber,
   WalletIcon,
   InfoIcon,
   CoinIcon,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  useHoverPopover,
   LockIcon,
   StakedVestedBalance,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 
 function MyAccountAmountBlock({
   title,
@@ -67,7 +68,7 @@ export function MyAccountBlock() {
   const { openSelectWallet } = useWallet();
 
   return !ethAddress || !haqqAddress ? (
-    <div className="flex flex-col items-center space-y-[12px] border-y border-[#ffffff26] py-[58px]">
+    <div className="border-haqq-border flex flex-col items-center space-y-[12px] border-y-[1px] py-[58px]">
       <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
         You should connect wallet first
       </div>
@@ -94,35 +95,36 @@ function MyAccountConnected({
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
   const { copyText } = useClipboard();
-  const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
+  // const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-  const isMobile = useMediaQuery({
-    query: `(max-width: 639px)`,
-  });
-  const isDesktop = useMediaQuery({
-    query: `(min-width: 1024px)`,
-  });
+  // const isMobile = useMediaQuery({
+  //   query: `(max-width: 639px)`,
+  // });
+  // const isDesktop = useMediaQuery({
+  //   query: `(min-width: 1024px)`,
+  // });
   const symbol = 'ISLM';
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
 
-  const delegation = useMemo(() => {
-    if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
-      let del = 0;
+  // const delegation = useMemo(() => {
+  //   if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
+  //     let del = 0;
 
-      for (const delegation of delegationInfo.delegation_responses) {
-        del = del + Number.parseInt(delegation.balance.amount, 10);
-      }
+  //     for (const delegation of delegationInfo.delegation_responses) {
+  //       del = del + Number.parseInt(delegation.balance.amount, 10);
+  //     }
 
-      return del / 10 ** 18;
-    }
+  //     return del / 10 ** 18;
+  //   }
 
-    return 0;
-  }, [delegationInfo]);
+  //   return 0;
+  // }, [delegationInfo]);
 
   const rewards = useMemo(() => {
     if (rewardsInfo?.total?.length) {
-      const totalRewards =
-        Number.parseFloat(rewardsInfo.total[0].amount) / 10 ** 18;
+      const totalRewards = Number.parseFloat(
+        formatUnits(parseUnits(rewardsInfo.total[0].amount, 0), 18),
+      );
 
       return totalRewards;
     }
@@ -155,8 +157,12 @@ function MyAccountConnected({
   const { isHovered, handleMouseEnter, handleMouseLeave } =
     useHoverPopover(100);
 
+  if (!balances) {
+    return null;
+  }
+
   return (
-    <Container className="border-y border-y-[#ffffff26]">
+    <Container className="border-haqq-border bg-haqq-black/15 border-y-[1px] backdrop-blur">
       <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
@@ -177,9 +183,7 @@ function MyAccountConnected({
             </div>
             <div className="flex flex-col justify-center gap-[4px]">
               <div className="font-clash text-[20px] font-[500] leading-[26px] text-white">
-                {balances?.balance
-                  ? `${formatNumber(balances?.balance)} ${symbol.toLocaleUpperCase()}`
-                  : ' '}
+                {`${formatNumber(balances.balance)} ${symbol.toLocaleUpperCase()}`}
               </div>
               <div className="leading-[0px]">
                 <Popover open={isHovered} placement="top-start">
@@ -195,7 +199,7 @@ function MyAccountConnected({
                         'transition-colors duration-150 ease-in-out',
                       )}
                     >
-                      <span>Locked: {formatNumber(balances?.locked ?? 0)}</span>
+                      <span>Locked: {formatNumber(balances.locked)}</span>
                       <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
                     </div>
                   </PopoverTrigger>
@@ -208,7 +212,7 @@ function MyAccountConnected({
           </div>
           <MyAccountAmountBlock
             title="Staked"
-            value={`${formatNumber(delegation)} ${symbol.toLocaleUpperCase()}`}
+            value={`${formatNumber(balances.staked)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
             title="Rewards"
@@ -231,9 +235,12 @@ function MyAccountConnected({
                       onClick={handleEthAddressCopy}
                     >
                       <div>
-                        {isMobile || isDesktop
-                          ? getFormattedAddress(ethAddress, 6, 6, '...')
-                          : ethAddress}
+                        <span className="inline-block sm:hidden lg:inline-block">
+                          {getFormattedAddress(ethAddress, 6, 6, '...')}
+                        </span>
+                        <span className="hidden sm:inline-block lg:hidden">
+                          {ethAddress}
+                        </span>
                       </div>
 
                       <CopyIcon className="mb-[-2px]" />
@@ -253,9 +260,12 @@ function MyAccountConnected({
                       onClick={handleHaqqAddressCopy}
                     >
                       <div>
-                        {isMobile || isDesktop
-                          ? getFormattedAddress(haqqAddress, 6, 6, '...')
-                          : haqqAddress}
+                        <span className="inline-block sm:hidden lg:inline-block">
+                          {getFormattedAddress(haqqAddress, 6, 6, '...')}
+                        </span>
+                        <span className="hidden sm:inline-block lg:hidden">
+                          {haqqAddress}
+                        </span>
                       </div>
                       <CopyIcon className="mb-[-2px]" />
                     </div>
@@ -278,7 +288,7 @@ function LockedBalancePopup({ haqqAddress }: { haqqAddress: string }) {
   }
 
   return (
-    <div className="bg-haqq-black font-guise max-w-[320px] transform-gpu rounded-lg border border-[#FFFFFF26] bg-opacity-90 text-white shadow-lg backdrop-blur">
+    <div className="bg-haqq-black font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border bg-opacity-90 text-white shadow-lg backdrop-blur">
       <div className="flex flex-col divide-y divide-white/15 px-[8px]">
         <div className="py-[8px]">
           <p className="text-[12px] leading-[18px] text-[#8E8E8E]">

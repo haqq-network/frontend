@@ -1,10 +1,10 @@
-const { join } = require('path');
-const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
-const typographyPlugin = require('@tailwindcss/typography');
-const { tailwindThemeExtend } = require('../../shared-tailwind-theme');
+import { join } from 'path';
+import { createGlobPatternsForDependencies } from '@nx/react/tailwind';
+import typographyPlugin from '@tailwindcss/typography';
+import { tailwindThemeExtend } from '../../shared-tailwind-theme';
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   content: [
     join(__dirname, 'src/**/*!(*.stories|*.spec).{ts,tsx,html}'),
     ...createGlobPatternsForDependencies(__dirname),
@@ -29,3 +29,5 @@ module.exports = {
   },
   plugins: [typographyPlugin],
 };
+
+export default config;

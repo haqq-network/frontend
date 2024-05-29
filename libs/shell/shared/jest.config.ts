@@ -1,11 +1,16 @@
 /* eslint-disable */
 export default {
-  displayName: 'shared',
+  displayName: 'shell-shared',
   preset: '../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': [
       '@swc/jest',
-      { jsc: { transform: { react: { runtime: 'automatic' } } } },
+      {
+        jsc: {
+          parser: { syntax: 'typescript', tsx: true },
+          transform: { react: { runtime: 'automatic' } },
+        },
+      },
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

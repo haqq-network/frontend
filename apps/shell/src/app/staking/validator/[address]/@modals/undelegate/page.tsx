@@ -10,7 +10,7 @@ import {
 } from '@haqq/shell-shared';
 import { UndelegateModalHooked, secondsToDays } from '@haqq/shell-staking';
 
-export default function UndelegateModal() {
+export default function UndelegateModalSegment() {
   const { haqqAddress } = useAddress();
   const { address } = useParams<{ address: string }>();
   const { push, back } = useRouter();

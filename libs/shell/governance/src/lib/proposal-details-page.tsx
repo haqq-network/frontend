@@ -10,7 +10,6 @@ import {
 import {
   ParameterChangeProposalContent,
   Proposal,
-  ProposalStatus,
   SoftwareUpgradeProposalContent,
 } from '@evmos/provider';
 import clsx from 'clsx';
@@ -20,7 +19,7 @@ import { notFound } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import { formatUnits } from 'viem/utils';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import {
   GetGovernanceParamsResponse,
   TallyResults,
@@ -33,7 +32,6 @@ import {
   useToast,
   useWallet,
   useProposalActions,
-  useSupportedChains,
   useStakingDelegationQuery,
   getFormattedAddress,
   useProposalTallyQuery,
@@ -41,19 +39,19 @@ import {
   useNetworkAwareAction,
   useProposalVoteQuery,
 } from '@haqq/shell-shared';
+import { ProposalPeriodTimer, Button } from '@haqq/shell-ui-kit';
 import {
   BackButton,
-  InfoBlock,
+  // InfoBlock,
   InfoIcon,
   SpinnerLoader,
   Heading,
   Container,
   CalendarIcon,
-  Button,
   WarningMessage,
   ProposalDepositProgress,
-  ProposalStatus as ProposalStatusComponent,
-  ProposalPeriodTimer,
+  ProposalStatus,
+  ProposalStatusEnum,
   ProposalVoteProgress,
   formatNumber,
   ToastSuccess,
@@ -63,7 +61,8 @@ import {
   VoteOption,
   voteOptionFromJSON,
   formatDate,
-} from '@haqq/shell-ui-kit';
+  InfoBlock,
+} from '@haqq/shell-ui-kit/server';
 import { ParameterChangeProposalDetails } from './components/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from './components/software-upgrade-proposal';
 
@@ -167,10 +166,10 @@ function ProposalDetailsMobile({
       <div className="rounded-[8px] bg-[#FFFFFF14] p-[16px]">
         <div className="flex flex-col gap-[12px]">
           <div>
-            {(proposalDetails.status === ProposalStatus.Voting ||
-              proposalDetails.status === ProposalStatus.Passed ||
-              proposalDetails.status === ProposalStatus.Rejected ||
-              proposalDetails.status === ProposalStatus.Failed) && (
+            {(proposalDetails.status === ProposalStatusEnum.Voting ||
+              proposalDetails.status === ProposalStatusEnum.Passed ||
+              proposalDetails.status === ProposalStatusEnum.Rejected ||
+              proposalDetails.status === ProposalStatusEnum.Failed) && (
               <div>
                 <ProposalVoteProgress
                   results={proposalTally}
@@ -179,7 +178,7 @@ function ProposalDetailsMobile({
                 />
               </div>
             )}
-            {proposalDetails.status === ProposalStatus.Deposit && (
+            {proposalDetails.status === ProposalStatusEnum.Deposit && (
               <div>
                 <ProposalDepositProgress
                   totalDeposit={totalDeposit}
@@ -193,20 +192,20 @@ function ProposalDetailsMobile({
           <ProposalTurnoutQuorum
             turnout={formatNumber(turnout, 2, 2)}
             quorum={formatNumber(quorum, 2, 2)}
-            status={proposalDetails.status as ProposalStatus}
+            status={proposalDetails.status as ProposalStatusEnum}
           />
 
-          {(proposalDetails.status === ProposalStatus.Deposit ||
-            proposalDetails.status === ProposalStatus.Voting) && (
+          {(proposalDetails.status === ProposalStatusEnum.Deposit ||
+            proposalDetails.status === ProposalStatusEnum.Voting) && (
             <div>
-              {proposalDetails.status === ProposalStatus.Deposit && (
+              {proposalDetails.status === ProposalStatusEnum.Deposit && (
                 <ProposalPeriodTimer
                   color="blue"
                   date={new Date(proposalDetails.deposit_end_time)}
                   title="Deposit end"
                 />
               )}
-              {proposalDetails.status === ProposalStatus.Voting && (
+              {proposalDetails.status === ProposalStatusEnum.Voting && (
                 <ProposalPeriodTimer
                   color="green"
                   date={new Date(proposalDetails.voting_end_time)}
@@ -217,7 +216,7 @@ function ProposalDetailsMobile({
           )}
         </div>
       </div>
-      {proposalDetails.status === ProposalStatus.Deposit && (
+      {proposalDetails.status === ProposalStatusEnum.Deposit && (
         <div>
           <DepositAlert />
         </div>
@@ -255,16 +254,15 @@ export function ProposalDetailsComponent({
   // });
   const [showDates, setShowDates] = useState(
     Boolean(
-      proposalDetails.status === ProposalStatus.Passed ||
-        proposalDetails.status === ProposalStatus.Rejected ||
-        proposalDetails.status === ProposalStatus.Failed,
+      proposalDetails.status === ProposalStatusEnum.Passed ||
+        proposalDetails.status === ProposalStatusEnum.Rejected ||
+        proposalDetails.status === ProposalStatusEnum.Failed,
     ),
   );
   const { data: userVote } = useProposalVoteQuery(
     proposalDetails.proposal_id,
     haqqAddress,
   );
-
   // const isDepositAvailable = useMemo(() => {
   //   const now = Date.now();
   //   const voteStart = new Date(proposalDetails.voting_start_time).getTime();
@@ -293,9 +291,8 @@ export function ProposalDetailsComponent({
       10,
     );
   }, [govParams]);
-
-  const isTablet = useMediaQuery({
-    query: `(max-width: 1023px)`,
+  const isDesktop = useMediaQuery({
+    query: `(min-width: 1024px)`,
   });
 
   const delegation = useMemo(() => {
@@ -315,7 +312,7 @@ export function ProposalDetailsComponent({
   const isCanVote = useMemo(() => {
     return (
       Number.parseFloat(formatNumber(delegation)) > 0 &&
-      proposalDetails.status === ProposalStatus.Voting
+      proposalDetails.status === ProposalStatusEnum.Voting
     );
   }, [delegation, proposalDetails.status]);
 
@@ -386,10 +383,10 @@ export function ProposalDetailsComponent({
           <div className="w-auto max-w-full flex-1 overflow-hidden md:w-1/2">
             <div className="divide-haqq-border divide-y divide-dashed">
               <div className="pb-[24px] md:pb-[40px]">
-                {isTablet && (
+                {!isDesktop && (
                   <div className="mb-[24px] md:mb-[28px]">
-                    <ProposalStatusComponent
-                      status={proposalDetails.status as ProposalStatus}
+                    <ProposalStatus
+                      status={proposalDetails.status as ProposalStatusEnum}
                     />
                   </div>
                 )}
@@ -410,7 +407,7 @@ export function ProposalDetailsComponent({
                   {proposalDetails.content.title}
                 </h1>
 
-                {isTablet && (
+                {!isDesktop && (
                   <div>
                     <ProposalDetailsMobile
                       proposalDetails={proposalDetails}
@@ -495,7 +492,7 @@ export function ProposalDetailsComponent({
                 </div>
               )}
 
-              {isTablet && (
+              {!isDesktop && (
                 <div className="py-[24px] md:py-[40px]">
                   <div className="mb-[16px] flex flex-row items-center">
                     <CalendarIcon />
@@ -511,7 +508,7 @@ export function ProposalDetailsComponent({
                     <InfoBlock title="Deposit end (GMT)">
                       {formatDate(new Date(proposalDetails.deposit_end_time))}
                     </InfoBlock>
-                    {proposalDetails.status !== ProposalStatus.Deposit && (
+                    {proposalDetails.status !== ProposalStatusEnum.Deposit && (
                       <Fragment>
                         <InfoBlock title="Vote start (GMT)">
                           {formatDate(
@@ -531,20 +528,20 @@ export function ProposalDetailsComponent({
             </div>
           </div>
 
-          {!isTablet && (
+          {isDesktop && (
             <div className="hidden flex-1 md:block md:w-1/2 xl:w-1/3 xl:flex-none">
-              <div className="transform-gpu overflow-hidden rounded-[8px] bg-[#ffffff14]">
+              <div className="transform-gpu overflow-hidden rounded-[8px] bg-[#ffffff14] backdrop-blur">
                 <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
                   <div>
-                    <ProposalStatusComponent
-                      status={proposalDetails.status as ProposalStatus}
+                    <ProposalStatus
+                      status={proposalDetails.status as ProposalStatusEnum}
                     />
                   </div>
 
-                  {(proposalDetails.status === ProposalStatus.Voting ||
-                    proposalDetails.status === ProposalStatus.Passed ||
-                    proposalDetails.status === ProposalStatus.Rejected ||
-                    proposalDetails.status === ProposalStatus.Failed) && (
+                  {(proposalDetails.status === ProposalStatusEnum.Voting ||
+                    proposalDetails.status === ProposalStatusEnum.Passed ||
+                    proposalDetails.status === ProposalStatusEnum.Rejected ||
+                    proposalDetails.status === ProposalStatusEnum.Failed) && (
                     <div className="flex flex-col gap-[24px]">
                       <div>
                         <ProposalVoteProgress
@@ -560,9 +557,11 @@ export function ProposalDetailsComponent({
                         status={proposalDetails.status}
                       />
 
-                      {(proposalDetails.status === ProposalStatus.Passed ||
-                        proposalDetails.status === ProposalStatus.Rejected ||
-                        proposalDetails.status === ProposalStatus.Failed) && (
+                      {(proposalDetails.status === ProposalStatusEnum.Passed ||
+                        proposalDetails.status ===
+                          ProposalStatusEnum.Rejected ||
+                        proposalDetails.status ===
+                          ProposalStatusEnum.Failed) && (
                         <div>
                           {showDates ? (
                             <table>
@@ -577,7 +576,7 @@ export function ProposalDetailsComponent({
                                     <ProposalDatesText
                                       className={clsx(
                                         proposalDetails.status ===
-                                          ProposalStatus.Failed
+                                          ProposalStatusEnum.Failed
                                           ? 'text-white/50'
                                           : 'text-white',
                                       )}
@@ -598,7 +597,7 @@ export function ProposalDetailsComponent({
                                     <ProposalDatesText
                                       className={clsx(
                                         proposalDetails.status ===
-                                          ProposalStatus.Failed
+                                          ProposalStatusEnum.Failed
                                           ? 'text-white/50'
                                           : 'text-white',
                                       )}
@@ -621,7 +620,7 @@ export function ProposalDetailsComponent({
                                     <ProposalDatesText
                                       className={clsx(
                                         proposalDetails.status ===
-                                          ProposalStatus.Failed
+                                          ProposalStatusEnum.Failed
                                           ? 'text-white/50'
                                           : 'text-white',
                                       )}
@@ -644,7 +643,7 @@ export function ProposalDetailsComponent({
                                     <ProposalDatesText
                                       className={clsx(
                                         proposalDetails.status ===
-                                          ProposalStatus.Failed
+                                          ProposalStatusEnum.Failed
                                           ? 'text-white/50'
                                           : 'text-white',
                                       )}
@@ -672,7 +671,7 @@ export function ProposalDetailsComponent({
                       )}
                     </div>
                   )}
-                  {proposalDetails.status === ProposalStatus.Deposit && (
+                  {proposalDetails.status === ProposalStatusEnum.Deposit && (
                     <div>
                       <ProposalDepositProgress
                         totalDeposit={totalDeposit}
@@ -681,10 +680,10 @@ export function ProposalDetailsComponent({
                       />
                     </div>
                   )}
-                  {(proposalDetails.status === ProposalStatus.Deposit ||
-                    proposalDetails.status === ProposalStatus.Voting) && (
+                  {(proposalDetails.status === ProposalStatusEnum.Deposit ||
+                    proposalDetails.status === ProposalStatusEnum.Voting) && (
                     <div>
-                      {proposalDetails.status === ProposalStatus.Deposit &&
+                      {proposalDetails.status === ProposalStatusEnum.Deposit &&
                         proposalDetails.deposit_end_time && (
                           <ProposalPeriodTimer
                             color="blue"
@@ -692,7 +691,7 @@ export function ProposalDetailsComponent({
                             title="Deposit end"
                           />
                         )}
-                      {proposalDetails.status === ProposalStatus.Voting &&
+                      {proposalDetails.status === ProposalStatusEnum.Voting &&
                         proposalDetails.voting_end_time && (
                           <ProposalPeriodTimer
                             color="green"
@@ -702,14 +701,14 @@ export function ProposalDetailsComponent({
                         )}
                     </div>
                   )}
-                  {proposalDetails.status === ProposalStatus.Deposit && (
+                  {proposalDetails.status === ProposalStatusEnum.Deposit && (
                     <div>
                       <DepositAlert />
                     </div>
                   )}
                 </div>
 
-                {/* {proposalDetails.status === ProposalStatus.Deposit && (
+                {/* {proposalDetails.status === ProposalStatusEnum.Deposit && (
                   <DepositActionsDesktop
                     balance={balance}
                     onDepositSubmit={handleDepositSubmit}
@@ -734,7 +733,7 @@ export function ProposalDetailsComponent({
         </div>
       </Container>
 
-      {isTablet && (
+      {!isDesktop && (
         <div className="sticky bottom-0 left-0 right-0 z-30">
           <ProposalActionsMobile
             proposalDetails={proposalDetails}
@@ -794,7 +793,7 @@ function ProposalTurnoutQuorum({
 }: {
   turnout: string;
   quorum: string;
-  status: ProposalStatus;
+  status: ProposalStatusEnum;
 }) {
   return (
     <div className="flex flex-row gap-[16px]">
@@ -802,14 +801,14 @@ function ProposalTurnoutQuorum({
         title="Turnout"
         value={turnout}
         valueClassName={clsx(
-          status === ProposalStatus.Failed && 'text-white/50',
+          status === ProposalStatusEnum.Failed && 'text-white/50',
         )}
       />
       <ProposalTurnoutQuorumBlock
         title="Quorum"
         value={quorum}
         valueClassName={clsx(
-          status === ProposalStatus.Failed && 'text-white/50',
+          status === ProposalStatusEnum.Failed && 'text-white/50',
         )}
       />
     </div>
@@ -852,7 +851,7 @@ function ProposalActionsMobile({
     );
   }
 
-  // if (proposalDetails.status === ProposalStatus.Deposit) {
+  // if (proposalDetails.status === ProposalStatusEnum.Deposit) {
   //   return (
   //     <div className="transform-gpu bg-[#FFFFFF14] py-[24px] backdrop-blur md:py-[40px]">
   //       <Container>
@@ -891,8 +890,8 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
   const { data: proposalTally } = useProposalTallyQuery(proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   if (isFetched && !proposalDetails) {
     notFound();
@@ -942,13 +941,9 @@ export function VoteActions({
   const { vote, getVoteEstimatedFee } = useProposalActions();
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const posthog = usePostHog();
   const chainId = chain.id;
 
@@ -1199,7 +1194,7 @@ export function DepositButton({
   return (
     <button
       className={clsx(
-        'text-haqq-black font-clash rounded-[6px] px-[24px]  py-[12px] text-[14px] uppercase leading-[1em]',
+        'text-haqq-black font-clash rounded-[6px] px-[24px] py-[12px] text-[14px] uppercase leading-[1em]',
         'transition-colors duration-100 ease-linear',
         !disabled
           ? 'cursor-pointer bg-white'

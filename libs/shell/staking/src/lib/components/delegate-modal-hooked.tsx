@@ -2,14 +2,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
   useThrottle,
   useStakingActions,
-  useSupportedChains,
   useToast,
 } from '@haqq/shell-shared';
 import {
@@ -17,7 +16,7 @@ import {
   ToastSuccess,
   ToastError,
   LinkIcon,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { DelegateModal } from './delegate-modal';
 
 export interface DelegateModalProps {
@@ -51,13 +50,9 @@ export function DelegateModalHooked({
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const toast = useToast();
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledDelegateAmount = useThrottle(delegateAmount, 300);

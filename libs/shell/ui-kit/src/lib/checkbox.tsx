@@ -44,7 +44,10 @@ export function Checkbox({
           checked={value}
           onChange={handleChange}
           disabled={disabled}
-          className={styles['checkboxInputElement']}
+          className={clsx(
+            'absolute left-[-9999px] opacity-0',
+            styles['checkboxInputElement'],
+          )}
         />
         <svg
           viewBox="0 0 16 16"

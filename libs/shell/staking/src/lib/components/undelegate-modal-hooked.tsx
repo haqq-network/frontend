@@ -2,14 +2,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   useStakingActions,
   useToast,
   getFormattedAddress,
-  useSupportedChains,
   useThrottle,
 } from '@haqq/shell-shared';
 import {
@@ -17,7 +16,7 @@ import {
   ToastLoading,
   ToastError,
   LinkIcon,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { UndelegateModal } from './undelegate-modal';
 
 export interface UndelegateModalProps {
@@ -50,13 +49,9 @@ export function UndelegateModalHooked({
     undefined,
   );
   const toast = useToast();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledUndelegateAmount = useThrottle(undelegateAmount, 300);
   const posthog = usePostHog();

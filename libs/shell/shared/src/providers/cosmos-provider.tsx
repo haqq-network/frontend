@@ -1,12 +1,13 @@
 'use client';
 import { PropsWithChildren, useContext, useMemo, createContext } from 'react';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import {
   CosmosService,
   createCosmosService,
   getChainParams,
 } from '@haqq/data-access-cosmos';
-import { useSupportedChains } from './wagmi-provider';
+// import { haqqMainnet } from 'wagmi/chains';
+// import { useSupportedChains } from './wagmi-provider';
 
 export type CosmosServiceContextProviderValue =
   | {
@@ -89,18 +90,11 @@ export function CosmosServiceContainer({
 }
 
 export function CosmosProvider({ children }: PropsWithChildren) {
-  const chains = useSupportedChains();
-  const { chain } = useNetwork();
-
-  // console.log('CosmosProvider', { chain, chains });
-
-  const chainId =
-    chain && chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id;
+  const chains = useChains();
+  const { chain } = useAccount();
 
   return (
-    <CosmosServiceContainer chainId={chainId}>
+    <CosmosServiceContainer chainId={chain?.id ?? chains[0].id}>
       {children}
     </CosmosServiceContainer>
   );
