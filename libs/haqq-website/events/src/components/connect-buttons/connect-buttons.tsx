@@ -1,37 +1,29 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNetwork, useSwitchNetwork } from 'wagmi';
-import {
-  useAddress,
-  useWallet,
-  getFormattedAddress,
-  useSupportedChains,
-} from '@haqq/shell-shared';
+import { useAccount, useChains, useSwitchChain } from 'wagmi';
+import { useAddress, useWallet, getFormattedAddress } from '@haqq/shell-shared';
 import { AccountButton, Button, SelectChainButton } from '@haqq/shell-ui-kit';
 
 export function ConnectButtons() {
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
   const { disconnect, openSelectWallet } = useWallet();
   const { ethAddress } = useAddress();
   const [isMounted, setMounted] = useState(false);
-
-  const { switchNetworkAsync } = useSwitchNetwork();
+  const { switchChainAsync } = useSwitchChain();
 
   const handleChainSelectClick = useCallback(
     async (chainId: number) => {
-      if (switchNetworkAsync) {
-        await switchNetworkAsync(chainId);
+      if (switchChainAsync) {
+        await switchChainAsync({ chainId });
       }
     },
-    [switchNetworkAsync],
+    [switchChainAsync],
   );
 
   const selectChainButtonProps = useMemo(() => {
     return {
-      isSupported: Boolean(
-        chain && chain?.unsupported !== undefined && !chain.unsupported,
-      ),
+      isSupported: Boolean(chain),
       currentChain: {
         name: chain?.name.replace('HAQQ', '').trim() ?? '',
         id: chain?.id ?? 0,
