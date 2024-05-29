@@ -29,16 +29,13 @@ export function HeaderMobile({
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const { lock, unlock } = useScrollLock();
-  const { top } = useScrollTrack(
-    typeof window !== 'undefined' ? window : null,
-    { fps: 30 },
-  );
+  const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
 
   const [springValues, setSpringValues] = useSpring(() => {
     return {
       blur: 0,
       bgOpacity: 0,
-      config: { ...config.default, decay: true },
+      config: { ...config.default },
     };
   });
 
@@ -67,13 +64,6 @@ export function HeaderMobile({
       <div className="fixed left-0 top-0 z-50 w-full">
         {isTestedge && <TestedgeBanner />}
         <animated.header
-          className={clsx(
-            'border-haqq-border w-full transform-gpu border-b-[1px]',
-            'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
-            isMobileMenuOpen ? 'h-[calc(100vh)]' : 'h-[62px]',
-            isMobileMenuOpen && '!bg-haqq-black/80 !backdrop-blur',
-            className,
-          )}
           style={{
             backdropFilter: springValues.blur.to((blur) => {
               return `blur(${blur}px)`;
@@ -82,6 +72,13 @@ export function HeaderMobile({
               return `rgba(13, 13, 14, ${opacity})`;
             }),
           }}
+          className={clsx(
+            'border-haqq-border w-full transform-gpu border-b-[1px]',
+            'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
+            isMobileMenuOpen ? 'h-[calc(100vh)]' : 'h-[62px]',
+            isMobileMenuOpen && '!bg-haqq-black/80 !backdrop-blur',
+            className,
+          )}
         >
           <div className="flex h-full flex-col">
             <div className="border-haqq-border mx-auto flex h-[62px] w-full flex-none flex-row items-center border-b-[1px] pr-[16px] sm:pr-[64px]">

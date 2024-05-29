@@ -59,17 +59,12 @@ const PosthogIdentifyWalletUsers = dynamic(
   },
 );
 
-const ParalaxBackground = dynamic(
-  async () => {
-    const { ParalaxBackground } = await import(
-      '../components/paralax-background'
-    );
-    return { default: ParalaxBackground };
-  },
-  // {
-  //   ssr: false,
-  // },
-);
+const ParalaxBackground = dynamic(async () => {
+  const { ParalaxBackground } = await import(
+    '../components/paralax-background'
+  );
+  return { default: ParalaxBackground };
+});
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   const wagmiConfig = createWagmiConfig();
@@ -107,8 +102,6 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     >
       <PHProvider>
         <body className="relative flex min-h-screen flex-col">
-          <ParalaxBackground />
-
           <AppProviders
             initialState={initialState}
             dehydratedState={dehydratedState}
@@ -127,6 +120,8 @@ export default async function RootLayout({ children }: PropsWithChildren) {
               <Footer />
             </>
           </AppProviders>
+
+          <ParalaxBackground />
         </body>
       </PHProvider>
     </html>

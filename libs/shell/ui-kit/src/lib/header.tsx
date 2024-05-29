@@ -1,6 +1,11 @@
 'use client';
-import { Fragment, ReactNode, useEffect } from 'react';
-import { useSpring, animated, config } from '@react-spring/web';
+import { Fragment, ReactNode } from 'react';
+import {
+  useSpring,
+  animated,
+  config,
+  useIsomorphicLayoutEffect,
+} from '@react-spring/web';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -24,20 +29,17 @@ export function Header({
   links: { href: string; label: string }[];
   className?: string;
 }) {
-  const { top } = useScrollTrack(
-    typeof window !== 'undefined' ? window : null,
-    { fps: 30 },
-  );
+  const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
 
   const [springValues, setSpringValues] = useSpring(() => {
     return {
       blur: 0,
       bgOpacity: 0,
-      config: { ...config.default, decay: true },
+      config: { ...config.default },
     };
   });
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     setSpringValues({
       blur: interpolate(top, [30, 120], [0, 8]),
       bgOpacity: interpolate(top, [30, 120], [0, 0.15]),
@@ -114,7 +116,7 @@ export function Header({
                   </nav>
                 )}
 
-                {web3ButtonsSlot ?? null}
+                {web3ButtonsSlot}
               </div>
             )}
           </div>

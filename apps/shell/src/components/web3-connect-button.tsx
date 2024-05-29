@@ -19,7 +19,7 @@ export function Web3ConnectButtons() {
   if (!isConnected || !ethAddress) {
     return (
       <div className="leading-[0]">
-        <Button onClick={openSelectWallet}>Connect Wallet</Button>;
+        <Button onClick={openSelectWallet}>Connect Wallet</Button>
       </div>
     );
   }

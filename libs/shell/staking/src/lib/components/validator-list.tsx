@@ -43,8 +43,8 @@ export function ValidatorList({
     isWalletConnected,
   } = useStakingData({ seedPhrase });
   const route = useRouter();
-  const isTablet = useMediaQuery({
-    query: `(max-width: 1023px)`,
+  const isDesktop = useMediaQuery({
+    query: `(min-width: 1024px)`,
   });
   const { isHaqqWallet } = useWallet();
 
@@ -177,7 +177,7 @@ export function ValidatorList({
 
         {status === 'success' && (
           <div>
-            {isMobileUserAgent ? (
+            {isMobileUserAgent || !isDesktop ? (
               <ValidatorsListMobile
                 validators={validators}
                 delegationInfo={delegationInfo}
@@ -188,31 +188,17 @@ export function ValidatorList({
                 }}
               />
             ) : (
-              <div>
-                {isTablet ? (
-                  <ValidatorsListMobile
-                    validators={validators}
-                    delegationInfo={delegationInfo}
-                    rewardsInfo={rewardsInfo}
-                    totalStaked={totalStaked}
-                    onValidatorClick={(validatorAddress: string) => {
-                      route.push(`/staking/validator/${validatorAddress}`);
-                    }}
-                  />
-                ) : (
-                  <ValidatorsListDesktop
-                    validators={validators}
-                    delegationInfo={delegationInfo}
-                    rewardsInfo={rewardsInfo}
-                    onValidatorClick={(validatorAddress: string) => {
-                      route.push(`/staking/validator/${validatorAddress}`);
-                    }}
-                    totalStaked={totalStaked}
-                    onDesktopSortClick={handleDesktopSortClick}
-                    sortState={sortState}
-                  />
-                )}
-              </div>
+              <ValidatorsListDesktop
+                validators={validators}
+                delegationInfo={delegationInfo}
+                rewardsInfo={rewardsInfo}
+                onValidatorClick={(validatorAddress: string) => {
+                  route.push(`/staking/validator/${validatorAddress}`);
+                }}
+                totalStaked={totalStaked}
+                onDesktopSortClick={handleDesktopSortClick}
+                sortState={sortState}
+              />
             )}
           </div>
         )}

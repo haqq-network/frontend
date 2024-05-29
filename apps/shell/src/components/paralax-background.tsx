@@ -1,16 +1,19 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { useSpring, config, animated, to } from '@react-spring/web';
+import { useState } from 'react';
+import {
+  useSpring,
+  config,
+  animated,
+  to,
+  useIsomorphicLayoutEffect,
+} from '@react-spring/web';
 import Image from 'next/image';
 import { useScrollTrack } from '@haqq/shell-ui-kit';
 import { interpolate } from '@haqq/shell-ui-kit/server';
 
 export function ParalaxBackground() {
   const [loaded, setLoaded] = useState(false);
-  const { top } = useScrollTrack(
-    typeof window !== 'undefined' ? window : null,
-    { fps: 30 },
-  );
+  const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
 
   const mountAnimValues = useSpring({
     translateY: loaded ? 0 : -50,
@@ -37,7 +40,7 @@ export function ParalaxBackground() {
     };
   });
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     setTranslateValues({
       translateY: interpolate(top, [0, 800], [0, 500]),
       scale: interpolate(top, [50, 500], [1, 1.3]),
