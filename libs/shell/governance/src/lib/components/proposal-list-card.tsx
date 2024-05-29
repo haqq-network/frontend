@@ -1,11 +1,11 @@
 import { ReactElement, useMemo } from 'react';
-import { Proposal, ProposalStatus } from '@evmos/provider';
+import { Proposal } from '@evmos/provider';
 import { formatUnits } from 'viem/utils';
 import {
   GetGovernanceParamsResponse,
   TallyResults,
 } from '@haqq/data-access-cosmos';
-import { ProposalCard } from '@haqq/shell-ui-kit';
+import { ProposalCard, ProposalStatusEnum } from '@haqq/shell-ui-kit/server';
 import { getProposalTypeText } from '../proposal-details-page';
 
 export function ProposalListCard({
@@ -14,12 +14,14 @@ export function ProposalListCard({
   symbol,
   proposalTally,
   userVote,
+  className,
 }: {
   proposal: Proposal;
   govParams: GetGovernanceParamsResponse;
   symbol: string;
   proposalTally: TallyResults;
   userVote?: string | null;
+  className?: string;
 }): ReactElement {
   const totalDeposit = useMemo(() => {
     if (!proposal.total_deposit[0]) {
@@ -44,7 +46,7 @@ export function ProposalListCard({
     <ProposalCard
       title={proposal.content.title}
       id={Number.parseInt(proposal.proposal_id, 10)}
-      status={proposal.status as ProposalStatus}
+      status={proposal.status as ProposalStatusEnum}
       depositEndDate={new Date(proposal.deposit_end_time)}
       votingStartDate={new Date(proposal.voting_start_time)}
       votingEndDate={new Date(proposal.voting_end_time)}
@@ -54,6 +56,7 @@ export function ProposalListCard({
       symbol={symbol}
       type={getProposalTypeText(proposal.content['@type'])}
       userVote={userVote}
+      className={className}
     />
   );
 }

@@ -3,9 +3,12 @@ import {
   QueryClient,
   dehydrate,
 } from '@tanstack/react-query';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { haqqMainnet } from 'wagmi/chains';
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import { ProposalDetailsPage } from '@haqq/shell-governance';
+import { parseWagmiCookies } from '@haqq/shell-shared';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -21,9 +24,10 @@ export default async function ProposalDetails({
     notFound();
   }
 
-  // FIXME: Think how to get chain id on server side
-  const chainId = 11235;
-  const { cosmosRestEndpoint } = getChainParams(chainId);
+  const cookies = headers().get('cookie');
+  const { chainId } = parseWagmiCookies(cookies);
+  const chainIdToUse = chainId ?? haqqMainnet.id;
+  const { cosmosRestEndpoint } = getChainParams(chainIdToUse);
   const {
     getProposalDetails,
     getGovernanceParams,
@@ -33,7 +37,7 @@ export default async function ProposalDetails({
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: [chainId, 'proposal', proposalId],
+    queryKey: [chainIdToUse, 'proposal', proposalId],
     queryFn: async () => {
       if (!proposalId) {
         return null;
@@ -44,7 +48,7 @@ export default async function ProposalDetails({
   });
 
   await queryClient.prefetchQuery({
-    queryKey: [chainId, 'proposal-tally', proposalId],
+    queryKey: [chainIdToUse, 'proposal-tally', proposalId],
     queryFn: async () => {
       if (!proposalId) {
         return null;
@@ -55,12 +59,12 @@ export default async function ProposalDetails({
   });
 
   await queryClient.prefetchQuery({
-    queryKey: [chainId, 'staking-pool'],
+    queryKey: [chainIdToUse, 'staking-pool'],
     queryFn: getStakingPool,
   });
 
   await queryClient.prefetchQuery({
-    queryKey: [chainId, 'governance-params'],
+    queryKey: [chainIdToUse, 'governance-params'],
     queryFn: async () => {
       const [deposit_params, voting_params, tally_params] = await Promise.all([
         getGovernanceParams('deposit').then((res) => {

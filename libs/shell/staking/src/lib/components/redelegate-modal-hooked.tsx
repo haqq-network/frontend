@@ -3,14 +3,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Validator } from '@evmos/provider';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
   useThrottle,
   useStakingActions,
-  useSupportedChains,
   useToast,
 } from '@haqq/shell-shared';
 import {
@@ -19,7 +18,7 @@ import {
   ToastError,
   LinkIcon,
   toFixedAmount,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { RedelegateModal } from './redelegate-modal';
 import { splitValidators } from '../utils/split-validators';
 
@@ -52,13 +51,9 @@ export function RedelegateModalHooked({
   const [isFeePending, setFeePending] = useState(false);
   const toast = useToast();
   const { redelegate, getRedelegateEstimatedFee } = useStakingActions();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledRedelegateAmount = useThrottle(redelegateAmount, 300);
   const posthog = usePostHog();

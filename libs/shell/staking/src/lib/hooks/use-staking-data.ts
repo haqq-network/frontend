@@ -10,7 +10,7 @@ import {
   useStakingPoolQuery,
   useStakingParamsQuery,
 } from '@haqq/shell-shared';
-import { toFixedAmount } from '@haqq/shell-ui-kit';
+import { toFixedAmount } from '@haqq/shell-ui-kit/server';
 import { useFilteredValidators } from './use-validator-filter';
 import {
   useSortedValidators,
@@ -43,9 +43,11 @@ function getDelegatedValidatorsAddresses(
 export function useStakingData({
   showOnlyMyDelegation = false,
   inactiveValidatorsVisible = false,
+  seedPhrase = '',
 }: {
   showOnlyMyDelegation?: boolean;
   inactiveValidatorsVisible?: boolean;
+  seedPhrase?: string;
 } = {}) {
   const { haqqAddress, ethAddress } = useAddress();
   const {
@@ -64,6 +66,7 @@ export function useStakingData({
   const [isShowMyDelegation, setShowMyDelegation] =
     useState(showOnlyMyDelegation);
   const [filter, setFilter] = useState('');
+  // console.log({ sortState, setSortState });
 
   const splittedValidators = useMemo(() => {
     if (validators === undefined) {
@@ -147,6 +150,7 @@ export function useStakingData({
     totalStaked,
     rewardsInfo,
     delegationInfo,
+    seedPhrase,
   );
 
   const returnObject = useMemo(() => {

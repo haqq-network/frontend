@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { BackButton, Container } from '@haqq/shell-ui-kit';
+import { BackButton, Container } from '@haqq/shell-ui-kit/server';
 import { ValidatorInfo } from './components/validator-info';
 
 export function ValidatorDetailsPage({ address }: { address: string }) {

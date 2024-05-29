@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Heading } from '@haqq/shell-ui-kit';
+import { Heading } from '@haqq/shell-ui-kit/server';
 import { Metadata } from './metadata';
 
 export interface SoftwareUpgradeProposalPlan {

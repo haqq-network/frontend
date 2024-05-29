@@ -1,12 +1,13 @@
-import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
-import { useBalance, useNetwork } from 'wagmi';
+'use client';
+import { PropsWithChildren, useCallback, useState } from 'react';
 import {
   getFormattedAddress,
   useAddress,
   useClipboard,
-  useSupportedChains,
+  useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
-import { CopyIcon, Tooltip, formatNumber } from '@haqq/shell-ui-kit';
+import { Tooltip } from '@haqq/shell-ui-kit';
+import { CopyIcon, formatNumber } from '@haqq/shell-ui-kit/server';
 
 export function MyAccountCardBlock({
   title,
@@ -14,35 +15,22 @@ export function MyAccountCardBlock({
 }: PropsWithChildren<{ title?: string }>) {
   return (
     <div className="flex flex-1 flex-col items-start gap-y-[6px]">
-      {title && (
+      {title ? (
         <div className="text-[10px] font-[500] uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
           {title}
         </div>
-      )}
+      ) : null}
       <div>{children}</div>
     </div>
   );
 }
 
 export function AccountInfo() {
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
   const { ethAddress, haqqAddress } = useAddress();
   const { copyText } = useClipboard();
-  const { data: balance } = useBalance({
-    address: ethAddress,
-    chainId: chain.id,
-  });
+  const { data: balance } = useIndexerBalanceQuery(haqqAddress);
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
-
-  const accBalance = useMemo(() => {
-    if (!balance) {
-      return undefined;
-    }
-
-    return Number.parseFloat(balance.formatted);
-  }, [balance]);
 
   const handleEthAddressCopy = useCallback(async () => {
     if (ethAddress) {
@@ -83,7 +71,6 @@ export function AccountInfo() {
                     onClick={handleEthAddressCopy}
                   >
                     <div>{getFormattedAddress(ethAddress, 6, 6, '...')}</div>
-
                     <CopyIcon className="mb-[-2px]" />
                   </div>
                 </Tooltip>
@@ -101,7 +88,6 @@ export function AccountInfo() {
                     onClick={handleHaqqAddressCopy}
                   >
                     <div>{getFormattedAddress(haqqAddress, 6, 6, '...')}</div>
-
                     <CopyIcon className="mb-[-2px]" />
                   </div>
                 </Tooltip>
@@ -111,11 +97,10 @@ export function AccountInfo() {
         </div>
       )}
 
-      {accBalance !== undefined && (
+      {balance?.balance !== undefined && (
         <MyAccountCardBlock title="Balance">
           <div className="font-clash flex flex-1 flex-row items-center text-[20px] font-[500] leading-[30px]">
-            {formatNumber(accBalance)}{' '}
-            {chain.nativeCurrency.symbol.toLocaleUpperCase()}
+            {formatNumber(balance.balance)}&nbsp;ISLM
           </div>
         </MyAccountCardBlock>
       )}

@@ -1,7 +1,7 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { Meta, StoryObj } from '@storybook/react';
+import { Header as HeaderComponent } from './header';
 import { withoutPadding } from '../../../../storybook-host/src/decorators';
-import { Header as HeaderComponent } from '../components/header/header';
 
 const meta: Meta<typeof HeaderComponent> = {
   component: HeaderComponent,

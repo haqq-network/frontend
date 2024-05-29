@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useChainStatsQuery } from '@haqq/shell-shared';
-import { formatNumber, formatPercents } from '@haqq/shell-ui-kit';
+import { formatNumber, formatPercents } from '@haqq/shell-ui-kit/server';
 
 export function StatisticsBlock() {
   const { data: chainStats, isFetching, isFetched } = useChainStatsQuery();

@@ -1,6 +1,8 @@
+'use client';
 import { useState, useCallback } from 'react';
 import { getFormattedAddress, useClipboard } from '@haqq/shell-shared';
-import { CopyIcon, Tooltip } from '@haqq/shell-ui-kit';
+import { Tooltip } from '@haqq/shell-ui-kit';
+import { CopyIcon } from '@haqq/shell-ui-kit/server';
 
 export const Address = ({
   address,

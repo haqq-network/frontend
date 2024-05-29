@@ -15,7 +15,7 @@ type Story = StoryObj<typeof RedelegateModalComponent>;
 
 export const RedelegateModal: Story = {
   args: {
-    isOpen: false,
+    isOpen: true,
     symbol: 'islm',
     delegation: 1000,
     validatorsOptions: [

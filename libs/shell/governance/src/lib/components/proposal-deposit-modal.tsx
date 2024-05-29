@@ -1,13 +1,14 @@
+'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import {
   Button,
-  MobileHeading,
+  ModalHeading,
   Modal,
   ModalCloseButton,
   ModalInput,
-  toFixedAmount,
 } from '@haqq/shell-ui-kit';
+import { toFixedAmount } from '@haqq/shell-ui-kit/server';
 
 export function DepositModalDetails({
   title,
@@ -126,9 +127,9 @@ export function ProposalDepositModal({
         />
 
         <div className="flex w-full flex-col space-y-6">
-          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
+          <div className="divide-haqq-border divide-y divide-dashed">
             <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-              <MobileHeading>Deposit</MobileHeading>
+              <ModalHeading>Deposit</ModalHeading>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">

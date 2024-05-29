@@ -20,7 +20,7 @@ export function SelectOption({
 }: OptionProps<SelectOption, false>) {
   return (
     <selectComponents.Option {...rest}>
-      <div>{rest.data.label}</div>
+      <div className="m-4">{rest.data.label}</div>
     </selectComponents.Option>
   );
 }
@@ -78,7 +78,7 @@ export function Select({
         return clsx(
           'border-[1px] border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
           'text-white text-[13px] leading-[20px]',
-          'overflow-hiddenz                                                                                                                                                                                                                                                                                                                                                                                         ',
+          'overflow-hidden',
         );
       },
       option: ({ isFocused, isSelected }) => {

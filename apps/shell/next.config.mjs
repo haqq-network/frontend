@@ -1,10 +1,15 @@
 //@ts-check
+import createWithBundleAnalyzer from '@next/bundle-analyzer';
+import { composePlugins, withNx } from '@nx/next';
+import { withSentryConfig } from '@sentry/nextjs';
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+// Configure the bundle analyzer
+const bundleAnalyzerConfig = {
   enabled: process.env.ANALYZE === 'true',
-});
-const { composePlugins, withNx } = require('@nx/next');
-const { withSentryConfig } = require('@sentry/nextjs');
+};
+
+export const withBundleAnalyzer =
+  createWithBundleAnalyzer(bundleAnalyzerConfig);
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -82,7 +87,7 @@ const plugins = [
   withBundleAnalyzer,
 ];
 
-module.exports = withSentryConfig(
+export default withSentryConfig(
   composePlugins(...plugins)(nextConfig),
   sentryWebpackPluginOptions,
 );

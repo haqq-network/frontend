@@ -6,3 +6,10 @@ declare module '*.svg' {
 }
 
 declare module 'react-text-mask';
+
+declare const window: Window &
+  typeof globalThis & {
+    __HAQQWALLET__?: {
+      POSTHOG_DISTINCT_ID?: string;
+    };
+  };

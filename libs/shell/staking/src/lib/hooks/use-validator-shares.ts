@@ -4,7 +4,7 @@ import {
   useStakingPoolQuery,
   useStakingValidatorListQuery,
 } from '@haqq/shell-shared';
-import { formatPercents } from '@haqq/shell-ui-kit';
+import { formatPercents } from '@haqq/shell-ui-kit/server';
 import { sortValidatorsByToken } from '../utils/sort-validators';
 import { splitValidators } from '../utils/split-validators';
 

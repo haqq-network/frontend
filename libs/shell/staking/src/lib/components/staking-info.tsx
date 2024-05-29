@@ -1,12 +1,12 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import { formatUnits, parseUnits } from 'viem';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
+import { haqqTestedge2 } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useBalanceAwareActions,
@@ -21,23 +21,21 @@ import {
   useStakingDelegationQuery,
   useStakingRewardsQuery,
   useStakingUnbondingsQuery,
-  useSupportedChains,
   useToast,
   useWallet,
 } from '@haqq/shell-shared';
+import { Button } from '@haqq/shell-ui-kit';
 import {
-  Button,
   Container,
   LinkIcon,
   ToastError,
   ToastLoading,
   ToastSuccess,
   formatNumber,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { StakingStatsDesktop, StakingStatsMobile } from './staking-stats';
 
 function useStakingStats() {
-  const [staked, setStakedValue] = useState(0);
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
@@ -48,27 +46,17 @@ function useStakingStats() {
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
   const toast = useToast();
   const symbol = 'ISLM';
   const [isRewardsPending, setRewardsPending] = useState(false);
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
-  const [balance, setBalance] = useState(0);
   const posthog = usePostHog();
-
-  useEffect(() => {
-    if (balances) {
-      const { availableForStake } = balances;
-      setBalance(availableForStake);
-    }
-  }, [balances]);
+  const balance = balances?.availableForStake ?? 0;
+  const staked = balances?.staked ?? 0;
 
   const handleRewardsClaim = useCallback(async () => {
     try {
@@ -124,6 +112,7 @@ function useStakingStats() {
         [chain.id, 'rewards'],
         [chain.id, 'delegation'],
         [chain.id, 'unboundings'],
+        [chain.id, 'indexer-balance'],
       ]);
     }
   }, [
@@ -139,15 +128,12 @@ function useStakingStats() {
 
   useEffect(() => {
     if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
-      let del = 0;
       const vecDelegatedValsAddrs: string[] = [];
 
       delegationInfo.delegation_responses.forEach((delegation) => {
         vecDelegatedValsAddrs.push(delegation.delegation.validator_address);
-        del = del + Number.parseInt(delegation.balance.amount, 10);
       });
 
-      setStakedValue(Number.parseFloat(formatUnits(BigInt(del), 18)));
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }
   }, [delegationInfo]);
@@ -214,8 +200,8 @@ export function StakingInfo() {
   const { ethAddress, haqqAddress } = useAddress();
   const { openSelectWallet, isHaqqWallet } = useWallet();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
   const {
     staked,
     rewards,
@@ -236,7 +222,7 @@ export function StakingInfo() {
     return (
       <section
         className={clsx(
-          'sticky z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent py-[32px] backdrop-blur',
+          'border-haqq-border sticky z-[49] w-full transform-gpu border-y py-[32px] backdrop-blur',
           isTestedge
             ? 'top-[102px] sm:top-[111px]'
             : 'top-[62px] sm:top-[70px]',
@@ -263,7 +249,7 @@ export function StakingInfo() {
   return (
     <section
       className={clsx(
-        'z-[49] w-full transform-gpu border-y border-[#ffffff26] bg-transparent backdrop-blur',
+        'border-haqq-border bg-haqq-black/15 z-[49] w-full transform-gpu border-y backdrop-blur',
         isHaqqWallet
           ? isTestedge
             ? 'top-[101px] sm:top-[111px]'
@@ -271,9 +257,8 @@ export function StakingInfo() {
           : isTestedge
             ? 'top-[99px] sm:top-[110px]'
             : 'top-[62px] sm:top-[70px]',
-        !isTablet && 'py-[32px]',
         isHaqqWallet && '!border-t-[0px]',
-        !isTablet && 'sticky',
+        !isTablet && 'sticky py-[32px] ',
       )}
     >
       {isTablet ? (

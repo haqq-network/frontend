@@ -1,12 +1,11 @@
 import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useProposalListQuery() {
   const { getProposals } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'proposals'],
@@ -16,8 +15,8 @@ export function useProposalListQuery() {
 
 export function useProposalDetailsQuery(proposalId: string | undefined) {
   const { getProposalDetails } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'proposal', proposalId],
@@ -34,8 +33,8 @@ export function useProposalDetailsQuery(proposalId: string | undefined) {
 
 export function useGovernanceParamsQuery() {
   const { getGovernanceParams } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'governance-params'],
@@ -63,8 +62,8 @@ export function useGovernanceParamsQuery() {
 
 export function useProposalTallyQuery(proposalId: string | undefined) {
   const { getProposalTally } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'proposal-tally', proposalId],
@@ -81,8 +80,8 @@ export function useProposalTallyQuery(proposalId: string | undefined) {
 
 export function useProposalTallysQuery(proposalIds: string[] = []) {
   const { getProposalTally } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQueries({
     queries: proposalIds.map((proposalId) => {
@@ -102,8 +101,8 @@ export function useProposalVoteQuery(
   voterAddress: string | undefined,
 ): UseQueryResult<string | null, Error> {
   const { getProposalVotes } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'proposal-votes', proposalId, voterAddress],
@@ -128,8 +127,8 @@ export function useProposalVotesQuery(
   voterAddress: string | undefined,
 ) {
   const { getProposalVotes } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQueries({
     queries: proposalIds.map((proposalId) => {
@@ -150,8 +149,8 @@ export function useProposalVotesQuery(
 
 // export function useProposalVotesQuery(voterAddress: string | undefined) {
 //   const { getVotes } = useCosmosService();
-//   const chains = useSupportedChains();
-//   const { chain = chains[0] } = useNetwork();
+//   const chains = useChains();
+//   const { chain = chains[0] } = useAccount();
 
 //   return useQuery({
 //     queryKey: [chain.id, 'votes', voterAddress],

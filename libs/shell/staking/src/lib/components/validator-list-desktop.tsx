@@ -109,7 +109,7 @@ export function ValidatorsListDesktop({
               )}
             </div>
           </th>
-          <th className="p-[8px] text-right lg:p-[12px]">
+          <th className="min-w-[170px] p-[8px] text-right lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',

@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import { BlogPage } from '@haqq/haqq-website/blog';
-import { DEPLOY_URL } from '../../../constants';
+import { DEPLOY_URL, REVALIDATE_TIME } from '../../../constants';
 import { getHaqqBlogPostsFromFalconer } from '../../../utils/get-blog-posts';
 import { haqqOpenGraphImages } from '../../shared-metadata';
+
+export const dynamicParams = true;
+export const revalidate = REVALIDATE_TIME;
 
 const title = 'Blog';
 const description =

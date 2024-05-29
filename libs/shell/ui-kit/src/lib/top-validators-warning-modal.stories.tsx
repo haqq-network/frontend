@@ -15,7 +15,7 @@ type Story = StoryObj<typeof TopValidatorsWarningModalComponent>;
 
 export const TopValidatorsWarningModal: Story = {
   args: {
-    isOpen: false,
+    isOpen: true,
     onClose: fn(),
     onContinue: fn(),
   },

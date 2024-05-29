@@ -26,7 +26,7 @@ export function SortSelect({
     return variants.map(({ id, title }) => {
       return (
         <div
-          className=""
+          className="px-[16px]"
           key={id}
           onClick={(e) => {
             onChange(id);

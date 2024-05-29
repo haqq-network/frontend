@@ -4,21 +4,25 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'react-responsive';
 import { useWallet } from '@haqq/shell-shared';
+import { Checkbox, SearchInput, SortSelect } from '@haqq/shell-ui-kit';
 import {
   SpinnerLoader,
   ValidatorIcon,
   Heading,
   Container,
-  Checkbox,
-  SearchInput,
-  SortSelect,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { ValidatorsListDesktop } from './validator-list-desktop';
 import { ValidatorsListMobile } from './validator-list-mobile';
 import { useStakingData } from '../hooks/use-staking-data';
 import { SortDirection } from '../hooks/use-validator-sort';
 
-export function ValidatorList() {
+export function ValidatorList({
+  isMobileUserAgent,
+  seedPhrase,
+}: {
+  isMobileUserAgent: boolean;
+  seedPhrase: string;
+}) {
   const {
     totalStaked,
     valsTotal,
@@ -37,7 +41,7 @@ export function ValidatorList() {
     sortState,
     setSortState,
     isWalletConnected,
-  } = useStakingData();
+  } = useStakingData({ seedPhrase });
   const route = useRouter();
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
@@ -171,30 +175,47 @@ export function ValidatorList() {
           <p>Error: {error?.message ?? 'unknown error'}</p>
         )}
 
-        {status === 'success' &&
-          (isTablet ? (
-            <ValidatorsListMobile
-              validators={validators}
-              delegationInfo={delegationInfo}
-              rewardsInfo={rewardsInfo}
-              totalStaked={totalStaked}
-              onValidatorClick={(validatorAddress: string) => {
-                route.push(`/staking/validator/${validatorAddress}`);
-              }}
-            />
-          ) : (
-            <ValidatorsListDesktop
-              validators={validators}
-              delegationInfo={delegationInfo}
-              rewardsInfo={rewardsInfo}
-              onValidatorClick={(validatorAddress: string) => {
-                route.push(`/staking/validator/${validatorAddress}`);
-              }}
-              totalStaked={totalStaked}
-              onDesktopSortClick={handleDesktopSortClick}
-              sortState={sortState}
-            />
-          ))}
+        {status === 'success' && (
+          <div>
+            {isMobileUserAgent ? (
+              <ValidatorsListMobile
+                validators={validators}
+                delegationInfo={delegationInfo}
+                rewardsInfo={rewardsInfo}
+                totalStaked={totalStaked}
+                onValidatorClick={(validatorAddress: string) => {
+                  route.push(`/staking/validator/${validatorAddress}`);
+                }}
+              />
+            ) : (
+              <div>
+                {isTablet ? (
+                  <ValidatorsListMobile
+                    validators={validators}
+                    delegationInfo={delegationInfo}
+                    rewardsInfo={rewardsInfo}
+                    totalStaked={totalStaked}
+                    onValidatorClick={(validatorAddress: string) => {
+                      route.push(`/staking/validator/${validatorAddress}`);
+                    }}
+                  />
+                ) : (
+                  <ValidatorsListDesktop
+                    validators={validators}
+                    delegationInfo={delegationInfo}
+                    rewardsInfo={rewardsInfo}
+                    onValidatorClick={(validatorAddress: string) => {
+                      route.push(`/staking/validator/${validatorAddress}`);
+                    }}
+                    totalStaked={totalStaked}
+                    onDesktopSortClick={handleDesktopSortClick}
+                    sortState={sortState}
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </Container>
   );

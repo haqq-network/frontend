@@ -1,27 +1,39 @@
 'use client';
-import dynamic from 'next/dynamic';
+import { useMediaQuery } from 'react-responsive';
 import { useWallet } from '@haqq/shell-shared';
-import { Container } from '@haqq/shell-ui-kit';
+import { Container } from '@haqq/shell-ui-kit/server';
+import { AccountFooterMobile } from './components/account-footer-mobile';
+import { DelegationsBlock } from './components/delegations-block';
+import { MyAccountBlock } from './components/my-account-block';
 import { ProposalListBlock } from './components/proposal-list-block';
 import { StatisticsBlock } from './components/statistics-block';
 
-const DelegationsBlock = dynamic(async () => {
-  const { DelegationsBlock } = await import('./components/delegations-block');
-  return { default: DelegationsBlock };
-});
-const AccountFooterMobile = dynamic(async () => {
-  const { AccountFooterMobile } = await import(
-    './components/account-footer-mobile'
-  );
-  return { default: AccountFooterMobile };
-});
-const MyAccountBlock = dynamic(async () => {
-  const { MyAccountBlock } = await import('./components/my-account-block');
-  return { default: MyAccountBlock };
-});
+// const DelegationsBlock = dynamic(async () => {
+//   const { DelegationsBlock } = await import('./components/delegations-block');
+//   return { default: DelegationsBlock };
+// });
+// const AccountFooterMobile = dynamic(async () => {
+//   const { AccountFooterMobile } = await import(
+//     './components/account-footer-mobile'
+//   );
+//   return { default: AccountFooterMobile };
+// });
+// const MyAccountBlock = dynamic(async () => {
+//   const { MyAccountBlock } = await import('./components/my-account-block');
+//   return { default: MyAccountBlock };
+// });
 
-export function MainPage() {
+export function MainPage({
+  isMobileUserAgent,
+  seedPhrase,
+}: {
+  isMobileUserAgent: boolean;
+  seedPhrase: string;
+}) {
   const { isHaqqWallet } = useWallet();
+  const isTablet = useMediaQuery({
+    query: `(max-width: 1023px)`,
+  });
 
   return (
     <div className="flex flex-col">
@@ -38,15 +50,19 @@ export function MainPage() {
           </div>
         </Container>
       </div>
-
       <MyAccountBlock />
-
       <div className="flex flex-col space-y-[80px] py-[68px]">
-        <DelegationsBlock />
+        <DelegationsBlock
+          isMobileUserAgent={isMobileUserAgent}
+          seedPhrase={seedPhrase}
+        />
         <ProposalListBlock />
       </div>
-
-      <AccountFooterMobile />
+      {isTablet && (
+        <div className="sticky bottom-0 left-0 right-0 z-30">
+          <AccountFooterMobile />
+        </div>
+      )}
     </div>
   );
 }

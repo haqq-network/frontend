@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useAuthzGrantsQuery(granter: string, grantee: string) {
   const { getAuthzGrants } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'grants', granter, grantee],
@@ -19,8 +18,8 @@ export function useAuthzGrantsQuery(granter: string, grantee: string) {
 
 export function useAuthzGranterGrants(granter: string) {
   const { getAuthzGranterGrants } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'grants-granter', granter],
@@ -33,8 +32,8 @@ export function useAuthzGranterGrants(granter: string) {
 
 export function useAuthzGranteeGrants(grantee: string) {
   const { getAuthzGranteeGrants } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'grants-grantee', grantee],
