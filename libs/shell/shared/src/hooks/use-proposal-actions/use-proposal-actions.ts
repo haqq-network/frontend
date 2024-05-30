@@ -67,7 +67,8 @@ export function useProposalActions(): ProposalActionsHook {
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Vote for proposal #${proposalId}`;
+      // const memo = `Vote for proposal #${proposalId}`;
+      const memo = ``;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -123,7 +124,8 @@ export function useProposalActions(): ProposalActionsHook {
       console.log('handleDeposit', { proposalId, amount });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Deposit to proposal #${proposalId}`;
+      // const memo = `Deposit to proposal #${proposalId}`;
+      const memo = ``;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
