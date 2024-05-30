@@ -275,11 +275,10 @@ export function CreateTextProposalFormKeplr() {
             </label>
           </div>
           <div>
-            <input
-              className={inputClassnames}
+            <textarea
+              className={clsx(inputClassnames, 'min-h-32 resize-none')}
               {...register('description')}
               id="description"
-              type="text"
             />
           </div>
           {errors.description && <div>{errors.description.message}</div>}
