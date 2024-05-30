@@ -11,37 +11,28 @@ import {
 } from '@evmos/eip712';
 import {
   createAnyMessage,
-  createMsgDeposit,
   // createMsgSubmitProposal as createMsgSubmitProposalCosmos,
-  createMsgVote,
   createTxRaw,
 } from '@evmos/proto';
 import { createTransaction } from '@evmos/proto';
+import { createMsgDeposit, createMsgVote } from '@evmos/proto';
 import * as coinProto from '@evmos/proto/dist/proto/cosmos/base/v1beta1/coin';
 import * as govProto from '@evmos/proto/dist/proto/cosmos/gov/v1beta1/gov';
 import * as govTxProto from '@evmos/proto/dist/proto/cosmos/gov/v1beta1/tx';
 import * as upgradeProto from '@evmos/proto/dist/proto/cosmos/upgrade/v1beta1/upgrade';
-import {
-  createTxMsgVote,
-  createTxMsgDeposit,
-  // createTxMsgSubmitProposal,
-} from '@evmos/transactions';
+import { createTxMsgVote, createTxMsgDeposit } from '@evmos/transactions';
 import type {
   Chain,
   Fee,
-  MessageMsgDepositParams,
   MessageMsgSubmitProposal,
   Sender,
 } from '@evmos/transactions';
+import type { MessageMsgDepositParams } from '@evmos/transactions';
 import { Keplr } from '@keplr-wallet/types';
 // import { Any } from 'cosmjs-types/google/protobuf/any';
 import Long from 'long';
-import { formatUnits, toHex } from 'viem';
-import { createMsgDeposit, createMsgVote } from '@evmos/proto';
-import { createTxMsgVote, createTxMsgDeposit } from '@evmos/transactions';
-import type { MessageMsgDepositParams } from '@evmos/transactions';
 import { usePostHog } from 'posthog-js/react';
-import { formatUnits } from 'viem';
+import { formatUnits, toHex } from 'viem';
 import { useNetwork } from 'wagmi';
 import {
   BroadcastTxResponse,
