@@ -74,31 +74,31 @@ interface ProposalActionsHook {
     proposalId: number,
     amount: number,
   ) => Promise<EstimatedFeeResponse>;
-  submitTextProposal: (
-    proposalParams: CreateTextProposalForm,
-    estimatedFee?: EstimatedFeeResponse,
-  ) => Promise<BroadcastTxResponse>;
-  submitSuProposal: (
-    proposalParams: CreateTextProposalForm,
-    estimatedFee?: EstimatedFeeResponse,
-  ) => Promise<BroadcastTxResponse>;
-  submitProposalKeplr: (
-    proposalParams: CreateTextProposalForm,
+  // submitTextProposal: (
+  //   proposalParams: CreateTextProposalForm,
+  //   estimatedFee?: EstimatedFeeResponse,
+  // ) => Promise<BroadcastTxResponse>;
+  // submitSuProposal: (
+  //   proposalParams: CreateTextProposalForm,
+  //   estimatedFee?: EstimatedFeeResponse,
+  // ) => Promise<BroadcastTxResponse>;
+  submitTextProposalKeplr: (
+    proposalParams: ICreateTextProposalForm,
     keplr: Keplr,
   ) => Promise<BroadcastTxResponse>;
-  submitProposalSoftwareUpgradeKeplr: (
-    proposalParams: CreateUpgradeProposalForm,
+  submitSoftwareUpgradeProposalKeplr: (
+    proposalParams: ICreateUpgradeProposalForm,
     keplr: Keplr,
   ) => Promise<BroadcastTxResponse>;
 }
 
-export interface CreateTextProposalForm {
+export interface ICreateTextProposalForm {
   title: string;
   description: string;
   initialDeposit: number;
 }
 
-export interface CreateUpgradeProposalForm {
+export interface ICreateUpgradeProposalForm {
   title: string;
   description: string;
   initialDeposit: number;
@@ -165,191 +165,191 @@ export const MSG_SUBMIT_UPGRADE_PROPOSAL_TYPES = {
   ],
 };
 
-function createMsgSubmitProposalTxtEIP712(
-  content: any,
-  initialDepositDenom: string,
-  initialDepositAmount: string,
-  proposer: string,
-) {
-  console.log('createMsgSubmitProposalEIP712', {
-    content,
-    initialDepositDenom,
-    initialDepositAmount,
-    proposer,
-  });
-  return {
-    type: 'cosmos-sdk/MsgSubmitProposal',
-    value: {
-      content: {
-        type: 'cosmos-sdk/TextProposal',
-        value: {
-          '@type': 'cosmos.gov.v1beta1.TextProposal',
-          ...content.toObject(),
-        },
-      },
-      initial_deposit: [
-        {
-          amount: initialDepositAmount,
-          denom: initialDepositDenom,
-        },
-      ],
-      proposer,
-    },
-  };
-}
+// function createMsgSubmitProposalTxtEIP712(
+//   content: any,
+//   initialDepositDenom: string,
+//   initialDepositAmount: string,
+//   proposer: string,
+// ) {
+//   console.log('createMsgSubmitProposalEIP712', {
+//     content,
+//     initialDepositDenom,
+//     initialDepositAmount,
+//     proposer,
+//   });
+//   return {
+//     type: 'cosmos-sdk/MsgSubmitProposal',
+//     value: {
+//       content: {
+//         type: 'cosmos-sdk/TextProposal',
+//         value: {
+//           '@type': 'cosmos.gov.v1beta1.TextProposal',
+//           ...content.toObject(),
+//         },
+//       },
+//       initial_deposit: [
+//         {
+//           amount: initialDepositAmount,
+//           denom: initialDepositDenom,
+//         },
+//       ],
+//       proposer,
+//     },
+//   };
+// }
 
-function createMsgSubmitProposalSuEIP712(
-  content: any,
-  initialDepositDenom: string,
-  initialDepositAmount: string,
-  proposer: string,
-) {
-  console.log('createMsgSubmitProposalEIP712', {
-    content,
-    initialDepositDenom,
-    initialDepositAmount,
-    proposer,
-  });
-  return {
-    type: 'cosmos-sdk/MsgSubmitProposal',
-    value: {
-      content: {
-        type: 'cosmos-sdk/TextProposal',
-        value: {
-          '@type': 'cosmos.gov.v1beta1.TextProposal',
-          ...content.toObject(),
-        },
-      },
-      initial_deposit: [
-        {
-          amount: initialDepositAmount,
-          denom: initialDepositDenom,
-        },
-      ],
-      proposer,
-    },
-  };
-}
+// function createMsgSubmitProposalSuEIP712(
+//   content: any,
+//   initialDepositDenom: string,
+//   initialDepositAmount: string,
+//   proposer: string,
+// ) {
+//   console.log('createMsgSubmitProposalEIP712', {
+//     content,
+//     initialDepositDenom,
+//     initialDepositAmount,
+//     proposer,
+//   });
+//   return {
+//     type: 'cosmos-sdk/MsgSubmitProposal',
+//     value: {
+//       content: {
+//         type: 'cosmos-sdk/TextProposal',
+//         value: {
+//           '@type': 'cosmos.gov.v1beta1.TextProposal',
+//           ...content.toObject(),
+//         },
+//       },
+//       initial_deposit: [
+//         {
+//           amount: initialDepositAmount,
+//           denom: initialDepositDenom,
+//         },
+//       ],
+//       proposer,
+//     },
+//   };
+// }
 
-function createTxMsgSubmitSuProposal(
-  chain: Chain,
-  sender: Sender,
-  fee: Fee,
-  memo: string,
-  params: MessageMsgSubmitProposal,
-  contentPath: string,
-) {
-  const feeObject = generateFee(
-    fee.amount,
-    fee.denom,
-    fee.gas,
-    sender.accountAddress,
-  );
-  const types = generateTypes(MSG_SUBMIT_UPGRADE_PROPOSAL_TYPES);
-  const msg = createMsgSubmitProposalSuEIP712(
-    params.content,
-    params.initialDepositDenom,
-    params.initialDepositAmount,
-    sender.accountAddress,
-  );
-  console.log({ msg });
-  const messages = generateMessage(
-    sender.accountNumber.toString(),
-    sender.sequence.toString(),
-    chain.cosmosChainId,
-    memo,
-    feeObject,
-    msg,
-  );
-  console.log({ messages });
-  const eipToSign = createEIP712(types, chain.chainId, messages);
-  console.log({ eipToSign });
-  const msgCosmos = createMsgSubmitProposalCosmos(
-    params.content,
-    contentPath,
-    params.initialDepositDenom,
-    params.initialDepositAmount,
-    sender.accountAddress,
-  );
-  console.log({ msgCosmos });
-  const tx = createTransaction(
-    msgCosmos,
-    memo,
-    fee.amount,
-    fee.denom,
-    parseInt(fee.gas, 10),
-    'ethsecp256',
-    sender.pubkey,
-    sender.sequence,
-    sender.accountNumber,
-    chain.cosmosChainId,
-  );
-  return {
-    signDirect: tx.signDirect,
-    legacyAmino: tx.legacyAmino,
-    eipToSign,
-  };
-}
+// function createTxMsgSubmitSuProposal(
+//   chain: Chain,
+//   sender: Sender,
+//   fee: Fee,
+//   memo: string,
+//   params: MessageMsgSubmitProposal,
+//   contentPath: string,
+// ) {
+//   const feeObject = generateFee(
+//     fee.amount,
+//     fee.denom,
+//     fee.gas,
+//     sender.accountAddress,
+//   );
+//   const types = generateTypes(MSG_SUBMIT_UPGRADE_PROPOSAL_TYPES);
+//   const msg = createMsgSubmitProposalSuEIP712(
+//     params.content,
+//     params.initialDepositDenom,
+//     params.initialDepositAmount,
+//     sender.accountAddress,
+//   );
+//   console.log({ msg });
+//   const messages = generateMessage(
+//     sender.accountNumber.toString(),
+//     sender.sequence.toString(),
+//     chain.cosmosChainId,
+//     memo,
+//     feeObject,
+//     msg,
+//   );
+//   console.log({ messages });
+//   const eipToSign = createEIP712(types, chain.chainId, messages);
+//   console.log({ eipToSign });
+//   const msgCosmos = createMsgSubmitProposalCosmos(
+//     params.content,
+//     contentPath,
+//     params.initialDepositDenom,
+//     params.initialDepositAmount,
+//     sender.accountAddress,
+//   );
+//   console.log({ msgCosmos });
+//   const tx = createTransaction(
+//     msgCosmos,
+//     memo,
+//     fee.amount,
+//     fee.denom,
+//     parseInt(fee.gas, 10),
+//     'ethsecp256',
+//     sender.pubkey,
+//     sender.sequence,
+//     sender.accountNumber,
+//     chain.cosmosChainId,
+//   );
+//   return {
+//     signDirect: tx.signDirect,
+//     legacyAmino: tx.legacyAmino,
+//     eipToSign,
+//   };
+// }
 
-function createTxMsgSubmitTxtProposal(
-  chain: Chain,
-  sender: Sender,
-  fee: Fee,
-  memo: string,
-  params: MessageMsgSubmitProposal,
-  contentPath: string,
-) {
-  const feeObject = generateFee(
-    fee.amount,
-    fee.denom,
-    fee.gas,
-    sender.accountAddress,
-  );
-  const types = generateTypes(MSG_SUBMIT_TEXT_PROPOSAL_TYPES);
-  const msg = createMsgSubmitProposalTxtEIP712(
-    params.content,
-    params.initialDepositDenom,
-    params.initialDepositAmount,
-    sender.accountAddress,
-  );
-  console.log({ msg });
-  const messages = generateMessage(
-    sender.accountNumber.toString(),
-    sender.sequence.toString(),
-    chain.cosmosChainId,
-    memo,
-    feeObject,
-    msg,
-  );
-  console.log({ messages });
-  const eipToSign = createEIP712(types, chain.chainId, messages);
-  console.log({ eipToSign });
-  const msgCosmos = createMsgSubmitProposalCosmos(
-    params.content,
-    contentPath,
-    params.initialDepositDenom,
-    params.initialDepositAmount,
-    sender.accountAddress,
-  );
-  console.log({ msgCosmos });
-  const tx = createTransaction(
-    msgCosmos,
-    memo,
-    fee.amount,
-    fee.denom,
-    parseInt(fee.gas, 10),
-    'ethsecp256',
-    sender.pubkey,
-    sender.sequence,
-    sender.accountNumber,
-    chain.cosmosChainId,
-  );
-  return {
-    signDirect: tx.signDirect,
-    legacyAmino: tx.legacyAmino,
-    eipToSign,
-  };
-}
+// function createTxMsgSubmitTxtProposal(
+//   chain: Chain,
+//   sender: Sender,
+//   fee: Fee,
+//   memo: string,
+//   params: MessageMsgSubmitProposal,
+//   contentPath: string,
+// ) {
+//   const feeObject = generateFee(
+//     fee.amount,
+//     fee.denom,
+//     fee.gas,
+//     sender.accountAddress,
+//   );
+//   const types = generateTypes(MSG_SUBMIT_TEXT_PROPOSAL_TYPES);
+//   const msg = createMsgSubmitProposalTxtEIP712(
+//     params.content,
+//     params.initialDepositDenom,
+//     params.initialDepositAmount,
+//     sender.accountAddress,
+//   );
+//   console.log({ msg });
+//   const messages = generateMessage(
+//     sender.accountNumber.toString(),
+//     sender.sequence.toString(),
+//     chain.cosmosChainId,
+//     memo,
+//     feeObject,
+//     msg,
+//   );
+//   console.log({ messages });
+//   const eipToSign = createEIP712(types, chain.chainId, messages);
+//   console.log({ eipToSign });
+//   const msgCosmos = createMsgSubmitProposalCosmos(
+//     params.content,
+//     contentPath,
+//     params.initialDepositDenom,
+//     params.initialDepositAmount,
+//     sender.accountAddress,
+//   );
+//   console.log({ msgCosmos });
+//   const tx = createTransaction(
+//     msgCosmos,
+//     memo,
+//     fee.amount,
+//     fee.denom,
+//     parseInt(fee.gas, 10),
+//     'ethsecp256',
+//     sender.pubkey,
+//     sender.sequence,
+//     sender.accountNumber,
+//     chain.cosmosChainId,
+//   );
+//   return {
+//     signDirect: tx.signDirect,
+//     legacyAmino: tx.legacyAmino,
+//     eipToSign,
+//   };
+// }
 
 function createMsgSubmitProposalCosmos(
   content: Message,
@@ -548,143 +548,143 @@ export function useProposalActions(): ProposalActionsHook {
     ],
   );
 
-  const handleSubmitTextProposal = useCallback(
-    async (
-      submitProposalData: CreateTextProposalForm,
-      estimatedFee?: EstimatedFeeResponse,
-    ) => {
-      console.log('handleSubmitProposal', { submitProposalData, estimatedFee });
-      const pubkey = await getPubkey(ethAddress as string);
-      const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Submit proposal ${submitProposalData.title}`;
+  // const handleSubmitTextProposal = useCallback(
+  //   async (
+  //     submitProposalData: CreateTextProposalForm,
+  //     estimatedFee?: EstimatedFeeResponse,
+  //   ) => {
+  //     console.log('handleSubmitProposal', { submitProposalData, estimatedFee });
+  //     const pubkey = await getPubkey(ethAddress as string);
+  //     const sender = await getSender(haqqAddress as string, pubkey);
+  //     const memo = `Submit proposal ${submitProposalData.title}`;
 
-      if (sender && haqqChain) {
-        const fee = getFee(estimatedFee);
-        const proposalParams: MessageMsgSubmitProposal = {
-          content: TextProposal.fromObject({
-            title: submitProposalData.title,
-            description: submitProposalData.description,
-          }),
-          proposer: sender.accountAddress,
-          initialDepositAmount: BigInt(
-            submitProposalData.initialDeposit * 10 ** 18,
-          ).toString(),
-          initialDepositDenom: 'aISLM',
-        };
+  //     if (sender && haqqChain) {
+  //       const fee = getFee(estimatedFee);
+  //       const proposalParams: MessageMsgSubmitProposal = {
+  //         content: TextProposal.fromObject({
+  //           title: submitProposalData.title,
+  //           description: submitProposalData.description,
+  //         }),
+  //         proposer: sender.accountAddress,
+  //         initialDepositAmount: BigInt(
+  //           submitProposalData.initialDeposit * 10 ** 18,
+  //         ).toString(),
+  //         initialDepositDenom: 'aISLM',
+  //       };
 
-        console.log({ proposalParams });
+  //       console.log({ proposalParams });
 
-        const msg = createTxMsgSubmitTxtProposal(
-          haqqChain,
-          sender,
-          fee,
-          memo,
-          proposalParams,
-          'cosmos.gov.v1beta1.TextProposal',
-        );
-        console.log({ msg });
-        const rawTx = await signTransaction(msg, sender);
-        console.log({ rawTx });
-        const txResponse = await broadcastTransaction(rawTx);
+  //       const msg = createTxMsgSubmitTxtProposal(
+  //         haqqChain,
+  //         sender,
+  //         fee,
+  //         memo,
+  //         proposalParams,
+  //         'cosmos.gov.v1beta1.TextProposal',
+  //       );
+  //       console.log({ msg });
+  //       const rawTx = await signTransaction(msg, sender);
+  //       console.log({ rawTx });
+  //       const txResponse = await broadcastTransaction(rawTx);
 
-        if (txResponse.code !== 0) {
-          throw new Error(txResponse.raw_log);
-        }
+  //       if (txResponse.code !== 0) {
+  //         throw new Error(txResponse.raw_log);
+  //       }
 
-        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+  //       const transactionStatus = await getTransactionStatus(txResponse.txhash);
 
-        if (transactionStatus === null) {
-          throw new Error('Transaction not found');
-        }
+  //       if (transactionStatus === null) {
+  //         throw new Error('Transaction not found');
+  //       }
 
-        return transactionStatus.tx_response;
-      } else {
-        throw new Error('No sender');
-      }
-    },
-    [
-      getPubkey,
-      ethAddress,
-      getSender,
-      haqqAddress,
-      haqqChain,
-      getFee,
-      signTransaction,
-      broadcastTransaction,
-      getTransactionStatus,
-    ],
-  );
+  //       return transactionStatus.tx_response;
+  //     } else {
+  //       throw new Error('No sender');
+  //     }
+  //   },
+  //   [
+  //     getPubkey,
+  //     ethAddress,
+  //     getSender,
+  //     haqqAddress,
+  //     haqqChain,
+  //     getFee,
+  //     signTransaction,
+  //     broadcastTransaction,
+  //     getTransactionStatus,
+  //   ],
+  // );
 
-  const handleSubmitSuProposal = useCallback(
-    async (
-      submitProposalData: CreateTextProposalForm,
-      estimatedFee?: EstimatedFeeResponse,
-    ) => {
-      console.log('handleSubmitProposal', { submitProposalData, estimatedFee });
-      const pubkey = await getPubkey(ethAddress as string);
-      const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Submit proposal ${submitProposalData.title}`;
+  // const handleSubmitSuProposal = useCallback(
+  //   async (
+  //     submitProposalData: CreateTextProposalForm,
+  //     estimatedFee?: EstimatedFeeResponse,
+  //   ) => {
+  //     console.log('handleSubmitProposal', { submitProposalData, estimatedFee });
+  //     const pubkey = await getPubkey(ethAddress as string);
+  //     const sender = await getSender(haqqAddress as string, pubkey);
+  //     const memo = `Submit proposal ${submitProposalData.title}`;
 
-      if (sender && haqqChain) {
-        const fee = getFee(estimatedFee);
-        const proposalParams: MessageMsgSubmitProposal = {
-          content: TextProposal.fromObject({
-            title: submitProposalData.title,
-            description: submitProposalData.description,
-          }),
-          proposer: sender.accountAddress,
-          initialDepositAmount: BigInt(
-            submitProposalData.initialDeposit * 10 ** 18,
-          ).toString(),
-          initialDepositDenom: 'aISLM',
-        };
+  //     if (sender && haqqChain) {
+  //       const fee = getFee(estimatedFee);
+  //       const proposalParams: MessageMsgSubmitProposal = {
+  //         content: TextProposal.fromObject({
+  //           title: submitProposalData.title,
+  //           description: submitProposalData.description,
+  //         }),
+  //         proposer: sender.accountAddress,
+  //         initialDepositAmount: BigInt(
+  //           submitProposalData.initialDeposit * 10 ** 18,
+  //         ).toString(),
+  //         initialDepositDenom: 'aISLM',
+  //       };
 
-        console.log({ proposalParams });
+  //       console.log({ proposalParams });
 
-        const msg = createTxMsgSubmitSuProposal(
-          haqqChain,
-          sender,
-          fee,
-          memo,
-          proposalParams,
-          'cosmos.gov.v1beta1.SoftwareUpgradeProposal',
-        );
-        console.log({ msg });
-        const rawTx = await signTransaction(msg, sender);
-        console.log({ rawTx });
-        const txResponse = await broadcastTransaction(rawTx);
+  //       const msg = createTxMsgSubmitSuProposal(
+  //         haqqChain,
+  //         sender,
+  //         fee,
+  //         memo,
+  //         proposalParams,
+  //         'cosmos.gov.v1beta1.SoftwareUpgradeProposal',
+  //       );
+  //       console.log({ msg });
+  //       const rawTx = await signTransaction(msg, sender);
+  //       console.log({ rawTx });
+  //       const txResponse = await broadcastTransaction(rawTx);
 
-        if (txResponse.code !== 0) {
-          throw new Error(txResponse.raw_log);
-        }
+  //       if (txResponse.code !== 0) {
+  //         throw new Error(txResponse.raw_log);
+  //       }
 
-        const transactionStatus = await getTransactionStatus(txResponse.txhash);
+  //       const transactionStatus = await getTransactionStatus(txResponse.txhash);
 
-        if (transactionStatus === null) {
-          throw new Error('Transaction not found');
-        }
+  //       if (transactionStatus === null) {
+  //         throw new Error('Transaction not found');
+  //       }
 
-        return transactionStatus.tx_response;
-      } else {
-        throw new Error('No sender');
-      }
-    },
-    [
-      getPubkey,
-      ethAddress,
-      getSender,
-      haqqAddress,
-      haqqChain,
-      getFee,
-      signTransaction,
-      broadcastTransaction,
-      getTransactionStatus,
-    ],
-  );
+  //       return transactionStatus.tx_response;
+  //     } else {
+  //       throw new Error('No sender');
+  //     }
+  //   },
+  //   [
+  //     getPubkey,
+  //     ethAddress,
+  //     getSender,
+  //     haqqAddress,
+  //     haqqChain,
+  //     getFee,
+  //     signTransaction,
+  //     broadcastTransaction,
+  //     getTransactionStatus,
+  //   ],
+  // );
 
-  const handleSubmitProposalKeplr = useCallback(
-    async (submitProposalData: CreateTextProposalForm, keplr: Keplr) => {
-      console.log('handleSubmitProposalKeplr', {
+  const handleSubmitTextProposalKeplr = useCallback(
+    async (submitProposalData: ICreateTextProposalForm, keplr: Keplr) => {
+      console.log('handleSubmitTextProposalKeplr', {
         submitProposalData,
         keplr,
       });
@@ -750,21 +750,21 @@ export function useProposalActions(): ProposalActionsHook {
 
         if (!signResponse) {
           // Handle signature failure here.
+          throw new Error('Transaction signature failed');
         }
 
-        const signatures = [
-          new Uint8Array(
-            Buffer.from(signResponse.signature.signature, 'base64'),
-          ),
-        ];
+        const { signed, signature } = signResponse;
 
-        const { signed } = signResponse;
+        const signatures = [
+          new Uint8Array(Buffer.from(signature.signature, 'base64')),
+        ];
 
         const signedTx = createTxRaw(
           signed.bodyBytes,
           signed.authInfoBytes,
           signatures,
         );
+
         const txResponse = await broadcastTransaction(signedTx);
 
         if (txResponse.code !== 0) {
@@ -786,7 +786,7 @@ export function useProposalActions(): ProposalActionsHook {
   );
 
   const handleSubmitProposalSoftwareUpgradeKeplr = useCallback(
-    async (submitProposalData: CreateUpgradeProposalForm, keplr: Keplr) => {
+    async (submitProposalData: ICreateUpgradeProposalForm, keplr: Keplr) => {
       console.log('handleSubmitProposalSoftwareUpgradeKeplr', {
         submitProposalData,
         keplr,
@@ -906,10 +906,10 @@ export function useProposalActions(): ProposalActionsHook {
     deposit: handleDeposit,
     getVoteEstimatedFee: handleVoteEstimatedFee,
     getDepositEstimatedFee: handleDepositEstimatedFee,
-    submitTextProposal: handleSubmitTextProposal,
-    submitSuProposal: handleSubmitSuProposal,
-    submitProposalKeplr: handleSubmitProposalKeplr,
-    submitProposalSoftwareUpgradeKeplr:
+    // submitTextProposal: handleSubmitTextProposal,
+    // submitSuProposal: handleSubmitSuProposal,
+    submitTextProposalKeplr: handleSubmitTextProposalKeplr,
+    submitSoftwareUpgradeProposalKeplr:
       handleSubmitProposalSoftwareUpgradeKeplr,
   };
 }

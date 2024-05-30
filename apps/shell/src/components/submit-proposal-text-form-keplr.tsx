@@ -9,7 +9,7 @@ import { useNetwork } from 'wagmi';
 import * as Yup from 'yup';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
-  ICreateUpgradeProposalForm,
+  ICreateTextProposalForm,
   getFormattedAddress,
   getKeplrWallet,
   haqqToEth,
@@ -27,7 +27,7 @@ import {
   ToastError,
   ToastLoading,
   ToastSuccess,
-  Tooltip,
+  // Tooltip,
 } from '@haqq/shell-ui-kit';
 
 const inputClassnames = clsx(
@@ -41,22 +41,8 @@ const schema = Yup.object({
   title: Yup.string().required('Title is required'),
   description: Yup.string().required('Description is required'),
   initialDeposit: Yup.number()
-    .min(0, 'Initial deposit cannot be negative')
-    .required('Initial deposit is required'),
-  applyHeight: Yup.number()
-    .min(0, 'Apply height cannot be negative')
-    .required('Apply Height is required'),
-  planName: Yup.string().required('Plan name is required'),
-  plan: Yup.string()
-    .required('Plan is required')
-    .test('is-json', 'Upgrade plan must be valid JSON', (value: string) => {
-      try {
-        JSON.parse(value);
-        return true;
-      } catch (error) {
-        return false;
-      }
-    }),
+    .min(0, 'Deposit cannot be negative')
+    .required('Deposit is required'),
 }).required();
 
 async function enableChains(keplrWallet: Keplr) {
@@ -155,13 +141,13 @@ export async function addHaqqTestedge(keplrWallet: Keplr) {
   }
 }
 
-export function CreateSoftwareUpgradeProposalFormKeplr() {
+export function CreateTextProposalFormKeplr() {
   const toast = useToast();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ICreateUpgradeProposalForm>({
+  } = useForm<ICreateTextProposalForm>({
     resolver: yupResolver(schema),
   });
   const chains = useSupportedChains();
@@ -171,7 +157,7 @@ export function CreateSoftwareUpgradeProposalFormKeplr() {
       ? chain.id
       : chains[0].id,
   );
-  const { submitSoftwareUpgradeProposalKeplr } = useProposalActions();
+  const { submitTextProposalKeplr } = useProposalActions();
   const [isKeplrConnected, setIsKeplrConnected] = useState(false);
   const [keplrAccount, setKeplrAccount] = useState<string | null>(null);
   const { ethAddress } = useAddress();
@@ -179,12 +165,12 @@ export function CreateSoftwareUpgradeProposalFormKeplr() {
   const { disconnect } = useWallet();
 
   const handleSubmitProposalKeplr = useCallback(
-    async (validatetFormData: ICreateUpgradeProposalForm) => {
+    async (validatetFormData: ICreateTextProposalForm) => {
       const keplr = await getKeplrWallet();
 
       if (keplr) {
         try {
-          const submitProposalPromise = submitSoftwareUpgradeProposalKeplr(
+          const submitProposalPromise = submitTextProposalKeplr(
             validatetFormData,
             keplr,
           );
@@ -224,16 +210,11 @@ export function CreateSoftwareUpgradeProposalFormKeplr() {
         }
       }
     },
-    [explorer.cosmos, submitSoftwareUpgradeProposalKeplr, toast],
+    [explorer.cosmos, submitTextProposalKeplr, toast],
   );
 
-  const onFormSubmitKeplr: SubmitHandler<ICreateUpgradeProposalForm> = (
-    data,
-  ) => {
-    handleSubmitProposalKeplr({
-      ...data,
-      plan: JSON.stringify(JSON.parse(data.plan)),
-    });
+  const onFormSubmitKeplr: SubmitHandler<ICreateTextProposalForm> = (data) => {
+    handleSubmitProposalKeplr(data);
   };
 
   const handleConnectKeplrClick = useCallback(async () => {
@@ -262,8 +243,8 @@ export function CreateSoftwareUpgradeProposalFormKeplr() {
 
   const form = (
     <form onSubmit={handleSubmit(onFormSubmitKeplr)}>
-      <div className="flex flex-1 flex-col gap-[14px]">
-        <div className="flex flex-col gap-[6px]">
+      <div className="flex flex-1 flex-col gap-[18px]">
+        <div className="flex flex-col gap-[8px]">
           <div>
             <label
               htmlFor="title"
@@ -281,10 +262,10 @@ export function CreateSoftwareUpgradeProposalFormKeplr() {
             />
           </div>
 
-          <FormInputError error={errors.title?.message} />
+          {errors.title && <div>{errors.title.message}</div>}
         </div>
 
-        <div className="flex flex-col gap-[6px]">
+        <div className="flex flex-col gap-[8px]">
           <div>
             <label
               className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
@@ -293,104 +274,39 @@ export function CreateSoftwareUpgradeProposalFormKeplr() {
               Description
             </label>
           </div>
-          <div className="leading-[0px]">
-            <textarea
-              className={clsx(inputClassnames, 'min-h-32 resize-none')}
+          <div>
+            <input
+              className={inputClassnames}
               {...register('description')}
               id="description"
+              type="text"
             />
           </div>
-          <FormInputError error={errors.description?.message} />
+          {errors.description && <div>{errors.description.message}</div>}
         </div>
 
-        <div className="flex flex-row gap-[16px]">
-          <div className="flex flex-1 flex-col gap-[6px]">
-            <div>
-              <label
-                className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
-                htmlFor="initialDeposit"
-              >
-                Initial Deposit
-              </label>
-            </div>
-            <div>
-              <input
-                className={inputClassnames}
-                {...register('initialDeposit')}
-                id="initialDeposit"
-                type="number"
-              />
-            </div>
-            <FormInputError error={errors.initialDeposit?.message} />
-          </div>
-
-          <div className="flex flex-1 flex-col gap-[6px]">
-            <div>
-              <label
-                className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
-                htmlFor="applyHeight"
-              >
-                Apply Height
-              </label>
-            </div>
-            <div>
-              <input
-                className={inputClassnames}
-                {...register('applyHeight')}
-                id="applyHeight"
-                type="number"
-              />
-            </div>
-            <FormInputError error={errors.applyHeight?.message} />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-[6px]">
+        <div className="flex flex-1 flex-col gap-[8px]">
           <div>
             <label
-              htmlFor="planName"
               className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
+              htmlFor="initialDeposit"
             >
-              Upgrade plan version
+              Initial Deposit
             </label>
           </div>
           <div>
             <input
               className={inputClassnames}
-              {...register('planName')}
-              type="text"
-              id="planName"
+              {...register('initialDeposit')}
+              id="initialDeposit"
+              type="number"
             />
           </div>
-          <FormInputError error={errors.planName?.message} />
-        </div>
-
-        <div className="flex flex-col gap-[6px]">
-          <div>
-            <label
-              className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
-              htmlFor="plan"
-            >
-              Upgrade plan info
-            </label>
-          </div>
-          <div className="leading-[0px]">
-            <textarea
-              className={clsx(inputClassnames, 'min-h-32 resize-none')}
-              {...register('plan')}
-              id="plan"
-            />
-          </div>
-          <FormInputError error={errors.plan?.message} />
+          {errors.initialDeposit && <div>{errors.initialDeposit.message}</div>}
         </div>
 
         <div className="mt-[16px]">
-          <Button
-            className="w-full"
-            variant={2}
-            type="submit"
-            disabled={!isKeplrConnected}
-          >
+          <Button className="w-full" variant={2} type="submit">
             Submit proposal
           </Button>
         </div>
@@ -400,11 +316,11 @@ export function CreateSoftwareUpgradeProposalFormKeplr() {
 
   return (
     <div className="flex-1">
-      <div className="mx-auto transform-gpu flex-col gap-y-[32px] rounded-b-[8px] rounded-t-[8px] bg-[#ffffff14] p-[24px] lg:mb-[68px] lg:p-[32px]">
+      <div className="mx-auto transform-gpu flex-col gap-y-[32px] rounded-b-[8px] rounded-t-[8px] bg-[#ffffff14] p-[24px] lg:p-[32px]">
         <div className="flex flex-col gap-[32px]">
           <div>
             <Heading level={3} className="mb-[-2px]">
-              Software upgrade
+              Text
             </Heading>
           </div>
 
