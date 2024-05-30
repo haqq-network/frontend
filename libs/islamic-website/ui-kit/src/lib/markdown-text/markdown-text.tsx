@@ -47,11 +47,12 @@ export function MarkdownTextProseWrapper({
         'prose-li:text-[13px] prose-li:leading-[20px] lg:prose-li:text-base',
         'marker:prose-li:font-[600] prose-li:my-0',
         'prose-table:text-[14px] prose-table:leading-[20px] prose-thead:bg-[#2f2f2f]',
-        'prose-th:py-[12px] prose-th:text-left rtl:prose-th:text-right ltr:prose-th:font-vcr rtl:prose-th:font-handjet prose-th:uppercase',
+        'prose-th:py-[12px] prose-th:text-left rtl:prose-th:text-right prose-th:font-vcr rtl:prose-th:font-handjet prose-th:uppercase',
         'first:prose-th:pl-[16px] first:prose-th:pr-0 rtl:first:prose-th:pl-0 rtl:first:prose-th:pr-[16px] even:prose-th:px-[24px] last:prose-th:pr-[16px] last:prose-th:pl-0 rtl:last:prose-th:pl-[16px] rtl:last:prose-th:pr-0',
         'first:prose-td:pl-[16px] first:prose-td:pr-0 rtl:first:prose-td:pl-0 rtl:first:prose-td:pr-[16px] even:prose-td:px-[24px] last:prose-td:pr-[16px] last:prose-td:pl-0 rtl:last:prose-td:pl-[16px] rtl:last:prose-td:pr-0',
         'prose-tr:border-none prose-thead:border-none even:prose-tr:bg-[#2f2f2f]',
         'rtl:prose-ul:pr-[26px] rtl:prose-ul:pl-0 rtl:prose-ol:pr-[26px] rtl:prose-ol:pl-0',
+        'prose-code:text-current',
         className,
       )}
     >
@@ -60,46 +61,52 @@ export function MarkdownTextProseWrapper({
   );
 }
 
+function MarkdownHeading({
+  level,
+  children,
+  node,
+}: PropsWithChildren<{
+  level: number;
+  node: ReactMarkdownProps['node'];
+}>) {
+  const tagName = `h${level}`;
+  const id = node?.properties?.['id'];
+  return createElement(
+    tagName,
+    { ...node?.properties },
+    <Link href={`#${id}`} className="group relative !text-white">
+      {children}
+      <LinkIcon className="ml-[8px] inline transition-opacity duration-150 ease-out lg:opacity-0 lg:group-hover:opacity-100" />
+    </Link>,
+  );
+}
+
 export function MarkdownText({
   children,
   className,
+  renderHeadingsAsLinks = true,
 }: {
   className?: string;
   children: string;
+  renderHeadingsAsLinks?: boolean;
 }) {
-  const renderHeading = ({
-    level,
-    children,
-    node,
-  }: PropsWithChildren<{
-    level: number;
-    node: ReactMarkdownProps['node'];
-  }>) => {
-    const tagName = `h${level}`;
-    const id = node?.properties?.['id'];
-    return createElement(
-      tagName,
-      { ...node?.properties },
-      <Link href={`#${id}`} className="group relative !text-white">
-        {children}
-        <LinkIcon className="ml-[8px] inline transition-opacity duration-150 ease-out lg:opacity-0 lg:group-hover:opacity-100" />
-      </Link>,
-    );
-  };
-
   return (
     <MarkdownTextProseWrapper className={className}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug]}
-        components={{
-          h1: renderHeading,
-          h2: renderHeading,
-          h3: renderHeading,
-          h4: renderHeading,
-          h5: renderHeading,
-          h6: renderHeading,
-        }}
+        components={
+          renderHeadingsAsLinks
+            ? {
+                h1: MarkdownHeading,
+                h2: MarkdownHeading,
+                h3: MarkdownHeading,
+                h4: MarkdownHeading,
+                h5: MarkdownHeading,
+                h6: MarkdownHeading,
+              }
+            : {}
+        }
       >
         {children}
       </ReactMarkdown>

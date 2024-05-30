@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { SubscribeForm } from '@haqq/haqq-website/forms';
 import {
   DiscordIcon,
   GithubIcon,
@@ -15,6 +15,16 @@ import {
   Button,
 } from '@haqq/haqq-website-ui-kit';
 
+const SubscribeForm = dynamic(
+  async () => {
+    const { SubscribeForm } = await import('@haqq/haqq-website/forms');
+    return { default: SubscribeForm };
+  },
+  {
+    ssr: false,
+  },
+);
+
 interface NavLinkProps {
   href: string;
   isOutLink?: boolean;
@@ -22,6 +32,7 @@ interface NavLinkProps {
 }
 
 type SocialLinkProps = Pick<NavLinkProps, 'href'> & {
+  id: string;
   icon: ReactNode;
 };
 
@@ -50,6 +61,7 @@ function BurgerMenuNavLink({
 }
 
 function BurgerMenuSocialLink({
+  id,
   href,
   children,
   icon,
@@ -60,9 +72,10 @@ function BurgerMenuSocialLink({
       target="_blank"
       rel="noopener noreferrer"
       className="group inline-flex flex-initial flex-row items-center space-x-2 text-[12px] leading-[20px] text-white/50 transition-colors duration-100 hover:text-white sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px]"
+      data-attr={`community-${id}`}
     >
-      <div>{icon}</div>
-      <div>{children}</div>
+      <span>{icon}</span>
+      <span>{children}</span>
       <LinkArrowIcon className="mb-[-3px]" />
     </Link>
   );
@@ -132,8 +145,9 @@ export function BurgerMenu({
       </div>
 
       <div className="mb-[60px] grid grid-cols-2 gap-[14px] sm:mb-[80px] sm:gap-[18px]">
-        <div>
+        <div className="leading-[0]">
           <BurgerMenuSocialLink
+            id="discord"
             href="https://discord.gg/islamiccoin"
             icon={
               <DiscordIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
@@ -142,8 +156,9 @@ export function BurgerMenu({
             Discord
           </BurgerMenuSocialLink>
         </div>
-        <div>
+        <div className="leading-[0]">
           <BurgerMenuSocialLink
+            id="github"
             href="https://github.com/haqq-network"
             icon={
               <GithubIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
@@ -152,8 +167,9 @@ export function BurgerMenu({
             Github
           </BurgerMenuSocialLink>
         </div>
-        <div>
+        <div className="leading-[0]">
           <BurgerMenuSocialLink
+            id="twitter"
             href="https://twitter.com/The_HaqqNetwork"
             icon={
               <TwitterIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
@@ -162,8 +178,9 @@ export function BurgerMenu({
             Twitter
           </BurgerMenuSocialLink>
         </div>
-        <div>
+        <div className="leading-[0]">
           <BurgerMenuSocialLink
+            id="telegram"
             href="https://t.me/islamiccoin_int"
             icon={
               <TelegramIcon className="mt-[-2px] h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />

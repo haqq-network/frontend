@@ -3,6 +3,7 @@ import { IndexPage } from '@haqq/islamic-website/index-page';
 import { DEPLOY_URL } from '../../constants';
 import { getChainStatsFromFalconer } from '../../utils/get-chain-stats-data';
 import { getHomePageDataFromFalconer } from '../../utils/get-home-page-data';
+import { getWalletRatings } from '../../utils/get-wallet-ratings';
 import { islamicOpenGraphImages } from '../shared-metadata';
 
 const title = 'IslamicCoin';
@@ -30,6 +31,7 @@ export default async function Page({
   const stats = await getChainStatsFromFalconer();
   const { news, advisoryMembers, executiveMembers, shariahMembers } =
     await getHomePageDataFromFalconer(locale);
+  const storeRatings = await getWalletRatings();
 
   return (
     <IndexPage
@@ -38,6 +40,7 @@ export default async function Page({
       advisoryMembers={advisoryMembers}
       executiveMembers={executiveMembers}
       shariahMembers={shariahMembers}
+      storeRatings={storeRatings}
     />
   );
 }

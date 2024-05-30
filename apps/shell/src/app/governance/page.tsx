@@ -7,6 +7,9 @@ import {
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import { ProposalListPage } from '@haqq/shell-governance';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 export default async function ProposalList() {
   // FIXME: Think how to get chain id on server side
   const chainId = 11235;

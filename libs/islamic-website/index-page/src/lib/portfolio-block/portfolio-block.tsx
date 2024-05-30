@@ -1,18 +1,55 @@
+'use client';
+import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { usePostHog } from 'posthog-js/react';
 import {
   Container,
   GradientText,
   Text,
-  WalletDownloadButton,
   RatingBadge,
+  WalletDownloadWithQrButton,
+  WalletDownloadButton,
 } from '@haqq/islamic-website-ui-kit';
 import halfIphoneImgData from '../../assets/images/half-iphone.jpg';
 import iphoneImgData from '../../assets/images/iphone.jpg';
+import { getDynamicLink } from '../utils/get-dynamic-link';
 
-export function PortfolioBlock() {
+export function PortfolioBlock({
+  storeRatings,
+}: {
+  storeRatings: {
+    appStore: number;
+    googlePlay: number;
+  };
+}) {
   const t = useTranslations('index-page');
+  const posthog = usePostHog();
+
+  const { appStoreLink, playMarketLink } = useMemo(() => {
+    const distinctId = posthog.get_distinct_id();
+
+    if (!distinctId) {
+      return {
+        appStoreLink: null,
+        playMarketLink: null,
+      };
+    }
+
+    return {
+      appStoreLink: getDynamicLink(
+        'https://haqq.network/wallet',
+        distinctId,
+        'https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352',
+      ),
+      playMarketLink: getDynamicLink(
+        'https://haqq.network/wallet',
+        distinctId,
+        'https://play.google.com/store/apps/details?id=com.haqq.wallet',
+      ),
+    };
+  }, [posthog]);
 
   return (
     <section>
@@ -53,15 +90,64 @@ export function PortfolioBlock() {
                   {t('portfolio-block.text')}
                 </Text>
                 <div className="mt-[24px] flex gap-x-[24px] gap-y-[20px] min-[375px]:gap-x-[32px] md:mt-[36px]">
-                  <RatingBadge market="app-store" rating={4.8} />
-                  <RatingBadge market="google-play" rating={4.9} />
+                  <div className="flex flex-col gap-y-[6px]">
+                    <span className="rtl:font-handjet ltr:font-vcr text-[10px] uppercase leading-[16px] text-white/50">
+                      {t('portfolio-block.stores.app-store')}
+                    </span>
+                    <RatingBadge rating={storeRatings.appStore} />
+                  </div>
+                  <div className="flex flex-col gap-y-[6px]">
+                    <span className="rtl:font-handjet ltr:font-vcr text-[10px] uppercase leading-[16px] text-white/50">
+                      {t('portfolio-block.stores.google-play')}
+                    </span>
+                    <RatingBadge rating={storeRatings.googlePlay} />
+                  </div>
                 </div>
-                <div className="mt-[20px] flex flex-col gap-x-[16px] gap-y-[20px] lg:mt-[24px] lg:flex-row">
+                <div className="hidden lg:mt-[24px] lg:flex lg:flex-row lg:gap-x-[16px]">
                   <div className="w-fit">
+                    {appStoreLink && (
+                      <Link
+                        href={appStoreLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-attr="download-ios"
+                      >
+                        <WalletDownloadWithQrButton
+                          type="apple"
+                          title={t(
+                            'portfolio-block.stores.download-button.title',
+                          )}
+                          link={appStoreLink}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                  <div className="w-fit">
+                    {playMarketLink && (
+                      <Link
+                        href={playMarketLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-attr="download-android"
+                      >
+                        <WalletDownloadWithQrButton
+                          type="google"
+                          title={t(
+                            'portfolio-block.stores.download-button.title',
+                          )}
+                          link={playMarketLink}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                </div>
+                <div className="mt-[20px] flex flex-col gap-y-[20px] lg:hidden">
+                  {appStoreLink && (
                     <Link
-                      href="https://apps.apple.com/app/haqq-wallet-by-bored-gen/id6443843352"
+                      href={appStoreLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-attr="download-ios"
                     >
                       <WalletDownloadButton
                         type="apple"
@@ -70,12 +156,13 @@ export function PortfolioBlock() {
                         )}
                       />
                     </Link>
-                  </div>
-                  <div className="w-fit">
+                  )}
+                  {playMarketLink && (
                     <Link
-                      href="https://play.google.com/store/apps/details?id=com.haqq.wallet"
+                      href={playMarketLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-attr="download-android"
                     >
                       <WalletDownloadButton
                         type="google"
@@ -84,7 +171,7 @@ export function PortfolioBlock() {
                         )}
                       />
                     </Link>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -13,6 +13,7 @@ export interface Post {
   image: { src: string; width: number; height: number } | null;
   isFeatured?: boolean;
   tags: string[];
+  utmCampaign?: string;
 }
 
 function BlogPageHeader() {

@@ -21,6 +21,12 @@ const analyticsCookieTable = [
     col3: '1 day',
     is_regex: false,
   },
+  {
+    col1: '^ph_.*',
+    col2: 'posthog.com',
+    col3: '6 months',
+    is_regex: true,
+  },
 ];
 
 const pluginConfig: UserConfig = {

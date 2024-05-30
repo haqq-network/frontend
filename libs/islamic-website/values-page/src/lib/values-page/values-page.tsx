@@ -6,7 +6,7 @@ import glowCubeImgData from '../../assets/images/glow-cube.jpg';
 
 function ValuesPageHeading({ children }: PropsWithChildren) {
   return (
-    <h3 className="rtl:font-handjet ltr:font-vcr text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
+    <h3 className="rtl:font-handjet font-vcr text-[15px] uppercase leading-[22px] lg:text-[18px] lg:leading-[26px]">
       <GradientText className="rtl:pb-[10px]">{children}</GradientText>
     </h3>
   );

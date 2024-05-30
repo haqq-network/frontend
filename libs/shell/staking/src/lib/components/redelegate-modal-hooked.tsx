@@ -62,11 +62,12 @@ export function RedelegateModalHooked({
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledRedelegateAmount = useThrottle(redelegateAmount, 300);
   const posthog = usePostHog();
+  const chainId = chain.id;
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
       if (validatorDestinationAddress && validatorAddress) {
-        posthog.capture('redelegate started');
+        posthog.capture('redelegate started', { chainId });
         setRedelegateEnabled(false);
         const redelegationPromise = redelegate(
           validatorAddress,
@@ -76,41 +77,50 @@ export function RedelegateModalHooked({
           fee,
         );
 
-        await toast.promise(redelegationPromise, {
-          loading: <ToastLoading>Redelegate in progress</ToastLoading>,
-          success: (tx) => {
-            console.log('Redelegation successful', { tx });
-            const txHash = tx?.txhash;
-            posthog.capture('redelegate success');
+        await toast.promise(
+          redelegationPromise,
+          {
+            loading: <ToastLoading>Redelegate in progress</ToastLoading>,
+            success: (tx) => {
+              console.log('Redelegation successful', { tx });
+              const txHash = tx?.txhash;
 
-            return (
-              <ToastSuccess>
-                <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                  <div>Redelegation successful</div>
-                  <div>
-                    <Link
-                      href={`${explorer.cosmos}/tx/${txHash}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                    >
-                      <LinkIcon />
-                      <span>{getFormattedAddress(txHash)}</span>
-                    </Link>
+              return (
+                <ToastSuccess>
+                  <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                    <div>Redelegation successful</div>
+                    <div>
+                      <Link
+                        href={`${explorer.cosmos}/tx/${txHash}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                      >
+                        <LinkIcon />
+                        <span>{getFormattedAddress(txHash)}</span>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </ToastSuccess>
-            );
+                </ToastSuccess>
+              );
+            },
+            error: (error) => {
+              return <ToastError>{error.message}</ToastError>;
+            },
           },
-          error: (error) => {
-            posthog.capture('redelegate failed');
-            return <ToastError>{error.message}</ToastError>;
+          {
+            success: {
+              duration: 5000,
+            },
           },
-        });
+        );
+        posthog.capture('redelegate success', { chainId });
         onClose();
       }
     } catch (error) {
-      console.error((error as Error).message);
+      const message = (error as Error).message;
+      posthog.capture('redelegate failed', { chainId, error: message });
+      console.error(message);
     } finally {
       setRedelegateEnabled(true);
     }
@@ -118,6 +128,7 @@ export function RedelegateModalHooked({
     validatorDestinationAddress,
     validatorAddress,
     posthog,
+    chainId,
     redelegate,
     redelegateAmount,
     balance,
@@ -203,8 +214,9 @@ export function RedelegateModalHooked({
               setFeePending(false);
             }
           })
-          .catch((reason) => {
-            console.error(reason);
+          .catch((error) => {
+            const message = (error as Error).message;
+            toast.error(<ToastError>{message}</ToastError>);
             setFeePending(false);
           });
       }
@@ -216,6 +228,7 @@ export function RedelegateModalHooked({
     validatorDestinationAddress,
     getRedelegateEstimatedFee,
     isRedelegateEnabled,
+    toast,
   ]);
 
   return (

@@ -1,7 +1,17 @@
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { FeedbackForm } from '@haqq/haqq-website/forms';
 import { Heading } from '@haqq/haqq-website-ui-kit';
 import eclipseImageData from '../../assets/images/index-page-contact-bg.png';
+
+const FeedbackForm = dynamic(
+  async () => {
+    const { FeedbackForm } = await import('@haqq/haqq-website/forms');
+    return { default: FeedbackForm };
+  },
+  {
+    ssr: false,
+  },
+);
 
 export function ContactBlock({
   turnstileSiteKey,

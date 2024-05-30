@@ -1,5 +1,6 @@
 'use client';
 import { PropsWithChildren } from 'react';
+import { Context as ResponsiveContext } from 'react-responsive';
 import {
   Config,
   ConfigProvider,
@@ -10,10 +11,26 @@ import {
   WalletProvider,
 } from '@haqq/shell-shared';
 
+function ResponsiveProvider({
+  children,
+  isMobileUserAgent,
+}: PropsWithChildren<{ isMobileUserAgent?: boolean }>) {
+  if (!isMobileUserAgent) {
+    return children;
+  }
+
+  return (
+    <ResponsiveContext.Provider value={{ width: 375 }}>
+      {children}
+    </ResponsiveContext.Provider>
+  );
+}
+
 export function Providers({
   children,
   config,
-}: PropsWithChildren<{ config: Config }>) {
+  isMobileUserAgent,
+}: PropsWithChildren<{ config: Config; isMobileUserAgent?: boolean }>) {
   return (
     <ConfigProvider config={config}>
       <ReactQueryProvider withDevtools={true}>
@@ -22,8 +39,10 @@ export function Providers({
         >
           <CosmosProvider>
             <WalletProvider>
-              {children}
-              <Toaster />
+              <ResponsiveProvider isMobileUserAgent={isMobileUserAgent}>
+                {children}
+                <Toaster />
+              </ResponsiveProvider>
             </WalletProvider>
           </CosmosProvider>
         </WagmiProvider>

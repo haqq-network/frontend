@@ -25,9 +25,9 @@ import {
   StarIcon,
   ValuesIcon,
 } from '@haqq/islamic-website-ui-kit';
-import { LanguageLink } from '../header/header';
+// import { LanguageLink } from '../header/header';
 
-const { Link, usePathname } = createSharedPathnamesNavigation({
+const { Link } = createSharedPathnamesNavigation({
   locales: [
     'en',
     // 'ar', 'id'
@@ -75,13 +75,13 @@ export function BurgerMenu({
   locale: string;
 }) {
   const t = useTranslations('header');
-  const [isLocaleSwitcherOpened, setIsLocaleSwitcherOpened] = useState(false);
+  // const [isLocaleSwitcherOpened, setIsLocaleSwitcherOpened] = useState(false);
 
-  const toggleLocaleMenu = useCallback(() => {
-    return setIsLocaleSwitcherOpened(!isLocaleSwitcherOpened);
-  }, [isLocaleSwitcherOpened]);
+  // const toggleLocaleMenu = useCallback(() => {
+  //   return setIsLocaleSwitcherOpened(!isLocaleSwitcherOpened);
+  // }, [isLocaleSwitcherOpened]);
 
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     <div className={clsx('px-[16px] md:px-[48px]', className)}>
@@ -277,65 +277,65 @@ function MobileMenuDropdownLink({
   );
 }
 
-function MobileMenuLangButton({
-  onClick,
-  locale,
-  isBackButton = false,
-}: {
-  onClick: () => void;
-  locale?: string;
-  isBackButton?: boolean;
-}) {
-  const t = useTranslations('header.burger-menu.back-button');
-  return (
-    <div
-      className={clsx(
-        'hover:text-islamic-primary-green flex cursor-default items-center gap-x-[10px] py-[12px] text-base font-[500] uppercase text-white transition-colors duration-200',
-        isBackButton ? 'items-start px-[16px]' : 'justify-between',
-      )}
-      onClick={onClick}
-    >
-      {isBackButton ? (
-        <Fragment>
-          <div className="mr-[6px]">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6.77148 11.9941C6.77148 12.2627 6.86816 12.499 7.07227 12.7031L15.5908 21.0283C15.7734 21.2217 16.0098 21.3184 16.2891 21.3184C16.8477 21.3184 17.2773 20.8994 17.2773 20.3408C17.2773 20.0615 17.1592 19.8252 16.9873 19.6426L9.16699 11.9941L16.9873 4.3457C17.1592 4.16309 17.2773 3.91602 17.2773 3.64746C17.2773 3.08887 16.8477 2.66992 16.2891 2.66992C16.0098 2.66992 15.7734 2.7666 15.5908 2.94922L7.07227 11.2852C6.86816 11.4785 6.77148 11.7256 6.77148 11.9941Z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
-          <span>{t('title')}</span>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <span>
-            {locale === 'en' && 'En'}
-            {locale === 'ar' && 'عربي'}
-            {locale === 'id' && 'Bahasa Indonesia'}
-          </span>
-          <div className="mr-[6px]">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M17.2773 11.9941C17.2773 11.7256 17.1807 11.4893 16.9766 11.2852L8.45801 2.95996C8.27539 2.7666 8.03906 2.66992 7.75977 2.66992C7.20117 2.66992 6.77149 3.08887 6.77149 3.64746C6.77149 3.92676 6.88965 4.16309 7.06152 4.3457L14.8818 11.9941L7.06152 19.6426C6.88965 19.8252 6.77148 20.0723 6.77148 20.3408C6.77148 20.8994 7.20117 21.3184 7.75977 21.3184C8.03906 21.3184 8.27539 21.2217 8.45801 21.0391L16.9766 12.7031C17.1807 12.5098 17.2773 12.2627 17.2773 11.9941Z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
-        </Fragment>
-      )}
-    </div>
-  );
-}
+// function MobileMenuLangButton({
+//   onClick,
+//   locale,
+//   isBackButton = false,
+// }: {
+//   onClick: () => void;
+//   locale?: string;
+//   isBackButton?: boolean;
+// }) {
+//   const t = useTranslations('header.burger-menu.back-button');
+//   return (
+//     <div
+//       className={clsx(
+//         'hover:text-islamic-primary-green flex cursor-default items-center gap-x-[10px] py-[12px] text-base font-[500] uppercase text-white transition-colors duration-200',
+//         isBackButton ? 'items-start px-[16px]' : 'justify-between',
+//       )}
+//       onClick={onClick}
+//     >
+//       {isBackButton ? (
+//         <Fragment>
+//           <div className="mr-[6px]">
+//             <svg
+//               width="24"
+//               height="24"
+//               viewBox="0 0 24 24"
+//               fill="none"
+//               xmlns="http://www.w3.org/2000/svg"
+//             >
+//               <path
+//                 d="M6.77148 11.9941C6.77148 12.2627 6.86816 12.499 7.07227 12.7031L15.5908 21.0283C15.7734 21.2217 16.0098 21.3184 16.2891 21.3184C16.8477 21.3184 17.2773 20.8994 17.2773 20.3408C17.2773 20.0615 17.1592 19.8252 16.9873 19.6426L9.16699 11.9941L16.9873 4.3457C17.1592 4.16309 17.2773 3.91602 17.2773 3.64746C17.2773 3.08887 16.8477 2.66992 16.2891 2.66992C16.0098 2.66992 15.7734 2.7666 15.5908 2.94922L7.07227 11.2852C6.86816 11.4785 6.77148 11.7256 6.77148 11.9941Z"
+//                 fill="currentColor"
+//               />
+//             </svg>
+//           </div>
+//           <span>{t('title')}</span>
+//         </Fragment>
+//       ) : (
+//         <Fragment>
+//           <span>
+//             {locale === 'en' && 'En'}
+//             {locale === 'ar' && 'عربي'}
+//             {locale === 'id' && 'Bahasa Indonesia'}
+//           </span>
+//           <div className="mr-[6px]">
+//             <svg
+//               width="24"
+//               height="24"
+//               viewBox="0 0 24 24"
+//               fill="none"
+//               xmlns="http://www.w3.org/2000/svg"
+//             >
+//               <path
+//                 d="M17.2773 11.9941C17.2773 11.7256 17.1807 11.4893 16.9766 11.2852L8.45801 2.95996C8.27539 2.7666 8.03906 2.66992 7.75977 2.66992C7.20117 2.66992 6.77149 3.08887 6.77149 3.64746C6.77149 3.92676 6.88965 4.16309 7.06152 4.3457L14.8818 11.9941L7.06152 19.6426C6.88965 19.8252 6.77148 20.0723 6.77148 20.3408C6.77148 20.8994 7.20117 21.3184 7.75977 21.3184C8.03906 21.3184 8.27539 21.2217 8.45801 21.0391L16.9766 12.7031C17.1807 12.5098 17.2773 12.2627 17.2773 11.9941Z"
+//                 fill="currentColor"
+//               />
+//             </svg>
+//           </div>
+//         </Fragment>
+//       )}
+//     </div>
+//   );
+// }

@@ -1,3 +1,4 @@
+'use client';
 import { useCallback } from 'react';
 import {
   createMsgBeginRedelegate,
@@ -14,6 +15,7 @@ import {
   MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
+import { usePostHog } from 'posthog-js/react';
 import { useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
@@ -22,6 +24,7 @@ import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
+import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
 
 export function useStakingActions() {
@@ -42,6 +45,8 @@ export function useStakingActions() {
       : chains[0].id,
   );
   const haqqChain = mapToCosmosChain(chainParams);
+  const posthog = usePostHog();
+  const chainId = chain.id;
 
   const getDelegationParams = useCallback(
     (
@@ -99,7 +104,11 @@ export function useStakingActions() {
         const msg = createTxMsgDelegate(haqqChain, sender, fee, memo, params);
 
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -126,6 +135,8 @@ export function useStakingActions() {
       getDelegationParams,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );
@@ -151,7 +162,11 @@ export function useStakingActions() {
         );
         const msg = createTxMsgUndelegate(haqqChain, sender, fee, memo, params);
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -178,6 +193,8 @@ export function useStakingActions() {
       getDelegationParams,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );
@@ -204,7 +221,11 @@ export function useStakingActions() {
           params,
         );
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -230,6 +251,8 @@ export function useStakingActions() {
       getFee,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );
@@ -253,7 +276,11 @@ export function useStakingActions() {
           params,
         );
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -279,6 +306,8 @@ export function useStakingActions() {
       getFee,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );

@@ -7,6 +7,9 @@ import { notFound } from 'next/navigation';
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import { ProposalDetailsPage } from '@haqq/shell-governance';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 export default async function ProposalDetails({
   params,
 }: {

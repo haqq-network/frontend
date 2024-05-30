@@ -1,10 +1,10 @@
 'use client';
 import { ReactNode } from 'react';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMediaQuery } from 'react-responsive';
-import { SubscribeForm } from '@haqq/haqq-website/forms';
 import {
   DiscordIcon,
   GithubIcon,
@@ -14,6 +14,11 @@ import {
   TwitterIcon,
 } from '@haqq/haqq-website-ui-kit';
 import logoImageData from '../../assets/images/logo.svg';
+
+const SubscribeForm = dynamic(async () => {
+  const { SubscribeForm } = await import('@haqq/haqq-website/forms');
+  return { default: SubscribeForm };
+});
 
 function FooterNavLink({
   href,
@@ -45,10 +50,12 @@ function FooterNavSocialLink({
   href,
   children,
   icon,
+  id,
 }: {
   href: string;
   children: ReactNode;
   icon: ReactNode;
+  id: string;
 }) {
   return (
     <Link
@@ -56,6 +63,7 @@ function FooterNavSocialLink({
       target="_blank"
       rel="noopener noreferrer"
       className="group inline-flex flex-initial flex-row items-center text-[12px] leading-[20px] text-white/50 transition-colors duration-100 hover:text-white sm:text-[13px] sm:leading-[24px] lg:text-[16px] lg:leading-[26px]"
+      data-attr={`community-${id}`}
     >
       <div>{icon}</div>
       <div className="ml-[12px]">{children}</div>
@@ -133,6 +141,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
             <nav className="grid grid-cols-1 gap-[8px] sm:grid-cols-2 sm:gap-[12px] lg:grid-cols-1">
               <div className="leading-[0]">
                 <FooterNavSocialLink
+                  id="discord"
                   href="https://discord.gg/CDtXuQG3Vd"
                   icon={
                     <DiscordIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
@@ -143,6 +152,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               </div>
               <div className="leading-[0]">
                 <FooterNavSocialLink
+                  id="github"
                   href="https://github.com/haqq-network"
                   icon={
                     <GithubIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
@@ -153,6 +163,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               </div>
               <div className="leading-[0]">
                 <FooterNavSocialLink
+                  id="twitter"
                   href="https://twitter.com/The_HaqqNetwork"
                   icon={
                     <TwitterIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
@@ -163,6 +174,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
               </div>
               <div className="leading-[0]">
                 <FooterNavSocialLink
+                  id="telegram"
                   href="https://t.me/islamiccoin_int"
                   icon={
                     <TelegramIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />

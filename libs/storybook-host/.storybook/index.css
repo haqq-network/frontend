@@ -4,6 +4,9 @@
 @tailwind base;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght,ELGR,ELSH@100..900,1..2,0..16&display=swap');
+
 @layer base {
   input[type='number'] {
     appearance: textfield;
@@ -72,7 +75,7 @@
 }
 
 body {
-  @apply bg-haqq-black font-guise h-full overflow-auto text-white will-change-auto;
+  @apply bg-haqq-black h-full overflow-auto text-white will-change-auto;
 }
 
 html {

@@ -116,7 +116,10 @@ export function HeroBlock() {
     const distinctId = posthog.get_distinct_id();
 
     if (!distinctId) {
-      return {};
+      return {
+        appStoreLink: null,
+        playMarketLink: null,
+      };
     }
 
     return {

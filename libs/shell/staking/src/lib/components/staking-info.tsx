@@ -3,13 +3,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
-import { Hex, formatUnits, parseUnits } from 'viem';
+import { formatUnits, parseUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useBalanceAwareActions,
-  useCosmosProvider,
   useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import {
@@ -61,6 +61,7 @@ function useStakingStats() {
   );
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
+  const posthog = usePostHog();
 
   useEffect(() => {
     if (balances) {
@@ -71,6 +72,7 @@ function useStakingStats() {
 
   const handleRewardsClaim = useCallback(async () => {
     try {
+      posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
@@ -107,8 +109,14 @@ function useStakingStats() {
           return <ToastError>{error.message}</ToastError>;
         },
       });
+      posthog.capture('claim all rewards success', { chainId: chain.id });
     } catch (error) {
-      console.error((error as Error).message);
+      const message = (error as Error).message;
+      posthog.capture('claim all rewards failed', {
+        chainId: chain.id,
+        error: message,
+      });
+      console.error(message);
     } finally {
       setRewardsPending(false);
 
@@ -125,6 +133,7 @@ function useStakingStats() {
     explorer.cosmos,
     getClaimAllRewardEstimatedFee,
     invalidateQueries,
+    posthog,
     toast,
   ]);
 
@@ -204,7 +213,6 @@ function useStakingStats() {
 export function StakingInfo() {
   const { ethAddress, haqqAddress } = useAddress();
   const { openSelectWallet, isHaqqWallet } = useWallet();
-  const { isReady } = useCosmosProvider();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -223,10 +231,6 @@ export function StakingInfo() {
   const isTestedge = useMemo(() => {
     return chain.id === haqqTestedge2.id;
   }, [chain.id]);
-
-  if (!isReady) {
-    return null;
-  }
 
   if (!isWalletConnected) {
     return (

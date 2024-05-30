@@ -42,7 +42,7 @@ export function MemberModalCard({
             <Text isMono>{role}</Text>
           </div>
           {url && (
-            <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr mt-[8px] flex items-center gap-x-[4px] uppercase transition-colors duration-300 md:mt-[12px]">
+            <div className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-vcr mt-[8px] flex items-center gap-x-[4px] uppercase transition-colors duration-300 md:mt-[12px]">
               <Link href={url} target="_blank" rel="noopener noreferrer">
                 Web
               </Link>

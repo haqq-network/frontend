@@ -60,10 +60,11 @@ export function UndelegateModalHooked({
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const throttledUndelegateAmount = useThrottle(undelegateAmount, 300);
   const posthog = usePostHog();
+  const chainId = chain.id;
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
-      posthog.capture('undelegate started');
+      posthog.capture('undelegate started', { chainId });
       setUndelegateEnabled(false);
       const undelegationPromise = undelegate(
         validatorAddress,
@@ -72,46 +73,55 @@ export function UndelegateModalHooked({
         fee,
       );
 
-      await toast.promise(undelegationPromise, {
-        loading: <ToastLoading>Undlegation in progress</ToastLoading>,
-        success: (tx) => {
-          console.log('Undlegation successful', { tx });
-          const txHash = tx?.txhash;
-          posthog.capture('undelegate success');
+      await toast.promise(
+        undelegationPromise,
+        {
+          loading: <ToastLoading>Undlegation in progress</ToastLoading>,
+          success: (tx) => {
+            console.log('Undlegation successful', { tx });
+            const txHash = tx?.txhash;
 
-          return (
-            <ToastSuccess>
-              <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Undelegation successful</div>
-                <div>
-                  <Link
-                    href={`${explorer.cosmos}/tx/${txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                  >
-                    <LinkIcon />
-                    <span>{getFormattedAddress(txHash)}</span>
-                  </Link>
+            return (
+              <ToastSuccess>
+                <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
+                  <div>Undelegation successful</div>
+                  <div>
+                    <Link
+                      href={`${explorer.cosmos}/tx/${txHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                    >
+                      <LinkIcon />
+                      <span>{getFormattedAddress(txHash)}</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </ToastSuccess>
-          );
+              </ToastSuccess>
+            );
+          },
+          error: (error) => {
+            return <ToastError>{error.message}</ToastError>;
+          },
         },
-        error: (error) => {
-          posthog.capture('undelegate failed');
-          return <ToastError>{error.message}</ToastError>;
+        {
+          success: {
+            duration: 5000,
+          },
         },
-      });
-
+      );
+      posthog.capture('undelegate success', { chainId });
       onClose();
     } catch (error) {
-      console.error((error as Error).message);
+      const message = (error as Error).message;
+      posthog.capture('undelegate failed', { chainId, error: message });
+      console.error(message);
     } finally {
       setUndelegateEnabled(false);
     }
   }, [
     posthog,
+    chainId,
     undelegate,
     validatorAddress,
     undelegateAmount,
@@ -175,8 +185,9 @@ export function UndelegateModalHooked({
               setFeePending(false);
             }
           })
-          .catch((reason) => {
-            console.error(reason);
+          .catch((error) => {
+            const message = (error as Error).message;
+            toast.error(<ToastError>{message}</ToastError>);
             setFeePending(false);
           });
       }
@@ -187,6 +198,7 @@ export function UndelegateModalHooked({
     throttledUndelegateAmount,
     getUndelegateEstimatedFee,
     isUndelegateEnabled,
+    toast,
   ]);
 
   return (

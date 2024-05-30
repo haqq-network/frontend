@@ -8,6 +8,7 @@ import mexcLogoImageData from '../../assets/images/mexc.svg';
 import osmosisLogoImageData from '../../assets/images/osmosis.svg';
 import bgPageImageData from '../../assets/images/page-background.svg';
 import sushiLogoImageData from '../../assets/images/sushi.svg';
+import uniswapLogoImageData from '../../assets/images/uniswap.svg';
 import xtLogoImageData from '../../assets/images/xt.svg';
 import { CEXCard } from '../cex-card/cex-card';
 import { DEXBlock } from '../dex-block/dex-block';
@@ -19,6 +20,20 @@ const dexData: Array<{
   logo: string;
   pools: Array<{ pair: [string, string]; href: string }>;
 }> = [
+  {
+    name: 'UNISWAP',
+    logo: uniswapLogoImageData,
+    pools: [
+      {
+        pair: ['USDC', 'ISLM'],
+        href: 'https://app.uniswap.org/explore/pools/ethereum/0x2ed7B9F472bE4D0A5a0a3e6D2f8E7dECCF7dFC9D',
+      },
+      {
+        pair: ['ETH', 'ISLM'],
+        href: 'https://app.uniswap.org/explore/pools/ethereum/0x1DE43182992FE252674B5Aac9B5C884ca48D2812',
+      },
+    ],
+  },
   {
     name: 'SUSHI',
     logo: sushiLogoImageData,
@@ -144,6 +159,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://www.kucoin.com/trade/ISLM-USDT"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="cex-kucoin"
                 >
                   <CEXCard name="kuCoin" logo={kucoinLogoImageData} />
                 </Link>
@@ -158,6 +174,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://www.lbank.com/trade/islm_usdt/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="cex-lbank"
                 >
                   <CEXCard name="LBank" logo={lbankLogoImageData} />
                 </Link>
@@ -165,6 +182,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://www.xt.com/en/trade/islm_usdt"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="cex-xt"
                 >
                   <CEXCard name="XT.com" logo={xtLogoImageData} />
                 </Link>
@@ -172,6 +190,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://www.mexc.com/exchange/ISLM_USDT"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="cex-mexc"
                 >
                   <CEXCard name="MEXC" logo={mexcLogoImageData} />
                 </Link>
@@ -200,12 +219,15 @@ export function MarketsPage({ price }: { price: string }) {
                       key={`dex-${index}`}
                     >
                       {dex.pools.map((pool) => {
+                        const key = pool.pair.join('-');
+
                         return (
                           <Link
-                            key={pool.pair.join('_')}
+                            key={key}
                             href={pool.href}
                             target="_blank"
                             rel="noopener noreferrer"
+                            data-attr={`dex-${dex.name}-pool-${key}`}
                           >
                             <DEXCard pair={pool.pair} />
                           </Link>
@@ -232,6 +254,7 @@ export function MarketsPage({ price }: { price: string }) {
                   href="https://buy.onramper.com/?apiKey=pk_prod_01HD0SSHKR1BYWAH09NWZCXVFS&mode=buy&onlyCryptos=islm&onlyCryptoNetworks=haqq"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-attr="fiat-onramper"
                 >
                   <OnamperCard />
                 </Link>

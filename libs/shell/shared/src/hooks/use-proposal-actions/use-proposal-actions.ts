@@ -1,3 +1,4 @@
+'use client';
 import { useCallback } from 'react';
 import { Message } from '@bufbuild/protobuf';
 import {
@@ -36,6 +37,11 @@ import { Keplr } from '@keplr-wallet/types';
 // import { Any } from 'cosmjs-types/google/protobuf/any';
 import Long from 'long';
 import { formatUnits, toHex } from 'viem';
+import { createMsgDeposit, createMsgVote } from '@evmos/proto';
+import { createTxMsgVote, createTxMsgDeposit } from '@evmos/transactions';
+import type { MessageMsgDepositParams } from '@evmos/transactions';
+import { usePostHog } from 'posthog-js/react';
+import { formatUnits } from 'viem';
 import { useNetwork } from 'wagmi';
 import {
   BroadcastTxResponse,
@@ -49,6 +55,7 @@ import { useCosmosService } from '../../providers/cosmos-provider';
 import { useSupportedChains } from '../../providers/wagmi-provider';
 import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
+import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
 
 const { TextProposal } = govProto.cosmos.gov.v1beta1;
@@ -390,9 +397,15 @@ export function useProposalActions(): ProposalActionsHook {
   const chains = useSupportedChains();
   const { haqqAddress, ethAddress } = useAddress();
   const { chain = chains[0] } = useNetwork();
-  const chainParams = getChainParams(chain.id);
+  const chainParams = getChainParams(
+    chain.unsupported !== undefined && !chain.unsupported
+      ? chain.id
+      : chains[0].id,
+  );
   const haqqChain = mapToCosmosChain(chainParams);
   const { getAccountBaseInfo } = useCosmosService();
+  const posthog = usePostHog();
+  const chainId = chain.id;
 
   const handleVote = useCallback(
     async (
@@ -400,7 +413,6 @@ export function useProposalActions(): ProposalActionsHook {
       option: number,
       estimatedFee?: EstimatedFeeResponse,
     ) => {
-      console.log('handleVote', { proposalId, option });
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = `Vote for proposal #${proposalId}`;
@@ -413,7 +425,11 @@ export function useProposalActions(): ProposalActionsHook {
         };
         const msg = createTxMsgVote(haqqChain, sender, fee, memo, voteParams);
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -439,6 +455,8 @@ export function useProposalActions(): ProposalActionsHook {
       getFee,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );
@@ -469,7 +487,12 @@ export function useProposalActions(): ProposalActionsHook {
           depositParams,
         );
         const rawTx = await signTransaction(msg, sender);
-        const txResponse = await broadcastTransaction(rawTx);
+
+        const txResponse = await trackBroadcastTx(
+          broadcastTransaction(rawTx),
+          chainId,
+          posthog,
+        );
 
         if (txResponse.code !== 0) {
           throw new Error(txResponse.raw_log);
@@ -495,6 +518,8 @@ export function useProposalActions(): ProposalActionsHook {
       getFee,
       signTransaction,
       broadcastTransaction,
+      chainId,
+      posthog,
       getTransactionStatus,
     ],
   );

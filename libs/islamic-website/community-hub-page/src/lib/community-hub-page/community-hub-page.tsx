@@ -43,6 +43,7 @@ function SocialIconLink({ id, title, url }: SocialIconLink) {
       target="_blank"
       rel="noopener noreferrer"
       className="cursor-pointer rounded-[12px] bg-[#2F2F2F] p-[16px] transition-colors duration-300 hover:bg-[#585858]"
+      data-attr={`community-${id}`}
     >
       {icon}
     </Link>
@@ -81,12 +82,12 @@ export function CommunityHubPage({
           </div>
           <div
             className={clsx(
-              'absolute z-[-1] translate-y-1/2 ltr:translate-x-1/2 rtl:-translate-x-1/2',
-              'top-[-435px] ltr:right-[-75px] rtl:left-[-75px]',
-              'md:top-[-535px] ltr:md:right-[110px] rtl:md:left-[110px]',
-              'lg:top-[-580px] ltr:lg:right-[175px] rtl:lg:left-[175px]',
-              'rtl:lx:left-[145px] ltr:xl:right-[145px]',
-              'min-[1440px]:top-[-585px] ltr:min-[1440px]:right-[275px] rtl:min-[1440px]:left-[275px]',
+              'absolute z-[-1] translate-x-1/2 translate-y-1/2 rtl:-translate-x-1/2',
+              'right-[-75px] top-[-435px] rtl:left-[-75px]',
+              'md:right-[110px] md:top-[-535px] rtl:md:left-[110px]',
+              'lg:right-[175px] lg:top-[-580px] rtl:lg:left-[175px]',
+              'rtl:lx:left-[145px] xl:right-[145px]',
+              'min-[1440px]:right-[275px] min-[1440px]:top-[-585px] rtl:min-[1440px]:left-[275px]',
             )}
           >
             <div className="h-[741px] w-[1044px]">

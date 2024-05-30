@@ -20,7 +20,7 @@ export function DEXCard({ pair }: DEXCardProps) {
         <DEXPair pair={pair} />
       </div>
       <div>
-        <div className="ltr:font-vcr rtl:font-handjet text-[17px] font-[400] uppercase leading-[28px] md:text-[20px] md:leading-[34px]">
+        <div className="font-vcr rtl:font-handjet text-[17px] font-[400] uppercase leading-[28px] md:text-[20px] md:leading-[34px]">
           {`${pair[0]}/${pair[1]}`}
         </div>
 

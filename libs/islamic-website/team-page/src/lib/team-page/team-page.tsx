@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Fragment } from 'react/jsx-runtime';
 import {
   Container,
   Member,
@@ -13,9 +14,9 @@ function TeamPageBg() {
     <div
       className={clsx(
         'absolute z-[-1] h-[380px] w-[400px] md:h-[954px] md:w-[1000px]',
-        'top-[-130px] ltr:right-[145px] rtl:left-[-145px] rtl:scale-x-[-1]',
-        'md:top-[-300px] ltr:md:right-[-600px] rtl:md:left-[-600px]',
-        'xl:top-[-320px] ltr:xl:right-[-360px] rtl:xl:left-[-360px]',
+        'right-[145px] top-[-130px] rtl:left-[-145px] rtl:scale-x-[-1]',
+        'md:right-[-600px] md:top-[-300px] rtl:md:left-[-600px]',
+        'xl:right-[-360px] xl:top-[-320px] rtl:xl:left-[-360px]',
       )}
     >
       <Image src={teamPageBgImageData} fill alt="" />
@@ -31,6 +32,7 @@ export function TeamPage({
   team?: Member[];
 }) {
   const t = useTranslations('team-page');
+
   return (
     <section className="overflow-x-clip">
       <Container className="relative">
@@ -39,21 +41,24 @@ export function TeamPage({
             {t('title.founders')}
           </h1>
 
-          {founders && (
+          {founders !== undefined && founders.length > 0 && (
             <MembersContainer
               members={founders}
               className="my-[32px] lg:my-[100px]"
             />
           )}
 
-          <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
-            {t('title.team')}
-          </h1>
-          {team && (
-            <MembersContainer
-              members={team}
-              className="mt-[32px] lg:mt-[100px]"
-            />
+          {team !== undefined && team.length > 0 && (
+            <Fragment>
+              <h1 className="text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-none lg:text-[80px]">
+                {t('title.team')}
+              </h1>
+
+              <MembersContainer
+                members={team}
+                className="mt-[32px] lg:mt-[100px]"
+              />
+            </Fragment>
           )}
 
           <TeamPageBg />

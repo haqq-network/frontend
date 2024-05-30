@@ -32,12 +32,14 @@ export function MarkdownText({
   className,
   transformImageUrl,
   shouldRenderHeadingLinks = true,
+  utmCampaign,
 }: {
   className?: string;
   isBlack?: boolean;
   children: string;
   transformImageUrl?: (src: string) => string;
   shouldRenderHeadingLinks?: boolean;
+  utmCampaign?: string;
 }) {
   // Custom renderer for headings
   function renderHeading(shouldRenderHeadingLinks: boolean) {
@@ -63,6 +65,38 @@ export function MarkdownText({
 
       return createElement(tagName, { ...node?.properties }, elementToRender);
     };
+  }
+
+  function renderLink({
+    href,
+    children,
+  }: {
+    href?: string;
+    children: ReactNode;
+  }) {
+    if (href === undefined) {
+      console.error(
+        'Link component is missing href prop. Rendered with # as fallback link',
+      );
+      return <Link href="#">{children}</Link>;
+    } else {
+      if (utmCampaign) {
+        const modifiedHref = new URL(href);
+
+        if (modifiedHref.searchParams.has('utm_campaign')) {
+          console.warn(
+            'This link already has a utm_campaign parameter. Skipping.',
+          );
+        } else {
+          const utmCampaignParam = encodeURIComponent(utmCampaign);
+          modifiedHref.searchParams.append('utm_campaign', utmCampaignParam);
+        }
+
+        return <Link href={modifiedHref}>{children}</Link>;
+      }
+
+      return <Link href={href}>{children}</Link>;
+    }
   }
 
   return (
@@ -92,6 +126,7 @@ export function MarkdownText({
           h4: renderHeading(shouldRenderHeadingLinks),
           h5: renderHeading(shouldRenderHeadingLinks),
           h6: renderHeading(shouldRenderHeadingLinks),
+          a: renderLink,
         }}
         children={children}
       />

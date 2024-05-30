@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
+import { MIN_REWARDS_TO_CLAIM } from '../../constants';
 import { formatNumber } from '../../utils/format-number';
 import { Button } from '../button/button';
 import { Container } from '../container/container';
 import { Heading } from '../heading/heading';
 import { ValidatorIcon } from '../icons/icons';
-import { MIN_REWARDS_TO_CLAIM } from '../my-account-block-desktop/my-account-block-desktop';
 import { Tooltip } from '../tooltip/tooltip';
 import { WarningMessage } from '../warning-message/warning-message';
 

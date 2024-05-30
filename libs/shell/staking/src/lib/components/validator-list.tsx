@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'react-responsive';
-import { useCosmosProvider, useWallet } from '@haqq/shell-shared';
+import { useWallet } from '@haqq/shell-shared';
 import {
   SpinnerLoader,
   ValidatorIcon,
@@ -18,7 +18,7 @@ import { ValidatorsListMobile } from './validator-list-mobile';
 import { useStakingData } from '../hooks/use-staking-data';
 import { SortDirection } from '../hooks/use-validator-sort';
 
-export function StakingValidatorList() {
+export function ValidatorList() {
   const {
     totalStaked,
     valsTotal,
@@ -198,14 +198,4 @@ export function StakingValidatorList() {
       </div>
     </Container>
   );
-}
-
-export function ValidatorList() {
-  const { isReady } = useCosmosProvider();
-
-  if (!isReady) {
-    return null;
-  }
-
-  return <StakingValidatorList />;
 }

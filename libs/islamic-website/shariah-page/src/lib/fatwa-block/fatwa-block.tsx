@@ -1,8 +1,8 @@
 'use client';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 import Image, { StaticImageData } from 'next/image';
 import { useTranslations } from 'next-intl';
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+// import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import {
   DownloadPDFButton,
   MarkdownText,
@@ -15,42 +15,42 @@ import fatwaSign4 from '../../assets/images/autographs/autograph-mohamed-zoeir.w
 import fatwaSign2 from '../../assets/images/autographs/autograph-saleh-yaqubi.webp';
 import type { LocaleType } from '../shariah-page/shariah-page';
 
-const { Link } = createSharedPathnamesNavigation({
-  locales: ['en', 'ar', 'id'],
-});
+// const { Link } = createSharedPathnamesNavigation({
+//   locales: ['en', 'ar', 'id'],
+// });
 
-function LangButton({
-  isActive,
-  locale,
-  href,
-}: {
-  isActive: boolean;
-  locale: LocaleType;
-  href: string;
-}) {
-  const t = useTranslations('shariah-page.fatwa-block.language-buttons');
-  return (
-    <Link
-      href={href}
-      locale={locale}
-      className={clsx(
-        'rtl:font-handjet ltr:font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
-        isActive
-          ? 'bg-islamic-primary-green'
-          : 'hover:bg-islamic-primary-green/50 bg-transparent',
-      )}
-    >
-      {locale === 'en' && t('english')}
-      {locale === 'ar' && t('arabic')}
-      {locale === 'id' && t('indonesian')}
-    </Link>
-  );
-}
+// function LangButton({
+//   isActive,
+//   locale,
+//   href,
+// }: {
+//   isActive: boolean;
+//   locale: LocaleType;
+//   href: string;
+// }) {
+//   const t = useTranslations('shariah-page.fatwa-block.language-buttons');
+//   return (
+//     <Link
+//       href={href}
+//       locale={locale}
+//       className={clsx(
+//         'rtl:font-handjet font-vcr cursor-pointer rounded-[8px] px-[12px] py-[8px] text-[14px] font-[400] uppercase leading-[20px] text-white transition-colors duration-300',
+//         isActive
+//           ? 'bg-islamic-primary-green'
+//           : 'hover:bg-islamic-primary-green/50 bg-transparent',
+//       )}
+//     >
+//       {locale === 'en' && t('english')}
+//       {locale === 'ar' && t('arabic')}
+//       {locale === 'id' && t('indonesian')}
+//     </Link>
+//   );
+// }
 
 function Autograph({ name, image }: { name: string; image: StaticImageData }) {
   return (
     <div className="flex w-fit flex-col items-start justify-between gap-y-[8px] md:gap-y-[12px]">
-      <span className="rtl:font-handjet ltr:font-vcr text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
+      <span className="rtl:font-handjet font-vcr text-[12px] uppercase leading-[18px] md:text-[13px] md:leading-[20px] lg:text-[14px]">
         {name}
       </span>
       <div className="relative h-[62px] w-[170px]">
@@ -64,7 +64,7 @@ function AutographsBlock() {
   const t = useTranslations('shariah-page');
   return (
     <div className="mt-[28px] flex flex-col gap-y-[20px] md:mt-[32px] lg:mt-[36px]">
-      <h4 className="rtl:font-handjet ltr:font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
+      <h4 className="rtl:font-handjet font-vcr text-[17px] uppercase leading-[26px] md:text-[18px] lg:text-[20px] lg:leading-[28px]">
         {t('autographs-block.title')}
       </h4>
 
@@ -118,13 +118,17 @@ export function FatwaBlock({
         <DownloadPDFButton language="ar" url="/assets/fatwa-ar.pdf" />
       </div>
 
-      <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px] rtl:flex-row-reverse">
+      {/* TEMPORARY HIDE FATWA LANG BUTTONS */}
+      {/* <div className="mt-[40px] flex w-fit items-center gap-x-[8px] rounded-[10px] bg-[#2F2F2F] p-[6px] md:mt-[48px] lg:mt-[60px] rtl:flex-row-reverse">
         <LangButton isActive={locale === 'en'} locale="en" href="/shariah" />
         <LangButton isActive={locale === 'ar'} locale="ar" href="/shariah" />
         <LangButton isActive={locale === 'id'} locale="id" href="/shariah" />
-      </div>
+      </div> */}
 
-      <MarkdownText className="anchor-fix-fatwa mt-[30px]">
+      <MarkdownText
+        className="anchor-fix-fatwa mt-[30px]"
+        renderHeadingsAsLinks={false}
+      >
         {fatwa}
       </MarkdownText>
 

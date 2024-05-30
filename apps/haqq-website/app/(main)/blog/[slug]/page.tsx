@@ -8,18 +8,7 @@ import {
 } from '../../../../utils/get-blog-posts';
 
 export const dynamicParams = true;
-
 export const revalidate = REVALIDATE_TIME;
-
-export async function generateStaticParams() {
-  const { posts } = await getHaqqBlogPostsFromFalconer();
-
-  return posts.map((post) => {
-    return {
-      slug: post.slug,
-    };
-  });
-}
 
 export async function generateMetadata(
   params: { params: { slug: string } },

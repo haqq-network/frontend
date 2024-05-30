@@ -17,6 +17,8 @@ export const getChainStatsFromFalconer = cache(async () => {
       transactionsInLast24Hours: Number.parseFloat(stats.transactionsIn24Hour),
       secondsToConsensusFinality: Number.parseFloat(stats.consensusFinality),
       averageCostPerTransaction: Number.parseFloat(stats.transactionAvgCost),
+      supply: Number.parseFloat(stats.supply),
+      circulatingSupply: Number.parseFloat(stats.circulatingSupply),
     };
   } catch (error) {
     console.error(error);
@@ -27,5 +29,7 @@ export const getChainStatsFromFalconer = cache(async () => {
     transactionsInLast24Hours: 0,
     secondsToConsensusFinality: 0,
     averageCostPerTransaction: 0,
+    supply: 0,
+    circulatingSupply: 0,
   };
 });

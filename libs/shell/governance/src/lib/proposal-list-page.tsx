@@ -15,7 +15,7 @@ import { ProposalListCard } from './components/proposal-list-card';
 
 export function ProposalListPage() {
   const { data: govParams } = useGovernanceParamsQuery();
-  const { data: proposalsData, isFetching } = useProposalListQuery();
+  const { data: proposalsData } = useProposalListQuery();
   const symbol = 'ISLM';
   const { haqqAddress } = useAddress();
   const { isHaqqWallet } = useWallet();
@@ -106,7 +106,7 @@ export function ProposalListPage() {
 
       <div className="pt-[32px] lg:pt-[68px]">
         <Container>
-          {!govParams || isFetching ? (
+          {!govParams ? (
             <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
               <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
                 <SpinnerLoader />

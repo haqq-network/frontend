@@ -24,6 +24,8 @@ export interface ChainStats {
   transactionsInLast24Hours: number;
   secondsToConsensusFinality: number;
   averageCostPerTransaction: number;
+  supply: number;
+  circulatingSupply: number;
 }
 
 function IslamStar() {
@@ -128,7 +130,7 @@ export function StatisticsBlockStatCard({
     <div className="flex flex-col gap-y-[4px]">
       <div
         className={clsx(
-          'rtl:font-handjet ltr:font-vcr pointer-events-none flex h-[34px] select-none gap-x-[6px] text-[24px] leading-[34px] ltr:flex-row rtl:flex-row-reverse rtl:justify-end',
+          'rtl:font-handjet font-vcr pointer-events-none flex h-[34px] select-none flex-row gap-x-[6px] text-[24px] leading-[34px] rtl:flex-row-reverse rtl:justify-end',
         )}
       >
         {prefix}
@@ -169,6 +171,8 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
       transactionsInLast24Hours: stats.transactionsInLast24Hours,
       secondsToConsensusFinality: stats.secondsToConsensusFinality,
       averageCostPerTransaction: stats.averageCostPerTransaction,
+      supply: stats.supply,
+      circulatingSupply: stats.circulatingSupply,
     };
   }, [stats]);
 
@@ -213,7 +217,7 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
             href="https://haqq.network"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet ltr:font-vcr flex cursor-pointer items-center gap-x-[8px] uppercase transition-colors duration-300 ease-out"
+            className="text-islamic-primary-green hover:text-islamic-primary-green-hover rtl:font-handjet font-vcr flex cursor-pointer items-center gap-x-[8px] uppercase transition-colors duration-300 ease-out"
           >
             <span>{t('counters.link')}</span>
             <svg
@@ -237,7 +241,7 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
         </Text>
         <div
           ref={blockRef}
-          className="mt-[16px] grid w-full gap-[38px] sm:grid-cols-2 md:mt-[20px] lg:mt-[24px] lg:grid-cols-4"
+          className="mt-[16px] grid w-full gap-[38px] sm:grid-cols-2 md:mt-[20px] lg:mt-[24px] lg:grid-cols-3"
         >
           <StatisticsBlockStatCard
             value={memoizedStats.mainnetAccountsCreated}
@@ -255,6 +259,18 @@ export function WhyBlock({ stats }: { stats: ChainStats }) {
             title={t('counters.statistic-card.third')}
             startAnimation={startAnimation}
             prefix="~"
+          />
+          <StatisticsBlockStatCard
+            value={memoizedStats.supply}
+            title={t('counters.statistic-card.fifth')}
+            startAnimation={startAnimation}
+            postfix="ISLM"
+          />
+          <StatisticsBlockStatCard
+            value={memoizedStats.circulatingSupply}
+            title={t('counters.statistic-card.sixth')}
+            startAnimation={startAnimation}
+            postfix="ISLM"
           />
           <StatisticsBlockStatCard
             value={memoizedStats.averageCostPerTransaction}

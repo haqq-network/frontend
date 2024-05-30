@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import { WalletPage as WalletPageComponent } from '@haqq/islamic-website/wallet-page';
 import { DEPLOY_URL } from '../../../constants';
+import { getWalletRatings } from '../../../utils/get-wallet-ratings';
 import { islamicOpenGraphImages } from '../../shared-metadata';
 
 const title = 'Wallet';
@@ -17,4 +19,8 @@ export const metadata: Metadata = {
   },
 };
 
-export { WalletPage as default } from '@haqq/islamic-website/wallet-page';
+export default async function WalletPage() {
+  const storeRatings = await getWalletRatings();
+
+  return <WalletPageComponent storeRatings={storeRatings} />;
+}

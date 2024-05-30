@@ -86,6 +86,7 @@ export function SubscribeForm({
         posthog.setPersonProperties({ email: formData.email });
 
         try {
+          posthog.capture('subscribe to newsletter started');
           const response = await submitForm({ ...formData, token: token });
 
           if (response.status === 200) {
@@ -94,17 +95,20 @@ export function SubscribeForm({
               setHint(response.data.message);
             }
             setSuccessModalOpen(true);
+            posthog.capture('subscribe to newsletter success');
           } else {
             setSubscribeFormState(FormState.error);
             if ('error' in response.data) {
               setError(response.data.error);
             }
             setErrorModalOpen(true);
+            posthog.capture('subscribe to newsletter failed');
           }
         } catch (error) {
           setSubscribeFormState(FormState.error);
           setError((error as Error).message);
           setErrorModalOpen(true);
+          posthog.capture('subscribe to newsletter failed');
         }
       } else {
         console.error('no form data');
@@ -195,7 +199,12 @@ export function SubscribeForm({
             </Link>
           </div>
         </div>
-        <Button variant="primary-green" type="submit" disabled={isFormDisabled}>
+        <Button
+          variant="primary-green"
+          type="submit"
+          disabled={isFormDisabled}
+          data-attr="subscribe-form-submit-button"
+        >
           {t('button-text')}
         </Button>
       </form>
@@ -216,7 +225,7 @@ export function SubscribeForm({
           />
 
           <div className="flex flex-col items-center gap-[16px] px-[40px] py-[32px] lg:gap-[32px] lg:px-[80px] lg:py-[60px]">
-            <h3 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+            <h3 className="rtl:font-handjet font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
               Congratulations!
             </h3>
 
@@ -235,7 +244,7 @@ export function SubscribeForm({
           />
 
           <div className="flex flex-col items-center gap-[16px] px-[40px] py-[32px] lg:gap-[32px] lg:px-[80px] lg:py-[60px]">
-            <h3 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+            <h3 className="rtl:font-handjet font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
               Something went wrong!
             </h3>
 

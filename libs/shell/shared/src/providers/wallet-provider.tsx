@@ -16,8 +16,11 @@ import {
   createTxRawEIP712,
   TxGenerated,
 } from '@evmos/transactions';
+import { ec as EC } from 'elliptic';
+import { usePostHog } from 'posthog-js/react';
 import store from 'store2';
 import type { Hex } from 'viem';
+import { publicKeyToAddress } from 'viem/utils';
 import {
   useDisconnect,
   useNetwork,
@@ -61,6 +64,15 @@ const WalletContext = createContext<WalletProviderInterface | undefined>(
   undefined,
 );
 
+function base64ToUncompressedHex(base64: string): Hex {
+  const buffer = Buffer.from(base64, 'base64');
+  const ec = new EC('secp256k1');
+  const key = ec.keyFromPublic(buffer);
+  const uncompressed = key.getPublic(false, 'hex');
+
+  return `0x${uncompressed}`;
+}
+
 export function WalletProvider({ children }: { children: ReactNode }) {
   const chains = useSupportedChains();
   const { chain = chains[0] } = useNetwork();
@@ -77,6 +89,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       : chains[0].id,
   );
   const haqqChain = mapToCosmosChain(chainParams);
+  const posthog = usePostHog();
 
   const handleNetworkChange = useCallback(
     async (chainId: number) => {
@@ -97,20 +110,35 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const handleWatchAsset = useCallback(
     async (denom: string, contractAddress: string) => {
-      walletClient?.request({
-        method: 'wallet_watchAsset',
-        params: {
-          type: 'ERC20',
-          options: {
-            address: contractAddress,
-            decimals: 18,
-            name: denom,
-            symbol: denom,
+      try {
+        posthog.capture('watch asset start', {
+          chaidId: haqqChain.chainId,
+        });
+        await walletClient?.request({
+          method: 'wallet_watchAsset',
+          params: {
+            type: 'ERC20',
+            options: {
+              address: contractAddress,
+              decimals: 18,
+              name: denom,
+              symbol: denom,
+            },
           },
-        },
-      });
+        });
+        posthog.capture('watch asset success', {
+          chaidId: haqqChain.chainId,
+        });
+      } catch (error) {
+        const message = (error as Error).message;
+        posthog.capture('watch asset failed', {
+          chaidId: haqqChain.chainId,
+          error: message,
+        });
+        console.error(message);
+      }
     },
-    [walletClient],
+    [haqqChain.chainId, posthog, walletClient],
   );
 
   const generatePubkey = useCallback(
@@ -147,38 +175,105 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     [walletClient],
   );
 
+  const validatePubkey = useCallback((address: string, pubkey: string) => {
+    try {
+      const pkUncompressedHex = base64ToUncompressedHex(pubkey);
+      const recoveredAddress = publicKeyToAddress(pkUncompressedHex);
+
+      return address.toLowerCase() === recoveredAddress.toLowerCase();
+    } catch (error) {
+      console.error('Failed to validate pubkey');
+      return false;
+    }
+  }, []);
+
+  const fetchPubkey = useCallback(
+    async (address: string) => {
+      const haqqAddress = ethToHaqq(address);
+      let pubkey = await getPubkeyFromChain(haqqAddress);
+
+      if (!pubkey) {
+        pubkey = await generatePubkey(address);
+      }
+
+      return pubkey;
+    },
+    [generatePubkey, getPubkeyFromChain],
+  );
+
   const getPubkey = useCallback(
     async (address: string) => {
       const storeKey = `pubkey_${address}`;
-      const savedPubKey: string | null = store.get(storeKey);
-      console.log('getPubkey', { storeKey, savedPubKey });
 
-      if (!savedPubKey) {
-        try {
-          let pubkey: string | undefined;
-          const haqqAddress = ethToHaqq(address);
-          pubkey = await getPubkeyFromChain(haqqAddress);
+      try {
+        posthog.capture('get pubkey start', {
+          chaidId: haqqChain.chainId,
+          address,
+        });
 
-          if (!pubkey) {
-            pubkey = await generatePubkey(address);
-          }
+        let savedPubKey: string | null = store.get(storeKey);
+
+        if (!savedPubKey) {
+          const pubkey = await fetchPubkey(address);
 
           store.set(storeKey, pubkey);
-          return pubkey;
-        } catch (error) {
-          console.error((error as Error).message);
-          throw error;
+          savedPubKey = pubkey;
         }
-      }
 
-      return savedPubKey;
+        const isValid = validatePubkey(address, savedPubKey);
+
+        if (!isValid) {
+          store.remove(storeKey);
+
+          const pubkey = await fetchPubkey(address);
+
+          store.set(storeKey, pubkey);
+
+          const isValidAfterRetry = validatePubkey(address, pubkey);
+
+          if (!isValidAfterRetry) {
+            const errorMessage = 'Invalid public key after retry';
+            posthog.capture('get pubkey failed', {
+              chaidId: haqqChain.chainId,
+              address,
+              error: errorMessage,
+            });
+            console.error(errorMessage);
+            throw new Error(errorMessage);
+          }
+
+          posthog.capture('get pubkey success', {
+            chaidId: haqqChain.chainId,
+            address,
+          });
+
+          return pubkey;
+        }
+
+        posthog.capture('get pubkey success', {
+          chaidId: haqqChain.chainId,
+          address,
+        });
+
+        return savedPubKey;
+      } catch (error) {
+        const message = (error as Error).message;
+        posthog.capture('get pubkey failed', {
+          chaidId: haqqChain.chainId,
+          address,
+          error: message,
+        });
+        console.error(message);
+        throw error;
+      }
     },
-    [generatePubkey, getPubkeyFromChain],
+    [fetchPubkey, haqqChain.chainId, posthog, validatePubkey],
   );
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
       if (haqqChain && walletClient) {
+        posthog.capture('sign tx start', { chaidId: haqqChain.chainId });
         const ethAddress = haqqToEth(sender.accountAddress);
         const signature = await walletClient.request({
           method: 'eth_signTypedData_v4',
@@ -198,12 +293,19 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         );
         console.log({ rawTx });
 
+        posthog.capture('sign tx success', {
+          chaidId: haqqChain.chainId,
+        });
+
         return rawTx;
       } else {
+        posthog.capture('sign tx failed', {
+          chaidId: haqqChain.chainId,
+        });
         throw new Error('No haqqChain');
       }
     },
-    [haqqChain, walletClient],
+    [haqqChain, posthog, walletClient],
   );
 
   const memoizedContext = useMemo(() => {

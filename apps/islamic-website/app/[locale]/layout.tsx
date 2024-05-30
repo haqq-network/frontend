@@ -12,10 +12,11 @@ import { LocaleType } from '@haqq/islamic-website/shariah-page';
 import { Container } from '@haqq/islamic-website-ui-kit';
 import { CookieConsentModal } from '../../components/cookie-consent-modal/cookie-consent-modal';
 import { Footer } from '../../components/footer/footer';
-import Header, { MobileHeader } from '../../components/header/header';
+import { MobileHeader } from '../../components/header-mobile';
 import { DEPLOY_URL, VERCEL_ENV } from '../../constants';
 import { alexandriaFont, handjetFont, vcrFont } from '../../fonts';
 import { PHProvider } from '../../providers/posthog';
+import { ResponsiveProvider } from '../../providers/responsive-provider';
 import { SOCIAL_LINKS } from '../../social-links';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -61,12 +62,7 @@ const PostHogPageView = dynamic(
     );
     return { default: PostHogPageView };
   },
-  {
-    ssr: false,
-    loading: () => {
-      return null;
-    },
-  },
+  { ssr: false },
 );
 
 const IdentifyWalletUsers = dynamic(
@@ -76,10 +72,13 @@ const IdentifyWalletUsers = dynamic(
     );
     return { default: IdentifyWalletUsers };
   },
-  {
-    ssr: false,
-  },
+  { ssr: false },
 );
+
+const Header = dynamic(async () => {
+  const { Header } = await import('../../components/header');
+  return { default: Header };
+});
 
 export default async function LocaleLayout({
   children,
@@ -122,35 +121,36 @@ export default async function LocaleLayout({
         )}
       >
         <PHProvider>
-          <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
-            <PostHogPageView />
-            <IdentifyWalletUsers />
+          <ResponsiveProvider isMobileUserAgent={isMobileUserAgent}>
+            <body className="bg-islamic-bg-black font-alexandria flex min-h-screen flex-col text-white antialiased">
+              <PostHogPageView />
+              <IdentifyWalletUsers />
 
-            {isScamBannerShow && <ScamBanner />}
-            {isMobileUserAgent ? (
-              <MobileHeader
-                locale={locale}
-                isBannerVisible={isScamBannerShow}
-                isBuyButtonVisible={!isRestrictedByGeo}
-              />
-            ) : (
-              <Header
-                locale={locale}
-                isBannerVisible={isScamBannerShow}
-                isBuyButtonVisible={!isRestrictedByGeo}
-              />
-            )}
-            <main className="flex-1">{children}</main>
-            <Footer socialLinks={SOCIAL_LINKS} />
-            {VERCEL_ENV === 'production' && (
-              <>
-                <Script
-                  async={true}
-                  defer={true}
-                  id="fb-pixel"
-                  data-cookiecategory="analytics"
-                  dangerouslySetInnerHTML={{
-                    __html: `
+              {isScamBannerShow && <ScamBanner />}
+              {isMobileUserAgent ? (
+                <MobileHeader
+                  locale={locale}
+                  isBannerVisible={isScamBannerShow}
+                  isBuyButtonVisible={!isRestrictedByGeo}
+                />
+              ) : (
+                <Header
+                  locale={locale}
+                  isBannerVisible={isScamBannerShow}
+                  isBuyButtonVisible={!isRestrictedByGeo}
+                />
+              )}
+              <main className="flex-1">{children}</main>
+              <Footer socialLinks={SOCIAL_LINKS} />
+              {VERCEL_ENV === 'production' && (
+                <>
+                  <Script
+                    async={true}
+                    defer={true}
+                    id="fb-pixel"
+                    data-cookiecategory="analytics"
+                    dangerouslySetInnerHTML={{
+                      __html: `
                     !function(f,b,e,v,n,t,s)
                     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -162,45 +162,67 @@ export default async function LocaleLayout({
                     fbq('init', '873030480371387');
                     fbq('track', 'PageView');
                   `,
-                  }}
-                />
-                <Script
-                  async={true}
-                  defer={true}
-                  id="gtm"
-                  data-cookiecategory="analytics"
-                  dangerouslySetInnerHTML={{
-                    __html: `
+                    }}
+                  />
+                  <Script
+                    async={true}
+                    defer={true}
+                    id="gtm"
+                    data-cookiecategory="analytics"
+                    dangerouslySetInnerHTML={{
+                      __html: `
                     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                     })(window,document,'script','dataLayer','GTM-5H2ZFCN');
                   `,
-                  }}
-                />
-                <Script
-                  async={true}
-                  src="https://www.googletagmanager.com/gtag/js?id=G-5FLBNV5M30"
-                  id="gtm-haqq"
-                  data-cookiecategory="analytics"
-                />
-                <Script
-                  defer={true}
-                  id="gtm-haqq-2"
-                  data-cookiecategory="analytics"
-                  dangerouslySetInnerHTML={{
-                    __html: `
+                    }}
+                  />
+                  <Script
+                    async={true}
+                    defer={true}
+                    id="gtm-2"
+                    data-cookiecategory="analytics"
+                    dangerouslySetInnerHTML={{
+                      __html: `
+                    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                    })(window,document,'script','dataLayer','GTM-WMP75MQS');
+                  `,
+                    }}
+                  />
+                  <Script
+                    async={true}
+                    src="https://www.googletagmanager.com/gtag/js?id=G-5FLBNV5M30"
+                    id="gtm-haqq"
+                    data-cookiecategory="analytics"
+                  />
+                  <Script
+                    defer={true}
+                    id="gtm-haqq-2"
+                    data-cookiecategory="analytics"
+                    dangerouslySetInnerHTML={{
+                      __html: `
                    window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-5FLBNV5M30');
                   `,
-                  }}
-                />
+                    }}
+                  />
+                  <Script
+                    async={true}
+                    src="https://www.googletagmanager.com/ns.html?id=GTM-WMP75MQS"
+                    id="gtm-haqq-3"
+                    data-cookiecategory="analytics"
+                  />
 
-                <CookieConsentModal />
-                <SpeedInsights />
-              </>
-            )}
-          </body>
+                  <CookieConsentModal />
+                  <SpeedInsights />
+                </>
+              )}
+            </body>
+          </ResponsiveProvider>
         </PHProvider>
       </html>
     </NextIntlClientProvider>

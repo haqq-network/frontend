@@ -11,6 +11,7 @@ export interface BlogPost {
   image: { src: string; width: number; height: number } | null;
   isFeatured?: boolean;
   tags: string[];
+  utmCampaign?: string;
 }
 
 export async function getHaqqBlogPostsData(
@@ -26,7 +27,7 @@ export async function getHaqqBlogPostsData(
     throw new Error('Blog posts fetch failed');
   }
 
-  const responseJson = await response.json();
+  const responseJson: { posts: BlogPost[] } = await response.json();
 
-  return responseJson.posts as BlogPost[];
+  return responseJson.posts;
 }

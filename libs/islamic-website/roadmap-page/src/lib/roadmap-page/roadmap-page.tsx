@@ -14,9 +14,9 @@ function RoadmapBgImg() {
     <div
       className={clsx(
         'absolute z-[-1] h-[382px] w-[382px] md:h-[1300px] md:w-[1300px] rtl:scale-x-[-1]',
-        'top-[-200px] ltr:right-[-135px] rtl:left-[-135px]',
-        'md:top-[-370px] ltr:md:right-[-555px] rtl:md:left-[-555px]',
-        'lg:top-[-460px] ltr:lg:right-[-460px] rtl:lg:left-[-460px]',
+        'right-[-135px] top-[-200px] rtl:left-[-135px]',
+        'md:right-[-555px] md:top-[-370px] rtl:md:left-[-555px]',
+        'lg:right-[-460px] lg:top-[-460px] rtl:lg:left-[-460px]',
       )}
     >
       <svg
@@ -134,7 +134,7 @@ function RoadmapCard({
       </div>
 
       <div className="flex flex-col gap-y-[12px]">
-        <h3 className="rtl:font-handjet ltr:font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
+        <h3 className="rtl:font-handjet font-vcr text-[18px] uppercase leading-[26px] md:text-[22px] md:leading-[32px] lg:text-[24px] lg:leading-[34px]">
           {title}
         </h3>
 

@@ -1,9 +1,9 @@
 'use client';
-import { Fragment, ReactNode, useCallback, useState } from 'react';
+import { Fragment, ReactNode, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import ScrollLock from 'react-scrolllock';
+import { useScrollLock } from 'usehooks-ts';
 import { Button, BurgerButton } from '@haqq/haqq-website-ui-kit';
 import logoImageData from '../../assets/images/logo.svg';
 import { BurgerMenu } from '../burger-menu/burger-menu';
@@ -36,6 +36,7 @@ function HeaderNavLink({
 
 export function Header({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState(false);
+  const { lock, unlock } = useScrollLock();
 
   const handleMenuOpen = useCallback(() => {
     setBurgerMenuOpen(!isBurgerMenuOpen);
@@ -44,6 +45,18 @@ export function Header({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const handleMenuClose = useCallback(() => {
     setBurgerMenuOpen(false);
   }, []);
+
+  useEffect(() => {
+    if (isBurgerMenuOpen) {
+      lock();
+    } else {
+      unlock();
+    }
+
+    return () => {
+      unlock();
+    };
+  }, [isBurgerMenuOpen, lock, unlock]);
 
   return (
     <Fragment>
@@ -223,8 +236,6 @@ function BurgerMenuComponent({
 }) {
   return (
     <div className="lg:hidden">
-      <ScrollLock isActive={isOpen} />
-
       <div
         className={clsx(
           'fixed right-0 top-[62px] z-[45] h-[calc(100vh-62px)] w-full sm:top-[72px] sm:h-[calc(100vh-72px)] sm:w-[468px]',
