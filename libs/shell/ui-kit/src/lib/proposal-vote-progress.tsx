@@ -138,7 +138,6 @@ export function ProposalVoteProgress({
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#01B26E]',
                   'duration-250 transition-[width] ease-out',
-                  yesPercents === 0 && 'hidden',
                 )}
                 style={{
                   width: `${yesPercents}%`,
@@ -150,7 +149,6 @@ export function ProposalVoteProgress({
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#FF5454]',
                   'duration-250 transition-[width] ease-out',
-                  noPercents === 0 && 'hidden',
                 )}
                 style={{ width: `${noPercents}%` }}
               />
@@ -160,7 +158,6 @@ export function ProposalVoteProgress({
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#AAABB2]',
                   'duration-250 transition-[width] ease-out',
-                  abstainPercents === 0 && 'hidden',
                 )}
                 style={{ width: `${abstainPercents}%` }}
               />
@@ -170,7 +167,6 @@ export function ProposalVoteProgress({
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#E3A13F]',
                   'duration-250 transition-[width] ease-out',
-                  vetoPercents === 0 && 'hidden',
                 )}
                 style={{ width: `${vetoPercents}%` }}
               />
@@ -179,61 +175,53 @@ export function ProposalVoteProgress({
         )}
 
         <div className="flex flex-wrap items-center gap-x-3">
-          {Boolean(yesPercents && yesPercents > 0) && (
-            <div className="flex flex-row items-center">
-              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
-              <div className="mr-[2px]">
-                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  Yes
-                </CardText>
-              </div>
-              <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                {yesPercents.toFixed(2)}%
+          <div className="flex flex-row items-center">
+            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
+            <div className="mr-[2px]">
+              <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+                Yes
               </CardText>
             </div>
-          )}
+            <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+              {yesPercents.toFixed(2)}%
+            </CardText>
+          </div>
 
-          {Boolean(noPercents && noPercents > 0) && (
-            <div className="flex flex-row items-center">
-              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
-              <div className="mr-[2px]">
-                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  No
-                </CardText>
-              </div>
-              <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                {noPercents.toFixed(2)}%
+          <div className="flex flex-row items-center">
+            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
+            <div className="mr-[2px]">
+              <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+                No
               </CardText>
             </div>
-          )}
+            <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+              {noPercents.toFixed(2)}%
+            </CardText>
+          </div>
 
-          {Boolean(abstainPercents && abstainPercents > 0) && (
-            <div className="flex flex-row items-center">
-              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
-              <div className="mr-[2px]">
-                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  Abstain
-                </CardText>
-              </div>
-              <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                {abstainPercents.toFixed(2)}%
+          <div className="flex flex-row items-center">
+            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
+            <div className="mr-[2px]">
+              <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+                Abstain
               </CardText>
             </div>
-          )}
+            <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+              {abstainPercents.toFixed(2)}%
+            </CardText>
+          </div>
 
-          {Boolean(vetoPercents && vetoPercents > 0) && (
-            <div className="flex flex-row items-center">
-              <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
-              <div className="mr-[2px]">
-                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  No with veto
-                </CardText>
-              </div>
-              <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                {vetoPercents.toFixed(2)}%
+          <div className="flex flex-row items-center">
+            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
+            <div className="mr-[2px]">
+              <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+                No with veto
               </CardText>
             </div>
-          )}
+            <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
+              {vetoPercents.toFixed(2)}%
+            </CardText>
+          </div>
         </div>
 
         <div className="flex items-center">
