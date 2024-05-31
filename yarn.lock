@@ -3238,6 +3238,7 @@ __metadata:
     "@haqq/app-store-scraper": "npm:1.1.1"
     "@headlessui/react": "npm:1.7.19"
     "@hookform/resolvers": "npm:3.3.4"
+    "@intercom/messenger-js-sdk": "npm:0.0.6"
     "@keplr-wallet/types": "npm:0.12.88"
     "@mdx-js/loader": "npm:3.0.1"
     "@mdx-js/react": "npm:3.0.1"
@@ -3607,6 +3608,13 @@ __metadata:
   version: 0.33.3
   resolution: "@img/sharp-win32-x64@npm:0.33.3"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@intercom/messenger-js-sdk@npm:0.0.6":
+  version: 0.0.6
+  resolution: "@intercom/messenger-js-sdk@npm:0.0.6"
+  checksum: 10/7780cc2e6415a02d525685ae1ad126a37b54af1c445c76c671226a19bb86058e4470a8b5ca300b5e0a18f09b78128863c705f516ffb1203441c99f85db558a92
   languageName: node
   linkType: hard
 
@@ -14531,7 +14539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elliptic@npm:6.5.4, elliptic@npm:^6.5.2, elliptic@npm:^6.5.3, elliptic@npm:^6.5.4":
+"elliptic@npm:6.5.4":
   version: 6.5.4
   resolution: "elliptic@npm:6.5.4"
   dependencies:
@@ -14546,7 +14554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elliptic@npm:6.5.5":
+"elliptic@npm:6.5.5, elliptic@npm:^6.5.2, elliptic@npm:^6.5.3, elliptic@npm:^6.5.4":
   version: 6.5.5
   resolution: "elliptic@npm:6.5.5"
   dependencies:
