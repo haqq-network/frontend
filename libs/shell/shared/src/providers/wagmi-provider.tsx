@@ -11,6 +11,31 @@ export type Chain = WagmiChain & {
   unsupported?: boolean | undefined;
 };
 
+const haqqMainFork = {
+  id: 11235,
+  name: 'HAQQ Mainnet fork',
+  network: 'haqq-mainnet-fork',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Islamic Coin',
+    symbol: 'ISLM',
+  },
+  rpcUrls: {
+    default: {
+      http: ['http://95.179.165.238:8545'],
+    },
+    public: {
+      http: ['http://95.179.165.238:8545'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'HAQQ Explorer',
+      url: 'https://explorer.testedge2.haqq.network',
+    },
+  },
+};
+
 export const haqqLocalnet: Chain = {
   id: 121799,
   name: 'HAQQ Localnet',
@@ -33,7 +58,7 @@ export const haqqLocalnet: Chain = {
 };
 
 const SupportedChainsContext = createContext<Chain[]>([
-  haqqMainnet,
+  haqqMainFork,
   haqqTestedge2,
 ]);
 
@@ -53,7 +78,7 @@ export function WagmiProvider({
   children,
   walletConnectProjectId,
   isProduction = true,
-  supportedChains = [haqqMainnet, haqqTestedge2],
+  supportedChains = [haqqMainFork, haqqTestedge2],
 }: PropsWithChildren<{
   walletConnectProjectId?: string;
   isProduction?: boolean;

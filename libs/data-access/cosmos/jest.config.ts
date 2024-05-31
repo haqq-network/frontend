@@ -8,7 +8,7 @@ export default {
       { jsc: { transform: { react: { runtime: 'automatic' } } } },
     ],
   },
-  eFileExtensions: ['ts', 'js', 'html'],
+  moduleFileExtensions: ['ts', 'js', 'html'],
   testEnvironment: 'node',
   coverageDirectory: '../../../coverage/libs/data-access/cosmos',
 };

@@ -1,5 +1,8 @@
 {
   "name": "@haqq/shell-shared",
   "version": "0.0.1",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@haqq/data-access-cosmos": "^0.0.1"
+  }
 }

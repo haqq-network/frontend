@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import * as Sentry from '@sentry/nextjs';
 import NextError from 'next/error';
+import { Button, Heading } from '@haqq/shell-ui-kit';
 
 export default function GlobalError({
   error,
@@ -17,17 +18,21 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        <h2>Something went wrong!</h2>
-        {/* This is the default Next.js error component but it doesn't allow omitting the statusCode property yet. */}
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <NextError statusCode={undefined as any} />
-        <button
-          onClick={() => {
-            reset();
-          }}
-        >
-          Try again
-        </button>
+        <div className="flex flex-col items-center justify-center gap-6 py-24">
+          <Heading level={2}>Something went wrong!</Heading>
+
+          <Button
+            onClick={() => {
+              reset();
+            }}
+          >
+            Try again
+          </Button>
+
+          {/* This is the default Next.js error component but it doesn't allow omitting the statusCode property yet. */}
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          <NextError statusCode={undefined as any} style={{ height: 'auto' }} />
+        </div>
       </body>
     </html>
   );

@@ -93,7 +93,7 @@ export function useAuthzActions(): AuthzActionsHook {
           memo,
           grantParams,
         );
-
+        console.log({ msg });
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await trackBroadcastTx(
           broadcastTransaction(rawTx),
@@ -156,7 +156,7 @@ export function useAuthzActions(): AuthzActionsHook {
           memo,
           revokeParams,
         );
-
+        console.log({ msg });
         const rawTx = await signTransaction(msg, sender);
         const txResponse = await trackBroadcastTx(
           broadcastTransaction(rawTx),

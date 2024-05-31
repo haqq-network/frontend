@@ -38,10 +38,4 @@ body {
 
 body {
   @apply bg-haqq-black font-guise text-white will-change-scroll;
-
-  /* background-image: url(/sunrise.jpg);
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-attachment: fixed; */
 }
