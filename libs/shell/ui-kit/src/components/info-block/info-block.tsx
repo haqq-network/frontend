@@ -1,9 +1,11 @@
 import { PropsWithChildren } from 'react';
+import clsx from 'clsx';
 
 export function InfoBlock({
   title,
   children,
-}: PropsWithChildren<{ title?: string }>) {
+  className,
+}: PropsWithChildren<{ title?: string; className?: string }>) {
   return (
     <div className="flex flex-col gap-[4px]">
       {title && (
@@ -11,7 +13,12 @@ export function InfoBlock({
           {title}
         </div>
       )}
-      <div className="text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
+      <div
+        className={clsx(
+          'text-[12px] font-[500] leading-[18px] md:text-[14px] md:leading-[22px]',
+          className,
+        )}
+      >
         {children}
       </div>
     </div>

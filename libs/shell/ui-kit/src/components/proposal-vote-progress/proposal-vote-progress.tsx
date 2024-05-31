@@ -88,7 +88,14 @@ export function ProposalVoteProgress({
     <div className="flex w-full flex-col space-y-2">
       <div className="space-y-[8px]">
         <div className="flex items-center space-x-[12px]">
-          <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
+          <CardText
+            className={clsx(
+              'text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]',
+              status === ProposalStatusEnum.Failed
+                ? 'text-white/50'
+                : 'text-white',
+            )}
+          >
             {status === ProposalStatusEnum.Voting
               ? 'Voting status'
               : 'Voting results'}
@@ -122,8 +129,15 @@ export function ProposalVoteProgress({
           )}
         </div>
 
-        {total === 0 ? (
-          <div className="relative h-[8px] overflow-hidden rounded-[4px] bg-[#FFFFFF26]"></div>
+        {total === 0 || status === ProposalStatusEnum.Failed ? (
+          <div
+            className={clsx(
+              'relative h-[8px] overflow-hidden rounded-[4px] ',
+              status === ProposalStatusEnum.Failed
+                ? 'bg-white/15'
+                : 'bg-[#FFFFFF26]',
+            )}
+          />
         ) : (
           <div className="relative flex h-[8px] w-full flex-row space-x-[4px] overflow-hidden">
             {yesPercents !== 0 && (
@@ -172,68 +186,148 @@ export function ProposalVoteProgress({
         )}
 
         <div className="flex flex-wrap items-center gap-x-3">
-          {Boolean(yesPercents && yesPercents > 0) && (
+          <div className="flex items-center">
             <div className="flex items-center">
-              <div className="flex items-center">
-                <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
-                <div className="mr-[2px]">
-                  <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                    Yes
-                  </CardText>
-                </div>
-                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  {yesPercents.toFixed(2)}%
+              <div
+                className={clsx(
+                  'mb-[-2px] mr-[4px] h-2 w-2 rounded-full lg:mb-[-3px]',
+                  status === ProposalStatusEnum.Failed
+                    ? 'bg-white/50'
+                    : 'bg-[#01B26E]',
+                )}
+              />
+              <div className="mr-[2px]">
+                <CardText
+                  className={clsx(
+                    'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
+                    status === ProposalStatusEnum.Failed
+                      ? 'text-white/50'
+                      : 'text-white',
+                  )}
+                >
+                  Yes
                 </CardText>
               </div>
-            </div>
-          )}
-          {Boolean(noPercents && noPercents > 0) && (
-            <div className="flex items-center">
-              <div className="flex items-center">
-                <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
-                <div className="mr-[2px]">
-                  <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                    No
-                  </CardText>
-                </div>
-              </div>
-              <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                {noPercents.toFixed(2)}%
+              <CardText
+                className={clsx(
+                  'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
+                  status === ProposalStatusEnum.Failed
+                    ? 'text-white/50'
+                    : 'text-white',
+                )}
+              >
+                {yesPercents.toFixed(2)}%
               </CardText>
             </div>
-          )}
+          </div>
 
-          {Boolean(abstainPercents && abstainPercents > 0) && (
+          <div className="flex items-center">
             <div className="flex items-center">
-              <div className="flex items-center">
-                <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
-                <div className="mr-[2px]">
-                  <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                    Abstain
-                  </CardText>
-                </div>
-                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  {abstainPercents.toFixed(2)}%
+              <div
+                className={clsx(
+                  'mb-[-2px] mr-[4px] h-2 w-2 rounded-full lg:mb-[-3px]',
+                  status === ProposalStatusEnum.Failed
+                    ? 'bg-white/50'
+                    : 'bg-[#FF5454]',
+                )}
+              />
+              <div className="mr-[2px]">
+                <CardText
+                  className={clsx(
+                    'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
+                    status === ProposalStatusEnum.Failed
+                      ? 'text-white/50'
+                      : 'text-white',
+                  )}
+                >
+                  No
                 </CardText>
               </div>
             </div>
-          )}
+            <CardText
+              className={clsx(
+                'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
+                status === ProposalStatusEnum.Failed
+                  ? 'text-white/50'
+                  : 'text-white',
+              )}
+            >
+              {noPercents.toFixed(2)}%
+            </CardText>
+          </div>
 
-          {Boolean(vetoPercents && vetoPercents > 0) && (
+          <div className="flex items-center">
             <div className="flex items-center">
-              <div className="flex flex-row items-center">
-                <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
-                <div className="mr-[2px]">
-                  <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                    No with veto
-                  </CardText>
-                </div>
-                <CardText className="text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-                  {vetoPercents.toFixed(2)}%
+              <div
+                className={clsx(
+                  'mb-[-2px] mr-[4px] h-2 w-2 rounded-full lg:mb-[-3px]',
+                  status === ProposalStatusEnum.Failed
+                    ? 'bg-white/50'
+                    : 'bg-[#AAABB2]',
+                )}
+              />
+              <div className="mr-[2px]">
+                <CardText
+                  className={clsx(
+                    'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
+                    status === ProposalStatusEnum.Failed
+                      ? 'text-white/50'
+                      : 'text-white',
+                  )}
+                >
+                  Abstain
                 </CardText>
               </div>
+              <CardText
+                className={clsx(
+                  'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
+                  status === ProposalStatusEnum.Failed
+                    ? 'text-white/50'
+                    : 'text-white',
+                )}
+              >
+                {status === ProposalStatusEnum.Failed
+                  ? 0
+                  : abstainPercents.toFixed(2)}
+                %
+              </CardText>
             </div>
-          )}
+          </div>
+
+          <div className="flex items-center">
+            <div className="flex flex-row items-center">
+              <div
+                className={clsx(
+                  'mb-[-2px] mr-[4px] h-2 w-2 rounded-full lg:mb-[-3px]',
+                  status === ProposalStatusEnum.Failed
+                    ? 'bg-white/50'
+                    : 'bg-[#E3A13F]',
+                )}
+              />
+              <div className="mr-[2px]">
+                <CardText
+                  className={clsx(
+                    'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
+                    status === ProposalStatusEnum.Failed
+                      ? 'text-white/50'
+                      : 'text-white',
+                  )}
+                >
+                  No with veto
+                </CardText>
+              </div>
+              <CardText
+                className={clsx(
+                  'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
+                  status === ProposalStatusEnum.Failed
+                    ? 'text-white/50'
+                    : 'text-white',
+                )}
+              >
+                {vetoPercents.toFixed(2)}%
+              </CardText>
+            </div>
+          </div>
         </div>
       </div>
     </div>
