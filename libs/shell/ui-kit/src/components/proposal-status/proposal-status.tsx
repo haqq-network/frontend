@@ -78,6 +78,21 @@ export function ProposalStatus({
           <div>Deposit Period</div>
         </div>
       );
+    case ProposalStatusEnum.Failed:
+      return (
+        <div className={clsx('bg-white/[8%] text-white', baseClassName)}>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M10 11.1785L14.4108 15.5893L15.5893 14.4108L11.1785 10L15.5893 5.58928L14.4108 4.41077L10 8.82151L5.58928 4.41077L4.41077 5.58928L8.82151 10L4.41077 14.4108L5.58928 15.5893L10 11.1785Z"
+              fill="currentColor"
+            />
+          </svg>
+
+          <div>Failed</div>
+        </div>
+      );
     default:
       return <div>{status}</div>;
   }

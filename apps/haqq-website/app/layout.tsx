@@ -57,6 +57,18 @@ const IdentifyWalletUsers = dynamic(
   },
 );
 
+const IntercomMessenger = dynamic(
+  async () => {
+    const { IntercomMessenger } = await import(
+      '../components/intercom-messenger'
+    );
+    return { default: IntercomMessenger };
+  },
+  {
+    ssr: false,
+  },
+);
+
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="ltr" dir="ltr" translate="no">
@@ -65,6 +77,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <PostHogPageView />
           <DynamicLinkRedirect />
           <IdentifyWalletUsers />
+          <IntercomMessenger />
 
           {children}
 

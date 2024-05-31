@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
+import clsx from 'clsx';
 import { formatDate } from '../../utils/format-date';
 import { Card, CardHeading } from '../card/card';
 import { InfoBlock } from '../info-block/info-block';
@@ -63,7 +64,12 @@ export function ProposalCard({
               {type}
             </div>
             <div>
-              <CardHeading className="line-clamp-2 h-[56px]">
+              <CardHeading
+                className={clsx(
+                  'line-clamp-2 h-[56px]',
+                  status === ProposalStatusEnum.Failed && '!text-white/50',
+                )}
+              >
                 {title}
               </CardHeading>
             </div>
@@ -85,16 +91,27 @@ export function ProposalCard({
             />
           )}
           {(status === ProposalStatusEnum.Rejected ||
-            status === ProposalStatusEnum.Passed) &&
+            status === ProposalStatusEnum.Passed ||
+            status === ProposalStatusEnum.Failed) &&
             (votingStartDate || votingEndDate) && (
               <div className="my-[2px] flex flex-row items-center gap-[32px] md:my-0">
                 {votingStartDate && (
-                  <InfoBlock title="Voting start">
+                  <InfoBlock
+                    title="Voting start"
+                    className={clsx(
+                      status === ProposalStatusEnum.Failed && '!text-white/50',
+                    )}
+                  >
                     {formatDate(votingStartDate)}
                   </InfoBlock>
                 )}
                 {votingEndDate && (
-                  <InfoBlock title="Voting end">
+                  <InfoBlock
+                    title="Voting end"
+                    className={clsx(
+                      status === ProposalStatusEnum.Failed && '!text-white/50',
+                    )}
+                  >
                     {formatDate(votingEndDate)}
                   </InfoBlock>
                 )}
@@ -111,7 +128,8 @@ export function ProposalCard({
           )}
           {(status === ProposalStatusEnum.Voting ||
             status === ProposalStatusEnum.Rejected ||
-            status === ProposalStatusEnum.Passed) && (
+            status === ProposalStatusEnum.Passed ||
+            status === ProposalStatusEnum.Failed) && (
             <ProposalVoteProgress
               results={results}
               status={status}
