@@ -12,7 +12,6 @@ export async function register() {
   //     // spotlight: process.env.NODE_ENV === 'development',
   //   });
   // }
-
   // if (process.env.NEXT_RUNTIME === 'edge') {
   //   Sentry.init({
   //     dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
