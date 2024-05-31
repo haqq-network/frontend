@@ -67,9 +67,7 @@ export function ProposalCard({
               <CardHeading
                 className={clsx(
                   'line-clamp-2 h-[56px]',
-                  status === ProposalStatusEnum.Failed
-                    ? 'text-white/50'
-                    : 'text-white',
+                  status === ProposalStatusEnum.Failed && '!text-white/50',
                 )}
               >
                 {title}
@@ -101,9 +99,7 @@ export function ProposalCard({
                   <InfoBlock
                     title="Voting start"
                     className={clsx(
-                      status === ProposalStatusEnum.Failed
-                        ? 'text-white/50'
-                        : 'text-white',
+                      status === ProposalStatusEnum.Failed && '!text-white/50',
                     )}
                   >
                     {formatDate(votingStartDate)}
@@ -113,9 +109,7 @@ export function ProposalCard({
                   <InfoBlock
                     title="Voting end"
                     className={clsx(
-                      status === ProposalStatusEnum.Failed
-                        ? 'text-white/50'
-                        : 'text-white',
+                      status === ProposalStatusEnum.Failed && '!text-white/50',
                     )}
                   >
                     {formatDate(votingEndDate)}

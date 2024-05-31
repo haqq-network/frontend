@@ -15,7 +15,7 @@ export function InfoBlock({
       )}
       <div
         className={clsx(
-          'text-[12px] font-[500] leading-[18px] md:text-[14px] md:leading-[22px]',
+          'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
           className,
         )}
       >
