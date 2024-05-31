@@ -193,7 +193,7 @@ function ProposalDetailsMobile({
           <ProposalTurnoutQuorum
             turnout={formatNumber(turnout, 2, 2)}
             quorum={formatNumber(quorum, 2, 2)}
-            status={proposalDetails.status}
+            status={proposalDetails.status as ProposalStatus}
           />
 
           {(proposalDetails.status === ProposalStatus.Deposit ||
