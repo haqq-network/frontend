@@ -169,7 +169,8 @@ function ProposalDetailsMobile({
           <div>
             {(proposalDetails.status === ProposalStatus.Voting ||
               proposalDetails.status === ProposalStatus.Passed ||
-              proposalDetails.status === ProposalStatus.Rejected) && (
+              proposalDetails.status === ProposalStatus.Rejected ||
+              proposalDetails.status === ProposalStatus.Failed) && (
               <div>
                 <ProposalVoteProgress
                   results={proposalTally}
@@ -192,6 +193,7 @@ function ProposalDetailsMobile({
           <ProposalTurnoutQuorum
             turnout={formatNumber(turnout, 2, 2)}
             quorum={formatNumber(quorum, 2, 2)}
+            status={proposalDetails.status}
           />
 
           {(proposalDetails.status === ProposalStatus.Deposit ||
@@ -254,7 +256,8 @@ export function ProposalDetailsComponent({
   const [showDates, setShowDates] = useState(
     Boolean(
       proposalDetails.status === ProposalStatus.Passed ||
-        proposalDetails.status === ProposalStatus.Rejected,
+        proposalDetails.status === ProposalStatus.Rejected ||
+        proposalDetails.status === ProposalStatus.Failed,
     ),
   );
   const { data: userVote } = useProposalVoteQuery(
@@ -268,6 +271,7 @@ export function ProposalDetailsComponent({
 
   //   return now < voteStart && isWalletConnected;
   // }, [isWalletConnected, proposalDetails]);
+
   const totalDeposit = useMemo(() => {
     if (proposalDetails.total_deposit.length === 0) {
       return 0;
@@ -278,6 +282,7 @@ export function ProposalDetailsComponent({
       10,
     );
   }, [proposalDetails]);
+
   const minDeposit = useMemo(() => {
     if (govParams.deposit_params.min_deposit.length === 0) {
       return 0;
@@ -288,6 +293,7 @@ export function ProposalDetailsComponent({
       10,
     );
   }, [govParams]);
+
   const isTablet = useMediaQuery({
     query: `(max-width: 1023px)`,
   });
@@ -537,7 +543,8 @@ export function ProposalDetailsComponent({
 
                   {(proposalDetails.status === ProposalStatus.Voting ||
                     proposalDetails.status === ProposalStatus.Passed ||
-                    proposalDetails.status === ProposalStatus.Rejected) && (
+                    proposalDetails.status === ProposalStatus.Rejected ||
+                    proposalDetails.status === ProposalStatus.Failed) && (
                     <div className="flex flex-col gap-[24px]">
                       <div>
                         <ProposalVoteProgress
@@ -550,10 +557,12 @@ export function ProposalDetailsComponent({
                       <ProposalTurnoutQuorum
                         turnout={formatNumber(turnout, 2, 2)}
                         quorum={formatNumber(quorum, 2, 2)}
+                        status={proposalDetails.status}
                       />
 
                       {(proposalDetails.status === ProposalStatus.Passed ||
-                        proposalDetails.status === ProposalStatus.Rejected) && (
+                        proposalDetails.status === ProposalStatus.Rejected ||
+                        proposalDetails.status === ProposalStatus.Failed) && (
                         <div>
                           {showDates ? (
                             <table>
@@ -565,7 +574,14 @@ export function ProposalDetailsComponent({
                                     </ProposalDatesText>
                                   </td>
                                   <td>
-                                    <ProposalDatesText className="text-white">
+                                    <ProposalDatesText
+                                      className={clsx(
+                                        proposalDetails.status ===
+                                          ProposalStatus.Failed
+                                          ? 'text-white/50'
+                                          : 'text-white',
+                                      )}
+                                    >
                                       {formatDate(
                                         new Date(proposalDetails.submit_time),
                                       )}
@@ -579,7 +595,14 @@ export function ProposalDetailsComponent({
                                     </ProposalDatesText>
                                   </td>
                                   <td>
-                                    <ProposalDatesText className="text-white">
+                                    <ProposalDatesText
+                                      className={clsx(
+                                        proposalDetails.status ===
+                                          ProposalStatus.Failed
+                                          ? 'text-white/50'
+                                          : 'text-white',
+                                      )}
+                                    >
                                       {formatDate(
                                         new Date(
                                           proposalDetails.deposit_end_time,
@@ -595,7 +618,14 @@ export function ProposalDetailsComponent({
                                     </ProposalDatesText>
                                   </td>
                                   <td>
-                                    <ProposalDatesText className="text-white">
+                                    <ProposalDatesText
+                                      className={clsx(
+                                        proposalDetails.status ===
+                                          ProposalStatus.Failed
+                                          ? 'text-white/50'
+                                          : 'text-white',
+                                      )}
+                                    >
                                       {formatDate(
                                         new Date(
                                           proposalDetails.voting_start_time,
@@ -611,7 +641,14 @@ export function ProposalDetailsComponent({
                                     </ProposalDatesText>
                                   </td>
                                   <td>
-                                    <ProposalDatesText className="text-white">
+                                    <ProposalDatesText
+                                      className={clsx(
+                                        proposalDetails.status ===
+                                          ProposalStatus.Failed
+                                          ? 'text-white/50'
+                                          : 'text-white',
+                                      )}
+                                    >
                                       {formatDate(
                                         new Date(
                                           proposalDetails.voting_end_time,
@@ -753,14 +790,28 @@ function ProposalTurnoutQuorumBlock({
 function ProposalTurnoutQuorum({
   turnout,
   quorum,
+  status,
 }: {
   turnout: string;
   quorum: string;
+  status: ProposalStatus;
 }) {
   return (
     <div className="flex flex-row gap-[16px]">
-      <ProposalTurnoutQuorumBlock title="Turnout" value={turnout} />
-      <ProposalTurnoutQuorumBlock title="Quorum" value={quorum} />
+      <ProposalTurnoutQuorumBlock
+        title="Turnout"
+        value={turnout}
+        valueClassName={clsx(
+          status === ProposalStatus.Failed && 'text-white/50',
+        )}
+      />
+      <ProposalTurnoutQuorumBlock
+        title="Quorum"
+        value={quorum}
+        valueClassName={clsx(
+          status === ProposalStatus.Failed && 'text-white/50',
+        )}
+      />
     </div>
   );
 }
