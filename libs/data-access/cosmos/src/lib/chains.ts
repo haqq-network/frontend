@@ -28,10 +28,10 @@ export const chains: Record<number, ChainProperties> = {
   11235: {
     id: 11235,
     cosmosChainId: 'haqq_11235-1',
-    name: 'HAQQ Mainnet',
+    name: 'Haqq Fork Mainnet',
     network: 'haqq-mainnet',
-    tmRpcEndpoint: 'https://rpc.tm.haqq.network',
-    cosmosRestEndpoint: 'https://rest.cosmos.haqq.network',
+    tmRpcEndpoint: 'https://fork-rpc.haqq.sh',
+    cosmosRestEndpoint: 'https://fork-lcd.haqq.sh',
     explorer: {
       evm: 'https://explorer.haqq.network',
       cosmos: 'https://ping.pub/haqq',

@@ -179,6 +179,14 @@ export function DelegateModalHooked({
           isCancelled = true;
         };
 
+        // const estimatedFee = {
+        //   fee: '200000000000000000',
+        //   gas_price: '30000000000aISLM',
+        //   gas_used: '8000000',
+        // };
+
+        // setFee(estimatedFee);
+
         setFeePending(true);
         getDelegateEstimatedFee(validatorAddress, throttledDelegateAmount)
           .then((estimatedFee) => {
