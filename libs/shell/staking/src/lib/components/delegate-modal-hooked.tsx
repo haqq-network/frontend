@@ -179,12 +179,6 @@ export function DelegateModalHooked({
           isCancelled = true;
         };
 
-        // 30000000000 * 1500000
-
-        // gasWanted: 1642781, gasUsed: 1922839
-
-        // (100000000000000000aISLM < 153996340000000000aISLM
-
         const estimatedFee = {
           fee: '200000000000000000',
           gas_price: '30000000000000000aISLM',
