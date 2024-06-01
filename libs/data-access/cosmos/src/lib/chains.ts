@@ -28,7 +28,7 @@ export const chains: Record<number, ChainProperties> = {
   11235: {
     id: 11235,
     cosmosChainId: 'haqq_11235-1',
-    name: 'HAQQ Fork Mainnet',
+    name: 'Haqq Fork Mainnet',
     network: 'haqq-mainnet',
     tmRpcEndpoint: 'https://fork-rpc.haqq.sh',
     cosmosRestEndpoint: 'https://fork-lcd.haqq.sh/',
