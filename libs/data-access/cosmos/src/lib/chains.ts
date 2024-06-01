@@ -31,7 +31,7 @@ export const chains: Record<number, ChainProperties> = {
     name: 'Haqq Fork Mainnet',
     network: 'haqq-mainnet',
     tmRpcEndpoint: 'https://fork-rpc.haqq.sh',
-    cosmosRestEndpoint: 'https://fork-lcd.haqq.sh/',
+    cosmosRestEndpoint: 'https://fork-lcd.haqq.sh',
     explorer: {
       evm: 'https://explorer.haqq.network',
       cosmos: 'https://ping.pub/haqq',
