@@ -179,27 +179,27 @@ export function DelegateModalHooked({
           isCancelled = true;
         };
 
-        const estimatedFee = {
-          fee: '200000000000000000',
-          gas_price: '30000000000000000aISLM',
-          gas_used: '7699817',
-        };
+        // const estimatedFee = {
+        //   fee: '200000000000000000',
+        //   gas_price: '30000000000aISLM',
+        //   gas_used: '8000000',
+        // };
 
-        setFee(estimatedFee);
+        // setFee(estimatedFee);
 
-        // setFeePending(true);
-        // getDelegateEstimatedFee(validatorAddress, throttledDelegateAmount)
-        //   .then((estimatedFee) => {
-        //     if (!isCancelled) {
-        //       setFee(estimatedFee);
-        //       setFeePending(false);
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     const message = (error as Error).message;
-        //     toast.error(<ToastError>{message}</ToastError>);
-        //     setFeePending(false);
-        //   });
+        setFeePending(true);
+        getDelegateEstimatedFee(validatorAddress, throttledDelegateAmount)
+          .then((estimatedFee) => {
+            if (!isCancelled) {
+              setFee(estimatedFee);
+              setFeePending(false);
+            }
+          })
+          .catch((error) => {
+            const message = (error as Error).message;
+            toast.error(<ToastError>{message}</ToastError>);
+            setFeePending(false);
+          });
       }
     }
   }, [
