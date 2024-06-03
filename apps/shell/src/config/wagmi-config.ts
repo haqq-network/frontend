@@ -3,17 +3,25 @@ import {
   http,
   createStorage,
   cookieStorage,
-  // CreateConnectorFn,
+  CreateConnectorFn,
 } from 'wagmi';
 import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
-// import { injected, walletConnect } from 'wagmi/connectors';
+import { walletConnect } from 'wagmi/connectors';
 
 export function createWagmiConfig(walletConnectProjectId?: string) {
-  // const connectors: CreateConnectorFn[] = [injected()];
+  const connectors: CreateConnectorFn[] = [];
 
-  // if (walletConnectProjectId) {
-  //   connectors.push(walletConnect({ projectId: 'walletConnectProjectId' }));
-  // }
+  if (walletConnectProjectId) {
+    connectors.push(
+      walletConnect({
+        projectId: walletConnectProjectId,
+        disableProviderPing: true,
+        qrModalOptions: {
+          themeMode: 'dark',
+        },
+      }),
+    );
+  }
 
   return createConfig({
     chains: [haqqMainnet, haqqTestedge2],
@@ -21,11 +29,11 @@ export function createWagmiConfig(walletConnectProjectId?: string) {
       [haqqMainnet.id]: http(),
       [haqqTestedge2.id]: http(),
     },
+    connectors,
     ssr: true,
-    // multiInjectedProviderDiscovery: true,
+    multiInjectedProviderDiscovery: true,
     storage: createStorage({
       storage: cookieStorage,
     }),
-    // connectors,
   });
 }
