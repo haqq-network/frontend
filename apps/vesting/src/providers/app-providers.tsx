@@ -2,7 +2,7 @@ import { lazy, PropsWithChildren } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { createConfig, http, WagmiProvider } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
-// import { injected } from 'wagmi/connectors';
+import { walletConnect } from 'wagmi/connectors';
 import {
   CosmosProvider,
   ReactQueryProvider,
@@ -10,6 +10,7 @@ import {
   useWallet,
   WalletProvider,
 } from '@haqq/shell-shared';
+import { WALLETCONNECT_PROJECT_ID } from '../constants';
 
 export const wagmiConfig = createConfig({
   chains: [haqqMainnet],
@@ -17,19 +18,24 @@ export const wagmiConfig = createConfig({
     [haqqMainnet.id]: http(),
   },
   multiInjectedProviderDiscovery: true,
-  // connectors: [
-  //   injected({
-  //     shimDisconnect: false,
-  //     unstable_shimAsyncInject: 2_000,
-  //   }),
-  // ],
+  connectors: WALLETCONNECT_PROJECT_ID
+    ? [
+        walletConnect({
+          projectId: WALLETCONNECT_PROJECT_ID,
+          disableProviderPing: true,
+          qrModalOptions: {
+            themeMode: 'light',
+          },
+        }),
+      ]
+    : [],
 });
 
 export function AppProviders({ children }: PropsWithChildren) {
   return (
     <BrowserRouter>
       <WagmiProvider config={wagmiConfig}>
-        <ReactQueryProvider withDevtools>
+        <ReactQueryProvider>
           <CosmosProvider>
             <WalletProvider>
               {children}
