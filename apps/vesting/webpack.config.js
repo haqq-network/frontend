@@ -23,12 +23,11 @@ module.exports = {
       styles: ['./src/index.css'],
       outputHashing: process.env['NODE_ENV'] === 'production' ? 'all' : 'none',
       optimization: process.env['NODE_ENV'] === 'production',
-      // sourceMap: process.env['NODE_ENV'] === 'development',
     }),
     new NxReactWebpackPlugin({
       // Uncomment this line if you don't want to use SVGR
       // See: https://react-svgr.com/
-      // svgr: false
+      svgr: false,
     }),
     new ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
@@ -40,8 +39,8 @@ module.exports = {
           process.env['VERCEL_GIT_COMMIT_SHA'] ??
           'dev',
       ),
-      'process.env.INDEXER_ENDPOINT': JSON.stringify(
-        process.env['INDEXER_ENDPOINT'],
+      'process.env.WALLETCONNECT_PROJECT_ID': JSON.stringify(
+        process.env['WALLETCONNECT_PROJECT_ID'],
       ),
     }),
   ],
@@ -60,13 +59,5 @@ module.exports = {
       https: false,
       url: false,
     },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.svg/,
-        type: 'asset/resource',
-      },
-    ],
   },
 };
