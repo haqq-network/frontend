@@ -28,7 +28,7 @@ function BlockPageHeader({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
         <h1 className="text-start text-[46px] font-[600] leading-[52px] md:text-[60px] md:leading-[60px] lg:text-[80px] lg:leading-[80px]">
           {t('blog-page.title')}
         </h1>
-        <div className="flex flex-col gap-x-[28px] gap-y-[24px]  lg:flex-row lg:items-start">
+        <div className="flex flex-col gap-x-[28px] gap-y-[24px] lg:flex-row lg:items-start">
           <Text size="small">{t('subscribe-form.text')}</Text>
           <SubscribeForm
             className="flex w-full flex-col gap-[16px] md:flex-row"

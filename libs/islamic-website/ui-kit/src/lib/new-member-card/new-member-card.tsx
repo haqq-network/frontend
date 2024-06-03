@@ -40,7 +40,7 @@ export function NewMemberCard({
             className="pointer-events-none h-full w-full select-none object-cover"
           />
         </div>
-        <div className="flex max-w-[40%] flex-col justify-between gap-[8px] md:gap-[12px] lg:max-w-[50%] ">
+        <div className="flex max-w-[40%] flex-col justify-between gap-[8px] md:gap-[12px] lg:max-w-[50%]">
           <span className="text-[13px] font-[700] leading-[20px] md:text-[14px] lg:text-[24px] lg:leading-[26px]">
             {title}
           </span>

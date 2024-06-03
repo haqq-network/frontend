@@ -397,7 +397,7 @@ function LessonCard({
           <div className="absolute z-[1] h-full w-full rounded-[8px] bg-[#02030480]" />
           <PlayVideoIcon
             className={clsx(
-              'absolute left-1/2 top-1/2 z-[2] -translate-x-1/2 -translate-y-1/2 ',
+              'absolute left-1/2 top-1/2 z-[2] -translate-x-1/2 -translate-y-1/2',
               isAvailable &&
                 'transform transition-all duration-300 group-hover:scale-110',
             )}

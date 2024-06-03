@@ -90,7 +90,7 @@ export function WalletDownloadWithQrButton({
 
           <div>
             <div className={clsx('flex flex-col text-start', className)}>
-              <span className="text-[10px] leading-[12px] ">{title}</span>
+              <span className="text-[10px] leading-[12px]">{title}</span>
               <span className="text-[16px] font-[600] leading-[22px]">
                 {type === 'apple' && 'App Store'}
                 {type === 'google' && 'Google Play'}
