@@ -16,6 +16,7 @@ import { Footer } from '@haqq/shell-ui-kit/server';
 import { AppHeader } from '../components/header';
 import { AppHeaderMobile } from '../components/header-mobile';
 import { createWagmiConfig } from '../config/wagmi-config';
+import { env } from '../env/client';
 import { clashDisplayFont, hkGuiseFont } from '../lib/fonts';
 import { AppProviders } from '../providers/app-providers';
 import { PHProvider } from '../providers/posthog-provider';
@@ -105,6 +106,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           <AppProviders
             initialState={initialState}
             dehydratedState={dehydratedState}
+            walletConnectProjectId={env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
           >
             <PostHogPageView />
             <PosthogIdentifyWalletUsers />
