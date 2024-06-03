@@ -1,15 +1,6 @@
 //@ts-check
-import createWithBundleAnalyzer from '@next/bundle-analyzer';
 import { composePlugins, withNx } from '@nx/next';
 import { withSentryConfig } from '@sentry/nextjs';
-
-// Configure the bundle analyzer
-const bundleAnalyzerConfig = {
-  enabled: process.env.ANALYZE === 'true',
-};
-
-export const withBundleAnalyzer =
-  createWithBundleAnalyzer(bundleAnalyzerConfig);
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -84,7 +75,6 @@ const sentryWebpackPluginOptions = {
 const plugins = [
   // Add more Next.js plugins to this list if needed.
   withNx,
-  withBundleAnalyzer,
 ];
 
 export default withSentryConfig(
