@@ -225,8 +225,7 @@ export function Footer({
                   href="https://wggos.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative h-[38px] w-[147px] grayscale transition-[filter] duration-300 hover:grayscale-0 md:h-[50px]
-                   md:w-[200px]"
+                  className="relative h-[38px] w-[147px] grayscale transition-[filter] duration-300 hover:grayscale-0 md:h-[50px] md:w-[200px]"
                   aria-label="World Green Growth Organization"
                 >
                   <Image

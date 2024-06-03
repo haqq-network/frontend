@@ -44,7 +44,7 @@ function DownloadCard({
   asset,
 }: DownloadCardProps) {
   return (
-    <div className="flex max-w-full flex-col gap-y-[16px] ">
+    <div className="flex max-w-full flex-col gap-y-[16px]">
       <div
         className={clsx(
           'flex h-[140px] items-center justify-center rounded-xl',

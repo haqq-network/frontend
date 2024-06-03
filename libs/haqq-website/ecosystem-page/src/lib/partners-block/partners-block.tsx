@@ -114,7 +114,7 @@ function PartnerCard({
         <div className="mt-[12px] text-[16px] leading-[1.2em]">{name}</div>
       </div>
       <div className="flex flex-col gap-y-[12px]">
-        <p className="text-[12px] leading-[1.5em] ">{description}</p>
+        <p className="text-[12px] leading-[1.5em]">{description}</p>
         <div className="flex gap-x-[12px]">
           <PartnerTypeOrStatus status={status} />
           <PartnerTypeOrStatus type={type} />

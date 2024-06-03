@@ -171,7 +171,7 @@ export function SubscribeForm({
       >
         <div
           className={clsx(
-            'flex flex-col ',
+            'flex flex-col',
             formState.errors.email?.message ? 'gap-y-[20px]' : 'gap-y-[6px]',
           )}
         >

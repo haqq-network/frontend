@@ -258,7 +258,7 @@ export function StakingInfo() {
             ? 'top-[99px] sm:top-[110px]'
             : 'top-[62px] sm:top-[70px]',
         isHaqqWallet && '!border-t-[0px]',
-        !isTablet && 'sticky py-[32px] ',
+        !isTablet && 'sticky py-[32px]',
       )}
     >
       {isTablet ? (

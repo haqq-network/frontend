@@ -40,7 +40,7 @@ export function BlogPostCard({
           <Image
             src={image}
             alt=""
-            className="h-full w-full  object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
           />
         )}
       </div>

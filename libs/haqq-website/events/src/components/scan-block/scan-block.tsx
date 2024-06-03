@@ -62,7 +62,7 @@ export function ScanBlock() {
 
   return (
     <div
-      className={`mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px] `}
+      className={`mx-auto flex max-w-md flex-col gap-y-[24px] sm:gap-y-[32px]`}
     >
       {loading ? (
         <SpinnerLoader />
