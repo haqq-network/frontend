@@ -14,3 +14,4 @@ export * from './lib/islamic/get-islamic-roadmap';
 export * from './lib/islamic/get-islamic-blog-posts';
 export * from './lib/islamic/get-islamic-price';
 export * from './lib/shell/get-estimated-fee';
+export * from './lib/vesting/get-dao-check';

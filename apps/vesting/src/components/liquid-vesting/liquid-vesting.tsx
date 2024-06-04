@@ -368,10 +368,7 @@ function LiquidVesting({
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="px-[16px] pt-[24px]">
         <Heading level={4}>
-          <span>Liquid vesting</span>{' '}
-          <div className="bg-primary pointer-events-none ml-[8xp] inline-block translate-y-[-8px] select-none rounded-[6px] px-[6px] py-[2px] font-sans text-[11px] font-[600] uppercase leading-[16px] text-white">
-            New
-          </div>
+          <span>Liquid vesting</span>
         </Heading>
       </div>
 
