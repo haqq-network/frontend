@@ -111,7 +111,7 @@
     "@nx/js": "19.1.1",
     "@nx/next": "19.1.1",
     "@nx/react": "19.1.1",
-    "@nx/rollup": "19.1.1",
+    "@nx/rollup": "19.1.2",
     "@nx/storybook": "19.1.1",
     "@nx/web": "19.1.1",
     "@nx/webpack": "19.1.1",
