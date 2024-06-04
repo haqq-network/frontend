@@ -2,12 +2,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
+import { useDebounceValue } from 'usehooks-ts';
 import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
-  useThrottle,
   useStakingActions,
   useToast,
 } from '@haqq/shell-shared';
@@ -44,6 +44,8 @@ export function DelegateModalHooked({
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [debouncedDelegateAmount, setDeboundecDelegateAmount] =
+    useDebounceValue<number | undefined>(undefined, 500);
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isDelegateEnabled, setDelegateEnabled] = useState(false);
   const [isFeePending, setFeePending] = useState(false);
@@ -55,7 +57,7 @@ export function DelegateModalHooked({
   const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const toast = useToast();
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
-  const throttledDelegateAmount = useThrottle(delegateAmount, 300);
+
   const posthog = usePostHog();
   const chainId = chain.id;
 
@@ -159,11 +161,15 @@ export function DelegateModalHooked({
         cancelPreviousRequest.current = null;
       }
     }
-  }, [cancelPreviousRequest, isOpen]);
+  }, [cancelPreviousRequest, isOpen, setDelegateAmount]);
+
+  useEffect(() => {
+    setDeboundecDelegateAmount(delegateAmount);
+  }, [delegateAmount, setDeboundecDelegateAmount]);
 
   useEffect(() => {
     if (isDelegateEnabled) {
-      if (throttledDelegateAmount && throttledDelegateAmount > 0) {
+      if (debouncedDelegateAmount && debouncedDelegateAmount > 0) {
         if (cancelPreviousRequest.current) {
           cancelPreviousRequest.current();
         }
@@ -175,7 +181,7 @@ export function DelegateModalHooked({
         };
 
         setFeePending(true);
-        getDelegateEstimatedFee(validatorAddress, throttledDelegateAmount)
+        getDelegateEstimatedFee(validatorAddress, debouncedDelegateAmount)
           .then((estimatedFee) => {
             if (!isCancelled) {
               setFee(estimatedFee);
@@ -190,7 +196,7 @@ export function DelegateModalHooked({
       }
     }
   }, [
-    throttledDelegateAmount,
+    debouncedDelegateAmount,
     getDelegateEstimatedFee,
     isDelegateEnabled,
     validatorAddress,

@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
+import { useDebounceValue } from 'usehooks-ts';
 import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
@@ -9,7 +10,6 @@ import {
   useStakingActions,
   useToast,
   getFormattedAddress,
-  useThrottle,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -42,6 +42,8 @@ export function UndelegateModalHooked({
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [debouncedUndelegateAmount, setDeboundecUndelegateAmount] =
+    useDebounceValue<number | undefined>(undefined, 500);
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isUndelegateEnabled, setUndelegateEnabled] = useState(false);
   const [isFeePending, setFeePending] = useState(false);
@@ -53,7 +55,6 @@ export function UndelegateModalHooked({
   const { chain = chains[0] } = useAccount();
   const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
-  const throttledUndelegateAmount = useThrottle(undelegateAmount, 300);
   const posthog = usePostHog();
   const chainId = chain.id;
 
@@ -161,7 +162,7 @@ export function UndelegateModalHooked({
 
   useEffect(() => {
     if (isUndelegateEnabled) {
-      if (throttledUndelegateAmount && throttledUndelegateAmount > 0) {
+      if (debouncedUndelegateAmount && debouncedUndelegateAmount > 0) {
         if (cancelPreviousRequest.current) {
           cancelPreviousRequest.current();
         }
@@ -173,7 +174,7 @@ export function UndelegateModalHooked({
         };
 
         setFeePending(true);
-        getUndelegateEstimatedFee(validatorAddress, throttledUndelegateAmount)
+        getUndelegateEstimatedFee(validatorAddress, debouncedUndelegateAmount)
           .then((estimatedFee) => {
             if (!isCancelled) {
               setFee(estimatedFee);
@@ -190,11 +191,15 @@ export function UndelegateModalHooked({
   }, [
     validatorAddress,
     cancelPreviousRequest,
-    throttledUndelegateAmount,
+    debouncedUndelegateAmount,
     getUndelegateEstimatedFee,
     isUndelegateEnabled,
     toast,
   ]);
+
+  useEffect(() => {
+    setDeboundecUndelegateAmount(undelegateAmount);
+  }, [undelegateAmount, setDeboundecUndelegateAmount]);
 
   return (
     <UndelegateModal
