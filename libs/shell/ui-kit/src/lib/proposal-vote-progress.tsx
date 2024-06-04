@@ -223,41 +223,6 @@ export function ProposalVoteProgress({
             </CardText>
           </div>
         </div>
-
-        <div className="flex items-center">
-          <div className="flex flex-row items-center">
-            <div
-              className={clsx(
-                'mb-[-2px] mr-[4px] h-2 w-2 rounded-full lg:mb-[-3px]',
-                status === ProposalStatusEnum.Failed
-                  ? 'bg-white/50'
-                  : 'bg-[#E3A13F]',
-              )}
-            />
-            <div className="mr-[2px]">
-              <CardText
-                className={clsx(
-                  'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
-                  status === ProposalStatusEnum.Failed
-                    ? 'text-white/50'
-                    : 'text-white',
-                )}
-              >
-                No with veto
-              </CardText>
-            </div>
-            <CardText
-              className={clsx(
-                'text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]',
-                status === ProposalStatusEnum.Failed
-                  ? 'text-white/50'
-                  : 'text-white',
-              )}
-            >
-              {vetoPercents.toFixed(2)}%
-            </CardText>
-          </div>
-        </div>
       </div>
     </div>
   );
