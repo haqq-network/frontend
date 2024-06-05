@@ -1,12 +1,15 @@
 {
   "name": "@haqq/data-access-cosmos",
   "version": "0.0.1",
-  "main": "./index.cjs",
-  "module": "./index.mjs",
-  "peerDependencies": {
+  "dependencies": {
+    "@swc/helpers": "~0.5.11",
     "@evmos/proto": "0.1.27",
     "@evmos/provider": "0.2.8",
     "@evmos/transactions": "0.2.13",
-    "@haqq/data-access-falconer": "^0.0.1"
-  }
+    "@haqq/data-access-falconer": "0.0.1"
+  },
+  "type": "module",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "private": true
 }

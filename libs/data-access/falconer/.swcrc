@@ -1,4 +1,5 @@
 {
+  "$schema": "https://swc.rs/schema.json",
   "jsc": {
     "target": "es2017",
     "parser": {

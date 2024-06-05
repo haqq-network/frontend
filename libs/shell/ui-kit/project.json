@@ -4,5 +4,6 @@
   "sourceRoot": "libs/shell/ui-kit/src",
   "projectType": "library",
   "tags": ["shell-lib-ui-kit"],
+  "// targets": "to see all targets run: nx show project shell-ui-kit --web",
   "targets": {}
 }

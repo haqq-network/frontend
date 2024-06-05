@@ -33,6 +33,17 @@
       }
     },
     {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static"
+      }
+    },
+
+    {
       "plugin": "@nx/cypress/plugin",
       "options": {
         "targetName": "e2e",
@@ -52,52 +63,40 @@
       "options": {
         "targetName": "test"
       }
-    },
-    {
-      "plugin": "@nx/rollup/plugin",
-      "options": {
-        "buildTargetName": "build"
-      }
-    },
-    {
-      "plugin": "@nx/webpack/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "serveTargetName": "serve",
-        "previewTargetName": "preview"
-      }
     }
   ],
   "generators": {
     "@nx/next": {
       "application": {
-        "style": "css",
+        "style": "tailwind",
         "linter": "eslint"
+      },
+      "library": {
+        "buildable": true,
+        "style": "tailwind",
+        "linter": "eslint",
+        "unitTestRunner": "jest"
       }
     },
     "@nx/react": {
+      "application": {
+        "style": "tailwind",
+        "linter": "eslint",
+        "bundler": "vite"
+      },
       "library": {
-        "style": "css",
+        "buildable": true,
+        "style": "tailwind",
         "linter": "eslint",
         "unitTestRunner": "jest"
       },
-      "application": {
-        "style": "css",
-        "linter": "eslint",
-        "bundler": "webpack"
-      },
       "component": {
-        "style": "css"
+        "style": "tailwind"
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
-      "cache": true
-    },
-    "@nx/rollup:rollup": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
@@ -109,8 +108,13 @@
     }
   },
   "release": {
+    "projectsRelationship": "independent",
     "version": {
-      "preVersionCommand": "yarn dlx nx run-many -t build"
+      "preVersionCommand": "yarn nx run-many -t build",
+      "generatorOptions": {
+        "currentVersionResolver": "git-tag",
+        "specifierSource": "conventional-commits"
+      }
     }
   }
 }

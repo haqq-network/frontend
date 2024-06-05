@@ -4,9 +4,20 @@ import clsx from 'clsx';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 import { getFormattedAddress, useWallet } from '@haqq/shell-shared';
-import { formatNumber } from '@haqq/shell-ui-kit/server';
 import { Button } from './Button/Button';
 import { NetworkButton } from './network-status';
+
+function formatNumber(
+  numberToFormat: number,
+  minimumFractionDigits = 0,
+  maximumFractionDigits = 3,
+  locale = 'en-US',
+) {
+  return numberToFormat.toLocaleString(locale, {
+    minimumFractionDigits,
+    maximumFractionDigits,
+  });
+}
 
 function AddressButton({
   children,

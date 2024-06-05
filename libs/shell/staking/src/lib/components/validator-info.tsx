@@ -24,7 +24,7 @@ import {
   useClipboard,
   useStakingUnbondingsQuery,
   useWallet,
-  useStakingValidatorListQuery,
+  // useStakingValidatorListQuery,
   useToast,
   useNetworkAwareAction,
   getFormattedAddress,
@@ -467,7 +467,7 @@ export function ValidatorInfo({
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
-  const { data: validatorsList } = useStakingValidatorListQuery(1000);
+  // const { data: validatorsList } = useStakingValidatorListQuery(1000);
   const symbol = 'ISLM';
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();

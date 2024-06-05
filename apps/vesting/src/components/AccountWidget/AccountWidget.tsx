@@ -1,5 +1,6 @@
 import { useCallback, ReactNode, useMemo } from 'react';
 import { getFormattedAddress } from '@haqq/shell-shared';
+import widgetBg from '../../assets/account-widget-bg.svg';
 import { useClipboard } from '../../hooks/useClipboard';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
 import { Card } from '../Card/Card';
@@ -8,7 +9,7 @@ import { CopyIcon } from '../Icons/Icons';
 function AccountWidgetBgImage() {
   return (
     <img
-      src="/assets/account-widget-bg.svg"
+      src={widgetBg}
       alt=""
       className="absolute left-[80%] top-[50%] h-[272px] w-[271px] translate-x-[-50%] translate-y-[-50%] select-none"
     />

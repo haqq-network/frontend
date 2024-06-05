@@ -3,34 +3,25 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data-access/falconer/src",
   "projectType": "library",
+  "tags": ["data-access"],
   "release": {
     "version": {
       "generatorOptions": {
         "packageRoot": "dist/{projectRoot}",
-        "currentVersionResolver": "git-tag"
+        "currentVersionResolver": "git-tag",
+        "specifierSource": "conventional-commits"
       }
     }
   },
-  "tags": ["data-access"],
   "targets": {
     "build": {
-      "executor": "@nx/rollup:rollup",
+      "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/data-access/falconer",
         "main": "libs/data-access/falconer/src/index.ts",
         "tsConfig": "libs/data-access/falconer/tsconfig.lib.json",
-        "project": "libs/data-access/falconer/package.json",
-        "compiler": "swc",
-        "format": ["cjs", "esm"],
-        "assets": [
-          {
-            "glob": "libs/data-access/falconer/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/data-access/falconer/*.md"]
       }
     },
     "nx-release-publish": {

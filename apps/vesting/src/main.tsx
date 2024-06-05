@@ -2,7 +2,6 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './app/app';
 import { AppProviders } from './providers/app-providers';
-import './index.css';
 
 function startApp() {
   const rootElement = document.getElementById('root');

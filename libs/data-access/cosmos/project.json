@@ -3,33 +3,25 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data-access/cosmos/src",
   "projectType": "library",
+  "tags": ["data-access"],
   "release": {
     "version": {
       "generatorOptions": {
         "packageRoot": "dist/{projectRoot}",
-        "currentVersionResolver": "git-tag"
+        "currentVersionResolver": "git-tag",
+        "specifierSource": "conventional-commits"
       }
     }
   },
-  "tags": ["data-access"],
   "targets": {
     "build": {
-      "executor": "@nx/rollup:rollup",
+      "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/data-access/cosmos",
         "main": "libs/data-access/cosmos/src/index.ts",
         "tsConfig": "libs/data-access/cosmos/tsconfig.lib.json",
-        "assets": [],
-        "project": "libs/data-access/cosmos/package.json",
-        "compiler": "swc",
-        "format": ["cjs", "esm"],
-        "external": [
-          "@evmos/proto",
-          "@evmos/provider",
-          "@evmos/transactions",
-          "@haqq/data-access-falconer"
-        ]
+        "assets": ["libs/data-access/cosmos/*.md"]
       }
     },
     "nx-release-publish": {
