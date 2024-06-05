@@ -48,12 +48,12 @@ const PostHogPageView = dynamic(
   },
 );
 
-const PosthogIdentifyWalletUsers = dynamic(
+const PostHogIdentifyWalletUsers = dynamic(
   async () => {
-    const { PosthogIdentifyWalletUsers } = await import(
+    const { PostHogIdentifyWalletUsers } = await import(
       '../components/posthog-identify-users'
     );
-    return { default: PosthogIdentifyWalletUsers };
+    return { default: PostHogIdentifyWalletUsers };
   },
   {
     ssr: false,
@@ -109,18 +109,14 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             walletConnectProjectId={env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
           >
             <PostHogPageView />
-            <PosthogIdentifyWalletUsers />
+            <PostHogIdentifyWalletUsers />
             <SpeedInsights />
 
-            <>
-              {isMobileUA ? <AppHeaderMobile /> : <AppHeader />}
+            {isMobileUA ? <AppHeaderMobile /> : <AppHeader />}
 
-              <main className="relative flex-1 overflow-x-clip">
-                {children}
-              </main>
+            <main className="relative flex-1 overflow-x-clip">{children}</main>
 
-              <Footer />
-            </>
+            <Footer commitSha={env.NEXT_PUBLIC_GIT_COMMIT_SHA} />
           </AppProviders>
 
           <ParalaxBackground />

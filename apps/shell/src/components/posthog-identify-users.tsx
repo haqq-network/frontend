@@ -10,7 +10,7 @@ declare const window: Window &
     };
   };
 
-export function PosthogIdentifyWalletUsers() {
+export function PostHogIdentifyWalletUsers() {
   const { isHaqqWallet } = useWallet();
 
   useEffect(() => {
