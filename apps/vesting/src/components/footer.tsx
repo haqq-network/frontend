@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 import { Container } from './Layout/Layout';
 import { Text } from './typography';
-import { GIT_COMMIT_SHA } from '../constants';
 
 export function Footer(): ReactElement {
   return (
@@ -23,10 +22,6 @@ export function Footer(): ReactElement {
             </Text>
             <Text color="light" className="self-center text-sm sm:mb-0">
               All rights reserved
-            </Text>
-            <br />
-            <Text color="light" className="self-center text-sm sm:mb-0">
-              {GIT_COMMIT_SHA}
             </Text>
           </div>
           <div className="flex flex-row items-center sm:space-x-4">
