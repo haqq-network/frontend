@@ -68,21 +68,19 @@ function WalletModals() {
   } = useWallet();
 
   return (
-    <>
-      <SelectWalletModal
-        connectors={connectors}
-        onConnectClick={async (connectorId: number) => {
-          try {
-            await connect({ connector: availableConnectors[connectorId] });
-            closeSelectWallet();
-          } catch (error: unknown) {
-            setConnectError((error as Error).message);
-          }
-        }}
-        isOpen={isSelectWalletOpen}
-        onClose={closeSelectWallet}
-        error={connectError ?? ''}
-      />
-    </>
+    <SelectWalletModal
+      connectors={connectors}
+      onConnectClick={async (connectorId: number) => {
+        try {
+          await connect({ connector: availableConnectors[connectorId] });
+          closeSelectWallet();
+        } catch (error: unknown) {
+          setConnectError((error as Error).message);
+        }
+      }}
+      isOpen={isSelectWalletOpen}
+      onClose={closeSelectWallet}
+      error={connectError ?? ''}
+    />
   );
 }

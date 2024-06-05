@@ -172,7 +172,7 @@ export function LiquidVestingHooked({
     }
   }, [
     balance,
-    chain?.id ?? haqqMainnet.id,
+    chain?.id,
     explorer.cosmos,
     haqqAddress,
     invalidateQueries,
@@ -267,7 +267,7 @@ export function LiquidVestingHooked({
       }
     },
     [
-      chain?.id ?? haqqMainnet.id,
+      chain?.id,
       explorer.cosmos,
       haqqAddress,
       invalidateQueries,

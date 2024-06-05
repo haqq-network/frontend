@@ -32,7 +32,7 @@ export function WalletModals() {
         name: chain.name,
       };
     });
-  }, []);
+  }, [supportedChains]);
 
   return (
     <>

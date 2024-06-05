@@ -32,8 +32,9 @@ import {
   useConnect,
   Connector,
   Config,
+  useChainId,
 } from 'wagmi';
-import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
+import { haqqMainnet } from 'wagmi/chains';
 import { ConnectData } from 'wagmi/query';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
@@ -103,6 +104,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const availableConnectors = useConnectors();
   const availableChains = useChains();
   const [connectError, setConnectError] = useState<string | null>(null);
+  const currentChainId = useChainId();
 
   const connectors = useMemo(() => {
     return availableConnectors.map((connector, index) => {
@@ -114,8 +116,10 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   }, [availableConnectors]);
 
   const isChainSupported = useMemo(() => {
-    return availableChains.length > 0;
-  }, []);
+    return availableChains.some((chain) => {
+      return currentChainId === chain.id;
+    });
+  }, [availableChains, currentChainId]);
 
   const handleNetworkChange = useCallback(
     async (chainId: number) => {
@@ -126,12 +130,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     [switchChainAsync],
   );
 
-  const isNetworkSupported = useMemo(() => {
-    return Boolean(
-      chain && (chain.id === haqqMainnet.id || chain.id === haqqTestedge2.id),
-    );
-  }, [chain]);
-
+  const isNetworkSupported = isChainSupported;
   const handleWatchAsset = useCallback(
     async (denom: string, contractAddress: string) => {
       try {
