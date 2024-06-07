@@ -38,7 +38,7 @@ export function RevokeButton({
       try {
         const revokePromise = getRevokeEstimatedFee(grantee, type).then(
           (estimatedFee) => {
-            return revoke(grantee, type, estimatedFee);
+            return revoke(grantee, type, '', estimatedFee);
           },
         );
 

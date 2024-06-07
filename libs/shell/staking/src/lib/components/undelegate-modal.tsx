@@ -1,4 +1,5 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import clsx from 'clsx';
 import {
   Modal,
   ModalCloseButton,
@@ -10,6 +11,7 @@ import {
   WarningMessage,
   toFixedAmount,
   formatNumber,
+  OrangeLink,
 } from '@haqq/shell-ui-kit/server';
 import { DelegateModalDetails } from './delegate-modal';
 
@@ -27,6 +29,8 @@ export interface UndelegateModalProps {
   onClose: () => void;
   onChange: (value: number | undefined) => void;
   onSubmit: () => void;
+  memo?: string;
+  onMemoChange: (value: string) => void;
 }
 
 export function UndelegateModal({
@@ -40,10 +44,13 @@ export function UndelegateModal({
   isDisabled,
   fee,
   isFeePending,
+  memo,
   onClose,
   onChange,
   onSubmit,
+  onMemoChange,
 }: UndelegateModalProps) {
+  const [isMemoVisible, setMemoVisible] = useState(false);
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(delegation));
   }, [delegation, onChange]);
@@ -127,6 +134,37 @@ export function UndelegateModal({
                     hint={amountHint}
                   />
                 </div>
+
+                {!isMemoVisible ? (
+                  <div className="leading-[0]">
+                    <OrangeLink
+                      className="!text-[12px] !font-[500] !leading-[16px]"
+                      onClick={() => {
+                        setMemoVisible(true);
+                      }}
+                    >
+                      Add memo
+                    </OrangeLink>
+                  </div>
+                ) : (
+                  <div className="leading-[0]">
+                    <input
+                      type="text"
+                      value={memo}
+                      onChange={(e) => {
+                        onMemoChange(e.target.value);
+                      }}
+                      className={clsx(
+                        'w-full rounded-[6px] outline-none',
+                        'transition-colors duration-100 ease-in',
+                        'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
+                        'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+                        'bg-[#E7E7E7]',
+                      )}
+                      placeholder="Add your memo"
+                    />
+                  </div>
+                )}
 
                 <div>
                   <DelegateModalDetails

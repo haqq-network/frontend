@@ -59,7 +59,7 @@ export function useLiquidVestingActions() {
     async (address?: string, amount?: number, balance?: number) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = 'Convert to liquid token';
+      const memo = '';
 
       if (sender && address && haqqChain) {
         const params = getLiquidateParams(
@@ -118,7 +118,7 @@ export function useLiquidVestingActions() {
     async (address: string, amount: string, denom: string) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = 'Redeem liquid token';
+      const memo = '';
 
       if (sender && address && haqqChain) {
         const params = getRedeemParams(address, amount, denom);

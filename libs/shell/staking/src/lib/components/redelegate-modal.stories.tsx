@@ -40,9 +40,11 @@ export const RedelegateModal: Story = {
         value: 'haqqvaloper12g3c7a2z9jfwrpyd9vxxt53vup6pfgk5hzl48r',
       },
     ],
+    memo: '',
     onChange: fn(),
     onClose: fn(),
     onSubmit: fn(),
     onValidatorChange: fn(),
+    onMemoChange: fn(),
   },
 };
