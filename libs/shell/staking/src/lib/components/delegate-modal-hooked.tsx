@@ -60,6 +60,7 @@ export function DelegateModalHooked({
 
   const posthog = usePostHog();
   const chainId = chain.id;
+  const [memo, setMemo] = useState('');
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
@@ -69,6 +70,7 @@ export function DelegateModalHooked({
         validatorAddress,
         delegateAmount,
         balance,
+        memo,
         fee,
       );
 
@@ -125,6 +127,7 @@ export function DelegateModalHooked({
     validatorAddress,
     delegateAmount,
     balance,
+    memo,
     fee,
     toast,
     onClose,
@@ -220,6 +223,8 @@ export function DelegateModalHooked({
       delegateAmount={delegateAmount}
       fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
       isFeePending={isFeePending}
+      memo={memo}
+      onMemoChange={setMemo}
     />
   );
 }

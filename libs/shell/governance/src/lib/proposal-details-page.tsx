@@ -62,6 +62,7 @@ import {
   voteOptionFromJSON,
   formatDate,
   InfoBlock,
+  OrangeLink,
 } from '@haqq/shell-ui-kit/server';
 import { ParameterChangeProposalDetails } from './components/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from './components/software-upgrade-proposal';
@@ -671,6 +672,7 @@ export function ProposalDetailsComponent({
                       )}
                     </div>
                   )}
+
                   {proposalDetails.status === ProposalStatusEnum.Deposit && (
                     <div>
                       <ProposalDepositProgress
@@ -680,6 +682,7 @@ export function ProposalDetailsComponent({
                       />
                     </div>
                   )}
+
                   {(proposalDetails.status === ProposalStatusEnum.Deposit ||
                     proposalDetails.status === ProposalStatusEnum.Voting) && (
                     <div>
@@ -946,6 +949,8 @@ export function VoteActions({
   const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const posthog = usePostHog();
   const chainId = chain.id;
+  const [memo, setMemo] = useState('');
+  const [isMemoVisible, setMemoVisible] = useState(false);
 
   const handleVote = useCallback(
     async (option: number) => {
@@ -953,7 +958,7 @@ export function VoteActions({
         posthog.capture('vote started', { chainId });
         const votePromise = getVoteEstimatedFee(proposalId, option).then(
           (estimatedFee) => {
-            return vote(proposalId, option, estimatedFee);
+            return vote(proposalId, option, memo, estimatedFee);
           },
         );
 
@@ -998,6 +1003,7 @@ export function VoteActions({
       chainId,
       explorer.cosmos,
       getVoteEstimatedFee,
+      memo,
       posthog,
       proposalId,
       toast,
@@ -1017,6 +1023,38 @@ export function VoteActions({
           You can change your vote while the voting is in progress
         </div>
       </div>
+
+      {!isMemoVisible ? (
+        <div className="mb-[16px] leading-[0]">
+          <OrangeLink
+            // className="!text-[12px] !font-[500] !leading-[16px]"
+            onClick={() => {
+              setMemoVisible(true);
+            }}
+          >
+            Add memo
+          </OrangeLink>
+        </div>
+      ) : (
+        <div className="mb-[16px] leading-[0]">
+          <input
+            type="text"
+            value={memo}
+            onChange={(e) => {
+              setMemo(e.target.value);
+            }}
+            className={clsx(
+              'px-[16px] pb-[12px] pt-[14px]',
+              'w-full text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
+              'rounded-[6px] bg-[#252528]',
+              'disabled:cursor-not-allowed',
+            )}
+            placeholder="Add your memo"
+            autoFocus
+          />
+        </div>
+      )}
+
       <div className="grid grid-flow-row grid-cols-2 gap-[12px] md:grid-cols-4 lg:flex lg:flex-row lg:flex-wrap">
         <div>
           <VoteButton
@@ -1160,8 +1198,9 @@ export function DepositInput({
         placeholder="Enter Amount"
         className={clsx(
           'px-[16px] pb-[12px] pt-[14px]',
+          'w-full text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
+          'rounded-[6px] bg-[#252528]',
           'disabled:cursor-not-allowed',
-          'w-full bg-transparent text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
         )}
         value={value}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {

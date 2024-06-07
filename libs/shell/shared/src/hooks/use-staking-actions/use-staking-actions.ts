@@ -82,11 +82,11 @@ export function useStakingActions() {
       validatorAddress?: string,
       amount?: number,
       balance?: number,
+      memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Delegate ${Number.parseFloat((amount ?? 0).toString())} ISLM to ${validatorAddress}`;
 
       if (sender && validatorAddress && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -141,11 +141,11 @@ export function useStakingActions() {
       validatorAddress?: string,
       amount?: number,
       balance?: number,
+      memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Undelegate ${Number.parseFloat((amount ?? 0).toString())} ISLM from ${validatorAddress}`;
 
       if (sender && validatorAddress && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -197,11 +197,11 @@ export function useStakingActions() {
   const handleClaimAllRewards = useCallback(
     async (
       validatorAddresses: string[],
+      memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Claim rewards from ${validatorAddresses.length} validators`;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -253,10 +253,13 @@ export function useStakingActions() {
   );
 
   const handleClaimReward = useCallback(
-    async (validatorAddress: string, estimatedFee?: EstimatedFeeResponse) => {
+    async (
+      validatorAddress: string,
+      memo = '',
+      estimatedFee?: EstimatedFeeResponse,
+    ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Claim reward from ${validatorAddress}`;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -313,11 +316,11 @@ export function useStakingActions() {
       validatorDestinationAddress: string,
       amount: number,
       balance?: number,
+      memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Redelegate from ${validatorSourceAddress} to ${validatorDestinationAddress}`;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -377,7 +380,7 @@ export function useStakingActions() {
         bigIntAmount.toString(),
         'aISLM',
       );
-      const memo = `Delegate ${Number.parseFloat(bigIntAmount.toString())} ISLM to ${validatorAddress}`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsg,
@@ -406,7 +409,7 @@ export function useStakingActions() {
         bigIntAmount.toString(),
         'aISLM',
       );
-      const memo = `Undelegate ${Number.parseFloat(bigIntAmount.toString())} ISLM from ${validatorAddress}`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsg,
@@ -440,7 +443,7 @@ export function useStakingActions() {
         bigIntAmount.toString(),
         'aISLM',
       );
-      const memo = `Redelegate from ${validatorSourceAddress} to ${validatorDestinationAddress}`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsg,
@@ -466,7 +469,7 @@ export function useStakingActions() {
         haqqAddress as string,
         validatorAddress,
       );
-      const memo = `Claim reward from ${validatorAddress}`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsg,
@@ -494,7 +497,7 @@ export function useStakingActions() {
           validatorAddress,
         );
       });
-      const memo = `Claim rewards from ${validatorAddresses.length} validators`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsgs,

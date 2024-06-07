@@ -19,12 +19,14 @@ interface ProposalActionsHook {
   vote: (
     proposalId: number,
     option: number,
+    memo?: string,
     estimatedFee?: EstimatedFeeResponse,
   ) => Promise<BroadcastTxResponse>;
   deposit: (
     proposalId: number,
     amount: number,
     balance?: number,
+    memo?: string,
     estimatedFee?: EstimatedFeeResponse,
   ) => Promise<BroadcastTxResponse>;
   getVoteEstimatedFee: (
@@ -58,12 +60,11 @@ export function useProposalActions(): ProposalActionsHook {
     async (
       proposalId: number,
       option: number,
+      memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      // const memo = `Vote for proposal #${proposalId}`;
-      const memo = ``;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -114,12 +115,11 @@ export function useProposalActions(): ProposalActionsHook {
       proposalId: number,
       amount: number,
       balance?: number,
+      memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      // const memo = `Deposit to proposal #${proposalId}`;
-      const memo = ``;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -176,7 +176,7 @@ export function useProposalActions(): ProposalActionsHook {
     async (proposalId: number, option: number) => {
       const pubkey = await getPubkey(ethAddress as string);
       const protoMsg = createMsgVote(proposalId, option, haqqAddress as string);
-      const memo = `Vote for proposal #${proposalId}`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsg,
@@ -202,7 +202,7 @@ export function useProposalActions(): ProposalActionsHook {
         amount: formatUnits(BigInt(amount), 18),
         denom: 'aISLM',
       });
-      const memo = `Deposit to proposal #${proposalId}`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsg,

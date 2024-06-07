@@ -22,8 +22,10 @@ export const DelegateModal: Story = {
     isDisabled: false,
     unboundingTime: 21,
     validatorCommission: 10,
+    memo: '',
     onChange: fn(),
     onClose: fn(),
     onSubmit: fn(),
+    onMemoChange: fn(),
   },
 };
