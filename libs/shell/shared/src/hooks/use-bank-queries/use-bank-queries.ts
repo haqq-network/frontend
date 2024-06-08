@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { useSupportedChains } from '../../providers/wagmi-provider';
 
 export function useBankSupplyQuery() {
   const { getBankSupply } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'bank-supply'],
@@ -16,8 +15,8 @@ export function useBankSupplyQuery() {
 
 export function useBankBalance(address: string | undefined) {
   const { getBankBalances } = useCosmosService();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'bank-balance', address],

@@ -4,16 +4,5 @@
   "sourceRoot": "libs/shell/faucet/src",
   "projectType": "library",
   "tags": ["shell-lib-faucet"],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/shell/faucet/jest.config.ts"
-      }
-    }
-  }
+  "targets": {}
 }

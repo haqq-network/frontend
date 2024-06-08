@@ -19,19 +19,26 @@ import {
 import { ec as EC } from 'elliptic';
 import { usePostHog } from 'posthog-js/react';
 import store from 'store2';
-import type { Hex } from 'viem';
+import type { Chain, Hex } from 'viem';
 import { publicKeyToAddress } from 'viem/utils';
+import 'viem/window';
 import {
   useDisconnect,
-  useNetwork,
-  useSwitchNetwork,
+  useAccount,
+  useSwitchChain,
   useWalletClient,
+  useChains,
+  useConnectors,
+  useConnect,
+  Connector,
+  Config,
+  useChainId,
 } from 'wagmi';
-import '@wagmi/core/window';
+import { haqqMainnet } from 'wagmi/chains';
+import { ConnectData } from 'wagmi/query';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import { useCosmosService } from './cosmos-provider';
-import { useSupportedChains } from './wagmi-provider';
 import { ethToHaqq, haqqToEth } from '../utils/convert-address';
 
 export interface WalletProviderInterface {
@@ -58,11 +65,19 @@ export interface WalletProviderInterface {
     path: string;
     message: cosmosTx.tx.v1beta1.TxRaw;
   }>;
+  connectors: { id: number; name: string }[];
+  availableConnectors: readonly Connector[];
+  connectError: string | null;
+  setConnectError: (error: string | null) => void;
+  connect: ({
+    connector,
+  }: {
+    connector: Connector;
+  }) => Promise<ConnectData<Config>>;
+  supportedChains: readonly [Chain, ...Chain[]];
 }
 
-const WalletContext = createContext<WalletProviderInterface | undefined>(
-  undefined,
-);
+const WalletContext = createContext<WalletProviderInterface | null>(null);
 
 function base64ToUncompressedHex(base64: string): Hex {
   const buffer = Buffer.from(base64, 'base64');
@@ -74,40 +89,48 @@ function base64ToUncompressedHex(base64: string): Hex {
 }
 
 export function WalletProvider({ children }: { children: ReactNode }) {
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { switchNetworkAsync } = useSwitchNetwork();
-  const { disconnect } = useDisconnect();
+  const { chain } = useAccount();
+  const { switchChainAsync } = useSwitchChain();
   const [isWalletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
   const [isSelectChainModalOpen, setSelectChainModalOpen] = useState(false);
   const { data: walletClient } = useWalletClient();
   const [isLowBalanceAlertOpen, setLowBalanceAlertOpen] = useState(false);
   const { getPubkeyFromChain } = useCosmosService();
-  const chainParams = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chainParams = getChainParams(chain?.id ?? haqqMainnet.id);
   const haqqChain = mapToCosmosChain(chainParams);
   const posthog = usePostHog();
+  const { connectAsync } = useConnect();
+  const { disconnectAsync } = useDisconnect();
+  const availableConnectors = useConnectors();
+  const availableChains = useChains();
+  const [connectError, setConnectError] = useState<string | null>(null);
+  const currentChainId = useChainId();
+
+  const connectors = useMemo(() => {
+    return availableConnectors.map((connector, index) => {
+      return {
+        id: index,
+        name: connector.name,
+      };
+    });
+  }, [availableConnectors]);
+
+  const isChainSupported = useMemo(() => {
+    return availableChains.some((chain) => {
+      return currentChainId === chain.id;
+    });
+  }, [availableChains, currentChainId]);
 
   const handleNetworkChange = useCallback(
     async (chainId: number) => {
-      if (switchNetworkAsync) {
-        await switchNetworkAsync(chainId);
-      } else {
-        console.warn('useWallet(): handleNetworkChange error');
+      if (switchChainAsync) {
+        await switchChainAsync({ chainId });
       }
     },
-    [switchNetworkAsync],
+    [switchChainAsync],
   );
 
-  const isNetworkSupported = useMemo(() => {
-    return chain && chain.unsupported !== undefined
-      ? !chain.unsupported
-      : false;
-  }, [chain]);
-
+  const isNetworkSupported = isChainSupported;
   const handleWatchAsset = useCallback(
     async (denom: string, contractAddress: string) => {
       try {
@@ -277,7 +300,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         const ethAddress = haqqToEth(sender.accountAddress);
         const signature = await walletClient.request({
           method: 'eth_signTypedData_v4',
-          params: [ethAddress as `0x${string}`, JSON.stringify(msg.eipToSign)],
+          params: [ethAddress as Hex, JSON.stringify(msg.eipToSign)],
         });
         const extension = signatureToWeb3Extension(
           haqqChain,
@@ -305,9 +328,9 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     [haqqChain, posthog, walletClient],
   );
 
-  const memoizedContext = useMemo(() => {
+  const memoizedContext = useMemo<WalletProviderInterface>(() => {
     return {
-      disconnect,
+      disconnect: disconnectAsync,
       selectNetwork: handleNetworkChange,
       isNetworkSupported,
       openSelectWallet: () => {
@@ -326,7 +349,9 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       isSelectChainOpen: isSelectChainModalOpen,
       isHaqqWallet:
         typeof window !== 'undefined'
-          ? Boolean(window.ethereum?.isHaqqWallet)
+          ? Boolean(
+              (window.ethereum as { isHaqqWallet?: boolean })?.isHaqqWallet,
+            )
           : false,
       watchAsset: handleWatchAsset,
       isLowBalanceAlertOpen,
@@ -339,18 +364,35 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       generatePubkey,
       getPubkey,
       signTransaction,
+      supportedChains: availableChains,
+      isChainSupported,
+      connectors,
+      availableConnectors,
+      connectError,
+      connect: connectAsync,
+      setConnectError,
     };
   }, [
-    disconnect,
+    disconnectAsync,
     handleNetworkChange,
     isNetworkSupported,
+    setWalletSelectModalOpen,
     isWalletSelectModalOpen,
+    setSelectChainModalOpen,
     isSelectChainModalOpen,
     handleWatchAsset,
     isLowBalanceAlertOpen,
+    setLowBalanceAlertOpen,
     generatePubkey,
     getPubkey,
     signTransaction,
+    availableChains,
+    isChainSupported,
+    connectors,
+    availableConnectors,
+    connectError,
+    connectAsync,
+    setConnectError,
   ]);
 
   return (

@@ -1,13 +1,12 @@
 const { join } = require('path');
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
-const { tailwindThemeExtend } = require('../../shared-tailwind-theme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     join(
       __dirname,
-      '{src,pages,components}/**/*!(*.stories|*.spec).{ts,tsx,html}',
+      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
@@ -19,13 +18,14 @@ module.exports = {
         messiri: ['var(--font-messiri)'],
       },
       colors: {
-        ...tailwindThemeExtend.colors,
         primary: 'var(--ui-kit-color-primary)',
+        'islamic-green': 'var(--ui-kit-color-primary)',
         danger: 'var(--ui-kit-color-danger)',
         black: 'var(--color-black)',
         'light-green': 'var(--color-light-green)',
         'light-gray': 'var(--color-light-gray)',
         'dark-gray': 'var(--color-dark-gray)',
+        'haqq-black': '#0D0D0E',
       },
     },
   },

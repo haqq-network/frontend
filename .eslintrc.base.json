@@ -1,0 +1,102 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nx", "import", "prettier"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "shell",
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "data-access"]
+              },
+              {
+                "sourceTag": "shell-lib-*",
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "data-access"]
+              },
+              {
+                "sourceTag": "islamic",
+                "onlyDependOnLibsWithTags": ["islamic-lib-*", "data-access"]
+              },
+              {
+                "sourceTag": "islamic-lib-*",
+                "onlyDependOnLibsWithTags": ["islamic-lib-*", "data-access"]
+              },
+              {
+                "sourceTag": "haqq",
+                "onlyDependOnLibsWithTags": ["haqq-lib-*", "data-access"]
+              },
+              {
+                "sourceTag": "haqq-lib-*",
+                "onlyDependOnLibsWithTags": ["haqq-lib-*", "data-access"]
+              },
+              {
+                "sourceTag": "vesting",
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "data-access"]
+              },
+              {
+                "sourceTag": "data-access",
+                "onlyDependOnLibsWithTags": ["data-access"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    }
+  ],
+  "rules": {
+    "arrow-body-style": ["error", "always"],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"]
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@haqq/**",
+            "group": "internal"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "never"
+      }
+    ],
+    "prettier/prettier": "error"
+  }
+}

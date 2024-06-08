@@ -1,20 +1,17 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useNetwork } from 'wagmi';
+import { useAccount } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
 import { BroadcastTxResponse, getChainParams } from '@haqq/data-access-cosmos';
 import {
   getFormattedAddress,
   useLiquidVestingActions,
   useQueryInvalidate,
-  useSupportedChains,
   useToast,
   useWallet,
 } from '@haqq/shell-shared';
 import { AddedToken, LiquidTokensList } from './liquid-tokens-list';
-import {
-  LiquidToken,
-  useLiquidTokens,
-} from '../../hooks/use-liquid-tokens/use-liquid-tokens';
+import { LiquidToken, useLiquidTokens } from '../../hooks/use-liquid-tokens';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
 import { toFixedAmount } from '../../utils/to-fixed-amount';
 import { Button } from '../Button/Button';
@@ -23,7 +20,7 @@ import { Input } from '../Input/Input';
 import { ToastError } from '../toasts/toast-error';
 import { ToastLoading } from '../toasts/toast-loading';
 import { ToastSuccess } from '../toasts/toast-success';
-import { Heading } from '../Typography/Typography';
+import { Heading } from '../typography';
 
 const MIN_AMOUNT = 1000;
 
@@ -78,19 +75,14 @@ export function LiquidVestingHooked({
   const [amountError, setAmountError] = useState<
     undefined | 'min' | 'max' | 'balance'
   >(undefined);
-  const [isLiquidationEnabled, setLiquidationEnabled] = useState(true);
+  const [isLiquidationEnabled, setLiquidationEnabled] = useState(false);
   const [isLiquidationPending, setLiquidationPending] = useState(false);
   const liquidTokens = useLiquidTokens(haqqAddress);
-  const { watchAsset } = useWallet();
+  const { supportedChains, watchAsset } = useWallet();
   const { liquidate, redeem } = useLiquidVestingActions();
   const toast = useToast();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const { chain } = useAccount();
+  const { explorer } = getChainParams(chain?.id ?? supportedChains[0].id);
   const [addedTokens, setAddedTokens] = useState<LiquidToken[]>([]);
   const invalidateQueries = useQueryInvalidate();
 
@@ -174,13 +166,13 @@ export function LiquidVestingHooked({
       setLiquidationEnabled(true);
       setLiquidationPending(false);
       invalidateQueries([
-        [chain.id, 'bank-balance'],
-        [chain.id, 'token-pairs'],
+        [chain?.id ?? haqqMainnet.id, 'bank-balance'],
+        [chain?.id ?? haqqMainnet.id, 'token-pairs'],
       ]);
     }
   }, [
     balance,
-    chain.id,
+    chain?.id,
     explorer.cosmos,
     haqqAddress,
     invalidateQueries,
@@ -200,12 +192,12 @@ export function LiquidVestingHooked({
         const assetDenom = token.denom.slice(1);
         await watchAsset(assetDenom, token.erc20Address);
         invalidateQueries([
-          [chain.id, 'bank-balance'],
-          [chain.id, 'token-pairs'],
+          [chain?.id ?? haqqMainnet.id, 'bank-balance'],
+          [chain?.id ?? haqqMainnet.id, 'token-pairs'],
         ]);
       }
     },
-    [chain.id, invalidateQueries, liquidTokens, watchAsset],
+    [chain?.id, invalidateQueries, liquidTokens, watchAsset],
   );
 
   const handleRedeem = useCallback(
@@ -269,13 +261,13 @@ export function LiquidVestingHooked({
         setLiquidationEnabled(true);
         setLiquidationPending(false);
         invalidateQueries([
-          [chain.id, 'bank-balance'],
-          [chain.id, 'token-pairs'],
+          [chain?.id ?? haqqMainnet.id, 'bank-balance'],
+          [chain?.id ?? haqqMainnet.id, 'token-pairs'],
         ]);
       }
     },
     [
-      chain.id,
+      chain?.id,
       explorer.cosmos,
       haqqAddress,
       invalidateQueries,
@@ -301,7 +293,7 @@ export function LiquidVestingHooked({
   );
 }
 
-export function LiquidVesting({
+function LiquidVesting({
   liquidationAmount,
   onAmountChange,
   amountError,
@@ -376,10 +368,7 @@ export function LiquidVesting({
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="px-[16px] pt-[24px]">
         <Heading level={4}>
-          <span>Liquid vesting</span>{' '}
-          <div className="bg-primary pointer-events-none ml-[8xp] inline-block translate-y-[-8px] select-none rounded-[6px] px-[6px] py-[2px] font-sans text-[11px] font-[600] uppercase leading-[16px] text-white">
-            New
-          </div>
+          <span>Liquid vesting</span>
         </Heading>
       </div>
 
@@ -432,3 +421,5 @@ export function LiquidVesting({
     </Card>
   );
 }
+
+// TODO: SEPARATE HOOK

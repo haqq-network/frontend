@@ -4,11 +4,10 @@ import {
   Modal,
   ModalCloseButton,
   Button,
-  MobileHeading,
   ModalInput,
-  formatNumber,
-  toFixedAmount,
+  ModalHeading,
 } from '@haqq/shell-ui-kit';
+import { formatNumber, toFixedAmount } from '@haqq/shell-ui-kit/server';
 import { DelegateModalDetails } from './delegate-modal';
 import { ValidatorSelect } from './validator-select';
 
@@ -108,11 +107,11 @@ export function RedelegateModal({
         />
 
         <div className="flex w-full flex-col space-y-6">
-          <div className="divide-y divide-dashed divide-[#0D0D0E3D]">
+          <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
-              <MobileHeading className="mt-[24px] sm:mt-[4px]">
+              <ModalHeading className="mt-[24px] sm:mt-[4px]">
                 Redelegate
-              </MobileHeading>
+              </ModalHeading>
             </div>
 
             <div className="py-[24px]">

@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { haqqTestedge2 } from '@wagmi/chains';
 import { nanoid } from 'nanoid';
 import { formatUnits } from 'viem';
-import { useNetwork } from 'wagmi';
-import { useSupportedChains } from '../../providers/wagmi-provider';
+import { useAccount, useChains } from 'wagmi';
+import { haqqTestedge2 } from 'wagmi/chains';
 
 function createRequest(address: string, date: Date) {
   return {
@@ -73,7 +72,13 @@ function mapBalances(
   };
 }
 
-async function indexerBalancesFetcher(chainId: number, address: string) {
+export async function indexerBalancesFetcher(
+  chainId: number,
+  address?: string,
+) {
+  if (!address) {
+    return null;
+  }
   const isTestedge = chainId === haqqTestedge2.id;
   const requestUrl = new URL(
     isTestedge ? TESTEDGE_INDEXER_ENDPOINT : INDEXER_ENDPOINT,
@@ -97,22 +102,18 @@ async function indexerBalancesFetcher(chainId: number, address: string) {
     return mapBalances(responseJson.result, address);
   } catch (error) {
     console.error((error as Error).message);
-    return undefined;
+    return null;
   }
 }
 
 export function useIndexerBalanceQuery(address?: string) {
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'indexer-balance', address],
     enabled: !!address,
     queryFn: async () => {
-      if (!address) {
-        return null;
-      }
-
       return await indexerBalancesFetcher(chain.id, address);
     },
   });

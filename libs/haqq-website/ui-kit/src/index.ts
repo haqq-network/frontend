@@ -27,3 +27,4 @@ export * from './lib/modal/modal';
 export * from './lib/markdown-text/markdown-text';
 export * from './lib/animated-numbers/animated-numbers';
 export * from './lib/popover/popover';
+export * from './lib/select-wallet-modal/select-wallet-modal';

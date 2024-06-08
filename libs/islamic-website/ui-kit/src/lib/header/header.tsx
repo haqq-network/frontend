@@ -223,7 +223,7 @@ export function Header() {
               </svg>
             </Link>
           </div>
-          <nav className=" hidden items-center gap-x-[12px] lg:flex">
+          <nav className="hidden items-center gap-x-[12px] lg:flex">
             <HeaderLink url="/shariah">Shariah</HeaderLink>
 
             <HeaderDropdown title="About">

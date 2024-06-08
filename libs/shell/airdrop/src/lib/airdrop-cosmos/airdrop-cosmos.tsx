@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Keplr } from '@keplr-wallet/types';
 import { IParticipant, useAirdropActions } from '@haqq/shell-shared';
-import { Button } from '@haqq/shell-ui-kit';
+import { Button } from '@haqq/shell-ui-kit/server';
 import cosmosIcon from './../../assets/icons/cosmos.svg';
 import evmosIcon from './../../assets/icons/evmos.svg';
 import { BlurredBlock } from '../blured-block/blured-block';

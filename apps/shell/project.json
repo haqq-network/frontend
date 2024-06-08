@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/shell",
   "projectType": "application",
+  "tags": ["shell"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",
@@ -10,55 +11,7 @@
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/shell"
-      },
-      "configurations": {
-        "development": {
-          "outputPath": "apps/shell"
-        },
-        "production": {}
       }
-    },
-    "serve": {
-      "executor": "@nx/next:server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "shell:build",
-        "dev": true
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "shell:build:development",
-          "dev": true
-        },
-        "production": {
-          "buildTarget": "shell:build:production",
-          "dev": false
-        }
-      }
-    },
-    "export": {
-      "executor": "@nx/next:export",
-      "options": {
-        "buildTarget": "shell:build:production"
-      }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "shell:build",
-        "staticFilePath": "dist/apps/shell/out"
-      }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/shell/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["shell"]
+  }
 }

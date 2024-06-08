@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import store from 'store2';
-import { ValidatorIcon } from '@haqq/shell-ui-kit';
+import { ValidatorIcon } from '@haqq/shell-ui-kit/server';
 
 const avatarsCacheKey = 'validator_avatars';
 

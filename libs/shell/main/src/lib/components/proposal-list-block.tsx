@@ -1,13 +1,11 @@
 import { useMemo } from 'react';
 import { ProposalStatus } from '@evmos/provider';
 import Link from 'next/link';
-import { useNetwork } from 'wagmi';
 import { ProposalListCard } from '@haqq/shell-governance';
 import {
   useGovernanceParamsQuery,
   useProposalListQuery,
   useProposalTallysQuery,
-  useSupportedChains,
 } from '@haqq/shell-shared';
 import {
   Heading,
@@ -15,15 +13,12 @@ import {
   OrangeLink,
   ProposalsIcon,
   SpinnerLoader,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 
 export function ProposalListBlock() {
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
-  const { chain } = useNetwork();
-  const chains = useSupportedChains();
-  const symbol =
-    chain?.nativeCurrency.symbol ?? chains[0]?.nativeCurrency.symbol;
+  const symbol = 'ISLM';
 
   const proposals = useMemo(() => {
     if (!proposalsData?.length) {
@@ -103,6 +98,7 @@ export function ProposalListBlock() {
               <Link
                 key={proposal.proposal_id}
                 href={`governance/proposal/${proposal.proposal_id}`}
+                className="2xl:last-of-type:hidden"
               >
                 <ProposalListCard
                   proposal={proposal}

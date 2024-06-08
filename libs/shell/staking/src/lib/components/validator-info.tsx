@@ -11,7 +11,7 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'usehooks-ts';
 import { formatUnits } from 'viem/utils';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useAddress,
@@ -24,8 +24,7 @@ import {
   useClipboard,
   useStakingUnbondingsQuery,
   useWallet,
-  useSupportedChains,
-  useStakingValidatorListQuery,
+  // useStakingValidatorListQuery,
   useToast,
   useNetworkAwareAction,
   getFormattedAddress,
@@ -33,33 +32,35 @@ import {
   useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import {
+  Button,
+  Tooltip,
+  TopValidatorsWarningModal,
+  MyAccountBlockDesktop,
+  MyAccountBlockMobile,
+} from '@haqq/shell-ui-kit';
+import {
   InfoBlock,
   OrangeLink,
   SpinnerLoader,
   ValidatorIcon,
-  MyAccountBlockDesktop,
   WarningMessage,
   CopyIcon,
-  Button,
   Heading,
   PercentIcon,
-  ValidatorBlockMobile as ValidatorBlockMobileComponent,
   Container,
   InfoIcon,
-  MyAccountBlockMobile,
-  Tooltip,
   formatNumber,
   ToastLoading,
   ToastError,
   ToastSuccess,
   LinkIcon,
   formatPercents,
-  TopValidatorsWarningModal,
   MIN_REWARDS_TO_CLAIM,
   ValidatorDetailsStatus,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { ValidatorBlockMobileComponent } from './validator-block-mobile';
 import styles from './validator-info.module.css';
 import { useValidatorsShares } from '../hooks/use-validator-shares';
 
@@ -143,7 +144,7 @@ function CommissionCard({ commission }: CommissionCardProps) {
         </Heading>
       </div>
 
-      <div className="border-haqq-border divide-haqq-border flex max-w-fit flex-row divide-x rounded-lg border py-[16px] lg:py-[24px]">
+      <div className="divide-haqq-border border-haqq-border flex max-w-fit flex-row divide-x rounded-lg border py-[16px] lg:py-[24px]">
         <CommissionCardInnerBlock
           title="Current"
           value={commission.current}
@@ -445,8 +446,8 @@ export function ValidatorInfo({
   validatorAddress: string;
 }) {
   const { haqqAddress } = useAddress();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
   const invalidateQueries = useQueryInvalidate();
   const { data: validatorInfo } =
     useStakingValidatorInfoQuery(validatorAddress);
@@ -466,15 +467,11 @@ export function ValidatorInfo({
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
-  const { data: validatorsList } = useStakingValidatorListQuery(1000);
+  // const { data: validatorsList } = useStakingValidatorListQuery(1000);
   const symbol = 'ISLM';
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
   const posthog = usePostHog();
@@ -584,6 +581,7 @@ export function ValidatorInfo({
         [chain.id, 'rewards'],
         [chain.id, 'delegation'],
         [chain.id, 'unboundings'],
+        [chain.id, 'indexer-balance'],
       ]);
     }
   }, [
@@ -685,6 +683,7 @@ export function ValidatorInfo({
         [chain.id, 'rewards'],
         [chain.id, 'delegation'],
         [chain.id, 'unboundings'],
+        [chain.id, 'indexer-balance'],
       ]);
     }
   }, [

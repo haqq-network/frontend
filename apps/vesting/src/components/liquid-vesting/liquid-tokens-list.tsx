@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { formatUnits } from 'viem';
-import { LiquidToken } from '../../hooks/use-liquid-tokens/use-liquid-tokens';
+import { LiquidToken } from '../../hooks/use-liquid-tokens';
 import { formatLocaleNumber } from '../../utils/format-number-locale';
 import { Button } from '../Button/Button';
 

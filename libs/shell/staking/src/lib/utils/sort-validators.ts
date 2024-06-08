@@ -1,4 +1,5 @@
 import { Validator } from '@evmos/provider';
+import seedrandom from 'seedrandom';
 
 export function sortValidatorsByToken(validators: Validator[]) {
   return validators.sort((valA: Validator, valB: Validator) => {
@@ -8,6 +9,7 @@ export function sortValidatorsByToken(validators: Validator[]) {
 
 export function randomSort<T>(arr: T[]): T[] {
   const shuffledArray = [...arr];
+
   for (let i = shuffledArray.length - 1; i > 0; i--) {
     const randomIndex = Math.floor(Math.random() * (i + 1));
     [shuffledArray[i], shuffledArray[randomIndex]] = [
@@ -15,6 +17,22 @@ export function randomSort<T>(arr: T[]): T[] {
       shuffledArray[i],
     ];
   }
+
+  return shuffledArray;
+}
+
+export function randomSortWithSeed<T>(arr: T[], seed: string): T[] {
+  const shuffledArray = [...arr];
+  const rng = seedrandom(seed);
+
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(rng() * (i + 1));
+    [shuffledArray[i], shuffledArray[randomIndex]] = [
+      shuffledArray[randomIndex],
+      shuffledArray[i],
+    ];
+  }
+
   return shuffledArray;
 }
 

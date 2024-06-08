@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useNetwork } from 'wagmi';
-import { useSupportedChains } from '../../providers/wagmi-provider';
+import { useAccount, useChains } from 'wagmi';
 
 interface ShellChainStats {
   dailyTxCount: string;
@@ -42,8 +41,8 @@ export async function getShellChainStatsData(
 }
 
 export function useChainStatsQuery() {
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
 
   return useQuery({
     queryKey: [chain.id, 'chain-stats'],

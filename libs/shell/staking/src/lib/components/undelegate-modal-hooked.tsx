@@ -2,22 +2,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
-import { useNetwork } from 'wagmi';
+import { useDebounceValue } from 'usehooks-ts';
+import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   useStakingActions,
   useToast,
   getFormattedAddress,
-  useSupportedChains,
-  useThrottle,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
   ToastLoading,
   ToastError,
   LinkIcon,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { UndelegateModal } from './undelegate-modal';
 
 export interface UndelegateModalProps {
@@ -43,6 +42,8 @@ export function UndelegateModalHooked({
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [debouncedUndelegateAmount, setDeboundecUndelegateAmount] =
+    useDebounceValue<number | undefined>(undefined, 500);
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isUndelegateEnabled, setUndelegateEnabled] = useState(false);
   const [isFeePending, setFeePending] = useState(false);
@@ -50,15 +51,10 @@ export function UndelegateModalHooked({
     undefined,
   );
   const toast = useToast();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
-  const throttledUndelegateAmount = useThrottle(undelegateAmount, 300);
   const posthog = usePostHog();
   const chainId = chain.id;
 
@@ -166,7 +162,7 @@ export function UndelegateModalHooked({
 
   useEffect(() => {
     if (isUndelegateEnabled) {
-      if (throttledUndelegateAmount && throttledUndelegateAmount > 0) {
+      if (debouncedUndelegateAmount && debouncedUndelegateAmount > 0) {
         if (cancelPreviousRequest.current) {
           cancelPreviousRequest.current();
         }
@@ -178,7 +174,7 @@ export function UndelegateModalHooked({
         };
 
         setFeePending(true);
-        getUndelegateEstimatedFee(validatorAddress, throttledUndelegateAmount)
+        getUndelegateEstimatedFee(validatorAddress, debouncedUndelegateAmount)
           .then((estimatedFee) => {
             if (!isCancelled) {
               setFee(estimatedFee);
@@ -195,11 +191,15 @@ export function UndelegateModalHooked({
   }, [
     validatorAddress,
     cancelPreviousRequest,
-    throttledUndelegateAmount,
+    debouncedUndelegateAmount,
     getUndelegateEstimatedFee,
     isUndelegateEnabled,
     toast,
   ]);
+
+  useEffect(() => {
+    setDeboundecUndelegateAmount(undelegateAmount);
+  }, [undelegateAmount, setDeboundecUndelegateAmount]);
 
   return (
     <UndelegateModal

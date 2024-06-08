@@ -1,22 +1,17 @@
 'use client';
 import { Fragment } from 'react';
-import dynamic from 'next/dynamic';
 import { useWallet } from '@haqq/shell-shared';
-import { Container } from '@haqq/shell-ui-kit';
+import { Container } from '@haqq/shell-ui-kit/server';
+import { StakingInfo } from './components/staking-info';
+import { ValidatorList } from './components/validator-list';
 
-const StakingInfo = dynamic(async () => {
-  const { StakingInfo } = await import('./components/staking-info');
-  return { default: StakingInfo };
-});
-const ValidatorList = dynamic(
-  async () => {
-    const { ValidatorList } = await import('./components/validator-list');
-    return { default: ValidatorList };
-  },
-  { ssr: false },
-);
-
-export function ValidatorListPage() {
+export function ValidatorListPage({
+  isMobileUserAgent,
+  seedPhrase,
+}: {
+  isMobileUserAgent: boolean;
+  seedPhrase: string;
+}) {
   const { isHaqqWallet } = useWallet();
 
   return (
@@ -32,7 +27,10 @@ export function ValidatorListPage() {
       )}
 
       <StakingInfo />
-      <ValidatorList />
+      <ValidatorList
+        isMobileUserAgent={isMobileUserAgent}
+        seedPhrase={seedPhrase}
+      />
     </Fragment>
   );
 }

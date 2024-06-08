@@ -15,6 +15,8 @@ export function useHaqqWalletAutoConnect() {
       if (connectorInstance) {
         connect({ connector: connectorInstance });
       }
+    } else {
+      console.log('Already connecter');
     }
   }, [connect, connectors, isConnected]);
 }

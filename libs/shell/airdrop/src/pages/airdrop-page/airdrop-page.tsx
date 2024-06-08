@@ -102,7 +102,7 @@ export function AirdropPage({
         </Container>
       </div>
 
-      <div className="border-t border-[#ffffff26] py-[52px] sm:py-[60px] lg:py-[80px]">
+      <div className="border-haqq-border border-t py-[52px] sm:py-[60px] lg:py-[80px]">
         <Container>
           <div className="flex flex-col gap-[52px]">
             <div className="flex flex-col gap-[32px]">

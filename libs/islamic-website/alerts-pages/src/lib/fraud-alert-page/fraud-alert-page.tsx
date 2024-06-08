@@ -42,7 +42,7 @@ export function FraudAlertPage() {
             {t('title')}
           </h1>
 
-          <div className="text-[14px] leading-[20px] md:max-w-[60%] lg:text-base ">
+          <div className="text-[14px] leading-[20px] md:max-w-[60%] lg:text-base">
             {t('text')}
           </div>
         </div>
@@ -52,7 +52,7 @@ export function FraudAlertPage() {
               {t('how-to-block.title')}
             </h2>
 
-            <ul className="list-inside list-disc ">
+            <ul className="list-inside list-disc">
               <li className="ml-[8px]">
                 <Text size="small">{t('how-to-block.identifiers.first')}</Text>
               </li>

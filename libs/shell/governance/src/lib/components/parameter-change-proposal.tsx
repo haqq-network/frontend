@@ -1,5 +1,5 @@
 import { ParameterChangeProposalContent } from '@evmos/provider';
-import { Heading } from '@haqq/shell-ui-kit';
+import { Heading } from '@haqq/shell-ui-kit/server';
 import { Metadata } from './metadata';
 
 export function ParameterChangeProposalDetails({

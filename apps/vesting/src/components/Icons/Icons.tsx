@@ -4,11 +4,11 @@ export function CopyIcon({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={clsx('h-[16px] w-[16px]', className)}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
       strokeWidth={2}
+      className={clsx('h-[16px] w-[16px]', className)}
     >
       <path
         strokeLinecap="round"
@@ -19,15 +19,15 @@ export function CopyIcon({ className }: { className?: string }) {
   );
 }
 
-export function DisconnectIcon() {
+export function DisconnectIcon({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-[24px] w-[24px]"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
       strokeWidth={2}
+      className={clsx('h-[16px] w-[16px]', className)}
     >
       <path
         strokeLinecap="round"
@@ -44,7 +44,7 @@ export function ScanIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      className="h-[16px] w-[16px]"
+      className={clsx('h-[16px] w-[16px]', className)}
       stroke="currentColor"
       strokeWidth={2}
     >

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { ToastBase } from './toast-base';
-import { SpinnerLoader } from '../../pages/PendingPage';
+import { SpinnerLoader } from '../../pages/pending-page';
 
 export function ToastLoading({ children }: PropsWithChildren) {
   return (

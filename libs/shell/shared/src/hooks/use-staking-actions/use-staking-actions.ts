@@ -16,12 +16,11 @@ import {
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
 import { usePostHog } from 'posthog-js/react';
-import { useNetwork } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import { EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import { useCosmosService } from '../../providers/cosmos-provider';
-import { useSupportedChains } from '../../providers/wagmi-provider';
 import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
@@ -37,13 +36,9 @@ export function useStakingActions() {
   } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
   const { getPubkey, signTransaction } = useWallet();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const chainParams = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const chainParams = getChainParams(chain?.id ?? chains[0].id);
   const haqqChain = mapToCosmosChain(chainParams);
   const posthog = usePostHog();
   const chainId = chain.id;

@@ -3,14 +3,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Validator } from '@evmos/provider';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
-import { useNetwork } from 'wagmi';
+import { useDebounceValue } from 'usehooks-ts';
+import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
-  useThrottle,
   useStakingActions,
-  useSupportedChains,
   useToast,
 } from '@haqq/shell-shared';
 import {
@@ -19,7 +18,7 @@ import {
   ToastError,
   LinkIcon,
   toFixedAmount,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { RedelegateModal } from './redelegate-modal';
 import { splitValidators } from '../utils/split-validators';
 
@@ -45,6 +44,8 @@ export function RedelegateModalHooked({
   const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
   );
+  const [debouncedRedelegateAmount, setDeboundecRedelegateAmount] =
+    useDebounceValue<number | undefined>(undefined, 500);
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isRedelegateEnabled, setRedelegateEnabled] = useState(false);
   const [validatorDestinationAddress, setValidatorDestinationAddress] =
@@ -52,15 +53,10 @@ export function RedelegateModalHooked({
   const [isFeePending, setFeePending] = useState(false);
   const toast = useToast();
   const { redelegate, getRedelegateEstimatedFee } = useStakingActions();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { explorer } = getChainParams(
-    chain.unsupported !== undefined && !chain.unsupported
-      ? chain.id
-      : chains[0].id,
-  );
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
-  const throttledRedelegateAmount = useThrottle(redelegateAmount, 300);
   const posthog = usePostHog();
   const chainId = chain.id;
 
@@ -188,8 +184,8 @@ export function RedelegateModalHooked({
   useEffect(() => {
     if (isRedelegateEnabled) {
       if (
-        throttledRedelegateAmount &&
-        throttledRedelegateAmount > 0 &&
+        debouncedRedelegateAmount &&
+        debouncedRedelegateAmount > 0 &&
         validatorDestinationAddress
       ) {
         if (cancelPreviousRequest.current) {
@@ -206,7 +202,7 @@ export function RedelegateModalHooked({
         getRedelegateEstimatedFee(
           validatorAddress,
           validatorDestinationAddress,
-          throttledRedelegateAmount,
+          debouncedRedelegateAmount,
         )
           .then((estimatedFee) => {
             if (!isCancelled) {
@@ -224,12 +220,16 @@ export function RedelegateModalHooked({
   }, [
     validatorAddress,
     cancelPreviousRequest,
-    throttledRedelegateAmount,
+    debouncedRedelegateAmount,
     validatorDestinationAddress,
     getRedelegateEstimatedFee,
     isRedelegateEnabled,
     toast,
   ]);
+
+  useEffect(() => {
+    setDeboundecRedelegateAmount(redelegateAmount);
+  }, [redelegateAmount, setDeboundecRedelegateAmount]);
 
   return (
     <RedelegateModal

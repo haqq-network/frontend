@@ -144,7 +144,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
                   id="discord"
                   href="https://discord.gg/CDtXuQG3Vd"
                   icon={
-                    <DiscordIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                    <DiscordIcon className="h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
                   }
                 >
                   Discord
@@ -155,7 +155,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
                   id="github"
                   href="https://github.com/haqq-network"
                   icon={
-                    <GithubIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                    <GithubIcon className="h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
                   }
                 >
                   Github
@@ -166,7 +166,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
                   id="twitter"
                   href="https://twitter.com/The_HaqqNetwork"
                   icon={
-                    <TwitterIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                    <TwitterIcon className="h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
                   }
                 >
                   Twitter
@@ -177,7 +177,7 @@ export function Footer({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
                   id="telegram"
                   href="https://t.me/islamiccoin_int"
                   icon={
-                    <TelegramIcon className=" h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
+                    <TelegramIcon className="h-[20px] w-[20px] sm:h-[24px] sm:w-[24px] lg:h-[26px] lg:w-[26px]" />
                   }
                 >
                   Telegram

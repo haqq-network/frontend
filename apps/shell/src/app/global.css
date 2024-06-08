@@ -26,22 +26,11 @@
 }
 
 html,
-body {
-  width: 100%;
-  min-height: 100vh;
-}
-
+body,
 #root {
-  width: 100%;
-  min-height: 100vh;
+  @apply min-h-screen w-full;
 }
 
 body {
   @apply bg-haqq-black font-guise text-white will-change-scroll;
-
-  /* background-image: url(/sunrise.jpg);
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-attachment: fixed; */
 }

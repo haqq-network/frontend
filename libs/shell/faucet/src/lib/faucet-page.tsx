@@ -8,23 +8,22 @@ import {
   useState,
 } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { haqqTestedge2 } from '@wagmi/chains';
 import clsx from 'clsx';
 import { notFound } from 'next/navigation';
 import SuccessIndicator from 'react-success-indicator';
 import Reaptcha from 'reaptcha';
-import { useAccount, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
-import { useConfig, useSupportedChains, useWallet } from '@haqq/shell-shared';
+import { useAccount, useChains, useConnect, useSwitchChain } from 'wagmi';
+import { haqqTestedge2 } from 'wagmi/chains';
+import { useWallet } from '@haqq/shell-shared';
+import { ProposalPeriodTimer, Button } from '@haqq/shell-ui-kit';
 import {
-  Button,
   Heading,
   OrangeLink,
-  ProposalPeriodTimer,
   SpinnerLoader,
   WalletIcon,
   EarnIcon,
   Container,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 import { AccountInfo } from './components/account-info';
 
 interface ClaimInfo {
@@ -32,11 +31,16 @@ interface ClaimInfo {
   next_claim_sec: number;
 }
 
-export function FaucetPage(): ReactElement {
-  const { reCaptchaConfig, faucetConfig } = useConfig();
-  const chains = useSupportedChains();
-  const { chain = chains[0] } = useNetwork();
-  const { switchNetworkAsync } = useSwitchNetwork();
+export function FaucetPage({
+  serviceEndpoint,
+  reCaptchaSiteKey,
+}: {
+  serviceEndpoint: string;
+  reCaptchaSiteKey: string;
+}): ReactElement {
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const { switchChainAsync } = useSwitchChain();
   const {
     user,
     isAuthenticated,
@@ -51,8 +55,7 @@ export function FaucetPage(): ReactElement {
   const [claimInfo, setClaimInfo] = useState<ClaimInfo | undefined>(undefined);
   const [claimIsLoading, setClaimIsLoading] = useState<boolean>(false);
   const { isConnected, address } = useAccount();
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect();
+  const { connect, connectors, error } = useConnect();
   const { isNetworkSupported } = useWallet();
   const isTestedge = useMemo(() => {
     return chain.id === haqqTestedge2.id;
@@ -69,7 +72,7 @@ export function FaucetPage(): ReactElement {
       body: Record<string, unknown>,
       method: 'POST' | 'GET' = 'POST',
     ) => {
-      const requestUrl = new URL(path, faucetConfig.serviceEndpoint);
+      const requestUrl = new URL(path, serviceEndpoint);
       const requestOptions = {
         method,
         headers: { 'Content-Type': 'application/json' },
@@ -78,7 +81,7 @@ export function FaucetPage(): ReactElement {
 
       return await fetch(requestUrl, requestOptions);
     },
-    [faucetConfig.serviceEndpoint],
+    [serviceEndpoint],
   );
 
   const handleLogin = useCallback(async () => {
@@ -142,14 +145,14 @@ export function FaucetPage(): ReactElement {
   }, [address, getAccessTokenSilently, handleServiceRequest, recaptchaToken]);
 
   const handleNetworkSwitch = useCallback(async () => {
-    if (switchNetworkAsync) {
+    if (switchChainAsync) {
       try {
-        await switchNetworkAsync(chains[0].id);
+        await switchChainAsync({ chainId: chains[0].id });
       } catch (error) {
         console.error((error as Error).message);
       }
     }
-  }, [chains, switchNetworkAsync]);
+  }, [chains, switchChainAsync]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -216,10 +219,6 @@ export function FaucetPage(): ReactElement {
                 {!isConnected && (
                   <div className="flex flex-col space-y-2">
                     {connectors.map((connector) => {
-                      if (!connector.ready) {
-                        return null;
-                      }
-
                       return (
                         <Button
                           key={connector.id}
@@ -229,9 +228,6 @@ export function FaucetPage(): ReactElement {
                           variant={2}
                         >
                           {connector.name}
-                          {isLoading &&
-                            connector.id === pendingConnector?.id &&
-                            ' (connecting)'}
                         </Button>
                       );
                     })}
@@ -324,7 +320,7 @@ export function FaucetPage(): ReactElement {
                         ) : (
                           <div className="flex flex-row items-center">
                             <Reaptcha
-                              sitekey={reCaptchaConfig.siteKey}
+                              sitekey={reCaptchaSiteKey}
                               onVerify={handleRecapthcaVerify}
                               theme="dark"
                             />

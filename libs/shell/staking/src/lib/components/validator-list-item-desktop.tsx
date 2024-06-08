@@ -2,8 +2,7 @@ import { useMemo } from 'react';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import { formatUnits, parseUnits } from 'viem/utils';
-import { formatNumber } from '@haqq/shell-ui-kit';
-import { ValidatorListStatus } from '@haqq/shell-ui-kit';
+import { formatNumber, ValidatorListStatus } from '@haqq/shell-ui-kit/server';
 
 export function ValidatorListItemDesktop({
   validator,
@@ -52,7 +51,7 @@ export function ValidatorListItemDesktop({
 
   return (
     <tr
-      className="cursor-pointer border-t border-[#FFFFFF26] text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] md:text-[16px] md:leading-[26px]"
+      className="border-haqq-border cursor-pointer border-t text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] md:text-[16px] md:leading-[26px]"
       onClick={() => {
         onClick(validator.operator_address);
       }}

@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn nx affected:lint
-yarn nx affected:test
+yarn nx affected:lint --base=dev
+yarn nx affected:test --base=dev
 # yarn nx affected:e2e

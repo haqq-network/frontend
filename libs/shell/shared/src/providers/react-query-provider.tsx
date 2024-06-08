@@ -1,6 +1,11 @@
 'use client';
 import { PropsWithChildren } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  DehydratedState,
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 let browserQueryClient: QueryClient | undefined = undefined;
@@ -39,12 +44,16 @@ export function getQueryClient() {
 export function ReactQueryProvider({
   children,
   withDevtools = false,
-}: PropsWithChildren<{ withDevtools?: boolean }>) {
+  dehydratedState,
+}: PropsWithChildren<{
+  withDevtools?: boolean;
+  dehydratedState?: DehydratedState;
+}>) {
   const queryClient = getQueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
       {withDevtools && <ReactQueryDevtools />}
     </QueryClientProvider>
   );

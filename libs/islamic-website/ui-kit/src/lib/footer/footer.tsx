@@ -122,7 +122,7 @@ const FooterNavLinks: FooterNavLinkProps[] = [
 
 export function Footer() {
   return (
-    <footer className="flex w-full flex-col ">
+    <footer className="flex w-full flex-col">
       <div className="border-y border-[#2F2F2F] py-[80px]">
         <Container>
           <div className="flex flex-col gap-y-[60px]">

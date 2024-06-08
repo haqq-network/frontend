@@ -1245,7 +1245,7 @@ function SupplyDescription({
   color,
 }: PropsWithChildren<{ color: 'gray' | 'orange' | 'black' }>) {
   return (
-    <div className="flex items-center gap-x-[12px] ">
+    <div className="flex items-center gap-x-[12px]">
       <div
         className={clsx(
           color === 'gray' && 'bg-[#525252]',

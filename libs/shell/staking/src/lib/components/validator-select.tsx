@@ -72,7 +72,7 @@ export function ValidatorSelect({
       },
       menu: () => {
         return clsx(
-          'border-[1px] border-[#ffffff26] bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
+          'border-[1px] border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
           'text-white text-[13px] leading-[20px]',
           'overflow-hiddenz                                                                                                                                                                                                                                                                                                                                                                                         ',
         );

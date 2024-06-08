@@ -1,42 +1,36 @@
 'use client';
-import { PropsWithChildren, useCallback, useMemo } from 'react';
-import { useConnect } from 'wagmi';
+import { PropsWithChildren } from 'react';
+import { SelectWalletModal } from '@haqq/haqq-website-ui-kit';
 import { useWallet } from '@haqq/shell-shared';
-import { SelectWalletModal } from '@haqq/shell-ui-kit';
 
 export function SelectWalletModalWrapper({ children }: PropsWithChildren) {
-  const { connectAsync, connectors, error, isLoading, pendingConnector } =
-    useConnect();
-  const { closeSelectWallet, isSelectWalletOpen } = useWallet();
-
-  const handleWalletConnect = useCallback(
-    async (connectorIdx: number) => {
-      await connectAsync({ connector: connectors[connectorIdx] });
-      closeSelectWallet();
-    },
-    [closeSelectWallet, connectAsync, connectors],
-  );
-
-  const selectWalletModalConnectors = useMemo(() => {
-    return connectors.map((connector, index) => {
-      return {
-        id: index,
-        name: connector.name,
-        isPending: isLoading && pendingConnector?.id === connector.id,
-      };
-    });
-  }, [connectors, isLoading, pendingConnector?.id]);
+  const {
+    connectors,
+    connect,
+    availableConnectors,
+    closeSelectWallet,
+    connectError,
+    setConnectError,
+    isSelectWalletOpen,
+  } = useWallet();
 
   return (
     <>
       {children}
 
       <SelectWalletModal
+        connectors={connectors}
+        onConnectClick={async (connectorId: number) => {
+          try {
+            await connect({ connector: availableConnectors[connectorId] });
+            closeSelectWallet();
+          } catch (error: unknown) {
+            setConnectError((error as Error).message);
+          }
+        }}
         isOpen={isSelectWalletOpen}
-        connectors={selectWalletModalConnectors}
-        error={error?.message}
-        onConnectClick={handleWalletConnect}
         onClose={closeSelectWallet}
+        error={connectError ?? ''}
       />
     </>
   );

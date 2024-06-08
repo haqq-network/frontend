@@ -1,7 +1,7 @@
 'use client';
-import { WebsiteProviders } from '@haqq/shell-shared';
 import { ApplyBlock } from '../apply-block/apply-block';
 import { SelectWalletModalWrapper } from '../select-wallet-modal-wrapper/select-wallet-modal-wrapper';
+import { WebsiteProviders } from '../website-providers/website-providers';
 
 export function QrRegistrationPage({
   walletConnectProjectId,
@@ -23,7 +23,7 @@ export function QrRegistrationPage({
           </div>
 
           <WebsiteProviders
-            walletConnectProjectId={walletConnectProjectId}
+            // walletConnectProjectId={walletConnectProjectId}
             withReactQueryDevtools={isProduction}
           >
             <SelectWalletModalWrapper>

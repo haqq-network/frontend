@@ -1,14 +1,25 @@
-import type { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
-import type { Metadata, Viewport } from 'next';
+import { Metadata, Viewport } from 'next';
 import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
-import type { Config } from '@haqq/shell-shared';
-import { AppWrapper } from '../components/app-wrapper';
-import { PHProvider } from '../components/posthog';
-import { Providers } from '../components/providers';
+import { cookieToInitialState } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
+import {
+  ethToHaqq,
+  indexerBalancesFetcher,
+  parseWagmiCookies,
+} from '@haqq/shell-shared';
+import { Footer } from '@haqq/shell-ui-kit/server';
+import { AppHeader } from '../components/header';
+import { AppHeaderMobile } from '../components/header-mobile';
+import { createWagmiConfig } from '../config/wagmi-config';
+import { env } from '../env/client';
 import { clashDisplayFont, hkGuiseFont } from '../lib/fonts';
+import { AppProviders } from '../providers/app-providers';
+import { PHProvider } from '../providers/posthog-provider';
 import './global.css';
 
 export const metadata: Metadata = {
@@ -27,54 +38,88 @@ export const viewport: Viewport = {
   width: 'device-width',
 };
 
-const shellConfig: Config = {
-  commitSha: process.env.GIT_COMMIT_SHA ?? 'dev',
-  faucetConfig: {
-    serviceEndpoint: process.env.FAUCET_SERVICE_ENDPOINT,
-    auth0Domain: process.env.FAUCET_AUTH0_DOMAIN,
-    auth0ClientId: process.env.FAUCET_AUTH0_CLIENT_ID,
-  },
-  reCaptchaConfig: {
-    siteKey: process.env.FAUCET_RECAPTCHA_SITE_KEY,
-  },
-  walletConnectConfig: {
-    projectId: process.env.WALLETCONNECT_PROJECT_ID,
-  },
-};
-
 const PostHogPageView = dynamic(
   async () => {
     const { PostHogPageView } = await import('../components/posthog-page-view');
     return { default: PostHogPageView };
   },
-  { ssr: false },
+  {
+    ssr: false,
+  },
 );
 
-export default function RootLayout({ children }: PropsWithChildren) {
+const PostHogIdentifyWalletUsers = dynamic(
+  async () => {
+    const { PostHogIdentifyWalletUsers } = await import(
+      '../components/posthog-identify-users'
+    );
+    return { default: PostHogIdentifyWalletUsers };
+  },
+  {
+    ssr: false,
+  },
+);
+
+const ParalaxBackground = dynamic(async () => {
+  const { ParalaxBackground } = await import(
+    '../components/paralax-background'
+  );
+  return { default: ParalaxBackground };
+});
+
+export default async function RootLayout({ children }: PropsWithChildren) {
+  const wagmiConfig = createWagmiConfig();
   const headersList = headers();
+  const cookies = headersList.get('cookie');
+  const { chainId: parsedChainId, walletAddress } = parseWagmiCookies(cookies);
+  const chainId = parsedChainId ?? haqqMainnet.id;
+  const queryClient = new QueryClient();
+  const initialState = cookieToInitialState(wagmiConfig, cookies);
   const userAgent = headersList.get('user-agent');
-  const isMobileUserAgent = userAgent
-    ? Boolean(
-        userAgent.match(
-          /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-        ),
-      )
-    : false;
+  const isMobileUA = Boolean(
+    userAgent?.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+    ),
+  );
+
+  if (walletAddress) {
+    const haqqAddress = ethToHaqq(walletAddress);
+
+    await queryClient.prefetchQuery({
+      queryKey: [chainId, 'indexer-balance', haqqAddress],
+      queryFn: async () => {
+        return await indexerBalancesFetcher(chainId, haqqAddress);
+      },
+    });
+  }
+
+  const dehydratedState = dehydrate(queryClient);
 
   return (
     <html
       lang="en"
       dir="ltr"
-      className={clsx('ltr', clashDisplayFont.variable, hkGuiseFont.variable)}
+      className={clsx(clashDisplayFont.variable, hkGuiseFont.variable)}
     >
       <PHProvider>
-        <body>
-          <PostHogPageView />
-          <SpeedInsights />
+        <body className="relative flex min-h-screen flex-col">
+          <AppProviders
+            initialState={initialState}
+            dehydratedState={dehydratedState}
+            walletConnectProjectId={env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
+          >
+            <PostHogPageView />
+            <PostHogIdentifyWalletUsers />
+            <SpeedInsights />
 
-          <Providers config={shellConfig} isMobileUserAgent={isMobileUserAgent}>
-            <AppWrapper>{children}</AppWrapper>
-          </Providers>
+            {isMobileUA ? <AppHeaderMobile /> : <AppHeader />}
+
+            <main className="relative flex-1 overflow-x-clip">{children}</main>
+
+            <Footer commitSha={env.NEXT_PUBLIC_GIT_COMMIT_SHA} />
+          </AppProviders>
+
+          <ParalaxBackground />
         </body>
       </PHProvider>
     </html>
