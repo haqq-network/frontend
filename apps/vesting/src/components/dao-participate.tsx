@@ -49,13 +49,14 @@ export function DaoParticipate({ address }: { address: string }) {
           >
             The address{' '}
             <span className="font-[600]">{getFormattedAddress(address)}</span>{' '}
-            {isParticipate ? 'will' : 'won`t'} be affected by proposal{' '}
+            {isParticipate ? 'will' : <b>'WILL NOT'</b>} be affected by proposal{' '}
             <a
-              href="https://shell.haqq.network/governance/proposal/33"
+              href="https://shell.haqq.network/governance/proposal/34"
               target="_blank"
               className="font-[600] text-[#0489D4]"
+              rel="noreferrer"
             >
-              #33
+              #34
             </a>{' '}
             if accepted by the governance voting
           </div>
