@@ -24,5 +24,7 @@ export const UndelegateModal: Story = {
     onChange: fn(),
     onClose: fn(),
     onSubmit: fn(),
+    memo: '',
+    onMemoChange: fn(),
   },
 };

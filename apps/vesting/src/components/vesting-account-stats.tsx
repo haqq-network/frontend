@@ -222,7 +222,7 @@ function LockupTimelineListItem({
         <div></div>
         <div>
           <Tooltip text={parsedAmount.toString()}>
-            <span className="cursor-default text-[14px] font-[700] uppercase leading-[18px]">
+            <span className="cursor-default text-[14px] font-[600] uppercase leading-[18px]">
               {formatLocaleNumber(formattedAmount)} {symbol.toLocaleUpperCase()}
             </span>
           </Tooltip>

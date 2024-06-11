@@ -57,6 +57,7 @@ export function UndelegateModalHooked({
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const posthog = usePostHog();
   const chainId = chain.id;
+  const [memo, setMemo] = useState('');
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
@@ -66,6 +67,7 @@ export function UndelegateModalHooked({
         validatorAddress,
         undelegateAmount,
         balance,
+        memo,
         fee,
       );
 
@@ -122,6 +124,7 @@ export function UndelegateModalHooked({
     validatorAddress,
     undelegateAmount,
     balance,
+    memo,
     fee,
     toast,
     onClose,
@@ -218,6 +221,8 @@ export function UndelegateModalHooked({
       undelegateAmount={undelegateAmount}
       fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
       isFeePending={isFeePending}
+      memo={memo}
+      onMemoChange={setMemo}
     />
   );
 }

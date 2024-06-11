@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useMemo } from 'react';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import {
   Modal,
@@ -12,6 +12,7 @@ import {
   formatNumber,
   toFixedAmount,
   SpinnerLoader,
+  OrangeLink,
 } from '@haqq/shell-ui-kit/server';
 
 export interface DelegateModalProps {
@@ -29,6 +30,8 @@ export interface DelegateModalProps {
   onClose: () => void;
   onChange: (value: number | undefined) => void;
   onSubmit: () => void;
+  memo?: string;
+  onMemoChange: (value: string) => void;
 }
 
 export function DelegateModalDetails({
@@ -125,10 +128,13 @@ export function DelegateModal({
   isDisabled,
   fee,
   isFeePending,
+  memo,
   onClose,
   onChange,
   onSubmit,
+  onMemoChange,
 }: DelegateModalProps) {
+  const [isMemoVisible, setMemoVisible] = useState(false);
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
   }, [balance, onChange]);
@@ -199,6 +205,7 @@ export function DelegateModal({
                 />
               </div>
             </div>
+
             <div className="pt-[24px]">
               <div className="flex flex-col gap-[16px]">
                 <div>
@@ -210,6 +217,37 @@ export function DelegateModal({
                     hint={amountHint}
                   />
                 </div>
+
+                {!isMemoVisible ? (
+                  <div className="leading-[0]">
+                    <OrangeLink
+                      className="!text-[12px] !font-[500] !leading-[16px]"
+                      onClick={() => {
+                        setMemoVisible(true);
+                      }}
+                    >
+                      Add memo
+                    </OrangeLink>
+                  </div>
+                ) : (
+                  <div className="leading-[0]">
+                    <input
+                      type="text"
+                      value={memo}
+                      onChange={(e) => {
+                        onMemoChange(e.target.value);
+                      }}
+                      className={clsx(
+                        'w-full rounded-[6px] outline-none',
+                        'transition-colors duration-100 ease-in',
+                        'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
+                        'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+                        'bg-[#E7E7E7]',
+                      )}
+                      placeholder="Add your memo"
+                    />
+                  </div>
+                )}
 
                 <div>
                   <DelegateModalDetails

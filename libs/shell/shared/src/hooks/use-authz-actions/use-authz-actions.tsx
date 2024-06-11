@@ -26,11 +26,13 @@ interface AuthzActionsHook {
     grantee: string,
     msgType: string,
     expires: number,
+    memo?: string,
     estimatedFee?: EstimatedFeeResponse,
   ) => Promise<BroadcastTxResponse>;
   revoke: (
     grantee: string,
     msgType: string,
+    memo?: string,
     estimatedFee?: EstimatedFeeResponse,
   ) => Promise<BroadcastTxResponse>;
   getGrantEstimatedFee: (
@@ -66,11 +68,11 @@ export function useAuthzActions(): AuthzActionsHook {
       grantee: string,
       msgType: string,
       expires: number,
+      memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Grant access to ${grantee} for "${msgType}" transactions`;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -129,11 +131,11 @@ export function useAuthzActions(): AuthzActionsHook {
     async (
       grantee: string,
       msgType: string,
+      memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
-      const memo = `Revoke access from ${grantee} for "${msgType}" transactions`;
 
       if (sender && haqqChain) {
         const fee = getFee(estimatedFee);
@@ -196,7 +198,7 @@ export function useAuthzActions(): AuthzActionsHook {
         createGenericAuthorization(msgType),
         expires,
       );
-      const memo = `Grant access to ${grantee} for "${msgType}" transactions`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsg,
@@ -219,7 +221,7 @@ export function useAuthzActions(): AuthzActionsHook {
     async (grantee: string, msgType: string) => {
       const pubkey = await getPubkey(ethAddress as string);
       const protoMsg = createMsgRevoke(haqqAddress as string, grantee, msgType);
-      const memo = `Revoke access from ${grantee} for "${msgType}" transactions`;
+      const memo = '';
 
       return await getEstimatedFee(
         protoMsg,

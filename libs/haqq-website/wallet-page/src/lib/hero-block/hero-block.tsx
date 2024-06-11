@@ -225,9 +225,9 @@ export function HeroBlock() {
               </div>
             </div>
 
-            <div className="hidden flex-col md:flex">
-              <div className="mt-[16px]">
-                {appStoreLink && (
+            <div className="hidden flex-shrink-0 flex-row flex-wrap justify-center gap-[16px] md:flex lg:justify-start">
+              {appStoreLink && (
+                <div className="leading-[0px]">
                   <Link
                     href={appStoreLink}
                     target="_blank"
@@ -240,10 +240,10 @@ export function HeroBlock() {
                       type="apple"
                     />
                   </Link>
-                )}
-              </div>
-              <div className="mt-[16px]">
-                {playMarketLink && (
+                </div>
+              )}
+              {playMarketLink && (
+                <div className="leading-[0px]">
                   <Link
                     href={playMarketLink}
                     target="_blank"
@@ -256,9 +256,9 @@ export function HeroBlock() {
                       type="google"
                     />
                   </Link>
-                )}
-              </div>
-              <div className="mt-[16px]">
+                </div>
+              )}
+              <div className="leading-[0px]">
                 <Link
                   href="https://github.com/haqq-network/haqq-wallet/releases/latest/download/haqq.apk"
                   target="_blank"
@@ -270,6 +270,18 @@ export function HeroBlock() {
                   <WalletDownloadButton type="apk" isAvailable />
                 </Link>
               </div>
+            </div>
+
+            <div className="mt-[24px] text-[14px] leading-[20px]">
+              You can find more supported wallets{' '}
+              <Link
+                href="https://docs.haqq.network/user-guides/wallet/"
+                target="__blank"
+                className="cursor-pointer underline transition-colors duration-150 ease-out hover:text-white/75"
+              >
+                here
+              </Link>
+              .
             </div>
           </div>
         </div>

@@ -123,6 +123,7 @@ export function WalletPage({
           </Link>
         </div>
       </div>
+
       <div className="mt-[28px] flex flex-col gap-y-[20px] lg:hidden">
         {appStoreLink && (
           <Link
@@ -162,6 +163,18 @@ export function WalletPage({
           </Link>
         </div>
       </div>
+
+      <div className="mt-[24px] text-[13px] leading-[20px] md:text-[16px] lg:text-[#F5F5F580]">
+        You can find more supported wallets{' '}
+        <Link
+          href="https://docs.haqq.network/user-guides/wallet/"
+          target="__blank"
+          className="cursor-pointer underline transition-colors duration-150 ease-out hover:text-white/75"
+        >
+          here
+        </Link>
+        .
+      </div>
     </Fragment>
   );
 
@@ -181,7 +194,7 @@ export function WalletPage({
           <div className="flex max-w-[600px] flex-col xl:max-w-[660px]">
             {content}
           </div>
-          <div className="flex flex-1 justify-center">
+          <div className="flex flex-1 justify-center lg:min-w-[540px] lg:max-w-[540px]">
             <div className="relative h-[600px] w-[350px]">{image}</div>
           </div>
         </div>

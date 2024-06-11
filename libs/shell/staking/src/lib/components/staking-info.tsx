@@ -65,7 +65,7 @@ function useStakingStats() {
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
       ).then((estimatedFee) => {
-        return claimAllRewards(delegatedValsAddrs, estimatedFee);
+        return claimAllRewards(delegatedValsAddrs, '', estimatedFee);
       });
 
       await toast.promise(claimAllRewardPromise, {

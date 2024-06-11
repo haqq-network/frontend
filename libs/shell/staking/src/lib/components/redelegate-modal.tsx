@@ -1,4 +1,4 @@
-import { ReactNode, useCallback } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import clsx from 'clsx';
 import {
   Modal,
@@ -7,7 +7,11 @@ import {
   ModalInput,
   ModalHeading,
 } from '@haqq/shell-ui-kit';
-import { formatNumber, toFixedAmount } from '@haqq/shell-ui-kit/server';
+import {
+  formatNumber,
+  toFixedAmount,
+  OrangeLink,
+} from '@haqq/shell-ui-kit/server';
 import { DelegateModalDetails } from './delegate-modal';
 import { ValidatorSelect } from './validator-select';
 
@@ -25,6 +29,8 @@ export interface RedelegateModalProps {
   onSubmit: () => void;
   onValidatorChange: (validatorAddress: string | undefined) => void;
   validatorsOptions: { label: string; value: string }[];
+  memo?: string;
+  onMemoChange: (value: string) => void;
 }
 
 export function RedelegateModalSubmitButton({
@@ -69,10 +75,13 @@ export function RedelegateModal({
   validatorsOptions,
   fee,
   isFeePending,
+  memo,
   onChange,
   onSubmit,
   onValidatorChange,
+  onMemoChange,
 }: RedelegateModalProps) {
+  const [isMemoVisible, setMemoVisible] = useState(false);
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(delegation));
   }, [delegation, onChange]);
@@ -130,6 +139,7 @@ export function RedelegateModal({
                     onChange={onValidatorChange}
                   />
                 </div>
+
                 <div>
                   <ModalInput
                     symbol={symbol}
@@ -138,6 +148,37 @@ export function RedelegateModal({
                     onMaxButtonClick={handleMaxButtonClick}
                   />
                 </div>
+
+                {!isMemoVisible ? (
+                  <div className="leading-[0]">
+                    <OrangeLink
+                      className="!text-[12px] !font-[500] !leading-[16px]"
+                      onClick={() => {
+                        setMemoVisible(true);
+                      }}
+                    >
+                      Add memo
+                    </OrangeLink>
+                  </div>
+                ) : (
+                  <div className="leading-[0]">
+                    <input
+                      type="text"
+                      value={memo}
+                      onChange={(e) => {
+                        onMemoChange(e.target.value);
+                      }}
+                      className={clsx(
+                        'w-full rounded-[6px] outline-none',
+                        'transition-colors duration-100 ease-in',
+                        'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
+                        'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+                        'bg-[#E7E7E7]',
+                      )}
+                      placeholder="Add your memo"
+                    />
+                  </div>
+                )}
 
                 <div>
                   <DelegateModalDetails

@@ -112,7 +112,8 @@ export default async function LocaleLayout({
     >
       <html
         lang={locale}
-        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        dir="ltr"
+        // dir={locale === 'ar' ? 'rtl' : 'ltr'}
         translate="no"
         className={clsx(
           alexandriaFont.variable,

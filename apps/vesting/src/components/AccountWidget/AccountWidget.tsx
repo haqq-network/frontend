@@ -85,7 +85,7 @@ export function AccountWidget({
           <div className="text-xs leading-normal text-white/80 md:text-sm">
             Total balance
           </div>
-          <div className="leading-light font-messiri text-4xl font-medium text-white md:mt-1 md:text-5xl">
+          <div className="leading-light font-messiri text-3xl font-medium text-white md:mt-1 md:text-4xl">
             {formatLocaleNumber(balance)} ISLM
           </div>
         </div>
@@ -158,12 +158,12 @@ export function BalancesFromIndexer({
               </div>
               <div className="flex select-none flex-col justify-between pt-[4px]">
                 {vested > 0 && (
-                  <div className="text-[14px] font-[700] leading-[18px] text-[#B26F1D]">
+                  <div className="text-[14px] font-[600] leading-[18px] text-[#B26F1D]">
                     Vested: {formatLocaleNumber(vested)} ISLM
                   </div>
                 )}
                 {staked > 0 && (
-                  <div className="text-[14px] font-[700] leading-[18px] text-[#0489D4]">
+                  <div className="text-[14px] font-[600] leading-[18px] text-[#0489D4]">
                     Staked: {formatLocaleNumber(staked)} ISLM
                   </div>
                 )}

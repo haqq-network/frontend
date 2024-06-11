@@ -126,6 +126,7 @@ export function AuthzGrantsActions() {
   const { executeIfNetworkSupported } = useNetworkAwareAction();
   const { explorer } = getChainParams(chain?.id ?? chains[0].id);
   const { isHaqqWallet } = useWallet();
+  const [memo, setMemo] = useState('');
 
   const getGrantExpire = useCallback((period: string) => {
     const now = new Date();
@@ -186,7 +187,7 @@ export function AuthzGrantsActions() {
         grantType,
         expire,
       ).then((estimatedFee) => {
-        return grant(haqqGrantee, grantType, expire, estimatedFee);
+        return grant(haqqGrantee, grantType, expire, memo, estimatedFee);
       });
 
       await toast.promise(grantPromise, {
@@ -237,6 +238,7 @@ export function AuthzGrantsActions() {
     granteeAddresses,
     invalidateQueries,
     isGranteeValid,
+    memo,
     toast,
   ]);
 
@@ -363,6 +365,36 @@ export function AuthzGrantsActions() {
                       options={GRANT_PERIOD_OPTIONS}
                       defaultValue={GRANT_PERIOD_DEFAULT_OPTION}
                     />
+                  </div>
+
+                  <div className="flex flex-col gap-[8px]">
+                    <div>
+                      <label
+                        htmlFor="memo"
+                        className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
+                      >
+                        Memo
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        className={clsx(
+                          'inline-block w-full rounded-[6px] border border-[#252528] bg-transparent px-[16px] py-[12px] text-[14px] leading-[22px] text-white placeholder-white/25 outline-none',
+                          'transition-colors duration-150 ease-in will-change-[color,background]',
+                          'focus:border-white/50 focus:bg-transparent focus:text-white',
+                          'hover:border-white/20',
+                          'max-w-xl',
+                        )}
+                        type="text"
+                        placeholder="Add your memo"
+                        id="memo"
+                        name="memo"
+                        value={memo}
+                        onChange={(event) => {
+                          setMemo(event.currentTarget.value);
+                        }}
+                      />
+                    </div>
                   </div>
 
                   <div className="pt-[24px]">

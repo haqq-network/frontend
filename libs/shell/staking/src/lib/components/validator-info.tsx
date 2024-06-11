@@ -533,7 +533,7 @@ export function ValidatorInfo({
       const claimRewardPromise = getClaimRewardEstimatedFee(
         validatorAddress,
       ).then((estimatedFee) => {
-        return claimReward(validatorAddress, estimatedFee);
+        return claimReward(validatorAddress, '', estimatedFee);
       });
 
       await toast.promise(claimRewardPromise, {
@@ -642,6 +642,7 @@ export function ValidatorInfo({
         await getClaimAllRewardEstimatedFee(delegatedValsAddrs);
       const claimAllRewardPromise = claimAllRewards(
         delegatedValsAddrs,
+        '',
         estimatedFee,
       );
 
