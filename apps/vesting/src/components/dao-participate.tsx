@@ -49,7 +49,10 @@ export function DaoParticipate({ address }: { address: string }) {
           >
             The address{' '}
             <span className="font-[600]">{getFormattedAddress(address)}</span>{' '}
-            {isParticipate ? 'will' : 'WILL NOT'} be affected by proposal{' '}
+            <span className="font-[600]">
+              {isParticipate ? 'will' : 'WILL NOT'}
+            </span>{' '}
+            be affected by proposal{' '}
             <a
               href="https://shell.haqq.network/governance/proposal/34"
               target="_blank"
