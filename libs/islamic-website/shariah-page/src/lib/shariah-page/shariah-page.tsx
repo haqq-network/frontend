@@ -37,7 +37,7 @@ export interface Member {
   role?: string;
 }
 
-export type LocaleType = 'ar' | 'en' | 'id';
+export type LocaleType = 'en'; // | 'ar' | 'id';
 
 function MembersContainer({
   members,
