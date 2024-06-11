@@ -49,7 +49,7 @@ export function LiquidTokensList({
     <div className="flex flex-col gap-[6px] rounded-[12px] bg-[#F4F4F480] px-[16px] py-[8px]">
       <div className="flex flex-row items-center justify-between">
         <div>
-          <div className="font-messiri mb-[-4px] text-[18px] font-[700] leading-[30px]">
+          <div className="font-messiri mb-[-4px] text-[18px] font-[600] leading-[30px]">
             Your tokens
           </div>
         </div>

@@ -158,12 +158,12 @@ export function BalancesFromIndexer({
               </div>
               <div className="flex select-none flex-col justify-between pt-[4px]">
                 {vested > 0 && (
-                  <div className="text-[14px] font-[700] leading-[18px] text-[#B26F1D]">
+                  <div className="text-[14px] font-[600] leading-[18px] text-[#B26F1D]">
                     Vested: {formatLocaleNumber(vested)} ISLM
                   </div>
                 )}
                 {staked > 0 && (
-                  <div className="text-[14px] font-[700] leading-[18px] text-[#0489D4]">
+                  <div className="text-[14px] font-[600] leading-[18px] text-[#0489D4]">
                     Staked: {formatLocaleNumber(staked)} ISLM
                   </div>
                 )}
