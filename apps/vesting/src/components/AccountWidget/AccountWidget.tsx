@@ -85,7 +85,7 @@ export function AccountWidget({
           <div className="text-xs leading-normal text-white/80 md:text-sm">
             Total balance
           </div>
-          <div className="leading-light font-messiri text-4xl font-medium text-white md:mt-1 md:text-5xl">
+          <div className="leading-light font-messiri text-3xl font-medium text-white md:mt-1 md:text-4xl">
             {formatLocaleNumber(balance)} ISLM
           </div>
         </div>

@@ -42,26 +42,48 @@ export function DaoParticipate({ address }: { address: string }) {
             </div>
           </div>
         ) : (
-          <div
-            className={clsx(
-              isParticipate ? 'text-islamic-green-500' : 'text-islamic-red-500',
+          <div className="flex flex-col gap-[4px] text-[16px] leading-[24px]">
+            {isParticipate ? (
+              <>
+                <div>
+                  Your address{' '}
+                  <span className="font-[600] uppercase">is part</span> of the
+                  United Contributors DAO.
+                </div>
+                <div>
+                  It will be affected by proposal{' '}
+                  <a
+                    href="https://shell.haqq.network/governance/proposal/34"
+                    target="_blank"
+                    className="font-[600] text-[#0489D4]"
+                    rel="noreferrer"
+                  >
+                    #34
+                  </a>{' '}
+                  if it is approved.
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  Your address{' '}
+                  <span className="font-[600] uppercase">is not part</span> of
+                  the United Contributors DAO.
+                </div>
+                <div>
+                  It will not be affected by proposal{' '}
+                  <a
+                    href="https://shell.haqq.network/governance/proposal/34"
+                    target="_blank"
+                    className="font-[600] text-[#0489D4]"
+                    rel="noreferrer"
+                  >
+                    #34
+                  </a>{' '}
+                  even if it is approved.
+                </div>
+              </>
             )}
-          >
-            The address{' '}
-            <span className="font-[600]">{getFormattedAddress(address)}</span>{' '}
-            <span className="font-[600]">
-              {isParticipate ? 'will' : 'WILL NOT'}
-            </span>{' '}
-            be affected by proposal{' '}
-            <a
-              href="https://shell.haqq.network/governance/proposal/34"
-              target="_blank"
-              className="font-[600] text-[#0489D4]"
-              rel="noreferrer"
-            >
-              #34
-            </a>{' '}
-            if accepted by the governance voting
           </div>
         )}
       </div>
