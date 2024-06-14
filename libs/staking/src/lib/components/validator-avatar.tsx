@@ -1,6 +1,5 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
 import Image from 'next/image';
 import store from 'store2';
 import { ValidatorIcon } from '@haqq/shell-ui-kit/server';
@@ -12,10 +11,10 @@ export function ValidatorAvatar({ identity }: { identity?: string }) {
     store.get(avatarsCacheKey) ?? {},
   );
   const getAvatarFromKeybase = useCallback(async (identity: string) => {
-    const { data } = await axios.get(
+    const response = await fetch(
       `https://keybase.io/_/api/1.0/user/lookup.json?key_suffix=${identity}&fields=pictures`,
     );
-
+    const data = await response.json();
     return data;
   }, []);
 

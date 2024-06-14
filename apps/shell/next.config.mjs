@@ -1,6 +1,12 @@
 //@ts-check
+// import { fileURLToPath } from 'node:url';
 import { composePlugins, withNx } from '@nx/next';
 import { withSentryConfig } from '@sentry/nextjs';
+// import createJiti from 'jiti';
+// const jiti = createJiti(fileURLToPath(import.meta.url));
+
+// // Validate during build.
+// jiti('./src/env/client.ts');
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}

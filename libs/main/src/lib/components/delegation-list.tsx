@@ -19,7 +19,7 @@ import {
   Heading,
   SpinnerLoader,
   ValidatorListStatus,
-} from '@haqq/shell-ui-kit';
+} from '@haqq/shell-ui-kit/server';
 
 interface DelegationListValidator {
   name: string;
@@ -59,7 +59,7 @@ export function ValidatorWithDelegationListItem({
   return (
     <Link
       href={`/staking/validator/${validator.address}`}
-      className="hover:bg-islamic-black-100/10 dark:hover:bg-islamic-black-500/10 border-islamic-black-100/20 block cursor-pointer border-b px-6 py-4 transition-[background] duration-75 last:border-b-0"
+      className="block cursor-pointer border-b border-[#CFCFCF]/20 px-6 py-4 transition-[background] duration-75 last:border-b-0 hover:bg-[#CFCFCF]/10 dark:hover:bg-[#0C0C0C]/10"
     >
       <div className="flex items-center justify-between space-x-6">
         <div className="w-1/4">
@@ -164,7 +164,7 @@ export function ShellIndexPageDelegationList() {
   return (
     <div>
       <Card className="flex flex-1 flex-col !p-0">
-        <div className="border-islamic-black-100/20 border-b px-6 py-3">
+        <div className="border-b border-[#CFCFCF]/20 px-6 py-3">
           <div className="flex items-center justify-between space-x-6 font-semibold">
             <div className="w-1/4">
               <div className="font-semibold">Name</div>

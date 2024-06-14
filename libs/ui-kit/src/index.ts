@@ -18,7 +18,5 @@ export * from './lib/header';
 export * from './lib/header-mobile';
 export * from './lib/select-chain-modal';
 export * from './lib/low-balance-alert';
-export * from './lib/captcha-modal';
-export * from './lib/information-modal';
 
 export * from './hooks/use-scroll-track';
