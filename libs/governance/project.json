@@ -1,0 +1,9 @@
+{
+  "name": "shell-governance",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/governance/src",
+  "projectType": "library",
+  "tags": ["shell-lib-governance"],
+  "// targets": "to see all targets run: nx show project shell-governance --web",
+  "targets": {}
+}

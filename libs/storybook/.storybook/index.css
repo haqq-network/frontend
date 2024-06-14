@@ -1,0 +1,61 @@
+@tailwind components;
+@tailwind base;
+@tailwind utilities;
+
+@layer base {
+  input[type='number'] {
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+  }
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('../../../apps/shell/src/lib/fonts/clash-display-medium.woff2')
+    format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HK Guise';
+  src: url('../../../apps/shell/src/lib/fonts/hk-guise-medium.woff2')
+    format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HK Guise';
+  src: url('../../../apps/shell/src/lib/fonts/hk-guise-regular.woff2')
+    format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --font-apple: -apple-system, 'BlinkMacSystemFont';
+  --font-fallback: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family-base: var(--font-apple), var(--font-fallback), var(--font-emoji);
+
+  --guise-font: 'HK Guise', var(--font-family-base);
+  --clash-font: 'Clash Display', var(--font-family-base);
+}
+
+body {
+  @apply bg-haqq-black font-guise h-full overflow-auto text-white will-change-auto;
+}
+
+html {
+  @apply h-full overflow-auto;
+}
+
+.storybook-sticky-emulation {
+  @apply fixed bottom-0 left-0 right-0 z-30;
+}

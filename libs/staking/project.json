@@ -1,0 +1,9 @@
+{
+  "name": "shell-staking",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/staking/src",
+  "projectType": "library",
+  "tags": ["shell-lib-staking"],
+  "// targets": "to see all targets run: nx show project shell-staking --web",
+  "targets": {}
+}

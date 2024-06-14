@@ -1,8 +1,0 @@
-{
-  "name": "shell-authz",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shell/authz/src",
-  "projectType": "library",
-  "tags": ["shell-lib-authz"],
-  "targets": {}
-}

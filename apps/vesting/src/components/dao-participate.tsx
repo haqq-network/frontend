@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import clsx from 'clsx';
 import { useChainId } from 'wagmi';
 import { getVestingDaoCheck } from '@haqq/data-access-falconer';
-import { getFormattedAddress } from '@haqq/shell-shared';
 import { Card } from './Card/Card';
 import { Heading } from './typography';
 

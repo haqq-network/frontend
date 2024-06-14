@@ -1,8 +1,0 @@
-{
-  "name": "shell-airdrop",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shell/airdrop/src",
-  "projectType": "library",
-  "tags": ["shell-lib-airdrop"],
-  "targets": {}
-}

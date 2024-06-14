@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-team-page",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/team-page/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-team-page"],
-  "targets": {}
-}

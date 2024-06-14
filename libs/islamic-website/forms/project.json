@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-forms",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/forms/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-forms"],
-  "targets": {}
-}

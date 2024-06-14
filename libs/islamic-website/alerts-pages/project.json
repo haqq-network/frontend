@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-alerts-pages",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/alerts-pages/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-alerts-pages"],
-  "targets": {}
-}

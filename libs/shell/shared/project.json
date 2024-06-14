@@ -1,9 +1,0 @@
-{
-  "name": "shell-shared",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shell/shared/src",
-  "projectType": "library",
-  "tags": ["shell-lib-shared"],
-  "// targets": "to see all targets run: nx show project shell-shared --web",
-  "targets": {}
-}

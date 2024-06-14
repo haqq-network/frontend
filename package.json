@@ -16,14 +16,8 @@
   "scripts": {
     "start": "yarn start:shell",
     "start:shell": "yarn nx serve shell",
-    "start:staking": "yarn nx serve staking",
-    "start:governance": "yarn nx serve governance",
     "start:vesting": "yarn nx serve vesting",
-    "start:faucet": "yarn nx serve faucet",
-    "start:haqq-website": "yarn nx serve haqq-website",
-    "start:islamic-website": "yarn nx serve islamic-website",
     "format": "yarn prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
-    "check-ignore-build": "yarn node ./tools/scripts/ignore-build.mjs",
     "install:husky": "yarn husky install",
     "prepare": "yarn install:husky",
     "postinstall": "yarn prepare"
