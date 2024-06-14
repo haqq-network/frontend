@@ -33,7 +33,10 @@ export function DaoParticipate({ address }: { address: string }) {
 
       <div className="p-4 pt-0">
         {isLoading ? (
-          <div role="status" className="flex animate-pulse flex-col gap-[8px]">
+          <div
+            role="status"
+            className="flex animate-pulse flex-col gap-[8px] py-[2px]"
+          >
             <div>
               <div className="my-[3px] h-[14px] max-w-[360px] rounded-full bg-gray-200"></div>
             </div>
@@ -51,7 +54,7 @@ export function DaoParticipate({ address }: { address: string }) {
                   United Contributors DAO.
                 </div>
                 <div>
-                  It will be affected by proposal{' '}
+                  It was affected by proposal{' '}
                   <a
                     href="https://shell.haqq.network/governance/proposal/34"
                     target="_blank"
@@ -59,8 +62,8 @@ export function DaoParticipate({ address }: { address: string }) {
                     rel="noreferrer"
                   >
                     #34
-                  </a>{' '}
-                  if it is approved.
+                  </a>
+                  .
                 </div>
               </>
             ) : (
@@ -71,7 +74,7 @@ export function DaoParticipate({ address }: { address: string }) {
                   the United Contributors DAO.
                 </div>
                 <div>
-                  It will not be affected by proposal{' '}
+                  It was not affected by proposal{' '}
                   <a
                     href="https://shell.haqq.network/governance/proposal/34"
                     target="_blank"
@@ -79,8 +82,8 @@ export function DaoParticipate({ address }: { address: string }) {
                     rel="noreferrer"
                   >
                     #34
-                  </a>{' '}
-                  even if it is approved.
+                  </a>
+                  .
                 </div>
               </>
             )}
