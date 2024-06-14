@@ -78,11 +78,9 @@ export function UndelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-islamic-red-500">Bellow minimal value</span>;
+      return <span className="text-[#F50000]">Bellow minimal value</span>;
     } else if (amountError === 'max') {
-      return (
-        <span className="text-islamic-red-500">More than your delegation</span>
-      );
+      return <span className="text-[#F50000]">More than your delegation</span>;
     }
 
     return undefined;

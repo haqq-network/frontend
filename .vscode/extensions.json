@@ -6,7 +6,6 @@
     "orta.vscode-jest",
     "csstools.postcss",
     "bradlc.vscode-tailwindcss",
-    "streetsidesoftware.code-spell-checker",
-    "firsttris.vscode-jest-runner"
+    "streetsidesoftware.code-spell-checker"
   ]
 }

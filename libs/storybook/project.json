@@ -21,7 +21,7 @@
       "executor": "@nx/storybook:build",
       "outputs": ["{options.outputDir}"],
       "options": {
-        "outputDir": "dist/storybook/storybook-host",
+        "outputDir": "dist/storybook",
         "configDir": "libs/storybook/.storybook"
       },
       "configurations": {
