@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-mission-page",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/mission-page/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-mission-page"],
-  "targets": {}
-}

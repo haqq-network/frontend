@@ -1,0 +1,9 @@
+{
+  "name": "shell-faucet",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/faucet/src",
+  "projectType": "library",
+  "tags": ["shell-lib-faucet"],
+  "// targets": "to see all targets run: nx show project shell-faucet --web",
+  "targets": {}
+}

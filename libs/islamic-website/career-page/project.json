@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-career-page",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/career-page/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-career-page"],
-  "targets": {}
-}

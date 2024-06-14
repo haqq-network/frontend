@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-whitepaper-page",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/whitepaper-page/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-whitepaper-page"],
-  "targets": {}
-}

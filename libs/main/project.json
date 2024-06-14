@@ -1,0 +1,9 @@
+{
+  "name": "shell-main",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/main/src",
+  "projectType": "library",
+  "tags": ["shell-lib-main"],
+  "// targets": "to see all targets run: nx show project shell-main --web",
+  "targets": {}
+}

@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-academy-page",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/academy-page/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-academy-page"],
-  "targets": {}
-}

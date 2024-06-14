@@ -1,8 +1,0 @@
-{
-  "name": "haqq-website-wallet-page",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/haqq-website/wallet-page/src",
-  "projectType": "library",
-  "tags": ["haqq-lib-wallet-page"],
-  "targets": {}
-}
