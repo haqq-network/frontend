@@ -4,12 +4,14 @@ import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
 import { useAccount, useChains } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
   useStakingActions,
   useToast,
+  useWallet,
 } from '@haqq/shell-shared';
 import {
   ToastLoading,
@@ -54,7 +56,11 @@ export function DelegateModalHooked({
   );
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
-  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
+  const { isNetworkSupported } = useWallet();
+  const { explorer } = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
+
   const toast = useToast();
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
 

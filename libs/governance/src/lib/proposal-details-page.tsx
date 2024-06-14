@@ -20,6 +20,7 @@ import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useChains } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
 import {
   GetGovernanceParamsResponse,
   TallyResults,
@@ -946,7 +947,10 @@ export function VoteActions({
   const { executeIfNetworkSupported } = useNetworkAwareAction();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
-  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
+  const { isNetworkSupported } = useWallet();
+  const { explorer } = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
   const posthog = usePostHog();
   const chainId = chain.id;
   const [memo, setMemo] = useState('');

@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'usehooks-ts';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useChains } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useAddress,
@@ -471,7 +472,11 @@ export function ValidatorInfo({
   const symbol = 'ISLM';
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
+  const { isNetworkSupported } = useWallet();
+  const { explorer } = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
+
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
   const posthog = usePostHog();

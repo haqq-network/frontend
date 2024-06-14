@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { Fee } from '@evmos/transactions';
 import { usePostHog } from 'posthog-js/react';
 import { useAccount, useChains } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
 import { VESTING_DEFAULT_FEE, getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import {
@@ -20,11 +21,13 @@ import { useAddress } from '../use-address/use-address';
 export function useLiquidVestingActions() {
   const { broadcastTransaction, getTransactionStatus, getSender } =
     useCosmosService();
-  const { getPubkey, signTransaction } = useWallet();
+  const { getPubkey, signTransaction, isNetworkSupported } = useWallet();
   const { haqqAddress, ethAddress } = useAddress();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
-  const chainParams = getChainParams(chain?.id ?? chains[0].id);
+  const chainParams = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
   const haqqChain = mapToCosmosChain(chainParams);
   const posthog = usePostHog();
   const chainId = chain.id;

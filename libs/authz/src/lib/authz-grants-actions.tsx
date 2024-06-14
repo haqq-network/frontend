@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { isAddress } from 'viem';
 import { useAccount, useChains } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   ethToHaqq,
@@ -124,8 +125,10 @@ export function AuthzGrantsActions() {
     GRANT_PERIOD_DEFAULT_OPTION.value,
   );
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
-  const { isHaqqWallet } = useWallet();
+  const { isHaqqWallet, isNetworkSupported } = useWallet();
+  const { explorer } = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
   const [memo, setMemo] = useState('');
 
   const getGrantExpire = useCallback((period: string) => {

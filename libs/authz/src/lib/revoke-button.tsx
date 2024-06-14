@@ -2,6 +2,7 @@
 import { useCallback } from 'react';
 import Link from 'next/link';
 import { useAccount, useChains } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   getFormattedAddress,
@@ -9,6 +10,7 @@ import {
   useNetworkAwareAction,
   useQueryInvalidate,
   useToast,
+  useWallet,
 } from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
 import {
@@ -30,8 +32,11 @@ export function RevokeButton({
   const toast = useToast();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
+  const { isNetworkSupported } = useWallet();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
+  const { explorer } = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
 
   const handleRevokeAccess = useCallback(
     async (grantee: string, type: string) => {
