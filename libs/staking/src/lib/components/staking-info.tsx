@@ -6,7 +6,7 @@ import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'react-responsive';
 import { formatUnits, parseUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
-import { haqqTestedge2 } from 'wagmi/chains';
+import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   useBalanceAwareActions,
@@ -52,7 +52,11 @@ function useStakingStats() {
   const symbol = 'ISLM';
   const [isRewardsPending, setRewardsPending] = useState(false);
   const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const { explorer } = getChainParams(chain?.id ?? chains[0].id);
+  const { isNetworkSupported } = useWallet();
+  const { explorer } = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
+
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const posthog = usePostHog();
   const balance = balances?.availableForStake ?? 0;

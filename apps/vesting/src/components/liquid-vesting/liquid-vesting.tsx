@@ -78,11 +78,13 @@ export function LiquidVestingHooked({
   const [isLiquidationEnabled, setLiquidationEnabled] = useState(false);
   const [isLiquidationPending, setLiquidationPending] = useState(false);
   const liquidTokens = useLiquidTokens(haqqAddress);
-  const { supportedChains, watchAsset } = useWallet();
+  const { watchAsset, isNetworkSupported } = useWallet();
   const { liquidate, redeem } = useLiquidVestingActions();
   const toast = useToast();
   const { chain } = useAccount();
-  const { explorer } = getChainParams(chain?.id ?? supportedChains[0].id);
+  const { explorer } = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
   const [addedTokens, setAddedTokens] = useState<LiquidToken[]>([]);
   const invalidateQueries = useQueryInvalidate();
 

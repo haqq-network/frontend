@@ -96,8 +96,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const { data: walletClient } = useWalletClient();
   const [isLowBalanceAlertOpen, setLowBalanceAlertOpen] = useState(false);
   const { getPubkeyFromChain } = useCosmosService();
-  const chainParams = getChainParams(chain?.id ?? haqqMainnet.id);
-  const haqqChain = mapToCosmosChain(chainParams);
   const posthog = usePostHog();
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
@@ -120,6 +118,11 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       return currentChainId === chain.id;
     });
   }, [availableChains, currentChainId]);
+
+  const chainParams = getChainParams(
+    isChainSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
+  const haqqChain = mapToCosmosChain(chainParams);
 
   const handleNetworkChange = useCallback(
     async (chainId: number) => {

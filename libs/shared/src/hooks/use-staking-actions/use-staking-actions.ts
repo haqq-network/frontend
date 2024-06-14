@@ -17,6 +17,7 @@ import {
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
 import { usePostHog } from 'posthog-js/react';
 import { useAccount, useChains } from 'wagmi';
+import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import { EstimatedFeeResponse } from '@haqq/data-access-falconer';
@@ -35,10 +36,12 @@ export function useStakingActions() {
     getSender,
   } = useCosmosService();
   const { haqqAddress, ethAddress } = useAddress();
-  const { getPubkey, signTransaction } = useWallet();
+  const { getPubkey, signTransaction, isNetworkSupported } = useWallet();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
-  const chainParams = getChainParams(chain?.id ?? chains[0].id);
+  const chainParams = getChainParams(
+    isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
+  );
   const haqqChain = mapToCosmosChain(chainParams);
   const posthog = usePostHog();
   const chainId = chain.id;
