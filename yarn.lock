@@ -3348,7 +3348,7 @@ __metadata:
     jest-environment-node: "npm:29.7.0"
     lint-staged: "npm:15.2.5"
     lodash: "npm:4.17.21"
-    marked: "npm:7.0.5"
+    marked: "npm:13.0.0"
     marked-react: "npm:2.0.0"
     nanoid: "npm:5.0.7"
     next: "npm:14.2.3"
@@ -21378,12 +21378,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:7.0.5":
-  version: 7.0.5
-  resolution: "marked@npm:7.0.5"
+"marked@npm:13.0.0":
+  version: 13.0.0
+  resolution: "marked@npm:13.0.0"
   bin:
     marked: bin/marked.js
-  checksum: 10/4bb728fe3142c060e78e4e81c09ffe0c96f3999d3160a2830aca986ec785e4de46147df05a0edce1318c82ca182ec7165f45d1a2bfeab0bc2453a66869d3717a
+  checksum: 10/7a3c5be69fad09c690f2227dd13a8fd8bb2e0d60a4e4cec934a2a0052e4d6e3540619ce66179a7469e37f33ed29b7541582e3a1d07ddcb69d8259c3b9a80cab8
   languageName: node
   linkType: hard
 
