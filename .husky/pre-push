@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm exec nx affected:lint
-pnpm exec nx affected:test
+pnpm exec nx affected:lint --base=dev
+pnpm exec nx affected:test --base=dev
 # pnpm exec nx affected:e2e

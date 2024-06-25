@@ -28,7 +28,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: 'pnpm'
+          cache: pnpm
       - name: Setup dependencies
         run: pnpm install --frozen-lockfile
       - name: Pull Vercel Environment Information

@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: 'pnpm'
+          cache: pnpm
       - name: Setup dependencies
         run: |
           pnpm install --frozen-lockfile
@@ -48,6 +48,6 @@ jobs:
       - name: Run lint and tests
         run: pnpm exec nx affected --parallel 3 --target test lint build --ci --coverage
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

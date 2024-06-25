@@ -4,14 +4,6 @@
   "sourceRoot": "apps/shell",
   "projectType": "application",
   "tags": ["shell"],
-  "targets": {
-    "build": {
-      "executor": "@nx/next:build",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
-      "options": {
-        "outputPath": "dist/apps/shell"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project shell --web",
+  "targets": {}
 }
