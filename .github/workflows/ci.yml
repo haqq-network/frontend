@@ -12,6 +12,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  actions: read
+  contents: read
+
+env:
+  NEXT_PUBLIC_TURNSTILE_SITEKEY: 'e2e-sitekey'
+  GIT_COMMIT_SHA: ${{ github.sha }}
+
 jobs:
   test-and-lint:
     name: Test and Lint
@@ -23,17 +31,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: yarn
+          cache: 'pnpm'
       - name: Setup dependencies
-        run: yarn install --immutable
-      - name: Run lint
-        run: yarn nx run-many --target=lint --parallel=3
-      - name: Run tests
-        run: yarn nx run-many --target=test --parallel=3 --ci --coverage
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm cypress install --force
+      - uses: nrwl/nx-set-shas@v4
+      - name: Run lint and tests
+        run: pnpm exec nx affected --parallel 3 --target test lint build --ci --coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
