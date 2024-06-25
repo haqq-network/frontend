@@ -2,7 +2,7 @@
 import { useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'usehooks-ts';
 import {
   ValidatorsListDesktop,
   ValidatorsListMobile,
@@ -38,9 +38,7 @@ export function DelegationsBlock({
     seedPhrase,
   });
   const router = useRouter();
-  const isTablet = useMediaQuery({
-    query: `(max-width: 1023px)`,
-  });
+  const isTablet = useMediaQuery('(max-width: 1023px)');
 
   const handleDesktopSortClick = useCallback(
     (key: string) => {

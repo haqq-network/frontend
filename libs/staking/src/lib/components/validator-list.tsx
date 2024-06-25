@@ -2,7 +2,7 @@
 import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'usehooks-ts';
 import { useWallet } from '@haqq/shell-shared';
 import { Checkbox, SearchInput, SortSelect } from '@haqq/shell-ui-kit';
 import {
@@ -43,9 +43,7 @@ export function ValidatorList({
     isWalletConnected,
   } = useStakingData({ seedPhrase });
   const route = useRouter();
-  const isDesktop = useMediaQuery({
-    query: `(min-width: 1024px)`,
-  });
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
   const { isHaqqWallet } = useWallet();
 
   const handleMobileSortChange = useCallback(

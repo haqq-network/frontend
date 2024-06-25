@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'usehooks-ts';
 import { formatUnits, parseUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
@@ -214,9 +214,7 @@ export function StakingInfo() {
     handleRewardsClaim,
     isRewardsPending,
   } = useStakingStats();
-  const isTablet = useMediaQuery({
-    query: `(max-width: 1023px)`,
-  });
+  const isTablet = useMediaQuery('(max-width: 1023px)');
 
   const isTestedge = useMemo(() => {
     return chain.id === haqqTestedge2.id;
