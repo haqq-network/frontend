@@ -21,6 +21,7 @@ module.exports = {
         'haqq-bigfoot-feet': '#E98C50',
         'haqq-azure': '#ECFEFE',
         'haqq-modal-overlay': '#0D0D0ECC',
+        'haqq-danger': '#F50000',
       },
       screens: {
         '3xl': '2048px',

@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "packageManager": "yarn",
+  "packageManager": "pnpm",
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "libs"

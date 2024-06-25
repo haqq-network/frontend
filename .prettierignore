@@ -4,5 +4,6 @@
 .yarnrc.yml
 .next
 /.nx/cache
-
 /.nx/workspace-data
+pnpm-lock.yaml
+.next/
