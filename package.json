@@ -10,12 +10,11 @@
   },
   "scripts": {
     "start": "pnpm start:shell",
-    "start:shell": "pnpm nx dev shell",
-    "start:vesting": "pnpm nx serve vesting",
-    "format": "pnpm prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
-    "install:husky": "pnpm husky install",
-    "prepare": "pnpm install:husky",
-    "postinstall": "pnpm prepare"
+    "start:shell": "pnpm exec nx dev shell",
+    "start:vesting": "pnpm exec nx serve vesting",
+    "start:storybook": "pnpm exec nx storybook storybook",
+    "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
+    "prepare": "pnpm exec husky"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.2.4",
