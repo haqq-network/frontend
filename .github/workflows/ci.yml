@@ -19,6 +19,7 @@ permissions:
 env:
   NEXT_PUBLIC_TURNSTILE_SITEKEY: 'e2e-sitekey'
   GIT_COMMIT_SHA: ${{ github.sha }}
+  HUSKY: 0
 
 jobs:
   test-and-lint:
