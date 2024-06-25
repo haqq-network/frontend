@@ -33,7 +33,7 @@ export function parseWagmiCookies(cookiesString: string | null | undefined): {
       cookiesString === null ||
       cookiesString === ''
     ) {
-      console.error('No cookie string');
+      console.warn('No cookie string');
       return { chainId: null, walletAddress: null };
     }
     // Parse the cookies
@@ -41,7 +41,7 @@ export function parseWagmiCookies(cookiesString: string | null | undefined): {
 
     // Check if the 'wagmi.store' key exists in the cookies
     if (!cookies['wagmi.store']) {
-      console.error('Missing key wagmi.store in cookies');
+      console.warn('Missing key wagmi.store in cookies');
       return { chainId: null, walletAddress: null };
     }
 
@@ -52,7 +52,7 @@ export function parseWagmiCookies(cookiesString: string | null | undefined): {
     const currentConnection = connectionsMap.get(wagmiStore.state.current);
 
     if (!currentConnection) {
-      console.error('No current connection found');
+      console.warn('No current connection found');
       return { chainId: null, walletAddress: null };
     }
 
