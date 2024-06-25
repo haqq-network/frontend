@@ -1,5 +1,5 @@
 'use client';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'usehooks-ts';
 import { useWallet } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { AccountFooterMobile } from './components/account-footer-mobile';
@@ -31,9 +31,7 @@ export function MainPage({
   seedPhrase: string;
 }) {
   const { isHaqqWallet } = useWallet();
-  const isTablet = useMediaQuery({
-    query: `(max-width: 1023px)`,
-  });
+  const isTablet = useMediaQuery('(max-width: 1023px)');
 
   return (
     <div className="flex flex-col">

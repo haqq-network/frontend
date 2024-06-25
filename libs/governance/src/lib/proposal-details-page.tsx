@@ -17,7 +17,7 @@ import Markdown from 'marked-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'usehooks-ts';
 import { formatUnits } from 'viem/utils';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
@@ -293,9 +293,7 @@ export function ProposalDetailsComponent({
       10,
     );
   }, [govParams]);
-  const isDesktop = useMediaQuery({
-    query: `(min-width: 1024px)`,
-  });
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const delegation = useMemo(() => {
     if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
