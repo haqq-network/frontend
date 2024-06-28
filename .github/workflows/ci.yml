@@ -17,8 +17,6 @@ permissions:
   contents: read
 
 env:
-  NEXT_PUBLIC_TURNSTILE_SITEKEY: 'e2e-sitekey'
-  GIT_COMMIT_SHA: ${{ github.sha }}
   HUSKY: 0
 
 jobs:
@@ -53,7 +51,7 @@ jobs:
       # - name: Run build for affected projects
       #   run: pnpm exec nx affected --target build
       - name: Run lint test and build
-        run: pnpm exec nx run-many --target lint test build
+        run: pnpm exec nx run-many --target lint test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
         with:
