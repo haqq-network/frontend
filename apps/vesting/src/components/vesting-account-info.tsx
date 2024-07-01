@@ -11,7 +11,7 @@ import {
   AccountWidget,
   BalancesFromIndexer,
 } from './AccountWidget/AccountWidget';
-import { DaoParticipate } from './dao-participate';
+// import { DaoParticipate } from './dao-participate';
 import { Container } from './Layout/Layout';
 import { LiquidVestingHooked } from './liquid-vesting/liquid-vesting';
 import { VestingAccountStats } from './vesting-account-stats';
@@ -49,7 +49,7 @@ export function VestingAccountInfo({
           daoLocked={balances.daoLocked}
         />
 
-        <DaoParticipate address={ethAddress} />
+        {/* <DaoParticipate address={ethAddress} /> */}
 
         {isLiquidVestingVisible && (
           <LiquidVestingHooked balance={balances.total} haqqAddress={address} />
