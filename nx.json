@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "packageManager": "yarn",
+  "packageManager": "pnpm",
+  "defaultBase": "dev",
+  "parallel": 5,
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "libs"
@@ -110,7 +112,7 @@
   "release": {
     "projectsRelationship": "independent",
     "version": {
-      "preVersionCommand": "yarn nx run-many -t build",
+      "preVersionCommand": "pnpm exec nx run-many -t build",
       "generatorOptions": {
         "currentVersionResolver": "git-tag",
         "specifierSource": "conventional-commits"

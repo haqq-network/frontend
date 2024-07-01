@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import clsx from 'clsx';
 import { useChainId } from 'wagmi';
 import { getVestingDaoCheck } from '@haqq/data-access-falconer';
-import { getFormattedAddress } from '@haqq/shell-shared';
 import { Card } from './Card/Card';
 import { Heading } from './typography';
 
@@ -24,7 +22,7 @@ export function DaoParticipate({ address }: { address: string }) {
     <Card className="mx-auto w-full max-w-lg overflow-hidden text-[#0c0c0c]">
       <div className="p-4 pt-6">
         <Heading level={4}>
-          <span>United Contributors DAO</span>{' '}
+          <span>UnitedContributorsDAO</span>{' '}
           <div className="bg-primary pointer-events-none ml-[8xp] inline-block translate-y-[-8px] select-none rounded-[6px] px-[6px] py-[2px] font-sans text-[11px] font-[600] uppercase leading-[16px] text-white">
             New
           </div>
@@ -33,7 +31,10 @@ export function DaoParticipate({ address }: { address: string }) {
 
       <div className="p-4 pt-0">
         {isLoading ? (
-          <div role="status" className="flex animate-pulse flex-col gap-[8px]">
+          <div
+            role="status"
+            className="flex animate-pulse flex-col gap-[8px] py-[2px]"
+          >
             <div>
               <div className="my-[3px] h-[14px] max-w-[360px] rounded-full bg-gray-200"></div>
             </div>
@@ -51,7 +52,7 @@ export function DaoParticipate({ address }: { address: string }) {
                   United Contributors DAO.
                 </div>
                 <div>
-                  It will be affected by proposal{' '}
+                  It was affected by proposal{' '}
                   <a
                     href="https://shell.haqq.network/governance/proposal/34"
                     target="_blank"
@@ -59,8 +60,8 @@ export function DaoParticipate({ address }: { address: string }) {
                     rel="noreferrer"
                   >
                     #34
-                  </a>{' '}
-                  if it is approved.
+                  </a>
+                  .
                 </div>
               </>
             ) : (
@@ -68,10 +69,10 @@ export function DaoParticipate({ address }: { address: string }) {
                 <div>
                   Your address{' '}
                   <span className="font-[600] uppercase">is not part</span> of
-                  the United Contributors DAO.
+                  the UnitedContributorsDAO.
                 </div>
                 <div>
-                  It will not be affected by proposal{' '}
+                  It was not affected by proposal{' '}
                   <a
                     href="https://shell.haqq.network/governance/proposal/34"
                     target="_blank"
@@ -79,8 +80,8 @@ export function DaoParticipate({ address }: { address: string }) {
                     rel="noreferrer"
                   >
                     #34
-                  </a>{' '}
-                  even if it is approved.
+                  </a>
+                  .
                 </div>
               </>
             )}

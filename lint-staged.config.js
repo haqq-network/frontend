@@ -1,7 +1,7 @@
 module.exports = {
   '*.{ts,js,tsx,jsx,cjs,mjs}': [
-    () => 'yarn nx affected:lint --fix --uncommitted',
-    () => 'yarn nx format:write --uncommitted',
+    () => 'pnpm exec nx affected:lint --fix --uncommitted',
+    () => 'pnpm exec nx format:write --uncommitted',
   ],
-  '*.{css,json,md,mdx,html,yaml,yml}': ['yarn prettier --write'],
+  '*.{css,json,md,mdx,html,yaml,yml}': ['pnpm exec prettier --write'],
 };

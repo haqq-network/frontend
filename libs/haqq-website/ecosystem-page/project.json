@@ -1,8 +1,0 @@
-{
-  "name": "haqq-website-ecosystem-page",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/haqq-website/ecosystem-page/src",
-  "projectType": "library",
-  "tags": ["haqq-lib-ecosystem-page"],
-  "targets": {}
-}

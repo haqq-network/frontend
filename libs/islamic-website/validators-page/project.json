@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-validators-page",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/validators-page/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-validators-page"],
-  "targets": {}
-}

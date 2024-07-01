@@ -1,4 +1,0 @@
-.aboveTitle:before {
-  content: '';
-  @apply absolute right-[calc(100%+10px)] top-[calc(50%+4px)] h-[1px] w-[200px] -translate-y-1/2 bg-[#c2c2c2] sm:top-[calc(50%+5px)];
-}

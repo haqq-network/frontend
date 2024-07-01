@@ -1,8 +1,0 @@
-{
-  "name": "shell-governance",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shell/governance/src",
-  "projectType": "library",
-  "tags": ["shell-lib-governance"],
-  "targets": {}
-}

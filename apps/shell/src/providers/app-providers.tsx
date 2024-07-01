@@ -9,7 +9,6 @@ import {
   WalletProvider,
   WalletModals,
 } from '@haqq/shell-shared';
-// import { Context as ResponsiveContext } from 'react-responsive';
 import { createWagmiConfig } from '../config/wagmi-config';
 
 export function AppProviders({
@@ -33,11 +32,9 @@ export function AppProviders({
       <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
         <CosmosProvider>
           <WalletProvider>
-            {/* <ResponsiveContext.Provider value={{ width: 500 }}> */}
             {children}
             <Toaster />
             <WalletModals />
-            {/* </ResponsiveContext.Provider> */}
           </WalletProvider>
         </CosmosProvider>
       </ReactQueryProvider>

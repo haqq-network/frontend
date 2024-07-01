@@ -1,16 +1,14 @@
 codecov:
   branch: dev
+  require_ci_to_pass: true
   notify:
     after_n_builds: 2
     wait_for_ci: true
 
 coverage:
-  range: [70, 90]
+  range: 60..80
   round: down
   precision: 2
-  status:
-    patch: false
-    project: false
 
 flag_management:
   default_rules:

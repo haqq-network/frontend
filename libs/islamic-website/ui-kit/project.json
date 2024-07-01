@@ -1,8 +1,0 @@
-{
-  "name": "islamic-website-ui-kit",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/islamic-website/ui-kit/src",
-  "projectType": "library",
-  "tags": ["islamic-lib-ui-kit"],
-  "targets": {}
-}

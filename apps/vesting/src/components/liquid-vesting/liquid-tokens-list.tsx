@@ -55,7 +55,7 @@ export function LiquidTokensList({
         </div>
 
         <div
-          className="text-islamic-green-500 cursor-pointer select-none text-[14px] leading-[30px]"
+          className="text-islamic-green cursor-pointer select-none text-[14px] leading-[30px]"
           onClick={() => {
             setOpen(!isOpen);
           }}

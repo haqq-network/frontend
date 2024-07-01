@@ -1,8 +1,0 @@
-{
-  "name": "haqq-website-ui-kit",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/haqq-website/ui-kit/src",
-  "projectType": "library",
-  "tags": ["haqq-lib-ui-kit"],
-  "targets": {}
-}
