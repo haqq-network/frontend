@@ -135,6 +135,9 @@ export function HeaderMobile({
                           href={href}
                           key={href}
                           className="inline-flex leading-[24px]"
+                          onClick={() => {
+                            setIsMobileMenuOpened(false);
+                          }}
                         >
                           {label}
                         </HeaderNavLink>
