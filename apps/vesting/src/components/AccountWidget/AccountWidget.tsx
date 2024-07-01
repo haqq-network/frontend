@@ -100,21 +100,26 @@ export function BalancesFromIndexer({
   locked,
   staked,
   vested,
+  daoLocked,
 }: {
   available: number;
   locked: number;
   staked: number;
   vested: number;
+  daoLocked: number;
 }) {
-  const { vestedPercent, stakedPercent } = useMemo(() => {
-    const all = vested + staked;
+  const { vestedPercent, stakedPercent, daoLockedPercent } = useMemo(() => {
+    const all = vested + staked + daoLocked;
     const vestedPercent = (vested / all) * 100;
     const stakedPercent = (staked / all) * 100;
+    const daoLockedPercent = (daoLocked / all) * 100;
+
     return {
       vestedPercent,
       stakedPercent,
+      daoLockedPercent,
     };
-  }, [vested, staked]);
+  }, [vested, staked, daoLocked]);
 
   return (
     <Card className="mx-auto w-full max-w-lg overflow-hidden p-4 text-[#0c0c0c]">
@@ -139,7 +144,7 @@ export function BalancesFromIndexer({
             </div>
           </div>
         )}
-        {(vested > 0 || staked > 0) && (
+        {(vested > 0 || staked > 0 || daoLocked > 0) && (
           <div>
             <div className="flex flex-col">
               <div className="flex flex-row gap-[2px]">
@@ -155,6 +160,12 @@ export function BalancesFromIndexer({
                     className="h-[6px] min-w-[6px] rounded-[8px] bg-[#0489D4]"
                   />
                 )}
+                {daoLocked > 0 && (
+                  <div
+                    style={{ width: `${daoLockedPercent}%` }}
+                    className="bg-islamic-green h-[6px] min-w-[6px] rounded-[8px]"
+                  />
+                )}
               </div>
               <div className="flex select-none flex-col justify-between pt-[4px]">
                 {vested > 0 && (
@@ -165,6 +176,11 @@ export function BalancesFromIndexer({
                 {staked > 0 && (
                   <div className="text-[14px] font-[600] leading-[18px] text-[#0489D4]">
                     Staked: {formatLocaleNumber(staked)} ISLM
+                  </div>
+                )}
+                {daoLocked > 0 && (
+                  <div className="text-islamic-green text-[14px] font-[600] leading-[18px]">
+                    UnitedContributorsDAO: {formatLocaleNumber(daoLocked)} ISLM
                   </div>
                 )}
               </div>

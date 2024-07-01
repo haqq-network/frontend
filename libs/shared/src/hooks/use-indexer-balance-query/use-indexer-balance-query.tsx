@@ -19,20 +19,24 @@ function parseResponseNumber(number: string) {
 
 export interface IndexerBalancesResponse {
   addresses: string[];
-  available: Record<string, string>;
-  available_for_stake: Record<string, string>;
-  balance: Record<string, string>;
+  available: Record<string, string>; // Balance available for spending
+  available_for_stake: Record<string, string>; // Total balance - amount available for staking
+  balance: Record<string, string>; // No change, existing field
   last_update: string;
-  locked: Record<string, string>;
-  nfts: string[];
-  staked: Record<string, string>;
-  staked_free: Record<string, string>;
-  staked_locked: Record<string, string>;
-  tokens: string[];
-  total: Record<string, string>;
-  transactions: string[];
-  unlock: Record<string, number>;
-  vested: Record<string, string>;
+  locked: Record<string, string>; // All locked tokens (schedule + staking)
+  nfts: string[]; // No change, existing field
+  staked: Record<string, string>; // All stakes of the user
+  staked_free: Record<string, string>; // Freely staked coins
+  staked_locked: Record<string, string>; // Locked, in staking
+  tokens: string[]; // No change, existing field
+  total: Record<string, string>; // Total balance including staking and available for staking
+  transactions: string[]; // No change, existing field
+  unlock: Record<string, number>; // No change, existing field
+  vested: Record<string, string>; // Locked, on balance
+  dao_locked: Record<string, string>; // Sum of all user tokens aISLM and aLIQUIDXXXX 1 to 1
+  unbonding: Record<string, string>; // Tokens in the unbonding pool
+  rewards: Record<string, string>; // Staking rewards not yet collected (currently not working)
+  total_staked: Record<string, string>; // All user tokens involved in staking
 }
 
 export interface IndexerBalances {
@@ -44,8 +48,8 @@ export interface IndexerBalances {
   stakedFree: number;
   stakedLocked: number;
   total: number;
-  // unlock: number;
   vested: number;
+  daoLocked: number;
 }
 
 const INDEXER_ENDPOINT = 'https://jsonrpc.indexer.haqq.network';
@@ -67,8 +71,8 @@ function mapBalances(
     stakedFree: parseResponseNumber(balancesResponse.staked_free[address]),
     stakedLocked: parseResponseNumber(balancesResponse.staked_locked[address]),
     total: parseResponseNumber(balancesResponse.total[address]),
-    // unlock: parseResponseNumber(balancesResponse.unlock[address]),
     vested: parseResponseNumber(balancesResponse.vested[address]),
+    daoLocked: parseResponseNumber(balancesResponse.dao_locked[address]),
   };
 }
 
