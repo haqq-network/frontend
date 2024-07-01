@@ -22,7 +22,7 @@ export function DaoParticipate({ address }: { address: string }) {
     <Card className="mx-auto w-full max-w-lg overflow-hidden text-[#0c0c0c]">
       <div className="p-4 pt-6">
         <Heading level={4}>
-          <span>United Contributors DAO</span>{' '}
+          <span>UnitedContributorsDAO</span>{' '}
           <div className="bg-primary pointer-events-none ml-[8xp] inline-block translate-y-[-8px] select-none rounded-[6px] px-[6px] py-[2px] font-sans text-[11px] font-[600] uppercase leading-[16px] text-white">
             New
           </div>
@@ -69,7 +69,7 @@ export function DaoParticipate({ address }: { address: string }) {
                 <div>
                   Your address{' '}
                   <span className="font-[600] uppercase">is not part</span> of
-                  the United Contributors DAO.
+                  the UnitedContributorsDAO.
                 </div>
                 <div>
                   It was not affected by proposal{' '}
