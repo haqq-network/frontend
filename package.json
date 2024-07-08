@@ -40,7 +40,7 @@
     "cosmjs-types": "0.9.0",
     "elliptic": "6.5.5",
     "lodash": "4.17.21",
-    "marked": "7.0.5",
+    "marked": "13.0.2",
     "marked-react": "2.0.0",
     "nanoid": "5.0.7",
     "next": "14.2.4",

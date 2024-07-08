@@ -78,8 +78,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       marked:
-        specifier: 7.0.5
-        version: 7.0.5
+        specifier: 13.0.2
+        version: 13.0.2
       marked-react:
         specifier: 2.0.0
         version: 2.0.0(react@18.3.1)
@@ -8900,13 +8900,13 @@ packages:
     peerDependencies:
       react: ^16.8.0 || >=17.0.0
 
-  marked@6.0.0:
-    resolution: {integrity: sha512-7E3m/xIlymrFL5gWswIT4CheIE3fDeh51NV09M4x8iOc7NDYlyERcQMLAIHcSlrvwliwbPQ4OGD+MpPSYiQcqw==}
-    engines: {node: '>= 16'}
+  marked@13.0.2:
+    resolution: {integrity: sha512-J6CPjP8pS5sgrRqxVRvkCIkZ6MFdRIjDkwUwgJ9nL2fbmM6qGQeB2C16hi8Cc9BOzj6xXzy0jyi0iPIfnMHYzA==}
+    engines: {node: '>= 18'}
     hasBin: true
 
-  marked@7.0.5:
-    resolution: {integrity: sha512-lwNAFTfXgqpt/XvK17a/8wY9/q6fcSPZT1aP6QW0u74VwaJF/Z9KbRcX23sWE4tODM+AolJNcUtErTkgOeFP/Q==}
+  marked@6.0.0:
+    resolution: {integrity: sha512-7E3m/xIlymrFL5gWswIT4CheIE3fDeh51NV09M4x8iOc7NDYlyERcQMLAIHcSlrvwliwbPQ4OGD+MpPSYiQcqw==}
     engines: {node: '>= 16'}
     hasBin: true
 
@@ -22279,7 +22279,7 @@ snapshots:
 
   extension-port-stream@3.0.0:
     dependencies:
-      readable-stream: 3.6.2
+      readable-stream: 4.5.2
       webextension-polyfill: 0.10.0
 
   extract-zip@2.0.1(supports-color@8.1.1):
@@ -24443,9 +24443,9 @@ snapshots:
       marked: 6.0.0
       react: 18.3.1
 
-  marked@6.0.0: {}
+  marked@13.0.2: {}
 
-  marked@7.0.5: {}
+  marked@6.0.0: {}
 
   marky@1.2.5: {}
 
