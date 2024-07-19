@@ -65,6 +65,11 @@ export function ValidatorsListDesktop({
     <table className="w-full table-fixed">
       <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
         <tr>
+          {sortState.key !== 'random' && (
+            <th className="w-[40px] p-[8px] text-center lg:p-[12px]">
+              <div className="select-none">#</div>
+            </th>
+          )}
           <th className="w-[25%] p-[8px] text-left lg:p-[12px]">
             <div
               className={clsx(
@@ -198,6 +203,8 @@ export function ValidatorsListDesktop({
               reward={rewardsInfo}
               stakingPool={totalStaked}
               onClick={onValidatorClick}
+              sortNumber={index + 1}
+              sortState={sortState}
             />
           );
         })}
