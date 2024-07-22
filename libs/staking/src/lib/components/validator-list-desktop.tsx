@@ -67,7 +67,7 @@ export function ValidatorsListDesktop({
         <tr>
           {sortState.key !== 'random' && (
             <th className="w-[40px] p-[8px] text-center lg:p-[12px]">
-              <div className="select-none">#</div>
+              <div className="select-none">&nbsp;</div>
             </th>
           )}
           <th className="w-[25%] p-[8px] text-left lg:p-[12px]">
@@ -203,8 +203,7 @@ export function ValidatorsListDesktop({
               reward={rewardsInfo}
               stakingPool={totalStaked}
               onClick={onValidatorClick}
-              sortNumber={index + 1}
-              sortState={sortState}
+              index={sortState.key !== 'random' ? index + 1 : undefined}
             />
           );
         })}

@@ -3,7 +3,6 @@ import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import { formatUnits, parseUnits } from 'viem/utils';
 import { formatNumber, ValidatorListStatus } from '@haqq/shell-ui-kit/server';
-import { SortState } from '../hooks/use-validator-sort';
 
 export function ValidatorListItemDesktop({
   validator,
@@ -11,16 +10,14 @@ export function ValidatorListItemDesktop({
   delegation,
   stakingPool,
   onClick,
-  sortNumber,
-  sortState,
+  index,
 }: {
   validator: Validator;
   delegation?: DelegationResponse;
   reward?: Reward;
   stakingPool: number;
   onClick: (validatorAddress: string) => void;
-  sortNumber: number;
-  sortState: SortState;
+  index?: number;
 }) {
   const validatorCommission = useMemo(() => {
     return formatNumber(
@@ -61,9 +58,7 @@ export function ValidatorListItemDesktop({
         onClick(validator.operator_address);
       }}
     >
-      {sortState.key !== 'random' && (
-        <td className="p-[8px] text-center md:p-[12px]">{sortNumber}</td>
-      )}
+      {index && <td className="p-[8px] text-center md:p-[12px]">{index}</td>}
       <td className="p-[8px] md:p-[12px]">
         <div className="w-full overflow-hidden">
           <p className="overflow-ellipsis">{validator.description?.moniker}</p>
