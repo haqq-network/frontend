@@ -84,43 +84,53 @@ export function useSortedValidators(
           break;
 
         case 'fee':
-          sortedValidators.sort(sortValidatorsByFee);
+          sortedValidators.sort((a, b) => {
+            const result = sortValidatorsByFee(a, b);
+            return state.direction === 'asc' ? -result : result;
+          });
           break;
 
         case 'votingPower':
-          sortedValidators.sort(sortValidatorsByVotingPower);
+          sortedValidators.sort((a, b) => {
+            const result = sortValidatorsByVotingPower(a, b);
+            return state.direction === 'asc' ? -result : result;
+          });
           break;
 
         case 'votingPowerPercent':
-          sortedValidators.sort(
-            createSortValidatorsByVotingPowerPercent(totalStaked),
-          );
+          sortedValidators.sort((a, b) => {
+            const result = createSortValidatorsByVotingPowerPercent(
+              totalStaked,
+            )(a, b);
+            return state.direction === 'asc' ? -result : result;
+          });
           break;
 
         case 'staked':
-          sortedValidators.sort(
-            createSortValidatorsByStakedOrReward(getDelegationsInfo),
-          );
+          sortedValidators.sort((a, b) => {
+            const result = createSortValidatorsByStakedOrReward(
+              getDelegationsInfo,
+            )(a, b);
+            return state.direction === 'asc' ? -result : result;
+          });
           break;
 
         case 'reward':
-          sortedValidators.sort(
-            createSortValidatorsByStakedOrReward(getRewardsInfo),
-          );
+          sortedValidators.sort((a, b) => {
+            const result = createSortValidatorsByStakedOrReward(getRewardsInfo)(
+              a,
+              b,
+            );
+            return state.direction === 'asc' ? -result : result;
+          });
           break;
 
         default:
           break;
       }
 
-      // Reversing for descending order if required
-      if (state.direction === 'desc') {
-        sortedValidators.reverse();
-      }
-
       return sortedValidators;
     },
-
     [getDelegationsInfo, getRewardsInfo, seed, totalStaked],
   );
 
