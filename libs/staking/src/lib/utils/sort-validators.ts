@@ -37,7 +37,9 @@ export function randomSortWithSeed<T>(arr: T[], seed: string): T[] {
 }
 
 export function sortValidatorsByName(a: Validator, b: Validator) {
-  return a.description.moniker.localeCompare(b.description.moniker);
+  return a.description.moniker
+    .trim()
+    .localeCompare(b.description.moniker.trim());
 }
 
 export function sortValidatorsByStatus(a: Validator, b: Validator) {
