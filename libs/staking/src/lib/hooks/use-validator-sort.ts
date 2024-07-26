@@ -76,11 +76,17 @@ export function useSortedValidators(
       // Sorting logic based on the provided sortState
       switch (state.key) {
         case 'name':
-          sortedValidators.sort(sortValidatorsByName);
+          sortedValidators.sort((a, b) => {
+            const result = sortValidatorsByName(a, b);
+            return state.direction === 'asc' ? result : -result;
+          });
           break;
 
         case 'status':
-          sortedValidators.sort(sortValidatorsByStatus);
+          sortedValidators.sort((a, b) => {
+            const result = sortValidatorsByStatus(a, b);
+            return state.direction === 'asc' ? result : -result;
+          });
           break;
 
         case 'fee':
