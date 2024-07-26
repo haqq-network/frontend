@@ -15,7 +15,7 @@ function SortDirectionArrow({ direction }: { direction: SortDirection }) {
 
   return (
     <span className="absolute right-[-16px] top-[0px] text-[12px] leading-[14px]">
-      {direction === 'asc' ? '▼' : '▲'}
+      {direction === 'asc' ? '▲' : '▼'}
     </span>
   );
 }
