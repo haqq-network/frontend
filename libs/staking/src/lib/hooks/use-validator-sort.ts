@@ -103,33 +103,35 @@ export function useSortedValidators(
           });
           break;
 
-        case 'votingPowerPercent':
+        case 'votingPowerPercent': {
+          const sortByVotingPowerPercent =
+            createSortValidatorsByVotingPowerPercent(totalStaked);
           sortedValidators.sort((a, b) => {
-            const result = createSortValidatorsByVotingPowerPercent(
-              totalStaked,
-            )(a, b);
+            const result = sortByVotingPowerPercent(a, b);
             return state.direction === 'asc' ? -result : result;
           });
           break;
+        }
 
-        case 'staked':
+        case 'staked': {
+          const sortByStaked =
+            createSortValidatorsByStakedOrReward(getDelegationsInfo);
           sortedValidators.sort((a, b) => {
-            const result = createSortValidatorsByStakedOrReward(
-              getDelegationsInfo,
-            )(a, b);
+            const result = sortByStaked(a, b);
             return state.direction === 'asc' ? -result : result;
           });
           break;
+        }
 
-        case 'reward':
+        case 'reward': {
+          const sortByReward =
+            createSortValidatorsByStakedOrReward(getRewardsInfo);
           sortedValidators.sort((a, b) => {
-            const result = createSortValidatorsByStakedOrReward(getRewardsInfo)(
-              a,
-              b,
-            );
+            const result = sortByReward(a, b);
             return state.direction === 'asc' ? -result : result;
           });
           break;
+        }
 
         default:
           break;
