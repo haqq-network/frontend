@@ -67,7 +67,7 @@ export function createSortValidatorsByVotingPowerPercent(totalStaked: number) {
 }
 
 export function createSortValidatorsByStakedOrReward(
-  getSortValues: (operatorAddreses: Array<string>) => Array<number>,
+  getSortValues: (operatorAddresses: Array<string>) => Array<number>,
 ) {
   return (a: Validator, b: Validator) => {
     const delegations = getSortValues([a.operator_address, b.operator_address]);
