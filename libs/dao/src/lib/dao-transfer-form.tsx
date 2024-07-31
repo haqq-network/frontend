@@ -1,20 +1,31 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { formatUnits, Hex, isAddress, parseUnits, erc20Abi } from 'viem';
-import { useSendTransaction, useWriteContract } from 'wagmi';
+import {
+  useAccount,
+  useChains,
+  useSendTransaction,
+  useWriteContract,
+} from 'wagmi';
+import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   ethToHaqq,
+  getFormattedAddress,
   haqqToEth,
+  LiquidToken,
   useAddress,
   useIndexerBalanceQuery,
   useLiquidTokens,
+  useQueryInvalidate,
   useToast,
 } from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
 import {
   Container,
   Heading,
+  LinkIcon,
   PlaneIcon,
   ToastError,
   ToastLoading,
@@ -35,6 +46,10 @@ export function DaoTransferForm() {
   const { sendTransactionAsync } = useSendTransaction();
   const { writeContractAsync: sendERC20 } = useWriteContract();
   const toast = useToast();
+  const chains = useChains();
+  const { chain = chains[0] } = useAccount();
+  const invalidateQueries = useQueryInvalidate();
+  const { explorer } = getChainParams(chain.id);
 
   useEffect(() => {
     if (targetAddress.startsWith('0x')) {
@@ -71,8 +86,8 @@ export function DaoTransferForm() {
     });
   }, []);
 
-  const sendERC20Tokens = useCallback((address: Hex) => {
-    return liquidTokens.map((token) => {
+  const sendERC20Tokens = useCallback((address: Hex, tokens: LiquidToken[]) => {
+    const sendLiquidPromises = tokens.map((token) => {
       return sendERC20({
         abi: erc20Abi,
         address: token.erc20Address as Hex,
@@ -80,6 +95,8 @@ export function DaoTransferForm() {
         args: [address, BigInt(token.amount)],
       });
     });
+
+    return Promise.all(sendLiquidPromises);
   }, []);
 
   const handleConfirm = useCallback(async () => {
@@ -90,25 +107,42 @@ export function DaoTransferForm() {
         : validatedAddress;
 
       try {
-        const transferPromises = Promise.all([
-          ...sendERC20Tokens(address as Hex),
-          sendNativeToken(
+        const transferPromise = sendERC20Tokens(
+          address as Hex,
+          liquidTokens,
+        ).then(async (hashes) => {
+          const nativeSendTxHash = await sendNativeToken(
             address as Hex,
             Math.floor(balances.available).toString(),
-          ),
-        ]);
+          );
+          return [...hashes, nativeSendTxHash];
+        });
 
         await toast.promise(
-          transferPromises,
+          transferPromise,
           {
             loading: <ToastLoading>Transfer in progress</ToastLoading>,
-            success: (txs) => {
-              console.log('Transfer successful', { txs });
-
+            success: (hashes) => {
               return (
                 <ToastSuccess>
                   <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                     <div>Transfer successful</div>
+
+                    {hashes.map((hash) => {
+                      return (
+                        <div key={`link-${hash}`}>
+                          <Link
+                            href={`${explorer.evm}/tx/${hash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                          >
+                            <LinkIcon />
+                            <span>{getFormattedAddress(hash)}</span>
+                          </Link>
+                        </div>
+                      );
+                    })}
                   </div>
                 </ToastSuccess>
               );
@@ -125,9 +159,20 @@ export function DaoTransferForm() {
         );
       } catch (error) {
         console.error('Error with one of the transactions:', error);
+      } finally {
+        invalidateQueries([
+          [chain.id, 'token-pairs'],
+          [chain.id, 'indexer-balance'],
+        ]);
       }
     }
-  }, [validatedAddress, balances, sendERC20Tokens, sendNativeToken]);
+  }, [
+    validatedAddress,
+    balances,
+    sendERC20Tokens,
+    sendNativeToken,
+    liquidTokens,
+  ]);
 
   return (
     <div className="py-[80px]">
