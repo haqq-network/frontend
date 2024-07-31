@@ -31,3 +31,4 @@ export * from './hooks/liquidvesting/use-liquidvesting-actions';
 export * from './hooks/erc20/use-token-pairs';
 export * from './hooks/use-balance-aware-action/use-balance-aware-action';
 export * from './hooks/use-indexer-balance-query/use-indexer-balance-query';
+export * from './hooks/liquidvesting/use-liquid-tokens';
