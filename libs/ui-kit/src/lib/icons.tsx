@@ -288,3 +288,23 @@ export function LockIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function PlaneIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M16.8765 5.66878L5.40544 9.84006L10.3637 12.1887L16.8765 5.66878ZM11.7781 13.6027L14.1272 18.5618L18.3074 7.06629L11.7781 13.6027ZM21.43 4.33139C21.8363 3.21415 20.7531 2.13098 19.6358 2.53724L3.37162 8.4515C2.20309 8.87642 2.12705 10.5002 3.25074 11.0324L9.82206 14.1452L12.9348 20.7165C13.4671 21.8402 15.0908 21.7641 15.5157 20.5956L21.43 4.33139Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}

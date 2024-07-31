@@ -6,6 +6,7 @@ export const headerLinks: {
   chains: number[];
 }[] = [
   // { href: '/', label: 'Home', chains: [haqqMainnet.id, haqqTestedge2.id] },
+  { href: '/dao', label: 'DAO', chains: [haqqMainnet.id] },
   {
     href: '/staking',
     label: 'Staking',
