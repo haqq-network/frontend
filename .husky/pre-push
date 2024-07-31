@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname "$0")/_/h"
-
 pnpm exec nx affected:lint --base=dev
 pnpm exec nx affected:test --base=dev
 # pnpm exec nx affected:e2e
