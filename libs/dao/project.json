@@ -1,0 +1,9 @@
+{
+  "name": "shell-dao",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dao/src",
+  "projectType": "library",
+  "tags": ["shell-lib-dao"],
+  "// targets": "to see all targets run: nx show project dao --web",
+  "targets": {}
+}
