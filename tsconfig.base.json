@@ -19,6 +19,8 @@
       "@haqq/data-access-falconer": ["libs/data-access/falconer/src/index.ts"],
       "@haqq/shell-authz": ["libs/authz/src/index.ts"],
       "@haqq/shell-authz/server": ["libs/authz/src/server.ts"],
+      "@haqq/shell-dao": ["libs/dao/src/index.ts"],
+      "@haqq/shell-dao/server": ["libs/dao/src/server.ts"],
       "@haqq/shell-faucet": ["libs/faucet/src/index.ts"],
       "@haqq/shell-faucet/server": ["libs/faucet/src/server.ts"],
       "@haqq/shell-governance": ["libs/governance/src/index.ts"],
