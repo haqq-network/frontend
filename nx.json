@@ -44,7 +44,6 @@
         "serveStaticTargetName": "serve-static"
       }
     },
-
     {
       "plugin": "@nx/cypress/plugin",
       "options": {
