@@ -79,6 +79,7 @@ export function ParalaxBackground() {
             setLoaded(true);
           }}
           className="scale-[1.5] md:scale-[1]"
+          priority
         />
       </animated.div>
     </animated.div>
