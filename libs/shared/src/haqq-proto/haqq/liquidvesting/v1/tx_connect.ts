@@ -20,7 +20,8 @@ export const Msg = {
   typeName: 'haqq.liquidvesting.v1.Msg',
   methods: {
     /**
-     * Liquidate transforms specified amount of tokens locked on vesting account into a new liquid token
+     * Liquidate transforms specified amount of tokens locked on vesting account
+     * into a new liquid token
      *
      * @generated from rpc haqq.liquidvesting.v1.Msg.Liquidate
      */
@@ -31,7 +32,8 @@ export const Msg = {
       kind: MethodKind.Unary,
     },
     /**
-     * Redeem burns liquid token and deposits corresponding amount of vesting token to the specified account
+     * Redeem burns liquid token and deposits corresponding amount of vesting
+     * token to the specified account
      *
      * @generated from rpc haqq.liquidvesting.v1.Msg.Redeem
      */

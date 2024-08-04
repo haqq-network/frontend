@@ -11,7 +11,8 @@ import type {
   PartialMessage,
   PlainMessage,
 } from '@bufbuild/protobuf';
-import { Message, proto3 } from '@bufbuild/protobuf';
+import { Message, proto3, protoInt64 } from '@bufbuild/protobuf';
+import { Denom } from './liquidvesting_pb';
 
 /**
  * GenesisState defines the liquidvesting module's genesis state.
@@ -26,6 +27,16 @@ export class GenesisState extends Message<GenesisState> {
    */
   params?: Params;
 
+  /**
+   * @generated from field: uint64 denom_counter = 2;
+   */
+  denomCounter = protoInt64.zero;
+
+  /**
+   * @generated from field: repeated haqq.liquidvesting.v1.Denom denoms = 3;
+   */
+  denoms: Denom[] = [];
+
   constructor(data?: PartialMessage<GenesisState>) {
     super();
     proto3.util.initPartial(data, this);
@@ -35,6 +46,13 @@ export class GenesisState extends Message<GenesisState> {
   static readonly typeName = 'haqq.liquidvesting.v1.GenesisState';
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: 'params', kind: 'message', T: Params },
+    {
+      no: 2,
+      name: 'denom_counter',
+      kind: 'scalar',
+      T: 4 /* ScalarType.UINT64 */,
+    },
+    { no: 3, name: 'denoms', kind: 'message', T: Denom, repeated: true },
   ]);
 
   static fromBinary(
@@ -77,6 +95,13 @@ export class Params extends Message<Params> {
    */
   minimumLiquidationAmount = '';
 
+  /**
+   * parameter to enable liquid vesting
+   *
+   * @generated from field: bool enable_liquid_vesting = 2;
+   */
+  enableLiquidVesting = false;
+
   constructor(data?: PartialMessage<Params>) {
     super();
     proto3.util.initPartial(data, this);
@@ -90,6 +115,12 @@ export class Params extends Message<Params> {
       name: 'minimum_liquidation_amount',
       kind: 'scalar',
       T: 9 /* ScalarType.STRING */,
+    },
+    {
+      no: 2,
+      name: 'enable_liquid_vesting',
+      kind: 'scalar',
+      T: 8 /* ScalarType.BOOL */,
     },
   ]);
 
