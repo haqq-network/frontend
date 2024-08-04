@@ -298,33 +298,37 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const signTransaction = useCallback(
     async (msg: TxGenerated, sender: Sender) => {
-      if (haqqChain && walletClient) {
-        posthog.capture('sign tx start', { chaidId: haqqChain.chainId });
-        const ethAddress = haqqToEth(sender.accountAddress);
-        const signature = await walletClient.request({
-          method: 'eth_signTypedData_v4',
-          params: [ethAddress as Hex, JSON.stringify(msg.eipToSign)],
-        });
-        const extension = signatureToWeb3Extension(
-          haqqChain,
-          sender,
-          signature,
-        );
-        const rawTx = createTxRawEIP712(
-          msg.legacyAmino.body,
-          msg.legacyAmino.authInfo,
-          extension,
-        );
+      if (haqqChain) {
+        if (walletClient) {
+          posthog.capture('sign tx start', { chaidId: haqqChain.chainId });
+          const ethAddress = haqqToEth(sender.accountAddress);
+          const signature = await walletClient.request({
+            method: 'eth_signTypedData_v4',
+            params: [ethAddress as Hex, JSON.stringify(msg.eipToSign)],
+          });
+          const extension = signatureToWeb3Extension(
+            haqqChain,
+            sender,
+            signature,
+          );
+          const rawTx = createTxRawEIP712(
+            msg.legacyAmino.body,
+            msg.legacyAmino.authInfo,
+            extension,
+          );
+          posthog.capture('sign tx success', {
+            chaidId: haqqChain.chainId,
+          });
 
-        posthog.capture('sign tx success', {
-          chaidId: haqqChain.chainId,
-        });
-
-        return rawTx;
+          return rawTx;
+        } else {
+          posthog.capture('sign tx failed', {
+            chaidId: haqqChain.chainId,
+          });
+          throw new Error('No walletClient');
+        }
       } else {
-        posthog.capture('sign tx failed', {
-          chaidId: haqqChain.chainId,
-        });
+        posthog.capture('sign tx failed');
         throw new Error('No haqqChain');
       }
     },

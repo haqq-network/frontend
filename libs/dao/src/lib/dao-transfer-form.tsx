@@ -2,20 +2,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { formatUnits, Hex, isAddress, parseUnits, erc20Abi } from 'viem';
-import {
-  useAccount,
-  useChains,
-  useSendTransaction,
-  useWriteContract,
-} from 'wagmi';
+import { isAddress } from 'viem';
+import { useAccount, useChains } from 'wagmi';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
   ethToHaqq,
   getFormattedAddress,
   haqqToEth,
-  LiquidToken,
   useAddress,
+  useDaoActions,
+  useDaoAllBalancesQuery,
   useIndexerBalanceQuery,
   useLiquidTokens,
   useQueryInvalidate,
@@ -43,13 +39,13 @@ export function DaoTransferForm() {
   );
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const liquidTokens = useLiquidTokens(haqqAddress);
-  const { sendTransactionAsync } = useSendTransaction();
-  const { writeContractAsync: sendERC20 } = useWriteContract();
   const toast = useToast();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
   const invalidateQueries = useQueryInvalidate();
   const { explorer } = getChainParams(chain.id);
+  const { transfer } = useDaoActions();
+  const { data: daoBalance } = useDaoAllBalancesQuery(haqqAddress);
 
   useEffect(() => {
     if (targetAddress.startsWith('0x')) {
@@ -71,78 +67,54 @@ export function DaoTransferForm() {
     }
   }, [targetAddress]);
 
-  const liquidTokensToSend = useMemo(() => {
-    const tokensSum = liquidTokens.reduce((acc, token) => {
-      return acc + BigInt(token.amount);
-    }, 0n);
+  const { nativeTokenAmount, tokensSum } = useMemo(() => {
+    const nativeToken = daoBalance?.find((coin) => {
+      return coin.denom === 'aISLM';
+    });
 
-    return formatUnits(tokensSum, 18);
+    const tokensSum = daoBalance
+      ?.filter((coin) => {
+        return coin.denom !== 'aISLM';
+      })
+      .reduce((acc, token) => {
+        return acc + BigInt(token.amount);
+      }, 0n);
+
+    return {
+      nativeTokenAmount: BigInt(nativeToken?.amount ?? 0),
+      tokensSum: tokensSum ?? 0n,
+    };
   }, [liquidTokens]);
-
-  const sendNativeToken = useCallback((address: Hex, amount: string) => {
-    return sendTransactionAsync({
-      to: address,
-      value: BigInt(parseUnits(amount, 18)),
-    });
-  }, []);
-
-  const sendERC20Tokens = useCallback((address: Hex, tokens: LiquidToken[]) => {
-    const sendLiquidPromises = tokens.map((token) => {
-      return sendERC20({
-        abi: erc20Abi,
-        address: token.erc20Address as Hex,
-        functionName: 'transfer',
-        args: [address, BigInt(token.amount)],
-      });
-    });
-
-    return Promise.all(sendLiquidPromises);
-  }, []);
 
   const handleConfirm = useCallback(async () => {
     setConfirmModalOpen(false);
-    if (validatedAddress && balances) {
-      const address = validatedAddress.startsWith('haqq1')
-        ? haqqToEth(validatedAddress)
-        : validatedAddress;
-
+    if (validatedAddress) {
       try {
-        const transferPromise = sendERC20Tokens(
-          address as Hex,
-          liquidTokens,
-        ).then(async (hashes) => {
-          const nativeSendTxHash = await sendNativeToken(
-            address as Hex,
-            Math.floor(balances.available).toString(),
-          );
-          return [...hashes, nativeSendTxHash];
-        });
-
         await toast.promise(
-          transferPromise,
+          transfer(validatedAddress),
           {
             loading: <ToastLoading>Transfer in progress</ToastLoading>,
-            success: (hashes) => {
+            success: (tx) => {
+              const txHash = tx.txhash;
+
               return (
                 <ToastSuccess>
                   <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                     <div>Transfer successful</div>
 
-                    {hashes.map((hash) => {
-                      return (
-                        <div key={`link-${hash}`}>
-                          <Link
-                            href={`${explorer.evm}/tx/${hash}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
-                          >
-                            <LinkIcon />
-                            <span>{getFormattedAddress(hash)}</span>
-                          </Link>
-                        </div>
-                      );
-                    })}
+                    {txHash && (
+                      <div>
+                        <Link
+                          href={`${explorer.cosmos}/tx/${txHash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
+                        >
+                          <LinkIcon />
+                          <span>{getFormattedAddress(txHash)}</span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </ToastSuccess>
               );
@@ -163,19 +135,19 @@ export function DaoTransferForm() {
         invalidateQueries([
           [chain.id, 'token-pairs'],
           [chain.id, 'indexer-balance'],
+          [chain.id, 'bank-balance'],
+          [chain.id, 'dao-all-balances'],
         ]);
       }
     }
-  }, [
-    validatedAddress,
-    balances,
-    sendERC20Tokens,
-    sendNativeToken,
-    liquidTokens,
-  ]);
+  }, [validatedAddress, balances, transfer, liquidTokens]);
+
+  if (!daoBalance || daoBalance.length === 0) {
+    return null;
+  }
 
   return (
-    <div className="py-[80px]">
+    <div className="py-[32px] md:py-[80px]">
       <Container>
         <div className="flex flex-col gap-[24px]">
           <div className="flex flex-row items-center">
@@ -231,20 +203,18 @@ export function DaoTransferForm() {
           </div>
         </div>
 
-        {balances !== null &&
-          balances !== undefined &&
-          validatedAddress !== null && (
-            <ConfirmModal
-              isOpen={isConfirmModalOpen}
-              onConfirm={handleConfirm}
-              balance={Math.floor(balances.available).toString()}
-              address={validatedAddress}
-              tokens={liquidTokensToSend}
-              onClose={() => {
-                setConfirmModalOpen(false);
-              }}
-            />
-          )}
+        {daoBalance !== undefined && validatedAddress !== null && (
+          <ConfirmModal
+            isOpen={isConfirmModalOpen}
+            onConfirm={handleConfirm}
+            address={validatedAddress}
+            nativeTokenAmount={nativeTokenAmount}
+            tokens={tokensSum}
+            onClose={() => {
+              setConfirmModalOpen(false);
+            }}
+          />
+        )}
       </Container>
     </div>
   );

@@ -39,13 +39,15 @@ export function ModalInput({
   onMaxButtonClick,
   hint,
   isMaxButtonDisabled = false,
+  id,
 }: {
   symbol: string;
   value: number | undefined;
   onChange: (value: string | undefined) => void;
-  onMaxButtonClick: () => void;
+  onMaxButtonClick?: () => void;
   hint?: ReactNode;
   isMaxButtonDisabled?: boolean;
+  id?: string;
 }) {
   const handleInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -68,26 +70,32 @@ export function ModalInput({
             'bg-[#E7E7E7]',
           )}
           onChange={handleInputChange}
-          id="amount"
+          id={id}
           value={value}
         />
-        <div className="absolute right-3 top-1/2 -translate-y-1/2">
-          <button
-            className="text-[14px] font-[500] leading-[22px] text-[#EC5728] disabled:text-opacity-30"
-            onClick={onMaxButtonClick}
-            disabled={isMaxButtonDisabled}
-          >
-            Max
-          </button>
-          <div
-            className={clsx(
-              'ml-[10px] inline-block select-none text-[14px] font-[500] uppercase leading-[22px]',
-              !value ? 'text-[#0D0D0E80]' : 'text-[#0D0D0E]',
+        {Boolean(onMaxButtonClick || symbol) && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+            {onMaxButtonClick && (
+              <button
+                className="text-[14px] font-[500] leading-[22px] text-[#EC5728] disabled:text-opacity-30"
+                onClick={onMaxButtonClick}
+                disabled={isMaxButtonDisabled}
+              >
+                Max
+              </button>
             )}
-          >
-            {symbol}
+            {symbol && (
+              <div
+                className={clsx(
+                  'ml-[10px] inline-block select-none text-[14px] font-[500] uppercase leading-[22px]',
+                  !value ? 'text-[#0D0D0E80]' : 'text-[#0D0D0E]',
+                )}
+              >
+                {symbol}
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </div>
 
       {hint && (

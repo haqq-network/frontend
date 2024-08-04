@@ -66,7 +66,6 @@ export function useStakingData({
   const [isShowMyDelegation, setShowMyDelegation] =
     useState(showOnlyMyDelegation);
   const [filter, setFilter] = useState('');
-  // console.log({ sortState, setSortState });
 
   const splittedValidators = useMemo(() => {
     if (validators === undefined) {

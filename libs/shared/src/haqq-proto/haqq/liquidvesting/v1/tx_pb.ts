@@ -15,7 +15,8 @@ import { Message, proto3 } from '@bufbuild/protobuf';
 import { Coin } from '../../../cosmos/base/v1beta1/coin_pb';
 
 /**
- * MsgLiquidate represents message to liquidate arbitrary amount of tokens locked in vesting
+ * MsgLiquidate represents message to liquidate arbitrary amount of tokens
+ * locked in vesting
  *
  * @generated from message haqq.liquidvesting.v1.MsgLiquidate
  */
@@ -99,6 +100,20 @@ export class MsgLiquidate extends Message<MsgLiquidate> {
  * @generated from message haqq.liquidvesting.v1.MsgLiquidateResponse
  */
 export class MsgLiquidateResponse extends Message<MsgLiquidateResponse> {
+  /**
+   * amount of liquid tokens minted
+   *
+   * @generated from field: cosmos.base.v1beta1.Coin minted = 1;
+   */
+  minted?: Coin;
+
+  /**
+   * address of erc20 the liquidation denom contract
+   *
+   * @generated from field: string contract_addr = 2;
+   */
+  contractAddr = '';
+
   constructor(data?: PartialMessage<MsgLiquidateResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -106,7 +121,15 @@ export class MsgLiquidateResponse extends Message<MsgLiquidateResponse> {
 
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = 'haqq.liquidvesting.v1.MsgLiquidateResponse';
-  static readonly fields: FieldList = proto3.util.newFieldList(() => []);
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: 'minted', kind: 'message', T: Coin },
+    {
+      no: 2,
+      name: 'contract_addr',
+      kind: 'scalar',
+      T: 9 /* ScalarType.STRING */,
+    },
+  ]);
 
   static fromBinary(
     bytes: Uint8Array,
@@ -138,7 +161,8 @@ export class MsgLiquidateResponse extends Message<MsgLiquidateResponse> {
 }
 
 /**
- * MsgLiquidate represents message to redeem arbitrary amount of liquid vesting tokens
+ * MsgLiquidate represents message to redeem arbitrary amount of liquid vesting
+ * tokens
  *
  * @generated from message haqq.liquidvesting.v1.MsgRedeem
  */
