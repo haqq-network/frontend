@@ -203,7 +203,7 @@ export function DaoTransferForm() {
           </div>
         </div>
 
-        {daoBalance !== undefined && validatedAddress !== null && (
+        {validatedAddress !== null && (
           <ConfirmModal
             isOpen={isConfirmModalOpen}
             onConfirm={handleConfirm}
