@@ -300,7 +300,9 @@ export interface CosmosService {
     memo: string,
     chainId: string,
     fromAddress: string,
-    oubkey: string,
+    pubkey: string,
   ) => Promise<EstimatedFeeResponse>;
   getFee: (estimatedFee?: EstimatedFeeResponse) => Fee;
+  getDaoBalance: (address: string, denom: string) => Promise<Coin>;
+  getDaoAllBalances: (address: string) => Promise<Coin[]>;
 }

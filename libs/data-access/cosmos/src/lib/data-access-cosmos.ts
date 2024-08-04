@@ -121,6 +121,22 @@ export function generateEndpointProposal(id: number | string) {
   return `/cosmos/gov/v1beta1/proposals/${id}`;
 }
 
+export function generateDaoBalanceEndpoint(address: string) {
+  return `/haqq/ucdao/v1/balances/${address}/by_denom`;
+}
+
+export function generateDaoAllBalancesEndpoint(address: string) {
+  return `/haqq/ucdao/v1/balances/${address}`;
+}
+
+export function generateDaoTotalBalanceEndpoint() {
+  return `/haqq/ucdao/v1/total_balance`;
+}
+
+export function generateDaoParamsEndpoint() {
+  return `/haqq/ucdao/v1/params`;
+}
+
 export function isClawbackVestingAccount(
   accountInfo?: HaqqAccount | ClawbackVestingAccount | null,
 ) {
@@ -586,7 +602,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
     const response = await fetch(votesRequestUrl);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch bank balances');
+      throw new Error('Failed to fetch proposal votes');
     }
 
     const responseJson: ProposalVoteResponse = await response.json();
@@ -686,6 +702,42 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
       : DEFAULT_FEE;
   }
 
+  async function getDaoBalance(address: string, denom: string) {
+    const getDaoBalanceUrl = new URL(
+      generateDaoBalanceEndpoint(address),
+      cosmosRestEndpoint,
+    );
+
+    getDaoBalanceUrl.searchParams.append('denom', denom);
+
+    const response = await fetch(getDaoBalanceUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch dao balance');
+    }
+
+    const responseJson: { balance: Coin } = await response.json();
+
+    return responseJson.balance;
+  }
+
+  async function getDaoAllBalances(address: string) {
+    const getDaoAllBalancesUrl = new URL(
+      generateDaoAllBalancesEndpoint(address),
+      cosmosRestEndpoint,
+    );
+
+    const response = await fetch(getDaoAllBalancesUrl);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch dao all balance');
+    }
+
+    const responseJson: { balances: Coin[] } = await response.json();
+
+    return responseJson.balances;
+  }
+
   return {
     getValidators,
     getValidatorInfo,
@@ -717,5 +769,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
     getSender,
     getEstimatedFee,
     getFee,
+    getDaoBalance,
+    getDaoAllBalances,
   };
 }

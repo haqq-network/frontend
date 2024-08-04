@@ -74,7 +74,7 @@ export function ValidatorSelect({
         return clsx(
           'border-[1px] border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
           'text-white text-[13px] leading-[20px]',
-          'overflow-hiddenz                                                                                                                                                                                                                                                                                                                                                                                         ',
+          'overflow-hidden',
         );
       },
       option: ({ isFocused, isSelected }) => {

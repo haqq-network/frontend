@@ -221,7 +221,7 @@ export function LiquidVestingHooked({
               <ToastLoading>Redeem liquid token in progress</ToastLoading>
             ),
             success: (tx) => {
-              console.log('Convert to liquid successful', { tx });
+              console.log('Redeem successful', { tx });
               const txHash = tx?.txhash;
 
               return (

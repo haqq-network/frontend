@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useAddress, useWallet } from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
 import { Container } from '@haqq/shell-ui-kit/server';
-import { DaoBalance } from './dao-balance';
+import { DaoPageBalance } from './dao-page-balance';
 import { DaoTransferForm } from './dao-transfer-form';
 
 export function DaoPage() {
@@ -39,7 +39,7 @@ export function DaoPage() {
           </div>
         ) : (
           <div className="pb-[42px]">
-            <DaoBalance />
+            <DaoPageBalance />
             <DaoTransferForm />
           </div>
         )}

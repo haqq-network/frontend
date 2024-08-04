@@ -308,7 +308,7 @@ export function AuthzGrantsActions() {
               </Heading>
             </div>
 
-            <div className="flex flex-col gap-[16px] pr-[40px] lg:flex-row lg:gap-[36px]">
+            <div className="flex flex-col gap-[16px] lg:flex-row lg:gap-[36px] lg:pr-[40px]">
               <div className="flex-1">
                 <div className="flex flex-col gap-[18px]">
                   <div className="flex flex-col gap-[8px]">
