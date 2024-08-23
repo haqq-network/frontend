@@ -1,4 +1,5 @@
-import { lazy, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
+import { PostHogProvider } from 'posthog-js/react';
 import { BrowserRouter } from 'react-router-dom';
 import { createConfig, http, WagmiProvider } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
@@ -7,10 +8,14 @@ import {
   CosmosProvider,
   ReactQueryProvider,
   Toaster,
-  useWallet,
   WalletProvider,
 } from '@haqq/shell-shared';
-import { WALLETCONNECT_PROJECT_ID } from '../constants';
+import { WalletModals } from '../components/wallet-modals';
+import {
+  WALLETCONNECT_PROJECT_ID,
+  POSTHOG_HOST,
+  POSTHOG_KEY,
+} from '../constants';
 
 export const wagmiConfig = createConfig({
   chains: [haqqMainnet],
@@ -33,54 +38,28 @@ export const wagmiConfig = createConfig({
 
 export function AppProviders({ children }: PropsWithChildren) {
   return (
-    <BrowserRouter>
-      <WagmiProvider config={wagmiConfig}>
-        <ReactQueryProvider>
-          <CosmosProvider>
-            <WalletProvider>
-              {children}
-              <Toaster />
-              <WalletModals />
-            </WalletProvider>
-          </CosmosProvider>
-        </ReactQueryProvider>
-      </WagmiProvider>
-    </BrowserRouter>
-  );
-}
-
-const SelectWalletModal = lazy(async () => {
-  const { SelectWalletModal } = await import(
-    '../components/select-wallet-modal'
-  );
-  return { default: SelectWalletModal };
-});
-
-function WalletModals() {
-  const {
-    connectors,
-    connect,
-    availableConnectors,
-    closeSelectWallet,
-    connectError,
-    setConnectError,
-    isSelectWalletOpen,
-  } = useWallet();
-
-  return (
-    <SelectWalletModal
-      connectors={connectors}
-      onConnectClick={async (connectorId: number) => {
-        try {
-          await connect({ connector: availableConnectors[connectorId] });
-          closeSelectWallet();
-        } catch (error: unknown) {
-          setConnectError((error as Error).message);
-        }
+    <PostHogProvider
+      apiKey={POSTHOG_KEY}
+      options={{
+        api_host: POSTHOG_HOST,
+        capture_pageview: false,
+        capture_pageleave: true,
+        persistence: 'localStorage+cookie',
       }}
-      isOpen={isSelectWalletOpen}
-      onClose={closeSelectWallet}
-      error={connectError ?? ''}
-    />
+    >
+      <BrowserRouter>
+        <WagmiProvider config={wagmiConfig}>
+          <ReactQueryProvider>
+            <CosmosProvider>
+              <WalletProvider>
+                {children}
+                <Toaster />
+                <WalletModals />
+              </WalletProvider>
+            </CosmosProvider>
+          </ReactQueryProvider>
+        </WagmiProvider>
+      </BrowserRouter>
+    </PostHogProvider>
   );
 }
