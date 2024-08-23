@@ -9,37 +9,21 @@ export function PostHogPageView() {
   const posthog = usePostHog();
 
   useEffect(() => {
-    const trackPageView = () => {
-      if (pathname && posthog) {
-        let url = window.origin + pathname;
-        if (searchParams.toString()) {
-          url += `?${searchParams.toString()}`;
-        }
-        posthog.capture('$pageview', {
-          $current_url: url,
-          $set: {
-            $browser_language: window.navigator.language,
-          },
-        });
-      }
-    };
-
-    const trackPageLeave = () => {
-      if (posthog) {
-        posthog.capture('$pageleave', {});
-      }
-    };
-
     // Track pageviews
-    trackPageView();
+    if (pathname && posthog) {
+      let url = window.origin + pathname;
 
-    // Add event listener to track page leave
-    window.addEventListener('beforeunload', trackPageLeave);
+      if (searchParams.toString()) {
+        url = url + `?${searchParams.toString()}`;
+      }
 
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('beforeunload', trackPageLeave);
-    };
+      posthog.capture('$pageview', {
+        $current_url: url,
+        $set: {
+          $browser_language: window.navigator.language,
+        },
+      });
+    }
   }, [pathname, searchParams, posthog]);
 
   return null;

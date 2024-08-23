@@ -16,6 +16,7 @@ export function PostHogIdentifyWalletUsers() {
   useEffect(() => {
     if (isHaqqWallet) {
       const walletDistinctId = window.__HAQQWALLET__?.POSTHOG_DISTINCT_ID;
+      console.log('PostHogIdentifyWalletUsers', { walletDistinctId });
       posthog.identify(walletDistinctId ?? posthog.get_distinct_id());
     }
   }, [isHaqqWallet]);
