@@ -18,8 +18,10 @@ export function usePosthogIdentifyWalletUsers() {
   useEffect(() => {
     if (isHaqqWallet) {
       const walletDistinctId = window.__HAQQWALLET__?.POSTHOG_DISTINCT_ID;
-      posthog?.identify(
-        walletDistinctId ?? posthog?.get_distinct_id() ?? nanoid(),
+      console.log('usePosthogIdentifyWalletUsers', { walletDistinctId });
+
+      posthog.identify(
+        walletDistinctId ?? posthog.get_distinct_id() ?? nanoid(),
       );
     }
   }, [isHaqqWallet, posthog]);
@@ -30,7 +32,7 @@ export function usePosthogPageTracking() {
   const posthog = usePostHog();
 
   useEffect(() => {
-    posthog?.capture('$pageview');
+    posthog.capture('$pageview');
   }, [location, posthog]);
 
   useEffect(() => {
