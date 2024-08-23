@@ -3,6 +3,10 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 import { Page } from '../components/Layout/Layout';
+import {
+  usePosthogIdentifyWalletUsers,
+  usePosthogPageTracking,
+} from '../hooks/posthog-track-hooks';
 import { NotFoundPage } from '../pages/not-found-page';
 import { PendingPage } from '../pages/pending-page';
 
@@ -20,6 +24,9 @@ const SwitchChainPage = lazy(() => {
 });
 
 export function App() {
+  usePosthogPageTracking();
+  usePosthogIdentifyWalletUsers();
+
   return (
     <Page header={<Header />} footer={<Footer />}>
       <Suspense fallback={<PendingPage />}>

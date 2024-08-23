@@ -53,5 +53,11 @@ export default defineConfig({
     'process.env.WALLETCONNECT_PROJECT_ID': JSON.stringify(
       process.env['WALLETCONNECT_PROJECT_ID'],
     ),
+    'process.env.POSTHOG_KEY': JSON.stringify(
+      process.env['NEXT_PUBLIC_POSTHOG_KEY'],
+    ),
+    'process.env.POSTHOG_HOST': JSON.stringify(
+      process.env['NEXT_PUBLIC_POSTHOG_HOST'],
+    ),
   },
 });
