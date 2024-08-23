@@ -18,7 +18,7 @@ export function PHProvider({ children }: PropsWithChildren) {
       api_host: '/api/ingest',
       ui_host: env.NEXT_PUBLIC_POSTHOG_HOST,
       capture_pageview: false,
-      capture_pageleave: false,
+      capture_pageleave: true,
       persistence: 'localStorage+cookie',
     });
 
