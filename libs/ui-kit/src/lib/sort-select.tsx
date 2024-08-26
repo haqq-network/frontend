@@ -1,6 +1,6 @@
 'use client';
 import { Fragment, useMemo } from 'react';
-import { Menu, MenuButton, MenuItems, Transition } from '@headlessui/react';
+import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import clsx from 'clsx';
 
 export function SortSelect({
@@ -85,25 +85,15 @@ export function SortSelect({
         }}
       </MenuButton>
 
-      <Transition
-        as={Fragment}
-        enter="ease-out duration-100"
-        enterFrom="opacity-0 scale-95"
-        enterTo="opacity-100 scale-100"
-        leave="ease-in duration-75"
-        leaveFrom="opacity-100 scale-100"
-        leaveTo="opacity-0 scale-95"
+      <MenuItems
+        className={clsx(
+          'absolute left-[0px] z-10 mt-[4px] w-fit min-w-full origin-top rounded-[8px] bg-[#0D0D0E] py-[8px] shadow-lg focus:outline-none',
+          'max-h-[256px] overflow-y-scroll',
+          'border-haqq-border border-[1px]',
+        )}
       >
-        <MenuItems
-          className={clsx(
-            'absolute left-[0px] z-10 mt-[4px] w-fit min-w-full origin-top rounded-[8px] bg-[#0D0D0E] py-[8px] shadow-lg focus:outline-none',
-            'max-h-[256px] overflow-y-scroll',
-            'border-haqq-border border-[1px]',
-          )}
-        >
-          {optionsToRender}
-        </MenuItems>
-      </Transition>
+        {optionsToRender}
+      </MenuItems>
     </Menu>
   );
 }
