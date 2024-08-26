@@ -93,7 +93,7 @@
     "@storybook/theming": "8.2.9",
     "@swc-node/register": "1.10.9",
     "@swc/cli": "0.4.0",
-    "@swc/core": "1.7.14",
+    "@swc/core": "1.7.18",
     "@swc/helpers": "0.5.12",
     "@swc/jest": "0.2.36",
     "@tailwindcss/typography": "0.5.14",
