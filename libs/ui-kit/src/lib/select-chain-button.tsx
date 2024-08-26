@@ -1,6 +1,7 @@
 'use client';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import clsx from 'clsx';
+import { ArrowDownIcon } from './icons';
 
 export function SelectChainButton({
   currentChain,
@@ -26,7 +27,7 @@ export function SelectChainButton({
             'transition-colors duration-150 ease-out',
             'box-border appearance-none outline-none',
             'hover:text-haqq-black border border-white text-white hover:bg-white',
-            'data-[open]:!text-haqq-black data-[open]:!bg-white',
+            'data-[open]:!text-haqq-black group data-[open]:!bg-white',
           )}
         >
           <div className="mt-[-1px]">{currentChain.name}</div>
@@ -63,24 +64,13 @@ export function SelectChainButton({
             Unsupported <br />
             Network
           </div>
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
-            fill="none"
+          <ArrowDownIcon
             className={clsx(
               'mb-[-2px] ml-[4px] mr-[-6px]',
               'transition-[transform] duration-150 ease-in',
               'group-data-[open]:scale-y-[-1]',
             )}
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
-              fill="currentColor"
-            />
-          </svg>
+          />
         </MenuButton>
       )}
 
