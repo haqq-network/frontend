@@ -1,5 +1,6 @@
 /// <reference types='vitest' />
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
@@ -27,6 +28,10 @@ export default defineConfig({
         global: true,
       },
     }),
+    sentryVitePlugin({
+      org: 'haqq-network',
+      project: 'vesting-app',
+    }),
   ],
 
   // Uncomment this if you are using workers.
@@ -38,9 +43,12 @@ export default defineConfig({
     outDir: '../../dist/apps/vesting',
     emptyOutDir: true,
     reportCompressedSize: true,
+
     commonjsOptions: {
       transformMixedEsModules: true,
     },
+
+    sourcemap: true,
   },
 
   define: {
@@ -59,5 +67,6 @@ export default defineConfig({
     'process.env.POSTHOG_HOST': JSON.stringify(
       process.env['NEXT_PUBLIC_POSTHOG_HOST'],
     ),
+    'process.env.SENTRY_DSN': JSON.stringify(process.env['SENTRY_DSN']),
   },
 });

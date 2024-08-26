@@ -45,8 +45,11 @@ importers:
         specifier: 8.26.0
         version: 8.26.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.25.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.52.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.25.1(@opentelemetry/api@1.9.0))(next@14.2.6(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.6))(react@18.3.1)(webpack@5.94.0(@swc/core@1.7.18(@swc/helpers@0.5.12))(esbuild@0.21.5))
       '@sentry/react':
-        specifier: ^8.26.0
+        specifier: 8.26.0
         version: 8.26.0(react@18.3.1)
+      '@sentry/vite-plugin':
+        specifier: 2.22.2
+        version: 2.22.2
       '@t3-oss/env-nextjs':
         specifier: 0.11.1
         version: 0.11.1(typescript@5.5.4)(zod@3.23.8)
@@ -3483,12 +3486,20 @@ packages:
     resolution: {integrity: sha512-4mhEwYTK00bIb5Y9UWIELVUfru587Vaeg0DQGswv4aIRHIiMKLyNqCEejaaybQ/fNChIZOKmvyqXk430YVd7Qg==}
     engines: {node: '>= 14'}
 
+  '@sentry/babel-plugin-component-annotate@2.22.2':
+    resolution: {integrity: sha512-6kFAHGcs0npIC4HTt4ULs8uOfEucvMI7VW4hoyk17jhRaW8CbxzxfWCfIeRbDkE8pYwnARaq83tu025Hrk2zgA==}
+    engines: {node: '>= 14'}
+
   '@sentry/browser@8.26.0':
     resolution: {integrity: sha512-e5s6eKlwLZWzTwQcBwqyAGZMMuQROW9Z677VzwkSyREWAIkKjfH2VBxHATnNGc0IVkNHjD7iH3ixo3C0rLKM3w==}
     engines: {node: '>=14.18'}
 
   '@sentry/bundler-plugin-core@2.20.1':
     resolution: {integrity: sha512-6ipbmGzHekxeRCbp7eoefr6bdd/lW4cNA9eNnrmd9+PicubweGaZZbH2NjhFHsaxzgOezwipDHjrTaap2kTHgw==}
+    engines: {node: '>= 14'}
+
+  '@sentry/bundler-plugin-core@2.22.2':
+    resolution: {integrity: sha512-TwEEW4FeEJ5Mamp4fGnktfVjzN77KAW0xFQsEPuxZtOAPG17zX/PGvdyRX/TE1jkZWhTzqUDIdgzqlNLjyEnUw==}
     engines: {node: '>= 14'}
 
   '@sentry/cli-darwin@2.33.1':
@@ -3582,6 +3593,10 @@ packages:
   '@sentry/vercel-edge@8.26.0':
     resolution: {integrity: sha512-U/1YsIywWLQ1XRsdOjCpGBNM0g5bCqBthryUdMMIGw+3M1j3k/emLXjumSS/bUIMGBncn4kzS3hspSXYbZwlIg==}
     engines: {node: '>=14.18'}
+
+  '@sentry/vite-plugin@2.22.2':
+    resolution: {integrity: sha512-LJSNTw75UJq77v2jCan8cRh0w1u6W30jxQsbqF7YyyhhfjPTyFUXYday9RDDe84qDEnspbZmgeTSWTvaTGsBRg==}
+    engines: {node: '>= 14'}
 
   '@sentry/webpack-plugin@2.20.1':
     resolution: {integrity: sha512-U6LzoE09Ndt0OCWROoRaZqqIHGxyMRdKpBhbqoBqyyfVwXN/zGW3I/cWZ1e8rreiKFj+2+c7+X0kOS+NGMTUrg==}
@@ -13207,30 +13222,15 @@ snapshots:
     dependencies:
       '@babel/core': 7.25.2
 
-  '@babel/plugin-syntax-async-generators@7.8.4(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
-
   '@babel/plugin-syntax-async-generators@7.8.4(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.7
 
-  '@babel/plugin-syntax-bigint@7.8.3(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.8
-
   '@babel/plugin-syntax-bigint@7.8.3(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.8
-
-  '@babel/plugin-syntax-class-properties@7.12.13(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
 
   '@babel/plugin-syntax-class-properties@7.12.13(@babel/core@7.25.2)':
     dependencies:
@@ -13277,19 +13277,9 @@ snapshots:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.8
 
-  '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
-
   '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
-      '@babel/helper-plugin-utils': 7.24.7
-
-  '@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
 
   '@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.25.2)':
@@ -13297,19 +13287,9 @@ snapshots:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.7
 
-  '@babel/plugin-syntax-jsx@7.24.7(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
-
   '@babel/plugin-syntax-jsx@7.24.7(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
-      '@babel/helper-plugin-utils': 7.24.7
-
-  '@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
 
   '@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.25.2)':
@@ -13317,19 +13297,9 @@ snapshots:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.7
 
-  '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
-
   '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
-      '@babel/helper-plugin-utils': 7.24.7
-
-  '@babel/plugin-syntax-numeric-separator@7.10.4(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
 
   '@babel/plugin-syntax-numeric-separator@7.10.4(@babel/core@7.25.2)':
@@ -13337,29 +13307,14 @@ snapshots:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.7
 
-  '@babel/plugin-syntax-object-rest-spread@7.8.3(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
-
   '@babel/plugin-syntax-object-rest-spread@7.8.3(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.7
 
-  '@babel/plugin-syntax-optional-catch-binding@7.8.3(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
-
   '@babel/plugin-syntax-optional-catch-binding@7.8.3(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
-      '@babel/helper-plugin-utils': 7.24.7
-
-  '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
 
   '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.25.2)':
@@ -13372,19 +13327,9 @@ snapshots:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.8
 
-  '@babel/plugin-syntax-top-level-await@7.14.5(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
-
   '@babel/plugin-syntax-top-level-await@7.14.5(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
-      '@babel/helper-plugin-utils': 7.24.7
-
-  '@babel/plugin-syntax-typescript@7.24.7(@babel/core@7.24.7)':
-    dependencies:
-      '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
 
   '@babel/plugin-syntax-typescript@7.24.7(@babel/core@7.25.2)':
@@ -15347,7 +15292,7 @@ snapshots:
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:
       '@jridgewell/set-array': 1.2.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
       '@jridgewell/trace-mapping': 0.3.25
 
   '@jridgewell/resolve-uri@3.1.2': {}
@@ -15371,7 +15316,7 @@ snapshots:
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
 
   '@jsonjoy.com/base64@1.1.2(tslib@2.7.0)':
     dependencies:
@@ -17477,6 +17422,8 @@ snapshots:
 
   '@sentry/babel-plugin-component-annotate@2.20.1': {}
 
+  '@sentry/babel-plugin-component-annotate@2.22.2': {}
+
   '@sentry/browser@8.26.0':
     dependencies:
       '@sentry-internal/browser-utils': 8.26.0
@@ -17491,6 +17438,20 @@ snapshots:
     dependencies:
       '@babel/core': 7.25.2
       '@sentry/babel-plugin-component-annotate': 2.20.1
+      '@sentry/cli': 2.33.1
+      dotenv: 16.4.5
+      find-up: 5.0.0
+      glob: 9.3.5
+      magic-string: 0.30.8
+      unplugin: 1.0.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
+  '@sentry/bundler-plugin-core@2.22.2':
+    dependencies:
+      '@babel/core': 7.25.2
+      '@sentry/babel-plugin-component-annotate': 2.22.2
       '@sentry/cli': 2.33.1
       dotenv: 16.4.5
       find-up: 5.0.0
@@ -17642,6 +17603,14 @@ snapshots:
       '@sentry/core': 8.26.0
       '@sentry/types': 8.26.0
       '@sentry/utils': 8.26.0
+
+  '@sentry/vite-plugin@2.22.2':
+    dependencies:
+      '@sentry/bundler-plugin-core': 2.22.2
+      unplugin: 1.0.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
 
   '@sentry/webpack-plugin@2.20.1(webpack@5.94.0(@swc/core@1.7.18(@swc/helpers@0.5.12))(esbuild@0.21.5))':
     dependencies:
@@ -19691,7 +19660,7 @@ snapshots:
 
   acorn-globals@7.0.1:
     dependencies:
-      acorn: 8.12.0
+      acorn: 8.12.1
       acorn-walk: 8.3.3
 
   acorn-import-assertions@1.9.0(acorn@8.12.1):
@@ -20173,22 +20142,6 @@ snapshots:
       '@babel/helper-plugin-utils': 7.24.8
     optionalDependencies:
       '@babel/traverse': 7.25.4
-
-  babel-preset-current-node-syntax@1.0.1(@babel/core@7.24.7):
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.24.7)
-      '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.24.7)
-      '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.24.7)
-      '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.24.7)
-      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.24.7)
-      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.24.7)
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.7)
-      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.7)
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.7)
-      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.24.7)
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.7)
-      '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.24.7)
 
   babel-preset-current-node-syntax@1.0.1(@babel/core@7.25.2):
     dependencies:
@@ -23957,15 +23910,15 @@ snapshots:
 
   jest-snapshot@29.7.0:
     dependencies:
-      '@babel/core': 7.24.7
+      '@babel/core': 7.25.2
       '@babel/generator': 7.24.7
-      '@babel/plugin-syntax-jsx': 7.24.7(@babel/core@7.24.7)
-      '@babel/plugin-syntax-typescript': 7.24.7(@babel/core@7.24.7)
+      '@babel/plugin-syntax-jsx': 7.24.7(@babel/core@7.25.2)
+      '@babel/plugin-syntax-typescript': 7.24.7(@babel/core@7.25.2)
       '@babel/types': 7.24.7
       '@jest/expect-utils': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      babel-preset-current-node-syntax: 1.0.1(@babel/core@7.24.7)
+      babel-preset-current-node-syntax: 1.0.1(@babel/core@7.25.2)
       chalk: 4.1.2
       expect: 29.7.0
       graceful-fs: 4.2.11
@@ -24605,7 +24558,7 @@ snapshots:
 
   magic-string@0.30.10:
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
 
   magic-string@0.30.11:
     dependencies:
