@@ -1,6 +1,6 @@
 'use client';
 import { Fragment, useMemo } from 'react';
-import { Menu, MenuButton, MenuItems } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import clsx from 'clsx';
 
 export function SortSelect({
@@ -25,64 +25,62 @@ export function SortSelect({
   const optionsToRender = useMemo(() => {
     return variants.map(({ id, title }) => {
       return (
-        <div
-          className="px-[16px]"
+        <MenuItem
+          as="button"
           key={id}
-          onClick={(e) => {
+          className={clsx(
+            'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left text-[13px] leading-[20px] hover:bg-[#ffffff14]',
+            'transition-colors duration-150 ease-out',
+          )}
+          onClick={() => {
             onChange(id);
           }}
         >
           {title}
-        </div>
+        </MenuItem>
       );
     });
   }, [onChange, variants]);
 
   return (
     <Menu as="div" className={clsx('relative inline-block w-full', className)}>
-      <MenuButton as={Fragment}>
-        {({ open }) => {
-          return (
-            <button
-              className={clsx(
-                'flex h-[48px] flex-row items-center justify-between gap-[6px] rounded-[6px] px-[16px] py-[12px]',
-                'w-full rounded-[6px] outline-none',
-                'box-border appearance-none outline-none',
-                'transition-colors duration-100 ease-in',
-                'text-[#fffff]',
-                'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
-                open ? 'bg-[#3A3A3A]' : 'bg-[#252528] hover:bg-[#3A3A3A]',
-              )}
-            >
-              <div>
-                {currentValue ? (
-                  <span>{currentValue.title}</span>
-                ) : (
-                  <span className="text-[#fff]">{placeholder}</span>
-                )}
-              </div>
+      <MenuButton
+        as="button"
+        className={clsx(
+          'flex h-[48px] flex-row items-center justify-between gap-[6px] rounded-[6px] px-[16px] py-[12px]',
+          'box-border w-full appearance-none rounded-[6px] outline-none',
+          'transition-colors duration-100 ease-in',
+          'group text-[#fffff]',
+          'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+          'data-[open]:bg-[#3A3A3A] [&:not([data-open])]:bg-[#252528] [&:not([data-open])]:hover:bg-[#3A3A3A]',
+        )}
+      >
+        <div>
+          {currentValue ? (
+            <span>{currentValue.title}</span>
+          ) : (
+            <span className="text-[#fff]">{placeholder}</span>
+          )}
+        </div>
 
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 22 22"
-                fill="none"
-                className={clsx(
-                  'mb-[-2px]',
-                  'transition-transform duration-150 ease-in',
-                  open && 'scale-y-[-1]',
-                )}
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </button>
-          );
-        }}
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 22 22"
+          fill="none"
+          className={clsx(
+            'mb-[-2px]',
+            'transition-transform duration-150 ease-in',
+            'group-data-[open]:scale-y-[-1]',
+          )}
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
+            fill="currentColor"
+          />
+        </svg>
       </MenuButton>
 
       <MenuItems

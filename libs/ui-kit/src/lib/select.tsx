@@ -21,7 +21,7 @@ export function SelectOption({
 }: OptionProps<SelectOption, false>) {
   return (
     <selectComponents.Option {...rest}>
-      <div className="mx-4 my-1">{rest.data.label}</div>
+      {rest.data.label}
     </selectComponents.Option>
   );
 }
@@ -84,7 +84,7 @@ export function Select({
       },
       option: ({ isFocused, isSelected }) => {
         return clsx(
-          'px-[16px] py-[10px] text-left',
+          'px-[16px] py-[10px] text-left leading-[20px]',
           'transition-colors duration-150 ease-out',
           {
             'bg-[#ffffff14]': isFocused || isSelected,
