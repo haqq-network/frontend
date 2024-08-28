@@ -8,8 +8,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 const COMMIT_SHA =
   process.env['GIT_COMMIT_SHA'] ??
   process.env['NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA'] ??
-  process.env['VERCEL_GIT_COMMIT_SHA'] ??
-  'dev';
+  process.env['VERCEL_GIT_COMMIT_SHA'];
 const distDir = '../../dist/apps/vesting';
 
 export default defineConfig({
@@ -40,9 +39,9 @@ export default defineConfig({
       project: 'vesting-app',
       authToken: process.env['SENTRY_AUTH_TOKEN'],
       release: {
-        name: COMMIT_SHA,
+        name: COMMIT_SHA ?? 'development',
         deploy: {
-          env: process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'development',
+          env: process.env['VERCEL_ENV'] ?? 'development',
         },
         dist: distDir,
       },
