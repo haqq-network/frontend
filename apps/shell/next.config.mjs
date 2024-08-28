@@ -39,6 +39,11 @@ const nextConfig = {
   },
 };
 
+const COMMIT_SHA =
+  process.env['GIT_COMMIT_SHA'] ??
+  process.env['NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA'] ??
+  process.env['VERCEL_GIT_COMMIT_SHA'];
+
 /** @type {import('@sentry/nextjs').SentryBuildOptions} **/
 const sentryWebpackPluginOptions = {
   // For all available options, see:
@@ -52,9 +57,9 @@ const sentryWebpackPluginOptions = {
   authToken: process.env.SENTRY_AUTH_TOKEN,
 
   release: {
-    name: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ?? 'development',
+    name: COMMIT_SHA ?? 'development',
     deploy: {
-      env: process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'development',
+      env: process.env.VERCEL_ENV ?? 'development',
     },
   },
 
