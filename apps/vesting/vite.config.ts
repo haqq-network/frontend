@@ -49,7 +49,6 @@ export default defineConfig({
       reactComponentAnnotation: {
         enabled: true,
       },
-      sourcemaps: {},
     }),
   ],
 
