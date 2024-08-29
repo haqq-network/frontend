@@ -11,11 +11,19 @@ export function ValidatorAvatar({ identity }: { identity?: string }) {
     store.get(avatarsCacheKey) ?? {},
   );
   const getAvatarFromKeybase = useCallback(async (identity: string) => {
-    const response = await fetch(
-      `https://keybase.io/_/api/1.0/user/lookup.json?key_suffix=${identity}&fields=pictures`,
-    );
-    const data = await response.json();
-    return data;
+    try {
+      const response = await fetch(
+        `https://keybase.io/_/api/1.0/user/lookup.json?key_suffix=${identity}&fields=pictures`,
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.warn('Error fetching avatar from Keybase:', error);
+      return undefined;
+    }
   }, []);
 
   useEffect(() => {
@@ -24,28 +32,26 @@ export function ValidatorAvatar({ identity }: { identity?: string }) {
 
   useEffect(() => {
     (async () => {
-      if (identity) {
-        if (!avatarsCache[identity]) {
-          const keyBaseData = await getAvatarFromKeybase(identity);
-          if (Array.isArray(keyBaseData.them) && keyBaseData.them.length > 0) {
-            const uri = String(
-              keyBaseData.them[0]?.pictures?.primary?.url,
-            ).replace(
-              'https://s3.amazonaws.com/keybase_processed_uploads/',
-              '',
-            );
+      if (identity && !avatarsCache[identity]) {
+        const keyBaseData = await getAvatarFromKeybase(identity);
+        if (keyBaseData?.them?.[0]?.pictures?.primary?.url) {
+          const uri = String(keyBaseData.them[0].pictures.primary.url).replace(
+            'https://s3.amazonaws.com/keybase_processed_uploads/',
+            '',
+          );
 
-            if (uri) {
-              setAvatarsCache({
-                ...avatarsCache,
+          if (uri) {
+            setAvatarsCache((prev) => {
+              return {
+                ...prev,
                 [identity]: uri,
-              });
-            }
+              };
+            });
           }
         }
       }
     })();
-  }, [setAvatarsCache, getAvatarFromKeybase, identity, avatarsCache]);
+  }, [identity, getAvatarFromKeybase, avatarsCache]);
 
   const logo = useMemo(() => {
     if (identity) {
