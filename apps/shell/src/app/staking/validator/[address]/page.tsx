@@ -5,7 +5,6 @@ import {
 } from '@tanstack/react-query';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { haqqMainnet } from 'wagmi/chains';
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import {
   ethToHaqq,
@@ -13,6 +12,7 @@ import {
   parseWagmiCookies,
 } from '@haqq/shell-shared';
 import { ValidatorDetailsPage } from '@haqq/shell-staking';
+import { supportedChainsIds } from '../../../../config/wagmi-config';
 
 export default async function ValidatorDetails({
   params: { address },
@@ -25,7 +25,11 @@ export default async function ValidatorDetails({
 
   const cookies = headers().get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
-  const chainIdToUse = chainId ?? haqqMainnet.id;
+  const chainIdToUse =
+    chainId && supportedChainsIds.includes(chainId)
+      ? chainId
+      : supportedChainsIds[0];
+
   const { cosmosRestEndpoint } = getChainParams(chainIdToUse);
   const {
     getValidators,
