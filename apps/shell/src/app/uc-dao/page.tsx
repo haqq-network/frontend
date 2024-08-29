@@ -10,11 +10,8 @@ import {
   indexerBalancesFetcher,
   parseWagmiCookies,
 } from '@haqq/shell-shared';
-<<<<<<< Updated upstream:apps/shell/src/app/dao/page.tsx
-import { supportedChainsIds } from '../../config/wagmi-config';
-=======
 import { UCDaoPage } from '@haqq/shell-ucdao';
->>>>>>> Stashed changes:apps/shell/src/app/ucdao/page.tsx
+import { supportedChainsIds } from '../../config/wagmi-config';
 
 export default async function Authz() {
   const cookies = headers().get('cookie');
