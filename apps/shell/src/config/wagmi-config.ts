@@ -1,3 +1,4 @@
+import { Transport } from 'viem';
 import {
   createConfig,
   http,
@@ -7,6 +8,18 @@ import {
 } from 'wagmi';
 import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
 import { walletConnect } from 'wagmi/connectors';
+
+export const supportedChains = [haqqMainnet, haqqTestedge2] as const;
+export const supportedChainsIds = supportedChains.map((chain): number => {
+  return chain.id;
+});
+const supportedChainsTransports = supportedChains.reduce(
+  (acc, chain) => {
+    acc[chain.id] = http();
+    return acc;
+  },
+  {} as Record<number, Transport>,
+);
 
 export function createWagmiConfig(walletConnectProjectId?: string) {
   const connectors: CreateConnectorFn[] = [];
@@ -24,11 +37,8 @@ export function createWagmiConfig(walletConnectProjectId?: string) {
   }
 
   return createConfig({
-    chains: [haqqMainnet, haqqTestedge2],
-    transports: {
-      [haqqMainnet.id]: http(),
-      [haqqTestedge2.id]: http(),
-    },
+    chains: supportedChains,
+    transports: supportedChainsTransports,
     connectors,
     ssr: true,
     multiInjectedProviderDiscovery: true,

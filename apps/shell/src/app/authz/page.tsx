@@ -4,7 +4,6 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { headers } from 'next/headers';
-import { haqqMainnet } from 'wagmi/chains';
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import { AuthzPage } from '@haqq/shell-authz';
 import {
@@ -12,11 +11,15 @@ import {
   indexerBalancesFetcher,
   parseWagmiCookies,
 } from '@haqq/shell-shared';
+import { supportedChainsIds } from '../../config/wagmi-config';
 
 export default async function Authz() {
   const cookies = headers().get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
-  const chainIdToUse = chainId ?? haqqMainnet.id;
+  const chainIdToUse =
+    chainId && supportedChainsIds.includes(chainId)
+      ? chainId
+      : supportedChainsIds[0];
   const { cosmosRestEndpoint } = getChainParams(chainIdToUse);
   const queryClient = new QueryClient();
   const { getAuthzGranteeGrants, getAuthzGranterGrants } =

@@ -1,14 +1,13 @@
 import type { Fee } from '@evmos/transactions';
 import { chains } from './chains';
 
+// Add a default chain ID (HAQQ mainnet)
+const DEFAULT_CHAIN_ID = 11235;
+
 export function getChainParams(chainId: number) {
-  const currentChain = chains[chainId];
-
-  if (!currentChain) {
-    throw new Error(`No configuration for chain with id ${chainId}`);
-  }
-
-  return currentChain;
+  // Check if the chainId is supported, otherwise use the default
+  const supportedChainId = chainId in chains ? chainId : DEFAULT_CHAIN_ID;
+  return chains[supportedChainId];
 }
 
 export const DEFAULT_FEE: Fee = {
