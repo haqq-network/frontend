@@ -1,9 +1,9 @@
 {
-  "name": "shell-dao",
+  "name": "shell-ucdao",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/dao/src",
+  "sourceRoot": "libs/ucdao/src",
   "projectType": "library",
   "tags": ["shell-lib-dao"],
-  "// targets": "to see all targets run: nx show project dao --web",
+  "// targets": "to see all targets run: nx show project shell-ucdao --web",
   "targets": {}
 }

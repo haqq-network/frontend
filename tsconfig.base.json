@@ -19,8 +19,6 @@
       "@haqq/data-access-falconer": ["libs/data-access/falconer/src/index.ts"],
       "@haqq/shell-authz": ["libs/authz/src/index.ts"],
       "@haqq/shell-authz/server": ["libs/authz/src/server.ts"],
-      "@haqq/shell-dao": ["libs/dao/src/index.ts"],
-      "@haqq/shell-dao/server": ["libs/dao/src/server.ts"],
       "@haqq/shell-faucet": ["libs/faucet/src/index.ts"],
       "@haqq/shell-faucet/server": ["libs/faucet/src/server.ts"],
       "@haqq/shell-governance": ["libs/governance/src/index.ts"],
@@ -30,6 +28,8 @@
       "@haqq/shell-shared": ["libs/shared/src/index.ts"],
       "@haqq/shell-staking": ["libs/staking/src/index.ts"],
       "@haqq/shell-staking/server": ["libs/staking/src/server.ts"],
+      "@haqq/shell-ucdao": ["libs/ucdao/src/index.ts"],
+      "@haqq/shell-ucdao/server": ["libs/ucdao/src/server.ts"],
       "@haqq/shell-ui-kit": ["libs/ui-kit/src/index.ts"],
       "@haqq/shell-ui-kit/server": ["libs/ui-kit/src/server.ts"],
       "@haqq/storybook": ["libs/storybook/src/index.ts"]

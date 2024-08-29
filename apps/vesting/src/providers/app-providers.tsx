@@ -12,6 +12,7 @@ import {
 } from '@haqq/shell-shared';
 import { WalletModals } from '../components/wallet-modals';
 import {
+  isDev,
   WALLETCONNECT_PROJECT_ID,
   POSTHOG_HOST,
   POSTHOG_KEY,
@@ -49,7 +50,7 @@ export function AppProviders({ children }: PropsWithChildren) {
     >
       <BrowserRouter>
         <WagmiProvider config={wagmiConfig}>
-          <ReactQueryProvider>
+          <ReactQueryProvider withDevtools={isDev}>
             <CosmosProvider>
               <WalletProvider>
                 {children}

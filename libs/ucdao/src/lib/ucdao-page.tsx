@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import { useAddress, useWallet } from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
 import { Container } from '@haqq/shell-ui-kit/server';
-import { DaoPageBalance } from './dao-page-balance';
-import { DaoTransferForm } from './dao-transfer-form';
+import { DaoPageBalance } from './ucdao-page-balance';
+import { DaoTransferForm } from './ucdao-transfer-form';
 
-export function DaoPage() {
+export function UCDaoPage() {
   const { ethAddress } = useAddress();
   const { openSelectWallet, isHaqqWallet } = useWallet();
 
