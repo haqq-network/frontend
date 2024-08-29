@@ -15,7 +15,7 @@ import {
 import { Footer } from '@haqq/shell-ui-kit/server';
 import { AppHeader } from '../components/header';
 import { AppHeaderMobile } from '../components/header-mobile';
-import { createWagmiConfig } from '../config/wagmi-config';
+import { createWagmiConfig, supportedChainsIds } from '../config/wagmi-config';
 import { env } from '../env/client';
 import { clashDisplayFont, hkGuiseFont } from '../lib/fonts';
 import { AppProviders } from '../providers/app-providers';
@@ -71,8 +71,12 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   const wagmiConfig = createWagmiConfig();
   const headersList = headers();
   const cookies = headersList.get('cookie');
-  const { chainId: parsedChainId, walletAddress } = parseWagmiCookies(cookies);
-  const chainId = parsedChainId ?? haqqMainnet.id;
+  const { chainId, walletAddress } = parseWagmiCookies(cookies);
+  const chainIdToUse =
+    chainId && supportedChainsIds.includes(chainId)
+      ? chainId
+      : supportedChainsIds[0];
+
   const queryClient = new QueryClient();
   const initialState = cookieToInitialState(wagmiConfig, cookies);
   const userAgent = headersList.get('user-agent');
@@ -88,7 +92,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     await queryClient.prefetchQuery({
       queryKey: [chainId, 'indexer-balance', haqqAddress],
       queryFn: async () => {
-        return await indexerBalancesFetcher(chainId, haqqAddress);
+        return await indexerBalancesFetcher(chainIdToUse, haqqAddress);
       },
     });
   }
