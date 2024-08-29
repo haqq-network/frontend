@@ -33,7 +33,7 @@ export function HeaderMobile({
 
   const [springValues, setSpringValues] = useSpring(() => {
     return {
-      blur: 0,
+      blur: 8,
       bgOpacity: 0,
       config: { ...config.default },
     };
