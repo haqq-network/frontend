@@ -1,5 +1,5 @@
 'use client';
-import { Fragment, PropsWithChildren, SyntheticEvent } from 'react';
+import { PropsWithChildren, SyntheticEvent } from 'react';
 import { Dialog } from '@headlessui/react';
 import clsx from 'clsx';
 

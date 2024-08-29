@@ -5,6 +5,12 @@ import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
+const COMMIT_SHA =
+  process.env['GIT_COMMIT_SHA'] ??
+  process.env['NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA'] ??
+  process.env['VERCEL_GIT_COMMIT_SHA'];
+const distDir = '../../dist/apps/vesting';
+
 export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/vesting',
@@ -31,6 +37,17 @@ export default defineConfig({
     sentryVitePlugin({
       org: 'haqq-network',
       project: 'vesting-app',
+      authToken: process.env['SENTRY_AUTH_TOKEN'],
+      release: {
+        name: COMMIT_SHA ?? 'development',
+        deploy: {
+          env: process.env['VERCEL_ENV'] ?? 'development',
+        },
+        dist: distDir,
+      },
+      reactComponentAnnotation: {
+        enabled: true,
+      },
     }),
   ],
 
@@ -40,7 +57,7 @@ export default defineConfig({
   // },
 
   build: {
-    outDir: '../../dist/apps/vesting',
+    outDir: distDir,
     emptyOutDir: true,
     reportCompressedSize: true,
 
@@ -52,12 +69,7 @@ export default defineConfig({
   },
 
   define: {
-    'process.env.GIT_COMMIT_SHA': JSON.stringify(
-      process.env['GIT_COMMIT_SHA'] ??
-        process.env['NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA'] ??
-        process.env['VERCEL_GIT_COMMIT_SHA'] ??
-        'dev',
-    ),
+    'process.env.GIT_COMMIT_SHA': JSON.stringify(COMMIT_SHA),
     'process.env.WALLETCONNECT_PROJECT_ID': JSON.stringify(
       process.env['WALLETCONNECT_PROJECT_ID'],
     ),

@@ -6,12 +6,13 @@ import {
 import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
+import { haqqTestedge2 } from 'wagmi/chains';
 import {
   ethToHaqq,
   indexerBalancesFetcher,
   parseWagmiCookies,
 } from '@haqq/shell-shared';
+import { supportedChainsIds } from '../../config/wagmi-config';
 import { env } from '../../env/client';
 
 const AuthProvider = dynamic(async () => {
@@ -26,8 +27,11 @@ const FaucetPage = dynamic(async () => {
 
 export default async function Faucet() {
   const cookies = headers().get('cookie');
-  const { chainId: parsedChainId, walletAddress } = parseWagmiCookies(cookies);
-  const chainIdToUse = parsedChainId ?? haqqMainnet.id;
+  const { chainId, walletAddress } = parseWagmiCookies(cookies);
+  const chainIdToUse =
+    chainId && supportedChainsIds.includes(chainId)
+      ? chainId
+      : supportedChainsIds[0];
 
   if (chainIdToUse !== haqqTestedge2.id) {
     return notFound();

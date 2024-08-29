@@ -45,8 +45,19 @@ export function parseWagmiCookies(cookiesString: string | null | undefined): {
       return { chainId: null, walletAddress: null };
     }
 
-    // Parse the 'wagmi.store' value as JSON
-    const wagmiStore: WagmiStore = JSON.parse(cookies['wagmi.store']);
+    // Attempt to parse the 'wagmi.store' value as JSON
+    let wagmiStore: WagmiStore;
+    try {
+      wagmiStore = JSON.parse(cookies['wagmi.store']);
+    } catch (error) {
+      console.error('Failed to parse wagmi.store as JSON:', error);
+      return { chainId: null, walletAddress: null };
+    }
+
+    if (!wagmiStore) {
+      console.warn('wagmiStore is undefined');
+      return { chainId: null, walletAddress: null };
+    }
 
     const connectionsMap = new Map(wagmiStore.state.connections.value);
     const currentConnection = connectionsMap.get(wagmiStore.state.current);

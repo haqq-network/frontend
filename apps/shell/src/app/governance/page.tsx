@@ -5,10 +5,10 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 import { headers } from 'next/headers';
-import { haqqMainnet } from 'wagmi/chains';
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import { ProposalListPage } from '@haqq/shell-governance';
 import { parseWagmiCookies } from '@haqq/shell-shared';
+import { supportedChainsIds } from '../../config/wagmi-config';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -16,7 +16,10 @@ export const fetchCache = 'force-no-store';
 export default async function ProposalList() {
   const cookies = headers().get('cookie');
   const { chainId } = parseWagmiCookies(cookies);
-  const chainIdToUse = chainId ?? haqqMainnet.id;
+  const chainIdToUse =
+    chainId && supportedChainsIds.includes(chainId)
+      ? chainId
+      : supportedChainsIds[0];
   const { cosmosRestEndpoint } = getChainParams(chainIdToUse);
   const { getProposals, getGovernanceParams, getProposalTally } =
     createCosmosService(cosmosRestEndpoint);

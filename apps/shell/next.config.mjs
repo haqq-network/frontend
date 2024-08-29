@@ -39,6 +39,12 @@ const nextConfig = {
   },
 };
 
+const COMMIT_SHA =
+  process.env['GIT_COMMIT_SHA'] ??
+  process.env['NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA'] ??
+  process.env['VERCEL_GIT_COMMIT_SHA'];
+
+/** @type {import('@sentry/nextjs').SentryBuildOptions} **/
 const sentryWebpackPluginOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
@@ -50,14 +56,23 @@ const sentryWebpackPluginOptions = {
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
 
+  release: {
+    name: COMMIT_SHA ?? 'development',
+    deploy: {
+      env: process.env.VERCEL_ENV ?? 'development',
+    },
+  },
+
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
   // Upload a larger set of source maps for prettier stack traces (increases build time)
   widenClientFileUpload: true,
 
-  // Transpiles SDK to be compatible with IE11 (increases bundle size)
-  transpileClientSDK: true,
+  // Automatically annotate React components to show their full name in breadcrumbs and session replay
+  reactComponentAnnotation: {
+    enabled: true,
+  },
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
   // This can increase your server load as well as your hosting bill.

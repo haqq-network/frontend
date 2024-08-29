@@ -4,7 +4,6 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { headers } from 'next/headers';
-import { haqqMainnet } from 'wagmi/chains';
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import { MainPage } from '@haqq/shell-main';
 import {
@@ -13,12 +12,17 @@ import {
   indexerBalancesFetcher,
   parseWagmiCookies,
 } from '@haqq/shell-shared';
+import { supportedChainsIds } from '../config/wagmi-config';
 
 export default async function IndexPage() {
   const headersList = headers();
   const cookies = headersList.get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
-  const chainIdToUse = chainId ?? haqqMainnet.id;
+  const chainIdToUse =
+    chainId && supportedChainsIds.includes(chainId)
+      ? chainId
+      : supportedChainsIds[0];
+
   const { cosmosRestEndpoint } = getChainParams(chainIdToUse);
   const {
     getProposals,
