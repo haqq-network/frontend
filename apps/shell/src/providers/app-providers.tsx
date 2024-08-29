@@ -7,8 +7,8 @@ import {
   ReactQueryProvider,
   Toaster,
   WalletProvider,
-  WalletModals,
 } from '@haqq/shell-shared';
+import { WalletModals } from '../components/wallet-modals';
 import { createWagmiConfig } from '../config/wagmi-config';
 
 export function AppProviders({

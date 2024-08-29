@@ -1,12 +1,12 @@
 'use client';
 import { useMemo } from 'react';
 import { useChains } from 'wagmi';
+import { useWallet } from '@haqq/shell-shared';
 import {
   LowBalanceAlert,
   SelectChainModal,
   SelectWalletModal,
 } from '@haqq/shell-ui-kit';
-import { useWallet } from './wallet-provider';
 
 export function WalletModals() {
   const {
