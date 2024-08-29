@@ -33,7 +33,7 @@ export function HeaderMobile({
 
   const [springValues, setSpringValues] = useSpring(() => {
     return {
-      blur: 8,
+      blur: 0,
       bgOpacity: 0,
       config: { ...config.default },
     };
@@ -62,21 +62,22 @@ export function HeaderMobile({
     <Fragment>
       <div className={clsx(isTestedge ? 'h-[calc(62px+64px)]' : 'h-[62px]')} />
       <div className="fixed left-0 top-0 z-50 w-full">
-        {isTestedge && <TestedgeBanner />}
-        <animated.header
-          style={{
-            backdropFilter: springValues.blur.to((blur) => {
-              return `blur(${blur}px)`;
-            }),
-            backgroundColor: springValues.bgOpacity.to((opacity) => {
-              return `rgba(13, 13, 14, ${opacity})`;
-            }),
-          }}
+        {/*{isTestedge && <TestedgeBanner />}*/}
+        <header
+          // style={{
+          //   backdropFilter: springValues.blur.to((blur) => {
+          //     return `blur(${blur}px)`;
+          //   }),
+          //   backgroundColor: springValues.bgOpacity.to((opacity) => {
+          //     return `rgba(13, 13, 14, ${opacity})`;
+          //   }),
+          // }}
           className={clsx(
             'border-haqq-border w-full transform-gpu border-b-[1px]',
             'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
             isMobileMenuOpen ? 'h-[calc(100vh)]' : 'h-[62px]',
             isMobileMenuOpen && '!bg-haqq-black/80 !backdrop-blur',
+            'backdrop-blur',
             className,
           )}
         >
@@ -150,7 +151,7 @@ export function HeaderMobile({
               </Container>
             </div>
           </div>
-        </animated.header>
+        </header>
       </div>
     </Fragment>
   );
