@@ -5,8 +5,16 @@ export const headerLinks: {
   label: string;
   chains: number[];
 }[] = [
-  // { href: '/', label: 'Home', chains: [haqqMainnet.id, haqqTestedge2.id] },
-  { href: '/dao', label: 'DAO', chains: [haqqMainnet.id, haqqTestedge2.id] },
+  // {
+  //   href: '/',
+  //   label: 'Home',
+  //   chains: [haqqMainnet.id, haqqTestedge2.id],
+  // },
+  {
+    href: '/uc-dao',
+    label: 'UC DAO',
+    chains: [haqqMainnet.id, haqqTestedge2.id],
+  },
   {
     href: '/staking',
     label: 'Staking',
@@ -22,5 +30,9 @@ export const headerLinks: {
     label: 'Authz',
     chains: [haqqMainnet.id, haqqTestedge2.id],
   },
-  { href: '/faucet', label: 'Faucet', chains: [haqqTestedge2.id] },
+  {
+    href: '/faucet',
+    label: 'Faucet',
+    chains: [haqqTestedge2.id],
+  },
 ];

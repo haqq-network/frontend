@@ -713,7 +713,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
     const response = await fetch(getDaoBalanceUrl);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch dao balance');
+      throw new Error(`Failed to fetch dao balance for: ${denom}`);
     }
 
     const responseJson: { balance: Coin } = await response.json();

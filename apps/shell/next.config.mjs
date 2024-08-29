@@ -32,6 +32,10 @@ const nextConfig = {
         source: '/api/ingest/:path*',
         destination: 'https://eu.posthog.com/:path*',
       },
+      {
+        source: '/dao',
+        destination: '/uc-dao',
+      },
     ];
   },
   experimental: {

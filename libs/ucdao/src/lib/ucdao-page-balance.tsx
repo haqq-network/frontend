@@ -13,7 +13,7 @@ import {
   Heading,
   WalletIcon,
 } from '@haqq/shell-ui-kit/server';
-import { FundModal } from './fund-modal';
+import { FundModal } from './ucdao-fund-modal';
 
 export function DaoPageBalance() {
   const { haqqAddress } = useAddress();
@@ -24,8 +24,6 @@ export function DaoPageBalance() {
   if ((!daoBalance || daoBalance.length === 0) && !bankBalance) {
     return null;
   }
-
-  console.log({ daoBalance, bankBalance });
 
   return (
     <div className="border-haqq-border border-y-[1px] py-[32px]">
