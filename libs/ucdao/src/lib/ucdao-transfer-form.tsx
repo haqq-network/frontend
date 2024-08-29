@@ -27,7 +27,7 @@ import {
   ToastLoading,
   ToastSuccess,
 } from '@haqq/shell-ui-kit/server';
-import { ConfirmModal } from './confirm-modal';
+import { ConfirmModal } from './ucdao-confirm-modal';
 
 export function DaoTransferForm() {
   const { haqqAddress } = useAddress();
