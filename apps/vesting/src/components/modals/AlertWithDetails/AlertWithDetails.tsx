@@ -43,16 +43,15 @@ export function AlertWithDetails({
 
           {details && (
             <div className="flex flex-row items-center justify-between">
-              {details && (
-                <div>
-                  <button
-                    onClick={toggleDetailsOpen}
-                    className="hover:text-primary text-sm leading-6 text-gray-700 underline underline-offset-2 transition-colors duration-150"
-                  >
-                    {isDetailsOpen ? 'Hide details' : 'Show details'}
-                  </button>
-                </div>
-              )}
+              <div>
+                <button
+                  onClick={toggleDetailsOpen}
+                  className="hover:text-primary text-sm leading-6 text-gray-700 underline underline-offset-2 transition-colors duration-150"
+                >
+                  {isDetailsOpen ? 'Hide details' : 'Show details'}
+                </button>
+              </div>
+
               {onClose && (
                 <div>
                   <Button onClick={onClose} className="min-w-[100px]">
