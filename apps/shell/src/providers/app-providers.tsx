@@ -1,7 +1,7 @@
 'use client';
 import { PropsWithChildren } from 'react';
 import { DehydratedState } from '@tanstack/react-query';
-import { Config, State, WagmiProvider } from 'wagmi';
+import { State, WagmiProvider, Config } from 'wagmi';
 import {
   CosmosProvider,
   ReactQueryProvider,
