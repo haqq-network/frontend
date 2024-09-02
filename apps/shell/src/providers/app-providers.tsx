@@ -31,18 +31,18 @@ export function AppProviders({
     : createWagmiConfig(walletConnectProjectId);
 
   return (
-    <WagmiProvider config={actualWagmiConfig} initialState={initialState}>
-      <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
-        <CosmosProvider>
-          <WalletProvider>
-            <UserAgentProvider userAgent={userAgent}>
+    <UserAgentProvider userAgent={userAgent}>
+      <WagmiProvider config={actualWagmiConfig} initialState={initialState}>
+        <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
+          <CosmosProvider>
+            <WalletProvider>
               {children}
-            </UserAgentProvider>
-            <Toaster />
-            <WalletModals />
-          </WalletProvider>
-        </CosmosProvider>
-      </ReactQueryProvider>
-    </WagmiProvider>
+              <Toaster />
+              <WalletModals />
+            </WalletProvider>
+          </CosmosProvider>
+        </ReactQueryProvider>
+      </WagmiProvider>
+    </UserAgentProvider>
   );
 }
