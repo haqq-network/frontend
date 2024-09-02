@@ -13,6 +13,7 @@ import {
 } from '@haqq/shell-shared';
 import { Footer } from '@haqq/shell-ui-kit/server';
 import { AppHeader } from '../components/header';
+import { AppHeaderMobile } from '../components/header-mobile';
 import { createWagmiConfig, supportedChainsIds } from '../config/wagmi-config';
 import { env } from '../env/client';
 import { clashDisplayFont, hkGuiseFont } from '../lib/fonts';
@@ -69,6 +70,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   const wagmiConfig = createWagmiConfig();
   const headersList = headers();
   const userAgent = headersList.get('user-agent');
+  const isMobileUA = Boolean(
+    userAgent?.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+    ),
+  );
   const cookies = headersList.get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
   const chainIdToUse =
@@ -104,13 +110,13 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             initialState={initialState}
             dehydratedState={dehydratedState}
             walletConnectProjectId={env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
-            userAgent={userAgent}
+            isMobileUA={isMobileUA}
           >
             <PostHogPageView />
             <PostHogIdentifyWalletUsers />
             <SpeedInsights />
 
-            <AppHeader />
+            {isMobileUA ? <AppHeaderMobile /> : <AppHeader />}
 
             <main className="relative flex-1 overflow-x-clip">{children}</main>
 

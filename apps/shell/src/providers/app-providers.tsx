@@ -18,20 +18,20 @@ export function AppProviders({
   children,
   dehydratedState,
   wagmiConfig,
-  userAgent,
+  isMobileUA,
 }: PropsWithChildren<{
   initialState: State | undefined;
   walletConnectProjectId?: string;
   dehydratedState?: DehydratedState;
   wagmiConfig?: Config;
-  userAgent: string | null;
+  isMobileUA: boolean;
 }>) {
   const actualWagmiConfig = wagmiConfig
     ? wagmiConfig
     : createWagmiConfig(walletConnectProjectId);
 
   return (
-    <UserAgentProvider userAgent={userAgent}>
+    <UserAgentProvider isMobileUA={isMobileUA}>
       <WagmiProvider config={actualWagmiConfig} initialState={initialState}>
         <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
           <CosmosProvider>
