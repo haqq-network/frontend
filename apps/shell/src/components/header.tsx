@@ -1,6 +1,8 @@
 'use client';
+import { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { useMediaQuery } from 'usehooks-ts';
+import { UserAgentContext } from '@haqq/shell-shared';
 
 const AppHeaderMobile = dynamic(async () => {
   const { AppHeaderMobile } = await import('./header-mobile');
@@ -16,6 +18,12 @@ export function AppHeader() {
     defaultValue: true,
     initializeWithValue: false,
   });
+
+  const { isMobileUA } = useContext(UserAgentContext);
+
+  if (isMobileUA) {
+    return <AppHeaderMobile className="block lg:hidden" />;
+  }
 
   return isDesktop ? (
     <AppHeaderDesktop className="hidden lg:block" />
