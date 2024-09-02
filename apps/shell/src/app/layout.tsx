@@ -69,12 +69,6 @@ const ParalaxBackground = dynamic(async () => {
 export default async function RootLayout({ children }: PropsWithChildren) {
   const wagmiConfig = createWagmiConfig();
   const headersList = headers();
-  const userAgent = headersList.get('user-agent');
-  const isMobileUA = Boolean(
-    userAgent?.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-    ),
-  );
   const cookies = headersList.get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
   const chainIdToUse =
@@ -84,6 +78,12 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   const queryClient = new QueryClient();
   const initialState = cookieToInitialState(wagmiConfig, cookies);
+  const userAgent = headersList.get('user-agent');
+  const isMobileUA = Boolean(
+    userAgent?.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+    ),
+  );
 
   if (walletAddress) {
     const haqqAddress = ethToHaqq(walletAddress);
