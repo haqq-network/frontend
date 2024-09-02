@@ -145,6 +145,19 @@ function AnimatedOrNot({
 }: PropsWithChildren<{ baseHeaderStyles: string }>) {
   const { isMobileUA } = useUserAgent();
 
+  return isMobileUA ? (
+    <StaticHeader baseHeaderStyles={baseHeaderStyles}>{children}</StaticHeader>
+  ) : (
+    <AnimatedHeader baseHeaderStyles={baseHeaderStyles}>
+      {children}
+    </AnimatedHeader>
+  );
+}
+
+function AnimatedHeader({
+  baseHeaderStyles,
+  children,
+}: PropsWithChildren<{ baseHeaderStyles: string }>) {
   const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
 
   const [springValues, setSpringValues] = useSpring(() => {
@@ -162,11 +175,7 @@ function AnimatedOrNot({
     });
   }, [setSpringValues, top]);
 
-  return isMobileUA ? (
-    <header className={clsx(baseHeaderStyles, 'backdrop-blur')}>
-      {children}
-    </header>
-  ) : (
+  return (
     <animated.header
       style={{
         backdropFilter: springValues.blur.to((blur) => {
@@ -180,5 +189,16 @@ function AnimatedOrNot({
     >
       {children}
     </animated.header>
+  );
+}
+
+function StaticHeader({
+  baseHeaderStyles,
+  children,
+}: PropsWithChildren<{ baseHeaderStyles: string }>) {
+  return (
+    <header className={clsx(baseHeaderStyles, 'backdrop-blur')}>
+      {children}
+    </header>
   );
 }
