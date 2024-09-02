@@ -1,10 +1,18 @@
 'use client';
-import { Fragment, ReactNode, useEffect, useState } from 'react';
+import {
+  Fragment,
+  PropsWithChildren,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { useSpring, animated, config } from '@react-spring/web';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useScrollLock } from 'usehooks-ts';
+import { UserAgentContext } from '@haqq/shell-shared';
 import { BurgerButton } from './burger-button';
 import { Container } from './container';
 import { HeaderNavLink } from './header-nav-link';
@@ -27,24 +35,8 @@ export function HeaderMobile({
   links: { href: string; label: string }[];
   className?: string;
 }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
   const { lock, unlock } = useScrollLock();
-  const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
-
-  const [springValues, setSpringValues] = useSpring(() => {
-    return {
-      blur: 0,
-      bgOpacity: 0,
-      config: { ...config.default },
-    };
-  });
-
-  useEffect(() => {
-    setSpringValues({
-      blur: interpolate(top, [0, 80], [0, 8]),
-      bgOpacity: interpolate(top, [0, 80], [0, 0.15]),
-    });
-  }, [setSpringValues, top]);
+  const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -58,28 +50,20 @@ export function HeaderMobile({
     };
   }, [isMobileMenuOpen, lock, unlock]);
 
+  const baseHeaderStyles = clsx(
+    'border-haqq-border w-full transform-gpu border-b-[1px]',
+    'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
+    isMobileMenuOpen ? 'h-[calc(100vh)]' : 'h-[62px]',
+    isMobileMenuOpen && '!bg-haqq-black/80 !backdrop-blur',
+    className,
+  );
+
   return (
     <Fragment>
       <div className={clsx(isTestedge ? 'h-[calc(62px+64px)]' : 'h-[62px]')} />
       <div className="fixed left-0 top-0 z-50 w-full">
         {isTestedge && <TestedgeBanner />}
-        <animated.header
-          style={{
-            backdropFilter: springValues.blur.to((blur) => {
-              return `blur(${blur}px)`;
-            }),
-            backgroundColor: springValues.bgOpacity.to((opacity) => {
-              return `rgba(13, 13, 14, ${opacity})`;
-            }),
-          }}
-          className={clsx(
-            'border-haqq-border w-full transform-gpu border-b-[1px]',
-            'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
-            isMobileMenuOpen ? 'h-[calc(100vh)]' : 'h-[62px]',
-            isMobileMenuOpen && '!bg-haqq-black/80 !backdrop-blur',
-            className,
-          )}
-        >
+        <AnimatedOrNot baseHeaderStyles={baseHeaderStyles}>
           <div className="flex h-full flex-col">
             <div className="border-haqq-border mx-auto flex h-[62px] w-full flex-none flex-row items-center border-b-[1px] pr-[16px] sm:pr-[64px]">
               <div
@@ -150,8 +134,52 @@ export function HeaderMobile({
               </Container>
             </div>
           </div>
-        </animated.header>
+        </AnimatedOrNot>
       </div>
     </Fragment>
+  );
+}
+
+function AnimatedOrNot({
+  baseHeaderStyles,
+  children,
+}: PropsWithChildren<{ baseHeaderStyles: string }>) {
+  const { isMobileUA } = useContext(UserAgentContext);
+
+  const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
+
+  const [springValues, setSpringValues] = useSpring(() => {
+    return {
+      blur: 0,
+      bgOpacity: 0,
+      config: { ...config.default },
+    };
+  });
+
+  useEffect(() => {
+    setSpringValues({
+      blur: interpolate(top, [0, 80], [0, 8]),
+      bgOpacity: interpolate(top, [0, 80], [0, 0.15]),
+    });
+  }, [setSpringValues, top]);
+
+  return isMobileUA ? (
+    <header className={clsx(baseHeaderStyles, 'backdrop-blur')}>
+      {children}
+    </header>
+  ) : (
+    <animated.header
+      style={{
+        backdropFilter: springValues.blur.to((blur) => {
+          return `blur(${blur}px)`;
+        }),
+        backgroundColor: springValues.bgOpacity.to((opacity) => {
+          return `rgba(13, 13, 14, ${opacity})`;
+        }),
+      }}
+      className={baseHeaderStyles}
+    >
+      {children}
+    </animated.header>
   );
 }

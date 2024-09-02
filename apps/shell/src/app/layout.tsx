@@ -1,12 +1,11 @@
 import { PropsWithChildren } from 'react';
-import { QueryClient, dehydrate } from '@tanstack/react-query';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
 import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
 import { cookieToInitialState } from 'wagmi';
-import { haqqMainnet } from 'wagmi/chains';
 import {
   ethToHaqq,
   indexerBalancesFetcher,
@@ -14,7 +13,6 @@ import {
 } from '@haqq/shell-shared';
 import { Footer } from '@haqq/shell-ui-kit/server';
 import { AppHeader } from '../components/header';
-import { AppHeaderMobile } from '../components/header-mobile';
 import { createWagmiConfig, supportedChainsIds } from '../config/wagmi-config';
 import { env } from '../env/client';
 import { clashDisplayFont, hkGuiseFont } from '../lib/fonts';
@@ -70,6 +68,7 @@ const ParalaxBackground = dynamic(async () => {
 export default async function RootLayout({ children }: PropsWithChildren) {
   const wagmiConfig = createWagmiConfig();
   const headersList = headers();
+  const userAgent = headersList.get('user-agent');
   const cookies = headersList.get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
   const chainIdToUse =
@@ -79,12 +78,6 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   const queryClient = new QueryClient();
   const initialState = cookieToInitialState(wagmiConfig, cookies);
-  const userAgent = headersList.get('user-agent');
-  const isMobileUA = Boolean(
-    userAgent?.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-    ),
-  );
 
   if (walletAddress) {
     const haqqAddress = ethToHaqq(walletAddress);
@@ -111,12 +104,13 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             initialState={initialState}
             dehydratedState={dehydratedState}
             walletConnectProjectId={env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
+            userAgent={userAgent}
           >
             <PostHogPageView />
             <PostHogIdentifyWalletUsers />
             <SpeedInsights />
 
-            {isMobileUA ? <AppHeaderMobile /> : <AppHeader />}
+            <AppHeader />
 
             <main className="relative flex-1 overflow-x-clip">{children}</main>
 
