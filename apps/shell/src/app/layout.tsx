@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
