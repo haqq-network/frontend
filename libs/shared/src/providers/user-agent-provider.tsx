@@ -1,5 +1,5 @@
 'use client';
-import { createContext, ReactNode } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
 export const UserAgentContext = createContext({ isMobileUA: false });
 
@@ -15,4 +15,10 @@ export function UserAgentProvider({
       {children}
     </UserAgentContext.Provider>
   );
+}
+
+export function useUserAgent() {
+  const userAgent = useContext(UserAgentContext);
+
+  return userAgent;
 }
