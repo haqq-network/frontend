@@ -3,7 +3,6 @@ import {
   Fragment,
   PropsWithChildren,
   ReactNode,
-  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -12,7 +11,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useScrollLock } from 'usehooks-ts';
-import { UserAgentContext } from '@haqq/shell-shared';
+import { useUserAgent } from '@haqq/shell-shared';
 import { BurgerButton } from './burger-button';
 import { Container } from './container';
 import { HeaderNavLink } from './header-nav-link';
@@ -144,7 +143,7 @@ function AnimatedOrNot({
   baseHeaderStyles,
   children,
 }: PropsWithChildren<{ baseHeaderStyles: string }>) {
-  const { isMobileUA } = useContext(UserAgentContext);
+  const { isMobileUA } = useUserAgent();
 
   const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
 
