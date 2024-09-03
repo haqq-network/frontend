@@ -6,7 +6,7 @@ import {
   CosmosProvider,
   ReactQueryProvider,
   Toaster,
-  UserAgentProvider,
+  IsMobileUAProvider,
   WalletProvider,
 } from '@haqq/shell-shared';
 import { WalletModals } from '../components/wallet-modals';
@@ -31,7 +31,7 @@ export function AppProviders({
     : createWagmiConfig(walletConnectProjectId);
 
   return (
-    <UserAgentProvider isMobileUA={isMobileUA}>
+    <IsMobileUAProvider isMobileUA={isMobileUA}>
       <WagmiProvider config={actualWagmiConfig} initialState={initialState}>
         <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
           <CosmosProvider>
@@ -43,6 +43,6 @@ export function AppProviders({
           </CosmosProvider>
         </ReactQueryProvider>
       </WagmiProvider>
-    </UserAgentProvider>
+    </IsMobileUAProvider>
   );
 }
