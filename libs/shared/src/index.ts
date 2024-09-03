@@ -8,7 +8,7 @@ export * from './providers/cosmos-provider';
 export * from './providers/react-query-provider';
 export * from './providers/toaster';
 export * from './providers/wallet-provider';
-export * from './providers/is-mobile-ua-provider';
+export * from './providers/layout-provider';
 
 export * from './hooks/use-account-info/use-account-info';
 export * from './hooks/use-address/use-address';
