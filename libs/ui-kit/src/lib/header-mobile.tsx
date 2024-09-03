@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useScrollLock } from 'usehooks-ts';
-import { useIsMobileUA } from '@haqq/shell-shared';
+import { useLayout } from '@haqq/shell-shared';
 import { BurgerButton } from './burger-button';
 import { Container } from './container';
 import { HeaderNavLink } from './header-nav-link';
@@ -143,7 +143,7 @@ function AnimatedOrNot({
   baseHeaderStyles,
   children,
 }: PropsWithChildren<{ baseHeaderStyles: string }>) {
-  const isMobileUA = useIsMobileUA();
+  const { isMobileUA } = useLayout();
 
   return isMobileUA ? (
     <StaticHeader baseHeaderStyles={baseHeaderStyles}>{children}</StaticHeader>
