@@ -15,17 +15,56 @@ import {
   MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
+import {
+  waitForTransactionReceipt,
+  getGasPrice,
+  estimateGas,
+} from '@wagmi/core';
 import { usePostHog } from 'posthog-js/react';
-import { useAccount, useChains } from 'wagmi';
+import { type Hash, encodeFunctionData, parseUnits } from 'viem';
+import { useAccount, useChains, useConfig, useWriteContract } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import { EstimatedFeeResponse } from '@haqq/data-access-falconer';
+import { STAKING_PRECOMPILE_ADDRESS } from '../../precompile/adresses';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
+
+const delegateAbi = [
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'delegatorAddress',
+        type: 'address',
+      },
+      {
+        internalType: 'string',
+        name: 'validatorAddress',
+        type: 'string',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'delegate',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: 'success',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+];
 
 export function useStakingActions() {
   const {
@@ -45,6 +84,35 @@ export function useStakingActions() {
   const haqqChain = mapToCosmosChain(chainParams);
   const posthog = usePostHog();
   const chainId = chain.id;
+  const config = useConfig();
+  const { writeContractAsync } = useWriteContract();
+
+  const getEvmTransactionStatus = useCallback(
+    async (hash: Hash) => {
+      try {
+        // Wait for the transaction to be mined
+        const receipt = await waitForTransactionReceipt(config, { hash });
+
+        // Check if the transaction was successful
+        if (receipt.status === 'success') {
+          return {
+            tx_response: {
+              txhash: hash,
+              code: 0, // Assuming 0 means success
+              raw_log: 'Transaction successful',
+              // Add other fields as needed to match Cosmos SDK response structure
+            },
+          };
+        } else {
+          throw new Error('Transaction failed');
+        }
+      } catch (error) {
+        console.error('Error getting EVM transaction status:', error);
+        return null;
+      }
+    },
+    [config],
+  );
 
   const getDelegationParams = useCallback(
     (
@@ -137,6 +205,58 @@ export function useStakingActions() {
       posthog,
       getTransactionStatus,
     ],
+  );
+
+  const handlePrecompileDelegate = useCallback(
+    async (validatorAddress?: string, amount?: number) => {
+      if (!validatorAddress || !amount || !ethAddress || !writeContractAsync) {
+        throw new Error('Insufficient data for delegation or simulation error');
+      }
+
+      const txHash = await writeContractAsync({
+        address: STAKING_PRECOMPILE_ADDRESS,
+        abi: delegateAbi,
+        functionName: 'delegate',
+        args: [ethAddress, validatorAddress, BigInt(amount * 10 ** 18)],
+      });
+
+      if (!txHash) {
+        throw new Error('Transaction was not sent');
+      }
+
+      const transactionStatus = await getEvmTransactionStatus(txHash);
+
+      if (transactionStatus === null) {
+        throw new Error('Transaction not found');
+      }
+
+      return transactionStatus.tx_response;
+    },
+    [ethAddress, writeContractAsync, getEvmTransactionStatus],
+  );
+
+  const handleUnifiedDelegate = useCallback(
+    async (
+      validatorAddress?: string,
+      amount?: number,
+      balance?: number,
+      memo = '',
+      estimatedFee?: EstimatedFeeResponse,
+      usePrecompile = false, // Flag to switch between delegate and precompile delegate
+    ) => {
+      if (usePrecompile) {
+        return await handlePrecompileDelegate(validatorAddress, amount);
+      } else {
+        return await handleDelegate(
+          validatorAddress,
+          amount,
+          balance,
+          memo,
+          estimatedFee,
+        );
+      }
+    },
+    [handleDelegate, handlePrecompileDelegate],
   );
 
   const handleUndelegate = useCallback(
@@ -373,8 +493,50 @@ export function useStakingActions() {
     ],
   );
 
+  const handlePrecompileDelegateEstimatedFee = useCallback(
+    async (
+      validatorAddress: string,
+      amount: number,
+    ): Promise<EstimatedFeeResponse> => {
+      if (!ethAddress || !config) {
+        throw new Error('Insufficient data for fee estimation');
+      }
+
+      try {
+        const amountInWei = parseUnits(amount.toString(), 18);
+
+        const estimatedGas = await estimateGas(config, {
+          to: STAKING_PRECOMPILE_ADDRESS,
+          data: encodeFunctionData({
+            abi: delegateAbi,
+            functionName: 'delegate',
+            args: [ethAddress, validatorAddress, amountInWei],
+          }),
+          account: ethAddress,
+        });
+
+        const gasPrice = await getGasPrice(config);
+
+        const fee = estimatedGas * gasPrice;
+
+        return {
+          fee: fee.toString(),
+          gas_price: gasPrice.toString(),
+          gas_used: estimatedGas.toString(),
+        };
+      } catch (error) {
+        console.error('Error estimating gas:', error);
+        throw error;
+      }
+    },
+    [config, ethAddress],
+  );
+
   const handleDelegateEstimatedFee = useCallback(
-    async (validatorAddress: string, amount: number) => {
+    async (
+      validatorAddress: string,
+      amount: number,
+    ): Promise<EstimatedFeeResponse> => {
       const pubkey = await getPubkey(ethAddress as string);
       const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
       const protoMsg = createMsgDelegate(
@@ -400,6 +562,24 @@ export function useStakingActions() {
       haqqAddress,
       haqqChain.cosmosChainId,
     ],
+  );
+
+  const handleUnifiedDelegateEstimatedFee = useCallback(
+    async (
+      validatorAddress: string,
+      amount: number,
+      usePrecompile = false,
+    ): Promise<EstimatedFeeResponse> => {
+      if (usePrecompile) {
+        return await handlePrecompileDelegateEstimatedFee(
+          validatorAddress,
+          amount,
+        );
+      } else {
+        return await handleDelegateEstimatedFee(validatorAddress, amount);
+      }
+    },
+    [handlePrecompileDelegateEstimatedFee, handleDelegateEstimatedFee],
   );
 
   const handleUndelegateEstimatedFee = useCallback(
@@ -520,15 +700,15 @@ export function useStakingActions() {
   );
 
   return {
-    delegate: handleDelegate,
+    delegate: handleUnifiedDelegate,
+    getDelegateEstimatedFee: handleUnifiedDelegateEstimatedFee,
     undelegate: handleUndelegate,
-    redelegate: handleRedelegate,
-    claimReward: handleClaimReward,
-    claimAllRewards: handleClaimAllRewards,
-    getDelegateEstimatedFee: handleDelegateEstimatedFee,
     getUndelegateEstimatedFee: handleUndelegateEstimatedFee,
+    redelegate: handleRedelegate,
     getRedelegateEstimatedFee: handleRedelegateEstimatedFee,
+    claimReward: handleClaimReward,
     getClaimRewardEstimatedFee: handleGetRewardEstimatedFee,
+    claimAllRewards: handleClaimAllRewards,
     getClaimAllRewardEstimatedFee: handleGetAllRewardEstimatedFee,
   };
 }
