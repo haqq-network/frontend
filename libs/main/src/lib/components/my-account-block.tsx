@@ -10,6 +10,7 @@ import {
   getFormattedAddress,
   useWallet,
   useIndexerBalanceQuery,
+  useStakingUnbondingsQuery,
 } from '@haqq/shell-shared';
 import {
   Tooltip,
@@ -282,8 +283,26 @@ function MyAccountConnected({
 
 function LockedBalancePopup({ haqqAddress }: { haqqAddress: string }) {
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
+  const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
+  const unbonding = useMemo(() => {
+    const allUnbound: number[] = (undelegations ?? []).map((validator) => {
+      let sum = 0;
 
-  if (!balances) {
+      validator.entries.forEach((unbondingValue) => {
+        sum += Number.parseFloat(unbondingValue.balance);
+      });
+
+      return sum;
+    });
+
+    const result = allUnbound.reduce<number>((accumulator, current) => {
+      return accumulator + current;
+    }, 0);
+
+    return Number.parseFloat(formatUnits(BigInt(result), 18));
+  }, [undelegations]);
+
+  if (!balances || !unbonding) {
     return null;
   }
 
@@ -316,8 +335,12 @@ function LockedBalancePopup({ haqqAddress }: { haqqAddress: string }) {
             </div>
             <div>
               <StakedVestedBalance
+                available={balances.available}
+                locked={balances.locked}
                 staked={balances.staked}
                 vested={balances.vested}
+                daoLocked={balances.daoLocked}
+                unbonding={unbonding}
               />
             </div>
           </div>
