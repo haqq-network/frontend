@@ -135,6 +135,7 @@ export function DelegateModal({
   onMemoChange,
 }: DelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
+
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
   }, [balance, onChange]);
@@ -162,9 +163,9 @@ export function DelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-[#F50000]">Bellow minimal value</span>;
+      return <span className="text-haqq-danger">Bellow minimal value</span>;
     } else if (amountError === 'max') {
-      return <span className="text-[#F50000]">More than you have</span>;
+      return <span className="text-haqq-danger">More than you have</span>;
     }
 
     return undefined;
