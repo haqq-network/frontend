@@ -34,6 +34,7 @@ import {
   formatNumber,
 } from '@haqq/shell-ui-kit/server';
 import { StakingStatsDesktop, StakingStatsMobile } from './staking-stats';
+import { shouldUsePrecompile } from '../constants';
 
 function useStakingStats() {
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
@@ -56,11 +57,11 @@ function useStakingStats() {
   const { explorer } = getChainParams(
     isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
   );
-
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const posthog = usePostHog();
   const balance = balances?.availableForStake ?? 0;
   const staked = balances?.staked ?? 0;
+  const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
 
   const handleRewardsClaim = useCallback(async () => {
     try {
@@ -68,8 +69,14 @@ function useStakingStats() {
       setRewardsPending(true);
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
+        shouldUsePrecompile,
       ).then((estimatedFee) => {
-        return claimAllRewards(delegatedValsAddrs, '', estimatedFee);
+        return claimAllRewards(
+          delegatedValsAddrs,
+          '',
+          estimatedFee,
+          shouldUsePrecompile,
+        );
       });
 
       await toast.promise(claimAllRewardPromise, {
@@ -84,7 +91,7 @@ function useStakingStats() {
                 <div>Rewards claimed</div>
                 <div>
                   <Link
-                    href={`${explorer.cosmos}/tx/${txHash}`}
+                    href={`${explorerLink}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -123,7 +130,7 @@ function useStakingStats() {
     chain.id,
     claimAllRewards,
     delegatedValsAddrs,
-    explorer.cosmos,
+    explorerLink,
     getClaimAllRewardEstimatedFee,
     invalidateQueries,
     posthog,
