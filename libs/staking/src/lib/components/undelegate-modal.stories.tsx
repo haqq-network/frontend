@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { fn, userEvent, expect, screen, within } from '@storybook/test';
+import { fn, userEvent, expect, screen } from '@storybook/test';
 import { UndelegateModal as UndelegateModalComponent } from './undelegate-modal';
 
 const meta: Meta<typeof UndelegateModalComponent> = {
