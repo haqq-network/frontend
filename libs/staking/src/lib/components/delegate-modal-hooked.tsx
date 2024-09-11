@@ -22,6 +22,7 @@ import {
   LinkIcon,
 } from '@haqq/shell-ui-kit/server';
 import { DelegateModal } from './delegate-modal';
+import { shouldUsePrecompile } from '../constants';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -33,8 +34,6 @@ export interface DelegateModalProps {
   unboundingTime: number;
   validatorCommission: number;
 }
-
-const shouldUsePrecompile = true;
 
 export function DelegateModalHooked({
   validatorAddress,
@@ -231,7 +230,11 @@ export function DelegateModalHooked({
         };
 
         setFeePending(true);
-        getDelegateEstimatedFee(validatorAddress, debouncedDelegateAmount)
+        getDelegateEstimatedFee(
+          validatorAddress,
+          debouncedDelegateAmount,
+          shouldUsePrecompile,
+        )
           .then((estimatedFee) => {
             console.log('Estimated fee', { estimatedFee });
             if (!isCancelled) {
