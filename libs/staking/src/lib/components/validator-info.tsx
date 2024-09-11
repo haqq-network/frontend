@@ -63,6 +63,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { ValidatorBlockMobileComponent } from './validator-block-mobile';
 import styles from './validator-info.module.css';
+import { shouldUsePrecompile } from '../constants';
 import { useValidatorsShares } from '../hooks/use-validator-shares';
 
 const ValidatorAvatar = dynamic(
@@ -476,10 +477,10 @@ export function ValidatorInfo({
   const { explorer } = getChainParams(
     isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
   );
-
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
   const posthog = usePostHog();
+  const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
 
   useEffect(() => {
     if (balances) {
@@ -537,8 +538,14 @@ export function ValidatorInfo({
       setRewardPending(true);
       const claimRewardPromise = getClaimRewardEstimatedFee(
         validatorAddress,
+        shouldUsePrecompile,
       ).then((estimatedFee) => {
-        return claimReward(validatorAddress, '', estimatedFee);
+        return claimReward(
+          validatorAddress,
+          '',
+          estimatedFee,
+          shouldUsePrecompile,
+        );
       });
 
       await toast.promise(claimRewardPromise, {
@@ -553,7 +560,7 @@ export function ValidatorInfo({
                 <div>Rewards claimed</div>
                 <div>
                   <Link
-                    href={`${explorer.cosmos}/tx/${txHash}`}
+                    href={`${explorerLink}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -592,7 +599,7 @@ export function ValidatorInfo({
   }, [
     chain.id,
     claimReward,
-    explorer.cosmos,
+    explorerLink,
     getClaimRewardEstimatedFee,
     invalidateQueries,
     posthog,
@@ -643,13 +650,17 @@ export function ValidatorInfo({
     try {
       posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
-      const estimatedFee =
-        await getClaimAllRewardEstimatedFee(delegatedValsAddrs);
-      const claimAllRewardPromise = claimAllRewards(
+      const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
-        '',
-        estimatedFee,
-      );
+        shouldUsePrecompile,
+      ).then((estimatedFee) => {
+        return claimAllRewards(
+          delegatedValsAddrs,
+          '',
+          estimatedFee,
+          shouldUsePrecompile,
+        );
+      });
 
       await toast.promise(claimAllRewardPromise, {
         loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
@@ -661,7 +672,7 @@ export function ValidatorInfo({
             <div className="flex flex-col gap-[8px] text-center">
               <div>Rewards claimed</div>
               <Link
-                href={`${explorer.cosmos}/tx/${txHash}`}
+                href={`${explorerLink}/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
@@ -696,7 +707,7 @@ export function ValidatorInfo({
     chain.id,
     claimAllRewards,
     delegatedValsAddrs,
-    explorer.cosmos,
+    explorerLink,
     getClaimAllRewardEstimatedFee,
     invalidateQueries,
     posthog,
