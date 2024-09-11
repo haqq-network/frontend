@@ -25,6 +25,8 @@ export function PHProvider({ children }: PropsWithChildren) {
     if (!phInstance) {
       return undefined;
     }
+
+    return phInstance;
   }, []);
 
   if (!postHogInstance) {

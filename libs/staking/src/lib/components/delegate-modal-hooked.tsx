@@ -10,6 +10,7 @@ import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
   useQueryInvalidate,
+  useAddress,
   useStakingActions,
   useToast,
   useWallet,
@@ -32,6 +33,8 @@ export interface DelegateModalProps {
   unboundingTime: number;
   validatorCommission: number;
 }
+
+const shouldUsePrecompile = true;
 
 export function DelegateModalHooked({
   validatorAddress,
@@ -58,6 +61,7 @@ export function DelegateModalHooked({
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
   const { isNetworkSupported } = useWallet();
+  const { haqqAddress, ethAddress } = useAddress();
   const { explorer } = getChainParams(
     isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
   );
@@ -67,10 +71,19 @@ export function DelegateModalHooked({
   const chainId = chain.id;
   const [memo, setMemo] = useState('');
   const invalidateQueries = useQueryInvalidate();
+  const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
-      posthog.capture('delegate started', { chainId });
+      posthog.capture('delegate started', {
+        chainId,
+        validatorAddress,
+        delegateAmount,
+        address: {
+          evm: ethAddress,
+          bech32: haqqAddress,
+        },
+      });
       setDelegateEnabled(false);
       const delegationPromise = delegate(
         validatorAddress,
@@ -78,6 +91,7 @@ export function DelegateModalHooked({
         balance,
         memo,
         fee,
+        shouldUsePrecompile,
       );
 
       await toast.promise(
@@ -88,13 +102,24 @@ export function DelegateModalHooked({
             console.log('Delegation successful', { tx });
             const txHash = tx?.txhash;
 
+            posthog.capture('delegate success', {
+              chainId,
+              validatorAddress,
+              delegateAmount,
+              address: {
+                evm: ethAddress,
+                bech32: haqqAddress,
+              },
+              txHash,
+            });
+
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                   <div>Delegation successful</div>
                   <div>
                     <Link
-                      href={`${explorer.cosmos}/tx/${txHash}`}
+                      href={`${explorerLink}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -117,11 +142,16 @@ export function DelegateModalHooked({
           },
         },
       );
-      posthog.capture('delegate success', { chainId });
       onClose();
     } catch (error) {
       const message = (error as Error).message;
-      posthog.capture('delegate failed', { chainId, error: message });
+      posthog.capture('delegate failed', {
+        chainId,
+        address: haqqAddress,
+        validatorAddress,
+        delegateAmount,
+        error: message,
+      });
       console.error(message);
     } finally {
       setDelegateEnabled(true);
@@ -136,15 +166,17 @@ export function DelegateModalHooked({
   }, [
     posthog,
     chainId,
-    delegate,
     validatorAddress,
     delegateAmount,
+    ethAddress,
+    haqqAddress,
+    delegate,
     balance,
     memo,
     fee,
     toast,
     onClose,
-    explorer.cosmos,
+    explorerLink,
     invalidateQueries,
     chain.id,
   ]);
@@ -201,6 +233,7 @@ export function DelegateModalHooked({
         setFeePending(true);
         getDelegateEstimatedFee(validatorAddress, debouncedDelegateAmount)
           .then((estimatedFee) => {
+            console.log('Estimated fee', { estimatedFee });
             if (!isCancelled) {
               setFee(estimatedFee);
               setFeePending(false);
