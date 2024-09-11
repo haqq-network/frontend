@@ -51,8 +51,9 @@ export function UndelegateModal({
   onMemoChange,
 }: UndelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
+
   const handleMaxButtonClick = useCallback(() => {
-    onChange(Math.floor(delegation));
+    onChange(delegation);
   }, [delegation, onChange]);
 
   const handleInputChange = useCallback(
