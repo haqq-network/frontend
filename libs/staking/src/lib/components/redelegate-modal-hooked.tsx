@@ -13,6 +13,7 @@ import {
   useStakingActions,
   useToast,
   useWallet,
+  useQueryInvalidate,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -65,6 +66,7 @@ export function RedelegateModalHooked({
   const posthog = usePostHog();
   const chainId = chain.id;
   const [memo, setMemo] = useState('');
+  const invalidateQueries = useQueryInvalidate();
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
@@ -126,6 +128,13 @@ export function RedelegateModalHooked({
       console.error(message);
     } finally {
       setRedelegateEnabled(true);
+      invalidateQueries([
+        [chain.id, 'validators'],
+        [chain.id, 'delegations'],
+        [chain.id, 'rewards'],
+        [chain.id, 'unboundings'],
+        [chain.id, 'indexer-balance'],
+      ]);
     }
   }, [
     validatorDestinationAddress,
@@ -140,6 +149,8 @@ export function RedelegateModalHooked({
     toast,
     onClose,
     explorer.cosmos,
+    invalidateQueries,
+    chain.id,
   ]);
 
   const validatorsOptions = useMemo(() => {

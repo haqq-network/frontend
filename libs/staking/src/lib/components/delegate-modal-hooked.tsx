@@ -9,6 +9,7 @@ import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
+  useQueryInvalidate,
   useStakingActions,
   useToast,
   useWallet,
@@ -60,13 +61,12 @@ export function DelegateModalHooked({
   const { explorer } = getChainParams(
     isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
   );
-
   const toast = useToast();
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
-
   const posthog = usePostHog();
   const chainId = chain.id;
   const [memo, setMemo] = useState('');
+  const invalidateQueries = useQueryInvalidate();
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
@@ -125,6 +125,13 @@ export function DelegateModalHooked({
       console.error(message);
     } finally {
       setDelegateEnabled(true);
+      invalidateQueries([
+        [chain.id, 'validators'],
+        [chain.id, 'delegations'],
+        [chain.id, 'rewards'],
+        [chain.id, 'unboundings'],
+        [chain.id, 'indexer-balance'],
+      ]);
     }
   }, [
     posthog,
@@ -138,6 +145,8 @@ export function DelegateModalHooked({
     toast,
     onClose,
     explorer.cosmos,
+    invalidateQueries,
+    chain.id,
   ]);
 
   useEffect(() => {
