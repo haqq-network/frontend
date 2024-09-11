@@ -75,6 +75,7 @@ const enum ProposalTypes {
   ParameterChange = '/cosmos.params.v1beta1.ParameterChangeProposal',
   ClientUpdate = '/ibc.core.client.v1.ClientUpdateProposal',
   RegisterCoin = '/evmos.erc20.v1.RegisterCoinProposal',
+  RegisterERC20 = '/evmos.erc20.v1.RegisterERC20Proposal',
 }
 
 export function getProposalTypeText(type: string) {
@@ -96,6 +97,9 @@ export function getProposalTypeText(type: string) {
 
     case ProposalTypes.RegisterCoin:
       return 'Register coin';
+
+    case ProposalTypes.RegisterERC20:
+      return 'Register ERC20';
 
     default:
       return type;
