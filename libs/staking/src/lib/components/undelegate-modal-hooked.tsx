@@ -12,6 +12,7 @@ import {
   useToast,
   getFormattedAddress,
   useWallet,
+  useQueryInvalidate,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -63,6 +64,7 @@ export function UndelegateModalHooked({
   const posthog = usePostHog();
   const chainId = chain.id;
   const [memo, setMemo] = useState('');
+  const invalidateQueries = useQueryInvalidate();
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
@@ -121,6 +123,13 @@ export function UndelegateModalHooked({
       console.error(message);
     } finally {
       setUndelegateEnabled(false);
+      invalidateQueries([
+        [chain.id, 'validators'],
+        [chain.id, 'delegations'],
+        [chain.id, 'rewards'],
+        [chain.id, 'unboundings'],
+        [chain.id, 'indexer-balance'],
+      ]);
     }
   }, [
     posthog,
@@ -134,6 +143,8 @@ export function UndelegateModalHooked({
     toast,
     onClose,
     explorer.cosmos,
+    invalidateQueries,
+    chain.id,
   ]);
 
   useEffect(() => {
