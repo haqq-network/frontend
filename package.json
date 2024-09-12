@@ -63,7 +63,7 @@
     "text-mask-addons": "3.8.0",
     "tslib": "2.7.0",
     "usehooks-ts": "3.1.0",
-    "vanilla-cookieconsent": "2.9.2",
+    "vanilla-cookieconsent": "3.0.1",
     "viem": "2.21.5",
     "wagmi": "2.12.10",
     "zod": "3.23.8"

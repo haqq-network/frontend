@@ -150,8 +150,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0(react@18.3.1)
       vanilla-cookieconsent:
-        specifier: 2.9.2
-        version: 2.9.2
+        specifier: 3.0.1
+        version: 3.0.1
       viem:
         specifier: 2.21.5
         version: 2.21.5(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)(zod@3.23.8)
@@ -12024,8 +12024,8 @@ packages:
       react:
         optional: true
 
-  vanilla-cookieconsent@2.9.2:
-    resolution: {integrity: sha512-SHAS5W0DBvvcUtjmVvvYkhmLPmTlgwKzFvViUp5mBimbZCdZKbDQzwyk/TgYq02+61RrtxmDdLGzDWNFpSbsGQ==}
+  vanilla-cookieconsent@3.0.1:
+    resolution: {integrity: sha512-gqc4x7O9t1I4xWr7x6/jtQWPr4PZK26SmeA0iyTv1WyoECfAGnu5JEOExmMEP+5Fz66AT9OiCBO3GII4wDQHLw==}
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -27478,7 +27478,7 @@ snapshots:
       '@types/react': 18.3.5
       react: 18.3.1
 
-  vanilla-cookieconsent@2.9.2: {}
+  vanilla-cookieconsent@3.0.1: {}
 
   vary@1.1.2: {}
 
