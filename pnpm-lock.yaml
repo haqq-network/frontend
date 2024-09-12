@@ -87,8 +87,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       marked:
-        specifier: 7.0.5
-        version: 7.0.5
+        specifier: 14.1.2
+        version: 14.1.2
       marked-react:
         specifier: 2.0.0
         version: 2.0.0(react@18.3.1)
@@ -8768,13 +8768,13 @@ packages:
     peerDependencies:
       react: ^16.8.0 || >=17.0.0
 
-  marked@6.0.0:
-    resolution: {integrity: sha512-7E3m/xIlymrFL5gWswIT4CheIE3fDeh51NV09M4x8iOc7NDYlyERcQMLAIHcSlrvwliwbPQ4OGD+MpPSYiQcqw==}
-    engines: {node: '>= 16'}
+  marked@14.1.2:
+    resolution: {integrity: sha512-f3r0yqpz31VXiDB/wj9GaOB0a2PRLQl6vJmXiFrniNwjkKdvakqJRULhjFKJpxOchlCRiG5fcacoUZY5Xa6PEQ==}
+    engines: {node: '>= 18'}
     hasBin: true
 
-  marked@7.0.5:
-    resolution: {integrity: sha512-lwNAFTfXgqpt/XvK17a/8wY9/q6fcSPZT1aP6QW0u74VwaJF/Z9KbRcX23sWE4tODM+AolJNcUtErTkgOeFP/Q==}
+  marked@6.0.0:
+    resolution: {integrity: sha512-7E3m/xIlymrFL5gWswIT4CheIE3fDeh51NV09M4x8iOc7NDYlyERcQMLAIHcSlrvwliwbPQ4OGD+MpPSYiQcqw==}
     engines: {node: '>= 16'}
     hasBin: true
 
@@ -23824,9 +23824,9 @@ snapshots:
       marked: 6.0.0
       react: 18.3.1
 
-  marked@6.0.0: {}
+  marked@14.1.2: {}
 
-  marked@7.0.5: {}
+  marked@6.0.0: {}
 
   marky@1.2.5: {}
 
