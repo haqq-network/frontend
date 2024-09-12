@@ -19,10 +19,29 @@ export function StakedVestedBalance({
   const { vestedPercent, stakedPercent, daoLockedPercent, unbondingPercent } =
     useMemo(() => {
       const all = vested + staked + daoLocked + unbonding;
-      const vestedPercent = (vested / all) * 100;
-      const stakedPercent = (staked / all) * 100;
-      const daoLockedPercent = (daoLocked / all) * 100;
-      const unbondingPercent = (unbonding / all) * 100;
+
+      // Check for division by zero
+      if (all === 0) {
+        return {
+          vestedPercent: 0,
+          stakedPercent: 0,
+          daoLockedPercent: 0,
+          unbondingPercent: 0,
+        };
+      }
+
+      // Use toFixed to limit decimal places
+      const vestedPercent = Number(((vested / all) * 100).toFixed(2));
+      const stakedPercent = Number(((staked / all) * 100).toFixed(2));
+      const daoLockedPercent = Number(((daoLocked / all) * 100).toFixed(2));
+      const unbondingPercent = Number(((unbonding / all) * 100).toFixed(2));
+
+      // Check if the sum of percentages equals 100%
+      const totalPercent =
+        vestedPercent + stakedPercent + daoLockedPercent + unbondingPercent;
+      if (totalPercent !== 100) {
+        console.warn('Total percentage does not equal 100%');
+      }
 
       return {
         vestedPercent,
