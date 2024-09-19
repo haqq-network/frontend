@@ -62,20 +62,25 @@ function useStakingStats() {
   const balance = balances?.availableForStake ?? 0;
   const staked = balances?.staked ?? 0;
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
+  const shouldUsePrecompileForRewards = false;
 
   const handleRewardsClaim = useCallback(async () => {
     try {
       posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
+      const rewardExplorerLink = shouldUsePrecompileForRewards
+        ? explorer.evm
+        : explorer.cosmos;
+
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
-        shouldUsePrecompile,
+        shouldUsePrecompileForRewards,
       ).then((estimatedFee) => {
         return claimAllRewards(
           delegatedValsAddrs,
           '',
           estimatedFee,
-          shouldUsePrecompile,
+          shouldUsePrecompileForRewards,
         );
       });
 
@@ -91,7 +96,7 @@ function useStakingStats() {
                 <div>Rewards claimed</div>
                 <div>
                   <Link
-                    href={`${explorerLink}/tx/${txHash}`}
+                    href={`${rewardExplorerLink}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -130,10 +135,12 @@ function useStakingStats() {
     chain.id,
     claimAllRewards,
     delegatedValsAddrs,
-    explorerLink,
+    explorer.cosmos,
+    explorer.evm,
     getClaimAllRewardEstimatedFee,
     invalidateQueries,
     posthog,
+    shouldUsePrecompileForRewards,
     toast,
   ]);
 

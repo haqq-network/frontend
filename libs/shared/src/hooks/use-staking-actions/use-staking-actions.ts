@@ -794,6 +794,7 @@ export function useStakingActions() {
     [handlePrecompileDelegateEstimatedFee, handleDelegateEstimatedFee],
   );
 
+  // Estimate fee for undelegation transaction
   const handleUndelegateEstimatedFee = useCallback(
     async (validatorAddress: string, amount: number) => {
       const pubkey = await getPubkey(ethAddress as string);
@@ -823,6 +824,7 @@ export function useStakingActions() {
     ],
   );
 
+  // Estimate fee for precompile undelegation transaction
   const handlePrecompileUndelegateEstimatedFee = useCallback(
     async (
       validatorAddress: string,
@@ -862,6 +864,7 @@ export function useStakingActions() {
     [config, ethAddress],
   );
 
+  // Unified function to estimate fee for both regular and precompile undelegation
   const handleUnifiedUndelegateEstimatedFee = useCallback(
     async (
       validatorAddress: string,
@@ -880,6 +883,7 @@ export function useStakingActions() {
     [handlePrecompileUndelegateEstimatedFee, handleUndelegateEstimatedFee],
   );
 
+  // Estimate fee for redelegation transaction
   const handleRedelegateEstimatedFee = useCallback(
     async (
       validatorSourceAddress: string,
@@ -914,6 +918,7 @@ export function useStakingActions() {
     ],
   );
 
+  // Estimate fee for precompile redelegation transaction
   const handlePrecompileRedelegateEstimatedFee = useCallback(
     async (
       validatorSourceAddress: string,
@@ -959,6 +964,7 @@ export function useStakingActions() {
     [config, ethAddress],
   );
 
+  // Unified function to estimate fee for both regular and precompile redelegation
   const handleUnifiedRedelegateEstimatedFee = useCallback(
     async (
       validatorSourceAddress: string,
@@ -983,6 +989,7 @@ export function useStakingActions() {
     [handlePrecompileRedelegateEstimatedFee, handleRedelegateEstimatedFee],
   );
 
+  // Estimate fee for claiming rewards from a single validator
   const handleGetRewardEstimatedFee = useCallback(
     async (validatorAddress: string) => {
       const pubkey = await getPubkey(ethAddress as string);
@@ -1009,6 +1016,7 @@ export function useStakingActions() {
     ],
   );
 
+  // Estimate fee for precompile claiming rewards from a single validator
   const handlePrecompileClaimRewardEstimatedFee = useCallback(
     async (validatorAddress: string): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
@@ -1016,17 +1024,25 @@ export function useStakingActions() {
       }
 
       try {
+        const encodedData = encodeFunctionData({
+          abi: withdrawDelegatorRewardAbi,
+          functionName: 'withdrawDelegatorReward',
+          args: [ethAddress, validatorAddress],
+        });
+
+        console.log('Encoded data:', encodedData);
+
         const estimatedGas = await estimateGas(config, {
           to: STAKING_PRECOMPILE_ADDRESS,
-          data: encodeFunctionData({
-            abi: withdrawDelegatorRewardAbi,
-            functionName: 'withdrawDelegatorReward',
-            args: [ethAddress, validatorAddress],
-          }),
+          data: encodedData,
           account: ethAddress,
         });
 
+        console.log('Estimated gas:', estimatedGas);
+
         const gasPrice = await getGasPrice(config);
+
+        console.log('Gas price:', gasPrice);
 
         const fee = estimatedGas * gasPrice;
 
@@ -1043,6 +1059,7 @@ export function useStakingActions() {
     [config, ethAddress],
   );
 
+  // Unified function to estimate fee for both regular and precompile claiming rewards
   const handleUnifiedClaimRewardEstimatedFee = useCallback(
     async (
       validatorAddress: string,
@@ -1056,6 +1073,8 @@ export function useStakingActions() {
     },
     [handlePrecompileClaimRewardEstimatedFee, handleGetRewardEstimatedFee],
   );
+
+  // Estimate fee for claiming rewards from all validators
   const handleGetAllRewardEstimatedFee = useCallback(
     async (validatorAddresses: string[]) => {
       const pubkey = await getPubkey(ethAddress as string);
@@ -1084,6 +1103,7 @@ export function useStakingActions() {
     ],
   );
 
+  // Estimate fee for precompile claiming rewards from all validators
   const handlePrecompileClaimAllRewardsEstimatedFee =
     useCallback(async (): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
@@ -1091,17 +1111,25 @@ export function useStakingActions() {
       }
 
       try {
+        const encodedData = encodeFunctionData({
+          abi: withdrawAllDelegatorRewardsAbi,
+          functionName: 'withdrawAllDelegatorRewards',
+          args: [ethAddress],
+        });
+
+        console.log('Encoded data:', encodedData);
+
         const estimatedGas = await estimateGas(config, {
           to: STAKING_PRECOMPILE_ADDRESS,
-          data: encodeFunctionData({
-            abi: withdrawAllDelegatorRewardsAbi,
-            functionName: 'withdrawAllDelegatorRewards',
-            args: [ethAddress],
-          }),
+          data: encodedData,
           account: ethAddress,
         });
 
+        console.log('Estimated gas:', estimatedGas);
+
         const gasPrice = await getGasPrice(config);
+
+        console.log('Gas price:', gasPrice);
 
         const fee = estimatedGas * gasPrice;
 
@@ -1116,6 +1144,7 @@ export function useStakingActions() {
       }
     }, [config, ethAddress]);
 
+  // Unified function to estimate fee for both regular and precompile claiming rewards
   const handleUnifiedClaimAllRewardsEstimatedFee = useCallback(
     async (
       validatorAddresses: string[],
