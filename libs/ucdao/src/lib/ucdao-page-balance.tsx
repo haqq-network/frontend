@@ -77,7 +77,7 @@ export function DaoPageBalance() {
           </div>
         )}
 
-        <div>
+        {/* <div>
           <Button
             className="w-full md:max-w-[200px]"
             variant={1}
@@ -87,7 +87,7 @@ export function DaoPageBalance() {
           >
             Deposit to DAO
           </Button>
-        </div>
+        </div> */}
       </Container>
 
       {isFundModalOpen && (
