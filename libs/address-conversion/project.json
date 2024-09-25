@@ -1,0 +1,9 @@
+{
+  "name": "shell-address-conversion",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/address-conversion/src",
+  "projectType": "library",
+  "tags": ["shell-lib-address-conversion"],
+  "// targets": "to see all targets run: nx show project address-conversion --web",
+  "targets": {}
+}

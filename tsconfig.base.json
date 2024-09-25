@@ -15,6 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@haqq/address-conversion": ["libs/address-conversion/src/index.ts"],
+      "@haqq/address-conversion/server": [
+        "libs/address-conversion/src/server.ts"
+      ],
       "@haqq/data-access-cosmos": ["libs/data-access/cosmos/src/index.ts"],
       "@haqq/data-access-falconer": ["libs/data-access/falconer/src/index.ts"],
       "@haqq/shell-authz": ["libs/authz/src/index.ts"],
