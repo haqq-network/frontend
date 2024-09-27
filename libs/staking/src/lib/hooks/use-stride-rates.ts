@@ -33,7 +33,5 @@ export function useStrideRates(address?: string) {
     enabled: !!address,
   });
 
-  console.log('redemptionRate', redemptionRate);
-
   return { redemptionRate, isLoading, error };
 }

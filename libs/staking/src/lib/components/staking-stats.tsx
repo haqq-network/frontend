@@ -22,11 +22,13 @@ export function StakingStatsDesktopAmountBlock({
   value,
   symbol,
   isGreen = false,
+  uppercaseSymbol = true,
 }: {
   title: string;
   value: string;
   symbol: string;
   isGreen?: boolean;
+  uppercaseSymbol?: boolean;
 }) {
   return (
     <div className="flex flex-row items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:space-y-[6px]">
@@ -41,7 +43,7 @@ export function StakingStatsDesktopAmountBlock({
             : 'font-guise text-[14px] leading-[22px] text-white sm:text-[15px] sm:leading-[24px] lg:text-[18px] lg:leading-[28px]',
         )}
       >
-        {value} <span>{symbol.toUpperCase()}</span>
+        {value} <span>{uppercaseSymbol ? symbol.toUpperCase() : symbol}</span>
       </div>
     </div>
   );
