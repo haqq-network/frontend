@@ -132,11 +132,13 @@ export function StakingStatsMobileAmountBlock({
   value,
   symbol,
   isGreen = false,
+  uppercaseSymbol = true,
 }: {
   title: string;
   value: string;
   symbol: string;
   isGreen?: boolean;
+  uppercaseSymbol?: boolean;
 }) {
   return (
     <div className="flex flex-row items-center justify-between gap-y-[6px]">
@@ -153,7 +155,8 @@ export function StakingStatsMobileAmountBlock({
             isGreen ? 'text-[#01B26E]' : 'text-white',
           )}
         >
-          {value}&nbsp;{symbol.toUpperCase()}
+          {value}&nbsp;
+          {uppercaseSymbol ? symbol.toUpperCase() : symbol}
         </div>
       </div>
     </div>
