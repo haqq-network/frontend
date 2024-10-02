@@ -6,7 +6,7 @@ import {
   useBankBalance,
   useDaoAllBalancesQuery,
 } from '@haqq/shell-shared';
-import { Button } from '@haqq/shell-ui-kit';
+// import { Button } from '@haqq/shell-ui-kit';
 import {
   Container,
   formatNumber,
