@@ -668,7 +668,7 @@ export function useStakingActions() {
 
   // Handle precompile claiming rewards from all validators
   const handlePrecompileClaimAllRewards = useCallback(
-    async (maxRetrieve: bigint) => {
+    async (maxRetrieve: number) => {
       if (!ethAddress || !writeContractAsync) {
         throw new Error(
           'Insufficient data for claiming all rewards or simulation error',
@@ -701,7 +701,7 @@ export function useStakingActions() {
   const handleUnifiedClaimAllRewards = useCallback(
     async (
       validatorAddresses: string[],
-      maxRetrieve: bigint,
+      maxRetrieve: number,
       memo = '',
       estimatedFee?: EstimatedFeeResponse,
       usePrecompile = false,
@@ -1122,7 +1122,7 @@ export function useStakingActions() {
 
   // Estimate fee for precompile claiming rewards from all validators
   const handlePrecompileClaimAllRewardsEstimatedFee = useCallback(
-    async (maxRetrieve: bigint): Promise<EstimatedFeeResponse> => {
+    async (maxRetrieve: number): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
         throw new Error('Insufficient data for fee estimation');
       }
@@ -1167,7 +1167,7 @@ export function useStakingActions() {
   const handleUnifiedClaimAllRewardsEstimatedFee = useCallback(
     async (
       validatorAddresses: string[],
-      maxRetrieve: bigint,
+      maxRetrieve: number,
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {

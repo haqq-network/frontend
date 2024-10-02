@@ -79,16 +79,15 @@ function useStakingStats() {
     try {
       posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
-      const [, [totalRewards]] = await getTotalRewards();
-      console.log({ rewards: totalRewards });
+      const [rewardsByValidator] = await getTotalRewards();
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
-        totalRewards.amount,
+        rewardsByValidator.length,
         shouldUsePrecompile,
       ).then((estimatedFee) => {
         return claimAllRewards(
           delegatedValsAddrs,
-          totalRewards.amount,
+          rewardsByValidator.length,
           '',
           estimatedFee,
           shouldUsePrecompile,
