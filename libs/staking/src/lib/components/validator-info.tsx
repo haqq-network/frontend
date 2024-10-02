@@ -460,6 +460,7 @@ export function ValidatorInfo({
     claimAllRewards,
     getClaimRewardEstimatedFee,
     getClaimAllRewardEstimatedFee,
+    getTotalRewards,
   } = useStakingActions();
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
   const { data: stakingPool } = useStakingPoolQuery();
@@ -481,7 +482,6 @@ export function ValidatorInfo({
   const [balance, setBalance] = useState(0);
   const posthog = usePostHog();
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
-  const shouldUsePrecompileForRewards = false;
 
   useEffect(() => {
     if (balances) {
@@ -537,18 +537,15 @@ export function ValidatorInfo({
         chainId: chain.id,
       });
       setRewardPending(true);
-      const rewardExplorerLink = shouldUsePrecompileForRewards
-        ? explorer.evm
-        : explorer.cosmos;
       const claimRewardPromise = getClaimRewardEstimatedFee(
         validatorAddress,
-        shouldUsePrecompileForRewards,
+        shouldUsePrecompile,
       ).then((estimatedFee) => {
         return claimReward(
           validatorAddress,
           '',
           estimatedFee,
-          shouldUsePrecompileForRewards,
+          shouldUsePrecompile,
         );
       });
 
@@ -564,7 +561,7 @@ export function ValidatorInfo({
                 <div>Rewards claimed</div>
                 <div>
                   <Link
-                    href={`${rewardExplorerLink}/tx/${txHash}`}
+                    href={`${explorerLink}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -603,12 +600,10 @@ export function ValidatorInfo({
   }, [
     chain.id,
     claimReward,
-    explorer.cosmos,
-    explorer.evm,
+    explorerLink,
     getClaimRewardEstimatedFee,
     invalidateQueries,
     posthog,
-    shouldUsePrecompileForRewards,
     toast,
     validatorAddress,
   ]);
@@ -656,18 +651,18 @@ export function ValidatorInfo({
     try {
       posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
-      const rewardExplorerLink = shouldUsePrecompileForRewards
-        ? explorer.evm
-        : explorer.cosmos;
+      const [, [totalRewards]] = await getTotalRewards();
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
-        shouldUsePrecompileForRewards,
+        totalRewards.amount,
+        shouldUsePrecompile,
       ).then((estimatedFee) => {
         return claimAllRewards(
           delegatedValsAddrs,
+          totalRewards.amount,
           '',
           estimatedFee,
-          shouldUsePrecompileForRewards,
+          shouldUsePrecompile,
         );
       });
 
@@ -681,7 +676,7 @@ export function ValidatorInfo({
             <div className="flex flex-col gap-[8px] text-center">
               <div>Rewards claimed</div>
               <Link
-                href={`${rewardExplorerLink}/tx/${txHash}`}
+                href={`${explorerLink}/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
@@ -716,12 +711,11 @@ export function ValidatorInfo({
     chain.id,
     claimAllRewards,
     delegatedValsAddrs,
-    explorer.cosmos,
-    explorer.evm,
+    explorerLink,
     getClaimAllRewardEstimatedFee,
+    getTotalRewards,
     invalidateQueries,
     posthog,
-    shouldUsePrecompileForRewards,
     toast,
   ]);
 

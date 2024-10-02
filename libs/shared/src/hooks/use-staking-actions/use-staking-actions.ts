@@ -19,21 +19,34 @@ import {
   waitForTransactionReceipt,
   getGasPrice,
   estimateGas,
+  readContract,
 } from '@wagmi/core';
 import { usePostHog } from 'posthog-js/react';
 import { type Hash, encodeFunctionData, parseUnits } from 'viem';
-import { useAccount, useChains, useConfig, useWriteContract } from 'wagmi';
+import {
+  useAccount,
+  useChains,
+  useConfig,
+  useWriteContract,
+  useReadContract,
+} from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import { EstimatedFeeResponse } from '@haqq/data-access-falconer';
-import { STAKING_PRECOMPILE_ADDRESS } from '../../precompile/adresses';
+import {
+  DISTRIBUTION_PRECOMPILE_ADDRESS,
+  STAKING_PRECOMPILE_ADDRESS,
+} from '../../precompile/adresses';
+import {
+  delegationTotalRewardsAbi,
+  withdrawAllDelegatorRewardsAbi,
+  withdrawDelegatorRewardAbi,
+} from '../../precompile/distribution-abi';
 import {
   delegateAbi,
   undelegateAbi,
   redelegateAbi,
-  withdrawAllDelegatorRewardsAbi,
-  withdrawDelegatorRewardAbi,
 } from '../../precompile/staking-abi';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useWallet } from '../../providers/wallet-provider';
@@ -556,9 +569,9 @@ export function useStakingActions() {
       }
 
       const txHash = await writeContractAsync({
-        address: STAKING_PRECOMPILE_ADDRESS,
+        address: DISTRIBUTION_PRECOMPILE_ADDRESS,
         abi: withdrawDelegatorRewardAbi,
-        functionName: 'withdrawDelegatorReward',
+        functionName: 'withdrawDelegatorRewards',
         args: [ethAddress, validatorAddress],
       });
 
@@ -654,43 +667,47 @@ export function useStakingActions() {
   );
 
   // Handle precompile claiming rewards from all validators
-  const handlePrecompileClaimAllRewards = useCallback(async () => {
-    if (!ethAddress || !writeContractAsync) {
-      throw new Error(
-        'Insufficient data for claiming all rewards or simulation error',
-      );
-    }
+  const handlePrecompileClaimAllRewards = useCallback(
+    async (maxRetrieve: bigint) => {
+      if (!ethAddress || !writeContractAsync) {
+        throw new Error(
+          'Insufficient data for claiming all rewards or simulation error',
+        );
+      }
 
-    const txHash = await writeContractAsync({
-      address: STAKING_PRECOMPILE_ADDRESS,
-      abi: withdrawAllDelegatorRewardsAbi,
-      functionName: 'withdrawAllDelegatorRewards',
-      args: [ethAddress],
-    });
+      const txHash = await writeContractAsync({
+        address: DISTRIBUTION_PRECOMPILE_ADDRESS,
+        abi: withdrawAllDelegatorRewardsAbi,
+        functionName: 'claimRewards',
+        args: [ethAddress, maxRetrieve],
+      });
 
-    if (!txHash) {
-      throw new Error('Transaction was not sent');
-    }
+      if (!txHash) {
+        throw new Error('Transaction was not sent');
+      }
 
-    const transactionStatus = await getEvmTransactionStatus(txHash);
+      const transactionStatus = await getEvmTransactionStatus(txHash);
 
-    if (transactionStatus === null) {
-      throw new Error('Transaction not found');
-    }
+      if (transactionStatus === null) {
+        throw new Error('Transaction not found');
+      }
 
-    return transactionStatus.tx_response;
-  }, [ethAddress, writeContractAsync, getEvmTransactionStatus]);
+      return transactionStatus.tx_response;
+    },
+    [ethAddress, writeContractAsync, getEvmTransactionStatus],
+  );
 
   // Unified function to handle both regular and precompile claiming all rewards
   const handleUnifiedClaimAllRewards = useCallback(
     async (
       validatorAddresses: string[],
+      maxRetrieve: bigint,
       memo = '',
       estimatedFee?: EstimatedFeeResponse,
       usePrecompile = false,
     ) => {
       if (usePrecompile) {
-        return await handlePrecompileClaimAllRewards();
+        return await handlePrecompileClaimAllRewards(maxRetrieve);
       } else {
         return await handleClaimAllRewards(
           validatorAddresses,
@@ -1026,14 +1043,14 @@ export function useStakingActions() {
       try {
         const encodedData = encodeFunctionData({
           abi: withdrawDelegatorRewardAbi,
-          functionName: 'withdrawDelegatorReward',
+          functionName: 'withdrawDelegatorRewards',
           args: [ethAddress, validatorAddress],
         });
 
         console.log('Encoded data:', encodedData);
 
         const estimatedGas = await estimateGas(config, {
-          to: STAKING_PRECOMPILE_ADDRESS,
+          to: DISTRIBUTION_PRECOMPILE_ADDRESS,
           data: encodedData,
           account: ethAddress,
         });
@@ -1104,8 +1121,8 @@ export function useStakingActions() {
   );
 
   // Estimate fee for precompile claiming rewards from all validators
-  const handlePrecompileClaimAllRewardsEstimatedFee =
-    useCallback(async (): Promise<EstimatedFeeResponse> => {
+  const handlePrecompileClaimAllRewardsEstimatedFee = useCallback(
+    async (maxRetrieve: bigint): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
         throw new Error('Insufficient data for fee estimation');
       }
@@ -1113,14 +1130,14 @@ export function useStakingActions() {
       try {
         const encodedData = encodeFunctionData({
           abi: withdrawAllDelegatorRewardsAbi,
-          functionName: 'withdrawAllDelegatorRewards',
-          args: [ethAddress],
+          functionName: 'claimRewards',
+          args: [ethAddress, maxRetrieve],
         });
 
         console.log('Encoded data:', encodedData);
 
         const estimatedGas = await estimateGas(config, {
-          to: STAKING_PRECOMPILE_ADDRESS,
+          to: DISTRIBUTION_PRECOMPILE_ADDRESS,
           data: encodedData,
           account: ethAddress,
         });
@@ -1142,16 +1159,19 @@ export function useStakingActions() {
         console.error('Error estimating gas:', error);
         throw error;
       }
-    }, [config, ethAddress]);
+    },
+    [config, ethAddress],
+  );
 
   // Unified function to estimate fee for both regular and precompile claiming rewards
   const handleUnifiedClaimAllRewardsEstimatedFee = useCallback(
     async (
       validatorAddresses: string[],
+      maxRetrieve: bigint,
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
-        return await handlePrecompileClaimAllRewardsEstimatedFee();
+        return await handlePrecompileClaimAllRewardsEstimatedFee(maxRetrieve);
       } else {
         return await handleGetAllRewardEstimatedFee(validatorAddresses);
       }
@@ -1161,6 +1181,43 @@ export function useStakingActions() {
       handleGetAllRewardEstimatedFee,
     ],
   );
+
+  // Get total rewards
+  const handleGetTotalRewardsPrecompile = useCallback(async () => {
+    if (!ethAddress || !config) {
+      throw new Error('Insufficient data for total rewards');
+    }
+
+    try {
+      const encodedData = encodeFunctionData({
+        abi: delegationTotalRewardsAbi,
+        functionName: 'delegationTotalRewards',
+        args: [ethAddress],
+      });
+
+      console.log('Encoded data:', encodedData);
+
+      const totalRewards = await readContract(config, {
+        address: DISTRIBUTION_PRECOMPILE_ADDRESS,
+        abi: delegationTotalRewardsAbi,
+        functionName: 'delegationTotalRewards',
+        args: [ethAddress],
+      });
+
+      console.log('Total rewards:', totalRewards);
+
+      return totalRewards as [
+        {
+          validatorvalidatorAddress: string;
+          reward: { amount: bigint; denom: string; precision: number };
+        }[],
+        { amount: bigint; denom: string; precision: number }[],
+      ];
+    } catch (error) {
+      console.error('Error getting total rewards:', error);
+      throw error;
+    }
+  }, [ethAddress, config]);
 
   return {
     delegate: handleUnifiedDelegate,
@@ -1173,5 +1230,6 @@ export function useStakingActions() {
     getClaimRewardEstimatedFee: handleUnifiedClaimRewardEstimatedFee,
     claimAllRewards: handleUnifiedClaimAllRewards,
     getClaimAllRewardEstimatedFee: handleUnifiedClaimAllRewardsEstimatedFee,
+    getTotalRewards: handleGetTotalRewardsPrecompile,
   };
 }

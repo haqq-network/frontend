@@ -41,7 +41,7 @@ function useStakingStats() {
     [],
   );
   const { haqqAddress } = useAddress();
-  const { claimAllRewards, getClaimAllRewardEstimatedFee } =
+  const { claimAllRewards, getClaimAllRewardEstimatedFee, getTotalRewards } =
     useStakingActions();
   const invalidateQueries = useQueryInvalidate();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
@@ -62,25 +62,36 @@ function useStakingStats() {
   const balance = balances?.availableForStake ?? 0;
   const staked = balances?.staked ?? 0;
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
-  const shouldUsePrecompileForRewards = false;
+
+  const rewards = useMemo(() => {
+    if (rewardsInfo?.total?.length) {
+      const totalRewards = Number.parseFloat(
+        formatUnits(parseUnits(rewardsInfo.total[0].amount, 0), 18),
+      );
+
+      return totalRewards;
+    }
+
+    return 0;
+  }, [rewardsInfo]);
 
   const handleRewardsClaim = useCallback(async () => {
     try {
       posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
-      const rewardExplorerLink = shouldUsePrecompileForRewards
-        ? explorer.evm
-        : explorer.cosmos;
-
+      const [, [totalRewards]] = await getTotalRewards();
+      console.log({ rewards: totalRewards });
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
-        shouldUsePrecompileForRewards,
+        totalRewards.amount,
+        shouldUsePrecompile,
       ).then((estimatedFee) => {
         return claimAllRewards(
           delegatedValsAddrs,
+          totalRewards.amount,
           '',
           estimatedFee,
-          shouldUsePrecompileForRewards,
+          shouldUsePrecompile,
         );
       });
 
@@ -96,7 +107,7 @@ function useStakingStats() {
                 <div>Rewards claimed</div>
                 <div>
                   <Link
-                    href={`${rewardExplorerLink}/tx/${txHash}`}
+                    href={`${explorerLink}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -132,16 +143,15 @@ function useStakingStats() {
       ]);
     }
   }, [
-    chain.id,
-    claimAllRewards,
-    delegatedValsAddrs,
-    explorer.cosmos,
-    explorer.evm,
-    getClaimAllRewardEstimatedFee,
-    invalidateQueries,
     posthog,
-    shouldUsePrecompileForRewards,
+    chain.id,
+    getTotalRewards,
+    getClaimAllRewardEstimatedFee,
+    delegatedValsAddrs,
     toast,
+    claimAllRewards,
+    explorerLink,
+    invalidateQueries,
   ]);
 
   useEffect(() => {
@@ -155,18 +165,6 @@ function useStakingStats() {
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }
   }, [delegationInfo]);
-
-  const rewards = useMemo(() => {
-    if (rewardsInfo?.total?.length) {
-      const totalRewards = Number.parseFloat(
-        formatUnits(parseUnits(rewardsInfo.total[0].amount, 0), 18),
-      );
-
-      return totalRewards;
-    }
-
-    return 0;
-  }, [rewardsInfo]);
 
   const unbounded = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
