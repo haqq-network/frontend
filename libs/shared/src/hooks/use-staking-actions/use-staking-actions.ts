@@ -23,13 +23,7 @@ import {
 } from '@wagmi/core';
 import { usePostHog } from 'posthog-js/react';
 import { type Hash, encodeFunctionData, parseUnits } from 'viem';
-import {
-  useAccount,
-  useChains,
-  useConfig,
-  useWriteContract,
-  useReadContract,
-} from 'wagmi';
+import { useAccount, useChains, useConfig, useWriteContract } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
