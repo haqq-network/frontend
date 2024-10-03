@@ -3,6 +3,7 @@ export * from './utils/get-formatted-address';
 export * from './utils/format-eth-decimals';
 export * from './utils/get-amount-include-fee';
 export * from './utils/parse-wagmi-cookie';
+export * from './utils/validate-address';
 
 export * from './providers/cosmos-provider';
 export * from './providers/react-query-provider';
