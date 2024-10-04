@@ -7,7 +7,7 @@ import {
   CreateConnectorFn,
 } from 'wagmi';
 import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
-import { walletConnect } from 'wagmi/connectors';
+import { safe, walletConnect } from 'wagmi/connectors';
 
 export const supportedChains = [haqqMainnet, haqqTestedge2] as const;
 export const supportedChainsIds = supportedChains.map((chain): number => {
@@ -24,26 +24,35 @@ const supportedChainsTransports = supportedChains.reduce(
 export function createWagmiConfig(walletConnectProjectId?: string) {
   const connectors: CreateConnectorFn[] = [];
 
-  if (walletConnectProjectId) {
-    connectors.push(
-      walletConnect({
-        projectId: walletConnectProjectId,
-        disableProviderPing: true,
-        qrModalOptions: {
-          themeMode: 'dark',
-        },
-      }),
-    );
-  }
+  // if (walletConnectProjectId) {
+  //   connectors.push(
+  //     walletConnect({
+  //       projectId: walletConnectProjectId,
+  //       disableProviderPing: true,
+  //       qrModalOptions: {
+  //         themeMode: 'dark',
+  //       },
+  //     }),
+  //   );
+  // }
+
+  connectors.push(
+    safe({
+      allowedDomains: [/^app\.safe\.global$/, /^safe\.haqq\.network$/],
+      debug: true,
+      shimDisconnect: true,
+      unstable_getInfoTimeout: 10000,
+    }),
+  );
 
   return createConfig({
     chains: supportedChains,
     transports: supportedChainsTransports,
     connectors,
-    ssr: true,
-    multiInjectedProviderDiscovery: true,
-    storage: createStorage({
-      storage: cookieStorage,
-    }),
+    // ssr: true,
+    multiInjectedProviderDiscovery: false,
+    // storage: createStorage({
+    //   storage: cookieStorage,
+    // }),
   });
 }

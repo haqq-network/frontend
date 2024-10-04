@@ -67,17 +67,17 @@ const ParalaxBackground = dynamic(async () => {
 });
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-  const wagmiConfig = createWagmiConfig();
+  // const wagmiConfig = createWagmiConfig();
   const headersList = headers();
-  const cookies = headersList.get('cookie');
-  const { chainId, walletAddress } = parseWagmiCookies(cookies);
-  const chainIdToUse =
-    chainId && supportedChainsIds.includes(chainId)
-      ? chainId
-      : supportedChainsIds[0];
+  // const cookies = headersList.get('cookie');
+  // const { chainId, walletAddress } = parseWagmiCookies(cookies);
+  // const chainIdToUse =
+  //   chainId && supportedChainsIds.includes(chainId)
+  //     ? chainId
+  //     : supportedChainsIds[0];
 
-  const queryClient = new QueryClient();
-  const initialState = cookieToInitialState(wagmiConfig, cookies);
+  // const queryClient = new QueryClient();
+  // const initialState = cookieToInitialState(wagmiConfig, cookies);
   const userAgent = headersList.get('user-agent');
   const isMobileUA = Boolean(
     userAgent?.match(
@@ -85,18 +85,18 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     ),
   );
 
-  if (walletAddress) {
-    const haqqAddress = ethToHaqq(walletAddress);
+  // if (walletAddress) {
+  //   const haqqAddress = ethToHaqq(walletAddress);
 
-    await queryClient.prefetchQuery({
-      queryKey: [chainId, 'indexer-balance', haqqAddress],
-      queryFn: async () => {
-        return await indexerBalancesFetcher(chainIdToUse, haqqAddress);
-      },
-    });
-  }
+  //   await queryClient.prefetchQuery({
+  //     queryKey: [chainId, 'indexer-balance', haqqAddress],
+  //     queryFn: async () => {
+  //       return await indexerBalancesFetcher(chainIdToUse, haqqAddress);
+  //     },
+  //   });
+  // }
 
-  const dehydratedState = dehydrate(queryClient);
+  // const dehydratedState = dehydrate(queryClient);
 
   return (
     <html
@@ -107,8 +107,8 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <PHProvider>
         <body className="relative flex min-h-screen flex-col">
           <AppProviders
-            initialState={initialState}
-            dehydratedState={dehydratedState}
+            initialState={undefined}
+            // dehydratedState={dehydratedState}
             walletConnectProjectId={env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
             isMobileUA={isMobileUA}
           >
