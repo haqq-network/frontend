@@ -9,12 +9,10 @@ import { ethToStride } from '../../utils/convert-address';
 import { useAddress } from '../use-address/use-address';
 import stridLiquidStakingABI from './../../abis/stride-liquid-staking-stride.json';
 
-export function useLiquidStakingActions() {
+export function useLiquidStakingDelegate() {
   const posthog = usePostHog();
 
   const { writeContractAsync: liquidStakeISLM } = useWriteContract();
-
-  const { writeContractAsync: redeemStISLM } = useWriteContract();
 
   const { haqqAddress, ethAddress } = useAddress();
 
@@ -27,17 +25,33 @@ export function useLiquidStakingActions() {
   }, [ethAddress]);
 
   const handleDelegate = useCallback(
-    async (amount: number) => {
+    async (debouncedDelegateAmount: number) => {
       try {
         if (!strideAddress || !haqqAddress) {
           throw new Error('Stride address not found');
         }
 
+        const amount = parseEther(
+          debouncedDelegateAmount.toString(),
+        ).toString();
+
+        console.log(
+          'amount',
+          amount,
+          debouncedDelegateAmount,
+          strideAddress,
+          haqqAddress,
+        );
+
         const tx = await liquidStakeISLM({
           address: STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET,
           abi: stridLiquidStakingABI,
           functionName: 'liquidStakeISLM',
-          args: [parseEther(amount.toString()), strideAddress, haqqAddress],
+          args: [
+            debouncedDelegateAmount.toString(),
+            strideAddress,
+            haqqAddress,
+          ],
         });
 
         console.log('Delegation transaction:', tx);
@@ -57,6 +71,26 @@ export function useLiquidStakingActions() {
     },
     [liquidStakeISLM, posthog, strideAddress, haqqAddress],
   );
+
+  return {
+    delegate: handleDelegate,
+  };
+}
+
+export function useLiquidStakingUndelegate() {
+  const posthog = usePostHog();
+
+  const { writeContractAsync: redeemStISLM } = useWriteContract();
+
+  const { haqqAddress, ethAddress } = useAddress();
+
+  const strideAddress = useMemo(() => {
+    if (ethAddress) {
+      return ethToStride(ethAddress);
+    }
+
+    return undefined;
+  }, [ethAddress]);
 
   const handleUndelegate = useCallback(
     async (amount: number) => {
@@ -89,7 +123,6 @@ export function useLiquidStakingActions() {
   );
 
   return {
-    delegate: handleDelegate,
     undelegate: handleUndelegate,
   };
 }

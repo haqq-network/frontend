@@ -6,83 +6,78 @@ import { useDebounceValue } from 'usehooks-ts';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
-import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
-  getFormattedAddress,
-  useQueryInvalidate,
+  useLiquidStakingUndelegate,
   useToast,
+  getFormattedAddress,
   useWallet,
-  useLiquidStakingDelegate,
+  useQueryInvalidate,
 } from '@haqq/shell-shared';
 import {
-  ToastLoading,
   ToastSuccess,
+  ToastLoading,
   ToastError,
   LinkIcon,
 } from '@haqq/shell-ui-kit/server';
-import { LiquidStakingDelegateModal } from './liquid-staking-delegate-modal';
+import { LiquidStakingUndelegateModal } from './liquid-staking-undelegate-modal';
 
-export interface LiquidStakingDelegateModalProps {
+export interface LiquidStakingUndelegateModalProps {
   isOpen: boolean;
   symbol: string;
   balance: number;
-  onClose: () => void;
+  delegation: number;
   unboundingTime: number;
+  onClose: () => void;
 }
 
-export function LiquidStakingDelegateModalHooked({
+export function LiquidStakingUndelegateModalHooked({
   isOpen,
   onClose,
   symbol,
   balance,
+  delegation,
   unboundingTime,
-}: LiquidStakingDelegateModalProps) {
-  const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
+}: LiquidStakingUndelegateModalProps) {
+  const { undelegate } = useLiquidStakingUndelegate();
+  const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
   );
-  const [debouncedDelegateAmount, setDeboundecDelegateAmount] =
+  const [debouncedUndelegateAmount, setDeboundecUndelegateAmount] =
     useDebounceValue<number | undefined>(undefined, 500);
-  const { delegate } = useLiquidStakingDelegate();
-
-  const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
-  const [isDelegateEnabled, setDelegateEnabled] = useState(false);
+  const [isUndelegateEnabled, setUndelegateEnabled] = useState(false);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
+  const toast = useToast();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
   const { isNetworkSupported } = useWallet();
   const { explorer } = getChainParams(
     isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
   );
-  const toast = useToast();
   const cancelPreviousRequest = useRef<(() => void) | null>(null);
   const posthog = usePostHog();
   const chainId = chain.id;
   const invalidateQueries = useQueryInvalidate();
 
-  const handleSubmitDelegate = useCallback(async () => {
+  const handleSubmitUndelegate = useCallback(async () => {
     try {
-      if (!debouncedDelegateAmount) {
-        return;
-      }
-
-      posthog.capture('delegate started', { chainId });
-      setDelegateEnabled(false);
-      const delegationPromise = delegate(debouncedDelegateAmount ?? 0);
+      posthog.capture('undelegate started', { chainId });
+      setUndelegateEnabled(false);
+      const undelegationPromise = undelegate(debouncedUndelegateAmount || 0);
 
       await toast.promise(
-        delegationPromise,
+        undelegationPromise,
         {
-          loading: <ToastLoading>Delegation in progress</ToastLoading>,
+          loading: <ToastLoading>Undlegation in progress</ToastLoading>,
           success: (tx) => {
-            console.log('Delegation successful', { tx });
+            console.log('Undlegation successful', { tx });
             const txHash = tx?.txHash;
 
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                  <div>Delegation successful</div>
+                  <div>Undelegation successful</div>
                   <div>
                     <Link
                       href={`${explorer.cosmos}/tx/${txHash}`}
@@ -108,77 +103,73 @@ export function LiquidStakingDelegateModalHooked({
           },
         },
       );
-      posthog.capture('delegate success', { chainId });
+      posthog.capture('undelegate success', { chainId });
       onClose();
     } catch (error) {
       const message = (error as Error).message;
-      posthog.capture('delegate failed', { chainId, error: message });
+      posthog.capture('undelegate failed', { chainId, error: message });
       console.error(message);
     } finally {
-      setDelegateEnabled(true);
+      setUndelegateEnabled(false);
       invalidateQueries([[chain.id, 'indexer-balance']]);
     }
   }, [
     posthog,
     chainId,
-    delegate,
-    debouncedDelegateAmount,
+    undelegate,
     toast,
     onClose,
     explorer.cosmos,
     invalidateQueries,
     chain.id,
+    debouncedUndelegateAmount,
   ]);
 
   useEffect(() => {
-    if (!delegateAmount) {
-      setDelegateEnabled(false);
+    if (!undelegateAmount) {
+      setUndelegateEnabled(false);
       setAmountError(undefined);
-      setFee(undefined);
-    } else if (delegateAmount <= 0) {
-      setDelegateEnabled(false);
+    } else if (undelegateAmount <= 0) {
+      setUndelegateEnabled(false);
       setAmountError('min');
-      setFee(undefined);
-    } else if (delegateAmount > balance) {
-      setDelegateEnabled(false);
+    } else if (undelegateAmount > delegation) {
+      setUndelegateEnabled(false);
       setAmountError('max');
-      setFee(undefined);
     } else {
-      setDelegateEnabled(true);
+      setUndelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [balance, delegateAmount, fee]);
+  }, [delegation, undelegateAmount]);
 
   useEffect(() => {
     if (!isOpen) {
-      setDelegateAmount(undefined);
-      setDelegateEnabled(false);
+      setUndelegateAmount(undefined);
+      setUndelegateEnabled(false);
       setAmountError(undefined);
-      setFee(undefined);
-
       if (cancelPreviousRequest.current) {
         cancelPreviousRequest.current();
         cancelPreviousRequest.current = null;
       }
     }
-  }, [cancelPreviousRequest, isOpen, setDelegateAmount]);
+  }, [isOpen]);
 
   useEffect(() => {
-    setDeboundecDelegateAmount(delegateAmount);
-  }, [delegateAmount, setDeboundecDelegateAmount]);
+    setDeboundecUndelegateAmount(undelegateAmount);
+  }, [undelegateAmount, setDeboundecUndelegateAmount]);
 
   return (
-    <LiquidStakingDelegateModal
+    <LiquidStakingUndelegateModal
       isOpen={isOpen}
       onClose={onClose}
       symbol={symbol}
+      delegation={delegation}
       balance={balance}
       unboundingTime={unboundingTime}
-      onChange={setDelegateAmount}
-      isDisabled={!isDelegateEnabled || !delegateAmount}
+      onChange={setUndelegateAmount}
+      isDisabled={!isUndelegateEnabled || !undelegateAmount}
       amountError={amountError}
-      onSubmit={handleSubmitDelegate}
-      delegateAmount={delegateAmount}
+      onSubmit={handleSubmitUndelegate}
+      undelegateAmount={undelegateAmount}
     />
   );
 }

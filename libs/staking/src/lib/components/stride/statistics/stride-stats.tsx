@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'usehooks-ts';
 import { haqqTestedge2 } from 'viem/chains';
-import { useAccount, useBalance, useChains } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import {
   useAddress,
   useIndexerBalanceQuery,
@@ -17,6 +17,7 @@ import {
   Heading,
   WalletIcon,
 } from '@haqq/shell-ui-kit/server';
+import { useStislmBalance } from '../../../hooks/use-stislm-balance';
 import { useStrideRates } from '../../../hooks/use-stride-rates';
 import {
   StakingStatsDesktopAmountBlock,
@@ -24,8 +25,7 @@ import {
 } from '../../staking-stats';
 
 const MIN_BALANCE = 0.2;
-const MIN_DELEGATION = 0.01;
-const stISLM = '0x12fEFEAc0568503F7C0D934c149f29a42B05C48f'; // '0x4FEBDDe47Ab9a76200e57eFcC80b212a07b3e6cE'; // '0x12fEFEAc0568503F7C0D934c149f29a42B05C48f';
+const MIN_DELEGATION = 0.01; // '0x4FEBDDe47Ab9a76200e57eFcC80b212a07b3e6cE'; // '0x12fEFEAc0568503F7C0D934c149f29a42B05C48f';
 
 export function StrideStats() {
   const { openSelectWallet, isHaqqWallet } = useWallet();
@@ -46,14 +46,7 @@ export function StrideStats() {
 
   const { redemptionRate } = useStrideRates(haqqAddress);
 
-  const balanceInStIslm = useBalance({
-    token: stISLM,
-    address: ethAddress,
-  });
-
-  const stIslmBalance = useMemo(() => {
-    return Number.parseFloat(balanceInStIslm.data?.formatted ?? '0');
-  }, [balanceInStIslm.data?.formatted]);
+  const { stIslmBalance } = useStislmBalance();
 
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
 
