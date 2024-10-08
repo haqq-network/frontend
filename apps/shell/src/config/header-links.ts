@@ -36,3 +36,8 @@ export const headerLinks: {
     chains: [haqqTestedge2.id],
   },
 ];
+
+export const headerUtilsLinks: {
+  name: string;
+  link: string;
+}[] = [{ name: 'Address conversion', link: '/utils/address-conversion' }];
