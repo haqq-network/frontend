@@ -44,7 +44,7 @@ export function StrideStats() {
 
   const balance = balances?.availableForStake ?? 0;
 
-  const { redemptionRate } = useStrideRates(haqqAddress);
+  const { data: { redemption_rate: redemptionRate } = {} } = useStrideRates();
 
   const { stIslmBalance } = useStislmBalance();
 
@@ -54,7 +54,7 @@ export function StrideStats() {
     return (
       <section
         className={clsx(
-          'border-haqq-border sticky z-[49] w-full transform-gpu border-y py-[32px] backdrop-blur',
+          'border-haqq-border z-[49] w-full transform-gpu border-y py-[32px] backdrop-blur',
           isTestedge
             ? 'top-[102px] sm:top-[111px]'
             : 'top-[62px] sm:top-[70px]',
@@ -90,7 +90,7 @@ export function StrideStats() {
             ? 'top-[99px] sm:top-[110px]'
             : 'top-[62px] sm:top-[70px]',
         isHaqqWallet && '!border-t-[0px]',
-        !isTablet && 'sticky py-[32px]',
+        !isTablet && 'py-[32px]',
       )}
     >
       {isTablet ? (
@@ -222,7 +222,7 @@ function StrideStatsMobile({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          My account
+          Liquid staking
         </Heading>
       </div>
 

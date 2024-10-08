@@ -5,6 +5,7 @@ import {
   Button,
   ModalHeading,
   ModalInput,
+  StringInput,
 } from '@haqq/shell-ui-kit';
 import {
   WarningMessage,
@@ -25,6 +26,8 @@ export interface LiquidStakingUndelegateModalProps {
   onClose: () => void;
   onChange: (value: number | undefined) => void;
   onSubmit: () => void;
+  strideAddress: string;
+  setStrideAddress: (value: string) => void;
 }
 
 export function LiquidStakingUndelegateModal({
@@ -39,6 +42,8 @@ export function LiquidStakingUndelegateModal({
   onClose,
   onChange,
   onSubmit,
+  strideAddress,
+  setStrideAddress,
 }: LiquidStakingUndelegateModalProps) {
   const handleMaxButtonClick = useCallback(() => {
     onChange(delegation);
@@ -114,15 +119,23 @@ export function LiquidStakingUndelegateModal({
             </div>
             <div className="pt-[24px]">
               <div className="flex flex-col gap-[16px]">
-                <div>
-                  <ModalInput
-                    symbol={symbol}
-                    value={undelegateAmount}
-                    onChange={handleInputChange}
-                    onMaxButtonClick={handleMaxButtonClick}
-                    hint={amountHint}
-                  />
-                </div>
+                <ModalInput
+                  symbol={symbol}
+                  value={undelegateAmount}
+                  onChange={handleInputChange}
+                  onMaxButtonClick={handleMaxButtonClick}
+                  hint={amountHint}
+                />
+
+                <StringInput
+                  value={strideAddress}
+                  onChange={setStrideAddress}
+                  hint={
+                    <span className="text-haqq-danger">
+                      Use your Stride address or default system address
+                    </span>
+                  }
+                />
 
                 <div>
                   <Button

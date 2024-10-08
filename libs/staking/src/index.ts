@@ -13,3 +13,4 @@ export * from './lib/components/undelegate-modal-hooked';
 export * from './lib/components/redelegate-modal-hooked';
 export * from './lib/utils/seconds-to-days';
 export * from './lib/hooks/use-stislm-balance';
+export * from './lib/hooks/use-stride-rates';

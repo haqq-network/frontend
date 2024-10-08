@@ -63,7 +63,7 @@ export function StakingStatsDesktop({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          My account
+          Regular staking
         </Heading>
       </div>
       <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
@@ -177,7 +177,7 @@ export function StakingStatsMobile({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          My account
+          Regular staking
         </Heading>
       </div>
 

@@ -15,23 +15,18 @@ async function fetchRedemptionRate() {
   });
 
   if (haqqZone) {
-    return haqqZone.redemption_rate;
+    return haqqZone;
   } else {
     throw new Error('Haqq zone not found');
   }
 }
 
-export function useStrideRates(address?: string) {
-  const {
-    data: redemptionRate,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['redemptionRate', address],
+export function useStrideRates() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['redemptionRate'],
     queryFn: fetchRedemptionRate,
     refetchInterval: 10000,
-    enabled: !!address,
   });
 
-  return { redemptionRate, isLoading, error };
+  return { data, isLoading, error };
 }

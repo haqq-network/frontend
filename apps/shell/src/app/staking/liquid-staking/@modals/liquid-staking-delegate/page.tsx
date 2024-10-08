@@ -2,11 +2,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAddress, useIndexerBalanceQuery } from '@haqq/shell-shared';
-import { LiquidStakingDelegateModalHooked } from '@haqq/shell-staking';
+import {
+  LiquidStakingDelegateModalHooked,
+  useStrideRates,
+} from '@haqq/shell-staking';
 
 export default function LiquidStakingModalSegment() {
   const { haqqAddress } = useAddress();
-  const { push, back } = useRouter();
+  const { push } = useRouter();
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
 
@@ -17,15 +20,16 @@ export default function LiquidStakingModalSegment() {
     }
   }, [balances]);
 
+  const { data: { unbonding_period } = {} } = useStrideRates();
+
   return (
     <LiquidStakingDelegateModalHooked
       isOpen
       onClose={() => {
         push(`/staking`);
-        back();
       }}
       balance={balance}
-      unboundingTime={21}
+      unboundingTime={unbonding_period}
       symbol="ISLM"
     />
   );
