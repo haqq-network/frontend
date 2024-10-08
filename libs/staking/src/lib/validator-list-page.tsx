@@ -27,9 +27,9 @@ export function ValidatorListPage({
         </div>
       )}
 
-      <StakingInfo />
-
       <StrideStats />
+
+      <StakingInfo />
 
       <ValidatorList
         isMobileUserAgent={isMobileUserAgent}

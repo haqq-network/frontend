@@ -5,11 +5,12 @@ import { useAddress, useIndexerBalanceQuery } from '@haqq/shell-shared';
 import {
   LiquidStakingUndelegateModalHooked,
   useStislmBalance,
+  useStrideRates,
 } from '@haqq/shell-staking';
 
 export default function LiquidStakingUndelegateModalSegment() {
   const { haqqAddress } = useAddress();
-  const { push, back } = useRouter();
+  const { push } = useRouter();
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const [balance, setBalance] = useState(0);
 
@@ -20,18 +21,18 @@ export default function LiquidStakingUndelegateModalSegment() {
     }
   }, [balances]);
 
+  const { data: { unbonding_period } = {} } = useStrideRates();
   const { stIslmBalance } = useStislmBalance();
 
   return (
     <LiquidStakingUndelegateModalHooked
       isOpen
       onClose={() => {
-        push(`/staking`, { scroll: false });
-        back();
+        push(`/staking`);
       }}
       delegation={stIslmBalance}
       balance={balance}
-      unboundingTime={21}
+      unboundingTime={unbonding_period}
       symbol="ISLM"
     />
   );

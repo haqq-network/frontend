@@ -32,6 +32,54 @@ const CurrencyInput = ({
   return <MaskedInput mask={currencyMask} {...inputProps} />;
 };
 
+export function StringInput({
+  value,
+  onChange,
+  placeholder = 'Enter text',
+  className,
+  id,
+  hint,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  className?: string;
+  id?: string;
+  hint?: ReactNode;
+}) {
+  const handleInputChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChange(event.target.value);
+    },
+    [onChange],
+  );
+
+  return (
+    <div>
+      <div className="relative">
+        <input
+          type="text"
+          value={value}
+          onChange={handleInputChange}
+          placeholder={placeholder}
+          className={clsx(
+            'w-full rounded-[6px] outline-none',
+            'transition-colors duration-100 ease-in',
+            'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
+            'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+            'bg-[#E7E7E7]',
+            className,
+          )}
+          id={id}
+        />
+      </div>
+      {hint && (
+        <div className="mt-1 h-[20px] text-xs leading-[20px]">{hint}</div>
+      )}
+    </div>
+  );
+}
+
 export function ModalInput({
   symbol,
   value,

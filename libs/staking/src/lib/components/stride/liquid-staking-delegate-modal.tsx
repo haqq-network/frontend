@@ -6,6 +6,7 @@ import {
   Button,
   ModalHeading,
   ModalInput,
+  StringInput,
 } from '@haqq/shell-ui-kit';
 import {
   WarningMessage,
@@ -25,6 +26,8 @@ export interface LiquidStakingDelegateModalProps {
   onClose: () => void;
   onChange: (value: number | undefined) => void;
   onSubmit: () => void;
+  strideAddress: string;
+  setStrideAddress: (value: string) => void;
 }
 
 export function LiquidStakingDelegateModalDetails({
@@ -120,6 +123,8 @@ export function LiquidStakingDelegateModal({
   onClose,
   onChange,
   onSubmit,
+  strideAddress,
+  setStrideAddress,
 }: LiquidStakingDelegateModalProps) {
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
@@ -190,15 +195,23 @@ export function LiquidStakingDelegateModal({
 
             <div className="pt-[24px]">
               <div className="flex flex-col gap-[16px]">
-                <div>
-                  <ModalInput
-                    symbol={symbol}
-                    value={delegateAmount}
-                    onChange={handleInputChange}
-                    onMaxButtonClick={handleMaxButtonClick}
-                    hint={amountHint}
-                  />
-                </div>
+                <ModalInput
+                  symbol={symbol}
+                  value={delegateAmount}
+                  onChange={handleInputChange}
+                  onMaxButtonClick={handleMaxButtonClick}
+                  hint={amountHint}
+                />
+
+                <StringInput
+                  value={strideAddress}
+                  onChange={setStrideAddress}
+                  hint={
+                    <span className="text-haqq-danger">
+                      Use your Stride address or default system address
+                    </span>
+                  }
+                />
 
                 <div>
                   <Button

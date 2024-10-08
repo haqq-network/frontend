@@ -42,7 +42,8 @@ export function LiquidStakingDelegateModalHooked({
   );
   const [debouncedDelegateAmount, setDeboundecDelegateAmount] =
     useDebounceValue<number | undefined>(undefined, 500);
-  const { delegate } = useLiquidStakingDelegate();
+  const { delegate, setStrideAddress, strideAddress } =
+    useLiquidStakingDelegate();
 
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isDelegateEnabled, setDelegateEnabled] = useState(false);
@@ -77,7 +78,7 @@ export function LiquidStakingDelegateModalHooked({
           loading: <ToastLoading>Delegation in progress</ToastLoading>,
           success: (tx) => {
             console.log('Delegation successful', { tx });
-            const txHash = tx?.txHash;
+            const txHash = tx?.txhash;
 
             return (
               <ToastSuccess>
@@ -179,6 +180,8 @@ export function LiquidStakingDelegateModalHooked({
       amountError={amountError}
       onSubmit={handleSubmitDelegate}
       delegateAmount={delegateAmount}
+      strideAddress={strideAddress}
+      setStrideAddress={setStrideAddress}
     />
   );
 }

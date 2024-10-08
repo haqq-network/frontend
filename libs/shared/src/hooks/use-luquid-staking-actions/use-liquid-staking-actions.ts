@@ -1,33 +1,35 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useState } from 'react';
 import { usePostHog } from 'posthog-js/react';
 import { parseEther } from 'viem';
 import { useWriteContract } from 'wagmi';
+import { useAccount, useChains } from 'wagmi';
 import { STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET } from '../../contracts';
-import { ethToStride } from '../../utils/convert-address';
+import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
 import stridLiquidStakingABI from './../../abis/stride-liquid-staking-stride.json';
+
+const DEFAULT_STRIDE_ADDRESS = 'stride1rdzm229m02my0gn4drc7wrdm8tnz2z9g8nty05';
 
 export function useLiquidStakingDelegate() {
   const posthog = usePostHog();
 
   const { writeContractAsync: liquidStakeISLM } = useWriteContract();
 
-  const { haqqAddress, ethAddress } = useAddress();
+  const { haqqAddress } = useAddress();
 
-  const strideAddress = useMemo(() => {
-    if (ethAddress) {
-      return ethToStride(ethAddress);
-    }
+  const [strideAddress, setStrideAddress] = useState(DEFAULT_STRIDE_ADDRESS);
 
-    return undefined;
-  }, [ethAddress]);
+  const chains = useChains();
+
+  const { chain = chains[0] } = useAccount();
+  const chainId = chain.id;
 
   const handleDelegate = useCallback(
     async (debouncedDelegateAmount: number) => {
       try {
-        if (!strideAddress || !haqqAddress) {
+        if (!haqqAddress) {
           throw new Error('Stride address not found');
         }
 
@@ -35,45 +37,40 @@ export function useLiquidStakingDelegate() {
           debouncedDelegateAmount.toString(),
         ).toString();
 
-        console.log(
-          'amount',
-          amount,
-          debouncedDelegateAmount,
-          strideAddress,
-          haqqAddress,
+        const broadcastPromise = async () => {
+          const tx = await liquidStakeISLM({
+            address: STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET,
+            abi: stridLiquidStakingABI,
+            functionName: 'liquidStakeISLM',
+            args: [amount.toString(), strideAddress, haqqAddress],
+          });
+
+          return {
+            txhash: tx,
+          } as any;
+        };
+
+        const txResponse = await trackBroadcastTx(
+          broadcastPromise(),
+          chainId,
+          posthog,
         );
 
-        const tx = await liquidStakeISLM({
-          address: STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET,
-          abi: stridLiquidStakingABI,
-          functionName: 'liquidStakeISLM',
-          args: [
-            debouncedDelegateAmount.toString(),
-            strideAddress,
-            haqqAddress,
-          ],
-        });
-
-        console.log('Delegation transaction:', tx);
-
-        return {
-          txHash: tx,
-        };
-        // use trackBroadcastTx
-        //posthog?.capture('delegate', { chainId: chain?.id, amount });
+        return txResponse;
       } catch (error) {
         console.error('Delegation failed:', error);
         posthog?.capture('delegate_failed', {
-          // chainId: chain?.id,
           error: (error as Error).message,
         });
       }
     },
-    [liquidStakeISLM, posthog, strideAddress, haqqAddress],
+    [liquidStakeISLM, posthog, strideAddress, haqqAddress, chainId],
   );
 
   return {
     delegate: handleDelegate,
+    setStrideAddress,
+    strideAddress,
   };
 }
 
@@ -82,15 +79,14 @@ export function useLiquidStakingUndelegate() {
 
   const { writeContractAsync: redeemStISLM } = useWriteContract();
 
-  const { haqqAddress, ethAddress } = useAddress();
+  const { haqqAddress } = useAddress();
 
-  const strideAddress = useMemo(() => {
-    if (ethAddress) {
-      return ethToStride(ethAddress);
-    }
+  const [strideAddress, setStrideAddress] = useState(DEFAULT_STRIDE_ADDRESS);
 
-    return undefined;
-  }, [ethAddress]);
+  const chains = useChains();
+
+  const { chain = chains[0] } = useAccount();
+  const chainId = chain.id;
 
   const handleUndelegate = useCallback(
     async (amount: number) => {
@@ -99,18 +95,30 @@ export function useLiquidStakingUndelegate() {
           throw new Error('Stride address not found');
         }
 
-        const tx = await redeemStISLM({
-          address: STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET,
-          abi: stridLiquidStakingABI,
-          functionName: 'redeemStISLM',
-          args: [parseEther(amount.toString()), strideAddress, haqqAddress],
-        });
-        console.log('Undelegation transaction:', tx);
-        //posthog?.capture('undelegate', { chainId: chain?.id, amount });
+        const broadcastPromise = async () => {
+          const tx = await redeemStISLM({
+            address: STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET,
+            abi: stridLiquidStakingABI,
+            functionName: 'redeemStISLM',
+            args: [
+              parseEther(amount.toString()).toString(),
+              strideAddress,
+              haqqAddress,
+            ],
+          });
 
-        return {
-          txHash: tx,
+          return {
+            txhash: tx,
+          } as any;
         };
+
+        const txResponse = await trackBroadcastTx(
+          broadcastPromise(),
+          chainId,
+          posthog,
+        );
+
+        return txResponse;
       } catch (error) {
         console.error('Undelegation failed:', error);
         posthog?.capture('undelegate_failed', {
@@ -119,10 +127,12 @@ export function useLiquidStakingUndelegate() {
         });
       }
     },
-    [redeemStISLM, posthog, strideAddress, haqqAddress],
+    [redeemStISLM, posthog, strideAddress, haqqAddress, chainId],
   );
 
   return {
     undelegate: handleUndelegate,
+    setStrideAddress,
+    strideAddress,
   };
 }

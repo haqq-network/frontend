@@ -38,7 +38,8 @@ export function LiquidStakingUndelegateModalHooked({
   delegation,
   unboundingTime,
 }: LiquidStakingUndelegateModalProps) {
-  const { undelegate } = useLiquidStakingUndelegate();
+  const { undelegate, setStrideAddress, strideAddress } =
+    useLiquidStakingUndelegate();
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -72,7 +73,7 @@ export function LiquidStakingUndelegateModalHooked({
           loading: <ToastLoading>Undlegation in progress</ToastLoading>,
           success: (tx) => {
             console.log('Undlegation successful', { tx });
-            const txHash = tx?.txHash;
+            const txHash = tx?.txhash;
 
             return (
               <ToastSuccess>
@@ -170,6 +171,8 @@ export function LiquidStakingUndelegateModalHooked({
       amountError={amountError}
       onSubmit={handleSubmitUndelegate}
       undelegateAmount={undelegateAmount}
+      strideAddress={strideAddress}
+      setStrideAddress={setStrideAddress}
     />
   );
 }
