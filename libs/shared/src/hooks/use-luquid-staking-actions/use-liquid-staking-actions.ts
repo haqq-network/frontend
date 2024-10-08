@@ -10,7 +10,9 @@ import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
 import stridLiquidStakingABI from './../../abis/stride-liquid-staking-stride.json';
 
-const DEFAULT_STRIDE_ADDRESS = 'stride1rdzm229m02my0gn4drc7wrdm8tnz2z9g8nty05';
+const DEFAULT_STRIDE_ADDRESS =
+  process.env.NEXT_PUBLIC_LIQUID_STAKING_STRIDE_DEFAULT_ADDRESS ||
+  'stride1rdzm229m02my0gn4drc7wrdm8tnz2z9g8nty05';
 
 export function useLiquidStakingDelegate() {
   const posthog = usePostHog();

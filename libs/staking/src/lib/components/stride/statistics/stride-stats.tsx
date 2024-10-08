@@ -110,6 +110,29 @@ export function StrideStats() {
   );
 }
 
+export const useHandleDelegateContinue = () => {
+  const { executeIfNetworkSupported } = useNetworkAwareAction();
+  const router = useRouter();
+
+  const handleDelegateContinue = useCallback(() => {
+    executeIfNetworkSupported(() => {
+      router.push(`/staking/liquid-staking/liquid-staking-delegate`, {
+        scroll: false,
+      });
+    });
+  }, [executeIfNetworkSupported, router]);
+
+  const handleUndelegateContinue = useCallback(() => {
+    executeIfNetworkSupported(() => {
+      router.push(`/staking/liquid-staking/liquid-staking-undelegate`, {
+        scroll: false,
+      });
+    });
+  }, [executeIfNetworkSupported, router]);
+
+  return { handleDelegateContinue, handleUndelegateContinue };
+};
+
 function StrideStatsDesktop({
   balance,
   stIslmBalance,
@@ -119,15 +142,8 @@ function StrideStatsDesktop({
   stIslmBalance: number;
   redemptionRate: number;
 }) {
-  const { executeIfNetworkSupported } = useNetworkAwareAction();
-  const router = useRouter();
-  const handleDelegateContinue = useCallback(() => {
-    executeIfNetworkSupported(() => {
-      router.push(`/staking/liquid-staking/liquid-staking-delegate`, {
-        scroll: false,
-      });
-    });
-  }, [executeIfNetworkSupported, router]);
+  const { handleDelegateContinue, handleUndelegateContinue } =
+    useHandleDelegateContinue();
 
   return (
     <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
@@ -190,12 +206,7 @@ function StrideStatsDesktop({
                 disabled={stIslmBalance < MIN_DELEGATION}
                 data-attr="liquid-staking-undelegate"
                 onClick={() => {
-                  executeIfNetworkSupported(() => {
-                    router.push(
-                      `/staking/liquid-staking/liquid-staking-undelegate`,
-                      { scroll: false },
-                    );
-                  });
+                  handleUndelegateContinue();
                 }}
               >
                 Undelegate
@@ -217,6 +228,9 @@ function StrideStatsMobile({
   stIslmBalance: number;
   redemptionRate: number;
 }) {
+  const { handleDelegateContinue, handleUndelegateContinue } =
+    useHandleDelegateContinue();
+
   return (
     <div className="flex flex-col items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
       <div className="flex flex-row items-center">
@@ -245,6 +259,32 @@ function StrideStatsMobile({
           symbol="ISLM"
           uppercaseSymbol={false}
         />
+      </div>
+
+      <div className="grid w-full grid-cols-2 gap-x-[12px]">
+        <Button
+          variant={2}
+          disabled={balance < MIN_BALANCE}
+          className="w-full"
+          onClick={() => {
+            handleDelegateContinue();
+          }}
+          data-attr="liquid-staking-delegate"
+        >
+          Delegate
+        </Button>
+
+        <Button
+          variant={2}
+          className="w-full"
+          disabled={stIslmBalance < MIN_DELEGATION}
+          data-attr="liquid-staking-undelegate"
+          onClick={() => {
+            handleUndelegateContinue();
+          }}
+        >
+          Undelegate
+        </Button>
       </div>
     </div>
   );
