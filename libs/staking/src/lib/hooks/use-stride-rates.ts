@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { STRIDE_APY_VALUE } from '@haqq/shell-shared';
 
 const HAQQ_STRIDE_ID = 'haqq_11235-1';
 
@@ -28,10 +29,12 @@ export function useStrideRates(stIslmBalance: number) {
     refetchInterval: 10000,
   });
 
+  const islmAmountFromStIslm = stIslmBalance * (data?.redemption_rate ?? 1);
   return {
     data: {
       ...data,
-      islmAmountFromStIslm: stIslmBalance * data?.redemption_rate ?? 1,
+      islmAmountFromStIslm: islmAmountFromStIslm,
+      annualizedYield: islmAmountFromStIslm * (STRIDE_APY_VALUE / 100),
     },
     isLoading,
     error,

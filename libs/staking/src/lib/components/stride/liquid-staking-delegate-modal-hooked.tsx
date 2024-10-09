@@ -45,7 +45,6 @@ export function LiquidStakingDelegateModalHooked({
   const { delegate, setStrideAddress, strideAddress } =
     useLiquidStakingDelegate();
 
-  const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isDelegateEnabled, setDelegateEnabled] = useState(false);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -79,6 +78,10 @@ export function LiquidStakingDelegateModalHooked({
           success: (tx) => {
             console.log('Delegation successful', { tx });
             const txHash = tx?.txhash;
+
+            if (!txHash) {
+              return <ToastError>Delegation declined</ToastError>;
+            }
 
             return (
               <ToastSuccess>
@@ -135,27 +138,23 @@ export function LiquidStakingDelegateModalHooked({
     if (!delegateAmount) {
       setDelegateEnabled(false);
       setAmountError(undefined);
-      setFee(undefined);
     } else if (delegateAmount <= 0) {
       setDelegateEnabled(false);
       setAmountError('min');
-      setFee(undefined);
     } else if (delegateAmount > balance) {
       setDelegateEnabled(false);
       setAmountError('max');
-      setFee(undefined);
     } else {
       setDelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [balance, delegateAmount, fee]);
+  }, [balance, delegateAmount]);
 
   useEffect(() => {
     if (!isOpen) {
       setDelegateAmount(undefined);
       setDelegateEnabled(false);
       setAmountError(undefined);
-      setFee(undefined);
 
       if (cancelPreviousRequest.current) {
         cancelPreviousRequest.current();

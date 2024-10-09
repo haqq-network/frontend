@@ -75,6 +75,10 @@ export function LiquidStakingUndelegateModalHooked({
             console.log('Undlegation successful', { tx });
             const txHash = tx?.txhash;
 
+            if (!txHash) {
+              return <ToastError>Undelegation declined</ToastError>;
+            }
+
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">

@@ -26,6 +26,6 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../shared/src/contracts.ts"
+    "../shared/src/stride-contracts.ts"
   ]
 }
