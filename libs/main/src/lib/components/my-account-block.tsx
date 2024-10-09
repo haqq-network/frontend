@@ -178,8 +178,6 @@ function MyAccountConnected({
     handleMouseLeave: handleMouseLeaveLiquidStaking,
   } = useHoverPopover(100);
 
-  const unbonding = useUnbonding(haqqAddress);
-
   const { stIslmBalance } = useStislmBalance();
 
   const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
@@ -228,7 +226,7 @@ function MyAccountConnected({
                     >
                       <span>Locked: {formatNumber(balances.locked)}</span>
 
-                      {balances && unbonding ? (
+                      {balances ? (
                         <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
                       ) : null}
                     </div>
@@ -467,8 +465,6 @@ function StakingBalancePopup({
     return null;
   }
 
-  console.log(balances);
-
   return (
     <div className="bg-haqq-black font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border bg-opacity-90 text-white shadow-lg backdrop-blur">
       <div className="flex flex-col divide-y divide-white/15 px-[8px]">
@@ -492,7 +488,7 @@ function StakingBalancePopup({
               <div className="text-[14px] leading-[22px] text-white">
                 Locked:{' '}
                 {isLiquidStaking
-                  ? formatNumber(stIslmBalance)
+                  ? formatNumber(stIslmBalance + balances.locked)
                   : formatNumber(balances.locked)}
               </div>
             </div>
@@ -500,8 +496,9 @@ function StakingBalancePopup({
             <div>
               <StakedVestedBalance
                 available={balances.availableForStake}
-                locked={isLiquidStaking ? stIslmBalance : balances.locked}
-                staked={isLiquidStaking ? stIslmBalance : balances.staked}
+                locked={balances.locked}
+                staked={balances.staked}
+                liquidStaked={isLiquidStaking ? stIslmBalance : 0}
                 vested={balances.vested}
                 daoLocked={balances.daoLocked}
                 unbonding={unbonding}
