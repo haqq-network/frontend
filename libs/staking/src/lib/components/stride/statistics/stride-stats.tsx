@@ -133,7 +133,7 @@ function StrideStatsDesktop({
       <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
         <div className="flex w-full flex-1 flex-row gap-[24px]">
           <div className="flex flex-row gap-[24px]">
-            <div className="w-[210px]">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Available"
                 value={formatNumber(balance)}
@@ -141,7 +141,7 @@ function StrideStatsDesktop({
                 uppercaseSymbol={false}
               />
             </div>
-            <div className="w-[210px]">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Staked"
                 value={formatNumber(stIslmBalance)}
@@ -149,7 +149,7 @@ function StrideStatsDesktop({
                 uppercaseSymbol={false}
               />
             </div>
-            <div className="w-[210px]">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="stISLM in ISLM"
                 value={`≈${formatNumber(islmAmountFromStIslm)}`}

@@ -70,7 +70,7 @@ export function StakingStatsDesktop({
       <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
         <div className="flex w-full flex-1 flex-row gap-[24px]">
           <div className="flex flex-row gap-[24px]">
-            <div className="w-[210px]">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Available"
                 value={balance}
@@ -78,7 +78,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="w-[210px]">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Staked"
                 value={delegated}
@@ -86,7 +86,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="w-[210px]">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Unbonding"
                 value={unbounded}
@@ -94,7 +94,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="w-[210px]">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Rewards"
                 value={rewards}
