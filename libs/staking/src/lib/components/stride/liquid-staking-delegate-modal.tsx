@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
+import { STRIDE_APY_VALUE } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -14,6 +15,7 @@ import {
   toFixedAmount,
   SpinnerLoader,
 } from '@haqq/shell-ui-kit/server';
+import { useStrideRates } from '../../hooks/use-stride-rates';
 
 export interface LiquidStakingDelegateModalProps {
   isOpen: boolean;
@@ -161,6 +163,9 @@ export function LiquidStakingDelegateModal({
     return undefined;
   }, [amountError]);
 
+  const { data: { islmAmountFromStIslm, annualizedYield } = {} } =
+    useStrideRates(delegateAmount || 0);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
@@ -188,7 +193,7 @@ export function LiquidStakingDelegateModal({
                 />
                 <LiquidStakingDelegateModalDetails
                   title="APY"
-                  value={`6.15%`}
+                  value={`${STRIDE_APY_VALUE}5%`}
                 />
               </div>
             </div>
@@ -212,6 +217,26 @@ export function LiquidStakingDelegateModal({
                     </span>
                   }
                 />
+
+                <div className="flex flex-col items-center justify-center gap-[16px]">
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
+                      What you'll get:
+                    </div>
+                    <div className="text-[20px] font-[500] font-semibold leading-[26px]">
+                      {formatNumber(islmAmountFromStIslm)} stISLM
+                    </div>
+                  </div>
+
+                  <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-2">
+                    <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
+                      Annual percentage yield
+                    </div>
+                    <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
+                      {formatNumber(annualizedYield)} stISLM
+                    </div>
+                  </div>
+                </div>
 
                 <div>
                   <Button
