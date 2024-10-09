@@ -400,8 +400,8 @@ export function ValidatorInfoComponent({
                 <SwiperSlide>
                   <MyAccountBlockMobile
                     balance={balance}
-                    delegated={delegation}
-                    totalRewards={rewards ?? 0}
+                    delegated={delegated}
+                    totalRewards={totalRewards}
                     onRewardsClaim={onRewardsClaim}
                     unbounded={unbounded}
                     symbol={symbol}
