@@ -25,10 +25,10 @@ import {
 } from '../../staking-stats';
 
 const MIN_BALANCE = 0.2;
-const MIN_DELEGATION = 0.01; // '0x4FEBDDe47Ab9a76200e57eFcC80b212a07b3e6cE'; // '0x12fEFEAc0568503F7C0D934c149f29a42B05C48f';
+const MIN_DELEGATION = 0.01;
 
 export function StrideStats() {
-  const { openSelectWallet, isHaqqWallet } = useWallet();
+  const { isHaqqWallet } = useWallet();
 
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
@@ -44,9 +44,9 @@ export function StrideStats() {
 
   const balance = balances?.availableForStake ?? 0;
 
-  const { data: { redemption_rate: redemptionRate } = {} } = useStrideRates();
-
   const { stIslmBalance } = useStislmBalance();
+
+  const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
 
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
 
@@ -73,13 +73,13 @@ export function StrideStats() {
         <StrideStatsMobile
           balance={balance}
           stIslmBalance={stIslmBalance}
-          redemptionRate={redemptionRate}
+          islmAmountFromStIslm={islmAmountFromStIslm}
         />
       ) : (
         <StrideStatsDesktop
           balance={balance}
           stIslmBalance={stIslmBalance}
-          redemptionRate={redemptionRate}
+          islmAmountFromStIslm={islmAmountFromStIslm}
         />
       )}
     </section>
@@ -112,11 +112,11 @@ export const useHandleDelegateContinue = () => {
 function StrideStatsDesktop({
   balance,
   stIslmBalance,
-  redemptionRate,
+  islmAmountFromStIslm,
 }: {
   balance: number;
   stIslmBalance: number;
-  redemptionRate: number;
+  islmAmountFromStIslm: number;
 }) {
   const { handleDelegateContinue, handleUndelegateContinue } =
     useHandleDelegateContinue();
@@ -152,7 +152,7 @@ function StrideStatsDesktop({
             <div className="w-[210px]">
               <StakingStatsDesktopAmountBlock
                 title="stISLM in ISLM"
-                value={`≈${formatNumber(stIslmBalance * (redemptionRate ?? 1))}`}
+                value={`≈${formatNumber(islmAmountFromStIslm)}`}
                 symbol="ISLM"
                 uppercaseSymbol={false}
               />
@@ -197,11 +197,11 @@ function StrideStatsDesktop({
 function StrideStatsMobile({
   balance,
   stIslmBalance,
-  redemptionRate,
+  islmAmountFromStIslm,
 }: {
   balance: number;
   stIslmBalance: number;
-  redemptionRate: number;
+  islmAmountFromStIslm: number;
 }) {
   const { handleDelegateContinue, handleUndelegateContinue } =
     useHandleDelegateContinue();
@@ -230,7 +230,7 @@ function StrideStatsMobile({
         />
         <StakingStatsMobileAmountBlock
           title="stISLM in ISLM"
-          value={`≈${formatNumber(stIslmBalance * (redemptionRate ?? 1))}`}
+          value={`≈${formatNumber(islmAmountFromStIslm)}`}
           symbol="ISLM"
           uppercaseSymbol={false}
         />
