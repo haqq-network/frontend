@@ -181,7 +181,7 @@ export function LiquidStakingDelegateModal({
                 Delegate
               </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
-                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
+                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} ${unboundingTime === 1 ? 'day' : 'days'}`}
               </WarningMessage>
             </div>
 
@@ -223,7 +223,7 @@ export function LiquidStakingDelegateModal({
                     <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
                       What you'll get:
                     </div>
-                    <div className="text-[20px] font-[500] font-semibold leading-[26px]">
+                    <div className="text-[20px] font-semibold leading-[26px]">
                       {formatNumber(islmAmountFromStIslm)} stISLM
                     </div>
                   </div>

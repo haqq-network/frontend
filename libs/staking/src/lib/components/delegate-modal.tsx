@@ -186,7 +186,7 @@ export function DelegateModal({
                 Delegate
               </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
-                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
+                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} ${unboundingTime === 1 ? 'day' : 'days'}`}
               </WarningMessage>
             </div>
 
