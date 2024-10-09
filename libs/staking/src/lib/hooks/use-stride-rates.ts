@@ -21,12 +21,19 @@ async function fetchRedemptionRate() {
   }
 }
 
-export function useStrideRates() {
+export function useStrideRates(stIslmBalance: number) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['redemptionRate'],
     queryFn: fetchRedemptionRate,
     refetchInterval: 10000,
   });
 
-  return { data, isLoading, error };
+  return {
+    data: {
+      ...data,
+      islmAmountFromStIslm: stIslmBalance * data?.redemption_rate ?? 1,
+    },
+    isLoading,
+    error,
+  };
 }
