@@ -51,37 +51,13 @@ export function StrideStats() {
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
 
   if (!isWalletConnected) {
-    return (
-      <section
-        className={clsx(
-          'border-haqq-border z-[49] w-full transform-gpu border-y py-[32px] backdrop-blur',
-          isTestedge
-            ? 'top-[102px] sm:top-[111px]'
-            : 'top-[62px] sm:top-[70px]',
-        )}
-      >
-        <Container className="flex min-h-[100px] flex-col items-center justify-center gap-[12px]">
-          <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-            You should connect wallet first
-          </div>
-          <div>
-            <Button
-              onClick={openSelectWallet}
-              variant={2}
-              className="text-black hover:bg-transparent hover:text-white"
-            >
-              Connect wallet
-            </Button>
-          </div>
-        </Container>
-      </section>
-    );
+    return null;
   }
 
   return (
     <section
       className={clsx(
-        'border-haqq-border bg-haqq-black/15 z-[49] w-full transform-gpu border-y backdrop-blur',
+        'border-haqq-border bg-haqq-black/15 z-[49] w-full transform-gpu border-t backdrop-blur',
         isHaqqWallet
           ? isTestedge
             ? 'top-[101px] sm:top-[111px]'
@@ -153,10 +129,11 @@ function StrideStatsDesktop({
           Liquid staking
         </Heading>
       </div>
+
       <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
-        <div className="flex w-full flex-1 flex-row">
-          <div className="flex w-full flex-col gap-[8px] sm:flex-row sm:gap-[24px]">
-            <div className="flex-1">
+        <div className="flex w-full flex-1 flex-row gap-[24px]">
+          <div className="flex flex-row gap-[24px]">
+            <div className="w-[210px]">
               <StakingStatsDesktopAmountBlock
                 title="Available"
                 value={formatNumber(balance)}
@@ -164,8 +141,7 @@ function StrideStatsDesktop({
                 uppercaseSymbol={false}
               />
             </div>
-
-            <div className="flex-1">
+            <div className="w-[210px]">
               <StakingStatsDesktopAmountBlock
                 title="Staked"
                 value={formatNumber(stIslmBalance)}
@@ -173,8 +149,7 @@ function StrideStatsDesktop({
                 uppercaseSymbol={false}
               />
             </div>
-
-            <div className="flex-1">
+            <div className="w-[210px]">
               <StakingStatsDesktopAmountBlock
                 title="stISLM in ISLM"
                 value={`≈${formatNumber(stIslmBalance * (redemptionRate ?? 1))}`}
