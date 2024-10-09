@@ -66,10 +66,11 @@ export function StakingStatsDesktop({
           Regular staking
         </Heading>
       </div>
+
       <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
-        <div className="w-full flex-1">
-          <div className="flex w-full flex-col gap-[8px] sm:flex-row sm:gap-[24px]">
-            <div className="flex-1">
+        <div className="flex w-full flex-1 flex-row gap-[24px]">
+          <div className="flex flex-row gap-[24px]">
+            <div className="w-[210px]">
               <StakingStatsDesktopAmountBlock
                 title="Available"
                 value={balance}
@@ -77,7 +78,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="w-[210px]">
               <StakingStatsDesktopAmountBlock
                 title="Staked"
                 value={delegated}
@@ -85,7 +86,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="w-[210px]">
               <StakingStatsDesktopAmountBlock
                 title="Unbonding"
                 value={unbounded}
@@ -93,7 +94,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="w-[210px]">
               <StakingStatsDesktopAmountBlock
                 title="Rewards"
                 value={rewards}
@@ -102,25 +103,25 @@ export function StakingStatsDesktop({
               />
             </div>
           </div>
-        </div>
 
-        <div className="w-full text-start lg:w-auto lg:flex-none">
-          <Tooltip
-            text={
-              Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
-                ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
-                : ''
-            }
-          >
-            <Button
-              disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
-              onClick={onRewardsClaim}
-              variant={2}
-              isLoading={isRewardsPending}
+          <div className="w-full text-start lg:w-auto lg:flex-none">
+            <Tooltip
+              text={
+                Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
+                  ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+                  : ''
+              }
             >
-              Claim all rewards
-            </Button>
-          </Tooltip>
+              <Button
+                disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
+                onClick={onRewardsClaim}
+                variant={2}
+                isLoading={isRewardsPending}
+              >
+                Claim all rewards
+              </Button>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </Container>

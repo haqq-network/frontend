@@ -262,7 +262,7 @@ export function StakingInfo() {
   return (
     <section
       className={clsx(
-        'border-haqq-border bg-haqq-black/15 z-[49] w-full transform-gpu border-y backdrop-blur',
+        'border-haqq-border bg-haqq-black/15 z-[49] w-full transform-gpu border-t backdrop-blur',
         isHaqqWallet
           ? isTestedge
             ? 'top-[101px] sm:top-[111px]'
