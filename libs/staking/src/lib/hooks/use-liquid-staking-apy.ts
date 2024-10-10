@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useStakingData } from './use-staking-data';
+import { useStideStakingInfo } from './use-stride-rates';
 
 const BLOCKS_PER_YEAR = 1464; // 4 restakes per day * 366 days (accounting for leap years)
 const COMMUNITY_POOL_PERCENTAGE = 0.1;
@@ -21,6 +22,12 @@ export function useLiquidStakingApy() {
     seedPhrase: phrase,
   });
 
+  const {
+    data: strideData,
+    error: strideError,
+    isLoading: strideIsLoading,
+  } = useStideStakingInfo();
+
   const { data, error, isLoading } = useQuery({
     queryKey: ['liquidStakingParams'],
     queryFn: fetchParams,
@@ -35,7 +42,22 @@ export function useLiquidStakingApy() {
   let totalApy = 0;
   let validValidatorsCount = 0;
 
-  validators.forEach((validator) => {
+  const strideValidatorsMap =
+    strideData?.validators.reduce(
+      (acc: Record<string, any>, validator: any) => {
+        acc[validator.address] = validator;
+        return acc;
+      },
+      {},
+    ) || {};
+
+  const filteredValidators = validators.filter((validator) => {
+    return strideValidatorsMap
+      ? !!strideValidatorsMap[validator.operator_address]
+      : false;
+  });
+
+  filteredValidators.forEach((validator) => {
     if (
       validator.commission &&
       validator.commission.commission_rates &&
@@ -69,7 +91,7 @@ export function useLiquidStakingApy() {
   return {
     apy,
     strideFee: STRIDE_PERCENTAGE * 100,
-    isLoading,
-    error,
+    isLoading: strideIsLoading || isLoading,
+    error: strideError || error,
   };
 }

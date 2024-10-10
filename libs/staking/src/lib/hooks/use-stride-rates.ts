@@ -24,7 +24,7 @@ async function fetchRedemptionRate() {
 
 export const useStideStakingInfo = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['redemptionRate'],
+    queryKey: ['strideStakingInfo'],
     queryFn: fetchRedemptionRate,
     refetchInterval: 10000,
   });
