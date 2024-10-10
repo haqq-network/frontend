@@ -56,3 +56,13 @@ export function useStrideRates(stIslmBalance: number) {
     error: error || apyError,
   };
 }
+
+export function useStIslmFormIslm(islmBalance: number) {
+  const { data, isLoading, error } = useStideStakingInfo();
+
+  return {
+    stIslmFormIslm: islmBalance / (data?.redemption_rate ?? 1),
+    isLoading,
+    error,
+  };
+}

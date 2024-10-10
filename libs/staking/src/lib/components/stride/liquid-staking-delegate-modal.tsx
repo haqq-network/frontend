@@ -15,7 +15,10 @@ import {
   SpinnerLoader,
 } from '@haqq/shell-ui-kit/server';
 import { useLiquidStakingApy } from '../../hooks/use-liquid-staking-apy';
-import { useStrideRates } from '../../hooks/use-stride-rates';
+import {
+  useStIslmFormIslm,
+  useStrideRates,
+} from '../../hooks/use-stride-rates';
 
 export interface LiquidStakingDelegateModalProps {
   isOpen: boolean;
@@ -163,8 +166,9 @@ export function LiquidStakingDelegateModal({
     return undefined;
   }, [amountError]);
 
-  const { data: { islmAmountFromStIslm, annualizedYield } = {} } =
-    useStrideRates(delegateAmount || 0);
+  const { stIslmFormIslm } = useStIslmFormIslm(delegateAmount || 0);
+
+  const { annualizedYield } = useStrideRates(delegateAmount || 0);
 
   const { apy, strideFee, isLoading } = useLiquidStakingApy();
 
@@ -231,7 +235,7 @@ export function LiquidStakingDelegateModal({
                       What you'll get:
                     </div>
                     <div className="text-[20px] font-semibold leading-[26px]">
-                      {formatNumber(islmAmountFromStIslm)} stISLM
+                      {formatNumber(stIslmFormIslm)} stISLM
                     </div>
                   </div>
 
