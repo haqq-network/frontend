@@ -200,7 +200,7 @@ export function LiquidStakingDelegateModal({
                 />
                 <LiquidStakingDelegateModalDetails
                   title="Commission"
-                  value={`${strideFee * 10}%`}
+                  value={`${strideFee}%`}
                 />
               </div>
             </div>
