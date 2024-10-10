@@ -34,7 +34,12 @@ export function WarningMessage({
           fill="currentColor"
         />
       </svg>
-      <div className={clsx('text-[12px] leading-[18px]', className)}>
+      <div
+        className={clsx(
+          'text-[11px] leading-[16px] lg:text-[12px] lg:leading-[18px]',
+          className,
+        )}
+      >
         {children}
       </div>
     </div>
