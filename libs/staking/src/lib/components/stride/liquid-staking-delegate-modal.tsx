@@ -166,7 +166,7 @@ export function LiquidStakingDelegateModal({
   const { data: { islmAmountFromStIslm, annualizedYield } = {} } =
     useStrideRates(delegateAmount || 0);
 
-  const { apy, isLoading } = useLiquidStakingApy();
+  const { apy, strideFee, isLoading } = useLiquidStakingApy();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -197,6 +197,10 @@ export function LiquidStakingDelegateModal({
                   title="APY"
                   isValuePending={isLoading}
                   value={`${apy}%`}
+                />
+                <LiquidStakingDelegateModalDetails
+                  title="Commission"
+                  value={`${strideFee * 10}%`}
                 />
               </div>
             </div>
