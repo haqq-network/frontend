@@ -168,7 +168,9 @@ export function LiquidStakingDelegateModal({
 
   const { stIslmFormIslm } = useStIslmFormIslm(delegateAmount || 0);
 
-  const { annualizedYield } = useStrideRates(delegateAmount || 0);
+  const { data: { annualizedYield } = {} } = useStrideRates(
+    delegateAmount || 0,
+  );
 
   const { apy, strideFee, isLoading } = useLiquidStakingApy();
 
@@ -223,8 +225,8 @@ export function LiquidStakingDelegateModal({
                   value={strideAddress}
                   onChange={setStrideAddress}
                   hint={
-                    <span className="text-haqq-danger">
-                      Use your Stride address or default system address
+                    <span className="text-[#0D0D0E80]">
+                      Use your Stride address or skip empty
                     </span>
                   }
                 />
@@ -239,14 +241,16 @@ export function LiquidStakingDelegateModal({
                     </div>
                   </div>
 
-                  <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-2">
-                    <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
-                      Annual percentage yield
+                  {annualizedYield ? (
+                    <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-2">
+                      <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
+                        Annual percentage yield
+                      </div>
+                      <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
+                        {formatNumber(annualizedYield)} stISLM
+                      </div>
                     </div>
-                    <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
-                      {formatNumber(annualizedYield)} stISLM
-                    </div>
-                  </div>
+                  ) : null}
                 </div>
 
                 <div>

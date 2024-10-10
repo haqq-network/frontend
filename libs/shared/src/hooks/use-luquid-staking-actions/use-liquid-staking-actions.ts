@@ -20,7 +20,7 @@ export function useLiquidStakingDelegate() {
 
   const { haqqAddress } = useAddress();
 
-  const [strideAddress, setStrideAddress] = useState(DEFAULT_STRIDE_ADDRESS);
+  const [strideAddress, setStrideAddress] = useState();
 
   const chains = useChains();
 
@@ -43,7 +43,11 @@ export function useLiquidStakingDelegate() {
             address: STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET,
             abi: stridLiquidStakingABI,
             functionName: 'liquidStakeISLM',
-            args: [amount.toString(), strideAddress, haqqAddress],
+            args: [
+              amount.toString(),
+              strideAddress || DEFAULT_STRIDE_ADDRESS,
+              haqqAddress,
+            ],
           });
 
           return {
@@ -82,7 +86,7 @@ export function useLiquidStakingUndelegate() {
 
   const { haqqAddress } = useAddress();
 
-  const [strideAddress, setStrideAddress] = useState(DEFAULT_STRIDE_ADDRESS);
+  const [strideAddress, setStrideAddress] = useState();
 
   const chains = useChains();
 
@@ -103,7 +107,7 @@ export function useLiquidStakingUndelegate() {
             functionName: 'redeemStISLM',
             args: [
               parseEther(amount.toString()).toString(),
-              strideAddress,
+              strideAddress || DEFAULT_STRIDE_ADDRESS,
               haqqAddress,
             ],
           });
