@@ -36,4 +36,4 @@ export * from './hooks/liquidvesting/use-liquid-tokens';
 export * from './hooks/dao/use-dao-actions';
 export * from './hooks/dao/use-dao-queries';
 export * from './hooks/use-luquid-staking-actions/use-liquid-staking-actions';
-export * from './stride-contracts';
+export * from './liquid-staking-constants';

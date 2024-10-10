@@ -26,6 +26,6 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../shared/src/stride-contracts.ts"
+    "../shared/src/liquid-staking-constants.ts"
   ]
 }

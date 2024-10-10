@@ -160,11 +160,6 @@ function MyAccountConnected({
       }, 2500);
     }
   }, [copyText, haqqAddress]);
-  const {
-    isHovered: isHoveredLocked,
-    handleMouseEnter: handleMouseEnterLocked,
-    handleMouseLeave: handleMouseLeaveLocked,
-  } = useHoverPopover(100);
 
   const {
     isHovered: isHoveredStaking,
@@ -211,32 +206,6 @@ function MyAccountConnected({
                 {`${formatNumber(balances.balance)} ${symbol.toLocaleUpperCase()}`}
               </div>
               <div className="flex flex-col gap-[4px] leading-[0px]">
-                <Popover open={isHoveredLocked} placement="top-start">
-                  <PopoverTrigger
-                    onMouseEnter={handleMouseEnterLocked}
-                    onMouseLeave={handleMouseLeaveLocked}
-                  >
-                    <div
-                      className={clsx(
-                        'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
-                        'text-white hover:text-white/50',
-                        'text-[12px] font-[500] leading-[18px]',
-                        'transition-colors duration-150 ease-in-out',
-                      )}
-                    >
-                      <span>Locked: {formatNumber(balances.locked)}</span>
-
-                      {balances ? (
-                        <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
-                      ) : null}
-                    </div>
-                  </PopoverTrigger>
-
-                  <PopoverContent className="outline-none">
-                    <LockedBalancePopup haqqAddress={haqqAddress} />
-                  </PopoverContent>
-                </Popover>
-
                 <Popover open={isHoveredStaking} placement="top-start">
                   <PopoverTrigger
                     onMouseEnter={handleMouseEnterStaking}
@@ -394,58 +363,6 @@ const useUnbonding = (haqqAddress: string) => {
 
   return unbonding;
 };
-
-function LockedBalancePopup({ haqqAddress }: { haqqAddress: string }) {
-  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
-  const unbonding = useUnbonding(haqqAddress);
-
-  if (!balances) {
-    return null;
-  }
-
-  return (
-    <div className="bg-haqq-black font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border bg-opacity-90 text-white shadow-lg backdrop-blur">
-      <div className="flex flex-col divide-y divide-white/15 px-[8px]">
-        <div className="py-[8px]">
-          <p className="text-[12px] leading-[18px] text-[#8E8E8E]">
-            Locked tokens are your tokens but you cannot transfer to other users
-            or use them to pay for gas, but you can delegate to validators -
-            stake to improve the reliability of the HAQQ network, and make a
-            profit. Locked tokens are unlocked according to the schedule.
-          </p>
-        </div>
-        <div className="py-[8px]">
-          <div className="flex flex-row items-center gap-[4px]">
-            <CoinIcon />
-            <div className="text-[14px] leading-[22px] text-white">
-              Available: {formatNumber(balances.available)}
-            </div>
-          </div>
-        </div>
-        <div className="py-[8px]">
-          <div className="flex flex-col gap-[8px]">
-            <div className="flex flex-row items-center gap-[4px]">
-              <LockIcon />
-              <div className="text-[14px] leading-[22px] text-white">
-                Locked: {formatNumber(balances.locked)}
-              </div>
-            </div>
-            <div>
-              <StakedVestedBalance
-                available={balances.available}
-                locked={balances.locked}
-                staked={balances.staked}
-                vested={balances.vested}
-                daoLocked={balances.daoLocked}
-                unbonding={unbonding}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function StakingBalancePopup({
   haqqAddress,
