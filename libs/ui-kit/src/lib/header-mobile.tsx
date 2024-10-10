@@ -21,6 +21,7 @@ import { interpolate } from '../utils/interpolate';
 
 export function HeaderMobile({
   web3ButtonsSlot,
+  utilsSlot,
   isHaqqWallet = false,
   renderPageTitle,
   isTestedge,
@@ -28,6 +29,7 @@ export function HeaderMobile({
   className,
 }: {
   web3ButtonsSlot?: ReactNode;
+  utilsSlot?: ReactNode;
   isHaqqWallet?: boolean;
   isTestedge?: boolean;
   renderPageTitle?: () => ReactNode;
@@ -128,6 +130,8 @@ export function HeaderMobile({
                     })}
                   </nav>
                 )}
+
+                {utilsSlot}
 
                 {web3ButtonsSlot}
               </Container>

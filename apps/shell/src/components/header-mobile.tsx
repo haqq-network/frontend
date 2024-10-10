@@ -13,6 +13,11 @@ const Web3ConnectButtonsMobile = dynamic(async () => {
   return { default: Web3ConnectButtonsMobile };
 });
 
+const HeaderUtilsMenu = dynamic(async () => {
+  const { HeaderUtilsMenu } = await import('../components/header-utils-menu');
+  return { default: HeaderUtilsMenu };
+});
+
 export function AppHeaderMobile({ className }: { className?: string }) {
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
@@ -28,6 +33,7 @@ export function AppHeaderMobile({ className }: { className?: string }) {
     <HeaderMobile
       links={links}
       web3ButtonsSlot={<Web3ConnectButtonsMobile />}
+      utilsSlot={<HeaderUtilsMenu />}
       className={className}
       isTestedge={isTestedge}
     />

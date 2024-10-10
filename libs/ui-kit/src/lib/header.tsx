@@ -16,6 +16,7 @@ import { interpolate } from '../utils/interpolate';
 
 export function Header({
   web3ButtonsSlot,
+  utilsSlot,
   isHaqqWallet = false,
   renderPageTitle,
   links,
@@ -23,6 +24,7 @@ export function Header({
   isTestedge,
 }: {
   web3ButtonsSlot?: ReactNode;
+  utilsSlot?: ReactNode;
   isHaqqWallet?: boolean;
   isTestedge?: boolean;
   renderPageTitle?: () => ReactNode;
@@ -71,7 +73,7 @@ export function Header({
             }),
           }}
         >
-          <div className="mx-auto flex h-full w-full flex-row items-center pr-[64px] lg:pr-[80px]">
+          <div className="mx-auto flex h-full w-full flex-row items-center pr-[64px] lg:pr-[24px] xl:pr-[80px]">
             <div
               className={clsx(
                 'flex h-full w-[64px] flex-none items-center justify-center lg:w-[80px]',
@@ -103,7 +105,7 @@ export function Header({
             <div className="flex-1" />
 
             {(web3ButtonsSlot || links.length > 0) && (
-              <div className="flex flex-row items-center gap-[48px]">
+              <div className="flex flex-row items-center gap-[24px]">
                 {links.length > 0 && (
                   <nav className="flex flex-row items-center gap-[24px]">
                     {links.map(({ href, label }) => {
@@ -115,6 +117,8 @@ export function Header({
                     })}
                   </nav>
                 )}
+
+                {utilsSlot}
 
                 {web3ButtonsSlot}
               </div>
