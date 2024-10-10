@@ -5,7 +5,7 @@ import { useAddress, useIndexerBalanceQuery } from '@haqq/shell-shared';
 import {
   LiquidStakingUndelegateModalHooked,
   useStislmBalance,
-  useStrideRates,
+  useStideStakingInfo,
 } from '@haqq/shell-staking';
 
 export default function LiquidStakingUndelegateModalSegment() {
@@ -21,7 +21,7 @@ export default function LiquidStakingUndelegateModalSegment() {
     }
   }, [balances]);
 
-  const { data: { unbonding_period } = {} } = useStrideRates();
+  const { data: { unbonding_period } = {} } = useStideStakingInfo();
   const { stIslmBalance } = useStislmBalance();
 
   return (
