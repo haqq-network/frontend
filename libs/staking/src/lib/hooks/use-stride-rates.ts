@@ -22,13 +22,22 @@ async function fetchRedemptionRate() {
   }
 }
 
-export function useStrideRates(stIslmBalance: number) {
+export const useStideStakingInfo = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['redemptionRate'],
     queryFn: fetchRedemptionRate,
     refetchInterval: 10000,
   });
 
+  return {
+    data,
+    isLoading,
+    error,
+  };
+};
+
+export function useStrideRates(stIslmBalance: number) {
+  const { data, isLoading, error } = useStideStakingInfo();
   const islmAmountFromStIslm = stIslmBalance * (data?.redemption_rate ?? 1);
 
   const {
@@ -41,7 +50,7 @@ export function useStrideRates(stIslmBalance: number) {
     data: {
       ...data,
       islmAmountFromStIslm: islmAmountFromStIslm,
-      annualizedYield: apy ? islmAmountFromStIslm * (apy / 100) : 0,
+      annualizedYield: apy ? islmAmountFromStIslm * (Number(apy) / 100) : 0,
     },
     isLoading: isLoading || isApyLoading,
     error: error || apyError,

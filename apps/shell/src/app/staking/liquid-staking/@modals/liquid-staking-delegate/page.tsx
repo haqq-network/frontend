@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAddress, useIndexerBalanceQuery } from '@haqq/shell-shared';
 import {
   LiquidStakingDelegateModalHooked,
-  useStrideRates,
+  useStideStakingInfo,
 } from '@haqq/shell-staking';
 
 export default function LiquidStakingModalSegment() {
@@ -20,7 +20,7 @@ export default function LiquidStakingModalSegment() {
     }
   }, [balances]);
 
-  const { data: { unbonding_period } = {} } = useStrideRates();
+  const { data: { unbonding_period } = {} } = useStideStakingInfo();
 
   return (
     <LiquidStakingDelegateModalHooked
