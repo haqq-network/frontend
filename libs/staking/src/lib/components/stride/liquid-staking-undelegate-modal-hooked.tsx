@@ -12,6 +12,7 @@ import {
   getFormattedAddress,
   useWallet,
   useQueryInvalidate,
+  useAddress,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -60,10 +61,19 @@ export function LiquidStakingUndelegateModalHooked({
   const posthog = usePostHog();
   const chainId = chain.id;
   const invalidateQueries = useQueryInvalidate();
+  const { haqqAddress, ethAddress } = useAddress();
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
-      posthog.capture('undelegate started', { chainId });
+      posthog.capture('undelegate started', {
+        chainId,
+        undelegateAmount: debouncedUndelegateAmount,
+        address: {
+          evm: ethAddress,
+          bech32: haqqAddress,
+        },
+        isLiquidStaking: true,
+      });
       setUndelegateEnabled(false);
       const undelegationPromise = undelegate(debouncedUndelegateAmount || 0);
 
@@ -78,6 +88,17 @@ export function LiquidStakingUndelegateModalHooked({
             if (!txHash) {
               return <ToastError>Undelegation declined</ToastError>;
             }
+
+            posthog.capture('undelegate success', {
+              chainId,
+              undelegateAmount: debouncedUndelegateAmount,
+              address: {
+                evm: ethAddress,
+                bech32: haqqAddress,
+              },
+              txHash,
+              isLiquidStaking: true,
+            });
 
             return (
               <ToastSuccess>
@@ -108,11 +129,16 @@ export function LiquidStakingUndelegateModalHooked({
           },
         },
       );
-      posthog.capture('undelegate success', { chainId });
       onClose();
     } catch (error) {
       const message = (error as Error).message;
-      posthog.capture('undelegate failed', { chainId, error: message });
+      posthog.capture('undelegate failed', {
+        chainId,
+        address: haqqAddress,
+        undelegateAmount: debouncedUndelegateAmount,
+        error: message,
+        isLiquidStaking: true,
+      });
       console.error(message);
     } finally {
       setUndelegateEnabled(false);
@@ -128,6 +154,8 @@ export function LiquidStakingUndelegateModalHooked({
     invalidateQueries,
     chain.id,
     debouncedUndelegateAmount,
+    ethAddress,
+    haqqAddress,
   ]);
 
   useEffect(() => {

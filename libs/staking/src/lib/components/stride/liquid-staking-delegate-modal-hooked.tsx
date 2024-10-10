@@ -3,16 +3,16 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
-import { useAccount, useChains } from 'wagmi';
+import { useChains, useAccount } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
-import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
   useQueryInvalidate,
   useToast,
   useWallet,
   useLiquidStakingDelegate,
+  useAddress,
 } from '@haqq/shell-shared';
 import {
   ToastLoading,
@@ -49,6 +49,7 @@ export function LiquidStakingDelegateModalHooked({
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
   );
+  const { haqqAddress, ethAddress } = useAddress();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
   const { isNetworkSupported } = useWallet();
@@ -67,9 +68,17 @@ export function LiquidStakingDelegateModalHooked({
         return;
       }
 
-      posthog.capture('delegate started', { chainId });
+      posthog.capture('delegate started', {
+        chainId,
+        delegateAmount: debouncedDelegateAmount,
+        address: {
+          evm: ethAddress,
+          bech32: haqqAddress,
+        },
+        isLiquidStaking: true,
+      });
       setDelegateEnabled(false);
-      const delegationPromise = delegate(debouncedDelegateAmount ?? 0);
+      const delegationPromise = delegate(debouncedDelegateAmount);
 
       await toast.promise(
         delegationPromise,
@@ -82,6 +91,17 @@ export function LiquidStakingDelegateModalHooked({
             if (!txHash) {
               return <ToastError>Delegation declined</ToastError>;
             }
+
+            posthog.capture('delegate success', {
+              chainId,
+              delegateAmount: debouncedDelegateAmount,
+              address: {
+                evm: ethAddress,
+                bech32: haqqAddress,
+              },
+              txHash,
+              isLiquidStaking: true,
+            });
 
             return (
               <ToastSuccess>
@@ -112,11 +132,16 @@ export function LiquidStakingDelegateModalHooked({
           },
         },
       );
-      posthog.capture('delegate success', { chainId });
       onClose();
     } catch (error) {
       const message = (error as Error).message;
-      posthog.capture('delegate failed', { chainId, error: message });
+      posthog.capture('delegate failed', {
+        chainId,
+        address: haqqAddress,
+        delegateAmount: debouncedDelegateAmount,
+        error: message,
+        isLiquidStaking: true,
+      });
       console.error(message);
     } finally {
       setDelegateEnabled(true);
@@ -132,6 +157,8 @@ export function LiquidStakingDelegateModalHooked({
     explorer.cosmos,
     invalidateQueries,
     chain.id,
+    ethAddress,
+    haqqAddress,
   ]);
 
   useEffect(() => {
