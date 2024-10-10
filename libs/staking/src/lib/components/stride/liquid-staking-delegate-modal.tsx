@@ -224,16 +224,12 @@ export function LiquidStakingDelegateModal({
                 <StringInput
                   value={strideAddress}
                   onChange={setStrideAddress}
-                  hint={
-                    <span className="text-[#0D0D0E80]">
-                      Use your Stride address or skip empty
-                    </span>
-                  }
+                  placeholder="Use your Stride address or skip empty"
                 />
 
                 <div className="flex flex-col items-center justify-center gap-[16px]">
                   <div className="flex flex-col items-center justify-center">
-                    <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
+                    <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80] sm:text-[11px] sm:leading-[16px]">
                       What you'll get:
                     </div>
                     <div className="text-[20px] font-semibold leading-[26px]">
@@ -242,8 +238,8 @@ export function LiquidStakingDelegateModal({
                   </div>
 
                   {annualizedYield ? (
-                    <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-2">
-                      <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
+                    <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-[8px]">
+                      <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80] sm:text-[11px] sm:leading-[16px]">
                         Annual percentage yield
                       </div>
                       <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">

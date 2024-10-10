@@ -130,11 +130,7 @@ export function LiquidStakingUndelegateModal({
                 <StringInput
                   value={strideAddress}
                   onChange={setStrideAddress}
-                  hint={
-                    <span className="text-[#0D0D0E80]">
-                      Use your Stride address or skip empty
-                    </span>
-                  }
+                  placeholder="Use your Stride address or skip empty"
                 />
 
                 <div>
