@@ -103,6 +103,7 @@ export async function indexerBalancesFetcher(
     });
 
     const responseJson = await response.json();
+
     return mapBalances(responseJson.result, address);
   } catch (error) {
     console.error((error as Error).message);

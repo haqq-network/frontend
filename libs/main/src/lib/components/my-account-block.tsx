@@ -12,6 +12,7 @@ import {
   useIndexerBalanceQuery,
   useStakingUnbondingsQuery,
 } from '@haqq/shell-shared';
+import { useStislmBalance, useStrideRates } from '@haqq/shell-staking';
 import {
   Tooltip,
   Button,
@@ -36,11 +37,13 @@ import {
 function MyAccountAmountBlock({
   title,
   value,
+  subValue,
   isGreen = false,
   valueClassName,
 }: {
   title: string;
   value: string | ReactNode;
+  subValue?: string;
   isGreen?: boolean;
   valueClassName?: string;
 }) {
@@ -60,6 +63,9 @@ function MyAccountAmountBlock({
       >
         {value}
       </div>
+      {subValue ? (
+        <div className="text-[14px] text-white/50">{subValue}</div>
+      ) : null}
     </div>
   );
 }
@@ -155,8 +161,21 @@ function MyAccountConnected({
     }
   }, [copyText, haqqAddress]);
 
-  const { isHovered, handleMouseEnter, handleMouseLeave } =
-    useHoverPopover(100);
+  const {
+    isHovered: isHoveredStaking,
+    handleMouseEnter: handleMouseEnterStaking,
+    handleMouseLeave: handleMouseLeaveStaking,
+  } = useHoverPopover(100);
+
+  const {
+    isHovered: isHoveredLiquidStaking,
+    handleMouseEnter: handleMouseEnterLiquidStaking,
+    handleMouseLeave: handleMouseLeaveLiquidStaking,
+  } = useHoverPopover(100);
+
+  const { stIslmBalance } = useStislmBalance();
+
+  const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
 
   if (!balances) {
     return null;
@@ -186,11 +205,11 @@ function MyAccountConnected({
               <div className="font-clash text-[20px] font-[500] leading-[26px] text-white">
                 {`${formatNumber(balances.balance)} ${symbol.toLocaleUpperCase()}`}
               </div>
-              <div className="leading-[0px]">
-                <Popover open={isHovered} placement="top-start">
+              <div className="flex flex-col gap-[4px] leading-[0px]">
+                <Popover open={isHoveredStaking} placement="top-start">
                   <PopoverTrigger
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
+                    onMouseEnter={handleMouseEnterStaking}
+                    onMouseLeave={handleMouseLeaveStaking}
                   >
                     <div
                       className={clsx(
@@ -200,24 +219,65 @@ function MyAccountConnected({
                         'transition-colors duration-150 ease-in-out',
                       )}
                     >
-                      <span>Locked: {formatNumber(balances.locked)}</span>
+                      <span>
+                        Available for staking:{' '}
+                        {formatNumber(balances.available)}
+                      </span>
                       <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
                     </div>
                   </PopoverTrigger>
+
                   <PopoverContent className="outline-none">
-                    <LockedBalancePopup haqqAddress={haqqAddress} />
+                    <StakingBalancePopup
+                      haqqAddress={haqqAddress}
+                      title="In regular staking you can use coins in liquid staking"
+                    />
+                  </PopoverContent>
+                </Popover>
+
+                <Popover open={isHoveredLiquidStaking} placement="top-start">
+                  <PopoverTrigger
+                    onMouseEnter={handleMouseEnterLiquidStaking}
+                    onMouseLeave={handleMouseLeaveLiquidStaking}
+                  >
+                    <div
+                      className={clsx(
+                        'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
+                        'text-white hover:text-white/50',
+                        'text-[12px] font-[500] leading-[18px]',
+                        'transition-colors duration-150 ease-in-out',
+                      )}
+                    >
+                      <span>
+                        Available for liquid staking:{' '}
+                        {formatNumber(balances.availableForStake)}
+                      </span>
+                      <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+                    </div>
+                  </PopoverTrigger>
+
+                  <PopoverContent className="outline-none">
+                    <StakingBalancePopup
+                      haqqAddress={haqqAddress}
+                      isLiquidStaking
+                    />
                   </PopoverContent>
                 </Popover>
               </div>
             </div>
           </div>
           <MyAccountAmountBlock
-            title="Staked"
+            title="Regular STAKED"
             value={`${formatNumber(balances.staked)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
             title="Rewards"
             value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
+          />
+          <MyAccountAmountBlock
+            title="Liquid STAKED"
+            value={`${formatNumber(stIslmBalance)} stISLM`}
+            subValue={`≈${formatNumber(islmAmountFromStIslm)} ISLM`}
           />
           <MyAccountAmountBlock
             title="Address"
@@ -281,8 +341,7 @@ function MyAccountConnected({
   );
 }
 
-function LockedBalancePopup({ haqqAddress }: { haqqAddress: string }) {
-  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
+const useUnbonding = (haqqAddress: string) => {
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
   const unbonding = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
@@ -302,26 +361,40 @@ function LockedBalancePopup({ haqqAddress }: { haqqAddress: string }) {
     return Number.parseFloat(formatUnits(BigInt(result), 18));
   }, [undelegations]);
 
-  if (!balances || !unbonding) {
+  return unbonding;
+};
+
+function StakingBalancePopup({
+  haqqAddress,
+  title,
+  isLiquidStaking,
+}: {
+  haqqAddress: string;
+  title?: string;
+  isLiquidStaking?: boolean;
+}) {
+  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
+  const unbonding = useUnbonding(haqqAddress);
+
+  const { stIslmBalance } = useStislmBalance();
+
+  if (!balances) {
     return null;
   }
 
   return (
     <div className="bg-haqq-black font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border bg-opacity-90 text-white shadow-lg backdrop-blur">
       <div className="flex flex-col divide-y divide-white/15 px-[8px]">
-        <div className="py-[8px]">
-          <p className="text-[12px] leading-[18px] text-[#8E8E8E]">
-            Locked tokens are your tokens but you cannot transfer to other users
-            or use them to pay for gas, but you can delegate to validators -
-            stake to improve the reliability of the HAQQ network, and make a
-            profit. Locked tokens are unlocked according to the schedule.
-          </p>
-        </div>
+        {title ? (
+          <div className="py-[8px]">
+            <p className="text-[12px] leading-[18px] text-[#8E8E8E]">{title}</p>
+          </div>
+        ) : null}
         <div className="py-[8px]">
           <div className="flex flex-row items-center gap-[4px]">
             <CoinIcon />
             <div className="text-[14px] leading-[22px] text-white">
-              Available: {formatNumber(balances.available)}
+              Available: {formatNumber(balances.availableForStake)}
             </div>
           </div>
         </div>
@@ -330,14 +403,19 @@ function LockedBalancePopup({ haqqAddress }: { haqqAddress: string }) {
             <div className="flex flex-row items-center gap-[4px]">
               <LockIcon />
               <div className="text-[14px] leading-[22px] text-white">
-                Locked: {formatNumber(balances.locked)}
+                Locked:{' '}
+                {isLiquidStaking
+                  ? formatNumber(stIslmBalance + balances.locked)
+                  : formatNumber(balances.locked)}
               </div>
             </div>
+
             <div>
               <StakedVestedBalance
-                available={balances.available}
+                available={balances.availableForStake}
                 locked={balances.locked}
                 staked={balances.staked}
+                liquidStaked={isLiquidStaking ? stIslmBalance : 0}
                 vested={balances.vested}
                 daoLocked={balances.daoLocked}
                 unbonding={unbonding}

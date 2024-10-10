@@ -22,11 +22,13 @@ export function StakingStatsDesktopAmountBlock({
   value,
   symbol,
   isGreen = false,
+  uppercaseSymbol = true,
 }: {
   title: string;
   value: string;
   symbol: string;
   isGreen?: boolean;
+  uppercaseSymbol?: boolean;
 }) {
   return (
     <div className="flex flex-row items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:space-y-[6px]">
@@ -41,7 +43,7 @@ export function StakingStatsDesktopAmountBlock({
             : 'font-guise text-[14px] leading-[22px] text-white sm:text-[15px] sm:leading-[24px] lg:text-[18px] lg:leading-[28px]',
         )}
       >
-        {value} <span>{symbol.toUpperCase()}</span>
+        {value} <span>{uppercaseSymbol ? symbol.toUpperCase() : symbol}</span>
       </div>
     </div>
   );
@@ -61,13 +63,14 @@ export function StakingStatsDesktop({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          My account
+          Regular staking
         </Heading>
       </div>
+
       <div className="flex w-full flex-col items-center gap-[16px] lg:flex-row lg:gap-[24px]">
-        <div className="w-full flex-1">
-          <div className="flex w-full flex-col gap-[8px] sm:flex-row sm:gap-[24px]">
-            <div className="flex-1">
+        <div className="flex w-full flex-1 flex-row gap-[24px]">
+          <div className="flex flex-row gap-[24px]">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Available"
                 value={balance}
@@ -75,7 +78,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Staked"
                 value={delegated}
@@ -83,7 +86,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Unbonding"
                 value={unbounded}
@@ -91,7 +94,7 @@ export function StakingStatsDesktop({
               />
             </div>
 
-            <div className="flex-1">
+            <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
                 title="Rewards"
                 value={rewards}
@@ -100,25 +103,25 @@ export function StakingStatsDesktop({
               />
             </div>
           </div>
-        </div>
 
-        <div className="w-full text-start lg:w-auto lg:flex-none">
-          <Tooltip
-            text={
-              Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
-                ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
-                : ''
-            }
-          >
-            <Button
-              disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
-              onClick={onRewardsClaim}
-              variant={2}
-              isLoading={isRewardsPending}
+          <div className="w-full text-start lg:w-auto lg:flex-none">
+            <Tooltip
+              text={
+                Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
+                  ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+                  : ''
+              }
             >
-              Claim all rewards
-            </Button>
-          </Tooltip>
+              <Button
+                disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
+                onClick={onRewardsClaim}
+                variant={2}
+                isLoading={isRewardsPending}
+              >
+                Claim all rewards
+              </Button>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </Container>
@@ -130,11 +133,13 @@ export function StakingStatsMobileAmountBlock({
   value,
   symbol,
   isGreen = false,
+  uppercaseSymbol = true,
 }: {
   title: string;
   value: string;
   symbol: string;
   isGreen?: boolean;
+  uppercaseSymbol?: boolean;
 }) {
   return (
     <div className="flex flex-row items-center justify-between gap-y-[6px]">
@@ -151,7 +156,8 @@ export function StakingStatsMobileAmountBlock({
             isGreen ? 'text-[#01B26E]' : 'text-white',
           )}
         >
-          {value}&nbsp;{symbol.toUpperCase()}
+          {value}&nbsp;
+          {uppercaseSymbol ? symbol.toUpperCase() : symbol}
         </div>
       </div>
     </div>
@@ -172,7 +178,7 @@ export function StakingStatsMobile({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          My account
+          Regular staking
         </Heading>
       </div>
 

@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useMemo, useState } from 'react';
+import { ReactNode, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import {
   Modal,
@@ -6,35 +6,33 @@ import {
   Button,
   ModalHeading,
   ModalInput,
+  StringInput,
 } from '@haqq/shell-ui-kit';
 import {
   WarningMessage,
   formatNumber,
   toFixedAmount,
   SpinnerLoader,
-  OrangeLink,
 } from '@haqq/shell-ui-kit/server';
+import { useLiquidStakingApy } from '../../hooks/use-liquid-staking-apy';
+import { useStrideRates } from '../../hooks/use-stride-rates';
 
-export interface DelegateModalProps {
+export interface LiquidStakingDelegateModalProps {
   isOpen: boolean;
   symbol: string;
-  delegation: number;
   balance: number;
   unboundingTime: number;
-  validatorCommission: number;
   amountError?: 'min' | 'max';
   delegateAmount: number | undefined;
   isDisabled: boolean;
-  fee: number | undefined;
-  isFeePending: boolean;
   onClose: () => void;
   onChange: (value: number | undefined) => void;
   onSubmit: () => void;
-  memo?: string;
-  onMemoChange: (value: string) => void;
+  strideAddress: string;
+  setStrideAddress: (value: string) => void;
 }
 
-export function DelegateModalDetails({
+export function LiquidStakingDelegateModalDetails({
   title,
   value,
   className,
@@ -116,26 +114,20 @@ export function DelegateModalSubmitButton({
   );
 }
 
-export function DelegateModal({
+export function LiquidStakingDelegateModal({
   isOpen,
   symbol,
-  delegation,
   balance,
   unboundingTime,
-  validatorCommission,
   amountError,
   delegateAmount,
   isDisabled,
-  fee,
-  isFeePending,
-  memo,
   onClose,
   onChange,
   onSubmit,
-  onMemoChange,
-}: DelegateModalProps) {
-  const [isMemoVisible, setMemoVisible] = useState(false);
-
+  strideAddress,
+  setStrideAddress,
+}: LiquidStakingDelegateModalProps) {
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
   }, [balance, onChange]);
@@ -171,6 +163,11 @@ export function DelegateModal({
     return undefined;
   }, [amountError]);
 
+  const { data: { islmAmountFromStIslm, annualizedYield } = {} } =
+    useStrideRates(delegateAmount || 0);
+
+  const { apy, strideFee, isLoading } = useLiquidStakingApy();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
@@ -192,70 +189,60 @@ export function DelegateModal({
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
-                <DelegateModalDetails
+                <LiquidStakingDelegateModalDetails
                   title="My balance"
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
-                <DelegateModalDetails
-                  title="My delegation"
-                  value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
+                <LiquidStakingDelegateModalDetails
+                  title="APY"
+                  isValuePending={isLoading}
+                  value={`${apy}%`}
                 />
-                <DelegateModalDetails
+                <LiquidStakingDelegateModalDetails
                   title="Commission"
-                  value={`${formatNumber(validatorCommission)}%`}
+                  value={`${strideFee}%`}
                 />
               </div>
             </div>
 
             <div className="pt-[24px]">
               <div className="flex flex-col gap-[16px]">
-                <div>
-                  <ModalInput
-                    symbol={symbol}
-                    value={delegateAmount}
-                    onChange={handleInputChange}
-                    onMaxButtonClick={handleMaxButtonClick}
-                    hint={amountHint}
-                  />
-                </div>
+                <ModalInput
+                  symbol={symbol}
+                  value={delegateAmount}
+                  onChange={handleInputChange}
+                  onMaxButtonClick={handleMaxButtonClick}
+                  hint={amountHint}
+                />
 
-                {!isMemoVisible ? (
-                  <div className="leading-[0]">
-                    <OrangeLink
-                      className="!text-[12px] !font-[500] !leading-[16px]"
-                      onClick={() => {
-                        setMemoVisible(true);
-                      }}
-                    >
-                      Add memo
-                    </OrangeLink>
-                  </div>
-                ) : (
-                  <div className="leading-[0]">
-                    <input
-                      type="text"
-                      value={memo}
-                      onChange={(e) => {
-                        onMemoChange(e.target.value);
-                      }}
-                      className={clsx(
-                        'w-full rounded-[6px] outline-none',
-                        'transition-colors duration-100 ease-in',
-                        'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
-                        'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
-                        'bg-[#E7E7E7]',
-                      )}
-                      placeholder="Add your memo"
-                    />
-                  </div>
-                )}
+                <StringInput
+                  value={strideAddress}
+                  onChange={setStrideAddress}
+                  hint={
+                    <span className="text-haqq-danger">
+                      Use your Stride address or default system address
+                    </span>
+                  }
+                />
 
-                <div>
-                  <DelegateModalDetails
-                    title="Estimated fee"
-                    value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
-                    isValuePending={isFeePending}
-                  />
+                <div className="flex flex-col items-center justify-center gap-[16px]">
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
+                      What you'll get:
+                    </div>
+                    <div className="text-[20px] font-semibold leading-[26px]">
+                      {formatNumber(islmAmountFromStIslm)} stISLM
+                    </div>
+                  </div>
+
+                  <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-2">
+                    <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80]">
+                      Annual percentage yield
+                    </div>
+                    <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
+                      {formatNumber(annualizedYield)} stISLM
+                    </div>
+                  </div>
                 </div>
 
                 <div>
