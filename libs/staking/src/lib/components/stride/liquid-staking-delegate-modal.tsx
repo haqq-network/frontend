@@ -74,7 +74,7 @@ export function LiquidStakingDelegateModalDetails({
       </div>
       <div
         className={clsx(
-          'text-haqq-black font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
+          'text-haqq-black font-clash text-[14px] font-[500] leading-[18px] md:text-[20px] md:leading-[26px]',
           isValuePending && 'animate-pulse',
           valueClassName,
         )}
@@ -229,7 +229,7 @@ export function LiquidStakingDelegateModal({
 
                 <div className="flex flex-col items-center justify-center gap-[16px]">
                   <div className="flex flex-col items-center justify-center">
-                    <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80] sm:text-[11px] sm:leading-[16px]">
+                    <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
                       What you'll get:
                     </div>
                     <div className="text-[20px] font-semibold leading-[26px]">
@@ -239,7 +239,7 @@ export function LiquidStakingDelegateModal({
 
                   {annualizedYield ? (
                     <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-[8px]">
-                      <div className="font-guise mb-2 text-[12px] leading-[18px] text-[#0D0D0E80] sm:text-[11px] sm:leading-[16px]">
+                      <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
                         Annual percentage yield
                       </div>
                       <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
