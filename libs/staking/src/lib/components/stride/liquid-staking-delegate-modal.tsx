@@ -1,6 +1,5 @@
 import { ReactNode, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
-import { STRIDE_APY_VALUE } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -15,6 +14,7 @@ import {
   toFixedAmount,
   SpinnerLoader,
 } from '@haqq/shell-ui-kit/server';
+import { useLiquidStakingApy } from '../../hooks/use-liquid-staking-apy';
 import { useStrideRates } from '../../hooks/use-stride-rates';
 
 export interface LiquidStakingDelegateModalProps {
@@ -166,6 +166,8 @@ export function LiquidStakingDelegateModal({
   const { data: { islmAmountFromStIslm, annualizedYield } = {} } =
     useStrideRates(delegateAmount || 0);
 
+  const { apy, isLoading } = useLiquidStakingApy();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
@@ -193,7 +195,8 @@ export function LiquidStakingDelegateModal({
                 />
                 <LiquidStakingDelegateModalDetails
                   title="APY"
-                  value={`${STRIDE_APY_VALUE}5%`}
+                  isValuePending={isLoading}
+                  value={`${apy}%`}
                 />
               </div>
             </div>

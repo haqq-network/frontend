@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { STRIDE_APY_VALUE } from '@haqq/shell-shared';
+import { useLiquidStakingApy } from './use-liquid-staking-apy';
 
 const HAQQ_STRIDE_ID = 'haqq_11235-1';
 
@@ -30,13 +30,20 @@ export function useStrideRates(stIslmBalance: number) {
   });
 
   const islmAmountFromStIslm = stIslmBalance * (data?.redemption_rate ?? 1);
+
+  const {
+    apy,
+    isLoading: isApyLoading,
+    error: apyError,
+  } = useLiquidStakingApy();
+
   return {
     data: {
       ...data,
       islmAmountFromStIslm: islmAmountFromStIslm,
-      annualizedYield: islmAmountFromStIslm * (STRIDE_APY_VALUE / 100),
+      annualizedYield: apy ? islmAmountFromStIslm * (apy / 100) : 0,
     },
-    isLoading,
-    error,
+    isLoading: isLoading || isApyLoading,
+    error: error || apyError,
   };
 }

@@ -8,7 +8,7 @@ import { useAccount, useChains } from 'wagmi';
 import {
   DEFAULT_STRIDE_ADDRESS,
   STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET,
-} from '../../stride-contracts';
+} from '../../liquid-staking-constants';
 import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
 import stridLiquidStakingABI from './../../abis/stride-liquid-staking-stride.json';
