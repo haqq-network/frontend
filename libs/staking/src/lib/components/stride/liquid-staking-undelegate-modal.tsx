@@ -131,8 +131,8 @@ export function LiquidStakingUndelegateModal({
                   value={strideAddress}
                   onChange={setStrideAddress}
                   hint={
-                    <span className="text-haqq-danger">
-                      Use your Stride address or default system address
+                    <span className="text-[#0D0D0E80]">
+                      Use your Stride address or skip empty
                     </span>
                   }
                 />

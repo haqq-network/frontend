@@ -3,4 +3,4 @@ export const STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET =
 
 export const DEFAULT_STRIDE_ADDRESS =
   process.env.NEXT_PUBLIC_LIQUID_STAKING_STRIDE_DEFAULT_ADDRESS ||
-  'stride1rdzm229m02my0gn4drc7wrdm8tnz2z9g8nty05';
+  'stride14gk556dwmma8f5jxgspkle5m5fn3plalyn4qy5';
