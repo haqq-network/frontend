@@ -20,7 +20,7 @@ export function useLiquidStakingDelegate() {
 
   const { haqqAddress } = useAddress();
 
-  const [strideAddress, setStrideAddress] = useState();
+  const [strideAddress, setStrideAddress] = useState<string>('');
 
   const chains = useChains();
 
@@ -86,7 +86,7 @@ export function useLiquidStakingUndelegate() {
 
   const { haqqAddress } = useAddress();
 
-  const [strideAddress, setStrideAddress] = useState();
+  const [strideAddress, setStrideAddress] = useState<string>('');
 
   const chains = useChains();
 
