@@ -11,7 +11,7 @@ import {
 } from '../../liquid-staking-constants';
 import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
-import stridLiquidStakingABI from './../../abis/stride-liquid-staking-stride.json';
+import stridLiquidStakingABI from './../../abis/stride-liquid-staking.abi.json';
 
 export function useLiquidStakingDelegate() {
   const posthog = usePostHog();
