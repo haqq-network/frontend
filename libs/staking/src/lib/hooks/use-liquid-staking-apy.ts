@@ -64,12 +64,6 @@ export function useLiquidStakingApy() {
   const averageApy =
     validValidatorsCount > 0 ? totalApy / validValidatorsCount : 0;
 
-  console.log('=====> apy', {
-    rewardCoefficient,
-    rewardAfterCommunityPool,
-    averageApy,
-  });
-
   const apy = averageApy.toFixed(2);
 
   return {
