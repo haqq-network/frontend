@@ -130,7 +130,12 @@ export function LiquidStakingUndelegateModal({
                 <StringInput
                   value={strideAddress}
                   onChange={setStrideAddress}
-                  placeholder="Use your Stride address or skip empty"
+                  placeholder="Use your Stride address here"
+                  hint={
+                    <span className="text-haqq-danger">
+                      Stride address is required to undelegate
+                    </span>
+                  }
                 />
 
                 <div>

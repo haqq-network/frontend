@@ -30,8 +30,12 @@ export function useLiquidStakingDelegate() {
   const handleDelegate = useCallback(
     async (debouncedDelegateAmount: number) => {
       try {
-        if (!haqqAddress) {
+        if (!strideAddress) {
           throw new Error('Stride address not found');
+        }
+
+        if (!haqqAddress) {
+          throw new Error('Haqq address not found');
         }
 
         const amount = parseEther(
