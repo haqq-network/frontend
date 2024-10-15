@@ -100,8 +100,12 @@ export function useLiquidStakingUndelegate() {
   const handleUndelegate = useCallback(
     async (amount: number) => {
       try {
-        if (!strideAddress || !haqqAddress) {
+        if (!strideAddress) {
           throw new Error('Stride address not found');
+        }
+
+        if (!haqqAddress) {
+          throw new Error('Haqq address not found');
         }
 
         const broadcastPromise = async () => {
