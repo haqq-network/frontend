@@ -1,5 +1,7 @@
-import { ReactNode, useCallback, useState } from 'react';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
+import { formatUnits } from 'viem';
+import { formatEthDecimal } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -18,7 +20,7 @@ import { ValidatorSelect } from './validator-select';
 export interface RedelegateModalProps {
   isOpen: boolean;
   symbol: string;
-  delegation: number;
+  delegation: bigint;
   redelegateAmount: number | undefined;
   balance: number;
   isDisabled: boolean;
@@ -31,6 +33,7 @@ export interface RedelegateModalProps {
   validatorsOptions: { label: string; value: string }[];
   memo?: string;
   onMemoChange: (value: string) => void;
+  redelegationValidatorAmount: bigint | undefined;
 }
 
 export function RedelegateModalSubmitButton({
@@ -80,12 +83,17 @@ export function RedelegateModal({
   onSubmit,
   onValidatorChange,
   onMemoChange,
+  redelegationValidatorAmount,
 }: RedelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
 
+  const delegationNumber = useMemo(() => {
+    return Number.parseFloat(formatUnits(BigInt(delegation), 18));
+  }, [delegation]);
+
   const handleMaxButtonClick = useCallback(() => {
-    onChange(delegation);
-  }, [delegation, onChange]);
+    onChange(delegationNumber);
+  }, [delegationNumber, onChange]);
 
   const handleInputChange = useCallback(
     (value: string | undefined) => {
@@ -128,10 +136,22 @@ export function RedelegateModal({
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
+                  value={`${formatNumber(delegationNumber)} ${symbol.toUpperCase()}`}
                 />
               </div>
             </div>
+
+            {redelegationValidatorAmount && (
+              <div className="py-[24px]">
+                <div className="flex flex-col gap-[8px]">
+                  <DelegateModalDetails
+                    title="Redelegation amount"
+                    value={`${formatEthDecimal(redelegationValidatorAmount)} ${symbol.toUpperCase()}`}
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="pt-[24px]">
               <div className="flex flex-col gap-[16px]">
                 <div>
