@@ -8,7 +8,7 @@ import { headers } from 'next/headers';
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
 import { ProposalListPage } from '@haqq/shell-governance';
 import { parseWagmiCookies } from '@haqq/shell-shared';
-import { supportedChainsIds } from '../../config/wagmi-config';
+import { supportedChainsIds } from '../../../config/wagmi-config';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
