@@ -4,6 +4,7 @@ import { Validator } from '@evmos/provider';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
+import { formatUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -14,6 +15,7 @@ import {
   useToast,
   useWallet,
   useQueryInvalidate,
+  useAddress,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -23,13 +25,14 @@ import {
   toFixedAmount,
 } from '@haqq/shell-ui-kit/server';
 import { RedelegateModal } from './redelegate-modal';
+import { useRedelegationValidatorAmount } from '../hooks/use-redelegation-validator-amount';
 import { splitValidators } from '../utils/split-validators';
 
 export interface RedelegateModalProps {
   isOpen: boolean;
   symbol: string;
   validatorAddress: string;
-  delegation: number;
+  delegation: bigint;
   onClose: () => void;
   validatorsList: Validator[] | undefined;
   balance: number;
@@ -44,6 +47,13 @@ export function RedelegateModalHooked({
   validatorsList,
   balance,
 }: RedelegateModalProps) {
+  const { haqqAddress } = useAddress();
+
+  const { data: redelegationValidatorAmount } = useRedelegationValidatorAmount(
+    haqqAddress,
+    validatorAddress,
+  );
+
   const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -170,7 +180,10 @@ export function RedelegateModalHooked({
 
   useEffect(() => {
     if (redelegateAmount) {
-      const fixedDelegation = toFixedAmount(delegation, 3) ?? 0;
+      const delegationNumber = Number.parseFloat(
+        formatUnits(BigInt(delegation), 18),
+      );
+      const fixedDelegation = toFixedAmount(delegationNumber, 3) ?? 0;
 
       if (
         !(fixedDelegation > 0) ||
@@ -255,7 +268,7 @@ export function RedelegateModalHooked({
       isOpen={isOpen}
       onClose={onClose}
       symbol={symbol}
-      delegation={delegation}
+      delegation={delegation - BigInt(redelegationValidatorAmount ?? 0)}
       balance={balance}
       onChange={setRedelegateAmount}
       onSubmit={handleSubmitRedelegate}
@@ -273,6 +286,7 @@ export function RedelegateModalHooked({
       isFeePending={isFeePending}
       memo={memo}
       onMemoChange={setMemo}
+      redelegationValidatorAmount={redelegationValidatorAmount}
     />
   );
 }
