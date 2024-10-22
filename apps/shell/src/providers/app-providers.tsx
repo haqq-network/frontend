@@ -11,6 +11,7 @@ import {
 } from '@haqq/shell-shared';
 import { WalletModals } from '../components/wallet-modals';
 import { createWagmiConfig } from '../config/wagmi-config';
+import { TolgeeNextProvider } from '../tolgee/client';
 
 export function AppProviders({
   initialState,
@@ -19,12 +20,16 @@ export function AppProviders({
   dehydratedState,
   wagmiConfig,
   isMobileUA,
+  locales,
+  locale,
 }: PropsWithChildren<{
   initialState: State | undefined;
   walletConnectProjectId?: string;
   dehydratedState?: DehydratedState;
   wagmiConfig?: Config;
   isMobileUA: boolean;
+  locales: Record<string, any>;
+  locale: string;
 }>) {
   const actualWagmiConfig = wagmiConfig
     ? wagmiConfig
@@ -35,10 +40,12 @@ export function AppProviders({
       <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
         <CosmosProvider>
           <WalletProvider>
-            <LayoutProvider isMobileUA={isMobileUA}>
-              {children}
-              <Toaster />
-            </LayoutProvider>
+            <TolgeeNextProvider locale={locale} locales={locales}>
+              <LayoutProvider isMobileUA={isMobileUA}>
+                {children}
+                <Toaster />
+              </LayoutProvider>
+            </TolgeeNextProvider>
             <WalletModals />
           </WalletProvider>
         </CosmosProvider>
