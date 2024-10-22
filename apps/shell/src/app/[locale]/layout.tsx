@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
 import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { cookieToInitialState } from 'wagmi';
 import {
   ethToHaqq,
@@ -12,14 +13,18 @@ import {
   parseWagmiCookies,
 } from '@haqq/shell-shared';
 import { Footer } from '@haqq/shell-ui-kit/server';
-import { AppHeader } from '../components/header';
-import { AppHeaderMobile } from '../components/header-mobile';
-import { createWagmiConfig, supportedChainsIds } from '../config/wagmi-config';
-import { env } from '../env/client';
-import { clashDisplayFont, hkGuiseFont } from '../lib/fonts';
-import { AppProviders } from '../providers/app-providers';
-import { PHProvider } from '../providers/posthog-provider';
-import './global.css';
+import { AppHeader } from '../../components/header';
+import { AppHeaderMobile } from '../../components/header-mobile';
+import {
+  createWagmiConfig,
+  supportedChainsIds,
+} from '../../config/wagmi-config';
+import { env } from '../../env/client';
+import { clashDisplayFont, hkGuiseFont } from '../../lib/fonts';
+import { AppProviders } from '../../providers/app-providers';
+import { PHProvider } from '../../providers/posthog-provider';
+import { ALL_LOCALES, getStaticData } from '../../tolgee/shared';
+import '../global.css';
 
 export const metadata: Metadata = {
   title: {
@@ -39,7 +44,9 @@ export const viewport: Viewport = {
 
 const PostHogPageView = dynamic(
   async () => {
-    const { PostHogPageView } = await import('../components/posthog-page-view');
+    const { PostHogPageView } = await import(
+      '../../components/posthog-page-view'
+    );
     return { default: PostHogPageView };
   },
   {
@@ -50,7 +57,7 @@ const PostHogPageView = dynamic(
 const PostHogIdentifyWalletUsers = dynamic(
   async () => {
     const { PostHogIdentifyWalletUsers } = await import(
-      '../components/posthog-identify-users'
+      '../../components/posthog-identify-users'
     );
     return { default: PostHogIdentifyWalletUsers };
   },
@@ -61,12 +68,15 @@ const PostHogIdentifyWalletUsers = dynamic(
 
 const ParalaxBackground = dynamic(async () => {
   const { ParalaxBackground } = await import(
-    '../components/paralax-background'
+    '../../components/paralax-background'
   );
   return { default: ParalaxBackground };
 });
 
-export default async function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({
+  children,
+  params,
+}: PropsWithChildren<{ params: { locale: string } }>) {
   const wagmiConfig = createWagmiConfig();
   const headersList = headers();
   const cookies = headersList.get('cookie');
@@ -96,6 +106,14 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     });
   }
 
+  if (!ALL_LOCALES.includes(params.locale)) {
+    notFound();
+  }
+
+  // make sure you provide all the necessary locales
+  // for the inital SSR render (e.g. fallback languages)
+  const locales = await getStaticData([params.locale]);
+
   const dehydratedState = dehydrate(queryClient);
 
   return (
@@ -111,6 +129,8 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             dehydratedState={dehydratedState}
             walletConnectProjectId={env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
             isMobileUA={isMobileUA}
+            locales={locales}
+            locale={params.locale}
           >
             <PostHogPageView />
             <PostHogIdentifyWalletUsers />

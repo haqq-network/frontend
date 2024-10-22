@@ -12,8 +12,8 @@ import {
   indexerBalancesFetcher,
   parseWagmiCookies,
 } from '@haqq/shell-shared';
-import { supportedChainsIds } from '../../config/wagmi-config';
-import { env } from '../../env/client';
+import { supportedChainsIds } from '../../../config/wagmi-config';
+import { env } from '../../../env/client';
 
 const AuthProvider = dynamic(async () => {
   const { AuthProvider } = await import('@haqq/shell-faucet');
