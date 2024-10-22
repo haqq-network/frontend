@@ -33,7 +33,7 @@ export default function LiquidStakingUndelegateModalSegment() {
       delegation={stIslmBalance}
       balance={balance}
       unboundingTime={unbonding_period}
-      symbol="ISLM"
+      symbol="stISLM"
     />
   );
 }
