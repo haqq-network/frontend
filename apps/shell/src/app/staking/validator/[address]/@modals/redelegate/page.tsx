@@ -37,7 +37,7 @@ export default function RedelegateModalSegment() {
       return BigInt(delegation.balance.amount);
     }
 
-    return 0;
+    return 0n;
   }, [delegationInfo, address]);
 
   return (
