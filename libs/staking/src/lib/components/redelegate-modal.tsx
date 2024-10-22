@@ -1,7 +1,6 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { formatUnits } from 'viem';
-import { formatEthDecimal } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -91,6 +90,12 @@ export function RedelegateModal({
     return Number.parseFloat(formatUnits(BigInt(delegation), 18));
   }, [delegation]);
 
+  const redelegationValidatorAmountNumber = useMemo(() => {
+    return Number.parseFloat(
+      formatUnits(BigInt(redelegationValidatorAmount ?? 0), 18),
+    );
+  }, [redelegationValidatorAmount]);
+
   const handleMaxButtonClick = useCallback(() => {
     onChange(delegationNumber);
   }, [delegationNumber, onChange]);
@@ -146,7 +151,7 @@ export function RedelegateModal({
                 <div className="flex flex-col gap-[8px]">
                   <DelegateModalDetails
                     title="Redelegation amount"
-                    value={`${formatEthDecimal(redelegationValidatorAmount)} ${symbol.toUpperCase()}`}
+                    value={`${formatNumber(redelegationValidatorAmountNumber)} ${symbol.toUpperCase()}`}
                   />
                 </div>
               </div>
