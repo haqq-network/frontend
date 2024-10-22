@@ -34,9 +34,7 @@ export default function RedelegateModalSegment() {
     );
 
     if (delegation) {
-      return Number.parseFloat(
-        formatUnits(BigInt(delegation.balance.amount), 18),
-      );
+      return BigInt(delegation.balance.amount);
     }
 
     return 0;
