@@ -11,7 +11,7 @@ import {
   parseWagmiCookies,
 } from '@haqq/shell-shared';
 import { ValidatorListPage } from '@haqq/shell-staking';
-import { supportedChainsIds } from '../../config/wagmi-config';
+import { supportedChainsIds } from '../../../config/wagmi-config';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';

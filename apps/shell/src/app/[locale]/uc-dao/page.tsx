@@ -11,7 +11,7 @@ import {
   parseWagmiCookies,
 } from '@haqq/shell-shared';
 import { UCDaoPage } from '@haqq/shell-ucdao';
-import { supportedChainsIds } from '../../config/wagmi-config';
+import { supportedChainsIds } from '../../../config/wagmi-config';
 
 export default async function Authz() {
   const cookies = headers().get('cookie');

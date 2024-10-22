@@ -1,29 +1,22 @@
 import {
+  dehydrate,
   HydrationBoundary,
   QueryClient,
-  dehydrate,
 } from '@tanstack/react-query';
 import { headers } from 'next/headers';
-import { notFound } from 'next/navigation';
 import { createCosmosService, getChainParams } from '@haqq/data-access-cosmos';
+import { MainPage } from '@haqq/shell-main';
 import {
   ethToHaqq,
+  getShellChainStatsData,
   indexerBalancesFetcher,
   parseWagmiCookies,
 } from '@haqq/shell-shared';
-import { ValidatorDetailsPage } from '@haqq/shell-staking';
-import { supportedChainsIds } from '../../../../config/wagmi-config';
+import { supportedChainsIds } from '../../config/wagmi-config';
 
-export default async function ValidatorDetails({
-  params: { address },
-}: {
-  params: { address: string };
-}) {
-  if (!address) {
-    return notFound();
-  }
-
-  const cookies = headers().get('cookie');
+export default async function IndexPage() {
+  const headersList = headers();
+  const cookies = headersList.get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
   const chainIdToUse =
     chainId && supportedChainsIds.includes(chainId)
@@ -32,20 +25,52 @@ export default async function ValidatorDetails({
 
   const { cosmosRestEndpoint } = getChainParams(chainIdToUse);
   const {
+    getProposals,
+    getGovernanceParams,
     getValidators,
-    getValidatorInfo,
     getStakingPool,
     getStakingParams,
     getRewardsInfo,
     getAccountDelegations,
-    getUndelegations,
   } = createCosmosService(cosmosRestEndpoint);
   const queryClient = new QueryClient();
+  const userAgent = headersList.get('user-agent');
+  const isMobileUserAgent = Boolean(
+    userAgent?.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+    ),
+  );
 
   await queryClient.prefetchQuery({
-    queryKey: [chainIdToUse, 'validators'],
+    queryKey: [chainIdToUse, 'chain-stats'],
+    queryFn: getShellChainStatsData,
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: [chainIdToUse, 'proposals'],
+    queryFn: getProposals,
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: [chainIdToUse, 'governance-params'],
     queryFn: async () => {
-      return await getValidators();
+      const [deposit_params, voting_params, tally_params] = await Promise.all([
+        getGovernanceParams('deposit').then((res) => {
+          return res.deposit_params;
+        }),
+        getGovernanceParams('voting').then((res) => {
+          return res.voting_params;
+        }),
+        getGovernanceParams('tallying').then((res) => {
+          return res.tally_params;
+        }),
+      ]);
+
+      return {
+        deposit_params,
+        voting_params,
+        tally_params,
+      };
     },
   });
 
@@ -60,9 +85,9 @@ export default async function ValidatorDetails({
   });
 
   await queryClient.prefetchQuery({
-    queryKey: [chainIdToUse, 'validator', address],
-    queryFn: () => {
-      return getValidatorInfo(address);
+    queryKey: [chainIdToUse, 'validators'],
+    queryFn: async () => {
+      return await getValidators();
     },
   });
 
@@ -78,7 +103,12 @@ export default async function ValidatorDetails({
 
     await queryClient.prefetchQuery({
       queryKey: [chainIdToUse, 'rewards', haqqAddress],
+
       queryFn: async () => {
+        if (!haqqAddress) {
+          return null;
+        }
+
         return await getRewardsInfo(haqqAddress);
       },
     });
@@ -86,14 +116,11 @@ export default async function ValidatorDetails({
     await queryClient.prefetchQuery({
       queryKey: [chainIdToUse, 'delegation', haqqAddress],
       queryFn: async () => {
-        return await getAccountDelegations(haqqAddress);
-      },
-    });
+        if (!haqqAddress) {
+          return null;
+        }
 
-    await queryClient.prefetchQuery({
-      queryKey: [chainIdToUse, 'unbondings', haqqAddress],
-      queryFn: async () => {
-        return await getUndelegations(haqqAddress);
+        return await getAccountDelegations(haqqAddress);
       },
     });
   }
@@ -102,7 +129,10 @@ export default async function ValidatorDetails({
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <ValidatorDetailsPage address={address} />
+      <MainPage
+        isMobileUserAgent={isMobileUserAgent}
+        seedPhrase={Date.now().toString()}
+      />
     </HydrationBoundary>
   );
 }
