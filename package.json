@@ -14,7 +14,8 @@
     "start:vesting": "pnpm exec nx serve vesting",
     "start:storybook": "pnpm exec nx storybook storybook",
     "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
-    "prepare": "pnpm exec husky"
+    "prepare": "pnpm exec husky",
+    "lint": "pnpm exec eslint . --ext .ts,.tsx,.js,.jsx"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.2.4",
@@ -44,6 +45,7 @@
     "core-js": "3.38.1",
     "cosmjs-types": "0.9.0",
     "elliptic": "6.5.7",
+    "i18next": "23.16.2",
     "lodash": "4.17.21",
     "marked": "7.0.5",
     "marked-react": "2.0.0",
@@ -128,6 +130,7 @@
     "eslint-config-next": "14.2.14",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-cypress": "3.5.0",
+    "eslint-plugin-i18next": "6.1.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.0",
     "eslint-plugin-prettier": "5.2.1",
