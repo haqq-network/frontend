@@ -59,3 +59,5 @@ package-lock.json
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+**/vite.config.{js,ts,mjs,mts,cjs,cts}.timestamp*
