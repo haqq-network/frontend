@@ -13,9 +13,10 @@
     "start:shell": "pnpm exec nx dev shell",
     "start:vesting": "pnpm exec nx serve vesting",
     "start:storybook": "pnpm exec nx storybook storybook",
+    "lint": "pnpm exec nx run-many --target lint --verbose",
+    "test": "pnpm exec nx run-many --target test --verbose",
     "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
-    "prepare": "pnpm exec husky",
-    "lint": "pnpm exec eslint . --ext .ts,.tsx,.js,.jsx"
+    "prepare": "pnpm exec husky"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.2.4",
