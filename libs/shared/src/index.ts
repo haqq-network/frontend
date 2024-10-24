@@ -39,4 +39,8 @@ export * from './hooks/use-luquid-staking-actions/use-liquid-staking-actions';
 export * from './hooks/use-deep-link/use-deep-link';
 export * from './hooks/use-autoconnect/use-autoconnect';
 
+export * from './precompile/staking-abi';
+export * from './precompile/distribution-abi';
+export * from './precompile/adresses';
+
 export * from './liquid-staking-constants';

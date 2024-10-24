@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
+import { parseUnits, formatUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -14,6 +15,8 @@ import {
   useStakingActions,
   useToast,
   useWallet,
+  useStakingAllowance,
+  stakingMessageTypes,
 } from '@haqq/shell-shared';
 import {
   ToastLoading,
@@ -45,7 +48,7 @@ export function DelegateModalHooked({
   unboundingTime,
   validatorCommission,
 }: DelegateModalProps) {
-  const { delegate, getDelegateEstimatedFee } = useStakingActions();
+  const { delegate, getDelegateEstimatedFee, approve } = useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -71,6 +74,30 @@ export function DelegateModalHooked({
   const [memo, setMemo] = useState('');
   const invalidateQueries = useQueryInvalidate();
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
+
+  // Check allowance for delegation
+  const { allowance } = useStakingAllowance(
+    ethAddress,
+    ethAddress,
+    '/cosmos.staking.v1beta1.MsgDelegate',
+  );
+  console.log('Allowance for delegate', { ethAddress, allowance });
+
+  const handleApprove = useCallback(async () => {
+    if (!delegateAmount) return;
+
+    try {
+      const amountInWei = parseUnits(delegateAmount.toString(), 18);
+      await approve(amountInWei, stakingMessageTypes);
+    } catch (error) {
+      console.error('Approval failed:', error);
+      toast.error(
+        <ToastError>
+          {error instanceof Error ? error.message : 'Unknown error'}
+        </ToastError>,
+      );
+    }
+  }, [delegateAmount, approve, toast]);
 
   const handleSubmitDelegate = useCallback(async () => {
     try {
@@ -272,10 +299,11 @@ export function DelegateModalHooked({
       amountError={amountError}
       onSubmit={handleSubmitDelegate}
       delegateAmount={delegateAmount}
-      fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
+      fee={fee ? parseFloat(formatUnits(BigInt(fee.fee), 18)) : undefined}
       isFeePending={isFeePending}
       memo={memo}
       onMemoChange={setMemo}
+      onApprove={handleApprove}
     />
   );
 }

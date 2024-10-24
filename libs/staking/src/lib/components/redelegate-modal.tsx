@@ -33,6 +33,7 @@ export interface RedelegateModalProps {
   memo?: string;
   onMemoChange: (value: string) => void;
   redelegationValidatorAmount: bigint | undefined;
+  onApprove: () => void;
 }
 
 export function RedelegateModalSubmitButton({
@@ -83,6 +84,7 @@ export function RedelegateModal({
   onValidatorChange,
   onMemoChange,
   redelegationValidatorAmount,
+  onApprove,
 }: RedelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
 
@@ -214,7 +216,16 @@ export function RedelegateModal({
                   />
                 </div>
 
-                <div>
+                <div className="flex gap-4">
+                  <Button
+                    variant={3}
+                    onClick={onApprove}
+                    className="w-full"
+                    disabled={isDisabled}
+                  >
+                    Approve
+                  </Button>
+
                   <Button
                     variant={3}
                     onClick={onSubmit}

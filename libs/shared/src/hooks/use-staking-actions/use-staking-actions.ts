@@ -23,7 +23,14 @@ import {
 } from '@wagmi/core';
 import { usePostHog } from 'posthog-js/react';
 import { type Hash, encodeFunctionData, parseUnits } from 'viem';
-import { useAccount, useChains, useConfig, useWriteContract } from 'wagmi';
+import {
+  useAccount,
+  useChains,
+  useConfig,
+  useReadContract,
+  useWriteContract,
+  Config,
+} from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
@@ -41,6 +48,9 @@ import {
   delegateAbi,
   undelegateAbi,
   redelegateAbi,
+  approveAbi,
+  stakingMessageTypes,
+  allowanceAbi,
 } from '../../precompile/staking-abi';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useWallet } from '../../providers/wallet-provider';
@@ -1213,6 +1223,34 @@ export function useStakingActions() {
     }
   }, [ethAddress, config]);
 
+  const handleApprove = useCallback(
+    async (amount: bigint, method: Array<string>) => {
+      if (!ethAddress || !writeContractAsync) {
+        throw new Error('No eth address or write contract available');
+      }
+
+      const txHash = await writeContractAsync({
+        address: STAKING_PRECOMPILE_ADDRESS,
+        abi: approveAbi,
+        functionName: 'approve',
+        args: [ethAddress, amount, method],
+      });
+
+      if (!txHash) {
+        throw new Error('Approve transaction failed');
+      }
+
+      const receipt = await waitForTransactionReceipt(config, { hash: txHash });
+
+      if (receipt.status !== 'success') {
+        throw new Error('Approve transaction failed');
+      }
+
+      return receipt;
+    },
+    [ethAddress, writeContractAsync, config],
+  );
+
   return {
     delegate: handleUnifiedDelegate,
     getDelegateEstimatedFee: handleUnifiedDelegateEstimatedFee,
@@ -1225,5 +1263,38 @@ export function useStakingActions() {
     claimAllRewards: handleUnifiedClaimAllRewards,
     getClaimAllRewardEstimatedFee: handleUnifiedClaimAllRewardsEstimatedFee,
     getTotalRewards: handleGetTotalRewardsPrecompile,
+    approve: handleApprove,
+  };
+}
+
+export function useStakingAllowance(
+  owner: string | undefined,
+  spender: string | undefined,
+  method: string,
+) {
+  const { data: allowance, refetch } = useReadContract<
+    typeof allowanceAbi,
+    'allowance',
+    [string, string, string],
+    Config,
+    bigint
+  >({
+    address: STAKING_PRECOMPILE_ADDRESS,
+    abi: allowanceAbi,
+    functionName: 'allowance',
+    args: owner && spender ? [owner, spender, method] : undefined,
+    query: {
+      enabled: Boolean(owner && spender),
+    },
+  });
+
+  const checkAllowance = useCallback(async () => {
+    const { data } = await refetch();
+    return data;
+  }, [refetch]);
+
+  return {
+    allowance,
+    checkAllowance,
   };
 }

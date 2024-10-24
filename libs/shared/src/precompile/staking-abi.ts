@@ -100,3 +100,73 @@ export const redelegateAbi: Abi = [
     type: 'function',
   },
 ];
+
+export const stakingMessageTypes = [
+  '/cosmos.staking.v1beta1.MsgDelegate',
+  '/cosmos.staking.v1beta1.MsgUndelegate',
+  '/cosmos.staking.v1beta1.MsgBeginRedelegate',
+];
+
+export const approveAbi: Abi = [
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'spender',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'string[]',
+        name: 'methods',
+        type: 'string[]',
+      },
+    ],
+    name: 'approve',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+];
+
+export const allowanceAbi: Abi = [
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'spender',
+        type: 'address',
+      },
+      {
+        internalType: 'string',
+        name: 'method',
+        type: 'string',
+      },
+    ],
+    name: 'allowance',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+];

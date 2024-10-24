@@ -31,6 +31,7 @@ export interface UndelegateModalProps {
   onSubmit: () => void;
   memo?: string;
   onMemoChange: (value: string) => void;
+  onApprove: () => void;
 }
 
 export function UndelegateModal({
@@ -49,6 +50,7 @@ export function UndelegateModal({
   onChange,
   onSubmit,
   onMemoChange,
+  onApprove,
 }: UndelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
 
@@ -175,7 +177,16 @@ export function UndelegateModal({
                   />
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    variant={3}
+                    onClick={onApprove}
+                    className="w-full"
+                    disabled={isDisabled}
+                  >
+                    Approve
+                  </Button>
+
                   <Button
                     variant={3}
                     onClick={onSubmit}

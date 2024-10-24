@@ -30,6 +30,7 @@ export interface DelegateModalProps {
   onClose: () => void;
   onChange: (value: number | undefined) => void;
   onSubmit: () => void;
+  onApprove: () => void;
   memo?: string;
   onMemoChange: (value: string) => void;
 }
@@ -132,6 +133,7 @@ export function DelegateModal({
   onClose,
   onChange,
   onSubmit,
+  onApprove,
   onMemoChange,
 }: DelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
@@ -258,14 +260,23 @@ export function DelegateModal({
                   />
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    variant={3}
+                    onClick={onApprove}
+                    className="w-full"
+                    disabled={isDisabled}
+                  >
+                    Approve
+                  </Button>
+
                   <Button
                     variant={3}
                     onClick={onSubmit}
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Confirm delegation
+                    Delegate
                   </Button>
                 </div>
               </div>

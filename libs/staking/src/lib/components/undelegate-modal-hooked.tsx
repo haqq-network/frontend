@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
+import { parseUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -14,6 +15,8 @@ import {
   useWallet,
   useQueryInvalidate,
   useAddress,
+  useStakingAllowance,
+  stakingMessageTypes,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -43,7 +46,8 @@ export function UndelegateModalHooked({
   unboundingTime,
   validatorAddress,
 }: UndelegateModalProps) {
-  const { undelegate, getUndelegateEstimatedFee } = useStakingActions();
+  const { undelegate, getUndelegateEstimatedFee, approve } =
+    useStakingActions();
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -172,6 +176,30 @@ export function UndelegateModalHooked({
     explorerLink,
   ]);
 
+  // Check allowance for undelegation
+  const { allowance } = useStakingAllowance(
+    ethAddress,
+    ethAddress,
+    '/cosmos.staking.v1beta1.MsgUndelegate',
+  );
+  console.log('Allowance for undelegate', { ethAddress, allowance });
+
+  const handleApprove = useCallback(async () => {
+    if (!undelegateAmount) return;
+
+    try {
+      const amountInWei = parseUnits(undelegateAmount.toString(), 18);
+      await approve(amountInWei, stakingMessageTypes);
+    } catch (error) {
+      console.error('Approval failed:', error);
+      toast.error(
+        <ToastError>
+          {error instanceof Error ? error.message : 'Unknown error'}
+        </ToastError>,
+      );
+    }
+  }, [undelegateAmount, approve, toast]);
+
   useEffect(() => {
     if (!undelegateAmount) {
       setUndelegateEnabled(false);
@@ -270,6 +298,7 @@ export function UndelegateModalHooked({
       isFeePending={isFeePending}
       memo={memo}
       onMemoChange={setMemo}
+      onApprove={handleApprove}
     />
   );
 }
