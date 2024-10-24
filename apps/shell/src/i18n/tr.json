@@ -1,0 +1,11 @@
+{
+  "authz": {},
+  "common": {
+    "hello-world": "Merhaba Dünya!"
+  },
+  "governance": {},
+  "main": {},
+  "stacking": {},
+  "uc-dao": {},
+  "utils": {}
+}

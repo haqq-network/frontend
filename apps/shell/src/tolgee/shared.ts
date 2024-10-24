@@ -31,8 +31,8 @@ export async function getStaticData(languages: Locale[]) {
   for (const lang of languages) {
     for (const ns of ALL_NAMESPACES) {
       try {
-        const data = (await import(`../i18n/${ns}/${lang}.json`)).default;
-        result[`${lang}:${ns}`] = data;
+        const data = (await import(`../i18n/${lang}.json`)).default;
+        result[`${lang}:${ns}`] = data[ns];
       } catch (error) {
         console.error(
           `Error loading namespace "${ns}" for language "${lang}":`,
