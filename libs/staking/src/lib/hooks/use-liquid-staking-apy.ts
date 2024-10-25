@@ -1,9 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useChainId } from 'wagmi';
-import {
-  chains,
-  generateEndpointCoinomicsParams,
-} from '@haqq/data-access-cosmos';
+import { useCosmosService } from '@haqq/shell-shared';
 import { useStakingData } from './use-staking-data';
 import { useStideStakingInfo } from './use-stride-rates';
 
@@ -20,18 +16,17 @@ export function useLiquidStakingApy() {
     seedPhrase: phrase,
   });
 
-  const chainId = useChainId();
-
   const {
     data: strideData,
     error: strideError,
     isLoading: strideIsLoading,
   } = useStideStakingInfo();
 
+  const { getCoinomicsParams } = useCosmosService();
   const { data, error, isLoading } = useQuery({
     queryKey: ['liquidStakingParams'],
     queryFn: () => {
-      return fetchParams(chainId);
+      return getCoinomicsParams();
     },
   });
 
