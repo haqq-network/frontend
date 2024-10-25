@@ -1,4 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
+import { useChainId } from 'wagmi';
+import { chains } from '@haqq/data-access-cosmos';
 import { useStakingData } from './use-staking-data';
 import { useStideStakingInfo } from './use-stride-rates';
 
@@ -6,9 +8,9 @@ const BLOCKS_PER_YEAR = 1464; // 4 restakes per day * 366 days (accounting for l
 const COMMUNITY_POOL_PERCENTAGE = 0.1;
 const STRIDE_PERCENTAGE = 0.1;
 
-const fetchParams = async () => {
+const fetchParams = async (chainId: number) => {
   const response = await fetch(
-    'https://rest.cosmos.haqq.network/haqq/coinomics/v1/params',
+    `${chains[chainId].cosmosRestEndpoint}/haqq/coinomics/v1/params`,
   );
   return response.json();
 };
@@ -22,6 +24,8 @@ export function useLiquidStakingApy() {
     seedPhrase: phrase,
   });
 
+  const chainId = useChainId();
+
   const {
     data: strideData,
     error: strideError,
@@ -30,7 +34,9 @@ export function useLiquidStakingApy() {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['liquidStakingParams'],
-    queryFn: fetchParams,
+    queryFn: () => {
+      return fetchParams(chainId);
+    },
   });
 
   const rewardCoefficient = data?.params?.reward_coefficient
