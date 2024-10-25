@@ -15,6 +15,17 @@ export { type Proposal };
 
 export type TallyResults = TallyResponse['tally'];
 
+export interface RedelegationResponse {
+  redelegation_responses: Array<{
+    redelegation: {
+      validator_src_address: string;
+    };
+    entries: Array<{
+      balance: string;
+    }>;
+  }>;
+}
+
 export interface BaseAccount {
   address: string;
   pub_key?: {
@@ -305,4 +316,9 @@ export interface CosmosService {
   getFee: (estimatedFee?: EstimatedFeeResponse) => Fee;
   getDaoBalance: (address: string, denom: string) => Promise<Coin>;
   getDaoAllBalances: (address: string) => Promise<Coin[]>;
+  getRedelegationValidatorAmount: (
+    haqqAddress: string,
+    validatorAddress: string,
+  ) => Promise<bigint>;
+  getCoinomicsParams: () => Promise<any>;
 }

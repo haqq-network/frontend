@@ -234,6 +234,36 @@ function MyAccountConnected({
                     />
                   </PopoverContent>
                 </Popover>
+
+                {/* Popover for liquid staking information */}
+                {/* <Popover open={isHoveredLiquidStaking} placement="top-start">
+                  <PopoverTrigger
+                    onMouseEnter={handleMouseEnterLiquidStaking}
+                    onMouseLeave={handleMouseLeaveLiquidStaking}
+                  >
+                    <div
+                      className={clsx(
+                        'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
+                        'text-white hover:text-white/50',
+                        'text-[12px] font-[500] leading-[18px]',
+                        'transition-colors duration-150 ease-in-out',
+                      )}
+                    >
+                      <span>
+                        Available for liquid staking:{' '}
+                        {formatNumber(balances.availableForStake)}
+                      </span>
+                      <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+                    </div>
+                  </PopoverTrigger>
+
+                  <PopoverContent className="outline-none">
+                    <StakingBalancePopup
+                      haqqAddress={haqqAddress}
+                      isLiquidStaking
+                    />
+                  </PopoverContent>
+                </Popover> */}
               </div>
             </div>
           </div>

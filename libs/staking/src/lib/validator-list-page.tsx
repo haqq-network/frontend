@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 import { useWallet } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { StakingInfo } from './components/staking-info';
-import { StrideStats } from './components/stride/statistics/stride-stats';
 import { ValidatorList } from './components/validator-list';
 
 export function ValidatorListPage({
