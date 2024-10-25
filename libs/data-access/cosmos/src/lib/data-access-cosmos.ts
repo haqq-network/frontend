@@ -392,9 +392,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
     validatorAddress: string,
   ) => {
     const response = await fetch(
-      `${cosmosRestEndpoint}${generateEndpointRedelegations(
-        haqqAddress ?? '',
-      )}`,
+      `${cosmosRestEndpoint}${generateEndpointRedelegations(haqqAddress)}`,
     );
     const data: RedelegationResponse = await response.json();
 
