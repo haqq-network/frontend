@@ -381,6 +381,10 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
     const getCoinomicsParamsUrl = new URL(
       `${cosmosRestEndpoint}${generateEndpointCoinomicsParams()}`,
     );
+
+    const result = await fetch(getCoinomicsParamsUrl);
+
+    return result.json();
   }
 
   const getRedelegationValidatorAmount = async (
