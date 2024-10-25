@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useChainId } from 'wagmi';
-import { chains } from '@haqq/data-access-cosmos';
+import {
+  chains,
+  generateEndpointCoinomicsParams,
+} from '@haqq/data-access-cosmos';
 import { useStakingData } from './use-staking-data';
 import { useStideStakingInfo } from './use-stride-rates';
 
@@ -10,7 +13,7 @@ const STRIDE_PERCENTAGE = 0.1;
 
 const fetchParams = async (chainId: number) => {
   const response = await fetch(
-    `${chains[chainId].cosmosRestEndpoint}/haqq/coinomics/v1/params`,
+    `${chains[chainId].cosmosRestEndpoint}${generateEndpointCoinomicsParams()}`,
   );
   return response.json();
 };
