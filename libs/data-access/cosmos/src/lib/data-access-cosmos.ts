@@ -77,6 +77,14 @@ export function generateEndpointBankSupply() {
   return '/cosmos/bank/v1beta1/supply';
 }
 
+export function generateEndpointRedelegations(haqqAddress: string) {
+  return `/cosmos/staking/v1beta1/delegators/${haqqAddress}/redelegations`;
+}
+
+export function generateEndpointCoinomicsParams() {
+  return '/haqq/coinomics/v1/params';
+}
+
 export function generateSimulateEndpoint() {
   return '/cosmos/tx/v1beta1/simulate';
 }

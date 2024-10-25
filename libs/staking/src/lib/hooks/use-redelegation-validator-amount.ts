@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useChainId } from 'wagmi';
-import { chains } from '@haqq/data-access-cosmos';
+import {
+  chains,
+  generateEndpointRedelegations,
+} from '@haqq/data-access-cosmos';
 
 interface RedelegationResponse {
   redelegation_responses: Array<{
@@ -23,7 +26,9 @@ export const useRedelegationValidatorAmount = (
     queryKey: ['redelegationValidatorAmount', haqqAddress, validatorAddress],
     queryFn: async () => {
       const response = await fetch(
-        `${chains[chainId].cosmosRestEndpoint}/cosmos/staking/v1beta1/delegators/${haqqAddress}/redelegations`,
+        `${chains[chainId].cosmosRestEndpoint}${generateEndpointRedelegations(
+          haqqAddress ?? '',
+        )}`,
       );
       const data: RedelegationResponse = await response.json();
 
