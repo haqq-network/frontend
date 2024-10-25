@@ -27,8 +27,6 @@ export function ValidatorListPage({
         </div>
       )}
 
-      <StrideStats />
-
       <StakingInfo />
 
       <ValidatorList
