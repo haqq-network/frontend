@@ -27,6 +27,7 @@ export function ValidatorListPage({
       )}
 
       <StakingInfo />
+
       <ValidatorList
         isMobileUserAgent={isMobileUserAgent}
         seedPhrase={seedPhrase}

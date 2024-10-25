@@ -4,12 +4,14 @@ import { Validator } from '@evmos/provider';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
+import { formatUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { type EstimatedFeeResponse } from '@haqq/data-access-falconer';
 import {
   getFormattedAddress,
+  useAddress,
   useStakingActions,
   useToast,
   useWallet,
@@ -23,13 +25,15 @@ import {
   toFixedAmount,
 } from '@haqq/shell-ui-kit/server';
 import { RedelegateModal } from './redelegate-modal';
+import { shouldUsePrecompile } from '../constants';
+import { useRedelegationValidatorAmount } from '../hooks/use-redelegation-validator-amount';
 import { splitValidators } from '../utils/split-validators';
 
 export interface RedelegateModalProps {
   isOpen: boolean;
   symbol: string;
   validatorAddress: string;
-  delegation: number;
+  delegation: bigint;
   onClose: () => void;
   validatorsList: Validator[] | undefined;
   balance: number;
@@ -44,6 +48,13 @@ export function RedelegateModalHooked({
   validatorsList,
   balance,
 }: RedelegateModalProps) {
+  const { haqqAddress, ethAddress } = useAddress();
+
+  const { data: redelegationValidatorAmount } = useRedelegationValidatorAmount(
+    haqqAddress,
+    validatorAddress,
+  );
+
   const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -67,11 +78,21 @@ export function RedelegateModalHooked({
   const chainId = chain.id;
   const [memo, setMemo] = useState('');
   const invalidateQueries = useQueryInvalidate();
+  const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
       if (validatorDestinationAddress && validatorAddress) {
-        posthog.capture('redelegate started', { chainId });
+        posthog.capture('redelegate started', {
+          chainId,
+          validatorAddress,
+          validatorDestinationAddress,
+          redelegateAmount,
+          address: {
+            evm: ethAddress,
+            bech32: haqqAddress,
+          },
+        });
         setRedelegateEnabled(false);
         const redelegationPromise = redelegate(
           validatorAddress,
@@ -80,6 +101,7 @@ export function RedelegateModalHooked({
           balance,
           memo,
           fee,
+          shouldUsePrecompile,
         );
 
         await toast.promise(
@@ -90,13 +112,24 @@ export function RedelegateModalHooked({
               console.log('Redelegation successful', { tx });
               const txHash = tx?.txhash;
 
+              posthog.capture('redelegate success', {
+                chainId,
+                validatorAddress,
+                validatorDestinationAddress,
+                redelegateAmount,
+                address: {
+                  evm: ethAddress,
+                  bech32: haqqAddress,
+                },
+              });
+
               return (
                 <ToastSuccess>
                   <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                     <div>Redelegation successful</div>
                     <div>
                       <Link
-                        href={`${explorer.cosmos}/tx/${txHash}`}
+                        href={`${explorerLink}/tx/${txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -119,7 +152,6 @@ export function RedelegateModalHooked({
             },
           },
         );
-        posthog.capture('redelegate success', { chainId });
         onClose();
       }
     } catch (error) {
@@ -141,14 +173,16 @@ export function RedelegateModalHooked({
     validatorAddress,
     posthog,
     chainId,
-    redelegate,
     redelegateAmount,
+    ethAddress,
+    haqqAddress,
+    redelegate,
     balance,
     memo,
     fee,
     toast,
     onClose,
-    explorer.cosmos,
+    explorerLink,
     invalidateQueries,
     chain.id,
   ]);
@@ -170,7 +204,10 @@ export function RedelegateModalHooked({
 
   useEffect(() => {
     if (redelegateAmount) {
-      const fixedDelegation = toFixedAmount(delegation, 3) ?? 0;
+      const delegationNumber = Number.parseFloat(
+        formatUnits(BigInt(delegation), 18),
+      );
+      const fixedDelegation = toFixedAmount(delegationNumber, 3) ?? 0;
 
       if (
         !(fixedDelegation > 0) ||
@@ -222,8 +259,10 @@ export function RedelegateModalHooked({
           validatorAddress,
           validatorDestinationAddress,
           debouncedRedelegateAmount,
+          shouldUsePrecompile,
         )
           .then((estimatedFee) => {
+            console.log('Estimated fee', { estimatedFee });
             if (!isCancelled) {
               setFee(estimatedFee);
               setFeePending(false);
@@ -255,7 +294,7 @@ export function RedelegateModalHooked({
       isOpen={isOpen}
       onClose={onClose}
       symbol={symbol}
-      delegation={delegation}
+      delegation={delegation - BigInt(redelegationValidatorAmount ?? 0)}
       balance={balance}
       onChange={setRedelegateAmount}
       onSubmit={handleSubmitRedelegate}
@@ -273,6 +312,7 @@ export function RedelegateModalHooked({
       isFeePending={isFeePending}
       memo={memo}
       onMemoChange={setMemo}
+      redelegationValidatorAmount={redelegationValidatorAmount}
     />
   );
 }

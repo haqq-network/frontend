@@ -2,11 +2,14 @@
 // import { fileURLToPath } from 'node:url';
 import { composePlugins, withNx } from '@nx/next';
 import { withSentryConfig } from '@sentry/nextjs';
+import createNextIntlPlugin from 'next-intl/plugin';
 // import createJiti from 'jiti';
 // const jiti = createJiti(fileURLToPath(import.meta.url));
 
 // // Validate during build.
 // jiti('./src/env/client.ts');
+
+const withNextIntl = createNextIntlPlugin();
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -100,6 +103,7 @@ const sentryWebpackPluginOptions = {
 const plugins = [
   // Add more Next.js plugins to this list if needed.
   withNx,
+  withNextIntl,
 ];
 
 export default withSentryConfig(

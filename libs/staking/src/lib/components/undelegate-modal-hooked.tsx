@@ -13,6 +13,7 @@ import {
   getFormattedAddress,
   useWallet,
   useQueryInvalidate,
+  useAddress,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -21,6 +22,7 @@ import {
   LinkIcon,
 } from '@haqq/shell-ui-kit/server';
 import { UndelegateModal } from './undelegate-modal';
+import { shouldUsePrecompile } from '../constants';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
@@ -65,10 +67,20 @@ export function UndelegateModalHooked({
   const chainId = chain.id;
   const [memo, setMemo] = useState('');
   const invalidateQueries = useQueryInvalidate();
+  const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
+  const { haqqAddress, ethAddress } = useAddress();
 
   const handleSubmitUndelegate = useCallback(async () => {
     try {
-      posthog.capture('undelegate started', { chainId });
+      posthog.capture('undelegate started', {
+        chainId,
+        validatorAddress,
+        undelegateAmount,
+        address: {
+          evm: ethAddress,
+          bech32: haqqAddress,
+        },
+      });
       setUndelegateEnabled(false);
       const undelegationPromise = undelegate(
         validatorAddress,
@@ -76,6 +88,7 @@ export function UndelegateModalHooked({
         balance,
         memo,
         fee,
+        shouldUsePrecompile,
       );
 
       await toast.promise(
@@ -86,13 +99,23 @@ export function UndelegateModalHooked({
             console.log('Undlegation successful', { tx });
             const txHash = tx?.txhash;
 
+            posthog.capture('undelegate success', {
+              chainId,
+              validatorAddress,
+              undelegateAmount,
+              address: {
+                evm: ethAddress,
+                bech32: haqqAddress,
+              },
+            });
+
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                   <div>Undelegation successful</div>
                   <div>
                     <Link
-                      href={`${explorer.cosmos}/tx/${txHash}`}
+                      href={`${explorerLink}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -115,7 +138,7 @@ export function UndelegateModalHooked({
           },
         },
       );
-      posthog.capture('undelegate success', { chainId });
+
       onClose();
     } catch (error) {
       const message = (error as Error).message;
@@ -134,17 +157,19 @@ export function UndelegateModalHooked({
   }, [
     posthog,
     chainId,
-    undelegate,
     validatorAddress,
     undelegateAmount,
+    ethAddress,
+    haqqAddress,
+    undelegate,
     balance,
     memo,
     fee,
     toast,
     onClose,
-    explorer.cosmos,
     invalidateQueries,
     chain.id,
+    explorerLink,
   ]);
 
   useEffect(() => {
@@ -193,8 +218,13 @@ export function UndelegateModalHooked({
         };
 
         setFeePending(true);
-        getUndelegateEstimatedFee(validatorAddress, debouncedUndelegateAmount)
+        getUndelegateEstimatedFee(
+          validatorAddress,
+          debouncedUndelegateAmount,
+          shouldUsePrecompile,
+        )
           .then((estimatedFee) => {
+            console.log('Estimated fee', { estimatedFee });
             if (!isCancelled) {
               setFee(estimatedFee);
               setFeePending(false);
@@ -214,6 +244,7 @@ export function UndelegateModalHooked({
     getUndelegateEstimatedFee,
     isUndelegateEnabled,
     toast,
+    explorerLink,
   ]);
 
   useEffect(() => {

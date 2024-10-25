@@ -73,7 +73,7 @@ export function DelegateModalDetails({
       </div>
       <div
         className={clsx(
-          'text-haqq-black font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
+          'text-haqq-black font-clash text-[14px] font-[500] leading-[18px] md:text-[20px] md:leading-[26px]',
           isValuePending && 'animate-pulse',
           valueClassName,
         )}
@@ -186,7 +186,7 @@ export function DelegateModal({
                 Delegate
               </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
-                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} day `}
+                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} ${unboundingTime === 1 ? 'day' : 'days'}`}
               </WarningMessage>
             </div>
 

@@ -34,13 +34,14 @@ import {
   formatNumber,
 } from '@haqq/shell-ui-kit/server';
 import { StakingStatsDesktop, StakingStatsMobile } from './staking-stats';
+import { shouldUsePrecompile } from '../constants';
 
 function useStakingStats() {
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
   const { haqqAddress } = useAddress();
-  const { claimAllRewards, getClaimAllRewardEstimatedFee } =
+  const { claimAllRewards, getClaimAllRewardEstimatedFee, getTotalRewards } =
     useStakingActions();
   const invalidateQueries = useQueryInvalidate();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
@@ -56,20 +57,41 @@ function useStakingStats() {
   const { explorer } = getChainParams(
     isNetworkSupported && chain?.id ? chain.id : haqqMainnet.id,
   );
-
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const posthog = usePostHog();
   const balance = balances?.availableForStake ?? 0;
   const staked = balances?.staked ?? 0;
+  const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
+
+  const rewards = useMemo(() => {
+    if (rewardsInfo?.total?.length) {
+      const totalRewards = Number.parseFloat(
+        formatUnits(parseUnits(rewardsInfo.total[0].amount, 0), 18),
+      );
+
+      return totalRewards;
+    }
+
+    return 0;
+  }, [rewardsInfo]);
 
   const handleRewardsClaim = useCallback(async () => {
     try {
       posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
+      const [rewardsByValidator] = await getTotalRewards();
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
+        rewardsByValidator.length,
+        shouldUsePrecompile,
       ).then((estimatedFee) => {
-        return claimAllRewards(delegatedValsAddrs, '', estimatedFee);
+        return claimAllRewards(
+          delegatedValsAddrs,
+          rewardsByValidator.length,
+          '',
+          estimatedFee,
+          shouldUsePrecompile,
+        );
       });
 
       await toast.promise(claimAllRewardPromise, {
@@ -84,7 +106,7 @@ function useStakingStats() {
                 <div>Rewards claimed</div>
                 <div>
                   <Link
-                    href={`${explorer.cosmos}/tx/${txHash}`}
+                    href={`${explorerLink}/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -120,14 +142,15 @@ function useStakingStats() {
       ]);
     }
   }, [
-    chain.id,
-    claimAllRewards,
-    delegatedValsAddrs,
-    explorer.cosmos,
-    getClaimAllRewardEstimatedFee,
-    invalidateQueries,
     posthog,
+    chain.id,
+    getTotalRewards,
+    getClaimAllRewardEstimatedFee,
+    delegatedValsAddrs,
     toast,
+    claimAllRewards,
+    explorerLink,
+    invalidateQueries,
   ]);
 
   useEffect(() => {
@@ -141,18 +164,6 @@ function useStakingStats() {
       setDelegatedValsAddrs(vecDelegatedValsAddrs);
     }
   }, [delegationInfo]);
-
-  const rewards = useMemo(() => {
-    if (rewardsInfo?.total?.length) {
-      const totalRewards = Number.parseFloat(
-        formatUnits(parseUnits(rewardsInfo.total[0].amount, 0), 18),
-      );
-
-      return totalRewards;
-    }
-
-    return 0;
-  }, [rewardsInfo]);
 
   const unbounded = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
@@ -251,7 +262,7 @@ export function StakingInfo() {
   return (
     <section
       className={clsx(
-        'border-haqq-border bg-haqq-black/15 z-[49] w-full transform-gpu border-y backdrop-blur',
+        'border-haqq-border bg-haqq-black/15 z-[49] w-full transform-gpu border-t backdrop-blur',
         isHaqqWallet
           ? isTestedge
             ? 'top-[101px] sm:top-[111px]'

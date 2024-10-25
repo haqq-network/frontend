@@ -46,6 +46,7 @@ import {
   GovParamsType,
   HaqqAccount,
   ProposalVoteResponse,
+  RedelegationResponse,
   SimulateTxResponse,
   StakingParams,
   StakingPool,
@@ -75,6 +76,14 @@ export function generateEndpointDistributionPool() {
 
 export function generateEndpointBankSupply() {
   return '/cosmos/bank/v1beta1/supply';
+}
+
+export function generateEndpointRedelegations(haqqAddress: string) {
+  return `/cosmos/staking/v1beta1/delegators/${haqqAddress}/redelegations`;
+}
+
+export function generateEndpointCoinomicsParams() {
+  return '/haqq/coinomics/v1/params';
 }
 
 export function generateSimulateEndpoint() {
@@ -367,6 +376,39 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
 
     return responseJson;
   }
+
+  async function getCoinomicsParams() {
+    const getCoinomicsParamsUrl = new URL(
+      `${cosmosRestEndpoint}${generateEndpointCoinomicsParams()}`,
+    );
+
+    const result = await fetch(getCoinomicsParamsUrl);
+
+    return result.json();
+  }
+
+  const getRedelegationValidatorAmount = async (
+    haqqAddress: string,
+    validatorAddress: string,
+  ) => {
+    const response = await fetch(
+      `${cosmosRestEndpoint}${generateEndpointRedelegations(haqqAddress)}`,
+    );
+    const data: RedelegationResponse = await response.json();
+
+    const totalBalance = data.redelegation_responses
+      .filter((response) => {
+        return response.redelegation.validator_src_address === validatorAddress;
+      })
+      .flatMap((response) => {
+        return response.entries;
+      })
+      .reduce((sum, entry) => {
+        return sum + BigInt(entry.balance);
+      }, BigInt(0));
+
+    return totalBalance;
+  };
 
   async function getGovernanceParams(type: GovParamsType) {
     const getGovernanceParamsUrl = new URL(
@@ -771,5 +813,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
     getFee,
     getDaoBalance,
     getDaoAllBalances,
+    getRedelegationValidatorAmount,
+    getCoinomicsParams,
   };
 }
