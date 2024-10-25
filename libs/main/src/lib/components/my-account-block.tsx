@@ -167,11 +167,12 @@ function MyAccountConnected({
     handleMouseLeave: handleMouseLeaveStaking,
   } = useHoverPopover(100);
 
-  const {
+  // Hover state and handlers for liquid staking popover
+  /*const {
     isHovered: isHoveredLiquidStaking,
     handleMouseEnter: handleMouseEnterLiquidStaking,
     handleMouseLeave: handleMouseLeaveLiquidStaking,
-  } = useHoverPopover(100);
+  } = useHoverPopover(100);*/
 
   const { stIslmBalance } = useStislmBalance();
 
