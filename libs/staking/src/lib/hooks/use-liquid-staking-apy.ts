@@ -11,13 +11,6 @@ const BLOCKS_PER_YEAR = 1464; // 4 restakes per day * 366 days (accounting for l
 const COMMUNITY_POOL_PERCENTAGE = 0.1;
 const STRIDE_PERCENTAGE = 0.1;
 
-const fetchParams = async (chainId: number) => {
-  const response = await fetch(
-    `${chains[chainId].cosmosRestEndpoint}${generateEndpointCoinomicsParams()}`,
-  );
-  return response.json();
-};
-
 const phrase = Date.now().toString();
 
 export function useLiquidStakingApy() {
