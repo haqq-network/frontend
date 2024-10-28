@@ -4,7 +4,7 @@ import { Validator } from '@evmos/provider';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
-import { formatUnits, parseUnits } from 'viem';
+import { formatUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -17,7 +17,6 @@ import {
   useWallet,
   useQueryInvalidate,
   useStakingAllowance,
-  stakingMessageTypes,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,

@@ -3,7 +3,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
-import { parseUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -16,7 +15,6 @@ import {
   useQueryInvalidate,
   useAddress,
   useStakingAllowance,
-  stakingMessageTypes,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
