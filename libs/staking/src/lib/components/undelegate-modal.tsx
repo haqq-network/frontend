@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
+import { useConnectorType } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -52,6 +53,7 @@ export function UndelegateModal({
   onMemoChange,
   onApprove,
 }: UndelegateModalProps) {
+  const { isSafe } = useConnectorType();
   const [isMemoVisible, setMemoVisible] = useState(false);
 
   const handleMaxButtonClick = useCallback(() => {
@@ -178,14 +180,16 @@ export function UndelegateModal({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <Button
-                    variant={3}
-                    onClick={onApprove}
-                    className="w-full"
-                    disabled={isDisabled}
-                  >
-                    Approve
-                  </Button>
+                  {isSafe && (
+                    <Button
+                      variant={3}
+                      onClick={onApprove}
+                      className="w-full"
+                      disabled={!undelegateAmount}
+                    >
+                      Approve
+                    </Button>
+                  )}
 
                   <Button
                     variant={3}

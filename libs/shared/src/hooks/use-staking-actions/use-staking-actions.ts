@@ -51,6 +51,7 @@ import {
   approveAbi,
   stakingMessageTypes,
   allowanceAbi,
+  MAX_UINT256_MINUS_ONE,
 } from '../../precompile/staking-abi';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useWallet } from '../../providers/wallet-provider';
@@ -1223,33 +1224,31 @@ export function useStakingActions() {
     }
   }, [ethAddress, config]);
 
-  const handleApprove = useCallback(
-    async (amount: bigint, method: Array<string>) => {
-      if (!ethAddress || !writeContractAsync) {
-        throw new Error('No eth address or write contract available');
-      }
+  // Approve for staking operations
+  const handleStakingApprove = useCallback(async () => {
+    if (!ethAddress || !writeContractAsync) {
+      throw new Error('No eth address or write contract available');
+    }
 
-      const txHash = await writeContractAsync({
-        address: STAKING_PRECOMPILE_ADDRESS,
-        abi: approveAbi,
-        functionName: 'approve',
-        args: [ethAddress, amount, method],
-      });
+    const txHash = await writeContractAsync({
+      address: STAKING_PRECOMPILE_ADDRESS,
+      abi: approveAbi,
+      functionName: 'approve',
+      args: [ethAddress, MAX_UINT256_MINUS_ONE, stakingMessageTypes],
+    });
 
-      if (!txHash) {
-        throw new Error('Approve transaction failed');
-      }
+    if (!txHash) {
+      throw new Error('Staking approve transaction failed');
+    }
 
-      const receipt = await waitForTransactionReceipt(config, { hash: txHash });
+    const receipt = await waitForTransactionReceipt(config, { hash: txHash });
 
-      if (receipt.status !== 'success') {
-        throw new Error('Approve transaction failed');
-      }
+    if (receipt.status !== 'success') {
+      throw new Error('Staking approve transaction failed');
+    }
 
-      return receipt;
-    },
-    [ethAddress, writeContractAsync, config],
-  );
+    return receipt;
+  }, [ethAddress, writeContractAsync, config]);
 
   return {
     delegate: handleUnifiedDelegate,
@@ -1263,7 +1262,7 @@ export function useStakingActions() {
     claimAllRewards: handleUnifiedClaimAllRewards,
     getClaimAllRewardEstimatedFee: handleUnifiedClaimAllRewardsEstimatedFee,
     getTotalRewards: handleGetTotalRewardsPrecompile,
-    approve: handleApprove,
+    approveStaking: handleStakingApprove,
   };
 }
 

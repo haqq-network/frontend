@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { formatUnits } from 'viem';
+import { useConnectorType } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -87,6 +88,7 @@ export function RedelegateModal({
   onApprove,
 }: RedelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
+  const { isSafe } = useConnectorType();
 
   const delegationNumber = useMemo(() => {
     return Number.parseFloat(formatUnits(BigInt(delegation), 18));
@@ -217,14 +219,15 @@ export function RedelegateModal({
                 </div>
 
                 <div className="flex gap-4">
-                  <Button
-                    variant={3}
-                    onClick={onApprove}
-                    className="w-full"
-                    disabled={isDisabled}
-                  >
-                    Approve
-                  </Button>
+                  {isSafe && (
+                    <Button
+                      onClick={onApprove}
+                      variant={4}
+                      disabled={!redelegateAmount}
+                    >
+                      Approve
+                    </Button>
+                  )}
 
                   <Button
                     variant={3}

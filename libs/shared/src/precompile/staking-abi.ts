@@ -1,5 +1,10 @@
 import { Abi } from 'viem';
 
+// Max uint256 minus one
+export const MAX_UINT256_MINUS_ONE = BigInt(
+  '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe',
+);
+
 export const delegateAbi: Abi = [
   {
     inputs: [

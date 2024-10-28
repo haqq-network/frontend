@@ -48,7 +48,8 @@ export function DelegateModalHooked({
   unboundingTime,
   validatorCommission,
 }: DelegateModalProps) {
-  const { delegate, getDelegateEstimatedFee, approve } = useStakingActions();
+  const { delegate, getDelegateEstimatedFee, approveStaking } =
+    useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -87,8 +88,7 @@ export function DelegateModalHooked({
     if (!delegateAmount) return;
 
     try {
-      const amountInWei = parseUnits(delegateAmount.toString(), 18);
-      await approve(amountInWei, stakingMessageTypes);
+      await approveStaking();
     } catch (error) {
       console.error('Approval failed:', error);
       toast.error(
@@ -97,7 +97,7 @@ export function DelegateModalHooked({
         </ToastError>,
       );
     }
-  }, [delegateAmount, approve, toast]);
+  }, [delegateAmount, approveStaking, toast]);
 
   const handleSubmitDelegate = useCallback(async () => {
     try {

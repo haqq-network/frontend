@@ -66,7 +66,7 @@ export function RedelegateModalHooked({
     useState<string | undefined>(undefined);
   const [isFeePending, setFeePending] = useState(false);
   const toast = useToast();
-  const { redelegate, getRedelegateEstimatedFee, approve } =
+  const { redelegate, getRedelegateEstimatedFee, approveStaking } =
     useStakingActions();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
@@ -93,8 +93,7 @@ export function RedelegateModalHooked({
     if (!redelegateAmount) return;
 
     try {
-      const amountInWei = parseUnits(redelegateAmount.toString(), 18);
-      await approve(amountInWei, stakingMessageTypes);
+      await approveStaking();
     } catch (error) {
       console.error('Approval failed:', error);
       toast.error(
@@ -103,7 +102,7 @@ export function RedelegateModalHooked({
         </ToastError>,
       );
     }
-  }, [redelegateAmount, approve, toast]);
+  }, [redelegateAmount, approveStaking, toast]);
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {

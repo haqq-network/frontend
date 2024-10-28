@@ -46,7 +46,7 @@ export function UndelegateModalHooked({
   unboundingTime,
   validatorAddress,
 }: UndelegateModalProps) {
-  const { undelegate, getUndelegateEstimatedFee, approve } =
+  const { undelegate, getUndelegateEstimatedFee, approveStaking } =
     useStakingActions();
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
@@ -188,8 +188,7 @@ export function UndelegateModalHooked({
     if (!undelegateAmount) return;
 
     try {
-      const amountInWei = parseUnits(undelegateAmount.toString(), 18);
-      await approve(amountInWei, stakingMessageTypes);
+      await approveStaking();
     } catch (error) {
       console.error('Approval failed:', error);
       toast.error(
@@ -198,7 +197,7 @@ export function UndelegateModalHooked({
         </ToastError>,
       );
     }
-  }, [undelegateAmount, approve, toast]);
+  }, [undelegateAmount, approveStaking, toast]);
 
   useEffect(() => {
     if (!undelegateAmount) {

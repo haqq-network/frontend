@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
+import { useConnectorType } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -137,6 +138,7 @@ export function DelegateModal({
   onMemoChange,
 }: DelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
+  const { isSafe } = useConnectorType();
 
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
@@ -261,14 +263,15 @@ export function DelegateModal({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <Button
-                    variant={3}
-                    onClick={onApprove}
-                    className="w-full"
-                    disabled={isDisabled}
-                  >
-                    Approve
-                  </Button>
+                  {isSafe && (
+                    <Button
+                      onClick={onApprove}
+                      variant={4}
+                      disabled={!delegateAmount}
+                    >
+                      Approve
+                    </Button>
+                  )}
 
                   <Button
                     variant={3}
