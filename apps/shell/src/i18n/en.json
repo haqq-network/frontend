@@ -1,11 +1,18 @@
 {
   "authz": {},
   "common": {
-    "hello-world": "Hello, World!"
+    "copied": "Copied!",
+    "click-to-copy": "Click to copy"
   },
   "governance": {},
   "main": {},
   "stacking": {},
   "uc-dao": {},
-  "utils": {}
+  "utils": {
+    "invalid-address": "Please enter a valid address",
+    "address-conversion-title": "Address Conversion",
+    "address-label": "Address",
+    "converted-address-label": "Converted address",
+    "balance-label": "Balance"
+  }
 }
