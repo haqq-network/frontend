@@ -40,15 +40,38 @@
     "staking": "Staking",
     "delegate": "Delegate",
     "undelegate": "Undelegate",
-    "redelegate": "Redelegate"
+    "redelegate": "Redelegate",
+    "should-connect-wallet": "You should connect wallet first",
+    "cancel-button": "Cancel",
+    "confirm-button": "Confirm",
+    "send-button": "Send"
   },
   "governance": {},
   "main": {},
+  "uc-dao": {
+    "dao-page-title": "UnitedContributors DAO",
+    "select-wallet-heading": "Select wallet",
+    "confirm-ownership-transfer": "You confirm you want to transfer coins ownership in DAO",
+    "to-the-address": "to the address",
+    "and": "and",
+    "token-count": "token{count, plural, one { } other {s}}",
+    "deposit-dao": "Deposit to DAO",
+    "currency": "Currency",
+    "amount": "Amount",
+    "deposit": "Deposit",
+    "transfer-progress": "Transfer in progress",
+    "transfer-success": "Transfer successful",
+    "account-heading": "My account",
+    "wallet-balance-label": "Wallet Balance",
+    "dao-balance-label": "DAO Balance",
+    "deposit-to-dao": "Deposit to DAO",
+    "transfer-heading": "Transfer coins ownership",
+    "address-placeholder": "Address in EVM/Bech32 format"
+  },
   "stacking": {
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {{count}} day{count, plural, one {} other {s}}",
     "funds-undelegated-in-days": "The funds will be undelegated within {count, plural, one {# day} other {# days}}"
   },
-  "uc-dao": {},
   "utils": {
     "invalid-address": "Please enter a valid address",
     "address-conversion-title": "Address Conversion",
