@@ -10,6 +10,8 @@ export function SelectWalletModal({
   onConnectClick,
   connectors,
   error,
+  isMobileUA,
+  deeplink,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -20,6 +22,8 @@ export function SelectWalletModal({
     name: string;
   }[];
   error: string | undefined;
+  isMobileUA: boolean;
+  deeplink: string;
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -40,17 +44,35 @@ export function SelectWalletModal({
           </div>
 
           <div className="flex flex-col space-y-2">
+            {isMobileUA && (
+              <div>
+                <Button
+                  className="min-w-[220px]"
+                  onClick={() => {
+                    window.location.href = deeplink;
+                  }}
+                >
+                  Open in HAQQ Wallet
+                </Button>
+              </div>
+            )}
+
             {connectors.map((connector) => {
               return (
-                <Button
-                  key={connector.id}
-                  onClick={() => {
-                    onConnectClick(connector.id);
-                  }}
-                  variant={4}
-                >
-                  {connector.name}
-                </Button>
+                <div key={connector.id}>
+                  <Button
+                    className="min-w-[220px]"
+                    onClick={() => {
+                      onConnectClick(connector.id);
+                    }}
+                  >
+                    {connector.name === 'WalletConnect'
+                      ? isMobileUA
+                        ? 'WalletConnect'
+                        : 'Scan with HAQQ Wallet'
+                      : connector.name}
+                  </Button>
+                </div>
               );
             })}
 
