@@ -1,12 +1,12 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import { TolgeeProvider, useTolgeeSSR } from '@tolgee/react';
+import { TolgeeProvider, TolgeeStaticData, useTolgeeSSR } from '@tolgee/react';
 import { useRouter } from 'next/navigation';
 import { ALL_LOCALES, ALL_NAMESPACES, TolgeeBase } from './shared';
 
 type Props = {
-  locales: any;
+  locales: TolgeeStaticData;
   locale: string;
   children: ReactNode;
 };
