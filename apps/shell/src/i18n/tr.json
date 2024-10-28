@@ -1,11 +1,18 @@
 {
   "authz": {},
   "common": {
-    "hello-world": "Merhaba Dünya!"
+    "click-to-copy": "",
+    "copied": ""
   },
   "governance": {},
   "main": {},
   "stacking": {},
   "uc-dao": {},
-  "utils": {}
+  "utils": {
+    "address-conversion-title": "",
+    "address-label": "",
+    "balance-label": "",
+    "converted-address-label": "",
+    "invalid-address": ""
+  }
 }
