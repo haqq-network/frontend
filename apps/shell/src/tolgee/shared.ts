@@ -1,4 +1,4 @@
-import { DevTools, Tolgee, FormatSimple } from '@tolgee/web';
+import { DevTools, Tolgee, FormatSimple, TolgeeStaticData } from '@tolgee/web';
 
 export type Locale = 'en' | 'ar' | 'id' | 'tr';
 export const ALL_LOCALES: Locale[] = ['en', 'ar', 'id', 'tr'];
@@ -26,8 +26,11 @@ export const DEFAULT_LOCALE = 'en';
 const apiKey = process.env.NEXT_PUBLIC_TOLGEE_API_KEY;
 const apiUrl = process.env.NEXT_PUBLIC_TOLGEE_API_URL;
 
-export async function getStaticData(languages: Locale[]) {
-  const result: Record<string, any> = {};
+export async function getStaticData(
+  languages: string[],
+): Promise<TolgeeStaticData> {
+  const result: TolgeeStaticData = {};
+
   for (const lang of languages) {
     for (const ns of ALL_NAMESPACES) {
       try {
@@ -41,6 +44,7 @@ export async function getStaticData(languages: Locale[]) {
       }
     }
   }
+
   return result;
 }
 
