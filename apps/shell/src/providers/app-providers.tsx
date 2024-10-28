@@ -46,7 +46,7 @@ export function AppProviders({
                 <Toaster />
               </LayoutProvider>
             </TolgeeNextProvider>
-            <WalletModals />
+            <WalletModals isMobileUA={isMobileUA} />
           </WalletProvider>
         </CosmosProvider>
       </ReactQueryProvider>
