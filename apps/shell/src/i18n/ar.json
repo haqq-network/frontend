@@ -1,18 +1,9 @@
 {
   "authz": {},
-  "common": {
-    "click-to-copy": "",
-    "copied": ""
-  },
+  "common": {},
   "governance": {},
   "main": {},
   "stacking": {},
   "uc-dao": {},
-  "utils": {
-    "address-conversion-title": "",
-    "address-label": "",
-    "balance-label": "",
-    "converted-address-label": "",
-    "invalid-address": ""
-  }
+  "utils": {}
 }
