@@ -7,9 +7,14 @@
     "access-granted-to-you": "Access you have been granted",
     "grantee": "Grantee",
     "message": "Message",
-    "valid-thru": "Valid thru"
+    "valid-thru": "Valid thru",
+    "selected-grantee": "Selected grantee",
+    "staked": "Staked",
+    "rewards": "Rewards",
+    "unbonding": "Unbonding"
   },
   "common": {
+    "address-label": "Address",
     "copied": "Copied!",
     "click-to-copy": "Click to copy"
   },
@@ -20,7 +25,6 @@
   "utils": {
     "invalid-address": "Please enter a valid address",
     "address-conversion-title": "Address Conversion",
-    "address-label": "Address",
     "converted-address-label": "Converted address",
     "balance-label": "Balance"
   }
