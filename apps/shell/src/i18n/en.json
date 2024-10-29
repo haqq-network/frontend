@@ -11,7 +11,15 @@
     "selected-grantee": "Selected grantee",
     "staked": "Staked",
     "rewards": "Rewards",
-    "unbonding": "Unbonding"
+    "unbonding": "Unbonding",
+    "grant-access": "Grant access",
+    "grantee-address": "Grantee address",
+    "grant-type": "Grant type",
+    "grant-period": "Grant period",
+    "memo": "Memo",
+    "add-your-memo": "Add your memo",
+    "grant-access-button": "Grant Access",
+    "invalid-grantee-wallet-message": "You should enter valid grantee wallet to see info"
   },
   "common": {
     "address-label": "Address",

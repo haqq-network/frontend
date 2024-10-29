@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { isAddress } from 'viem';
@@ -104,6 +105,7 @@ export const GRANT_PERIOD_OPTIONS = [
 export const GRANT_PERIOD_DEFAULT_OPTION = GRANT_PERIOD_OPTIONS[4];
 
 export function AuthzGrantsActions() {
+  const { t } = useTranslate('authz');
   const [grantee, setGrantee] = useState('');
   const [isGranteeValid, setGranteeValid] = useState(false);
   const [granteeAddresses, setGranteeAddresses] = useState<{
@@ -194,7 +196,9 @@ export function AuthzGrantsActions() {
       });
 
       await toast.promise(grantPromise, {
-        loading: <ToastLoading>Grant in progress</ToastLoading>,
+        loading: (
+          <ToastLoading>{t('grant-loading', 'Grant in progress')}</ToastLoading>
+        ),
         success: (tx) => {
           console.log('Grant successful', { tx });
           const txHash = tx?.txhash;
@@ -202,7 +206,7 @@ export function AuthzGrantsActions() {
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Grant successful</div>
+                <div>{t('grant-success', 'Grant successful')}</div>
                 <div>
                   <Link
                     href={`${explorer.cosmos}/tx/${txHash}`}
@@ -242,6 +246,7 @@ export function AuthzGrantsActions() {
     invalidateQueries,
     isGranteeValid,
     memo,
+    t,
     toast,
   ]);
 
@@ -304,7 +309,7 @@ export function AuthzGrantsActions() {
           <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px]">
             <div>
               <Heading level={3} className="mb-[-2px]">
-                Grant access
+                {t('grant-access', 'Grant access')}
               </Heading>
             </div>
 
@@ -317,7 +322,7 @@ export function AuthzGrantsActions() {
                         htmlFor="grantee"
                         className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
                       >
-                        Grantee address
+                        {t('grantee-address', 'Grantee address')}
                       </label>
                     </div>
                     <div>
@@ -344,7 +349,7 @@ export function AuthzGrantsActions() {
 
                   <div>
                     <Select
-                      label="Grant type"
+                      label={t('grant-type', 'Grant type')}
                       selectContainerClassName="w-full max-w-xl"
                       onChange={(type) => {
                         if (type) {
@@ -358,7 +363,7 @@ export function AuthzGrantsActions() {
 
                   <div>
                     <Select
-                      label="Grant period"
+                      label={t('grant-period', 'Grant period')}
                       selectContainerClassName="w-full max-w-xl"
                       onChange={(period) => {
                         if (period) {
@@ -376,7 +381,7 @@ export function AuthzGrantsActions() {
                         htmlFor="memo"
                         className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
                       >
-                        Memo
+                        {t('memo', 'Memo')}
                       </label>
                     </div>
                     <div>
@@ -389,7 +394,7 @@ export function AuthzGrantsActions() {
                           'max-w-xl',
                         )}
                         type="text"
-                        placeholder="Add your memo"
+                        placeholder={t('add-your-memo', 'Add your memo')}
                         id="memo"
                         name="memo"
                         value={memo}
@@ -408,7 +413,7 @@ export function AuthzGrantsActions() {
                       variant={2}
                       disabled={!isGranteeValid}
                     >
-                      Grant Access
+                      {t('grant-access', 'Grant access')}
                     </Button>
                   </div>
                 </div>
@@ -428,14 +433,17 @@ export function AuthzGrantsActions() {
                 <div className="flex w-full transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[36px] py-[32px]">
                   <div>
                     <Heading level={3} className="mb-[-2px]">
-                      Selected grantee
+                      {t('selected-grantee', 'Selected grantee')}
                     </Heading>
                   </div>
 
                   <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
                     <div className="flex flex-1 flex-col items-center justify-center gap-[12px]">
                       <div className="font-guise text-[12px] leading-[22px] md:text-[14px] md:leading-[28px]">
-                        You should enter valid grantee wallet to see info
+                        {t(
+                          'invalid-grantee-wallet-message',
+                          'You should enter valid grantee wallet to see info',
+                        )}
                       </div>
                     </div>
                   </div>
