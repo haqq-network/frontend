@@ -1,5 +1,9 @@
 {
-  "authz": {},
+  "authz": {
+    "revoke-button": "Revoke",
+    "revoke-loading": "Revoke in progress",
+    "revoke-success": "Revoke successful"
+  },
   "common": {
     "copied": "Copied!",
     "click-to-copy": "Click to copy"
