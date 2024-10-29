@@ -96,14 +96,14 @@ function DaoBalanceConfirmAmount({
   balance: bigint;
   tokens: bigint;
 }) {
-  const { t } = useTranslate();
+  const { t } = useTranslate('uc-dao');
   const balanceNum = Number.parseFloat(formatUnits(balance, 18));
   const tokensNum = Number.parseFloat(formatUnits(tokens, 18));
 
   if (balanceNum !== 0 && tokensNum !== 0) {
     return (
       <>
-        <b>{balanceNum} ISLM</b> {t('and', 'and', { ns: 'uc-dao' })}
+        <b>{balanceNum} ISLM</b> {t('and', 'and')}
         <b>{tokensNum} LIQUID</b>
       </>
     );
@@ -116,8 +116,7 @@ function DaoBalanceConfirmAmount({
   } else if (balanceNum === 0) {
     return (
       <>
-        <b>{tokensNum} LIQUID</b>{' '}
-        {t('token-count', { ns: 'uc-dao', count: tokensNum })}
+        <b>{tokensNum} LIQUID</b> {t('token-count', { count: tokensNum })}
       </>
     );
   } else {
