@@ -24,7 +24,9 @@
   "common": {
     "address-label": "Address",
     "copied": "Copied!",
-    "click-to-copy": "Click to copy"
+    "click-to-copy": "Click to copy",
+    "connect-wallet-message": "You should connect wallet first",
+    "connect-wallet-button": "Connect wallet"
   },
   "governance": {},
   "main": {},
