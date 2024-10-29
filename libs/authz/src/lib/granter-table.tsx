@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import dynamic from 'next/dynamic';
 import { useAddress, useAuthzGranterGrants } from '@haqq/shell-shared';
 import { Container, Heading, formatDate } from '@haqq/shell-ui-kit/server';
@@ -17,6 +18,7 @@ const RevokeButton = dynamic(
 );
 
 export function GranterGrantsTable() {
+  const { t } = useTranslate();
   const { haqqAddress } = useAddress();
   const { data: granterGrants } = useAuthzGranterGrants(haqqAddress ?? '');
 
@@ -38,7 +40,7 @@ export function GranterGrantsTable() {
         <div className="flex flex-col gap-[24px] py-[32px] sm:py-[22px] lg:py-[32px]">
           <div>
             <Heading level={3} className="mb-[-2px]">
-              Access you have granted
+              {t('access_granted', 'Access you have granted')}
             </Heading>
           </div>
 
@@ -46,13 +48,13 @@ export function GranterGrantsTable() {
             <thead className="text-[10px] uppercase leading-[24px] text-white/50 md:text-[12px]">
               <tr>
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Grantee
+                  {t('grantee', 'Grantee')}
                 </th>
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Message
+                  {t('message', 'Message')}
                 </th>
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Valid thru
+                  {(t('valid_thru'), 'Valid thru')}
                 </th>
                 <th className="w-[160px]">&nbsp;</th>
               </tr>
