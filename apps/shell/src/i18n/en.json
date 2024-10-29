@@ -3,10 +3,11 @@
     "revoke-button": "Revoke",
     "revoke-loading": "Revoke in progress",
     "revoke-success": "Revoke successful",
-    "access_granted": "Access you have granted",
+    "access-you-granted": "Access you have granted",
+    "access-granted-to-you": "Access you have been granted",
     "grantee": "Grantee",
     "message": "Message",
-    "valid_thru": "Valid thru"
+    "valid-thru": "Valid thru"
   },
   "common": {
     "copied": "Copied!",

@@ -28,7 +28,7 @@ export function RevokeButton({
   grantee: string;
   msg: string;
 }) {
-  const { t } = useTranslate();
+  const { t } = useTranslate('authz');
   const invalidateQueries = useQueryInvalidate();
   const { revoke, getRevokeEstimatedFee } = useAuthzActions();
   const toast = useToast();

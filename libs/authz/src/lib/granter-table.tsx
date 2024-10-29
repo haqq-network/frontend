@@ -18,7 +18,7 @@ const RevokeButton = dynamic(
 );
 
 export function GranterGrantsTable() {
-  const { t } = useTranslate();
+  const { t } = useTranslate('authz');
   const { haqqAddress } = useAddress();
   const { data: granterGrants } = useAuthzGranterGrants(haqqAddress ?? '');
 
@@ -40,7 +40,7 @@ export function GranterGrantsTable() {
         <div className="flex flex-col gap-[24px] py-[32px] sm:py-[22px] lg:py-[32px]">
           <div>
             <Heading level={3} className="mb-[-2px]">
-              {t('access_granted', 'Access you have granted')}
+              {t('access-you-granted', 'Access you have granted')}
             </Heading>
           </div>
 
@@ -54,7 +54,7 @@ export function GranterGrantsTable() {
                   {t('message', 'Message')}
                 </th>
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  {(t('valid_thru'), 'Valid thru')}
+                  {t('valid-thru', 'Valid thru')}
                 </th>
                 <th className="w-[160px]">&nbsp;</th>
               </tr>
