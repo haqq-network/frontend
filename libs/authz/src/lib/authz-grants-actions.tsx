@@ -36,76 +36,77 @@ export const enum GRANT_TYPES {
   Undelegate = '/cosmos.staking.v1beta1.MsgUndelegate',
 }
 
-const GRANT_TYPE_OPTIONS = [
-  {
-    label: 'Governance',
-    options: [
-      {
-        label: 'Submit Proposal',
-        value: GRANT_TYPES.SubmitProposal,
-      },
-      {
-        label: 'Vote',
-        value: GRANT_TYPES.Vote,
-      },
-    ],
-  },
-  {
-    label: 'Staking',
-    options: [
-      {
-        label: 'Delegate',
-        value: GRANT_TYPES.Delegate,
-      },
-      {
-        label: 'Undelegate',
-        value: GRANT_TYPES.Undelegate,
-      },
-      {
-        label: 'Redelegate',
-        value: GRANT_TYPES.Redelegate,
-      },
-    ],
-  },
-];
-
-export const GRANT_TYPE_DEFAULT_OPTION = GRANT_TYPE_OPTIONS[0].options[0];
-
-export const GRANT_PERIOD_OPTIONS = [
-  {
-    label: '1 Week',
-    value: '1w',
-  },
-  {
-    label: '1 Month',
-    value: '1m',
-  },
-  {
-    label: '3 Months',
-    value: '3m',
-  },
-  {
-    label: '6 Months',
-    value: '6m',
-  },
-  {
-    label: '1 Year',
-    value: '1y',
-  },
-  {
-    label: '5 Years',
-    value: '5y',
-  },
-  {
-    label: '100 Years',
-    value: '100y',
-  },
-];
-
-export const GRANT_PERIOD_DEFAULT_OPTION = GRANT_PERIOD_OPTIONS[4];
-
 export function AuthzGrantsActions() {
-  const { t } = useTranslate('authz');
+  const { t } = useTranslate();
+
+  const GRANT_TYPE_OPTIONS = [
+    {
+      label: t('governance', 'Governance', { ns: 'common' }),
+      options: [
+        {
+          label: t('submit-proposal', 'Submit Proposal', { ns: 'authz' }),
+          value: GRANT_TYPES.SubmitProposal,
+        },
+        {
+          label: t('vote', 'Vote', { ns: 'authz' }),
+          value: GRANT_TYPES.Vote,
+        },
+      ],
+    },
+    {
+      label: t('staking', 'Staking', { ns: 'common' }),
+      options: [
+        {
+          label: t('delegate', 'Delegate', { ns: 'common' }),
+          value: GRANT_TYPES.Delegate,
+        },
+        {
+          label: t('undelegate', 'Undelegate', { ns: 'common' }),
+          value: GRANT_TYPES.Undelegate,
+        },
+        {
+          label: t('redelegate', 'Redelegate', { ns: 'common' }),
+          value: GRANT_TYPES.Redelegate,
+        },
+      ],
+    },
+  ];
+
+  const GRANT_TYPE_DEFAULT_OPTION = GRANT_TYPE_OPTIONS[0].options[0];
+
+  const GRANT_PERIOD_OPTIONS = [
+    {
+      label: t('one-week', '1 Week', { ns: 'auth' }),
+      value: '1w',
+    },
+    {
+      label: t('one-month', '1 Month', { ns: 'auth' }),
+      value: '1m',
+    },
+    {
+      label: t('three-months', '3 Months', { ns: 'auth' }),
+      value: '3m',
+    },
+    {
+      label: t('six-months', '6 Months', { ns: 'auth' }),
+      value: '6m',
+    },
+    {
+      label: t('one-year', '1 Year', { ns: 'auth' }),
+      value: '1y',
+    },
+    {
+      label: t('five-years', '5 Years', { ns: 'auth' }),
+      value: '5y',
+    },
+    {
+      label: t('hundred-years', '100 Years', { ns: 'auth' }),
+      value: '100y',
+    },
+  ];
+
+  const GRANT_PERIOD_DEFAULT_OPTION = GRANT_PERIOD_OPTIONS[4];
+
   const [grantee, setGrantee] = useState('');
   const [isGranteeValid, setGranteeValid] = useState(false);
   const [granteeAddresses, setGranteeAddresses] = useState<{

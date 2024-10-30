@@ -19,14 +19,28 @@
     "memo": "Memo",
     "add-your-memo": "Add your memo",
     "grant-access-button": "Grant Access",
-    "invalid-grantee-wallet-message": "You should enter valid grantee wallet to see info"
+    "invalid-grantee-wallet-message": "You should enter valid grantee wallet to see info",
+    "submit-proposal": "Submit proposal",
+    "vote": "Vote",
+    "one-week": "1 week",
+    "one-month": "1 month",
+    "three-months": "3 months",
+    "six-months": "6 months",
+    "one-year": "1 year",
+    "five-years": "5 years",
+    "hundred-years": "100 years"
   },
   "common": {
     "address-label": "Address",
     "copied": "Copied!",
     "click-to-copy": "Click to copy",
     "connect-wallet-message": "You should connect wallet first",
-    "connect-wallet-button": "Connect wallet"
+    "connect-wallet-button": "Connect wallet",
+    "governance": "Governance",
+    "staking": "Staking",
+    "delegate": "Delegate",
+    "undelegate": "Undelegate",
+    "redelegate": "Redelegate"
   },
   "governance": {},
   "main": {},
