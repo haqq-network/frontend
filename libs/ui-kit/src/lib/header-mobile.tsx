@@ -14,6 +14,7 @@ import { useScrollLock } from 'usehooks-ts';
 import { useLayout } from '@haqq/shell-shared';
 import { BurgerButton } from './burger-button';
 import { Container } from './container';
+import { HeaderLink, HeaderLinkWithHref } from './header';
 import { HeaderNavLink } from './header-nav-link';
 import { TestedgeBanner } from './testedge-banner';
 import { useScrollTrack } from '../hooks/use-scroll-track';
@@ -33,7 +34,7 @@ export function HeaderMobile({
   isHaqqWallet?: boolean;
   isTestedge?: boolean;
   renderPageTitle?: () => ReactNode;
-  links: { href: string; label: string }[];
+  links: HeaderLink[];
   className?: string;
 }) {
   const { lock, unlock } = useScrollLock();
@@ -51,7 +52,7 @@ export function HeaderMobile({
     };
   }, [isMobileMenuOpen, lock, unlock]);
 
-  const baseHeaderStyles = clsx(
+  const baseHeaderClassNames = clsx(
     'border-haqq-border w-full transform-gpu border-b-[1px]',
     'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
     isMobileMenuOpen ? 'h-[calc(100vh)]' : 'h-[62px]',
@@ -64,7 +65,7 @@ export function HeaderMobile({
       <div className={clsx(isTestedge ? 'h-[calc(62px+64px)]' : 'h-[62px]')} />
       <div className="fixed left-0 top-0 z-50 w-full">
         {isTestedge && <TestedgeBanner />}
-        <AnimatedOrNot baseHeaderStyles={baseHeaderStyles}>
+        <AnimatedOrNot baseHeaderClassNames={baseHeaderClassNames}>
           <div className="flex h-full flex-col">
             <div className="border-haqq-border mx-auto flex h-[62px] w-full flex-none flex-row items-center border-b-[1px] pr-[16px] sm:pr-[64px]">
               <div
@@ -114,17 +115,27 @@ export function HeaderMobile({
               <Container className="flex w-full flex-col gap-[32px] py-[24px]">
                 {links.length > 0 && (
                   <nav className="mb-[24px] flex flex-col gap-[24px]">
-                    {links.map(({ href, label }) => {
+                    {links.map((link) => {
+                      if (link.type === 'dropdown') {
+                        return (
+                          <HeaderDropdownMobile
+                            key={link.label}
+                            label={link.label}
+                            links={link.children}
+                          />
+                        );
+                      }
+
                       return (
                         <HeaderNavLink
-                          href={href}
-                          key={href}
+                          href={link.href}
+                          key={link.href}
                           className="inline-flex leading-[24px]"
                           onClick={() => {
                             setIsMobileMenuOpened(false);
                           }}
                         >
-                          {label}
+                          {link.label}
                         </HeaderNavLink>
                       );
                     })}
@@ -143,25 +154,50 @@ export function HeaderMobile({
   );
 }
 
+function HeaderDropdownMobile({
+  label,
+  links,
+}: {
+  label: string;
+  links: HeaderLinkWithHref[];
+}) {
+  return (
+    <div className="header-dropdown">
+      <span className="font-bold">{label}</span>
+      <div className="flex flex-col gap-[8px]">
+        {links.map(({ href, label }) => {
+          return (
+            <HeaderNavLink href={href} key={href}>
+              {label}
+            </HeaderNavLink>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function AnimatedOrNot({
-  baseHeaderStyles,
+  baseHeaderClassNames,
   children,
-}: PropsWithChildren<{ baseHeaderStyles: string }>) {
+}: PropsWithChildren<{ baseHeaderClassNames: string }>) {
   const { isMobileUA } = useLayout();
 
   return isMobileUA ? (
-    <StaticHeader baseHeaderStyles={baseHeaderStyles}>{children}</StaticHeader>
+    <header className={clsx(baseHeaderClassNames, 'backdrop-blur')}>
+      {children}
+    </header>
   ) : (
-    <AnimatedHeader baseHeaderStyles={baseHeaderStyles}>
+    <AnimatedHeader baseHeaderClassNames={baseHeaderClassNames}>
       {children}
     </AnimatedHeader>
   );
 }
 
 function AnimatedHeader({
-  baseHeaderStyles,
+  baseHeaderClassNames,
   children,
-}: PropsWithChildren<{ baseHeaderStyles: string }>) {
+}: PropsWithChildren<{ baseHeaderClassNames: string }>) {
   const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
 
   const [springValues, setSpringValues] = useSpring(() => {
@@ -189,20 +225,9 @@ function AnimatedHeader({
           return `rgba(13, 13, 14, ${opacity})`;
         }),
       }}
-      className={baseHeaderStyles}
+      className={baseHeaderClassNames}
     >
       {children}
     </animated.header>
-  );
-}
-
-function StaticHeader({
-  baseHeaderStyles,
-  children,
-}: PropsWithChildren<{ baseHeaderStyles: string }>) {
-  return (
-    <header className={clsx(baseHeaderStyles, 'backdrop-blur')}>
-      {children}
-    </header>
   );
 }

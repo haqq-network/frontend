@@ -1,43 +1,53 @@
 import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
+import { HeaderLink } from '@haqq/shell-ui-kit';
 
-export const headerLinks: {
-  href: string;
-  label: string;
-  chains: number[];
-}[] = [
-  // {
-  //   href: '/',
-  //   label: 'Home',
-  //   chains: [haqqMainnet.id, haqqTestedge2.id],
-  // },
+export const headerLinks: HeaderLink[] = [
   {
-    href: '/uc-dao',
+    type: 'link',
     label: 'UC DAO',
+    href: '/uc-dao',
     chains: [haqqMainnet.id, haqqTestedge2.id],
   },
   {
-    href: '/staking',
+    type: 'link',
     label: 'Staking',
+    href: '/staking',
     chains: [haqqMainnet.id, haqqTestedge2.id],
   },
   {
-    href: '/governance',
+    type: 'link',
     label: 'Governance',
+    href: '/governance',
     chains: [haqqMainnet.id, haqqTestedge2.id],
   },
   {
-    href: '/authz',
-    label: 'Authz',
-    chains: [haqqMainnet.id, haqqTestedge2.id],
+    type: 'dropdown',
+    label: 'Tools',
+    children: [
+      {
+        type: 'link',
+        label: 'Authz',
+        href: '/authz',
+        chains: [haqqMainnet.id, haqqTestedge2.id],
+      },
+      {
+        type: 'link',
+        label: 'Faucet',
+        href: '/faucet',
+        chains: [haqqTestedge2.id],
+      },
+    ],
   },
   {
-    href: '/faucet',
-    label: 'Faucet',
-    chains: [haqqTestedge2.id],
+    type: 'dropdown',
+    label: 'Utils',
+    children: [
+      {
+        type: 'link',
+        label: 'Address conversion',
+        href: '/utils/address-conversion',
+        chains: [haqqMainnet.id, haqqTestedge2.id],
+      },
+    ],
   },
 ];
-
-export const headerUtilsLinks: {
-  name: string;
-  link: string;
-}[] = [{ name: 'Address conversion', link: '/utils/address-conversion' }];

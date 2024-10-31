@@ -1,10 +1,10 @@
 import createMiddleware from 'next-intl/middleware';
-import { ALL_LOCALES, DEFAULT_LOCALE } from './tolgee/shared';
+import { AVAILABLE_LOCALES, DEFAULT_LOCALE } from './tolgee/shared';
 
 export default createMiddleware({
-  locales: ALL_LOCALES,
+  locales: AVAILABLE_LOCALES,
   defaultLocale: DEFAULT_LOCALE,
-  localePrefix: 'as-needed',
+  localePrefix: 'never',
 });
 
 export const config = {
