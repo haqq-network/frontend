@@ -1,8 +1,46 @@
 {
-  "authz": {},
+  "authz": {
+    "revoke-button": "Revoke",
+    "revoke-loading": "Revoke in progress",
+    "revoke-success": "Revoke successful",
+    "access-you-granted": "Access you have granted",
+    "access-granted-to-you": "Access you have been granted",
+    "grantee": "Grantee",
+    "message": "Message",
+    "valid-thru": "Valid thru",
+    "selected-grantee": "Selected grantee",
+    "staked": "Staked",
+    "rewards": "Rewards",
+    "unbonding": "Unbonding",
+    "grant-access": "Grant access",
+    "grantee-address": "Grantee address",
+    "grant-type": "Grant type",
+    "grant-period": "Grant period",
+    "memo": "Memo",
+    "add-your-memo": "Add your memo",
+    "grant-access-button": "Grant Access",
+    "invalid-grantee-wallet-message": "You should enter valid grantee wallet to see info",
+    "submit-proposal": "Submit proposal",
+    "vote": "Vote",
+    "one-week": "1 week",
+    "one-month": "1 month",
+    "three-months": "3 months",
+    "six-months": "6 months",
+    "one-year": "1 year",
+    "five-years": "5 years",
+    "hundred-years": "100 years"
+  },
   "common": {
+    "address-label": "Address",
     "copied": "Copied!",
-    "click-to-copy": "Click to copy"
+    "click-to-copy": "Click to copy",
+    "connect-wallet-message": "You should connect wallet first",
+    "connect-wallet-button": "Connect wallet",
+    "governance": "Governance",
+    "staking": "Staking",
+    "delegate": "Delegate",
+    "undelegate": "Undelegate",
+    "redelegate": "Redelegate"
   },
   "governance": {},
   "main": {},
@@ -11,7 +49,6 @@
   "utils": {
     "invalid-address": "Please enter a valid address",
     "address-conversion-title": "Address Conversion",
-    "address-label": "Address",
     "converted-address-label": "Converted address",
     "balance-label": "Balance"
   }

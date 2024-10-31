@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
 import {
@@ -72,6 +73,7 @@ export function GranteeCard({
     haqq: string;
   };
 }) {
+  const { t } = useTranslate();
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
   const { copyText } = useClipboard();
@@ -152,22 +154,22 @@ export function GranteeCard({
     <div className="flex w-full transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[36px] py-[32px]">
       <div>
         <Heading level={3} className="mb-[-2px]">
-          Selected grantee
+          {t('selected-grantee', 'Selected grantee', { ns: 'authz' })}
         </Heading>
       </div>
 
       <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
         <div>
           <MyAccountAmountBlock
-            title="Address"
+            title={t('address-label', 'Address', { ns: 'common' })}
             value={
               <div className="space-gap-2 font-guise flex flex-col items-start">
                 <div>
                   <Tooltip
                     text={
                       isEthAddressCopy
-                        ? 'Copied!'
-                        : `Click to copy ${granteeAddresses.eth}`
+                        ? t('copied', 'Copied!', { ns: 'common' })
+                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${granteeAddresses.eth}`
                     }
                   >
                     <div
@@ -186,8 +188,8 @@ export function GranteeCard({
                   <Tooltip
                     text={
                       isHaqqAddressCopy
-                        ? 'Copied!'
-                        : `Click to copy ${granteeAddresses.haqq}`
+                        ? t('copied', 'Copied!', { ns: 'common' })
+                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${granteeAddresses.haqq}`
                     }
                   >
                     <div
@@ -210,15 +212,13 @@ export function GranteeCard({
         <div className="flex flex-row flex-wrap gap-[16px]">
           <div className="flex-1">
             <MyAccountAmountBlock
-              title="Staked"
-              value={`${formatNumber(
-                delegation,
-              )} ${symbol.toLocaleUpperCase()}`}
+              title={t('staked', 'Staked', { ns: 'authz' })}
+              value={`${formatNumber(delegation)} ${symbol.toLocaleUpperCase()}`}
             />
           </div>
           <div className="flex-1">
             <MyAccountAmountBlock
-              title="Rewards"
+              title={t('rewards', 'Rewards', { ns: 'authz' })}
               value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
             />
           </div>
@@ -226,7 +226,7 @@ export function GranteeCard({
         <div>
           <div className="flex-1">
             <MyAccountAmountBlock
-              title="Unbonding"
+              title={t('unbonding', 'Unbonding', { ns: 'authz' })}
               value={`${formatNumber(unbounded)} ${symbol.toLocaleUpperCase()}`}
             />
           </div>
