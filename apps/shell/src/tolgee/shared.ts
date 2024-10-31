@@ -1,8 +1,15 @@
 import { FormatIcu } from '@tolgee/format-icu';
 import { DevTools, Tolgee, FormatSimple, TolgeeStaticData } from '@tolgee/web';
 
-export type Locale = 'en' | 'ar' | 'id' | 'tr';
-export const ALL_LOCALES: Locale[] = ['en', 'ar', 'id', 'tr'];
+export const AVAILABLE_LOCALES = ['en', 'ar', 'id', 'tr'] as const;
+export type Locale = (typeof AVAILABLE_LOCALES)[number];
+
+export const LOCALE_LABELS: Record<Locale, { label: string; emoji: string }> = {
+  en: { label: 'English', emoji: '🇬🇧' },
+  ar: { label: 'العربية', emoji: '🇸🇦' },
+  id: { label: 'Bahasa Indonesia', emoji: '🇮🇩' },
+  tr: { label: 'Türkçe', emoji: '🇹🇷' },
+};
 
 export type Namespace =
   | 'common'
@@ -35,7 +42,7 @@ export async function getStaticData(
   for (const lang of languages) {
     for (const ns of ALL_NAMESPACES) {
       try {
-        const data = (await import(`../i18n/${lang}.json`)).default;
+        const data = (await import(`../../messages/${lang}.json`)).default;
         result[`${lang}:${ns}`] = data[ns];
       } catch (error) {
         console.error(
@@ -56,9 +63,6 @@ export function TolgeeBase() {
       .use(DevTools())
       .use(FormatIcu())
       // Preset shared settings
-      .updateDefaults({
-        apiKey,
-        apiUrl,
-      })
+      .updateDefaults({ apiKey, apiUrl })
   );
 }

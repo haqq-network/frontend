@@ -23,8 +23,8 @@ import { env } from '../../env/client';
 import { clashDisplayFont, hkGuiseFont } from '../../lib/fonts';
 import { AppProviders } from '../../providers/app-providers';
 import { PHProvider } from '../../providers/posthog-provider';
-import { ALL_LOCALES, getStaticData, Locale } from '../../tolgee/shared';
-import '../global.css';
+import { AVAILABLE_LOCALES, getStaticData, Locale } from '../../tolgee/shared';
+import './global.css';
 
 export const metadata: Metadata = {
   title: {
@@ -106,7 +106,7 @@ export default async function RootLayout({
     });
   }
 
-  if (!ALL_LOCALES.includes(params.locale as Locale)) {
+  if (!AVAILABLE_LOCALES.includes(params.locale as Locale)) {
     notFound();
   }
 
