@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { useAddress, useWallet } from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
@@ -10,6 +11,7 @@ import { GranterGrantsTable } from './granter-table';
 export function AuthzPage() {
   const { ethAddress } = useAddress();
   const { openSelectWallet, isHaqqWallet } = useWallet();
+  const { t } = useTranslate('common');
 
   return (
     <div>
@@ -32,10 +34,10 @@ export function AuthzPage() {
             )}
           >
             <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-              You should connect wallet first
+              {t('connect-wallet-message', 'You should connect wallet first')}
             </div>
             <Button onClick={openSelectWallet} variant={2}>
-              Connect wallet
+              {t('connect-wallet-button', 'Connect wallet')}
             </Button>
           </div>
         ) : (
