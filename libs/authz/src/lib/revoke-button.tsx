@@ -1,5 +1,6 @@
 'use client';
 import { useCallback } from 'react';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
@@ -27,6 +28,7 @@ export function RevokeButton({
   grantee: string;
   msg: string;
 }) {
+  const { t } = useTranslate('authz');
   const invalidateQueries = useQueryInvalidate();
   const { revoke, getRevokeEstimatedFee } = useAuthzActions();
   const toast = useToast();
@@ -48,7 +50,11 @@ export function RevokeButton({
         );
 
         await toast.promise(revokePromise, {
-          loading: <ToastLoading>Revoke in progress</ToastLoading>,
+          loading: (
+            <ToastLoading>
+              {t('revoke-loading', 'Revoke in progress')}
+            </ToastLoading>
+          ),
           success: (tx) => {
             console.log('Revoke successful', { tx });
             const txHash = tx?.txhash;
@@ -56,7 +62,7 @@ export function RevokeButton({
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                  <div>Revoke successful</div>
+                  <div>{t('revoke-success', 'Revoke successful')}</div>
                   <div>
                     <Link
                       href={`${explorer.cosmos}/tx/${txHash}`}
@@ -91,6 +97,7 @@ export function RevokeButton({
       getRevokeEstimatedFee,
       invalidateQueries,
       revoke,
+      t,
       toast,
     ],
   );
@@ -104,7 +111,7 @@ export function RevokeButton({
       }}
       variant={1}
     >
-      Revoke
+      {t('revoke-button', 'Revoke')}
     </Button>
   );
 }
