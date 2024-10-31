@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import { useAddress, useAuthzGranteeGrants } from '@haqq/shell-shared';
 import { Container, Heading } from '@haqq/shell-ui-kit/server';
 import { mapRPCGrantToWebGrant } from './utils/map-rpc-grant-to-web-grant';
 
 export function GranteeGrantsTable() {
+  const { t } = useTranslate('authz');
   const { haqqAddress } = useAddress();
   const { data: granteeGrants } = useAuthzGranteeGrants(haqqAddress ?? '');
 
@@ -25,7 +27,7 @@ export function GranteeGrantsTable() {
         <div className="flex flex-col gap-[24px] py-[32px] sm:py-[22px] lg:py-[32px]">
           <div>
             <Heading level={3} className="mb-[-2px]">
-              Access you have been granted
+              {t('access-granted-to-you', 'Access you have been granted')}
             </Heading>
           </div>
 
@@ -33,13 +35,13 @@ export function GranteeGrantsTable() {
             <thead className="text-[10px] uppercase leading-[24px] text-white/50 md:text-[12px]">
               <tr>
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Granter
+                  {t('granter', 'Granter')}
                 </th>
                 <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Message
+                  {t('message', 'Message')}
                 </th>
                 {/* <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Valid tru
+                  {t('valid-thru', 'Valid thru')}
                 </th> */}
               </tr>
             </thead>
