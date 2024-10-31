@@ -1,10 +1,17 @@
 import { getRequestConfig } from 'next-intl/server';
+import { routing } from './routing';
+import { Locale } from '../tolgee/shared';
 
-// The i18n/request.ts is required by next-intl package, we don't actually need it,
-// so we are only doing necessary actions to stop next-intl from complaining.
-export default getRequestConfig(async ({ locale }) => {
+export default getRequestConfig(async ({ requestLocale }) => {
+  // Get locale from request and fallback to default if needed
+  let locale = await requestLocale;
+
+  if (!locale || !routing.locales.includes(locale as Locale)) {
+    locale = routing.defaultLocale;
+  }
+
   return {
-    // do this to make next-intl not emmit any warnings
+    locale,
     messages: { locale },
   };
 });
