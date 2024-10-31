@@ -3,7 +3,7 @@
 import { ReactNode, useEffect } from 'react';
 import { TolgeeProvider, TolgeeStaticData, useTolgeeSSR } from '@tolgee/react';
 import { useRouter } from 'next/navigation';
-import { ALL_LOCALES, ALL_NAMESPACES, TolgeeBase } from './shared';
+import { AVAILABLE_LOCALES, ALL_NAMESPACES, TolgeeBase } from './shared';
 
 type Props = {
   locales: TolgeeStaticData;
@@ -13,7 +13,7 @@ type Props = {
 
 const staticData: Record<string, () => Promise<any>> = {};
 
-ALL_LOCALES.forEach((loc) => {
+AVAILABLE_LOCALES.forEach((loc) => {
   ALL_NAMESPACES.forEach((ns) => {
     staticData[`${loc}:${ns}`] = async () => {
       const data = await import(`../i18n/${loc}.json`);
