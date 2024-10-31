@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import {
   Modal,
   ModalCloseButton,
@@ -45,6 +46,7 @@ export function LiquidStakingUndelegateModal({
   strideAddress,
   setStrideAddress,
 }: LiquidStakingUndelegateModalProps) {
+  const { t } = useTranslate();
   const handleMaxButtonClick = useCallback(() => {
     onChange(delegation);
   }, [delegation, onChange]);
@@ -72,15 +74,23 @@ export function LiquidStakingUndelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-haqq-danger">Bellow minimal value</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'stacking' })}
+        </span>
+      );
     } else if (amountError === 'max') {
       return (
-        <span className="text-haqq-danger">More than your delegation</span>
+        <span className="text-haqq-danger">
+          {t('amount-error-more-than-delegation', 'More than your delegation', {
+            ns: 'stacking',
+          })}
+        </span>
       );
     }
 
     return undefined;
-  }, [amountError]);
+  }, [amountError, t]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -94,7 +104,7 @@ export function LiquidStakingUndelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Undelegate
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </ModalHeading>
 
               <WarningMessage
@@ -133,7 +143,11 @@ export function LiquidStakingUndelegateModal({
                   placeholder="Use your Stride address here"
                   hint={
                     <span className="text-haqq-danger">
-                      Stride address is required to undelegate
+                      {t(
+                        'stride-address-required',
+                        'Stride address is required to undelegate',
+                        { ns: 'stacking' },
+                      )}
                     </span>
                   }
                 />
@@ -145,7 +159,9 @@ export function LiquidStakingUndelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Confirm undelegation
+                    {t('confirm-undelegation', 'Confirm undelegation', {
+                      ns: 'stacking',
+                    })}
                   </Button>
                 </div>
               </div>

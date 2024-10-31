@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
@@ -39,6 +40,7 @@ export function LiquidStakingUndelegateModalHooked({
   delegation,
   unboundingTime,
 }: LiquidStakingUndelegateModalProps) {
+  const { t } = useTranslate('stacking');
   const { undelegate, setStrideAddress, strideAddress } =
     useLiquidStakingUndelegate();
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
@@ -80,13 +82,21 @@ export function LiquidStakingUndelegateModalHooked({
       await toast.promise(
         undelegationPromise,
         {
-          loading: <ToastLoading>Undlegation in progress</ToastLoading>,
+          loading: (
+            <ToastLoading>
+              {t('undelegation-progress', 'Undelegation in progress')}
+            </ToastLoading>
+          ),
           success: (tx) => {
-            console.log('Undlegation successful', { tx });
+            console.log('Undelegation successful', { tx });
             const txHash = tx?.txhash;
 
             if (!txHash) {
-              return <ToastError>Undelegation declined</ToastError>;
+              return (
+                <ToastError>
+                  {t('undelegation-declined', 'Undelegation declined')}
+                </ToastError>
+              );
             }
 
             posthog.capture('undelegate success', {
@@ -103,7 +113,9 @@ export function LiquidStakingUndelegateModalHooked({
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                  <div>Undelegation successful</div>
+                  <div>
+                    {t('undelegation-success', 'Undelegation successful')}
+                  </div>
                   <div>
                     <Link
                       href={`${explorer.cosmos}/tx/${txHash}`}
@@ -149,6 +161,7 @@ export function LiquidStakingUndelegateModalHooked({
     chainId,
     undelegate,
     toast,
+    t,
     onClose,
     explorer.cosmos,
     invalidateQueries,

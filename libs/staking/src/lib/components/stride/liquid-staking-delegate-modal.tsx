@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import {
   Modal,
@@ -131,6 +132,7 @@ export function LiquidStakingDelegateModal({
   strideAddress,
   setStrideAddress,
 }: LiquidStakingDelegateModalProps) {
+  const { t } = useTranslate('stacking');
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
   }, [balance, onChange]);
@@ -158,13 +160,21 @@ export function LiquidStakingDelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-haqq-danger">Bellow minimal value</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-min', 'Bellow minimal value')}
+        </span>
+      );
     } else if (amountError === 'max') {
-      return <span className="text-haqq-danger">More than you have</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-more-than-have', 'More than you have')}
+        </span>
+      );
     }
 
     return undefined;
-  }, [amountError]);
+  }, [amountError, t]);
 
   const { stIslmFormIslm } = useStIslmFormIslm(delegateAmount || 0);
 
@@ -186,26 +196,28 @@ export function LiquidStakingDelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Delegate
+                {t('delegate-title', 'Delegate')}
               </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
-                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} ${unboundingTime === 1 ? 'day' : 'days'}`}
+                {t('attention-withdrawal-warning', {
+                  count: unboundingTime,
+                })}
               </WarningMessage>
             </div>
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <LiquidStakingDelegateModalDetails
-                  title="My balance"
+                  title={t('my-balance', 'My balance')}
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <LiquidStakingDelegateModalDetails
-                  title="APY"
+                  title={t('apy', 'APY')}
                   isValuePending={isLoading}
                   value={`${apy}%`}
                 />
                 <LiquidStakingDelegateModalDetails
-                  title="Commission"
+                  title={t('commission', 'Commission')}
                   value={`${strideFee}%`}
                 />
               </div>
@@ -227,7 +239,10 @@ export function LiquidStakingDelegateModal({
                   placeholder="Use your Stride address here"
                   hint={
                     <span className="text-haqq-danger">
-                      Stride address is required to delegate
+                      {t(
+                        'stride-address-required',
+                        'Stride address is required to delegate',
+                      )}
                     </span>
                   }
                 />
@@ -235,9 +250,10 @@ export function LiquidStakingDelegateModal({
                 <div className="flex flex-col items-center justify-center gap-[16px]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
-                      What you'll get:
+                      {t('you-will-get', "What you'll get:")}
                     </div>
                     <div className="text-[20px] font-semibold leading-[26px]">
+                      {/* eslint-disable-next-line i18next/no-literal-string */}
                       {formatNumber(stIslmFormIslm)} stISLM
                     </div>
                   </div>
@@ -245,9 +261,10 @@ export function LiquidStakingDelegateModal({
                   {annualizedYield ? (
                     <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-[8px]">
                       <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
-                        Annual percentage yield
+                        {t('annualized-yield', 'Annual percentage yield')}
                       </div>
                       <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
+                        {/* eslint-disable-next-line i18next/no-literal-string */}
                         {formatNumber(annualizedYield)} stISLM
                       </div>
                     </div>
@@ -261,7 +278,7 @@ export function LiquidStakingDelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Confirm delegation
+                    {t('confirm-delegation', 'Confirm delegation')}
                   </Button>
                 </div>
               </div>

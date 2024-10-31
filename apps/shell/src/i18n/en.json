@@ -44,7 +44,9 @@
   },
   "governance": {},
   "main": {},
-  "stacking": {},
+  "stacking": {
+    "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {count, plural, one {# day} other {# days}}"
+  },
   "uc-dao": {},
   "utils": {
     "invalid-address": "Please enter a valid address",
