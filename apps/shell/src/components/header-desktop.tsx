@@ -1,10 +1,10 @@
 'use client';
-import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useAccount, useChains } from 'wagmi';
 import { haqqTestedge2 } from 'wagmi/chains';
 import { Header } from '@haqq/shell-ui-kit';
-import { headerLinks } from '../config/header-links';
+import { useFilteredLinks } from '../hooks/use-filtered-header-links';
+import { useLocaleSwitcher } from '../hooks/use-locale-switcher';
 
 const Web3ConnectButtons = dynamic(async () => {
   const { Web3ConnectButtons } = await import(
@@ -13,29 +13,22 @@ const Web3ConnectButtons = dynamic(async () => {
   return { default: Web3ConnectButtons };
 });
 
-const HeaderUtilsMenu = dynamic(async () => {
-  const { HeaderUtilsMenu } = await import('../components/header-utils-menu');
-  return { default: HeaderUtilsMenu };
-});
-
 export function AppHeaderDesktop({ className }: { className?: string }) {
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
   const isTestedge = chain.id === haqqTestedge2.id;
-
-  const links = useMemo(() => {
-    return headerLinks.filter((link) => {
-      return link.chains.includes(chain.id);
-    });
-  }, [chain.id]);
+  const links = useFilteredLinks(chain);
+  const { switchLocale, locales, currentLocale } = useLocaleSwitcher();
 
   return (
     <Header
       links={links}
       web3ButtonsSlot={<Web3ConnectButtons />}
-      utilsSlot={<HeaderUtilsMenu />}
       className={className}
       isTestedge={isTestedge}
+      locales={locales}
+      switchLocale={switchLocale}
+      currentLocale={currentLocale}
     />
   );
 }

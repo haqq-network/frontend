@@ -1,13 +1,13 @@
 import { createServerInstance } from '@tolgee/react/server';
 import { getLocale } from 'next-intl/server';
-import { TolgeeBase, ALL_LOCALES, getStaticData } from './shared';
+import { TolgeeBase, AVAILABLE_LOCALES, getStaticData } from './shared';
 
 export const { getTolgee, getTranslate, T } = createServerInstance({
   getLocale,
   createTolgee: async (locale) => {
     return TolgeeBase().init({
       // load all languages on the server
-      staticData: await getStaticData(ALL_LOCALES),
+      staticData: await getStaticData(AVAILABLE_LOCALES as unknown as string[]),
       observerOptions: {
         fullKeyEncode: true,
       },

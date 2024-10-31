@@ -19,5 +19,6 @@ export * from './lib/header-mobile';
 export * from './lib/select-chain-modal';
 export * from './lib/low-balance-alert';
 export * from './lib/expandable-block';
+export * from './lib/locale-dropdown';
 
 export * from './hooks/use-scroll-track';
