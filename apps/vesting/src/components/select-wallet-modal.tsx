@@ -5,12 +5,13 @@ import { Heading } from './typography';
 export function SelectWalletModal({
   isOpen,
   onClose,
-
+  className,
   onConnectClick,
   connectors,
   error,
   isMobileUA,
   deeplink,
+  isHaqqWallet,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -23,6 +24,7 @@ export function SelectWalletModal({
   error: string | undefined;
   isMobileUA: boolean;
   deeplink: string;
+  isHaqqWallet: boolean;
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -36,7 +38,7 @@ export function SelectWalletModal({
           </div>
 
           <div className="flex flex-col space-y-2">
-            {isMobileUA && (
+            {isMobileUA && !isHaqqWallet && deeplink && (
               <div>
                 <Button
                   className="min-w-[220px]"

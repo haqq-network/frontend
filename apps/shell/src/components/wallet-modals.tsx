@@ -22,6 +22,7 @@ export function WalletModals({ isMobileUA }: { isMobileUA: boolean }) {
     closeSelectChain,
     isLowBalanceAlertOpen,
     closeLowBalanceAlert,
+    isHaqqWallet,
   } = useWallet();
   const supportedChains = useChains();
 
@@ -53,6 +54,7 @@ export function WalletModals({ isMobileUA }: { isMobileUA: boolean }) {
         onClose={closeSelectWallet}
         error={connectError ?? ''}
         deeplink={deeplink}
+        isHaqqWallet={isHaqqWallet}
       />
 
       <SelectChainModal
