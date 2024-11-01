@@ -17,12 +17,14 @@ export function WalletModals({ isMobileUA }: { isMobileUA: boolean }) {
     connectError,
     setConnectError,
     isSelectWalletOpen,
+    isHaqqWallet,
   } = useWallet();
 
   const deeplink = useDeeplink();
 
   return (
     <SelectWalletModal
+      isHaqqWallet={isHaqqWallet}
       deeplink={deeplink}
       isMobileUA={isMobileUA}
       connectors={connectors}
