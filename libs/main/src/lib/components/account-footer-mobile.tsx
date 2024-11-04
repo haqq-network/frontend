@@ -1,3 +1,4 @@
+import { useTranslate } from '@tolgee/react';
 import { useAccount } from 'wagmi';
 import {
   getFormattedAddress,
@@ -9,6 +10,7 @@ import { Button, AccountButton } from '@haqq/shell-ui-kit';
 import { Container, LogoutIcon } from '@haqq/shell-ui-kit/server';
 
 export function AccountFooterMobile() {
+  const { t } = useTranslate('common');
   const { isConnected } = useAccount();
   const { disconnect, openSelectWallet } = useWallet();
   const { haqqAddress, ethAddress } = useAddress();
@@ -39,7 +41,7 @@ export function AccountFooterMobile() {
         ) : (
           <div className="text-center">
             <Button variant={2} onClick={openSelectWallet}>
-              Connect wallet
+              {t('connect-wallet-button', 'Connect wallet')}
             </Button>
           </div>
         )}
