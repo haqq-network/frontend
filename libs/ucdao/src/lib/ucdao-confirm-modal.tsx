@@ -1,4 +1,4 @@
-import { useTranslate } from '@tolgee/react';
+import { T, useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { formatUnits } from 'viem';
 import {
@@ -116,7 +116,12 @@ function DaoBalanceConfirmAmount({
   } else if (balanceNum === 0) {
     return (
       <>
-        <b>{tokensNum} LIQUID</b> {t('token-count', { count: tokensNum })}
+        <T
+          keyName="token-count"
+          ns="uc-dao"
+          defaultValue="<b>{count} LIQUID</b> token{count, plural, one {} other {s}}"
+          params={{ count: tokensNum, b: <b /> }}
+        />
       </>
     );
   } else {

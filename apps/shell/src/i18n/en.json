@@ -54,7 +54,7 @@
     "confirm-ownership-transfer": "You confirm you want to transfer coins ownership in DAO",
     "to-the-address": "to the address",
     "and": "and",
-    "token-count": "token{count, plural, one { } other {s}}",
+    "token-count": "<b>{{count}} LIQUID</b> token{count, plural, one {} other {s}}",
     "deposit-dao": "Deposit to DAO",
     "currency": "Currency",
     "amount": "Amount",
