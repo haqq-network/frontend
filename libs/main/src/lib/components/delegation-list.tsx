@@ -205,7 +205,7 @@ export function ShellIndexPageDelegationList() {
             </div>
           </div>
         )}
-        {/*TODO: do we need to translate such errors?*/}
+        {/* eslint-disable-next-line i18next/no-literal-string */}
         {status === 'error' && <p>Error: {(error as Error).message}</p>}
         {status === 'success' && (
           <div className="max-h-[300px] min-h-[120px] w-full overflow-y-scroll">
