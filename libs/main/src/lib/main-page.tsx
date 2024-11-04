@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import { useMediaQuery } from 'usehooks-ts';
 import { useWallet } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
@@ -30,6 +31,7 @@ export function MainPage({
   isMobileUserAgent: boolean;
   seedPhrase: string;
 }) {
+  const { t } = useTranslate('main');
   const { isHaqqWallet } = useWallet();
   const isTablet = useMediaQuery('(max-width: 1023px)');
 
@@ -40,7 +42,7 @@ export function MainPage({
           <div className="flex flex-col gap-[8px]">
             {!isHaqqWallet && (
               <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-                Shell
+                {t('shell-title', 'Shell')}
               </div>
             )}
 
