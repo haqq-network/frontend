@@ -1,3 +1,4 @@
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { Button, Tooltip } from '@haqq/shell-ui-kit';
 import {
@@ -58,12 +59,13 @@ export function StakingStatsDesktop({
   onRewardsClaim,
   isRewardsPending = false,
 }: StakingStatsProps) {
+  const { t } = useTranslate('staking');
   return (
     <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Regular staking
+          {t('regular-staking', 'Regular staking')}
         </Heading>
       </div>
 
@@ -72,7 +74,7 @@ export function StakingStatsDesktop({
           <div className="flex flex-row gap-[24px]">
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Available"
+                title={t('available', 'Available')}
                 value={balance}
                 symbol={symbol}
               />
@@ -80,7 +82,7 @@ export function StakingStatsDesktop({
 
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Staked"
+                title={t('staked', 'Staked')}
                 value={delegated}
                 symbol={symbol}
               />
@@ -88,7 +90,7 @@ export function StakingStatsDesktop({
 
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Unbonding"
+                title={t('unbonding', 'Unbonding')}
                 value={unbounded}
                 symbol={symbol}
               />
@@ -96,7 +98,7 @@ export function StakingStatsDesktop({
 
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Rewards"
+                title={t('rewards', 'Rewards')}
                 value={rewards}
                 symbol={symbol}
                 isGreen
@@ -108,7 +110,7 @@ export function StakingStatsDesktop({
             <Tooltip
               text={
                 Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
-                  ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+                  ? `${t('min-amount-to-claim-rewards', 'Minimum amount to claim rewards is')} ${MIN_REWARDS_TO_CLAIM} ISLM`
                   : ''
               }
             >
@@ -118,7 +120,7 @@ export function StakingStatsDesktop({
                 variant={2}
                 isLoading={isRewardsPending}
               >
-                Claim all rewards
+                {t('claim-all-rewards', 'Claim all rewards')}
               </Button>
             </Tooltip>
           </div>
@@ -173,6 +175,7 @@ export function StakingStatsMobile({
   unbounded,
   isRewardsPending = false,
 }: StakingStatsProps) {
+  const { t } = useTranslate('staking');
   return (
     <div className="flex flex-col items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
       <div className="flex flex-row items-center">
@@ -184,22 +187,22 @@ export function StakingStatsMobile({
 
       <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
-          title="Available"
+          title={t('available', 'Available')}
           value={balance}
           symbol={symbol}
         />
         <StakingStatsMobileAmountBlock
-          title="Staked"
+          title={t('staked', 'Staked')}
           value={delegated}
           symbol={symbol}
         />
         <StakingStatsMobileAmountBlock
-          title="Unbonding"
+          title={t('unbonding', 'Unbonding')}
           value={unbounded}
           symbol={symbol}
         />
         <StakingStatsMobileAmountBlock
-          title="Rewards"
+          title={t('rewards', 'Rewards')}
           value={rewards}
           symbol={symbol}
           isGreen
@@ -222,7 +225,7 @@ export function StakingStatsMobile({
             disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
             data-attr="get-rewards"
           >
-            Get rewards
+            {t('get-rewards', 'Get rewards')}
           </Button>
         </Tooltip>
       </div>
