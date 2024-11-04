@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'usehooks-ts';
@@ -23,6 +24,7 @@ export function ValidatorList({
   isMobileUserAgent: boolean;
   seedPhrase: string;
 }) {
+  const { t } = useTranslate('staking');
   const {
     totalStaked,
     valsTotal,
@@ -109,7 +111,7 @@ export function ValidatorList({
           <div className="flex flex-row items-center">
             <ValidatorIcon />
             <Heading level={3} className="mb-[-2px] ml-[8px]">
-              Validators
+              {t('validators', 'Validators')}
               {status !== 'pending' && (
                 <span className="text-white/50">
                   &nbsp;(<span>{validatorsCounterText}</span>)
@@ -121,17 +123,17 @@ export function ValidatorList({
           <div className="flex flex-col gap-[12px] lg:flex-row lg:items-center lg:gap-[24px]">
             <SearchInput value={filter} onChange={setFilter} />
             <SortSelect
-              placeholder="Sorting by"
+              placeholder={t('sort-by', 'Sorting by')}
               current={`${sortState.key}-${sortState.direction}`}
               onChange={handleMobileSortChange}
               variants={[
-                { id: 'random', title: 'Random' },
-                { id: 'name-asc', title: 'By name (a-z)' },
-                { id: 'name-desc', title: 'By name (z-a)' },
-                { id: 'power-asc', title: 'By power (a-z)' },
-                { id: 'power-desc', title: 'By power (z-a)' },
-                { id: 'fee-asc', title: 'By fee (a-z)' },
-                { id: 'fee-desc', title: 'By fee (z-a)' },
+                { id: 'random', title: t('random', 'Random') },
+                { id: 'name-asc', title: t('name-asc', 'By name (a-z)') },
+                { id: 'name-desc', title: t('name-desc', 'By name (z-a)') },
+                { id: 'power-asc', title: t('power-asc', 'By power (a-z)') },
+                { id: 'power-desc', title: t('power-desc', 'By power (z-a)') },
+                { id: 'fee-asc', title: t('fee-asc', 'By fee (a-z)') },
+                { id: 'fee-desc', title: t('fee-desc', 'By fee (z-a)') },
               ]}
               className="lg:hidden"
             />
@@ -143,7 +145,7 @@ export function ValidatorList({
                   disabled={!isWalletConnected}
                   value={isWalletConnected ? isShowMyDelegation : false}
                 >
-                  My delegations
+                  {t('my-delegations', 'My delegations')}
                 </Checkbox>
               </div>
               <div className="leading-[0]">
@@ -151,7 +153,7 @@ export function ValidatorList({
                   onChange={setInactiveValidatorsVisible}
                   value={isInactiveValidatorsVisible}
                 >
-                  Show Inactive
+                  {t('show-inactive', 'Show inactive')}
                 </Checkbox>
               </div>
             </div>
@@ -163,12 +165,13 @@ export function ValidatorList({
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
               <SpinnerLoader />
               <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-                Fetching validators list
+                {t('fetching-validators-message', 'Fetching validators list')}
               </div>
             </div>
           </div>
         )}
 
+        {/* TODO: how to translate such errors if they come from BE?*/}
         {status === 'error' && (
           <p>Error: {error?.message ?? 'unknown error'}</p>
         )}

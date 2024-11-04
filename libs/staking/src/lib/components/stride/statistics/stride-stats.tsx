@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'usehooks-ts';
@@ -133,6 +134,7 @@ function StrideStatsDesktop({
   islmAmountFromStIslm: number;
   unbondingTotal: bigint;
 }) {
+  const { t } = useTranslate();
   const { handleDelegateContinue, handleUndelegateContinue } =
     useHandleDelegateContinue();
 
@@ -141,7 +143,7 @@ function StrideStatsDesktop({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Liquid staking
+          {t('liquid-staking', 'Liquid staking', { ns: 'stacking' })}
         </Heading>
       </div>
 
@@ -150,7 +152,7 @@ function StrideStatsDesktop({
           <div className="flex flex-row gap-[24px]">
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Available"
+                title={t('available', 'Available', { ns: 'stacking' })}
                 value={formatNumber(balance)}
                 symbol="ISLM"
                 uppercaseSymbol={false}
@@ -158,7 +160,7 @@ function StrideStatsDesktop({
             </div>
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Staked"
+                title={t('staked', 'Staked', { ns: 'stacking' })}
                 value={formatNumber(stIslmBalance)}
                 symbol="stISLM"
                 uppercaseSymbol={false}
@@ -188,7 +190,7 @@ function StrideStatsDesktop({
                 }}
                 data-attr="liquid-staking-delegate"
               >
-                Delegate
+                {t('delegate', 'Delegate', { ns: 'common' })}
               </Button>
             </div>
 
@@ -202,7 +204,7 @@ function StrideStatsDesktop({
                   handleUndelegateContinue();
                 }}
               >
-                Undelegate
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </Button>
             </div>
           </div>
@@ -268,6 +270,7 @@ function StrideStatsMobile({
   islmAmountFromStIslm: number;
   unbondingTotal: bigint;
 }) {
+  const { t } = useTranslate();
   const { handleDelegateContinue, handleUndelegateContinue } =
     useHandleDelegateContinue();
   const isTablet = useMediaQuery('(max-width: 1023px)');
@@ -279,19 +282,19 @@ function StrideStatsMobile({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Liquid staking
+          {t('liquid-staking', 'Liquid staking', { ns: 'stacking' })}
         </Heading>
       </div>
 
       <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
-          title="Available"
+          title={t('available', 'Available', { ns: 'stacking' })}
           value={formatNumber(balance)}
           symbol="ISLM"
           uppercaseSymbol={false}
         />
         <StakingStatsMobileAmountBlock
-          title="Staked"
+          title={t('staked', 'Staked', { ns: 'stacking' })}
           value={formatNumber(stIslmBalance)}
           symbol="stISLM"
           uppercaseSymbol={false}
@@ -317,7 +320,9 @@ function StrideStatsMobile({
           />
         )}
         <StakingStatsMobileAmountBlock
-          title="stISLM in ISLM"
+          title={t('stISLM-in-ISLM', 'stISLM in ISLM', {
+            ns: 'stacking',
+          })}
           value={`≈${formatNumber(islmAmountFromStIslm)}`}
           symbol="ISLM"
           uppercaseSymbol={false}
@@ -334,7 +339,7 @@ function StrideStatsMobile({
           }}
           data-attr="liquid-staking-delegate"
         >
-          Delegate
+          {t('delegate', 'Delegate', { ns: 'common' })}
         </Button>
 
         <Button
@@ -346,7 +351,7 @@ function StrideStatsMobile({
             handleUndelegateContinue();
           }}
         >
-          Undelegate
+          {t('undelegate', 'Undelegate', { ns: 'common' })}
         </Button>
       </div>
     </div>
