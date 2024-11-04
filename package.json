@@ -16,7 +16,12 @@
     "lint": "pnpm exec nx run-many --target lint --verbose",
     "test": "pnpm exec nx run-many --target test --verbose",
     "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
-    "prepare": "pnpm exec husky"
+    "prepare": "pnpm exec husky",
+    "tolgee": "pnpm exec tolgee --config ./apps/shell/.tolgeerc.js",
+    "tolgee:pull": "pnpm exec tolgee pull --config ./apps/shell/.tolgeerc.js",
+    "tolgee:push": "pnpm exec tolgee push --config ./apps/shell/.tolgeerc.js",
+    "tolgee:extract:check": "pnpm exec tolgee extract check --config ./apps/shell/.tolgeerc.js",
+    "tolgee:compare": "pnpm exec tolgee compare --config ./apps/shell/.tolgeerc.js"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.2.4",
@@ -110,6 +115,7 @@
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.0.1",
     "@testing-library/user-event": "14.5.2",
+    "@tolgee/cli": "2.3.1",
     "@types/cookie": "0.6.0",
     "@types/elliptic": "6.4.18",
     "@types/jest": "29.5.14",
