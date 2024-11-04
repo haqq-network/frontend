@@ -1,6 +1,7 @@
 'use client';
 import { PropsWithChildren, useCallback, useMemo } from 'react';
 import type { Validator, DelegationResponse, Reward } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import { formatUnits, parseUnits } from 'viem';
 import { formatNumber, Card } from '@haqq/shell-ui-kit/server';
 
@@ -35,6 +36,7 @@ export function ValidatorListItemMobileComponent({
   votingPower,
   votingPowerPercent,
 }: ValidatorListItemMobileProps) {
+  const { t } = useTranslate('staking');
   return (
     <Card className="p-[14px]">
       <div className="flex flex-col gap-[8px]">
@@ -43,28 +45,34 @@ export function ValidatorListItemMobileComponent({
         </ColumnLine>
         <ColumnLine columnName="Status">
           {status === 'jailed' && (
-            <span className="text-[#FF5454]">Jailed</span>
+            <span className="text-[#FF5454]">
+              {t('jailed-status', 'Jailed')}
+            </span>
           )}
           {status === 'active' && (
-            <span className="text-[#01B26E]">Active</span>
+            <span className="text-[#01B26E]">
+              {t('active-status', 'Active')}
+            </span>
           )}
           {status === 'inactive' && (
-            <span className="text-[#E3A13F]">Inactive</span>
+            <span className="text-[#E3A13F]">
+              {t('inactive-status', 'Inactive')}
+            </span>
           )}
         </ColumnLine>
-        <ColumnLine columnName="Fee">
+        <ColumnLine columnName={t('fee', 'Fee')}>
           <span className="text-white">{fee}</span>
         </ColumnLine>
-        <ColumnLine columnName="Voting power">
+        <ColumnLine columnName={t('voting-power', 'Voting power')}>
           <span className="text-white">{votingPower}</span>
         </ColumnLine>
-        <ColumnLine columnName="Voting power %">
+        <ColumnLine columnName={`${t('voting-power', 'Voting power')} %`}>
           <span className="text-white">{votingPowerPercent}</span>
         </ColumnLine>
-        <ColumnLine columnName="Staked">
+        <ColumnLine columnName={t('stacked', 'Staked')}>
           <span className="text-white">{staked}</span>
         </ColumnLine>
-        <ColumnLine columnName="Reward">
+        <ColumnLine columnName={t('reward', 'Reward')}>
           <span className="text-white">{reward}</span>
         </ColumnLine>
       </div>
