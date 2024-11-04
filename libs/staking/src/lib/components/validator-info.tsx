@@ -1,6 +1,7 @@
 'use client';
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import type { Validator } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Markdown from 'marked-react';
 import dynamic from 'next/dynamic';
@@ -137,28 +138,29 @@ function CommissionCardInnerBlock({
 }
 
 function CommissionCard({ commission }: CommissionCardProps) {
+  const { t } = useTranslate('stacking');
   return (
     <div>
       <div className="mb-[16px] flex flex-row items-center">
         <PercentIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Commission
+          {t('comission', 'Commission')}
         </Heading>
       </div>
 
       <div className="divide-haqq-border border-haqq-border flex max-w-fit flex-row divide-x rounded-lg border py-[16px] lg:py-[24px]">
         <CommissionCardInnerBlock
-          title="Current"
+          title={t('current', 'Current')}
           value={commission.current}
           valueClassName="text-white"
         />
         <CommissionCardInnerBlock
-          title="Max"
+          title={t('max', 'Max')}
           value={commission.max}
           valueClassName="text-white/50"
         />
         <CommissionCardInnerBlock
-          title="Max Change"
+          title={t('max-change', 'Max Change')}
           value={commission.maxChange}
           valueClassName="text-white/50"
         />
@@ -182,6 +184,7 @@ export function ValidatorInfoComponent({
   isRewardPending,
   isRewardsPending,
 }: ValidatorInfoComponentProps) {
+  const { t } = useTranslate('stacking');
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const { copyText } = useClipboard();
   const isDesktop = useMediaQuery('(min-width: 1024px)', {
@@ -250,7 +253,7 @@ export function ValidatorInfoComponent({
                 <div className="mb-[16px] flex flex-row items-center">
                   <InfoIcon />
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    Info
+                    {t('info', 'Info')}
                   </Heading>
                 </div>
 
@@ -264,7 +267,7 @@ export function ValidatorInfoComponent({
                           target="_blank"
                           rel="noreferrer noreferrer"
                         >
-                          <OrangeLink>Website</OrangeLink>
+                          <OrangeLink>{t('website', 'Website')}</OrangeLink>
                         </Link>
                       )}
 
@@ -272,7 +275,7 @@ export function ValidatorInfoComponent({
                         <Link
                           href={`mailto:${validatorInfo.description?.security_contact}`}
                         >
-                          <OrangeLink>E-mail</OrangeLink>
+                          <OrangeLink>{t('email', 'E-mail')}</OrangeLink>
                         </Link>
                       )}
                     </div>
@@ -280,12 +283,14 @@ export function ValidatorInfoComponent({
 
                   <div className="flex flex-row gap-[28px]">
                     <div>
-                      <InfoBlock title="Voting power">
+                      <InfoBlock title={t('voting-power', 'Voting power')}>
                         {formatNumber(votingPower)} {symbol.toLocaleUpperCase()}
                       </InfoBlock>
                     </div>
                     <div>
-                      <InfoBlock title="Voting power %">
+                      <InfoBlock
+                        title={`${t('voting-power', 'Voting power')} %`}
+                      >
                         {votingPowerInPercents}
                       </InfoBlock>
                     </div>
@@ -293,7 +298,7 @@ export function ValidatorInfoComponent({
                   {validatorInfo.description?.details && (
                     <div>
                       <div className="font-guise text-[12px] leading-[18px] text-white/50">
-                        Description
+                        {t('description', 'Description')}
                       </div>
                       <div
                         className={clsx(
@@ -309,7 +314,7 @@ export function ValidatorInfoComponent({
                     </div>
                   )}
 
-                  <InfoBlock title="Address">
+                  <InfoBlock title={t('address', 'Address')}>
                     <Tooltip
                       text={
                         isHaqqAddressCopy
@@ -424,18 +429,19 @@ function ConnectWallet({
 }: {
   onConnectWalletClick: () => void;
 }) {
+  const { t } = useTranslate('common');
   return (
     <Container className="py-[24px] md:py-[40px]">
       <div className="flex flex-col items-center justify-center gap-[12px]">
         <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-          You should connect wallet first
+          {t('connect-wallet-message', 'You should connect wallet first')}
         </div>
         <Button
           onClick={onConnectWalletClick}
           variant={2}
           className="text-black hover:bg-transparent hover:text-white"
         >
-          Connect wallet
+          {t('connect-wallet-btn', 'Connect wallet')}
         </Button>
       </div>
     </Container>
@@ -447,6 +453,7 @@ export function ValidatorInfo({
 }: {
   validatorAddress: string;
 }) {
+  const { t } = useTranslate('stacking');
   const { haqqAddress } = useAddress();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
@@ -550,7 +557,11 @@ export function ValidatorInfo({
       });
 
       await toast.promise(claimRewardPromise, {
-        loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
+        loading: (
+          <ToastLoading>
+            {t('rewards-claim-in-progress', 'Rewards claim in progress')}
+          </ToastLoading>
+        ),
         success: (tx) => {
           console.log('Rewards claimed', { tx });
           const txHash = tx?.txhash;
@@ -558,7 +569,7 @@ export function ValidatorInfo({
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Rewards claimed</div>
+                <div>{t('rewards-claimed', 'Rewards claimed')}</div>
                 <div>
                   <Link
                     href={`${explorerLink}/tx/${txHash}`}
@@ -604,6 +615,7 @@ export function ValidatorInfo({
     getClaimRewardEstimatedFee,
     invalidateQueries,
     posthog,
+    t,
     toast,
     validatorAddress,
   ]);
@@ -667,21 +679,25 @@ export function ValidatorInfo({
       });
 
       await toast.promise(claimAllRewardPromise, {
-        loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
+        loading: (
+          <ToastLoading>
+            {t('rewards-claim-in-progress', 'Rewards claim in progress')}
+          </ToastLoading>
+        ),
         success: (tx) => {
           console.log('All rewards claimed', { tx });
           const txHash = tx?.txhash;
 
           return (
             <div className="flex flex-col gap-[8px] text-center">
-              <div>Rewards claimed</div>
+              <div>{t('rewards-claimed', 'Rewards claimed')}</div>
               <Link
                 href={`${explorerLink}/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-haqq-orange hover:text-haqq-light-orange transition-colors duration-300"
               >
-                Explorer link
+                {t('explorer-link', 'Explorer link')}
               </Link>
             </div>
           );
@@ -716,6 +732,7 @@ export function ValidatorInfo({
     getTotalRewards,
     invalidateQueries,
     posthog,
+    t,
     toast,
   ]);
 
@@ -724,7 +741,7 @@ export function ValidatorInfo({
       <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
         <SpinnerLoader />
         <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-          Fetching validator information
+          {t('validator-info-loading', 'Fetching validator information')}
         </div>
       </div>
     );
@@ -772,6 +789,7 @@ export function ValidatorBlockDesktop({
   symbol: string;
   isRewardPending?: boolean;
 }) {
+  const { t } = useTranslate('stacking');
   const router = useRouter();
   const isWarningShown =
     validatorInfo.jailed || validatorInfo.status === 'BOND_STATUS_UNBONDED';
@@ -797,15 +815,17 @@ export function ValidatorBlockDesktop({
       <div className="flex flex-row items-center">
         <ValidatorIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Validator
+          {t('validator', 'Validator')}
         </Heading>
       </div>
 
       {isWarningShown && (
         <div>
           <WarningMessage>
-            While the validator is inactive, you will not be able to receive a
-            reward.
+            {t(
+              'validator-inactive-warning',
+              'While the validator is inactive, you will not be able to receive a reward.',
+            )}
           </WarningMessage>
         </div>
       )}
@@ -813,7 +833,7 @@ export function ValidatorBlockDesktop({
       <div className="flex flex-col gap-y-[12px]">
         <div className="flex flex-col gap-y-[6px]">
           <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
-            My delegation
+            {t('my-delegation', 'My delegation')}
           </span>
           <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
             {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
@@ -834,7 +854,7 @@ export function ValidatorBlockDesktop({
               }}
               data-attr="delegate"
             >
-              Delegate
+              {t('delegate', 'Delegate')}
             </Button>
           </div>
           <div className="flex-1">
@@ -852,7 +872,7 @@ export function ValidatorBlockDesktop({
               }}
               data-attr="undelegate"
             >
-              Undelegate
+              {t('undelegate', 'Undelegate')}
             </Button>
           </div>
         </div>
@@ -871,14 +891,14 @@ export function ValidatorBlockDesktop({
             }}
             data-attr="redelegate"
           >
-            Redelegate
+            {t('redelegate', 'Redelegate')}
           </Button>
         </div>
       </div>
       <div className="flex flex-col gap-y-[12px]">
         <div className="flex flex-col gap-y-[6px]">
           <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
-            My rewards
+            {t('my-rewards', 'My rewards')}
           </span>
           <span className="font-clash text-[24px] uppercase leading-[30px] text-[#01B26E]">
             {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
@@ -888,7 +908,7 @@ export function ValidatorBlockDesktop({
         <Tooltip
           text={
             rewards < MIN_REWARDS_TO_CLAIM
-              ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+              ? `${t('min-amount-to-claim-rewards', 'Minimum amount to claim rewards is')} ${MIN_REWARDS_TO_CLAIM} ISLM`
               : ''
           }
         >
@@ -900,7 +920,7 @@ export function ValidatorBlockDesktop({
             className="w-full"
             data-attr="get-my-rewards"
           >
-            Get my rewards
+            {t('get-my-rewards', 'Get my rewards')}
           </Button>
         </Tooltip>
       </div>
