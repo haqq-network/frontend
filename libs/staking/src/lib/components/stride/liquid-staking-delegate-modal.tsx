@@ -199,9 +199,13 @@ export function LiquidStakingDelegateModal({
                 {t('delegate-title', 'Delegate')}
               </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
-                {t('attention-withdrawal-warning', {
-                  count: unboundingTime,
-                })}
+                {t(
+                  'attention-withdrawal-warning',
+                  'Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}',
+                  {
+                    count: unboundingTime,
+                  },
+                )}
               </WarningMessage>
             </div>
 

@@ -45,7 +45,7 @@
   "governance": {},
   "main": {},
   "stacking": {
-    "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {count, plural, one {# day} other {# days}}",
+    "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {{count}} day{count, plural, one {} other {s}}",
     "funds-undelegated-in-days": "The funds will be undelegated within {count, plural, one {# day} other {# days}}"
   },
   "uc-dao": {},
