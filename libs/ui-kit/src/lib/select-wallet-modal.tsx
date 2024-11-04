@@ -53,6 +53,7 @@ export function SelectWalletModal({
                   onClick={() => {
                     window.location.href = deeplink;
                   }}
+                  variant={4}
                 >
                   Open in HAQQ Wallet
                 </Button>
@@ -67,6 +68,7 @@ export function SelectWalletModal({
                     onClick={() => {
                       onConnectClick(connector.id);
                     }}
+                    variant={4}
                   >
                     {connector.name === 'WalletConnect'
                       ? isMobileUA
