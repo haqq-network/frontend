@@ -59,6 +59,9 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: 5.59.16
         version: 5.59.16(@tanstack/react-query@5.59.16(react@18.3.1))(react@18.3.1)
+      '@tolgee/format-icu':
+        specifier: 5.31.1
+        version: 5.31.1
       '@tolgee/react':
         specifier: 5.31.1
         version: 5.31.1(react@18.3.1)
@@ -4305,6 +4308,9 @@ packages:
 
   '@tolgee/core@5.31.1':
     resolution: {integrity: sha512-VTksKYjW0QoqrJ1czeftE7Y0zZYUfdZM7TRKbhqGpXXMmoF6Sq5EHx2qMOtAOfOksyOeqc8f8Rdhpo56qST9Xg==}
+
+  '@tolgee/format-icu@5.31.1':
+    resolution: {integrity: sha512-ZjfZZuDxWzl8OiPhVf+7eSK6cRWm+oyIcOPV1KFswC9w1+JHrAD2FOvkqanOw01yj/DWTAyfW3hQ8JnZZpTu0w==}
 
   '@tolgee/react@5.31.1':
     resolution: {integrity: sha512-/Tq4UdTaFGv0fZOrvv8ONCgiEUV1kx40SUdsauLpuhPEsfxQ+bXPaSzUSKWqTwsZawwI0idqabvEzeAvM+ZPNg==}
@@ -17835,6 +17841,8 @@ snapshots:
       - typescript
 
   '@tolgee/core@5.31.1': {}
+
+  '@tolgee/format-icu@5.31.1': {}
 
   '@tolgee/react@5.31.1(react@18.3.1)':
     dependencies:
