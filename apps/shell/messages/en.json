@@ -45,9 +45,7 @@
     "confirm-button": "Confirm",
     "send-button": "Send"
   },
-  "governance": {
-    "your-balance": "Your balance: {{localedBalance}} {{localedSymbolUpperCase}}"
-  },
+  "governance": {},
   "main": {},
   "staking": {
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {{count}} day{count, plural, one {} other {s}}",
