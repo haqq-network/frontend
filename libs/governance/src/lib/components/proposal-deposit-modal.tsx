@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import {
   Button,
@@ -65,6 +66,7 @@ export function ProposalDepositModal({
   onSubmit: (amount: number) => void;
   isPending?: boolean;
 }) {
+  const { t } = useTranslate('governance');
   const [depositAmount, setDepositAmount] = useState<number | undefined>(
     undefined,
   );
@@ -101,13 +103,21 @@ export function ProposalDepositModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-haqq-danger">Bellow minimal value</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-min', 'Bellow minimal value')}
+        </span>
+      );
     } else if (amountError === 'max') {
-      return <span className="text-haqq-danger">More than you have</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-more-than-have', 'More than you have')}
+        </span>
+      );
     }
 
     return undefined;
-  }, [amountError]);
+  }, [amountError, t]);
 
   const handleMaxButtonClick = useCallback(() => {
     setDepositAmount(balance);
@@ -129,12 +139,12 @@ export function ProposalDepositModal({
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-haqq-border divide-y divide-dashed">
             <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-              <ModalHeading>Deposit</ModalHeading>
+              <ModalHeading>{t('deposit', 'Deposit')}</ModalHeading>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DepositModalDetails
-                  title="My balance"
+                  title={t('my-balance', 'My balance')}
                   value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -157,7 +167,7 @@ export function ProposalDepositModal({
                   disabled={!isDepositEnabled || !depositAmount}
                   isLoading={isPending}
                 >
-                  Confirm delegation
+                  {t('confirm-delegation', 'Confirm delegation')}
                 </Button>
               </div>
             </div>
