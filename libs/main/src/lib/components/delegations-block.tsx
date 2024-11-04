@@ -1,5 +1,6 @@
 'use client';
 import { useCallback } from 'react';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'usehooks-ts';
@@ -23,6 +24,7 @@ export function DelegationsBlock({
   isMobileUserAgent: boolean;
   seedPhrase: string;
 }) {
+  const { t } = useTranslate('main');
   const {
     totalStaked,
     status,
@@ -57,7 +59,7 @@ export function DelegationsBlock({
       <div className="mb-[24px] flex flex-row items-center">
         <ListIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          My delegations
+          {t('my-delegations', 'My delegations')}
         </Heading>
       </div>
 
@@ -74,6 +76,7 @@ export function DelegationsBlock({
         )}
       </div> */}
 
+      {/* eslint-disable-next-line i18next/no-literal-string */}
       {status === 'error' && <p>Error: {(error as Error).message}</p>}
 
       {status === 'success' && (
@@ -121,10 +124,12 @@ export function DelegationsBlock({
           ) : (
             <div className="flex flex-col items-center justify-center py-[20px]">
               <div className="mb-[4px] text-[14px] leading-[22px] text-white/50">
-                You don't have any active delegations
+                {t('no-delegations', "You don't have any active delegations")}
               </div>
               <Link href="/staking" className="leading-[0]">
-                <OrangeLink>Go to Staking</OrangeLink>
+                <OrangeLink>
+                  {t('link-to-stacking', 'Go to Staking')}
+                </OrangeLink>
               </Link>
             </div>
           )}

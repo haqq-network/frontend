@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useMediaQuery } from 'usehooks-ts';
@@ -73,20 +74,21 @@ function MyAccountAmountBlock({
 }
 
 export function MyAccountBlock() {
+  const { t } = useTranslate('common');
   const { ethAddress, haqqAddress } = useAddress();
   const { openSelectWallet } = useWallet();
 
   return !ethAddress || !haqqAddress ? (
     <div className="border-haqq-border bg-haqq-black/15 flex flex-col items-center space-y-[12px] border-y-[1px] py-[58px] backdrop-blur">
       <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-        You should connect wallet first
+        {t('connect-wallet-message', 'You should connect wallet first')}
       </div>
       <Button
         onClick={openSelectWallet}
         variant={2}
         className="text-black hover:bg-transparent hover:text-white"
       >
-        Connect wallet
+        {t('connect-wallet-button', 'Connect wallet')}
       </Button>
     </div>
   ) : (
@@ -101,6 +103,7 @@ function MyAccountConnected({
   ethAddress: Hex;
   haqqAddress: string;
 }) {
+  const { t } = useTranslate();
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
   const { copyText } = useClipboard();
@@ -160,6 +163,8 @@ function MyAccountConnected({
     handleMouseLeave: handleMouseLeaveLiquidStaking,
   } = useHoverPopover(100);
 
+  const lockedTokensDescription = t('about-locked-tokens', 'Locked tokens are your tokens but you cannot transfer to other users or use them to pay for gas, but you can delegate to validators - stake to improve the reliability of the HAQQ network, and make a profit. Locked tokens are unlocked according to the schedule.', { ns: 'main'})
+
   if (!balances) {
     return null;
   }
@@ -170,11 +175,11 @@ function MyAccountConnected({
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            My account
+            {t('my-account', 'My account', { ns: 'main' })}
           </Heading>
           <Link href="/staking" className="leading-[0]">
             <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
-              Go to Staking
+              {t('link-to-staking', 'Go to Staking', { ns: 'main' })}
             </OrangeLink>
           </Link>
         </div>
@@ -182,7 +187,7 @@ function MyAccountConnected({
         <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
           <div className="flex flex-col gap-y-[6px]">
             <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
-              Balance
+              {t('balance', 'Balance', { ns: 'common' })}
             </div>
             <div className="flex flex-col justify-center gap-[4px]">
               <div className="font-clash text-[20px] font-[500] leading-[26px] text-white">
@@ -191,12 +196,14 @@ function MyAccountConnected({
               <div className="flex flex-col gap-[4px] leading-[0px]">
                 {isTablet ? (
                   <ExpandableBlock
-                    title={`Available for staking: ${formatNumber(balances.availableForStake)}`}
+                    title={`${t('available-stacking', 'Available for staking', {
+                      ns: 'main',
+                    })}: ${formatNumber(balances.availableForStake)}`}
                     content={
                       <StakingBalanceBlock
                         haqqAddress={haqqAddress}
                         className="my-2 w-full !max-w-[100%] rounded-none border-x-0 !px-0"
-                        description="Locked tokens are your tokens but you cannot transfer to other users or use them to pay for gas, but you can delegate to validators - stake to improve the reliability of the HAQQ network, and make a profit. Locked tokens are unlocked according to the schedule."
+                        description={lockedTokensDescription}
                       />
                     }
                   />
@@ -215,7 +222,10 @@ function MyAccountConnected({
                         )}
                       >
                         <span>
-                          Available for staking:{' '}
+                          {t('available-stacking', 'Available for staking', {
+                            ns: 'main',
+                          })}
+                          {': '}
                           {formatNumber(balances.availableForStake)}
                         </span>
                         <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
@@ -225,7 +235,7 @@ function MyAccountConnected({
                     <PopoverContent className="outline-none">
                       <StakingBalanceBlock
                         haqqAddress={haqqAddress}
-                        description="Locked tokens are your tokens but you cannot transfer to other users or use them to pay for gas, but you can delegate to validators - stake to improve the reliability of the HAQQ network, and make a profit. Locked tokens are unlocked according to the schedule."
+                        description={lockedTokensDescription}
                       />
                     </PopoverContent>
                   </Popover>
@@ -288,28 +298,28 @@ function MyAccountConnected({
             </div>
           </div>
           <MyAccountAmountBlock
-            title="Regular staked"
+            title={t('regular-stacked', 'Regular staked', { ns: 'main' })}
             value={`${formatNumber(balances.staked)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
-            title="Rewards"
+            title={t('rewards', 'Rewards', { ns: 'main' })}
             value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
-            title="Liquid staked"
+            title={t('liquid-stacked', 'Liquid staked', { ns: 'main' })}
             value={`${formatNumber(stIslmBalance)} stISLM`}
             subValue={`≈${formatNumber(islmAmountFromStIslm ?? 0)} ISLM`}
           />
           <MyAccountAmountBlock
-            title="Address"
+            title={t('address', 'Address', { ns: 'common' })}
             value={
               <div className="font-guise flex flex-col items-start space-y-2 lg:flex-row lg:space-x-4 lg:space-y-0">
                 <div className="flex-1">
                   <Tooltip
                     text={
                       isEthAddressCopy
-                        ? 'Copied!'
-                        : `Click to copy ${ethAddress}`
+                        ? t('copied', 'Copied!', { ns: 'common' })
+                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${ethAddress}`
                     }
                   >
                     <div
@@ -333,8 +343,8 @@ function MyAccountConnected({
                   <Tooltip
                     text={
                       isHaqqAddressCopy
-                        ? 'Copied!'
-                        : `Click to copy ${haqqAddress}`
+                        ? t('copied', 'Copied!', { ns: 'common' })
+                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${haqqAddress}`
                     }
                   >
                     <div
