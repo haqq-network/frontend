@@ -1,3 +1,4 @@
+import { FormatIcu } from '@tolgee/format-icu';
 import { DevTools, Tolgee, FormatSimple, TolgeeStaticData } from '@tolgee/web';
 
 export type Locale = 'en' | 'ar' | 'id' | 'tr';
@@ -53,6 +54,7 @@ export function TolgeeBase() {
     Tolgee()
       .use(FormatSimple())
       .use(DevTools())
+      .use(FormatIcu())
       // Preset shared settings
       .updateDefaults({
         apiKey,

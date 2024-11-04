@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
 import { useConnectorType } from '@haqq/shell-shared';
@@ -90,6 +91,7 @@ export function RedelegateModal({
   onApprove,
   amountError,
 }: RedelegateModalProps) {
+  const { t } = useTranslate('stacking');
   const [isMemoVisible, setMemoVisible] = useState(false);
   const { isSafe } = useConnectorType();
 
@@ -158,14 +160,14 @@ export function RedelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Redelegate
+                {t('redelegate', 'Redelegate')}
               </ModalHeading>
             </div>
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title="My delegation"
+                  title={t('my-delegation', 'My delegation')}
                   value={`${formatNumber(delegationNumber)} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -175,7 +177,7 @@ export function RedelegateModal({
               <div className="py-[24px]">
                 <div className="flex flex-col gap-[8px]">
                   <DelegateModalDetails
-                    title="Redelegation amount"
+                    title={t('redelegate-amount', 'Redelegation amount')}
                     value={`${formatNumber(redelegationValidatorAmountNumber)} ${symbol.toUpperCase()}`}
                   />
                 </div>
@@ -209,7 +211,7 @@ export function RedelegateModal({
                         setMemoVisible(true);
                       }}
                     >
-                      Add memo
+                      {t('add-memo', 'Add memo')}
                     </OrangeLink>
                   </div>
                 ) : (
@@ -227,14 +229,14 @@ export function RedelegateModal({
                         'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
                         'bg-[#E7E7E7]',
                       )}
-                      placeholder="Add your memo"
+                      placeholder={t('memo-placeholder', 'Add your memo')}
                     />
                   </div>
                 )}
 
                 <div>
                   <DelegateModalDetails
-                    title="Estimated fee"
+                    title={t('estimated-fee', 'Estimated fee')}
                     value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
                     isValuePending={isFeePending}
                   />
@@ -264,7 +266,7 @@ export function RedelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Confirm redelegation
+                    {t('confirm-redelegation', 'Confirm redelegation')}
                   </Button>
                 </div>
               </div>

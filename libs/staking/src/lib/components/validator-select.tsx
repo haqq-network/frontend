@@ -1,5 +1,6 @@
 'uce client';
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Select, {
   components as validatorSelectComponents,
@@ -33,6 +34,7 @@ export function ValidatorSelect({
   validators: Array<ValidatorSelectOption>;
   onChange: (validatorAddress?: string) => void;
 }) {
+  const { t } = useTranslate('stacking');
   const handleFilterOption = useCallback(
     ({ label, value }: ValidatorSelectOption, inputValue: string) => {
       const inputLower = inputValue.toLowerCase();
@@ -94,7 +96,7 @@ export function ValidatorSelect({
 
   return (
     <Select
-      placeholder="Select new validator"
+      placeholder={t('select-new-validator', 'Select new validator')}
       options={validators}
       onChange={(validator) => {
         onChange(validator?.value);

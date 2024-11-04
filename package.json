@@ -42,6 +42,7 @@
     "@t3-oss/env-nextjs": "0.11.1",
     "@tanstack/react-query": "5.60.5",
     "@tanstack/react-query-devtools": "5.60.5",
+    "@tolgee/format-icu": "5.31.1",
     "@testing-library/react-hooks": "8.0.1",
     "@tolgee/react": "5.31.5",
     "@tolgee/web": "5.31.5",

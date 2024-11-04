@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
@@ -43,8 +44,8 @@ export function UndelegateModalHooked({
   unboundingTime,
   validatorAddress,
 }: UndelegateModalProps) {
-  const { undelegate, getUndelegateEstimatedFee, approveStaking } =
-    useStakingActions();
+  const { t } = useTranslate('staking');
+  const { undelegate, getUndelegateEstimatedFee, approveStaking } = useStakingActions();
   const [undelegateAmount, setUndelegateAmount] = useState<bigint | undefined>(
     undefined,
   );
@@ -96,7 +97,11 @@ export function UndelegateModalHooked({
       await toast.promise(
         undelegationPromise,
         {
-          loading: <ToastLoading>Undelegation in progress</ToastLoading>,
+          loading: (
+            <ToastLoading>
+              {t('undelegation-progress', 'Undelegation in progress')}
+            </ToastLoading>
+          ),
           success: (tx) => {
             console.log('Undelegation successful', { tx });
             const txHash = tx?.txhash;
@@ -114,7 +119,9 @@ export function UndelegateModalHooked({
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                  <div>Undelegation successful</div>
+                  <div>
+                    {t('undelegation-success', 'Undelegation successful')}
+                  </div>
                   <div>
                     <Link
                       href={`${explorerLink}/tx/${txHash}`}
@@ -169,6 +176,7 @@ export function UndelegateModalHooked({
     memo,
     fee,
     toast,
+    t,
     onClose,
     invalidateQueries,
     chain.id,

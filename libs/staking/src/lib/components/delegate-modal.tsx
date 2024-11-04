@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
 import { formatEthDecimal, useConnectorType } from '@haqq/shell-shared';
@@ -139,6 +140,7 @@ export function DelegateModal({
   onMemoChange,
   onApprove,
 }: DelegateModalProps) {
+  const { t } = useTranslate('stacking');
   const [isMemoVisible, setMemoVisible] = useState(false);
   const { isSafe } = useConnectorType();
 
@@ -169,13 +171,21 @@ export function DelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-haqq-danger">Bellow minimal value</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-min', 'Bellow minimal value')}
+        </span>
+      );
     } else if (amountError === 'max') {
-      return <span className="text-haqq-danger">More than you have</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-more-than-have', 'More than you have')}
+        </span>
+      );
     }
 
     return undefined;
-  }, [amountError]);
+  }, [amountError, t]);
 
   const delegateAmountNumber = useMemo(() => {
     if (delegateAmount) {
@@ -197,25 +207,31 @@ export function DelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Delegate
+                {t('delegate', 'Delegate')}
               </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
-                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} ${unboundingTime === 1 ? 'day' : 'days'}`}
+                {t(
+                  'attention-withdrawal-warning',
+                  'Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}',
+                  {
+                    count: unboundingTime,
+                  },
+                )}
               </WarningMessage>
             </div>
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title="My balance"
+                  title={t('my-balance', 'My balance')}
                   value={`${formatEthDecimal(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title="My delegation"
+                  title={t('my-delegation', 'My delegation')}
                   value={`${formatEthDecimal(delegation)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title="Commission"
+                  title={t('commission', 'Commission')}
                   value={`${formatNumber(validatorCommission)}%`}
                 />
               </div>
@@ -241,7 +257,7 @@ export function DelegateModal({
                         setMemoVisible(true);
                       }}
                     >
-                      Add memo
+                      {t('add-memo', 'Add memo')}
                     </OrangeLink>
                   </div>
                 ) : (
@@ -259,14 +275,14 @@ export function DelegateModal({
                         'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
                         'bg-[#E7E7E7]',
                       )}
-                      placeholder="Add your memo"
+                      placeholder={t('memo-placeholder', 'Add your memo')}
                     />
                   </div>
                 )}
 
                 <div>
                   <DelegateModalDetails
-                    title="Estimated fee"
+                    title={t('estimated-fee', 'Estimated fee')}
                     value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
                     isValuePending={isFeePending}
                   />
@@ -294,7 +310,7 @@ export function DelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Delegate
+                    {t('delegate', 'Delegate')}
                   </Button>
                 </div>
               </div>
