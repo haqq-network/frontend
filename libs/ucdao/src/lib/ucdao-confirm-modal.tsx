@@ -57,9 +57,12 @@ export function ConfirmModal({
                 balance={nativeTokenAmount}
                 tokens={tokens}
               />
-              {` - `}
-              {t('to-the-address', 'to the address', { ns: 'uc-dao' })}{' '}
-              <b>{address}</b> ?
+              <T
+                keyName="to-the-address"
+                ns="uc-dao"
+                defaultValue=" - to the address <b>{address}</b> ?"
+                params={{ address, b: <b /> }}
+              />
             </div>
             <div className="flex flex-row gap-[16px]">
               <div className="flex-1">
@@ -96,15 +99,18 @@ function DaoBalanceConfirmAmount({
   balance: bigint;
   tokens: bigint;
 }) {
-  const { t } = useTranslate('uc-dao');
   const balanceNum = Number.parseFloat(formatUnits(balance, 18));
   const tokensNum = Number.parseFloat(formatUnits(tokens, 18));
 
   if (balanceNum !== 0 && tokensNum !== 0) {
     return (
       <>
-        <b>{balanceNum} ISLM</b> {t('and', 'and')}
-        <b>{tokensNum} LIQUID</b>
+        <T
+          keyName="islm-and-liquid-balance"
+          ns="uc-dao"
+          defaultValue="<b>{balanceNum} ISLM</b> and <b>{tokensNum} LIQUID</b>"
+          params={{ balanceNum, tokensNum, b: <b /> }}
+        />
       </>
     );
   } else if (tokensNum === 0) {

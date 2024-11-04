@@ -33,7 +33,7 @@ export function UCDaoPage() {
             )}
           >
             <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-              {t('should-connect-wallet', 'You should connect wallet first', {
+              {t('connect-wallet-message', 'You should connect wallet first', {
                 ns: 'common',
               })}
             </div>
