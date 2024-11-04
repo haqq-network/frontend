@@ -32,12 +32,16 @@ export const wagmiConfig = createConfig({
           qrModalOptions: {
             themeMode: 'light',
           },
+          showQrModal: true,
         }),
       ]
     : [],
 });
 
-export function AppProviders({ children }: PropsWithChildren) {
+export function AppProviders({
+  children,
+  isMobileUA,
+}: PropsWithChildren<{ isMobileUA: boolean }>) {
   return (
     <PostHogProvider
       apiKey={POSTHOG_KEY}
@@ -55,7 +59,7 @@ export function AppProviders({ children }: PropsWithChildren) {
               <WalletProvider>
                 {children}
                 <Toaster />
-                <WalletModals />
+                <WalletModals isMobileUA={isMobileUA} />
               </WalletProvider>
             </CosmosProvider>
           </ReactQueryProvider>

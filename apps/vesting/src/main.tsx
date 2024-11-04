@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import * as Sentry from '@sentry/react';
+import { headers } from 'next/headers';
 import { createRoot } from 'react-dom/client';
 import { App } from './app/app';
 import { AppProviders } from './providers/app-providers';
@@ -23,12 +24,21 @@ function startApp() {
   const rootElement = document.getElementById('root');
   const root = createRoot(rootElement as HTMLElement);
 
+  const headersList = headers();
+  const userAgent = headersList.get('user-agent');
+
+  const isMobileUA = Boolean(
+    userAgent?.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+    ),
+  );
+
   root.render(
     <StrictMode>
       <Sentry.ErrorBoundary
         fallback={<div>Something went wrong. Please try again later.</div>}
       >
-        <AppProviders>
+        <AppProviders isMobileUA={isMobileUA}>
           <App />
         </AppProviders>
       </Sentry.ErrorBoundary>

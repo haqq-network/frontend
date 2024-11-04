@@ -37,3 +37,4 @@ export * from './hooks/dao/use-dao-actions';
 export * from './hooks/dao/use-dao-queries';
 export * from './hooks/use-luquid-staking-actions/use-liquid-staking-actions';
 export * from './liquid-staking-constants';
+export * from './hooks/use-deep-link/use-deep-link';
