@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { ProposalStatus } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { ProposalListCard } from '@haqq/shell-governance';
 import {
@@ -16,6 +17,7 @@ import {
 } from '@haqq/shell-ui-kit/server';
 
 export function ProposalListBlock() {
+  const { t } = useTranslate('main');
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
   const symbol = 'ISLM';
@@ -75,11 +77,11 @@ export function ProposalListBlock() {
       <div className="mb-[24px] flex flex-row items-center">
         <ProposalsIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Latest proposals
+          {t('latest-proposals', 'Latest proposals')}
         </Heading>
         <Link href="/governance" className="leading-[0]">
           <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
-            Go to Governance
+            {t('link-to-governance', 'Go to Governance')}
           </OrangeLink>
         </Link>
       </div>
@@ -88,7 +90,7 @@ export function ProposalListBlock() {
         <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8 py-[48px]">
           <SpinnerLoader />
           <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-            Fetching proposals
+            {t('fetching-proposals', 'Fetching proposals')}
           </div>
         </div>
       ) : (
