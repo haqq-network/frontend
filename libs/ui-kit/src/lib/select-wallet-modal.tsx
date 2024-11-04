@@ -49,11 +49,11 @@ export function SelectWalletModal({
             {isMobileUA && !isHaqqWallet && deeplink && (
               <div>
                 <Button
-                  className="min-w-[220px]"
                   onClick={() => {
                     window.location.href = deeplink;
                   }}
                   variant={4}
+                  className="w-full min-w-[220px]"
                 >
                   Open in HAQQ Wallet
                 </Button>
@@ -64,11 +64,11 @@ export function SelectWalletModal({
               return (
                 <div key={connector.id}>
                   <Button
-                    className="min-w-[220px]"
                     onClick={() => {
                       onConnectClick(connector.id);
                     }}
                     variant={4}
+                    className="w-full min-w-[220px]"
                   >
                     {connector.name === 'WalletConnect'
                       ? isMobileUA
