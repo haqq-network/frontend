@@ -135,7 +135,7 @@ export function DelegateModal({
   onSubmit,
   onMemoChange,
 }: DelegateModalProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const [isMemoVisible, setMemoVisible] = useState(false);
 
   const handleMaxButtonClick = useCallback(() => {

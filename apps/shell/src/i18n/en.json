@@ -68,7 +68,7 @@
     "transfer-heading": "Transfer coins ownership",
     "address-placeholder": "Address in EVM/Bech32 format"
   },
-  "stacking": {
+  "staking": {
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {{count}} day{count, plural, one {} other {s}}",
     "funds-undelegated-in-days": "The funds will be undelegated within {count, plural, one {# day} other {# days}}"
   },

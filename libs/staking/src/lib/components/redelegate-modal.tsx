@@ -85,7 +85,7 @@ export function RedelegateModal({
   onMemoChange,
   redelegationValidatorAmount,
 }: RedelegateModalProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const [isMemoVisible, setMemoVisible] = useState(false);
 
   const delegationNumber = useMemo(() => {
