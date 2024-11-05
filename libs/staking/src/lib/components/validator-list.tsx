@@ -153,7 +153,7 @@ export function ValidatorList({
                   onChange={setInactiveValidatorsVisible}
                   value={isInactiveValidatorsVisible}
                 >
-                  {t('show-inactive', 'Show Inactive')}
+                  {t('show-inactive', 'Show inactive')}
                 </Checkbox>
               </div>
             </div>
