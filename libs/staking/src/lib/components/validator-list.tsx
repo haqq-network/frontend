@@ -153,7 +153,7 @@ export function ValidatorList({
                   onChange={setInactiveValidatorsVisible}
                   value={isInactiveValidatorsVisible}
                 >
-                  {t('show-inactive', 'Show inactive')}
+                  {t('show-inactive', 'Show Inactive')}
                 </Checkbox>
               </div>
             </div>
@@ -171,8 +171,8 @@ export function ValidatorList({
           </div>
         )}
 
-        {/* TODO: how to translate such errors if they come from BE?*/}
         {status === 'error' && (
+          // eslint-disable-next-line i18next/no-literal-string
           <p>Error: {error?.message ?? 'unknown error'}</p>
         )}
 
