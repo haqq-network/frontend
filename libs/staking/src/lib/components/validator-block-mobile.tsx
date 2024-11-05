@@ -167,7 +167,11 @@ export function ValidatorBlockMobileComponent({
             <Tooltip
               text={
                 rewards < minRewardsToClaim
-                  ? `Minimum amount to claim rewards is ${minRewardsToClaim} ISLM`
+                  ? t(
+                      'min-amount-to-claim-rewards',
+                      'Minimum amount to claim rewards is {amount} ISLM',
+                      { amount: minRewardsToClaim },
+                    )
                   : ''
               }
             >

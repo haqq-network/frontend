@@ -185,7 +185,7 @@ export function StakingStatsMobile({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Regular staking
+          {t('regular-staking', 'Regular staking')}
         </Heading>
       </div>
 
@@ -217,7 +217,11 @@ export function StakingStatsMobile({
         <Tooltip
           text={
             Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
-              ? `Minimum amount to claim rewards is ${MIN_REWARDS_TO_CLAIM} ISLM`
+              ? t(
+                  'min-amount-to-claim-rewards',
+                  'Minimum amount to claim rewards is {amount} ISLM',
+                  { amount: MIN_REWARDS_TO_CLAIM },
+                )
               : ''
           }
         >

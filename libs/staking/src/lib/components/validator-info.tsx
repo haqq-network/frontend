@@ -441,7 +441,7 @@ function ConnectWallet({
           variant={2}
           className="text-black hover:bg-transparent hover:text-white"
         >
-          {t('connect-wallet-btn', 'Connect wallet')}
+          {t('connect-wallet-button', 'Connect wallet')}
         </Button>
       </div>
     </Container>

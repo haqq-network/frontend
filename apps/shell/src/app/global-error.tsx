@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import { useTranslate } from '@tolgee/react';
 import NextError from 'next/error';
 import { Button } from '@haqq/shell-ui-kit';
 import { Container, Heading } from '@haqq/shell-ui-kit/server';
@@ -12,6 +13,7 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslate('common');
   useEffect(() => {
     Sentry.captureException(error);
   }, [error]);
@@ -21,14 +23,16 @@ export default function GlobalError({
       <body>
         <Container className="py-20">
           <div className="flex flex-col items-center justify-center gap-[24px]">
-            <Heading level={2}>Something went wrong!</Heading>
+            <Heading level={2}>
+              {t('sth-went-wrong', 'Something went wrong!')}
+            </Heading>
             <Button
               variant={1}
               onClick={() => {
                 reset();
               }}
             >
-              Try again
+              {t('try-again', 'Try again')}
             </Button>
             <div className="flex-1 overflow-auto">
               {/* This is the default Next.js error component but it doesn't allow omitting the statusCode property yet. */}
