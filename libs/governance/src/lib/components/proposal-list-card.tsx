@@ -4,7 +4,7 @@ import { formatUnits } from 'viem/utils';
 import { GetGovernanceParamsResponse } from '@haqq/data-access-cosmos';
 import { VoteResultsWithPercentages } from '@haqq/shell-shared';
 import { ProposalCard, ProposalStatusEnum } from '@haqq/shell-ui-kit/server';
-import { getProposalTypeText } from '../proposal-details-page';
+import { useGetProposalTypeText } from '../hooks/useGetProposalTypeText';
 
 export function ProposalListCard({
   proposal,
@@ -52,7 +52,7 @@ export function ProposalListCard({
       minDeposit={minDeposit}
       voteResults={voteResults}
       symbol={symbol}
-      type={getProposalTypeText(proposal.content['@type'])}
+      type={useGetProposalTypeText(proposal.content['@type'])}
       userVote={userVote}
       className={className}
     />

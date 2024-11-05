@@ -12,6 +12,7 @@ import {
   Proposal,
   SoftwareUpgradeProposalContent,
 } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Markdown from 'marked-react';
 import Link from 'next/link';
@@ -68,52 +69,19 @@ import {
 } from '@haqq/shell-ui-kit/server';
 import { ParameterChangeProposalDetails } from './components/parameter-change-proposal';
 import { SoftwareUpgradeProposalDetails } from './components/software-upgrade-proposal';
-
-const enum ProposalTypes {
-  Text = '/cosmos.gov.v1beta1.TextProposal',
-  SoftwareUpgrade = '/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal',
-  CancelSoftwareUpgrade = '/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal',
-  ParameterChange = '/cosmos.params.v1beta1.ParameterChangeProposal',
-  ClientUpdate = '/ibc.core.client.v1.ClientUpdateProposal',
-  RegisterCoin = '/evmos.erc20.v1.RegisterCoinProposal',
-  RegisterERC20 = '/evmos.erc20.v1.RegisterERC20Proposal',
-}
-
-export function getProposalTypeText(type: string) {
-  switch (type) {
-    case ProposalTypes.Text:
-      return 'Text';
-
-    case ProposalTypes.SoftwareUpgrade:
-      return 'Software upgrade';
-
-    case ProposalTypes.CancelSoftwareUpgrade:
-      return 'Cancel software upgrade';
-
-    case ProposalTypes.ClientUpdate:
-      return 'Client update';
-
-    case ProposalTypes.ParameterChange:
-      return 'Parameter change';
-
-    case ProposalTypes.RegisterCoin:
-      return 'Register coin';
-
-    case ProposalTypes.RegisterERC20:
-      return 'Register ERC20';
-
-    default:
-      return type;
-  }
-}
+import {
+  ProposalTypes,
+  useGetProposalTypeText,
+} from './hooks/useGetProposalTypeText';
 
 function ShowDateToggleButton({ onClick }: { onClick: () => void }) {
+  const { t } = useTranslate('governance');
   return (
     <button
       onClick={onClick}
       className="text-[14px] leading-[22px] text-[#EC5728] transition-colors duration-100 ease-out hover:text-[#FF8D69]"
     >
-      Show all dates
+      {t('show-all-dates', 'Show all dates')}
       <svg
         width="22"
         height="22"
@@ -168,6 +136,8 @@ function ProposalDetailsMobile({
   quorum: number;
   userVote?: string | null;
 }) {
+  const { t } = useTranslate('governance');
+
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
       <div className="rounded-[8px] bg-[#FFFFFF14] p-[16px]">
@@ -209,14 +179,14 @@ function ProposalDetailsMobile({
                 <ProposalPeriodTimer
                   color="blue"
                   date={new Date(proposalDetails.deposit_end_time)}
-                  title="Deposit end"
+                  title={t('deposit-end', 'Deposit end')}
                 />
               )}
               {proposalDetails.status === ProposalStatusEnum.Voting && (
                 <ProposalPeriodTimer
                   color="green"
                   date={new Date(proposalDetails.voting_end_time)}
-                  title="Voting end"
+                  title={t('voting-end', 'Voting end')}
                 />
               )}
             </div>
@@ -245,6 +215,7 @@ export function ProposalDetailsComponent({
   govParams: GetGovernanceParamsResponse;
   voteResults: VoteResultsWithPercentages;
 }) {
+  const { t } = useTranslate('governance');
   const { isConnected } = useAccount();
   const { haqqAddress } = useAddress();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
@@ -403,7 +374,7 @@ export function ProposalDetailsComponent({
                   </div>
                   <div>
                     <div className="font-guise text-[14px] leading-[22px] text-white/50">
-                      {getProposalTypeText(proposalDetails.content['@type'])}
+                      {useGetProposalTypeText(proposalDetails.content['@type'])}
                     </div>
                   </div>
                 </div>
@@ -431,7 +402,7 @@ export function ProposalDetailsComponent({
                 <div className="mb-[16px] flex flex-row items-center">
                   <InfoIcon />
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    Info
+                    {t('info', 'Info')}
                   </Heading>
                 </div>
                 <div className="flex flex-col gap-[28px]">
@@ -444,7 +415,7 @@ export function ProposalDetailsComponent({
                       </InfoBlock>
                     </div> */}
                     <div>
-                      <InfoBlock title="Total deposit">
+                      <InfoBlock title={t('total-deposit', 'Total deposit')}>
                         {formatNumber(totalDeposit)}{' '}
                         {symbol.toLocaleUpperCase()}
                       </InfoBlock>
@@ -452,7 +423,7 @@ export function ProposalDetailsComponent({
                   </div>
                   <div>
                     <div className="font-guise mb-[4px] text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                      Description
+                      {t('description', 'Description')}
                     </div>
 
                     <div
@@ -502,25 +473,25 @@ export function ProposalDetailsComponent({
                   <div className="mb-[16px] flex flex-row items-center">
                     <CalendarIcon />
                     <Heading level={3} className="mb-[-2px] ml-[8px]">
-                      Dates
+                      {t('dates', 'Dates')}
                     </Heading>
                   </div>
 
                   <div className="grid grid-flow-row grid-cols-2 gap-[8px] md:grid-cols-4">
-                    <InfoBlock title="Created at (GMT)">
+                    <InfoBlock title={t('created-at', 'Created at')}>
                       {formatDate(new Date(proposalDetails.submit_time))}
                     </InfoBlock>
-                    <InfoBlock title="Deposit end (GMT)">
+                    <InfoBlock title={t('deposit-end', 'Deposit end')}>
                       {formatDate(new Date(proposalDetails.deposit_end_time))}
                     </InfoBlock>
                     {proposalDetails.status !== ProposalStatusEnum.Deposit && (
                       <Fragment>
-                        <InfoBlock title="Vote start (GMT)">
+                        <InfoBlock title={t('vote-start', 'Vote start (GMT)')}>
                           {formatDate(
                             new Date(proposalDetails.voting_start_time),
                           )}
                         </InfoBlock>
-                        <InfoBlock title="Vote end (GMT)">
+                        <InfoBlock title={t('vote-end', 'Vote end (GMT)')}>
                           {formatDate(
                             new Date(proposalDetails.voting_end_time),
                           )}
@@ -574,7 +545,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      Created at (gmt)
+                                      {t('created-at', 'Created at (gmt)')}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -595,7 +566,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      Deposit end (gmt)
+                                      {t('deposit-end', 'Deposit end (gmt)')}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -618,7 +589,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      Vote start (gmt)
+                                      {t('vote-start', 'Vote start (gmt)')}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -641,7 +612,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      Vote end (gmt)
+                                      {t('vote-end', 'Vote end (gmt)')}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -695,7 +666,7 @@ export function ProposalDetailsComponent({
                           <ProposalPeriodTimer
                             color="blue"
                             date={new Date(proposalDetails.deposit_end_time)}
-                            title="Deposit end"
+                            title={t('deposit-end', 'Deposit end')}
                           />
                         )}
                       {proposalDetails.status === ProposalStatusEnum.Voting &&
@@ -703,7 +674,7 @@ export function ProposalDetailsComponent({
                           <ProposalPeriodTimer
                             color="green"
                             date={new Date(proposalDetails.voting_end_time)}
-                            title="Voting end"
+                            title={t('voting-end', 'Voting end')}
                           />
                         )}
                     </div>
@@ -839,19 +810,20 @@ function ProposalActionsMobile({
   isCanVote?: boolean;
   userVote?: string | null;
 }) {
+  const { t } = useTranslate('common');
   if (!isConnected) {
     return (
       <div className="transform-gpu bg-[#FFFFFF14] py-[24px] backdrop-blur md:py-[40px]">
         <div className="flex flex-col items-center gap-[12px]">
           <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-            You should connect wallet first
+            {t('connect-wallet-message', 'You should connect wallet first')}
           </div>
           <Button
             onClick={onConnectWalletClick}
             variant={2}
             className="text-black hover:bg-transparent hover:text-white"
           >
-            Connect wallet
+            {t('connect-wallet-button', 'Connect wallet')}
           </Button>
         </div>
       </div>
@@ -892,6 +864,7 @@ function ProposalActionsMobile({
 }
 
 function ProposalInfo({ proposalId }: { proposalId: string }) {
+  const { t } = useTranslate('governance');
   const { data: proposalDetails, isFetched } =
     useProposalDetailsQuery(proposalId);
   const { data: proposalTally } = useProposalTallyQuery(proposalId);
@@ -911,7 +884,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
     <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
       <SpinnerLoader />
       <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-        Fetching proposal details
+        {t('fetching-proposal-details', 'Fetching proposal details')}
       </div>
     </div>
   ) : (
@@ -926,12 +899,13 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
 }
 
 export function ProposalDetailsPage({ proposalId }: { proposalId: string }) {
+  const { t } = useTranslate('common');
   return (
     <Fragment>
       <Container>
         <div className="py-[18px] sm:py-[26px] lg:py-[34px]">
           <Link href="/governance">
-            <BackButton>Governance</BackButton>
+            <BackButton>{t('governance', 'Governance')}</BackButton>
           </Link>
         </div>
       </Container>
@@ -948,6 +922,7 @@ export function VoteActions({
   proposalId: number;
   userVote?: string | null;
 }) {
+  const { t } = useTranslate('governance');
   const { vote, getVoteEstimatedFee } = useProposalActions();
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
@@ -973,7 +948,11 @@ export function VoteActions({
         );
 
         await toast.promise(votePromise, {
-          loading: <ToastLoading>Vote in progress</ToastLoading>,
+          loading: (
+            <ToastLoading>
+              {t('vote-in-progress', 'Vote in progress')}
+            </ToastLoading>
+          ),
           success: (tx) => {
             console.log('Vote successful', { tx });
             const txHash = tx?.txhash;
@@ -981,7 +960,9 @@ export function VoteActions({
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                  <div>Your vote will be counted!!!</div>
+                  <div>
+                    {t('vote-will-count', 'Your vote will be counted!!!')}
+                  </div>
                   <div>
                     <Link
                       href={`${explorer.cosmos}/tx/${txHash}`}
@@ -999,7 +980,11 @@ export function VoteActions({
           },
           error: (error) => {
             console.error(error);
-            return <ToastError>For some reason your vote failed.</ToastError>;
+            return (
+              <ToastError>
+                {t('vote-fail-error', 'For some reason your vote failed.')}
+              </ToastError>
+            );
           },
         });
         posthog.capture('vote success', { chainId });
@@ -1016,6 +1001,7 @@ export function VoteActions({
       memo,
       posthog,
       proposalId,
+      t,
       toast,
       vote,
     ],
@@ -1028,9 +1014,14 @@ export function VoteActions({
   return (
     <Fragment>
       <div className="mb-[16px]">
-        <CardHeading className="mb-[2px]">Cast your vote</CardHeading>
+        <CardHeading className="mb-[2px]">
+          {t('cast-vote', 'Cast your vote')}
+        </CardHeading>
         <div className="text-[12px] font-[500] leading-[18px] text-white/50">
-          You can change your vote while the voting is in progress
+          {t(
+            'change-vote-message',
+            'You can change your vote while the voting is in progress',
+          )}
         </div>
       </div>
 
@@ -1042,7 +1033,7 @@ export function VoteActions({
               setMemoVisible(true);
             }}
           >
-            Add memo
+            {t('add-memo', 'Add memo')}
           </OrangeLink>
         </div>
       ) : (
@@ -1059,7 +1050,7 @@ export function VoteActions({
               'rounded-[6px] bg-[#252528]',
               'disabled:cursor-not-allowed',
             )}
-            placeholder="Add your memo"
+            placeholder={t('add-your-memo', 'Add your memo')}
             autoFocus
           />
         </div>
@@ -1079,7 +1070,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES
             }
           >
-            Yes
+            {t('vote-option-yes', 'Yes')}
           </VoteButton>
         </div>
         <div>
@@ -1095,7 +1086,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO
             }
           >
-            No
+            {t('vote-option-no', 'No')}
           </VoteButton>
         </div>
         <div>
@@ -1111,7 +1102,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_ABSTAIN
             }
           >
-            Abstain
+            {t('vote-option-abstain', 'Abstain')}
           </VoteButton>
         </div>
         <div>
@@ -1128,7 +1119,7 @@ export function VoteActions({
               VoteOption.VOTE_OPTION_NO_WITH_VETO
             }
           >
-            Veto
+            {t('vote-option-veto', 'Veto')}
           </VoteButton>
         </div>
       </div>
@@ -1145,6 +1136,7 @@ export function DepositActionsDesktop({
   onDepositSubmit: (depositAmount: number) => void;
   isConnected: boolean;
 }) {
+  const { t } = useTranslate('governance');
   const [depositAmount, setDepositAmount] = useState<number | undefined>(
     undefined,
   );
@@ -1160,10 +1152,13 @@ export function DepositActionsDesktop({
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
       <div>
         <CardHeading className="mb-[2px]">
-          Enter the amount you want to deposit
+          {t('enter-deposit-message', 'Enter the amount you want to deposit')}
         </CardHeading>
         <div className="text-[12px] font-[500] leading-[18px] text-white/50">
-          You balance: {balance.toLocaleString()} {symbol.toLocaleUpperCase()}
+          {t('your-balance', 'Your balance: {balance} {symbol}', {
+            balance: balance.toLocaleString(),
+            symbol: symbol.toLocaleUpperCase(),
+          })}
         </div>
       </div>
       <div>
@@ -1183,7 +1178,7 @@ export function DepositActionsDesktop({
             !isConnected || (depositAmount && depositAmount === 0),
           )}
         >
-          Deposit
+          {t('deposit', 'Deposit')}
         </DepositButton>
       </div>
     </div>
@@ -1201,11 +1196,12 @@ export function DepositInput({
   value: number | undefined;
   disabled?: boolean;
 }) {
+  const { t } = useTranslate('governance');
   return (
     <div className={clsx('relative rounded-[6px] bg-[#252528]', className)}>
       <input
         type="number"
-        placeholder="Enter Amount"
+        placeholder={t('enter-amount', 'Enter Amount')}
         className={clsx(
           'px-[16px] pb-[12px] pt-[14px]',
           'w-full text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
@@ -1320,10 +1316,13 @@ function CardHeading({
 }
 
 function DepositAlert() {
+  const { t } = useTranslate('governance');
   return (
     <WarningMessage>
-      If the proposal does not collect the required number of deposits in a
-      certain time, it will reject
+      {t(
+        'proposal-deposit-alert',
+        'If the proposal does not collect the required number of deposits in a certain time, it will reject',
+      )}
     </WarningMessage>
   );
 }
