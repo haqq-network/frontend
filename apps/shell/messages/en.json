@@ -90,10 +90,15 @@
     "voting-end": "Voting end",
     "your-balance": "Your balance: {{balance}} {{symbol}}"
   },
-  "main": {},
+  "main": {
+    "available-for-stake": "Available: {{amount}}",
+    "locked": "Locked: {{amount}}",
+    "active-out-of-total": "{{active}} <span>out of {{total}}</span>"
+  },
   "staking": {
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {{count}} day{count, plural, one {} other {s}}",
-    "funds-undelegated-in-days": "The funds will be undelegated within {count, plural, one {# day} other {# days}}"
+    "funds-undelegated-in-days": "The funds will be undelegated within {count, plural, one {# day} other {# days}}",
+    "min-amount-to-claim-rewards": "Minimum amount to claim rewards is {{amount}} ISLM"
   },
   "uc-dao": {
     "dao-page-title": "UnitedContributors DAO",
