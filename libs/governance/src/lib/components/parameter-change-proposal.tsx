@@ -1,4 +1,5 @@
 import { ParameterChangeProposalContent } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import { Heading } from '@haqq/shell-ui-kit/server';
 import { Metadata } from './metadata';
 
@@ -7,6 +8,7 @@ export function ParameterChangeProposalDetails({
 }: {
   content: ParameterChangeProposalContent;
 }) {
+  const { t } = useTranslate('governance');
   return (
     <div>
       <div className="mb-[16px] flex flex-row items-center">
@@ -26,7 +28,7 @@ export function ParameterChangeProposalDetails({
         </svg>
 
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Parameter changes
+          {t('parameter-changes', 'Parameter changes')}
         </Heading>
       </div>
       <Metadata>{JSON.stringify(content.changes, null, 2)}</Metadata>

@@ -6,7 +6,7 @@ import {
   TallyResults,
 } from '@haqq/data-access-cosmos';
 import { ProposalCard, ProposalStatusEnum } from '@haqq/shell-ui-kit/server';
-import { getProposalTypeText } from '../proposal-details-page';
+import { useGetProposalTypeText } from '../hooks/useGetProposalTypeText';
 
 export function ProposalListCard({
   proposal,
@@ -54,7 +54,7 @@ export function ProposalListCard({
       minDeposit={minDeposit}
       results={proposalTally}
       symbol={symbol}
-      type={getProposalTypeText(proposal.content['@type'])}
+      type={useGetProposalTypeText(proposal.content['@type'])}
       userVote={userVote}
       className={className}
     />
