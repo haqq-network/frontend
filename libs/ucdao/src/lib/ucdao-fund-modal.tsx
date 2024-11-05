@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { formatUnits, parseUnits } from 'viem';
@@ -38,6 +39,7 @@ export function FundModal({
   onClose: () => void;
   className?: string;
 }) {
+  const { t } = useTranslate('uc-dao');
   const { haqqAddress } = useAddress();
   const { data: bankBalance } = useBankBalance(haqqAddress);
   const [fundAmount, setFundAmount] = useState<number | undefined>(undefined);
@@ -89,14 +91,18 @@ export function FundModal({
         await toast.promise(
           fund(amountToFund.toString(), fundSymbol.value),
           {
-            loading: <ToastLoading>Transfer in progress</ToastLoading>,
+            loading: (
+              <ToastLoading>
+                {t('transfer-progress', 'Transfer in progress')}
+              </ToastLoading>
+            ),
             success: (tx) => {
               const txHash = tx.txhash;
 
               return (
                 <ToastSuccess>
                   <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                    <div>Transfer successful</div>
+                    <div>{t('transfer-success', 'Transfer successful')}</div>
 
                     {txHash && (
                       <div>
@@ -182,7 +188,7 @@ export function FundModal({
 
         <div className="flex w-full flex-col">
           <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-            <ModalHeading>Deposit to DAO</ModalHeading>
+            <ModalHeading>{t('deposit-dao', 'Deposit to DAO')}</ModalHeading>
           </div>
 
           <div className="flex flex-col gap-[24px]">
@@ -206,7 +212,7 @@ export function FundModal({
                     htmlFor="amount"
                     className="text-haqq-black font-guise cursor-pointer text-[13px] font-[500] leading-[22px]"
                   >
-                    Amount
+                    {t('amount', 'Amount')}
                   </label>
                 </div>
                 <div>
@@ -229,7 +235,7 @@ export function FundModal({
                   className="w-full"
                   disabled={!isFundEnabled || isFundPending}
                 >
-                  Deposit
+                  {t('deposit', 'Deposit')}
                 </Button>
               </div>
             </div>

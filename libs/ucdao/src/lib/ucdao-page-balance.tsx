@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import { formatUnits } from 'viem';
 import {
   useAddress,
@@ -16,6 +17,7 @@ import {
 import { FundModal } from './ucdao-fund-modal';
 
 export function DaoPageBalance() {
+  const { t } = useTranslate('uc-dao');
   const { haqqAddress } = useAddress();
   const { data: daoBalance } = useDaoAllBalancesQuery(haqqAddress);
   const { data: bankBalance } = useBankBalance(haqqAddress);
@@ -31,14 +33,14 @@ export function DaoPageBalance() {
         <div className="flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            My account
+            {t('account-heading', 'My account')}
           </Heading>
         </div>
 
         {bankBalance && (
           <div className="flex flex-col gap-[6px]">
             <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
-              Wallet Balance
+              {t('wallet-balance-label', 'Wallet Balance')}
             </div>
 
             <div className="font-clash flex flex-col gap-[28px] text-[24px] font-[500] leading-[30px] text-white md:flex-row">
@@ -59,7 +61,7 @@ export function DaoPageBalance() {
         {daoBalance && daoBalance.length > 0 && (
           <div className="flex flex-col gap-[6px]">
             <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
-              DAO Balance
+              {t('dao-balance-label', 'DAO Balance')}
             </div>
 
             <div className="font-clash flex flex-col gap-[28px] text-[24px] font-[500] leading-[30px] text-white md:flex-row">
@@ -85,7 +87,7 @@ export function DaoPageBalance() {
               setFundModalOpen(true);
             }}
           >
-            Deposit to DAO
+            {t('deposit-to-dao', 'Deposit to DAO')}
           </Button>
         </div> */}
       </Container>

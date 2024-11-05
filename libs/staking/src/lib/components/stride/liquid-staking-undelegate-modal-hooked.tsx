@@ -40,7 +40,7 @@ export function LiquidStakingUndelegateModalHooked({
   delegation,
   unboundingTime,
 }: LiquidStakingUndelegateModalProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const { undelegate, setStrideAddress, strideAddress } =
     useLiquidStakingUndelegate();
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
