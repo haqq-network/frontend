@@ -9,7 +9,7 @@ export type Namespace =
   | 'utils'
   | 'uc-dao'
   | 'main'
-  | 'stacking'
+  | 'staking'
   | 'governance'
   | 'authz';
 export const ALL_NAMESPACES: Namespace[] = [
@@ -17,7 +17,7 @@ export const ALL_NAMESPACES: Namespace[] = [
   'utils',
   'uc-dao',
   'main',
-  'stacking',
+  'staking',
   'governance',
   'authz',
 ];

@@ -113,7 +113,7 @@ export function AddressConversionPage() {
           <div className="flex flex-col items-start space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
             <LabeledBlock
               className="w-full max-w-lg lg:max-w-sm xl:max-w-lg"
-              title={t('address-label', 'Address', { ns: 'utils' })}
+              title={t('address-label', 'Address', { ns: 'common' })}
               value={
                 <div className="w-full">
                   <input
