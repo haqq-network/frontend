@@ -224,7 +224,7 @@ function MyAccountConnected({
                       )}
                     >
                       <span>
-                        {t('available-stacking', 'Available for staking', {
+                        {t('available-staking', 'Available for staking', {
                           ns: 'main',
                         })}
                         {': '}
@@ -239,7 +239,7 @@ function MyAccountConnected({
                       haqqAddress={haqqAddress}
                       // TODO: does this make sense?
                       title={t(
-                        'stacking-balance-popup-message',
+                        'staking-balance-popup-message',
                         'In regular staking you can use coins in liquid staking',
                         { ns: 'main' },
                       )}
