@@ -11,9 +11,7 @@ export function ValidatorDetailsPage({ address }: { address: string }) {
       <Container>
         <div className="py-[18px] sm:py-[26px] lg:py-[34px]">
           <Link href="/staking">
-            <BackButton>
-              {t('stacking', 'Staking', { ns: 'common' })}
-            </BackButton>
+            <BackButton>{t('staking', 'Staking', { ns: 'common' })}</BackButton>
           </Link>
         </div>
       </Container>

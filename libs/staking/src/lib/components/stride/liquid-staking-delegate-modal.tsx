@@ -132,7 +132,7 @@ export function LiquidStakingDelegateModal({
   strideAddress,
   setStrideAddress,
 }: LiquidStakingDelegateModalProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
   }, [balance, onChange]);
