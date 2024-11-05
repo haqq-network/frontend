@@ -143,7 +143,7 @@ function StrideStatsDesktop({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          {t('liquid-staking', 'Liquid staking', { ns: 'stacking' })}
+          {t('liquid-staking', 'Liquid staking', { ns: 'staking' })}
         </Heading>
       </div>
 
@@ -152,7 +152,7 @@ function StrideStatsDesktop({
           <div className="flex flex-row gap-[24px]">
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('available', 'Available', { ns: 'stacking' })}
+                title={t('available', 'Available', { ns: 'staking' })}
                 value={formatNumber(balance)}
                 symbol="ISLM"
                 uppercaseSymbol={false}
@@ -160,7 +160,7 @@ function StrideStatsDesktop({
             </div>
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('staked', 'Staked', { ns: 'stacking' })}
+                title={t('staked', 'Staked', { ns: 'staking' })}
                 value={formatNumber(stIslmBalance)}
                 symbol="stISLM"
                 uppercaseSymbol={false}
@@ -282,19 +282,19 @@ function StrideStatsMobile({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          {t('liquid-staking', 'Liquid staking', { ns: 'stacking' })}
+          {t('liquid-staking', 'Liquid staking', { ns: 'staking' })}
         </Heading>
       </div>
 
       <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
-          title={t('available', 'Available', { ns: 'stacking' })}
+          title={t('available', 'Available', { ns: 'staking' })}
           value={formatNumber(balance)}
           symbol="ISLM"
           uppercaseSymbol={false}
         />
         <StakingStatsMobileAmountBlock
-          title={t('staked', 'Staked', { ns: 'stacking' })}
+          title={t('staked', 'Staked', { ns: 'staking' })}
           value={formatNumber(stIslmBalance)}
           symbol="stISLM"
           uppercaseSymbol={false}
@@ -321,7 +321,7 @@ function StrideStatsMobile({
         )}
         <StakingStatsMobileAmountBlock
           title={t('stISLM-in-ISLM', 'stISLM in ISLM', {
-            ns: 'stacking',
+            ns: 'staking',
           })}
           value={`≈${formatNumber(islmAmountFromStIslm)}`}
           symbol="ISLM"

@@ -140,7 +140,7 @@ export function DelegateModal({
   onMemoChange,
   onApprove,
 }: DelegateModalProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const [isMemoVisible, setMemoVisible] = useState(false);
   const { isSafe } = useConnectorType();
 

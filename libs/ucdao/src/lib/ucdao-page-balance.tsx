@@ -1,4 +1,7 @@
 'use client';
+import { useState } from 'react';
+import { useTranslate } from '@tolgee/react';
+import { formatUnits } from 'viem';
 import { useMemo, useState } from 'react';
 import { Coin } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
@@ -25,7 +28,7 @@ const useFilterZeroBalances = (balances?: Coin[] | null) => {
 };
 
 export function DaoPageBalance() {
-  const { t } = useTranslate();
+  const { t } = useTranslate('uc-dao');
   const { haqqAddress } = useAddress();
   const { data: daoBalances } = useDaoAllBalancesQuery(haqqAddress);
   const { data: bankBalances } = useBankBalance(haqqAddress);
@@ -47,24 +50,20 @@ export function DaoPageBalance() {
         <div className="flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            My account
+            {t('account-heading', 'My account')}
           </Heading>
         </div>
 
-        {filteredBankBalances && filteredBankBalances.length > 0 && (
+        {filteredBankBalances?.length > 0 && (
           <BalancesDisplay
-            label={t('wallet-balance-label', 'Wallet Balance', {
-              ns: 'uc-dao',
-            })}
+            label={t('wallet-balance-label', 'Wallet Balance')}
             balances={filteredBankBalances}
           />
         )}
 
-        {filteredDaoBalances && filteredDaoBalances.length > 0 && (
+        {filteredDaoBalances?.length > 0 && (
           <BalancesDisplay
-            label={t('dao-balance-label', 'DAO Balance', {
-              ns: 'uc-dao',
-            })}
+            label={t('dao-balance-label', 'DAO Balance')}
             balances={filteredDaoBalances}
           />
         )}
@@ -77,7 +76,7 @@ export function DaoPageBalance() {
               setFundModalOpen(true);
             }}
           >
-            Deposit to DAO
+            {t('deposit-to-dao', 'Deposit to DAO')}
           </Button>
         </div> */}
       </Container>
