@@ -18,6 +18,7 @@
     "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
     "prepare": "pnpm exec husky",
     "tolgee": "pnpm exec tolgee --config ./apps/shell/.tolgeerc.js",
+    "tolgee:sync": "pnpm exec tolgee sync --config ./apps/shell/.tolgeerc.js",
     "tolgee:pull": "pnpm exec tolgee pull --config ./apps/shell/.tolgeerc.js",
     "tolgee:push": "pnpm exec tolgee push --config ./apps/shell/.tolgeerc.js",
     "tolgee:extract:check": "pnpm exec tolgee extract check --config ./apps/shell/.tolgeerc.js",
