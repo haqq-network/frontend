@@ -1144,9 +1144,6 @@ export function DepositActionsDesktop({
   const symbol = 'ISLM';
   const { executeIfNetworkSupported } = useNetworkAwareAction();
 
-  const localedBalance = balance.toLocaleString();
-  const localedSymbolUpperCase = symbol.toLocaleUpperCase();
-
   return (
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
       <div>
@@ -1154,11 +1151,10 @@ export function DepositActionsDesktop({
           {t('enter-deposit-message', 'Enter the amount you want to deposit')}
         </CardHeading>
         <div className="text-[12px] font-[500] leading-[18px] text-white/50">
-          {t(
-            'your-balance',
-            'Your balance: {localedBalance} {localedSymbolUpperCase}',
-            { localedBalance, localedSymbolUpperCase },
-          )}
+          {t('your-balance', 'Your balance: {balance} {symbol}', {
+            balance: balance.toLocaleString(),
+            symbol: symbol.toLocaleUpperCase(),
+          })}
         </div>
       </div>
       <div>
