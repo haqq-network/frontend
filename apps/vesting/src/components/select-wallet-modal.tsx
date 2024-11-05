@@ -5,7 +5,6 @@ import { Heading } from './typography';
 export function SelectWalletModal({
   isOpen,
   onClose,
-  className,
   onConnectClick,
   connectors,
   error,
@@ -23,7 +22,7 @@ export function SelectWalletModal({
   }[];
   error: string | undefined;
   isMobileUA: boolean;
-  deeplink: string;
+  deeplink?: string;
   isHaqqWallet: boolean;
 }) {
   return (

@@ -24,7 +24,7 @@ export function SelectWalletModal({
   }[];
   error: string | undefined;
   isMobileUA: boolean;
-  deeplink: string;
+  deeplink?: string;
   isHaqqWallet: boolean;
 }) {
   return (
