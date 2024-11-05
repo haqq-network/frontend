@@ -32,6 +32,7 @@ export function createWagmiConfig(walletConnectProjectId?: string) {
         qrModalOptions: {
           themeMode: 'dark',
         },
+        showQrModal: true,
       }),
     );
   }

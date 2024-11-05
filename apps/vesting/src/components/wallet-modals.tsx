@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { useWallet } from '@haqq/shell-shared';
+import { useDeeplink, useWallet } from '@haqq/shell-shared';
 
 const SelectWalletModal = lazy(async () => {
   const { SelectWalletModal } = await import(
@@ -8,7 +8,7 @@ const SelectWalletModal = lazy(async () => {
   return { default: SelectWalletModal };
 });
 
-export function WalletModals() {
+export function WalletModals({ isMobileUA }: { isMobileUA: boolean }) {
   const {
     connectors,
     connect,
@@ -17,10 +17,16 @@ export function WalletModals() {
     connectError,
     setConnectError,
     isSelectWalletOpen,
+    isHaqqWallet,
   } = useWallet();
+
+  const deeplink = useDeeplink();
 
   return (
     <SelectWalletModal
+      isHaqqWallet={isHaqqWallet}
+      deeplink={deeplink}
+      isMobileUA={isMobileUA}
       connectors={connectors}
       onConnectClick={async (connectorId: number) => {
         try {

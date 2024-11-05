@@ -5,10 +5,12 @@ import { Heading } from './typography';
 export function SelectWalletModal({
   isOpen,
   onClose,
-
   onConnectClick,
   connectors,
   error,
+  isMobileUA,
+  deeplink,
+  isHaqqWallet,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -19,6 +21,9 @@ export function SelectWalletModal({
     name: string;
   }[];
   error: string | undefined;
+  isMobileUA: boolean;
+  deeplink?: string;
+  isHaqqWallet: boolean;
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -32,16 +37,35 @@ export function SelectWalletModal({
           </div>
 
           <div className="flex flex-col space-y-2">
-            {connectors.map((connector) => {
-              return (
+            {isMobileUA && !isHaqqWallet && deeplink && (
+              <div>
                 <Button
-                  key={connector.id}
+                  className="min-w-[220px]"
                   onClick={() => {
-                    onConnectClick(connector.id);
+                    window.location.href = deeplink;
                   }}
                 >
-                  {connector.name}
+                  Open in HAQQ Wallet
                 </Button>
+              </div>
+            )}
+
+            {connectors.map((connector) => {
+              return (
+                <div key={connector.id}>
+                  <Button
+                    className="min-w-[220px]"
+                    onClick={() => {
+                      onConnectClick(connector.id);
+                    }}
+                  >
+                    {connector.name === 'WalletConnect'
+                      ? isMobileUA
+                        ? 'WalletConnect'
+                        : 'Scan with HAQQ Wallet'
+                      : connector.name}
+                  </Button>
+                </div>
               );
             })}
 
