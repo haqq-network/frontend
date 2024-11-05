@@ -1,3 +1,4 @@
+import { T, useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { formatUnits } from 'viem';
 import {
@@ -24,6 +25,7 @@ export function ConfirmModal({
   address: string;
   className?: string;
 }) {
+  const { t } = useTranslate();
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <div
@@ -39,17 +41,28 @@ export function ConfirmModal({
 
         <div className="flex w-full flex-col">
           <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-            <ModalHeading>Select wallet</ModalHeading>
+            <ModalHeading>
+              {t('select-wallet-heading', 'Select wallet', { ns: 'uc-dao' })}
+            </ModalHeading>
           </div>
 
           <div className="flex flex-col gap-[24px]">
             <div className="font-guise text-[12px] leading-[18px]">
-              You confirm you want to transfer coins ownership in DAO{' '}
+              {t(
+                'confirm-ownership-transfer',
+                'You confirm you want to transfer coins ownership in DAO',
+                { ns: 'uc-dao' },
+              )}{' '}
               <DaoBalanceConfirmAmount
                 balance={nativeTokenAmount}
                 tokens={tokens}
-              />{' '}
-              - to the address <b>{address}</b> ?
+              />
+              <T
+                keyName="to-the-address"
+                ns="uc-dao"
+                defaultValue=" - to the address <b>{address}</b> ?"
+                params={{ address, b: <b /> }}
+              />
             </div>
             <div className="flex flex-row gap-[16px]">
               <div className="flex-1">
@@ -63,12 +76,12 @@ export function ConfirmModal({
                   )}
                   onClick={onClose}
                 >
-                  Cancel
+                  {t('cancel-button', 'Cancel', { ns: 'common' })}
                 </button>
               </div>
               <div className="flex-1">
                 <Button variant={5} onClick={onConfirm} className="w-full">
-                  Confirm
+                  {t('confirm-button', 'Confirm', { ns: 'common' })}
                 </Button>
               </div>
             </div>
@@ -92,7 +105,12 @@ function DaoBalanceConfirmAmount({
   if (balanceNum !== 0 && tokensNum !== 0) {
     return (
       <>
-        <b>{balanceNum} ISLM</b> and <b>{tokensNum} LIQUID</b>
+        <T
+          keyName="islm-and-liquid-balance"
+          ns="uc-dao"
+          defaultValue="<b>{balanceNum} ISLM</b> and <b>{tokensNum} LIQUID</b>"
+          params={{ balanceNum, tokensNum, b: <b /> }}
+        />
       </>
     );
   } else if (tokensNum === 0) {
@@ -104,7 +122,12 @@ function DaoBalanceConfirmAmount({
   } else if (balanceNum === 0) {
     return (
       <>
-        <b>{tokensNum} LIQUID</b> token{tokensNum !== 1 ? 's' : ''}
+        <T
+          keyName="token-count"
+          ns="uc-dao"
+          defaultValue="<b>{count} LIQUID</b> token{count, plural, one {} other {s}}"
+          params={{ count: tokensNum, b: <b /> }}
+        />
       </>
     );
   } else {

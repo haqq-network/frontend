@@ -48,7 +48,7 @@ export function RedelegateModalHooked({
   validatorsList,
   balance,
 }: RedelegateModalProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const { haqqAddress, ethAddress } = useAddress();
   const { data: redelegationValidatorAmount } = useRedelegationValidatorAmount(
     haqqAddress,

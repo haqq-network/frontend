@@ -34,7 +34,7 @@ export function ValidatorSelect({
   validators: Array<ValidatorSelectOption>;
   onChange: (validatorAddress?: string) => void;
 }) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const handleFilterOption = useCallback(
     ({ label, value }: ValidatorSelectOption, inputValue: string) => {
       const inputLower = inputValue.toLowerCase();

@@ -138,7 +138,7 @@ function CommissionCardInnerBlock({
 }
 
 function CommissionCard({ commission }: CommissionCardProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   return (
     <div>
       <div className="mb-[16px] flex flex-row items-center">
@@ -184,7 +184,7 @@ export function ValidatorInfoComponent({
   isRewardPending,
   isRewardsPending,
 }: ValidatorInfoComponentProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const { copyText } = useClipboard();
   const isDesktop = useMediaQuery('(min-width: 1024px)', {
@@ -453,7 +453,7 @@ export function ValidatorInfo({
 }: {
   validatorAddress: string;
 }) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const { haqqAddress } = useAddress();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
@@ -789,7 +789,7 @@ export function ValidatorBlockDesktop({
   symbol: string;
   isRewardPending?: boolean;
 }) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const router = useRouter();
   const isWarningShown =
     validatorInfo.jailed || validatorInfo.status === 'BOND_STATUS_UNBONDED';

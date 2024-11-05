@@ -91,7 +91,7 @@ export function RedelegateModal({
   onApprove,
   amountError,
 }: RedelegateModalProps) {
-  const { t } = useTranslate('stacking');
+  const { t } = useTranslate('staking');
   const [isMemoVisible, setMemoVisible] = useState(false);
   const { isSafe } = useConnectorType();
 

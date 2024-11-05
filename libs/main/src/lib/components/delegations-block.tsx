@@ -127,9 +127,7 @@ export function DelegationsBlock({
                 {t('no-delegations', "You don't have any active delegations")}
               </div>
               <Link href="/staking" className="leading-[0]">
-                <OrangeLink>
-                  {t('link-to-stacking', 'Go to Staking')}
-                </OrangeLink>
+                <OrangeLink>{t('link-to-staking', 'Go to Staking')}</OrangeLink>
               </Link>
             </div>
           )}
