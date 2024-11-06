@@ -124,7 +124,7 @@ export function StakingStatsDesktop({
                 variant={2}
                 isLoading={isRewardsPending}
               >
-                {t('claim-all-rewards', 'Claim all rewards', { ns: 'staking' })}
+                {t('claim-all-rewards', 'Claim all rewards', { ns: 'common' })}
               </Button>
             </Tooltip>
           </div>
