@@ -175,7 +175,7 @@ function MyAccountConnected({
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            {t('my-account', 'My account', { ns: 'main' })}
+            {t('my-account', 'My account', { ns: 'common' })}
           </Heading>
           <Link href="/staking" className="leading-[0]">
             <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
@@ -298,15 +298,15 @@ function MyAccountConnected({
             </div>
           </div>
           <MyAccountAmountBlock
-            title={t('regular-stacked', 'Regular staked', { ns: 'main' })}
+            title={t('regular-staked', 'Regular staked', { ns: 'main' })}
             value={`${formatNumber(balances.staked)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
-            title={t('rewards', 'Rewards', { ns: 'main' })}
+            title={t('rewards', 'Rewards', { ns: 'common' })}
             value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
-            title={t('liquid-stacked', 'Liquid staked', { ns: 'main' })}
+            title={t('liquid-staked', 'Liquid staked', { ns: 'main' })}
             value={`${formatNumber(stIslmBalance)} stISLM`}
             subValue={`≈${formatNumber(islmAmountFromStIslm ?? 0)} ISLM`}
           />
@@ -319,7 +319,10 @@ function MyAccountConnected({
                     text={
                       isEthAddressCopy
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${ethAddress}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: ethAddress,
+                          })
                     }
                   >
                     <div
@@ -344,7 +347,10 @@ function MyAccountConnected({
                     text={
                       isHaqqAddressCopy
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${haqqAddress}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: haqqAddress,
+                          })
                     }
                   >
                     <div

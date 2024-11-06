@@ -24,7 +24,7 @@ export function DelegationsBlock({
   isMobileUserAgent: boolean;
   seedPhrase: string;
 }) {
-  const { t } = useTranslate('main');
+  const { t } = useTranslate();
   const {
     totalStaked,
     status,
@@ -59,7 +59,7 @@ export function DelegationsBlock({
       <div className="mb-[24px] flex flex-row items-center">
         <ListIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          {t('my-delegations', 'My delegations')}
+          {t('my-delegations', 'My delegations', { ns: 'common' })}
         </Heading>
       </div>
 
@@ -124,10 +124,16 @@ export function DelegationsBlock({
           ) : (
             <div className="flex flex-col items-center justify-center py-[20px]">
               <div className="mb-[4px] text-[14px] leading-[22px] text-white/50">
-                {t('no-delegations', "You don't have any active delegations")}
+                {t('no-delegations', "You don't have any active delegations", {
+                  ns: 'main',
+                })}
               </div>
               <Link href="/staking" className="leading-[0]">
-                <OrangeLink>{t('link-to-staking', 'Go to Staking')}</OrangeLink>
+                <OrangeLink>
+                  {t('link-to-staking', 'Go to Staking', {
+                    ns: 'main',
+                  })}
+                </OrangeLink>
               </Link>
             </div>
           )}

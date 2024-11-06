@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { Button } from './button';
 import { Heading } from './heading';
@@ -30,6 +31,7 @@ export function MyAccountBlockDesktop({
   isRewardsPending?: boolean;
   minRewardsToClaim?: number;
 }) {
+  const { t } = useTranslate('common');
   const [isInfoShown, setInfoShown] = useState(false);
 
   return (
@@ -38,7 +40,7 @@ export function MyAccountBlockDesktop({
         <div className="flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            My account
+            {t('my-account', 'My account')}
           </Heading>
           <button
             className={clsx(
@@ -50,7 +52,11 @@ export function MyAccountBlockDesktop({
               setInfoShown(!isInfoShown);
             }}
           >
-            <div>{isInfoShown ? 'Hide Info' : 'Show Info'}</div>
+            <div>
+              {isInfoShown
+                ? t('hide-info', 'Hide Info')
+                : t('show-info', 'Show Info')}
+            </div>
             <svg
               viewBox="0 0 22 22"
               fill="none"
@@ -76,14 +82,17 @@ export function MyAccountBlockDesktop({
               <div className="py-[24px] md:py-[40px]">
                 <div className="flex flex-col items-center gap-[12px]">
                   <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-                    You should connect wallet first
+                    {t(
+                      'connect-wallet-message',
+                      'You should connect wallet first',
+                    )}
                   </div>
                   <Button
                     onClick={onConnectWalletClick}
                     variant={2}
                     className="text-black hover:bg-transparent hover:text-white"
                   >
-                    Connect wallet
+                    {t('connect-wallet-button', 'Connect wallet')}
                   </Button>
                 </div>
               </div>
@@ -91,22 +100,22 @@ export function MyAccountBlockDesktop({
               <div className="flex flex-col gap-[16px]">
                 <div className="grid grid-cols-2 gap-x-[24px] gap-y-[16px]">
                   <div>
-                    <MyAccountCardBlock title="Available">
+                    <MyAccountCardBlock title={t('available', 'Available')}>
                       {formatNumber(balance)} {symbol.toLocaleUpperCase()}
                     </MyAccountCardBlock>
                   </div>
                   <div>
-                    <MyAccountCardBlock title="Unbonding">
+                    <MyAccountCardBlock title={t('unbonding', 'Unbonding')}>
                       {formatNumber(unbounded)} {symbol.toLocaleUpperCase()}
                     </MyAccountCardBlock>
                   </div>
                   <div>
-                    <MyAccountCardBlock title="Staked">
+                    <MyAccountCardBlock title={t('staked', 'Staked')}>
                       {formatNumber(delegated)} {symbol.toLocaleUpperCase()}
                     </MyAccountCardBlock>
                   </div>
                   <div>
-                    <MyAccountCardBlock title="Rewards">
+                    <MyAccountCardBlock title={t('rewards', 'Rewards')}>
                       {formatNumber(totalRewards)} {symbol.toLocaleUpperCase()}
                     </MyAccountCardBlock>
                   </div>
@@ -115,7 +124,11 @@ export function MyAccountBlockDesktop({
                   <Tooltip
                     text={
                       totalRewards < minRewardsToClaim
-                        ? `Minimum amount to claim rewards is ${minRewardsToClaim} ISLM`
+                        ? t(
+                            'min-amount-to-claim-rewards',
+                            'Minimum amount to claim rewards is {amount} ISLM',
+                            { amount: minRewardsToClaim },
+                          )
                         : ''
                     }
                   >
@@ -130,7 +143,7 @@ export function MyAccountBlockDesktop({
                         totalRewards < minRewardsToClaim || isRewardsPending
                       }
                     >
-                      Claim all rewards
+                      {t('claim-all-rewards', 'Claim all rewards')}
                     </button>
                   </Tooltip>
                 </div>

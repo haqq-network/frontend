@@ -79,14 +79,14 @@ export function LiquidStakingUndelegateModal({
     if (amountError === 'min') {
       return (
         <span className="text-haqq-danger">
-          {t('amount-error-min', 'Bellow minimal value', { ns: 'stacking' })}
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'common' })}
         </span>
       );
     } else if (amountError === 'max') {
       return (
         <span className="text-haqq-danger">
           {t('amount-error-more-than-delegation', 'More than your delegation', {
-            ns: 'stacking',
+            ns: 'staking',
           })}
         </span>
       );
@@ -156,7 +156,7 @@ export function LiquidStakingUndelegateModal({
                     disabled={isDisabled || !isValidStrideAddress}
                   >
                     {t('confirm-undelegation', 'Confirm undelegation', {
-                      ns: 'stacking',
+                      ns: 'staking',
                     })}
                   </Button>
                 </div>

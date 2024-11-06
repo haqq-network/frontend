@@ -113,7 +113,7 @@ export function AddressConversionPage() {
           <div className="flex flex-col items-start space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
             <LabeledBlock
               className="w-full max-w-lg lg:max-w-sm xl:max-w-lg"
-              title={t('address-label', 'Address', { ns: 'common' })}
+              title={t('address', 'Address', { ns: 'common' })}
               value={
                 <div className="w-full">
                   <input
@@ -146,7 +146,10 @@ export function AddressConversionPage() {
                     text={
                       isAddressCopied
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${convertedAddress}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: convertedAddress,
+                          })
                     }
                   >
                     <div
@@ -172,7 +175,7 @@ export function AddressConversionPage() {
             />
             <LabeledBlock
               className="lg:min-w-[200px] lg:justify-around"
-              title={t('balance-label', 'Balance', { ns: 'utils' })}
+              title={t('balance', 'Balance', { ns: 'common' })}
               value={
                 balance !== undefined
                   ? `${formatNumber(balance)} ${symbol}`
