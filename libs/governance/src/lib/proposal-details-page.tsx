@@ -918,7 +918,7 @@ export function VoteActions({
   proposalId: number;
   userVote?: string | null;
 }) {
-  const { t } = useTranslate('governance');
+  const { t } = useTranslate();
   const { vote, getVoteEstimatedFee } = useProposalActions();
   const toast = useToast();
   const { executeIfNetworkSupported } = useNetworkAwareAction();
@@ -946,7 +946,7 @@ export function VoteActions({
         await toast.promise(votePromise, {
           loading: (
             <ToastLoading>
-              {t('vote-in-progress', 'Vote in progress')}
+              {t('vote-in-progress', 'Vote in progress', { ns: 'governance' })}
             </ToastLoading>
           ),
           success: (tx) => {
@@ -957,7 +957,9 @@ export function VoteActions({
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                   <div>
-                    {t('vote-will-count', 'Your vote will be counted!!!')}
+                    {t('vote-will-count', 'Your vote will be counted!!!', {
+                      ns: 'governance',
+                    })}
                   </div>
                   <div>
                     <Link
@@ -978,7 +980,9 @@ export function VoteActions({
             console.error(error);
             return (
               <ToastError>
-                {t('vote-fail-error', 'For some reason your vote failed.')}
+                {t('vote-fail-error', 'For some reason your vote failed.', {
+                  ns: 'governance',
+                })}
               </ToastError>
             );
           },
@@ -1011,12 +1015,13 @@ export function VoteActions({
     <Fragment>
       <div className="mb-[16px]">
         <CardHeading className="mb-[2px]">
-          {t('cast-vote', 'Cast your vote')}
+          {t('cast-vote', 'Cast your vote', { ns: 'governance' })}
         </CardHeading>
         <div className="text-[12px] font-[500] leading-[18px] text-white/50">
           {t(
             'change-vote-message',
             'You can change your vote while the voting is in progress',
+            { ns: 'governance' },
           )}
         </div>
       </div>
@@ -1029,7 +1034,7 @@ export function VoteActions({
               setMemoVisible(true);
             }}
           >
-            {t('add-memo', 'Add memo')}
+            {t('add-memo', 'Add memo', { ns: 'governance' })}
           </OrangeLink>
         </div>
       ) : (
@@ -1046,7 +1051,7 @@ export function VoteActions({
               'rounded-[6px] bg-[#252528]',
               'disabled:cursor-not-allowed',
             )}
-            placeholder={t('add-your-memo', 'Add your memo')}
+            placeholder={t('add-your-memo', 'Add your memo', { ns: 'common' })}
             autoFocus
           />
         </div>
@@ -1066,7 +1071,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES
             }
           >
-            {t('vote-option-yes', 'Yes')}
+            {t('vote-option-yes', 'Yes', { ns: 'governance' })}
           </VoteButton>
         </div>
         <div>
@@ -1082,7 +1087,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO
             }
           >
-            {t('vote-option-no', 'No')}
+            {t('vote-option-no', 'No', { ns: 'governance' })}
           </VoteButton>
         </div>
         <div>
@@ -1098,7 +1103,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_ABSTAIN
             }
           >
-            {t('vote-option-abstain', 'Abstain')}
+            {t('vote-option-abstain', 'Abstain', { ns: 'governance' })}
           </VoteButton>
         </div>
         <div>
@@ -1115,7 +1120,7 @@ export function VoteActions({
               VoteOption.VOTE_OPTION_NO_WITH_VETO
             }
           >
-            {t('vote-option-veto', 'Veto')}
+            {t('vote-option-veto', 'Veto', { ns: 'governance' })}
           </VoteButton>
         </div>
       </div>

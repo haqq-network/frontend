@@ -74,7 +74,7 @@ export function StakingStatsDesktop({
           <div className="flex flex-row gap-[24px]">
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('available', 'Available', { ns: 'staking' })}
+                title={t('available', 'Available', { ns: 'common' })}
                 value={balance}
                 symbol={symbol}
               />
@@ -191,7 +191,7 @@ export function StakingStatsMobile({
 
       <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
-          title={t('available', 'Available', { ns: 'staking' })}
+          title={t('available', 'Available', { ns: 'common' })}
           value={balance}
           symbol={symbol}
         />

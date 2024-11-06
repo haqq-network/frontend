@@ -137,7 +137,7 @@ function StrideStatsDesktop({
           <div className="flex flex-row gap-[24px]">
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('available', 'Available', { ns: 'staking' })}
+                title={t('available', 'Available', { ns: 'common' })}
                 value={formatNumber(balance)}
                 symbol="ISLM"
                 uppercaseSymbol={false}
@@ -222,7 +222,7 @@ function StrideStatsMobile({
 
       <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
-          title={t('available', 'Available', { ns: 'staking' })}
+          title={t('available', 'Available', { ns: 'common' })}
           value={formatNumber(balance)}
           symbol="ISLM"
           uppercaseSymbol={false}
