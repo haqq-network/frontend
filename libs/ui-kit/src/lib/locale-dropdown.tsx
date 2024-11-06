@@ -62,12 +62,11 @@ export function LocaleDropdown({
                     </span>
                     <span>{label}</span>
                   </span>
-                  <CheckIcon
-                    className={clsx(
-                      'mb-[-1px] ml-4 h-4 w-4',
-                      isActive ? 'visible' : 'invisible',
-                    )}
-                  />
+                  {isActive ? (
+                    <CheckIcon className={clsx('mb-[-1px] ml-4 h-4 w-4')} />
+                  ) : (
+                    <div className="ml-4 h-4 w-4" />
+                  )}
                 </button>
               );
             })}

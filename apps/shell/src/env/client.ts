@@ -11,6 +11,8 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_HOST: z.string().min(3).optional(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string().min(3).optional(),
     NEXT_PUBLIC_GIT_COMMIT_SHA: z.string().min(3).optional(),
+    NEXT_PUBLIC_TOLGEE_API_KEY: z.string().min(1),
+    NEXT_PUBLIC_TOLGEE_API_URL: z.string().min(1),
     // Feature flags
     NEXT_PUBLIC_FEATURE_LIQUID_STAKING_ENABLED: z
       .string()
@@ -40,5 +42,7 @@ export const env = createEnv({
       'dev',
     NEXT_PUBLIC_FEATURE_LIQUID_STAKING_ENABLED:
       process.env['NEXT_PUBLIC_FEATURE_LIQUID_STAKING_ENABLED'],
+    NEXT_PUBLIC_TOLGEE_API_KEY: process.env['NEXT_PUBLIC_TOLGEE_API_KEY'],
+    NEXT_PUBLIC_TOLGEE_API_URL: process.env['NEXT_PUBLIC_TOLGEE_API_URL'],
   },
 });

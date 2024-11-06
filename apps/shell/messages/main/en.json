@@ -1,0 +1,19 @@
+{
+  "accounts" : "Accounts",
+  "active-out-of-total" : "{active} <span>out of {total}</span>",
+  "active-validators" : "Active validators",
+  "available-for-stake" : "Available: {amount}",
+  "available-staking" : "Available for staking",
+  "fetching-validators" : "Fetching validators list",
+  "latest-proposals" : "Latest proposals",
+  "link-to-governance" : "Go to Governance",
+  "link-to-staking" : "Go to Staking",
+  "liquid-staked" : "Liquid STAKED",
+  "locked" : "Locked: {amount}",
+  "no-delegations" : "You don't have any active delegations",
+  "regular-staked" : "Regular STAKED",
+  "shell-title" : "Shell",
+  "staking-balance-popup-message" : "In regular staking you can use coins in liquid staking",
+  "total-staked" : "Total staked",
+  "total-supply" : "Total supply"
+}

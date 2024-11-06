@@ -11,7 +11,7 @@ type Props = {
   children: ReactNode;
 };
 
-const staticData: Record<string, () => Promise<any>> = {};
+const staticData: TolgeeStaticData = {};
 
 AVAILABLE_LOCALES.forEach((loc) => {
   ALL_NAMESPACES.forEach((ns) => {
