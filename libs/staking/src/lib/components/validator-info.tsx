@@ -144,7 +144,7 @@ function CommissionCard({ commission }: CommissionCardProps) {
       <div className="mb-[16px] flex flex-row items-center">
         <PercentIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          {t('comission', 'Commission')}
+          {t('commission', 'Commission')}
         </Heading>
       </div>
 

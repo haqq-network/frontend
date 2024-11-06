@@ -21,7 +21,7 @@
     "granter": "Granter"
   },
   "common": {
-    "address-label": "Address",
+    "address": "Address",
     "add-memo": "Add memo",
     "add-your-memo": "Add your memo",
     "amount-error-min": "Bellow minimal value",
@@ -139,11 +139,9 @@
   "staking": {
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}",
     "active-status": "Active",
-    "address": "Address",
     "amount-error-more-than-delegation": "More than your delegation",
     "annualized-yield": "Annual percentage yield",
     "apy": "APY",
-    "comission": "Commission",
     "commission": "Commission",
     "confirm-redelegation": "Confirm redelegation",
     "confirm-undelegation": "Confirm undelegation",
@@ -185,7 +183,6 @@
     "select-new-validator": "Select new validator",
     "show-inactive": "Show inactive",
     "sort-by": "Sorting by",
-    "status": "Status",
     "stISLM-in-ISLM": "stISLM in ISLM",
     "stride-address-required": "Stride address is required to delegate",
     "undelegate-process": "Undelegate in process",
@@ -200,7 +197,6 @@
     "you-will-get": "What you'll get:"
   },
   "uc-dao": {
-    "account-heading": "My account",
     "address-placeholder": "Address in EVM/Bech32 format",
     "amount": "Amount",
     "confirm-ownership-transfer": "You confirm you want to transfer coins ownership in DAO",

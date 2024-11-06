@@ -33,7 +33,7 @@ export function DaoPageBalance() {
         <div className="flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            {t('account-heading', 'My account')}
+            {t('my-account', 'My account')}
           </Heading>
         </div>
 

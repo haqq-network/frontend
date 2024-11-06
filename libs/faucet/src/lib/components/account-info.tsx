@@ -60,9 +60,7 @@ export function AccountInfo() {
     <div className="flex flex-col justify-between gap-[16px]">
       {ethAddress && (
         <div className="flex flex-1 flex-row items-center gap-x-4">
-          <MyAccountCardBlock
-            title={t('address-label', 'Address', { ns: 'common' })}
-          >
+          <MyAccountCardBlock title={t('address', 'Address', { ns: 'common' })}>
             <div className="font-guise flex flex-col gap-[16px] sm:flex-row">
               <div className="flex-1">
                 <Tooltip

@@ -161,7 +161,7 @@ export function GranteeCard({
       <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
         <div>
           <MyAccountAmountBlock
-            title={t('address-label', 'Address', { ns: 'common' })}
+            title={t('address', 'Address', { ns: 'common' })}
             value={
               <div className="space-gap-2 font-guise flex flex-col items-start">
                 <div>
