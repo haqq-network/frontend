@@ -66,7 +66,7 @@ export function ProposalDepositModal({
   onSubmit: (amount: number) => void;
   isPending?: boolean;
 }) {
-  const { t } = useTranslate('governance');
+  const { t } = useTranslate();
   const [depositAmount, setDepositAmount] = useState<number | undefined>(
     undefined,
   );
@@ -105,13 +105,15 @@ export function ProposalDepositModal({
     if (amountError === 'min') {
       return (
         <span className="text-haqq-danger">
-          {t('amount-error-min', 'Bellow minimal value')}
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'common' })}
         </span>
       );
     } else if (amountError === 'max') {
       return (
         <span className="text-haqq-danger">
-          {t('amount-error-more-than-have', 'More than you have')}
+          {t('amount-error-more-than-have', 'More than you have', {
+            ns: 'common',
+          })}
         </span>
       );
     }
@@ -139,12 +141,14 @@ export function ProposalDepositModal({
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-haqq-border divide-y divide-dashed">
             <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-              <ModalHeading>{t('deposit', 'Deposit')}</ModalHeading>
+              <ModalHeading>
+                {t('deposit', 'Deposit', { ns: 'common' })}
+              </ModalHeading>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DepositModalDetails
-                  title={t('my-balance', 'My balance')}
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -167,7 +171,9 @@ export function ProposalDepositModal({
                   disabled={!isDepositEnabled || !depositAmount}
                   isLoading={isPending}
                 >
-                  {t('confirm-delegation', 'Confirm delegation')}
+                  {t('confirm-delegation', 'Confirm delegation', {
+                    ns: 'common',
+                  })}
                 </Button>
               </div>
             </div>

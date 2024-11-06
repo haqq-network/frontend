@@ -100,7 +100,7 @@ export function ProposalListPage() {
         <div className="pt-[32px] lg:pt-[68px]">
           <Container>
             <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-              {t('governance-title', 'Governance', { ns: 'common' })}
+              {t('governance', 'Governance', { ns: 'common' })}
             </div>
           </Container>
         </div>
@@ -114,7 +114,7 @@ export function ProposalListPage() {
                 <SpinnerLoader />
                 <div className="font-guise text-[10px] uppercase leading-[1.2em]">
                   {t('fetching-proposals', 'Fetching proposals', {
-                    ns: 'governance',
+                    ns: 'common',
                   })}
                 </div>
               </div>

@@ -53,7 +53,7 @@ export function StatisticsBlock() {
       </div>
       <div className="flex flex-row items-center space-x-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
-          {t('total-stacked', 'Total staked')} ({formatPercents(stakeRatio)}%)
+          {t('total-staked', 'Total staked')} ({formatPercents(stakeRatio)}%)
         </div>
         <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
           {!isFetching && (

@@ -174,23 +174,23 @@ export function ShellIndexPageDelegationList() {
           <div className="flex items-center justify-between space-x-6 font-semibold">
             <div className="w-1/4">
               <div className="font-semibold">
-                {t('name', 'Name', { ns: 'main' })}
+                {t('name', 'Name', { ns: 'common' })}
               </div>
             </div>
             <div className="w-[80px] text-center">
-              {t('status', 'Status', { ns: 'main' })}
+              {t('status', 'Status', { ns: 'common' })}
             </div>
             <div className="w-[50px] text-center">
-              {t('fee', 'Fee', { ns: 'main' })}
+              {t('fee', 'Fee', { ns: 'common' })}
             </div>
             <div className="flex-1 text-right">
-              {t('voting-power', 'Voting power', { ns: 'main' })}
+              {t('voting-power', 'Voting power', { ns: 'common' })}
             </div>
             <div className="flex-1 text-right">
-              {t('staked', 'Staked', { ns: 'main' })}
+              {t('staked', 'Staked', { ns: 'common' })}
             </div>
             <div className="flex-1 text-right">
-              {t('rewards', 'Rewards', { ns: 'main' })}
+              {t('rewards', 'Rewards', { ns: 'common' })}
             </div>
           </div>
         </div>

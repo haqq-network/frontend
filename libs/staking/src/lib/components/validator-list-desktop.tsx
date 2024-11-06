@@ -38,7 +38,7 @@ export function ValidatorsListDesktop({
   onDesktopSortClick: (key: string) => void;
   sortState: SortState;
 }) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -84,7 +84,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('name');
               }}
             >
-              {t('name', 'Name')}
+              {t('name', 'Name', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'name' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}
@@ -92,7 +92,7 @@ export function ValidatorsListDesktop({
           </th>
           <th className="w-[100px] p-[8px] text-left lg:p-[12px]">
             <div className="select-none">
-              {t('status', 'Status')}
+              {t('status', 'Status', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'status' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}
@@ -110,7 +110,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('fee');
               }}
             >
-              {t('fee', 'Fee')}
+              {t('fee', 'Fee', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'fee' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}
@@ -128,7 +128,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('votingPower');
               }}
             >
-              {t('voting-power', 'Voting power')}
+              {t('voting-power', 'Voting power', { ns: 'common' })}
               {sortState.key !== 'random' &&
                 sortState.key === 'votingPower' && (
                   <SortDirectionArrow direction={sortState.direction} />
@@ -147,7 +147,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('votingPowerPercent');
               }}
             >
-              {t('voting-power', 'Voting power')} %
+              {t('voting-power', 'Voting power', { ns: 'common' })} %
               {sortState.key !== 'random' &&
                 sortState.key === 'votingPowerPercent' && (
                   <SortDirectionArrow direction={sortState.direction} />
@@ -166,7 +166,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('staked');
               }}
             >
-              {t('my-stake', 'My stake')}
+              {t('my-stake', 'My stake', { ns: 'staking' })}
               {sortState.key !== 'random' && sortState.key === 'staked' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}
@@ -184,7 +184,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('reward');
               }}
             >
-              {t('my-rewards', 'My rewards')}
+              {t('my-rewards', 'My rewards', { ns: 'staking' })}
               {sortState.key !== 'random' && sortState.key === 'reward' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}

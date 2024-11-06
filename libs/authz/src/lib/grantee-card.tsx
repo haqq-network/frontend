@@ -161,7 +161,7 @@ export function GranteeCard({
       <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
         <div>
           <MyAccountAmountBlock
-            title={t('address-label', 'Address', { ns: 'common' })}
+            title={t('address', 'Address', { ns: 'common' })}
             value={
               <div className="space-gap-2 font-guise flex flex-col items-start">
                 <div>
@@ -169,7 +169,10 @@ export function GranteeCard({
                     text={
                       isEthAddressCopy
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${granteeAddresses.eth}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: granteeAddresses.eth,
+                          })
                     }
                   >
                     <div
@@ -189,7 +192,10 @@ export function GranteeCard({
                     text={
                       isHaqqAddressCopy
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${granteeAddresses.haqq}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: granteeAddresses.haqq,
+                          })
                     }
                   >
                     <div
@@ -212,13 +218,13 @@ export function GranteeCard({
         <div className="flex flex-row flex-wrap gap-[16px]">
           <div className="flex-1">
             <MyAccountAmountBlock
-              title={t('staked', 'Staked', { ns: 'authz' })}
+              title={t('staked', 'Staked', { ns: 'common' })}
               value={`${formatNumber(delegation)} ${symbol.toLocaleUpperCase()}`}
             />
           </div>
           <div className="flex-1">
             <MyAccountAmountBlock
-              title={t('rewards', 'Rewards', { ns: 'authz' })}
+              title={t('rewards', 'Rewards', { ns: 'common' })}
               value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
             />
           </div>
@@ -226,7 +232,7 @@ export function GranteeCard({
         <div>
           <div className="flex-1">
             <MyAccountAmountBlock
-              title={t('unbonding', 'Unbonding', { ns: 'authz' })}
+              title={t('unbonding', 'Unbonding', { ns: 'common' })}
               value={`${formatNumber(unbounded)} ${symbol.toLocaleUpperCase()}`}
             />
           </div>

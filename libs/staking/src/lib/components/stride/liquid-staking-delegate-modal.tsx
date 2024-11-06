@@ -132,7 +132,7 @@ export function LiquidStakingDelegateModal({
   strideAddress,
   setStrideAddress,
 }: LiquidStakingDelegateModalProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
   }, [balance, onChange]);
@@ -162,13 +162,15 @@ export function LiquidStakingDelegateModal({
     if (amountError === 'min') {
       return (
         <span className="text-haqq-danger">
-          {t('amount-error-min', 'Bellow minimal value')}
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'common' })}
         </span>
       );
     } else if (amountError === 'max') {
       return (
         <span className="text-haqq-danger">
-          {t('amount-error-more-than-have', 'More than you have')}
+          {t('amount-error-more-than-have', 'More than you have', {
+            ns: 'common',
+          })}
         </span>
       );
     }
@@ -196,13 +198,14 @@ export function LiquidStakingDelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                {t('delegate-title', 'Delegate')}
+                {t('delegate', 'Delegate', { ns: 'common' })}
               </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
                 {t(
                   'attention-withdrawal-warning',
                   'Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}',
                   {
+                    ns: 'staking',
                     count: unboundingTime,
                   },
                 )}
@@ -212,16 +215,16 @@ export function LiquidStakingDelegateModal({
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <LiquidStakingDelegateModalDetails
-                  title={t('my-balance', 'My balance')}
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <LiquidStakingDelegateModalDetails
-                  title={t('apy', 'APY')}
+                  title={t('apy', 'APY', { ns: 'staking' })}
                   isValuePending={isLoading}
                   value={`${apy}%`}
                 />
                 <LiquidStakingDelegateModalDetails
-                  title={t('commission', 'Commission')}
+                  title={t('commission', 'Commission', { ns: 'staking' })}
                   value={`${strideFee}%`}
                 />
               </div>
@@ -246,6 +249,7 @@ export function LiquidStakingDelegateModal({
                       {t(
                         'stride-address-required',
                         'Stride address is required to delegate',
+                        { ns: 'staking' },
                       )}
                     </span>
                   }
@@ -254,7 +258,7 @@ export function LiquidStakingDelegateModal({
                 <div className="flex flex-col items-center justify-center gap-[16px]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
-                      {t('you-will-get', "What you'll get:")}
+                      {t('you-will-get', "What you'll get:", { ns: 'staking' })}
                     </div>
                     <div className="text-[20px] font-semibold leading-[26px]">
                       {/* eslint-disable-next-line i18next/no-literal-string */}
@@ -265,7 +269,9 @@ export function LiquidStakingDelegateModal({
                   {annualizedYield ? (
                     <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-[8px]">
                       <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
-                        {t('annualized-yield', 'Annual percentage yield')}
+                        {t('annualized-yield', 'Annual percentage yield', {
+                          ns: 'staking',
+                        })}
                       </div>
                       <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
                         {/* eslint-disable-next-line i18next/no-literal-string */}
@@ -282,7 +288,9 @@ export function LiquidStakingDelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    {t('confirm-delegation', 'Confirm delegation')}
+                    {t('confirm-delegation', 'Confirm delegation', {
+                      ns: 'common',
+                    })}
                   </Button>
                 </div>
               </div>

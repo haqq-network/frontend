@@ -85,7 +85,7 @@ export function RedelegateModal({
   onMemoChange,
   redelegationValidatorAmount,
 }: RedelegateModalProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   const [isMemoVisible, setMemoVisible] = useState(false);
 
   const delegationNumber = useMemo(() => {
@@ -135,14 +135,14 @@ export function RedelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                {t('redelegate', 'Redelegate')}
+                {t('redelegate', 'Redelegate', { ns: 'common' })}
               </ModalHeading>
             </div>
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title={t('my-delegation', 'My delegation')}
+                  title={t('my-delegation', 'My delegation', { ns: 'staking' })}
                   value={`${formatNumber(delegationNumber)} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -152,7 +152,9 @@ export function RedelegateModal({
               <div className="py-[24px]">
                 <div className="flex flex-col gap-[8px]">
                   <DelegateModalDetails
-                    title={t('redelegate-amount', 'Redelegation amount')}
+                    title={t('redelegate-amount', 'Redelegation amount', {
+                      ns: 'staking',
+                    })}
                     value={`${formatNumber(redelegationValidatorAmountNumber)} ${symbol.toUpperCase()}`}
                   />
                 </div>
@@ -185,7 +187,7 @@ export function RedelegateModal({
                         setMemoVisible(true);
                       }}
                     >
-                      {t('add-memo', 'Add memo')}
+                      {t('add-memo', 'Add memo', { ns: 'common' })}
                     </OrangeLink>
                   </div>
                 ) : (
@@ -203,14 +205,18 @@ export function RedelegateModal({
                         'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
                         'bg-[#E7E7E7]',
                       )}
-                      placeholder={t('memo-placeholder', 'Add your memo')}
+                      placeholder={t('memo-placeholder', 'Add your memo', {
+                        ns: 'staking',
+                      })}
                     />
                   </div>
                 )}
 
                 <div>
                   <DelegateModalDetails
-                    title={t('estimated-fee', 'Estimated fee')}
+                    title={t('estimated-fee', 'Estimated fee', {
+                      ns: 'staking',
+                    })}
                     value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
                     isValuePending={isFeePending}
                   />
@@ -223,7 +229,9 @@ export function RedelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    {t('confirm-redelegation', 'Confirm redelegation')}
+                    {t('confirm-redelegation', 'Confirm redelegation', {
+                      ns: 'staking',
+                    })}
                   </Button>
                 </div>
               </div>
