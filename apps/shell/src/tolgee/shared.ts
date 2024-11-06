@@ -1,7 +1,8 @@
 import { FormatIcu } from '@tolgee/format-icu';
 import { DevTools, Tolgee, FormatSimple, TolgeeStaticData } from '@tolgee/web';
+import { env } from '../env/client';
 
-export const AVAILABLE_LOCALES = ['en', 'ar', 'id', 'tr'] as const;
+export const AVAILABLE_LOCALES = ['en', 'ar', 'id', 'tr', 'ru'] as const;
 export type Locale = (typeof AVAILABLE_LOCALES)[number];
 
 export const LOCALE_LABELS: Record<Locale, { label: string; emoji: string }> = {
@@ -9,18 +10,12 @@ export const LOCALE_LABELS: Record<Locale, { label: string; emoji: string }> = {
   ar: { label: 'العربية', emoji: '🇸🇦' },
   id: { label: 'Bahasa Indonesia', emoji: '🇮🇩' },
   tr: { label: 'Türkçe', emoji: '🇹🇷' },
+  ru: { label: 'Русский', emoji: '🇷🇺' },
 };
 
-export type Namespace =
-  | 'common'
-  | 'utils'
-  | 'uc-dao'
-  | 'main'
-  | 'staking'
-  | 'governance'
-  | 'authz'
-  | 'faucet';
-export const ALL_NAMESPACES: Namespace[] = [
+export type AllNamespaces = (typeof ALL_NAMESPACES)[number];
+
+export const ALL_NAMESPACES = [
   'common',
   'utils',
   'uc-dao',
@@ -29,12 +24,12 @@ export const ALL_NAMESPACES: Namespace[] = [
   'governance',
   'authz',
   'faucet',
-];
+] as const;
 
 export const DEFAULT_LOCALE = 'en';
 
-const apiKey = process.env.NEXT_PUBLIC_TOLGEE_API_KEY;
-const apiUrl = process.env.NEXT_PUBLIC_TOLGEE_API_URL;
+const apiKey = env.NEXT_PUBLIC_TOLGEE_API_KEY;
+const apiUrl = env.NEXT_PUBLIC_TOLGEE_API_URL;
 
 export async function getStaticData(
   languages: string[],
@@ -44,8 +39,9 @@ export async function getStaticData(
   for (const lang of languages) {
     for (const ns of ALL_NAMESPACES) {
       try {
-        const data = (await import(`../../messages/${lang}.json`)).default;
-        result[`${lang}:${ns}`] = data[ns];
+        const data = (await import(`../../messages/${lang}/${ns}.json`))
+          .default;
+        result[`${lang}:${ns}`] = data;
       } catch (error) {
         console.error(
           `Error loading namespace "${ns}" for language "${lang}":`,
