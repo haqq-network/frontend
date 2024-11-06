@@ -24,7 +24,7 @@ export function ValidatorList({
   isMobileUserAgent: boolean;
   seedPhrase: string;
 }) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   const {
     totalStaked,
     valsTotal,
@@ -111,7 +111,7 @@ export function ValidatorList({
           <div className="flex flex-row items-center">
             <ValidatorIcon />
             <Heading level={3} className="mb-[-2px] ml-[8px]">
-              {t('validators', 'Validators')}
+              {t('validators', 'Validators', { ns: 'staking' })}
               {status !== 'pending' && (
                 <span className="text-white/50">
                   &nbsp;(<span>{validatorsCounterText}</span>)
@@ -123,17 +123,38 @@ export function ValidatorList({
           <div className="flex flex-col gap-[12px] lg:flex-row lg:items-center lg:gap-[24px]">
             <SearchInput value={filter} onChange={setFilter} />
             <SortSelect
-              placeholder={t('sort-by', 'Sorting by')}
+              placeholder={t('sort-by', 'Sorting by', { ns: 'staking' })}
               current={`${sortState.key}-${sortState.direction}`}
               onChange={handleMobileSortChange}
               variants={[
-                { id: 'random', title: t('random', 'Random') },
-                { id: 'name-asc', title: t('name-asc', 'By name (a-z)') },
-                { id: 'name-desc', title: t('name-desc', 'By name (z-a)') },
-                { id: 'power-asc', title: t('power-asc', 'By power (a-z)') },
-                { id: 'power-desc', title: t('power-desc', 'By power (z-a)') },
-                { id: 'fee-asc', title: t('fee-asc', 'By fee (a-z)') },
-                { id: 'fee-desc', title: t('fee-desc', 'By fee (z-a)') },
+                {
+                  id: 'random',
+                  title: t('random', 'Random', { ns: 'staking' }),
+                },
+                {
+                  id: 'name-asc',
+                  title: t('name-asc', 'By name (a-z)', { ns: 'staking' }),
+                },
+                {
+                  id: 'name-desc',
+                  title: t('name-desc', 'By name (z-a)', { ns: 'staking' }),
+                },
+                {
+                  id: 'power-asc',
+                  title: t('power-asc', 'By power (a-z)', { ns: 'staking' }),
+                },
+                {
+                  id: 'power-desc',
+                  title: t('power-desc', 'By power (z-a)', { ns: 'staking' }),
+                },
+                {
+                  id: 'fee-asc',
+                  title: t('fee-asc', 'By fee (a-z)', { ns: 'staking' }),
+                },
+                {
+                  id: 'fee-desc',
+                  title: t('fee-desc', 'By fee (z-a)', { ns: 'staking' }),
+                },
               ]}
               className="lg:hidden"
             />
@@ -145,7 +166,7 @@ export function ValidatorList({
                   disabled={!isWalletConnected}
                   value={isWalletConnected ? isShowMyDelegation : false}
                 >
-                  {t('my-delegations', 'My delegations')}
+                  {t('my-delegations', 'My delegations', { ns: 'common' })}
                 </Checkbox>
               </div>
               <div className="leading-[0]">
@@ -153,7 +174,7 @@ export function ValidatorList({
                   onChange={setInactiveValidatorsVisible}
                   value={isInactiveValidatorsVisible}
                 >
-                  {t('show-inactive', 'Show inactive')}
+                  {t('show-inactive', 'Show inactive', { ns: 'staking' })}
                 </Checkbox>
               </div>
             </div>
@@ -165,7 +186,9 @@ export function ValidatorList({
             <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
               <SpinnerLoader />
               <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-                {t('fetching-validators-message', 'Fetching validators list')}
+                {t('fetching-validators-message', 'Fetching validators list', {
+                  ns: 'staking',
+                })}
               </div>
             </div>
           </div>
