@@ -195,7 +195,7 @@ export function FundModal({
             <div className="flex flex-col gap-[18px]">
               <div>
                 <ModalSelect
-                  label="Currency"
+                  label={t('currency', 'Currency')}
                   selectContainerClassName="w-full"
                   onChange={(coin) => {
                     if (coin) {

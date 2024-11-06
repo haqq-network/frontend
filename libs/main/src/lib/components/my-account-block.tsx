@@ -293,7 +293,7 @@ function MyAccountConnected({
             subValue={`≈${formatNumber(islmAmountFromStIslm)} ISLM`}
           />
           <MyAccountAmountBlock
-            title={t('address', 'Address', { ns: 'common' })}
+            title={t('address-label', 'Address', { ns: 'common' })}
             value={
               <div className="font-guise flex flex-col items-start space-y-2 lg:flex-row lg:space-x-4 lg:space-y-0">
                 <div className="flex-1">

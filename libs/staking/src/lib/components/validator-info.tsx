@@ -314,7 +314,7 @@ export function ValidatorInfoComponent({
                     </div>
                   )}
 
-                  <InfoBlock title={t('address', 'Address')}>
+                  <InfoBlock title={t('address-label', 'Address')}>
                     <Tooltip
                       text={
                         isHaqqAddressCopy

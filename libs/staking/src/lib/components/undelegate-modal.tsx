@@ -117,9 +117,13 @@ export function UndelegateModal({
                 className="mt-[3px]"
                 wrapperClassName="mt-[24px]"
               >
-                {t('funds-undelegated-in-days', {
-                  count: unboundingTime,
-                })}
+                {t(
+                  'funds-undelegated-in-days',
+                  'The funds will be undelegated within {count, plural, one {# day} other {# days}}',
+                  {
+                    count: unboundingTime,
+                  },
+                )}
               </WarningMessage>
             </div>
             <div className="py-[24px]">
