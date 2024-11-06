@@ -18,7 +18,8 @@ export type Namespace =
   | 'main'
   | 'staking'
   | 'governance'
-  | 'authz';
+  | 'authz'
+  | 'faucet';
 export const ALL_NAMESPACES: Namespace[] = [
   'common',
   'utils',
@@ -27,6 +28,7 @@ export const ALL_NAMESPACES: Namespace[] = [
   'staking',
   'governance',
   'authz',
+  'faucet',
 ];
 
 export const DEFAULT_LOCALE = 'en';

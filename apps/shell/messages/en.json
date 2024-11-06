@@ -61,6 +61,7 @@
     "staking": "Staking",
     "undelegate": "Undelegate"
   },
+  "faucet": {},
   "governance": {
     "add-memo": "Add memo",
     "add-your-memo": "Add your memo",
