@@ -142,7 +142,7 @@ export function ProposalDepositModal({
           <div className="divide-haqq-border divide-y divide-dashed">
             <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
               <ModalHeading>
-                {t('deposit', 'Deposit', { ns: 'governance' })}
+                {t('deposit', 'Deposit', { ns: 'common' })}
               </ModalHeading>
             </div>
             <div className="py-[24px]">

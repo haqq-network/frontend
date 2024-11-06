@@ -1137,7 +1137,7 @@ export function DepositActionsDesktop({
   onDepositSubmit: (depositAmount: number) => void;
   isConnected: boolean;
 }) {
-  const { t } = useTranslate('governance');
+  const { t } = useTranslate();
   const [depositAmount, setDepositAmount] = useState<number | undefined>(
     undefined,
   );
@@ -1153,10 +1153,13 @@ export function DepositActionsDesktop({
     <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
       <div>
         <CardHeading className="mb-[2px]">
-          {t('enter-deposit-message', 'Enter the amount you want to deposit')}
+          {t('enter-deposit-message', 'Enter the amount you want to deposit', {
+            ns: 'governance',
+          })}
         </CardHeading>
         <div className="text-[12px] font-[500] leading-[18px] text-white/50">
           {t('your-balance', 'Your balance: {balance} {symbol}', {
+            ns: 'governance',
             balance: balance.toLocaleString(),
             symbol: symbol.toLocaleUpperCase(),
           })}
@@ -1179,7 +1182,7 @@ export function DepositActionsDesktop({
             !isConnected || (depositAmount && depositAmount === 0),
           )}
         >
-          {t('deposit', 'Deposit')}
+          {t('deposit', 'Deposit', { ns: 'common' })}
         </DepositButton>
       </div>
     </div>

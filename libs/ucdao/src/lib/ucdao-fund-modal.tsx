@@ -39,7 +39,7 @@ export function FundModal({
   onClose: () => void;
   className?: string;
 }) {
-  const { t } = useTranslate('uc-dao');
+  const { t } = useTranslate();
   const { haqqAddress } = useAddress();
   const { data: bankBalance } = useBankBalance(haqqAddress);
   const [fundAmount, setFundAmount] = useState<number | undefined>(undefined);
@@ -93,7 +93,9 @@ export function FundModal({
           {
             loading: (
               <ToastLoading>
-                {t('transfer-progress', 'Transfer in progress')}
+                {t('transfer-progress', 'Transfer in progress', {
+                  ns: 'uc-dao',
+                })}
               </ToastLoading>
             ),
             success: (tx) => {
@@ -102,7 +104,11 @@ export function FundModal({
               return (
                 <ToastSuccess>
                   <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                    <div>{t('transfer-success', 'Transfer successful')}</div>
+                    <div>
+                      {t('transfer-success', 'Transfer successful', {
+                        ns: 'uc-dao',
+                      })}
+                    </div>
 
                     {txHash && (
                       <div>
@@ -188,14 +194,16 @@ export function FundModal({
 
         <div className="flex w-full flex-col">
           <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-            <ModalHeading>{t('deposit-dao', 'Deposit to DAO')}</ModalHeading>
+            <ModalHeading>
+              {t('deposit-dao', 'Deposit to DAO', { ns: 'uc-dao' })}
+            </ModalHeading>
           </div>
 
           <div className="flex flex-col gap-[24px]">
             <div className="flex flex-col gap-[18px]">
               <div>
                 <ModalSelect
-                  label={t('currency', 'Currency')}
+                  label={t('currency', 'Currency', { ns: 'uc-dao' })}
                   selectContainerClassName="w-full"
                   onChange={(coin) => {
                     if (coin) {
@@ -212,7 +220,7 @@ export function FundModal({
                     htmlFor="amount"
                     className="text-haqq-black font-guise cursor-pointer text-[13px] font-[500] leading-[22px]"
                   >
-                    {t('amount', 'Amount')}
+                    {t('amount', 'Amount', { ns: 'uc-dao' })}
                   </label>
                 </div>
                 <div>
@@ -235,7 +243,7 @@ export function FundModal({
                   className="w-full"
                   disabled={!isFundEnabled || isFundPending}
                 >
-                  {t('deposit', 'Deposit')}
+                  {t('deposit', 'Deposit', { ns: 'common' })}
                 </Button>
               </div>
             </div>
