@@ -214,7 +214,7 @@ export function ProposalDetailsComponent({
   govParams: GetGovernanceParamsResponse;
   proposalTally: TallyResults;
 }) {
-  const { t } = useTranslate('governance');
+  const { t } = useTranslate();
   const { isConnected } = useAccount();
   const { haqqAddress } = useAddress();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
@@ -401,7 +401,7 @@ export function ProposalDetailsComponent({
                 <div className="mb-[16px] flex flex-row items-center">
                   <InfoIcon />
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    {t('info', 'Info')}
+                    {t('info', 'Info', { ns: 'governance' })}
                   </Heading>
                 </div>
                 <div className="flex flex-col gap-[28px]">
@@ -414,7 +414,11 @@ export function ProposalDetailsComponent({
                       </InfoBlock>
                     </div> */}
                     <div>
-                      <InfoBlock title={t('total-deposit', 'Total deposit')}>
+                      <InfoBlock
+                        title={t('total-deposit', 'Total deposit', {
+                          ns: 'governance',
+                        })}
+                      >
                         {formatNumber(totalDeposit)}{' '}
                         {symbol.toLocaleUpperCase()}
                       </InfoBlock>
@@ -422,7 +426,7 @@ export function ProposalDetailsComponent({
                   </div>
                   <div>
                     <div className="font-guise mb-[4px] text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                      {t('description', 'Description')}
+                      {t('description', 'Description', { ns: 'common' })}
                     </div>
 
                     <div
@@ -472,25 +476,41 @@ export function ProposalDetailsComponent({
                   <div className="mb-[16px] flex flex-row items-center">
                     <CalendarIcon />
                     <Heading level={3} className="mb-[-2px] ml-[8px]">
-                      {t('dates', 'Dates')}
+                      {t('dates', 'Dates', { ns: 'governance' })}
                     </Heading>
                   </div>
 
                   <div className="grid grid-flow-row grid-cols-2 gap-[8px] md:grid-cols-4">
-                    <InfoBlock title={t('created-at', 'Created at')}>
+                    <InfoBlock
+                      title={t('created-at', 'Created at', {
+                        ns: 'governance',
+                      })}
+                    >
                       {formatDate(new Date(proposalDetails.submit_time))}
                     </InfoBlock>
-                    <InfoBlock title={t('deposit-end', 'Deposit end')}>
+                    <InfoBlock
+                      title={t('deposit-end', 'Deposit end', {
+                        ns: 'governance',
+                      })}
+                    >
                       {formatDate(new Date(proposalDetails.deposit_end_time))}
                     </InfoBlock>
                     {proposalDetails.status !== ProposalStatusEnum.Deposit && (
                       <Fragment>
-                        <InfoBlock title={t('vote-start', 'Vote start (GMT)')}>
+                        <InfoBlock
+                          title={t('vote-start', 'Vote start (GMT)', {
+                            ns: 'governance',
+                          })}
+                        >
                           {formatDate(
                             new Date(proposalDetails.voting_start_time),
                           )}
                         </InfoBlock>
-                        <InfoBlock title={t('vote-end', 'Vote end (GMT)')}>
+                        <InfoBlock
+                          title={t('vote-end', 'Vote end (GMT)', {
+                            ns: 'governance',
+                          })}
+                        >
                           {formatDate(
                             new Date(proposalDetails.voting_end_time),
                           )}
@@ -544,7 +564,9 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('created-at', 'Created at (gmt)')}
+                                      {t('created-at', 'Created at (gmt)', {
+                                        ns: 'governance',
+                                      })}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -565,7 +587,9 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('deposit-end', 'Deposit end (gmt)')}
+                                      {t('deposit-end', 'Deposit end (gmt)', {
+                                        ns: 'governance',
+                                      })}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -588,7 +612,9 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('vote-start', 'Vote start (gmt)')}
+                                      {t('vote-start', 'Vote start (gmt)', {
+                                        ns: 'governance',
+                                      })}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -611,7 +637,9 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('vote-end', 'Vote end (gmt)')}
+                                      {t('vote-end', 'Vote end (gmt)', {
+                                        ns: 'governance',
+                                      })}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -665,7 +693,9 @@ export function ProposalDetailsComponent({
                           <ProposalPeriodTimer
                             color="blue"
                             date={new Date(proposalDetails.deposit_end_time)}
-                            title={t('deposit-end', 'Deposit end')}
+                            title={t('deposit-end', 'Deposit end', {
+                              ns: 'governance',
+                            })}
                           />
                         )}
                       {proposalDetails.status === ProposalStatusEnum.Voting &&
@@ -673,7 +703,9 @@ export function ProposalDetailsComponent({
                           <ProposalPeriodTimer
                             color="green"
                             date={new Date(proposalDetails.voting_end_time)}
-                            title={t('voting-end', 'Voting end')}
+                            title={t('voting-end', 'Voting end', {
+                              ns: 'governance',
+                            })}
                           />
                         )}
                     </div>

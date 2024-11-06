@@ -184,7 +184,7 @@ export function ValidatorInfoComponent({
   isRewardPending,
   isRewardsPending,
 }: ValidatorInfoComponentProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const { copyText } = useClipboard();
   const isDesktop = useMediaQuery('(min-width: 1024px)', {
@@ -253,7 +253,7 @@ export function ValidatorInfoComponent({
                 <div className="mb-[16px] flex flex-row items-center">
                   <InfoIcon />
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    {t('info', 'Info')}
+                    {t('info', 'Info', { ns: 'staking' })}
                   </Heading>
                 </div>
 
@@ -267,7 +267,9 @@ export function ValidatorInfoComponent({
                           target="_blank"
                           rel="noreferrer noreferrer"
                         >
-                          <OrangeLink>{t('website', 'Website')}</OrangeLink>
+                          <OrangeLink>
+                            {t('website', 'Website', { ns: 'staking' })}
+                          </OrangeLink>
                         </Link>
                       )}
 
@@ -275,7 +277,9 @@ export function ValidatorInfoComponent({
                         <Link
                           href={`mailto:${validatorInfo.description?.security_contact}`}
                         >
-                          <OrangeLink>{t('email', 'E-mail')}</OrangeLink>
+                          <OrangeLink>
+                            {t('email', 'E-mail', { ns: 'staking' })}
+                          </OrangeLink>
                         </Link>
                       )}
                     </div>
@@ -283,13 +287,17 @@ export function ValidatorInfoComponent({
 
                   <div className="flex flex-row gap-[28px]">
                     <div>
-                      <InfoBlock title={t('voting-power', 'Voting power')}>
+                      <InfoBlock
+                        title={t('voting-power', 'Voting power', {
+                          ns: 'staking',
+                        })}
+                      >
                         {formatNumber(votingPower)} {symbol.toLocaleUpperCase()}
                       </InfoBlock>
                     </div>
                     <div>
                       <InfoBlock
-                        title={`${t('voting-power', 'Voting power')} %`}
+                        title={`${t('voting-power', 'Voting power', { ns: 'staking' })} %`}
                       >
                         {votingPowerInPercents}
                       </InfoBlock>
@@ -298,7 +306,7 @@ export function ValidatorInfoComponent({
                   {validatorInfo.description?.details && (
                     <div>
                       <div className="font-guise text-[12px] leading-[18px] text-white/50">
-                        {t('description', 'Description')}
+                        {t('description', 'Description', { ns: 'common' })}
                       </div>
                       <div
                         className={clsx(
@@ -314,7 +322,7 @@ export function ValidatorInfoComponent({
                     </div>
                   )}
 
-                  <InfoBlock title={t('address-label', 'Address')}>
+                  <InfoBlock title={t('address', 'Address', { ns: 'common' })}>
                     <Tooltip
                       text={
                         isHaqqAddressCopy
