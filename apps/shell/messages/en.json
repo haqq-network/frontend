@@ -66,6 +66,7 @@
     "show-info": "Show Info",
     "staked": "Staked",
     "staking": "Staking",
+    "status": "Status",
     "unbonding": "Unbonding",
     "undelegate": "Undelegate"
   },
@@ -131,7 +132,6 @@
     "regular-staked": "Regular STAKED",
     "shell-title": "Shell",
     "staking-balance-popup-message": "In regular staking you can use coins in liquid staking",
-    "status": "Status",
     "total-staked": "Total staked",
     "total-supply": "Total supply",
     "voting-power": "Voting power"

@@ -92,7 +92,7 @@ export function ValidatorsListDesktop({
           </th>
           <th className="w-[100px] p-[8px] text-left lg:p-[12px]">
             <div className="select-none">
-              {t('status', 'Status', { ns: 'staking' })}
+              {t('status', 'Status', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'status' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}

@@ -178,7 +178,7 @@ export function ShellIndexPageDelegationList() {
               </div>
             </div>
             <div className="w-[80px] text-center">
-              {t('status', 'Status', { ns: 'main' })}
+              {t('status', 'Status', { ns: 'common' })}
             </div>
             <div className="w-[50px] text-center">
               {t('fee', 'Fee', { ns: 'common' })}
