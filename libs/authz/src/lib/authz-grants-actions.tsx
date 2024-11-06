@@ -76,31 +76,31 @@ export function AuthzGrantsActions() {
 
   const GRANT_PERIOD_OPTIONS = [
     {
-      label: t('one-week', '1 Week', { ns: 'auth' }),
+      label: t('one-week', '1 Week', { ns: 'authz' }),
       value: '1w',
     },
     {
-      label: t('one-month', '1 Month', { ns: 'auth' }),
+      label: t('one-month', '1 Month', { ns: 'authz' }),
       value: '1m',
     },
     {
-      label: t('three-months', '3 Months', { ns: 'auth' }),
+      label: t('three-months', '3 Months', { ns: 'authz' }),
       value: '3m',
     },
     {
-      label: t('six-months', '6 Months', { ns: 'auth' }),
+      label: t('six-months', '6 Months', { ns: 'authz' }),
       value: '6m',
     },
     {
-      label: t('one-year', '1 Year', { ns: 'auth' }),
+      label: t('one-year', '1 Year', { ns: 'authz' }),
       value: '1y',
     },
     {
-      label: t('five-years', '5 Years', { ns: 'auth' }),
+      label: t('five-years', '5 Years', { ns: 'authz' }),
       value: '5y',
     },
     {
-      label: t('hundred-years', '100 Years', { ns: 'auth' }),
+      label: t('hundred-years', '100 Years', { ns: 'authz' }),
       value: '100y',
     },
   ];
