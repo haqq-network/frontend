@@ -161,7 +161,7 @@ export function UndelegateModal({
                         setMemoVisible(true);
                       }}
                     >
-                      {t('add-memo', 'Add memo', { ns: 'staking' })}
+                      {t('add-memo', 'Add memo', { ns: 'common' })}
                     </OrangeLink>
                   </div>
                 ) : (

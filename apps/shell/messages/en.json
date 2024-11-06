@@ -22,6 +22,7 @@
   },
   "common": {
     "address-label": "Address",
+    "add-memo": "Add memo",
     "add-your-memo": "Add your memo",
     "available": "Available",
     "balance": "Balance",
@@ -69,7 +70,6 @@
     "wallet": "Wallet"
   },
   "governance": {
-    "add-memo": "Add memo",
     "amount-error-min": "Bellow minimal value",
     "amount-error-more-than-have": "More than you have",
     "cast-vote": "Cast your vote",
@@ -140,7 +140,6 @@
   "staking": {
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}",
     "active-status": "Active",
-    "add-memo": "Add memo",
     "address": "Address",
     "amount-error-min": "Bellow minimal value",
     "amount-error-more-than-delegation": "More than your delegation",

@@ -1034,7 +1034,7 @@ export function VoteActions({
               setMemoVisible(true);
             }}
           >
-            {t('add-memo', 'Add memo', { ns: 'governance' })}
+            {t('add-memo', 'Add memo', { ns: 'common' })}
           </OrangeLink>
         </div>
       ) : (
