@@ -28,7 +28,7 @@
   "vote-option-no" : "No",
   "vote-option-veto" : "Veto",
   "vote-option-yes" : "Yes",
-  "vote-start" : "Vote start (gmt)",
+  "vote-start" : "Vote start (GMT)",
   "vote-will-count" : "Your vote will be counted!!!",
   "voting-end" : "Voting end",
   "your-balance" : "Your balance: {balance} {symbol}"
