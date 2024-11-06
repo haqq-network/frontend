@@ -13,7 +13,6 @@
     "grantee-address": "Grantee address",
     "grant-type": "Grant type",
     "grant-period": "Grant period",
-    "add-your-memo": "Add your memo",
     "grant-access-button": "Grant Access",
     "invalid-grantee-wallet-message": "You should enter valid grantee wallet to see info",
     "submit-proposal": "Submit proposal",
@@ -81,7 +80,6 @@
   },
   "governance": {
     "add-memo": "Add memo",
-    "add-your-memo": "Add your memo",
     "amount-error-min": "Bellow minimal value",
     "amount-error-more-than-have": "More than you have",
     "cast-vote": "Cast your vote",
