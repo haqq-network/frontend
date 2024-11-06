@@ -40,7 +40,7 @@ export function SelectWalletModal({
             {isMobileUA && !isHaqqWallet && deeplink && (
               <div>
                 <Button
-                  className="min-w-[220px]"
+                  className="w-full min-w-[220px]"
                   onClick={() => {
                     window.location.href = deeplink;
                   }}
@@ -54,7 +54,7 @@ export function SelectWalletModal({
               return (
                 <div key={connector.id}>
                   <Button
-                    className="min-w-[220px]"
+                    className="w-full min-w-[220px]"
                     onClick={() => {
                       onConnectClick(connector.id);
                     }}
