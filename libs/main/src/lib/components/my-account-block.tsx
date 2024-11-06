@@ -408,9 +408,9 @@ function StakingBalancePopup({
           <div className="flex flex-row items-center gap-[4px]">
             <CoinIcon />
             <div className="text-[14px] leading-[22px] text-white">
-              {t('available', 'Available')}
-              {': '}
-              {formatNumber(balances.availableForStake)}
+              {t('available-for-stake', 'Available: {amount}', {
+                amount: formatNumber(balances.availableForStake),
+              })}
             </div>
           </div>
         </div>
@@ -419,11 +419,11 @@ function StakingBalancePopup({
             <div className="flex flex-row items-center gap-[4px]">
               <LockIcon />
               <div className="text-[14px] leading-[22px] text-white">
-                {t('locked', 'Locked')}
-                {': '}
-                {isLiquidStaking
-                  ? formatNumber(stIslmBalance + balances.locked)
-                  : formatNumber(balances.locked)}
+                {t('locked', 'Locked: {amount}', {
+                  amount: isLiquidStaking
+                    ? formatNumber(stIslmBalance + balances.locked)
+                    : formatNumber(balances.locked),
+                })}
               </div>
             </div>
 
