@@ -1,5 +1,13 @@
 {
   "address" : "Адрес",
   "click-to-copy-value" : "Нажмите, чтобы скопировать {value}",
-  "connect-wallet-button" : "Подключить кошелек"
+  "connect-wallet-button" : "Подключить кошелек",
+  "my-balance" : "Мой баланс",
+  "my-delegations" : "Мои делегации",
+  "nothing-found" : "Ничего не найдено",
+  "page-not-found" : "Страница не найдена",
+  "rewards" : "Награды",
+  "send-button" : "Отправить",
+  "status" : "Статус",
+  "try-again" : "Попробуйте еще раз"
 }
