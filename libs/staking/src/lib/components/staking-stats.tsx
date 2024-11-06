@@ -98,7 +98,7 @@ export function StakingStatsDesktop({
 
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('rewards', 'Rewards', { ns: 'staking' })}
+                title={t('rewards', 'Rewards', { ns: 'common' })}
                 value={rewards}
                 symbol={symbol}
                 isGreen
@@ -206,7 +206,7 @@ export function StakingStatsMobile({
           symbol={symbol}
         />
         <StakingStatsMobileAmountBlock
-          title={t('rewards', 'Rewards', { ns: 'staking' })}
+          title={t('rewards', 'Rewards', { ns: 'common' })}
           value={rewards}
           symbol={symbol}
           isGreen

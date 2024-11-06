@@ -284,7 +284,7 @@ function MyAccountConnected({
             value={`${formatNumber(balances.staked)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
-            title={t('rewards', 'Rewards', { ns: 'main' })}
+            title={t('rewards', 'Rewards', { ns: 'common' })}
             value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
