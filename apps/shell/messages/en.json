@@ -35,6 +35,7 @@
     "address-label": "Address",
     "copied": "Copied!",
     "click-to-copy": "Click to copy",
+    "click-to-copy-address": "Click to copy {{address}}",
     "connect-wallet-message": "You should connect wallet first",
     "connect-wallet-button": "Connect wallet",
     "governance": "Governance",
@@ -60,6 +61,17 @@
     "send-button": "Send",
     "staking": "Staking",
     "undelegate": "Undelegate"
+  },
+  "faucet": {
+    "switch-chain": "Switch to {{chain}}",
+    "claim-tokens": "Claim tokens",
+    "faucet": "Faucet",
+    "github": "Github",
+    "login-github": "Login with github",
+    "next-token-request-available": "Next request tokens available after",
+    "request-tokens": "Request tokens",
+    "tokens-claimed": "Tokens claimed",
+    "wallet": "Wallet"
   },
   "governance": {
     "add-memo": "Add memo",
