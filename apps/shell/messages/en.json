@@ -34,8 +34,7 @@
   "common": {
     "address-label": "Address",
     "copied": "Copied!",
-    "click-to-copy": "Click to copy",
-    "click-to-copy-address": "Click to copy {address}",
+    "click-to-copy-value": "Click to copy {value}",
     "connect-wallet-message": "You should connect wallet first",
     "connect-wallet-button": "Connect wallet",
     "governance": "Governance",

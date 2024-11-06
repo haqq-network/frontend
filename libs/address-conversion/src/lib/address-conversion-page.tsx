@@ -146,7 +146,10 @@ export function AddressConversionPage() {
                     text={
                       isAddressCopied
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${convertedAddress}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: convertedAddress,
+                          })
                     }
                   >
                     <div

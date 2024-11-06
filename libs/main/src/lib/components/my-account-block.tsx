@@ -301,7 +301,10 @@ function MyAccountConnected({
                     text={
                       isEthAddressCopy
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${ethAddress}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: ethAddress,
+                          })
                     }
                   >
                     <div
@@ -326,7 +329,10 @@ function MyAccountConnected({
                     text={
                       isHaqqAddressCopy
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${haqqAddress}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: haqqAddress,
+                          })
                     }
                   >
                     <div

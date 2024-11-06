@@ -169,7 +169,10 @@ export function GranteeCard({
                     text={
                       isEthAddressCopy
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${granteeAddresses.eth}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: granteeAddresses.eth,
+                          })
                     }
                   >
                     <div
@@ -189,7 +192,10 @@ export function GranteeCard({
                     text={
                       isHaqqAddressCopy
                         ? t('copied', 'Copied!', { ns: 'common' })
-                        : `${t('click-to-copy', 'Click to copy', { ns: 'common' })} ${granteeAddresses.haqq}`
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: granteeAddresses.haqq,
+                          })
                     }
                   >
                     <div
