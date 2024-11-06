@@ -24,6 +24,7 @@
     "address-label": "Address",
     "add-memo": "Add memo",
     "add-your-memo": "Add your memo",
+    "amount-error-min": "Bellow minimal value",
     "available": "Available",
     "balance": "Balance",
     "cancel-button": "Cancel",
@@ -70,7 +71,6 @@
     "wallet": "Wallet"
   },
   "governance": {
-    "amount-error-min": "Bellow minimal value",
     "amount-error-more-than-have": "More than you have",
     "cast-vote": "Cast your vote",
     "change-vote-message": "You can change your vote while the voting is in progress",
@@ -141,7 +141,6 @@
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}",
     "active-status": "Active",
     "address": "Address",
-    "amount-error-min": "Bellow minimal value",
     "amount-error-more-than-delegation": "More than your delegation",
     "amount-error-more-than-have": "More than you have",
     "annualized-yield": "Annual percentage yield",

@@ -76,7 +76,7 @@ export function LiquidStakingUndelegateModal({
     if (amountError === 'min') {
       return (
         <span className="text-haqq-danger">
-          {t('amount-error-min', 'Bellow minimal value', { ns: 'staking' })}
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'common' })}
         </span>
       );
     } else if (amountError === 'max') {
