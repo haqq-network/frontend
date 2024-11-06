@@ -1,5 +1,6 @@
 'use client';
 import { PropsWithChildren, useCallback, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import {
   getFormattedAddress,
   useAddress,
@@ -26,6 +27,7 @@ export function MyAccountCardBlock({
 }
 
 export function AccountInfo() {
+  const { t } = useTranslate('common');
   const { ethAddress, haqqAddress } = useAddress();
   const { copyText } = useClipboard();
   const { data: balance } = useIndexerBalanceQuery(haqqAddress);
@@ -58,12 +60,16 @@ export function AccountInfo() {
     <div className="flex flex-col justify-between gap-[16px]">
       {ethAddress && (
         <div className="flex flex-1 flex-row items-center gap-x-4">
-          <MyAccountCardBlock title="Address">
+          <MyAccountCardBlock title={t('address-label', 'Address')}>
             <div className="font-guise flex flex-col gap-[16px] sm:flex-row">
               <div className="flex-1">
                 <Tooltip
                   text={
-                    isEthAddressCopy ? 'Copied!' : `Click to copy ${ethAddress}`
+                    isEthAddressCopy
+                      ? t('copied', 'Copied!')
+                      : t('click-to-copy-address', 'Click to copy {address}', {
+                          address: ethAddress,
+                        })
                   }
                 >
                   <div
@@ -79,8 +85,10 @@ export function AccountInfo() {
                 <Tooltip
                   text={
                     isHaqqAddressCopy
-                      ? 'Copied!'
-                      : `Click to copy ${haqqAddress}`
+                      ? t('copied', 'Copied!')
+                      : t('click-to-copy-address', 'Click to copy {address}', {
+                          address: haqqAddress,
+                        })
                   }
                 >
                   <div
@@ -98,7 +106,7 @@ export function AccountInfo() {
       )}
 
       {balance?.balance !== undefined && (
-        <MyAccountCardBlock title="Balance">
+        <MyAccountCardBlock title={t('balance', 'Balance')}>
           <div className="font-clash flex flex-1 flex-row items-center text-[20px] font-[500] leading-[30px]">
             {formatNumber(balance.balance)}&nbsp;ISLM
           </div>

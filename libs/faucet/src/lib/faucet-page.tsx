@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { notFound } from 'next/navigation';
 import SuccessIndicator from 'react-success-indicator';
@@ -38,6 +39,7 @@ export function FaucetPage({
   serviceEndpoint: string;
   reCaptchaSiteKey: string;
 }): ReactElement {
+  const { t } = useTranslate('faucet');
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
   const { switchChainAsync } = useSwitchChain();
@@ -182,7 +184,7 @@ export function FaucetPage({
         <div>
           <Container>
             <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-              Faucet
+              {t('faucet', 'Faucet')}
             </div>
           </Container>
         </div>
@@ -202,7 +204,7 @@ export function FaucetPage({
                   <div className="flex flex-row items-center">
                     <WalletIcon />
                     <Heading level={3} className="mb-[-2px] ml-[8px]">
-                      Wallet
+                      {t('wallet', 'Wallet')}
                     </Heading>
                   </div>
 
@@ -211,7 +213,9 @@ export function FaucetPage({
                       className="font-clash mb-[-2px] text-end !text-[12px] uppercase"
                       onClick={handleNetworkSwitch}
                     >
-                      Switch to {chain.name}
+                      {t('switch-chain', 'Switch to {chain}', {
+                        chain: chain.name,
+                      })}
                     </OrangeLink>
                   )}
                 </div>
@@ -256,7 +260,7 @@ export function FaucetPage({
                   </svg>
 
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    Github
+                    {t('github', 'Github')}
                   </Heading>
                 </div>
 
@@ -284,7 +288,7 @@ export function FaucetPage({
                     disabled={isAuth0Loading}
                     variant={2}
                   >
-                    Login with github
+                    {t('login-github', 'Login with github')}
                   </Button>
                 )}
               </div>
@@ -295,7 +299,7 @@ export function FaucetPage({
                 <div className="flex flex-row items-center">
                   <EarnIcon className="h-[26px] w-[26px]" />
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    Claim tokens
+                    {t('claim-tokens', 'Claim tokens')}
                   </Heading>
                 </div>
 
@@ -314,7 +318,7 @@ export function FaucetPage({
                               className="w-full"
                               onClick={handleRequestTokens}
                             >
-                              Request tokens
+                              {t('request-tokens', 'Request tokens')}
                             </Button>
                           </div>
                         ) : (
@@ -333,7 +337,7 @@ export function FaucetPage({
                       <div className="flex flex-row items-center gap-[12px]">
                         <SuccessIndicator size="44px" color="#01B26E" />
                         <p className="text-[13px] font-[500] leading-[22px] text-white lg:text-[18px] lg:leading-[28px]">
-                          Tokens claimed!
+                          {t('tokens-claimed', 'Tokens claimed')}
                         </p>
                       </div>
                     )}
@@ -344,7 +348,10 @@ export function FaucetPage({
                         date={
                           new Date(Date.now() + claimInfo.next_claim_sec * 1000)
                         }
-                        title="Next request tokens available after"
+                        title={t(
+                          'next-token-request-available',
+                          'Next request tokens available after',
+                        )}
                       />
                     )}
                   </Fragment>
