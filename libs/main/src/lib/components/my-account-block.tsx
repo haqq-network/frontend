@@ -191,7 +191,7 @@ function MyAccountConnected({
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            {t('my-account', 'My account', { ns: 'main' })}
+            {t('my-account', 'My account', { ns: 'common' })}
           </Heading>
           <Link href="/staking" className="leading-[0]">
             <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
