@@ -84,7 +84,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('name');
               }}
             >
-              {t('name', 'Name', { ns: 'staking' })}
+              {t('name', 'Name', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'name' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}

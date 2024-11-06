@@ -174,7 +174,7 @@ export function ShellIndexPageDelegationList() {
           <div className="flex items-center justify-between space-x-6 font-semibold">
             <div className="w-1/4">
               <div className="font-semibold">
-                {t('name', 'Name', { ns: 'main' })}
+                {t('name', 'Name', { ns: 'common' })}
               </div>
             </div>
             <div className="w-[80px] text-center">
