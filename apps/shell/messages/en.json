@@ -54,6 +54,7 @@
     "memo": "Memo",
     "min-amount-to-claim-rewards": "Minimum amount to claim rewards is {amount} ISLM",
     "my-account": "My account",
+    "my-balance": "My balance",
     "nothing-found": "Nothing found",
     "redelegate": "Redelegate",
     "rewards": "Rewards",
@@ -85,7 +86,6 @@
     "enter-amount": "Enter Amount",
     "enter-deposit-message": "Enter the amount you want to deposit",
     "fetching-proposal-details": "Fetching proposal details",
-    "my-balance": "My balance",
     "parameter-changes": "Parameter changes",
     "proposal-deposit-alert": "If the proposal does not collect the required number of deposits in a certain time, it will reject",
     "proposal-types": {
@@ -167,7 +167,6 @@
     "max": "Max",
     "max-change": "Max Change",
     "memo-placeholder": "Add your memo",
-    "my-balance": "My balance",
     "my-delegation": "My delegation",
     "my-delegations": "My delegations",
     "my-rewards": "My rewards",

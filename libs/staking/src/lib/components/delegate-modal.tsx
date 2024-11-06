@@ -212,7 +212,7 @@ export function DelegateModal({
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title={t('my-balance', 'My balance', { ns: 'staking' })}
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails

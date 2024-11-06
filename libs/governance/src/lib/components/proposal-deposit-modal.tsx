@@ -148,7 +148,7 @@ export function ProposalDepositModal({
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DepositModalDetails
-                  title={t('my-balance', 'My balance', { ns: 'governance' })}
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${balance.toLocaleString()} ${symbol.toUpperCase()}`}
                 />
               </div>
