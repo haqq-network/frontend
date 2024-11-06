@@ -90,7 +90,7 @@ export function StakingStatsDesktop({
 
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('unbonding', 'Unbonding', { ns: 'staking' })}
+                title={t('unbonding', 'Unbonding', { ns: 'common' })}
                 value={unbounded}
                 symbol={symbol}
               />
@@ -201,7 +201,7 @@ export function StakingStatsMobile({
           symbol={symbol}
         />
         <StakingStatsMobileAmountBlock
-          title={t('unbonding', 'Unbonding', { ns: 'staking' })}
+          title={t('unbonding', 'Unbonding', { ns: 'common' })}
           value={unbounded}
           symbol={symbol}
         />

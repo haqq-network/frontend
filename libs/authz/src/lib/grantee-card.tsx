@@ -232,7 +232,7 @@ export function GranteeCard({
         <div>
           <div className="flex-1">
             <MyAccountAmountBlock
-              title={t('unbonding', 'Unbonding', { ns: 'authz' })}
+              title={t('unbonding', 'Unbonding', { ns: 'common' })}
               value={`${formatNumber(unbounded)} ${symbol.toLocaleUpperCase()}`}
             />
           </div>
