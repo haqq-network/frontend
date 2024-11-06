@@ -128,7 +128,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('votingPower');
               }}
             >
-              {t('voting-power', 'Voting power', { ns: 'staking' })}
+              {t('voting-power', 'Voting power', { ns: 'common' })}
               {sortState.key !== 'random' &&
                 sortState.key === 'votingPower' && (
                   <SortDirectionArrow direction={sortState.direction} />
@@ -147,7 +147,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('votingPowerPercent');
               }}
             >
-              {t('voting-power', 'Voting power', { ns: 'staking' })} %
+              {t('voting-power', 'Voting power', { ns: 'common' })} %
               {sortState.key !== 'random' &&
                 sortState.key === 'votingPowerPercent' && (
                   <SortDirectionArrow direction={sortState.direction} />

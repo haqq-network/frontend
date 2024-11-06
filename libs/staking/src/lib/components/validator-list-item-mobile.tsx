@@ -64,12 +64,12 @@ export function ValidatorListItemMobileComponent({
           <span className="text-white">{fee}</span>
         </ColumnLine>
         <ColumnLine
-          columnName={t('voting-power', 'Voting power', { ns: 'staking' })}
+          columnName={t('voting-power', 'Voting power', { ns: 'common' })}
         >
           <span className="text-white">{votingPower}</span>
         </ColumnLine>
         <ColumnLine
-          columnName={`${t('voting-power', 'Voting power', { ns: 'staking' })} %`}
+          columnName={`${t('voting-power', 'Voting power', { ns: 'common' })} %`}
         >
           <span className="text-white">{votingPowerPercent}</span>
         </ColumnLine>

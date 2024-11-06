@@ -289,7 +289,7 @@ export function ValidatorInfoComponent({
                     <div>
                       <InfoBlock
                         title={t('voting-power', 'Voting power', {
-                          ns: 'staking',
+                          ns: 'common',
                         })}
                       >
                         {formatNumber(votingPower)} {symbol.toLocaleUpperCase()}
@@ -297,7 +297,7 @@ export function ValidatorInfoComponent({
                     </div>
                     <div>
                       <InfoBlock
-                        title={`${t('voting-power', 'Voting power', { ns: 'staking' })} %`}
+                        title={`${t('voting-power', 'Voting power', { ns: 'common' })} %`}
                       >
                         {votingPowerInPercents}
                       </InfoBlock>

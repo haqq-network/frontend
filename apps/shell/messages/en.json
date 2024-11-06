@@ -68,7 +68,8 @@
     "staking": "Staking",
     "status": "Status",
     "unbonding": "Unbonding",
-    "undelegate": "Undelegate"
+    "undelegate": "Undelegate",
+    "voting-power": "Voting power"
   },
   "faucet": {
     "claim-tokens": "Claim tokens",
@@ -133,8 +134,7 @@
     "shell-title": "Shell",
     "staking-balance-popup-message": "In regular staking you can use coins in liquid staking",
     "total-staked": "Total staked",
-    "total-supply": "Total supply",
-    "voting-power": "Voting power"
+    "total-supply": "Total supply"
   },
   "staking": {
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}",
@@ -196,7 +196,6 @@
     "validator-inactive-warning": "While the validator is inactive, you will not be able to receive a reward.",
     "validator-info-loading": "Fetching validator information",
     "validators": "Validators",
-    "voting-power": "Voting power",
     "website": "Website",
     "you-will-get": "What you'll get:"
   },
