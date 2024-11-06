@@ -22,7 +22,7 @@ export default function ErrorPage({
     <Container className="py-20">
       <div className="flex flex-col items-center justify-center gap-[24px]">
         <Heading level={2}>
-          {t('sth-went-wrong', 'Something went wrong!')}
+          {t('something-went-wrong', 'Something went wrong!')}
         </Heading>
 
         <Button
