@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useTranslate } from '@tolgee/react';
+import { T, useTranslate } from '@tolgee/react';
 import { useChainStatsQuery } from '@haqq/shell-shared';
 import { formatNumber, formatPercents } from '@haqq/shell-ui-kit/server';
 
@@ -79,10 +79,16 @@ export function StatisticsBlock() {
         <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
           {!isFetching && (
             <div>
-              {valsActive}
-              <span className="text-white/50">
-                &nbsp;{t('out of', 'out of')} {valsTotal}
-              </span>
+              <T
+                keyName="active-out-of-total"
+                ns="main"
+                defaultValue="{active} <span>out of {total}</span>"
+                params={{
+                  active: valsActive,
+                  total: valsTotal,
+                  span: <span className="text-white/50" />,
+                }}
+              />
             </div>
           )}
         </div>

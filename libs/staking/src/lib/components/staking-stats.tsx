@@ -110,7 +110,11 @@ export function StakingStatsDesktop({
             <Tooltip
               text={
                 Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM
-                  ? `${t('min-amount-to-claim-rewards', 'Minimum amount to claim rewards is')} ${MIN_REWARDS_TO_CLAIM} ISLM`
+                  ? t(
+                      'min-amount-to-claim-rewards',
+                      'Minimum amount to claim rewards is {amount} ISLM',
+                      { amount: MIN_REWARDS_TO_CLAIM },
+                    )
                   : ''
               }
             >
