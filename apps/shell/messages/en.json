@@ -63,7 +63,15 @@
     "undelegate": "Undelegate"
   },
   "faucet": {
-    "switch-chain": "Switch to {{chain}}"
+    "switch-chain": "Switch to {{chain}}",
+    "claim-tokens": "Claim tokens",
+    "faucet": "Faucet",
+    "github": "Github",
+    "login-github": "Login with github",
+    "next-token-request-available": "Next request tokens available after",
+    "request-tokens": "Request tokens",
+    "tokens-claimed": "Tokens claimed",
+    "wallet": "Wallet"
   },
   "governance": {
     "add-memo": "Add memo",
