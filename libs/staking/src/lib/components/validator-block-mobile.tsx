@@ -142,7 +142,7 @@ export function ValidatorBlockMobileComponent({
                 disabled={isDelegateDisabled}
                 data-attr="delegate"
               >
-                {t('delegate', 'Delegate', { ns: 'staking' })}
+                {t('delegate', 'Delegate', { ns: 'common' })}
               </Button>
             </div>
             <div className="flex-1">
