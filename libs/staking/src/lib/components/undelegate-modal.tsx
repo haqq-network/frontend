@@ -51,7 +51,7 @@ export function UndelegateModal({
   onSubmit,
   onMemoChange,
 }: UndelegateModalProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   const [isMemoVisible, setMemoVisible] = useState(false);
 
   const handleMaxButtonClick = useCallback(() => {
@@ -83,13 +83,15 @@ export function UndelegateModal({
     if (amountError === 'min') {
       return (
         <span className="text-haqq-danger">
-          {t('amount-error-min', 'Bellow minimal value')}
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'staking' })}
         </span>
       );
     } else if (amountError === 'max') {
       return (
         <span className="text-haqq-danger">
-          {t('amount-error-more-than-delegation', 'More than your delegation')}
+          {t('amount-error-more-than-delegation', 'More than your delegation', {
+            ns: 'staking',
+          })}
         </span>
       );
     }
@@ -109,7 +111,7 @@ export function UndelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                {t('undelegate', 'Undelegate')}
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </ModalHeading>
 
               <WarningMessage
@@ -121,6 +123,7 @@ export function UndelegateModal({
                   'funds-undelegated-in-days',
                   'The funds will be undelegated within {count, plural, one {# day} other {# days}}',
                   {
+                    ns: 'staking',
                     count: unboundingTime,
                   },
                 )}
@@ -129,11 +132,11 @@ export function UndelegateModal({
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title={t('my-balance', 'My balance')}
+                  title={t('my-balance', 'My balance', { ns: 'staking' })}
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title={t('my-delegation', 'My delegation')}
+                  title={t('my-delegation', 'My delegation', { ns: 'staking' })}
                   value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -158,7 +161,7 @@ export function UndelegateModal({
                         setMemoVisible(true);
                       }}
                     >
-                      {t('add-memo', 'Add memo')}
+                      {t('add-memo', 'Add memo', { ns: 'staking' })}
                     </OrangeLink>
                   </div>
                 ) : (
@@ -176,14 +179,18 @@ export function UndelegateModal({
                         'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
                         'bg-[#E7E7E7]',
                       )}
-                      placeholder={t('memo-placeholder', 'Add your memo')}
+                      placeholder={t('memo-placeholder', 'Add your memo', {
+                        ns: 'staking',
+                      })}
                     />
                   </div>
                 )}
 
                 <div>
                   <DelegateModalDetails
-                    title={t('estimated-fee', 'Estimated fee')}
+                    title={t('estimated-fee', 'Estimated fee', {
+                      ns: 'staking',
+                    })}
                     value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
                     isValuePending={isFeePending}
                   />
@@ -196,7 +203,9 @@ export function UndelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    {t('confirm-undelegation', 'Confirm undelegation')}
+                    {t('confirm-undelegation', 'Confirm undelegation', {
+                      ns: 'staking',
+                    })}
                   </Button>
                 </div>
               </div>
