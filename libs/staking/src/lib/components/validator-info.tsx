@@ -892,7 +892,7 @@ export function ValidatorBlockDesktop({
             }}
             data-attr="redelegate"
           >
-            {t('redelegate', 'Redelegate', { ns: 'staking' })}
+            {t('redelegate', 'Redelegate', { ns: 'common' })}
           </Button>
         </div>
       </div>

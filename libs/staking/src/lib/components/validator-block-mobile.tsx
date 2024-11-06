@@ -165,7 +165,7 @@ export function ValidatorBlockMobileComponent({
               disabled={isRedelegateDisabled}
               data-attr="redelegate"
             >
-              {t('redelegate', 'Redelegate', { ns: 'staking' })}
+              {t('redelegate', 'Redelegate', { ns: 'common' })}
             </Button>
           </div>
           <div>

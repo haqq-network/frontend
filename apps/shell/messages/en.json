@@ -185,7 +185,6 @@
     "power-asc": "By power (a-z)",
     "power-desc": "By power (z-a)",
     "random": "Random",
-    "redelegate": "Redelegate",
     "redelegate-amount": "Redelegation amount",
     "redelegate-progress": "Redelegate in progress",
     "redelegate-success": "Redelegation successful",
