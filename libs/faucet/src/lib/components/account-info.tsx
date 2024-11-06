@@ -68,7 +68,7 @@ export function AccountInfo() {
                 <Tooltip
                   text={
                     isEthAddressCopy
-                      ? t('copied', 'Copied!', { ns: 'faucet' })
+                      ? t('copied', 'Copied!', { ns: 'common' })
                       : t('click-to-copy-value', 'Click to copy {value}', {
                           ns: 'common',
                           value: ethAddress,
@@ -88,7 +88,7 @@ export function AccountInfo() {
                 <Tooltip
                   text={
                     isHaqqAddressCopy
-                      ? t('copied', 'Copied!', { ns: 'faucet' })
+                      ? t('copied', 'Copied!', { ns: 'common' })
                       : t('click-to-copy-value', 'Click to copy {value}', {
                           ns: 'common',
                           value: haqqAddress,
