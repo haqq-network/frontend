@@ -60,7 +60,7 @@ export function ValidatorListItemMobileComponent({
             </span>
           )}
         </ColumnLine>
-        <ColumnLine columnName={t('fee', 'Fee', { ns: 'staking' })}>
+        <ColumnLine columnName={t('fee', 'Fee', { ns: 'common' })}>
           <span className="text-white">{fee}</span>
         </ColumnLine>
         <ColumnLine
