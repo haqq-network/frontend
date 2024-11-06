@@ -35,7 +35,7 @@
     "address-label": "Address",
     "copied": "Copied!",
     "click-to-copy": "Click to copy",
-    "click-to-copy-address": "Click to copy {{address}}",
+    "click-to-copy-address": "Click to copy {address}",
     "connect-wallet-message": "You should connect wallet first",
     "connect-wallet-button": "Connect wallet",
     "governance": "Governance",
@@ -63,7 +63,7 @@
     "undelegate": "Undelegate"
   },
   "faucet": {
-    "switch-chain": "Switch to {{chain}}",
+    "switch-chain": "Switch to {chain}",
     "claim-tokens": "Claim tokens",
     "faucet": "Faucet",
     "github": "Github",
@@ -116,12 +116,12 @@
     "vote-start": "Vote start (gmt)",
     "vote-will-count": "Your vote will be counted!!!",
     "voting-end": "Voting end",
-    "your-balance": "Your balance: {{balance}} {{symbol}}"
+    "your-balance": "Your balance: {balance} {symbol}"
   },
   "main": {
-    "available-for-stake": "Available: {{amount}}",
-    "locked": "Locked: {{amount}}",
-    "active-out-of-total": "{{active}} <span>out of {{total}}</span>",
+    "available-for-stake": "Available: {amount}",
+    "locked": "Locked: {amount}",
+    "active-out-of-total": "{active} <span>out of {total}</span>",
     "accounts": "Accounts",
     "active-validators": "Active validators",
     "available-staking": "Available for staking",
@@ -147,9 +147,9 @@
     "voting-power": "Voting power"
   },
   "staking": {
-    "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {{count}} day{count, plural, one {} other {s}}",
+    "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}",
     "funds-undelegated-in-days": "The funds will be undelegated within {count, plural, one {# day} other {# days}}",
-    "min-amount-to-claim-rewards": "Minimum amount to claim rewards is {{amount}} ISLM",
+    "min-amount-to-claim-rewards": "Minimum amount to claim rewards is {amount} ISLM",
     "active-status": "Active",
     "add-memo": "Add memo",
     "address": "Address",
@@ -237,7 +237,7 @@
     "confirm-ownership-transfer": "You confirm you want to transfer coins ownership in DAO",
     "to-the-address": " - to the address <b>{address}</b> ?",
     "islm-and-liquid-balance": "<b>{balanceNum} ISLM</b> and <b>{tokensNum} LIQUID</b>",
-    "token-count": "<b>{{count}} LIQUID</b> token{count, plural, one {} other {s}}",
+    "token-count": "<b>{count} LIQUID</b> token{count, plural, one {} other {s}",
     "deposit-dao": "Deposit to DAO",
     "currency": "Currency",
     "amount": "Amount",
