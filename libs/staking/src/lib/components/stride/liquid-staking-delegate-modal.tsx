@@ -289,7 +289,7 @@ export function LiquidStakingDelegateModal({
                     disabled={isDisabled}
                   >
                     {t('confirm-delegation', 'Confirm delegation', {
-                      ns: 'staking',
+                      ns: 'common',
                     })}
                   </Button>
                 </div>

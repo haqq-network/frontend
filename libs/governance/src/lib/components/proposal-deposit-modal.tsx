@@ -172,7 +172,7 @@ export function ProposalDepositModal({
                   isLoading={isPending}
                 >
                   {t('confirm-delegation', 'Confirm delegation', {
-                    ns: 'governance',
+                    ns: 'common',
                   })}
                 </Button>
               </div>
