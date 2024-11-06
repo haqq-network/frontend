@@ -65,7 +65,6 @@
     "undelegate": "Undelegate"
   },
   "faucet": {
-    "balance": "Balance",
     "claim-tokens": "Claim tokens",
     "click-to-copy-value": "Click to copy {value}",
     "copied": "Copied!",
@@ -248,7 +247,6 @@
   },
   "utils": {
     "address-conversion-title": "Address Conversion",
-    "balance-label": "Balance",
     "converted-address-label": "Converted address",
     "invalid-address": "Please enter a valid address"
   }

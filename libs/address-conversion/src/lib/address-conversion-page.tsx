@@ -175,7 +175,7 @@ export function AddressConversionPage() {
             />
             <LabeledBlock
               className="lg:min-w-[200px] lg:justify-around"
-              title={t('balance-label', 'Balance', { ns: 'utils' })}
+              title={t('balance', 'Balance', { ns: 'common' })}
               value={
                 balance !== undefined
                   ? `${formatNumber(balance)} ${symbol}`

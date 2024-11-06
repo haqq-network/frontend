@@ -110,7 +110,7 @@ export function AccountInfo() {
       )}
 
       {balance?.balance !== undefined && (
-        <MyAccountCardBlock title={t('balance', 'Balance', { ns: 'faucet' })}>
+        <MyAccountCardBlock title={t('balance', 'Balance', { ns: 'common' })}>
           <div className="font-clash flex flex-1 flex-row items-center text-[20px] font-[500] leading-[30px]">
             {formatNumber(balance.balance)}&nbsp;ISLM
           </div>
