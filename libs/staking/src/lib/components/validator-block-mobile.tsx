@@ -78,14 +78,14 @@ export function ValidatorBlockMobileComponent({
   isRewardPending = false,
   minRewardsToClaim = 1,
 }: ValidatorBlockMobileProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   return (
     <Container className="py-[24px] md:py-[40px]">
       <div className="flex flex-col items-start gap-y-[24px] md:gap-y-[12px]">
         <div className="flex flex-row items-center">
           <ValidatorIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            {t('validator', 'Validator')}
+            {t('validator', 'Validator', { ns: 'staking' })}
           </Heading>
         </div>
 
@@ -95,6 +95,7 @@ export function ValidatorBlockMobileComponent({
               {t(
                 'validator-inactive-warning',
                 'While the validator is inactive, you will not be able to receive a reward.',
+                { ns: 'staking' },
               )}
             </WarningMessage>
           </div>
@@ -103,7 +104,7 @@ export function ValidatorBlockMobileComponent({
         <div className="flex w-full flex-col gap-[12px]">
           <div className="flex flex-1 flex-row items-center justify-between">
             <GrayDescription>
-              {t('my-delegation', 'My delegation')}
+              {t('my-delegation', 'My delegation', { ns: 'staking' })}
             </GrayDescription>
             <DescriptionAmount>
               {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
@@ -112,7 +113,9 @@ export function ValidatorBlockMobileComponent({
           {undelegate && undelegate > 0 && (
             <div className="flex flex-1 flex-row items-center justify-between">
               <GrayDescription>
-                {t('undelegate-process', 'Undelegate in process')}
+                {t('undelegate-process', 'Undelegate in process', {
+                  ns: 'staking',
+                })}
               </GrayDescription>
               <DescriptionAmount>
                 {formatNumber(undelegate)} {symbol.toLocaleUpperCase()}
@@ -120,7 +123,9 @@ export function ValidatorBlockMobileComponent({
             </div>
           )}
           <div className="flex flex-1 flex-row items-center justify-between">
-            <GrayDescription>{t('my-rewards', 'My rewards')}</GrayDescription>
+            <GrayDescription>
+              {t('my-rewards', 'My rewards', { ns: 'staking' })}
+            </GrayDescription>
             <DescriptionAmount className="!text-[#01B26E]">
               {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
             </DescriptionAmount>
@@ -137,7 +142,7 @@ export function ValidatorBlockMobileComponent({
                 disabled={isDelegateDisabled}
                 data-attr="delegate"
               >
-                {t('delegate', 'Delegate')}
+                {t('delegate', 'Delegate', { ns: 'common' })}
               </Button>
             </div>
             <div className="flex-1">
@@ -148,7 +153,7 @@ export function ValidatorBlockMobileComponent({
                 disabled={isUndelegateDisabled}
                 data-attr="undelegate"
               >
-                {t('undelegate', 'Undelegate')}
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </Button>
             </div>
           </div>
@@ -160,14 +165,18 @@ export function ValidatorBlockMobileComponent({
               disabled={isRedelegateDisabled}
               data-attr="redelegate"
             >
-              {t('redelegate', 'Redelegate')}
+              {t('redelegate', 'Redelegate', { ns: 'common' })}
             </Button>
           </div>
           <div>
             <Tooltip
               text={
                 rewards < minRewardsToClaim
-                  ? `Minimum amount to claim rewards is ${minRewardsToClaim} ISLM`
+                  ? t(
+                      'min-amount-to-claim-rewards',
+                      'Minimum amount to claim rewards is {amount} ISLM',
+                      { ns: 'common', amount: minRewardsToClaim },
+                    )
                   : ''
               }
             >
@@ -179,7 +188,7 @@ export function ValidatorBlockMobileComponent({
                 isLoading={isRewardPending}
                 data-attr="get-my-rewards"
               >
-                {t('get-my-rewards', 'Get my rewards')}
+                {t('get-my-rewards', 'Get my rewards', { ns: 'staking' })}
               </Button>
             </Tooltip>
           </div>

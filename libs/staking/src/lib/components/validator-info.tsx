@@ -144,7 +144,7 @@ function CommissionCard({ commission }: CommissionCardProps) {
       <div className="mb-[16px] flex flex-row items-center">
         <PercentIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          {t('comission', 'Commission')}
+          {t('commission', 'Commission')}
         </Heading>
       </div>
 
@@ -184,7 +184,7 @@ export function ValidatorInfoComponent({
   isRewardPending,
   isRewardsPending,
 }: ValidatorInfoComponentProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
   const { copyText } = useClipboard();
   const isDesktop = useMediaQuery('(min-width: 1024px)', {
@@ -253,7 +253,7 @@ export function ValidatorInfoComponent({
                 <div className="mb-[16px] flex flex-row items-center">
                   <InfoIcon />
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    {t('info', 'Info')}
+                    {t('info', 'Info', { ns: 'common' })}
                   </Heading>
                 </div>
 
@@ -267,7 +267,9 @@ export function ValidatorInfoComponent({
                           target="_blank"
                           rel="noreferrer noreferrer"
                         >
-                          <OrangeLink>{t('website', 'Website')}</OrangeLink>
+                          <OrangeLink>
+                            {t('website', 'Website', { ns: 'staking' })}
+                          </OrangeLink>
                         </Link>
                       )}
 
@@ -275,7 +277,9 @@ export function ValidatorInfoComponent({
                         <Link
                           href={`mailto:${validatorInfo.description?.security_contact}`}
                         >
-                          <OrangeLink>{t('email', 'E-mail')}</OrangeLink>
+                          <OrangeLink>
+                            {t('email', 'E-mail', { ns: 'staking' })}
+                          </OrangeLink>
                         </Link>
                       )}
                     </div>
@@ -283,13 +287,17 @@ export function ValidatorInfoComponent({
 
                   <div className="flex flex-row gap-[28px]">
                     <div>
-                      <InfoBlock title={t('voting-power', 'Voting power')}>
+                      <InfoBlock
+                        title={t('voting-power', 'Voting power', {
+                          ns: 'common',
+                        })}
+                      >
                         {formatNumber(votingPower)} {symbol.toLocaleUpperCase()}
                       </InfoBlock>
                     </div>
                     <div>
                       <InfoBlock
-                        title={`${t('voting-power', 'Voting power')} %`}
+                        title={`${t('voting-power', 'Voting power', { ns: 'common' })} %`}
                       >
                         {votingPowerInPercents}
                       </InfoBlock>
@@ -298,7 +306,7 @@ export function ValidatorInfoComponent({
                   {validatorInfo.description?.details && (
                     <div>
                       <div className="font-guise text-[12px] leading-[18px] text-white/50">
-                        {t('description', 'Description')}
+                        {t('description', 'Description', { ns: 'common' })}
                       </div>
                       <div
                         className={clsx(
@@ -314,7 +322,7 @@ export function ValidatorInfoComponent({
                     </div>
                   )}
 
-                  <InfoBlock title={t('address', 'Address')}>
+                  <InfoBlock title={t('address', 'Address', { ns: 'common' })}>
                     <Tooltip
                       text={
                         isHaqqAddressCopy
@@ -441,7 +449,7 @@ function ConnectWallet({
           variant={2}
           className="text-black hover:bg-transparent hover:text-white"
         >
-          {t('connect-wallet-btn', 'Connect wallet')}
+          {t('connect-wallet-button', 'Connect wallet')}
         </Button>
       </div>
     </Container>
@@ -789,7 +797,7 @@ export function ValidatorBlockDesktop({
   symbol: string;
   isRewardPending?: boolean;
 }) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   const router = useRouter();
   const isWarningShown =
     validatorInfo.jailed || validatorInfo.status === 'BOND_STATUS_UNBONDED';
@@ -815,7 +823,7 @@ export function ValidatorBlockDesktop({
       <div className="flex flex-row items-center">
         <ValidatorIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          {t('validator', 'Validator')}
+          {t('validator', 'Validator', { ns: 'staking' })}
         </Heading>
       </div>
 
@@ -825,6 +833,7 @@ export function ValidatorBlockDesktop({
             {t(
               'validator-inactive-warning',
               'While the validator is inactive, you will not be able to receive a reward.',
+              { ns: 'staking' },
             )}
           </WarningMessage>
         </div>
@@ -833,7 +842,7 @@ export function ValidatorBlockDesktop({
       <div className="flex flex-col gap-y-[12px]">
         <div className="flex flex-col gap-y-[6px]">
           <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
-            {t('my-delegation', 'My delegation')}
+            {t('my-delegation', 'My delegation', { ns: 'staking' })}
           </span>
           <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
             {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
@@ -854,7 +863,7 @@ export function ValidatorBlockDesktop({
               }}
               data-attr="delegate"
             >
-              {t('delegate', 'Delegate')}
+              {t('delegate', 'Delegate', { ns: 'common' })}
             </Button>
           </div>
           <div className="flex-1">
@@ -872,7 +881,7 @@ export function ValidatorBlockDesktop({
               }}
               data-attr="undelegate"
             >
-              {t('undelegate', 'Undelegate')}
+              {t('undelegate', 'Undelegate', { ns: 'common' })}
             </Button>
           </div>
         </div>
@@ -891,14 +900,14 @@ export function ValidatorBlockDesktop({
             }}
             data-attr="redelegate"
           >
-            {t('redelegate', 'Redelegate')}
+            {t('redelegate', 'Redelegate', { ns: 'common' })}
           </Button>
         </div>
       </div>
       <div className="flex flex-col gap-y-[12px]">
         <div className="flex flex-col gap-y-[6px]">
           <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
-            {t('my-rewards', 'My rewards')}
+            {t('my-rewards', 'My rewards', { ns: 'staking' })}
           </span>
           <span className="font-clash text-[24px] uppercase leading-[30px] text-[#01B26E]">
             {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
@@ -911,7 +920,7 @@ export function ValidatorBlockDesktop({
               ? t(
                   'min-amount-to-claim-rewards',
                   'Minimum amount to claim rewards is {amount} ISLM',
-                  { amount: MIN_REWARDS_TO_CLAIM },
+                  { ns: 'common', amount: MIN_REWARDS_TO_CLAIM },
                 )
               : ''
           }
@@ -924,7 +933,7 @@ export function ValidatorBlockDesktop({
             className="w-full"
             data-attr="get-my-rewards"
           >
-            {t('get-my-rewards', 'Get my rewards')}
+            {t('get-my-rewards', 'Get my rewards', { ns: 'staking' })}
           </Button>
         </Tooltip>
       </div>

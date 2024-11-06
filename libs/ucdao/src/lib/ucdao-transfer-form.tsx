@@ -177,7 +177,7 @@ export function DaoTransferForm() {
                   htmlFor="targetAddress"
                   className="cursor-pointer text-[13px] font-[500] leading-[22px] text-white"
                 >
-                  {t('address-label', 'Address', { ns: 'common' })}
+                  {t('address', 'Address', { ns: 'common' })}
                 </label>
               </div>
               <div>

@@ -198,7 +198,9 @@ export function AuthzGrantsActions() {
 
       await toast.promise(grantPromise, {
         loading: (
-          <ToastLoading>{t('grant-loading', 'Grant in progress')}</ToastLoading>
+          <ToastLoading>
+            {t('grant-loading', 'Grant in progress', { ns: 'common' })}
+          </ToastLoading>
         ),
         success: (tx) => {
           console.log('Grant successful', { tx });
@@ -207,7 +209,9 @@ export function AuthzGrantsActions() {
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>{t('grant-success', 'Grant successful')}</div>
+                <div>
+                  {t('grant-success', 'Grant successful', { ns: 'common' })}
+                </div>
                 <div>
                   <Link
                     href={`${explorer.cosmos}/tx/${txHash}`}
@@ -310,7 +314,7 @@ export function AuthzGrantsActions() {
           <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px]">
             <div>
               <Heading level={3} className="mb-[-2px]">
-                {t('grant-access', 'Grant access')}
+                {t('grant-access', 'Grant access', { ns: 'common' })}
               </Heading>
             </div>
 
@@ -323,7 +327,9 @@ export function AuthzGrantsActions() {
                         htmlFor="grantee"
                         className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
                       >
-                        {t('grantee-address', 'Grantee address')}
+                        {t('grantee-address', 'Grantee address', {
+                          ns: 'common',
+                        })}
                       </label>
                     </div>
                     <div>
@@ -350,7 +356,7 @@ export function AuthzGrantsActions() {
 
                   <div>
                     <Select
-                      label={t('grant-type', 'Grant type')}
+                      label={t('grant-type', 'Grant type', { ns: 'common' })}
                       selectContainerClassName="w-full max-w-xl"
                       onChange={(type) => {
                         if (type) {
@@ -364,7 +370,9 @@ export function AuthzGrantsActions() {
 
                   <div>
                     <Select
-                      label={t('grant-period', 'Grant period')}
+                      label={t('grant-period', 'Grant period', {
+                        ns: 'common',
+                      })}
                       selectContainerClassName="w-full max-w-xl"
                       onChange={(period) => {
                         if (period) {
@@ -382,7 +390,7 @@ export function AuthzGrantsActions() {
                         htmlFor="memo"
                         className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
                       >
-                        {t('memo', 'Memo')}
+                        {t('memo', 'Memo', { ns: 'common' })}
                       </label>
                     </div>
                     <div>
@@ -395,7 +403,9 @@ export function AuthzGrantsActions() {
                           'max-w-xl',
                         )}
                         type="text"
-                        placeholder={t('add-your-memo', 'Add your memo')}
+                        placeholder={t('add-your-memo', 'Add your memo', {
+                          ns: 'common',
+                        })}
                         id="memo"
                         name="memo"
                         value={memo}
@@ -414,7 +424,7 @@ export function AuthzGrantsActions() {
                       variant={2}
                       disabled={!isGranteeValid}
                     >
-                      {t('grant-access', 'Grant access')}
+                      {t('grant-access', 'Grant access', { ns: 'common' })}
                     </Button>
                   </div>
                 </div>
@@ -434,7 +444,9 @@ export function AuthzGrantsActions() {
                 <div className="flex w-full transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[36px] py-[32px]">
                   <div>
                     <Heading level={3} className="mb-[-2px]">
-                      {t('selected-grantee', 'Selected grantee')}
+                      {t('selected-grantee', 'Selected grantee', {
+                        ns: 'common',
+                      })}
                     </Heading>
                   </div>
 
