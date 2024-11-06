@@ -187,7 +187,7 @@ export function ShellIndexPageDelegationList() {
               {t('voting-power', 'Voting power', { ns: 'main' })}
             </div>
             <div className="flex-1 text-right">
-              {t('staked', 'Staked', { ns: 'main' })}
+              {t('staked', 'Staked', { ns: 'common' })}
             </div>
             <div className="flex-1 text-right">
               {t('rewards', 'Rewards', { ns: 'main' })}

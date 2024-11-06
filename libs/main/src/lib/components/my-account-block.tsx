@@ -280,7 +280,7 @@ function MyAccountConnected({
             </div>
           </div>
           <MyAccountAmountBlock
-            title={t('regular-stacked', 'Regular STAKED', { ns: 'main' })}
+            title={t('regular-staked', 'Regular STAKED', { ns: 'main' })}
             value={`${formatNumber(balances.staked)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
@@ -288,7 +288,7 @@ function MyAccountConnected({
             value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
-            title={t('liquid-stacked', 'Liquid STAKED', { ns: 'main' })}
+            title={t('liquid-staked', 'Liquid STAKED', { ns: 'main' })}
             value={`${formatNumber(stIslmBalance)} stISLM`}
             subValue={`≈${formatNumber(islmAmountFromStIslm)} ISLM`}
           />

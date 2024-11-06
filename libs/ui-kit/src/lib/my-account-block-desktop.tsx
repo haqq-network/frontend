@@ -82,7 +82,10 @@ export function MyAccountBlockDesktop({
               <div className="py-[24px] md:py-[40px]">
                 <div className="flex flex-col items-center gap-[12px]">
                   <div className="font-sans text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-                    You should connect wallet first
+                    {t(
+                      'connect-wallet-message',
+                      'You should connect wallet first',
+                    )}
                   </div>
                   <Button
                     onClick={onConnectWalletClick}

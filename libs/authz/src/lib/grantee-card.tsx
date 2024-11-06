@@ -218,7 +218,7 @@ export function GranteeCard({
         <div className="flex flex-row flex-wrap gap-[16px]">
           <div className="flex-1">
             <MyAccountAmountBlock
-              title={t('staked', 'Staked', { ns: 'authz' })}
+              title={t('staked', 'Staked', { ns: 'common' })}
               value={`${formatNumber(delegation)} ${symbol.toLocaleUpperCase()}`}
             />
           </div>

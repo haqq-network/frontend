@@ -36,7 +36,7 @@ export function ValidatorListItemMobileComponent({
   votingPower,
   votingPowerPercent,
 }: ValidatorListItemMobileProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   return (
     <Card className="p-[14px]">
       <div className="flex flex-col gap-[8px]">
@@ -46,33 +46,37 @@ export function ValidatorListItemMobileComponent({
         <ColumnLine columnName="Status">
           {status === 'jailed' && (
             <span className="text-[#FF5454]">
-              {t('jailed-status', 'Jailed')}
+              {t('jailed-status', 'Jailed', { ns: 'staking' })}
             </span>
           )}
           {status === 'active' && (
             <span className="text-[#01B26E]">
-              {t('active-status', 'Active')}
+              {t('active-status', 'Active', { ns: 'staking' })}
             </span>
           )}
           {status === 'inactive' && (
             <span className="text-[#E3A13F]">
-              {t('inactive-status', 'Inactive')}
+              {t('inactive-status', 'Inactive', { ns: 'staking' })}
             </span>
           )}
         </ColumnLine>
-        <ColumnLine columnName={t('fee', 'Fee')}>
+        <ColumnLine columnName={t('fee', 'Fee', { ns: 'staking' })}>
           <span className="text-white">{fee}</span>
         </ColumnLine>
-        <ColumnLine columnName={t('voting-power', 'Voting power')}>
+        <ColumnLine
+          columnName={t('voting-power', 'Voting power', { ns: 'staking' })}
+        >
           <span className="text-white">{votingPower}</span>
         </ColumnLine>
-        <ColumnLine columnName={`${t('voting-power', 'Voting power')} %`}>
+        <ColumnLine
+          columnName={`${t('voting-power', 'Voting power', { ns: 'staking' })} %`}
+        >
           <span className="text-white">{votingPowerPercent}</span>
         </ColumnLine>
-        <ColumnLine columnName={t('stacked', 'Staked')}>
+        <ColumnLine columnName={t('staked', 'Staked', { ns: 'common' })}>
           <span className="text-white">{staked}</span>
         </ColumnLine>
-        <ColumnLine columnName={t('reward', 'Reward')}>
+        <ColumnLine columnName={t('reward', 'Reward', { ns: 'staking' })}>
           <span className="text-white">{reward}</span>
         </ColumnLine>
       </div>

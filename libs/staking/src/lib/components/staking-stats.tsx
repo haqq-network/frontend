@@ -59,13 +59,13 @@ export function StakingStatsDesktop({
   onRewardsClaim,
   isRewardsPending = false,
 }: StakingStatsProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   return (
     <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          {t('regular-staking', 'Regular staking')}
+          {t('regular-staking', 'Regular staking', { ns: 'staking' })}
         </Heading>
       </div>
 
@@ -74,7 +74,7 @@ export function StakingStatsDesktop({
           <div className="flex flex-row gap-[24px]">
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('available', 'Available')}
+                title={t('available', 'Available', { ns: 'staking' })}
                 value={balance}
                 symbol={symbol}
               />
@@ -82,7 +82,7 @@ export function StakingStatsDesktop({
 
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('staked', 'Staked')}
+                title={t('staked', 'Staked', { ns: 'common' })}
                 value={delegated}
                 symbol={symbol}
               />
@@ -90,7 +90,7 @@ export function StakingStatsDesktop({
 
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('unbonding', 'Unbonding')}
+                title={t('unbonding', 'Unbonding', { ns: 'staking' })}
                 value={unbounded}
                 symbol={symbol}
               />
@@ -98,7 +98,7 @@ export function StakingStatsDesktop({
 
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('rewards', 'Rewards')}
+                title={t('rewards', 'Rewards', { ns: 'staking' })}
                 value={rewards}
                 symbol={symbol}
                 isGreen
@@ -124,7 +124,7 @@ export function StakingStatsDesktop({
                 variant={2}
                 isLoading={isRewardsPending}
               >
-                {t('claim-all-rewards', 'Claim all rewards')}
+                {t('claim-all-rewards', 'Claim all rewards', { ns: 'staking' })}
               </Button>
             </Tooltip>
           </div>
@@ -179,34 +179,34 @@ export function StakingStatsMobile({
   unbounded,
   isRewardsPending = false,
 }: StakingStatsProps) {
-  const { t } = useTranslate('staking');
+  const { t } = useTranslate();
   return (
     <div className="flex flex-col items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          {t('regular-staking', 'Regular staking')}
+          {t('regular-staking', 'Regular staking', { ns: 'staking' })}
         </Heading>
       </div>
 
       <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
-          title={t('available', 'Available')}
+          title={t('available', 'Available', { ns: 'staking' })}
           value={balance}
           symbol={symbol}
         />
         <StakingStatsMobileAmountBlock
-          title={t('staked', 'Staked')}
+          title={t('staked', 'Staked', { ns: 'common' })}
           value={delegated}
           symbol={symbol}
         />
         <StakingStatsMobileAmountBlock
-          title={t('unbonding', 'Unbonding')}
+          title={t('unbonding', 'Unbonding', { ns: 'staking' })}
           value={unbounded}
           symbol={symbol}
         />
         <StakingStatsMobileAmountBlock
-          title={t('rewards', 'Rewards')}
+          title={t('rewards', 'Rewards', { ns: 'staking' })}
           value={rewards}
           symbol={symbol}
           isGreen
@@ -220,7 +220,7 @@ export function StakingStatsMobile({
               ? t(
                   'min-amount-to-claim-rewards',
                   'Minimum amount to claim rewards is {amount} ISLM',
-                  { amount: MIN_REWARDS_TO_CLAIM },
+                  { ns: 'staking', amount: MIN_REWARDS_TO_CLAIM },
                 )
               : ''
           }
@@ -233,7 +233,7 @@ export function StakingStatsMobile({
             disabled={Number.parseFloat(rewards) < MIN_REWARDS_TO_CLAIM}
             data-attr="get-rewards"
           >
-            {t('get-rewards', 'Get rewards')}
+            {t('get-rewards', 'Get rewards', { ns: 'staking' })}
           </Button>
         </Tooltip>
       </div>

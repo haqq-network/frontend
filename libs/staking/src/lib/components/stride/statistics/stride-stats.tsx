@@ -145,7 +145,7 @@ function StrideStatsDesktop({
             </div>
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title={t('staked', 'Staked', { ns: 'staking' })}
+                title={t('staked', 'Staked', { ns: 'common' })}
                 value={formatNumber(stIslmBalance)}
                 symbol="stISLM"
                 uppercaseSymbol={false}
@@ -228,7 +228,7 @@ function StrideStatsMobile({
           uppercaseSymbol={false}
         />
         <StakingStatsMobileAmountBlock
-          title={t('staked', 'Staked', { ns: 'staking' })}
+          title={t('staked', 'Staked', { ns: 'common' })}
           value={formatNumber(stIslmBalance)}
           symbol="stISLM"
           uppercaseSymbol={false}
