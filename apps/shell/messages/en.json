@@ -25,6 +25,7 @@
     "add-memo": "Add memo",
     "add-your-memo": "Add your memo",
     "amount-error-min": "Bellow minimal value",
+    "amount-error-more-than-have": "More than you have",
     "available": "Available",
     "balance": "Balance",
     "cancel-button": "Cancel",
@@ -72,7 +73,6 @@
     "wallet": "Wallet"
   },
   "governance": {
-    "amount-error-more-than-have": "More than you have",
     "cast-vote": "Cast your vote",
     "change-vote-message": "You can change your vote while the voting is in progress",
     "created-at": "Created at (gmt)",
@@ -142,7 +142,6 @@
     "active-status": "Active",
     "address": "Address",
     "amount-error-more-than-delegation": "More than your delegation",
-    "amount-error-more-than-have": "More than you have",
     "annualized-yield": "Annual percentage yield",
     "apy": "APY",
     "comission": "Commission",

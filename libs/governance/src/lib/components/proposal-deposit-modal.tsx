@@ -112,7 +112,7 @@ export function ProposalDepositModal({
       return (
         <span className="text-haqq-danger">
           {t('amount-error-more-than-have', 'More than you have', {
-            ns: 'governance',
+            ns: 'common',
           })}
         </span>
       );

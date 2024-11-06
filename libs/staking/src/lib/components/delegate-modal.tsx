@@ -174,7 +174,7 @@ export function DelegateModal({
       return (
         <span className="text-haqq-danger">
           {t('amount-error-more-than-have', 'More than you have', {
-            ns: 'staking',
+            ns: 'common',
           })}
         </span>
       );
