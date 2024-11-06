@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import { PostHogProvider } from 'posthog-js/react';
 import { BrowserRouter } from 'react-router-dom';
 import { createConfig, http, WagmiProvider } from 'wagmi';
@@ -40,8 +40,18 @@ export const wagmiConfig = createConfig({
 
 export function AppProviders({
   children,
-  isMobileUA,
 }: PropsWithChildren<{ isMobileUA: boolean }>) {
+  const isMobileUA = useMemo(() => {
+    if (typeof navigator === 'undefined') {
+      return false;
+    }
+    return Boolean(
+      navigator.userAgent?.match(
+        /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
+      ),
+    );
+  }, []);
+
   return (
     <PostHogProvider
       apiKey={POSTHOG_KEY}
