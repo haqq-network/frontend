@@ -401,7 +401,7 @@ export function ProposalDetailsComponent({
                 <div className="mb-[16px] flex flex-row items-center">
                   <InfoIcon />
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    {t('info', 'Info', { ns: 'governance' })}
+                    {t('info', 'Info', { ns: 'common' })}
                   </Heading>
                 </div>
                 <div className="flex flex-col gap-[28px]">
