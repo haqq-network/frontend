@@ -70,7 +70,7 @@ export function AccountInfo() {
                     isEthAddressCopy
                       ? t('copied', 'Copied!', { ns: 'faucet' })
                       : t('click-to-copy-value', 'Click to copy {value}', {
-                          ns: 'faucet',
+                          ns: 'common',
                           value: ethAddress,
                         })
                   }
@@ -90,7 +90,7 @@ export function AccountInfo() {
                     isHaqqAddressCopy
                       ? t('copied', 'Copied!', { ns: 'faucet' })
                       : t('click-to-copy-value', 'Click to copy {value}', {
-                          ns: 'faucet',
+                          ns: 'common',
                           value: haqqAddress,
                         })
                   }
