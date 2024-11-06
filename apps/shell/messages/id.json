@@ -1,6 +1,7 @@
 {
   "authz": {},
   "common": {},
+  "faucet": {},
   "governance": {},
   "main": {},
   "staking": {},
