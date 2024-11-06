@@ -175,7 +175,7 @@ export function ValidatorBlockMobileComponent({
                   ? t(
                       'min-amount-to-claim-rewards',
                       'Minimum amount to claim rewards is {amount} ISLM',
-                      { ns: 'staking', amount: minRewardsToClaim },
+                      { ns: 'common', amount: minRewardsToClaim },
                     )
                   : ''
               }

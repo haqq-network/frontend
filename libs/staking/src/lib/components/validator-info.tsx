@@ -912,7 +912,7 @@ export function ValidatorBlockDesktop({
               ? t(
                   'min-amount-to-claim-rewards',
                   'Minimum amount to claim rewards is {amount} ISLM',
-                  { ns: 'stacking', amount: MIN_REWARDS_TO_CLAIM },
+                  { ns: 'common', amount: MIN_REWARDS_TO_CLAIM },
                 )
               : ''
           }

@@ -113,7 +113,7 @@ export function StakingStatsDesktop({
                   ? t(
                       'min-amount-to-claim-rewards',
                       'Minimum amount to claim rewards is {amount} ISLM',
-                      { amount: MIN_REWARDS_TO_CLAIM },
+                      { ns: 'common', amount: MIN_REWARDS_TO_CLAIM },
                     )
                   : ''
               }
@@ -220,7 +220,7 @@ export function StakingStatsMobile({
               ? t(
                   'min-amount-to-claim-rewards',
                   'Minimum amount to claim rewards is {amount} ISLM',
-                  { ns: 'staking', amount: MIN_REWARDS_TO_CLAIM },
+                  { ns: 'common', amount: MIN_REWARDS_TO_CLAIM },
                 )
               : ''
           }

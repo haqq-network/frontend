@@ -9,10 +9,6 @@
     "message": "Message",
     "valid-thru": "Valid thru",
     "selected-grantee": "Selected grantee",
-    "grantee-address": "Grantee address",
-    "grant-type": "Grant type",
-    "grant-period": "Grant period",
-    "invalid-grantee-wallet-message": "You should enter valid grantee wallet to see info",
     "submit-proposal": "Submit proposal",
     "vote": "Vote",
     "one-week": "1 week",
@@ -144,7 +140,6 @@
   },
   "staking": {
     "attention-withdrawal-warning": "Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}",
-    "min-amount-to-claim-rewards": "Minimum amount to claim rewards is {amount} ISLM",
     "active-status": "Active",
     "add-memo": "Add memo",
     "address": "Address",
