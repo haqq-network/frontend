@@ -114,7 +114,7 @@ export function ProposalListPage() {
                 <SpinnerLoader />
                 <div className="font-guise text-[10px] uppercase leading-[1.2em]">
                   {t('fetching-proposals', 'Fetching proposals', {
-                    ns: 'governance',
+                    ns: 'common',
                   })}
                 </div>
               </div>
