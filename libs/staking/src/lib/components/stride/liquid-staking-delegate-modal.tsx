@@ -243,7 +243,11 @@ export function LiquidStakingDelegateModal({
                 <StringInput
                   value={strideAddress}
                   onChange={setStrideAddress}
-                  placeholder="Use your Stride address here"
+                  placeholder={t(
+                    'use-stride-address-placeholder',
+                    'Use your Stride address here',
+                    { ns: 'staking' },
+                  )}
                   hint={
                     <span className="text-haqq-danger">
                       {t(

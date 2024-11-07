@@ -3,7 +3,6 @@
   "change-vote-message": "You can change your vote while the voting is in progress",
   "created-at": "Created at (gmt)",
   "dates": "Dates",
-  "deposit-end": "Deposit end",
   "enter-amount": "Enter Amount",
   "enter-deposit-message": "Enter the amount you want to deposit",
   "fetching-proposal-details": "Fetching proposal details",

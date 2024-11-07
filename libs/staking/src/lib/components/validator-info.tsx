@@ -326,15 +326,16 @@ export function ValidatorInfoComponent({
                     <Tooltip
                       text={
                         isHaqqAddressCopy
-                          ? 'Copied!'
-                          : `Click to copy ${
-                              !isDesktop
+                          ? t('copied', 'Copied!', { ns: 'common' })
+                          : t('click-to-copy-value', 'Click to copy {value}', {
+                              ns: 'common',
+                              value: !isDesktop
                                 ? getFormattedAddress(
                                     validatorInfo.operator_address,
                                     12,
                                   )
-                                : validatorInfo.operator_address
-                            }`
+                                : validatorInfo.operator_address,
+                            })
                       }
                     >
                       <div

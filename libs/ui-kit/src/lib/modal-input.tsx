@@ -111,7 +111,7 @@ export function ModalInput({
     <div>
       <div className="relative">
         <CurrencyInput
-          placeholder="Enter amount"
+          placeholder={t('enter-amount', 'Enter Amount')}
           type="text"
           className={clsx(
             'w-full rounded-[6px] outline-none',

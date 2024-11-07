@@ -92,8 +92,8 @@ export function ProposalVoteProgress({
         <div className="flex items-center space-x-[12px]">
           <CardText className="text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
             {status === ProposalStatusEnum.Voting
-              ? 'Voting status'
-              : 'Voting results'}
+              ? t('voting-status', 'Voting status')
+              : t('voting-results', 'Voting results')}
           </CardText>
           {userVote && (
             <div className="inline-flex space-x-[6px]">

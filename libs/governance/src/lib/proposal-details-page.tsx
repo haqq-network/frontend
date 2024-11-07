@@ -804,17 +804,18 @@ function ProposalTurnoutQuorum({
   quorum: string;
   status: ProposalStatusEnum;
 }) {
+  const { t } = useTranslate('governance');
   return (
     <div className="flex flex-row gap-[16px]">
       <ProposalTurnoutQuorumBlock
-        title="Turnout"
+        title={t('turnout', 'Turnout')}
         value={turnout}
         valueClassName={clsx(
           status === ProposalStatusEnum.Failed && 'text-white/50',
         )}
       />
       <ProposalTurnoutQuorumBlock
-        title="Quorum"
+        title={t('quorum', 'Quorum')}
         value={quorum}
         valueClassName={clsx(
           status === ProposalStatusEnum.Failed && 'text-white/50',
