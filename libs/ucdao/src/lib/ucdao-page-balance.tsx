@@ -28,7 +28,7 @@ const useFilterZeroBalances = (balances?: Coin[] | null) => {
 };
 
 export function DaoPageBalance() {
-  const { t } = useTranslate('uc-dao');
+  const { t } = useTranslate();
   const { haqqAddress } = useAddress();
   const { data: daoBalances } = useDaoAllBalancesQuery(haqqAddress);
   const { data: bankBalances } = useBankBalance(haqqAddress);
@@ -50,20 +50,20 @@ export function DaoPageBalance() {
         <div className="flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            {t('my-account', 'My account')}
+            {t('my-account', 'My account', { ns: 'common' })}
           </Heading>
         </div>
 
         {filteredBankBalances?.length > 0 && (
           <BalancesDisplay
-            label={t('wallet-balance-label', 'Wallet Balance')}
+            label={t('wallet-balance-label', 'Wallet Balance', { ns: 'uc-dao' })}
             balances={filteredBankBalances}
           />
         )}
 
         {filteredDaoBalances?.length > 0 && (
           <BalancesDisplay
-            label={t('dao-balance-label', 'DAO Balance')}
+            label={t('dao-balance-label', 'DAO Balance', { ns: 'uc-dao' })}
             balances={filteredDaoBalances}
           />
         )}
@@ -76,7 +76,7 @@ export function DaoPageBalance() {
               setFundModalOpen(true);
             }}
           >
-            {t('deposit-to-dao', 'Deposit to DAO')}
+            {t('deposit-to-dao', 'Deposit to DAO', { ns: 'uc-dao' })}
           </Button>
         </div> */}
       </Container>

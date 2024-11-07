@@ -136,7 +136,7 @@ function ProposalDetailsMobile({
   quorum: number;
   userVote?: string | null;
 }) {
-  const { t } = useTranslate('governance');
+  const { t } = useTranslate('common');
 
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
@@ -417,7 +417,7 @@ export function ProposalDetailsComponent({
                     <div>
                       <InfoBlock
                         title={t('total-deposit', 'Total deposit', {
-                          ns: 'governance',
+                          ns: 'common',
                         })}
                       >
                         {formatNumber(totalDeposit)}{' '}
@@ -491,7 +491,7 @@ export function ProposalDetailsComponent({
                     </InfoBlock>
                     <InfoBlock
                       title={t('deposit-end', 'Deposit end', {
-                        ns: 'governance',
+                        ns: 'common',
                       })}
                     >
                       {formatDate(new Date(proposalDetails.deposit_end_time))}
@@ -565,7 +565,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('created-at', 'Created at (gmt)', {
+                                      {t('created-at', 'Created at (GMT)', {
                                         ns: 'governance',
                                       })}
                                     </ProposalDatesText>
@@ -588,9 +588,13 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('deposit-end', 'Deposit end (gmt)', {
-                                        ns: 'governance',
-                                      })}
+                                      {t(
+                                        'deposit-end-gmt',
+                                        'Deposit end (GMT)',
+                                        {
+                                          ns: 'governance',
+                                        },
+                                      )}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -613,7 +617,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('vote-start', 'Vote start (gmt)', {
+                                      {t('vote-start', 'Vote start (GMT)', {
                                         ns: 'governance',
                                       })}
                                     </ProposalDatesText>
@@ -638,7 +642,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('vote-end', 'Vote end (gmt)', {
+                                      {t('vote-end', 'Vote end (GMT)', {
                                         ns: 'governance',
                                       })}
                                     </ProposalDatesText>
@@ -695,7 +699,7 @@ export function ProposalDetailsComponent({
                             color="blue"
                             date={new Date(proposalDetails.deposit_end_time)}
                             title={t('deposit-end', 'Deposit end', {
-                              ns: 'governance',
+                              ns: 'common',
                             })}
                           />
                         )}
@@ -705,7 +709,7 @@ export function ProposalDetailsComponent({
                             color="green"
                             date={new Date(proposalDetails.voting_end_time)}
                             title={t('voting-end', 'Voting end', {
-                              ns: 'governance',
+                              ns: 'common',
                             })}
                           />
                         )}
@@ -805,17 +809,18 @@ function ProposalTurnoutQuorum({
   quorum: string;
   status: ProposalStatusEnum;
 }) {
+  const { t } = useTranslate('governance');
   return (
     <div className="flex flex-row gap-[16px]">
       <ProposalTurnoutQuorumBlock
-        title="Turnout"
+        title={t('turnout', 'Turnout')}
         value={turnout}
         valueClassName={clsx(
           status === ProposalStatusEnum.Failed && 'text-white/50',
         )}
       />
       <ProposalTurnoutQuorumBlock
-        title="Quorum"
+        title={t('quorum', 'Quorum')}
         value={quorum}
         valueClassName={clsx(
           status === ProposalStatusEnum.Failed && 'text-white/50',
@@ -1107,7 +1112,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES
             }
           >
-            {t('vote-option-yes', 'Yes', { ns: 'governance' })}
+            {t('vote-option-yes', 'Yes', { ns: 'common' })}
           </VoteButton>
         </div>
         <div>
@@ -1123,7 +1128,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO
             }
           >
-            {t('vote-option-no', 'No', { ns: 'governance' })}
+            {t('vote-option-no', 'No', { ns: 'common' })}
           </VoteButton>
         </div>
         <div>
@@ -1139,7 +1144,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_ABSTAIN
             }
           >
-            {t('vote-option-abstain', 'Abstain', { ns: 'governance' })}
+            {t('vote-option-abstain', 'Abstain', { ns: 'common' })}
           </VoteButton>
         </div>
         <div>
@@ -1156,7 +1161,7 @@ export function VoteActions({
               VoteOption.VOTE_OPTION_NO_WITH_VETO
             }
           >
-            {t('vote-option-veto', 'Veto', { ns: 'governance' })}
+            {t('vote-option-no-with-veto', 'No with veto', { ns: 'common' })}
           </VoteButton>
         </div>
       </div>
@@ -1236,7 +1241,7 @@ export function DepositInput({
   value: number | undefined;
   disabled?: boolean;
 }) {
-  const { t } = useTranslate('governance');
+  const { t } = useTranslate('common');
   return (
     <div className={clsx('relative rounded-[6px] bg-[#252528]', className)}>
       <input

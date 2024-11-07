@@ -5,6 +5,7 @@ import {
   useCallback,
   useMemo,
 } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
 import { createNumberMask } from 'text-mask-addons';
@@ -57,7 +58,7 @@ const CurrencyInput = ({
 export function StringInput({
   value,
   onChange,
-  placeholder = 'Enter text',
+  placeholder,
   className,
   id,
   hint,
@@ -69,6 +70,7 @@ export function StringInput({
   id?: string;
   hint?: ReactNode;
 }) {
+  const { t } = useTranslate('common');
   const handleInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       onChange(event.target.value);
@@ -83,7 +85,7 @@ export function StringInput({
           type="text"
           value={value}
           onChange={handleInputChange}
-          placeholder={placeholder}
+          placeholder={placeholder ?? t('enter-text', 'Enter text')}
           className={clsx(
             'w-full rounded-[6px] outline-none',
             'transition-colors duration-100 ease-in',
@@ -117,6 +119,7 @@ export function ModalInput({
   isMaxButtonDisabled?: boolean;
   id?: string;
 }) {
+  const { t } = useTranslate('common');
   const handleInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       onChange(event.target.value);
@@ -128,7 +131,7 @@ export function ModalInput({
     <div>
       <div className="relative">
         <CurrencyInput
-          placeholder="Enter amount"
+          placeholder={t('enter-amount', 'Enter Amount')}
           type="text"
           className={clsx(
             'w-full rounded-[6px] outline-none',
@@ -149,7 +152,7 @@ export function ModalInput({
                 onClick={onMaxButtonClick}
                 disabled={isMaxButtonDisabled}
               >
-                Max
+                {t('max', 'Max')}
               </button>
             )}
             {symbol && (

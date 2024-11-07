@@ -40,23 +40,23 @@ export function ValidatorListItemMobileComponent({
   return (
     <Card className="p-[14px]">
       <div className="flex flex-col gap-[8px]">
-        <ColumnLine columnName="Name">
+        <ColumnLine columnName={t('name', 'Name', { ns: 'common' })}>
           <span className="text-white">{validatorName}</span>
         </ColumnLine>
-        <ColumnLine columnName="Status">
+        <ColumnLine columnName={t('status', 'Status', { ns: 'common' })}>
           {status === 'jailed' && (
             <span className="text-[#FF5454]">
-              {t('jailed-status', 'Jailed', { ns: 'staking' })}
+              {t('jailed-status', 'Jailed', { ns: 'common' })}
             </span>
           )}
           {status === 'active' && (
             <span className="text-[#01B26E]">
-              {t('active-status', 'Active', { ns: 'staking' })}
+              {t('active-status', 'Active', { ns: 'common' })}
             </span>
           )}
           {status === 'inactive' && (
             <span className="text-[#E3A13F]">
-              {t('inactive-status', 'Inactive', { ns: 'staking' })}
+              {t('inactive-status', 'Inactive', { ns: 'common' })}
             </span>
           )}
         </ColumnLine>
