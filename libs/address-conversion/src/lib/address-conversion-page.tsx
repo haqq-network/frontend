@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import debounce from 'lodash/debounce';
 import {
@@ -25,6 +26,7 @@ import { LabeledBlock } from './components/labeled-block';
 const symbol = 'ISLM';
 
 export function AddressConversionPage() {
+  const { t } = useTranslate();
   const { copyText } = useClipboard();
 
   const [enteredAddress, setEnteredAddress] = useState('');
@@ -54,14 +56,16 @@ export function AddressConversionPage() {
       } else {
         setConvertedAddress('');
         setValidHaqqAddress('');
-        setInputError('Please enter a valid address');
+        setInputError(
+          t('invalid-address', 'Please enter a valid address', { ns: 'utils' }),
+        );
       }
     } else {
       setInputError('');
       setValidHaqqAddress('');
       setConvertedAddress('');
     }
-  }, [enteredAddress]);
+  }, [enteredAddress, t]);
 
   const handleValidateAddressDebounced = debounce(handleValidateAddress, 200);
 
@@ -89,7 +93,9 @@ export function AddressConversionPage() {
       <div className="py-[32px] lg:py-[68px]">
         <Container>
           <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-            Address Conversion
+            {t('address-conversion-title', 'Address Conversion', {
+              ns: 'common',
+            })}
           </div>
         </Container>
       </div>
@@ -98,6 +104,7 @@ export function AddressConversionPage() {
         <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
           <div className="mb-[24px] flex flex-row items-center">
             <WalletIcon />
+            {/* eslint-disable-next-line i18next/no-literal-string */}
             <Heading level={3} className="mb-[-2px] ml-[8px]">
               Bech32 / EVM
             </Heading>
@@ -106,7 +113,7 @@ export function AddressConversionPage() {
           <div className="flex flex-col items-start space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
             <LabeledBlock
               className="w-full max-w-lg lg:max-w-sm xl:max-w-lg"
-              title="Address"
+              title={t('address', 'Address', { ns: 'common' })}
               value={
                 <div className="w-full">
                   <input
@@ -129,15 +136,20 @@ export function AddressConversionPage() {
             />
             <LabeledBlock
               className="lg:min-w-[200px] lg:justify-around"
-              title="Converted address"
+              title={t('converted-address-label', 'Converted address', {
+                ns: 'utils',
+              })}
               value={
                 convertedAddress ? (
                   <Tooltip
                     className="shrink-0"
                     text={
                       isAddressCopied
-                        ? 'Copied!'
-                        : `Click to copy ${convertedAddress}`
+                        ? t('copied', 'Copied!', { ns: 'common' })
+                        : t('click-to-copy-value', 'Click to copy {value}', {
+                            ns: 'common',
+                            value: convertedAddress,
+                          })
                     }
                   >
                     <div
@@ -163,7 +175,7 @@ export function AddressConversionPage() {
             />
             <LabeledBlock
               className="lg:min-w-[200px] lg:justify-around"
-              title="Balance"
+              title={t('balance', 'Balance', { ns: 'common' })}
               value={
                 balance !== undefined
                   ? `${formatNumber(balance)} ${symbol}`

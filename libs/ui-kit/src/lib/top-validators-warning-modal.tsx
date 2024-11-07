@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { Button } from './button';
 import { Modal, ModalCloseButton, ModalHeading } from './modal';
@@ -16,6 +17,7 @@ export function TopValidatorsWarningModal({
   className?: string;
   votingPowerPercent: number;
 }) {
+  const { t } = useTranslate('common');
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div
@@ -31,26 +33,30 @@ export function TopValidatorsWarningModal({
 
         <div className="flex w-full flex-col gap-[24px] pt-[24px] sm:pt-[4px]">
           <div>
-            <ModalHeading>Warning</ModalHeading>
+            <ModalHeading>{t('warning', 'Warning')}</ModalHeading>
           </div>
 
           <div>
             <div className="font-guise text-[15px] leading-[24px]">
-              You are attempting to delegate to a validator that ranks in the
+              {t(
+                'top-validators-warning-message',
+                `You are attempting to delegate to a validator that ranks in the
               top {votingPowerPercent}% by voting power. Delegating to highly
               ranked validators might centralize voting power and potentially
               reduce the network's decentralization. Please ensure you
-              understand the implications before proceeding.
+              understand the implications before proceeding.`,
+                { votingPowerPercent },
+              )}
             </div>
           </div>
 
           <div className="flex flex-col gap-[16px]">
             <Button onClick={onContinue} variant={4}>
-              Continue
+              {t('continue-button', 'Continue')}
             </Button>
 
             <Button onClick={onClose} variant={3}>
-              Cancel
+              {t('cancel-button', 'Cancel')}
             </Button>
           </div>
         </div>

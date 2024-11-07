@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { isAddress } from 'viem';
@@ -35,75 +36,77 @@ export const enum GRANT_TYPES {
   Undelegate = '/cosmos.staking.v1beta1.MsgUndelegate',
 }
 
-const GRANT_TYPE_OPTIONS = [
-  {
-    label: 'Governance',
-    options: [
-      {
-        label: 'Submit Proposal',
-        value: GRANT_TYPES.SubmitProposal,
-      },
-      {
-        label: 'Vote',
-        value: GRANT_TYPES.Vote,
-      },
-    ],
-  },
-  {
-    label: 'Staking',
-    options: [
-      {
-        label: 'Delegate',
-        value: GRANT_TYPES.Delegate,
-      },
-      {
-        label: 'Undelegate',
-        value: GRANT_TYPES.Undelegate,
-      },
-      {
-        label: 'Redelegate',
-        value: GRANT_TYPES.Redelegate,
-      },
-    ],
-  },
-];
-
-export const GRANT_TYPE_DEFAULT_OPTION = GRANT_TYPE_OPTIONS[0].options[0];
-
-export const GRANT_PERIOD_OPTIONS = [
-  {
-    label: '1 Week',
-    value: '1w',
-  },
-  {
-    label: '1 Month',
-    value: '1m',
-  },
-  {
-    label: '3 Months',
-    value: '3m',
-  },
-  {
-    label: '6 Months',
-    value: '6m',
-  },
-  {
-    label: '1 Year',
-    value: '1y',
-  },
-  {
-    label: '5 Years',
-    value: '5y',
-  },
-  {
-    label: '100 Years',
-    value: '100y',
-  },
-];
-
-export const GRANT_PERIOD_DEFAULT_OPTION = GRANT_PERIOD_OPTIONS[4];
-
 export function AuthzGrantsActions() {
+  const { t } = useTranslate();
+
+  const GRANT_TYPE_OPTIONS = [
+    {
+      label: t('governance', 'Governance', { ns: 'common' }),
+      options: [
+        {
+          label: t('submit-proposal', 'Submit Proposal', { ns: 'authz' }),
+          value: GRANT_TYPES.SubmitProposal,
+        },
+        {
+          label: t('vote', 'Vote', { ns: 'authz' }),
+          value: GRANT_TYPES.Vote,
+        },
+      ],
+    },
+    {
+      label: t('staking', 'Staking', { ns: 'common' }),
+      options: [
+        {
+          label: t('delegate', 'Delegate', { ns: 'common' }),
+          value: GRANT_TYPES.Delegate,
+        },
+        {
+          label: t('undelegate', 'Undelegate', { ns: 'common' }),
+          value: GRANT_TYPES.Undelegate,
+        },
+        {
+          label: t('redelegate', 'Redelegate', { ns: 'common' }),
+          value: GRANT_TYPES.Redelegate,
+        },
+      ],
+    },
+  ];
+
+  const GRANT_TYPE_DEFAULT_OPTION = GRANT_TYPE_OPTIONS[0].options[0];
+
+  const GRANT_PERIOD_OPTIONS = [
+    {
+      label: t('one-week', '1 Week', { ns: 'authz' }),
+      value: '1w',
+    },
+    {
+      label: t('one-month', '1 Month', { ns: 'authz' }),
+      value: '1m',
+    },
+    {
+      label: t('three-months', '3 Months', { ns: 'authz' }),
+      value: '3m',
+    },
+    {
+      label: t('six-months', '6 Months', { ns: 'authz' }),
+      value: '6m',
+    },
+    {
+      label: t('one-year', '1 Year', { ns: 'authz' }),
+      value: '1y',
+    },
+    {
+      label: t('five-years', '5 Years', { ns: 'authz' }),
+      value: '5y',
+    },
+    {
+      label: t('hundred-years', '100 Years', { ns: 'authz' }),
+      value: '100y',
+    },
+  ];
+
+  const GRANT_PERIOD_DEFAULT_OPTION = GRANT_PERIOD_OPTIONS[4];
+
   const [grantee, setGrantee] = useState('');
   const [isGranteeValid, setGranteeValid] = useState(false);
   const [granteeAddresses, setGranteeAddresses] = useState<{
@@ -194,7 +197,11 @@ export function AuthzGrantsActions() {
       });
 
       await toast.promise(grantPromise, {
-        loading: <ToastLoading>Grant in progress</ToastLoading>,
+        loading: (
+          <ToastLoading>
+            {t('grant-loading', 'Grant in progress', { ns: 'authz' })}
+          </ToastLoading>
+        ),
         success: (tx) => {
           console.log('Grant successful', { tx });
           const txHash = tx?.txhash;
@@ -202,7 +209,9 @@ export function AuthzGrantsActions() {
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Grant successful</div>
+                <div>
+                  {t('grant-success', 'Grant successful', { ns: 'authz' })}
+                </div>
                 <div>
                   <Link
                     href={`${explorer.cosmos}/tx/${txHash}`}
@@ -242,6 +251,7 @@ export function AuthzGrantsActions() {
     invalidateQueries,
     isGranteeValid,
     memo,
+    t,
     toast,
   ]);
 
@@ -304,7 +314,7 @@ export function AuthzGrantsActions() {
           <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px]">
             <div>
               <Heading level={3} className="mb-[-2px]">
-                Grant access
+                {t('grant-access', 'Grant access', { ns: 'authz' })}
               </Heading>
             </div>
 
@@ -317,7 +327,9 @@ export function AuthzGrantsActions() {
                         htmlFor="grantee"
                         className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
                       >
-                        Grantee address
+                        {t('grantee-address', 'Grantee address', {
+                          ns: 'authz',
+                        })}
                       </label>
                     </div>
                     <div>
@@ -344,7 +356,7 @@ export function AuthzGrantsActions() {
 
                   <div>
                     <Select
-                      label="Grant type"
+                      label={t('grant-type', 'Grant type', { ns: 'authz' })}
                       selectContainerClassName="w-full max-w-xl"
                       onChange={(type) => {
                         if (type) {
@@ -358,7 +370,9 @@ export function AuthzGrantsActions() {
 
                   <div>
                     <Select
-                      label="Grant period"
+                      label={t('grant-period', 'Grant period', {
+                        ns: 'authz',
+                      })}
                       selectContainerClassName="w-full max-w-xl"
                       onChange={(period) => {
                         if (period) {
@@ -376,7 +390,7 @@ export function AuthzGrantsActions() {
                         htmlFor="memo"
                         className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
                       >
-                        Memo
+                        {t('memo', 'Memo', { ns: 'authz' })}
                       </label>
                     </div>
                     <div>
@@ -389,7 +403,9 @@ export function AuthzGrantsActions() {
                           'max-w-xl',
                         )}
                         type="text"
-                        placeholder="Add your memo"
+                        placeholder={t('add-your-memo', 'Add your memo', {
+                          ns: 'common',
+                        })}
                         id="memo"
                         name="memo"
                         value={memo}
@@ -408,7 +424,7 @@ export function AuthzGrantsActions() {
                       variant={2}
                       disabled={!isGranteeValid}
                     >
-                      Grant Access
+                      {t('grant-access', 'Grant access', { ns: 'authz' })}
                     </Button>
                   </div>
                 </div>
@@ -428,14 +444,22 @@ export function AuthzGrantsActions() {
                 <div className="flex w-full transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[36px] py-[32px]">
                   <div>
                     <Heading level={3} className="mb-[-2px]">
-                      Selected grantee
+                      {t('selected-grantee', 'Selected grantee', {
+                        ns: 'authz',
+                      })}
                     </Heading>
                   </div>
 
                   <div className="flex flex-col justify-between gap-[24px] md:min-h-[230px]">
                     <div className="flex flex-1 flex-col items-center justify-center gap-[12px]">
                       <div className="font-guise text-[12px] leading-[22px] md:text-[14px] md:leading-[28px]">
-                        You should enter valid grantee wallet to see info
+                        {t(
+                          'invalid-grantee-wallet-message',
+                          'You should enter valid grantee wallet to see info',
+                          {
+                            ns: 'authz',
+                          },
+                        )}
                       </div>
                     </div>
                   </div>

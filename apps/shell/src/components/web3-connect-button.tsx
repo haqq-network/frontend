@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import { useAccount, useChains } from 'wagmi';
 import {
   getFormattedAddress,
@@ -10,6 +11,7 @@ import { Button, AccountButton, SelectChainButton } from '@haqq/shell-ui-kit';
 import { formatNumber } from '@haqq/shell-ui-kit/server';
 
 export function Web3ConnectButtons() {
+  const { t } = useTranslate('common');
   const { isConnected, chain } = useAccount();
   const { haqqAddress, ethAddress } = useAddress();
   const chains = useChains();
@@ -19,7 +21,9 @@ export function Web3ConnectButtons() {
   if (!isConnected || !ethAddress) {
     return (
       <div className="leading-[0]">
-        <Button onClick={openSelectWallet}>Connect Wallet</Button>
+        <Button onClick={openSelectWallet}>
+          {t('connect-wallet-button', 'Connect Wallet')}
+        </Button>
       </div>
     );
   }
@@ -63,6 +67,7 @@ export function Web3ConnectButtons() {
 }
 
 export function Web3ConnectButtonsMobile() {
+  const { t } = useTranslate('common');
   const { isConnected, chain } = useAccount();
   const { haqqAddress, ethAddress } = useAddress();
   const chains = useChains();
@@ -72,7 +77,9 @@ export function Web3ConnectButtonsMobile() {
   if (!isConnected || !ethAddress) {
     return (
       <div className="leading-[0]">
-        <Button onClick={openSelectWallet}>Connect Wallet</Button>
+        <Button onClick={openSelectWallet}>
+          {t('connect-wallet-button', 'Connect Wallet')}
+        </Button>
       </div>
     );
   }
@@ -113,7 +120,7 @@ export function Web3ConnectButtonsMobile() {
         />
       </div>
       <div className="leading-[0]">
-        <Button onClick={disconnect}>Disconnect</Button>
+        <Button onClick={disconnect}>{t('disconnect', 'Disconnect')}</Button>
       </div>
     </div>
   );

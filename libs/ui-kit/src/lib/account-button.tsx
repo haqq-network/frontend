@@ -1,5 +1,6 @@
 'use client';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { ArrowDownIcon } from './icons';
 
@@ -16,6 +17,7 @@ export function AccountButton({
   className?: string;
   withoutDropdown?: boolean;
 }) {
+  const { t } = useTranslate('common');
   return (
     <div
       className={clsx(
@@ -57,7 +59,7 @@ export function AccountButton({
               className="block w-full px-[16px] py-[10px] text-left text-[13px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
               onClick={onDisconnectClick}
             >
-              Disconnect
+              {t('disconnect', 'Disconnect')}
             </MenuItem>
           </MenuItems>
         </Menu>

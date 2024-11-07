@@ -1,0 +1,6 @@
+{
+  "faucet": "Кран",
+  "login-github": "Войти через github",
+  "request-tokens": "Запросить токены",
+  "switch-chain": "Переключиться на {chain}"
+}

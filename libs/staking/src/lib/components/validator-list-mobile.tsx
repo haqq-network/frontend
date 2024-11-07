@@ -4,6 +4,7 @@ import {
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import { ValidatorListItemMobile } from './validator-list-item-mobile';
 
 export function ValidatorsListMobile({
@@ -19,6 +20,7 @@ export function ValidatorsListMobile({
   onValidatorClick: (validatorAddress: string) => void;
   totalStaked: number;
 }) {
+  const { t } = useTranslate('staking');
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -47,7 +49,7 @@ export function ValidatorsListMobile({
     return (
       <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
         <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-          Nothing found
+          {t('nothing-found', 'Nothing found')}
         </div>
       </div>
     );

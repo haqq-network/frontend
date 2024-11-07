@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { Button, Tooltip } from '@haqq/shell-ui-kit';
 import {
@@ -77,42 +78,54 @@ export function ValidatorBlockMobileComponent({
   isRewardPending = false,
   minRewardsToClaim = 1,
 }: ValidatorBlockMobileProps) {
+  const { t } = useTranslate();
   return (
     <Container className="py-[24px] md:py-[40px]">
       <div className="flex flex-col items-start gap-y-[24px] md:gap-y-[12px]">
         <div className="flex flex-row items-center">
           <ValidatorIcon />
           <Heading level={3} className="mb-[-2px] ml-[8px]">
-            Validator
+            {t('validator', 'Validator', { ns: 'staking' })}
           </Heading>
         </div>
 
         {isWarningShown && (
           <div className="w-full">
             <WarningMessage wrapperClassName="w-full">
-              While the validator is inactive, you will not be able to receive a
-              reward.
+              {t(
+                'validator-inactive-warning',
+                'While the validator is inactive, you will not be able to receive a reward.',
+                { ns: 'staking' },
+              )}
             </WarningMessage>
           </div>
         )}
 
         <div className="flex w-full flex-col gap-[12px]">
           <div className="flex flex-1 flex-row items-center justify-between">
-            <GrayDescription>My delegation</GrayDescription>
+            <GrayDescription>
+              {t('my-delegation', 'My delegation', { ns: 'staking' })}
+            </GrayDescription>
             <DescriptionAmount>
               {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
             </DescriptionAmount>
           </div>
           {undelegate && undelegate > 0 && (
             <div className="flex flex-1 flex-row items-center justify-between">
-              <GrayDescription>Undelegate in process</GrayDescription>
+              <GrayDescription>
+                {t('undelegate-process', 'Undelegate in process', {
+                  ns: 'staking',
+                })}
+              </GrayDescription>
               <DescriptionAmount>
                 {formatNumber(undelegate)} {symbol.toLocaleUpperCase()}
               </DescriptionAmount>
             </div>
           )}
           <div className="flex flex-1 flex-row items-center justify-between">
-            <GrayDescription>My rewards</GrayDescription>
+            <GrayDescription>
+              {t('my-rewards', 'My rewards', { ns: 'staking' })}
+            </GrayDescription>
             <DescriptionAmount className="!text-[#01B26E]">
               {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
             </DescriptionAmount>
@@ -129,7 +142,7 @@ export function ValidatorBlockMobileComponent({
                 disabled={isDelegateDisabled}
                 data-attr="delegate"
               >
-                Delegate
+                {t('delegate', 'Delegate', { ns: 'common' })}
               </Button>
             </div>
             <div className="flex-1">
@@ -140,7 +153,7 @@ export function ValidatorBlockMobileComponent({
                 disabled={isUndelegateDisabled}
                 data-attr="undelegate"
               >
-                Undelegate
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </Button>
             </div>
           </div>
@@ -152,14 +165,18 @@ export function ValidatorBlockMobileComponent({
               disabled={isRedelegateDisabled}
               data-attr="redelegate"
             >
-              Redelegate
+              {t('redelegate', 'Redelegate', { ns: 'common' })}
             </Button>
           </div>
           <div>
             <Tooltip
               text={
                 rewards < minRewardsToClaim
-                  ? `Minimum amount to claim rewards is ${minRewardsToClaim} ISLM`
+                  ? t(
+                      'min-amount-to-claim-rewards',
+                      'Minimum amount to claim rewards is {amount} ISLM',
+                      { ns: 'common', amount: minRewardsToClaim },
+                    )
                   : ''
               }
             >
@@ -171,7 +188,7 @@ export function ValidatorBlockMobileComponent({
                 isLoading={isRewardPending}
                 data-attr="get-my-rewards"
               >
-                Get my rewards
+                {t('get-my-rewards', 'Get my rewards', { ns: 'staking' })}
               </Button>
             </Tooltip>
           </div>

@@ -23,8 +23,8 @@ import { env } from '../../env/client';
 import { clashDisplayFont, hkGuiseFont } from '../../lib/fonts';
 import { AppProviders } from '../../providers/app-providers';
 import { PHProvider } from '../../providers/posthog-provider';
-import { ALL_LOCALES, getStaticData } from '../../tolgee/shared';
-import '../global.css';
+import { AVAILABLE_LOCALES, getStaticData, Locale } from '../../tolgee/shared';
+import './global.css';
 
 export const metadata: Metadata = {
   title: {
@@ -106,13 +106,13 @@ export default async function RootLayout({
     });
   }
 
-  if (!ALL_LOCALES.includes(params.locale)) {
+  if (!AVAILABLE_LOCALES.includes(params.locale as Locale)) {
     notFound();
   }
 
   // make sure you provide all the necessary locales
   // for the inital SSR render (e.g. fallback languages)
-  const locales = await getStaticData([params.locale]);
+  const locales = await getStaticData([params.locale as Locale]);
 
   const dehydratedState = dehydrate(queryClient);
 

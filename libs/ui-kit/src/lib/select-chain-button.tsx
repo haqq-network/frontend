@@ -1,5 +1,6 @@
 'use client';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { T } from '@tolgee/react';
 import clsx from 'clsx';
 import { ArrowDownIcon } from './icons';
 
@@ -61,8 +62,12 @@ export function SelectChainButton({
           )}
         >
           <div className="font-guise mt-[-1px] text-left text-[10px] font-[500] uppercase leading-[1.2em]">
-            Unsupported <br />
-            Network
+            <T
+              keyName="unsupported-network-title"
+              ns="common"
+              defaultValue="Unsupported <br /> Network"
+              params={{ br: <br /> }}
+            />
           </div>
           <ArrowDownIcon
             className={clsx(

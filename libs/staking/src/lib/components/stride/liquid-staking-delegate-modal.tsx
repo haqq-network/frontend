@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import {
   Modal,
@@ -131,6 +132,7 @@ export function LiquidStakingDelegateModal({
   strideAddress,
   setStrideAddress,
 }: LiquidStakingDelegateModalProps) {
+  const { t } = useTranslate();
   const handleMaxButtonClick = useCallback(() => {
     onChange(Math.floor(balance));
   }, [balance, onChange]);
@@ -158,13 +160,23 @@ export function LiquidStakingDelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-haqq-danger">Bellow minimal value</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'common' })}
+        </span>
+      );
     } else if (amountError === 'max') {
-      return <span className="text-haqq-danger">More than you have</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-more-than-have', 'More than you have', {
+            ns: 'common',
+          })}
+        </span>
+      );
     }
 
     return undefined;
-  }, [amountError]);
+  }, [amountError, t]);
 
   const { stIslmFormIslm } = useStIslmFormIslm(delegateAmount || 0);
 
@@ -186,26 +198,33 @@ export function LiquidStakingDelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Delegate
+                {t('delegate', 'Delegate', { ns: 'common' })}
               </ModalHeading>
               <WarningMessage light wrapperClassName="mt-[24px]">
-                {`Attention! If in the future you want to withdraw the staked funds, it will take ${unboundingTime} ${unboundingTime === 1 ? 'day' : 'days'}`}
+                {t(
+                  'attention-withdrawal-warning',
+                  'Attention! If in the future you want to withdraw the staked funds, it will take {count} day{count, plural, one {} other {s}}',
+                  {
+                    ns: 'staking',
+                    count: unboundingTime,
+                  },
+                )}
               </WarningMessage>
             </div>
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <LiquidStakingDelegateModalDetails
-                  title="My balance"
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <LiquidStakingDelegateModalDetails
-                  title="APY"
+                  title={t('apy', 'APY', { ns: 'staking' })}
                   isValuePending={isLoading}
                   value={`${apy}%`}
                 />
                 <LiquidStakingDelegateModalDetails
-                  title="Commission"
+                  title={t('commission', 'Commission', { ns: 'staking' })}
                   value={`${strideFee}%`}
                 />
               </div>
@@ -224,10 +243,18 @@ export function LiquidStakingDelegateModal({
                 <StringInput
                   value={strideAddress}
                   onChange={setStrideAddress}
-                  placeholder="Use your Stride address here"
+                  placeholder={t(
+                    'use-stride-address-placeholder',
+                    'Use your Stride address here',
+                    { ns: 'staking' },
+                  )}
                   hint={
                     <span className="text-haqq-danger">
-                      Stride address is required to delegate
+                      {t(
+                        'stride-address-required',
+                        'Stride address is required to delegate',
+                        { ns: 'staking' },
+                      )}
                     </span>
                   }
                 />
@@ -235,9 +262,10 @@ export function LiquidStakingDelegateModal({
                 <div className="flex flex-col items-center justify-center gap-[16px]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
-                      What you'll get:
+                      {t('you-will-get', "What you'll get:", { ns: 'staking' })}
                     </div>
                     <div className="text-[20px] font-semibold leading-[26px]">
+                      {/* eslint-disable-next-line i18next/no-literal-string */}
                       {formatNumber(stIslmFormIslm)} stISLM
                     </div>
                   </div>
@@ -245,9 +273,12 @@ export function LiquidStakingDelegateModal({
                   {annualizedYield ? (
                     <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-[8px]">
                       <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
-                        Annual percentage yield
+                        {t('annualized-yield', 'Annual percentage yield', {
+                          ns: 'staking',
+                        })}
                       </div>
                       <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
+                        {/* eslint-disable-next-line i18next/no-literal-string */}
                         {formatNumber(annualizedYield)} stISLM
                       </div>
                     </div>
@@ -261,7 +292,9 @@ export function LiquidStakingDelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Confirm delegation
+                    {t('confirm-delegation', 'Confirm delegation', {
+                      ns: 'common',
+                    })}
                   </Button>
                 </div>
               </div>

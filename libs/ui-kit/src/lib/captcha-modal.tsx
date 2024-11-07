@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import Turnstile from 'react-turnstile';
 import { ModalHeading, Modal, ModalCloseButton } from './modal';
 
@@ -9,6 +10,7 @@ export const CaptchaModal = ({
   turnstileSiteKey?: string;
   isClosable: boolean;
 }) => {
+  const { t } = useTranslate('common');
   const [token, setToken] = useState<string | undefined>(undefined);
   const [isCaptchaModalOpen, setCaptchaModalOpen] = useState(false);
 
@@ -46,12 +48,17 @@ export const CaptchaModal = ({
         />
         <div className="flex w-full flex-col">
           <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-            <ModalHeading>Complete the captcha</ModalHeading>
+            <ModalHeading>
+              {t('complete-captcha-title', 'Complete the captcha')}
+            </ModalHeading>
           </div>
 
           <div className="flex flex-col space-y-[12px]">
             <div className="font-guise text-[12px] font-[500] text-black">
-              Please complete the captcha to verify that you are not a robot.
+              {t(
+                'complete-captcha-message',
+                'Please complete the captcha to verify that you are not a robot.',
+              )}
             </div>
 
             {turnstileSiteKey && (

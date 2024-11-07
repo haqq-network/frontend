@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import {
   Modal,
   ModalCloseButton,
@@ -45,6 +46,7 @@ export function LiquidStakingUndelegateModal({
   strideAddress,
   setStrideAddress,
 }: LiquidStakingUndelegateModalProps) {
+  const { t } = useTranslate();
   const handleMaxButtonClick = useCallback(() => {
     onChange(delegation);
   }, [delegation, onChange]);
@@ -72,15 +74,23 @@ export function LiquidStakingUndelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-haqq-danger">Bellow minimal value</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'common' })}
+        </span>
+      );
     } else if (amountError === 'max') {
       return (
-        <span className="text-haqq-danger">More than your delegation</span>
+        <span className="text-haqq-danger">
+          {t('amount-error-more-than-delegation', 'More than your delegation', {
+            ns: 'staking',
+          })}
+        </span>
       );
     }
 
     return undefined;
-  }, [amountError]);
+  }, [amountError, t]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -94,7 +104,7 @@ export function LiquidStakingUndelegateModal({
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Undelegate
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </ModalHeading>
 
               <WarningMessage
@@ -102,17 +112,24 @@ export function LiquidStakingUndelegateModal({
                 className="mt-[3px]"
                 wrapperClassName="mt-[24px]"
               >
-                {`The funds will be undelegate within ${unboundingTime} day`}
+                {t(
+                  'funds-undelegated-in-days',
+                  'The funds will be undelegated within {count, plural, one {# day} other {# days}}',
+                  {
+                    ns: 'staking',
+                    count: unboundingTime,
+                  },
+                )}
               </WarningMessage>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title="My balance"
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title="My delegation"
+                  title={t('my-delegation', 'My delegation', { ns: 'staking' })}
                   value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -130,10 +147,18 @@ export function LiquidStakingUndelegateModal({
                 <StringInput
                   value={strideAddress}
                   onChange={setStrideAddress}
-                  placeholder="Use your Stride address here"
+                  placeholder={t(
+                    'use-stride-address-placeholder',
+                    'Use your Stride address here',
+                    { ns: 'staking' },
+                  )}
                   hint={
                     <span className="text-haqq-danger">
-                      Stride address is required to undelegate
+                      {t(
+                        'stride-address-required',
+                        'Stride address is required to undelegate',
+                        { ns: 'staking' },
+                      )}
                     </span>
                   }
                 />
@@ -145,7 +170,9 @@ export function LiquidStakingUndelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Confirm undelegation
+                    {t('confirm-undelegation', 'Confirm undelegation', {
+                      ns: 'staking',
+                    })}
                   </Button>
                 </div>
               </div>

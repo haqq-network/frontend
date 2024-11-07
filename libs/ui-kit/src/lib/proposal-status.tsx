@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { ProposalStatusEnum } from './proposal-card';
 
@@ -7,6 +8,7 @@ export function ProposalStatus({
 }: {
   status: ProposalStatusEnum;
 }): ReactElement {
+  const { t } = useTranslate('common');
   const baseClassName =
     'inline-flex rounded-[8px] p-[8px] items-center uppercase text-[14px] font-[500] tracking-[0.01em] font-clash gap-[4px]';
 
@@ -23,7 +25,7 @@ export function ProposalStatus({
             />
           </svg>
 
-          <div>Rejected</div>
+          <div>{t('rejected', 'Rejected')}</div>
         </div>
       );
     case ProposalStatusEnum.Passed:
@@ -38,7 +40,7 @@ export function ProposalStatus({
             />
           </svg>
 
-          <div>Passed</div>
+          <div>{t('passed', 'Passed')}</div>
         </div>
       );
     case ProposalStatusEnum.Voting:
@@ -61,7 +63,7 @@ export function ProposalStatus({
               fill="currentColor"
             />
           </svg>
-          <div>Voting</div>
+          <div>{t('voting', 'Voting')}</div>
         </div>
       );
     case ProposalStatusEnum.Deposit:
@@ -75,7 +77,7 @@ export function ProposalStatus({
               fill="currentColor"
             />
           </svg>
-          <div>Deposit Period</div>
+          <div>{t('deposit-period', 'Deposit Period')}</div>
         </div>
       );
     case ProposalStatusEnum.Failed:
@@ -90,7 +92,7 @@ export function ProposalStatus({
             />
           </svg>
 
-          <div>Failed</div>
+          <div>{t('failed', 'Failed')}</div>
         </div>
       );
     default:

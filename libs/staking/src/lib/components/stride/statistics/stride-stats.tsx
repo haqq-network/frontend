@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'usehooks-ts';
@@ -118,6 +119,7 @@ function StrideStatsDesktop({
   stIslmBalance: number;
   islmAmountFromStIslm: number;
 }) {
+  const { t } = useTranslate();
   const { handleDelegateContinue, handleUndelegateContinue } =
     useHandleDelegateContinue();
 
@@ -126,7 +128,7 @@ function StrideStatsDesktop({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Liquid staking
+          {t('liquid-staking', 'Liquid staking', { ns: 'staking' })}
         </Heading>
       </div>
 
@@ -135,7 +137,7 @@ function StrideStatsDesktop({
           <div className="flex flex-row gap-[24px]">
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Available"
+                title={t('available', 'Available', { ns: 'common' })}
                 value={formatNumber(balance)}
                 symbol="ISLM"
                 uppercaseSymbol={false}
@@ -143,7 +145,7 @@ function StrideStatsDesktop({
             </div>
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Staked"
+                title={t('staked', 'Staked', { ns: 'common' })}
                 value={formatNumber(stIslmBalance)}
                 symbol="stISLM"
                 uppercaseSymbol={false}
@@ -151,7 +153,9 @@ function StrideStatsDesktop({
             </div>
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="stISLM in ISLM"
+                title={t('stISLM-in-ISLM', 'stISLM in ISLM', {
+                  ns: 'staking',
+                })}
                 value={`≈${formatNumber(islmAmountFromStIslm)}`}
                 symbol="ISLM"
                 uppercaseSymbol={false}
@@ -170,7 +174,7 @@ function StrideStatsDesktop({
                 }}
                 data-attr="liquid-staking-delegate"
               >
-                Delegate
+                {t('delegate', 'Delegate', { ns: 'common' })}
               </Button>
             </div>
 
@@ -184,7 +188,7 @@ function StrideStatsDesktop({
                   handleUndelegateContinue();
                 }}
               >
-                Undelegate
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </Button>
             </div>
           </div>
@@ -203,6 +207,7 @@ function StrideStatsMobile({
   stIslmBalance: number;
   islmAmountFromStIslm: number;
 }) {
+  const { t } = useTranslate();
   const { handleDelegateContinue, handleUndelegateContinue } =
     useHandleDelegateContinue();
 
@@ -211,25 +216,27 @@ function StrideStatsMobile({
       <div className="flex flex-row items-center">
         <WalletIcon />
         <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Liquid staking
+          {t('liquid-staking', 'Liquid staking', { ns: 'staking' })}
         </Heading>
       </div>
 
       <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
-          title="Available"
+          title={t('available', 'Available', { ns: 'common' })}
           value={formatNumber(balance)}
           symbol="ISLM"
           uppercaseSymbol={false}
         />
         <StakingStatsMobileAmountBlock
-          title="Staked"
+          title={t('staked', 'Staked', { ns: 'common' })}
           value={formatNumber(stIslmBalance)}
           symbol="stISLM"
           uppercaseSymbol={false}
         />
         <StakingStatsMobileAmountBlock
-          title="stISLM in ISLM"
+          title={t('stISLM-in-ISLM', 'stISLM in ISLM', {
+            ns: 'staking',
+          })}
           value={`≈${formatNumber(islmAmountFromStIslm)}`}
           symbol="ISLM"
           uppercaseSymbol={false}
@@ -246,7 +253,7 @@ function StrideStatsMobile({
           }}
           data-attr="liquid-staking-delegate"
         >
-          Delegate
+          {t('delegate', 'Delegate', { ns: 'common' })}
         </Button>
 
         <Button
@@ -258,7 +265,7 @@ function StrideStatsMobile({
             handleUndelegateContinue();
           }}
         >
-          Undelegate
+          {t('undelegate', 'Undelegate', { ns: 'common' })}
         </Button>
       </div>
     </div>

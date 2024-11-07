@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { isAddress } from 'viem';
@@ -30,6 +31,7 @@ import {
 import { ConfirmModal } from './ucdao-confirm-modal';
 
 export function DaoTransferForm() {
+  const { t } = useTranslate();
   const { haqqAddress } = useAddress();
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const [targetAddress, setTargetAddress] = useState('');
@@ -93,14 +95,24 @@ export function DaoTransferForm() {
         await toast.promise(
           transfer(validatedAddress),
           {
-            loading: <ToastLoading>Transfer in progress</ToastLoading>,
+            loading: (
+              <ToastLoading>
+                {t('transfer-progress', 'Transfer in progress', {
+                  ns: 'uc-dao',
+                })}
+              </ToastLoading>
+            ),
             success: (tx) => {
               const txHash = tx.txhash;
 
               return (
                 <ToastSuccess>
                   <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                    <div>Transfer successful</div>
+                    <div>
+                      {t('transfer-success', 'Transfer successful', {
+                        ns: 'uc-dao',
+                      })}
+                    </div>
 
                     {txHash && (
                       <div>
@@ -153,7 +165,9 @@ export function DaoTransferForm() {
           <div className="flex flex-row items-center">
             <PlaneIcon />
             <Heading level={3} className="mb-[-2px] ml-[8px]">
-              Transfer coins ownership
+              {t('transfer-heading', 'Transfer coins ownership', {
+                ns: 'uc-dao',
+              })}
             </Heading>
           </div>
           <div className="flex flex-col gap-[16px] md:flex-row">
@@ -163,7 +177,7 @@ export function DaoTransferForm() {
                   htmlFor="targetAddress"
                   className="cursor-pointer text-[13px] font-[500] leading-[22px] text-white"
                 >
-                  Address
+                  {t('address', 'Address', { ns: 'common' })}
                 </label>
               </div>
               <div>
@@ -177,7 +191,11 @@ export function DaoTransferForm() {
                     'w-full',
                   )}
                   type="text"
-                  placeholder="Address in EVM/Bech32 format"
+                  placeholder={t(
+                    'address-placeholder',
+                    'Address in EVM/Bech32 format',
+                    { ns: 'uc-dao' },
+                  )}
                   required
                   id="targetAddress"
                   name="targetAddress"
@@ -197,7 +215,7 @@ export function DaoTransferForm() {
                 }}
                 className="w-full md:min-w-[120px]"
               >
-                Send
+                {t('send-button', 'Send', { ns: 'uc-dao' })}
               </Button>
             </div>
           </div>

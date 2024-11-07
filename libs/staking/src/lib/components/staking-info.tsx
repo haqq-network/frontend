@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
@@ -37,6 +38,7 @@ import { StakingStatsDesktop, StakingStatsMobile } from './staking-stats';
 import { shouldUsePrecompile } from '../constants';
 
 function useStakingStats() {
+  const { t } = useTranslate('staking');
   const [delegatedValsAddrs, setDelegatedValsAddrs] = useState<Array<string>>(
     [],
   );
@@ -95,7 +97,11 @@ function useStakingStats() {
       });
 
       await toast.promise(claimAllRewardPromise, {
-        loading: <ToastLoading>Rewards claim in progress</ToastLoading>,
+        loading: (
+          <ToastLoading>
+            {t('rewards-progress', 'Rewards claim in progress')}
+          </ToastLoading>
+        ),
         success: (tx) => {
           console.log('Rewards claimed', { tx });
           const txHash = tx?.txhash;
@@ -103,7 +109,7 @@ function useStakingStats() {
           return (
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                <div>Rewards claimed</div>
+                <div>{t('rewards-claimed', 'Rewards claimed')}</div>
                 <div>
                   <Link
                     href={`${explorerLink}/tx/${txHash}`}
@@ -142,6 +148,7 @@ function useStakingStats() {
       ]);
     }
   }, [
+    t,
     posthog,
     chain.id,
     getTotalRewards,
@@ -212,6 +219,7 @@ function useStakingStats() {
 }
 
 export function StakingInfo() {
+  const { t } = useTranslate('common');
   const { ethAddress, haqqAddress } = useAddress();
   const { openSelectWallet, isHaqqWallet } = useWallet();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
@@ -243,7 +251,7 @@ export function StakingInfo() {
       >
         <Container className="flex min-h-[100px] flex-col items-center justify-center gap-[12px]">
           <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-            You should connect wallet first
+            {t('connect-wallet-message', 'You should connect wallet first')}
           </div>
           <div>
             <Button
@@ -251,7 +259,7 @@ export function StakingInfo() {
               variant={2}
               className="text-black hover:bg-transparent hover:text-white"
             >
-              Connect wallet
+              {t('connect-wallet-button', 'Connect wallet')}
             </Button>
           </div>
         </Container>

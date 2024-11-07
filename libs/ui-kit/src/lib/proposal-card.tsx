@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import { Card, CardHeading } from './card';
@@ -51,6 +52,7 @@ export function ProposalCard({
   userVote?: string | null;
   className?: string;
 }) {
+  const { t } = useTranslate('common');
   const proposalColor = useMemo(() => {
     if (status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD') {
       return 'blue';
@@ -92,14 +94,14 @@ export function ProposalCard({
             <ProposalPeriodTimer
               color={proposalColor}
               date={depositEndDate}
-              title="Deposit end"
+              title={t('deposit-end', 'Deposit end')}
             />
           )}
           {status === ProposalStatusEnum.Voting && votingEndDate && (
             <ProposalPeriodTimer
               color={proposalColor}
               date={votingEndDate}
-              title="Voting end"
+              title={t('voting-end', 'Voting end')}
             />
           )}
           {(status === ProposalStatusEnum.Rejected ||
@@ -109,7 +111,7 @@ export function ProposalCard({
               <div className="my-[2px] flex flex-row items-center gap-[32px] md:my-0">
                 {votingStartDate && (
                   <InfoBlock
-                    title="Voting start"
+                    title={t('voting-start', 'Voting Start')}
                     className={clsx(
                       status === ProposalStatusEnum.Failed && '!text-white/50',
                     )}
@@ -119,7 +121,7 @@ export function ProposalCard({
                 )}
                 {votingEndDate && (
                   <InfoBlock
-                    title="Voting end"
+                    title={t('voting-end', 'Voting end')}
                     className={clsx(
                       status === ProposalStatusEnum.Failed && '!text-white/50',
                     )}

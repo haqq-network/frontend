@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Validator } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
@@ -48,6 +49,7 @@ export function RedelegateModalHooked({
   validatorsList,
   balance,
 }: RedelegateModalProps) {
+  const { t } = useTranslate('staking');
   const { haqqAddress, ethAddress } = useAddress();
 
   const { data: redelegationValidatorAmount } = useRedelegationValidatorAmount(
@@ -107,7 +109,11 @@ export function RedelegateModalHooked({
         await toast.promise(
           redelegationPromise,
           {
-            loading: <ToastLoading>Redelegate in progress</ToastLoading>,
+            loading: (
+              <ToastLoading>
+                {t('redelegate-progress', 'Redelegate in progress')}
+              </ToastLoading>
+            ),
             success: (tx) => {
               console.log('Redelegation successful', { tx });
               const txHash = tx?.txhash;
@@ -126,7 +132,9 @@ export function RedelegateModalHooked({
               return (
                 <ToastSuccess>
                   <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                    <div>Redelegation successful</div>
+                    <div>
+                      {t('redelegate-success', 'Redelegation successful')}
+                    </div>
                     <div>
                       <Link
                         href={`${explorerLink}/tx/${txHash}`}
@@ -181,6 +189,7 @@ export function RedelegateModalHooked({
     memo,
     fee,
     toast,
+    t,
     onClose,
     explorerLink,
     invalidateQueries,

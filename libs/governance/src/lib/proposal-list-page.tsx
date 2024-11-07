@@ -1,6 +1,7 @@
 'use client';
 import { useMemo } from 'react';
 import { ProposalStatus } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import {
   useAddress,
@@ -14,6 +15,7 @@ import { Container, SpinnerLoader } from '@haqq/shell-ui-kit/server';
 import { ProposalListCard } from './components/proposal-list-card';
 
 export function ProposalListPage() {
+  const { t } = useTranslate();
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData } = useProposalListQuery();
   const symbol = 'ISLM';
@@ -98,7 +100,7 @@ export function ProposalListPage() {
         <div className="pt-[32px] lg:pt-[68px]">
           <Container>
             <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-              Governance
+              {t('governance', 'Governance', { ns: 'common' })}
             </div>
           </Container>
         </div>
@@ -111,7 +113,9 @@ export function ProposalListPage() {
               <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
                 <SpinnerLoader />
                 <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-                  Fetching proposals
+                  {t('fetching-proposals', 'Fetching proposals', {
+                    ns: 'common',
+                  })}
                 </div>
               </div>
             </div>

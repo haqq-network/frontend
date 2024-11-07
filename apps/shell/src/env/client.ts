@@ -11,6 +11,8 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_HOST: z.string().min(3).optional(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string().min(3).optional(),
     NEXT_PUBLIC_GIT_COMMIT_SHA: z.string().min(3).optional(),
+    NEXT_PUBLIC_TOLGEE_API_KEY: z.string().min(1),
+    NEXT_PUBLIC_TOLGEE_API_URL: z.string().min(1),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:
@@ -30,5 +32,7 @@ export const env = createEnv({
       process.env['NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA'] ??
       process.env['VERCEL_GIT_COMMIT_SHA'] ??
       'dev',
+    NEXT_PUBLIC_TOLGEE_API_KEY: process.env['NEXT_PUBLIC_TOLGEE_API_KEY'],
+    NEXT_PUBLIC_TOLGEE_API_URL: process.env['NEXT_PUBLIC_TOLGEE_API_URL'],
   },
 });
