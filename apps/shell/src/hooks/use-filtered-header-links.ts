@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 import { Chain } from 'wagmi/chains';
 import { HeaderLink } from '@haqq/shell-ui-kit';
-import { headerLinks } from '../config/header-links';
+import { useHeaderLinks } from '../config/use-header-links';
 
 export function useFilteredLinks(chain: Chain) {
+  const headerLinks = useHeaderLinks();
   const links = useMemo(() => {
     return headerLinks
       .map((link) => {
@@ -24,7 +25,7 @@ export function useFilteredLinks(chain: Chain) {
         return null;
       })
       .filter(Boolean) as HeaderLink[];
-  }, [chain.id]);
+  }, [chain.id, headerLinks]);
 
   return links;
 }

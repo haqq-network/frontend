@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { MagnifierIcon } from './icons';
 
@@ -11,6 +12,7 @@ export function SearchInput({
   onChange: (value: string) => void;
   className?: string;
 }) {
+  const { t } = useTranslate('common');
   return (
     <div className="relative">
       <MagnifierIcon className="absolute left-[16px] top-[12px] h-[24px] w-[24px] text-[#FFFFFF80]" />
@@ -24,7 +26,7 @@ export function SearchInput({
           'bg-[#252528] hover:bg-[#3A3A3A] focus:bg-[#3A3A3A]',
           className,
         )}
-        placeholder="Search by name"
+        placeholder={t('search-by-name', 'Search by name')}
         onChange={(event) => {
           onChange(event.target.value);
         }}

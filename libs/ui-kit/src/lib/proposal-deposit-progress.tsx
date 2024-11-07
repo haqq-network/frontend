@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { T, useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { CardSubText, CardText } from './card';
 import { formatNumber } from '../server';
@@ -14,6 +15,7 @@ export function ProposalDepositProgress({
   minDeposit: number;
   symbol: string;
 }) {
+  const { t } = useTranslate('common');
   const percent = useMemo(() => {
     return Math.min((totalDeposit / minDeposit) * 100, 100);
   }, [minDeposit, totalDeposit]);
@@ -22,13 +24,19 @@ export function ProposalDepositProgress({
     <div className="flex w-full flex-col space-y-[8px]">
       <div className="flex items-center space-x-[12px]">
         <CardText className="text-[13px] leading-[20px] lg:text-[16px] lg:leading-[26px]">
-          Total deposit
+          {t('total-deposit', 'Total deposit')}
         </CardText>
         {userDeposit !== undefined && userDeposit > 0 && (
           <div className="inline-flex space-x-[6px]">
             <CardSubText className="text-white/50">
-              You Deposited:{' '}
-              <span className="text-white">{formatNumber(userDeposit)}</span>
+              <T
+                keyName="you-deposited"
+                defaultValue="You Deposited: <span>{amount}</span>"
+                params={{
+                  amount: formatNumber(userDeposit),
+                  span: <span className="text-white" />,
+                }}
+              />
             </CardSubText>
           </div>
         )}
@@ -45,8 +53,15 @@ export function ProposalDepositProgress({
       </div>
 
       <div className="font-guise text-[12px] leading-[1.5em] lg:text-[14px] lg:leading-[22px]">
-        {formatNumber(totalDeposit)} {symbol.toLocaleUpperCase()} from{' '}
-        {formatNumber(minDeposit)} {symbol.toLocaleUpperCase()}
+        {t(
+          'deposit-total-from-min',
+          '{totalDeposit} {symbol} from {minDeposit} {symbol}',
+          {
+            totalDeposit: formatNumber(totalDeposit),
+            minDeposit: formatNumber(minDeposit),
+            symbol: symbol.toLocaleUpperCase(),
+          },
+        )}
       </div>
     </div>
   );

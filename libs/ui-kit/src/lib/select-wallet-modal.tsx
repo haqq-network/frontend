@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { Button } from './button';
 import { Modal, ModalCloseButton, ModalHeading } from './modal';
@@ -27,6 +28,7 @@ export function SelectWalletModal({
   deeplink?: string;
   isHaqqWallet: boolean;
 }) {
+  const { t } = useTranslate('common');
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div
@@ -42,7 +44,9 @@ export function SelectWalletModal({
 
         <div className="flex w-full flex-col">
           <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
-            <ModalHeading>Select wallet</ModalHeading>
+            <ModalHeading>
+              {t('select-wallet-heading', 'Select wallet')}
+            </ModalHeading>
           </div>
 
           <div className="flex flex-col space-y-2">
@@ -55,7 +59,7 @@ export function SelectWalletModal({
                   variant={4}
                   className="w-full min-w-[220px]"
                 >
-                  Open in HAQQ Wallet
+                  {t('open-in-haqq-wallet', 'Open in HAQQ Wallet')}
                 </Button>
               </div>
             )}
@@ -72,8 +76,8 @@ export function SelectWalletModal({
                   >
                     {connector.name === 'WalletConnect'
                       ? isMobileUA
-                        ? 'WalletConnect'
-                        : 'Scan with HAQQ Wallet'
+                        ? t('wallet-connect', 'WalletConnect')
+                        : t('scan-with-haqq-wallet', 'Scan with HAQQ Wallet')
                       : connector.name}
                   </Button>
                 </div>

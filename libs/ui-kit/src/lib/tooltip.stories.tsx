@@ -16,6 +16,7 @@ export const Tooltip: Story = {
   args: {
     children: 'Hover me!',
     text: (
+      // eslint-disable-next-line i18next/no-literal-string
       <div className="min-w-[260px]">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit.
       </div>

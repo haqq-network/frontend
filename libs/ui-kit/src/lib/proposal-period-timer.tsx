@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Countdown from 'react-countdown';
 
@@ -11,6 +12,7 @@ export function ProposalPeriodTimer({
   color: 'green' | 'gray' | 'red' | 'yellow' | 'blue';
   title: string;
 }) {
+  const { t } = useTranslate('common');
   return (
     <div className="flex flex-row items-center gap-[12px]">
       <div
@@ -60,7 +62,8 @@ export function ProposalPeriodTimer({
               <div className="font-clash flex flex-row gap-[8px] text-[14px] font-[500] leading-[18px] text-white/50 md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
                 {days > 0 && (
                   <div>
-                    <span className="text-white">{days}</span> Days
+                    <span className="text-white">{days}</span>{' '}
+                    {t('days', 'Days')}
                   </div>
                 )}
                 {hours > 0 && (
@@ -68,7 +71,7 @@ export function ProposalPeriodTimer({
                     <span className="text-white">
                       {hours < 10 ? '0' + hours : hours}
                     </span>{' '}
-                    Hours
+                    {t('hours', 'Hours')}
                   </div>
                 )}
                 {minutes > 0 && (
@@ -76,14 +79,14 @@ export function ProposalPeriodTimer({
                     <span className="text-white">
                       {minutes < 10 ? '0' + minutes : minutes}
                     </span>{' '}
-                    Min
+                    {t('minutes-shortened', 'Min')}
                   </div>
                 )}
                 <div>
                   <span className="text-white">
                     {seconds < 10 ? '0' + seconds : seconds}
                   </span>{' '}
-                  Sec
+                  {t('seconds-shortened', 'Sec')}
                 </div>
               </div>
             );
