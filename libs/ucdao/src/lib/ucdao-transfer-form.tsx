@@ -215,7 +215,7 @@ export function DaoTransferForm() {
                 }}
                 className="w-full md:min-w-[120px]"
               >
-                {t('send-button', 'Send', { ns: 'common' })}
+                {t('send-button', 'Send', { ns: 'uc-dao' })}
               </Button>
             </div>
           </div>

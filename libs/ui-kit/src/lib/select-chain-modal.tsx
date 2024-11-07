@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { Button } from './button';
 import { Modal, ModalCloseButton, ModalHeading } from './modal';
@@ -16,6 +17,7 @@ export function SelectChainModal({
   chains: { id: number; name: string }[];
   onChainSelect: (chainId: number) => void;
 }) {
+  const { t } = useTranslate('common');
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div
@@ -31,14 +33,15 @@ export function SelectChainModal({
 
         <div className="flex w-full flex-col gap-[24px] pt-[24px] sm:pt-[4px]">
           <div>
-            <ModalHeading>Select network</ModalHeading>
+            <ModalHeading>{t('select-network', 'Select network')}</ModalHeading>
           </div>
 
           <div>
             <div className="font-guise text-[15px] leading-[24px]">
-              Your current action cannot be performed as the application is
-              connected to an unsupported network. Please select one of the
-              supported networks from the list below to proceed.
+              {t(
+                'unsupported-network-message',
+                'Your current action cannot be performed as the application is connected to an unsupported network. Please select one of the supported networks from the list below to proceed.',
+              )}
             </div>
           </div>
 

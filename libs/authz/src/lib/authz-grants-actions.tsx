@@ -199,7 +199,7 @@ export function AuthzGrantsActions() {
       await toast.promise(grantPromise, {
         loading: (
           <ToastLoading>
-            {t('grant-loading', 'Grant in progress', { ns: 'common' })}
+            {t('grant-loading', 'Grant in progress', { ns: 'authz' })}
           </ToastLoading>
         ),
         success: (tx) => {
@@ -210,7 +210,7 @@ export function AuthzGrantsActions() {
             <ToastSuccess>
               <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
                 <div>
-                  {t('grant-success', 'Grant successful', { ns: 'common' })}
+                  {t('grant-success', 'Grant successful', { ns: 'authz' })}
                 </div>
                 <div>
                   <Link
@@ -314,7 +314,7 @@ export function AuthzGrantsActions() {
           <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px]">
             <div>
               <Heading level={3} className="mb-[-2px]">
-                {t('grant-access', 'Grant access', { ns: 'common' })}
+                {t('grant-access', 'Grant access', { ns: 'authz' })}
               </Heading>
             </div>
 
@@ -328,7 +328,7 @@ export function AuthzGrantsActions() {
                         className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
                       >
                         {t('grantee-address', 'Grantee address', {
-                          ns: 'common',
+                          ns: 'authz',
                         })}
                       </label>
                     </div>
@@ -356,7 +356,7 @@ export function AuthzGrantsActions() {
 
                   <div>
                     <Select
-                      label={t('grant-type', 'Grant type', { ns: 'common' })}
+                      label={t('grant-type', 'Grant type', { ns: 'authz' })}
                       selectContainerClassName="w-full max-w-xl"
                       onChange={(type) => {
                         if (type) {
@@ -371,7 +371,7 @@ export function AuthzGrantsActions() {
                   <div>
                     <Select
                       label={t('grant-period', 'Grant period', {
-                        ns: 'common',
+                        ns: 'authz',
                       })}
                       selectContainerClassName="w-full max-w-xl"
                       onChange={(period) => {
@@ -390,7 +390,7 @@ export function AuthzGrantsActions() {
                         htmlFor="memo"
                         className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
                       >
-                        {t('memo', 'Memo', { ns: 'common' })}
+                        {t('memo', 'Memo', { ns: 'authz' })}
                       </label>
                     </div>
                     <div>
@@ -424,7 +424,7 @@ export function AuthzGrantsActions() {
                       variant={2}
                       disabled={!isGranteeValid}
                     >
-                      {t('grant-access', 'Grant access', { ns: 'common' })}
+                      {t('grant-access', 'Grant access', { ns: 'authz' })}
                     </Button>
                   </div>
                 </div>
@@ -445,7 +445,7 @@ export function AuthzGrantsActions() {
                   <div>
                     <Heading level={3} className="mb-[-2px]">
                       {t('selected-grantee', 'Selected grantee', {
-                        ns: 'common',
+                        ns: 'authz',
                       })}
                     </Heading>
                   </div>
@@ -456,6 +456,9 @@ export function AuthzGrantsActions() {
                         {t(
                           'invalid-grantee-wallet-message',
                           'You should enter valid grantee wallet to see info',
+                          {
+                            ns: 'authz',
+                          },
                         )}
                       </div>
                     </div>

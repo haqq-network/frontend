@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import { formatNumber } from '../server';
 
 export function StakedVestedBalance({
@@ -18,6 +19,7 @@ export function StakedVestedBalance({
   daoLocked: number;
   unbonding: number;
 }) {
+  const { t } = useTranslate('common');
   const {
     vestedPercent,
     stakedPercent,
@@ -104,24 +106,38 @@ export function StakedVestedBalance({
       </div>
       <div className="flex select-none flex-col justify-between pt-[4px] text-[12px] font-[500] leading-[18px]">
         {vested > 0 && (
-          <div className="text-[#E3A13F]">Vested: {formatNumber(vested)}</div>
+          <div className="text-[#E3A13F]">
+            {t('vested-amount', 'Vested: {amount}', {
+              amount: formatNumber(vested),
+            })}
+          </div>
         )}
         {staked > 0 && (
-          <div className="text-[#0489D4]">Staked: {formatNumber(staked)}</div>
+          <div className="text-[#0489D4]">
+            {t('staked-amount', 'Staked: {amount}', {
+              amount: formatNumber(staked),
+            })}
+          </div>
         )}
         {daoLocked > 0 && (
           <div className="text-[#04D484]">
-            UnitedContributorsDAO: {formatNumber(daoLocked)}
+            {t('dao-amount', 'UnitedContributorsDAO: {amount}', {
+              amount: formatNumber(daoLocked),
+            })}
           </div>
         )}
         {unbonding > 0 && (
           <div className="text-white/50">
-            Unbonding: {formatNumber(unbonding)}
+            {t('unbonding-amount', 'Unbonding: {amount}', {
+              amount: formatNumber(unbonding),
+            })}
           </div>
         )}
         {liquidStaked > 0 && (
           <div className="text-haqq-orange">
-            Liquid Staked: {formatNumber(liquidStaked)}
+            {t('liquid-staked-amount', 'Liquid Staked: {amount}', {
+              amount: formatNumber(liquidStaked),
+            })}
           </div>
         )}
       </div>

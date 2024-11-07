@@ -1,4 +1,5 @@
 'use client';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { ModalHeading, Modal, ModalCloseButton } from './modal';
 
@@ -11,6 +12,7 @@ export function LowBalanceAlert({
   onClose: () => void;
   className?: string;
 }) {
+  const { t } = useTranslate('common');
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div
@@ -26,13 +28,15 @@ export function LowBalanceAlert({
 
         <div className="flex w-full flex-col gap-[24px] pt-[24px] sm:pt-[4px]">
           <div>
-            <ModalHeading>Low balance</ModalHeading>
+            <ModalHeading>{t('low-balance-title', 'Low balance')}</ModalHeading>
           </div>
 
           <div>
             <div className="font-guise text-[15px] leading-[24px]">
-              Not enough balance for the commission fee. Transfer funds to your
-              account to proceed.
+              {t(
+                'low-balance-message',
+                'Not enough balance for the commission fee. Transfer funds to your account to proceed.',
+              )}
             </div>
           </div>
         </div>

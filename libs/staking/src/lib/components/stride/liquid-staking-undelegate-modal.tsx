@@ -112,17 +112,24 @@ export function LiquidStakingUndelegateModal({
                 className="mt-[3px]"
                 wrapperClassName="mt-[24px]"
               >
-                {`The funds will be undelegate within ${unboundingTime} day`}
+                {t(
+                  'funds-undelegated-in-days',
+                  'The funds will be undelegated within {count, plural, one {# day} other {# days}}',
+                  {
+                    ns: 'staking',
+                    count: unboundingTime,
+                  },
+                )}
               </WarningMessage>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title="My balance"
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title="My delegation"
+                  title={t('my-delegation', 'My delegation', { ns: 'staking' })}
                   value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -140,7 +147,11 @@ export function LiquidStakingUndelegateModal({
                 <StringInput
                   value={strideAddress}
                   onChange={setStrideAddress}
-                  placeholder="Use your Stride address here"
+                  placeholder={t(
+                    'use-stride-address-placeholder',
+                    'Use your Stride address here',
+                    { ns: 'staking' },
+                  )}
                   hint={
                     <span className="text-haqq-danger">
                       {t(
