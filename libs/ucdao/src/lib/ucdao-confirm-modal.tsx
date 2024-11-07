@@ -25,7 +25,7 @@ export function ConfirmModal({
   address: string;
   className?: string;
 }) {
-  const { t } = useTranslate();
+  const { t } = useTranslate('uc-dao');
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <div
@@ -42,7 +42,7 @@ export function ConfirmModal({
         <div className="flex w-full flex-col">
           <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
             <ModalHeading>
-              {t('select-wallet-heading', 'Select wallet', { ns: 'uc-dao' })}
+              {t('select-wallet-heading', 'Select wallet')}
             </ModalHeading>
           </div>
 
@@ -51,7 +51,6 @@ export function ConfirmModal({
               {t(
                 'confirm-ownership-transfer',
                 'You confirm you want to transfer coins ownership in DAO',
-                { ns: 'uc-dao' },
               )}{' '}
               <DaoBalanceConfirmAmount
                 balance={nativeTokenAmount}
@@ -59,7 +58,6 @@ export function ConfirmModal({
               />
               <T
                 keyName="to-the-address"
-                ns="uc-dao"
                 defaultValue=" - to the address <b>{address}</b> ?"
                 params={{ address, b: <b /> }}
               />
@@ -76,12 +74,12 @@ export function ConfirmModal({
                   )}
                   onClick={onClose}
                 >
-                  {t('cancel-button', 'Cancel', { ns: 'common' })}
+                  {t('cancel-button', 'Cancel')}
                 </button>
               </div>
               <div className="flex-1">
                 <Button variant={5} onClick={onConfirm} className="w-full">
-                  {t('confirm-button', 'Confirm', { ns: 'common' })}
+                  {t('confirm-button', 'Confirm')}
                 </Button>
               </div>
             </div>

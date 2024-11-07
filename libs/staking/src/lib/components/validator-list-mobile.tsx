@@ -20,7 +20,7 @@ export function ValidatorsListMobile({
   onValidatorClick: (validatorAddress: string) => void;
   totalStaked: number;
 }) {
-  const { t } = useTranslate('common');
+  const { t } = useTranslate('staking');
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
