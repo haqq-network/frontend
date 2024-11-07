@@ -416,7 +416,7 @@ export function ProposalDetailsComponent({
                     <div>
                       <InfoBlock
                         title={t('total-deposit', 'Total deposit', {
-                          ns: 'governance',
+                          ns: 'common',
                         })}
                       >
                         {formatNumber(totalDeposit)}{' '}

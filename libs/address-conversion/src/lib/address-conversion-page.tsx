@@ -94,7 +94,7 @@ export function AddressConversionPage() {
         <Container>
           <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
             {t('address-conversion-title', 'Address Conversion', {
-              ns: 'utils',
+              ns: 'common',
             })}
           </div>
         </Container>

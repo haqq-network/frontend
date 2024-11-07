@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 import { Card, CardHeading, CardSubText, CardText, TimerText } from './card';
 
 export default {

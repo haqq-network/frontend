@@ -39,7 +39,7 @@ export function FaucetPage({
   serviceEndpoint: string;
   reCaptchaSiteKey: string;
 }): ReactElement {
-  const { t } = useTranslate('faucet');
+  const { t } = useTranslate();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
   const { switchChainAsync } = useSwitchChain();
@@ -184,7 +184,7 @@ export function FaucetPage({
         <div>
           <Container>
             <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-              {t('faucet', 'Faucet')}
+              {t('faucet', 'Faucet', { ns: 'common' })}
             </div>
           </Container>
         </div>
@@ -204,7 +204,7 @@ export function FaucetPage({
                   <div className="flex flex-row items-center">
                     <WalletIcon />
                     <Heading level={3} className="mb-[-2px] ml-[8px]">
-                      {t('wallet', 'Wallet')}
+                      {t('wallet', 'Wallet', { ns: 'faucet' })}
                     </Heading>
                   </div>
 
@@ -214,6 +214,7 @@ export function FaucetPage({
                       onClick={handleNetworkSwitch}
                     >
                       {t('switch-chain', 'Switch to {chain}', {
+                        ns: 'faucet',
                         chain: chain.name,
                       })}
                     </OrangeLink>
@@ -260,7 +261,7 @@ export function FaucetPage({
                   </svg>
 
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    {t('github', 'Github')}
+                    {t('github', 'Github', { ns: 'faucet' })}
                   </Heading>
                 </div>
 
@@ -288,7 +289,7 @@ export function FaucetPage({
                     disabled={isAuth0Loading}
                     variant={2}
                   >
-                    {t('login-github', 'Login with github')}
+                    {t('login-github', 'Login with github', { ns: 'faucet' })}
                   </Button>
                 )}
               </div>
@@ -299,7 +300,7 @@ export function FaucetPage({
                 <div className="flex flex-row items-center">
                   <EarnIcon className="h-[26px] w-[26px]" />
                   <Heading level={3} className="mb-[-2px] ml-[8px]">
-                    {t('claim-tokens', 'Claim tokens')}
+                    {t('claim-tokens', 'Claim tokens', { ns: 'faucet' })}
                   </Heading>
                 </div>
 
@@ -318,7 +319,9 @@ export function FaucetPage({
                               className="w-full"
                               onClick={handleRequestTokens}
                             >
-                              {t('request-tokens', 'Request tokens')}
+                              {t('request-tokens', 'Request tokens', {
+                                ns: 'faucet',
+                              })}
                             </Button>
                           </div>
                         ) : (
@@ -337,7 +340,9 @@ export function FaucetPage({
                       <div className="flex flex-row items-center gap-[12px]">
                         <SuccessIndicator size="44px" color="#01B26E" />
                         <p className="text-[13px] font-[500] leading-[22px] text-white lg:text-[18px] lg:leading-[28px]">
-                          {t('tokens-claimed', 'Tokens claimed')}
+                          {t('tokens-claimed', 'Tokens claimed', {
+                            ns: 'faucet',
+                          })}
                         </p>
                       </div>
                     )}
@@ -351,6 +356,7 @@ export function FaucetPage({
                         title={t(
                           'next-token-request-available',
                           'Next request tokens available after',
+                          { ns: 'faucet' },
                         )}
                       />
                     )}
