@@ -49,6 +49,7 @@
   "undelegation-declined": "Undelegation declined",
   "undelegation-progress": "Undelegation in progress",
   "undelegation-success": "Undelegation successful",
+  "use-stride-address-placeholder": "Use your Stride address here",
   "validator": "Validator",
   "validator-inactive-warning": "While the validator is inactive, you will not be able to receive a reward.",
   "validator-info-loading": "Fetching validator information",

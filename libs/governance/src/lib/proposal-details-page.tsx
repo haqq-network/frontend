@@ -564,7 +564,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('created-at', 'Created at (gmt)', {
+                                      {t('created-at', 'Created at (GMT)', {
                                         ns: 'governance',
                                       })}
                                     </ProposalDatesText>
@@ -589,7 +589,7 @@ export function ProposalDetailsComponent({
                                     <ProposalDatesText className="text-white/50">
                                       {t(
                                         'deposit-end-gmt',
-                                        'Deposit end (gmt)',
+                                        'Deposit end (GMT)',
                                         {
                                           ns: 'governance',
                                         },
@@ -616,7 +616,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('vote-start', 'Vote start (gmt)', {
+                                      {t('vote-start', 'Vote start (GMT)', {
                                         ns: 'governance',
                                       })}
                                     </ProposalDatesText>
@@ -641,7 +641,7 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('vote-end', 'Vote end (gmt)', {
+                                      {t('vote-end', 'Vote end (GMT)', {
                                         ns: 'governance',
                                       })}
                                     </ProposalDatesText>
