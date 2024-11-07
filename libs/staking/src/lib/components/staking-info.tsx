@@ -148,6 +148,7 @@ function useStakingStats() {
       ]);
     }
   }, [
+    t,
     posthog,
     chain.id,
     getTotalRewards,

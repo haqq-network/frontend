@@ -1103,7 +1103,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES
             }
           >
-            {t('vote-option-yes', 'Yes', { ns: 'governance' })}
+            {t('vote-option-yes', 'Yes', { ns: 'common' })}
           </VoteButton>
         </div>
         <div>
@@ -1119,7 +1119,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO
             }
           >
-            {t('vote-option-no', 'No', { ns: 'governance' })}
+            {t('vote-option-no', 'No', { ns: 'common' })}
           </VoteButton>
         </div>
         <div>
@@ -1135,7 +1135,7 @@ export function VoteActions({
               voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_ABSTAIN
             }
           >
-            {t('vote-option-abstain', 'Abstain', { ns: 'governance' })}
+            {t('vote-option-abstain', 'Abstain', { ns: 'common' })}
           </VoteButton>
         </div>
         <div>
@@ -1152,7 +1152,7 @@ export function VoteActions({
               VoteOption.VOTE_OPTION_NO_WITH_VETO
             }
           >
-            {t('vote-option-veto', 'Veto', { ns: 'governance' })}
+            {t('vote-option-no-with-veto', 'No with veto', { ns: 'common' })}
           </VoteButton>
         </div>
       </div>

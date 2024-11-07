@@ -25,7 +25,7 @@ export function ConfirmModal({
   address: string;
   className?: string;
 }) {
-  const { t } = useTranslate('uc-dao');
+  const { t } = useTranslate();
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <div
@@ -42,7 +42,7 @@ export function ConfirmModal({
         <div className="flex w-full flex-col">
           <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
             <ModalHeading>
-              {t('select-wallet-heading', 'Select wallet')}
+              {t('select-wallet-heading', 'Select wallet', { ns: 'common' })}
             </ModalHeading>
           </div>
 
@@ -51,6 +51,7 @@ export function ConfirmModal({
               {t(
                 'confirm-ownership-transfer',
                 'You confirm you want to transfer coins ownership in DAO',
+                { ns: 'uc-dao' },
               )}{' '}
               <DaoBalanceConfirmAmount
                 balance={nativeTokenAmount}
@@ -74,12 +75,12 @@ export function ConfirmModal({
                   )}
                   onClick={onClose}
                 >
-                  {t('cancel-button', 'Cancel')}
+                  {t('cancel-button', 'Cancel', { ns: 'common' })}
                 </button>
               </div>
               <div className="flex-1">
                 <Button variant={5} onClick={onConfirm} className="w-full">
-                  {t('confirm-button', 'Confirm')}
+                  {t('confirm-button', 'Confirm', { ns: 'uc-dao' })}
                 </Button>
               </div>
             </div>

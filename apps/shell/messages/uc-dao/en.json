@@ -10,7 +10,6 @@
   "deposit-dao": "Deposit to DAO",
   "islm-and-liquid-balance": "<b>{balanceNum} ISLM</b> and <b>{tokensNum} LIQUID</b>",
   "my-account": "My account",
-  "select-wallet-heading": "Select wallet",
   "send-button": "Send",
   "to-the-address": " - to the address <b>{address}</b> ?",
   "token-count": "{count, plural, other {<b>{count} LIQUID</b> tokens}}",

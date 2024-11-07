@@ -1,5 +1,6 @@
 import { ReactElement, useMemo } from 'react';
 import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { CardSubText, CardText } from './card';
 import { formatNumber } from '../utils/format-number';
@@ -55,6 +56,7 @@ export function ProposalVoteProgress({
   userVote?: string | null;
   status?: string;
 }): ReactElement {
+  const { t } = useTranslate('common');
   const { yes, abstain, no, veto, total } = useMemo(() => {
     const yes = Number.parseInt(results.yes);
     const abstain = Number.parseInt(results.abstain);
@@ -95,27 +97,29 @@ export function ProposalVoteProgress({
           </CardText>
           {userVote && (
             <div className="inline-flex space-x-[6px]">
-              <CardSubText className="text-white/50">You voted:</CardSubText>
+              <CardSubText className="text-white/50">
+                {t('you-voted', 'You voted:')}
+              </CardSubText>
               {voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES && (
                 <CardSubText className="uppercase text-[#01B26E]">
-                  Yes
+                  {t('vote-option-yes', 'Yes')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO && (
                 <CardSubText className="uppercase text-[#FF5454]">
-                  No
+                  {t('vote-option-no', 'No')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) ===
                 VoteOption.VOTE_OPTION_NO_WITH_VETO && (
                 <CardSubText className="uppercase text-[#E3A13F]">
-                  No with veto
+                  {t('vote-option-no-with-veto', 'No with veto')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) ===
                 VoteOption.VOTE_OPTION_ABSTAIN && (
                 <CardSubText className="uppercase text-[#AAABB2]">
-                  Abstain
+                  {t('vote-option-abstain', 'Abstain')}
                 </CardSubText>
               )}
             </div>
@@ -179,7 +183,7 @@ export function ProposalVoteProgress({
             <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
             <div className="mr-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                Yes
+                {t('vote-option-yes', 'Yes')}
               </CardText>
             </div>
             <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
@@ -191,7 +195,7 @@ export function ProposalVoteProgress({
             <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
             <div className="mr-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                No
+                {t('vote-option-no', 'No')}
               </CardText>
             </div>
             <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
@@ -203,7 +207,7 @@ export function ProposalVoteProgress({
             <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
             <div className="mr-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                Abstain
+                {t('vote-option-abstain', 'Abstain')}
               </CardText>
             </div>
             <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
@@ -215,7 +219,7 @@ export function ProposalVoteProgress({
             <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
             <div className="mr-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                No with veto
+                {t('vote-option-no-with-veto', 'No with veto')}
               </CardText>
             </div>
             <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">

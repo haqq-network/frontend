@@ -1,5 +1,4 @@
 {
-  "active-status": "Active",
   "amount-error-more-than-delegation": "More than your delegation",
   "annualized-yield": "Annual percentage yield",
   "apy": "APY",
@@ -20,8 +19,6 @@
   "funds-undelegated-in-days": "{count, plural, one {The funds will be undelegated within # day} other {The funds will be undelegated within # days}}",
   "get-my-rewards": "Get my rewards",
   "get-rewards": "Get rewards",
-  "inactive-status": "Inactive",
-  "jailed-status": "Jailed",
   "liquid-staking": "Liquid staking",
   "max": "Max",
   "max-change": "Max Change",

@@ -1,9 +1,5 @@
 {
   "vote-in-progress": "Голосование в процессе",
-  "vote-option-abstain": "Воздержаться",
-  "vote-option-no": "Против",
-  "vote-option-veto": "Вето",
-  "vote-option-yes": "За",
   "vote-will-count": "Ваш голос будет учтен!!!",
   "your-balance": "Ваш баланс: {balance} {symbol}"
 }
