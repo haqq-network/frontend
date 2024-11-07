@@ -135,7 +135,7 @@ function ProposalDetailsMobile({
   quorum: number;
   userVote?: string | null;
 }) {
-  const { t } = useTranslate('governance');
+  const { t } = useTranslate('common');
 
   return (
     <div className="mt-[24px] flex flex-col gap-[24px] md:mt-[28px] md:gap-[28px]">
@@ -490,7 +490,7 @@ export function ProposalDetailsComponent({
                     </InfoBlock>
                     <InfoBlock
                       title={t('deposit-end', 'Deposit end', {
-                        ns: 'governance',
+                        ns: 'common',
                       })}
                     >
                       {formatDate(new Date(proposalDetails.deposit_end_time))}
@@ -587,9 +587,13 @@ export function ProposalDetailsComponent({
                                 <tr>
                                   <td className="py-[4px] pr-[20px]">
                                     <ProposalDatesText className="text-white/50">
-                                      {t('deposit-end', 'Deposit end (gmt)', {
-                                        ns: 'governance',
-                                      })}
+                                      {t(
+                                        'deposit-end-gmt',
+                                        'Deposit end (gmt)',
+                                        {
+                                          ns: 'governance',
+                                        },
+                                      )}
                                     </ProposalDatesText>
                                   </td>
                                   <td>
@@ -694,7 +698,7 @@ export function ProposalDetailsComponent({
                             color="blue"
                             date={new Date(proposalDetails.deposit_end_time)}
                             title={t('deposit-end', 'Deposit end', {
-                              ns: 'governance',
+                              ns: 'common',
                             })}
                           />
                         )}
@@ -704,7 +708,7 @@ export function ProposalDetailsComponent({
                             color="green"
                             date={new Date(proposalDetails.voting_end_time)}
                             title={t('voting-end', 'Voting end', {
-                              ns: 'governance',
+                              ns: 'common',
                             })}
                           />
                         )}
@@ -1233,7 +1237,7 @@ export function DepositInput({
   value: number | undefined;
   disabled?: boolean;
 }) {
-  const { t } = useTranslate('governance');
+  const { t } = useTranslate('common');
   return (
     <div className={clsx('relative rounded-[6px] bg-[#252528]', className)}>
       <input
