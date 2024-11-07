@@ -3,6 +3,7 @@ import {
   InputHTMLAttributes,
   ReactNode,
   useCallback,
+  useMemo,
 } from 'react';
 import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
@@ -29,7 +30,13 @@ const CurrencyInput = ({
     ...maskOptions,
   });
 
-  return <MaskedInput mask={currencyMask} {...inputProps} />;
+  const inputValue = useMemo(() => {
+    // Hack, because react-text-mask doesn't work with correct with decimals
+    // ex: it converts 0.0709 to 0.070 (not 0.071!)
+    return inputProps.value ? Number(inputProps.value).toFixed(3) : undefined;
+  }, [inputProps.value]);
+
+  return <MaskedInput mask={currencyMask} {...inputProps} value={inputValue} />;
 };
 
 export function StringInput({
