@@ -9,12 +9,13 @@ import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
 import { createNumberMask } from 'text-mask-addons';
 
+const DEFAULT_DECIMAL_LIMIT = 3;
 const defaultMaskOptions = {
   prefix: '',
   suffix: '',
   includeThousandsSeparator: true,
   allowDecimal: true,
-  decimalLimit: 3,
+  decimalLimit: DEFAULT_DECIMAL_LIMIT,
   allowNegative: false,
   allowLeadingZeroes: false,
 };
@@ -33,7 +34,9 @@ const CurrencyInput = ({
   const inputValue = useMemo(() => {
     // Hack, because react-text-mask doesn't work with correct with decimals
     // ex: it converts 0.0709 to 0.070 (not 0.071!)
-    return inputProps.value ? Number(inputProps.value).toFixed(3) : undefined;
+    return inputProps.value
+      ? Number(inputProps.value).toFixed(DEFAULT_DECIMAL_LIMIT)
+      : undefined;
   }, [inputProps.value]);
 
   return <MaskedInput mask={currencyMask} {...inputProps} value={inputValue} />;
