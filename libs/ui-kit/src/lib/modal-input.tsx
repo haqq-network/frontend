@@ -30,12 +30,15 @@ const CurrencyInput = ({
     ...defaultMaskOptions,
     ...maskOptions,
   });
-
   const inputValue = useMemo(() => {
-    // Hack, because react-text-mask doesn't work with correct with decimals
+    // Hack, because react-text-mask doesn't work correctly with decimals
     // ex: it converts 0.0709 to 0.070 (not 0.071!)
-    return inputProps.value
-      ? Number(inputProps.value).toFixed(DEFAULT_DECIMAL_LIMIT)
+    // Additionally, remove trailing zeros and only fix to decimal limit if it has decimals
+    const value = inputProps.value;
+    return value
+      ? Number(value).toString().includes('.')
+        ? Number(value).toFixed(DEFAULT_DECIMAL_LIMIT).replace(/0+$/, '')
+        : value
       : undefined;
   }, [inputProps.value]);
 
