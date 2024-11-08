@@ -20,20 +20,19 @@ const defaultMaskOptions = {
   allowLeadingZeroes: false,
 };
 
-export const useCurrencyInput = (
-  inputProps: InputHTMLAttributes<HTMLInputElement>,
+export const usePreparedMaskValue = (
+  value: string | readonly string[] | number | undefined,
 ) => {
   const inputValue = useMemo(() => {
     // Hack, because react-text-mask doesn't work correctly with decimals
     // ex: it converts 0.0709 to 0.070 (not 0.071!)
     // Additionally, remove trailing zeros and only fix to decimal limit if it has decimals
-    const value = inputProps.value;
     return value
       ? Number(value).toString().includes('.')
         ? Number(value).toFixed(DEFAULT_DECIMAL_LIMIT).replace(/0+$/, '')
         : value
       : undefined;
-  }, [inputProps.value]);
+  }, [value]);
 
   return {
     inputValue,
@@ -51,7 +50,7 @@ const CurrencyInput = ({
     ...maskOptions,
   });
 
-  const { inputValue } = useCurrencyInput(inputProps);
+  const { inputValue } = usePreparedMaskValue(inputProps.value);
   return <MaskedInput mask={currencyMask} {...inputProps} value={inputValue} />;
 };
 
