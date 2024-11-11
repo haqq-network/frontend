@@ -79,7 +79,7 @@
     "@commitlint/cli": "19.5.0",
     "@commitlint/config-conventional": "19.5.0",
     "@keplr-wallet/types": "0.12.143",
-    "@nx/cypress": "20.0.7",
+    "@nx/cypress": "20.0.12",
     "@nx/eslint": "20.0.7",
     "@nx/eslint-plugin": "20.0.7",
     "@nx/jest": "20.0.7",
