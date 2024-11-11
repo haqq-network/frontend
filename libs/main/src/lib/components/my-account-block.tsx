@@ -20,6 +20,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   useHoverPopover,
+  ExpandableBlock,
 } from '@haqq/shell-ui-kit';
 import {
   OrangeLink,
@@ -30,7 +31,6 @@ import {
   WalletIcon,
   InfoIcon,
 } from '@haqq/shell-ui-kit/server';
-import { ExpandableBlock } from './expandable-block';
 import { StakingBalanceBlock } from './staking-balance-block';
 
 function MyAccountAmountBlock({

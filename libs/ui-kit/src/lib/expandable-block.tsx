@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import clsx from 'clsx';
-import { ArrowDownIcon } from '@haqq/shell-ui-kit/server';
+import { ArrowDownIcon } from './icons';
 
 export const ExpandableBlock = ({
   title,

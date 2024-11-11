@@ -72,7 +72,7 @@ export function StakingBalanceBlock({
         <div className="py-[8px]">
           <div className="flex flex-row items-center gap-[4px]">
             <CoinIcon />
-            <div className="text-[14px] leading-[22px] text-white">
+            <div className="text-[12px] leading-[18px] text-white lg:text-[14px] lg:leading-[22px]">
               Available: {formatNumber(balances.availableForStake)}
             </div>
           </div>
@@ -81,7 +81,7 @@ export function StakingBalanceBlock({
           <div className="flex flex-col gap-[8px]">
             <div className="flex flex-row items-center gap-[4px]">
               <LockIcon />
-              <div className="text-[14px] leading-[22px] text-white">
+              <div className="text-[12px] leading-[18px] text-white lg:text-[14px] lg:leading-[22px]">
                 Locked:{' '}
                 {isLiquidStaking
                   ? formatNumber(stIslmBalance + balances.locked)
