@@ -71,7 +71,7 @@
     "tslib": "2.8.1",
     "usehooks-ts": "3.1.0",
     "vanilla-cookieconsent": "2.9.2",
-    "viem": "2.21.39",
+    "viem": "2.21.44",
     "wagmi": "2.12.25",
     "zod": "3.23.8"
   },
