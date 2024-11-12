@@ -179,8 +179,6 @@ function MyAccountConnected({
 
   const isTablet = useMediaQuery('(max-width: 1023px)');
 
-  console.log('isTablet', isTablet);
-
   if (!balances) {
     return null;
   }
