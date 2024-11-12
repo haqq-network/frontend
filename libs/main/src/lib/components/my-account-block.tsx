@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useMediaQuery } from 'usehooks-ts';
 // import { useMediaQuery } from 'react-responsive';
 import { Hex, formatUnits, parseUnits } from 'viem';
 import {
@@ -10,7 +11,6 @@ import {
   getFormattedAddress,
   useWallet,
   useIndexerBalanceQuery,
-  useStakingUnbondingsQuery,
 } from '@haqq/shell-shared';
 import { useStislmBalance, useStrideRates } from '@haqq/shell-staking';
 import {
@@ -20,6 +20,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   useHoverPopover,
+  ExpandableBlock,
 } from '@haqq/shell-ui-kit';
 import {
   OrangeLink,
@@ -29,10 +30,8 @@ import {
   formatNumber,
   WalletIcon,
   InfoIcon,
-  CoinIcon,
-  LockIcon,
-  StakedVestedBalance,
 } from '@haqq/shell-ui-kit/server';
+import { StakingBalanceBlock } from './staking-balance-block';
 
 function MyAccountAmountBlock({
   title,
@@ -178,6 +177,8 @@ function MyAccountConnected({
 
   const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
 
+  const isTablet = useMediaQuery('(max-width: 1023px)');
+
   if (!balances) {
     return null;
   }
@@ -207,34 +208,49 @@ function MyAccountConnected({
                 {`${formatNumber(balances.balance)} ${symbol.toLocaleUpperCase()}`}
               </div>
               <div className="flex flex-col gap-[4px] leading-[0px]">
-                <Popover open={isHoveredStaking} placement="top-start">
-                  <PopoverTrigger
-                    onMouseEnter={handleMouseEnterStaking}
-                    onMouseLeave={handleMouseLeaveStaking}
-                  >
-                    <div
-                      className={clsx(
-                        'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
-                        'text-white hover:text-white/50',
-                        'text-[12px] font-[500] leading-[18px]',
-                        'transition-colors duration-150 ease-in-out',
-                      )}
+                {isTablet ? (
+                  <ExpandableBlock
+                    title={`Available for staking: ${formatNumber(balances.available)}`}
+                    content={
+                      <StakingBalanceBlock
+                        haqqAddress={haqqAddress}
+                        className="w-full max-w-[100%] rounded-none border-l-0 border-r-0 !p-0"
+                      />
+                    }
+                  />
+                ) : (
+                  <Popover open={isHoveredStaking} placement="top-start">
+                    <PopoverTrigger
+                      onMouseEnter={handleMouseEnterStaking}
+                      onMouseLeave={handleMouseLeaveStaking}
                     >
-                      <span>
-                        Available for staking:{' '}
-                        {formatNumber(balances.available)}
-                      </span>
-                      <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
-                    </div>
-                  </PopoverTrigger>
+                      <div
+                        className={clsx(
+                          'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
+                          'text-white hover:text-white/50',
+                          'text-[12px] font-[500] leading-[18px]',
+                          'transition-colors duration-150 ease-in-out',
+                        )}
+                      >
+                        <span>
+                          Available for staking:{' '}
+                          {formatNumber(balances.available)}
+                        </span>
+                        <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+                      </div>
+                    </PopoverTrigger>
 
-                  <PopoverContent className="outline-none">
-                    <StakingBalancePopup
-                      haqqAddress={haqqAddress}
-                      title="In regular staking you can use coins in liquid staking"
-                    />
-                  </PopoverContent>
-                </Popover>
+                    <PopoverContent className="outline-none">
+                      <StakingBalanceBlock
+                        haqqAddress={haqqAddress}
+                        title="Locked tokens are your tokens but you cannot transfer to other users
+            or use them to pay for gas, but you can delegate to validators -
+            stake to improve the reliability of the HAQQ network, and make a
+            profit. Locked tokens are unlocked according to the schedule."
+                      />
+                    </PopoverContent>
+                  </Popover>
+                )}
 
                 {/* Popover for liquid staking information */}
                 {/* <Popover open={isHoveredLiquidStaking} placement="top-start">
@@ -340,92 +356,5 @@ function MyAccountConnected({
         </div>
       </div>
     </Container>
-  );
-}
-
-const useUnbonding = (haqqAddress: string) => {
-  const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
-  const unbonding = useMemo(() => {
-    const allUnbound: number[] = (undelegations ?? []).map((validator) => {
-      let sum = 0;
-
-      validator.entries.forEach((unbondingValue) => {
-        sum += Number.parseFloat(unbondingValue.balance);
-      });
-
-      return sum;
-    });
-
-    const result = allUnbound.reduce<number>((accumulator, current) => {
-      return accumulator + current;
-    }, 0);
-
-    return Number.parseFloat(formatUnits(BigInt(result), 18));
-  }, [undelegations]);
-
-  return unbonding;
-};
-
-function StakingBalancePopup({
-  haqqAddress,
-  title,
-  isLiquidStaking,
-}: {
-  haqqAddress: string;
-  title?: string;
-  isLiquidStaking?: boolean;
-}) {
-  const { data: balances } = useIndexerBalanceQuery(haqqAddress);
-  const unbonding = useUnbonding(haqqAddress);
-
-  const { stIslmBalance } = useStislmBalance();
-
-  if (!balances) {
-    return null;
-  }
-
-  return (
-    <div className="bg-haqq-black font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border bg-opacity-90 text-white shadow-lg backdrop-blur">
-      <div className="flex flex-col divide-y divide-white/15 px-[8px]">
-        {title ? (
-          <div className="py-[8px]">
-            <p className="text-[12px] leading-[18px] text-[#8E8E8E]">{title}</p>
-          </div>
-        ) : null}
-        <div className="py-[8px]">
-          <div className="flex flex-row items-center gap-[4px]">
-            <CoinIcon />
-            <div className="text-[14px] leading-[22px] text-white">
-              Available: {formatNumber(balances.availableForStake)}
-            </div>
-          </div>
-        </div>
-        <div className="py-[8px]">
-          <div className="flex flex-col gap-[8px]">
-            <div className="flex flex-row items-center gap-[4px]">
-              <LockIcon />
-              <div className="text-[14px] leading-[22px] text-white">
-                Locked:{' '}
-                {isLiquidStaking
-                  ? formatNumber(stIslmBalance + balances.locked)
-                  : formatNumber(balances.locked)}
-              </div>
-            </div>
-
-            <div>
-              <StakedVestedBalance
-                available={balances.availableForStake}
-                locked={balances.locked}
-                staked={balances.staked}
-                liquidStaked={isLiquidStaking ? stIslmBalance : 0}
-                vested={balances.vested}
-                daoLocked={balances.daoLocked}
-                unbonding={unbonding}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
