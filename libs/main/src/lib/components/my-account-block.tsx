@@ -214,7 +214,7 @@ function MyAccountConnected({
                     content={
                       <StakingBalanceBlock
                         haqqAddress={haqqAddress}
-                        className="w-full max-w-[100%] rounded-none border-l-0 border-r-0 !p-0"
+                        className="w-full !max-w-[100%] rounded-none border-l-0 border-r-0 !p-0"
                       />
                     }
                   />
