@@ -37,7 +37,9 @@ export default async function Authz() {
 
     await queryClient.prefetchQuery({
       queryKey: [chainIdToUse, 'token-pairs'],
-      queryFn: getErc20TokenPairs,
+      queryFn: () => {
+        return getErc20TokenPairs();
+      },
     });
 
     await queryClient.prefetchQuery({
