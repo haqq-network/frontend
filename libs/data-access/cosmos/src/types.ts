@@ -304,7 +304,7 @@ export interface CosmosService {
     voterAddress: string,
   ) => Promise<string | null>;
   // getVotes: (voterAddress: string) => Promise<unknown>;
-  getErc20TokenPairs: () => Promise<TokenPair[]>;
+  getErc20TokenPairs: (limit?: number) => Promise<TokenPair[]>;
   getSender: (address: string, pubkey: string) => Promise<Sender>;
   getEstimatedFee: (
     protoMsg: MessageGenerated | MessageGenerated[],

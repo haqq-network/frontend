@@ -122,7 +122,11 @@ export function generateEndpointProposalVotes(
 //   return `/cosmos/group/v1/votes_by_voter/${voterAddress}`;
 // }
 
-export function generateErc20TokenPairsEndpoint() {
+export function generateErc20TokenPairsEndpoint(limit?: number) {
+  if (limit !== undefined) {
+    return `/evmos/erc20/v1/token_pairs?pagination.limit=${limit}`;
+  }
+
   return '/evmos/erc20/v1/token_pairs';
 }
 
@@ -670,9 +674,9 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   //   return response;
   // }
 
-  async function getErc20TokenPairs() {
+  async function getErc20TokenPairs(limit?: number) {
     const getErc20TokenPairsUrl = new URL(
-      generateErc20TokenPairsEndpoint(),
+      generateErc20TokenPairsEndpoint(limit),
       cosmosRestEndpoint,
     );
 
