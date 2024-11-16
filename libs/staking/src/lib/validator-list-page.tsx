@@ -4,6 +4,7 @@ import { useWallet } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { StakingInfo } from './components/staking-info';
 import { ValidatorList } from './components/validator-list';
+import { StrideStats } from './components/stride/statistics/stride-stats';
 
 export function ValidatorListPage({
   isMobileUserAgent,
@@ -25,6 +26,8 @@ export function ValidatorListPage({
           </Container>
         </div>
       )}
+
+      <StrideStats />
 
       <StakingInfo />
 

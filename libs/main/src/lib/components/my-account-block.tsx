@@ -167,11 +167,11 @@ function MyAccountConnected({
   } = useHoverPopover(100);
 
   // Hover state and handlers for liquid staking popover
-  /*const {
+  const {
     isHovered: isHoveredLiquidStaking,
     handleMouseEnter: handleMouseEnterLiquidStaking,
     handleMouseLeave: handleMouseLeaveLiquidStaking,
-  } = useHoverPopover(100);*/
+  } = useHoverPopover(100);
 
   const { stIslmBalance } = useStislmBalance();
 
@@ -253,7 +253,7 @@ function MyAccountConnected({
                 )}
 
                 {/* Popover for liquid staking information */}
-                {/* <Popover open={isHoveredLiquidStaking} placement="top-start">
+                <Popover open={isHoveredLiquidStaking} placement="top-start">
                   <PopoverTrigger
                     onMouseEnter={handleMouseEnterLiquidStaking}
                     onMouseLeave={handleMouseLeaveLiquidStaking}
@@ -275,12 +275,12 @@ function MyAccountConnected({
                   </PopoverTrigger>
 
                   <PopoverContent className="outline-none">
-                    <StakingBalancePopup
+                    <StakingBalanceBlock
                       haqqAddress={haqqAddress}
                       isLiquidStaking
                     />
                   </PopoverContent>
-                </Popover> */}
+                </Popover>
               </div>
             </div>
           </div>
