@@ -15,6 +15,7 @@ import {
   OrangeLink,
 } from '@haqq/shell-ui-kit/server';
 import { DelegateModalDetails } from './delegate-modal';
+import { SafeApproveWarning } from './safe-approve-warning';
 import { ValidatorSelect } from './validator-select';
 
 export interface RedelegateModalProps {
@@ -220,13 +221,20 @@ export function RedelegateModal({
 
                 <div className="flex gap-4">
                   {isSafe && (
-                    <Button
-                      onClick={onApprove}
-                      variant={4}
-                      disabled={!redelegateAmount}
-                    >
-                      Approve
-                    </Button>
+                    <div className="flex w-full flex-col gap-[16px]">
+                      <div>
+                        <SafeApproveWarning />
+                      </div>
+                      <div>
+                        <Button
+                          onClick={onApprove}
+                          variant={4}
+                          className="w-full"
+                        >
+                          Approve
+                        </Button>
+                      </div>
+                    </div>
                   )}
 
                   <Button

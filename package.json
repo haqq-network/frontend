@@ -30,6 +30,7 @@
     "@floating-ui/react": "0.26.26",
     "@headlessui/react": "2.2.0",
     "@react-spring/web": "9.7.5",
+    "@safe-global/safe-apps-sdk": "9.1.0",
     "@sentry/nextjs": "8.38.0",
     "@sentry/react": "8.38.0",
     "@sentry/vite-plugin": "2.22.6",

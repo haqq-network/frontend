@@ -16,7 +16,6 @@ import {
   useToast,
   useWallet,
   useQueryInvalidate,
-  useStakingAllowance,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -80,17 +79,7 @@ export function RedelegateModalHooked({
   const invalidateQueries = useQueryInvalidate();
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
 
-  // Check allowance for redelegation
-  const { allowance } = useStakingAllowance(
-    ethAddress,
-    ethAddress,
-    '/cosmos.staking.v1beta1.MsgBeginRedelegate',
-  );
-  console.log('Allowance for redelegate', { ethAddress, allowance });
-
   const handleApprove = useCallback(async () => {
-    if (!redelegateAmount) return;
-
     try {
       await approveStaking();
     } catch (error) {
@@ -101,7 +90,7 @@ export function RedelegateModalHooked({
         </ToastError>,
       );
     }
-  }, [redelegateAmount, approveStaking, toast]);
+  }, [approveStaking, toast]);
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
@@ -166,6 +155,7 @@ export function RedelegateModalHooked({
               );
             },
             error: (error) => {
+              setRedelegateEnabled(true);
               return <ToastError>{error.message}</ToastError>;
             },
           },

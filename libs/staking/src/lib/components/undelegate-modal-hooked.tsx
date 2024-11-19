@@ -131,6 +131,7 @@ export function UndelegateModalHooked({
             );
           },
           error: (error) => {
+            setUndelegateEnabled(true);
             return <ToastError>{error.message}</ToastError>;
           },
         },
@@ -174,17 +175,7 @@ export function UndelegateModalHooked({
     explorerLink,
   ]);
 
-  // Check allowance for undelegation
-  const { allowance } = useStakingAllowance(
-    ethAddress,
-    ethAddress,
-    '/cosmos.staking.v1beta1.MsgUndelegate',
-  );
-  console.log('Allowance for undelegate', { ethAddress, allowance });
-
   const handleApprove = useCallback(async () => {
-    if (!undelegateAmount) return;
-
     try {
       await approveStaking();
     } catch (error) {
@@ -195,7 +186,7 @@ export function UndelegateModalHooked({
         </ToastError>,
       );
     }
-  }, [undelegateAmount, approveStaking, toast]);
+  }, [approveStaking, toast]);
 
   useEffect(() => {
     if (!undelegateAmount) {

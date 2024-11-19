@@ -15,6 +15,7 @@ import {
   SpinnerLoader,
   OrangeLink,
 } from '@haqq/shell-ui-kit/server';
+import { SafeApproveWarning } from './safe-approve-warning';
 
 export interface DelegateModalProps {
   isOpen: boolean;
@@ -31,9 +32,9 @@ export interface DelegateModalProps {
   onClose: () => void;
   onChange: (value: number | undefined) => void;
   onSubmit: () => void;
-  onApprove: () => void;
   memo?: string;
   onMemoChange: (value: string) => void;
+  onApprove: () => void;
 }
 
 export function DelegateModalDetails({
@@ -134,8 +135,8 @@ export function DelegateModal({
   onClose,
   onChange,
   onSubmit,
-  onApprove,
   onMemoChange,
+  onApprove,
 }: DelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
   const { isSafe } = useConnectorType();
@@ -262,17 +263,22 @@ export function DelegateModal({
                   />
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  {isSafe && (
-                    <Button
-                      onClick={onApprove}
-                      variant={4}
-                      disabled={!delegateAmount}
-                    >
-                      Approve
-                    </Button>
-                  )}
+                {isSafe && (
+                  <div className="flex w-full flex-col gap-[16px]">
+                    <SafeApproveWarning />
+                    <div>
+                      <Button
+                        onClick={onApprove}
+                        variant={4}
+                        className="w-full"
+                      >
+                        Approve
+                      </Button>
+                    </div>
+                  </div>
+                )}
 
+                <div>
                   <Button
                     variant={3}
                     onClick={onSubmit}

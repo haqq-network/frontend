@@ -15,7 +15,6 @@ import {
   useStakingActions,
   useToast,
   useWallet,
-  useStakingAllowance,
 } from '@haqq/shell-shared';
 import {
   ToastLoading,
@@ -75,29 +74,6 @@ export function DelegateModalHooked({
   const invalidateQueries = useQueryInvalidate();
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
 
-  // Check allowance for delegation
-  const { allowance } = useStakingAllowance(
-    ethAddress,
-    ethAddress,
-    '/cosmos.staking.v1beta1.MsgDelegate',
-  );
-  console.log('Allowance for delegate', { ethAddress, allowance });
-
-  const handleApprove = useCallback(async () => {
-    if (!delegateAmount) return;
-
-    try {
-      await approveStaking();
-    } catch (error) {
-      console.error('Approval failed:', error);
-      toast.error(
-        <ToastError>
-          {error instanceof Error ? error.message : 'Unknown error'}
-        </ToastError>,
-      );
-    }
-  }, [delegateAmount, approveStaking, toast]);
-
   const handleSubmitDelegate = useCallback(async () => {
     try {
       posthog.capture('delegate started', {
@@ -110,6 +86,8 @@ export function DelegateModalHooked({
         },
       });
       setDelegateEnabled(false);
+
+      // Use multicall for approve and delegate in one transaction
       const delegationPromise = delegate(
         validatorAddress,
         delegateAmount,
@@ -158,6 +136,7 @@ export function DelegateModalHooked({
             );
           },
           error: (error) => {
+            setDelegateEnabled(true);
             return <ToastError>{error.message}</ToastError>;
           },
         },
@@ -205,6 +184,19 @@ export function DelegateModalHooked({
     invalidateQueries,
     chain.id,
   ]);
+
+  const handleApprove = useCallback(async () => {
+    try {
+      await approveStaking();
+    } catch (error) {
+      console.error('Approval failed:', error);
+      toast.error(
+        <ToastError>
+          {error instanceof Error ? error.message : 'Unknown error'}
+        </ToastError>,
+      );
+    }
+  }, [approveStaking, toast]);
 
   useEffect(() => {
     if (!delegateAmount) {

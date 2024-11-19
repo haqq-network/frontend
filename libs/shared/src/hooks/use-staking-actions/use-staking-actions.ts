@@ -12,9 +12,10 @@ import {
   createTxMsgWithdrawDelegatorReward,
   createTxMsgMultipleWithdrawDelegatorReward,
   createTxMsgBeginRedelegate,
-  MsgBeginRedelegateParams,
+  type MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
+import SafeAppsSDK from '@safe-global/safe-apps-sdk';
 import {
   waitForTransactionReceipt,
   getGasPrice,
@@ -29,7 +30,7 @@ import {
   useConfig,
   useReadContract,
   useWriteContract,
-  Config,
+  type Config,
 } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -58,6 +59,7 @@ import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
+import { useConnectorType } from '../use-autoconnect/use-autoconnect';
 
 export function useStakingActions() {
   const {
@@ -79,6 +81,7 @@ export function useStakingActions() {
   const chainId = chain.id;
   const config = useConfig();
   const { writeContractAsync } = useWriteContract();
+  const { isSafe } = useConnectorType();
 
   // Convert Ethereum transaction hash to Cosmos SDK-like response
   const getEvmTransactionStatus = useCallback(
@@ -204,6 +207,62 @@ export function useStakingActions() {
     ],
   );
 
+  // Custom function to fetch Safe transaction status
+  const fetchSafeTransactionStatus = useCallback(
+    async (safeTxHash: string) => {
+      if (!isSafe) {
+        return null;
+      }
+
+      try {
+        const sdk = new SafeAppsSDK();
+        const txDetails = await sdk.txs.getBySafeTxHash(safeTxHash);
+
+        return {
+          isExecuted: txDetails.txStatus === 'SUCCESS',
+          transactionHash: txDetails.txHash,
+        };
+      } catch (error) {
+        console.error('Error fetching Safe transaction status:', error);
+        throw error;
+      }
+    },
+    [isSafe],
+  );
+
+  // Custom function to wait for Safe transaction execution
+  const waitForTransactionExecution = useCallback(
+    async (
+      safeTxHash: string,
+      maxAttempts = 20,
+      interval = 5000,
+    ): Promise<Hash | null> => {
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          const status = await fetchSafeTransactionStatus(safeTxHash);
+
+          if (status && status.isExecuted) {
+            return (status.transactionHash as Hash) ?? null;
+          }
+
+          await new Promise((resolve) => {
+            return setTimeout(resolve, interval);
+          });
+        } catch (error) {
+          console.error(`Attempt ${attempt} failed:`, error);
+
+          if (attempt === maxAttempts) {
+            console.error('Max attempts reached. Transaction tracking failed.');
+            return null;
+          }
+        }
+      }
+
+      return null;
+    },
+    [fetchSafeTransactionStatus],
+  );
+
   // Handle precompile delegation transaction
   const handlePrecompileDelegate = useCallback(
     async (validatorAddress?: string, amount?: number) => {
@@ -211,6 +270,7 @@ export function useStakingActions() {
         throw new Error('Insufficient data for delegation or simulation error');
       }
 
+      // Create a transaction
       const txHash = await writeContractAsync({
         address: STAKING_PRECOMPILE_ADDRESS,
         abi: delegateAbi,
@@ -222,7 +282,29 @@ export function useStakingActions() {
         throw new Error('Transaction was not sent');
       }
 
-      const transactionStatus = await getEvmTransactionStatus(txHash);
+      // Handle Safe and non-Safe transactions differently
+      let transactionHash = txHash;
+      if (isSafe) {
+        try {
+          const executedTxHash = await waitForTransactionExecution(
+            txHash,
+            30,
+            3000,
+          );
+
+          if (!executedTxHash) {
+            throw new Error('Safe transaction execution tracking failed');
+          }
+
+          transactionHash = executedTxHash as Hash;
+        } catch (error) {
+          console.error('Error waiting for Safe transaction execution:', error);
+          throw new Error('Safe transaction was not executed');
+        }
+      }
+
+      // Check the status of the blockchain transaction
+      const transactionStatus = await getEvmTransactionStatus(transactionHash);
 
       if (transactionStatus === null) {
         throw new Error('Transaction not found');
@@ -230,7 +312,13 @@ export function useStakingActions() {
 
       return transactionStatus.tx_response;
     },
-    [ethAddress, writeContractAsync, getEvmTransactionStatus],
+    [
+      ethAddress,
+      writeContractAsync,
+      isSafe,
+      getEvmTransactionStatus,
+      waitForTransactionExecution,
+    ],
   );
 
   // Unified function to handle both regular and precompile delegation
@@ -1226,6 +1314,7 @@ export function useStakingActions() {
 
   // Approve for staking operations
   const handleStakingApprove = useCallback(async () => {
+    console.log('handleStakingApprove');
     if (!ethAddress || !writeContractAsync) {
       throw new Error('No eth address or write contract available');
     }
