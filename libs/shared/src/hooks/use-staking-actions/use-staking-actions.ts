@@ -15,7 +15,7 @@ import {
   type MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
-import SafeAppsSDK from '@safe-global/safe-apps-sdk';
+import SafeAppsSDK, { TransactionStatus } from '@safe-global/safe-apps-sdk';
 import {
   waitForTransactionReceipt,
   getGasPrice,
@@ -219,7 +219,9 @@ export function useStakingActions() {
         const txDetails = await sdk.txs.getBySafeTxHash(safeTxHash);
 
         return {
-          isExecuted: txDetails.txStatus === 'SUCCESS',
+          isExecuted:
+            txDetails.txStatus === TransactionStatus.AWAITING_EXECUTION ||
+            txDetails.txStatus === TransactionStatus.SUCCESS,
           transactionHash: txDetails.txHash,
         };
       } catch (error) {
