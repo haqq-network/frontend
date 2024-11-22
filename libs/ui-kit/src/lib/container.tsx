@@ -12,7 +12,7 @@ export function Container({
     <div
       className={clsx(
         'mx-auto w-full',
-        'px-[16px] sm:px-[48px] lg:px-[79px]',
+        'px-[16px] sm:px-[48px] lg:px-[80px]',
         className,
       )}
     >

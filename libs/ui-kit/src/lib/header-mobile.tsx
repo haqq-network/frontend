@@ -66,10 +66,18 @@ export function HeaderMobile({
         {isTestedge && <TestedgeBanner />}
         <AnimatedOrNot baseHeaderStyles={baseHeaderStyles}>
           <div className="flex h-full flex-col">
-            <div className="border-haqq-border mx-auto flex h-[62px] w-full flex-none flex-row items-center border-b-[1px] pr-[16px] sm:pr-[64px]">
+            <div
+              className={clsx(
+                'border-haqq-border mx-auto',
+                'flex h-[62px] w-full',
+                'flex-none flex-row items-center',
+                'border-b-[1px]',
+                'pr-[16px] sm:pr-[48px]',
+              )}
+            >
               <div
                 className={clsx(
-                  'flex h-full w-[48px] flex-none items-center justify-center',
+                  'flex h-full w-[48px] flex-none items-center justify-center md:w-[64px]',
                   !isHaqqWallet && 'border-haqq-border border-r',
                 )}
               >
