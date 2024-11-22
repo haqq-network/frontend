@@ -11,6 +11,14 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_HOST: z.string().min(3).optional(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string().min(3).optional(),
     NEXT_PUBLIC_GIT_COMMIT_SHA: z.string().min(3).optional(),
+    // Feature flags
+    NEXT_PUBLIC_FEATURE_LIQUID_STAKING_ENABLED: z
+      .string()
+      .transform((val) => {
+        return val === 'true';
+      })
+      .optional()
+      .default('false'),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:
@@ -30,5 +38,7 @@ export const env = createEnv({
       process.env['NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA'] ??
       process.env['VERCEL_GIT_COMMIT_SHA'] ??
       'dev',
+    NEXT_PUBLIC_FEATURE_LIQUID_STAKING_ENABLED:
+      process.env['NEXT_PUBLIC_FEATURE_LIQUID_STAKING_ENABLED'],
   },
 });

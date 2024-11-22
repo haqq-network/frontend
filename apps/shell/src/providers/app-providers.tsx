@@ -8,9 +8,11 @@ import {
   Toaster,
   WalletProvider,
   LayoutProvider,
+  FeatureFlagsProvider,
 } from '@haqq/shell-shared';
 import { WalletModals } from '../components/wallet-modals';
 import { createWagmiConfig } from '../config/wagmi-config';
+import { env } from '../env/client';
 import { TolgeeNextProvider } from '../tolgee/client';
 
 export function AppProviders({
@@ -34,22 +36,27 @@ export function AppProviders({
   const actualWagmiConfig = wagmiConfig
     ? wagmiConfig
     : createWagmiConfig(walletConnectProjectId);
+  const featureFlags = {
+    LIQUID_STAKING: env.NEXT_PUBLIC_FEATURE_LIQUID_STAKING_ENABLED,
+  };
 
   return (
-    <WagmiProvider config={actualWagmiConfig} initialState={initialState}>
-      <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
-        <CosmosProvider>
-          <WalletProvider>
-            <TolgeeNextProvider locale={locale} locales={locales}>
-              <LayoutProvider isMobileUA={isMobileUA}>
-                {children}
-                <Toaster />
-              </LayoutProvider>
-            </TolgeeNextProvider>
-            <WalletModals isMobileUA={isMobileUA} />
-          </WalletProvider>
-        </CosmosProvider>
-      </ReactQueryProvider>
-    </WagmiProvider>
+    <FeatureFlagsProvider featureFlags={featureFlags}>
+      <WagmiProvider config={actualWagmiConfig} initialState={initialState}>
+        <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
+          <CosmosProvider>
+            <WalletProvider>
+              <TolgeeNextProvider locale={locale} locales={locales}>
+                <LayoutProvider isMobileUA={isMobileUA}>
+                  {children}
+                  <Toaster />
+                </LayoutProvider>
+              </TolgeeNextProvider>
+              <WalletModals isMobileUA={isMobileUA} />
+            </WalletProvider>
+          </CosmosProvider>
+        </ReactQueryProvider>
+      </WagmiProvider>
+    </FeatureFlagsProvider>
   );
 }
