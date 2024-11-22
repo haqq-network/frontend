@@ -106,7 +106,7 @@ export function LiquidStakingUndelegateModalHooked({
                   <div>Undelegation successful</div>
                   <div>
                     <Link
-                      href={`${explorer.cosmos}/tx/${txHash}`}
+                      href={`${explorer.evm}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -150,7 +150,7 @@ export function LiquidStakingUndelegateModalHooked({
     undelegate,
     toast,
     onClose,
-    explorer.cosmos,
+    explorer.evm,
     invalidateQueries,
     chain.id,
     debouncedUndelegateAmount,
