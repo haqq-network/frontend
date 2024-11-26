@@ -35,6 +35,56 @@ export interface LiquidStakingDelegateModalProps {
   setStrideAddress: (value: string) => void;
 }
 
+export const STRIDE_ADDRESS_LENGTH = 45;
+
+export const useStrideAddressValidation = (strideAddress: string) => {
+  return useMemo(() => {
+    // Basic validation
+    if (!strideAddress || typeof strideAddress !== 'string') {
+      return false;
+    }
+
+    // Check prefix and length
+    const isValidPrefix = strideAddress.startsWith('stride');
+    const isValidLength = strideAddress.length === STRIDE_ADDRESS_LENGTH;
+
+    // Check for valid bech32 characters (a-z, 0-9 only)
+    const hasValidCharacters = /^[a-z0-9]+$/.test(strideAddress);
+
+    return isValidPrefix && isValidLength && hasValidCharacters;
+  }, [strideAddress]);
+};
+
+export const StrideInput = ({
+  strideAddress,
+  setStrideAddress,
+  isValidStrideAddress,
+}: {
+  strideAddress: string;
+  setStrideAddress: (value: string) => void;
+  isValidStrideAddress: boolean;
+}) => {
+  return (
+    <StringInput
+      value={strideAddress}
+      onChange={setStrideAddress}
+      placeholder="Use your Stride address here"
+      hint={
+        !isValidStrideAddress && strideAddress ? (
+          <span className="text-haqq-danger">
+            Invalid Stride address format. Must start with 'stride' and be{' '}
+            {STRIDE_ADDRESS_LENGTH} characters long
+          </span>
+        ) : !strideAddress ? (
+          <span className="text-haqq-danger">
+            Stride address is required to delegate
+          </span>
+        ) : null
+      }
+    />
+  );
+};
+
 export function LiquidStakingDelegateModalDetails({
   title,
   value,
@@ -174,6 +224,8 @@ export function LiquidStakingDelegateModal({
 
   const { apy, strideFee, isLoading } = useLiquidStakingApy();
 
+  const isValidStrideAddress = useStrideAddressValidation(strideAddress);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
@@ -220,16 +272,10 @@ export function LiquidStakingDelegateModal({
                   onMaxButtonClick={handleMaxButtonClick}
                   hint={amountHint}
                 />
-
-                <StringInput
-                  value={strideAddress}
-                  onChange={setStrideAddress}
-                  placeholder="Use your Stride address here"
-                  hint={
-                    <span className="text-haqq-danger">
-                      Stride address is required to delegate
-                    </span>
-                  }
+                <StrideInput
+                  strideAddress={strideAddress}
+                  setStrideAddress={setStrideAddress}
+                  isValidStrideAddress={isValidStrideAddress}
                 />
 
                 <div className="flex flex-col items-center justify-center gap-[16px]">
@@ -259,7 +305,7 @@ export function LiquidStakingDelegateModal({
                     variant={3}
                     onClick={onSubmit}
                     className="w-full"
-                    disabled={isDisabled}
+                    disabled={isDisabled || !isValidStrideAddress}
                   >
                     Confirm delegation
                   </Button>
