@@ -95,9 +95,7 @@ export function StringInput({
           id={id}
         />
       </div>
-      {hint && (
-        <div className="mt-1 h-[20px] text-xs leading-[20px]">{hint}</div>
-      )}
+      {hint && <div className="mt-1 text-xs leading-[20px]">{hint}</div>}
     </div>
   );
 }
