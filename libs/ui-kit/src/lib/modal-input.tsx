@@ -3,19 +3,40 @@ import {
   InputHTMLAttributes,
   ReactNode,
   useCallback,
+  useMemo,
 } from 'react';
 import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
 import { createNumberMask } from 'text-mask-addons';
 
+const DEFAULT_DECIMAL_LIMIT = 3;
 const defaultMaskOptions = {
   prefix: '',
   suffix: '',
   includeThousandsSeparator: true,
   allowDecimal: true,
-  decimalLimit: 3,
+  decimalLimit: DEFAULT_DECIMAL_LIMIT,
   allowNegative: false,
   allowLeadingZeroes: false,
+};
+
+export const usePreparedMaskValue = (
+  value: string | readonly string[] | number | undefined,
+) => {
+  const inputValue = useMemo(() => {
+    // Hack, because react-text-mask doesn't work correctly with decimals
+    // ex: it converts 0.0709 to 0.070 (not 0.071!)
+    // Additionally, remove trailing zeros and only fix to decimal limit if it has decimals
+    return value
+      ? Number(value).toString().includes('.')
+        ? Number(value).toFixed(DEFAULT_DECIMAL_LIMIT).replace(/0+$/, '')
+        : value
+      : undefined;
+  }, [value]);
+
+  return {
+    inputValue,
+  };
 };
 
 const CurrencyInput = ({
@@ -29,7 +50,8 @@ const CurrencyInput = ({
     ...maskOptions,
   });
 
-  return <MaskedInput mask={currencyMask} {...inputProps} />;
+  const { inputValue } = usePreparedMaskValue(inputProps.value);
+  return <MaskedInput mask={currencyMask} {...inputProps} value={inputValue} />;
 };
 
 export function StringInput({
@@ -73,9 +95,7 @@ export function StringInput({
           id={id}
         />
       </div>
-      {hint && (
-        <div className="mt-1 h-[20px] text-xs leading-[20px]">{hint}</div>
-      )}
+      {hint && <div className="mt-1 text-xs leading-[20px]">{hint}</div>}
     </div>
   );
 }

@@ -5,7 +5,6 @@ import {
   Button,
   ModalHeading,
   ModalInput,
-  StringInput,
 } from '@haqq/shell-ui-kit';
 import {
   WarningMessage,
@@ -13,6 +12,10 @@ import {
   formatNumber,
 } from '@haqq/shell-ui-kit/server';
 import { DelegateModalDetails } from './../delegate-modal';
+import {
+  StrideInput,
+  useStrideAddressValidation,
+} from './liquid-staking-delegate-modal';
 
 export interface LiquidStakingUndelegateModalProps {
   isOpen: boolean;
@@ -82,6 +85,8 @@ export function LiquidStakingUndelegateModal({
     return undefined;
   }, [amountError]);
 
+  const isValidStrideAddress = useStrideAddressValidation(strideAddress);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
@@ -127,15 +132,10 @@ export function LiquidStakingUndelegateModal({
                   hint={amountHint}
                 />
 
-                <StringInput
-                  value={strideAddress}
-                  onChange={setStrideAddress}
-                  placeholder="Use your Stride address here"
-                  hint={
-                    <span className="text-haqq-danger">
-                      Stride address is required to undelegate
-                    </span>
-                  }
+                <StrideInput
+                  strideAddress={strideAddress}
+                  setStrideAddress={setStrideAddress}
+                  isValidStrideAddress={isValidStrideAddress}
                 />
 
                 <div>
@@ -143,7 +143,7 @@ export function LiquidStakingUndelegateModal({
                     variant={3}
                     onClick={onSubmit}
                     className="w-full"
-                    disabled={isDisabled}
+                    disabled={isDisabled || !isValidStrideAddress}
                   >
                     Confirm undelegation
                   </Button>

@@ -39,6 +39,7 @@ import { ConnectData } from 'wagmi/query';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
 import { useCosmosService } from './cosmos-provider';
+import { useAutoconnect } from '../hooks/use-autoconnect/use-autoconnect';
 import { ethToHaqq, haqqToEth } from '../utils/convert-address';
 
 export interface WalletProviderInterface {
@@ -401,6 +402,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     connectAsync,
     setConnectError,
   ]);
+
+  useAutoconnect();
 
   return (
     <WalletContext.Provider value={memoizedContext}>
