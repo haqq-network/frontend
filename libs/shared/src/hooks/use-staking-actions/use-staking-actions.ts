@@ -291,7 +291,7 @@ export function useStakingActions() {
           const executedTxHash = await waitForTransactionExecution(
             txHash,
             30,
-            3000,
+            1500,
           );
 
           if (!executedTxHash) {
@@ -427,7 +427,29 @@ export function useStakingActions() {
         throw new Error('Transaction was not sent');
       }
 
-      const transactionStatus = await getEvmTransactionStatus(txHash);
+      // Handle Safe and non-Safe transactions differently
+      let transactionHash = txHash;
+      if (isSafe) {
+        try {
+          const executedTxHash = await waitForTransactionExecution(
+            txHash,
+            30,
+            1500,
+          );
+
+          if (!executedTxHash) {
+            throw new Error('Safe transaction execution tracking failed');
+          }
+
+          transactionHash = executedTxHash as Hash;
+        } catch (error) {
+          console.error('Error waiting for Safe transaction execution:', error);
+          throw new Error('Safe transaction was not executed');
+        }
+      }
+
+      // Check the status of the blockchain transaction
+      const transactionStatus = await getEvmTransactionStatus(transactionHash);
 
       if (transactionStatus === null) {
         throw new Error('Transaction not found');
@@ -435,7 +457,13 @@ export function useStakingActions() {
 
       return transactionStatus.tx_response;
     },
-    [ethAddress, writeContractAsync, getEvmTransactionStatus],
+    [
+      ethAddress,
+      writeContractAsync,
+      isSafe,
+      getEvmTransactionStatus,
+      waitForTransactionExecution,
+    ],
   );
 
   // Unified function to handle both regular and precompile undelegation
@@ -553,7 +581,29 @@ export function useStakingActions() {
         throw new Error('Transaction was not sent');
       }
 
-      const transactionStatus = await getEvmTransactionStatus(txHash);
+      // Handle Safe and non-Safe transactions differently
+      let transactionHash = txHash;
+      if (isSafe) {
+        try {
+          const executedTxHash = await waitForTransactionExecution(
+            txHash,
+            30,
+            1500,
+          );
+
+          if (!executedTxHash) {
+            throw new Error('Safe transaction execution tracking failed');
+          }
+
+          transactionHash = executedTxHash as Hash;
+        } catch (error) {
+          console.error('Error waiting for Safe transaction execution:', error);
+          throw new Error('Safe transaction was not executed');
+        }
+      }
+
+      // Check the status of the blockchain transaction
+      const transactionStatus = await getEvmTransactionStatus(transactionHash);
 
       if (transactionStatus === null) {
         throw new Error('Transaction not found');
@@ -561,7 +611,13 @@ export function useStakingActions() {
 
       return transactionStatus.tx_response;
     },
-    [ethAddress, writeContractAsync, getEvmTransactionStatus],
+    [
+      ethAddress,
+      writeContractAsync,
+      isSafe,
+      getEvmTransactionStatus,
+      waitForTransactionExecution,
+    ],
   );
 
   // Unified function to handle both regular and precompile redelegation

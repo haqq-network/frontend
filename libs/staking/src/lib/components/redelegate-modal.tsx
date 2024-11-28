@@ -219,9 +219,9 @@ export function RedelegateModal({
                   />
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex flex-col gap-4">
                   {isSafe && (
-                    <div className="flex w-full flex-col gap-[16px]">
+                    <div className="flex w-full flex-col gap-4">
                       <div>
                         <SafeApproveWarning />
                       </div>
