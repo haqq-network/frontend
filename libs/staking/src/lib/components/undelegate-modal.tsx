@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
+import { useConnectorType } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -14,6 +15,7 @@ import {
   OrangeLink,
 } from '@haqq/shell-ui-kit/server';
 import { DelegateModalDetails } from './delegate-modal';
+import { SafeApproveWarning } from './safe-approve-warning';
 
 export interface UndelegateModalProps {
   isOpen: boolean;
@@ -31,6 +33,7 @@ export interface UndelegateModalProps {
   onSubmit: () => void;
   memo?: string;
   onMemoChange: (value: string) => void;
+  onApprove: () => void;
 }
 
 export function UndelegateModal({
@@ -49,7 +52,9 @@ export function UndelegateModal({
   onChange,
   onSubmit,
   onMemoChange,
+  onApprove,
 }: UndelegateModalProps) {
+  const { isSafe } = useConnectorType();
   const [isMemoVisible, setMemoVisible] = useState(false);
 
   const handleMaxButtonClick = useCallback(() => {
@@ -175,7 +180,24 @@ export function UndelegateModal({
                   />
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
+                  {isSafe && (
+                    <div className="flex w-full flex-col gap-[16px]">
+                      <div>
+                        <SafeApproveWarning />
+                      </div>
+                      <div>
+                        <Button
+                          onClick={onApprove}
+                          variant={4}
+                          className="w-full"
+                        >
+                          Approve
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
                   <Button
                     variant={3}
                     onClick={onSubmit}

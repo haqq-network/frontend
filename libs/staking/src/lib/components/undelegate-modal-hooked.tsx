@@ -14,6 +14,7 @@ import {
   useWallet,
   useQueryInvalidate,
   useAddress,
+  useStakingAllowance,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -43,7 +44,8 @@ export function UndelegateModalHooked({
   unboundingTime,
   validatorAddress,
 }: UndelegateModalProps) {
-  const { undelegate, getUndelegateEstimatedFee } = useStakingActions();
+  const { undelegate, getUndelegateEstimatedFee, approveStaking } =
+    useStakingActions();
   const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -129,6 +131,7 @@ export function UndelegateModalHooked({
             );
           },
           error: (error) => {
+            setUndelegateEnabled(true);
             return <ToastError>{error.message}</ToastError>;
           },
         },
@@ -171,6 +174,19 @@ export function UndelegateModalHooked({
     chain.id,
     explorerLink,
   ]);
+
+  const handleApprove = useCallback(async () => {
+    try {
+      await approveStaking();
+    } catch (error) {
+      console.error('Approval failed:', error);
+      toast.error(
+        <ToastError>
+          {error instanceof Error ? error.message : 'Unknown error'}
+        </ToastError>,
+      );
+    }
+  }, [approveStaking, toast]);
 
   useEffect(() => {
     if (!undelegateAmount) {
@@ -270,6 +286,7 @@ export function UndelegateModalHooked({
       isFeePending={isFeePending}
       memo={memo}
       onMemoChange={setMemo}
+      onApprove={handleApprove}
     />
   );
 }
