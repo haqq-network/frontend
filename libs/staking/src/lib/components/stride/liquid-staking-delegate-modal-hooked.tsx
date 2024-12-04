@@ -11,7 +11,6 @@ import {
   useQueryInvalidate,
   useToast,
   useWallet,
-  useLiquidStakingDelegate,
   useAddress,
 } from '@haqq/shell-shared';
 import {
@@ -21,6 +20,7 @@ import {
   LinkIcon,
 } from '@haqq/shell-ui-kit/server';
 import { LiquidStakingDelegateModal } from './liquid-staking-delegate-modal';
+import { useLiquidStakingDelegate } from '../../hooks/use-liquid-staking-actions';
 
 export interface LiquidStakingDelegateModalProps {
   isOpen: boolean;
@@ -44,7 +44,6 @@ export function LiquidStakingDelegateModalHooked({
     useDebounceValue<number | undefined>(undefined, 500);
   const { delegate, setStrideAddress, strideAddress } =
     useLiquidStakingDelegate();
-
   const [isDelegateEnabled, setDelegateEnabled] = useState(false);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,

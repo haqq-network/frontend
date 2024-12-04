@@ -14,7 +14,6 @@ import {
   useWallet,
   useQueryInvalidate,
   useAddress,
-  useStakingAllowance,
 } from '@haqq/shell-shared';
 import {
   ToastSuccess,
@@ -96,9 +95,9 @@ export function UndelegateModalHooked({
       await toast.promise(
         undelegationPromise,
         {
-          loading: <ToastLoading>Undlegation in progress</ToastLoading>,
+          loading: <ToastLoading>Undelegation in progress</ToastLoading>,
           success: (tx) => {
-            console.log('Undlegation successful', { tx });
+            console.log('Undelegation successful', { tx });
             const txHash = tx?.txhash;
 
             posthog.capture('undelegate success', {

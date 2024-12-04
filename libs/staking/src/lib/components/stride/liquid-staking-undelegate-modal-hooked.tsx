@@ -7,7 +7,6 @@ import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
-  useLiquidStakingUndelegate,
   useToast,
   getFormattedAddress,
   useWallet,
@@ -21,6 +20,7 @@ import {
   LinkIcon,
 } from '@haqq/shell-ui-kit/server';
 import { LiquidStakingUndelegateModal } from './liquid-staking-undelegate-modal';
+import { useLiquidStakingUndelegate } from '../../hooks/use-liquid-staking-actions';
 
 export interface LiquidStakingUndelegateModalProps {
   isOpen: boolean;

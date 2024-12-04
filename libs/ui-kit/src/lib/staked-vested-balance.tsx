@@ -2,16 +2,12 @@ import { useMemo } from 'react';
 import { formatNumber } from '../server';
 
 export function StakedVestedBalance({
-  available,
-  locked,
   staked,
   liquidStaked = 0,
   vested,
   daoLocked,
   unbonding,
 }: {
-  available: number;
-  locked: number;
   staked: number;
   liquidStaked?: number;
   vested: number;
@@ -98,7 +94,7 @@ export function StakedVestedBalance({
         {liquidStaked > 0 && (
           <div
             style={{ width: `${liquidStakedPercent}%` }}
-            className="bg-haqq-orange h-[6px] min-w-[6px] rounded-[8px]"
+            className="h-[6px] min-w-[6px] rounded-[8px] bg-[#D32D79]"
           />
         )}
       </div>
@@ -120,7 +116,7 @@ export function StakedVestedBalance({
           </div>
         )}
         {liquidStaked > 0 && (
-          <div className="text-haqq-orange">
+          <div className="text-[#D32D79]">
             Liquid Staked: {formatNumber(liquidStaked)}
           </div>
         )}
