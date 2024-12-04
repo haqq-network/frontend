@@ -312,9 +312,9 @@ export function PlaneIcon({ className }: { className?: string }) {
 export function ArrowDownIcon({ className }: { className?: string }) {
   return (
     <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -322,7 +322,7 @@ export function ArrowDownIcon({ className }: { className?: string }) {
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M4.85156 8.89817L6.14793 7.60181L10.9997 12.4536L15.8516 7.60181L17.1479 8.89817L10.9997 15.0464L4.85156 8.89817Z"
+        d="M3.52734 6.47143L4.47015 5.52863L7.99875 9.05722L11.5273 5.52863L12.4702 6.47143L7.99875 10.9428L3.52734 6.47143Z"
         fill="currentColor"
       />
     </svg>

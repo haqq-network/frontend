@@ -2,7 +2,7 @@
   "root": true,
   "ignorePatterns": ["**/*"],
   "plugins": ["@nx", "import", "prettier"],
-  "extends": ["plugin:i18next/recommended"],
+  "extends": [],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -98,13 +98,6 @@
         "newlines-between": "never"
       }
     ],
-    "prettier/prettier": "error",
-    "i18next/no-literal-string": [
-      "warn",
-      {
-        "markupOnly": true,
-        "ignoreAttribute": ["data-testid", "to"]
-      }
-    ]
+    "prettier/prettier": "error"
   }
 }

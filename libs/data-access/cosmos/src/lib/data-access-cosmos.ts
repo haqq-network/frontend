@@ -52,6 +52,7 @@ import {
   StakingPool,
   TokenPairsResponse,
   TransactionStatusResponse,
+  CoinomicsParams,
 } from '../types';
 
 export function generateEndpointValidatorInfo(address: string) {
@@ -386,9 +387,15 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
       `${cosmosRestEndpoint}${generateEndpointCoinomicsParams()}`,
     );
 
-    const result = await fetch(getCoinomicsParamsUrl);
+    const response = await fetch(getCoinomicsParamsUrl);
 
-    return result.json();
+    if (!response.ok) {
+      throw new Error('Failed to fetch coinomics params');
+    }
+
+    const responseJson: { params: CoinomicsParams } = await response.json();
+
+    return responseJson.params;
   }
 
   const getRedelegationValidatorAmount = async (

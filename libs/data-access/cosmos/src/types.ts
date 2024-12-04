@@ -257,6 +257,12 @@ export interface TokenPairsResponse {
   token_pairs: TokenPair[];
 }
 
+export interface CoinomicsParams {
+  mint_denom: string;
+  enable_coinomics: boolean;
+  reward_coefficient: string;
+}
+
 export interface CosmosService {
   getValidators: (limit?: number) => Promise<Validator[]>;
   getRewardsInfo: (address: string) => Promise<DistributionRewardsResponse>;
@@ -320,5 +326,5 @@ export interface CosmosService {
     haqqAddress: string,
     validatorAddress: string,
   ) => Promise<bigint>;
-  getCoinomicsParams: () => Promise<any>;
+  getCoinomicsParams: () => Promise<CoinomicsParams>;
 }

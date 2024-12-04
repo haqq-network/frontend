@@ -10,7 +10,6 @@ export const ExpandableBlock = ({
   content: React.ReactNode;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen]);
@@ -29,14 +28,14 @@ export const ExpandableBlock = ({
           <div className="flex flex-row items-center gap-[4px]">{title}</div>
 
           {isOpen ? (
-            <div className="flex inline-flex items-center justify-center gap-[4px]">
+            <div className="inline-flex flex-row items-center justify-center gap-[4px]">
               <div className="text-[12px] font-[500] leading-[14px]">
                 Less info
               </div>
               <ArrowDownIcon className="rotate-180 transition-transform duration-200" />
             </div>
           ) : (
-            <div className="flex inline-flex items-center justify-center gap-[4px]">
+            <div className="inline-flex flex-row items-center justify-center gap-[4px]">
               <div className="text-[12px] font-[500] leading-[14px]">
                 More info
               </div>

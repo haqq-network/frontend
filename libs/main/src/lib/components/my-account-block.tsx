@@ -47,7 +47,7 @@ function MyAccountAmountBlock({
   valueClassName?: string;
 }) {
   return (
-    <div className="flex flex-col gap-y-[6px]">
+    <div className="flex flex-col gap-y-[4px]">
       <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
         {title}
       </div>
@@ -63,7 +63,9 @@ function MyAccountAmountBlock({
         {value}
       </div>
       {subValue ? (
-        <div className="text-[14px] text-white/50">{subValue}</div>
+        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
+          {subValue}
+        </div>
       ) : null}
     </div>
   );
@@ -101,30 +103,12 @@ function MyAccountConnected({
   const [isEthAddressCopy, setEthAddressCopy] = useState<boolean>(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState<boolean>(false);
   const { copyText } = useClipboard();
-  // const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
-  // const isMobile = useMediaQuery({
-  //   query: `(max-width: 639px)`,
-  // });
-  // const isDesktop = useMediaQuery({
-  //   query: `(min-width: 1024px)`,
-  // });
   const symbol = 'ISLM';
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
-
-  // const delegation = useMemo(() => {
-  //   if (delegationInfo && delegationInfo.delegation_responses?.length > 0) {
-  //     let del = 0;
-
-  //     for (const delegation of delegationInfo.delegation_responses) {
-  //       del = del + Number.parseInt(delegation.balance.amount, 10);
-  //     }
-
-  //     return del / 10 ** 18;
-  //   }
-
-  //   return 0;
-  // }, [delegationInfo]);
+  const stIslmBalance = useStislmBalance();
+  const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
+  const isTablet = useMediaQuery('(max-width: 1023px)');
 
   const rewards = useMemo(() => {
     if (rewardsInfo?.total?.length) {
@@ -165,19 +149,6 @@ function MyAccountConnected({
     handleMouseEnter: handleMouseEnterStaking,
     handleMouseLeave: handleMouseLeaveStaking,
   } = useHoverPopover(100);
-
-  // Hover state and handlers for liquid staking popover
-  const {
-    isHovered: isHoveredLiquidStaking,
-    handleMouseEnter: handleMouseEnterLiquidStaking,
-    handleMouseLeave: handleMouseLeaveLiquidStaking,
-  } = useHoverPopover(100);
-
-  const { stIslmBalance } = useStislmBalance();
-
-  const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
-
-  const isTablet = useMediaQuery('(max-width: 1023px)');
 
   if (!balances) {
     return null;
@@ -241,51 +212,15 @@ function MyAccountConnected({
                     </PopoverTrigger>
 
                     <PopoverContent className="outline-none">
-                      <StakingBalanceBlock
-                        haqqAddress={haqqAddress}
-                        title="Locked tokens are your tokens but you cannot transfer to other users
-            or use them to pay for gas, but you can delegate to validators -
-            stake to improve the reliability of the HAQQ network, and make a
-            profit. Locked tokens are unlocked according to the schedule."
-                      />
+                      <StakingBalanceBlock haqqAddress={haqqAddress} />
                     </PopoverContent>
                   </Popover>
                 )}
-
-                {/* Popover for liquid staking information */}
-                <Popover open={isHoveredLiquidStaking} placement="top-start">
-                  <PopoverTrigger
-                    onMouseEnter={handleMouseEnterLiquidStaking}
-                    onMouseLeave={handleMouseLeaveLiquidStaking}
-                  >
-                    <div
-                      className={clsx(
-                        'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
-                        'text-white hover:text-white/50',
-                        'text-[12px] font-[500] leading-[18px]',
-                        'transition-colors duration-150 ease-in-out',
-                      )}
-                    >
-                      <span>
-                        Available for liquid staking:{' '}
-                        {formatNumber(balances.availableForStake)}
-                      </span>
-                      <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
-                    </div>
-                  </PopoverTrigger>
-
-                  <PopoverContent className="outline-none">
-                    <StakingBalanceBlock
-                      haqqAddress={haqqAddress}
-                      isLiquidStaking
-                    />
-                  </PopoverContent>
-                </Popover>
               </div>
             </div>
           </div>
           <MyAccountAmountBlock
-            title="Regular STAKED"
+            title="Regular staked"
             value={`${formatNumber(balances.staked)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
@@ -293,9 +228,9 @@ function MyAccountConnected({
             value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
           />
           <MyAccountAmountBlock
-            title="Liquid STAKED"
+            title="Liquid staked"
             value={`${formatNumber(stIslmBalance)} stISLM`}
-            subValue={`≈${formatNumber(islmAmountFromStIslm)} ISLM`}
+            subValue={`≈${formatNumber(islmAmountFromStIslm ?? 0)} ISLM`}
           />
           <MyAccountAmountBlock
             title="Address"

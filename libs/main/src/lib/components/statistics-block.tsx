@@ -36,7 +36,7 @@ export function StatisticsBlock() {
 
   return (
     <div className="flex flex-col gap-y-[10px] lg:flex-row lg:flex-wrap lg:gap-x-[24px]">
-      <div className="flex flex-row items-center space-x-[9px]">
+      <div className="flex h-[20px] flex-row items-center space-x-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           Total supply
         </div>
@@ -49,7 +49,7 @@ export function StatisticsBlock() {
           )}
         </div>
       </div>
-      <div className="flex flex-row items-center space-x-[9px]">
+      <div className="flex h-[20px] flex-row items-center space-x-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           Total staked ({formatPercents(stakeRatio)}%)
         </div>
@@ -62,7 +62,7 @@ export function StatisticsBlock() {
           )}
         </div>
       </div>
-      <div className="flex flex-row items-center space-x-[9px]">
+      <div className="flex h-[20px] flex-row items-center space-x-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           Accounts
         </div>
@@ -70,7 +70,7 @@ export function StatisticsBlock() {
           {!isFetching && <div>{totalAccounts}</div>}
         </div>
       </div>
-      <div className="flex flex-row items-center space-x-[9px]">
+      <div className="flex h-[20px] flex-row items-center space-x-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           Active validators
         </div>
