@@ -1,29 +1,23 @@
 'use client';
-
 import { useCallback, useState } from 'react';
 import { usePostHog } from 'posthog-js/react';
 import { parseEther } from 'viem';
 import { useWriteContract } from 'wagmi';
 import { useAccount, useChains } from 'wagmi';
+import { BroadcastTxResponse } from '@haqq/data-access-cosmos';
+import { useAddress, trackBroadcastTx } from '@haqq/shell-shared';
+import stridLiquidStakingABI from '../abi/stride-liquid-staking.abi.json';
 import {
   DEFAULT_STRIDE_ADDRESS,
   STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET,
-} from '../../liquid-staking-constants';
-import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
-import { useAddress } from '../use-address/use-address';
-import stridLiquidStakingABI from './../../abis/stride-liquid-staking.abi.json';
+} from '../constants';
 
 export function useLiquidStakingDelegate() {
   const posthog = usePostHog();
-
   const { writeContractAsync: liquidStakeISLM } = useWriteContract();
-
   const { haqqAddress } = useAddress();
-
   const [strideAddress, setStrideAddress] = useState<string>('');
-
   const chains = useChains();
-
   const { chain = chains[0] } = useAccount();
   const chainId = chain.id;
 
@@ -56,7 +50,7 @@ export function useLiquidStakingDelegate() {
 
           return {
             txhash: tx,
-          } as any;
+          } as BroadcastTxResponse;
         };
 
         const txResponse = await trackBroadcastTx(
@@ -68,9 +62,6 @@ export function useLiquidStakingDelegate() {
         return txResponse;
       } catch (error) {
         console.error('Delegation failed:', error);
-        posthog?.capture('delegate_failed', {
-          error: (error as Error).message,
-        });
       }
     },
     [liquidStakeISLM, posthog, strideAddress, haqqAddress, chainId],
@@ -85,15 +76,10 @@ export function useLiquidStakingDelegate() {
 
 export function useLiquidStakingUndelegate() {
   const posthog = usePostHog();
-
   const { writeContractAsync: redeemStISLM } = useWriteContract();
-
   const { haqqAddress } = useAddress();
-
   const [strideAddress, setStrideAddress] = useState<string>('');
-
   const chains = useChains();
-
   const { chain = chains[0] } = useAccount();
   const chainId = chain.id;
 
@@ -122,7 +108,7 @@ export function useLiquidStakingUndelegate() {
 
           return {
             txhash: tx,
-          } as any;
+          } as BroadcastTxResponse;
         };
 
         const txResponse = await trackBroadcastTx(
@@ -134,10 +120,6 @@ export function useLiquidStakingUndelegate() {
         return txResponse;
       } catch (error) {
         console.error('Undelegation failed:', error);
-        posthog?.capture('undelegate_failed', {
-          //chainId: chain?.id,
-          error: (error as Error).message,
-        });
       }
     },
     [redeemStISLM, posthog, strideAddress, haqqAddress, chainId],

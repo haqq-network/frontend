@@ -56,4 +56,28 @@ describe('formatNumber()', () => {
     const result = formatNumber(1234, 2, 4, 'ar-EG');
     expect(result).toBe('١٬٢٣٤٫٠٠');
   });
+
+  // Test formatting a string representation of a number
+  it('should format a string representation of a number', () => {
+    const result = formatNumber('1234.567');
+    expect(result).toBe('1,234.567');
+  });
+
+  // Test formatting a string with more decimal places than maximumFractionDigits
+  it('should format a string with more decimal places than maximumFractionDigits', () => {
+    const result = formatNumber('1234.56789', 2, 4);
+    expect(result).toBe('1,234.5679');
+  });
+
+  // Test formatting a string with invalid number format
+  it('should return "0" for an invalid number format string', () => {
+    const result = formatNumber('invalid_number');
+    expect(result).toBe('0');
+  });
+
+  // Test formatting a string with a valid number and non-default locale
+  it('should format a string with a valid number and non-default locale', () => {
+    const result = formatNumber('1234.567', 2, 2, 'de-DE');
+    expect(result).toBe('1.234,57');
+  });
 });

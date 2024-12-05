@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
+import { formatUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -45,7 +46,8 @@ export function DelegateModalHooked({
   unboundingTime,
   validatorCommission,
 }: DelegateModalProps) {
-  const { delegate, getDelegateEstimatedFee } = useStakingActions();
+  const { delegate, getDelegateEstimatedFee, approveStaking } =
+    useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -84,6 +86,8 @@ export function DelegateModalHooked({
         },
       });
       setDelegateEnabled(false);
+
+      // Use multicall for approve and delegate in one transaction
       const delegationPromise = delegate(
         validatorAddress,
         delegateAmount,
@@ -132,6 +136,7 @@ export function DelegateModalHooked({
             );
           },
           error: (error) => {
+            setDelegateEnabled(true);
             return <ToastError>{error.message}</ToastError>;
           },
         },
@@ -179,6 +184,19 @@ export function DelegateModalHooked({
     invalidateQueries,
     chain.id,
   ]);
+
+  const handleApprove = useCallback(async () => {
+    try {
+      await approveStaking();
+    } catch (error) {
+      console.error('Approval failed:', error);
+      toast.error(
+        <ToastError>
+          {error instanceof Error ? error.message : 'Unknown error'}
+        </ToastError>,
+      );
+    }
+  }, [approveStaking, toast]);
 
   useEffect(() => {
     if (!delegateAmount) {
@@ -272,10 +290,11 @@ export function DelegateModalHooked({
       amountError={amountError}
       onSubmit={handleSubmitDelegate}
       delegateAmount={delegateAmount}
-      fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
+      fee={fee ? parseFloat(formatUnits(BigInt(fee.fee), 18)) : undefined}
       isFeePending={isFeePending}
       memo={memo}
       onMemoChange={setMemo}
+      onApprove={handleApprove}
     />
   );
 }

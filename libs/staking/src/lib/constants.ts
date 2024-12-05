@@ -1,1 +1,10 @@
 export const shouldUsePrecompile = true;
+
+export const stISLM_MAINNET = '0x12fEFEAc0568503F7C0D934c149f29a42B05C48f';
+
+export const STRIDE_LIQUID_STAKING_CONTRACT_ADDRESS_MAINNET =
+  '0x80c9cc3557e294214f63547995C8B7b609C83860';
+
+export const DEFAULT_STRIDE_ADDRESS =
+  process.env.NEXT_PUBLIC_LIQUID_STAKING_STRIDE_DEFAULT_ADDRESS ||
+  'stride14gk556dwmma8f5jxgspkle5m5fn3plalyn4qy5';

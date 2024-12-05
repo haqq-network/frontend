@@ -49,12 +49,10 @@ export function RedelegateModalHooked({
   balance,
 }: RedelegateModalProps) {
   const { haqqAddress, ethAddress } = useAddress();
-
   const { data: redelegationValidatorAmount } = useRedelegationValidatorAmount(
     haqqAddress,
     validatorAddress,
   );
-
   const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -66,7 +64,8 @@ export function RedelegateModalHooked({
     useState<string | undefined>(undefined);
   const [isFeePending, setFeePending] = useState(false);
   const toast = useToast();
-  const { redelegate, getRedelegateEstimatedFee } = useStakingActions();
+  const { redelegate, getRedelegateEstimatedFee, approveStaking } =
+    useStakingActions();
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
   const { isNetworkSupported } = useWallet();
@@ -79,6 +78,19 @@ export function RedelegateModalHooked({
   const [memo, setMemo] = useState('');
   const invalidateQueries = useQueryInvalidate();
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
+
+  const handleApprove = useCallback(async () => {
+    try {
+      await approveStaking();
+    } catch (error) {
+      console.error('Approval failed:', error);
+      toast.error(
+        <ToastError>
+          {error instanceof Error ? error.message : 'Unknown error'}
+        </ToastError>,
+      );
+    }
+  }, [approveStaking, toast]);
 
   const handleSubmitRedelegate = useCallback(async () => {
     try {
@@ -143,6 +155,7 @@ export function RedelegateModalHooked({
               );
             },
             error: (error) => {
+              setRedelegateEnabled(true);
               return <ToastError>{error.message}</ToastError>;
             },
           },
@@ -308,11 +321,12 @@ export function RedelegateModalHooked({
       onValidatorChange={setValidatorDestinationAddress}
       validatorsOptions={validatorsOptions}
       redelegateAmount={redelegateAmount}
-      fee={fee ? Number.parseFloat(fee.fee) / 10 ** 18 : undefined}
+      fee={fee ? parseFloat(formatUnits(BigInt(fee.fee), 18)) : undefined}
       isFeePending={isFeePending}
       memo={memo}
       onMemoChange={setMemo}
       redelegationValidatorAmount={redelegationValidatorAmount}
+      onApprove={handleApprove}
     />
   );
 }

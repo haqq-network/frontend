@@ -7,7 +7,6 @@ import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import {
-  useLiquidStakingUndelegate,
   useToast,
   getFormattedAddress,
   useWallet,
@@ -21,6 +20,7 @@ import {
   LinkIcon,
 } from '@haqq/shell-ui-kit/server';
 import { LiquidStakingUndelegateModal } from './liquid-staking-undelegate-modal';
+import { useLiquidStakingUndelegate } from '../../hooks/use-liquid-staking-actions';
 
 export interface LiquidStakingUndelegateModalProps {
   isOpen: boolean;
@@ -106,7 +106,7 @@ export function LiquidStakingUndelegateModalHooked({
                   <div>Undelegation successful</div>
                   <div>
                     <Link
-                      href={`${explorer.cosmos}/tx/${txHash}`}
+                      href={`${explorer.evm}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -150,7 +150,7 @@ export function LiquidStakingUndelegateModalHooked({
     undelegate,
     toast,
     onClose,
-    explorer.cosmos,
+    explorer.evm,
     invalidateQueries,
     chain.id,
     debouncedUndelegateAmount,

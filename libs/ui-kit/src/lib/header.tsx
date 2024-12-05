@@ -73,7 +73,7 @@ export function Header({
             }),
           }}
         >
-          <div className="mx-auto flex h-full w-full flex-row items-center pr-[64px] lg:pr-[24px] xl:pr-[80px]">
+          <div className="mx-auto flex h-full w-full flex-row items-center pr-[64px] xl:pr-[80px]">
             <div
               className={clsx(
                 'flex h-full w-[64px] flex-none items-center justify-center lg:w-[80px]',

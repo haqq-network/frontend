@@ -1,37 +1,28 @@
-import { useQuery } from '@tanstack/react-query';
-import { useCosmosService } from '@haqq/shell-shared';
-import { useStakingData } from './use-staking-data';
-import { useStideStakingInfo } from './use-stride-rates';
+import {
+  useCoinomicsParams,
+  useStakingValidatorListQuery,
+} from '@haqq/shell-shared';
+import { StrideValidator, useStideStakingInfo } from './use-stride-rates';
 
 const BLOCKS_PER_YEAR = 1464; // 4 restakes per day * 366 days (accounting for leap years)
 const COMMUNITY_POOL_PERCENTAGE = 0.1;
 const STRIDE_PERCENTAGE = 0.1;
 
-const phrase = Date.now().toString();
-
 export function useLiquidStakingApy() {
-  const { validators } = useStakingData({
-    showOnlyMyDelegation: false,
-    inactiveValidatorsVisible: false,
-    seedPhrase: phrase,
-  });
-
+  const {
+    data: validators,
+    error,
+    isLoading: isValidatorsLoading,
+  } = useStakingValidatorListQuery(1000);
   const {
     data: strideData,
     error: strideError,
     isLoading: strideIsLoading,
   } = useStideStakingInfo();
+  const { data, isLoading: isCoinomicsParamsLoading } = useCoinomicsParams();
 
-  const { getCoinomicsParams } = useCosmosService();
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['liquidStakingParams'],
-    queryFn: () => {
-      return getCoinomicsParams();
-    },
-  });
-
-  const rewardCoefficient = data?.params?.reward_coefficient
-    ? parseFloat(data.params.reward_coefficient)
+  const rewardCoefficient = data?.reward_coefficient
+    ? parseFloat(data.reward_coefficient)
     : 0;
   const rewardAfterCommunityPool =
     rewardCoefficient * (1 - COMMUNITY_POOL_PERCENTAGE);
@@ -41,18 +32,19 @@ export function useLiquidStakingApy() {
 
   const strideValidatorsMap =
     strideData?.validators.reduce(
-      (acc: Record<string, any>, validator: any) => {
+      (acc: Record<string, StrideValidator>, validator: StrideValidator) => {
         acc[validator.address] = validator;
         return acc;
       },
       {},
     ) || {};
 
-  const filteredValidators = validators.filter((validator) => {
-    return strideValidatorsMap
-      ? !!strideValidatorsMap[validator.operator_address]
-      : false;
-  });
+  const filteredValidators =
+    validators?.filter((validator) => {
+      return strideValidatorsMap
+        ? !!strideValidatorsMap[validator.operator_address]
+        : false;
+    }) ?? [];
 
   filteredValidators.forEach((validator) => {
     if (
@@ -88,7 +80,8 @@ export function useLiquidStakingApy() {
   return {
     apy,
     strideFee: STRIDE_PERCENTAGE * 100,
-    isLoading: strideIsLoading || isLoading,
+    isLoading:
+      strideIsLoading || isValidatorsLoading || isCoinomicsParamsLoading,
     error: strideError || error,
   };
 }

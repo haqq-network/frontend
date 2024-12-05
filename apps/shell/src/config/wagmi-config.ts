@@ -7,7 +7,7 @@ import {
   CreateConnectorFn,
 } from 'wagmi';
 import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
-import { walletConnect } from 'wagmi/connectors';
+import { safe, walletConnect } from 'wagmi/connectors';
 
 export const supportedChains = [haqqMainnet, haqqTestedge2] as const;
 export const supportedChainsIds = supportedChains.map((chain): number => {
@@ -36,6 +36,13 @@ export function createWagmiConfig(walletConnectProjectId?: string) {
       }),
     );
   }
+
+  connectors.push(
+    safe({
+      debug: true,
+      unstable_getInfoTimeout: 1000,
+    }),
+  );
 
   return createConfig({
     chains: supportedChains,

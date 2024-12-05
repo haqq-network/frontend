@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { formatUnits } from 'viem';
+import { useConnectorType } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -14,6 +15,7 @@ import {
   OrangeLink,
 } from '@haqq/shell-ui-kit/server';
 import { DelegateModalDetails } from './delegate-modal';
+import { SafeApproveWarning } from './safe-approve-warning';
 import { ValidatorSelect } from './validator-select';
 
 export interface RedelegateModalProps {
@@ -33,6 +35,7 @@ export interface RedelegateModalProps {
   memo?: string;
   onMemoChange: (value: string) => void;
   redelegationValidatorAmount: bigint | undefined;
+  onApprove: () => void;
 }
 
 export function RedelegateModalSubmitButton({
@@ -83,8 +86,10 @@ export function RedelegateModal({
   onValidatorChange,
   onMemoChange,
   redelegationValidatorAmount,
+  onApprove,
 }: RedelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
+  const { isSafe } = useConnectorType();
 
   const delegationNumber = useMemo(() => {
     return Number.parseFloat(formatUnits(BigInt(delegation), 18));
@@ -214,7 +219,24 @@ export function RedelegateModal({
                   />
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-4">
+                  {isSafe && (
+                    <div className="flex w-full flex-col gap-4">
+                      <div>
+                        <SafeApproveWarning />
+                      </div>
+                      <div>
+                        <Button
+                          onClick={onApprove}
+                          variant={4}
+                          className="w-full"
+                        >
+                          Approve
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
                   <Button
                     variant={3}
                     onClick={onSubmit}

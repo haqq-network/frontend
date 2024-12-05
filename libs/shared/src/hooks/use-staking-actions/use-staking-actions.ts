@@ -12,9 +12,10 @@ import {
   createTxMsgWithdrawDelegatorReward,
   createTxMsgMultipleWithdrawDelegatorReward,
   createTxMsgBeginRedelegate,
-  MsgBeginRedelegateParams,
+  type MsgBeginRedelegateParams,
 } from '@evmos/transactions';
 import type { Fee, MsgDelegateParams } from '@evmos/transactions';
+import SafeAppsSDK, { TransactionStatus } from '@safe-global/safe-apps-sdk';
 import {
   waitForTransactionReceipt,
   getGasPrice,
@@ -23,7 +24,14 @@ import {
 } from '@wagmi/core';
 import { usePostHog } from 'posthog-js/react';
 import { type Hash, encodeFunctionData, parseUnits } from 'viem';
-import { useAccount, useChains, useConfig, useWriteContract } from 'wagmi';
+import {
+  useAccount,
+  useChains,
+  useConfig,
+  useReadContract,
+  useWriteContract,
+  type Config,
+} from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
 import { mapToCosmosChain } from '@haqq/data-access-cosmos';
@@ -41,12 +49,17 @@ import {
   delegateAbi,
   undelegateAbi,
   redelegateAbi,
+  approveAbi,
+  stakingMessageTypes,
+  allowanceAbi,
+  MAX_UINT256_MINUS_ONE,
 } from '../../precompile/staking-abi';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useWallet } from '../../providers/wallet-provider';
 import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
 import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
+import { useConnectorType } from '../use-autoconnect/use-autoconnect';
 
 export function useStakingActions() {
   const {
@@ -68,6 +81,7 @@ export function useStakingActions() {
   const chainId = chain.id;
   const config = useConfig();
   const { writeContractAsync } = useWriteContract();
+  const { isSafe } = useConnectorType();
 
   // Convert Ethereum transaction hash to Cosmos SDK-like response
   const getEvmTransactionStatus = useCallback(
@@ -193,6 +207,64 @@ export function useStakingActions() {
     ],
   );
 
+  // Custom function to fetch Safe transaction status
+  const fetchSafeTransactionStatus = useCallback(
+    async (safeTxHash: string) => {
+      if (!isSafe) {
+        return null;
+      }
+
+      try {
+        const sdk = new SafeAppsSDK();
+        const txDetails = await sdk.txs.getBySafeTxHash(safeTxHash);
+
+        return {
+          isExecuted:
+            txDetails.txStatus === TransactionStatus.AWAITING_EXECUTION ||
+            txDetails.txStatus === TransactionStatus.SUCCESS,
+          transactionHash: txDetails.txHash,
+        };
+      } catch (error) {
+        console.error('Error fetching Safe transaction status:', error);
+        throw error;
+      }
+    },
+    [isSafe],
+  );
+
+  // Custom function to wait for Safe transaction execution
+  const waitForTransactionExecution = useCallback(
+    async (
+      safeTxHash: string,
+      maxAttempts = 20,
+      interval = 5000,
+    ): Promise<Hash | null> => {
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          const status = await fetchSafeTransactionStatus(safeTxHash);
+
+          if (status && status.isExecuted) {
+            return (status.transactionHash as Hash) ?? null;
+          }
+
+          await new Promise((resolve) => {
+            return setTimeout(resolve, interval);
+          });
+        } catch (error) {
+          console.error(`Attempt ${attempt} failed:`, error);
+
+          if (attempt === maxAttempts) {
+            console.error('Max attempts reached. Transaction tracking failed.');
+            return null;
+          }
+        }
+      }
+
+      return null;
+    },
+    [fetchSafeTransactionStatus],
+  );
+
   // Handle precompile delegation transaction
   const handlePrecompileDelegate = useCallback(
     async (validatorAddress?: string, amount?: number) => {
@@ -200,6 +272,7 @@ export function useStakingActions() {
         throw new Error('Insufficient data for delegation or simulation error');
       }
 
+      // Create a transaction
       const txHash = await writeContractAsync({
         address: STAKING_PRECOMPILE_ADDRESS,
         abi: delegateAbi,
@@ -211,7 +284,29 @@ export function useStakingActions() {
         throw new Error('Transaction was not sent');
       }
 
-      const transactionStatus = await getEvmTransactionStatus(txHash);
+      // Handle Safe and non-Safe transactions differently
+      let transactionHash = txHash;
+      if (isSafe) {
+        try {
+          const executedTxHash = await waitForTransactionExecution(
+            txHash,
+            30,
+            1500,
+          );
+
+          if (!executedTxHash) {
+            throw new Error('Safe transaction execution tracking failed');
+          }
+
+          transactionHash = executedTxHash as Hash;
+        } catch (error) {
+          console.error('Error waiting for Safe transaction execution:', error);
+          throw new Error('Safe transaction was not executed');
+        }
+      }
+
+      // Check the status of the blockchain transaction
+      const transactionStatus = await getEvmTransactionStatus(transactionHash);
 
       if (transactionStatus === null) {
         throw new Error('Transaction not found');
@@ -219,7 +314,13 @@ export function useStakingActions() {
 
       return transactionStatus.tx_response;
     },
-    [ethAddress, writeContractAsync, getEvmTransactionStatus],
+    [
+      ethAddress,
+      writeContractAsync,
+      isSafe,
+      getEvmTransactionStatus,
+      waitForTransactionExecution,
+    ],
   );
 
   // Unified function to handle both regular and precompile delegation
@@ -326,7 +427,29 @@ export function useStakingActions() {
         throw new Error('Transaction was not sent');
       }
 
-      const transactionStatus = await getEvmTransactionStatus(txHash);
+      // Handle Safe and non-Safe transactions differently
+      let transactionHash = txHash;
+      if (isSafe) {
+        try {
+          const executedTxHash = await waitForTransactionExecution(
+            txHash,
+            30,
+            1500,
+          );
+
+          if (!executedTxHash) {
+            throw new Error('Safe transaction execution tracking failed');
+          }
+
+          transactionHash = executedTxHash as Hash;
+        } catch (error) {
+          console.error('Error waiting for Safe transaction execution:', error);
+          throw new Error('Safe transaction was not executed');
+        }
+      }
+
+      // Check the status of the blockchain transaction
+      const transactionStatus = await getEvmTransactionStatus(transactionHash);
 
       if (transactionStatus === null) {
         throw new Error('Transaction not found');
@@ -334,7 +457,13 @@ export function useStakingActions() {
 
       return transactionStatus.tx_response;
     },
-    [ethAddress, writeContractAsync, getEvmTransactionStatus],
+    [
+      ethAddress,
+      writeContractAsync,
+      isSafe,
+      getEvmTransactionStatus,
+      waitForTransactionExecution,
+    ],
   );
 
   // Unified function to handle both regular and precompile undelegation
@@ -452,7 +581,29 @@ export function useStakingActions() {
         throw new Error('Transaction was not sent');
       }
 
-      const transactionStatus = await getEvmTransactionStatus(txHash);
+      // Handle Safe and non-Safe transactions differently
+      let transactionHash = txHash;
+      if (isSafe) {
+        try {
+          const executedTxHash = await waitForTransactionExecution(
+            txHash,
+            30,
+            1500,
+          );
+
+          if (!executedTxHash) {
+            throw new Error('Safe transaction execution tracking failed');
+          }
+
+          transactionHash = executedTxHash as Hash;
+        } catch (error) {
+          console.error('Error waiting for Safe transaction execution:', error);
+          throw new Error('Safe transaction was not executed');
+        }
+      }
+
+      // Check the status of the blockchain transaction
+      const transactionStatus = await getEvmTransactionStatus(transactionHash);
 
       if (transactionStatus === null) {
         throw new Error('Transaction not found');
@@ -460,7 +611,13 @@ export function useStakingActions() {
 
       return transactionStatus.tx_response;
     },
-    [ethAddress, writeContractAsync, getEvmTransactionStatus],
+    [
+      ethAddress,
+      writeContractAsync,
+      isSafe,
+      getEvmTransactionStatus,
+      waitForTransactionExecution,
+    ],
   );
 
   // Unified function to handle both regular and precompile redelegation
@@ -1213,6 +1370,33 @@ export function useStakingActions() {
     }
   }, [ethAddress, config]);
 
+  // Approve for staking operations
+  const handleStakingApprove = useCallback(async () => {
+    console.log('handleStakingApprove');
+    if (!ethAddress || !writeContractAsync) {
+      throw new Error('No eth address or write contract available');
+    }
+
+    const txHash = await writeContractAsync({
+      address: STAKING_PRECOMPILE_ADDRESS,
+      abi: approveAbi,
+      functionName: 'approve',
+      args: [ethAddress, MAX_UINT256_MINUS_ONE, stakingMessageTypes],
+    });
+
+    if (!txHash) {
+      throw new Error('Staking approve transaction failed');
+    }
+
+    const receipt = await waitForTransactionReceipt(config, { hash: txHash });
+
+    if (receipt.status !== 'success') {
+      throw new Error('Staking approve transaction failed');
+    }
+
+    return receipt;
+  }, [ethAddress, writeContractAsync, config]);
+
   return {
     delegate: handleUnifiedDelegate,
     getDelegateEstimatedFee: handleUnifiedDelegateEstimatedFee,
@@ -1225,5 +1409,38 @@ export function useStakingActions() {
     claimAllRewards: handleUnifiedClaimAllRewards,
     getClaimAllRewardEstimatedFee: handleUnifiedClaimAllRewardsEstimatedFee,
     getTotalRewards: handleGetTotalRewardsPrecompile,
+    approveStaking: handleStakingApprove,
+  };
+}
+
+export function useStakingAllowance(
+  owner: string | undefined,
+  spender: string | undefined,
+  method: string,
+) {
+  const { data: allowance, refetch } = useReadContract<
+    typeof allowanceAbi,
+    'allowance',
+    [string, string, string],
+    Config,
+    bigint
+  >({
+    address: STAKING_PRECOMPILE_ADDRESS,
+    abi: allowanceAbi,
+    functionName: 'allowance',
+    args: owner && spender ? [owner, spender, method] : undefined,
+    query: {
+      enabled: Boolean(owner && spender),
+    },
+  });
+
+  const checkAllowance = useCallback(async () => {
+    const { data } = await refetch();
+    return data;
+  }, [refetch]);
+
+  return {
+    allowance,
+    checkAllowance,
   };
 }

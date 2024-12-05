@@ -1,10 +1,11 @@
+'use client';
 import { useMemo } from 'react';
+import { formatUnits } from 'viem';
 import { useBalance } from 'wagmi';
 import { useAddress } from '@haqq/shell-shared';
+import { stISLM_MAINNET } from '../constants';
 
-const stISLM_MAINNET = '0x12fEFEAc0568503F7C0D934c149f29a42B05C48f';
-
-export const useStislmBalance = () => {
+export function useStislmBalance() {
   const { ethAddress } = useAddress();
 
   const balanceInStIslm = useBalance({
@@ -12,9 +13,7 @@ export const useStislmBalance = () => {
     address: ethAddress,
   });
 
-  const stIslmBalance = useMemo(() => {
-    return Number.parseFloat(balanceInStIslm.data?.formatted ?? '0');
-  }, [balanceInStIslm.data?.formatted]);
-
-  return { stIslmBalance };
-};
+  return useMemo(() => {
+    return Number(formatUnits(balanceInStIslm.data?.value ?? 0n, 18));
+  }, [balanceInStIslm.data?.value]);
+}

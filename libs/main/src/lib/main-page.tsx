@@ -48,7 +48,9 @@ export function MainPage({
           </div>
         </Container>
       </div>
+
       <MyAccountBlock />
+
       <div className="flex flex-col space-y-[80px] py-[68px]">
         <DelegationsBlock
           isMobileUserAgent={isMobileUserAgent}

@@ -1,4 +1,5 @@
 import { getHaqqChainStatsData } from './get-haqq-chain-stats';
+import { FalconerRequestInit } from '../../constants';
 
 const statsResponseMock = {
   accounts: '1000',

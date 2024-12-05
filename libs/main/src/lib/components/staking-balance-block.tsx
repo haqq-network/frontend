@@ -38,19 +38,16 @@ const useUnbonding = (haqqAddress: string) => {
 
 export function StakingBalanceBlock({
   haqqAddress,
-  title,
-  isLiquidStaking,
+
   className,
 }: {
   haqqAddress: string;
-  title?: string;
-  isLiquidStaking?: boolean;
   className?: string;
 }) {
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const unbonding = useUnbonding(haqqAddress);
 
-  const { stIslmBalance } = useStislmBalance();
+  const stIslmBalance = useStislmBalance();
 
   if (!balances) {
     return null;
@@ -64,11 +61,15 @@ export function StakingBalanceBlock({
       )}
     >
       <div className="flex flex-col divide-y divide-white/15">
-        {title ? (
-          <div className="py-[8px]">
-            <p className="text-[12px] leading-[18px] text-[#8E8E8E]">{title}</p>
-          </div>
-        ) : null}
+        <div className="py-[8px]">
+          <p className="text-[12px] leading-[18px] text-[#8E8E8E]">
+            Locked tokens are your tokens but you cannot transfer to other users
+            or use them to pay for gas, but you can delegate to validators -
+            stake to improve the reliability of the HAQQ network, and make a
+            profit. Locked tokens are unlocked according to the schedule.
+          </p>
+        </div>
+
         <div className="py-[8px]">
           <div className="flex flex-row items-center gap-[4px]">
             <CoinIcon />
@@ -82,19 +83,14 @@ export function StakingBalanceBlock({
             <div className="flex flex-row items-center gap-[4px]">
               <LockIcon />
               <div className="text-[12px] leading-[18px] text-white lg:text-[14px] lg:leading-[22px]">
-                Locked:{' '}
-                {isLiquidStaking
-                  ? formatNumber(stIslmBalance + balances.locked)
-                  : formatNumber(balances.locked)}
+                Locked: {formatNumber(stIslmBalance + balances.locked)}
               </div>
             </div>
 
             <div>
               <StakedVestedBalance
-                available={balances.availableForStake}
-                locked={balances.locked}
                 staked={balances.staked}
-                liquidStaked={isLiquidStaking ? stIslmBalance : 0}
+                liquidStaked={stIslmBalance}
                 vested={balances.vested}
                 daoLocked={balances.daoLocked}
                 unbonding={unbonding}

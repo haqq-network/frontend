@@ -11,7 +11,6 @@ import {
   useQueryInvalidate,
   useToast,
   useWallet,
-  useLiquidStakingDelegate,
   useAddress,
 } from '@haqq/shell-shared';
 import {
@@ -21,6 +20,7 @@ import {
   LinkIcon,
 } from '@haqq/shell-ui-kit/server';
 import { LiquidStakingDelegateModal } from './liquid-staking-delegate-modal';
+import { useLiquidStakingDelegate } from '../../hooks/use-liquid-staking-actions';
 
 export interface LiquidStakingDelegateModalProps {
   isOpen: boolean;
@@ -44,7 +44,6 @@ export function LiquidStakingDelegateModalHooked({
     useDebounceValue<number | undefined>(undefined, 500);
   const { delegate, setStrideAddress, strideAddress } =
     useLiquidStakingDelegate();
-
   const [isDelegateEnabled, setDelegateEnabled] = useState(false);
   const [amountError, setAmountError] = useState<undefined | 'min' | 'max'>(
     undefined,
@@ -109,7 +108,7 @@ export function LiquidStakingDelegateModalHooked({
                   <div>Delegation successful</div>
                   <div>
                     <Link
-                      href={`${explorer.cosmos}/tx/${txHash}`}
+                      href={`${explorer.evm}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-haqq-orange hover:text-haqq-light-orange flex items-center gap-[4px] lowercase transition-colors duration-300"
@@ -148,17 +147,17 @@ export function LiquidStakingDelegateModalHooked({
       invalidateQueries([[chain.id, 'indexer-balance']]);
     }
   }, [
+    debouncedDelegateAmount,
     posthog,
     chainId,
-    delegate,
-    debouncedDelegateAmount,
-    toast,
-    onClose,
-    explorer.cosmos,
-    invalidateQueries,
-    chain.id,
     ethAddress,
     haqqAddress,
+    delegate,
+    toast,
+    onClose,
+    explorer.evm,
+    invalidateQueries,
+    chain.id,
   ]);
 
   useEffect(() => {
