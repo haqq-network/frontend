@@ -49,7 +49,7 @@ export const ExpandableBlock = ({
         className={clsx(
           'transition-all duration-200 ease-in-out',
           'origin-top',
-          isOpen ? 'h-auto opacity-100' : 'h-0 opacity-0',
+          isOpen ? 'h-auto opacity-100' : 'pointer-events-none h-0 opacity-0',
         )}
       >
         {content}
