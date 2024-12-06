@@ -159,7 +159,7 @@ export function useIndexerBalanceQuery(address?: string) {
   const { chain = chains[0] } = useAccount();
 
   return useQuery({
-    queryKey: ['indexer-balance', address, chain.id],
+    queryKey: [chain.id, 'indexer-balance', address],
     enabled: !!address,
     queryFn: async () => {
       return await indexerBalancesFetcher(chain.id, address);
