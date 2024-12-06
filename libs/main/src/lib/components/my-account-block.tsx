@@ -110,7 +110,7 @@ function MyAccountConnected({
   const stIslmBalance = useStislmBalance();
   const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
   const isTablet = useMediaQuery('(max-width: 1023px)');
-  const isLiquidStakingEnbled = useFeatureFlag('LIQUID_STAKING');
+  const isLiquidStakingEnabled = useFeatureFlag('LIQUID_STAKING');
 
   const rewards = useMemo(() => {
     if (rewardsInfo?.total?.length) {
@@ -232,7 +232,7 @@ function MyAccountConnected({
                 )}
 
                 {/* Popover for liquid staking information */}
-                {isLiquidStakingEnbled && (
+                {isLiquidStakingEnabled && (
                   <span>
                     {isTablet ? (
                       <ExpandableBlock
