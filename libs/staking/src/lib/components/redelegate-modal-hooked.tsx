@@ -78,7 +78,9 @@ export function RedelegateModalHooked({
   const [memo, setMemo] = useState('');
   const invalidateQueries = useQueryInvalidate();
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
-  const [amountError, setAmountError] = useState<string | undefined>(undefined);
+  const [amountError, setAmountError] = useState<'min' | 'max' | undefined>(
+    undefined,
+  );
 
   const handleApprove = useCallback(async () => {
     try {
@@ -340,6 +342,7 @@ export function RedelegateModalHooked({
       onMemoChange={setMemo}
       redelegationValidatorAmount={redelegationValidatorAmount}
       onApprove={handleApprove}
+      amountError={amountError}
     />
   );
 }
