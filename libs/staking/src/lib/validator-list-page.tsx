@@ -14,7 +14,7 @@ export function ValidatorListPage({
   seedPhrase: string;
 }) {
   const { isHaqqWallet } = useWallet();
-  const isLiquidStakingEnbled = useFeatureFlag('LIQUID_STAKING');
+  const isLiquidStakingEnabled = useFeatureFlag('LIQUID_STAKING');
 
   return (
     <Fragment>
@@ -28,7 +28,7 @@ export function ValidatorListPage({
         </div>
       )}
 
-      {isLiquidStakingEnbled && <StrideStats />}
+      {isLiquidStakingEnabled && <StrideStats />}
 
       <StakingInfo />
 

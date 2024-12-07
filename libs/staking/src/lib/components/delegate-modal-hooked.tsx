@@ -211,11 +211,16 @@ export function DelegateModalHooked({
       setDelegateEnabled(false);
       setAmountError('max');
       setFee(undefined);
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+        cancelPreviousRequest.current = null;
+      }
+      setFeePending(false);
     } else {
       setDelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [balance, delegateAmount, fee]);
+  }, [balance, delegateAmount, cancelPreviousRequest]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -235,45 +240,53 @@ export function DelegateModalHooked({
   }, [delegateAmount, setDeboundecDelegateAmount]);
 
   useEffect(() => {
-    if (isDelegateEnabled) {
-      if (debouncedDelegateAmount && debouncedDelegateAmount > 0) {
-        if (cancelPreviousRequest.current) {
-          cancelPreviousRequest.current();
-        }
+    if (isDelegateEnabled && debouncedDelegateAmount) {
+      if (debouncedDelegateAmount <= 0 || debouncedDelegateAmount > balance) {
+        setFee(undefined);
+        setFeePending(false);
+        return;
+      }
 
-        let isCancelled = false;
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+      }
 
-        cancelPreviousRequest.current = () => {
-          isCancelled = true;
-        };
+      let isCancelled = false;
 
-        setFeePending(true);
-        getDelegateEstimatedFee(
-          validatorAddress,
-          debouncedDelegateAmount,
-          shouldUsePrecompile,
-        )
-          .then((estimatedFee) => {
-            console.log('Estimated fee', { estimatedFee });
-            if (!isCancelled) {
-              setFee(estimatedFee);
-              setFeePending(false);
-            }
-          })
-          .catch((error) => {
+      cancelPreviousRequest.current = () => {
+        isCancelled = true;
+      };
+
+      setFeePending(true);
+      getDelegateEstimatedFee(
+        validatorAddress,
+        debouncedDelegateAmount,
+        shouldUsePrecompile,
+      )
+        .then((estimatedFee) => {
+          if (!isCancelled) {
+            setFee(estimatedFee);
+            setFeePending(false);
+          }
+        })
+        .catch((error) => {
+          if (!isCancelled) {
             const message = (error as Error).message;
             toast.error(<ToastError>{message}</ToastError>);
+            setFee(undefined);
             setFeePending(false);
-          });
-      }
+          }
+        });
     }
   }, [
+    validatorAddress,
+    balance,
+    cancelPreviousRequest,
     debouncedDelegateAmount,
     getDelegateEstimatedFee,
     isDelegateEnabled,
-    validatorAddress,
-    cancelPreviousRequest,
     toast,
+    explorerLink,
   ]);
 
   return (

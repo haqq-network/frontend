@@ -13,7 +13,7 @@ import {
   StakedVestedBalance,
 } from '@haqq/shell-ui-kit/server';
 
-const useUnbonding = (haqqAddress: string) => {
+export function useUnbonding(haqqAddress: string) {
   const { data: undelegations } = useStakingUnbondingsQuery(haqqAddress);
   const unbonding = useMemo(() => {
     const allUnbound: number[] = (undelegations ?? []).map((validator) => {
@@ -34,19 +34,21 @@ const useUnbonding = (haqqAddress: string) => {
   }, [undelegations]);
 
   return unbonding;
-};
+}
 
 export function StakingBalanceBlock({
   haqqAddress,
-
   className,
+  description,
+  isLiquidStaking,
 }: {
   haqqAddress: string;
   className?: string;
+  description?: string;
+  isLiquidStaking?: boolean;
 }) {
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const unbonding = useUnbonding(haqqAddress);
-
   const stIslmBalance = useStislmBalance();
 
   if (!balances) {
@@ -61,20 +63,22 @@ export function StakingBalanceBlock({
       )}
     >
       <div className="flex flex-col divide-y divide-white/15">
-        <div className="py-[8px]">
-          <p className="text-[12px] leading-[18px] text-[#8E8E8E]">
-            Locked tokens are your tokens but you cannot transfer to other users
-            or use them to pay for gas, but you can delegate to validators -
-            stake to improve the reliability of the HAQQ network, and make a
-            profit. Locked tokens are unlocked according to the schedule.
-          </p>
-        </div>
+        {description && (
+          <div className="py-[8px]">
+            <p className="text-[12px] leading-[18px] text-[#8E8E8E]">
+              {description}
+            </p>
+          </div>
+        )}
 
         <div className="py-[8px]">
           <div className="flex flex-row items-center gap-[4px]">
             <CoinIcon />
             <div className="text-[12px] leading-[18px] text-white lg:text-[14px] lg:leading-[22px]">
-              Available: {formatNumber(balances.availableForStake)}
+              Available:{' '}
+              {isLiquidStaking
+                ? formatNumber(balances.available)
+                : formatNumber(balances.availableForStake)}
             </div>
           </div>
         </div>
@@ -83,14 +87,17 @@ export function StakingBalanceBlock({
             <div className="flex flex-row items-center gap-[4px]">
               <LockIcon />
               <div className="text-[12px] leading-[18px] text-white lg:text-[14px] lg:leading-[22px]">
-                Locked: {formatNumber(stIslmBalance + balances.locked)}
+                Locked:{' '}
+                {isLiquidStaking
+                  ? formatNumber(stIslmBalance + balances.locked)
+                  : formatNumber(balances.locked)}
               </div>
             </div>
 
             <div>
               <StakedVestedBalance
                 staked={balances.staked}
-                liquidStaked={stIslmBalance}
+                liquidStaked={isLiquidStaking ? stIslmBalance : 0}
                 vested={balances.vested}
                 daoLocked={balances.daoLocked}
                 unbonding={unbonding}
