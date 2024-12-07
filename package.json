@@ -24,7 +24,7 @@
     "@ethersproject/hash": "5.7.0",
     "@ethersproject/signing-key": "5.7.0",
     "@evmos/eip712": "0.2.11",
-    "@evmos/proto": "0.1.27",
+    "@evmos/proto": "0.2.1",
     "@evmos/provider": "0.2.8",
     "@evmos/transactions": "0.2.13",
     "@floating-ui/react": "0.26.26",
