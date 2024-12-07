@@ -200,11 +200,16 @@ export function UndelegateModalHooked({
       setUndelegateEnabled(false);
       setAmountError('max');
       setFee(undefined);
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+        cancelPreviousRequest.current = null;
+      }
+      setFeePending(false);
     } else {
       setUndelegateEnabled(true);
       setAmountError(undefined);
     }
-  }, [delegation, undelegateAmount]);
+  }, [delegation, undelegateAmount, cancelPreviousRequest]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -220,40 +225,50 @@ export function UndelegateModalHooked({
   }, [isOpen]);
 
   useEffect(() => {
-    if (isUndelegateEnabled) {
-      if (debouncedUndelegateAmount && debouncedUndelegateAmount > 0) {
-        if (cancelPreviousRequest.current) {
-          cancelPreviousRequest.current();
-        }
+    if (isUndelegateEnabled && debouncedUndelegateAmount) {
+      if (
+        debouncedUndelegateAmount <= 0 ||
+        debouncedUndelegateAmount > delegation
+      ) {
+        setFee(undefined);
+        setFeePending(false);
+        return;
+      }
 
-        let isCancelled = false;
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+      }
 
-        cancelPreviousRequest.current = () => {
-          isCancelled = true;
-        };
+      let isCancelled = false;
 
-        setFeePending(true);
-        getUndelegateEstimatedFee(
-          validatorAddress,
-          debouncedUndelegateAmount,
-          shouldUsePrecompile,
-        )
-          .then((estimatedFee) => {
-            console.log('Estimated fee', { estimatedFee });
-            if (!isCancelled) {
-              setFee(estimatedFee);
-              setFeePending(false);
-            }
-          })
-          .catch((error) => {
+      cancelPreviousRequest.current = () => {
+        isCancelled = true;
+      };
+
+      setFeePending(true);
+      getUndelegateEstimatedFee(
+        validatorAddress,
+        debouncedUndelegateAmount,
+        shouldUsePrecompile,
+      )
+        .then((estimatedFee) => {
+          if (!isCancelled) {
+            setFee(estimatedFee);
+            setFeePending(false);
+          }
+        })
+        .catch((error) => {
+          if (!isCancelled) {
             const message = (error as Error).message;
             toast.error(<ToastError>{message}</ToastError>);
+            setFee(undefined);
             setFeePending(false);
-          });
-      }
+          }
+        });
     }
   }, [
     validatorAddress,
+    delegation,
     cancelPreviousRequest,
     debouncedUndelegateAmount,
     getUndelegateEstimatedFee,
