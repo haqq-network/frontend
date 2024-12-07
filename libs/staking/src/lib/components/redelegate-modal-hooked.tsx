@@ -78,6 +78,7 @@ export function RedelegateModalHooked({
   const [memo, setMemo] = useState('');
   const invalidateQueries = useQueryInvalidate();
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
+  const [amountError, setAmountError] = useState<string | undefined>(undefined);
 
   const handleApprove = useCallback(async () => {
     try {
@@ -216,27 +217,28 @@ export function RedelegateModalHooked({
   }, [validatorsList, validatorAddress]);
 
   useEffect(() => {
-    if (redelegateAmount) {
-      const delegationNumber = Number.parseFloat(
-        formatUnits(BigInt(delegation), 18),
-      );
-      const fixedDelegation = toFixedAmount(delegationNumber, 3) ?? 0;
-
-      if (
-        !(fixedDelegation > 0) ||
-        redelegateAmount <= 0 ||
-        redelegateAmount > fixedDelegation
-      ) {
-        setRedelegateEnabled(false);
-        setFee(undefined);
-      } else {
-        setRedelegateEnabled(true);
-      }
-    } else {
+    if (!redelegateAmount) {
       setRedelegateEnabled(false);
+      setAmountError(undefined);
       setFee(undefined);
+    } else if (redelegateAmount <= 0) {
+      setRedelegateEnabled(false);
+      setAmountError('min');
+      setFee(undefined);
+    } else if (redelegateAmount > Number(formatUnits(delegation, 18))) {
+      setRedelegateEnabled(false);
+      setAmountError('max');
+      setFee(undefined);
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+        cancelPreviousRequest.current = null;
+      }
+      setFeePending(false);
+    } else {
+      setRedelegateEnabled(true);
+      setAmountError(undefined);
     }
-  }, [redelegateAmount, delegation]);
+  }, [delegation, redelegateAmount, cancelPreviousRequest]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -251,51 +253,62 @@ export function RedelegateModalHooked({
   }, [isOpen]);
 
   useEffect(() => {
-    if (isRedelegateEnabled) {
+    if (
+      isRedelegateEnabled &&
+      debouncedRedelegateAmount &&
+      validatorDestinationAddress
+    ) {
       if (
-        debouncedRedelegateAmount &&
-        debouncedRedelegateAmount > 0 &&
-        validatorDestinationAddress
+        debouncedRedelegateAmount <= 0 ||
+        debouncedRedelegateAmount > Number(formatUnits(delegation, 18))
       ) {
-        if (cancelPreviousRequest.current) {
-          cancelPreviousRequest.current();
-        }
+        setFee(undefined);
+        setFeePending(false);
+        return;
+      }
 
-        let isCancelled = false;
+      if (cancelPreviousRequest.current) {
+        cancelPreviousRequest.current();
+      }
 
-        cancelPreviousRequest.current = () => {
-          isCancelled = true;
-        };
+      let isCancelled = false;
 
-        setFeePending(true);
-        getRedelegateEstimatedFee(
-          validatorAddress,
-          validatorDestinationAddress,
-          debouncedRedelegateAmount,
-          shouldUsePrecompile,
-        )
-          .then((estimatedFee) => {
-            console.log('Estimated fee', { estimatedFee });
-            if (!isCancelled) {
-              setFee(estimatedFee);
-              setFeePending(false);
-            }
-          })
-          .catch((error) => {
+      cancelPreviousRequest.current = () => {
+        isCancelled = true;
+      };
+
+      setFeePending(true);
+      getRedelegateEstimatedFee(
+        validatorAddress,
+        validatorDestinationAddress,
+        debouncedRedelegateAmount,
+        shouldUsePrecompile,
+      )
+        .then((estimatedFee) => {
+          if (!isCancelled) {
+            setFee(estimatedFee);
+            setFeePending(false);
+          }
+        })
+        .catch((error) => {
+          if (!isCancelled) {
             const message = (error as Error).message;
             toast.error(<ToastError>{message}</ToastError>);
+            setFee(undefined);
             setFeePending(false);
-          });
-      }
+          }
+        });
     }
   }, [
     validatorAddress,
+    validatorDestinationAddress,
+    delegation,
     cancelPreviousRequest,
     debouncedRedelegateAmount,
-    validatorDestinationAddress,
     getRedelegateEstimatedFee,
     isRedelegateEnabled,
     toast,
+    explorerLink,
   ]);
 
   useEffect(() => {
