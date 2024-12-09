@@ -11,6 +11,7 @@ import {
   getFormattedAddress,
   useWallet,
   useIndexerBalanceQuery,
+  useFeatureFlag,
 } from '@haqq/shell-shared';
 import { useStislmBalance, useStrideRates } from '@haqq/shell-staking';
 import {
@@ -109,6 +110,7 @@ function MyAccountConnected({
   const stIslmBalance = useStislmBalance();
   const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
   const isTablet = useMediaQuery('(max-width: 1023px)');
+  const isLiquidStakingEnabled = useFeatureFlag('LIQUID_STAKING');
 
   const rewards = useMemo(() => {
     if (rewardsInfo?.total?.length) {
@@ -144,10 +146,18 @@ function MyAccountConnected({
     }
   }, [copyText, haqqAddress]);
 
+  // Hover state and handlers for staking popover
   const {
     isHovered: isHoveredStaking,
     handleMouseEnter: handleMouseEnterStaking,
     handleMouseLeave: handleMouseLeaveStaking,
+  } = useHoverPopover(100);
+
+  // Hover state and handlers for liquid staking popover
+  const {
+    isHovered: isHoveredLiquidStaking,
+    handleMouseEnter: handleMouseEnterLiquidStaking,
+    handleMouseLeave: handleMouseLeaveLiquidStaking,
   } = useHoverPopover(100);
 
   if (!balances) {
@@ -181,11 +191,12 @@ function MyAccountConnected({
               <div className="flex flex-col gap-[4px] leading-[0px]">
                 {isTablet ? (
                   <ExpandableBlock
-                    title={`Available for staking: ${formatNumber(balances.available)}`}
+                    title={`Available for staking: ${formatNumber(balances.availableForStake)}`}
                     content={
                       <StakingBalanceBlock
                         haqqAddress={haqqAddress}
-                        className="w-full !max-w-[100%] rounded-none border-l-0 border-r-0 !p-0"
+                        className="my-2 w-full !max-w-[100%] rounded-none border-x-0 !px-0"
+                        description="Locked tokens are your tokens but you cannot transfer to other users or use them to pay for gas, but you can delegate to validators - stake to improve the reliability of the HAQQ network, and make a profit. Locked tokens are unlocked according to the schedule."
                       />
                     }
                   />
@@ -205,16 +216,73 @@ function MyAccountConnected({
                       >
                         <span>
                           Available for staking:{' '}
-                          {formatNumber(balances.available)}
+                          {formatNumber(balances.availableForStake)}
                         </span>
                         <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
                       </div>
                     </PopoverTrigger>
 
                     <PopoverContent className="outline-none">
-                      <StakingBalanceBlock haqqAddress={haqqAddress} />
+                      <StakingBalanceBlock
+                        haqqAddress={haqqAddress}
+                        description="Locked tokens are your tokens but you cannot transfer to other users or use them to pay for gas, but you can delegate to validators - stake to improve the reliability of the HAQQ network, and make a profit. Locked tokens are unlocked according to the schedule."
+                      />
                     </PopoverContent>
                   </Popover>
+                )}
+
+                {/* Popover for liquid staking information */}
+                {isLiquidStakingEnabled && (
+                  <span>
+                    {isTablet ? (
+                      <ExpandableBlock
+                        title={`Available for liquid staking: ${formatNumber(
+                          balances.available,
+                        )}`}
+                        content={
+                          <StakingBalanceBlock
+                            haqqAddress={haqqAddress}
+                            isLiquidStaking
+                            className="my-2 w-full !max-w-[100%] rounded-none border-x-0 !px-0"
+                            description="Liquid staking allows you to delegate tokens to validators while maintaining liquidity. In return, you receive stISLM tokens that can be used in DeFi protocols while your staked ISLM continues to earn staking rewards."
+                          />
+                        }
+                      />
+                    ) : (
+                      <Popover
+                        open={isHoveredLiquidStaking}
+                        placement="top-start"
+                      >
+                        <PopoverTrigger
+                          onMouseEnter={handleMouseEnterLiquidStaking}
+                          onMouseLeave={handleMouseLeaveLiquidStaking}
+                        >
+                          <div
+                            className={clsx(
+                              'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
+                              'text-white hover:text-white/50',
+                              'text-[12px] font-[500] leading-[18px]',
+                              'transition-colors duration-150 ease-in-out',
+                            )}
+                          >
+                            <span>
+                              Available for liquid staking:{' '}
+                              {formatNumber(balances.available)}
+                            </span>
+                            <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+                          </div>
+                        </PopoverTrigger>
+
+                        <PopoverContent className="outline-none">
+                          <StakingBalanceBlock
+                            haqqAddress={haqqAddress}
+                            isLiquidStaking
+                            description="Liquid staking allows you to delegate tokens to validators while maintaining liquidity. In return, you receive stISLM tokens that can be used in DeFi protocols while your staked ISLM continues to earn staking rewards."
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    )}
+                  </span>
                 )}
               </div>
             </div>

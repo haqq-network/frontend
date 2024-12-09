@@ -36,6 +36,7 @@ export interface RedelegateModalProps {
   onMemoChange: (value: string) => void;
   redelegationValidatorAmount: bigint | undefined;
   onApprove: () => void;
+  amountError: 'min' | 'max' | undefined;
 }
 
 export function RedelegateModalSubmitButton({
@@ -87,6 +88,7 @@ export function RedelegateModal({
   onMemoChange,
   redelegationValidatorAmount,
   onApprove,
+  amountError,
 }: RedelegateModalProps) {
   const [isMemoVisible, setMemoVisible] = useState(false);
   const { isSafe } = useConnectorType();
@@ -125,6 +127,16 @@ export function RedelegateModal({
     },
     [onChange],
   );
+
+  const amountHint = useMemo(() => {
+    if (amountError === 'min') {
+      return <span className="text-haqq-danger">Bellow minimal value</span>;
+    } else if (amountError === 'max') {
+      return <span className="text-haqq-danger">More than you have</span>;
+    }
+
+    return undefined;
+  }, [amountError]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -177,6 +189,7 @@ export function RedelegateModal({
                     value={redelegateAmount}
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}
+                    hint={amountHint}
                   />
                 </div>
 

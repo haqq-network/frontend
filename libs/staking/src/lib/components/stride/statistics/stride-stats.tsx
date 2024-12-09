@@ -57,7 +57,7 @@ export function StrideStats() {
   const stIslmBalance = useStislmBalance();
   const { data: strideRates } = useStrideRates(stIslmBalance);
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
-  const balance = balances?.availableForStake ?? 0;
+  const balance = balances?.available ?? 0;
   const { data: strideUnbonding } = useLiquidStakingUnbondings(haqqAddress);
   const unbondingTotal = useStrideUnbondingTotal(strideUnbonding ?? []);
 

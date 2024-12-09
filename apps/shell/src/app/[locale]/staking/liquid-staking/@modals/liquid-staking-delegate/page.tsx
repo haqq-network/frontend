@@ -10,7 +10,7 @@ export default function LiquidStakingModalSegment() {
   const { haqqAddress } = useAddress();
   const { push } = useRouter();
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
-  const { data } = useStideStakingInfo();
+  const { data: strideStakingInfo } = useStideStakingInfo();
 
   return (
     <LiquidStakingDelegateModalHooked
@@ -18,8 +18,10 @@ export default function LiquidStakingModalSegment() {
       onClose={() => {
         push(`/staking`);
       }}
-      balance={balances?.availableForStake ?? 0}
-      unboundingTime={Number.parseFloat(data?.unbonding_period ?? '0')}
+      balance={balances?.available ?? 0}
+      unboundingTime={Number.parseFloat(
+        strideStakingInfo?.unbonding_period ?? '0',
+      )}
       symbol="ISLM"
     />
   );
