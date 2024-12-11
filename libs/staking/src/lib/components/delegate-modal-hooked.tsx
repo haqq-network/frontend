@@ -261,6 +261,7 @@ export function DelegateModalHooked({
       getDelegateEstimatedFee(
         validatorAddress,
         debouncedDelegateAmount,
+        BigInt(balance),
         shouldUsePrecompile,
       )
         .then((estimatedFee) => {
