@@ -56,7 +56,10 @@ import {
 } from '../../precompile/staking-abi';
 import { useCosmosService } from '../../providers/cosmos-provider';
 import { useWallet } from '../../providers/wallet-provider';
-import { getAmountIncludeFee } from '../../utils/get-amount-include-fee';
+import {
+  getAmountIncludeFee,
+  getMinBigIntAmount,
+} from '../../utils/get-amount-include-fee';
 import { trackBroadcastTx } from '../../utils/track-broadcast-tx';
 import { useAddress } from '../use-address/use-address';
 import { useConnectorType } from '../use-autoconnect/use-autoconnect';
@@ -118,8 +121,14 @@ export function useStakingActions() {
       amount: number,
       balance: number,
       fee: Fee,
+      maxAllowedAmount?: bigint,
     ): MsgDelegateParams => {
-      const amountIncludeFee = getAmountIncludeFee(amount, balance, fee);
+      const amountIncludeFee = getAmountIncludeFee(
+        amount,
+        balance,
+        fee,
+        maxAllowedAmount,
+      );
 
       return {
         validatorAddress,
@@ -137,11 +146,12 @@ export function useStakingActions() {
       amount: number,
       balance: number,
       fee: Fee,
+      delegation: bigint,
     ): MsgBeginRedelegateParams => {
       return {
         validatorSrcAddress: validatorSourceAddress,
         validatorDstAddress: validatorDestinationAddress,
-        ...getAmountIncludeFee(amount, balance, fee),
+        ...getAmountIncludeFee(amount, balance, fee, delegation),
       };
     },
     [],
@@ -196,7 +206,6 @@ export function useStakingActions() {
       getSender,
       haqqAddress,
       haqqChain,
-      getFee,
       getDelegationParams,
       signTransaction,
       broadcastTransaction,
@@ -353,22 +362,23 @@ export function useStakingActions() {
   // Handle undelegation transaction
   const handleUndelegate = useCallback(
     async (
+      fee: Fee,
+      delegation: bigint,
       validatorAddress?: string,
       amount?: number,
       balance?: number,
       memo = '',
-      estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
 
       if (sender && validatorAddress && haqqChain) {
-        const fee = getFee(estimatedFee);
         const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
           balance ?? 0,
           fee,
+          delegation,
         );
         const msg = createTxMsgUndelegate(haqqChain, sender, fee, memo, params);
         const rawTx = await signTransaction(msg, sender);
@@ -399,7 +409,6 @@ export function useStakingActions() {
       getSender,
       haqqAddress,
       haqqChain,
-      getFee,
       getDelegationParams,
       signTransaction,
       broadcastTransaction,
@@ -411,18 +420,30 @@ export function useStakingActions() {
 
   // Handle precompile undelegation transaction
   const handlePrecompileUndelegate = useCallback(
-    async (validatorAddress?: string, amount?: number) => {
+    async (
+      fee: Fee,
+      delegation: bigint,
+      validatorAddress?: string,
+      amount?: number,
+      balance?: number,
+    ) => {
       if (!validatorAddress || !amount || !ethAddress || !writeContractAsync) {
         throw new Error(
           'Insufficient data for undelegation or simulation error',
         );
       }
 
+      const amountInWei = getAmountIncludeFee(
+        amount,
+        balance ?? 0,
+        fee,
+        delegation,
+      );
       const txHash = await writeContractAsync({
         address: STAKING_PRECOMPILE_ADDRESS,
         abi: undelegateAbi,
         functionName: 'undelegate',
-        args: [ethAddress, validatorAddress, BigInt(amount * 10 ** 18)],
+        args: [ethAddress, validatorAddress, amountInWei.amount],
       });
 
       if (!txHash) {
@@ -471,6 +492,7 @@ export function useStakingActions() {
   // Unified function to handle both regular and precompile undelegation
   const handleUnifiedUndelegate = useCallback(
     async (
+      delegation: bigint,
       validatorAddress?: string,
       amount?: number,
       balance?: number,
@@ -478,19 +500,27 @@ export function useStakingActions() {
       estimatedFee?: EstimatedFeeResponse,
       usePrecompile = false,
     ) => {
+      const fee = getFee(estimatedFee);
       if (usePrecompile) {
-        return handlePrecompileUndelegate(validatorAddress, amount);
+        return handlePrecompileUndelegate(
+          fee,
+          delegation,
+          validatorAddress,
+          amount,
+          balance,
+        );
       } else {
         return handleUndelegate(
+          fee,
+          delegation,
           validatorAddress,
           amount,
           balance,
           memo,
-          estimatedFee,
         );
       }
     },
-    [handleUndelegate, handlePrecompileUndelegate],
+    [handleUndelegate, handlePrecompileUndelegate, getFee],
   );
 
   // Handle redelegation transaction
@@ -499,6 +529,7 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       amount: number,
+      delegation: bigint,
       fee: Fee,
       balance?: number,
       memo = '',
@@ -513,6 +544,7 @@ export function useStakingActions() {
           amount ?? 0,
           balance ?? 0,
           fee,
+          delegation,
         );
         const msg = createTxMsgBeginRedelegate(
           haqqChain,
@@ -558,6 +590,7 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       fee: Fee,
+      delegation: bigint,
       amount: number,
       balance?: number,
     ) => {
@@ -566,7 +599,12 @@ export function useStakingActions() {
           'Insufficient data for redelegation or simulation error',
         );
       }
-      const amountIncludeFee = getAmountIncludeFee(amount, balance ?? 0, fee);
+      const amountIncludeFee = getAmountIncludeFee(
+        amount,
+        balance ?? 0,
+        fee,
+        delegation,
+      );
       const txHash = await writeContractAsync({
         address: STAKING_PRECOMPILE_ADDRESS,
         abi: redelegateAbi,
@@ -628,6 +666,7 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       amount: number,
+      delegation: bigint,
       balance?: number,
       memo = '',
       estimatedFee?: EstimatedFeeResponse,
@@ -640,6 +679,7 @@ export function useStakingActions() {
           validatorSourceAddress,
           validatorDestinationAddress,
           fee,
+          delegation,
           amount,
           balance,
         );
@@ -648,6 +688,7 @@ export function useStakingActions() {
           validatorSourceAddress,
           validatorDestinationAddress,
           amount,
+          delegation,
           fee,
           balance,
           memo,
@@ -877,9 +918,13 @@ export function useStakingActions() {
     async (
       validatorAddress: string,
       amount: number,
+      delegation: bigint,
     ): Promise<EstimatedFeeResponse> => {
       const pubkey = await getPubkey(ethAddress as string);
-      const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
+      const bigIntAmount = getMinBigIntAmount(
+        BigInt(Number(amount) * 10 ** 18),
+        delegation,
+      );
       const protoMsg = createMsgDelegate(
         haqqAddress as string,
         validatorAddress,
@@ -910,6 +955,7 @@ export function useStakingActions() {
     async (
       validatorAddress: string,
       amount: number,
+      delegation: bigint,
     ): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
         throw new Error('Insufficient data for fee estimation');
@@ -923,7 +969,11 @@ export function useStakingActions() {
           data: encodeFunctionData({
             abi: delegateAbi,
             functionName: 'delegate',
-            args: [ethAddress, validatorAddress, amountInWei],
+            args: [
+              ethAddress,
+              validatorAddress,
+              getMinBigIntAmount(amountInWei, delegation),
+            ],
           }),
           account: ethAddress,
         });
@@ -950,12 +1000,17 @@ export function useStakingActions() {
     async (
       validatorAddress: string,
       amount: number,
+      delegation: bigint,
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
-        return handlePrecompileDelegateEstimatedFee(validatorAddress, amount);
+        return handlePrecompileDelegateEstimatedFee(
+          validatorAddress,
+          amount,
+          delegation,
+        );
       } else {
-        return handleDelegateEstimatedFee(validatorAddress, amount);
+        return handleDelegateEstimatedFee(validatorAddress, amount, delegation);
       }
     },
     [handlePrecompileDelegateEstimatedFee, handleDelegateEstimatedFee],
@@ -963,9 +1018,12 @@ export function useStakingActions() {
 
   // Estimate fee for undelegation transaction
   const handleUndelegateEstimatedFee = useCallback(
-    async (validatorAddress: string, amount: number) => {
+    async (validatorAddress: string, delegation: bigint, amount: number) => {
       const pubkey = await getPubkey(ethAddress as string);
-      const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
+      const bigIntAmount = getMinBigIntAmount(
+        BigInt(Number(amount) * 10 ** 18),
+        delegation,
+      );
       const protoMsg = createMsgUndelegate(
         haqqAddress as string,
         validatorAddress,
@@ -995,6 +1053,7 @@ export function useStakingActions() {
   const handlePrecompileUndelegateEstimatedFee = useCallback(
     async (
       validatorAddress: string,
+      delegation: bigint,
       amount: number,
     ): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
@@ -1009,7 +1068,11 @@ export function useStakingActions() {
           data: encodeFunctionData({
             abi: undelegateAbi,
             functionName: 'undelegate',
-            args: [ethAddress, validatorAddress, amountInWei],
+            args: [
+              ethAddress,
+              validatorAddress,
+              getMinBigIntAmount(amountInWei, delegation),
+            ],
           }),
           account: ethAddress,
         });
@@ -1036,12 +1099,21 @@ export function useStakingActions() {
     async (
       validatorAddress: string,
       amount: number,
+      delegation: bigint,
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
-        return handlePrecompileUndelegateEstimatedFee(validatorAddress, amount);
+        return handlePrecompileUndelegateEstimatedFee(
+          validatorAddress,
+          delegation,
+          amount,
+        );
       } else {
-        return handleUndelegateEstimatedFee(validatorAddress, amount);
+        return handleUndelegateEstimatedFee(
+          validatorAddress,
+          delegation,
+          amount,
+        );
       }
     },
     [handlePrecompileUndelegateEstimatedFee, handleUndelegateEstimatedFee],
@@ -1053,9 +1125,13 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       amount: number,
+      delegation: bigint,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
-      const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
+      const bigIntAmount = getMinBigIntAmount(
+        BigInt(Number(amount) * 10 ** 18),
+        delegation,
+      );
       const protoMsg = createMsgBeginRedelegate(
         haqqAddress as string,
         validatorSourceAddress,
@@ -1088,14 +1164,14 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       amount: number,
+      delegation: bigint,
     ): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
         throw new Error('Insufficient data for fee estimation');
       }
 
       try {
-        // MULTIPLIER 0.99 IS JUST FOR ESTIMATION, default fee ~0.008 ISLM
-        const amountInWei = parseUnits((amount * 0.99).toString(), 18);
+        const amountInWei = parseUnits(amount.toString(), 18);
 
         const estimatedGas = await estimateGas(config, {
           to: STAKING_PRECOMPILE_ADDRESS,
@@ -1106,7 +1182,7 @@ export function useStakingActions() {
               ethAddress,
               validatorSourceAddress,
               validatorDestinationAddress,
-              amountInWei,
+              getMinBigIntAmount(amountInWei, delegation),
             ],
           }),
           account: ethAddress as `0x${string}`,
@@ -1135,6 +1211,7 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       amount: number,
+      delegation: bigint,
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
@@ -1142,12 +1219,14 @@ export function useStakingActions() {
           validatorSourceAddress,
           validatorDestinationAddress,
           amount,
+          delegation,
         );
       } else {
         return handleRedelegateEstimatedFee(
           validatorSourceAddress,
           validatorDestinationAddress,
           amount,
+          delegation,
         );
       }
     },

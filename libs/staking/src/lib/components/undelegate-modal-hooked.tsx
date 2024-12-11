@@ -84,6 +84,7 @@ export function UndelegateModalHooked({
       });
       setUndelegateEnabled(false);
       const undelegationPromise = undelegate(
+        BigInt(delegation),
         validatorAddress,
         undelegateAmount,
         balance,
@@ -172,6 +173,7 @@ export function UndelegateModalHooked({
     invalidateQueries,
     chain.id,
     explorerLink,
+    delegation,
   ]);
 
   const handleApprove = useCallback(async () => {
@@ -249,6 +251,7 @@ export function UndelegateModalHooked({
       getUndelegateEstimatedFee(
         validatorAddress,
         debouncedUndelegateAmount,
+        BigInt(delegation),
         shouldUsePrecompile,
       )
         .then((estimatedFee) => {

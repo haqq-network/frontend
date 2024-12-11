@@ -22,7 +22,6 @@ import {
   ToastLoading,
   ToastError,
   LinkIcon,
-  toFixedAmount,
 } from '@haqq/shell-ui-kit/server';
 import { RedelegateModal } from './redelegate-modal';
 import { shouldUsePrecompile } from '../constants';
@@ -113,6 +112,7 @@ export function RedelegateModalHooked({
           validatorAddress,
           validatorDestinationAddress,
           redelegateAmount ?? 0,
+          delegation,
           balance,
           memo,
           fee,
@@ -201,6 +201,7 @@ export function RedelegateModalHooked({
     explorerLink,
     invalidateQueries,
     chain.id,
+    delegation,
   ]);
 
   const validatorsOptions = useMemo(() => {
@@ -284,6 +285,7 @@ export function RedelegateModalHooked({
         validatorAddress,
         validatorDestinationAddress,
         debouncedRedelegateAmount,
+        delegation,
         shouldUsePrecompile,
       )
         .then((estimatedFee) => {
