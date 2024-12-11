@@ -150,17 +150,16 @@ export function useStakingActions() {
   // Handle delegation transaction
   const handleDelegate = useCallback(
     async (
+      fee: Fee,
       validatorAddress?: string,
       amount?: number,
       balance?: number,
       memo = '',
-      estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
 
       if (sender && validatorAddress && haqqChain) {
-        const fee = getFee(estimatedFee);
         const params = getDelegationParams(
           validatorAddress,
           amount ?? 0,
@@ -267,17 +266,24 @@ export function useStakingActions() {
 
   // Handle precompile delegation transaction
   const handlePrecompileDelegate = useCallback(
-    async (validatorAddress?: string, amount?: number) => {
+    async (
+      fee: Fee,
+      validatorAddress?: string,
+      amount?: number,
+      balance?: number,
+    ) => {
       if (!validatorAddress || !amount || !ethAddress || !writeContractAsync) {
         throw new Error('Insufficient data for delegation or simulation error');
       }
+
+      const amountIncludeFee = getAmountIncludeFee(amount, balance ?? 0, fee);
 
       // Create a transaction
       const txHash = await writeContractAsync({
         address: STAKING_PRECOMPILE_ADDRESS,
         abi: delegateAbi,
         functionName: 'delegate',
-        args: [ethAddress, validatorAddress, BigInt(amount * 10 ** 18)],
+        args: [ethAddress, validatorAddress, amountIncludeFee.amount],
       });
 
       if (!txHash) {
@@ -333,19 +339,15 @@ export function useStakingActions() {
       estimatedFee?: EstimatedFeeResponse,
       usePrecompile = false, // Flag to switch between delegate and precompile delegate
     ) => {
+      const fee = getFee(estimatedFee);
+
       if (usePrecompile) {
-        return await handlePrecompileDelegate(validatorAddress, amount);
+        return handlePrecompileDelegate(fee, validatorAddress, amount, balance);
       } else {
-        return await handleDelegate(
-          validatorAddress,
-          amount,
-          balance,
-          memo,
-          estimatedFee,
-        );
+        return handleDelegate(fee, validatorAddress, amount, balance, memo);
       }
     },
-    [handleDelegate, handlePrecompileDelegate],
+    [handleDelegate, getFee, handlePrecompileDelegate],
   );
 
   // Handle undelegation transaction
@@ -477,9 +479,9 @@ export function useStakingActions() {
       usePrecompile = false,
     ) => {
       if (usePrecompile) {
-        return await handlePrecompileUndelegate(validatorAddress, amount);
+        return handlePrecompileUndelegate(validatorAddress, amount);
       } else {
-        return await handleUndelegate(
+        return handleUndelegate(
           validatorAddress,
           amount,
           balance,
@@ -497,15 +499,14 @@ export function useStakingActions() {
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
       amount: number,
+      fee: Fee,
       balance?: number,
       memo = '',
-      estimatedFee?: EstimatedFeeResponse,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
 
       if (sender && haqqChain) {
-        const fee = getFee(estimatedFee);
         const params = getRedelegationParams(
           validatorSourceAddress,
           validatorDestinationAddress,
@@ -544,7 +545,6 @@ export function useStakingActions() {
       getSender,
       haqqAddress,
       haqqChain,
-      getFee,
       getRedelegationParams,
       signTransaction,
       broadcastTransaction,
@@ -557,14 +557,16 @@ export function useStakingActions() {
     async (
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
+      fee: Fee,
       amount: number,
+      balance?: number,
     ) => {
       if (!ethAddress || !writeContractAsync) {
         throw new Error(
           'Insufficient data for redelegation or simulation error',
         );
       }
-
+      const amountIncludeFee = getAmountIncludeFee(amount, balance ?? 0, fee);
       const txHash = await writeContractAsync({
         address: STAKING_PRECOMPILE_ADDRESS,
         abi: redelegateAbi,
@@ -573,7 +575,7 @@ export function useStakingActions() {
           ethAddress,
           validatorSourceAddress,
           validatorDestinationAddress,
-          BigInt(amount * 10 ** 18),
+          amountIncludeFee.amount,
         ],
       });
 
@@ -631,24 +633,28 @@ export function useStakingActions() {
       estimatedFee?: EstimatedFeeResponse,
       usePrecompile = false,
     ) => {
+      const fee = getFee(estimatedFee);
+
       if (usePrecompile) {
-        return await handlePrecompileRedelegate(
+        return handlePrecompileRedelegate(
           validatorSourceAddress,
           validatorDestinationAddress,
-          amount,
-        );
-      } else {
-        return await handleRedelegate(
-          validatorSourceAddress,
-          validatorDestinationAddress,
+          fee,
           amount,
           balance,
+        );
+      } else {
+        return handleRedelegate(
+          validatorSourceAddress,
+          validatorDestinationAddress,
+          amount,
+          fee,
+          balance,
           memo,
-          estimatedFee,
         );
       }
     },
-    [handleRedelegate, handlePrecompileRedelegate],
+    [handleRedelegate, getFee, handlePrecompileRedelegate],
   );
 
   // Handle claiming reward from a single validator
@@ -750,9 +756,9 @@ export function useStakingActions() {
       usePrecompile = false,
     ) => {
       if (usePrecompile) {
-        return await handlePrecompileClaimReward(validatorAddress);
+        return handlePrecompileClaimReward(validatorAddress);
       } else {
-        return await handleClaimReward(validatorAddress, memo, estimatedFee);
+        return handleClaimReward(validatorAddress, memo, estimatedFee);
       }
     },
     [handleClaimReward, handlePrecompileClaimReward],
@@ -858,13 +864,9 @@ export function useStakingActions() {
       usePrecompile = false,
     ) => {
       if (usePrecompile) {
-        return await handlePrecompileClaimAllRewards(maxRetrieve);
+        return handlePrecompileClaimAllRewards(maxRetrieve);
       } else {
-        return await handleClaimAllRewards(
-          validatorAddresses,
-          memo,
-          estimatedFee,
-        );
+        return handleClaimAllRewards(validatorAddresses, memo, estimatedFee);
       }
     },
     [handleClaimAllRewards, handlePrecompileClaimAllRewards],
@@ -886,7 +888,7 @@ export function useStakingActions() {
       );
       const memo = '';
 
-      return await getEstimatedFee(
+      return getEstimatedFee(
         protoMsg,
         memo,
         haqqChain.cosmosChainId,
@@ -951,12 +953,9 @@ export function useStakingActions() {
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
-        return await handlePrecompileDelegateEstimatedFee(
-          validatorAddress,
-          amount,
-        );
+        return handlePrecompileDelegateEstimatedFee(validatorAddress, amount);
       } else {
-        return await handleDelegateEstimatedFee(validatorAddress, amount);
+        return handleDelegateEstimatedFee(validatorAddress, amount);
       }
     },
     [handlePrecompileDelegateEstimatedFee, handleDelegateEstimatedFee],
@@ -975,7 +974,7 @@ export function useStakingActions() {
       );
       const memo = '';
 
-      return await getEstimatedFee(
+      return getEstimatedFee(
         protoMsg,
         memo,
         haqqChain.cosmosChainId,
@@ -1040,12 +1039,9 @@ export function useStakingActions() {
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
-        return await handlePrecompileUndelegateEstimatedFee(
-          validatorAddress,
-          amount,
-        );
+        return handlePrecompileUndelegateEstimatedFee(validatorAddress, amount);
       } else {
-        return await handleUndelegateEstimatedFee(validatorAddress, amount);
+        return handleUndelegateEstimatedFee(validatorAddress, amount);
       }
     },
     [handlePrecompileUndelegateEstimatedFee, handleUndelegateEstimatedFee],
@@ -1069,7 +1065,7 @@ export function useStakingActions() {
       );
       const memo = '';
 
-      return await getEstimatedFee(
+      return getEstimatedFee(
         protoMsg,
         memo,
         haqqChain.cosmosChainId,
@@ -1098,7 +1094,8 @@ export function useStakingActions() {
       }
 
       try {
-        const amountInWei = parseUnits(amount.toString(), 18);
+        // MULTIPLIER 0.99 IS JUST FOR ESTIMATION, default fee ~0.008 ISLM
+        const amountInWei = parseUnits((amount * 0.99).toString(), 18);
 
         const estimatedGas = await estimateGas(config, {
           to: STAKING_PRECOMPILE_ADDRESS,
@@ -1112,7 +1109,7 @@ export function useStakingActions() {
               amountInWei,
             ],
           }),
-          account: ethAddress,
+          account: ethAddress as `0x${string}`,
         });
 
         const gasPrice = await getGasPrice(config);
@@ -1141,13 +1138,13 @@ export function useStakingActions() {
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
-        return await handlePrecompileRedelegateEstimatedFee(
+        return handlePrecompileRedelegateEstimatedFee(
           validatorSourceAddress,
           validatorDestinationAddress,
           amount,
         );
       } else {
-        return await handleRedelegateEstimatedFee(
+        return handleRedelegateEstimatedFee(
           validatorSourceAddress,
           validatorDestinationAddress,
           amount,
@@ -1167,7 +1164,7 @@ export function useStakingActions() {
       );
       const memo = '';
 
-      return await getEstimatedFee(
+      return getEstimatedFee(
         protoMsg,
         memo,
         haqqChain.cosmosChainId,
@@ -1234,9 +1231,9 @@ export function useStakingActions() {
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
-        return await handlePrecompileClaimRewardEstimatedFee(validatorAddress);
+        return handlePrecompileClaimRewardEstimatedFee(validatorAddress);
       } else {
-        return await handleGetRewardEstimatedFee(validatorAddress);
+        return handleGetRewardEstimatedFee(validatorAddress);
       }
     },
     [handlePrecompileClaimRewardEstimatedFee, handleGetRewardEstimatedFee],
@@ -1254,7 +1251,7 @@ export function useStakingActions() {
       });
       const memo = '';
 
-      return await getEstimatedFee(
+      return getEstimatedFee(
         protoMsgs,
         memo,
         haqqChain.cosmosChainId,
@@ -1322,9 +1319,9 @@ export function useStakingActions() {
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
       if (usePrecompile) {
-        return await handlePrecompileClaimAllRewardsEstimatedFee(maxRetrieve);
+        return handlePrecompileClaimAllRewardsEstimatedFee(maxRetrieve);
       } else {
-        return await handleGetAllRewardEstimatedFee(validatorAddresses);
+        return handleGetAllRewardEstimatedFee(validatorAddresses);
       }
     },
     [
