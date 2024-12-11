@@ -1,10 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Coin } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
 import { formatUnits, Hex } from 'viem';
 import { useReadContract } from 'wagmi';
 import {
+  formatEthDecimal,
   getFormattedAddress,
   useAddress,
   useBankBalance,
@@ -12,13 +13,16 @@ import {
   useTokenPairs,
 } from '@haqq/shell-shared';
 // import { Button } from '@haqq/shell-ui-kit';
-import {
-  Container,
-  formatNumber,
-  Heading,
-  WalletIcon,
-} from '@haqq/shell-ui-kit/server';
+import { Container, Heading, WalletIcon } from '@haqq/shell-ui-kit/server';
 import { FundModal } from './ucdao-fund-modal';
+
+const useFilterZeroBalances = (balances?: Coin[] | null) => {
+  return useMemo(() => {
+    return balances?.filter((balance) => {
+      return balance.amount !== '0';
+    });
+  }, [balances]);
+};
 
 export function DaoPageBalance() {
   const { t } = useTranslate();
@@ -27,7 +31,13 @@ export function DaoPageBalance() {
   const { data: bankBalances } = useBankBalance(haqqAddress);
   const [isFundModalOpen, setFundModalOpen] = useState(false);
 
-  if ((!daoBalances || daoBalances.length === 0) && !bankBalances) {
+  const filteredDaoBalances = useFilterZeroBalances(daoBalances);
+  const filteredBankBalances = useFilterZeroBalances(bankBalances);
+
+  if (
+    (!filteredDaoBalances || filteredDaoBalances.length === 0) &&
+    (!filteredBankBalances || filteredBankBalances.length === 0)
+  ) {
     return null;
   }
 
@@ -41,21 +51,21 @@ export function DaoPageBalance() {
           </Heading>
         </div>
 
-        {bankBalances && bankBalances.length > 0 && (
+        {filteredBankBalances && filteredBankBalances.length > 0 && (
           <BalancesDisplay
             label={t('wallet-balance-label', 'Wallet Balance', {
               ns: 'uc-dao',
             })}
-            balances={bankBalances}
+            balances={filteredBankBalances}
           />
         )}
 
-        {daoBalances && daoBalances.length > 0 && (
+        {filteredDaoBalances && filteredDaoBalances.length > 0 && (
           <BalancesDisplay
             label={t('dao-balance-label', 'DAO Balance', {
               ns: 'uc-dao',
             })}
-            balances={daoBalances}
+            balances={filteredDaoBalances}
           />
         )}
 
@@ -84,6 +94,8 @@ export function DaoPageBalance() {
   );
 }
 
+const MAX_VALUE = BigInt(10 ** 9);
+
 function BalancesDisplay({
   label,
   balances,
@@ -99,11 +111,10 @@ function BalancesDisplay({
 
       <div className="font-clash flex flex-col flex-wrap gap-[28px] text-[24px] font-[500] leading-[30px] text-white md:flex-row">
         {balances.map((token) => {
+          const precision = BigInt(token.amount) > MAX_VALUE ? 2 : 16;
           return (
             <div key={`token-${token.denom}`}>
-              {formatNumber(
-                Number.parseFloat(formatUnits(BigInt(token.amount), 18)),
-              )}{' '}
+              {formatEthDecimal(BigInt(token.amount), precision)}{' '}
               <TokenName denom={token.denom} />
             </div>
           );

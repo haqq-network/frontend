@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
-import { formatUnits } from 'viem';
+import { formatUnits, parseUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -261,6 +261,7 @@ export function DelegateModalHooked({
       getDelegateEstimatedFee(
         validatorAddress,
         debouncedDelegateAmount,
+        BigInt(parseUnits(balance.toString(), 18)),
         shouldUsePrecompile,
       )
         .then((estimatedFee) => {
