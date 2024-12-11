@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
+import { parseUnits } from 'viem';
 import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { getChainParams } from '@haqq/data-access-cosmos';
@@ -84,7 +85,7 @@ export function UndelegateModalHooked({
       });
       setUndelegateEnabled(false);
       const undelegationPromise = undelegate(
-        BigInt(delegation),
+        BigInt(parseUnits(delegation.toString(), 18)),
         validatorAddress,
         undelegateAmount,
         balance,
@@ -251,7 +252,7 @@ export function UndelegateModalHooked({
       getUndelegateEstimatedFee(
         validatorAddress,
         debouncedUndelegateAmount,
-        BigInt(delegation),
+        BigInt(parseUnits(delegation.toString(), 18)),
         shouldUsePrecompile,
       )
         .then((estimatedFee) => {
