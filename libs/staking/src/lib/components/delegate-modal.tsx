@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { useConnectorType } from '@haqq/shell-shared';
+import { formatUnits, parseUnits } from 'viem';
+import { formatEthDecimal, useConnectorType } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -20,17 +21,17 @@ import { SafeApproveWarning } from './safe-approve-warning';
 export interface DelegateModalProps {
   isOpen: boolean;
   symbol: string;
-  delegation: number;
-  balance: number;
+  delegation: bigint;
+  balance: bigint;
   unboundingTime: number;
   validatorCommission: number;
   amountError?: 'min' | 'max';
-  delegateAmount: number | undefined;
+  delegateAmount: bigint | undefined;
   isDisabled: boolean;
   fee: number | undefined;
   isFeePending: boolean;
   onClose: () => void;
-  onChange: (value: number | undefined) => void;
+  onChange: (value: bigint | undefined) => void;
   onSubmit: () => void;
   memo?: string;
   onMemoChange: (value: string) => void;
@@ -142,7 +143,7 @@ export function DelegateModal({
   const { isSafe } = useConnectorType();
 
   const handleMaxButtonClick = useCallback(() => {
-    onChange(Math.floor(balance));
+    onChange(balance);
   }, [balance, onChange]);
 
   const handleInputChange = useCallback(
@@ -157,7 +158,7 @@ export function DelegateModal({
         );
 
         if (normalizedAmount) {
-          onChange(normalizedAmount);
+          onChange(parseUnits(normalizedAmount.toString(), 18));
         }
       } else {
         onChange(undefined);
@@ -175,6 +176,14 @@ export function DelegateModal({
 
     return undefined;
   }, [amountError]);
+
+  const delegateAmountNumber = useMemo(() => {
+    if (delegateAmount) {
+      return Number.parseFloat(formatUnits(delegateAmount, 18));
+    }
+
+    return undefined;
+  }, [delegateAmount]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -199,11 +208,11 @@ export function DelegateModal({
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
                   title="My balance"
-                  value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
+                  value={`${formatEthDecimal(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
+                  value={`${formatEthDecimal(delegation)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="Commission"
@@ -217,7 +226,7 @@ export function DelegateModal({
                 <div>
                   <ModalInput
                     symbol={symbol}
-                    value={delegateAmount}
+                    value={delegateAmountNumber}
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}
                     hint={amountHint}

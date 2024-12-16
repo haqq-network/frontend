@@ -29,8 +29,8 @@ export interface UndelegateModalProps {
   isOpen: boolean;
   validatorAddress: string;
   symbol: string;
-  balance: number;
-  delegation: number;
+  balance: bigint;
+  delegation: bigint;
   unboundingTime: number;
   onClose: () => void;
 }
@@ -46,11 +46,11 @@ export function UndelegateModalHooked({
 }: UndelegateModalProps) {
   const { undelegate, getUndelegateEstimatedFee, approveStaking } =
     useStakingActions();
-  const [undelegateAmount, setUndelegateAmount] = useState<number | undefined>(
+  const [undelegateAmount, setUndelegateAmount] = useState<bigint | undefined>(
     undefined,
   );
   const [debouncedUndelegateAmount, setDeboundecUndelegateAmount] =
-    useDebounceValue<number | undefined>(undefined, 500);
+    useDebounceValue<bigint | undefined>(undefined, 500);
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isUndelegateEnabled, setUndelegateEnabled] = useState(false);
   const [isFeePending, setFeePending] = useState(false);
@@ -85,7 +85,7 @@ export function UndelegateModalHooked({
       });
       setUndelegateEnabled(false);
       const undelegationPromise = undelegate(
-        BigInt(parseUnits(delegation.toString(), 18)),
+        delegation,
         validatorAddress,
         undelegateAmount,
         balance,
@@ -252,7 +252,7 @@ export function UndelegateModalHooked({
       getUndelegateEstimatedFee(
         validatorAddress,
         debouncedUndelegateAmount,
-        BigInt(parseUnits(delegation.toString(), 18)),
+        delegation,
         shouldUsePrecompile,
       )
         .then((estimatedFee) => {

@@ -29,8 +29,8 @@ export interface DelegateModalProps {
   isOpen: boolean;
   symbol: string;
   validatorAddress: string;
-  balance: number;
-  delegation: number;
+  balance: bigint;
+  delegation: bigint;
   onClose: () => void;
   unboundingTime: number;
   validatorCommission: number;
@@ -48,11 +48,11 @@ export function DelegateModalHooked({
 }: DelegateModalProps) {
   const { delegate, getDelegateEstimatedFee, approveStaking } =
     useStakingActions();
-  const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
+  const [delegateAmount, setDelegateAmount] = useState<bigint | undefined>(
     undefined,
   );
   const [debouncedDelegateAmount, setDeboundecDelegateAmount] =
-    useDebounceValue<number | undefined>(undefined, 500);
+    useDebounceValue<bigint | undefined>(undefined, 500);
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isDelegateEnabled, setDelegateEnabled] = useState(false);
   const [isFeePending, setFeePending] = useState(false);
@@ -261,7 +261,7 @@ export function DelegateModalHooked({
       getDelegateEstimatedFee(
         validatorAddress,
         debouncedDelegateAmount,
-        BigInt(parseUnits(balance.toString(), 18)),
+        balance,
         shouldUsePrecompile,
       )
         .then((estimatedFee) => {

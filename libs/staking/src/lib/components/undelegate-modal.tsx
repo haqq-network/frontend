@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { useConnectorType } from '@haqq/shell-shared';
+import { formatUnits, parseUnits } from 'viem';
+import { formatEthDecimal, useConnectorType } from '@haqq/shell-shared';
 import {
   Modal,
   ModalCloseButton,
@@ -20,16 +21,16 @@ import { SafeApproveWarning } from './safe-approve-warning';
 export interface UndelegateModalProps {
   isOpen: boolean;
   symbol: string;
-  balance: number;
-  delegation: number;
+  balance: bigint;
+  delegation: bigint;
   unboundingTime: number;
   amountError?: 'min' | 'max';
-  undelegateAmount: number | undefined;
+  undelegateAmount: bigint | undefined;
   isDisabled: boolean;
   fee: number | undefined;
   isFeePending: boolean;
   onClose: () => void;
-  onChange: (value: number | undefined) => void;
+  onChange: (value: bigint | undefined) => void;
   onSubmit: () => void;
   memo?: string;
   onMemoChange: (value: string) => void;
@@ -73,7 +74,7 @@ export function UndelegateModal({
         );
 
         if (normalizedAmount) {
-          onChange(normalizedAmount);
+          onChange(parseUnits(normalizedAmount.toString(), 18));
         }
       } else {
         onChange(undefined);
@@ -93,6 +94,14 @@ export function UndelegateModal({
 
     return undefined;
   }, [amountError]);
+
+  const undelegateAmountNumber = useMemo(() => {
+    if (undelegateAmount) {
+      return Number.parseFloat(formatUnits(undelegateAmount, 18));
+    }
+
+    return undefined;
+  }, [undelegateAmount]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -114,18 +123,18 @@ export function UndelegateModal({
                 className="mt-[3px]"
                 wrapperClassName="mt-[24px]"
               >
-                {`The funds will be undelegate within ${unboundingTime} day`}
+                {`The funds will be undelegated within ${unboundingTime} day`}
               </WarningMessage>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
                   title="My balance"
-                  value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
+                  value={`${formatEthDecimal(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
                   title="My delegation"
-                  value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
+                  value={`${formatEthDecimal(delegation)} ${symbol.toUpperCase()}`}
                 />
               </div>
             </div>
@@ -134,7 +143,7 @@ export function UndelegateModal({
                 <div>
                   <ModalInput
                     symbol={symbol}
-                    value={undelegateAmount}
+                    value={undelegateAmountNumber}
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}
                     hint={amountHint}

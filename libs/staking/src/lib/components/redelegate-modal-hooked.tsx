@@ -35,7 +35,7 @@ export interface RedelegateModalProps {
   delegation: bigint;
   onClose: () => void;
   validatorsList: Validator[] | undefined;
-  balance: number;
+  balance: bigint;
 }
 
 export function RedelegateModalHooked({
@@ -52,11 +52,11 @@ export function RedelegateModalHooked({
     haqqAddress,
     validatorAddress,
   );
-  const [redelegateAmount, setRedelegateAmount] = useState<number | undefined>(
+  const [redelegateAmount, setRedelegateAmount] = useState<bigint | undefined>(
     undefined,
   );
   const [debouncedRedelegateAmount, setDeboundecRedelegateAmount] =
-    useDebounceValue<number | undefined>(undefined, 500);
+    useDebounceValue<bigint | undefined>(undefined, 500);
   const [fee, setFee] = useState<EstimatedFeeResponse | undefined>(undefined);
   const [isRedelegateEnabled, setRedelegateEnabled] = useState(false);
   const [validatorDestinationAddress, setValidatorDestinationAddress] =
@@ -111,7 +111,7 @@ export function RedelegateModalHooked({
         const redelegationPromise = redelegate(
           validatorAddress,
           validatorDestinationAddress,
-          redelegateAmount ?? 0,
+          redelegateAmount ?? 0n,
           delegation,
           balance,
           memo,
