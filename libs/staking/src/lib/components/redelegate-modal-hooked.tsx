@@ -228,7 +228,7 @@ export function RedelegateModalHooked({
       setRedelegateEnabled(false);
       setAmountError('min');
       setFee(undefined);
-    } else if (redelegateAmount > Number(formatUnits(delegation, 18))) {
+    } else if (redelegateAmount > delegation) {
       setRedelegateEnabled(false);
       setAmountError('max');
       setFee(undefined);
@@ -263,7 +263,7 @@ export function RedelegateModalHooked({
     ) {
       if (
         debouncedRedelegateAmount <= 0 ||
-        debouncedRedelegateAmount > Number(formatUnits(delegation, 18))
+        debouncedRedelegateAmount > delegation
       ) {
         setFee(undefined);
         setFeePending(false);
