@@ -16,12 +16,12 @@ export default function RedelegateModalSegment() {
   const { data: validatorsList } = useStakingValidatorListQuery(1000);
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState<bigint>(0n);
 
   useEffect(() => {
     if (balances) {
-      const { availableForStake } = balances;
-      setBalance(availableForStake);
+      const { availableForStakeBn } = balances;
+      setBalance(availableForStakeBn);
     }
   }, [balances]);
 

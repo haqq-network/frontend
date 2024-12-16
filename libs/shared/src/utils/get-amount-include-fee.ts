@@ -12,13 +12,13 @@ export const getMinBigIntAmount = (
 };
 
 export function getAmountIncludeFee(
-  amount: number,
-  balance: number,
+  amount: bigint,
+  balance: bigint,
   fee: Fee,
   maxAvailableAmount?: bigint,
 ) {
-  const bigIntAmount = BigInt(Number(amount) * 10 ** 18);
-  const bigIntBalance = BigInt(Number(balance) * 10 ** 18);
+  const bigIntAmount = amount;
+  const bigIntBalance = balance;
   const bigIntFeeAmount = BigInt(fee.amount);
 
   if (bigIntAmount + bigIntFeeAmount > bigIntBalance) {
