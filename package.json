@@ -86,7 +86,7 @@
     "@nx/eslint-plugin": "20.1.2",
     "@nx/jest": "20.1.2",
     "@nx/js": "20.1.2",
-    "@nx/next": "20.1.2",
+    "@nx/next": "20.2.2",
     "@nx/react": "20.1.2",
     "@nx/storybook": "20.1.2",
     "@nx/vite": "20.1.2",
