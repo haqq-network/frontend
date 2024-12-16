@@ -41,14 +41,12 @@ export default function UndelegateModalSegment() {
     );
 
     if (delegation) {
-      console.log('delegation', delegation);
       return BigInt(delegation.balance.amount);
     }
 
     return 0n;
   }, [delegationInfo, address]);
 
-  console.log('myDelegation', myDelegation);
   return (
     <UndelegateModalHooked
       isOpen
