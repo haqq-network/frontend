@@ -1,5 +1,6 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { formatUnits, parseUnits } from 'viem';
 import { useAccount } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import { BroadcastTxResponse, getChainParams } from '@haqq/data-access-cosmos';
@@ -66,11 +67,11 @@ export function LiquidVestingHooked({
   balance,
   haqqAddress,
 }: {
-  balance: number;
+  balance: bigint;
   haqqAddress: string;
 }) {
   const [liquidationAmount, setLiquidationAmount] = useState<
-    number | undefined
+    bigint | undefined
   >(undefined);
   const [amountError, setAmountError] = useState<
     undefined | 'min' | 'max' | 'balance'
@@ -307,8 +308,8 @@ function LiquidVesting({
   addedTokens,
   onRedeemClick,
 }: {
-  liquidationAmount: number | undefined;
-  onAmountChange: (value: number) => void;
+  liquidationAmount: bigint | undefined;
+  onAmountChange: (value: bigint) => void;
   amountError?: 'min' | 'max' | 'balance';
   isLiquidationEnabled: boolean;
   onSubmit: () => void;
@@ -328,7 +329,7 @@ function LiquidVesting({
         );
 
         if (normalizedAmount) {
-          onAmountChange(normalizedAmount);
+          onAmountChange(parseUnits(normalizedAmount.toString(), 18));
         }
       }
     },
@@ -366,6 +367,14 @@ function LiquidVesting({
     [onSubmit],
   );
 
+  const liquidationAmountNumber = useMemo(() => {
+    if (liquidationAmount) {
+      return Number.parseFloat(formatUnits(liquidationAmount, 18));
+    }
+
+    return undefined;
+  }, [liquidationAmount]);
+
   return (
     <Card className="mx-auto w-full max-w-lg overflow-hidden">
       <div className="px-[16px] pt-[24px]">
@@ -383,7 +392,7 @@ function LiquidVesting({
                   required
                   label="Amount"
                   placeholder={`Min ${formatLocaleNumber(MIN_AMOUNT)} ISLM`}
-                  value={liquidationAmount}
+                  value={liquidationAmountNumber}
                   onChange={handleInputChange}
                   {...hintAndState}
                 />
