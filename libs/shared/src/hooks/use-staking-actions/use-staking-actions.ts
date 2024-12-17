@@ -118,8 +118,8 @@ export function useStakingActions() {
   const getDelegationParams = useCallback(
     (
       validatorAddress: string,
-      amount: number,
-      balance: number,
+      amount: bigint,
+      balance: bigint,
       fee: Fee,
       maxAllowedAmount?: bigint,
     ): MsgDelegateParams => {
@@ -143,8 +143,8 @@ export function useStakingActions() {
     (
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
-      amount: number,
-      balance: number,
+      amount: bigint,
+      balance: bigint,
       fee: Fee,
       delegation: bigint,
     ): MsgBeginRedelegateParams => {
@@ -162,8 +162,8 @@ export function useStakingActions() {
     async (
       fee: Fee,
       validatorAddress?: string,
-      amount?: number,
-      balance?: number,
+      amount?: bigint,
+      balance?: bigint,
       memo = '',
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
@@ -172,8 +172,8 @@ export function useStakingActions() {
       if (sender && validatorAddress && haqqChain) {
         const params = getDelegationParams(
           validatorAddress,
-          amount ?? 0,
-          balance ?? 0,
+          amount ?? 0n,
+          balance ?? 0n,
           fee,
         );
         const msg = createTxMsgDelegate(haqqChain, sender, fee, memo, params);
@@ -278,14 +278,14 @@ export function useStakingActions() {
     async (
       fee: Fee,
       validatorAddress?: string,
-      amount?: number,
-      balance?: number,
+      amount?: bigint,
+      balance?: bigint,
     ) => {
       if (!validatorAddress || !amount || !ethAddress || !writeContractAsync) {
         throw new Error('Insufficient data for delegation or simulation error');
       }
 
-      const amountIncludeFee = getAmountIncludeFee(amount, balance ?? 0, fee);
+      const amountIncludeFee = getAmountIncludeFee(amount, balance ?? 0n, fee);
 
       // Create a transaction
       const txHash = await writeContractAsync({
@@ -342,8 +342,8 @@ export function useStakingActions() {
   const handleUnifiedDelegate = useCallback(
     async (
       validatorAddress?: string,
-      amount?: number,
-      balance?: number,
+      amount?: bigint,
+      balance?: bigint,
       memo = '',
       estimatedFee?: EstimatedFeeResponse,
       usePrecompile = false, // Flag to switch between delegate and precompile delegate
@@ -365,8 +365,8 @@ export function useStakingActions() {
       fee: Fee,
       delegation: bigint,
       validatorAddress?: string,
-      amount?: number,
-      balance?: number,
+      amount?: bigint,
+      balance?: bigint,
       memo = '',
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
@@ -375,8 +375,8 @@ export function useStakingActions() {
       if (sender && validatorAddress && haqqChain) {
         const params = getDelegationParams(
           validatorAddress,
-          amount ?? 0,
-          balance ?? 0,
+          amount ?? 0n,
+          balance ?? 0n,
           fee,
           delegation,
         );
@@ -424,8 +424,8 @@ export function useStakingActions() {
       fee: Fee,
       delegation: bigint,
       validatorAddress?: string,
-      amount?: number,
-      balance?: number,
+      amount?: bigint,
+      balance?: bigint,
     ) => {
       if (!validatorAddress || !amount || !ethAddress || !writeContractAsync) {
         throw new Error(
@@ -435,7 +435,7 @@ export function useStakingActions() {
 
       const amountInWei = getAmountIncludeFee(
         amount,
-        balance ?? 0,
+        balance ?? 0n,
         fee,
         delegation,
       );
@@ -494,8 +494,8 @@ export function useStakingActions() {
     async (
       delegation: bigint,
       validatorAddress?: string,
-      amount?: number,
-      balance?: number,
+      amount?: bigint,
+      balance?: bigint,
       memo = '',
       estimatedFee?: EstimatedFeeResponse,
       usePrecompile = false,
@@ -528,10 +528,10 @@ export function useStakingActions() {
     async (
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
       fee: Fee,
-      balance?: number,
+      balance?: bigint,
       memo = '',
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
@@ -541,8 +541,8 @@ export function useStakingActions() {
         const params = getRedelegationParams(
           validatorSourceAddress,
           validatorDestinationAddress,
-          amount ?? 0,
-          balance ?? 0,
+          amount ?? 0n,
+          balance ?? 0n,
           fee,
           delegation,
         );
@@ -591,8 +591,8 @@ export function useStakingActions() {
       validatorDestinationAddress: string,
       fee: Fee,
       delegation: bigint,
-      amount: number,
-      balance?: number,
+      amount: bigint,
+      balance?: bigint,
     ) => {
       if (!ethAddress || !writeContractAsync) {
         throw new Error(
@@ -601,7 +601,7 @@ export function useStakingActions() {
       }
       const amountIncludeFee = getAmountIncludeFee(
         amount,
-        balance ?? 0,
+        balance ?? 0n,
         fee,
         delegation,
       );
@@ -665,9 +665,9 @@ export function useStakingActions() {
     async (
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
-      balance?: number,
+      balance?: bigint,
       memo = '',
       estimatedFee?: EstimatedFeeResponse,
       usePrecompile = false,
@@ -917,14 +917,11 @@ export function useStakingActions() {
   const handleDelegateEstimatedFee = useCallback(
     async (
       validatorAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
     ): Promise<EstimatedFeeResponse> => {
       const pubkey = await getPubkey(ethAddress as string);
-      const bigIntAmount = getMinBigIntAmount(
-        BigInt(Number(amount) * 10 ** 18),
-        delegation,
-      );
+      const bigIntAmount = getMinBigIntAmount(amount, delegation);
       const protoMsg = createMsgDelegate(
         haqqAddress as string,
         validatorAddress,
@@ -954,7 +951,7 @@ export function useStakingActions() {
   const handlePrecompileDelegateEstimatedFee = useCallback(
     async (
       validatorAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
     ): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
@@ -962,7 +959,7 @@ export function useStakingActions() {
       }
 
       try {
-        const amountInWei = parseUnits(amount.toString(), 18);
+        const amountInWei = amount; // parseUnits(amount.toString(), 18);
 
         const estimatedGas = await estimateGas(config, {
           to: STAKING_PRECOMPILE_ADDRESS,
@@ -999,7 +996,7 @@ export function useStakingActions() {
   const handleUnifiedDelegateEstimatedFee = useCallback(
     async (
       validatorAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
@@ -1018,12 +1015,9 @@ export function useStakingActions() {
 
   // Estimate fee for undelegation transaction
   const handleUndelegateEstimatedFee = useCallback(
-    async (validatorAddress: string, delegation: bigint, amount: number) => {
+    async (validatorAddress: string, delegation: bigint, amount: bigint) => {
       const pubkey = await getPubkey(ethAddress as string);
-      const bigIntAmount = getMinBigIntAmount(
-        BigInt(Number(amount) * 10 ** 18),
-        delegation,
-      );
+      const bigIntAmount = getMinBigIntAmount(amount, delegation);
       const protoMsg = createMsgUndelegate(
         haqqAddress as string,
         validatorAddress,
@@ -1054,15 +1048,16 @@ export function useStakingActions() {
     async (
       validatorAddress: string,
       delegation: bigint,
-      amount: number,
+      amount: bigint,
     ): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
         throw new Error('Insufficient data for fee estimation');
       }
 
       try {
-        const amountInWei = parseUnits(amount.toString(), 18);
+        const amountInWei = amount; // parseUnits(amount.toString(), 18);
 
+        console.log('amountInWei', amountInWei, delegation);
         const estimatedGas = await estimateGas(config, {
           to: STAKING_PRECOMPILE_ADDRESS,
           data: encodeFunctionData({
@@ -1098,7 +1093,7 @@ export function useStakingActions() {
   const handleUnifiedUndelegateEstimatedFee = useCallback(
     async (
       validatorAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {
@@ -1124,14 +1119,12 @@ export function useStakingActions() {
     async (
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
     ) => {
       const pubkey = await getPubkey(ethAddress as string);
-      const bigIntAmount = getMinBigIntAmount(
-        BigInt(Number(amount) * 10 ** 18),
-        delegation,
-      );
+      const bigIntAmount = getMinBigIntAmount(amount, delegation);
+
       const protoMsg = createMsgBeginRedelegate(
         haqqAddress as string,
         validatorSourceAddress,
@@ -1163,7 +1156,7 @@ export function useStakingActions() {
     async (
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
     ): Promise<EstimatedFeeResponse> => {
       if (!ethAddress || !config) {
@@ -1171,7 +1164,7 @@ export function useStakingActions() {
       }
 
       try {
-        const amountInWei = parseUnits(amount.toString(), 18);
+        const amountInWei = amount; // parseUnits(amount.toString(), 18);
 
         const estimatedGas = await estimateGas(config, {
           to: STAKING_PRECOMPILE_ADDRESS,
@@ -1210,7 +1203,7 @@ export function useStakingActions() {
     async (
       validatorSourceAddress: string,
       validatorDestinationAddress: string,
-      amount: number,
+      amount: bigint,
       delegation: bigint,
       usePrecompile = false,
     ): Promise<EstimatedFeeResponse> => {

@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { formatUnits } from 'viem';
+import { formatUnits, parseUnits } from 'viem';
 import { useConnectorType } from '@haqq/shell-shared';
 import {
   Modal,
@@ -22,13 +22,13 @@ export interface RedelegateModalProps {
   isOpen: boolean;
   symbol: string;
   delegation: bigint;
-  redelegateAmount: number | undefined;
-  balance: number;
+  redelegateAmount: bigint | undefined;
+  balance: bigint;
   isDisabled: boolean;
   fee: number | undefined;
   isFeePending: boolean;
   onClose: () => void;
-  onChange: (value: number | undefined) => void;
+  onChange: (value: bigint | undefined) => void;
   onSubmit: () => void;
   onValidatorChange: (validatorAddress: string | undefined) => void;
   validatorsOptions: { label: string; value: string }[];
@@ -104,8 +104,8 @@ export function RedelegateModal({
   }, [redelegationValidatorAmount]);
 
   const handleMaxButtonClick = useCallback(() => {
-    onChange(delegationNumber);
-  }, [delegationNumber, onChange]);
+    onChange(delegation);
+  }, [delegation, onChange]);
 
   const handleInputChange = useCallback(
     (value: string | undefined) => {
@@ -119,7 +119,7 @@ export function RedelegateModal({
         );
 
         if (normalizedAmount) {
-          onChange(normalizedAmount);
+          onChange(parseUnits(normalizedAmount.toString(), 18));
         }
       } else {
         onChange(undefined);
@@ -137,6 +137,14 @@ export function RedelegateModal({
 
     return undefined;
   }, [amountError]);
+
+  const redelegateAmountNumber = useMemo(() => {
+    if (redelegateAmount) {
+      return Number.parseFloat(formatUnits(redelegateAmount, 18));
+    }
+
+    return undefined;
+  }, [redelegateAmount]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -186,7 +194,7 @@ export function RedelegateModal({
                 <div>
                   <ModalInput
                     symbol={symbol}
-                    value={redelegateAmount}
+                    value={redelegateAmountNumber}
                     onChange={handleInputChange}
                     onMaxButtonClick={handleMaxButtonClick}
                     hint={amountHint}

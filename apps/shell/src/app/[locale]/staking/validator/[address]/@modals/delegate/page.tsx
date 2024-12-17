@@ -19,7 +19,7 @@ export default function DelegateModalSegment() {
   const { data: stakingParams } = useStakingParamsQuery();
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState<bigint>(0n);
 
   const validatorCommission = useMemo(() => {
     return (
@@ -39,8 +39,8 @@ export default function DelegateModalSegment() {
 
   useEffect(() => {
     if (balances) {
-      const { availableForStake } = balances;
-      setBalance(availableForStake);
+      const { availableForStakeBn } = balances;
+      setBalance(availableForStakeBn);
     }
   }, [balances]);
 
@@ -52,12 +52,10 @@ export default function DelegateModalSegment() {
     );
 
     if (delegation) {
-      return Number.parseFloat(
-        formatUnits(BigInt(delegation.balance.amount), 18),
-      );
+      return BigInt(delegation.balance.amount);
     }
 
-    return 0;
+    return 0n;
   }, [delegationInfo, address]);
 
   return (

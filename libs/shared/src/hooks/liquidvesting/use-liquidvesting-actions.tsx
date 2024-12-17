@@ -35,8 +35,8 @@ export function useLiquidVestingActions() {
   const getLiquidateParams = useCallback(
     (
       liquidateTo: string,
-      amount: number,
-      balance: number,
+      amount: bigint,
+      balance: bigint,
       fee: Fee,
     ): MsgLiquidateParams => {
       return {
@@ -59,7 +59,7 @@ export function useLiquidVestingActions() {
   );
 
   const handleLiquidate = useCallback(
-    async (address?: string, amount?: number, balance?: number) => {
+    async (address?: string, amount?: bigint, balance?: bigint) => {
       const pubkey = await getPubkey(ethAddress as string);
       const sender = await getSender(haqqAddress as string, pubkey);
       const memo = '';
@@ -67,8 +67,8 @@ export function useLiquidVestingActions() {
       if (sender && address && haqqChain) {
         const params = getLiquidateParams(
           address,
-          amount ?? 0,
-          balance ?? 0,
+          amount ?? 0n,
+          balance ?? 0n,
           VESTING_DEFAULT_FEE,
         );
 

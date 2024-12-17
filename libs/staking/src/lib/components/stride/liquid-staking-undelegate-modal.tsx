@@ -107,7 +107,7 @@ export function LiquidStakingUndelegateModal({
                 className="mt-[3px]"
                 wrapperClassName="mt-[24px]"
               >
-                {`The funds will be undelegate within ${unboundingTime} day`}
+                {`The funds will be undelegated within ${unboundingTime} day`}
               </WarningMessage>
             </div>
             <div className="py-[24px]">

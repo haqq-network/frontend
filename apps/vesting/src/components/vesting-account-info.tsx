@@ -52,7 +52,10 @@ export function VestingAccountInfo({
         {/* <DaoParticipate address={ethAddress} /> */}
 
         {isLiquidVestingVisible && (
-          <LiquidVestingHooked balance={balances.total} haqqAddress={address} />
+          <LiquidVestingHooked
+            balance={balances.totalBn}
+            haqqAddress={address}
+          />
         )}
 
         {isClawbackVestingAccount(accountInfo) && (

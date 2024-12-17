@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { formatUnits } from 'viem';
 import {
   useAddress,
   useIndexerBalanceQuery,
@@ -17,7 +16,7 @@ export default function UndelegateModalSegment() {
   const { data: stakingParams } = useStakingParamsQuery();
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState(0n);
 
   const unboundingTime = useMemo(() => {
     if (stakingParams?.unbonding_time) {
@@ -29,8 +28,8 @@ export default function UndelegateModalSegment() {
 
   useEffect(() => {
     if (balances) {
-      const { availableForStake } = balances;
-      setBalance(availableForStake);
+      const { availableForStakeBn } = balances;
+      setBalance(availableForStakeBn);
     }
   }, [balances]);
 
@@ -42,12 +41,10 @@ export default function UndelegateModalSegment() {
     );
 
     if (delegation) {
-      return Number.parseFloat(
-        formatUnits(BigInt(delegation.balance.amount), 18),
-      );
+      return BigInt(delegation.balance.amount);
     }
 
-    return 0;
+    return 0n;
   }, [delegationInfo, address]);
 
   return (

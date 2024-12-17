@@ -25,8 +25,8 @@ interface ProposalActionsHook {
   ) => Promise<BroadcastTxResponse>;
   deposit: (
     proposalId: number,
-    amount: number,
-    balance?: number,
+    amount: bigint,
+    balance?: bigint,
     memo?: string,
     estimatedFee?: EstimatedFeeResponse,
   ) => Promise<BroadcastTxResponse>;
@@ -116,8 +116,8 @@ export function useProposalActions(): ProposalActionsHook {
   const handleDeposit = useCallback(
     async (
       proposalId: number,
-      amount: number,
-      balance?: number,
+      amount: bigint,
+      balance?: bigint,
       memo = '',
       estimatedFee?: EstimatedFeeResponse,
     ) => {
@@ -128,7 +128,7 @@ export function useProposalActions(): ProposalActionsHook {
         const fee = getFee(estimatedFee);
         const depositParams: MessageMsgDepositParams = {
           proposalId,
-          deposit: getAmountIncludeFee(amount, balance ?? 0, fee),
+          deposit: getAmountIncludeFee(amount, balance ?? 0n, fee),
         };
         const msg = createTxMsgDeposit(
           haqqChain,

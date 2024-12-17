@@ -5,17 +5,29 @@ import { useAccount, useChains } from 'wagmi';
 
 export interface IndexerBalances {
   available: number;
+  availableBn: bigint;
   availableForStake: number;
+  availableForStakeBn: bigint;
   balance: number;
+  balanceBn: bigint;
   locked: number;
+  lockedBn: bigint;
   staked: number;
+  stakedBn: bigint;
   stakedFree: number;
+  stakedFreeBn: bigint;
   stakedLocked: number;
+  stakedLockedBn: bigint;
   total: number;
+  totalBn: bigint;
   vested: number;
+  vestedBn: bigint;
   daoLocked: number;
+  daoLockedBn: bigint;
   unbonding: number;
+  unbondingBn: bigint;
   rewards: number;
+  rewardsBn: bigint;
 }
 
 type IndexerBalance = Array<[string, number, string]>;
@@ -82,6 +94,22 @@ function safeParseBalance(
   return Number.parseFloat(formatUnits(BigInt(balance[2]), 18));
 }
 
+function safeParseBalanceBigInt(
+  balances: IndexerBalance,
+  address: string,
+  chainId: number,
+): bigint {
+  const balance = balances.find(([addr, chain]) => {
+    return addr === address && chain === chainId;
+  });
+
+  if (!balance) {
+    return 0n;
+  }
+
+  return BigInt(balance[2]);
+}
+
 // Map the balances from the indexer response to the IndexerBalances type
 function mapBalances(
   balancesResponse: IndexerV2UpdatesResponse,
@@ -90,15 +118,37 @@ function mapBalances(
 ): IndexerBalances {
   return {
     available: safeParseBalance(balancesResponse.available, address, chainId),
+    availableBn: safeParseBalanceBigInt(
+      balancesResponse.available,
+      address,
+      chainId,
+    ),
     availableForStake: safeParseBalance(
       balancesResponse.available_for_stake,
       address,
       chainId,
     ),
+    availableForStakeBn: safeParseBalanceBigInt(
+      balancesResponse.available_for_stake,
+      address,
+      chainId,
+    ),
     balance: safeParseBalance(balancesResponse.balance, address, chainId),
+    balanceBn: safeParseBalanceBigInt(
+      balancesResponse.balance,
+      address,
+      chainId,
+    ),
     locked: safeParseBalance(balancesResponse.locked, address, chainId),
+    lockedBn: safeParseBalanceBigInt(balancesResponse.locked, address, chainId),
     staked: safeParseBalance(balancesResponse.staked, address, chainId),
+    stakedBn: safeParseBalanceBigInt(balancesResponse.staked, address, chainId),
     stakedFree: safeParseBalance(
+      balancesResponse.staked_free,
+      address,
+      chainId,
+    ),
+    stakedFreeBn: safeParseBalanceBigInt(
       balancesResponse.staked_free,
       address,
       chainId,
@@ -108,11 +158,33 @@ function mapBalances(
       address,
       chainId,
     ),
+    stakedLockedBn: safeParseBalanceBigInt(
+      balancesResponse.staked_locked,
+      address,
+      chainId,
+    ),
     total: safeParseBalance(balancesResponse.total, address, chainId),
+    totalBn: safeParseBalanceBigInt(balancesResponse.total, address, chainId),
     vested: safeParseBalance(balancesResponse.vested, address, chainId),
+    vestedBn: safeParseBalanceBigInt(balancesResponse.vested, address, chainId),
     daoLocked: safeParseBalance(balancesResponse.dao_locked, address, chainId),
+    daoLockedBn: safeParseBalanceBigInt(
+      balancesResponse.dao_locked,
+      address,
+      chainId,
+    ),
     unbonding: safeParseBalance(balancesResponse.unbounding, address, chainId),
+    unbondingBn: safeParseBalanceBigInt(
+      balancesResponse.unbounding,
+      address,
+      chainId,
+    ),
     rewards: safeParseBalance(balancesResponse.rewards, address, chainId),
+    rewardsBn: safeParseBalanceBigInt(
+      balancesResponse.rewards,
+      address,
+      chainId,
+    ),
   };
 }
 
