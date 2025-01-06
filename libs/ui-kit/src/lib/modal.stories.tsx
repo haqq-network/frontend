@@ -1,4 +1,3 @@
-/* eslint-disable i18next/no-literal-string */
 import { Fragment, useState } from 'react';
 import { Meta } from '@storybook/react';
 import { Button } from './button';

@@ -195,7 +195,6 @@ export function ValidatorList({
         )}
 
         {status === 'error' && (
-          // eslint-disable-next-line i18next/no-literal-string
           <p>Error: {error?.message ?? 'unknown error'}</p>
         )}
 

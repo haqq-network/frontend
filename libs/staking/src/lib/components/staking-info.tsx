@@ -1,6 +1,5 @@
 'use client';
 import { useMemo } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { useMediaQuery } from 'usehooks-ts';

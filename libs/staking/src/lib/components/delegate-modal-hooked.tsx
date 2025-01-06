@@ -48,7 +48,8 @@ export function DelegateModalHooked({
   validatorCommission,
 }: DelegateModalProps) {
   const { t } = useTranslate('staking');
-  const { delegate, getDelegateEstimatedFee, approveStaking } = useStakingActions();
+  const { delegate, getDelegateEstimatedFee, approveStaking } =
+    useStakingActions();
   const [delegateAmount, setDelegateAmount] = useState<bigint | undefined>(
     undefined,
   );

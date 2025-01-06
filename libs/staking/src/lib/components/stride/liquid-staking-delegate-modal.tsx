@@ -303,7 +303,6 @@ export function LiquidStakingDelegateModal({
                       {t('you-will-get', "What you'll get:", { ns: 'staking' })}
                     </div>
                     <div className="text-[20px] font-semibold leading-[26px]">
-                      {/* eslint-disable-next-line i18next/no-literal-string */}
                       {formatNumber(stIslmFormIslm)} stISLM
                     </div>
                   </div>
@@ -316,7 +315,6 @@ export function LiquidStakingDelegateModal({
                         })}
                       </div>
                       <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
-                        {/* eslint-disable-next-line i18next/no-literal-string */}
                         {formatNumber(annualizedYield)} stISLM
                       </div>
                     </div>

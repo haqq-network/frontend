@@ -45,7 +45,8 @@ export function UndelegateModalHooked({
   validatorAddress,
 }: UndelegateModalProps) {
   const { t } = useTranslate('staking');
-  const { undelegate, getUndelegateEstimatedFee, approveStaking } = useStakingActions();
+  const { undelegate, getUndelegateEstimatedFee, approveStaking } =
+    useStakingActions();
   const [undelegateAmount, setUndelegateAmount] = useState<bigint | undefined>(
     undefined,
   );
