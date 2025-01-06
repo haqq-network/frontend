@@ -64,7 +64,6 @@ export function CommitSha({
       target="_blank"
       rel="noopener noreferrer"
       className={className}
-      /* eslint-disable-next-line i18next/no-literal-string */
     >
       dev
     </Link>

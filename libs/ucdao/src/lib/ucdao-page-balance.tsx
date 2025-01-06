@@ -1,7 +1,4 @@
 'use client';
-import { useState } from 'react';
-import { useTranslate } from '@tolgee/react';
-import { formatUnits } from 'viem';
 import { useMemo, useState } from 'react';
 import { Coin } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
@@ -54,14 +51,16 @@ export function DaoPageBalance() {
           </Heading>
         </div>
 
-        {filteredBankBalances?.length > 0 && (
+        {filteredBankBalances && filteredBankBalances.length > 0 && (
           <BalancesDisplay
-            label={t('wallet-balance-label', 'Wallet Balance', { ns: 'uc-dao' })}
+            label={t('wallet-balance-label', 'Wallet Balance', {
+              ns: 'uc-dao',
+            })}
             balances={filteredBankBalances}
           />
         )}
 
-        {filteredDaoBalances?.length > 0 && (
+        {filteredDaoBalances && filteredDaoBalances.length > 0 && (
           <BalancesDisplay
             label={t('dao-balance-label', 'DAO Balance', { ns: 'uc-dao' })}
             balances={filteredDaoBalances}

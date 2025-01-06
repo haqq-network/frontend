@@ -104,7 +104,6 @@ export function AddressConversionPage() {
         <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
           <div className="mb-[24px] flex flex-row items-center">
             <WalletIcon />
-            {/* eslint-disable-next-line i18next/no-literal-string */}
             <Heading level={3} className="mb-[-2px] ml-[8px]">
               Bech32 / EVM
             </Heading>

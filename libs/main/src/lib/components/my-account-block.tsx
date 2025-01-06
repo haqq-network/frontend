@@ -163,7 +163,11 @@ function MyAccountConnected({
     handleMouseLeave: handleMouseLeaveLiquidStaking,
   } = useHoverPopover(100);
 
-  const lockedTokensDescription = t('about-locked-tokens', 'Locked tokens are your tokens but you cannot transfer to other users or use them to pay for gas, but you can delegate to validators - stake to improve the reliability of the HAQQ network, and make a profit. Locked tokens are unlocked according to the schedule.', { ns: 'main'})
+  const lockedTokensDescription = t(
+    'about-locked-tokens',
+    'Locked tokens are your tokens but you cannot transfer to other users or use them to pay for gas, but you can delegate to validators - stake to improve the reliability of the HAQQ network, and make a profit. Locked tokens are unlocked according to the schedule.',
+    { ns: 'main' },
+  );
 
   if (!balances) {
     return null;

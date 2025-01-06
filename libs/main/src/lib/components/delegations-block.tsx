@@ -76,7 +76,6 @@ export function DelegationsBlock({
         )}
       </div> */}
 
-      {/* eslint-disable-next-line i18next/no-literal-string */}
       {status === 'error' && <p>Error: {(error as Error).message}</p>}
 
       {status === 'success' && (
