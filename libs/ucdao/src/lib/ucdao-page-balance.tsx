@@ -2,7 +2,7 @@
 import { useMemo, useState } from 'react';
 import { Coin } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
-import { formatUnits, Hex } from 'viem';
+import { Hex } from 'viem';
 import { useReadContract } from 'wagmi';
 import {
   formatEthDecimal,

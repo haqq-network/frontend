@@ -23,7 +23,7 @@ import {
   readContract,
 } from '@wagmi/core';
 import { usePostHog } from 'posthog-js/react';
-import { type Hash, encodeFunctionData, parseUnits } from 'viem';
+import { type Hash, encodeFunctionData } from 'viem';
 import {
   useAccount,
   useChains,

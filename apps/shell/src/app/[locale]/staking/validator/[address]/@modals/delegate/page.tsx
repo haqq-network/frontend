@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { formatUnits } from 'viem';
 import {
   useAddress,
   useIndexerBalanceQuery,

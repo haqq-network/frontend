@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { ProposalStatus } from '@evmos/provider';
 import Link from 'next/link';
 import {
+  formatVoteResults,
   useAddress,
   useGovernanceParamsQuery,
   useProposalListQuery,
@@ -84,6 +85,7 @@ export function ProposalListPage() {
       return {
         proposal: { ...proposal, tallyResults },
         userVote,
+        voteResults: formatVoteResults(tallyResults),
       };
     });
   }, [
@@ -117,7 +119,7 @@ export function ProposalListPage() {
             </div>
           ) : (
             <div className="3xl:grid-cols-4 mb-[68px] grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
-              {proposalsToRender.map(({ userVote, proposal }) => {
+              {proposalsToRender.map(({ userVote, proposal, voteResults }) => {
                 return (
                   <Link
                     href={`/governance/proposal/${proposal.proposal_id}`}
@@ -127,8 +129,9 @@ export function ProposalListPage() {
                       proposal={proposal}
                       govParams={govParams}
                       symbol={symbol}
-                      proposalTally={proposal.tallyResults}
+                      voteResults={voteResults}
                       userVote={userVote}
+                      className="lg:min-h-full"
                     />
                   </Link>
                 );

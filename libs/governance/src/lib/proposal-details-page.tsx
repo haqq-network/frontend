@@ -23,7 +23,6 @@ import { useAccount, useChains } from 'wagmi';
 import { haqqMainnet } from 'wagmi/chains';
 import {
   GetGovernanceParamsResponse,
-  TallyResults,
   getChainParams,
 } from '@haqq/data-access-cosmos';
 import {
@@ -39,6 +38,8 @@ import {
   useStakingPoolQuery,
   useNetworkAwareAction,
   useProposalVoteQuery,
+  formatVoteResults,
+  VoteResultsWithPercentages,
 } from '@haqq/shell-shared';
 import { ProposalPeriodTimer, Button } from '@haqq/shell-ui-kit';
 import {
@@ -153,7 +154,7 @@ function ProposalDetailsMobile({
   totalDeposit,
   minDeposit,
   symbol,
-  proposalTally,
+  voteResults,
   quorum,
   turnout,
   userVote,
@@ -162,7 +163,7 @@ function ProposalDetailsMobile({
   totalDeposit: number;
   minDeposit: number;
   symbol: string;
-  proposalTally: TallyResults;
+  voteResults: VoteResultsWithPercentages;
   turnout: number;
   quorum: number;
   userVote?: string | null;
@@ -178,7 +179,7 @@ function ProposalDetailsMobile({
               proposalDetails.status === ProposalStatusEnum.Failed) && (
               <div>
                 <ProposalVoteProgress
-                  results={proposalTally}
+                  voteResults={voteResults}
                   status={proposalDetails.status}
                   userVote={userVote}
                 />
@@ -236,13 +237,13 @@ export function ProposalDetailsComponent({
   symbol,
   isWalletConnected,
   govParams,
-  proposalTally,
+  voteResults,
 }: {
   proposalDetails: Proposal;
   symbol: string;
   isWalletConnected: boolean;
   govParams: GetGovernanceParamsResponse;
-  proposalTally: TallyResults;
+  voteResults: VoteResultsWithPercentages;
 }) {
   const { isConnected } = useAccount();
   const { haqqAddress } = useAddress();
@@ -358,16 +359,16 @@ export function ProposalDetailsComponent({
   }, [govParams.tally_params.quorum]);
 
   const turnout = useMemo(() => {
-    if (!stakingPool || !proposalTally) {
+    if (!stakingPool || !voteResults) {
       return 0;
     }
 
     const voted = Number.parseInt(
       formatUnits(
-        BigInt(proposalTally.abstain) +
-          BigInt(proposalTally.no) +
-          BigInt(proposalTally.no_with_veto) +
-          BigInt(proposalTally.yes),
+        voteResults.abstain.valueBigInt +
+          voteResults.no.valueBigInt +
+          voteResults.noWithVeto.valueBigInt +
+          voteResults.yes.valueBigInt,
         18,
       ),
       10,
@@ -378,7 +379,7 @@ export function ProposalDetailsComponent({
     );
 
     return (voted / bonded) * 100;
-  }, [proposalTally, stakingPool]);
+  }, [stakingPool, voteResults]);
 
   return (
     <Fragment>
@@ -418,7 +419,7 @@ export function ProposalDetailsComponent({
                       totalDeposit={totalDeposit}
                       minDeposit={minDeposit}
                       symbol={symbol}
-                      proposalTally={proposalTally}
+                      voteResults={voteResults}
                       quorum={quorum}
                       turnout={turnout}
                       userVote={userVote}
@@ -549,7 +550,7 @@ export function ProposalDetailsComponent({
                     <div className="flex flex-col gap-[24px]">
                       <div>
                         <ProposalVoteProgress
-                          results={proposalTally}
+                          voteResults={voteResults}
                           status={proposalDetails.status}
                           userVote={userVote}
                         />
@@ -902,6 +903,9 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
   if (isFetched && !proposalDetails) {
     notFound();
   }
+  const voteResults = useMemo(() => {
+    return formatVoteResults(proposalTally ?? undefined);
+  }, [proposalTally]);
 
   return !proposalDetails || !proposalTally || !govParams ? (
     <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
@@ -915,8 +919,8 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
       symbol={chain.nativeCurrency.symbol}
       isWalletConnected={Boolean(ethAddress && haqqAddress)}
       proposalDetails={proposalDetails}
-      proposalTally={proposalTally}
       govParams={govParams}
+      voteResults={voteResults}
     />
   );
 }

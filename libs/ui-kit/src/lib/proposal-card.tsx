@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
+import { VoteResultsWithPercentages } from '@haqq/shell-shared';
 import { Card, CardHeading } from './card';
 import { InfoBlock } from './info-block';
 import { ProposalDepositProgress } from './proposal-deposit-progress';
 import { ProposalStatus } from './proposal-status';
-import { ProposalVoteProgress, VoteResults } from './proposal-vote-progress';
+import { ProposalVoteProgress } from './proposal-vote-progress';
 import { formatDate } from '../utils/format-date';
 
 export const enum ProposalStatusEnum {
@@ -26,7 +27,7 @@ export function ProposalCard({
   id,
   status,
   title,
-  results,
+  voteResults,
   minDeposit,
   totalDeposit,
   depositEndDate,
@@ -42,7 +43,7 @@ export function ProposalCard({
   status: ProposalStatusEnum;
   minDeposit?: number;
   totalDeposit?: number;
-  results: VoteResults;
+  voteResults: VoteResultsWithPercentages;
   depositEndDate?: Date;
   votingStartDate?: Date;
   votingEndDate?: Date;
@@ -143,7 +144,7 @@ export function ProposalCard({
             status === ProposalStatusEnum.Passed ||
             status === ProposalStatusEnum.Failed) && (
             <ProposalVoteProgress
-              results={results}
+              voteResults={voteResults}
               status={status}
               userVote={userVote}
             />

@@ -11,11 +11,27 @@ type Story = StoryObj<typeof ProposalVoteProgressComponent>;
 
 export const ProposalVoteProgress: Story = {
   args: {
-    results: {
-      yes: '200',
-      abstain: '300',
-      no: '100',
-      no_with_veto: '400',
+    voteResults: {
+      yes: {
+        count: '200',
+        percentage: 20,
+        countBigInt: BigInt(200),
+      },
+      abstain: {
+        count: '300',
+        percentage: 30,
+        countBigInt: BigInt(300),
+      },
+      no: {
+        count: '100',
+        percentage: 10,
+        countBigInt: BigInt(100),
+      },
+      noWithVeto: {
+        count: '400',
+        percentage: 40,
+        countBigInt: BigInt(400),
+      },
     },
   },
 };
