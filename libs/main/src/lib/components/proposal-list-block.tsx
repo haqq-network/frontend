@@ -3,6 +3,7 @@ import { ProposalStatus } from '@evmos/provider';
 import Link from 'next/link';
 import { ProposalListCard } from '@haqq/shell-governance';
 import {
+  formatVoteResults,
   useGovernanceParamsQuery,
   useProposalListQuery,
   useProposalTallysQuery,
@@ -65,7 +66,7 @@ export function ProposalListBlock() {
 
       return {
         ...proposal,
-        tallyResults,
+        voteResults: formatVoteResults(tallyResults),
       };
     });
   }, [ongoingProposalTallysResultMap, proposals]);
@@ -104,7 +105,7 @@ export function ProposalListBlock() {
                   proposal={proposal}
                   govParams={govParams}
                   symbol={symbol}
-                  proposalTally={proposal.tallyResults}
+                  voteResults={proposal.voteResults}
                 />
               </Link>
             );
