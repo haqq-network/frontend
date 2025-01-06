@@ -304,7 +304,7 @@ export function DelegateModal({
                         variant={4}
                         className="w-full"
                       >
-                        Approve
+                        {t('approve-button', 'Approve', { ns: 'staking' })}
                       </Button>
                     </div>
                   </div>
@@ -317,7 +317,7 @@ export function DelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    {t('delegate', 'Delegate')}
+                    {t('delegate', 'Delegate', { ns: 'common' })}
                   </Button>
                 </div>
               </div>

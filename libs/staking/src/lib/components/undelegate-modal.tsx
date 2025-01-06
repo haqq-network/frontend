@@ -222,7 +222,7 @@ export function UndelegateModal({
                           variant={4}
                           className="w-full"
                         >
-                          Approve
+                          {t('approve-button', 'Approve', { ns: 'staking' })}
                         </Button>
                       </div>
                     </div>
