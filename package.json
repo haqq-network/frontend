@@ -52,7 +52,7 @@
     "lodash": "4.17.21",
     "marked": "7.0.5",
     "marked-react": "2.0.0",
-    "nanoid": "5.0.8",
+    "nanoid": "5.0.9",
     "next": "14.2.14",
     "next-intl": "3.25.1",
     "posthog-js": "1.186.3",
