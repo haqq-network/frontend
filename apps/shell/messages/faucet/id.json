@@ -1,0 +1,11 @@
+{
+  "claim-tokens": "Klaim token",
+  "faucet": "Keran Kripto",
+  "github": "Github",
+  "login-github": "Masuk dengan Github",
+  "next-token-request-available": "Permintaan token berikutnya tersedia setelah",
+  "request-tokens": "Meminta token",
+  "switch-chain": "Beralih ke {chain}",
+  "tokens-claimed": "Token yang diklaim",
+  "wallet": "Dompet"
+}

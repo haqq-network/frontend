@@ -1,0 +1,19 @@
+{
+  "accounts": "Hesaplar",
+  "active-out-of-total": "{active} <span> / {total}</span>",
+  "active-validators": "Aktif doğrulayıcılar",
+  "available-for-stake": "Mevcut: {amount}",
+  "available-staking": "Stake için kullanılabilir",
+  "fetching-validators": "Doğrulayıcı listesi alınıyor",
+  "latest-proposals": "Son teklifler",
+  "link-to-governance": "Yönetim sayfasına git",
+  "link-to-staking": "Stake sayfasına git",
+  "liquid-staked": "Likid Stake ",
+  "locked": "Kilitli: {amount}",
+  "no-delegations": "Hiç aktif yetkilendirmeniz yok",
+  "regular-staked": "Standart Stake",
+  "shell-title": "Shell",
+  "staking-balance-popup-message": "Normal staking’de coinleri sıvı staking’de kullanabilirsiniz",
+  "total-staked": "Toplam stake",
+  "total-supply": "Toplam arz"
+}

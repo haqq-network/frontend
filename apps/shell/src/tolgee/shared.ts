@@ -39,7 +39,7 @@ export async function getStaticData(
   for (const lang of languages) {
     for (const ns of ALL_NAMESPACES) {
       try {
-        const data = (await import(`../../messages/${lang}/${ns}.json`))
+        const data = (await import(`../../messages/${ns}/${lang}.json`))
           .default;
         result[`${lang}:${ns}`] = data;
       } catch (error) {

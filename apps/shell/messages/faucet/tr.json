@@ -1,0 +1,11 @@
+{
+  "claim-tokens": "Token talep et",
+  "faucet": "Kripto Musluğu",
+  "github": "Github",
+  "login-github": "Github ile giriş yap",
+  "next-token-request-available": "Sonraki token talebi şu tarihten sonra mevcut",
+  "request-tokens": "Token iste",
+  "switch-chain": "{chain} ağına geçiş yap",
+  "tokens-claimed": "Tokenler talep edildi",
+  "wallet": "Cüzdan"
+}

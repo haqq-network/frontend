@@ -1,0 +1,21 @@
+{
+  "address-placeholder": "EVM/Bech32 formatında adres",
+  "amount": "Miktar",
+  "cancel-button": "İptal",
+  "confirm-button": "Onayla",
+  "confirm-ownership-transfer": "DAO'da coinlerin sahipliğini devretmek istediğinizi onaylıyorsunuz",
+  "currency": "Para birimi",
+  "dao-balance-label": "DAO Bakiyesi",
+  "dao-page-title": "UnitedContributors DAO",
+  "deposit-dao": "DAO'ya para yatır",
+  "islm-and-liquid-balance": "<b>{balanceNum} ISLM</b> ve <b>{tokensNum} LIQUID</b>",
+  "my-account": "Hesabım",
+  "select-wallet-heading": "Cüzdan seç",
+  "send-button": "Gönder",
+  "to-the-address": "Adrese: <b>{address}</b>?",
+  "token-count": "{count, plural, other {<b>{count} LIQUID</b> token}}",
+  "transfer-heading": "Coin sahipliğini devret",
+  "transfer-progress": "Transfer devam ediyor",
+  "transfer-success": "Transfer başarılı",
+  "wallet-balance-label": "Cüzdan Bakiyesi"
+}
