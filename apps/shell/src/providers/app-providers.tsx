@@ -46,15 +46,15 @@ export function AppProviders({
       <WagmiProvider config={actualWagmiConfig} initialState={initialState}>
         <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
           <CosmosProvider>
-            <WalletProvider>
-              <TolgeeNextProvider locale={locale} locales={locales}>
+            <TolgeeNextProvider locale={locale} locales={locales}>
+              <WalletProvider>
                 <LayoutProvider isMobileUA={isMobileUA}>
                   {children}
                   <Toaster />
                 </LayoutProvider>
-              </TolgeeNextProvider>
-              <WalletModals isMobileUA={isMobileUA} />
-            </WalletProvider>
+                <WalletModals isMobileUA={isMobileUA} />
+              </WalletProvider>
+            </TolgeeNextProvider>
           </CosmosProvider>
         </ReactQueryProvider>
       </WagmiProvider>
