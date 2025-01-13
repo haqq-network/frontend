@@ -1,3 +1,4 @@
+'use client';
 import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { Container } from './container';
