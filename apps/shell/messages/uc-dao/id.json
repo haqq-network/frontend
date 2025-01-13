@@ -1,0 +1,21 @@
+{
+  "address-placeholder": "Alamat dalam format EVM/Bech32",
+  "amount": "Jumlah",
+  "cancel-button": "Batalkan",
+  "confirm-button": "Konfirmasi",
+  "confirm-ownership-transfer": "Anda mengonfirmasi ingin mentransfer kepemilikan koin di DAO",
+  "currency": "Mata uang",
+  "dao-balance-label": "Saldo DAO",
+  "dao-page-title": "UnitedContributors DAO",
+  "deposit-dao": "Deposit ke DAO",
+  "islm-and-liquid-balance": "<b>{balanceNum} ISLM</b> dan <b>{tokensNum} LIQUID</b>",
+  "my-account": "Akun saya",
+  "select-wallet-heading": "Pilih dompet",
+  "send-button": "Kirim",
+  "to-the-address": "Ke alamat: <b>{address}</b>?",
+  "token-count": "{count, plural, other {<b>{count} LIQUID</b> token}}",
+  "transfer-heading": "Transfer kepemilikan koin",
+  "transfer-progress": "Transfer sedang berlangsung",
+  "transfer-success": "Transfer berhasil",
+  "wallet-balance-label": "Saldo Dompet"
+}

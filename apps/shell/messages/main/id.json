@@ -1,0 +1,19 @@
+{
+  "accounts": "Akun",
+  "active-out-of-total": "{active} <span>dari {total}</span>",
+  "active-validators": "Validator aktif",
+  "available-for-stake": "Tersedia: {amount}",
+  "available-staking": "Tersedia untuk staking",
+  "fetching-validators": "Mengambil daftar validator",
+  "latest-proposals": "Proposal terbaru",
+  "link-to-governance": "Buka Tata Kelola",
+  "link-to-staking": "Buka Staking",
+  "liquid-staked": "Staking Cair ",
+  "locked": "Terkunci: {amount}",
+  "no-delegations": "Anda tidak memiliki delegasi aktif",
+  "regular-staked": "Staking Reguler",
+  "shell-title": "Shell",
+  "staking-balance-popup-message": "Dalam staking reguler, Anda dapat menggunakan koin dalam staking likuid",
+  "total-staked": "Total yang di-stake",
+  "total-supply": "Total pasokan"
+}

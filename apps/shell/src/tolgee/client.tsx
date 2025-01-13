@@ -16,8 +16,8 @@ const staticData: TolgeeStaticData = {};
 AVAILABLE_LOCALES.forEach((loc) => {
   ALL_NAMESPACES.forEach((ns) => {
     staticData[`${loc}:${ns}`] = async () => {
-      const data = await import(`../i18n/${loc}.json`);
-      return data[ns];
+      const data = await import(`../../messages/${ns}/${loc}.json`);
+      return data;
     };
   });
 });
