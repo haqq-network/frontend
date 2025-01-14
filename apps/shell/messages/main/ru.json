@@ -1,8 +1,0 @@
-{
-  "active-out-of-total": "{active} <span>из {total}</span>",
-  "active-validators": "Активные валидаторы",
-  "available-for-stake": "Доступно: {amount}",
-  "available-staking": "Доступно для стейкинга",
-  "fetching-validators": "Получение списка валидаторов",
-  "no-delegations": "У вас нет активных делегаций"
-}
