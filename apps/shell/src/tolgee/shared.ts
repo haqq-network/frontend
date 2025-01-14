@@ -2,7 +2,7 @@ import { FormatIcu } from '@tolgee/format-icu';
 import { DevTools, Tolgee, FormatSimple, TolgeeStaticData } from '@tolgee/web';
 import { env } from '../env/client';
 
-export const AVAILABLE_LOCALES = ['en', 'ar', 'id', 'tr', 'ru'] as const;
+export const AVAILABLE_LOCALES = ['en', 'ar', 'id', 'tr'] as const;
 export type Locale = (typeof AVAILABLE_LOCALES)[number];
 
 export const LOCALE_LABELS: Record<Locale, { label: string; emoji: string }> = {
@@ -10,7 +10,6 @@ export const LOCALE_LABELS: Record<Locale, { label: string; emoji: string }> = {
   ar: { label: 'العربية', emoji: '🇸🇦' },
   id: { label: 'Bahasa Indonesia', emoji: '🇮🇩' },
   tr: { label: 'Türkçe', emoji: '🇹🇷' },
-  ru: { label: 'Русский', emoji: '🇷🇺' },
 };
 
 export type AllNamespaces = (typeof ALL_NAMESPACES)[number];
