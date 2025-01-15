@@ -1,7 +1,7 @@
 'use client';
 import { useRef } from 'react';
 import clsx from 'clsx';
-import { useHover } from 'usehooks-ts';
+import { useHover, useMediaQuery } from 'usehooks-ts';
 import { GlobeIcon, CheckIcon } from './icons';
 
 export type LocaleOption = {
@@ -23,10 +23,26 @@ export function LocaleDropdown({
 }: LocaleDropdownProps) {
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+
+  const currentLocaleData = locales?.find(({ id }) => {
+    return id === currentLocale;
+  });
+
+  const renderDesktopIcon = isDesktop || !currentLocaleData;
 
   return (
     <div className="relative" ref={hoverRef}>
-      <GlobeIcon className="h-[24px] w-[24px] cursor-pointer" />
+      {renderDesktopIcon ? (
+        <GlobeIcon className="h-[24px] w-[24px] cursor-pointer" />
+      ) : (
+        <div className="flex h-[20px] flex-row items-center">
+          <span role="img" className="mr-2 inline-block text-[20px]">
+            {currentLocaleData.emoji}
+          </span>
+          <span>{currentLocaleData.label}</span>
+        </div>
+      )}
 
       <div
         className={clsx(

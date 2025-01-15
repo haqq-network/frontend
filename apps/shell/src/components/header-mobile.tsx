@@ -4,6 +4,7 @@ import { useAccount, useChains } from 'wagmi';
 import { haqqTestedge2 } from 'wagmi/chains';
 import { HeaderMobile } from '@haqq/shell-ui-kit';
 import { useFilteredLinks } from '../hooks/use-filtered-header-links';
+import { useLocaleSwitcher } from '../hooks/use-locale-switcher';
 
 const Web3ConnectButtonsMobile = dynamic(async () => {
   const { Web3ConnectButtonsMobile } = await import(
@@ -17,6 +18,7 @@ export function AppHeaderMobile({ className }: { className?: string }) {
   const { chain = chains[0] } = useAccount();
   const isTestedge = chain.id === haqqTestedge2.id;
   const links = useFilteredLinks(chain);
+  const { switchLocale, locales, currentLocale } = useLocaleSwitcher();
 
   return (
     <HeaderMobile
@@ -24,6 +26,9 @@ export function AppHeaderMobile({ className }: { className?: string }) {
       web3ButtonsSlot={<Web3ConnectButtonsMobile />}
       className={className}
       isTestedge={isTestedge}
+      locales={locales}
+      switchLocale={switchLocale}
+      currentLocale={currentLocale}
     />
   );
 }
