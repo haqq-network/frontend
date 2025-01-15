@@ -39,12 +39,6 @@ export const useHeaderLinks = (): HeaderLink[] => {
           href: '/faucet',
           chains: [haqqTestedge2.id],
         },
-      ],
-    },
-    {
-      type: 'dropdown',
-      label: t('utils', 'Utils'),
-      children: [
         {
           type: 'link',
           label: t('address-conversion-title', 'Address conversion', {
