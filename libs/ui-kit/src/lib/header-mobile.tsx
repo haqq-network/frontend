@@ -16,6 +16,7 @@ import { BurgerButton } from './burger-button';
 import { Container } from './container';
 import { HeaderLink, HeaderLinkWithHref } from './header';
 import { HeaderNavLink } from './header-nav-link';
+import { LocaleDropdown, LocaleOption } from './locale-dropdown';
 import { TestedgeBanner } from './testedge-banner';
 import { useScrollTrack } from '../hooks/use-scroll-track';
 import { interpolate } from '../utils/interpolate';
@@ -28,6 +29,9 @@ export function HeaderMobile({
   isTestedge,
   links,
   className,
+  switchLocale,
+  currentLocale,
+  locales,
 }: {
   web3ButtonsSlot?: ReactNode;
   utilsSlot?: ReactNode;
@@ -36,6 +40,9 @@ export function HeaderMobile({
   renderPageTitle?: () => ReactNode;
   links: HeaderLink[];
   className?: string;
+  switchLocale?: (locale: string) => void;
+  currentLocale?: string;
+  locales?: LocaleOption[];
 }) {
   const { lock, unlock } = useScrollLock();
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
@@ -151,6 +158,14 @@ export function HeaderMobile({
                 )}
 
                 {utilsSlot}
+
+                {locales?.length && (
+                  <LocaleDropdown
+                    locales={locales}
+                    switchLocale={switchLocale ?? undefined}
+                    currentLocale={currentLocale ?? ''}
+                  />
+                )}
 
                 {web3ButtonsSlot}
               </Container>
