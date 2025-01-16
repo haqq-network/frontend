@@ -17,6 +17,7 @@ import clsx from 'clsx';
 import Markdown from 'marked-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import { usePostHog } from 'posthog-js/react';
 import { useMediaQuery } from 'usehooks-ts';
 import { formatUnits } from 'viem/utils';
@@ -216,6 +217,7 @@ export function ProposalDetailsComponent({
   voteResults: VoteResultsWithPercentages;
 }) {
   const { t } = useTranslate();
+  const currentLocale = useLocale();
   const { isConnected } = useAccount();
   const { haqqAddress } = useAddress();
   const { data: delegationInfo } = useStakingDelegationQuery(haqqAddress);
@@ -487,14 +489,20 @@ export function ProposalDetailsComponent({
                         ns: 'governance',
                       })}
                     >
-                      {formatDate(new Date(proposalDetails.submit_time))}
+                      {formatDate(
+                        new Date(proposalDetails.submit_time),
+                        currentLocale,
+                      )}
                     </InfoBlock>
                     <InfoBlock
                       title={t('deposit-end', 'Deposit end', {
                         ns: 'common',
                       })}
                     >
-                      {formatDate(new Date(proposalDetails.deposit_end_time))}
+                      {formatDate(
+                        new Date(proposalDetails.deposit_end_time),
+                        currentLocale,
+                      )}
                     </InfoBlock>
                     {proposalDetails.status !== ProposalStatusEnum.Deposit && (
                       <Fragment>
@@ -505,6 +513,7 @@ export function ProposalDetailsComponent({
                         >
                           {formatDate(
                             new Date(proposalDetails.voting_start_time),
+                            currentLocale,
                           )}
                         </InfoBlock>
                         <InfoBlock
@@ -514,6 +523,7 @@ export function ProposalDetailsComponent({
                         >
                           {formatDate(
                             new Date(proposalDetails.voting_end_time),
+                            currentLocale,
                           )}
                         </InfoBlock>
                       </Fragment>
@@ -581,6 +591,7 @@ export function ProposalDetailsComponent({
                                     >
                                       {formatDate(
                                         new Date(proposalDetails.submit_time),
+                                        currentLocale,
                                       )}
                                     </ProposalDatesText>
                                   </td>
@@ -610,6 +621,7 @@ export function ProposalDetailsComponent({
                                         new Date(
                                           proposalDetails.deposit_end_time,
                                         ),
+                                        currentLocale,
                                       )}
                                     </ProposalDatesText>
                                   </td>
@@ -635,6 +647,7 @@ export function ProposalDetailsComponent({
                                         new Date(
                                           proposalDetails.voting_start_time,
                                         ),
+                                        currentLocale,
                                       )}
                                     </ProposalDatesText>
                                   </td>
@@ -660,6 +673,7 @@ export function ProposalDetailsComponent({
                                         new Date(
                                           proposalDetails.voting_end_time,
                                         ),
+                                        currentLocale,
                                       )}
                                     </ProposalDatesText>
                                   </td>

@@ -9,7 +9,7 @@
   "link-to-governance": "Go to Governance",
   "link-to-staking": "Go to Staking",
   "liquid-staked": "Liquid staked",
-  "locked": "Locked: {amount}",
+  "locked": "Locked",
   "no-delegations": "You don't have any active delegations",
   "regular-staked": "Regular staked",
   "shell-title": "Shell",

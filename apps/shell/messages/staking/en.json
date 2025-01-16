@@ -21,6 +21,7 @@
   "get-my-rewards": "Get my rewards",
   "get-rewards": "Get rewards",
   "inactive-status": "Inactive",
+  "invalid-stride-address-format": "Invalid Stride address format. Must start with 'stride' and be {length} characters long",
   "jailed-status": "Jailed",
   "liquid-staking": "Liquid staking",
   "max": "Max",

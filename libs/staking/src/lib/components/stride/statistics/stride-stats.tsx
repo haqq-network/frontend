@@ -169,7 +169,7 @@ function StrideStatsDesktop({
             </div>
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Unbonding"
+                title={t('unbonding', 'Unbonding', { ns: 'common' })}
                 value={formatNumber(formatUnits(unbondingTotal, 18))}
                 symbol="stISLM"
                 uppercaseSymbol={false}

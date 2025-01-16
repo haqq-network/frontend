@@ -342,7 +342,9 @@ export function AuthzGrantsActions() {
                           'max-w-xl',
                         )}
                         type="text"
-                        placeholder="0x... or haqq1..."
+                        placeholder={t('eth-or-haqq', '0x... or haqq1...', {
+                          ns: 'authz',
+                        })}
                         required
                         id="grantee"
                         name="grantee"

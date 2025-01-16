@@ -65,20 +65,30 @@ export const StrideInput = ({
   setStrideAddress: (value: string) => void;
   isValidStrideAddress: boolean;
 }) => {
+  const { t } = useTranslate('staking');
   return (
     <StringInput
       value={strideAddress}
       onChange={setStrideAddress}
-      placeholder="Use your Stride address here"
+      placeholder={t(
+        'use-stride-address-placeholder',
+        'Use your Stride address here',
+      )}
       hint={
         !isValidStrideAddress && strideAddress ? (
           <span className="text-haqq-danger">
-            Invalid Stride address format. Must start with 'stride' and be{' '}
-            {STRIDE_ADDRESS_LENGTH} characters long
+            {t(
+              'invalid-stride-address-format',
+              "Invalid Stride address format. Must start with 'stride' and be {length} characters long",
+              { length: STRIDE_ADDRESS_LENGTH },
+            )}
           </span>
         ) : !strideAddress ? (
           <span className="text-haqq-danger">
-            Stride address is required to delegate
+            {t(
+              'stride-address-required',
+              'Stride address is required to delegate',
+            )}
           </span>
         ) : null
       }

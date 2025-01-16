@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
 import dynamic from 'next/dynamic';
+import { useLocale } from 'next-intl';
 import { useAddress, useAuthzGranterGrants } from '@haqq/shell-shared';
 import { Container, Heading, formatDate } from '@haqq/shell-ui-kit/server';
 import { mapRPCGrantToWebGrant } from './utils/map-rpc-grant-to-web-grant';
@@ -19,6 +20,7 @@ const RevokeButton = dynamic(
 
 export function GranterGrantsTable() {
   const { t } = useTranslate('authz');
+  const currentLocale = useLocale();
   const { haqqAddress } = useAddress();
   const { data: granterGrants } = useAuthzGranterGrants(haqqAddress ?? '');
 
@@ -73,7 +75,7 @@ export function GranterGrantsTable() {
                       {grant.msg}
                     </td>
                     <td className="p-[8px] text-left md:p-[12px]">
-                      {formatDate(new Date(grant.expire))}
+                      {formatDate(new Date(grant.expire), currentLocale)}
                     </td>
                     <td className="w-[160px] p-[8px] text-right md:p-[12px]">
                       <div className="invisible group-hover:visible">

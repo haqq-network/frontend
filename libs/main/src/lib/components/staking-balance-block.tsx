@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { formatUnits } from 'viem';
 import {
@@ -50,6 +51,7 @@ export function StakingBalanceBlock({
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const unbonding = useUnbonding(haqqAddress);
   const stIslmBalance = useStislmBalance();
+  const { t } = useTranslate();
 
   if (!balances) {
     return null;
@@ -75,7 +77,7 @@ export function StakingBalanceBlock({
           <div className="flex flex-row items-center gap-[4px]">
             <CoinIcon />
             <div className="text-[12px] leading-[18px] text-white lg:text-[14px] lg:leading-[22px]">
-              Available:{' '}
+              {t('available', 'Available', { ns: 'common' })}:{' '}
               {isLiquidStaking
                 ? formatNumber(balances.available)
                 : formatNumber(balances.availableForStake)}
@@ -87,7 +89,7 @@ export function StakingBalanceBlock({
             <div className="flex flex-row items-center gap-[4px]">
               <LockIcon />
               <div className="text-[12px] leading-[18px] text-white lg:text-[14px] lg:leading-[22px]">
-                Locked:{' '}
+                {t('locked', 'Locked', { ns: 'main' })}:{' '}
                 {isLiquidStaking
                   ? formatNumber(stIslmBalance + balances.locked)
                   : formatNumber(balances.locked)}

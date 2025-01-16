@@ -21,6 +21,7 @@
   "get-my-rewards": "Ödüllerimi al",
   "get-rewards": "Ödül al",
   "inactive-status": "Pasif",
+  "invalid-stride-address-format": "Geçersiz Stride adres formatı. 'stride' ile başlamalı ve {length} karakter uzunluğunda olmalıdır.",
   "jailed-status": "Askıya Alındı",
   "liquid-staking": "Likit staking",
   "max": "Maksimum",
