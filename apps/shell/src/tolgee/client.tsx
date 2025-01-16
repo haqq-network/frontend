@@ -4,6 +4,7 @@ import { ReactNode, useEffect } from 'react';
 import { TolgeeProvider, TolgeeStaticData, useTolgeeSSR } from '@tolgee/react';
 import { useRouter } from 'next/navigation';
 import { AVAILABLE_LOCALES, ALL_NAMESPACES, TolgeeBase } from './shared';
+import { env } from '../env/client';
 
 type Props = {
   locales: TolgeeStaticData;
@@ -26,6 +27,9 @@ const tolgee = TolgeeBase().init({
   defaultNs: 'common',
   defaultLanguage: 'en',
   staticData,
+  apiKey: env.NEXT_PUBLIC_TOLGEE_API_KEY,
+  apiUrl: env.NEXT_PUBLIC_TOLGEE_API_URL,
+  projectId: 3,
 });
 
 export const TolgeeNextProvider = ({ locale, locales, children }: Props) => {
@@ -45,7 +49,7 @@ export const TolgeeNextProvider = ({ locale, locales, children }: Props) => {
   }, [tolgeeSSR, router]);
 
   return (
-    <TolgeeProvider tolgee={tolgeeSSR} options={{ useSuspense: false }}>
+    <TolgeeProvider tolgee={tolgeeSSR} options={{ useSuspense: true }}>
       {children}
     </TolgeeProvider>
   );
