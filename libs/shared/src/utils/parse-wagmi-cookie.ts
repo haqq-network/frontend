@@ -1,4 +1,4 @@
-import cookie from 'cookie';
+import { parse } from 'cookie';
 
 // Define the type for the data structure in wagmi.store
 interface WagmiStore {
@@ -37,7 +37,7 @@ export function parseWagmiCookies(cookiesString: string | null | undefined): {
       return { chainId: null, walletAddress: null };
     }
     // Parse the cookies
-    const cookies = cookie.parse(cookiesString);
+    const cookies = parse(cookiesString);
 
     // Check if the 'wagmi.store' key exists in the cookies
     if (!cookies['wagmi.store']) {

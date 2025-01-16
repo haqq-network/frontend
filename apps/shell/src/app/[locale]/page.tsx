@@ -34,12 +34,6 @@ export default async function IndexPage() {
     getAccountDelegations,
   } = createCosmosService(cosmosRestEndpoint);
   const queryClient = new QueryClient();
-  const userAgent = headersList.get('user-agent');
-  const isMobileUserAgent = Boolean(
-    userAgent?.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-    ),
-  );
 
   await queryClient.prefetchQuery({
     queryKey: [chainIdToUse, 'chain-stats'],
@@ -129,10 +123,7 @@ export default async function IndexPage() {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <MainPage
-        isMobileUserAgent={isMobileUserAgent}
-        seedPhrase={Date.now().toString()}
-      />
+      <MainPage seedPhrase={Date.now().toString()} />
     </HydrationBoundary>
   );
 }

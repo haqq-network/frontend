@@ -1,14 +1,14 @@
 'use client';
 import { useMemo } from 'react';
 import { useChains } from 'wagmi';
-import { useDeeplink, useWallet } from '@haqq/shell-shared';
+import { useDeeplink, useLayout, useWallet } from '@haqq/shell-shared';
 import {
   LowBalanceAlert,
   SelectChainModal,
   SelectWalletModal,
 } from '@haqq/shell-ui-kit';
 
-export function WalletModals({ isMobileUA }: { isMobileUA: boolean }) {
+export function WalletModals() {
   const {
     connectors,
     connect,
@@ -25,6 +25,7 @@ export function WalletModals({ isMobileUA }: { isMobileUA: boolean }) {
     isHaqqWallet,
   } = useWallet();
   const supportedChains = useChains();
+  const { isMobileUA } = useLayout();
 
   const chains = useMemo(() => {
     return supportedChains.map((chain) => {
