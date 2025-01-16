@@ -76,7 +76,7 @@ const ParalaxBackground = dynamic(async () => {
 export default async function RootLayout({
   children,
   params,
-}: PropsWithChildren<{ params: { locale: string } }>) {
+}: PropsWithChildren<{ params: { locale: Locale } }>) {
   const wagmiConfig = createWagmiConfig();
   const headersList = headers();
   const cookies = headersList.get('cookie');
@@ -106,19 +106,19 @@ export default async function RootLayout({
     });
   }
 
-  if (!AVAILABLE_LOCALES.includes(params.locale as Locale)) {
+  if (!AVAILABLE_LOCALES.includes(params.locale)) {
     notFound();
   }
 
   // make sure you provide all the necessary locales
   // for the inital SSR render (e.g. fallback languages)
-  const locales = await getStaticData([params.locale as Locale]);
+  const locales = await getStaticData([params.locale]);
 
   const dehydratedState = dehydrate(queryClient);
 
   return (
     <html
-      lang="en"
+      lang={params.locale}
       dir="ltr"
       className={clsx(clashDisplayFont.variable, hkGuiseFont.variable)}
     >
