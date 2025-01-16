@@ -24,15 +24,15 @@ export const useHeaderLinks = (): HeaderLink[] => {
       chains: [haqqMainnet.id, haqqTestedge2.id],
     },
     {
+      type: 'link',
+      label: t('authz', 'Authz'),
+      href: '/authz',
+      chains: [haqqMainnet.id, haqqTestedge2.id],
+    },
+    {
       type: 'dropdown',
       label: t('tools', 'Tools'),
       children: [
-        {
-          type: 'link',
-          label: t('authz', 'Authz'),
-          href: '/authz',
-          chains: [haqqMainnet.id, haqqTestedge2.id],
-        },
         {
           type: 'link',
           label: t('faucet', 'Faucet'),
