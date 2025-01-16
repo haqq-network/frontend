@@ -21,6 +21,7 @@
   "get-my-rewards": "Dapatkan hadiah saya",
   "get-rewards": "Dapatkan hadiah",
   "inactive-status": "Tidak aktif",
+  "invalid-stride-address-format": "Format alamat Stride tidak valid. Harus dimulai dengan 'stride' dan memiliki panjang {length} karakter.",
   "jailed-status": "Ditangguhkan",
   "liquid-staking": "Staking likuid",
   "max": "Maks",

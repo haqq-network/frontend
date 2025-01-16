@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
+import { useLocale } from 'next-intl';
 import { VoteResultsWithPercentages } from '@haqq/shell-shared';
 import { Card, CardHeading } from './card';
 import { InfoBlock } from './info-block';
@@ -54,6 +55,7 @@ export function ProposalCard({
   className?: string;
 }) {
   const { t } = useTranslate('common');
+  const currentLocale = useLocale();
   const proposalColor = useMemo(() => {
     if (status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD') {
       return 'blue';
@@ -117,7 +119,7 @@ export function ProposalCard({
                       status === ProposalStatusEnum.Failed && '!text-white/50',
                     )}
                   >
-                    {formatDate(votingStartDate)}
+                    {formatDate(votingStartDate, currentLocale)}
                   </InfoBlock>
                 )}
                 {votingEndDate && (
@@ -127,7 +129,7 @@ export function ProposalCard({
                       status === ProposalStatusEnum.Failed && '!text-white/50',
                     )}
                   >
-                    {formatDate(votingEndDate)}
+                    {formatDate(votingEndDate, currentLocale)}
                   </InfoBlock>
                 )}
               </div>

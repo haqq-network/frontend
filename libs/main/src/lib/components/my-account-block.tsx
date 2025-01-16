@@ -200,7 +200,7 @@ function MyAccountConnected({
               <div className="flex flex-col gap-[4px] leading-[0px]">
                 {isTablet ? (
                   <ExpandableBlock
-                    title={`${t('available-stacking', 'Available for staking', {
+                    title={`${t('available-staking', 'Available for staking', {
                       ns: 'main',
                     })}: ${formatNumber(balances.availableForStake)}`}
                     content={
@@ -226,7 +226,7 @@ function MyAccountConnected({
                         )}
                       >
                         <span>
-                          {t('available-stacking', 'Available for staking', {
+                          {t('available-staking', 'Available for staking', {
                             ns: 'main',
                           })}
                           {': '}
