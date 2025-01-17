@@ -82,7 +82,7 @@
     "vanilla-cookieconsent": "2.9.2",
     "viem": "2.21.48",
     "wagmi": "2.12.33",
-    "zod": "3.23.8"
+    "zod": "3.24.1"
   },
   "devDependencies": {
     "@commitlint/cli": "19.5.0",
