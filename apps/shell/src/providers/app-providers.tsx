@@ -51,8 +51,8 @@ export function AppProviders({
                 <LayoutProvider isMobileUA={isMobileUA}>
                   {children}
                   <Toaster />
+                  <WalletModals />
                 </LayoutProvider>
-                <WalletModals isMobileUA={isMobileUA} />
               </WalletProvider>
             </TolgeeNextProvider>
           </CosmosProvider>

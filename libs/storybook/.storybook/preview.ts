@@ -30,6 +30,8 @@ const preview: Preview = {
       appDirectory: true,
     },
   },
+
+  tags: ['autodocs']
 };
 
 export default preview;
