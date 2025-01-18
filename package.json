@@ -32,7 +32,7 @@
     "@evmos/eip712": "0.2.11",
     "@evmos/proto": "0.1.27",
     "@evmos/provider": "0.2.8",
-    "@evmos/transactions": "0.2.13",
+    "@evmos/transactions": "0.3.2",
     "@floating-ui/react": "0.26.26",
     "@headlessui/react": "2.2.0",
     "@react-spring/web": "9.7.5",
