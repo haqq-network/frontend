@@ -94,11 +94,11 @@ export function Header({
             }),
           }}
         >
-          <div className="mx-auto flex h-full w-full flex-row items-center pr-[64px] xl:pr-[80px]">
+          <div className="mx-auto flex h-full w-full flex-row items-center pe-[64px] xl:pe-[80px]">
             <div
               className={clsx(
                 'flex h-full w-[64px] flex-none items-center justify-center lg:w-[80px]',
-                !isHaqqWallet && 'border-haqq-border border-r',
+                !isHaqqWallet && 'border-haqq-border border-e',
               )}
             >
               <Link href="/">
@@ -112,8 +112,8 @@ export function Header({
               className={clsx(
                 'font-clash text-[24px] font-medium uppercase leading-none',
                 !isHaqqWallet
-                  ? 'ml-[20px] lg:ml-[32px]'
-                  : 'ml-[8px] lg:ml-[4px]',
+                  ? 'ms-[20px] lg:ms-[32px]'
+                  : 'ms-[8px] lg:ms-[4px]',
               )}
             >
               {!isHaqqWallet || !renderPageTitle ? (
@@ -193,7 +193,7 @@ function HeaderDropdown({
           viewBox="0 0 22 22"
           fill="none"
           className={clsx(
-            'mb-[-2px] ml-[4px] mr-[-6px]',
+            'mb-[-2px] me-[-6px] ms-[4px]',
             'transition-[transform] duration-150 ease-in',
             isHover && 'scale-y-[-1]',
           )}
@@ -208,7 +208,7 @@ function HeaderDropdown({
       </div>
       <div
         className={clsx(
-          'absolute left-0 top-full z-50 origin-top',
+          'absolute start-0 top-full z-50 origin-top',
           'min-w-[150px] pt-[4px]',
           isHover ? 'visible' : 'invisible',
         )}
@@ -227,7 +227,7 @@ function HeaderDropdown({
                   href={href}
                   key={href}
                   className={clsx(
-                    'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left text-[13px] leading-[20px] hover:bg-[#ffffff14]',
+                    'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-start text-[13px] leading-[20px] hover:bg-[#ffffff14]',
                     'transition-colors duration-150 ease-out',
                   )}
                 >

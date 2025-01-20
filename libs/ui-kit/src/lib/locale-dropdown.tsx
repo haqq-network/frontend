@@ -37,7 +37,7 @@ export function LocaleDropdown({
         <GlobeIcon className="h-[24px] w-[24px] cursor-pointer" />
       ) : (
         <div className="flex h-[20px] flex-row items-center">
-          <span role="img" className="mr-2 inline-block text-[20px]">
+          <span role="img" className="me-2 inline-block text-[20px]">
             {currentLocaleData.emoji}
           </span>
           <span>{currentLocaleData.label}</span>
@@ -73,15 +73,15 @@ export function LocaleDropdown({
                   }}
                 >
                   <span className="flex h-[20px] flex-row items-center">
-                    <span role="img" className="mr-2 inline-block text-[20px]">
+                    <span role="img" className="me-2 inline-block text-[20px]">
                       {emoji}
                     </span>
                     <span>{label}</span>
                   </span>
                   {isActive ? (
-                    <CheckIcon className={clsx('mb-[-1px] ml-4 h-4 w-4')} />
+                    <CheckIcon className={clsx('mb-[-1px] ms-4 h-4 w-4')} />
                   ) : (
-                    <div className="ml-4 h-4 w-4" />
+                    <div className="ms-4 h-4 w-4" />
                   )}
                 </button>
               );

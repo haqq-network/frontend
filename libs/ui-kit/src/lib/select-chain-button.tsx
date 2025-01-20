@@ -23,7 +23,7 @@ export function SelectChainButton({
         <MenuButton
           as="button"
           className={clsx(
-            'flex h-[40px] flex-row items-center rounded-[6px] px-[12px]',
+            'flex h-[40px] flex-row items-center rounded-[6px] px-[12px] rtl:flex-row-reverse',
             'font-guise text-[14px] font-[500] leading-[22px]',
             'transition-colors duration-150 ease-out',
             'box-border appearance-none outline-none',

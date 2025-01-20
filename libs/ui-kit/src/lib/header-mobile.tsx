@@ -80,13 +80,13 @@ export function HeaderMobile({
                 'flex h-[62px] w-full',
                 'flex-none flex-row items-center',
                 'border-b-[1px]',
-                'pr-[16px] sm:pr-[48px]',
+                'pe-[16px] sm:pe-[48px]',
               )}
             >
               <div
                 className={clsx(
                   'flex h-full w-[48px] flex-none items-center justify-center md:w-[64px]',
-                  !isHaqqWallet && 'border-haqq-border border-r',
+                  !isHaqqWallet && 'border-haqq-border border-e',
                 )}
               >
                 <Link href="/">
@@ -99,7 +99,7 @@ export function HeaderMobile({
               <div
                 className={clsx(
                   'font-clash text-[24px] font-medium uppercase leading-none',
-                  !isHaqqWallet ? 'ml-[20px]' : 'ml-[8px]',
+                  !isHaqqWallet ? 'ms-[20px]' : 'ms-[8px]',
                 )}
               >
                 {!isHaqqWallet || !renderPageTitle ? (
