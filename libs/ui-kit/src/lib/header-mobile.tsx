@@ -186,7 +186,7 @@ function HeaderDropdownMobile({
 }) {
   return (
     <div className="header-dropdown">
-      <span className="font-bold">{label}</span>
+      <span className="font-bold text-white/50">{label}</span>
       <div className="flex flex-col gap-[8px]">
         {links.map(({ href, label }) => {
           return (
