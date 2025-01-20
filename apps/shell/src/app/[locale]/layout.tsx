@@ -119,7 +119,7 @@ export default async function RootLayout({
   return (
     <html
       lang={params.locale}
-      dir="ltr"
+      dir={params.locale === 'ar' ? 'rtl' : 'ltr'}
       className={clsx(clashDisplayFont.variable, hkGuiseFont.variable)}
     >
       <PHProvider>
