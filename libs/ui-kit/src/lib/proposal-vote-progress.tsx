@@ -123,7 +123,7 @@ export function ProposalVoteProgress({
             )}
           />
         ) : (
-          <div className="relative flex h-[8px] w-full flex-row space-x-[4px] overflow-hidden">
+          <div className="relative flex h-[8px] w-full flex-row space-x-[4px] overflow-hidden rtl:space-x-reverse">
             {voteResults.yes.percentage !== 0 && (
               <div
                 className={clsx(

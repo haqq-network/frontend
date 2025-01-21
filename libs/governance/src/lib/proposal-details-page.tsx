@@ -89,7 +89,7 @@ function ShowDateToggleButton({ onClick }: { onClick: () => void }) {
         viewBox="0 0 22 22"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="ml-[2px] inline-block"
+        className="ms-[2px] inline-block"
       >
         <path
           fillRule="evenodd"
@@ -401,9 +401,9 @@ export function ProposalDetailsComponent({
                 )}
               </div>
               <div className="py-[24px] md:py-[40px]">
-                <div className="mb-[16px] flex flex-row items-center">
+                <div className="mb-[16px] flex flex-row items-center gap-2">
                   <InfoIcon />
-                  <Heading level={3} className="mb-[-2px] ml-[8px]">
+                  <Heading level={3} className="mb-[-2px]">
                     {t('info', 'Info', { ns: 'common' })}
                   </Heading>
                 </div>
@@ -433,10 +433,12 @@ export function ProposalDetailsComponent({
                     </div>
 
                     <div
+                      dir="ltr"
                       className={clsx(
                         'prose prose-sm max-w-none text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
                         'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-a:break-words prose-strong:text-white',
                         'prose-code:text-white prose-code:text-[12px] prose-code:font-mono prose-code:md:leading-[22px] prose-code:md:text-[14px] prose-code:leading-[18px]',
+                        'rtl:text-end',
                       )}
                     >
                       <Markdown gfm breaks>
@@ -476,9 +478,9 @@ export function ProposalDetailsComponent({
 
               {!isDesktop && (
                 <div className="py-[24px] md:py-[40px]">
-                  <div className="mb-[16px] flex flex-row items-center">
+                  <div className="mb-[16px] flex flex-row items-center gap-2">
                     <CalendarIcon />
-                    <Heading level={3} className="mb-[-2px] ml-[8px]">
+                    <Heading level={3} className="mb-[-2px]">
                       {t('dates', 'Dates', { ns: 'governance' })}
                     </Heading>
                   </div>
@@ -573,7 +575,7 @@ export function ProposalDetailsComponent({
                             <table>
                               <tbody>
                                 <tr>
-                                  <td className="py-[4px] pr-[20px]">
+                                  <td className="py-[4px] pe-[20px]">
                                     <ProposalDatesText className="text-white/50">
                                       {t('created-at', 'Created at (GMT)', {
                                         ns: 'governance',
@@ -597,7 +599,7 @@ export function ProposalDetailsComponent({
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="py-[4px] pr-[20px]">
+                                  <td className="py-[4px] pe-[20px]">
                                     <ProposalDatesText className="text-white/50">
                                       {t(
                                         'deposit-end-gmt',
@@ -627,7 +629,7 @@ export function ProposalDetailsComponent({
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="py-[4px] pr-[20px]">
+                                  <td className="py-[4px] pe-[20px]">
                                     <ProposalDatesText className="text-white/50">
                                       {t('vote-start', 'Vote start (GMT)', {
                                         ns: 'governance',
@@ -653,7 +655,7 @@ export function ProposalDetailsComponent({
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="py-[4px] pr-[20px]">
+                                  <td className="py-[4px] pe-[20px]">
                                     <ProposalDatesText className="text-white/50">
                                       {t('vote-end', 'Vote end (GMT)', {
                                         ns: 'governance',
