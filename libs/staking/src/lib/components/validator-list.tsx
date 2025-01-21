@@ -108,9 +108,9 @@ export function ValidatorList({
     >
       <div className="flex flex-col gap-[32px]">
         <div className="flex flex-col gap-[24px] lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center gap-2">
             <ValidatorIcon />
-            <Heading level={3} className="mb-[-2px] ml-[8px]">
+            <Heading level={3} className="mb-[-2px]">
               {t('validators', 'Validators', { ns: 'staking' })}
               {status !== 'pending' && (
                 <span className="text-white/50">

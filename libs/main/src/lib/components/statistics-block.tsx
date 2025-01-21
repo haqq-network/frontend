@@ -38,11 +38,11 @@ export function StatisticsBlock() {
 
   return (
     <div className="flex flex-col gap-y-[10px] lg:flex-row lg:flex-wrap lg:gap-x-[24px]">
-      <div className="flex h-[20px] flex-row items-center space-x-[9px]">
+      <div className="flex h-[20px] flex-row items-center gap-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           {t('total-supply', 'Total supply')}
         </div>
-        <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
+        <div className="font-guise inline-flex gap-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
           {!isFetching && (
             <div>
               {formatNumber(totalSupply)}
@@ -51,11 +51,11 @@ export function StatisticsBlock() {
           )}
         </div>
       </div>
-      <div className="flex h-[20px] flex-row items-center space-x-[9px]">
+      <div className="flex h-[20px] flex-row items-center gap-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           {t('total-staked', 'Total staked')} ({formatPercents(stakeRatio)}%)
         </div>
-        <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
+        <div className="font-guise inline-flex gap-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
           {!isFetching && (
             <div>
               {formatNumber(totalStaked)}
@@ -64,19 +64,19 @@ export function StatisticsBlock() {
           )}
         </div>
       </div>
-      <div className="flex h-[20px] flex-row items-center space-x-[9px]">
+      <div className="flex h-[20px] flex-row items-center gap-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           {t('accounts', 'Accounts')}
         </div>
-        <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
+        <div className="font-guise inline-flex gap-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
           {!isFetching && <div>{totalAccounts}</div>}
         </div>
       </div>
-      <div className="flex h-[20px] flex-row items-center space-x-[9px]">
+      <div className="flex h-[20px] flex-row items-center gap-[9px]">
         <div className="font-clash mb-[-3px] text-[12px] uppercase leading-[20px] tracking-[.01em] text-white/50 sm:text-[14px]">
           {t('active-validators', 'Active validators')}
         </div>
-        <div className="font-guise inline-flex space-x-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
+        <div className="font-guise inline-flex gap-[5px] text-[12px] font-[500] leading-[20px] sm:text-[13px]">
           {!isFetching && (
             <div>
               <T

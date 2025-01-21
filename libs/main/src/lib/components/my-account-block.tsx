@@ -169,6 +169,11 @@ function MyAccountConnected({
     { ns: 'main' },
   );
 
+  const liquidStakingDescription = t(
+    'about-liquid-staking',
+    'Liquid staking allows you to delegate tokens to validators while maintaining liquidity. In return, you receive stISLM tokens that can be used in DeFi protocols while your staked ISLM continues to earn staking rewards.',
+    { ns: 'main' },
+  );
   if (!balances) {
     return null;
   }
@@ -178,11 +183,11 @@ function MyAccountConnected({
       <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
-          <Heading level={3} className="mb-[-2px] ml-[8px]">
+          <Heading level={3} className="mb-[-2px] ms-[8px]">
             {t('my-account', 'My account', { ns: 'common' })}
           </Heading>
           <Link href="/staking" className="leading-[0]">
-            <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
+            <OrangeLink className="font-clash ms-[16px] !text-[12px] uppercase">
               {t('link-to-staking', 'Go to Staking', { ns: 'main' })}
             </OrangeLink>
           </Link>
@@ -258,7 +263,7 @@ function MyAccountConnected({
                             haqqAddress={haqqAddress}
                             isLiquidStaking
                             className="my-2 w-full !max-w-[100%] rounded-none border-x-0 !px-0"
-                            description="Liquid staking allows you to delegate tokens to validators while maintaining liquidity. In return, you receive stISLM tokens that can be used in DeFi protocols while your staked ISLM continues to earn staking rewards."
+                            description={liquidStakingDescription}
                           />
                         }
                       />
@@ -291,7 +296,7 @@ function MyAccountConnected({
                           <StakingBalanceBlock
                             haqqAddress={haqqAddress}
                             isLiquidStaking
-                            description="Liquid staking allows you to delegate tokens to validators while maintaining liquidity. In return, you receive stISLM tokens that can be used in DeFi protocols while your staked ISLM continues to earn staking rewards."
+                            description={liquidStakingDescription}
                           />
                         </PopoverContent>
                       </Popover>

@@ -821,9 +821,9 @@ export function ValidatorBlockDesktop({
 
   return (
     <div className="flex transform-gpu flex-col gap-[24px] overflow-hidden rounded-[8px] bg-[#FFFFFF14] px-[28px] py-[32px]">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-2">
         <ValidatorIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
+        <Heading level={3} className="mb-[-2px]">
           {t('validator', 'Validator', { ns: 'staking' })}
         </Heading>
       </div>

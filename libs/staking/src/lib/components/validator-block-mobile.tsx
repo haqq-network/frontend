@@ -82,9 +82,9 @@ export function ValidatorBlockMobileComponent({
   return (
     <Container className="py-[24px] md:py-[40px]">
       <div className="flex flex-col items-start gap-y-[24px] md:gap-y-[12px]">
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center gap-2">
           <ValidatorIcon />
-          <Heading level={3} className="mb-[-2px] ml-[8px]">
+          <Heading level={3} className="mb-[-2px]">
             {t('validator', 'Validator', { ns: 'staking' })}
           </Heading>
         </div>
