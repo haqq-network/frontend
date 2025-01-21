@@ -140,9 +140,9 @@ function StrideStatsDesktop({
 
   return (
     <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-2">
         <WalletIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
+        <Heading level={3} className="mb-[-2px]">
           {t('liquid-staking', 'Liquid staking', { ns: 'staking' })}
         </Heading>
       </div>
@@ -279,9 +279,9 @@ function StrideStatsMobile({
 
   return (
     <div className="flex flex-col items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-2">
         <WalletIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
+        <Heading level={3} className="mb-[-2px]">
           {t('liquid-staking', 'Liquid staking', { ns: 'staking' })}
         </Heading>
       </div>

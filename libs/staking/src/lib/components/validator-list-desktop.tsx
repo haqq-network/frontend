@@ -15,7 +15,7 @@ function SortDirectionArrow({ direction }: { direction: SortDirection }) {
   }
 
   return (
-    <span className="absolute right-[-16px] top-[0px] text-[12px] leading-[14px]">
+    <span className="absolute end-[-16px] top-[0px] text-[12px] leading-[14px]">
       {direction === 'asc' ? '▲' : '▼'}
     </span>
   );
@@ -72,7 +72,7 @@ export function ValidatorsListDesktop({
               <div className="select-none">&nbsp;</div>
             </th>
           )}
-          <th className="w-[25%] p-[8px] text-left lg:p-[12px]">
+          <th className="w-[25%] p-[8px] text-start lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -90,7 +90,7 @@ export function ValidatorsListDesktop({
               )}
             </div>
           </th>
-          <th className="w-[100px] p-[8px] text-left lg:p-[12px]">
+          <th className="w-[100px] p-[8px] text-start lg:p-[12px]">
             <div className="select-none">
               {t('status', 'Status', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'status' && (
@@ -98,7 +98,7 @@ export function ValidatorsListDesktop({
               )}
             </div>
           </th>
-          <th className="w-[100px] p-[8px] text-right lg:p-[12px]">
+          <th className="w-[100px] p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -116,7 +116,7 @@ export function ValidatorsListDesktop({
               )}
             </div>
           </th>
-          <th className="min-w-[170px] p-[8px] text-right lg:p-[12px]">
+          <th className="min-w-[170px] p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -135,7 +135,7 @@ export function ValidatorsListDesktop({
                 )}
             </div>
           </th>
-          <th className="p-[8px] text-right lg:p-[12px]">
+          <th className="p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -154,7 +154,7 @@ export function ValidatorsListDesktop({
                 )}
             </div>
           </th>
-          <th className="p-[8px] text-right lg:p-[12px]">
+          <th className="p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -172,7 +172,7 @@ export function ValidatorsListDesktop({
               )}
             </div>
           </th>
-          <th className="p-[8px] text-right lg:p-[12px]">
+          <th className="p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',

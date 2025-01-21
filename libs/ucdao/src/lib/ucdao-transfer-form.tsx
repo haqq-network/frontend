@@ -162,9 +162,9 @@ export function DaoTransferForm() {
     <div className="py-[32px] md:py-[80px]">
       <Container>
         <div className="flex flex-col gap-[24px]">
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center gap-2">
             <PlaneIcon />
-            <Heading level={3} className="mb-[-2px] ml-[8px]">
+            <Heading level={3} className="mb-[-2px]">
               {t('transfer-heading', 'Transfer coins ownership', {
                 ns: 'uc-dao',
               })}

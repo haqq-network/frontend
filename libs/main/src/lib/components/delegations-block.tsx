@@ -56,9 +56,9 @@ export function DelegationsBlock({
 
   return (
     <Container>
-      <div className="mb-[24px] flex flex-row items-center">
+      <div className="mb-[24px] flex flex-row items-center gap-2">
         <ListIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
+        <Heading level={3} className="mb-[-2px]">
           {t('my-delegations', 'My delegations', { ns: 'common' })}
         </Heading>
       </div>

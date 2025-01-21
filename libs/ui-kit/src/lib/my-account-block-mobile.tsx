@@ -31,9 +31,9 @@ export function MyAccountBlockMobile({
   const { t } = useTranslate('common');
   return (
     <Container className="py-[24px] md:py-[40px]">
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         <WalletIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
+        <Heading level={3} className="mb-[-2px]">
           {t('my-account', 'My account')}
         </Heading>
       </div>
