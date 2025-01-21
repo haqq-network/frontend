@@ -44,9 +44,9 @@ export function DaoPageBalance() {
   return (
     <div className="border-haqq-border border-y-[1px] py-[32px]">
       <Container className="flex flex-col gap-[24px]">
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center gap-2">
           <WalletIcon />
-          <Heading level={3} className="mb-[-2px] ml-[8px]">
+          <Heading level={3} className="mb-[-2px]">
             {t('my-account', 'My account', { ns: 'common' })}
           </Heading>
         </div>
