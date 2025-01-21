@@ -4,6 +4,7 @@ import clsx from 'clsx';
 export function Metadata({ children }: { children: ReactNode }) {
   return (
     <div
+      dir="ltr"
       className={clsx(
         'prose prose-sm w-full min-w-full max-w-fit',
         'prose-pre:max-h-[200px] prose-pre:overflow-auto prose-pre:p-[12px] prose-pre:rounded-[8px] prose-pre:border',

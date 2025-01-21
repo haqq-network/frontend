@@ -141,9 +141,9 @@ function CommissionCard({ commission }: CommissionCardProps) {
   const { t } = useTranslate('staking');
   return (
     <div>
-      <div className="mb-[16px] flex flex-row items-center">
+      <div className="mb-[16px] flex flex-row items-center gap-2">
         <PercentIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
+        <Heading level={3} className="mb-[-2px]">
           {t('commission', 'Commission')}
         </Heading>
       </div>
@@ -250,9 +250,9 @@ export function ValidatorInfoComponent({
                 </div>
               </div>
               <div className="py-[40px]">
-                <div className="mb-[16px] flex flex-row items-center">
+                <div className="mb-[16px] flex flex-row items-center gap-2">
                   <InfoIcon />
-                  <Heading level={3} className="mb-[-2px] ml-[8px]">
+                  <Heading level={3} className="mb-[-2px]">
                     {t('info', 'Info', { ns: 'common' })}
                   </Heading>
                 </div>

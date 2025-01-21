@@ -11,7 +11,7 @@ export function ParameterChangeProposalDetails({
   const { t } = useTranslate('governance');
   return (
     <div>
-      <div className="mb-[16px] flex flex-row items-center">
+      <div className="mb-[16px] flex flex-row items-center gap-2">
         <svg
           width="24"
           height="24"
@@ -27,7 +27,7 @@ export function ParameterChangeProposalDetails({
           />
         </svg>
 
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
+        <Heading level={3} className="mb-[-2px]">
           {t('parameter-changes', 'Parameter changes')}
         </Heading>
       </div>

@@ -7,7 +7,7 @@ export function BackButton({
   return (
     <button
       onClick={onClick}
-      className="inline-flex flex-row items-center transition-colors duration-100 ease-out hover:text-white/50"
+      className="inline-flex flex-row items-center transition-colors duration-100 ease-out hover:text-white/50 rtl:scale-x-[-1] rtl:flex-row-reverse"
     >
       <svg
         width="24"

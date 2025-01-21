@@ -29,7 +29,7 @@ export function SoftwareUpgradeProposalDetails({
 
   return (
     <div className="flex flex-col gap-[16px]">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-2">
         <svg
           width="24"
           height="24"
@@ -45,7 +45,7 @@ export function SoftwareUpgradeProposalDetails({
           />
         </svg>
 
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
+        <Heading level={3} className="mb-[-2px]">
           {t('upgrade-plan', 'Upgrade plan')}
         </Heading>
       </div>
