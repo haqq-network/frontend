@@ -17,7 +17,10 @@ export function UCDaoPage() {
       {!isHaqqWallet && (
         <div className="py-[32px] lg:py-[68px]">
           <Container>
-            <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+            <div
+              dir="ltr"
+              className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]"
+            >
               {t('dao-page-title', 'UnitedContributors DAO', { ns: 'uc-dao' })}
             </div>
           </Container>
