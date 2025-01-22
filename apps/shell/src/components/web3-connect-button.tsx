@@ -109,7 +109,7 @@ export function Web3ConnectButtonsMobile() {
             selectNetwork(chainId);
           }}
           chains={chainArray}
-          dropdownClassName="right-auto left-[0px]"
+          dropdownClassName="end-auto start-0"
         />
       </div>
       <div className="leading-[0]">

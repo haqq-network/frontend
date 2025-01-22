@@ -78,7 +78,7 @@ export function Header({
         )}
       />
 
-      <div className="fixed left-0 top-0 z-50 w-full">
+      <div className="fixed start-0 top-0 z-50 w-full">
         {isTestedge && <TestedgeBanner />}
         <animated.header
           className={clsx(

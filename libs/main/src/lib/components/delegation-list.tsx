@@ -74,12 +74,12 @@ export function ValidatorWithDelegationListItem({
           />
         </div>
         <div className="w-[50px] text-center">{validatorCommission}%</div>
-        <div className="flex-1 text-right font-semibold">
+        <div className="flex-1 text-end font-semibold">
           <div>{votingPower.toLocaleString()}</div>
           <div className="text-sm text-gray-400">{votingPowerInPercents}%</div>
         </div>
-        <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
-        <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>
+        <div className="flex-1 text-end">{userDelegate.toLocaleString()}</div>
+        <div className="flex-1 text-end">{userRewards.toLocaleString()}</div>
       </div>
     </Link>
   );
@@ -183,13 +183,13 @@ export function ShellIndexPageDelegationList() {
             <div className="w-[50px] text-center">
               {t('fee', 'Fee', { ns: 'common' })}
             </div>
-            <div className="flex-1 text-right">
+            <div className="flex-1 text-end">
               {t('voting-power', 'Voting power', { ns: 'common' })}
             </div>
-            <div className="flex-1 text-right">
+            <div className="flex-1 text-end">
               {t('staked', 'Staked', { ns: 'common' })}
             </div>
-            <div className="flex-1 text-right">
+            <div className="flex-1 text-end">
               {t('rewards', 'Rewards', { ns: 'common' })}
             </div>
           </div>

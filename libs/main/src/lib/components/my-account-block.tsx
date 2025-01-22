@@ -237,7 +237,7 @@ function MyAccountConnected({
                           {': '}
                           {formatNumber(balances.availableForStake)}
                         </span>
-                        <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+                        <InfoIcon className="ms-[2px] inline h-[18px] w-[18px]" />
                       </div>
                     </PopoverTrigger>
 
@@ -288,7 +288,7 @@ function MyAccountConnected({
                               Available for liquid staking:{' '}
                               {formatNumber(balances.available)}
                             </span>
-                            <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+                            <InfoIcon className="ms-[2px] inline h-[18px] w-[18px]" />
                           </div>
                         </PopoverTrigger>
 

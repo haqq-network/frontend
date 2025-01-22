@@ -60,7 +60,7 @@ export function Button({
       type={type}
     >
       {isLoading && (
-        <div className="absolute left-1/2 top-1/2 !h-6 !w-6 translate-x-[-50%] translate-y-[-50%] leading-none">
+        <div className="absolute start-1/2 top-1/2 !h-6 !w-6 translate-x-[-50%] translate-y-[-50%] leading-none">
           <SpinnerLoader
             className={clsx(
               '!h-[24px] !w-[24px]',

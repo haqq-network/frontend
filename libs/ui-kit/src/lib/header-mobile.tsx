@@ -70,7 +70,7 @@ export function HeaderMobile({
   return (
     <Fragment>
       <div className={clsx(isTestedge ? 'h-[calc(62px+64px)]' : 'h-[62px]')} />
-      <div className="fixed left-0 top-0 z-50 w-full">
+      <div className="fixed start-0 top-0 z-50 w-full">
         {isTestedge && <TestedgeBanner />}
         <AnimatedOrNot baseHeaderClassNames={baseHeaderClassNames}>
           <div className="flex h-full flex-col">
@@ -116,7 +116,7 @@ export function HeaderMobile({
                     setIsMobileMenuOpened(!isMobileMenuOpen);
                   }}
                   isOpen={isMobileMenuOpen}
-                  className="mr-[-6px] h-[36px] w-[36px] p-[6px]"
+                  className="me-[-6px] h-[36px] w-[36px] p-[6px]"
                 />
               </div>
             </div>
