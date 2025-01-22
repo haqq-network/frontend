@@ -34,13 +34,13 @@ export function GranteeGrantsTable() {
           <table className="w-full table-auto">
             <thead className="text-[10px] uppercase leading-[24px] text-white/50 md:text-[12px]">
               <tr>
-                <th className="select-none p-[8px] text-left lg:p-[12px]">
+                <th className="select-none p-[8px] text-start lg:p-[12px]">
                   {t('granter', 'Granter')}
                 </th>
-                <th className="select-none p-[8px] text-left lg:p-[12px]">
+                <th className="select-none p-[8px] text-start lg:p-[12px]">
                   {t('message', 'Message')}
                 </th>
-                {/* <th className="select-none p-[8px] text-left lg:p-[12px]">
+                {/* <th className="select-none p-[8px] text-start lg:p-[12px]">
                   {t('valid-thru', 'Valid thru')}
                 </th> */}
               </tr>

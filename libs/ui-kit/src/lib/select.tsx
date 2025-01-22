@@ -47,7 +47,7 @@ export function Select({
 }) {
   const formatGroupLabel = useCallback((data: GroupBase<SelectOption>) => {
     return (
-      <div className="px-[16px] py-[6px] text-left text-[10px] font-[500] uppercase leading-[18px] text-white/50">
+      <div className="px-[16px] py-[6px] text-start text-[10px] font-[500] uppercase leading-[18px] text-white/50">
         {data.label}
       </div>
     );
@@ -73,7 +73,7 @@ export function Select({
         return 'text-white text-[14px] font-[500] leading-[22px] min-h-[46px] px-[16px]';
       },
       indicatorsContainer: () => {
-        return 'pr-[10px] text-white/25';
+        return 'pe-[10px] text-white/25';
       },
       menu: () => {
         return clsx(
@@ -84,7 +84,7 @@ export function Select({
       },
       option: ({ isFocused, isSelected }) => {
         return clsx(
-          'px-[16px] py-[10px] text-left leading-[20px]',
+          'px-[16px] py-[10px] text-start leading-[20px]',
           'transition-colors duration-150 ease-out',
           {
             'bg-[#ffffff14]': isFocused || isSelected,
@@ -167,7 +167,7 @@ export function ModalSelect({
         return 'text-[14px] font-[500] leading-[22px] text-[#0D0D0E] min-h-[46px] px-[16px]';
       },
       indicatorsContainer: () => {
-        return 'pr-[10px] text-[#0D0D0E80]';
+        return 'pe-[10px] text-[#0D0D0E80]';
       },
       menu: () => {
         return clsx(
@@ -178,7 +178,7 @@ export function ModalSelect({
       },
       option: ({ isFocused, isSelected }) => {
         return clsx(
-          'px-[16px] py-[8px] text-left',
+          'px-[16px] py-[8px] text-start',
           'transition-colors duration-150 ease-out',
           {
             'bg-[#ffffff14]': isFocused || isSelected,
