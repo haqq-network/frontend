@@ -145,7 +145,7 @@ export function ModalInput({
           value={value}
         />
         {Boolean(onMaxButtonClick || symbol) && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+          <div className="absolute end-3 top-1/2 -translate-y-1/2">
             {onMaxButtonClick && (
               <button
                 className="text-[14px] font-[500] leading-[22px] text-[#EC5728] disabled:text-opacity-30"
@@ -158,7 +158,7 @@ export function ModalInput({
             {symbol && (
               <div
                 className={clsx(
-                  'ml-[10px] inline-block select-none text-[14px] font-[500] uppercase leading-[22px]',
+                  'ms-[10px] inline-block select-none text-[14px] font-[500] uppercase leading-[22px]',
                   !value ? 'text-[#0D0D0E80]' : 'text-[#0D0D0E]',
                 )}
               >

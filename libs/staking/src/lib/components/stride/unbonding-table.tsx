@@ -26,18 +26,18 @@ export function UnbondingTable({
           <table className="w-full">
             <thead>
               <tr className="text-[11px] text-[#8E8E8E]">
-                <th className="text-left">Amount</th>
-                <th className="text-right">Unlock date</th>
+                <th className="text-start">Amount</th>
+                <th className="text-end">Unlock date</th>
               </tr>
             </thead>
             <tbody>
               {strideUnbonding.map((unbonding, index) => {
                 return (
                   <tr key={index} className="text-[12px]">
-                    <td className="py-1 text-left">
+                    <td className="py-1 text-start">
                       {formatNumber(formatUnits(unbonding.amount, 18))} stISLM
                     </td>
-                    <td className="py-1 text-right">
+                    <td className="py-1 text-end">
                       {formatDateShort(new Date(unbonding.estimatedTime))}
                     </td>
                   </tr>

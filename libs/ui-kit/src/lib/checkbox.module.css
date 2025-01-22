@@ -16,6 +16,10 @@
   outline: none;
 }
 
+[dir='rtl'] .checkboxTickBox {
+  transform: scaleX(-1);
+}
+
 .checkboxTick {
   @apply text-haqq-black;
   stroke-dasharray: 20;

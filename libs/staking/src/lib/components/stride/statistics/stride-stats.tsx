@@ -180,7 +180,7 @@ function StrideStatsDesktop({
 
           {/* Delegate and Undelegate buttons */}
           <div className="flex flex-row gap-x-[12px]">
-            <div className="flex-1">
+            <div className="min-w-fit flex-1">
               <Button
                 variant={2}
                 disabled={balance < MIN_BALANCE}
@@ -194,7 +194,7 @@ function StrideStatsDesktop({
               </Button>
             </div>
 
-            <div className="flex-1">
+            <div className="min-w-fit flex-1">
               <Button
                 variant={2}
                 className="w-full"
@@ -247,7 +247,7 @@ function StrideUnbondings() {
           <span>
             {formatDateShort(firstDate)} - {formatDateShort(lastDate)}{' '}
           </span>
-          <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+          <InfoIcon className="ms-[2px] inline h-[18px] w-[18px]" />
         </div>
       </PopoverTrigger>
       <PopoverContent className="outline-none">

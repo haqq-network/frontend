@@ -70,7 +70,7 @@ export function ValidatorSelect({
         return 'text-[14px] font-[500] leading-[22px] text-[#0D0D0E] min-h-[46px] px-[16px]';
       },
       indicatorsContainer: () => {
-        return 'pr-[10px] text-[#0D0D0E80]';
+        return 'pe-[10px] text-[#0D0D0E80]';
       },
       menu: () => {
         return clsx(
@@ -81,7 +81,7 @@ export function ValidatorSelect({
       },
       option: ({ isFocused, isSelected }) => {
         return clsx(
-          'px-[16px] py-[10px] text-left',
+          'px-[16px] py-[10px] text-start',
           'transition-colors duration-150 ease-out',
           {
             'bg-[#ffffff14]': isFocused || isSelected,
