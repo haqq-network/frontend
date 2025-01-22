@@ -201,9 +201,9 @@ export function FaucetPage({
             >
               <div className="flex flex-col gap-[16px]">
                 <div className="flex flex-row items-center justify-between">
-                  <div className="flex flex-row items-center">
+                  <div className="flex flex-row items-center gap-2">
                     <WalletIcon />
-                    <Heading level={3} className="mb-[-2px] ml-[8px]">
+                    <Heading level={3} className="mb-[-2px]">
                       {t('wallet', 'Wallet', { ns: 'faucet' })}
                     </Heading>
                   </div>
@@ -245,7 +245,7 @@ export function FaucetPage({
               </div>
 
               <div className="flex flex-col gap-[16px]">
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row items-center gap-2">
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -260,7 +260,7 @@ export function FaucetPage({
                     />
                   </svg>
 
-                  <Heading level={3} className="mb-[-2px] ml-[8px]">
+                  <Heading level={3} className="mb-[-2px]">
                     {t('github', 'Github', { ns: 'faucet' })}
                   </Heading>
                 </div>
@@ -297,9 +297,9 @@ export function FaucetPage({
 
             {isAuthenticated && address && (
               <div className="flex flex-col gap-[16px] rounded-b-[8px] bg-[#FFFFFF26] p-[24px] lg:p-[32px]">
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row items-center gap-2">
                   <EarnIcon className="h-[26px] w-[26px]" />
-                  <Heading level={3} className="mb-[-2px] ml-[8px]">
+                  <Heading level={3} className="mb-[-2px]">
                     {t('claim-tokens', 'Claim tokens', { ns: 'faucet' })}
                   </Heading>
                 </div>

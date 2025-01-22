@@ -318,7 +318,7 @@ export function AuthzGrantsActions() {
               </Heading>
             </div>
 
-            <div className="flex flex-col gap-[16px] lg:flex-row lg:gap-[36px] lg:pr-[40px]">
+            <div className="flex flex-col gap-[16px] lg:flex-row lg:gap-[36px] lg:pe-[40px]">
               <div className="flex-1">
                 <div className="flex flex-col gap-[18px]">
                   <div className="flex flex-col gap-[8px]">
@@ -437,7 +437,7 @@ export function AuthzGrantsActions() {
           <div className="relative flex-none lg:min-w-[520px]">
             <div
               className={clsx(
-                'xl:absolute xl:right-0 xl:top-[50%] xl:min-w-full xl:translate-y-[-50%]',
+                'xl:absolute xl:end-0 xl:top-[50%] xl:min-w-full xl:translate-y-[-50%]',
                 '2xl:translate-x-[-10%]',
                 'py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px] xl:py-[0px]',
               )}
