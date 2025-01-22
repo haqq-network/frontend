@@ -28,7 +28,7 @@ export function TopValidatorsWarningModal({
       >
         <ModalCloseButton
           onClick={onClose}
-          className="absolute right-[16px] top-[16px]"
+          className="absolute end-[16px] top-[16px]"
         />
 
         <div className="flex w-full flex-col gap-[24px] pt-[24px] sm:pt-[4px]">
