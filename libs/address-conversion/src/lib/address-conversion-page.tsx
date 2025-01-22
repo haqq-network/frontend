@@ -102,9 +102,9 @@ export function AddressConversionPage() {
 
       <Container className="border-haqq-border bg-haqq-black/15 border-t-[1px] backdrop-blur">
         <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
-          <div className="mb-[24px] flex flex-row items-center">
+          <div className="mb-[24px] flex flex-row items-center gap-2">
             <WalletIcon />
-            <Heading level={3} className="mb-[-2px] ml-[8px]">
+            <Heading level={3} className="mb-[-2px]">
               Bech32 / EVM
             </Heading>
           </div>
