@@ -304,7 +304,7 @@ export function ValidatorInfoComponent({
                     </div>
                   </div>
                   {validatorInfo.description?.details && (
-                    <div>
+                    <div dir="ltr" className="text-end">
                       <div className="font-guise text-[12px] leading-[18px] text-white/50">
                         {t('description', 'Description', { ns: 'common' })}
                       </div>
@@ -390,7 +390,7 @@ export function ValidatorInfoComponent({
       </Container>
 
       {!isDesktop && (
-        <div className="sticky bottom-0 left-0 right-0 z-30">
+        <div className="sticky bottom-0 end-0 start-0 z-30">
           <div className="transform-gpu bg-[#FFFFFF07] backdrop-blur">
             {isConnected ? (
               <Swiper
@@ -850,7 +850,7 @@ export function ValidatorBlockDesktop({
           </span>
         </div>
         <div className="flex flex-row gap-x-[12px]">
-          <div className="flex-1">
+          <div className="min-w-fit flex-1">
             <Button
               variant={2}
               disabled={balance < MIN_BALANCE}
@@ -867,7 +867,7 @@ export function ValidatorBlockDesktop({
               {t('delegate', 'Delegate', { ns: 'common' })}
             </Button>
           </div>
-          <div className="flex-1">
+          <div className="min-w-fit flex-1">
             <Button
               variant={2}
               className="w-full"

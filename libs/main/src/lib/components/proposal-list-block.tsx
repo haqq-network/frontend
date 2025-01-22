@@ -81,7 +81,7 @@ export function ProposalListBlock() {
           {t('latest-proposals', 'Latest proposals', { ns: 'main' })}
         </Heading>
         <Link href="/governance" className="leading-[0]">
-          <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
+          <OrangeLink className="font-clash ms-[16px] !text-[12px] uppercase">
             {t('link-to-governance', 'Go to Governance', { ns: 'main' })}
           </OrangeLink>
         </Link>

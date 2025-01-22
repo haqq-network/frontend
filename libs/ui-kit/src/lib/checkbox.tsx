@@ -66,7 +66,7 @@ export function Checkbox({
         </svg>
 
         {children && (
-          <span className="ml-[8px] text-[14px] font-[500] leading-[20px] text-white">
+          <span className="ms-[8px] text-[14px] font-[500] leading-[20px] text-white">
             {children}
           </span>
         )}
