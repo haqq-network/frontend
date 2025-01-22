@@ -65,7 +65,7 @@ export function LocaleDropdown({
                 <button
                   key={id}
                   className={clsx(
-                    'flex w-full min-w-fit items-center justify-between whitespace-nowrap px-[16px] py-[10px] text-left text-[13px] leading-[20px] hover:bg-[#ffffff14]',
+                    'flex w-full min-w-fit items-center justify-between whitespace-nowrap px-[16px] py-[10px] text-start text-[13px] leading-[20px] hover:bg-[#ffffff14]',
                     'transition-colors duration-150 ease-out',
                   )}
                   onClick={() => {

@@ -45,7 +45,7 @@ export function ProposalDepositProgress({
       <div className="relative h-[8px] w-full overflow-hidden rounded-[4px] bg-[#FFFFFF26]">
         <div
           className={clsx(
-            'absolute left-0 top-0 h-[8px] transform-gpu rounded-[4px] bg-[#0489D4]',
+            'absolute start-0 top-0 h-[8px] transform-gpu rounded-[4px] bg-[#0489D4]',
             'duration-250 transition-[width] ease-out',
           )}
           style={{ width: `${percent}%` }}

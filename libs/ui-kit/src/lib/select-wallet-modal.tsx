@@ -76,7 +76,7 @@ export function SelectWalletModal({
                   >
                     {connector.name === 'WalletConnect'
                       ? isMobileUA
-                        ? t('wallet-connect', 'WalletConnect')
+                        ? 'WalletConnect'
                         : t('scan-with-haqq-wallet', 'Scan with HAQQ Wallet')
                       : connector.name}
                   </Button>

@@ -15,14 +15,14 @@ export function SearchInput({
   const { t } = useTranslate('common');
   return (
     <div className="relative">
-      <MagnifierIcon className="absolute left-[16px] top-[12px] h-[24px] w-[24px] text-[#FFFFFF80]" />
+      <MagnifierIcon className="absolute start-[16px] top-[12px] h-[24px] w-[24px] text-[#FFFFFF80]" />
       <input
         type="text"
         className={clsx(
           'w-full rounded-[6px] outline-none',
           'transition-colors duration-100 ease-in',
           'text-[#fff] placeholder:text-[#FFFFFF3D]',
-          'py-[12px] pl-[48px] pr-[16px] text-[14px] font-[500] leading-[22px]',
+          'py-[12px] pe-[16px] ps-[48px] text-[14px] font-[500] leading-[22px]',
           'bg-[#252528] hover:bg-[#3A3A3A] focus:bg-[#3A3A3A]',
           className,
         )}

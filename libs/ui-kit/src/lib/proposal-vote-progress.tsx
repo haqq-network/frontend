@@ -167,8 +167,8 @@ export function ProposalVoteProgress({
 
         <div className="flex flex-wrap items-start gap-x-3">
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
-            <div className="mr-[2px]">
+            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
+            <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                 {t('vote-option-yes', 'Yes')}
               </CardText>
@@ -179,8 +179,8 @@ export function ProposalVoteProgress({
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
-            <div className="mr-[2px]">
+            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
+            <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                 {t('vote-option-no', 'No')}
               </CardText>
@@ -191,8 +191,8 @@ export function ProposalVoteProgress({
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
-            <div className="mr-[2px]">
+            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
+            <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                 {t('vote-option-abstain', 'Abstain')}
               </CardText>
@@ -203,8 +203,8 @@ export function ProposalVoteProgress({
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
-            <div className="mr-[2px]">
+            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
+            <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                 {t('vote-option-no-with-veto', 'No with veto')}
               </CardText>
