@@ -129,7 +129,7 @@ export function LiquidStakingDelegateModalDetails({
         {isValuePending && (
           <SpinnerLoader
             className="h-[8px] w-[8px]"
-            wrapperClassName="ml-[8px] inline-block h-[8px] w-[8px]"
+            wrapperClassName="ms-[8px] inline-block h-[8px] w-[8px]"
           />
         )}
       </div>
@@ -253,7 +253,7 @@ export function LiquidStakingDelegateModal({
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
         <ModalCloseButton
           onClick={onClose}
-          className="absolute right-[16px] top-[16px]"
+          className="absolute end-[16px] top-[16px]"
         />
 
         <div className="flex w-full flex-col space-y-6">
