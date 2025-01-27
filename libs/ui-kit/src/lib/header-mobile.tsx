@@ -46,15 +46,20 @@ export function HeaderMobile({
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
 
   useEffect(() => {
+    const body = document.body;
+
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      body.classList.add('overflow-hidden');
+      body.classList.remove('overflow-visible');
     } else {
-      document.body.style.overflow = 'visible';
+      body.classList.add('overflow-visible');
+      body.classList.remove('overflow-hidden');
+      document.documentElement.style.overflow = 'visible';
     }
 
     return () => {
-      document.body.style.overflow = 'visible';
-      document.documentElement.style.overflow = 'visible';
+      body.classList.remove('overflow-hidden');
+      body.classList.remove('overflow-visible');
     };
   }, [isMobileMenuOpen]);
 
