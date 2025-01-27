@@ -47,9 +47,9 @@ export function HeaderMobile({
 
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
     } else {
-      document.documentElement.style.overflow = 'visible';
+      document.body.style.overflow = 'visible';
     }
 
     return () => {
