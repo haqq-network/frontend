@@ -54,7 +54,6 @@ export function HeaderMobile({
     } else {
       body.classList.add('overflow-visible');
       body.classList.remove('overflow-hidden');
-      document.documentElement.style.overflow = 'visible';
     }
 
     return () => {
