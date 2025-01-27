@@ -10,7 +10,6 @@ import { useSpring, animated, config } from '@react-spring/web';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useScrollLock } from 'usehooks-ts';
 import { useLayout } from '@haqq/shell-shared';
 import { BurgerButton } from './burger-button';
 import { Container } from './container';
@@ -44,20 +43,20 @@ export function HeaderMobile({
   currentLocale?: string;
   locales?: LocaleOption[];
 }) {
-  const { lock, unlock } = useScrollLock();
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
-      lock();
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      unlock();
+      document.documentElement.style.overflow = 'visible';
     }
 
     return () => {
-      unlock();
+      document.body.style.overflow = 'visible';
+      document.documentElement.style.overflow = 'visible';
     };
-  }, [isMobileMenuOpen, lock, unlock]);
+  }, [isMobileMenuOpen]);
 
   const baseHeaderClassNames = clsx(
     'border-haqq-border w-full transform-gpu border-b-[1px]',
