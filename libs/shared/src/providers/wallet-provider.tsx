@@ -345,6 +345,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         setWalletSelectModalOpen(true);
       },
       closeSelectWallet: () => {
+        document.documentElement.style.overflow = 'visible'; // A hack to prevent the scroll block by WalletConnect modal
         setWalletSelectModalOpen(false);
       },
       isSelectWalletOpen: isWalletSelectModalOpen,
