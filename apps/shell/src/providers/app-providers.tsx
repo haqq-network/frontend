@@ -1,6 +1,7 @@
 'use client';
 import { PropsWithChildren } from 'react';
 import { DehydratedState } from '@tanstack/react-query';
+import { TolgeeStaticData } from '@tolgee/web';
 import { State, WagmiProvider, Config } from 'wagmi';
 import {
   CosmosProvider,
@@ -30,7 +31,7 @@ export function AppProviders({
   dehydratedState?: DehydratedState;
   wagmiConfig?: Config;
   isMobileUA: boolean;
-  locales: Record<string, any>;
+  locales: TolgeeStaticData;
   locale: string;
 }>) {
   const actualWagmiConfig = wagmiConfig
@@ -45,15 +46,15 @@ export function AppProviders({
       <WagmiProvider config={actualWagmiConfig} initialState={initialState}>
         <ReactQueryProvider withDevtools dehydratedState={dehydratedState}>
           <CosmosProvider>
-            <WalletProvider>
-              <TolgeeNextProvider locale={locale} locales={locales}>
+            <TolgeeNextProvider locale={locale} locales={locales}>
+              <WalletProvider>
                 <LayoutProvider isMobileUA={isMobileUA}>
                   {children}
                   <Toaster />
+                  <WalletModals />
                 </LayoutProvider>
-              </TolgeeNextProvider>
-              <WalletModals isMobileUA={isMobileUA} />
-            </WalletProvider>
+              </WalletProvider>
+            </TolgeeNextProvider>
           </CosmosProvider>
         </ReactQueryProvider>
       </WagmiProvider>

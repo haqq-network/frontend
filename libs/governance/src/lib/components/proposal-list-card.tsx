@@ -1,25 +1,23 @@
 import { ReactElement, useMemo } from 'react';
 import { Proposal } from '@evmos/provider';
 import { formatUnits } from 'viem/utils';
-import {
-  GetGovernanceParamsResponse,
-  TallyResults,
-} from '@haqq/data-access-cosmos';
+import { GetGovernanceParamsResponse } from '@haqq/data-access-cosmos';
+import { VoteResultsWithPercentages } from '@haqq/shell-shared';
 import { ProposalCard, ProposalStatusEnum } from '@haqq/shell-ui-kit/server';
-import { getProposalTypeText } from '../proposal-details-page';
+import { useGetProposalTypeText } from '../hooks/useGetProposalTypeText';
 
 export function ProposalListCard({
   proposal,
   govParams,
   symbol,
-  proposalTally,
+  voteResults,
   userVote,
   className,
 }: {
   proposal: Proposal;
   govParams: GetGovernanceParamsResponse;
   symbol: string;
-  proposalTally: TallyResults;
+  voteResults: VoteResultsWithPercentages;
   userVote?: string | null;
   className?: string;
 }): ReactElement {
@@ -52,9 +50,9 @@ export function ProposalListCard({
       votingEndDate={new Date(proposal.voting_end_time)}
       totalDeposit={totalDeposit}
       minDeposit={minDeposit}
-      results={proposalTally}
+      voteResults={voteResults}
       symbol={symbol}
-      type={getProposalTypeText(proposal.content['@type'])}
+      type={useGetProposalTypeText(proposal.content['@type'])}
       userVote={userVote}
       className={className}
     />

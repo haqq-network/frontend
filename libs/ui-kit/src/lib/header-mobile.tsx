@@ -10,11 +10,12 @@ import { useSpring, animated, config } from '@react-spring/web';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useScrollLock } from 'usehooks-ts';
 import { useLayout } from '@haqq/shell-shared';
 import { BurgerButton } from './burger-button';
 import { Container } from './container';
+import { HeaderLink, HeaderLinkWithHref } from './header';
 import { HeaderNavLink } from './header-nav-link';
+import { LocaleDropdown, LocaleOption } from './locale-dropdown';
 import { TestedgeBanner } from './testedge-banner';
 import { useScrollTrack } from '../hooks/use-scroll-track';
 import { interpolate } from '../utils/interpolate';
@@ -27,31 +28,41 @@ export function HeaderMobile({
   isTestedge,
   links,
   className,
+  switchLocale,
+  currentLocale,
+  locales,
 }: {
   web3ButtonsSlot?: ReactNode;
   utilsSlot?: ReactNode;
   isHaqqWallet?: boolean;
   isTestedge?: boolean;
   renderPageTitle?: () => ReactNode;
-  links: { href: string; label: string }[];
+  links: HeaderLink[];
   className?: string;
+  switchLocale?: (locale: string) => void;
+  currentLocale?: string;
+  locales?: LocaleOption[];
 }) {
-  const { lock, unlock } = useScrollLock();
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
 
   useEffect(() => {
+    const body = document.body;
+
     if (isMobileMenuOpen) {
-      lock();
+      body.classList.add('overflow-hidden');
+      body.classList.remove('overflow-visible');
     } else {
-      unlock();
+      body.classList.add('overflow-visible');
+      body.classList.remove('overflow-hidden');
     }
 
     return () => {
-      unlock();
+      body.classList.remove('overflow-hidden');
+      body.classList.remove('overflow-visible');
     };
-  }, [isMobileMenuOpen, lock, unlock]);
+  }, [isMobileMenuOpen]);
 
-  const baseHeaderStyles = clsx(
+  const baseHeaderClassNames = clsx(
     'border-haqq-border w-full transform-gpu border-b-[1px]',
     'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
     isMobileMenuOpen ? 'h-[calc(100vh)]' : 'h-[62px]',
@@ -62,9 +73,9 @@ export function HeaderMobile({
   return (
     <Fragment>
       <div className={clsx(isTestedge ? 'h-[calc(62px+64px)]' : 'h-[62px]')} />
-      <div className="fixed left-0 top-0 z-50 w-full">
+      <div className="fixed start-0 top-0 z-50 w-full">
         {isTestedge && <TestedgeBanner />}
-        <AnimatedOrNot baseHeaderStyles={baseHeaderStyles}>
+        <AnimatedOrNot baseHeaderClassNames={baseHeaderClassNames}>
           <div className="flex h-full flex-col">
             <div
               className={clsx(
@@ -72,13 +83,13 @@ export function HeaderMobile({
                 'flex h-[62px] w-full',
                 'flex-none flex-row items-center',
                 'border-b-[1px]',
-                'pr-[16px] sm:pr-[48px]',
+                'pe-[16px] sm:pe-[48px]',
               )}
             >
               <div
                 className={clsx(
                   'flex h-full w-[48px] flex-none items-center justify-center md:w-[64px]',
-                  !isHaqqWallet && 'border-haqq-border border-r',
+                  !isHaqqWallet && 'border-haqq-border border-e',
                 )}
               >
                 <Link href="/">
@@ -91,7 +102,7 @@ export function HeaderMobile({
               <div
                 className={clsx(
                   'font-clash text-[24px] font-medium uppercase leading-none',
-                  !isHaqqWallet ? 'ml-[20px]' : 'ml-[8px]',
+                  !isHaqqWallet ? 'ms-[20px]' : 'ms-[8px]',
                 )}
               >
                 {!isHaqqWallet || !renderPageTitle ? (
@@ -108,7 +119,7 @@ export function HeaderMobile({
                     setIsMobileMenuOpened(!isMobileMenuOpen);
                   }}
                   isOpen={isMobileMenuOpen}
-                  className="mr-[-6px] h-[36px] w-[36px] p-[6px]"
+                  className="me-[-6px] h-[36px] w-[36px] p-[6px]"
                 />
               </div>
             </div>
@@ -122,17 +133,27 @@ export function HeaderMobile({
               <Container className="flex w-full flex-col gap-[32px] py-[24px]">
                 {links.length > 0 && (
                   <nav className="mb-[24px] flex flex-col gap-[24px]">
-                    {links.map(({ href, label }) => {
+                    {links.map((link) => {
+                      if (link.type === 'dropdown') {
+                        return (
+                          <HeaderDropdownMobile
+                            key={link.label}
+                            label={link.label}
+                            links={link.children}
+                          />
+                        );
+                      }
+
                       return (
                         <HeaderNavLink
-                          href={href}
-                          key={href}
+                          href={link.href}
+                          key={link.href}
                           className="inline-flex leading-[24px]"
                           onClick={() => {
                             setIsMobileMenuOpened(false);
                           }}
                         >
-                          {label}
+                          {link.label}
                         </HeaderNavLink>
                       );
                     })}
@@ -140,6 +161,14 @@ export function HeaderMobile({
                 )}
 
                 {utilsSlot}
+
+                {locales?.length && (
+                  <LocaleDropdown
+                    locales={locales}
+                    switchLocale={switchLocale ?? undefined}
+                    currentLocale={currentLocale ?? ''}
+                  />
+                )}
 
                 {web3ButtonsSlot}
               </Container>
@@ -151,25 +180,50 @@ export function HeaderMobile({
   );
 }
 
+function HeaderDropdownMobile({
+  label,
+  links,
+}: {
+  label: string;
+  links: HeaderLinkWithHref[];
+}) {
+  return (
+    <div className="header-dropdown">
+      <span className="font-bold text-white/50">{label}</span>
+      <div className="flex flex-col gap-[8px]">
+        {links.map(({ href, label }) => {
+          return (
+            <HeaderNavLink href={href} key={href}>
+              {label}
+            </HeaderNavLink>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function AnimatedOrNot({
-  baseHeaderStyles,
+  baseHeaderClassNames,
   children,
-}: PropsWithChildren<{ baseHeaderStyles: string }>) {
+}: PropsWithChildren<{ baseHeaderClassNames: string }>) {
   const { isMobileUA } = useLayout();
 
   return isMobileUA ? (
-    <StaticHeader baseHeaderStyles={baseHeaderStyles}>{children}</StaticHeader>
+    <header className={clsx(baseHeaderClassNames, 'backdrop-blur')}>
+      {children}
+    </header>
   ) : (
-    <AnimatedHeader baseHeaderStyles={baseHeaderStyles}>
+    <AnimatedHeader baseHeaderClassNames={baseHeaderClassNames}>
       {children}
     </AnimatedHeader>
   );
 }
 
 function AnimatedHeader({
-  baseHeaderStyles,
+  baseHeaderClassNames,
   children,
-}: PropsWithChildren<{ baseHeaderStyles: string }>) {
+}: PropsWithChildren<{ baseHeaderClassNames: string }>) {
   const { top } = useScrollTrack(typeof window !== 'undefined' ? window : null);
 
   const [springValues, setSpringValues] = useSpring(() => {
@@ -197,20 +251,9 @@ function AnimatedHeader({
           return `rgba(13, 13, 14, ${opacity})`;
         }),
       }}
-      className={baseHeaderStyles}
+      className={baseHeaderClassNames}
     >
       {children}
     </animated.header>
-  );
-}
-
-function StaticHeader({
-  baseHeaderStyles,
-  children,
-}: PropsWithChildren<{ baseHeaderStyles: string }>) {
-  return (
-    <header className={clsx(baseHeaderStyles, 'backdrop-blur')}>
-      {children}
-    </header>
   );
 }

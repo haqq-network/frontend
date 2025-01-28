@@ -1,17 +1,36 @@
 'use client';
 
-import { useEffect } from 'react';
-import { TolgeeProvider, useTolgeeSSR } from '@tolgee/react';
+import { ReactNode, useEffect } from 'react';
+import { TolgeeProvider, TolgeeStaticData, useTolgeeSSR } from '@tolgee/react';
 import { useRouter } from 'next/navigation';
-import { TolgeeBase } from './shared';
+import { AVAILABLE_LOCALES, ALL_NAMESPACES, TolgeeBase } from './shared';
+import { env } from '../env/client';
 
 type Props = {
-  locales: any;
+  locales: TolgeeStaticData;
   locale: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const tolgee = TolgeeBase().init();
+const staticData: TolgeeStaticData = {};
+
+AVAILABLE_LOCALES.forEach((loc) => {
+  ALL_NAMESPACES.forEach((ns) => {
+    staticData[`${loc}:${ns}`] = async () => {
+      const data = await import(`../../messages/${ns}/${loc}.json`);
+      return data;
+    };
+  });
+});
+
+const tolgee = TolgeeBase().init({
+  defaultNs: 'common',
+  defaultLanguage: 'en',
+  staticData,
+  apiKey: env.NEXT_PUBLIC_TOLGEE_API_KEY,
+  apiUrl: env.NEXT_PUBLIC_TOLGEE_API_URL,
+  projectId: 3,
+});
 
 export const TolgeeNextProvider = ({ locale, locales, children }: Props) => {
   // synchronize SSR and client first render
@@ -30,7 +49,7 @@ export const TolgeeNextProvider = ({ locale, locales, children }: Props) => {
   }, [tolgeeSSR, router]);
 
   return (
-    <TolgeeProvider tolgee={tolgeeSSR} options={{ useSuspense: false }}>
+    <TolgeeProvider tolgee={tolgeeSSR} options={{ useSuspense: true }}>
       {children}
     </TolgeeProvider>
   );

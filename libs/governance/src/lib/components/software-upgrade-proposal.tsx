@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import { Heading } from '@haqq/shell-ui-kit/server';
 import { Metadata } from './metadata';
 
@@ -15,6 +16,7 @@ export function SoftwareUpgradeProposalDetails({
 }: {
   plan: SoftwareUpgradeProposalPlan;
 }) {
+  const { t } = useTranslate('governance');
   const formattedPlan = useMemo(() => {
     return {
       name: plan.name,
@@ -27,7 +29,7 @@ export function SoftwareUpgradeProposalDetails({
 
   return (
     <div className="flex flex-col gap-[16px]">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-2">
         <svg
           width="24"
           height="24"
@@ -43,8 +45,8 @@ export function SoftwareUpgradeProposalDetails({
           />
         </svg>
 
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Upgrade plan
+        <Heading level={3} className="mb-[-2px]">
+          {t('upgrade-plan', 'Upgrade plan')}
         </Heading>
       </div>
 

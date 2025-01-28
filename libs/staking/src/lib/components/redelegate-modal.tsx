@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
 import { useConnectorType } from '@haqq/shell-shared';
@@ -90,6 +91,7 @@ export function RedelegateModal({
   onApprove,
   amountError,
 }: RedelegateModalProps) {
+  const { t } = useTranslate();
   const [isMemoVisible, setMemoVisible] = useState(false);
   const { isSafe } = useConnectorType();
 
@@ -151,21 +153,21 @@ export function RedelegateModal({
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-[430px] sm:rounded-[12px] sm:p-[36px]">
         <ModalCloseButton
           onClick={onClose}
-          className="absolute right-[16px] top-[16px]"
+          className="absolute end-[16px] top-[16px]"
         />
 
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Redelegate
+                {t('redelegate', 'Redelegate', { ns: 'common' })}
               </ModalHeading>
             </div>
 
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title="My delegation"
+                  title={t('my-delegation', 'My delegation', { ns: 'staking' })}
                   value={`${formatNumber(delegationNumber)} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -175,7 +177,9 @@ export function RedelegateModal({
               <div className="py-[24px]">
                 <div className="flex flex-col gap-[8px]">
                   <DelegateModalDetails
-                    title="Redelegation amount"
+                    title={t('redelegate-amount', 'Redelegation amount', {
+                      ns: 'staking',
+                    })}
                     value={`${formatNumber(redelegationValidatorAmountNumber)} ${symbol.toUpperCase()}`}
                   />
                 </div>
@@ -209,7 +213,7 @@ export function RedelegateModal({
                         setMemoVisible(true);
                       }}
                     >
-                      Add memo
+                      {t('add-memo', 'Add memo', { ns: 'common' })}
                     </OrangeLink>
                   </div>
                 ) : (
@@ -227,14 +231,18 @@ export function RedelegateModal({
                         'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
                         'bg-[#E7E7E7]',
                       )}
-                      placeholder="Add your memo"
+                      placeholder={t('memo-placeholder', 'Add your memo', {
+                        ns: 'staking',
+                      })}
                     />
                   </div>
                 )}
 
                 <div>
                   <DelegateModalDetails
-                    title="Estimated fee"
+                    title={t('estimated-fee', 'Estimated fee', {
+                      ns: 'staking',
+                    })}
                     value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
                     isValuePending={isFeePending}
                   />
@@ -252,7 +260,7 @@ export function RedelegateModal({
                           variant={4}
                           className="w-full"
                         >
-                          Approve
+                          {t('approve-button', 'Approve', { ns: 'staking' })}
                         </Button>
                       </div>
                     </div>
@@ -264,7 +272,9 @@ export function RedelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Confirm redelegation
+                    {t('confirm-redelegation', 'Confirm redelegation', {
+                      ns: 'staking',
+                    })}
                   </Button>
                 </div>
               </div>

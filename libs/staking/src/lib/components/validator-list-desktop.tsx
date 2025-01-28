@@ -4,6 +4,7 @@ import {
   GetDelegationsResponse,
   Validator,
 } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { ValidatorListItemDesktop } from './validator-list-item-desktop';
 import { SortDirection, SortState } from '../hooks/use-validator-sort';
@@ -14,7 +15,7 @@ function SortDirectionArrow({ direction }: { direction: SortDirection }) {
   }
 
   return (
-    <span className="absolute right-[-16px] top-[0px] text-[12px] leading-[14px]">
+    <span className="absolute end-[-16px] top-[0px] text-[12px] leading-[14px]">
       {direction === 'asc' ? '▲' : '▼'}
     </span>
   );
@@ -37,6 +38,7 @@ export function ValidatorsListDesktop({
   onDesktopSortClick: (key: string) => void;
   sortState: SortState;
 }) {
+  const { t } = useTranslate();
   const getValidatorRewards = useCallback(
     (address: string) => {
       const rewards = rewardsInfo?.rewards?.find((rewardsItem) => {
@@ -70,7 +72,7 @@ export function ValidatorsListDesktop({
               <div className="select-none">&nbsp;</div>
             </th>
           )}
-          <th className="w-[25%] p-[8px] text-left lg:p-[12px]">
+          <th className="w-[25%] p-[8px] text-start lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -82,21 +84,21 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('name');
               }}
             >
-              Name
+              {t('name', 'Name', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'name' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}
             </div>
           </th>
-          <th className="w-[100px] p-[8px] text-left lg:p-[12px]">
+          <th className="w-[100px] p-[8px] text-start lg:p-[12px]">
             <div className="select-none">
-              Status
+              {t('status', 'Status', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'status' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}
             </div>
           </th>
-          <th className="w-[100px] p-[8px] text-right lg:p-[12px]">
+          <th className="w-[100px] p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -108,13 +110,13 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('fee');
               }}
             >
-              Fee
+              {t('fee', 'Fee', { ns: 'common' })}
               {sortState.key !== 'random' && sortState.key === 'fee' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}
             </div>
           </th>
-          <th className="min-w-[170px] p-[8px] text-right lg:p-[12px]">
+          <th className="min-w-[170px] p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -126,14 +128,14 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('votingPower');
               }}
             >
-              Voting power
+              {t('voting-power', 'Voting power', { ns: 'common' })}
               {sortState.key !== 'random' &&
                 sortState.key === 'votingPower' && (
                   <SortDirectionArrow direction={sortState.direction} />
                 )}
             </div>
           </th>
-          <th className="p-[8px] text-right lg:p-[12px]">
+          <th className="p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -145,14 +147,14 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('votingPowerPercent');
               }}
             >
-              Voting power %
+              {t('voting-power', 'Voting power', { ns: 'common' })} %
               {sortState.key !== 'random' &&
                 sortState.key === 'votingPowerPercent' && (
                   <SortDirectionArrow direction={sortState.direction} />
                 )}
             </div>
           </th>
-          <th className="p-[8px] text-right lg:p-[12px]">
+          <th className="p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -164,13 +166,13 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('staked');
               }}
             >
-              My stake
+              {t('my-stake', 'My stake', { ns: 'staking' })}
               {sortState.key !== 'random' && sortState.key === 'staked' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}
             </div>
           </th>
-          <th className="p-[8px] text-right lg:p-[12px]">
+          <th className="p-[8px] text-end lg:p-[12px]">
             <div
               className={clsx(
                 'relative inline-block cursor-pointer select-none',
@@ -182,7 +184,7 @@ export function ValidatorsListDesktop({
                 onDesktopSortClick('reward');
               }}
             >
-              My rewards
+              {t('my-rewards', 'My rewards', { ns: 'staking' })}
               {sortState.key !== 'random' && sortState.key === 'reward' && (
                 <SortDirectionArrow direction={sortState.direction} />
               )}

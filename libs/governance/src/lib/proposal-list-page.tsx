@@ -1,8 +1,10 @@
 'use client';
 import { useMemo } from 'react';
 import { ProposalStatus } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import {
+  formatVoteResults,
   useAddress,
   useGovernanceParamsQuery,
   useProposalListQuery,
@@ -14,6 +16,7 @@ import { Container, SpinnerLoader } from '@haqq/shell-ui-kit/server';
 import { ProposalListCard } from './components/proposal-list-card';
 
 export function ProposalListPage() {
+  const { t } = useTranslate();
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData } = useProposalListQuery();
   const symbol = 'ISLM';
@@ -84,6 +87,7 @@ export function ProposalListPage() {
       return {
         proposal: { ...proposal, tallyResults },
         userVote,
+        voteResults: formatVoteResults(tallyResults),
       };
     });
   }, [
@@ -98,7 +102,7 @@ export function ProposalListPage() {
         <div className="pt-[32px] lg:pt-[68px]">
           <Container>
             <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
-              Governance
+              {t('governance', 'Governance', { ns: 'common' })}
             </div>
           </Container>
         </div>
@@ -111,13 +115,15 @@ export function ProposalListPage() {
               <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
                 <SpinnerLoader />
                 <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-                  Fetching proposals
+                  {t('fetching-proposals', 'Fetching proposals', {
+                    ns: 'common',
+                  })}
                 </div>
               </div>
             </div>
           ) : (
             <div className="3xl:grid-cols-4 mb-[68px] grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
-              {proposalsToRender.map(({ userVote, proposal }) => {
+              {proposalsToRender.map(({ userVote, proposal, voteResults }) => {
                 return (
                   <Link
                     href={`/governance/proposal/${proposal.proposal_id}`}
@@ -127,8 +133,9 @@ export function ProposalListPage() {
                       proposal={proposal}
                       govParams={govParams}
                       symbol={symbol}
-                      proposalTally={proposal.tallyResults}
+                      voteResults={voteResults}
                       userVote={userVote}
+                      className="lg:min-h-full"
                     />
                   </Link>
                 );

@@ -1,5 +1,6 @@
 'use client';
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { useMediaQuery } from 'usehooks-ts';
 import { useAccount, useChains } from 'wagmi';
@@ -11,6 +12,7 @@ import { StakingStatsDesktop, StakingStatsMobile } from './staking-stats';
 import { useStakingStats } from '../hooks/use-staking-stats';
 
 export function StakingInfo() {
+  const { t } = useTranslate('common');
   const { ethAddress, haqqAddress } = useAddress();
   const { openSelectWallet, isHaqqWallet } = useWallet();
   const isWalletConnected = Boolean(ethAddress && haqqAddress);
@@ -42,7 +44,7 @@ export function StakingInfo() {
       >
         <Container className="flex min-h-[100px] flex-col items-center justify-center gap-[12px]">
           <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
-            You should connect wallet first
+            {t('connect-wallet-message', 'You should connect wallet first')}
           </div>
           <div>
             <Button
@@ -50,7 +52,7 @@ export function StakingInfo() {
               variant={2}
               className="text-black hover:bg-transparent hover:text-white"
             >
-              Connect wallet
+              {t('connect-wallet-button', 'Connect wallet')}
             </Button>
           </div>
         </Container>

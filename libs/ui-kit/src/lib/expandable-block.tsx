@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { ArrowDownIcon } from './icons';
 
@@ -9,6 +10,7 @@ export const ExpandableBlock = ({
   title: React.ReactNode;
   content: React.ReactNode;
 }) => {
+  const { t } = useTranslate('common');
   const [isOpen, setIsOpen] = useState(false);
   const toggle = useCallback(() => {
     setIsOpen(!isOpen);
@@ -30,14 +32,14 @@ export const ExpandableBlock = ({
           {isOpen ? (
             <div className="inline-flex flex-row items-center justify-center gap-[4px]">
               <div className="text-[12px] font-[500] leading-[14px]">
-                Less info
+                {t('less-info', 'Less info')}
               </div>
               <ArrowDownIcon className="rotate-180 transition-transform duration-200" />
             </div>
           ) : (
             <div className="inline-flex flex-row items-center justify-center gap-[4px]">
               <div className="text-[12px] font-[500] leading-[14px]">
-                More info
+                {t('more-info', 'More info')}
               </div>
               <ArrowDownIcon className="transition-transform duration-200" />
             </div>

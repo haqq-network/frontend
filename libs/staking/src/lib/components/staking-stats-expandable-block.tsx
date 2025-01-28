@@ -1,5 +1,6 @@
 'use client';
 import { ReactNode, useCallback, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { ArrowDownIcon } from '@haqq/shell-ui-kit/server';
 
@@ -18,6 +19,7 @@ export function StakingStatsExpandableBlock({
   uppercaseSymbol?: boolean;
   content: ReactNode;
 }) {
+  const { t } = useTranslate('common');
   const [isOpen, setIsOpen] = useState(false);
   const toggle = useCallback(() => {
     setIsOpen(!isOpen);
@@ -44,7 +46,11 @@ export function StakingStatsExpandableBlock({
           </div>
 
           <div className="inline-flex flex-row items-end justify-center gap-[4px] text-[12px] font-[500] leading-[16px]">
-            {isOpen ? <span>Less info</span> : <span>More info</span>}
+            {isOpen ? (
+              <span> {t('less-info', 'Less info')}</span>
+            ) : (
+              <span>{t('more-info', 'More info')}</span>
+            )}
             <ArrowDownIcon
               className={clsx(
                 'transition-transform duration-200',

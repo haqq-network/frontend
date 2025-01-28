@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'usehooks-ts';
@@ -133,15 +134,16 @@ function StrideStatsDesktop({
   islmAmountFromStIslm: number;
   unbondingTotal: bigint;
 }) {
+  const { t } = useTranslate();
   const { handleDelegateContinue, handleUndelegateContinue } =
     useHandleDelegateContinue();
 
   return (
     <Container className="flex min-h-[100px] flex-col justify-center gap-[24px]">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-2">
         <WalletIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Liquid staking
+        <Heading level={3} className="mb-[-2px]">
+          {t('liquid-staking', 'Liquid staking', { ns: 'staking' })}
         </Heading>
       </div>
 
@@ -150,7 +152,7 @@ function StrideStatsDesktop({
           <div className="flex flex-row gap-[24px]">
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Available"
+                title={t('available', 'Available', { ns: 'common' })}
                 value={formatNumber(balance)}
                 symbol="ISLM"
                 uppercaseSymbol={false}
@@ -158,7 +160,7 @@ function StrideStatsDesktop({
             </div>
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Staked"
+                title={t('staked', 'Staked', { ns: 'common' })}
                 value={formatNumber(stIslmBalance)}
                 symbol="stISLM"
                 uppercaseSymbol={false}
@@ -167,7 +169,7 @@ function StrideStatsDesktop({
             </div>
             <div className="w-[240px]">
               <StakingStatsDesktopAmountBlock
-                title="Unbonding"
+                title={t('unbonding', 'Unbonding', { ns: 'common' })}
                 value={formatNumber(formatUnits(unbondingTotal, 18))}
                 symbol="stISLM"
                 uppercaseSymbol={false}
@@ -178,7 +180,7 @@ function StrideStatsDesktop({
 
           {/* Delegate and Undelegate buttons */}
           <div className="flex flex-row gap-x-[12px]">
-            <div className="flex-1">
+            <div className="min-w-fit flex-1">
               <Button
                 variant={2}
                 disabled={balance < MIN_BALANCE}
@@ -188,11 +190,11 @@ function StrideStatsDesktop({
                 }}
                 data-attr="liquid-staking-delegate"
               >
-                Delegate
+                {t('delegate', 'Delegate', { ns: 'common' })}
               </Button>
             </div>
 
-            <div className="flex-1">
+            <div className="min-w-fit flex-1">
               <Button
                 variant={2}
                 className="w-full"
@@ -202,7 +204,7 @@ function StrideStatsDesktop({
                   handleUndelegateContinue();
                 }}
               >
-                Undelegate
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </Button>
             </div>
           </div>
@@ -245,7 +247,7 @@ function StrideUnbondings() {
           <span>
             {formatDateShort(firstDate)} - {formatDateShort(lastDate)}{' '}
           </span>
-          <InfoIcon className="ml-[2px] inline h-[18px] w-[18px]" />
+          <InfoIcon className="ms-[2px] inline h-[18px] w-[18px]" />
         </div>
       </PopoverTrigger>
       <PopoverContent className="outline-none">
@@ -268,6 +270,7 @@ function StrideStatsMobile({
   islmAmountFromStIslm: number;
   unbondingTotal: bigint;
 }) {
+  const { t } = useTranslate();
   const { handleDelegateContinue, handleUndelegateContinue } =
     useHandleDelegateContinue();
   const isTablet = useMediaQuery('(max-width: 1023px)');
@@ -276,22 +279,22 @@ function StrideStatsMobile({
 
   return (
     <div className="flex flex-col items-start gap-[16px] overflow-x-auto px-[16px] py-[20px] sm:gap-[32px] sm:px-[48px] sm:py-[32px]">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-2">
         <WalletIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Liquid staking
+        <Heading level={3} className="mb-[-2px]">
+          {t('liquid-staking', 'Liquid staking', { ns: 'staking' })}
         </Heading>
       </div>
 
       <div className="mt-[8px] flex w-full flex-1 flex-col gap-[8px]">
         <StakingStatsMobileAmountBlock
-          title="Available"
+          title={t('available', 'Available', { ns: 'common' })}
           value={formatNumber(balance)}
           symbol="ISLM"
           uppercaseSymbol={false}
         />
         <StakingStatsMobileAmountBlock
-          title="Staked"
+          title={t('staked', 'Staked', { ns: 'common' })}
           value={formatNumber(stIslmBalance)}
           symbol="stISLM"
           uppercaseSymbol={false}
@@ -317,7 +320,9 @@ function StrideStatsMobile({
           />
         )}
         <StakingStatsMobileAmountBlock
-          title="stISLM in ISLM"
+          title={t('stISLM-in-ISLM', 'stISLM in ISLM', {
+            ns: 'staking',
+          })}
           value={`≈${formatNumber(islmAmountFromStIslm)}`}
           symbol="ISLM"
           uppercaseSymbol={false}
@@ -334,7 +339,7 @@ function StrideStatsMobile({
           }}
           data-attr="liquid-staking-delegate"
         >
-          Delegate
+          {t('delegate', 'Delegate', { ns: 'common' })}
         </Button>
 
         <Button
@@ -346,7 +351,7 @@ function StrideStatsMobile({
             handleUndelegateContinue();
           }}
         >
-          Undelegate
+          {t('undelegate', 'Undelegate', { ns: 'common' })}
         </Button>
       </div>
     </div>

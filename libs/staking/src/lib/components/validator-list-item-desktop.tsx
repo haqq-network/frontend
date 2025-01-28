@@ -64,26 +64,24 @@ export function ValidatorListItemDesktop({
           <p className="overflow-ellipsis">{validator.description?.moniker}</p>
         </div>
       </td>
-      <td className="p-[8px] text-left md:p-[12px]">
+      <td className="p-[8px] text-start md:p-[12px]">
         <ValidatorListStatus
           jailed={validator.jailed}
           status={bondStatusFromJSON(validator.status)}
           className="!text-[11px] !leading-[18px] md:!text-[16px] md:!leading-[26px]"
         />
       </td>
-      <td className="max-w-[80px] p-[8px] text-right md:p-[12px]">
+      <td className="max-w-[80px] p-[8px] text-end md:p-[12px]">
         {validatorCommission}%
       </td>
-      <td className="p-[8px] text-right md:p-[12px]">
+      <td className="p-[8px] text-end md:p-[12px]">
         {formatNumber(votingPower)}
       </td>
-      <td className="p-[8px] text-right md:p-[12px]">
-        {votingPowerInPercents}%
-      </td>
-      <td className="p-[8px] text-right md:p-[12px]">
+      <td className="p-[8px] text-end md:p-[12px]">{votingPowerInPercents}%</td>
+      <td className="p-[8px] text-end md:p-[12px]">
         {formatNumber(userDelegate)}
       </td>
-      <td className="p-[8px] text-right md:p-[12px]">
+      <td className="p-[8px] text-end md:p-[12px]">
         {formatNumber(userRewards)}
       </td>
     </tr>

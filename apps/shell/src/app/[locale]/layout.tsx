@@ -23,8 +23,8 @@ import { env } from '../../env/client';
 import { clashDisplayFont, hkGuiseFont } from '../../lib/fonts';
 import { AppProviders } from '../../providers/app-providers';
 import { PHProvider } from '../../providers/posthog-provider';
-import { ALL_LOCALES, getStaticData } from '../../tolgee/shared';
-import '../global.css';
+import { AVAILABLE_LOCALES, getStaticData, Locale } from '../../tolgee/shared';
+import './global.css';
 
 export const metadata: Metadata = {
   title: {
@@ -76,7 +76,7 @@ const ParalaxBackground = dynamic(async () => {
 export default async function RootLayout({
   children,
   params,
-}: PropsWithChildren<{ params: { locale: string } }>) {
+}: PropsWithChildren<{ params: { locale: Locale } }>) {
   const wagmiConfig = createWagmiConfig();
   const headersList = headers();
   const cookies = headersList.get('cookie');
@@ -106,7 +106,7 @@ export default async function RootLayout({
     });
   }
 
-  if (!ALL_LOCALES.includes(params.locale)) {
+  if (!AVAILABLE_LOCALES.includes(params.locale)) {
     notFound();
   }
 
@@ -118,8 +118,8 @@ export default async function RootLayout({
 
   return (
     <html
-      lang="en"
-      dir="ltr"
+      lang={params.locale}
+      dir={params.locale === 'ar' ? 'rtl' : 'ltr'}
       className={clsx(clashDisplayFont.variable, hkGuiseFont.variable)}
     >
       <PHProvider>

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { formatUnits, parseUnits } from 'viem';
 import { formatEthDecimal, useConnectorType } from '@haqq/shell-shared';
@@ -55,6 +56,7 @@ export function UndelegateModal({
   onMemoChange,
   onApprove,
 }: UndelegateModalProps) {
+  const { t } = useTranslate();
   const { isSafe } = useConnectorType();
   const [isMemoVisible, setMemoVisible] = useState(false);
 
@@ -85,15 +87,23 @@ export function UndelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-haqq-danger">Bellow minimal value</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'common' })}
+        </span>
+      );
     } else if (amountError === 'max') {
       return (
-        <span className="text-haqq-danger">More than your delegation</span>
+        <span className="text-haqq-danger">
+          {t('amount-error-more-than-delegation', 'More than your delegation', {
+            ns: 'staking',
+          })}
+        </span>
       );
     }
 
     return undefined;
-  }, [amountError]);
+  }, [amountError, t]);
 
   const undelegateAmountNumber = useMemo(() => {
     if (undelegateAmount) {
@@ -108,14 +118,14 @@ export function UndelegateModal({
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
         <ModalCloseButton
           onClick={onClose}
-          className="absolute right-[16px] top-[16px]"
+          className="absolute end-[16px] top-[16px]"
         />
 
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Undelegate
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </ModalHeading>
 
               <WarningMessage
@@ -123,17 +133,24 @@ export function UndelegateModal({
                 className="mt-[3px]"
                 wrapperClassName="mt-[24px]"
               >
-                {`The funds will be undelegated within ${unboundingTime} day`}
+                {t(
+                  'funds-undelegated-in-days',
+                  'The funds will be undelegated within {count, plural, one {# day} other {# days}}',
+                  {
+                    ns: 'staking',
+                    count: unboundingTime,
+                  },
+                )}
               </WarningMessage>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title="My balance"
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${formatEthDecimal(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title="My delegation"
+                  title={t('my-delegation', 'My delegation', { ns: 'staking' })}
                   value={`${formatEthDecimal(delegation)} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -158,7 +175,7 @@ export function UndelegateModal({
                         setMemoVisible(true);
                       }}
                     >
-                      Add memo
+                      {t('add-memo', 'Add memo', { ns: 'common' })}
                     </OrangeLink>
                   </div>
                 ) : (
@@ -176,14 +193,18 @@ export function UndelegateModal({
                         'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
                         'bg-[#E7E7E7]',
                       )}
-                      placeholder="Add your memo"
+                      placeholder={t('memo-placeholder', 'Add your memo', {
+                        ns: 'staking',
+                      })}
                     />
                   </div>
                 )}
 
                 <div>
                   <DelegateModalDetails
-                    title="Estimated fee"
+                    title={t('estimated-fee', 'Estimated fee', {
+                      ns: 'staking',
+                    })}
                     value={`${fee ? formatNumber(fee, 0, 7) : '---'} ${symbol.toUpperCase()}`}
                     isValuePending={isFeePending}
                   />
@@ -201,7 +222,7 @@ export function UndelegateModal({
                           variant={4}
                           className="w-full"
                         >
-                          Approve
+                          {t('approve-button', 'Approve', { ns: 'staking' })}
                         </Button>
                       </div>
                     </div>
@@ -213,7 +234,9 @@ export function UndelegateModal({
                     className="w-full"
                     disabled={isDisabled}
                   >
-                    Confirm undelegation
+                    {t('confirm-undelegation', 'Confirm undelegation', {
+                      ns: 'staking',
+                    })}
                   </Button>
                 </div>
               </div>

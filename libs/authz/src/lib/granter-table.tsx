@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import dynamic from 'next/dynamic';
+import { useLocale } from 'next-intl';
 import { useAddress, useAuthzGranterGrants } from '@haqq/shell-shared';
 import { Container, Heading, formatDate } from '@haqq/shell-ui-kit/server';
 import { mapRPCGrantToWebGrant } from './utils/map-rpc-grant-to-web-grant';
@@ -17,6 +19,8 @@ const RevokeButton = dynamic(
 );
 
 export function GranterGrantsTable() {
+  const { t } = useTranslate('authz');
+  const currentLocale = useLocale();
   const { haqqAddress } = useAddress();
   const { data: granterGrants } = useAuthzGranterGrants(haqqAddress ?? '');
 
@@ -38,21 +42,21 @@ export function GranterGrantsTable() {
         <div className="flex flex-col gap-[24px] py-[32px] sm:py-[22px] lg:py-[32px]">
           <div>
             <Heading level={3} className="mb-[-2px]">
-              Access you have granted
+              {t('access-you-granted', 'Access you have granted')}
             </Heading>
           </div>
 
           <table className="w-full table-auto">
             <thead className="text-[10px] uppercase leading-[24px] text-white/50 md:text-[12px]">
               <tr>
-                <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Grantee
+                <th className="select-none p-[8px] text-start lg:p-[12px]">
+                  {t('grantee', 'Grantee')}
                 </th>
-                <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Message
+                <th className="select-none p-[8px] text-start lg:p-[12px]">
+                  {t('message', 'Message')}
                 </th>
-                <th className="select-none p-[8px] text-left lg:p-[12px]">
-                  Valid thru
+                <th className="select-none p-[8px] text-start lg:p-[12px]">
+                  {t('valid-thru', 'Valid thru')}
                 </th>
                 <th className="w-[160px]">&nbsp;</th>
               </tr>
@@ -64,16 +68,16 @@ export function GranterGrantsTable() {
                     key={`grant-grantee-${index}`}
                     className="border-haqq-border group border-t text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] md:text-[16px] md:leading-[26px]"
                   >
-                    <td className="p-[8px] text-left md:p-[12px]">
+                    <td className="p-[8px] text-start md:p-[12px]">
                       {grant.grantee}
                     </td>
-                    <td className="p-[8px] text-left md:p-[12px]">
+                    <td className="p-[8px] text-start md:p-[12px]">
                       {grant.msg}
                     </td>
-                    <td className="p-[8px] text-left md:p-[12px]">
-                      {formatDate(new Date(grant.expire))}
+                    <td className="p-[8px] text-start md:p-[12px]">
+                      {formatDate(new Date(grant.expire), currentLocale)}
                     </td>
-                    <td className="w-[160px] p-[8px] text-right md:p-[12px]">
+                    <td className="w-[160px] p-[8px] text-end md:p-[12px]">
                       <div className="invisible group-hover:visible">
                         <RevokeButton grantee={grant.grantee} msg={grant.msg} />
                       </div>

@@ -2,7 +2,7 @@
 import { useMemo, useState } from 'react';
 import { Coin } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
-import { formatUnits, Hex } from 'viem';
+import { Hex } from 'viem';
 import { useReadContract } from 'wagmi';
 import {
   formatEthDecimal,
@@ -44,10 +44,10 @@ export function DaoPageBalance() {
   return (
     <div className="border-haqq-border border-y-[1px] py-[32px]">
       <Container className="flex flex-col gap-[24px]">
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center gap-2">
           <WalletIcon />
-          <Heading level={3} className="mb-[-2px] ml-[8px]">
-            My account
+          <Heading level={3} className="mb-[-2px]">
+            {t('my-account', 'My account', { ns: 'common' })}
           </Heading>
         </div>
 
@@ -62,9 +62,7 @@ export function DaoPageBalance() {
 
         {filteredDaoBalances && filteredDaoBalances.length > 0 && (
           <BalancesDisplay
-            label={t('dao-balance-label', 'DAO Balance', {
-              ns: 'uc-dao',
-            })}
+            label={t('dao-balance-label', 'DAO Balance', { ns: 'uc-dao' })}
             balances={filteredDaoBalances}
           />
         )}
@@ -77,7 +75,7 @@ export function DaoPageBalance() {
               setFundModalOpen(true);
             }}
           >
-            Deposit to DAO
+            {t('deposit-to-dao', 'Deposit to DAO', { ns: 'uc-dao' })}
           </Button>
         </div> */}
       </Container>

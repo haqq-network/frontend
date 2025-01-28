@@ -1,0 +1,11 @@
+{
+  "claim-tokens": "المطالبة بالرموز",
+  "faucet": "مصدر العملات",
+  "github": "Github",
+  "login-github": "تسجيل الدخول عن طريق Github",
+  "next-token-request-available": "الرموز التالية ستكون متاحة بعد",
+  "request-tokens": "طلب الرموز",
+  "switch-chain": "التبديل إلى {chain}",
+  "tokens-claimed": "تمت المطالبة بالرموز",
+  "wallet": "المحفظة"
+}

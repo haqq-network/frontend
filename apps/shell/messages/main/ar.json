@@ -1,0 +1,19 @@
+{
+  "accounts": "الحسابات",
+  "active-out-of-total": "{active} <span>من أصل {total}</span>",
+  "active-validators": "المدققون النشطون",
+  "available-for-stake": "المتوفر:  {amount}",
+  "available-staking": "متوفر للتحصيص",
+  "fetching-validators": "جارٍ استرداد قائمة المدققين",
+  "latest-proposals": "أحدث الاقتراحات",
+  "link-to-governance": "الانتقال إلى الحوكمة",
+  "link-to-staking": "الانتقال إلى التحصيص",
+  "liquid-staked": "التحصيص السائل ",
+  "locked": "مقفل",
+  "no-delegations": "ليس لديك أي تفويضات نشطة",
+  "regular-staked": "التحصيص العادي",
+  "shell-title": "Shell",
+  "staking-balance-popup-message": "في التحصين العادي يمكنك استخدام العملات في التحصين السائل",
+  "total-staked": "إجمالي المبلغ المحصص",
+  "total-supply": "إجمالي العرض"
+}

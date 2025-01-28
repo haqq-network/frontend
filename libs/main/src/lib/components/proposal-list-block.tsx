@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { ProposalStatus } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { ProposalListCard } from '@haqq/shell-governance';
 import {
+  formatVoteResults,
   useGovernanceParamsQuery,
   useProposalListQuery,
   useProposalTallysQuery,
@@ -16,6 +18,7 @@ import {
 } from '@haqq/shell-ui-kit/server';
 
 export function ProposalListBlock() {
+  const { t } = useTranslate();
   const { data: govParams } = useGovernanceParamsQuery();
   const { data: proposalsData, isFetching } = useProposalListQuery();
   const symbol = 'ISLM';
@@ -65,21 +68,21 @@ export function ProposalListBlock() {
 
       return {
         ...proposal,
-        tallyResults,
+        voteResults: formatVoteResults(tallyResults),
       };
     });
   }, [ongoingProposalTallysResultMap, proposals]);
 
   return (
     <Container>
-      <div className="mb-[24px] flex flex-row items-center">
+      <div className="mb-[24px] flex flex-row items-center gap-2">
         <ProposalsIcon />
-        <Heading level={3} className="mb-[-2px] ml-[8px]">
-          Latest proposals
+        <Heading level={3} className="mb-[-2px]">
+          {t('latest-proposals', 'Latest proposals', { ns: 'main' })}
         </Heading>
         <Link href="/governance" className="leading-[0]">
-          <OrangeLink className="font-clash ml-[16px] !text-[12px] uppercase">
-            Go to Governance
+          <OrangeLink className="font-clash ms-[16px] !text-[12px] uppercase">
+            {t('link-to-governance', 'Go to Governance', { ns: 'main' })}
           </OrangeLink>
         </Link>
       </div>
@@ -88,7 +91,7 @@ export function ProposalListBlock() {
         <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8 py-[48px]">
           <SpinnerLoader />
           <div className="font-guise text-[10px] uppercase leading-[1.2em]">
-            Fetching proposals
+            {t('fetching-proposals', 'Fetching proposals', { ns: 'common' })}
           </div>
         </div>
       ) : (
@@ -104,7 +107,7 @@ export function ProposalListBlock() {
                   proposal={proposal}
                   govParams={govParams}
                   symbol={symbol}
-                  proposalTally={proposal.tallyResults}
+                  voteResults={proposal.voteResults}
                 />
               </Link>
             );

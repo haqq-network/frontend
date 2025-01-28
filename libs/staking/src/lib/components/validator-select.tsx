@@ -1,5 +1,6 @@
 'uce client';
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Select, {
   components as validatorSelectComponents,
@@ -33,6 +34,7 @@ export function ValidatorSelect({
   validators: Array<ValidatorSelectOption>;
   onChange: (validatorAddress?: string) => void;
 }) {
+  const { t } = useTranslate('staking');
   const handleFilterOption = useCallback(
     ({ label, value }: ValidatorSelectOption, inputValue: string) => {
       const inputLower = inputValue.toLowerCase();
@@ -68,7 +70,7 @@ export function ValidatorSelect({
         return 'text-[14px] font-[500] leading-[22px] text-[#0D0D0E] min-h-[46px] px-[16px]';
       },
       indicatorsContainer: () => {
-        return 'pr-[10px] text-[#0D0D0E80]';
+        return 'pe-[10px] text-[#0D0D0E80]';
       },
       menu: () => {
         return clsx(
@@ -79,7 +81,7 @@ export function ValidatorSelect({
       },
       option: ({ isFocused, isSelected }) => {
         return clsx(
-          'px-[16px] py-[10px] text-left',
+          'px-[16px] py-[10px] text-start',
           'transition-colors duration-150 ease-out',
           {
             'bg-[#ffffff14]': isFocused || isSelected,
@@ -94,7 +96,7 @@ export function ValidatorSelect({
 
   return (
     <Select
-      placeholder="Select new validator"
+      placeholder={t('select-new-validator', 'Select new validator')}
       options={validators}
       onChange={(validator) => {
         onChange(validator?.value);

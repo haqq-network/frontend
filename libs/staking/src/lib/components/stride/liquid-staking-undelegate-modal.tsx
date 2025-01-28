@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import {
   Modal,
   ModalCloseButton,
@@ -48,6 +49,7 @@ export function LiquidStakingUndelegateModal({
   strideAddress,
   setStrideAddress,
 }: LiquidStakingUndelegateModalProps) {
+  const { t } = useTranslate();
   const handleMaxButtonClick = useCallback(() => {
     onChange(delegation);
   }, [delegation, onChange]);
@@ -75,15 +77,23 @@ export function LiquidStakingUndelegateModal({
 
   const amountHint = useMemo(() => {
     if (amountError === 'min') {
-      return <span className="text-haqq-danger">Bellow minimal value</span>;
+      return (
+        <span className="text-haqq-danger">
+          {t('amount-error-min', 'Bellow minimal value', { ns: 'common' })}
+        </span>
+      );
     } else if (amountError === 'max') {
       return (
-        <span className="text-haqq-danger">More than your delegation</span>
+        <span className="text-haqq-danger">
+          {t('amount-error-more-than-delegation', 'More than your delegation', {
+            ns: 'staking',
+          })}
+        </span>
       );
     }
 
     return undefined;
-  }, [amountError]);
+  }, [amountError, t]);
 
   const isValidStrideAddress = useStrideAddressValidation(strideAddress);
 
@@ -92,14 +102,14 @@ export function LiquidStakingUndelegateModal({
       <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
         <ModalCloseButton
           onClick={onClose}
-          className="absolute right-[16px] top-[16px]"
+          className="absolute end-[16px] top-[16px]"
         />
 
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-haqq-modal-border divide-y divide-dashed">
             <div className="pb-[24px]">
               <ModalHeading className="mt-[24px] sm:mt-[4px]">
-                Undelegate
+                {t('undelegate', 'Undelegate', { ns: 'common' })}
               </ModalHeading>
 
               <WarningMessage
@@ -107,17 +117,24 @@ export function LiquidStakingUndelegateModal({
                 className="mt-[3px]"
                 wrapperClassName="mt-[24px]"
               >
-                {`The funds will be undelegated within ${unboundingTime} day`}
+                {t(
+                  'funds-undelegated-in-days',
+                  'The funds will be undelegated within {count, plural, one {# day} other {# days}}',
+                  {
+                    ns: 'staking',
+                    count: unboundingTime,
+                  },
+                )}
               </WarningMessage>
             </div>
             <div className="py-[24px]">
               <div className="flex flex-col gap-[8px]">
                 <DelegateModalDetails
-                  title="My balance"
+                  title={t('my-balance', 'My balance', { ns: 'common' })}
                   value={`${formatNumber(balance)} ${symbol.toUpperCase()}`}
                 />
                 <DelegateModalDetails
-                  title="My delegation"
+                  title={t('my-delegation', 'My delegation', { ns: 'staking' })}
                   value={`${formatNumber(delegation)} ${symbol.toUpperCase()}`}
                 />
               </div>
@@ -145,7 +162,9 @@ export function LiquidStakingUndelegateModal({
                     className="w-full"
                     disabled={isDisabled || !isValidStrideAddress}
                   >
-                    Confirm undelegation
+                    {t('confirm-undelegation', 'Confirm undelegation', {
+                      ns: 'staking',
+                    })}
                   </Button>
                 </div>
               </div>

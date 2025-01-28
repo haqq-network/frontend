@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { usePostHog } from 'posthog-js/react';
 import { useDebounceValue } from 'usehooks-ts';
@@ -37,6 +38,7 @@ export function LiquidStakingDelegateModalHooked({
   balance,
   unboundingTime,
 }: LiquidStakingDelegateModalProps) {
+  const { t } = useTranslate('staking');
   const [delegateAmount, setDelegateAmount] = useState<number | undefined>(
     undefined,
   );
@@ -82,13 +84,21 @@ export function LiquidStakingDelegateModalHooked({
       await toast.promise(
         delegationPromise,
         {
-          loading: <ToastLoading>Delegation in progress</ToastLoading>,
+          loading: (
+            <ToastLoading>
+              {t('delegation-progress', 'Delegation in progress')}
+            </ToastLoading>
+          ),
           success: (tx) => {
             console.log('Delegation successful', { tx });
             const txHash = tx?.txhash;
 
             if (!txHash) {
-              return <ToastError>Delegation declined</ToastError>;
+              return (
+                <ToastError>
+                  {t('delegation-declined', 'Delegation declined')}
+                </ToastError>
+              );
             }
 
             posthog.capture('delegate success', {
@@ -105,7 +115,7 @@ export function LiquidStakingDelegateModalHooked({
             return (
               <ToastSuccess>
                 <div className="flex flex-col items-center gap-[8px] text-[20px] leading-[26px]">
-                  <div>Delegation successful</div>
+                  <div>{t('delegation-success', 'Delegation successful')}</div>
                   <div>
                     <Link
                       href={`${explorer.evm}/tx/${txHash}`}
@@ -154,6 +164,7 @@ export function LiquidStakingDelegateModalHooked({
     haqqAddress,
     delegate,
     toast,
+    t,
     onClose,
     explorer.evm,
     invalidateQueries,

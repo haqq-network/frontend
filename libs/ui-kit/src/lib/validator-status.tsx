@@ -1,3 +1,4 @@
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 
 export function ValidatorListStatus({
@@ -9,12 +10,13 @@ export function ValidatorListStatus({
   status: number;
   className?: string;
 }) {
+  const { t } = useTranslate('common');
   if (jailed) {
     return (
       <div
         className={clsx('text-[16px] leading-[26px] text-[#FF5454]', className)}
       >
-        Jailed
+        {t('jailed-status', 'Jailed')}
       </div>
     );
   }
@@ -24,7 +26,7 @@ export function ValidatorListStatus({
       <div
         className={clsx('text-[16px] leading-[26px] text-[#01B26E]', className)}
       >
-        Active
+        {t('active-status', 'Active')}
       </div>
     );
   }
@@ -33,7 +35,7 @@ export function ValidatorListStatus({
     <div
       className={clsx('text-[16px] leading-[26px] text-[#E3A13F]', className)}
     >
-      Inactive
+      {t('inactive-status', 'Inactive')}
     </div>
   );
 }
@@ -45,6 +47,7 @@ export function ValidatorDetailsStatus({
   jailed: boolean;
   status: string;
 }) {
+  const { t } = useTranslate('common');
   if (jailed) {
     return (
       <div
@@ -54,7 +57,7 @@ export function ValidatorDetailsStatus({
           'bg-[#FF5454]',
         )}
       >
-        Jailed
+        {t('jailed-status', 'Jailed')}
       </div>
     );
   }
@@ -68,7 +71,7 @@ export function ValidatorDetailsStatus({
           'bg-[#01B26E]',
         )}
       >
-        Active
+        {t('active-status', 'Active')}
       </div>
     );
   }
@@ -81,7 +84,7 @@ export function ValidatorDetailsStatus({
         'bg-[#E3A13F]',
       )}
     >
-      Inactive
+      {t('inactive-status', 'Inactive')}
     </div>
   );
 }

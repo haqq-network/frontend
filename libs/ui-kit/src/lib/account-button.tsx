@@ -1,5 +1,6 @@
 'use client';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { ArrowDownIcon } from './icons';
 
@@ -16,6 +17,7 @@ export function AccountButton({
   className?: string;
   withoutDropdown?: boolean;
 }) {
+  const { t } = useTranslate('common');
   return (
     <div
       className={clsx(
@@ -24,7 +26,7 @@ export function AccountButton({
       )}
     >
       {balance && (
-        <div className="font-clash mr-[-8px] rounded-l-[6px] border border-r-0 border-white pb-[6px] pl-[12px] pr-[20px] pt-[8px] leading-[24px] tracking-[.01em]">
+        <div className="font-clash me-[-8px] rounded-s-[6px] border border-e-0 border-white pb-[6px] pe-[20px] ps-[12px] pt-[8px] leading-[24px] tracking-[.01em]">
           {balance.toLocaleString()}&nbsp;ISLM
         </div>
       )}
@@ -34,7 +36,7 @@ export function AccountButton({
           <MenuButton
             as="button"
             className={clsx(
-              'flex h-full flex-row items-center space-x-[2px] py-[8px] pl-[12px] pr-[8px]',
+              'flex h-full flex-row items-center space-x-[2px] py-[8px] pe-[8px] ps-[12px] rtl:space-x-reverse',
               'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
               'transition-colors duration-150 ease-in',
               'box-border appearance-none outline-none',
@@ -44,20 +46,20 @@ export function AccountButton({
             <div className="mt-[-1px]">{address}</div>
             <ArrowDownIcon
               className={clsx(
-                'mb-[-2px] ml-[4px] mr-[-6px]',
+                'mb-[-2px] me-[-6px] ms-[4px]',
                 'transition-[transform] duration-150 ease-in',
                 'group-data-[open]:scale-y-[-1]',
               )}
             />
           </MenuButton>
 
-          <MenuItems className="border-haqq-border absolute right-[-1px] z-10 mt-1 w-[160px] origin-top-right rounded-md border bg-black py-2 text-white shadow-lg focus:outline-none">
+          <MenuItems className="border-haqq-border absolute end-[-1px] z-10 mt-1 w-[160px] rounded-md border bg-black py-2 text-white shadow-lg focus:outline-none ltr:origin-top-right rtl:origin-top-left">
             <MenuItem
               as="button"
-              className="block w-full px-[16px] py-[10px] text-left text-[13px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
+              className="block w-full px-[16px] py-[10px] text-start text-[13px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
               onClick={onDisconnectClick}
             >
-              Disconnect
+              {t('disconnect', 'Disconnect')}
             </MenuItem>
           </MenuItems>
         </Menu>

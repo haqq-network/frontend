@@ -4,6 +4,7 @@ import {
   Validator,
   DistributionRewardsResponse,
 } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import { bondStatusFromJSON } from 'cosmjs-types/cosmos/staking/v1beta1/staking';
 import Link from 'next/link';
 import { formatUnits } from 'viem';
@@ -73,12 +74,12 @@ export function ValidatorWithDelegationListItem({
           />
         </div>
         <div className="w-[50px] text-center">{validatorCommission}%</div>
-        <div className="flex-1 text-right font-semibold">
+        <div className="flex-1 text-end font-semibold">
           <div>{votingPower.toLocaleString()}</div>
           <div className="text-sm text-gray-400">{votingPowerInPercents}%</div>
         </div>
-        <div className="flex-1 text-right">{userDelegate.toLocaleString()}</div>
-        <div className="flex-1 text-right">{userRewards.toLocaleString()}</div>
+        <div className="flex-1 text-end">{userDelegate.toLocaleString()}</div>
+        <div className="flex-1 text-end">{userRewards.toLocaleString()}</div>
       </div>
     </Link>
   );
@@ -131,6 +132,7 @@ function mapAndSortValidators(
 }
 
 export function ShellIndexPageDelegationList() {
+  const { t } = useTranslate();
   const { haqqAddress } = useAddress();
   const {
     data: validatorsList,
@@ -156,7 +158,11 @@ export function ShellIndexPageDelegationList() {
   if (!haqqAddress) {
     return (
       <Card className="flex min-h-[293px] flex-row items-center justify-center !p-0">
-        <div>You should connect wallet first</div>
+        <div>
+          {t('connect-wallet-message', 'You should connect wallet first', {
+            ns: 'common',
+          })}
+        </div>
       </Card>
     );
   }
@@ -167,20 +173,36 @@ export function ShellIndexPageDelegationList() {
         <div className="border-b border-[#CFCFCF]/20 px-6 py-3">
           <div className="flex items-center justify-between space-x-6 font-semibold">
             <div className="w-1/4">
-              <div className="font-semibold">Name</div>
+              <div className="font-semibold">
+                {t('name', 'Name', { ns: 'common' })}
+              </div>
             </div>
-            <div className="w-[80px] text-center">Status</div>
-            <div className="w-[50px] text-center">Fee</div>
-            <div className="flex-1 text-right">Voting power</div>
-            <div className="flex-1 text-right">Staked</div>
-            <div className="flex-1 text-right">Rewards</div>
+            <div className="w-[80px] text-center">
+              {t('status', 'Status', { ns: 'common' })}
+            </div>
+            <div className="w-[50px] text-center">
+              {t('fee', 'Fee', { ns: 'common' })}
+            </div>
+            <div className="flex-1 text-end">
+              {t('voting-power', 'Voting power', { ns: 'common' })}
+            </div>
+            <div className="flex-1 text-end">
+              {t('staked', 'Staked', { ns: 'common' })}
+            </div>
+            <div className="flex-1 text-end">
+              {t('rewards', 'Rewards', { ns: 'common' })}
+            </div>
           </div>
         </div>
 
         {status === 'pending' && (
           <div className="flex flex-col items-center justify-center space-y-8 p-20">
             <SpinnerLoader />
-            <div className="block text-base">Fetching validators list</div>
+            <div className="block text-base">
+              {t('fetching-validators', 'Fetching validators list', {
+                ns: 'main',
+              })}
+            </div>
           </div>
         )}
         {status === 'error' && <p>Error: {(error as Error).message}</p>}
@@ -198,7 +220,15 @@ export function ShellIndexPageDelegationList() {
               })
             ) : (
               <div className="pt-[64px] text-center">
-                <Heading level={3}>You don't have active delegations</Heading>
+                <Heading level={3}>
+                  {t(
+                    'no-delegations',
+                    "You don't have any active delegations",
+                    {
+                      ns: 'main',
+                    },
+                  )}
+                </Heading>
               </div>
             )}
           </div>

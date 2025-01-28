@@ -1,0 +1,21 @@
+{
+  "address-placeholder": "العنوان بصيغة EVM/Bech32",
+  "amount": "المبلغ",
+  "cancel-button": "إلغاء",
+  "confirm-button": "تأكيد",
+  "confirm-ownership-transfer": "تؤكد أنك تريد نقل ملكية العملات في DAO",
+  "currency": "العملة",
+  "dao-balance-label": "رصيد DAO",
+  "dao-page-title": "UnitedContributors DAO",
+  "deposit-dao": "الإيداع في DAO",
+  "islm-and-liquid-balance": "<b>{balanceNum} ISLM</b> و <b>{tokensNum} LIQUID</b> ",
+  "my-account": "حسابي",
+  "select-wallet-heading": "اختر المحفظة",
+  "send-button": "إرسال",
+  "to-the-address": "إلى العنوان <b>{address}</b>؟",
+  "token-count": "{count, plural, other {<b>{count} LIQUID</b> رموز}}",
+  "transfer-heading": "نقل ملكية العملات",
+  "transfer-progress": "النقل قيد التقدم",
+  "transfer-success": "تم النقل بنجاح",
+  "wallet-balance-label": "رصيد المحفظة"
+}

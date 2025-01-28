@@ -29,7 +29,7 @@ export function SortSelect({
           as="button"
           key={id}
           className={clsx(
-            'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left text-[13px] leading-[20px] hover:bg-[#ffffff14]',
+            'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-start text-[13px] leading-[20px] hover:bg-[#ffffff14]',
             'transition-colors duration-150 ease-out',
           )}
           onClick={() => {
@@ -85,7 +85,7 @@ export function SortSelect({
 
       <MenuItems
         className={clsx(
-          'absolute left-0 z-10 mt-[4px] w-fit min-w-full origin-top rounded-[8px] bg-[#0D0D0E] py-[8px] shadow-lg focus:outline-none',
+          'absolute start-0 z-10 mt-[4px] w-fit min-w-full origin-top rounded-[8px] bg-[#0D0D0E] py-[8px] shadow-lg focus:outline-none',
           'max-h-[256px] overflow-y-scroll',
           'border-haqq-border border',
         )}

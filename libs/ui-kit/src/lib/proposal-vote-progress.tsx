@@ -1,15 +1,10 @@
-import { ReactElement, useMemo } from 'react';
+import { ReactElement } from 'react';
 import { ProposalStatus as ProposalStatusEnum } from '@evmos/provider';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
+import { VoteResultsWithPercentages } from '@haqq/shell-shared';
 import { CardSubText, CardText } from './card';
 import { formatNumber } from '../utils/format-number';
-
-export interface VoteResults {
-  yes: string;
-  abstain: string;
-  no: string;
-  no_with_veto: string;
-}
 
 export enum VoteOption {
   VOTE_OPTION_UNSPECIFIED = 0,
@@ -46,43 +41,36 @@ export function voteOptionFromJSON(
   }
 }
 
+function formatPercentage(percentage: number): string {
+  // Default to 2 decimal places for numbers >= 0.01
+  let numAfterDecimal = 2;
+
+  // For small numbers, dynamically increase decimal places
+  if (percentage < 0.01 && percentage > 0) {
+    // Convert to string to count leading zeros after decimal
+    const decimalStr = percentage.toString().split('.')[1];
+    // Find first non-zero digit
+    const firstNonZero = decimalStr.match(/[1-9]/);
+    if (firstNonZero?.index !== undefined) {
+      numAfterDecimal = firstNonZero.index + 2;
+      // Cap at maximum 6 decimal places
+      numAfterDecimal = Math.min(numAfterDecimal, 6);
+    }
+  }
+
+  return formatNumber(percentage, 2, numAfterDecimal);
+}
+
 export function ProposalVoteProgress({
-  results,
+  voteResults,
   userVote,
   status,
 }: {
-  results: VoteResults;
+  voteResults: VoteResultsWithPercentages;
   userVote?: string | null;
   status?: string;
 }): ReactElement {
-  const { yes, abstain, no, veto, total } = useMemo(() => {
-    const yes = Number.parseInt(results.yes);
-    const abstain = Number.parseInt(results.abstain);
-    const no = Number.parseInt(results.no);
-    const veto = Number.parseInt(results.no_with_veto);
-
-    return {
-      yes,
-      abstain,
-      no,
-      veto,
-      total: yes + abstain + no + veto,
-    };
-  }, [results]);
-
-  const [yesPercents, noPercents, abstainPercents, vetoPercents] =
-    useMemo(() => {
-      if (total === 0) {
-        return [0, 0, 0, 0];
-      }
-
-      return [
-        Number.parseFloat(formatNumber((yes / total) * 100)),
-        Number.parseFloat(formatNumber((no / total) * 100)),
-        Number.parseFloat(formatNumber((abstain / total) * 100)),
-        Number.parseFloat(formatNumber((veto / total) * 100)),
-      ];
-    }, [yes, abstain, no, veto, total]);
+  const { t } = useTranslate('common');
 
   return (
     <div className="flex w-full flex-col space-y-2">
@@ -90,39 +78,42 @@ export function ProposalVoteProgress({
         <div className="flex items-center space-x-[12px]">
           <CardText className="text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
             {status === ProposalStatusEnum.Voting
-              ? 'Voting status'
-              : 'Voting results'}
+              ? t('voting-status', 'Voting status')
+              : t('voting-results', 'Voting results')}
           </CardText>
           {userVote && (
             <div className="inline-flex space-x-[6px]">
-              <CardSubText className="text-white/50">You voted:</CardSubText>
+              <CardSubText className="text-white/50">
+                {t('you-voted', 'You voted:')}
+              </CardSubText>
               {voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES && (
                 <CardSubText className="uppercase text-[#01B26E]">
-                  Yes
+                  {t('vote-option-yes', 'Yes')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO && (
                 <CardSubText className="uppercase text-[#FF5454]">
-                  No
+                  {t('vote-option-no', 'No')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) ===
                 VoteOption.VOTE_OPTION_NO_WITH_VETO && (
                 <CardSubText className="uppercase text-[#E3A13F]">
-                  No with veto
+                  {t('vote-option-no-with-veto', 'No with veto')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) ===
                 VoteOption.VOTE_OPTION_ABSTAIN && (
                 <CardSubText className="uppercase text-[#AAABB2]">
-                  Abstain
+                  {t('vote-option-abstain', 'Abstain')}
                 </CardSubText>
               )}
             </div>
           )}
         </div>
 
-        {total === 0 || status === ProposalStatusEnum.Failed ? (
+        {voteResults.totalBigInt === BigInt(0) ||
+        status === ProposalStatusEnum.Failed ? (
           <div
             className={clsx(
               'relative h-[8px] overflow-hidden rounded-[4px]',
@@ -132,94 +123,94 @@ export function ProposalVoteProgress({
             )}
           />
         ) : (
-          <div className="relative flex h-[8px] w-full flex-row space-x-[4px] overflow-hidden">
-            {yesPercents !== 0 && (
+          <div className="relative flex h-[8px] w-full flex-row space-x-[4px] overflow-hidden rtl:space-x-reverse">
+            {voteResults.yes.percentage !== 0 && (
               <div
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#01B26E]',
                   'duration-250 transition-[width] ease-out',
                 )}
                 style={{
-                  width: `${yesPercents}%`,
+                  width: `${voteResults.yes.percentage}%`,
                 }}
               />
             )}
-            {noPercents !== 0 && (
+            {voteResults.no.percentage !== 0 && (
               <div
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#FF5454]',
                   'duration-250 transition-[width] ease-out',
                 )}
-                style={{ width: `${noPercents}%` }}
+                style={{ width: `${voteResults.no.percentage}%` }}
               />
             )}
-            {abstainPercents !== 0 && (
+            {voteResults.abstain.percentage !== 0 && (
               <div
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#AAABB2]',
                   'duration-250 transition-[width] ease-out',
                 )}
-                style={{ width: `${abstainPercents}%` }}
+                style={{ width: `${voteResults.abstain.percentage}%` }}
               />
             )}
-            {vetoPercents !== 0 && (
+            {voteResults.noWithVeto.percentage !== 0 && (
               <div
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#E3A13F]',
                   'duration-250 transition-[width] ease-out',
                 )}
-                style={{ width: `${vetoPercents}%` }}
+                style={{ width: `${voteResults.noWithVeto.percentage}%` }}
               />
             )}
           </div>
         )}
 
-        <div className="flex flex-wrap items-center gap-x-3">
+        <div className="flex flex-wrap items-start gap-x-3">
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
-            <div className="mr-[2px]">
+            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
+            <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                Yes
+                {t('vote-option-yes', 'Yes')}
               </CardText>
             </div>
             <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-              {yesPercents.toFixed(2)}%
+              {formatPercentage(voteResults.yes.percentage)}%
             </CardText>
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
-            <div className="mr-[2px]">
+            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
+            <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                No
+                {t('vote-option-no', 'No')}
               </CardText>
             </div>
             <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-              {noPercents.toFixed(2)}%
+              {formatPercentage(voteResults.no.percentage)}%
             </CardText>
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
-            <div className="mr-[2px]">
+            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
+            <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                Abstain
+                {t('vote-option-abstain', 'Abstain')}
               </CardText>
             </div>
             <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-              {abstainPercents.toFixed(2)}%
+              {formatPercentage(voteResults.abstain.percentage)}%
             </CardText>
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] mr-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
-            <div className="mr-[2px]">
+            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
+            <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-                No with veto
+                {t('vote-option-no-with-veto', 'No with veto')}
               </CardText>
             </div>
             <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
-              {vetoPercents.toFixed(2)}%
+              {formatPercentage(voteResults.noWithVeto.percentage)}%
             </CardText>
           </div>
         </div>

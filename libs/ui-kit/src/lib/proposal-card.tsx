@@ -1,11 +1,14 @@
 import { useMemo } from 'react';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
+import { useLocale } from 'next-intl';
+import { VoteResultsWithPercentages } from '@haqq/shell-shared';
 import { Card, CardHeading } from './card';
 import { InfoBlock } from './info-block';
 import { ProposalDepositProgress } from './proposal-deposit-progress';
 import { ProposalStatus } from './proposal-status';
-import { ProposalVoteProgress, VoteResults } from './proposal-vote-progress';
+import { ProposalVoteProgress } from './proposal-vote-progress';
 import { formatDate } from '../utils/format-date';
 
 export const enum ProposalStatusEnum {
@@ -26,7 +29,7 @@ export function ProposalCard({
   id,
   status,
   title,
-  results,
+  voteResults,
   minDeposit,
   totalDeposit,
   depositEndDate,
@@ -42,7 +45,7 @@ export function ProposalCard({
   status: ProposalStatusEnum;
   minDeposit?: number;
   totalDeposit?: number;
-  results: VoteResults;
+  voteResults: VoteResultsWithPercentages;
   depositEndDate?: Date;
   votingStartDate?: Date;
   votingEndDate?: Date;
@@ -51,6 +54,8 @@ export function ProposalCard({
   userVote?: string | null;
   className?: string;
 }) {
+  const { t } = useTranslate('common');
+  const currentLocale = useLocale();
   const proposalColor = useMemo(() => {
     if (status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD') {
       return 'blue';
@@ -92,14 +97,14 @@ export function ProposalCard({
             <ProposalPeriodTimer
               color={proposalColor}
               date={depositEndDate}
-              title="Deposit end"
+              title={t('deposit-end', 'Deposit end')}
             />
           )}
           {status === ProposalStatusEnum.Voting && votingEndDate && (
             <ProposalPeriodTimer
               color={proposalColor}
               date={votingEndDate}
-              title="Voting end"
+              title={t('voting-end', 'Voting end')}
             />
           )}
           {(status === ProposalStatusEnum.Rejected ||
@@ -109,22 +114,22 @@ export function ProposalCard({
               <div className="my-[2px] flex flex-row items-center gap-[32px] md:my-0">
                 {votingStartDate && (
                   <InfoBlock
-                    title="Voting start"
+                    title={t('voting-start', 'Voting Start')}
                     className={clsx(
                       status === ProposalStatusEnum.Failed && '!text-white/50',
                     )}
                   >
-                    {formatDate(votingStartDate)}
+                    {formatDate(votingStartDate, currentLocale)}
                   </InfoBlock>
                 )}
                 {votingEndDate && (
                   <InfoBlock
-                    title="Voting end"
+                    title={t('voting-end', 'Voting end')}
                     className={clsx(
                       status === ProposalStatusEnum.Failed && '!text-white/50',
                     )}
                   >
-                    {formatDate(votingEndDate)}
+                    {formatDate(votingEndDate, currentLocale)}
                   </InfoBlock>
                 )}
               </div>
@@ -143,7 +148,7 @@ export function ProposalCard({
             status === ProposalStatusEnum.Passed ||
             status === ProposalStatusEnum.Failed) && (
             <ProposalVoteProgress
-              results={results}
+              voteResults={voteResults}
               status={status}
               userVote={userVote}
             />
