@@ -26,6 +26,11 @@
 
 <details>
   <summary>Must read docs</summary>
+  <h3>Local docs</h3>
+  <ol>
+    <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/haqq-network/frontend/tree/blob/dev/docs/tolgee.md">Tolgee</a></li>
+  </ol>
+  <h3>Development Resources</h3>
   <ol>
     <li>
       <a href="https://www.conventionalcommits.org/en/v1.0.0">Conventional commits</a>
