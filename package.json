@@ -17,12 +17,13 @@
     "test": "pnpm exec nx run-many --target test --verbose",
     "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
     "prepare": "pnpm exec husky",
-    "tolgee:sync": "pnpm exec tolgee sync --config ./apps/shell/.tolgeerc.js",
-    "tolgee:pull": "pnpm exec tolgee pull --config ./apps/shell/.tolgeerc.js",
-    "tolgee:push": "pnpm exec tolgee push --config ./apps/shell/.tolgeerc.js",
-    "tolgee:extract:check": "pnpm exec tolgee extract check --config ./apps/shell/.tolgeerc.js",
-    "tolgee:extract:print": "pnpm exec tolgee extract print --config ./apps/shell/.tolgeerc.js",
-    "tolgee:compare": "pnpm exec tolgee compare --config ./apps/shell/.tolgeerc.js"
+    "tolgee": "dotenv -e .env -- tolgee",
+    "tolgee:compare": "pnpm tolgee compare --config ./apps/shell/.tolgeerc.js",
+    "tolgee:sync": "pnpm tolgee sync --config ./apps/shell/.tolgeerc.js",
+    "tolgee:pull": "pnpm tolgee pull --config ./apps/shell/.tolgeerc.js",
+    "tolgee:push": "pnpm tolgee push --config ./apps/shell/.tolgeerc.js",
+    "tolgee:extract:check": "pnpm tolgee extract check --config ./apps/shell/.tolgeerc.js",
+    "tolgee:extract:print": "pnpm tolgee extract print --config ./apps/shell/.tolgeerc.js"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.2.4",
@@ -138,6 +139,7 @@
     "@vitejs/plugin-react-swc": "3.7.2",
     "@vitest/ui": "2.1.8",
     "cypress": "13.17.0",
+    "dotenv-cli": "8.0.0",
     "encoding": "0.1.13",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.14",
