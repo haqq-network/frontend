@@ -2,8 +2,6 @@
 
 This guide explains how to use **Tolgee** for localization in your project, specifically **how to add new keys and synchronize them with the Tolgee platform.**
 
----
-
 ## Main commands
 
 You will find the following commands in the `package.json` (and some more):
@@ -14,8 +12,6 @@ You will find the following commands in the `package.json` (and some more):
   "tolgee:sync": "pnpm tolgee sync --config ./apps/shell/.tolgeerc.js" // Synchronizes keys with Tolgee platform
 }
 ```
-
----
 
 ## Example Workflow in Practice
 
@@ -44,11 +40,7 @@ You will find the following commands in the `package.json` (and some more):
    pnpm run tolgee:sync
    ```
 
-   > ![It will look like this](https://docs.tolgee.io/tolgee-cli.webm).
-
    You can add optional flags here, for example the `--remove-unused` flag. [More options here.](https://docs.tolgee.io/tolgee-cli/extraction/syncing-strings#synchronizing-projects)
-
----
 
 ## Additional Resources
 
