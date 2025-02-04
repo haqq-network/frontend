@@ -81,7 +81,7 @@ export function SelectChainButton({
 
       <MenuItems
         className={clsx(
-          'bg-haqq-black border-haqq-border absolute right-[0px] z-10 mt-[4px] min-w-full origin-top rounded-[8px] border py-[8px] text-white shadow-lg focus:outline-none',
+          'bg-haqq-black border-haqq-border absolute end-[0px] z-10 mt-[4px] min-w-full origin-top rounded-[8px] border py-[8px] text-white shadow-lg focus:outline-none',
           dropdownClassName,
         )}
       >
