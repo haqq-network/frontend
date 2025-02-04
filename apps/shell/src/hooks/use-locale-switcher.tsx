@@ -12,6 +12,7 @@ export function useLocaleSwitcher() {
   const switchLocale = useCallback(
     (locale: string) => {
       router.replace(pathname, { locale });
+      router.refresh();
     },
     [router, pathname],
   );
