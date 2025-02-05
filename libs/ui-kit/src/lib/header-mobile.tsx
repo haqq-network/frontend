@@ -3,10 +3,12 @@ import {
   Fragment,
   PropsWithChildren,
   ReactNode,
+  useCallback,
   useEffect,
   useState,
 } from 'react';
-import { useSpring, animated, config } from '@react-spring/web';
+import { animated, config, useSpring } from '@react-spring/web';
+import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,7 +17,8 @@ import { BurgerButton } from './burger-button';
 import { Container } from './container';
 import { HeaderLink, HeaderLinkWithHref } from './header';
 import { HeaderNavLink } from './header-nav-link';
-import { LocaleDropdown, LocaleOption } from './locale-dropdown';
+import { ArrowDownIcon, CheckIcon } from './icons';
+import { LocaleOption } from './locale-dropdown';
 import { TestedgeBanner } from './testedge-banner';
 import { useScrollTrack } from '../hooks/use-scroll-track';
 import { interpolate } from '../utils/interpolate';
@@ -44,6 +47,13 @@ export function HeaderMobile({
   locales?: LocaleOption[];
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpened] = useState(false);
+  const [isLocaleSwitcherOpened, setIsLocaleSwitcherOpened] = useState(false);
+
+  const toggleLocaleMenu = useCallback(() => {
+    return setIsLocaleSwitcherOpened((prev) => {
+      return !prev;
+    });
+  }, []);
 
   useEffect(() => {
     const body = document.body;
@@ -130,48 +140,66 @@ export function HeaderMobile({
                 isMobileMenuOpen ? 'block' : 'hidden',
               )}
             >
-              <Container className="flex w-full flex-col gap-[32px] py-[24px]">
-                {links.length > 0 && (
-                  <nav className="mb-[24px] flex flex-col gap-[24px]">
-                    {links.map((link) => {
-                      if (link.type === 'dropdown') {
-                        return (
-                          <HeaderDropdownMobile
-                            key={link.label}
-                            label={link.label}
-                            links={link.children}
-                          />
-                        );
-                      }
-
-                      return (
-                        <HeaderNavLink
-                          href={link.href}
-                          key={link.href}
-                          className="inline-flex leading-[24px]"
-                          onClick={() => {
-                            setIsMobileMenuOpened(false);
-                          }}
-                        >
-                          {link.label}
-                        </HeaderNavLink>
-                      );
-                    })}
-                  </nav>
-                )}
-
-                {utilsSlot}
-
-                {locales?.length && (
-                  <LocaleDropdown
-                    locales={locales}
-                    switchLocale={switchLocale ?? undefined}
-                    currentLocale={currentLocale ?? ''}
+              {isLocaleSwitcherOpened ? (
+                <div className="flex flex-col gap-y-[12px]">
+                  <MobileMenuLangButton
+                    onClick={toggleLocaleMenu}
+                    isBackButton
                   />
-                )}
 
-                {web3ButtonsSlot}
-              </Container>
+                  {locales?.map(({ id, label }) => {
+                    return (
+                      <LanguageLink
+                        key={id}
+                        locale={id}
+                        isActive={currentLocale === id}
+                        switchLocale={switchLocale}
+                        localeLabel={label}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <Container className="flex w-full flex-col gap-[32px] py-[24px]">
+                  {links.length > 0 && (
+                    <nav className="mb-[24px] flex flex-col gap-[24px]">
+                      {links.map((link) => {
+                        if (link.type === 'dropdown') {
+                          return (
+                            <HeaderDropdownMobile
+                              key={link.label}
+                              label={link.label}
+                              links={link.children}
+                            />
+                          );
+                        }
+
+                        return (
+                          <HeaderNavLink
+                            href={link.href}
+                            key={link.href}
+                            className="inline-flex leading-[24px]"
+                            onClick={() => {
+                              setIsMobileMenuOpened(false);
+                            }}
+                          >
+                            {link.label}
+                          </HeaderNavLink>
+                        );
+                      })}
+                    </nav>
+                  )}
+
+                  <MobileMenuLangButton
+                    onClick={toggleLocaleMenu}
+                    locale={currentLocale}
+                  />
+
+                  {utilsSlot}
+
+                  {web3ButtonsSlot}
+                </Container>
+              )}
             </div>
           </div>
         </AnimatedOrNot>
@@ -255,5 +283,71 @@ function AnimatedHeader({
     >
       {children}
     </animated.header>
+  );
+}
+
+function MobileMenuLangButton({
+  onClick,
+  locale,
+  isBackButton = false,
+}: {
+  onClick: () => void;
+  locale?: string;
+  isBackButton?: boolean;
+}) {
+  const { t } = useTranslate('common');
+  return (
+    <div
+      className={clsx(
+        'flex items-center gap-x-[10px] py-[12px] text-sm uppercase',
+        isBackButton ? 'items-start px-[16px]' : 'justify-between',
+      )}
+      onClick={onClick}
+    >
+      {isBackButton ? (
+        <div className="flex items-center py-[24px]">
+          <ArrowDownIcon className="mr-[6px] h-6 w-6 rotate-90 rtl:-rotate-90" />
+          <span>{t('go-back', 'Go back')}</span>
+        </div>
+      ) : (
+        <Fragment>
+          <span>{locale}</span>
+          <ArrowDownIcon className="mr-[6px] h-6 w-6 -rotate-90 rtl:rotate-90" />
+        </Fragment>
+      )}
+    </div>
+  );
+}
+
+function LanguageLink({
+  locale,
+  localeLabel,
+  isActive,
+  switchLocale,
+}: {
+  locale: string;
+  localeLabel: string;
+  isActive: boolean;
+  switchLocale?: (locale: string) => void;
+}) {
+  return (
+    <div
+      className={clsx(
+        'min-w-[170px] px-[16px] py-[12px] text-sm font-[500]',
+        isActive
+          ? 'pointer-events-none select-none'
+          : 'hover:text-islamic-primary-green cursor-pointer',
+      )}
+      onClick={() => {
+        return switchLocale?.(locale);
+      }}
+    >
+      <span className="flex items-center justify-between">
+        <span>{localeLabel}</span>
+        {isActive && (
+          <CheckIcon className="mb-[-1px] ms-4 h-5 w-5 rtl:scale-x-[-1]" />
+        )}
+      </span>
+    </div>
   );
 }
