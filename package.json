@@ -29,7 +29,7 @@
     "@auth0/auth0-react": "2.2.4",
     "@bufbuild/protobuf": "1.10.0",
     "@ethersproject/hash": "5.7.0",
-    "@ethersproject/signing-key": "5.7.0",
+    "@ethersproject/signing-key": "5.8.0",
     "@evmos/eip712": "0.2.11",
     "@evmos/proto": "0.1.27",
     "@evmos/provider": "0.2.8",
