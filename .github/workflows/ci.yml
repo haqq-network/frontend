@@ -32,26 +32,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: pnpm
-      - name: Setup dependencies
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm cypress install --force
-      - uses: nrwl/nx-set-shas@v4
-      # - name: Run lint  for affected projects
-      #   run: pnpm exec nx affected --target lint
-      # - name: Run tests for affected projects
-      #   run: pnpm exec nx affected --target test --ci --coverage
-      # - name: Run build for affected projects
-      #   run: pnpm exec nx affected --target build
-      - name: Run lint test and build
-        run: pnpm exec nx run-many --target lint test
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # - name: Install Playwright
+      #   run: pnpm exec playwright install --with-deps
+
+      - name: Set SHAs
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Run lint, test, and build
+        run: pnpm exec nx affected -t lint test build --parallel=5
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
         with:
