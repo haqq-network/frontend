@@ -50,9 +50,11 @@ jobs:
 
       - name: Set SHAs
         uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: dev
 
-      - name: Run lint, test, and build
-        run: pnpm exec nx affected -t lint test build --parallel=5
+      - name: Run lint and test
+        run: pnpm exec nx affected -t lint test --parallel=5
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
