@@ -90,7 +90,7 @@
     "@keplr-wallet/types": "0.12.175",
     "@nx/cypress": "20.4.6",
     "@nx/eslint": "20.4.6",
-    "@nx/eslint-plugin": "20.4.6",
+    "@nx/eslint-plugin": "20.5.0",
     "@nx/jest": "20.4.6",
     "@nx/js": "20.4.6",
     "@nx/next": "20.4.6",
