@@ -22,7 +22,10 @@ interface FalconerRequestInit extends RequestInit {
 export async function getShellChainStatsData(
   options: Partial<FalconerRequestInit>,
 ) {
-  const requestUrl = new URL('/shell/chain_stats', 'https://falconer.haqq.sh');
+  const requestUrl = new URL(
+    '/shell/chain_stats',
+    'https://falconer.haqq.network',
+  );
   const response = await fetch(requestUrl, {
     method: 'get',
     headers: {
