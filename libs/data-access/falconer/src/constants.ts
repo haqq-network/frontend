@@ -4,4 +4,4 @@ export interface FalconerRequestInit extends RequestInit {
   };
 }
 
-export const FALCONER_ENDPOINT = 'https://falconer.haqq.sh' as const;
+export const FALCONER_ENDPOINT = 'https://falconer.haqq.network' as const;
