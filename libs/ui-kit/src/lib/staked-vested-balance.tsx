@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
+import { useFeatureFlag } from '@haqq/shell-shared';
 import { formatNumber } from '../server';
 
 export function StakedVestedBalance({
@@ -61,6 +62,7 @@ export function StakedVestedBalance({
       liquidStakedPercent,
     };
   }, [vested, staked, daoLocked, unbonding, liquidStaked]);
+  const isLiquidStakingEnabled = useFeatureFlag('LIQUID_STAKING');
 
   if (vested === 0 && staked === 0 && daoLocked === 0) {
     return null;
@@ -129,7 +131,7 @@ export function StakedVestedBalance({
             })}
           </div>
         )}
-        {liquidStaked > 0 && (
+        {isLiquidStakingEnabled && liquidStaked > 0 && (
           <div className="text-[#D32D79]">
             {t('liquid-staked-amount', 'Liquid Staked: {amount}', {
               amount: formatNumber(liquidStaked),
