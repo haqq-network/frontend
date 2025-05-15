@@ -17,6 +17,7 @@ export function Web3ConnectButtons() {
   const chains = useChains();
   const { openSelectWallet, disconnect, selectNetwork } = useWallet();
   const { data: balance } = useIndexerBalanceQuery(haqqAddress);
+  console.log({ balance });
 
   if (!isConnected || !ethAddress) {
     return (
