@@ -314,11 +314,13 @@ function MyAccountConnected({
             title={t('rewards', 'Rewards', { ns: 'common' })}
             value={`${formatNumber(rewards)} ${symbol.toLocaleUpperCase()}`}
           />
-          <MyAccountAmountBlock
-            title={t('liquid-staked', 'Liquid staked', { ns: 'main' })}
-            value={`${formatNumber(stIslmBalance)} stISLM`}
-            subValue={`≈${formatNumber(islmAmountFromStIslm ?? 0)} ISLM`}
-          />
+          {isLiquidStakingEnabled && (
+            <MyAccountAmountBlock
+              title={t('liquid-staked', 'Liquid staked', { ns: 'main' })}
+              value={`${formatNumber(stIslmBalance)} stISLM`}
+              subValue={`≈${formatNumber(islmAmountFromStIslm ?? 0)} ISLM`}
+            />
+          )}
           <MyAccountAmountBlock
             title={t('address', 'Address', { ns: 'common' })}
             value={
