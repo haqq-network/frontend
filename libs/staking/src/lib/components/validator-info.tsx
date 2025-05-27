@@ -304,7 +304,7 @@ export function ValidatorInfoComponent({
                     </div>
                   </div>
                   {validatorInfo.description?.details && (
-                    <div dir="ltr" className="text-end">
+                    <div className="text-start">
                       <div className="font-guise text-[12px] leading-[18px] text-white/50">
                         {t('description', 'Description', { ns: 'common' })}
                       </div>
