@@ -1,0 +1,9 @@
+{
+  "name": "shell-bridge",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/bridge/src",
+  "projectType": "library",
+  "tags": ["shell-lib-bridge"],
+  "// targets": "to see all targets run: nx show project shell-bridge --web",
+  "targets": {}
+}

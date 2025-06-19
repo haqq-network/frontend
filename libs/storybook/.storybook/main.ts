@@ -1,7 +1,10 @@
 import type { StorybookConfig } from '@storybook/nextjs';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.@(stories.@(mdx|js|jsx|ts|tsx))', '../../**/*.@(stories.@(mdx|js|jsx|ts|tsx))'],
+  stories: [
+    '../src/**/*.@(stories.@(mdx|js|jsx|ts|tsx))',
+    '../../**/*.@(stories.@(mdx|js|jsx|ts|tsx))',
+  ],
 
   addons: [
     '@nx/react/plugins/storybook',
@@ -18,8 +21,8 @@ const config: StorybookConfig = {
   docs: {},
 
   typescript: {
-    reactDocgen: 'react-docgen-typescript'
-  }
+    reactDocgen: 'react-docgen-typescript',
+  },
 };
 
 export default config;

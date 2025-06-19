@@ -9,7 +9,33 @@ import {
 import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
 import { safe, walletConnect } from 'wagmi/connectors';
 
-export const supportedChains = [haqqMainnet, haqqTestedge2] as const;
+const haqqDevnet1 = {
+  id: 54211,
+  name: 'HAQQ Devnet 1',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Islamic Coin',
+    symbol: 'ISLMT',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://rpc.eth.testedge2.haqq.network'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'HAQQ Explorer',
+      url: 'https://explorer.testedge2.haqq.network',
+      apiUrl: 'https://explorer.testedge2.haqq.network/api',
+    },
+  },
+};
+
+export const supportedChains = [
+  haqqMainnet,
+  haqqTestedge2,
+  haqqDevnet1,
+] as const;
 export const supportedChainsIds = supportedChains.map((chain): number => {
   return chain.id;
 });
