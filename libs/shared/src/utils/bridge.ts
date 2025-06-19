@@ -1,3 +1,25 @@
+export const haqqDevnet1 = {
+  id: 64322,
+  name: 'HAQQ Devnet 1',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Islamic Coin',
+    symbol: 'ISLMT',
+  },
+  rpcUrls: {
+    default: {
+      http: ['http://185.92.222.237:8545'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'HAQQ Explorer',
+      url: 'https://explorer.devnet1.dev.haqq.network/',
+      apiUrl: 'https://explorer.devnet1.dev.haqq.network/api',
+    },
+  },
+};
+
 /**
  * Network configuration for Superbridge HAQQ Devnet1
  *
@@ -15,7 +37,7 @@ export const HAQQ_DEVNET1_CONFIG: NetworkConfig = {
   explorerUrl: 'https://explorer.devnet1.dev.haqq.network/',
 };
 
-export const L1_STANDART_BRIDGE_ADDRESS =
+export const L1_STANDARD_BRIDGE_ADDRESS =
   '0x4b317e25e14038ad8e9a35c1da1d2bc73859c7c7';
 
 export const BRIDGE_ADDRESSES: {
