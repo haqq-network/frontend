@@ -1,34 +1,52 @@
 'use client';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
-import { formatUnits, parseEther } from 'viem';
+import { formatUnits, parseEther, parseUnits } from 'viem';
+import { sepolia } from 'viem/chains';
 import {
   useAccount,
   useBalance,
   useSendTransaction,
   useSwitchChain,
   useWaitForTransactionReceipt,
+  useWriteContract,
 } from 'wagmi';
+import {
+  haqqDevnet1,
+  SWAPPABLE_TOKENS,
+  L1StandardBridgeAbi,
+  L1_STANDARD_BRIDGE_ADDRESS,
+} from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
   BridgeHeader,
   WalletConnectionWarning,
   NetworkMismatchWarning,
   BridgeForm,
+  TokenSelector,
 } from './components';
-import { haqqDevnet1 } from '@haqq/shell-shared';
-import { sepolia } from 'viem/chains';
-
-// Bridge configuration
-const L1_STANDARD_BRIDGE_ADDRESS = '0x4b317e25e14038ad8e9a35c1da1d2bc73859c7c7';
 
 const SUPPORTED_CHAINS = [haqqDevnet1, sepolia];
+
+// ETH token constant
+const ETH_TOKEN = {
+  symbol: 'ETH',
+  address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  name: 'Ethereum',
+};
+
+interface Token {
+  symbol: string;
+  address: string;
+  name?: string;
+}
 
 export function BridgePage() {
   const { t } = useTranslate('common');
   const { address, chain, isConnected } = useAccount();
   const { switchChainAsync } = useSwitchChain();
   const { sendTransactionAsync } = useSendTransaction();
+  const { writeContractAsync } = useWriteContract();
 
   // State management
   const [bridgeAmount, setBridgeAmount] = useState<number | undefined>(
@@ -36,10 +54,31 @@ export function BridgePage() {
   );
   const [isProcessing, setIsProcessing] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
+  const [selectedToken, setSelectedToken] = useState<Token | null>(ETH_TOKEN);
 
-  // Get user's ETH balance
+  // Get available tokens for current chain
+  const availableTokens = useMemo(() => {
+    if (!chain) return [ETH_TOKEN];
+
+    const chainTokens = SWAPPABLE_TOKENS[chain.id] || [];
+    return [
+      ETH_TOKEN,
+      ...chainTokens.map((token) => {
+        return {
+          ...token,
+          name: token.symbol === 'USDC' ? 'USD Coin' : token.symbol,
+        };
+      }),
+    ];
+  }, [chain]);
+
+  // Get user's balance for selected token
   const { data: balance } = useBalance({
     address: address,
+    token:
+      selectedToken?.address === ETH_TOKEN.address
+        ? undefined
+        : (selectedToken?.address as `0x${string}`),
   });
 
   // Wait for transaction receipt
@@ -68,7 +107,7 @@ export function BridgePage() {
     return Number(formatUnits(balance.value, balance.decimals));
   }, [balance]);
 
-  // Memoize receivedAmount (1:1 for ETH bridging)
+  // Memoize receivedAmount (1:1 for bridging)
   const receivedAmount = useMemo(() => {
     return bridgeAmount;
   }, [bridgeAmount]);
@@ -77,12 +116,19 @@ export function BridgePage() {
   const canBridge = useMemo(() => {
     return (
       isConnected &&
+      selectedToken &&
       bridgeAmount !== undefined &&
       bridgeAmount > 0 &&
       bridgeAmount <= availableBalance &&
       !isChainMismatch
     );
-  }, [isConnected, bridgeAmount, availableBalance, isChainMismatch]);
+  }, [
+    isConnected,
+    selectedToken,
+    bridgeAmount,
+    availableBalance,
+    isChainMismatch,
+  ]);
 
   const formatNumber = (num: number) => {
     return num.toLocaleString('en-US', {
@@ -95,7 +141,8 @@ export function BridgePage() {
     if (!bridgeAmount) {
       return (
         <span className="text-[#0D0D0E80]">
-          Available: {formatNumber(availableBalance)} ETH
+          Available: {formatNumber(availableBalance)}{' '}
+          {selectedToken?.symbol || 'ETH'}
         </span>
       );
     }
@@ -110,10 +157,11 @@ export function BridgePage() {
 
     return (
       <span className="text-[#0D0D0E80]">
-        Available: {formatNumber(availableBalance)} ETH
+        Available: {formatNumber(availableBalance)}{' '}
+        {selectedToken?.symbol || 'ETH'}
       </span>
     );
-  }, [bridgeAmount, availableBalance, t]);
+  }, [bridgeAmount, availableBalance, selectedToken, t]);
 
   const handleInputChange = useCallback((value: string | undefined) => {
     if (!value || value === '') {
@@ -127,10 +175,19 @@ export function BridgePage() {
   }, []);
 
   const handleMaxButtonClick = useCallback(() => {
-    // Leave some ETH for gas fees
-    const maxAmount = Math.max(0, availableBalance - 0.01);
+    // Leave some for gas fees
+    const maxAmount = Math.max(
+      0,
+      availableBalance -
+        (selectedToken?.address === ETH_TOKEN.address ? 0.001 : 0),
+    );
     setBridgeAmount(maxAmount);
-  }, [availableBalance]);
+  }, [availableBalance, selectedToken]);
+
+  const handleTokenSelect = useCallback((token: Token) => {
+    setSelectedToken(token);
+    setBridgeAmount(undefined); // Reset amount when token changes
+  }, []);
 
   const handleSwitchChain = useCallback(async () => {
     if (!switchChainAsync || !targetChainIdNumber) return;
@@ -143,18 +200,39 @@ export function BridgePage() {
   }, [switchChainAsync, targetChainIdNumber]);
 
   const handleBridge = useCallback(async () => {
-    if (!canBridge || !address || !bridgeAmount) return;
+    if (!canBridge || !address || !bridgeAmount || !selectedToken) return;
 
     setIsProcessing(true);
 
     try {
-      const amountWei = parseEther(bridgeAmount.toString());
+      let hash: string;
 
-      // Send transaction to L1 Standard Bridge
-      const hash = await sendTransactionAsync({
-        to: L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
-        value: amountWei,
-      });
+      if (selectedToken.address === ETH_TOKEN.address) {
+        // Bridge ETH
+        const amountWei = parseEther(bridgeAmount.toString());
+        hash = await sendTransactionAsync({
+          to: L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
+          value: amountWei,
+        });
+      } else {
+        // Bridge ERC20 token
+        const tokenDecimals = balance?.decimals || 18;
+        const amountWei = parseUnits(bridgeAmount.toString(), tokenDecimals);
+
+        hash = await writeContractAsync({
+          address: L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
+          abi: L1StandardBridgeAbi,
+          functionName: 'bridgeERC20To',
+          args: [
+            selectedToken.address as `0x${string}`, // _localToken
+            selectedToken.address as `0x${string}`, // _remoteToken (same for now)
+            address, // _to
+            amountWei, // _amount
+            200000, // _minGasLimit
+            '0x' as `0x${string}`, // _extraData
+          ],
+        });
+      }
 
       setTxHash(hash);
     } catch (error) {
@@ -162,7 +240,15 @@ export function BridgePage() {
     } finally {
       setIsProcessing(false);
     }
-  }, [canBridge, address, bridgeAmount, sendTransactionAsync]);
+  }, [
+    canBridge,
+    address,
+    bridgeAmount,
+    selectedToken,
+    balance,
+    sendTransactionAsync,
+    writeContractAsync,
+  ]);
 
   return (
     <Container>
@@ -189,6 +275,9 @@ export function BridgePage() {
               onMaxButtonClick={handleMaxButtonClick}
               onBridge={handleBridge}
               amountHint={amountHint}
+              tokens={availableTokens}
+              selectedToken={selectedToken}
+              onTokenSelect={handleTokenSelect}
             />
           )}
         </div>

@@ -3,6 +3,13 @@ import { Button } from '@haqq/shell-ui-kit';
 import { BridgeAmountInput } from './bridge-amount-input';
 import { BridgeReceiveInput } from './bridge-receive-input';
 import { BridgeSuccessMessage } from './bridge-success-message';
+import { TokenSelector } from './token-selector';
+
+interface Token {
+  symbol: string;
+  address: string;
+  name?: string;
+}
 
 export interface BridgeFormProps {
   bridgeAmount: number | undefined;
@@ -16,6 +23,10 @@ export interface BridgeFormProps {
   onMaxButtonClick: () => void;
   onBridge: () => void;
   amountHint: React.ReactNode;
+  // Token selector props
+  tokens: Token[];
+  selectedToken: Token | null;
+  onTokenSelect: (token: Token) => void;
 }
 
 export function BridgeForm({
@@ -30,15 +41,26 @@ export function BridgeForm({
   onMaxButtonClick,
   onBridge,
   amountHint,
+  tokens,
+  selectedToken,
+  onTokenSelect,
 }: BridgeFormProps) {
   return (
     <div className="space-y-[20px]">
+      <TokenSelector
+        tokens={tokens}
+        selectedToken={selectedToken}
+        onTokenSelect={onTokenSelect}
+        disabled={isProcessing || isWaitingForReceipt}
+      />
+
       <BridgeAmountInput
         value={bridgeAmount}
         onChange={onInputChange}
         onMaxButtonClick={onMaxButtonClick}
         hint={amountHint}
         isMaxButtonDisabled={availableBalance <= 0}
+        tokenSymbol={selectedToken?.symbol || 'ETH'}
       />
 
       <BridgeReceiveInput receivedAmount={receivedAmount} />

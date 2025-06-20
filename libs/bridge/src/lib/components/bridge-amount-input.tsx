@@ -8,6 +8,7 @@ export interface BridgeAmountInputProps {
   onMaxButtonClick: () => void;
   hint: ReactNode;
   isMaxButtonDisabled: boolean;
+  tokenSymbol?: string;
 }
 
 export function BridgeAmountInput({
@@ -16,6 +17,7 @@ export function BridgeAmountInput({
   onMaxButtonClick,
   hint,
   isMaxButtonDisabled,
+  tokenSymbol = 'ETH',
 }: BridgeAmountInputProps) {
   return (
     <div>
@@ -23,7 +25,7 @@ export function BridgeAmountInput({
         Amount to Bridge
       </label>
       <ModalInput
-        symbol="ETH"
+        symbol={tokenSymbol}
         value={value}
         onChange={onChange}
         onMaxButtonClick={onMaxButtonClick}

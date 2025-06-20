@@ -1,3 +1,5 @@
+import { sepolia } from 'viem/chains';
+
 export const haqqDevnet1 = {
   id: 64322,
   name: 'HAQQ Devnet 1',
@@ -18,6 +20,27 @@ export const haqqDevnet1 = {
       apiUrl: 'https://explorer.devnet1.dev.haqq.network/api',
     },
   },
+};
+
+export const L1_CHAINS = [sepolia];
+export const L2_CHAINS = [haqqDevnet1];
+
+export const SWAPPABLE_TOKENS: {
+  [chainId: number]: {
+    symbol: string;
+    address: string;
+  }[];
+} = {
+  [sepolia.id]: [
+    {
+      symbol: 'ETH',
+      address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    },
+    {
+      symbol: 'USDC',
+      address: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238',
+    },
+  ],
 };
 
 /**

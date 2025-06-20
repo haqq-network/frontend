@@ -47,3 +47,4 @@ export * from './precompile/distribution-abi';
 export * from './precompile/adresses';
 
 export * from './utils/bridge';
+export * from './abi/L1StandartBridge';
