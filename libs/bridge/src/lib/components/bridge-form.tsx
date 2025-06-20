@@ -63,7 +63,10 @@ export function BridgeForm({
         tokenSymbol={selectedToken?.symbol || 'ETH'}
       />
 
-      <BridgeReceiveInput receivedAmount={receivedAmount} />
+      <BridgeReceiveInput
+        receivedAmount={receivedAmount}
+        tokenSymbol={selectedToken?.symbol || 'ETH'}
+      />
 
       <div className="pt-[8px]">
         <Button

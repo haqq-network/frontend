@@ -61,8 +61,12 @@ export function BridgePage() {
     if (!chain) return [ETH_TOKEN];
 
     const chainTokens = SWAPPABLE_TOKENS[chain.id] || [];
+
+    if (chainTokens.length === 0) {
+      return [ETH_TOKEN];
+    }
+
     return [
-      ETH_TOKEN,
       ...chainTokens.map((token) => {
         return {
           ...token,

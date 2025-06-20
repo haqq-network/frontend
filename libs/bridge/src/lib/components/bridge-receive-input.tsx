@@ -3,10 +3,12 @@ import { StringInput } from '@haqq/shell-ui-kit';
 
 export interface BridgeReceiveInputProps {
   receivedAmount: number | undefined;
+  tokenSymbol: string;
 }
 
 export function BridgeReceiveInput({
   receivedAmount,
+  tokenSymbol,
 }: BridgeReceiveInputProps) {
   return (
     <div>
@@ -14,11 +16,11 @@ export function BridgeReceiveInput({
         You will receive
       </label>
       <StringInput
-        value={receivedAmount ? `${receivedAmount} ETH` : ''}
+        value={receivedAmount ? `${receivedAmount} ${tokenSymbol}` : ''}
         onChange={() => {
           // Read-only input
         }}
-        placeholder="0 ETH"
+        placeholder={`0 ${tokenSymbol}`}
         className="!bg-[#F5F5F5] !text-[#0D0D0E80]"
       />
     </div>
