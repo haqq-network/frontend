@@ -73,7 +73,9 @@ export function useStakingStats() {
     try {
       posthog.capture('claim all rewards started', { chainId: chain.id });
       setRewardsPending(true);
-      const [rewardsByValidator] = await getTotalRewards();
+      const [rewardsByValidator] = shouldUsePrecompile
+        ? await getTotalRewards()
+        : [[]];
       const claimAllRewardPromise = getClaimAllRewardEstimatedFee(
         delegatedValsAddrs,
         rewardsByValidator.length,
