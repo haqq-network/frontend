@@ -376,13 +376,15 @@ export function ProposalDetailsComponent({
                   </div>
                   <div>
                     <div className="font-guise text-[14px] leading-[22px] text-white/50">
-                      {useGetProposalTypeText(proposalDetails.content['@type'])}
+                      {useGetProposalTypeText(
+                        proposalDetails.content?.['@type'] || '',
+                      )}
                     </div>
                   </div>
                 </div>
 
                 <h1 className="font-clash text-[24px] font-[500] leading-[30px] md:text-[32px] md:leading-[42px]">
-                  {proposalDetails.content.title}
+                  {proposalDetails.content?.title || ''}
                 </h1>
 
                 {!isDesktop && (
@@ -432,38 +434,40 @@ export function ProposalDetailsComponent({
                       {t('description', 'Description', { ns: 'common' })}
                     </div>
 
-                    <div
-                      dir="ltr"
-                      className={clsx(
-                        'prose prose-sm max-w-none text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
-                        'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-a:break-words prose-strong:text-white',
-                        'prose-code:text-white prose-code:text-[12px] prose-code:font-mono prose-code:md:leading-[22px] prose-code:md:text-[14px] prose-code:leading-[18px]',
-                        'rtl:text-end',
-                      )}
-                    >
-                      <Markdown gfm breaks>
-                        {proposalDetails.content.description.replace(
-                          /\\n/g,
-                          '\n',
+                    {proposalDetails.content?.description && (
+                      <div
+                        dir="ltr"
+                        className={clsx(
+                          'prose prose-sm max-w-none text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                          'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-a:break-words prose-strong:text-white',
+                          'prose-code:text-white prose-code:text-[12px] prose-code:font-mono prose-code:md:leading-[22px] prose-code:md:text-[14px] prose-code:leading-[18px]',
+                          'rtl:text-end',
                         )}
-                      </Markdown>
-                    </div>
+                      >
+                        <Markdown gfm breaks>
+                          {proposalDetails.content?.description?.replace(
+                            /\\n/g,
+                            '\n',
+                          )}
+                        </Markdown>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {proposalDetails.content['@type'] ===
+              {proposalDetails.content?.['@type'] ===
                 ProposalTypes.ParameterChange && (
                 <div className="py-[24px] md:py-[40px]">
                   <ParameterChangeProposalDetails
                     content={
-                      proposalDetails.content as ParameterChangeProposalContent
+                      proposalDetails?.content as ParameterChangeProposalContent
                     }
                   />
                 </div>
               )}
 
-              {proposalDetails.content['@type'] ===
+              {proposalDetails.content?.['@type'] ===
                 ProposalTypes.SoftwareUpgrade && (
                 <div className="py-[24px] md:py-[40px]">
                   <SoftwareUpgradeProposalDetails
