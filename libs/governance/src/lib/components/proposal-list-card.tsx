@@ -42,7 +42,7 @@ export function ProposalListCard({
 
   return (
     <ProposalCard
-      title={proposal.content.title}
+      title={proposal.content?.title || ''}
       id={Number.parseInt(proposal.proposal_id, 10)}
       status={proposal.status as ProposalStatusEnum}
       depositEndDate={new Date(proposal.deposit_end_time)}
@@ -52,7 +52,7 @@ export function ProposalListCard({
       minDeposit={minDeposit}
       voteResults={voteResults}
       symbol={symbol}
-      type={useGetProposalTypeText(proposal.content['@type'])}
+      type={useGetProposalTypeText(proposal.content?.['@type'] || '')}
       userVote={userVote}
       className={className}
     />
