@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { nanoid } from 'nanoid';
 import { formatUnits } from 'viem';
+import { haqqMainnet, haqqTestedge2 } from 'viem/chains';
 import { useAccount, useChains } from 'wagmi';
 
 export interface IndexerBalances {
@@ -30,165 +30,82 @@ export interface IndexerBalances {
   rewardsBn: bigint;
 }
 
-type IndexerBalance = Array<[string, number, string]>;
-type IndexerDate = Array<[string, number, number]>;
-
-interface TokenRate {
-  amount: string;
-  denom: string;
+interface FalconerBalanceResponse {
+  available_for_stake: string;
+  available: string;
+  staked: string;
+  unbounding: string;
+  rewards: string;
+  total_locked: string;
+  vested: string;
+  staked_vested: string;
+  staked_free: string;
+  total_staked: string;
+  dao_locked: string;
+  locked: string;
+  total: string;
+  balance: string;
+  unlock: string;
 }
 
-interface IndexerV2UpdatesResponse {
-  addresses: unknown[]; // Unused
-  available: IndexerBalance;
-  available_for_stake: IndexerBalance;
-  balance: IndexerBalance;
-  chain_id: number;
-  dao_locked: IndexerBalance;
-  last_update: string;
-  locked: IndexerBalance;
-  nfts: unknown[];
-  rates: Record<string, Record<string, TokenRate[]>>;
-  rewards: IndexerBalance;
-  staked: IndexerBalance;
-  staked_free: IndexerBalance;
-  staked_locked: IndexerBalance;
-  staked_vested: IndexerBalance;
-  tokens: unknown[]; // Unused
-  total: IndexerBalance;
-  total_locked: IndexerBalance;
-  total_staked: IndexerBalance;
-  unbounding: IndexerBalance;
-  unlock: IndexerDate;
-  vested: IndexerBalance;
-}
-
-// Create a request to the indexer
-function createRequest(
-  addresses: Record<number, string[]>,
-  date: Date,
-  currency = 'USD',
-) {
-  return {
-    jsonrpc: '2.0',
-    id: nanoid(),
-    method: 'updates_v2',
-    params: [addresses, date.toISOString(), currency],
-  };
-}
-
-// Parse the balance from the indexer response
-function safeParseBalance(
-  balances: IndexerBalance,
-  address: string,
-  chainId: number,
-): number {
-  const balance = balances.find(([addr, chain]) => {
-    return addr === address && chain === chainId;
-  });
-
-  if (!balance) {
-    return 0;
+// Parse balance hex string to number and bigint
+function parseBalance(balanceStr: string): { value: number; valueBn: bigint } {
+  if (!balanceStr || balanceStr === '0x0') {
+    return { value: 0, valueBn: 0n };
   }
 
-  return Number.parseFloat(formatUnits(BigInt(balance[2]), 18));
+  const valueBn = BigInt(balanceStr);
+  const value = Number.parseFloat(formatUnits(valueBn, 18));
+
+  return { value, valueBn };
 }
 
-function safeParseBalanceBigInt(
-  balances: IndexerBalance,
-  address: string,
-  chainId: number,
-): bigint {
-  const balance = balances.find(([addr, chain]) => {
-    return addr === address && chain === chainId;
-  });
-
-  if (!balance) {
-    return 0n;
-  }
-
-  return BigInt(balance[2]);
-}
-
-// Map the balances from the indexer response to the IndexerBalances type
+// Map the balances from the Falconer response to the IndexerBalances type
 function mapBalances(
-  balancesResponse: IndexerV2UpdatesResponse,
-  address: string,
-  chainId: number,
+  balancesResponse: FalconerBalanceResponse,
 ): IndexerBalances {
+  const available = parseBalance(balancesResponse.available);
+  const availableForStake = parseBalance(balancesResponse.available_for_stake);
+  const balance = parseBalance(balancesResponse.balance);
+  const locked = parseBalance(balancesResponse.locked);
+  const staked = parseBalance(balancesResponse.staked);
+  const stakedFree = parseBalance(balancesResponse.staked_free);
+  const stakedLocked = parseBalance(balancesResponse.staked_vested);
+  const total = parseBalance(balancesResponse.total);
+  const vested = parseBalance(balancesResponse.vested);
+  const daoLocked = parseBalance(balancesResponse.dao_locked);
+  const unbonding = parseBalance(balancesResponse.unbounding);
+  const rewards = parseBalance(balancesResponse.rewards);
+
   return {
-    available: safeParseBalance(balancesResponse.available, address, chainId),
-    availableBn: safeParseBalanceBigInt(
-      balancesResponse.available,
-      address,
-      chainId,
-    ),
-    availableForStake: safeParseBalance(
-      balancesResponse.available_for_stake,
-      address,
-      chainId,
-    ),
-    availableForStakeBn: safeParseBalanceBigInt(
-      balancesResponse.available_for_stake,
-      address,
-      chainId,
-    ),
-    balance: safeParseBalance(balancesResponse.balance, address, chainId),
-    balanceBn: safeParseBalanceBigInt(
-      balancesResponse.balance,
-      address,
-      chainId,
-    ),
-    locked: safeParseBalance(balancesResponse.locked, address, chainId),
-    lockedBn: safeParseBalanceBigInt(balancesResponse.locked, address, chainId),
-    staked: safeParseBalance(balancesResponse.staked, address, chainId),
-    stakedBn: safeParseBalanceBigInt(balancesResponse.staked, address, chainId),
-    stakedFree: safeParseBalance(
-      balancesResponse.staked_free,
-      address,
-      chainId,
-    ),
-    stakedFreeBn: safeParseBalanceBigInt(
-      balancesResponse.staked_free,
-      address,
-      chainId,
-    ),
-    stakedLocked: safeParseBalance(
-      balancesResponse.staked_locked,
-      address,
-      chainId,
-    ),
-    stakedLockedBn: safeParseBalanceBigInt(
-      balancesResponse.staked_locked,
-      address,
-      chainId,
-    ),
-    total: safeParseBalance(balancesResponse.total, address, chainId),
-    totalBn: safeParseBalanceBigInt(balancesResponse.total, address, chainId),
-    vested: safeParseBalance(balancesResponse.vested, address, chainId),
-    vestedBn: safeParseBalanceBigInt(balancesResponse.vested, address, chainId),
-    daoLocked: safeParseBalance(balancesResponse.dao_locked, address, chainId),
-    daoLockedBn: safeParseBalanceBigInt(
-      balancesResponse.dao_locked,
-      address,
-      chainId,
-    ),
-    unbonding: safeParseBalance(balancesResponse.unbounding, address, chainId),
-    unbondingBn: safeParseBalanceBigInt(
-      balancesResponse.unbounding,
-      address,
-      chainId,
-    ),
-    rewards: safeParseBalance(balancesResponse.rewards, address, chainId),
-    rewardsBn: safeParseBalanceBigInt(
-      balancesResponse.rewards,
-      address,
-      chainId,
-    ),
+    available: available.value,
+    availableBn: available.valueBn,
+    availableForStake: availableForStake.value,
+    availableForStakeBn: availableForStake.valueBn,
+    balance: balance.value,
+    balanceBn: balance.valueBn,
+    locked: locked.value,
+    lockedBn: locked.valueBn,
+    staked: staked.value,
+    stakedBn: staked.valueBn,
+    stakedFree: stakedFree.value,
+    stakedFreeBn: stakedFree.valueBn,
+    stakedLocked: stakedLocked.value,
+    stakedLockedBn: stakedLocked.valueBn,
+    total: total.value,
+    totalBn: total.valueBn,
+    vested: vested.value,
+    vestedBn: vested.valueBn,
+    daoLocked: daoLocked.value,
+    daoLockedBn: daoLocked.valueBn,
+    unbonding: unbonding.value,
+    unbondingBn: unbonding.valueBn,
+    rewards: rewards.value,
+    rewardsBn: rewards.valueBn,
   };
 }
 
-// Fetch the balances from the indexer
+// Fetch the balances from the Falconer API
 export async function indexerBalancesFetcher(
   chainId: number,
   address?: string,
@@ -197,29 +114,33 @@ export async function indexerBalancesFetcher(
     return null;
   }
 
-  const addresses = { [chainId]: [address] };
+  // Build the URL based on chain ID
+  const baseUrl = `https://falconer.haqq.network/balances/${address}`;
+  const requestUrl = new URL(baseUrl);
 
-  const requestUrl = new URL(
-    'https://backend.wallet.production.haqq.network/api/all_networks/jsonrpc',
-  );
+  // Add network parameter for testnet (54211) and mainnet (11235)
+  if (chainId === haqqMainnet.id || chainId === haqqTestedge2.id) {
+    requestUrl.searchParams.set('network', chainId.toString());
+  }
 
   const headers = new Headers({
     'Content-Type': 'application/json',
   });
 
-  const requestBody = createRequest(addresses, new Date());
-
   try {
     const response = await fetch(requestUrl, {
-      method: 'POST',
+      method: 'GET',
       headers,
-      body: JSON.stringify(requestBody),
     });
 
-    const responseJson = await response.json();
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-    // Map balances for the given chain
-    return mapBalances(responseJson.result, address, chainId);
+    const responseJson: FalconerBalanceResponse = await response.json();
+
+    // Map balances from Falconer response
+    return mapBalances(responseJson);
   } catch (error) {
     console.error((error as Error).message);
     return null;
