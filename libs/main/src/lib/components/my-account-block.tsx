@@ -109,6 +109,7 @@ function MyAccountConnected({
   const { copyText } = useClipboard();
   const { data: rewardsInfo } = useStakingRewardsQuery(haqqAddress);
   const symbol = 'ISLM';
+
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
   const stIslmBalance = useStislmBalance();
   const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
