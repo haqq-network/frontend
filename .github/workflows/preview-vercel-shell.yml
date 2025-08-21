@@ -36,5 +36,9 @@ jobs:
           cache: pnpm
       - name: Setup dependencies
         run: pnpm install --frozen-lockfile
-      - name: Deploy to Vercel
-        run: pnpm exec vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+      - name: Pull Vercel Environment Information
+        run: pnpm exec vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: pnpm exec vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: pnpm exec vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
