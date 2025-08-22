@@ -157,7 +157,7 @@ export function AddressConversionPage() {
                     >
                       <div>
                         <span className="inline-block sm:hidden lg:inline-block">
-                          {getFormattedAddress(convertedAddress, 6, 6, '...')}
+                          {getFormattedAddress(convertedAddress, 8, 6, '...')}
                         </span>
                         <span className="hidden sm:inline-block lg:hidden">
                           {convertedAddress}
