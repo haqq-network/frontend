@@ -18,6 +18,8 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_SHELL_PROJECT_ID }}
+      HAQQ_VERCEL_ORG_ID: ${{ secrets.HAQQ_VERCEL_ORG_ID }}
+      HAQQ_VERCEL_SHELL_PROJECT_ID: ${{ secrets.HAQQ_VERCEL_SHELL_PROJECT_ID }}
       NX_SKIP_NX_CACHE: true
       GIT_COMMIT_SHA: ${{ github.sha }}
       HUSKY: 0
@@ -42,6 +44,8 @@ jobs:
         run: |
           echo "VERCEL_ORG_ID: $VERCEL_ORG_ID"
           echo "VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID"
+          echo "HAQQ_VERCEL_ORG_ID: $HAQQ_VERCEL_ORG_ID"
+          echo "HAQQ_VERCEL_SHELL_PROJECT_ID: $HAQQ_VERCEL_SHELL_PROJECT_ID"
           echo "VERCEL_TOKEN exists: ${{ secrets.VERCEL_TOKEN != '' }}"
       - name: Pull Vercel Environment Information
         run: pnpm exec vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }} --project-id=$VERCEL_PROJECT_ID
