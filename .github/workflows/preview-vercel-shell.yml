@@ -16,8 +16,8 @@ jobs:
       - self-hosted
     if: (github.event_name == 'pull_request' && !github.event.pull_request.draft) || (github.event_name == 'push' && github.ref == 'refs/heads/dev')
     env:
-      VERCEL_ORG_ID: ${{ secrets.HAQQ_VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.HAQQ_VERCEL_SHELL_PROJECT_ID }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_SHELL_PROJECT_ID }}
       NX_SKIP_NX_CACHE: true
       GIT_COMMIT_SHA: ${{ github.sha }}
       HUSKY: 0
