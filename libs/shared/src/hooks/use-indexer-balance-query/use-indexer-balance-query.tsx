@@ -150,6 +150,7 @@ export async function indexerBalancesFetcher(
 export function useIndexerBalanceQuery(address?: string) {
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
+
   return useQuery({
     queryKey: [chain.id, 'indexer-balance', address],
     enabled: !!address,
