@@ -2,7 +2,6 @@
 import { useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { useAccount, useChains } from 'wagmi';
-import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
 import {
   getFormattedAddress,
   useAddress,
@@ -11,22 +10,19 @@ import {
 } from '@haqq/shell-shared';
 import { Button, AccountButton, SelectChainButton } from '@haqq/shell-ui-kit';
 import { formatNumber } from '@haqq/shell-ui-kit/server';
+import { supportedChains } from '../config/wagmi-config';
 
 function useChainArray() {
   const chains = useChains();
 
   return useMemo(() => {
     if (chains.length === 0) {
-      return [
-        {
-          id: haqqMainnet.id,
-          name: haqqMainnet.name,
-        },
-        {
-          id: haqqTestedge2.id,
-          name: haqqTestedge2.name,
-        },
-      ];
+      return supportedChains.map((chain) => {
+        return {
+          id: chain.id,
+          name: chain.name,
+        };
+      });
     }
 
     return chains.map((chain) => {
