@@ -23,7 +23,6 @@ import {
   WalletConnectionWarning,
   NetworkMismatchWarning,
   BridgeForm,
-  TokenSelector,
 } from './components';
 
 const SUPPORTED_CHAINS = [haqqDevnet1, sepolia];
@@ -194,6 +193,9 @@ export function BridgePage() {
   }, []);
 
   const handleSwitchChain = useCallback(async () => {
+    console.log('handleSwitchChain', targetChainIdNumber);
+    console.log('switchChainAsync', switchChainAsync);
+    console.log('targetChainIdNumber', targetChainIdNumber);
     if (!switchChainAsync || !targetChainIdNumber) return;
 
     try {

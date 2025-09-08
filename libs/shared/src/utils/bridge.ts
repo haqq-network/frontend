@@ -10,7 +10,7 @@ export const haqqDevnet1 = {
   },
   rpcUrls: {
     default: {
-      http: ['http://185.92.222.237:8545'],
+      http: ['http://65.21.69.176:8545/'],
     },
   },
   blockExplorers: {
