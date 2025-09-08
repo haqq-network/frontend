@@ -1,4 +1,5 @@
 'use client';
+import { useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { useAccount, useChains } from 'wagmi';
 import {
@@ -9,14 +10,37 @@ import {
 } from '@haqq/shell-shared';
 import { Button, AccountButton, SelectChainButton } from '@haqq/shell-ui-kit';
 import { formatNumber } from '@haqq/shell-ui-kit/server';
+import { supportedChains } from '../config/wagmi-config';
+
+function useChainArray() {
+  const chains = useChains();
+
+  return useMemo(() => {
+    if (chains.length === 0) {
+      return supportedChains.map((chain) => {
+        return {
+          id: chain.id,
+          name: chain.name,
+        };
+      });
+    }
+
+    return chains.map((chain) => {
+      return {
+        id: chain.id,
+        name: chain.name,
+      };
+    });
+  }, [chains]);
+}
 
 export function Web3ConnectButtons() {
   const { t } = useTranslate('common');
   const { isConnected, chain } = useAccount();
   const { haqqAddress, ethAddress } = useAddress();
-  const chains = useChains();
   const { openSelectWallet, disconnect, selectNetwork } = useWallet();
   const { data: balance } = useIndexerBalanceQuery(haqqAddress);
+  const chainArray = useChainArray();
   console.log({ balance });
 
   if (!isConnected || !ethAddress) {
@@ -28,14 +52,6 @@ export function Web3ConnectButtons() {
       </div>
     );
   }
-
-  const chainArray = chains.map((chain) => {
-    return {
-      id: chain.id,
-      name: chain.name,
-      // name: chain.name.replace('HAQQ', '').trim(),
-    };
-  });
 
   return (
     <div className="flex flex-row gap-[24px]">
@@ -71,9 +87,9 @@ export function Web3ConnectButtonsMobile() {
   const { t } = useTranslate('common');
   const { isConnected, chain } = useAccount();
   const { haqqAddress, ethAddress } = useAddress();
-  const chains = useChains();
   const { openSelectWallet, disconnect, selectNetwork } = useWallet();
   const { data: balance } = useIndexerBalanceQuery(haqqAddress);
+  const chainArray = useChainArray();
 
   if (!isConnected || !ethAddress) {
     return (
@@ -84,14 +100,6 @@ export function Web3ConnectButtonsMobile() {
       </div>
     );
   }
-
-  const chainArray = chains.map((chain) => {
-    return {
-      id: chain.id,
-      name: chain.name,
-      // name: chain.name.replace('HAQQ', '').trim(),
-    };
-  });
 
   return (
     <div className="flex flex-col gap-[24px]">

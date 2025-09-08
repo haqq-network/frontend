@@ -65,8 +65,7 @@ export function SelectChainButton({
             <T
               keyName="unsupported-network-title"
               ns="common"
-              defaultValue="Unsupported <br /> Network"
-              params={{ br: <br /> }}
+              defaultValue="Unsupported Network"
             />
           </div>
           <ArrowDownIcon
