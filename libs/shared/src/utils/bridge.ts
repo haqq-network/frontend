@@ -56,7 +56,7 @@ export interface NetworkConfig {
 
 export const HAQQ_DEVNET1_CONFIG: NetworkConfig = {
   name: 'HAQQ Devnet1',
-  rpcUrl: 'http://185.92.222.237:8545',
+  rpcUrl: 'http://65.21.69.176:8545/',
   explorerUrl: 'https://explorer.devnet1.dev.haqq.network/',
 };
 
