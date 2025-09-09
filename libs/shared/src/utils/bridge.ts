@@ -1,8 +1,9 @@
 import { sepolia } from 'viem/chains';
 
+const haqqDevnet1RpcUrl = 'http://65.21.69.176:8545/';
 export const haqqDevnet1 = {
   id: 64322,
-  name: 'HAQQ Devnet 1',
+  name: 'HAQQ L2',
   nativeCurrency: {
     decimals: 18,
     name: 'Islamic Coin',
@@ -10,7 +11,7 @@ export const haqqDevnet1 = {
   },
   rpcUrls: {
     default: {
-      http: ['http://65.21.69.176:8545/'],
+      http: [haqqDevnet1RpcUrl],
     },
   },
   blockExplorers: {
@@ -55,8 +56,8 @@ export interface NetworkConfig {
 }
 
 export const HAQQ_DEVNET1_CONFIG: NetworkConfig = {
-  name: 'HAQQ Devnet1',
-  rpcUrl: 'http://65.21.69.176:8545/',
+  name: 'HAQQ L2',
+  rpcUrl: haqqDevnet1RpcUrl,
   explorerUrl: 'https://explorer.devnet1.dev.haqq.network/',
 };
 
