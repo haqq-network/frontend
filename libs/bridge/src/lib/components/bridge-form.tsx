@@ -31,6 +31,10 @@ export interface BridgeFormProps {
   selectedToken: Token | null;
   onTokenSelect: (token: Token) => void;
   isLoadingTokens?: boolean;
+  // Approval props
+  needsApproval?: boolean;
+  isApproving?: boolean;
+  onApprove?: () => void;
 }
 
 export function BridgeForm({
@@ -49,6 +53,9 @@ export function BridgeForm({
   selectedToken,
   onTokenSelect,
   isLoadingTokens = false,
+  needsApproval = false,
+  isApproving = false,
+  onApprove,
 }: BridgeFormProps) {
   return (
     <div className="space-y-[20px]">
@@ -73,16 +80,30 @@ export function BridgeForm({
         tokenSymbol={selectedToken?.symbol || 'ETH'}
       />
 
-      <div className="pt-[8px]">
-        <Button
-          variant={5}
-          onClick={onBridge}
-          className="w-full"
-          disabled={!canBridge || isProcessing || isWaitingForReceipt}
-          isLoading={isProcessing || isWaitingForReceipt}
-        >
-          {isProcessing || isWaitingForReceipt ? 'Processing...' : 'Bridge'}
-        </Button>
+      <div className="space-y-[12px] pt-[8px]">
+        {needsApproval && onApprove ? (
+          <Button
+            variant={5}
+            onClick={onApprove}
+            className="w-full"
+            disabled={isApproving || isProcessing || isWaitingForReceipt}
+            isLoading={isApproving}
+          >
+            {isApproving
+              ? 'Approving...'
+              : `Approve ${selectedToken?.symbol || 'Token'}`}
+          </Button>
+        ) : (
+          <Button
+            variant={5}
+            onClick={onBridge}
+            className="w-full"
+            disabled={!canBridge || isProcessing || isWaitingForReceipt}
+            isLoading={isProcessing || isWaitingForReceipt}
+          >
+            {isProcessing || isWaitingForReceipt ? 'Processing...' : 'Bridge'}
+          </Button>
+        )}
       </div>
 
       {isTxSuccess && <BridgeSuccessMessage />}

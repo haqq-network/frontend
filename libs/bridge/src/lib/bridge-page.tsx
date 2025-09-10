@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
-import { formatUnits, parseEther, parseUnits } from 'viem';
+import { formatUnits, parseEther, parseUnits, erc20Abi } from 'viem';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import {
   useAccount,
@@ -10,6 +10,7 @@ import {
   useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
+  useReadContract,
 } from 'wagmi';
 import {
   haqqDevnet1,
@@ -63,6 +64,7 @@ export function BridgePage() {
     undefined,
   );
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isApproving, setIsApproving] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [selectedToken, setSelectedToken] = useState<Token | null>(ETH_TOKEN);
 
@@ -133,6 +135,22 @@ export function BridgePage() {
         : (selectedToken?.address as `0x${string}`),
   });
 
+  // Check ERC-20 token allowance for the bridge contract
+  const { data: allowance, refetch: refetchAllowance } = useReadContract({
+    address: selectedToken?.address as `0x${string}`,
+    abi: erc20Abi,
+    functionName: 'allowance',
+    args: [
+      address as `0x${string}`,
+      L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
+    ],
+    query: {
+      enabled: Boolean(
+        address && selectedToken && selectedToken.address !== ETH_TOKEN.address,
+      ),
+    },
+  });
+
   // Wait for transaction receipt
   const { isLoading: isWaitingForReceipt, isSuccess: isTxSuccess } =
     useWaitForTransactionReceipt({
@@ -169,6 +187,21 @@ export function BridgePage() {
   const receivedAmount = useMemo(() => {
     return bridgeAmount;
   }, [bridgeAmount]);
+
+  // Check if approval is needed for ERC-20 tokens
+  const needsApproval = useMemo(() => {
+    if (!selectedToken || selectedToken.address === ETH_TOKEN.address) {
+      return false;
+    }
+    if (!bridgeAmount) {
+      return false;
+    }
+
+    const tokenDecimals = selectedToken.decimals || balance?.decimals || 18;
+    const amountWei = parseUnits(bridgeAmount.toString(), tokenDecimals);
+
+    return !allowance || allowance < amountWei;
+  }, [selectedToken, bridgeAmount, allowance, balance]);
 
   // Memoize canBridge for performance
   const canBridge = useMemo(() => {
@@ -246,6 +279,48 @@ export function BridgePage() {
     setSelectedToken(token);
     setBridgeAmount(undefined); // Reset amount when token changes
   }, []);
+
+  const handleApprove = useCallback(async () => {
+    if (!selectedToken || !bridgeAmount || !address) return;
+
+    setIsApproving(true);
+
+    try {
+      const tokenDecimals = selectedToken.decimals || balance?.decimals || 18;
+      const amountWei = parseUnits(bridgeAmount.toString(), tokenDecimals);
+
+      console.log(
+        `Approving ${bridgeAmount} ${selectedToken.symbol} for bridge contract`,
+      );
+
+      const hash = await writeContractAsync({
+        address: selectedToken.address as `0x${string}`,
+        abi: erc20Abi,
+        functionName: 'approve',
+        args: [L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`, amountWei],
+      });
+
+      console.log('Approval transaction hash:', hash);
+
+      // Wait for approval transaction to be mined
+      // You might want to add a separate state for approval transaction hash
+      // For now, we'll refetch allowance after a short delay
+      setTimeout(() => {
+        refetchAllowance();
+      }, 3000);
+    } catch (error) {
+      console.error('Approval failed:', error);
+    } finally {
+      setIsApproving(false);
+    }
+  }, [
+    selectedToken,
+    bridgeAmount,
+    address,
+    balance,
+    writeContractAsync,
+    refetchAllowance,
+  ]);
 
   const handleSwitchChain = useCallback(async () => {
     console.log('handleSwitchChain', targetChainIdNumber);
@@ -351,6 +426,19 @@ export function BridgePage() {
                 </div>
               )}
 
+              {needsApproval &&
+                selectedToken &&
+                selectedToken.address !== ETH_TOKEN.address && (
+                  <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
+                    <p className="text-sm font-medium">Approval Required</p>
+                    <p className="mt-1 text-xs">
+                      You need to approve the bridge contract to spend your{' '}
+                      {selectedToken.symbol} tokens. This is a one-time
+                      transaction required before bridging ERC-20 tokens.
+                    </p>
+                  </div>
+                )}
+
               <BridgeForm
                 bridgeAmount={bridgeAmount}
                 receivedAmount={receivedAmount}
@@ -367,6 +455,9 @@ export function BridgePage() {
                 selectedToken={selectedToken}
                 onTokenSelect={handleTokenSelect}
                 isLoadingTokens={isLoadingTokens}
+                needsApproval={needsApproval}
+                isApproving={isApproving}
+                onApprove={handleApprove}
               />
             </>
           )}
