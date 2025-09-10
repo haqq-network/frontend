@@ -1,35 +1,10 @@
 /**
  * HAQQ Explorer API service for fetching user token balances
+ * Uses Next.js API routes as proxy to avoid CORS issues
  */
 
-import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
-import { haqqDevnet1 } from '@haqq/shell-shared';
-
-export interface ExplorerToken {
-  address: string;
-  circulating_market_cap: string | null;
-  decimals: string;
-  exchange_rate: string | null;
-  holders: string;
-  icon_url: string | null;
-  name: string;
-  symbol: string;
-  total_supply: string;
-  type: string;
-  volume_24h: string | null;
-}
-
-export interface ExplorerTokenBalance {
-  token: ExplorerToken;
-  token_id: string | null;
-  token_instance: string | null;
-  value: string; // Balance in wei
-}
-
-export interface ExplorerApiResponse {
-  items: ExplorerTokenBalance[];
-  next_page_params: string | null;
-}
+// These interfaces are no longer needed since we're using the proxy API
+// but keeping them for potential future use
 
 export interface TokenBalance {
   symbol: string;
@@ -40,47 +15,17 @@ export interface TokenBalance {
   formattedBalance: number; // Balance in human-readable format
 }
 
-interface ChainConfig {
-  apiUrl: string;
-  nativeSymbol: string;
-  nativeName: string;
-}
-
 /**
- * Gets chain configuration for supported networks
+ * Makes a request to our Next.js API proxy
  */
-function getChainConfig(chainId: number): ChainConfig | null {
-  const configs: Record<number, ChainConfig> = {
-    [haqqDevnet1.id]: {
-      apiUrl: `${haqqDevnet1.blockExplorers.default.apiUrl}/v2`,
-      nativeSymbol: 'ISLMT',
-      nativeName: 'Islamic Coin',
-    },
-    [sepolia.id]: {
-      apiUrl: sepolia.blockExplorers.default.apiUrl,
-      nativeSymbol: 'ETH',
-      nativeName: 'Ethereum',
-    },
-    [haqqMainnet.id]: {
-      apiUrl: `${haqqMainnet.blockExplorers.default.apiUrl}/v2`,
-      nativeSymbol: 'ISLMT',
-      nativeName: 'Islamic Coin',
-    },
-    [haqqTestedge2.id]: {
-      apiUrl: `${haqqTestedge2.blockExplorers.default.apiUrl}/v2`,
-      nativeSymbol: 'ISLMT',
-      nativeName: 'Islamic Coin',
-    },
-  };
+async function makeProxyRequest(
+  endpoint: string,
+  params: Record<string, string>,
+): Promise<any> {
+  const searchParams = new URLSearchParams(params);
+  const url = `/api/tokens/${endpoint}?${searchParams.toString()}`;
 
-  return configs[chainId] || null;
-}
-
-/**
- * Makes an API request with error handling
- */
-async function makeApiRequest(url: string): Promise<any> {
-  console.log(`Making API request to: ${url}`);
+  console.log(`Making proxy API request to: ${url}`);
 
   const response = await fetch(url, {
     headers: {
@@ -89,16 +34,21 @@ async function makeApiRequest(url: string): Promise<any> {
   });
 
   if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const errorData = await response.json().catch(() => {
+      return {};
+    });
+    throw new Error(
+      errorData.error || `HTTP error! status: ${response.status}`,
+    );
   }
 
   const data = await response.json();
-  console.log(`API response received:`, data);
+  console.log(`Proxy API response received:`, data);
   return data;
 }
 
 /**
- * Fetches user token balances from HAQQ Explorer API
+ * Fetches user token balances via Next.js API proxy
  */
 export async function fetchUserTokenBalances(
   address: string,
@@ -109,41 +59,15 @@ export async function fetchUserTokenBalances(
       `Fetching token balances for address ${address} on chain ${chainId}`,
     );
 
-    const chainConfig = getChainConfig(chainId);
-    if (!chainConfig) {
-      console.log(`Unsupported chain ID: ${chainId}, returning empty array`);
-      return [];
-    }
-
-    const url = `${chainConfig.apiUrl}/addresses/${address}/tokens?type=ERC-20`;
-    const data: ExplorerApiResponse = await makeApiRequest(url);
-
-    const filteredTokens = data.items.filter((item) => {
-      // Filter out tokens with zero balance
-      return item.value !== '0' && item.value !== '0x0';
+    const data = await makeProxyRequest('balances', {
+      address,
+      chainId: chainId.toString(),
     });
 
-    console.log(
-      `Found ${filteredTokens.length} tokens with non-zero balance out of ${data.items.length} total tokens`,
-    );
+    console.log(`Found ${data.tokens.length} tokens with non-zero balance`);
+    console.log(`Processed token balances:`, data.tokens);
 
-    const tokenBalances = filteredTokens.map((item) => {
-      const decimals = parseInt(item.token.decimals, 10);
-      const balanceWei = BigInt(item.value);
-      const formattedBalance = Number(balanceWei) / Math.pow(10, decimals);
-
-      return {
-        symbol: item.token.symbol,
-        address: item.token.address,
-        name: item.token.name,
-        balance: item.value,
-        decimals,
-        formattedBalance,
-      };
-    });
-
-    console.log(`Processed token balances:`, tokenBalances);
-    return tokenBalances;
+    return data.tokens;
   } catch (error) {
     console.error('Failed to fetch token balances:', error);
     throw error;
@@ -151,7 +75,7 @@ export async function fetchUserTokenBalances(
 }
 
 /**
- * Fetches native token balance (ETH/ISLMT) for a given address
+ * Fetches native token balance via Next.js API proxy using RPC
  */
 export async function fetchNativeTokenBalance(
   address: string,
@@ -162,41 +86,20 @@ export async function fetchNativeTokenBalance(
       `Fetching native token balance for address ${address} on chain ${chainId}`,
     );
 
-    const chainConfig = getChainConfig(chainId);
-    if (!chainConfig) {
-      console.log(`Unsupported chain ID for native token: ${chainId}`);
-      return null;
-    }
+    const data = await makeProxyRequest('native-balance', {
+      address,
+      chainId: chainId.toString(),
+    });
 
-    // Currently only HAQQ Devnet1 supports native token balance API
-    if (chainId !== haqqDevnet1.id) {
-      return null;
-    }
-
-    const url = `${chainConfig.apiUrl}/addresses/${address}`;
-    const data = await makeApiRequest(url);
-
-    if (data.coin_balance) {
-      const balanceWei = BigInt(data.coin_balance);
-      const formattedBalance = Number(balanceWei) / Math.pow(10, 18);
-
+    if (data.token) {
       console.log(
-        `Native token balance: ${formattedBalance} ${chainConfig.nativeSymbol}`,
+        `Native token balance: ${data.token.formattedBalance} ${data.token.symbol}`,
       );
-
-      return {
-        symbol: chainConfig.nativeSymbol,
-        address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH placeholder
-        name: chainConfig.nativeName,
-        balance: data.coin_balance,
-        decimals: 18,
-        formattedBalance,
-      };
+      return data.token;
     } else {
-      console.log('No native token balance found in API response');
+      console.log('No native token balance found:', data.message);
+      return null;
     }
-
-    return null;
   } catch (error) {
     console.error('Failed to fetch native token balance:', error);
     return null;

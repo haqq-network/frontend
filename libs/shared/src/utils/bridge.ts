@@ -7,7 +7,7 @@ export const haqqDevnet1 = {
   nativeCurrency: {
     decimals: 18,
     name: 'Islamic Coin',
-    symbol: 'ISLMT',
+    symbol: 'ISLM',
   },
   rpcUrls: {
     default: {

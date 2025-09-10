@@ -2,7 +2,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { formatUnits, parseEther, parseUnits } from 'viem';
-import { sepolia } from 'viem/chains';
+import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import {
   useAccount,
   useBalance,
@@ -26,7 +26,7 @@ import {
 } from './components';
 import { useTokenBalances } from './hooks/use-token-balances';
 
-const SUPPORTED_CHAINS = [haqqDevnet1, sepolia];
+const SUPPORTED_CHAINS = [haqqDevnet1, haqqMainnet, haqqTestedge2, sepolia];
 
 // ETH token constant
 const ETH_TOKEN = {
