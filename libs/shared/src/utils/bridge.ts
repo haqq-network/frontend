@@ -160,7 +160,7 @@ export const BRIDGE_ADDRESSES: {
     l1ERC721BridgeProxyAddress: '0xeb99f82e0f244d0c6c565d95fb3b97cc474998b2',
     systemConfigProxyAddress: '0xc510c91e359958bb96a128235bd188d209f117e2',
     optimismMintableERC20FactoryProxyAddress:
-      '0x76b3a6e0ad683dd48d723a284a3f57b012df484f',
+      '0x76b3a6e0ad683dd48d723a284a3f57b012df484f', // 
     l1StandardBridgeProxyAddress: '0x95f23da653971217bff7a22508606e52c21b1cdf',
     l1CrossDomainMessengerProxyAddress:
       '0xd62594927e587af7b3e99980032941abc69f3528',

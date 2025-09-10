@@ -1,20 +1,13 @@
 'use client';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
-import { formatUnits, parseEther, parseUnits, erc20Abi } from 'viem';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import {
-  useAccount,
-  useBalance,
-  useSendTransaction,
   useSwitchChain,
   useWaitForTransactionReceipt,
-  useWriteContract,
-  useReadContract,
 } from 'wagmi';
 import {
   haqqDevnet1,
-  SWAPPABLE_TOKENS,
   L1StandardBridgeAbi,
   L1_STANDARD_BRIDGE_ADDRESS,
 } from '@haqq/shell-shared';
@@ -24,130 +17,79 @@ import {
   WalletConnectionWarning,
   NetworkMismatchWarning,
   BridgeForm,
+  BridgeStatusMessages,
 } from './components';
-import { useTokenBalances } from './hooks/use-token-balances';
+import {
+  useBridgeState,
+  useTokenAllowance,
+  useTokenApproval,
+  useBridgeTransaction,
+} from './hooks';
 
 const SUPPORTED_CHAINS = [haqqDevnet1, haqqMainnet, haqqTestedge2, sepolia];
 
-// ETH token constant
-const ETH_TOKEN = {
-  symbol: 'ETH',
-  address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-  name: 'Ethereum',
-};
-
-interface Token {
-  symbol: string;
-  address: string;
-  name?: string;
-  balance?: string;
-  decimals?: number;
-  formattedBalance?: number;
-}
-
 export function BridgePage() {
   const { t } = useTranslate('common');
-  const { address, chain, isConnected } = useAccount();
   const { switchChainAsync } = useSwitchChain();
-  const { sendTransactionAsync } = useSendTransaction();
-  const { writeContractAsync } = useWriteContract();
-
-  // Fetch user token balances dynamically
-  const {
-    tokens: userTokens,
-    isLoading: isLoadingTokens,
-    error: tokensError,
-  } = useTokenBalances();
 
   // State management
-  const [bridgeAmount, setBridgeAmount] = useState<number | undefined>(
-    undefined,
-  );
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [isApproving, setIsApproving] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
-  const [selectedToken, setSelectedToken] = useState<Token | null>(ETH_TOKEN);
 
-  // Get available tokens for current chain (dynamically fetched with fallback)
-  const availableTokens = useMemo(() => {
-    if (!chain) return [ETH_TOKEN];
+  // Use bridge state hook
+  const {
+    address,
+    chain,
+    isConnected,
+    availableTokens,
+    selectedToken,
+    bridgeAmount,
+    receivedAmount,
+    availableBalance,
+    isLoadingTokens,
+    tokensError,
+    userTokens,
+    balance,
+    formatNumber,
+    handleInputChange,
+    handleMaxButtonClick,
+    handleTokenSelect,
+  } = useBridgeState();
 
-    // If we're still loading tokens, return ETH token as fallback
-    if (isLoadingTokens) {
-      return [ETH_TOKEN];
-    }
-
-    // If there's an error or no tokens, use SWAPPABLE_TOKENS as fallback
-    if (tokensError || userTokens.length === 0) {
-      console.log(
-        'API token fetch failed or returned empty list, using SWAPPABLE_TOKENS fallback',
-      );
-      console.log('Error:', tokensError);
-      console.log('User tokens count:', userTokens.length);
-
-      const chainTokens = SWAPPABLE_TOKENS[chain.id] || [];
-
-      if (chainTokens.length === 0) {
-        console.log(
-          'No SWAPPABLE_TOKENS for chain',
-          chain.id,
-          ', using ETH token only',
-        );
-        return [ETH_TOKEN];
-      }
-
-      console.log(
-        'Using SWAPPABLE_TOKENS for chain',
-        chain.id,
-        ':',
-        chainTokens,
-      );
-      return [
-        ...chainTokens.map((token) => {
-          return {
-            ...token,
-            name: token.symbol === 'USDC' ? 'USD Coin' : token.symbol,
-          };
-        }),
-      ];
-    }
-
-    console.log('Successfully loaded', userTokens.length, 'tokens from API');
-    // Convert user tokens to the expected format
-    return userTokens.map((token) => {
-      return {
-        symbol: token.symbol,
-        address: token.address,
-        name: token.name,
-        balance: token.balance,
-        decimals: token.decimals,
-        formattedBalance: token.formattedBalance,
-      };
-    });
-  }, [chain, userTokens, isLoadingTokens, tokensError]);
-
-  // Get user's balance for selected token
-  const { data: balance } = useBalance({
-    address: address,
-    token:
-      selectedToken?.address === ETH_TOKEN.address
-        ? undefined
-        : (selectedToken?.address as `0x${string}`),
+  // Use allowance hook
+  const { allowance, needsApproval, refetch: refetchAllowance } = useTokenAllowance({
+    tokenAddress: selectedToken?.address,
+    ownerAddress: address,
+    spenderAddress: L1_STANDARD_BRIDGE_ADDRESS,
+    bridgeAmount,
+    tokenDecimals: selectedToken?.decimals || balance?.decimals || 18,
   });
 
-  // Check ERC-20 token allowance for the bridge contract
-  const { data: allowance, refetch: refetchAllowance } = useReadContract({
-    address: selectedToken?.address as `0x${string}`,
-    abi: erc20Abi,
-    functionName: 'allowance',
-    args: [
-      address as `0x${string}`,
-      L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
-    ],
-    query: {
-      enabled: Boolean(
-        address && selectedToken && selectedToken.address !== ETH_TOKEN.address,
-      ),
+  // Use approval hook
+  const { approve, isApproving } = useTokenApproval({
+    tokenAddress: selectedToken?.address,
+    spenderAddress: L1_STANDARD_BRIDGE_ADDRESS,
+    onSuccess: (hash) => {
+      console.log('Approval successful:', hash);
+      // Refetch allowance after successful approval
+      setTimeout(() => {
+        refetchAllowance();
+      }, 3000);
+    },
+    onError: (error) => {
+      console.error('Approval failed:', error);
+    },
+  });
+
+  // Use bridge transaction hook
+  const { bridgeTokens, isProcessing } = useBridgeTransaction({
+    bridgeAddress: L1_STANDARD_BRIDGE_ADDRESS,
+    bridgeAbi: L1StandardBridgeAbi as any,
+    onSuccess: (hash) => {
+      console.log('Bridge successful:', hash);
+      setTxHash(hash);
+    },
+    onError: (error) => {
+      console.error('Bridge failed:', error);
     },
   });
 
@@ -171,38 +113,6 @@ export function BridgePage() {
     return isChainMismatch ? SUPPORTED_CHAINS[0].id : chain?.id;
   }, [chain, isChainMismatch]);
 
-  // Memoize availableBalance for performance
-  const availableBalance = useMemo(() => {
-    // If we have token data from the API, use that
-    if (selectedToken?.formattedBalance !== undefined) {
-      return selectedToken.formattedBalance;
-    }
-
-    // Fallback to wagmi balance
-    if (!balance) return 0;
-    return Number(formatUnits(balance.value, balance.decimals));
-  }, [balance, selectedToken]);
-
-  // Memoize receivedAmount (1:1 for bridging)
-  const receivedAmount = useMemo(() => {
-    return bridgeAmount;
-  }, [bridgeAmount]);
-
-  // Check if approval is needed for ERC-20 tokens
-  const needsApproval = useMemo(() => {
-    if (!selectedToken || selectedToken.address === ETH_TOKEN.address) {
-      return false;
-    }
-    if (!bridgeAmount) {
-      return false;
-    }
-
-    const tokenDecimals = selectedToken.decimals || balance?.decimals || 18;
-    const amountWei = parseUnits(bridgeAmount.toString(), tokenDecimals);
-
-    return !allowance || allowance < amountWei;
-  }, [selectedToken, bridgeAmount, allowance, balance]);
-
   // Memoize canBridge for performance
   const canBridge = useMemo(() => {
     return (
@@ -220,13 +130,6 @@ export function BridgePage() {
     availableBalance,
     isChainMismatch,
   ]);
-
-  const formatNumber = (num: number) => {
-    return num.toLocaleString('en-US', {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 6,
-    });
-  };
 
   const amountHint = useMemo(() => {
     if (!bridgeAmount) {
@@ -252,75 +155,21 @@ export function BridgePage() {
         {selectedToken?.symbol || 'ETH'}
       </span>
     );
-  }, [bridgeAmount, availableBalance, selectedToken, t]);
-
-  const handleInputChange = useCallback((value: string | undefined) => {
-    if (!value || value === '') {
-      setBridgeAmount(undefined);
-      return;
-    }
-    const numValue = parseFloat(value);
-    if (!isNaN(numValue)) {
-      setBridgeAmount(numValue);
-    }
-  }, []);
-
-  const handleMaxButtonClick = useCallback(() => {
-    // Leave some for gas fees
-    const maxAmount = Math.max(
-      0,
-      availableBalance -
-        (selectedToken?.address === ETH_TOKEN.address ? 0.001 : 0),
-    );
-    setBridgeAmount(maxAmount);
-  }, [availableBalance, selectedToken]);
-
-  const handleTokenSelect = useCallback((token: Token) => {
-    setSelectedToken(token);
-    setBridgeAmount(undefined); // Reset amount when token changes
-  }, []);
+  }, [bridgeAmount, availableBalance, selectedToken, formatNumber, t]);
 
   const handleApprove = useCallback(async () => {
-    if (!selectedToken || !bridgeAmount || !address) return;
+    if (!selectedToken || !bridgeAmount) return;
 
-    setIsApproving(true);
+    const tokenDecimals = selectedToken.decimals || balance?.decimals || 18;
+    await approve(bridgeAmount, tokenDecimals);
+  }, [selectedToken, bridgeAmount, balance, approve]);
 
-    try {
-      const tokenDecimals = selectedToken.decimals || balance?.decimals || 18;
-      const amountWei = parseUnits(bridgeAmount.toString(), tokenDecimals);
+  const handleBridge = useCallback(async () => {
+    if (!canBridge || !address || !bridgeAmount || !selectedToken) return;
 
-      console.log(
-        `Approving ${bridgeAmount} ${selectedToken.symbol} for bridge contract`,
-      );
-
-      const hash = await writeContractAsync({
-        address: selectedToken.address as `0x${string}`,
-        abi: erc20Abi,
-        functionName: 'approve',
-        args: [L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`, amountWei],
-      });
-
-      console.log('Approval transaction hash:', hash);
-
-      // Wait for approval transaction to be mined
-      // You might want to add a separate state for approval transaction hash
-      // For now, we'll refetch allowance after a short delay
-      setTimeout(() => {
-        refetchAllowance();
-      }, 3000);
-    } catch (error) {
-      console.error('Approval failed:', error);
-    } finally {
-      setIsApproving(false);
-    }
-  }, [
-    selectedToken,
-    bridgeAmount,
-    address,
-    balance,
-    writeContractAsync,
-    refetchAllowance,
-  ]);
+    const fallbackDecimals = balance?.decimals || 18;
+    await bridgeTokens(selectedToken, bridgeAmount, address, fallbackDecimals);
+  }, [canBridge, address, bridgeAmount, selectedToken, balance, bridgeTokens]);
 
   const handleSwitchChain = useCallback(async () => {
     console.log('handleSwitchChain', targetChainIdNumber);
@@ -334,57 +183,6 @@ export function BridgePage() {
       console.error('Failed to switch chain:', error);
     }
   }, [switchChainAsync, targetChainIdNumber]);
-
-  const handleBridge = useCallback(async () => {
-    if (!canBridge || !address || !bridgeAmount || !selectedToken) return;
-
-    setIsProcessing(true);
-
-    try {
-      let hash: string;
-
-      if (selectedToken.address === ETH_TOKEN.address) {
-        // Bridge ETH
-        const amountWei = parseEther(bridgeAmount.toString());
-        hash = await sendTransactionAsync({
-          to: L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
-          value: amountWei,
-        });
-      } else {
-        // Bridge ERC20 token
-        const tokenDecimals = balance?.decimals || 18;
-        const amountWei = parseUnits(bridgeAmount.toString(), tokenDecimals);
-
-        hash = await writeContractAsync({
-          address: L1_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
-          abi: L1StandardBridgeAbi,
-          functionName: 'bridgeERC20To',
-          args: [
-            selectedToken.address as `0x${string}`, // _localToken
-            selectedToken.address as `0x${string}`, // _remoteToken (same for now)
-            address, // _to
-            amountWei, // _amount
-            200000, // _minGasLimit
-            '0x' as `0x${string}`, // _extraData
-          ],
-        });
-      }
-
-      setTxHash(hash);
-    } catch (error) {
-      console.error('Bridge transaction failed:', error);
-    } finally {
-      setIsProcessing(false);
-    }
-  }, [
-    canBridge,
-    address,
-    bridgeAmount,
-    selectedToken,
-    balance,
-    sendTransactionAsync,
-    writeContractAsync,
-  ]);
 
   return (
     <Container>
@@ -400,44 +198,13 @@ export function BridgePage() {
 
           {isConnected && (
             <>
-              {tokensError && (
-                <div className="mb-4 rounded-lg bg-yellow-50 p-4 text-yellow-700">
-                  <p className="text-sm">
-                    Failed to load token balances: {tokensError}
-                  </p>
-                  <p className="mt-1 text-xs">
-                    Using fallback token list. Check console for details.
-                  </p>
-                </div>
-              )}
-
-              {isLoadingTokens && (
-                <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
-                  <p className="text-sm">Loading your token balances...</p>
-                </div>
-              )}
-
-              {!isLoadingTokens && !tokensError && userTokens.length > 0 && (
-                <div className="mb-4 rounded-lg bg-green-50 p-4 text-green-700">
-                  <p className="text-sm">
-                    Loaded {userTokens.length} token
-                    {userTokens.length !== 1 ? 's' : ''} from your wallet
-                  </p>
-                </div>
-              )}
-
-              {needsApproval &&
-                selectedToken &&
-                selectedToken.address !== ETH_TOKEN.address && (
-                  <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
-                    <p className="text-sm font-medium">Approval Required</p>
-                    <p className="mt-1 text-xs">
-                      You need to approve the bridge contract to spend your{' '}
-                      {selectedToken.symbol} tokens. This is a one-time
-                      transaction required before bridging ERC-20 tokens.
-                    </p>
-                  </div>
-                )}
+              <BridgeStatusMessages
+                tokensError={tokensError}
+                isLoadingTokens={isLoadingTokens}
+                userTokens={userTokens}
+                needsApproval={needsApproval}
+                selectedToken={selectedToken}
+              />
 
               <BridgeForm
                 bridgeAmount={bridgeAmount}

@@ -6,6 +6,7 @@ export { BridgeAmountInput } from './bridge-amount-input';
 export { BridgeReceiveInput } from './bridge-receive-input';
 export { BridgeForm } from './bridge-form';
 export { TokenSelector } from './token-selector';
+export { BridgeStatusMessages } from './bridge-status-messages';
 
 export type { NetworkMismatchWarningProps } from './network-mismatch-warning';
 export type { BridgeAmountInputProps } from './bridge-amount-input';
