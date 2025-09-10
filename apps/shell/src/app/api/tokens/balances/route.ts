@@ -27,6 +27,8 @@ export async function GET(request: NextRequest) {
     // Make the API request to the explorer
     const url = `${chainConfig.apiUrl}/v2/addresses/${address}/tokens?type=ERC-20`;
 
+    console.log('Explorer API URL:', url);
+    
     const response = await fetch(url, {
       headers: {
         Accept: 'application/json',
@@ -113,7 +115,7 @@ function getChainConfig(chainId: number): ChainConfig | null {
     },
     [sepolia.id]: {
       // Sepolia
-      apiUrl: sepolia.blockExplorers.default.apiUrl,
+      apiUrl: 'https://eth-sepolia.blockscout.com/api',
       nativeSymbol: 'ETH',
       nativeName: 'Ethereum',
     },

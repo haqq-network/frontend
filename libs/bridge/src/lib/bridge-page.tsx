@@ -54,6 +54,8 @@ export function BridgePage() {
     handleTokenSelect,
   } = useBridgeState();
 
+  console.log('selectedToken', selectedToken);
+
   // Determine source and target chains
   const sourceChainId = chain?.id;
   const targetChainId = useMemo(() => {
@@ -89,7 +91,6 @@ export function BridgePage() {
 
   // Use allowance hook
   const {
-    allowance,
     needsApproval,
     refetch: refetchAllowance,
   } = useTokenAllowance({

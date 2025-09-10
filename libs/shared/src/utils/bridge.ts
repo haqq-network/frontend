@@ -45,6 +45,37 @@ export const SWAPPABLE_TOKENS: {
 };
 
 /**
+ * Mapping of L1 token addresses to their corresponding L2 token addresses
+ */
+export const L1_TO_L2_TOKEN_MAP: {
+  [l1Address: string]: string;
+} = {
+  // ETH remains the same address on both chains
+  '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee': '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  // USDC mapping from L1 to L2
+  ['0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'.toLowerCase()]: '0x99c1c468ec6b85dc20d8c84cc5ac8365c3527601',
+};
+
+/**
+ * Get the L2 token address for a given L1 token address
+ * @param l1TokenAddress - The L1 token address
+ * @returns The corresponding L2 token address or null if not found
+ */
+export function getL2TokenAddress(l1TokenAddress: string): string | null {
+  return L1_TO_L2_TOKEN_MAP[l1TokenAddress.toLowerCase()] || null;
+}
+
+/**
+ * Check if a token has a corresponding L2 deployment
+ * @param l1TokenAddress - The L1 token address
+ * @returns True if the token has an L2 counterpart
+ */
+export function hasL2Token(l1TokenAddress: string): boolean {
+  return l1TokenAddress.toLowerCase() in L1_TO_L2_TOKEN_MAP;
+}
+
+
+/**
  * Network configuration for Superbridge HAQQ Devnet1
  *
  * @see https://explorer.devnet1.dev.haqq.network/

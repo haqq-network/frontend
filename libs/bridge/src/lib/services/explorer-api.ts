@@ -144,3 +144,4 @@ export async function fetchAllTokenBalances(
     throw error;
   }
 }
+
