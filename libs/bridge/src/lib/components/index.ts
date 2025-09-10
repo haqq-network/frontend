@@ -17,4 +17,7 @@ export interface Token {
   symbol: string;
   address: string;
   name?: string;
+  balance?: string;
+  decimals?: number;
+  formattedBalance?: number;
 }

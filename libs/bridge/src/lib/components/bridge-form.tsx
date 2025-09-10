@@ -9,6 +9,9 @@ interface Token {
   symbol: string;
   address: string;
   name?: string;
+  balance?: string;
+  decimals?: number;
+  formattedBalance?: number;
 }
 
 export interface BridgeFormProps {
@@ -27,6 +30,7 @@ export interface BridgeFormProps {
   tokens: Token[];
   selectedToken: Token | null;
   onTokenSelect: (token: Token) => void;
+  isLoadingTokens?: boolean;
 }
 
 export function BridgeForm({
@@ -44,6 +48,7 @@ export function BridgeForm({
   tokens,
   selectedToken,
   onTokenSelect,
+  isLoadingTokens = false,
 }: BridgeFormProps) {
   return (
     <div className="space-y-[20px]">
@@ -51,7 +56,7 @@ export function BridgeForm({
         tokens={tokens}
         selectedToken={selectedToken}
         onTokenSelect={onTokenSelect}
-        disabled={isProcessing || isWaitingForReceipt}
+        disabled={isProcessing || isWaitingForReceipt || isLoadingTokens}
       />
 
       <BridgeAmountInput

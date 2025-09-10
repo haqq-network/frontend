@@ -4,6 +4,9 @@ interface Token {
   symbol: string;
   address: string;
   name?: string;
+  balance?: string;
+  decimals?: number;
+  formattedBalance?: number;
 }
 
 interface TokenSelectorProps {
@@ -45,9 +48,14 @@ export function TokenSelector({
             Select a token
           </option>
           {tokens.map((token) => {
+            const balanceText =
+              token.formattedBalance !== undefined
+                ? ` - ${token.formattedBalance.toFixed(6)}`
+                : '';
             return (
               <option key={token.address} value={token.address}>
                 {token.symbol} {token.name && `(${token.name})`}
+                {balanceText}
               </option>
             );
           })}
