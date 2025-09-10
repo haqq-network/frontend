@@ -51,9 +51,11 @@ export const L1_TO_L2_TOKEN_MAP: {
   [l1Address: string]: string;
 } = {
   // ETH remains the same address on both chains
-  '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee': '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee':
+    '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   // USDC mapping from L1 to L2
-  ['0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'.toLowerCase()]: '0x99c1c468ec6b85dc20d8c84cc5ac8365c3527601',
+  ['0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'.toLowerCase()]:
+    '0x99c1c468ec6b85dc20d8c84cc5ac8365c3527601',
 };
 
 /**
@@ -73,7 +75,6 @@ export function getL2TokenAddress(l1TokenAddress: string): string | null {
 export function hasL2Token(l1TokenAddress: string): boolean {
   return l1TokenAddress.toLowerCase() in L1_TO_L2_TOKEN_MAP;
 }
-
 
 /**
  * Network configuration for Superbridge HAQQ Devnet1

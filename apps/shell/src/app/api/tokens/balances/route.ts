@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const url = `${chainConfig.apiUrl}/v2/addresses/${address}/tokens?type=ERC-20`;
 
     console.log('Explorer API URL:', url);
-    
+
     const response = await fetch(url, {
       headers: {
         Accept: 'application/json',

@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { erc20Abi } from 'viem';
 import { useReadContract, usePublicClient } from 'wagmi';
+import { getL2TokenAddress } from '@haqq/shell-shared';
 import { useTokenDeployment } from './use-token-deployment';
 import { ERC20FactoryAbi } from '../abi/erc20-factory';
-import { getL2TokenAddress } from '@haqq/shell-shared';
 
 interface Token {
   symbol: string;
@@ -101,7 +101,6 @@ export function useBridgeTokenManager({
 
     try {
       // Method 1: Try to read from a potential deployments mapping
-      debugger;
       console.log('factoryAddress', factoryAddress);
       console.log('localToken.address', localToken.address);
       try {
@@ -111,8 +110,6 @@ export function useBridgeTokenManager({
           functionName: 'BRIDGE',
           args: [localToken.address as `0x${string}`],
         });
-
-        debugger;
 
         if (result && result !== '0x0000000000000000000000000000000000000000') {
           console.log('Found existing remote token:', result);

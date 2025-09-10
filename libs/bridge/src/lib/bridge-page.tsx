@@ -90,10 +90,7 @@ export function BridgePage() {
   });
 
   // Use allowance hook
-  const {
-    needsApproval,
-    refetch: refetchAllowance,
-  } = useTokenAllowance({
+  const { needsApproval, refetch: refetchAllowance } = useTokenAllowance({
     tokenAddress: selectedToken?.address,
     ownerAddress: address,
     spenderAddress: L1_STANDARD_BRIDGE_ADDRESS,
