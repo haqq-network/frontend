@@ -166,11 +166,19 @@ export function useBridgeTokenManager({
       tokenSymbol as string,
     );
 
+    await checkRemoteToken();
+
     // After deployment, we should check for the deployed token address
     // This would typically be done by listening to the deployment event
     // For now, we'll just return the transaction hash
     return hash;
-  }, [localToken?.address, tokenName, tokenSymbol, deployToken]);
+  }, [
+    localToken?.address,
+    tokenName,
+    tokenSymbol,
+    deployToken,
+    checkRemoteToken,
+  ]);
 
   const getRemoteTokenForBridge = useCallback(async (): Promise<string> => {
     // For ETH, return the same address

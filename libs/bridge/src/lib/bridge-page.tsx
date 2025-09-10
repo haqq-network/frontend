@@ -5,8 +5,9 @@ import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import { useSwitchChain, useWaitForTransactionReceipt } from 'wagmi';
 import {
   haqqDevnet1,
-  L1StandardBridgeAbi,
   L1_STANDARD_BRIDGE_ADDRESS,
+  BRIDGE_ADDRESSES,
+  CHAIN_CONFIG,
 } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
@@ -21,6 +22,7 @@ import {
   useTokenAllowance,
   useTokenApproval,
   useBridgeTransaction,
+  useBridgeTokenManager,
 } from './hooks';
 
 const SUPPORTED_CHAINS = [haqqDevnet1, haqqMainnet, haqqTestedge2, sepolia];
@@ -51,6 +53,39 @@ export function BridgePage() {
     handleMaxButtonClick,
     handleTokenSelect,
   } = useBridgeState();
+
+  // Determine source and target chains
+  const sourceChainId = chain?.id;
+  const targetChainId = useMemo(() => {
+    // For now, assume L1 -> L2 bridging (Sepolia -> HAQQ Testedge2)
+    if (sourceChainId === CHAIN_CONFIG.l1ChainId) {
+      return CHAIN_CONFIG.l2ChainId;
+    }
+    // For L2 -> L1 bridging
+    if (sourceChainId === CHAIN_CONFIG.l2ChainId) {
+      return CHAIN_CONFIG.l1ChainId;
+    }
+    // Default fallback
+    return CHAIN_CONFIG.l2ChainId;
+  }, [sourceChainId]);
+
+  // Use bridge token manager for token validation and deployment
+  const {
+    remoteTokenAddress,
+    needsDeployment,
+    isCheckingRemoteToken,
+    deployRemoteToken,
+    isDeploying,
+    deploymentError,
+    getRemoteTokenForBridge,
+  } = useBridgeTokenManager({
+    localToken: selectedToken || undefined,
+    factoryAddress:
+      BRIDGE_ADDRESSES.opChainDeployment
+        .optimismMintableERC20FactoryProxyAddress,
+    sourceChainId,
+    targetChainId,
+  });
 
   // Use allowance hook
   const {
@@ -84,7 +119,6 @@ export function BridgePage() {
   // Use bridge transaction hook
   const { bridgeTokens, isProcessing } = useBridgeTransaction({
     bridgeAddress: L1_STANDARD_BRIDGE_ADDRESS,
-    bridgeAbi: L1StandardBridgeAbi as any,
     onSuccess: (hash) => {
       console.log('Bridge successful:', hash);
       setTxHash(hash);
@@ -122,7 +156,9 @@ export function BridgePage() {
       bridgeAmount !== undefined &&
       bridgeAmount > 0 &&
       bridgeAmount <= availableBalance &&
-      !isChainMismatch
+      !isChainMismatch &&
+      !isCheckingRemoteToken &&
+      !isDeploying
     );
   }, [
     isConnected,
@@ -130,6 +166,8 @@ export function BridgePage() {
     bridgeAmount,
     availableBalance,
     isChainMismatch,
+    isCheckingRemoteToken,
+    isDeploying,
   ]);
 
   const amountHint = useMemo(() => {
@@ -165,12 +203,45 @@ export function BridgePage() {
     await approve(bridgeAmount, tokenDecimals);
   }, [selectedToken, bridgeAmount, balance, approve]);
 
+  const handleTokenDeployment = useCallback(async () => {
+    if (!needsDeployment) return;
+
+    try {
+      console.log('Deploying remote token for bridging...');
+      await deployRemoteToken();
+    } catch (error) {
+      console.error('Token deployment failed:', error);
+    }
+  }, [needsDeployment, deployRemoteToken]);
+
   const handleBridge = useCallback(async () => {
     if (!canBridge || !address || !bridgeAmount || !selectedToken) return;
 
-    const fallbackDecimals = balance?.decimals || 18;
-    await bridgeTokens(selectedToken, bridgeAmount, address, fallbackDecimals);
-  }, [canBridge, address, bridgeAmount, selectedToken, balance, bridgeTokens]);
+    // First, ensure remote token exists or deploy it
+    try {
+      const remoteTokenAddr = await getRemoteTokenForBridge();
+      console.log('Remote token address for bridging:', remoteTokenAddr);
+
+      const fallbackDecimals = balance?.decimals || 18;
+      await bridgeTokens(
+        selectedToken,
+        bridgeAmount,
+        address,
+        remoteTokenAddr,
+        fallbackDecimals,
+      );
+    } catch (error) {
+      console.error('Bridge operation failed:', error);
+    }
+  }, [
+    canBridge,
+    address,
+    bridgeAmount,
+    selectedToken,
+    balance,
+    bridgeTokens,
+    getRemoteTokenForBridge,
+  ]);
 
   const handleSwitchChain = useCallback(async () => {
     console.log('handleSwitchChain', targetChainIdNumber);
@@ -205,6 +276,12 @@ export function BridgePage() {
                 userTokens={userTokens}
                 needsApproval={needsApproval}
                 selectedToken={selectedToken}
+                isCheckingRemoteToken={isCheckingRemoteToken}
+                needsDeployment={needsDeployment}
+                isDeploying={isDeploying}
+                deploymentError={deploymentError}
+                onDeployToken={handleTokenDeployment}
+                remoteTokenAddress={remoteTokenAddress}
               />
 
               <BridgeForm

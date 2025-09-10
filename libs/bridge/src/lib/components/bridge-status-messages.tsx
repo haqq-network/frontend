@@ -16,6 +16,12 @@ interface BridgeStatusMessagesProps {
   userTokens?: any[];
   needsApproval?: boolean;
   selectedToken?: Token | null;
+  isCheckingRemoteToken?: boolean;
+  needsDeployment?: boolean;
+  isDeploying?: boolean;
+  deploymentError?: string | null;
+  onDeployToken?: () => void;
+  remoteTokenAddress?: string | null;
 }
 
 const ETH_TOKEN_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
@@ -26,6 +32,12 @@ export function BridgeStatusMessages({
   userTokens = [],
   needsApproval,
   selectedToken,
+  isCheckingRemoteToken,
+  needsDeployment,
+  isDeploying,
+  deploymentError,
+  onDeployToken,
+  remoteTokenAddress,
 }: BridgeStatusMessagesProps) {
   return (
     <>
@@ -54,6 +66,75 @@ export function BridgeStatusMessages({
           </p>
         </div>
       )}
+
+      {isCheckingRemoteToken &&
+        selectedToken &&
+        selectedToken.address !== ETH_TOKEN_ADDRESS && (
+          <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
+            <p className="text-sm font-medium">
+              Checking Token on Destination Chain
+            </p>
+            <p className="mt-1 text-xs">
+              Verifying if {selectedToken.symbol} exists on the destination
+              chain...
+            </p>
+          </div>
+        )}
+
+      {needsDeployment &&
+        selectedToken &&
+        selectedToken.address !== ETH_TOKEN_ADDRESS && (
+          <div className="mb-4 rounded-lg bg-orange-50 p-4 text-orange-700">
+            <p className="text-sm font-medium">Token Deployment Required</p>
+            <p className="mt-1 text-xs">
+              {selectedToken.symbol} needs to be deployed on the destination
+              chain before bridging. This is a one-time setup required for new
+              tokens.
+            </p>
+            {onDeployToken && (
+              <button
+                onClick={onDeployToken}
+                disabled={isDeploying}
+                className="mt-2 rounded bg-orange-600 px-3 py-1 text-xs font-medium text-white hover:bg-orange-700 disabled:opacity-50"
+              >
+                {isDeploying
+                  ? 'Deploying...'
+                  : `Deploy ${selectedToken.symbol}`}
+              </button>
+            )}
+          </div>
+        )}
+
+      {isDeploying && (
+        <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
+          <p className="text-sm font-medium">Deploying Token</p>
+          <p className="mt-1 text-xs">
+            Deploying {selectedToken?.symbol} on the destination chain. This may
+            take a few minutes...
+          </p>
+        </div>
+      )}
+
+      {deploymentError && (
+        <div className="mb-4 rounded-lg bg-red-50 p-4 text-red-700">
+          <p className="text-sm font-medium">Token Deployment Failed</p>
+          <p className="mt-1 text-xs">{deploymentError}</p>
+        </div>
+      )}
+
+      {remoteTokenAddress &&
+        selectedToken &&
+        selectedToken.address !== ETH_TOKEN_ADDRESS && (
+          <div className="mb-4 rounded-lg bg-green-50 p-4 text-green-700">
+            <p className="text-sm font-medium">
+              Token Available on Destination Chain
+            </p>
+            <p className="mt-1 text-xs">
+              {selectedToken.symbol} is available at:{' '}
+              {remoteTokenAddress.slice(0, 10)}...
+            </p>
+          </div>
+        )}
 
       {needsApproval &&
         selectedToken &&

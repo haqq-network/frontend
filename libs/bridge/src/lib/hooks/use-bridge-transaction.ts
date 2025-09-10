@@ -24,6 +24,7 @@ interface UseBridgeTransactionReturn {
     token: Token,
     amount: number,
     userAddress: string,
+    remoteTokenAddress: string,
     fallbackDecimals?: number,
   ) => Promise<void>;
   isProcessing: boolean;
@@ -52,6 +53,7 @@ export function useBridgeTransaction({
       token: Token,
       amount: number,
       userAddress: string,
+      remoteTokenAddress: string,
       fallbackDecimals = 18,
     ) => {
       if (!sendTransactionAsync || !writeContractAsync) {
@@ -80,14 +82,13 @@ export function useBridgeTransaction({
           const amountWei = parseUnits(amount.toString(), tokenDecimals);
 
           // For now, use the same address for both local and remote token
-          // TODO: Implement proper remote token address resolution
           hash = await writeContractAsync({
             address: bridgeAddress as `0x${string}`,
             abi: L1StandardBridgeAbi,
             functionName: 'bridgeERC20To',
             args: [
               token.address as `0x${string}`, // _localToken
-              token.address as `0x${string}`, // _remoteToken (TODO: resolve properly)
+              remoteTokenAddress as `0x${string}`, // _remoteToken
               userAddress as `0x${string}`, // _to
               amountWei, // _amount
               200000, // _minGasLimit
