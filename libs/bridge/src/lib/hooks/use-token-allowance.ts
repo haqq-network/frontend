@@ -1,8 +1,8 @@
 'use client';
 
-import { useReadContract } from 'wagmi';
-import { erc20Abi, parseUnits } from 'viem';
 import { useMemo } from 'react';
+import { erc20Abi, parseUnits } from 'viem';
+import { useReadContract } from 'wagmi';
 
 interface UseTokenAllowanceParams {
   tokenAddress?: string;
@@ -33,7 +33,7 @@ export function useTokenAllowance({
   tokenDecimals = 18,
 }: UseTokenAllowanceParams): UseTokenAllowanceReturn {
   const isEthToken = tokenAddress === ETH_ADDRESS;
-  
+
   const {
     data: allowance,
     isLoading,
@@ -46,7 +46,7 @@ export function useTokenAllowance({
     args: [ownerAddress as `0x${string}`, spenderAddress as `0x${string}`],
     query: {
       enabled: Boolean(
-        !isEthToken && ownerAddress && spenderAddress && tokenAddress
+        !isEthToken && ownerAddress && spenderAddress && tokenAddress,
       ),
     },
   });

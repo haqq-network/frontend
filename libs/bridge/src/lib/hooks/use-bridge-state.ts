@@ -26,26 +26,26 @@ interface UseBridgeStateReturn {
   address: string | undefined;
   chain: any;
   isConnected: boolean;
-  
+
   // Token state
   availableTokens: Token[];
   selectedToken: Token | null;
   setSelectedToken: (token: Token | null) => void;
-  
+
   // Amount state
   bridgeAmount: number | undefined;
   setBridgeAmount: (amount: number | undefined) => void;
   receivedAmount: number | undefined;
   availableBalance: number;
-  
+
   // Token loading state
   isLoadingTokens: boolean;
   tokensError: string | null;
   userTokens: any[];
-  
+
   // Balance data
   balance: any;
-  
+
   // UI helpers
   formatNumber: (num: number) => string;
   handleInputChange: (value: string | undefined) => void;
@@ -58,7 +58,7 @@ interface UseBridgeStateReturn {
  */
 export function useBridgeState(): UseBridgeStateReturn {
   const { address, chain, isConnected } = useAccount();
-  
+
   // Fetch user token balances dynamically
   const {
     tokens: userTokens,
@@ -67,7 +67,9 @@ export function useBridgeState(): UseBridgeStateReturn {
   } = useTokenBalances();
 
   // State management
-  const [bridgeAmount, setBridgeAmount] = useState<number | undefined>(undefined);
+  const [bridgeAmount, setBridgeAmount] = useState<number | undefined>(
+    undefined,
+  );
   const [selectedToken, setSelectedToken] = useState<Token | null>(ETH_TOKEN);
 
   // Get available tokens for current chain (dynamically fetched with fallback)
@@ -192,26 +194,26 @@ export function useBridgeState(): UseBridgeStateReturn {
     address,
     chain,
     isConnected,
-    
+
     // Token state
     availableTokens,
     selectedToken,
     setSelectedToken,
-    
+
     // Amount state
     bridgeAmount,
     setBridgeAmount,
     receivedAmount,
     availableBalance,
-    
+
     // Token loading state
     isLoadingTokens,
     tokensError,
     userTokens,
-    
+
     // Balance data
     balance,
-    
+
     // UI helpers
     formatNumber,
     handleInputChange,

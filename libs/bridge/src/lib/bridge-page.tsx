@@ -2,10 +2,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
-import {
-  useSwitchChain,
-  useWaitForTransactionReceipt,
-} from 'wagmi';
+import { useSwitchChain, useWaitForTransactionReceipt } from 'wagmi';
 import {
   haqqDevnet1,
   L1StandardBridgeAbi,
@@ -56,7 +53,11 @@ export function BridgePage() {
   } = useBridgeState();
 
   // Use allowance hook
-  const { allowance, needsApproval, refetch: refetchAllowance } = useTokenAllowance({
+  const {
+    allowance,
+    needsApproval,
+    refetch: refetchAllowance,
+  } = useTokenAllowance({
     tokenAddress: selectedToken?.address,
     ownerAddress: address,
     spenderAddress: L1_STANDARD_BRIDGE_ADDRESS,

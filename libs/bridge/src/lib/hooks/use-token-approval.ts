@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { useWriteContract } from 'wagmi';
 import { erc20Abi, parseUnits } from 'viem';
+import { useWriteContract } from 'wagmi';
 
 interface UseTokenApprovalParams {
   tokenAddress?: string;
@@ -56,7 +56,8 @@ export function useTokenApproval({
         console.log('Approval transaction hash:', hash);
         onSuccess?.(hash);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Approval failed';
+        const errorMessage =
+          err instanceof Error ? err.message : 'Approval failed';
         console.error('Approval failed:', err);
         setError(errorMessage);
         onError?.(err as Error);
@@ -65,7 +66,7 @@ export function useTokenApproval({
         setIsApproving(false);
       }
     },
-    [tokenAddress, spenderAddress, writeContractAsync, onSuccess, onError]
+    [tokenAddress, spenderAddress, writeContractAsync, onSuccess, onError],
   );
 
   const reset = useCallback(() => {

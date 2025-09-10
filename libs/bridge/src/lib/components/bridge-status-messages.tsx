@@ -31,7 +31,9 @@ export function BridgeStatusMessages({
     <>
       {tokensError && (
         <div className="mb-4 rounded-lg bg-yellow-50 p-4 text-yellow-700">
-          <p className="text-sm">Failed to load token balances: {tokensError}</p>
+          <p className="text-sm">
+            Failed to load token balances: {tokensError}
+          </p>
           <p className="mt-1 text-xs">
             Using fallback token list. Check console for details.
           </p>
