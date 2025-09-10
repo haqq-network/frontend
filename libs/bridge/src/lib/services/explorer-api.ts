@@ -2,7 +2,7 @@
  * HAQQ Explorer API service for fetching user token balances
  */
 
-import { sepolia } from 'viem/chains';
+import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import { haqqDevnet1 } from '@haqq/shell-shared';
 
 export interface ExplorerToken {
@@ -40,6 +40,63 @@ export interface TokenBalance {
   formattedBalance: number; // Balance in human-readable format
 }
 
+interface ChainConfig {
+  apiUrl: string;
+  nativeSymbol: string;
+  nativeName: string;
+}
+
+/**
+ * Gets chain configuration for supported networks
+ */
+function getChainConfig(chainId: number): ChainConfig | null {
+  const configs: Record<number, ChainConfig> = {
+    [haqqDevnet1.id]: {
+      apiUrl: `${haqqDevnet1.blockExplorers.default.apiUrl}/v2`,
+      nativeSymbol: 'ISLMT',
+      nativeName: 'Islamic Coin',
+    },
+    [sepolia.id]: {
+      apiUrl: sepolia.blockExplorers.default.apiUrl,
+      nativeSymbol: 'ETH',
+      nativeName: 'Ethereum',
+    },
+    [haqqMainnet.id]: {
+      apiUrl: `${haqqMainnet.blockExplorers.default.apiUrl}/v2`,
+      nativeSymbol: 'ISLMT',
+      nativeName: 'Islamic Coin',
+    },
+    [haqqTestedge2.id]: {
+      apiUrl: `${haqqTestedge2.blockExplorers.default.apiUrl}/v2`,
+      nativeSymbol: 'ISLMT',
+      nativeName: 'Islamic Coin',
+    },
+  };
+
+  return configs[chainId] || null;
+}
+
+/**
+ * Makes an API request with error handling
+ */
+async function makeApiRequest(url: string): Promise<any> {
+  console.log(`Making API request to: ${url}`);
+
+  const response = await fetch(url, {
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  console.log(`API response received:`, data);
+  return data;
+}
+
 /**
  * Fetches user token balances from HAQQ Explorer API
  */
@@ -52,72 +109,41 @@ export async function fetchUserTokenBalances(
       `Fetching token balances for address ${address} on chain ${chainId}`,
     );
 
-    // Determine the correct explorer API URL based on chain
-    let apiUrl: string;
-
-    if (chainId === haqqDevnet1.id) {
-      // HAQQ L2 (Devnet1)
-      apiUrl = 'https://explorer.devnet1.dev.haqq.network/api/v2';
-    } else if (chainId === sepolia.id) {
-      // Sepolia
-      apiUrl = 'https://sepolia.etherscan.io/api';
-    } else {
+    const chainConfig = getChainConfig(chainId);
+    if (!chainConfig) {
       console.log(`Unsupported chain ID: ${chainId}, returning empty array`);
       return [];
     }
 
-    // For HAQQ L2, use the explorer API
-    if (chainId === haqqDevnet1.id) {
-      const url = `${apiUrl}/addresses/${address}/tokens?type=ERC-20`;
-      console.log(`Making API request to: ${url}`);
+    const url = `${chainConfig.apiUrl}/addresses/${address}/tokens?type=ERC-20`;
+    const data: ExplorerApiResponse = await makeApiRequest(url);
 
-      const response = await fetch(url, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
+    const filteredTokens = data.items.filter((item) => {
+      // Filter out tokens with zero balance
+      return item.value !== '0' && item.value !== '0x0';
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+    console.log(
+      `Found ${filteredTokens.length} tokens with non-zero balance out of ${data.items.length} total tokens`,
+    );
 
-      const data: ExplorerApiResponse = await response.json();
-      console.log(`API response received:`, data);
+    const tokenBalances = filteredTokens.map((item) => {
+      const decimals = parseInt(item.token.decimals, 10);
+      const balanceWei = BigInt(item.value);
+      const formattedBalance = Number(balanceWei) / Math.pow(10, decimals);
 
-      const filteredTokens = data.items.filter((item) => {
-        // Filter out tokens with zero balance
-        return item.value !== '0' && item.value !== '0x0';
-      });
+      return {
+        symbol: item.token.symbol,
+        address: item.token.address,
+        name: item.token.name,
+        balance: item.value,
+        decimals,
+        formattedBalance,
+      };
+    });
 
-      console.log(
-        `Found ${filteredTokens.length} tokens with non-zero balance out of ${data.items.length} total tokens`,
-      );
-
-      const tokenBalances = filteredTokens.map((item) => {
-        const decimals = parseInt(item.token.decimals, 10);
-        const balanceWei = BigInt(item.value);
-        const formattedBalance = Number(balanceWei) / Math.pow(10, decimals);
-
-        return {
-          symbol: item.token.symbol,
-          address: item.token.address,
-          name: item.token.name,
-          balance: item.value,
-          decimals,
-          formattedBalance,
-        };
-      });
-
-      console.log(`Processed token balances:`, tokenBalances);
-      return tokenBalances;
-    } else {
-      // For other chains, we might need different API endpoints
-      // For now, return empty array for unsupported chains
-      console.log(
-        `Chain ${chainId} not supported for token balance fetching, returning empty array`,
-      );
-      return [];
-    }
+    console.log(`Processed token balances:`, tokenBalances);
+    return tokenBalances;
   } catch (error) {
     console.error('Failed to fetch token balances:', error);
     throw error;
@@ -136,61 +162,38 @@ export async function fetchNativeTokenBalance(
       `Fetching native token balance for address ${address} on chain ${chainId}`,
     );
 
-    let apiUrl: string;
-    let nativeSymbol: string;
-    let nativeName: string;
-
-    if (chainId === haqqDevnet1.id) {
-      // HAQQ L2 (Devnet1)
-      apiUrl = 'https://explorer.devnet1.dev.haqq.network/api/v2';
-      nativeSymbol = 'ISLMT';
-      nativeName = 'Islamic Coin';
-    } else if (chainId === sepolia.id) {
-      // Sepolia
-      apiUrl = 'https://sepolia.etherscan.io/api';
-      nativeSymbol = 'ETH';
-      nativeName = 'Ethereum';
-    } else {
+    const chainConfig = getChainConfig(chainId);
+    if (!chainConfig) {
       console.log(`Unsupported chain ID for native token: ${chainId}`);
       return null;
     }
 
-    if (chainId === 64322) {
-      const url = `${apiUrl}/addresses/${address}`;
-      console.log(`Making native token API request to: ${url}`);
+    // Currently only HAQQ Devnet1 supports native token balance API
+    if (chainId !== haqqDevnet1.id) {
+      return null;
+    }
 
-      const response = await fetch(url, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
+    const url = `${chainConfig.apiUrl}/addresses/${address}`;
+    const data = await makeApiRequest(url);
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+    if (data.coin_balance) {
+      const balanceWei = BigInt(data.coin_balance);
+      const formattedBalance = Number(balanceWei) / Math.pow(10, 18);
 
-      const data = await response.json();
-      console.log(`Native token API response:`, data);
+      console.log(
+        `Native token balance: ${formattedBalance} ${chainConfig.nativeSymbol}`,
+      );
 
-      if (data.coin_balance) {
-        const balanceWei = BigInt(data.coin_balance);
-        const formattedBalance = Number(balanceWei) / Math.pow(10, 18);
-
-        console.log(
-          `Native token balance: ${formattedBalance} ${nativeSymbol}`,
-        );
-
-        return {
-          symbol: nativeSymbol,
-          address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH placeholder
-          name: nativeName,
-          balance: data.coin_balance,
-          decimals: 18,
-          formattedBalance,
-        };
-      } else {
-        console.log('No native token balance found in API response');
-      }
+      return {
+        symbol: chainConfig.nativeSymbol,
+        address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH placeholder
+        name: chainConfig.nativeName,
+        balance: data.coin_balance,
+        decimals: 18,
+        formattedBalance,
+      };
+    } else {
+      console.log('No native token balance found in API response');
     }
 
     return null;
