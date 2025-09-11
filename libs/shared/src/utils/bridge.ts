@@ -17,8 +17,8 @@ export const haqqDevnet1 = {
   blockExplorers: {
     default: {
       name: 'HAQQ Explorer',
-      url: 'https://explorer.devnet1.dev.haqq.network/',
-      apiUrl: 'https://explorer.devnet1.dev.haqq.network/api',
+      url: 'https://explorer.devnet2.dev.haqq.network/',
+      apiUrl: 'https://explorer.devnet2.dev.haqq.network/api',
     },
   },
 };
@@ -54,6 +54,7 @@ export const L1_TO_L2_TOKEN_MAP: {
   '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee':
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   // USDC mapping from L1 to L2
+
   ['0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'.toLowerCase()]:
     '0x99c1c468ec6b85dc20d8c84cc5ac8365c3527601',
 };
