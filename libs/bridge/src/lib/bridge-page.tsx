@@ -1,13 +1,13 @@
 'use client';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
-import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
+import { useRouter } from 'next/navigation';
 import { useSwitchChain, useWaitForTransactionReceipt } from 'wagmi';
 import {
-  haqqDevnet1,
   L1_STANDARD_BRIDGE_ADDRESS,
   BRIDGE_ADDRESSES,
   CHAIN_CONFIG,
+  SUPPORTED_CHAINS,
 } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
@@ -23,13 +23,18 @@ import {
   useTokenApproval,
   useBridgeTransaction,
   useBridgeTokenManager,
+  useBridgeUrlState,
 } from './hooks';
 
-const SUPPORTED_CHAINS = [haqqDevnet1, haqqMainnet, haqqTestedge2, sepolia];
+// SUPPORTED_CHAINS is now imported from @haqq/shell-shared
 
 export function BridgePage() {
   const { t } = useTranslate('common');
+  const router = useRouter();
   const { switchChainAsync } = useSwitchChain();
+
+  // URL state management
+  const { updateUrlState, buildDeploymentUrl } = useBridgeUrlState();
 
   // State management
   const [txHash, setTxHash] = useState<string | null>(null);
@@ -54,8 +59,6 @@ export function BridgePage() {
     handleTokenSelect,
   } = useBridgeState();
 
-  console.log('selectedToken', selectedToken);
-
   // Determine source and target chains
   const sourceChainId = chain?.id;
   const targetChainId = useMemo(() => {
@@ -71,14 +74,25 @@ export function BridgePage() {
     return CHAIN_CONFIG.l2ChainId;
   }, [sourceChainId]);
 
-  // Use bridge token manager for token validation and deployment
+  // Sync URL state with bridge state
+  useEffect(() => {
+    if (selectedToken && chain?.id && bridgeAmount) {
+      updateUrlState({
+        tokenIn: selectedToken.address,
+        chainIn: chain.id,
+        chainOut: targetChainId,
+        amount: bridgeAmount.toString(),
+      });
+    }
+  }, [selectedToken, chain?.id, targetChainId, bridgeAmount, updateUrlState]);
+
+  console.log('selectedToken', selectedToken);
+
+  // Use bridge token manager for token validation
   const {
     remoteTokenAddress,
     needsDeployment,
     isCheckingRemoteToken,
-    deployRemoteToken,
-    isDeploying,
-    deploymentError,
     getRemoteTokenForBridge,
   } = useBridgeTokenManager({
     localToken: selectedToken || undefined,
@@ -155,8 +169,7 @@ export function BridgePage() {
       bridgeAmount > 0 &&
       bridgeAmount <= availableBalance &&
       !isChainMismatch &&
-      !isCheckingRemoteToken &&
-      !isDeploying
+      !isCheckingRemoteToken
     );
   }, [
     isConnected,
@@ -165,7 +178,6 @@ export function BridgePage() {
     availableBalance,
     isChainMismatch,
     isCheckingRemoteToken,
-    isDeploying,
   ]);
 
   const amountHint = useMemo(() => {
@@ -201,21 +213,38 @@ export function BridgePage() {
     await approve(bridgeAmount, tokenDecimals);
   }, [selectedToken, bridgeAmount, balance, approve]);
 
-  const handleTokenDeployment = useCallback(async () => {
-    if (!needsDeployment) return;
+  const handleTokenDeployment = useCallback(() => {
+    if (!needsDeployment || !selectedToken || !targetChainId) return;
 
-    try {
-      console.log('Deploying remote token for bridging...');
-      await deployRemoteToken();
-    } catch (error) {
-      console.error('Token deployment failed:', error);
-    }
-  }, [needsDeployment, deployRemoteToken]);
+    // Redirect to deployment page instead of deploying inline
+    const deploymentUrl = buildDeploymentUrl(
+      selectedToken.address,
+      targetChainId,
+    );
+    router.push(deploymentUrl);
+  }, [
+    needsDeployment,
+    selectedToken,
+    targetChainId,
+    buildDeploymentUrl,
+    router,
+  ]);
 
   const handleBridge = useCallback(async () => {
     if (!canBridge || !address || !bridgeAmount || !selectedToken) return;
 
-    // First, ensure remote token exists or deploy it
+    // Check if token needs deployment first
+    if (needsDeployment) {
+      // Redirect to deployment page
+      const deploymentUrl = buildDeploymentUrl(
+        selectedToken.address,
+        targetChainId,
+      );
+      router.push(deploymentUrl);
+      return;
+    }
+
+    // Proceed with bridge if remote token exists
     try {
       const remoteTokenAddr = await getRemoteTokenForBridge();
       console.log('Remote token address for bridging:', remoteTokenAddr);
@@ -239,6 +268,10 @@ export function BridgePage() {
     balance,
     bridgeTokens,
     getRemoteTokenForBridge,
+    needsDeployment,
+    buildDeploymentUrl,
+    targetChainId,
+    router,
   ]);
 
   const handleSwitchChain = useCallback(async () => {
@@ -276,8 +309,6 @@ export function BridgePage() {
                 selectedToken={selectedToken}
                 isCheckingRemoteToken={isCheckingRemoteToken}
                 needsDeployment={needsDeployment}
-                isDeploying={isDeploying}
-                deploymentError={deploymentError}
                 onDeployToken={handleTokenDeployment}
                 remoteTokenAddress={remoteTokenAddress}
               />

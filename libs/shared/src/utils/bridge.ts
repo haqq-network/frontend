@@ -41,6 +41,10 @@ export const SWAPPABLE_TOKENS: {
       symbol: 'USDC',
       address: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238',
     },
+    {
+      symbol: 'EURC',
+      address: '0x08210f9170f89ab7658f0b5e3ff39b0e03c594d4',
+    },
   ],
 };
 

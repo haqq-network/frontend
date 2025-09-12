@@ -34,24 +34,14 @@ export function BridgeStatusMessages({
   selectedToken,
   isCheckingRemoteToken,
   needsDeployment,
-  isDeploying,
-  deploymentError,
   onDeployToken,
   remoteTokenAddress,
 }: BridgeStatusMessagesProps) {
+  if (tokensError) {
+    console.warn('Token Loading Error', tokensError);
+  }
   return (
     <>
-      {tokensError && (
-        <div className="mb-4 rounded-lg bg-yellow-50 p-4 text-yellow-700">
-          <p className="text-sm">
-            Failed to load token balances: {tokensError}
-          </p>
-          <p className="mt-1 text-xs">
-            Using fallback token list. Check console for details.
-          </p>
-        </div>
-      )}
-
       {isLoadingTokens && (
         <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
           <p className="text-sm">Loading your token balances...</p>
@@ -94,33 +84,13 @@ export function BridgeStatusMessages({
             {onDeployToken && (
               <button
                 onClick={onDeployToken}
-                disabled={isDeploying}
                 className="mt-2 rounded bg-orange-600 px-3 py-1 text-xs font-medium text-white hover:bg-orange-700 disabled:opacity-50"
               >
-                {isDeploying
-                  ? 'Deploying...'
-                  : `Deploy ${selectedToken.symbol}`}
+                Deploy ${selectedToken.symbol}
               </button>
             )}
           </div>
         )}
-
-      {isDeploying && (
-        <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
-          <p className="text-sm font-medium">Deploying Token</p>
-          <p className="mt-1 text-xs">
-            Deploying {selectedToken?.symbol} on the destination chain. This may
-            take a few minutes...
-          </p>
-        </div>
-      )}
-
-      {deploymentError && (
-        <div className="mb-4 rounded-lg bg-red-50 p-4 text-red-700">
-          <p className="text-sm font-medium">Token Deployment Failed</p>
-          <p className="mt-1 text-xs">{deploymentError}</p>
-        </div>
-      )}
 
       {remoteTokenAddress &&
         selectedToken &&

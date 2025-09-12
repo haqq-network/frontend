@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState, useMemo } from 'react';
 import { erc20Abi } from 'viem';
 import { useReadContract, usePublicClient } from 'wagmi';
 import { getL2TokenAddress } from '@haqq/shell-shared';
-import { useTokenDeployment } from './use-token-deployment';
 import { ERC20FactoryAbi } from '../abi/erc20-factory';
 
 interface Token {
@@ -25,10 +24,8 @@ interface UseBridgeTokenManagerReturn {
   remoteTokenAddress: string | null;
   needsDeployment: boolean;
   isCheckingRemoteToken: boolean;
-  deployRemoteToken: () => Promise<string>;
-  isDeploying: boolean;
-  deploymentError: string | null;
   getRemoteTokenForBridge: () => Promise<string>;
+  refreshRemoteToken: () => Promise<void>;
 }
 
 const ETH_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
@@ -74,17 +71,7 @@ export function useBridgeTokenManager({
     },
   });
 
-  // Token deployment hook
-  const {
-    deployToken,
-    isDeploying,
-    deploymentHash,
-    error: deploymentError,
-    reset: resetDeployment,
-  } = useTokenDeployment({
-    factoryAddress,
-    targetChainId,
-  });
+  // Remove token deployment hook since deployment is now handled on a separate page
 
   // Check if remote token exists
   const checkRemoteToken = useCallback(async (): Promise<string | null> => {
@@ -149,32 +136,11 @@ export function useBridgeTokenManager({
     );
   }, [localToken?.address, remoteTokenAddress, isCheckingRemoteToken]);
 
-  const deployRemoteToken = useCallback(async (): Promise<string> => {
-    if (!localToken?.address || !tokenName || !tokenSymbol) {
-      throw new Error('Missing token information for deployment');
-    }
-
-    console.log(`Deploying remote token: ${tokenName} (${tokenSymbol})`);
-
-    const hash = await deployToken(
-      localToken.address,
-      tokenName as string,
-      tokenSymbol as string,
-    );
-
-    await checkRemoteToken();
-
-    // After deployment, we should check for the deployed token address
-    // This would typically be done by listening to the deployment event
-    // For now, we'll just return the transaction hash
-    return hash;
-  }, [
-    localToken?.address,
-    tokenName,
-    tokenSymbol,
-    deployToken,
-    checkRemoteToken,
-  ]);
+  // Refresh remote token - useful after deployment on separate page
+  const refreshRemoteToken = useCallback(async (): Promise<void> => {
+    const address = await checkRemoteToken();
+    setRemoteTokenAddress(address);
+  }, [checkRemoteToken]);
 
   const getRemoteTokenForBridge = useCallback(async (): Promise<string> => {
     // For ETH, return the same address
@@ -187,33 +153,22 @@ export function useBridgeTokenManager({
       return remoteTokenAddress;
     }
 
-    // If needs deployment, deploy first
+    // If needs deployment, throw error to indicate deployment is required
+    // The calling component should redirect to deployment page
     if (needsDeployment) {
-      console.log('Remote token needs deployment, deploying now...');
-      await deployRemoteToken();
-
-      // After deployment, we would need to get the actual deployed address
-      // For now, return the local token address as fallback
-      // In a real implementation, you'd parse the deployment event or calculate the address
-      return localToken.address;
+      throw new Error('DEPLOYMENT_REQUIRED');
     }
 
-    // Fallback to local token address
+    // Fallback to local token address (should not happen in normal flow)
+    console.warn('Using local token address as fallback for remote token');
     return localToken.address;
-  }, [
-    localToken?.address,
-    remoteTokenAddress,
-    needsDeployment,
-    deployRemoteToken,
-  ]);
+  }, [localToken?.address, remoteTokenAddress, needsDeployment]);
 
   return {
     remoteTokenAddress,
     needsDeployment,
     isCheckingRemoteToken,
-    deployRemoteToken,
-    isDeploying,
-    deploymentError,
     getRemoteTokenForBridge,
+    refreshRemoteToken,
   };
 }

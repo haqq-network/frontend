@@ -7,3 +7,4 @@ export { useRemoteToken } from './use-remote-token';
 export { useTokenDeployment } from './use-token-deployment';
 export { useBridgeTokenManager } from './use-bridge-token-manager';
 export { useStandardToken } from './use-standard-token';
+export { useBridgeUrlState } from './use-bridge-url-state';
