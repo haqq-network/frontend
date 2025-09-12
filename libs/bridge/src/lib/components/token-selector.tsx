@@ -22,6 +22,7 @@ export function TokenSelector({
   onTokenSelect,
   disabled = false,
 }: TokenSelectorProps) {
+  console.log('tokens', tokens);
   const handleTokenChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedAddress = event.target.value;
     const token = tokens.find((t) => {
@@ -48,18 +49,25 @@ export function TokenSelector({
           <option value="" disabled>
             Select a token
           </option>
-          {tokens.map((token) => {
-            const balanceText =
-              token.formattedBalance !== undefined
-                ? ` - ${token.formattedBalance.toFixed(6)}`
-                : '';
-            return (
-              <option key={token.address} value={token.address.toLowerCase()}>
-                {token.symbol} {token.name && `(${token.name})`}
-                {balanceText}
-              </option>
-            );
-          })}
+          {tokens
+            .filter((token) => {
+              return token.address;
+            })
+            .map((token) => {
+              const balanceText =
+                token.formattedBalance !== undefined
+                  ? ` - ${token.formattedBalance.toFixed(6)}`
+                  : '';
+              return (
+                <option
+                  key={token.address}
+                  value={token.address?.toLowerCase()}
+                >
+                  {token.symbol} {token.name && `(${token.name})`}
+                  {balanceText}
+                </option>
+              );
+            })}
         </select>
       </div>
     </div>

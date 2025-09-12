@@ -50,7 +50,12 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json();
 
-    console.log('Explorer API data:', data);
+    console.log(
+      'Explorer API data:',
+      data?.items?.map((item: any) => {
+        return item.token;
+      }),
+    );
 
     console.log('Explorer API data items count:', data.items?.length || 0);
 
@@ -71,7 +76,7 @@ export async function GET(request: NextRequest) {
 
       return {
         symbol: item.token.symbol,
-        address: item.token.address,
+        address: item.token.address_hash || item.token.address,
         name: item.token.name,
         balance: item.value,
         decimals,

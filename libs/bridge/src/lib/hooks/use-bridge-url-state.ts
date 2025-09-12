@@ -16,7 +16,11 @@ export interface UseBridgeUrlStateReturn {
   updateUrlState: (newState: Partial<BridgeUrlState>) => void;
   clearUrlState: () => void;
   buildBridgeUrl: (state: Partial<BridgeUrlState>) => string;
-  buildDeploymentUrl: (token: string, targetChainId: number) => string;
+  buildDeploymentUrl: (
+    token: string,
+    sourceChainId: number,
+    targetChainId: number,
+  ) => string;
 }
 
 /**
@@ -85,9 +89,10 @@ export function useBridgeUrlState(): UseBridgeUrlStateReturn {
 
   // Build deployment URL with token and chain info
   const buildDeploymentUrl = useCallback(
-    (token: string, targetChainId: number) => {
+    (token: string, sourceChainId: number, targetChainId: number) => {
       const params = new URLSearchParams();
       params.set('token', token);
+      params.set('sourceChain', sourceChainId.toString());
       params.set('targetChain', targetChainId.toString());
 
       // Preserve current bridge state for return

@@ -214,17 +214,20 @@ export function BridgePage() {
   }, [selectedToken, bridgeAmount, balance, approve]);
 
   const handleTokenDeployment = useCallback(() => {
-    if (!needsDeployment || !selectedToken || !targetChainId) return;
+    if (!needsDeployment || !selectedToken || !sourceChainId || !targetChainId)
+      return;
 
     // Redirect to deployment page instead of deploying inline
     const deploymentUrl = buildDeploymentUrl(
       selectedToken.address,
+      sourceChainId,
       targetChainId,
     );
     router.push(deploymentUrl);
   }, [
     needsDeployment,
     selectedToken,
+    sourceChainId,
     targetChainId,
     buildDeploymentUrl,
     router,
@@ -236,8 +239,13 @@ export function BridgePage() {
     // Check if token needs deployment first
     if (needsDeployment) {
       // Redirect to deployment page
+      if (!sourceChainId) {
+        console.error('Source chain ID is required for deployment');
+        return;
+      }
       const deploymentUrl = buildDeploymentUrl(
         selectedToken.address,
+        sourceChainId,
         targetChainId,
       );
       router.push(deploymentUrl);

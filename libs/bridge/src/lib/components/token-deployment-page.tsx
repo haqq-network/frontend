@@ -41,6 +41,7 @@ export function TokenDeploymentPage() {
 
   // Parse URL parameters
   const tokenAddress = searchParams.get('token');
+  const sourceChainId = searchParams.get('sourceChain');
   const targetChainId = searchParams.get('targetChain');
   const returnTokenIn = searchParams.get('returnTokenIn');
   const returnTokenOut = searchParams.get('returnTokenOut');
@@ -48,8 +49,14 @@ export function TokenDeploymentPage() {
   const returnChainOut = searchParams.get('returnChainOut');
   const returnAmount = searchParams.get('returnAmount');
 
+  const sourceChainIdNumber = sourceChainId
+    ? parseInt(sourceChainId, 10)
+    : null;
   const targetChainIdNumber = targetChainId
     ? parseInt(targetChainId, 10)
+    : null;
+  const sourceChain = sourceChainIdNumber
+    ? getChainById(sourceChainIdNumber)
     : null;
   const targetChain = targetChainIdNumber
     ? getChainById(targetChainIdNumber)
@@ -60,8 +67,9 @@ export function TokenDeploymentPage() {
     address: tokenAddress as `0x${string}`,
     abi: erc20Abi,
     functionName: 'name',
+    chainId: sourceChainIdNumber || undefined,
     query: {
-      enabled: Boolean(tokenAddress),
+      enabled: Boolean(tokenAddress && sourceChainIdNumber),
     },
   });
 
@@ -69,8 +77,9 @@ export function TokenDeploymentPage() {
     address: tokenAddress as `0x${string}`,
     abi: erc20Abi,
     functionName: 'symbol',
+    chainId: sourceChainIdNumber || undefined,
     query: {
-      enabled: Boolean(tokenAddress),
+      enabled: Boolean(tokenAddress && sourceChainIdNumber),
     },
   });
 
@@ -78,9 +87,16 @@ export function TokenDeploymentPage() {
     address: tokenAddress as `0x${string}`,
     abi: erc20Abi,
     functionName: 'decimals',
+    chainId: sourceChainIdNumber || undefined,
     query: {
-      enabled: Boolean(tokenAddress),
+      enabled: Boolean(tokenAddress && sourceChainIdNumber),
     },
+  });
+
+  console.log({
+    tokenName,
+    tokenSymbol,
+    tokenDecimals,
   });
 
   const tokenInfo: TokenInfo | null = useMemo(() => {
@@ -193,8 +209,16 @@ export function TokenDeploymentPage() {
     }
   }, [isDeploymentSuccess, handleReturnToBridge]);
 
+  console.log({
+    isConnected,
+    tokenInfo,
+    needsChainSwitch,
+    isDeploying,
+    isWaitingForDeployment,
+    isDeploymentSuccess,
+  });
   // Validation
-  if (!tokenAddress || !targetChainIdNumber) {
+  if (!tokenAddress || !sourceChainIdNumber || !targetChainIdNumber) {
     return (
       <Container>
         <div className="mx-auto max-w-[600px] py-[40px]">
@@ -204,7 +228,8 @@ export function TokenDeploymentPage() {
                 Invalid Parameters
               </h1>
               <p className="mb-6 text-gray-600">
-                Missing required token address or target chain ID.
+                Missing required token address, source chain ID, or target chain
+                ID.
               </p>
               <Button
                 onClick={() => {
@@ -280,6 +305,10 @@ export function TokenDeploymentPage() {
                 <p>
                   <span className="font-medium">Decimals:</span>{' '}
                   {tokenInfo.decimals}
+                </p>
+                <p>
+                  <span className="font-medium">Source Chain:</span>{' '}
+                  {sourceChain?.name || `Chain ${sourceChainIdNumber}`}
                 </p>
               </div>
             </div>
@@ -385,6 +414,7 @@ export function TokenDeploymentPage() {
                 isDeploymentSuccess
               }
               className="flex-1"
+              variant={4}
             >
               {isDeploying || isWaitingForDeployment
                 ? 'Deploying...'
