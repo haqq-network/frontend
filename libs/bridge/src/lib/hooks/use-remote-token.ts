@@ -39,28 +39,6 @@ export function useRemoteToken({
     string | undefined
   >(undefined);
 
-  // Calculate the expected remote token address using CREATE2
-  const calculateRemoteTokenAddress = useCallback(
-    (
-      factoryAddr: string,
-      remoteToken: string,
-      name: string,
-      symbol: string,
-    ): string => {
-      // For now, return a placeholder - in practice, you'd implement CREATE2 address calculation
-      // This would require the same salt and bytecode hash used by the factory
-      console.log('Calculating remote token address for:', {
-        remoteToken,
-        name,
-        symbol,
-      });
-
-      // Placeholder - in real implementation, calculate CREATE2 address
-      return `0x${remoteToken.slice(2).toLowerCase()}000000000000000000000000`;
-    },
-    [],
-  );
-
   // Check if remote token exists by trying to call version() on the calculated address
   const checkRemoteTokenExists = useCallback(async (): Promise<
     string | null
@@ -100,6 +78,9 @@ export function useRemoteToken({
           'Found existing remote token via events:',
           deployedTokenAddress,
         );
+
+        console.log('logs', logs);
+        console.log('deployedTokenAddress', deployedTokenAddress);
 
         // Verify the token exists by calling version()
         try {

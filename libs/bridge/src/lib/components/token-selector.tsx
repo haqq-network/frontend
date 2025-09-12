@@ -22,13 +22,11 @@ export function TokenSelector({
   onTokenSelect,
   disabled = false,
 }: TokenSelectorProps) {
-  console.log('tokens', tokens);
   const handleTokenChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedAddress = event.target.value;
     const token = tokens.find((t) => {
       return t.address.toLowerCase() === selectedAddress.toLowerCase();
     });
-    console.log('token', token);
     if (token) {
       onTokenSelect(token);
     }

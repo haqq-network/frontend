@@ -86,8 +86,6 @@ export function BridgePage() {
     }
   }, [selectedToken, chain?.id, targetChainId, bridgeAmount, updateUrlState]);
 
-  console.log('selectedToken', selectedToken);
-
   // Use bridge token manager for token validation
   const {
     remoteTokenAddress,

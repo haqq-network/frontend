@@ -71,8 +71,6 @@ export function useBridgeTokenManager({
     },
   });
 
-  // Remove token deployment hook since deployment is now handled on a separate page
-
   // Check if remote token exists
   const checkRemoteToken = useCallback(async (): Promise<string | null> => {
     if (
@@ -87,25 +85,6 @@ export function useBridgeTokenManager({
     setIsCheckingRemoteToken(true);
 
     try {
-      // Method 1: Try to read from a potential deployments mapping
-      console.log('factoryAddress', factoryAddress);
-      console.log('localToken.address', localToken.address);
-      try {
-        const result = await publicClient.readContract({
-          address: factoryAddress as `0x${string}`,
-          abi: ERC20FactoryAbi,
-          functionName: 'BRIDGE',
-          args: [localToken.address as `0x${string}`],
-        });
-
-        if (result && result !== '0x0000000000000000000000000000000000000000') {
-          console.log('Found existing remote token:', result);
-          return result as string;
-        }
-      } catch (err) {
-        console.log('Deployments mapping not available or token not found');
-      }
-
       // Method 2: Calculate expected token address (if factory is deterministic)
       // This would require implementing the same address calculation logic as the factory
 
