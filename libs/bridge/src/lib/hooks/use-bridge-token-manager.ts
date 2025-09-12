@@ -85,10 +85,64 @@ export function useBridgeTokenManager({
     setIsCheckingRemoteToken(true);
 
     try {
-      // Method 2: Calculate expected token address (if factory is deterministic)
-      // This would require implementing the same address calculation logic as the factory
+      // Check for existing deployment using factory events
+      const logs = await publicClient.getLogs({
+        address: factoryAddress as `0x${string}`,
+        event: {
+          type: 'event',
+          name: 'StandardL2TokenCreated',
+          inputs: [
+            { name: 'remoteToken', type: 'address', indexed: true },
+            { name: 'localToken', type: 'address', indexed: true },
+          ],
+        },
+        args: {
+          remoteToken: localToken.address as `0x${string}`,
+        },
+        fromBlock: 'earliest',
+        toBlock: 'latest',
+      });
 
-      return getL2TokenAddress(localToken.address);
+      console.log('logs', logs);
+
+      if (logs.length > 0) {
+        // Get the localToken (L2 token) from the most recent deployment
+        const latestLog = logs[logs.length - 1];
+        const deployedTokenAddress = latestLog.args.localToken;
+
+        console.log(
+          'Found existing remote token via events:',
+          deployedTokenAddress,
+        );
+
+        // Verify the token exists by calling version()
+        try {
+          await publicClient.readContract({
+            address: deployedTokenAddress as `0x${string}`,
+            abi: [
+              {
+                inputs: [],
+                name: 'version',
+                outputs: [{ name: '', type: 'string' }],
+                stateMutability: 'view',
+                type: 'function',
+              },
+            ],
+            functionName: 'version',
+          });
+
+          console.log('Verified remote token exists:', deployedTokenAddress);
+          return deployedTokenAddress as string;
+        } catch (versionError) {
+          console.log(
+            'Remote token address found in events but version() call failed:',
+            versionError,
+          );
+          return null;
+        }
+      }
+
+      return null;
     } catch (error) {
       console.error('Error checking remote token:', error);
       return null;

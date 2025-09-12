@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import { erc20Abi } from 'viem';
 import { useWriteContract, usePublicClient, useReadContract } from 'wagmi';
 import { ERC20FactoryAbi } from '../abi/erc20-factory';
@@ -25,7 +25,6 @@ interface UseStandardTokenReturn {
   deployToken: () => Promise<string>;
   isDeploying: boolean;
   error: string | null;
-  refetch: () => void;
 }
 
 const ETH_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
@@ -174,25 +173,6 @@ export function useStandardToken({
     tokenSymbol,
   ]);
 
-  // Refetch remote token status
-  const refetch = useCallback(async () => {
-    const result = await checkRemoteTokenExists();
-    setRemoteTokenAddress(result);
-  }, [checkRemoteTokenExists]);
-
-  // Check for remote token when dependencies change
-  useEffect(() => {
-    if (
-      localToken?.address &&
-      factoryAddress &&
-      localToken.address !== ETH_ADDRESS
-    ) {
-      refetch();
-    } else {
-      setRemoteTokenAddress(null);
-    }
-  }, [localToken?.address, factoryAddress, refetch]);
-
   const needsDeployment = Boolean(
     localToken?.address &&
       localToken.address !== ETH_ADDRESS &&
@@ -209,6 +189,5 @@ export function useStandardToken({
     deployToken,
     isDeploying,
     error,
-    refetch,
   };
 }
