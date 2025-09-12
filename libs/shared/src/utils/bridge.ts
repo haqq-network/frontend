@@ -1,6 +1,6 @@
 import { sepolia } from 'viem/chains';
 
-const haqqDevnet1RpcUrl = 'https://65.21.69.176:8545/';
+const haqqDevnet1RpcUrl = 'https://rpc.devnet2.dev.haqq.network/';
 export const haqqDevnet1 = {
   id: 64322, // 0xfb42 in hex
   name: 'HAQQ L2',
