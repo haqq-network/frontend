@@ -98,9 +98,6 @@ export const HAQQ_DEVNET1_CONFIG: NetworkConfig = {
   explorerUrl: 'https://explorer.devnet1.dev.haqq.network/',
 };
 
-export const L1_STANDARD_BRIDGE_ADDRESS =
-  '0x95f23da653971217bff7a22508606e52c21b1cdf';
-
 // Governance token configuration
 export const GOVERNANCE_TOKEN_CONFIG = {
   symbol: 'gISLM',
@@ -157,6 +154,7 @@ export const BRIDGE_ADDRESSES: {
     systemConfigProxyAddress: string;
     optimismMintableERC20FactoryProxyAddress: string;
     l1StandardBridgeProxyAddress: string;
+    l2StandardBridgeProxyAddress: string;
     l1CrossDomainMessengerProxyAddress: string;
     optimismPortalProxyAddress: string;
     ethLockboxProxyAddress: string;
@@ -199,6 +197,7 @@ export const BRIDGE_ADDRESSES: {
     optimismMintableERC20FactoryProxyAddress:
       '0x76b3a6e0ad683dd48d723a284a3f57b012df484f', //
     l1StandardBridgeProxyAddress: '0x95f23da653971217bff7a22508606e52c21b1cdf',
+    l2StandardBridgeProxyAddress: '0x4200000000000000000000000000000000000010',
     l1CrossDomainMessengerProxyAddress:
       '0xd62594927e587af7b3e99980032941abc69f3528',
     optimismPortalProxyAddress: '0x6e5acfca11b12232b50591b40988e0acadb1cbb0',
@@ -237,6 +236,11 @@ export const BRIDGE_ADDRESSES: {
     disputeGameFactoryImplAddress: '0x4bba758f006ef09402ef31724203f316ab74e4a0',
   },
 };
+
+export const L1_STANDARD_BRIDGE_ADDRESS =
+  BRIDGE_ADDRESSES.opChainDeployment.l1StandardBridgeProxyAddress;
+export const L2_STANDARD_BRIDGE_ADDRESS =
+  BRIDGE_ADDRESSES.opChainDeployment.l2StandardBridgeProxyAddress;
 
 // Additional configuration from TOML
 export const DEPLOYMENT_CONFIG = {

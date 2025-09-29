@@ -1,12 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { erc20Abi } from 'viem';
-import {
-  useWriteContract,
-  useWaitForTransactionReceipt,
-  useReadContract,
-} from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { ERC20FactoryAbi } from '../abi/erc20-factory';
 
 interface UseTokenDeploymentParams {

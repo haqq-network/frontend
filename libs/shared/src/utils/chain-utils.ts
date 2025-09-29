@@ -1,13 +1,8 @@
-import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
+import { sepolia } from 'viem/chains';
 import { haqqDevnet1 } from './bridge';
 
 // Supported chains for bridge operations
-export const SUPPORTED_CHAINS = [
-  haqqDevnet1,
-  haqqMainnet,
-  haqqTestedge2,
-  sepolia,
-];
+export const SUPPORTED_CHAINS = [haqqDevnet1, sepolia];
 
 /**
  * Get chain configuration by chain ID

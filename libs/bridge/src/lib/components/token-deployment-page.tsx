@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslate } from '@tolgee/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { erc20Abi } from 'viem';
 import {
@@ -24,7 +23,6 @@ interface TokenInfo {
 }
 
 export function TokenDeploymentPage() {
-  const { t } = useTranslate('common');
   const router = useRouter();
   const searchParams = useSearchParams();
   const { buildBridgeUrl } = useBridgeUrlState();

@@ -8,6 +8,7 @@ import {
   BRIDGE_ADDRESSES,
   CHAIN_CONFIG,
   SUPPORTED_CHAINS,
+  L2_STANDARD_BRIDGE_ADDRESS,
 } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
@@ -27,6 +28,16 @@ import {
 } from './hooks';
 
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
+
+export const useChainProxyAddress = (chainId: number) => {
+  if (chainId === CHAIN_CONFIG.l1ChainId) {
+    return L1_STANDARD_BRIDGE_ADDRESS;
+  }
+  if (chainId === CHAIN_CONFIG.l2ChainId) {
+    return L2_STANDARD_BRIDGE_ADDRESS;
+  }
+  return '';
+};
 
 export function BridgePage() {
   const { t } = useTranslate('common');
@@ -86,6 +97,8 @@ export function BridgePage() {
     }
   }, [selectedToken, chain?.id, targetChainId, bridgeAmount, updateUrlState]);
 
+  const bridgeAddress = useChainProxyAddress(sourceChainId);
+
   // Use bridge token manager for token validation
   const {
     remoteTokenAddress,
@@ -105,7 +118,7 @@ export function BridgePage() {
   const { needsApproval, refetch: refetchAllowance } = useTokenAllowance({
     tokenAddress: selectedToken?.address,
     ownerAddress: address,
-    spenderAddress: L1_STANDARD_BRIDGE_ADDRESS,
+    spenderAddress: bridgeAddress,
     bridgeAmount,
     tokenDecimals: selectedToken?.decimals || balance?.decimals || 18,
   });
@@ -113,7 +126,7 @@ export function BridgePage() {
   // Use approval hook
   const { approve, isApproving } = useTokenApproval({
     tokenAddress: selectedToken?.address,
-    spenderAddress: L1_STANDARD_BRIDGE_ADDRESS,
+    spenderAddress: bridgeAddress,
     onSuccess: (hash) => {
       console.log('Approval successful:', hash);
       // Refetch allowance after successful approval
@@ -128,7 +141,7 @@ export function BridgePage() {
 
   // Use bridge transaction hook
   const { bridgeTokens, isProcessing } = useBridgeTransaction({
-    bridgeAddress: L1_STANDARD_BRIDGE_ADDRESS,
+    bridgeAddress: bridgeAddress,
     onSuccess: (hash) => {
       console.log('Bridge successful:', hash);
       setTxHash(hash);
