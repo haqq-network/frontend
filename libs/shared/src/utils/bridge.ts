@@ -272,3 +272,25 @@ export const L1_TIME_OFFSETS = {
   l1CancunTimeOffset: '0x0',
   l1PragueTimeOffset: '0x0',
 };
+
+export const getTxExplorerUrl = (hash: string, chainId: number) => {
+  if (chainId === sepolia.id) {
+    // Sepolia
+    return `${sepolia.blockExplorers.default.url}tx/${hash}`;
+  } else if (chainId === haqqDevnet1.id) {
+    // HAQQ Devnet
+    return `${haqqDevnet1.blockExplorers.default.url}tx/${hash}`;
+  }
+  return '#';
+};
+
+export const getAddressExplorerUrl = (address: string, chainId: number) => {
+  if (chainId === sepolia.id) {
+    // Sepolia
+    return `${sepolia.blockExplorers.default.url}address/${address}`;
+  } else if (chainId === haqqDevnet1.id) {
+    // HAQQ Devnet
+    return `${haqqDevnet1.blockExplorers.default.url}address/${address}`;
+  }
+  return '#';
+};

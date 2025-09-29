@@ -11,9 +11,9 @@ import {
   walletActionsL2,
 } from 'viem/op-stack';
 import { useAccount, useWalletClient } from 'wagmi';
-import { haqqDevnet1, BRIDGE_ADDRESSES } from '@haqq/shell-shared';
+import { haqqDevnet1, BRIDGE_ADDRESSES, useToast } from '@haqq/shell-shared';
 import { useWithdrawalOrders } from './use-withdrawal-orders';
-import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
+import { WithdrawalStatus } from '../types/withdrawal-order';
 
 // Create OP Stack compatible chain configurations
 const haqqDevnet1WithContracts = {
@@ -102,6 +102,8 @@ export function useL2ToL1Withdrawal({
       }).extend(walletActionsL2())
     : null;
 
+  const toast = useToast();
+
   const initiateWithdrawal = useCallback(
     async (amount: number, toAddress: string): Promise<string> => {
       if (!address || !walletClientHaqqDevnet) {
@@ -115,6 +117,7 @@ export function useL2ToL1Withdrawal({
         // Step 1: Build parameters to initiate the withdrawal transaction on the L1
         // According to Viem docs: "Build parameters to initiate the withdrawal transaction on the L1"
         const args = await publicClientSepolia.buildInitiateWithdrawal({
+          account: address as `0x${string}`,
           to: toAddress as `0x${string}`,
           value: parseEther(amount.toString()),
         });
@@ -150,6 +153,7 @@ export function useL2ToL1Withdrawal({
           err instanceof Error ? err.message : 'Withdrawal initiation failed';
         console.error('Withdrawal initiation failed:', err);
         setError(errorMessage);
+        toast.error('Withdrawal initiation failed');
         onError?.(err as Error);
         throw err;
       } finally {
@@ -232,6 +236,7 @@ export function useL2ToL1Withdrawal({
         });
 
         setError(errorMessage);
+        toast.error('Prove withdrawal failed');
         onError?.(err as Error);
         throw err;
       } finally {
@@ -311,6 +316,7 @@ export function useL2ToL1Withdrawal({
         });
 
         setError(errorMessage);
+        toast.error('Finalize withdrawal failed');
         onError?.(err as Error);
         throw err;
       } finally {

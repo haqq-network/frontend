@@ -124,7 +124,9 @@ export function BridgeForm({
         )}
       </div>
 
-      {isTxSuccess && <BridgeSuccessMessage />}
+      {isTxSuccess && (
+        <BridgeSuccessMessage tokenSymbol={selectedToken?.symbol || 'ETH'} />
+      )}
     </div>
   );
 }

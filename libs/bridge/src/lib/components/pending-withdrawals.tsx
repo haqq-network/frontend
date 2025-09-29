@@ -9,8 +9,7 @@ import {
   AlertTriangle,
   ExternalLink,
 } from 'lucide-react';
-import { sepolia } from 'viem/chains';
-import { haqqDevnet1 } from '@haqq/shell-shared';
+import { getTxExplorerUrl } from '@haqq/shell-shared';
 import { useL2ToL1Withdrawal } from '../hooks/use-l2-to-l1-withdrawal';
 import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
 
@@ -137,17 +136,6 @@ export function PendingWithdrawals({
     return `${amount.toFixed(6)} ${symbol}`;
   };
 
-  const getExplorerUrl = (hash: string, chainId: number) => {
-    if (chainId === sepolia.id) {
-      // Sepolia
-      return `${sepolia.blockExplorers.default.url}tx/${hash}`;
-    } else if (chainId === haqqDevnet1.id) {
-      // HAQQ Devnet
-      return `${haqqDevnet1.blockExplorers.default.url}tx/${hash}`;
-    }
-    return '#';
-  };
-
   if (orders.length === 0) {
     return null;
   }
@@ -200,7 +188,7 @@ export function PendingWithdrawals({
                       <div className="flex items-center gap-1">
                         <span className="font-medium">Prove:</span>
                         <a
-                          href={getExplorerUrl(order.proveHash, 11155111)}
+                          href={getTxExplorerUrl(order.proveHash, 11155111)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
@@ -215,7 +203,7 @@ export function PendingWithdrawals({
                       <div className="flex items-center gap-1">
                         <span className="font-medium">Finalize:</span>
                         <a
-                          href={getExplorerUrl(order.finalizeHash, 11155111)}
+                          href={getTxExplorerUrl(order.finalizeHash, 11155111)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-1 text-blue-600 hover:text-blue-800"

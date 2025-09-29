@@ -371,6 +371,7 @@ export function BridgePage() {
                 needsDeployment={needsDeployment}
                 onDeployToken={handleTokenDeployment}
                 remoteTokenAddress={remoteTokenAddress}
+                remoteTokenChainId={targetChainId}
                 isProving={isProving}
                 isFinalizing={isFinalizing}
               />

@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { getAddressExplorerUrl } from '@haqq/shell-shared';
 
 interface Token {
   symbol: string;
@@ -22,6 +24,7 @@ interface BridgeStatusMessagesProps {
   deploymentError?: string | null;
   onDeployToken?: () => void;
   remoteTokenAddress?: string | null;
+  remoteTokenChainId?: number;
   isProving?: boolean;
   isFinalizing?: boolean;
 }
@@ -40,6 +43,7 @@ export function BridgeStatusMessages({
   isFinalizing,
   onDeployToken,
   remoteTokenAddress,
+  remoteTokenChainId,
 }: BridgeStatusMessagesProps) {
   if (tokensError) {
     console.warn('Token Loading Error', tokensError);
@@ -113,9 +117,19 @@ export function BridgeStatusMessages({
             <p className="text-sm font-medium">
               Token Available on Destination Chain
             </p>
-            <p className="mt-1 text-xs">
+            <p className="word-break-all mt-1 text-xs">
               {selectedToken.symbol} is available at:{' '}
-              {remoteTokenAddress.slice(0, 10)}...
+              <Link
+                href={getAddressExplorerUrl(
+                  remoteTokenAddress,
+                  remoteTokenChainId ?? 0,
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
+                {remoteTokenAddress}
+              </Link>
             </p>
           </div>
         )}
