@@ -1,7 +1,13 @@
 'use client';
 
-import { useCallback, useState } from 'react';
-import { createPublicClient, createWalletClient, http, parseEther } from 'viem';
+import { useCallback, useMemo, useState } from 'react';
+import {
+  createPublicClient,
+  createWalletClient,
+  custom,
+  http,
+  parseEther,
+} from 'viem';
 import { sepolia } from 'viem/chains';
 import {
   getWithdrawals,
@@ -74,33 +80,50 @@ export function useL2ToL1Withdrawal({
     useWithdrawalOrders();
 
   // Create L1 client (Sepolia) with OP Stack contracts
-  const publicClientSepolia = createPublicClient({
-    chain: sepolia,
-    transport: http(sepolia.rpcUrls.default.http[0]),
-  }).extend(publicActionsL1());
+  const publicClientSepolia = useMemo(() => {
+    return createPublicClient({
+      chain: sepolia,
+      // transport: http(sepolia.rpcUrls.default.http[0]),
+      transport: window.ethereum
+        ? custom(window.ethereum)
+        : http(sepolia.rpcUrls.default.http[0]),
+    }).extend(publicActionsL1());
+  }, []);
 
   // Create L2 client (HAQQ Devnet) with OP Stack contracts
-  const publicClientHaqqDevnet = createPublicClient({
-    chain: haqqDevnet1,
-    transport: http(haqqDevnet1.rpcUrls.default.http[0]),
-  }).extend(publicActionsL2());
+  const publicClientHaqqDevnet = useMemo(() => {
+    return createPublicClient({
+      chain: haqqDevnet1,
+      transport: window.ethereum
+        ? custom(window.ethereum)
+        : http(haqqDevnet1.rpcUrls.default.http[0]),
+    }).extend(publicActionsL2());
+  }, []);
 
   // Create wallet clients for both chains
-  const walletClientSepolia = walletClient
-    ? createWalletClient({
-        account: address as `0x${string}`,
-        chain: sepolia,
-        transport: http(sepolia.rpcUrls.default.http[0]),
-      }).extend(walletActionsL1())
-    : null;
+  const walletClientSepolia = useMemo(() => {
+    return walletClient
+      ? createWalletClient({
+          account: address as `0x${string}`,
+          chain: sepolia,
+          transport: window.ethereum
+            ? custom(window.ethereum)
+            : http(sepolia.rpcUrls.default.http[0]),
+        }).extend(walletActionsL1())
+      : null;
+  }, [walletClient, address]);
 
-  const walletClientHaqqDevnet = walletClient
-    ? createWalletClient({
-        account: address as `0x${string}`,
-        chain: haqqDevnet1,
-        transport: http(haqqDevnet1.rpcUrls.default.http[0]),
-      }).extend(walletActionsL2())
-    : null;
+  const walletClientHaqqDevnet = useMemo(() => {
+    return walletClient
+      ? createWalletClient({
+          account: address as `0x${string}`,
+          chain: haqqDevnet1,
+          transport: window.ethereum
+            ? custom(window.ethereum)
+            : http(haqqDevnet1.rpcUrls.default.http[0]),
+        }).extend(walletActionsL2())
+      : null;
+  }, [walletClient, address]);
 
   const toast = useToast();
 
@@ -120,11 +143,14 @@ export function useL2ToL1Withdrawal({
           account: address as `0x${string}`,
           to: toAddress as `0x${string}`,
           value: parseEther(amount.toString()),
+          gas: 21_000n, // Gas limit for transaction execution on the L1
         });
 
         // Step 2: Execute the initiate withdrawal transaction on the L2
         // According to Viem docs: "Execute the initiate withdrawal transaction on the L2"
-        const hash = await walletClientHaqqDevnet.initiateWithdrawal(args);
+        const hash = await walletClientHaqqDevnet.initiateWithdrawal({
+          ...args,
+        });
 
         // Step 3: Wait for the initiate withdrawal transaction receipt
         // According to Viem docs: "Wait for the initiate withdrawal transaction receipt"
@@ -229,12 +255,6 @@ export function useL2ToL1Withdrawal({
           err instanceof Error ? err.message : 'Prove withdrawal failed';
         console.error('Prove withdrawal failed:', err);
 
-        // Update withdrawal order status to failed
-        updateOrderByInitiateHash(withdrawalHash, {
-          status: WithdrawalStatus.FAILED,
-          error: errorMessage,
-        });
-
         setError(errorMessage);
         toast.error('Prove withdrawal failed');
         onError?.(err as Error);
@@ -308,12 +328,6 @@ export function useL2ToL1Withdrawal({
         const errorMessage =
           err instanceof Error ? err.message : 'Finalize withdrawal failed';
         console.error('Finalize withdrawal failed:', err);
-
-        // Update withdrawal order status to failed
-        updateOrderByInitiateHash(withdrawalHash, {
-          status: WithdrawalStatus.FAILED,
-          error: errorMessage,
-        });
 
         setError(errorMessage);
         toast.error('Finalize withdrawal failed');

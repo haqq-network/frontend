@@ -14,6 +14,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
       // Get from local storage by key
       const item = store.get(key);
       // Parse stored json or if none return initialValue
+      console.log('[useLocalStorage] item', { item });
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
       // If error also return initialValue

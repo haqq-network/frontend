@@ -356,11 +356,6 @@ export function BridgePage() {
             <>
               <ChallengePeriodWarning isL2ToL1={isL2ToL1} />
 
-              {/* Show pending withdrawals for L2 to L1 transfers */}
-              {isL2ToL1 && pendingOrders.length > 0 && (
-                <PendingWithdrawals orders={pendingOrders} />
-              )}
-
               <BridgeStatusMessages
                 tokensError={tokensError}
                 isLoadingTokens={isLoadingTokens}
@@ -398,6 +393,11 @@ export function BridgePage() {
                 isApproving={isApproving}
                 onApprove={handleApprove}
               />
+
+              {/* Show pending withdrawals for L2 to L1 transfers */}
+              {isL2ToL1 && pendingOrders.length > 0 && (
+                <PendingWithdrawals orders={pendingOrders} />
+              )}
             </>
           )}
         </div>

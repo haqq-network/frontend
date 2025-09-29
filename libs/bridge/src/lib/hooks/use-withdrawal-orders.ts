@@ -26,6 +26,8 @@ export function useWithdrawalOrders() {
     return storage.orders;
   }, [storage.orders]);
 
+  console.log('[useWithdrawalOrders] orders', { orders });
+
   // Get pending orders (not finalized or failed)
   const pendingOrders = useMemo(() => {
     return storage.orders.filter((order) => {
@@ -34,16 +36,6 @@ export function useWithdrawalOrders() {
       );
     });
   }, [storage.orders]);
-
-  // Get orders by status
-  const getOrdersByStatus = useCallback(
-    (status: WithdrawalStatus) => {
-      return storage.orders.filter((order) => {
-        return order.status === status;
-      });
-    },
-    [storage.orders],
-  );
 
   // Add new withdrawal order
   const addWithdrawalOrder = useCallback(
@@ -68,24 +60,6 @@ export function useWithdrawalOrders() {
     [setStorage],
   );
 
-  // Update withdrawal order
-  const updateWithdrawalOrder = useCallback(
-    (id: string, updates: Partial<WithdrawalOrder>) => {
-      setStorage((prev) => {
-        return {
-          ...prev,
-          orders: prev.orders.map((order) => {
-            return order.id === id
-              ? { ...order, ...updates, updatedAt: Date.now() }
-              : order;
-          }),
-          lastUpdated: Date.now(),
-        };
-      });
-    },
-    [setStorage],
-  );
-
   // Update order by initiate hash
   const updateOrderByInitiateHash = useCallback(
     (initiateHash: string, updates: Partial<WithdrawalOrder>) => {
@@ -103,43 +77,6 @@ export function useWithdrawalOrders() {
     },
     [setStorage],
   );
-
-  // Remove withdrawal order
-  const removeWithdrawalOrder = useCallback(
-    (id: string) => {
-      setStorage((prev) => {
-        return {
-          ...prev,
-          orders: prev.orders.filter((order) => {
-            return order.id !== id;
-          }),
-          lastUpdated: Date.now(),
-        };
-      });
-    },
-    [setStorage],
-  );
-
-  // Clear all orders
-  const clearAllOrders = useCallback(() => {
-    setStorage(defaultStorage);
-  }, [setStorage]);
-
-  // Clear completed orders (finalized or failed)
-  const clearCompletedOrders = useCallback(() => {
-    setStorage((prev) => {
-      return {
-        ...prev,
-        orders: prev.orders.filter((order) => {
-          return ![
-            WithdrawalStatus.FINALIZED,
-            WithdrawalStatus.FAILED,
-          ].includes(order.status);
-        }),
-        lastUpdated: Date.now(),
-      };
-    });
-  }, [setStorage]);
 
   // Get order by ID
   const getOrderById = useCallback(
@@ -164,13 +101,8 @@ export function useWithdrawalOrders() {
   return {
     orders,
     pendingOrders,
-    getOrdersByStatus,
     addWithdrawalOrder,
-    updateWithdrawalOrder,
     updateOrderByInitiateHash,
-    removeWithdrawalOrder,
-    clearAllOrders,
-    clearCompletedOrders,
     getOrderById,
     getOrderByInitiateHash,
   };
