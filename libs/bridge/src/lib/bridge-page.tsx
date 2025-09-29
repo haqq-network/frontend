@@ -18,6 +18,7 @@ import {
   BridgeForm,
   BridgeStatusMessages,
   ChallengePeriodWarning,
+  PendingWithdrawals,
 } from './components';
 import {
   useBridgeState,
@@ -26,6 +27,7 @@ import {
   useBridgeTransaction,
   useBridgeTokenManager,
   useBridgeUrlState,
+  useWithdrawalOrders,
 } from './hooks';
 
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
@@ -51,6 +53,9 @@ export function BridgePage() {
 
   // State management
   const [txHash, setTxHash] = useState<string | null>(null);
+
+  // Withdrawal orders management
+  const { pendingOrders } = useWithdrawalOrders();
 
   // Use bridge state hook
   const {
@@ -350,6 +355,11 @@ export function BridgePage() {
           {isConnected && (
             <>
               <ChallengePeriodWarning isL2ToL1={isL2ToL1} />
+
+              {/* Show pending withdrawals for L2 to L1 transfers */}
+              {isL2ToL1 && pendingOrders.length > 0 && (
+                <PendingWithdrawals orders={pendingOrders} />
+              )}
 
               <BridgeStatusMessages
                 tokensError={tokensError}

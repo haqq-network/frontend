@@ -7,3 +7,4 @@ export { useTokenDeployment } from './use-token-deployment';
 export { useBridgeTokenManager } from './use-bridge-token-manager';
 export { useBridgeUrlState } from './use-bridge-url-state';
 export { useL2ToL1Withdrawal } from './use-l2-to-l1-withdrawal';
+export { useWithdrawalOrders } from './use-withdrawal-orders';

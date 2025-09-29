@@ -12,6 +12,8 @@ import {
 } from 'viem/op-stack';
 import { useAccount, useWalletClient } from 'wagmi';
 import { haqqDevnet1, BRIDGE_ADDRESSES } from '@haqq/shell-shared';
+import { useWithdrawalOrders } from './use-withdrawal-orders';
+import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
 
 // Create OP Stack compatible chain configurations
 const haqqDevnet1WithContracts = {
@@ -37,6 +39,7 @@ interface UseL2ToL1WithdrawalParams {
   onError?: (error: Error) => void;
   onProveSuccess?: (hash: string) => void;
   onFinalizeSuccess?: (hash: string) => void;
+  tokenSymbol?: string;
 }
 
 interface UseL2ToL1WithdrawalReturn {
@@ -58,6 +61,7 @@ export function useL2ToL1Withdrawal({
   onError,
   onProveSuccess,
   onFinalizeSuccess,
+  tokenSymbol = 'ETH',
 }: UseL2ToL1WithdrawalParams): UseL2ToL1WithdrawalReturn {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProving, setIsProving] = useState(false);
@@ -66,6 +70,8 @@ export function useL2ToL1Withdrawal({
 
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient();
+  const { addWithdrawalOrder, updateOrderByInitiateHash } =
+    useWithdrawalOrders();
 
   // Create L1 client (Sepolia) with OP Stack contracts
   const publicClientSepolia = createPublicClient({
@@ -124,6 +130,19 @@ export function useL2ToL1Withdrawal({
         });
 
         console.log(`Withdrawal initiated successfully: ${hash}`);
+
+        // Save withdrawal order to local storage
+        addWithdrawalOrder({
+          amount,
+          toAddress,
+          fromAddress: address,
+          initiateHash: hash,
+          status: WithdrawalStatus.INITIATED,
+          sourceChainId: haqqDevnet1.id,
+          targetChainId: sepolia.id,
+          tokenSymbol,
+        });
+
         onSuccess?.(receipt.transactionHash);
         return hash;
       } catch (err) {
@@ -142,6 +161,7 @@ export function useL2ToL1Withdrawal({
       walletClientHaqqDevnet,
       publicClientSepolia,
       publicClientHaqqDevnet,
+      addWithdrawalOrder,
       onSuccess,
       onError,
     ],
@@ -191,12 +211,26 @@ export function useL2ToL1Withdrawal({
           });
 
         console.log(`Withdrawal proved successfully: ${proveHash}`);
+
+        // Update withdrawal order status
+        updateOrderByInitiateHash(withdrawalHash, {
+          status: WithdrawalStatus.PROVED,
+          proveHash: proveHash,
+        });
+
         onProveSuccess?.(proveReceipt.transactionHash);
         return proveHash;
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Prove withdrawal failed';
         console.error('Prove withdrawal failed:', err);
+
+        // Update withdrawal order status to failed
+        updateOrderByInitiateHash(withdrawalHash, {
+          status: WithdrawalStatus.FAILED,
+          error: errorMessage,
+        });
+
         setError(errorMessage);
         onError?.(err as Error);
         throw err;
@@ -209,6 +243,7 @@ export function useL2ToL1Withdrawal({
       walletClientHaqqDevnet,
       publicClientSepolia,
       publicClientHaqqDevnet,
+      updateOrderByInitiateHash,
       onProveSuccess,
       onError,
     ],
@@ -255,12 +290,26 @@ export function useL2ToL1Withdrawal({
           });
 
         console.log(`Withdrawal finalized successfully: ${finalizeHash}`);
+
+        // Update withdrawal order status
+        updateOrderByInitiateHash(withdrawalHash, {
+          status: WithdrawalStatus.FINALIZED,
+          finalizeHash: finalizeHash,
+        });
+
         onFinalizeSuccess?.(finalizeReceipt.transactionHash);
         return finalizeHash;
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Finalize withdrawal failed';
         console.error('Finalize withdrawal failed:', err);
+
+        // Update withdrawal order status to failed
+        updateOrderByInitiateHash(withdrawalHash, {
+          status: WithdrawalStatus.FAILED,
+          error: errorMessage,
+        });
+
         setError(errorMessage);
         onError?.(err as Error);
         throw err;
@@ -273,6 +322,7 @@ export function useL2ToL1Withdrawal({
       walletClientHaqqDevnet,
       publicClientSepolia,
       publicClientHaqqDevnet,
+      updateOrderByInitiateHash,
       onFinalizeSuccess,
       onError,
     ],

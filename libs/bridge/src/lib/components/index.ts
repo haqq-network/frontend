@@ -8,6 +8,7 @@ export { BridgeForm } from './bridge-form';
 export { TokenSelector } from './token-selector';
 export { BridgeStatusMessages } from './bridge-status-messages';
 export { ChallengePeriodWarning } from './challenge-period-warning';
+export { PendingWithdrawals } from './pending-withdrawals';
 
 export type { NetworkMismatchWarningProps } from './network-mismatch-warning';
 export type { BridgeAmountInputProps } from './bridge-amount-input';
