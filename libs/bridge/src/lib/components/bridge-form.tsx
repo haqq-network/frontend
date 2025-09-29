@@ -20,6 +20,8 @@ export interface BridgeFormProps {
   availableBalance: number;
   canBridge: boolean;
   isProcessing: boolean;
+  isProving: boolean;
+  isFinalizing: boolean;
   isWaitingForReceipt: boolean;
   isTxSuccess: boolean;
   onInputChange: (value: string | undefined) => void;
@@ -43,6 +45,8 @@ export function BridgeForm({
   availableBalance,
   canBridge,
   isProcessing,
+  isProving,
+  isFinalizing,
   isWaitingForReceipt,
   isTxSuccess,
   onInputChange,
@@ -86,7 +90,13 @@ export function BridgeForm({
             variant={5}
             onClick={onApprove}
             className="w-full"
-            disabled={isApproving || isProcessing || isWaitingForReceipt}
+            disabled={
+              isApproving ||
+              isProcessing ||
+              isWaitingForReceipt ||
+              isProving ||
+              isFinalizing
+            }
             isLoading={isApproving}
           >
             {isApproving
@@ -98,10 +108,18 @@ export function BridgeForm({
             variant={5}
             onClick={onBridge}
             className="w-full"
-            disabled={!canBridge || isProcessing || isWaitingForReceipt}
+            disabled={
+              !canBridge ||
+              isProcessing ||
+              isWaitingForReceipt ||
+              isProving ||
+              isFinalizing
+            }
             isLoading={isProcessing || isWaitingForReceipt}
           >
-            {isProcessing || isWaitingForReceipt ? 'Processing...' : 'Bridge'}
+            {isProcessing || isWaitingForReceipt || isProving || isFinalizing
+              ? 'Processing...'
+              : 'Bridge'}
           </Button>
         )}
       </div>

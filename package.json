@@ -57,6 +57,7 @@
     "elliptic": "6.6.1",
     "i18next": "23.16.5",
     "lodash": "4.17.21",
+    "lucide-react": "0.544.0",
     "marked": "7.0.5",
     "marked-react": "2.0.0",
     "nanoid": "5.1.2",

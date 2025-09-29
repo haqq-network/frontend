@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import { erc20Abi, parseUnits } from 'viem';
-import { useWriteContract } from 'wagmi';
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 
 interface UseTokenApprovalParams {
   tokenAddress?: string;
@@ -32,6 +32,14 @@ export function useTokenApproval({
 
   const { writeContractAsync } = useWriteContract();
 
+  const [txHash, setTxHash] = useState<string | null>(null);
+
+  // Wait for transaction receipt
+  const { isLoading: isWaitingForReceipt, isSuccess: isTxSuccess } =
+    useWaitForTransactionReceipt({
+      hash: txHash as `0x${string}` | undefined,
+    });
+
   const approve = useCallback(
     async (amount: number, decimals: number) => {
       if (!tokenAddress || !spenderAddress || !writeContractAsync) {
@@ -53,6 +61,8 @@ export function useTokenApproval({
           args: [spenderAddress as `0x${string}`, amountWei],
         });
 
+        setTxHash(hash);
+
         console.log('Approval transaction hash:', hash);
         onSuccess?.(hash);
       } catch (err) {
@@ -66,7 +76,14 @@ export function useTokenApproval({
         setIsApproving(false);
       }
     },
-    [tokenAddress, spenderAddress, writeContractAsync, onSuccess, onError],
+    [
+      tokenAddress,
+      spenderAddress,
+      writeContractAsync,
+      onSuccess,
+      onError,
+      setTxHash,
+    ],
   );
 
   const reset = useCallback(() => {
@@ -76,7 +93,7 @@ export function useTokenApproval({
 
   return {
     approve,
-    isApproving,
+    isApproving: isApproving || isWaitingForReceipt,
     error,
     reset,
   };

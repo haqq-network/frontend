@@ -22,6 +22,8 @@ interface BridgeStatusMessagesProps {
   deploymentError?: string | null;
   onDeployToken?: () => void;
   remoteTokenAddress?: string | null;
+  isProving?: boolean;
+  isFinalizing?: boolean;
 }
 
 const ETH_TOKEN_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
@@ -34,6 +36,8 @@ export function BridgeStatusMessages({
   selectedToken,
   isCheckingRemoteToken,
   needsDeployment,
+  isProving,
+  isFinalizing,
   onDeployToken,
   remoteTokenAddress,
 }: BridgeStatusMessagesProps) {
@@ -42,6 +46,16 @@ export function BridgeStatusMessages({
   }
   return (
     <>
+      {isProving && (
+        <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
+          <p className="text-sm">Proving your transaction...</p>
+        </div>
+      )}
+      {isFinalizing && (
+        <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
+          <p className="text-sm">Finalizing your transaction...</p>
+        </div>
+      )}
       {isLoadingTokens && (
         <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
           <p className="text-sm">Loading your token balances...</p>

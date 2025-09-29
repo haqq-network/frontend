@@ -17,6 +17,7 @@ import {
   NetworkMismatchWarning,
   BridgeForm,
   BridgeStatusMessages,
+  ChallengePeriodWarning,
 } from './components';
 import {
   useBridgeState,
@@ -45,7 +46,8 @@ export function BridgePage() {
   const { switchChainAsync } = useSwitchChain();
 
   // URL state management
-  const { updateUrlState, buildDeploymentUrl } = useBridgeUrlState();
+  const { updateUrlState, buildDeploymentUrl, clearUrlState } =
+    useBridgeUrlState();
 
   // State management
   const [txHash, setTxHash] = useState<string | null>(null);
@@ -84,6 +86,14 @@ export function BridgePage() {
     // Default fallback
     return CHAIN_CONFIG.l2ChainId;
   }, [sourceChainId]);
+
+  // Check if this is an L2 to L1 transfer
+  const isL2ToL1 = useMemo(() => {
+    return (
+      sourceChainId === CHAIN_CONFIG.l2ChainId &&
+      targetChainId === CHAIN_CONFIG.l1ChainId
+    );
+  }, [sourceChainId, targetChainId]);
 
   // Sync URL state with bridge state
   useEffect(() => {
@@ -148,16 +158,25 @@ export function BridgePage() {
   });
 
   // Use bridge transaction hook
-  const { bridgeTokens, isProcessing } = useBridgeTransaction({
-    bridgeAddress: bridgeAddress,
-    onSuccess: (hash) => {
-      console.log('Bridge successful:', hash);
-      setTxHash(hash);
-    },
-    onError: (error) => {
-      console.error('Bridge failed:', error);
-    },
-  });
+  const { bridgeTokens, isProcessing, isProving, isFinalizing } =
+    useBridgeTransaction({
+      bridgeAddress: bridgeAddress,
+      sourceChainId,
+      targetChainId,
+      onSuccess: (hash) => {
+        console.log('Bridge successful:', hash);
+        setTxHash(hash);
+      },
+      onError: (error) => {
+        console.error('Bridge failed:', error);
+      },
+      onProveSuccess: (hash) => {
+        console.log('Prove successful:', hash);
+      },
+      onFinalizeSuccess: (hash) => {
+        console.log('Finalize successful:', hash);
+      },
+    });
 
   // Wait for transaction receipt
   const { isLoading: isWaitingForReceipt, isSuccess: isTxSuccess } =
@@ -309,10 +328,12 @@ export function BridgePage() {
 
     try {
       await switchChainAsync({ chainId: targetChainIdNumber });
+      // Reset URL query parameters after successful chain switch
+      clearUrlState();
     } catch (error) {
       console.error('Failed to switch chain:', error);
     }
-  }, [switchChainAsync, targetChainIdNumber]);
+  }, [switchChainAsync, targetChainIdNumber, clearUrlState]);
 
   return (
     <Container>
@@ -328,6 +349,8 @@ export function BridgePage() {
 
           {isConnected && (
             <>
+              <ChallengePeriodWarning isL2ToL1={isL2ToL1} />
+
               <BridgeStatusMessages
                 tokensError={tokensError}
                 isLoadingTokens={isLoadingTokens}
@@ -338,6 +361,8 @@ export function BridgePage() {
                 needsDeployment={needsDeployment}
                 onDeployToken={handleTokenDeployment}
                 remoteTokenAddress={remoteTokenAddress}
+                isProving={isProving}
+                isFinalizing={isFinalizing}
               />
 
               <BridgeForm
@@ -346,6 +371,8 @@ export function BridgePage() {
                 availableBalance={availableBalance}
                 canBridge={Boolean(canBridge)}
                 isProcessing={isProcessing}
+                isProving={isProving}
+                isFinalizing={isFinalizing}
                 isWaitingForReceipt={Boolean(isWaitingForReceipt)}
                 isTxSuccess={Boolean(isTxSuccess)}
                 onInputChange={handleInputChange}
