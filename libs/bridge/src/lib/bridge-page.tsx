@@ -123,16 +123,24 @@ export function BridgePage() {
     tokenDecimals: selectedToken?.decimals || balance?.decimals || 18,
   });
 
+  const [tId, setTId] = useState<NodeJS.Timeout | null>(null);
+
   // Use approval hook
   const { approve, isApproving } = useTokenApproval({
     tokenAddress: selectedToken?.address,
     spenderAddress: bridgeAddress,
     onSuccess: (hash) => {
       console.log('Approval successful:', hash);
+
+      if (tId) {
+        clearTimeout(tId);
+      }
       // Refetch allowance after successful approval
-      setTimeout(() => {
+      const newTId = setTimeout(() => {
         refetchAllowance();
       }, 3000);
+
+      setTId(newTId);
     },
     onError: (error) => {
       console.error('Approval failed:', error);

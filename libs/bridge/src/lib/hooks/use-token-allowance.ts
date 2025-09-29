@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { erc20Abi, parseUnits } from 'viem';
 import { useReadContract } from 'wagmi';
 
@@ -50,6 +50,16 @@ export function useTokenAllowance({
       ),
     },
   });
+
+  useEffect(() => {
+    const tId = setTimeout(() => {
+      refetch();
+    }, 1000);
+
+    return () => {
+      clearTimeout(tId);
+    };
+  }, [allowance]);
 
   const needsApproval = useMemo(() => {
     // ETH doesn't need approval
