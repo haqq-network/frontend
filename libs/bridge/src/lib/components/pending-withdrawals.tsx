@@ -22,7 +22,7 @@ export function PendingWithdrawals({
   return (
     <div className="mb-6 mt-4">
       <h3 className="mb-4 text-lg font-semibold text-gray-900">
-        {t('pending-withdrawals', 'Pending Withdrawals')}
+        {t('pending-withdrawals', 'Pending Withdrawals')}:
       </h3>
 
       <div className="space-y-3">

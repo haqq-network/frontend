@@ -8,7 +8,6 @@ export { TokenSelector } from './token-selector';
 export { BridgeStatusMessages } from './bridge-status-messages';
 export { ChallengePeriodWarning } from './challenge-period-warning';
 export { PendingWithdrawals } from './pending-withdrawals';
-export { WithdrawalTimer } from './withdrawal-timer';
 export { WithdrawalOrderCard } from './withdrawal-order-card';
 
 export type { NetworkMismatchWarningProps } from './network-mismatch-warning';

@@ -103,7 +103,7 @@ export function WithdrawalOrderCard({
     updateTimer();
 
     // Update timer every 30 seconds
-    const interval = setInterval(updateTimer, 30000);
+    const interval = setInterval(updateTimer, 1000);
 
     return () => {
       return clearInterval(interval);
