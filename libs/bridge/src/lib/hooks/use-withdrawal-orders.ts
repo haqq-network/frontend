@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import { useLocalStorage } from '@haqq/shell-shared';
+import { useLocalStorage } from 'usehooks-ts';
 import { useWithdrawalTimers } from './use-withdrawal-timers';
 import {
   WithdrawalOrder,
@@ -17,10 +17,15 @@ const defaultStorage: WithdrawalOrderStorage = {
 };
 
 export function useWithdrawalOrders() {
-  const [storage, setStorage] = useLocalStorage<WithdrawalOrderStorage>(
+  const [storageInitial, setStorage] = useLocalStorage<string>(
     STORAGE_KEY,
-    defaultStorage,
+    JSON.stringify(defaultStorage),
   );
+  const storage = useMemo(() => {
+    return (
+      storageInitial ? JSON.parse(storageInitial) : defaultStorage
+    ) as WithdrawalOrderStorage;
+  }, [storageInitial]);
   const { getTimeToProve, getTimeToFinalize, getWaitingTimeWarning } =
     useWithdrawalTimers();
 
@@ -48,12 +53,13 @@ export function useWithdrawalOrders() {
         updatedAt: Date.now(),
       };
 
-      setStorage((prev) => {
-        return {
-          ...prev,
-          orders: [newOrder, ...prev.orders],
+      setStorage((prev: string) => {
+        const parsedPrev = JSON.parse(prev) as WithdrawalOrderStorage;
+        return JSON.stringify({
+          ...parsedPrev,
+          orders: [newOrder, ...parsedPrev.orders],
           lastUpdated: Date.now(),
-        };
+        });
       });
 
       return newOrder.id;
@@ -64,16 +70,17 @@ export function useWithdrawalOrders() {
   // Update order by initiate hash
   const updateOrderByInitiateHash = useCallback(
     (initiateHash: string, updates: Partial<WithdrawalOrder>) => {
-      setStorage((prev) => {
-        return {
-          ...prev,
-          orders: prev.orders.map((order) => {
+      setStorage((prev: string) => {
+        const parsedPrev = JSON.parse(prev) as WithdrawalOrderStorage;
+        return JSON.stringify({
+          ...parsedPrev,
+          orders: parsedPrev.orders.map((order) => {
             return order.initiateHash === initiateHash
               ? { ...order, ...updates, updatedAt: Date.now() }
               : order;
           }),
           lastUpdated: Date.now(),
-        };
+        });
       });
     },
     [setStorage],
