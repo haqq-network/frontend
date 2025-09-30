@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import { useLocalStorage } from '@haqq/shell-shared';
+import { useWithdrawalTimers } from './use-withdrawal-timers';
 import {
   WithdrawalOrder,
   WithdrawalOrderStorage,
@@ -20,13 +21,13 @@ export function useWithdrawalOrders() {
     STORAGE_KEY,
     defaultStorage,
   );
+  const { getTimeToProve, getTimeToFinalize, getWaitingTimeWarning } =
+    useWithdrawalTimers();
 
   // Get all orders
   const orders = useMemo(() => {
     return storage.orders;
   }, [storage.orders]);
-
-  console.log('[useWithdrawalOrders] orders', { orders });
 
   // Get pending orders (not finalized or failed)
   const pendingOrders = useMemo(() => {
@@ -98,6 +99,54 @@ export function useWithdrawalOrders() {
     [storage.orders],
   );
 
+  // Update timer information for an order
+  const updateOrderTimers = useCallback(
+    async (orderId: string) => {
+      const order = getOrderById(orderId);
+      if (!order) return;
+
+      try {
+        if (order.status === WithdrawalStatus.INITIATED) {
+          const timeToProve = await getTimeToProve(order);
+          if (timeToProve) {
+            updateOrderByInitiateHash(order.initiateHash, {
+              timeToProve: {
+                seconds: timeToProve.seconds,
+                timestamp: timeToProve.timestamp,
+              },
+            });
+          }
+        } else if (order.status === WithdrawalStatus.PROVED) {
+          const timeToFinalize = await getTimeToFinalize(order);
+          if (timeToFinalize) {
+            updateOrderByInitiateHash(order.initiateHash, {
+              timeToFinalize: {
+                seconds: timeToFinalize.seconds,
+                timestamp: timeToFinalize.timestamp,
+              },
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Failed to update order timers:', error);
+      }
+    },
+    [
+      getOrderById,
+      getTimeToProve,
+      getTimeToFinalize,
+      updateOrderByInitiateHash,
+    ],
+  );
+
+  // Get warning message for an order
+  const getOrderWarning = useCallback(
+    (order: WithdrawalOrder) => {
+      return getWaitingTimeWarning(order.status);
+    },
+    [getWaitingTimeWarning],
+  );
+
   return {
     orders,
     pendingOrders,
@@ -105,5 +154,7 @@ export function useWithdrawalOrders() {
     updateOrderByInitiateHash,
     getOrderById,
     getOrderByInitiateHash,
+    updateOrderTimers,
+    getOrderWarning,
   };
 }

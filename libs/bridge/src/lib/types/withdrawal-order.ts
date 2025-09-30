@@ -22,6 +22,15 @@ export interface WithdrawalOrder {
   targetChainId: number;
   tokenSymbol: string;
   error?: string;
+  // Timer information for prove and finalize steps
+  timeToProve?: {
+    seconds: number;
+    timestamp: number;
+  };
+  timeToFinalize?: {
+    seconds: number;
+    timestamp: number;
+  };
 }
 
 export interface WithdrawalOrderStorage {

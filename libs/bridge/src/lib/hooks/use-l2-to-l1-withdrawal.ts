@@ -1,44 +1,13 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
-import {
-  createPublicClient,
-  createWalletClient,
-  custom,
-  http,
-  parseEther,
-} from 'viem';
-import { sepolia } from 'viem/chains';
-import {
-  getWithdrawals,
-  publicActionsL1,
-  publicActionsL2,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
-import { useAccount, useWalletClient } from 'wagmi';
-import { haqqDevnet1, BRIDGE_ADDRESSES, useToast } from '@haqq/shell-shared';
+import { useCallback, useState } from 'react';
+import { parseEther } from 'viem';
+import { getWithdrawals } from 'viem/op-stack';
+import { useToast } from '@haqq/shell-shared';
+import { useOpStackClients } from './use-op-stack-clients';
 import { useWithdrawalOrders } from './use-withdrawal-orders';
+import { useWithdrawalTimers } from './use-withdrawal-timers';
 import { WithdrawalStatus } from '../types/withdrawal-order';
-
-// Create OP Stack compatible chain configurations
-const haqqDevnet1WithContracts = {
-  ...haqqDevnet1,
-  contracts: {
-    portal: {
-      [sepolia.id]: {
-        address: BRIDGE_ADDRESSES.opChainDeployment
-          .optimismPortalProxyAddress as `0x${string}`,
-      },
-    },
-    l2OutputOracle: {
-      [sepolia.id]: {
-        // deprecated https://docs.optimism.io/stack/smart-contracts/smart-contracts
-        address: '0x0000000000000000000000000000000000000000' as `0x${string}`, // Placeholder
-      },
-    },
-  },
-};
 
 interface UseL2ToL1WithdrawalParams {
   onSuccess?: (hash: string) => void;
@@ -57,6 +26,20 @@ interface UseL2ToL1WithdrawalReturn {
   isFinalizing: boolean;
   error: string | null;
   reset: () => void;
+  // Timer functionality
+  getTimeToProve: (withdrawalHash: string) => Promise<{
+    seconds: number;
+    timestamp: number;
+    isReady: boolean;
+    formattedTime: string;
+  } | null>;
+  getTimeToFinalize: (withdrawalHash: string) => Promise<{
+    seconds: number;
+    timestamp: number;
+    isReady: boolean;
+    formattedTime: string;
+  } | null>;
+  getWaitingTimeWarning: (status: WithdrawalStatus) => string | null;
 }
 
 /**
@@ -74,62 +57,30 @@ export function useL2ToL1Withdrawal({
   const [isFinalizing, setIsFinalizing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { address } = useAccount();
-  const { data: walletClient } = useWalletClient();
-  const { addWithdrawalOrder, updateOrderByInitiateHash } =
-    useWithdrawalOrders();
-
-  // Create L1 client (Sepolia) with OP Stack contracts
-  const publicClientSepolia = useMemo(() => {
-    return createPublicClient({
-      chain: sepolia,
-      // transport: http(sepolia.rpcUrls.default.http[0]),
-      transport: window.ethereum
-        ? custom(window.ethereum)
-        : http(sepolia.rpcUrls.default.http[0]),
-    }).extend(publicActionsL1());
-  }, []);
-
-  // Create L2 client (HAQQ Devnet) with OP Stack contracts
-  const publicClientHaqqDevnet = useMemo(() => {
-    return createPublicClient({
-      chain: haqqDevnet1,
-      transport: window.ethereum
-        ? custom(window.ethereum)
-        : http(haqqDevnet1.rpcUrls.default.http[0]),
-    }).extend(publicActionsL2());
-  }, []);
-
-  // Create wallet clients for both chains
-  const walletClientSepolia = useMemo(() => {
-    return walletClient
-      ? createWalletClient({
-          account: address as `0x${string}`,
-          chain: sepolia,
-          transport: window.ethereum
-            ? custom(window.ethereum)
-            : http(sepolia.rpcUrls.default.http[0]),
-        }).extend(walletActionsL1())
-      : null;
-  }, [walletClient, address]);
-
-  const walletClientHaqqDevnet = useMemo(() => {
-    return walletClient
-      ? createWalletClient({
-          account: address as `0x${string}`,
-          chain: haqqDevnet1,
-          transport: window.ethereum
-            ? custom(window.ethereum)
-            : http(haqqDevnet1.rpcUrls.default.http[0]),
-        }).extend(walletActionsL2())
-      : null;
-  }, [walletClient, address]);
+  const {
+    addWithdrawalOrder,
+    updateOrderByInitiateHash,
+    getOrderByInitiateHash,
+  } = useWithdrawalOrders();
+  const { getTimeToProve, getTimeToFinalize, getWaitingTimeWarning } =
+    useWithdrawalTimers();
+  const {
+    publicClientL1,
+    publicClientL2,
+    walletClientL1,
+    walletClientL2,
+    chains,
+    publicClientReadonlyL1,
+    publicClientReadonlyL2,
+    walletClientReadonlyL1,
+    walletClientReadonlyL2,
+  } = useOpStackClients();
 
   const toast = useToast();
 
   const initiateWithdrawal = useCallback(
     async (amount: number, toAddress: string): Promise<string> => {
-      if (!address || !walletClientHaqqDevnet) {
+      if (!walletClientL2) {
         throw new Error('Wallet not connected or wallet client not available');
       }
 
@@ -139,8 +90,8 @@ export function useL2ToL1Withdrawal({
       try {
         // Step 1: Build parameters to initiate the withdrawal transaction on the L1
         // According to Viem docs: "Build parameters to initiate the withdrawal transaction on the L1"
-        const args = await publicClientSepolia.buildInitiateWithdrawal({
-          account: address as `0x${string}`,
+        const args = await publicClientL1.buildInitiateWithdrawal({
+          account: walletClientL2.account,
           to: toAddress as `0x${string}`,
           value: parseEther(amount.toString()),
           gas: 21_000n, // Gas limit for transaction execution on the L1
@@ -148,13 +99,13 @@ export function useL2ToL1Withdrawal({
 
         // Step 2: Execute the initiate withdrawal transaction on the L2
         // According to Viem docs: "Execute the initiate withdrawal transaction on the L2"
-        const hash = await walletClientHaqqDevnet.initiateWithdrawal({
+        const hash = await walletClientL2.initiateWithdrawal({
           ...args,
         });
 
         // Step 3: Wait for the initiate withdrawal transaction receipt
         // According to Viem docs: "Wait for the initiate withdrawal transaction receipt"
-        const receipt = await publicClientHaqqDevnet.waitForTransactionReceipt({
+        const receipt = await publicClientReadonlyL2.waitForTransactionReceipt({
           hash,
         });
 
@@ -164,11 +115,11 @@ export function useL2ToL1Withdrawal({
         addWithdrawalOrder({
           amount,
           toAddress,
-          fromAddress: address,
+          fromAddress: walletClientL2.account.address,
           initiateHash: hash,
           status: WithdrawalStatus.INITIATED,
-          sourceChainId: haqqDevnet1.id,
-          targetChainId: sepolia.id,
+          sourceChainId: chains.L2.id,
+          targetChainId: chains.L1.id,
           tokenSymbol,
         });
 
@@ -187,10 +138,11 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
-      address,
-      walletClientHaqqDevnet,
-      publicClientSepolia,
-      publicClientHaqqDevnet,
+      walletClientL2,
+      publicClientL1,
+      publicClientL2,
+      publicClientReadonlyL2,
+      chains,
       addWithdrawalOrder,
       onSuccess,
       onError,
@@ -199,7 +151,7 @@ export function useL2ToL1Withdrawal({
 
   const proveWithdrawal = useCallback(
     async (withdrawalHash: string): Promise<string> => {
-      if (!walletClientSepolia) {
+      if (!walletClientL1) {
         throw new Error('Wallet client not available for proving');
       }
 
@@ -208,37 +160,36 @@ export function useL2ToL1Withdrawal({
 
       try {
         // Step 1: Get withdrawal receipt from L2
-        const receipt = await publicClientHaqqDevnet.getTransactionReceipt({
+        const receipt = await publicClientReadonlyL2.getTransactionReceipt({
           hash: withdrawalHash as `0x${string}`,
         });
 
         // Step 2: Wait until the withdrawal is ready to prove
         // According to Viem docs: "Wait until the withdrawal is ready to prove"
-        const { output, withdrawal } = await publicClientSepolia.waitToProve({
+        const { output, withdrawal } = await publicClientL1.waitToProve({
           receipt,
-          targetChain: haqqDevnet1WithContracts,
+          targetChain: chains.L2_WITH_CONTRACTS,
         });
 
         // Step 3: Build parameters to prove the withdrawal on the L2
         // According to Viem docs: "Build parameters to prove the withdrawal on the L2"
-        const proveArgs = await publicClientHaqqDevnet.buildProveWithdrawal({
+        const proveArgs = await publicClientL2.buildProveWithdrawal({
           output,
           withdrawal,
         });
 
         // Step 4: Prove the withdrawal on the L1
         // According to Viem docs: "Prove the withdrawal on the L1"
-        const proveHash = await walletClientSepolia.proveWithdrawal({
+        const proveHash = await walletClientL1.proveWithdrawal({
           ...proveArgs,
-          targetChain: haqqDevnet1WithContracts,
+          targetChain: chains.L2_WITH_CONTRACTS,
         });
 
         // Step 5: Wait until the prove withdrawal is processed
         // According to Viem docs: "Wait until the prove withdrawal is processed"
-        const proveReceipt =
-          await publicClientSepolia.waitForTransactionReceipt({
-            hash: proveHash,
-          });
+        const proveReceipt = await publicClientL1.waitForTransactionReceipt({
+          hash: proveHash,
+        });
 
         console.log(`Withdrawal proved successfully: ${proveHash}`);
 
@@ -264,10 +215,11 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
-      walletClientSepolia,
-      walletClientHaqqDevnet,
-      publicClientSepolia,
-      publicClientHaqqDevnet,
+      walletClientL1,
+      publicClientL1,
+      publicClientL2,
+      publicClientReadonlyL2,
+      chains,
       updateOrderByInitiateHash,
       onProveSuccess,
       onError,
@@ -276,7 +228,7 @@ export function useL2ToL1Withdrawal({
 
   const finalizeWithdrawal = useCallback(
     async (withdrawalHash: string): Promise<string> => {
-      if (!walletClientSepolia) {
+      if (!walletClientL1) {
         throw new Error('Wallet client not available for finalizing');
       }
 
@@ -285,7 +237,7 @@ export function useL2ToL1Withdrawal({
 
       try {
         // Step 1: Get withdrawal receipt from L2
-        const receipt = await publicClientHaqqDevnet.getTransactionReceipt({
+        const receipt = await publicClientL2.getTransactionReceipt({
           hash: withdrawalHash as `0x${string}`,
         });
 
@@ -295,24 +247,23 @@ export function useL2ToL1Withdrawal({
 
         // Step 3: Wait until the withdrawal is ready to finalize
         // According to Viem docs: "Wait until the withdrawal is ready to finalize"
-        await publicClientSepolia.waitToFinalize({
-          targetChain: haqqDevnet1WithContracts,
+        await publicClientL1.waitToFinalize({
+          targetChain: chains.L2_WITH_CONTRACTS,
           withdrawalHash: withdrawal.withdrawalHash,
         });
 
         // Step 4: Finalize the withdrawal
         // According to Viem docs: "Finalize the withdrawal"
-        const finalizeHash = await walletClientSepolia.finalizeWithdrawal({
-          targetChain: haqqDevnet1WithContracts,
+        const finalizeHash = await walletClientL1.finalizeWithdrawal({
+          targetChain: chains.L2_WITH_CONTRACTS,
           withdrawal,
         });
 
         // Step 5: Wait until the withdrawal is finalized
         // According to Viem docs: "Wait until the withdrawal is finalized"
-        const finalizeReceipt =
-          await publicClientSepolia.waitForTransactionReceipt({
-            hash: finalizeHash,
-          });
+        const finalizeReceipt = await publicClientL1.waitForTransactionReceipt({
+          hash: finalizeHash,
+        });
 
         console.log(`Withdrawal finalized successfully: ${finalizeHash}`);
 
@@ -338,10 +289,10 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
-      walletClientSepolia,
-      walletClientHaqqDevnet,
-      publicClientSepolia,
-      publicClientHaqqDevnet,
+      walletClientL1,
+      publicClientL1,
+      publicClientL2,
+      chains,
       updateOrderByInitiateHash,
       onFinalizeSuccess,
       onError,
@@ -355,6 +306,25 @@ export function useL2ToL1Withdrawal({
     setIsFinalizing(false);
   }, []);
 
+  // Timer methods that work with withdrawal hashes
+  const getTimeToProveByHash = useCallback(
+    async (withdrawalHash: string) => {
+      const order = getOrderByInitiateHash(withdrawalHash);
+      if (!order) return null;
+      return await getTimeToProve(order);
+    },
+    [getOrderByInitiateHash, getTimeToProve],
+  );
+
+  const getTimeToFinalizeByHash = useCallback(
+    async (withdrawalHash: string) => {
+      const order = getOrderByInitiateHash(withdrawalHash);
+      if (!order) return null;
+      return await getTimeToFinalize(order);
+    },
+    [getOrderByInitiateHash, getTimeToFinalize],
+  );
+
   return {
     initiateWithdrawal,
     proveWithdrawal,
@@ -364,5 +334,9 @@ export function useL2ToL1Withdrawal({
     isFinalizing,
     error,
     reset,
+    // Timer functionality
+    getTimeToProve: getTimeToProveByHash,
+    getTimeToFinalize: getTimeToFinalizeByHash,
+    getWaitingTimeWarning,
   };
 }

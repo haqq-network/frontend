@@ -1,4 +1,3 @@
-export { BridgeHeader } from './bridge-header';
 export { WalletConnectionWarning } from './wallet-connection-warning';
 export { NetworkMismatchWarning } from './network-mismatch-warning';
 export { BridgeSuccessMessage } from './bridge-success-message';
@@ -9,6 +8,8 @@ export { TokenSelector } from './token-selector';
 export { BridgeStatusMessages } from './bridge-status-messages';
 export { ChallengePeriodWarning } from './challenge-period-warning';
 export { PendingWithdrawals } from './pending-withdrawals';
+export { WithdrawalTimer } from './withdrawal-timer';
+export { WithdrawalOrderCard } from './withdrawal-order-card';
 
 export type { NetworkMismatchWarningProps } from './network-mismatch-warning';
 export type { BridgeAmountInputProps } from './bridge-amount-input';

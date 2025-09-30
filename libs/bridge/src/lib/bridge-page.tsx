@@ -12,7 +12,6 @@ import {
 } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
-  BridgeHeader,
   WalletConnectionWarning,
   NetworkMismatchWarning,
   BridgeForm,
@@ -344,8 +343,6 @@ export function BridgePage() {
     <Container>
       <div className="mx-auto max-w-[600px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <BridgeHeader />
-
           {!isConnected && <WalletConnectionWarning />}
 
           {isChainMismatch && isConnected && (
@@ -394,7 +391,6 @@ export function BridgePage() {
                 onApprove={handleApprove}
               />
 
-              {/* Show pending withdrawals for L2 to L1 transfers */}
               {isL2ToL1 && pendingOrders.length > 0 && (
                 <PendingWithdrawals orders={pendingOrders} />
               )}

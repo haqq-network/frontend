@@ -1,30 +1,6 @@
 import { sepolia } from 'viem/chains';
 
 const haqqDevnet1RpcUrl = 'https://rpc.devnet2.dev.haqq.network/';
-export const haqqDevnet1 = {
-  id: 64322, // 0xfb42 in hex
-  name: 'HAQQ L2',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'Islamic Coin',
-    symbol: 'ISLM',
-  },
-  rpcUrls: {
-    default: {
-      http: [haqqDevnet1RpcUrl],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: 'HAQQ Explorer',
-      url: 'https://explorer.devnet2.dev.haqq.network/',
-      apiUrl: 'https://explorer.devnet2.dev.haqq.network/api',
-    },
-  },
-};
-
-export const L1_CHAINS = [sepolia];
-export const L2_CHAINS = [haqqDevnet1];
 
 export const SWAPPABLE_TOKENS: {
   [chainId: number]: {
@@ -272,6 +248,51 @@ export const L1_TIME_OFFSETS = {
   l1CancunTimeOffset: '0x0',
   l1PragueTimeOffset: '0x0',
 };
+
+export const haqqDevnet1 = {
+  id: 64322, // 0xfb42 in hex
+  name: 'HAQQ L2',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Islamic Coin',
+    symbol: 'ISLM',
+  },
+  rpcUrls: {
+    default: {
+      http: [haqqDevnet1RpcUrl],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'HAQQ Explorer',
+      url: 'https://explorer.devnet2.dev.haqq.network/',
+      apiUrl: 'https://explorer.devnet2.dev.haqq.network/api',
+    },
+  },
+  contracts: {
+    portal: {
+      [sepolia.id]: {
+        address: BRIDGE_ADDRESSES.opChainDeployment
+          .optimismPortalProxyAddress as `0x${string}`,
+      },
+    },
+    disputeGameFactory: {
+      [sepolia.id]: {
+        address: BRIDGE_ADDRESSES.opChainDeployment
+          .disputeGameFactoryProxyAddress as `0x${string}`,
+      },
+    },
+    l2OutputOracle: {
+      [sepolia.id]: {
+        // deprecated https://docs.optimism.io/stack/smart-contracts/smart-contracts
+        address: '0x0000000000000000000000000000000000000000' as `0x${string}`, // Placeholder
+      },
+    },
+  },
+};
+
+export const L1_CHAINS = [sepolia];
+export const L2_CHAINS = [haqqDevnet1];
 
 export const getTxExplorerUrl = (hash: string, chainId: number) => {
   if (chainId === sepolia.id) {
