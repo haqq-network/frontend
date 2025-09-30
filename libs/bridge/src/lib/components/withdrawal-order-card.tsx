@@ -87,7 +87,6 @@ export function WithdrawalOrderCard({
         } else if (order.status === WithdrawalStatus.PROVED) {
           timer = await getTimeToFinalize(order.initiateHash);
         }
-        console.log('[WithdrawalOrderCard] timer', timer);
 
         if (timer) {
           setTimerInfo({
