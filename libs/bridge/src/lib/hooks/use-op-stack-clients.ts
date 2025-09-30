@@ -23,9 +23,10 @@ export function useOpStackClients() {
   const publicClientL1 = useMemo(() => {
     return createPublicClient({
       chain: OP_STACK_CHAINS.L1,
-      transport: window.ethereum
-        ? custom(window.ethereum)
-        : http(OP_STACK_CHAINS.L1.rpcUrls.default.http[0]),
+      transport:
+        typeof window !== 'undefined' && window.ethereum
+          ? custom(window.ethereum)
+          : http(OP_STACK_CHAINS.L1.rpcUrls.default.http[0]),
     }).extend(publicActionsL1());
   }, []);
 
@@ -40,9 +41,10 @@ export function useOpStackClients() {
   const publicClientL2 = useMemo(() => {
     return createPublicClient({
       chain: OP_STACK_CHAINS.L2,
-      transport: window.ethereum
-        ? custom(window.ethereum)
-        : http(OP_STACK_CHAINS.L2.rpcUrls.default.http[0]),
+      transport:
+        typeof window !== 'undefined' && window.ethereum
+          ? custom(window.ethereum)
+          : http(OP_STACK_CHAINS.L2.rpcUrls.default.http[0]),
     }).extend(publicActionsL2());
   }, []);
 
@@ -59,9 +61,10 @@ export function useOpStackClients() {
       ? createWalletClient({
           account: address as `0x${string}`,
           chain: OP_STACK_CHAINS.L1,
-          transport: window.ethereum
-            ? custom(window.ethereum)
-            : http(OP_STACK_CHAINS.L1.rpcUrls.default.http[0]),
+          transport:
+            typeof window !== 'undefined' && window.ethereum
+              ? custom(window.ethereum)
+              : http(OP_STACK_CHAINS.L1.rpcUrls.default.http[0]),
         }).extend(walletActionsL1())
       : null;
   }, [walletClient, address]);
@@ -82,9 +85,10 @@ export function useOpStackClients() {
       ? createWalletClient({
           account: address as `0x${string}`,
           chain: OP_STACK_CHAINS.L2,
-          transport: window.ethereum
-            ? custom(window.ethereum)
-            : http(OP_STACK_CHAINS.L2.rpcUrls.default.http[0]),
+          transport:
+            typeof window !== 'undefined' && window.ethereum
+              ? custom(window.ethereum)
+              : http(OP_STACK_CHAINS.L2.rpcUrls.default.http[0]),
         }).extend(walletActionsL2())
       : null;
   }, [walletClient, address]);

@@ -50,13 +50,6 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json();
 
-    console.log(
-      'Explorer API data:',
-      data?.items?.map((item: any) => {
-        return item.token;
-      }),
-    );
-
     console.log('Explorer API data items count:', data.items?.length || 0);
 
     // Filter out tokens with zero balance

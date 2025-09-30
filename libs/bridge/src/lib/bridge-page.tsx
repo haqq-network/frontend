@@ -348,12 +348,9 @@ export function BridgePage() {
 
           {isConnected && (
             <>
-              <ChallengePeriodWarning isL2ToL1={isL2ToL1} />
-
               <BridgeStatusMessages
                 tokensError={tokensError}
                 isLoadingTokens={isLoadingTokens}
-                userTokens={userTokens}
                 needsApproval={needsApproval}
                 selectedToken={selectedToken}
                 isCheckingRemoteToken={isCheckingRemoteToken}
@@ -387,6 +384,8 @@ export function BridgePage() {
                 isApproving={isApproving}
                 onApprove={handleApprove}
               />
+
+              <ChallengePeriodWarning isL2ToL1={isL2ToL1} />
 
               {isL2ToL1 && pendingOrders.length > 0 && (
                 <PendingWithdrawals orders={pendingOrders} />

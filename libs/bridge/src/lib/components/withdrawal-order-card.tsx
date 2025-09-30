@@ -9,7 +9,10 @@ import {
   AlertTriangle,
   ExternalLink,
 } from 'lucide-react';
-import { getTxExplorerUrl } from '@haqq/shell-shared';
+import Link from 'next/link';
+import { getAddressExplorerUrl, getTxExplorerUrl } from '@haqq/shell-shared';
+import { Button, Tooltip } from '@haqq/shell-ui-kit';
+import { OP_STACK_CHAINS } from '../constants/op-stack-config';
 import { useL2ToL1Withdrawal } from '../hooks/use-l2-to-l1-withdrawal';
 import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
 
@@ -17,6 +20,14 @@ interface WithdrawalOrderCardProps {
   order: WithdrawalOrder;
   onOrderUpdate?: () => void;
 }
+
+const formatDate = (timestamp: number) => {
+  return new Date(timestamp).toLocaleString();
+};
+
+const formatAmount = (amount: number, symbol: string) => {
+  return `${amount.toFixed(6)} ${symbol}`;
+};
 
 export function WithdrawalOrderCard({
   order,
@@ -122,11 +133,11 @@ export function WithdrawalOrderCard({
   const getStatusText = (status: WithdrawalStatus) => {
     switch (status) {
       case WithdrawalStatus.INITIATED:
-        return t('withdrawal-status-initiated', 'Initiated - Ready to prove');
+        return t('withdrawal-status-initiated', 'Initiated ');
       case WithdrawalStatus.PROVING:
         return t('withdrawal-status-proving', 'Proving withdrawal...');
       case WithdrawalStatus.PROVED:
-        return t('withdrawal-status-proved', 'Proved - Ready to finalize');
+        return t('withdrawal-status-proved', 'Proved');
       case WithdrawalStatus.FINALIZING:
         return t('withdrawal-status-finalizing', 'Finalizing withdrawal...');
       case WithdrawalStatus.FINALIZED:
@@ -185,14 +196,6 @@ export function WithdrawalOrderCard({
     [finalizeWithdrawal],
   );
 
-  const formatDate = (timestamp: number) => {
-    return new Date(timestamp).toLocaleString();
-  };
-
-  const formatAmount = (amount: number, symbol: string) => {
-    return `${amount.toFixed(6)} ${symbol}`;
-  };
-
   const nextAction = getNextAction(order);
   const warning = getWaitingTimeWarning(order.status);
 
@@ -208,17 +211,43 @@ export function WithdrawalOrderCard({
             <span className="text-sm text-gray-500">
               {getStatusText(order.status)}
             </span>
+
+            {nextAction && (
+              <div className="ml-auto">
+                <Button
+                  onClick={nextAction.action}
+                  variant={5}
+                  disabled={
+                    nextAction.disabled || isProcessing || !timerInfo?.isReady
+                  }
+                  className="rounded-md px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isProcessing ? (
+                    <div className="flex items-center gap-2">
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      {t('processing', 'Processing...')}
+                    </div>
+                  ) : (
+                    nextAction.label
+                  )}
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Timer Information */}
           {timerInfo && (
             <div className="mb-2 rounded-md bg-blue-50 p-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-blue-800">
-                  {order.status === WithdrawalStatus.INITIATED
-                    ? 'Time to prove:'
-                    : 'Time to finalize:'}
-                </span>
+                {warning && !timerInfo?.isReady && (
+                  <Tooltip text={warning}>
+                    <span className="cursor-pointer text-sm font-medium text-blue-800">
+                      {order.status === WithdrawalStatus.INITIATED
+                        ? 'Time to prove:'
+                        : 'Time to finalize:'}
+                    </span>
+                  </Tooltip>
+                )}
                 <span
                   className={`font-mono text-sm ${timerInfo.isReady ? 'text-green-600' : 'text-blue-600'}`}
                 >
@@ -237,58 +266,80 @@ export function WithdrawalOrderCard({
             </div>
           )}
 
-          {/* Warning Message */}
-          {warning && !timerInfo?.isReady && (
-            <div className="mb-2 rounded-md bg-amber-50 p-2">
-              <p className="text-sm text-amber-800">{warning}</p>
-            </div>
-          )}
-
           <div className="space-y-1 text-sm text-gray-600">
-            <div>
-              <span className="font-medium">From:</span>{' '}
-              {order.fromAddress.slice(0, 6)}...
-              {order.fromAddress.slice(-4)}
-            </div>
-            <div>
-              <span className="font-medium">To:</span>{' '}
-              {order.toAddress.slice(0, 6)}...
-              {order.toAddress.slice(-4)}
-            </div>
-            <div>
-              <span className="font-medium">Initiated:</span>{' '}
-              {formatDate(order.createdAt)}
-            </div>
-
-            {order.proveHash && (
-              <div className="flex items-center gap-1">
-                <span className="font-medium">Prove:</span>
-                <a
-                  href={getTxExplorerUrl(order.proveHash, 11155111)}
+            <div className="grid grid-cols-2 gap-1">
+              <div>
+                <span className="font-medium">From:</span>{' '}
+                <Link
+                  href={getAddressExplorerUrl(
+                    order.fromAddress,
+                    OP_STACK_CHAINS.L1.id,
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                  className="font-mono text-blue-600 hover:text-blue-800"
+                  title={order.fromAddress}
                 >
-                  {order.proveHash.slice(0, 10)}...
-                  <ExternalLink className="h-3 w-3" />
-                </a>
+                  {order.fromAddress.slice(0, 6)}...
+                  {order.fromAddress.slice(-4)}
+                </Link>
               </div>
-            )}
-
-            {order.finalizeHash && (
-              <div className="flex items-center gap-1">
-                <span className="font-medium">Finalize:</span>
-                <a
-                  href={getTxExplorerUrl(order.finalizeHash, 11155111)}
+              <div>
+                <span className="font-medium">To:</span>{' '}
+                <Link
+                  href={getAddressExplorerUrl(
+                    order.toAddress,
+                    OP_STACK_CHAINS.L1.id,
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                  className="font-mono text-blue-600 hover:text-blue-800"
+                  title={order.toAddress}
                 >
-                  {order.finalizeHash.slice(0, 10)}...
-                  <ExternalLink className="h-3 w-3" />
-                </a>
+                  {order.toAddress.slice(0, 6)}...{order.toAddress.slice(-4)}
+                </Link>
               </div>
-            )}
+              <div>
+                <span className="font-medium">Initiated:</span>{' '}
+                {formatDate(order.createdAt)}
+              </div>
+
+              {order.proveHash && (
+                <div className="flex items-center gap-1">
+                  <span className="font-medium">Prove:</span>
+                  <Link
+                    href={getTxExplorerUrl(
+                      order.proveHash,
+                      OP_STACK_CHAINS.L1.id,
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                  >
+                    {order.proveHash.slice(0, 10)}...
+                    <ExternalLink className="h-3 w-3" />
+                  </Link>
+                </div>
+              )}
+
+              {order.finalizeHash && (
+                <div className="flex items-center gap-1">
+                  <span className="font-medium">Finalize:</span>
+                  <Link
+                    href={getTxExplorerUrl(
+                      order.finalizeHash,
+                      OP_STACK_CHAINS.L1.id,
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                  >
+                    {order.finalizeHash.slice(0, 10)}...
+                    <ExternalLink className="h-3 w-3" />
+                  </Link>
+                </div>
+              )}
+            </div>
 
             {order.error && (
               <div className="mt-1 text-xs text-red-600">
@@ -297,25 +348,6 @@ export function WithdrawalOrderCard({
             )}
           </div>
         </div>
-
-        {nextAction && (
-          <div className="ml-4">
-            <button
-              onClick={nextAction.action}
-              disabled={nextAction.disabled || isProcessing}
-              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {isProcessing ? (
-                <div className="flex items-center gap-2">
-                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  {t('processing', 'Processing...')}
-                </div>
-              ) : (
-                nextAction.label
-              )}
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );

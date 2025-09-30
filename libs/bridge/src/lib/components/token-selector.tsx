@@ -170,6 +170,13 @@ export function TokenSelector({
         unstyled
         classNames={classNames}
       />
+
+      {tokens.length > 0 && (
+        <div className="!mt-0 h-[20px] text-xs leading-[20px] text-[#0D0D0E80]">
+          Loaded {tokens.length} token{tokens.length !== 1 ? 's' : ''} from your
+          wallet
+        </div>
+      )}
     </div>
   );
 }

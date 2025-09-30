@@ -20,6 +20,7 @@ export function BridgeReceiveInput({
         onChange={() => {
           // Read-only input
         }}
+        readOnly={true}
         placeholder={`0 ${tokenSymbol}`}
         className="!bg-[#F5F5F5] !text-[#0D0D0E80]"
       />

@@ -15,7 +15,6 @@ interface Token {
 interface BridgeStatusMessagesProps {
   tokensError?: string | null;
   isLoadingTokens?: boolean;
-  userTokens?: any[];
   needsApproval?: boolean;
   selectedToken?: Token | null;
   isCheckingRemoteToken?: boolean;
@@ -34,7 +33,6 @@ const ETH_TOKEN_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
 export function BridgeStatusMessages({
   tokensError,
   isLoadingTokens,
-  userTokens = [],
   needsApproval,
   selectedToken,
   isCheckingRemoteToken,
@@ -63,15 +61,6 @@ export function BridgeStatusMessages({
       {isLoadingTokens && (
         <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-700">
           <p className="text-sm">Loading your token balances...</p>
-        </div>
-      )}
-
-      {!isLoadingTokens && !tokensError && userTokens.length > 0 && (
-        <div className="mb-4 rounded-lg bg-green-50 p-4 text-green-700">
-          <p className="text-sm">
-            Loaded {userTokens.length} token
-            {userTokens.length !== 1 ? 's' : ''} from your wallet
-          </p>
         </div>
       )}
 

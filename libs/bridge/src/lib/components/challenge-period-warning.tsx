@@ -17,7 +17,7 @@ export function ChallengePeriodWarning({
   }
 
   return (
-    <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 p-4">
+    <div className="mb-4 mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4">
       <div className="flex items-start">
         <AlertTriangle className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-amber-600" />
         <div className="text-sm">
