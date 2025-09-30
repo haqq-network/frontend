@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getWithdrawals } from 'viem/op-stack';
 import { useOpStackClients } from './use-op-stack-clients';
 import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';

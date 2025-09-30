@@ -73,8 +73,6 @@ export function useL2ToL1Withdrawal({
     chains,
     publicClientReadonlyL1,
     publicClientReadonlyL2,
-    walletClientReadonlyL1,
-    walletClientReadonlyL2,
   } = useOpStackClients();
 
   const toast = useToast();

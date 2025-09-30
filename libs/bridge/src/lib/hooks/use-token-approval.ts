@@ -35,10 +35,9 @@ export function useTokenApproval({
   const [txHash, setTxHash] = useState<string | null>(null);
 
   // Wait for transaction receipt
-  const { isLoading: isWaitingForReceipt, isSuccess: isTxSuccess } =
-    useWaitForTransactionReceipt({
-      hash: txHash as `0x${string}` | undefined,
-    });
+  const { isLoading: isWaitingForReceipt } = useWaitForTransactionReceipt({
+    hash: txHash as `0x${string}` | undefined,
+  });
 
   const approve = useCallback(
     async (amount: number, decimals: number) => {

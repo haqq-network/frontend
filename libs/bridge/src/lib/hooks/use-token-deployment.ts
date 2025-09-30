@@ -39,11 +39,10 @@ export function useTokenDeployment({
   const { writeContractAsync } = useWriteContract();
 
   // Wait for deployment transaction
-  const { isLoading: isWaitingForDeployment, isSuccess: isDeploymentSuccess } =
-    useWaitForTransactionReceipt({
-      hash: deploymentHash as `0x${string}` | undefined,
-      chainId: targetChainId,
-    });
+  const { isLoading: isWaitingForDeployment } = useWaitForTransactionReceipt({
+    hash: deploymentHash as `0x${string}` | undefined,
+    chainId: targetChainId,
+  });
 
   const deployToken = useCallback(
     async (

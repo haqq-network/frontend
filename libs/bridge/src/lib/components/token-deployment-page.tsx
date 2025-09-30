@@ -27,11 +27,7 @@ export function TokenDeploymentPage() {
   const searchParams = useSearchParams();
   const { buildBridgeUrl } = useBridgeUrlState();
 
-  const {
-    address: userAddress,
-    isConnected,
-    chain: currentChain,
-  } = useAccount();
+  const { isConnected, chain: currentChain } = useAccount();
   const { switchChainAsync } = useSwitchChain();
 
   const [deploymentHash, setDeploymentHash] = useState<string | null>(null);
