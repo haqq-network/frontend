@@ -325,9 +325,6 @@ export function BridgePage() {
   ]);
 
   const handleSwitchChain = useCallback(async () => {
-    console.log('handleSwitchChain', targetChainIdNumber);
-    console.log('switchChainAsync', switchChainAsync);
-    console.log('targetChainIdNumber', targetChainIdNumber);
     if (!switchChainAsync || !targetChainIdNumber) return;
 
     try {

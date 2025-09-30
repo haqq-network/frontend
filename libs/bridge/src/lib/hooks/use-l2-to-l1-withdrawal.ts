@@ -3,6 +3,7 @@
 import { useCallback, useState } from 'react';
 import { parseEther } from 'viem';
 import { getWithdrawals } from 'viem/op-stack';
+import { useSwitchChain } from 'wagmi';
 import { useToast } from '@haqq/shell-shared';
 import { useOpStackClients } from './use-op-stack-clients';
 import { useWithdrawalOrders } from './use-withdrawal-orders';
@@ -148,6 +149,7 @@ export function useL2ToL1Withdrawal({
       onError,
     ],
   );
+  const { switchChainAsync } = useSwitchChain();
 
   const proveWithdrawal = useCallback(
     async (withdrawalHash: string): Promise<string> => {
@@ -166,17 +168,21 @@ export function useL2ToL1Withdrawal({
 
         // Step 2: Wait until the withdrawal is ready to prove
         // According to Viem docs: "Wait until the withdrawal is ready to prove"
-        const { output, withdrawal } = await publicClientL1.waitToProve({
-          receipt,
-          targetChain: chains.L2_WITH_CONTRACTS,
-        });
+        const { output, withdrawal } = await publicClientReadonlyL1.waitToProve(
+          {
+            receipt,
+            targetChain: chains.L2_WITH_CONTRACTS,
+          },
+        );
 
         // Step 3: Build parameters to prove the withdrawal on the L2
         // According to Viem docs: "Build parameters to prove the withdrawal on the L2"
-        const proveArgs = await publicClientL2.buildProveWithdrawal({
+        const proveArgs = await publicClientReadonlyL2.buildProveWithdrawal({
           output,
           withdrawal,
         });
+
+        await switchChainAsync({ chainId: chains.L1.id });
 
         // Step 4: Prove the withdrawal on the L1
         // According to Viem docs: "Prove the withdrawal on the L1"
@@ -187,9 +193,10 @@ export function useL2ToL1Withdrawal({
 
         // Step 5: Wait until the prove withdrawal is processed
         // According to Viem docs: "Wait until the prove withdrawal is processed"
-        const proveReceipt = await publicClientL1.waitForTransactionReceipt({
-          hash: proveHash,
-        });
+        const proveReceipt =
+          await publicClientReadonlyL1.waitForTransactionReceipt({
+            hash: proveHash,
+          });
 
         console.log(`Withdrawal proved successfully: ${proveHash}`);
 
@@ -211,6 +218,7 @@ export function useL2ToL1Withdrawal({
         onError?.(err as Error);
         throw err;
       } finally {
+        await switchChainAsync({ chainId: chains.L2.id });
         setIsProving(false);
       }
     },
@@ -218,6 +226,7 @@ export function useL2ToL1Withdrawal({
       walletClientL1,
       publicClientL1,
       publicClientL2,
+      publicClientReadonlyL1,
       publicClientReadonlyL2,
       chains,
       updateOrderByInitiateHash,

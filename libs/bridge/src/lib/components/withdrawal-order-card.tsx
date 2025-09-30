@@ -238,7 +238,7 @@ export function WithdrawalOrderCard({
           )}
 
           {/* Warning Message */}
-          {warning && (
+          {warning && !timerInfo?.isReady && (
             <div className="mb-2 rounded-md bg-amber-50 p-2">
               <p className="text-sm text-amber-800">{warning}</p>
             </div>
