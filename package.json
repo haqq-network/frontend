@@ -48,7 +48,7 @@
     "@tolgee/react": "6.2.2",
     "@tolgee/web": "6.2.2",
     "@vercel/speed-insights": "1.2.0",
-    "@wagmi/core": "2.16.5",
+    "@wagmi/core": "2.21.2",
     "bech32": "2.0.0",
     "clsx": "2.1.1",
     "cookie": "1.0.2",
