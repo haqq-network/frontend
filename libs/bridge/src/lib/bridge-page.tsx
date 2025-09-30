@@ -68,7 +68,6 @@ export function BridgePage() {
     availableBalance,
     isLoadingTokens,
     tokensError,
-    userTokens,
     balance,
     formatNumber,
     handleInputChange,
