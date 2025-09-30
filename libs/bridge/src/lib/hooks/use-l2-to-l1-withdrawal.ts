@@ -246,7 +246,7 @@ export function useL2ToL1Withdrawal({
 
       try {
         // Step 1: Get withdrawal receipt from L2
-        const receipt = await publicClientL2.getTransactionReceipt({
+        const receipt = await publicClientReadonlyL2.getTransactionReceipt({
           hash: withdrawalHash as `0x${string}`,
         });
 
@@ -256,10 +256,12 @@ export function useL2ToL1Withdrawal({
 
         // Step 3: Wait until the withdrawal is ready to finalize
         // According to Viem docs: "Wait until the withdrawal is ready to finalize"
-        await publicClientL1.waitToFinalize({
+        await publicClientReadonlyL1.waitToFinalize({
           targetChain: chains.L2_WITH_CONTRACTS,
           withdrawalHash: withdrawal.withdrawalHash,
         });
+
+        await switchChainAsync({ chainId: chains.L1.id });
 
         // Step 4: Finalize the withdrawal
         // According to Viem docs: "Finalize the withdrawal"
@@ -270,9 +272,10 @@ export function useL2ToL1Withdrawal({
 
         // Step 5: Wait until the withdrawal is finalized
         // According to Viem docs: "Wait until the withdrawal is finalized"
-        const finalizeReceipt = await publicClientL1.waitForTransactionReceipt({
-          hash: finalizeHash,
-        });
+        const finalizeReceipt =
+          await publicClientReadonlyL1.waitForTransactionReceipt({
+            hash: finalizeHash,
+          });
 
         console.log(`Withdrawal finalized successfully: ${finalizeHash}`);
 
@@ -294,6 +297,7 @@ export function useL2ToL1Withdrawal({
         onError?.(err as Error);
         throw err;
       } finally {
+        await switchChainAsync({ chainId: chains.L2.id });
         setIsFinalizing(false);
       }
     },
@@ -301,6 +305,8 @@ export function useL2ToL1Withdrawal({
       walletClientL1,
       publicClientL1,
       publicClientL2,
+      publicClientReadonlyL1,
+      publicClientReadonlyL2,
       chains,
       updateOrderByInitiateHash,
       onFinalizeSuccess,

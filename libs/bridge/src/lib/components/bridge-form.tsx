@@ -115,7 +115,9 @@ export function BridgeForm({
               isProving ||
               isFinalizing
             }
-            isLoading={isProcessing || isWaitingForReceipt}
+            isLoading={
+              isProcessing || isWaitingForReceipt || isProving || isFinalizing
+            }
           >
             {isProcessing || isWaitingForReceipt || isProving || isFinalizing
               ? 'Processing...'
