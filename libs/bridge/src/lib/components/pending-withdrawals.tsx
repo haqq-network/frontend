@@ -19,6 +19,8 @@ export function PendingWithdrawals({
     return null;
   }
 
+  console.log('orders', orders);
+
   return (
     <div className="mb-6 mt-4">
       <h3 className="mb-4 text-lg font-semibold text-gray-900">

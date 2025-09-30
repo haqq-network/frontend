@@ -196,8 +196,6 @@ export function useL2ToL1Withdrawal({
             hash: proveHash,
           });
 
-        console.log(`Withdrawal proved successfully: ${proveHash}`);
-
         // Update withdrawal order status
         updateOrderByInitiateHash(withdrawalHash, {
           status: WithdrawalStatus.PROVED,

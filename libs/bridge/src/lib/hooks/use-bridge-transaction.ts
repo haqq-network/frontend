@@ -62,8 +62,6 @@ export function useBridgeTransaction({
   // Use L2 to L1 withdrawal hook for L2 -> L1 transfers
   const {
     initiateWithdrawal,
-    proveWithdrawal,
-    finalizeWithdrawal,
     isProcessing: isL2Processing,
     isProving,
     isFinalizing,
@@ -91,10 +89,7 @@ export function useBridgeTransaction({
       if (isL2ToL1 && token.address === ETH_ADDRESS) {
         // Handle L2 to L1 native ETH withdrawal
         console.log(`Initiating L2 to L1 withdrawal of ${amount} ETH`);
-        const hash = await initiateWithdrawal(amount, userAddress);
-
-        await proveWithdrawal(hash);
-        await finalizeWithdrawal(hash);
+        await initiateWithdrawal(amount, userAddress);
 
         return;
       }

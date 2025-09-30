@@ -83,7 +83,6 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
           return new Map(prev.set(`${order.id}-prove`, timerInfo));
         });
 
-        console.log('[useWithdrawalTimers] getTimeToProve', timerInfo);
         return timerInfo;
       } catch (error) {
         console.error('Failed to get time to prove:', error);
