@@ -2,18 +2,12 @@
 
 import { useState, useCallback } from 'react';
 import { useTranslate } from '@tolgee/react';
-import {
-  ArrowLeft,
-  Search,
-  AlertCircle,
-  Clock,
-  CheckCircle,
-} from 'lucide-react';
+import { ArrowLeft, Search, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
-import { Button, ModalInput, StringInput } from '@haqq/shell-ui-kit';
+import { Button, StringInput } from '@haqq/shell-ui-kit';
 import { Container } from '@haqq/shell-ui-kit/server';
+import { WithdrawalOrderCard } from './components/withdrawal-order-card';
 import { useWithdrawalRecovery } from './hooks/use-withdrawal-recovery';
-import { WithdrawalStatus } from './types/withdrawal-order';
 
 export function WithdrawalRecoveryPage() {
   const { t } = useTranslate('common');
@@ -22,14 +16,10 @@ export function WithdrawalRecoveryPage() {
 
   const {
     recoverWithdrawal,
-    recoveredWithdrawal,
+    recoveredOrder,
     isRecovering,
     error,
     clearRecovery,
-    proveWithdrawal,
-    finalizeWithdrawal,
-    isProving,
-    isFinalizing,
   } = useWithdrawalRecovery();
 
   const validateHash = useCallback((hash: string) => {
@@ -53,56 +43,6 @@ export function WithdrawalRecoveryPage() {
       console.error('Recovery failed:', err);
     }
   }, [txHash, isValidHash, recoverWithdrawal]);
-
-  const handleProve = useCallback(async () => {
-    if (!recoveredWithdrawal) return;
-
-    try {
-      await proveWithdrawal(recoveredWithdrawal.withdrawalHash);
-    } catch (err) {
-      console.error('Prove failed:', err);
-    }
-  }, [recoveredWithdrawal, proveWithdrawal]);
-
-  const handleFinalize = useCallback(async () => {
-    if (!recoveredWithdrawal) return;
-
-    try {
-      await finalizeWithdrawal(recoveredWithdrawal.withdrawalHash);
-    } catch (err) {
-      console.error('Finalize failed:', err);
-    }
-  }, [recoveredWithdrawal, finalizeWithdrawal]);
-
-  const formatAmount = (amount: number, symbol: string) => {
-    return `${amount.toFixed(6)} ${symbol}`;
-  };
-
-  const getStatusIcon = (status: WithdrawalStatus) => {
-    switch (status) {
-      case WithdrawalStatus.INITIATED:
-        return <Clock className="h-5 w-5 text-blue-500" />;
-      case WithdrawalStatus.PROVED:
-        return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case WithdrawalStatus.FINALIZED:
-        return <CheckCircle className="h-5 w-5 text-green-500" />;
-      default:
-        return <AlertCircle className="h-5 w-5 text-gray-500" />;
-    }
-  };
-
-  const getStatusText = (status: WithdrawalStatus) => {
-    switch (status) {
-      case WithdrawalStatus.INITIATED:
-        return t('withdrawal-status-initiated', 'Initiated');
-      case WithdrawalStatus.PROVED:
-        return t('withdrawal-status-proved', 'Proved');
-      case WithdrawalStatus.FINALIZED:
-        return t('withdrawal-status-finalized', 'Finalized');
-      default:
-        return t('withdrawal-status-unknown', 'Unknown');
-    }
-  };
 
   return (
     <Container>
@@ -129,7 +69,7 @@ export function WithdrawalRecoveryPage() {
           </div>
 
           {/* Transaction Hash Input */}
-          {!recoveredWithdrawal && (
+          {!recoveredOrder && (
             <div className="space-y-4">
               <div>
                 <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -191,139 +131,15 @@ export function WithdrawalRecoveryPage() {
             </div>
           )}
 
-          {/* Recovered Withdrawal Details */}
-          {recoveredWithdrawal && (
+          {/* Recovered Withdrawal Order */}
+          {recoveredOrder && (
             <div className="space-y-6">
-              {/* Status Card */}
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    {getStatusIcon(recoveredWithdrawal.status)}
-                    <div>
-                      <h3 className="font-medium text-gray-900">
-                        {formatAmount(
-                          recoveredWithdrawal.amount,
-                          recoveredWithdrawal.tokenSymbol,
-                        )}
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        {getStatusText(recoveredWithdrawal.status)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <WithdrawalOrderCard order={recoveredOrder} />
 
-                {/* Withdrawal Details */}
-                <div className="space-y-2 text-sm text-gray-600">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <span className="font-medium">From:</span>{' '}
-                      <span className="font-mono">
-                        {recoveredWithdrawal.fromAddress.slice(0, 6)}...
-                        {recoveredWithdrawal.fromAddress.slice(-4)}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-medium">To:</span>{' '}
-                      <span className="font-mono">
-                        {recoveredWithdrawal.toAddress.slice(0, 6)}...
-                        {recoveredWithdrawal.toAddress.slice(-4)}
-                      </span>
-                    </div>
-                    <div className="col-span-2">
-                      <span className="font-medium">Withdrawal Hash:</span>{' '}
-                      <span className="break-all font-mono text-xs">
-                        {recoveredWithdrawal.withdrawalHash}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Timer Information */}
-                {recoveredWithdrawal.timeToProve &&
-                  recoveredWithdrawal.status === WithdrawalStatus.INITIATED && (
-                    <div className="mt-4 rounded-md bg-blue-50 p-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-blue-800">
-                          Time to prove:
-                        </span>
-                        <span
-                          className={`font-mono text-sm ${recoveredWithdrawal.timeToProve.isReady ? 'text-green-600' : 'text-blue-600'}`}
-                        >
-                          {recoveredWithdrawal.timeToProve.formattedTime}
-                        </span>
-                      </div>
-                      {recoveredWithdrawal.timeToProve.isReady && (
-                        <div className="mt-1 text-xs font-medium text-green-600">
-                          ✅ Ready to prove!
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                {recoveredWithdrawal.timeToFinalize &&
-                  recoveredWithdrawal.status === WithdrawalStatus.PROVED && (
-                    <div className="mt-4 rounded-md bg-blue-50 p-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-blue-800">
-                          Time to finalize:
-                        </span>
-                        <span
-                          className={`font-mono text-sm ${recoveredWithdrawal.timeToFinalize.isReady ? 'text-green-600' : 'text-blue-600'}`}
-                        >
-                          {recoveredWithdrawal.timeToFinalize.formattedTime}
-                        </span>
-                      </div>
-                      {recoveredWithdrawal.timeToFinalize.isReady && (
-                        <div className="mt-1 text-xs font-medium text-green-600">
-                          ✅ Ready to finalize!
-                        </div>
-                      )}
-                    </div>
-                  )}
-              </div>
-
-              {/* Action Buttons */}
               <div className="flex gap-3">
                 <Button onClick={clearRecovery} variant={4}>
                   {t('recover-another', 'Recover Another')}
                 </Button>
-
-                {recoveredWithdrawal.canProve && (
-                  <Button
-                    onClick={handleProve}
-                    disabled={isProving}
-                    className="flex-1"
-                    variant={5}
-                  >
-                    {isProving ? (
-                      <div className="flex items-center gap-2">
-                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                        {t('proving', 'Proving...')}
-                      </div>
-                    ) : (
-                      t('prove-withdrawal', 'Prove Withdrawal')
-                    )}
-                  </Button>
-                )}
-
-                {recoveredWithdrawal.canFinalize && (
-                  <Button
-                    onClick={handleFinalize}
-                    disabled={isFinalizing}
-                    className="flex-1"
-                    variant={5}
-                  >
-                    {isFinalizing ? (
-                      <div className="flex items-center gap-2">
-                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                        {t('finalizing', 'Finalizing...')}
-                      </div>
-                    ) : (
-                      t('finalize-withdrawal', 'Finalize Withdrawal')
-                    )}
-                  </Button>
-                )}
               </div>
             </div>
           )}

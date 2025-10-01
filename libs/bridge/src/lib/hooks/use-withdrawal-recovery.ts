@@ -3,113 +3,66 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 import { getWithdrawals } from 'viem/op-stack';
-import { useL2ToL1Withdrawal } from './use-l2-to-l1-withdrawal';
 import { useOpStackClients } from './use-op-stack-clients';
-import { WithdrawalStatus } from '../types/withdrawal-order';
-
-interface WithdrawalRecoveryData {
-  withdrawalHash: string;
-  status: WithdrawalStatus;
-  amount: number;
-  tokenSymbol: string;
-  fromAddress: string;
-  toAddress: string;
-  createdAt: number;
-  canProve: boolean;
-  canFinalize: boolean;
-  timeToProve?: {
-    seconds: number;
-    timestamp: number;
-    isReady: boolean;
-    formattedTime: string;
-  };
-  timeToFinalize?: {
-    seconds: number;
-    timestamp: number;
-    isReady: boolean;
-    formattedTime: string;
-  };
-}
+import { useWithdrawalOrders } from './use-withdrawal-orders';
+import { WithdrawalStatus, WithdrawalOrder } from '../types/withdrawal-order';
 
 interface UseWithdrawalRecoveryReturn {
-  recoverWithdrawal: (txHash: string) => Promise<WithdrawalRecoveryData | null>;
-  recoveredWithdrawal: WithdrawalRecoveryData | null;
+  recoverWithdrawal: (txHash: string) => Promise<WithdrawalOrder | null>;
+  recoveredOrder: WithdrawalOrder | null;
   isRecovering: boolean;
   error: string | null;
   clearRecovery: () => void;
-  // Actions
-  proveWithdrawal: (withdrawalHash: string) => Promise<string>;
-  finalizeWithdrawal: (withdrawalHash: string) => Promise<string>;
-  isProving: boolean;
-  isFinalizing: boolean;
 }
 
 const STORAGE_KEY = 'haqq-bridge-withdrawal-recovery';
 
 export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
-  const [recoveredWithdrawal, setRecoveredWithdrawal] =
-    useState<WithdrawalRecoveryData | null>(null);
+  const [recoveredOrder, setRecoveredOrder] = useState<WithdrawalOrder | null>(
+    null,
+  );
   const [isRecovering, setIsRecovering] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Use localStorage to persist withdrawal data across page reloads
+  // Use localStorage to persist the last recovered transaction hash
   const [storageInitial, setStorage] = useLocalStorage<string>(
     STORAGE_KEY,
     JSON.stringify(null),
   );
 
-  // Load persisted withdrawal data on mount
-  useEffect(() => {
-    if (storageInitial && storageInitial !== 'null') {
-      try {
-        const persistedData = JSON.parse(
-          storageInitial,
-        ) as WithdrawalRecoveryData;
-        setRecoveredWithdrawal(persistedData);
-      } catch (error) {
-        console.error('Failed to load persisted withdrawal data:', error);
-      }
-    }
-  }, [storageInitial]);
-
   const { publicClientReadonlyL1, publicClientReadonlyL2, chains } =
     useOpStackClients();
 
-  const {
-    proveWithdrawal: proveWithdrawalAction,
-    finalizeWithdrawal: finalizeWithdrawalAction,
-    getTimeToProve,
-    getTimeToFinalize,
-    isProving,
-    isFinalizing,
-  } = useL2ToL1Withdrawal({
-    onProveSuccess: () => {
-      if (recoveredWithdrawal) {
-        const updatedData = {
-          ...recoveredWithdrawal,
-          status: WithdrawalStatus.PROVED,
-        };
-        setRecoveredWithdrawal(updatedData);
-        setStorage(JSON.stringify(updatedData));
+  const { addWithdrawalOrder, getOrderByInitiateHash, orders } =
+    useWithdrawalOrders();
+
+  // Load persisted order on mount
+  useEffect(() => {
+    if (storageInitial && storageInitial !== 'null') {
+      try {
+        const persistedTxHash = JSON.parse(storageInitial) as string;
+        const existingOrder = getOrderByInitiateHash(persistedTxHash);
+        if (existingOrder) {
+          setRecoveredOrder(existingOrder);
+        }
+      } catch (error) {
+        console.error('Failed to load persisted withdrawal hash:', error);
       }
-    },
-    onFinalizeSuccess: () => {
-      if (recoveredWithdrawal) {
-        const updatedData = {
-          ...recoveredWithdrawal,
-          status: WithdrawalStatus.FINALIZED,
-        };
-        setRecoveredWithdrawal(updatedData);
-        setStorage(JSON.stringify(updatedData));
+    }
+  }, [storageInitial, getOrderByInitiateHash]);
+
+  // Update recovered order when orders change
+  useEffect(() => {
+    if (recoveredOrder) {
+      const updatedOrder = getOrderByInitiateHash(recoveredOrder.initiateHash);
+      if (updatedOrder) {
+        setRecoveredOrder(updatedOrder);
       }
-    },
-    onError: (error) => {
-      setError(error.message);
-    },
-  });
+    }
+  }, [orders, recoveredOrder, getOrderByInitiateHash]);
 
   const recoverWithdrawal = useCallback(
-    async (txHash: string): Promise<WithdrawalRecoveryData | null> => {
+    async (txHash: string): Promise<WithdrawalOrder | null> => {
       if (!publicClientReadonlyL2) {
         throw new Error('L2 client not available');
       }
@@ -118,6 +71,15 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
       setError(null);
 
       try {
+        // Check if order already exists
+        const existingOrder = getOrderByInitiateHash(txHash);
+        if (existingOrder) {
+          console.log('Order already exists in storage:', existingOrder);
+          setRecoveredOrder(existingOrder);
+          setStorage(JSON.stringify(txHash));
+          return existingOrder;
+        }
+
         // Step 1: Get transaction receipt from L2
         const receipt = await publicClientReadonlyL2.getTransactionReceipt({
           hash: txHash as `0x${string}`,
@@ -174,45 +136,33 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
           status = WithdrawalStatus.INITIATED;
         }
 
-        // Step 5: Get timing information if needed
-        let timeToProve = undefined;
-        let timeToFinalize = undefined;
-
-        if (status === WithdrawalStatus.INITIATED) {
-          timeToProve = await getTimeToProve(withdrawal.withdrawalHash);
-        } else if (status === WithdrawalStatus.PROVED) {
-          timeToFinalize = await getTimeToFinalize(withdrawal.withdrawalHash);
-        }
-
-        console.log('withdrawal', withdrawal);
-        // Step 6: Construct recovery data
-        const recoveryData: WithdrawalRecoveryData = {
-          withdrawalHash: txHash, //withdrawal.withdrawalHash,
+        console.log('Recovered withdrawal data:', {
+          txHash,
+          withdrawal,
           status,
+        });
+
+        // Step 5: Add to withdrawal orders
+        const orderId = addWithdrawalOrder({
           amount: Number(withdrawal.value) / 1e18, // Convert from wei
-          tokenSymbol: 'ETH', // Assuming ETH for now, could be extended for tokens
-          fromAddress: transaction.from,
           toAddress: withdrawal.target,
-          createdAt: Number(receipt.blockNumber) * 1000, // Approximate timestamp
-          canProve: status === WithdrawalStatus.INITIATED,
-          canFinalize: status === WithdrawalStatus.PROVED,
-        };
+          fromAddress: transaction.from,
+          initiateHash: txHash,
+          status,
+          sourceChainId: chains.L2.id,
+          targetChainId: chains.L1.id,
+          tokenSymbol: 'ETH', // Assuming ETH for now, could be extended for tokens
+        });
 
-        // Add timing information if available
-        if (timeToProve) {
-          recoveryData.timeToProve = timeToProve;
+        // Get the newly created order
+        const newOrder = getOrderByInitiateHash(txHash);
+        if (newOrder) {
+          setRecoveredOrder(newOrder);
+          setStorage(JSON.stringify(txHash));
+          return newOrder;
         }
-        if (timeToFinalize) {
-          recoveryData.timeToFinalize = timeToFinalize;
-        }
-        console.log('recoveryData', recoveryData);
 
-        setRecoveredWithdrawal(recoveryData);
-
-        // Persist recovery data to localStorage
-        setStorage(JSON.stringify(recoveryData));
-
-        return recoveryData;
+        throw new Error('Failed to create withdrawal order');
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Failed to recover withdrawal';
@@ -226,40 +176,24 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
     [
       publicClientReadonlyL1,
       publicClientReadonlyL2,
-      getTimeToProve,
-      getTimeToFinalize,
+      chains,
+      addWithdrawalOrder,
+      getOrderByInitiateHash,
+      setStorage,
     ],
   );
 
-  const proveWithdrawal = useCallback(
-    async (withdrawalHash: string): Promise<string> => {
-      return await proveWithdrawalAction(withdrawalHash);
-    },
-    [proveWithdrawalAction],
-  );
-
-  const finalizeWithdrawal = useCallback(
-    async (withdrawalHash: string): Promise<string> => {
-      return await finalizeWithdrawalAction(withdrawalHash);
-    },
-    [finalizeWithdrawalAction],
-  );
-
   const clearRecovery = useCallback(() => {
-    setRecoveredWithdrawal(null);
+    setRecoveredOrder(null);
     setError(null);
     setStorage(JSON.stringify(null));
   }, [setStorage]);
 
   return {
     recoverWithdrawal,
-    recoveredWithdrawal,
+    recoveredOrder,
     isRecovering,
     error,
     clearRecovery,
-    proveWithdrawal,
-    finalizeWithdrawal,
-    isProving,
-    isFinalizing,
   };
 }
