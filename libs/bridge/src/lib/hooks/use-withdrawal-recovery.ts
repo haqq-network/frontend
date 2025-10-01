@@ -72,13 +72,8 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
     }
   }, [storageInitial]);
 
-  const {
-    publicClientL1,
-    publicClientL2,
-    publicClientReadonlyL1,
-    publicClientReadonlyL2,
-    chains,
-  } = useOpStackClients();
+  const { publicClientReadonlyL1, publicClientReadonlyL2, chains } =
+    useOpStackClients();
 
   const {
     proveWithdrawal: proveWithdrawalAction,
@@ -189,9 +184,10 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
           timeToFinalize = await getTimeToFinalize(withdrawal.withdrawalHash);
         }
 
+        console.log('withdrawal', withdrawal);
         // Step 6: Construct recovery data
         const recoveryData: WithdrawalRecoveryData = {
-          withdrawalHash: withdrawal.withdrawalHash,
+          withdrawalHash: txHash, //withdrawal.withdrawalHash,
           status,
           amount: Number(withdrawal.value) / 1e18, // Convert from wei
           tokenSymbol: 'ETH', // Assuming ETH for now, could be extended for tokens
@@ -209,6 +205,7 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
         if (timeToFinalize) {
           recoveryData.timeToFinalize = timeToFinalize;
         }
+        console.log('recoveryData', recoveryData);
 
         setRecoveredWithdrawal(recoveryData);
 

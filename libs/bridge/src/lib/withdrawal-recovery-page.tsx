@@ -74,10 +74,6 @@ export function WithdrawalRecoveryPage() {
     }
   }, [recoveredWithdrawal, finalizeWithdrawal]);
 
-  const formatDate = (timestamp: number) => {
-    return new Date(timestamp).toLocaleString();
-  };
-
   const formatAmount = (amount: number, symbol: string) => {
     return `${amount.toFixed(6)} ${symbol}`;
   };
@@ -177,17 +173,18 @@ export function WithdrawalRecoveryPage() {
               <Button
                 onClick={handleRecover}
                 disabled={!txHash || !isValidHash || isRecovering}
-                className="w-full"
+                className="flex w-full items-center justify-center"
+                variant={5}
               >
                 {isRecovering ? (
                   <div className="flex items-center gap-2">
                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                    {t('recovering', 'Recovering...')}
+                    {t('loading', 'Loading...')}
                   </div>
                 ) : (
                   <>
                     <Search className="mr-2 h-4 w-4" />
-                    {t('recover-withdrawal', 'Recover Withdrawal')}
+                    {t('load-withdrawal', 'Load Withdrawal')}
                   </>
                 )}
               </Button>
@@ -239,10 +236,6 @@ export function WithdrawalRecoveryPage() {
                         {recoveredWithdrawal.withdrawalHash}
                       </span>
                     </div>
-                    <div>
-                      <span className="font-medium">Initiated:</span>{' '}
-                      {formatDate(recoveredWithdrawal.createdAt)}
-                    </div>
                   </div>
                 </div>
 
@@ -292,7 +285,7 @@ export function WithdrawalRecoveryPage() {
 
               {/* Action Buttons */}
               <div className="flex gap-3">
-                <Button onClick={clearRecovery} variant={5}>
+                <Button onClick={clearRecovery} variant={4}>
                   {t('recover-another', 'Recover Another')}
                 </Button>
 
@@ -301,6 +294,7 @@ export function WithdrawalRecoveryPage() {
                     onClick={handleProve}
                     disabled={isProving}
                     className="flex-1"
+                    variant={5}
                   >
                     {isProving ? (
                       <div className="flex items-center gap-2">
@@ -318,6 +312,7 @@ export function WithdrawalRecoveryPage() {
                     onClick={handleFinalize}
                     disabled={isFinalizing}
                     className="flex-1"
+                    variant={5}
                   >
                     {isFinalizing ? (
                       <div className="flex items-center gap-2">
