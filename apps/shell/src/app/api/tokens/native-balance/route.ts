@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createPublicClient, http, formatEther } from 'viem';
+import { createPublicClient, http, formatEther, Chain } from 'viem';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import { haqqDevnet1 } from '@haqq/shell-shared';
 
@@ -48,22 +48,16 @@ export async function GET(request: NextRequest) {
         formattedBalance,
       };
 
-      console.log(
-        `Native token balance: ${formattedBalance} ${chainConfig.nativeSymbol}`,
-      );
-
       return NextResponse.json({
         token: nativeToken,
       });
-    } catch (rpcError) {
-      console.error('RPC error:', rpcError);
+    } catch {
       return NextResponse.json(
         { error: 'Failed to fetch native token balance via RPC' },
         { status: 500 },
       );
     }
-  } catch (error) {
-    console.error('Error in native token balance API:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 },
@@ -72,7 +66,7 @@ export async function GET(request: NextRequest) {
 }
 
 interface ChainConfig {
-  chain: any;
+  chain: Chain;
   rpcUrl: string;
   nativeSymbol: string;
   nativeName: string;
