@@ -103,7 +103,7 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
         }
 
         // Step 4: Check withdrawal status using viem's getWithdrawalStatus
-        let status = WithdrawalStatus.INITIATED;
+        let status;
 
         try {
           const withdrawalStatus =
