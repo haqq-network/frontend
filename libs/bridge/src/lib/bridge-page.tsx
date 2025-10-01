@@ -1,6 +1,8 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
+import { ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSwitchChain, useWaitForTransactionReceipt } from 'wagmi';
 import {
@@ -389,6 +391,26 @@ export function BridgePage() {
               {isL2ToL1 && pendingOrders.length > 0 && (
                 <PendingWithdrawals orders={pendingOrders} />
               )}
+
+              {/* Recovery Link */}
+              <div className="mt-6 border-t border-gray-200 pt-4">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-gray-600">
+                    <p>Lost track of your withdrawal?</p>
+                    <p className="text-xs">
+                      Use transaction hash to recover and complete your
+                      withdrawal.
+                    </p>
+                  </div>
+                  <Link
+                    href="/bridge/recovery"
+                    className="inline-flex items-center gap-2 rounded-md border border-blue-200 px-3 py-2 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Recover Withdrawal
+                  </Link>
+                </div>
+              </div>
             </>
           )}
         </div>

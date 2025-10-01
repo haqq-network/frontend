@@ -11,7 +11,10 @@ import {
 } from '@haqq/shell-shared';
 import { Button, AccountButton, SelectChainButton } from '@haqq/shell-ui-kit';
 import { formatNumber } from '@haqq/shell-ui-kit/server';
-import { supportedChains, bridgeSupportedChains } from '../config/wagmi-config';
+import {
+  baseSupportedChains,
+  bridgeSupportedChains,
+} from '../config/wagmi-config';
 
 function useIsBridgePage() {
   const pathname = usePathname();
@@ -27,7 +30,7 @@ function useChainArray() {
   return useMemo(() => {
     const availableChains = isBridgePage
       ? bridgeSupportedChains
-      : supportedChains;
+      : baseSupportedChains;
 
     if (chains.length === 0) {
       return availableChains.map((chain) => {
