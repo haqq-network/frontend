@@ -2,6 +2,30 @@ import { NextRequest, NextResponse } from 'next/server';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import { haqqDevnet1 } from '@haqq/shell-shared';
 
+export interface TokenBalance {
+  symbol: string;
+  address: string;
+  name: string;
+  balance: string;
+  decimals: number;
+  formattedBalance: number;
+}
+
+export interface ExplorerToken {
+  value: string;
+  token: {
+    symbol: string;
+    address_hash?: string;
+    address?: string;
+    name: string;
+    decimals: string;
+  };
+}
+
+export interface ExplorerApiResponse {
+  items: ExplorerToken[];
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -16,7 +40,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get chain configuration
-    const chainConfig = getChainConfig(parseInt(chainId));
+    const chainConfig = getChainConfig(Number(chainId));
     if (!chainConfig) {
       return NextResponse.json(
         { error: `Unsupported chain ID: ${chainId}` },
@@ -48,12 +72,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as ExplorerApiResponse;
 
     console.log('Explorer API data items count:', data.items?.length || 0);
 
     // Filter out tokens with zero balance
-    const filteredTokens = data.items.filter((item: any) => {
+    const filteredTokens: ExplorerToken[] = data.items.filter((item) => {
       return item.value !== '0' && item.value !== '0x0';
     });
 
@@ -62,14 +86,14 @@ export async function GET(request: NextRequest) {
     );
 
     // Process token balances
-    const tokenBalances = filteredTokens.map((item: any) => {
-      const decimals = parseInt(item.token.decimals, 10);
+    const tokenBalances: TokenBalance[] = filteredTokens.map((item) => {
+      const decimals = Number(item.token.decimals);
       const balanceWei = BigInt(item.value);
       const formattedBalance = Number(balanceWei) / Math.pow(10, decimals);
 
       return {
         symbol: item.token.symbol,
-        address: item.token.address_hash || item.token.address,
+        address: item.token.address_hash || item.token.address || '',
         name: item.token.name,
         balance: item.value,
         decimals,
@@ -79,7 +103,7 @@ export async function GET(request: NextRequest) {
 
     console.log(
       'Processed token balances:',
-      tokenBalances.map((t: any) => {
+      tokenBalances.map((t) => {
         return `${t.symbol}: ${t.formattedBalance}`;
       }),
     );
