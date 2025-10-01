@@ -6,13 +6,9 @@ import { WithdrawalOrder } from '../types/withdrawal-order';
 
 interface PendingWithdrawalsProps {
   orders: WithdrawalOrder[];
-  onOrderUpdate?: () => void;
 }
 
-export function PendingWithdrawals({
-  orders,
-  onOrderUpdate,
-}: PendingWithdrawalsProps) {
+export function PendingWithdrawals({ orders }: PendingWithdrawalsProps) {
   const { t } = useTranslate('common');
 
   if (orders.length === 0) {
@@ -29,13 +25,7 @@ export function PendingWithdrawals({
 
       <div className="space-y-3">
         {orders.map((order) => {
-          return (
-            <WithdrawalOrderCard
-              key={order.id}
-              order={order}
-              onOrderUpdate={onOrderUpdate}
-            />
-          );
+          return <WithdrawalOrderCard key={order.id} order={order} />;
         })}
       </div>
     </div>

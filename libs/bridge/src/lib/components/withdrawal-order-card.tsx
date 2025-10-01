@@ -18,7 +18,6 @@ import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
 
 interface WithdrawalOrderCardProps {
   order: WithdrawalOrder;
-  onOrderUpdate?: () => void;
 }
 
 const formatDate = (timestamp: number) => {
@@ -29,10 +28,7 @@ const formatAmount = (amount: number, symbol: string) => {
   return `${amount.toFixed(6)} ${symbol}`;
 };
 
-export function WithdrawalOrderCard({
-  order,
-  onOrderUpdate,
-}: WithdrawalOrderCardProps) {
+export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
   const { t } = useTranslate('common');
   const [isProcessing, setIsProcessing] = useState(false);
   const [timerInfo, setTimerInfo] = useState<{
@@ -52,15 +48,12 @@ export function WithdrawalOrderCard({
   } = useL2ToL1Withdrawal({
     onProveSuccess: () => {
       setIsProcessing(false);
-      onOrderUpdate?.();
     },
     onFinalizeSuccess: () => {
       setIsProcessing(false);
-      onOrderUpdate?.();
     },
     onError: () => {
       setIsProcessing(false);
-      onOrderUpdate?.();
     },
   });
 

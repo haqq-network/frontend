@@ -12,9 +12,10 @@ import { haqqDevnet1 } from '@haqq/shell-shared';
 
 export const bridgeSupportedChains = [haqqDevnet1, sepolia];
 
+export const baseSupportedChains = [haqqMainnet, haqqTestedge2] as const;
+
 export const supportedChains = [
-  haqqMainnet,
-  haqqTestedge2,
+  ...baseSupportedChains,
   ...bridgeSupportedChains,
 ] as const;
 
