@@ -1,9 +1,16 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { formatUnits } from 'viem';
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { SWAPPABLE_TOKENS } from '@haqq/shell-shared';
+import { BridgeUrlState } from './use-bridge-url-state';
 import { useTokenBalances } from './use-token-balances';
 
 interface Token {
@@ -15,11 +22,16 @@ interface Token {
   formattedBalance?: number;
 }
 
-const ETH_TOKEN = {
+const ETH_TOKEN: Token = {
   symbol: 'ETH',
   address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   name: 'Ethereum',
 };
+
+export interface UseBridgeStateParams {
+  urlState: BridgeUrlState;
+  updateUrlState: (newState: Partial<BridgeUrlState>) => void;
+}
 
 interface UseBridgeStateReturn {
   // Account state
@@ -55,8 +67,12 @@ interface UseBridgeStateReturn {
 
 /**
  * Hook to manage bridge state and token selection logic
+ * Handles bidirectional synchronization with URL state
  */
-export function useBridgeState(): UseBridgeStateReturn {
+export function useBridgeState({
+  urlState,
+  updateUrlState,
+}: UseBridgeStateParams): UseBridgeStateReturn {
   const { address, chain, isConnected } = useAccount();
 
   // Fetch user token balances dynamically
@@ -66,11 +82,48 @@ export function useBridgeState(): UseBridgeStateReturn {
     error: tokensError,
   } = useTokenBalances();
 
+  const { switchChainAsync } = useSwitchChain();
+
+  useEffect(() => {
+    if (urlState?.chainIn && chain?.id !== urlState?.chainIn) {
+      switchChainAsync({ chainId: urlState?.chainIn });
+    }
+  }, [chain?.id, urlState?.chainIn, switchChainAsync]);
+
   // State management
-  const [bridgeAmount, setBridgeAmount] = useState<number | undefined>(
-    undefined,
-  );
-  const [selectedToken, setSelectedToken] = useState<Token | null>(ETH_TOKEN);
+  const [bridgeAmount, setBridgeAmount] = useState<number | undefined>(() => {
+    return urlState?.amount ? Number(urlState.amount) : undefined;
+  });
+  const [selectedToken, setSelectedToken] = useState<Token | null>();
+
+  // Initialize state from URL parameters
+  useEffect(() => {
+    if (urlState?.tokenIn && userTokens.length > 0 && !isLoadingTokens) {
+      const targetToken = userTokens.find((token) => {
+        return (
+          token.address?.toLowerCase() === urlState?.tokenIn?.toLowerCase()
+        );
+      });
+      if (targetToken) {
+        setSelectedToken(targetToken);
+      }
+    }
+  }, [urlState?.tokenIn, userTokens, isLoadingTokens]);
+
+  // Sync state changes to URL
+  useLayoutEffect(() => {
+    // Wait until tokens are finished loading before syncing to URL
+    if (isLoadingTokens || userTokens.length === 0) {
+      return;
+    }
+    if (selectedToken && chain?.id && bridgeAmount !== undefined) {
+      updateUrlState({
+        tokenIn: selectedToken.address,
+        chainIn: chain.id,
+        amount: bridgeAmount.toString(),
+      });
+    }
+  }, [selectedToken, chain?.id, bridgeAmount, updateUrlState, isLoadingTokens]);
 
   // Get available tokens for current chain (dynamically fetched with fallback)
   const availableTokens = useMemo(() => {
@@ -186,7 +239,6 @@ export function useBridgeState(): UseBridgeStateReturn {
 
   const handleTokenSelect = useCallback((token: Token) => {
     setSelectedToken(token);
-    setBridgeAmount(undefined); // Reset amount when token changes
   }, []);
 
   return {
@@ -197,7 +249,7 @@ export function useBridgeState(): UseBridgeStateReturn {
 
     // Token state
     availableTokens,
-    selectedToken,
+    selectedToken: selectedToken || ETH_TOKEN,
     setSelectedToken,
 
     // Amount state

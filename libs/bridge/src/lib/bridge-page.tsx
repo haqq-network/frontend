@@ -30,7 +30,6 @@ import {
   useBridgeValidation,
   useBridgeHandlers,
   useBridgeTransactionReceipt,
-  useBridgeUrlSync,
 } from './hooks';
 
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
@@ -50,13 +49,13 @@ export function BridgePage() {
   const { switchChainAsync } = useSwitchChain();
 
   // URL state management
-  const { updateUrlState, buildDeploymentUrl, clearUrlState } =
+  const { updateUrlState, buildDeploymentUrl, clearUrlState, urlState } =
     useBridgeUrlState();
 
   // Withdrawal orders management
   const { pendingOrders } = useWithdrawalOrders();
 
-  // Bridge state hook
+  // Bridge state hook - handles token selection and amounts
   const {
     address,
     chain,
@@ -73,9 +72,12 @@ export function BridgePage() {
     handleInputChange,
     handleMaxButtonClick,
     handleTokenSelect,
-  } = useBridgeState();
+  } = useBridgeState({
+    urlState,
+    updateUrlState,
+  });
 
-  // Chain management hook
+  // Chain management hook - determines source/target chains
   const {
     sourceChainId,
     targetChainId,
@@ -84,15 +86,6 @@ export function BridgePage() {
     targetChainIdNumber,
   } = useBridgeChains({
     chainId: chain?.id,
-  });
-
-  // Sync URL state with bridge state
-  useBridgeUrlSync({
-    selectedToken,
-    chainId: chain?.id,
-    targetChainId,
-    bridgeAmount,
-    updateUrlState,
   });
 
   const bridgeAddress = useChainProxyAddress(sourceChainId);

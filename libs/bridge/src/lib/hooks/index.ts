@@ -15,4 +15,3 @@ export { useBridgeChains } from './use-bridge-chains';
 export { useBridgeValidation } from './use-bridge-validation';
 export { useBridgeHandlers } from './use-bridge-handlers';
 export { useBridgeTransactionReceipt } from './use-bridge-transaction-receipt';
-export { useBridgeUrlSync } from './use-bridge-url-sync';
