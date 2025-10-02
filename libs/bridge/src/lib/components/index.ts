@@ -9,6 +9,7 @@ export { BridgeStatusMessages } from './bridge-status-messages';
 export { ChallengePeriodWarning } from './challenge-period-warning';
 export { PendingWithdrawals } from './pending-withdrawals';
 export { WithdrawalOrderCard } from './withdrawal-order-card';
+export { RecoveryLink } from './recovery-link';
 
 export type { NetworkMismatchWarningProps } from './network-mismatch-warning';
 export type { BridgeAmountInputProps } from './bridge-amount-input';

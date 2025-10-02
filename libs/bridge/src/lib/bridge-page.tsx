@@ -1,15 +1,11 @@
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
-import { ExternalLink } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useSwitchChain, useWaitForTransactionReceipt } from 'wagmi';
+import { useSwitchChain } from 'wagmi';
 import {
   L1_STANDARD_BRIDGE_ADDRESS,
   BRIDGE_ADDRESSES,
   CHAIN_CONFIG,
-  SUPPORTED_CHAINS,
   L2_STANDARD_BRIDGE_ADDRESS,
 } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
@@ -20,6 +16,7 @@ import {
   BridgeStatusMessages,
   ChallengePeriodWarning,
   PendingWithdrawals,
+  RecoveryLink,
 } from './components';
 import {
   useBridgeState,
@@ -29,11 +26,16 @@ import {
   useBridgeTokenManager,
   useBridgeUrlState,
   useWithdrawalOrders,
+  useBridgeChains,
+  useBridgeValidation,
+  useBridgeHandlers,
+  useBridgeTransactionReceipt,
+  useBridgeUrlSync,
 } from './hooks';
 
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
 
-export const useChainProxyAddress = (chainId: number) => {
+export const useChainProxyAddress = (chainId: number | undefined) => {
   if (chainId === CHAIN_CONFIG.l1ChainId) {
     return L1_STANDARD_BRIDGE_ADDRESS;
   }
@@ -45,20 +47,16 @@ export const useChainProxyAddress = (chainId: number) => {
 
 export function BridgePage() {
   const { t } = useTranslate('common');
-  const router = useRouter();
   const { switchChainAsync } = useSwitchChain();
 
   // URL state management
   const { updateUrlState, buildDeploymentUrl, clearUrlState } =
     useBridgeUrlState();
 
-  // State management
-  const [txHash, setTxHash] = useState<string | null>(null);
-
   // Withdrawal orders management
   const { pendingOrders } = useWithdrawalOrders();
 
-  // Use bridge state hook
+  // Bridge state hook
   const {
     address,
     chain,
@@ -77,40 +75,25 @@ export function BridgePage() {
     handleTokenSelect,
   } = useBridgeState();
 
-  // Determine source and target chains
-  const sourceChainId = chain?.id;
-  const targetChainId = useMemo(() => {
-    // For now, assume L1 -> L2 bridging (Sepolia -> HAQQ Testedge2)
-    if (sourceChainId === CHAIN_CONFIG.l1ChainId) {
-      return CHAIN_CONFIG.l2ChainId;
-    }
-    // For L2 -> L1 bridging
-    if (sourceChainId === CHAIN_CONFIG.l2ChainId) {
-      return CHAIN_CONFIG.l1ChainId;
-    }
-    // Default fallback
-    return CHAIN_CONFIG.l2ChainId;
-  }, [sourceChainId]);
-
-  // Check if this is an L2 to L1 transfer
-  const isL2ToL1 = useMemo(() => {
-    return (
-      sourceChainId === CHAIN_CONFIG.l2ChainId &&
-      targetChainId === CHAIN_CONFIG.l1ChainId
-    );
-  }, [sourceChainId, targetChainId]);
+  // Chain management hook
+  const {
+    sourceChainId,
+    targetChainId,
+    isL2ToL1,
+    isChainMismatch,
+    targetChainIdNumber,
+  } = useBridgeChains({
+    chainId: chain?.id,
+  });
 
   // Sync URL state with bridge state
-  useEffect(() => {
-    if (selectedToken && chain?.id && bridgeAmount) {
-      updateUrlState({
-        tokenIn: selectedToken.address,
-        chainIn: chain.id,
-        chainOut: targetChainId,
-        amount: bridgeAmount.toString(),
-      });
-    }
-  }, [selectedToken, chain?.id, targetChainId, bridgeAmount, updateUrlState]);
+  useBridgeUrlSync({
+    selectedToken,
+    chainId: chain?.id,
+    targetChainId,
+    bridgeAmount,
+    updateUrlState,
+  });
 
   const bridgeAddress = useChainProxyAddress(sourceChainId);
 
@@ -162,7 +145,11 @@ export function BridgePage() {
     },
   });
 
-  // Use bridge transaction hook
+  // Transaction receipt management
+  const { txHash, setTxHash, isWaitingForReceipt, isTxSuccess } =
+    useBridgeTransactionReceipt();
+
+  // Bridge transaction hook
   const { bridgeTokens, isProcessing, isProving, isFinalizing } =
     useBridgeTransaction({
       bridgeAddress: bridgeAddress,
@@ -183,159 +170,40 @@ export function BridgePage() {
       },
     });
 
-  // Wait for transaction receipt
-  const { isLoading: isWaitingForReceipt, isSuccess: isTxSuccess } =
-    useWaitForTransactionReceipt({
-      hash: txHash as `0x${string}` | undefined,
-    });
-
-  // Memoize isChainMismatch for performance and referential stability
-  const isChainMismatch = useMemo(() => {
-    return (
-      chain != null &&
-      !SUPPORTED_CHAINS.some((supportedChain) => {
-        return supportedChain.id === chain.id;
-      })
-    );
-  }, [chain]);
-
-  const targetChainIdNumber = useMemo(() => {
-    return isChainMismatch ? SUPPORTED_CHAINS[0].id : chain?.id;
-  }, [chain, isChainMismatch]);
-
-  // Memoize canBridge for performance
-  const canBridge = useMemo(() => {
-    return (
-      isConnected &&
-      selectedToken &&
-      bridgeAmount !== undefined &&
-      bridgeAmount > 0 &&
-      bridgeAmount <= availableBalance &&
-      !isChainMismatch &&
-      !isCheckingRemoteToken
-    );
-  }, [
+  // Bridge validation hook
+  const { canBridge, amountHint } = useBridgeValidation({
     isConnected,
     selectedToken,
     bridgeAmount,
     availableBalance,
     isChainMismatch,
     isCheckingRemoteToken,
-  ]);
+    formatNumber,
+  });
 
-  const amountHint = useMemo(() => {
-    if (!bridgeAmount) {
-      return (
-        <span className="text-[#0D0D0E80]">
-          Available: {formatNumber(availableBalance)}{' '}
-          {selectedToken?.symbol || 'ETH'}
-        </span>
-      );
-    }
-
-    if (bridgeAmount > availableBalance) {
-      return (
-        <span className="text-[#EC5728]">
-          {t('insufficient-balance', 'Insufficient balance')}
-        </span>
-      );
-    }
-
-    return (
-      <span className="text-[#0D0D0E80]">
-        Available: {formatNumber(availableBalance)}{' '}
-        {selectedToken?.symbol || 'ETH'}
-      </span>
-    );
-  }, [bridgeAmount, availableBalance, selectedToken, formatNumber, t]);
-
-  const handleApprove = useCallback(async () => {
-    if (!selectedToken || !bridgeAmount) return;
-
-    const tokenDecimals = selectedToken.decimals || balance?.decimals || 18;
-    await approve(bridgeAmount, tokenDecimals);
-  }, [selectedToken, bridgeAmount, balance, approve]);
-
-  const handleTokenDeployment = useCallback(() => {
-    if (!needsDeployment || !selectedToken || !sourceChainId || !targetChainId)
-      return;
-
-    // Redirect to deployment page instead of deploying inline
-    const deploymentUrl = buildDeploymentUrl(
-      selectedToken.address,
-      sourceChainId,
-      targetChainId,
-    );
-    router.push(deploymentUrl);
-  }, [
-    needsDeployment,
+  // Bridge handlers hook - consolidates all action handlers
+  const {
+    handleApprove,
+    handleTokenDeployment,
+    handleBridge,
+    handleSwitchChain,
+  } = useBridgeHandlers({
     selectedToken,
-    sourceChainId,
-    targetChainId,
-    buildDeploymentUrl,
-    router,
-  ]);
-
-  const handleBridge = useCallback(async () => {
-    if (!canBridge || !address || !bridgeAmount || !selectedToken) return;
-
-    // Check if token needs deployment first
-    if (needsDeployment) {
-      // Redirect to deployment page
-      if (!sourceChainId) {
-        console.error('Source chain ID is required for deployment');
-        return;
-      }
-      const deploymentUrl = buildDeploymentUrl(
-        selectedToken.address,
-        sourceChainId,
-        targetChainId,
-      );
-      router.push(deploymentUrl);
-      return;
-    }
-
-    // Proceed with bridge if remote token exists
-    try {
-      const remoteTokenAddr = await getRemoteTokenForBridge();
-      console.log('Remote token address for bridging:', remoteTokenAddr);
-
-      const fallbackDecimals = balance?.decimals || 18;
-      await bridgeTokens(
-        selectedToken,
-        bridgeAmount,
-        address,
-        remoteTokenAddr,
-        fallbackDecimals,
-      );
-    } catch (error) {
-      console.error('Bridge operation failed:', error);
-    }
-  }, [
+    bridgeAmount,
+    balance,
+    approve,
     canBridge,
     address,
-    bridgeAmount,
-    selectedToken,
-    balance,
-    bridgeTokens,
-    getRemoteTokenForBridge,
     needsDeployment,
-    buildDeploymentUrl,
+    sourceChainId,
     targetChainId,
-    router,
-  ]);
-
-  const handleSwitchChain = useCallback(async () => {
-    if (!switchChainAsync || !targetChainIdNumber) return;
-
-    try {
-      await switchChainAsync({ chainId: targetChainIdNumber });
-      // Reset URL query parameters after successful chain switch
-      clearUrlState();
-    } catch (error) {
-      console.error('Failed to switch chain:', error);
-    }
-  }, [switchChainAsync, targetChainIdNumber, clearUrlState]);
+    getRemoteTokenForBridge,
+    bridgeTokens,
+    buildDeploymentUrl,
+    switchChainAsync,
+    targetChainIdNumber,
+    clearUrlState,
+  });
 
   return (
     <Container>
@@ -395,25 +263,7 @@ export function BridgePage() {
                 <PendingWithdrawals orders={pendingOrders} />
               )}
 
-              {/* Recovery Link */}
-              <div className="mt-6 border-t border-gray-200 pt-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm text-gray-600">
-                    <p>Lost track of your withdrawal?</p>
-                    <p className="text-xs">
-                      Use transaction hash to recover and complete your
-                      withdrawal.
-                    </p>
-                  </div>
-                  <Link
-                    href="/bridge/recovery"
-                    className="inline-flex items-center gap-2 rounded-md border border-blue-200 px-3 py-2 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    Recover Withdrawal
-                  </Link>
-                </div>
-              </div>
+              <RecoveryLink />
             </>
           )}
         </div>
