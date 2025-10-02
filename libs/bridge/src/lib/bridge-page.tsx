@@ -383,6 +383,9 @@ export function BridgePage() {
                 isLoadingTokens={isLoadingTokens}
                 needsApproval={needsApproval}
                 isApproving={isApproving}
+                disabledApproveBtn={
+                  isApproving || needsDeployment || isCheckingRemoteToken
+                }
                 onApprove={handleApprove}
               />
 

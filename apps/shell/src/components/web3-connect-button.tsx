@@ -41,12 +41,14 @@ function useChainArray() {
       });
     }
 
-    return (isBridgePage ? bridgeSupportedChains : chains).map((chain) => {
-      return {
-        id: chain.id,
-        name: chain.name,
-      };
-    });
+    return (isBridgePage ? bridgeSupportedChains : availableChains).map(
+      (chain) => {
+        return {
+          id: chain.id,
+          name: chain.name,
+        };
+      },
+    );
   }, [chains, isBridgePage]);
 }
 
