@@ -36,6 +36,7 @@ export interface BridgeFormProps {
   // Approval props
   needsApproval?: boolean;
   isApproving?: boolean;
+  disabledApproveBtn?: boolean;
   onApprove?: () => void;
 }
 
@@ -59,6 +60,7 @@ export function BridgeForm({
   isLoadingTokens = false,
   needsApproval = false,
   isApproving = false,
+  disabledApproveBtn = false,
   onApprove,
 }: BridgeFormProps) {
   return (
@@ -91,7 +93,7 @@ export function BridgeForm({
             onClick={onApprove}
             className="w-full"
             disabled={
-              isApproving ||
+              disabledApproveBtn ||
               isProcessing ||
               isWaitingForReceipt ||
               isProving ||
