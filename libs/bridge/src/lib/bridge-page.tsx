@@ -98,9 +98,6 @@ export function BridgePage() {
     getRemoteTokenForBridge,
   } = useBridgeTokenManager({
     localToken: selectedToken || undefined,
-    factoryAddress:
-      BRIDGE_ADDRESSES.opChainDeployment
-        .optimismMintableERC20FactoryProxyAddress,
     sourceChainId,
     targetChainId,
   });

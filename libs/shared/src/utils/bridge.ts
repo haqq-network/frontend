@@ -129,6 +129,7 @@ export const BRIDGE_ADDRESSES: {
     l1ERC721BridgeProxyAddress: string;
     systemConfigProxyAddress: string;
     optimismMintableERC20FactoryProxyAddress: string;
+    l2optimismMintableERC20FactoryProxyAddress: string;
     l1StandardBridgeProxyAddress: string;
     l2StandardBridgeProxyAddress: string;
     l1CrossDomainMessengerProxyAddress: string;
@@ -172,6 +173,8 @@ export const BRIDGE_ADDRESSES: {
     systemConfigProxyAddress: '0xc510c91e359958bb96a128235bd188d209f117e2',
     optimismMintableERC20FactoryProxyAddress:
       '0x76b3a6e0ad683dd48d723a284a3f57b012df484f',
+    l2optimismMintableERC20FactoryProxyAddress:
+      '0x4200000000000000000000000000000000000012',
     l1StandardBridgeProxyAddress: '0x95f23da653971217bff7a22508606e52c21b1cdf',
     l2StandardBridgeProxyAddress: '0x4200000000000000000000000000000000000010',
 

@@ -119,7 +119,7 @@ export function TokenDeploymentPage() {
   } = useTokenDeployment({
     factoryAddress:
       BRIDGE_ADDRESSES.opChainDeployment
-        .optimismMintableERC20FactoryProxyAddress,
+        .l2optimismMintableERC20FactoryProxyAddress,
     targetChainId: targetChainIdNumber || 0,
   });
 
