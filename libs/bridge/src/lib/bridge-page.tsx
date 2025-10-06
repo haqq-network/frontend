@@ -5,7 +5,6 @@ import { sepolia } from 'viem/chains';
 import { useSwitchChain } from 'wagmi';
 import {
   L1_STANDARD_BRIDGE_ADDRESS,
-  BRIDGE_ADDRESSES,
   CHAIN_CONFIG,
   L2_STANDARD_BRIDGE_ADDRESS,
 } from '@haqq/shell-shared';

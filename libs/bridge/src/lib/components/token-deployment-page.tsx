@@ -9,7 +9,11 @@ import {
   useWaitForTransactionReceipt,
   useReadContract,
 } from 'wagmi';
-import { BRIDGE_ADDRESSES, getChainById } from '@haqq/shell-shared';
+import {
+  BRIDGE_ADDRESSES,
+  getChainById,
+  L2_OPTIMISM_MINTABLE_ERC20_FACTORY_ADDRESS,
+} from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { useBridgeUrlState } from '../hooks/use-bridge-url-state';
@@ -117,9 +121,7 @@ export function TokenDeploymentPage() {
     error: deploymentError,
     reset: resetDeployment,
   } = useTokenDeployment({
-    factoryAddress:
-      BRIDGE_ADDRESSES.opChainDeployment
-        .l2optimismMintableERC20FactoryProxyAddress,
+    factoryAddress: L2_OPTIMISM_MINTABLE_ERC20_FACTORY_ADDRESS,
     targetChainId: targetChainIdNumber || 0,
   });
 
