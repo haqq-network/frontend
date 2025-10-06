@@ -105,14 +105,20 @@ export async function getRemoteTokenAddress(
 ): Promise<string | null> {
   try {
     // First, try to find pairs with the local token on the source chain
-    const response = await findTokenPairsByAddress(
+    const responseDirect = await findTokenPairsByAddress(
       localTokenAddress,
       sourceChain,
       targetChain,
     );
 
+    const responseReverse = await findTokenPairsByAddress(
+      localTokenAddress,
+      targetChain,
+      sourceChain,
+    );
+
     // Look for a pair that bridges from sourceChain to targetChain
-    const matchingPair = response.data.find((pair) => {
+    const matchingPair = responseDirect.data.find((pair) => {
       return (
         +pair.source_chain === sourceChain &&
         +pair.target_chain === targetChain &&
@@ -125,7 +131,7 @@ export async function getRemoteTokenAddress(
     }
 
     // Also check if the token might be the target token in a reverse pair
-    const reversePair = response.data.find((pair) => {
+    const reversePair = responseReverse.data.find((pair) => {
       return (
         +pair.source_chain === targetChain &&
         +pair.target_chain === sourceChain &&
