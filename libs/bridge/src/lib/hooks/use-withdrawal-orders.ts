@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
+import { useChainId } from 'wagmi';
 import { useWithdrawalTimers } from './use-withdrawal-timers';
 import {
   WithdrawalOrder,
@@ -29,9 +30,13 @@ export function useWithdrawalOrders() {
   const { getTimeToProve, getTimeToFinalize, getWaitingTimeWarning } =
     useWithdrawalTimers();
 
+  const chainId = useChainId();
+
   // Get all orders
   const orders = useMemo(() => {
-    return storage.orders;
+    return storage.orders.filter((order) => {
+      return order.targetChainId === chainId;
+    });
   }, [storage.orders]);
 
   // Get pending orders (not finalized or failed)

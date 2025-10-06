@@ -152,7 +152,7 @@ export function getChainNameFromId(chainId: number): string {
   switch (chainId) {
     case sepolia.id: // Sepolia
       return 'Sepolia';
-    case haqqDevnet1.id: // HAQQ L2
+    case haqqDevnet1.id:
       return 'HAQQ';
     default:
       throw new Error(`Unsupported chain ID: ${chainId}`);

@@ -65,12 +65,6 @@ export interface NetworkConfig {
   explorerUrl: string;
 }
 
-export const HAQQ_DEVNET1_CONFIG: NetworkConfig = {
-  name: 'HAQQ L2',
-  rpcUrl: haqqDevnet1RpcUrl,
-  explorerUrl: 'https://explorer.devnet1.dev.haqq.network/',
-};
-
 // Chain configuration constants
 export const CHAIN_CONFIG = {
   l1ChainId: 11155111, // Sepolia
@@ -245,7 +239,7 @@ export const L1_TIME_OFFSETS = {
 
 export const haqqDevnet1 = {
   id: 853211,
-  name: 'HAQQ L2',
+  name: 'Testethic',
   nativeCurrency: {
     decimals: 18,
     name: 'Ethereum',
