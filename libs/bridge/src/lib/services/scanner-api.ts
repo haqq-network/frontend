@@ -1,6 +1,5 @@
 /**
  * Scanner API service for retrieving token pair information
- * Base URL: https://scanner.dev.haqq.network
  */
 
 import { sepolia } from 'viem/chains';
@@ -67,14 +66,14 @@ export async function getTokenPairById(id: number): Promise<TokenPairResponse> {
  */
 export async function findTokenPairsByAddress(
   tokenAddress: string,
-  chain?: string,
+  chain?: number,
 ): Promise<TokenPairsResponse> {
   const url = new URL(
     `${SCANNER_API_BASE_URL}/token-pairs/find/${tokenAddress}`,
   );
 
   if (chain) {
-    url.searchParams.set('chain', chain);
+    url.searchParams.set('chain', chain.toString());
   }
 
   const response = await fetch(url.toString());
@@ -96,8 +95,8 @@ export async function findTokenPairsByAddress(
  */
 export async function getRemoteTokenAddress(
   localTokenAddress: string,
-  sourceChain: string,
-  targetChain: string,
+  sourceChain: number,
+  targetChain: number,
 ): Promise<string | null> {
   try {
     // First, try to find pairs with the local token on the source chain
@@ -106,12 +105,11 @@ export async function getRemoteTokenAddress(
       sourceChain,
     );
 
-    console.log('response', response);
     // Look for a pair that bridges from sourceChain to targetChain
     const matchingPair = response.data.find((pair) => {
       return (
-        pair.source_chain.toLowerCase() === sourceChain.toLowerCase() &&
-        pair.target_chain.toLowerCase() === targetChain.toLowerCase() &&
+        +pair.source_chain === sourceChain &&
+        +pair.target_chain === targetChain &&
         pair.source_token.toLowerCase() === localTokenAddress.toLowerCase()
       );
     });
@@ -123,8 +121,8 @@ export async function getRemoteTokenAddress(
     // Also check if the token might be the target token in a reverse pair
     const reversePair = response.data.find((pair) => {
       return (
-        pair.source_chain.toLowerCase() === targetChain.toLowerCase() &&
-        pair.target_chain.toLowerCase() === sourceChain.toLowerCase() &&
+        +pair.source_chain === targetChain &&
+        +pair.target_chain === sourceChain &&
         pair.target_token.toLowerCase() === localTokenAddress.toLowerCase()
       );
     });

@@ -62,17 +62,16 @@ export function useBridgeTokenManager({
 
     try {
       // First, try to get remote token from scanner API
-      const sourceChainName = getChainNameFromId(sourceChainId);
       const targetChainName = getChainNameFromId(targetChainId);
-
+      const sourceChainName = getChainNameFromId(sourceChainId);
       console.log(
         `Checking scanner API for token ${localToken.address} from ${sourceChainName} to ${targetChainName}`,
       );
 
       const scannerRemoteToken = await getRemoteTokenAddress(
         localToken.address,
-        sourceChainName,
-        targetChainName,
+        sourceChainId,
+        targetChainId,
       );
 
       return scannerRemoteToken;

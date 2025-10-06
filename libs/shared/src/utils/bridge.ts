@@ -65,19 +65,6 @@ export interface NetworkConfig {
   explorerUrl: string;
 }
 
-// Chain configuration constants
-export const CHAIN_CONFIG = {
-  l1ChainId: 11155111, // Sepolia
-  l2ChainId: 853211,
-  l2BlockTime: 3,
-  batchInboxAddress: '0xff94b3795acce6d3691fb4538646a91561e95e7d',
-  eip1559Denominator: 50,
-  eip1559DenominatorCanyon: 250,
-  eip1559Elasticity: 6,
-  operatorFeeScalar: 0,
-  operatorFeeConstant: 0,
-};
-
 // Role addresses
 export const ROLE_ADDRESSES = {
   proxyAdminOwner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
@@ -267,6 +254,19 @@ export const haqqTestethic = {
       },
     },
   },
+};
+
+// Chain configuration constants
+export const CHAIN_CONFIG = {
+  l1ChainId: sepolia.id, // Sepolia
+  l2ChainId: haqqTestethic.id,
+  l2BlockTime: 3,
+  batchInboxAddress: '0xff94b3795acce6d3691fb4538646a91561e95e7d',
+  eip1559Denominator: 50,
+  eip1559DenominatorCanyon: 250,
+  eip1559Elasticity: 6,
+  operatorFeeScalar: 0,
+  operatorFeeConstant: 0,
 };
 
 export const L1_CHAINS = [sepolia];
