@@ -1,6 +1,6 @@
 import { sepolia } from 'viem/chains';
 
-const haqqDevnet1RpcUrl = 'https://rpc.testethic.haqq.network/';
+const haqqTestethicRpcUrl = 'https://rpc.testethic.haqq.network/';
 
 export const SWAPPABLE_TOKENS: {
   [chainId: number]: {
@@ -239,7 +239,7 @@ export const haqqTestethic = {
   },
   rpcUrls: {
     default: {
-      http: [haqqDevnet1RpcUrl],
+      http: [haqqTestethicRpcUrl],
     },
   },
   blockExplorers: {

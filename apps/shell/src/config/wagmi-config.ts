@@ -8,9 +8,9 @@ import {
 } from 'wagmi';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'wagmi/chains';
 import { safe, walletConnect } from 'wagmi/connectors';
-import { haqqDevnet1 } from '@haqq/shell-shared';
+import { haqqTestethic } from '@haqq/shell-shared';
 
-export const bridgeSupportedChains = [haqqDevnet1, sepolia];
+export const bridgeSupportedChains = [haqqTestethic, sepolia];
 
 export const baseSupportedChains = [haqqMainnet, haqqTestedge2] as const;
 
