@@ -158,6 +158,7 @@ export function TokenDeploymentPage() {
         tokenInfo.address,
         tokenInfo.name,
         tokenInfo.symbol,
+        tokenInfo.decimals,
       );
       setDeploymentHash(hash);
     } catch (err) {

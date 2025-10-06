@@ -1,6 +1,6 @@
 import { sepolia } from 'viem/chains';
 
-const haqqDevnet1RpcUrl = 'https://rpc.devnet2.dev.haqq.network/';
+const haqqDevnet1RpcUrl = 'https://rpc.testethic.haqq.network/';
 
 export const SWAPPABLE_TOKENS: {
   [chainId: number]: {
@@ -34,9 +34,6 @@ export const L1_TO_L2_TOKEN_MAP: {
   '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee':
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   // USDC mapping from L1 to L2
-
-  ['0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'.toLowerCase()]:
-    '0x99c1c468ec6b85dc20d8c84cc5ac8365c3527601',
 };
 
 /**
@@ -74,19 +71,12 @@ export const HAQQ_DEVNET1_CONFIG: NetworkConfig = {
   explorerUrl: 'https://explorer.devnet1.dev.haqq.network/',
 };
 
-// Governance token configuration
-export const GOVERNANCE_TOKEN_CONFIG = {
-  symbol: 'gISLM',
-  name: 'Islamic Coin Governance',
-  owner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-};
-
 // Chain configuration constants
 export const CHAIN_CONFIG = {
   l1ChainId: 11155111, // Sepolia
-  l2ChainId: 64322, // 0xfb42
+  l2ChainId: 853211,
   l2BlockTime: 3,
-  batchInboxAddress: '0xff3108624ddfd2f18f41fb62ccbbcdc3b1d6e39f',
+  batchInboxAddress: '0xff94b3795acce6d3691fb4538646a91561e95e7d',
   eip1559Denominator: 50,
   eip1559DenominatorCanyon: 250,
   eip1559Elasticity: 6,
@@ -225,7 +215,7 @@ export const L2_STANDARD_BRIDGE_ADDRESS =
 // Additional configuration from TOML
 export const DEPLOYMENT_CONFIG = {
   configType: 'standard-overrides',
-  l1ChainId: 11155111, // Sepolia
+  l1ChainId: sepolia.id, // Sepolia
   fundDevAccounts: false,
   useInterop: false,
   l1ContractsLocator: 'tag://op-contracts/v3.0.0-rc.2',
@@ -254,12 +244,12 @@ export const L1_TIME_OFFSETS = {
 };
 
 export const haqqDevnet1 = {
-  id: 64322, // 0xfb42 in hex
+  id: 853211,
   name: 'HAQQ L2',
   nativeCurrency: {
     decimals: 18,
-    name: 'Islamic Coin',
-    symbol: 'ISLM',
+    name: 'Ethereum',
+    symbol: 'ETH',
   },
   rpcUrls: {
     default: {
@@ -268,9 +258,9 @@ export const haqqDevnet1 = {
   },
   blockExplorers: {
     default: {
-      name: 'HAQQ Explorer',
-      url: 'https://explorer.devnet2.dev.haqq.network/',
-      apiUrl: 'https://explorer.devnet2.dev.haqq.network/api',
+      name: 'HAQQ Testethic',
+      url: 'https://explorer.testethic.haqq.network',
+      apiUrl: 'https://explorer.testethic.haqq.network/api',
     },
   },
   contracts: {

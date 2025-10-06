@@ -3,6 +3,9 @@
  * Base URL: https://scanner.dev.haqq.network
  */
 
+import { sepolia } from 'viem/chains';
+import { haqqDevnet1 } from '@haqq/shell-shared';
+
 const SCANNER_API_BASE_URL = 'https://scanner.dev.haqq.network/api/v1';
 
 export interface TokenPair {
@@ -147,9 +150,9 @@ export async function getRemoteTokenAddress(
  */
 export function getChainNameFromId(chainId: number): string {
   switch (chainId) {
-    case 11155111: // Sepolia
+    case sepolia.id: // Sepolia
       return 'Sepolia';
-    case 64322: // HAQQ L2
+    case haqqDevnet1.id: // HAQQ L2
       return 'HAQQ';
     default:
       throw new Error(`Unsupported chain ID: ${chainId}`);

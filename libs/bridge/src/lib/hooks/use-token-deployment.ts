@@ -14,6 +14,7 @@ interface UseTokenDeploymentReturn {
     localTokenAddress: string,
     name: string,
     symbol: string,
+    decimals: number,
   ) => Promise<string>;
   isDeploying: boolean;
   deploymentHash: string | null;
@@ -49,6 +50,7 @@ export function useTokenDeployment({
       localTokenAddress: string,
       name: string,
       symbol: string,
+      decimals: number,
     ): Promise<string> => {
       if (!writeContractAsync || !factoryAddress) {
         throw new Error('Missing required parameters for token deployment');
@@ -66,11 +68,12 @@ export function useTokenDeployment({
         const hash = await writeContractAsync({
           address: factoryAddress as `0x${string}`,
           abi: ERC20FactoryAbi,
-          functionName: 'createStandardL2Token',
+          functionName: 'createOptimismMintableERC20WithDecimals',
           args: [
             localTokenAddress as `0x${string}`, // _remoteToken (L1 token address)
             name,
             symbol,
+            decimals,
           ],
         });
 

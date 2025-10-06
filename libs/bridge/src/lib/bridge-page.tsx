@@ -1,6 +1,7 @@
 'use client';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useTranslate } from '@tolgee/react';
+import { sepolia } from 'viem/chains';
 import { useSwitchChain } from 'wagmi';
 import {
   L1_STANDARD_BRIDGE_ADDRESS,
@@ -17,6 +18,7 @@ import {
   ChallengePeriodWarning,
   PendingWithdrawals,
   RecoveryLink,
+  FaucetLinksCard,
 } from './components';
 import {
   useBridgeState,
@@ -199,6 +201,8 @@ export function BridgePage() {
     <Container>
       <div className="mx-auto max-w-[600px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
+          {chain?.id === sepolia.id && <FaucetLinksCard />}
+
           {!isConnected && <WalletConnectionWarning />}
 
           {isChainMismatch && isConnected && (
