@@ -52,12 +52,12 @@ export function useTokenAllowance({
   });
 
   useEffect(() => {
-    const tId = setTimeout(() => {
+    const tId = setInterval(() => {
       refetch();
     }, 1000);
 
     return () => {
-      clearTimeout(tId);
+      clearInterval(tId);
     };
   }, [allowance]);
 

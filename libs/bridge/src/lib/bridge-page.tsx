@@ -137,7 +137,7 @@ export function BridgePage() {
   });
 
   // Transaction receipt management
-  const { txHash, setTxHash, isWaitingForReceipt, isTxSuccess } =
+  const { setTxHash, isWaitingForReceipt, isTxSuccess } =
     useBridgeTransactionReceipt();
 
   // Bridge transaction hook
