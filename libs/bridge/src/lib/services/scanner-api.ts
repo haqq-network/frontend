@@ -66,14 +66,19 @@ export async function getTokenPairById(id: number): Promise<TokenPairResponse> {
  */
 export async function findTokenPairsByAddress(
   tokenAddress: string,
-  chain?: number,
+  sourceChain?: number,
+  targetChain?: number,
 ): Promise<TokenPairsResponse> {
   const url = new URL(
     `${SCANNER_API_BASE_URL}/token-pairs/find/${tokenAddress}`,
   );
 
-  if (chain) {
-    url.searchParams.set('chain', chain.toString());
+  if (sourceChain) {
+    url.searchParams.set('source_chain', sourceChain.toString());
+  }
+
+  if (targetChain) {
+    url.searchParams.set('target_chain', targetChain.toString());
   }
 
   const response = await fetch(url.toString());
@@ -103,6 +108,7 @@ export async function getRemoteTokenAddress(
     const response = await findTokenPairsByAddress(
       localTokenAddress,
       sourceChain,
+      targetChain,
     );
 
     // Look for a pair that bridges from sourceChain to targetChain
