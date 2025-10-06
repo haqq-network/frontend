@@ -1,6 +1,6 @@
 import { sepolia } from 'viem/chains';
 
-const haqqDevnet1RpcUrl = 'https://rpc.devnet2.dev.haqq.network/';
+const haqqTestethicRpcUrl = 'https://rpc.testethic.haqq.network/';
 
 export const SWAPPABLE_TOKENS: {
   [chainId: number]: {
@@ -34,9 +34,6 @@ export const L1_TO_L2_TOKEN_MAP: {
   '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee':
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   // USDC mapping from L1 to L2
-
-  ['0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'.toLowerCase()]:
-    '0x99c1c468ec6b85dc20d8c84cc5ac8365c3527601',
 };
 
 /**
@@ -68,32 +65,6 @@ export interface NetworkConfig {
   explorerUrl: string;
 }
 
-export const HAQQ_DEVNET1_CONFIG: NetworkConfig = {
-  name: 'HAQQ L2',
-  rpcUrl: haqqDevnet1RpcUrl,
-  explorerUrl: 'https://explorer.devnet1.dev.haqq.network/',
-};
-
-// Governance token configuration
-export const GOVERNANCE_TOKEN_CONFIG = {
-  symbol: 'gISLM',
-  name: 'Islamic Coin Governance',
-  owner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-};
-
-// Chain configuration constants
-export const CHAIN_CONFIG = {
-  l1ChainId: 11155111, // Sepolia
-  l2ChainId: 64322, // 0xfb42
-  l2BlockTime: 3,
-  batchInboxAddress: '0xff3108624ddfd2f18f41fb62ccbbcdc3b1d6e39f',
-  eip1559Denominator: 50,
-  eip1559DenominatorCanyon: 250,
-  eip1559Elasticity: 6,
-  operatorFeeScalar: 0,
-  operatorFeeConstant: 0,
-};
-
 // Role addresses
 export const ROLE_ADDRESSES = {
   proxyAdminOwner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
@@ -116,116 +87,109 @@ export const FEE_VAULT_RECIPIENTS = {
 };
 
 export const BRIDGE_ADDRESSES: {
-  superchainDeployment: {
-    proxyAdminAddress: string;
-    superchainConfigProxyAddress: string;
-    superchainConfigImplAddress: string;
-    protocolVersionsProxyAddress: string;
-    protocolVersionsImplAddress: string;
-  };
-  opChainDeployment: {
-    proxyAdminAddress: string;
-    addressManagerAddress: string;
-    l1ERC721BridgeProxyAddress: string;
-    systemConfigProxyAddress: string;
-    optimismMintableERC20FactoryProxyAddress: string;
-    l2optimismMintableERC20FactoryProxyAddress: string;
-    l1StandardBridgeProxyAddress: string;
-    l2StandardBridgeProxyAddress: string;
-    l1CrossDomainMessengerProxyAddress: string;
-    optimismPortalProxyAddress: string;
-    ethLockboxProxyAddress: string;
-    disputeGameFactoryProxyAddress: string;
-    anchorStateRegistryProxyAddress: string;
-    anchorStateRegistryImplAddress: string;
-    faultDisputeGameAddress: string;
-    permissionedDisputeGameAddress: string;
-    delayedWETHPermissionedGameProxyAddress: string;
-    dataAvailabilityChallengeProxyAddress: string;
-    dataAvailabilityChallengeImplAddress: string;
-  };
-  implementationsDeployment: {
-    opcmAddress: string;
-    delayedWETHImplAddress: string;
-    optimismPortalImplAddress: string;
-    ethLockboxImplAddress: string;
-    preimageOracleSingletonAddress: string;
-    mipsSingletonAddress: string;
-    systemConfigImplAddress: string;
-    l1CrossDomainMessengerImplAddress: string;
-    l1ERC721BridgeImplAddress: string;
-    l1StandardBridgeImplAddress: string;
-    optimismMintableERC20FactoryImplAddress: string;
-    disputeGameFactoryImplAddress: string;
-  };
+  SuperchainProxyAdminImpl: string;
+  SuperchainConfigProxy: string;
+  SuperchainConfigImpl: string;
+  ProtocolVersionsProxy: string;
+  ProtocolVersionsImpl: string;
+  OpcmImpl: string;
+  OpcmContractsContainerImpl: string;
+  OpcmGameTypeAdderImpl: string;
+  OpcmDeployerImpl: string;
+  OpcmUpgraderImpl: string;
+  OpcmInteropMigratorImpl: string;
+  DelayedWethImpl: string;
+  OptimismPortalImpl: string;
+  EthLockboxImpl: string;
+  PreimageOracleImpl: string;
+  MipsImpl: string;
+  SystemConfigImpl: string;
+  L1CrossDomainMessengerImpl: string;
+  L1Erc721BridgeImpl: string;
+  L1StandardBridgeImpl: string;
+  OptimismMintableErc20FactoryImpl: string;
+  DisputeGameFactoryImpl: string;
+  AnchorStateRegistryImpl: string;
+  OpChainProxyAdminImpl: string;
+  OptimismPortalProxy: string;
+  AddressManagerImpl: string;
+  L1Erc721BridgeProxy: string;
+  SystemConfigProxy: string;
+  OptimismMintableErc20FactoryProxy: string;
+  L1StandardBridgeProxy: string;
+  L1CrossDomainMessengerProxy: string;
+  EthLockboxProxy: string;
+  DisputeGameFactoryProxy: string;
+  AnchorStateRegistryProxy: string;
+  FaultDisputeGameImpl: string;
+  PermissionedDisputeGameImpl: string;
+  DelayedWethPermissionedGameProxy: string;
+  DelayedWethPermissionlessGameProxy: string;
+  AltDAChallengeProxy: string;
+  AltDAChallengeImpl: string;
+  L2OutputOracleProxy: string;
 } = {
-  superchainDeployment: {
-    proxyAdminAddress: '0x415e42e8391047ced2e1cb779e9558cc7005b41e',
-    superchainConfigProxyAddress: '0x5e1354714853acee2c4dfb12bfbc819829236b62',
-    superchainConfigImplAddress: '0x4da82a327773965b8d4d85fa3db8249b387458e7',
-    protocolVersionsProxyAddress: '0xaa20fe2b94d752de2b963787630614545041a0b0',
-    protocolVersionsImplAddress: '0x37e15e4d6dffa9e5e320ee1ec036922e563cb76c',
-  },
-  opChainDeployment: {
-    proxyAdminAddress: '0x65ab9dc0ee4fbb8b7be91e0d80afde9d1127713d',
-    addressManagerAddress: '0x69290dc5aa94b737d896731049b6a0e8c08c43c6',
-    l1ERC721BridgeProxyAddress: '0xeb99f82e0f244d0c6c565d95fb3b97cc474998b2',
-    systemConfigProxyAddress: '0xc510c91e359958bb96a128235bd188d209f117e2',
-    optimismMintableERC20FactoryProxyAddress:
-      '0x76b3a6e0ad683dd48d723a284a3f57b012df484f',
-    l2optimismMintableERC20FactoryProxyAddress:
-      '0x4200000000000000000000000000000000000012',
-    l1StandardBridgeProxyAddress: '0x95f23da653971217bff7a22508606e52c21b1cdf',
-    l2StandardBridgeProxyAddress: '0x4200000000000000000000000000000000000010',
-
-    l1CrossDomainMessengerProxyAddress:
-      '0xd62594927e587af7b3e99980032941abc69f3528',
-    optimismPortalProxyAddress: '0x6e5acfca11b12232b50591b40988e0acadb1cbb0',
-    ethLockboxProxyAddress: '0x0000000000000000000000000000000000000000',
-    disputeGameFactoryProxyAddress:
-      '0xad440db2b4f8c67e1181e050d509812fbf1c59bf',
-    anchorStateRegistryProxyAddress:
-      '0x86a4f10d2b0e87c9af98fcd66a91bcc094087e97',
-    anchorStateRegistryImplAddress:
-      '0x0000000000000000000000000000000000000000',
-    faultDisputeGameAddress: '0x0000000000000000000000000000000000000000',
-    permissionedDisputeGameAddress:
-      '0xa6a95df0a228935dd54433e519d9021bd11767d5',
-    delayedWETHPermissionedGameProxyAddress:
-      '0xf03a9631a215f385fa1bee0831bfbf5cfcb795d5',
-    dataAvailabilityChallengeProxyAddress:
-      '0x0000000000000000000000000000000000000000',
-    dataAvailabilityChallengeImplAddress:
-      '0x0000000000000000000000000000000000000000',
-  },
-  implementationsDeployment: {
-    opcmAddress: '0x123f94fce34bb6f67b1b80beb8389ff4bc34835f',
-    delayedWETHImplAddress: '0x5e40b9231b86984b5150507046e354dbfbed3d9e',
-    optimismPortalImplAddress: '0xb443da3e07052204a02d630a8933dac05a0d6fb4',
-    ethLockboxImplAddress: '0x0000000000000000000000000000000000000000',
-    preimageOracleSingletonAddress:
-      '0x1fb8cdfc6831fc866ed9c51af8817da5c287add3',
-    mipsSingletonAddress: '0xf027f4a985560fb13324e943edf55ad6f1d15dc1',
-    systemConfigImplAddress: '0x340f923e5c7cbb2171146f64169ec9d5a9ffe647',
-    l1CrossDomainMessengerImplAddress:
-      '0x5d5a095665886119693f0b41d8dfee78da033e8b',
-    l1ERC721BridgeImplAddress: '0x7ae1d3bd877a4c5ca257404ce26be93a02c98013',
-    l1StandardBridgeImplAddress: '0x0b09ba359a106c9ea3b181cbc5f394570c7d2a7a',
-    optimismMintableERC20FactoryImplAddress:
-      '0x5493f4677a186f64805fe7317d6993ba4863988f',
-    disputeGameFactoryImplAddress: '0x4bba758f006ef09402ef31724203f316ab74e4a0',
-  },
+  SuperchainProxyAdminImpl: '0x03389e1d90d16db8c8aab7b7b5388e0661ad1b20',
+  SuperchainConfigProxy: '0x7779c5b626bd93b444deee5296f1336c9a076a70',
+  SuperchainConfigImpl: '0xce28685eb204186b557133766eca00334eb441e4',
+  ProtocolVersionsProxy: '0x3d22989e9b049a073cb9f72cb3357367291508b6',
+  ProtocolVersionsImpl: '0x37e15e4d6dffa9e5e320ee1ec036922e563cb76c',
+  OpcmImpl: '0xeb816af3d7b9a61bca3415015b8e208c0be445e5',
+  OpcmContractsContainerImpl: '0x0000000000000000000000000000000000000000',
+  OpcmGameTypeAdderImpl: '0x77be751385562ec5f5074f1d3d80b9b7df0af77c',
+  OpcmDeployerImpl: '0x4859c22632ac5ad6506df5f996098b73a11bba75',
+  OpcmUpgraderImpl: '0x5b6820529748d5001c1a999176bfedabbf5fa64d',
+  OpcmInteropMigratorImpl: '0x01b2f6aa2adc77c9a4a91d09a6e806ad51b0290a',
+  DelayedWethImpl: '0x33dadc2d1aa9bb613a7ae6b28425ea00d44c6998',
+  OptimismPortalImpl: '0xefed7f38bb9be74bba583a1a5b7d0fe7c9d5787a',
+  EthLockboxImpl: '0x784d2f03593a42a6e4676a012762f18775ecbbe6',
+  PreimageOracleImpl: '0x1fb8cdfc6831fc866ed9c51af8817da5c287add3',
+  MipsImpl: '0xa1b54d89e305bcd322ba0c9c094093173c0d6b3a',
+  SystemConfigImpl: '0xfaa660bf783cbaa55e1b7f3475c20db74a53b9fa',
+  L1CrossDomainMessengerImpl: '0xd26bb3aaaa4cb5638a8581a4c4b1d937d8e05c54',
+  L1Erc721BridgeImpl: '0x25d6cedeb277ad7ebee71226ed7877768e0b7a2f',
+  L1StandardBridgeImpl: '0x44afb7722af276a601d524f429016a18b6923df0',
+  OptimismMintableErc20FactoryImpl:
+    '0x5493f4677a186f64805fe7317d6993ba4863988f',
+  DisputeGameFactoryImpl: '0x33d1e8571a85a538ed3d5a4d88f46c112383439d',
+  AnchorStateRegistryImpl: '0xeb69cc681e8d4a557b30dffbad85affd47a2cf2e',
+  OpChainProxyAdminImpl: '0x2a0dc32ae8675792dfa23fd1526af5ae7907ef69',
+  OptimismPortalProxy: '0xcef83e2c029f1bdfefbfd4cb908ac333f420e209',
+  AddressManagerImpl: '0xe9a877d1712f17da500dac544a15616c2476e4d1',
+  L1Erc721BridgeProxy: '0x67c74a530eab1f7b21adc441a836430a1ef792a9',
+  SystemConfigProxy: '0xda718df88b54460dd4834b29c01658dd976c9e09',
+  OptimismMintableErc20FactoryProxy:
+    '0x65df5d4aa6371f63aa4ec935ed93a99f097e4abd',
+  L1StandardBridgeProxy: '0xe6260411feffbff8a38ad32484ea01cbf1658a0e',
+  L1CrossDomainMessengerProxy: '0xf8d52efc21fe3db1c1d651ee03d19c5f5b83597f',
+  EthLockboxProxy: '0xfe3123d5157b9d104e34cbf73a9171854244d218',
+  DisputeGameFactoryProxy: '0x1d15a66521bdb3043335734039d428f97bab3f7e',
+  AnchorStateRegistryProxy: '0xc7c945a172b36efc6b6165f4d70a5b93a9f109d9',
+  FaultDisputeGameImpl: '0x0000000000000000000000000000000000000000',
+  PermissionedDisputeGameImpl: '0x563b50dc93936597974fbd59f055c3be151b297e',
+  DelayedWethPermissionedGameProxy:
+    '0x44c85f79783be56d7db48c060a9721a320fc57c7',
+  DelayedWethPermissionlessGameProxy:
+    '0x0000000000000000000000000000000000000000',
+  AltDAChallengeProxy: '0x0000000000000000000000000000000000000000',
+  AltDAChallengeImpl: '0x0000000000000000000000000000000000000000',
+  L2OutputOracleProxy: '0x0000000000000000000000000000000000000000',
 };
 
 export const L1_STANDARD_BRIDGE_ADDRESS =
-  BRIDGE_ADDRESSES.opChainDeployment.l1StandardBridgeProxyAddress;
+  BRIDGE_ADDRESSES.L1StandardBridgeProxy;
+
+//  l2StandardBridgeProxyAddress https://github.com/ethereum-optimism/ecosystem/blob/8c0ceae82d8e909c0d00b4601d7c7276090774cc/packages/viem/src/actions/withdrawOptimismERC20.ts#L90
 export const L2_STANDARD_BRIDGE_ADDRESS =
-  BRIDGE_ADDRESSES.opChainDeployment.l2StandardBridgeProxyAddress;
+  '0x4200000000000000000000000000000000000010';
+
+export const L2_OPTIMISM_MINTABLE_ERC20_FACTORY_ADDRESS =
+  '0x4200000000000000000000000000000000000012';
 
 // Additional configuration from TOML
 export const DEPLOYMENT_CONFIG = {
   configType: 'standard-overrides',
-  l1ChainId: 11155111, // Sepolia
+  l1ChainId: sepolia.id, // Sepolia
   fundDevAccounts: false,
   useInterop: false,
   l1ContractsLocator: 'tag://op-contracts/v3.0.0-rc.2',
@@ -253,37 +217,35 @@ export const L1_TIME_OFFSETS = {
   l1PragueTimeOffset: '0x0',
 };
 
-export const haqqDevnet1 = {
-  id: 64322, // 0xfb42 in hex
-  name: 'HAQQ L2',
+export const haqqTestethic = {
+  id: 853211,
+  name: 'Testethic',
   nativeCurrency: {
     decimals: 18,
-    name: 'Islamic Coin',
-    symbol: 'ISLM',
+    name: 'Ethereum',
+    symbol: 'ETH',
   },
   rpcUrls: {
     default: {
-      http: [haqqDevnet1RpcUrl],
+      http: [haqqTestethicRpcUrl],
     },
   },
   blockExplorers: {
     default: {
-      name: 'HAQQ Explorer',
-      url: 'https://explorer.devnet2.dev.haqq.network/',
-      apiUrl: 'https://explorer.devnet2.dev.haqq.network/api',
+      name: 'HAQQ Testethic',
+      url: 'https://explorer.testethic.haqq.network',
+      apiUrl: 'https://explorer.testethic.haqq.network/api',
     },
   },
   contracts: {
     portal: {
       [sepolia.id]: {
-        address: BRIDGE_ADDRESSES.opChainDeployment
-          .optimismPortalProxyAddress as `0x${string}`,
+        address: BRIDGE_ADDRESSES.OptimismPortalProxy as `0x${string}`,
       },
     },
     disputeGameFactory: {
       [sepolia.id]: {
-        address: BRIDGE_ADDRESSES.opChainDeployment
-          .disputeGameFactoryProxyAddress as `0x${string}`,
+        address: BRIDGE_ADDRESSES.DisputeGameFactoryProxy as `0x${string}`,
       },
     },
     l2OutputOracle: {
@@ -295,16 +257,29 @@ export const haqqDevnet1 = {
   },
 };
 
+// Chain configuration constants
+export const CHAIN_CONFIG = {
+  l1ChainId: sepolia.id, // Sepolia
+  l2ChainId: haqqTestethic.id,
+  l2BlockTime: 3,
+  batchInboxAddress: '0xff94b3795acce6d3691fb4538646a91561e95e7d',
+  eip1559Denominator: 50,
+  eip1559DenominatorCanyon: 250,
+  eip1559Elasticity: 6,
+  operatorFeeScalar: 0,
+  operatorFeeConstant: 0,
+};
+
 export const L1_CHAINS = [sepolia];
-export const L2_CHAINS = [haqqDevnet1];
+export const L2_CHAINS = [haqqTestethic];
 
 export const getTxExplorerUrl = (hash: string, chainId: number) => {
   if (chainId === sepolia.id) {
     // Sepolia
     return `${sepolia.blockExplorers.default.url}tx/${hash}`;
-  } else if (chainId === haqqDevnet1.id) {
+  } else if (chainId === haqqTestethic.id) {
     // HAQQ Devnet
-    return `${haqqDevnet1.blockExplorers.default.url}tx/${hash}`;
+    return `${haqqTestethic.blockExplorers.default.url}tx/${hash}`;
   }
   return '#';
 };
@@ -313,9 +288,9 @@ export const getAddressExplorerUrl = (address: string, chainId: number) => {
   if (chainId === sepolia.id) {
     // Sepolia
     return `${sepolia.blockExplorers.default.url}address/${address}`;
-  } else if (chainId === haqqDevnet1.id) {
+  } else if (chainId === haqqTestethic.id) {
     // HAQQ Devnet
-    return `${haqqDevnet1.blockExplorers.default.url}address/${address}`;
+    return `${haqqTestethic.blockExplorers.default.url}address/${address}`;
   }
   return '#';
 };

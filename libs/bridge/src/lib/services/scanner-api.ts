@@ -1,7 +1,9 @@
 /**
  * Scanner API service for retrieving token pair information
- * Base URL: https://scanner.dev.haqq.network
  */
+
+import { sepolia } from 'viem/chains';
+import { haqqTestethic } from '@haqq/shell-shared';
 
 const SCANNER_API_BASE_URL = 'https://scanner.dev.haqq.network/api/v1';
 
@@ -64,14 +66,19 @@ export async function getTokenPairById(id: number): Promise<TokenPairResponse> {
  */
 export async function findTokenPairsByAddress(
   tokenAddress: string,
-  chain?: string,
+  sourceChain?: number,
+  targetChain?: number,
 ): Promise<TokenPairsResponse> {
   const url = new URL(
     `${SCANNER_API_BASE_URL}/token-pairs/find/${tokenAddress}`,
   );
 
-  if (chain) {
-    url.searchParams.set('chain', chain);
+  if (sourceChain) {
+    url.searchParams.set('source_chain', sourceChain.toString());
+  }
+
+  if (targetChain) {
+    url.searchParams.set('target_chain', targetChain.toString());
   }
 
   const response = await fetch(url.toString());
@@ -93,22 +100,28 @@ export async function findTokenPairsByAddress(
  */
 export async function getRemoteTokenAddress(
   localTokenAddress: string,
-  sourceChain: string,
-  targetChain: string,
+  sourceChain: number,
+  targetChain: number,
 ): Promise<string | null> {
   try {
     // First, try to find pairs with the local token on the source chain
-    const response = await findTokenPairsByAddress(
+    const responseDirect = await findTokenPairsByAddress(
       localTokenAddress,
+      sourceChain,
+      targetChain,
+    );
+
+    const responseReverse = await findTokenPairsByAddress(
+      localTokenAddress,
+      targetChain,
       sourceChain,
     );
 
-    console.log('response', response);
     // Look for a pair that bridges from sourceChain to targetChain
-    const matchingPair = response.data.find((pair) => {
+    const matchingPair = responseDirect.data.find((pair) => {
       return (
-        pair.source_chain.toLowerCase() === sourceChain.toLowerCase() &&
-        pair.target_chain.toLowerCase() === targetChain.toLowerCase() &&
+        +pair.source_chain === sourceChain &&
+        +pair.target_chain === targetChain &&
         pair.source_token.toLowerCase() === localTokenAddress.toLowerCase()
       );
     });
@@ -118,10 +131,10 @@ export async function getRemoteTokenAddress(
     }
 
     // Also check if the token might be the target token in a reverse pair
-    const reversePair = response.data.find((pair) => {
+    const reversePair = responseReverse.data.find((pair) => {
       return (
-        pair.source_chain.toLowerCase() === targetChain.toLowerCase() &&
-        pair.target_chain.toLowerCase() === sourceChain.toLowerCase() &&
+        +pair.source_chain === targetChain &&
+        +pair.target_chain === sourceChain &&
         pair.target_token.toLowerCase() === localTokenAddress.toLowerCase()
       );
     });
@@ -147,9 +160,9 @@ export async function getRemoteTokenAddress(
  */
 export function getChainNameFromId(chainId: number): string {
   switch (chainId) {
-    case 11155111: // Sepolia
+    case sepolia.id: // Sepolia
       return 'Sepolia';
-    case 64322: // HAQQ L2
+    case haqqTestethic.id:
       return 'HAQQ';
     default:
       throw new Error(`Unsupported chain ID: ${chainId}`);

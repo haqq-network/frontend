@@ -1,14 +1,21 @@
 export const ERC20FactoryAbi = [
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_bridge',
-        type: 'address',
-      },
-    ],
+    inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint8',
+        name: 'version',
+        type: 'uint8',
+      },
+    ],
+    name: 'Initialized',
+    type: 'event',
   },
   {
     anonymous: false,
@@ -68,6 +75,19 @@ export const ERC20FactoryAbi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'bridge',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -113,6 +133,40 @@ export const ERC20FactoryAbi = [
         name: '_symbol',
         type: 'string',
       },
+      {
+        internalType: 'uint8',
+        name: '_decimals',
+        type: 'uint8',
+      },
+    ],
+    name: 'createOptimismMintableERC20WithDecimals',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_remoteToken',
+        type: 'address',
+      },
+      {
+        internalType: 'string',
+        name: '_name',
+        type: 'string',
+      },
+      {
+        internalType: 'string',
+        name: '_symbol',
+        type: 'string',
+      },
     ],
     name: 'createStandardL2Token',
     outputs: [
@@ -122,6 +176,38 @@ export const ERC20FactoryAbi = [
         type: 'address',
       },
     ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'deployments',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_bridge',
+        type: 'address',
+      },
+    ],
+    name: 'initialize',
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },

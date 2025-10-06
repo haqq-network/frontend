@@ -10,8 +10,10 @@ export { ChallengePeriodWarning } from './challenge-period-warning';
 export { PendingWithdrawals } from './pending-withdrawals';
 export { WithdrawalOrderCard } from './withdrawal-order-card';
 export { RecoveryLink } from './recovery-link';
+export { FaucetLinksCard } from './faucet-links-card';
 
 export type { NetworkMismatchWarningProps } from './network-mismatch-warning';
+export type { FaucetLinksCardProps } from './faucet-links-card';
 export type { BridgeAmountInputProps } from './bridge-amount-input';
 export type { BridgeReceiveInputProps } from './bridge-receive-input';
 export type { BridgeFormProps } from './bridge-form';
