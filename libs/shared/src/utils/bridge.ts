@@ -85,7 +85,6 @@ export const FEE_VAULT_RECIPIENTS = {
   l1FeeVaultRecipient: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
   sequencerFeeVaultRecipient: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
 };
-//  l2StandardBridgeProxyAddress: '',
 
 export const BRIDGE_ADDRESSES: {
   SuperchainProxyAdminImpl: string;
@@ -179,6 +178,8 @@ export const BRIDGE_ADDRESSES: {
 
 export const L1_STANDARD_BRIDGE_ADDRESS =
   BRIDGE_ADDRESSES.L1StandardBridgeProxy;
+
+//  l2StandardBridgeProxyAddress https://github.com/ethereum-optimism/ecosystem/blob/8c0ceae82d8e909c0d00b4601d7c7276090774cc/packages/viem/src/actions/withdrawOptimismERC20.ts#L90
 export const L2_STANDARD_BRIDGE_ADDRESS =
   '0x4200000000000000000000000000000000000010';
 

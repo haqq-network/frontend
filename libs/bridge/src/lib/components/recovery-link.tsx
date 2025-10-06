@@ -22,8 +22,8 @@ export interface RecoveryLinkProps {
  */
 export function RecoveryLink({
   href = '/bridge/recovery',
-  title = 'Lost track of your withdrawal?',
-  description = 'Use transaction hash to recover and complete your withdrawal.',
+  title = 'Lost track of your ETH withdrawal?',
+  description = 'Use transaction hash to recover and complete your ETH withdrawal.',
   linkText = 'Recover Withdrawal',
   className = '',
 }: RecoveryLinkProps) {
