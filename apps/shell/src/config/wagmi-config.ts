@@ -6,7 +6,7 @@ import {
   cookieStorage,
   CreateConnectorFn,
 } from 'wagmi';
-import { haqqMainnet, haqqTestedge2, sepolia, mainnet } from 'wagmi/chains';
+import { haqqMainnet, haqqTestedge2, sepolia } from 'wagmi/chains';
 import { safe, walletConnect } from 'wagmi/connectors';
 import { haqqTestethic } from '@haqq/shell-shared';
 
