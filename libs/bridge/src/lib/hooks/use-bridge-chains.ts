@@ -49,7 +49,7 @@ export function useBridgeChains({
   // Check if current chain is not supported
   const isChainMismatch = useMemo(() => {
     return (
-      chainId != null &&
+      !chainId ||
       !SUPPORTED_CHAINS.some((supportedChain) => {
         return supportedChain.id === chainId;
       })

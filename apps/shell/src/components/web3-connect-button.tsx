@@ -71,11 +71,17 @@ export function Web3ConnectButtons() {
     );
   }
 
+  const isSupported =
+    chain !== undefined &&
+    chainArray.some((itemChain) => {
+      return chain.id === itemChain.id;
+    });
+
   return (
     <div className="flex flex-row gap-[24px]">
       <div className="leading-[0]">
         <SelectChainButton
-          isSupported={chain !== undefined}
+          isSupported={isSupported}
           currentChain={
             chain
               ? {

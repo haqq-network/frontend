@@ -50,8 +50,7 @@ export function BridgePage() {
   const { switchChainAsync } = useSwitchChain();
 
   // URL state management
-  const { updateUrlState, buildDeploymentUrl, clearUrlState, urlState } =
-    useBridgeUrlState();
+  const { updateUrlState, buildDeploymentUrl, urlState } = useBridgeUrlState();
 
   // Withdrawal orders management
   const { pendingOrders } = useWithdrawalOrders();

@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { formatUnits } from 'viem';
+import { Chain, formatUnits } from 'viem';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { SWAPPABLE_TOKENS } from '@haqq/shell-shared';
 import { BridgeUrlState } from './use-bridge-url-state';
@@ -36,7 +36,7 @@ export interface UseBridgeStateParams {
 interface UseBridgeStateReturn {
   // Account state
   address: string | undefined;
-  chain: any;
+  chain: Chain | undefined;
   isConnected: boolean;
 
   // Token state
