@@ -1,7 +1,11 @@
 import { useTranslate } from '@tolgee/react';
-import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
+import { haqqTestedge2 } from 'wagmi/chains';
 import { HeaderLink } from '@haqq/shell-ui-kit';
-import { bridgeSupportedChains } from './wagmi-config';
+import { supportedChains } from './wagmi-config';
+
+const allowedChains = supportedChains.map((chain) => {
+  return chain.id;
+});
 
 export const useHeaderLinks = (): HeaderLink[] => {
   const { t } = useTranslate('common');
@@ -10,37 +14,31 @@ export const useHeaderLinks = (): HeaderLink[] => {
       type: 'link',
       label: t('bridge', 'Bridge'),
       href: '/bridge',
-      chains: [
-        haqqMainnet.id,
-        haqqTestedge2.id,
-        ...bridgeSupportedChains.map((chain) => {
-          return chain.id;
-        }),
-      ],
+      chains: allowedChains,
     },
     {
       type: 'link',
       label: t('uc-dao', 'UC DAO'),
       href: '/uc-dao',
-      chains: [haqqMainnet.id, haqqTestedge2.id],
+      chains: allowedChains,
     },
     {
       type: 'link',
       label: t('staking', 'Staking'),
       href: '/staking',
-      chains: [haqqMainnet.id, haqqTestedge2.id],
+      chains: allowedChains,
     },
     {
       type: 'link',
       label: t('governance', 'Governance'),
       href: '/governance',
-      chains: [haqqMainnet.id, haqqTestedge2.id],
+      chains: allowedChains,
     },
     {
       type: 'link',
       label: t('authz', 'Authz'),
       href: '/authz',
-      chains: [haqqMainnet.id, haqqTestedge2.id],
+      chains: allowedChains,
     },
     {
       type: 'dropdown',
@@ -58,7 +56,7 @@ export const useHeaderLinks = (): HeaderLink[] => {
             ns: 'common',
           }),
           href: '/utils/address-conversion',
-          chains: [haqqMainnet.id, haqqTestedge2.id],
+          chains: allowedChains,
         },
       ],
     },

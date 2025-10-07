@@ -104,7 +104,9 @@ export function WithdrawalRecoveryPage() {
                       <h3 className="text-sm font-medium text-red-800">
                         {t('recovery-error', 'Recovery Error')}
                       </h3>
-                      <div className="mt-2 text-sm text-red-700">{error}</div>
+                      <div className="mt-2 break-words text-sm text-red-700">
+                        {error}
+                      </div>
                     </div>
                   </div>
                 </div>
