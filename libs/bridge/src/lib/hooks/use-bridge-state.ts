@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { Chain, formatUnits } from 'viem';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { SWAPPABLE_TOKENS } from '@haqq/shell-shared';
+import { SUPPORTED_CHAINS, SWAPPABLE_TOKENS } from '@haqq/shell-shared';
 import { BridgeUrlState } from './use-bridge-url-state';
 import { useTokenBalances } from './use-token-balances';
 
@@ -139,7 +139,14 @@ export function useBridgeState({
     if (isLoadingTokens || userTokens.length === 0) {
       return;
     }
-    if (selectedToken && chain?.id && bridgeAmount !== undefined) {
+    if (
+      selectedToken &&
+      chain?.id &&
+      bridgeAmount !== undefined &&
+      SUPPORTED_CHAINS.some((itemChain) => {
+        return chain.id === itemChain.id;
+      })
+    ) {
       updateUrlState({
         tokenIn: selectedToken.address,
         chainIn: chain.id,
