@@ -2,7 +2,7 @@ import { sepolia } from 'viem/chains';
 import { haqqTestethic } from './bridge';
 
 // Supported chains for bridge operations
-export const SUPPORTED_CHAINS = [haqqTestethic, sepolia];
+export const SUPPORTED_CHAINS = [sepolia, haqqTestethic];
 
 /**
  * Get chain configuration by chain ID
