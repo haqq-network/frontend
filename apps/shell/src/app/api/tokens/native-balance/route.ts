@@ -77,8 +77,8 @@ function getChainConfig(chainId: number): ChainConfig | null {
     [haqqTestethic.id]: {
       chain: haqqTestethic,
       rpcUrl: haqqTestethic.rpcUrls.default.http[0],
-      nativeSymbol: 'ISLM',
-      nativeName: 'Islamic Coin',
+      nativeSymbol: 'ETH',
+      nativeName: 'Ethereum',
     },
     [sepolia.id]: {
       chain: sepolia,
