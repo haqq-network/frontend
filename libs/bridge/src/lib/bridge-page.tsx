@@ -143,6 +143,7 @@ export function BridgePage() {
   // Bridge transaction hook
   const { bridgeTokens, isProcessing, isProving, isFinalizing } =
     useBridgeTransaction({
+      availableBalance,
       bridgeAddress: bridgeAddress,
       sourceChainId,
       targetChainId,
