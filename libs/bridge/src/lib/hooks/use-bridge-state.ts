@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 import { formatUnits } from 'viem';
-import { useAccount, useBalance, useChainId, useSwitchChain } from 'wagmi';
+import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { SWAPPABLE_TOKENS } from '@haqq/shell-shared';
 import { BridgeUrlState } from './use-bridge-url-state';
 import { useTokenBalances } from './use-token-balances';
@@ -84,26 +84,21 @@ export function useBridgeState({
 
   const { switchChainAsync } = useSwitchChain();
 
-  useEffect(() => {
-    if (urlState?.chainIn && chain?.id !== urlState?.chainIn) {
-      switchChainAsync({ chainId: urlState?.chainIn });
-    }
-  }, [chain?.id, urlState?.chainIn, switchChainAsync]);
-
   // State management
   const [bridgeAmount, setBridgeAmount] = useState<number | undefined>(() => {
     return urlState?.amount ? Number(urlState.amount) : undefined;
   });
   const [selectedToken, setSelectedToken] = useState<Token | null>();
-  const [previousChainId, setPreviousChainId] = useState<number | undefined>(
-    chain?.id,
-  );
+  const [previousChainId, setPreviousChainId] = useState<number | undefined>();
 
   // Clear URL state and reset amount/selected token when chain changes
   useEffect(() => {
     // Skip on initial mount or if chain is undefined
     if (!chain?.id || previousChainId === undefined) {
       setPreviousChainId(chain?.id);
+      if (urlState?.chainIn && chain?.id !== urlState?.chainIn) {
+        switchChainAsync({ chainId: urlState?.chainIn });
+      }
       return;
     }
 

@@ -102,7 +102,6 @@ export function useChainStatsQuery() {
           : chainStatsQuery.data.validatorsCount,
       }
     : undefined;
-  console.log('combinedData', combinedData);
 
   return {
     data: combinedData,
