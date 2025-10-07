@@ -6,10 +6,19 @@ import {
   cookieStorage,
   CreateConnectorFn,
 } from 'wagmi';
-import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
+import { haqqMainnet, haqqTestedge2, sepolia } from 'wagmi/chains';
 import { safe, walletConnect } from 'wagmi/connectors';
+import { haqqTestethic } from '@haqq/shell-shared';
 
-export const supportedChains = [haqqMainnet, haqqTestedge2] as const;
+export const bridgeSupportedChains = [haqqTestethic, sepolia];
+
+export const baseSupportedChains = [haqqMainnet, haqqTestedge2] as const;
+
+export const supportedChains = [
+  ...baseSupportedChains,
+  ...bridgeSupportedChains,
+] as const;
+
 export const supportedChainsIds = supportedChains.map((chain): number => {
   return chain.id;
 });
@@ -50,6 +59,7 @@ export function createWagmiConfig(walletConnectProjectId?: string) {
     connectors,
     ssr: true,
     multiInjectedProviderDiscovery: true,
+    batch: { multicall: true },
     storage: createStorage({
       storage: cookieStorage,
     }),

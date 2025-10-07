@@ -74,7 +74,7 @@ export interface WalletProviderInterface {
     connector,
   }: {
     connector: Connector;
-  }) => Promise<ConnectData<Config>>;
+  }) => Promise<ConnectData<Config, Connector, boolean>>;
   supportedChains: readonly [Chain, ...Chain[]];
 }
 

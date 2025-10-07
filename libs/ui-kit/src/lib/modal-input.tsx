@@ -62,6 +62,7 @@ export function StringInput({
   className,
   id,
   hint,
+  readOnly = false,
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -69,6 +70,7 @@ export function StringInput({
   className?: string;
   id?: string;
   hint?: ReactNode;
+  readOnly?: boolean;
 }) {
   const { t } = useTranslate('common');
   const handleInputChange = useCallback(
@@ -95,6 +97,7 @@ export function StringInput({
             className,
           )}
           id={id}
+          readOnly={readOnly}
         />
       </div>
       {hint && <div className="mt-1 text-xs leading-[20px]">{hint}</div>}

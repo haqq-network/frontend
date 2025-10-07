@@ -1,5 +1,7 @@
 'use client';
+import { useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
+import { usePathname } from 'next/navigation';
 import { useAccount, useChains } from 'wagmi';
 import {
   getFormattedAddress,
@@ -9,15 +11,55 @@ import {
 } from '@haqq/shell-shared';
 import { Button, AccountButton, SelectChainButton } from '@haqq/shell-ui-kit';
 import { formatNumber } from '@haqq/shell-ui-kit/server';
+import {
+  baseSupportedChains,
+  bridgeSupportedChains,
+} from '../config/wagmi-config';
+
+function useIsBridgePage() {
+  const pathname = usePathname();
+  return useMemo(() => {
+    return pathname?.startsWith('/bridge');
+  }, [pathname]);
+}
+
+function useChainArray() {
+  const chains = useChains();
+  const isBridgePage = useIsBridgePage();
+
+  return useMemo(() => {
+    const availableChains = isBridgePage
+      ? bridgeSupportedChains
+      : baseSupportedChains;
+
+    if (chains.length === 0) {
+      return availableChains.map((chain) => {
+        return {
+          id: chain.id,
+          name: chain.name,
+        };
+      });
+    }
+
+    return (isBridgePage ? bridgeSupportedChains : availableChains).map(
+      (chain) => {
+        return {
+          id: chain.id,
+          name: chain.name,
+        };
+      },
+    );
+  }, [chains, isBridgePage]);
+}
 
 export function Web3ConnectButtons() {
   const { t } = useTranslate('common');
   const { isConnected, chain } = useAccount();
   const { haqqAddress, ethAddress } = useAddress();
-  const chains = useChains();
   const { openSelectWallet, disconnect, selectNetwork } = useWallet();
   const { data: balance } = useIndexerBalanceQuery(haqqAddress);
-  console.log({ balance });
+  const chainArray = useChainArray();
+  const isBridgePage = useIsBridgePage();
 
   if (!isConnected || !ethAddress) {
     return (
@@ -28,14 +70,6 @@ export function Web3ConnectButtons() {
       </div>
     );
   }
-
-  const chainArray = chains.map((chain) => {
-    return {
-      id: chain.id,
-      name: chain.name,
-      // name: chain.name.replace('HAQQ', '').trim(),
-    };
-  });
 
   return (
     <div className="flex flex-row gap-[24px]">
@@ -56,13 +90,15 @@ export function Web3ConnectButtons() {
           chains={chainArray}
         />
       </div>
-      <div className="leading-[0]">
-        <AccountButton
-          balance={balance ? formatNumber(balance.balance) : undefined}
-          address={getFormattedAddress(ethAddress, 3, 2)}
-          onDisconnectClick={disconnect}
-        />
-      </div>
+      {!isBridgePage && (
+        <div className="leading-[0]">
+          <AccountButton
+            balance={balance ? formatNumber(balance.balance) : undefined}
+            address={getFormattedAddress(ethAddress, 3, 2)}
+            onDisconnectClick={disconnect}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -71,9 +107,11 @@ export function Web3ConnectButtonsMobile() {
   const { t } = useTranslate('common');
   const { isConnected, chain } = useAccount();
   const { haqqAddress, ethAddress } = useAddress();
-  const chains = useChains();
   const { openSelectWallet, disconnect, selectNetwork } = useWallet();
   const { data: balance } = useIndexerBalanceQuery(haqqAddress);
+  const chainArray = useChainArray();
+
+  const isBridgePage = useIsBridgePage();
 
   if (!isConnected || !ethAddress) {
     return (
@@ -84,14 +122,6 @@ export function Web3ConnectButtonsMobile() {
       </div>
     );
   }
-
-  const chainArray = chains.map((chain) => {
-    return {
-      id: chain.id,
-      name: chain.name,
-      // name: chain.name.replace('HAQQ', '').trim(),
-    };
-  });
 
   return (
     <div className="flex flex-col gap-[24px]">
@@ -113,13 +143,15 @@ export function Web3ConnectButtonsMobile() {
           dropdownClassName="end-auto start-0"
         />
       </div>
-      <div className="leading-[0]">
-        <AccountButton
-          balance={balance ? formatNumber(balance.balance) : undefined}
-          address={getFormattedAddress(ethAddress, 3, 2)}
-          withoutDropdown
-        />
-      </div>
+      {!isBridgePage && (
+        <div className="leading-[0]">
+          <AccountButton
+            balance={balance ? formatNumber(balance.balance) : undefined}
+            address={getFormattedAddress(ethAddress, 3, 2)}
+            withoutDropdown
+          />
+        </div>
+      )}
       <div className="leading-[0]">
         <Button onClick={disconnect}>{t('disconnect', 'Disconnect')}</Button>
       </div>

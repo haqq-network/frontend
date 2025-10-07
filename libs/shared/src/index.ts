@@ -28,7 +28,6 @@ export * from './hooks/use-bank-queries/use-bank-queries';
 export * from './hooks/use-clipboard/use-clipboard';
 export * from './hooks/use-authz-actions/use-authz-actions';
 export * from './hooks/use-authz-queries/use-authz-queries';
-export * from './hooks/use-local-storage/use-local-storage';
 export * from './hooks/use-network-aware-action/use-network-aware-action';
 export * from './hooks/use-falconer-queries/use-falconer-queries';
 export * from './hooks/liquidvesting/use-liquidvesting-actions';
@@ -45,3 +44,7 @@ export * from './hooks/use-coinomics-params/use-coinomics-params';
 export * from './precompile/staking-abi';
 export * from './precompile/distribution-abi';
 export * from './precompile/adresses';
+
+export * from './utils/bridge';
+export * from './utils/chain-utils';
+export * from './abi/L1StandartBridge';

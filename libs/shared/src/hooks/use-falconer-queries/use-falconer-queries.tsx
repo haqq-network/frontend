@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import { useAccount, useChains } from 'wagmi';
 
 interface ShellChainStats {
@@ -11,6 +11,17 @@ interface ShellChainStats {
   stakeRatio: string;
   validatorsCount: string;
   validatorsActive: string;
+}
+
+interface CosmosStakingParams {
+  params: {
+    unbonding_time: string;
+    max_validators: number;
+    max_entries: number;
+    historical_entries: number;
+    bond_denom: string;
+    min_commission_rate: string;
+  };
 }
 
 interface FalconerRequestInit extends RequestInit {
@@ -43,12 +54,60 @@ export async function getShellChainStatsData(
   return stats;
 }
 
+export async function getCosmosStakingParams() {
+  const requestUrl = new URL(
+    '/cosmos/staking/v1beta1/params',
+    'https://rest.cosmos.haqq.network',
+  );
+  const response = await fetch(requestUrl, {
+    method: 'get',
+    headers: {
+      accept: 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Staking params fetch failed');
+  }
+
+  const data: CosmosStakingParams = await response.json();
+
+  return data;
+}
+
 export function useChainStatsQuery() {
   const chains = useChains();
   const { chain = chains[0] } = useAccount();
 
-  return useQuery({
-    queryKey: [chain.id, 'chain-stats'],
-    queryFn: getShellChainStatsData,
+  const [chainStatsQuery, stakingParamsQuery] = useQueries({
+    queries: [
+      {
+        queryKey: [chain.id, 'chain-stats'],
+        queryFn: () => {
+          return getShellChainStatsData({});
+        },
+      },
+      {
+        queryKey: ['cosmos-staking-params'],
+        queryFn: getCosmosStakingParams,
+      },
+    ],
   });
+
+  const combinedData = chainStatsQuery.data
+    ? {
+        ...chainStatsQuery.data,
+        validatorsCount: stakingParamsQuery.data
+          ? String(stakingParamsQuery.data.params.max_validators)
+          : chainStatsQuery.data.validatorsCount,
+      }
+    : undefined;
+
+  return {
+    data: combinedData,
+    isFetching: chainStatsQuery.isLoading || stakingParamsQuery.isLoading,
+    isFetched: chainStatsQuery.isFetched || stakingParamsQuery.isFetched,
+    isError: chainStatsQuery.isError || stakingParamsQuery.isError,
+    error: chainStatsQuery.error || stakingParamsQuery.error,
+  };
 }
