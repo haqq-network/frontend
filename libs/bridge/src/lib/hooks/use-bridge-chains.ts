@@ -35,7 +35,7 @@ export function useBridgeChains({
       return CHAIN_CONFIG.l1ChainId;
     }
     // Default fallback
-    return CHAIN_CONFIG.l2ChainId;
+    return CHAIN_CONFIG.l1ChainId;
   }, [sourceChainId]);
 
   // Check if this is an L2 to L1 transfer
