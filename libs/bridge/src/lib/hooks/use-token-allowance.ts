@@ -48,18 +48,9 @@ export function useTokenAllowance({
       enabled: Boolean(
         !isEthToken && ownerAddress && spenderAddress && tokenAddress,
       ),
+      refetchInterval: 1000,
     },
   });
-
-  useEffect(() => {
-    const tId = setInterval(() => {
-      refetch();
-    }, 1000);
-
-    return () => {
-      clearInterval(tId);
-    };
-  }, [allowance]);
 
   const needsApproval = useMemo(() => {
     // ETH doesn't need approval

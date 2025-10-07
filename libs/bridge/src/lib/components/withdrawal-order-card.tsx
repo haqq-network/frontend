@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
 import {
   Clock,
@@ -37,6 +37,10 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     formattedTime: string;
   } | null>(null);
 
+  const reset = useCallback(() => {
+    setIsProcessing(false);
+  }, []);
+
   const {
     proveWithdrawal,
     finalizeWithdrawal,
@@ -46,15 +50,9 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     getTimeToFinalize,
     getWaitingTimeWarning,
   } = useL2ToL1Withdrawal({
-    onProveSuccess: () => {
-      setIsProcessing(false);
-    },
-    onFinalizeSuccess: () => {
-      setIsProcessing(false);
-    },
-    onError: () => {
-      setIsProcessing(false);
-    },
+    onProveSuccess: reset,
+    onFinalizeSuccess: reset,
+    onError: reset,
   });
 
   // Update timer information for this order
@@ -95,8 +93,7 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
 
     updateTimer();
 
-    // Update timer every 30 seconds
-    const interval = setInterval(updateTimer, 1000);
+    const interval = setInterval(updateTimer, 10000);
 
     return () => {
       return clearInterval(interval);
@@ -141,28 +138,31 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     }
   };
 
-  const getNextAction = (order: WithdrawalOrder) => {
-    switch (order.status) {
-      case WithdrawalStatus.INITIATED:
-        return {
-          label: t('action-prove', 'Prove'),
-          action: () => {
-            return handleProve(order);
-          },
-          disabled: isProving || isProcessing,
-        };
-      case WithdrawalStatus.PROVED:
-        return {
-          label: t('action-finalize', 'Finalize'),
-          action: () => {
-            return handleFinalize(order);
-          },
-          disabled: isFinalizing || isProcessing,
-        };
-      default:
-        return null;
-    }
-  };
+  const getNextAction = useCallback(
+    (order: WithdrawalOrder) => {
+      switch (order.status) {
+        case WithdrawalStatus.INITIATED:
+          return {
+            label: t('action-prove', 'Prove'),
+            action: () => {
+              return handleProve(order);
+            },
+            disabled: isProving || isProcessing,
+          };
+        case WithdrawalStatus.PROVED:
+          return {
+            label: t('action-finalize', 'Finalize'),
+            action: () => {
+              return handleFinalize(order);
+            },
+            disabled: isFinalizing || isProcessing,
+          };
+        default:
+          return null;
+      }
+    },
+    [isProving, isProcessing, isFinalizing, isProcessing, t],
+  );
 
   const handleProve = useCallback(
     async (order: WithdrawalOrder) => {
@@ -188,8 +188,12 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     [finalizeWithdrawal],
   );
 
-  const nextAction = getNextAction(order);
-  const warning = getWaitingTimeWarning(order.status);
+  const nextAction = useMemo(() => {
+    return getNextAction(order);
+  }, [order, getNextAction]);
+  const warning = useMemo(() => {
+    return getWaitingTimeWarning(order.status);
+  }, [order.status, getWaitingTimeWarning]);
 
   return (
     <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">

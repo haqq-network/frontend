@@ -27,6 +27,7 @@ export function useOpStackClients() {
         typeof window !== 'undefined' && window.ethereum
           ? custom(window.ethereum)
           : http(OP_STACK_CHAINS.L1.rpcUrls.default.http[0]),
+      batch: { multicall: true },
     }).extend(publicActionsL1());
   }, []);
 
@@ -34,6 +35,7 @@ export function useOpStackClients() {
     return createPublicClient({
       chain: OP_STACK_CHAINS.L1,
       transport: http(OP_STACK_CHAINS.L1.rpcUrls.default.http[0]),
+      batch: { multicall: true },
     }).extend(publicActionsL1());
   }, []);
 
@@ -45,6 +47,7 @@ export function useOpStackClients() {
         typeof window !== 'undefined' && window.ethereum
           ? custom(window.ethereum)
           : http(OP_STACK_CHAINS.L2.rpcUrls.default.http[0]),
+      batch: { multicall: true },
     }).extend(publicActionsL2());
   }, []);
 
@@ -52,6 +55,7 @@ export function useOpStackClients() {
     return createPublicClient({
       chain: OP_STACK_CHAINS.L2,
       transport: http(OP_STACK_CHAINS.L2.rpcUrls.default.http[0]),
+      batch: { multicall: true },
     }).extend(publicActionsL2());
   }, []);
 
