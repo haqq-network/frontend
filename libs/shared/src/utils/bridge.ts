@@ -233,7 +233,7 @@ export const haqqTestethic = {
   blockExplorers: {
     default: {
       name: 'HAQQ Testethic',
-      url: 'https://explorer.testethic.haqq.network/',
+      url: 'https://explorer.testethic.haqq.network',
       apiUrl: 'https://explorer.testethic.haqq.network/api',
     },
   },
@@ -276,10 +276,10 @@ export const L2_CHAINS = [haqqTestethic];
 export const getTxExplorerUrl = (hash: string, chainId: number) => {
   if (chainId === sepolia.id) {
     // Sepolia
-    return `${sepolia.blockExplorers.default.url}tx/${hash}`;
+    return `${sepolia.blockExplorers.default.url}/tx/${hash}`;
   } else if (chainId === haqqTestethic.id) {
     // HAQQ Devnet
-    return `${haqqTestethic.blockExplorers.default.url}tx/${hash}`;
+    return `${haqqTestethic.blockExplorers.default.url}/tx/${hash}`;
   }
   return '#';
 };
@@ -287,10 +287,10 @@ export const getTxExplorerUrl = (hash: string, chainId: number) => {
 export const getAddressExplorerUrl = (address: string, chainId: number) => {
   if (chainId === sepolia.id) {
     // Sepolia
-    return `${sepolia.blockExplorers.default.url}address/${address}`;
+    return `${sepolia.blockExplorers.default.url}/address/${address}`;
   } else if (chainId === haqqTestethic.id) {
     // HAQQ Devnet
-    return `${haqqTestethic.blockExplorers.default.url}address/${address}`;
+    return `${haqqTestethic.blockExplorers.default.url}/address/${address}`;
   }
   return '#';
 };
