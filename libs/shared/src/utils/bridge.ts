@@ -233,7 +233,7 @@ export const haqqTestethic = {
   blockExplorers: {
     default: {
       name: 'HAQQ Testethic',
-      url: 'https://explorer.testethic.haqq.network',
+      url: 'https://explorer.testethic.haqq.network/',
       apiUrl: 'https://explorer.testethic.haqq.network/api',
     },
   },
