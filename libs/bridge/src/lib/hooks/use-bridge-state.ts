@@ -84,17 +84,40 @@ export function useBridgeState({
 
   const { switchChainAsync } = useSwitchChain();
 
-  useEffect(() => {
-    if (urlState?.chainIn && chain?.id !== urlState?.chainIn) {
-      switchChainAsync({ chainId: urlState?.chainIn });
-    }
-  }, [chain?.id, urlState?.chainIn, switchChainAsync]);
-
   // State management
   const [bridgeAmount, setBridgeAmount] = useState<number | undefined>(() => {
     return urlState?.amount ? Number(urlState.amount) : undefined;
   });
   const [selectedToken, setSelectedToken] = useState<Token | null>();
+  const [previousChainId, setPreviousChainId] = useState<number | undefined>();
+
+  // Clear URL state and reset amount/selected token when chain changes
+  useEffect(() => {
+    // Skip on initial mount or if chain is undefined
+    if (!chain?.id || previousChainId === undefined) {
+      setPreviousChainId(chain?.id);
+      if (urlState?.chainIn && chain?.id !== urlState?.chainIn) {
+        switchChainAsync({ chainId: urlState?.chainIn });
+      }
+      return;
+    }
+
+    // If chain actually changed (not just a re-render)
+    if (chain.id !== previousChainId) {
+      // Clear URL state
+      updateUrlState({
+        tokenIn: undefined,
+        amount: undefined,
+      });
+
+      // Reset local state
+      setBridgeAmount(0);
+      setSelectedToken(ETH_TOKEN);
+
+      // Update previous chain ID
+      setPreviousChainId(chain.id);
+    }
+  }, [chain?.id, previousChainId, updateUrlState]);
 
   // Initialize state from URL parameters
   useEffect(() => {
@@ -232,7 +255,7 @@ export function useBridgeState({
     const maxAmount = Math.max(
       0,
       availableBalance -
-        (selectedToken?.address === ETH_TOKEN.address ? 0.001 : 0),
+        (selectedToken?.address === ETH_TOKEN.address ? 0.00001 : 0),
     );
     setBridgeAmount(maxAmount);
   }, [availableBalance, selectedToken]);

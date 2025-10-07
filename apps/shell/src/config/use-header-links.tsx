@@ -1,10 +1,23 @@
 import { useTranslate } from '@tolgee/react';
 import { haqqMainnet, haqqTestedge2 } from 'wagmi/chains';
 import { HeaderLink } from '@haqq/shell-ui-kit';
+import { bridgeSupportedChains } from './wagmi-config';
 
 export const useHeaderLinks = (): HeaderLink[] => {
   const { t } = useTranslate('common');
   return [
+    {
+      type: 'link',
+      label: t('bridge', 'Bridge'),
+      href: '/bridge',
+      chains: [
+        haqqMainnet.id,
+        haqqTestedge2.id,
+        ...bridgeSupportedChains.map((chain) => {
+          return chain.id;
+        }),
+      ],
+    },
     {
       type: 'link',
       label: t('uc-dao', 'UC DAO'),
