@@ -36,10 +36,11 @@ export function TokenSelectOption({
   ...rest
 }: OptionProps<TokenSelectOption, false>) {
   const { token } = rest.data;
-  const balanceText =
-    token.formattedBalance !== undefined
+  const balanceText = useMemo(() => {
+    return token.formattedBalance !== undefined
       ? ` - ${token.formattedBalance.toFixed(6)}`
       : '';
+  }, [token.formattedBalance]);
 
   return (
     <tokenSelectComponents.Option {...rest}>
@@ -61,6 +62,10 @@ export function TokenSelectOption({
     </tokenSelectComponents.Option>
   );
 }
+
+const components = {
+  Option: TokenSelectOption,
+};
 
 export function TokenSelector({
   tokens,
@@ -148,6 +153,15 @@ export function TokenSelector({
     );
   }, [selectedToken, options]);
 
+  const onChange = useCallback(
+    (option: any) => {
+      if (option) {
+        onTokenSelect(option.token);
+      }
+    },
+    [onTokenSelect],
+  );
+
   return (
     <div className="space-y-[8px]">
       <label className="block text-[14px] font-[500] text-[#0D0D0E]">
@@ -157,15 +171,9 @@ export function TokenSelector({
         placeholder={t('select-a-token', 'Select a token')}
         options={options}
         value={selectedOption}
-        onChange={(option) => {
-          if (option) {
-            onTokenSelect(option.token);
-          }
-        }}
+        onChange={onChange}
         filterOption={handleFilterOption}
-        components={{
-          Option: TokenSelectOption,
-        }}
+        components={components}
         isDisabled={disabled}
         unstyled
         classNames={classNames}

@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 import { formatUnits } from 'viem';
-import { useAccount, useBalance, useSwitchChain } from 'wagmi';
+import { useAccount, useBalance, useChainId, useSwitchChain } from 'wagmi';
 import { SWAPPABLE_TOKENS } from '@haqq/shell-shared';
 import { BridgeUrlState } from './use-bridge-url-state';
 import { useTokenBalances } from './use-token-balances';
@@ -82,6 +82,7 @@ export function useBridgeState({
     error: tokensError,
   } = useTokenBalances();
 
+  const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
 
   useEffect(() => {
@@ -232,7 +233,7 @@ export function useBridgeState({
     const maxAmount = Math.max(
       0,
       availableBalance -
-        (selectedToken?.address === ETH_TOKEN.address ? 0.001 : 0),
+        (selectedToken?.address === ETH_TOKEN.address ? 0.00001 : 0),
     );
     setBridgeAmount(maxAmount);
   }, [availableBalance, selectedToken]);

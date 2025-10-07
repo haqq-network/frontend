@@ -42,7 +42,6 @@ export interface UseBridgeHandlersParams {
   // Chain switch params
   switchChainAsync: ((params: { chainId: number }) => Promise<any>) | undefined;
   targetChainIdNumber: number | undefined;
-  clearUrlState: () => void;
 }
 
 export interface UseBridgeHandlersReturn {
@@ -71,7 +70,6 @@ export function useBridgeHandlers({
   buildDeploymentUrl,
   switchChainAsync,
   targetChainIdNumber,
-  clearUrlState,
 }: UseBridgeHandlersParams): UseBridgeHandlersReturn {
   const router = useRouter();
 
@@ -159,12 +157,10 @@ export function useBridgeHandlers({
 
     try {
       await switchChainAsync({ chainId: targetChainIdNumber });
-      // Reset URL query parameters after successful chain switch
-      clearUrlState();
     } catch (error) {
       console.error('Failed to switch chain:', error);
     }
-  }, [switchChainAsync, targetChainIdNumber, clearUrlState]);
+  }, [switchChainAsync, targetChainIdNumber]);
 
   return {
     handleApprove,

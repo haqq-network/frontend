@@ -193,7 +193,6 @@ export function BridgePage() {
     buildDeploymentUrl,
     switchChainAsync,
     targetChainIdNumber,
-    clearUrlState,
   });
 
   return (
