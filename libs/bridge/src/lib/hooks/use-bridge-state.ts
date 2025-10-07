@@ -251,13 +251,7 @@ export function useBridgeState({
   }, []);
 
   const handleMaxButtonClick = useCallback(() => {
-    // Leave some for gas fees
-    const maxAmount = Math.max(
-      0,
-      availableBalance -
-        (selectedToken?.address === ETH_TOKEN.address ? 0.00001 : 0),
-    );
-    setBridgeAmount(maxAmount);
+    setBridgeAmount(availableBalance);
   }, [availableBalance, selectedToken]);
 
   const handleTokenSelect = useCallback((token: Token) => {

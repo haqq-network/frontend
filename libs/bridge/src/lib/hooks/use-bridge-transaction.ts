@@ -1,8 +1,9 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { parseEther, parseUnits } from 'viem';
-import { useSendTransaction, useWriteContract } from 'wagmi';
+import { formatEther, parseEther, parseGwei, parseUnits } from 'viem';
+import { sepolia } from 'viem/chains';
+import { useSendTransaction, useWriteContract, usePublicClient } from 'wagmi';
 import { L1StandardBridgeAbi, CHAIN_CONFIG } from '@haqq/shell-shared';
 import { useL2ToL1Withdrawal } from './use-l2-to-l1-withdrawal';
 
@@ -15,6 +16,7 @@ interface Token {
 }
 
 interface UseBridgeTransactionParams {
+  availableBalance: number;
   bridgeAddress: string;
   sourceChainId?: number;
   targetChainId?: number;
@@ -45,6 +47,7 @@ const ETH_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
  * Hook to handle bridge transactions for both ETH and ERC-20 tokens
  */
 export function useBridgeTransaction({
+  availableBalance,
   bridgeAddress,
   sourceChainId,
   targetChainId,
@@ -58,6 +61,7 @@ export function useBridgeTransaction({
 
   const { sendTransactionAsync } = useSendTransaction();
   const { writeContractAsync } = useWriteContract();
+  const publicClient = usePublicClient({ chainId: sourceChainId });
 
   // Use L2 to L1 withdrawal hook for L2 -> L1 transfers
   const {
@@ -81,6 +85,16 @@ export function useBridgeTransaction({
       remoteTokenAddress: string,
       fallbackDecimals = 18,
     ) => {
+      // Validate available balance
+      if (amount > availableBalance) {
+        const error = new Error(
+          `Insufficient balance. Available: ${availableBalance}, Requested: ${amount}`,
+        );
+        setError(error.message);
+        onError?.(error);
+        throw error;
+      }
+
       // Check if this is an L2 to L1 transfer
       const isL2ToL1 =
         sourceChainId === CHAIN_CONFIG.l2ChainId &&
@@ -102,13 +116,61 @@ export function useBridgeTransaction({
       setIsProcessing(true);
       setError(null);
 
+      const is100PercentOfAvailableBalance = availableBalance === amount;
+
+      console.log(
+        'is100PercentOfAvailableBalance',
+        is100PercentOfAvailableBalance,
+      );
       try {
         let hash: string;
 
         if (token.address === ETH_ADDRESS) {
           // Bridge ETH (L1 to L2)
           console.log(`Bridging ${amount} ETH from L1 to L2`);
-          const amountWei = parseEther(amount.toString());
+          let amountWei = parseEther(amount.toString());
+
+          // For 100% of balance, estimate gas and adjust amount
+          if (is100PercentOfAvailableBalance && publicClient) {
+            try {
+              // Estimate gas for the transaction
+              const gasEstimate = await publicClient.estimateGas({
+                to: bridgeAddress as `0x${string}`,
+                value: amountWei,
+                account: userAddress as `0x${string}`,
+              });
+              console.log('gasEstimate', gasEstimate);
+
+              // Get current gas price
+              const gasPrice = await publicClient.getGasPrice();
+
+              // Calculate total fee: gas * gasPrice * 1.25 (25% buffer)
+              const estimatedFee = (gasEstimate * gasPrice * 125n) / 100n;
+
+              console.log(
+                `Estimated fee for 100% balance bridge: ${estimatedFee} ETH`,
+              );
+
+              // Adjust amount by subtracting estimated fees
+
+              amountWei = amountWei - estimatedFee;
+
+              if (sourceChainId === sepolia.id) {
+                amountWei = amountWei - parseEther('0.0016');
+              }
+
+              console.log('amountWei', amountWei);
+              console.log(
+                `Adjusted bridge amount: ${amountWei} ETH (original: ${amount} ETH)`,
+              );
+            } catch (estimateError) {
+              console.warn(
+                'Failed to estimate gas, proceeding with original amount:',
+                estimateError,
+              );
+              // Continue with original amount if estimation fails
+            }
+          }
 
           hash = await sendTransactionAsync({
             to: bridgeAddress as `0x${string}`,
@@ -119,6 +181,13 @@ export function useBridgeTransaction({
           console.log(`Bridging ${amount} ${token.symbol}`);
           const tokenDecimals = token.decimals || fallbackDecimals;
           const amountWei = parseUnits(amount.toString(), tokenDecimals);
+
+          // Validate balance for ERC-20 tokens
+          if (amount > availableBalance) {
+            throw new Error(
+              `Insufficient ${token.symbol} balance. Available: ${availableBalance}, Requested: ${amount}`,
+            );
+          }
 
           // For now, use the same address for both local and remote token
           hash = await writeContractAsync({
@@ -158,6 +227,8 @@ export function useBridgeTransaction({
       onSuccess,
       onError,
       initiateWithdrawal,
+      availableBalance,
+      publicClient,
     ],
   );
 
