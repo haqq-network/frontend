@@ -1,7 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useTranslate } from '@tolgee/react';
-import { sepolia } from 'viem/chains';
+import { sepolia, haqqMainnet } from 'viem/chains';
 import { useSwitchChain } from 'wagmi';
 import {
   L1_STANDARD_BRIDGE_ADDRESS,
@@ -19,6 +19,7 @@ import {
   RecoveryLink,
   FaucetLinksCard,
 } from './components';
+import { OP_STACK_CHAINS } from './constants/op-stack-config';
 import {
   useBridgeState,
   useTokenAllowance,
@@ -50,8 +51,7 @@ export function BridgePage() {
   const { switchChainAsync } = useSwitchChain();
 
   // URL state management
-  const { updateUrlState, buildDeploymentUrl, clearUrlState, urlState } =
-    useBridgeUrlState();
+  const { updateUrlState, buildDeploymentUrl, urlState } = useBridgeUrlState();
 
   // Withdrawal orders management
   const { pendingOrders } = useWithdrawalOrders();
@@ -195,6 +195,21 @@ export function BridgePage() {
     switchChainAsync,
     targetChainIdNumber,
   });
+
+  // Handle chain switching on page mount
+  useLayoutEffect(() => {
+    // On page open: switch to sepolia if URL state doesn't have chainIn
+    if (
+      isConnected &&
+      !urlState.chainIn &&
+      chain?.id !== OP_STACK_CHAINS.L1.id
+    ) {
+      switchChainAsync({ chainId: OP_STACK_CHAINS.L1.id }).catch((error) => {
+        console.error('Failed to switch to Sepolia on page load:', error);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Run only on mount
 
   return (
     <Container>
