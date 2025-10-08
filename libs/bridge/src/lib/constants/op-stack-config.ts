@@ -1,12 +1,12 @@
 import { sepolia } from 'viem/chains';
-import { haqqTestethic } from '@haqq/shell-shared';
+import { haqqTestethiq } from '@haqq/shell-shared';
 
 /**
  * OP Stack compatible chain configuration for HAQQ Devnet
  * This configuration includes the necessary contracts for OP Stack operations
  */
-export const haqqTestethicWithContracts = {
-  ...haqqTestethic,
+export const haqqTestethiqWithContracts = {
+  ...haqqTestethiq,
 };
 
 /**
@@ -14,6 +14,6 @@ export const haqqTestethicWithContracts = {
  */
 export const OP_STACK_CHAINS = {
   L1: sepolia,
-  L2: haqqTestethic,
-  L2_WITH_CONTRACTS: haqqTestethicWithContracts,
+  L2: haqqTestethiq,
+  L2_WITH_CONTRACTS: haqqTestethiqWithContracts,
 } as const;

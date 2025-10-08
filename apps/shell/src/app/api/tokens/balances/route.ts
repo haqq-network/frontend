@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
-import { haqqTestethic } from '@haqq/shell-shared';
+import { haqqTestethiq } from '@haqq/shell-shared';
 
 export interface TokenBalance {
   symbol: string;
@@ -129,9 +129,9 @@ interface ChainConfig {
 
 function getChainConfig(chainId: number): ChainConfig | null {
   const configs: Record<number, ChainConfig> = {
-    [haqqTestethic.id]: {
+    [haqqTestethiq.id]: {
       // HAQQ Devnet1
-      apiUrl: haqqTestethic.blockExplorers.default.apiUrl,
+      apiUrl: haqqTestethiq.blockExplorers.default.apiUrl,
       nativeSymbol: 'ISLM',
       nativeName: 'Islamic Coin',
     },
