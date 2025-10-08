@@ -9,12 +9,9 @@ import {
   useIndexerBalanceQuery,
   useWallet,
 } from '@haqq/shell-shared';
+import { baseSupportedChains, bridgeSupportedChains } from '@haqq/shell-shared';
 import { Button, AccountButton, SelectChainButton } from '@haqq/shell-ui-kit';
 import { formatNumber } from '@haqq/shell-ui-kit/server';
-import {
-  baseSupportedChains,
-  bridgeSupportedChains,
-} from '../config/wagmi-config';
 
 function useIsBridgePage() {
   const pathname = usePathname();
