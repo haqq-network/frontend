@@ -12,7 +12,7 @@ export const useHeaderLinks = (): HeaderLink[] => {
   return [
     {
       type: 'link',
-      label: t('bridge', 'Bridge'),
+      label: t('bridge', 'Bridge to L2'),
       href: '/bridge',
       chains: allowedChains,
     },
