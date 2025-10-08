@@ -67,7 +67,7 @@ export function useWithdrawalOrders() {
         });
       });
 
-      return newOrder.id;
+      return newOrder;
     },
     [setStorage],
   );
