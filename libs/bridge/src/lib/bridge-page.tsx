@@ -1,7 +1,7 @@
 'use client';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useTranslate } from '@tolgee/react';
-import { sepolia, haqqMainnet } from 'viem/chains';
+import { sepolia } from 'viem/chains';
 import { useSwitchChain } from 'wagmi';
 import {
   L1_STANDARD_BRIDGE_ADDRESS,
