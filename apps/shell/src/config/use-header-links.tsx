@@ -1,7 +1,7 @@
 import { useTranslate } from '@tolgee/react';
 import { haqqTestedge2 } from 'wagmi/chains';
+import { supportedChains } from '@haqq/shell-shared';
 import { HeaderLink } from '@haqq/shell-ui-kit';
-import { supportedChains } from './wagmi-config';
 
 const allowedChains = supportedChains.map((chain) => {
   return chain.id;
@@ -12,7 +12,7 @@ export const useHeaderLinks = (): HeaderLink[] => {
   return [
     {
       type: 'link',
-      label: t('bridge', 'Bridge'),
+      label: t('bridge', 'Bridge to L2'),
       href: '/bridge',
       chains: allowedChains,
     },

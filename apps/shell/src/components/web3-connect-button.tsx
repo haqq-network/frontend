@@ -9,12 +9,9 @@ import {
   useIndexerBalanceQuery,
   useWallet,
 } from '@haqq/shell-shared';
+import { baseSupportedChains, bridgeSupportedChains } from '@haqq/shell-shared';
 import { Button, AccountButton, SelectChainButton } from '@haqq/shell-ui-kit';
 import { formatNumber } from '@haqq/shell-ui-kit/server';
-import {
-  baseSupportedChains,
-  bridgeSupportedChains,
-} from '../config/wagmi-config';
 
 function useIsBridgePage() {
   const pathname = usePathname();
@@ -71,11 +68,17 @@ export function Web3ConnectButtons() {
     );
   }
 
+  const isSupported =
+    chain !== undefined &&
+    chainArray.some((itemChain) => {
+      return chain.id === itemChain.id;
+    });
+
   return (
     <div className="flex flex-row gap-[24px]">
       <div className="leading-[0]">
         <SelectChainButton
-          isSupported={chain !== undefined}
+          isSupported={isSupported}
           currentChain={
             chain
               ? {

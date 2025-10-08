@@ -47,4 +47,5 @@ export * from './precompile/adresses';
 
 export * from './utils/bridge';
 export * from './utils/chain-utils';
+export * from './utils/chains';
 export * from './abi/L1StandartBridge';

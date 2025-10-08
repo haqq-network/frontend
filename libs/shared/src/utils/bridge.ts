@@ -1,6 +1,6 @@
 import { sepolia } from 'viem/chains';
 
-const haqqTestethicRpcUrl = 'https://rpc.testethic.haqq.network/';
+const haqqTestethiqRpcUrl = 'https://rpc.testethiq.haqq.network/';
 
 export const SWAPPABLE_TOKENS: {
   [chainId: number]: {
@@ -217,9 +217,9 @@ export const L1_TIME_OFFSETS = {
   l1PragueTimeOffset: '0x0',
 };
 
-export const haqqTestethic = {
+export const haqqTestethiq = {
   id: 853211,
-  name: 'Testethic',
+  name: 'Testethiq',
   nativeCurrency: {
     decimals: 18,
     name: 'Ethereum',
@@ -227,14 +227,14 @@ export const haqqTestethic = {
   },
   rpcUrls: {
     default: {
-      http: [haqqTestethicRpcUrl],
+      http: [haqqTestethiqRpcUrl],
     },
   },
   blockExplorers: {
     default: {
-      name: 'HAQQ Testethic',
-      url: 'https://explorer.testethic.haqq.network',
-      apiUrl: 'https://explorer.testethic.haqq.network/api',
+      name: 'HAQQ Testethiq',
+      url: 'https://explorer.testethiq.haqq.network',
+      apiUrl: 'https://explorer.testethiq.haqq.network/api',
     },
   },
   contracts: {
@@ -260,7 +260,7 @@ export const haqqTestethic = {
 // Chain configuration constants
 export const CHAIN_CONFIG = {
   l1ChainId: sepolia.id, // Sepolia
-  l2ChainId: haqqTestethic.id,
+  l2ChainId: haqqTestethiq.id,
   l2BlockTime: 3,
   batchInboxAddress: '0xff94b3795acce6d3691fb4538646a91561e95e7d',
   eip1559Denominator: 50,
@@ -271,15 +271,15 @@ export const CHAIN_CONFIG = {
 };
 
 export const L1_CHAINS = [sepolia];
-export const L2_CHAINS = [haqqTestethic];
+export const L2_CHAINS = [haqqTestethiq];
 
 export const getTxExplorerUrl = (hash: string, chainId: number) => {
   if (chainId === sepolia.id) {
     // Sepolia
     return `${sepolia.blockExplorers.default.url}/tx/${hash}`;
-  } else if (chainId === haqqTestethic.id) {
+  } else if (chainId === haqqTestethiq.id) {
     // HAQQ Devnet
-    return `${haqqTestethic.blockExplorers.default.url}/tx/${hash}`;
+    return `${haqqTestethiq.blockExplorers.default.url}/tx/${hash}`;
   }
   return '#';
 };
@@ -288,9 +288,9 @@ export const getAddressExplorerUrl = (address: string, chainId: number) => {
   if (chainId === sepolia.id) {
     // Sepolia
     return `${sepolia.blockExplorers.default.url}/address/${address}`;
-  } else if (chainId === haqqTestethic.id) {
+  } else if (chainId === haqqTestethiq.id) {
     // HAQQ Devnet
-    return `${haqqTestethic.blockExplorers.default.url}/address/${address}`;
+    return `${haqqTestethiq.blockExplorers.default.url}/address/${address}`;
   }
   return '#';
 };

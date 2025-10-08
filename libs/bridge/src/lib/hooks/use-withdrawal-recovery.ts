@@ -143,7 +143,7 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
         });
 
         // Step 5: Add to withdrawal orders
-        const orderId = addWithdrawalOrder({
+        const order = addWithdrawalOrder({
           amount: Number(withdrawal.value) / 1e18, // Convert from wei
           toAddress: withdrawal.target,
           fromAddress: transaction.from,
@@ -155,11 +155,10 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
         });
 
         // Get the newly created order
-        const newOrder = getOrderByInitiateHash(txHash);
-        if (newOrder) {
-          setRecoveredOrder(newOrder);
+        if (order) {
+          setRecoveredOrder(order);
           setStorage(JSON.stringify(txHash));
-          return newOrder;
+          return order;
         }
 
         throw new Error('Failed to create withdrawal order');
