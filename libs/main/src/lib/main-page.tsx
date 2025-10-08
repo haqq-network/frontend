@@ -1,7 +1,10 @@
 'use client';
+
+import { useLayoutEffect } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { useMediaQuery } from 'usehooks-ts';
-import { useLayout, useWallet } from '@haqq/shell-shared';
+import { useAccount, useSwitchChain } from 'wagmi';
+import { baseSupportedChains, useLayout, useWallet } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { AccountFooterMobile } from './components/account-footer-mobile';
 import { DelegationsBlock } from './components/delegations-block';
@@ -29,6 +32,27 @@ export function MainPage({ seedPhrase }: { seedPhrase: string }) {
   const { isHaqqWallet } = useWallet();
   const { isMobileUA } = useLayout();
   const isTablet = useMediaQuery('(max-width: 1023px)');
+
+  const { chain, isConnected } = useAccount();
+
+  const { switchChainAsync } = useSwitchChain();
+
+  // Handle chain switching on page mount
+  useLayoutEffect(() => {
+    // On page open: switch to sepolia if URL state doesn't have chainIn
+    if (
+      isConnected &&
+      !baseSupportedChains.some((itemChain) => {
+        return itemChain.id === chain?.id;
+      })
+    ) {
+      switchChainAsync({ chainId: baseSupportedChains[0].id }).catch(
+        (error) => {
+          console.error('Failed to switch to Sepolia on page load:', error);
+        },
+      );
+    }
+  }, [isConnected, chain?.id, switchChainAsync]); // Run only on mount
 
   return (
     <div className="flex flex-col">

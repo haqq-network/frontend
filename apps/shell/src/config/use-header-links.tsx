@@ -1,7 +1,7 @@
 import { useTranslate } from '@tolgee/react';
 import { haqqTestedge2 } from 'wagmi/chains';
+import { supportedChains } from '@haqq/shell-shared';
 import { HeaderLink } from '@haqq/shell-ui-kit';
-import { supportedChains } from './wagmi-config';
 
 const allowedChains = supportedChains.map((chain) => {
   return chain.id;
