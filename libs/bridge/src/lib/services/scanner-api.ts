@@ -3,7 +3,7 @@
  */
 
 import { sepolia } from 'viem/chains';
-import { haqqTestethic } from '@haqq/shell-shared';
+import { haqqTestethiq } from '@haqq/shell-shared';
 
 const SCANNER_API_BASE_URL = 'https://scanner.dev.haqq.network/api/v1';
 
@@ -162,7 +162,7 @@ export function getChainNameFromId(chainId: number): string {
   switch (chainId) {
     case sepolia.id: // Sepolia
       return 'Sepolia';
-    case haqqTestethic.id:
+    case haqqTestethiq.id:
       return 'HAQQ';
     default:
       throw new Error(`Unsupported chain ID: ${chainId}`);
