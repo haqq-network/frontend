@@ -7,6 +7,7 @@ import {
   L1_STANDARD_BRIDGE_ADDRESS,
   CHAIN_CONFIG,
   L2_STANDARD_BRIDGE_ADDRESS,
+  bridgeSupportedChains,
 } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
@@ -202,7 +203,9 @@ export function BridgePage() {
     if (
       isConnected &&
       !urlState.chainIn &&
-      chain?.id !== OP_STACK_CHAINS.L1.id
+      !bridgeSupportedChains.some((chainItem) => {
+        return chainItem.id === chain?.id;
+      })
     ) {
       switchChainAsync({ chainId: OP_STACK_CHAINS.L1.id }).catch((error) => {
         console.error('Failed to switch to Sepolia on page load:', error);
