@@ -269,7 +269,7 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
                 <Link
                   href={getAddressExplorerUrl(
                     order.fromAddress,
-                    OP_STACK_CHAINS.L1.id,
+                    OP_STACK_CHAINS.L2.id,
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
