@@ -4,8 +4,7 @@ import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { notFound } from 'next/navigation';
 import { useAccount, useChains } from 'wagmi';
-import { haqqTestedge2, sepolia } from 'wagmi/chains';
-import { haqqTestethiq, useWallet } from '@haqq/shell-shared';
+import { FAUCET_CHAINS, useWallet } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { ClaimTokensSection } from './components/claim-tokens-section';
 import { GithubSection } from './components/github-section';
@@ -28,11 +27,7 @@ export function FaucetPage({
   const { isHaqqWallet } = useWallet();
 
   const isTestedge = useMemo(() => {
-    return (
-      chain.id === haqqTestedge2.id ||
-      chain.id === haqqTestethiq.id ||
-      chain.id === sepolia.id
-    );
+    return FAUCET_CHAINS.includes(chain.id);
   }, [chain.id]);
 
   const {
