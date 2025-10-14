@@ -1,0 +1,9 @@
+{
+  "name": "faucet",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/faucet",
+  "projectType": "application",
+  "tags": ["faucet"],
+  "// targets": "to see all targets run: nx show project faucet --web",
+  "targets": {}
+}

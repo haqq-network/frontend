@@ -86,9 +86,9 @@
         "bundler": "vite"
       },
       "library": {
-        "buildable": true,
         "style": "tailwind",
         "linter": "eslint",
+        "buildable": true,
         "unitTestRunner": "jest"
       },
       "component": {

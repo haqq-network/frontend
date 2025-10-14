@@ -42,6 +42,10 @@
                 "onlyDependOnLibsWithTags": ["shell-lib-*", "data-access"]
               },
               {
+                "sourceTag": "faucet",
+                "onlyDependOnLibsWithTags": ["shell-lib-*", "data-access"]
+              },
+              {
                 "sourceTag": "data-access",
                 "onlyDependOnLibsWithTags": ["data-access"]
               }
