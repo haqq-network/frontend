@@ -4,6 +4,7 @@ import { useTranslate } from '@tolgee/react';
 import { usePathname } from 'next/navigation';
 import { useAccount, useChains } from 'wagmi';
 import {
+  faucetSupportedChains,
   getFormattedAddress,
   useAddress,
   useIndexerBalanceQuery,
@@ -20,14 +21,24 @@ function useIsBridgePage() {
   }, [pathname]);
 }
 
+function useIsFaucetPage() {
+  const pathname = usePathname();
+  return useMemo(() => {
+    return pathname?.startsWith('/faucet');
+  }, [pathname]);
+}
+
 function useChainArray() {
   const chains = useChains();
   const isBridgePage = useIsBridgePage();
+  const isFaucetPage = useIsFaucetPage();
 
   return useMemo(() => {
-    const availableChains = isBridgePage
-      ? bridgeSupportedChains
-      : baseSupportedChains;
+    const availableChains = isFaucetPage
+      ? faucetSupportedChains
+      : isBridgePage
+        ? bridgeSupportedChains
+        : baseSupportedChains;
 
     if (chains.length === 0) {
       return availableChains.map((chain) => {
@@ -46,7 +57,7 @@ function useChainArray() {
         };
       },
     );
-  }, [chains, isBridgePage]);
+  }, [chains, isBridgePage, isFaucetPage]);
 }
 
 export function Web3ConnectButtons() {
