@@ -8,6 +8,7 @@ import {
   CHAIN_CONFIG,
   L2_STANDARD_BRIDGE_ADDRESS,
   bridgeSupportedChains,
+  haqqTestethiq,
 } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
@@ -218,7 +219,9 @@ export function BridgePage() {
     <Container>
       <div className="mx-auto max-w-[600px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          {chain?.id === sepolia.id && <FaucetLinksCard />}
+          {(chain?.id === sepolia.id || chain?.id === haqqTestethiq.id) && (
+            <FaucetLinksCard />
+          )}
 
           {!isConnected && <WalletConnectionWarning />}
 

@@ -52,6 +52,7 @@ export function FaucetPage({
     getAccessTokenSilently,
     address,
     recaptchaToken,
+    chainId: chain.id,
   });
 
   const { handleNetworkSwitch } = useNetworkSwitch();

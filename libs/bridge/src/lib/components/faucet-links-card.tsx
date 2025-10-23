@@ -1,6 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
+import { sepolia } from 'viem/chains';
+import { useChainId } from 'wagmi';
+import { haqqTestethiq } from '@haqq/shell-shared';
 
 export interface FaucetLinksCardProps {
   className?: string;
@@ -18,18 +21,35 @@ export function FaucetLinksCard({
   const { t } = useTranslate('common');
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
-  const faucets = [
-    {
-      name: 'Google Cloud Faucet',
-      description: 'Get Sepolia ETH from Google Cloud',
-      url: 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia',
-    },
-    {
-      name: 'Circle Faucet',
-      description: 'Get testnet USDC and EURC',
-      url: 'https://faucet.circle.com/',
-    },
-  ];
+  const chainId = useChainId();
+  const faucets = useMemo(() => {
+    switch (chainId) {
+      case sepolia.id: {
+        return [
+          {
+            name: 'Google Cloud Faucet',
+            description: 'Get Sepolia ETH from Google Cloud',
+            url: 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia',
+          },
+          {
+            name: 'Circle Faucet',
+            description: 'Get testnet USDC and EURC',
+            url: 'https://faucet.circle.com/',
+          },
+        ];
+      }
+      case haqqTestethiq.id:
+        return [
+          {
+            name: 'HAQQ Testethiq Faucet',
+            description: 'Get HAQQ Testethiq ETH from HAQQ Testethiq Faucet',
+            url: '/faucet',
+          },
+        ];
+      default:
+        return [];
+    }
+  }, [chainId]);
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);

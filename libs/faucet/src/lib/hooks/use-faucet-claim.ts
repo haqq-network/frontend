@@ -11,6 +11,7 @@ interface UseFaucetClaimParams {
   getAccessTokenSilently: () => Promise<string>;
   address?: string;
   recaptchaToken?: string;
+  chainId: number;
 }
 
 export function useFaucetClaim({
@@ -19,6 +20,7 @@ export function useFaucetClaim({
   getAccessTokenSilently,
   address,
   recaptchaToken,
+  chainId,
 }: UseFaucetClaimParams) {
   const [claimInfo, setClaimInfo] = useState<ClaimInfo | undefined>(undefined);
   const [isTokensClaimed, setTokensClaimed] = useState<boolean>(false);
@@ -49,6 +51,7 @@ export function useFaucetClaim({
     try {
       const response = await handleServiceRequest(`chain/claim_info`, {
         token,
+        chain_id: chainId,
       });
 
       const responseData = await response.json();
@@ -57,7 +60,7 @@ export function useFaucetClaim({
     } catch (error) {
       console.error(error);
     }
-  }, [getAccessTokenSilently, handleServiceRequest]);
+  }, [getAccessTokenSilently, handleServiceRequest, chainId]);
 
   const handleRequestTokens = useCallback(async () => {
     setClaimIsLoading(true);
@@ -68,6 +71,7 @@ export function useFaucetClaim({
         wallet: address,
         recaptcha_token: recaptchaToken,
         token,
+        chain_id: chainId,
       });
 
       if (response.ok) {
@@ -77,7 +81,13 @@ export function useFaucetClaim({
     } catch (error) {
       console.error(error);
     }
-  }, [address, getAccessTokenSilently, handleServiceRequest, recaptchaToken]);
+  }, [
+    address,
+    getAccessTokenSilently,
+    handleServiceRequest,
+    recaptchaToken,
+    chainId,
+  ]);
 
   useEffect(() => {
     if (isAuthenticated) {
