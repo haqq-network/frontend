@@ -1,4 +1,4 @@
-import { sepolia } from 'viem/chains';
+import { haqqTestedge2, sepolia } from 'viem/chains';
 
 const haqqTestethiqRpcUrl = 'https://rpc.testethiq.haqq.network/';
 
@@ -294,3 +294,5 @@ export const getAddressExplorerUrl = (address: string, chainId: number) => {
   }
   return '#';
 };
+
+export const FAUCET_CHAINS = [haqqTestedge2.id, sepolia.id, haqqTestethiq.id];

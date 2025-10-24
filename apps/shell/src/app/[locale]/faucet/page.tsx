@@ -5,8 +5,6 @@ import {
 } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
-import { notFound } from 'next/navigation';
-import { haqqTestedge2 } from 'wagmi/chains';
 import {
   ethToHaqq,
   indexerBalancesFetcher,
@@ -32,10 +30,6 @@ export default async function Faucet() {
     chainId && supportedChainsIds.includes(chainId)
       ? chainId
       : supportedChainsIds[0];
-
-  if (chainIdToUse !== haqqTestedge2.id) {
-    return notFound();
-  }
 
   const queryClient = new QueryClient();
 

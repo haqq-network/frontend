@@ -1,6 +1,5 @@
 import { useTranslate } from '@tolgee/react';
-import { haqqTestedge2 } from 'wagmi/chains';
-import { supportedChains } from '@haqq/shell-shared';
+import { FAUCET_CHAINS, supportedChains } from '@haqq/shell-shared';
 import { HeaderLink } from '@haqq/shell-ui-kit';
 
 const allowedChains = supportedChains.map((chain) => {
@@ -48,7 +47,7 @@ export const useHeaderLinks = (): HeaderLink[] => {
           type: 'link',
           label: t('faucet', 'Faucet'),
           href: '/faucet',
-          chains: [haqqTestedge2.id],
+          chains: FAUCET_CHAINS,
         },
         {
           type: 'link',
