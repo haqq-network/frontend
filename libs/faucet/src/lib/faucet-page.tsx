@@ -46,6 +46,7 @@ export function FaucetPage({
     isRequestTokensAvailable,
     isCountDownVisible,
     handleRequestTokens,
+    claimInfo,
   } = useFaucetClaim({
     serviceEndpoint,
     isAuthenticated,
@@ -92,20 +93,21 @@ export function FaucetPage({
                 isLoading={isAuth0Loading}
                 onLogin={handleLogin}
               />
-            </div>
 
-            {isAuthenticated && address && (
-              <ClaimTokensSection
-                reCaptchaSiteKey={reCaptchaSiteKey}
-                isRecaptchaVerified={isRecaptchaVerified}
-                isRequestTokensAvailable={isRequestTokensAvailable}
-                isTokensClaimed={isTokensClaimed}
-                isCountDownVisible={isCountDownVisible}
-                claimIsLoading={claimIsLoading}
-                onRecaptchaVerify={handleRecaptchaVerify}
-                onRequestTokens={handleRequestTokens}
-              />
-            )}
+              {isAuthenticated && address && (
+                <ClaimTokensSection
+                  reCaptchaSiteKey={reCaptchaSiteKey}
+                  isRecaptchaVerified={isRecaptchaVerified}
+                  isRequestTokensAvailable={isRequestTokensAvailable}
+                  isTokensClaimed={isTokensClaimed}
+                  isCountDownVisible={isCountDownVisible}
+                  claimIsLoading={claimIsLoading}
+                  onRecaptchaVerify={handleRecaptchaVerify}
+                  onRequestTokens={handleRequestTokens}
+                  claimInfo={claimInfo}
+                />
+              )}
+            </div>
           </div>
         </Container>
       </div>

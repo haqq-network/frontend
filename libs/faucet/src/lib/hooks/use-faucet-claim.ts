@@ -59,6 +59,8 @@ export function useFaucetClaim({
       setClaimIsLoading(false);
     } catch (error) {
       console.error(error);
+    } finally {
+      setClaimIsLoading(false);
     }
   }, [getAccessTokenSilently, handleServiceRequest, chainId]);
 
@@ -80,6 +82,8 @@ export function useFaucetClaim({
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setClaimIsLoading(false);
     }
   }, [
     address,
