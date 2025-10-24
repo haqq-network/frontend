@@ -1,11 +1,13 @@
 'use client';
-import { ReactElement, useMemo } from 'react';
+import { ReactElement, useMemo, useState, useCallback, useEffect } from 'react';
 import { useTranslate } from '@tolgee/react';
 import clsx from 'clsx';
 import { notFound } from 'next/navigation';
+import { Chain, sepolia } from 'viem/chains';
 import { useAccount, useChains } from 'wagmi';
 import { FAUCET_CHAINS, useWallet } from '@haqq/shell-shared';
 import { Container } from '@haqq/shell-ui-kit/server';
+import { ChainSelector } from './components/chain-selector';
 import { ClaimTokensSection } from './components/claim-tokens-section';
 import { GithubSection } from './components/github-section';
 import { WalletSection } from './components/wallet-section';
@@ -23,8 +25,31 @@ export function FaucetPage({
 }): ReactElement {
   const { t } = useTranslate();
   const chains = useChains();
-  const { chain = chains[0], address } = useAccount();
+  const { chain = chains[0], address, isConnected } = useAccount();
   const { isHaqqWallet } = useWallet();
+
+  // Filter chains to only include faucet-supported chains
+  const faucetChains = useMemo(() => {
+    return chains.filter((c) => {
+      return FAUCET_CHAINS.includes(c.id) && c.id !== sepolia.id;
+    });
+  }, [chains]);
+
+  // State for selected target chain (defaults to current chain if supported, otherwise first faucet chain)
+  const [selectedChain, setSelectedChain] = useState<Chain>(() => {
+    const isSupportedChain = FAUCET_CHAINS.includes(chain.id);
+    return isSupportedChain ? chain : faucetChains[0] || chain;
+  });
+  // Ensure that `selectedChain` is kept in sync with the connected chain.
+  // When the user switches wallet network, update selectedChain to match.
+  // This keeps the faucet logic and UI in sync with user's wallet.
+  // This effect only runs when chain.id changes (i.e., wallet network changes).
+
+  useEffect(() => {
+    if (FAUCET_CHAINS.includes(chain.id)) {
+      setSelectedChain(chain);
+    }
+  }, [chain, setSelectedChain]);
 
   const isTestedge = useMemo(() => {
     return FAUCET_CHAINS.includes(chain.id);
@@ -46,16 +71,29 @@ export function FaucetPage({
     isRequestTokensAvailable,
     isCountDownVisible,
     handleRequestTokens,
+    claimInfo,
   } = useFaucetClaim({
     serviceEndpoint,
     isAuthenticated,
     getAccessTokenSilently,
     address,
     recaptchaToken,
-    chainId: chain.id,
+    chainId: selectedChain.id,
   });
 
   const { handleNetworkSwitch } = useNetworkSwitch();
+
+  // Handler for chain selection
+  const handleChainSelect = useCallback(
+    (newChain: Chain) => {
+      setSelectedChain(newChain);
+      // If connected and the new chain is different, switch to it
+      if (isConnected && newChain.id !== chain.id) {
+        handleNetworkSwitch(newChain.id);
+      }
+    },
+    [isConnected, chain.id, handleNetworkSwitch],
+  );
 
   if (!isTestedge) {
     notFound();
@@ -82,9 +120,18 @@ export function FaucetPage({
                 !(isAuthenticated && address) && 'rounded-b-[8px]',
               )}
             >
+              <ChainSelector
+                chains={faucetChains}
+                selectedChain={selectedChain}
+                onChainSelect={handleChainSelect}
+                disabled={claimIsLoading}
+              />
+
               <WalletSection
-                chainName={chain.name}
-                onNetworkSwitch={handleNetworkSwitch}
+                chainName={selectedChain.name}
+                onNetworkSwitch={() => {
+                  return handleNetworkSwitch(selectedChain.id);
+                }}
               />
 
               <GithubSection
@@ -92,20 +139,21 @@ export function FaucetPage({
                 isLoading={isAuth0Loading}
                 onLogin={handleLogin}
               />
-            </div>
 
-            {isAuthenticated && address && (
-              <ClaimTokensSection
-                reCaptchaSiteKey={reCaptchaSiteKey}
-                isRecaptchaVerified={isRecaptchaVerified}
-                isRequestTokensAvailable={isRequestTokensAvailable}
-                isTokensClaimed={isTokensClaimed}
-                isCountDownVisible={isCountDownVisible}
-                claimIsLoading={claimIsLoading}
-                onRecaptchaVerify={handleRecaptchaVerify}
-                onRequestTokens={handleRequestTokens}
-              />
-            )}
+              {isAuthenticated && address && (
+                <ClaimTokensSection
+                  reCaptchaSiteKey={reCaptchaSiteKey}
+                  isRecaptchaVerified={isRecaptchaVerified}
+                  isRequestTokensAvailable={isRequestTokensAvailable}
+                  isTokensClaimed={isTokensClaimed}
+                  isCountDownVisible={isCountDownVisible}
+                  claimIsLoading={claimIsLoading}
+                  onRecaptchaVerify={handleRecaptchaVerify}
+                  onRequestTokens={handleRequestTokens}
+                  claimInfo={claimInfo}
+                />
+              )}
+            </div>
           </div>
         </Container>
       </div>
