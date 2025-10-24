@@ -23,8 +23,7 @@
     "tolgee:pull": "pnpm tolgee pull --config ./apps/shell/.tolgeerc.js",
     "tolgee:push": "pnpm tolgee push --config ./apps/shell/.tolgeerc.js",
     "tolgee:extract:check": "pnpm tolgee extract check --config ./apps/shell/.tolgeerc.js",
-    "tolgee:extract:print": "pnpm tolgee extract print --config ./apps/shell/.tolgeerc.js",
-    "test:eth-transfer": "ts-node scripts/test-eth-transfer.ts"
+    "tolgee:extract:print": "pnpm tolgee extract print --config ./apps/shell/.tolgeerc.js"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.3.0",
