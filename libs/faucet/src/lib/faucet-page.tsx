@@ -51,10 +51,6 @@ export function FaucetPage({
     }
   }, [chain, setSelectedChain]);
 
-  const isTestedge = useMemo(() => {
-    return FAUCET_CHAINS.includes(chain.id);
-  }, [chain.id]);
-
   const {
     isAuthenticated,
     getAccessTokenSilently,
@@ -94,10 +90,6 @@ export function FaucetPage({
     },
     [isConnected, chain.id, handleNetworkSwitch],
   );
-
-  if (!isTestedge) {
-    notFound();
-  }
 
   return (
     <div className="flex flex-col gap-[32px] py-[32px] lg:gap-[68px] lg:py-[68px]">
