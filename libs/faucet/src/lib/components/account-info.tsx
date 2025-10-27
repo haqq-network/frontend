@@ -1,14 +1,16 @@
 'use client';
 import { PropsWithChildren, useCallback, useState } from 'react';
 import { useTranslate } from '@tolgee/react';
+import { Hex } from 'viem';
+import { useBalance } from 'wagmi';
 import {
+  formatEthDecimal,
   getFormattedAddress,
   useAddress,
   useClipboard,
-  useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import { Tooltip } from '@haqq/shell-ui-kit';
-import { CopyIcon, formatNumber } from '@haqq/shell-ui-kit/server';
+import { CopyIcon } from '@haqq/shell-ui-kit/server';
 
 export function MyAccountCardBlock({
   title,
@@ -30,9 +32,11 @@ export function AccountInfo() {
   const { t } = useTranslate();
   const { ethAddress, haqqAddress } = useAddress();
   const { copyText } = useClipboard();
-  const { data: balance } = useIndexerBalanceQuery(haqqAddress);
+  const balancesData = useBalance({ address: ethAddress as Hex });
   const [isEthAddressCopy, setEthAddressCopy] = useState(false);
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
+
+  const balance = balancesData.data?.value;
 
   const handleEthAddressCopy = useCallback(async () => {
     if (ethAddress) {
@@ -107,10 +111,11 @@ export function AccountInfo() {
         </div>
       )}
 
-      {balance?.balance !== undefined && (
+      {balance !== undefined && (
         <MyAccountCardBlock title={t('balance', 'Balance', { ns: 'common' })}>
           <div className="font-clash flex flex-1 flex-row items-center text-[20px] font-[500] leading-[30px]">
-            {formatNumber(balance.balance)}&nbsp;ISLM
+            {formatEthDecimal(balance, 2, balancesData.data?.decimals ?? 18)}
+            &nbsp; {balancesData.data?.symbol}
           </div>
         </MyAccountCardBlock>
       )}
