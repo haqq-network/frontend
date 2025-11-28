@@ -1,28 +1,6 @@
 import { haqqTestedge2, sepolia } from 'viem/chains';
 
-const haqqTestethiqRpcUrl = 'https://rpc.testethiq.haqq.network/';
-
-export const SWAPPABLE_TOKENS: {
-  [chainId: number]: {
-    symbol: string;
-    address: string;
-  }[];
-} = {
-  [sepolia.id]: [
-    {
-      symbol: 'ETH',
-      address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-    },
-    {
-      symbol: 'USDC',
-      address: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238',
-    },
-    {
-      symbol: 'EURC',
-      address: '0x08210f9170f89ab7658f0b5e3ff39b0e03c594d4',
-    },
-  ],
-};
+const haqqTestethiqRpcUrl = 'https://rpc.testnet.ethiq.network/';
 
 /**
  * Mapping of L1 token addresses to their corresponding L2 token addresses
@@ -64,27 +42,6 @@ export interface NetworkConfig {
   rpcUrl: string;
   explorerUrl: string;
 }
-
-// Role addresses
-export const ROLE_ADDRESSES = {
-  proxyAdminOwner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-  protocolVersionsOwner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-  guardian: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-  l1ProxyAdminOwner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-  l2ProxyAdminOwner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-  systemConfigOwner: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-  unsafeBlockSigner: '0x12cA30dE061379E02d42b9303d5498bCb8Dd909B',
-  batcher: '0x49180059AF02dB7660A3d09d7796459b0F181a69',
-  proposer: '0x7876adF8a936347A543d1C41859e23034C021f2C',
-  challenger: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-};
-
-// Fee vault recipients
-export const FEE_VAULT_RECIPIENTS = {
-  baseFeeVaultRecipient: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-  l1FeeVaultRecipient: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-  sequencerFeeVaultRecipient: '0xBaaa30f95cf147522F44FBBfAbAD1e1763824b76',
-};
 
 export const BRIDGE_ADDRESSES: {
   SuperchainProxyAdminImpl: string;
@@ -233,8 +190,8 @@ export const haqqTestethiq = {
   blockExplorers: {
     default: {
       name: 'HAQQ Testethiq',
-      url: 'https://explorer.testethiq.haqq.network',
-      apiUrl: 'https://explorer.testethiq.haqq.network/api',
+      url: 'https://explorer.testnet.ethiq.network/',
+      apiUrl: 'https://explorer.testnet.ethiq.network/api',
     },
   },
   contracts: {
