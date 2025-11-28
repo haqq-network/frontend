@@ -2,6 +2,28 @@ import { haqqTestedge2, sepolia } from 'viem/chains';
 
 const haqqTestethiqRpcUrl = 'https://rpc.testnet.ethiq.network/';
 
+export const SWAPPABLE_TOKENS: {
+  [chainId: number]: {
+    symbol: string;
+    address: string;
+  }[];
+} = {
+  [sepolia.id]: [
+    {
+      symbol: 'ETH',
+      address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    },
+    {
+      symbol: 'USDC',
+      address: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238',
+    },
+    {
+      symbol: 'EURC',
+      address: '0x08210f9170f89ab7658f0b5e3ff39b0e03c594d4',
+    },
+  ],
+};
+
 /**
  * Mapping of L1 token addresses to their corresponding L2 token addresses
  */
@@ -55,8 +77,10 @@ export const BRIDGE_ADDRESSES: {
   OpcmDeployerImpl: string;
   OpcmUpgraderImpl: string;
   OpcmInteropMigratorImpl: string;
+  OpcmStandardValidatorImpl: string;
   DelayedWethImpl: string;
   OptimismPortalImpl: string;
+  OptimismPortalInteropImpl: string;
   EthLockboxImpl: string;
   PreimageOracleImpl: string;
   MipsImpl: string;
@@ -86,46 +110,48 @@ export const BRIDGE_ADDRESSES: {
   AltDAChallengeImpl: string;
   L2OutputOracleProxy: string;
 } = {
-  SuperchainProxyAdminImpl: '0x03389e1d90d16db8c8aab7b7b5388e0661ad1b20',
-  SuperchainConfigProxy: '0x7779c5b626bd93b444deee5296f1336c9a076a70',
-  SuperchainConfigImpl: '0xce28685eb204186b557133766eca00334eb441e4',
-  ProtocolVersionsProxy: '0x3d22989e9b049a073cb9f72cb3357367291508b6',
+  SuperchainProxyAdminImpl: '0x189abaaaa82dfc015a588a7dbad6f13b1d3485bc',
+  SuperchainConfigProxy: '0xc2be75506d5724086deb7245bd260cc9753911be',
+  SuperchainConfigImpl: '0xb08cc720f511062537ca78bdb0ae691f04f5a957',
+  ProtocolVersionsProxy: '0x79add5713b383daa0a138d3c4780c7a1804a8090',
   ProtocolVersionsImpl: '0x37e15e4d6dffa9e5e320ee1ec036922e563cb76c',
-  OpcmImpl: '0xeb816af3d7b9a61bca3415015b8e208c0be445e5',
+  OpcmImpl: '0xc69e4c24db479191676611a25d977203c3bdca62',
   OpcmContractsContainerImpl: '0x0000000000000000000000000000000000000000',
-  OpcmGameTypeAdderImpl: '0x77be751385562ec5f5074f1d3d80b9b7df0af77c',
-  OpcmDeployerImpl: '0x4859c22632ac5ad6506df5f996098b73a11bba75',
-  OpcmUpgraderImpl: '0x5b6820529748d5001c1a999176bfedabbf5fa64d',
-  OpcmInteropMigratorImpl: '0x01b2f6aa2adc77c9a4a91d09a6e806ad51b0290a',
+  OpcmGameTypeAdderImpl: '0x0000000000000000000000000000000000000000',
+  OpcmDeployerImpl: '0x0000000000000000000000000000000000000000',
+  OpcmUpgraderImpl: '0x0000000000000000000000000000000000000000',
+  OpcmInteropMigratorImpl: '0x0000000000000000000000000000000000000000',
+  OpcmStandardValidatorImpl: '0x0000000000000000000000000000000000000000',
   DelayedWethImpl: '0x33dadc2d1aa9bb613a7ae6b28425ea00d44c6998',
-  OptimismPortalImpl: '0xefed7f38bb9be74bba583a1a5b7d0fe7c9d5787a',
+  OptimismPortalImpl: '0x7cf803296662e8c72a6c1d6450572209acf7f202',
+  OptimismPortalInteropImpl: '0x5cb365a10e99335d8fedfa225aac5e21287302dd',
   EthLockboxImpl: '0x784d2f03593a42a6e4676a012762f18775ecbbe6',
   PreimageOracleImpl: '0x1fb8cdfc6831fc866ed9c51af8817da5c287add3',
-  MipsImpl: '0xa1b54d89e305bcd322ba0c9c094093173c0d6b3a',
-  SystemConfigImpl: '0xfaa660bf783cbaa55e1b7f3475c20db74a53b9fa',
-  L1CrossDomainMessengerImpl: '0xd26bb3aaaa4cb5638a8581a4c4b1d937d8e05c54',
-  L1Erc721BridgeImpl: '0x25d6cedeb277ad7ebee71226ed7877768e0b7a2f',
-  L1StandardBridgeImpl: '0x44afb7722af276a601d524f429016a18b6923df0',
+  MipsImpl: '0x6463dee3828677f6270d83d45408044fc5edb908',
+  SystemConfigImpl: '0x2fa28989fc559836e9d66dff3010c7f7f41c65ed',
+  L1CrossDomainMessengerImpl: '0xb686f13aff1e427a1f993f29ab0f2e7383729fe0',
+  L1Erc721BridgeImpl: '0x74f1ac50eb0be98853805d381c884f5f9abdecf9',
+  L1StandardBridgeImpl: '0x61525eaacddb97d9184afc205827e6a4fd0bf62a',
   OptimismMintableErc20FactoryImpl:
-    '0x5493f4677a186f64805fe7317d6993ba4863988f',
-  DisputeGameFactoryImpl: '0x33d1e8571a85a538ed3d5a4d88f46c112383439d',
-  AnchorStateRegistryImpl: '0xeb69cc681e8d4a557b30dffbad85affd47a2cf2e',
-  OpChainProxyAdminImpl: '0x2a0dc32ae8675792dfa23fd1526af5ae7907ef69',
-  OptimismPortalProxy: '0xcef83e2c029f1bdfefbfd4cb908ac333f420e209',
-  AddressManagerImpl: '0xe9a877d1712f17da500dac544a15616c2476e4d1',
-  L1Erc721BridgeProxy: '0x67c74a530eab1f7b21adc441a836430a1ef792a9',
-  SystemConfigProxy: '0xda718df88b54460dd4834b29c01658dd976c9e09',
+    '0x8ee6fb13c6c9a7e401531168e196fbf8b05ceabb',
+  DisputeGameFactoryImpl: '0x74fac1d45b98bae058f8f566201c9a81b85c7d50',
+  AnchorStateRegistryImpl: '0x0000000000000000000000000000000000000000',
+  OpChainProxyAdminImpl: '0x8b942e404116cfebee8fb13b339609ace97ca58f',
+  OptimismPortalProxy: '0x69a3d0177fa023842bf275eb6f7d279c53c1a1bc',
+  AddressManagerImpl: '0x680a407d3a42d9420a867708e9a87700f32babff',
+  L1Erc721BridgeProxy: '0xbbf7584928c829101a345ab97f3fdb35183b7c81',
+  SystemConfigProxy: '0xf735afb2513203709b1f95ea3a6834ae54e5ff16',
   OptimismMintableErc20FactoryProxy:
-    '0x65df5d4aa6371f63aa4ec935ed93a99f097e4abd',
-  L1StandardBridgeProxy: '0xe6260411feffbff8a38ad32484ea01cbf1658a0e',
-  L1CrossDomainMessengerProxy: '0xf8d52efc21fe3db1c1d651ee03d19c5f5b83597f',
-  EthLockboxProxy: '0xfe3123d5157b9d104e34cbf73a9171854244d218',
-  DisputeGameFactoryProxy: '0x1d15a66521bdb3043335734039d428f97bab3f7e',
-  AnchorStateRegistryProxy: '0xc7c945a172b36efc6b6165f4d70a5b93a9f109d9',
+    '0xaf7696edce2bb6a9fa384045d74ef2bba140d471',
+  L1StandardBridgeProxy: '0xf50e3728ff51d0276e92dff61595c6e94e533ac4',
+  L1CrossDomainMessengerProxy: '0x804875f04a33f11cd2dfaeaad5cc9c81a9bb5d98',
+  EthLockboxProxy: '0x867ac75de1cc6ab487305e04e2a92de8a5ea0a54',
+  DisputeGameFactoryProxy: '0x03a129b2bb0bfdfa7d5e7fbfcad7c1960e07389c',
+  AnchorStateRegistryProxy: '0xdffdb1ea0c6a8e84781a9604423b4549f79886f7',
   FaultDisputeGameImpl: '0x0000000000000000000000000000000000000000',
-  PermissionedDisputeGameImpl: '0x563b50dc93936597974fbd59f055c3be151b297e',
+  PermissionedDisputeGameImpl: '0x8fe3b7e258b3d7d45094b1424237ae4a5fc7b368',
   DelayedWethPermissionedGameProxy:
-    '0x44c85f79783be56d7db48c060a9721a320fc57c7',
+    '0xa909e9c7f6d66bd40227e3b6f647615e696c7115',
   DelayedWethPermissionlessGameProxy:
     '0x0000000000000000000000000000000000000000',
   AltDAChallengeProxy: '0x0000000000000000000000000000000000000000',
