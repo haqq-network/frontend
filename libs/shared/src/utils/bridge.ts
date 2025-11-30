@@ -278,4 +278,4 @@ export const getAddressExplorerUrl = (address: string, chainId: number) => {
   return '#';
 };
 
-export const FAUCET_CHAINS = [haqqTestedge2.id, sepolia.id, haqqTestethiq.id];
+export const FAUCET_CHAINS = [haqqTestedge2.id, haqqTestethiq.id, sepolia.id];
