@@ -5,7 +5,7 @@
 import { sepolia } from 'viem/chains';
 import { haqqTestethiq } from '@haqq/shell-shared';
 
-const SCANNER_API_BASE_URL = 'https://scanner.dev.haqq.network/api/v1';
+const SCANNER_API_BASE_URL = 'https://scanner.ethiq.network/api/v1';
 
 export interface TokenPair {
   id: number;
