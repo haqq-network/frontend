@@ -251,7 +251,7 @@ export function useBridgeState({
       setBridgeAmount(undefined);
       return;
     }
-    const numValue = parseFloat(value);
+    const numValue = Number(value);
     if (!isNaN(numValue)) {
       setBridgeAmount(numValue);
     }
