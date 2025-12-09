@@ -31,20 +31,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version-file: .nvmrc
-          cache: pnpm
+          bun-version: latest
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       # - name: Install Playwright
-      #   run: pnpm exec playwright install --with-deps
+      #   run: bun run playwright install --with-deps
 
       - name: Set SHAs
         uses: nrwl/nx-set-shas@v4
@@ -52,7 +48,7 @@ jobs:
           main-branch-name: dev
 
       - name: Run lint and test
-        run: pnpm exec nx affected -t lint test --parallel=5
+        run: bun run nx affected -t lint test --parallel=5
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4

@@ -1,3 +1,3 @@
 /.yarn/** linguist-generated
 yarn.lock linguist-generated
-pnpm-lock.yaml linguist-generated
+bun.lock linguist-generated
