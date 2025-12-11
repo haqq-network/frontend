@@ -27,6 +27,6 @@ export function useBridgeTransactionReceipt(): UseBridgeTransactionReceiptReturn
     txHash,
     setTxHash,
     isWaitingForReceipt: Boolean(isWaitingForReceipt),
-    isTxSuccess: Boolean(isTxSuccess),
+    isTxSuccess: Boolean(isTxSuccess) && !!txHash,
   };
 }

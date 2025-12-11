@@ -66,6 +66,7 @@ export function useBridgeTransaction({
   // Use L2 to L1 withdrawal hook for L2 -> L1 transfers
   const {
     initiateWithdrawal,
+    initiateERC20Withdrawal,
     isProcessing: isL2Processing,
     isProving,
     isFinalizing,
@@ -100,12 +101,27 @@ export function useBridgeTransaction({
         sourceChainId === CHAIN_CONFIG.l2ChainId &&
         targetChainId === CHAIN_CONFIG.l1ChainId;
 
-      if (isL2ToL1 && token.address === ETH_ADDRESS) {
-        // Handle L2 to L1 native ETH withdrawal
-        console.log(`Initiating L2 to L1 withdrawal of ${amount} ETH`);
-        await initiateWithdrawal(amount, userAddress);
-
-        return;
+      if (isL2ToL1) {
+        if (token.address === ETH_ADDRESS) {
+          // Handle L2 to L1 native ETH withdrawal
+          console.log(`Initiating L2 to L1 withdrawal of ${amount} ETH`);
+          await initiateWithdrawal(amount, userAddress);
+          return;
+        } else {
+          // Handle L2 to L1 ERC20 token withdrawal
+          console.log(
+            `Initiating L2 to L1 withdrawal of ${amount} ${token.symbol}`,
+          );
+          const tokenDecimals = token.decimals || fallbackDecimals;
+          await initiateERC20Withdrawal(
+            token.address,
+            amount,
+            userAddress,
+            tokenDecimals,
+            token.symbol,
+          );
+          return;
+        }
       }
 
       // Handle L1 to L2 transfers or ERC-20 tokens

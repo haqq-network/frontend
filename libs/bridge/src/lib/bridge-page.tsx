@@ -1,5 +1,5 @@
 'use client';
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect, useEffect } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { sepolia } from 'viem/chains';
 import { useSwitchChain } from 'wagmi';
@@ -141,6 +141,11 @@ export function BridgePage() {
   // Transaction receipt management
   const { setTxHash, isWaitingForReceipt, isTxSuccess } =
     useBridgeTransactionReceipt();
+
+  // Reset transaction success state when user changes network, amount, or token
+  useEffect(() => {
+    setTxHash(null);
+  }, [chain?.id, bridgeAmount, selectedToken?.address, setTxHash]);
 
   // Bridge transaction hook
   const { bridgeTokens, isProcessing, isProving, isFinalizing } =

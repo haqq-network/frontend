@@ -2,10 +2,33 @@
 
 import { useCallback, useState, useEffect } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
+import { decodeFunctionData, formatUnits } from 'viem';
 import { getWithdrawals } from 'viem/op-stack';
+import {
+  L2StandardBridgeAbi,
+  L2_STANDARD_BRIDGE_ADDRESS,
+} from '@haqq/shell-shared';
 import { useOpStackClients } from './use-op-stack-clients';
 import { useWithdrawalOrders } from './use-withdrawal-orders';
 import { WithdrawalStatus, WithdrawalOrder } from '../types/withdrawal-order';
+
+// ERC20 ABI for reading token info
+const ERC20_ABI = [
+  {
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+] as const;
 
 interface UseWithdrawalRecoveryReturn {
   recoverWithdrawal: (txHash: string) => Promise<WithdrawalOrder | null>;
@@ -102,7 +125,109 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
           throw new Error('Transaction not found');
         }
 
-        // Step 4: Check withdrawal status using viem's getWithdrawalStatus
+        // Step 4: Determine if this is an ERC20 or ETH withdrawal
+        let amount: number;
+        let tokenSymbol: string;
+        const isERC20Withdrawal =
+          transaction.to?.toLowerCase() ===
+          L2_STANDARD_BRIDGE_ADDRESS.toLowerCase();
+
+        if (isERC20Withdrawal && transaction.input) {
+          // ERC20 withdrawal: decode transaction input to get token address and amount
+          try {
+            const decoded = decodeFunctionData({
+              abi: L2StandardBridgeAbi,
+              data: transaction.input,
+            });
+
+            if (decoded.functionName === 'withdrawTo') {
+              // withdrawTo(_l2Token, _to, _amount, _minGasLimit, _extraData)
+              const args = decoded.args as readonly [
+                `0x${string}`,
+                `0x${string}`,
+                bigint,
+                number,
+                `0x${string}`,
+              ];
+              const [l2Token, , amountWei] = args;
+
+              // Get token symbol and decimals
+              try {
+                const [symbol, decimals] = await Promise.all([
+                  publicClientReadonlyL2.readContract({
+                    address: l2Token,
+                    abi: ERC20_ABI,
+                    functionName: 'symbol',
+                  }),
+                  publicClientReadonlyL2.readContract({
+                    address: l2Token,
+                    abi: ERC20_ABI,
+                    functionName: 'decimals',
+                  }),
+                ]);
+
+                tokenSymbol = symbol as string;
+                amount = Number(formatUnits(amountWei, Number(decimals)));
+              } catch (tokenError) {
+                console.warn(
+                  'Failed to read token info, using defaults:',
+                  tokenError,
+                );
+                tokenSymbol = 'UNKNOWN';
+                amount = Number(formatUnits(amountWei, 18));
+              }
+            } else if (decoded.functionName === 'withdraw') {
+              // withdraw(_l2Token, _amount, _minGasLimit, _extraData)
+              const args = decoded.args as readonly [
+                `0x${string}`,
+                bigint,
+                number,
+                `0x${string}`,
+              ];
+              const [l2Token, amountWei] = args;
+
+              // Get token symbol and decimals
+              try {
+                const [symbol, decimals] = await Promise.all([
+                  publicClientReadonlyL2.readContract({
+                    address: l2Token,
+                    abi: ERC20_ABI,
+                    functionName: 'symbol',
+                  }),
+                  publicClientReadonlyL2.readContract({
+                    address: l2Token,
+                    abi: ERC20_ABI,
+                    functionName: 'decimals',
+                  }),
+                ]);
+
+                tokenSymbol = symbol as string;
+                amount = Number(formatUnits(amountWei, Number(decimals)));
+              } catch (tokenError) {
+                console.warn(
+                  'Failed to read token info, using defaults:',
+                  tokenError,
+                );
+                tokenSymbol = 'UNKNOWN';
+                amount = Number(formatUnits(amountWei, 18));
+              }
+            } else {
+              throw new Error(
+                'Transaction is not a valid ERC20 withdrawal (withdraw/withdrawTo)',
+              );
+            }
+          } catch (decodeError) {
+            throw new Error(
+              `Failed to decode ERC20 withdrawal transaction: ${decodeError instanceof Error ? decodeError.message : 'Unknown error'}`,
+            );
+          }
+        } else {
+          // ETH withdrawal: use withdrawal.value
+          tokenSymbol = 'ETH';
+          amount = Number(withdrawal.value) / 1e18;
+        }
+
+        // Step 5: Check withdrawal status using viem's getWithdrawalStatus
         let status;
 
         try {
@@ -140,18 +265,21 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
           txHash,
           withdrawal,
           status,
+          isERC20Withdrawal,
+          tokenSymbol,
+          amount,
         });
 
-        // Step 5: Add to withdrawal orders
+        // Step 6: Add to withdrawal orders
         const order = addWithdrawalOrder({
-          amount: Number(withdrawal.value) / 1e18, // Convert from wei
+          amount,
           toAddress: withdrawal.target,
           fromAddress: transaction.from,
           initiateHash: txHash,
           status,
           sourceChainId: chains.L2.id,
           targetChainId: chains.L1.id,
-          tokenSymbol: 'ETH', // Assuming ETH for now, could be extended for tokens
+          tokenSymbol,
         });
 
         // Get the newly created order

@@ -28,6 +28,7 @@
   "dependencies": {
     "@auth0/auth0-react": "2.3.0",
     "@bufbuild/protobuf": "1.10.0",
+    "@eth-optimism/viem": "0.4.14",
     "@ethersproject/hash": "5.8.0",
     "@ethersproject/signing-key": "5.8.0",
     "@evmos/eip712": "0.2.11",
