@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react';
 import { parseEther, parseUnits } from 'viem';
 import { getWithdrawals } from 'viem/op-stack';
-import { useSwitchChain } from 'wagmi';
+import { useAccount, useSwitchChain } from 'wagmi';
 import {
   useToast,
   L2StandardBridgeAbi,
@@ -86,6 +86,7 @@ export function useL2ToL1Withdrawal({
     publicClientReadonlyL2,
   } = useOpStackClients();
 
+  const { isConnected } = useAccount();
   const toast = useToast();
 
   const initiateWithdrawal = useCallback(
@@ -244,8 +245,20 @@ export function useL2ToL1Withdrawal({
 
   const proveWithdrawal = useCallback(
     async (withdrawalHash: string): Promise<string> => {
+      if (!isConnected) {
+        const errorMessage =
+          'Wallet not connected. Please connect your wallet to prove the withdrawal.';
+        console.error('Prove withdrawal failed:', errorMessage);
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+
       if (!walletClientL1) {
-        throw new Error('Wallet client not available for proving');
+        const errorMessage =
+          'Wallet client not available. Please ensure your wallet is connected and try again.';
+        console.error('Prove withdrawal failed:', errorMessage);
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
       }
 
       setIsProving(true);
@@ -312,6 +325,7 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
+      isConnected,
       walletClientL1,
       publicClientL1,
       publicClientL2,
@@ -321,13 +335,26 @@ export function useL2ToL1Withdrawal({
       updateOrderByInitiateHash,
       onProveSuccess,
       onError,
+      toast,
     ],
   );
 
   const finalizeWithdrawal = useCallback(
     async (withdrawalHash: string): Promise<string> => {
+      if (!isConnected) {
+        const errorMessage =
+          'Wallet not connected. Please connect your wallet to finalize the withdrawal.';
+        console.error('Finalize withdrawal failed:', errorMessage);
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+
       if (!walletClientL1) {
-        throw new Error('Wallet client not available for finalizing');
+        const errorMessage =
+          'Wallet client not available. Please ensure your wallet is connected and try again.';
+        console.error('Finalize withdrawal failed:', errorMessage);
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
       }
 
       setIsFinalizing(true);
@@ -391,6 +418,7 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
+      isConnected,
       walletClientL1,
       publicClientL1,
       publicClientL2,
@@ -400,6 +428,7 @@ export function useL2ToL1Withdrawal({
       updateOrderByInitiateHash,
       onFinalizeSuccess,
       onError,
+      toast,
     ],
   );
 
