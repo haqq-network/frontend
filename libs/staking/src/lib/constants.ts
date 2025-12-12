@@ -1,4 +1,4 @@
-export const shouldUsePrecompile = false;
+export const shouldUsePrecompile = true;
 
 export const stISLM_MAINNET = '0x12fEFEAc0568503F7C0D934c149f29a42B05C48f';
 
