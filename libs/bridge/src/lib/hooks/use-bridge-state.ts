@@ -251,8 +251,10 @@ export function useBridgeState({
       setBridgeAmount(undefined);
       return;
     }
-    const numValue = Number(value);
-    if (!isNaN(numValue)) {
+    // Remove commas and other formatting characters, but keep decimal point
+    const cleanedValue = value.replace(/,/g, '').trim();
+    const numValue = Number(cleanedValue);
+    if (!isNaN(numValue) && isFinite(numValue)) {
       setBridgeAmount(numValue);
     }
   }, []);
