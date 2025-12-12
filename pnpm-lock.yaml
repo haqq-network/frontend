@@ -14,6 +14,9 @@ importers:
       '@bufbuild/protobuf':
         specifier: 1.10.0
         version: 1.10.0
+      '@eth-optimism/viem':
+        specifier: 0.4.14
+        version: 0.4.14(viem@2.37.9(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))
       '@ethersproject/hash':
         specifier: 5.8.0
         version: 5.8.0
@@ -1962,6 +1965,11 @@ packages:
   '@eslint/js@8.57.0':
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@eth-optimism/viem@0.4.14':
+    resolution: {integrity: sha512-TKC40inv/cZWi7+eEuFXiGayHkO+bILNbRH89ZmOjygb6CH5YZOo3TyiOCmkdPaQVgMeaYQlycEsFbPCY5o6pw==}
+    peerDependencies:
+      viem: ^2.17.9
 
   '@ethereumjs/common@3.2.0':
     resolution: {integrity: sha512-pksvzI0VyLgmuEF2FA/JR/4/y6hcPq8OUail3/AvycBaW1d5VSauOZzqGvJ3RTmR4MU35lWE8KseKOsEhrFRBA==}
@@ -14940,6 +14948,10 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.57.0': {}
+
+  '@eth-optimism/viem@0.4.14(viem@2.37.9(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))':
+    dependencies:
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
 
   '@ethereumjs/common@3.2.0':
     dependencies:

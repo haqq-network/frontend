@@ -18,7 +18,7 @@ export function PendingWithdrawals({ orders }: PendingWithdrawalsProps) {
   return (
     <div className="mb-6 mt-4">
       <h3 className="mb-4 text-lg font-semibold text-gray-900">
-        {t('pending-withdrawals', 'Pending ETH Withdrawals')}:
+        {t('pending-withdrawals', 'Pending Withdrawals')}:
       </h3>
 
       <div className="space-y-3">

@@ -1,10 +1,14 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { parseEther } from 'viem';
+import { parseEther, parseUnits } from 'viem';
 import { getWithdrawals } from 'viem/op-stack';
-import { useSwitchChain } from 'wagmi';
-import { useToast } from '@haqq/shell-shared';
+import { useAccount, useSwitchChain } from 'wagmi';
+import {
+  useToast,
+  L2StandardBridgeAbi,
+  L2_STANDARD_BRIDGE_ADDRESS,
+} from '@haqq/shell-shared';
 import { useOpStackClients } from './use-op-stack-clients';
 import { useWithdrawalOrders } from './use-withdrawal-orders';
 import { useWithdrawalTimers } from './use-withdrawal-timers';
@@ -20,6 +24,13 @@ interface UseL2ToL1WithdrawalParams {
 
 interface UseL2ToL1WithdrawalReturn {
   initiateWithdrawal: (amount: number, toAddress: string) => Promise<string>;
+  initiateERC20Withdrawal: (
+    tokenAddress: string,
+    amount: number,
+    toAddress: string,
+    tokenDecimals?: number,
+    tokenSymbol?: string,
+  ) => Promise<string>;
   proveWithdrawal: (withdrawalHash: string) => Promise<string>;
   finalizeWithdrawal: (withdrawalHash: string) => Promise<string>;
   isProcessing: boolean;
@@ -44,7 +55,7 @@ interface UseL2ToL1WithdrawalReturn {
 }
 
 /**
- * Hook to handle L2 to L1 native ETH withdrawals with prove and finalize states
+ * Hook to handle L2 to L1 withdrawals (both ETH and ERC20 tokens) with prove and finalize states
  */
 export function useL2ToL1Withdrawal({
   onSuccess,
@@ -75,6 +86,7 @@ export function useL2ToL1Withdrawal({
     publicClientReadonlyL2,
   } = useOpStackClients();
 
+  const { isConnected } = useAccount();
   const toast = useToast();
 
   const initiateWithdrawal = useCallback(
@@ -147,12 +159,106 @@ export function useL2ToL1Withdrawal({
       onError,
     ],
   );
+
+  const initiateERC20Withdrawal = useCallback(
+    async (
+      tokenAddress: string,
+      amount: number,
+      toAddress: string,
+      tokenDecimals = 18,
+      tokenSymbolOverride?: string,
+    ): Promise<string> => {
+      if (!walletClientL2) {
+        throw new Error('Wallet not connected or wallet client not available');
+      }
+
+      setIsProcessing(true);
+      setError(null);
+
+      try {
+        // Step 1: Parse the token amount with correct decimals
+        const amountWei = parseUnits(amount.toString(), tokenDecimals);
+
+        // Step 2: Call withdrawTo on L2StandardBridge contract
+        // According to Optimism docs: withdrawTo initiates ERC20 withdrawal from L2 to L1
+        const hash = await walletClientL2.writeContract({
+          address: L2_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
+          abi: L2StandardBridgeAbi,
+          functionName: 'withdrawTo',
+          args: [
+            tokenAddress as `0x${string}`, // _l2Token
+            toAddress as `0x${string}`, // _to
+            amountWei, // _amount
+            200000, // _minGasLimit
+            '0x' as `0x${string}`, // _extraData
+          ],
+        });
+
+        // Step 3: Wait for the withdrawal transaction receipt
+        const receipt = await publicClientReadonlyL2.waitForTransactionReceipt({
+          hash,
+        });
+
+        console.log(`ERC20 withdrawal initiated successfully: ${hash}`);
+
+        // Save withdrawal order to local storage
+        addWithdrawalOrder({
+          amount,
+          toAddress,
+          fromAddress: walletClientL2.account.address,
+          initiateHash: hash,
+          status: WithdrawalStatus.INITIATED,
+          sourceChainId: chains.L2.id,
+          targetChainId: chains.L1.id,
+          tokenSymbol: tokenSymbolOverride || tokenSymbol,
+        });
+
+        onSuccess?.(receipt.transactionHash);
+        return hash;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error
+            ? err.message
+            : 'ERC20 withdrawal initiation failed';
+        console.error('ERC20 withdrawal initiation failed:', err);
+        setError(errorMessage);
+        toast.error('ERC20 withdrawal initiation failed');
+        onError?.(err as Error);
+        throw err;
+      } finally {
+        setIsProcessing(false);
+      }
+    },
+    [
+      walletClientL2,
+      publicClientReadonlyL2,
+      chains,
+      addWithdrawalOrder,
+      tokenSymbol,
+      onSuccess,
+      onError,
+      toast,
+    ],
+  );
+
   const { switchChainAsync } = useSwitchChain();
 
   const proveWithdrawal = useCallback(
     async (withdrawalHash: string): Promise<string> => {
+      if (!isConnected) {
+        const errorMessage =
+          'Wallet not connected. Please connect your wallet to prove the withdrawal.';
+        console.error('Prove withdrawal failed:', errorMessage);
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+
       if (!walletClientL1) {
-        throw new Error('Wallet client not available for proving');
+        const errorMessage =
+          'Wallet client not available. Please ensure your wallet is connected and try again.';
+        console.error('Prove withdrawal failed:', errorMessage);
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
       }
 
       setIsProving(true);
@@ -219,6 +325,7 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
+      isConnected,
       walletClientL1,
       publicClientL1,
       publicClientL2,
@@ -228,13 +335,26 @@ export function useL2ToL1Withdrawal({
       updateOrderByInitiateHash,
       onProveSuccess,
       onError,
+      toast,
     ],
   );
 
   const finalizeWithdrawal = useCallback(
     async (withdrawalHash: string): Promise<string> => {
+      if (!isConnected) {
+        const errorMessage =
+          'Wallet not connected. Please connect your wallet to finalize the withdrawal.';
+        console.error('Finalize withdrawal failed:', errorMessage);
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+
       if (!walletClientL1) {
-        throw new Error('Wallet client not available for finalizing');
+        const errorMessage =
+          'Wallet client not available. Please ensure your wallet is connected and try again.';
+        console.error('Finalize withdrawal failed:', errorMessage);
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
       }
 
       setIsFinalizing(true);
@@ -298,6 +418,7 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
+      isConnected,
       walletClientL1,
       publicClientL1,
       publicClientL2,
@@ -307,6 +428,7 @@ export function useL2ToL1Withdrawal({
       updateOrderByInitiateHash,
       onFinalizeSuccess,
       onError,
+      toast,
     ],
   );
 
@@ -338,6 +460,7 @@ export function useL2ToL1Withdrawal({
 
   return {
     initiateWithdrawal,
+    initiateERC20Withdrawal,
     proveWithdrawal,
     finalizeWithdrawal,
     isProcessing,

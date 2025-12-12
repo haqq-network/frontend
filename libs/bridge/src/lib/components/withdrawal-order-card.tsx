@@ -10,6 +10,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import Link from 'next/link';
+import { useAccount } from 'wagmi';
 import { getAddressExplorerUrl, getTxExplorerUrl } from '@haqq/shell-shared';
 import { Button, Tooltip } from '@haqq/shell-ui-kit';
 import { OP_STACK_CHAINS } from '../constants/op-stack-config';
@@ -30,6 +31,7 @@ const formatAmount = (amount: number, symbol: string) => {
 
 export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
   const { t } = useTranslate('common');
+  const { isConnected } = useAccount();
   const [isProcessing, setIsProcessing] = useState(false);
   const [timerInfo, setTimerInfo] = useState<{
     seconds: number;
@@ -214,7 +216,10 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
                   onClick={nextAction.action}
                   variant={5}
                   disabled={
-                    nextAction.disabled || isProcessing || !timerInfo?.isReady
+                    nextAction.disabled ||
+                    isProcessing ||
+                    !timerInfo?.isReady ||
+                    !isConnected
                   }
                   className="rounded-md px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
                 >

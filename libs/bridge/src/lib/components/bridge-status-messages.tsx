@@ -130,8 +130,8 @@ export function BridgeStatusMessages({
             <p className="text-sm font-medium">Approval Required</p>
             <p className="mt-1 text-xs">
               You need to approve the bridge contract to spend your{' '}
-              {selectedToken.symbol} tokens. This is a one-time transaction
-              required before bridging ERC-20 tokens.
+              {selectedToken.symbol} tokens. This is a transaction required
+              before bridging ERC-20 tokens.
             </p>
           </div>
         )}
