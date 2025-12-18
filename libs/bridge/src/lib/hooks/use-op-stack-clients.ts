@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { createPublicClient, createWalletClient, custom, http } from 'viem';
 import {
   publicActionsL1,
@@ -73,6 +73,22 @@ export function useOpStackClients() {
       : null;
   }, [walletClient, address]);
 
+  const getWalletClientL1 = useCallback(async () => {
+    if (walletClientL1) {
+      return walletClientL1;
+    }
+
+    if (address && typeof window !== 'undefined' && window.ethereum) {
+      return createWalletClient({
+        account: address as `0x${string}`,
+        chain: OP_STACK_CHAINS.L1,
+        transport: custom(window.ethereum),
+      }).extend(walletActionsL1());
+    }
+
+    return null;
+  }, [address, walletClientL1]);
+
   const walletClientReadonlyL1 = useMemo(() => {
     return walletClient && address
       ? createWalletClient({
@@ -97,6 +113,22 @@ export function useOpStackClients() {
       : null;
   }, [walletClient, address]);
 
+  const getWalletClientL2 = useCallback(async () => {
+    if (walletClientL2) {
+      return walletClientL2;
+    }
+
+    if (address && typeof window !== 'undefined' && window.ethereum) {
+      return createWalletClient({
+        account: address as `0x${string}`,
+        chain: OP_STACK_CHAINS.L2,
+        transport: custom(window.ethereum),
+      }).extend(walletActionsL2());
+    }
+
+    return null;
+  }, [address, walletClientL2]);
+
   const walletClientReadonlyL2 = useMemo(() => {
     return walletClient && address
       ? createWalletClient({
@@ -112,6 +144,8 @@ export function useOpStackClients() {
     publicClientL2,
     walletClientL1,
     walletClientL2,
+    getWalletClientL1,
+    getWalletClientL2,
     publicClientReadonlyL1,
     publicClientReadonlyL2,
     walletClientReadonlyL1,

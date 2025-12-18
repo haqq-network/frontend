@@ -78,9 +78,8 @@ export function useL2ToL1Withdrawal({
     useWithdrawalTimers();
   const {
     publicClientL1,
-    publicClientL2,
-    walletClientL1,
-    walletClientL2,
+    getWalletClientL1,
+    getWalletClientL2,
     chains,
     publicClientReadonlyL1,
     publicClientReadonlyL2,
@@ -91,7 +90,9 @@ export function useL2ToL1Withdrawal({
 
   const initiateWithdrawal = useCallback(
     async (amount: number, toAddress: string): Promise<string> => {
-      if (!walletClientL2) {
+      const walletClient = await getWalletClientL2();
+
+      if (!walletClient) {
         throw new Error('Wallet not connected or wallet client not available');
       }
 
@@ -102,15 +103,14 @@ export function useL2ToL1Withdrawal({
         // Step 1: Build parameters to initiate the withdrawal transaction on the L1
         // According to Viem docs: "Build parameters to initiate the withdrawal transaction on the L1"
         const args = await publicClientL1.buildInitiateWithdrawal({
-          account: walletClientL2.account,
+          account: walletClient.account,
           to: toAddress as `0x${string}`,
           value: parseEther(amount.toString()),
-          gas: 21_000n, // Gas limit for transaction execution on the L1
         });
 
         // Step 2: Execute the initiate withdrawal transaction on the L2
         // According to Viem docs: "Execute the initiate withdrawal transaction on the L2"
-        const hash = await walletClientL2.initiateWithdrawal({
+        const hash = await walletClient.initiateWithdrawal({
           ...args,
         });
 
@@ -126,7 +126,7 @@ export function useL2ToL1Withdrawal({
         addWithdrawalOrder({
           amount,
           toAddress,
-          fromAddress: walletClientL2.account.address,
+          fromAddress: walletClient.account.address,
           initiateHash: hash,
           status: WithdrawalStatus.INITIATED,
           sourceChainId: chains.L2.id,
@@ -149,14 +149,15 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
-      walletClientL2,
+      getWalletClientL2,
       publicClientL1,
-      publicClientL2,
       publicClientReadonlyL2,
       chains,
       addWithdrawalOrder,
       onSuccess,
       onError,
+      tokenSymbol,
+      toast,
     ],
   );
 
@@ -168,7 +169,9 @@ export function useL2ToL1Withdrawal({
       tokenDecimals = 18,
       tokenSymbolOverride?: string,
     ): Promise<string> => {
-      if (!walletClientL2) {
+      const walletClient = await getWalletClientL2();
+
+      if (!walletClient) {
         throw new Error('Wallet not connected or wallet client not available');
       }
 
@@ -181,7 +184,7 @@ export function useL2ToL1Withdrawal({
 
         // Step 2: Call withdrawTo on L2StandardBridge contract
         // According to Optimism docs: withdrawTo initiates ERC20 withdrawal from L2 to L1
-        const hash = await walletClientL2.writeContract({
+        const hash = await walletClient.writeContract({
           address: L2_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
           abi: L2StandardBridgeAbi,
           functionName: 'withdrawTo',
@@ -205,7 +208,7 @@ export function useL2ToL1Withdrawal({
         addWithdrawalOrder({
           amount,
           toAddress,
-          fromAddress: walletClientL2.account.address,
+          fromAddress: walletClient.account.address,
           initiateHash: hash,
           status: WithdrawalStatus.INITIATED,
           sourceChainId: chains.L2.id,
@@ -230,7 +233,7 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
-      walletClientL2,
+      getWalletClientL2,
       publicClientReadonlyL2,
       chains,
       addWithdrawalOrder,
@@ -253,7 +256,9 @@ export function useL2ToL1Withdrawal({
         throw new Error(errorMessage);
       }
 
-      if (!walletClientL1) {
+      const walletClient = await getWalletClientL1();
+
+      if (!walletClient) {
         const errorMessage =
           'Wallet client not available. Please ensure your wallet is connected and try again.';
         console.error('Prove withdrawal failed:', errorMessage);
@@ -290,7 +295,7 @@ export function useL2ToL1Withdrawal({
 
         // Step 4: Prove the withdrawal on the L1
         // According to Viem docs: "Prove the withdrawal on the L1"
-        const proveHash = await walletClientL1.proveWithdrawal({
+        const proveHash = await walletClient.proveWithdrawal({
           ...proveArgs,
           targetChain: chains.L2_WITH_CONTRACTS,
         });
@@ -326,9 +331,7 @@ export function useL2ToL1Withdrawal({
     },
     [
       isConnected,
-      walletClientL1,
-      publicClientL1,
-      publicClientL2,
+      getWalletClientL1,
       publicClientReadonlyL1,
       publicClientReadonlyL2,
       chains,
@@ -336,6 +339,7 @@ export function useL2ToL1Withdrawal({
       onProveSuccess,
       onError,
       toast,
+      switchChainAsync,
     ],
   );
 
@@ -349,7 +353,9 @@ export function useL2ToL1Withdrawal({
         throw new Error(errorMessage);
       }
 
-      if (!walletClientL1) {
+      const walletClient = await getWalletClientL1();
+
+      if (!walletClient) {
         const errorMessage =
           'Wallet client not available. Please ensure your wallet is connected and try again.';
         console.error('Finalize withdrawal failed:', errorMessage);
@@ -381,7 +387,7 @@ export function useL2ToL1Withdrawal({
 
         // Step 4: Finalize the withdrawal
         // According to Viem docs: "Finalize the withdrawal"
-        const finalizeHash = await walletClientL1.finalizeWithdrawal({
+        const finalizeHash = await walletClient.finalizeWithdrawal({
           targetChain: chains.L2_WITH_CONTRACTS,
           withdrawal,
         });
@@ -419,9 +425,7 @@ export function useL2ToL1Withdrawal({
     },
     [
       isConnected,
-      walletClientL1,
-      publicClientL1,
-      publicClientL2,
+      getWalletClientL1,
       publicClientReadonlyL1,
       publicClientReadonlyL2,
       chains,
@@ -429,6 +433,7 @@ export function useL2ToL1Withdrawal({
       onFinalizeSuccess,
       onError,
       toast,
+      switchChainAsync,
     ],
   );
 
