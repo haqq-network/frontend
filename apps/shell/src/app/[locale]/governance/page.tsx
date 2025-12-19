@@ -36,7 +36,7 @@ export default async function ProposalList() {
       return proposal.status === ProposalStatus.Voting;
     })
     .map((proposal) => {
-      return proposal.proposal_id;
+      return proposal.proposal_id || proposal.id;
     });
 
   for (const proposalId of ongoingProposals) {

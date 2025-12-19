@@ -43,7 +43,7 @@ export function ProposalListCard({
   return (
     <ProposalCard
       title={proposal.content?.title || ''}
-      id={Number.parseInt(proposal.proposal_id, 10)}
+      id={Number.parseInt(proposal.proposal_id || proposal.id, 10)}
       status={proposal.status as ProposalStatusEnum}
       depositEndDate={new Date(proposal.deposit_end_time)}
       votingStartDate={new Date(proposal.voting_start_time)}
