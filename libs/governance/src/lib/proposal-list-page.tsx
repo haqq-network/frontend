@@ -1,6 +1,6 @@
 'use client';
 import { useMemo } from 'react';
-import { ProposalStatus } from '@evmos/provider';
+import { Proposal, ProposalStatus } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { TallyResults } from '@haqq/data-access-cosmos';
