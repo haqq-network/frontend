@@ -11,7 +11,6 @@ import {
   generateEndpointGetValidators,
   generateEndpointGetUndelegations,
   generateEndpointDistributionRewardsByAddress,
-  generateEndpointProposals,
   Proposal,
   Validator,
   GetDelegationsResponse,
@@ -19,7 +18,6 @@ import {
   BroadcastMode,
   TxToSend,
   GetUndelegationsResponse,
-  generateEndpointProposalTally,
   TallyResponse,
   generateEndpointBalances,
   BalancesResponse,
@@ -53,6 +51,7 @@ import {
   TokenPairsResponse,
   TransactionStatusResponse,
   CoinomicsParams,
+  TallyResults,
 } from '../types';
 
 export function generateEndpointValidatorInfo(address: string) {
@@ -573,7 +572,7 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
 
     const responseJson: TallyResponse = await response.json();
 
-    return responseJson.tally;
+    return responseJson.tally as any as TallyResults;
   }
 
   async function getBankBalances(address: string) {

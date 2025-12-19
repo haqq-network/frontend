@@ -932,6 +932,7 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
   const { data: proposalDetails, isFetched } =
     useProposalDetailsQuery(proposalId);
   const { data: proposalTally } = useProposalTallyQuery(proposalId);
+  console.log('ProposalInfo proposalTally:', proposalTally, proposalId);
   const { data: govParams } = useGovernanceParamsQuery();
   const { ethAddress, haqqAddress } = useAddress();
   const chains = useChains();
