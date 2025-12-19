@@ -13,7 +13,12 @@ import type { EstimatedFeeResponse } from '@haqq/data-access-falconer';
 
 export { type Proposal };
 
-export type TallyResults = TallyResponse['tally'];
+export type TallyResults = {
+  yes_count: string;
+  abstain_count: string;
+  no_count: string;
+  no_with_veto_count: string;
+};
 
 export interface RedelegationResponse {
   redelegation_responses: Array<{

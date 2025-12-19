@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { Proposal, ProposalStatus } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
+import { TallyResults } from '@haqq/data-access-cosmos';
 import {
   formatVoteResults,
   useAddress,
@@ -68,7 +69,7 @@ export function ProposalListPage() {
   const proposalsToRender = useMemo(() => {
     return proposals.map((proposal) => {
       const updatetProposalData = proposal;
-      let tallyResults = proposal.final_tally_result;
+      let tallyResults = proposal.final_tally_result as any as TallyResults;
 
       if (updatetProposalData.status === ProposalStatus.Voting) {
         const ongoingTally = ongoingProposalTallysResultMap.get(

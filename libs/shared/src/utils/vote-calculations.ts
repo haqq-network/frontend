@@ -12,10 +12,10 @@ export function parseVoteCount(value: string): bigint {
 // Calculate total votes
 export function calculateTotalVotes(results: TallyResults): bigint {
   return (
-    parseVoteCount(results.yes) +
-    parseVoteCount(results.abstain) +
-    parseVoteCount(results.no) +
-    parseVoteCount(results.no_with_veto)
+    parseVoteCount(results.yes_count) +
+    parseVoteCount(results.abstain_count) +
+    parseVoteCount(results.no_count) +
+    parseVoteCount(results.no_with_veto_count)
   );
 }
 
@@ -75,20 +75,23 @@ export function formatVoteResults(
 
   return {
     yes: {
-      value: results.yes,
-      ...calculateVotePercentageAndBigInt(results.yes, totalVotes),
+      value: results.yes_count,
+      ...calculateVotePercentageAndBigInt(results.yes_count, totalVotes),
     },
     abstain: {
-      value: results.abstain,
-      ...calculateVotePercentageAndBigInt(results.abstain, totalVotes),
+      value: results.abstain_count,
+      ...calculateVotePercentageAndBigInt(results.abstain_count, totalVotes),
     },
     no: {
-      value: results.no,
-      ...calculateVotePercentageAndBigInt(results.no, totalVotes),
+      value: results.no_count,
+      ...calculateVotePercentageAndBigInt(results.no_count, totalVotes),
     },
     noWithVeto: {
-      value: results.no_with_veto,
-      ...calculateVotePercentageAndBigInt(results.no_with_veto, totalVotes),
+      value: results.no_with_veto_count,
+      ...calculateVotePercentageAndBigInt(
+        results.no_with_veto_count,
+        totalVotes,
+      ),
     },
     total: totalVotes.toString(),
     totalBigInt: totalVotes,
