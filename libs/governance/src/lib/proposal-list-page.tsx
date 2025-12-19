@@ -1,6 +1,6 @@
 'use client';
 import { useMemo } from 'react';
-import { ProposalStatus } from '@evmos/provider';
+import { Proposal, ProposalStatus } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import {
@@ -36,7 +36,7 @@ export function ProposalListPage() {
       .filter((proposal) => {
         return proposal.status === ProposalStatus.Voting;
       })
-      .map((proposal) => {
+      .map((proposal: Proposal & { id: string }) => {
         return proposal.proposal_id || proposal.id;
       });
   }, [proposals]);
