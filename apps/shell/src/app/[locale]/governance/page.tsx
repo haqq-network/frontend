@@ -1,4 +1,4 @@
-import { Proposal, ProposalStatus } from '@evmos/provider';
+import { ProposalStatus } from '@evmos/provider';
 import {
   HydrationBoundary,
   QueryClient,
