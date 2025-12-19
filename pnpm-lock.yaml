@@ -30,8 +30,8 @@ importers:
         specifier: 0.1.27
         version: 0.1.27
       '@evmos/provider':
-        specifier: 0.3.1
-        version: 0.3.1
+        specifier: 0.2.8
+        version: 0.2.8
       '@evmos/transactions':
         specifier: 0.2.13
         version: 0.2.13
@@ -2072,8 +2072,8 @@ packages:
   '@evmos/proto@0.1.27':
     resolution: {integrity: sha512-lBOZhQFsIUz3on/4H+Rj1aDj2OWaZnz7OJjUFklkPZQ3tEtAATBOQiVCjkPvIX3jh/H5DACahmi8BmhcNF+7UA==}
 
-  '@evmos/provider@0.3.1':
-    resolution: {integrity: sha512-Km2BYQvD1PWZHUMwyqjBiM3loSTzr/t+03FAZqrTF4ffqhJSIOCW6SW9X4bvuAICMLbbeM4l1C6cNeLfa1KTlQ==}
+  '@evmos/provider@0.2.8':
+    resolution: {integrity: sha512-LOml6RtabQafhNn38IaREXB2oClHTUBYF0VttQRB3qxaOEqBy9WbH0Dz7fvqqGFbcanMdQKhBQ4NfNMeslWQgQ==}
 
   '@evmos/transactions@0.2.13':
     resolution: {integrity: sha512-O+SoWUXkg3XoP80PB01BSKBh+HMGZuWbQ2M07yscGfSxgmSsKrTPliOmai3yM8CnDnzUmPSNZk/oWaKaCDl8kw==}
@@ -15227,7 +15227,7 @@ snapshots:
       sha3: 2.1.4
       shx: 0.3.4
 
-  '@evmos/provider@0.3.1':
+  '@evmos/provider@0.2.8':
     dependencies:
       link-module-alias: 1.2.0
       shx: 0.3.4
