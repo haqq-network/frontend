@@ -37,7 +37,7 @@ export function ProposalListPage() {
         return proposal.status === ProposalStatus.Voting;
       })
       .map((proposal: any) => {
-        return proposal.proposal_id || proposal.id;
+        return (proposal as any).proposal_id || (proposal as any).id;
       });
   }, [proposals]);
 
@@ -72,7 +72,8 @@ export function ProposalListPage() {
 
       if (updatetProposalData.status === ProposalStatus.Voting) {
         const ongoingTally = ongoingProposalTallysResultMap.get(
-          updatetProposalData.proposal_id || updatetProposalData.id,
+          (updatetProposalData as any).proposal_id ||
+            (updatetProposalData as any).id,
         );
 
         if (ongoingTally) {
@@ -81,7 +82,8 @@ export function ProposalListPage() {
       }
 
       const userVote = ongoingProposalVotesResultMap.get(
-        updatetProposalData.proposal_id || updatetProposalData.id,
+        (updatetProposalData as any).proposal_id ||
+          (updatetProposalData as any).id,
       );
 
       return {
@@ -128,8 +130,8 @@ export function ProposalListPage() {
               {proposalsToRender.map(({ userVote, proposal, voteResults }) => {
                 return (
                   <Link
-                    href={`/governance/proposal/${proposal.proposal_id || proposal.id}`}
-                    key={proposal.proposal_id || proposal.id}
+                    href={`/governance/proposal/${(proposal as any).proposal_id || (proposal as any).id}`}
+                    key={(proposal as any).proposal_id || (proposal as any).id}
                   >
                     <ProposalListCard
                       proposal={proposal}

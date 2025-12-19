@@ -37,7 +37,7 @@ export function ProposalListBlock() {
         return proposal.status === ProposalStatus.Voting;
       })
       .map((proposal: any) => {
-        return proposal.proposal_id || proposal.id;
+        return (proposal as any).proposal_id || (proposal as any).id;
       });
   }, [proposals]);
 
@@ -58,7 +58,7 @@ export function ProposalListBlock() {
 
       if (proposal.status === ProposalStatus.Voting) {
         const ongoingTally = ongoingProposalTallysResultMap.get(
-          proposal.proposal_id || proposal.id,
+          (proposal as any).proposal_id || (proposal as any).id,
         );
 
         if (ongoingTally) {
@@ -99,7 +99,7 @@ export function ProposalListBlock() {
           {proposalsToRender.map((proposal) => {
             return (
               <Link
-                key={proposal.proposal_id || proposal.id}
+                key={(proposal as any).proposal_id || (proposal as any).id}
                 href={`governance/proposal/${proposal.proposal_id}`}
                 className="2xl:last-of-type:hidden"
               >

@@ -240,7 +240,7 @@ export function ProposalDetailsComponent({
     ),
   );
   const { data: userVote } = useProposalVoteQuery(
-    proposalDetails.proposal_id || proposalDetails.id,
+    (proposalDetails as any).proposal_id || (proposalDetails as any).id,
     haqqAddress,
   );
   // const isDepositAvailable = useMemo(() => {
@@ -371,7 +371,9 @@ export function ProposalDetailsComponent({
                 <div className="mb-[8px] flex flex-row items-center gap-[16px]">
                   <div>
                     <div className="font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]">
-                      #{proposalDetails.proposal_id || proposalDetails.id}
+                      #
+                      {(proposalDetails as any).proposal_id ||
+                        (proposalDetails as any).id}
                     </div>
                   </div>
                   <div>
@@ -754,7 +756,8 @@ export function ProposalDetailsComponent({
                   <div className="bg-white bg-opacity-[15%] px-[28px] py-[32px]">
                     <VoteActions
                       proposalId={Number.parseInt(
-                        proposalDetails.proposal_id || proposalDetails.id,
+                        (proposalDetails as any).proposal_id ||
+                          (proposalDetails as any).id,
                         10,
                       )}
                       userVote={userVote}
@@ -910,7 +913,8 @@ function ProposalActionsMobile({
         <Container>
           <VoteActions
             proposalId={Number.parseInt(
-              proposalDetails.proposal_id || proposalDetails.id,
+              (proposalDetails as any).proposal_id ||
+                (proposalDetails as any).id,
               10,
             )}
             userVote={userVote}
