@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { ProposalStatus } from '@evmos/provider';
+import { Proposal, ProposalStatus } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import { ProposalListCard } from '@haqq/shell-governance';
@@ -36,8 +36,8 @@ export function ProposalListBlock() {
       .filter((proposal) => {
         return proposal.status === ProposalStatus.Voting;
       })
-      .map((proposal) => {
-        return proposal.proposal_id;
+      .map((proposal: any) => {
+        return (proposal as any).proposal_id || (proposal as any).id;
       });
   }, [proposals]);
 
@@ -58,7 +58,7 @@ export function ProposalListBlock() {
 
       if (proposal.status === ProposalStatus.Voting) {
         const ongoingTally = ongoingProposalTallysResultMap.get(
-          proposal.proposal_id,
+          (proposal as any).proposal_id || (proposal as any).id,
         );
 
         if (ongoingTally) {
@@ -99,7 +99,7 @@ export function ProposalListBlock() {
           {proposalsToRender.map((proposal) => {
             return (
               <Link
-                key={proposal.proposal_id}
+                key={(proposal as any).proposal_id || (proposal as any).id}
                 href={`governance/proposal/${proposal.proposal_id}`}
                 className="2xl:last-of-type:hidden"
               >

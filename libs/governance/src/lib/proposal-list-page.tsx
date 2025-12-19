@@ -1,6 +1,6 @@
 'use client';
 import { useMemo } from 'react';
-import { ProposalStatus } from '@evmos/provider';
+import { Proposal, ProposalStatus } from '@evmos/provider';
 import { useTranslate } from '@tolgee/react';
 import Link from 'next/link';
 import {
@@ -36,8 +36,8 @@ export function ProposalListPage() {
       .filter((proposal) => {
         return proposal.status === ProposalStatus.Voting;
       })
-      .map((proposal) => {
-        return proposal.proposal_id;
+      .map((proposal: any) => {
+        return (proposal as any).proposal_id || (proposal as any).id;
       });
   }, [proposals]);
 
@@ -72,7 +72,8 @@ export function ProposalListPage() {
 
       if (updatetProposalData.status === ProposalStatus.Voting) {
         const ongoingTally = ongoingProposalTallysResultMap.get(
-          updatetProposalData.proposal_id,
+          (updatetProposalData as any).proposal_id ||
+            (updatetProposalData as any).id,
         );
 
         if (ongoingTally) {
@@ -81,7 +82,8 @@ export function ProposalListPage() {
       }
 
       const userVote = ongoingProposalVotesResultMap.get(
-        updatetProposalData.proposal_id,
+        (updatetProposalData as any).proposal_id ||
+          (updatetProposalData as any).id,
       );
 
       return {
@@ -95,6 +97,8 @@ export function ProposalListPage() {
     ongoingProposalVotesResultMap,
     proposals,
   ]);
+
+  console.log('Proposals proposalsToRender:', proposalsToRender);
 
   return (
     <div>
@@ -126,8 +130,8 @@ export function ProposalListPage() {
               {proposalsToRender.map(({ userVote, proposal, voteResults }) => {
                 return (
                   <Link
-                    href={`/governance/proposal/${proposal.proposal_id}`}
-                    key={proposal.proposal_id}
+                    href={`/governance/proposal/${(proposal as any).proposal_id || (proposal as any).id}`}
+                    key={(proposal as any).proposal_id || (proposal as any).id}
                   >
                     <ProposalListCard
                       proposal={proposal}

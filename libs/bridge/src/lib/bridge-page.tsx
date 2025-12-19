@@ -250,31 +250,33 @@ export function BridgePage() {
                 isFinalizing={isFinalizing}
               />
 
-              <BridgeForm
-                bridgeAmount={bridgeAmount}
-                receivedAmount={receivedAmount}
-                availableBalance={availableBalance}
-                canBridge={Boolean(canBridge)}
-                isProcessing={isProcessing}
-                isProving={isProving}
-                isFinalizing={isFinalizing}
-                isWaitingForReceipt={Boolean(isWaitingForReceipt)}
-                isTxSuccess={Boolean(isTxSuccess)}
-                onInputChange={handleInputChange}
-                onMaxButtonClick={handleMaxButtonClick}
-                onBridge={handleBridge}
-                amountHint={amountHint}
-                tokens={availableTokens}
-                selectedToken={selectedToken}
-                onTokenSelect={handleTokenSelect}
-                isLoadingTokens={isLoadingTokens}
-                needsApproval={needsApproval}
-                isApproving={isApproving}
-                disabledApproveBtn={
-                  isApproving || needsDeployment || isCheckingRemoteToken
-                }
-                onApprove={handleApprove}
-              />
+              {!isChainMismatch && (
+                <BridgeForm
+                  bridgeAmount={bridgeAmount}
+                  receivedAmount={receivedAmount}
+                  availableBalance={availableBalance}
+                  canBridge={Boolean(canBridge)}
+                  isProcessing={isProcessing}
+                  isProving={isProving}
+                  isFinalizing={isFinalizing}
+                  isWaitingForReceipt={Boolean(isWaitingForReceipt)}
+                  isTxSuccess={Boolean(isTxSuccess)}
+                  onInputChange={handleInputChange}
+                  onMaxButtonClick={handleMaxButtonClick}
+                  onBridge={handleBridge}
+                  amountHint={amountHint}
+                  tokens={availableTokens}
+                  selectedToken={selectedToken}
+                  onTokenSelect={handleTokenSelect}
+                  isLoadingTokens={isLoadingTokens}
+                  needsApproval={needsApproval}
+                  isApproving={isApproving}
+                  disabledApproveBtn={
+                    isApproving || needsDeployment || isCheckingRemoteToken
+                  }
+                  onApprove={handleApprove}
+                />
+              )}
 
               <ChallengePeriodWarning isL2ToL1={isL2ToL1} />
 

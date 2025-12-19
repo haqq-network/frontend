@@ -304,7 +304,8 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
 
   async function getProposals() {
     const proposalsUrl = new URL(
-      `${cosmosRestEndpoint}${generateEndpointProposals()}`,
+      // `${cosmosRestEndpoint}${generateEndpointProposals()}`,
+      `${cosmosRestEndpoint}/cosmos/gov/v1/proposals`,
     );
 
     proposalsUrl.searchParams.append('pagination.reverse', 'true');
@@ -321,7 +322,8 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
   }
 
   async function getProposalDetails(id: string) {
-    const getProposalDetailsUrl = `${cosmosRestEndpoint}${generateEndpointProposal(id)}`;
+    // const getProposalDetailsUrl = `${cosmosRestEndpoint}${generateEndpointProposal(id)}`;
+    const getProposalDetailsUrl = `${cosmosRestEndpoint}/cosmos/gov/v1/proposals/${id}`;
 
     const response = await fetch(getProposalDetailsUrl);
 
@@ -559,7 +561,8 @@ export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
 
   async function getProposalTally(id: string) {
     const getProposalTallyUrl = new URL(
-      `${cosmosRestEndpoint}${generateEndpointProposalTally(id)}`,
+      // `${cosmosRestEndpoint}${generateEndpointProposalTally(id)}`,
+      `${cosmosRestEndpoint}/cosmos/gov/v1/proposals/${id}/tally`,
     );
 
     const response = await fetch(getProposalTallyUrl);
