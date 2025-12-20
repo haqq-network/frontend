@@ -8,13 +8,21 @@ import {
   XCircle,
   AlertTriangle,
   ExternalLink,
+  Trash2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAccount } from 'wagmi';
 import { getAddressExplorerUrl, getTxExplorerUrl } from '@haqq/shell-shared';
-import { Button, Tooltip } from '@haqq/shell-ui-kit';
+import {
+  Button,
+  Tooltip,
+  Modal,
+  ModalCloseButton,
+  ModalHeading,
+} from '@haqq/shell-ui-kit';
 import { OP_STACK_CHAINS } from '../constants/op-stack-config';
 import { useL2ToL1Withdrawal } from '../hooks/use-l2-to-l1-withdrawal';
+import { useWithdrawalOrders } from '../hooks/use-withdrawal-orders';
 import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
 
 interface WithdrawalOrderCardProps {
@@ -33,11 +41,14 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
   const { t } = useTranslate('common');
   const { isConnected } = useAccount();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [timerInfo, setTimerInfo] = useState<{
     seconds: number;
     isReady: boolean;
     formattedTime: string;
   } | null>(null);
+
+  const { deleteOrderByInitiateHash } = useWithdrawalOrders();
 
   const reset = useCallback(() => {
     setIsProcessing(false);
@@ -190,6 +201,19 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     [finalizeWithdrawal],
   );
 
+  const handleDelete = useCallback(() => {
+    setIsDeleteModalOpen(true);
+  }, []);
+
+  const confirmDelete = useCallback(() => {
+    deleteOrderByInitiateHash(order.initiateHash);
+    setIsDeleteModalOpen(false);
+  }, [deleteOrderByInitiateHash, order.initiateHash]);
+
+  const cancelDelete = useCallback(() => {
+    setIsDeleteModalOpen(false);
+  }, []);
+
   const nextAction = useMemo(() => {
     return getNextAction(order);
   }, [order, getNextAction]);
@@ -198,158 +222,219 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
   }, [order.status, getWaitingTimeWarning]);
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <div className="mb-2 flex items-center gap-2">
-            {getStatusIcon(order.status)}
-            <span className="font-medium text-gray-900">
-              {formatAmount(order.amount, order.tokenSymbol)}
-            </span>
-            <span className="text-sm text-gray-500">
-              {getStatusText(order.status)}
-            </span>
+    <>
+      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <div className="mb-2 flex items-center gap-2">
+              {getStatusIcon(order.status)}
+              <span className="font-medium text-gray-900">
+                {formatAmount(order.amount, order.tokenSymbol)}
+              </span>
+              <span className="text-sm text-gray-500">
+                {getStatusText(order.status)}
+              </span>
 
-            {nextAction && (
-              <div className="ml-auto">
-                <Button
-                  onClick={nextAction.action}
-                  variant={5}
-                  disabled={
-                    nextAction.disabled ||
-                    isProcessing ||
-                    !timerInfo?.isReady ||
-                    !isConnected
-                  }
-                  className="rounded-md px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {isProcessing ? (
-                    <div className="flex items-center gap-2">
-                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                      {t('processing', 'Processing...')}
-                    </div>
-                  ) : (
-                    nextAction.label
-                  )}
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {/* Timer Information */}
-          {timerInfo && (
-            <div className="mb-2 rounded-md bg-blue-50 p-2">
-              <div className="flex items-center justify-between">
-                {warning && !timerInfo?.isReady && (
-                  <Tooltip text={warning}>
-                    <span className="cursor-pointer text-sm font-medium text-blue-800">
-                      {order.status === WithdrawalStatus.INITIATED
-                        ? 'Time to prove:'
-                        : 'Time to finalize:'}
-                    </span>
-                  </Tooltip>
+              <div className="ml-auto flex items-center gap-2">
+                {nextAction && (
+                  <Button
+                    onClick={nextAction.action}
+                    variant={5}
+                    disabled={
+                      nextAction.disabled ||
+                      isProcessing ||
+                      !timerInfo?.isReady ||
+                      !isConnected
+                    }
+                    className="rounded-md px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {isProcessing ? (
+                      <div className="flex items-center gap-2">
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                        {t('processing', 'Processing...')}
+                      </div>
+                    ) : (
+                      nextAction.label
+                    )}
+                  </Button>
                 )}
-                <span
-                  className={`font-mono text-sm ${timerInfo.isReady ? 'text-green-600' : 'text-blue-600'}`}
+                <button
+                  onClick={handleDelete}
+                  className="rounded-md p-2 text-gray-500 transition-colors hover:bg-gray-200 hover:text-red-600"
+                  title={t('delete-order', 'Delete order')}
                 >
-                  {timerInfo.formattedTime}
-                </span>
+                  <Trash2 className="h-4 w-4" />
+                </button>
               </div>
-              {timerInfo.isReady && (
-                <div className="mt-1 text-xs font-medium text-green-600">
-                  ✅ Ready to{' '}
-                  {order.status === WithdrawalStatus.INITIATED
-                    ? 'prove'
-                    : 'finalize'}
-                  !
-                </div>
-              )}
-            </div>
-          )}
-
-          <div className="space-y-1 text-sm text-gray-600">
-            <div className="grid grid-cols-2 gap-1">
-              <div>
-                <span className="font-medium">From:</span>{' '}
-                <Link
-                  href={getAddressExplorerUrl(
-                    order.fromAddress,
-                    OP_STACK_CHAINS.L2.id,
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-blue-600 hover:text-blue-800"
-                  title={order.fromAddress}
-                >
-                  {order.fromAddress.slice(0, 6)}...
-                  {order.fromAddress.slice(-4)}
-                </Link>
-              </div>
-              <div>
-                <span className="font-medium">To:</span>{' '}
-                <Link
-                  href={getAddressExplorerUrl(
-                    order.toAddress,
-                    OP_STACK_CHAINS.L1.id,
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-blue-600 hover:text-blue-800"
-                  title={order.toAddress}
-                >
-                  {order.toAddress.slice(0, 6)}...{order.toAddress.slice(-4)}
-                </Link>
-              </div>
-              <div>
-                <span className="font-medium">Initiated:</span>{' '}
-                {formatDate(order.createdAt)}
-              </div>
-
-              {order.proveHash && (
-                <div className="flex items-center gap-1">
-                  <span className="font-medium">Prove:</span>
-                  <Link
-                    href={getTxExplorerUrl(
-                      order.proveHash,
-                      OP_STACK_CHAINS.L1.id,
-                    )}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
-                  >
-                    {order.proveHash.slice(0, 10)}...
-                    <ExternalLink className="h-3 w-3" />
-                  </Link>
-                </div>
-              )}
-
-              {order.finalizeHash && (
-                <div className="flex items-center gap-1">
-                  <span className="font-medium">Finalize:</span>
-                  <Link
-                    href={getTxExplorerUrl(
-                      order.finalizeHash,
-                      OP_STACK_CHAINS.L1.id,
-                    )}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
-                  >
-                    {order.finalizeHash.slice(0, 10)}...
-                    <ExternalLink className="h-3 w-3" />
-                  </Link>
-                </div>
-              )}
             </div>
 
-            {order.error && (
-              <div className="mt-1 text-xs text-red-600">
-                <span className="font-medium">Error:</span> {order.error}
+            {/* Timer Information */}
+            {timerInfo && (
+              <div className="mb-2 rounded-md bg-blue-50 p-2">
+                <div className="flex items-center justify-between">
+                  {warning && !timerInfo?.isReady && (
+                    <Tooltip text={warning}>
+                      <span className="cursor-pointer text-sm font-medium text-blue-800">
+                        {order.status === WithdrawalStatus.INITIATED
+                          ? 'Time to prove:'
+                          : 'Time to finalize:'}
+                      </span>
+                    </Tooltip>
+                  )}
+                  <span
+                    className={`font-mono text-sm ${timerInfo.isReady ? 'text-green-600' : 'text-blue-600'}`}
+                  >
+                    {timerInfo.formattedTime}
+                  </span>
+                </div>
+                {timerInfo.isReady && (
+                  <div className="mt-1 text-xs font-medium text-green-600">
+                    ✅ Ready to{' '}
+                    {order.status === WithdrawalStatus.INITIATED
+                      ? 'prove'
+                      : 'finalize'}
+                    !
+                  </div>
+                )}
               </div>
             )}
+
+            <div className="space-y-1 text-sm text-gray-600">
+              <div className="grid grid-cols-2 gap-1">
+                <div>
+                  <span className="font-medium">From:</span>{' '}
+                  <Link
+                    href={getAddressExplorerUrl(
+                      order.fromAddress,
+                      OP_STACK_CHAINS.L2.id,
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-blue-600 hover:text-blue-800"
+                    title={order.fromAddress}
+                  >
+                    {order.fromAddress.slice(0, 6)}...
+                    {order.fromAddress.slice(-4)}
+                  </Link>
+                </div>
+                <div>
+                  <span className="font-medium">To:</span>{' '}
+                  <Link
+                    href={getAddressExplorerUrl(
+                      order.toAddress,
+                      OP_STACK_CHAINS.L1.id,
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-blue-600 hover:text-blue-800"
+                    title={order.toAddress}
+                  >
+                    {order.toAddress.slice(0, 6)}...{order.toAddress.slice(-4)}
+                  </Link>
+                </div>
+                <div>
+                  <span className="font-medium">Initiated:</span>{' '}
+                  {formatDate(order.createdAt)}
+                </div>
+
+                {order.proveHash && (
+                  <div className="flex items-center gap-1">
+                    <span className="font-medium">Prove:</span>
+                    <Link
+                      href={getTxExplorerUrl(
+                        order.proveHash,
+                        OP_STACK_CHAINS.L1.id,
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                    >
+                      {order.proveHash.slice(0, 10)}...
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  </div>
+                )}
+
+                {order.finalizeHash && (
+                  <div className="flex items-center gap-1">
+                    <span className="font-medium">Finalize:</span>
+                    <Link
+                      href={getTxExplorerUrl(
+                        order.finalizeHash,
+                        OP_STACK_CHAINS.L1.id,
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                    >
+                      {order.finalizeHash.slice(0, 10)}...
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {order.error && (
+                <div className="mt-1 text-xs text-red-600">
+                  <span className="font-medium">Error:</span> {order.error}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Delete Confirmation Modal */}
+      <Modal isOpen={isDeleteModalOpen} onClose={cancelDelete}>
+        <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-[430px] sm:rounded-[12px] sm:p-[36px]">
+          <ModalCloseButton
+            onClick={cancelDelete}
+            className="absolute end-[16px] top-[16px]"
+          />
+
+          <div className="flex w-full flex-col gap-[24px] pt-[24px] sm:pt-[4px]">
+            <div>
+              <ModalHeading>
+                {t('delete-withdrawal-order', 'Delete Withdrawal Order')}
+              </ModalHeading>
+            </div>
+
+            <div>
+              <div className="font-guise text-[15px] leading-[24px] text-gray-700">
+                {t(
+                  'delete-withdrawal-confirmation',
+                  'Are you sure you want to delete this withdrawal order? This action cannot be undone. The withdrawal transaction will remain on the blockchain, but it will be removed from your order list.',
+                )}
+              </div>
+              <div className="mt-4 rounded-md bg-gray-100 p-3">
+                <div className="text-sm font-medium text-gray-900">
+                  {formatAmount(order.amount, order.tokenSymbol)}
+                </div>
+                <div className="mt-1 text-xs text-gray-500">
+                  {t('initiated', 'Initiated')}: {formatDate(order.createdAt)}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                onClick={cancelDelete}
+                variant={2}
+                className="flex-1 rounded-md px-4 py-2 text-sm font-medium"
+              >
+                {t('cancel', 'Cancel')}
+              </Button>
+              <Button
+                onClick={confirmDelete}
+                variant={5}
+                className="flex-1 rounded-md px-4 py-2 text-sm font-medium text-white"
+              >
+                {t('delete', 'Delete')}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+    </>
   );
 }

@@ -159,11 +159,29 @@ export function useWithdrawalOrders() {
     [getWaitingTimeWarning],
   );
 
+  // Delete order by initiate hash
+  const deleteOrderByInitiateHash = useCallback(
+    (initiateHash: string) => {
+      setStorage((prev: string) => {
+        const parsedPrev = JSON.parse(prev) as WithdrawalOrderStorage;
+        return JSON.stringify({
+          ...parsedPrev,
+          orders: parsedPrev.orders.filter((order) => {
+            return order.initiateHash !== initiateHash;
+          }),
+          lastUpdated: Date.now(),
+        });
+      });
+    },
+    [setStorage],
+  );
+
   return {
     orders,
     pendingOrders,
     addWithdrawalOrder,
     updateOrderByInitiateHash,
+    deleteOrderByInitiateHash,
     getOrderById,
     getOrderByInitiateHash,
     updateOrderTimers,

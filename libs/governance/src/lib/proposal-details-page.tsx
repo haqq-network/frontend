@@ -436,7 +436,7 @@ export function ProposalDetailsComponent({
                       {t('description', 'Description', { ns: 'common' })}
                     </div>
 
-                    {proposalDetails.content?.description && (
+                    {(proposalDetails as any).summary && (
                       <div
                         dir="ltr"
                         className={clsx(
@@ -447,7 +447,7 @@ export function ProposalDetailsComponent({
                         )}
                       >
                         <Markdown gfm breaks>
-                          {proposalDetails.content?.description?.replace(
+                          {(proposalDetails as any).summary?.replace(
                             /\\n/g,
                             '\n',
                           )}

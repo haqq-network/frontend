@@ -31,6 +31,12 @@ interface TokenSelectorProps {
   disabled?: boolean;
 }
 
+const NATIVE_ETH_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
+
+const isNativeToken = (address: string): boolean => {
+  return address.toLowerCase() === NATIVE_ETH_ADDRESS.toLowerCase();
+};
+
 export function TokenSelectOption({
   children: _,
   ...rest
@@ -42,6 +48,10 @@ export function TokenSelectOption({
       : '';
   }, [token.formattedBalance]);
 
+  const displayAddress = useMemo(() => {
+    return isNativeToken(token.address) ? 'native' : token.address;
+  }, [token.address]);
+
   return (
     <tokenSelectComponents.Option {...rest}>
       <div className="flex items-center justify-between">
@@ -50,7 +60,7 @@ export function TokenSelectOption({
             {token.symbol} {token.name && `(${token.name})`}
           </div>
           <div className="text-[10px] leading-[12px] text-[#0D0D0E80]">
-            {token.address}
+            {displayAddress}
           </div>
         </div>
         {balanceText && (
@@ -76,12 +86,21 @@ export function TokenSelector({
   const { t } = useTranslate('bridge');
 
   const handleFilterOption = useCallback((option: any, inputValue: string) => {
-    const { label, value } = option.data;
+    const { label, value, token } = option.data;
     const inputLower = inputValue.toLowerCase();
     const labelLower = label.toLowerCase();
     const valueLower = value.toLowerCase();
 
-    return labelLower.includes(inputLower) || valueLower.includes(inputLower);
+    // Check if it matches label or address
+    const matchesLabelOrAddress =
+      labelLower.includes(inputLower) || valueLower.includes(inputLower);
+
+    // If searching for "native" and token is native ETH, include it
+    if (inputLower === 'native' && isNativeToken(token.address)) {
+      return true;
+    }
+
+    return matchesLabelOrAddress;
   }, []);
 
   const classNames = useMemo<ClassNamesConfig<TokenSelectOption>>(() => {
