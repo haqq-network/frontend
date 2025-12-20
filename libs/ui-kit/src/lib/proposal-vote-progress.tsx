@@ -72,7 +72,6 @@ export function ProposalVoteProgress({
 }): ReactElement {
   const { t } = useTranslate('common');
 
-  console.log('VoteResults voteResults:', voteResults);
   return (
     <div className="flex w-full flex-col space-y-2">
       <div className="space-y-[8px]">

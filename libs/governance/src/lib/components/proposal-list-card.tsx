@@ -42,7 +42,7 @@ export function ProposalListCard({
 
   return (
     <ProposalCard
-      title={proposal.content?.title || ''}
+      title={(proposal as any).title || ''}
       id={Number.parseInt(
         (proposal as any).proposal_id || (proposal as any).id,
         10,
