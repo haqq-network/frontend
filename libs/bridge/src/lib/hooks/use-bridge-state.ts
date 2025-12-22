@@ -169,26 +169,13 @@ export function useBridgeState({
       console.log(
         'API token fetch failed or returned empty list, using SWAPPABLE_TOKENS fallback',
       );
-      console.log('Error:', tokensError);
-      console.log('User tokens count:', userTokens.length);
 
       const chainTokens = SWAPPABLE_TOKENS[chain.id] || [];
 
       if (chainTokens.length === 0) {
-        console.log(
-          'No SWAPPABLE_TOKENS for chain',
-          chain.id,
-          ', using ETH token only',
-        );
         return [ETH_TOKEN];
       }
 
-      console.log(
-        'Using SWAPPABLE_TOKENS for chain',
-        chain.id,
-        ':',
-        chainTokens,
-      );
       return [
         ...chainTokens.map((token) => {
           return {

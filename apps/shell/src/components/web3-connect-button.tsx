@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { usePathname } from 'next/navigation';
-import { useAccount, useChains } from 'wagmi';
+import { useAccount, useBalance, useChains } from 'wagmi';
 import {
   faucetSupportedChains,
   getFormattedAddress,
@@ -104,12 +104,12 @@ export function Web3ConnectButtons() {
           chains={chainArray}
         />
       </div>
-      {!isBridgePage && (
+      {isBridgePage ? (
+        <BridgePageAccountBtn />
+      ) : (
         <div className="leading-[0]">
-          <AccountButton
+          <AccountBtnWrapper
             balance={balance ? formatNumber(balance.balance) : undefined}
-            address={getFormattedAddress(ethAddress, 3, 2)}
-            onDisconnectClick={disconnect}
           />
         </div>
       )}
@@ -157,12 +157,12 @@ export function Web3ConnectButtonsMobile() {
           dropdownClassName="end-auto start-0"
         />
       </div>
-      {!isBridgePage && (
+      {isBridgePage ? (
+        <BridgePageAccountBtn />
+      ) : (
         <div className="leading-[0]">
-          <AccountButton
+          <AccountBtnWrapper
             balance={balance ? formatNumber(balance.balance) : undefined}
-            address={getFormattedAddress(ethAddress, 3, 2)}
-            withoutDropdown
           />
         </div>
       )}
@@ -172,3 +172,19 @@ export function Web3ConnectButtonsMobile() {
     </div>
   );
 }
+
+const BridgePageAccountBtn = () => {
+  const { data: balance } = useBalance();
+  return <AccountBtnWrapper balance={balance?.formatted} />;
+};
+
+const AccountBtnWrapper = ({ balance }: { balance: string | undefined }) => {
+  const { ethAddress } = useAddress();
+  return (
+    <AccountButton
+      balance={balance}
+      address={getFormattedAddress(ethAddress, 3, 2)}
+      withoutDropdown
+    />
+  );
+};
