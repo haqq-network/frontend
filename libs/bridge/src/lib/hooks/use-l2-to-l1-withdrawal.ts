@@ -85,7 +85,6 @@ export function useL2ToL1Withdrawal({
     publicClientReadonlyL2,
   } = useOpStackClients();
 
-  console.log('publicClientL1', publicClientL1);
   const { isConnected } = useAccount();
   const toast = useToast();
 
@@ -103,8 +102,8 @@ export function useL2ToL1Withdrawal({
       try {
         // Step 1: Build parameters to initiate the withdrawal transaction on the L1
         // According to Viem docs: "Build parameters to initiate the withdrawal transaction on the L1"
-        const args = await publicClientL1.buildInitiateWithdrawal({
-          account: walletClient.account,
+        const args = await publicClientReadonlyL1.buildInitiateWithdrawal({
+          account: walletClient.account.address,
           to: toAddress as `0x${string}`,
           value: parseEther(amount.toString()),
         });
@@ -151,7 +150,7 @@ export function useL2ToL1Withdrawal({
     },
     [
       getWalletClientL2,
-      publicClientL1,
+      publicClientReadonlyL1,
       publicClientReadonlyL2,
       chains,
       addWithdrawalOrder,
