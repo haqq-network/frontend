@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { useChainId } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 import { useWithdrawalTimers } from './use-withdrawal-timers';
 import { getOpStackChains } from '../constants/op-stack-config';
 import {
@@ -32,6 +32,7 @@ export function useWithdrawalOrders() {
     useWithdrawalTimers();
 
   const chainId = useChainId();
+  const { address } = useAccount();
 
   // Get all orders
   const orders = useMemo(() => {
@@ -53,9 +54,12 @@ export function useWithdrawalOrders() {
         );
       })
       .filter((order) => {
-        return order.targetChainId === opChainId;
+        return (
+          order.targetChainId === opChainId &&
+          order.fromAddress?.toLowerCase() === address?.toLowerCase()
+        );
       });
-  }, [storage.orders, opChainId]);
+  }, [storage.orders, opChainId, address]);
 
   // Add new withdrawal order
   const addWithdrawalOrder = useCallback(
