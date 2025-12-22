@@ -21,7 +21,7 @@ import {
   RecoveryLink,
   FaucetLinksCard,
 } from './components';
-import { OP_STACK_CHAINS } from './constants/op-stack-config';
+import { getOpStackChains } from './constants/op-stack-config';
 import {
   useBridgeState,
   useTokenAllowance,
@@ -39,10 +39,16 @@ import {
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
 
 export const useChainProxyAddress = (chainId: number | undefined) => {
-  if (chainId === CHAIN_CONFIG.l1ChainId) {
+  if (
+    chainId === CHAIN_CONFIG.l1ChainId ||
+    chainId === CHAIN_CONFIG.l1TestChainId
+  ) {
     return L1_STANDARD_BRIDGE_ADDRESS;
   }
-  if (chainId === CHAIN_CONFIG.l2ChainId) {
+  if (
+    chainId === CHAIN_CONFIG.l2ChainId ||
+    chainId === CHAIN_CONFIG.l2TestChainId
+  ) {
     return L2_STANDARD_BRIDGE_ADDRESS;
   }
   return '';
@@ -213,9 +219,11 @@ export function BridgePage() {
         return chainItem.id === chain?.id;
       })
     ) {
-      switchChainAsync({ chainId: OP_STACK_CHAINS.L1.id }).catch((error) => {
-        console.error('Failed to switch to Sepolia on page load:', error);
-      });
+      switchChainAsync({ chainId: getOpStackChains(chain?.id).L1.id }).catch(
+        (error) => {
+          console.error('Failed to switch to Sepolia on page load:', error);
+        },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Run only on mount

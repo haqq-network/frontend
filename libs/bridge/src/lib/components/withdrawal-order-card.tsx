@@ -20,7 +20,7 @@ import {
   ModalCloseButton,
   ModalHeading,
 } from '@haqq/shell-ui-kit';
-import { OP_STACK_CHAINS } from '../constants/op-stack-config';
+import { getOpStackChains } from '../constants/op-stack-config';
 import { useL2ToL1Withdrawal } from '../hooks/use-l2-to-l1-withdrawal';
 import { useWithdrawalOrders } from '../hooks/use-withdrawal-orders';
 import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
@@ -306,7 +306,7 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
                   <Link
                     href={getAddressExplorerUrl(
                       order.fromAddress,
-                      OP_STACK_CHAINS.L2.id,
+                      getOpStackChains(order.sourceChainId).L2.id,
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -322,7 +322,7 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
                   <Link
                     href={getAddressExplorerUrl(
                       order.toAddress,
-                      OP_STACK_CHAINS.L1.id,
+                      getOpStackChains(order.targetChainId).L1.id,
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -343,7 +343,7 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
                     <Link
                       href={getTxExplorerUrl(
                         order.proveHash,
-                        OP_STACK_CHAINS.L1.id,
+                        getOpStackChains(order.sourceChainId).L1.id,
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -361,7 +361,7 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
                     <Link
                       href={getTxExplorerUrl(
                         order.finalizeHash,
-                        OP_STACK_CHAINS.L1.id,
+                        getOpStackChains(order.sourceChainId).L1.id,
                       )}
                       target="_blank"
                       rel="noopener noreferrer"

@@ -1,15 +1,15 @@
-import { mainnet } from 'viem/chains';
+import { sepolia } from 'viem/chains';
 import { IBridgeAddresses } from './common-bridge-utils';
 
-const haqqEthiqRpcUrl = 'https://rpc.internal.ethiq.network/';
+const haqqTestethiqRpcUrl = 'https://rpc.testnet.ethiq.network/';
 
-export const ETHIQ_BRIDGE_ADDRESSES: IBridgeAddresses = {
-  SuperchainProxyAdminImpl: '0x543ba4aadbab8f9025686bd03993043599c6fb04',
-  SuperchainConfigProxy: '0x95703e0982140d16f8eba6d158fccede42f04a4c',
+export const ETHIQ_TESTNET_BRIDGE_ADDRESSES: IBridgeAddresses = {
+  SuperchainProxyAdminImpl: '0x189abaaaa82dfc015a588a7dbad6f13b1d3485bc',
+  SuperchainConfigProxy: '0xc2be75506d5724086deb7245bd260cc9753911be',
   SuperchainConfigImpl: '0xb08cc720f511062537ca78bdb0ae691f04f5a957',
-  ProtocolVersionsProxy: '0x8062abc286f5e7d9428a0ccb9abd71e50d93b935',
+  ProtocolVersionsProxy: '0x79add5713b383daa0a138d3c4780c7a1804a8090',
   ProtocolVersionsImpl: '0x37e15e4d6dffa9e5e320ee1ec036922e563cb76c',
-  OpcmImpl: '0xfa1ef97fb02b0da2ee2346b8e310907ab5519449',
+  OpcmImpl: '0xc69e4c24db479191676611a25d977203c3bdca62',
   OpcmContractsContainerImpl: '0x0000000000000000000000000000000000000000',
   OpcmGameTypeAdderImpl: '0x0000000000000000000000000000000000000000',
   OpcmDeployerImpl: '0x0000000000000000000000000000000000000000',
@@ -30,22 +30,22 @@ export const ETHIQ_BRIDGE_ADDRESSES: IBridgeAddresses = {
     '0x8ee6fb13c6c9a7e401531168e196fbf8b05ceabb',
   DisputeGameFactoryImpl: '0x74fac1d45b98bae058f8f566201c9a81b85c7d50',
   AnchorStateRegistryImpl: '0x0000000000000000000000000000000000000000',
-  OpChainProxyAdminImpl: '0x004ea6bad47a7b51cb248e17b39b1a53cac663c0',
-  OptimismPortalProxy: '0xea857195ff569a0c623464e1a3062dd398d53046',
-  AddressManagerImpl: '0x5bc146f89c67f1fa4334efb689a4a926b521ac0c',
-  L1Erc721BridgeProxy: '0xfb96b6c6a70ed0e1e1f9b26cbaf85f2ecbf26aec',
-  SystemConfigProxy: '0x3f715f77cc105fca0936f479bded4a035eefe974',
+  OpChainProxyAdminImpl: '0xcd9c1ab8aa13c69f72cd68520a353bd54cf5ab18',
+  OptimismPortalProxy: '0x5b5f73ebcda96d9c4ca3315497e370c49573cf62',
+  AddressManagerImpl: '0x801a839da752289f448e0c9cc3bfb8d861077faa',
+  L1Erc721BridgeProxy: '0xfa74bcf421580f5ba021a3f3e270004743fdaa26',
+  SystemConfigProxy: '0xb8ad3a6beb0301f057c33f2a039a1044ec4d9bf9',
   OptimismMintableErc20FactoryProxy:
-    '0x2045bc5f56e5b40978bab717c274aa2db9ea019d',
-  L1StandardBridgeProxy: '0xfb30129241e7520e66b96426259e95359c3e2800',
-  L1CrossDomainMessengerProxy: '0xad4e4387b7f53b326d0d797f5342a120e8b427d2',
-  EthLockboxProxy: '0xe26cd6ffdbc21f7294cf56245162be431b17c8e5',
-  DisputeGameFactoryProxy: '0xd68f5ce839e1325401a9deab56fa1c14cddb1cea',
-  AnchorStateRegistryProxy: '0x159725154956a4097afdca285e4684764d7a02a5',
+    '0xf197dd37d128b451ed546c0a88153d0eaaf1d7f2',
+  L1StandardBridgeProxy: '0x611bc60e604803b4f064810b4630290515bfba8c',
+  L1CrossDomainMessengerProxy: '0x96c9dcddc1cfd08ea3848395c390df815d8ec581',
+  EthLockboxProxy: '0x879122273ff3ee266fe58a8da8913f01c1065276',
+  DisputeGameFactoryProxy: '0xa34af21d8b896ea86bd3c5dd350f04ec8719e9f9',
+  AnchorStateRegistryProxy: '0x804bfedd469ff6b5669378d6c82e32517c010136',
   FaultDisputeGameImpl: '0x0000000000000000000000000000000000000000',
-  PermissionedDisputeGameImpl: '0xe85f5174c2043444aa09141885d8d72b9b175d81',
+  PermissionedDisputeGameImpl: '0x3369335fdc75f5cfd377dc63e9e3c570bbdb2123',
   DelayedWethPermissionedGameProxy:
-    '0xfbc084a037d510d1cb1d1aac08e010ecd8a42f5e',
+    '0xca17f9597d2f85db54a603dae9761f180dded6e8',
   DelayedWethPermissionlessGameProxy:
     '0x0000000000000000000000000000000000000000',
   AltDAChallengeProxy: '0x0000000000000000000000000000000000000000',
@@ -53,12 +53,12 @@ export const ETHIQ_BRIDGE_ADDRESSES: IBridgeAddresses = {
   L2OutputOracleProxy: '0x0000000000000000000000000000000000000000',
 };
 
-export const L1_STANDARD_BRIDGE_ADDRESS =
-  ETHIQ_BRIDGE_ADDRESSES.L1StandardBridgeProxy;
+export const L1_STANDARD_TESTETHIQ_BRIDGE_ADDRESS =
+  ETHIQ_TESTNET_BRIDGE_ADDRESSES.L1StandardBridgeProxy;
 
-export const haqqEthiq = {
-  id: 30303,
-  name: 'Ethiq',
+export const haqqTestethiq = {
+  id: 853211,
+  name: 'Testethiq',
   nativeCurrency: {
     decimals: 18,
     name: 'Ethereum',
@@ -66,30 +66,31 @@ export const haqqEthiq = {
   },
   rpcUrls: {
     default: {
-      http: [haqqEthiqRpcUrl],
+      http: [haqqTestethiqRpcUrl],
     },
   },
   blockExplorers: {
     default: {
-      name: 'HAQQ Ethiq',
-      url: 'https://explorer.ethiq.network/',
-      apiUrl: 'https://explorer.ethiq.network/api',
+      name: 'HAQQ Testethiq',
+      url: 'https://explorer.testnet.ethiq.network/',
+      apiUrl: 'https://explorer.testnet.ethiq.network/api',
     },
   },
   contracts: {
     portal: {
-      [mainnet.id]: {
-        address: ETHIQ_BRIDGE_ADDRESSES.OptimismPortalProxy as `0x${string}`,
+      [sepolia.id]: {
+        address:
+          ETHIQ_TESTNET_BRIDGE_ADDRESSES.OptimismPortalProxy as `0x${string}`,
       },
     },
     disputeGameFactory: {
-      [mainnet.id]: {
+      [sepolia.id]: {
         address:
-          ETHIQ_BRIDGE_ADDRESSES.DisputeGameFactoryProxy as `0x${string}`,
+          ETHIQ_TESTNET_BRIDGE_ADDRESSES.DisputeGameFactoryProxy as `0x${string}`,
       },
     },
     l2OutputOracle: {
-      [mainnet.id]: {
+      [sepolia.id]: {
         // deprecated https://docs.optimism.io/stack/smart-contracts/smart-contracts
         address: '0x0000000000000000000000000000000000000000' as `0x${string}`, // Placeholder
       },

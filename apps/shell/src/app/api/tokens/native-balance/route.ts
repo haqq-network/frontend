@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createPublicClient, http, formatEther, Chain } from 'viem';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
-import { haqqTestethiq } from '@haqq/shell-shared';
+import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
 
 export async function GET(request: NextRequest) {
   try {
@@ -77,6 +77,12 @@ function getChainConfig(chainId: number): ChainConfig | null {
     [haqqTestethiq.id]: {
       chain: haqqTestethiq,
       rpcUrl: haqqTestethiq.rpcUrls.default.http[0],
+      nativeSymbol: 'ETH',
+      nativeName: 'Ethereum',
+    },
+    [haqqEthiq.id]: {
+      chain: haqqEthiq,
+      rpcUrl: haqqEthiq.rpcUrls.default.http[0],
       nativeSymbol: 'ETH',
       nativeName: 'Ethereum',
     },

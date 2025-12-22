@@ -10,7 +10,6 @@ import {
   useReadContract,
 } from 'wagmi';
 import {
-  BRIDGE_ADDRESSES,
   getChainById,
   L2_OPTIMISM_MINTABLE_ERC20_FACTORY_ADDRESS,
 } from '@haqq/shell-shared';

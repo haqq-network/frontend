@@ -2,8 +2,8 @@
  * Scanner API service for retrieving token pair information
  */
 
-import { sepolia } from 'viem/chains';
-import { haqqTestethiq } from '@haqq/shell-shared';
+import { mainnet, sepolia } from 'viem/chains';
+import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
 
 const SCANNER_API_BASE_URL = 'https://scanner.ethiq.network/api/v1';
 
@@ -163,7 +163,11 @@ export function getChainNameFromId(chainId: number): string {
     case sepolia.id: // Sepolia
       return 'Sepolia';
     case haqqTestethiq.id:
-      return 'HAQQ';
+      return 'HAQQ Testethiq';
+    case haqqEthiq.id:
+      return 'HAQQ Ethiq';
+    case mainnet.id:
+      return 'Mainnet';
     default:
       throw new Error(`Unsupported chain ID: ${chainId}`);
   }

@@ -297,7 +297,8 @@ export function useL2ToL1Withdrawal({
         // According to Viem docs: "Prove the withdrawal on the L1"
         const proveHash = await walletClient.proveWithdrawal({
           ...proveArgs,
-          targetChain: chains.L2_WITH_CONTRACTS,
+          // TODO: Fix this
+          targetChain: chains.L2_WITH_CONTRACTS as any,
         });
 
         // Step 5: Wait until the prove withdrawal is processed
@@ -388,7 +389,8 @@ export function useL2ToL1Withdrawal({
         // Step 4: Finalize the withdrawal
         // According to Viem docs: "Finalize the withdrawal"
         const finalizeHash = await walletClient.finalizeWithdrawal({
-          targetChain: chains.L2_WITH_CONTRACTS,
+          // TODO: Fix this
+          targetChain: chains.L2_WITH_CONTRACTS as any,
           withdrawal,
         });
 
