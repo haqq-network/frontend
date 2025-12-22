@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
 import { createNumberMask } from 'text-mask-addons';
 
-const DEFAULT_DECIMAL_LIMIT = 3;
+const DEFAULT_DECIMAL_LIMIT = 18;
 const defaultMaskOptions = {
   prefix: '',
   suffix: '',
@@ -25,14 +25,25 @@ export const usePreparedMaskValue = (
   value: string | readonly string[] | number | undefined,
 ) => {
   const inputValue = useMemo(() => {
-    // Hack, because react-text-mask doesn't work correctly with decimals
-    // ex: it converts 0.0709 to 0.070 (not 0.071!)
-    // Additionally, remove trailing zeros and only fix to decimal limit if it has decimals
-    return value
-      ? Number(value).toString().includes('.')
-        ? Number(value).toFixed(DEFAULT_DECIMAL_LIMIT).replace(/0+$/, '')
-        : value
-      : undefined;
+    if (!value && value !== 0) return undefined;
+
+    // Convert to string, preserving precision
+    let stringValue: string;
+    if (typeof value === 'number') {
+      // Use toFixed with high precision to avoid scientific notation
+      // This preserves values like 0.0001 without rounding
+      stringValue = value.toFixed(18);
+    } else if (Array.isArray(value)) {
+      stringValue = value.join('');
+    } else {
+      stringValue = String(value);
+    }
+
+    // Remove trailing zeros for cleaner display, but preserve the decimal point if needed
+    // This allows values like 0.0001 to be displayed correctly
+    const cleaned = stringValue.replace(/\.?0+$/, '');
+    // If cleaning removed everything (e.g., value was 0), return "0"
+    return cleaned || '0';
   }, [value]);
 
   return {

@@ -85,6 +85,7 @@ export function useL2ToL1Withdrawal({
     publicClientReadonlyL2,
   } = useOpStackClients();
 
+  console.log('publicClientL1', publicClientL1);
   const { isConnected } = useAccount();
   const toast = useToast();
 

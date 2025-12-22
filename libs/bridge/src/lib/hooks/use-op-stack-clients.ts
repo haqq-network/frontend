@@ -19,59 +19,67 @@ export function useOpStackClients() {
   const { address, chain } = useAccount();
   const { data: walletClient } = useWalletClient();
 
+  const opChainL1 = useMemo(() => {
+    return getOpStackChains(chain?.id).L1;
+  }, [chain?.id]);
+
+  const opChainL2 = useMemo(() => {
+    return getOpStackChains(chain?.id).L2;
+  }, [chain?.id]);
+
   // Create L1 public client (Sepolia) with OP Stack contracts
   const publicClientL1 = useMemo(() => {
     return createPublicClient({
-      chain: getOpStackChains(chain?.id).L1,
+      chain: opChainL1,
       transport:
         typeof window !== 'undefined' && window.ethereum
           ? custom(window.ethereum)
-          : http(getOpStackChains(chain?.id).L1.rpcUrls.default.http[0]),
+          : http(opChainL1.rpcUrls.default.http[0]),
       batch: { multicall: true },
     }).extend(publicActionsL1());
-  }, [chain?.id]);
+  }, [opChainL1]);
 
   const publicClientReadonlyL1 = useMemo(() => {
     return createPublicClient({
-      chain: getOpStackChains(chain?.id).L1,
-      transport: http(getOpStackChains(chain?.id).L1.rpcUrls.default.http[0]),
+      chain: opChainL1,
+      transport: http(opChainL1.rpcUrls.default.http[0]),
       batch: { multicall: true },
     }).extend(publicActionsL1());
-  }, [chain?.id]);
+  }, [opChainL1]);
 
   // Create L2 public client (HAQQ Devnet) with OP Stack contracts
   const publicClientL2 = useMemo(() => {
     return createPublicClient({
-      chain: getOpStackChains(chain?.id).L2,
+      chain: opChainL2,
       transport:
         typeof window !== 'undefined' && window.ethereum
           ? custom(window.ethereum)
-          : http(getOpStackChains(chain?.id).L2.rpcUrls.default.http[0]),
+          : http(opChainL2.rpcUrls.default.http[0]),
       batch: { multicall: true },
     }).extend(publicActionsL2());
-  }, [chain?.id]);
+  }, [opChainL2]);
 
   const publicClientReadonlyL2 = useMemo(() => {
     return createPublicClient({
-      chain: getOpStackChains(chain?.id).L2,
+      chain: opChainL2,
       transport: http(getOpStackChains(chain?.id).L2.rpcUrls.default.http[0]),
       batch: { multicall: true },
     }).extend(publicActionsL2());
-  }, [chain?.id]);
+  }, [opChainL2]);
 
   // Create L1 wallet client (Sepolia) with OP Stack contracts
   const walletClientL1 = useMemo(() => {
     return walletClient && address
       ? createWalletClient({
           account: address as `0x${string}`,
-          chain: getOpStackChains(chain?.id).L1,
+          chain: opChainL1,
           transport:
             typeof window !== 'undefined' && window.ethereum
               ? custom(window.ethereum)
-              : http(getOpStackChains(chain?.id).L1.rpcUrls.default.http[0]),
+              : http(opChainL1.rpcUrls.default.http[0]),
         }).extend(walletActionsL1())
       : null;
-  }, [walletClient, address, chain?.id]);
+  }, [walletClient, address, opChainL1]);
 
   const getWalletClientL1 = useCallback(async () => {
     if (walletClientL1) {
@@ -81,39 +89,37 @@ export function useOpStackClients() {
     if (address && typeof window !== 'undefined' && window.ethereum) {
       return createWalletClient({
         account: address as `0x${string}`,
-        chain: getOpStackChains(chain?.id).L1,
+        chain: opChainL1,
         transport: custom(window.ethereum),
       }).extend(walletActionsL1());
     }
 
     return null;
-  }, [address, walletClientL1]);
+  }, [address, walletClientL1, opChainL1]);
 
   const walletClientReadonlyL1 = useMemo(() => {
     return walletClient && address
       ? createWalletClient({
           account: address as `0x${string}`,
-          chain: getOpStackChains(chain?.id).L1,
-          transport: http(
-            getOpStackChains(chain?.id).L1.rpcUrls.default.http[0],
-          ),
+          chain: opChainL1,
+          transport: http(opChainL1.rpcUrls.default.http[0]),
         }).extend(walletActionsL1())
       : null;
-  }, [walletClient, address, chain?.id]);
+  }, [walletClient, address, opChainL1]);
 
   // Create L2 wallet client (HAQQ Devnet) with OP Stack contracts
   const walletClientL2 = useMemo(() => {
     return walletClient && address
       ? createWalletClient({
           account: address as `0x${string}`,
-          chain: getOpStackChains(chain?.id).L2,
+          chain: opChainL2,
           transport:
             typeof window !== 'undefined' && window.ethereum
               ? custom(window.ethereum)
-              : http(getOpStackChains(chain?.id).L2.rpcUrls.default.http[0]),
+              : http(opChainL2.rpcUrls.default.http[0]),
         }).extend(walletActionsL2())
       : null;
-  }, [walletClient, address, chain?.id]);
+  }, [walletClient, address, opChainL2]);
 
   const getWalletClientL2 = useCallback(async () => {
     if (walletClientL2) {
@@ -123,25 +129,27 @@ export function useOpStackClients() {
     if (address && typeof window !== 'undefined' && window.ethereum) {
       return createWalletClient({
         account: address as `0x${string}`,
-        chain: getOpStackChains(chain?.id).L2,
+        chain: opChainL2,
         transport: custom(window.ethereum),
       }).extend(walletActionsL2());
     }
 
     return null;
-  }, [address, walletClientL2, chain?.id]);
+  }, [address, walletClientL2, opChainL2]);
 
   const walletClientReadonlyL2 = useMemo(() => {
     return walletClient && address
       ? createWalletClient({
           account: address as `0x${string}`,
-          chain: getOpStackChains(chain?.id).L2,
-          transport: http(
-            getOpStackChains(chain?.id).L2.rpcUrls.default.http[0],
-          ),
+          chain: opChainL2,
+          transport: http(opChainL2.rpcUrls.default.http[0]),
         }).extend(walletActionsL2())
       : null;
-  }, [walletClient, address, chain?.id]);
+  }, [walletClient, address, opChainL2]);
+
+  const chains = useMemo(() => {
+    return getOpStackChains(chain?.id);
+  }, [chain?.id]);
 
   return {
     publicClientL1,
@@ -154,6 +162,6 @@ export function useOpStackClients() {
     publicClientReadonlyL2,
     walletClientReadonlyL1,
     walletClientReadonlyL2,
-    chains: getOpStackChains(chain?.id),
+    chains,
   };
 }
