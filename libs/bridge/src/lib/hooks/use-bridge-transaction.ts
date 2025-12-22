@@ -136,10 +136,6 @@ export function useBridgeTransaction({
 
       const is100PercentOfAvailableBalance = availableBalance === amount;
 
-      console.log(
-        'is100PercentOfAvailableBalance',
-        is100PercentOfAvailableBalance,
-      );
       try {
         let hash: string;
 

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createPublicClient, http, formatEther, Chain } from 'viem';
-import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
+import { haqqMainnet, haqqTestedge2, mainnet, sepolia } from 'viem/chains';
 import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
 
 export async function GET(request: NextRequest) {
@@ -103,6 +103,12 @@ function getChainConfig(chainId: number): ChainConfig | null {
       rpcUrl: haqqTestedge2.rpcUrls.default.http[0],
       nativeSymbol: 'ISLM',
       nativeName: 'Islamic Coin',
+    },
+    [mainnet.id]: {
+      chain: mainnet,
+      rpcUrl: mainnet.rpcUrls.default.http[0],
+      nativeSymbol: 'ETH',
+      nativeName: 'Ethereum',
     },
   };
 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
+import { haqqMainnet, haqqTestedge2, mainnet, sepolia } from 'viem/chains';
 import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
 
 export interface TokenBalance {
@@ -158,6 +158,12 @@ function getChainConfig(chainId: number): ChainConfig | null {
       apiUrl: haqqTestedge2.blockExplorers.default.apiUrl,
       nativeSymbol: 'ISLM',
       nativeName: 'Islamic Coin',
+    },
+    [mainnet.id]: {
+      // Mainnet
+      apiUrl: mainnet.blockExplorers.default.apiUrl,
+      nativeSymbol: 'ETH',
+      nativeName: 'Ethereum',
     },
   };
 
