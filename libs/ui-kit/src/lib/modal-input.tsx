@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
 import { createNumberMask } from 'text-mask-addons';
 
-const DEFAULT_DECIMAL_LIMIT = 18;
+const DEFAULT_DECIMAL_LIMIT = 6;
 const defaultMaskOptions = {
   prefix: '',
   suffix: '',
