@@ -105,11 +105,12 @@ export function Web3ConnectButtons() {
         />
       </div>
       {isBridgePage ? (
-        <BridgePageAccountBtn />
+        <BridgePageAccountBtn withoutDropdown={false} />
       ) : (
         <div className="leading-[0]">
           <AccountBtnWrapper
             balance={balance ? formatNumber(balance.balance) : undefined}
+            withoutDropdown={false}
           />
         </div>
       )}
@@ -158,11 +159,12 @@ export function Web3ConnectButtonsMobile() {
         />
       </div>
       {isBridgePage ? (
-        <BridgePageAccountBtn />
+        <BridgePageAccountBtn withoutDropdown={true} />
       ) : (
         <div className="leading-[0]">
           <AccountBtnWrapper
             balance={balance ? formatNumber(balance.balance) : undefined}
+            withoutDropdown={true}
           />
         </div>
       )}
@@ -173,18 +175,33 @@ export function Web3ConnectButtonsMobile() {
   );
 }
 
-const BridgePageAccountBtn = () => {
+const BridgePageAccountBtn = ({
+  withoutDropdown,
+}: {
+  withoutDropdown?: boolean;
+}) => {
   const { data: balance } = useBalance();
-  return <AccountBtnWrapper balance={balance?.formatted} />;
+  return (
+    <AccountBtnWrapper
+      balance={balance?.formatted}
+      withoutDropdown={withoutDropdown}
+    />
+  );
 };
 
-const AccountBtnWrapper = ({ balance }: { balance: string | undefined }) => {
+const AccountBtnWrapper = ({
+  balance,
+  withoutDropdown,
+}: {
+  balance: string | undefined;
+  withoutDropdown?: boolean;
+}) => {
   const { ethAddress } = useAddress();
   return (
     <AccountButton
       balance={balance}
       address={getFormattedAddress(ethAddress, 3, 2)}
-      withoutDropdown
+      withoutDropdown={withoutDropdown}
     />
   );
 };
