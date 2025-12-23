@@ -91,6 +91,31 @@ export function useBridgeState({
   const [selectedToken, setSelectedToken] = useState<Token | null>();
   const [previousChainId, setPreviousChainId] = useState<number | undefined>();
 
+  // Reset tokenIn and amount if URL chain doesn't match current chain
+  useEffect(() => {
+    if (
+      chain?.id &&
+      urlState?.chainIn &&
+      chain.id !== urlState.chainIn &&
+      (urlState.tokenIn || urlState.amount)
+    ) {
+      // URL chain doesn't match current chain - reset token and amount
+      updateUrlState({
+        tokenIn: undefined,
+        amount: undefined,
+      });
+      // Also reset local state
+      setBridgeAmount(undefined);
+      setSelectedToken(ETH_TOKEN);
+    }
+  }, [
+    chain?.id,
+    urlState?.chainIn,
+    urlState?.tokenIn,
+    urlState?.amount,
+    updateUrlState,
+  ]);
+
   // Clear URL state and reset amount/selected token when chain changes
   useEffect(() => {
     // Skip on initial mount or if chain is undefined
@@ -104,20 +129,27 @@ export function useBridgeState({
 
     // If chain actually changed (not just a re-render)
     if (chain.id !== previousChainId) {
-      // Clear URL state
+      // Update URL state with new chain and clear token/amount
       updateUrlState({
+        chainIn: chain.id,
         tokenIn: undefined,
         amount: undefined,
       });
 
       // Reset local state
-      setBridgeAmount(0);
+      setBridgeAmount(undefined);
       setSelectedToken(ETH_TOKEN);
 
       // Update previous chain ID
       setPreviousChainId(chain.id);
     }
-  }, [chain?.id, previousChainId, updateUrlState]);
+  }, [
+    chain?.id,
+    previousChainId,
+    updateUrlState,
+    urlState?.chainIn,
+    switchChainAsync,
+  ]);
 
   // Initialize state from URL parameters
   useEffect(() => {
@@ -135,25 +167,43 @@ export function useBridgeState({
 
   // Sync state changes to URL
   useLayoutEffect(() => {
-    // Wait until tokens are finished loading before syncing to URL
-    if (isLoadingTokens || userTokens.length === 0) {
-      return;
-    }
+    // Skip if chain is not supported
     if (
-      selectedToken &&
-      chain?.id &&
-      bridgeAmount !== undefined &&
-      SUPPORTED_CHAINS.some((itemChain) => {
+      !chain?.id ||
+      !SUPPORTED_CHAINS.some((itemChain) => {
         return chain.id === itemChain.id;
       })
     ) {
-      updateUrlState({
-        tokenIn: selectedToken.address,
-        chainIn: chain.id,
-        amount: bridgeAmount.toString(),
-      });
+      return;
     }
-  }, [selectedToken, chain?.id, bridgeAmount, updateUrlState, isLoadingTokens]);
+
+    // Always update chainIn when chain changes
+    const urlUpdates: Partial<BridgeUrlState> = {
+      chainIn: chain.id,
+    };
+
+    // Update tokenIn if we have a selected token and tokens are loaded
+    if (selectedToken && !isLoadingTokens && userTokens.length > 0) {
+      urlUpdates.tokenIn = selectedToken.address;
+    }
+
+    // Update amount (or clear it if undefined)
+    if (bridgeAmount !== undefined) {
+      urlUpdates.amount = bridgeAmount.toString();
+    } else {
+      // Explicitly clear amount if it's undefined
+      urlUpdates.amount = undefined;
+    }
+
+    updateUrlState(urlUpdates);
+  }, [
+    selectedToken,
+    chain?.id,
+    bridgeAmount,
+    updateUrlState,
+    isLoadingTokens,
+    userTokens.length,
+  ]);
 
   // Get available tokens for current chain (dynamically fetched with fallback)
   const availableTokens = useMemo(() => {
