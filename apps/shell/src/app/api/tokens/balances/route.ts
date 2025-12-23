@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
         { status: 400 },
       );
     }
-
+    //
     // Get chain configuration
     const chainConfig = getChainConfig(Number(chainId));
     if (!chainConfig) {
@@ -161,7 +161,7 @@ function getChainConfig(chainId: number): ChainConfig | null {
     },
     [mainnet.id]: {
       // Mainnet
-      apiUrl: mainnet.blockExplorers.default.apiUrl,
+      apiUrl: 'https://eth.blockscout.com/api',
       nativeSymbol: 'ETH',
       nativeName: 'Ethereum',
     },
