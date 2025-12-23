@@ -30,9 +30,16 @@ export const usePreparedMaskValue = (
     // Convert to string, preserving precision
     let stringValue: string;
     if (typeof value === 'number') {
-      // Use toFixed with high precision to avoid scientific notation
+      // Round to the mask's decimal limit to avoid floating-point precision issues
+      // This fixes cases like 1.2 being stored as 1.19999999999999995559
+      // or 2222.2 being stored as 2222.1999999999998
+      // We round to DEFAULT_DECIMAL_LIMIT (6) since that's what the mask allows
+      const rounded =
+        Math.round(value * 10 ** DEFAULT_DECIMAL_LIMIT) /
+        10 ** DEFAULT_DECIMAL_LIMIT;
+      // Use toFixed with the decimal limit to avoid scientific notation
       // This preserves values like 0.0001 without rounding
-      stringValue = value.toFixed(18);
+      stringValue = rounded.toFixed(DEFAULT_DECIMAL_LIMIT);
     } else if (Array.isArray(value)) {
       stringValue = value.join('');
     } else {
