@@ -18,6 +18,7 @@ export function AccountButton({
   withoutDropdown?: boolean;
 }) {
   const { t } = useTranslate('common');
+
   return (
     <div
       className={clsx(

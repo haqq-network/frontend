@@ -102,8 +102,8 @@ export function useL2ToL1Withdrawal({
       try {
         // Step 1: Build parameters to initiate the withdrawal transaction on the L1
         // According to Viem docs: "Build parameters to initiate the withdrawal transaction on the L1"
-        const args = await publicClientL1.buildInitiateWithdrawal({
-          account: walletClient.account,
+        const args = await publicClientReadonlyL1.buildInitiateWithdrawal({
+          account: walletClient.account.address,
           to: toAddress as `0x${string}`,
           value: parseEther(amount.toString()),
         });
@@ -150,7 +150,7 @@ export function useL2ToL1Withdrawal({
     },
     [
       getWalletClientL2,
-      publicClientL1,
+      publicClientReadonlyL1,
       publicClientReadonlyL2,
       chains,
       addWithdrawalOrder,
@@ -297,7 +297,8 @@ export function useL2ToL1Withdrawal({
         // According to Viem docs: "Prove the withdrawal on the L1"
         const proveHash = await walletClient.proveWithdrawal({
           ...proveArgs,
-          targetChain: chains.L2_WITH_CONTRACTS,
+          // TODO: Fix this
+          targetChain: chains.L2_WITH_CONTRACTS as any,
         });
 
         // Step 5: Wait until the prove withdrawal is processed
@@ -388,7 +389,8 @@ export function useL2ToL1Withdrawal({
         // Step 4: Finalize the withdrawal
         // According to Viem docs: "Finalize the withdrawal"
         const finalizeHash = await walletClient.finalizeWithdrawal({
-          targetChain: chains.L2_WITH_CONTRACTS,
+          // TODO: Fix this
+          targetChain: chains.L2_WITH_CONTRACTS as any,
           withdrawal,
         });
 

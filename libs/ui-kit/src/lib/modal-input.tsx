@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import MaskedInput from 'react-text-mask';
 import { createNumberMask } from 'text-mask-addons';
 
-const DEFAULT_DECIMAL_LIMIT = 3;
+const DEFAULT_DECIMAL_LIMIT = 6;
 const defaultMaskOptions = {
   prefix: '',
   suffix: '',
@@ -25,6 +25,7 @@ export const usePreparedMaskValue = (
   value: string | readonly string[] | number | undefined,
 ) => {
   const inputValue = useMemo(() => {
+    if (!value && value !== 0) return undefined;
     // Hack, because react-text-mask doesn't work correctly with decimals
     // ex: it converts 0.0709 to 0.070 (not 0.071!)
     // Additionally, remove trailing zeros and only fix to decimal limit if it has decimals

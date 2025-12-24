@@ -20,7 +20,7 @@ describe('usePreparedMaskValue', () => {
     const { result } = renderHook(() => {
       return usePreparedMaskValue('1000.1234');
     });
-    expect(result.current.inputValue).toBe('1000.123');
+    expect(result.current.inputValue).toBe('1000.1234');
   });
 
   it('should remove trailing zeros from decimal values', () => {
@@ -62,6 +62,6 @@ describe('usePreparedMaskValue', () => {
     const { result } = renderHook(() => {
       return usePreparedMaskValue('1000000.12345');
     });
-    expect(result.current.inputValue).toBe('1000000.123');
+    expect(result.current.inputValue).toBe('1000000.12345');
   });
 });

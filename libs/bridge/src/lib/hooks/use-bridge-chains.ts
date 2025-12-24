@@ -30,9 +30,15 @@ export function useBridgeChains({
     if (sourceChainId === CHAIN_CONFIG.l1ChainId) {
       return CHAIN_CONFIG.l2ChainId;
     }
+    if (sourceChainId === CHAIN_CONFIG.l1TestChainId) {
+      return CHAIN_CONFIG.l2TestChainId;
+    }
     // L2 -> L1 bridging
     if (sourceChainId === CHAIN_CONFIG.l2ChainId) {
       return CHAIN_CONFIG.l1ChainId;
+    }
+    if (sourceChainId === CHAIN_CONFIG.l2TestChainId) {
+      return CHAIN_CONFIG.l1TestChainId;
     }
     // Default fallback
     return CHAIN_CONFIG.l2ChainId;
@@ -41,8 +47,10 @@ export function useBridgeChains({
   // Check if this is an L2 to L1 transfer
   const isL2ToL1 = useMemo(() => {
     return (
-      sourceChainId === CHAIN_CONFIG.l2ChainId &&
-      targetChainId === CHAIN_CONFIG.l1ChainId
+      (sourceChainId === CHAIN_CONFIG.l2ChainId &&
+        targetChainId === CHAIN_CONFIG.l1ChainId) ||
+      (sourceChainId === CHAIN_CONFIG.l2TestChainId &&
+        targetChainId === CHAIN_CONFIG.l1TestChainId)
     );
   }, [sourceChainId, targetChainId]);
 

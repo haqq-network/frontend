@@ -2,8 +2,9 @@
 
 import { useCallback, useMemo } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { useChainId } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 import { useWithdrawalTimers } from './use-withdrawal-timers';
+import { getOpStackChains } from '../constants/op-stack-config';
 import {
   WithdrawalOrder,
   WithdrawalOrderStorage,
@@ -31,6 +32,7 @@ export function useWithdrawalOrders() {
     useWithdrawalTimers();
 
   const chainId = useChainId();
+  const { address } = useAccount();
 
   // Get all orders
   const orders = useMemo(() => {
@@ -39,14 +41,25 @@ export function useWithdrawalOrders() {
     });
   }, [storage.orders]);
 
+  const opChainId = useMemo(() => {
+    return getOpStackChains(chainId).L1.id;
+  }, [chainId]);
+
   // Get pending orders (not finalized or failed)
   const pendingOrders = useMemo(() => {
-    return storage.orders.filter((order) => {
-      return ![WithdrawalStatus.FINALIZED, WithdrawalStatus.FAILED].includes(
-        order.status,
-      );
-    });
-  }, [storage.orders]);
+    return storage.orders
+      .filter((order) => {
+        return ![WithdrawalStatus.FINALIZED, WithdrawalStatus.FAILED].includes(
+          order.status,
+        );
+      })
+      .filter((order) => {
+        return (
+          order.targetChainId === opChainId &&
+          order.fromAddress?.toLowerCase() === address?.toLowerCase()
+        );
+      });
+  }, [storage.orders, opChainId, address]);
 
   // Add new withdrawal order
   const addWithdrawalOrder = useCallback(

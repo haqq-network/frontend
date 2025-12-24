@@ -98,8 +98,10 @@ export function useBridgeTransaction({
 
       // Check if this is an L2 to L1 transfer
       const isL2ToL1 =
-        sourceChainId === CHAIN_CONFIG.l2ChainId &&
-        targetChainId === CHAIN_CONFIG.l1ChainId;
+        (sourceChainId === CHAIN_CONFIG.l2ChainId &&
+          targetChainId === CHAIN_CONFIG.l1ChainId) ||
+        (sourceChainId === CHAIN_CONFIG.l2TestChainId &&
+          targetChainId === CHAIN_CONFIG.l1TestChainId);
 
       if (isL2ToL1) {
         if (token.address === ETH_ADDRESS) {
@@ -134,10 +136,6 @@ export function useBridgeTransaction({
 
       const is100PercentOfAvailableBalance = availableBalance === amount;
 
-      console.log(
-        'is100PercentOfAvailableBalance',
-        is100PercentOfAvailableBalance,
-      );
       try {
         let hash: string;
 
