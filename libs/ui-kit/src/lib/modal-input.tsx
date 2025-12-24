@@ -26,31 +26,14 @@ export const usePreparedMaskValue = (
 ) => {
   const inputValue = useMemo(() => {
     if (!value && value !== 0) return undefined;
-
-    // Convert to string, preserving precision
-    let stringValue: string;
-    if (typeof value === 'number') {
-      // Round to the mask's decimal limit to avoid floating-point precision issues
-      // This fixes cases like 1.2 being stored as 1.19999999999999995559
-      // or 2222.2 being stored as 2222.1999999999998
-      // We round to DEFAULT_DECIMAL_LIMIT (6) since that's what the mask allows
-      const rounded =
-        Math.round(value * 10 ** DEFAULT_DECIMAL_LIMIT) /
-        10 ** DEFAULT_DECIMAL_LIMIT;
-      // Use toFixed with the decimal limit to avoid scientific notation
-      // This preserves values like 0.0001 without rounding
-      stringValue = rounded.toFixed(DEFAULT_DECIMAL_LIMIT);
-    } else if (Array.isArray(value)) {
-      stringValue = value.join('');
-    } else {
-      stringValue = String(value);
-    }
-
-    // Remove trailing zeros for cleaner display, but preserve the decimal point if needed
-    // This allows values like 0.0001 to be displayed correctly
-    const cleaned = stringValue.replace(/\.?0+$/, '');
-    // If cleaning removed everything (e.g., value was 0), return "0"
-    return cleaned || '0';
+    // Hack, because react-text-mask doesn't work correctly with decimals
+    // ex: it converts 0.0709 to 0.070 (not 0.071!)
+    // Additionally, remove trailing zeros and only fix to decimal limit if it has decimals
+    return value
+      ? Number(value).toString().includes('.')
+        ? Number(value).toFixed(DEFAULT_DECIMAL_LIMIT).replace(/0+$/, '')
+        : value
+      : undefined;
   }, [value]);
 
   return {
