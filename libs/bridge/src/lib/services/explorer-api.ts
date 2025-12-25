@@ -118,24 +118,11 @@ export async function fetchAllTokenBalances(
       `Fetching all token balances for address ${address} on chain ${chainId}`,
     );
 
-    const [erc20Tokens, nativeToken] = await Promise.all([
-      fetchUserTokenBalances(address, chainId),
-      fetchNativeTokenBalance(address, chainId),
-    ]);
+    const erc20Tokens = await fetchUserTokenBalances(address, chainId);
 
     console.log(`ERC-20 tokens found: ${erc20Tokens.length}`);
-    console.log(`Native token found: ${nativeToken ? 'Yes' : 'No'}`);
 
     const allTokens = [...erc20Tokens];
-
-    if (nativeToken && nativeToken.formattedBalance > 0) {
-      console.log(
-        `Adding native token with balance: ${nativeToken.formattedBalance} ${nativeToken.symbol}`,
-      );
-      allTokens.unshift(nativeToken);
-    } else if (nativeToken) {
-      console.log(`Native token has zero balance, not adding to list`);
-    }
 
     console.log(`Total tokens to return: ${allTokens.length}`);
     return allTokens;
