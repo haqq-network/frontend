@@ -206,13 +206,13 @@ export function useWithdrawalOrders() {
         console.log(
           `Syncing withdrawals from explorer for address: ${addressToSync}`,
         );
-        const response = await fetchWithdrawals(addressToSync);
+        const allWithdrawals = await fetchWithdrawals(addressToSync);
 
         // Track withdrawals that need recovery
         const withdrawalsToRecover: string[] = [];
 
         // Update existing orders or create new ones based on explorer data
-        for (const explorerWithdrawal of response.items) {
+        for (const explorerWithdrawal of allWithdrawals) {
           const order = orders.find((order) => {
             return (
               order.initiateHash.toLowerCase() ===
@@ -251,7 +251,7 @@ export function useWithdrawalOrders() {
         }
 
         console.log(
-          `Synced ${response.items.length} withdrawals from explorer API`,
+          `Synced ${allWithdrawals.length} withdrawals from explorer API`,
         );
       } catch (error) {
         console.error('Failed to sync withdrawals from explorer:', error);
