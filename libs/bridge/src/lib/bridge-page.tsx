@@ -1,5 +1,5 @@
 'use client';
-import { useState, useLayoutEffect, useEffect } from 'react';
+import { useState, useLayoutEffect, useEffect, useRef } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { sepolia } from 'viem/chains';
 import { useSwitchChain } from 'wagmi';
@@ -34,6 +34,7 @@ import {
   useBridgeValidation,
   useBridgeHandlers,
   useBridgeTransactionReceipt,
+  useWithdrawalRecovery,
 } from './hooks';
 
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
@@ -62,7 +63,21 @@ export function BridgePage() {
   const { updateUrlState, buildDeploymentUrl, urlState } = useBridgeUrlState();
 
   // Withdrawal orders management
-  const { pendingOrders } = useWithdrawalOrders();
+  const { pendingOrders, orders, syncWithdrawalsFromExplorer } =
+    useWithdrawalOrders();
+
+  // Withdrawal recovery for syncing withdrawals with full details
+  const { recoverWithdrawal } = useWithdrawalRecovery();
+
+  // Track if sync is in progress to prevent infinite loops
+  const isSyncingRef = useRef(false);
+  const lastSyncRef = useRef<{ address: string; chainId: number } | null>(null);
+
+  // Store recoverWithdrawal in ref to prevent dependency changes
+  const recoverWithdrawalRef = useRef(recoverWithdrawal);
+  useEffect(() => {
+    recoverWithdrawalRef.current = recoverWithdrawal;
+  }, [recoverWithdrawal]);
 
   // Bridge state hook - handles token selection and amounts
   const {
@@ -152,6 +167,43 @@ export function BridgePage() {
   useEffect(() => {
     setTxHash(null);
   }, [chain?.id, bridgeAmount, selectedToken?.address, setTxHash]);
+
+  // Sync withdrawals from explorer API when connected and on L2
+  useEffect(() => {
+    if (
+      isConnected &&
+      address &&
+      isL2ToL1 &&
+      !isSyncingRef.current &&
+      chain?.id &&
+      orders
+    ) {
+      // Check if we've already synced for this address/chain combination
+      const lastSync = lastSyncRef.current;
+      if (
+        lastSync &&
+        lastSync.address === address &&
+        lastSync.chainId === chain.id
+      ) {
+        return; // Already synced for this address/chain
+      }
+
+      isSyncingRef.current = true;
+      syncWithdrawalsFromExplorer(address, recoverWithdrawalRef.current)
+        .then(() => {
+          lastSyncRef.current = { address, chainId: chain.id };
+        })
+        .catch((error) => {
+          console.error('Failed to sync withdrawals from explorer:', error);
+        })
+        .finally(() => {
+          // Add a small delay before allowing next sync to prevent rapid re-syncing
+          setTimeout(() => {
+            isSyncingRef.current = false;
+          }, 1000);
+        });
+    }
+  }, [isConnected, address, isL2ToL1, chain?.id, syncWithdrawalsFromExplorer]);
 
   // Bridge transaction hook
   const { bridgeTokens, isProcessing, isProving, isFinalizing } =

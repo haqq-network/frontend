@@ -332,10 +332,6 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
                     {order.toAddress.slice(0, 6)}...{order.toAddress.slice(-4)}
                   </Link>
                 </div>
-                <div>
-                  <span className="font-medium">Initiated:</span>{' '}
-                  {formatDate(order.createdAt)}
-                </div>
 
                 {order.proveHash && (
                   <div className="flex items-center gap-1">

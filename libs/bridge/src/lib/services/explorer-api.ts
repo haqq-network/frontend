@@ -1,7 +1,10 @@
 /**
- * HAQQ Explorer API service for fetching user token balances
- * Uses Next.js API routes as proxy to avoid CORS issues
+ * HAQQ Explorer API service for fetching user token balances and withdrawals
+ * Uses Next.js API routes as proxy to avoid CORS issues for token balances
+ * Direct API calls for withdrawals endpoint
  */
+
+import { WithdrawalStatus } from '../types/withdrawal-order';
 
 // These interfaces are no longer needed since we're using the proxy API
 // but keeping them for potential future use
@@ -13,6 +16,44 @@ export interface TokenBalance {
   balance: string; // Balance in wei
   decimals: number;
   formattedBalance: number; // Balance in human-readable format
+}
+
+/**
+ * Explorer API withdrawal response types
+ */
+export interface ExplorerWithdrawalAddress {
+  ens_domain_name: string | null;
+  hash: string;
+  implementations: unknown[];
+  is_contract: boolean;
+  is_scam: boolean;
+  is_verified: boolean;
+  metadata: unknown | null;
+  name: string | null;
+  private_tags: unknown[];
+  proxy_type: string | null;
+  public_tags: unknown[];
+  watchlist_names: unknown[];
+}
+
+export interface ExplorerWithdrawal {
+  challenge_period_end: string | null;
+  from: ExplorerWithdrawalAddress;
+  l1_transaction_hash: string | null;
+  l2_timestamp: string;
+  l2_transaction_hash: string;
+  msg_nonce: number;
+  msg_nonce_raw: string;
+  msg_nonce_version: number;
+  status: string;
+}
+
+export interface ExplorerWithdrawalsResponse {
+  items: ExplorerWithdrawal[];
+  next_page_params: {
+    index?: number;
+    items_count?: number;
+  } | null;
 }
 
 /**
@@ -128,6 +169,96 @@ export async function fetchAllTokenBalances(
     return allTokens;
   } catch (error) {
     console.error('Failed to fetch all token balances:', error);
+    throw error;
+  }
+}
+
+/**
+ * Maps explorer API status string to WithdrawalStatus enum
+ * @param explorerStatus - Status string from explorer API
+ * @returns Mapped WithdrawalStatus
+ */
+export function mapExplorerStatusToWithdrawalStatus(
+  explorerStatus: string,
+): WithdrawalStatus {
+  const statusLower = explorerStatus.toLowerCase();
+
+  // Map common explorer status strings to our status enum
+  if (statusLower.includes('waiting') || statusLower.includes('game')) {
+    // "Waiting a game to resolve" or similar - withdrawal is initiated but not yet proved
+    return WithdrawalStatus.INITIATED;
+  }
+  if (statusLower.includes('proving') || statusLower.includes('challenge')) {
+    return WithdrawalStatus.PROVING;
+  }
+  if (statusLower.includes('proved') || statusLower.includes('ready')) {
+    return WithdrawalStatus.PROVED;
+  }
+  if (statusLower.includes('finalizing')) {
+    return WithdrawalStatus.FINALIZING;
+  }
+  if (statusLower.includes('finalized') || statusLower.includes('completed')) {
+    return WithdrawalStatus.FINALIZED;
+  }
+  if (statusLower.includes('failed') || statusLower.includes('error')) {
+    return WithdrawalStatus.FAILED;
+  }
+
+  // Default to initiated if status is unknown
+  console.warn(
+    `Unknown explorer status: ${explorerStatus}, defaulting to INITIATED`,
+  );
+  return WithdrawalStatus.INITIATED;
+}
+
+/**
+ * Fetches withdrawals from the explorer API
+ * @param address - User address to fetch withdrawals for
+ * @param page - Optional page parameter for pagination
+ * @returns Withdrawals response from explorer API
+ */
+export async function fetchWithdrawals(
+  address: string,
+  page?: { index?: number; items_count?: number },
+): Promise<ExplorerWithdrawalsResponse> {
+  try {
+    const baseUrl =
+      'https://explorer.ethiq.network/api/v2/optimism/withdrawals';
+    const url = new URL(baseUrl);
+
+    // Add address filter if provided
+    url.searchParams.set('address', address);
+
+    // Add pagination params if provided
+    if (page?.index !== undefined) {
+      url.searchParams.set('index', page.index.toString());
+    }
+    if (page?.items_count !== undefined) {
+      url.searchParams.set('items_count', page.items_count.toString());
+    }
+
+    console.log(`Fetching withdrawals from explorer API: ${url.toString()}`);
+
+    const response = await fetch(url.toString(), {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => {
+        return {};
+      });
+      throw new Error(
+        errorData.error || `HTTP error! status: ${response.status}`,
+      );
+    }
+
+    const data: ExplorerWithdrawalsResponse = await response.json();
+    console.log(`Found ${data.items.length} withdrawals from explorer API`);
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch withdrawals from explorer API:', error);
     throw error;
   }
 }
