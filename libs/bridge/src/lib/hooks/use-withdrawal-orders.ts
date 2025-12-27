@@ -206,7 +206,9 @@ export function useWithdrawalOrders() {
         console.log(
           `Syncing withdrawals from explorer for address: ${addressToSync}`,
         );
-        const allWithdrawals = await fetchWithdrawals(addressToSync);
+        // Get L2 chain ID to determine which explorer to use
+        const l2ChainId = getOpStackChains(chainId).L2.id;
+        const allWithdrawals = await fetchWithdrawals(addressToSync, l2ChainId);
 
         // Track withdrawals that need recovery
         const withdrawalsToRecover: string[] = [];

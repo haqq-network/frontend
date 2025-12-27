@@ -4,6 +4,7 @@
  * Direct API calls for withdrawals endpoint
  */
 
+import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
 import { WithdrawalStatus } from '../types/withdrawal-order';
 
 // These interfaces are no longer needed since we're using the proxy API
@@ -212,18 +213,34 @@ export function mapExplorerStatusToWithdrawalStatus(
 }
 
 /**
+ * Gets the explorer API base URL based on chain ID
+ * @param chainId - Chain ID to determine which explorer to use
+ * @returns Base URL for the explorer API
+ */
+function getExplorerApiUrl(chainId: number): string {
+  // Check if it's testnet (testethiq)
+  if (chainId === haqqTestethiq.id) {
+    return 'https://explorer.testnet.ethiq.network/api/v2/optimism/withdrawals';
+  }
+
+  // Default to mainnet (ethiq)
+  return 'https://explorer.ethiq.network/api/v2/optimism/withdrawals';
+}
+
+/**
  * Fetches a single page of withdrawals from the explorer API
  * @param address - User address to fetch withdrawals for
+ * @param chainId - Chain ID to determine which explorer to use
  * @param page - Optional page parameter for pagination
  * @returns Withdrawals response from explorer API
  */
 export async function fetchWithdrawalsPage(
   address: string,
+  chainId: number,
   page?: { index?: number; items_count?: number },
 ): Promise<ExplorerWithdrawalsResponse> {
   try {
-    const baseUrl =
-      'https://explorer.ethiq.network/api/v2/optimism/withdrawals';
+    const baseUrl = getExplorerApiUrl(chainId);
     const url = new URL(baseUrl);
 
     // Add address filter if provided
@@ -266,53 +283,23 @@ export async function fetchWithdrawalsPage(
 }
 
 /**
- * Fetches all withdrawals from the explorer API (all pages)
+ * Fetches withdrawals from the explorer API (single page)
  * @param address - User address to fetch withdrawals for
- * @returns All withdrawals from all pages
+ * @param chainId - Chain ID to determine which explorer to use
+ * @returns Withdrawals from the first page
  */
 export async function fetchWithdrawals(
   address: string,
+  chainId: number,
 ): Promise<ExplorerWithdrawal[]> {
   try {
-    const allWithdrawals: ExplorerWithdrawal[] = [];
-    let nextPageParams: { index?: number; items_count?: number } | null = null;
-    let pageNumber = 0;
-
-    do {
-      pageNumber++;
-      console.log(
-        `Fetching withdrawals page ${pageNumber} for address: ${address}`,
-      );
-
-      const response = await fetchWithdrawalsPage(
-        address,
-        nextPageParams || undefined,
-      );
-
-      // Add items from this page to the collection
-      allWithdrawals.push(...response.items);
-
-      // Check if there's a next page
-      nextPageParams = response.next_page_params;
-
-      console.log(
-        `Page ${pageNumber}: Found ${response.items.length} withdrawals. Total so far: ${allWithdrawals.length}`,
-      );
-
-      // Safety limit to prevent infinite loops
-      if (pageNumber > 100) {
-        console.warn('Reached maximum page limit (100), stopping pagination');
-        break;
-      }
-    } while (nextPageParams !== null);
-
+    const response = await fetchWithdrawalsPage(address, chainId);
     console.log(
-      `Fetched all withdrawals: ${allWithdrawals.length} total across ${pageNumber} page(s)`,
+      `Fetched ${response.items.length} withdrawals from explorer API`,
     );
-
-    return allWithdrawals;
+    return response.items;
   } catch (error) {
-    console.error('Failed to fetch all withdrawals from explorer API:', error);
+    console.error('Failed to fetch withdrawals from explorer API:', error);
     throw error;
   }
 }
