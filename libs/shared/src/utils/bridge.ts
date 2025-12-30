@@ -53,7 +53,7 @@ export const ETHIQ_BRIDGE_ADDRESSES: IBridgeAddresses = {
   L2OutputOracleProxy: '0x0000000000000000000000000000000000000000',
 };
 
-export const L1_STANDARD_BRIDGE_ADDRESS =
+export const L1_STANDARD_MAINNET_BRIDGE_ADDRESS =
   ETHIQ_BRIDGE_ADDRESSES.L1StandardBridgeProxy;
 
 export const haqqEthiq = {
