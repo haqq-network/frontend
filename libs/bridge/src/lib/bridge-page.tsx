@@ -5,6 +5,7 @@ import { sepolia } from 'viem/chains';
 import { useSwitchChain } from 'wagmi';
 import {
   L1_STANDARD_MAINNET_BRIDGE_ADDRESS,
+  L1_STANDARD_TESTETHIQ_BRIDGE_ADDRESS,
   CHAIN_CONFIG,
   L2_STANDARD_BRIDGE_ADDRESS,
   bridgeSupportedChains,
@@ -40,15 +41,17 @@ import {
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
 
 export const useChainProxyAddress = (chainId: number | undefined) => {
-  if (
-    chainId === CHAIN_CONFIG.l1ChainId ||
-    chainId === CHAIN_CONFIG.l2ChainId
-  ) {
+  if (chainId === CHAIN_CONFIG.l1ChainId) {
     return L1_STANDARD_MAINNET_BRIDGE_ADDRESS;
   }
+
+  if (chainId === CHAIN_CONFIG.l1TestChainId) {
+    return L1_STANDARD_TESTETHIQ_BRIDGE_ADDRESS;
+  }
+
   if (
-    chainId === CHAIN_CONFIG.l2TestChainId ||
-    chainId === CHAIN_CONFIG.l1TestChainId
+    chainId === CHAIN_CONFIG.l2ChainId ||
+    chainId === CHAIN_CONFIG.l2TestChainId
   ) {
     return L2_STANDARD_BRIDGE_ADDRESS;
   }
