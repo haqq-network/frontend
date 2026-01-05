@@ -32,7 +32,7 @@ export function AccountButton({
         </div>
       )}
 
-      {!withoutDropdown && onDisconnectClick ? (
+      {!withoutDropdown ? (
         <Menu as="div" className="relative z-10 inline-block h-[40px]">
           <MenuButton
             as="button"
@@ -55,13 +55,15 @@ export function AccountButton({
           </MenuButton>
 
           <MenuItems className="border-haqq-border absolute end-[-1px] z-10 mt-1 w-[160px] rounded-md border bg-black py-2 text-white shadow-lg focus:outline-none ltr:origin-top-right rtl:origin-top-left">
-            <MenuItem
-              as="button"
-              className="block w-full px-[16px] py-[10px] text-start text-[13px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
-              onClick={onDisconnectClick}
-            >
-              {t('disconnect', 'Disconnect')}
-            </MenuItem>
+            {onDisconnectClick && (
+              <MenuItem
+                as="button"
+                className="block w-full px-[16px] py-[10px] text-start text-[13px] leading-[22px] transition-colors duration-150 ease-out hover:bg-[#ffffff14]"
+                onClick={onDisconnectClick}
+              >
+                {t('disconnect', 'Disconnect')}
+              </MenuItem>
+            )}
           </MenuItems>
         </Menu>
       ) : (

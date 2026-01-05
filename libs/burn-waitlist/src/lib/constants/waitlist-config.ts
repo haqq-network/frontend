@@ -1,14 +1,13 @@
-import { haqqTestethiq, haqqEthiq } from '@haqq/shell-shared';
+import { haqqTestedge2 } from 'viem/chains';
 
 /**
  * Waitlist contract addresses mapped by chain ID
  * Key: chain ID, Value: contract address
  */
 export const WAITLIST_CONTRACT_ADDRESSES: Record<number, `0x${string}`> = {
-  [haqqTestethiq.id]:
-    '0xAFb74983668ff5cBE7340cb0DA014D7221c7947e' as `0x${string}`,
+  [haqqTestedge2.id]:
+    '0xafc36779f695a2946523C1B056A0Dd7583a0e019' as `0x${string}`,
   // Add more chain deployments here as they become available
-  // [haqqEthiq.id]: '0x...' as `0x${string}`,
 };
 
 /**
@@ -48,7 +47,7 @@ export function isWaitlistChainSupported(chainId?: number): boolean {
  * Default chain ID for waitlist (first supported chain)
  */
 export const WAITLIST_DEFAULT_CHAIN_ID =
-  WAITLIST_SUPPORTED_CHAIN_IDS[0] || haqqTestethiq.id;
+  WAITLIST_SUPPORTED_CHAIN_IDS[0] || haqqTestedge2.id;
 
 /**
  * Backend API base URL

@@ -31,7 +31,12 @@ export function useWaitlistContractState() {
   const chainId = chain?.id;
   const contractAddress = getWaitlistContractAddress(chainId);
 
-  const { data: currentState, refetch: refetchState } = useReadContract({
+  const {
+    data: currentState,
+    error: currentStateError,
+    isLoading: currentStateLoading,
+    refetch: refetchState,
+  } = useReadContract({
     address: contractAddress,
     abi: WaitlistAbi,
     functionName: 'currentState',
@@ -41,6 +46,9 @@ export function useWaitlistContractState() {
     },
   });
 
+  console.log('currentState', contractAddress, chainId, currentState);
+  console.log('currentStateError', currentStateError);
+  console.log('currentStateLoading', currentStateLoading);
   const { data: canSubmit, refetch: refetchCanSubmit } = useReadContract({
     address: contractAddress,
     abi: WaitlistAbi,
@@ -165,6 +173,31 @@ export function useWaitlistRequest(requestId: bigint | undefined) {
 }
 
 /**
+ * Hook to get user's nonce
+ */
+export function useUserNonce(userAddress: `0x${string}` | undefined) {
+  const { chain } = useAccount();
+  const chainId = chain?.id;
+  const contractAddress = getWaitlistContractAddress(chainId);
+
+  const { data: nonce, refetch } = useReadContract({
+    address: contractAddress,
+    abi: WaitlistAbi,
+    functionName: 'getUserNonce',
+    args: userAddress ? [userAddress] : undefined,
+    chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
+    query: {
+      enabled: !!userAddress && !!contractAddress && !!chainId,
+    },
+  });
+
+  return {
+    nonce: nonce as bigint | undefined,
+    refetch,
+  };
+}
+
+/**
  * Hook to create a waitlist request
  */
 export function useCreateWaitlistRequest() {
@@ -187,6 +220,7 @@ export function useCreateWaitlistRequest() {
   const createRequest = async (
     amount: bigint,
     source: FundsSource,
+    nonce: bigint,
     backendSignature: `0x${string}`,
   ) => {
     if (!writeContractAsync) {
@@ -205,7 +239,7 @@ export function useCreateWaitlistRequest() {
       address: contractAddress,
       abi: WaitlistAbi,
       functionName: 'createRequest',
-      args: [amount, source, backendSignature],
+      args: [amount, source, nonce, backendSignature],
       chainId,
     });
   };

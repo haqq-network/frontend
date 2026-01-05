@@ -13,6 +13,7 @@ interface UseBackendSignatureReturn {
     userAddress: string,
     amount: bigint,
     source: FundsSource,
+    nonce: bigint,
   ) => Promise<`0x${string}`>;
   isLoading: boolean;
   error: Error | null;
@@ -30,6 +31,7 @@ export function useBackendSignature(): UseBackendSignatureReturn {
       userAddress: string,
       amount: bigint,
       source: FundsSource,
+      nonce: bigint,
     ): Promise<`0x${string}`> => {
       setIsLoading(true);
       setError(null);
@@ -45,6 +47,7 @@ export function useBackendSignature(): UseBackendSignatureReturn {
             user: userAddress,
             amount: amount.toString(),
             source: source,
+            nonce: nonce.toString(),
           }),
         });
 

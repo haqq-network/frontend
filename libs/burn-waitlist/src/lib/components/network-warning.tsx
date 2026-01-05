@@ -26,9 +26,9 @@ export function NetworkWarning({ onSwitchChain }: NetworkWarningProps) {
   return (
     <div className="mb-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">
       <div className="mb-[12px] text-[14px] font-[500] text-[#92400E]">
-        Please switch to HAQQ Testethiq network to participate
+        Please switch to HAQQ Testedge2 network to participate
       </div>
-      <Button variant={2} size="small" onClick={handleSwitch}>
+      <Button variant={2} onClick={handleSwitch}>
         Switch Network
       </Button>
     </div>

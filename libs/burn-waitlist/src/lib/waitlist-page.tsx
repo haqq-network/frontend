@@ -10,6 +10,7 @@ import {
   useCreateWaitlistRequest,
   useCancelWaitlistRequest,
   useUserRequestIds,
+  useUserNonce,
 } from './hooks';
 import { useBackendSignature } from './hooks/use-backend-signature';
 import { useWaitlistForm } from './hooks/use-waitlist-form';
@@ -72,6 +73,11 @@ export function WaitlistPage() {
     bigint | undefined
   >();
 
+  // User nonce - must be declared before onSubmit callback
+  const { nonce: userNonce, refetch: refetchNonce } = useUserNonce(
+    address as `0x${string}` | undefined,
+  );
+
   // Backend signature
   const { getSignature, isLoading: isLoadingSignature } = useBackendSignature();
 
@@ -81,18 +87,27 @@ export function WaitlistPage() {
         throw new Error('Wallet not connected');
       }
 
+      if (userNonce === undefined) {
+        throw new Error('Nonce not available');
+      }
+
       try {
-        // Get backend signature
-        const signature = await getSignature(address, amount, source);
+        // Get backend signature with nonce
+        const signature = await getSignature(
+          address,
+          amount,
+          source,
+          userNonce,
+        );
 
         // Create request on chain
-        await createRequestTx(amount, source, signature);
+        await createRequestTx(amount, source, userNonce, signature);
       } catch (error) {
         console.error('Failed to create request:', error);
         throw error;
       }
     },
-    [address, getSignature, createRequestTx],
+    [address, getSignature, createRequestTx, userNonce],
   );
 
   // Form state - initialize with default balance
@@ -140,15 +155,25 @@ export function WaitlistPage() {
         throw new Error('Wallet not connected');
       }
 
-      // Get backend signature
+      if (userNonce === undefined) {
+        throw new Error('Nonce not available');
+      }
+
+      // Get backend signature with nonce
       const signature = await getSignature(
         address,
         formattedAmount,
         formState.source,
+        userNonce,
       );
 
       // Create request on chain
-      await createRequestTx(formattedAmount, formState.source, signature);
+      await createRequestTx(
+        formattedAmount,
+        formState.source,
+        userNonce,
+        signature,
+      );
     } catch (error) {
       console.error('Failed to create request:', error);
     }
@@ -157,6 +182,7 @@ export function WaitlistPage() {
     formattedAmount,
     address,
     formState.source,
+    userNonce,
     getSignature,
     createRequestTx,
   ]);
@@ -187,6 +213,7 @@ export function WaitlistPage() {
       refetchRequestIds();
       refetchContractState();
       refetchBalance();
+      refetchNonce();
       // Reset form
       setAmount('');
     }
@@ -195,6 +222,7 @@ export function WaitlistPage() {
     refetchRequestIds,
     refetchContractState,
     refetchBalance,
+    refetchNonce,
     setAmount,
   ]);
 
@@ -213,6 +241,8 @@ export function WaitlistPage() {
 
   const showForm = canSubmit && !paused && isCorrectChain;
 
+  console.log('isConnected', isConnected);
+  console.log('currentState', currentState);
   return (
     <Container>
       <div className="mx-auto max-w-[600px] py-[40px]">
