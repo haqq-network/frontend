@@ -65,6 +65,7 @@
     "next": "14.2.23",
     "next-intl": "3.26.5",
     "posthog-js": "1.229.0",
+    "prettier-plugin-solidity": "2.2.1",
     "react": "18.3.1",
     "react-countdown": "2.3.6",
     "react-dom": "18.3.1",
