@@ -46,9 +46,6 @@ export function useWaitlistContractState() {
     },
   });
 
-  console.log('currentState', contractAddress, chainId, currentState);
-  console.log('currentStateError', currentStateError);
-  console.log('currentStateLoading', currentStateLoading);
   const { data: canSubmit, refetch: refetchCanSubmit } = useReadContract({
     address: contractAddress,
     abi: WaitlistAbi,

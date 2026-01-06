@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
@@ -76,6 +76,9 @@ export function WaitlistPage() {
   const [cancellingRequestId, setCancellingRequestId] = useState<
     bigint | undefined
   >();
+
+  // Track if we've already processed the success to avoid infinite loops
+  const hasProcessedSuccess = useRef(false);
 
   // Backend signature
   const { getSignature, isLoading: isLoadingSignature } = useBackendSignature();
@@ -206,13 +209,41 @@ export function WaitlistPage() {
 
   // Refetch after successful creation
   useEffect(() => {
-    if (isCreateSuccess) {
+    if (isCreateSuccess && !hasProcessedSuccess.current) {
+      // Mark as processed to prevent re-running
+      hasProcessedSuccess.current = true;
+
+      // Reset form immediately
+      setAmount('');
+
+      // Refetch immediately (optimistic update)
       refetchApplications();
       refetchBalances();
       refetchContractState();
       refetchBalance();
-      // Reset form
-      setAmount('');
+
+      // Refetch again after delay to ensure backend has processed the transaction
+      const timeoutId1 = setTimeout(() => {
+        refetchApplications();
+        refetchBalances();
+      }, 2000);
+
+      // Final refetch after longer delay to ensure everything is synced
+      const timeoutId2 = setTimeout(() => {
+        refetchApplications();
+        refetchBalances();
+        refetchContractState();
+      }, 5000);
+
+      return () => {
+        clearTimeout(timeoutId1);
+        clearTimeout(timeoutId2);
+      };
+    }
+
+    // Reset the flag when isCreateSuccess becomes false (new transaction started)
+    if (!isCreateSuccess) {
+      hasProcessedSuccess.current = false;
     }
   }, [
     isCreateSuccess,
@@ -238,8 +269,6 @@ export function WaitlistPage() {
 
   const showForm = canSubmit && !paused && isCorrectChain;
 
-  console.log('isConnected', isConnected);
-  console.log('currentState', currentState);
   return (
     <Container>
       <div className="mx-auto max-w-[600px] py-[40px]">

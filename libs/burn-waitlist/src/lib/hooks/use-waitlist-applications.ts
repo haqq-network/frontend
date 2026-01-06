@@ -67,6 +67,6 @@ export function useWaitlistApplications({
       return response.json();
     },
     enabled: !!address, // Only fetch if address is provided
-    staleTime: 30000, // Cache for 30 seconds
+    staleTime: 0, // Always refetch to get latest data
   });
 }

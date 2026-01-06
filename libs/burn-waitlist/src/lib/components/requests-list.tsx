@@ -91,7 +91,7 @@ export function RequestsList({
                 </div>
                 {canCancel && !isCancelled && (
                   <Button
-                    variant={2}
+                    variant={3}
                     onClick={() => onCancel(requestId)}
                     disabled={isCancelling}
                     isLoading={isCancellingThis}
