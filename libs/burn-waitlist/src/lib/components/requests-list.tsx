@@ -32,7 +32,6 @@ export function RequestsList({
 
   return (
     <div className="space-y-[12px]">
-      <h3 className="text-[16px] font-[600] text-[#0D0D0E]">Your Requests</h3>
       <div className="space-y-[12px]">
         {applications.map((app) => {
           const requestId = BigInt(app.requestId);

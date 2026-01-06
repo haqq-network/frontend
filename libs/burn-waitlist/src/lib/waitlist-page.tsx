@@ -269,9 +269,14 @@ export function WaitlistPage() {
 
   const showForm = canSubmit && !paused && isCorrectChain;
 
+  console.log('isValid', isValid);
+  console.log('formattedAmount', formattedAmount);
+  console.log('availableBalance', availableBalance);
+  console.log('walletBalance', walletBalance?.value);
+  console.log('isSubmitting', isSubmitting);
   return (
     <Container>
-      <div className="mx-auto max-w-[600px] py-[40px]">
+      <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
           <h1 className="mb-[24px] text-[24px] font-[600] text-[#0D0D0E]">
             Burn Waitlist
@@ -294,58 +299,69 @@ export function WaitlistPage() {
                 <NetworkWarning onSwitchChain={handleSwitchChain} />
               )}
 
-              {showForm && (
-                <div className="mb-[32px]">
-                  <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
-                    Participate in Waitlist
-                  </h2>
-                  <ParticipationForm
-                    amount={formState.amount}
-                    source={formState.source}
-                    availableBalance={availableBalance}
-                    walletBalance={walletBalance?.value}
-                    balances={waitlistBalances}
-                    onAmountChange={(amount) => {
-                      setAmount(amount);
-                    }}
-                    onSourceChange={(source) => {
-                      setSource(source);
-                      setSelectedSource(source);
-                      // Reset amount when source changes
-                      setAmount('');
-                    }}
-                    onMaxClick={() => {
-                      if (availableBalance) {
-                        const formatted = formatEther(availableBalance);
-                        setAmount(formatted);
+              <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-2">
+                {/* First Column: Form */}
+                {showForm && (
+                  <div>
+                    <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
+                      Participate in Waitlist
+                    </h2>
+                    <ParticipationForm
+                      amount={formState.amount}
+                      source={formState.source}
+                      availableBalance={availableBalance}
+                      walletBalance={walletBalance?.value}
+                      balances={waitlistBalances}
+                      onAmountChange={(amount) => {
+                        setAmount(amount);
+                      }}
+                      onSourceChange={(source) => {
+                        setSource(source);
+                        setSelectedSource(source);
+                      }}
+                      onMaxClick={() => {
+                        if (availableBalance) {
+                          const formatted = formatEther(availableBalance);
+                          setAmount(formatted);
+                        }
+                      }}
+                      onSubmit={handleSubmit}
+                      isValid={
+                        isValid &&
+                        formattedAmount !== undefined &&
+                        formattedAmount <= (availableBalance || 0n)
                       }
-                    }}
-                    onSubmit={handleSubmit}
-                    isValid={
-                      isValid &&
-                      formattedAmount !== undefined &&
-                      formattedAmount <= (availableBalance || 0n)
-                    }
-                    isSubmitting={isSubmitting}
-                    error={errorMessage}
-                    amountError={formState.errors.amount}
-                  />
-                </div>
-              )}
-
-              {isConnected &&
-                applicationsData &&
-                applicationsData.applications.length > 0 && (
-                  <div className="mt-[32px]">
-                    <RequestsList
-                      applications={applicationsData.applications}
-                      canCancel={canWithdraw || false}
-                      onCancel={handleCancel}
-                      isCancelling={isCancelling || isConfirmingCancel}
-                      cancellingRequestId={cancellingRequestId}
+                      isSubmitting={isSubmitting}
+                      error={errorMessage}
+                      amountError={formState.errors.amount}
                     />
                   </div>
                 )}
+
+                {/* Second Column: Applications List */}
+                {isConnected && (
+                  <div>
+                    <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
+                      Your Requests
+                    </h2>
+                    {applicationsData ? (
+                      <RequestsList
+                        applications={applicationsData.applications}
+                        canCancel={canWithdraw || false}
+                        onCancel={handleCancel}
+                        isCancelling={isCancelling || isConfirmingCancel}
+                        cancellingRequestId={cancellingRequestId}
+                      />
+                    ) : (
+                      <div className="rounded-[8px] bg-[#F3F4F6] p-[16px] text-center">
+                        <div className="text-[14px] text-[#6B7280]">
+                          Loading applications...
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </>
           )}
         </div>
