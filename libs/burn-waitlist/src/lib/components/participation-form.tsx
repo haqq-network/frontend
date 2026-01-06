@@ -6,12 +6,14 @@ import { ModalInput } from '@haqq/shell-ui-kit';
 import { FundsSource } from '../constants/waitlist-config';
 import { formatEther } from 'viem';
 import { WaitlistBalances } from './waitlist-balances';
+import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
 
 export interface ParticipationFormProps {
   amount: string;
   source: FundsSource;
   availableBalance?: bigint;
   walletBalance?: bigint;
+  balances?: WaitlistBalancesResponse;
   onAmountChange: (amount: string) => void;
   onSourceChange: (source: FundsSource) => void;
   onMaxClick: () => void;
@@ -27,6 +29,7 @@ export function ParticipationForm({
   source,
   availableBalance,
   walletBalance,
+  balances,
   onAmountChange,
   onSourceChange,
   onMaxClick,
@@ -36,9 +39,16 @@ export function ParticipationForm({
   error,
   amountError,
 }: ParticipationFormProps) {
-  const formattedBalance = availableBalance
-    ? formatEther(availableBalance)
-    : '0';
+  const formattedBalance = useMemo(() => {
+    if (!availableBalance) {
+      return '0';
+    }
+    // Handle negative balances
+    if (availableBalance < 0n) {
+      return `-${formatEther(-availableBalance)}`;
+    }
+    return formatEther(availableBalance);
+  }, [availableBalance]);
 
   // Determine which balance to show based on source
   const displayBalance = useMemo(() => {
@@ -58,7 +68,7 @@ export function ParticipationForm({
 
   return (
     <div className="space-y-[20px]">
-      <WaitlistBalances walletBalance={walletBalance} />
+      <WaitlistBalances balances={balances} />
       <div>
         <label className="mb-[8px] block text-[14px] font-[500] text-[#0D0D0E]">
           Amount
@@ -71,13 +81,17 @@ export function ParticipationForm({
           hint={
             amountError ? (
               <span className="text-[#EF4444]">{amountError}</span>
+            ) : availableBalance && availableBalance < 0n ? (
+              <span className="text-[#DC2626]">
+                {balanceLabel}: {formattedBalance} ISLM (Insufficient)
+              </span>
             ) : (
               <span className="text-[#6B7280]">
                 {balanceLabel}: {formattedBalance} ISLM
               </span>
             )
           }
-          isMaxButtonDisabled={!availableBalance || availableBalance === 0n}
+          isMaxButtonDisabled={!availableBalance || availableBalance <= 0n}
         />
       </div>
 

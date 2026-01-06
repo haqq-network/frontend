@@ -2,61 +2,73 @@
 
 import { useMemo } from 'react';
 import { formatEther } from 'viem';
-import { useAddress, useIndexerBalanceQuery } from '@haqq/shell-shared';
+import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
 
 export interface WaitlistBalancesProps {
-  walletBalance?: bigint;
+  balances?: WaitlistBalancesResponse;
 }
 
-export function WaitlistBalances({ walletBalance }: WaitlistBalancesProps) {
-  const { haqqAddress } = useAddress();
-  const { data: indexerBalances } = useIndexerBalanceQuery(haqqAddress);
-
-  const balances = useMemo(() => {
-    const walletBalanceFormatted = walletBalance
-      ? formatEther(walletBalance)
-      : '0';
+export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
+  const formattedBalances = useMemo(() => {
+    if (!balances) {
+      return null;
+    }
 
     return {
-      wallet: {
-        label: 'Wallet Balance',
-        value: walletBalanceFormatted,
-        valueBn: walletBalance || 0n,
+      balance: {
+        label: 'Balance',
+        value: formatEther(BigInt(balances.balance)),
+        valueBn: BigInt(balances.balance),
       },
-      locked: {
-        label: 'Locked',
-        value: indexerBalances?.locked.toFixed(6) || '0',
-        valueBn: indexerBalances?.lockedBn || 0n,
+      delegations: {
+        label: 'Delegations',
+        value: formatEther(BigInt(balances.delegations)),
+        valueBn: BigInt(balances.delegations),
       },
-      vested: {
-        label: 'Vested',
-        value: indexerBalances?.vested.toFixed(6) || '0',
-        valueBn: indexerBalances?.vestedBn || 0n,
+      rewards: {
+        label: 'Rewards',
+        value: formatEther(BigInt(balances.rewards)),
+        valueBn: BigInt(balances.rewards),
       },
-      daoLocked: {
-        label: 'DAO Locked',
-        value: indexerBalances?.daoLocked.toFixed(6) || '0',
-        valueBn: indexerBalances?.daoLockedBn || 0n,
+      unbonding_delegations: {
+        label: 'Unbonding',
+        value: formatEther(BigInt(balances.unbonding_delegations)),
+        valueBn: BigInt(balances.unbonding_delegations),
       },
-      available: {
-        label: 'Available',
-        value: indexerBalances?.available.toFixed(6) || '0',
-        valueBn: indexerBalances?.availableBn || 0n,
+      ucdao: {
+        label: 'ucDAO',
+        value: formatEther(BigInt(balances.ucdao)),
+        valueBn: BigInt(balances.ucdao),
+      },
+      total_balance: {
+        label: 'Total Balance',
+        value: formatEther(BigInt(balances.total_balance)),
+        valueBn: BigInt(balances.total_balance),
+      },
+      available_balance: {
+        label: 'Available Balance',
+        value: formatEther(BigInt(balances.available_balance)),
+        valueBn: BigInt(balances.available_balance),
+      },
+      available_ucdao_balance: {
+        label: 'Available ucDAO',
+        value: formatEther(BigInt(balances.available_ucdao_balance)),
+        valueBn: BigInt(balances.available_ucdao_balance),
       },
     };
-  }, [walletBalance, indexerBalances]);
-
-  const hasAnyBalance = useMemo(() => {
-    return (
-      balances.wallet.valueBn > 0n ||
-      balances.locked.valueBn > 0n ||
-      balances.vested.valueBn > 0n ||
-      balances.daoLocked.valueBn > 0n ||
-      balances.available.valueBn > 0n
-    );
   }, [balances]);
 
-  if (!hasAnyBalance) {
+  const hasAnyBalance = useMemo(() => {
+    if (!formattedBalances) {
+      return false;
+    }
+    // Show balances even if they're negative (for transparency)
+    return Object.values(formattedBalances).some(
+      (balance) => balance.valueBn !== 0n,
+    );
+  }, [formattedBalances]);
+
+  if (!formattedBalances || !hasAnyBalance) {
     return null;
   }
 
@@ -66,10 +78,22 @@ export function WaitlistBalances({ walletBalance }: WaitlistBalancesProps) {
         Your Balances
       </div>
       <div className="grid grid-cols-1 gap-[12px] sm:grid-cols-2 lg:grid-cols-3">
-        {Object.entries(balances).map(([key, balance]) => {
+        {Object.entries(formattedBalances).map(([key, balance]) => {
           if (balance.valueBn === 0n) {
             return null;
           }
+
+          const isNegative = balance.valueBn < 0n;
+          const displayValue = isNegative
+            ? `-${parseFloat(balance.value.replace('-', '')).toLocaleString(
+                'en-US',
+                {
+                  maximumFractionDigits: 6,
+                },
+              )}`
+            : parseFloat(balance.value).toLocaleString('en-US', {
+                maximumFractionDigits: 6,
+              });
 
           return (
             <div
@@ -79,11 +103,12 @@ export function WaitlistBalances({ walletBalance }: WaitlistBalancesProps) {
               <div className="mb-[4px] text-[12px] font-[500] text-[#6B7280]">
                 {balance.label}
               </div>
-              <div className="text-[16px] font-[600] text-[#0D0D0E]">
-                {parseFloat(balance.value).toLocaleString('en-US', {
-                  maximumFractionDigits: 6,
-                })}{' '}
-                ISLM
+              <div
+                className={`text-[16px] font-[600] ${
+                  isNegative ? 'text-[#DC2626]' : 'text-[#0D0D0E]'
+                }`}
+              >
+                {displayValue} ISLM
               </div>
             </div>
           );

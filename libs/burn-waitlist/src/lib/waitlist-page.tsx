@@ -4,13 +4,12 @@ import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
-import { useAddress, useDaoAllBalancesQuery } from '@haqq/shell-shared';
 import {
   useWaitlistContractState,
   useCreateWaitlistRequest,
   useCancelWaitlistRequest,
-  useUserRequestIds,
-  useUserNonce,
+  useWaitlistBalances,
+  useWaitlistApplications,
 } from './hooks';
 import { useBackendSignature } from './hooks/use-backend-signature';
 import { useWaitlistForm } from './hooks/use-waitlist-form';
@@ -40,17 +39,22 @@ export function WaitlistPage() {
     refetchAll: refetchContractState,
   } = useWaitlistContractState();
 
-  // User address conversion
-  const { haqqAddress } = useAddress();
+  // Get balances from backend API
+  const { data: waitlistBalances, refetch: refetchBalances } =
+    useWaitlistBalances(address);
 
-  // User wallet balance (EVM)
+  // Get applications from backend API
+  const { data: applicationsData, refetch: refetchApplications } =
+    useWaitlistApplications({
+      address: address,
+      status: 'active',
+    });
+
+  // User wallet balance (EVM) - for display purposes
   const { data: walletBalance, refetch: refetchBalance } = useBalance({
     address: address as `0x${string}` | undefined,
     chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
   });
-
-  // DAO balances (Cosmos)
-  const { data: daoBalances } = useDaoAllBalancesQuery(haqqAddress);
 
   // Create request
   const {
@@ -73,13 +77,36 @@ export function WaitlistPage() {
     bigint | undefined
   >();
 
-  // User nonce - must be declared before onSubmit callback
-  const { nonce: userNonce, refetch: refetchNonce } = useUserNonce(
-    address as `0x${string}` | undefined,
-  );
-
   // Backend signature
   const { getSignature, isLoading: isLoadingSignature } = useBackendSignature();
+
+  // Track source separately to calculate available balance before form is initialized
+  const [selectedSource, setSelectedSource] = useState<FundsSource>(
+    FundsSource.OwnBalance,
+  );
+
+  // Calculate available balance based on source using API data
+  const availableBalance = useMemo(() => {
+    if (!waitlistBalances) {
+      // Fallback to wallet balance if API data not available
+      return walletBalance?.value;
+    }
+
+    // Use the appropriate available balance based on source
+    // Note: available_balance can be negative if user has more active requests than total balance
+    if (selectedSource === FundsSource.OwnBalance) {
+      return BigInt(waitlistBalances.available_balance);
+    } else {
+      // For ucDAO, use available_ucdao_balance from API
+      // This can also be negative
+      return BigInt(waitlistBalances.available_ucdao_balance);
+    }
+  }, [
+    selectedSource,
+    waitlistBalances?.available_balance,
+    waitlistBalances?.available_ucdao_balance,
+    walletBalance?.value,
+  ]);
 
   const onSubmit = useCallback(
     async (amount: bigint, source: FundsSource) => {
@@ -87,30 +114,21 @@ export function WaitlistPage() {
         throw new Error('Wallet not connected');
       }
 
-      if (userNonce === undefined) {
-        throw new Error('Nonce not available');
-      }
-
       try {
-        // Get backend signature with nonce
-        const signature = await getSignature(
-          address,
-          amount,
-          source,
-          userNonce,
-        );
+        // Get backend signature (nonce is managed by backend)
+        const signature = await getSignature(address, amount, source);
 
-        // Create request on chain
-        await createRequestTx(amount, source, userNonce, signature);
+        // Create request on chain (nonce is managed by contract)
+        await createRequestTx(amount, source, signature);
       } catch (error) {
         console.error('Failed to create request:', error);
         throw error;
       }
     },
-    [address, getSignature, createRequestTx, userNonce],
+    [address, getSignature, createRequestTx],
   );
 
-  // Form state - initialize with default balance
+  // Form state - initialize with available balance from API
   const {
     formState,
     setAmount,
@@ -119,30 +137,14 @@ export function WaitlistPage() {
     isValid,
     formattedAmount,
   } = useWaitlistForm({
-    availableBalance: walletBalance?.value,
+    availableBalance: availableBalance,
     onSubmit: onSubmit,
   });
 
-  // Calculate available balance based on source
-  const availableBalance = useMemo(() => {
-    if (formState.source === FundsSource.OwnBalance) {
-      return walletBalance?.value;
-    } else {
-      // For ucDAO, get the native token (aISLM) balance
-      const nativeToken = daoBalances?.find((coin) => {
-        return coin.denom === 'aISLM';
-      });
-      if (nativeToken) {
-        return BigInt(nativeToken.amount);
-      }
-      return 0n;
-    }
-  }, [formState.source, walletBalance?.value, daoBalances]);
-
-  // User requests
-  const { requestIds, refetch: refetchRequestIds } = useUserRequestIds(
-    address as `0x${string}` | undefined,
-  );
+  // Sync selectedSource with formState.source and update availableBalance
+  useEffect(() => {
+    setSelectedSource(formState.source);
+  }, [formState.source]);
 
   // Handle form submission
   const handleSubmit = useCallback(async () => {
@@ -155,25 +157,15 @@ export function WaitlistPage() {
         throw new Error('Wallet not connected');
       }
 
-      if (userNonce === undefined) {
-        throw new Error('Nonce not available');
-      }
-
-      // Get backend signature with nonce
+      // Get backend signature (nonce is managed by backend)
       const signature = await getSignature(
         address,
         formattedAmount,
         formState.source,
-        userNonce,
       );
 
-      // Create request on chain
-      await createRequestTx(
-        formattedAmount,
-        formState.source,
-        userNonce,
-        signature,
-      );
+      // Create request on chain (nonce is managed by contract)
+      await createRequestTx(formattedAmount, formState.source, signature);
     } catch (error) {
       console.error('Failed to create request:', error);
     }
@@ -182,7 +174,6 @@ export function WaitlistPage() {
     formattedAmount,
     address,
     formState.source,
-    userNonce,
     getSignature,
     createRequestTx,
   ]);
@@ -193,9 +184,10 @@ export function WaitlistPage() {
       try {
         setCancellingRequestId(requestId);
         await cancelRequestTx(requestId);
-        // Refetch requests after cancellation
+        // Refetch requests and balances after cancellation
         setTimeout(() => {
-          refetchRequestIds();
+          refetchApplications();
+          refetchBalances();
           refetchContractState();
         }, 2000);
       } catch (error) {
@@ -204,25 +196,30 @@ export function WaitlistPage() {
         setCancellingRequestId(undefined);
       }
     },
-    [cancelRequestTx, refetchRequestIds, refetchContractState],
+    [
+      cancelRequestTx,
+      refetchApplications,
+      refetchBalances,
+      refetchContractState,
+    ],
   );
 
   // Refetch after successful creation
   useEffect(() => {
     if (isCreateSuccess) {
-      refetchRequestIds();
+      refetchApplications();
+      refetchBalances();
       refetchContractState();
       refetchBalance();
-      refetchNonce();
       // Reset form
       setAmount('');
     }
   }, [
     isCreateSuccess,
-    refetchRequestIds,
+    refetchApplications,
+    refetchBalances,
     refetchContractState,
     refetchBalance,
-    refetchNonce,
     setAmount,
   ]);
 
@@ -278,11 +275,13 @@ export function WaitlistPage() {
                     source={formState.source}
                     availableBalance={availableBalance}
                     walletBalance={walletBalance?.value}
+                    balances={waitlistBalances}
                     onAmountChange={(amount) => {
                       setAmount(amount);
                     }}
                     onSourceChange={(source) => {
                       setSource(source);
+                      setSelectedSource(source);
                       // Reset amount when source changes
                       setAmount('');
                     }}
@@ -305,17 +304,19 @@ export function WaitlistPage() {
                 </div>
               )}
 
-              {isConnected && requestIds && requestIds.length > 0 && (
-                <div className="mt-[32px]">
-                  <RequestsList
-                    requestIds={requestIds}
-                    canCancel={canWithdraw || false}
-                    onCancel={handleCancel}
-                    isCancelling={isCancelling || isConfirmingCancel}
-                    cancellingRequestId={cancellingRequestId}
-                  />
-                </div>
-              )}
+              {isConnected &&
+                applicationsData &&
+                applicationsData.applications.length > 0 && (
+                  <div className="mt-[32px]">
+                    <RequestsList
+                      applications={applicationsData.applications}
+                      canCancel={canWithdraw || false}
+                      onCancel={handleCancel}
+                      isCancelling={isCancelling || isConfirmingCancel}
+                      cancellingRequestId={cancellingRequestId}
+                    />
+                  </div>
+                )}
             </>
           )}
         </div>

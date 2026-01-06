@@ -91,11 +91,9 @@ export function useWaitlistForm({
       const parsed = parseFloat(formState.amount);
       if (isNaN(parsed) || parsed <= 0) {
         errors.amount = 'Amount must be greater than 0';
-      } else if (
-        formattedAmount &&
-        availableBalance &&
-        formattedAmount > availableBalance
-      ) {
+      } else if (!availableBalance || availableBalance < 0n) {
+        errors.amount = 'Insufficient available balance';
+      } else if (formattedAmount && formattedAmount > availableBalance) {
         errors.amount = 'Insufficient balance';
       }
     }
@@ -132,11 +130,12 @@ export function useWaitlistForm({
       return false;
     }
 
-    if (
-      formattedAmount &&
-      availableBalance &&
-      formattedAmount > availableBalance
-    ) {
+    // If availableBalance is negative or undefined, form is invalid
+    if (!availableBalance || availableBalance < 0n) {
+      return false;
+    }
+
+    if (formattedAmount && formattedAmount > availableBalance) {
       return false;
     }
 

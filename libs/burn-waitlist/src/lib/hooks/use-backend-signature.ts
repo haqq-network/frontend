@@ -1,11 +1,11 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { getBackendApiUrl } from '../constants/waitlist-config';
 import { FundsSource } from '../constants/waitlist-config';
 
 interface BackendSignatureResponse {
   signature: string;
+  nonce?: string; // Nonce is returned but not needed by frontend
 }
 
 interface UseBackendSignatureReturn {
@@ -13,7 +13,6 @@ interface UseBackendSignatureReturn {
     userAddress: string,
     amount: bigint,
     source: FundsSource,
-    nonce: bigint,
   ) => Promise<`0x${string}`>;
   isLoading: boolean;
   error: Error | null;
@@ -21,6 +20,7 @@ interface UseBackendSignatureReturn {
 
 /**
  * Hook to get backend signature for waitlist request
+ * Note: Backend manages nonce internally, frontend doesn't need to pass it
  */
 export function useBackendSignature(): UseBackendSignatureReturn {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,14 +31,12 @@ export function useBackendSignature(): UseBackendSignatureReturn {
       userAddress: string,
       amount: bigint,
       source: FundsSource,
-      nonce: bigint,
     ): Promise<`0x${string}`> => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const apiUrl = getBackendApiUrl();
-        const response = await fetch(`${apiUrl}/api/v1/signature`, {
+        const response = await fetch('/api/waitlist/signature', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -47,7 +45,6 @@ export function useBackendSignature(): UseBackendSignatureReturn {
             user: userAddress,
             amount: amount.toString(),
             source: source,
-            nonce: nonce.toString(),
           }),
         });
 

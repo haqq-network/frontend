@@ -6,7 +6,7 @@ import { haqqTestedge2 } from 'viem/chains';
  */
 export const WAITLIST_CONTRACT_ADDRESSES: Record<number, `0x${string}`> = {
   [haqqTestedge2.id]:
-    '0xafc36779f695a2946523C1B056A0Dd7583a0e019' as `0x${string}`,
+    '0xCAFec7F6C482507fB5E6B5ed02250487Fd883C9f' as `0x${string}`,
   // Add more chain deployments here as they become available
 };
 
@@ -56,10 +56,11 @@ export const WAITLIST_DEFAULT_CHAIN_ID =
 export const getBackendApiUrl = (): string => {
   if (typeof window !== 'undefined') {
     return (
-      process.env.NEXT_PUBLIC_BURN_WAITLIST_API_URL || 'http://localhost:8080'
+      process.env.NEXT_PUBLIC_BURN_WAITLIST_API_URL ||
+      'https://waitlist.vorobevsa.com'
     );
   }
-  return process.env.BURN_WAITLIST_API_URL || 'http://localhost:8080';
+  return process.env.BURN_WAITLIST_API_URL || 'https://waitlist.vorobevsa.com';
 };
 
 /**

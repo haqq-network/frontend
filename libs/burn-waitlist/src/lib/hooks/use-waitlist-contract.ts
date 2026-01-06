@@ -220,7 +220,6 @@ export function useCreateWaitlistRequest() {
   const createRequest = async (
     amount: bigint,
     source: FundsSource,
-    nonce: bigint,
     backendSignature: `0x${string}`,
   ) => {
     if (!writeContractAsync) {
@@ -239,7 +238,7 @@ export function useCreateWaitlistRequest() {
       address: contractAddress,
       abi: WaitlistAbi,
       functionName: 'createRequest',
-      args: [amount, source, nonce, backendSignature],
+      args: [amount, source, backendSignature],
       chainId,
     });
   };

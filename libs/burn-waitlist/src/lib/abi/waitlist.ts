@@ -85,7 +85,7 @@ export const WaitlistAbi = [
   },
   {
     inputs: [],
-    name: 'InvalidNonce',
+    name: 'InvalidInitialOwner',
     type: 'error',
   },
   {
@@ -274,6 +274,31 @@ export const WaitlistAbi = [
     type: 'event',
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'user',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'oldNonce',
+        type: 'uint256',
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'newNonce',
+        type: 'uint256',
+      },
+    ],
+    name: 'UserNonceIncremented',
+    type: 'event',
+  },
+  {
     inputs: [],
     name: 'VERSION',
     outputs: [
@@ -356,11 +381,6 @@ export const WaitlistAbi = [
         internalType: 'enum Waitlist.FundsSource',
         name: 'source',
         type: 'uint8',
-      },
-      {
-        internalType: 'uint256',
-        name: 'nonce',
-        type: 'uint256',
       },
       {
         internalType: 'bytes',
