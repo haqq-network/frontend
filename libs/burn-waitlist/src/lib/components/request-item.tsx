@@ -65,7 +65,6 @@ export function RequestItem({
         {canCancel && !isCancelled && (
           <Button
             variant={2}
-            size="small"
             onClick={() => onCancel(requestId)}
             disabled={isCancelling}
             isLoading={isCancelling}
