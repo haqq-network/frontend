@@ -152,7 +152,11 @@ export function useWaitlistRequest(requestId: bigint | undefined) {
   const chainId = chain?.id;
   const contractAddress = getWaitlistContractAddress(chainId);
 
-  const { data: request, refetch } = useReadContract({
+  const {
+    data: request,
+    refetch,
+    isLoading,
+  } = useReadContract({
     address: contractAddress,
     abi: WaitlistAbi,
     functionName: 'getRequestById',
@@ -166,6 +170,7 @@ export function useWaitlistRequest(requestId: bigint | undefined) {
   return {
     request: request as WaitlistRequest | undefined,
     refetch,
+    isLoading,
   };
 }
 
