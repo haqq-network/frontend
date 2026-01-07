@@ -29,7 +29,11 @@ export interface WaitlistRequest {
 export function useWaitlistContractState() {
   const { chain } = useAccount();
   const chainId = chain?.id;
-  const contractAddress = getWaitlistContractAddress(chainId);
+  // For read-only calls (totalAmount, totalCount), use default chain
+  // For state calls, use current chain if connected
+  const contractAddress = getWaitlistContractAddress(
+    chainId || WAITLIST_DEFAULT_CHAIN_ID,
+  );
 
   const {
     data: currentState,
@@ -80,9 +84,9 @@ export function useWaitlistContractState() {
     address: contractAddress,
     abi: WaitlistAbi,
     functionName: 'getTotalAmount',
-    chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
+    chainId: WAITLIST_DEFAULT_CHAIN_ID, // Use default chain for read-only access
     query: {
-      enabled: !!contractAddress && !!chainId,
+      enabled: !!contractAddress, // Enable even without wallet connection
     },
   });
 
@@ -90,9 +94,9 @@ export function useWaitlistContractState() {
     address: contractAddress,
     abi: WaitlistAbi,
     functionName: 'getTotalCount',
-    chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
+    chainId: WAITLIST_DEFAULT_CHAIN_ID, // Use default chain for read-only access
     query: {
-      enabled: !!contractAddress && !!chainId,
+      enabled: !!contractAddress, // Enable even without wallet connection
     },
   });
 
@@ -236,13 +240,15 @@ export function useCreateWaitlistRequest() {
       throw new Error('Chain ID not available');
     }
 
-    return writeContractAsync({
+    const hash = await writeContractAsync({
       address: contractAddress,
       abi: WaitlistAbi,
       functionName: 'createRequest',
       args: [amount, source, backendSignature],
       chainId,
     });
+
+    return hash;
   };
 
   return {

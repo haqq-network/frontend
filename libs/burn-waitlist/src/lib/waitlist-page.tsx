@@ -11,11 +11,13 @@ import {
   useWaitlistBalances,
   useWaitlistApplications,
 } from './hooks';
+import type { Application } from './hooks/use-waitlist-applications';
 import { useBackendSignature } from './hooks/use-backend-signature';
 import { useWaitlistForm } from './hooks/use-waitlist-form';
 import {
   ParticipationForm,
   RequestsList,
+  RequestsListSkeleton,
   StatusMessages,
   WalletConnectionWarning,
   NetworkWarning,
@@ -25,7 +27,11 @@ import {
   WAITLIST_DEFAULT_CHAIN_ID,
 } from './constants/waitlist-config';
 
-export function WaitlistPage() {
+export interface WaitlistPageProps {
+  locale?: string;
+}
+
+export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   const { address, isConnected, chain } = useAccount();
   const { switchChainAsync } = useSwitchChain();
 
@@ -36,6 +42,8 @@ export function WaitlistPage() {
     canWithdraw,
     paused,
     isCorrectChain,
+    totalAmount,
+    totalCount,
     refetchAll: refetchContractState,
   } = useWaitlistContractState();
 
@@ -44,11 +52,14 @@ export function WaitlistPage() {
     useWaitlistBalances(address);
 
   // Get applications from backend API
-  const { data: applicationsData, refetch: refetchApplications } =
-    useWaitlistApplications({
-      address: address,
-      status: 'active',
-    });
+  const {
+    data: applicationsData,
+    isLoading: isLoadingApplications,
+    refetch: refetchApplications,
+  } = useWaitlistApplications({
+    address: address,
+    status: 'active',
+  });
 
   // User wallet balance (EVM) - for display purposes
   const { data: walletBalance, refetch: refetchBalance } = useBalance({
@@ -62,6 +73,7 @@ export function WaitlistPage() {
     isPending: isCreating,
     isConfirming: isConfirmingCreate,
     isSuccess: isCreateSuccess,
+    hash: createHash,
     error: createError,
   } = useCreateWaitlistRequest();
 
@@ -70,6 +82,8 @@ export function WaitlistPage() {
     cancelRequest: cancelRequestTx,
     isPending: isCancelling,
     isConfirming: isConfirmingCancel,
+    isSuccess: isCancelSuccess,
+    hash: cancelHash,
     error: cancelError,
   } = useCancelWaitlistRequest();
 
@@ -77,8 +91,24 @@ export function WaitlistPage() {
     bigint | undefined
   >();
 
+  // Track pending transactions for optimistic updates
+  const [pendingApplications, setPendingApplications] = useState<
+    Array<{
+      requestId: string;
+      amount: string;
+      author: string;
+      source: number;
+      cancelled: boolean;
+      valid: boolean;
+      ready: boolean;
+      isPending: boolean;
+      txHash?: string;
+    }>
+  >([]);
+
   // Track if we've already processed the success to avoid infinite loops
   const hasProcessedSuccess = useRef(false);
+  const hasProcessedCancelSuccess = useRef<string | undefined>();
 
   // Backend signature
   const { getSignature, isLoading: isLoadingSignature } = useBackendSignature();
@@ -149,6 +179,18 @@ export function WaitlistPage() {
     setSelectedSource(formState.source);
   }, [formState.source]);
 
+  // Auto-switch to OwnBalance if ucDAO balance is 0 and ucDAO is selected
+  useEffect(() => {
+    if (
+      formState.source === FundsSource.ucDAO &&
+      waitlistBalances &&
+      BigInt(waitlistBalances.ucdao) === 0n
+    ) {
+      setSource(FundsSource.OwnBalance);
+      setSelectedSource(FundsSource.OwnBalance);
+    }
+  }, [formState.source, waitlistBalances, setSource]);
+
   // Handle form submission
   const handleSubmit = useCallback(async () => {
     if (!isValid || !formattedAmount) {
@@ -168,7 +210,29 @@ export function WaitlistPage() {
       );
 
       // Create request on chain (nonce is managed by contract)
-      await createRequestTx(formattedAmount, formState.source, signature);
+      const hash = await createRequestTx(
+        formattedAmount,
+        formState.source,
+        signature,
+      );
+
+      // Add optimistic update immediately after transaction is sent
+      if (hash) {
+        const optimisticApp = {
+          requestId: 'pending',
+          amount: formattedAmount.toString(),
+          author: address,
+          source: formState.source,
+          cancelled: false,
+          valid: false,
+          ready: false,
+          isPending: true,
+          txHash: hash,
+        };
+        setPendingApplications((prev) => [...prev, optimisticApp]);
+        // Refetch immediately
+        refetchApplications();
+      }
     } catch (error) {
       console.error('Failed to create request:', error);
     }
@@ -179,6 +243,7 @@ export function WaitlistPage() {
     formState.source,
     getSignature,
     createRequestTx,
+    refetchApplications,
   ]);
 
   // Handle cancel request
@@ -186,8 +251,32 @@ export function WaitlistPage() {
     async (requestId: bigint) => {
       try {
         setCancellingRequestId(requestId);
-        await cancelRequestTx(requestId);
-        // Refetch requests and balances after cancellation
+        const hash = await cancelRequestTx(requestId);
+
+        // Optimistically remove the application from the list
+        if (hash && applicationsData) {
+          setPendingApplications((prev) => [
+            ...prev,
+            {
+              requestId: requestId.toString(),
+              amount: '0',
+              author: address || '',
+              source: 0,
+              cancelled: true,
+              valid: false,
+              ready: false,
+              isPending: true,
+              txHash: hash,
+            },
+          ]);
+        }
+
+        // Refetch immediately after transaction is sent
+        refetchApplications();
+        refetchBalances();
+        refetchContractState();
+
+        // Refetch again after delay to ensure backend has processed
         setTimeout(() => {
           refetchApplications();
           refetchBalances();
@@ -204,19 +293,26 @@ export function WaitlistPage() {
       refetchApplications,
       refetchBalances,
       refetchContractState,
+      applicationsData,
+      address,
     ],
   );
 
-  // Refetch after successful creation
+  // Refetch after successful creation (transaction confirmed)
   useEffect(() => {
-    if (isCreateSuccess && !hasProcessedSuccess.current) {
+    if (isCreateSuccess && createHash && !hasProcessedSuccess.current) {
       // Mark as processed to prevent re-running
       hasProcessedSuccess.current = true;
+
+      // Remove pending application with this hash
+      setPendingApplications((prev) =>
+        prev.filter((app) => app.txHash !== createHash),
+      );
 
       // Reset form immediately
       setAmount('');
 
-      // Refetch immediately (optimistic update)
+      // Refetch immediately
       refetchApplications();
       refetchBalances();
       refetchContractState();
@@ -247,11 +343,50 @@ export function WaitlistPage() {
     }
   }, [
     isCreateSuccess,
+    createHash,
     refetchApplications,
     refetchBalances,
     refetchContractState,
     refetchBalance,
     setAmount,
+  ]);
+
+  // Refetch after successful cancellation (transaction confirmed)
+  useEffect(() => {
+    if (
+      isCancelSuccess &&
+      cancelHash &&
+      cancelHash !== hasProcessedCancelSuccess.current
+    ) {
+      hasProcessedCancelSuccess.current = cancelHash;
+
+      // Remove pending cancellation with this hash
+      setPendingApplications((prev) =>
+        prev.filter((app) => app.txHash !== cancelHash),
+      );
+
+      // Refetch immediately
+      refetchApplications();
+      refetchBalances();
+      refetchContractState();
+
+      // Refetch again after delay to ensure backend has processed
+      const timeoutId = setTimeout(() => {
+        refetchApplications();
+        refetchBalances();
+        refetchContractState();
+      }, 2000);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [
+    isCancelSuccess,
+    cancelHash,
+    refetchApplications,
+    refetchBalances,
+    refetchContractState,
   ]);
 
   // Switch chain handler - switch to first supported chain
@@ -269,11 +404,70 @@ export function WaitlistPage() {
 
   const showForm = canSubmit && !paused && isCorrectChain;
 
-  console.log('isValid', isValid);
-  console.log('formattedAmount', formattedAmount);
-  console.log('availableBalance', availableBalance);
-  console.log('walletBalance', walletBalance?.value);
-  console.log('isSubmitting', isSubmitting);
+  // Merge applications with pending ones, sort by requestId descending (newest first)
+  const mergedApplications = useMemo(() => {
+    type MergedApplication = Application & {
+      isPending?: boolean;
+      txHash?: string;
+    };
+
+    // Filter out cancelled pending apps (they should be removed from list)
+    const activePendingApps = pendingApplications.filter(
+      (app) => !app.cancelled || app.requestId === 'pending',
+    );
+
+    // Create a map of requestIds to track which ones are being cancelled
+    const cancellingIds = new Set(
+      pendingApplications
+        .filter((app) => app.cancelled && app.requestId !== 'pending')
+        .map((app) => app.requestId),
+    );
+
+    // Filter out applications that are being cancelled
+    const activeApps = (applicationsData?.applications || []).filter(
+      (app) => !cancellingIds.has(app.requestId),
+    );
+
+    const allApps: MergedApplication[] = [...activeApps, ...activePendingApps];
+
+    // Sort by requestId descending (newest first)
+    // For pending apps, put them at the top
+    return allApps.sort((a, b) => {
+      if (a.isPending && !b.isPending) return -1;
+      if (!a.isPending && b.isPending) return 1;
+      const aId =
+        a.requestId === 'pending'
+          ? Number.MAX_SAFE_INTEGER
+          : parseInt(a.requestId, 10);
+      const bId =
+        b.requestId === 'pending'
+          ? Number.MAX_SAFE_INTEGER
+          : parseInt(b.requestId, 10);
+      return bId - aId;
+    });
+  }, [applicationsData?.applications, pendingApplications]);
+
+  // Calculate user aggregates (total amount and count of user's applications)
+  const userAggregates = useMemo(() => {
+    if (!mergedApplications || mergedApplications.length === 0) {
+      return { totalAmount: 0n, totalCount: 0 };
+    }
+
+    // Filter out cancelled and pending applications for aggregates
+    const activeApps = mergedApplications.filter(
+      (app) => !app.cancelled && !app.isPending,
+    );
+
+    const totalAmount = activeApps.reduce((sum, app) => {
+      return sum + BigInt(app.amount);
+    }, 0n);
+
+    return {
+      totalAmount,
+      totalCount: activeApps.length,
+    };
+  }, [mergedApplications]);
+
   return (
     <Container>
       <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
@@ -281,6 +475,30 @@ export function WaitlistPage() {
           <h1 className="mb-[24px] text-[24px] font-[600] text-[#0D0D0E]">
             Burn Waitlist
           </h1>
+
+          {/* Display total stats before wallet connection */}
+          {!isConnected && (
+            <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+              <div className="grid grid-cols-2 gap-[16px]">
+                <div>
+                  <div className="text-[12px] text-[#6B7280]">
+                    Total Applications
+                  </div>
+                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                    {totalCount !== undefined ? totalCount.toString() : '—'}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[12px] text-[#6B7280]">Total Amount</div>
+                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                    {totalAmount !== undefined
+                      ? `${formatEther(totalAmount)} ISLM`
+                      : '—'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {!isConnected && <WalletConnectionWarning />}
 
@@ -299,6 +517,28 @@ export function WaitlistPage() {
                 <NetworkWarning onSwitchChain={handleSwitchChain} />
               )}
 
+              {/* User Aggregates (5.1) */}
+              <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+                <div className="grid grid-cols-2 gap-[16px]">
+                  <div>
+                    <div className="text-[12px] text-[#6B7280]">
+                      Your Applications
+                    </div>
+                    <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                      {userAggregates.totalCount}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[12px] text-[#6B7280]">
+                      Your Total Amount
+                    </div>
+                    <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                      {formatEther(userAggregates.totalAmount)} ISLM
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-2">
                 {/* First Column: Form */}
                 {showForm && (
@@ -310,7 +550,6 @@ export function WaitlistPage() {
                       amount={formState.amount}
                       source={formState.source}
                       availableBalance={availableBalance}
-                      walletBalance={walletBalance?.value}
                       balances={waitlistBalances}
                       onAmountChange={(amount) => {
                         setAmount(amount);
@@ -344,18 +583,22 @@ export function WaitlistPage() {
                     <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
                       Your Requests
                     </h2>
-                    {applicationsData ? (
+                    {isLoadingApplications && !applicationsData ? (
+                      <RequestsListSkeleton />
+                    ) : applicationsData || pendingApplications.length > 0 ? (
                       <RequestsList
-                        applications={applicationsData.applications}
+                        applications={mergedApplications}
                         canCancel={canWithdraw || false}
                         onCancel={handleCancel}
                         isCancelling={isCancelling || isConfirmingCancel}
                         cancellingRequestId={cancellingRequestId}
+                        balances={waitlistBalances}
+                        locale={locale}
                       />
                     ) : (
                       <div className="rounded-[8px] bg-[#F3F4F6] p-[16px] text-center">
                         <div className="text-[14px] text-[#6B7280]">
-                          Loading applications...
+                          You haven't created any requests yet
                         </div>
                       </div>
                     )}

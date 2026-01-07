@@ -47,6 +47,18 @@ export function StatusMessages({
     );
   }
 
+  // Show message only if canSubmit is explicitly false (not undefined)
+  // This means submission is not allowed even though waitlist might be in other states
+  if (canSubmit === false) {
+    return (
+      <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+        <div className="text-[14px] font-[500] text-[#6B7280]">
+          Please wait for the public announcement of the application start.
+        </div>
+      </div>
+    );
+  }
+
   if (currentState === RequestsState.Closed) {
     return (
       <div className="mb-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">

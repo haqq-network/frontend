@@ -123,12 +123,9 @@ export function useWaitlistForm({
     }
   }, [validate, formattedAmount, formState.source, onSubmit]);
 
-  console.log('formState.amount', formState.amount);
-
   const isValid = useMemo(() => {
     // If no amount entered, form is invalid
     if (!formState.amount || formState.amount === '') {
-      console.log('no amount entered');
       return false;
     }
 
@@ -137,7 +134,6 @@ export function useWaitlistForm({
     try {
       parsed = parseFloat(formState.amount);
       if (isNaN(parsed) || parsed <= 0) {
-        console.log('amount is not a number or is less than 0');
         return false;
       }
     } catch {
@@ -145,23 +141,17 @@ export function useWaitlistForm({
     }
 
     // If availableBalance is undefined, we can't validate (might be loading)
-    // But if we have a valid amount, we should allow validation to proceed
-    // Only block if we're certain the balance is insufficient
     if (availableBalance === undefined) {
-      console.log('availableBalance is undefined');
-      // If we can't determine balance, don't allow submission
       return false;
     }
 
     // If availableBalance is negative or zero, form is invalid
     if (availableBalance <= 0n) {
-      console.log('availableBalance is less than or equal to 0');
       return false;
     }
 
     // Check if formatted amount exceeds available balance
     if (formattedAmount && formattedAmount > availableBalance) {
-      console.log('formattedAmount exceeds availableBalance');
       return false;
     }
 

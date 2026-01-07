@@ -8,14 +8,21 @@ import { WaitlistPage } from '@haqq/shell-burn-waitlist';
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 
-export default async function BurnWaitlistPage() {
+interface BurnWaitlistPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function BurnWaitlistPage({
+  params,
+}: BurnWaitlistPageProps) {
+  const { locale } = await params;
   const queryClient = new QueryClient();
 
   const dehydratedState = dehydrate(queryClient);
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <WaitlistPage />
+      <WaitlistPage locale={locale} />
     </HydrationBoundary>
   );
 }

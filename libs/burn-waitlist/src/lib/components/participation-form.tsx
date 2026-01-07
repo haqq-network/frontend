@@ -12,7 +12,6 @@ export interface ParticipationFormProps {
   amount: string;
   source: FundsSource;
   availableBalance?: bigint;
-  walletBalance?: bigint;
   balances?: WaitlistBalancesResponse;
   onAmountChange: (amount: string) => void;
   onSourceChange: (source: FundsSource) => void;
@@ -28,7 +27,6 @@ export function ParticipationForm({
   amount,
   source,
   availableBalance,
-  walletBalance,
   balances,
   onAmountChange,
   onSourceChange,
@@ -50,15 +48,6 @@ export function ParticipationForm({
     return formatEther(availableBalance);
   }, [availableBalance]);
 
-  // Determine which balance to show based on source
-  const displayBalance = useMemo(() => {
-    if (source === FundsSource.OwnBalance) {
-      return walletBalance;
-    }
-    // For ucDAO, we'll show the available balance from indexer
-    return availableBalance;
-  }, [source, walletBalance, availableBalance]);
-
   const balanceLabel = useMemo(() => {
     if (source === FundsSource.OwnBalance) {
       return 'Wallet Balance';
@@ -75,8 +64,17 @@ export function ParticipationForm({
         </label>
         <ModalInput
           symbol="ISLM"
-          value={amount ? parseFloat(amount) : undefined}
-          onChange={(value) => onAmountChange(value?.toString() || '')}
+          value={amount ? Number(amount) : undefined}
+          onChange={(value) => {
+            // Allow decimal input - pass the string value directly
+            // ModalInput's CurrencyInput handles decimal input correctly
+            if (value === undefined || value === '') {
+              onAmountChange('');
+            } else {
+              // Keep the string as-is to preserve decimal places
+              onAmountChange(value);
+            }
+          }}
           onMaxButtonClick={onMaxClick}
           hint={
             amountError ? (
@@ -95,35 +93,38 @@ export function ParticipationForm({
         />
       </div>
 
-      <div>
-        <label className="mb-[8px] block text-[14px] font-[500] text-[#0D0D0E]">
-          Funds Source
-        </label>
-        <div className="space-y-[8px]">
-          <label className="flex cursor-pointer items-center space-x-[8px]">
-            <input
-              type="radio"
-              name="source"
-              value={FundsSource.OwnBalance}
-              checked={source === FundsSource.OwnBalance}
-              onChange={() => onSourceChange(FundsSource.OwnBalance)}
-              className="h-[16px] w-[16px] cursor-pointer"
-            />
-            <span className="text-[14px] text-[#0D0D0E]">Own Balance</span>
+      {/* Only show Funds Source selection if ucDAO balance is greater than 0 */}
+      {balances && BigInt(balances.ucdao) > 0n && (
+        <div>
+          <label className="mb-[8px] block text-[14px] font-[500] text-[#0D0D0E]">
+            Funds Source
           </label>
-          <label className="flex cursor-pointer items-center space-x-[8px]">
-            <input
-              type="radio"
-              name="source"
-              value={FundsSource.ucDAO}
-              checked={source === FundsSource.ucDAO}
-              onChange={() => onSourceChange(FundsSource.ucDAO)}
-              className="h-[16px] w-[16px] cursor-pointer"
-            />
-            <span className="text-[14px] text-[#0D0D0E]">ucDAO</span>
-          </label>
+          <div className="space-y-[8px]">
+            <label className="flex cursor-pointer items-center space-x-[8px]">
+              <input
+                type="radio"
+                name="source"
+                value={FundsSource.OwnBalance}
+                checked={source === FundsSource.OwnBalance}
+                onChange={() => onSourceChange(FundsSource.OwnBalance)}
+                className="h-[16px] w-[16px] cursor-pointer"
+              />
+              <span className="text-[14px] text-[#0D0D0E]">Own Balance</span>
+            </label>
+            <label className="flex cursor-pointer items-center space-x-[8px]">
+              <input
+                type="radio"
+                name="source"
+                value={FundsSource.ucDAO}
+                checked={source === FundsSource.ucDAO}
+                onChange={() => onSourceChange(FundsSource.ucDAO)}
+                className="h-[16px] w-[16px] cursor-pointer"
+              />
+              <span className="text-[14px] text-[#0D0D0E]">ucDAO</span>
+            </label>
+          </div>
         </div>
-      </div>
+      )}
 
       {error && (
         <div className="rounded-[8px] bg-[#FEE2E2] p-[12px]">
