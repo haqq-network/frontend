@@ -324,22 +324,20 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
       refetchContractState();
       refetchBalance();
 
-      // Refetch again after delay to ensure backend has processed the transaction
-      const timeoutId1 = setTimeout(() => {
+      // Refetch periodically for the next 10 seconds (every 2 seconds)
+      const intervalId = setInterval(() => {
         refetchApplications();
         refetchBalances();
       }, 2000);
 
-      // Final refetch after longer delay to ensure everything is synced
-      const timeoutId2 = setTimeout(() => {
-        refetchApplications();
-        refetchBalances();
-        refetchContractState();
-      }, 5000);
+      // Stop refetching after 10 seconds
+      const stopTimeoutId = setTimeout(() => {
+        clearInterval(intervalId);
+      }, 10000);
 
       return () => {
-        clearTimeout(timeoutId1);
-        clearTimeout(timeoutId2);
+        clearInterval(intervalId);
+        clearTimeout(stopTimeoutId);
       };
     }
 
@@ -376,15 +374,20 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
       refetchBalances();
       refetchContractState();
 
-      // Refetch again after delay to ensure backend has processed
-      const timeoutId = setTimeout(() => {
+      // Refetch periodically for the next 10 seconds (every 2 seconds)
+      const intervalId = setInterval(() => {
         refetchApplications();
         refetchBalances();
-        refetchContractState();
       }, 2000);
 
+      // Stop refetching after 10 seconds
+      const stopTimeoutId = setTimeout(() => {
+        clearInterval(intervalId);
+      }, 10000);
+
       return () => {
-        clearTimeout(timeoutId);
+        clearInterval(intervalId);
+        clearTimeout(stopTimeoutId);
       };
     }
   }, [
