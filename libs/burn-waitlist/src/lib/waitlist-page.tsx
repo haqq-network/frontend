@@ -16,6 +16,7 @@ import { useBackendSignature } from './hooks/use-backend-signature';
 import { useWaitlistForm } from './hooks/use-waitlist-form';
 import {
   ParticipationForm,
+  ParticipationFormSkeleton,
   RequestsList,
   RequestsListSkeleton,
   StatusMessages,
@@ -48,8 +49,11 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   } = useWaitlistContractState();
 
   // Get balances from backend API
-  const { data: waitlistBalances, refetch: refetchBalances } =
-    useWaitlistBalances(address);
+  const {
+    data: waitlistBalances,
+    isLoading: isLoadingBalances,
+    refetch: refetchBalances,
+  } = useWaitlistBalances(address);
 
   // Get applications from backend API
   const {
@@ -402,8 +406,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   const errorMessage =
     createError?.message || cancelError?.message || undefined;
 
-  const showForm = canSubmit && !paused && isCorrectChain;
-
   // Merge applications with pending ones, sort by requestId descending (newest first)
   const mergedApplications = useMemo(() => {
     type MergedApplication = Application & {
@@ -541,11 +543,13 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
               <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-2">
                 {/* First Column: Form */}
-                {showForm && (
-                  <div>
-                    <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
-                      Participate in Waitlist
-                    </h2>
+                <div>
+                  <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
+                    Participate in Waitlist
+                  </h2>
+                  {isLoadingBalances && !waitlistBalances ? (
+                    <ParticipationFormSkeleton />
+                  ) : (
                     <ParticipationForm
                       amount={formState.amount}
                       source={formState.source}
@@ -574,8 +578,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       error={errorMessage}
                       amountError={formState.errors.amount}
                     />
-                  </div>
-                )}
+                  )}
+                </div>
 
                 {/* Second Column: Applications List */}
                 {isConnected && (

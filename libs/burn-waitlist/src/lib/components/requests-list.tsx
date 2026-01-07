@@ -59,7 +59,7 @@ export function RequestsList({
               key={app.requestId || app.txHash || `pending-${app.amount}`}
               className="rounded-[8px] border border-[#E5E7EB] bg-white p-[16px]"
             >
-              <div className="flex items-start justify-between">
+              <div className="flex flex-col gap-[12px] sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1">
                   <div className="mb-[8px] flex items-center space-x-[8px]">
                     <span className="text-[14px] font-[500] text-[#0D0D0E]">
@@ -106,22 +106,17 @@ export function RequestsList({
                         {sourceLabel}
                       </span>
                     </div>
-                    {/* Show undelegate link if not ready and has delegations */}
-                    {!isPending &&
-                      !isCancelled &&
-                      app.valid &&
-                      !app.ready &&
-                      balances &&
-                      BigInt(balances.delegations) > 0n && (
-                        <div className="mt-[8px]">
-                          <Link
-                            href={`/${locale}/staking`}
-                            className="text-[14px] font-[500] text-[#EC5728] hover:underline"
-                          >
-                            Undelegate
-                          </Link>
-                        </div>
-                      )}
+                    {/* Show undelegate link if not ready (happens when request uses staking funds) */}
+                    {!isPending && !isCancelled && app.valid && !app.ready && (
+                      <div className="mt-[8px]">
+                        <Link
+                          href={`/${locale}/staking`}
+                          className="text-[14px] font-[500] text-[#EC5728] hover:underline"
+                        >
+                          Start undelegate
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {canCancel && !isCancelled && !isPending && (
@@ -130,6 +125,7 @@ export function RequestsList({
                     onClick={() => onCancel(requestId)}
                     disabled={isCancelling}
                     isLoading={isCancellingThis}
+                    className="w-full sm:w-auto"
                   >
                     Cancel
                   </Button>
