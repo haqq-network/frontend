@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { parseEther, formatEther } from 'viem';
 import { FundsSource } from '../constants/waitlist-config';
 
@@ -41,6 +41,31 @@ export function useWaitlistForm({
     errors: {},
   });
 
+  // Store formattedAmount in state to preserve exact BigInt value
+  const [formattedAmount, setFormattedAmount] = useState<bigint | undefined>(
+    undefined,
+  );
+
+  // Update formattedAmount when amount changes
+  useEffect(() => {
+    if (!formState.amount || formState.amount === '') {
+      setFormattedAmount(undefined);
+      return;
+    }
+
+    try {
+      const parsed = parseFloat(formState.amount);
+      if (isNaN(parsed) || parsed <= 0) {
+        setFormattedAmount(undefined);
+        return;
+      }
+      const parsedAmount = parseEther(formState.amount);
+      setFormattedAmount(parsedAmount);
+    } catch {
+      setFormattedAmount(undefined);
+    }
+  }, [formState.amount]);
+
   const setAmount = useCallback((amount: string) => {
     setFormState((prev) => ({
       ...prev,
@@ -50,6 +75,7 @@ export function useWaitlistForm({
         amount: undefined,
       },
     }));
+    // formattedAmount will be updated by useEffect
   }, []);
 
   const setSource = useCallback((source: FundsSource) => {
@@ -64,26 +90,13 @@ export function useWaitlistForm({
 
   const handleMaxClick = useCallback(() => {
     if (availableBalance) {
+      // Store the exact BigInt value first
+      setFormattedAmount(availableBalance);
+      // Then set the string representation for display
       const formatted = formatEther(availableBalance);
       setAmount(formatted);
     }
   }, [availableBalance, setAmount]);
-
-  const formattedAmount = useMemo(() => {
-    if (!formState.amount || formState.amount === '') {
-      return undefined;
-    }
-
-    try {
-      const parsed = parseFloat(formState.amount);
-      if (isNaN(parsed) || parsed <= 0) {
-        return undefined;
-      }
-      return parseEther(formState.amount);
-    } catch {
-      return undefined;
-    }
-  }, [formState.amount]);
 
   const validate = useCallback((): boolean => {
     const errors: WaitlistFormState['errors'] = {};

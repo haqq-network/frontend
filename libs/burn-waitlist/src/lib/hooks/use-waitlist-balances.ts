@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { getBackendApiUrl } from '../constants/waitlist-config';
 
 export interface WaitlistBalancesResponse {
   address: string;
@@ -25,7 +26,13 @@ export function useWaitlistBalances(userAddress: string | undefined) {
         throw new Error('User address is required');
       }
 
-      const response = await fetch(`/api/waitlist/balances/${userAddress}`);
+      const apiUrl = getBackendApiUrl();
+      const response = await fetch(`${apiUrl}/api/v1/balances/${userAddress}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -37,6 +44,6 @@ export function useWaitlistBalances(userAddress: string | undefined) {
       return response.json();
     },
     enabled: !!userAddress,
-    staleTime: 30000, // Cache for 30 seconds
+    staleTime: 0, // Always refetch to get latest data
   });
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { formatEther, parseEther } from 'viem';
+import { formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
   useWaitlistContractState,
@@ -234,8 +234,9 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
           txHash: hash,
         };
         setPendingApplications((prev) => [...prev, optimisticApp]);
-        // Refetch immediately
+        // Refetch immediately to update balances and applications
         refetchApplications();
+        refetchBalances();
       }
     } catch (error) {
       console.error('Failed to create request:', error);
@@ -248,6 +249,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     getSignature,
     createRequestTx,
     refetchApplications,
+    refetchBalances,
   ]);
 
   // Handle cancel request
@@ -563,18 +565,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                         setSelectedSource(source);
                       }}
                       onMaxClick={() => {
-                        if (availableBalance) {
-                          // Reserve 0.01 ISLM for fees
-                          const feeReserve = parseEther('0.01');
-                          const maxAmount =
-                            availableBalance > feeReserve
-                              ? availableBalance - feeReserve
-                              : 0n;
-                          if (maxAmount > 0n) {
-                            const formatted = formatEther(maxAmount);
-                            setAmount(formatted);
-                          }
-                        }
+                        handleMaxClick();
                       }}
                       onSubmit={handleSubmit}
                       isValid={

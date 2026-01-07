@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { getBackendApiUrl } from '../constants/waitlist-config';
 
 export interface Application {
   requestId: string;
@@ -51,11 +52,17 @@ export function useWaitlistApplications({
       params.append('pageSize', pageSize.toString());
 
       const queryString = params.toString();
+      const apiUrl = getBackendApiUrl();
       const url = queryString
-        ? `/api/waitlist/applications?${queryString}`
-        : '/api/waitlist/applications';
+        ? `${apiUrl}/api/v1/applications?${queryString}`
+        : `${apiUrl}/api/v1/applications`;
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      });
 
       if (!response.ok) {
         const errorText = await response.text();

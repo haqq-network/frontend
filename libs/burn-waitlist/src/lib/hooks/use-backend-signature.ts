@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { FundsSource } from '../constants/waitlist-config';
+import { FundsSource, getBackendApiUrl } from '../constants/waitlist-config';
 
 interface BackendSignatureResponse {
   signature: string;
@@ -36,7 +36,8 @@ export function useBackendSignature(): UseBackendSignatureReturn {
       setError(null);
 
       try {
-        const response = await fetch('/api/waitlist/signature', {
+        const apiUrl = getBackendApiUrl();
+        const response = await fetch(`${apiUrl}/api/v1/signer/signature`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
