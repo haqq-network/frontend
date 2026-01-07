@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { formatEther } from 'viem';
+import { formatEther, parseEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import {
   useWaitlistContractState,
@@ -564,8 +564,16 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       }}
                       onMaxClick={() => {
                         if (availableBalance) {
-                          const formatted = formatEther(availableBalance);
-                          setAmount(formatted);
+                          // Reserve 0.01 ISLM for fees
+                          const feeReserve = parseEther('0.01');
+                          const maxAmount =
+                            availableBalance > feeReserve
+                              ? availableBalance - feeReserve
+                              : 0n;
+                          if (maxAmount > 0n) {
+                            const formatted = formatEther(maxAmount);
+                            setAmount(formatted);
+                          }
                         }
                       }}
                       onSubmit={handleSubmit}
