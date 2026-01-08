@@ -39,8 +39,6 @@ import {
 } from './hooks';
 
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
-
-// SUPPORTED_CHAINS is now imported from @haqq/shell-shared
 export const useChainProxyAddress = (chainId: number | undefined) => {
   if (chainId === CHAIN_CONFIG.l1ChainId) {
     return L1_STANDARD_MAINNET_BRIDGE_ADDRESS;
@@ -298,7 +296,7 @@ export function BridgePage() {
             <NetworkMismatchWarning onSwitchChain={handleSwitchChain} />
           )}
 
-          {isConnected && (
+          {isConnected ? (
             <>
               <BridgeStatusMessages
                 tokensError={tokensError}
@@ -350,7 +348,7 @@ export function BridgePage() {
 
               <RecoveryLink />
             </>
-          )}
+          ) : null}
         </div>
       </div>
     </Container>

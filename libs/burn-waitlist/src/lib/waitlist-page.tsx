@@ -539,7 +539,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
           {!isConnected && <WalletConnectionWarning />}
 
-          {isConnected && (
+          {isConnected ? (
             <>
               <StatusMessages
                 currentState={currentState}
@@ -614,7 +614,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 </div>
 
                 {/* Second Column: Applications List */}
-                {isConnected && (
+                {isConnected ? (
                   <div>
                     <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
                       Your Requests
@@ -639,10 +639,10 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       </div>
                     )}
                   </div>
-                )}
+                ) : null}
               </div>
             </>
-          )}
+          ) : null}
         </div>
       </div>
     </Container>
