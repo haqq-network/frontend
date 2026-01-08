@@ -611,6 +611,17 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       amountError={formState.errors.amount}
                     />
                   )}
+
+                  {/* Warning for negative available balance */}
+                  {availableBalance !== undefined && availableBalance < 0n && (
+                    <div className="mt-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">
+                      <div className="text-[14px] font-[500] text-[#92400E]">
+                        Need to fill balance{' '}
+                        {formatEtherWithDecimals(-availableBalance)} ISLM for
+                        request creation
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Second Column: Applications List */}
