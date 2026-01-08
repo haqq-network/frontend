@@ -64,7 +64,7 @@ export function ParticipationForm({
         </label>
         <ModalInput
           symbol="ISLM"
-          value={amount ? Number(amount) : undefined}
+          value={amount || undefined}
           onChange={(value) => {
             // Allow decimal input - pass the string value directly
             // ModalInput's CurrencyInput handles decimal input correctly

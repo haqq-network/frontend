@@ -28,6 +28,13 @@ export const usePreparedMaskValue = (
 ) => {
   const inputValue = useMemo(() => {
     if (!value && value !== 0) return undefined;
+
+    // If value is a string, preserve it as-is to maintain decimal point during input
+    // This is especially important for mobile browsers where input can be more sensitive
+    if (typeof value === 'string') {
+      return value;
+    }
+
     // Hack, because react-text-mask doesn't work correctly with decimals
     // ex: it converts 0.0709 to 0.070 (not 0.071!)
     // Additionally, remove trailing zeros and only fix to decimal limit if it has decimals
@@ -118,7 +125,7 @@ export function ModalInput({
   id,
 }: {
   symbol: string;
-  value: number | undefined;
+  value: number | string | undefined;
   onChange: (value: string | undefined) => void;
   onMaxButtonClick?: () => void;
   hint?: ReactNode;
