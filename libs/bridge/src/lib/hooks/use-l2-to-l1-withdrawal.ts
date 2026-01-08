@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react';
 import { parseEther, parseUnits } from 'viem';
 import { getWithdrawals } from 'viem/op-stack';
-import { useAccount, useSwitchChain } from 'wagmi';
+import { useAccount, useSwitchChain, useWriteContract } from 'wagmi';
 import {
   useToast,
   L2StandardBridgeAbi,
@@ -77,7 +77,6 @@ export function useL2ToL1Withdrawal({
   const { getTimeToProve, getTimeToFinalize, getWaitingTimeWarning } =
     useWithdrawalTimers();
   const {
-    publicClientL1,
     getWalletClientL1,
     getWalletClientL2,
     chains,
@@ -85,8 +84,9 @@ export function useL2ToL1Withdrawal({
     publicClientReadonlyL2,
   } = useOpStackClients();
 
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const toast = useToast();
+  const { writeContractAsync } = useWriteContract();
 
   const initiateWithdrawal = useCallback(
     async (amount: number, toAddress: string): Promise<string> => {
@@ -169,9 +169,7 @@ export function useL2ToL1Withdrawal({
       tokenDecimals = 18,
       tokenSymbolOverride?: string,
     ): Promise<string> => {
-      const walletClient = await getWalletClientL2();
-
-      if (!walletClient) {
+      if (!address || !writeContractAsync) {
         throw new Error('Wallet not connected or wallet client not available');
       }
 
@@ -184,7 +182,8 @@ export function useL2ToL1Withdrawal({
 
         // Step 2: Call withdrawTo on L2StandardBridge contract
         // According to Optimism docs: withdrawTo initiates ERC20 withdrawal from L2 to L1
-        const hash = await walletClient.writeContract({
+        // Using wagmi's writeContractAsync for proper wallet signing compatibility (works with Kepler, MetaMask, etc.)
+        const hash = await writeContractAsync({
           address: L2_STANDARD_BRIDGE_ADDRESS as `0x${string}`,
           abi: L2StandardBridgeAbi,
           functionName: 'withdrawTo',
@@ -208,7 +207,7 @@ export function useL2ToL1Withdrawal({
         addWithdrawalOrder({
           amount,
           toAddress,
-          fromAddress: walletClient.account.address,
+          fromAddress: address,
           initiateHash: hash,
           status: WithdrawalStatus.INITIATED,
           sourceChainId: chains.L2.id,
@@ -233,7 +232,8 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
-      getWalletClientL2,
+      address,
+      writeContractAsync,
       publicClientReadonlyL2,
       chains,
       addWithdrawalOrder,

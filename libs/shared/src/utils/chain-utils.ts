@@ -3,7 +3,7 @@ import { haqqEthiq } from './bridge';
 import { haqqTestethiq } from './bridge-testethiq';
 
 // Supported chains for bridge operations
-export const SUPPORTED_CHAINS = [sepolia, haqqTestethiq];
+export const SUPPORTED_CHAINS = [sepolia, haqqTestethiq, haqqEthiq, mainnet];
 
 /**
  * Get chain configuration by chain ID

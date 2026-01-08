@@ -2,7 +2,7 @@
 
 import { useCallback, useState, useEffect } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { decodeFunctionData, formatUnits } from 'viem';
+import { Address, decodeFunctionData, formatUnits, Hash } from 'viem';
 import { getWithdrawals } from 'viem/op-stack';
 import {
   L2StandardBridgeAbi,
@@ -235,6 +235,9 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
             await publicClientReadonlyL1.getWithdrawalStatus({
               receipt,
               targetChain: chains.L2_WITH_CONTRACTS,
+              gameLimit: 50,
+              sender: transaction.from as Address as any,
+              withdrawalHash: withdrawal.withdrawalHash as any,
             });
 
           // Map viem status to our WithdrawalStatus enum

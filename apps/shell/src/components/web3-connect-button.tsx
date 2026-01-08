@@ -14,7 +14,7 @@ import { baseSupportedChains, bridgeSupportedChains } from '@haqq/shell-shared';
 import { Button, AccountButton, SelectChainButton } from '@haqq/shell-ui-kit';
 import { formatNumber } from '@haqq/shell-ui-kit/server';
 
-function useIsBridgePage() {
+function useIsEthiqSupportedPage() {
   const pathname = usePathname();
   return useMemo(() => {
     return pathname?.startsWith('/bridge');
@@ -30,13 +30,13 @@ function useIsFaucetPage() {
 
 function useChainArray() {
   const chains = useChains();
-  const isBridgePage = useIsBridgePage();
+  const isEthiqSupportedPage = useIsEthiqSupportedPage();
   const isFaucetPage = useIsFaucetPage();
 
   return useMemo(() => {
     const availableChains = isFaucetPage
       ? faucetSupportedChains
-      : isBridgePage
+      : isEthiqSupportedPage
         ? bridgeSupportedChains
         : baseSupportedChains;
 
@@ -49,7 +49,7 @@ function useChainArray() {
       });
     }
 
-    return (isBridgePage ? bridgeSupportedChains : availableChains).map(
+    return (isEthiqSupportedPage ? bridgeSupportedChains : availableChains).map(
       (chain) => {
         return {
           id: chain.id,
@@ -57,7 +57,7 @@ function useChainArray() {
         };
       },
     );
-  }, [chains, isBridgePage, isFaucetPage]);
+  }, [chains, isEthiqSupportedPage, isFaucetPage]);
 }
 
 export function Web3ConnectButtons() {
@@ -67,7 +67,7 @@ export function Web3ConnectButtons() {
   const { openSelectWallet, disconnect, selectNetwork } = useWallet();
   const { data: balance } = useIndexerBalanceQuery(haqqAddress);
   const chainArray = useChainArray();
-  const isBridgePage = useIsBridgePage();
+  const isEthiqSupportedPage = useIsEthiqSupportedPage();
 
   if (!isConnected || !ethAddress) {
     return (
@@ -104,13 +104,14 @@ export function Web3ConnectButtons() {
           chains={chainArray}
         />
       </div>
-      {isBridgePage ? (
+      {isEthiqSupportedPage ? (
         <BridgePageAccountBtn withoutDropdown={false} />
       ) : (
         <div className="leading-[0]">
           <AccountBtnWrapper
             balance={balance ? formatNumber(balance.balance) : undefined}
             withoutDropdown={false}
+            onDisconnectClick={disconnect}
           />
         </div>
       )}
@@ -126,7 +127,7 @@ export function Web3ConnectButtonsMobile() {
   const { data: balance } = useIndexerBalanceQuery(haqqAddress);
   const chainArray = useChainArray();
 
-  const isBridgePage = useIsBridgePage();
+  const isEthiqSupportedPage = useIsEthiqSupportedPage();
 
   if (!isConnected || !ethAddress) {
     return (
@@ -158,13 +159,14 @@ export function Web3ConnectButtonsMobile() {
           dropdownClassName="end-auto start-0"
         />
       </div>
-      {isBridgePage ? (
+      {isEthiqSupportedPage ? (
         <BridgePageAccountBtn withoutDropdown={true} />
       ) : (
         <div className="leading-[0]">
           <AccountBtnWrapper
             balance={balance ? formatNumber(balance.balance) : undefined}
             withoutDropdown={true}
+            onDisconnectClick={disconnect}
           />
         </div>
       )}
@@ -181,10 +183,12 @@ const BridgePageAccountBtn = ({
   withoutDropdown?: boolean;
 }) => {
   const { data: balance } = useBalance();
+  const { disconnect } = useWallet();
   return (
     <AccountBtnWrapper
       balance={balance?.formatted}
       withoutDropdown={withoutDropdown}
+      onDisconnectClick={disconnect}
     />
   );
 };
@@ -192,9 +196,11 @@ const BridgePageAccountBtn = ({
 const AccountBtnWrapper = ({
   balance,
   withoutDropdown,
+  onDisconnectClick,
 }: {
   balance: string | undefined;
   withoutDropdown?: boolean;
+  onDisconnectClick?: () => void;
 }) => {
   const { ethAddress } = useAddress();
   return (
@@ -202,6 +208,7 @@ const AccountBtnWrapper = ({
       balance={balance}
       address={getFormattedAddress(ethAddress, 3, 2)}
       withoutDropdown={withoutDropdown}
+      onDisconnectClick={onDisconnectClick}
     />
   );
 };

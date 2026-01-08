@@ -5,8 +5,8 @@ import { haqqTestethiq } from './bridge-testethiq';
 export const bridgeSupportedChains = [
   haqqTestethiq,
   sepolia,
-  // haqqEthiq,
-  // mainnet,
+  haqqEthiq,
+  mainnet,
 ];
 export const faucetSupportedChains = [haqqTestedge2, haqqTestethiq];
 

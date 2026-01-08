@@ -5,6 +5,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { useAccount, useChainId } from 'wagmi';
 import { useWithdrawalTimers } from './use-withdrawal-timers';
 import { getOpStackChains } from '../constants/op-stack-config';
+import { fetchWithdrawals } from '../services/explorer-api';
 import {
   WithdrawalOrder,
   WithdrawalOrderStorage,
@@ -37,9 +38,9 @@ export function useWithdrawalOrders() {
   // Get all orders
   const orders = useMemo(() => {
     return storage.orders.filter((order) => {
-      return order.targetChainId === chainId;
+      return +order.targetChainId === +getOpStackChains(chainId).L1.id;
     });
-  }, [storage.orders]);
+  }, [storage.orders, chainId]);
 
   const opChainId = useMemo(() => {
     return getOpStackChains(chainId).L1.id;
@@ -189,6 +190,79 @@ export function useWithdrawalOrders() {
     [setStorage],
   );
 
+  // Sync withdrawals from explorer API
+  const syncWithdrawalsFromExplorer = useCallback(
+    async (
+      userAddress: string,
+      recoverWithdrawal: (txHash: string) => Promise<WithdrawalOrder | null>,
+    ) => {
+      const addressToSync = userAddress || address;
+      if (!addressToSync) {
+        console.warn('No address provided for syncing withdrawals');
+        return;
+      }
+
+      try {
+        console.log(
+          `Syncing withdrawals from explorer for address: ${addressToSync}`,
+        );
+        // Get L2 chain ID to determine which explorer to use
+        const l2ChainId = getOpStackChains(chainId).L2.id;
+        const allWithdrawals = await fetchWithdrawals(addressToSync, l2ChainId);
+
+        // Track withdrawals that need recovery
+        const withdrawalsToRecover: string[] = [];
+
+        // Update existing orders or create new ones based on explorer data
+        for (const explorerWithdrawal of allWithdrawals) {
+          const order = orders.find((order) => {
+            return (
+              order.initiateHash.toLowerCase() ===
+              explorerWithdrawal.l2_transaction_hash.toLowerCase()
+            );
+          });
+          if (order) {
+            continue;
+          }
+          // Check if this withdrawal should be recovered
+          const belongsToUser =
+            explorerWithdrawal.from.hash.toLowerCase() ===
+            addressToSync.toLowerCase();
+          const hasL2Hash = Boolean(explorerWithdrawal.l2_transaction_hash);
+          const hasNoL1Hash = !explorerWithdrawal.l1_transaction_hash;
+
+          if (belongsToUser && hasL2Hash && hasNoL1Hash) {
+            // This withdrawal should be recovered to get full details
+            withdrawalsToRecover.push(explorerWithdrawal.l2_transaction_hash);
+          }
+        }
+
+        // Recover withdrawals that need full details
+        if (withdrawalsToRecover.length > 0 && recoverWithdrawal) {
+          console.log(
+            `Recovering ${withdrawalsToRecover.length} withdrawals with full details`,
+          );
+          // Recover withdrawals in parallel, but limit concurrency
+          const recoveryPromises = withdrawalsToRecover.map((txHash) => {
+            return recoverWithdrawal(txHash).catch((error) => {
+              console.error(`Failed to recover withdrawal ${txHash}:`, error);
+              return null;
+            });
+          });
+          await Promise.all(recoveryPromises);
+        }
+
+        console.log(
+          `Synced ${allWithdrawals.length} withdrawals from explorer API`,
+        );
+      } catch (error) {
+        console.error('Failed to sync withdrawals from explorer:', error);
+        throw error;
+      }
+    },
+    [address, chainId, setStorage, orders],
+  );
+
   return {
     orders,
     pendingOrders,
@@ -199,5 +273,6 @@ export function useWithdrawalOrders() {
     getOrderByInitiateHash,
     updateOrderTimers,
     getOrderWarning,
+    syncWithdrawalsFromExplorer,
   };
 }

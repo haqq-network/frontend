@@ -1,0 +1,9 @@
+{
+  "name": "shell-burn-waitlist",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/burn-waitlist/src",
+  "projectType": "library",
+  "tags": ["shell-lib-burn-waitlist"],
+  "// targets": "to see all targets run: nx show project shell-burn-waitlist --web",
+  "targets": {}
+}

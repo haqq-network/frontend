@@ -19,6 +19,8 @@ const defaultMaskOptions = {
   decimalLimit: DEFAULT_DECIMAL_LIMIT,
   allowNegative: false,
   allowLeadingZeroes: false,
+  // Remove any integer limit to allow values > 999
+  integerLimit: undefined,
 };
 
 export const usePreparedMaskValue = (
