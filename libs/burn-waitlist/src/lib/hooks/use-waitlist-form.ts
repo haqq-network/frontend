@@ -107,10 +107,15 @@ export function useWaitlistForm({
 
   const handleMaxClick = useCallback(() => {
     if (availableBalance) {
+      // Reserve 0.2 ISLM for fees
+      const feeReserve = parseEther('0.2');
+      const maxAmount =
+        availableBalance > feeReserve ? availableBalance - feeReserve : 0n;
+
       // Store the exact BigInt value first
-      setFormattedAmount(availableBalance);
+      setFormattedAmount(maxAmount);
       // Then set the string representation for display
-      const formatted = formatEther(availableBalance);
+      const formatted = formatEther(maxAmount);
       setAmount(formatted);
     }
   }, [availableBalance, setAmount]);
