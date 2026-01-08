@@ -88,11 +88,13 @@ export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
             ? `-${parseFloat(balance.value.replace('-', '')).toLocaleString(
                 'en-US',
                 {
-                  maximumFractionDigits: 6,
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 4,
                 },
               )}`
             : parseFloat(balance.value).toLocaleString('en-US', {
-                maximumFractionDigits: 6,
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 4,
               });
 
           return (

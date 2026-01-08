@@ -4,6 +4,16 @@ import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
+
+// Helper function to format ether with 4 decimal places
+const formatEtherWithDecimals = (value: bigint): string => {
+  const formatted = formatEther(value);
+  const num = parseFloat(formatted);
+  return num.toLocaleString('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 4,
+  });
+};
 import {
   useWaitlistContractState,
   useCreateWaitlistRequest,
@@ -113,6 +123,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   // Track if we've already processed the success to avoid infinite loops
   const hasProcessedSuccess = useRef(false);
   const hasProcessedCancelSuccess = useRef<string | undefined>();
+  // Track if we've attempted to switch chain to avoid repeated attempts
+  const hasAttemptedSwitch = useRef<number | undefined>(undefined);
 
   // Backend signature
   const { getSignature, isLoading: isLoadingSignature } = useBackendSignature();
@@ -402,10 +414,28 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   const handleSwitchChain = useCallback(async () => {
     try {
       await switchChainAsync({ chainId: WAITLIST_DEFAULT_CHAIN_ID });
+      // Mark that we've attempted to switch for this chain
+      if (chain?.id) {
+        hasAttemptedSwitch.current = chain.id;
+      }
     } catch (error) {
       console.error('Failed to switch chain:', error);
     }
-  }, [switchChainAsync]);
+  }, [switchChainAsync, chain?.id]);
+
+  // Automatically switch to supported chain if current chain is not supported
+  useEffect(() => {
+    if (
+      isConnected &&
+      chain?.id &&
+      !isCorrectChain &&
+      hasAttemptedSwitch.current !== chain.id
+    ) {
+      // Only attempt switch once per chain (track by chain ID)
+      hasAttemptedSwitch.current = chain.id;
+      handleSwitchChain();
+    }
+  }, [isConnected, chain?.id, isCorrectChain, handleSwitchChain]);
 
   const isSubmitting = isCreating || isConfirmingCreate || isLoadingSignature;
   const errorMessage =
@@ -499,7 +529,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                   <div className="text-[12px] text-[#6B7280]">Total Amount</div>
                   <div className="text-[18px] font-[600] text-[#0D0D0E]">
                     {totalAmount !== undefined
-                      ? `${formatEther(totalAmount)} ISLM`
+                      ? `${formatEtherWithDecimals(totalAmount)} ISLM`
                       : '—'}
                   </div>
                 </div>
@@ -526,7 +556,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
               {/* User Aggregates (5.1) */}
               <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
-                <div className="grid grid-cols-2 gap-[16px]">
+                <div className="grid grid-cols-1 gap-[16px] sm:grid-cols-2">
                   <div>
                     <div className="text-[12px] text-[#6B7280]">
                       Your Applications
@@ -540,7 +570,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       Your Total Amount
                     </div>
                     <div className="text-[18px] font-[600] text-[#0D0D0E]">
-                      {formatEther(userAggregates.totalAmount)} ISLM
+                      {formatEtherWithDecimals(userAggregates.totalAmount)} ISLM
                     </div>
                   </div>
                 </div>

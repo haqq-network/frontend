@@ -28,6 +28,22 @@ interface UseWaitlistFormReturn {
 }
 
 /**
+ * Helper function to clean numeric string by removing thousands separators
+ * Removes commas, spaces, and other common separators
+ */
+const cleanNumericString = (value: string): string => {
+  return value.replace(/[,\s]/g, '');
+};
+
+/**
+ * Helper function to parse float from string with separators
+ */
+const parseFloatSafe = (value: string): number => {
+  const cleaned = cleanNumericString(value);
+  return parseFloat(cleaned);
+};
+
+/**
  * Hook to manage waitlist participation form state
  * Note: availableBalance should be recalculated externally when source changes
  */
@@ -54,12 +70,13 @@ export function useWaitlistForm({
     }
 
     try {
-      const parsed = parseFloat(formState.amount);
+      const cleanedAmount = cleanNumericString(formState.amount);
+      const parsed = parseFloatSafe(formState.amount);
       if (isNaN(parsed) || parsed <= 0) {
         setFormattedAmount(undefined);
         return;
       }
-      const parsedAmount = parseEther(formState.amount);
+      const parsedAmount = parseEther(cleanedAmount);
       setFormattedAmount(parsedAmount);
     } catch {
       setFormattedAmount(undefined);
@@ -104,7 +121,7 @@ export function useWaitlistForm({
     if (!formState.amount || formState.amount === '') {
       errors.amount = 'Amount is required';
     } else {
-      const parsed = parseFloat(formState.amount);
+      const parsed = parseFloatSafe(formState.amount);
       if (isNaN(parsed) || parsed <= 0) {
         errors.amount = 'Amount must be greater than 0';
       } else if (!availableBalance || availableBalance < 0n) {
@@ -145,7 +162,7 @@ export function useWaitlistForm({
     // Try to parse the amount
     let parsed: number;
     try {
-      parsed = parseFloat(formState.amount);
+      parsed = parseFloatSafe(formState.amount);
       if (isNaN(parsed) || parsed <= 0) {
         return false;
       }
