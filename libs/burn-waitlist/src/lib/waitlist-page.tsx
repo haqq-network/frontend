@@ -194,19 +194,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   useEffect(() => {
     setSelectedSource(formState.source);
   }, [formState.source]);
-
-  // Auto-switch to OwnBalance if ucDAO balance is 0 and ucDAO is selected
-  useEffect(() => {
-    if (
-      formState.source === FundsSource.ucDAO &&
-      waitlistBalances &&
-      BigInt(waitlistBalances.ucdao) === 0n
-    ) {
-      setSource(FundsSource.OwnBalance);
-      setSelectedSource(FundsSource.OwnBalance);
-    }
-  }, [formState.source, waitlistBalances, setSource]);
-
   // Handle form submission
   const handleSubmit = useCallback(async () => {
     if (!isValid || !formattedAmount) {

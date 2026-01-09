@@ -94,7 +94,7 @@ export function ParticipationForm({
       </div>
 
       {/* Only show Funds Source selection if ucDAO balance is greater than 0 */}
-      {balances && BigInt(balances.ucdao) > 0n && (
+      {balances && (
         <div>
           <label className="mb-[8px] block text-[14px] font-[500] text-[#0D0D0E]">
             Funds Source
