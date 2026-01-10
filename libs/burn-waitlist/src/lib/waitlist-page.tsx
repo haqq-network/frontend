@@ -2,18 +2,8 @@
 
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 
-// Helper function to format ether with 4 decimal places
-const formatEtherWithDecimals = (value: bigint): string => {
-  const formatted = formatEther(value);
-  const num = parseFloat(formatted);
-  return num.toLocaleString('en-US', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 4,
-  });
-};
 import {
   useWaitlistContractState,
   useCreateWaitlistRequest,
@@ -37,6 +27,7 @@ import {
   FundsSource,
   WAITLIST_DEFAULT_CHAIN_ID,
 } from './constants/waitlist-config';
+import { formatEthDecimal } from '@haqq/shell-shared';
 
 export interface WaitlistPageProps {
   locale?: string;
@@ -516,7 +507,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                   <div className="text-[12px] text-[#6B7280]">Total Amount</div>
                   <div className="text-[18px] font-[600] text-[#0D0D0E]">
                     {totalAmount !== undefined
-                      ? `${formatEtherWithDecimals(totalAmount)} ISLM`
+                      ? `${formatEthDecimal(totalAmount, 4)} ISLM`
                       : '—'}
                   </div>
                 </div>
@@ -557,7 +548,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       Your Total Amount
                     </div>
                     <div className="text-[18px] font-[600] text-[#0D0D0E]">
-                      {formatEtherWithDecimals(userAggregates.totalAmount)} ISLM
+                      {formatEthDecimal(userAggregates.totalAmount, 4)} ISLM
                     </div>
                   </div>
                 </div>
@@ -597,17 +588,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       error={errorMessage}
                       amountError={formState.errors.amount}
                     />
-                  )}
-
-                  {/* Warning for negative available balance */}
-                  {availableBalance !== undefined && availableBalance < 0n && (
-                    <div className="mt-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">
-                      <div className="text-[14px] font-[500] text-[#92400E]">
-                        Need to fill balance{' '}
-                        {formatEtherWithDecimals(-availableBalance)} ISLM for
-                        request creation
-                      </div>
-                    </div>
                   )}
                 </div>
 

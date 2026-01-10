@@ -4,9 +4,9 @@ import { useMemo } from 'react';
 import { Button } from '@haqq/shell-ui-kit';
 import { ModalInput } from '@haqq/shell-ui-kit';
 import { FundsSource } from '../constants/waitlist-config';
-import { formatEther } from 'viem';
 import { WaitlistBalances } from './waitlist-balances';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
+import { formatEthDecimal } from '@haqq/shell-shared';
 
 export interface ParticipationFormProps {
   amount: string;
@@ -43,17 +43,10 @@ export function ParticipationForm({
     }
     // Handle negative balances
     if (availableBalance < 0n) {
-      return `-${formatEther(-availableBalance)}`;
+      return `-${formatEthDecimal(-availableBalance, 4)}`;
     }
-    return formatEther(availableBalance);
+    return formatEthDecimal(availableBalance, 4);
   }, [availableBalance]);
-
-  const balanceLabel = useMemo(() => {
-    if (source === FundsSource.OwnBalance) {
-      return 'Wallet Balance';
-    }
-    return 'Available Balance';
-  }, [source]);
 
   return (
     <div className="space-y-[20px]">
@@ -81,11 +74,11 @@ export function ParticipationForm({
               <span className="text-[#EF4444]">{amountError}</span>
             ) : availableBalance && availableBalance < 0n ? (
               <span className="text-[#DC2626]">
-                {balanceLabel}: {formattedBalance} ISLM (Insufficient)
+                Available Balance: {formattedBalance} ISLM (Insufficient)
               </span>
             ) : (
               <span className="text-[#6B7280]">
-                {balanceLabel}: {formattedBalance} ISLM
+                Available Balance: {formattedBalance} ISLM
               </span>
             )
           }
@@ -122,6 +115,16 @@ export function ParticipationForm({
               />
               <span className="text-[14px] text-[#0D0D0E]">ucDAO</span>
             </label>
+          </div>
+        </div>
+      )}
+
+      {/* Warning for negative available balance */}
+      {availableBalance !== undefined && availableBalance < 0n && (
+        <div className="mt-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">
+          <div className="text-[14px] font-[500] text-[#92400E]">
+            Need to fill balance {formatEthDecimal(-availableBalance, 4)} ISLM
+            for request creation
           </div>
         </div>
       )}

@@ -107,8 +107,10 @@ export function useWaitlistForm({
 
   const handleMaxClick = useCallback(() => {
     if (availableBalance) {
-      // Reserve 0.2 ISLM for fees
-      const feeReserve = parseEther('0.2');
+      // Reserve 0.2 ISLM for fees only if source is OwnBalance
+      // ucDAO source doesn't need fee reservation
+      const feeReserve =
+        formState.source === FundsSource.ucDAO ? 0n : parseEther('0.2');
       const maxAmount =
         availableBalance > feeReserve ? availableBalance - feeReserve : 0n;
 
@@ -118,7 +120,7 @@ export function useWaitlistForm({
       const formatted = formatEther(maxAmount);
       setAmount(formatted);
     }
-  }, [availableBalance, setAmount]);
+  }, [availableBalance, setAmount, formState.source]);
 
   const validate = useCallback((): boolean => {
     const errors: WaitlistFormState['errors'] = {};
