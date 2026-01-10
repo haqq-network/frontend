@@ -247,39 +247,59 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     async (requestId: bigint) => {
       try {
         setCancellingRequestId(requestId);
+
+        // Mark as cancelling immediately (before transaction is sent) to remove from UI
+        setPendingApplications((prev) => [
+          ...prev,
+          {
+            requestId: requestId.toString(),
+            amount: '0',
+            author: address || '',
+            source: 0,
+            cancelled: true,
+            valid: false,
+            ready: false,
+            isPending: true,
+            txHash: undefined,
+          },
+        ]);
+
         const hash = await cancelRequestTx(requestId);
 
-        // Optimistically remove the application from the list
-        if (hash && applicationsData) {
-          setPendingApplications((prev) => [
-            ...prev,
-            {
-              requestId: requestId.toString(),
-              amount: '0',
-              author: address || '',
-              source: 0,
-              cancelled: true,
-              valid: false,
-              ready: false,
-              isPending: true,
-              txHash: hash,
-            },
-          ]);
+        // Update pending application with hash after transaction is sent
+        if (hash) {
+          setPendingApplications((prev) =>
+            prev.map((app) =>
+              app.requestId === requestId.toString() && app.cancelled
+                ? { ...app, txHash: hash }
+                : app,
+            ),
+          );
         }
 
-        // Refetch immediately after transaction is sent
+        // Refetch immediately after transaction is sent (no need to wait for confirmation)
         refetchApplications();
         refetchBalances();
         refetchContractState();
 
-        // Refetch again after delay to ensure backend has processed
-        setTimeout(() => {
+        // Refetch periodically for the next 10 seconds (every 2 seconds)
+        const intervalId = setInterval(() => {
           refetchApplications();
           refetchBalances();
-          refetchContractState();
         }, 2000);
+
+        // Stop refetching after 10 seconds
+        setTimeout(() => {
+          clearInterval(intervalId);
+        }, 10000);
       } catch (error) {
         console.error('Failed to cancel request:', error);
+        // Remove pending cancellation on error
+        setPendingApplications((prev) =>
+          prev.filter(
+            (app) => !(app.requestId === requestId.toString() && app.cancelled),
+          ),
+        );
       } finally {
         setCancellingRequestId(undefined);
       }
@@ -289,7 +309,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
       refetchApplications,
       refetchBalances,
       refetchContractState,
-      applicationsData,
       address,
     ],
   );
