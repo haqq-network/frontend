@@ -378,16 +378,87 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     ],
   );
 
+  // Automatically remove pending applications when they appear in backend data
+  // This ensures smooth transition from pending to confirmed state
+  useEffect(() => {
+    if (!applicationsData?.applications || pendingApplications.length === 0) {
+      return;
+    }
+
+    // For each pending application, check if it appears in backend data
+    setPendingApplications((prev) => {
+      // Check if we need to update anything
+      const hasMatchesToRemove = prev.some((pendingApp) => {
+        // Only check pending creation apps (not cancelled ones)
+        if (pendingApp.requestId === 'pending' && !pendingApp.cancelled) {
+          // Check if we can find a matching application in the backend data
+          // Match by amount (as string), source, and author
+          const matchingApp = applicationsData.applications.find((app) => {
+            // Normalize amounts by comparing as BigInt to handle any string formatting
+            const pendingAmount = BigInt(pendingApp.amount);
+            const appAmount = BigInt(app.amount);
+            const amountsMatch = pendingAmount === appAmount;
+
+            const sourcesMatch = app.source === pendingApp.source;
+            const authorsMatch =
+              app.author.toLowerCase() === pendingApp.author.toLowerCase();
+            const notCancelled = !app.cancelled;
+
+            return amountsMatch && sourcesMatch && authorsMatch && notCancelled;
+          });
+
+          // If found, this pending app should be removed
+          return !!matchingApp;
+        }
+
+        return false;
+      });
+
+      // Only update if we found matches to remove
+      if (!hasMatchesToRemove) {
+        return prev;
+      }
+
+      // Filter out pending apps that now appear in backend
+      return prev.filter((pendingApp) => {
+        // Keep pending apps that are being cancelled
+        if (pendingApp.cancelled && pendingApp.requestId !== 'pending') {
+          return true; // Keep cancelled apps until they're removed from backend
+        }
+
+        // For pending creation apps, check if they appear in backend
+        if (pendingApp.requestId === 'pending' && !pendingApp.cancelled) {
+          // Check if we can find a matching application in the backend data
+          const matchingApp = applicationsData.applications.find((app) => {
+            // Normalize amounts by comparing as BigInt
+            const pendingAmount = BigInt(pendingApp.amount);
+            const appAmount = BigInt(app.amount);
+            const amountsMatch = pendingAmount === appAmount;
+
+            const sourcesMatch = app.source === pendingApp.source;
+            const authorsMatch =
+              app.author.toLowerCase() === pendingApp.author.toLowerCase();
+            const notCancelled = !app.cancelled;
+
+            return amountsMatch && sourcesMatch && authorsMatch && notCancelled;
+          });
+
+          // If found, remove the pending app (it's now in backend)
+          // The backend app will be shown instead, maintaining continuity
+          return !matchingApp;
+        }
+
+        // Keep other pending apps
+        return true;
+      });
+    });
+  }, [applicationsData?.applications]);
+
   // Refetch after successful creation (transaction confirmed)
   useEffect(() => {
     if (isCreateSuccess && createHash && !hasProcessedSuccess.current) {
       // Mark as processed to prevent re-running
       hasProcessedSuccess.current = true;
-
-      // Remove pending application with this hash
-      setPendingApplications((prev) =>
-        prev.filter((app) => app.txHash !== createHash),
-      );
 
       // Reset form immediately
       setAmount('');
@@ -399,6 +470,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
       refetchBalance();
 
       // Refetch periodically for the next 10 seconds (every 2 seconds)
+      // to ensure backend has indexed the new application
       const intervalId = setInterval(() => {
         refetchApplications();
         refetchBalances();
