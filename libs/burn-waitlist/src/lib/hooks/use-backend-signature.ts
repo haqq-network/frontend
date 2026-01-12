@@ -13,6 +13,7 @@ interface UseBackendSignatureReturn {
     userAddress: string,
     amount: bigint,
     source: FundsSource,
+    chainId?: number,
   ) => Promise<`0x${string}`>;
   isLoading: boolean;
   error: Error | null;
@@ -31,12 +32,13 @@ export function useBackendSignature(): UseBackendSignatureReturn {
       userAddress: string,
       amount: bigint,
       source: FundsSource,
+      chainId?: number,
     ): Promise<`0x${string}`> => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const apiUrl = getBackendApiUrl();
+        const apiUrl = getBackendApiUrl(chainId);
         const response = await fetch(`${apiUrl}/api/v1/signer/signature`, {
           method: 'POST',
           headers: {

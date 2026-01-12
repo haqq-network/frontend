@@ -25,6 +25,7 @@ import {
 } from './components';
 import {
   FundsSource,
+  RequestsState,
   WAITLIST_DEFAULT_CHAIN_ID,
 } from './constants/waitlist-config';
 import { formatEthDecimal } from '@haqq/shell-shared';
@@ -119,7 +120,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     data: waitlistBalances,
     isLoading: isLoadingBalances,
     refetch: refetchBalances,
-  } = useWaitlistBalances(address);
+  } = useWaitlistBalances(address, chain?.id);
 
   // Get applications from backend API
   const {
@@ -129,6 +130,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   } = useWaitlistApplications({
     address: address,
     status: 'active',
+    chainId: chain?.id,
   });
 
   // User wallet balance (EVM) - for display purposes
@@ -221,7 +223,12 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
       try {
         // Get backend signature (nonce is managed by backend)
-        const signature = await getSignature(address, amount, source);
+        const signature = await getSignature(
+          address,
+          amount,
+          source,
+          chain?.id,
+        );
 
         // Create request on chain (nonce is managed by contract)
         await createRequestTx(amount, source, signature);
@@ -266,6 +273,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
         address,
         formattedAmount,
         formState.source,
+        chain?.id,
       );
 
       // Create request on chain (nonce is managed by contract)
@@ -745,6 +753,11 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       isSubmitting={isSubmitting}
                       error={errorMessage}
                       amountError={formState.errors.amount}
+                      disabled={
+                        !canSubmit ||
+                        currentState === RequestsState.Initialed ||
+                        paused
+                      }
                     />
                   )}
                 </div>

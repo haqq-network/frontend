@@ -21,6 +21,7 @@ export interface ParticipationFormProps {
   isSubmitting: boolean;
   error?: string;
   amountError?: string;
+  disabled?: boolean;
 }
 
 export function ParticipationForm({
@@ -36,6 +37,7 @@ export function ParticipationForm({
   isSubmitting,
   error,
   amountError,
+  disabled = false,
 }: ParticipationFormProps) {
   const formattedBalance = useMemo(() => {
     if (!availableBalance) {
@@ -82,7 +84,10 @@ export function ParticipationForm({
               </span>
             )
           }
-          isMaxButtonDisabled={!availableBalance || availableBalance <= 0n}
+          isMaxButtonDisabled={
+            !availableBalance || availableBalance <= 0n || disabled
+          }
+          disabled={disabled}
         />
       </div>
 
@@ -93,25 +98,31 @@ export function ParticipationForm({
             Funds Source
           </label>
           <div className="space-y-[8px]">
-            <label className="flex cursor-pointer items-center space-x-[8px]">
+            <label
+              className={`flex items-center space-x-[8px] ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            >
               <input
                 type="radio"
                 name="source"
                 value={FundsSource.OwnBalance}
                 checked={source === FundsSource.OwnBalance}
                 onChange={() => onSourceChange(FundsSource.OwnBalance)}
-                className="h-[16px] w-[16px] cursor-pointer"
+                disabled={disabled}
+                className="h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
               />
               <span className="text-[14px] text-[#0D0D0E]">Own Balance</span>
             </label>
-            <label className="flex cursor-pointer items-center space-x-[8px]">
+            <label
+              className={`flex items-center space-x-[8px] ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            >
               <input
                 type="radio"
                 name="source"
                 value={FundsSource.ucDAO}
                 checked={source === FundsSource.ucDAO}
                 onChange={() => onSourceChange(FundsSource.ucDAO)}
-                className="h-[16px] w-[16px] cursor-pointer"
+                disabled={disabled}
+                className="h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
               />
               <span className="text-[14px] text-[#0D0D0E]">ucDAO</span>
             </label>
@@ -140,7 +151,7 @@ export function ParticipationForm({
           variant={5}
           onClick={onSubmit}
           className="w-full"
-          disabled={!isValid || isSubmitting}
+          disabled={!isValid || isSubmitting || disabled}
           isLoading={isSubmitting}
         >
           {isSubmitting ? 'Submitting...' : 'Participate in Waitlist'}

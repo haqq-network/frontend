@@ -26,6 +26,7 @@ interface UseWaitlistApplicationsParams {
   status?: 'active' | 'cancelled';
   page?: number;
   pageSize?: number;
+  chainId?: number;
 }
 
 /**
@@ -36,9 +37,17 @@ export function useWaitlistApplications({
   status,
   page = 1,
   pageSize = 50,
+  chainId,
 }: UseWaitlistApplicationsParams = {}) {
   return useQuery<ApplicationsListResponse>({
-    queryKey: ['waitlist-applications', address, status, page, pageSize],
+    queryKey: [
+      'waitlist-applications',
+      address,
+      status,
+      page,
+      pageSize,
+      chainId,
+    ],
     queryFn: async () => {
       const params = new URLSearchParams();
 
@@ -52,7 +61,7 @@ export function useWaitlistApplications({
       params.append('pageSize', pageSize.toString());
 
       const queryString = params.toString();
-      const apiUrl = getBackendApiUrl();
+      const apiUrl = getBackendApiUrl(chainId);
       const url = queryString
         ? `${apiUrl}/api/v1/applications?${queryString}`
         : `${apiUrl}/api/v1/applications`;

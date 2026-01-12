@@ -1,10 +1,12 @@
-import { haqqTestedge2 } from 'viem/chains';
+import { haqqMainnet, haqqTestedge2 } from 'viem/chains';
 
 /**
  * Waitlist contract addresses mapped by chain ID
  * Key: chain ID, Value: contract address
  */
 export const WAITLIST_CONTRACT_ADDRESSES: Record<number, `0x${string}`> = {
+  [haqqMainnet.id]:
+    '0xe974fc272bA869E638f402e2818161EB88b2A392' as `0x${string}`,
   [haqqTestedge2.id]:
     '0xCAFec7F6C482507fB5E6B5ed02250487Fd883C9f' as `0x${string}`,
   // Add more chain deployments here as they become available
@@ -47,20 +49,21 @@ export function isWaitlistChainSupported(chainId?: number): boolean {
  * Default chain ID for waitlist (first supported chain)
  */
 export const WAITLIST_DEFAULT_CHAIN_ID =
-  WAITLIST_SUPPORTED_CHAIN_IDS[0] || haqqTestedge2.id;
+  WAITLIST_SUPPORTED_CHAIN_IDS[0] || haqqMainnet.id;
 
 /**
  * Backend API base URL
- * Can be overridden via environment variable
+ * @param chainId - Optional chain ID to determine which backend URL to use
+ * @returns Backend API URL for the specified chain
  */
-export const getBackendApiUrl = (): string => {
-  if (typeof window !== 'undefined') {
-    return (
-      process.env.NEXT_PUBLIC_BURN_WAITLIST_API_URL ||
-      'https://waitlist.vorobevsa.com'
-    );
+export const getBackendApiUrl = (chainId?: number): string => {
+  // Return chain-specific URL based on chain ID
+  if (chainId === haqqTestedge2.id) {
+    return 'https://waitlist.vorobevsa.com';
   }
-  return process.env.BURN_WAITLIST_API_URL || 'https://waitlist.vorobevsa.com';
+
+  // Default to production URL for mainnet or unknown chains
+  return 'https://waitlist.haqq.network';
 };
 
 /**
