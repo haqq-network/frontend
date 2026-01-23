@@ -1,4 +1,4 @@
-// ABI for Waitlist contract - Updated from deployments/54211/abi.json
+// ABI for Waitlist contract - Updated from deployments/11235/abi.json (HAQQ Mainnet)
 export const WaitlistAbi = [
   {
     inputs: [
@@ -90,11 +90,6 @@ export const WaitlistAbi = [
   },
   {
     inputs: [],
-    name: 'InvalidState',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'OnlyAuthorCanCancel',
     type: 'error',
   },
@@ -170,6 +165,25 @@ export const WaitlistAbi = [
         type: 'address',
       },
     ],
+    name: 'OwnershipTransferStarted',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'previousOwner',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'newOwner',
+        type: 'address',
+      },
+    ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
@@ -227,7 +241,7 @@ export const WaitlistAbi = [
         type: 'uint256',
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: 'enum Waitlist.FundsSource',
         name: 'source',
         type: 'uint8',
@@ -309,6 +323,13 @@ export const WaitlistAbi = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'acceptOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -450,11 +471,6 @@ export const WaitlistAbi = [
             name: 'cancelled',
             type: 'bool',
           },
-          {
-            internalType: 'bytes',
-            name: 'backendSignature',
-            type: 'bytes',
-          },
         ],
         internalType: 'struct Waitlist.Request',
         name: '',
@@ -583,9 +599,99 @@ export const WaitlistAbi = [
   },
   {
     inputs: [],
+    name: 'pendingOwner',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'renounceOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'requestExists',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'requestIdToIndex',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'requests',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'requestId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: 'author',
+        type: 'address',
+      },
+      {
+        internalType: 'enum Waitlist.FundsSource',
+        name: 'source',
+        type: 'uint8',
+      },
+      {
+        internalType: 'bool',
+        name: 'cancelled',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -599,6 +705,32 @@ export const WaitlistAbi = [
     name: 'setBackendSigner',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'totalActiveAmount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'totalActiveCount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -619,6 +751,49 @@ export const WaitlistAbi = [
     name: 'unpause',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'userNonces',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'userRequests',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {

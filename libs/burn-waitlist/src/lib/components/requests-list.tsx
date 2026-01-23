@@ -111,7 +111,9 @@ export function RequestsList({
                       <div className="mt-[8px]">
                         <Link
                           href={`/${locale}/staking`}
-                          className="text-[14px] font-[500] text-[#EC5728] hover:underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-haqq-orange text-[14px] font-[500] hover:underline"
                         >
                           Start undelegate
                         </Link>

@@ -27,7 +27,7 @@ describe('usePreparedMaskValue', () => {
     const { result } = renderHook(() => {
       return usePreparedMaskValue('1000.1200');
     });
-    expect(result.current.inputValue).toBe('1000.12');
+    expect(result.current.inputValue).toBe('1000.1200');
   });
 
   it('should handle undefined value correctly', () => {
@@ -55,7 +55,7 @@ describe('usePreparedMaskValue', () => {
     const { result } = renderHook(() => {
       return usePreparedMaskValue('000123.45');
     });
-    expect(result.current.inputValue).toBe('123.45');
+    expect(result.current.inputValue).toBe('000123.45');
   });
 
   it('should handle large numbers correctly', () => {

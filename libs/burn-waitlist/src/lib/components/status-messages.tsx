@@ -39,9 +39,12 @@ export function StatusMessages({
 
   if (currentState === RequestsState.Initialed) {
     return (
-      <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
-        <div className="text-[14px] font-[500] text-[#6B7280]">
-          Waitlist has not been opened yet
+      <div className="mb-[24px] rounded-[8px] border-[2px] border-[#F59E0B] bg-[#FEF3C7] p-[16px]">
+        <div className="text-[16px] font-[600] text-[#92400E]">
+          ⚠️ Waitlist has not been opened yet
+        </div>
+        <div className="mt-[8px] text-[14px] text-[#92400E]">
+          You cannot submit requests until the waitlist is opened.
         </div>
       </div>
     );
@@ -51,9 +54,12 @@ export function StatusMessages({
   // This means submission is not allowed even though waitlist might be in other states
   if (canSubmit === false) {
     return (
-      <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
-        <div className="text-[14px] font-[500] text-[#6B7280]">
-          Please wait for the public announcement of the application start.
+      <div className="mb-[24px] rounded-[8px] border-[2px] border-[#F59E0B] bg-[#FEF3C7] p-[16px]">
+        <div className="text-[16px] font-[600] text-[#92400E]">
+          ⚠️ Please wait for the public announcement of the application start.
+        </div>
+        <div className="mt-[8px] text-[14px] text-[#92400E]">
+          You cannot submit requests at this time.
         </div>
       </div>
     );

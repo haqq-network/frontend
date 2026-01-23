@@ -337,6 +337,7 @@ export function BridgePage() {
                     isApproving || needsDeployment || isCheckingRemoteToken
                   }
                   onApprove={handleApprove}
+                  isL2ToL1={isL2ToL1}
                 />
               )}
 

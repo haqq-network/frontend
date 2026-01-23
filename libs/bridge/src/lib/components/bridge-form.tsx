@@ -38,6 +38,8 @@ export interface BridgeFormProps {
   isApproving?: boolean;
   disabledApproveBtn?: boolean;
   onApprove?: () => void;
+  // Bridge direction
+  isL2ToL1: boolean;
 }
 
 export function BridgeForm({
@@ -62,6 +64,7 @@ export function BridgeForm({
   isApproving = false,
   disabledApproveBtn = false,
   onApprove,
+  isL2ToL1,
 }: BridgeFormProps) {
   return (
     <div className="space-y-[20px]">
@@ -129,7 +132,10 @@ export function BridgeForm({
       </div>
 
       {isTxSuccess && (
-        <BridgeSuccessMessage tokenSymbol={selectedToken?.symbol || 'ETH'} />
+        <BridgeSuccessMessage
+          tokenSymbol={selectedToken?.symbol || 'ETH'}
+          isL2ToL1={isL2ToL1}
+        />
       )}
     </div>
   );

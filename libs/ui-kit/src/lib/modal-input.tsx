@@ -28,6 +28,13 @@ export const usePreparedMaskValue = (
 ) => {
   const inputValue = useMemo(() => {
     if (!value && value !== 0) return undefined;
+
+    // If value is a string, preserve it as-is to maintain decimal point during input
+    // This is especially important for mobile browsers where input can be more sensitive
+    if (typeof value === 'string') {
+      return value;
+    }
+
     // Hack, because react-text-mask doesn't work correctly with decimals
     // ex: it converts 0.0709 to 0.070 (not 0.071!)
     // Additionally, remove trailing zeros and only fix to decimal limit if it has decimals
@@ -116,14 +123,16 @@ export function ModalInput({
   hint,
   isMaxButtonDisabled = false,
   id,
+  disabled = false,
 }: {
   symbol: string;
-  value: number | undefined;
+  value: number | string | undefined;
   onChange: (value: string | undefined) => void;
   onMaxButtonClick?: () => void;
   hint?: ReactNode;
   isMaxButtonDisabled?: boolean;
   id?: string;
+  disabled?: boolean;
 }) {
   const { t } = useTranslate('common');
   const handleInputChange = useCallback(
@@ -144,11 +153,14 @@ export function ModalInput({
             'transition-colors duration-100 ease-in',
             'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
             'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
-            'bg-[#E7E7E7]',
+            disabled
+              ? 'cursor-not-allowed bg-[#F3F4F6] opacity-50'
+              : 'bg-[#E7E7E7]',
           )}
           onChange={handleInputChange}
           id={id}
           value={value}
+          disabled={disabled}
         />
         {Boolean(onMaxButtonClick || symbol) && (
           <div className="absolute end-3 top-1/2 -translate-y-1/2">

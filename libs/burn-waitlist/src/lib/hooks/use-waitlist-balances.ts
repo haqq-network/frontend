@@ -17,16 +17,21 @@ export interface WaitlistBalancesResponse {
 
 /**
  * Hook to fetch user balances from backend API
+ * @param userAddress - User wallet address
+ * @param chainId - Optional chain ID to determine which backend URL to use
  */
-export function useWaitlistBalances(userAddress: string | undefined) {
+export function useWaitlistBalances(
+  userAddress: string | undefined,
+  chainId?: number,
+) {
   return useQuery<WaitlistBalancesResponse>({
-    queryKey: ['waitlist-balances', userAddress],
+    queryKey: ['waitlist-balances', userAddress, chainId],
     queryFn: async () => {
       if (!userAddress) {
         throw new Error('User address is required');
       }
 
-      const apiUrl = getBackendApiUrl();
+      const apiUrl = getBackendApiUrl(chainId);
       const response = await fetch(`${apiUrl}/api/v1/balances/${userAddress}`, {
         method: 'GET',
         headers: {

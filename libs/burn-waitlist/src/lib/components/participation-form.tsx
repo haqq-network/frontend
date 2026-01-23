@@ -4,9 +4,9 @@ import { useMemo } from 'react';
 import { Button } from '@haqq/shell-ui-kit';
 import { ModalInput } from '@haqq/shell-ui-kit';
 import { FundsSource } from '../constants/waitlist-config';
-import { formatEther } from 'viem';
 import { WaitlistBalances } from './waitlist-balances';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
+import { formatEthDecimal } from '@haqq/shell-shared';
 
 export interface ParticipationFormProps {
   amount: string;
@@ -21,6 +21,7 @@ export interface ParticipationFormProps {
   isSubmitting: boolean;
   error?: string;
   amountError?: string;
+  disabled?: boolean;
 }
 
 export function ParticipationForm({
@@ -36,6 +37,7 @@ export function ParticipationForm({
   isSubmitting,
   error,
   amountError,
+  disabled = false,
 }: ParticipationFormProps) {
   const formattedBalance = useMemo(() => {
     if (!availableBalance) {
@@ -43,17 +45,10 @@ export function ParticipationForm({
     }
     // Handle negative balances
     if (availableBalance < 0n) {
-      return `-${formatEther(-availableBalance)}`;
+      return `-${formatEthDecimal(-availableBalance, 4)}`;
     }
-    return formatEther(availableBalance);
+    return formatEthDecimal(availableBalance, 4);
   }, [availableBalance]);
-
-  const balanceLabel = useMemo(() => {
-    if (source === FundsSource.OwnBalance) {
-      return 'Wallet Balance';
-    }
-    return 'Available Balance';
-  }, [source]);
 
   return (
     <div className="space-y-[20px]">
@@ -64,7 +59,7 @@ export function ParticipationForm({
         </label>
         <ModalInput
           symbol="ISLM"
-          value={amount ? Number(amount) : undefined}
+          value={amount || undefined}
           onChange={(value) => {
             // Allow decimal input - pass the string value directly
             // ModalInput's CurrencyInput handles decimal input correctly
@@ -81,47 +76,66 @@ export function ParticipationForm({
               <span className="text-[#EF4444]">{amountError}</span>
             ) : availableBalance && availableBalance < 0n ? (
               <span className="text-[#DC2626]">
-                {balanceLabel}: {formattedBalance} ISLM (Insufficient)
+                Available Balance: {formattedBalance} ISLM (Insufficient)
               </span>
             ) : (
               <span className="text-[#6B7280]">
-                {balanceLabel}: {formattedBalance} ISLM
+                Available Balance: {formattedBalance} ISLM
               </span>
             )
           }
-          isMaxButtonDisabled={!availableBalance || availableBalance <= 0n}
+          isMaxButtonDisabled={
+            !availableBalance || availableBalance <= 0n || disabled
+          }
+          disabled={disabled}
         />
       </div>
 
       {/* Only show Funds Source selection if ucDAO balance is greater than 0 */}
-      {balances && BigInt(balances.ucdao) > 0n && (
+      {balances && (
         <div>
           <label className="mb-[8px] block text-[14px] font-[500] text-[#0D0D0E]">
             Funds Source
           </label>
           <div className="space-y-[8px]">
-            <label className="flex cursor-pointer items-center space-x-[8px]">
+            <label
+              className={`flex items-center space-x-[8px] ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            >
               <input
                 type="radio"
                 name="source"
                 value={FundsSource.OwnBalance}
                 checked={source === FundsSource.OwnBalance}
                 onChange={() => onSourceChange(FundsSource.OwnBalance)}
-                className="h-[16px] w-[16px] cursor-pointer"
+                disabled={disabled}
+                className="h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
               />
               <span className="text-[14px] text-[#0D0D0E]">Own Balance</span>
             </label>
-            <label className="flex cursor-pointer items-center space-x-[8px]">
+            <label
+              className={`flex items-center space-x-[8px] ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            >
               <input
                 type="radio"
                 name="source"
                 value={FundsSource.ucDAO}
                 checked={source === FundsSource.ucDAO}
                 onChange={() => onSourceChange(FundsSource.ucDAO)}
-                className="h-[16px] w-[16px] cursor-pointer"
+                disabled={disabled}
+                className="h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
               />
               <span className="text-[14px] text-[#0D0D0E]">ucDAO</span>
             </label>
+          </div>
+        </div>
+      )}
+
+      {/* Warning for negative available balance */}
+      {availableBalance !== undefined && availableBalance < 0n && (
+        <div className="mt-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">
+          <div className="text-[14px] font-[500] text-[#92400E]">
+            Need to fill balance {formatEthDecimal(-availableBalance, 4)} ISLM
+            for request creation
           </div>
         </div>
       )}
@@ -137,7 +151,7 @@ export function ParticipationForm({
           variant={5}
           onClick={onSubmit}
           className="w-full"
-          disabled={!isValid || isSubmitting}
+          disabled={!isValid || isSubmitting || disabled}
           isLoading={isSubmitting}
         >
           {isSubmitting ? 'Submitting...' : 'Participate in Waitlist'}
