@@ -43,7 +43,7 @@
     "@sentry/react": "9.4.0",
     "@sentry/vite-plugin": "3.2.2",
     "@t3-oss/env-nextjs": "0.11.1",
-    "@tanstack/react-query": "5.67.1",
+    "@tanstack/react-query": "5.90.16",
     "@tanstack/react-query-devtools": "5.67.1",
     "@tolgee/format-icu": "6.2.2",
     "@tolgee/react": "6.2.2",
