@@ -8,7 +8,7 @@ export const bridgeSupportedChains = [
   haqqEthiq,
   mainnet,
 ];
-export const faucetSupportedChains = [haqqTestedge2, haqqTestethiq];
+export const faucetSupportedChains = [haqqTestethiq, haqqTestedge2];
 
 export const baseSupportedChains = [haqqMainnet, haqqTestedge2] as const;
 
