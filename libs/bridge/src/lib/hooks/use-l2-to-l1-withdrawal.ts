@@ -106,12 +106,6 @@ export function useL2ToL1Withdrawal({
         const publicClientReadonlyL1 = getPublicClientReadonlyL1();
         const publicClientReadonlyL2 = getPublicClientReadonlyL2();
 
-        // Ensure wallet is on L2 before sending (fixes Safe/connector chain mismatch)
-        console.log(
-          `${LOG_PREFIX} Ensuring L2 chain (${chains.L2.id}) before initiate`,
-        );
-        await switchChainAsync({ chainId: chains.L2.id });
-
         // Step 1: Build parameters to initiate the withdrawal transaction on the L1
         // According to Viem docs: "Build parameters to initiate the withdrawal transaction on the L1"
         console.log(
@@ -210,12 +204,6 @@ export function useL2ToL1Withdrawal({
       try {
         const chains = getChains();
         const publicClientReadonlyL2 = getPublicClientReadonlyL2();
-
-        // Ensure wallet is on L2 before sending (fixes Safe/connector chain mismatch)
-        console.log(
-          `${LOG_PREFIX} Ensuring L2 chain (${chains.L2.id}) before withdrawTo`,
-        );
-        await switchChainAsync({ chainId: chains.L2.id });
 
         // Step 1: Parse the token amount with correct decimals
         console.log(
