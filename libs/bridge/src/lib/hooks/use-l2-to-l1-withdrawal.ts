@@ -79,14 +79,15 @@ export function useL2ToL1Withdrawal({
   const {
     getWalletClientL1,
     getWalletClientL2,
-    chains,
-    publicClientReadonlyL1,
-    publicClientReadonlyL2,
+    getChains,
+    getPublicClientReadonlyL1,
+    getPublicClientReadonlyL2,
   } = useOpStackClients();
 
   const { isConnected, address } = useAccount();
   const toast = useToast();
   const { writeContractAsync } = useWriteContract();
+  const { switchChainAsync } = useSwitchChain();
 
   const initiateWithdrawal = useCallback(
     async (amount: number, toAddress: string): Promise<string> => {
@@ -101,6 +102,16 @@ export function useL2ToL1Withdrawal({
 
       const LOG_PREFIX = '[L2→L1 Withdrawal]';
       try {
+        const chains = getChains();
+        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
+        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
+        // Ensure wallet is on L2 before sending (fixes Safe/connector chain mismatch)
+        console.log(
+          `${LOG_PREFIX} Ensuring L2 chain (${chains.L2.id}) before initiate`,
+        );
+        await switchChainAsync({ chainId: chains.L2.id });
+
         // Step 1: Build parameters to initiate the withdrawal transaction on the L1
         // According to Viem docs: "Build parameters to initiate the withdrawal transaction on the L1"
         console.log(
@@ -167,15 +178,16 @@ export function useL2ToL1Withdrawal({
       }
     },
     [
+      getChains,
+      getPublicClientReadonlyL1,
+      getPublicClientReadonlyL2,
       getWalletClientL2,
-      publicClientReadonlyL1,
-      publicClientReadonlyL2,
-      chains,
       addWithdrawalOrder,
       onSuccess,
       onError,
       tokenSymbol,
       toast,
+      switchChainAsync,
     ],
   );
 
@@ -196,6 +208,15 @@ export function useL2ToL1Withdrawal({
 
       const LOG_PREFIX = '[L2→L1 ERC20 Withdrawal]';
       try {
+        const chains = getChains();
+        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
+        // Ensure wallet is on L2 before sending (fixes Safe/connector chain mismatch)
+        console.log(
+          `${LOG_PREFIX} Ensuring L2 chain (${chains.L2.id}) before withdrawTo`,
+        );
+        await switchChainAsync({ chainId: chains.L2.id });
+
         // Step 1: Parse the token amount with correct decimals
         console.log(
           `${LOG_PREFIX} Step 1: Parsing amount (${amount} with ${tokenDecimals} decimals)`,
@@ -269,18 +290,17 @@ export function useL2ToL1Withdrawal({
     },
     [
       address,
+      getChains,
+      getPublicClientReadonlyL2,
       writeContractAsync,
-      publicClientReadonlyL2,
-      chains,
       addWithdrawalOrder,
       tokenSymbol,
       onSuccess,
       onError,
       toast,
+      switchChainAsync,
     ],
   );
-
-  const { switchChainAsync } = useSwitchChain();
 
   const proveWithdrawal = useCallback(
     async (withdrawalHash: string): Promise<string> => {
@@ -307,6 +327,10 @@ export function useL2ToL1Withdrawal({
 
       const LOG_PREFIX = '[L2→L1 Prove Withdrawal]';
       try {
+        const chains = getChains();
+        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
+        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
         // Step 1: Get withdrawal receipt from L2
         console.log(
           `${LOG_PREFIX} Step 1: Getting withdrawal receipt from L2 (hash: ${withdrawalHash})`,
@@ -383,16 +407,16 @@ export function useL2ToL1Withdrawal({
         onError?.(err as Error);
         throw err;
       } finally {
-        await switchChainAsync({ chainId: chains.L2.id });
+        await switchChainAsync({ chainId: getChains().L2.id });
         setIsProving(false);
       }
     },
     [
       isConnected,
+      getChains,
+      getPublicClientReadonlyL1,
+      getPublicClientReadonlyL2,
       getWalletClientL1,
-      publicClientReadonlyL1,
-      publicClientReadonlyL2,
-      chains,
       updateOrderByInitiateHash,
       onProveSuccess,
       onError,
@@ -426,6 +450,10 @@ export function useL2ToL1Withdrawal({
 
       const LOG_PREFIX = '[L2→L1 Finalize Withdrawal]';
       try {
+        const chains = getChains();
+        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
+        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
         // Step 1: Get withdrawal receipt from L2
         console.log(
           `${LOG_PREFIX} Step 1: Getting withdrawal receipt from L2 (hash: ${withdrawalHash})`,
@@ -511,16 +539,16 @@ export function useL2ToL1Withdrawal({
         onError?.(err as Error);
         throw err;
       } finally {
-        await switchChainAsync({ chainId: chains.L2.id });
+        await switchChainAsync({ chainId: getChains().L2.id });
         setIsFinalizing(false);
       }
     },
     [
       isConnected,
+      getChains,
+      getPublicClientReadonlyL1,
+      getPublicClientReadonlyL2,
       getWalletClientL1,
-      publicClientReadonlyL1,
-      publicClientReadonlyL2,
-      chains,
       updateOrderByInitiateHash,
       onFinalizeSuccess,
       onError,

@@ -53,7 +53,7 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
     JSON.stringify(null),
   );
 
-  const { publicClientReadonlyL1, publicClientReadonlyL2, chains } =
+  const { getChains, getPublicClientReadonlyL1, getPublicClientReadonlyL2 } =
     useOpStackClients();
 
   const { addWithdrawalOrder, getOrderByInitiateHash, orders } =
@@ -86,14 +86,14 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
 
   const recoverWithdrawal = useCallback(
     async (txHash: string): Promise<WithdrawalOrder | null> => {
-      if (!publicClientReadonlyL2) {
-        throw new Error('L2 client not available');
-      }
-
       setIsRecovering(true);
       setError(null);
 
       try {
+        const chains = getChains();
+        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
+        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
         // Check if order already exists
         const existingOrder = getOrderByInitiateHash(txHash);
         if (existingOrder) {
@@ -304,9 +304,9 @@ export function useWithdrawalRecovery(): UseWithdrawalRecoveryReturn {
       }
     },
     [
-      publicClientReadonlyL1,
-      publicClientReadonlyL2,
-      chains,
+      getChains,
+      getPublicClientReadonlyL1,
+      getPublicClientReadonlyL2,
       addWithdrawalOrder,
       getOrderByInitiateHash,
       setStorage,
