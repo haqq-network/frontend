@@ -9,8 +9,14 @@ export interface Application {
   author: string;
   source: number; // 0 for OwnBalance, 1 for ucDAO
   cancelled: boolean;
+  cancelledAt?: string;
+  createdAt?: string;
   valid: boolean;
   ready: boolean;
+  /** Price at request time (cost, in atto) */
+  price?: string;
+  /** Expected tokens to receive (in atto) */
+  receiveAmount?: string;
 }
 
 export interface ApplicationsListResponse {

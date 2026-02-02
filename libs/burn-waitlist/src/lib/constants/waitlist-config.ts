@@ -8,7 +8,7 @@ export const WAITLIST_CONTRACT_ADDRESSES: Record<number, `0x${string}`> = {
   [haqqMainnet.id]:
     '0xe974fc272bA869E638f402e2818161EB88b2A392' as `0x${string}`,
   [haqqTestedge2.id]:
-    '0xCAFec7F6C482507fB5E6B5ed02250487Fd883C9f' as `0x${string}`,
+    '0xeCad76E45BcD709B6c1662397FBbb890C684a9aB' as `0x${string}`,
   // Add more chain deployments here as they become available
 };
 

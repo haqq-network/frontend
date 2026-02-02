@@ -6,6 +6,7 @@ import { Button } from '@haqq/shell-ui-kit';
 import { FundsSource } from '../constants/waitlist-config';
 import type { Application } from '../hooks/use-waitlist-applications';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
+import { formatEthDecimal } from '@haqq/shell-shared';
 
 export interface RequestsListProps {
   applications: Array<
@@ -100,6 +101,25 @@ export function RequestsList({
                         {amount} ISLM
                       </span>
                     </div>
+                    {app.price !== undefined && app.price !== '' && (
+                      <div>
+                        Price at request:{' '}
+                        <span className="font-[500] text-[#0D0D0E]">
+                          {formatEthDecimal(BigInt(app.price), 4, 18)} ISLM per
+                          token
+                        </span>
+                      </div>
+                    )}
+                    {app.receiveAmount !== undefined &&
+                      app.receiveAmount !== '' && (
+                        <div>
+                          Expected receive:{' '}
+                          <span className="font-[500] text-[#0D0D0E]">
+                            {formatEthDecimal(BigInt(app.receiveAmount), 4, 18)}{' '}
+                            tokens
+                          </span>
+                        </div>
+                      )}
                     <div>
                       Source:{' '}
                       <span className="font-[500] text-[#0D0D0E]">

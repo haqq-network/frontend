@@ -10,6 +10,8 @@ import {
   useCancelWaitlistRequest,
   useWaitlistBalances,
   useWaitlistApplications,
+  useWaitlistPrice,
+  useWaitlistPriceChart,
 } from './hooks';
 import type { Application } from './hooks/use-waitlist-applications';
 import { useBackendSignature } from './hooks/use-backend-signature';
@@ -17,6 +19,7 @@ import { useWaitlistForm } from './hooks/use-waitlist-form';
 import {
   ParticipationForm,
   ParticipationFormSkeleton,
+  PriceChart,
   RequestsList,
   RequestsListSkeleton,
   StatusMessages,
@@ -131,6 +134,20 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     address: address,
     status: 'active',
     chainId: chain?.id,
+  });
+
+  // Current price (cost per token at submission)
+  const { data: priceData } = useWaitlistPrice({ chainId: chain?.id });
+
+  // Price chart data (use default chain when not connected so guests see chart)
+  const {
+    data: chartData,
+    isLoading: isLoadingChart,
+    error: chartError,
+  } = useWaitlistPriceChart({
+    chainId: chain?.id ?? WAITLIST_DEFAULT_CHAIN_ID,
+    granularity: 'hour',
+    limit: 500,
   });
 
   // User wallet balance (EVM) - for display purposes
@@ -683,6 +700,16 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
           {!isConnected && <WalletConnectionWarning />}
 
+          {/* Price chart - visible to all (uses default chain when not connected) */}
+          <div className="mb-[24px]">
+            <PriceChart
+              data={chartData?.data ?? []}
+              isLoading={isLoadingChart}
+              error={chartError}
+              priceInAtto
+            />
+          </div>
+
           {isConnected ? (
             <>
               <StatusMessages
@@ -734,6 +761,12 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       source={formState.source}
                       availableBalance={availableBalance}
                       balances={waitlistBalances}
+                      currentPriceAtto={
+                        priceData?.currentPrice != null
+                          ? String(priceData.currentPrice)
+                          : undefined
+                      }
+                      formattedAmount={formattedAmount}
                       onAmountChange={(amount) => {
                         setAmount(amount);
                       }}

@@ -4,3 +4,5 @@ export * from './use-waitlist-requests';
 export * from './use-waitlist-form';
 export * from './use-waitlist-balances';
 export * from './use-waitlist-applications';
+export * from './use-waitlist-price';
+export * from './use-waitlist-price-chart';
