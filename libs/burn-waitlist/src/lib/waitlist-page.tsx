@@ -12,6 +12,7 @@ import {
   useWaitlistApplications,
   useWaitlistPrice,
   useWaitlistPriceChart,
+  useWaitlistGlobalStats,
 } from './hooks';
 import type { Application } from './hooks/use-waitlist-applications';
 import { useBackendSignature } from './hooks/use-backend-signature';
@@ -118,6 +119,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     refetchAll: refetchContractState,
   } = useWaitlistContractState();
 
+  console.log('chain', chain);
+
   // Get balances from backend API
   const {
     data: waitlistBalances,
@@ -149,6 +152,13 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     granularity: 'hour',
     limit: 500,
   });
+
+  // Global stats from backend for anonymous users (contract read may not run without wallet)
+  const { data: globalStats, isLoading: isLoadingGlobalStats } =
+    useWaitlistGlobalStats({
+      chainId: WAITLIST_DEFAULT_CHAIN_ID,
+      enabled: !isConnected,
+    });
 
   // User wallet balance (EVM) - for display purposes
   const { data: walletBalance, refetch: refetchBalance } = useBalance({
@@ -674,7 +684,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
             Burn Waitlist
           </h1>
 
-          {/* Display total stats before wallet connection */}
+          {/* Display total stats before wallet connection (from backend API) */}
           {!isConnected && (
             <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
               <div className="grid grid-cols-2 gap-[16px]">
@@ -683,15 +693,21 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                     Total Applications
                   </div>
                   <div className="text-[18px] font-[600] text-[#0D0D0E]">
-                    {totalCount !== undefined ? totalCount.toString() : '—'}
+                    {isLoadingGlobalStats
+                      ? '—'
+                      : globalStats?.totalCount !== undefined
+                        ? globalStats.totalCount.toString()
+                        : '—'}
                   </div>
                 </div>
                 <div>
                   <div className="text-[12px] text-[#6B7280]">Total Amount</div>
                   <div className="text-[18px] font-[600] text-[#0D0D0E]">
-                    {totalAmount !== undefined
-                      ? `${formatEthDecimal(totalAmount, 4)} ISLM`
-                      : '—'}
+                    {isLoadingGlobalStats
+                      ? '—'
+                      : globalStats?.totalAmount !== undefined
+                        ? `${formatEthDecimal(BigInt(globalStats.totalAmount), 4)} ISLM`
+                        : '—'}
                   </div>
                 </div>
               </div>

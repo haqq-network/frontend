@@ -48,22 +48,23 @@ export function isWaitlistChainSupported(chainId?: number): boolean {
 /**
  * Default chain ID for waitlist (first supported chain)
  */
-export const WAITLIST_DEFAULT_CHAIN_ID =
-  WAITLIST_SUPPORTED_CHAIN_IDS[0] || haqqMainnet.id;
+
+// TODO: Change to mainnet when ready
+export const WAITLIST_DEFAULT_CHAIN_ID = haqqTestedge2.id;
 
 /**
  * Backend API base URL
  * @param chainId - Optional chain ID to determine which backend URL to use
  * @returns Backend API URL for the specified chain
  */
-export const getBackendApiUrl = (chainId?: number): string => {
+export const getBackendApiUrl = (chainId: number): string => {
   // Return chain-specific URL based on chain ID
-  if (chainId === haqqTestedge2.id) {
-    return 'https://waitlist.vorobevsa.com';
+  if (chainId === haqqMainnet.id) {
+    return 'https://waitlist.haqq.network';
   }
 
-  // Default to production URL for mainnet or unknown chains
-  return 'https://waitlist.haqq.network';
+  // Default to production URL for testnet or unknown chains
+  return 'https://waitlist.vorobevsa.com';
 };
 
 /**

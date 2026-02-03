@@ -67,6 +67,7 @@ export function useWaitlistApplications({
       params.append('pageSize', pageSize.toString());
 
       const queryString = params.toString();
+      console.log('chainId', chainId);
       const apiUrl = getBackendApiUrl(chainId);
       const url = queryString
         ? `${apiUrl}/api/v1/applications?${queryString}`
@@ -88,7 +89,6 @@ export function useWaitlistApplications({
 
       return response.json();
     },
-    enabled: !!address, // Only fetch if address is provided
     staleTime: 0, // Always refetch to get latest data
   });
 }
