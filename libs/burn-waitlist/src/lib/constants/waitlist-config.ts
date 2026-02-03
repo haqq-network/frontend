@@ -57,7 +57,7 @@ export const WAITLIST_DEFAULT_CHAIN_ID = haqqTestedge2.id;
  * @param chainId - Optional chain ID to determine which backend URL to use
  * @returns Backend API URL for the specified chain
  */
-export const getBackendApiUrl = (chainId: number): string => {
+export const getBackendApiUrl = (chainId?: number): string => {
   // Return chain-specific URL based on chain ID
   if (chainId === haqqMainnet.id) {
     return 'https://waitlist.haqq.network';
