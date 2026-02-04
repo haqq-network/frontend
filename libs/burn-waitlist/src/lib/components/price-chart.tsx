@@ -154,7 +154,7 @@ export function PriceChart({
           <span className="text-haqq-azure font-mono text-sm font-semibold tabular-nums">
             {currentPriceFormatted}
           </span>
-          <span className="text-haqq-modal-border text-[10px]">ISLM/token</span>
+          <span className="text-haqq-modal-border text-[10px]">ISLM/HAQQ</span>
         </div>
       </div>
 
@@ -242,12 +242,6 @@ export function PriceChart({
             />
           </AreaChart>
         </ResponsiveContainer>
-      </div>
-
-      <div className="border-haqq-border border-t px-4 py-2">
-        <div className="text-haqq-modal-border text-[10px]">
-          ISLM per token · updates from chain
-        </div>
       </div>
     </div>
   );
