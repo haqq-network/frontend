@@ -105,8 +105,7 @@ export function RequestsList({
                       <div>
                         Price at request:{' '}
                         <span className="font-[500] text-[#0D0D0E]">
-                          {formatEthDecimal(BigInt(app.price), 4, 18)} ISLM per
-                          token
+                          {formatEthDecimal(BigInt(app.price), 4, 0)} ISLM/HAQQ
                         </span>
                       </div>
                     )}
