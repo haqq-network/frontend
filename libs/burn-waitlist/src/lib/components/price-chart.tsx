@@ -93,7 +93,7 @@ export function PriceChart({
 
   const formatPrice = useMemo(
     () => (p: number) =>
-      priceInAtto && p > 0 ? formatEthDecimal(BigInt(p), 4, 0) : p.toFixed(4),
+      priceInAtto && p > 0 ? formatEthDecimal(BigInt(p), 2, 0) : p.toFixed(2),
     [priceInAtto],
   );
 
@@ -158,11 +158,14 @@ export function PriceChart({
         </div>
       </div>
 
-      <div style={{ width: '100%', height, minHeight: 200 }}>
+      <div
+        className="px-2 py-3"
+        style={{ width: '100%', height, minHeight: 200 }}
+      >
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={chartData}
-            margin={{ top: 12, right: 12, bottom: 24, left: 8 }}
+            margin={{ top: 16, right: 24, bottom: 28, left: 16 }}
           >
             <defs>
               <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -195,8 +198,8 @@ export function PriceChart({
               tick={{ fill: '#C5C5C5', fontSize: 10 }}
               axisLine={false}
               tickLine={false}
-              width={48}
-              tickMargin={8}
+              width={56}
+              tickMargin={12}
             />
             <Tooltip
               content={({

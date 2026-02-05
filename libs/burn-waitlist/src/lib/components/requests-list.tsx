@@ -103,9 +103,9 @@ export function RequestsList({
                     </div>
                     {app.price !== undefined && app.price !== '' && (
                       <div>
-                        Price at request:{' '}
+                        Minting price:{' '}
                         <span className="font-[500] text-[#0D0D0E]">
-                          {formatEthDecimal(BigInt(app.price), 4, 0)} ISLM/HAQQ
+                          {formatEthDecimal(BigInt(app.price), 0, 0)} ISLM/HAQQ
                         </span>
                       </div>
                     )}
@@ -115,7 +115,7 @@ export function RequestsList({
                           Expected receive:{' '}
                           <span className="font-[500] text-[#0D0D0E]">
                             {formatEthDecimal(BigInt(app.receiveAmount), 4, 18)}{' '}
-                            tokens
+                            HAQQ
                           </span>
                         </div>
                       )}

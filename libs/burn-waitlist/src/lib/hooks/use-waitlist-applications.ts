@@ -13,7 +13,7 @@ export interface Application {
   createdAt?: string;
   valid: boolean;
   ready: boolean;
-  /** Price at request time (cost, in atto) */
+  /** Minting price (cost, in atto) */
   price?: string;
   /** Expected tokens to receive (in atto) */
   receiveAmount?: string;
