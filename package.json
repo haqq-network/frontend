@@ -15,7 +15,7 @@
     "start:storybook": "pnpm exec nx storybook storybook",
     "lint": "pnpm exec nx run-many --target lint --verbose",
     "test": "pnpm exec nx run-many --target test --verbose",
-    "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'",
+    "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html}'",
     "prepare": "pnpm exec husky",
     "tolgee": "dotenv -e .env -- tolgee",
     "tolgee:compare": "pnpm tolgee compare --config ./apps/shell/.tolgeerc.js",
