@@ -14,7 +14,7 @@ import {
 import { supportedChainsIds } from '../../../config/wagmi-config';
 
 export default async function Authz() {
-  const cookies = headers().get('cookie');
+  const cookies = (await headers()).get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
   const chainIdToUse =
     chainId && supportedChainsIds.includes(chainId)

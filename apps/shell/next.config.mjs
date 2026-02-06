@@ -57,9 +57,6 @@ const nextConfig = {
       },
     ];
   },
-  experimental: {
-    instrumentationHook: true,
-  },
 };
 
 const COMMIT_SHA =

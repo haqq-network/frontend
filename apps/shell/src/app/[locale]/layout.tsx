@@ -42,29 +42,19 @@ export const viewport: Viewport = {
   width: 'device-width',
 };
 
-const PostHogPageView = dynamic(
-  async () => {
-    const { PostHogPageView } = await import(
-      '../../components/posthog-page-view'
-    );
-    return { default: PostHogPageView };
-  },
-  {
-    ssr: false,
-  },
-);
+const PostHogPageView = dynamic(async () => {
+  const { PostHogPageView } = await import(
+    '../../components/posthog-page-view'
+  );
+  return { default: PostHogPageView };
+});
 
-const PostHogIdentifyWalletUsers = dynamic(
-  async () => {
-    const { PostHogIdentifyWalletUsers } = await import(
-      '../../components/posthog-identify-users'
-    );
-    return { default: PostHogIdentifyWalletUsers };
-  },
-  {
-    ssr: false,
-  },
-);
+const PostHogIdentifyWalletUsers = dynamic(async () => {
+  const { PostHogIdentifyWalletUsers } = await import(
+    '../../components/posthog-identify-users'
+  );
+  return { default: PostHogIdentifyWalletUsers };
+});
 
 const ParalaxBackground = dynamic(async () => {
   const { ParalaxBackground } = await import(
@@ -76,9 +66,11 @@ const ParalaxBackground = dynamic(async () => {
 export default async function RootLayout({
   children,
   params,
-}: PropsWithChildren<{ params: { locale: Locale } }>) {
+}: PropsWithChildren<{ params: Promise<{ locale: string }> }>) {
+  const { locale: localeParam } = await params;
+
   const wagmiConfig = createWagmiConfig();
-  const headersList = headers();
+  const headersList = await headers();
   const cookies = headersList.get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
   const chainIdToUse =
@@ -106,20 +98,22 @@ export default async function RootLayout({
     });
   }
 
-  if (!AVAILABLE_LOCALES.includes(params.locale)) {
+  if (!AVAILABLE_LOCALES.includes(localeParam as Locale)) {
     notFound();
   }
 
+  const locale = localeParam as Locale;
+
   // make sure you provide all the necessary locales
   // for the inital SSR render (e.g. fallback languages)
-  const locales = await getStaticData([params.locale]);
+  const locales = await getStaticData([locale]);
 
   const dehydratedState = dehydrate(queryClient);
 
   return (
     <html
-      lang={params.locale}
-      // dir={params.locale === 'ar' ? 'rtl' : 'ltr'}
+      lang={locale}
+      // dir={locale === 'ar' ? 'rtl' : 'ltr'}
       className={clsx(clashDisplayFont.variable, hkGuiseFont.variable)}
     >
       <PHProvider>
@@ -130,7 +124,7 @@ export default async function RootLayout({
             walletConnectProjectId={env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
             isMobileUA={isMobileUA}
             locales={locales}
-            locale={params.locale}
+            locale={locale}
           >
             <PostHogPageView />
             <PostHogIdentifyWalletUsers />

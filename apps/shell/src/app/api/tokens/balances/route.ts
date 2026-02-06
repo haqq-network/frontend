@@ -3,12 +3,6 @@ import { createPublicClient, http, formatEther, Chain } from 'viem';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import { haqqEthiq, haqqTestethiq, mainnet } from '@haqq/shell-shared';
 
-// Mark route as dynamic since it uses request.url
-export const dynamic = 'force-dynamic';
-
-// Mark route as dynamic since it uses request.url
-export const dynamic = 'force-dynamic';
-
 export interface TokenBalance {
   symbol: string;
   address: string;
