@@ -14,7 +14,8 @@ export const supportedChainsIds = supportedChains.map((chain): number => {
 });
 const supportedChainsTransports = supportedChains.reduce(
   (acc, chain) => {
-    acc[chain.id] = http();
+    const url = chain.rpcUrls?.default?.http?.[0];
+    acc[chain.id] = url ? http(url, { batch: true }) : http();
     return acc;
   },
   {} as Record<number, Transport>,

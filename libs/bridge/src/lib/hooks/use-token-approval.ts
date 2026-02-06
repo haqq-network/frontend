@@ -18,8 +18,13 @@ interface UseTokenApprovalReturn {
   reset: () => void;
 }
 
+/** Receipt polling interval (ms) to limit RPC requests */
+const RECEIPT_POLL_INTERVAL = 2_000;
+
 /**
- * Hook to handle ERC-20 token approval transactions
+ * Hook to handle ERC-20 token approval transactions.
+ * Uses useWriteContract's data for the tx hash (single source of truth) and
+ * batches receipt polling to reduce RPC requests.
  */
 export function useTokenApproval({
   tokenAddress,
@@ -30,13 +35,17 @@ export function useTokenApproval({
   const [isApproving, setIsApproving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { writeContractAsync } = useWriteContract();
+  const {
+    writeContractAsync,
+    data: txHash,
+    reset: resetWrite,
+  } = useWriteContract();
 
-  const [txHash, setTxHash] = useState<string | null>(null);
-
-  // Wait for transaction receipt
   const { isLoading: isWaitingForReceipt } = useWaitForTransactionReceipt({
-    hash: txHash as `0x${string}` | undefined,
+    hash: txHash ?? undefined,
+    query: {
+      refetchInterval: RECEIPT_POLL_INTERVAL,
+    },
   });
 
   const approve = useCallback(
@@ -51,8 +60,6 @@ export function useTokenApproval({
       try {
         const amountWei = parseUnits(amount.toString(), decimals);
 
-        console.log(`Approving ${amount} tokens for spender ${spenderAddress}`);
-
         const hash = await writeContractAsync({
           address: tokenAddress as `0x${string}`,
           abi: erc20Abi,
@@ -60,14 +67,10 @@ export function useTokenApproval({
           args: [spenderAddress as `0x${string}`, amountWei],
         });
 
-        setTxHash(hash);
-
-        console.log('Approval transaction hash:', hash);
         onSuccess?.(hash);
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Approval failed';
-        console.error('Approval failed:', err);
         setError(errorMessage);
         onError?.(err as Error);
         throw err;
@@ -75,20 +78,14 @@ export function useTokenApproval({
         setIsApproving(false);
       }
     },
-    [
-      tokenAddress,
-      spenderAddress,
-      writeContractAsync,
-      onSuccess,
-      onError,
-      setTxHash,
-    ],
+    [tokenAddress, spenderAddress, writeContractAsync, onSuccess, onError],
   );
 
   const reset = useCallback(() => {
     setError(null);
     setIsApproving(false);
-  }, []);
+    resetWrite();
+  }, [resetWrite]);
 
   return {
     approve,

@@ -1,6 +1,7 @@
-import { mainnet, sepolia } from 'viem/chains';
+import { sepolia } from 'viem/chains';
 import { haqqEthiq } from './bridge';
 import { haqqTestethiq } from './bridge-testethiq';
+import { mainnet } from './ethereum-mainnet';
 
 // Supported chains for bridge operations
 export const SUPPORTED_CHAINS = [sepolia, haqqTestethiq, haqqEthiq, mainnet];

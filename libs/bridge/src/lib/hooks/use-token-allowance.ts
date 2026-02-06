@@ -48,7 +48,7 @@ export function useTokenAllowance({
       enabled: Boolean(
         !isEthToken && ownerAddress && spenderAddress && tokenAddress,
       ),
-      refetchInterval: 1000,
+      refetchInterval: 5_000,
     },
   });
 

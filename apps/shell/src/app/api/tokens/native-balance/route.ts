@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createPublicClient, http, formatEther, Chain } from 'viem';
-import { haqqMainnet, haqqTestedge2, mainnet, sepolia } from 'viem/chains';
-import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
+import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
+import { haqqEthiq, haqqTestethiq, mainnet } from '@haqq/shell-shared';
 
 export async function GET(request: NextRequest) {
   try {

@@ -45,6 +45,7 @@ export * from './precompile/staking-abi';
 export * from './precompile/distribution-abi';
 export * from './precompile/adresses';
 
+export * from './utils/ethereum-mainnet';
 export * from './utils/bridge';
 export * from './utils/bridge-testethiq';
 export * from './utils/common-bridge-utils';
