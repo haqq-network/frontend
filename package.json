@@ -140,7 +140,7 @@
     "@typescript-eslint/parser": "8.54.0",
     "@typescript-eslint/utils": "8.54.0",
     "@vitejs/plugin-react": "4.3.4",
-    "@vitejs/plugin-react-swc": "3.8.0",
+    "@vitejs/plugin-react-swc": "4.2.3",
     "@vitest/ui": "2.1.9",
     "cypress": "15.9.0",
     "dotenv-cli": "8.0.0",
