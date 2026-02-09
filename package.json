@@ -92,7 +92,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "19.7.1",
-    "@commitlint/config-conventional": "19.7.1",
+    "@commitlint/config-conventional": "20.4.1",
     "@keplr-wallet/types": "0.12.175",
     "@nx/cypress": "22.4.1",
     "@nx/eslint": "22.4.1",
