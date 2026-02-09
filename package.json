@@ -26,7 +26,7 @@
     "tolgee:extract:print": "pnpm tolgee extract print --config ./apps/shell/.tolgeerc.js"
   },
   "dependencies": {
-    "@auth0/auth0-react": "2.3.0",
+    "@auth0/auth0-react": "2.13.0",
     "@bufbuild/protobuf": "1.10.0",
     "@eth-optimism/viem": "0.4.14",
     "@ethersproject/hash": "5.8.0",
