@@ -49,7 +49,7 @@ export function ParalaxBackground() {
 
   return (
     <animated.div
-      className="pointer-events-none fixed left-0 top-0 z-[-1] h-auto w-full transform"
+      className="pointer-events-none fixed top-0 left-0 z-[-1] h-auto w-full transform"
       style={{
         transform: to(
           [translateValues.translateY, translateValues.scale],
