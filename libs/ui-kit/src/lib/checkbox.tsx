@@ -1,7 +1,7 @@
 'use client';
 import { ChangeEvent, ReactNode, useCallback } from 'react';
 import clsx from 'clsx';
-import styles from './checkbox.module.css';
+import styles from './checkbox.module.scss';
 
 export interface CheckboxProps {
   id?: string;

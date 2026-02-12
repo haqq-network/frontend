@@ -5,6 +5,9 @@
   --haqq-black: #0d0d0e;
   --haqq-orange: #ec5728;
   --haqq-border: #8e8c88;
+  --haqq-white: #ffffff;
+  --haqq-disabled: #474748;
+  --haqq-checked-hover: #868686;
 }
 
 .checkboxTickBox {
@@ -21,7 +24,7 @@
 }
 
 .checkboxTick {
-  @apply text-haqq-black;
+  color: var(--haqq-black);
   stroke-dasharray: 20;
   stroke-dashoffset: 20;
   transition: stroke-dashoffset 300ms ease;
@@ -29,42 +32,48 @@
 
 .checkboxInputElement {
   &:disabled + .checkboxTickBox {
-    @apply border-[#474748] bg-[#474748];
+    border-color: var(--haqq-disabled);
+    background-color: var(--haqq-disabled);
 
     & .checkboxTick {
       stroke-dashoffset: 0;
-      @apply text-haqq-black;
+      color: var(--haqq-black);
     }
   }
 
-  &:not(&:disabled):hover + .checkboxTickBox {
-    @apply !border-white transition-colors duration-300;
+  &:not(:disabled):hover + .checkboxTickBox {
+    border-color: var(--haqq-white);
+    transition: border-color 0.3s, background-color 0.3s;
   }
 
   &:checked + .checkboxTickBox {
-    @apply !border-white bg-white;
+    border-color: var(--haqq-white);
+    background-color: var(--haqq-white);
 
     & .checkboxTick {
       stroke-dashoffset: 0;
-      @apply text-haqq-black;
+      color: var(--haqq-black);
     }
   }
 
-  &:not(&:disabled):checked:hover + .checkboxTickBox {
-    @apply !border-[#868686] bg-[#868686];
+  &:not(:disabled):checked:hover + .checkboxTickBox {
+    border-color: var(--haqq-checked-hover);
+    background-color: var(--haqq-checked-hover);
 
     & .checkboxTick {
       stroke-dashoffset: 0;
-      @apply text-haqq-black;
+      color: var(--haqq-black);
     }
   }
 
-  &:disabled&:not(&:checked) + .checkboxTickBox {
-    @apply !border-[#474748] bg-transparent;
+  &:disabled:not(:checked) + .checkboxTickBox {
+    border-color: var(--haqq-disabled);
+    background-color: transparent;
   }
 
-  &:disabled&:checked + .checkboxTickBox {
-    @apply !border-[#474748] bg-[#474748];
+  &:disabled:checked + .checkboxTickBox {
+    border-color: var(--haqq-disabled);
+    background-color: var(--haqq-disabled);
 
     & .checkboxTick {
       stroke-dashoffset: 0;

@@ -1,8 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config '../tailwind.config.js';
+
+@theme {
+  --font-sans: var(--ui-kit-font-sans);
+  --font-messiri: var(--font-messiri);
+  --color-primary: var(--ui-kit-color-primary);
+  --color-islamic-green: var(--ui-kit-color-primary);
+  --color-danger: var(--ui-kit-color-danger);
+  --color-black: var(--color-black);
+  --color-light-green: var(--color-light-green);
+  --color-light-gray: var(--color-light-gray);
+  --color-dark-gray: var(--color-dark-gray);
+  --color-haqq-black: #0d0d0e;
+  --color-islamic-modal-overlay: #0c0c0c66;
+}
 
 :root {
   --font-apple: -apple-system, 'BlinkMacSystemFont';

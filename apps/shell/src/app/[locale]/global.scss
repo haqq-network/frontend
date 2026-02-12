@@ -1,6 +1,6 @@
-@import 'tailwindcss';
-@config '../tailwind.config.js';
-@plugin '@tailwindcss/typography';
+@use "tailwindcss" as *;
+
+@use '@tailwindcss/typography' as *;
 
 @theme {
   --font-guise: var(--guise-font);
@@ -29,31 +29,8 @@
   }
 }
 
-@font-face {
-  font-family: 'Clash Display';
-  src: url('../../../apps/shell/src/lib/fonts/clash-display-medium.woff2')
-    format('woff2');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'HK Guise';
-  src: url('../../../apps/shell/src/lib/fonts/hk-guise-medium.woff2')
-    format('woff2');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'HK Guise';
-  src: url('../../../apps/shell/src/lib/fonts/hk-guise-regular.woff2')
-    format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
-
 :root {
+  /* Base fonts with fallbacks */
   --font-apple: -apple-system, 'BlinkMacSystemFont';
   --font-fallback:
     'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
@@ -62,18 +39,16 @@
   --font-family-base:
     var(--font-apple), var(--font-fallback), var(--font-emoji);
 
-  --guise-font: 'HK Guise', var(--font-family-base);
-  --clash-font: 'Clash Display', var(--font-family-base);
+  --guise-font: var(--font-hk-guise), var(--font-family-base);
+  --clash-font: var(--font-clash-display), var(--font-family-base);
+}
+
+html,
+body,
+#root {
+  @apply min-h-screen w-full;
 }
 
 body {
-  @apply bg-haqq-black font-guise h-full overflow-auto text-white will-change-auto;
-}
-
-html {
-  @apply h-full overflow-auto;
-}
-
-.storybook-sticky-emulation {
-  @apply fixed bottom-0 left-0 right-0 z-30;
+  @apply bg-haqq-black font-guise text-white will-change-scroll;
 }

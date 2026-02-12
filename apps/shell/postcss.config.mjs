@@ -1,13 +1,10 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
+/**
+ * Tailwind v4: use @tailwindcss/postcss. Config path is set in CSS via @config.
+ * Imports/vendor prefixing are built into v4; nesting is supported natively.
+ */
 const config = {
   plugins: {
-    'postcss-import': {},
-    'tailwindcss/nesting': {},
-    tailwindcss: { config: path.join(__dirname, 'tailwind.config.mjs') },
+    '@tailwindcss/postcss': {},
     'postcss-preset-env': {
       stage: 3,
       features: {
