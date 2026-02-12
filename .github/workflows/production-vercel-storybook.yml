@@ -1,7 +1,9 @@
 name: Storybook Deploy
 
-# Disabled: Storybook build failing (next/config). Re-enable by restoring push trigger.
 on:
+  push:
+    branches:
+      - prod
   workflow_dispatch:
 
 jobs:
