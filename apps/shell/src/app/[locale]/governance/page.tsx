@@ -1,4 +1,4 @@
-import { ProposalStatus } from '@evmos/provider';
+import { Proposal, ProposalStatus } from '@evmos/provider';
 import {
   HydrationBoundary,
   QueryClient,
@@ -35,8 +35,8 @@ export default async function ProposalList() {
     .filter((proposal) => {
       return proposal.status === ProposalStatus.Voting;
     })
-    .map((proposal: any) => {
-      return proposal.proposal_id || proposal.id;
+    .map((proposal: Proposal & { proposal_id?: string; id?: string }) => {
+      return proposal.proposal_id ?? proposal.id;
     });
 
   for (const proposalId of ongoingProposals) {
