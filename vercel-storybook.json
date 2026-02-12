@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": { "deploymentEnabled": false },
+  "buildCommand": "pnpm exec nx build-storybook storybook",
+  "outputDirectory": "apps/shell/storybook-static",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
