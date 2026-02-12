@@ -81,7 +81,7 @@ export function LocaleDropdown({
                   {isActive ? (
                     <CheckIcon
                       className={clsx(
-                        'mb-[-1px] ms-4 h-4 w-4 rtl:scale-x-[-1]',
+                        '-mb-px ms-4 h-4 w-4 rtl:scale-x-[-1]',
                       )}
                     />
                   ) : (

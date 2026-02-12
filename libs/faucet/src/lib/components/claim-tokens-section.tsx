@@ -79,7 +79,7 @@ export function ClaimTokensSection({
           {isTokensClaimed && (
             <div className="flex flex-row items-center gap-[12px]">
               <SuccessIndicator size="44px" color="#01B26E" />
-              <p className="text-[13px] font-[500] leading-[22px] text-white lg:text-[18px] lg:leading-[28px]">
+              <p className="text-[13px] font-medium leading-[22px] text-white lg:text-[18px] lg:leading-[28px]">
                 {t('tokens-claimed', 'Tokens claimed', {
                   ns: 'faucet',
                 })}

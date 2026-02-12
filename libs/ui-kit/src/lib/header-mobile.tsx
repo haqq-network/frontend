@@ -73,10 +73,10 @@ export function HeaderMobile({
   }, [isMobileMenuOpen]);
 
   const baseHeaderClassNames = clsx(
-    'border-haqq-border w-full transform-gpu border-b-[1px]',
+    'border-haqq-border w-full transform-gpu border-b',
     'transform-gpu overflow-clip transition-[height,background,border] duration-150 ease-in-out will-change-[height,background,border]',
     isMobileMenuOpen ? 'h-[calc(100vh)]' : 'h-[62px]',
-    isMobileMenuOpen && '!bg-haqq-black/80 !backdrop-blur',
+    isMobileMenuOpen && 'bg-haqq-black/80! backdrop-blur!',
     className,
   );
 
@@ -92,7 +92,7 @@ export function HeaderMobile({
                 'border-haqq-border mx-auto',
                 'flex h-[62px] w-full',
                 'flex-none flex-row items-center',
-                'border-b-[1px]',
+                'border-b',
                 'pe-[16px] sm:pe-[48px]',
               )}
             >
@@ -123,7 +123,7 @@ export function HeaderMobile({
               </div>
 
               <div className="flex-1" />
-              <div className="leading-[0]">
+              <div className="leading-0">
                 <BurgerButton
                   onClick={() => {
                     setIsMobileMenuOpened(!isMobileMenuOpen);
@@ -136,7 +136,7 @@ export function HeaderMobile({
 
             <div
               className={clsx(
-                'my-[1px] flex-1 overflow-y-auto',
+                'my-px flex-1 overflow-y-auto',
                 isMobileMenuOpen ? 'block' : 'hidden',
               )}
             >
@@ -333,7 +333,7 @@ function LanguageLink({
   return (
     <div
       className={clsx(
-        'min-w-[170px] px-[16px] py-[12px] text-sm font-[500]',
+        'min-w-[170px] px-[16px] py-[12px] text-sm font-medium',
         isActive
           ? 'pointer-events-none select-none'
           : 'hover:text-islamic-primary-green cursor-pointer',
@@ -345,7 +345,7 @@ function LanguageLink({
       <span className="flex items-center justify-between">
         <span>{localeLabel}</span>
         {isActive && (
-          <CheckIcon className="mb-[-1px] ms-4 h-5 w-5 rtl:scale-x-[-1]" />
+          <CheckIcon className="-mb-px ms-4 h-5 w-5 rtl:scale-x-[-1]" />
         )}
       </span>
     </div>

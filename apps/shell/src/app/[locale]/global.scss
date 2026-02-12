@@ -1,6 +1,10 @@
-@use "tailwindcss" as *;
+@import "tailwindcss";
 
-@use '@tailwindcss/typography' as *;
+@source "../../../../../libs/**/*.{ts,tsx}";
+@source "../../**/*.{ts,tsx}";
+
+@plugin "@tailwindcss/typography";
+
 
 @theme {
   --font-guise: var(--guise-font);

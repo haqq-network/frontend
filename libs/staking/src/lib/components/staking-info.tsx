@@ -36,7 +36,7 @@ export function StakingInfo() {
     return (
       <section
         className={clsx(
-          'border-haqq-border sticky z-[49] w-full transform-gpu border-y-[1px] py-[32px] backdrop-blur',
+          'border-haqq-border sticky z-49 w-full transform-gpu border-y py-[32px] backdrop-blur',
           isTestedge
             ? 'top-[102px] sm:top-[111px]'
             : 'top-[62px] sm:top-[70px]',
@@ -63,7 +63,7 @@ export function StakingInfo() {
   return (
     <section
       className={clsx(
-        'border-haqq-border bg-haqq-black/15 z-[49] w-full transform-gpu border-y-[1px] backdrop-blur',
+        'border-haqq-border bg-haqq-black/15 z-49 w-full transform-gpu border-y backdrop-blur',
         isHaqqWallet
           ? isTestedge
             ? 'top-[101px] sm:top-[111px]'
@@ -71,7 +71,7 @@ export function StakingInfo() {
           : isTestedge
             ? 'top-[99px] sm:top-[110px]'
             : 'top-[62px] sm:top-[70px]',
-        isHaqqWallet && '!border-t-[0px]',
+        isHaqqWallet && 'border-t-0!',
         !isTablet && 'sticky py-[32px]',
       )}
     >

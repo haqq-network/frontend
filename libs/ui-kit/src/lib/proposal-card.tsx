@@ -69,7 +69,7 @@ export function ProposalCard({
       <div className="divide-haqq-border flex flex-col divide-y divide-dashed">
         <div className="flex flex-col gap-[16px] pb-[12px] md:pb-[22px]">
           <div className="flex flex-row items-center gap-[18px]">
-            <div className="font-clash text-[14px] font-[500] leading-[18px] text-white md:py-[12[x]] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
+            <div className="font-clash text-[14px] font-medium leading-[18px] text-white md:py-[12[x]] md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
               #{id}
             </div>
             <div>
@@ -84,7 +84,7 @@ export function ProposalCard({
               <CardHeading
                 className={clsx(
                   'line-clamp-2 h-[56px]',
-                  status === ProposalStatusEnum.Failed && '!text-white/50',
+                  status === ProposalStatusEnum.Failed && 'text-white/50!',
                 )}
               >
                 {title}
@@ -116,7 +116,7 @@ export function ProposalCard({
                   <InfoBlock
                     title={t('voting-start', 'Voting Start')}
                     className={clsx(
-                      status === ProposalStatusEnum.Failed && '!text-white/50',
+                      status === ProposalStatusEnum.Failed && 'text-white/50!',
                     )}
                   >
                     {formatDate(votingStartDate, currentLocale)}
@@ -126,7 +126,7 @@ export function ProposalCard({
                   <InfoBlock
                     title={t('voting-end', 'Voting end')}
                     className={clsx(
-                      status === ProposalStatusEnum.Failed && '!text-white/50',
+                      status === ProposalStatusEnum.Failed && 'text-white/50!',
                     )}
                   >
                     {formatDate(votingEndDate, currentLocale)}

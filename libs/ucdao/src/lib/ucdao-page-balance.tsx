@@ -42,7 +42,7 @@ export function DaoPageBalance() {
   }
 
   return (
-    <div className="border-haqq-border border-y-[1px] py-[32px]">
+    <div className="border-haqq-border border-y py-[32px]">
       <Container className="flex flex-col gap-[24px]">
         <div className="flex flex-row items-center gap-2">
           <WalletIcon />
@@ -103,11 +103,11 @@ function BalancesDisplay({
 }) {
   return (
     <div className="flex flex-col gap-[6px]">
-      <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
+      <div className="font-guise text-[12px] font-semibold uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
         {label}
       </div>
 
-      <div className="font-clash flex flex-col flex-wrap gap-[28px] text-[24px] font-[500] leading-[30px] text-white md:flex-row">
+      <div className="font-clash flex flex-col flex-wrap gap-[28px] text-[24px] font-medium leading-[30px] text-white md:flex-row">
         {balances.map((token) => {
           const precision = BigInt(token.amount) > MAX_VALUE ? 2 : 16;
           return (

@@ -49,6 +49,7 @@ export default defineConfig({
         enabled: true,
       },
     }),
+    //tailwindcss(),
   ],
 
   // Uncomment this if you are using workers.

@@ -44,7 +44,7 @@ export function MyAccountBlockDesktop({
           </Heading>
           <button
             className={clsx(
-              'text-[14px] font-[600] leading-[20px] text-[#EC5728] hover:text-[#FF8D69]',
+              'text-[14px] font-semibold leading-[20px] text-[#EC5728] hover:text-[#FF8D69]',
               'ms-[16px] mt-[-4px] inline-flex cursor-pointer flex-row items-center justify-center gap-[4px] transition-colors duration-100 ease-out',
             )}
             onClick={() => {
@@ -135,7 +135,7 @@ export function MyAccountBlockDesktop({
                       className={clsx(
                         'cursor-pointer text-[14px] leading-[22px] text-[#01B26E] hover:text-[#01b26e80]',
                         'transition-color duration-150 ease-in will-change-[color]',
-                        'disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
+                        'disabled:cursor-not-allowed disabled:text-[#01B26E]! disabled:opacity-80',
                       )}
                       onClick={onRewardsClaim}
                       disabled={

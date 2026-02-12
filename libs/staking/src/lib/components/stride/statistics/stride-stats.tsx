@@ -69,7 +69,7 @@ export function StrideStats() {
   return (
     <section
       className={clsx(
-        'border-haqq-border bg-haqq-black/15 z-[40] w-full transform-gpu border-t-[1px] backdrop-blur',
+        'border-haqq-border bg-haqq-black/15 z-40 w-full transform-gpu border-t backdrop-blur',
         isHaqqWallet
           ? isTestedge
             ? 'top-[101px] sm:top-[111px]'
@@ -77,7 +77,7 @@ export function StrideStats() {
           : isTestedge
             ? 'top-[99px] sm:top-[110px]'
             : 'top-[62px] sm:top-[70px]',
-        isHaqqWallet && '!border-t-[0px]',
+        isHaqqWallet && 'border-t-0!',
         !isTablet && 'py-[32px]',
       )}
     >
@@ -240,7 +240,7 @@ function StrideUnbondings() {
           className={clsx(
             'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
             'text-white hover:text-white/50',
-            'text-[12px] font-[500] leading-[18px]',
+            'text-[12px] font-medium leading-[18px]',
             'transition-colors duration-150 ease-in-out',
           )}
         >
@@ -251,7 +251,7 @@ function StrideUnbondings() {
         </div>
       </PopoverTrigger>
       <PopoverContent className="outline-none">
-        <div className="bg-haqq-black font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border bg-opacity-90 px-[8px] text-white shadow-lg backdrop-blur">
+        <div className="bg-haqq-black/90 font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border px-[8px] text-white shadow-lg backdrop-blur">
           <UnbondingTable strideUnbonding={strideUnbonding} />
         </div>
       </PopoverContent>
@@ -306,7 +306,7 @@ function StrideStatsMobile({
             symbol="stISLM"
             uppercaseSymbol={false}
             content={
-              <div className="border-haqq-border w-full border-y-[1px]">
+              <div className="border-haqq-border w-full border-y">
                 <UnbondingTable strideUnbonding={strideUnbonding ?? []} />
               </div>
             }

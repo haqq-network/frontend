@@ -41,20 +41,20 @@ export function AccountButton({
               'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
               'transition-colors duration-150 ease-in',
               'box-border appearance-none outline-none',
-              'font-guise group appearance-none rounded-[6px] text-sm font-[500] leading-[24px]',
+              'font-guise group appearance-none rounded-[6px] text-sm font-medium leading-[24px]',
             )}
           >
-            <div className="mt-[-1px]">{address}</div>
+            <div className="-mt-px">{address}</div>
             <ArrowDownIcon
               className={clsx(
                 'mb-[-2px] me-[-6px] ms-[4px]',
                 'transition-[transform] duration-150 ease-in',
-                'group-data-[open]:scale-y-[-1]',
+                'group-data-open:scale-y-[-1]',
               )}
             />
           </MenuButton>
 
-          <MenuItems className="border-haqq-border absolute end-[-1px] z-10 mt-1 w-[160px] rounded-md border bg-black py-2 text-white shadow-lg focus:outline-none ltr:origin-top-right rtl:origin-top-left">
+          <MenuItems className="border-haqq-border absolute -end-px z-10 mt-1 w-[160px] rounded-md border bg-black py-2 text-white shadow-lg focus:outline-none ltr:origin-top-right rtl:origin-top-left">
             {onDisconnectClick && (
               <MenuItem
                 as="button"

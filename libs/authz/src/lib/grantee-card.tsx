@@ -25,7 +25,7 @@ export function MyAccountCardBlock({
   return (
     <div className="flex flex-col items-start gap-y-[6px]">
       {title && (
-        <div className="text-[10px] font-[500] uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
+        <div className="text-[10px] font-medium uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
           {title}
         </div>
       )}
@@ -47,12 +47,12 @@ function MyAccountAmountBlock({
 }) {
   return (
     <div>
-      <div className="mb-[6px] text-[12px] font-[500] uppercase leading-[1.2em] text-white/50">
+      <div className="mb-[6px] text-[12px] font-medium uppercase leading-[1.2em] text-white/50">
         {title}
       </div>
       <div
         className={clsx(
-          'font-[500]',
+          'font-medium',
           isGreen
             ? 'font-clash text-[20px] leading-[26px] text-[#01B26E]'
             : 'font-guise text-[18px] leading-[28px] text-white',
@@ -178,7 +178,7 @@ export function GranteeCard({
                     <div
                       className={clsx(
                         'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
-                        'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                        'text-[12px] font-medium leading-[18px] text-white md:text-[14px] md:leading-[22px]',
                       )}
                       onClick={handleEthAddressCopy}
                     >
@@ -201,7 +201,7 @@ export function GranteeCard({
                     <div
                       className={clsx(
                         'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
-                        'text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                        'text-[12px] font-medium leading-[18px] text-white md:text-[14px] md:leading-[22px]',
                       )}
                       onClick={handleHaqqAddressCopy}
                     >

@@ -39,7 +39,7 @@ export function DepositModalDetails({
       </div>
       <div
         className={clsx(
-          'text-haqq-black font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
+          'text-haqq-black font-clash text-[16px] font-medium leading-[22px] md:text-[20px] md:leading-[26px]',
           valueClassName,
         )}
       >

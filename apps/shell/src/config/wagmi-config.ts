@@ -21,10 +21,13 @@ const supportedChainsTransports = supportedChains.reduce(
   {} as Record<number, Transport>,
 );
 
+/** Skip WalletConnect on server (SSR) — it uses indexedDB which is not defined in Node. */
+const isClient = typeof window !== 'undefined';
+
 export function createWagmiConfig(walletConnectProjectId?: string) {
   const connectors: CreateConnectorFn[] = [];
 
-  if (walletConnectProjectId) {
+  if (isClient && walletConnectProjectId) {
     connectors.push(
       walletConnect({
         projectId: walletConnectProjectId,

@@ -325,7 +325,7 @@ export function AuthzGrantsActions() {
                     <div>
                       <label
                         htmlFor="grantee"
-                        className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
+                        className="cursor-pointer text-[12px] font-medium uppercase leading-[24px] text-white/50"
                       >
                         {t('grantee-address', 'Grantee address', {
                           ns: 'authz',
@@ -390,7 +390,7 @@ export function AuthzGrantsActions() {
                     <div>
                       <label
                         htmlFor="memo"
-                        className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
+                        className="cursor-pointer text-[12px] font-medium uppercase leading-[24px] text-white/50"
                       >
                         {t('memo', 'Memo', { ns: 'authz' })}
                       </label>
@@ -439,7 +439,7 @@ export function AuthzGrantsActions() {
               className={clsx(
                 'xl:absolute xl:end-0 xl:top-[50%] xl:min-w-full xl:translate-y-[-50%]',
                 '2xl:translate-x-[-10%]',
-                'py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px] xl:py-[0px]',
+                'py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px] xl:py-0',
               )}
             >
               {!isGranteeValid ? (

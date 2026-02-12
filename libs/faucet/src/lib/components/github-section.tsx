@@ -52,7 +52,7 @@ export function GithubSection({
                 className="h-[40px] w-[40px] rounded-full"
               />
             )}
-            <p className="text-[13px] font-[500] leading-[22px] text-white lg:text-[18px] lg:leading-[28px]">
+            <p className="text-[13px] font-medium leading-[22px] text-white lg:text-[18px] lg:leading-[28px]">
               {userName}
             </p>
           </div>

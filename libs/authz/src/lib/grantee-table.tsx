@@ -50,7 +50,7 @@ export function GranteeGrantsTable() {
                 return (
                   <tr
                     key={`grant-granter-${index}`}
-                    className="border-haqq-border group border-t text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] md:text-[16px] md:leading-[26px]"
+                    className="border-haqq-border group border-t text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white/2.5 md:text-[16px] md:leading-[26px]"
                   >
                     <td className="p-[8px] text-start md:p-[12px]">
                       {grant.granter}

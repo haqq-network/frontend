@@ -7,7 +7,7 @@ export function MyAccountCardBlock({
   return (
     <div className="flex flex-col items-start gap-y-[6px]">
       {title && (
-        <div className="text-[10px] font-[500] uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
+        <div className="text-[10px] font-medium uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
           {title}
         </div>
       )}

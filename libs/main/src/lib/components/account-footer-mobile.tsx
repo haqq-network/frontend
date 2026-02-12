@@ -17,7 +17,7 @@ export function AccountFooterMobile() {
   const { data: balances } = useIndexerBalanceQuery(haqqAddress);
 
   return (
-    <div className="bg-haqq-black transform-gpu bg-opacity-75 backdrop-blur">
+    <div className="bg-haqq-black/75 transform-gpu backdrop-blur">
       <Container className="py-[16px]">
         {isConnected ? (
           <div className="flex flex-row flex-wrap gap-[12px] min-[375px]:gap-[16px]">
@@ -31,7 +31,7 @@ export function AccountFooterMobile() {
             <div>
               <Button
                 variant={1}
-                className="h-[42px] !p-[12px]"
+                className="h-[42px] p-[12px]!"
                 onClick={disconnect}
               >
                 <LogoutIcon className="mt-[-4px]" />

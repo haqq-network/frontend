@@ -62,7 +62,7 @@ export function RedelegateModalSubmitButton({
         isSmall
           ? 'h-[30px] rounded px-2 py-1 text-sm font-semibold'
           : 'rounded-md px-4 py-2 text-lg font-medium leading-8',
-        'disabled:cursor-not-allowed disabled:!bg-slate-500 disabled:!opacity-60',
+        'disabled:cursor-not-allowed disabled:bg-slate-500! disabled:opacity-60!',
         'transition-all duration-100',
         className,
       )}
@@ -206,9 +206,9 @@ export function RedelegateModal({
                 </div>
 
                 {!isMemoVisible ? (
-                  <div className="leading-[0]">
+                  <div className="leading-0">
                     <OrangeLink
-                      className="!text-[12px] !font-[500] !leading-[16px]"
+                      className="text-[12px]! font-medium! leading-[16px]!"
                       onClick={() => {
                         setMemoVisible(true);
                       }}
@@ -217,7 +217,7 @@ export function RedelegateModal({
                     </OrangeLink>
                   </div>
                 ) : (
-                  <div className="leading-[0]">
+                  <div className="leading-0">
                     <input
                       type="text"
                       value={memo}
@@ -228,7 +228,7 @@ export function RedelegateModal({
                         'w-full rounded-[6px] outline-none',
                         'transition-colors duration-100 ease-in',
                         'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
-                        'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+                        'px-[16px] py-[12px] text-[14px] font-medium leading-[22px]',
                         'bg-[#E7E7E7]',
                       )}
                       placeholder={t('memo-placeholder', 'Add your memo', {

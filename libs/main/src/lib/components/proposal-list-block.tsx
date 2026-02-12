@@ -81,8 +81,8 @@ export function ProposalListBlock() {
         <Heading level={3} className="mb-[-2px]">
           {t('latest-proposals', 'Latest proposals', { ns: 'main' })}
         </Heading>
-        <Link href="/governance" className="leading-[0]">
-          <OrangeLink className="font-clash ms-[16px] !text-[12px] uppercase">
+        <Link href="/governance" className="leading-0">
+          <OrangeLink className="font-clash ms-[16px] text-[12px]! uppercase">
             {t('link-to-governance', 'Go to Governance', { ns: 'main' })}
           </OrangeLink>
         </Link>

@@ -76,7 +76,7 @@ export function ProposalVoteProgress({
     <div className="flex w-full flex-col space-y-2">
       <div className="space-y-[8px]">
         <div className="flex items-center space-x-[12px]">
-          <CardText className="text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
+          <CardText className="text-[12px] font-medium leading-[18px] text-white md:text-[14px] md:leading-[22px]">
             {status === ProposalStatusEnum.Voting
               ? t('voting-status', 'Voting status')
               : t('voting-results', 'Voting results')}

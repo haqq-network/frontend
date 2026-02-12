@@ -244,7 +244,7 @@ export function ValidatorInfoComponent({
                 </div>
 
                 <div>
-                  <h1 className="font-clash text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
+                  <h1 className="font-clash text-[18px] font-medium leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
                     {validatorInfo.description?.moniker}
                   </h1>
                 </div>
@@ -398,7 +398,7 @@ export function ValidatorInfoComponent({
                 modules={[Pagination]}
                 autoHeight={true}
                 pagination={true}
-                className={clsx(styles['slider'], '!pb-[20px]')}
+                className={clsx(styles['slider'], 'pb-[20px]!')}
               >
                 <SwiperSlide>
                   <ValidatorBlockMobile

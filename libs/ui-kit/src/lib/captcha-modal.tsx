@@ -54,7 +54,7 @@ export const CaptchaModal = ({
           </div>
 
           <div className="flex flex-col space-y-[12px]">
-            <div className="font-guise text-[12px] font-[500] text-black">
+            <div className="font-guise text-[12px] font-medium text-black">
               {t(
                 'complete-captcha-message',
                 'Please complete the captcha to verify that you are not a robot.',

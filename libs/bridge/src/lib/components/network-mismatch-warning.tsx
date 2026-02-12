@@ -10,7 +10,7 @@ export function NetworkMismatchWarning({
 }: NetworkMismatchWarningProps) {
   return (
     <div className="mb-[24px] rounded-[8px] bg-[#FFF3CD] p-[16px]">
-      <div className="mb-[8px] text-[14px] font-[500] text-[#856404]">
+      <div className="mb-[8px] text-[14px] font-medium text-[#856404]">
         Wrong Network
       </div>
       <div className="mb-[12px] text-[12px] text-[#856404]">

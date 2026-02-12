@@ -109,7 +109,7 @@ function ProposalDatesText({
   return (
     <div
       className={clsx(
-        'font-guise text-[10px] font-[600] uppercase leading-[1.2em]',
+        'font-guise text-[10px] font-semibold uppercase leading-[1.2em]',
         className,
       )}
     >
@@ -148,14 +148,14 @@ function ProposalDetailsMobile({
               proposalDetails.status === ProposalStatusEnum.Passed ||
               proposalDetails.status === ProposalStatusEnum.Rejected ||
               proposalDetails.status === ProposalStatusEnum.Failed) && (
-              <div>
-                <ProposalVoteProgress
-                  voteResults={voteResults}
-                  status={proposalDetails.status}
-                  userVote={userVote}
-                />
-              </div>
-            )}
+                <div>
+                  <ProposalVoteProgress
+                    voteResults={voteResults}
+                    status={proposalDetails.status}
+                    userVote={userVote}
+                  />
+                </div>
+              )}
             {proposalDetails.status === ProposalStatusEnum.Deposit && (
               <div>
                 <ProposalDepositProgress
@@ -175,23 +175,23 @@ function ProposalDetailsMobile({
 
           {(proposalDetails.status === ProposalStatusEnum.Deposit ||
             proposalDetails.status === ProposalStatusEnum.Voting) && (
-            <div>
-              {proposalDetails.status === ProposalStatusEnum.Deposit && (
-                <ProposalPeriodTimer
-                  color="blue"
-                  date={new Date(proposalDetails.deposit_end_time)}
-                  title={t('deposit-end', 'Deposit end')}
-                />
-              )}
-              {proposalDetails.status === ProposalStatusEnum.Voting && (
-                <ProposalPeriodTimer
-                  color="green"
-                  date={new Date(proposalDetails.voting_end_time)}
-                  title={t('voting-end', 'Voting end')}
-                />
-              )}
-            </div>
-          )}
+              <div>
+                {proposalDetails.status === ProposalStatusEnum.Deposit && (
+                  <ProposalPeriodTimer
+                    color="blue"
+                    date={new Date(proposalDetails.deposit_end_time)}
+                    title={t('deposit-end', 'Deposit end')}
+                  />
+                )}
+                {proposalDetails.status === ProposalStatusEnum.Voting && (
+                  <ProposalPeriodTimer
+                    color="green"
+                    date={new Date(proposalDetails.voting_end_time)}
+                    title={t('voting-end', 'Voting end')}
+                  />
+                )}
+              </div>
+            )}
         </div>
       </div>
       {proposalDetails.status === ProposalStatusEnum.Deposit && (
@@ -235,8 +235,8 @@ export function ProposalDetailsComponent({
   const [showDates, setShowDates] = useState(
     Boolean(
       proposalDetails.status === ProposalStatusEnum.Passed ||
-        proposalDetails.status === ProposalStatusEnum.Rejected ||
-        proposalDetails.status === ProposalStatusEnum.Failed,
+      proposalDetails.status === ProposalStatusEnum.Rejected ||
+      proposalDetails.status === ProposalStatusEnum.Failed,
     ),
   );
   const { data: userVote } = useProposalVoteQuery(
@@ -339,9 +339,9 @@ export function ProposalDetailsComponent({
     const voted = Number.parseInt(
       formatUnits(
         voteResults.abstain.valueBigInt +
-          voteResults.no.valueBigInt +
-          voteResults.noWithVeto.valueBigInt +
-          voteResults.yes.valueBigInt,
+        voteResults.no.valueBigInt +
+        voteResults.noWithVeto.valueBigInt +
+        voteResults.yes.valueBigInt,
         18,
       ),
       10,
@@ -370,7 +370,7 @@ export function ProposalDetailsComponent({
                 )}
                 <div className="mb-[8px] flex flex-row items-center gap-[16px]">
                   <div>
-                    <div className="font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]">
+                    <div className="font-clash text-[16px] font-medium leading-[22px] md:text-[20px] md:leading-[26px]">
                       #
                       {(proposalDetails as any).proposal_id ||
                         (proposalDetails as any).id}
@@ -385,7 +385,7 @@ export function ProposalDetailsComponent({
                   </div>
                 </div>
 
-                <h1 className="font-clash text-[24px] font-[500] leading-[30px] md:text-[32px] md:leading-[42px]">
+                <h1 className="font-clash text-[24px] font-medium leading-[30px] md:text-[32px] md:leading-[42px]">
                   {proposalDetails.content?.title || ''}
                 </h1>
 
@@ -440,7 +440,7 @@ export function ProposalDetailsComponent({
                       <div
                         dir="ltr"
                         className={clsx(
-                          'prose prose-sm max-w-none text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                          'prose prose-sm max-w-none text-[12px] font-medium leading-[18px] text-white md:text-[14px] md:leading-[22px]',
                           'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-a:break-words prose-strong:text-white',
                           'prose-code:text-white prose-code:text-[12px] prose-code:font-mono prose-code:md:leading-[22px] prose-code:md:text-[14px] prose-code:leading-[18px]',
                           'rtl:text-end',
@@ -460,27 +460,27 @@ export function ProposalDetailsComponent({
 
               {proposalDetails.content?.['@type'] ===
                 ProposalTypes.ParameterChange && (
-                <div className="py-[24px] md:py-[40px]">
-                  <ParameterChangeProposalDetails
-                    content={
-                      proposalDetails?.content as ParameterChangeProposalContent
-                    }
-                  />
-                </div>
-              )}
+                  <div className="py-[24px] md:py-[40px]">
+                    <ParameterChangeProposalDetails
+                      content={
+                        proposalDetails?.content as ParameterChangeProposalContent
+                      }
+                    />
+                  </div>
+                )}
 
               {proposalDetails.content?.['@type'] ===
                 ProposalTypes.SoftwareUpgrade && (
-                <div className="py-[24px] md:py-[40px]">
-                  <SoftwareUpgradeProposalDetails
-                    plan={
-                      (
-                        proposalDetails.content as SoftwareUpgradeProposalContent
-                      ).plan
-                    }
-                  />
-                </div>
-              )}
+                  <div className="py-[24px] md:py-[40px]">
+                    <SoftwareUpgradeProposalDetails
+                      plan={
+                        (
+                          proposalDetails.content as SoftwareUpgradeProposalContent
+                        ).plan
+                      }
+                    />
+                  </div>
+                )}
 
               {!isDesktop && (
                 <div className="py-[24px] md:py-[40px]">
@@ -556,151 +556,151 @@ export function ProposalDetailsComponent({
                     proposalDetails.status === ProposalStatusEnum.Passed ||
                     proposalDetails.status === ProposalStatusEnum.Rejected ||
                     proposalDetails.status === ProposalStatusEnum.Failed) && (
-                    <div className="flex flex-col gap-[24px]">
-                      <div>
-                        <ProposalVoteProgress
-                          voteResults={voteResults}
-                          status={proposalDetails.status}
-                          userVote={userVote}
-                        />
-                      </div>
-
-                      <ProposalTurnoutQuorum
-                        turnout={formatNumber(turnout, 2, 2)}
-                        quorum={formatNumber(quorum, 2, 2)}
-                        status={proposalDetails.status}
-                      />
-
-                      {(proposalDetails.status === ProposalStatusEnum.Passed ||
-                        proposalDetails.status ===
-                          ProposalStatusEnum.Rejected ||
-                        proposalDetails.status ===
-                          ProposalStatusEnum.Failed) && (
+                      <div className="flex flex-col gap-[24px]">
                         <div>
-                          {showDates ? (
-                            <table>
-                              <tbody>
-                                <tr>
-                                  <td className="py-[4px] pe-[20px]">
-                                    <ProposalDatesText className="text-white/50">
-                                      {t('created-at', 'Created at (GMT)', {
-                                        ns: 'governance',
-                                      })}
-                                    </ProposalDatesText>
-                                  </td>
-                                  <td>
-                                    <ProposalDatesText
-                                      className={clsx(
-                                        proposalDetails.status ===
-                                          ProposalStatusEnum.Failed
-                                          ? 'text-white/50'
-                                          : 'text-white',
-                                      )}
-                                    >
-                                      {formatDate(
-                                        new Date(proposalDetails.submit_time),
-                                        currentLocale,
-                                      )}
-                                    </ProposalDatesText>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td className="py-[4px] pe-[20px]">
-                                    <ProposalDatesText className="text-white/50">
-                                      {t(
-                                        'deposit-end-gmt',
-                                        'Deposit end (GMT)',
-                                        {
-                                          ns: 'governance',
-                                        },
-                                      )}
-                                    </ProposalDatesText>
-                                  </td>
-                                  <td>
-                                    <ProposalDatesText
-                                      className={clsx(
-                                        proposalDetails.status ===
-                                          ProposalStatusEnum.Failed
-                                          ? 'text-white/50'
-                                          : 'text-white',
-                                      )}
-                                    >
-                                      {formatDate(
-                                        new Date(
-                                          proposalDetails.deposit_end_time,
-                                        ),
-                                        currentLocale,
-                                      )}
-                                    </ProposalDatesText>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td className="py-[4px] pe-[20px]">
-                                    <ProposalDatesText className="text-white/50">
-                                      {t('vote-start', 'Vote start (GMT)', {
-                                        ns: 'governance',
-                                      })}
-                                    </ProposalDatesText>
-                                  </td>
-                                  <td>
-                                    <ProposalDatesText
-                                      className={clsx(
-                                        proposalDetails.status ===
-                                          ProposalStatusEnum.Failed
-                                          ? 'text-white/50'
-                                          : 'text-white',
-                                      )}
-                                    >
-                                      {formatDate(
-                                        new Date(
-                                          proposalDetails.voting_start_time,
-                                        ),
-                                        currentLocale,
-                                      )}
-                                    </ProposalDatesText>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td className="py-[4px] pe-[20px]">
-                                    <ProposalDatesText className="text-white/50">
-                                      {t('vote-end', 'Vote end (GMT)', {
-                                        ns: 'governance',
-                                      })}
-                                    </ProposalDatesText>
-                                  </td>
-                                  <td>
-                                    <ProposalDatesText
-                                      className={clsx(
-                                        proposalDetails.status ===
-                                          ProposalStatusEnum.Failed
-                                          ? 'text-white/50'
-                                          : 'text-white',
-                                      )}
-                                    >
-                                      {formatDate(
-                                        new Date(
-                                          proposalDetails.voting_end_time,
-                                        ),
-                                        currentLocale,
-                                      )}
-                                    </ProposalDatesText>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          ) : (
+                          <ProposalVoteProgress
+                            voteResults={voteResults}
+                            status={proposalDetails.status}
+                            userVote={userVote}
+                          />
+                        </div>
+
+                        <ProposalTurnoutQuorum
+                          turnout={formatNumber(turnout, 2, 2)}
+                          quorum={formatNumber(quorum, 2, 2)}
+                          status={proposalDetails.status}
+                        />
+
+                        {(proposalDetails.status === ProposalStatusEnum.Passed ||
+                          proposalDetails.status ===
+                          ProposalStatusEnum.Rejected ||
+                          proposalDetails.status ===
+                          ProposalStatusEnum.Failed) && (
                             <div>
-                              <ShowDateToggleButton
-                                onClick={() => {
-                                  setShowDates(true);
-                                }}
-                              />
+                              {showDates ? (
+                                <table>
+                                  <tbody>
+                                    <tr>
+                                      <td className="py-[4px] pe-[20px]">
+                                        <ProposalDatesText className="text-white/50">
+                                          {t('created-at', 'Created at (GMT)', {
+                                            ns: 'governance',
+                                          })}
+                                        </ProposalDatesText>
+                                      </td>
+                                      <td>
+                                        <ProposalDatesText
+                                          className={clsx(
+                                            proposalDetails.status ===
+                                              ProposalStatusEnum.Failed
+                                              ? 'text-white/50'
+                                              : 'text-white',
+                                          )}
+                                        >
+                                          {formatDate(
+                                            new Date(proposalDetails.submit_time),
+                                            currentLocale,
+                                          )}
+                                        </ProposalDatesText>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td className="py-[4px] pe-[20px]">
+                                        <ProposalDatesText className="text-white/50">
+                                          {t(
+                                            'deposit-end-gmt',
+                                            'Deposit end (GMT)',
+                                            {
+                                              ns: 'governance',
+                                            },
+                                          )}
+                                        </ProposalDatesText>
+                                      </td>
+                                      <td>
+                                        <ProposalDatesText
+                                          className={clsx(
+                                            proposalDetails.status ===
+                                              ProposalStatusEnum.Failed
+                                              ? 'text-white/50'
+                                              : 'text-white',
+                                          )}
+                                        >
+                                          {formatDate(
+                                            new Date(
+                                              proposalDetails.deposit_end_time,
+                                            ),
+                                            currentLocale,
+                                          )}
+                                        </ProposalDatesText>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td className="py-[4px] pe-[20px]">
+                                        <ProposalDatesText className="text-white/50">
+                                          {t('vote-start', 'Vote start (GMT)', {
+                                            ns: 'governance',
+                                          })}
+                                        </ProposalDatesText>
+                                      </td>
+                                      <td>
+                                        <ProposalDatesText
+                                          className={clsx(
+                                            proposalDetails.status ===
+                                              ProposalStatusEnum.Failed
+                                              ? 'text-white/50'
+                                              : 'text-white',
+                                          )}
+                                        >
+                                          {formatDate(
+                                            new Date(
+                                              proposalDetails.voting_start_time,
+                                            ),
+                                            currentLocale,
+                                          )}
+                                        </ProposalDatesText>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td className="py-[4px] pe-[20px]">
+                                        <ProposalDatesText className="text-white/50">
+                                          {t('vote-end', 'Vote end (GMT)', {
+                                            ns: 'governance',
+                                          })}
+                                        </ProposalDatesText>
+                                      </td>
+                                      <td>
+                                        <ProposalDatesText
+                                          className={clsx(
+                                            proposalDetails.status ===
+                                              ProposalStatusEnum.Failed
+                                              ? 'text-white/50'
+                                              : 'text-white',
+                                          )}
+                                        >
+                                          {formatDate(
+                                            new Date(
+                                              proposalDetails.voting_end_time,
+                                            ),
+                                            currentLocale,
+                                          )}
+                                        </ProposalDatesText>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              ) : (
+                                <div>
+                                  <ShowDateToggleButton
+                                    onClick={() => {
+                                      setShowDates(true);
+                                    }}
+                                  />
+                                </div>
+                              )}
                             </div>
                           )}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                      </div>
+                    )}
 
                   {proposalDetails.status === ProposalStatusEnum.Deposit && (
                     <div>
@@ -714,29 +714,29 @@ export function ProposalDetailsComponent({
 
                   {(proposalDetails.status === ProposalStatusEnum.Deposit ||
                     proposalDetails.status === ProposalStatusEnum.Voting) && (
-                    <div>
-                      {proposalDetails.status === ProposalStatusEnum.Deposit &&
-                        proposalDetails.deposit_end_time && (
-                          <ProposalPeriodTimer
-                            color="blue"
-                            date={new Date(proposalDetails.deposit_end_time)}
-                            title={t('deposit-end', 'Deposit end', {
-                              ns: 'common',
-                            })}
-                          />
-                        )}
-                      {proposalDetails.status === ProposalStatusEnum.Voting &&
-                        proposalDetails.voting_end_time && (
-                          <ProposalPeriodTimer
-                            color="green"
-                            date={new Date(proposalDetails.voting_end_time)}
-                            title={t('voting-end', 'Voting end', {
-                              ns: 'common',
-                            })}
-                          />
-                        )}
-                    </div>
-                  )}
+                      <div>
+                        {proposalDetails.status === ProposalStatusEnum.Deposit &&
+                          proposalDetails.deposit_end_time && (
+                            <ProposalPeriodTimer
+                              color="blue"
+                              date={new Date(proposalDetails.deposit_end_time)}
+                              title={t('deposit-end', 'Deposit end', {
+                                ns: 'common',
+                              })}
+                            />
+                          )}
+                        {proposalDetails.status === ProposalStatusEnum.Voting &&
+                          proposalDetails.voting_end_time && (
+                            <ProposalPeriodTimer
+                              color="green"
+                              date={new Date(proposalDetails.voting_end_time)}
+                              title={t('voting-end', 'Voting end', {
+                                ns: 'common',
+                              })}
+                            />
+                          )}
+                      </div>
+                    )}
                   {proposalDetails.status === ProposalStatusEnum.Deposit && (
                     <div>
                       <DepositAlert />
@@ -753,11 +753,11 @@ export function ProposalDetailsComponent({
                 )} */}
 
                 {isCanVote && (
-                  <div className="bg-white bg-opacity-[15%] px-[28px] py-[32px]">
+                  <div className="bg-white/15 px-[28px] py-[32px]">
                     <VoteActions
                       proposalId={Number.parseInt(
                         (proposalDetails as any).proposal_id ||
-                          (proposalDetails as any).id,
+                        (proposalDetails as any).id,
                         10,
                       )}
                       userVote={userVote}
@@ -914,7 +914,7 @@ function ProposalActionsMobile({
           <VoteActions
             proposalId={Number.parseInt(
               (proposalDetails as any).proposal_id ||
-                (proposalDetails as any).id,
+              (proposalDetails as any).id,
               10,
             )}
             userVote={userVote}
@@ -1086,7 +1086,7 @@ export function VoteActions({
         <CardHeading className="mb-[2px]">
           {t('cast-vote', 'Cast your vote', { ns: 'governance' })}
         </CardHeading>
-        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
+        <div className="text-[12px] font-medium leading-[18px] text-white/50">
           {t(
             'change-vote-message',
             'You can change your vote while the voting is in progress',
@@ -1096,9 +1096,9 @@ export function VoteActions({
       </div>
 
       {!isMemoVisible ? (
-        <div className="mb-[16px] leading-[0]">
+        <div className="mb-[16px] leading-0">
           <OrangeLink
-            // className="!text-[12px] !font-[500] !leading-[16px]"
+            // className="text-[12px]! font-medium! leading-[16px]!"
             onClick={() => {
               setMemoVisible(true);
             }}
@@ -1107,7 +1107,7 @@ export function VoteActions({
           </OrangeLink>
         </div>
       ) : (
-        <div className="mb-[16px] leading-[0]">
+        <div className="mb-[16px] leading-0">
           <input
             type="text"
             value={memo}
@@ -1116,7 +1116,7 @@ export function VoteActions({
             }}
             className={clsx(
               'px-[16px] pb-[12px] pt-[14px]',
-              'w-full text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
+              'w-full text-[14px] font-medium leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
               'rounded-[6px] bg-[#252528]',
               'disabled:cursor-not-allowed',
             )}
@@ -1219,14 +1219,14 @@ export function DepositActionsDesktop({
   const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   return (
-    <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
+    <div className="flex flex-col gap-[16px] bg-white/15 px-[28px] py-[32px]">
       <div>
         <CardHeading className="mb-[2px]">
           {t('enter-deposit-message', 'Enter the amount you want to deposit', {
             ns: 'governance',
           })}
         </CardHeading>
-        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
+        <div className="text-[12px] font-medium leading-[18px] text-white/50">
           {t('your-balance', 'Your balance: {balance} {symbol}', {
             ns: 'governance',
             balance: balance.toLocaleString(),
@@ -1277,7 +1277,7 @@ export function DepositInput({
         placeholder={t('enter-amount', 'Enter Amount')}
         className={clsx(
           'px-[16px] pb-[12px] pt-[14px]',
-          'w-full text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
+          'w-full text-[14px] font-medium leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
           'rounded-[6px] bg-[#252528]',
           'disabled:cursor-not-allowed',
         )}
@@ -1347,21 +1347,21 @@ export function VoteButton({
         'font-clash rounded-[6px] bg-[#FFFFFF26] px-[24px] py-[12px] text-[14px] leading-[1em] text-white',
         'cursor-pointer uppercase transition-colors duration-100 ease-in',
         'w-full',
-        disabled && '!cursor-not-allowed',
+        disabled && 'cursor-not-allowed!',
         disabled && !isActive && 'bg-[#FFFFFF26] hover:bg-[#FFFFFF26]',
         isActive
           ? {
-              '!bg-[#01B26E]': color === 'green',
-              '!bg-[#AAABB2]': color === 'gray',
-              '!bg-[#FF5454]': color === 'red',
-              '!bg-[#E3A13F]': color === 'yellow',
-            }
+            'bg-[#01B26E]!': color === 'green',
+            'bg-[#AAABB2]!': color === 'gray',
+            'bg-[#FF5454]!': color === 'red',
+            'bg-[#E3A13F]!': color === 'yellow',
+          }
           : {
-              'hover:bg-[#01B26E]': color === 'green',
-              'hover:bg-[#AAABB2]': color === 'gray',
-              'hover:bg-[#FF5454]': color === 'red',
-              'hover:bg-[#E3A13F]': color === 'yellow',
-            },
+            'hover:bg-[#01B26E]': color === 'green',
+            'hover:bg-[#AAABB2]': color === 'gray',
+            'hover:bg-[#FF5454]': color === 'red',
+            'hover:bg-[#E3A13F]': color === 'yellow',
+          },
         className,
       )}
       onClick={!isActive || !disabled ? onClick : undefined}
@@ -1379,7 +1379,7 @@ function CardHeading({
   return (
     <h3
       className={clsx(
-        'font-clash text-[20px] font-[500] leading-[26px] text-white',
+        'font-clash text-[20px] font-medium leading-[26px] text-white',
         className,
       )}
     >

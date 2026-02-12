@@ -1,5 +1,4 @@
-@import 'tailwindcss';
-@config '../tailwind.config.js';
+@use 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
 @theme {

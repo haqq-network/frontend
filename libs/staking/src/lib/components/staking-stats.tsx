@@ -40,12 +40,12 @@ export function StakingStatsDesktopAmountBlock({
   return (
     <div className="flex flex-col gap-y-[4px]">
       <div className="flex flex-row items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:space-y-[6px]">
-        <div className="font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
+        <div className="font-guise text-[12px] font-semibold uppercase leading-[1.2em] text-white/50 sm:text-[10px] lg:text-[12px]">
           {title}
         </div>
         <div
           className={clsx(
-            'font-[500] leading-[20px]',
+            'font-medium leading-[20px]',
             isGreen
               ? 'font-clash text-[16px] leading-[20px] text-[#01B26E] sm:text-[16px] sm:leading-[22px] lg:text-[20px] lg:leading-[26px]'
               : 'font-guise text-[14px] leading-[22px] text-white sm:text-[15px] sm:leading-[24px] lg:text-[18px] lg:leading-[28px]',
@@ -55,7 +55,7 @@ export function StakingStatsDesktopAmountBlock({
         </div>
       </div>
       {subValue && (
-        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
+        <div className="text-[12px] font-medium leading-[18px] text-white/50">
           {subValue}
         </div>
       )}
@@ -163,14 +163,14 @@ export function StakingStatsMobileAmountBlock({
   return (
     <div className="flex flex-row items-center justify-between gap-y-[6px]">
       <div>
-        <div className="font-guise text-[12px] font-[600] uppercase leading-[20px] text-white/50">
+        <div className="font-guise text-[12px] font-semibold uppercase leading-[20px] text-white/50">
           {title}
         </div>
       </div>
 
       <div
         className={clsx(
-          'font-guise text-[13px] font-[500] leading-[20px]',
+          'font-guise text-[13px] font-medium leading-[20px]',
           isGreen ? 'text-[#01B26E]' : 'text-white',
         )}
       >

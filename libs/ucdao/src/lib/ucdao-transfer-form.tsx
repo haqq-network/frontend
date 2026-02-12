@@ -175,7 +175,7 @@ export function DaoTransferForm() {
               <div>
                 <label
                   htmlFor="targetAddress"
-                  className="cursor-pointer text-[13px] font-[500] leading-[22px] text-white"
+                  className="cursor-pointer text-[13px] font-medium leading-[22px] text-white"
                 >
                   {t('address', 'Address', { ns: 'common' })}
                 </label>
@@ -186,7 +186,7 @@ export function DaoTransferForm() {
                     'w-full rounded-[6px] outline-none',
                     'transition-colors duration-100 ease-in',
                     'text-white placeholder:text-[#FFFFFF3D]',
-                    'px-[14px] py-[9px] text-[13px] font-[500] leading-[22px]',
+                    'px-[14px] py-[9px] text-[13px] font-medium leading-[22px]',
                     'bg-[#252528]',
                     'w-full',
                   )}

@@ -24,7 +24,7 @@ import { clashDisplayFont, hkGuiseFont } from '../../lib/fonts';
 import { AppProviders } from '../../providers/app-providers';
 import { PHProvider } from '../../providers/posthog-provider';
 import { AVAILABLE_LOCALES, getStaticData, Locale } from '../../tolgee/shared';
-import './global.css';
+import './global.scss';
 
 export const metadata: Metadata = {
   title: {

@@ -62,33 +62,33 @@ export function RequestsList({
               <div className="flex flex-col gap-[12px] sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1">
                   <div className="mb-[8px] flex items-center space-x-[8px]">
-                    <span className="text-[14px] font-[500] text-[#0D0D0E]">
+                    <span className="text-[14px] font-medium text-[#0D0D0E]">
                       {app.requestId === 'pending'
                         ? 'Request (Pending)'
                         : `Request #${app.requestId}`}
                     </span>
                     {isPending && (
-                      <span className="rounded-[4px] bg-[#FEF3C7] px-[8px] py-[2px] text-[12px] font-[500] text-[#92400E]">
+                      <span className="rounded-[4px] bg-[#FEF3C7] px-[8px] py-[2px] text-[12px] font-medium text-[#92400E]">
                         Waiting
                       </span>
                     )}
                     {!isPending && isCancelled && (
-                      <span className="rounded-[4px] bg-[#FEE2E2] px-[8px] py-[2px] text-[12px] font-[500] text-[#DC2626]">
+                      <span className="rounded-[4px] bg-[#FEE2E2] px-[8px] py-[2px] text-[12px] font-medium text-[#DC2626]">
                         Cancelled
                       </span>
                     )}
                     {!isPending && !isCancelled && !app.valid && (
-                      <span className="rounded-[4px] bg-[#FEF3C7] px-[8px] py-[2px] text-[12px] font-[500] text-[#92400E]">
+                      <span className="rounded-[4px] bg-[#FEF3C7] px-[8px] py-[2px] text-[12px] font-medium text-[#92400E]">
                         Invalid
                       </span>
                     )}
                     {!isPending && !isCancelled && app.valid && app.ready && (
-                      <span className="rounded-[4px] bg-[#D1FAE5] px-[8px] py-[2px] text-[12px] font-[500] text-[#065F46]">
+                      <span className="rounded-[4px] bg-[#D1FAE5] px-[8px] py-[2px] text-[12px] font-medium text-[#065F46]">
                         Ready
                       </span>
                     )}
                     {!isPending && !isCancelled && app.valid && !app.ready && (
-                      <span className="rounded-[4px] bg-[#DBEAFE] px-[8px] py-[2px] text-[12px] font-[500] text-[#1E40AF]">
+                      <span className="rounded-[4px] bg-[#DBEAFE] px-[8px] py-[2px] text-[12px] font-medium text-[#1E40AF]">
                         Not Ready
                       </span>
                     )}
@@ -96,13 +96,13 @@ export function RequestsList({
                   <div className="space-y-[4px] text-[14px] text-[#6B7280]">
                     <div>
                       Amount:{' '}
-                      <span className="font-[500] text-[#0D0D0E]">
+                      <span className="font-medium text-[#0D0D0E]">
                         {amount} ISLM
                       </span>
                     </div>
                     <div>
                       Source:{' '}
-                      <span className="font-[500] text-[#0D0D0E]">
+                      <span className="font-medium text-[#0D0D0E]">
                         {sourceLabel}
                       </span>
                     </div>
@@ -113,7 +113,7 @@ export function RequestsList({
                           href={`/${locale}/staking`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-haqq-orange text-[14px] font-[500] hover:underline"
+                          className="text-haqq-orange text-[14px] font-medium hover:underline"
                         >
                           Start undelegate
                         </Link>

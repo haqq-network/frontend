@@ -218,7 +218,7 @@ export function FundModal({
                 <div>
                   <label
                     htmlFor="amount"
-                    className="text-haqq-black font-guise cursor-pointer text-[13px] font-[500] leading-[22px]"
+                    className="text-haqq-black font-guise cursor-pointer text-[13px] font-medium leading-[22px]"
                   >
                     {t('amount', 'Amount', { ns: 'uc-dao' })}
                   </label>

@@ -20,7 +20,7 @@ export function ToastLoading({ children }: PropsWithChildren) {
         role="status"
         className="flex flex-row items-center gap-[16px] text-black"
       >
-        <SpinnerLoader className="!h-[18px] !w-[18px]" />
+        <SpinnerLoader className="h-[18px]! w-[18px]!" />
 
         <div>{children}</div>
       </div>

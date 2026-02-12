@@ -153,12 +153,12 @@ function LockupTimelineListItem({
   return (
     <div className="relative h-[78px] px-[16px] py-[14px] pl-[28px] text-[12px] leading-[1.5em] transition-colors duration-150 ease-linear">
       <div
-        className={clsx('absolute bottom-[0px] left-[14px] top-[-1px] w-[4px]')}
+        className={clsx('absolute bottom-0 left-[14px] -top-px w-[4px]')}
       >
         {state !== 'current' && (
           <Fragment>
             <div
-              className={clsx('absolute bottom-[0px] top-[0px] w-[4px]', {
+              className={clsx('absolute bottom-0 top-0 w-[4px]', {
                 'bg-[#01B26E]': state !== 'future',
                 'bg-[#ededed]': state === 'future',
               })}
@@ -176,8 +176,8 @@ function LockupTimelineListItem({
         )}
         {state === 'current' && (
           <Fragment>
-            <div className="absolute bottom-[0px] top-[24px] w-[4px] bg-[#ededed]" />
-            <div className="я-1 absolute top-[0px] h-[24px] w-[4px] bg-[#01B26E]" />
+            <div className="absolute bottom-0 top-[24px] w-[4px] bg-[#ededed]" />
+            <div className="я-1 absolute top-0 h-[24px] w-[4px] bg-[#01B26E]" />
             <div className="absolute left-1/2 top-[24px] h-[10px] w-[10px] translate-x-[-50%] rounded-full bg-[#01B26E]"></div>
           </Fragment>
         )}
@@ -185,17 +185,17 @@ function LockupTimelineListItem({
       <div className="flex justify-between">
         <div>
           {state === 'past' && (
-            <div className="flex w-fit select-none items-center justify-center rounded-[5px] bg-[#01B26E] px-[8px] py-[4px] text-xs font-[600] text-white">
+            <div className="flex w-fit select-none items-center justify-center rounded-[5px] bg-[#01B26E] px-[8px] py-[4px] text-xs font-semibold text-white">
               Unlocked
             </div>
           )}
           {state === 'current' && (
-            <div className="flex w-fit select-none items-center justify-center rounded-[5px] bg-[#FCEDCE] px-[8px] py-[4px] text-xs font-[600] text-[#B26F1D]">
+            <div className="flex w-fit select-none items-center justify-center rounded-[5px] bg-[#FCEDCE] px-[8px] py-[4px] text-xs font-semibold text-[#B26F1D]">
               Unlock next
             </div>
           )}
           {state === 'future' && (
-            <div className="flex w-fit select-none items-center justify-center rounded-[5px] bg-[#ededed] px-[8px] py-[4px] text-xs font-[600] text-[#636363]">
+            <div className="flex w-fit select-none items-center justify-center rounded-[5px] bg-[#ededed] px-[8px] py-[4px] text-xs font-semibold text-[#636363]">
               Pending
             </div>
           )}
@@ -215,14 +215,14 @@ function LockupTimelineListItem({
               fill="currentColor"
             />
           </svg>
-          <div className="font-[400]">{transactionTimestamp}</div>
+          <div className="font-normal">{transactionTimestamp}</div>
         </div>
       </div>
       <div className="mt-[8px] flex items-center justify-between">
         <div></div>
         <div>
           <Tooltip text={parsedAmount.toString()}>
-            <span className="cursor-default text-[14px] font-[600] uppercase leading-[18px]">
+            <span className="cursor-default text-[14px] font-semibold uppercase leading-[18px]">
               {formatLocaleNumber(formattedAmount)} {symbol.toLocaleUpperCase()}
             </span>
           </Tooltip>

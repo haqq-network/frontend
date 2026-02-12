@@ -160,7 +160,7 @@ export function ValidatorList({
             />
 
             <div className="flex flex-row gap-[24px]">
-              <div className="leading-[0]">
+              <div className="leading-0">
                 <Checkbox
                   onChange={setShowMyDelegation}
                   disabled={!isWalletConnected}
@@ -169,7 +169,7 @@ export function ValidatorList({
                   {t('my-delegations', 'My delegations', { ns: 'common' })}
                 </Checkbox>
               </div>
-              <div className="leading-[0]">
+              <div className="leading-0">
                 <Checkbox
                   onChange={setInactiveValidatorsVisible}
                   value={isInactiveValidatorsVisible}

@@ -23,7 +23,7 @@ export const ExpandableBlock = ({
           className={clsx(
             'font-guise inline-flex cursor-help flex-row items-center justify-center gap-[8px]',
             'text-white',
-            'text-[12px] font-[500] leading-[18px]',
+            'text-[12px] font-medium leading-[18px]',
             'transition-colors duration-150 ease-in-out',
           )}
         >
@@ -31,14 +31,14 @@ export const ExpandableBlock = ({
 
           {isOpen ? (
             <div className="inline-flex flex-row items-center justify-center gap-[4px]">
-              <div className="text-[12px] font-[500] leading-[14px]">
+              <div className="text-[12px] font-medium leading-[14px]">
                 {t('less-info', 'Less info')}
               </div>
               <ArrowDownIcon className="rotate-180 transition-transform duration-200" />
             </div>
           ) : (
             <div className="inline-flex flex-row items-center justify-center gap-[4px]">
-              <div className="text-[12px] font-[500] leading-[14px]">
+              <div className="text-[12px] font-medium leading-[14px]">
                 {t('more-info', 'More info')}
               </div>
               <ArrowDownIcon className="transition-transform duration-200" />

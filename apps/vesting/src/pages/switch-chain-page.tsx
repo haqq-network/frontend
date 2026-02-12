@@ -69,7 +69,7 @@ export default function SwitchNetworkPage() {
               />
               <div className="flex-1">
                 <svg
-                  className="z-10 my-5 ml-[-10%] w-[120%] origin-center rotate-[90deg] text-gray-400 md:my-0 md:rotate-[0deg]"
+                  className="z-10 my-5 ml-[-10%] w-[120%] origin-center rotate-90 text-gray-400 md:my-0 md:rotate-0"
                   width="191"
                   height="32"
                   viewBox="0 0 191 32"

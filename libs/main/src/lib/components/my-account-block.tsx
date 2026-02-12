@@ -50,12 +50,12 @@ function MyAccountAmountBlock({
 }) {
   return (
     <div className="flex flex-col gap-y-[4px]">
-      <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
+      <div className="font-guise text-[10px] font-semibold uppercase leading-[14px] text-white/50 lg:text-[12px]">
         {title}
       </div>
       <div
         className={clsx(
-          'font-[500]',
+          'font-medium',
           isGreen
             ? 'font-clash text-[20px] leading-[26px] text-[#01B26E]'
             : 'font-guise text-[18px] leading-[28px] text-white',
@@ -65,7 +65,7 @@ function MyAccountAmountBlock({
         {value}
       </div>
       {subValue ? (
-        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
+        <div className="text-[12px] font-medium leading-[18px] text-white/50">
           {subValue}
         </div>
       ) : null}
@@ -79,7 +79,7 @@ export function MyAccountBlock() {
   const { openSelectWallet } = useWallet();
 
   return !ethAddress || !haqqAddress ? (
-    <div className="border-haqq-border bg-haqq-black/15 flex flex-col items-center space-y-[12px] border-y-[1px] py-[58px] backdrop-blur">
+    <div className="border-haqq-border bg-haqq-black/15 flex flex-col items-center space-y-[12px] border-y py-[58px] backdrop-blur">
       <div className="font-guise text-[14px] leading-[22px] md:text-[18px] md:leading-[28px]">
         {t('connect-wallet-message', 'You should connect wallet first')}
       </div>
@@ -180,15 +180,15 @@ function MyAccountConnected({
   }
 
   return (
-    <Container className="border-haqq-border bg-haqq-black/15 border-y-[1px] backdrop-blur">
+    <Container className="border-haqq-border bg-haqq-black/15 border-y backdrop-blur">
       <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
           <Heading level={3} className="mb-[-2px] ms-[8px]">
             {t('my-account', 'My account', { ns: 'common' })}
           </Heading>
-          <Link href="/staking" className="leading-[0]">
-            <OrangeLink className="font-clash ms-[16px] !text-[12px] uppercase">
+          <Link href="/staking" className="leading-0">
+            <OrangeLink className="font-clash ms-[16px] text-[12px]! uppercase">
               {t('link-to-staking', 'Go to Staking', { ns: 'main' })}
             </OrangeLink>
           </Link>
@@ -196,14 +196,14 @@ function MyAccountConnected({
 
         <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
           <div className="flex flex-col gap-y-[6px]">
-            <div className="font-guise text-[10px] font-[600] uppercase leading-[14px] text-white/50 lg:text-[12px]">
+            <div className="font-guise text-[10px] font-semibold uppercase leading-[14px] text-white/50 lg:text-[12px]">
               {t('balance', 'Balance', { ns: 'common' })}
             </div>
             <div className="flex flex-col justify-center gap-[4px]">
-              <div className="font-clash text-[20px] font-[500] leading-[26px] text-white">
+              <div className="font-clash text-[20px] font-medium leading-[26px] text-white">
                 {`${formatNumber(balances.balance)} ${symbol.toLocaleUpperCase()}`}
               </div>
-              <div className="flex flex-col gap-[4px] leading-[0px]">
+              <div className="flex flex-col gap-[4px] leading-0">
                 {isTablet ? (
                   <ExpandableBlock
                     title={`${t('available-staking', 'Available for staking', {
@@ -212,7 +212,7 @@ function MyAccountConnected({
                     content={
                       <StakingBalanceBlock
                         haqqAddress={haqqAddress}
-                        className="my-2 w-full !max-w-[100%] rounded-none border-x-0 !px-0"
+                        className="my-2 w-full max-w-full! rounded-none border-x-0 px-0!"
                         description={lockedTokensDescription}
                       />
                     }
@@ -227,7 +227,7 @@ function MyAccountConnected({
                         className={clsx(
                           'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
                           'text-white hover:text-white/50',
-                          'text-[12px] font-[500] leading-[18px]',
+                          'text-[12px] font-medium leading-[18px]',
                           'transition-colors duration-150 ease-in-out',
                         )}
                       >
@@ -263,7 +263,7 @@ function MyAccountConnected({
                           <StakingBalanceBlock
                             haqqAddress={haqqAddress}
                             isLiquidStaking
-                            className="my-2 w-full !max-w-[100%] rounded-none border-x-0 !px-0"
+                            className="my-2 w-full max-w-full! rounded-none border-x-0 px-0!"
                             description={liquidStakingDescription}
                           />
                         }
@@ -281,7 +281,7 @@ function MyAccountConnected({
                             className={clsx(
                               'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
                               'text-white hover:text-white/50',
-                              'text-[12px] font-[500] leading-[18px]',
+                              'text-[12px] font-medium leading-[18px]',
                               'transition-colors duration-150 ease-in-out',
                             )}
                           >

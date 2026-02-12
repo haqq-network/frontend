@@ -152,7 +152,7 @@ export function LiquidVestingHooked({
           error: (error: Error) => {
             return (
               <ToastError>
-                <span className="!text-danger">Error: {error.message}</span>
+                <span className="text-danger!">Error: {error.message}</span>
               </ToastError>
             );
           },
@@ -247,7 +247,7 @@ export function LiquidVestingHooked({
             error: (error: Error) => {
               return (
                 <ToastError>
-                  <span className="!text-danger">Error: {error.message}</span>
+                  <span className="text-danger!">Error: {error.message}</span>
                 </ToastError>
               );
             },
@@ -399,7 +399,7 @@ function LiquidVesting({
               </div>
               <div className="flex-initial pt-[25px]">
                 <Button
-                  className="!px-8"
+                  className="px-8!"
                   disabled={!isLiquidationEnabled}
                   isPending={isLiquidationPending}
                   type="submit"

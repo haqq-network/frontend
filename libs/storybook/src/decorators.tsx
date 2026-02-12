@@ -18,7 +18,7 @@ export function withStickyEmulation(Story: StoryFn, context: StoryContext) {
       <style>{`
         #storybook-root { height: 100vh; width: 100vw; position: relative; }
       `}</style>
-      <div className="transform-gpu bg-[#252528] bg-opacity-75 backdrop-blur">
+      <div className="transform-gpu bg-[#252528]/75 backdrop-blur">
         <Story {...context} />
       </div>
     </div>
