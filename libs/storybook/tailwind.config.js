@@ -3,7 +3,10 @@ const typographyPlugin = require('@tailwindcss/typography');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [join(__dirname, '../**/*!(*.spec).{ts,tsx,html,css}')],
+  content: [
+    join(__dirname, '../**/*!(*.spec).{ts,tsx,html,css}'),
+    join(__dirname, '../../apps/shell/src/**/*.{ts,tsx,html,css}'),
+  ],
   darkMode: 'class',
   theme: {
     extend: {

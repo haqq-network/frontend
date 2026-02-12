@@ -37,8 +37,7 @@
       "@haqq/shell-ucdao": ["libs/ucdao/src/index.ts"],
       "@haqq/shell-ucdao/server": ["libs/ucdao/src/server.ts"],
       "@haqq/shell-ui-kit": ["libs/ui-kit/src/index.ts"],
-      "@haqq/shell-ui-kit/server": ["libs/ui-kit/src/server.ts"],
-      "@haqq/storybook": ["libs/storybook/src/index.ts"]
+      "@haqq/shell-ui-kit/server": ["libs/ui-kit/src/server.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
