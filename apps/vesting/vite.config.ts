@@ -1,9 +1,16 @@
 /// <reference types='vitest' />
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+
+const require = createRequire(import.meta.url);
+const readableStreamPath = path.dirname(
+  require.resolve('readable-stream/package.json'),
+);
 
 const COMMIT_SHA =
   process.env['GIT_COMMIT_SHA'] ??
@@ -70,6 +77,16 @@ export default defineConfig(async () => {
 
       commonjsOptions: {
         transformMixedEsModules: true,
+        include: [/node_modules/],
+      },
+
+      rollupOptions: {
+        // Ensure readable-stream and deps are bundled (no bare specifiers in output)
+        external: (id) => {
+          if (id === 'sentry-release-injection-file') return false;
+          if (id.startsWith('readable-stream')) return false;
+          return undefined;
+        },
       },
 
       sourcemap: true,
@@ -77,6 +94,45 @@ export default defineConfig(async () => {
 
     resolve: {
       dedupe: ['buffer', 'readable-stream'],
+      alias: [
+        // CJS process shim so readable-stream/process-nextick-args get process.nextTick (see readable-stream#539)
+        {
+          find: 'process',
+          replacement: path.resolve(__dirname, 'process-shim.js'),
+        },
+        // Force bundle readable-stream so no bare specifiers reach the browser
+        {
+          find: /^readable-stream\/lib\/_stream_readable\.js$/,
+          replacement: path.join(readableStreamPath, 'lib/_stream_readable.js'),
+        },
+        {
+          find: /^readable-stream\/lib\/_stream_writable\.js$/,
+          replacement: path.join(readableStreamPath, 'lib/_stream_writable.js'),
+        },
+        {
+          find: /^readable-stream\/lib\/_stream_duplex\.js$/,
+          replacement: path.join(readableStreamPath, 'lib/_stream_duplex.js'),
+        },
+        {
+          find: /^readable-stream\/lib\/_stream_transform\.js$/,
+          replacement: path.join(
+            readableStreamPath,
+            'lib/_stream_transform.js',
+          ),
+        },
+        {
+          find: /^readable-stream\/lib\/_stream_passthrough\.js$/,
+          replacement: path.join(
+            readableStreamPath,
+            'lib/_stream_passthrough.js',
+          ),
+        },
+        {
+          find: /^readable-stream\/readable-browser\.js$/,
+          replacement: path.join(readableStreamPath, 'readable-browser.js'),
+        },
+        { find: 'readable-stream', replacement: readableStreamPath },
+      ],
     },
 
     optimizeDeps: {
