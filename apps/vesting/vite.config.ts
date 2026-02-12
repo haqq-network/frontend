@@ -39,12 +39,14 @@ export default defineConfig(async () => {
         },
         protocolImports: true,
       }),
+      tailwindcss(),
       sentryVitePlugin({
         org: 'haqq-network',
         project: 'vesting-app',
         authToken: process.env['SENTRY_AUTH_TOKEN'],
         release: {
           name: COMMIT_SHA ?? 'development',
+          inject: false, // Avoid virtual module conflict with readable-stream/commonjs
           deploy: {
             env: process.env['VERCEL_ENV'] ?? 'development',
           },
@@ -54,7 +56,6 @@ export default defineConfig(async () => {
           enabled: true,
         },
       }),
-      tailwindcss(),
     ],
 
     // Uncomment this if you are using workers.
